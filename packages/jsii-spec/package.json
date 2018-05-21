@@ -1,0 +1,20 @@
+{
+  "name": "jsii-spec",
+  "version": "0.4.0",
+  "description": "Specification for jsii assemblies",
+  "main": "lib/index.js",
+  "types": "lib/index.ts",
+  "scripts": {
+    "watch": "tsc -w",
+    "prepare": "tsc",
+    "test": "echo OK"
+  },
+  "devDependencies": {
+    "typescript": "^2.8.3"
+  },
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com"
+  },
+  "license": "Apache-2.0"
+}
