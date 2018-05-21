@@ -1,0 +1,35 @@
+{
+  "name": "codemaker",
+  "version": "1.0.0",
+  "description": "A tiny utility for generating source code",
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com"
+  },
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/awslabs/jsii"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.ts",
+  "scripts": {
+    "prepare": "tsc",
+    "watch": "tsc -w",
+    "test": "nodeunit test/test.*.js"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^4.0.2",
+    "@types/camelcase": "^4.1.0",
+    "@types/decamelize": "^1.2.0",
+    "@types/node": "^8.0.31",
+    "@types/nodeunit": "0.0.30",
+    "nodeunit": "^0.11.2",
+    "typescript": "^2.8.3"
+  },
+  "dependencies": {
+    "camelcase": "^4.1.0",
+    "decamelize": "^1.2.0",
+    "fs-extra": "^4.0.2"
+  }
+}
