@@ -1,0 +1,8 @@
+{
+  "lerna": "2.5.1",
+  "packages": [
+    "packages/*"
+  ],
+  "concurrency": 8,
+  "version": "0.4.0"
+}
