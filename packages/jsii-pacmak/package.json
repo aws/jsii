@@ -11,7 +11,7 @@
     "url": "https://aws.amazon.com"
   },
   "bin": {
-    "jsii-pacmak": "bin/jsii-pacmak.js"
+    "jsii-pacmak": "bin/jsii-pacmak"
   },
   "main": "lib/index.js",
   "types": "lib/index.ts",

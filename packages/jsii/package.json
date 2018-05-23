@@ -13,7 +13,7 @@
   "main": "lib/index.js",
   "types": "lib/index.ts",
   "bin": {
-    "jsii": "bin/jsii.js"
+    "jsii": "bin/jsii"
   },
   "scripts": {
     "watch": "tsc -w",
