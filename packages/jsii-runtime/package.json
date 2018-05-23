@@ -8,7 +8,7 @@
     "jsii-runtime": "bin/jsii-runtime"
   },
   "scripts": {
-    "prepare": "tsc && chmod +x bin/jsii-runtime.js",
+    "prepare": "tsc && chmod +x bin/jsii-runtime.js && cp -f bin/jsii-runtime.js bin/jsii-runtime",
     "watch": "tsc -w",
     "test": "test/playback-test.sh"
   },

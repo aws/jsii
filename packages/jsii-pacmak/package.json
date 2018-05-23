@@ -16,7 +16,7 @@
   "main": "lib/index.js",
   "types": "lib/index.ts",
   "scripts": {
-    "prepare": "tsc && chmod +x bin/jsii-pacmak.js",
+    "prepare": "tsc && chmod +x bin/jsii-pacmak.js && cp -f bin/jsii-pacmak.js bin/jsii-pacmak",
     "watch": "tsc -w",
     "test": "test/diff-test.sh"
   },

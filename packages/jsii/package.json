@@ -17,7 +17,7 @@
   },
   "scripts": {
     "watch": "tsc -w",
-    "prepare": "tsc && chmod +x bin/jsii.js",
+    "prepare": "tsc && chmod +x bin/jsii.js && cp -f bin/jsii.js bin/jsii",
     "test": "nodeunit test/test.*.js"
   },
   "keywords": [
