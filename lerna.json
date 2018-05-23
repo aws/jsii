@@ -1,13 +1,7 @@
 {
-  "lerna": "2.5.1",
+  "lerna": "2.11.0",
   "packages": [
     "packages/*"
   ],
-  "concurrency": 8,
-  "version": "0.4.0",
-  "command": {
-    "bootstrap": {
-      "npmClientArgs": [ "--no-package-lock" ]
-    }
-  }
+  "version": "0.4.0"
 }
