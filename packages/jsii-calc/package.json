@@ -17,9 +17,8 @@
     "jsii-calc-lib": "^0.4.0"
   },
   "devDependencies": {
-    "source-map-loader": "^0.2.3",
+    "@types/node": "^9.6.18",
     "jsii": "^0.4.0",
-    "typescript": "^2.8.3",
-    "@types/node": "^9.6.18"
+    "typescript": "^2.8.3"
   }
 }
