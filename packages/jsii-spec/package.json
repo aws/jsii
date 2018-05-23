@@ -16,5 +16,11 @@
     "name": "Amazon Web Services",
     "url": "https://aws.amazon.com"
   },
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@types/fs-extra": "^4.0.8",
+    "@types/node": "^9.6.18",
+    "fs-extra": "^4.0.3",
+    "nodeunit": "^0.11.2"
+  }
 }

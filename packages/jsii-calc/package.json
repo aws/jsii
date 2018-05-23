@@ -1,0 +1,25 @@
+{
+  "name": "jsii-calc",
+  "version": "0.4.0",
+  "main": "lib/index.js",
+  "types": "lib/index.ts",
+  "jsii": {
+    "outdir": "dist",
+    "names": {
+      "java": "org.jsii.tests.calculator"
+    }
+  },
+  "scripts": {
+    "prepare": "jsii",
+    "test": "node test/test.calc.js && test/diff-test.sh"
+  },
+  "dependencies": {
+    "jsii-calc-lib": "^0.4.0"
+  },
+  "devDependencies": {
+    "source-map-loader": "^0.2.3",
+    "jsii": "^0.4.0",
+    "typescript": "^2.8.3",
+    "@types/node": "^9.6.18"
+  }
+}

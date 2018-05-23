@@ -85,6 +85,7 @@ export async function bundle(moduleRoot: string) {
             devtool: 'inline-source-map',
             entry: entrypoint,
             externals,
+            context: path.resolve(path.join(__dirname, '..')),
             module: {
                 rules: [
                     {
@@ -103,12 +104,12 @@ export async function bundle(moduleRoot: string) {
                 process: false,
                 setImmediate: false,
             },
-             output: {
-                 path: outputDir, // TODO: SDK-3495 (emit into a temp directory)
-                 filename: bundleFileName,
-                 library: moduleName,
-                 libraryTarget: 'var',
-             },
+            output: {
+                path: outputDir, // TODO: SDK-3495 (emit into a temp directory)
+                filename: bundleFileName,
+                library: moduleName,
+                libraryTarget: 'var',
+            },
             target: 'node'
         }
 
@@ -123,9 +124,15 @@ export async function bundle(moduleRoot: string) {
         }
 
         return new Promise<string>((resolve, reject) => {
-            webpack(webpackConfig, err => {
+            webpack(webpackConfig, (err, stats) => {
                 if (err) reject(err);
-                else resolve(path.join(outputDir, bundleFileName));
+                else {
+                    if (stats.hasErrors()) {
+                        console.error(stats.toString());
+                        process.exit(1);
+                    }
+                    resolve(path.join(outputDir, bundleFileName));
+                }
             });
         });
     }
