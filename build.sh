@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
 npm install
-export PATH=$PWD/node_modules/.bin:$PATH
-lerna bootstrap
-lerna run test
+npm run env -- lerna --loglevel=debug bootstrap
+npm run env -- lerna run test
