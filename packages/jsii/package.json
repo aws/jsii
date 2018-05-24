@@ -1,0 +1,48 @@
+{
+  "name": "jsii",
+  "version": "0.4.0",
+  "description": "TypeScript compiler for jsii",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/awslabs/jsii"
+  },
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.ts",
+  "bin": {
+    "jsii": "bin/jsii"
+  },
+  "scripts": {
+    "watch": "tsc -w",
+    "prepare": "tsc && chmod +x bin/jsii",
+    "test": "nodeunit test/test.*.js"
+  },
+  "keywords": [
+    "jsii",
+    "aws"
+  ],
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@types/clone": "^0.1.30",
+    "@types/fs-extra": "^4.0.8",
+    "@types/glob": "^5.0.32",
+    "@types/node": "^9.6.18",
+    "@types/nodeunit": "0.0.30",
+    "@types/webpack": "^3.6.0",
+    "@types/yargs": "^11.0.0",
+    "nodeunit": "^0.11.2"
+  },
+  "dependencies": {
+    "clone": "^2.1.1",
+    "fs-extra": "^4.0.3",
+    "glob": "^7.1.2",
+    "jsii-spec": "^0.4.0",
+    "source-map-loader": "^0.2.3",
+    "typescript": "^2.8.3",
+    "webpack": "^3.6.0",
+    "yargs": "^11.0.0"
+  }
+}
