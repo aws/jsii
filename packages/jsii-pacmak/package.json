@@ -1,0 +1,47 @@
+{
+  "name": "jsii-pacmak",
+  "version": "0.4.0",
+  "description": "A code generation framework for jsii backend languages",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/awslabs/jsii"
+  },
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com"
+  },
+  "bin": {
+    "jsii-pacmak": "bin/jsii-pacmak"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.ts",
+  "scripts": {
+    "prepare": "tsc && chmod +x bin/jsii-pacmak.js && cp -f bin/jsii-pacmak.js bin/jsii-pacmak",
+    "watch": "tsc -w",
+    "test": "test/diff-test.sh"
+  },
+  "keywords": [
+    "jsii",
+    "aws"
+  ],
+  "license": "Apache-2.0",
+  "dependencies": {
+    "clone": "^2.1.1",
+    "codemaker": "^0.4.0",
+    "fs-extra": "^4.0.3",
+    "jsii-spec": "^0.4.0",
+    "source-map-support": "*",
+    "yargs": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/clone": "^0.1.30",
+    "@types/fs-extra": "^4.0.8",
+    "@types/node": "^9.6.18",
+    "@types/nodeunit": "0.0.30",
+    "@types/yargs": "^6.6.0",
+    "jsii-calc": "^0.4.0",
+    "jsii-calc-lib": "^0.4.0",
+    "nodeunit": "^0.11.2",
+    "typescript": "^2.8.3"
+  }
+}

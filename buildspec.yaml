@@ -1,0 +1,8 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      # https://forums.aws.amazon.com/message.jspa?messageID=764437
+      - /bin/bash ./build.sh
+

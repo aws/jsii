@@ -1,0 +1,20 @@
+{
+  "name": "calc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "types": "index.ts",
+  "jsii": {
+    "outdir": "dist/jsii"
+  },
+  "scripts": {
+    "build": "tsc && jsii",
+    "test": "npm run build && nodeunit",
+    "prepublish": "npm test"
+  },
+  "devDependencies": {
+    "@types/node": "^8.0.28",
+    "@types/nodeunit": "0.0.30",
+    "nodeunit": "^0.11.1",
+    "typescript": "^2.7.2"
+  }
+}

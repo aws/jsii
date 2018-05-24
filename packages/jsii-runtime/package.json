@@ -1,0 +1,31 @@
+{
+  "name": "jsii-runtime",
+  "version": "0.4.0",
+  "description": "jsii runtime kernel process",
+  "main": "lib/index.js",
+  "types": "lib/index.ts",
+  "bin": {
+    "jsii-runtime": "bin/jsii-runtime"
+  },
+  "scripts": {
+    "prepare": "tsc && chmod +x bin/jsii-runtime.js && cp -f bin/jsii-runtime.js bin/jsii-runtime",
+    "watch": "tsc -w",
+    "test": "test/playback-test.sh"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^4.0.8",
+    "@types/node": "^9.6.18",
+    "jsii-calc": "^0.4.0",
+    "jsii-calc-lib": "^0.4.0",
+    "nodeunit": "^0.11.2",
+    "typescript": "^2.8.3"
+  },
+  "dependencies": {
+    "fs-extra": "^4.0.3",
+    "jsii-kernel": "^0.4.0",
+    "jsii-spec": "^0.4.0",
+    "source-map-support": "*"
+  },
+  "author": "benisrae@amazon.com",
+  "license": "Apache 2.0"
+}
