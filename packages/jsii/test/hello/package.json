@@ -1,0 +1,16 @@
+{
+  "name": "hello",
+  "version": "1.0.0",
+  "main": "index.js",
+  "types": "index.ts",
+  "jsii": {
+    "outdir": "dist/jsii"
+  },
+  "scripts": {
+    "prepublish": "tsc -d index.ts && jsii"
+  },
+  "devDependencies": {
+    "typescript": "^2.7.2",
+    "jsii": "^1.0.0"
+  }
+}
