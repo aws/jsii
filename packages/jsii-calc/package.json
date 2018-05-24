@@ -3,6 +3,7 @@
   "version": "0.4.0",
   "main": "lib/index.js",
   "types": "lib/index.ts",
+  "private": true,
   "jsii": {
     "outdir": "dist",
     "names": {
