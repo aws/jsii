@@ -1,0 +1,37 @@
+{
+  "name": "jsii-kernel",
+  "version": "0.4.0",
+  "description": "kernel for jsii execution environment",
+  "main": "lib/index.js",
+  "types": "lib/index.ts",
+  "scripts": {
+    "prepare": "tsc && tslint -p .",
+    "watch": "tsc -w",
+    "lint": "tslint -p . --force",
+    "test": "nodeunit test/test.*.js"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^4.0.8",
+    "fs-extra": "^4.0.3",
+    "jsii-calc": "^0.4.0",
+    "jsii-calc-lib": "^0.4.0",
+    "nodeunit": "^0.11.2",
+    "source-map": "^0.7.0",
+    "tslint": "*",
+    "typescript": "^2.8.3"
+  },
+  "dependencies": {
+    "@types/node": "^9.6.18",
+    "@types/nodeunit": "0.0.30",
+    "jsii-spec": "^0.4.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/awslabs/jsii"
+  },
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com"
+  },
+  "license": "UNLICENSED"
+}
