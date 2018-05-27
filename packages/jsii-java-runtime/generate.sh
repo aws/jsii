@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -euo pipefail
 
 function generate_module() {
     local module=$1
@@ -21,7 +21,7 @@ function generate_module() {
 
     rsync -av ${staging}/ ${javadir}
 
-    local assemblies="$(cd ${staging} && find . | grep "assembly.jsii$")"
+    local assemblies="$(cd ${staging} && find . -name assembly.jsii)"
     for assembly in ${assemblies}; do
         local outdir="${resourcedir}/$(dirname ${assembly})"
         mkdir -p "${outdir}"
