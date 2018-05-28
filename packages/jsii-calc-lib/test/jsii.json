@@ -97,7 +97,6 @@
           }
         ],
         "docs": {
-          "param": "value The number.",
           "comment": "Creates a Number object."
         },
         "initializer": true

@@ -8,7 +8,6 @@ public class Multiply extends org.jsii.tests.calculator.BinaryOperation implemen
         super(mode);
     }
     /**
-     * @param rhs Right-hand side operand
      * Creates a BinaryOperation
      * @param lhs Left-hand side operand
      * @param rhs Right-hand side operand

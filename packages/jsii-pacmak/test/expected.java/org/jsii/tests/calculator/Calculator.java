@@ -8,7 +8,6 @@ public class Calculator extends org.jsii.tests.calculator.composition.CompositeO
         super(mode);
     }
     /**
-     * @param props Initialization properties.
      * Creates a Calculator object.
      * @param props Initialization properties.
      */
@@ -17,7 +16,6 @@ public class Calculator extends org.jsii.tests.calculator.composition.CompositeO
         org.jsii.JsiiEngine.getInstance().createNewObject(this, props);
     }
     /**
-     * @param props Initialization properties.
      * Creates a Calculator object.
      */
     public Calculator() {

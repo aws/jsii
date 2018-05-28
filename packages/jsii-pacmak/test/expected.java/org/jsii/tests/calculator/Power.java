@@ -8,7 +8,6 @@ public class Power extends org.jsii.tests.calculator.composition.CompositeOperat
         super(mode);
     }
     /**
-     * @param pow The number of times to multiply
      * Creates a Power operation.
      * @param base The base of the power
      * @param pow The number of times to multiply
