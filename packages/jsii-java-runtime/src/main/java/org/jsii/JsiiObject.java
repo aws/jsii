@@ -3,6 +3,8 @@ package org.jsii;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 
+import java.util.stream.Stream;
+
 /**
  * Represents a JavaScript object in the Java world.
  */
@@ -87,7 +89,6 @@ public class JsiiObject implements JsiiSerializable {
             throw new JsiiException(e);
         }
     }
-
 
     /**
      * Gets a property value from the object.

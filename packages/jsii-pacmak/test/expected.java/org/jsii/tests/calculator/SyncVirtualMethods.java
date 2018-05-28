@@ -15,10 +15,10 @@ public class SyncVirtualMethods extends org.jsii.JsiiObject {
         return this.jsiiAsyncCall("callerIsAsync", java.lang.Number.class);
     }
     public java.lang.Number virtualMethod(final java.lang.Number n) {
-        return this.jsiiCall("virtualMethod", java.lang.Number.class, n);
+        return this.jsiiCall("virtualMethod", java.lang.Number.class, java.util.stream.Stream.of(n).toArray());
     }
     public void modifyValueOfTheProperty(final java.lang.String value) {
-        this.jsiiCall("modifyValueOfTheProperty", Void.class, value);
+        this.jsiiCall("modifyValueOfTheProperty", Void.class, java.util.stream.Stream.of(value).toArray());
     }
     public java.lang.String retrieveValueOfTheProperty() {
         return this.jsiiCall("retrieveValueOfTheProperty", java.lang.String.class);
@@ -27,7 +27,7 @@ public class SyncVirtualMethods extends org.jsii.JsiiObject {
         return this.jsiiCall("retrieveReadOnlyProperty", java.lang.String.class);
     }
     public void modifyOtherProperty(final java.lang.String value) {
-        this.jsiiCall("modifyOtherProperty", Void.class, value);
+        this.jsiiCall("modifyOtherProperty", Void.class, java.util.stream.Stream.of(value).toArray());
     }
     public java.lang.String retrieveOtherProperty() {
         return this.jsiiCall("retrieveOtherProperty", java.lang.String.class);
@@ -36,7 +36,7 @@ public class SyncVirtualMethods extends org.jsii.JsiiObject {
         return this.jsiiCall("readA", java.lang.Number.class);
     }
     public void writeA(final java.lang.Number value) {
-        this.jsiiCall("writeA", Void.class, value);
+        this.jsiiCall("writeA", Void.class, java.util.stream.Stream.of(value).toArray());
     }
     public java.lang.Number getCallerIsProperty() {
         return this.jsiiGet("callerIsProperty", java.lang.Number.class);

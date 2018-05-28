@@ -20,7 +20,7 @@ export function getCompilerOptions(): ts.CompilerOptions {
         inlineSourceMap: true,
         experimentalDecorators: true,
         jsx: ts.JsxEmit.React,
-        jsxFactory: 'jsx.create',
+        jsxFactory: 'jsx.create'
     };
 }
 

@@ -17,10 +17,10 @@ Add
 
 
    :extends: :py:class:`~jsii-calc.BinaryOperation`
-   :param jsii-calc-lib.Value lhs: Left-hand side operand
-   :type jsii-calc-lib.Value: :py:class:`~jsii-calc-lib.Value`
-   :param jsii-calc-lib.Value rhs: Right-hand side operand
-   :type jsii-calc-lib.Value: :py:class:`~jsii-calc-lib.Value`
+   :param lhs: Left-hand side operand
+   :type lhs: :py:class:`~jsii-calc-lib.Value`
+   :param rhs: Right-hand side operand
+   :type rhs: :py:class:`~jsii-calc-lib.Value`
 
    .. py:method:: toString() -> string
 
@@ -145,17 +145,17 @@ AllowedMethodNames
       getXxx() is not allowed (see negatives), but getXxx(a, ...) is okay.
 
 
-      :param string withParam: 
-      :type string: string
+      :param withParam: 
+      :type withParam: string
       :rtype: string
 
 
    .. py:method:: getBar(_p1, _p2)
 
-      :param string _p1: 
-      :type string: string
-      :param number _p2: 
-      :type number: number
+      :param _p1: 
+      :type _p1: string
+      :param _p2: 
+      :type _p2: number
 
 
    .. py:method:: setFoo(_x, _y)
@@ -163,20 +163,20 @@ AllowedMethodNames
       setFoo(x) is not allowed (see negatives), but setXxx(a, b, ...) is okay.
 
 
-      :param string _x: 
-      :type string: string
-      :param number _y: 
-      :type number: number
+      :param _x: 
+      :type _x: string
+      :param _y: 
+      :type _y: number
 
 
    .. py:method:: setBar(_x, _y, _z)
 
-      :param string _x: 
-      :type string: string
-      :param number _y: 
-      :type number: number
-      :param boolean _z: 
-      :type boolean: boolean
+      :param _x: 
+      :type _x: string
+      :param _y: 
+      :type _y: number
+      :param _z: 
+      :type _z: boolean
 
 
 AsyncVirtualMethods
@@ -192,8 +192,8 @@ AsyncVirtualMethods
 
    .. py:method:: overrideMe(mult) -> number
 
-      :param number mult: 
-      :type number: number
+      :param mult: 
+      :type mult: number
       :rtype: number
 
 
@@ -234,10 +234,10 @@ BinaryOperation
    :extends: :py:class:`~jsii-calc-lib.Operation`
    :implements: :py:class:`~jsii-calc-lib.IFriendly`
    :abstract: Yes
-   :param jsii-calc-lib.Value lhs: Left-hand side operand
-   :type jsii-calc-lib.Value: :py:class:`~jsii-calc-lib.Value`
-   :param jsii-calc-lib.Value rhs: Right-hand side operand
-   :type jsii-calc-lib.Value: :py:class:`~jsii-calc-lib.Value`
+   :param lhs: Left-hand side operand
+   :type lhs: :py:class:`~jsii-calc-lib.Value`
+   :param rhs: Right-hand side operand
+   :type rhs: :py:class:`~jsii-calc-lib.Value`
 
    .. py:method:: hello() -> string
 
@@ -272,16 +272,16 @@ Calculator
 
 
    :extends: :py:class:`~jsii-calc.composition.CompositeOperation`
-   :param jsii-calc.CalculatorProps props: Initialization properties. *(optional)*
-   :type jsii-calc.CalculatorProps: :py:class:`~jsii-calc.CalculatorProps`
+   :param props: Initialization properties.
+   :type props: :py:class:`~jsii-calc.CalculatorProps` or None
 
    .. py:method:: add(value)
 
       Adds a number to the current value.
 
 
-      :param number value: 
-      :type number: number
+      :param value: 
+      :type value: number
 
 
    .. py:method:: mul(value)
@@ -289,8 +289,8 @@ Calculator
       Multiplies the current value by a number.
 
 
-      :param number value: 
-      :type number: number
+      :param value: 
+      :type value: number
 
 
    .. py:method:: pow(value)
@@ -298,8 +298,8 @@ Calculator
       Raises the current value by a power.
 
 
-      :param number value: 
-      :type number: number
+      :param value: 
+      :type value: number
 
 
    .. py:method:: neg()
@@ -346,7 +346,7 @@ Calculator
       The maximum value allows in this calculator.
 
 
-      :type: number
+      :type: number or None
 
 
    .. py:attribute:: expression
@@ -362,7 +362,7 @@ Calculator
       Example of a property that accepts a union of types.
 
 
-      :type: :py:class:`~jsii-calc.Add` or :py:class:`~jsii-calc.Multiply` or :py:class:`~jsii-calc.Power`
+      :type: :py:class:`~jsii-calc.Add` or :py:class:`~jsii-calc.Multiply` or :py:class:`~jsii-calc.Power` or None
 
 
 CalculatorProps (interface)
@@ -377,12 +377,12 @@ CalculatorProps (interface)
 
    .. py:attribute:: initialValue
 
-      :type: number
+      :type: number or None
 
 
    .. py:attribute:: maximumValue
 
-      :type: number
+      :type: number or None
 
 
 
@@ -442,7 +442,7 @@ DerivedStruct (interface)
 
    .. py:attribute:: optionalArray
 
-      :type: string
+      :type: string or None
 
 
    .. py:attribute:: anotherOptional
@@ -450,7 +450,7 @@ DerivedStruct (interface)
       This is optional.
 
 
-      :type: :py:class:`~jsii-calc-lib.Value`
+      :type: :py:class:`~jsii-calc-lib.Value` or None
 
 
 DoubleTrouble
@@ -487,8 +487,8 @@ GiveMeStructs
       Returns the "anumber" from a MyFirstStruct struct;
 
 
-      :param jsii-calc-lib.MyFirstStruct first: 
-      :type jsii-calc-lib.MyFirstStruct: :py:class:`~jsii-calc-lib.MyFirstStruct`
+      :param first: 
+      :type first: :py:class:`~jsii-calc-lib.MyFirstStruct`
       :rtype: number
 
 
@@ -497,8 +497,8 @@ GiveMeStructs
       Returns the boolean from a DerivedStruct struct.
 
 
-      :param jsii-calc.DerivedStruct derived: 
-      :type jsii-calc.DerivedStruct: :py:class:`~jsii-calc.DerivedStruct`
+      :param derived: 
+      :type derived: :py:class:`~jsii-calc.DerivedStruct`
       :rtype: :py:class:`~jsii-calc.DoubleTrouble`
 
 
@@ -507,8 +507,8 @@ GiveMeStructs
       Accepts a struct of type DerivedStruct and returns a struct of type FirstStruct.
 
 
-      :param jsii-calc.DerivedStruct derived: 
-      :type jsii-calc.DerivedStruct: :py:class:`~jsii-calc.DerivedStruct`
+      :param derived: 
+      :type derived: :py:class:`~jsii-calc.DerivedStruct`
       :rtype: :py:class:`~jsii-calc-lib.MyFirstStruct`
 
 
@@ -657,10 +657,10 @@ Multiply
    :extends: :py:class:`~jsii-calc.BinaryOperation`
    :implements: :py:class:`~jsii-calc.IFriendlier`
    :implements: :py:class:`~jsii-calc.IRandomNumberGenerator`
-   :param jsii-calc-lib.Value lhs: Left-hand side operand
-   :type jsii-calc-lib.Value: :py:class:`~jsii-calc-lib.Value`
-   :param jsii-calc-lib.Value rhs: Right-hand side operand
-   :type jsii-calc-lib.Value: :py:class:`~jsii-calc-lib.Value`
+   :param lhs: Left-hand side operand
+   :type lhs: :py:class:`~jsii-calc-lib.Value`
+   :param rhs: Right-hand side operand
+   :type rhs: :py:class:`~jsii-calc-lib.Value`
 
    .. py:method:: toString() -> string
 
@@ -712,8 +712,8 @@ Negate
 
    :extends: :py:class:`~jsii-calc.UnaryOperation`
    :implements: :py:class:`~jsii-calc.IFriendlier`
-   :param jsii-calc-lib.Value operand: 
-   :type jsii-calc-lib.Value: :py:class:`~jsii-calc-lib.Value`
+   :param operand: 
+   :type operand: :py:class:`~jsii-calc-lib.Value`
 
    .. py:method:: toString() -> string
 
@@ -760,11 +760,11 @@ NumberGenerator
 
 .. py:class:: NumberGenerator(generator)
 
-   This allows us to test that a reference can be stored for objects that  implement interfaces.
+   This allows us to test that a reference can be stored for objects that implement interfaces.
 
 
-   :param jsii-calc.IRandomNumberGenerator generator: 
-   :type jsii-calc.IRandomNumberGenerator: :py:class:`~jsii-calc.IRandomNumberGenerator`
+   :param generator: 
+   :type generator: :py:class:`~jsii-calc.IRandomNumberGenerator`
 
    .. py:method:: nextTimes100() -> number
 
@@ -773,8 +773,8 @@ NumberGenerator
 
    .. py:method:: isSameGenerator(gen) -> boolean
 
-      :param jsii-calc.IRandomNumberGenerator gen: 
-      :type jsii-calc.IRandomNumberGenerator: :py:class:`~jsii-calc.IRandomNumberGenerator`
+      :param gen: 
+      :type gen: :py:class:`~jsii-calc.IRandomNumberGenerator`
       :rtype: boolean
 
 
@@ -797,8 +797,8 @@ ObjectRefsInCollections
       Returns the sum of all values
 
 
-      :param jsii-calc-lib.Value[] values: 
-      :type jsii-calc-lib.Value[]: :py:class:`~jsii-calc-lib.Value`
+      :param values: 
+      :type values: :py:class:`~jsii-calc-lib.Value`
       :rtype: number
 
 
@@ -807,8 +807,8 @@ ObjectRefsInCollections
       Returns the sum of all values in a map
 
 
-      :param string => jsii-calc-lib.Value values: 
-      :type string => jsii-calc-lib.Value: :py:class:`~jsii-calc-lib.Value`
+      :param values: 
+      :type values: :py:class:`~jsii-calc-lib.Value`
       :rtype: number
 
 
@@ -820,8 +820,8 @@ OverrideReturnsObject
 
    .. py:method:: test(obj) -> number
 
-      :param jsii-calc.ReturnsNumber obj: 
-      :type jsii-calc.ReturnsNumber: :py:class:`~jsii-calc.ReturnsNumber`
+      :param obj: 
+      :type obj: :py:class:`~jsii-calc.ReturnsNumber`
       :rtype: number
 
 
@@ -833,8 +833,8 @@ Polymorphism
 
    .. py:method:: sayHello(friendly) -> string
 
-      :param jsii-calc-lib.IFriendly friendly: 
-      :type jsii-calc-lib.IFriendly: :py:class:`~jsii-calc-lib.IFriendly`
+      :param friendly: 
+      :type friendly: :py:class:`~jsii-calc-lib.IFriendly`
       :rtype: string
 
 
@@ -847,10 +847,10 @@ Power
 
 
    :extends: :py:class:`~jsii-calc.composition.CompositeOperation`
-   :param jsii-calc-lib.Value base: The base of the power
-   :type jsii-calc-lib.Value: :py:class:`~jsii-calc-lib.Value`
-   :param jsii-calc-lib.Value pow: The number of times to multiply
-   :type jsii-calc-lib.Value: :py:class:`~jsii-calc-lib.Value`
+   :param base: The base of the power
+   :type base: :py:class:`~jsii-calc-lib.Value`
+   :param pow: The number of times to multiply
+   :type pow: :py:class:`~jsii-calc-lib.Value`
 
    .. py:attribute:: base
 
@@ -904,12 +904,12 @@ RuntimeTypeChecking
       Used to verify verification of number of method arguments.
 
 
-      :param number arg1: 
-      :type number: number
-      :param string arg2: 
-      :type string: string
-      :param date arg3:  *(optional)*
-      :type date: date
+      :param arg1: 
+      :type arg1: number
+      :param arg2: 
+      :type arg2: string
+      :param arg3: 
+      :type arg3: date or None
 
 
 Sum
@@ -956,15 +956,15 @@ SyncVirtualMethods
 
    .. py:method:: virtualMethod(n) -> number
 
-      :param number n: 
-      :type number: number
+      :param n: 
+      :type n: number
       :rtype: number
 
 
    .. py:method:: modifyValueOfTheProperty(value)
 
-      :param string value: 
-      :type string: string
+      :param value: 
+      :type value: string
 
 
    .. py:method:: retrieveValueOfTheProperty() -> string
@@ -979,8 +979,8 @@ SyncVirtualMethods
 
    .. py:method:: modifyOtherProperty(value)
 
-      :param string value: 
-      :type string: string
+      :param value: 
+      :type value: string
 
 
    .. py:method:: retrieveOtherProperty() -> string
@@ -995,8 +995,8 @@ SyncVirtualMethods
 
    .. py:method:: writeA(value)
 
-      :param number value: 
-      :type number: number
+      :param value: 
+      :type value: number
 
 
    .. py:attribute:: callerIsProperty
@@ -1049,8 +1049,8 @@ UnaryOperation
 
    :extends: :py:class:`~jsii-calc-lib.Operation`
    :abstract: Yes
-   :param jsii-calc-lib.Value operand: 
-   :type jsii-calc-lib.Value: :py:class:`~jsii-calc-lib.Value`
+   :param operand: 
+   :type operand: :py:class:`~jsii-calc-lib.Value`
 
    .. py:attribute:: operand
 
@@ -1062,8 +1062,8 @@ UsesInterfaceWithProperties
 
 .. py:class:: UsesInterfaceWithProperties(obj)
 
-   :param jsii-calc.IInterfaceWithProperties obj: 
-   :type jsii-calc.IInterfaceWithProperties: :py:class:`~jsii-calc.IInterfaceWithProperties`
+   :param obj: 
+   :type obj: :py:class:`~jsii-calc.IInterfaceWithProperties`
 
    .. py:method:: justRead() -> string
 
@@ -1072,21 +1072,38 @@ UsesInterfaceWithProperties
 
    .. py:method:: writeAndRead(value) -> string
 
-      :param string value: 
-      :type string: string
+      :param value: 
+      :type value: string
       :rtype: string
 
 
    .. py:method:: readStringAndNumber(ext) -> string
 
-      :param jsii-calc.IInterfaceWithPropertiesExtension ext: 
-      :type jsii-calc.IInterfaceWithPropertiesExtension: :py:class:`~jsii-calc.IInterfaceWithPropertiesExtension`
+      :param ext: 
+      :type ext: :py:class:`~jsii-calc.IInterfaceWithPropertiesExtension`
       :rtype: string
 
 
    .. py:attribute:: obj
 
       :type: :py:class:`~jsii-calc.IInterfaceWithProperties` *(readonly)*
+
+
+VariadicMethod
+^^^^^^^^^^^^^^
+
+.. py:class:: VariadicMethod(*prefix)
+
+   :param \*prefix: a prefix that will be use for all values returned by ``#asArray``.
+   :type \*prefix: number
+
+   .. py:method:: asArray(first, *others) -> number[]
+
+      :param first: the first element of the array to be returned (after the ``prefix`` provided at construction time).
+      :type first: number
+      :param \*others: other elements to be included in the array.
+      :type \*others: number
+      :rtype: number
 
 
 VirtualMethodPlayground
@@ -1097,36 +1114,36 @@ VirtualMethodPlayground
 
    .. py:method:: serialSumAsync(count) -> number
 
-      :param number count: 
-      :type number: number
+      :param count: 
+      :type count: number
       :rtype: number
 
 
    .. py:method:: parallelSumAsync(count) -> number
 
-      :param number count: 
-      :type number: number
+      :param count: 
+      :type count: number
       :rtype: number
 
 
    .. py:method:: sumSync(count) -> number
 
-      :param number count: 
-      :type number: number
+      :param count: 
+      :type count: number
       :rtype: number
 
 
    .. py:method:: overrideMeAsync(index) -> number
 
-      :param number index: 
-      :type number: number
+      :param index: 
+      :type index: number
       :rtype: number
 
 
    .. py:method:: overrideMeSync(index) -> number
 
-      :param number index: 
-      :type number: number
+      :param index: 
+      :type index: number
       :rtype: number
 
 

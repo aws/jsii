@@ -13,7 +13,7 @@ public class Calculator extends org.jsii.tests.calculator.composition.CompositeO
      */
     public Calculator(final org.jsii.tests.calculator.CalculatorProps props) {
         super(org.jsii.JsiiObject.InitializationMode.Jsii);
-        org.jsii.JsiiEngine.getInstance().createNewObject(this, props);
+        org.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.of(props).toArray());
     }
     /**
      * Creates a Calculator object.
@@ -26,19 +26,19 @@ public class Calculator extends org.jsii.tests.calculator.composition.CompositeO
      * Adds a number to the current value.
      */
     public void add(final java.lang.Number value) {
-        this.jsiiCall("add", Void.class, value);
+        this.jsiiCall("add", Void.class, java.util.stream.Stream.of(value).toArray());
     }
     /**
      * Multiplies the current value by a number.
      */
     public void mul(final java.lang.Number value) {
-        this.jsiiCall("mul", Void.class, value);
+        this.jsiiCall("mul", Void.class, java.util.stream.Stream.of(value).toArray());
     }
     /**
      * Raises the current value by a power.
      */
     public void pow(final java.lang.Number value) {
-        this.jsiiCall("pow", Void.class, value);
+        this.jsiiCall("pow", Void.class, java.util.stream.Stream.of(value).toArray());
     }
     /**
      * Negates the current value.

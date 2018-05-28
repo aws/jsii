@@ -265,6 +265,12 @@ export class Parameter implements Documentable {
      * Documentation.
      */
     public docs = new Docs();
+
+    /**
+     * Whather this argument is the "rest" of a variadic signature.
+     * The ``#type`` is that of every individual argument of the variadic list.
+     */
+    public variadic?: boolean;
 }
 
 /**
@@ -306,6 +312,12 @@ export class Method implements Documentable {
      * Documentation.
      */
     public docs = new Docs();
+
+    /**
+     * Indicates whether this method is variadic or not. When ``true``, the last
+     * element of ``#parameters`` will also be flagged ``#variadic``.
+     */
+    public variadic?: boolean;
 }
 
 /**

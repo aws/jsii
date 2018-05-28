@@ -47,7 +47,7 @@ export abstract class BinaryOperation extends Operation implements IFriendly {
 
     hello() {
         return 'Hello, I am a binary operation. What\'s your name?';
-    }    
+    }
 }
 
 /**
@@ -567,7 +567,7 @@ export namespace DerivedClassHasNoProperties {
     export class Derived extends Base {
 
     }
-    
+
 }
 
 export class AsyncVirtualMethods {
@@ -670,7 +670,7 @@ export class SyncVirtualMethods {
         return this.otherProperty;
     }
 
-    // property with a short name (makes sure for example that java's 
+    // property with a short name (makes sure for example that java's
     // convertion of getA to "a" is not assuming that the length is > 1).
 
     a: number = 0;
@@ -682,7 +682,7 @@ export class SyncVirtualMethods {
     writeA(value: number) {
         this.a = value;
     }
-    
+
 }
 
 export class VirtualMethodPlayground {
@@ -734,7 +734,7 @@ export class Polymorphism {
 }
 
 /**
- * This allows us to test that a reference can be stored for objects that 
+ * This allows us to test that a reference can be stored for objects that
  * implement interfaces.
  */
 export class NumberGenerator {
@@ -752,7 +752,7 @@ export class NumberGenerator {
 }
 
 export class JSObjectLiteralForInterface {
-    
+
     giveMeFriendly(): IFriendly {
         return {
             hello: () => 'I am literally friendly!'
@@ -765,7 +765,7 @@ export class JSObjectLiteralForInterface {
             next: () => 42
         };
     }
-    
+
 }
 
 /**
@@ -886,5 +886,24 @@ export class Thrower {
 
     private doThrowError() {
         throw new Error();
+    }
+}
+
+export class VariadicMethod {
+    private readonly prefix: number[];
+
+    /**
+     * @param prefix a prefix that will be use for all values returned by ``#asArray``.
+     */
+    constructor(...prefix: number[]) {
+        this.prefix = prefix;
+    }
+
+    /**
+     * @param first  the first element of the array to be returned (after the ``prefix`` provided at construction time).
+     * @param others other elements to be included in the array.
+     */
+    public asArray(first: number, ...others: number[]): number[] {
+        return [...this.prefix, first, ...others];
     }
 }

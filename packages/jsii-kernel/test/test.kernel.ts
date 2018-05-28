@@ -731,6 +731,18 @@ defineTest('exceptions include a stack trace into the original source code', asy
     });
 });
 
+defineTest('variadic methods can be called', async (test, sandbox) => {
+    const obj = sandbox.create({ fqn: 'jsii$jsii_calc$.VariadicMethod' });
+    test.deepEqual(sandbox.invoke({ objref: obj, method: 'asArray', args: [1, 2, 3, 4] }).result,
+                   [1, 2, 3, 4]);
+});
+
+defineTest('variadic methods can be called without any vararg', async (test, sandbox) => {
+    const obj = sandbox.create({ fqn: 'jsii$jsii_calc$.VariadicMethod', args: [1, 2, 3] });
+    test.deepEqual(sandbox.invoke({ objref: obj, method: 'asArray', args: [4] }).result,
+                   [1, 2, 3, 4]);
+});
+
 const testNames: { [name: string]: boolean } = { };
 
 async function createCalculatorSandbox(name: string) {

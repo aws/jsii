@@ -12,12 +12,12 @@ public class RuntimeTypeChecking extends org.jsii.JsiiObject {
      * Used to verify verification of number of method arguments.
      */
     public void methodWithOptionalArguments(final java.lang.Number arg1, final java.lang.String arg2, final java.time.Instant arg3) {
-        this.jsiiCall("methodWithOptionalArguments", Void.class, arg1, arg2, arg3);
+        this.jsiiCall("methodWithOptionalArguments", Void.class, java.util.stream.Stream.concat(java.util.stream.Stream.concat(java.util.stream.Stream.of(arg1), java.util.stream.Stream.of(arg2)), java.util.stream.Stream.of(arg3)).toArray());
     }
     /**
      * Used to verify verification of number of method arguments.
      */
     public void methodWithOptionalArguments(final java.lang.Number arg1, final java.lang.String arg2) {
-        this.jsiiCall("methodWithOptionalArguments", Void.class, arg1, arg2);
+        this.jsiiCall("methodWithOptionalArguments", Void.class, java.util.stream.Stream.concat(java.util.stream.Stream.of(arg1), java.util.stream.Stream.of(arg2)).toArray());
     }
 }

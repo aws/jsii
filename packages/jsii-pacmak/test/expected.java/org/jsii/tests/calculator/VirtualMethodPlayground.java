@@ -9,18 +9,18 @@ public class VirtualMethodPlayground extends org.jsii.JsiiObject {
         org.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
     public java.lang.Number serialSumAsync(final java.lang.Number count) {
-        return this.jsiiAsyncCall("serialSumAsync", java.lang.Number.class, count);
+        return this.jsiiAsyncCall("serialSumAsync", java.lang.Number.class, java.util.stream.Stream.of(count).toArray());
     }
     public java.lang.Number parallelSumAsync(final java.lang.Number count) {
-        return this.jsiiAsyncCall("parallelSumAsync", java.lang.Number.class, count);
+        return this.jsiiAsyncCall("parallelSumAsync", java.lang.Number.class, java.util.stream.Stream.of(count).toArray());
     }
     public java.lang.Number sumSync(final java.lang.Number count) {
-        return this.jsiiCall("sumSync", java.lang.Number.class, count);
+        return this.jsiiCall("sumSync", java.lang.Number.class, java.util.stream.Stream.of(count).toArray());
     }
     public java.lang.Number overrideMeAsync(final java.lang.Number index) {
-        return this.jsiiAsyncCall("overrideMeAsync", java.lang.Number.class, index);
+        return this.jsiiAsyncCall("overrideMeAsync", java.lang.Number.class, java.util.stream.Stream.of(index).toArray());
     }
     public java.lang.Number overrideMeSync(final java.lang.Number index) {
-        return this.jsiiCall("overrideMeSync", java.lang.Number.class, index);
+        return this.jsiiCall("overrideMeSync", java.lang.Number.class, java.util.stream.Stream.of(index).toArray());
     }
 }

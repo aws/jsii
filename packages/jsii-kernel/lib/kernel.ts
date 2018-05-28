@@ -524,7 +524,7 @@ export class Kernel {
         const params: spec.Parameter[] = (method && method.parameters) || [];
 
         // error if args > params
-        if (args.length > params.length) {
+        if (args.length > params.length && !(method && method.variadic)) {
             throw new Error(`Too many arguments (method accepts ${params.length} parameters, got ${args.length} arguments)`);
         }
 
@@ -532,7 +532,15 @@ export class Kernel {
             const param = params[i];
             const arg = args[i];
 
-            if (!param.type.optional && typeof(arg) === 'undefined') {
+            if (param.variadic) {
+                if (params.length <= i) { return; } // No vararg was provided
+                for (let j = i ; j < params.length ; j++) {
+                    if (params[j] === undefined) {
+                        // tslint:disable-next-line:max-line-length
+                        throw new Error(`Unexpected 'undefined' value at index ${j - i} of variadic argument '${param.name}' of type '${this._formatTypeRef(param.type)}'`);
+                    }
+                }
+            } else if (!param.type.optional && arg === undefined) {
                 // tslint:disable-next-line:max-line-length
                 throw new Error(`Not enough arguments. Missing argument for the required parameter '${param.name}' of type '${this._formatTypeRef(param.type)}'`);
             }

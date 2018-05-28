@@ -324,6 +324,9 @@ export default class SphinxDocsGenerator extends Generator {
                 signature += '[';
                 signaturePosfix += ']';
             }
+            if (p.variadic) {
+                signature += '*';
+            }
 
             signature += p.name;
         });
@@ -345,10 +348,10 @@ export default class SphinxDocsGenerator extends Generator {
         const params = method.parameters || [];
 
         for (const p of params) {
-            const optional = p.type.optional ? ' *(optional)*' : '';
             const ptype = this.renderTypeRef(p.type);
-            this.code.line(`:param ${ptype.display} ${p.name}: ${this.renderDocs(p)}${optional}`);
-            this.code.line(`:type ${ptype.display}: ${ptype.ref}`);
+            const paramName = `${p.variadic ? '\\*' : ''}${p.name}`;
+            this.code.line(`:param ${paramName}: ${this.renderDocs(p)}`);
+            this.code.line(`:type ${paramName}: ${ptype.ref}`);
         }
     }
 
@@ -413,45 +416,47 @@ export default class SphinxDocsGenerator extends Generator {
     }
 
     private renderTypeRef(type: spec.TypeReference): { display: string, ref: string } {
+        let result: { display: string, ref: string };
         if (type.fqn) {
             const fqn = this.toNativeFqn(type.fqn);
-            return {
+            result = {
                 ref: `:py:class:\`~${fqn}\``,
                 display: fqn
             };
-        }
-        if (type.primitive) {
-            return {
+        } else if (type.primitive) {
+            result = {
                 ref: type.primitive,
                 display: type.primitive
             };
-        }
-        if (type.collection) {
+        } else if (type.collection) {
             const elementType = this.renderTypeRef(type.collection.elementtype);
 
             switch (type.collection.kind) {
                 case spec.CollectionKind.Array:
-                    return {
+                    result = {
                         ref: elementType.ref,
                         display: `${elementType.display}[]`
                     };
+                    break;
                 case spec.CollectionKind.Map:
-                    return {
+                    result = {
                         ref: elementType.ref,
                         display: `string => ${elementType.display}`
                     };
+                    break;
                 default:
                     throw new Error(`Unexpected collection kind: ${type.collection.kind}`);
             }
-        }
-        if (type.union) {
-            return {
+        } else if (type.union) {
+            result = {
                 display: type.union.types.map(t => this.renderTypeRef(t).display).join(' or '),
                 ref: type.union.types.map(t => this.renderTypeRef(t).ref).join(' or '),
             };
+        } else {
+            throw new Error('Unexpected type ref');
         }
-
-        throw new Error('Unexpected type ref');
+        if (type.optional) { result.ref = `${result.ref} or None`; }
+        return result;
     }
 
     private renderProperty(prop: spec.Property) {

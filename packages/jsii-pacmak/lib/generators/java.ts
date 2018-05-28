@@ -55,7 +55,7 @@ export default class JavaGenerator extends Generator {
         this.addJavaDocs(method);
         this.code.openBlock(`${this.renderAccessLevel(method)} ${cls.name}(${this.renderMethodParameters(method)})`);
         this.code.line('super(org.jsii.JsiiObject.InitializationMode.Jsii);');
-        this.code.line(`org.jsii.JsiiEngine.getInstance().createNewObject(this${this.renderMethodCallArguments(method, true)});`)
+        this.code.line(`org.jsii.JsiiEngine.getInstance().createNewObject(this${this.renderMethodCallArguments(method)});`);
         this.code.closeBlock();
     }
 
@@ -196,7 +196,7 @@ export default class JavaGenerator extends Generator {
      * javascript objects that implement this interface. we want java code to be
      * able to interact with them, so we will create a proxy class which
      * implements this interface and has the same methods.
-     */ 
+     */
     private emitInterfaceProxy(ifc: spec.InterfaceType) {
         const name = INTERFACE_PROXY_CLASS_NAME;
 
@@ -306,7 +306,7 @@ export default class JavaGenerator extends Generator {
             for (let property of ifc.properties || []) {
                 const propName = self.code.toPascalCase(property.name);
                 const optional = property.type.optional;
-    
+
                 const prop: Prop = {
                     spec: property,
                     propName, optional,
@@ -317,9 +317,9 @@ export default class JavaGenerator extends Generator {
                     nextStepInterfaceName: optional ? 'Build' : undefined, /* will be determined later */
                     inherited: isBaseClass,
                 };
-    
+
                 props.push(prop);
-    
+
                 if (prop.optional) {
                     optionalProps.push(prop);
                 } else {
@@ -384,11 +384,11 @@ export default class JavaGenerator extends Generator {
             this.code.line();
             const stepInterfaces = requiredProps.map(p => p.stepInterfaceName).concat([ 'Build' ]);
             this.code.openBlock(`class FullBuilder implements ${stepInterfaces.join(', ')}`);
-    
+
             this.code.line();
             this.code.line(`private ${pojoName} instance = new ${pojoName}();`);
-            this.code.line();        
-    
+            this.code.line();
+
             for (let prop of props) {
                 this.code.openBlock(`public ${prop.nextStepInterfaceName} with${prop.propName}(final ${prop.javaType} value)`);
                 if (!prop.optional) {
@@ -398,15 +398,15 @@ export default class JavaGenerator extends Generator {
                 this.code.line('return this;');
                 this.code.closeBlock();
             }
-    
+
             this.code.openBlock(`public ${interfaceName} build()`);
             this.code.line(`${interfaceName} result = this.instance;`);
             this.code.line(`this.instance = new ${pojoName}();`);
             this.code.line(`return result;`);
             this.code.closeBlock();
-    
+
             this.code.closeBlock(); // FullBuilder
-    
+
             this.code.closeBlock(); // Builder
         }
         else {
@@ -417,8 +417,8 @@ export default class JavaGenerator extends Generator {
             this.code.openBlock(`public static class ${builderName}`);
 
             this.code.line(`private ${pojoName} instance = new ${pojoName}();`);
-            this.code.line();        
-    
+            this.code.line();
+
             for (let prop of props) {
                 this.code.openBlock(`public ${builderName} with${prop.propName}(final ${prop.javaType} value)`);
                 if (!prop.optional) {
@@ -428,18 +428,18 @@ export default class JavaGenerator extends Generator {
                 this.code.line('return this;');
                 this.code.closeBlock();
             }
-    
+
             this.code.openBlock(`public ${interfaceName} build()`);
             this.code.line(`${interfaceName} result = this.instance;`);
             this.code.line(`this.instance = new ${pojoName}();`);
             this.code.line(`return result;`);
             this.code.closeBlock();
-    
+
             this.code.closeBlock(); // FullBuilder
-    
+
             if (requiredProps.length > 0) {
                 this.code.closeBlock(); // Builder
-            }    
+            }
         }
 
         this.code.line();
@@ -583,15 +583,18 @@ export default class JavaGenerator extends Generator {
         }
     }
 
-    private renderMethodCallArguments(method: spec.Method, prependComma: boolean) {
-        let s = '';
-        if (method.parameters && method.parameters.length > 0) {
-            if (prependComma) {
-                s += ', ';
+    private renderMethodCallArguments(method: spec.Method) {
+        if (!method.parameters || method.parameters.length === 0) { return ''; }
+        let paramStream: string = '';
+        for (const param of method.parameters) {
+            const thisParam = `${param.variadic ? 'java.util.Arrays.stream' : 'java.util.stream.Stream.of'}(${param.name})`;
+            if (paramStream === '') {
+                paramStream = thisParam;
+            } else {
+                paramStream = `java.util.stream.Stream.concat(${paramStream}, ${thisParam})`;
             }
-            s += method.parameters.map(p => p.name).join(', ');
         }
-        return s;
+        return `, ${paramStream}.toArray()`;
     }
 
     private renderMethodCall(method: spec.Method, async: boolean) {
@@ -603,7 +606,7 @@ export default class JavaGenerator extends Generator {
         else {
             s += ', Void.class'
         }
-        s += this.renderMethodCallArguments(method, true);
+        s += this.renderMethodCallArguments(method);
         s += ')';
         return s;
     }
@@ -612,7 +615,7 @@ export default class JavaGenerator extends Generator {
         const params = []
         if (method.parameters) {
             for (let p of method.parameters) {
-                params.push(`final ${this.toJavaType(p.type)} ${p.name}`);
+                params.push(`final ${this.toJavaType(p.type)}${p.variadic ? '...' : ''} ${p.name}`);
             }
         }
         return params.join(', ');

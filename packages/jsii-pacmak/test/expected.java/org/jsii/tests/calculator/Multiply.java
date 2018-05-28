@@ -14,7 +14,7 @@ public class Multiply extends org.jsii.tests.calculator.BinaryOperation implemen
      */
     public Multiply(final org.jsii.tests.calculator.lib.Value lhs, final org.jsii.tests.calculator.lib.Value rhs) {
         super(org.jsii.JsiiObject.InitializationMode.Jsii);
-        org.jsii.JsiiEngine.getInstance().createNewObject(this, lhs, rhs);
+        org.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.concat(java.util.stream.Stream.of(lhs), java.util.stream.Stream.of(rhs)).toArray());
     }
     /**
      * String representation of the value.

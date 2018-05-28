@@ -479,7 +479,9 @@ export async function compileSources(entrypoint: string, otherSources = new Arra
 
         for (let p of signature.getParameters()) {
             try {
-                initializer.parameters!.push(await processParameter(p, ctx));
+                const param = await processParameter(p, ctx);
+                initializer.parameters!.push(param);
+                if (param.variadic) { initializer.variadic = true; }
             }
             catch (e) {
                 // if a parameter could not be added, but it's optional
@@ -541,6 +543,11 @@ export async function compileSources(entrypoint: string, otherSources = new Arra
 
         let typeAtLocation = typeChecker.getTypeAtLocation(decl);
         param.type = await resolveType(typeAtLocation, ctx);
+        if (decl.dotDotDotToken) {
+            param.variadic = true;
+            // TypeScript requires variadic arguments are typed as lists.
+            param.type = param.type.collection!.elementtype;
+        }
 
         if (param.type.union) {
             throw error(ctx, 'Unions are not allowed for parameter types');
@@ -590,7 +597,9 @@ export async function compileSources(entrypoint: string, otherSources = new Arra
         let params = methodSignature.getParameters();
         if (params) {
             for (let p of params) {
-                method.parameters!.push(await processParameter(p, ctx));
+                const param = await processParameter(p, ctx);
+                method.parameters!.push(param);
+                if (param.variadic) { method.variadic = true; }
             }
         }
 

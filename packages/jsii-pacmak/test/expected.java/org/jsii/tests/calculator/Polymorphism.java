@@ -9,6 +9,6 @@ public class Polymorphism extends org.jsii.JsiiObject {
         org.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
     public java.lang.String sayHello(final org.jsii.tests.calculator.lib.IFriendly friendly) {
-        return this.jsiiCall("sayHello", java.lang.String.class, friendly);
+        return this.jsiiCall("sayHello", java.lang.String.class, java.util.stream.Stream.of(friendly).toArray());
     }
 }
