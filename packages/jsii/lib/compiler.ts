@@ -903,7 +903,10 @@ export async function compileSources(entrypoint: string, otherSources = new Arra
 
     function addDocumentation(target: spec.Documentable, symbol: ts.Symbol) {
         symbol.getJsDocTags().forEach(tag => {
-            target.docs[tag.name] = tag.text || '';
+            // Don't duplicate @params for stuff that declares parameters...
+            if (!(target as any).parameters || tag.name !== 'param') {
+                target.docs[tag.name] = tag.text || '';
+            }
         })
 
         let comment = ts.displayPartsToString(symbol.getDocumentationComment(typeChecker));

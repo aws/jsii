@@ -411,7 +411,6 @@
             }
           ],
           "docs": {
-            "param": "param2 Doc for param2",
             "comment": "Documentation for methodWithParams"
           },
           "name": "methodWithParams",

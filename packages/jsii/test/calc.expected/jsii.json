@@ -31,7 +31,6 @@
             }
           ],
           "docs": {
-            "param": "rhs Right-hand side",
             "returns": "The sum of the two numbers",
             "comment": "Adds two numbers."
           },
@@ -64,7 +63,6 @@
             }
           ],
           "docs": {
-            "param": "rhs Right-hand side",
             "returns": "The subtraction of lhs from rhs",
             "comment": "Subtracts two numbers."
           },
@@ -97,7 +95,6 @@
             }
           ],
           "docs": {
-            "param": "rhs Right-hand side",
             "returns": "The multiplication of the two numbers",
             "comment": "Multiplies two numbers."
           },

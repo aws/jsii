@@ -8,7 +8,6 @@ public class Add extends org.jsii.tests.calculator.BinaryOperation {
         super(mode);
     }
     /**
-     * @param rhs Right-hand side operand
      * Creates a BinaryOperation
      * @param lhs Left-hand side operand
      * @param rhs Right-hand side operand

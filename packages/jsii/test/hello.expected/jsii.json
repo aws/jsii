@@ -18,7 +18,6 @@
             }
           ],
           "docs": {
-            "param": "name Who should we greet?",
             "comment": "Makes a commonly used greeting."
           },
           "name": "greet",
