@@ -41,6 +41,7 @@
     "glob": "^7.1.2",
     "jsii-spec": "^0.4.0",
     "source-map-loader": "^0.2.3",
+    "source-map-support": "^0.5.6",
     "typescript": "^2.8.3",
     "webpack": "^3.6.0",
     "yargs": "^11.0.0"
