@@ -1,7 +1,7 @@
 import { Test } from 'nodeunit'
 import * as fs from 'fs'
 import * as path from 'path'
-import { compileSources } from '..'
+import { compileSources } from '../lib/compiler'
 
 let tests: any = { };
 let negativesDir = path.join(__dirname, 'negatives');

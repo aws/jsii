@@ -3,7 +3,7 @@
   "version": "0.4.0",
   "description": "kernel for jsii execution environment",
   "main": "lib/index.js",
-  "types": "lib/index.ts",
+  "types": "lib/index.d.ts",
   "scripts": {
     "prepare": "tsc && tslint -p .",
     "watch": "tsc -w",
