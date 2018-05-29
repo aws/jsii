@@ -19,15 +19,15 @@
     "test": "nodeunit test/test.*.js"
   },
   "devDependencies": {
-    "@types/camelcase": "^4.1.0",
-    "@types/decamelize": "^1.2.0",
-    "@types/fs-extra": "^4.0.8",
     "@types/node": "^9.6.18",
     "@types/nodeunit": "0.0.30",
     "nodeunit": "^0.11.2",
     "typescript": "^2.8.3"
   },
   "dependencies": {
+    "@types/camelcase": "^4.1.0",
+    "@types/decamelize": "^1.2.0",
+    "@types/fs-extra": "^4.0.8",
     "camelcase": "^4.1.0",
     "decamelize": "^1.2.0",
     "fs-extra": "^4.0.3"
