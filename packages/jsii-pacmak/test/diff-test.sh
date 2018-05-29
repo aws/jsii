@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 cd $(dirname $0)
-langs=$((cd ../lib/generators && ls -1 *.ts) | sed -e 's/\.ts//')
+langs=$((cd ../lib/generators && ls -1 *.d.ts) | sed -e 's/\.d\.ts//')
 
 for lang in $langs; do
     outdir="$(mktemp -d)"
@@ -12,7 +12,7 @@ for lang in $langs; do
     echo "    Expected: ${expected}"
     ../bin/jsii-pacmak -t ${lang} -o ${outdir} ../../jsii-calc/dist/
 
-    if ! diff -arq ${outdir} ${expected}; then  
+    if ! diff -arq ${outdir} ${expected}; then
         echo
         echo "------------------------------------------------------------------------"
         echo " diff-test for pacmak generator ${lang} failed"
