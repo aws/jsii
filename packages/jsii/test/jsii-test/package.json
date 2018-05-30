@@ -3,7 +3,7 @@
   "version": "42.42.42",
   "description": "description for jsiitest",
   "main": "index.js",
-  "types": "index.ts",
+  "types": "index.d.ts",
   "jsii": {
     "outdir": "dist/jsii",
     "bundledDependencies": [ "my-bundled-dep" ],

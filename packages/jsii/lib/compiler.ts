@@ -1138,11 +1138,11 @@ function compileProgramSync(files: string[], options: ts.CompilerOptions) {
         let start = d.start;
         if (!file || !start) {
             console.log(`ERROR: ${ts.flattenDiagnosticMessageText(d.messageText, '\n')}`);
-            return;
+        } else {
+            let { line, character } = file.getLineAndCharacterOfPosition(start);
+            let message = ts.flattenDiagnosticMessageText(d.messageText, '\n');
+            console.log(`ERROR: ${file.fileName} (${line + 1},${character + 1}): ${message}`);
         }
-        let { line, character } = file.getLineAndCharacterOfPosition(start);
-        let message = ts.flattenDiagnosticMessageText(d.messageText, '\n');
-        console.log(`ERROR: ${file.fileName} (${line + 1},${character + 1}): ${message}`);
     })
 
     if (errors.length > 0) {
