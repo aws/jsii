@@ -7,6 +7,7 @@ export function getCompilerOptions(): ts.CompilerOptions {
         target: ts.ScriptTarget.ES2018,
         lib: [ 'es2016', 'es2017.object', 'es2017.string' ],
         module: ts.ModuleKind.CommonJS,
+        declaration: true,
         strict: true,
         strictPropertyInitialization: true,
         noImplicitAny: true,

@@ -18,9 +18,9 @@ export interface PackageMetadata {
     main: string
 
     /**
-     * The module's types entrypoint (package.types)
+     * The entry point of the program (package.types, except with the .d.ts extension replaced with .ts)
      */
-    types: string
+    entrypoint: string
 
     /**
      * jsii output directory
@@ -55,11 +55,16 @@ export default async function readPackageMetadata(moduleDir: string): Promise<Pa
     // defaults
     if (!pkg.name)    pkg.name = path.basename(moduleDir);
     if (!pkg.version) pkg.version = '1.0.0';
-    if (!pkg.types)   pkg.types = 'index.ts';
+    if (!pkg.types)   pkg.types = 'index.d.ts';
     if (!pkg.jsii)    pkg.jsii = { outdir: '.' };
     if (!pkg.main)    pkg.main = 'index.js';
 
-    if (!pkg.jsii.outdir) throw new Error(pkgFile + ' must contain a "jsii.outdir" field');
+    if (!pkg.jsii.outdir) throw new Error(`${pkgFile} must contain a "jsii.outdir" field`);
+    if (!pkg.types.endsWith('.d.ts')) {
+        const quickFix = pkg.types.endsWith('.ts') ? `Fix this by setting "types" to "${pkg.types.replace(/\.ts$/, '.d.ts')}"`
+                                                   : '';
+        throw new Error(`${pkgFile} "types" field value must end with .d.ts, but "${pkg.types}" was provided. ${quickFix}`);
+    }
 
     let main = path.join(moduleDir, pkg.main);
     let types = path.join(moduleDir, pkg.types);
@@ -68,11 +73,11 @@ export default async function readPackageMetadata(moduleDir: string): Promise<Pa
     return {
         name: pkg.name,
         version: pkg.version,
-        outdir: outdir,
-        main: main,
-        types: types,
+        outdir,
+        main,
         dependencies: pkg.dependencies || {},
         bundledDependencies: pkg.jsii.bundledDependencies || [],
-        names: pkg.jsii.names || {}
+        names: pkg.jsii.names || {},
+        entrypoint: types.replace(/\.d\.ts$/, '.ts')
     }
 }

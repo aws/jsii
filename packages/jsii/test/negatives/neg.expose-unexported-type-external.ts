@@ -1,5 +1,4 @@
-///!MATCH_ERROR: Found unexported types in the API
-///!MATCH_ERROR: jsii$jsii$.UnexportedType is referenced from context
+///!MATCH_ERROR: Public property 'p' of exported class has or is using private name 'UnexportedType'.
 
 // Attempt to expose an unexported type defined in another file should fial
 // because that type will not be available in the module spec.

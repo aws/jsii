@@ -19,15 +19,21 @@ export async function compilePackage(packageDir: string, includeDirs = [ 'test',
     const pkg = await readPackageMetadata(packageDir);
 
     // determine typescript program entrypoint
-    let entrypoint = pkg.types;
-    if (!await fs.pathExists(entrypoint)) {
-        throw new Error('Cannot find entrypoint: ' + entrypoint);
+    if (!await fs.pathExists(pkg.entrypoint)) {
+        throw new Error('Cannot find entrypoint: ' + pkg.entrypoint);
     }
 
     // glob all ts files in dirs to include
-    let files = new Array<string>();
-    for (let dir of includeDirs) {
-        files = files.concat(await aglob(`${packageDir}/${dir}/**/*.ts`));
+    const files = new Array<string>();
+    for (const dir of includeDirs) {
+        const dirFiles = await aglob(`${packageDir}/${dir}/**/*.ts`);
+        for (const file of dirFiles) {
+            if (file.endsWith('.d.ts') && dirFiles.indexOf(file.replace(/\.d\.ts$/, '.ts')) !== -1) {
+                // .d.ts files matching a .ts file should be ignored.
+                continue;
+            }
+            files.push(file);
+        }
     }
 
     // write a copy of the compiler options to the root of the package so IDEs can find it
@@ -41,7 +47,7 @@ export async function compilePackage(packageDir: string, includeDirs = [ 'test',
     let { lookup, dependencies, bundled } =
         await readDependencies(packageDir, pkg.dependencies, pkg.bundledDependencies, languages);
 
-    let mod = await compileSources(entrypoint, files, lookup);
+    let mod = await compileSources(pkg.entrypoint, files, lookup);
 
     // add package information
     mod.name = normalizeJsiiModuleName(pkg.name);
@@ -79,7 +85,10 @@ interface ReferencedFqn {
  * @param entrypoint The main source file.
  * @param otherSources Other source files to include.
  */
-export async function compileSources(entrypoint: string, otherSources = new Array<string>(), externalTypes = new Map<string, spec.Type>(), treatWarningsAsErrors = false): Promise<spec.Assembly> {
+export async function compileSources(entrypoint: string,
+                                     otherSources = new Array<string>(),
+                                     externalTypes = new Map<string, spec.Type>(),
+                                     treatWarningsAsErrors = false): Promise<spec.Assembly> {
     var options = getCompilerOptions();
     let prog = compileProgramSync([ entrypoint, ...otherSources ], options);
     let typeChecker = prog.getTypeChecker();
@@ -1127,7 +1136,10 @@ function compileProgramSync(files: string[], options: ts.CompilerOptions) {
     errors.forEach(d => {
         let file = d.file;
         let start = d.start;
-        if (!file || !start) return;
+        if (!file || !start) {
+            console.log(`ERROR: ${ts.flattenDiagnosticMessageText(d.messageText, '\n')}`);
+            return;
+        }
         let { line, character } = file.getLineAndCharacterOfPosition(start);
         let message = ts.flattenDiagnosticMessageText(d.messageText, '\n');
         console.log(`ERROR: ${file.fileName} (${line + 1},${character + 1}): ${message}`);
