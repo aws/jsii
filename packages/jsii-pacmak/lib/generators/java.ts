@@ -23,7 +23,7 @@ export default class JavaGenerator extends Generator {
 
     protected getAssemblyOutputPath(mod: spec.Assembly) {
         const dir = this.toNativeFqn(mod.name).replace(/\./g, '/');
-        return path.join(dir, ASSEMBLY_FILE_NAME);
+        return path.join('resources', dir, ASSEMBLY_FILE_NAME);
     }
 
     protected onBeginClass(cls: spec.ClassType, abstract: boolean) {
@@ -64,7 +64,7 @@ export default class JavaGenerator extends Generator {
     }
 
     protected onConstValue(cls: spec.ClassType, constValue: spec.ConstValue, value: any) {
-        cls; constValue; value; this.notImpl('onConstValue');
+        cls; constValue; value;
     }
     protected onField(cls: spec.ClassType, prop: spec.Property, union?: spec.UnionTypeReference) {
         cls; prop; union
@@ -494,7 +494,7 @@ export default class JavaGenerator extends Generator {
 
     private toJavaFilePath(fqn: string) {
         const nativeFqn = this.toNativeFqn(fqn);
-        return nativeFqn.replace(/\./g, '/') + '.java';
+        return path.join('java', nativeFqn.replace(/\./g, '/') + '.java');
     }
 
     private addJavaDocs(doc: spec.Documentable, defaultText?: string) {

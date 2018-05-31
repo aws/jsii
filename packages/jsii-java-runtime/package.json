@@ -2,6 +2,7 @@
   "name": "jsii-java-runtime",
   "version": "0.4.0",
   "description": "Java client for jsii runtime",
+  "main": "index.js",
   "scripts": {
     "prepare": "/bin/bash ./generate.sh && mvn package",
     "prepack": "cp -f target/*.jar .",

@@ -30,7 +30,7 @@
     "codemaker": "^0.4.0",
     "fs-extra": "^4.0.3",
     "jsii-spec": "^0.4.0",
-    "source-map-support": "*",
+    "source-map-support": "^0.5.6",
     "yargs": "^9.0.0"
   },
   "devDependencies": {
