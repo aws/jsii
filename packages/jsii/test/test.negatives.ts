@@ -19,7 +19,7 @@ async function getExpectedErrorMessage(filePath: string) {
                 .map(line => line.trim());
 
             if (matches.length === 0) {
-                throw new Error(`Expecting at least one ${MATCH_ERROR_MARKER} in each neg. test`);
+                throw new Error(`Expecting at least one ${MATCH_ERROR_MARKER} in each neg. test, none found in ${filePath}`);
             }
             ok(matches);
         })
@@ -27,7 +27,7 @@ async function getExpectedErrorMessage(filePath: string) {
 }
 
 for (let source of fs.readdirSync(negativesDir)) {
-    if (!source.endsWith('.ts')) continue;
+    if (!source.endsWith('.ts') || source.endsWith('.d.ts')) continue;
     if (!source.startsWith('neg.')) continue;
 
     tests[source] = async function(test: Test) {

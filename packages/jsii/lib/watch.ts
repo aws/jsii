@@ -10,7 +10,7 @@ export async function watch(cwd: string) {
     const tsc = path.resolve(path.join(require.resolve('typescript'), '../../bin/tsc'));
 
     // execute!
-    const child = spawn(tsc, [ '--watch' ], { cwd: cwd, stdio: 'inherit' });
+    const child = spawn(tsc, [ '--watch' ], { cwd, stdio: 'inherit' });
 
     // wait until child is done.
     return new Promise((ok, fail) => {

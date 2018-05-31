@@ -1,5 +1,5 @@
-import * as path from 'path';
 import { Test } from 'nodeunit';
+import * as path from 'path';
 import { bundle } from '../lib/bundle';
 import { assertDirEquals } from './util';
 
@@ -20,12 +20,11 @@ export async function calc(test: Test) {
 
 async function bundleTest(test: Test, testModule: string) {
     try {
-        let outdir = await bundle(path.join(__dirname, testModule));
-        let expdir = path.join(__dirname, testModule + '.expected');
+        const outdir = await bundle(path.join(__dirname, testModule));
+        const expdir = path.join(__dirname, testModule + '.expected');
 
         await assertDirEquals(outdir, expdir);
-    }
-    catch (e) {
+    } catch (e) {
         test.ifError(e);
     }
 }

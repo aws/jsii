@@ -1,4 +1,4 @@
-///!MATCH_ERROR: Cannot use unexported type 'UnexportedType' in a public API
+///!MATCH_ERROR: Build failed
 
 // Attempt to expose an unexported type defined in this file should fail
 // because that type will not be available in the module spec.

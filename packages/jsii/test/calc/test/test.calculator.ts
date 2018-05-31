@@ -1,5 +1,5 @@
 import { Test } from 'nodeunit'
-import { Calculator } from '..'
+import { Calculator } from '../index'
 
 export function calculator(test: Test) {
     let calc = new Calculator();
