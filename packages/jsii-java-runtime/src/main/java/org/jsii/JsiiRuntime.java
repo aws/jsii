@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.InvocationTargetException;
+import java.util.stream.Collectors;
 
 /**
  * Manages the jsii-runtime child process.
@@ -280,7 +281,7 @@ public class JsiiRuntime {
         try {
             String responseLine = this.stdout.readLine();
             if (responseLine == null) {
-                String error = this.stderr.readLine();
+                String error = this.stderr.lines().collect(Collectors.joining("\n\t"));
                 throw new JsiiException("Child process exited unexpectedly: " + error);
             }
             return OM.readTree(responseLine);
