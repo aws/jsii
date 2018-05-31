@@ -22,7 +22,7 @@
     "typescript": "^2.8.3"
   },
   "dependencies": {
-    "jsii-spec": "^0.4.0"
+    "jsii-spec": "^0.4.0",
     "source-map": "^0.7.0"
   },
   "repository": {
