@@ -11,6 +11,8 @@
     "test": "nodeunit test/test.*.js"
   },
   "devDependencies": {
+    "@types/node": "^9.6.18",
+    "@types/nodeunit": "0.0.30",
     "@types/fs-extra": "^4.0.8",
     "fs-extra": "^4.0.3",
     "jsii-calc": "^0.4.0",
@@ -21,8 +23,6 @@
     "typescript": "^2.8.3"
   },
   "dependencies": {
-    "@types/node": "^9.6.18",
-    "@types/nodeunit": "0.0.30",
     "jsii-spec": "^0.4.0"
   },
   "repository": {
