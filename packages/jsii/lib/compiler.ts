@@ -1322,7 +1322,7 @@ async function readDependencies(rootDir: string, packageDeps: any, bundledDeps: 
             continue;
         }
 
-        addDependency(packageName, rootDir);
+        await addDependency(packageName, rootDir);
     }
 
     if (bundledDeps.length > 0) {
