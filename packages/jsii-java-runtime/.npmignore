@@ -1,5 +1,6 @@
 src/
-target/
+target/*
+!target/*.jar
 generate.sh
 *.iml
 pom.xml
