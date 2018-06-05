@@ -1,8 +1,19 @@
-version: 0.2
-
 phases:
+  install:
+    commands:
+      - /bin/bash ./install.sh
+  pre_build:
+    commands:
+      - /bin/bash ./update-version.sh
   build:
     commands:
-      # https://forums.aws.amazon.com/message.jspa?messageID=764437
       - /bin/bash ./build.sh
-
+  post_build:
+    commands:
+      - if [[ ! -f ".BUILD_COMPLETED" ]]; then exit 1; fi
+      - /bin/bash ./pack.sh
+      - /bin/bash ./bundle-beta.sh
+artifacts:
+  files:
+    - "**/*"
+  base-directory: dist
