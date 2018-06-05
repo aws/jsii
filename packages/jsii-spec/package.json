@@ -21,7 +21,5 @@
     "name": "Amazon Web Services",
     "url": "https://aws.amazon.com"
   },
-  "license": "UNLICENSED",
-  "dependencies": {
-  }
+  "license": "UNLICENSED"
 }
