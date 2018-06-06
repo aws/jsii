@@ -1,4 +1,4 @@
-import { MODULE_NAME_PREFIX, MODULE_NAME_POSTFIX } from 'jsii-spec'
+import { MODULE_NAME_POSTFIX, MODULE_NAME_PREFIX } from 'jsii-spec'
 
 /**
  * Normalizes the name of a package to a jsii module name.
