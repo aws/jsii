@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.jsii.api.Callback;
+import org.jsii.JsiiVersion;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -23,7 +24,7 @@ public class JsiiRuntime {
     /**
      * Expected runtime version.
      */
-    private static final String EXPECTED_RUNTIME_VERSION = "jsii-runtime@0.4.0";
+    private static final String EXPECTED_RUNTIME_VERSION = JsiiVersion.RUNTIME_VERSION;
 
     /**
      * JSON object mapper.

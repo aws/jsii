@@ -3,6 +3,11 @@
 # Generated before build by "npm run prepare"
 src/test/java/org/jsii/tests/
 src/test/resources/org/jsii/tests/
+src/main/java/org/jsii/JsiiVersion.java
+
+.classpath
+.project
+.settings
 
 *.jar
 

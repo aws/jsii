@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 cd $(dirname $0)
+
+find . -name assembly.jsii | xargs align-jsii-versions
+
 langs=$((cd ../lib/generators && ls -1 *.d.ts) | sed -e 's/\.d\.ts//')
 
 for lang in $langs; do

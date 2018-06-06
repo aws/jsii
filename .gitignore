@@ -1,6 +1,7 @@
 *.js
 *.d.ts
 dist/
+.BUILD_COMPLETED
 
 # Created by https://www.gitignore.io/api/node
 

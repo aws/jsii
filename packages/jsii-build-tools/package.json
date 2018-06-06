@@ -1,0 +1,13 @@
+{
+  "name": "jsii-build-tools",
+  "version": "0.4.0",
+  "description": "Internal repository-level tools",
+  "private": true,
+  "bin": {
+    "align-jsii-versions": "bin/align-jsii-versions",
+    "diff-test": "bin/diff-test"
+  },
+  "scripts": {
+    "prepare": "chmod +x bin/*"
+  }
+}
