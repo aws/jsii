@@ -1,16 +1,17 @@
 #!/usr/bin/env node
-import 'source-map-support/register'
+import 'source-map-support/register';
 import * as yargs from 'yargs';
-import { bundle } from '../lib/bundle'
-import { watch } from '../lib/watch'
+import { bundle } from '../lib/bundle';
+import { watch } from '../lib/watch';
 
-process.on('unhandledRejection', err => { 
+process.on('unhandledRejection', err => {
+    // tslint:disable-next-line:no-console
     console.error(err.stack);
     process.exit(1);
 });
 
-async function main(dir: string, argv: any) {
-    if (argv.watch) {
+async function main(dir: string, args: any) {
+    if (args.watch) {
         return await watch(dir);
     }
 
@@ -23,8 +24,7 @@ const argv = yargs
     .argv;
 
 main(process.cwd(), argv).catch(err => {
-    console.log(err.stack)
+    // tslint:disable-next-line:no-console
+    console.log(err.stack);
     process.exit(1);
 });
-
-
