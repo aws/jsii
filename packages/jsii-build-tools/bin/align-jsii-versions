@@ -10,7 +10,7 @@ for (const file of process.argv.slice(2)) {
   assembly.version = version;
 
   // update all dependency versions, assuming they are also from this repo
-  Object.keys(assembly.dependencies || {}).forEach(dep => dep.version = version);
+  Object.keys(assembly.dependencies || {}).forEach(dep => assembly.dependencies[dep].version = version);
 
   // update local copy
   fs.writeFileSync(file, JSON.stringify(assembly, undefined, 2));
