@@ -1,5 +1,5 @@
-import * as path from 'path'
-import * as fs from 'fs-extra'
+import * as fs from 'fs-extra';
+import * as path from 'path';
 
 export interface PackageMetadata {
     /**
@@ -45,7 +45,7 @@ export interface PackageMetadata {
 }
 
 export default async function readPackageMetadata(moduleDir: string): Promise<PackageMetadata> {
-    let pkgFile = path.resolve(path.join(moduleDir, 'package.json'));
+    const pkgFile = path.resolve(path.join(moduleDir, 'package.json'));
 
     let pkg: any = { };
     if (await fs.pathExists(pkgFile)) {
@@ -53,22 +53,22 @@ export default async function readPackageMetadata(moduleDir: string): Promise<Pa
     }
 
     // defaults
-    if (!pkg.name)    pkg.name = path.basename(moduleDir);
-    if (!pkg.version) pkg.version = '1.0.0';
-    if (!pkg.types)   pkg.types = 'index.d.ts';
-    if (!pkg.jsii)    pkg.jsii = { outdir: '.' };
-    if (!pkg.main)    pkg.main = 'index.js';
+    if (!pkg.name)    { pkg.name = path.basename(moduleDir); }
+    if (!pkg.version) { pkg.version = '1.0.0'; }
+    if (!pkg.types)   { pkg.types = 'index.d.ts'; }
+    if (!pkg.jsii)    { pkg.jsii = { outdir: '.' }; }
+    if (!pkg.main)    { pkg.main = 'index.js'; }
 
-    if (!pkg.jsii.outdir) throw new Error(`${pkgFile} must contain a "jsii.outdir" field`);
+    if (!pkg.jsii.outdir) { throw new Error(`${pkgFile} must contain a "jsii.outdir" field`); }
     if (!pkg.types.endsWith('.d.ts')) {
         const quickFix = pkg.types.endsWith('.ts') ? `Fix this by setting "types" to "${pkg.types.replace(/\.ts$/, '.d.ts')}"`
                                                    : '';
         throw new Error(`${pkgFile} "types" field value must end with .d.ts, but "${pkg.types}" was provided. ${quickFix}`);
     }
 
-    let main = path.join(moduleDir, pkg.main);
-    let types = path.join(moduleDir, pkg.types);
-    let outdir = path.resolve(moduleDir, pkg.jsii.outdir);
+    const main = path.join(moduleDir, pkg.main);
+    const types = path.join(moduleDir, pkg.types);
+    const outdir = path.resolve(moduleDir, pkg.jsii.outdir);
 
     return {
         name: pkg.name,
@@ -79,5 +79,5 @@ export default async function readPackageMetadata(moduleDir: string): Promise<Pa
         bundledDependencies: pkg.jsii.bundledDependencies || [],
         names: pkg.jsii.names || {},
         entrypoint: types.replace(/\.d\.ts$/, '.ts')
-    }
+    };
 }

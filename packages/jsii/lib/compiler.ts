@@ -1,13 +1,13 @@
-import * as path from 'path'
-import * as ts from 'typescript'
-import * as spec from 'jsii-spec'
-import * as fs from 'fs-extra'
-import * as util from 'util'
-import * as glob from 'glob'
-import * as clone from 'clone'
-import { getCompilerOptions, saveCompilerOptions } from './compiler-options'
-import readPackageMetadata from './package-metadata'
-import { normalizeJsiiModuleName } from './naming'
+import * as clone from 'clone';
+import * as fs from 'fs-extra';
+import * as glob from 'glob';
+import * as spec from 'jsii-spec';
+import * as path from 'path';
+import * as ts from 'typescript';
+import * as util from 'util';
+import { getCompilerOptions, saveCompilerOptions } from './compiler-options';
+import { normalizeJsiiModuleName } from './naming';
+import readPackageMetadata from './package-metadata';
 
 /**
  * Given a CommonJS (npm) typescript package, produces a JSII specification for it.
@@ -44,21 +44,21 @@ export async function compilePackage(packageDir: string, includeDirs = [ 'test',
     // we won't be able to determine the name of types for that dependency.
     const languages = new Set<string>(Object.keys(pkg.names));
 
-    let { lookup, dependencies, bundled } =
+    const { lookup, dependencies, bundled } =
         await readDependencies(packageDir, pkg.dependencies, pkg.bundledDependencies, languages);
 
-    let mod = await compileSources(pkg.entrypoint, files, lookup);
+    const mod = await compileSources(pkg.entrypoint, files, lookup);
 
     // add package information
     mod.name = normalizeJsiiModuleName(pkg.name);
     mod.package = pkg.name;
-    mod.version = pkg.version
+    mod.version = pkg.version;
     mod.dependencies = dependencies;
     mod.bundled = bundled;
     mod.names = pkg.names;
 
     // automatically add a "js" name based on the npm name.
-    mod.names['js'] = pkg.name;
+    mod.names.js = pkg.name;
 
     // create a map of native names for this module and all dependencies
     // to allow generators and runtimes to translate jsii names to native names.
@@ -89,20 +89,19 @@ export async function compileSources(entrypoint: string,
                                      otherSources = new Array<string>(),
                                      externalTypes = new Map<string, spec.Type>(),
                                      treatWarningsAsErrors = false): Promise<spec.Assembly> {
-    var options = getCompilerOptions();
-    let prog = compileProgramSync([ entrypoint, ...otherSources ], options);
-    let typeChecker = prog.getTypeChecker();
-    let sourceFile = prog.getSourceFile(prog.getRootFileNames()[0]);
-    if (!sourceFile)
-        throw new Error('No source file found!');
-    let rootModule = typeChecker.getSymbolAtLocation(sourceFile);
+    const options = getCompilerOptions();
+    const prog = compileProgramSync([ entrypoint, ...otherSources ], options);
+    const typeChecker = prog.getTypeChecker();
+    const sourceFile = prog.getSourceFile(prog.getRootFileNames()[0]);
+    if (!sourceFile) { throw new Error('No source file found!'); }
+    const rootModule = typeChecker.getSymbolAtLocation(sourceFile);
 
     // this is it, start parsing...
-    var mod = new spec.Assembly();
-    let types = new Array<spec.Type>();
+    const mod = new spec.Assembly();
+    const types = new Array<spec.Type>();
 
     // collect all refs to FQNs so we can validate we don't use unexported types
-    let typeRefs = new Set<ReferencedFqn>();
+    const typeRefs = new Set<ReferencedFqn>();
 
     if (rootModule) {
         await processModule(rootModule, []);
@@ -117,30 +116,30 @@ export async function compileSources(entrypoint: string,
      * Process a module
      */
     async function processModule(symbol: ts.Symbol, ctx: string[]): Promise<void> {
-        ctx = newContext(ctx, symbol.name)
+        ctx = newContext(ctx, symbol.name);
 
-        let moduleExports = symbol.exports && typeChecker.getExportsOfModule(symbol);
+        const moduleExports = symbol.exports && typeChecker.getExportsOfModule(symbol);
         if (!moduleExports) {
             return;
         }
 
-        for (let ex of moduleExports) {
+        for (const ex of moduleExports) {
             if (isKind(ex, ts.SyntaxKind.ClassDeclaration)) {
-                let cls = await tryProcessClass(ex, ctx);
+                const cls = await tryProcessClass(ex, ctx);
                 if (cls) {
                     types.push(cls);
                 }
             }
 
             if (isKind(ex, ts.SyntaxKind.EnumDeclaration)) {
-                let en = await tryProcessEnum(ex, ctx);
+                const en = await tryProcessEnum(ex, ctx);
                 if (en) {
                     types.push(en);
                 }
             }
 
             if (isInterface(ex)) {
-                let iface = await tryProcessInterface(ex, ctx);
+                const iface = await tryProcessInterface(ex, ctx);
                 if (iface) {
                     types.push(iface);
                 }
@@ -160,7 +159,7 @@ export async function compileSources(entrypoint: string,
     async function tryProcessBaseType(type: ts.Type, ctx: string[]) {
         ctx = newContext(ctx, type.symbol ? type.symbol.name : '<unknown-base-class>');
 
-        let baseTypes = type.getBaseTypes();
+        const baseTypes = type.getBaseTypes();
         if (!baseTypes || baseTypes.length === 0) {
             return undefined;
         }
@@ -177,14 +176,14 @@ export async function compileSources(entrypoint: string,
         return resolvedType as spec.UserTypeReference;
     }
 
-    async function tryProcessClassInterfaces(decl: ts.ClassDeclaration, ctx: string[]): Promise<Array<spec.UserTypeReference> | undefined> {
+    async function tryProcessClassInterfaces(decl: ts.ClassDeclaration, ctx: string[]): Promise<spec.UserTypeReference[] | undefined> {
         if (!decl.heritageClauses) {
             return;
         }
 
         const result = new Array<spec.UserTypeReference>();
 
-        for (let hc of decl.heritageClauses) {
+        for (const hc of decl.heritageClauses) {
             if (hc.token === ts.SyntaxKind.ExtendsKeyword) {
                 continue; // base classes are handled in tryProcessBaseClass
             }
@@ -193,8 +192,7 @@ export async function compileSources(entrypoint: string,
                 throw error(ctx, 'Invalid heritage clause token ' + ts.SyntaxKind[hc.token]);
             }
 
-            const types = hc.types || [ ];
-            for (let expr of types) {
+            for (const expr of hc.types || [ ]) {
                 const type = typeChecker.getTypeFromTypeNode(expr);
 
                 const ref = new spec.UserTypeReference();
@@ -211,8 +209,8 @@ export async function compileSources(entrypoint: string,
      * Returns the contents of a Javascript string literal (without quotes or double-quotes).
      */
     function parseStringLiteral(s: string) {
-        let doubleQuotes = s.startsWith('"') && s.endsWith('"');
-        let singleQuotes = s.startsWith("'") && s.endsWith("'");
+        const doubleQuotes = s.startsWith('"') && s.endsWith('"');
+        const singleQuotes = s.startsWith("'") && s.endsWith("'");
 
         if (singleQuotes || doubleQuotes) {
             return s.substr(1, s.length - 2);
@@ -233,7 +231,7 @@ export async function compileSources(entrypoint: string,
             throw error(ctx, 'Const values must be assigned with a value');
         }
 
-        let constValue = new spec.ConstValue();
+        const constValue = new spec.ConstValue();
         constValue.name = decl.name.getText();
 
         switch (decl.initializer.kind) {
@@ -273,9 +271,9 @@ export async function compileSources(entrypoint: string,
             return [];
         }
 
-        var result = new Array<spec.ConstValue>();
+        const result = new Array<spec.ConstValue>();
 
-        for (let m of classDecl.members) {
+        for (const m of classDecl.members) {
             if (!ts.isPropertyDeclaration(m)) {
                 continue;
             }
@@ -294,7 +292,7 @@ export async function compileSources(entrypoint: string,
                 continue;
             }
 
-            let constValue = await tryProcessConstValue(m, ctx);
+            const constValue = await tryProcessConstValue(m, ctx);
             if (constValue) {
                 result.push(constValue);
             }
@@ -306,8 +304,8 @@ export async function compileSources(entrypoint: string,
     async function tryProcessInterface(symbol: ts.Symbol, ctx: string[]): Promise<spec.InterfaceType | undefined> {
         ctx = newContext(ctx, symbol.name);
 
-        let entity = new spec.InterfaceType();
-        let name = await getFullyQualifiedName(symbol, ctx);
+        const entity = new spec.InterfaceType();
+        const name = await getFullyQualifiedName(symbol, ctx);
         if (!name) {
             throw error(ctx, 'Cannot determine type name');
         }
@@ -319,21 +317,21 @@ export async function compileSources(entrypoint: string,
 
         addDocumentation(entity, symbol);
 
-        let interfaceType = typeChecker.getDeclaredTypeOfSymbol(symbol);
+        const interfaceType = typeChecker.getDeclaredTypeOfSymbol(symbol);
         const bases = new Array<spec.UserTypeReference>();
         const baseTypes = interfaceType.getBaseTypes() || [];
-        for (let base of baseTypes) {
-            const fqn = await getFullyQualifiedName(base.symbol!, ctx)
+        for (const base of baseTypes) {
+            const fqn = await getFullyQualifiedName(base.symbol!, ctx);
             bases.push({ fqn });
         }
         entity.interfaces = bases;
         entity.methods = [];
         entity.properties = [];
 
-        let props = interfaceType.getProperties();
+        const props = interfaceType.getProperties();
 
         if (props) {
-            for (let mem of props) {
+            for (const mem of props) {
                 if (!mem.valueDeclaration) {
                     throw error(ctx, entity.fqn + ' - unexpected error for member: ' + mem.name);
                 }
@@ -345,7 +343,7 @@ export async function compileSources(entrypoint: string,
 
                 // interfaces only support methods
                 if (ts.isMethodSignature(mem.valueDeclaration)) {
-                    let method = await tryProcessMethod(mem, ctx);
+                    const method = await tryProcessMethod(mem, ctx);
                     if (method) {
                         entity.methods!.push(method);
                     }
@@ -375,8 +373,8 @@ export async function compileSources(entrypoint: string,
     async function tryProcessClass(symbol: ts.Symbol, ctx: string[]): Promise<spec.ClassType | undefined> {
         ctx = newContext(ctx, symbol.name);
 
-        let entity = new spec.ClassType();
-        let name = await getFullyQualifiedName(symbol, ctx);
+        const entity = new spec.ClassType();
+        const name = await getFullyQualifiedName(symbol, ctx);
         if (!name) {
             throw error(ctx, 'Cannot determine type name');
         }
@@ -392,9 +390,9 @@ export async function compileSources(entrypoint: string,
 
         addDocumentation(entity, symbol);
 
-        let classType = typeChecker.getDeclaredTypeOfSymbol(symbol);
+        const classType = typeChecker.getDeclaredTypeOfSymbol(symbol);
 
-        let base = await tryProcessBaseType(classType, ctx);
+        const base = await tryProcessBaseType(classType, ctx);
         if (base) {
             entity.base = base;
         }
@@ -410,10 +408,10 @@ export async function compileSources(entrypoint: string,
         // process static members - only readonly primitive consts are allowed.
         entity.consts = await processConstValues(symbol.valueDeclaration as ts.ClassDeclaration, ctx);
 
-        let props = classType.getProperties();
+        const props = classType.getProperties();
 
         if (props) {
-            for (let mem of props) {
+            for (const mem of props) {
                 if (!mem.valueDeclaration) {
                     throw error(ctx, entity.fqn + ' - unexpected error for member: ' + mem.name);
                 }
@@ -429,7 +427,7 @@ export async function compileSources(entrypoint: string,
                 }
 
                 if (ts.isMethodDeclaration(mem.valueDeclaration)) {
-                    let method = await tryProcessMethod(mem, ctx);
+                    const method = await tryProcessMethod(mem, ctx);
                     if (method) {
                         entity.methods!.push(method);
                     }
@@ -437,7 +435,7 @@ export async function compileSources(entrypoint: string,
                 }
 
                 if (ts.isPropertyDeclaration(mem.valueDeclaration) || ts.isParameterPropertyDeclaration(mem.valueDeclaration)) {
-                    let prop = await tryProcessProperty(mem, ctx);
+                    const prop = await tryProcessProperty(mem, ctx);
                     if (prop) {
                         entity.properties!.push(prop);
                     }
@@ -445,7 +443,7 @@ export async function compileSources(entrypoint: string,
                 }
 
                 if (ts.isGetAccessorDeclaration(mem.valueDeclaration) || ts.isSetAccessorDeclaration(mem.valueDeclaration)) {
-                    let prop = await tryProcessAccessor(mem, ctx);
+                    const prop = await tryProcessAccessor(mem, ctx);
                     if (prop) {
                         entity.properties!.push(prop);
                     }
@@ -466,33 +464,32 @@ export async function compileSources(entrypoint: string,
             return undefined;
         }
 
-        let member = classSymbol.members.get(ts.InternalSymbolName.Constructor)
+        const member = classSymbol.members.get(ts.InternalSymbolName.Constructor);
         if (!member) {
             return undefined;
         }
 
-        let decl = member.declarations && member.declarations[0];
+        const decl = member.declarations && member.declarations[0];
         if (!decl) {
             throw error(ctx, 'Unable to determine constructor declaration');
         }
 
-        let signature = typeChecker.getSignatureFromDeclaration(decl as ts.ConstructorDeclaration);
+        const signature = typeChecker.getSignatureFromDeclaration(decl as ts.ConstructorDeclaration);
         if (!signature) {
             throw error(ctx, 'Unable to determine constructor signature');
         }
 
-        let initializer = new spec.Method();
+        const initializer = new spec.Method();
         initializer.initializer = true;
 
         addDocumentation(initializer, member);
 
-        for (let p of signature.getParameters()) {
+        for (const p of signature.getParameters()) {
             try {
                 const param = await processParameter(p, ctx);
                 initializer.parameters!.push(param);
                 if (param.variadic) { initializer.variadic = true; }
-            }
-            catch (e) {
+            } catch (e) {
                 // if a parameter could not be added, but it's optional
                 // we just stop processing more parameters
                 if (typeChecker.isOptionalParameter(p.valueDeclaration as ts.ParameterDeclaration)) {
@@ -510,8 +507,8 @@ export async function compileSources(entrypoint: string,
     async function tryProcessEnum(symbol: ts.Symbol, ctx: string[]): Promise<spec.EnumType | undefined> {
         ctx = newContext(ctx, symbol.name);
 
-        let entity = new spec.EnumType();
-        let name = await getFullyQualifiedName(symbol, ctx);
+        const entity = new spec.EnumType();
+        const name = await getFullyQualifiedName(symbol, ctx);
         if (!name) {
             throw error(ctx, 'Cannot determine type name for enum: ' + symbol.getName());
         }
@@ -524,14 +521,14 @@ export async function compileSources(entrypoint: string,
         addDocumentation(entity, symbol);
         checkTypeName(entity.name, ctx);
 
-        let decl = symbol.valueDeclaration as ts.EnumDeclaration;
+        const decl = symbol.valueDeclaration as ts.EnumDeclaration;
 
         decl.members.forEach(mem => {
 
-            let member = new spec.EnumMember();
+            const member = new spec.EnumMember();
             member.name = mem.name.getText();
 
-            //TODO: enum member doc
+            // TODO: enum member doc
             // addDocumentation(member, sym);
 
             entity.members.push(member);
@@ -543,14 +540,14 @@ export async function compileSources(entrypoint: string,
     async function processParameter(symbol: ts.Symbol, ctx: string[]): Promise<spec.Parameter> {
         ctx = newContext(ctx, symbol.name);
 
-        let decl = symbol.valueDeclaration as ts.ParameterDeclaration;
+        const decl = symbol.valueDeclaration as ts.ParameterDeclaration;
 
-        let param = new spec.Parameter();
+        const param = new spec.Parameter();
         param.name = decl.name.getText();
 
         addDocumentation(param, symbol);
 
-        let typeAtLocation = typeChecker.getTypeAtLocation(decl);
+        const typeAtLocation = typeChecker.getTypeAtLocation(decl);
         param.type = await resolveType(typeAtLocation, ctx);
         if (decl.dotDotDotToken) {
             param.variadic = true;
@@ -571,8 +568,8 @@ export async function compileSources(entrypoint: string,
 
     async function tryProcessMethod(symbol: ts.Symbol, ctx: string[]): Promise<spec.Method | undefined> {
         ctx = newContext(ctx, symbol.name);
-        let decl = symbol.valueDeclaration as ts.MethodDeclaration;
-        let method = new spec.Method();
+        const decl = symbol.valueDeclaration as ts.MethodDeclaration;
+        const method = new spec.Method();
         method.name = decl.name.getText();
 
         if (isProtected(decl)) {
@@ -587,7 +584,7 @@ export async function compileSources(entrypoint: string,
             return undefined;
         }
 
-        let methodSignature = typeChecker.getSignatureFromDeclaration(decl);
+        const methodSignature = typeChecker.getSignatureFromDeclaration(decl);
         if (!methodSignature) {
             throw error(ctx, 'cannot determine signature from method declaration');
         }
@@ -597,15 +594,15 @@ export async function compileSources(entrypoint: string,
         }
 
         addDocumentation(method, symbol);
-
-        let returnsVoid = methodSignature.getReturnType().flags & ts.TypeFlags.Void;
+        // tslint:disable-next-line:no-bitwise
+        const returnsVoid = methodSignature.getReturnType().flags & ts.TypeFlags.Void;
         if (!returnsVoid) {
             method.returns = await resolveType(methodSignature.getReturnType(), ctx);
         }
 
-        let params = methodSignature.getParameters();
+        const params = methodSignature.getParameters();
         if (params) {
-            for (let p of params) {
+            for (const p of params) {
                 const param = await processParameter(p, ctx);
                 method.parameters!.push(param);
                 if (param.variadic) { method.variadic = true; }
@@ -621,7 +618,7 @@ export async function compileSources(entrypoint: string,
 
         ctx = newContext(ctx, symbol.name);
 
-        let prop = new spec.Property();
+        const prop = new spec.Property();
         prop.name = symbol.name;
 
         addDocumentation(prop, symbol);
@@ -633,14 +630,12 @@ export async function compileSources(entrypoint: string,
         let getterDecl: ts.SignatureDeclaration | null = null;
         let setterDecl: ts.SignatureDeclaration | null = null;
 
-        for (let decl of symbol.declarations) {
+        for (const decl of symbol.declarations) {
             if (ts.isGetAccessorDeclaration(decl)) {
                 getterDecl = decl;
-            }
-            else if (ts.isSetAccessorDeclaration(decl)) {
+            } else if (ts.isSetAccessorDeclaration(decl)) {
                 setterDecl = decl;
-            }
-            else {
+            } else {
                 throw error(ctx, 'invalid declaration on accessor');
             }
         }
@@ -655,7 +650,7 @@ export async function compileSources(entrypoint: string,
 
         checkPropertyOrMethodName(prop.name, [], ctx);
 
-        let signature = typeChecker.getSignatureFromDeclaration(getterDecl);
+        const signature = typeChecker.getSignatureFromDeclaration(getterDecl);
         if (!signature) {
             throw error(ctx, 'cannot resolve property signature');
         }
@@ -677,8 +672,8 @@ export async function compileSources(entrypoint: string,
     async function tryProcessProperty(symbol: ts.Symbol, ctx: string[]): Promise<spec.Property | undefined> {
         ctx = newContext(ctx, symbol.name);
 
-        let decl = symbol.valueDeclaration as ts.PropertyDeclaration;
-        let prop = new spec.Property();
+        const decl = symbol.valueDeclaration as ts.PropertyDeclaration;
+        const prop = new spec.Property();
         prop.name = decl.name.getText();
         checkPropertyOrMethodName(prop.name, [], ctx);
 
@@ -688,7 +683,7 @@ export async function compileSources(entrypoint: string,
             return undefined;
         }
 
-        let typeAtLocation = typeChecker.getTypeAtLocation(decl);
+        const typeAtLocation = typeChecker.getTypeAtLocation(decl);
         prop.type = await resolveType(typeAtLocation, ctx);
 
         if (hasModifier(decl, ts.SyntaxKind.ReadonlyKeyword)) {
@@ -728,7 +723,7 @@ export async function compileSources(entrypoint: string,
     }
 
     async function resolveArrayType(type: ts.Type, ctx: string[]) {
-        let typeRef = type as ts.TypeReference;
+        const typeRef = type as ts.TypeReference;
         if (!typeRef.typeArguments) {
             throw error(ctx, 'Array must be defined with a single type argument <T>');
         }
@@ -737,7 +732,7 @@ export async function compileSources(entrypoint: string,
             throw error(ctx, 'Array<> can only have a single type argument');
         }
 
-        let ret = new spec.TypeReference();
+        const ret = new spec.TypeReference();
         ret.collection = new spec.CollectionTypeReference();
         ret.collection.elementtype = await resolveType(typeRef.typeArguments[0], ctx);
         ret.collection.kind = spec.CollectionKind.Array;
@@ -745,35 +740,36 @@ export async function compileSources(entrypoint: string,
     }
 
     async function resolveMapType(type: ts.Type, ctx: string[]) {
-        let objectType = type.getStringIndexType()
+        const objectType = type.getStringIndexType();
         if (!objectType) {
             throw error(ctx, 'Only string indexes are supported');
         }
 
-        let ret = new spec.TypeReference();
+        const ret = new spec.TypeReference();
         ret.collection = new spec.CollectionTypeReference();
         ret.collection.elementtype = await await resolveType(objectType, ctx);
         ret.collection.kind = spec.CollectionKind.Map;
         return ret;
     }
 
-    function includesType(types: spec.TypeReference[], item: spec.TypeReference) {
-        let json = JSON.stringify(item);
-        return types.map(x => JSON.stringify(x)).filter(x => x === json).length > 0;
+    function includesType(searched: spec.TypeReference[], item: spec.TypeReference) {
+        const json = JSON.stringify(item);
+        return searched.map(x => JSON.stringify(x)).filter(x => x === json).length > 0;
     }
 
     async function resolveUnionType(type: ts.UnionType, ctx: string[]) {
-        let ret = new spec.TypeReference();
-        let union = ret.union = new spec.UnionTypeReference();
+        const ret = new spec.TypeReference();
+        const union = ret.union = new spec.UnionTypeReference();
 
-        for (let subtype of type.types) {
+        for (const subtype of type.types) {
             // If a union contains "undefined", it simply means it's an optional
+            // tslint:disable-next-line:no-bitwise
             if (subtype.flags & ts.TypeFlags.Undefined) {
                 ret.optional = true;
                 continue;
             }
 
-            let resolvedType = await resolveType(subtype, ctx);
+            const resolvedType = await resolveType(subtype, ctx);
             if (includesType(union.types, resolvedType)) {
                 continue;
             }
@@ -784,7 +780,7 @@ export async function compileSources(entrypoint: string,
         // if the union type only has one type, it was probably because we had <undefined | Bla>, so we can
         // convert this to a normal type.
         if (union.types.length === 1) {
-            let normalType = union.types[0];
+            const normalType = union.types[0];
             normalType.optional = ret.optional;
             return normalType;
         }
@@ -799,50 +795,51 @@ export async function compileSources(entrypoint: string,
         type = typeChecker.getApparentType(type);
 
         // check if this is a union
+        // tslint:disable-next-line:no-bitwise
         if (type.flags & ts.TypeFlags.Union && (!(type.flags & ts.TypeFlags.EnumLiteral))) {
             return resolveUnionType(type as ts.UnionType, ctx);
         }
 
-        let primitiveType = tryResolvePrimitiveType(type);
+        const primitiveType = tryResolvePrimitiveType(type);
         if (primitiveType) {
-            let ret = new spec.TypeReference();
-            ret.primitive = primitiveType;
-            return ret;
+            const res = new spec.TypeReference();
+            res.primitive = primitiveType;
+            return res;
         }
 
         if (!type.symbol) {
             throw error(ctx, 'Non-primitive types are expected to have a name');
         }
 
-        let collectionType = await tryResolveCollectionType(type, ctx);
+        const collectionType = await tryResolveCollectionType(type, ctx);
         if (collectionType) {
             return collectionType;
         }
 
-        let promiseType = tryResolvePromiseType(type);
+        const promiseType = tryResolvePromiseType(type);
         if (promiseType) {
             const resolvedType = await resolveType(promiseType, ctx);
             resolvedType.promise = true;
             return resolvedType;
         }
 
-        let ret = new spec.TypeReference();
+        const ret = new spec.TypeReference();
         ret.fqn = await getFullyQualifiedName(type.symbol, ctx);
 
         // add this FQN to the list of types referenced by our public APIs.
         // this will be crossed referenced later with the list of exported types
         // so we won't export unexported types in the public api.
-        typeRefs.add({ fqn: ret.fqn, ctx: ctx });
+        typeRefs.add({ fqn: ret.fqn, ctx });
 
         return ret;
 
         /**
-         * If `type` represents a Promise, returns the promised type.
+         * If `aType` represents a Promise, returns the promised type.
          */
-        function tryResolvePromiseType(type: ts.Type) {
-            const typeAny = type as any;
+        function tryResolvePromiseType(aType: ts.Type) {
+            const typeAny = aType as any;
 
-            if (type.symbol && type.symbol.escapedName === 'Promise') {
+            if (aType.symbol && aType.symbol.escapedName === 'Promise') {
                 if (!typeAny.typeArguments || typeAny.typeArguments.length !== 1) {
                     throw new Error('Invalid promise type, must be in the form Promise<T>');
                 }
@@ -861,33 +858,33 @@ export async function compileSources(entrypoint: string,
          * Attempts to resolve the type at hand as a primitive type and returns the name of the
          * primitive type if successful. Otherwise returns null.
          */
-        function tryResolvePrimitiveType(type: ts.Type): spec.PrimitiveType | undefined {
-
-            if (!type.symbol && type.flags & ts.TypeFlags.Object) {
+        function tryResolvePrimitiveType(aType: ts.Type): spec.PrimitiveType | undefined {
+            // tslint:disable-next-line:no-bitwise
+            if (!aType.symbol && aType.flags & ts.TypeFlags.Object) {
                 return spec.PrimitiveType.Json;
             }
-
-            if (!type.symbol && type.flags & ts.TypeFlags.Any) {
+            // tslint:disable-next-line:no-bitwise
+            if (!aType.symbol && aType.flags & ts.TypeFlags.Any) {
                 return spec.PrimitiveType.Any;
             }
 
-            if (!type.symbol) {
+            if (!aType.symbol) {
                 throw error(ctx, 'Unable to resolve type');
             }
 
-            if (type.symbol.name === 'Date') {
+            if (aType.symbol.name === 'Date') {
                 return spec.PrimitiveType.Date;
             }
 
-            if (type.symbol.name === 'String') {
+            if (aType.symbol.name === 'String') {
                 return spec.PrimitiveType.String;
             }
 
-            if (type.symbol.name === 'Number') {
+            if (aType.symbol.name === 'Number') {
                 return spec.PrimitiveType.Number;
             }
 
-            if (type.symbol.name === 'Boolean') {
+            if (aType.symbol.name === 'Boolean') {
                 return spec.PrimitiveType.Boolean;
             }
 
@@ -901,21 +898,21 @@ export async function compileSources(entrypoint: string,
     async function getFullyQualifiedName(typeSymbol: ts.Symbol, ctx: string[]) {
         ctx = newContext(ctx, typeSymbol.name);
 
-        let fqn = typeChecker.getFullyQualifiedName(typeSymbol);
-        let groups = /\"([^\"]+)\"\.(.*)/.exec(fqn);
+        const fqn = typeChecker.getFullyQualifiedName(typeSymbol);
+        const groups = /\"([^\"]+)\"\.(.*)/.exec(fqn);
         if (!groups) {
             throw error(ctx, `Cannot use unexported type '${fqn}' in a public API`);
         }
 
-        let modulePath = groups[1];
-        let typeName = groups[2];
+        const modulePath = groups[1];
+        const typeName = groups[2];
 
-        let packageConfig = await findPackageConfig(modulePath);
+        const packageConfig = await findPackageConfig(modulePath);
         if (!packageConfig) {
             throw error(ctx, 'Cannot find package.json up the tree from: ' + modulePath);
         }
 
-        let moduleName = normalizeJsiiModuleName(packageConfig.name);
+        const moduleName = normalizeJsiiModuleName(packageConfig.name);
         return moduleName + '.' + typeName;
     }
 
@@ -925,9 +922,9 @@ export async function compileSources(entrypoint: string,
             if (!(target as any).parameters || tag.name !== 'param') {
                 target.docs[tag.name] = tag.text || '';
             }
-        })
+        });
 
-        let comment = ts.displayPartsToString(symbol.getDocumentationComment(typeChecker));
+        const comment = ts.displayPartsToString(symbol.getDocumentationComment(typeChecker));
         if (comment && comment.length > 0) {
             target.docs.comment = comment;
         }
@@ -954,8 +951,8 @@ export async function compileSources(entrypoint: string,
         // in which case the ctor is the first parent and the class is the second parent.
         //
 
-        return memberSymbol.valueDeclaration.parent == classDecl ||
-            memberSymbol.valueDeclaration.parent.parent == classDecl;
+        return memberSymbol.valueDeclaration.parent === classDecl ||
+            memberSymbol.valueDeclaration.parent.parent === classDecl;
     }
 
     function isHidden(decl: ts.NamedDeclaration) {
@@ -980,11 +977,11 @@ export async function compileSources(entrypoint: string,
             return undefined;
         }
 
-        let packageFile = path.join(modulePath, 'package.json');
+        const packageFile = path.join(modulePath, 'package.json');
 
-        let exists = await new Promise<boolean>(done => fs.exists(packageFile, done));
+        const exists = await new Promise<boolean>(done => fs.exists(packageFile, done));
         if (exists) {
-            let data = await new Promise<Buffer>((ok, fail) => fs.readFile(packageFile, (err, data) => err ? fail(err) : ok(data)));
+            const data = await new Promise<Buffer>((ok, fail) => fs.readFile(packageFile, (err, buf) => err ? fail(err) : ok(buf)));
             return JSON.parse(data.toString());
         }
 
@@ -995,7 +992,7 @@ export async function compileSources(entrypoint: string,
      * Determines if the main declaration of the symbol is of a desired kind.
      */
     function isKind(symbol: ts.Symbol, kind: ts.SyntaxKind) {
-        return symbol.valueDeclaration && symbol.valueDeclaration.kind == kind;
+        return symbol.valueDeclaration && symbol.valueDeclaration.kind === kind;
     }
 
     /**
@@ -1006,9 +1003,8 @@ export async function compileSources(entrypoint: string,
             return false;
         }
 
-        for (let i = 0; i < decl.modifiers.length; ++i) {
-            let mod = decl.modifiers[i];
-            if (mod.kind === kind) {
+        for (const modifier of decl.modifiers) {
+            if (modifier.kind === kind) {
                 return true;
             }
         }
@@ -1033,7 +1029,7 @@ export async function compileSources(entrypoint: string,
     }
 
     function populateEntityName(entity: spec.Type, fqn: string, ctx: string[]) {
-        let parts = fqn.split('.');
+        const parts = fqn.split('.');
 
         // fqn may be <module>.<name> or <module>...<namespace>...<name>
         if (parts.length < 2) {
@@ -1045,7 +1041,6 @@ export async function compileSources(entrypoint: string,
         entity.namespace = parts.slice(0, parts.length - 1).join('.');
         entity.name = parts[parts.length - 1];
     }
-
 
     function startsWithLowerCase(symbol: string) {
         if (!symbol) { return false; }
@@ -1068,6 +1063,7 @@ export async function compileSources(entrypoint: string,
         }
 
         if (symbol.startsWith('get') && startsWithUpperCase(symbol.substr(3)) && params.length === 0) {
+            // tslint:disable-next-line:max-line-length
             throw error(ctx, 'Methods and properties cannot have the signature getXxx() since these will conflict with Java property getters by the same name');
         }
 
@@ -1096,7 +1092,7 @@ export async function compileSources(entrypoint: string,
         if (treatWarningsAsErrors) {
             return error(ctx, ...args);
         }
-
+        // tslint:disable-next-line:no-console
         console.error(formatMessage('WARNING', ctx, ...args));
     }
 
@@ -1123,27 +1119,29 @@ function compileProgramSync(files: string[], options: ts.CompilerOptions) {
         throw new Error('Cannot find typescript "lib" directory');
     }
     const libs = options.lib || [];
-    for (let lib of libs) {
+    for (const lib of libs) {
         files.push(path.join(libsDir, `lib.${lib}.d.ts`));
     }
     delete options.lib;
 
-    let prog = ts.createProgram(files, options, host);
+    const prog = ts.createProgram(files, options, host);
 
-    let result = prog.emit();
-    let errors = ts.getPreEmitDiagnostics(prog).concat(result.diagnostics);
+    const result = prog.emit();
+    const errors = ts.getPreEmitDiagnostics(prog).concat(result.diagnostics);
 
     errors.forEach(d => {
-        let file = d.file;
-        let start = d.start;
+        const file = d.file;
+        const start = d.start;
         if (!file || !start) {
+            // tslint:disable-next-line:no-console
             console.log(`ERROR: ${ts.flattenDiagnosticMessageText(d.messageText, '\n')}`);
         } else {
-            let { line, character } = file.getLineAndCharacterOfPosition(start);
-            let message = ts.flattenDiagnosticMessageText(d.messageText, '\n');
+            const { line, character } = file.getLineAndCharacterOfPosition(start);
+            const message = ts.flattenDiagnosticMessageText(d.messageText, '\n');
+            // tslint:disable-next-line:no-console
             console.log(`ERROR: ${file.fileName} (${line + 1},${character + 1}): ${message}`);
         }
-    })
+    });
 
     if (errors.length > 0) {
         throw new Error('Build failed');
@@ -1160,7 +1158,7 @@ function createNameTree(mod: spec.Assembly, types: spec.Type[]) {
     mod.nametree = new spec.NameTree();
     mod.typecount = types.length;
 
-    for (let type of types) {
+    for (const type of types) {
         mod.types[type.fqn] = type;
         mod.nametree.add(type.fqn);
     }
@@ -1176,7 +1174,7 @@ function createNameTree(mod: spec.Assembly, types: spec.Type[]) {
  */
 function normalizeInitializers(mod: spec.Assembly, externalTypes: Map<string, spec.Type>) {
 
-    for (const fqn in mod.types) {
+    for (const fqn of Object.keys(mod.types)) {
         const type = mod.types[fqn];
         if (type.kind === spec.TypeKind.Class) {
             normalize(type as spec.ClassType);
@@ -1205,9 +1203,8 @@ function normalizeInitializers(mod: spec.Assembly, externalTypes: Map<string, sp
         let base = mod.types[cls.base.fqn] as spec.ClassType;
         if (base) {
             normalize(base);
-        }
-        else {
-            const externalBase = externalTypes.get(cls.base.fqn)
+        } else {
+            const externalBase = externalTypes.get(cls.base.fqn);
             if (!externalBase) {
                 throw new Error(`Cannot find base type '${cls.base.fqn}' of ${cls.name} neither as local or external type`);
             }
@@ -1234,17 +1231,18 @@ function addSubtypes(mod: spec.Assembly) {
 
     function visit(node: spec.NameTree) {
 
-        let parentFqn = node.getType();
+        const parentFqn = node.getType();
         if (parentFqn) {
-            let parentType = mod.types[parentFqn];
+            const parentType = mod.types[parentFqn];
 
-            for (let childname of node.children()) {
-                let child = node[childname];
-                let childFqn = child.getType();
+            for (const childname of node.children()) {
+                const child = node[childname];
+                const childFqn = child.getType();
 
                 // there are some programming languages that won't be able to support
                 // a namespace as a sub-name of a concrete type (e.g. java), so we can't support that.
                 if (!childFqn) {
+                    // tslint:disable-next-line:max-line-length
                     throw new Error(`All child names of a type '${parentFqn}' must point to concrete types, but '${childname}' is a namespaces, and this structure cannot be supported in all languages (e.g. Java)`);
                 }
                 mod.types[childFqn].parenttype = parentFqn;
@@ -1258,13 +1256,12 @@ function addSubtypes(mod: spec.Assembly) {
     visit(mod.nametree);
 }
 
-
 function verifyUnexportedTypes(mod: spec.Assembly, typeRefs: Set<ReferencedFqn>, externalTypes: Map<string, spec.Type>) {
-    let errors = new Array<string>();
+    const errors = new Array<string>();
 
-    for (let ref of typeRefs) {
-        let localType = ref.fqn in mod.types;
-        let externalType = externalTypes.has(ref.fqn);
+    for (const ref of typeRefs) {
+        const localType = ref.fqn in mod.types;
+        const externalType = externalTypes.has(ref.fqn);
 
         if (!localType && !externalType) {
             errors.push(`${ref.fqn} is referenced from context: ${ref.ctx.join('/')}`);
@@ -1284,25 +1281,26 @@ function verifyUnexportedTypes(mod: spec.Assembly, typeRefs: Set<ReferencedFqn>,
  * @param packageDeps The 'dependencies' section of package.json
  */
 async function readDependencies(rootDir: string, packageDeps: any, bundledDeps: undefined | string[], languages: Set<string>) {
-    let lookup = new Map<string, spec.Type>();
-    let dependencies: { [dep: string]: spec.Assembly } = { };
-    let bundled: { [name: string]: string } = { };
+    const lookup = new Map<string, spec.Type>();
+    const dependencies: { [dep: string]: spec.Assembly } = { };
+    const bundled: { [name: string]: string } = { };
 
     bundledDeps = bundledDeps || [ ];
     packageDeps = packageDeps || { };
 
-    async function addDependency(packageName: string, rootDir: string) {
-        let { jsii, pkg } = await readJsiiForModule(rootDir, packageName);
+    async function addDependency(packageName: string, moduleRootDir: string) {
+        const { jsii, pkg } = await readJsiiForModule(moduleRootDir, packageName);
 
         // verify that dependencies specify names for all languages defined by this package
         // this is required in order for us to be able to resolve jsii symbols in native languages.
-        for (let lang of languages) {
+        for (const lang of languages) {
             if (!(lang in pkg.names)) {
+                // tslint:disable-next-line:max-line-length
                 throw new Error(`Dependent package ${packageName} does not have a name specified for language '${lang}' which is defined by this module`);
             }
         }
 
-        let moduleName = normalizeJsiiModuleName(packageName);
+        const moduleName = normalizeJsiiModuleName(packageName);
 
         dependencies[moduleName] = jsii;
         delete jsii.code;
@@ -1313,9 +1311,9 @@ async function readDependencies(rootDir: string, packageDeps: any, bundledDeps: 
         }
     }
 
-    for (let packageName in packageDeps) {
+    for (const packageName of Object.keys(packageDeps)) {
         // if this package is defined under 'jsiiBundledDependencies', add it to the "bundled" list
-        let bundledDepIndex = bundledDeps.indexOf(packageName);
+        const bundledDepIndex = bundledDeps.indexOf(packageName);
         if (bundledDepIndex !== -1) {
             bundled[packageName] = packageDeps[packageName];
             bundledDeps.splice(bundledDepIndex, 1); // remove from the expected list
@@ -1326,7 +1324,8 @@ async function readDependencies(rootDir: string, packageDeps: any, bundledDeps: 
     }
 
     if (bundledDeps.length > 0) {
-        throw new Error('There are some dependencies defined as jsiiBundledDependencies but we could not find them under "dependencies": ' + bundledDeps.join());
+        // tslint:disable-next-line:max-line-length
+        throw new Error(`There are some dependencies defined as jsiiBundledDependencies but we could not find them under "dependencies": ${bundledDeps.join()}`);
     }
 
     return { lookup, dependencies, bundled };
@@ -1347,17 +1346,17 @@ async function findModuleRoot(dir: string, packageName: string): Promise<string 
 }
 
 async function readJsiiForModule(rootDir: string, packageName: string) {
-    let moduleDir = await findModuleRoot(rootDir, packageName);
+    const moduleDir = await findModuleRoot(rootDir, packageName);
 
     if (!moduleDir) {
         throw new Error(`Cannot find ${packageName} under node_modules (here or up the tree)`);
     }
 
-    let pkg = await readPackageMetadata(moduleDir);
+    const pkg = await readPackageMetadata(moduleDir);
 
     const outdir = pkg.outdir;
-    let jsiiFilePath = path.join(outdir, spec.SPEC_FILE_NAME);
-    let jsii = await fs.readJson(jsiiFilePath) as spec.Assembly;
+    const jsiiFilePath = path.join(outdir, spec.SPEC_FILE_NAME);
+    const jsii = await fs.readJson(jsiiFilePath) as spec.Assembly;
     if (jsii.schema !== spec.SPEC_VERSION) {
         throw new Error(`The jsii spec of module ${packageName} has version ${jsii.schema} while we expect ${spec.SPEC_VERSION} (TODO: semver)`);
     }
@@ -1374,7 +1373,7 @@ function renderNativeNames(mod: spec.Assembly) {
 
     nativenames[mod.name] = mod.names;
 
-    for (let depname of Object.keys(mod.dependencies)) {
+    for (const depname of Object.keys(mod.dependencies)) {
         const dep = mod.dependencies[depname];
         nativenames[depname] = dep.names;
     }
