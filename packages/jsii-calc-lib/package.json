@@ -12,10 +12,11 @@
   },
   "scripts": {
     "prepare": "jsii",
-    "test": "/bin/bash test/diff-test.sh"
+    "test": "diff-test test/jsii.json dist/jsii.json"
   },
   "devDependencies": {
     "jsii": "^0.4.0",
+    "jsii-build-tools": "^0.4.0",
     "typescript": "^2.8.3"
   }
 }

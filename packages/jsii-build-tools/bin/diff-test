@@ -1,0 +1,22 @@
+#!/bin/bash
+# Compares two jsii assemblies and fails if they are different
+# Versions in the expected assembly are updated to match this repo
+# Usage: diff-test <expected> <actual>
+set -euo pipefail
+
+resolve-path() {
+  echo "$(cd $(dirname $1) && pwd)/$(basename $1)"
+}
+
+expected="$(resolve-path $1)"
+actual="$(resolve-path $2)"
+
+align-jsii-versions ${expected}
+
+diff ${actual} ${expected} || {
+  echo
+  echo "========================================================================="
+  echo "test failed. to update:"
+  echo "    cp ${actual} ${expected}"
+  exit 1
+}

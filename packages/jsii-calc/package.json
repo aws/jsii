@@ -12,7 +12,7 @@
   },
   "scripts": {
     "prepare": "jsii",
-    "test": "node test/test.calc.js && /bin/bash test/diff-test.sh"
+    "test": "node test/test.calc.js && diff-test test/jsii.json dist/jsii.json"
   },
   "dependencies": {
     "jsii-calc-lib": "^0.4.0"
@@ -20,6 +20,7 @@
   "devDependencies": {
     "@types/node": "^9.6.18",
     "jsii": "^0.4.0",
-    "typescript": "^2.8.3"
+    "typescript": "^2.8.3",
+    "jsii-build-tools": "^0.4.0"
   }
 }
