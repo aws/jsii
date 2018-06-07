@@ -15,8 +15,8 @@ package org.jsii;
 @javax.annotation.Generated(value = "generate.sh", date = "$(date -u +"%Y-%m-%dT%H:%M:%SZ")")
 final class JsiiVersion {
     private static final String BUILD_PART_REGEX = "\\\\+[a-z0-9]+$";
-    private static final String RUNTIME_FULL_VERSION = "jsii-runtime@${version}";
-    private static final String RUNTIME_VERSION = RUNTIME_FULL_VERSION.replace(BUILD_PART_REGEX, "");
+    private static final String JAVA_RUNTIME_FULL_VERSION = "jsii-runtime@${version}";
+    private static final String EXPECTED_RUNTIME_VERSION = JAVA_RUNTIME_FULL_VERSION.replaceAll(BUILD_PART_REGEX, "");
 
     /**
      * Asserts that a peer runtimeVersion is compatible with this Java runtime version, which means
@@ -27,10 +27,10 @@ final class JsiiVersion {
      * @throws JsiiException if {@code runtimeVersion} and {@link RUNTIME_VERSION} aren't equal.
      */
     public static void assertCompatibleWith(final String runtimeVersion) {
-        final String shortVersion = runtimeVersion.replace(BUILD_PART_REGEX, "");
-        if (RUNTIME_VERSION.compareTo(shortVersion) != 0) {
+        final String shortVersion = runtimeVersion.replaceAll(BUILD_PART_REGEX, "");
+        if (EXPECTED_RUNTIME_VERSION.compareTo(shortVersion) != 0) {
             throw new JsiiException("Incompatible jsii-runtime version. Expecting "
-                    + RUNTIME_VERSION
+                    + EXPECTED_RUNTIME_VERSION
                     + ", actual was " + shortVersion);
         }
     }
