@@ -1,5 +1,6 @@
-src/
-target/*
+.project
+src
+target
 generate.sh
 *.iml
 pom.xml
