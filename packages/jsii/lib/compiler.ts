@@ -914,7 +914,10 @@ export async function compileSources(entrypoint: string,
         }
 
         const moduleName = normalizeJsiiModuleName(packageConfig.name);
-        return moduleName + '.' + typeName;
+        const jsiiName = moduleName + '.' + typeName;
+        // Record to typeRefs, so the type's validity is verified.
+        typeRefs.add({ fqn: jsiiName, ctx });
+        return jsiiName;
     }
 
     function addDocumentation(target: spec.Documentable, symbol: ts.Symbol) {

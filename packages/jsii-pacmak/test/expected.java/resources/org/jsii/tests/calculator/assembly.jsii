@@ -2235,6 +2235,27 @@
   },
   "typecount": 39,
   "externalTypes": {
+    "jsii$jsii_calc_lib$.IFriendly": {
+      "docs": {
+        "comment": "Applies to classes that are considered friendly. These classes can be greeted with\na \"hello\" or \"goodbye\" blessing and they will respond back in a fun and friendly manner."
+      },
+      "kind": "interface",
+      "methods": [
+        {
+          "docs": {
+            "comment": "Say hello!"
+          },
+          "name": "hello",
+          "returns": {
+            "primitive": "string"
+          }
+        }
+      ],
+      "fqn": "jsii$jsii_calc_lib$.IFriendly",
+      "module": "jsii$jsii_calc_lib$",
+      "namespace": "jsii$jsii_calc_lib$",
+      "name": "IFriendly"
+    },
     "jsii$jsii_calc_lib$.Operation": {
       "docs": {
         "comment": "Represents an operation on values."
@@ -2310,27 +2331,6 @@
       "initializer": {
         "initializer": true
       }
-    },
-    "jsii$jsii_calc_lib$.IFriendly": {
-      "docs": {
-        "comment": "Applies to classes that are considered friendly. These classes can be greeted with\na \"hello\" or \"goodbye\" blessing and they will respond back in a fun and friendly manner."
-      },
-      "kind": "interface",
-      "methods": [
-        {
-          "docs": {
-            "comment": "Say hello!"
-          },
-          "name": "hello",
-          "returns": {
-            "primitive": "string"
-          }
-        }
-      ],
-      "fqn": "jsii$jsii_calc_lib$.IFriendly",
-      "module": "jsii$jsii_calc_lib$",
-      "namespace": "jsii$jsii_calc_lib$",
-      "name": "IFriendly"
     },
     "jsii$jsii_calc_lib$.MyFirstStruct": {
       "docs": {
