@@ -1,17 +1,17 @@
 #!/usr/bin/env node
-const fs = require('fs');
+const fs = require('fs-extra');
 
-// currently all modules have the same version, 
+// currently all modules have the same version,
 // so "tools" will also have it in it's package.json.
 const version = require('../package.json').version;
 
 for (const file of process.argv.slice(2)) {
-  const assembly = JSON.parse(fs.readFileSync(file));
+  const assembly = fs.readJsonSync(file);
   assembly.version = version;
 
   // update all dependency versions, assuming they are also from this repo
   Object.keys(assembly.dependencies || {}).forEach(dep => assembly.dependencies[dep].version = version);
 
   // update local copy
-  fs.writeFileSync(file, JSON.stringify(assembly, undefined, 2));
+  fs.writeJsonSync(file, assembly, { spaces: 2 });
 }

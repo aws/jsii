@@ -1,8 +1,8 @@
 export const SPEC_VERSION = 'jsii/1.0'; // minor version = no breaking change
-export const BUNDLE_FILE_NAME = 'jsii.js';
-export const SPEC_FILE_NAME = 'jsii.json';
 export const MODULE_NAME_PREFIX = 'jsii$'; // prefix used for module names
 export const MODULE_NAME_POSTFIX = '$';
+
+export const SPEC_FILE_NAME = 'assembly.jsii';
 
 /**
  * A module specification.
@@ -37,7 +37,7 @@ export class Assembly implements Documentable {
     /**
      * Dependencies on other modules (with semver)
      */
-    public dependencies: { [module: string]: Assembly };
+    public dependencies: { [module: string]: PackageVersion };
 
     /**
      * List if bundled dependencies (these are not expected to be jsii modules).
@@ -48,6 +48,15 @@ export class Assembly implements Documentable {
      * All types in the module, keyed by their fully-qualified-name
      */
     public types: { [fqn: string]: Type };
+
+    /**
+     * All external types that are referenced from the visible
+     * type signatures in this module (through ``types``). This
+     * is provided so that consumers of an ``Assembly`` can reason
+     * over the types that are used by this one without necessarily
+     * having to load dependent assemblies.
+     */
+    public externalTypes?: { [fqn: string]: Type };
 
     /**
      * Number of types in the spec.
@@ -90,6 +99,16 @@ export class Assembly implements Documentable {
      * Assembly javascript code. Must be namespaced by assembly name.
      */
     public code?: string;
+}
+
+/**
+ * The version of a package.
+ */
+export interface PackageVersion {
+    /** Name of the package. */
+    package: string;
+    /** Version of the package. */
+    version: string;
 }
 
 /**

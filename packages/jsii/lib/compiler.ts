@@ -44,7 +44,7 @@ export async function compilePackage(packageDir: string, includeDirs = [ 'test',
     // we won't be able to determine the name of types for that dependency.
     const languages = new Set<string>(Object.keys(pkg.names));
 
-    const { lookup, dependencies, bundled } =
+    const { lookup, dependencies, bundled, nativenames } =
         await readDependencies(packageDir, pkg.dependencies, pkg.bundledDependencies, languages);
 
     const mod = await compileSources(pkg.entrypoint, files, lookup);
@@ -62,7 +62,8 @@ export async function compilePackage(packageDir: string, includeDirs = [ 'test',
 
     // create a map of native names for this module and all dependencies
     // to allow generators and runtimes to translate jsii names to native names.
-    mod.nativenames = renderNativeNames(mod);
+    mod.nativenames = nativenames;
+    mod.nativenames[mod.name] = mod.names;
 
     const readme = path.join(packageDir, 'README.md');
     if (await fs.pathExists(readme)) {
@@ -1266,6 +1267,11 @@ function verifyUnexportedTypes(mod: spec.Assembly, typeRefs: Set<ReferencedFqn>,
         if (!localType && !externalType) {
             errors.push(`${ref.fqn} is referenced from context: ${ref.ctx.join('/')}`);
         }
+
+        if (externalType) {
+            if (!mod.externalTypes) { mod.externalTypes = {}; }
+            mod.externalTypes[ref.fqn] = externalTypes.get(ref.fqn)!;
+        }
     }
 
     if (errors.length > 0) {
@@ -1282,8 +1288,9 @@ function verifyUnexportedTypes(mod: spec.Assembly, typeRefs: Set<ReferencedFqn>,
  */
 async function readDependencies(rootDir: string, packageDeps: any, bundledDeps: undefined | string[], languages: Set<string>) {
     const lookup = new Map<string, spec.Type>();
-    const dependencies: { [dep: string]: spec.Assembly } = { };
+    const dependencies: { [dep: string]: spec.PackageVersion } = { };
     const bundled: { [name: string]: string } = { };
+    const nativenames: { [name: string]: { [language: string]: string } } = {};
 
     bundledDeps = bundledDeps || [ ];
     packageDeps = packageDeps || { };
@@ -1302,8 +1309,8 @@ async function readDependencies(rootDir: string, packageDeps: any, bundledDeps: 
 
         const moduleName = normalizeJsiiModuleName(packageName);
 
-        dependencies[moduleName] = jsii;
-        delete jsii.code;
+        dependencies[moduleName] = { package: jsii.package, version: jsii.version };
+        nativenames[moduleName] = jsii.names;
 
         // add all types to lookup table.
         if (jsii.types) {
@@ -1328,7 +1335,7 @@ async function readDependencies(rootDir: string, packageDeps: any, bundledDeps: 
         throw new Error(`There are some dependencies defined as jsiiBundledDependencies but we could not find them under "dependencies": ${bundledDeps.join()}`);
     }
 
-    return { lookup, dependencies, bundled };
+    return { lookup, dependencies, bundled, nativenames };
 }
 
 async function findModuleRoot(dir: string, packageName: string): Promise<string | undefined> {
@@ -1366,17 +1373,4 @@ async function readJsiiForModule(rootDir: string, packageName: string) {
 
 async function aglob(pattern: string) {
     return new Promise<string[]>((ok, fail) => glob(pattern, (err, matches) => err ? fail(err) : ok(matches)));
-}
-
-function renderNativeNames(mod: spec.Assembly) {
-    const nativenames: { [jsii: string]: { [language: string]: string } } = { };
-
-    nativenames[mod.name] = mod.names;
-
-    for (const depname of Object.keys(mod.dependencies)) {
-        const dep = mod.dependencies[depname];
-        nativenames[depname] = dep.names;
-    }
-
-    return nativenames;
 }

@@ -11,8 +11,8 @@ const INTERFACE_POJO_CLASS_NAME = 'Jsii$Pojo';
 export default class JavaGenerator extends Generator {
     private moduleClass: string
 
-    constructor(mod: spec.Assembly, bundleFilePath: string) {
-        super(mod, bundleFilePath, {
+    constructor(mod: spec.Assembly) {
+        super(mod, {
             expandUnionProperties: true,
             generateOverloadsForMethodWithOptionals: true,
             target: 'java'

@@ -12,19 +12,19 @@ async function lookupGenerator(lang: string) {
     return require(pth).default;
 }
 
-async function createGenerator(lang: string, jsiiFile: string, bundleFile: string) {
+async function createGenerator(lang: string, jsiiFile: string) {
     let jsiiData = (await fs.readFile(jsiiFile)).toString();
     let mod = JSON.parse(jsiiData) as spec.Assembly;
 
-    let snapshot = '/tmp/jsii-module.jsii.json';
+    let snapshot = `/tmp/jsii-module.${spec.SPEC_FILE_NAME}`;
     await fs.writeFile(snapshot, JSON.stringify(mod, null, 2));
 
     const GeneratorClass: any = await lookupGenerator(lang);
-    return new GeneratorClass(mod, bundleFile);
+    return new GeneratorClass(mod);
 }
 
 export async function generate(target: string, jsiiDir: string, outDir: string) {
-    const generator = await createGenerator(target, path.join(jsiiDir, spec.SPEC_FILE_NAME), path.join(jsiiDir, spec.BUNDLE_FILE_NAME));
+    const generator = await createGenerator(target, path.join(jsiiDir, spec.SPEC_FILE_NAME));
     generator.generate();
     await generator.save(outDir);
 }

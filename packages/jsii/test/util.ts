@@ -1,30 +1,31 @@
-import * as fs from 'fs'
-import * as path from 'path'
+import * as fs from 'fs';
+import * as path from 'path';
 
 const readDir  = (dir: string) => new Promise<string[]>((ok, fail) => fs.readdir(dir, (err, files) => err ? fail(err) : ok(files)));
 const readFile = (filePath: string) => new Promise<Buffer>((ok, fail) => fs.readFile(filePath, (err, data) => err ? fail(err) : ok(data)));
 
+// tslint:disable:no-console
 export async function assertDirEquals(actualDir: string, expectedDir: string) {
-    let expectedFiles = (await readDir(expectedDir)).sort().filter(filterHiddenFiles);
-    let actualFiles   = (await readDir(actualDir)).sort().filter(filterHiddenFiles);
+    const expectedFiles = (await readDir(expectedDir)).sort().filter(filterHiddenFiles);
+    const actualFiles   = (await readDir(actualDir)).sort().filter(filterHiddenFiles);
 
-    if (actualFiles.length !== expectedFiles.length) {
+    if (actualFiles.length !== expectedFiles.length || expectedFiles.find(f => actualFiles.indexOf(f) === -1)) {
         console.error('==========================================');
-        console.error('Mismatch in number of files:');
+        console.error('Mismatch in file names or count:');
         console.error('    Expected:', expectedDir, '-', expectedFiles.join(','));
         console.error('    Actual:', actualDir, '-', actualFiles.join(','));
         console.error('==========================================');
-        throw new Error('Invalid number of files');        
+        throw new Error('Invalid file names or number of files');
     }
 
     let errors = false;
 
-    for (let file of expectedFiles) {
-        let actualFile = path.join(actualDir, file);
-        let expectedFile = path.join(expectedDir, file);
+    for (const file of expectedFiles) {
+        const actualFile = path.join(actualDir, file);
+        const expectedFile = path.join(expectedDir, file);
 
-        let actual = (await readFile(actualFile)).toString();
-        let expected = (await readFile(expectedFile)).toString();
+        const actual = (await readFile(actualFile)).toString();
+        const expected = (await readFile(expectedFile)).toString();
 
         if (actual !== expected) {
             console.error('==========================================');

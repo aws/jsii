@@ -761,16 +761,13 @@
             "union": {
               "types": [
                 {
-                  "fqn": "jsii$jsii_calc$.Add",
-                  "optional": true
+                  "fqn": "jsii$jsii_calc$.Add"
                 },
                 {
-                  "fqn": "jsii$jsii_calc$.Multiply",
-                  "optional": true
+                  "fqn": "jsii$jsii_calc$.Multiply"
                 },
                 {
-                  "fqn": "jsii$jsii_calc$.Power",
-                  "optional": true
+                  "fqn": "jsii$jsii_calc$.Power"
                 }
               ]
             },
@@ -1666,15 +1663,13 @@
           "name": "bool",
           "type": {
             "primitive": "boolean"
-          },
-          "docs": {}
+          }
         },
         {
           "name": "anotherRequired",
           "type": {
             "primitive": "date"
-          },
-          "docs": {}
+          }
         },
         {
           "name": "optionalArray",
@@ -1686,8 +1681,7 @@
               "kind": "array"
             },
             "optional": true
-          },
-          "docs": {}
+          }
         },
         {
           "docs": {
@@ -1791,15 +1785,13 @@
           "type": {
             "primitive": "string"
           },
-          "immutable": true,
-          "docs": {}
+          "immutable": true
         },
         {
           "name": "readWriteString",
           "type": {
             "primitive": "string"
-          },
-          "docs": {}
+          }
         }
       ],
       "fqn": "jsii$jsii_calc$.IInterfaceWithProperties",
@@ -2366,8 +2358,7 @@
               "kind": "array"
             },
             "optional": true
-          },
-          "docs": {}
+          }
         }
       ],
       "fqn": "jsii$jsii_calc_lib$.MyFirstStruct",

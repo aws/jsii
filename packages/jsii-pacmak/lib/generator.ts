@@ -46,7 +46,7 @@ export abstract class Generator {
     private readonly target?: string
     protected readonly code = new CodeMaker();
 
-    constructor(mod: spec.Assembly, private readonly bundleFilePath: string, options = new GeneratorOptions()) {
+    constructor(mod: spec.Assembly, options = new GeneratorOptions()) {
         if (mod.schema !== spec.SPEC_VERSION) {
             throw new Error(`Invalid schema version "${mod.schema}". Expecting "${spec.SPEC_VERSION}"`);
         }
@@ -75,14 +75,7 @@ export abstract class Generator {
         if (assemblyPath) {
             const fullPath = path.join(outdir, assemblyPath);
             await fs.mkdirp(path.dirname(fullPath));
-            await fs.writeFile(fullPath, JSON.stringify(this.mod, undefined, 2));
-        }
-
-        const bundleDest = this.getBundleOutDir(this.mod);
-        if (bundleDest) {
-            console.warn('WARNING: getBundleOutDir is deprecated. Use getAssemblyOutputPath instead. The new assembly format contains both the spec and the code');
-            const bundleFile = path.join(outdir, bundleDest, spec.BUNDLE_FILE_NAME);
-            await fs.copy(this.bundleFilePath, bundleFile);
+            await fs.writeJson(fullPath, this.mod, { spaces: 2 });
         }
 
         return await this.code.save(outdir);
@@ -130,11 +123,6 @@ export abstract class Generator {
      * Returns the destination path for the assembly file.
      */
     protected getAssemblyOutputPath(mod: spec.Assembly): string | undefined { mod; this.notImpl('getAssemblyOutputPath'); return undefined; }
-
-    /**
-     * @deprecated Implement getAssemblyOutputPath - this is where the full assembly which contains the spec + code should be stored.
-     */
-    protected getBundleOutDir(_mod: spec.Assembly): undefined | string { return undefined; }
 
     //
     // Assembly
@@ -503,12 +491,9 @@ export abstract class Generator {
                 return type;
             }
 
-            for (const depName of Object.keys(asm.dependencies || { })) {
-                const dep = asm.dependencies[depName];
-                const found = lookupType(dep);
-                if (found) {
-                    return found;
-                }
+            const externalType = asm.externalTypes && asm.externalTypes[fqn];
+            if (externalType) {
+                return externalType;
             }
 
             return undefined;

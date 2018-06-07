@@ -12,7 +12,7 @@
   },
   "scripts": {
     "prepare": "jsii",
-    "test": "node test/test.calc.js && diff-test test/jsii.json dist/jsii.json"
+    "test": "node test/test.calc.js && diff-test test/assembly.jsii dist/assembly.jsii"
   },
   "dependencies": {
     "jsii-calc-lib": "^0.4.0"

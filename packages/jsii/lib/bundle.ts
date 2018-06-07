@@ -1,5 +1,5 @@
 import * as fs from 'fs-extra';
-import { Assembly, BUNDLE_FILE_NAME, SPEC_FILE_NAME, TypeKind } from 'jsii-spec';
+import { SPEC_FILE_NAME } from 'jsii-spec';
 import * as path from 'path';
 import * as webpack from 'webpack';
 import { compilePackage } from './compiler';
@@ -26,56 +26,20 @@ export async function bundle(moduleRoot: string) {
     }
 
     const outputFile = await createSourceBundle();
-
-    // add code to assembly.
-    spec.code = (await fs.readFile(outputFile)).toString();
-
-    const formattedSpec = JSON.stringify(spec, filterEmpty, 2);
+    try {
+        // add code to assembly.
+        spec.code = await fs.readFile(outputFile, { encoding: 'utf-8' });
+    } finally {
+        await fs.unlink(outputFile);
+    }
 
     const specOutputFilePath = path.join(outputDir, SPEC_FILE_NAME);
-    await fs.writeFile(specOutputFilePath, formattedSpec);
-
-    // TODO (SDK-3495): since js code is now part of the assembly (spec) and the jsii-kernel adds
-    // type information in runtime, we can remove this runtime type info decoration.
-    const typeinfoSource = generateCodeForTypeInfo(JSON.parse(formattedSpec) as Assembly);
-    await new Promise((ok, fail) => fs.appendFile(outputFile, typeinfoSource, err => err ? fail(err) : ok()));
+    await fs.writeJson(specOutputFilePath, spec, { replacer: filterEmpty, spaces: 2 });
 
     return outputDir;
 
-    function generateCodeForTypeInfo(assm: Assembly) {
-        let sourceCode = "\n\n";
-
-        appendSourceLine('// ================== jsii type info - BEGIN =========================');
-
-        // generates code that adds a __jsii__ property to all constructors
-        // with the fqn of the type. this is used to allow runtime code to unmarshall
-        // native types given a javascript object.
-        if (assm.typecount > 0) {
-            Object.keys(assm.types).forEach(name => {
-                const type = assm.types[name];
-                if (type.kind !== TypeKind.Interface) {
-                    const jsiiInfo = { fqn: type.fqn };
-                    appendSourceLine(`${name}.__jsii__ = ${JSON.stringify(jsiiInfo)};`);
-                }
-            });
-        }
-
-        // generates code that adds a __jsii__ property to the module itself
-        // with the entire spec for runtime inspection.
-
-        appendSourceLine(`${moduleName}.__jsii__ = ${JSON.stringify(assm)};`);
-
-        appendSourceLine('// ================== jsii type info - END =========================');
-
-        return sourceCode;
-
-        function appendSourceLine(line: string) {
-            sourceCode += line + '\n';
-        }
-    }
-
     function createSourceBundle(): Promise<string> {
-        const bundleFileName = BUNDLE_FILE_NAME;
+        const bundleFileName = `${spec.names.js}.js`;
         const externals: { [name: string]: string } = { };
         const webpackConfig: webpack.Configuration = {
             devtool: 'inline-source-map',

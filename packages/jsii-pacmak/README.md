@@ -9,8 +9,8 @@ $ jsii-pacmak <language> <jsii-bundle-dir> <outdir>
 ```
 
  * `language` is the target language (e.g. `java`)
- * `jsii-bundle-dir` is a directory with the `jsii.json` and `jsii.js` files
-   produced by the jsii compiler.
+ * `jsii-bundle-dir` is a directory with the `assembly.jsii` file produced
+   by the jsii compiler.
  * `outdir` is the directory into which the package is generated.
 
 ## Adding support for new languages

@@ -9,5 +9,8 @@
   },
   "scripts": {
     "prepare": "chmod +x bin/*"
+  },
+  "dependencies": {
+    "fs-extra": "^4.0.3"
   }
 }

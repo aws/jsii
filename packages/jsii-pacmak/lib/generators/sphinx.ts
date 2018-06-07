@@ -19,8 +19,8 @@ export default class SphinxDocsGenerator extends Generator {
             : { name: '', underClass: false };
     }
 
-    constructor(mod: spec.Assembly, bundleFilePath: string) {
-        super(mod, bundleFilePath, {
+    constructor(mod: spec.Assembly) {
+        super(mod, {
             target: 'js',
             expandUnionProperties: false
         });
