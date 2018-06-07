@@ -22,11 +22,6 @@ import java.util.stream.Collectors;
 public class JsiiRuntime {
 
     /**
-     * Expected runtime version.
-     */
-    private static final String EXPECTED_RUNTIME_VERSION = JsiiVersion.RUNTIME_VERSION;
-
-    /**
      * JSON object mapper.
      */
     private static final ObjectMapper OM = new ObjectMapper();
@@ -266,11 +261,7 @@ public class JsiiRuntime {
         }
 
         String runtimeVersion = helloResponse.get("hello").asText();
-        if (runtimeVersion.compareTo(EXPECTED_RUNTIME_VERSION) != 0) {
-            throw new JsiiException("Unexpected jsii-runtime version. Expecting "
-                    + EXPECTED_RUNTIME_VERSION
-                    + ", actual was " + runtimeVersion);
-        }
+        JsiiVersion.assertCompatibleWith(runtimeVersion);
     }
 
     /**
