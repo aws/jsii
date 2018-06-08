@@ -5,11 +5,11 @@ import org.junit.Test;
 public final class JsiiVersionTest {
     @Test
     public void testShortVersion() {
-        JsiiVersion.assertCompatibleWith("jsii-runtime@0.4.0-pre");
+        JsiiVersion.assertCompatibleWith(JsiiVersion.EXPECTED_RUNTIME_VERSION);
     }
 
     @Test
     public void testLongVersion() {
-        JsiiVersion.assertCompatibleWith("jsii-runtime@0.4.0-pre+fooba0");
+        JsiiVersion.assertCompatibleWith(JsiiVersion.EXPECTED_RUNTIME_VERSION + "+fooba0");
     }
 }
