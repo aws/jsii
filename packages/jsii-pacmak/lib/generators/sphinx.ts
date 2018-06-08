@@ -473,7 +473,7 @@ export default class SphinxDocsGenerator extends Generator {
         this.code.line();
         const readonly = prop.immutable ? ' *(readonly)*' : '';
         const abs = prop.abstract ? ' *(abstract)*' : '';
-        const stat = prop.static ? ' *(static)*': '';
+        const stat = prop.static ? ' *(static)*' : '';
         this.code.line(`:type: ${type.ref}${readonly}${abs}${stat}`);
         this.code.closeBlock();
     }

@@ -35,11 +35,17 @@ export class GeneratorOptions {
     addBasePostfixToAbstractClassNames? = false
 }
 
+export interface IGenerator
+{
+    generate(): void;
+    save(outdir: string): Promise<any>;
+}
+
 /**
  * Abstract base class for jsii package generators.
  * Given a jsii module, it will invoke "events" to emit various elements.
  */
-export abstract class Generator {
+export abstract class Generator implements IGenerator {
     private readonly options: GeneratorOptions;
     private readonly mod: spec.Assembly
     private readonly excludeTypes = new Array<string>();

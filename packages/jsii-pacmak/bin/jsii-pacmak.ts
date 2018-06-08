@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-import 'source-map-support/register'
-import * as yargs from 'yargs'
-import { generate } from '../lib'
+import 'source-map-support/register';
+import * as yargs from 'yargs';
+import { generate } from '../lib';
 
 const argv = yargs
     .usage('Usage: jsii-pacmak -t target -o outdir <jsii-dir>')
@@ -17,6 +17,7 @@ const outDir = argv.outdir;
 const jsiiFile = argv._[0];
 
 generate(target, jsiiFile, outDir).catch(e => {
+    /* tslint:disable-next-line:no-console */
     console.error(e);
     process.exit(1);
 });

@@ -1,0 +1,5 @@
+<Project>
+  <PropertyGroup>
+    <PackageOutputPath>..\..\bin\$(Configuration)\NuGet\</PackageOutputPath>
+  </PropertyGroup>
+</Project>

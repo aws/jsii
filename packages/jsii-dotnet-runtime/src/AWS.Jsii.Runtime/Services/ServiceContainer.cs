@@ -1,0 +1,52 @@
+﻿using AWS.Jsii.JsonModel.FileSystem;
+using AWS.Jsii.Runtime.Services.Converters;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Threading;
+
+namespace AWS.Jsii.Runtime.Services
+{
+    public static class ServiceContainer
+    {
+        static readonly Lazy<IServiceProvider> _serviceProvider = new Lazy<IServiceProvider>(
+            () => BuildServiceProvider(),
+            LazyThreadSafetyMode.ExecutionAndPublication
+        );
+
+        public static IServiceProvider ServiceProviderOverride { get; set; }
+
+        public static IServiceProvider ServiceProvider => ServiceProviderOverride ?? _serviceProvider.Value;
+
+        public static IServiceProvider BuildServiceProvider(ILoggerFactory loggerFactoryOverride = null)
+        {
+            IServiceCollection serviceCollection = new ServiceCollection();
+
+            if (loggerFactoryOverride == null)
+            {
+                serviceCollection.AddLogging(builder => builder.AddConsole());
+            }
+            else
+            {
+                serviceCollection.AddSingleton(loggerFactoryOverride);
+            }
+
+            serviceCollection.AddSingleton<IFileSystem, FileSystem>();
+            serviceCollection.AddSingleton<IJsiiRuntimeProvider, JsiiRuntimeProvider>();
+            serviceCollection.AddSingleton<ILoadedPackageSet, LoadedPackageSet>();
+            serviceCollection.AddSingleton<ITypeCache, TypeCache>();
+            serviceCollection.AddSingleton<IJsiiToFrameworkConverter, JsiiToFrameworkConverter>();
+            serviceCollection.AddSingleton<IFrameworkToJsiiConverter, FrameworkToJsiiConverter>();
+            serviceCollection.AddSingleton<IReferenceMap, ReferenceMap>();
+            serviceCollection.AddSingleton<INodeProcess, NodeProcess>();
+            serviceCollection.AddSingleton<IRuntime, Runtime>();
+            serviceCollection.AddTransient<IClient, Client>();
+
+            IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
+            IClient client = serviceProvider.GetRequiredService<IClient>();
+            client.Hello();
+
+            return serviceProvider;
+        }
+    }
+}

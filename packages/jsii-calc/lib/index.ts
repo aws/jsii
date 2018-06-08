@@ -219,7 +219,7 @@ export class Power extends composition.CompositeOperation {
         super();
     }
 
-    get expression() {
+    get expression(): Value {
         let curr: Operation = new Number(1);
         for (let i = 0; i < this.pow.value; ++i) {
             curr = new Multiply(curr, this.base);

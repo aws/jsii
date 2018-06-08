@@ -1,7 +1,7 @@
-import { Generator } from '../generator'
-import * as spec from 'jsii-spec'
-import * as path from 'path'
+import * as spec from 'jsii-spec';
 import { Docs } from 'jsii-spec';
+import * as path from 'path';
+import { Generator } from '../generator';
 
 const MODULE_CLASS_NAME = '$Module';
 const ASSEMBLY_FILE_NAME = 'assembly.jsii';
@@ -9,7 +9,7 @@ const INTERFACE_PROXY_CLASS_NAME = 'Jsii$Proxy';
 const INTERFACE_POJO_CLASS_NAME = 'Jsii$Pojo';
 
 export default class JavaGenerator extends Generator {
-    private moduleClass: string
+    private moduleClass: string;
 
     constructor(mod: spec.Assembly) {
         super(mod, {
@@ -29,16 +29,16 @@ export default class JavaGenerator extends Generator {
         this.openFileIfNeeded(cls);
         this.addJavaDocs(cls);
 
-        let classBase = this.getClassBase(cls);
-        let extendsExpression = classBase ? ` extends ${classBase}` : '';
+        const classBase = this.getClassBase(cls);
+        const extendsExpression = classBase ? ` extends ${classBase}` : '';
 
         let implementsExpr = '';
         if (cls.interfaces && cls.interfaces.length > 0) {
             implementsExpr = ' implements ' + cls.interfaces.map(x => this.toNativeFqn(x.fqn!));
         }
 
-        let inner = cls.parenttype ? ' static' : '';
-        let absPrefix = abstract ? ' abstract' : '';
+        const inner = cls.parenttype ? ' static' : '';
+        const absPrefix = abstract ? ' abstract' : '';
 
         this.code.line(`@org.jsii.Jsii(module = ${this.moduleClass}.class, fqn = "${cls.fqn}")`);
         this.code.openBlock(`public${inner}${absPrefix} class ${cls.name}${extendsExpression}${implementsExpr}`);
@@ -60,11 +60,127 @@ export default class JavaGenerator extends Generator {
     }
 
     protected onInitializerOverload(cls: spec.ClassType, overload: spec.Method, originalInitializer: spec.Method) {
-        this.onInitializer(cls, overload); originalInitializer;
+        this.onInitializer(cls, overload);
+
+        /* tslint:disable-next-line no-unused-expression */
+        originalInitializer;
     }
 
     protected onField(cls: spec.ClassType, prop: spec.Property, union?: spec.UnionTypeReference) {
-        cls; prop; union
+        /* tslint:disable-next-line no-unused-expression */
+        cls; prop; union;
+    }
+
+    protected onProperty(cls: spec.ClassType, prop: spec.Property) {
+        this.emitProperty(cls, prop);
+    }
+
+    protected onStaticProperty(cls: spec.ClassType, prop: spec.Property) {
+        if (prop.const) {
+            this.emitConstProperty(prop);
+        } else {
+            this.emitProperty(cls, prop);
+        }
+    }
+
+    /**
+     * Since we expand the union setters, we will use this event to only emit the getter which returns an Object.
+     */
+    protected onUnionProperty(cls: spec.ClassType, prop: spec.Property, _union: spec.UnionTypeReference) {
+        this.emitProperty(cls, prop);
+    }
+
+    protected onMethod(cls: spec.ClassType, method: spec.Method) {
+        this.emitMethod(cls, method);
+    }
+
+    protected onMethodOverload(cls: spec.ClassType, overload: spec.Method, _originalMethod: spec.Method) {
+        this.onMethod(cls, overload);
+    }
+
+    protected onStaticMethod(cls: spec.ClassType, method: spec.Method) {
+        this.emitMethod(cls, method);
+    }
+
+    protected onStaticMethodOverload(cls: spec.ClassType, overload: spec.Method, _originalMethod: spec.Method) {
+        this.emitMethod(cls, overload);
+    }
+
+    protected onBeginEnum(enm: spec.EnumType) {
+        this.openFileIfNeeded(enm);
+        this.addJavaDocs(enm);
+        this.code.line(`@org.jsii.Jsii(module = ${this.moduleClass}.class, fqn = "${enm.fqn}")`);
+        this.code.openBlock(`public enum ${enm.name}`);
+    }
+    protected onEndEnum(enm: spec.EnumType) {
+        this.code.closeBlock();
+        this.closeFileIfNeeded(enm);
+    }
+    protected onEnumMember(_: spec.EnumType, member: spec.EnumMember) {
+        this.addJavaDocs(member);
+        this.code.line(`${member.name},`);
+    }
+
+    // namespaces are handled implicitly by onBeginClass().
+    protected onBeginNamespace(ns: string) {
+        /* tslint:disable-next-line no-unused-expression */
+        ns;
+    }
+
+    protected onEndNamespace(ns: string) {
+        /* tslint:disable-next-line no-unused-expression */
+        ns;
+    }
+
+    protected onBeginInterface(ifc: spec.InterfaceType) {
+        this.openFileIfNeeded(ifc);
+        this.addJavaDocs(ifc);
+
+        // all interfaces always extend JsiiInterface so we can identify that it is a jsii interface.
+        const interfaces = ifc.interfaces || [];
+        const bases = [ 'org.jsii.JsiiSerializable', ...interfaces.map(x => this.toNativeFqn(x.fqn!)) ].join(', ');
+
+        const inner = ifc.parenttype ? ' static' : '';
+        this.code.openBlock(`public${inner} interface ${ifc.name} extends ${bases}`);
+    }
+
+    protected onEndInterface(ifc: spec.InterfaceType) {
+        if (ifc.datatype) {
+            this.emitInterfaceBuilder(ifc);
+        }
+
+        // emit interface proxy class
+        this.emitInterfaceProxy(ifc);
+
+        this.code.closeBlock();
+        this.closeFileIfNeeded(ifc);
+    }
+
+    protected onInterfaceMethod(_ifc: spec.InterfaceType, method: spec.Method) {
+        const returnType = method.returns ? this.toJavaType(method.returns) : 'void';
+        this.addJavaDocs(method);
+        this.code.line(`${returnType} ${method.name}(${this.renderMethodParameters(method)});`);
+    }
+
+    protected onInterfaceMethodOverload(ifc: spec.InterfaceType, overload: spec.Method, _originalMethod: spec.Method) {
+        this.onInterfaceMethod(ifc, overload);
+    }
+
+    protected onInterfaceProperty(_ifc: spec.InterfaceType, prop: spec.Property) {
+        const getterType = this.toJavaType(prop.type);
+        const setterTypes = this.toJavaTypes(prop.type);
+        const propName = this.code.toPascalCase(prop.name);
+
+        // for unions we only generate overloads for setters, not getters.
+        this.addJavaDocs(prop);
+        this.code.line(`${getterType} get${propName}();`);
+
+        if (!prop.immutable) {
+            for (const type of setterTypes) {
+                this.addJavaDocs(prop);
+                this.code.line(`void set${propName}(final ${type} value);`);
+            }
+        }
     }
 
     private emitStaticInitializer(cls: spec.ClassType) {
@@ -131,7 +247,7 @@ export default class JavaGenerator extends Generator {
                 this.addJavaDocs(prop);
                 this.code.openBlock(`${access} ${statc}void set${propName}(final ${type} value)`);
                 let statement = '';
-    
+
                 if (prop.static) {
                     statement += `org.jsii.JsiiObject.jsiiStaticSet(${javaClass}.class, `;
                 } else {
@@ -144,41 +260,6 @@ export default class JavaGenerator extends Generator {
         }
     }
 
-    protected onProperty(cls: spec.ClassType, prop: spec.Property) {
-        this.emitProperty(cls, prop)
-    }
-
-    protected onStaticProperty(cls: spec.ClassType, prop: spec.Property) {
-        if (prop.const) {
-            this.emitConstProperty(prop);
-        } else {
-            this.emitProperty(cls, prop);
-        }
-    }
-
-    /**
-     * Since we expand the union setters, we will use this event to only emit the getter which returns an Object.
-     */
-    protected onUnionProperty(cls: spec.ClassType, prop: spec.Property, _union: spec.UnionTypeReference) {
-        this.emitProperty(cls, prop);
-    }
-
-    protected onMethod(cls: spec.ClassType, method: spec.Method) {
-        this.emitMethod(cls, method);
-    }
-
-    protected onMethodOverload(cls: spec.ClassType, overload: spec.Method, _originalMethod: spec.Method) {
-        this.onMethod(cls, overload);
-    }
-
-    protected onStaticMethod(cls: spec.ClassType, method: spec.Method) {
-        this.emitMethod(cls, method);
-    }
-
-    protected onStaticMethodOverload(cls: spec.ClassType, overload: spec.Method, _originalMethod: spec.Method) {
-        this.emitMethod(cls, overload);
-    }
-
     private emitMethod(cls: spec.Type, method: spec.Method) {
         const returnType = method.returns ? this.toJavaType(method.returns) : 'void';
         const statc = method.static ? 'static ' : '';
@@ -188,56 +269,12 @@ export default class JavaGenerator extends Generator {
         const signature = `${returnType} ${methodName}(${this.renderMethodParameters(method)})`;
         this.addJavaDocs(method);
         if (method.abstract) {
-            this.code.line(`${access} abstract ${signature};`)
-        }
-        else {
+            this.code.line(`${access} abstract ${signature};`);
+        } else {
             this.code.openBlock(`${access} ${statc}${signature}`);
             this.code.line(this.renderMethodCall(cls, method, async));
             this.code.closeBlock();
         }
-    }
-
-    protected onBeginEnum(enm: spec.EnumType) {
-        this.openFileIfNeeded(enm);
-        this.addJavaDocs(enm);
-        this.code.line(`@org.jsii.Jsii(module = ${this.moduleClass}.class, fqn = "${enm.fqn}")`);
-        this.code.openBlock(`public enum ${enm.name}`);
-    }
-    protected onEndEnum(enm: spec.EnumType) {
-        this.code.closeBlock();
-        this.closeFileIfNeeded(enm);
-    }
-    protected onEnumMember(_: spec.EnumType, member: spec.EnumMember) {
-        this.addJavaDocs(member);
-        this.code.line(`${member.name},`);
-    }
-
-    // namespaces are handled implicitly by onBeginClass().
-    protected onBeginNamespace(ns: string) { ns; }
-    protected onEndNamespace(ns: string) { ns; }
-
-    protected onBeginInterface(ifc: spec.InterfaceType) {
-        this.openFileIfNeeded(ifc);
-        this.addJavaDocs(ifc);
-
-        // all interfaces always extend JsiiInterface so we can identify that it is a jsii interface.
-        const interfaces = ifc.interfaces || [];
-        const bases = [ 'org.jsii.JsiiSerializable', ...interfaces.map(x => this.toNativeFqn(x.fqn!)) ].join(', ');
-
-        let inner = ifc.parenttype ? ' static' : '';
-        this.code.openBlock(`public${inner} interface ${ifc.name} extends ${bases}`);
-    }
-
-    protected onEndInterface(ifc: spec.InterfaceType) {
-        if (ifc.datatype) {
-            this.emitInterfaceBuilder(ifc);
-        }
-
-        // emit interface proxy class
-        this.emitInterfaceProxy(ifc);
-
-        this.code.closeBlock();
-        this.closeFileIfNeeded(ifc);
     }
 
     /**
@@ -250,7 +287,7 @@ export default class JavaGenerator extends Generator {
         const name = INTERFACE_PROXY_CLASS_NAME;
 
         this.code.line();
-        this.code.line('/**')
+        this.code.line('/**');
         this.code.line(' * A proxy class which for javascript object literal which adhere to this interface.');
         this.code.line(' */');
         this.code.openBlock(`class ${name} extends org.jsii.JsiiObject implements ${this.toNativeFqn(ifc.fqn)}`);
@@ -258,16 +295,16 @@ export default class JavaGenerator extends Generator {
 
         // compile a list of all unique methods from the current interface and all
         // base interfaces (and their bases).
-        let methods: { [name: string]: spec.Method } = {};
-        let properties: { [name: string]: spec.Property } = {};
-        const collectMembers = (ifc: spec.InterfaceType) => {
-            for (let prop of ifc.properties || []) {
+        const methods: { [name: string]: spec.Method } = {};
+        const properties: { [name: string]: spec.Property } = {};
+        const collectMembers = (currentIfc: spec.InterfaceType) => {
+            for (const prop of currentIfc.properties || []) {
                 properties[prop.name] = prop;
             }
-            for (let method of ifc.methods || []) {
+            for (const method of currentIfc.methods || []) {
                 methods[method.name!] = method;
             }
-            for (const base of ifc.interfaces || []) {
+            for (const base of currentIfc.interfaces || []) {
                 const type = this.findType(base.fqn!);
                 if (type.kind !== spec.TypeKind.Interface) {
                     throw new Error(`Base interfaces of an interface must be an interface (${base.fqn} is of type ${type.kind})`);
@@ -278,45 +315,18 @@ export default class JavaGenerator extends Generator {
         collectMembers(ifc);
 
         // emit all properties
-        for (let propName of Object.keys(properties)) {
+        for (const propName of Object.keys(properties)) {
             const prop = properties[propName];
             this.emitProperty(ifc, prop);
         }
 
         // emit all the methods
-        for (let methodName of Object.keys(methods)) {
+        for (const methodName of Object.keys(methods)) {
             const method = methods[methodName];
             this.emitMethod(ifc, method);
         }
 
         this.code.closeBlock();
-    }
-
-    protected onInterfaceMethod(_ifc: spec.InterfaceType, method: spec.Method) {
-        const returnType = method.returns ? this.toJavaType(method.returns) : 'void';
-        this.addJavaDocs(method);
-        this.code.line(`${returnType} ${method.name}(${this.renderMethodParameters(method)});`);
-    }
-
-    protected onInterfaceMethodOverload(ifc: spec.InterfaceType, overload: spec.Method, _originalMethod: spec.Method) {
-        this.onInterfaceMethod(ifc, overload);
-    }
-
-    protected onInterfaceProperty(_ifc: spec.InterfaceType, prop: spec.Property) {
-        const getterType = this.toJavaType(prop.type);
-        const setterTypes = this.toJavaTypes(prop.type);
-        const propName = this.code.toPascalCase(prop.name);
-
-        // for unions we only generate overloads for setters, not getters.
-        this.addJavaDocs(prop);
-        this.code.line(`${getterType} get${propName}();`);
-
-        if (!prop.immutable) {
-            for (const type of setterTypes) {
-                this.addJavaDocs(prop);
-                this.code.line(`void set${propName}(final ${type} value);`);
-            }
-        }
     }
 
     private emitInterfaceBuilder(ifc: spec.InterfaceType) {
@@ -346,7 +356,7 @@ export default class JavaGenerator extends Generator {
             nextStepInterfaceName?: string
             inherited: boolean
             immutable: boolean
-        };
+        }
 
         const props = new Array<Prop>();
         const requiredProps = new Array<Prop>();
@@ -355,8 +365,8 @@ export default class JavaGenerator extends Generator {
         // collect all properties from all base structs
         const self = this;
 
-        function collectProps(ifc: spec.InterfaceType, isBaseClass = false) {
-            for (let property of ifc.properties || []) {
+        function collectProps(currentIfc: spec.InterfaceType, isBaseClass = false) {
+            for (const property of currentIfc.properties || []) {
                 const propName = self.code.toPascalCase(property.name);
                 const optional = property.type.optional;
 
@@ -383,7 +393,7 @@ export default class JavaGenerator extends Generator {
             }
 
             // add props of base struct
-            for (let base of ifc.interfaces || []) {
+            for (const base of currentIfc.interfaces || []) {
                 collectProps(self.findType(base.fqn) as spec.InterfaceType, true);
             }
         }
@@ -427,7 +437,7 @@ export default class JavaGenerator extends Generator {
             this.code.line('/**');
             this.code.line(` * A fluent step builder class for ${interfaceName}.`);
             this.code.line(' * The build() method will be available once all required properties are fulfilled.');
-            this.code.line(' */')
+            this.code.line(' */');
             this.code.openBlock(`class ${builderName}`);
 
             const firstProp = requiredProps.shift()!;
@@ -438,10 +448,10 @@ export default class JavaGenerator extends Generator {
                     this.addJavaDocs(prop.spec, `Sets the value for ${interfaceName}::${prop.propName}.`);
                     this.code.line(`${prop.nextStepInterfaceName} with${prop.propName}(final ${type} value);`);
                 }
-            }
+            };
 
             // generate step interfaces
-            for (let rp of requiredProps) {
+            for (const rp of requiredProps) {
                 this.code.line();
                 this.code.openBlock(`public interface ${rp.stepInterfaceName}`);
                 emitWithInterfaceMethod(rp);
@@ -455,7 +465,7 @@ export default class JavaGenerator extends Generator {
             this.code.line(` * Returns a new ${interfaceName} object, initialized with the values set on this builder.`);
             this.code.line(` */`);
             this.code.line(`${interfaceName} build();`);
-            for (let opt of optionalProps) {
+            for (const opt of optionalProps) {
                 emitWithInterfaceMethod(opt);
             }
             this.code.closeBlock();
@@ -469,7 +479,7 @@ export default class JavaGenerator extends Generator {
             this.code.line(`private ${pojoName} instance = new ${pojoName}();`);
             this.code.line();
 
-            for (let prop of props) {
+            for (const prop of props) {
                 emitWithImplementation(prop);
             }
 
@@ -482,18 +492,17 @@ export default class JavaGenerator extends Generator {
             this.code.closeBlock(); // FullBuilder
 
             this.code.closeBlock(); // Builder
-        }
-        else {
+        } else {
             this.code.line();
             this.code.line('/**');
             this.code.line(` * A fluent builder class for ${interfaceName}.`);
-            this.code.line(' */')
+            this.code.line(' */');
             this.code.openBlock(`public static class ${builderName}`);
 
             this.code.line(`private ${pojoName} instance = new ${pojoName}();`);
             this.code.line();
 
-            for (let prop of props) {
+            for (const prop of props) {
                 emitWithImplementation(prop);
             }
 
@@ -511,7 +520,7 @@ export default class JavaGenerator extends Generator {
         }
 
         this.code.line();
-        this.code.line('/**')
+        this.code.line('/**');
         this.code.line(' * A PoJo (plain-old-java-object) class that implements this interface.');
         this.code.line(' */');
         this.code.openBlock(`class ${pojoName} implements ${interfaceName}`);
@@ -568,7 +577,9 @@ export default class JavaGenerator extends Generator {
     }
 
     private addJavaDocs(doc: spec.Documentable, defaultText?: string) {
-        if (!defaultText && (!doc.docs || Object.keys(doc.docs).length === 0)) return;
+        if (!defaultText && (!doc.docs || Object.keys(doc.docs).length === 0)) {
+            return;
+        }
 
         doc.docs = doc.docs || { };
 
@@ -580,11 +591,10 @@ export default class JavaGenerator extends Generator {
         }
 
         Object.keys(doc.docs).forEach(key => {
-            let value = doc.docs[key];
+            const value = doc.docs[key];
             if (key === 'comment') {
                 value.split('\n').forEach(s => this.code.line(` * ${s}`));
-            }
-            else {
+            } else {
                 this.code.line(` * @${key} ${value.replace(/\n/g, ' ')}`);
             }
         });
@@ -593,7 +603,7 @@ export default class JavaGenerator extends Generator {
         if ((doc as any).parameters) {
             const method = doc as spec.Method;
             if (method.parameters) {
-                for (let param of method.parameters) {
+                for (const param of method.parameters) {
                     if (param.docs && param.docs.comment) {
                         this.code.line(` * @param ${param.name} ${param.docs.comment}`);
                     }
@@ -624,14 +634,11 @@ export default class JavaGenerator extends Generator {
     private toJavaTypes(typeref: spec.TypeReference, forMarshalling = false): string[] {
         if (typeref.primitive) {
             return [ this.toJavaPrimitive(typeref.primitive) ];
-        }
-        else if (typeref.collection) {
+        } else if (typeref.collection) {
             return [ this.toJavaCollection(typeref.collection, forMarshalling) ];
-        }
-        else if (typeref.fqn) {
+        } else if (typeref.fqn) {
             return [ this.toNativeFqn(typeref.fqn) ];
-        }
-        else if (typeref.union) {
+        } else if (typeref.union) {
             const types = new Array<string>();
             for (const subtype of typeref.union.types) {
                 for (const t of this.toJavaTypes(subtype, forMarshalling)) {
@@ -639,14 +646,13 @@ export default class JavaGenerator extends Generator {
                 }
             }
             return types;
-        }
-        else {
+        } else {
             throw new Error('Invalid type reference: ' + JSON.stringify(typeref));
         }
     }
 
     private toJavaCollection(collection: spec.CollectionTypeReference, forMarshalling: boolean) {
-        let elementJavaType = this.toJavaType(collection.elementtype);
+        const elementJavaType = this.toJavaType(collection.elementtype);
         switch (collection.kind) {
             case spec.CollectionKind.Array: return forMarshalling ? 'java.util.List' : `java.util.List<${elementJavaType}>`;
             case spec.CollectionKind.Map: return forMarshalling ? 'java.util.Map' : `java.util.Map<java.lang.String, ${elementJavaType}>`;
@@ -704,9 +710,8 @@ export default class JavaGenerator extends Generator {
 
         if (method.returns) {
             statement += `, ${this.toJavaType(method.returns, true)}.class`;
-        }
-        else {
-            statement += ', Void.class'
+        } else {
+            statement += ', Void.class';
         }
         statement += this.renderMethodCallArguments(method);
         statement += ');';
@@ -715,9 +720,9 @@ export default class JavaGenerator extends Generator {
     }
 
     private renderMethodParameters(method: spec.Method) {
-        const params = []
+        const params = [];
         if (method.parameters) {
-            for (let p of method.parameters) {
+            for (const p of method.parameters) {
                 params.push(`final ${this.toJavaType(p.type)}${p.variadic ? '...' : ''} ${p.name}`);
             }
         }
@@ -753,12 +758,12 @@ export default class JavaGenerator extends Generator {
         // dependencies
         if (mod.dependencies && Object.keys(mod.dependencies).length > 0) {
             const deps = [];
-            for (let dep in mod.dependencies) {
+            for (const dep of Object.keys(mod.dependencies)) {
                 deps.push(`${this.makeModuleClass(dep)}.class`);
             }
 
             this.code.line('@Override');
-            this.code.openBlock(`public java.util.List<Class> getDependencies()`)
+            this.code.openBlock(`public java.util.List<Class> getDependencies()`);
             this.code.line(`return java.util.Arrays.asList(${deps.join(', ')});`);
             this.code.closeBlock();
         }
@@ -796,4 +801,3 @@ const RESERVED_KEYWORDS = [
     'public', 'return', 'short', 'static', 'strictfp', 'super', 'switch', 'synchronized',
     'this', 'throw', 'throws', 'transient', 'true', 'try', 'void', 'volatile', 'while'
 ];
-

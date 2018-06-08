@@ -255,7 +255,7 @@ public class ComplianceTest {
         assertEquals(10 + 5 + (2 * 3), sum.getValue());
         assertEquals(5, sum.getParts().get(0).getValue());
         assertEquals(6, sum.getParts().get(2).getValue());
-        assertEquals(sum.toString(), "(((0 + 5) + 10) + (2 * 3))");
+        assertEquals("(((0 + 5) + 10) + (2 * 3))", sum.toString());
     }
 
     @Test

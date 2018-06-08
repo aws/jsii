@@ -8,8 +8,9 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "prepare": "tsc && chmod +x bin/jsii-pacmak",
+    "prepare": "tsc && chmod +x bin/jsii-pacmak && tslint -p .",
     "watch": "tsc -w",
+    "lint": "tslint -p . --force",
     "test": "/bin/bash test/diff-test.sh"
   },
   "keywords": [
@@ -21,6 +22,7 @@
     "codemaker": "^0.5.0-beta",
     "fs-extra": "^4.0.3",
     "jsii-spec": "^0.5.0-beta",
+    "jsii-dotnet-generator": "^0.5.0-beta",
     "source-map-support": "^0.5.6",
     "yargs": "^9.0.0"
   },
@@ -34,7 +36,8 @@
     "jsii-calc": "^0.5.0-beta",
     "jsii-calc-lib": "^0.5.0-beta",
     "nodeunit": "^0.11.2",
-    "typescript": "^2.8.3"
+    "typescript": "^2.8.3",
+    "tslint": "*"
   },
   "author": {
     "name": "Amazon Web Services",
