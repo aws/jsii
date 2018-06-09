@@ -42,8 +42,9 @@ export class Kernel {
      *                        result (or throw an error).
      */
     constructor(public callbackHandler: (callback: api.Callback) => any) {
-        // setImmediate is required for tests to pass (it is otherwise impossible to wait for in-VM promises to complete)
-        this.sandbox = vm.createContext({ setImmediate });
+        // `setImmediate` is required for tests to pass (it is otherwise impossible to wait for in-VM promises to complete)
+        // `Buffer` is required when using simple-resource-bundler.
+        this.sandbox = vm.createContext({ Buffer, setImmediate });
     }
 
     public async load(req: api.LoadRequest): Promise<api.LoadResponse> {
