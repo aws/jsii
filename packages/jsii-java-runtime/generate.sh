@@ -16,7 +16,7 @@ package org.jsii;
 final class JsiiVersion {
     private static final String BUILD_PART_REGEX = "\\\\+[a-z0-9]+$";
     private static final String JAVA_RUNTIME_FULL_VERSION = "jsii-runtime@${version}";
-    private static final String EXPECTED_RUNTIME_VERSION = JAVA_RUNTIME_FULL_VERSION.replaceAll(BUILD_PART_REGEX, "");
+    static final String EXPECTED_RUNTIME_VERSION = JAVA_RUNTIME_FULL_VERSION.replaceAll(BUILD_PART_REGEX, "");
 
     /**
      * Asserts that a peer runtimeVersion is compatible with this Java runtime version, which means
