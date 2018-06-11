@@ -1,5 +1,6 @@
 import * as fs from 'fs-extra';
 import { SPEC_FILE_NAME } from 'jsii-spec';
+import * as os from 'os';
 import * as path from 'path';
 import * as webpack from 'webpack';
 import { compilePackage } from './compiler';
@@ -38,8 +39,8 @@ export async function bundle(moduleRoot: string) {
 
     return outputDir;
 
-    function createSourceBundle(): Promise<string> {
-        const bundleFileName = `${spec.names.js}.js`;
+    async function createSourceBundle(): Promise<string> {
+        const bundleFileName = 'bundle.js';
         const externals: { [name: string]: string } = { };
         const webpackConfig: webpack.Configuration = {
             devtool: 'inline-source-map',
@@ -65,7 +66,7 @@ export async function bundle(moduleRoot: string) {
                 setImmediate: false,
             },
             output: {
-                path: outputDir, // TODO: SDK-3495 (emit into a temp directory)
+                path: await fs.mkdtemp(path.join(os.tmpdir(), spec.names.js)),
                 filename: bundleFileName,
                 library: moduleName,
                 libraryTarget: 'var',
@@ -83,7 +84,7 @@ export async function bundle(moduleRoot: string) {
             externals[originalName] = normalizeJsiiModuleName(originalName);
         }
 
-        return new Promise<string>((resolve, reject) => {
+        return await new Promise<string>((resolve, reject) => {
             webpack(webpackConfig, (err, stats) => {
                 if (err) {
                     reject(err);
@@ -93,7 +94,7 @@ export async function bundle(moduleRoot: string) {
                         console.error(stats.toString());
                         process.exit(1);
                     }
-                    resolve(path.join(outputDir, bundleFileName));
+                    resolve(path.join(webpackConfig.output!.path!, bundleFileName));
                 }
             });
         });
