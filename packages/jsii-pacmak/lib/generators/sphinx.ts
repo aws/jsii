@@ -48,7 +48,7 @@ export default class SphinxDocsGenerator extends Generator {
 
         this.code.openFile(`${safeName(assm.names.js)}.rst`);
 
-        this.openSection(safeName(assm.names.js));
+        this.openSection(assm.names.js);
         this.code.line();
 
         this.assemblyName = assm.names.js;
@@ -88,7 +88,7 @@ export default class SphinxDocsGenerator extends Generator {
             this.openSection('Reference');
             this.code.line();
         }
-        this.code.line(`.. py:module:: ${nativeName}`);
+        this.code.line(`.. py:module:: ${safeName(nativeName)}`);
         this.code.line();
     }
 
