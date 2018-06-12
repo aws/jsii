@@ -66,7 +66,7 @@ export async function bundle(moduleRoot: string) {
                 setImmediate: false,
             },
             output: {
-                path: await fs.mkdtemp(path.join(os.tmpdir(), spec.names.js)),
+                path: await fs.mkdtemp(os.tmpdir()),
                 filename: bundleFileName,
                 library: moduleName,
                 libraryTarget: 'var',
