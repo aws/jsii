@@ -907,3 +907,39 @@ export class VariadicMethod {
         return [...this.prefix, first, ...others];
     }
 }
+
+export class Statics {
+    constructor(public readonly value: string) { }
+
+    /**
+     * Jsdocs for static method
+     * @param name The name of the person to say hello to
+     */
+    public static staticMethod(name: string) {
+        return `hello ,${name}!`;
+    }
+
+    /**
+     * Jsdocs for static property.
+     */
+    public static readonly Foo = 'hello';
+
+    private static _instance?: Statics
+
+    /**
+     * Jsdocs for static getter.
+     */
+    public static get Instance(): Statics {
+        if (!this._instance) {
+            this._instance = new Statics('default');
+        }
+        return this._instance;
+    }
+
+    /**
+     *Jsdocs for static setter.
+     */
+    public static set Instance(val: Statics) {
+        this._instance = val;
+    }
+}

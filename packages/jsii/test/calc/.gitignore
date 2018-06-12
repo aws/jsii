@@ -1,1 +1,3 @@
 dist
+tsconfig.json
+tslint.json

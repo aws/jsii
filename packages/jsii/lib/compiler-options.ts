@@ -47,5 +47,48 @@ export async function saveCompilerOptions(packageDir: string) {
     }
 
     // overwrite!
-    await fs.writeJson(tsconfigPath, options);
+    await fs.writeJson(tsconfigPath, options, { spaces: 2 });
+}
+
+export async function saveLinterOptions(packageDir: string) {
+    const tslintPath = path.join(packageDir, 'tslint.json');
+    const rules = {
+        extends: "tslint:recommended",
+        rules: {
+          "semicolon": [
+            true,
+            "always",
+            "ignore-interfaces"
+          ],
+          "no-invalid-template-strings": false,
+          "quotemark": false,
+          "interface-name": false,
+          "max-classes-per-file": false,
+          "member-access": {
+            severity: "warning"
+          },
+          "interface-over-type-literal": false,
+          "eofline": false,
+          "arrow-parens": false,
+          "no-namespace": false,
+          "max-line-length": [
+            true,
+            150
+          ],
+          "object-literal-sort-keys": false,
+          "trailing-comma": false,
+          "no-unused-expression": [
+            true,
+            "allow-new"
+          ],
+          "variable-name": [
+            true,
+            "ban-keywords",
+            "check-format",
+            "allow-leading-underscore",
+            "allow-pascal-case"
+          ]
+        }
+    };
+    await fs.writeJson(tslintPath, rules, { spaces: 2 });
 }

@@ -8,7 +8,6 @@ namespace MyNamespace {
     }
 }
 
-
 export class ExportedType {
-    p?: MyNamespace.UnexportedType
+    p?: MyNamespace.UnexportedType;
 }

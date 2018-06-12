@@ -1,4 +1,4 @@
-///!MATCH_ERROR: Member names cannot use an underscore: my_Prop
+///!MATCH_ERROR: ERROR 'my_Prop' must use camel-case
 
 export class MyClass {
     my_Prop?: number;

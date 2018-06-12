@@ -1,4 +1,4 @@
-///!MATCH_ERROR: 'PROP' must use camelCase (start with a lowercase letter)
+///!MATCH_ERROR: ERROR 'PROP' must use camel-case
 
 export class MyClass {
     PROP?: number;

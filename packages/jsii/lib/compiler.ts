@@ -1,3 +1,4 @@
+import * as Case from 'case';
 import * as clone from 'clone';
 import * as fs from 'fs-extra';
 import * as glob from 'glob';
@@ -5,7 +6,7 @@ import * as spec from 'jsii-spec';
 import * as path from 'path';
 import * as ts from 'typescript';
 import * as util from 'util';
-import { getCompilerOptions, saveCompilerOptions } from './compiler-options';
+import { getCompilerOptions, saveCompilerOptions, saveLinterOptions } from './compiler-options';
 import { normalizeJsiiModuleName } from './naming';
 import readPackageMetadata from './package-metadata';
 
@@ -39,6 +40,7 @@ export async function compilePackage(packageDir: string, includeDirs = [ 'test',
     // write a copy of the compiler options to the root of the package so IDEs can find it
     // also add to .gitignore to make sure it is not checked in.
     await saveCompilerOptions(packageDir);
+    await saveLinterOptions(packageDir);
 
     // determine list of languages we need our dependencies to specify names for. otherwise,
     // we won't be able to determine the name of types for that dependency.
@@ -206,102 +208,6 @@ export async function compileSources(entrypoint: string,
         return result;
     }
 
-    /**
-     * Returns the contents of a Javascript string literal (without quotes or double-quotes).
-     */
-    function parseStringLiteral(s: string) {
-        const doubleQuotes = s.startsWith('"') && s.endsWith('"');
-        const singleQuotes = s.startsWith("'") && s.endsWith("'");
-
-        if (singleQuotes || doubleQuotes) {
-            return s.substr(1, s.length - 2);
-        }
-
-        throw new Error('Invalid string literal "' + s + '". Either single or double quotes are required');
-    }
-
-    async function tryProcessConstValue(decl: ts.PropertyDeclaration, ctx: string[]) {
-        ctx = ctx.concat(decl.name.getText());
-
-        // warn and ignore non-readonly properties
-        if (!hasModifier(decl, ts.SyntaxKind.ReadonlyKeyword)) {
-            throw error(ctx, 'Only readonly primitives are supported as static members');
-        }
-
-        if (!decl.initializer) {
-            throw error(ctx, 'Const values must be assigned with a value');
-        }
-
-        const constValue = new spec.ConstValue();
-        constValue.name = decl.name.getText();
-
-        switch (decl.initializer.kind) {
-            case ts.SyntaxKind.StringLiteral:
-                constValue.primitive = spec.PrimitiveType.String;
-                constValue.stringValue = parseStringLiteral(decl.initializer.getText());
-                break;
-
-            case ts.SyntaxKind.FirstLiteralToken:
-                constValue.primitive = spec.PrimitiveType.Number;
-                constValue.numberValue = parseFloat(decl.initializer.getText());
-                break;
-
-            case ts.SyntaxKind.FalseKeyword:
-                constValue.primitive = spec.PrimitiveType.Boolean;
-                constValue.booleanValue = false;
-                break;
-
-            case ts.SyntaxKind.TrueKeyword:
-                constValue.primitive = spec.PrimitiveType.Boolean;
-                constValue.booleanValue = true;
-                break;
-
-            default:
-                warning(ctx, 'Non-primitive public const value is skipped');
-                return undefined;
-        }
-
-        return constValue;
-    }
-
-    /**
-     * Classes may expose readonly static primitive values (consts).
-     */
-    async function processConstValues(classDecl: ts.ClassDeclaration | undefined, ctx: string[]) {
-        if (!classDecl) {
-            return [];
-        }
-
-        const result = new Array<spec.ConstValue>();
-
-        for (const m of classDecl.members) {
-            if (!ts.isPropertyDeclaration(m)) {
-                continue;
-            }
-
-            if (!m.name || !m.modifiers) {
-                continue;
-            }
-
-            // non-static
-            if (!hasModifier(m, ts.SyntaxKind.StaticKeyword)) {
-                continue;
-            }
-
-            // ignore private statics
-            if (isHidden(m)) {
-                continue;
-            }
-
-            const constValue = await tryProcessConstValue(m, ctx);
-            if (constValue) {
-                result.push(constValue);
-            }
-        }
-
-        return result;
-    }
-
     async function tryProcessInterface(symbol: ts.Symbol, ctx: string[]): Promise<spec.InterfaceType | undefined> {
         ctx = newContext(ctx, symbol.name);
 
@@ -406,53 +312,65 @@ export async function compileSources(entrypoint: string,
 
         entity.initializer = await tryProcessConstructor(symbol, ctx);
 
-        // process static members - only readonly primitive consts are allowed.
-        entity.consts = await processConstValues(symbol.valueDeclaration as ts.ClassDeclaration, ctx);
+        for (const memberDecl of decl.members) {
+            const mem = (memberDecl as any).symbol;
 
-        const props = classType.getProperties();
-
-        if (props) {
-            for (const mem of props) {
-                if (!mem.valueDeclaration) {
-                    throw error(ctx, entity.fqn + ' - unexpected error for member: ' + mem.name);
-                }
-
-                // Skip properties that are not direct members of this type.
-                if (!isMemberOfClass(mem, symbol.valueDeclaration)) {
-                    continue;
-                }
-
-                // filter out private/protected
-                if (!isPublic(mem.valueDeclaration)) {
-                    continue;
-                }
-
-                if (ts.isMethodDeclaration(mem.valueDeclaration)) {
-                    const method = await tryProcessMethod(mem, ctx);
-                    if (method) {
-                        entity.methods!.push(method);
+            // handle parameter properties (shortcut to defining properties via ctor parameters)
+            if (ts.isConstructorDeclaration(memberDecl)) {
+                const sig = typeChecker.getSignatureFromDeclaration(memberDecl);
+                if (sig) {
+                    for (const p of sig.parameters) {
+                        if (ts.isParameterPropertyDeclaration(p.valueDeclaration!)) {
+                            const prop = await tryProcessProperty(p, ctx);
+                            if (prop) {
+                                entity.properties!.push(prop);
+                            }
+                        }
                     }
-                    continue;
                 }
-
-                if (ts.isPropertyDeclaration(mem.valueDeclaration) || ts.isParameterPropertyDeclaration(mem.valueDeclaration)) {
-                    const prop = await tryProcessProperty(mem, ctx);
-                    if (prop) {
-                        entity.properties!.push(prop);
-                    }
-                    continue;
-                }
-
-                if (ts.isGetAccessorDeclaration(mem.valueDeclaration) || ts.isSetAccessorDeclaration(mem.valueDeclaration)) {
-                    const prop = await tryProcessAccessor(mem, ctx);
-                    if (prop) {
-                        entity.properties!.push(prop);
-                    }
-                    continue;
-                }
-
-                throw error(ctx, entity.fqn + ' - unsupported member kind <' + ts.SyntaxKind[mem.valueDeclaration.kind] + '>: ' + mem.name);
             }
+
+            // Skip properties that are not direct members of this type.
+            if (!isMemberOfClass(mem, symbol.valueDeclaration)) {
+                continue;
+            }
+
+            // filter out private/protected
+            if (!isPublic(memberDecl)) {
+                continue;
+            }
+
+            if (ts.isMethodDeclaration(memberDecl)) {
+                const method = await tryProcessMethod(mem, ctx);
+                if (method) {
+                    entity.methods!.push(method);
+                }
+                continue;
+            }
+
+            if (ts.isPropertyDeclaration(memberDecl) || ts.isParameterPropertyDeclaration(memberDecl)) {
+                const prop = await tryProcessProperty(mem, ctx);
+                if (prop) {
+                    entity.properties!.push(prop);
+                }
+                continue;
+            }
+
+            if (ts.isGetAccessorDeclaration(memberDecl)) {
+                // console.log('here!', ts.SyntaxKind[memberDecl.kind]);
+                const prop = await tryProcessAccessor(mem, ctx);
+                if (prop) {
+                    entity.properties!.push(prop);
+                }
+                continue;
+            }
+
+            // skip "set" accessors because they are covered by the getter.
+            if (ts.isSetAccessorDeclaration(memberDecl)) {
+                continue;
+            }
+
+            warning(ctx, entity.fqn + ' - unsupported member kind <' + ts.SyntaxKind[memberDecl.kind] + '>: ' + mem.name);
         }
 
         return entity;
@@ -573,6 +491,10 @@ export async function compileSources(entrypoint: string,
         const method = new spec.Method();
         method.name = decl.name.getText();
 
+        if (hasModifier(decl, ts.SyntaxKind.StaticKeyword)) {
+            method.static = true;
+        }
+
         if (isProtected(decl)) {
             method.protected = true;
         }
@@ -610,7 +532,7 @@ export async function compileSources(entrypoint: string,
             }
         }
 
-        checkPropertyOrMethodName(method.name, method.parameters!, ctx);
+        checkMemberName(method, false, ctx);
 
         return method;
     }
@@ -649,14 +571,16 @@ export async function compileSources(entrypoint: string,
             return undefined;
         }
 
-        checkPropertyOrMethodName(prop.name, [], ctx);
-
         const signature = typeChecker.getSignatureFromDeclaration(getterDecl);
         if (!signature) {
             throw error(ctx, 'cannot resolve property signature');
         }
 
         prop.type = await resolveType(signature.getReturnType(), ctx);
+
+        if (hasModifier(getterDecl, ts.SyntaxKind.StaticKeyword)) {
+            prop.static = true;
+        }
 
         if (!setterDecl) {
             prop.immutable = true;
@@ -667,6 +591,8 @@ export async function compileSources(entrypoint: string,
             prop.protected = true;
         }
 
+        checkMemberName(prop, true, ctx);
+
         return prop;
     }
 
@@ -676,7 +602,12 @@ export async function compileSources(entrypoint: string,
         const decl = symbol.valueDeclaration as ts.PropertyDeclaration;
         const prop = new spec.Property();
         prop.name = decl.name.getText();
-        checkPropertyOrMethodName(prop.name, [], ctx);
+
+        if (hasModifier(decl, ts.SyntaxKind.StaticKeyword)) {
+            prop.static = true;
+        }
+
+        checkMemberName(prop, true, ctx);
 
         addDocumentation(prop, symbol);
 
@@ -1058,37 +989,47 @@ export async function compileSources(entrypoint: string,
         return (firstChar.toLocaleUpperCase() === firstChar);
     }
 
-    function checkPropertyOrMethodName(symbol: string, params: spec.Parameter[], ctx: string[]) {
-        if (!symbol) { return; }
+    function checkMemberName(member: spec.Property | spec.Method, isProperty: boolean, ctx: string[]) {
+        const symbol = member.name;
+        if (!symbol) { return; } // i.e. initializer
 
-        // make sure symbol (method/property) starts with a lowercase character.
-        if (!startsWithLowerCase(symbol)) {
-            throw error(ctx, `'${symbol}' must use camelCase (start with a lowercase letter)`);
+        // static properties should be all-caps (with a potential underscore). all the rest are the same
+        if (isProperty && member.static) {
+            if (Case.pascal(symbol) !== symbol) {
+                throw error(ctx, `'${symbol}' is a static property and must be pascal-case`);
+            } else {
+                return;
+            }
         }
 
-        if (symbol.startsWith('get') && startsWithUpperCase(symbol.substr(3)) && params.length === 0) {
+        // symbol must start with a lowercase letter (this is how we determine it is camel-case).
+        if (Case.camel(symbol) !== symbol) {
+            throw error(ctx, `'${symbol}' must use camel-case`);
+        }
+
+        // do not allow props/methods use the form getXxx() or setXxx(v), which is used in Java
+        // for property methods.
+
+        let paramCount = 0;
+        if (member instanceof spec.Method) {
+            paramCount = (member.parameters || []).length;
+        }
+
+        if (symbol.startsWith('get') && startsWithUpperCase(symbol.substr(3)) && paramCount === 0) {
             // tslint:disable-next-line:max-line-length
             throw error(ctx, 'Methods and properties cannot have the signature getXxx() since these will conflict with Java property getters by the same name');
         }
 
-        if (symbol.startsWith('set') && startsWithUpperCase(symbol.substr(3)) && params.length === 1) {
+        if (symbol.startsWith('set') && startsWithUpperCase(symbol.substr(3)) && paramCount === 1) {
             throw error(ctx, 'Methods and properties cannot have the signature setXxx(v) since these will conflict with Java property setters');
-        }
-
-        if (symbol.indexOf('_') !== -1) {
-            throw error(ctx, `Member names cannot use an underscore: ${symbol}`);
         }
     }
 
     function checkTypeName(symbol: string, ctx: string[]) {
         if (!symbol) { return; }
 
-        if (!startsWithUpperCase(symbol)) {
-            throw error(ctx, `Type names must begin with an uppercase characters: ${symbol}`);
-        }
-
-        if (symbol.indexOf('_') !== -1) {
-            throw error(ctx, `Type names cannot use an underscore: ${symbol}`);
+        if (Case.pascal(symbol) !== symbol) {
+            throw error(ctx, `Type names must use pascal-case: ${symbol}`);
         }
     }
 
