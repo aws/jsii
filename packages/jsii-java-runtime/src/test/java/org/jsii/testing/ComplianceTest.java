@@ -24,6 +24,7 @@ import org.jsii.tests.calculator.Negate;
 import org.jsii.tests.calculator.NumberGenerator;
 import org.jsii.tests.calculator.Polymorphism;
 import org.jsii.tests.calculator.Power;
+import org.jsii.tests.calculator.Statics;
 import org.jsii.tests.calculator.Sum;
 import org.jsii.tests.calculator.SyncVirtualMethods;
 import org.jsii.tests.calculator.UsesInterfaceWithProperties;
@@ -732,6 +733,17 @@ public class ComplianceTest {
         assertEquals("optional1FromStructLiteral", literal.getOptional1());
         assertEquals(false, literal.getOptional3());
         assertNull(literal.getOptional2());
+    }
+
+    @Test
+    public void statics() {
+        assertEquals("hello ,Yoyo!", Statics.staticMethod("Yoyo"));
+        assertEquals("default", Statics.getInstance().getValue());
+
+        Statics newStatics = new Statics("new value");
+        Statics.setInstance(newStatics);
+        assertSame(Statics.getInstance(), newStatics);
+        assertEquals(Statics.getInstance().getValue(), "new value");
     }
 
     static class MulTen extends Multiply {

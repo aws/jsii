@@ -743,6 +743,49 @@ defineTest('variadic methods can be called without any vararg', async (test, san
                    [1, 2, 3, 4]);
 });
 
+defineTest('static properties - get', async (test, sandbox) => {
+    const value = sandbox.sget({ fqn: 'jsii$jsii_calc$.Statics', property: 'Foo' });
+    test.deepEqual(value, { value: 'hello' });
+});
+
+defineTest('fails: static properties - set readonly', async (test, sandbox) => {
+    test.throws(() => sandbox.sset({ fqn: 'jsii$jsii_calc$.Statics', property: 'Foo', value: 123 }));
+});
+
+defineTest('static properties - set', async (test, sandbox) => {
+    const defaultInstance = sandbox.sget({ fqn: 'jsii$jsii_calc$.Statics', property: 'Instance' });
+    test.deepEqual(sandbox.get({ objref: defaultInstance.value, property: 'value' }), { value: 'default' });
+
+    const obj = sandbox.create({ fqn: 'jsii$jsii_calc$.Statics', args: [ 'MyInstance' ] });
+    sandbox.sset({ fqn: 'jsii$jsii_calc$.Statics', property: 'Instance', value: obj });
+
+    const updatedInstance = sandbox.sget({ fqn: 'jsii$jsii_calc$.Statics', property: 'Instance' });
+    test.deepEqual(sandbox.get({ objref: updatedInstance.value, property: 'value' }), { value: 'MyInstance' });
+});
+
+defineTest('fails: static properties - get/set non-static', async (test, sandbox) => {
+    test.throws(() => sandbox.sget({ fqn: 'jsii$jsii_calc$.Statics', property: 'value' }), /is not static/);
+    test.throws(() => sandbox.sset({ fqn: 'jsii$jsii_calc$.Statics', property: 'value', value: 123 }), /is not static/);
+});
+
+defineTest('fails: static properties - get/set not found', async (test, sandbox) => {
+    test.throws(() => sandbox.sget({ fqn: 'jsii$jsii_calc$.Statics', property: 'zoo' }), /doesn't have a property/);
+    test.throws(() => sandbox.sset({ fqn: 'jsii$jsii_calc$.Statics', property: 'bar', value: 123 }), /doesn't have a property/);
+});
+
+defineTest('static methods', async (test, sandbox) => {
+    const result = sandbox.sinvoke({ fqn: 'jsii$jsii_calc$.Statics', method: 'staticMethod', args: [ 'Jsii' ] });
+    test.deepEqual(result, { result: 'hello ,Jsii!' });
+});
+
+defineTest('fails: static methods - not found', async (test, sandbox) => {
+    test.throws(() => sandbox.sinvoke({ fqn: 'jsii$jsii_calc$.Statics', method: 'staticMethodNotFound', args: [ 'Jsii' ] }), /doesn't have a method/);
+});
+
+defineTest('fails: static methods - not static', async (test, sandbox) => {
+    test.throws(() => sandbox.sinvoke({ fqn: 'jsii$jsii_calc$.Statics', method: 'justMethod', args: [ 'Jsii' ] }), /is not a static method/);
+});
+
 const testNames: { [name: string]: boolean } = { };
 
 async function createCalculatorSandbox(name: string) {

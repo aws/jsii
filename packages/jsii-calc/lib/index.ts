@@ -919,6 +919,10 @@ export class Statics {
         return `hello ,${name}!`;
     }
 
+    public justMethod() {
+        return this.value;
+    }
+
     /**
      * Jsdocs for static property.
      */

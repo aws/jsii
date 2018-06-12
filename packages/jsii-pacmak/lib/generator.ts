@@ -162,6 +162,7 @@ export abstract class Generator {
 
     protected onBeginProperties(_cls: spec.ClassType) { }
     protected abstract onProperty(cls: spec.ClassType, prop: spec.Property): void;
+    protected abstract onStaticProperty(cls: spec.ClassType, prop: spec.Property): void;
     protected onEndProperties(_cls: spec.ClassType) { }
 
     //
@@ -181,6 +182,8 @@ export abstract class Generator {
     protected onBeginMethods(_cls: spec.ClassType) { }
     protected abstract onMethod(cls: spec.ClassType, method: spec.Method): void;
     protected abstract onMethodOverload(cls: spec.ClassType, overload: spec.Method, originalMethod: spec.Method): void
+    protected abstract onStaticMethod(cls: spec.ClassType, method: spec.Method): void;
+    protected abstract onStaticMethodOverload(cls: spec.ClassType, overload: spec.Method, originalMethod: spec.Method): void
     protected onEndMethods(_cls: spec.ClassType) { }
 
     //
@@ -189,14 +192,6 @@ export abstract class Generator {
     protected onBeginEnum(enm: spec.EnumType) { enm; this.notImpl('onBeginEnum'); }
     protected onEndEnum(enm: spec.EnumType) { enm; this.notImpl('onEndEnum'); }
     protected onEnumMember(enm: spec.EnumType, member: spec.EnumMember) { enm; member; this.notImpl('onEnumMember'); }
-
-    //
-    // Consts (with values)
-    // Note that values are JavaScript types and may need to be serialized to literal based on the programming language.
-
-    protected onBeginConsts(_cls: spec.ClassType) { }
-    protected onConstValue(cls: spec.ClassType, constValue: spec.ConstValue, value: any) { cls; constValue; value; this.notImpl('onConstValue'); }
-    protected onEndConsts(_cls: spec.ClassType) { }
 
     //
     // Fields
@@ -334,14 +329,6 @@ export abstract class Generator {
     }
 
     private visitClass(cls: spec.ClassType, abstract: boolean) {
-        if (cls.consts) {
-            this.onBeginConsts(cls);
-            cls.consts.forEach(cv => {
-                this.onConstValue(cls, cv, this.renderConstValue(cv))
-            });
-            this.onEndConsts(cls);
-        }
-
         let initializer = cls.initializer;
         if (!abstract && initializer) {
 
@@ -357,10 +344,18 @@ export abstract class Generator {
         if (cls.methods) {
             this.onBeginMethods(cls);
             cls.methods.forEach(method => {
-                this.onMethod(cls, method);
+                if (!method.static) {
+                    this.onMethod(cls, method);
 
-                for (let overload of this.createOverloadsForOptionals(method)) {
-                    this.onMethodOverload(cls, overload, method);
+                    for (let overload of this.createOverloadsForOptionals(method)) {
+                        this.onMethodOverload(cls, overload, method);
+                    }
+                } else {
+                    this.onStaticMethod(cls, method);
+
+                    for (let overload of this.createOverloadsForOptionals(method)) {
+                        this.onStaticMethodOverload(cls, overload, method);
+                    }
                 }
             });
             this.onEndMethods(cls);
@@ -380,7 +375,11 @@ export abstract class Generator {
                 let union = prop.type.union;
 
                 if (!union) {
-                    this.onProperty(cls, prop);
+                    if (!prop.static) {
+                        this.onProperty(cls, prop);
+                    } else {
+                        this.onStaticProperty(cls, prop);
+                    }
                 }
                 else {
                     // okay, this is a union. some languages support unions (mostly the dynamic ones) and some will need some help
@@ -434,19 +433,6 @@ export abstract class Generator {
 
             return false;
         });
-    }
-
-    private renderConstValue(cv: spec.ConstValue) {
-        switch (cv.primitive) {
-            case spec.PrimitiveType.String:
-                return cv.stringValue;
-            case spec.PrimitiveType.Number:
-                return cv.numberValue;
-            case spec.PrimitiveType.Boolean:
-                return cv.booleanValue;
-            default:
-                throw new Error(`Invalid const value primitive type: ${cv.primitive}`);
-        }
     }
 
     private visitEnum(enumSpec: spec.EnumType) {

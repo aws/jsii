@@ -18,7 +18,7 @@ public class JsiiObject implements JsiiSerializable {
     /**
      * The jsii engine used by this object.
      */
-    private final JsiiEngine engine = JsiiEngine.getInstance();
+    private final static JsiiEngine engine = JsiiEngine.getInstance();
 
     /**
      * The underlying {@link JsiiObjectRef} instance.
@@ -69,6 +69,29 @@ public class JsiiObject implements JsiiSerializable {
     }
 
     /**
+     * Calls a static method.
+     * @param nativeClass The java class.
+     * @param method The method to call.
+     * @param returnType The return type.
+     * @param args The method arguments.
+     * @param <T> Return type.
+     * @return Return value.
+     */
+    protected static <T> T jsiiStaticCall(final Class nativeClass, final String method, final Class<T> returnType, final Object... args) {
+        String fqn = engine.loadModuleForClass(nativeClass);
+        try {
+            return OM.treeToValue(engine.getClient().callStaticMethod(
+                    fqn,
+                    method,
+                    OM.valueToTree(args)),
+                    returnType);
+
+        } catch (JsonProcessingException e) {
+            throw new JsiiException(e);
+        }
+    }
+
+    /**
      * Calls an async method on the object.
      * @param method The name of the method.
      * @param returnType The return type.
@@ -76,12 +99,12 @@ public class JsiiObject implements JsiiSerializable {
      * @param <T> Java type for the return value.
      * @return A ereturn value.
      */
-    public <T> T jsiiAsyncCall(final String method, final Class<T> returnType, final Object... args) {
+    protected <T> T jsiiAsyncCall(final String method, final Class<T> returnType, final Object... args) {
         try {
-            JsiiClient client = this.engine.getClient();
+            JsiiClient client = engine.getClient();
             JsiiPromise promise = client.beginAsyncMethod(this.objRef, method, OM.valueToTree(args));
 
-            this.engine.processAllPendingCallbacks();
+            engine.processAllPendingCallbacks();
 
             JsonNode ret = client.endAsyncMethod(promise);
             return OM.treeToValue(ret, returnType);
@@ -99,7 +122,24 @@ public class JsiiObject implements JsiiSerializable {
      */
     protected <T> T jsiiGet(final String property, final Class<T> type) {
         try {
-            return OM.treeToValue(this.engine.getClient().getPropertyValue(this.objRef, property), type);
+            return OM.treeToValue(engine.getClient().getPropertyValue(this.objRef, property), type);
+        } catch (JsonProcessingException e) {
+            throw new JsiiException(e);
+        }
+    }
+
+    /**
+     * Returns the value of a static property.
+     * @param nativeClass The java class.
+     * @param property The name of the property.
+     * @param type The expected java return type.
+     * @param <T> Return type
+     * @return Return value
+     */
+    protected static <T> T jsiiStaticGet(final Class nativeClass, final String property, final Class<T> type) {
+        try {
+            String fqn = engine.loadModuleForClass(nativeClass);
+            return OM.treeToValue(engine.getClient().getStaticPropertyValue(fqn, property), type);
         } catch (JsonProcessingException e) {
             throw new JsiiException(e);
         }
@@ -111,7 +151,18 @@ public class JsiiObject implements JsiiSerializable {
      * @param value The property value.
      */
     protected void jsiiSet(final String property, final Object value) {
-        this.engine.getClient().setPropertyValue(this.objRef, property, OM.valueToTree(value));
+        engine.getClient().setPropertyValue(this.objRef, property, OM.valueToTree(value));
+    }
+
+    /**
+     * Sets a value for a static property.
+     * @param nativeClass The java class.
+     * @param property The name of the property
+     * @param value The value
+     */
+    static protected void jsiiStaticSet(final Class nativeClass, final String property, final Object value) {
+        String fqn = engine.loadModuleForClass(nativeClass);
+        engine.getClient().setStaticPropertyValue(fqn, property, OM.valueToTree(value));
     }
 
     /**

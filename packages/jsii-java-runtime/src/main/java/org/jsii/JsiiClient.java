@@ -141,6 +141,49 @@ public class JsiiClient {
     }
 
     /**
+     * Gets a value of a static property.
+     * @param fqn The FQN of the class
+     * @param property The name of the static property
+     * @return The value of the static property
+     */
+    public JsonNode getStaticPropertyValue(final String fqn, final String property) {
+        ObjectNode req = makeRequest("sget");
+        req.put("fqn", fqn);
+        req.put("property", property);
+        return this.runtime.requestResponse(req).get("value");
+    }
+
+    /**
+     * Sets the value of a mutable static property.
+     * @param fqn The FQN of the class
+     * @param property The property name
+     * @param value The new value
+     */
+    public void setStaticPropertyValue(final String fqn, final String property, final JsonNode value) {
+        ObjectNode req = makeRequest("sset");
+        req.put("fqn", fqn);
+        req.put("property", property);
+        req.set("value", value);
+        this.runtime.requestResponse(req);
+    }
+
+    /**
+     * Invokes a static method.
+     * @param fqn The FQN of the class.
+     * @param method The method name.
+     * @param args The method arguments.
+     * @return The return value.
+     */
+    public JsonNode callStaticMethod(final String fqn, final String method, final ArrayNode args) {
+        ObjectNode req = makeRequest("sinvoke");
+        req.put("fqn", fqn);
+        req.put("method", method);
+        req.set("args", args);
+        JsonNode resp = this.runtime.requestResponse(req);
+        return resp.get("result");
+    }
+
+    /**
      * Calls a method on a remote object.
      * @param objRef The remote object reference.
      * @param method The name of the method.

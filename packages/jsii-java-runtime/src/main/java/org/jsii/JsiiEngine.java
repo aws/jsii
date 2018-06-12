@@ -517,36 +517,6 @@ public final class JsiiEngine implements JsiiCallbackHandler {
     }
 
     /**
-     * Traverse up the class hierarchy and look for the first base class that has a @Jsii
-     * annotation and has a method `methodName`.
-     *
-     * @param klass The class to start from
-     * @param methodName The name of the method to look for
-     * @return The method object or null if it can't be found
-     */
-    private static Method tryFindJsiiMethod(final Class klass, final String methodName) {
-        Class curr = klass;
-        while (curr != null && curr.getDeclaredAnnotationsByType(Jsii.class) == null) {
-            curr = klass.getSuperclass();
-        }
-
-        if (curr == null) {
-            return null; // this type does not come from the jsii hierarchy.
-        }
-
-        // 'curr' is now the first base class that has the @jsii annotation, so now we will look for a method
-        // that matches the name.
-
-        for (Method method: curr.getMethods()) {
-            if (method.getName().equals(methodName)) {
-                return method;
-            }
-        }
-
-        return null;
-    }
-
-    /**
      * Attempts to find the @Jsii annotation from a type.
      * @param type The type.
      * @param inherited If 'true' will look for the annotation up the class hierarchy.
@@ -566,5 +536,21 @@ public final class JsiiEngine implements JsiiCallbackHandler {
         }
 
         return ann[0];
+    }
+
+    /**
+     * Given a java class that extends a Jsii proxy, loads the corresponding jsii module
+     * and returns the FQN of the jsii type.
+     * @param nativeClass The java class.
+     * @return The FQN.
+     */
+    String loadModuleForClass(Class nativeClass) {
+        final Jsii jsii = tryGetJsiiAnnotation(nativeClass, true);
+        if (jsii == null) {
+            throw new JsiiException("Unable to find @Jsii annotation for class");
+        }
+
+        this.loadModule(jsii.module());
+        return jsii.fqn();
     }
 }

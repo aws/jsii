@@ -912,6 +912,50 @@ RuntimeTypeChecking
       :type arg3: date or None
 
 
+Statics
+^^^^^^^
+
+.. py:class:: Statics(value)
+
+   :param value: 
+   :type value: string
+
+   .. py:staticmethod:: staticMethod(name) -> string
+
+      Jsdocs for static method
+
+
+      :param name: The name of the person to say hello to
+      :type name: string
+      :rtype: string
+
+
+   .. py:method:: justMethod() -> string
+
+      :rtype: string
+
+
+   .. py:attribute:: value
+
+      :type: string *(readonly)*
+
+
+   .. py:attribute:: Foo
+
+      Jsdocs for static property.
+
+
+      :type: string *(readonly)* *(static)*
+
+
+   .. py:attribute:: Instance
+
+      Jsdocs for static getter. Jsdocs for static setter.
+
+
+      :type: :py:class:`~jsii-calc.Statics` *(static)*
+
+
 Sum
 ^^^
 

@@ -60,7 +60,18 @@ export interface GetRequest {
     property: string;
 }
 
+export interface StaticGetRequest {
+    fqn: string;
+    property: string;
+}
+
 export interface GetResponse {
+    value: any;
+}
+
+export interface StaticSetRequest {
+    fqn: string;
+    property: string;
     value: any;
 }
 
@@ -73,6 +84,12 @@ export interface SetRequest {
 // tslint:disable-next-line:no-empty-interface
 export interface SetResponse {
 
+}
+
+export interface StaticInvokeRequest  {
+    fqn: string;
+    method: string;
+    args?: any[];
 }
 
 export interface InvokeRequest {

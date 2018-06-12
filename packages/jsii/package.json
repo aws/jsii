@@ -33,7 +33,6 @@
     "@types/nodeunit": "0.0.30",
     "@types/webpack": "^3.6.0",
     "@types/yargs": "^11.0.0",
-    "@types/case": "^1.5.5",
     "nodeunit": "^0.11.2"
   },
   "dependencies": {

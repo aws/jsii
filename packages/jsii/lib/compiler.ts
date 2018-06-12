@@ -977,12 +977,6 @@ export async function compileSources(entrypoint: string,
         entity.name = parts[parts.length - 1];
     }
 
-    function startsWithLowerCase(symbol: string) {
-        if (!symbol) { return false; }
-        const firstChar = symbol.substr(0, 1);
-        return (firstChar.toLocaleLowerCase() === firstChar);
-    }
-
     function startsWithUpperCase(symbol: string) {
         if (!symbol) { return false; }
         const firstChar = symbol.substr(0, 1);

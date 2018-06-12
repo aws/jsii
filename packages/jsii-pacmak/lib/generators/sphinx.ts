@@ -181,6 +181,10 @@ export default class SphinxDocsGenerator extends Generator {
         this.renderProperty(prop);
     }
 
+    protected onStaticProperty(_cls: spec.ClassType, prop: spec.Property) {
+        this.renderProperty(prop);
+    }
+
     //
     // Union Properties
     // Those are properties that can accept more than a single type (i.e. String | Token). If the option `expandUnionProperties` is enabled
@@ -208,6 +212,14 @@ export default class SphinxDocsGenerator extends Generator {
         this.renderMethod(overload);
     }
 
+    protected onStaticMethod(_cls: spec.ClassType, method: spec.Method) {
+        this.renderMethod(method);
+    }
+
+    protected onStaticMethodOverload(_cls: spec.ClassType, overload: spec.Method, _originalMethod: spec.Method) {
+        this.renderMethod(overload);
+    }
+
     //
     // Enums
 
@@ -232,14 +244,6 @@ export default class SphinxDocsGenerator extends Generator {
         this.code.line(`.. py:data:: ${member.name}`);
         this.renderDocsLine(member);
         this.code.line();
-    }
-
-    //
-    // Consts (with values)
-    // Note that values are JavaScript types and may need to be serialized to literal based on the programming language.
-
-    protected onConstValue(_cls: spec.ClassType, _constValue: spec.ConstValue, _value: any) {
-        return;
     }
 
     protected onBeginInterface(ifc: spec.InterfaceType) {
@@ -358,8 +362,10 @@ export default class SphinxDocsGenerator extends Generator {
     private renderMethod(method: spec.Method) {
         const signature = this.renderMethodSignature(method);
 
+        const type = method.static ? `py:staticmethod` : `py:method`;
+
         this.code.line();
-        this.code.openBlock(`.. py:method:: ${method.name}${signature}`);
+        this.code.openBlock(`.. ${type}:: ${method.name}${signature}`);
 
         this.renderDocsLine(method);
         this.code.line();
@@ -467,7 +473,8 @@ export default class SphinxDocsGenerator extends Generator {
         this.code.line();
         const readonly = prop.immutable ? ' *(readonly)*' : '';
         const abs = prop.abstract ? ' *(abstract)*' : '';
-        this.code.line(`:type: ${type.ref}${readonly}${abs}`);
+        const stat = prop.static ? ' *(static)*': '';
+        this.code.line(`:type: ${type.ref}${readonly}${abs}${stat}`);
         this.code.closeBlock();
     }
 }
