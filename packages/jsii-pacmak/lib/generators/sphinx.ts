@@ -40,13 +40,13 @@ export default class SphinxDocsGenerator extends Generator {
     protected onBeginAssembly(assm: spec.Assembly) {
         this.tocPath = new Array<string>(); // As a safety measure, in case previous assembly somehow didn't get it back to 0.
         if (assm.readme) {
-            this.readmeFile = `_${assm.names.js}.README.md`;
+            this.readmeFile = `_${safeName(assm.names.js)}.README.md`;
             this.code.openFile(this.readmeFile);
             this.code.line(assm.readme.markdown);
             this.code.closeFile(this.readmeFile);
         }
 
-        this.code.openFile(`${assm.names.js}.rst`);
+        this.code.openFile(`${safeName(assm.names.js)}.rst`);
 
         this.openSection(assm.names.js);
         this.code.line();
@@ -88,7 +88,7 @@ export default class SphinxDocsGenerator extends Generator {
             this.openSection('Reference');
             this.code.line();
         }
-        this.code.line(`.. py:module:: ${nativeName}`);
+        this.code.line(`.. py:module:: ${safeName(nativeName)}`);
         this.code.line();
     }
 
@@ -485,4 +485,12 @@ function dup(char: string, times: number) {
         ret += char;
     }
     return ret;
+}
+
+/**
+ * Make a name safe, both for the filesystem and RST
+ */
+function safeName(x: string) {
+    // Strip unsafe characters
+    return x.replace(/[^a-zA-Z0-9_.-]/g, '_');
 }
