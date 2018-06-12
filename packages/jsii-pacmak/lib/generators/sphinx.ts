@@ -484,5 +484,5 @@ function dup(char: string, times: number) {
  * Make a name safe, both for the filesystem and RST
  */
 function safeName(x: string) {
-    return x.replace(/[^@a-zA-Z0-9_.-]/g, '-');
+    return x.replace(/[^a-zA-Z0-9_.-]/g, '-');
 }
