@@ -6,6 +6,7 @@ public class Statics extends org.jsii.JsiiObject {
     }
     static {
         FOO = org.jsii.JsiiObject.jsiiStaticGet(org.jsii.tests.calculator.Statics.class, "Foo", java.lang.String.class);
+        BAR = org.jsii.JsiiObject.jsiiStaticGet(org.jsii.tests.calculator.Statics.class, "BAR", java.lang.Number.class);
         CONST_OBJ = org.jsii.JsiiObject.jsiiStaticGet(org.jsii.tests.calculator.Statics.class, "ConstObj", org.jsii.tests.calculator.DoubleTrouble.class);
     }
     public Statics(final java.lang.String value) {
@@ -30,24 +31,28 @@ public class Statics extends org.jsii.JsiiObject {
      */
     public final static java.lang.String FOO;
     /**
+     * Constants may also use all-caps.
+     */
+    public final static java.lang.Number BAR;
+    /**
      * Jsdocs for static getter.
      * Jsdocs for static setter.
      */
     public static org.jsii.tests.calculator.Statics getInstance() {
-        return org.jsii.JsiiObject.jsiiStaticGet(org.jsii.tests.calculator.Statics.class, "Instance", org.jsii.tests.calculator.Statics.class);
+        return org.jsii.JsiiObject.jsiiStaticGet(org.jsii.tests.calculator.Statics.class, "instance", org.jsii.tests.calculator.Statics.class);
     }
     /**
      * Jsdocs for static getter.
      * Jsdocs for static setter.
      */
     public static void setInstance(final org.jsii.tests.calculator.Statics value) {
-        org.jsii.JsiiObject.jsiiStaticSet(org.jsii.tests.calculator.Statics.class, "Instance", value);
+        org.jsii.JsiiObject.jsiiStaticSet(org.jsii.tests.calculator.Statics.class, "instance", value);
     }
     public static java.lang.Number getNonConstStatic() {
-        return org.jsii.JsiiObject.jsiiStaticGet(org.jsii.tests.calculator.Statics.class, "NonConstStatic", java.lang.Number.class);
+        return org.jsii.JsiiObject.jsiiStaticGet(org.jsii.tests.calculator.Statics.class, "nonConstStatic", java.lang.Number.class);
     }
     public static void setNonConstStatic(final java.lang.Number value) {
-        org.jsii.JsiiObject.jsiiStaticSet(org.jsii.tests.calculator.Statics.class, "NonConstStatic", value);
+        org.jsii.JsiiObject.jsiiStaticSet(org.jsii.tests.calculator.Statics.class, "nonConstStatic", value);
     }
     public final static org.jsii.tests.calculator.DoubleTrouble CONST_OBJ;
 }

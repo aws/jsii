@@ -199,13 +199,13 @@ public class JsiiClientTest {
         final String fqn = "jsii$jsii_calc$.Statics";
         assertEquals("hello", client.getStaticPropertyValue(fqn, "Foo").textValue());
 
-        JsonNode defaultInstance = client.getStaticPropertyValue(fqn, "Instance");
+        JsonNode defaultInstance = client.getStaticPropertyValue(fqn, "instance");
         assertEquals("default", client.getPropertyValue(JsiiObjectRef.parse(defaultInstance), "value").textValue());
 
         JsiiObjectRef newValue = client.createObject(fqn, Arrays.asList("NewValue"));
-        client.setStaticPropertyValue(fqn, "Instance", newValue.toJson());
+        client.setStaticPropertyValue(fqn, "instance", newValue.toJson());
 
-        JsonNode newInstance = client.getStaticPropertyValue(fqn, "Instance");
+        JsonNode newInstance = client.getStaticPropertyValue(fqn, "instance");
         assertEquals("NewValue", client.getPropertyValue(JsiiObjectRef.parse(newInstance), "value").textValue());
     }
 

@@ -928,12 +928,17 @@ export class Statics {
      */
     public static readonly Foo = 'hello';
 
+    /**
+     * Constants may also use all-caps.
+     */
+    public static readonly BAR = 1234;
+
     private static _instance?: Statics
 
     /**
      * Jsdocs for static getter.
      */
-    public static get Instance(): Statics {
+    public static get instance(): Statics {
         if (!this._instance) {
             this._instance = new Statics('default');
         }
@@ -943,10 +948,10 @@ export class Statics {
     /**
      *Jsdocs for static setter.
      */
-    public static set Instance(val: Statics) {
+    public static set instance(val: Statics) {
         this._instance = val;
     }
 
-    public static NonConstStatic = 100; // this should not be represented as a constant in target languages
+    public static nonConstStatic = 100; // this should not be represented as a constant in target languages
     public static readonly ConstObj = new DoubleTrouble(); // should be initialized statically
 }

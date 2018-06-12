@@ -753,13 +753,13 @@ defineTest('fails: static properties - set readonly', async (test, sandbox) => {
 });
 
 defineTest('static properties - set', async (test, sandbox) => {
-    const defaultInstance = sandbox.sget({ fqn: 'jsii$jsii_calc$.Statics', property: 'Instance' });
+    const defaultInstance = sandbox.sget({ fqn: 'jsii$jsii_calc$.Statics', property: 'instance' });
     test.deepEqual(sandbox.get({ objref: defaultInstance.value, property: 'value' }), { value: 'default' });
 
     const obj = sandbox.create({ fqn: 'jsii$jsii_calc$.Statics', args: [ 'MyInstance' ] });
-    sandbox.sset({ fqn: 'jsii$jsii_calc$.Statics', property: 'Instance', value: obj });
+    sandbox.sset({ fqn: 'jsii$jsii_calc$.Statics', property: 'instance', value: obj });
 
-    const updatedInstance = sandbox.sget({ fqn: 'jsii$jsii_calc$.Statics', property: 'Instance' });
+    const updatedInstance = sandbox.sget({ fqn: 'jsii$jsii_calc$.Statics', property: 'instance' });
     test.deepEqual(sandbox.get({ objref: updatedInstance.value, property: 'value' }), { value: 'MyInstance' });
 });
 

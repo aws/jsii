@@ -607,8 +607,6 @@ export async function compileSources(entrypoint: string,
             prop.static = true;
         }
 
-        checkMemberName(prop, true, ctx);
-
         addDocumentation(prop, symbol);
 
         if (isHidden(decl)) {
@@ -639,6 +637,8 @@ export async function compileSources(entrypoint: string,
         if (decl.initializer && prop.static && prop.immutable) {
             prop.const = true;
         }
+
+        checkMemberName(prop, true, ctx);
 
         return prop;
     }
@@ -995,8 +995,18 @@ export async function compileSources(entrypoint: string,
 
         // static properties should be all-caps (with a potential underscore). all the rest are the same
         if (isProperty && member.static) {
-            if (Case.pascal(symbol) !== symbol) {
-                throw error(ctx, `'${symbol}' is a static property and must be pascal-case`);
+            
+            if ((member as any).const) {
+
+                if (Case.pascal(symbol) !== symbol && Case.snake(symbol).toUpperCase() !== symbol) {
+                    throw error(ctx, `'${symbol}' is a const and must use either pascal-case or upper snake-case`);
+                } else {
+                    return;
+                }
+            }
+
+            if (Case.camel(symbol) !== symbol) {
+                throw error(ctx, `'${symbol}' is a static property and must use camel-case`);
             } else {
                 return;
             }

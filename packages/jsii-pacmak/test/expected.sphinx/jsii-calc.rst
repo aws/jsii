@@ -948,7 +948,15 @@ Statics
       :type: string *(readonly)* *(static)*
 
 
-   .. py:attribute:: Instance
+   .. py:attribute:: BAR
+
+      Constants may also use all-caps.
+
+
+      :type: number *(readonly)* *(static)*
+
+
+   .. py:attribute:: instance
 
       Jsdocs for static getter. Jsdocs for static setter.
 
@@ -956,7 +964,7 @@ Statics
       :type: :py:class:`~jsii-calc.Statics` *(static)*
 
 
-   .. py:attribute:: NonConstStatic
+   .. py:attribute:: nonConstStatic
 
       :type: number *(static)*
 
