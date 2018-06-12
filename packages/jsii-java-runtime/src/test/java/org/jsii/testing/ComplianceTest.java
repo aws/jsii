@@ -744,6 +744,15 @@ public class ComplianceTest {
         Statics.setInstance(newStatics);
         assertSame(Statics.getInstance(), newStatics);
         assertEquals(Statics.getInstance().getValue(), "new value");
+
+        assertEquals(100, Statics.getNonConstStatic());
+    }
+
+    @Test
+    public void consts() {
+        assertEquals("hello", Statics.FOO);
+        DoubleTrouble obj = Statics.CONST_OBJ;
+        assertEquals("world", obj.hello());
     }
 
     static class MulTen extends Multiply {

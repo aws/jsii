@@ -45,6 +45,7 @@ export default class JavaGenerator extends Generator {
         this.code.openBlock(`public${inner}${absPrefix} class ${cls.name}${extendsExpression}${implementsExpr}`);
 
         this.emitJsiiInitializers(cls.name);
+        this.emitStaticInitializer(cls);
     }
 
     protected onEndClass(cls: spec.ClassType) {
@@ -67,13 +68,45 @@ export default class JavaGenerator extends Generator {
         cls; prop; union
     }
 
+    private emitStaticInitializer(cls: spec.ClassType) {
+        const consts = (cls.properties || []).filter(x => x.const);
+        if (consts.length === 0) {
+            return;
+        }
+
+        const javaClass = this.toJavaType(cls);
+
+        this.code.openBlock(`static`);
+
+        for (const prop of consts) {
+            const constName = this.renderConstName(prop);
+            const propClass = this.toJavaType(prop.type, true);
+            this.code.line(`${constName} = org.jsii.JsiiObject.jsiiStaticGet(${javaClass}.class, "${prop.name}", ${propClass}.class);`);
+        }
+
+        this.code.closeBlock();
+    }
+
+    private renderConstName(prop: spec.Property) {
+        return this.code.toSnakeCase(prop.name).toLocaleUpperCase(); // java consts are SNAKE_UPPER_CASE
+    }
+
+    private emitConstProperty(prop: spec.Property) {
+        const propType = this.toJavaType(prop.type);
+        const propName = this.renderConstName(prop);
+        const access = this.renderAccessLevel(prop);
+
+        this.addJavaDocs(prop);
+        this.code.line(`${access} final static ${propType} ${propName};`);
+    }
+
     private emitProperty(cls: spec.Type, prop: spec.Property, includeGetter = true) {
         const propType = this.toJavaType(prop.type);
         const propClass = this.toJavaType(prop.type, true);
         const propName = this.code.toPascalCase(prop.name);
         const access = this.renderAccessLevel(prop);
         const statc = prop.static ? 'static ' : '';
-        const javaClassName = this.toJavaType(cls);
+        const javaClass = this.toJavaType(cls);
 
         // for unions we only generate overloads for setters, not getters.
         if (includeGetter) {
@@ -82,7 +115,7 @@ export default class JavaGenerator extends Generator {
 
             let statement = 'return ';
             if (prop.static) {
-                statement += `org.jsii.JsiiObject.jsiiStaticGet(${javaClassName}.class, `;
+                statement += `org.jsii.JsiiObject.jsiiStaticGet(${javaClass}.class, `;
             } else {
                 statement += `this.jsiiGet(`;
             }
@@ -99,7 +132,7 @@ export default class JavaGenerator extends Generator {
             let statement = '';
 
             if (prop.static) {
-                statement += `org.jsii.JsiiObject.jsiiStaticSet(${javaClassName}.class, `;
+                statement += `org.jsii.JsiiObject.jsiiStaticSet(${javaClass}.class, `;
             } else {
                 statement += 'this.jsiiSet(';
             }
@@ -114,7 +147,11 @@ export default class JavaGenerator extends Generator {
     }
 
     protected onStaticProperty(cls: spec.ClassType, prop: spec.Property) {
-        this.emitProperty(cls, prop);
+        if (prop.const) {
+            this.emitConstProperty(prop);
+        } else {
+            this.emitProperty(cls, prop);
+        }
     }
 
     /**
@@ -629,8 +666,8 @@ export default class JavaGenerator extends Generator {
         }
 
         if (method.static) {
-            const javaClassName = this.toJavaType(cls);
-            statement += `org.jsii.JsiiObject.jsiiStaticCall(${javaClassName}.class, `;
+            const javaClass = this.toJavaType(cls);
+            statement += `org.jsii.JsiiObject.jsiiStaticCall(${javaClass}.class, `;
         } else {
             if (async) {
                 statement += `this.jsiiAsyncCall(`;

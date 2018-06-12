@@ -4,6 +4,10 @@ public class Statics extends org.jsii.JsiiObject {
     protected Statics(final org.jsii.JsiiObject.InitializationMode mode) {
         super(mode);
     }
+    static {
+        FOO = org.jsii.JsiiObject.jsiiStaticGet(org.jsii.tests.calculator.Statics.class, "Foo", java.lang.String.class);
+        CONST_OBJ = org.jsii.JsiiObject.jsiiStaticGet(org.jsii.tests.calculator.Statics.class, "ConstObj", org.jsii.tests.calculator.DoubleTrouble.class);
+    }
     public Statics(final java.lang.String value) {
         super(org.jsii.JsiiObject.InitializationMode.Jsii);
         org.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.of(value).toArray());
@@ -24,9 +28,7 @@ public class Statics extends org.jsii.JsiiObject {
     /**
      * Jsdocs for static property.
      */
-    public static java.lang.String getFoo() {
-        return org.jsii.JsiiObject.jsiiStaticGet(org.jsii.tests.calculator.Statics.class, "Foo", java.lang.String.class);
-    }
+    public final static java.lang.String FOO;
     /**
      * Jsdocs for static getter.
      * Jsdocs for static setter.
@@ -41,4 +43,11 @@ public class Statics extends org.jsii.JsiiObject {
     public static void setInstance(final org.jsii.tests.calculator.Statics value) {
         org.jsii.JsiiObject.jsiiStaticSet(org.jsii.tests.calculator.Statics.class, "Instance", value);
     }
+    public static java.lang.Number getNonConstStatic() {
+        return org.jsii.JsiiObject.jsiiStaticGet(org.jsii.tests.calculator.Statics.class, "NonConstStatic", java.lang.Number.class);
+    }
+    public static void setNonConstStatic(final java.lang.Number value) {
+        org.jsii.JsiiObject.jsiiStaticSet(org.jsii.tests.calculator.Statics.class, "NonConstStatic", value);
+    }
+    public final static org.jsii.tests.calculator.DoubleTrouble CONST_OBJ;
 }

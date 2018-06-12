@@ -634,6 +634,12 @@ export async function compileSources(entrypoint: string,
             prop.abstract = true;
         }
 
+        // add a "const" hint if this property has an initializer (i.e. "=
+        // VAL"), is static and immutable.
+        if (decl.initializer && prop.static && prop.immutable) {
+            prop.const = true;
+        }
+
         return prop;
     }
 

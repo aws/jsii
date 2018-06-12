@@ -482,7 +482,8 @@
           "type": {
             "primitive": "string"
           },
-          "immutable": true
+          "immutable": true,
+          "const": true
         },
         {
           "name": "StringConstWithDoubleQuotes",
@@ -490,7 +491,8 @@
           "type": {
             "primitive": "string"
           },
-          "immutable": true
+          "immutable": true,
+          "const": true
         },
         {
           "name": "NumberConst",
@@ -498,7 +500,8 @@
           "type": {
             "primitive": "number"
           },
-          "immutable": true
+          "immutable": true,
+          "const": true
         },
         {
           "name": "DoubleConst",
@@ -506,7 +509,8 @@
           "type": {
             "primitive": "number"
           },
-          "immutable": true
+          "immutable": true,
+          "const": true
         },
         {
           "name": "BooleanConstValue",
@@ -514,7 +518,8 @@
           "type": {
             "primitive": "boolean"
           },
-          "immutable": true
+          "immutable": true,
+          "const": true
         },
         {
           "name": "BooleanConstTrue",
@@ -522,7 +527,8 @@
           "type": {
             "primitive": "boolean"
           },
-          "immutable": true
+          "immutable": true,
+          "const": true
         },
         {
           "name": "NonLiteralConst",
@@ -530,7 +536,8 @@
           "type": {
             "primitive": "number"
           },
-          "immutable": true
+          "immutable": true,
+          "const": true
         },
         {
           "name": "ObjConst",
@@ -538,7 +545,8 @@
           "type": {
             "fqn": "jsii$jsii_test$.TestClass"
           },
-          "immutable": true
+          "immutable": true,
+          "const": true
         }
       ],
       "fqn": "jsii$jsii_test$.TestClass4",

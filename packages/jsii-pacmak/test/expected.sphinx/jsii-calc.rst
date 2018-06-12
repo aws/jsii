@@ -956,6 +956,16 @@ Statics
       :type: :py:class:`~jsii-calc.Statics` *(static)*
 
 
+   .. py:attribute:: NonConstStatic
+
+      :type: number *(static)*
+
+
+   .. py:attribute:: ConstObj
+
+      :type: :py:class:`~jsii-calc.DoubleTrouble` *(readonly)* *(static)*
+
+
 Sum
 ^^^
 

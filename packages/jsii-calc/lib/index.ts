@@ -946,4 +946,7 @@ export class Statics {
     public static set Instance(val: Statics) {
         this._instance = val;
     }
+
+    public static NonConstStatic = 100; // this should not be represented as a constant in target languages
+    public static readonly ConstObj = new DoubleTrouble(); // should be initialized statically
 }

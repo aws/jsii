@@ -268,6 +268,13 @@ export class Property implements Documentable {
      * Indicates if this is a static property.
      */
     public static?: boolean;
+
+    /**
+     * A hint that indicates that this static, immutable property is initialized
+     * during startup. This allows emitting "const" idioms in different target languages.
+     * Implies `static` and `immutable`.
+     */
+    public const?: boolean;
 }
 
 /**
