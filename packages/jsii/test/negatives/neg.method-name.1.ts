@@ -1,4 +1,4 @@
-///!MATCH_ERROR: 'METHOD' must use camel-case
+///!MATCH_ERROR: 'METHOD' must use camelCase
 
 export class MyClass {
     METHOD() {

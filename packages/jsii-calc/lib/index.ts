@@ -933,6 +933,11 @@ export class Statics {
      */
     public static readonly BAR = 1234;
 
+    /**
+     * Constants can also use camelCase.
+     */
+    public static readonly zooBar: { [name: string]: string } = { hello: 'world' };
+
     private static _instance?: Statics
 
     /**

@@ -998,15 +998,15 @@ export async function compileSources(entrypoint: string,
             
             if ((member as any).const) {
 
-                if (Case.pascal(symbol) !== symbol && Case.snake(symbol).toUpperCase() !== symbol) {
-                    throw error(ctx, `'${symbol}' is a const and must use either pascal-case or upper snake-case`);
+                if (Case.pascal(symbol) !== symbol && Case.snake(symbol).toUpperCase() !== symbol && Case.camel(symbol) !== symbol) {
+                    throw error(ctx, `'${symbol}' is a const and must use PascalCase, UPPER_SNAKE_CASE or camelCase`);
                 } else {
                     return;
                 }
             }
 
             if (Case.camel(symbol) !== symbol) {
-                throw error(ctx, `'${symbol}' is a static property and must use camel-case`);
+                throw error(ctx, `'${symbol}' is a static property and must use camelCase`);
             } else {
                 return;
             }
@@ -1014,7 +1014,7 @@ export async function compileSources(entrypoint: string,
 
         // symbol must start with a lowercase letter (this is how we determine it is camel-case).
         if (Case.camel(symbol) !== symbol) {
-            throw error(ctx, `'${symbol}' must use camel-case`);
+            throw error(ctx, `'${symbol}' must use camelCase`);
         }
 
         // do not allow props/methods use the form getXxx() or setXxx(v), which is used in Java
@@ -1039,7 +1039,7 @@ export async function compileSources(entrypoint: string,
         if (!symbol) { return; }
 
         if (Case.pascal(symbol) !== symbol) {
-            throw error(ctx, `Type names must use pascal-case: ${symbol}`);
+            throw error(ctx, `Type names must use PascalCase: ${symbol}`);
         }
     }
 

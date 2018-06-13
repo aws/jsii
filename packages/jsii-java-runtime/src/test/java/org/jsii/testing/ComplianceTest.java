@@ -753,6 +753,8 @@ public class ComplianceTest {
         assertEquals("hello", Statics.FOO);
         DoubleTrouble obj = Statics.CONST_OBJ;
         assertEquals("world", obj.hello());
+        assertEquals(1234, Statics.BAR);
+        assertEquals("world", Statics.ZOO_BAR.get("hello"));
     }
 
     static class MulTen extends Multiply {

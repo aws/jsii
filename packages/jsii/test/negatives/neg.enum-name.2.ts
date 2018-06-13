@@ -1,4 +1,4 @@
-///!MATCH_ERROR: Type names must use pascal-case: My_Enum
+///!MATCH_ERROR: Type names must use PascalCase: My_Enum
 
 export enum My_Enum {
     Foo,

@@ -956,6 +956,14 @@ Statics
       :type: number *(readonly)* *(static)*
 
 
+   .. py:attribute:: zooBar
+
+      Constants can also use camelCase.
+
+
+      :type: string *(readonly)* *(static)*
+
+
    .. py:attribute:: instance
 
       Jsdocs for static getter. Jsdocs for static setter.

@@ -1,5 +1,5 @@
-///!MATCH_ERROR: 'prop' is a const and must use either pascal-case or upper snake-case
+///!MATCH_ERROR: 'snake_case' is a const and must use PascalCase, UPPER_SNAKE_CASE or camelCase
 
 export class MyClass {
-    static readonly prop = 123;
+    static readonly snake_case = 123;
 }

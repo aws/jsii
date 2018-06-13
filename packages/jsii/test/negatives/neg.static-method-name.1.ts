@@ -1,4 +1,4 @@
-///!MATCH_ERROR: ERROR 'MethodIsNotCamelCase' must use camel-case
+///!MATCH_ERROR: ERROR 'MethodIsNotCamelCase' must use camelCase
 
 export class MyClass {
     MethodIsNotCamelCase() {

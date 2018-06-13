@@ -7,6 +7,7 @@ public class Statics extends org.jsii.JsiiObject {
     static {
         FOO = org.jsii.JsiiObject.jsiiStaticGet(org.jsii.tests.calculator.Statics.class, "Foo", java.lang.String.class);
         BAR = org.jsii.JsiiObject.jsiiStaticGet(org.jsii.tests.calculator.Statics.class, "BAR", java.lang.Number.class);
+        ZOO_BAR = org.jsii.JsiiObject.jsiiStaticGet(org.jsii.tests.calculator.Statics.class, "zooBar", java.util.Map.class);
         CONST_OBJ = org.jsii.JsiiObject.jsiiStaticGet(org.jsii.tests.calculator.Statics.class, "ConstObj", org.jsii.tests.calculator.DoubleTrouble.class);
     }
     public Statics(final java.lang.String value) {
@@ -34,6 +35,10 @@ public class Statics extends org.jsii.JsiiObject {
      * Constants may also use all-caps.
      */
     public final static java.lang.Number BAR;
+    /**
+     * Constants can also use camelCase.
+     */
+    public final static java.util.Map<java.lang.String, java.lang.String> ZOO_BAR;
     /**
      * Jsdocs for static getter.
      * Jsdocs for static setter.

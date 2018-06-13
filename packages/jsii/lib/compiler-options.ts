@@ -52,6 +52,11 @@ export async function saveCompilerOptions(packageDir: string) {
 
 export async function saveLinterOptions(packageDir: string) {
     const tslintPath = path.join(packageDir, 'tslint.json');
+
+    if (await fs.pathExists(tslintPath) || await fs.pathExists(path.join(packageDir, 'tslint.yaml'))) {
+        return; // tslint.json exists, don't override
+    }
+
     const rules = {
         extends: "tslint:recommended",
         rules: {
