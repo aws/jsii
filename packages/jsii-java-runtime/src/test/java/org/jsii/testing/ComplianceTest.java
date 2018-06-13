@@ -34,6 +34,7 @@ import org.jsii.tests.calculator.lib.MyFirstStruct;
 import org.jsii.tests.calculator.lib.Number;
 import org.jsii.tests.calculator.lib.StructWithOnlyOptionals;
 import org.jsii.tests.calculator.lib.Value;
+import org.jsii.tests.calculator.JavaReservedWords;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -755,6 +756,14 @@ public class ComplianceTest {
         assertEquals("world", obj.hello());
         assertEquals(1234, Statics.BAR);
         assertEquals("world", Statics.ZOO_BAR.get("hello"));
+    }
+
+    @Test
+    public void reservedKeywordsAreSlugifiedInMethodNames() {
+        JavaReservedWords obj = new JavaReservedWords();
+        obj.import_();
+        obj.const_();
+        assertEquals("hello", obj.getWhile()); // properties do not need to be slufieid
     }
 
     static class MulTen extends Multiply {

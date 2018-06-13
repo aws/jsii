@@ -197,7 +197,8 @@ export default class JavaGenerator extends Generator {
         const statc = method.static ? 'static ' : '';
         const access = this.renderAccessLevel(method);
         const async = !!(method.returns && method.returns.promise);
-        const signature = `${returnType} ${method.name}(${this.renderMethodParameters(method)})`;
+        const methodName = slugify(method.name);
+        const signature = `${returnType} ${methodName}(${this.renderMethodParameters(method)})`;
         this.addJavaDocs(method);
         if (method.abstract) {
             this.code.line(`${access} abstract ${signature};`)
@@ -752,3 +753,24 @@ export default class JavaGenerator extends Generator {
         this.code.closeBlock();
     }
 }
+
+function slugify(name?: string) {
+    if (!name) {
+        return name;
+    }
+    if (RESERVED_KEYWORDS.includes(name)) {
+        return `${name}_`;
+    } else {
+        return name;
+    }
+}
+
+const RESERVED_KEYWORDS = [
+    'abstract', 'assert', 'boolean', 'break', 'byte', 'case', 'catch', 'char', 'class',
+    'const', 'continue', 'default', 'double', 'do', 'else', 'enum', 'extends', 'false',
+    'final', 'finally', 'float', 'for', 'goto', 'if', 'implements', 'import', 'instanceof',
+    'int', 'interface', 'long', 'native', 'new', 'null', 'package', 'private', 'protected',
+    'public', 'return', 'short', 'static', 'strictfp', 'super', 'switch', 'synchronized',
+    'this', 'throw', 'throws', 'transient', 'true', 'try', 'void', 'volatile', 'while'
+];
+
