@@ -349,7 +349,8 @@ export default class JavaGenerator extends Generator {
             spec: spec.Property
             propName: string
             fieldName: string
-            javaType: string
+            fieldJavaType: string
+            javaTypes: string[]
             optional?: boolean
             stepInterfaceName: string
             nextStepInterfaceName?: string
@@ -373,7 +374,8 @@ export default class JavaGenerator extends Generator {
                     spec: property,
                     propName, optional,
                     fieldName: '_' + self.code.toCamelCase(property.name),
-                    javaType: self.toJavaType(property.type),
+                    fieldJavaType: self.toJavaType(property.type),
+                    javaTypes: self.toJavaTypes(property.type),
                     immutable: property.immutable || false,
                     stepInterfaceName: optional ? 'Build' : `${propName}Step`,
                     nextStepInterfaceName: optional ? 'Build' : undefined, /* will be determined later */
@@ -404,6 +406,29 @@ export default class JavaGenerator extends Generator {
             p.nextStepInterfaceName = nextStep;
         });
 
+        // if there are non required props at all, we just use the builder
+        if (requiredProps.length === 0) {
+            props.forEach(p => p.nextStepInterfaceName = builderName);
+        }
+
+        const emitWithImplementation = (prop: Prop, isFirstProp = false) => {
+            for (const type of prop.javaTypes) {
+                this.code.openBlock(`public ${prop.nextStepInterfaceName} with${prop.propName}(final ${type} value)`);
+
+                if (isFirstProp) {
+                    this.code.line(`return new FullBuilder().with${prop.propName}(value);`);
+                } else {
+                    if (!prop.optional) {
+                        this.code.line(`java.util.Objects.requireNonNull(value, "${prop.fieldName} is required");`);
+                    }
+                    this.code.line(`this.instance.${prop.fieldName} = value;`);
+                    this.code.line('return this;');
+                }
+
+                this.code.closeBlock();
+            }
+        };
+
         // If there are no required props, Builder /is/ the FullBuilder. Otherwise, Builder will
         // reflect the first required prop and proxy to FullBuilder.
         if (requiredProps.length > 0) {
@@ -412,14 +437,15 @@ export default class JavaGenerator extends Generator {
             this.code.line(' * The build() method will be available once all required properties are fulfilled.');
             this.code.line(' */')
             this.code.openBlock(`class ${builderName}`);
+
             const firstProp = requiredProps.shift()!;
-            this.code.openBlock(`public ${firstProp.nextStepInterfaceName} with${firstProp.propName}(final ${firstProp.javaType} value)`);
-            this.code.line(`return new FullBuilder().with${firstProp.propName}(value);`);
-            this.code.closeBlock();
+            emitWithImplementation(firstProp, true);
 
             const emitWithInterfaceMethod = (prop: Prop) => {
-                this.addJavaDocs(prop.spec, `Sets the value for ${interfaceName}::${prop.propName}.`);
-                this.code.line(`${prop.nextStepInterfaceName} with${prop.propName}(final ${prop.javaType} value);`);
+                for (const type of prop.javaTypes) {
+                    this.addJavaDocs(prop.spec, `Sets the value for ${interfaceName}::${prop.propName}.`);
+                    this.code.line(`${prop.nextStepInterfaceName} with${prop.propName}(final ${type} value);`);
+                }
             }
 
             // generate step interfaces
@@ -452,13 +478,7 @@ export default class JavaGenerator extends Generator {
             this.code.line();
 
             for (let prop of props) {
-                this.code.openBlock(`public ${prop.nextStepInterfaceName} with${prop.propName}(final ${prop.javaType} value)`);
-                if (!prop.optional) {
-                    this.code.line(`java.util.Objects.requireNonNull(value, "${prop.fieldName} is required");`);
-                }
-                this.code.line(`this.instance.${prop.fieldName} = value;`);
-                this.code.line('return this;');
-                this.code.closeBlock();
+                emitWithImplementation(prop);
             }
 
             this.code.openBlock(`public ${interfaceName} build()`);
@@ -482,13 +502,7 @@ export default class JavaGenerator extends Generator {
             this.code.line();
 
             for (let prop of props) {
-                this.code.openBlock(`public ${builderName} with${prop.propName}(final ${prop.javaType} value)`);
-                if (!prop.optional) {
-                    this.code.line(`java.util.Objects.requireNonNull(value, "${prop.fieldName} is required");`);
-                }
-                this.code.line(`this.instance.${prop.fieldName} = value;`);
-                this.code.line('return this;');
-                this.code.closeBlock();
+                emitWithImplementation(prop);
             }
 
             this.code.openBlock(`public ${interfaceName} build()`);
@@ -519,15 +533,15 @@ export default class JavaGenerator extends Generator {
 
         props.forEach(p => {
             this.code.line();
-            this.code.line(`protected ${p.javaType} ${p.fieldName};`);
+            this.code.line(`protected ${p.fieldJavaType} ${p.fieldName};`);
             this.code.line();
 
-            this.code.openBlock(`public ${p.javaType} get${p.propName}()`);
+            this.code.openBlock(`public ${p.fieldJavaType} get${p.propName}()`);
             this.code.line(`return this.${p.fieldName};`);
             this.code.closeBlock();
 
             if (!p.immutable) {
-                this.code.openBlock(`public void set${p.propName}(final ${p.javaType} value)`);
+                this.code.openBlock(`public void set${p.propName}(final ${p.fieldJavaType} value)`);
                 this.code.line(`this.${p.fieldName} = value;`);
                 this.code.closeBlock();
             }
@@ -605,17 +619,32 @@ export default class JavaGenerator extends Generator {
     }
 
     private toJavaType(typeref: spec.TypeReference, forMarshalling = false): string {
+        const types = this.toJavaTypes(typeref, forMarshalling);
+        if (types.length > 1) {
+            return 'java.lang.Object';
+        } else {
+            return types[0];
+        }
+    }
+
+    private toJavaTypes(typeref: spec.TypeReference, forMarshalling = false): string[] {
         if (typeref.primitive) {
-            return this.toJavaPrimitive(typeref.primitive);
+            return [ this.toJavaPrimitive(typeref.primitive) ];
         }
         else if (typeref.collection) {
-            return this.toJavaCollection(typeref.collection, forMarshalling);
+            return [ this.toJavaCollection(typeref.collection, forMarshalling) ];
         }
         else if (typeref.fqn) {
-            return this.toNativeFqn(typeref.fqn);
+            return [ this.toNativeFqn(typeref.fqn) ];
         }
         else if (typeref.union) {
-            return 'java.lang.Object';
+            const types = new Array<string>();
+            for (const subtype of typeref.union.types) {
+                for (const t of this.toJavaTypes(subtype, forMarshalling)) {
+                    types.push(t);
+                }
+            }
+            return types;
         }
         else {
             throw new Error('Invalid type reference: ' + JSON.stringify(typeref));

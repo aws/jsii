@@ -1346,6 +1346,23 @@ UnaryOperation
       :type: :py:class:`~jsii-calc-lib.Value` *(readonly)*
 
 
+UnionProperties (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: UnionProperties
+
+
+
+   .. py:attribute:: foo
+
+      :type: string or number or None
+
+
+   .. py:attribute:: bar
+
+      :type: string or number or :py:class:`~jsii-calc.AllTypes` *(readonly)*
+
+
 UsesInterfaceWithProperties
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

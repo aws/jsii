@@ -27,6 +27,7 @@ import org.jsii.tests.calculator.Power;
 import org.jsii.tests.calculator.Statics;
 import org.jsii.tests.calculator.Sum;
 import org.jsii.tests.calculator.SyncVirtualMethods;
+import org.jsii.tests.calculator.UnionProperties;
 import org.jsii.tests.calculator.UsesInterfaceWithProperties;
 import org.jsii.tests.calculator.composition.CompositionStringStyle;
 import org.jsii.tests.calculator.lib.IFriendly;
@@ -284,6 +285,30 @@ public class ComplianceTest {
                 .build());
         calc3.add(3);
         assertEquals(23, calc3.getValue());
+    }
+
+    @Test
+    public void unionPropertiesWithFluentBuilder() {
+        UnionProperties obj1 = UnionProperties.builder()
+            .withBar(12)
+            .withFoo("Hello")
+            .build();
+        assertEquals(12, obj1.getBar());
+        assertEquals("Hello", obj1.getFoo());
+
+        UnionProperties obj2 = UnionProperties.builder()
+            .withBar("BarIsString")
+            .build();
+        assertEquals("BarIsString", obj2.getBar());
+        assertNull(obj2.getFoo());
+
+        AllTypes allTypes = new AllTypes();
+        UnionProperties obj3 = UnionProperties.builder()
+            .withBar(allTypes)
+            .withFoo(999)
+            .build();
+        assertSame(allTypes, obj3.getBar());
+        assertEquals(999, obj3.getFoo());
     }
 
     @Test

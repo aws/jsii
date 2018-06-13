@@ -1017,3 +1017,8 @@ export class JavaReservedWords {
     public volatile() { }
     public while = 'hello';
 }
+
+export interface UnionProperties {
+    foo?: string | number;
+    readonly bar: AllTypes | string | number;
+}
