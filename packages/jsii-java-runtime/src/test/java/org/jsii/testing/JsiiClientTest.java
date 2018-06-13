@@ -194,6 +194,28 @@ public class JsiiClientTest {
         assertEquals(222, client.endAsyncMethod(promise).numberValue());
     }
 
+    @Test
+    public void staticProperties() {
+        final String fqn = "jsii$jsii_calc$.Statics";
+        assertEquals("hello", client.getStaticPropertyValue(fqn, "Foo").textValue());
+
+        JsonNode defaultInstance = client.getStaticPropertyValue(fqn, "instance");
+        assertEquals("default", client.getPropertyValue(JsiiObjectRef.parse(defaultInstance), "value").textValue());
+
+        JsiiObjectRef newValue = client.createObject(fqn, Arrays.asList("NewValue"));
+        client.setStaticPropertyValue(fqn, "instance", newValue.toJson());
+
+        JsonNode newInstance = client.getStaticPropertyValue(fqn, "instance");
+        assertEquals("NewValue", client.getPropertyValue(JsiiObjectRef.parse(newInstance), "value").textValue());
+    }
+
+    @Test
+    public void staticMethods() {
+        final String fqn = "jsii$jsii_calc$.Statics";
+        JsonNode result = client.callStaticMethod(fqn, "staticMethod", JSON.arrayNode().add("Foo"));
+        assertEquals("hello ,Foo!", result.textValue());
+    }
+
     private ArrayNode toSandboxArray(final Object... values) {
         return OM.valueToTree(values);
     }

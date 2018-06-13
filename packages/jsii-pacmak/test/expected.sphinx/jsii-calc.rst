@@ -646,6 +646,225 @@ JSObjectLiteralToNativeClass
       :type: number
 
 
+JavaReservedWords
+^^^^^^^^^^^^^^^^^
+
+.. py:class:: JavaReservedWords()
+
+
+   .. py:method:: abstract()
+
+
+
+   .. py:method:: assert()
+
+
+
+   .. py:method:: boolean()
+
+
+
+   .. py:method:: break()
+
+
+
+   .. py:method:: byte()
+
+
+
+   .. py:method:: case()
+
+
+
+   .. py:method:: catch()
+
+
+
+   .. py:method:: char()
+
+
+
+   .. py:method:: class()
+
+
+
+   .. py:method:: const()
+
+
+
+   .. py:method:: continue()
+
+
+
+   .. py:method:: default()
+
+
+
+   .. py:method:: double()
+
+
+
+   .. py:method:: do()
+
+
+
+   .. py:method:: else()
+
+
+
+   .. py:method:: enum()
+
+
+
+   .. py:method:: extends()
+
+
+
+   .. py:method:: false()
+
+
+
+   .. py:method:: final()
+
+
+
+   .. py:method:: finally()
+
+
+
+   .. py:method:: float()
+
+
+
+   .. py:method:: for()
+
+
+
+   .. py:method:: goto()
+
+
+
+   .. py:method:: if()
+
+
+
+   .. py:method:: implements()
+
+
+
+   .. py:method:: import()
+
+
+
+   .. py:method:: instanceof()
+
+
+
+   .. py:method:: int()
+
+
+
+   .. py:method:: interface()
+
+
+
+   .. py:method:: long()
+
+
+
+   .. py:method:: native()
+
+
+
+   .. py:method:: new()
+
+
+
+   .. py:method:: null()
+
+
+
+   .. py:method:: package()
+
+
+
+   .. py:method:: private()
+
+
+
+   .. py:method:: protected()
+
+
+
+   .. py:method:: public()
+
+
+
+   .. py:method:: return()
+
+
+
+   .. py:method:: short()
+
+
+
+   .. py:method:: static()
+
+
+
+   .. py:method:: strictfp()
+
+
+
+   .. py:method:: super()
+
+
+
+   .. py:method:: switch()
+
+
+
+   .. py:method:: synchronized()
+
+
+
+   .. py:method:: this()
+
+
+
+   .. py:method:: throw()
+
+
+
+   .. py:method:: throws()
+
+
+
+   .. py:method:: transient()
+
+
+
+   .. py:method:: true()
+
+
+
+   .. py:method:: try()
+
+
+
+   .. py:method:: void()
+
+
+
+   .. py:method:: volatile()
+
+
+
+   .. py:attribute:: while
+
+      :type: string
+
+
 Multiply
 ^^^^^^^^
 
@@ -910,6 +1129,76 @@ RuntimeTypeChecking
       :type arg2: string
       :param arg3: 
       :type arg3: date or None
+
+
+Statics
+^^^^^^^
+
+.. py:class:: Statics(value)
+
+   :param value: 
+   :type value: string
+
+   .. py:staticmethod:: staticMethod(name) -> string
+
+      Jsdocs for static method
+
+
+      :param name: The name of the person to say hello to
+      :type name: string
+      :rtype: string
+
+
+   .. py:method:: justMethod() -> string
+
+      :rtype: string
+
+
+   .. py:attribute:: value
+
+      :type: string *(readonly)*
+
+
+   .. py:attribute:: Foo
+
+      Jsdocs for static property.
+
+
+      :type: string *(readonly)* *(static)*
+
+
+   .. py:attribute:: BAR
+
+      Constants may also use all-caps.
+
+
+      :type: number *(readonly)* *(static)*
+
+
+   .. py:attribute:: zooBar
+
+      Constants can also use camelCase.
+
+
+      :type: string *(readonly)* *(static)*
+
+
+   .. py:attribute:: instance
+
+      Jsdocs for static getter. Jsdocs for static setter.
+
+
+      :type: :py:class:`~jsii-calc.Statics` *(static)*
+
+
+   .. py:attribute:: nonConstStatic
+
+      :type: number *(static)*
+
+
+   .. py:attribute:: ConstObj
+
+      :type: :py:class:`~jsii-calc.DoubleTrouble` *(readonly)* *(static)*
 
 
 Sum

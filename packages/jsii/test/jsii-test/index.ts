@@ -190,26 +190,25 @@ export class TestClass4 {
 
     // primitive consts values are allowed but only if they are simple literal data values
     // no math, no evaluation. literally!!
-    static readonly STRING_CONST = 'Hello';
-    static readonly STRING_CONST_WITH_DOUBLE_QUOTES = "World";
-    static readonly NUMBER_CONST = 1234;
-    static readonly DOUBLE_CONST = 1234.44;
-    static readonly BOOLEAN_CONST_FALSE = false;
-    static readonly BOOLEAN_CONST_TRUE = false;
+    static readonly StringConst = 'Hello';
+    static readonly StringConstWithDoubleQuotes = "World";
+    static readonly NumberConst = 1234;
+    static readonly DoubleConst = 1234.44;
+    static readonly BooleanConstValue = false;
+    static readonly BooleanConstTrue = false;
 
     // ignored (with a warning) because it's a non-primitive literal
-    static readonly OBJ_LITERAL_CONST = { foo: 1234 };
-    static readonly NON_LITERAL_CONST = 123 + 45;
-    static readonly OBJ_CONST = new TestClass();
+    static readonly NonLiteralConst = 123 + 45;
+    static readonly ObjConst = new TestClass();
 
     // private
-    private static NON_PRIMITIVE = new TestClass();
+    private static NonPrimitive = new TestClass();
 
     /**
      * p2 cannot be resolved, but it's optional, so we expect the typespec to just include p1
      */
     constructor(p1: string, p2?: () => void, p3?: string) {
-        p1; p2; p3; TestClass4.NON_PRIMITIVE;
+        p1; p2; p3; TestClass4.NonPrimitive;
     }
 }
 

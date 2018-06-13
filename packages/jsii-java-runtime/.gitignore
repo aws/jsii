@@ -1,4 +1,5 @@
 !index.js
+.idea
 
 # Generated before build by "npm run prepare"
 src/test/java/org/jsii/tests/

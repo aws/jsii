@@ -45,6 +45,7 @@ export default class JavaGenerator extends Generator {
         this.code.openBlock(`public${inner}${absPrefix} class ${cls.name}${extendsExpression}${implementsExpr}`);
 
         this.emitJsiiInitializers(cls.name);
+        this.emitStaticInitializer(cls);
     }
 
     protected onEndClass(cls: spec.ClassType) {
@@ -63,87 +64,148 @@ export default class JavaGenerator extends Generator {
         this.onInitializer(cls, overload); originalInitializer;
     }
 
-    protected onConstValue(cls: spec.ClassType, constValue: spec.ConstValue, value: any) {
-        cls; constValue; value;
-    }
     protected onField(cls: spec.ClassType, prop: spec.Property, union?: spec.UnionTypeReference) {
         cls; prop; union
     }
 
-    private emitProperty(prop: spec.Property, includeGetter = true) {
+    private emitStaticInitializer(cls: spec.ClassType) {
+        const consts = (cls.properties || []).filter(x => x.const);
+        if (consts.length === 0) {
+            return;
+        }
+
+        const javaClass = this.toJavaType(cls);
+
+        this.code.openBlock(`static`);
+
+        for (const prop of consts) {
+            const constName = this.renderConstName(prop);
+            const propClass = this.toJavaType(prop.type, true);
+            this.code.line(`${constName} = org.jsii.JsiiObject.jsiiStaticGet(${javaClass}.class, "${prop.name}", ${propClass}.class);`);
+        }
+
+        this.code.closeBlock();
+    }
+
+    private renderConstName(prop: spec.Property) {
+        return this.code.toSnakeCase(prop.name).toLocaleUpperCase(); // java consts are SNAKE_UPPER_CASE
+    }
+
+    private emitConstProperty(prop: spec.Property) {
+        const propType = this.toJavaType(prop.type);
+        const propName = this.renderConstName(prop);
+        const access = this.renderAccessLevel(prop);
+
+        this.addJavaDocs(prop);
+        this.code.line(`${access} final static ${propType} ${propName};`);
+    }
+
+    private emitProperty(cls: spec.Type, prop: spec.Property, includeGetter = true) {
         const propType = this.toJavaType(prop.type);
         const propClass = this.toJavaType(prop.type, true);
         const propName = this.code.toPascalCase(prop.name);
         const access = this.renderAccessLevel(prop);
+        const statc = prop.static ? 'static ' : '';
+        const javaClass = this.toJavaType(cls);
 
         // for unions we only generate overloads for setters, not getters.
         if (includeGetter) {
             this.addJavaDocs(prop);
-            this.code.openBlock(`${access} ${propType} get${propName}()`);
-            this.code.line(`return this.jsiiGet("${prop.name}", ${propClass}.class);`);
+            this.code.openBlock(`${access} ${statc}${propType} get${propName}()`);
+
+            let statement = 'return ';
+            if (prop.static) {
+                statement += `org.jsii.JsiiObject.jsiiStaticGet(${javaClass}.class, `;
+            } else {
+                statement += `this.jsiiGet(`;
+            }
+
+            statement += `"${prop.name}", ${propClass}.class);`;
+
+            this.code.line(statement);
             this.code.closeBlock();
         }
 
         if (!prop.immutable) {
             this.addJavaDocs(prop);
-            this.code.openBlock(`${access} void set${propName}(final ${propType} value)`);
-            this.code.line(`this.jsiiSet("${prop.name}\", value);`);
+            this.code.openBlock(`${access} ${statc}void set${propName}(final ${propType} value)`);
+            let statement = '';
+
+            if (prop.static) {
+                statement += `org.jsii.JsiiObject.jsiiStaticSet(${javaClass}.class, `;
+            } else {
+                statement += 'this.jsiiSet(';
+            }
+            statement += `"${prop.name}\", value);`;
+            this.code.line(statement);
             this.code.closeBlock();
         }
     }
 
-    protected onProperty(_cls: spec.ClassType, prop: spec.Property) {
-        this.emitProperty(prop)
+    protected onProperty(cls: spec.ClassType, prop: spec.Property) {
+        this.emitProperty(cls, prop)
+    }
+
+    protected onStaticProperty(cls: spec.ClassType, prop: spec.Property) {
+        if (prop.const) {
+            this.emitConstProperty(prop);
+        } else {
+            this.emitProperty(cls, prop);
+        }
     }
 
     /**
      * Since we expand the union setters, we will use this event to only emit the getter which returns an Object.
      */
-    protected onUnionProperty(_cls: spec.ClassType, prop: spec.Property, _union: spec.UnionTypeReference) {
+    protected onUnionProperty(cls: spec.ClassType, prop: spec.Property, _union: spec.UnionTypeReference) {
         const propClone = clone(prop);
         propClone.immutable = true;
         propClone.type = {
             primitive: spec.PrimitiveType.Any,
             optional: propClone.type.optional
         };
-        this.emitProperty(propClone);
+        this.emitProperty(cls, propClone);
     }
 
     /**
      * We will generate overloads for setters but not for getters
      */
-    protected onExpandedUnionProperty(_cls: spec.ClassType, prop: spec.Property, primaryName: string) {
+    protected onExpandedUnionProperty(cls: spec.ClassType, prop: spec.Property, primaryName: string) {
         const propClone = clone(prop);
         propClone.name = primaryName;
-        this.emitProperty(propClone, /* includeGetter */ false);
+        this.emitProperty(cls, propClone, false);
     }
 
-    protected onMethod(_cls: spec.ClassType, method: spec.Method) {
-        this.emitMethod(method);
+    protected onMethod(cls: spec.ClassType, method: spec.Method) {
+        this.emitMethod(cls, method);
     }
 
     protected onMethodOverload(cls: spec.ClassType, overload: spec.Method, _originalMethod: spec.Method) {
         this.onMethod(cls, overload);
     }
 
-    private emitMethod(method: spec.Method) {
+    protected onStaticMethod(cls: spec.ClassType, method: spec.Method) {
+        this.emitMethod(cls, method);
+    }
+
+    protected onStaticMethodOverload(cls: spec.ClassType, overload: spec.Method, _originalMethod: spec.Method) {
+        this.emitMethod(cls, overload);
+    }
+
+    private emitMethod(cls: spec.Type, method: spec.Method) {
         const returnType = method.returns ? this.toJavaType(method.returns) : 'void';
+        const statc = method.static ? 'static ' : '';
         const access = this.renderAccessLevel(method);
         const async = !!(method.returns && method.returns.promise);
-        const signature = `${returnType} ${method.name}(${this.renderMethodParameters(method)})`;
+        const methodName = slugify(method.name);
+        const signature = `${returnType} ${methodName}(${this.renderMethodParameters(method)})`;
         this.addJavaDocs(method);
         if (method.abstract) {
             this.code.line(`${access} abstract ${signature};`)
         }
         else {
-            this.code.openBlock(`${access} ${signature}`);
-            const methodCall = this.renderMethodCall(method, async);
-            if (method.returns) {
-                this.code.line(`return ${methodCall};`);
-            }
-            else {
-                this.code.line(`${methodCall};`);
-            }
+            this.code.openBlock(`${access} ${statc}${signature}`);
+            this.code.line(this.renderMethodCall(cls, method, async));
             this.code.closeBlock();
         }
     }
@@ -231,13 +293,13 @@ export default class JavaGenerator extends Generator {
         // emit all properties
         for (let propName of Object.keys(properties)) {
             const prop = properties[propName];
-            this.emitProperty(prop);
+            this.emitProperty(ifc, prop);
         }
 
         // emit all the methods
         for (let methodName of Object.keys(methods)) {
             const method = methods[methodName];
-            this.emitMethod(method);
+            this.emitMethod(ifc, method);
         }
 
         this.code.closeBlock();
@@ -597,18 +659,36 @@ export default class JavaGenerator extends Generator {
         return `, ${paramStream}.toArray()`;
     }
 
-    private renderMethodCall(method: spec.Method, async: boolean) {
-        const callType = async ? 'jsiiAsyncCall' : 'jsiiCall';
-        let s = `this.${callType}("${method.name}\"`;
+    private renderMethodCall(cls: spec.TypeReference, method: spec.Method, async: boolean) {
+        let statement = '';
+
         if (method.returns) {
-            s += `, ${this.toJavaType(method.returns, true)}.class`;
+            statement += `return `;
+        }
+
+        if (method.static) {
+            const javaClass = this.toJavaType(cls);
+            statement += `org.jsii.JsiiObject.jsiiStaticCall(${javaClass}.class, `;
+        } else {
+            if (async) {
+                statement += `this.jsiiAsyncCall(`;
+            } else {
+                statement += 'this.jsiiCall(';
+            }
+        }
+
+        statement += `"${method.name}"`;
+
+        if (method.returns) {
+            statement += `, ${this.toJavaType(method.returns, true)}.class`;
         }
         else {
-            s += ', Void.class'
+            statement += ', Void.class'
         }
-        s += this.renderMethodCallArguments(method);
-        s += ')';
-        return s;
+        statement += this.renderMethodCallArguments(method);
+        statement += ');';
+
+        return statement;
     }
 
     private renderMethodParameters(method: spec.Method) {
@@ -673,3 +753,24 @@ export default class JavaGenerator extends Generator {
         this.code.closeBlock();
     }
 }
+
+function slugify(name?: string) {
+    if (!name) {
+        return name;
+    }
+    if (RESERVED_KEYWORDS.includes(name)) {
+        return `${name}_`;
+    } else {
+        return name;
+    }
+}
+
+const RESERVED_KEYWORDS = [
+    'abstract', 'assert', 'boolean', 'break', 'byte', 'case', 'catch', 'char', 'class',
+    'const', 'continue', 'default', 'double', 'do', 'else', 'enum', 'extends', 'false',
+    'final', 'finally', 'float', 'for', 'goto', 'if', 'implements', 'import', 'instanceof',
+    'int', 'interface', 'long', 'native', 'new', 'null', 'package', 'private', 'protected',
+    'public', 'return', 'short', 'static', 'strictfp', 'super', 'switch', 'synchronized',
+    'this', 'throw', 'throws', 'transient', 'true', 'try', 'void', 'volatile', 'while'
+];
+

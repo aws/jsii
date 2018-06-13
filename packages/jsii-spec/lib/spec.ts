@@ -263,6 +263,18 @@ export class Property implements Documentable {
      * Documentation.
      */
     public docs = new Docs();
+
+    /**
+     * Indicates if this is a static property.
+     */
+    public static?: boolean;
+
+    /**
+     * A hint that indicates that this static, immutable property is initialized
+     * during startup. This allows emitting "const" idioms in different target languages.
+     * Implies `static` and `immutable`.
+     */
+    public const?: boolean;
 }
 
 /**
@@ -337,6 +349,11 @@ export class Method implements Documentable {
      * element of ``#parameters`` will also be flagged ``#variadic``.
      */
     public variadic?: boolean;
+
+    /**
+     * Indicates if this is a static method.
+     */
+    public static?: boolean;
 }
 
 /**
@@ -422,11 +439,6 @@ export class ClassType extends Type {
     public methods ? = new Array<Method>();
 
     /**
-     * List of const values exported by this class.
-     */
-    public consts ? = new Array<ConstValue>();
-
-    /**
      * Indicates if this class is an abstract class.
      */
     public abstract: boolean;
@@ -490,37 +502,6 @@ export class EnumType extends Type {
      * Members of the enum.
      */
     public members = new Array<EnumMember>();
-}
-
-/**
- * Public constant primitive value.
- * Only [very] primitive values can be [safely] exported.
- */
-export class ConstValue {
-    /**
-     * The name of the const
-     */
-    public name: string;
-
-    /**
-     * Type of const value.
-     */
-    public primitive: PrimitiveType;
-
-    /**
-     * The value of the const (if it's a string)
-     */
-    public stringValue?: string;
-
-    /**
-     * The value of the const (if it's a number)
-     */
-    public numberValue?: number;
-
-    /**
-     * The value of the const (if it's a boolean)
-     */
-    public booleanValue?: boolean;
 }
 
 /**

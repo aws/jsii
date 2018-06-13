@@ -108,6 +108,49 @@ export class Kernel {
         return { };
     }
 
+    public sget(req: api.StaticGetRequest): api.GetResponse {
+        const { fqn, property } = req;
+        const symbol = `${fqn}.${property}`;
+        this._debug('sget', symbol);
+        const ti = this._typeInfoForProperty(fqn, property);
+
+        if (!ti.static) {
+            throw new Error(`property ${symbol} is not static`);
+        }
+
+        const prototype = this._findSymbol(fqn);
+
+        const value = this._ensureSync(`property ${property}`, () =>
+            this._wrapSandboxCode(() => prototype[property]));
+
+        this._debug('value:', value);
+        const ret = this._fromSandbox(value, ti.type);
+        this._debug('ret', ret);
+        return { value: ret };
+    }
+
+    public sset(req: api.StaticSetRequest): api.SetResponse {
+        const { fqn, property, value } = req;
+        const symbol = `${fqn}.${property}`;
+        this._debug('sset', symbol);
+        const ti = this._typeInfoForProperty(fqn, property);
+
+        if (!ti.static) {
+            throw new Error(`property ${symbol} is not static`);
+        }
+
+        if (ti.immutable) {
+            throw new Error(`static property ${symbol} is readonly`);
+        }
+
+        const prototype = this._findSymbol(fqn);
+
+        this._ensureSync(`property ${property}`, () =>
+            this._wrapSandboxCode(() => prototype[property] = this._toSandbox(value)));
+
+        return {};
+    }
+
     public get(req: api.GetRequest): api.GetResponse {
         const { objref, property } = req;
         this._debug('get', objref, property);
@@ -170,6 +213,34 @@ export class Kernel {
 
         this._debug('method returned:', ret);
 
+        return { result: this._fromSandbox(ret, ti.returns) };
+    }
+
+    public sinvoke(req: api.StaticInvokeRequest): api.InvokeResponse {
+        const { fqn, method } = req;
+        const args = req.args || [ ];
+
+        this._debug('sinvoke', fqn, method, args);
+
+        const ti = this._typeInfoForMethod(fqn, method);
+
+        if (!ti.static) {
+            throw new Error(`${fqn}.${method} is not a static method`);
+        }
+
+        // verify this is not an async method
+        if (ti.returns && ti.returns.promise) {
+            throw new Error(`${method} is an async method, use "begin" instead`);
+        }
+
+        const prototype = this._findSymbol(fqn);
+        const fn = prototype[method];
+
+        const ret = this._ensureSync(`method '${fqn}.${method}'`, () => {
+            return this._wrapSandboxCode(() => fn.apply(null, this._toSandboxValues(args)));
+        });
+
+        this._debug('method returned:', ret);
         return { result: this._fromSandbox(ret, ti.returns) };
     }
 
@@ -663,6 +734,9 @@ export class Kernel {
     }
 
     private _typeInfoForProperty(fqn: string, property: string): spec.Property {
+        if (!fqn) {
+            throw new Error('missing "fqn"');
+        }
 
         const typeInfo = this._typeInfoForFqn(fqn);
 

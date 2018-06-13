@@ -907,3 +907,113 @@ export class VariadicMethod {
         return [...this.prefix, first, ...others];
     }
 }
+
+export class Statics {
+    constructor(public readonly value: string) { }
+
+    /**
+     * Jsdocs for static method
+     * @param name The name of the person to say hello to
+     */
+    public static staticMethod(name: string) {
+        return `hello ,${name}!`;
+    }
+
+    public justMethod() {
+        return this.value;
+    }
+
+    /**
+     * Jsdocs for static property.
+     */
+    public static readonly Foo = 'hello';
+
+    /**
+     * Constants may also use all-caps.
+     */
+    public static readonly BAR = 1234;
+
+    /**
+     * Constants can also use camelCase.
+     */
+    public static readonly zooBar: { [name: string]: string } = { hello: 'world' };
+
+    private static _instance?: Statics
+
+    /**
+     * Jsdocs for static getter.
+     */
+    public static get instance(): Statics {
+        if (!this._instance) {
+            this._instance = new Statics('default');
+        }
+        return this._instance;
+    }
+
+    /**
+     *Jsdocs for static setter.
+     */
+    public static set instance(val: Statics) {
+        this._instance = val;
+    }
+
+    public static nonConstStatic = 100; // this should not be represented as a constant in target languages
+    public static readonly ConstObj = new DoubleTrouble(); // should be initialized statically
+}
+
+// https://en.wikipedia.org/wiki/List_of_Java_keywords
+export class JavaReservedWords {
+    public abstract() { }
+    public assert() { }
+    public boolean() { }
+    public break() { }
+    public byte() { }
+    public case() { }
+    public catch() { }
+    public char() { }
+    public class() { }
+    public const() { }
+    public continue() { }
+    public default() { }
+    public double() { }
+    public do() { }
+    public else() { }
+    public enum() { }
+    public extends() { }
+    public false() { }
+    public final() { }
+    public finally() { }
+    public float() { }
+    public for() { }
+    public goto() { }
+    public if() { }
+    public implements() { }
+    public import() { }
+    public instanceof() { }
+    public int() { }
+    public interface() { }
+    public long() { }
+    public native() { }
+    public new() { }
+    public null() { }
+    public package() { }
+    public private() { }
+    public protected() { }
+    public public() { }
+    public return() { }
+    public short() { }
+    public static() { }
+    public strictfp() { }
+    public super() { }
+    public switch() { }
+    public synchronized() { }
+    public this() { }
+    public throw() { }
+    public throws() { }
+    public transient() { }
+    public true() { }
+    public try() { }
+    public void() { }
+    public volatile() { }
+    public while = 'hello';
+}

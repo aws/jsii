@@ -24,6 +24,7 @@ import org.jsii.tests.calculator.Negate;
 import org.jsii.tests.calculator.NumberGenerator;
 import org.jsii.tests.calculator.Polymorphism;
 import org.jsii.tests.calculator.Power;
+import org.jsii.tests.calculator.Statics;
 import org.jsii.tests.calculator.Sum;
 import org.jsii.tests.calculator.SyncVirtualMethods;
 import org.jsii.tests.calculator.UsesInterfaceWithProperties;
@@ -33,6 +34,7 @@ import org.jsii.tests.calculator.lib.MyFirstStruct;
 import org.jsii.tests.calculator.lib.Number;
 import org.jsii.tests.calculator.lib.StructWithOnlyOptionals;
 import org.jsii.tests.calculator.lib.Value;
+import org.jsii.tests.calculator.JavaReservedWords;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -732,6 +734,36 @@ public class ComplianceTest {
         assertEquals("optional1FromStructLiteral", literal.getOptional1());
         assertEquals(false, literal.getOptional3());
         assertNull(literal.getOptional2());
+    }
+
+    @Test
+    public void statics() {
+        assertEquals("hello ,Yoyo!", Statics.staticMethod("Yoyo"));
+        assertEquals("default", Statics.getInstance().getValue());
+
+        Statics newStatics = new Statics("new value");
+        Statics.setInstance(newStatics);
+        assertSame(Statics.getInstance(), newStatics);
+        assertEquals(Statics.getInstance().getValue(), "new value");
+
+        assertEquals(100, Statics.getNonConstStatic());
+    }
+
+    @Test
+    public void consts() {
+        assertEquals("hello", Statics.FOO);
+        DoubleTrouble obj = Statics.CONST_OBJ;
+        assertEquals("world", obj.hello());
+        assertEquals(1234, Statics.BAR);
+        assertEquals("world", Statics.ZOO_BAR.get("hello"));
+    }
+
+    @Test
+    public void reservedKeywordsAreSlugifiedInMethodNames() {
+        JavaReservedWords obj = new JavaReservedWords();
+        obj.import_();
+        obj.const_();
+        assertEquals("hello", obj.getWhile()); // properties do not need to be slufieid
     }
 
     static class MulTen extends Multiply {

@@ -1,4 +1,4 @@
-///!MATCH_ERROR: Member names cannot use an underscore: hello_world
+///!MATCH_ERROR: ERROR 'hello_world' must use camelCase
 
 export class MyClass {
     hello_world() {
