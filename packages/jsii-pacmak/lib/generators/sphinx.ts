@@ -1,5 +1,6 @@
 import * as spec from 'jsii-spec';
 import { Generator } from '../generator';
+import { contentToLines, fileSystemLoader, includeAndRenderExamples } from '../literate';
 
 type NamespaceStackEntry = { name: string, underClass: boolean };
 
@@ -42,7 +43,12 @@ export default class SphinxDocsGenerator extends Generator {
         if (assm.readme) {
             this.readmeFile = `_${safeName(assm.names.js)}.README.md`;
             this.code.openFile(this.readmeFile);
-            this.code.line(assm.readme.markdown);
+
+            const renderedLines = includeAndRenderExamples(
+                contentToLines(assm.readme.markdown),
+                fileSystemLoader('.'));
+
+            this.code.line(renderedLines.join('\n'));
             this.code.closeFile(this.readmeFile);
         }
 
