@@ -172,7 +172,9 @@ export abstract class Generator {
     // `primaryName` indicates the original name of the union property (without the 'AsXxx' postfix).
 
     protected abstract onUnionProperty(cls: spec.ClassType, prop: spec.Property, union: spec.UnionTypeReference): void;
-    protected abstract onExpandedUnionProperty(cls: spec.ClassType, prop: spec.Property, primaryName: string): void;
+    protected onExpandedUnionProperty(_cls: spec.ClassType, _prop: spec.Property, _primaryName: string): void {
+        return;
+    }
 
     //
     // Methods

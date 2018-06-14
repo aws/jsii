@@ -38,6 +38,9 @@ public interface DerivedStruct extends org.jsii.JsiiSerializable, org.jsii.tests
      * The build() method will be available once all required properties are fulfilled.
      */
     class Builder {
+        /**
+         * An example of a non primitive property.
+         */
         public BoolStep withNonPrimitive(final org.jsii.tests.calculator.DoubleTrouble value) {
             return new FullBuilder().withNonPrimitive(value);
         }
@@ -93,6 +96,9 @@ public interface DerivedStruct extends org.jsii.JsiiSerializable, org.jsii.tests
 
             private Jsii$Pojo instance = new Jsii$Pojo();
 
+            /**
+             * An example of a non primitive property.
+             */
             public BoolStep withNonPrimitive(final org.jsii.tests.calculator.DoubleTrouble value) {
                 java.util.Objects.requireNonNull(value, "_nonPrimitive is required");
                 this.instance._nonPrimitive = value;
@@ -112,15 +118,24 @@ public interface DerivedStruct extends org.jsii.JsiiSerializable, org.jsii.tests
                 this.instance._optionalArray = value;
                 return this;
             }
+            /**
+             * This is optional.
+             */
             public Build withAnotherOptional(final java.util.Map<java.lang.String, org.jsii.tests.calculator.lib.Value> value) {
                 this.instance._anotherOptional = value;
                 return this;
             }
+            /**
+             * A string value
+             */
             public AnumberStep withAstring(final java.lang.String value) {
                 java.util.Objects.requireNonNull(value, "_astring is required");
                 this.instance._astring = value;
                 return this;
             }
+            /**
+             * An awesome number value
+             */
             public Build withAnumber(final java.lang.Number value) {
                 java.util.Objects.requireNonNull(value, "_anumber is required");
                 this.instance._anumber = value;

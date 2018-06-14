@@ -3,7 +3,6 @@ package org.jsii.testing;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.jsii.JsiiException;
-import org.jsii.JsiiRuntime;
 import org.jsii.tests.calculator.Add;
 import org.jsii.tests.calculator.AllTypes;
 import org.jsii.tests.calculator.AsyncVirtualMethods;
@@ -27,6 +26,7 @@ import org.jsii.tests.calculator.Power;
 import org.jsii.tests.calculator.Statics;
 import org.jsii.tests.calculator.Sum;
 import org.jsii.tests.calculator.SyncVirtualMethods;
+import org.jsii.tests.calculator.UnionProperties;
 import org.jsii.tests.calculator.UsesInterfaceWithProperties;
 import org.jsii.tests.calculator.composition.CompositionStringStyle;
 import org.jsii.tests.calculator.lib.IFriendly;
@@ -35,8 +35,6 @@ import org.jsii.tests.calculator.lib.Number;
 import org.jsii.tests.calculator.lib.StructWithOnlyOptionals;
 import org.jsii.tests.calculator.lib.Value;
 import org.jsii.tests.calculator.JavaReservedWords;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -47,17 +45,12 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 public class ComplianceTest {
-
-    @BeforeClass
-    public static void classSetUp() {
-        JsiiRuntime.enableTrace();
-    }
-
     /**
      * Verify that we can marshal and unmarshal objects without type information.
      */
@@ -284,6 +277,45 @@ public class ComplianceTest {
                 .build());
         calc3.add(3);
         assertEquals(23, calc3.getValue());
+    }
+
+    @Test
+    public void unionPropertiesWithFluentBuilder() throws Exception {
+
+        // verify we have a withXxx overload for each union type
+        UnionProperties.Builder firstBuilder = UnionProperties.builder();
+        assertNotNull(firstBuilder.getClass().getMethod("withBar", java.lang.Number.class));
+        assertNotNull(firstBuilder.getClass().getMethod("withBar", String.class));
+        assertNotNull(firstBuilder.getClass().getMethod("withBar", AllTypes.class));
+
+        UnionProperties.Builder.Build lastBuilder = firstBuilder.withBar(1);
+        lastBuilder.getClass().getMethod("withFoo", String.class);
+        lastBuilder.getClass().getMethod("withFoo", java.lang.Number.class);
+
+        UnionProperties obj1 = UnionProperties.builder()
+            .withBar(12)
+            .withFoo("Hello")
+            .build();
+        assertEquals(12, obj1.getBar());
+        assertEquals("Hello", obj1.getFoo());
+
+        // verify we have a setXxx for each type
+        assertNotNull(obj1.getClass().getMethod("setFoo", String.class));
+        assertNotNull(obj1.getClass().getMethod("setFoo", java.lang.Number.class));
+
+        UnionProperties obj2 = UnionProperties.builder()
+            .withBar("BarIsString")
+            .build();
+        assertEquals("BarIsString", obj2.getBar());
+        assertNull(obj2.getFoo());
+
+        AllTypes allTypes = new AllTypes();
+        UnionProperties obj3 = UnionProperties.builder()
+            .withBar(allTypes)
+            .withFoo(999)
+            .build();
+        assertSame(allTypes, obj3.getBar());
+        assertEquals(999, obj3.getFoo());
     }
 
     @Test
