@@ -33,7 +33,6 @@ public class JsiiClientTest {
     @Before
     public void setUp() {
         jsiiRuntime = new JsiiRuntime();
-        JsiiRuntime.enableTrace();
         this.client = jsiiRuntime.getClient();
         this.client.loadModule(this.getClass().getResourceAsStream("../tests/calculator/lib/assembly.jsii"));
         this.client.loadModule(getClass().getResourceAsStream("../tests/calculator/assembly.jsii"));

@@ -761,16 +761,13 @@
             "union": {
               "types": [
                 {
-                  "fqn": "jsii$jsii_calc$.Add",
-                  "optional": true
+                  "fqn": "jsii$jsii_calc$.Add"
                 },
                 {
-                  "fqn": "jsii$jsii_calc$.Multiply",
-                  "optional": true
+                  "fqn": "jsii$jsii_calc$.Multiply"
                 },
                 {
-                  "fqn": "jsii$jsii_calc$.Power",
-                  "optional": true
+                  "fqn": "jsii$jsii_calc$.Power"
                 }
               ]
             },

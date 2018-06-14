@@ -1,7 +1,7 @@
 import { Generator } from '../generator'
 import * as spec from 'jsii-spec'
-import * as clone from 'clone'
 import * as path from 'path'
+import { Docs } from 'jsii-spec';
 
 const MODULE_CLASS_NAME = '$Module';
 const ASSEMBLY_FILE_NAME = 'assembly.jsii';
@@ -13,7 +13,6 @@ export default class JavaGenerator extends Generator {
 
     constructor(mod: spec.Assembly) {
         super(mod, {
-            expandUnionProperties: true,
             generateOverloadsForMethodWithOptionals: true,
             target: 'java'
         });
@@ -101,7 +100,8 @@ export default class JavaGenerator extends Generator {
     }
 
     private emitProperty(cls: spec.Type, prop: spec.Property, includeGetter = true) {
-        const propType = this.toJavaType(prop.type);
+        const getterType = this.toJavaType(prop.type);
+        const setterTypes = this.toJavaTypes(prop.type);
         const propClass = this.toJavaType(prop.type, true);
         const propName = this.code.toPascalCase(prop.name);
         const access = this.renderAccessLevel(prop);
@@ -111,7 +111,7 @@ export default class JavaGenerator extends Generator {
         // for unions we only generate overloads for setters, not getters.
         if (includeGetter) {
             this.addJavaDocs(prop);
-            this.code.openBlock(`${access} ${statc}${propType} get${propName}()`);
+            this.code.openBlock(`${access} ${statc}${getterType} get${propName}()`);
 
             let statement = 'return ';
             if (prop.static) {
@@ -127,18 +127,20 @@ export default class JavaGenerator extends Generator {
         }
 
         if (!prop.immutable) {
-            this.addJavaDocs(prop);
-            this.code.openBlock(`${access} ${statc}void set${propName}(final ${propType} value)`);
-            let statement = '';
-
-            if (prop.static) {
-                statement += `org.jsii.JsiiObject.jsiiStaticSet(${javaClass}.class, `;
-            } else {
-                statement += 'this.jsiiSet(';
+            for (const type of setterTypes) {
+                this.addJavaDocs(prop);
+                this.code.openBlock(`${access} ${statc}void set${propName}(final ${type} value)`);
+                let statement = '';
+    
+                if (prop.static) {
+                    statement += `org.jsii.JsiiObject.jsiiStaticSet(${javaClass}.class, `;
+                } else {
+                    statement += 'this.jsiiSet(';
+                }
+                statement += `"${prop.name}\", value);`;
+                this.code.line(statement);
+                this.code.closeBlock();
             }
-            statement += `"${prop.name}\", value);`;
-            this.code.line(statement);
-            this.code.closeBlock();
         }
     }
 
@@ -158,22 +160,7 @@ export default class JavaGenerator extends Generator {
      * Since we expand the union setters, we will use this event to only emit the getter which returns an Object.
      */
     protected onUnionProperty(cls: spec.ClassType, prop: spec.Property, _union: spec.UnionTypeReference) {
-        const propClone = clone(prop);
-        propClone.immutable = true;
-        propClone.type = {
-            primitive: spec.PrimitiveType.Any,
-            optional: propClone.type.optional
-        };
-        this.emitProperty(cls, propClone);
-    }
-
-    /**
-     * We will generate overloads for setters but not for getters
-     */
-    protected onExpandedUnionProperty(cls: spec.ClassType, prop: spec.Property, primaryName: string) {
-        const propClone = clone(prop);
-        propClone.name = primaryName;
-        this.emitProperty(cls, propClone, false);
+        this.emitProperty(cls, prop);
     }
 
     protected onMethod(cls: spec.ClassType, method: spec.Method) {
@@ -303,7 +290,6 @@ export default class JavaGenerator extends Generator {
         }
 
         this.code.closeBlock();
-        // this.code.closeFile(file);
     }
 
     protected onInterfaceMethod(_ifc: spec.InterfaceType, method: spec.Method) {
@@ -317,16 +303,19 @@ export default class JavaGenerator extends Generator {
     }
 
     protected onInterfaceProperty(_ifc: spec.InterfaceType, prop: spec.Property) {
-        const propType = this.toJavaType(prop.type);
+        const getterType = this.toJavaType(prop.type);
+        const setterTypes = this.toJavaTypes(prop.type);
         const propName = this.code.toPascalCase(prop.name);
 
         // for unions we only generate overloads for setters, not getters.
         this.addJavaDocs(prop);
-        this.code.line(`${propType} get${propName}();`);
+        this.code.line(`${getterType} get${propName}();`);
 
         if (!prop.immutable) {
-            this.addJavaDocs(prop);
-            this.code.line(`void set${propName}(final ${propType} value);`);
+            for (const type of setterTypes) {
+                this.addJavaDocs(prop);
+                this.code.line(`void set${propName}(final ${type} value);`);
+            }
         }
     }
 
@@ -346,6 +335,7 @@ export default class JavaGenerator extends Generator {
         this.code.closeBlock();
 
         interface Prop {
+            docs: Docs
             spec: spec.Property
             propName: string
             fieldName: string
@@ -371,6 +361,7 @@ export default class JavaGenerator extends Generator {
                 const optional = property.type.optional;
 
                 const prop: Prop = {
+                    docs: property.docs,
                     spec: property,
                     propName, optional,
                     fieldName: '_' + self.code.toCamelCase(property.name),
@@ -413,6 +404,7 @@ export default class JavaGenerator extends Generator {
 
         const emitWithImplementation = (prop: Prop, isFirstProp = false) => {
             for (const type of prop.javaTypes) {
+                this.addJavaDocs(prop);
                 this.code.openBlock(`public ${prop.nextStepInterfaceName} with${prop.propName}(final ${type} value)`);
 
                 if (isFirstProp) {
@@ -541,9 +533,11 @@ export default class JavaGenerator extends Generator {
             this.code.closeBlock();
 
             if (!p.immutable) {
-                this.code.openBlock(`public void set${p.propName}(final ${p.fieldJavaType} value)`);
-                this.code.line(`this.${p.fieldName} = value;`);
-                this.code.closeBlock();
+                for (const type of p.javaTypes) {
+                    this.code.openBlock(`public void set${p.propName}(final ${type} value)`);
+                    this.code.line(`this.${p.fieldName} = value;`);
+                    this.code.closeBlock();
+                }
             }
         });
 

@@ -1,7 +1,8 @@
 package org.jsii.tests.calculator;
 public interface UnionProperties extends org.jsii.JsiiSerializable {
     java.lang.Object getFoo();
-    void setFoo(final java.lang.Object value);
+    void setFoo(final java.lang.String value);
+    void setFoo(final java.lang.Number value);
     java.lang.Object getBar();
 
     // ==================================================================
@@ -92,7 +93,10 @@ public interface UnionProperties extends org.jsii.JsiiSerializable {
         public java.lang.Object getFoo() {
             return this._foo;
         }
-        public void setFoo(final java.lang.Object value) {
+        public void setFoo(final java.lang.String value) {
+            this._foo = value;
+        }
+        public void setFoo(final java.lang.Number value) {
             this._foo = value;
         }
 
@@ -113,7 +117,10 @@ public interface UnionProperties extends org.jsii.JsiiSerializable {
         public java.lang.Object getFoo() {
             return this.jsiiGet("foo", java.lang.Object.class);
         }
-        public void setFoo(final java.lang.Object value) {
+        public void setFoo(final java.lang.String value) {
+            this.jsiiSet("foo", value);
+        }
+        public void setFoo(final java.lang.Number value) {
             this.jsiiSet("foo", value);
         }
         public java.lang.Object getBar() {
