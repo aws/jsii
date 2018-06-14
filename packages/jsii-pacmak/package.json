@@ -26,6 +26,7 @@
   ],
   "license": "UNLICENSED",
   "dependencies": {
+    "clone": "^2.1.1",
     "codemaker": "^0.4.0",
     "fs-extra": "^4.0.3",
     "jsii-spec": "^0.4.0",
@@ -33,6 +34,7 @@
     "yargs": "^9.0.0"
   },
   "devDependencies": {
+    "@types/clone": "^0.1.30",
     "@types/fs-extra": "^4.0.8",
     "@types/node": "^9.6.18",
     "@types/nodeunit": "0.0.30",
