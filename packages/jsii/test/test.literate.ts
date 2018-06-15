@@ -106,12 +106,12 @@ export = {
     'can do example inclusion': async function(test: Test) {
         const inputMarkDown = [
             'This is a preamble',
-            '[example here](test/something.ts)',
+            '[included here](test/something.lit.ts)',
             'This is a postamble'
         ];
 
         const fakeLoader = async function(fileName: string): Promise<string[]> {
-            test.equal('test/something.ts', fileName);
+            test.equal('test/something.lit.ts', fileName);
             return [
                 'const x = 1;',
                 '/// This is how we print x',

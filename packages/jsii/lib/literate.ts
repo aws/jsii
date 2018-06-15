@@ -11,13 +11,13 @@
  * Including into README
  * ---------------------
  *
- * To include the examples directly
- * into the README, make a link to the annotated TypeScript file on a line
- * by itself, and name the link something starting with "example" (case insensitive).
+ * To include the examples directly into the README, make a link to the
+ * annotated TypeScript file on a line by itself, and make sure the
+ * extension of the file ends in `.lit.ts`.
  *
  * For example:
  *
- *    [example](test/integ.bucket.ts)
+ *    [example](test/integ.bucket.lit.ts)
  *
  * Annotating source
  * -----------------
@@ -81,7 +81,7 @@ export type FileLoader = (relativePath: string) => Promise<string[]>;
 export async function includeAndRenderExamples(lines: string[], loader: FileLoader): Promise<string[]> {
     const ret: string[] = [];
 
-    const regex = /^\[example([^\]]*)\]\(([^)]+)\)/i;
+    const regex = /^\[([^\]]*)\]\(([^)]+\.lit\.ts)\)/i;
     for (const line of lines) {
         const m = regex.exec(line);
         if (m) {
