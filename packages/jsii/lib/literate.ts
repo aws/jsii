@@ -26,12 +26,12 @@
  * and are treated as regular comments if not the very first thing in the file.
  *
  * By default, the whole file is included, unless the source contains the statement
- * "/// !relevant". For example:
+ * "/// !show". For example:
  *
  *     a
- *     /// !relevant
+ *     /// !show
  *     b
- *     /// !detail
+ *     /// !hide
  *     c
  *
  * In this example, only 'b' would be included in the output. A single file may
@@ -56,7 +56,7 @@
  *     console.log(x);
  *     ```
  */
-import fs = require('fs');
+import fs = require('fs-extra');
 import path = require('path');
 
 /**
@@ -68,7 +68,7 @@ export function typescriptSourceToMarkdown(lines: string[]): string[] {
     return markdownLines;
 }
 
-export type FileLoader = (relativePath: string) => string[];
+export type FileLoader = (relativePath: string) => Promise<string[]>;
 
 /**
  * Given MarkDown source, find source files to include and render
@@ -78,7 +78,7 @@ export type FileLoader = (relativePath: string) => string[];
  *
  *     [example](test/integ.bucket.ts)
  */
-export function includeAndRenderExamples(lines: string[], loader: FileLoader): string[] {
+export async function includeAndRenderExamples(lines: string[], loader: FileLoader): Promise<string[]> {
     const ret: string[] = [];
 
     const regex = /^\[example([^\]]*)\]\(([^)]+)\)/i;
@@ -86,7 +86,7 @@ export function includeAndRenderExamples(lines: string[], loader: FileLoader): s
         const m = regex.exec(line);
         if (m) {
             // Found an include
-            const source = loader(m[2]);
+            const source = await loader(m[2]);
             const imported = typescriptSourceToMarkdown(source);
             ret.push(...imported);
         } else {
@@ -100,8 +100,8 @@ export function includeAndRenderExamples(lines: string[], loader: FileLoader): s
 /**
  * Load a file into a string array
  */
-export function loadFromFile(fileName: string): string[] {
-    const content = fs.readFileSync(fileName, { encoding: 'utf-8' });
+export async function loadFromFile(fileName: string): Promise<string[]> {
+    const content = await fs.readFile(fileName, { encoding: 'utf-8' });
     return contentToLines(content);
 }
 
@@ -121,14 +121,16 @@ export function fileSystemLoader(directory: string): FileLoader {
     };
 }
 
-const RELEVANT_TAG = '/// !relevant';
-const DETAIL_TAG = '/// !detail';
-const MD_PREFIX = '/// ';
+const RELEVANT_TAG = '/// !show';
+const DETAIL_TAG = '/// !hide';
+const INLINE_MD_REGEX = /^\s*\/\/\/ (.*)$/;
 
 /**
  * Find the relevant lines of the input source
  *
  * Respects switching tags, returns everything if no switching found.
+ *
+ * Strips common indentation from the blocks it finds.
  */
 function findRelevantLines(lines: string[]): string[] {
     let inRelevant = false;
@@ -136,10 +138,10 @@ function findRelevantLines(lines: string[]): string[] {
     const ret: string[] = [];
 
     for (const line of lines) {
-        if (line === RELEVANT_TAG) {
+        if (line.trim() === RELEVANT_TAG) {
             inRelevant = true;
             didFindRelevant = true;
-        } else if (line === DETAIL_TAG) {
+        } else if (line.trim() === DETAIL_TAG) {
             inRelevant = false;
         } else {
             if (inRelevant) ret.push(line);
@@ -147,7 +149,17 @@ function findRelevantLines(lines: string[]): string[] {
     }
 
     // Return full lines list if no switching found
-    return didFindRelevant ? ret : lines;
+    return stripCommonIndent(didFindRelevant ? ret : lines);
+}
+
+/**
+ * Remove common leading whitespace from the given lines
+ */
+function stripCommonIndent(lines: string[]): string[] {
+    const whitespace = /^(\s*)/;
+    const indents = lines.map(x => whitespace.exec(x)![1].length);
+    const commonIndent = Math.min(...indents);
+    return lines.map(x => x.substr(commonIndent));
 }
 
 /**
@@ -158,10 +170,11 @@ function markdownify(lines: string[]): string[] {
     const ret: string[] = [];
 
     for (const line of lines) {
-        if (line.startsWith(MD_PREFIX)) {
+        const m = INLINE_MD_REGEX.exec(line);
+        if (m) {
             // Literal MarkDown line
             flushTS();
-            ret.push(line.substr(MD_PREFIX.length));
+            ret.push(m[1]);
         } else {
             typescriptLines.push(line);
         }

@@ -18,7 +18,7 @@
   "scripts": {
     "prepare": "tsc && chmod +x bin/jsii-pacmak",
     "watch": "tsc -w",
-    "test": "nodeunit test/test.*.js && /bin/bash test/diff-test.sh"
+    "test": "/bin/bash test/diff-test.sh"
   },
   "keywords": [
     "jsii",
