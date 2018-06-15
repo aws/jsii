@@ -1283,6 +1283,9 @@ async function readDependencies(rootDir: string, packageDeps: any, bundledDeps: 
         if (jsii.types) {
             Object.keys(jsii.types).forEach(fqn => lookup.set(fqn, jsii.types[fqn]));
         }
+        if (jsii.externalTypes) {
+            Object.keys(jsii.externalTypes).forEach(fqn => lookup.set(fqn, jsii.externalTypes![fqn]));
+        }
     }
 
     for (const packageName of Object.keys(packageDeps)) {
