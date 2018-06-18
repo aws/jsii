@@ -2,14 +2,6 @@
   "name": "jsii-pacmak",
   "version": "0.4.0",
   "description": "A code generation framework for jsii backend languages",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/awslabs/jsii"
-  },
-  "author": {
-    "name": "Amazon Web Services",
-    "url": "https://aws.amazon.com"
-  },
   "bin": {
     "jsii-pacmak": "bin/jsii-pacmak"
   },
@@ -24,7 +16,6 @@
     "jsii",
     "aws"
   ],
-  "license": "UNLICENSED",
   "dependencies": {
     "clone": "^2.1.1",
     "codemaker": "^0.4.0",
@@ -44,5 +35,14 @@
     "jsii-calc-lib": "^0.4.0",
     "nodeunit": "^0.11.2",
     "typescript": "^2.8.3"
+  },
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com"
+  },
+  "license": "LicenseRef-LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/awslabs/jsii"
   }
 }

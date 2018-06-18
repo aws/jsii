@@ -16,13 +16,13 @@
   "dependencies": {
     "jsii-runtime": "^0.4.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/awslabs/jsii"
-  },
   "author": {
     "name": "Amazon Web Services",
     "url": "https://aws.amazon.com"
   },
-  "license": "UNLICENSED"
+  "license": "LicenseRef-LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/awslabs/jsii"
+  }
 }

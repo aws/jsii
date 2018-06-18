@@ -22,5 +22,14 @@
     "jsii": "^0.4.0",
     "jsii-build-tools": "^0.4.0",
     "typescript": "^2.8.3"
+  },
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com"
+  },
+  "license": "LicenseRef-LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/awslabs/jsii"
   }
 }
