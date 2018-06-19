@@ -249,9 +249,6 @@ public class JsiiRuntime {
                 startPipeErrorStreamThread();
             }
 
-            // if child exits, we can't recover from that because we effectively lost all state.
-            startProcessMonitorThread();
-
         } catch (IOException e) {
             throw new JsiiException(e);
         }
@@ -288,25 +285,6 @@ public class JsiiRuntime {
         } catch (IOException e) {
             throw new JsiiException("Unable to read reply from jsii-runtime: " + e.toString(), e);
         }
-    }
-
-    /**
-     * Starts a thread that monitors the child process. If the process exits, we are doomed, so just throw
-     * a big exception.
-     */
-    private void startProcessMonitorThread() {
-        Thread daemon = new Thread(() -> {
-            int exitCode = -1;
-            try {
-                exitCode = this.childProcess.waitFor();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            throw new JsiiException("jsii-runtime exited unexpectedly with exit code " + exitCode);
-        });
-
-        daemon.setDaemon(true);
-        daemon.start();
     }
 
     /**
