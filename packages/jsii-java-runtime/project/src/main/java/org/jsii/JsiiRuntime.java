@@ -7,22 +7,20 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.commons.io.IOUtils;
 import org.jsii.api.Callback;
-import static org.jsii.JsiiVersion.JSII_RUNTIME_VERSION;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.InvocationTargetException;
-import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.stream.Collectors;
+
+import static org.jsii.JsiiVersion.JSII_RUNTIME_VERSION;
 
 /**
  * Manages the jsii-runtime child process.
@@ -195,20 +193,6 @@ public class JsiiRuntime {
     }
 
     /**
-     * Extracts a resource file from the .jar and saves it into an output directory.
-     * @param resourceName The name of the resource (e.g. jsii-runtime.js)
-     * @param outputDirectory The output directory.
-     * @return The full path of the saved resource
-     * @throws IOException If there was an I/O error
-     */
-    private String extractResource(final String resourceName, Path outputDirectory) throws IOException {
-        File file = new File(outputDirectory.toString(), resourceName);
-        FileOutputStream ostream = new FileOutputStream(file);
-        IOUtils.copy(getClass().getResourceAsStream(resourceName), ostream);
-        return file.getAbsolutePath();
-    }
-
-    /**
      * Starts jsii-server as a child process if it is not already started.
      */
     private void startRuntimeIfNeeded() {
@@ -374,7 +358,7 @@ public class JsiiRuntime {
      *
      * @param runtimeVersion the peer runtime's version, possibly including build number.
      *
-     * @throws JsiiException if {@code runtimeVersion} and {@link RUNTIME_VERSION} aren't equal.
+     * @throws JsiiException if {@code runtimeVersion} and JSII_RUNTIME_VERSION aren't equal.
      */
     static void assertVersionCompatibleWith(final String runtimeVersion) {
         final String shortActualVersion = runtimeVersion.replaceAll(VERSION_BUILD_PART_REGEX, "");
@@ -401,5 +385,19 @@ public class JsiiRuntime {
         } catch (IOException e) {
             throw new JsiiException("Unable to extract bundle of jsii-runtime.js from jar", e);
         }
+    }
+
+    /**
+     * Extracts a resource file from the .jar and saves it into an output directory.
+     * @param resourceName The name of the resource (e.g. jsii-runtime.js)
+     * @param outputDirectory The output directory.
+     * @return The full path of the saved resource
+     * @throws IOException If there was an I/O error
+     */
+    private String extractResource(final String resourceName, Path outputDirectory) throws IOException {
+        File file = new File(outputDirectory.toString(), resourceName);
+        FileOutputStream ostream = new FileOutputStream(file);
+        IOUtils.copy(getClass().getResourceAsStream(resourceName), ostream);
+        return file.getAbsolutePath();
     }
 }
