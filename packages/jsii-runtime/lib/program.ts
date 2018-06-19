@@ -1,7 +1,6 @@
-#!/usr/bin/env node
 import 'source-map-support/register'
-import { KernelHost } from '../lib/host'
-import { InputOutput } from '../lib/in-out'
+import { KernelHost } from './host'
+import { InputOutput } from './in-out'
 
 const name    = require('../package.json').name;
 const version = require('../package.json').version;

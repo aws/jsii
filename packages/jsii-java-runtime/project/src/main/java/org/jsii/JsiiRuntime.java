@@ -203,14 +203,14 @@ public class JsiiRuntime {
         // otherwise, we default to "jsii-runtime" from PATH.
         String jsiiRuntimeExecutable = System.getenv("JSII_RUNTIME");
         if (jsiiRuntimeExecutable == null) {
-            jsiiRuntimeExecutable = "jsii-runtime";
+            jsiiRuntimeExecutable = getClass().getResource("jsii-runtime.js").getFile();
         }
 
         if (traceEnabled) {
             System.err.println("jsii-runtime: " + jsiiRuntimeExecutable);
         }
 
-        ProcessBuilder pb = new ProcessBuilder(jsiiRuntimeExecutable);
+        ProcessBuilder pb = new ProcessBuilder("node", jsiiRuntimeExecutable);
 
         if (traceEnabled) {
             pb.environment().put("JSII_DEBUG", "1");
