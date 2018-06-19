@@ -356,7 +356,6 @@ public class JsiiRuntime {
             String directory = Files.createTempDirectory("jsii-java-runtime").toString();
 
             String entrypoint = extractResource("jsii-runtime.js", directory);
-            extractResource("jsii-runtime.js.map", directory);
             extractResource("mappings.wasm", directory);
             return entrypoint;
         } catch (IOException e) {
