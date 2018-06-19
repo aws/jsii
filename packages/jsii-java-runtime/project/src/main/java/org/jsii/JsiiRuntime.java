@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.jsii.api.Callback;
-import static org.jsii.JsiiVersion.JAVA_RUNTIME_VERSION;
+import static org.jsii.JsiiVersion.JSII_RUNTIME_VERSION;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -20,6 +20,10 @@ import java.util.stream.Collectors;
  * Manages the jsii-runtime child process.
  */
 public class JsiiRuntime {
+    /**
+     * Extract the "+<sha>" postfix from a full version number.
+     */
+    private static final String VERSION_BUILD_PART_REGEX = "\\+[a-z0-9]+$";
 
     /**
      * JSON object mapper.
@@ -350,11 +354,13 @@ public class JsiiRuntime {
      *
      * @throws JsiiException if {@code runtimeVersion} and {@link RUNTIME_VERSION} aren't equal.
      */
-    private static void assertVersionCompatibleWith(final String runtimeVersion) {
-        if (JAVA_RUNTIME_VERSION.compareTo(runtimeVersion) != 0) {
+    static void assertVersionCompatibleWith(final String runtimeVersion) {
+        final String shortActualVersion = runtimeVersion.replaceAll(VERSION_BUILD_PART_REGEX, "");
+        final String shortExpectedVersion = JSII_RUNTIME_VERSION.replaceAll(VERSION_BUILD_PART_REGEX, "");
+        if (shortExpectedVersion.compareTo(shortActualVersion) != 0) {
             throw new JsiiException("Incompatible jsii-runtime version. Expecting "
-                    + JAVA_RUNTIME_VERSION
-                    + ", actual was " + runtimeVersion);
+                    + shortExpectedVersion
+                    + ", actual was " + shortActualVersion);
         }
     }
 }
