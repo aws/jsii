@@ -16,11 +16,13 @@ import java.lang.annotation.Target;
 public @interface Jsii {
     /**
      * The jsii module class that hosts this type.
+     * @return The class which represents this jsii module.
      */
     Class module();
 
     /**
      * The jsii FQN (fully qualified name) for this type.
+     * @return The jsii FQN of the type.
      */
     String fqn();
 }

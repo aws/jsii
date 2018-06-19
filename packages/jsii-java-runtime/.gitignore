@@ -1,36 +1,3 @@
+.vscode
 !index.js
-.idea
-
-# Generated before build by "npm run prepare"
-src/test/java/org/jsii/tests/
-src/test/resources/org/jsii/tests/
-src/main/java/org/jsii/JsiiVersion.java
-
-.classpath
-.project
-.settings
-
-*.jar
-
-# IntelliJ
-*.iml
-
-# Created by https://www.gitignore.io/api/maven
-
-### Maven ###
-target
-
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-release.properties
-dependency-reduced-pom.xml
-buildNumber.properties
-.mvn/timing.properties
-
-# Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
-!/.mvn/wrapper/maven-wrapper.jar
-
-
-# End of https://www.gitignore.io/api/maven
+maven-repo

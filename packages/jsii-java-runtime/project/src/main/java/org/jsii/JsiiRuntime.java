@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.jsii.api.Callback;
-import org.jsii.JsiiVersion;
+import static org.jsii.JsiiVersion.JAVA_RUNTIME_VERSION;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -203,7 +203,7 @@ public class JsiiRuntime {
         // otherwise, we default to "jsii-runtime" from PATH.
         String jsiiRuntimeExecutable = System.getenv("JSII_RUNTIME");
         if (jsiiRuntimeExecutable == null) {
-            jsiiRuntimeExecutable = "jsii-runtime"; // default to PATH
+            jsiiRuntimeExecutable = "jsii-runtime";
         }
 
         if (traceEnabled) {
@@ -261,7 +261,7 @@ public class JsiiRuntime {
         }
 
         String runtimeVersion = helloResponse.get("hello").asText();
-        JsiiVersion.assertCompatibleWith(runtimeVersion);
+        assertVersionCompatibleWith(runtimeVersion);
     }
 
     /**
@@ -340,5 +340,21 @@ public class JsiiRuntime {
      */
     public static void enableTrace() {
         traceEnabled = true;
+    }
+
+    /**
+     * Asserts that a peer runtimeVersion is compatible with this Java runtime version, which means
+     * they share the same version components, with the possible exception of the build number.
+     *
+     * @param runtimeVersion the peer runtime's version, possibly including build number.
+     *
+     * @throws JsiiException if {@code runtimeVersion} and {@link RUNTIME_VERSION} aren't equal.
+     */
+    private static void assertVersionCompatibleWith(final String runtimeVersion) {
+        if (JAVA_RUNTIME_VERSION.compareTo(runtimeVersion) != 0) {
+            throw new JsiiException("Incompatible jsii-runtime version. Expecting "
+                    + JAVA_RUNTIME_VERSION
+                    + ", actual was " + runtimeVersion);
+        }
     }
 }
