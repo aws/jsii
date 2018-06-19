@@ -1,17 +1,30 @@
 package org.jsii;
 
 import org.junit.Test;
-import org.jsii.JsiiRuntime;
+
 import static org.jsii.JsiiVersion.JSII_RUNTIME_VERSION;
 
 public final class JsiiVersionTest {
     @Test
-    public void testShortVersion() {
-        JsiiRuntime.assertVersionCompatibleWith(JSII_RUNTIME_VERSION);
+    public void compatibleVersions() {
+        JsiiRuntime.assertVersionCompatible("0.7.0", "0.7.0");
+        JsiiRuntime.assertVersionCompatible("0.7.0", "0.7.0+abcd");
+        JsiiRuntime.assertVersionCompatible("0.7.0+cdfe0", "0.7.0+abcd");
+        JsiiRuntime.assertVersionCompatible("0.7.0+cdfe0", "0.7.0+abcd111");
     }
 
-    @Test
-    public void testLongVersion() {
-        JsiiRuntime.assertVersionCompatibleWith(JSII_RUNTIME_VERSION + "+fooba0");
+    @Test(expected = JsiiException.class)
+    public void incompatibleVersions_1() {
+        JsiiRuntime.assertVersionCompatible("0.7.0", "0.7.1");
+    }
+
+    @Test(expected = JsiiException.class)
+    public void incompatibleVersions_2() {
+        JsiiRuntime.assertVersionCompatible("0.7.0", "0.7");
+    }
+
+    @Test(expected = JsiiException.class)
+    public void incompatibleVersions_3() {
+        JsiiRuntime.assertVersionCompatible("0.7.0+abcd", "1.2.0+abcd");
     }
 }
