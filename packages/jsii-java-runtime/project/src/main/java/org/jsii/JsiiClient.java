@@ -275,7 +275,7 @@ public class JsiiClient {
     /**
      * Returns all names for a jsii module.
      * @param moduleName The name of the module.
-     * @return The result (hash lang -> name).
+     * @return The result (map from "lang" to "name").
      */
     public JsonNode getModuleNames(final String moduleName) {
         ObjectNode req = makeRequest("naming");

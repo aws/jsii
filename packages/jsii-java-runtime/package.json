@@ -4,8 +4,7 @@
   "description": "Java client for jsii runtime",
   "main": "index.js",
   "scripts": {
-    "prepare": "/bin/bash ./generate.sh && mvn package",
-    "prepack": "cp -f target/*.jar .",
+    "prepare": "/bin/bash ./generate.sh && cd project && mvn package",
     "test": "echo ok"
   },
   "devDependencies": {
