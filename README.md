@@ -108,3 +108,10 @@ directory.
 
 Eventually, you want the tarball to include `package.json` and the client
 library artifacts in a way that they can consumed locally.
+
+## License
+
+Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+See [LICENSE](./LICENSE.md) file for license terms.
+

@@ -2,15 +2,6 @@
   "name": "codemaker",
   "version": "0.4.0",
   "description": "A tiny utility for generating source code",
-  "author": {
-    "name": "Amazon Web Services",
-    "url": "https://aws.amazon.com"
-  },
-  "license": "UNLICENSED",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/awslabs/jsii"
-  },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
@@ -31,5 +22,14 @@
     "camelcase": "^4.1.0",
     "decamelize": "^1.2.0",
     "fs-extra": "^4.0.3"
+  },
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com"
+  },
+  "license": "LicenseRef-LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/awslabs/jsii"
   }
 }

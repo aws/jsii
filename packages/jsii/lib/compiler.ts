@@ -9,6 +9,8 @@ import * as util from 'util';
 import { getCompilerOptions, saveCompilerOptions, saveLinterOptions } from './compiler-options';
 import { normalizeJsiiModuleName } from './naming';
 import readPackageMetadata from './package-metadata';
+import { fileSystemLoader, includeAndRenderExamples, loadFromFile } from './literate';
+
 
 /**
  * Given a CommonJS (npm) typescript package, produces a JSII specification for it.
@@ -67,16 +69,27 @@ export async function compilePackage(packageDir: string, includeDirs = [ 'test',
     mod.nativenames = nativenames;
     mod.nativenames[mod.name] = mod.names;
 
-    const readme = path.join(packageDir, 'README.md');
-    if (await fs.pathExists(readme)) {
-        mod.readme = { markdown: await fs.readFile(readme, { encoding: 'utf-8' }) };
-    } else {
-        // tslint:disable-next-line:no-console
-        console.error(`No README.md file found at ${readme} ☹️`);
-    }
+    mod.readme = await loadReadme(packageDir);
 
     return mod;
 }
+
+async function loadReadme(packageDir: string) : Promise<{ markdown: string } | undefined> {
+    const readme = path.join(packageDir, 'README.md');
+
+    if (!await fs.pathExists(readme)) {
+        // tslint:disable-next-line:no-console
+        console.error(`No README.md file found at ${readme} ☹️`);
+        return undefined;
+    }
+
+    const renderedLines = await includeAndRenderExamples(
+        await loadFromFile(readme),
+        fileSystemLoader(packageDir));
+
+    return { markdown: renderedLines.join('\n') };
+}
+
 
 interface ReferencedFqn {
     fqn: string
@@ -995,7 +1008,7 @@ export async function compileSources(entrypoint: string,
 
         // static properties should be all-caps (with a potential underscore). all the rest are the same
         if (isProperty && member.static) {
-            
+
             if ((member as any).const) {
 
                 if (Case.pascal(symbol) !== symbol && Case.snake(symbol).toUpperCase() !== symbol && Case.camel(symbol) !== symbol) {
@@ -1269,6 +1282,9 @@ async function readDependencies(rootDir: string, packageDeps: any, bundledDeps: 
         // add all types to lookup table.
         if (jsii.types) {
             Object.keys(jsii.types).forEach(fqn => lookup.set(fqn, jsii.types[fqn]));
+        }
+        if (jsii.externalTypes) {
+            Object.keys(jsii.externalTypes).forEach(fqn => lookup.set(fqn, jsii.externalTypes![fqn]));
         }
     }
 
