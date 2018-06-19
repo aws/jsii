@@ -1,4 +1,4 @@
-const groupId = 'org.jsii';
+const groupId = 'com.amazonaws';
 const artifactId = 'jsii-runtime';
 const version = require('./package.json').version;
 
