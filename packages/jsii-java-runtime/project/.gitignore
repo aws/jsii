@@ -10,8 +10,7 @@ src/test/resources/org/jsii/tests/
 src/main/java/org/jsii/JsiiVersion.java
 
 # jsii-runtime bundle (copied during build from jsii-runtime/dist)
-src/main/resources/org/jsii/mappings.wasm
-src/main/resources/org/jsii/jsii-runtime.js
+src/main/resources/org/jsii/*
 
 .classpath
 .project

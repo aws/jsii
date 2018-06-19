@@ -41,6 +41,13 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <version>2.9.5</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+        </dependency>
+
     </dependencies>
 
     <build>

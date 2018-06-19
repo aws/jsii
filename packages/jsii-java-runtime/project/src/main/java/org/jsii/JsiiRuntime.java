@@ -5,15 +5,23 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.apache.commons.io.IOUtils;
 import org.jsii.api.Callback;
 import static org.jsii.JsiiVersion.JSII_RUNTIME_VERSION;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.file.FileSystem;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.stream.Collectors;
 
 /**
@@ -187,6 +195,20 @@ public class JsiiRuntime {
     }
 
     /**
+     * Extracts a resource file from the .jar and saves it into an output directory.
+     * @param resourceName The name of the resource (e.g. jsii-runtime.js)
+     * @param outputDirectory The output directory.
+     * @return The full path of the saved resource
+     * @throws IOException If there was an I/O error
+     */
+    private String extractResource(final String resourceName, Path outputDirectory) throws IOException {
+        File file = new File(outputDirectory.toString(), resourceName);
+        FileOutputStream ostream = new FileOutputStream(file);
+        IOUtils.copy(getClass().getResourceAsStream(resourceName), ostream);
+        return file.getAbsolutePath();
+    }
+
+    /**
      * Starts jsii-server as a child process if it is not already started.
      */
     private void startRuntimeIfNeeded() {
@@ -207,7 +229,7 @@ public class JsiiRuntime {
         // otherwise, we default to "jsii-runtime" from PATH.
         String jsiiRuntimeExecutable = System.getenv("JSII_RUNTIME");
         if (jsiiRuntimeExecutable == null) {
-            jsiiRuntimeExecutable = getClass().getResource("jsii-runtime.js").getFile();
+            jsiiRuntimeExecutable = prepareBundledRuntime();
         }
 
         if (traceEnabled) {
@@ -361,6 +383,23 @@ public class JsiiRuntime {
             throw new JsiiException("Incompatible jsii-runtime version. Expecting "
                     + shortExpectedVersion
                     + ", actual was " + shortActualVersion);
+        }
+    }
+
+    /**
+     * Extracts all files needed for jsii-runtime.js from JAR into a temp directory.
+     * @return The full path for jsii-runtime.js
+     */
+    private String prepareBundledRuntime() {
+        try {
+            Path directory = Files.createTempDirectory("jsii-java-runtime");
+
+            String entrypoint = extractResource("jsii-runtime.js", directory);
+            extractResource("jsii-runtime.js.map", directory);
+            extractResource("mappings.wasm", directory);
+            return entrypoint;
+        } catch (IOException e) {
+            throw new JsiiException("Unable to extract bundle of jsii-runtime.js from jar", e);
         }
     }
 }
