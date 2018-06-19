@@ -266,7 +266,7 @@ public class JsiiRuntime {
         }
 
         String runtimeVersion = helloResponse.get("hello").asText();
-        assertVersionCompatibleWith(runtimeVersion);
+        assertVersionCompatible(JSII_RUNTIME_VERSION, runtimeVersion);
     }
 
     /**
@@ -332,13 +332,14 @@ public class JsiiRuntime {
      * Asserts that a peer runtimeVersion is compatible with this Java runtime version, which means
      * they share the same version components, with the possible exception of the build number.
      *
-     * @param runtimeVersion the peer runtime's version, possibly including build number.
+     * @param expectedVersion The version this client expects from the runtime
+     * @param actualVersion   The actual version the runtime reports
      *
-     * @throws JsiiException if {@code runtimeVersion} and JSII_RUNTIME_VERSION aren't equal.
+     * @throws JsiiException if versions mismatch
      */
-    static void assertVersionCompatibleWith(final String runtimeVersion) {
-        final String shortActualVersion = runtimeVersion.replaceAll(VERSION_BUILD_PART_REGEX, "");
-        final String shortExpectedVersion = JSII_RUNTIME_VERSION.replaceAll(VERSION_BUILD_PART_REGEX, "");
+    static void assertVersionCompatible(final String expectedVersion, final String actualVersion) {
+        final String shortActualVersion = actualVersion.replaceAll(VERSION_BUILD_PART_REGEX, "");
+        final String shortExpectedVersion = expectedVersion.replaceAll(VERSION_BUILD_PART_REGEX, "");
         if (shortExpectedVersion.compareTo(shortActualVersion) != 0) {
             throw new JsiiException("Incompatible jsii-runtime version. Expecting "
                     + shortExpectedVersion
