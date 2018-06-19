@@ -2,6 +2,7 @@ const version = require('jsii-runtime/package.json').version;
 process.stdout.write(`package org.jsii;
 
 final class JsiiVersion {
-    static final String JAVA_RUNTIME_VERSION = "jsii-runtime@${version}";
+    /** The version of the jsii-runtime this client was tested with **/
+    static final String JSII_RUNTIME_VERSION = "jsii-runtime@${version}";
 }
 `);
