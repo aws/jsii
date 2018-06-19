@@ -5,19 +5,17 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.apache.commons.io.IOUtils;
 import org.jsii.api.Callback;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.stream.Collectors;
 
 import static org.jsii.JsiiVersion.JSII_RUNTIME_VERSION;
@@ -376,7 +374,7 @@ public class JsiiRuntime {
      */
     private String prepareBundledRuntime() {
         try {
-            Path directory = Files.createTempDirectory("jsii-java-runtime");
+            String directory = Files.createTempDirectory("jsii-java-runtime").toString();
 
             String entrypoint = extractResource("jsii-runtime.js", directory);
             extractResource("jsii-runtime.js.map", directory);
@@ -394,10 +392,13 @@ public class JsiiRuntime {
      * @return The full path of the saved resource
      * @throws IOException If there was an I/O error
      */
-    private String extractResource(final String resourceName, Path outputDirectory) throws IOException {
-        File file = new File(outputDirectory.toString(), resourceName);
-        FileOutputStream ostream = new FileOutputStream(file);
-        IOUtils.copy(getClass().getResourceAsStream(resourceName), ostream);
-        return file.getAbsolutePath();
+    private String extractResource(final String resourceName, final String outputDirectory) throws IOException {
+        if (traceEnabled) {
+            System.err.println("Extracting resource from JAR: " + outputDirectory + "/" + resourceName);
+        }
+
+        Path target = Paths.get(outputDirectory, resourceName);
+        Files.copy(getClass().getResourceAsStream(resourceName), target);
+        return target.toAbsolutePath().toString();
     }
 }

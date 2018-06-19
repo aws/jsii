@@ -40,12 +40,12 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <artifactId>jackson-databind</artifactId>
             <version>2.9.5</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+        
+        <!-- https://mvnrepository.com/artifact/com.google.guava/guava-io -->
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.6</version>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava-io</artifactId>
+            <version>r03</version>
         </dependency>
 
     </dependencies>
