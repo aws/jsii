@@ -1,6 +1,6 @@
 {
   "name": "jsii-spec",
-  "version": "0.4.0",
+  "version": "0.5.0-beta",
   "description": "Specification for jsii assemblies",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
