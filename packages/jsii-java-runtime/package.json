@@ -10,9 +10,7 @@
   "devDependencies": {
     "jsii-calc": "^0.4.0",
     "jsii-calc-lib": "^0.4.0",
-    "jsii-pacmak": "^0.4.0"
-  },
-  "dependencies": {
+    "jsii-pacmak": "^0.4.0",
     "jsii-runtime": "^0.4.0"
   },
   "author": {

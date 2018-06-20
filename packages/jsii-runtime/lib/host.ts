@@ -1,6 +1,5 @@
-import { Kernel } from 'jsii-kernel'
+import { Kernel, api } from 'jsii-kernel'
 import { InputOutput, Input } from './in-out';
-import { Callback, CompleteRequest, KernelRequest } from '../../jsii-kernel/lib/api';
 
 export class KernelHost {
     private kernel = new Kernel(cb => this.callbackHandler(cb));
@@ -9,7 +8,7 @@ export class KernelHost {
         this.kernel.traceEnabled = opts.debug ? true : false;
     }
 
-    private callbackHandler(callback: Callback) {
+    private callbackHandler(callback: api.Callback) {
 
         // write a "callback" response, which is a special response that tells
         // the client that there's synchonous callback it needs to invoke and
@@ -28,7 +27,7 @@ export class KernelHost {
 
             // if this is a completion for the current callback, then we can
             // finally stop this nonsense and return the result.
-            const completeReq = req as { complete: CompleteRequest };
+            const completeReq = req as { complete: api.CompleteRequest };
             if ('complete' in completeReq && completeReq.complete.cbid === callback.cbid) {
                 if (completeReq.complete.err) {
                     throw new Error(completeReq.complete.err);
@@ -77,7 +76,7 @@ export class KernelHost {
             throw new Error('Malformed request, "api" field is required');
         }
 
-        const apiReq = req as { api: string } & KernelRequest;
+        const apiReq = req as { api: string } & api.KernelRequest;
         const fn = this.findApi(apiReq.api);
 
         try {

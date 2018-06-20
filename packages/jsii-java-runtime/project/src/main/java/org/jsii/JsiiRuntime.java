@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.stream.Collectors;
 
 import static org.jsii.JsiiVersion.JSII_RUNTIME_VERSION;
@@ -208,14 +211,14 @@ public class JsiiRuntime {
         // otherwise, we default to "jsii-runtime" from PATH.
         String jsiiRuntimeExecutable = System.getenv("JSII_RUNTIME");
         if (jsiiRuntimeExecutable == null) {
-            jsiiRuntimeExecutable = "jsii-runtime";
+            jsiiRuntimeExecutable = prepareBundledRuntime();
         }
 
         if (traceEnabled) {
             System.err.println("jsii-runtime: " + jsiiRuntimeExecutable);
         }
 
-        ProcessBuilder pb = new ProcessBuilder(jsiiRuntimeExecutable);
+        ProcessBuilder pb = new ProcessBuilder("node", jsiiRuntimeExecutable);
 
         if (traceEnabled) {
             pb.environment().put("JSII_DEBUG", "1");
@@ -245,9 +248,6 @@ public class JsiiRuntime {
             if (traceEnabled) {
                 startPipeErrorStreamThread();
             }
-
-            // if child exits, we can't recover from that because we effectively lost all state.
-            startProcessMonitorThread();
 
         } catch (IOException e) {
             throw new JsiiException(e);
@@ -285,25 +285,6 @@ public class JsiiRuntime {
         } catch (IOException e) {
             throw new JsiiException("Unable to read reply from jsii-runtime: " + e.toString(), e);
         }
-    }
-
-    /**
-     * Starts a thread that monitors the child process. If the process exits, we are doomed, so just throw
-     * a big exception.
-     */
-    private void startProcessMonitorThread() {
-        Thread daemon = new Thread(() -> {
-            int exitCode = -1;
-            try {
-                exitCode = this.childProcess.waitFor();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            throw new JsiiException("jsii-runtime exited unexpectedly with exit code " + exitCode);
-        });
-
-        daemon.setDaemon(true);
-        daemon.start();
     }
 
     /**
@@ -364,5 +345,38 @@ public class JsiiRuntime {
                     + shortExpectedVersion
                     + ", actual was " + shortActualVersion);
         }
+    }
+
+    /**
+     * Extracts all files needed for jsii-runtime.js from JAR into a temp directory.
+     * @return The full path for jsii-runtime.js
+     */
+    private String prepareBundledRuntime() {
+        try {
+            String directory = Files.createTempDirectory("jsii-java-runtime").toString();
+
+            String entrypoint = extractResource("jsii-runtime.js", directory);
+            extractResource("mappings.wasm", directory);
+            return entrypoint;
+        } catch (IOException e) {
+            throw new JsiiException("Unable to extract bundle of jsii-runtime.js from jar", e);
+        }
+    }
+
+    /**
+     * Extracts a resource file from the .jar and saves it into an output directory.
+     * @param resourceName The name of the resource (e.g. jsii-runtime.js)
+     * @param outputDirectory The output directory.
+     * @return The full path of the saved resource
+     * @throws IOException If there was an I/O error
+     */
+    private String extractResource(final String resourceName, final String outputDirectory) throws IOException {
+        if (traceEnabled) {
+            System.err.println("Extracting resource from JAR: " + outputDirectory + "/" + resourceName);
+        }
+
+        Path target = Paths.get(outputDirectory, resourceName);
+        Files.copy(getClass().getResourceAsStream(resourceName), target);
+        return target.toAbsolutePath().toString();
     }
 }
