@@ -1,6 +1,6 @@
 const groupId = 'com.amazonaws';
 const artifactId = 'jsii-runtime';
-const version = require('./package.json').version;
+const version = require('./package.json').version.replace(/\+.+$/, ''); // omit "+build" postfix
 
 process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
