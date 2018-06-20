@@ -2768,11 +2768,11 @@
   },
   "name": "jsii$jsii_calc$",
   "package": "jsii-calc",
-  "version": "0.4.0",
+  "version": "0.5.0-beta",
   "dependencies": {
     "jsii$jsii_calc_lib$": {
       "package": "jsii-calc-lib",
-      "version": "0.4.0"
+      "version": "0.5.0-beta"
     }
   },
   "names": {
