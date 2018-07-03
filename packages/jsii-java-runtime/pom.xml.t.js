@@ -95,6 +95,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
                             <groupId>\${project.groupId}</groupId>
                             <artifactId>\${project.artifactId}</artifactId>
                             <version>\${project.version}</version>
+                            <pomFile>\${project.basedir}/pom.xml</pomFile>
                             <packaging>jar</packaging>
                         </configuration>
                     </execution>
