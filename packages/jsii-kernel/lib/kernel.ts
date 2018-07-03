@@ -70,7 +70,7 @@ export class Kernel {
     public async load(req: api.LoadRequest): Promise<api.LoadResponse> {
         this._debug('load', req);
 
-        if (req.assembly) {
+        if ('assembly' in req) {
             throw new Error('`assembly` field is deprecated for "load", use `name`, `version` and `tarball` instead');
         }
 
@@ -273,10 +273,6 @@ export class Kernel {
         const ret = this._ensureSync(`method '${objref[TOKEN_REF]}.${method}'`, () => {
             return this._wrapSandboxCode(() => fn.apply(obj, this._toSandboxValues(args)));
         });
-
-        // console.error(ret);
-
-        // this._debug('method returned:', ret);
 
         return { result: this._fromSandbox(ret, ti.returns) };
     }

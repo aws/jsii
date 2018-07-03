@@ -27,9 +27,6 @@ export interface HelloResponse {
 }
 
 export interface LoadRequest {
-    /** @deprecated */
-    assembly?: Assembly;
-
     /** The name of the assembly */
     name: string;
 

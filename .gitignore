@@ -348,7 +348,6 @@ jspm_packages/
 
 # Output of 'npm pack'
 *.tgz
-!*.jsii.tgz
 
 # Yarn Integrity file
 .yarn-integrity
