@@ -34,7 +34,7 @@ public class Power extends org.jsii.tests.calculator.composition.CompositeOperat
      * The expression that this operation consists of.
      * Must be implemented by derived classes.
      */
-    public org.jsii.tests.calculator.lib.Operation getExpression() {
-        return this.jsiiGet("expression", org.jsii.tests.calculator.lib.Operation.class);
+    public org.jsii.tests.calculator.lib.Value getExpression() {
+        return this.jsiiGet("expression", org.jsii.tests.calculator.lib.Value.class);
     }
 }

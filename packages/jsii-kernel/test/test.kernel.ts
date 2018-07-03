@@ -190,8 +190,8 @@ defineTest('objects created inside the sandbox are returned with type info and n
 });
 
 defineTest('naming allows returns the module name for different languages', async (test, sandbox) => {
-    test.deepEqual(sandbox.naming({ assembly: 'jsii$jsii_calc$' }).naming, { java: 'org.jsii.tests.calculator', js: 'jsii-calc' });
-    test.deepEqual(sandbox.naming({ assembly: 'jsii$jsii_calc_lib$' }).naming, { java: 'org.jsii.tests.calculator.lib', js: 'jsii-calc-lib' });
+    test.deepEqual(sandbox.naming({ assembly: 'jsii$jsii_calc$' }).naming, { java: 'org.jsii.tests.calculator', dotnet: 'AWS.Jsii.Tests.Calculator', js: 'jsii-calc' });
+    test.deepEqual(sandbox.naming({ assembly: 'jsii$jsii_calc_lib$' }).naming, { java: 'org.jsii.tests.calculator.lib', dotnet: 'AWS.Jsii.Tests.Calculator.Lib', js: 'jsii-calc-lib' });
 });
 
 defineTest('collection of objects', async (test, sandbox) => {

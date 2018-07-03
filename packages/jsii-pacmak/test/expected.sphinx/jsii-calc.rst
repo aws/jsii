@@ -1092,7 +1092,7 @@ Power
       The expression that this operation consists of. Must be implemented by derived classes.
 
 
-      :type: :py:class:`~jsii-calc-lib.Operation` *(readonly)*
+      :type: :py:class:`~jsii-calc-lib.Value` *(readonly)*
 
 
 ReturnsNumber (interface)

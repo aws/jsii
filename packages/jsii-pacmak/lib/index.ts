@@ -1,2 +1,2 @@
-export { Generator } from './generator'
-export { generate } from './program'
+export { Generator } from './generator';
+export { generate } from './program';

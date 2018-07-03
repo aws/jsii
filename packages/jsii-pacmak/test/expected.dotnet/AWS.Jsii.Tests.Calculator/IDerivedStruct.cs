@@ -1,0 +1,49 @@
+using AWS.Jsii.Runtime.Deputy;
+using AWS.Jsii.Tests.Calculator.Lib;
+using System;
+using System.Collections.Generic;
+
+namespace AWS.Jsii.Tests.Calculator
+{
+    /// <summary>A struct which derives from another struct.</summary>
+    [JsiiInterface("jsii-calc", "jsii$jsii_calc$.DerivedStruct")]
+    public interface IDerivedStruct : IMyFirstStruct
+    {
+        /// <summary>An example of a non primitive property.</summary>
+        [JsiiProperty("nonPrimitive", "{\"fqn\":\"jsii$jsii_calc$.DoubleTrouble\"}")]
+        DoubleTrouble NonPrimitive
+        {
+            get;
+            set;
+        }
+
+        [JsiiProperty("bool", "{\"primitive\":\"boolean\"}")]
+        bool Bool
+        {
+            get;
+            set;
+        }
+
+        [JsiiProperty("anotherRequired", "{\"primitive\":\"date\"}")]
+        DateTime AnotherRequired
+        {
+            get;
+            set;
+        }
+
+        [JsiiProperty("optionalArray", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"optional\":true}")]
+        string[] OptionalArray
+        {
+            get;
+            set;
+        }
+
+        /// <summary>This is optional.</summary>
+        [JsiiProperty("anotherOptional", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"jsii$jsii_calc_lib$.Value\"}},\"optional\":true}")]
+        IDictionary<string, Value_> AnotherOptional
+        {
+            get;
+            set;
+        }
+    }
+}
