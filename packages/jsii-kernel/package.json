@@ -11,12 +11,13 @@
     "test": "nodeunit test/test.*.js"
   },
   "devDependencies": {
+    "@scope/jsii-calc-lib": "^0.5.0-beta",
     "@types/fs-extra": "^4.0.8",
     "@types/node": "^9.6.18",
     "@types/nodeunit": "0.0.30",
     "fs-extra": "^4.0.3",
     "jsii-calc": "^0.5.0-beta",
-    "jsii-calc-lib": "^0.5.0-beta",
+    "jsii-pacmak": "^0.5.0-beta",
     "nodeunit": "^0.11.2",
     "tslint": "*",
     "typescript": "^2.8.3"

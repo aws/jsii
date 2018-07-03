@@ -7,11 +7,9 @@ import org.jsii.api.InvokeRequest;
 import org.jsii.api.JsiiOverride;
 import org.jsii.api.SetRequest;
 
-import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -108,19 +106,10 @@ public final class JsiiEngine implements JsiiCallbackHandler {
             loadModule(dep);
         }
 
-        try {
-            URL url = module.getBundle();
-            if (url == null) {
-                throw new JsiiException("Module bundle URL is null: " + module.getModuleName());
-            }
+        this.getClient().loadModule(module);
 
-            this.getClient().loadModule(url.openStream());
-
-            // indicate that it was loaded
-            this.loadedModules.add(moduleClass);
-        } catch (IOException e) {
-            throw new JsiiException(e);
-        }
+        // indicate that it was loaded
+        this.loadedModules.add(moduleClass);
     }
 
     /**

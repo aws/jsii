@@ -2,7 +2,7 @@ package org.jsii.tests.calculator;
 /**
  * A calculator which maintains a current value and allows adding operations.
  */
-@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii$jsii_calc$.Calculator")
+@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.Calculator")
 public class Calculator extends org.jsii.tests.calculator.composition.CompositeOperation {
     protected Calculator(final org.jsii.JsiiObject.InitializationMode mode) {
         super(mode);

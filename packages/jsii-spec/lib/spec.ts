@@ -1,8 +1,5 @@
 export const SPEC_VERSION = 'jsii/1.0'; // minor version = no breaking change
-export const MODULE_NAME_PREFIX = 'jsii$'; // prefix used for module names
-export const MODULE_NAME_POSTFIX = '$';
-
-export const SPEC_FILE_NAME = 'assembly.jsii';
+export const SPEC_FILE_NAME = '.jsii';
 
 /**
  * A module specification.

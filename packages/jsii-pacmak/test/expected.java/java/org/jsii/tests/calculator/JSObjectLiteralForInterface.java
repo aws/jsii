@@ -1,5 +1,5 @@
 package org.jsii.tests.calculator;
-@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii$jsii_calc$.JSObjectLiteralForInterface")
+@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.JSObjectLiteralForInterface")
 public class JSObjectLiteralForInterface extends org.jsii.JsiiObject {
     protected JSObjectLiteralForInterface(final org.jsii.JsiiObject.InitializationMode mode) {
         super(mode);

@@ -1,28 +1,28 @@
 import * as spec from 'jsii-spec';
-import { Docs } from 'jsii-spec';
 import * as path from 'path';
 import { Generator } from '../generator';
 
 const MODULE_CLASS_NAME = '$Module';
-const ASSEMBLY_FILE_NAME = 'assembly.jsii';
 const INTERFACE_PROXY_CLASS_NAME = 'Jsii$Proxy';
 const INTERFACE_POJO_CLASS_NAME = 'Jsii$Pojo';
 
 export default class JavaGenerator extends Generator {
     private moduleClass: string;
 
-    constructor(mod: spec.Assembly) {
-        super(mod, {
+    constructor() {
+        super({
             generateOverloadsForMethodWithOptionals: true,
             target: 'java'
         });
-
-        this.moduleClass = this.emitModuleFile(mod);
     }
 
-    protected getAssemblyOutputPath(mod: spec.Assembly) {
+    protected onBeginAssembly(assm: spec.Assembly) {
+        this.moduleClass = this.emitModuleFile(assm);
+    }
+
+    protected getAssemblyOutputDir(mod: spec.Assembly) {
         const dir = this.toNativeFqn(mod.name).replace(/\./g, '/');
-        return path.join('resources', dir, ASSEMBLY_FILE_NAME);
+        return path.join('resources', dir);
     }
 
     protected onBeginClass(cls: spec.ClassType, abstract: boolean) {
@@ -345,7 +345,7 @@ export default class JavaGenerator extends Generator {
         this.code.closeBlock();
 
         interface Prop {
-            docs: Docs
+            docs: spec.Docs
             spec: spec.Property
             propName: string
             fieldName: string
@@ -748,11 +748,11 @@ export default class JavaGenerator extends Generator {
         this.code.openFile(moduleFile);
         this.code.line(`package ${this.toNativeFqn(moduleName)};`);
 
-        this.code.openBlock(`public class $Module extends org.jsii.JsiiModule`);
+        this.code.openBlock(`public class ${MODULE_CLASS_NAME} extends org.jsii.JsiiModule`);
 
         // ctor
-        this.code.openBlock(`public $Module()`);
-        this.code.line(`super("${moduleName}", ${MODULE_CLASS_NAME}.class.getResource("${ASSEMBLY_FILE_NAME}"));`);
+        this.code.openBlock(`public ${MODULE_CLASS_NAME}()`);
+        this.code.line(`super("${moduleName}", "${mod.version}", ${MODULE_CLASS_NAME}.class, "${this.getAssemblyFileName()}");`);
         this.code.closeBlock(); // ctor
 
         // dependencies

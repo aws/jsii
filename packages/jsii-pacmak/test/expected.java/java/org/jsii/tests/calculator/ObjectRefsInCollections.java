@@ -2,7 +2,7 @@ package org.jsii.tests.calculator;
 /**
  * Verify that object references can be passed inside collections.
  */
-@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii$jsii_calc$.ObjectRefsInCollections")
+@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.ObjectRefsInCollections")
 public class ObjectRefsInCollections extends org.jsii.JsiiObject {
     protected ObjectRefsInCollections(final org.jsii.JsiiObject.InitializationMode mode) {
         super(mode);

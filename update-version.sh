@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # HACK: lerna needs a git repo to work but publish will work nevertheless
 git init

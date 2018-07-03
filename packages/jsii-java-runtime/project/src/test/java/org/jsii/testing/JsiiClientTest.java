@@ -34,30 +34,31 @@ public class JsiiClientTest {
     public void setUp() {
         jsiiRuntime = new JsiiRuntime();
         this.client = jsiiRuntime.getClient();
-        this.client.loadModule(this.getClass().getResourceAsStream("../tests/calculator/lib/assembly.jsii"));
-        this.client.loadModule(getClass().getResourceAsStream("../tests/calculator/assembly.jsii"));
+
+        this.client.loadModule(new org.jsii.tests.calculator.lib.$Module());
+        this.client.loadModule(new org.jsii.tests.calculator.$Module());
     }
 
     @Test
     public void initialTest() {
-        JsiiObjectRef obj = client.createObject("jsii$jsii_calc_lib$.Number", Arrays.asList(42));
+        JsiiObjectRef obj = client.createObject("@scope/jsii-calc-lib.Number", Arrays.asList(42));
         assertEquals(84, fromSandbox(client.getPropertyValue(obj, "doubleValue")));
         assertEquals("Number", fromSandbox(client.callMethod(obj, "typeName", toSandboxArray())));
 
-        JsiiObjectRef calculatorProps = client.createObject("jsii$jsii_calc$.CalculatorProps", Arrays.asList());
+        JsiiObjectRef calculatorProps = client.createObject("jsii-calc.CalculatorProps", Arrays.asList());
         client.setPropertyValue(calculatorProps, "initialValue", toSandbox(100));
         assertEquals(100, fromSandbox(client.getPropertyValue(calculatorProps, "initialValue")));
 
-        JsiiObjectRef calculator = client.createObject("jsii$jsii_calc$.Calculator", Arrays.asList(calculatorProps.toJson()));
+        JsiiObjectRef calculator = client.createObject("jsii-calc.Calculator", Arrays.asList(calculatorProps.toJson()));
         assertNull(fromSandbox(client.callMethod(calculator, "add", toSandboxArray(50))));
 
         JsiiObjectRef add = JsiiObjectRef.parse(client.getPropertyValue(calculator, "curr"));
         assertEquals(150, fromSandbox(client.getPropertyValue(add, "value")));
 
-        JsonNode names = client.getModuleNames("jsii$jsii_calc_lib$");
+        JsonNode names = client.getModuleNames("@scope/jsii-calc-lib");
         assertEquals("org.jsii.tests.calculator.lib", names.get("java").textValue());
 
-        JsonNode names2 = client.getModuleNames("jsii$jsii_calc$");
+        JsonNode names2 = client.getModuleNames("jsii-calc");
         assertEquals("org.jsii.tests.calculator", names2.get("java").textValue());
 
         client.deleteObject(calculator);
@@ -74,7 +75,7 @@ public class JsiiClientTest {
 
     @Test
     public void asyncMethods() {
-        JsiiObjectRef obj = client.createObject("jsii$jsii_calc$.AsyncVirtualMethods", Arrays.asList());
+        JsiiObjectRef obj = client.createObject("jsii-calc.AsyncVirtualMethods", Arrays.asList());
 
         // begin will return a promise
         JsiiPromise promise = client.beginAsyncMethod(obj, "callMe", toSandboxArray());
@@ -94,7 +95,7 @@ public class JsiiClientTest {
 
     @Test
     public void asyncMethodOverrides() {
-        JsiiObjectRef obj = client.createObject("jsii$jsii_calc$.AsyncVirtualMethods",
+        JsiiObjectRef obj = client.createObject("jsii-calc.AsyncVirtualMethods",
                 Arrays.asList(), methodOverride("overrideMe", "myCookie"));
 
         // begin will return a promise
@@ -124,7 +125,7 @@ public class JsiiClientTest {
 
     @Test
     public void asyncMethodOverridesThrow() {
-        JsiiObjectRef obj = client.createObject("jsii$jsii_calc$.AsyncVirtualMethods",
+        JsiiObjectRef obj = client.createObject("jsii-calc.AsyncVirtualMethods",
                 Arrays.asList(), methodOverride("overrideMe", "myCookie"));
 
         // begin will return a promise
@@ -160,7 +161,7 @@ public class JsiiClientTest {
 
     @Test
     public void syncVirtualMethods() {
-        JsiiObjectRef obj = client.createObject("jsii$jsii_calc$.SyncVirtualMethods",
+        JsiiObjectRef obj = client.createObject("jsii-calc.SyncVirtualMethods",
                 Arrays.asList(), methodOverride("virtualMethod","myCookie"));
 
         jsiiRuntime.setCallbackHandler(callback -> {
@@ -170,7 +171,7 @@ public class JsiiClientTest {
             assertEquals("myCookie", callback.getCookie());
 
             // interact with jsii from inside the callback
-            JsiiObjectRef num = client.createObject("jsii$jsii_calc_lib$.Number", Arrays.asList(42));
+            JsiiObjectRef num = client.createObject("@scope/jsii-calc-lib.Number", Arrays.asList(42));
             assertEquals(84, fromSandbox(client.getPropertyValue(num, "doubleValue")));
 
             return JSON.numberNode(898);
@@ -195,7 +196,7 @@ public class JsiiClientTest {
 
     @Test
     public void staticProperties() {
-        final String fqn = "jsii$jsii_calc$.Statics";
+        final String fqn = "jsii-calc.Statics";
         assertEquals("hello", client.getStaticPropertyValue(fqn, "Foo").textValue());
 
         JsonNode defaultInstance = client.getStaticPropertyValue(fqn, "instance");
@@ -210,7 +211,7 @@ public class JsiiClientTest {
 
     @Test
     public void staticMethods() {
-        final String fqn = "jsii$jsii_calc$.Statics";
+        final String fqn = "jsii-calc.Statics";
         JsonNode result = client.callStaticMethod(fqn, "staticMethod", JSON.arrayNode().add("Foo"));
         assertEquals("hello ,Foo!", result.textValue());
     }

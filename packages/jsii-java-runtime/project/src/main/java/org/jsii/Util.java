@@ -1,6 +1,11 @@
 package org.jsii;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Utilities.
@@ -83,4 +88,31 @@ final class Util {
         }
         return sb.toString();
     }
+
+
+    /**
+     * Extracts a resource file from the .jar and saves it into an output directory.
+     * @param url The URL of the resource
+     * @param outputDirectory The output directory (optional)
+     * @return The full path of the saved resource
+     * @throws IOException If there was an I/O error
+     */
+    static String extractResource(final Class klass, final String resourceName, final String outputDirectory) throws IOException {
+        String directory = outputDirectory;
+        if (directory == null) {
+            directory = Files.createTempDirectory("jsii-java-runtime-resource").toString();
+        }
+
+        Path target = Paths.get(directory, resourceName);
+
+        // make sure directory tree is created, for the case of "@scoped/deps"
+        Files.createDirectories(target.getParent());
+
+        try (InputStream inputStream = klass.getResourceAsStream(resourceName)) {
+            Files.copy(inputStream, target);
+        }
+
+        return target.toAbsolutePath().toString();
+    }
+
 }

@@ -1,5 +1,5 @@
 package org.jsii.tests.calculator;
-@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii$jsii_calc$.UsesInterfaceWithProperties")
+@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.UsesInterfaceWithProperties")
 public class UsesInterfaceWithProperties extends org.jsii.JsiiObject {
     protected UsesInterfaceWithProperties(final org.jsii.JsiiObject.InitializationMode mode) {
         super(mode);

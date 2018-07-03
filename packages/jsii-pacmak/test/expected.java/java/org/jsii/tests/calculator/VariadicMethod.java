@@ -1,5 +1,5 @@
 package org.jsii.tests.calculator;
-@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii$jsii_calc$.VariadicMethod")
+@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.VariadicMethod")
 public class VariadicMethod extends org.jsii.JsiiObject {
     protected VariadicMethod(final org.jsii.JsiiObject.InitializationMode mode) {
         super(mode);

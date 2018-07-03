@@ -2,7 +2,7 @@ package org.jsii.tests.calculator;
 /**
  * An operation that sums multiple values.
  */
-@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii$jsii_calc$.Sum")
+@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.Sum")
 public class Sum extends org.jsii.tests.calculator.composition.CompositeOperation {
     protected Sum(final org.jsii.JsiiObject.InitializationMode mode) {
         super(mode);

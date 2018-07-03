@@ -5,7 +5,7 @@ module.exports = {
     output: {
         filename: 'jsii-runtime.js'
     },
-    devtool: false,
+    devtool: 'source-maps',
     target: 'node',
     node: {
         console: false,

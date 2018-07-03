@@ -1,0 +1,44 @@
+{
+  "schema": "jsii/1.0",
+  "types": {
+    "jsii$jsii_calc_bundled$.BundledClass": {
+      "kind": "class",
+      "methods": [
+        {
+          "name": "foo",
+          "returns": {
+            "primitive": "string"
+          }
+        }
+      ],
+      "fqn": "jsii$jsii_calc_bundled$.BundledClass",
+      "module": "jsii$jsii_calc_bundled$",
+      "namespace": "jsii$jsii_calc_bundled$",
+      "name": "BundledClass",
+      "initializer": {
+        "initializer": true
+      }
+    }
+  },
+  "nametree": {
+    "jsii$jsii_calc_bundled$": {
+      "BundledClass": {
+        "_": "jsii$jsii_calc_bundled$.BundledClass"
+      }
+    }
+  },
+  "typecount": 1,
+  "name": "jsii$jsii_calc_bundled$",
+  "package": "jsii-calc-bundled",
+  "version": "0.5.0-beta",
+  "names": {
+    "java": "org.jsii.tests.calculator.bundled",
+    "js": "jsii-calc-bundled"
+  },
+  "nativenames": {
+    "jsii$jsii_calc_bundled$": {
+      "java": "org.jsii.tests.calculator.bundled",
+      "js": "jsii-calc-bundled"
+    }
+  }
+}

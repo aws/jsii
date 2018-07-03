@@ -7,10 +7,8 @@ import * as path from 'path';
 import * as ts from 'typescript';
 import * as util from 'util';
 import { getCompilerOptions, saveCompilerOptions, saveLinterOptions } from './compiler-options';
-import { normalizeJsiiModuleName } from './naming';
-import readPackageMetadata from './package-metadata';
 import { fileSystemLoader, includeAndRenderExamples, loadFromFile } from './literate';
-
+import readPackageMetadata from './package-metadata';
 
 /**
  * Given a CommonJS (npm) typescript package, produces a JSII specification for it.
@@ -54,7 +52,7 @@ export async function compilePackage(packageDir: string, includeDirs = [ 'test',
     const mod = await compileSources(pkg.entrypoint, files, lookup);
 
     // add package information
-    mod.name = normalizeJsiiModuleName(pkg.name);
+    mod.name = pkg.name;
     mod.package = pkg.name;
     mod.version = pkg.version;
     mod.dependencies = dependencies;
@@ -74,7 +72,7 @@ export async function compilePackage(packageDir: string, includeDirs = [ 'test',
     return mod;
 }
 
-async function loadReadme(packageDir: string) : Promise<{ markdown: string } | undefined> {
+async function loadReadme(packageDir: string): Promise<{ markdown: string } | undefined> {
     const readme = path.join(packageDir, 'README.md');
 
     if (!await fs.pathExists(readme)) {
@@ -89,7 +87,6 @@ async function loadReadme(packageDir: string) : Promise<{ markdown: string } | 
 
     return { markdown: renderedLines.join('\n') };
 }
-
 
 interface ReferencedFqn {
     fqn: string
@@ -370,7 +367,6 @@ export async function compileSources(entrypoint: string,
             }
 
             if (ts.isGetAccessorDeclaration(memberDecl)) {
-                // console.log('here!', ts.SyntaxKind[memberDecl.kind]);
                 const prop = await tryProcessAccessor(mem, ctx);
                 if (prop) {
                     entity.properties!.push(prop);
@@ -863,7 +859,7 @@ export async function compileSources(entrypoint: string,
             throw error(ctx, 'Cannot find package.json up the tree from: ' + modulePath);
         }
 
-        const moduleName = normalizeJsiiModuleName(packageConfig.name);
+        const moduleName = packageConfig.name;
         const jsiiName = moduleName + '.' + typeName;
         // Record to typeRefs, so the type's validity is verified.
         typeRefs.add({ fqn: jsiiName, ctx });
@@ -1274,7 +1270,7 @@ async function readDependencies(rootDir: string, packageDeps: any, bundledDeps: 
             }
         }
 
-        const moduleName = normalizeJsiiModuleName(packageName);
+        const moduleName = packageName;
 
         dependencies[moduleName] = { package: jsii.package, version: jsii.version };
         nativenames[moduleName] = jsii.names;
@@ -1324,15 +1320,13 @@ async function findModuleRoot(dir: string, packageName: string): Promise<string 
 
 async function readJsiiForModule(rootDir: string, packageName: string) {
     const moduleDir = await findModuleRoot(rootDir, packageName);
-
     if (!moduleDir) {
         throw new Error(`Cannot find ${packageName} under node_modules (here or up the tree)`);
     }
 
     const pkg = await readPackageMetadata(moduleDir);
 
-    const outdir = pkg.outdir;
-    const jsiiFilePath = path.join(outdir, spec.SPEC_FILE_NAME);
+    const jsiiFilePath = path.join(moduleDir, spec.SPEC_FILE_NAME);
     const jsii = await fs.readJson(jsiiFilePath) as spec.Assembly;
     if (jsii.schema !== spec.SPEC_VERSION) {
         throw new Error(`The jsii spec of module ${packageName} has version ${jsii.schema} while we expect ${spec.SPEC_VERSION} (TODO: semver)`);

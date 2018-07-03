@@ -12,7 +12,6 @@
 # If the outputs are the same the test passed.
 #
 set -e
-set -x
 cd $(dirname $0)
 
 export JSII_RECORD=$(mktemp -d) # recording dir output

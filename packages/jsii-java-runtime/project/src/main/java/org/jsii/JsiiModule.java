@@ -1,6 +1,5 @@
 package org.jsii;
 
-import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 
@@ -9,9 +8,9 @@ import java.util.List;
  */
 public class JsiiModule {
     /**
-     * The URL of the code bundle.
+     * The module class.
      */
-    private final URL bundle;
+    private final Class moduleClass;
 
     /**
      * The name of the module.
@@ -19,20 +18,40 @@ public class JsiiModule {
     private final String moduleName;
 
     /**
+     * The version of this module.
+     */
+    private final String moduleVersion;
+
+    /**
+     * The module's resource name.
+     */
+    private final String bundleResourceName;
+
+    /**
      * Creates a module.
      * @param moduleName The name of the module.
-     * @param bundle The URL of the code bundle (jsii.js) of this module.
+     * @param moduleClass The module class.
+     * @param bundleResourceName The name of the bundle resource.
      */
-    public JsiiModule(final String moduleName, final URL bundle) {
+    public JsiiModule(final String moduleName, final String moduleVersion, final Class moduleClass, final String bundleResourceName) {
         this.moduleName = moduleName;
-        this.bundle = bundle;
+        this.moduleClass = moduleClass;
+        this.bundleResourceName = bundleResourceName;
+        this.moduleVersion = moduleVersion;
     }
 
     /**
      * @return The URL of the code bundle.
      */
-    public URL getBundle() {
-        return bundle;
+    public Class getModuleClass() {
+        return this.moduleClass;
+    }
+
+    /**
+     * @return The name of the bundle resource.
+     */
+    public String getBundleResourceName() {
+        return bundleResourceName;
     }
 
     /**
@@ -40,6 +59,13 @@ public class JsiiModule {
      */
     public String getModuleName() {
         return moduleName;
+    }
+
+    /**
+     * @return The version of this module.
+     */
+    public String getModuleVersion() {
+        return moduleVersion;
     }
 
     /**

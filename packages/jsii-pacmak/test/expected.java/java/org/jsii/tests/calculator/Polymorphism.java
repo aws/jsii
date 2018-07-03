@@ -1,5 +1,5 @@
 package org.jsii.tests.calculator;
-@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii$jsii_calc$.Polymorphism")
+@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.Polymorphism")
 public class Polymorphism extends org.jsii.JsiiObject {
     protected Polymorphism(final org.jsii.JsiiObject.InitializationMode mode) {
         super(mode);

@@ -1,5 +1,5 @@
 package org.jsii.tests.calculator.DerivedClassHasNoProperties;
-@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii$jsii_calc$.DerivedClassHasNoProperties.Base")
+@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.DerivedClassHasNoProperties.Base")
 public class Base extends org.jsii.JsiiObject {
     protected Base(final org.jsii.JsiiObject.InitializationMode mode) {
         super(mode);

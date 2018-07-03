@@ -1,17 +1,8 @@
 {
-  "name": "jsii-build-tools",
+  "name": "jsii-calc-bundled",
   "version": "0.5.0-beta",
-  "description": "Internal repository-level tools",
+  "main": "index.js",
   "private": true,
-  "bin": {
-    "diff-test": "bin/diff-test"
-  },
-  "scripts": {
-    "prepare": "chmod +x bin/*"
-  },
-  "dependencies": {
-    "fs-extra": "^4.0.3"
-  },
   "author": {
     "name": "Amazon Web Services",
     "url": "https://aws.amazon.com"

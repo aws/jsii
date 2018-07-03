@@ -2,7 +2,7 @@ package org.jsii.tests.calculator;
 /**
  * The negation operation ("-value")
  */
-@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii$jsii_calc$.Negate")
+@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.Negate")
 public class Negate extends org.jsii.tests.calculator.UnaryOperation implements org.jsii.tests.calculator.IFriendlier {
     protected Negate(final org.jsii.JsiiObject.InitializationMode mode) {
         super(mode);

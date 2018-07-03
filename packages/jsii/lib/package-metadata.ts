@@ -70,13 +70,17 @@ export default async function readPackageMetadata(moduleDir: string): Promise<Pa
     const types = path.join(moduleDir, pkg.types);
     const outdir = path.resolve(moduleDir, pkg.jsii.outdir);
 
+    if ('bundledDependencies' in pkg.jsii) {
+        throw new Error(`"jsii.bundledDependencies" is deprecated. Use the normal "bundledDependencies" instead`);
+    }
+
     return {
         name: pkg.name,
         version: pkg.version,
         outdir,
         main,
         dependencies: pkg.dependencies || {},
-        bundledDependencies: pkg.jsii.bundledDependencies || [],
+        bundledDependencies: pkg.bundledDependencies || [],
         names: pkg.jsii.names || {},
         entrypoint: types.replace(/\.d\.ts$/, '.ts')
     };

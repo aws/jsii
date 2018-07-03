@@ -1,5 +1,5 @@
 package org.jsii.tests.calculator;
-@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii$jsii_calc$.Statics")
+@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.Statics")
 public class Statics extends org.jsii.JsiiObject {
     protected Statics(final org.jsii.JsiiObject.InitializationMode mode) {
         super(mode);

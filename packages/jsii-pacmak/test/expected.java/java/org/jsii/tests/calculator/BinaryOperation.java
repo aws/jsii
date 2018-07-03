@@ -2,7 +2,7 @@ package org.jsii.tests.calculator;
 /**
  * Represents an operation with two operands.
  */
-@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii$jsii_calc$.BinaryOperation")
+@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.BinaryOperation")
 public abstract class BinaryOperation extends org.jsii.tests.calculator.lib.Operation implements org.jsii.tests.calculator.lib.IFriendly {
     protected BinaryOperation(final org.jsii.JsiiObject.InitializationMode mode) {
         super(mode);

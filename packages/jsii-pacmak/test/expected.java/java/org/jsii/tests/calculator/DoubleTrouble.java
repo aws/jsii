@@ -1,5 +1,5 @@
 package org.jsii.tests.calculator;
-@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii$jsii_calc$.DoubleTrouble")
+@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.DoubleTrouble")
 public class DoubleTrouble extends org.jsii.JsiiObject implements org.jsii.tests.calculator.IFriendlyRandomGenerator {
     protected DoubleTrouble(final org.jsii.JsiiObject.InitializationMode mode) {
         super(mode);

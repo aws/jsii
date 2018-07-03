@@ -2,7 +2,7 @@ package org.jsii.tests.calculator.composition;
 /**
  * Abstract operation composed from an expression of other operations.
  */
-@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii$jsii_calc$.composition.CompositeOperation")
+@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.composition.CompositeOperation")
 public abstract class CompositeOperation extends org.jsii.tests.calculator.lib.Operation {
     protected CompositeOperation(final org.jsii.JsiiObject.InitializationMode mode) {
         super(mode);

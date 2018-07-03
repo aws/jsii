@@ -2,7 +2,7 @@ package org.jsii.tests.calculator;
 /**
  * The "*" binary operation.
  */
-@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii$jsii_calc$.Multiply")
+@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.Multiply")
 public class Multiply extends org.jsii.tests.calculator.BinaryOperation implements org.jsii.tests.calculator.IFriendlier,org.jsii.tests.calculator.IRandomNumberGenerator {
     protected Multiply(final org.jsii.JsiiObject.InitializationMode mode) {
         super(mode);

@@ -38,12 +38,8 @@ public final class JsiiObjectRef {
         this.objId = objId;
         this.node = node;
 
-        String[] components = this.objId.split("@");
-        if (components.length != 2) {
-            throw new JsiiException("Malformed object ID: " + objId);
-        }
-
-        this.fqn = components[0];
+        int fqnDelimiter = this.objId.lastIndexOf("@");
+        this.fqn = this.objId.substring(0, fqnDelimiter);
     }
 
     /**

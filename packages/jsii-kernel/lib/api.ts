@@ -27,7 +27,17 @@ export interface HelloResponse {
 }
 
 export interface LoadRequest {
-    assembly: Assembly;
+    /** @deprecated */
+    assembly?: Assembly;
+
+    /** The name of the assembly */
+    name: string;
+
+    /** Assembly version */
+    version: string;
+
+    /** The tarball of the package */
+    tarball: string;
 }
 
 export interface LoadResponse {
