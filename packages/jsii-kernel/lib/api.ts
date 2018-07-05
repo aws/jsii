@@ -1,5 +1,3 @@
-import { Assembly } from 'jsii-spec';
-
 export const TOKEN_REF = '$jsii.byref';
 export const TOKEN_DATE = '$jsii.date';
 export const TOKEN_ENUM = '$jsii.enum';
