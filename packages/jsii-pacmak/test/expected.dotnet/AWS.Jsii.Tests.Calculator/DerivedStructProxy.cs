@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace AWS.Jsii.Tests.Calculator
 {
     /// <summary>A struct which derives from another struct.</summary>
-    [JsiiInterfaceProxy("jsii-calc", "jsii$jsii_calc$.DerivedStruct")]
+    [JsiiInterfaceProxy(typeof(IDerivedStruct), "jsii-calc.DerivedStruct")]
     internal class DerivedStructProxy : DeputyBase, IDerivedStruct
     {
         private DerivedStructProxy(ByRefValue reference): base(reference)
@@ -14,7 +14,7 @@ namespace AWS.Jsii.Tests.Calculator
         }
 
         /// <summary>An example of a non primitive property.</summary>
-        [JsiiProperty("nonPrimitive", "{\"fqn\":\"jsii$jsii_calc$.DoubleTrouble\"}")]
+        [JsiiProperty("nonPrimitive", "{\"fqn\":\"jsii-calc.DoubleTrouble\"}")]
         public virtual DoubleTrouble NonPrimitive
         {
             get => GetProperty<DoubleTrouble>();
@@ -43,7 +43,7 @@ namespace AWS.Jsii.Tests.Calculator
         }
 
         /// <summary>This is optional.</summary>
-        [JsiiProperty("anotherOptional", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"jsii$jsii_calc_lib$.Value\"}},\"optional\":true}")]
+        [JsiiProperty("anotherOptional", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},\"optional\":true}")]
         public virtual IDictionary<string, Value_> AnotherOptional
         {
             get => GetProperty<IDictionary<string, Value_>>();

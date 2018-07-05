@@ -47,7 +47,6 @@ export interface IGenerator {
  */
 export abstract class Generator implements IGenerator {
     private readonly options: GeneratorOptions;
-    private mod: spec.Assembly
     private readonly excludeTypes = new Array<string>();
     private readonly target?: string
     protected readonly code = new CodeMaker();
@@ -60,10 +59,9 @@ export abstract class Generator implements IGenerator {
 
     public async load(jsiiFile: string) {
         this.assembly = await fs.readJson(jsiiFile) as spec.Assembly;
-        this.mod = this.assembly;
 
-        if (this.mod.schema !== spec.SPEC_VERSION) {
-            throw new Error(`Invalid schema version "${this.mod.schema}". Expecting "${spec.SPEC_VERSION}"`);
+        if (this.assembly.schema !== spec.SPEC_VERSION) {
+            throw new Error(`Invalid schema version "${this.assembly.schema}". Expecting "${spec.SPEC_VERSION}"`);
         }
     }
 
@@ -71,11 +69,11 @@ export abstract class Generator implements IGenerator {
      * Runs the generator (in-memory).
      */
     generate() {
-        this.onBeginAssembly(this.mod);
-        if (this.mod.nametree) {
-            this.visit(this.mod.nametree);
+        this.onBeginAssembly(this.assembly);
+        if (this.assembly.nametree) {
+            this.visit(this.assembly.nametree);
         }
-        this.onEndAssembly(this.mod);
+        this.onEndAssembly(this.assembly);
     }
 
     /**
@@ -100,7 +98,7 @@ export abstract class Generator implements IGenerator {
      * Saves all generated files to an output directory, creating any subdirs if needed.
      */
     async save(outdir: string, tarball: string) {
-        const assemblyDir = this.getAssemblyOutputDir(this.mod);
+        const assemblyDir = this.getAssemblyOutputDir(this.assembly);
         if (assemblyDir) {
             const fullPath = path.resolve(path.join(outdir, assemblyDir, this.getAssemblyFileName()));
             await fs.mkdirp(path.dirname(fullPath));
@@ -125,7 +123,7 @@ export abstract class Generator implements IGenerator {
         let typeName = components.slice(1);
 
 
-        const names = this.mod.nativenames[moduleName];
+        const names = this.assembly.nativenames[moduleName];
         if (!names) {
             throw new Error(`Cannot find native names for module ${moduleName}`);
         }
@@ -242,7 +240,7 @@ export abstract class Generator implements IGenerator {
         }
 
         if (node._) {
-            let type = this.mod.types[node._];
+            let type = this.assembly.types[node._];
             if (!type) {
                 throw new Error(`Malformed jsii file. Cannot find type: ${node._}`);
             }
@@ -511,7 +509,7 @@ export abstract class Generator implements IGenerator {
             return undefined;
         }
 
-        const ret = lookupType(this.mod);
+        const ret = lookupType(this.assembly);
         if (!ret) {
             throw new Error(`Cannot find type '${fqn}' either as internal or external type`);
         }

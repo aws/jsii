@@ -2,7 +2,7 @@ using AWS.Jsii.Runtime.Deputy;
 
 namespace AWS.Jsii.Tests.Calculator
 {
-    [JsiiClass("jsii-calc", "jsii$jsii_calc$.VirtualMethodPlayground", "[]")]
+    [JsiiClass(typeof(VirtualMethodPlayground), "jsii-calc.VirtualMethodPlayground", "[]")]
     public class VirtualMethodPlayground : DeputyBase
     {
         public VirtualMethodPlayground(): base(new DeputyProps(new object[]{}))

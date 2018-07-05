@@ -2,7 +2,7 @@ using AWS.Jsii.Runtime.Deputy;
 
 namespace AWS.Jsii.Tests.Calculator
 {
-    [JsiiClass("jsii-calc", "jsii$jsii_calc$.AllowedMethodNames", "[]")]
+    [JsiiClass(typeof(AllowedMethodNames), "jsii-calc.AllowedMethodNames", "[]")]
     public class AllowedMethodNames : DeputyBase
     {
         public AllowedMethodNames(): base(new DeputyProps(new object[]{}))

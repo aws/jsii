@@ -2,7 +2,7 @@ using AWS.Jsii.Runtime.Deputy;
 
 namespace AWS.Jsii.Tests.Calculator
 {
-    [JsiiClass("jsii-calc", "jsii$jsii_calc$.SyncVirtualMethods", "[]")]
+    [JsiiClass(typeof(SyncVirtualMethods), "jsii-calc.SyncVirtualMethods", "[]")]
     public class SyncVirtualMethods : DeputyBase
     {
         public SyncVirtualMethods(): base(new DeputyProps(new object[]{}))

@@ -6,6 +6,9 @@
     <Company></Company>
   </PropertyGroup>
   <ItemGroup>
+    <EmbeddedResource Include="jsii-calc-0.5.0-beta.tgz" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="AWS.Jsii.Runtime" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>

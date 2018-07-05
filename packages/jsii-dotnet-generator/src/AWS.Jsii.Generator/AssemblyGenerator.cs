@@ -14,6 +14,9 @@ using System.Xml;
 using System.Xml.Linq;
 using Type = AWS.Jsii.JsonModel.Spec.Type;
 using TypeKind = AWS.Jsii.JsonModel.Spec.TypeKind;
+using SF = Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.CSharp;
 
 namespace AWS.Jsii.Generator
 {
@@ -38,7 +41,7 @@ namespace AWS.Jsii.Generator
             _fileSystem = fileSystem ?? new FileSystem();
         }
 
-        public void Generate(string jsiiFile, ISymbolMap symbols = null)
+        public void Generate(string jsiiFile, string tarball, ISymbolMap symbols = null)
         {
             jsiiFile = jsiiFile ?? throw new ArgumentNullException(nameof(jsiiFile));
             symbols = symbols ?? new SymbolMap();
@@ -54,19 +57,22 @@ namespace AWS.Jsii.Generator
             }
             _fileSystem.Directory.CreateDirectory(packageOutputRoot);
 
-            _fileSystem.File.Copy(jsiiFile, Path.Combine(packageOutputRoot, Constants.SPEC_FILE_NAME));
+            _fileSystem.File.Copy(tarball, packageOutputRoot);
+            _fileSystem.File.Copy(jsiiFile, packageOutputRoot);
 
-            Save(packageOutputRoot, symbols, assembly);
+            Save(packageOutputRoot, symbols, assembly, new FileInfo(tarball).Name, new FileInfo(jsiiFile).Name);
         }
 
-        void Save(string packageOutputRoot, ISymbolMap symbols, Assembly assembly)
+        void Save(string packageOutputRoot, ISymbolMap symbols, Assembly assembly, string tarballName, string jsiiFileName)
         {
             if (assembly.Docs != null)
             {
+                // TODO: Use Microsoft.Extensions.Logging instead of Console.Error.
                 Console.Error.WriteLine("Warning: Ignoring documentation comment on assembly ${assembly.Name}. Assembly-level documentation comments are not supported for .NET");
             }
 
             SaveProjectFile();
+            SaveAssemblyInfo(assembly.Name, assembly.Version, tarballName);
 
             foreach (Type type in assembly.Types?.Values ?? Enumerable.Empty<Type>())
             {
@@ -83,6 +89,11 @@ namespace AWS.Jsii.Generator
                             new XElement("GeneratePackageOnBuild", true),
                             new XElement("Authors", _authors),
                             new XElement("Company", _company)
+                        ),
+                        new XElement("ItemGroup",
+                            new XElement("EmbeddedResource",
+                                new XAttribute("Include", tarballName)
+                            )
                         ),
                         new XElement("ItemGroup",
                             new XElement("PackageReference",
@@ -136,6 +147,36 @@ namespace AWS.Jsii.Generator
                         yield return symbols.GetAssemblyName(packageName);
                     }
                 }
+            }
+
+            void SaveAssemblyInfo(string name, string version, string tarball) {
+                SyntaxTree assemblyInfo = SF.SyntaxTree(
+                    SF.CompilationUnit(
+                        SF.List<ExternAliasDirectiveSyntax>(),
+                        SF.List(new[] {
+                            SF.UsingDirective(SF.ParseName("AWS.Jsii.Runtime.Deputy"))
+                        }),
+                        SF.List(new[] {
+                            SF.AttributeList(
+                                SF.AttributeTargetSpecifier(
+                                    SF.Identifier("assembly"),
+                                    SF.Token(SyntaxKind.ColonToken)
+                                ),
+                                SF.SeparatedList<AttributeSyntax>(new[] {
+                                    SF.Attribute(
+                                        SF.ParseName("JsiiAssembly"),
+                                        SF.ParseAttributeArgumentList($"({SF.Literal(name)}, {SF.Literal(version)}, {SF.Literal(tarball)})")
+                                    )
+                                })
+                            )
+                        }),
+                        SF.List<MemberDeclarationSyntax>()
+                    ).NormalizeWhitespace(elasticTrivia: true)
+                );
+
+                string assemblyInfoPath = Path.Combine(packageOutputRoot, "AssemblyInfo.cs");
+                _fileSystem.File.WriteAllText(assemblyInfoPath, assemblyInfo.ToString());
+
             }
 
             void SaveType(Type type)

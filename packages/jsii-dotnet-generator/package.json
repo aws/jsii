@@ -1,24 +1,23 @@
 {
-    "name": "jsii-dotnet-generator",
-    "version": "0.5.0-beta",
-    "description": ".NET client for jsii runtime",
-    "main": "index.js",
-    "scripts": {
-      "prepare": "/bin/bash ./prepare.sh",
-      "prepack": "/bin/bash ./prepack.sh",
-      "test": "/bin/bash ./test.sh"
-    },
-    "dependencies": {
-      "jsii-dotnet-jsonmodel": "^0.5.0-beta"
-    },
-    "repository": {
-      "type": "git",
-      "url": "git://github.com/awslabs/jsii"
-    },
-    "author": {
-      "name": "Amazon Web Services",
-      "url": "https://aws.amazon.com"
-    },
-    "license": "LicenseRef-LICENSE"
-  }
-  
+  "name": "jsii-dotnet-generator",
+  "version": "0.5.0-beta",
+  "description": ".NET client for jsii runtime",
+  "main": "index.js",
+  "scripts": {
+    "prepare": "/bin/bash ./prepare.sh",
+    "prepack": "/bin/bash ./prepack.sh",
+    "test": "/bin/bash ./test.sh"
+  },
+  "dependencies": {
+    "jsii-dotnet-jsonmodel": "^0.5.0-beta"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/awslabs/jsii"
+  },
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com"
+  },
+  "license": "LicenseRef-LICENSE"
+}

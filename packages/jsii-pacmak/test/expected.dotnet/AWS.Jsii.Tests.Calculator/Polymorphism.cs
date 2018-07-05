@@ -3,7 +3,7 @@ using AWS.Jsii.Tests.Calculator.Lib;
 
 namespace AWS.Jsii.Tests.Calculator
 {
-    [JsiiClass("jsii-calc", "jsii$jsii_calc$.Polymorphism", "[]")]
+    [JsiiClass(typeof(Polymorphism), "jsii-calc.Polymorphism", "[]")]
     public class Polymorphism : DeputyBase
     {
         public Polymorphism(): base(new DeputyProps(new object[]{}))
@@ -18,7 +18,7 @@ namespace AWS.Jsii.Tests.Calculator
         {
         }
 
-        [JsiiMethod("sayHello", "{\"primitive\":\"string\"}", "[{\"name\":\"friendly\",\"type\":{\"fqn\":\"jsii$jsii_calc_lib$.IFriendly\"}}]")]
+        [JsiiMethod("sayHello", "{\"primitive\":\"string\"}", "[{\"name\":\"friendly\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.IFriendly\"}}]")]
         public virtual string SayHello(IIFriendly friendly)
         {
             return InvokeMethod<string>(new object[]{friendly});

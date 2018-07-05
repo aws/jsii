@@ -2,7 +2,7 @@ using AWS.Jsii.Runtime.Deputy;
 
 namespace AWS.Jsii.Tests.Calculator
 {
-    [JsiiClass("jsii-calc", "jsii$jsii_calc$.JavaReservedWords", "[]")]
+    [JsiiClass(typeof(JavaReservedWords), "jsii-calc.JavaReservedWords", "[]")]
     public class JavaReservedWords : DeputyBase
     {
         public JavaReservedWords(): base(new DeputyProps(new object[]{}))

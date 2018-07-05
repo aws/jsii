@@ -15,19 +15,12 @@ namespace AWS.Jsii.Runtime.Services
             loggerFactory = loggerFactory ?? throw new ArgumentNullException(nameof(loggerFactory));
             _logger = loggerFactory.CreateLogger<NodeProcess>();
 
-            string jsiiRuntimePath = Path.GetFullPath(Path.Combine(
-                jsiiRuntimeProvider.JsiiRuntimePath,
-                "jsii-runtime",
-                "bin",
-                "jsii-runtime"
-            ));
-
             _process = new Process
             {
                 StartInfo = new ProcessStartInfo
                 {
                     FileName = "node",
-                    Arguments = "--max-old-space-size=4096 " + jsiiRuntimePath,
+                    Arguments = "--max-old-space-size=4096 " + jsiiRuntimeProvider.JsiiRuntimePath,
                     RedirectStandardInput = true,
                     RedirectStandardOutput = true,
                 }

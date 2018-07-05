@@ -3,7 +3,7 @@ using AWS.Jsii.Runtime.Deputy;
 namespace AWS.Jsii.Tests.Calculator
 {
     /// <summary>Generates random numbers.</summary>
-    [JsiiInterface("jsii-calc", "jsii$jsii_calc$.IRandomNumberGenerator")]
+    [JsiiInterface(typeof(IIRandomNumberGenerator), "jsii-calc.IRandomNumberGenerator")]
     public interface IIRandomNumberGenerator
     {
         /// <summary>Returns another random number.</summary>

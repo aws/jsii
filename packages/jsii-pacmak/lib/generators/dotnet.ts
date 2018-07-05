@@ -3,38 +3,33 @@ import { dirname } from "path";
 import { IGenerator } from "../generator";
 
 export default class DotNetGenerator implements IGenerator {
-    constructor(private jsiiFile: string) {
-    }
+    private jsiiFile: string;
 
     public generate(): void {
         // The DotNet generator does not currently support in-memory generation.
         // Support can be added relatively easily if necessary.
     }
 
-    public save(outdir: string): Promise<any> {
-        const runtimeRoot = dirname(require.resolve('jsii-dotnet-generator'));
+    public async load(jsiiFile: string) {
+        this.jsiiFile = jsiiFile;
+    }
+
+    public save(outdir: string, tarball: string): Promise<any> {
+        const runtimeRoot = dirname(require.resolve('jsii-dotnet-generator/package.json'));
         const cliPath = `${runtimeRoot}/cli/${this.getRuntime()}/publish/AWS.Jsii.Generator.CLI`;
+        const cli = spawn(cliPath, ['--jsii', this.jsiiFile, '--tarball', tarball, '--output', outdir], { stdio: 'inherit' });
 
-        const promise = new Promise<number>((resolve, reject) => {
-            const cli = spawn(cliPath, ['--jsii', this.jsiiFile, '--output', outdir]);
-            let resolved = false;
-
-            cli.on('close', code => {
-                if (!resolved) {
-                    resolved = true;
-                    resolve(code);
+        return new Promise<number>((resolve, reject) => {
+            cli.once('exit', code => {
+                if (code === 0) {
+                    return resolve();
+                } else {
+                    return reject(new Error(`jsii-dotnet-generator exited with code ${code}`));
                 }
             });
 
-            cli.on('error', code => {
-                if (!resolved) {
-                    resolved = true;
-                    reject(code);
-                }
-            });
+            cli.once('error', err => reject(err));
         });
-
-        return promise;
     }
 
     private getRuntime(): string {

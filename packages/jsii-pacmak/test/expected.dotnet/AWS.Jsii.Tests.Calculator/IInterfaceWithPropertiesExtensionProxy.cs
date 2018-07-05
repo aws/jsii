@@ -2,7 +2,7 @@ using AWS.Jsii.Runtime.Deputy;
 
 namespace AWS.Jsii.Tests.Calculator
 {
-    [JsiiInterfaceProxy("jsii-calc", "jsii$jsii_calc$.IInterfaceWithPropertiesExtension")]
+    [JsiiInterfaceProxy(typeof(IIInterfaceWithPropertiesExtension), "jsii-calc.IInterfaceWithPropertiesExtension")]
     internal class IInterfaceWithPropertiesExtensionProxy : DeputyBase, IIInterfaceWithPropertiesExtension
     {
         private IInterfaceWithPropertiesExtensionProxy(ByRefValue reference): base(reference)

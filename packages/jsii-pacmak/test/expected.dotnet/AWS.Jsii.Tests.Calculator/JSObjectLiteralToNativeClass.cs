@@ -2,7 +2,7 @@ using AWS.Jsii.Runtime.Deputy;
 
 namespace AWS.Jsii.Tests.Calculator
 {
-    [JsiiClass("jsii-calc", "jsii$jsii_calc$.JSObjectLiteralToNativeClass", "[]")]
+    [JsiiClass(typeof(JSObjectLiteralToNativeClass), "jsii-calc.JSObjectLiteralToNativeClass", "[]")]
     public class JSObjectLiteralToNativeClass : DeputyBase
     {
         public JSObjectLiteralToNativeClass(): base(new DeputyProps(new object[]{}))

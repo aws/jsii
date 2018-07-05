@@ -2,7 +2,7 @@ using AWS.Jsii.Runtime.Deputy;
 
 namespace AWS.Jsii.Tests.Calculator
 {
-    [JsiiClass("jsii-calc", "jsii$jsii_calc$.VariadicMethod", "[{\"name\":\"prefix\",\"type\":{\"primitive\":\"number\"}}]")]
+    [JsiiClass(typeof(VariadicMethod), "jsii-calc.VariadicMethod", "[{\"name\":\"prefix\",\"type\":{\"primitive\":\"number\"}}]")]
     public class VariadicMethod : DeputyBase
     {
         public VariadicMethod(double prefix): base(new DeputyProps(new object[]{prefix}))

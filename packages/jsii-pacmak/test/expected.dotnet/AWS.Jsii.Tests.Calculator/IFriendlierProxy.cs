@@ -3,7 +3,7 @@ using AWS.Jsii.Runtime.Deputy;
 namespace AWS.Jsii.Tests.Calculator
 {
     /// <summary>Even friendlier classes can implement this interface.</summary>
-    [JsiiInterfaceProxy("jsii-calc", "jsii$jsii_calc$.IFriendlier")]
+    [JsiiInterfaceProxy(typeof(IIFriendlier), "jsii-calc.IFriendlier")]
     internal class IFriendlierProxy : DeputyBase, IIFriendlier
     {
         private IFriendlierProxy(ByRefValue reference): base(reference)

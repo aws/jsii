@@ -5,8 +5,8 @@ namespace AWS.Jsii.Runtime.Deputy
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
     public class JsiiInterfaceProxyAttribute : JsiiTypeAttributeBase
     {
-        public JsiiInterfaceProxyAttribute(string package, string fullyQualifiedName)
-            : base(package, fullyQualifiedName)
+        public JsiiInterfaceProxyAttribute(Type nativeType, string fullyQualifiedName)
+            : base(nativeType, fullyQualifiedName)
         {
         }
     }

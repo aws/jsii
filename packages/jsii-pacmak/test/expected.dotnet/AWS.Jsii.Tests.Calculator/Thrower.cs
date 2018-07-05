@@ -2,7 +2,7 @@ using AWS.Jsii.Runtime.Deputy;
 
 namespace AWS.Jsii.Tests.Calculator
 {
-    [JsiiClass("jsii-calc", "jsii$jsii_calc$.Thrower", "[]")]
+    [JsiiClass(typeof(Thrower), "jsii-calc.Thrower", "[]")]
     public class Thrower : DeputyBase
     {
         public Thrower(): base(new DeputyProps(new object[]{}))

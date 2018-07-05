@@ -2,7 +2,7 @@ using AWS.Jsii.Runtime.Deputy;
 
 namespace AWS.Jsii.Tests.Calculator
 {
-    [JsiiEnum("jsii-calc", "jsii$jsii_calc$.AllTypesEnum")]
+    [JsiiEnum(typeof(AllTypesEnum), "jsii-calc.AllTypesEnum")]
     public enum AllTypesEnum
     {
         [JsiiEnumMember("MyEnumValue")]

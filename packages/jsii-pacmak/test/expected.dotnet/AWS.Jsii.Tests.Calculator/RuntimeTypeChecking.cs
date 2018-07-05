@@ -3,7 +3,7 @@ using System;
 
 namespace AWS.Jsii.Tests.Calculator
 {
-    [JsiiClass("jsii-calc", "jsii$jsii_calc$.RuntimeTypeChecking", "[]")]
+    [JsiiClass(typeof(RuntimeTypeChecking), "jsii-calc.RuntimeTypeChecking", "[]")]
     public class RuntimeTypeChecking : DeputyBase
     {
         public RuntimeTypeChecking(): base(new DeputyProps(new object[]{}))

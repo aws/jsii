@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AWS.Jsii.Tests.Calculator
 {
-    [JsiiClass("jsii-calc", "jsii$jsii_calc$.Statics", "[{\"name\":\"value\",\"type\":{\"primitive\":\"string\"}}]")]
+    [JsiiClass(typeof(Statics), "jsii-calc.Statics", "[{\"name\":\"value\",\"type\":{\"primitive\":\"string\"}}]")]
     public class Statics : DeputyBase
     {
         public Statics(string value): base(new DeputyProps(new object[]{value}))
@@ -49,7 +49,7 @@ namespace AWS.Jsii.Tests.Calculator
         /// Jsdocs for static getter.
         /// Jsdocs for static setter.
         /// </summary>
-        [JsiiProperty("instance", "{\"fqn\":\"jsii$jsii_calc$.Statics\"}")]
+        [JsiiProperty("instance", "{\"fqn\":\"jsii-calc.Statics\"}")]
         public virtual Statics Instance
         {
             get => GetProperty<Statics>();
@@ -63,7 +63,7 @@ namespace AWS.Jsii.Tests.Calculator
             set => SetProperty(value);
         }
 
-        [JsiiProperty("ConstObj", "{\"fqn\":\"jsii$jsii_calc$.DoubleTrouble\"}")]
+        [JsiiProperty("ConstObj", "{\"fqn\":\"jsii-calc.DoubleTrouble\"}")]
         public virtual DoubleTrouble ConstObj
         {
             get => GetProperty<DoubleTrouble>();

@@ -2,7 +2,7 @@ using AWS.Jsii.Runtime.Deputy;
 
 namespace AWS.Jsii.Tests.Calculator
 {
-    [JsiiClass("jsii-calc", "jsii$jsii_calc$.UsesInterfaceWithProperties", "[{\"name\":\"obj\",\"type\":{\"fqn\":\"jsii$jsii_calc$.IInterfaceWithProperties\"}}]")]
+    [JsiiClass(typeof(UsesInterfaceWithProperties), "jsii-calc.UsesInterfaceWithProperties", "[{\"name\":\"obj\",\"type\":{\"fqn\":\"jsii-calc.IInterfaceWithProperties\"}}]")]
     public class UsesInterfaceWithProperties : DeputyBase
     {
         public UsesInterfaceWithProperties(IIInterfaceWithProperties obj): base(new DeputyProps(new object[]{obj}))
@@ -17,7 +17,7 @@ namespace AWS.Jsii.Tests.Calculator
         {
         }
 
-        [JsiiProperty("obj", "{\"fqn\":\"jsii$jsii_calc$.IInterfaceWithProperties\"}")]
+        [JsiiProperty("obj", "{\"fqn\":\"jsii-calc.IInterfaceWithProperties\"}")]
         public virtual IIInterfaceWithProperties Obj
         {
             get => GetProperty<IIInterfaceWithProperties>();
@@ -35,7 +35,7 @@ namespace AWS.Jsii.Tests.Calculator
             return InvokeMethod<string>(new object[]{value});
         }
 
-        [JsiiMethod("readStringAndNumber", "{\"primitive\":\"string\"}", "[{\"name\":\"ext\",\"type\":{\"fqn\":\"jsii$jsii_calc$.IInterfaceWithPropertiesExtension\"}}]")]
+        [JsiiMethod("readStringAndNumber", "{\"primitive\":\"string\"}", "[{\"name\":\"ext\",\"type\":{\"fqn\":\"jsii-calc.IInterfaceWithPropertiesExtension\"}}]")]
         public virtual string ReadStringAndNumber(IIInterfaceWithPropertiesExtension ext)
         {
             return InvokeMethod<string>(new object[]{ext});
