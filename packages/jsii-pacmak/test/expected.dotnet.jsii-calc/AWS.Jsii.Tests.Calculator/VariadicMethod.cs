@@ -20,7 +20,7 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiMethod("asArray", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"number\"}}}", "[{\"name\":\"first\",\"type\":{\"primitive\":\"number\"}},{\"name\":\"others\",\"type\":{\"primitive\":\"number\"}}]")]
         public virtual double[] AsArray(double first, double others)
         {
-            return InvokeMethod<double[]>(new object[]{first, others});
+            return InvokeInstanceMethod<double[]>(new object[]{first, others});
         }
     }
 }

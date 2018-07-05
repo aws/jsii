@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using SF = Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace AWS.Jsii.Generator
@@ -75,18 +76,20 @@ namespace AWS.Jsii.Generator
         {
             return SF.InvocationExpression(
                 CreateInvokeMethodIdentifier(),
-                Method.GetArgumentListSyntax(Namespaces, Symbols)
+                GetArgumentListSyntax()
             );
 
-            NameSyntax CreateInvokeMethodIdentifier()
+            SimpleNameSyntax CreateInvokeMethodIdentifier()
             {
+                string invokeMethodName = GetInvokeMethodName();
+
                 if (Method.Returns == null)
                 {
-                    return SF.IdentifierName("InvokeVoidMethod");
+                    return SF.IdentifierName(invokeMethodName);
                 }
 
                 return SF.GenericName(
-                    SF.Identifier("InvokeMethod"),
+                    SF.Identifier(invokeMethodName),
                     CreateTypeArgumentList()
                 );
 
@@ -102,6 +105,62 @@ namespace AWS.Jsii.Generator
                         SF.SeparatedList(new[] { GetReturnType() }),
                         SF.Token(SyntaxKind.GreaterThanToken)
                     );
+                }
+
+                string GetInvokeMethodName()
+                {
+                    StringBuilder builder = new StringBuilder("Invoke");
+                    builder.Append(Method.IsStatic == true ? "Static" : "Instance");
+                    if (Method.Returns == null)
+                    {
+                        builder.Append("Void");
+                    }
+                    builder.Append("Method");
+
+                    return builder.ToString();
+                }
+            }
+        }
+
+        ArgumentListSyntax GetArgumentListSyntax()
+        {
+            var arguments = GetArgumentExpressions().Select(e => SF.Argument(e));
+            return SF.ArgumentList(SF.SeparatedList(arguments));
+
+            IEnumerable<ExpressionSyntax> GetArgumentExpressions()
+            {
+                if (Method.IsStatic == true)
+                {
+                    yield return SF.TypeOfExpression(Symbols.GetNameSyntax(Type));
+                }
+
+                yield return CreateArgumentsArray();
+            }
+
+            ArrayCreationExpressionSyntax CreateArgumentsArray()
+            {
+                return SF.ArrayCreationExpression(
+                    SF.Token(SyntaxKind.NewKeyword),
+                    SF.ArrayType(SF.ParseTypeName("object[]")),
+                    SF.InitializerExpression(
+                        SyntaxKind.ArrayInitializerExpression,
+                        SF.Token(SyntaxKind.OpenBraceToken),
+                        SF.SeparatedList(GetArguments()),
+                        SF.Token(SyntaxKind.CloseBraceToken)
+                    )
+                );
+
+                IEnumerable<ExpressionSyntax> GetArguments()
+                {
+                    if (Method.Parameters == null)
+                    {
+                        yield break;
+                    }
+
+                    foreach (Parameter parameter in Method.Parameters)
+                    {
+                        yield return Symbols.GetNameSyntax(parameter);
+                    }
                 }
             }
         }

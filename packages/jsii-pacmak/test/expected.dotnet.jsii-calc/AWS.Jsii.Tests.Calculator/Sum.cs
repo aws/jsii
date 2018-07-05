@@ -24,8 +24,8 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiProperty("parts", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}")]
         public virtual Value_[] Parts
         {
-            get => GetProperty<Value_[]>();
-            set => SetProperty(value);
+            get => GetInstanceProperty<Value_[]>();
+            set => SetInstanceProperty(value);
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiProperty("expression", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public override Value_ Expression
         {
-            get => GetProperty<Value_>();
+            get => GetInstanceProperty<Value_>();
         }
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System;
 using System.Collections.Generic;
 using SF = Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
@@ -12,6 +13,23 @@ namespace AWS.Jsii.Generator.Interface
         public InterfaceDefaultPropertyGenerator(InterfaceType type, Property property, ISymbolMap symbols, INamespaceSet namespaces)
             : base(type, property, symbols, namespaces)
         {
+            if (property.IsAbstract == true)
+            {
+                throw new ArgumentException("Abstract properties are not allowed on interfaces", nameof(property));
+            }
+
+            if (property.IsProtected == true)
+            {
+                throw new ArgumentException("Protected properties are not allowed on interfaces", nameof(property));
+            }
+
+            if (property.IsStatic())
+            {
+                throw new ArgumentException(
+                    $"Property {type.Name}.{property.Name} is marked as static, but interfaces must not contain static members.",
+                    nameof(property)
+                );
+            }
         }
 
         protected override IEnumerable<SyntaxKind> GetModifierKeywords()
@@ -37,7 +55,7 @@ namespace AWS.Jsii.Generator.Interface
                 SF.ParseToken(";")
             );
 
-            if (Property.IsImmutable != true)
+            if (!Property.IsImmutable())
             {
                 yield return SF.AccessorDeclaration(
                    SyntaxKind.SetAccessorDeclaration,

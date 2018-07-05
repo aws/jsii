@@ -22,7 +22,7 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiProperty("osPlatform", "{\"primitive\":\"string\"}")]
         public virtual string OsPlatform
         {
-            get => GetProperty<string>();
+            get => GetInstanceProperty<string>();
         }
 
         /// <summary>Reads a local resource file (resource.txt) asynchronously.</summary>
@@ -30,7 +30,7 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiMethod("fsReadFile", "{\"primitive\":\"string\",\"promise\":true}", "[]")]
         public virtual string FsReadFile()
         {
-            return InvokeMethod<string>(new object[]{});
+            return InvokeInstanceMethod<string>(new object[]{});
         }
 
         /// <summary>Sync version of fsReadFile.</summary>
@@ -38,7 +38,7 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiMethod("fsReadFileSync", "{\"primitive\":\"string\"}", "[]")]
         public virtual string FsReadFileSync()
         {
-            return InvokeMethod<string>(new object[]{});
+            return InvokeInstanceMethod<string>(new object[]{});
         }
 
         /// <summary>Uses node.js "crypto" module to calculate sha256 of a string.</summary>
@@ -46,7 +46,7 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiMethod("cryptoSha256", "{\"primitive\":\"string\"}", "[]")]
         public virtual string CryptoSha256()
         {
-            return InvokeMethod<string>(new object[]{});
+            return InvokeInstanceMethod<string>(new object[]{});
         }
     }
 }

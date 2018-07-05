@@ -22,14 +22,14 @@ namespace AWS.Jsii.Tests.Calculator.Lib
         [JsiiProperty("value", "{\"primitive\":\"number\"}")]
         public override double Value
         {
-            get => GetProperty<double>();
+            get => GetInstanceProperty<double>();
         }
 
         /// <summary>The number multiplied by 2.</summary>
         [JsiiProperty("doubleValue", "{\"primitive\":\"number\"}")]
         public virtual double DoubleValue
         {
-            get => GetProperty<double>();
+            get => GetInstanceProperty<double>();
         }
     }
 }

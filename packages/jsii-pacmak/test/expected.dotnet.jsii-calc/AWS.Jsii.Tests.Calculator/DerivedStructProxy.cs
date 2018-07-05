@@ -17,60 +17,60 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiProperty("nonPrimitive", "{\"fqn\":\"jsii-calc.DoubleTrouble\"}")]
         public virtual DoubleTrouble NonPrimitive
         {
-            get => GetProperty<DoubleTrouble>();
-            set => SetProperty(value);
+            get => GetInstanceProperty<DoubleTrouble>();
+            set => SetInstanceProperty(value);
         }
 
         [JsiiProperty("bool", "{\"primitive\":\"boolean\"}")]
         public virtual bool Bool
         {
-            get => GetProperty<bool>();
-            set => SetProperty(value);
+            get => GetInstanceProperty<bool>();
+            set => SetInstanceProperty(value);
         }
 
         [JsiiProperty("anotherRequired", "{\"primitive\":\"date\"}")]
         public virtual DateTime AnotherRequired
         {
-            get => GetProperty<DateTime>();
-            set => SetProperty(value);
+            get => GetInstanceProperty<DateTime>();
+            set => SetInstanceProperty(value);
         }
 
         [JsiiProperty("optionalArray", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"optional\":true}")]
         public virtual string[] OptionalArray
         {
-            get => GetProperty<string[]>();
-            set => SetProperty(value);
+            get => GetInstanceProperty<string[]>();
+            set => SetInstanceProperty(value);
         }
 
         /// <summary>This is optional.</summary>
         [JsiiProperty("anotherOptional", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},\"optional\":true}")]
         public virtual IDictionary<string, Value_> AnotherOptional
         {
-            get => GetProperty<IDictionary<string, Value_>>();
-            set => SetProperty(value);
+            get => GetInstanceProperty<IDictionary<string, Value_>>();
+            set => SetInstanceProperty(value);
         }
 
         /// <summary>A string value</summary>
         [JsiiProperty("astring", "{\"primitive\":\"string\"}")]
         public virtual string Astring
         {
-            get => GetProperty<string>();
-            set => SetProperty(value);
+            get => GetInstanceProperty<string>();
+            set => SetInstanceProperty(value);
         }
 
         /// <summary>An awesome number value</summary>
         [JsiiProperty("anumber", "{\"primitive\":\"number\"}")]
         public virtual double Anumber
         {
-            get => GetProperty<double>();
-            set => SetProperty(value);
+            get => GetInstanceProperty<double>();
+            set => SetInstanceProperty(value);
         }
 
         [JsiiProperty("firstOptional", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"optional\":true}")]
         public virtual string[] FirstOptional
         {
-            get => GetProperty<string[]>();
-            set => SetProperty(value);
+            get => GetInstanceProperty<string[]>();
+            set => SetInstanceProperty(value);
         }
     }
 }

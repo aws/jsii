@@ -20,7 +20,7 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiMethod("value", "{\"primitive\":\"any\"}", "[]")]
         public virtual object Value()
         {
-            return InvokeMethod<object>(new object[]{});
+            return InvokeInstanceMethod<object>(new object[]{});
         }
     }
 }

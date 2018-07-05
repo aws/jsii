@@ -20,8 +20,8 @@ namespace AWS.Jsii.Tests.Calculator.DerivedClassHasNoProperties
         [JsiiProperty("prop", "{\"primitive\":\"string\"}")]
         public virtual string Prop
         {
-            get => GetProperty<string>();
-            set => SetProperty(value);
+            get => GetInstanceProperty<string>();
+            set => SetInstanceProperty(value);
         }
     }
 }

@@ -15,21 +15,21 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiMethod("goodbye", "{\"primitive\":\"string\"}", "[]")]
         public virtual string Goodbye()
         {
-            return InvokeMethod<string>(new object[]{});
+            return InvokeInstanceMethod<string>(new object[]{});
         }
 
         /// <summary>Say farewell.</summary>
         [JsiiMethod("farewell", "{\"primitive\":\"string\"}", "[]")]
         public virtual string Farewell()
         {
-            return InvokeMethod<string>(new object[]{});
+            return InvokeInstanceMethod<string>(new object[]{});
         }
 
         /// <summary>Say hello!</summary>
         [JsiiMethod("hello", "{\"primitive\":\"string\"}", "[]")]
         public virtual string Hello()
         {
-            return InvokeMethod<string>(new object[]{});
+            return InvokeInstanceMethod<string>(new object[]{});
         }
     }
 }

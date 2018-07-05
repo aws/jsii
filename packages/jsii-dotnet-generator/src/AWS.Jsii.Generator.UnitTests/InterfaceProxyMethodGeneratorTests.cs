@@ -43,7 +43,7 @@ namespace AWS.Jsii.Generator.UnitTests
 @"[JsiiMethod(""myMethod"", null, ""[]"")]
 public virtual void MyMethod()
 {
-    InvokeVoidMethod(new object[]{});
+    InvokeInstanceVoidMethod(new object[]{});
 }";
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
@@ -71,7 +71,7 @@ public virtual void MyMethod()
 @"[JsiiMethod(""myMethod"", null, ""[{\""name\"":\""myParam\"",\""type\"":{\""fqn\"":\""myParamTypeFqn\""}},{\""name\"":\""event\"",\""type\"":{\""primitive\"":\""string\""}}]"")]
 public virtual void MyMethod(MyParamType myParam, string @event)
 {
-    InvokeVoidMethod(new object[]{myParam, @event});
+    InvokeInstanceVoidMethod(new object[]{myParam, @event});
 }";
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
@@ -92,7 +92,7 @@ public virtual void MyMethod(MyParamType myParam, string @event)
 @"[JsiiMethod(""myMethod"", null, ""[]"")]
 public virtual void MyMethod()
 {
-    InvokeVoidMethod(new object[]{});
+    InvokeInstanceVoidMethod(new object[]{});
 }";
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
@@ -114,7 +114,7 @@ public virtual void MyMethod()
 @"[JsiiMethod(""myMethod"", ""{\""fqn\"":\""myReturnTypeFqn\""}"", ""[]"")]
 public virtual MyReturnType MyMethod()
 {
-    return InvokeMethod<MyReturnType>(new object[]{});
+    return InvokeInstanceMethod<MyReturnType>(new object[]{});
 }";
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }

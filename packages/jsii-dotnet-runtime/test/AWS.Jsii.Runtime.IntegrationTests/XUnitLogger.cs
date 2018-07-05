@@ -20,7 +20,6 @@ namespace AWS.Jsii.Runtime.IntegrationTests
         public ILogger CreateLogger(string categoryName)
         {
             return new XUnitLogger(_output, categoryName);
-            throw new NotImplementedException();
         }
 
         public void Dispose()

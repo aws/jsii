@@ -20,7 +20,7 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiMethod("throwError", null, "[]")]
         public virtual void ThrowError()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
     }
 }

@@ -24,14 +24,14 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiProperty("base", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public virtual Value_ Base
         {
-            get => GetProperty<Value_>();
+            get => GetInstanceProperty<Value_>();
         }
 
         /// <summary>The number of times to multiply</summary>
         [JsiiProperty("pow", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public virtual Value_ Pow
         {
-            get => GetProperty<Value_>();
+            get => GetInstanceProperty<Value_>();
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiProperty("expression", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public override Value_ Expression
         {
-            get => GetProperty<Value_>();
+            get => GetInstanceProperty<Value_>();
         }
     }
 }

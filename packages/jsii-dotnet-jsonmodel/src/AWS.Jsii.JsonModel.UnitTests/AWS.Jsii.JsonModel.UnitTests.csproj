@@ -18,11 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Api\Response\" />
-    <Folder Include="Api\Request\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\AWS.Jsii.JsonModel\AWS.Jsii.JsonModel.csproj" />
   </ItemGroup>
 

@@ -21,7 +21,7 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiMethod("sayHello", "{\"primitive\":\"string\"}", "[{\"name\":\"friendly\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.IFriendly\"}}]")]
         public virtual string SayHello(IIFriendly friendly)
         {
-            return InvokeMethod<string>(new object[]{friendly});
+            return InvokeInstanceMethod<string>(new object[]{friendly});
         }
     }
 }

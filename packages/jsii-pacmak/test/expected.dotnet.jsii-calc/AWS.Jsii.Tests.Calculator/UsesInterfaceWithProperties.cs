@@ -20,25 +20,25 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiProperty("obj", "{\"fqn\":\"jsii-calc.IInterfaceWithProperties\"}")]
         public virtual IIInterfaceWithProperties Obj
         {
-            get => GetProperty<IIInterfaceWithProperties>();
+            get => GetInstanceProperty<IIInterfaceWithProperties>();
         }
 
         [JsiiMethod("justRead", "{\"primitive\":\"string\"}", "[]")]
         public virtual string JustRead()
         {
-            return InvokeMethod<string>(new object[]{});
+            return InvokeInstanceMethod<string>(new object[]{});
         }
 
         [JsiiMethod("writeAndRead", "{\"primitive\":\"string\"}", "[{\"name\":\"value\",\"type\":{\"primitive\":\"string\"}}]")]
         public virtual string WriteAndRead(string value)
         {
-            return InvokeMethod<string>(new object[]{value});
+            return InvokeInstanceMethod<string>(new object[]{value});
         }
 
         [JsiiMethod("readStringAndNumber", "{\"primitive\":\"string\"}", "[{\"name\":\"ext\",\"type\":{\"fqn\":\"jsii-calc.IInterfaceWithPropertiesExtension\"}}]")]
         public virtual string ReadStringAndNumber(IIInterfaceWithPropertiesExtension ext)
         {
-            return InvokeMethod<string>(new object[]{ext});
+            return InvokeInstanceMethod<string>(new object[]{ext});
         }
     }
 }

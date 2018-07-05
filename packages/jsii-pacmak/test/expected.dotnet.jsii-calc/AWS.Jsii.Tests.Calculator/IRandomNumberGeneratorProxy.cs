@@ -15,7 +15,7 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiMethod("next", "{\"primitive\":\"number\"}", "[]")]
         public virtual double Next()
         {
-            return InvokeMethod<double>(new object[]{});
+            return InvokeInstanceMethod<double>(new object[]{});
         }
     }
 }

@@ -21,13 +21,13 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiMethod("giveMeFriendly", "{\"fqn\":\"@scope/jsii-calc-lib.IFriendly\"}", "[]")]
         public virtual IIFriendly GiveMeFriendly()
         {
-            return InvokeMethod<IIFriendly>(new object[]{});
+            return InvokeInstanceMethod<IIFriendly>(new object[]{});
         }
 
         [JsiiMethod("giveMeFriendlyGenerator", "{\"fqn\":\"jsii-calc.IFriendlyRandomGenerator\"}", "[]")]
         public virtual IIFriendlyRandomGenerator GiveMeFriendlyGenerator()
         {
-            return InvokeMethod<IIFriendlyRandomGenerator>(new object[]{});
+            return InvokeInstanceMethod<IIFriendlyRandomGenerator>(new object[]{});
         }
     }
 }

@@ -741,16 +741,28 @@ namespace AWS.Jsii.Runtime.IntegrationTests
             Assert.Null(literal.Optional2);
         }
 
-        [Fact(DisplayName = Prefix + nameof(Statics), Skip = "Static are not yet implemented for C#")]
-        public void Statics()
+        [Fact(DisplayName = Prefix + nameof(StaticsTest))]
+        public void StaticsTest()
         {
-            throw new NotImplementedException();
+            Assert.Equal("hello ,Yoyo!", Statics.StaticMethod("Yoyo"));
+            Assert.Equal("default", Statics.Instance.Value);
+
+            Statics newStatics = new Statics("new value");
+            Statics.Instance = newStatics;
+            Assert.Same(Statics.Instance, newStatics);
+            Assert.Equal("new value", Statics.Instance.Value);
+
+            Assert.Equal(100, Statics.NonConstStatic);
         }
 
-        [Fact(DisplayName = Prefix + nameof(Consts), Skip = "Consts are not yet implemented for C#")]
+        [Fact(DisplayName = Prefix + nameof(Consts))]
         public void Consts()
         {
-            throw new NotImplementedException();
+            Assert.Equal("hello", Statics.Foo);
+            DoubleTrouble obj = Statics.ConstObj;
+            Assert.Equal("world", obj.Hello());
+            Assert.Equal(1234, Statics.BAR);
+            Assert.Equal("world", Statics.ZooBar["hello"]);
         }
 
         [Fact(DisplayName = Prefix + nameof(ReservedKeywordsAreSlugifiedInMethodNames), Skip = "TODO")]

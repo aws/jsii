@@ -32,15 +32,28 @@ namespace AWS.Jsii.Generator
 
         public PropertyDeclarationSyntax CreateProperty()
         {
-            PropertyDeclarationSyntax declaration = SF.PropertyDeclaration
-            (
-                GetAttributeLists(),
-                GetModifierList(),
-                GetReturnType(),
-                GetExplicitInterfaceSpecifier(),
-                GetIdentifier(),
-                GetAccessorList()
-            );
+            PropertyDeclarationSyntax declaration = Property.IsConstant == true ?
+                SF.PropertyDeclaration
+                (
+                    GetAttributeLists(),
+                    GetModifierList(),
+                    GetReturnType(),
+                    GetExplicitInterfaceSpecifier(),
+                    GetIdentifier(),
+                    GetAccessorList(),
+                    null,
+                    GetInitializer(),
+                    SF.Token(SyntaxKind.SemicolonToken)
+                ) :
+                SF.PropertyDeclaration
+                (
+                    GetAttributeLists(),
+                    GetModifierList(),
+                    GetReturnType(),
+                    GetExplicitInterfaceSpecifier(),
+                    GetIdentifier(),
+                    GetAccessorList()
+                );
 
             if (Property.Docs != null)
             {
@@ -61,14 +74,75 @@ namespace AWS.Jsii.Generator
 
         protected virtual bool IsOverride => false;
 
-        protected ExpressionSyntax GetGetPropertyInvocation()
+        protected InvocationExpressionSyntax CreateGetPropertyInvocationExpression()
         {
-            return SF.ParseExpression($"GetProperty<{GetReturnType()}>()");
+            return SF.InvocationExpression(
+                CreateGetPropertyMethodIdentifier(),
+                GetArgumentListSyntax()
+            );
+
+            SimpleNameSyntax CreateGetPropertyMethodIdentifier()
+            {
+                return SF.GenericName(
+                    SF.Identifier(Property.IsStatic() ?
+                        "GetStaticProperty" :
+                        "GetInstanceProperty"
+                    ),
+                    SF.TypeArgumentList(
+                        SF.Token(SyntaxKind.LessThanToken),
+                        SF.SeparatedList(new[] { GetReturnType() }),
+                        SF.Token(SyntaxKind.GreaterThanToken)
+                    )
+                );
+            }
+
+            ArgumentListSyntax GetArgumentListSyntax()
+            {
+                var arguments = GetArgumentExpressions().Select(e => SF.Argument(e));
+
+                return SF.ArgumentList(SF.SeparatedList(arguments));
+
+                IEnumerable<ExpressionSyntax> GetArgumentExpressions()
+                {
+                    if (Property.IsStatic())
+                    {
+                        yield return SF.TypeOfExpression(Symbols.GetNameSyntax(Type));
+                    }
+                }
+            }
         }
 
-        protected ExpressionSyntax GetSetPropertyInvocation()
+        protected InvocationExpressionSyntax CreateSetPropertyInvocationExpression()
         {
-            return SF.ParseExpression($"SetProperty(value)");
+            return SF.InvocationExpression(
+                CreateGetPropertyMethodIdentifier(),
+                GetArgumentListSyntax()
+            );
+
+            SimpleNameSyntax CreateGetPropertyMethodIdentifier()
+            {
+                return SF.IdentifierName(Property.IsStatic() ?
+                    "SetStaticProperty" :
+                    "SetInstanceProperty"
+                );
+            }
+
+            ArgumentListSyntax GetArgumentListSyntax()
+            {
+                var arguments = GetArgumentExpressions().Select(e => SF.Argument(e));
+
+                return SF.ArgumentList(SF.SeparatedList(arguments));
+
+                IEnumerable<ExpressionSyntax> GetArgumentExpressions()
+                {
+                    if (Property.IsStatic())
+                    {
+                        yield return SF.TypeOfExpression(Symbols.GetNameSyntax(Type));
+                    }
+
+                    yield return SF.IdentifierName("value");
+                }
+            }
         }
 
         SyntaxTokenList GetModifierList()
@@ -111,6 +185,11 @@ namespace AWS.Jsii.Generator
         AccessorListSyntax GetAccessorList()
         {
             return SF.AccessorList(SF.List(GetAccessors()));
+        }
+
+        EqualsValueClauseSyntax GetInitializer()
+        {
+            return SF.EqualsValueClause(CreateGetPropertyInvocationExpression());
         }
     }
 }

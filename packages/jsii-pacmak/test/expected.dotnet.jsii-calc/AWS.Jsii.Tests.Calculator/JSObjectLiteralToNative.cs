@@ -20,7 +20,7 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiMethod("returnLiteral", "{\"fqn\":\"jsii-calc.JSObjectLiteralToNativeClass\"}", "[]")]
         public virtual JSObjectLiteralToNativeClass ReturnLiteral()
         {
-            return InvokeMethod<JSObjectLiteralToNativeClass>(new object[]{});
+            return InvokeInstanceMethod<JSObjectLiteralToNativeClass>(new object[]{});
         }
     }
 }

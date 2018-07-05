@@ -23,31 +23,31 @@ namespace AWS.Jsii.Tests.Calculator.composition
         [JsiiProperty("stringStyle", "{\"fqn\":\"jsii-calc.composition.CompositionStringStyle\"}")]
         public virtual CompositionStringStyle StringStyle
         {
-            get => GetProperty<CompositionStringStyle>();
-            set => SetProperty(value);
+            get => GetInstanceProperty<CompositionStringStyle>();
+            set => SetInstanceProperty(value);
         }
 
         /// <summary>A set of prefixes to include in a decorated .toString().</summary>
         [JsiiProperty("decorationPrefixes", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}}}")]
         public virtual string[] DecorationPrefixes
         {
-            get => GetProperty<string[]>();
-            set => SetProperty(value);
+            get => GetInstanceProperty<string[]>();
+            set => SetInstanceProperty(value);
         }
 
         /// <summary>A set of postfixes to include in a decorated .toString().</summary>
         [JsiiProperty("decorationPostfixes", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}}}")]
         public virtual string[] DecorationPostfixes
         {
-            get => GetProperty<string[]>();
-            set => SetProperty(value);
+            get => GetInstanceProperty<string[]>();
+            set => SetInstanceProperty(value);
         }
 
         /// <summary>The value.</summary>
         [JsiiProperty("value", "{\"primitive\":\"number\"}")]
         public override double Value
         {
-            get => GetProperty<double>();
+            get => GetInstanceProperty<double>();
         }
 
         /// <summary>
@@ -57,14 +57,14 @@ namespace AWS.Jsii.Tests.Calculator.composition
         [JsiiProperty("expression", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public virtual Value_ Expression
         {
-            get => GetProperty<Value_>();
+            get => GetInstanceProperty<Value_>();
         }
 
         /// <summary>String representation of the value.</summary>
         [JsiiMethod("toString", "{\"primitive\":\"string\"}", "[]")]
         public override string ToString()
         {
-            return InvokeMethod<string>(new object[]{});
+            return InvokeInstanceMethod<string>(new object[]{});
         }
     }
 }

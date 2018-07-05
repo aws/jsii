@@ -12,14 +12,14 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiProperty("foo", "{\"union\":{\"types\":[{\"primitive\":\"string\"},{\"primitive\":\"number\"}]},\"optional\":true}")]
         public virtual object Foo
         {
-            get => GetProperty<object>();
-            set => SetProperty(value);
+            get => GetInstanceProperty<object>();
+            set => SetInstanceProperty(value);
         }
 
         [JsiiProperty("bar", "{\"union\":{\"types\":[{\"primitive\":\"string\"},{\"primitive\":\"number\"},{\"fqn\":\"jsii-calc.AllTypes\"}]}}")]
         public virtual object Bar
         {
-            get => GetProperty<object>();
+            get => GetInstanceProperty<object>();
         }
     }
 }

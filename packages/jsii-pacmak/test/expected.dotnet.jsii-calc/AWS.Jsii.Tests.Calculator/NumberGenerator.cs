@@ -24,20 +24,20 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiProperty("generator", "{\"fqn\":\"jsii-calc.IRandomNumberGenerator\"}")]
         public virtual IIRandomNumberGenerator Generator
         {
-            get => GetProperty<IIRandomNumberGenerator>();
-            set => SetProperty(value);
+            get => GetInstanceProperty<IIRandomNumberGenerator>();
+            set => SetInstanceProperty(value);
         }
 
         [JsiiMethod("nextTimes100", "{\"primitive\":\"number\"}", "[]")]
         public virtual double NextTimes100()
         {
-            return InvokeMethod<double>(new object[]{});
+            return InvokeInstanceMethod<double>(new object[]{});
         }
 
         [JsiiMethod("isSameGenerator", "{\"primitive\":\"boolean\"}", "[{\"name\":\"gen\",\"type\":{\"fqn\":\"jsii-calc.IRandomNumberGenerator\"}}]")]
         public virtual bool IsSameGenerator(IIRandomNumberGenerator gen)
         {
-            return InvokeMethod<bool>(new object[]{gen});
+            return InvokeInstanceMethod<bool>(new object[]{gen});
         }
     }
 }

@@ -53,7 +53,7 @@ namespace AWS.Jsii.Generator.UnitTests
 @"[JsiiProperty(""myProperty"", ""{\""fqn\"":\""myPropTypeFqn\""}"")]
 public virtual MyPropType MyProperty
 {
-    get => GetProperty<MyPropType>();
+    get => GetInstanceProperty<MyPropType>();
 }";
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
@@ -78,7 +78,7 @@ public virtual MyPropType MyProperty
 @"[JsiiProperty(""myProperty"", ""{\""fqn\"":\""myPropTypeFqn\""}"")]
 public virtual MyPropType MyProperty
 {
-    get => GetProperty<MyPropType>();
+    get => GetInstanceProperty<MyPropType>();
 }";
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
@@ -103,8 +103,8 @@ public virtual MyPropType MyProperty
 @"[JsiiProperty(""myProperty"", ""{\""fqn\"":\""myPropTypeFqn\""}"")]
 public virtual MyPropType MyProperty
 {
-    get => GetProperty<MyPropType>();
-    set => SetProperty(value);
+    get => GetInstanceProperty<MyPropType>();
+    set => SetInstanceProperty(value);
 }";
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
@@ -129,8 +129,62 @@ public virtual MyPropType MyProperty
 @"[JsiiProperty(""myProperty"", ""{\""fqn\"":\""myPropTypeFqn\""}"")]
 protected virtual MyPropType MyProperty
 {
-    get => GetProperty<MyPropType>();
+    get => GetInstanceProperty<MyPropType>();
 }";
+            Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(SupportsStaticProperties))]
+        public void SupportsStaticProperties()
+        {
+            Property property = new Property
+            (
+                name: "myProperty",
+                type: new TypeReference("myPropTypeFqn"),
+                isImmutable: false,
+                isAbstract: false,
+                isProtected: false,
+                isStatic: true
+            );
+
+            Symbols.MapPropertyName("myClassFqn", "myProperty", "MyProperty");
+            Symbols.MapTypeName("myPropTypeFqn", "MyPropType", JsonModel.Spec.TypeKind.Class);
+
+            string actual = Render(property);
+            string expected =
+@"[JsiiProperty(""myProperty"", ""{\""fqn\"":\""myPropTypeFqn\""}"")]
+public static MyPropType MyProperty
+{
+    get => GetStaticProperty<MyPropType>(typeof(MyClass));
+    set => SetStaticProperty(typeof(MyClass), value);
+}";
+            Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(OptimizesConstantProperties))]
+        public void OptimizesConstantProperties()
+        {
+            Property property = new Property
+            (
+                name: "myProperty",
+                type: new TypeReference("myPropTypeFqn"),
+                isAbstract: false,
+                isProtected: false,
+                isConstant: true
+            );
+
+            Symbols.MapPropertyName("myClassFqn", "myProperty", "MyProperty");
+            Symbols.MapTypeName("myPropTypeFqn", "MyPropType", JsonModel.Spec.TypeKind.Class);
+
+            string actual = Render(property);
+            string expected =
+@"[JsiiProperty(""myProperty"", ""{\""fqn\"":\""myPropTypeFqn\""}"")]
+public static MyPropType MyProperty
+{
+    get;
+}
+
+= GetStaticProperty<MyPropType>(typeof(MyClass));";
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
 
@@ -155,7 +209,7 @@ protected virtual MyPropType MyProperty
 @"[JsiiProperty(""myProperty"", ""{\""fqn\"":\""myPropTypeFqn\""}"")]
 public virtual MyPropType MyProperty
 {
-    get => GetProperty<MyPropType>();
+    get => GetInstanceProperty<MyPropType>();
 }";
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }

@@ -17,7 +17,7 @@ namespace AWS.Jsii.Tests.Calculator.Lib
         [JsiiMethod("hello", "{\"primitive\":\"string\"}", "[]")]
         public virtual string Hello()
         {
-            return InvokeMethod<string>(new object[]{});
+            return InvokeInstanceMethod<string>(new object[]{});
         }
     }
 }

@@ -12,21 +12,21 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiProperty("foo", "{\"primitive\":\"number\"}")]
         public virtual double Foo
         {
-            get => GetProperty<double>();
-            set => SetProperty(value);
+            get => GetInstanceProperty<double>();
+            set => SetInstanceProperty(value);
         }
 
         [JsiiProperty("readOnlyString", "{\"primitive\":\"string\"}")]
         public virtual string ReadOnlyString
         {
-            get => GetProperty<string>();
+            get => GetInstanceProperty<string>();
         }
 
         [JsiiProperty("readWriteString", "{\"primitive\":\"string\"}")]
         public virtual string ReadWriteString
         {
-            get => GetProperty<string>();
-            set => SetProperty(value);
+            get => GetInstanceProperty<string>();
+            set => SetInstanceProperty(value);
         }
     }
 }

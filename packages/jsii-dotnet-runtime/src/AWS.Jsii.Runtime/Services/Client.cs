@@ -219,6 +219,16 @@ namespace AWS.Jsii.Runtime.Services
             return Send<GetRequest, GetResponse>(request);
         }
 
+        public GetResponse StaticGet(string fullyQualifiedName, string property)
+        {
+            return StaticGet(new StaticGetRequest(fullyQualifiedName, property));
+        }
+
+        public GetResponse StaticGet(StaticGetRequest request)
+        {
+            return Send<StaticGetRequest, GetResponse>(request);
+        }
+
         public SetResponse Set(ObjectReference objectReference, string property, object value)
         {
             return Set(new SetRequest(objectReference, property, value));
@@ -229,6 +239,16 @@ namespace AWS.Jsii.Runtime.Services
             return Send<SetRequest, SetResponse>(request);
         }
 
+        public SetResponse StaticSet(string fullyQualifiedName, string property, object value)
+        {
+            return StaticSet(new StaticSetRequest(fullyQualifiedName, property, value));
+        }
+
+        public SetResponse StaticSet(StaticSetRequest request)
+        {
+            return Send<StaticSetRequest, SetResponse>(request);
+        }
+
         public InvokeResponse Invoke(ObjectReference objectReference, string method, object[] arguments = null)
         {
             return Invoke(new InvokeRequest(objectReference, method, arguments));
@@ -237,6 +257,16 @@ namespace AWS.Jsii.Runtime.Services
         public InvokeResponse Invoke(InvokeRequest request)
         {
             return Send<InvokeRequest, InvokeResponse>(request);
+        }
+
+        public InvokeResponse StaticInvoke(string fullyQualifiedName, string method, object[] arguments = null)
+        {
+            return StaticInvoke(new StaticInvokeRequest(fullyQualifiedName, method, arguments));
+        }
+
+        public InvokeResponse StaticInvoke(StaticInvokeRequest request)
+        {
+            return Send<StaticInvokeRequest, InvokeResponse>(request);
         }
 
         public BeginResponse Begin(ObjectReference objectReference, string method, object[] arguments = null)

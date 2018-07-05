@@ -14,23 +14,23 @@ namespace AWS.Jsii.Tests.Calculator.Lib
         [JsiiProperty("astring", "{\"primitive\":\"string\"}")]
         public virtual string Astring
         {
-            get => GetProperty<string>();
-            set => SetProperty(value);
+            get => GetInstanceProperty<string>();
+            set => SetInstanceProperty(value);
         }
 
         /// <summary>An awesome number value</summary>
         [JsiiProperty("anumber", "{\"primitive\":\"number\"}")]
         public virtual double Anumber
         {
-            get => GetProperty<double>();
-            set => SetProperty(value);
+            get => GetInstanceProperty<double>();
+            set => SetInstanceProperty(value);
         }
 
         [JsiiProperty("firstOptional", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"optional\":true}")]
         public virtual string[] FirstOptional
         {
-            get => GetProperty<string[]>();
-            set => SetProperty(value);
+            get => GetInstanceProperty<string[]>();
+            set => SetInstanceProperty(value);
         }
     }
 }

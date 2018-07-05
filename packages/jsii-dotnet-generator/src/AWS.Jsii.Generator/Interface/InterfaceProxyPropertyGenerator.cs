@@ -22,11 +22,20 @@ namespace AWS.Jsii.Generator.Interface
             {
                 throw new ArgumentException("Protected properties are not allowed on interfaces", nameof(property));
             }
+
+            if (property.IsStatic())
+            {
+                throw new ArgumentException(
+                    $"Property {type.Name}.{property.Name} is marked as static, but interfaces must not contain static members.",
+                    nameof(property)
+                );
+            }
         }
 
         protected override IEnumerable<SyntaxKind> GetModifierKeywords()
         {
             yield return SyntaxKind.PublicKeyword;
+
             yield return SyntaxKind.VirtualKeyword;
         }
 
@@ -46,12 +55,12 @@ namespace AWS.Jsii.Generator.Interface
                 SF.ArrowExpressionClause
                 (
                     SF.ParseToken("=>"),
-                    GetGetPropertyInvocation()
+                    CreateGetPropertyInvocationExpression()
                 ),
                 SF.ParseToken(";")
             );
 
-            if (Property.IsImmutable != true)
+            if (!Property.IsImmutable())
             {
                 yield return SF.AccessorDeclaration(
                     SyntaxKind.SetAccessorDeclaration,
@@ -62,7 +71,7 @@ namespace AWS.Jsii.Generator.Interface
                     SF.ArrowExpressionClause
                     (
                         SF.ParseToken("=>"),
-                        GetSetPropertyInvocation()
+                        CreateSetPropertyInvocationExpression()
                     ),
                     SF.ParseToken(";")
                 );
