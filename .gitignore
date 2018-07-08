@@ -3,6 +3,8 @@
 *.js
 *.d.ts
 dist/
+pack/
+
 .BUILD_COMPLETED
 packages/jsii-dotnet-generator/cli/
 

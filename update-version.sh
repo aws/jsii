@@ -5,7 +5,7 @@ set -euo pipefail
 git init
 
 version="$(node -e "console.log(require('./lerna.json').version)")"
-commit="${CODEBUILD_RESOLVED_SOURCE_VERSION}"
+commit="${CODEBUILD_RESOLVED_SOURCE_VERSION:-}"
 
 # CODEBUILD_RESOLVED_SOURCE_VERSION is not defined (i.e. local build or CodePipeline build),
 # use the HEAD commit hash
