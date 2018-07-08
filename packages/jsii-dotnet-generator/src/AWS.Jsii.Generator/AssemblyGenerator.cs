@@ -1,22 +1,22 @@
-﻿using AWS.Jsii.Generator.Class;
-using AWS.Jsii.Generator.Enum;
-using AWS.Jsii.Generator.Interface;
-using AWS.Jsii.JsonModel.FileSystem;
-using AWS.Jsii.JsonModel.Spec;
-using Microsoft.CodeAnalysis;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
+using AWS.Jsii.Generator.Class;
+using AWS.Jsii.Generator.Enum;
+using AWS.Jsii.Generator.Interface;
+using AWS.Jsii.JsonModel.FileSystem;
+using AWS.Jsii.JsonModel.Spec;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Newtonsoft.Json;
+using SF = Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 using Type = AWS.Jsii.JsonModel.Spec.Type;
 using TypeKind = AWS.Jsii.JsonModel.Spec.TypeKind;
-using SF = Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.CSharp;
 
 namespace AWS.Jsii.Generator
 {
@@ -41,7 +41,7 @@ namespace AWS.Jsii.Generator
             _fileSystem = fileSystem ?? new FileSystem();
         }
 
-        public void Generate(string jsiiFile, string tarball, ISymbolMap symbols = null)
+        public void Generate(string jsiiFile, string tarballPath, ISymbolMap symbols = null)
         {
             jsiiFile = jsiiFile ?? throw new ArgumentNullException(nameof(jsiiFile));
             symbols = symbols ?? new SymbolMap();
@@ -57,13 +57,13 @@ namespace AWS.Jsii.Generator
             }
             _fileSystem.Directory.CreateDirectory(packageOutputRoot);
 
-            _fileSystem.File.Copy(tarball, packageOutputRoot);
+            _fileSystem.File.Copy(tarballPath, packageOutputRoot);
             _fileSystem.File.Copy(jsiiFile, packageOutputRoot);
 
-            Save(packageOutputRoot, symbols, assembly, new FileInfo(tarball).Name, new FileInfo(jsiiFile).Name);
+            Save(packageOutputRoot, symbols, assembly, new FileInfo(tarballPath).Name, new FileInfo(jsiiFile).Name);
         }
 
-        void Save(string packageOutputRoot, ISymbolMap symbols, Assembly assembly, string tarballName, string jsiiFileName)
+        void Save(string packageOutputRoot, ISymbolMap symbols, Assembly assembly, string tarballFileName, string jsiiFileName)
         {
             if (assembly.Docs != null)
             {
@@ -72,7 +72,7 @@ namespace AWS.Jsii.Generator
             }
 
             SaveProjectFile();
-            SaveAssemblyInfo(assembly.Name, assembly.Version, tarballName);
+            SaveAssemblyInfo(assembly.Name, assembly.Version, tarballFileName);
 
             foreach (Type type in assembly.Types?.Values ?? Enumerable.Empty<Type>())
             {
@@ -92,7 +92,7 @@ namespace AWS.Jsii.Generator
                         ),
                         new XElement("ItemGroup",
                             new XElement("EmbeddedResource",
-                                new XAttribute("Include", tarballName)
+                                new XAttribute("Include", tarballFileName)
                             )
                         ),
                         new XElement("ItemGroup",
@@ -176,7 +176,6 @@ namespace AWS.Jsii.Generator
 
                 string assemblyInfoPath = Path.Combine(packageOutputRoot, "AssemblyInfo.cs");
                 _fileSystem.File.WriteAllText(assemblyInfoPath, assemblyInfo.ToString());
-
             }
 
             void SaveType(Type type)

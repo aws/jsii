@@ -2,7 +2,7 @@
 
 namespace AWS.Jsii.Runtime.UnitTests.Deputy.Converters
 {
-    [JsiiClass(null, "myClassFqn", "[]")]
+    [JsiiClass(typeof(TestClass), "myClassFqn", "[]")]
     public class TestClass : DeputyBase
     {
         public TestClass(ByRefValue reference) : base(reference)
@@ -10,7 +10,7 @@ namespace AWS.Jsii.Runtime.UnitTests.Deputy.Converters
         }
     }
 
-    [JsiiEnum(null, "myEnumFqn")]
+    [JsiiEnum(typeof(TestClass), "myEnumFqn")]
     public enum TestEnum
     {
         [JsiiEnumMember("MyMember1")]

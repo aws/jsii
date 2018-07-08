@@ -2,7 +2,7 @@ using System;
 
 namespace AWS.Jsii.Runtime.Deputy
 {
-    [AttributeUsage(AttributeTargets.Assembly, Inherited = false)]
+    [AttributeUsage(AttributeTargets.Assembly)]
     public class JsiiAssemblyAttribute : Attribute
     {
         public JsiiAssemblyAttribute(string name, string version, string tarball)

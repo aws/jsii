@@ -38,15 +38,15 @@ namespace AWS.Jsii.Runtime.Deputy
             // find the .tgz resource
             var tarballResourceName = assembly.GetManifestResourceNames().FirstOrDefault(name => name.EndsWith(".tgz"));
             if (tarballResourceName == null) {
-                new JsiiException("Cannot find embedded tarball resource in assembly " + assembly.GetName(), null);
+                throw new JsiiException("Cannot find embedded tarball resource in assembly " + assembly.GetName(), null);
             }
 
             IServiceProvider serviceProvider = ServiceContainer.ServiceProvider;
             IResourceExtractor extractor = serviceProvider.GetRequiredService<IResourceExtractor>();
-            var tarball = extractor.ExtractResource(assembly, tarballResourceName);
+            var tarballPath = extractor.ExtractResource(assembly, tarballResourceName);
 
             IClient client = serviceProvider.GetRequiredService<IClient>();
-            client.LoadPackage(attribute.Name, attribute.Version, tarball);
+            client.LoadPackage(attribute.Name, attribute.Version, tarballPath);
         }
 
         public string FullyQualifiedName { get; }

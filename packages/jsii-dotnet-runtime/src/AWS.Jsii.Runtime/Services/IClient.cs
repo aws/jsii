@@ -9,7 +9,7 @@ namespace AWS.Jsii.Runtime.Services
 {
     public interface IClient
     {
-        void LoadPackage(string name, string version, string tarball);
+        void LoadPackage(string name, string version, string tarballPath);
 
         HelloResponse Hello();
 

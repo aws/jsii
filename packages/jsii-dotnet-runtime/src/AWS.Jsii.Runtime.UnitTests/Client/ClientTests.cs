@@ -106,7 +106,6 @@ namespace AWS.Jsii.Runtime.UnitTests.Client
                     types: new Dictionary<string, Type>()
                 );
 
-                // MapAssemblyToFileSystem(assembly);
                 _loadedPackages.Contains(Arg.Any<string>()).Returns(false);
 
                 string response = GetOkResponse(new LoadResponse("myName", 0));
@@ -133,91 +132,12 @@ namespace AWS.Jsii.Runtime.UnitTests.Client
                     types: new Dictionary<string, Type>()
                 );
 
-                // MapAssemblyToFileSystem(assembly);
                 _loadedPackages.Contains("myPackage").Returns(true);
 
                 client.LoadPackage(assembly.Package, assembly.Version, "mytarball");
 
                 _runtime.DidNotReceive().WriteRequest(Arg.Any<string>());
                 _loadedPackages.DidNotReceive().Add(Arg.Any<string>());
-            }
-
-            [Fact(DisplayName = _Prefix + nameof(RecursivelyLoadsDependencies))]
-
-            public void RecursivelyLoadsDependencies()
-            {
-                return; // skip since this is now happenning at the Assembly level and not in LoadPackage
-
-                IClient client = CreateClient();
-
-                Assembly assembly1 = new Assembly
-                (
-                    name: "assembly1",
-                    package: "assembly1Package",
-                    names: new Dictionary<string, string>(),
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>(),
-                    version: "myVersion",
-                    types: new Dictionary<string, Type>()
-                );
-
-                Assembly assembly2 = new Assembly
-                (
-                    name: "assembly2",
-                    package: "assembly2Package",
-                    names: new Dictionary<string, string>(),
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>(),
-                    version: "myVersion",
-                    types: new Dictionary<string, Type>(),
-                    dependencies: new Dictionary<string, PackageVersion>
-                    {
-                        { "dependency1Package", new PackageVersion(assembly1.Package, assembly1.Version) }
-                    }
-                );
-
-                Assembly assembly3 = new Assembly
-                (
-                    name: "assembly3",
-                    package: "assembly13Package",
-                    names: new Dictionary<string, string>(),
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>(),
-                    version: "myVersion",
-                    types: new Dictionary<string, Type>(),
-                    dependencies: new Dictionary<string, PackageVersion>
-                    {
-                        { "dependency2Package", new PackageVersion(assembly2.Package, assembly2.Version) }
-                    }
-                );
-
-                // MapAssemblyToFileSystem(assembly1);
-                // MapAssemblyToFileSystem(assembly2);
-                // MapAssemblyToFileSystem(assembly3);
-
-                _loadedPackages.Contains(assembly1.Package).Returns(false, true);
-                _loadedPackages.Contains(assembly2.Package).Returns(false, true);
-                _loadedPackages.Contains(assembly3.Package).Returns(false, true);
-
-                _runtime.ReadResponse().Returns
-                (
-                    GetOkResponse(new LoadResponse(assembly1.Name, 0)),
-                    GetOkResponse(new LoadResponse(assembly2.Name, 0)),
-                    GetOkResponse(new LoadResponse(assembly3.Name, 0))
-                );
-
-                client.LoadPackage(assembly3.Package, assembly3.Version, "mytarball");
-
-                _runtime.Received().WriteRequest(Arg.Is<string>(
-                    actual => PlatformIndependentEqual(JsonConvert.SerializeObject(new LoadRequest(assembly1.Name, assembly1.Version, "tgz1")), actual)
-                ));
-                _runtime.Received().WriteRequest(Arg.Is<string>(
-                    actual => PlatformIndependentEqual(JsonConvert.SerializeObject(new LoadRequest(assembly2.Name, assembly2.Version, "tgz2")), actual)
-                ));
-                _runtime.Received().WriteRequest(Arg.Is<string>(
-                    actual => PlatformIndependentEqual(JsonConvert.SerializeObject(new LoadRequest(assembly3.Name, assembly3.Version, "tgz3")), actual)
-                ));
-
-                _loadedPackages.Received().Add(assembly1.Package);
-                _loadedPackages.Received().Add(assembly2.Package);
-                _loadedPackages.Received().Add(assembly3.Package);
             }
         }
 

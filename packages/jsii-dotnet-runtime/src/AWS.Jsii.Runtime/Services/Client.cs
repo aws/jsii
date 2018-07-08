@@ -161,7 +161,7 @@ namespace AWS.Jsii.Runtime.Services
 
         #region IClient implementation
 
-        public void LoadPackage(string package, string version, string tarball)
+        public void LoadPackage(string package, string version, string tarballPath)
         {
             if (_loadedPackages.Contains(package))
             {
@@ -171,7 +171,7 @@ namespace AWS.Jsii.Runtime.Services
             _logger.LogDebug($"Loading package {package}@${version}...");
             _loadedPackages.Add(package);
 
-            LoadResponse response = Load(package, version, tarball);
+            LoadResponse response = Load(package, version, tarballPath);
         }
 
         public HelloResponse Hello()
