@@ -1,5 +1,3 @@
-import { Assembly } from 'jsii-spec';
-
 export const TOKEN_REF = '$jsii.byref';
 export const TOKEN_DATE = '$jsii.date';
 export const TOKEN_ENUM = '$jsii.enum';
@@ -27,7 +25,14 @@ export interface HelloResponse {
 }
 
 export interface LoadRequest {
-    assembly: Assembly;
+    /** The name of the assembly */
+    name: string;
+
+    /** Assembly version */
+    version: string;
+
+    /** The tarball of the package */
+    tarball: string;
 }
 
 export interface LoadResponse {

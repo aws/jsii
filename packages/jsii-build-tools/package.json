@@ -4,7 +4,6 @@
   "description": "Internal repository-level tools",
   "private": true,
   "bin": {
-    "align-jsii-versions": "bin/align-jsii-versions",
     "diff-test": "bin/diff-test"
   },
   "scripts": {

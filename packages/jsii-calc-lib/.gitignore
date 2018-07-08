@@ -1,3 +1,5 @@
 tsconfig.json
 tslint.json
 dist
+.jsii
+*.tgz

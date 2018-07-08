@@ -110,7 +110,6 @@ export class KernelHost {
                 this.debug('waiting for promise to be fulfilled');
 
                 const promise = ret as Promise<any>;
-                this.debug(promise);
                 promise
                     .then(ret => {
                         this.debug('promise succeeded:', ret);

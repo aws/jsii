@@ -2,7 +2,7 @@ using AWS.Jsii.Runtime.Deputy;
 
 namespace AWS.Jsii.Tests.Calculator
 {
-    [JsiiInterface("jsii-calc", "jsii$jsii_calc$.IInterfaceWithProperties")]
+    [JsiiInterface(typeof(IIInterfaceWithProperties), "jsii-calc.IInterfaceWithProperties")]
     public interface IIInterfaceWithProperties
     {
         [JsiiProperty("readOnlyString", "{\"primitive\":\"string\"}")]

@@ -3,7 +3,7 @@ package org.jsii.tests.calculator;
  * This allows us to test that a reference can be stored for objects that
  * implement interfaces.
  */
-@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii$jsii_calc$.NumberGenerator")
+@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.NumberGenerator")
 public class NumberGenerator extends org.jsii.JsiiObject {
     protected NumberGenerator(final org.jsii.JsiiObject.InitializationMode mode) {
         super(mode);

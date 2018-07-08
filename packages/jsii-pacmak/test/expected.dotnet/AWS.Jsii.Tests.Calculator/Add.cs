@@ -4,7 +4,7 @@ using AWS.Jsii.Tests.Calculator.Lib;
 namespace AWS.Jsii.Tests.Calculator
 {
     /// <summary>The "+" binary operation.</summary>
-    [JsiiClass("jsii-calc", "jsii$jsii_calc$.Add", "[{\"name\":\"lhs\",\"type\":{\"fqn\":\"jsii$jsii_calc_lib$.Value\"}},{\"name\":\"rhs\",\"type\":{\"fqn\":\"jsii$jsii_calc_lib$.Value\"}}]")]
+    [JsiiClass(typeof(Add), "jsii-calc.Add", "[{\"name\":\"lhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},{\"name\":\"rhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
     public class Add : BinaryOperation
     {
         public Add(Value_ lhs, Value_ rhs): base(new DeputyProps(new object[]{lhs, rhs}))

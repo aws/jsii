@@ -5,8 +5,8 @@ namespace AWS.Jsii.Runtime.Deputy
     [AttributeUsage(AttributeTargets.Enum, Inherited = false)]
     public class JsiiEnumAttribute : JsiiTypeAttributeBase
     {
-        public  JsiiEnumAttribute(string package, string fullyQualifiedName)
-            : base(package, fullyQualifiedName)
+        public  JsiiEnumAttribute(Type nativeType, string fullyQualifiedName)
+            : base(nativeType, fullyQualifiedName)
         {
         }
     }

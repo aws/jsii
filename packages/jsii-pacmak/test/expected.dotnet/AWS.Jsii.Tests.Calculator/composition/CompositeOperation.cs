@@ -4,7 +4,7 @@ using AWS.Jsii.Tests.Calculator.Lib;
 namespace AWS.Jsii.Tests.Calculator.composition
 {
     /// <summary>Abstract operation composed from an expression of other operations.</summary>
-    [JsiiClass("jsii-calc", "jsii$jsii_calc$.composition.CompositeOperation", "[]")]
+    [JsiiClass(typeof(CompositeOperation), "jsii-calc.composition.CompositeOperation", "[]")]
     public abstract class CompositeOperation : Operation
     {
         protected CompositeOperation(): base(new DeputyProps(new object[]{}))
@@ -20,7 +20,7 @@ namespace AWS.Jsii.Tests.Calculator.composition
         }
 
         /// <summary>The .toString() style.</summary>
-        [JsiiProperty("stringStyle", "{\"fqn\":\"jsii$jsii_calc$.composition.CompositionStringStyle\"}")]
+        [JsiiProperty("stringStyle", "{\"fqn\":\"jsii-calc.composition.CompositionStringStyle\"}")]
         public virtual CompositionStringStyle StringStyle
         {
             get => GetProperty<CompositionStringStyle>();
@@ -54,7 +54,7 @@ namespace AWS.Jsii.Tests.Calculator.composition
         /// The expression that this operation consists of.
         /// Must be implemented by derived classes.
         /// </summary>
-        [JsiiProperty("expression", "{\"fqn\":\"jsii$jsii_calc_lib$.Value\"}")]
+        [JsiiProperty("expression", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public virtual Value_ Expression
         {
             get => GetProperty<Value_>();

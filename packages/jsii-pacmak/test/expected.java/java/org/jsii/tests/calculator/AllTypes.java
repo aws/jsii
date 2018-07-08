@@ -3,7 +3,7 @@ package org.jsii.tests.calculator;
  * This class includes property for all types supported by jsii. The setters will validate
  * that the value set is of the expected type and throw otherwise.
  */
-@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii$jsii_calc$.AllTypes")
+@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.AllTypes")
 public class AllTypes extends org.jsii.JsiiObject {
     protected AllTypes(final org.jsii.JsiiObject.InitializationMode mode) {
         super(mode);

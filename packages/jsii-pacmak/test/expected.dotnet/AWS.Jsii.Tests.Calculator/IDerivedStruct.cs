@@ -6,11 +6,11 @@ using System.Collections.Generic;
 namespace AWS.Jsii.Tests.Calculator
 {
     /// <summary>A struct which derives from another struct.</summary>
-    [JsiiInterface("jsii-calc", "jsii$jsii_calc$.DerivedStruct")]
+    [JsiiInterface(typeof(IDerivedStruct), "jsii-calc.DerivedStruct")]
     public interface IDerivedStruct : IMyFirstStruct
     {
         /// <summary>An example of a non primitive property.</summary>
-        [JsiiProperty("nonPrimitive", "{\"fqn\":\"jsii$jsii_calc$.DoubleTrouble\"}")]
+        [JsiiProperty("nonPrimitive", "{\"fqn\":\"jsii-calc.DoubleTrouble\"}")]
         DoubleTrouble NonPrimitive
         {
             get;
@@ -39,7 +39,7 @@ namespace AWS.Jsii.Tests.Calculator
         }
 
         /// <summary>This is optional.</summary>
-        [JsiiProperty("anotherOptional", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"jsii$jsii_calc_lib$.Value\"}},\"optional\":true}")]
+        [JsiiProperty("anotherOptional", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},\"optional\":true}")]
         IDictionary<string, Value_> AnotherOptional
         {
             get;

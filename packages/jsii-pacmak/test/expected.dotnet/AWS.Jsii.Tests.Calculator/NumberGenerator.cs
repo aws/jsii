@@ -6,7 +6,7 @@ namespace AWS.Jsii.Tests.Calculator
     /// This allows us to test that a reference can be stored for objects that
     /// implement interfaces.
     /// </summary>
-    [JsiiClass("jsii-calc", "jsii$jsii_calc$.NumberGenerator", "[{\"name\":\"generator\",\"type\":{\"fqn\":\"jsii$jsii_calc$.IRandomNumberGenerator\"}}]")]
+    [JsiiClass(typeof(NumberGenerator), "jsii-calc.NumberGenerator", "[{\"name\":\"generator\",\"type\":{\"fqn\":\"jsii-calc.IRandomNumberGenerator\"}}]")]
     public class NumberGenerator : DeputyBase
     {
         public NumberGenerator(IIRandomNumberGenerator generator): base(new DeputyProps(new object[]{generator}))
@@ -21,7 +21,7 @@ namespace AWS.Jsii.Tests.Calculator
         {
         }
 
-        [JsiiProperty("generator", "{\"fqn\":\"jsii$jsii_calc$.IRandomNumberGenerator\"}")]
+        [JsiiProperty("generator", "{\"fqn\":\"jsii-calc.IRandomNumberGenerator\"}")]
         public virtual IIRandomNumberGenerator Generator
         {
             get => GetProperty<IIRandomNumberGenerator>();
@@ -34,7 +34,7 @@ namespace AWS.Jsii.Tests.Calculator
             return InvokeMethod<double>(new object[]{});
         }
 
-        [JsiiMethod("isSameGenerator", "{\"primitive\":\"boolean\"}", "[{\"name\":\"gen\",\"type\":{\"fqn\":\"jsii$jsii_calc$.IRandomNumberGenerator\"}}]")]
+        [JsiiMethod("isSameGenerator", "{\"primitive\":\"boolean\"}", "[{\"name\":\"gen\",\"type\":{\"fqn\":\"jsii-calc.IRandomNumberGenerator\"}}]")]
         public virtual bool IsSameGenerator(IIRandomNumberGenerator gen)
         {
             return InvokeMethod<bool>(new object[]{gen});

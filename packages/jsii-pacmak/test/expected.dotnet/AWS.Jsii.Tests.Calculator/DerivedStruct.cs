@@ -9,7 +9,7 @@ namespace AWS.Jsii.Tests.Calculator
     public class DerivedStruct : DeputyBase, IDerivedStruct
     {
         /// <summary>An example of a non primitive property.</summary>
-        [JsiiProperty("nonPrimitive", "{\"fqn\":\"jsii$jsii_calc$.DoubleTrouble\"}", true)]
+        [JsiiProperty("nonPrimitive", "{\"fqn\":\"jsii-calc.DoubleTrouble\"}", true)]
         public DoubleTrouble NonPrimitive
         {
             get;
@@ -38,7 +38,7 @@ namespace AWS.Jsii.Tests.Calculator
         }
 
         /// <summary>This is optional.</summary>
-        [JsiiProperty("anotherOptional", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"jsii$jsii_calc_lib$.Value\"}},\"optional\":true}", true)]
+        [JsiiProperty("anotherOptional", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},\"optional\":true}", true)]
         public IDictionary<string, Value_> AnotherOptional
         {
             get;

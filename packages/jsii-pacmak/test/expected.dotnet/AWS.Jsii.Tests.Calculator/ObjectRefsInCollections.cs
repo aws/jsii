@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace AWS.Jsii.Tests.Calculator
 {
     /// <summary>Verify that object references can be passed inside collections.</summary>
-    [JsiiClass("jsii-calc", "jsii$jsii_calc$.ObjectRefsInCollections", "[]")]
+    [JsiiClass(typeof(ObjectRefsInCollections), "jsii-calc.ObjectRefsInCollections", "[]")]
     public class ObjectRefsInCollections : DeputyBase
     {
         public ObjectRefsInCollections(): base(new DeputyProps(new object[]{}))
@@ -21,14 +21,14 @@ namespace AWS.Jsii.Tests.Calculator
         }
 
         /// <summary>Returns the sum of all values</summary>
-        [JsiiMethod("sumFromArray", "{\"primitive\":\"number\"}", "[{\"name\":\"values\",\"type\":{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"fqn\":\"jsii$jsii_calc_lib$.Value\"}}}}]")]
+        [JsiiMethod("sumFromArray", "{\"primitive\":\"number\"}", "[{\"name\":\"values\",\"type\":{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}}]")]
         public virtual double SumFromArray(Value_[] values)
         {
             return InvokeMethod<double>(new object[]{values});
         }
 
         /// <summary>Returns the sum of all values in a map</summary>
-        [JsiiMethod("sumFromMap", "{\"primitive\":\"number\"}", "[{\"name\":\"values\",\"type\":{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"jsii$jsii_calc_lib$.Value\"}}}}]")]
+        [JsiiMethod("sumFromMap", "{\"primitive\":\"number\"}", "[{\"name\":\"values\",\"type\":{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}}]")]
         public virtual double SumFromMap(IDictionary<string, Value_> values)
         {
             return InvokeMethod<double>(new object[]{values});

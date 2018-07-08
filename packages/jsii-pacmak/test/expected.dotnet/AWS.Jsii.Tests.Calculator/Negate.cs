@@ -4,7 +4,7 @@ using AWS.Jsii.Tests.Calculator.Lib;
 namespace AWS.Jsii.Tests.Calculator
 {
     /// <summary>The negation operation ("-value")</summary>
-    [JsiiClass("jsii-calc", "jsii$jsii_calc$.Negate", "[{\"name\":\"operand\",\"type\":{\"fqn\":\"jsii$jsii_calc_lib$.Value\"}}]")]
+    [JsiiClass(typeof(Negate), "jsii-calc.Negate", "[{\"name\":\"operand\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
     public class Negate : UnaryOperation, IIFriendlier
     {
         public Negate(Value_ operand): base(new DeputyProps(new object[]{operand}))

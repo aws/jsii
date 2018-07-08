@@ -3,7 +3,7 @@ using AWS.Jsii.Runtime.Deputy;
 namespace AWS.Jsii.Tests.Calculator
 {
     /// <summary>Properties for Calculator.</summary>
-    [JsiiInterface("jsii-calc", "jsii$jsii_calc$.CalculatorProps")]
+    [JsiiInterface(typeof(ICalculatorProps), "jsii-calc.CalculatorProps")]
     public interface ICalculatorProps
     {
         [JsiiProperty("initialValue", "{\"primitive\":\"number\",\"optional\":true}")]

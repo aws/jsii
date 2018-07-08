@@ -2,7 +2,7 @@ using AWS.Jsii.Runtime.Deputy;
 
 namespace AWS.Jsii.Tests.Calculator
 {
-    [JsiiInterface("jsii-calc", "jsii$jsii_calc$.UnionProperties")]
+    [JsiiInterface(typeof(IUnionProperties), "jsii-calc.UnionProperties")]
     public interface IUnionProperties
     {
         [JsiiProperty("foo", "{\"union\":{\"types\":[{\"primitive\":\"string\"},{\"primitive\":\"number\"}]},\"optional\":true}")]
@@ -12,7 +12,7 @@ namespace AWS.Jsii.Tests.Calculator
             set;
         }
 
-        [JsiiProperty("bar", "{\"union\":{\"types\":[{\"primitive\":\"string\"},{\"primitive\":\"number\"},{\"fqn\":\"jsii$jsii_calc$.AllTypes\"}]}}")]
+        [JsiiProperty("bar", "{\"union\":{\"types\":[{\"primitive\":\"string\"},{\"primitive\":\"number\"},{\"fqn\":\"jsii-calc.AllTypes\"}]}}")]
         object Bar
         {
             get;

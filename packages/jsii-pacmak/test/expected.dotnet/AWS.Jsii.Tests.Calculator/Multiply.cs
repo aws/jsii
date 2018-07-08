@@ -4,7 +4,7 @@ using AWS.Jsii.Tests.Calculator.Lib;
 namespace AWS.Jsii.Tests.Calculator
 {
     /// <summary>The "*" binary operation.</summary>
-    [JsiiClass("jsii-calc", "jsii$jsii_calc$.Multiply", "[{\"name\":\"lhs\",\"type\":{\"fqn\":\"jsii$jsii_calc_lib$.Value\"}},{\"name\":\"rhs\",\"type\":{\"fqn\":\"jsii$jsii_calc_lib$.Value\"}}]")]
+    [JsiiClass(typeof(Multiply), "jsii-calc.Multiply", "[{\"name\":\"lhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},{\"name\":\"rhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
     public class Multiply : BinaryOperation, IIFriendlier, IIRandomNumberGenerator
     {
         public Multiply(Value_ lhs, Value_ rhs): base(new DeputyProps(new object[]{lhs, rhs}))

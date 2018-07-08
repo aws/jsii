@@ -2,7 +2,7 @@ using AWS.Jsii.Runtime.Deputy;
 
 namespace AWS.Jsii.Tests.Calculator
 {
-    [JsiiInterfaceProxy("jsii-calc", "jsii$jsii_calc$.ReturnsNumber")]
+    [JsiiInterfaceProxy(typeof(IReturnsNumber), "jsii-calc.ReturnsNumber")]
     internal class ReturnsNumberProxy : DeputyBase, IReturnsNumber
     {
         private ReturnsNumberProxy(ByRefValue reference): base(reference)

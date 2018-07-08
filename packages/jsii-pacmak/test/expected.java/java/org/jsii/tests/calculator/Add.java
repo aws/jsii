@@ -2,7 +2,7 @@ package org.jsii.tests.calculator;
 /**
  * The "+" binary operation.
  */
-@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii$jsii_calc$.Add")
+@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.Add")
 public class Add extends org.jsii.tests.calculator.BinaryOperation {
     protected Add(final org.jsii.JsiiObject.InitializationMode mode) {
         super(mode);

@@ -30,7 +30,7 @@ namespace AWS.Jsii.Generator.Class
 
             SyntaxList<AttributeListSyntax> CreateAttributes()
             {
-                SyntaxToken packageLiteral = SF.Literal(Package);
+                TypeOfExpressionSyntax typeOfExpression = SF.TypeOfExpression(Symbols.GetNameSyntax(Type));
                 SyntaxToken fullyQualifiedNameLiteral = SF.Literal(Type.FullyQualifiedName);
                 SyntaxToken parametersJsonLiteral = Type.Initializer.GetParametersJsonSyntaxToken();
 
@@ -38,7 +38,7 @@ namespace AWS.Jsii.Generator.Class
                     SF.AttributeList(SF.SeparatedList(new[] {
                         SF.Attribute(
                             SF.ParseName("JsiiClass"),
-                            SF.ParseAttributeArgumentList($"({packageLiteral}, {fullyQualifiedNameLiteral}, {parametersJsonLiteral})")
+                            SF.ParseAttributeArgumentList($"({typeOfExpression}, {fullyQualifiedNameLiteral}, {parametersJsonLiteral})")
                         )
                     }))
                 });

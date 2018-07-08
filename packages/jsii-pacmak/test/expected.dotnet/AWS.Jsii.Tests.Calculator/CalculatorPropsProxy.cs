@@ -3,7 +3,7 @@ using AWS.Jsii.Runtime.Deputy;
 namespace AWS.Jsii.Tests.Calculator
 {
     /// <summary>Properties for Calculator.</summary>
-    [JsiiInterfaceProxy("jsii-calc", "jsii$jsii_calc$.CalculatorProps")]
+    [JsiiInterfaceProxy(typeof(ICalculatorProps), "jsii-calc.CalculatorProps")]
     internal class CalculatorPropsProxy : DeputyBase, ICalculatorProps
     {
         private CalculatorPropsProxy(ByRefValue reference): base(reference)

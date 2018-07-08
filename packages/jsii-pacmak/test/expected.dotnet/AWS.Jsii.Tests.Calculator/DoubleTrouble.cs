@@ -2,7 +2,7 @@ using AWS.Jsii.Runtime.Deputy;
 
 namespace AWS.Jsii.Tests.Calculator
 {
-    [JsiiClass("jsii-calc", "jsii$jsii_calc$.DoubleTrouble", "[]")]
+    [JsiiClass(typeof(DoubleTrouble), "jsii-calc.DoubleTrouble", "[]")]
     public class DoubleTrouble : DeputyBase, IIFriendlyRandomGenerator
     {
         public DoubleTrouble(): base(new DeputyProps(new object[]{}))

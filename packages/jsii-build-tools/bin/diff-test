@@ -11,8 +11,6 @@ resolve-path() {
 expected="$(resolve-path $1)"
 actual="$(resolve-path $2)"
 
-align-jsii-versions ${expected}
-
 diff ${actual} ${expected} || {
   echo
   echo "========================================================================="

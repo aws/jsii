@@ -1,25 +1,20 @@
 {
-    "name": "jsii-dotnet-jsonmodel",
-    "version": "0.5.0-beta",
-    "description": ".NET json model for jsii spec and api.",
-    "main": "index.js",
-    "scripts": {
-      "prepare": "/bin/bash ./prepare.sh",
-      "prepack": "/bin/bash ./prepack.sh",
-      "test": "/bin/bash ./test.sh"
-    },
-    "devDependencies": {
-    },
-    "dependencies": {
-    },
-    "repository": {
-      "type": "git",
-      "url": "git://github.com/awslabs/jsii"
-    },
-    "author": {
-      "name": "Amazon Web Services",
-      "url": "https://aws.amazon.com"
-    },
-    "license": "LicenseRef-LICENSE"
-  }
-  
+  "name": "jsii-dotnet-jsonmodel",
+  "version": "0.5.0-beta",
+  "description": ".NET json model for jsii spec and api.",
+  "main": "index.js",
+  "scripts": {
+    "prepare": "/bin/bash ./prepare.sh",
+    "prepack": "/bin/bash ./prepack.sh",
+    "test": "/bin/bash ./test.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/awslabs/jsii"
+  },
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com"
+  },
+  "license": "LicenseRef-LICENSE"
+}

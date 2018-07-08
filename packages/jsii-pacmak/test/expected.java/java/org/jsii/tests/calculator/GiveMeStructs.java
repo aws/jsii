@@ -1,5 +1,5 @@
 package org.jsii.tests.calculator;
-@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii$jsii_calc$.GiveMeStructs")
+@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.GiveMeStructs")
 public class GiveMeStructs extends org.jsii.JsiiObject {
     protected GiveMeStructs(final org.jsii.JsiiObject.InitializationMode mode) {
         super(mode);

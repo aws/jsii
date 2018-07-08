@@ -3,7 +3,7 @@ using AWS.Jsii.Tests.Calculator.Lib;
 
 namespace AWS.Jsii.Tests.Calculator
 {
-    [JsiiClass("jsii-calc", "jsii$jsii_calc$.JSObjectLiteralForInterface", "[]")]
+    [JsiiClass(typeof(JSObjectLiteralForInterface), "jsii-calc.JSObjectLiteralForInterface", "[]")]
     public class JSObjectLiteralForInterface : DeputyBase
     {
         public JSObjectLiteralForInterface(): base(new DeputyProps(new object[]{}))
@@ -18,13 +18,13 @@ namespace AWS.Jsii.Tests.Calculator
         {
         }
 
-        [JsiiMethod("giveMeFriendly", "{\"fqn\":\"jsii$jsii_calc_lib$.IFriendly\"}", "[]")]
+        [JsiiMethod("giveMeFriendly", "{\"fqn\":\"@scope/jsii-calc-lib.IFriendly\"}", "[]")]
         public virtual IIFriendly GiveMeFriendly()
         {
             return InvokeMethod<IIFriendly>(new object[]{});
         }
 
-        [JsiiMethod("giveMeFriendlyGenerator", "{\"fqn\":\"jsii$jsii_calc$.IFriendlyRandomGenerator\"}", "[]")]
+        [JsiiMethod("giveMeFriendlyGenerator", "{\"fqn\":\"jsii-calc.IFriendlyRandomGenerator\"}", "[]")]
         public virtual IIFriendlyRandomGenerator GiveMeFriendlyGenerator()
         {
             return InvokeMethod<IIFriendlyRandomGenerator>(new object[]{});

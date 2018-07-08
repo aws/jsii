@@ -2,7 +2,7 @@ using AWS.Jsii.Runtime.Deputy;
 
 namespace AWS.Jsii.Tests.Calculator
 {
-    [JsiiInterfaceProxy("jsii-calc", "jsii$jsii_calc$.IFriendlyRandomGenerator")]
+    [JsiiInterfaceProxy(typeof(IIFriendlyRandomGenerator), "jsii-calc.IFriendlyRandomGenerator")]
     internal class IFriendlyRandomGeneratorProxy : DeputyBase, IIFriendlyRandomGenerator
     {
         private IFriendlyRandomGeneratorProxy(ByRefValue reference): base(reference)

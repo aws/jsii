@@ -2,7 +2,7 @@ using AWS.Jsii.Runtime.Deputy;
 
 namespace AWS.Jsii.Tests.Calculator
 {
-    [JsiiInterface("jsii-calc", "jsii$jsii_calc$.ReturnsNumber")]
+    [JsiiInterface(typeof(IReturnsNumber), "jsii-calc.ReturnsNumber")]
     public interface IReturnsNumber
     {
         [JsiiProperty("numberProp", "{\"primitive\":\"number\"}")]

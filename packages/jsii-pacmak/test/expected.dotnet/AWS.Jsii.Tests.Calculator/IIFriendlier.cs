@@ -4,7 +4,7 @@ using AWS.Jsii.Tests.Calculator.Lib;
 namespace AWS.Jsii.Tests.Calculator
 {
     /// <summary>Even friendlier classes can implement this interface.</summary>
-    [JsiiInterface("jsii-calc", "jsii$jsii_calc$.IFriendlier")]
+    [JsiiInterface(typeof(IIFriendlier), "jsii-calc.IFriendlier")]
     public interface IIFriendlier : IIFriendly
     {
         /// <summary>Say goodbye.</summary>

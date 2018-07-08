@@ -6,15 +6,23 @@ namespace AWS.Jsii.JsonModel.Api.Request
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class LoadRequest : IKernelRequest
     {
-        public LoadRequest(Spec.Assembly assembly)
+        public LoadRequest(string name, string version, string tarball)
         {
-            Assembly = assembly ?? throw new ArgumentNullException(nameof(assembly));
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+            Version = version ?? throw new ArgumentNullException(nameof(version));
+            Tarball = tarball ?? throw new ArgumentNullException(nameof(tarball));
         }
 
         [JsonProperty("api")]
         public string Api { get; } = "load";
 
-        [JsonProperty("assembly")]
-        public Spec.Assembly Assembly { get; }
+        [JsonProperty("name")]
+        public string Name { get; }
+
+        [JsonProperty("version")]
+        public string Version { get; }
+
+        [JsonProperty("tarball")]
+        public string Tarball { get; }
     }
 }

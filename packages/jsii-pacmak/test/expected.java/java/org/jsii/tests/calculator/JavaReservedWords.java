@@ -1,5 +1,5 @@
 package org.jsii.tests.calculator;
-@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii$jsii_calc$.JavaReservedWords")
+@org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.JavaReservedWords")
 public class JavaReservedWords extends org.jsii.JsiiObject {
     protected JavaReservedWords(final org.jsii.JsiiObject.InitializationMode mode) {
         super(mode);

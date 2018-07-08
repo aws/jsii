@@ -10,7 +10,7 @@ namespace AWS.Jsii.Tests.Calculator
     /// This class includes property for all types supported by jsii. The setters will validate
     /// that the value set is of the expected type and throw otherwise.
     /// </summary>
-    [JsiiClass("jsii-calc", "jsii$jsii_calc$.AllTypes", "[]")]
+    [JsiiClass(typeof(AllTypes), "jsii-calc.AllTypes", "[]")]
     public class AllTypes : DeputyBase
     {
         public AllTypes(): base(new DeputyProps(new object[]{}))
@@ -95,14 +95,14 @@ namespace AWS.Jsii.Tests.Calculator
             set => SetProperty(value);
         }
 
-        [JsiiProperty("unionProperty", "{\"union\":{\"types\":[{\"primitive\":\"string\"},{\"primitive\":\"number\"},{\"fqn\":\"jsii$jsii_calc$.Multiply\"}]}}")]
+        [JsiiProperty("unionProperty", "{\"union\":{\"types\":[{\"primitive\":\"string\"},{\"primitive\":\"number\"},{\"fqn\":\"jsii-calc.Multiply\"}]}}")]
         public virtual object UnionProperty
         {
             get => GetProperty<object>();
             set => SetProperty(value);
         }
 
-        [JsiiProperty("unionArrayProperty", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"union\":{\"types\":[{\"primitive\":\"number\"},{\"fqn\":\"jsii$jsii_calc$.composition.CompositeOperation\"}]}}}}")]
+        [JsiiProperty("unionArrayProperty", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"union\":{\"types\":[{\"primitive\":\"number\"},{\"fqn\":\"jsii-calc.composition.CompositeOperation\"}]}}}}")]
         public virtual object[] UnionArrayProperty
         {
             get => GetProperty<object[]>();
@@ -116,7 +116,7 @@ namespace AWS.Jsii.Tests.Calculator
             set => SetProperty(value);
         }
 
-        [JsiiProperty("enumProperty", "{\"fqn\":\"jsii$jsii_calc$.AllTypesEnum\"}")]
+        [JsiiProperty("enumProperty", "{\"fqn\":\"jsii-calc.AllTypesEnum\"}")]
         public virtual AllTypesEnum EnumProperty
         {
             get => GetProperty<AllTypesEnum>();

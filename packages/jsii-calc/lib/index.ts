@@ -1,5 +1,6 @@
 // tslint:disable
-import { Operation, Value, Number, IFriendly, MyFirstStruct, StructWithOnlyOptionals } from 'jsii-calc-lib'
+import { Operation, Value, Number, IFriendly, MyFirstStruct, StructWithOnlyOptionals } from '@scope/jsii-calc-lib'
+const bundled = require('jsii-calc-bundled');
 
 /**
  * Even friendlier classes can implement this interface.
@@ -1021,4 +1022,10 @@ export class JavaReservedWords {
 export interface UnionProperties {
     foo?: string | number;
     readonly bar: AllTypes | string | number;
+}
+
+export class UseBundledDependency {
+    value() {
+        return bundled;
+    }
 }

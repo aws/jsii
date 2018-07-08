@@ -40,6 +40,7 @@ namespace AWS.Jsii.Runtime.Services
             serviceCollection.AddSingleton<IReferenceMap, ReferenceMap>();
             serviceCollection.AddSingleton<INodeProcess, NodeProcess>();
             serviceCollection.AddSingleton<IRuntime, Runtime>();
+            serviceCollection.AddSingleton<IResourceExtractor, ResourceExtractor>();
             serviceCollection.AddTransient<IClient, Client>();
 
             IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();

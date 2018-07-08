@@ -1,7 +1,7 @@
 {
   "schema": "jsii/1.0",
   "types": {
-    "jsii$jsii_calc_lib$.Value": {
+    "@scope/jsii-calc-lib.Value": {
       "docs": {
         "comment": "Abstract class which represents a numeric value."
       },
@@ -39,16 +39,16 @@
           }
         }
       ],
-      "fqn": "jsii$jsii_calc_lib$.Value",
-      "module": "jsii$jsii_calc_lib$",
-      "namespace": "jsii$jsii_calc_lib$",
+      "fqn": "@scope/jsii-calc-lib.Value",
+      "module": "@scope/jsii-calc-lib",
+      "namespace": "@scope/jsii-calc-lib",
       "name": "Value",
       "abstract": true,
       "initializer": {
         "initializer": true
       }
     },
-    "jsii$jsii_calc_lib$.Number": {
+    "@scope/jsii-calc-lib.Number": {
       "docs": {
         "comment": "Represents a concrete number."
       },
@@ -76,12 +76,12 @@
           "immutable": true
         }
       ],
-      "fqn": "jsii$jsii_calc_lib$.Number",
-      "module": "jsii$jsii_calc_lib$",
-      "namespace": "jsii$jsii_calc_lib$",
+      "fqn": "@scope/jsii-calc-lib.Number",
+      "module": "@scope/jsii-calc-lib",
+      "namespace": "@scope/jsii-calc-lib",
       "name": "Number",
       "base": {
-        "fqn": "jsii$jsii_calc_lib$.Value"
+        "fqn": "@scope/jsii-calc-lib.Value"
       },
       "initializer": {
         "parameters": [
@@ -102,7 +102,7 @@
         "initializer": true
       }
     },
-    "jsii$jsii_calc_lib$.Operation": {
+    "@scope/jsii-calc-lib.Operation": {
       "docs": {
         "comment": "Represents an operation on values."
       },
@@ -119,19 +119,19 @@
           }
         }
       ],
-      "fqn": "jsii$jsii_calc_lib$.Operation",
-      "module": "jsii$jsii_calc_lib$",
-      "namespace": "jsii$jsii_calc_lib$",
+      "fqn": "@scope/jsii-calc-lib.Operation",
+      "module": "@scope/jsii-calc-lib",
+      "namespace": "@scope/jsii-calc-lib",
       "name": "Operation",
       "base": {
-        "fqn": "jsii$jsii_calc_lib$.Value"
+        "fqn": "@scope/jsii-calc-lib.Value"
       },
       "abstract": true,
       "initializer": {
         "initializer": true
       }
     },
-    "jsii$jsii_calc_lib$.IFriendly": {
+    "@scope/jsii-calc-lib.IFriendly": {
       "docs": {
         "comment": "Applies to classes that are considered friendly. These classes can be greeted with\na \"hello\" or \"goodbye\" blessing and they will respond back in a fun and friendly manner."
       },
@@ -147,12 +147,12 @@
           }
         }
       ],
-      "fqn": "jsii$jsii_calc_lib$.IFriendly",
-      "module": "jsii$jsii_calc_lib$",
-      "namespace": "jsii$jsii_calc_lib$",
+      "fqn": "@scope/jsii-calc-lib.IFriendly",
+      "module": "@scope/jsii-calc-lib",
+      "namespace": "@scope/jsii-calc-lib",
       "name": "IFriendly"
     },
-    "jsii$jsii_calc_lib$.MyFirstStruct": {
+    "@scope/jsii-calc-lib.MyFirstStruct": {
       "docs": {
         "comment": "This is the first struct we have created in jsii"
       },
@@ -189,13 +189,13 @@
           }
         }
       ],
-      "fqn": "jsii$jsii_calc_lib$.MyFirstStruct",
-      "module": "jsii$jsii_calc_lib$",
-      "namespace": "jsii$jsii_calc_lib$",
+      "fqn": "@scope/jsii-calc-lib.MyFirstStruct",
+      "module": "@scope/jsii-calc-lib",
+      "namespace": "@scope/jsii-calc-lib",
       "name": "MyFirstStruct",
       "datatype": true
     },
-    "jsii$jsii_calc_lib$.StructWithOnlyOptionals": {
+    "@scope/jsii-calc-lib.StructWithOnlyOptionals": {
       "docs": {
         "comment": "This is a struct with only optional properties."
       },
@@ -226,50 +226,49 @@
           }
         }
       ],
-      "fqn": "jsii$jsii_calc_lib$.StructWithOnlyOptionals",
-      "module": "jsii$jsii_calc_lib$",
-      "namespace": "jsii$jsii_calc_lib$",
+      "fqn": "@scope/jsii-calc-lib.StructWithOnlyOptionals",
+      "module": "@scope/jsii-calc-lib",
+      "namespace": "@scope/jsii-calc-lib",
       "name": "StructWithOnlyOptionals",
       "datatype": true
     }
   },
   "nametree": {
-    "jsii$jsii_calc_lib$": {
+    "@scope/jsii-calc-lib": {
       "Value": {
-        "_": "jsii$jsii_calc_lib$.Value"
+        "_": "@scope/jsii-calc-lib.Value"
       },
       "Number": {
-        "_": "jsii$jsii_calc_lib$.Number"
+        "_": "@scope/jsii-calc-lib.Number"
       },
       "Operation": {
-        "_": "jsii$jsii_calc_lib$.Operation"
+        "_": "@scope/jsii-calc-lib.Operation"
       },
       "IFriendly": {
-        "_": "jsii$jsii_calc_lib$.IFriendly"
+        "_": "@scope/jsii-calc-lib.IFriendly"
       },
       "MyFirstStruct": {
-        "_": "jsii$jsii_calc_lib$.MyFirstStruct"
+        "_": "@scope/jsii-calc-lib.MyFirstStruct"
       },
       "StructWithOnlyOptionals": {
-        "_": "jsii$jsii_calc_lib$.StructWithOnlyOptionals"
+        "_": "@scope/jsii-calc-lib.StructWithOnlyOptionals"
       }
     }
   },
   "typecount": 6,
-  "name": "jsii$jsii_calc_lib$",
-  "package": "jsii-calc-lib",
+  "name": "@scope/jsii-calc-lib",
+  "package": "@scope/jsii-calc-lib",
   "version": "0.5.0-beta",
   "names": {
     "java": "org.jsii.tests.calculator.lib",
     "dotnet": "AWS.Jsii.Tests.Calculator.Lib",
-    "js": "jsii-calc-lib"
+    "js": "@scope/jsii-calc-lib"
   },
   "nativenames": {
-    "jsii$jsii_calc_lib$": {
+    "@scope/jsii-calc-lib": {
       "java": "org.jsii.tests.calculator.lib",
       "dotnet": "AWS.Jsii.Tests.Calculator.Lib",
-      "js": "jsii-calc-lib"
+      "js": "@scope/jsii-calc-lib"
     }
-  },
-  "code": "var jsii$jsii_calc_lib$ =\n/******/ (function(modules) { // webpackBootstrap\n/******/ \t// The module cache\n/******/ \tvar installedModules = {};\n/******/\n/******/ \t// The require function\n/******/ \tfunction __webpack_require__(moduleId) {\n/******/\n/******/ \t\t// Check if module is in cache\n/******/ \t\tif(installedModules[moduleId]) {\n/******/ \t\t\treturn installedModules[moduleId].exports;\n/******/ \t\t}\n/******/ \t\t// Create a new module (and put it into the cache)\n/******/ \t\tvar module = installedModules[moduleId] = {\n/******/ \t\t\ti: moduleId,\n/******/ \t\t\tl: false,\n/******/ \t\t\texports: {}\n/******/ \t\t};\n/******/\n/******/ \t\t// Execute the module function\n/******/ \t\tmodules[moduleId].call(module.exports, module, module.exports, __webpack_require__);\n/******/\n/******/ \t\t// Flag the module as loaded\n/******/ \t\tmodule.l = true;\n/******/\n/******/ \t\t// Return the exports of the module\n/******/ \t\treturn module.exports;\n/******/ \t}\n/******/\n/******/\n/******/ \t// expose the modules object (__webpack_modules__)\n/******/ \t__webpack_require__.m = modules;\n/******/\n/******/ \t// expose the module cache\n/******/ \t__webpack_require__.c = installedModules;\n/******/\n/******/ \t// define getter function for harmony exports\n/******/ \t__webpack_require__.d = function(exports, name, getter) {\n/******/ \t\tif(!__webpack_require__.o(exports, name)) {\n/******/ \t\t\tObject.defineProperty(exports, name, {\n/******/ \t\t\t\tconfigurable: false,\n/******/ \t\t\t\tenumerable: true,\n/******/ \t\t\t\tget: getter\n/******/ \t\t\t});\n/******/ \t\t}\n/******/ \t};\n/******/\n/******/ \t// getDefaultExport function for compatibility with non-harmony modules\n/******/ \t__webpack_require__.n = function(module) {\n/******/ \t\tvar getter = module && module.__esModule ?\n/******/ \t\t\tfunction getDefault() { return module['default']; } :\n/******/ \t\t\tfunction getModuleExports() { return module; };\n/******/ \t\t__webpack_require__.d(getter, 'a', getter);\n/******/ \t\treturn getter;\n/******/ \t};\n/******/\n/******/ \t// Object.prototype.hasOwnProperty.call\n/******/ \t__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };\n/******/\n/******/ \t// __webpack_public_path__\n/******/ \t__webpack_require__.p = \"\";\n/******/\n/******/ \t// Load entry module and return exports\n/******/ \treturn __webpack_require__(__webpack_require__.s = 0);\n/******/ })\n/************************************************************************/\n/******/ ([\n/* 0 */\n/***/ (function(module, exports, __webpack_require__) {\n\n\"use strict\";\n\nObject.defineProperty(exports, \"__esModule\", { value: true });\n/**\n * Abstract class which represents a numeric value.\n */\nclass Value {\n    /**\n     * String representation of the value.\n     */\n    toString() {\n        return this.value.toString();\n    }\n    /**\n      * Returns the name of the class (to verify native type names are created for derived classes).\n      */\n    typeName() {\n        return this.constructor.name;\n    }\n}\nexports.Value = Value;\n/**\n * Represents a concrete number.\n */\nclass Number extends Value {\n    /**\n     * Creates a Number object.\n     * @param value The number.\n     */\n    constructor(value) {\n        super();\n        this.value = value;\n    }\n    /**\n     * The number multiplied by 2.\n     */\n    get doubleValue() {\n        return 2 * this.value;\n    }\n}\nexports.Number = Number;\n/**\n * Represents an operation on values.\n */\nclass Operation extends Value {\n}\nexports.Operation = Operation;\n\n\n/***/ })\n/******/ ]);\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vd2VicGFjay9ib290c3RyYXAgYmQ3NjAxMjI1NDg3NjRlNTMyZWMiLCJ3ZWJwYWNrOi8vLy4tY2FsYy1saWIvbGliL2luZGV4LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUE7QUFDQTs7QUFFQTtBQUNBOztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOztBQUVBO0FBQ0E7O0FBRUE7QUFDQTs7QUFFQTtBQUNBO0FBQ0E7OztBQUdBO0FBQ0E7O0FBRUE7QUFDQTs7QUFFQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBLGFBQUs7QUFDTDtBQUNBOztBQUVBO0FBQ0E7QUFDQTtBQUNBLG1DQUEyQiwwQkFBMEIsRUFBRTtBQUN2RCx5Q0FBaUMsZUFBZTtBQUNoRDtBQUNBO0FBQ0E7O0FBRUE7QUFDQSw4REFBc0QsK0RBQStEOztBQUVySDtBQUNBOztBQUVBO0FBQ0E7Ozs7Ozs7Ozs7QUM3REE7O0dBRUc7QUFDSDtJQU1JOztPQUVHO0lBQ0gsUUFBUTtRQUNKLE9BQU8sSUFBSSxDQUFDLEtBQUssQ0FBQyxRQUFRLEVBQUUsQ0FBQztJQUNqQyxDQUFDO0lBRUQ7O1FBRUk7SUFDSixRQUFRO1FBQ0osT0FBUSxJQUFJLENBQUMsV0FBbUIsQ0FBQyxJQUFJLENBQUM7SUFDMUMsQ0FBQztDQUNKO0FBbkJELHNCQW1CQztBQUVEOztHQUVHO0FBQ0gsWUFBb0IsU0FBUSxLQUFLO0lBQzdCOzs7T0FHRztJQUNILFlBQXFCLEtBQWE7UUFDOUIsS0FBSyxFQUFFLENBQUM7UUFEUyxVQUFLLEdBQUwsS0FBSyxDQUFRO0lBRWxDLENBQUM7SUFFRDs7T0FFRztJQUNILElBQUksV0FBVztRQUNYLE9BQU8sQ0FBQyxHQUFHLElBQUksQ0FBQyxLQUFLLENBQUM7SUFDMUIsQ0FBQztDQUNKO0FBZkQsd0JBZUM7QUFFRDs7R0FFRztBQUNILGVBQWdDLFNBQVEsS0FBSztDQUU1QztBQUZELDhCQUVDIiwiZmlsZSI6ImJ1bmRsZS5qcyIsInNvdXJjZXNDb250ZW50IjpbIiBcdC8vIFRoZSBtb2R1bGUgY2FjaGVcbiBcdHZhciBpbnN0YWxsZWRNb2R1bGVzID0ge307XG5cbiBcdC8vIFRoZSByZXF1aXJlIGZ1bmN0aW9uXG4gXHRmdW5jdGlvbiBfX3dlYnBhY2tfcmVxdWlyZV9fKG1vZHVsZUlkKSB7XG5cbiBcdFx0Ly8gQ2hlY2sgaWYgbW9kdWxlIGlzIGluIGNhY2hlXG4gXHRcdGlmKGluc3RhbGxlZE1vZHVsZXNbbW9kdWxlSWRdKSB7XG4gXHRcdFx0cmV0dXJuIGluc3RhbGxlZE1vZHVsZXNbbW9kdWxlSWRdLmV4cG9ydHM7XG4gXHRcdH1cbiBcdFx0Ly8gQ3JlYXRlIGEgbmV3IG1vZHVsZSAoYW5kIHB1dCBpdCBpbnRvIHRoZSBjYWNoZSlcbiBcdFx0dmFyIG1vZHVsZSA9IGluc3RhbGxlZE1vZHVsZXNbbW9kdWxlSWRdID0ge1xuIFx0XHRcdGk6IG1vZHVsZUlkLFxuIFx0XHRcdGw6IGZhbHNlLFxuIFx0XHRcdGV4cG9ydHM6IHt9XG4gXHRcdH07XG5cbiBcdFx0Ly8gRXhlY3V0ZSB0aGUgbW9kdWxlIGZ1bmN0aW9uXG4gXHRcdG1vZHVsZXNbbW9kdWxlSWRdLmNhbGwobW9kdWxlLmV4cG9ydHMsIG1vZHVsZSwgbW9kdWxlLmV4cG9ydHMsIF9fd2VicGFja19yZXF1aXJlX18pO1xuXG4gXHRcdC8vIEZsYWcgdGhlIG1vZHVsZSBhcyBsb2FkZWRcbiBcdFx0bW9kdWxlLmwgPSB0cnVlO1xuXG4gXHRcdC8vIFJldHVybiB0aGUgZXhwb3J0cyBvZiB0aGUgbW9kdWxlXG4gXHRcdHJldHVybiBtb2R1bGUuZXhwb3J0cztcbiBcdH1cblxuXG4gXHQvLyBleHBvc2UgdGhlIG1vZHVsZXMgb2JqZWN0IChfX3dlYnBhY2tfbW9kdWxlc19fKVxuIFx0X193ZWJwYWNrX3JlcXVpcmVfXy5tID0gbW9kdWxlcztcblxuIFx0Ly8gZXhwb3NlIHRoZSBtb2R1bGUgY2FjaGVcbiBcdF9fd2VicGFja19yZXF1aXJlX18uYyA9IGluc3RhbGxlZE1vZHVsZXM7XG5cbiBcdC8vIGRlZmluZSBnZXR0ZXIgZnVuY3Rpb24gZm9yIGhhcm1vbnkgZXhwb3J0c1xuIFx0X193ZWJwYWNrX3JlcXVpcmVfXy5kID0gZnVuY3Rpb24oZXhwb3J0cywgbmFtZSwgZ2V0dGVyKSB7XG4gXHRcdGlmKCFfX3dlYnBhY2tfcmVxdWlyZV9fLm8oZXhwb3J0cywgbmFtZSkpIHtcbiBcdFx0XHRPYmplY3QuZGVmaW5lUHJvcGVydHkoZXhwb3J0cywgbmFtZSwge1xuIFx0XHRcdFx0Y29uZmlndXJhYmxlOiBmYWxzZSxcbiBcdFx0XHRcdGVudW1lcmFibGU6IHRydWUsXG4gXHRcdFx0XHRnZXQ6IGdldHRlclxuIFx0XHRcdH0pO1xuIFx0XHR9XG4gXHR9O1xuXG4gXHQvLyBnZXREZWZhdWx0RXhwb3J0IGZ1bmN0aW9uIGZvciBjb21wYXRpYmlsaXR5IHdpdGggbm9uLWhhcm1vbnkgbW9kdWxlc1xuIFx0X193ZWJwYWNrX3JlcXVpcmVfXy5uID0gZnVuY3Rpb24obW9kdWxlKSB7XG4gXHRcdHZhciBnZXR0ZXIgPSBtb2R1bGUgJiYgbW9kdWxlLl9fZXNNb2R1bGUgP1xuIFx0XHRcdGZ1bmN0aW9uIGdldERlZmF1bHQoKSB7IHJldHVybiBtb2R1bGVbJ2RlZmF1bHQnXTsgfSA6XG4gXHRcdFx0ZnVuY3Rpb24gZ2V0TW9kdWxlRXhwb3J0cygpIHsgcmV0dXJuIG1vZHVsZTsgfTtcbiBcdFx0X193ZWJwYWNrX3JlcXVpcmVfXy5kKGdldHRlciwgJ2EnLCBnZXR0ZXIpO1xuIFx0XHRyZXR1cm4gZ2V0dGVyO1xuIFx0fTtcblxuIFx0Ly8gT2JqZWN0LnByb3RvdHlwZS5oYXNPd25Qcm9wZXJ0eS5jYWxsXG4gXHRfX3dlYnBhY2tfcmVxdWlyZV9fLm8gPSBmdW5jdGlvbihvYmplY3QsIHByb3BlcnR5KSB7IHJldHVybiBPYmplY3QucHJvdG90eXBlLmhhc093blByb3BlcnR5LmNhbGwob2JqZWN0LCBwcm9wZXJ0eSk7IH07XG5cbiBcdC8vIF9fd2VicGFja19wdWJsaWNfcGF0aF9fXG4gXHRfX3dlYnBhY2tfcmVxdWlyZV9fLnAgPSBcIlwiO1xuXG4gXHQvLyBMb2FkIGVudHJ5IG1vZHVsZSBhbmQgcmV0dXJuIGV4cG9ydHNcbiBcdHJldHVybiBfX3dlYnBhY2tfcmVxdWlyZV9fKF9fd2VicGFja19yZXF1aXJlX18ucyA9IDApO1xuXG5cblxuLy8gV0VCUEFDSyBGT09URVIgLy9cbi8vIHdlYnBhY2svYm9vdHN0cmFwIGJkNzYwMTIyNTQ4NzY0ZTUzMmVjIiwiLyoqXG4gKiBBYnN0cmFjdCBjbGFzcyB3aGljaCByZXByZXNlbnRzIGEgbnVtZXJpYyB2YWx1ZS5cbiAqL1xuZXhwb3J0IGFic3RyYWN0IGNsYXNzIFZhbHVlIHtcbiAgICAvKipcbiAgICAgKiBUaGUgdmFsdWUuXG4gICAgICovXG4gICAgYWJzdHJhY3QgcmVhZG9ubHkgdmFsdWU6IG51bWJlclxuXG4gICAgLyoqXG4gICAgICogU3RyaW5nIHJlcHJlc2VudGF0aW9uIG9mIHRoZSB2YWx1ZS5cbiAgICAgKi9cbiAgICB0b1N0cmluZygpIHtcbiAgICAgICAgcmV0dXJuIHRoaXMudmFsdWUudG9TdHJpbmcoKTtcbiAgICB9XG5cbiAgICAvKipcbiAgICAgICogUmV0dXJucyB0aGUgbmFtZSBvZiB0aGUgY2xhc3MgKHRvIHZlcmlmeSBuYXRpdmUgdHlwZSBuYW1lcyBhcmUgY3JlYXRlZCBmb3IgZGVyaXZlZCBjbGFzc2VzKS5cbiAgICAgICovXG4gICAgdHlwZU5hbWUoKSB7XG4gICAgICAgIHJldHVybiAodGhpcy5jb25zdHJ1Y3RvciBhcyBhbnkpLm5hbWU7XG4gICAgfVxufVxuXG4vKipcbiAqIFJlcHJlc2VudHMgYSBjb25jcmV0ZSBudW1iZXIuXG4gKi9cbmV4cG9ydCBjbGFzcyBOdW1iZXIgZXh0ZW5kcyBWYWx1ZSB7XG4gICAgLyoqXG4gICAgICogQ3JlYXRlcyBhIE51bWJlciBvYmplY3QuXG4gICAgICogQHBhcmFtIHZhbHVlIFRoZSBudW1iZXIuXG4gICAgICovXG4gICAgY29uc3RydWN0b3IocmVhZG9ubHkgdmFsdWU6IG51bWJlcikge1xuICAgICAgICBzdXBlcigpO1xuICAgIH1cblxuICAgIC8qKlxuICAgICAqIFRoZSBudW1iZXIgbXVsdGlwbGllZCBieSAyLlxuICAgICAqL1xuICAgIGdldCBkb3VibGVWYWx1ZSgpIHtcbiAgICAgICAgcmV0dXJuIDIgKiB0aGlzLnZhbHVlO1xuICAgIH1cbn1cblxuLyoqXG4gKiBSZXByZXNlbnRzIGFuIG9wZXJhdGlvbiBvbiB2YWx1ZXMuXG4gKi9cbmV4cG9ydCBhYnN0cmFjdCBjbGFzcyBPcGVyYXRpb24gZXh0ZW5kcyBWYWx1ZSB7XG4gICAgYWJzdHJhY3QgdG9TdHJpbmcoKTogc3RyaW5nXG59XG5cbi8qKlxuICogQXBwbGllcyB0byBjbGFzc2VzIHRoYXQgYXJlIGNvbnNpZGVyZWQgZnJpZW5kbHkuIFRoZXNlIGNsYXNzZXMgY2FuIGJlIGdyZWV0ZWQgd2l0aFxuICogYSBcImhlbGxvXCIgb3IgXCJnb29kYnllXCIgYmxlc3NpbmcgYW5kIHRoZXkgd2lsbCByZXNwb25kIGJhY2sgaW4gYSBmdW4gYW5kIGZyaWVuZGx5IG1hbm5lci5cbiAqL1xuZXhwb3J0IGludGVyZmFjZSBJRnJpZW5kbHkge1xuICAgIC8qKlxuICAgICAqIFNheSBoZWxsbyFcbiAgICAgKi9cbiAgICBoZWxsbygpOiBzdHJpbmdcbn1cblxuLyoqXG4gKiBUaGlzIGlzIHRoZSBmaXJzdCBzdHJ1Y3Qgd2UgaGF2ZSBjcmVhdGVkIGluIGpzaWlcbiAqL1xuZXhwb3J0IGludGVyZmFjZSBNeUZpcnN0U3RydWN0IHtcbiAgICAvKipcbiAgICAgKiBBIHN0cmluZyB2YWx1ZVxuICAgICAqL1xuICAgIGFzdHJpbmc6IHN0cmluZ1xuXG4gICAgLyoqXG4gICAgICogQW4gYXdlc29tZSBudW1iZXIgdmFsdWVcbiAgICAgKi9cbiAgICBhbnVtYmVyOiBudW1iZXJcbiAgICBmaXJzdE9wdGlvbmFsPzogc3RyaW5nW11cbn1cblxuLyoqXG4gKiBUaGlzIGlzIGEgc3RydWN0IHdpdGggb25seSBvcHRpb25hbCBwcm9wZXJ0aWVzLlxuICovXG5leHBvcnQgaW50ZXJmYWNlIFN0cnVjdFdpdGhPbmx5T3B0aW9uYWxzIHtcbiAgICAvKipcbiAgICAgKiBUaGUgZmlyc3Qgb3B0aW9uYWwhXG4gICAgICovXG4gICAgb3B0aW9uYWwxPzogc3RyaW5nXG4gICAgb3B0aW9uYWwyPzogbnVtYmVyXG4gICAgb3B0aW9uYWwzPzogYm9vbGVhblxufVxuXG5cbi8vIFdFQlBBQ0sgRk9PVEVSIC8vXG4vLyAuLWNhbGMtbGliL2xpYi9pbmRleC50cyJdLCJzb3VyY2VSb290IjoiIn0="
+  }
 }

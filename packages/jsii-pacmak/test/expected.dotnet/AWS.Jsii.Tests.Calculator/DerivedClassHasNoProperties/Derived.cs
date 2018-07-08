@@ -2,7 +2,7 @@ using AWS.Jsii.Runtime.Deputy;
 
 namespace AWS.Jsii.Tests.Calculator.DerivedClassHasNoProperties
 {
-    [JsiiClass("jsii-calc", "jsii$jsii_calc$.DerivedClassHasNoProperties.Derived", "[]")]
+    [JsiiClass(typeof(Derived), "jsii-calc.DerivedClassHasNoProperties.Derived", "[]")]
     public class Derived : Base
     {
         public Derived(): base(new DeputyProps(new object[]{}))

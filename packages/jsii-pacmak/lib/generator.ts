@@ -35,10 +35,10 @@ export class GeneratorOptions {
     addBasePostfixToAbstractClassNames? = false
 }
 
-export interface IGenerator
-{
+export interface IGenerator {
     generate(): void;
-    save(outdir: string): Promise<any>;
+    load(jsiiFile: string): Promise<void>;
+    save(outdir: string, tarball: string): Promise<any>;
 }
 
 /**
@@ -47,41 +47,62 @@ export interface IGenerator
  */
 export abstract class Generator implements IGenerator {
     private readonly options: GeneratorOptions;
-    private readonly mod: spec.Assembly
     private readonly excludeTypes = new Array<string>();
     private readonly target?: string
     protected readonly code = new CodeMaker();
+    protected assembly: spec.Assembly;
 
-    constructor(mod: spec.Assembly, options = new GeneratorOptions()) {
-        if (mod.schema !== spec.SPEC_VERSION) {
-            throw new Error(`Invalid schema version "${mod.schema}". Expecting "${spec.SPEC_VERSION}"`);
-        }
-
-        this.mod = mod
+    constructor(options = new GeneratorOptions()) {
         this.options = options;
         this.target = options.target;
+    }
+
+    public async load(jsiiFile: string) {
+        this.assembly = await fs.readJson(jsiiFile) as spec.Assembly;
+
+        if (this.assembly.schema !== spec.SPEC_VERSION) {
+            throw new Error(`Invalid schema version "${this.assembly.schema}". Expecting "${spec.SPEC_VERSION}"`);
+        }
     }
 
     /**
      * Runs the generator (in-memory).
      */
     generate() {
-        this.onBeginAssembly(this.mod);
-        this.visit(this.mod.nametree);
-        this.onEndAssembly(this.mod);
+        this.onBeginAssembly(this.assembly);
+        if (this.assembly.nametree) {
+            this.visit(this.assembly.nametree);
+        }
+        this.onEndAssembly(this.assembly);
+    }
+
+    /**
+     * Returns the file name of the assembly resource as it is going to be saved.
+     */
+    protected getAssemblyFileName() {
+        let name = this.assembly.name;
+        const parts = name.split('/');
+
+        if (parts.length === 1) {
+            name = parts[0];
+        } else if (parts.length === 2 && parts[0].startsWith('@')) {
+            name = parts[1];
+        } else {
+            throw new Error('Malformed assembly name. Expecting either <name> or @<scope>/<name>');
+        }
+
+        return `${name}@${this.assembly.version}.jsii.tgz`
     }
 
     /**
      * Saves all generated files to an output directory, creating any subdirs if needed.
      */
-    async save(outdir: string) {
-
-        // store a copy of the assembly as the destination module.
-        const assemblyPath = this.getAssemblyOutputPath(this.mod);
-        if (assemblyPath) {
-            const fullPath = path.join(outdir, assemblyPath);
+    async save(outdir: string, tarball: string) {
+        const assemblyDir = this.getAssemblyOutputDir(this.assembly);
+        if (assemblyDir) {
+            const fullPath = path.resolve(path.join(outdir, assemblyDir, this.getAssemblyFileName()));
             await fs.mkdirp(path.dirname(fullPath));
-            await fs.writeJson(fullPath, this.mod, { spaces: 2 });
+            await fs.copy(tarball, fullPath, { overwrite: true });
         }
 
         return await this.code.save(outdir);
@@ -96,18 +117,13 @@ export abstract class Generator implements IGenerator {
             throw new Error('You must specify the `target` option in order to use toNativeFqn');
         }
 
-        // a jsii FQN always starts with the jsii$ prefix
-        if (fqn.indexOf(spec.MODULE_NAME_PREFIX) !== 0) {
-            throw new Error(`jsii FQNs must start with ${spec.MODULE_NAME_PREFIX}: ${fqn}`);
-        }
-
         const components = fqn.split('.');
         const moduleName = components[0];
 
         let typeName = components.slice(1);
 
 
-        const names = this.mod.nativenames[moduleName];
+        const names = this.assembly.nativenames[moduleName];
         if (!names) {
             throw new Error(`Cannot find native names for module ${moduleName}`);
         }
@@ -126,9 +142,9 @@ export abstract class Generator implements IGenerator {
     //
 
     /**
-     * Returns the destination path for the assembly file.
+     * Returns the destination directory for the assembly file.
      */
-    protected getAssemblyOutputPath(mod: spec.Assembly): string | undefined { mod; this.notImpl('getAssemblyOutputPath'); return undefined; }
+    protected getAssemblyOutputDir(_mod: spec.Assembly): string | undefined { return undefined; }
 
     //
     // Assembly
@@ -139,14 +155,14 @@ export abstract class Generator implements IGenerator {
     //
     // Namespaces
 
-    protected onBeginNamespace(ns: string) { ns; this.notImpl('onBeginNamespace'); }
-    protected onEndNamespace(ns: string) { ns; this.notImpl('onEndNamespace'); }
+    protected onBeginNamespace(ns: string) { ns; }
+    protected onEndNamespace(ns: string) { ns; }
 
     //
     // Classes
 
-    protected onBeginClass(cls: spec.ClassType, abstract: boolean) { cls; abstract; this.notImpl('onBeginClass'); }
-    protected onEndClass(cls: spec.ClassType) { cls; this.notImpl('onEndClass'); }
+    protected onBeginClass(cls: spec.ClassType, abstract: boolean) { cls; abstract; }
+    protected onEndClass(cls: spec.ClassType) { cls; }
 
     //
     // Interfaces
@@ -160,8 +176,8 @@ export abstract class Generator implements IGenerator {
     //
     // Initializers (constructos)
 
-    protected onInitializer(cls: spec.ClassType, method: spec.Method) { cls; method; this.notImpl('onInitializer');}
-    protected onInitializerOverload(cls: spec.ClassType, overload: spec.Method, originalInitializer: spec.Method) { cls; overload; originalInitializer; this.notImpl('onInitializerOverload'); }
+    protected onInitializer(cls: spec.ClassType, method: spec.Method) { cls; method; }
+    protected onInitializerOverload(cls: spec.ClassType, overload: spec.Method, originalInitializer: spec.Method) { cls; overload; originalInitializer; }
 
     //
     // Properties
@@ -197,9 +213,9 @@ export abstract class Generator implements IGenerator {
     //
     // Enums
 
-    protected onBeginEnum(enm: spec.EnumType) { enm; this.notImpl('onBeginEnum'); }
-    protected onEndEnum(enm: spec.EnumType) { enm; this.notImpl('onEndEnum'); }
-    protected onEnumMember(enm: spec.EnumType, member: spec.EnumMember) { enm; member; this.notImpl('onEnumMember'); }
+    protected onBeginEnum(enm: spec.EnumType) { enm; }
+    protected onEndEnum(enm: spec.EnumType) { enm; }
+    protected onEnumMember(enm: spec.EnumType, member: spec.EnumMember) { enm; member; }
 
     //
     // Fields
@@ -224,7 +240,7 @@ export abstract class Generator implements IGenerator {
         }
 
         if (node._) {
-            let type = this.mod.types[node._];
+            let type = this.assembly.types[node._];
             if (!type) {
                 throw new Error(`Malformed jsii file. Cannot find type: ${node._}`);
             }
@@ -493,15 +509,11 @@ export abstract class Generator implements IGenerator {
             return undefined;
         }
 
-        const ret = lookupType(this.mod);
+        const ret = lookupType(this.assembly);
         if (!ret) {
             throw new Error(`Cannot find type '${fqn}' either as internal or external type`);
         }
 
         return ret;
-    }
-
-    protected notImpl(method: string) {
-        console.error(`warning: ${method} is not implemented`);
     }
 }
