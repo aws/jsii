@@ -11,12 +11,10 @@ namespace AWS.Jsii.Runtime.Deputy
     {
         protected JsiiTypeAttributeBase(Type nativeType, string fullyQualifiedName)
         {
-            // nativeType = nativeType ?? throw new ArgumentNullException(nameof(nativeType));
+            nativeType = nativeType ?? throw new ArgumentNullException(nameof(nativeType));
             FullyQualifiedName = fullyQualifiedName ?? throw new ArgumentNullException(nameof(fullyQualifiedName));
 
-            if (nativeType != null) {
-                Load(nativeType.Assembly);
-            }
+            Load(nativeType.Assembly);
         }
 
         void Load(Assembly assembly)
