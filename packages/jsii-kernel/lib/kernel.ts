@@ -4,7 +4,6 @@ import * as spec from 'jsii-spec';
 import { TypeKind } from 'jsii-spec';
 import * as path from 'path';
 import { SourceMapConsumer } from 'source-map';
-import * as util from 'util';
 import * as vm from 'vm';
 import * as api from './api';
 import { TOKEN_DATE, TOKEN_ENUM, TOKEN_REF } from './api';
@@ -991,7 +990,8 @@ export class Kernel {
         if (this.traceEnabled) {
             console.error.apply(console, [
                 '[jsii-kernel]',
-                ...[ args[0], ...args.slice(1).map(x => util.format('%s', x)) ]
+                args[0],
+                ...args.slice(1)
             ]);
         }
     }

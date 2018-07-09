@@ -2790,7 +2790,7 @@
     }
   },
   "bundled": {
-    "jsii-calc-bundled": "^0.5.0-beta"
+    "jsii-calc-bundled": "^0.5.0-beta+d04f0b9"
   },
   "names": {
     "java": "org.jsii.tests.calculator",
