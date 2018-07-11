@@ -7,7 +7,7 @@
     "diff-test": "bin/diff-test"
   },
   "scripts": {
-    "prepare": "chmod +x bin/*"
+    "build": "chmod +x bin/*"
   },
   "dependencies": {
     "fs-extra": "^4.0.3"

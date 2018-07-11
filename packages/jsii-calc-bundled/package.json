@@ -7,6 +7,9 @@
     "name": "Amazon Web Services",
     "url": "https://aws.amazon.com"
   },
+  "scripts": {
+    "build": "true"
+  },
   "license": "LicenseRef-LICENSE",
   "repository": {
     "type": "git",

@@ -4,7 +4,7 @@
   "description": ".NET json model for jsii spec and api.",
   "main": "index.js",
   "scripts": {
-    "prepare": "/bin/bash ./prepare.sh",
+    "build": "/bin/bash ./build.sh",
     "prepack": "/bin/bash ./prepack.sh",
     "test": "/bin/bash ./test.sh"
   },

@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "prepare": "tsc && tslint -p .",
+    "build": "tsc && tslint -p .",
     "watch": "tsc -w",
     "lint": "tslint -p . --force",
     "test": "nodeunit test/test.*.js"
