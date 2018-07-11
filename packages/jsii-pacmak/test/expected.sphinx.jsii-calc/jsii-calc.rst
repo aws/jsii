@@ -275,7 +275,7 @@ Calculator
 
    :extends: :py:class:`~jsii-calc.composition.CompositeOperation`
    :param props: Initialization properties.
-   :type props: :py:class:`~jsii-calc.CalculatorProps` or None
+   :type props: :py:class:`~jsii-calc.CalculatorProps` or undefined
 
    .. py:method:: add(value)
 
@@ -348,7 +348,7 @@ Calculator
       The maximum value allows in this calculator.
 
 
-      :type: number or None
+      :type: number or undefined
 
 
    .. py:attribute:: expression
@@ -364,7 +364,7 @@ Calculator
       Example of a property that accepts a union of types.
 
 
-      :type: :py:class:`~jsii-calc.Add` or :py:class:`~jsii-calc.Multiply` or :py:class:`~jsii-calc.Power` or None
+      :type: :py:class:`~jsii-calc.Add` or :py:class:`~jsii-calc.Multiply` or :py:class:`~jsii-calc.Power` or undefined
 
 
 CalculatorProps (interface)
@@ -379,12 +379,12 @@ CalculatorProps (interface)
 
    .. py:attribute:: initialValue
 
-      :type: number or None
+      :type: number or undefined
 
 
    .. py:attribute:: maximumValue
 
-      :type: number or None
+      :type: number or undefined
 
 
 
@@ -444,7 +444,7 @@ DerivedStruct (interface)
 
    .. py:attribute:: optionalArray
 
-      :type: string or None
+      :type: string or undefined
 
 
    .. py:attribute:: anotherOptional
@@ -452,7 +452,7 @@ DerivedStruct (interface)
       This is optional.
 
 
-      :type: :py:class:`~@scope/jsii-calc-lib.Value` or None
+      :type: :py:class:`~@scope/jsii-calc-lib.Value` or undefined
 
 
 DoubleTrouble
@@ -1130,7 +1130,7 @@ RuntimeTypeChecking
       :param arg2: 
       :type arg2: string
       :param arg3: 
-      :type arg3: date or None
+      :type arg3: date or undefined
 
 
 Statics
@@ -1357,7 +1357,7 @@ UnionProperties (interface)
 
    .. py:attribute:: foo
 
-      :type: string or number or None
+      :type: string or number or undefined
 
 
    .. py:attribute:: bar

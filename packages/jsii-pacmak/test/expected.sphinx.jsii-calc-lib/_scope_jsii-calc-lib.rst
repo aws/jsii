@@ -6,7 +6,7 @@
 Reference
 ---------
 
-.. py:module:: _scope_jsii-calc-lib
+.. py:module:: @scope/jsii-calc-lib
 
 IFriendly (interface)
 ^^^^^^^^^^^^^^^^^^^^^
@@ -54,7 +54,7 @@ MyFirstStruct (interface)
 
    .. py:attribute:: firstOptional
 
-      :type: string or None
+      :type: string or undefined
 
 
 Number
@@ -120,17 +120,17 @@ StructWithOnlyOptionals (interface)
       The first optional!
 
 
-      :type: string or None
+      :type: string or undefined
 
 
    .. py:attribute:: optional2
 
-      :type: number or None
+      :type: number or undefined
 
 
    .. py:attribute:: optional3
 
-      :type: boolean or None
+      :type: boolean or undefined
 
 
 Value

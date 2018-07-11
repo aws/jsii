@@ -34,7 +34,7 @@ export default class SphinxDocsGenerator extends Generator {
     }
 
     public async upToDate(outDir: string): Promise<boolean> {
-        const mainFile = path.join(outDir, `${safeName(this.assembly.names.js)}.rst`);
+        const mainFile = path.join(outDir, `${fsSafeName(this.assembly.names.js)}.rst`);
         try {
             if (!await fs.pathExists(mainFile)) { return false; }
             const data = await fs.readFile(mainFile, { encoding: 'utf-8' });
@@ -57,13 +57,13 @@ export default class SphinxDocsGenerator extends Generator {
     protected onBeginAssembly(assm: spec.Assembly) {
         this.tocPath = new Array<string>(); // As a safety measure, in case previous assembly somehow didn't get it back to 0.
         if (assm.readme) {
-            this.readmeFile = `_${safeName(assm.names.js)}.README.md`;
+            this.readmeFile = `_${fsSafeName(assm.names.js)}.README.md`;
             this.code.openFile(this.readmeFile);
             this.code.line(assm.readme.markdown);
             this.code.closeFile(this.readmeFile);
         }
 
-        this.code.openFile(`${safeName(assm.names.js)}.rst`);
+        this.code.openFile(`${fsSafeName(assm.names.js)}.rst`);
 
         const meta = { fingerprint: md5(JSON.stringify(assm)) };
         this.code.line(`.. @jsii-pacmak:meta@ ${JSON.stringify(meta)}`);
@@ -77,7 +77,7 @@ export default class SphinxDocsGenerator extends Generator {
 
     protected onEndAssembly(assm: spec.Assembly) {
         this.closeSection();
-        this.code.closeFile(`${assm.names.js}.rst`);
+        this.code.closeFile(`${fsSafeName(assm.names.js)}.rst`);
 
         delete this.readmeFile;
         delete this.assemblyName;
@@ -109,7 +109,7 @@ export default class SphinxDocsGenerator extends Generator {
             this.openSection('Reference');
             this.code.line();
         }
-        this.code.line(`.. py:module:: ${safeName(nativeName)}`);
+        this.code.line(`.. py:module:: ${nativeName}`);
         this.code.line();
     }
 
@@ -482,7 +482,7 @@ export default class SphinxDocsGenerator extends Generator {
         } else {
             throw new Error('Unexpected type ref');
         }
-        if (type.optional) { result.ref = `${result.ref} or None`; }
+        if (type.optional) { result.ref = `${result.ref} or undefined`; }
         return result;
     }
 
@@ -509,9 +509,9 @@ function dup(char: string, times: number) {
 }
 
 /**
- * Make a name safe, both for the filesystem and RST
+ * Make a name safe for the file system
  */
-function safeName(x: string) {
+function fsSafeName(x: string) {
     // Strip unsafe characters
     return x.replace(/[^a-zA-Z0-9_.-]/g, '_');
 }
