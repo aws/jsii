@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "prepare": "tsc",
+    "build": "tsc",
     "watch": "tsc -w",
     "test": "nodeunit test/test.*.js"
   },

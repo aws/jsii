@@ -9,7 +9,7 @@
   },
   "scripts": {
     "watch": "tsc -w",
-    "prepare": "tsc && chmod +x bin/jsii",
+    "build": "tsc && chmod +x bin/jsii",
     "test": "nodeunit test/test.*.js"
   },
   "keywords": [

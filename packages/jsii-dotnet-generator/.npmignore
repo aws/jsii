@@ -1,4 +1,4 @@
 src
 test.sh
-prepare.sh
+build.sh
 prepack.sh

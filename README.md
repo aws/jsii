@@ -57,7 +57,7 @@ using [lerna](https://github.com/lerna/lerna).
 
 All modules within this repository have the following scripts:
 
-* `prepare` - builds the module (usually runs the TypeScript compiler).
+* `build` - builds the module (usually runs the TypeScript compiler).
 * `watch` - runs `tsc -w` which picks up changes and builds them progressively.
 * `test` - uses `nodeunit test/test.*.js` to run all unit tests.
 
