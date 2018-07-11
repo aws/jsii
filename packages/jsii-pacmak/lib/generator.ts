@@ -38,6 +38,12 @@ export class GeneratorOptions {
 export interface IGenerator {
     generate(): void;
     load(jsiiFile: string): Promise<void>;
+    /**
+     * Determine if the generated artifacts for this generator are already up-to-date.
+     * @param outDir the directory where generated artifacts would be placed.
+     * @return ``true`` if no generation is necessary
+     */
+    upToDate(outDir: string): Promise<boolean>;
     save(outdir: string, tarball: string): Promise<any>;
 }
 
@@ -74,6 +80,10 @@ export abstract class Generator implements IGenerator {
             this.visit(this.assembly.nametree);
         }
         this.onEndAssembly(this.assembly);
+    }
+
+    upToDate(_: string): Promise<boolean> {
+        return Promise.resolve(false);
     }
 
     /**

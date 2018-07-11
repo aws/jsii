@@ -14,6 +14,10 @@ export default class DotNetGenerator implements IGenerator {
         this.jsiiFile = jsiiFile;
     }
 
+    public upToDate(_: string): Promise<boolean> {
+        return Promise.resolve(false);
+    }
+
     public save(outdir: string, tarball: string): Promise<any> {
         const runtimeRoot = dirname(require.resolve('jsii-dotnet-generator/package.json'));
         const cliPath = `${runtimeRoot}/cli/${this.getRuntime()}/publish/AWS.Jsii.Generator.CLI`;
