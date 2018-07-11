@@ -36,7 +36,7 @@ namespace AWS.Jsii.Generator.UnitTests
             string expected =
 @"namespace MyNamespace
 {
-    [JsiiInterface(""myPackage"", ""myInterfaceFqn"")]
+    [JsiiInterface(typeof(IMyInterface), ""myInterfaceFqn"")]
     public interface IMyInterface
     {
     }
@@ -67,7 +67,7 @@ namespace AWS.Jsii.Generator.UnitTests
             string expected =
 @"namespace MyNamespace
 {
-    [JsiiInterface(""myPackage"", ""myInterfaceFqn"")]
+    [JsiiInterface(typeof(IMyInterface), ""myInterfaceFqn"")]
     public interface IMyInterface : IMyBaseInterface1, IMyBaseInterface2
     {
     }
@@ -93,7 +93,7 @@ namespace AWS.Jsii.Generator.UnitTests
             string expected =
 @"namespace MyNamespace
 {
-    [JsiiInterface(""myPackage"", ""myInterfaceFqn"")]
+    [JsiiInterface(typeof(IMyInterface), ""myInterfaceFqn"")]
     public interface IMyInterface
     {
         [JsiiMethod(""myMethod"", null, ""[]"")]

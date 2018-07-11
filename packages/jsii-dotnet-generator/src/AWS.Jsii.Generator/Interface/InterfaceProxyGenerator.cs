@@ -31,14 +31,14 @@ namespace AWS.Jsii.Generator.Interface
 
             SyntaxList<AttributeListSyntax> CreateAttributes()
             {
-                SyntaxToken packageLiteral = SF.Literal(Package);
+                TypeOfExpressionSyntax typeOfExpression = SF.TypeOfExpression(Symbols.GetNameSyntax(Type));
                 SyntaxToken fullyQualifiedNameLiteral = SF.Literal(Type.FullyQualifiedName);
 
                 return SF.List(new[] {
                     SF.AttributeList(SF.SeparatedList(new[] {
                         SF.Attribute(
                             SF.ParseName("JsiiInterfaceProxy"),
-                            SF.ParseAttributeArgumentList($"({packageLiteral}, {fullyQualifiedNameLiteral})")
+                            SF.ParseAttributeArgumentList($"({typeOfExpression}, {fullyQualifiedNameLiteral})")
                         )
                     }))
                 });

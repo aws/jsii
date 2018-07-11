@@ -54,7 +54,7 @@ export async function compilePackage(packageDir: string, includeDirs = [ 'test',
     // add package information
     mod.name = pkg.name;
     mod.package = pkg.name;
-    mod.version = pkg.version;
+    mod.version = pkg.version.replace(/\+.+$/, ''); // omit "+build" postfix
     mod.dependencies = dependencies;
     mod.bundled = bundled;
     mod.names = pkg.names;

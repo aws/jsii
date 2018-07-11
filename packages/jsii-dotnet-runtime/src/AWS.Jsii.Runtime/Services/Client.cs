@@ -34,7 +34,6 @@ namespace AWS.Jsii.Runtime.Services
     public class Client : IClient
     {
         readonly IFileSystem _fileSystem;
-        readonly IJsiiRuntimeProvider _cdkProvider;
         readonly IRuntime _runtime;
         readonly IReferenceMap _referenceMap;
         readonly IFrameworkToJsiiConverter _frameworkToJsiiConverter;
@@ -44,7 +43,6 @@ namespace AWS.Jsii.Runtime.Services
         public Client
         (
             IFileSystem fileSystem,
-            IJsiiRuntimeProvider cdkProvider,
             IRuntime runtime,
             IReferenceMap referenceMap,
             IFrameworkToJsiiConverter frameworkToJsiiConverter,
@@ -53,7 +51,6 @@ namespace AWS.Jsii.Runtime.Services
         )
         {
             _fileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
-            _cdkProvider = cdkProvider ?? throw new ArgumentNullException(nameof(cdkProvider));
             _runtime = runtime ?? throw new ArgumentNullException(nameof(runtime));
             _referenceMap = referenceMap ?? throw new ArgumentNullException(nameof(referenceMap));
             _frameworkToJsiiConverter = frameworkToJsiiConverter ?? throw new ArgumentNullException(nameof(frameworkToJsiiConverter));
@@ -164,37 +161,17 @@ namespace AWS.Jsii.Runtime.Services
 
         #region IClient implementation
 
-        public void LoadPackage(string package)
+        public void LoadPackage(string package, string version, string tarballPath)
         {
             if (_loadedPackages.Contains(package))
             {
                 return;
             }
 
-            _logger.LogDebug($"Loading package {package}...");
-
+            _logger.LogDebug($"Loading package {package}@${version}...");
             _loadedPackages.Add(package);
-            Assembly assembly = ReadAssembly();
 
-            if (assembly.Dependencies != null)
-            {
-                foreach (string dependency in assembly.Dependencies.Values.Select(d => d.Package))
-                {
-                    LoadPackage(dependency);
-                }
-            }
-
-            LoadResponse response = Load(assembly);
-
-            Assembly ReadAssembly()
-            {
-                string path = Path.Combine(_cdkProvider.JsiiRuntimePath, package, "dist");
-
-                string assemblyJson = _fileSystem.File.ReadAllText(Path.Combine(path, Constants.SPEC_FILE_NAME));
-                Assembly assemblyObject = JsonConvert.DeserializeObject<Assembly>(assemblyJson);
-
-                return assemblyObject;
-            }
+            LoadResponse response = Load(package, version, tarballPath);
         }
 
         public HelloResponse Hello()
@@ -202,9 +179,9 @@ namespace AWS.Jsii.Runtime.Services
             return ReceiveResponse<HelloResponse>();
         }
 
-        public LoadResponse Load(Assembly assembly)
+        public LoadResponse Load(string name, string version, string tarball)
         {
-            return Load(new LoadRequest(assembly));
+            return Load(new LoadRequest(name, version, tarball));
         }
 
         public LoadResponse Load(LoadRequest request)

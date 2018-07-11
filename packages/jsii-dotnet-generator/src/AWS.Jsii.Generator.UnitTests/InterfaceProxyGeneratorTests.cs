@@ -38,7 +38,7 @@ namespace AWS.Jsii.Generator.UnitTests
             string expected =
 @"namespace MyNamespace
 {
-    [JsiiInterfaceProxy(""myPackage"", ""myInterfaceFqn"")]
+    [JsiiInterfaceProxy(typeof(IMyInterface), ""myInterfaceFqn"")]
     internal class MyInterfaceProxy : DeputyBase, IMyInterface
     {
         private MyInterfaceProxy(ByRefValue reference): base(reference)
@@ -67,7 +67,7 @@ namespace AWS.Jsii.Generator.UnitTests
             string expected =
 @"namespace MyNamespace
 {
-    [JsiiInterfaceProxy(""myPackage"", ""myInterfaceFqn"")]
+    [JsiiInterfaceProxy(typeof(IMyInterface), ""myInterfaceFqn"")]
     internal class MyInterfaceProxy : DeputyBase, IMyInterface
     {
         private MyInterfaceProxy(ByRefValue reference): base(reference)
@@ -125,7 +125,7 @@ namespace AWS.Jsii.Generator.UnitTests
             string expected =
 @"namespace MyNamespace
 {
-    [JsiiInterfaceProxy(""myPackage"", ""myInterfaceFqn"")]
+    [JsiiInterfaceProxy(typeof(IMyInterface), ""myInterfaceFqn"")]
     internal class MyInterfaceProxy : DeputyBase, IMyInterface
     {
         private MyInterfaceProxy(ByRefValue reference): base(reference)
@@ -165,7 +165,7 @@ namespace AWS.Jsii.Generator.UnitTests
 @"namespace MyNamespace
 {
     /// <remarks>foo: bar</remarks>
-    [JsiiInterfaceProxy(""myPackage"", ""myInterfaceFqn"")]
+    [JsiiInterfaceProxy(typeof(IMyInterface), ""myInterfaceFqn"")]
     internal class MyInterfaceProxy : DeputyBase, IMyInterface
     {
         private MyInterfaceProxy(ByRefValue reference): base(reference)
@@ -232,7 +232,7 @@ namespace AWS.Jsii.Generator.UnitTests
 @"namespace Aws.Cdk.CxApi
 {
     /// <summary>Models an AWS execution environment, for use within the CDK toolkit.</summary>
-    [JsiiInterfaceProxy(""aws-cdk-cx-api"", ""jsii$aws_cdk_cx_api$.Environment"")]
+    [JsiiInterfaceProxy(typeof(IEnvironment), ""jsii$aws_cdk_cx_api$.Environment"")]
     internal class EnvironmentProxy : DeputyBase, IEnvironment
     {
         private EnvironmentProxy(ByRefValue reference): base(reference)
