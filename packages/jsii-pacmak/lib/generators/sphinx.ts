@@ -447,7 +447,7 @@ export default class SphinxDocsGenerator extends Generator {
         if (type.fqn) {
             const fqn = this.toNativeFqn(type.fqn);
             result = {
-                ref: `:py:class:\`~${fqn}\``,
+                ref: `:py:class:\`${type.fqn.startsWith(`${this.assembly.name}.`) ? '~' : ''}${fqn}\``,
                 display: fqn
             };
         } else if (type.primitive) {
