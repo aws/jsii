@@ -1,0 +1,274 @@
+{
+  "schema": "jsii/1.0",
+  "types": {
+    "@scope/jsii-calc-lib.Value": {
+      "docs": {
+        "comment": "Abstract class which represents a numeric value."
+      },
+      "kind": "class",
+      "properties": [
+        {
+          "docs": {
+            "comment": "The value."
+          },
+          "name": "value",
+          "type": {
+            "primitive": "number"
+          },
+          "immutable": true,
+          "abstract": true
+        }
+      ],
+      "methods": [
+        {
+          "docs": {
+            "comment": "String representation of the value."
+          },
+          "name": "toString",
+          "returns": {
+            "primitive": "string"
+          }
+        },
+        {
+          "docs": {
+            "comment": "Returns the name of the class (to verify native type names are created for derived classes)."
+          },
+          "name": "typeName",
+          "returns": {
+            "primitive": "any"
+          }
+        }
+      ],
+      "fqn": "@scope/jsii-calc-lib.Value",
+      "module": "@scope/jsii-calc-lib",
+      "namespace": "@scope/jsii-calc-lib",
+      "name": "Value",
+      "abstract": true,
+      "initializer": {
+        "initializer": true
+      }
+    },
+    "@scope/jsii-calc-lib.Number": {
+      "docs": {
+        "comment": "Represents a concrete number."
+      },
+      "kind": "class",
+      "properties": [
+        {
+          "docs": {
+            "param": "value The number.",
+            "comment": "The number."
+          },
+          "name": "value",
+          "type": {
+            "primitive": "number"
+          },
+          "immutable": true
+        },
+        {
+          "docs": {
+            "comment": "The number multiplied by 2."
+          },
+          "name": "doubleValue",
+          "type": {
+            "primitive": "number"
+          },
+          "immutable": true
+        }
+      ],
+      "fqn": "@scope/jsii-calc-lib.Number",
+      "module": "@scope/jsii-calc-lib",
+      "namespace": "@scope/jsii-calc-lib",
+      "name": "Number",
+      "base": {
+        "fqn": "@scope/jsii-calc-lib.Value"
+      },
+      "initializer": {
+        "parameters": [
+          {
+            "docs": {
+              "param": "value The number.",
+              "comment": "The number."
+            },
+            "name": "value",
+            "type": {
+              "primitive": "number"
+            }
+          }
+        ],
+        "docs": {
+          "comment": "Creates a Number object."
+        },
+        "initializer": true
+      }
+    },
+    "@scope/jsii-calc-lib.Operation": {
+      "docs": {
+        "comment": "Represents an operation on values."
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "docs": {
+            "comment": "String representation of the value."
+          },
+          "name": "toString",
+          "abstract": true,
+          "returns": {
+            "primitive": "string"
+          }
+        }
+      ],
+      "fqn": "@scope/jsii-calc-lib.Operation",
+      "module": "@scope/jsii-calc-lib",
+      "namespace": "@scope/jsii-calc-lib",
+      "name": "Operation",
+      "base": {
+        "fqn": "@scope/jsii-calc-lib.Value"
+      },
+      "abstract": true,
+      "initializer": {
+        "initializer": true
+      }
+    },
+    "@scope/jsii-calc-lib.IFriendly": {
+      "docs": {
+        "comment": "Applies to classes that are considered friendly. These classes can be greeted with\na \"hello\" or \"goodbye\" blessing and they will respond back in a fun and friendly manner."
+      },
+      "kind": "interface",
+      "methods": [
+        {
+          "docs": {
+            "comment": "Say hello!"
+          },
+          "name": "hello",
+          "returns": {
+            "primitive": "string"
+          }
+        }
+      ],
+      "fqn": "@scope/jsii-calc-lib.IFriendly",
+      "module": "@scope/jsii-calc-lib",
+      "namespace": "@scope/jsii-calc-lib",
+      "name": "IFriendly"
+    },
+    "@scope/jsii-calc-lib.MyFirstStruct": {
+      "docs": {
+        "comment": "This is the first struct we have created in jsii"
+      },
+      "kind": "interface",
+      "properties": [
+        {
+          "docs": {
+            "comment": "A string value"
+          },
+          "name": "astring",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "docs": {
+            "comment": "An awesome number value"
+          },
+          "name": "anumber",
+          "type": {
+            "primitive": "number"
+          }
+        },
+        {
+          "name": "firstOptional",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "primitive": "string"
+              },
+              "kind": "array"
+            },
+            "optional": true
+          }
+        }
+      ],
+      "fqn": "@scope/jsii-calc-lib.MyFirstStruct",
+      "module": "@scope/jsii-calc-lib",
+      "namespace": "@scope/jsii-calc-lib",
+      "name": "MyFirstStruct",
+      "datatype": true
+    },
+    "@scope/jsii-calc-lib.StructWithOnlyOptionals": {
+      "docs": {
+        "comment": "This is a struct with only optional properties."
+      },
+      "kind": "interface",
+      "properties": [
+        {
+          "docs": {
+            "comment": "The first optional!"
+          },
+          "name": "optional1",
+          "type": {
+            "primitive": "string",
+            "optional": true
+          }
+        },
+        {
+          "name": "optional2",
+          "type": {
+            "primitive": "number",
+            "optional": true
+          }
+        },
+        {
+          "name": "optional3",
+          "type": {
+            "primitive": "boolean",
+            "optional": true
+          }
+        }
+      ],
+      "fqn": "@scope/jsii-calc-lib.StructWithOnlyOptionals",
+      "module": "@scope/jsii-calc-lib",
+      "namespace": "@scope/jsii-calc-lib",
+      "name": "StructWithOnlyOptionals",
+      "datatype": true
+    }
+  },
+  "nametree": {
+    "@scope/jsii-calc-lib": {
+      "Value": {
+        "_": "@scope/jsii-calc-lib.Value"
+      },
+      "Number": {
+        "_": "@scope/jsii-calc-lib.Number"
+      },
+      "Operation": {
+        "_": "@scope/jsii-calc-lib.Operation"
+      },
+      "IFriendly": {
+        "_": "@scope/jsii-calc-lib.IFriendly"
+      },
+      "MyFirstStruct": {
+        "_": "@scope/jsii-calc-lib.MyFirstStruct"
+      },
+      "StructWithOnlyOptionals": {
+        "_": "@scope/jsii-calc-lib.StructWithOnlyOptionals"
+      }
+    }
+  },
+  "typecount": 6,
+  "name": "@scope/jsii-calc-lib",
+  "package": "@scope/jsii-calc-lib",
+  "version": "0.5.0-beta",
+  "names": {
+    "java": "org.jsii.tests.calculator.lib",
+    "dotnet": "AWS.Jsii.Tests.Calculator.Lib",
+    "js": "@scope/jsii-calc-lib"
+  },
+  "nativenames": {
+    "@scope/jsii-calc-lib": {
+      "java": "org.jsii.tests.calculator.lib",
+      "dotnet": "AWS.Jsii.Tests.Calculator.Lib",
+      "js": "@scope/jsii-calc-lib"
+    }
+  }
+}
