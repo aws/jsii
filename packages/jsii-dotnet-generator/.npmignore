@@ -1,4 +1,8 @@
-src
-test.sh
-build.sh
-prepack.sh
+# by default, exclude everything
+*
+
+# bundle only...
+!*.nupkg
+!package.json
+!index.js
+
