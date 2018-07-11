@@ -851,7 +851,7 @@ async function preparePackage(module: string, useCache = true) {
     }
 
     const packageRoot = findPackageRoot(module);
-    await generate('pack-only', packageRoot, staging);
+    await generate('pack-only', packageRoot, staging, true);
     const dir = path.join(staging, (await fs.readdir(staging))[0]);
     cache[module] = dir;
     return dir;

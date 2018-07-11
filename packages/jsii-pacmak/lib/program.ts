@@ -20,11 +20,18 @@ async function newGeneratorForLanguage(lang: string): Promise<IGenerator> {
     return new GeneratorClass();
 }
 
-export async function generate(lang: string, packageDir: string, outDir: string) {
+export async function generate(lang: string, packageDir: string, outDir: string, force: boolean) {
     const jsiiFile = path.join(packageDir, SPEC_FILE_NAME);
 
     const generator = await newGeneratorForLanguage(lang);
     await generator.load(jsiiFile);
+
+    if (!force && await generator.upToDate(outDir)) {
+        // tslint:disable-next-line:no-console
+        console.log(`Artifacts in ${outDir} are already up-to-date (use --force to re-generate)`);
+        return;
+    }
+
     generator.generate();
 
     const tarball = await npmPack(packageDir);
