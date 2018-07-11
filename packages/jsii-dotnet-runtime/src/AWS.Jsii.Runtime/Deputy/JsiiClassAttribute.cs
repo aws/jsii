@@ -7,10 +7,11 @@ namespace AWS.Jsii.Runtime.Deputy
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
     public class JsiiClassAttribute : JsiiTypeAttributeBase
     {
-        public JsiiClassAttribute(string package, string fullyQualifiedName, string parametersJson)
-            : base(package, fullyQualifiedName)
+        public JsiiClassAttribute(System.Type nativeType, string fullyQualifiedName, string parametersJson)
+            : base(nativeType, fullyQualifiedName)
         {
-            Parameters = JsonConvert.DeserializeObject<Parameter[]>(parametersJson ?? throw new ArgumentNullException(nameof(parametersJson)));
+            parametersJson = parametersJson ?? throw new ArgumentNullException(nameof(parametersJson));
+            Parameters = JsonConvert.DeserializeObject<Parameter[]>(parametersJson);
         }
 
         public Parameter[] Parameters

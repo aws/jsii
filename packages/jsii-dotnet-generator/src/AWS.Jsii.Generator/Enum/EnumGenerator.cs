@@ -29,14 +29,14 @@ namespace AWS.Jsii.Generator.Enum
 
         SyntaxList<AttributeListSyntax> CreateAttributes()
         {
-            SyntaxToken packageLiteral = SF.Literal(Package);
+            TypeOfExpressionSyntax typeOfExpression = SF.TypeOfExpression(Symbols.GetNameSyntax(Type));
             SyntaxToken fullyQualifiedNameLiteral = SF.Literal(Type.FullyQualifiedName);
 
             return SF.List(new[] {
                 SF.AttributeList(SF.SeparatedList(new[] {
                     SF.Attribute(
                         SF.ParseName("JsiiEnum"),
-                        SF.ParseAttributeArgumentList($"({packageLiteral}, {fullyQualifiedNameLiteral})")
+                        SF.ParseAttributeArgumentList($"({typeOfExpression}, {fullyQualifiedNameLiteral})")
                     )
                 }))
             });

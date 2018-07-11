@@ -4,12 +4,13 @@
   "description": "Java client for jsii runtime",
   "main": "index.js",
   "scripts": {
-    "build": "/bin/bash ./generate.sh && cd project && mvn package",
+    "gen": "/bin/bash ./generate.sh",
+    "build": "npm run gen && cd project && mvn package",
     "test": "echo ok"
   },
   "devDependencies": {
     "jsii-calc": "^0.5.0-beta",
-    "jsii-calc-lib": "^0.5.0-beta",
+    "@scope/jsii-calc-lib": "^0.5.0-beta",
     "jsii-pacmak": "^0.5.0-beta",
     "jsii-runtime": "^0.5.0-beta"
   },

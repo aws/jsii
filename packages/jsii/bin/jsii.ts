@@ -24,7 +24,6 @@ const argv = yargs
     .argv;
 
 main(process.cwd(), argv).catch(err => {
-    // tslint:disable-next-line:no-console
-    console.log(err.stack);
+    process.stderr.write(err.stack + '\n');
     process.exit(1);
 });

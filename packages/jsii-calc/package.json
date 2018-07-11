@@ -13,10 +13,14 @@
   },
   "scripts": {
     "build": "jsii",
-    "test": "node test/test.calc.js && diff-test test/assembly.jsii dist/assembly.jsii"
+    "test": "node test/test.calc.js && diff-test test/assembly.jsii .jsii"
   },
+  "bundledDependencies": [
+    "jsii-calc-bundled"
+  ],
   "dependencies": {
-    "jsii-calc-lib": "^0.5.0-beta"
+    "@scope/jsii-calc-lib": "^0.5.0-beta",
+    "jsii-calc-bundled": "^0.5.0-beta"
   },
   "devDependencies": {
     "@types/node": "^9.6.18",

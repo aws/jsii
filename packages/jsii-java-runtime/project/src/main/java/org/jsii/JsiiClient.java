@@ -15,11 +15,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import static org.jsii.Util.extractResource;
 import static org.jsii.Util.readString;
 
 /**
@@ -56,17 +58,19 @@ public class JsiiClient {
 
     /**
      * Loads a JavaScript module into the remote sandbox.
-     * @param inputStream Stream of JS code.
+     * @param module The module to load
      */
-    public void loadModule(final InputStream inputStream) {
-        ObjectNode req = makeRequest("load");
+    public void loadModule(final JsiiModule module) {
         try {
-            req.set("assembly", STD_OM.readTree(inputStream));
+            String tarball = extractResource(module.getModuleClass(), module.getBundleResourceName(), null);
+            ObjectNode req = makeRequest("load");
+            req.put("tarball", tarball);
+            req.put("name", module.getModuleName());
+            req.put("version", module.getModuleVersion());
+            this.runtime.requestResponse(req);
         } catch (IOException e) {
-            throw new JsiiException("Unable to read assembly: " + e.toString(), e);
+            throw new JsiiException("Unable to extract resource " + module.getBundleResourceName(), e);
         }
-
-        this.runtime.requestResponse(req);
     }
 
     /**

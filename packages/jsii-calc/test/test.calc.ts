@@ -1,6 +1,6 @@
 import * as assert from 'assert'
 import { Add, Multiply, Negate, Power, Calculator, Sum } from '../lib'
-import { Number } from 'jsii-calc-lib'
+import { Number } from '@scope/jsii-calc-lib'
 import { composition } from '../lib'
 
 //

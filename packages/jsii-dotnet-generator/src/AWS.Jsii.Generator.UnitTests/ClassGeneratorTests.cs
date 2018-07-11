@@ -39,7 +39,7 @@ namespace AWS.Jsii.Generator.UnitTests
             string expected =
 @"namespace MyNamespace
 {
-    [JsiiClass(""myPackage"", ""myFqn"", ""[]"")]
+    [JsiiClass(typeof(MyClass), ""myFqn"", ""[]"")]
     public class MyClass : DeputyBase
     {
         public MyClass(): base(new DeputyProps(new object[]{}))
@@ -75,7 +75,7 @@ namespace AWS.Jsii.Generator.UnitTests
             string expected =
 @"namespace MyNamespace
 {
-    [JsiiClass(""myPackage"", ""myFqn"", ""[]"")]
+    [JsiiClass(typeof(MyClass), ""myFqn"", ""[]"")]
     public abstract class MyClass : DeputyBase
     {
         protected MyClass(): base(new DeputyProps(new object[]{}))
@@ -114,7 +114,7 @@ namespace AWS.Jsii.Generator.UnitTests
 @"namespace MyNamespace
 {
     /// <remarks>foo: bar</remarks>
-    [JsiiClass(""myPackage"", ""myFqn"", ""[]"")]
+    [JsiiClass(typeof(MyClass), ""myFqn"", ""[]"")]
     public class MyClass : DeputyBase
     {
         public MyClass(): base(new DeputyProps(new object[]{}))
@@ -164,7 +164,7 @@ namespace AWS.Jsii.Generator.UnitTests
             string expected =
 @"namespace MyNamespace
 {
-    [JsiiClass(""myPackage"", ""myFqn"", ""[]"")]
+    [JsiiClass(typeof(MyClass), ""myFqn"", ""[]"")]
     public class MyClass : DeputyBase
     {
         public MyClass(): base(new DeputyProps(new object[]{}))
@@ -219,7 +219,7 @@ namespace AWS.Jsii.Generator.UnitTests
             string expected =
 @"namespace MyNamespace
 {
-    [JsiiClass(""myPackage"", ""myFqn"", ""[]"")]
+    [JsiiClass(typeof(MyClass), ""myFqn"", ""[]"")]
     public class MyClass : DeputyBase
     {
         public MyClass(): base(new DeputyProps(new object[]{}))
@@ -264,7 +264,7 @@ namespace AWS.Jsii.Generator.UnitTests
             string expected =
 @"namespace MyNamespace
 {
-    [JsiiClass(""myPackage"", ""myFqn"", ""[]"")]
+    [JsiiClass(typeof(MyClass), ""myFqn"", ""[]"")]
     public class MyClass : MyBaseType
     {
         public MyClass(): base(new DeputyProps(new object[]{}))
@@ -308,7 +308,7 @@ namespace AWS.Jsii.Generator.UnitTests
             string expected =
 @"namespace MyNamespace
 {
-    [JsiiClass(""myPackage"", ""myFqn"", ""[]"")]
+    [JsiiClass(typeof(MyClass), ""myFqn"", ""[]"")]
     public class MyClass : DeputyBase, IMyInterface1, IMyInterface2
     {
         public MyClass(): base(new DeputyProps(new object[]{}))

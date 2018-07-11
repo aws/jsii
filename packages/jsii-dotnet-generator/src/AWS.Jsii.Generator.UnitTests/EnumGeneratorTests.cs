@@ -35,7 +35,7 @@ namespace AWS.Jsii.Generator.UnitTests
             string expected =
 @"namespace MyNamespace
 {
-    [JsiiEnum(""myPackage"", ""myEnumFqn"")]
+    [JsiiEnum(typeof(MyEnum), ""myEnumFqn"")]
     public enum MyEnum
     {
     }
@@ -63,7 +63,7 @@ namespace AWS.Jsii.Generator.UnitTests
             string expected =
 @"namespace MyNamespace
 {
-    [JsiiEnum(""myPackage"", ""myEnumFqn"")]
+    [JsiiEnum(typeof(MyEnum), ""myEnumFqn"")]
     public enum MyEnum
     {
         [JsiiEnumMember(""member1"")]
@@ -93,7 +93,7 @@ namespace AWS.Jsii.Generator.UnitTests
 @"namespace MyNamespace
 {
     /// <remarks>foo: bar</remarks>
-    [JsiiEnum(""myPackage"", ""myEnumFqn"")]
+    [JsiiEnum(typeof(MyEnum), ""myEnumFqn"")]
     public enum MyEnum
     {
     }
@@ -121,7 +121,7 @@ namespace AWS.Jsii.Generator.UnitTests
             string expected =
 @"namespace MyNamespace
 {
-    [JsiiEnum(""myPackage"", ""myEnumFqn"")]
+    [JsiiEnum(typeof(MyEnum), ""myEnumFqn"")]
     public enum MyEnum
     {
         /// <remarks>foo: bar</remarks>

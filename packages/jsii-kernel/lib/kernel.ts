@@ -1,5 +1,8 @@
+import { spawn } from 'child_process';
+import * as fs from 'fs-extra';
 import * as spec from 'jsii-spec';
 import { TypeKind } from 'jsii-spec';
+import * as path from 'path';
 import { SourceMapConsumer } from 'source-map';
 import * as vm from 'vm';
 import * as api from './api';
@@ -30,6 +33,7 @@ export class Kernel {
     private promises: { [prid: string]: AsyncInvocation } = { };
     private nextid = 10000; // incrementing counter for objid, cbid, promiseid
     private syncInProgress?: string; // forbids async calls (begin) while processing sync calls (get/set/invoke)
+    private installDir?: string;
 
     private readonly sandbox: vm.Context;
     private readonly sourceMaps: { [assm: string]: SourceMapConsumer } = {};
@@ -42,55 +46,113 @@ export class Kernel {
      *                        result (or throw an error).
      */
     constructor(public callbackHandler: (callback: api.Callback) => any) {
-        // `setImmediate` is required for tests to pass (it is otherwise impossible to wait for in-VM promises to complete)
+        // `setImmediate` is required for tests to pass (it is otherwise
+        // impossible to wait for in-VM promises to complete)
+
         // `Buffer` is required when using simple-resource-bundler.
-        this.sandbox = vm.createContext({ Buffer, setImmediate });
+
+        // HACK: when we webpack jsii-runtime, all "require" statements get transpiled,
+        // so modules can be resolved within the pack. However, here we actually want to
+        // let loaded modules to use the native node "require" method.
+        // I wonder if webpack has some pragma that allows opting-out at certain points
+        // in the code.
+        const moduleLoad = require('module').Module._load;
+        const nodeRequire = (p: string) => moduleLoad(p, module, false);
+
+        this.sandbox = vm.createContext({
+            Buffer, // to use simple-resource-bundler
+            setImmediate, // async tests
+            require: nodeRequire // modules need to "require"
+        });
     }
 
     public async load(req: api.LoadRequest): Promise<api.LoadResponse> {
-        const { assembly } = req;
+        this._debug('load', req);
 
-        this._debug('loading assembly;', assembly.name);
-        const sourceMap = await _loadSourceMap(assembly.code);
-        if (sourceMap) {
-            this.sourceMaps[assembly.name] = sourceMap;
+        if ('assembly' in req) {
+            throw new Error('`assembly` field is deprecated for "load", use `name`, `version` and `tarball` instead');
         }
-        const assm = new Assembly(assembly, this.sandbox, this.sourceMaps);
 
-        this.assemblies[assembly.name] = assm;
+        if (!this.installDir) {
+            this.installDir  = await fs.mkdtemp('/tmp/jsii-kernel-');
+            await fs.mkdirp(path.join(this.installDir, 'node_modules'));
+            this._debug('creating jsii-kernel modules workdir:', this.installDir);
 
-        // add the __jsii__.fqn property on every constructor. this allows
-        // traversing between the javascript and jsii worlds given any object.
-        for (const fqn of Object.keys(assm.spec.types)) {
-            const typedef = assm.spec.types[fqn];
-            switch (typedef.kind) {
-                case spec.TypeKind.Interface:
-                    continue; // interfaces don't really exist
-                case spec.TypeKind.Class:
-                case spec.TypeKind.Enum:
-                    const constructor = this._findSymbol(fqn);
-                    constructor.__jsii__ = { fqn };
+            process.on('exit', () => {
+                if (this.installDir) {
+                    this._debug('removing install dir', this.installDir);
+                    fs.removeSync(this.installDir); // can't use async version during exit
+                }
+            });
+        }
+
+        const pkgname = req.name;
+        const pkgver  = req.version;
+
+        // check if we already have such a module
+        const packageDir = path.join(this.installDir, 'node_modules', pkgname);
+        if (await fs.pathExists(packageDir)) {
+            // module exists, verify version
+            const epkg = await fs.readJson(path.join(packageDir, 'package.json'));
+            if (epkg.version !== pkgver) {
+                throw new Error(`Multiple versions ${pkgver} and ${epkg.version} of the `
+                + `package '${pkgname}' cannot be loaded together since this is unsupported by `
+                + `some runtime environments`);
             }
-        }
 
-        return {
-            assembly: assembly.name,
-            types: assembly.typecount
-        };
+            // same version, no-op
+            this._debug('look up already-loaded assembly', pkgname);
+            const assm = this.assemblies[pkgname];
 
-        /**
-         * Reads the last inline source map found in the loaded code.
-         */
-        async function _loadSourceMap(code: string | undefined): Promise<SourceMapConsumer | undefined> {
-            if (!code) { return undefined; }
-            const sourceMapRegex = /^\/\/#\s*sourceMappingURL=data:application\/json(?:;charset=utf-8)?;base64,([A-Za-z0-9+/]+={0,2})$/mg;
-            let matches: RegExpExecArray | null;
-            let json: string | undefined;
-            do {
-                matches = sourceMapRegex.exec(code);
-                if (matches) { json = Buffer.from(matches[1], 'base64').toString('utf8'); }
-            } while (matches !== null);
-            return json ? await new SourceMapConsumer(json) : undefined;
+            return {
+                assembly: assm.metadata.name,
+                types: assm.metadata.typecount,
+            };
+
+        } else {
+
+            const staging = await fs.mkdtemp('/tmp/jsii-kernel-install-staging-');
+            try {
+                const child = spawn('tar', [ '-xf', req.tarball ], { cwd: staging, stdio: [ 'ignore', 'pipe', 'pipe' ] });
+
+                let out = '';
+                child.stdout.on('data', chunk => out += chunk.toString());
+                child.stderr.on('data', chunk => out += chunk.toString());
+
+                await new Promise((ok, fail) => {
+                    child.once('error', err => fail(err));
+                    child.once('exit', status => {
+                        if (status !== 0) {
+                            fail(new Error(`Child exit with status ${status}: ${out}`));
+                        } else {
+                            ok();
+                        }
+                    });
+                });
+
+                // read .jsii metadata from the root of the package
+                const  jsiiMetadataFile = path.join(staging, 'package', spec.SPEC_FILE_NAME);
+                if (!(await fs.pathExists(jsiiMetadataFile))) {
+                    throw new Error(`Package tarball ${req.tarball} must have a file named ${spec.SPEC_FILE_NAME} at the root`);
+                }
+                const assmSpec = await fs.readJson(jsiiMetadataFile) as spec.Assembly;
+
+                // "install" to install directory
+                await fs.move(path.join(staging, 'package'), packageDir);
+
+                // load the module and capture it's closure
+                const closure = this._execute(`require("${packageDir}")`, packageDir);
+                const assm = new Assembly(assmSpec, closure);
+                this._addAssembly(assm);
+
+                return {
+                    assembly: assmSpec.name,
+                    types: assmSpec.typecount,
+                };
+            } finally {
+                this._debug('removing staging directory:', staging);
+                await fs.remove(staging);
+            }
         }
     }
 
@@ -210,8 +272,6 @@ export class Kernel {
         const ret = this._ensureSync(`method '${objref[TOKEN_REF]}.${method}'`, () => {
             return this._wrapSandboxCode(() => fn.apply(obj, this._toSandboxValues(args)));
         });
-
-        this._debug('method returned:', ret);
 
         return { result: this._fromSandbox(ret, ti.returns) };
     }
@@ -356,7 +416,7 @@ export class Kernel {
         this._debug('naming', assemblyName);
 
         const assembly = this._assemblyFor(assemblyName);
-        const typeInfo = assembly.spec;
+        const typeInfo = assembly.metadata;
         const names = typeInfo.nativenames[assemblyName];
         if (!names) {
             throw new Error(`Unexpected - "nativenames" for ${assemblyName} doesn't include the module itself`);
@@ -369,6 +429,24 @@ export class Kernel {
         return {
             objectCount: Object.keys(this.objects).length
         };
+    }
+
+    private _addAssembly(assm: Assembly) {
+        this.assemblies[assm.metadata.name] = assm;
+
+        // add the __jsii__.fqn property on every constructor. this allows
+        // traversing between the javascript and jsii worlds given any object.
+        for (const fqn of Object.keys(assm.metadata.types || { })) {
+            const typedef = assm.metadata.types[fqn];
+            switch (typedef.kind) {
+                case spec.TypeKind.Interface:
+                    continue; // interfaces don't really exist
+                case spec.TypeKind.Class:
+                case spec.TypeKind.Enum:
+                    const constructor = this._findSymbol(fqn);
+                    constructor.__jsii__ = { fqn };
+            }
+        }
     }
 
     // find the javascript constructor function for a jsii FQN.
@@ -689,7 +767,7 @@ export class Kernel {
             throw new Error(`Module '${moduleName}' not found`);
         }
 
-        const types = assembly.spec.types;
+        const types = assembly.metadata.types;
         const fqnInfo = types[fqn];
         if (!fqnInfo) {
             throw new Error(`Type '${fqn}' not found`);
@@ -912,7 +990,9 @@ export class Kernel {
         if (this.traceEnabled) {
             console.error.apply(console, [
                 '[jsii-kernel]',
-                ...[ args[0], ...args.slice(1).map(x => JSON.stringify(x)) ] ]);
+                args[0],
+                ...args.slice(1)
+            ]);
         }
     }
 
@@ -975,6 +1055,25 @@ export class Kernel {
             throw mapSource(err, this.sourceMaps);
         }
     }
+
+    /**
+     * Executes arbitrary code in a VM sandbox.
+     *
+     * @param code       JavaScript code to be executed in the VM
+     * @param sandbox    a VM context to use for running the code
+     * @param sourceMaps source maps to be used in case an exception is thrown
+     * @param filename   the file name to use for the executed code
+     *
+     * @returns the result of evaluating the code
+     */
+    private _execute(code: string, filename: string) {
+        const script = new vm.Script(code, { filename });
+        try {
+            return script.runInContext(this.sandbox, { displayErrors: true });
+        } catch (err) {
+            throw mapSource(err, this.sourceMaps);
+        }
+    }
 }
 
 interface Callback {
@@ -993,39 +1092,8 @@ interface AsyncInvocation {
 }
 
 class Assembly {
-    public readonly closure: any;
-
-    // tslint:disable-next-line:no-shadowed-variable
-    constructor(public readonly spec: spec.Assembly,
-                sandbox: vm.Context,
-                sourceMaps: { [assm: string]: SourceMapConsumer }) {
-        if (!spec.code) {
-            throw new Error('No code in assembly');
-        }
-        this.closure = execute(`${spec.code};\n${spec.name};`, sandbox, sourceMaps, `jsii/${spec.name}.js`);
-    }
-
-    public typeInfo() {
-        return this.spec;
-    }
-}
-
-/**
- * Executes arbitrary code in a VM sandbox.
- *
- * @param code       JavaScript code to be executed in the VM
- * @param sandbox    a VM context to use for running the code
- * @param sourceMaps source maps to be used in case an exception is thrown
- * @param filename   the file name to use for the executed code
- *
- * @returns the result of evaluating the code
- */
-function execute(code: string, sandbox: vm.Context, sourceMaps: { [assm: string]: SourceMapConsumer }, filename: string) {
-    const script = new vm.Script(code, { filename });
-    try {
-        return script.runInContext(sandbox, { displayErrors: true });
-    } catch (err) {
-        throw mapSource(err, sourceMaps);
+    constructor(public readonly metadata: spec.Assembly,
+                public readonly closure: any) {
     }
 }
 

@@ -22,7 +22,6 @@
     "@types/glob": "^5.0.32",
     "@types/node": "^9.6.18",
     "@types/nodeunit": "0.0.30",
-    "@types/webpack": "^3.6.0",
     "@types/yargs": "^11.0.0",
     "nodeunit": "^0.11.2"
   },
@@ -35,7 +34,6 @@
     "source-map-loader": "^0.2.3",
     "source-map-support": "^0.5.6",
     "typescript": "^2.8.3",
-    "webpack": "^3.6.0",
     "yargs": "^11.0.0"
   },
   "author": {

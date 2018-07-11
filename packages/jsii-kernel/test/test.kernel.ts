@@ -1,12 +1,17 @@
 import * as fs from 'fs-extra';
+import { generate } from 'jsii-pacmak';
 import { Test } from 'nodeunit';
 import { join } from 'path';
+import * as path from 'path';
 import * as vm from 'vm';
-
 import { api, Kernel } from '../lib';
 import { Callback, TOKEN_REF } from '../lib/api';
 import { closeRecording, recordInteraction } from './recording';
-import { readAssembly } from './util';
+
+// extract versions of fixtures
+// tslint:disable:no-var-requires
+const calcLibVersion = require('@scope/jsii-calc-lib/package.json').version.replace(/\+.+$/, '');
+const calcVersion = require('jsii-calc/package.json').version.replace(/\+.+$/, '');
 
 // tslint:disable:no-console
 // tslint:disable:max-line-length
@@ -39,13 +44,13 @@ function defineTest(name: string, method: (test: Test, sandbox: Kernel) => Promi
 }
 
 defineTest('sandbox allows loading arbitrary javascript into it', async (test, sandbox) => {
-    const objid = sandbox.create({ fqn: 'jsii$jsii_calc_lib$.Number', args: [ 12 ] });
+    const objid = sandbox.create({ fqn: '@scope/jsii-calc-lib.Number', args: [ 12 ] });
     test.deepEqual(sandbox.get({ objref: objid, property: 'doubleValue' }).value, 24);
     test.deepEqual(sandbox.invoke({ objref: objid, method: 'typeName', args: [] }).result, 'Number');
 
-    const lhs = sandbox.create({ fqn: 'jsii$jsii_calc_lib$.Number', args: [ 10 ] });
-    const rhs = sandbox.create({ fqn: 'jsii$jsii_calc_lib$.Number', args: [ 20 ] });
-    const add = sandbox.create({ fqn: 'jsii$jsii_calc$.Add', args: [ lhs, rhs ]});
+    const lhs = sandbox.create({ fqn: '@scope/jsii-calc-lib.Number', args: [ 10 ] });
+    const rhs = sandbox.create({ fqn: '@scope/jsii-calc-lib.Number', args: [ 20 ] });
+    const add = sandbox.create({ fqn: 'jsii-calc.Add', args: [ lhs, rhs ]});
 
     test.deepEqual(sandbox.get({ objref: add, property: 'value' }).value, 30);
 });
@@ -55,7 +60,7 @@ defineTest('stats() return sandbox statistics', async (test, sandbox) => {
     test.equal(stats.objectCount, 0);
 
     for (let i = 0; i < 100; ++i) {
-        sandbox.create({ fqn: 'jsii$jsii_calc_lib$.Number', args: [ i ] });
+        sandbox.create({ fqn: '@scope/jsii-calc-lib.Number', args: [ i ] });
     }
 
     test.equal(sandbox.stats({ }).objectCount, 100);
@@ -66,7 +71,7 @@ defineTest('stats() return sandbox statistics', async (test, sandbox) => {
     test.equal(stats.objectCount, 0);
 
     for (let i = 0; i < 100; ++i) {
-        sandbox.create({ fqn: 'jsii$jsii_calc_lib$.Number', args: [ i ] });
+        sandbox.create({ fqn: '@scope/jsii-calc-lib.Number', args: [ i ] });
     }
 
     test.equal(sandbox.stats({ }).objectCount, 100);
@@ -76,7 +81,7 @@ defineTest('deleteObject will remove the reference', async (test, sandbox) => {
     const objects = [];
 
     for (let i = 0; i < 100; ++i) {
-        objects.push(sandbox.create({ fqn: 'jsii$jsii_calc_lib$.Number', args: [ i ] }));
+        objects.push(sandbox.create({ fqn: '@scope/jsii-calc-lib.Number', args: [ i ] }));
     }
 
     test.equal(sandbox.stats({ }).objectCount, 100);
@@ -101,7 +106,7 @@ defineTest('deleteObject will remove the reference', async (test, sandbox) => {
 });
 
 defineTest('in/out primitive types', async (test, sandbox) => {
-    const alltypes = sandbox.create({ fqn: 'jsii$jsii_calc$.AllTypes', args: [ ] });
+    const alltypes = sandbox.create({ fqn: 'jsii-calc.AllTypes', args: [ ] });
 
     sandbox.set({ objref: alltypes, property: 'booleanProperty', value: true });
     test.deepEqual(sandbox.get({ objref: alltypes, property: 'booleanProperty' }).value, true);
@@ -115,21 +120,21 @@ defineTest('in/out primitive types', async (test, sandbox) => {
     sandbox.set({ objref: alltypes, property: 'numberProperty', value: 123 });
     test.deepEqual(sandbox.get({ objref: alltypes, property: 'numberProperty' }).value, 123);
 
-    const num = sandbox.create({ fqn: 'jsii$jsii_calc_lib$.Number', args: [ 444 ] });
+    const num = sandbox.create({ fqn: '@scope/jsii-calc-lib.Number', args: [ 444 ] });
     sandbox.set({ objref: alltypes, property: 'anyProperty', value: num });
     test.deepEqual(sandbox.get({ objref: alltypes, property: 'anyProperty' }).value, num);
 });
 
 defineTest('in/out objects', async (test, sandbox) => {
-    const alltypes = sandbox.create({ fqn: 'jsii$jsii_calc$.AllTypes' });
+    const alltypes = sandbox.create({ fqn: 'jsii-calc.AllTypes' });
 
-    const num = sandbox.create({ fqn: 'jsii$jsii_calc_lib$.Number', args: [ 444 ] });
+    const num = sandbox.create({ fqn: '@scope/jsii-calc-lib.Number', args: [ 444 ] });
     sandbox.set({ objref: alltypes, property: 'anyProperty', value: num });
     test.deepEqual(sandbox.get({ objref: alltypes, property: 'anyProperty' }).value, num);
 });
 
 defineTest('in/out collections', async (test, sandbox) => {
-    const alltypes = sandbox.create({ fqn: 'jsii$jsii_calc$.AllTypes', args: [ ] });
+    const alltypes = sandbox.create({ fqn: 'jsii-calc.AllTypes', args: [ ] });
 
     const array = [ 1, 2, 3, 4 ];
     sandbox.set({ objref: alltypes, property: 'arrayProperty', value: array });
@@ -141,7 +146,7 @@ defineTest('in/out collections', async (test, sandbox) => {
 });
 
 defineTest('in/out date values', async (test, sandbox) => {
-    const alltypes = sandbox.create({ fqn: 'jsii$jsii_calc$.AllTypes' });
+    const alltypes = sandbox.create({ fqn: 'jsii-calc.AllTypes' });
 
     const date = new Date("2018-01-18T00:00:32.347Z");
     sandbox.set({ objref: alltypes, property: 'dateProperty', value: { [api.TOKEN_DATE]: date.toISOString() } });
@@ -149,40 +154,40 @@ defineTest('in/out date values', async (test, sandbox) => {
 });
 
 defineTest('in/out enum values', async (test, sandbox) => {
-    const alltypes = sandbox.create({ fqn: 'jsii$jsii_calc$.AllTypes' });
+    const alltypes = sandbox.create({ fqn: 'jsii-calc.AllTypes' });
 
-    sandbox.set({ objref: alltypes, property: 'enumProperty', value: { [api.TOKEN_ENUM]: 'jsii$jsii_calc$.AllTypesEnum/MyEnumValue' } });
+    sandbox.set({ objref: alltypes, property: 'enumProperty', value: { [api.TOKEN_ENUM]: 'jsii-calc.AllTypesEnum/MyEnumValue' } });
     test.equal(sandbox.get({ objref: alltypes, property: 'enumPropertyValue' }).value, 0);
-    sandbox.set({ objref: alltypes, property: 'enumProperty', value: { [api.TOKEN_ENUM]: 'jsii$jsii_calc$.AllTypesEnum/YourEnumValue' } });
+    sandbox.set({ objref: alltypes, property: 'enumProperty', value: { [api.TOKEN_ENUM]: 'jsii-calc.AllTypesEnum/YourEnumValue' } });
     test.equal(sandbox.get({ objref: alltypes, property: 'enumPropertyValue' }).value, 100);
-    sandbox.set({ objref: alltypes, property: 'enumProperty', value: { [api.TOKEN_ENUM]: 'jsii$jsii_calc$.AllTypesEnum/ThisIsGreat' } });
+    sandbox.set({ objref: alltypes, property: 'enumProperty', value: { [api.TOKEN_ENUM]: 'jsii-calc.AllTypesEnum/ThisIsGreat' } });
     test.equal(sandbox.get({ objref: alltypes, property: 'enumPropertyValue' }).value, 101);
-    test.deepEqual(sandbox.get({ objref: alltypes, property: 'enumProperty' }).value, { '$jsii.enum': 'jsii$jsii_calc$.AllTypesEnum/ThisIsGreat' });
+    test.deepEqual(sandbox.get({ objref: alltypes, property: 'enumProperty' }).value, { '$jsii.enum': 'jsii-calc.AllTypesEnum/ThisIsGreat' });
 });
 
 defineTest('set for a non existing property', async (test, sandbox) => {
-    const obj = sandbox.create({ fqn: 'jsii$jsii_calc$.SyncVirtualMethods' });
+    const obj = sandbox.create({ fqn: 'jsii-calc.SyncVirtualMethods' });
     test.throws(() => sandbox.set({ objref: obj, property: 'idontexist', value: 'Foo' }));
 });
 
 defineTest('set for a readonly property', async (test, sandbox) => {
-    const obj = sandbox.create({ fqn: 'jsii$jsii_calc$.SyncVirtualMethods' });
+    const obj = sandbox.create({ fqn: 'jsii-calc.SyncVirtualMethods' });
     test.throws(() => sandbox.set({ objref: obj, property: 'readonlyProperty', value: 'Foo' }));
 });
 
 defineTest('create object with ctor overloads', async (_test, sandbox) => {
-    sandbox.create({ fqn: 'jsii$jsii_calc$.Calculator' });
+    sandbox.create({ fqn: 'jsii-calc.Calculator' });
 
-    const calcprops = sandbox.create({ fqn: 'jsii$jsii_calc$.CalculatorProps', args: [ ] });
+    const calcprops = sandbox.create({ fqn: 'jsii-calc.CalculatorProps', args: [ ] });
     sandbox.set({ objref: calcprops, property: 'initialValue', value: 100 });
-    sandbox.create({ fqn: 'jsii$jsii_calc$.Calculator', args: [ calcprops ] });
+    sandbox.create({ fqn: 'jsii-calc.Calculator', args: [ calcprops ] });
 });
 
 defineTest('objects created inside the sandbox are returned with type info and new objid', async (test, sandbox) => {
-    const calcprops = sandbox.create({ fqn: 'jsii$jsii_calc$.CalculatorProps' });
+    const calcprops = sandbox.create({ fqn: 'jsii-calc.CalculatorProps' });
     sandbox.set({ objref: calcprops, property: 'initialValue', value: 100 });
 
-    const calc = sandbox.create({ fqn: 'jsii$jsii_calc$.Calculator', args: [ calcprops ] });
+    const calc = sandbox.create({ fqn: 'jsii-calc.Calculator', args: [ calcprops ] });
     sandbox.invoke({ objref: calc, method: 'add', args: [ 50 ] });
 
     const add = sandbox.get({ objref: calc, property: 'curr' }).value;
@@ -190,16 +195,16 @@ defineTest('objects created inside the sandbox are returned with type info and n
 });
 
 defineTest('naming allows returns the module name for different languages', async (test, sandbox) => {
-    test.deepEqual(sandbox.naming({ assembly: 'jsii$jsii_calc$' }).naming, { java: 'org.jsii.tests.calculator', dotnet: 'AWS.Jsii.Tests.Calculator', js: 'jsii-calc' });
-    test.deepEqual(sandbox.naming({ assembly: 'jsii$jsii_calc_lib$' }).naming, { java: 'org.jsii.tests.calculator.lib', dotnet: 'AWS.Jsii.Tests.Calculator.Lib', js: 'jsii-calc-lib' });
+    test.deepEqual(sandbox.naming({ assembly: 'jsii-calc' }).naming, { java: 'org.jsii.tests.calculator', dotnet: 'AWS.Jsii.Tests.Calculator', js: 'jsii-calc' });
+    test.deepEqual(sandbox.naming({ assembly: '@scope/jsii-calc-lib' }).naming, { java: 'org.jsii.tests.calculator.lib', dotnet: 'AWS.Jsii.Tests.Calculator.Lib', js: '@scope/jsii-calc-lib' });
 });
 
 defineTest('collection of objects', async (test, sandbox) => {
-    const sum = sandbox.create({ fqn: 'jsii$jsii_calc$.Sum' });
+    const sum = sandbox.create({ fqn: 'jsii-calc.Sum' });
 
-    const n1 = sandbox.create({ fqn: 'jsii$jsii_calc_lib$.Number', args: [ 10 ] });
-    const n2 = sandbox.create({ fqn: 'jsii$jsii_calc_lib$.Number', args: [ 4 ] });
-    const n3 = sandbox.create({ fqn: 'jsii$jsii_calc$.Power', args: [ n1, n2 ] });
+    const n1 = sandbox.create({ fqn: '@scope/jsii-calc-lib.Number', args: [ 10 ] });
+    const n2 = sandbox.create({ fqn: '@scope/jsii-calc-lib.Number', args: [ 4 ] });
+    const n3 = sandbox.create({ fqn: 'jsii-calc.Power', args: [ n1, n2 ] });
 
     sandbox.set({ objref: sum, property: 'parts', value: [ n1, n2, n3 ] });
 
@@ -218,7 +223,7 @@ defineTest('class not found', async (test, sandbox) => {
 });
 
 defineTest('type-checking: method and property names are validated against class and base classes', async (test, sandbox) => {
-    const obj = sandbox.create({ fqn: 'jsii$jsii_calc$.Calculator' });
+    const obj = sandbox.create({ fqn: 'jsii-calc.Calculator' });
 
     sandbox.get({ objref: obj, property: 'stringStyle' }); // property from CompositeOperation
     sandbox.get({ objref: obj, property: 'value' }); // property from Value
@@ -236,26 +241,26 @@ defineTest('type-checking; module not found', async (test, sandbox) => {
 });
 
 defineTest('type-checking: type not found', async (test, sandbox) => {
-    test.throws(() => sandbox.create({ fqn: 'jsii$jsii_calc$.Unknown' }), /Type 'jsii\$jsii_calc\$.Unknown' not found/);
+    test.throws(() => sandbox.create({ fqn: 'jsii-calc.Unknown' }), /Type 'jsii-calc.Unknown' not found/);
 });
 
 defineTest('type-checking: try to create an object from a non-class type', async (test, sandbox) => {
-    test.throws(() => sandbox.create({ fqn: 'jsii$jsii_calc$.AllTypesEnum' }), /Unexpected FQN kind/);
+    test.throws(() => sandbox.create({ fqn: 'jsii-calc.AllTypesEnum' }), /Unexpected FQN kind/);
 });
 
 defineTest('type-checking: argument count in methods and initializers', async (test, sandbox) => {
     // ctor has one optional argument
-    sandbox.create({ fqn: 'jsii$jsii_calc$.Calculator' });
-    sandbox.create({ fqn: 'jsii$jsii_calc$.Calculator', args: [ 11 ] });
+    sandbox.create({ fqn: 'jsii-calc.Calculator' });
+    sandbox.create({ fqn: 'jsii-calc.Calculator', args: [ 11 ] });
 
     // but we expect an error if more arguments are passed
-    test.throws(() => sandbox.create({ fqn: 'jsii$jsii_calc$.Calculator', args: [ 1, 2, 3 ] }), /Too many arguments/);
-    test.throws(() => sandbox.create({ fqn: 'jsii$jsii_calc$.Calculator', args: [ 1, 2, 3, 4 ]}), /Too many arguments/);
+    test.throws(() => sandbox.create({ fqn: 'jsii-calc.Calculator', args: [ 1, 2, 3 ] }), /Too many arguments/);
+    test.throws(() => sandbox.create({ fqn: 'jsii-calc.Calculator', args: [ 1, 2, 3, 4 ]}), /Too many arguments/);
 
-    test.throws(() => sandbox.create({ fqn: 'jsii$jsii_calc$.Add', args: [ ]}), /Not enough arguments/);
-    test.throws(() => sandbox.create({ fqn: 'jsii$jsii_calc$.Add', args: [ 1 ]}), /Not enough arguments/);
+    test.throws(() => sandbox.create({ fqn: 'jsii-calc.Add', args: [ ]}), /Not enough arguments/);
+    test.throws(() => sandbox.create({ fqn: 'jsii-calc.Add', args: [ 1 ]}), /Not enough arguments/);
 
-    const obj = sandbox.create({ fqn: 'jsii$jsii_calc$.RuntimeTypeChecking' });
+    const obj = sandbox.create({ fqn: 'jsii-calc.RuntimeTypeChecking' });
     test.throws(() => sandbox.invoke({ objref: obj, method: 'methodWithOptionalArguments', args: [] }), /Not enough arguments/);
     test.throws(() => sandbox.invoke({ objref: obj, method: 'methodWithOptionalArguments', args: [ 1 ]}), /Not enough arguments/);
     sandbox.invoke({ objref: obj, method: 'methodWithOptionalArguments', args: [ 1, 'hello' ] });
@@ -264,30 +269,30 @@ defineTest('type-checking: argument count in methods and initializers', async (t
 });
 
 defineTest('verify object literals are converted to real classes', async (test, sandbox) => {
-    const obj = sandbox.create({ fqn: 'jsii$jsii_calc$.JSObjectLiteralToNative' });
+    const obj = sandbox.create({ fqn: 'jsii-calc.JSObjectLiteralToNative' });
     const obj2 = sandbox.invoke({ objref: obj, method: 'returnLiteral' }).result;
 
     test.ok(obj2[api.TOKEN_REF], 'verify that we received a ref as a result');
 
     const objid: string = obj2[api.TOKEN_REF];
-    test.ok(objid.startsWith('jsii$jsii_calc$.JSObjectLiteralToNativeClass'),
+    test.ok(objid.startsWith('jsii-calc.JSObjectLiteralToNativeClass'),
         'verify the type of the returned object');
 });
 
 defineTest('get a property from an type that only has base class properties', async (test, sandbox) => {
-    const obj = sandbox.create({ fqn: 'jsii$jsii_calc$.DerivedClassHasNoProperties.Derived' });
+    const obj = sandbox.create({ fqn: 'jsii-calc.DerivedClassHasNoProperties.Derived' });
     sandbox.set({ objref: obj, property: 'prop', value: 'hi' });
     test.equal(sandbox.get({ objref: obj, property: 'prop' }).value, 'hi');
 });
 
 defineTest('async overrides: ignores overrides for unknown methods (to allow derived class to just pass all local method names)', async (_test, sandbox) => {
-    sandbox.create({ fqn: 'jsii$jsii_calc$.AsyncVirtualMethods', overrides: [ { method: 'notFound' } ] });
+    sandbox.create({ fqn: 'jsii-calc.AsyncVirtualMethods', overrides: [ { method: 'notFound' } ] });
 });
 
 defineTest('async overrides: override a method', async (test, sandbox) => {
     // first call without an override and expect pendingCallbacks to return
     // an empty array.
-    const obj1 = sandbox.create({ fqn: 'jsii$jsii_calc$.AsyncVirtualMethods' });
+    const obj1 = sandbox.create({ fqn: 'jsii-calc.AsyncVirtualMethods' });
 
     async function callWithOverride(overrideCallback: (x: number) => number) {
         const promise1 = sandbox.begin({ objref: obj1, method: 'callMe' });
@@ -296,7 +301,7 @@ defineTest('async overrides: override a method', async (test, sandbox) => {
         test.equals(result1, 128);
 
         // now add an override and complete it with a some value.
-        const obj = sandbox.create({ fqn: 'jsii$jsii_calc$.AsyncVirtualMethods', overrides: [ { method: 'overrideMe', cookie: 'myCookie' } ] });
+        const obj = sandbox.create({ fqn: 'jsii-calc.AsyncVirtualMethods', overrides: [ { method: 'overrideMe', cookie: 'myCookie' } ] });
         const promise2 = sandbox.begin({ objref: obj, method: 'callMe' });
         const callbacks = sandbox.callbacks().callbacks;
         test.equal(callbacks.length, 1, 'callback to the override');
@@ -344,7 +349,7 @@ defineTest('async overrides: override a method', async (test, sandbox) => {
 });
 
 defineTest('async overrides: directly call a method with an override from native code should invoke the "super.method" since it can only be done by the derived class', async (test, sandbox) => {
-    const obj = sandbox.create({ fqn: 'jsii$jsii_calc$.AsyncVirtualMethods', overrides: [ { method: 'overrideMe', cookie: 'myCookie' } ] });
+    const obj = sandbox.create({ fqn: 'jsii-calc.AsyncVirtualMethods', overrides: [ { method: 'overrideMe', cookie: 'myCookie' } ] });
     const promise = sandbox.begin({ objref: obj, method: 'overrideMe', args: [ 12 ]});
 
     // no callbacks should be pending, since this should invoke "super"
@@ -353,7 +358,7 @@ defineTest('async overrides: directly call a method with an override from native
 });
 
 defineTest('async overrides: two overrides', async (test, sandbox) => {
-    const obj = sandbox.create({ fqn: 'jsii$jsii_calc$.AsyncVirtualMethods', overrides: [
+    const obj = sandbox.create({ fqn: 'jsii-calc.AsyncVirtualMethods', overrides: [
         { method: 'overrideMeToo', cookie: 'cookie1' },
         { method: 'overrideMe', cookie: 'cookie2' }
     ] });
@@ -393,7 +398,7 @@ defineTest('async overrides: two overrides', async (test, sandbox) => {
  */
 defineTest('async overrides - process promises after "begin"', async (test, sandbox) => {
 
-    const obj = sandbox.create({ fqn: 'jsii$jsii_calc$.AsyncVirtualMethods', overrides: [
+    const obj = sandbox.create({ fqn: 'jsii-calc.AsyncVirtualMethods', overrides: [
         { method: 'overrideMe', cookie: 'cookie2' },
         { method: 'overrideMeToo' }
     ] });
@@ -463,7 +468,7 @@ function processPendingPromises(sandbox: Kernel) {
 }
 
 defineTest('sync overrides', async (test, sandbox) => {
-    const pre = sandbox.create({ fqn: 'jsii$jsii_calc$.SyncVirtualMethods' });
+    const pre = sandbox.create({ fqn: 'jsii-calc.SyncVirtualMethods' });
 
     // without override
     test.equal(sandbox.invoke({ objref: pre, method: 'callerIsMethod' }).result, 20);
@@ -473,20 +478,20 @@ defineTest('sync overrides', async (test, sandbox) => {
 
     sandbox.callbackHandler = makeSyncCallbackHandler(callback => {
         test.equal(callback.cookie, 'myCookie');
-        test.ok(callback.invoke!.objref[TOKEN_REF].includes('jsii$jsii_calc$.SyncVirtualMethods'));
+        test.ok(callback.invoke!.objref[TOKEN_REF].includes('jsii-calc.SyncVirtualMethods'));
         test.equal(callback.invoke!.method, 'virtualMethod');
         test.equal(callback.invoke!.args![0], 10);
 
         // to make things a bit more interesting, let's interact with a jsii object
         // from within the callback
-        const lhs = sandbox.create({ fqn: 'jsii$jsii_calc_lib$.Number', args: [ callback.invoke!.args![0] ] });
-        const rhs = sandbox.create({ fqn: 'jsii$jsii_calc_lib$.Number', args: [ 12 ] });
-        const add = sandbox.create({ fqn: 'jsii$jsii_calc$.Add', args: [ lhs, rhs ]});
+        const lhs = sandbox.create({ fqn: '@scope/jsii-calc-lib.Number', args: [ callback.invoke!.args![0] ] });
+        const rhs = sandbox.create({ fqn: '@scope/jsii-calc-lib.Number', args: [ 12 ] });
+        const add = sandbox.create({ fqn: 'jsii-calc.Add', args: [ lhs, rhs ]});
         return sandbox.get({ objref: add, property: 'value' }).value;
     });
 
     // now make the same set of calls, and you will notice that the results are affected by the override.
-    const obj = sandbox.create({ fqn: 'jsii$jsii_calc$.SyncVirtualMethods', overrides: [ { method: 'virtualMethod', cookie: 'myCookie' } ] });
+    const obj = sandbox.create({ fqn: 'jsii-calc.SyncVirtualMethods', overrides: [ { method: 'virtualMethod', cookie: 'myCookie' } ] });
     test.equal(sandbox.invoke({ objref: obj, method: 'callerIsMethod' }).result, 22);
     test.equal(sandbox.get({ objref: obj, property: 'callerIsProperty' }).value, 22);
 
@@ -504,25 +509,25 @@ defineTest('sync overrides', async (test, sandbox) => {
 defineTest('sync overrides with async caller', async (test, sandbox) => {
     sandbox.callbackHandler = makeSyncCallbackHandler(callback => {
         test.equal(callback.cookie, 'myCookie');
-        test.ok(callback.invoke!.objref[TOKEN_REF].includes('jsii$jsii_calc$.SyncVirtualMethods'));
+        test.ok(callback.invoke!.objref[TOKEN_REF].includes('jsii-calc.SyncVirtualMethods'));
         test.equal(callback.invoke!.method, 'virtualMethod');
         test.equal(callback.invoke!.args![0], 10);
 
         // to make things a bit more interesting, let's interact with a jsii object
         // from within the callback
-        const lhs = sandbox.create({ fqn: 'jsii$jsii_calc_lib$.Number', args: [ callback.invoke!.args![0] ] });
-        const rhs = sandbox.create({ fqn: 'jsii$jsii_calc_lib$.Number', args: [ 12 ] });
-        const add = sandbox.create({ fqn: 'jsii$jsii_calc$.Add', args: [ lhs, rhs ]});
+        const lhs = sandbox.create({ fqn: '@scope/jsii-calc-lib.Number', args: [ callback.invoke!.args![0] ] });
+        const rhs = sandbox.create({ fqn: '@scope/jsii-calc-lib.Number', args: [ 12 ] });
+        const add = sandbox.create({ fqn: 'jsii-calc.Add', args: [ lhs, rhs ]});
         return sandbox.get({ objref: add, property: 'value' }).value;
     });
 
-    const obj = sandbox.create({ fqn: 'jsii$jsii_calc$.SyncVirtualMethods', overrides: [ { method: 'virtualMethod', cookie: 'myCookie' } ] });
+    const obj = sandbox.create({ fqn: 'jsii-calc.SyncVirtualMethods', overrides: [ { method: 'virtualMethod', cookie: 'myCookie' } ] });
     const p2 = sandbox.begin({ objref: obj, method: 'callerIsAsync' });
     test.equal((await sandbox.end({ promiseid: p2.promiseid })).result, 22);
 });
 
 defineTest('sync overrides: properties - readwrite', async (test, sandbox) => {
-    const obj = sandbox.create({ fqn: 'jsii$jsii_calc$.SyncVirtualMethods', overrides: [ { property: 'theProperty', cookie: 'myCookie1234' } ] });
+    const obj = sandbox.create({ fqn: 'jsii-calc.SyncVirtualMethods', overrides: [ { property: 'theProperty', cookie: 'myCookie1234' } ] });
 
     let setValue;
     sandbox.callbackHandler = makeSyncCallbackHandler(callback => {
@@ -549,7 +554,7 @@ defineTest('sync overrides: properties - readwrite', async (test, sandbox) => {
 
 defineTest('sync overrides: properties - readwrite (backed by functions)', async (test, sandbox) => {
     const obj = sandbox.create({
-        fqn: 'jsii$jsii_calc$.SyncVirtualMethods',
+        fqn: 'jsii-calc.SyncVirtualMethods',
         overrides: [ { property: 'otherProperty', cookie: 'myCookie1234' } ]
     });
 
@@ -578,7 +583,7 @@ defineTest('sync overrides: properties - readwrite (backed by functions)', async
 
 defineTest('sync overrides: duplicate overrides for the same property', async (test, sandbox) => {
     test.throws(() => sandbox.create({
-        fqn: 'jsii$jsii_calc$.SyncVirtualMethods',
+        fqn: 'jsii-calc.SyncVirtualMethods',
         overrides: [
             { property: 'otherProperty', cookie: 'myCookie1234' },
             { property: 'otherProperty', cookie: 'yourCookie' }
@@ -587,7 +592,7 @@ defineTest('sync overrides: duplicate overrides for the same property', async (t
 });
 
 defineTest('sync overrides: properties - readonly', async (test, sandbox) => {
-    const obj = sandbox.create({ fqn: 'jsii$jsii_calc$.SyncVirtualMethods', overrides: [ { property: 'readonlyProperty', cookie: 'myCookie1234' } ] });
+    const obj = sandbox.create({ fqn: 'jsii-calc.SyncVirtualMethods', overrides: [ { property: 'readonlyProperty', cookie: 'myCookie1234' } ] });
 
     sandbox.callbackHandler = makeSyncCallbackHandler(callback => {
         test.equal(callback.cookie, 'myCookie1234');
@@ -604,7 +609,7 @@ defineTest('sync overrides: properties - readonly', async (test, sandbox) => {
 });
 
 defineTest('sync overrides: properties - get calls super', async (test, sandbox) => {
-    const obj = sandbox.create({ fqn: 'jsii$jsii_calc$.SyncVirtualMethods', overrides: [ { property: 'theProperty' } ] });
+    const obj = sandbox.create({ fqn: 'jsii-calc.SyncVirtualMethods', overrides: [ { property: 'theProperty' } ] });
 
     sandbox.callbackHandler = makeSyncCallbackHandler(callback => {
         test.equal(callback.get!.property, 'theProperty');
@@ -617,7 +622,7 @@ defineTest('sync overrides: properties - get calls super', async (test, sandbox)
 });
 
 defineTest('sync overrides: properties - set calls super', async (test, sandbox) => {
-    const obj = sandbox.create({ fqn: 'jsii$jsii_calc$.SyncVirtualMethods', overrides: [ { property: 'theProperty' } ] });
+    const obj = sandbox.create({ fqn: 'jsii-calc.SyncVirtualMethods', overrides: [ { property: 'theProperty' } ] });
 
     sandbox.callbackHandler = makeSyncCallbackHandler(callback => {
         if (callback.get) {
@@ -636,7 +641,7 @@ defineTest('sync overrides: properties - set calls super', async (test, sandbox)
 
 defineTest('sync overrides: properties - verify keys are enumerable', async (test, sandbox) => {
     const obj = sandbox.create({ fqn: 'Object', overrides: [ { property: 'foo' }, { property: 'readOnlyString' } ] });
-    const reader = sandbox.create({ fqn: 'jsii$jsii_calc$.UsesInterfaceWithProperties', args: [ obj ] });
+    const reader = sandbox.create({ fqn: 'jsii-calc.UsesInterfaceWithProperties', args: [ obj ] });
 
     sandbox.callbackHandler = makeSyncCallbackHandler(callback => {
         if (callback.get && callback.get.property === 'foo') {
@@ -658,9 +663,9 @@ defineTest('sync overrides: returns an object', async (test, sandbox) => {
 
     const returnsNumber = sandbox.create({ fqn: 'Object', overrides: [ { method: 'obtainNumber' }, { property: 'numberProp' } ] });
 
-    const obj = sandbox.create({ fqn: 'jsii$jsii_calc$.OverrideReturnsObject' });
-    const number100 = sandbox.create({ fqn: 'jsii$jsii_calc_lib$.Number', args: [ 100 ] });
-    const number500 = sandbox.create({ fqn: 'jsii$jsii_calc_lib$.Number', args: [ 500 ] });
+    const obj = sandbox.create({ fqn: 'jsii-calc.OverrideReturnsObject' });
+    const number100 = sandbox.create({ fqn: '@scope/jsii-calc-lib.Number', args: [ 100 ] });
+    const number500 = sandbox.create({ fqn: '@scope/jsii-calc-lib.Number', args: [ 500 ] });
 
     sandbox.callbackHandler = makeSyncCallbackHandler(callback => {
         if (callback.invoke && callback.invoke.method === 'obtainNumber') {
@@ -679,12 +684,12 @@ defineTest('sync overrides: returns an object', async (test, sandbox) => {
 });
 
 defineTest('fail to begin async from sync - method', async (test, sandbox) => {
-    const obj = sandbox.create({ fqn: 'jsii$jsii_calc$.SyncVirtualMethods', overrides: [ { method: 'virtualMethod', cookie: 'myCookie' } ] });
+    const obj = sandbox.create({ fqn: 'jsii-calc.SyncVirtualMethods', overrides: [ { method: 'virtualMethod', cookie: 'myCookie' } ] });
 
     let called = 0;
 
     sandbox.callbackHandler = makeSyncCallbackHandler(_ => {
-        const innerObj = sandbox.create({ fqn: 'jsii$jsii_calc$.AsyncVirtualMethods' });
+        const innerObj = sandbox.create({ fqn: 'jsii-calc.AsyncVirtualMethods' });
         test.throws(() => sandbox.begin({ objref: innerObj, method: 'callMe' }));
         called++;
     });
@@ -700,7 +705,7 @@ defineTest('fail to begin async from sync - method', async (test, sandbox) => {
 });
 
 defineTest('the "Object" FQN can be used to allow creating empty objects with overrides which comply with an interface', async (test, sandbox) => {
-    const obj = sandbox.create({ fqn: 'jsii$jsii_calc$.Polymorphism' });
+    const obj = sandbox.create({ fqn: 'jsii-calc.Polymorphism' });
     const friendly = sandbox.create({ fqn: 'Object', overrides: [ { method: 'hello' } ] });
     sandbox.callbackHandler = makeSyncCallbackHandler(_ => 'oh, hello');
     const ret = sandbox.invoke({ objref: obj, method: 'sayHello', args: [ friendly ] });
@@ -708,7 +713,7 @@ defineTest('the "Object" FQN can be used to allow creating empty objects with ov
 });
 
 defineTest('literal objects can be returned when an interface is expected, and they will be adorned with jsii metadata so they can be interacted with', async (test, sandbox) => {
-    const obj = sandbox.create({ fqn: 'jsii$jsii_calc$.JSObjectLiteralForInterface' });
+    const obj = sandbox.create({ fqn: 'jsii-calc.JSObjectLiteralForInterface' });
     const ret = sandbox.invoke({ objref: obj, method: 'giveMeFriendly' });
 
     test.deepEqual(sandbox.invoke({ objref: ret.result, method: 'hello' }), { result: 'I am literally friendly!' });
@@ -719,12 +724,12 @@ defineTest('literal objects can be returned when an interface is expected, and t
 });
 
 defineTest('exceptions include a stack trace into the original source code', async (test, sandbox) => {
-    const obj = sandbox.create({ fqn: 'jsii$jsii_calc$.Thrower' });
+    const obj = sandbox.create({ fqn: 'jsii-calc.Thrower' });
     test.throws(() => {
         try {
             sandbox.invoke({ objref: obj, method: 'throwError' });
         } catch (error) {
-            const regexp = /^\s*at Thrower\.doThrowError \(jsii\$jsii_calc\$.*\/lib\/index\.ts:\d+:\d+\)$/m;
+            const regexp = /^\s*at Thrower\.doThrowError \(.*jsii[-_]calc.*\/lib\/index\.ts:\d+:\d+\)$/m;
             test.ok(regexp.test(error.stack), 'The stack trace includes the path to the original source file');
             throw error;
         }
@@ -732,58 +737,78 @@ defineTest('exceptions include a stack trace into the original source code', asy
 });
 
 defineTest('variadic methods can be called', async (test, sandbox) => {
-    const obj = sandbox.create({ fqn: 'jsii$jsii_calc$.VariadicMethod' });
+    const obj = sandbox.create({ fqn: 'jsii-calc.VariadicMethod' });
     test.deepEqual(sandbox.invoke({ objref: obj, method: 'asArray', args: [1, 2, 3, 4] }).result,
                    [1, 2, 3, 4]);
 });
 
 defineTest('variadic methods can be called without any vararg', async (test, sandbox) => {
-    const obj = sandbox.create({ fqn: 'jsii$jsii_calc$.VariadicMethod', args: [1, 2, 3] });
+    const obj = sandbox.create({ fqn: 'jsii-calc.VariadicMethod', args: [1, 2, 3] });
     test.deepEqual(sandbox.invoke({ objref: obj, method: 'asArray', args: [4] }).result,
                    [1, 2, 3, 4]);
 });
 
 defineTest('static properties - get', async (test, sandbox) => {
-    const value = sandbox.sget({ fqn: 'jsii$jsii_calc$.Statics', property: 'Foo' });
+    const value = sandbox.sget({ fqn: 'jsii-calc.Statics', property: 'Foo' });
     test.deepEqual(value, { value: 'hello' });
 });
 
 defineTest('fails: static properties - set readonly', async (test, sandbox) => {
-    test.throws(() => sandbox.sset({ fqn: 'jsii$jsii_calc$.Statics', property: 'Foo', value: 123 }));
+    test.throws(() => sandbox.sset({ fqn: 'jsii-calc.Statics', property: 'Foo', value: 123 }));
 });
 
 defineTest('static properties - set', async (test, sandbox) => {
-    const defaultInstance = sandbox.sget({ fqn: 'jsii$jsii_calc$.Statics', property: 'instance' });
+    const defaultInstance = sandbox.sget({ fqn: 'jsii-calc.Statics', property: 'instance' });
     test.deepEqual(sandbox.get({ objref: defaultInstance.value, property: 'value' }), { value: 'default' });
 
-    const obj = sandbox.create({ fqn: 'jsii$jsii_calc$.Statics', args: [ 'MyInstance' ] });
-    sandbox.sset({ fqn: 'jsii$jsii_calc$.Statics', property: 'instance', value: obj });
+    const obj = sandbox.create({ fqn: 'jsii-calc.Statics', args: [ 'MyInstance' ] });
+    sandbox.sset({ fqn: 'jsii-calc.Statics', property: 'instance', value: obj });
 
-    const updatedInstance = sandbox.sget({ fqn: 'jsii$jsii_calc$.Statics', property: 'instance' });
+    const updatedInstance = sandbox.sget({ fqn: 'jsii-calc.Statics', property: 'instance' });
     test.deepEqual(sandbox.get({ objref: updatedInstance.value, property: 'value' }), { value: 'MyInstance' });
 });
 
 defineTest('fails: static properties - get/set non-static', async (test, sandbox) => {
-    test.throws(() => sandbox.sget({ fqn: 'jsii$jsii_calc$.Statics', property: 'value' }), /is not static/);
-    test.throws(() => sandbox.sset({ fqn: 'jsii$jsii_calc$.Statics', property: 'value', value: 123 }), /is not static/);
+    test.throws(() => sandbox.sget({ fqn: 'jsii-calc.Statics', property: 'value' }), /is not static/);
+    test.throws(() => sandbox.sset({ fqn: 'jsii-calc.Statics', property: 'value', value: 123 }), /is not static/);
 });
 
 defineTest('fails: static properties - get/set not found', async (test, sandbox) => {
-    test.throws(() => sandbox.sget({ fqn: 'jsii$jsii_calc$.Statics', property: 'zoo' }), /doesn't have a property/);
-    test.throws(() => sandbox.sset({ fqn: 'jsii$jsii_calc$.Statics', property: 'bar', value: 123 }), /doesn't have a property/);
+    test.throws(() => sandbox.sget({ fqn: 'jsii-calc.Statics', property: 'zoo' }), /doesn't have a property/);
+    test.throws(() => sandbox.sset({ fqn: 'jsii-calc.Statics', property: 'bar', value: 123 }), /doesn't have a property/);
 });
 
 defineTest('static methods', async (test, sandbox) => {
-    const result = sandbox.sinvoke({ fqn: 'jsii$jsii_calc$.Statics', method: 'staticMethod', args: [ 'Jsii' ] });
+    const result = sandbox.sinvoke({ fqn: 'jsii-calc.Statics', method: 'staticMethod', args: [ 'Jsii' ] });
     test.deepEqual(result, { result: 'hello ,Jsii!' });
 });
 
 defineTest('fails: static methods - not found', async (test, sandbox) => {
-    test.throws(() => sandbox.sinvoke({ fqn: 'jsii$jsii_calc$.Statics', method: 'staticMethodNotFound', args: [ 'Jsii' ] }), /doesn't have a method/);
+    test.throws(() => sandbox.sinvoke({ fqn: 'jsii-calc.Statics', method: 'staticMethodNotFound', args: [ 'Jsii' ] }), /doesn't have a method/);
 });
 
 defineTest('fails: static methods - not static', async (test, sandbox) => {
-    test.throws(() => sandbox.sinvoke({ fqn: 'jsii$jsii_calc$.Statics', method: 'justMethod', args: [ 'Jsii' ] }), /is not a static method/);
+    test.throws(() => sandbox.sinvoke({ fqn: 'jsii-calc.Statics', method: 'justMethod', args: [ 'Jsii' ] }), /is not a static method/);
+});
+
+defineTest('loading a module twice idepotently succeeds', async (_test, sandbox) => {
+    await sandbox.load({
+        tarball: await preparePackage('jsii-calc', false),
+        name: 'jsii-calc',
+        version: calcVersion
+    });
+});
+
+defineTest('fails if trying to load two different versions of the same module', async (test, sandbox) => {
+    let thrown = false;
+    try {
+        await sandbox.load({ tarball: await preparePackage('jsii-calc', false), name: 'jsii-calc', version: '99.999.9' });
+    } catch (e) {
+        test.ok(/Multiple versions .+ and .+ of the package 'jsii-calc' cannot be loaded together/.test(e.message));
+        thrown = true;
+    }
+
+    test.ok(thrown);
 });
 
 const testNames: { [name: string]: boolean } = { };
@@ -806,12 +831,34 @@ async function createCalculatorSandbox(name: string) {
 
     sandbox.traceEnabled = `${process.env.JSII_DEBUG}` === '1';
 
-    const calclib = await readAssembly('jsii-calc-lib');
-    const calc = await readAssembly('jsii-calc');
-    await sandbox.load({ assembly: calclib });
-    await sandbox.load({ assembly: calc });
-
+    await sandbox.load({ tarball: await preparePackage('@scope/jsii-calc-lib'), name: '@scope/jsii-calc-lib', version: calcLibVersion });
+    await sandbox.load({ tarball: await preparePackage('jsii-calc'), name: 'jsii-calc', version: calcVersion });
     return sandbox;
+}
+
+const cache: { [module: string]: string } = { };
+
+async function preparePackage(module: string, useCache = true) {
+    if (module in cache && useCache) {
+        return cache[module];
+    }
+
+    const staging = await fs.mkdtemp('/tmp/jsii-kernel-tests-');
+
+    // clean up only if we are not recording, so playback can refer to these
+    if (!recordingOutput) {
+        process.on('exit', () => fs.removeSync(staging)); // cleanup
+    }
+
+    const packageRoot = findPackageRoot(module);
+    await generate('pack-only', packageRoot, staging);
+    const dir = path.join(staging, (await fs.readdir(staging))[0]);
+    cache[module] = dir;
+    return dir;
+}
+
+function findPackageRoot(pkg: string) {
+    return path.resolve(path.join(require.resolve(`${pkg}/package.json`), '..'));
 }
 
 /**

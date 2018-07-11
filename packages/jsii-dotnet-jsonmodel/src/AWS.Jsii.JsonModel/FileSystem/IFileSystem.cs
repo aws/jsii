@@ -1,4 +1,6 @@
-﻿namespace AWS.Jsii.JsonModel.FileSystem
+﻿using System.IO;
+
+namespace AWS.Jsii.JsonModel.FileSystem
 {
     /// <summary>
     /// Simple wrapper around .NET System.IO.File and System.IO.Directory classes.
@@ -18,6 +20,8 @@
         void WriteAllText(string path, string contents);
 
         void Copy(string sourceFileName, string destFileName);
+
+        FileStream Create(string path);
     }
 
     public interface IDirectory

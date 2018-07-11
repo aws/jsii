@@ -12,14 +12,13 @@ namespace AWS.Jsii.Runtime.Deputy
         {
             Value = value ?? throw new ArgumentNullException(nameof(value));
 
-            string[] valueTokens = value.Split('@');
-            if (valueTokens.Length != 2)
-            {
+            var lastIndex = value.LastIndexOf('@');
+            if (lastIndex == -1) {
                 throw new ArgumentException($"Unexpected format for byref value: {value}", nameof(value));
             }
 
-            FullyQualifiedName = valueTokens[0];
-            Id = valueTokens[1];
+            FullyQualifiedName = value.Substring(0, lastIndex);
+            Id = value.Substring(lastIndex + 1);
         }
 
         public ByRefValue(string fullyQualifiedName, string id) : this($"{fullyQualifiedName}@{id}")

@@ -1,17 +1,27 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 
 namespace AWS.Jsii.Runtime.Services
 {
     public class JsiiRuntimeProvider : IJsiiRuntimeProvider
     {
-        public JsiiRuntimeProvider()
-        {
-            string devOverride = Environment.GetEnvironmentVariable("__DEV_CDK_ROOT");
+        const string ENTRYPOINT = "jsii-runtime.js";
 
-            JsiiRuntimePath = string.IsNullOrWhiteSpace(devOverride) ?
-                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".cdk", "node_modules") :
-                devOverride;
+        public JsiiRuntimeProvider(IResourceExtractor resourceExtractor)
+        {
+            string[] files = { ENTRYPOINT, ENTRYPOINT + ".map", "mappings.wasm" };
+
+            // deploy embedded resources to the temp directory
+            var assembly = Assembly.GetExecutingAssembly();
+            foreach (var name in files) {
+                var resourceName = "AWS.Jsii.Runtime.jsii_runtime." + name;
+                var path = resourceExtractor.ExtractResource(assembly, resourceName, "jsii-runtime", name);
+
+                if (name == ENTRYPOINT) {
+                    JsiiRuntimePath = path;
+                }
+            }
         }
 
         public string JsiiRuntimePath { get; }

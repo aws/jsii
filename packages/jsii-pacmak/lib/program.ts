@@ -1,8 +1,8 @@
+import { spawn } from 'child_process';
 import * as fs from 'fs-extra';
-import * as spec from 'jsii-spec';
+import { SPEC_FILE_NAME } from 'jsii-spec';
 import * as path from 'path';
 import { IGenerator } from './generator';
-import DotNetGenerator from './generators/dotnet';
 
 async function lookupGenerator(lang: string) {
     const pth = path.join(__dirname, '../lib/generators', `${lang}.js`);
@@ -14,23 +14,44 @@ async function lookupGenerator(lang: string) {
     return require(pth).default;
 }
 
-async function createGenerator(lang: string, jsiiFile: string): Promise<IGenerator> {
-    if (lang === "dotnet") {
-        return new DotNetGenerator(jsiiFile);
-    }
-
-    const jsiiData = (await fs.readFile(jsiiFile)).toString();
-    const mod = JSON.parse(jsiiData) as spec.Assembly;
-
-    const snapshot = `/tmp/jsii-module.${spec.SPEC_FILE_NAME}`;
-    await fs.writeFile(snapshot, JSON.stringify(mod, null, 2));
-
-    const generatorClass: any = await lookupGenerator(lang);
-    return new generatorClass(mod);
+async function newGeneratorForLanguage(lang: string): Promise<IGenerator> {
+    // tslint:disable-next-line:variable-name
+    const GeneratorClass: any = await lookupGenerator(lang);
+    return new GeneratorClass();
 }
 
-export async function generate(target: string, jsiiDir: string, outDir: string) {
-    const generator = await createGenerator(target, path.join(jsiiDir, spec.SPEC_FILE_NAME));
+export async function generate(lang: string, packageDir: string, outDir: string) {
+    const jsiiFile = path.join(packageDir, SPEC_FILE_NAME);
+
+    const generator = await newGeneratorForLanguage(lang);
+    await generator.load(jsiiFile);
     generator.generate();
-    await generator.save(outDir);
+
+    const tarball = await npmPack(packageDir);
+    try {
+        await generator.save(outDir, tarball);
+    } finally {
+        await fs.remove(tarball); // clean up
+    }
+}
+
+async function npmPack(packageDir: string) {
+    const child = spawn('npm', [ 'pack', '--ignore-scripts' ], { cwd: packageDir, stdio: [ 'ignore', 'pipe', 'pipe' ] });
+
+    const tarball = await new Promise<string>((ok, fail) => {
+        let stdout = '';
+        let stderr = '';
+        child.stdout.on('data', chunk => stdout += chunk.toString());
+        child.stderr.on('data', chunk => stderr += chunk.toString());
+        child.once('exit', status => {
+            if (status === 0) {
+                return ok(stdout.trim());
+            } else {
+                process.stderr.write(stderr);
+                return fail(new Error('Exit with status ' + status));
+            }
+        });
+    });
+
+    return path.join(packageDir, tarball);
 }

@@ -14,11 +14,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.stream.Collectors;
 
 import static org.jsii.JsiiVersion.JSII_RUNTIME_VERSION;
+import static org.jsii.Util.extractResource;
 
 /**
  * Manages the jsii-runtime child process.
@@ -355,28 +354,13 @@ public class JsiiRuntime {
         try {
             String directory = Files.createTempDirectory("jsii-java-runtime").toString();
 
-            String entrypoint = extractResource("jsii-runtime.js", directory);
-            extractResource("mappings.wasm", directory);
+            String entrypoint = extractResource(getClass(), "jsii-runtime.js", directory);
+            extractResource(getClass(), "jsii-runtime.js.map", directory);
+            extractResource(getClass(), "mappings.wasm", directory);
             return entrypoint;
         } catch (IOException e) {
             throw new JsiiException("Unable to extract bundle of jsii-runtime.js from jar", e);
         }
     }
 
-    /**
-     * Extracts a resource file from the .jar and saves it into an output directory.
-     * @param resourceName The name of the resource (e.g. jsii-runtime.js)
-     * @param outputDirectory The output directory.
-     * @return The full path of the saved resource
-     * @throws IOException If there was an I/O error
-     */
-    private String extractResource(final String resourceName, final String outputDirectory) throws IOException {
-        if (traceEnabled) {
-            System.err.println("Extracting resource from JAR: " + outputDirectory + "/" + resourceName);
-        }
-
-        Path target = Paths.get(outputDirectory, resourceName);
-        Files.copy(getClass().getResourceAsStream(resourceName), target);
-        return target.toAbsolutePath().toString();
-    }
 }

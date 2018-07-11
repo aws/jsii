@@ -25,6 +25,11 @@ namespace AWS.Jsii.JsonModel.FileSystem
         {
             File.Copy(sourceFileName, destFileName);
         }
+
+        public FileStream Create(string path) 
+        {
+            return File.Create(path);
+        }
     }
 
     public class DefaultDirectory : IDirectory

@@ -90,7 +90,12 @@ namespace AWS.Jsii.Generator.UnitTests
                 "",
                 fileSystem
             );
-            generator.Generate(Path.Combine(InputRoot, "aws-cdk-cx-api", "dist", Constants.SPEC_FILE_NAME), Symbols);
+            generator.Generate
+            (
+                Path.Combine(InputRoot, "aws-cdk-cx-api", "dist", Constants.SPEC_FILE_NAME),
+                Path.Combine(InputRoot, "aws-cdk-cx-api", "aws-cdk-cx-api-1.2.3.5.tgz"),
+                Symbols
+            );
 
             directory.Received().Delete(packageOutputRoot, true);
             directory.Received().CreateDirectory(packageOutputRoot);
@@ -137,7 +142,12 @@ namespace AWS.Jsii.Generator.UnitTests
                 "myCompany",
                 fileSystem
             );
-            generator.Generate(Path.Combine(InputRoot, "aws-cdk-cx-api", "dist", Constants.SPEC_FILE_NAME), Symbols);
+            generator.Generate
+            (
+                Path.Combine(InputRoot, "aws-cdk-cx-api", "dist", Constants.SPEC_FILE_NAME),
+                Path.Combine(InputRoot, "aws-cdk-cx-api", "aws-cdk-cx-api-1.2.3.5.tgz"),
+                Symbols
+            );
 
             // TODO: Use a NuGet reference instead of a project reference.
             const string expected =
@@ -148,6 +158,9 @@ namespace AWS.Jsii.Generator.UnitTests
     <Authors>myAuthors</Authors>
     <Company>myCompany</Company>
   </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include=""aws-cdk-cx-api-1.2.3.5.tgz"" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include=""AWS.Jsii.Runtime"" Version=""1.0.0"" />
   </ItemGroup>
@@ -205,7 +218,12 @@ namespace AWS.Jsii.Generator.UnitTests
                 "myCompany",
                 fileSystem
             );
-            generator.Generate(Path.Combine(InputRoot, "aws-cdk", "dist", Constants.SPEC_FILE_NAME), Symbols);
+            generator.Generate
+            (
+                Path.Combine(InputRoot, "aws-cdk", "dist", Constants.SPEC_FILE_NAME),
+                Path.Combine(InputRoot, "aws-cdk", "aws-cdk-1.2.3.4.tgz"),
+                Symbols
+            );
 
             // TODO: Use a NuGet reference instead of a project reference.
             const string expected =
@@ -216,6 +234,9 @@ namespace AWS.Jsii.Generator.UnitTests
     <Authors>myAuthors</Authors>
     <Company>myCompany</Company>
   </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include=""aws-cdk-1.2.3.4.tgz"" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include=""AWS.Jsii.Runtime"" Version=""1.0.0"" />
   </ItemGroup>
@@ -277,7 +298,12 @@ namespace AWS.Jsii.Generator.UnitTests
                 "",
                 fileSystem
             );
-            generator.Generate(Path.Combine(InputRoot, "aws-cdk-cx-api", "dist", Constants.SPEC_FILE_NAME), Symbols);
+            generator.Generate
+            (
+                Path.Combine(InputRoot, "aws-cdk-cx-api", "dist", Constants.SPEC_FILE_NAME),
+                Path.Combine(InputRoot, "aws-cdk-cx-api", "aws-cdk-cx-api-1.1.1.tgz"),
+                Symbols
+            );
 
 
             string expected =
@@ -285,7 +311,7 @@ namespace AWS.Jsii.Generator.UnitTests
 
 namespace Aws.Cdk.CxApi
 {
-    [JsiiClass(""aws-cdk-cx-api"", ""jsii$aws_cdk_cx_api$.MissingContext"", ""[]"")]
+    [JsiiClass(typeof(MissingContext), ""jsii$aws_cdk_cx_api$.MissingContext"", ""[]"")]
     public class MissingContext : DeputyBase
     {
         public MissingContext(): base(new DeputyProps(new object[]{}))
