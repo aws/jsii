@@ -1,4 +1,7 @@
+import * as fs from 'fs-extra';
 import * as spec from 'jsii-spec';
+import * as md5 from 'md5';
+import * as path from 'path';
 import { Generator } from '../generator';
 
 type NamespaceStackEntry = { name: string, underClass: boolean };
@@ -30,6 +33,20 @@ export default class SphinxDocsGenerator extends Generator {
         this.code.indentation = 3;
     }
 
+    public async upToDate(outDir: string): Promise<boolean> {
+        const mainFile = path.join(outDir, `${safeName(this.assembly.names.js)}.rst`);
+        try {
+            if (!await fs.pathExists(mainFile)) { return false; }
+            const data = await fs.readFile(mainFile, { encoding: 'utf-8' });
+            const matches = data.match(/^\.\. @jsii-pacmak:meta@ (.+)$/m);
+            if (!matches) { return false; }
+            const meta = JSON.parse(matches[1]);
+            return meta.fingerprint === md5(JSON.stringify(this.assembly));
+        } catch (e) {
+            return false;
+        }
+    }
+
     //
     // Assembly
 
@@ -47,6 +64,10 @@ export default class SphinxDocsGenerator extends Generator {
         }
 
         this.code.openFile(`${safeName(assm.names.js)}.rst`);
+
+        const meta = { fingerprint: md5(JSON.stringify(assm)) };
+        this.code.line(`.. @jsii-pacmak:meta@ ${JSON.stringify(meta)}`);
+        this.code.line();
 
         this.openSection(assm.names.js);
         this.code.line();
