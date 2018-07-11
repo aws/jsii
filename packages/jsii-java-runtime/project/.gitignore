@@ -2,7 +2,7 @@
 .idea
 pom.xml
 
-# Generated before build by "npm run prepare"
+# Generated before build by "npm run build"
 src/test/java/org/jsii/tests/
 src/test/resources/org/jsii/tests/
 

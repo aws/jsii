@@ -6,7 +6,7 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "watch": "tsc -w",
-    "prepare": "tsc",
+    "build": "tsc",
     "test": "echo OK"
   },
   "devDependencies": {

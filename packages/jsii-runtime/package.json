@@ -8,7 +8,7 @@
     "jsii-runtime": "bin/jsii-runtime"
   },
   "scripts": {
-    "prepare": "tsc && chmod +x bin/jsii-runtime && /bin/bash ./bundle.sh",
+    "build": "tsc && chmod +x bin/jsii-runtime && /bin/bash ./bundle.sh",
     "watch": "tsc -w",
     "test": "/bin/bash test/playback-test.sh"
   },

@@ -4,7 +4,7 @@
   "description": ".NET client for jsii runtime",
   "main": "index.js",
   "scripts": {
-    "prepare": "/bin/bash ./prepare.sh",
+    "build": "/bin/bash ./build.sh",
     "prepack": "/bin/bash ./prepack.sh",
     "test": "/bin/bash ./test.sh"
   },

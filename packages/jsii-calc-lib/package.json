@@ -12,7 +12,7 @@
     }
   },
   "scripts": {
-    "prepare": "jsii",
+    "build": "jsii",
     "test": "diff-test test/assembly.jsii dist/assembly.jsii"
   },
   "devDependencies": {
