@@ -350,6 +350,12 @@ export enum AllTypesEnum {
     ThisIsGreat
 }
 
+export enum StringEnum {
+    A = 'A',
+    B = 'B',
+    C = 'C'
+}
+
 /**
  * This class includes property for all types supported by jsii. The setters will validate
  * that the value set is of the expected type and throw otherwise.
@@ -480,6 +486,7 @@ export class AllTypes {
 
     // enum
 
+    public optionalEnumValue?: StringEnum;
     private enumValue: AllTypesEnum = AllTypesEnum.ThisIsGreat;
 
     get enumProperty() {
@@ -500,6 +507,10 @@ export class AllTypes {
 
     get enumPropertyValue(): number {
         return this.enumValue.valueOf();
+    }
+
+    enumMethod(value: StringEnum) {
+        return value;
     }
 }
 

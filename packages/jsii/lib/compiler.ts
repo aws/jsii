@@ -738,13 +738,18 @@ export async function compileSources(entrypoint: string,
     async function resolveType(type: ts.Type, ctx: string[]): Promise<spec.TypeReference> {
         ctx = newContext(ctx, type.symbol ? type.symbol.name : '<unknown-type>');
 
-        // convert to apparent type (in case for example, of a literal value)
-        type = typeChecker.getApparentType(type);
+        if (type.isLiteral()) {
+            // Literals need to be represented using their base type. Enums are handled differently, because they are Union types.
+            type = isEnumLike(type) ? typeChecker.getBaseTypeOfLiteralType(type)
+                                    : typeChecker.getApparentType(type);
+        } else {
+            // Some types are represented by "intrinsic" types, which need be converted to their "apparent" counterpart.
+            type = typeChecker.getApparentType(type);
+        }
 
-        // check if this is a union
-        // tslint:disable-next-line:no-bitwise
-        if (type.flags & ts.TypeFlags.Union && (!(type.flags & ts.TypeFlags.EnumLiteral))) {
-            return resolveUnionType(type as ts.UnionType, ctx);
+        // Enum types are also Union types, but they shouldn't be resolved as unions.
+        if (type.isUnion() && !isEnumLike(type)) {
+            return resolveUnionType(type, ctx);
         }
 
         const primitiveType = tryResolvePrimitiveType(type);
@@ -816,7 +821,7 @@ export async function compileSources(entrypoint: string,
             }
 
             if (!aType.symbol) {
-                throw error(ctx, 'Unable to resolve type');
+                throw error(ctx, `Unable to resolve type (flags: ${flagNames(aType).join(', ')})`);
             }
 
             if (aType.symbol.name === 'Date') {
@@ -836,6 +841,25 @@ export async function compileSources(entrypoint: string,
             }
 
             return undefined;
+        }
+
+        function isEnumLike(t: ts.Type): boolean {
+            // tslint:disable-next-line:no-bitwise
+            return (t.getFlags() & ts.TypeFlags.EnumLike) !== 0;
+        }
+
+        function flagNames(t: ts.Type): string[] {
+            const result = new Array<string>();
+            for (const flag of Object.keys(ts.TypeFlags)) {
+                // Number-enums have item indexes in Object.keys
+                if (!isNaN(Number(flag))) { continue; }
+                const flagValue = (ts.TypeFlags as any)[flag];
+                // tslint:disable-next-line:no-bitwise
+                if (t.getFlags() & flagValue) {
+                    result.push(flag);
+                }
+            }
+            return result;
         }
     }
 
