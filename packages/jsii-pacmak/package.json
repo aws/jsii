@@ -39,7 +39,7 @@
     "@scope/jsii-calc-lib": "^0.5.0-beta",
     "nodeunit": "^0.11.2",
     "tslint": "*",
-    "typescript": "^2.8.3"
+    "typescript": "^2.9.2"
   },
   "author": {
     "name": "Amazon Web Services",
