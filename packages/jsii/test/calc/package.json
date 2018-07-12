@@ -15,7 +15,7 @@
     "@types/node": "^8.0.28",
     "@types/nodeunit": "0.0.30",
     "nodeunit": "^0.11.1",
-    "typescript": "^2.7.2"
+    "typescript": "^2.9.2"
   },
   "author": {
     "name": "Amazon Web Services",

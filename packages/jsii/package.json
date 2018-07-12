@@ -33,7 +33,7 @@
     "jsii-spec": "^0.5.0-beta",
     "source-map-loader": "^0.2.3",
     "source-map-support": "^0.5.6",
-    "typescript": "^2.8.3",
+    "typescript": "^2.9.2",
     "yargs": "^11.0.0"
   },
   "author": {

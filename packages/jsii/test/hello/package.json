@@ -10,7 +10,7 @@
     "prepublish": "tsc -d index.ts && jsii"
   },
   "devDependencies": {
-    "typescript": "^2.7.2",
+    "typescript": "^2.9.2",
     "jsii": "^1.0.0"
   },
   "author": {
