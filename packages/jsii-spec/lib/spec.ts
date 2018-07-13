@@ -27,6 +27,12 @@ export class Assembly implements Documentable {
     public names: { [language: string]: string };
 
     /**
+     * A map of package names in various package managers (e.g. ``mvn``, ...).
+     * This map is used when packaging & publishing language-specific modules.
+     */
+    public packageNames: { [manager: string]: string };
+
+    /**
      * The version of the module
      */
     public version: string;
@@ -102,10 +108,10 @@ export class Assembly implements Documentable {
  * The version of a package.
  */
 export interface PackageVersion {
-    /** Name of the package. */
-    package: string;
     /** Version of the package. */
     version: string;
+    /** Package manager specific names of the package. */
+    packageNames: { [manager: string]: string };
 }
 
 /**

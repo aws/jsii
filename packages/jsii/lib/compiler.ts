@@ -62,6 +62,7 @@ export async function compilePackage(packageDir: string, includeDirs = [ 'test',
     // automatically add a "js" name based on the npm name.
     mod.names.js = pkg.name;
 
+    mod.packageNames = addDefaultPackageNames(pkg.packageNames, mod.names);
     // create a map of native names for this module and all dependencies
     // to allow generators and runtimes to translate jsii names to native names.
     mod.nativenames = nativenames;
@@ -70,6 +71,18 @@ export async function compilePackage(packageDir: string, includeDirs = [ 'test',
     mod.readme = await loadReadme(packageDir);
 
     return mod;
+}
+
+function addDefaultPackageNames(packageNames: { [manager: string]: string },
+                                langNames: { [language: string]: string }): { [manager: string]: string } {
+    const result = {...packageNames};
+    if (!result.mvn && langNames.java) {
+        result.mvn = langNames.java.replace(/^(.+)\.([^.]+)$/, '$1:$2');
+    }
+    if (!result.npm && langNames.js) {
+        result.npm = langNames.js;
+    }
+    return result;
 }
 
 async function loadReadme(packageDir: string): Promise<{ markdown: string } | undefined> {
@@ -1296,7 +1309,7 @@ async function readDependencies(rootDir: string, packageDeps: any, bundledDeps: 
 
         const moduleName = packageName;
 
-        dependencies[moduleName] = { package: jsii.package, version: jsii.version };
+        dependencies[moduleName] = { version: jsii.version, packageNames: jsii.packageNames };
         nativenames[moduleName] = jsii.names;
 
         // add all types to lookup table.

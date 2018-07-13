@@ -39,6 +39,12 @@ export interface PackageMetadata {
     names: { [language: string]: string }
 
     /**
+     * Mapping of package manager => package name.
+     * For example: { "mvn": "com.amazonaws.cdk:core" }
+     */
+    packageNames: { [manager: string]: string }
+
+    /**
      * Package npm dependencies (package.dependencies)
      */
     dependencies: { [name: string]: string }
@@ -82,6 +88,7 @@ export default async function readPackageMetadata(moduleDir: string): Promise<Pa
         dependencies: pkg.dependencies || {},
         bundledDependencies: pkg.bundledDependencies || [],
         names: pkg.jsii.names || {},
+        packageNames: pkg.jsii.packageNames || {},
         entrypoint: types.replace(/\.d\.ts$/, '.ts')
     };
 }
