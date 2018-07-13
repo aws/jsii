@@ -21,6 +21,11 @@ export class Assembly implements Documentable {
     public package: string;
 
     /**
+     * A fingerprint that can be used to determine if the specification has changed.
+     */
+    public fingerprint: string;
+
+    /**
      * A map of module names in various languages.
      * This map is used when generating language-specific modules instead of the jsii$ module name.
      */

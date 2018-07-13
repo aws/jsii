@@ -264,11 +264,16 @@
     "dotnet": "AWS.Jsii.Tests.Calculator.Lib",
     "js": "@scope/jsii-calc-lib"
   },
+  "packageNames": {
+    "mvn": "org.jsii.tests.calculator:lib",
+    "npm": "@scope/jsii-calc-lib"
+  },
   "nativenames": {
     "@scope/jsii-calc-lib": {
       "java": "org.jsii.tests.calculator.lib",
       "dotnet": "AWS.Jsii.Tests.Calculator.Lib",
       "js": "@scope/jsii-calc-lib"
     }
-  }
+  },
+  "fingerprint": "24282d395ba8a822c87ecf356df70f99"
 }

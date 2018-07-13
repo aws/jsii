@@ -3,12 +3,14 @@ import * as clone from 'clone';
 import * as fs from 'fs-extra';
 import * as glob from 'glob';
 import * as spec from 'jsii-spec';
+import * as md5 from 'md5';
 import * as path from 'path';
 import * as ts from 'typescript';
 import * as util from 'util';
 import { getCompilerOptions, saveCompilerOptions, saveLinterOptions } from './compiler-options';
 import { fileSystemLoader, includeAndRenderExamples, loadFromFile } from './literate';
 import readPackageMetadata from './package-metadata';
+import { filterEmpty } from './util';
 
 /**
  * Given a CommonJS (npm) typescript package, produces a JSII specification for it.
@@ -69,6 +71,10 @@ export async function compilePackage(packageDir: string, includeDirs = [ 'test',
     mod.nativenames[mod.name] = mod.names;
 
     mod.readme = await loadReadme(packageDir);
+
+    // Not accounting for the 'fingerprint' field when fingerprinting.
+    delete mod.fingerprint;
+    mod.fingerprint = md5(JSON.stringify(mod, filterEmpty));
 
     return mod;
 }
