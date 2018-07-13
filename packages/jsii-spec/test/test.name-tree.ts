@@ -10,12 +10,17 @@ export = testCase({
     NameTree: {
         'correctly represents sample assembly'(test: Test) {
             // GIVEN
-            const assm = new spec.Assembly();
-            assm.name = moduleName;
-            assm.types = {
-                'org.jsii.ClassA': makeType('org.jsii', 'ClassA', spec.TypeKind.Class),
-                'org.jsii.ClassA.NestedInterface': makeType('org.jsii.ClassA', 'NestedInterface', spec.TypeKind.Interface),
-                'org.jsii.enums.EnumType': makeType('org.jsii.enums', 'EnumType', spec.TypeKind.Enum)
+            const assm: spec.Assembly = {
+                schema: spec.SchemaVersion.V1_0,
+                name: moduleName,
+                version: '0.0.1',
+                fingerprint: '<no-fingerprint>',
+                targets: {},
+                types: {
+                    'org.jsii.ClassA': makeType('org.jsii', 'ClassA', spec.TypeKind.Class),
+                    'org.jsii.ClassA.NestedInterface': makeType('org.jsii.ClassA', 'NestedInterface', spec.TypeKind.Interface),
+                    'org.jsii.enums.EnumType': makeType('org.jsii.enums', 'EnumType', spec.TypeKind.Enum)
+                }
             };
 
             // WHEN
@@ -47,6 +52,5 @@ export = testCase({
 
 function makeType(ns: string, name: string, kind: spec.TypeKind): spec.Type {
     const fqn = `${ns}.${name}`;
-    const docs = new spec.Docs();
-    return { fqn, name, module: moduleName, kind, docs };
+    return { fqn, name, module: moduleName, kind };
 }

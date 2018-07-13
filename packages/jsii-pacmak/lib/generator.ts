@@ -63,10 +63,10 @@ export abstract class Generator implements IGenerator {
     }
 
     public async load(jsiiFile: string) {
-        this.assembly = await fs.readJson(jsiiFile) as spec.Assembly;
+        this.assembly = await spec.loadAssembly(jsiiFile);
 
-        if (this.assembly.schema !== spec.SPEC_VERSION) {
-            throw new Error(`Invalid schema version "${this.assembly.schema}". Expecting "${spec.SPEC_VERSION}"`);
+        if (this.assembly.schema !== spec.SchemaVersion.V1_0) {
+            throw new Error(`Invalid schema version "${this.assembly.schema}". Expecting "${spec.SchemaVersion.V1_0}"`);
         }
 
         // Including the version of jsii-pacmak in the fingerprint, as a new version may imply different code generation.
@@ -147,7 +147,7 @@ export abstract class Generator implements IGenerator {
     //
     // Classes
 
-    protected onBeginClass(cls: spec.ClassType, abstract: boolean) { cls; abstract; }
+    protected onBeginClass(cls: spec.ClassType, abstract: boolean | undefined) { cls; abstract; }
     protected onEndClass(cls: spec.ClassType) { cls; }
 
     //
@@ -337,7 +337,7 @@ export abstract class Generator implements IGenerator {
         }
     }
 
-    private visitClass(cls: spec.ClassType, abstract: boolean) {
+    private visitClass(cls: spec.ClassType, abstract: boolean | undefined) {
         let initializer = cls.initializer;
         if (!abstract && initializer) {
 

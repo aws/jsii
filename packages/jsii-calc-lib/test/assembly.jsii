@@ -1,171 +1,192 @@
 {
   "schema": "jsii/1.0",
+  "name": "@scope/jsii-calc-lib",
+  "version": "0.5.0-beta",
+  "targets": {
+    "java": {
+      "package": "org.jsii.tests.calculator.lib",
+      "maven": {
+        "groupId": "org.jsii.tests",
+        "artifactId": "calculator-lib"
+      }
+    },
+    "dotnet": {
+      "namespace": "AWS.Jsii.Tests.Calculator.Lib"
+    },
+    "js": {
+      "npm": "@scope/jsii-calc-lib"
+    }
+  },
   "types": {
     "@scope/jsii-calc-lib.Value": {
+      "kind": "class",
+      "fqn": "@scope/jsii-calc-lib.Value",
+      "name": "Value",
+      "module": "@scope/jsii-calc-lib",
       "docs": {
         "comment": "Abstract class which represents a numeric value."
       },
-      "kind": "class",
-      "properties": [
-        {
-          "docs": {
-            "comment": "The value."
-          },
-          "name": "value",
-          "type": {
-            "primitive": "number"
-          },
-          "immutable": true,
-          "abstract": true
-        }
-      ],
-      "methods": [
-        {
-          "docs": {
-            "comment": "String representation of the value."
-          },
-          "name": "toString",
-          "returns": {
-            "primitive": "string"
-          }
-        }
-      ],
-      "fqn": "@scope/jsii-calc-lib.Value",
-      "module": "@scope/jsii-calc-lib",
       "namespace": "@scope/jsii-calc-lib",
-      "name": "Value",
       "base": {
         "fqn": "@scope/jsii-calc-base.Base"
       },
       "abstract": true,
       "initializer": {
         "initializer": true
-      }
-    },
-    "@scope/jsii-calc-lib.Number": {
-      "docs": {
-        "comment": "Represents a concrete number."
       },
-      "kind": "class",
       "properties": [
         {
-          "docs": {
-            "param": "value The number.",
-            "comment": "The number."
-          },
           "name": "value",
-          "type": {
-            "primitive": "number"
-          },
-          "immutable": true
-        },
-        {
           "docs": {
-            "comment": "The number multiplied by 2."
+            "comment": "The value."
           },
-          "name": "doubleValue",
           "type": {
             "primitive": "number"
           },
+          "abstract": true,
           "immutable": true
         }
       ],
+      "methods": [
+        {
+          "name": "toString",
+          "docs": {
+            "comment": "String representation of the value."
+          },
+          "returns": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "@scope/jsii-calc-lib.Number": {
+      "kind": "class",
       "fqn": "@scope/jsii-calc-lib.Number",
-      "module": "@scope/jsii-calc-lib",
-      "namespace": "@scope/jsii-calc-lib",
       "name": "Number",
+      "module": "@scope/jsii-calc-lib",
+      "docs": {
+        "comment": "Represents a concrete number."
+      },
+      "namespace": "@scope/jsii-calc-lib",
       "base": {
         "fqn": "@scope/jsii-calc-lib.Value"
       },
       "initializer": {
+        "docs": {
+          "comment": "Creates a Number object."
+        },
         "parameters": [
           {
+            "name": "value",
             "docs": {
               "param": "value The number.",
               "comment": "The number."
             },
-            "name": "value",
             "type": {
               "primitive": "number"
             }
           }
         ],
-        "docs": {
-          "comment": "Creates a Number object."
-        },
         "initializer": true
-      }
+      },
+      "properties": [
+        {
+          "name": "value",
+          "docs": {
+            "param": "value The number.",
+            "comment": "The number."
+          },
+          "type": {
+            "primitive": "number"
+          },
+          "immutable": true
+        },
+        {
+          "name": "doubleValue",
+          "docs": {
+            "comment": "The number multiplied by 2."
+          },
+          "type": {
+            "primitive": "number"
+          },
+          "immutable": true
+        }
+      ]
     },
     "@scope/jsii-calc-lib.Operation": {
+      "kind": "class",
+      "fqn": "@scope/jsii-calc-lib.Operation",
+      "name": "Operation",
+      "module": "@scope/jsii-calc-lib",
       "docs": {
         "comment": "Represents an operation on values."
       },
-      "kind": "class",
-      "methods": [
-        {
-          "docs": {
-            "comment": "String representation of the value."
-          },
-          "name": "toString",
-          "abstract": true,
-          "returns": {
-            "primitive": "string"
-          }
-        }
-      ],
-      "fqn": "@scope/jsii-calc-lib.Operation",
-      "module": "@scope/jsii-calc-lib",
       "namespace": "@scope/jsii-calc-lib",
-      "name": "Operation",
       "base": {
         "fqn": "@scope/jsii-calc-lib.Value"
       },
       "abstract": true,
       "initializer": {
         "initializer": true
-      }
-    },
-    "@scope/jsii-calc-lib.IFriendly": {
-      "docs": {
-        "comment": "Applies to classes that are considered friendly. These classes can be greeted with\na \"hello\" or \"goodbye\" blessing and they will respond back in a fun and friendly manner."
       },
-      "kind": "interface",
       "methods": [
         {
+          "name": "toString",
           "docs": {
-            "comment": "Say hello!"
+            "comment": "String representation of the value."
           },
-          "name": "hello",
+          "abstract": true,
           "returns": {
             "primitive": "string"
           }
         }
-      ],
+      ]
+    },
+    "@scope/jsii-calc-lib.IFriendly": {
+      "kind": "interface",
       "fqn": "@scope/jsii-calc-lib.IFriendly",
+      "name": "IFriendly",
       "module": "@scope/jsii-calc-lib",
+      "docs": {
+        "comment": "Applies to classes that are considered friendly. These classes can be greeted with\na \"hello\" or \"goodbye\" blessing and they will respond back in a fun and friendly manner."
+      },
       "namespace": "@scope/jsii-calc-lib",
-      "name": "IFriendly"
+      "methods": [
+        {
+          "name": "hello",
+          "docs": {
+            "comment": "Say hello!"
+          },
+          "returns": {
+            "primitive": "string"
+          }
+        }
+      ]
     },
     "@scope/jsii-calc-lib.MyFirstStruct": {
+      "kind": "interface",
+      "fqn": "@scope/jsii-calc-lib.MyFirstStruct",
+      "name": "MyFirstStruct",
+      "module": "@scope/jsii-calc-lib",
       "docs": {
         "comment": "This is the first struct we have created in jsii"
       },
-      "kind": "interface",
+      "namespace": "@scope/jsii-calc-lib",
       "properties": [
         {
+          "name": "astring",
           "docs": {
             "comment": "A string value"
           },
-          "name": "astring",
           "type": {
             "primitive": "string"
           }
         },
         {
+          "name": "anumber",
           "docs": {
             "comment": "An awesome number value"
           },
-          "name": "anumber",
           "type": {
             "primitive": "number"
           }
@@ -183,23 +204,23 @@
           }
         }
       ],
-      "fqn": "@scope/jsii-calc-lib.MyFirstStruct",
-      "module": "@scope/jsii-calc-lib",
-      "namespace": "@scope/jsii-calc-lib",
-      "name": "MyFirstStruct",
       "datatype": true
     },
     "@scope/jsii-calc-lib.StructWithOnlyOptionals": {
+      "kind": "interface",
+      "fqn": "@scope/jsii-calc-lib.StructWithOnlyOptionals",
+      "name": "StructWithOnlyOptionals",
+      "module": "@scope/jsii-calc-lib",
       "docs": {
         "comment": "This is a struct with only optional properties."
       },
-      "kind": "interface",
+      "namespace": "@scope/jsii-calc-lib",
       "properties": [
         {
+          "name": "optional1",
           "docs": {
             "comment": "The first optional!"
           },
-          "name": "optional1",
           "type": {
             "primitive": "string",
             "optional": true
@@ -220,42 +241,9 @@
           }
         }
       ],
-      "fqn": "@scope/jsii-calc-lib.StructWithOnlyOptionals",
-      "module": "@scope/jsii-calc-lib",
-      "namespace": "@scope/jsii-calc-lib",
-      "name": "StructWithOnlyOptionals",
       "datatype": true
     }
   },
-  "externals": {
-    "@scope/jsii-calc-base.Base": {
-      "docs": {
-        "comment": "A base class."
-      },
-      "kind": "class",
-      "methods": [
-        {
-          "docs": {
-            "returns": "the name of the class (to verify native type names are created for derived classes)."
-          },
-          "name": "typeName",
-          "returns": {
-            "primitive": "any"
-          }
-        }
-      ],
-      "fqn": "@scope/jsii-calc-base.Base",
-      "module": "@scope/jsii-calc-base",
-      "namespace": "@scope/jsii-calc-base",
-      "name": "Base",
-      "abstract": true,
-      "initializer": {
-        "initializer": true
-      }
-    }
-  },
-  "name": "@scope/jsii-calc-lib",
-  "version": "0.5.0-beta",
   "dependencies": {
     "@scope/jsii-calc-base": {
       "version": "0.5.0-beta",
@@ -276,19 +264,31 @@
       }
     }
   },
-  "targets": {
-    "java": {
-      "package": "org.jsii.tests.calculator.lib",
-      "maven": {
-        "groupId": "org.jsii.tests",
-        "artifactId": "calculator-lib"
-      }
-    },
-    "dotnet": {
-      "namespace": "AWS.Jsii.Tests.Calculator.Lib"
-    },
-    "js": {
-      "npm": "@scope/jsii-calc-lib"
+  "externals": {
+    "@scope/jsii-calc-base.Base": {
+      "kind": "class",
+      "fqn": "@scope/jsii-calc-base.Base",
+      "name": "Base",
+      "module": "@scope/jsii-calc-base",
+      "docs": {
+        "comment": "A base class."
+      },
+      "namespace": "@scope/jsii-calc-base",
+      "abstract": true,
+      "initializer": {
+        "initializer": true
+      },
+      "methods": [
+        {
+          "name": "typeName",
+          "docs": {
+            "returns": "the name of the class (to verify native type names are created for derived classes)."
+          },
+          "returns": {
+            "primitive": "any"
+          }
+        }
+      ]
     }
   },
   "fingerprint": "JRKB4x1D3v3CgGEkp0Ps4g=="

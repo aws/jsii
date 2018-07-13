@@ -415,7 +415,7 @@ export default class SphinxDocsGenerator extends Generator {
         this.code.line();
         doclines.split('\n').forEach(line => this.code.line(line));
 
-        if (element.docs.link) {
+        if (element.docs && element.docs.link) {
             this.code.line(element.docs.link);
         }
 

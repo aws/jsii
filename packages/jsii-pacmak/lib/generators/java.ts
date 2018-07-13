@@ -587,14 +587,14 @@ export default class JavaGenerator extends Generator {
             this.code.line(` * ${defaultText}`);
         }
 
-        Object.keys(doc.docs).forEach(key => {
+        for (const key of Object.keys(doc.docs)) {
             const value = doc.docs[key];
             if (key === 'comment') {
                 value.split('\n').forEach(s => this.code.line(` * ${s}`));
             } else {
                 this.code.line(` * @${key} ${value.replace(/\n/g, ' ')}`);
             }
-        });
+        }
 
         // if this is a method, add docs for parameters
         if ((doc as any).parameters) {
