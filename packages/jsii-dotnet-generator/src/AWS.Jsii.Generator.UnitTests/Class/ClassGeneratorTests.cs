@@ -4,7 +4,7 @@ using AWS.Jsii.JsonModel.Spec;
 using Microsoft.CodeAnalysis;
 using Xunit;
 
-namespace AWS.Jsii.Generator.UnitTests
+namespace AWS.Jsii.Generator.UnitTests.Class
 {
     public class ClassGeneratorTests : GeneratorTestBase
     {

@@ -175,7 +175,7 @@ namespace AWS.Jsii.Generator
                                     SF.Identifier("assembly"),
                                     SF.Token(SyntaxKind.ColonToken)
                                 ),
-                                SF.SeparatedList<AttributeSyntax>(new[] {
+                                SF.SeparatedList(new[] {
                                     SF.Attribute(
                                         SF.ParseName("JsiiAssembly"),
                                         SF.ParseAttributeArgumentList($"({SF.Literal(name)}, {SF.Literal(version)}, {SF.Literal(tarball)})")

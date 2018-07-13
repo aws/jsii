@@ -4,28 +4,28 @@ using Microsoft.CodeAnalysis;
 using Xunit;
 using SF = Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
-namespace AWS.Jsii.Generator.UnitTests
+namespace AWS.Jsii.Generator.UnitTests.DocComment
 {
-    public class MethodDocCommentGeneratorTests : GeneratorTestBase
+    public class PropertyDocCommentGeneratorTests : GeneratorTestBase
     {
-        const string Prefix = nameof(Generator) + "." + nameof(MethodDocCommentGenerator) + ".";
+        const string Prefix = nameof(Generator) + "." + nameof(PropertyDocCommentGenerator) + ".";
 
-        string Render(Docs docs, params Parameter[] parameters)
+        string Render(Docs docs)
         {
-            Method method = new Method(
+            Property property = new Property(
+                "myProp",
+                new TypeReference(primitive: PrimitiveType.String),
                 false,
                 false,
                 false,
-                parameters,
-                docs,
-                name: "method"
+                docs
             );
 
-            MethodDocCommentGenerator generator = new MethodDocCommentGenerator(method, Symbols);
+            PropertyDocCommentGenerator generator = new PropertyDocCommentGenerator(property);
 
             SyntaxTrivia docComment = generator.CreateDocComment();
             SyntaxTree tree = SF.SyntaxTree(
-                SF.MethodDeclaration(SF.ParseTypeName("void"), "Method")
+                SF.PropertyDeclaration(SF.ParseTypeName("string"), "MyProp")
                     .WithLeadingTrivia(generator.CreateDocComment())
                     .NormalizeWhitespace(elasticTrivia: true)
             );
@@ -44,7 +44,7 @@ namespace AWS.Jsii.Generator.UnitTests
             string actual = Render(docs);
             string expected =
 @"/// <summary>my comment</summary>
-        void Method()";
+        string MyProp";
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
@@ -65,7 +65,7 @@ namespace AWS.Jsii.Generator.UnitTests
 /// my
 /// comment
 /// </summary>
-        void Method()";
+        string MyProp";
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
@@ -81,7 +81,7 @@ namespace AWS.Jsii.Generator.UnitTests
             string actual = Render(docs);
             string expected =
 @"/// <remarks>myKey: my comment</remarks>
-        void Method()";
+        string MyProp";
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
@@ -103,7 +103,7 @@ namespace AWS.Jsii.Generator.UnitTests
 /// myKey2: my
 /// comment
 /// </remarks>
-        void Method()";
+        string MyProp";
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
@@ -119,7 +119,7 @@ namespace AWS.Jsii.Generator.UnitTests
             string actual = Render(docs);
             string expected =
 @"/// <remarks>link: www.example.com </remarks>
-        void Method()";
+        string MyProp";
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
@@ -133,7 +133,7 @@ namespace AWS.Jsii.Generator.UnitTests
             };
 
             string actual = Render(docs);
-            string expected = @"void Method()";
+            string expected = @"string MyProp";
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
@@ -149,75 +149,7 @@ namespace AWS.Jsii.Generator.UnitTests
             string actual = Render(docs);
             string expected =
 @"/// <returns>my comment</returns>
-        void Method()";
-
-            Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
-        }
-
-        [Fact(DisplayName = Prefix + nameof(IgnoresParameterParam))]
-        public void IgnoresParameterParam()
-        {
-            Parameter parameter = new Parameter(
-                "myParam",
-                new TypeReference(primitive: PrimitiveType.String),
-                new Docs
-                {
-                    { "param", "my comment" }
-                }
-            );
-
-            Symbols.MapParameterName("myParam", "myParam");
-
-            string actual = Render(null, parameter);
-            string expected = @"void Method()";
-
-            Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
-        }
-
-        [Fact(DisplayName = Prefix + nameof(IgnoresParameterParam))]
-        public void TrimsParameterSummary()
-        {
-            Parameter parameter = new Parameter(
-                "myParam",
-                new TypeReference(primitive: PrimitiveType.String),
-                new Docs
-                {
-                    { "comment", "my comment" }
-                }
-            );
-
-            Symbols.MapParameterName("myParam", "myParam");
-
-            string actual = Render(null, parameter);
-            string expected =
-@"/// <param name = ""myParam"">my comment</param>
-        void Method()";
-
-            Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
-        }
-
-        [Fact(DisplayName = Prefix + nameof(IncludesParameterRemarks))]
-        public void IncludesParameterRemarks()
-        {
-            Parameter parameter = new Parameter(
-                "myParam",
-                new TypeReference(primitive: PrimitiveType.String),
-                new Docs
-                {
-                    { "myKey1", "my comment" },
-                    { "myKey2", "my comment" }
-                }
-            );
-
-            Symbols.MapParameterName("myParam", "myParam");
-
-            string actual = Render(null, parameter);
-            string expected =
-@"/// <param name = ""myParam"">
-/// myKey1: my comment
-/// myKey2: my comment
-/// </param>
-        void Method()";
+        string MyProp";
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }

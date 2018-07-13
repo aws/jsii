@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Xunit;
 
-namespace AWS.Jsii.Generator.UnitTests
+namespace AWS.Jsii.Generator.UnitTests.Class
 {
     public class ClassPropertyGeneratorTests : GeneratorTestBase
     {

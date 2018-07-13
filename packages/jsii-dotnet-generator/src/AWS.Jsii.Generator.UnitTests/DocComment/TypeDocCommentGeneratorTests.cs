@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis;
 using Xunit;
 using SF = Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
-namespace AWS.Jsii.Generator.UnitTests
+namespace AWS.Jsii.Generator.UnitTests.DocComment
 {
     public class TypeDocCommentGeneratorTests : GeneratorTestBase
     {

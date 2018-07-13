@@ -7,7 +7,7 @@ using Type = AWS.Jsii.JsonModel.Spec.Type;
 
 namespace AWS.Jsii.Generator
 {
-    internal abstract class TypeMetadata
+    public abstract class TypeMetadata
     {
         public TypeMetadata(Type type, Assembly assembly)
         {
@@ -44,7 +44,7 @@ namespace AWS.Jsii.Generator
 
     }
 
-    class ClassTypeMetadata : TypeMetadata
+    public class ClassTypeMetadata : TypeMetadata
     {
         public ClassTypeMetadata(ClassType type, Assembly assembly)
             : base(type, assembly)
@@ -66,7 +66,7 @@ namespace AWS.Jsii.Generator
         }
     }
 
-    class EnumTypeMetadata : TypeMetadata
+    public class EnumTypeMetadata : TypeMetadata
     {
         public EnumTypeMetadata(EnumType type, Assembly assembly)
             : base(type, assembly)
@@ -84,7 +84,7 @@ namespace AWS.Jsii.Generator
 
     }
 
-    class InterfaceTypeMetadata : TypeMetadata
+    public class InterfaceTypeMetadata : TypeMetadata
     {
         public InterfaceTypeMetadata(InterfaceType type, Assembly assembly)
             : base(type, assembly)
@@ -115,7 +115,7 @@ namespace AWS.Jsii.Generator
 
         public string FrameworkFullyQualifiedProxyName => $"{Namespace}.{ProxyName}";
 
-        public string FrameworkFullyQualifiedDefaultName => $"{Namespace}.{ProxyName}";
+        public string FrameworkFullyQualifiedDefaultName => $"{Namespace}.{DefaultName}";
 
         public override void ResolveTypeNameConflicts(ISet<string> namespaceNames)
         {

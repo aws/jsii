@@ -1,5 +1,4 @@
-﻿using AWS.Jsii.JsonModel.Spec;
-using System;
+﻿using System;
 using Xunit;
 
 namespace AWS.Jsii.Generator.UnitTests

@@ -1,44 +1,42 @@
-﻿using AWS.Jsii.Generator.Class;
+﻿using AWS.Jsii.Generator.Interface;
 using AWS.Jsii.JsonModel.Spec;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Xunit;
 
-namespace AWS.Jsii.Generator.UnitTests
+namespace AWS.Jsii.Generator.UnitTests.Interface
 {
-    public class ClassMethodGeneratorTests : GeneratorTestBase
+    public class InterfaceProxyMethodGeneratorTests : GeneratorTestBase
     {
-        const string Prefix = nameof(Generator) + "." + nameof(ClassMethodGenerator) + ".";
+        const string Prefix = nameof(Generator) + "." + nameof(InterfaceProxyMethodGenerator) + ".";
 
         string Render(Method method)
         {
-            ClassType classType = new ClassType
+            InterfaceType interfaceType = new InterfaceType
             (
-                "myClassFqn",
+                "myInterfaceFqn",
                 "myModule",
                 "myClass",
                 "myNamespace",
-                true,
-                initializer: new Method(true, false, false),
-                methods: new[] { method }
+                methods: new Method[] { method }
             );
 
-            Symbols.MapTypeToPackage("myClassFqn", "myPackage");
+            Symbols.MapTypeToPackage("myInterfaceFqn", "myPackage");
             Symbols.MapNamespace("myNamespace", "MyNamespace");
-            Symbols.MapTypeName("myClassFqn", "MyClass", JsonModel.Spec.TypeKind.Class);
+            Symbols.MapTypeName("myInterfaceFqn", "MyInterface", JsonModel.Spec.TypeKind.Interface);
 
-            ClassMethodGenerator generator = new ClassMethodGenerator(classType, method, Symbols, Namespaces);
+            var generator = new InterfaceProxyMethodGenerator(interfaceType, method, Symbols, Namespaces);
 
             MethodDeclarationSyntax methodSyntax = generator.CreateMethod();
             return methodSyntax.NormalizeWhitespace(elasticTrivia: true).ToString();
         }
 
-        [Fact(DisplayName = Prefix + nameof(IncludesProtectedKeyword))]
+        [Fact(DisplayName = Prefix + nameof(IncludesAttribute))]
         public void IncludesAttribute()
         {
             Method method = new Method(false, false, false, name: "myMethod");
 
-            Symbols.MapMethodName("myClassFqn", "myMethod", "MyMethod");
+            Symbols.MapMethodName("myInterfaceFqn", "myMethod", "MyMethod");
 
             string actual = Render(method);
             string expected =
@@ -47,37 +45,6 @@ public virtual void MyMethod()
 {
     InvokeInstanceVoidMethod(new object[]{});
 }";
-            Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
-        }
-
-        [Fact(DisplayName = Prefix + nameof(IncludesProtectedKeyword))]
-        public void IncludesProtectedKeyword()
-        {
-            Method method = new Method(false, true, false, name: "myMethod");
-
-            Symbols.MapMethodName("myClassFqn", "myMethod", "MyMethod");
-
-            string actual = Render(method);
-            string expected =
-@"[JsiiMethod(""myMethod"", null, ""[]"")]
-protected virtual void MyMethod()
-{
-    InvokeInstanceVoidMethod(new object[]{});
-}";
-            Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
-        }
-
-        [Fact(DisplayName = Prefix + nameof(IncludesAbstractKeyword))]
-        public void IncludesAbstractKeyword()
-        {
-            Method method = new Method(false, false, true, name: "myMethod");
-
-            Symbols.MapMethodName("myClassFqn", "myMethod", "MyMethod");
-
-            string actual = Render(method);
-            string expected =
-@"[JsiiMethod(""myMethod"", null, ""[]"")]
-public abstract void MyMethod();";
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
 
@@ -94,7 +61,7 @@ public abstract void MyMethod();";
                 }
             );
 
-            Symbols.MapMethodName("myClassFqn", "myMethod", "MyMethod");
+            Symbols.MapMethodName("myInterfaceFqn", "myMethod", "MyMethod");
             Symbols.MapTypeName("myParamTypeFqn", "MyParamType", JsonModel.Spec.TypeKind.Class);
             Symbols.MapParameterName("myParam", "myParam");
             Symbols.MapParameterName("event", "@event");
@@ -118,7 +85,7 @@ public virtual void MyMethod(MyParamType myParam, string @event)
                 docs: new Docs { { "foo", "bar" } }
             );
 
-            Symbols.MapMethodName("myClassFqn", "myMethod", "MyMethod");
+            Symbols.MapMethodName("myInterfaceFqn", "myMethod", "MyMethod");
 
             string actual = Render(method);
             string expected =
@@ -135,14 +102,11 @@ public virtual void MyMethod()
         {
             Method method = new Method
             (
-                isInitializer: false,
-                isProtected: false,
-                isAbstract: false,
-                name: "myMethod",
+                false, false, false, name: "myMethod",
                 returns: new TypeReference("myReturnTypeFqn")
             );
 
-            Symbols.MapMethodName("myClassFqn", "myMethod", "MyMethod");
+            Symbols.MapMethodName("myInterfaceFqn", "myMethod", "MyMethod");
             Symbols.MapTypeName("myReturnTypeFqn", "MyReturnType", JsonModel.Spec.TypeKind.Class);
 
             string actual = Render(method);
@@ -151,32 +115,6 @@ public virtual void MyMethod()
 public virtual MyReturnType MyMethod()
 {
     return InvokeInstanceMethod<MyReturnType>(new object[]{});
-}";
-            Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
-        }
-
-        [Fact(DisplayName = Prefix + nameof(SupportsStaticMethods))]
-        public void SupportsStaticMethods()
-        {
-            Method method = new Method
-            (
-                isInitializer: false,
-                isProtected: false,
-                isAbstract: false,
-                name: "myMethod",
-                returns: new TypeReference("myReturnTypeFqn"),
-                isStatic: true
-            );
-
-            Symbols.MapMethodName("myClassFqn", "myMethod", "MyMethod");
-            Symbols.MapTypeName("myReturnTypeFqn", "MyReturnType", JsonModel.Spec.TypeKind.Class);
-
-            string actual = Render(method);
-            string expected =
-@"[JsiiMethod(""myMethod"", ""{\""fqn\"":\""myReturnTypeFqn\""}"", ""[]"")]
-public static MyReturnType MyMethod()
-{
-    return InvokeStaticMethod<MyReturnType>(typeof(MyClass), new object[]{});
 }";
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
