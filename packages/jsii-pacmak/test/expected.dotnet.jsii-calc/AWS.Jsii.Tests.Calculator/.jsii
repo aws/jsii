@@ -879,6 +879,24 @@
       "namespace": "jsii-calc",
       "name": "AllTypesEnum"
     },
+    "jsii-calc.StringEnum": {
+      "kind": "enum",
+      "members": [
+        {
+          "name": "A"
+        },
+        {
+          "name": "B"
+        },
+        {
+          "name": "C"
+        }
+      ],
+      "fqn": "jsii-calc.StringEnum",
+      "module": "jsii-calc",
+      "namespace": "jsii-calc",
+      "name": "StringEnum"
+    },
     "jsii-calc.AllTypes": {
       "docs": {
         "comment": "This class includes property for all types supported by jsii. The setters will validate\nthat the value set is of the expected type and throw otherwise."
@@ -1024,6 +1042,13 @@
           }
         },
         {
+          "name": "optionalEnumValue",
+          "type": {
+            "fqn": "jsii-calc.StringEnum",
+            "optional": true
+          }
+        },
+        {
           "name": "enumProperty",
           "type": {
             "fqn": "jsii-calc.AllTypesEnum"
@@ -1035,6 +1060,22 @@
             "primitive": "number"
           },
           "immutable": true
+        }
+      ],
+      "methods": [
+        {
+          "parameters": [
+            {
+              "name": "value",
+              "type": {
+                "fqn": "jsii-calc.StringEnum"
+              }
+            }
+          ],
+          "name": "enumMethod",
+          "returns": {
+            "fqn": "jsii-calc.StringEnum"
+          }
         }
       ],
       "fqn": "jsii-calc.AllTypes",
@@ -2461,6 +2502,64 @@
       "initializer": {
         "initializer": true
       }
+    },
+    "jsii-calc.NodeStandardLibrary": {
+      "docs": {
+        "comment": "Tests to verify that jsii modules can use the node standard library."
+      },
+      "kind": "class",
+      "properties": [
+        {
+          "docs": {
+            "comment": "Returns the current os.platform() from the \"os\" node module."
+          },
+          "name": "osPlatform",
+          "type": {
+            "primitive": "string"
+          },
+          "immutable": true
+        }
+      ],
+      "methods": [
+        {
+          "docs": {
+            "returns": "\"Hello, resource!\"",
+            "comment": "Reads a local resource file (resource.txt) asynchronously."
+          },
+          "name": "fsReadFile",
+          "returns": {
+            "primitive": "string",
+            "promise": true
+          }
+        },
+        {
+          "docs": {
+            "returns": "\"Hello, resource! SYNC!\"",
+            "comment": "Sync version of fsReadFile."
+          },
+          "name": "fsReadFileSync",
+          "returns": {
+            "primitive": "string"
+          }
+        },
+        {
+          "docs": {
+            "returns": "\"6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50\"",
+            "comment": "Uses node.js \"crypto\" module to calculate sha256 of a string."
+          },
+          "name": "cryptoSha256",
+          "returns": {
+            "primitive": "string"
+          }
+        }
+      ],
+      "fqn": "jsii-calc.NodeStandardLibrary",
+      "module": "jsii-calc",
+      "namespace": "jsii-calc",
+      "name": "NodeStandardLibrary",
+      "initializer": {
+        "initializer": true
+      }
     }
   },
   "nametree": {
@@ -2511,6 +2610,9 @@
       },
       "AllTypesEnum": {
         "_": "jsii-calc.AllTypesEnum"
+      },
+      "StringEnum": {
+        "_": "jsii-calc.StringEnum"
       },
       "AllTypes": {
         "_": "jsii-calc.AllTypes"
@@ -2597,10 +2699,13 @@
       },
       "UseBundledDependency": {
         "_": "jsii-calc.UseBundledDependency"
+      },
+      "NodeStandardLibrary": {
+        "_": "jsii-calc.NodeStandardLibrary"
       }
     }
   },
-  "typecount": 43,
+  "typecount": 45,
   "externalTypes": {
     "@scope/jsii-calc-lib.IFriendly": {
       "docs": {

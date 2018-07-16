@@ -1,6 +1,12 @@
 // tslint:disable
 import { Operation, Value, Number, IFriendly, MyFirstStruct, StructWithOnlyOptionals } from '@scope/jsii-calc-lib'
+import * as fs from 'fs';
+import * as path from 'path';
+import * as os from 'os';
+import * as crypto from 'crypto';
+import { promisify } from 'util';
 const bundled = require('jsii-calc-bundled');
+const readFile = promisify(fs.readFile);
 
 /**
  * Even friendlier classes can implement this interface.
@@ -1038,5 +1044,45 @@ export interface UnionProperties {
 export class UseBundledDependency {
     value() {
         return bundled;
+    }
+}
+
+/**
+ * Tests to verify that jsii modules can use the node standard library.
+ */
+export class NodeStandardLibrary {
+    /**
+     * Reads a local resource file (resource.txt) asynchronously.
+     * @returns "Hello, resource!"
+     */
+    public async fsReadFile() {
+        const value = await readFile(path.join(__dirname, 'resource.txt'));
+        return value.toString();
+    }
+
+    /**
+     * Sync version of fsReadFile.
+     * @returns "Hello, resource! SYNC!"
+     */
+    public fsReadFileSync() {
+        return fs.readFileSync(path.join(__dirname, 'resource.txt')).toString() + ' SYNC!';
+    }
+
+    /**
+     * Returns the current os.platform() from the "os" node module.
+     */
+    public get osPlatform() {
+        return os.platform();
+    }
+
+    /**
+     * Uses node.js "crypto" module to calculate sha256 of a string.
+     * @returns "6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50"
+     */
+    public cryptoSha256() {
+        const hash = crypto.createHash('sha256');
+
+        hash.update('some data to hash');
+        return hash.digest('hex');
     }
 }

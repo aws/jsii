@@ -811,6 +811,23 @@ defineTest('fails if trying to load two different versions of the same module', 
     test.ok(thrown);
 });
 
+defineTest('node.js standard library', async (test, sandbox) => {
+    const objref = sandbox.create({ fqn: 'jsii-calc.NodeStandardLibrary' });
+    const promise = sandbox.begin({ objref, method: 'fsReadFile' });
+    await processPendingPromises(sandbox);
+
+    const output = await sandbox.end({ promiseid: promise.promiseid });
+    test.deepEqual(output, { result: 'Hello, resource!' });
+    test.deepEqual(sandbox.invoke({ objref, method: 'fsReadFileSync' }),
+        { result: 'Hello, resource! SYNC!' });
+
+    const platform = sandbox.get({ objref, property: 'osPlatform' }).value;
+    test.ok(platform && platform.length > 0);
+
+    test.deepEqual(sandbox.invoke({ objref, method: 'cryptoSha256' }),
+        { result: "6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50" });
+});
+
 const testNames: { [name: string]: boolean } = { };
 
 async function createCalculatorSandbox(name: string) {

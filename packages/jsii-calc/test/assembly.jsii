@@ -2502,6 +2502,64 @@
       "initializer": {
         "initializer": true
       }
+    },
+    "jsii-calc.NodeStandardLibrary": {
+      "docs": {
+        "comment": "Tests to verify that jsii modules can use the node standard library."
+      },
+      "kind": "class",
+      "properties": [
+        {
+          "docs": {
+            "comment": "Returns the current os.platform() from the \"os\" node module."
+          },
+          "name": "osPlatform",
+          "type": {
+            "primitive": "string"
+          },
+          "immutable": true
+        }
+      ],
+      "methods": [
+        {
+          "docs": {
+            "returns": "\"Hello, resource!\"",
+            "comment": "Reads a local resource file (resource.txt) asynchronously."
+          },
+          "name": "fsReadFile",
+          "returns": {
+            "primitive": "string",
+            "promise": true
+          }
+        },
+        {
+          "docs": {
+            "returns": "\"Hello, resource! SYNC!\"",
+            "comment": "Sync version of fsReadFile."
+          },
+          "name": "fsReadFileSync",
+          "returns": {
+            "primitive": "string"
+          }
+        },
+        {
+          "docs": {
+            "returns": "\"6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50\"",
+            "comment": "Uses node.js \"crypto\" module to calculate sha256 of a string."
+          },
+          "name": "cryptoSha256",
+          "returns": {
+            "primitive": "string"
+          }
+        }
+      ],
+      "fqn": "jsii-calc.NodeStandardLibrary",
+      "module": "jsii-calc",
+      "namespace": "jsii-calc",
+      "name": "NodeStandardLibrary",
+      "initializer": {
+        "initializer": true
+      }
     }
   },
   "nametree": {
@@ -2641,10 +2699,13 @@
       },
       "UseBundledDependency": {
         "_": "jsii-calc.UseBundledDependency"
+      },
+      "NodeStandardLibrary": {
+        "_": "jsii-calc.NodeStandardLibrary"
       }
     }
   },
-  "typecount": 44,
+  "typecount": 45,
   "externalTypes": {
     "@scope/jsii-calc-lib.IFriendly": {
       "docs": {
