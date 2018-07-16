@@ -10,10 +10,7 @@ export default class JavaGenerator extends Generator {
     private moduleClass: string;
 
     constructor() {
-        super({
-            generateOverloadsForMethodWithOptionals: true,
-            target: 'java'
-        });
+        super({ generateOverloadsForMethodWithOptionals: true });
     }
 
     protected onBeginAssembly(assm: spec.Assembly) {
@@ -763,7 +760,7 @@ export default class JavaGenerator extends Generator {
             }
 
             this.code.line('@Override');
-            this.code.openBlock(`public java.util.List<Class> getDependencies()`);
+            this.code.openBlock(`public java.util.List<Class<? extends org.jsii.JsiiModule>> getDependencies()`);
             this.code.line(`return java.util.Arrays.asList(${deps.join(', ')});`);
             this.code.closeBlock();
         }
@@ -779,6 +776,21 @@ export default class JavaGenerator extends Generator {
         this.code.openBlock(`protected ${className}(final org.jsii.JsiiObject.InitializationMode mode)`);
         this.code.line(`super(mode);`);
         this.code.closeBlock();
+    }
+
+    private toNativeFqn(fqn: string): string {
+        const [mod, ...name] = fqn.split('.');
+        if (mod === this.assembly.name) {
+            if (!this.assembly.targets.java) {
+                throw new Error(`This module doesn't have a java configuration: unable to determine a package name.`);
+            }
+            return [this.assembly.targets.java.package, ...name].join('.');
+        }
+        const depMod = this.assembly.dependencies && this.assembly.dependencies[mod];
+        if (!depMod) { throw new Error(`No dependency found for module ${mod}`); }
+        const pkg = depMod.targets.java && depMod.targets.java.package;
+        if (!pkg) { throw new Error(`The module ${mod} does not have a java.package setting`); }
+        return [pkg, ...name].join('.');
     }
 }
 

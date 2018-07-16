@@ -71,8 +71,9 @@ function assert-generator() {
     echo
 }
 
-assert-generator jsii-calc
+assert-generator jsii-calc-base
 assert-generator jsii-calc-lib
+assert-generator jsii-calc
 
 if ${success}; then
     # only remove working directory if tests pass. Otherwise, user might want to

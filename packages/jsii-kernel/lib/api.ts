@@ -148,7 +148,7 @@ export interface NamingRequest {
 }
 
 export interface NamingResponse {
-    naming: { [language: string]: string };
+    naming: { [language: string]: { [key: string]: any } | undefined };
 }
 
 // tslint:disable-next-line:no-empty-interface

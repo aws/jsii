@@ -1,4 +1,4 @@
-.. @jsii-pacmak:meta@ {"fingerprint":"2fe6e23a619cd01e9de41b79f5019604"}
+.. @jsii-pacmak:meta@ {"fingerprint":"b3804bb5d38909f5a7cd1d4612d16af9"}
 
 @scope/jsii-calc-lib
 ====================
@@ -141,6 +141,7 @@ Value
    Abstract class which represents a numeric value.
 
 
+   :extends: :py:class:`@scope/jsii-calc-base.Base`
    :abstract: Yes
 
    .. py:method:: toString() -> string
@@ -149,14 +150,6 @@ Value
 
 
       :rtype: string
-
-
-   .. py:method:: typeName() -> any
-
-      Returns the name of the class (to verify native type names are created for derived classes).
-
-
-      :rtype: any
 
 
    .. py:attribute:: value

@@ -44,12 +44,8 @@ export async function compilePackage(packageDir: string, includeDirs = [ 'test',
     await saveCompilerOptions(packageDir);
     await saveLinterOptions(packageDir);
 
-    // determine list of languages we need our dependencies to specify names for. otherwise,
-    // we won't be able to determine the name of types for that dependency.
-    const languages = new Set<string>(Object.keys(pkg.names));
-
-    const { lookup, dependencies, bundled, nativenames } =
-        await readDependencies(packageDir, pkg.dependencies, pkg.bundledDependencies, languages);
+    const targets = new Set(Object.keys(pkg.targets));
+    const { lookup, dependencies, bundled } = await readDependencies(packageDir, pkg.dependencies, pkg.bundledDependencies, targets);
 
     const mod = await compileSources(pkg.entrypoint, files, lookup);
 
@@ -59,16 +55,10 @@ export async function compilePackage(packageDir: string, includeDirs = [ 'test',
     mod.version = pkg.version.replace(/\+.+$/, ''); // omit "+build" postfix
     mod.dependencies = dependencies;
     mod.bundled = bundled;
-    mod.names = pkg.names;
+    mod.targets = pkg.targets;
 
-    // automatically add a "js" name based on the npm name.
-    mod.names.js = pkg.name;
-
-    mod.packageNames = addDefaultPackageNames(pkg.packageNames, mod.names);
-    // create a map of native names for this module and all dependencies
-    // to allow generators and runtimes to translate jsii names to native names.
-    mod.nativenames = nativenames;
-    mod.nativenames[mod.name] = mod.names;
+    // automatically add a "js" target based on the npm name.
+    mod.targets.js = { npm: pkg.name };
 
     mod.readme = await loadReadme(packageDir);
 
@@ -77,18 +67,6 @@ export async function compilePackage(packageDir: string, includeDirs = [ 'test',
     mod.fingerprint = md5(JSON.stringify(mod, filterEmpty));
 
     return mod;
-}
-
-function addDefaultPackageNames(packageNames: { [manager: string]: string },
-                                langNames: { [language: string]: string }): { [manager: string]: string } {
-    const result = {...packageNames};
-    if (!result.mvn && langNames.java) {
-        result.mvn = langNames.java.replace(/^(.+)\.([^.]+)$/, '$1:$2');
-    }
-    if (!result.npm && langNames.js) {
-        result.npm = langNames.js;
-    }
-    return result;
 }
 
 async function loadReadme(packageDir: string): Promise<{ markdown: string } | undefined> {
@@ -1276,12 +1254,43 @@ function verifyUnexportedTypes(mod: spec.Assembly, typeRefs: Set<ReferencedFqn>,
 
         if (externalType) {
             if (!mod.externalTypes) { mod.externalTypes = {}; }
-            mod.externalTypes[ref.fqn] = externalTypes.get(ref.fqn)!;
+            const extType = externalTypes.get(ref.fqn)!;
+            mod.externalTypes[ref.fqn] = extType;
+
+            hoistExternalBaseType(extType as spec.ClassType);
         }
     }
 
     if (errors.length > 0) {
         throw new Error(`Found unexported types in the API, which are also not exported by any dependency:\n  ${errors.join('\n  ')}`);
+    }
+
+    /**
+     * Bring the base type and interfaces of external types into the current module's ``externalTypes`` map, so the assembly contains
+     * the specification of the full type hierarchy. This enables code generators to reason over a complete type specification without
+     * having to necessarily be able to load the assemblies that define them.
+     *
+     * @param type the type whose base and interfaces need to be hoisted.
+     */
+    function hoistExternalBaseType(type: spec.Type) {
+        if (!mod.externalTypes) { mod.externalTypes = {}; }
+        if (spec.isClassType(type) && type.base && !(type.base.fqn in mod.externalTypes)) {
+            const baseFqn = type.base.fqn;
+            if (!externalTypes.has(baseFqn)) { throw new Error(`Unable to find the definition of ${baseFqn}, a base type of ${type.fqn}`); }
+            const baseType = externalTypes.get(baseFqn)!;
+            mod.externalTypes[baseFqn] = baseType;
+            hoistExternalBaseType(baseType);
+        }
+        if ((spec.isClassType(type) || spec.isInterfaceType(type)) && type.interfaces) {
+            for (const iface of type.interfaces) {
+                const ifaceFqn = iface.fqn;
+                if (ifaceFqn in mod.externalTypes) { continue; }
+                if (!externalTypes.has(ifaceFqn)) { throw new Error(`Unable to find the definition of ${ifaceFqn}, an interface of ${type.fqn}`); }
+                const ifaceType = externalTypes.get(ifaceFqn)!;
+                mod.externalTypes[ifaceFqn] = ifaceType;
+                hoistExternalBaseType(ifaceType);
+            }
+        }
     }
 }
 
@@ -1292,11 +1301,10 @@ function verifyUnexportedTypes(mod: spec.Assembly, typeRefs: Set<ReferencedFqn>,
  * @param rootDir The root dir of the module
  * @param packageDeps The 'dependencies' section of package.json
  */
-async function readDependencies(rootDir: string, packageDeps: any, bundledDeps: undefined | string[], languages: Set<string>) {
+async function readDependencies(rootDir: string, packageDeps: any, bundledDeps: undefined | string[], targets: Set<string>) {
     const lookup = new Map<string, spec.Type>();
     const dependencies: { [dep: string]: spec.PackageVersion } = { };
     const bundled: { [name: string]: string } = { };
-    const nativenames: { [name: string]: { [language: string]: string } } = {};
 
     bundledDeps = bundledDeps || [ ];
     packageDeps = packageDeps || { };
@@ -1306,17 +1314,16 @@ async function readDependencies(rootDir: string, packageDeps: any, bundledDeps: 
 
         // verify that dependencies specify names for all languages defined by this package
         // this is required in order for us to be able to resolve jsii symbols in native languages.
-        for (const lang of languages) {
-            if (!(lang in pkg.names)) {
+        for (const target of targets) {
+            if (!(target in pkg.targets)) {
                 // tslint:disable-next-line:max-line-length
-                throw new Error(`Dependent package ${packageName} does not have a name specified for language '${lang}' which is defined by this module`);
+                throw new Error(`Dependent package ${packageName} does not have a configuration specified for target '${target}' which is defined by this module`);
             }
         }
 
-        const moduleName = packageName;
+        const moduleName = jsii.name;
 
-        dependencies[moduleName] = { version: jsii.version, packageNames: jsii.packageNames };
-        nativenames[moduleName] = jsii.names;
+        dependencies[moduleName] = { package: jsii.package, version: jsii.version, targets: jsii.targets, dependencies: jsii.dependencies };
 
         // add all types to lookup table.
         if (jsii.types) {
@@ -1344,7 +1351,7 @@ async function readDependencies(rootDir: string, packageDeps: any, bundledDeps: 
         throw new Error(`There are some dependencies defined as jsiiBundledDependencies but we could not find them under "dependencies": ${bundledDeps.join()}`);
     }
 
-    return { lookup, dependencies, bundled, nativenames };
+    return { lookup, dependencies, bundled };
 }
 
 async function findModuleRoot(dir: string, packageName: string): Promise<string | undefined> {

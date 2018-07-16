@@ -1,0 +1,40 @@
+{
+  "name": "@scope/jsii-calc-base",
+  "version": "0.5.0-beta",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "private": true,
+  "jsii": {
+    "outdir": "dist",
+    "targets": {
+      "java": {
+        "package": "org.jsii.tests.calculator.base",
+        "maven": {
+          "groupId": "org.jsii.tests",
+          "artifactId": "calculator-base"
+        }
+      },
+      "dotnet": {
+        "namespace": "AWS.Jsii.Tests.Calculator.Base"
+      }
+    }
+  },
+  "scripts": {
+    "build": "jsii",
+    "test": "diff-test test/assembly.jsii .jsii"
+  },
+  "devDependencies": {
+    "jsii": "^0.5.0-beta",
+    "jsii-build-tools": "^0.5.0-beta",
+    "typescript": "^2.9.2"
+  },
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com"
+  },
+  "license": "LicenseRef-LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/awslabs/jsii"
+  }
+}

@@ -137,14 +137,22 @@ namespace AWS.Jsii.Generator
 
                 IEnumerable<string> GetDependencies()
                 {
-                    if (assembly.Dependencies == null)
+                    Stack<IDictionary<string, PackageVersion>> stack = new Stack<IDictionary<string, PackageVersion>>();
+                    if (assembly.Dependencies != null)
                     {
-                        yield break;
+                        stack.Push(assembly.Dependencies);
                     }
 
-                    foreach (string packageName in assembly.Dependencies.Keys)
+                    while (stack.LongCount() > 0)
                     {
-                        yield return symbols.GetAssemblyName(packageName);
+                        foreach (KeyValuePair<string, PackageVersion> entry in stack.Pop())
+                        {
+                            yield return symbols.GetAssemblyName(entry.Key);
+                            if (entry.Value.Dependencies != null)
+                            {
+                                stack.Push(entry.Value.Dependencies);
+                            }
+                        }
                     }
                 }
             }
@@ -207,7 +215,7 @@ namespace AWS.Jsii.Generator
                         {
                             SaveTypeFile($"{symbols.GetInterfaceDefaultName(interfaceType)}.cs", new InterfaceDefaultGenerator(assembly.Package, interfaceType, symbols).CreateSyntaxTree());
                         }
-                        
+
                         return;
                     default:
                         throw new ArgumentException($"Unkown type kind: {type.Kind}", nameof(type));

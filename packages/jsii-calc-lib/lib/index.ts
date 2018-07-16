@@ -1,7 +1,9 @@
+import * as base from '@scope/jsii-calc-base';
+
 /**
  * Abstract class which represents a numeric value.
  */
-export abstract class Value {
+export abstract class Value extends base.Base {
     /**
      * The value.
      */
@@ -12,13 +14,6 @@ export abstract class Value {
      */
     toString() {
         return this.value.toString();
-    }
-
-    /**
-      * Returns the name of the class (to verify native type names are created for derived classes).
-      */
-    typeName() {
-        return (this.constructor as any).name;
     }
 }
 

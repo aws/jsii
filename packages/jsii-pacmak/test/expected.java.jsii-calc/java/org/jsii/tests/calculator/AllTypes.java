@@ -12,6 +12,9 @@ public class AllTypes extends org.jsii.JsiiObject {
         super(org.jsii.JsiiObject.InitializationMode.Jsii);
         org.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
+    public org.jsii.tests.calculator.StringEnum enumMethod(final org.jsii.tests.calculator.StringEnum value) {
+        return this.jsiiCall("enumMethod", org.jsii.tests.calculator.StringEnum.class, java.util.stream.Stream.of(value).toArray());
+    }
     public java.lang.Boolean getBooleanProperty() {
         return this.jsiiGet("booleanProperty", java.lang.Boolean.class);
     }
@@ -95,6 +98,12 @@ public class AllTypes extends org.jsii.JsiiObject {
     }
     public void setUnionMapProperty(final java.util.Map<java.lang.String, java.lang.Object> value) {
         this.jsiiSet("unionMapProperty", value);
+    }
+    public org.jsii.tests.calculator.StringEnum getOptionalEnumValue() {
+        return this.jsiiGet("optionalEnumValue", org.jsii.tests.calculator.StringEnum.class);
+    }
+    public void setOptionalEnumValue(final org.jsii.tests.calculator.StringEnum value) {
+        this.jsiiSet("optionalEnumValue", value);
     }
     public org.jsii.tests.calculator.AllTypesEnum getEnumProperty() {
         return this.jsiiGet("enumProperty", org.jsii.tests.calculator.AllTypesEnum.class);

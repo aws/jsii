@@ -116,6 +116,13 @@ namespace AWS.Jsii.Tests.Calculator
             set => SetProperty(value);
         }
 
+        [JsiiProperty("optionalEnumValue", "{\"fqn\":\"jsii-calc.StringEnum\",\"optional\":true}")]
+        public virtual StringEnum OptionalEnumValue
+        {
+            get => GetProperty<StringEnum>();
+            set => SetProperty(value);
+        }
+
         [JsiiProperty("enumProperty", "{\"fqn\":\"jsii-calc.AllTypesEnum\"}")]
         public virtual AllTypesEnum EnumProperty
         {
@@ -127,6 +134,12 @@ namespace AWS.Jsii.Tests.Calculator
         public virtual double EnumPropertyValue
         {
             get => GetProperty<double>();
+        }
+
+        [JsiiMethod("enumMethod", "{\"fqn\":\"jsii-calc.StringEnum\"}", "[{\"name\":\"value\",\"type\":{\"fqn\":\"jsii-calc.StringEnum\"}}]")]
+        public virtual StringEnum EnumMethod(StringEnum value)
+        {
+            return InvokeMethod<StringEnum>(new object[]{value});
         }
     }
 }

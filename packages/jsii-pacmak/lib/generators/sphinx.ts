@@ -1,6 +1,5 @@
 import * as fs from 'fs-extra';
 import * as spec from 'jsii-spec';
-import * as md5 from 'md5';
 import * as path from 'path';
 import { Generator } from '../generator';
 
@@ -23,10 +22,7 @@ export default class SphinxDocsGenerator extends Generator {
     }
 
     constructor() {
-        super({
-            target: 'js',
-            expandUnionProperties: false
-        });
+        super({ expandUnionProperties: false });
 
         this.code.openBlockFormatter = s => s || '';
         this.code.closeBlockFormatter = _ => '';
@@ -34,14 +30,14 @@ export default class SphinxDocsGenerator extends Generator {
     }
 
     public async upToDate(outDir: string): Promise<boolean> {
-        const mainFile = path.join(outDir, `${fsSafeName(this.assembly.names.js)}.rst`);
+        const mainFile = path.join(outDir, `${fsSafeName(this.assembly.name)}.rst`);
         try {
             if (!await fs.pathExists(mainFile)) { return false; }
             const data = await fs.readFile(mainFile, { encoding: 'utf-8' });
             const matches = data.match(/^\.\. @jsii-pacmak:meta@ (.+)$/m);
             if (!matches) { return false; }
             const meta = JSON.parse(matches[1]);
-            return meta.fingerprint === md5(JSON.stringify(this.assembly));
+            return meta.fingerprint === this.assembly.fingerprint;
         } catch (e) {
             return false;
         }
@@ -57,27 +53,27 @@ export default class SphinxDocsGenerator extends Generator {
     protected onBeginAssembly(assm: spec.Assembly) {
         this.tocPath = new Array<string>(); // As a safety measure, in case previous assembly somehow didn't get it back to 0.
         if (assm.readme) {
-            this.readmeFile = `_${fsSafeName(assm.names.js)}.README.md`;
+            this.readmeFile = `_${fsSafeName(assm.name)}.README.md`;
             this.code.openFile(this.readmeFile);
             this.code.line(assm.readme.markdown);
             this.code.closeFile(this.readmeFile);
         }
 
-        this.code.openFile(`${fsSafeName(assm.names.js)}.rst`);
+        this.code.openFile(`${fsSafeName(assm.name)}.rst`);
 
-        const meta = { fingerprint: md5(JSON.stringify(assm)) };
+        const meta = { fingerprint: assm.fingerprint };
         this.code.line(`.. @jsii-pacmak:meta@ ${JSON.stringify(meta)}`);
         this.code.line();
 
-        this.openSection(assm.names.js);
+        this.openSection(assm.name);
         this.code.line();
 
-        this.assemblyName = assm.names.js;
+        this.assemblyName = assm.name;
     }
 
     protected onEndAssembly(assm: spec.Assembly) {
         this.closeSection();
-        this.code.closeFile(`${fsSafeName(assm.names.js)}.rst`);
+        this.code.closeFile(`${fsSafeName(assm.name)}.rst`);
 
         delete this.readmeFile;
         delete this.assemblyName;
@@ -497,6 +493,10 @@ export default class SphinxDocsGenerator extends Generator {
         const stat = prop.static ? ' *(static)*' : '';
         this.code.line(`:type: ${type.ref}${readonly}${abs}${stat}`);
         this.code.closeBlock();
+    }
+
+    private toNativeFqn(name: string): string {
+        return name;
     }
 }
 

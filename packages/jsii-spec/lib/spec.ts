@@ -26,16 +26,10 @@ export class Assembly implements Documentable {
     public fingerprint: string;
 
     /**
-     * A map of module names in various languages.
-     * This map is used when generating language-specific modules instead of the jsii$ module name.
+     * A map of target name to configuration, which is used when generating packages for
+     * various languages.
      */
-    public names: { [language: string]: string };
-
-    /**
-     * A map of package names in various package managers (e.g. ``mvn``, ...).
-     * This map is used when packaging & publishing language-specific modules.
-     */
-    public packageNames: { [manager: string]: string };
+    public targets: AssemblyTargets;
 
     /**
      * The version of the module
@@ -43,14 +37,14 @@ export class Assembly implements Documentable {
     public version: string;
 
     /**
-     * Dependencies on other modules (with semver)
+     * Dependencies on other modules (with semver), the key is the JSII assembly name.
      */
-    public dependencies: { [module: string]: PackageVersion };
+    public dependencies?: { [module: string]: PackageVersion };
 
     /**
      * List if bundled dependencies (these are not expected to be jsii modules).
      */
-    public bundled: { [module: string]: string };
+    public bundled?: { [module: string]: string };
 
     /**
      * All types in the module, keyed by their fully-qualified-name
@@ -77,26 +71,6 @@ export class Assembly implements Documentable {
     public nametree: NameTree;
 
     /**
-     * Maps jsii module names to language-specific native names.
-     * It is used by code generators and runtimes to translate jsii names to native names.
-     * This map includes this module and all direct and indirect dependencies.
-     *
-     * For example:
-     * {
-     *   "jsii$mymodule$": {
-     *     "java": "com.mymodule",
-     *     "python": "mymodule",
-     *     "ruby": "My::Module"
-     *   }
-     * }
-     */
-    public nativenames: {
-        [jsii: string]: {
-            [language: string]: string
-        }
-    };
-
-    /**
      * Documentation
      */
     public docs = new Docs();
@@ -110,13 +84,47 @@ export class Assembly implements Documentable {
 }
 
 /**
+ * Configurable targets for an asembly.
+ */
+export interface AssemblyTargets {
+    /** Information about the .Net target */
+    dotnet?: {
+        /** The name of the .Net root namespace (also the NuGet package ID) */
+        namespace: string;
+    };
+    /** Information about the Java target */
+    java?: {
+        /** The name of the root package for classes in this assembly */
+        package: string;
+        /** Maven package information */
+        maven: {
+            groupId: string;
+            artifactId: string;
+        }
+    };
+    /** Information about the JavaScript target */
+    js?: {
+        /** The name of the NPM package. */
+        npm: string;
+    }
+
+    /** Information about other languages */
+    [language: string]: { [key: string]: any } | undefined;
+}
+
+/**
  * The version of a package.
  */
 export interface PackageVersion {
+    /** The name of the package in it's native ecosystem */
+    package: string;
     /** Version of the package. */
     version: string;
-    /** Package manager specific names of the package. */
-    packageNames: { [manager: string]: string };
+    /** Targets for a given assembly. */
+    targets: AssemblyTargets;
+
+    /** Dependencies of this dependency */
+    dependencies?: { [module: string]: PackageVersion };
 }
 
 /**
@@ -457,6 +465,10 @@ export class ClassType extends Type {
     public interfaces ? = new Array<UserTypeReference>();
 }
 
+export function isClassType(type: Type): type is ClassType {
+    return type.kind === TypeKind.Class;
+}
+
 export class InterfaceType extends Type {
     public kind = TypeKind.Interface;
 
@@ -485,6 +497,10 @@ export class InterfaceType extends Type {
     public datatype?: boolean;
 }
 
+export function isInterfaceType(type: Type): type is InterfaceType {
+    return type.kind === TypeKind.Interface;
+}
+
 /**
  * Represents a member of an enum.
  */
@@ -510,6 +526,10 @@ export class EnumType extends Type {
      * Members of the enum.
      */
     public members = new Array<EnumMember>();
+}
+
+export function isEnumType(type: Type): type is EnumType {
+    return type.kind === TypeKind.Enum;
 }
 
 /**

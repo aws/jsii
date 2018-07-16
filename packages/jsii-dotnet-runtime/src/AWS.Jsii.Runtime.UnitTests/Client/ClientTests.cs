@@ -100,8 +100,7 @@ namespace AWS.Jsii.Runtime.UnitTests.Client
                 (
                     name: "myName",
                     package: "myPackage",
-                    names: new Dictionary<string, string>(),
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>(),
+                    targets: new Targets(null),
                     version: "myVersion",
                     types: new Dictionary<string, Type>()
                 );
@@ -126,8 +125,7 @@ namespace AWS.Jsii.Runtime.UnitTests.Client
                 (
                     name: "myName",
                     package: "myPackage",
-                    names: new Dictionary<string, string>(),
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>(),
+                    targets: new Targets(null),
                     version: "myVersion",
                     types: new Dictionary<string, Type>()
                 );
@@ -172,8 +170,7 @@ namespace AWS.Jsii.Runtime.UnitTests.Client
                 (
                     name: "myName",
                     package: "myPackage",
-                    names: new Dictionary<string, string>(),
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>(),
+                    targets: new Targets(null),
                     version: "myVersion",
                     types: new Dictionary<string, Type>()
                 );
@@ -501,7 +498,7 @@ namespace AWS.Jsii.Runtime.UnitTests.Client
                 IClient client = CreateClient();
 
                 _runtime.ReadResponse().Returns(GetOkResponse(new NamingResponse(
-                    new Dictionary<string, string> { { "myKey", "myVal" } }
+                    new Naming("DotNet.Name")
                 )));
 
                 NamingRequest request = new NamingRequest("myAssembly");

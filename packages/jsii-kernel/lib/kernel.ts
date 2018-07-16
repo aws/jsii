@@ -416,13 +416,12 @@ export class Kernel {
         this._debug('naming', assemblyName);
 
         const assembly = this._assemblyFor(assemblyName);
-        const typeInfo = assembly.metadata;
-        const names = typeInfo.nativenames[assemblyName];
-        if (!names) {
+        const targets = assembly.metadata.targets;
+        if (!targets) {
             throw new Error(`Unexpected - "nativenames" for ${assemblyName} doesn't include the module itself`);
         }
 
-        return { naming: names };
+        return { naming: targets };
     }
 
     public stats(_req?: api.StatsRequest): api.StatsResponse {

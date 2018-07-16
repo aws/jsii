@@ -35,6 +35,7 @@ public class JsiiClientTest {
         jsiiRuntime = new JsiiRuntime();
         this.client = jsiiRuntime.getClient();
 
+        this.client.loadModule(new org.jsii.tests.calculator.base.$Module());
         this.client.loadModule(new org.jsii.tests.calculator.lib.$Module());
         this.client.loadModule(new org.jsii.tests.calculator.$Module());
     }
@@ -56,10 +57,10 @@ public class JsiiClientTest {
         assertEquals(150, fromSandbox(client.getPropertyValue(add, "value")));
 
         JsonNode names = client.getModuleNames("@scope/jsii-calc-lib");
-        assertEquals("org.jsii.tests.calculator.lib", names.get("java").textValue());
+        assertEquals("org.jsii.tests.calculator.lib", names.get("java").get("package").textValue());
 
         JsonNode names2 = client.getModuleNames("jsii-calc");
-        assertEquals("org.jsii.tests.calculator", names2.get("java").textValue());
+        assertEquals("org.jsii.tests.calculator", names2.get("java").get("package").textValue());
 
         client.deleteObject(calculator);
 

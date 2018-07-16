@@ -1,8 +1,10 @@
 #!/bin/bash
 set -euo pipefail
 project="./project"
-jsii-pacmak --target java --outdir ${project}/src/test node_modules/@scope/jsii-calc-lib
-jsii-pacmak --target java --outdir ${project}/src/test node_modules/jsii-calc
+
+for ASSM in $(find ./node_modules/jsii-calc -follow -name .jsii); do
+    jsii-pacmak --target java --outdir ${project}/src/test $(dirname ${ASSM})
+done
 
 # generate pom.xml and JsiiVersion.java with version from package.json
 /usr/bin/env node ./pom.xml.t.js > ${project}/pom.xml

@@ -28,21 +28,15 @@
           "returns": {
             "primitive": "string"
           }
-        },
-        {
-          "docs": {
-            "comment": "Returns the name of the class (to verify native type names are created for derived classes)."
-          },
-          "name": "typeName",
-          "returns": {
-            "primitive": "any"
-          }
         }
       ],
       "fqn": "@scope/jsii-calc-lib.Value",
       "module": "@scope/jsii-calc-lib",
       "namespace": "@scope/jsii-calc-lib",
       "name": "Value",
+      "base": {
+        "fqn": "@scope/jsii-calc-base.Base"
+      },
       "abstract": true,
       "initializer": {
         "initializer": true
@@ -256,24 +250,71 @@
     }
   },
   "typecount": 6,
+  "externalTypes": {
+    "@scope/jsii-calc-base.Base": {
+      "docs": {
+        "comment": "A base class."
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "docs": {
+            "returns": "the name of the class (to verify native type names are created for derived classes)."
+          },
+          "name": "typeName",
+          "returns": {
+            "primitive": "any"
+          }
+        }
+      ],
+      "fqn": "@scope/jsii-calc-base.Base",
+      "module": "@scope/jsii-calc-base",
+      "namespace": "@scope/jsii-calc-base",
+      "name": "Base",
+      "abstract": true,
+      "initializer": {
+        "initializer": true
+      }
+    }
+  },
   "name": "@scope/jsii-calc-lib",
   "package": "@scope/jsii-calc-lib",
   "version": "0.5.0-beta",
-  "names": {
-    "java": "org.jsii.tests.calculator.lib",
-    "dotnet": "AWS.Jsii.Tests.Calculator.Lib",
-    "js": "@scope/jsii-calc-lib"
-  },
-  "packageNames": {
-    "mvn": "org.jsii.tests.calculator:lib",
-    "npm": "@scope/jsii-calc-lib"
-  },
-  "nativenames": {
-    "@scope/jsii-calc-lib": {
-      "java": "org.jsii.tests.calculator.lib",
-      "dotnet": "AWS.Jsii.Tests.Calculator.Lib",
-      "js": "@scope/jsii-calc-lib"
+  "dependencies": {
+    "@scope/jsii-calc-base": {
+      "package": "@scope/jsii-calc-base",
+      "version": "0.5.0-beta",
+      "targets": {
+        "java": {
+          "package": "org.jsii.tests.calculator.base",
+          "maven": {
+            "groupId": "org.jsii.tests",
+            "artifactId": "calculator-base"
+          }
+        },
+        "dotnet": {
+          "namespace": "AWS.Jsii.Tests.Calculator.Base"
+        },
+        "js": {
+          "npm": "@scope/jsii-calc-base"
+        }
+      }
     }
   },
-  "fingerprint": "24282d395ba8a822c87ecf356df70f99"
+  "targets": {
+    "java": {
+      "package": "org.jsii.tests.calculator.lib",
+      "maven": {
+        "groupId": "org.jsii.tests",
+        "artifactId": "calculator-lib"
+      }
+    },
+    "dotnet": {
+      "namespace": "AWS.Jsii.Tests.Calculator.Lib"
+    },
+    "js": {
+      "npm": "@scope/jsii-calc-lib"
+    }
+  },
+  "fingerprint": "b3804bb5d38909f5a7cd1d4612d16af9"
 }

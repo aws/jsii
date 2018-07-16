@@ -23,14 +23,12 @@
     "fs-extra": "^4.0.3",
     "jsii-dotnet-generator": "^0.5.0-beta",
     "jsii-spec": "^0.5.0-beta",
-    "md5": "^2.2.1",
     "source-map-support": "^0.5.6",
     "yargs": "^9.0.0"
   },
   "devDependencies": {
     "@types/clone": "^0.1.30",
     "@types/fs-extra": "^4.0.8",
-    "@types/md5": "^2.1.32",
     "@types/node": "^9.6.18",
     "@types/nodeunit": "0.0.30",
     "@types/yargs": "^6.6.0",

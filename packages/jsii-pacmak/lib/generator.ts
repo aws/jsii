@@ -11,12 +11,6 @@ import * as path from 'path';
  */
 export class GeneratorOptions {
     /**
-     * The target language.
-     * If not defined, toNativeFqn(fqn) won't work.
-     */
-    target?: string
-
-    /**
      * If this property is set to 'true', union properties are "expanded" into multiple
      * properties, each with a different type and a postfix based on the type name. This
      * can be used by languages that don't have support for union types (e.g. Java).
@@ -54,13 +48,11 @@ export interface IGenerator {
 export abstract class Generator implements IGenerator {
     private readonly options: GeneratorOptions;
     private readonly excludeTypes = new Array<string>();
-    private readonly target?: string
     protected readonly code = new CodeMaker();
     protected assembly: spec.Assembly;
 
     constructor(options = new GeneratorOptions()) {
         this.options = options;
-        this.target = options.target;
     }
 
     public async load(jsiiFile: string) {
@@ -116,34 +108,6 @@ export abstract class Generator implements IGenerator {
         }
 
         return await this.code.save(outdir);
-    }
-
-    /**
-     * Given an FQN returns it's "native FQN" based on the language.
-     * For example, jsii$module.name.space.Type => com.mymodule.name.space.Type
-     */
-    protected toNativeFqn(fqn: string) {
-        if (!this.target) {
-            throw new Error('You must specify the `target` option in order to use toNativeFqn');
-        }
-
-        const components = fqn.split('.');
-        const moduleName = components[0];
-
-        let typeName = components.slice(1);
-
-
-        const names = this.assembly.nativenames[moduleName];
-        if (!names) {
-            throw new Error(`Cannot find native names for module ${moduleName}`);
-        }
-
-        const nativeModule = names[this.target];
-        if (!nativeModule) {
-            throw new Error(`Cannot find '${this.target}' name for module '${moduleName}' of fqn '${fqn}'`);
-        }
-
-        return [ nativeModule ].concat(typeName).join('.');
     }
 
     //

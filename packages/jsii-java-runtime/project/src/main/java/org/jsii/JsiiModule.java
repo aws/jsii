@@ -10,7 +10,7 @@ public class JsiiModule {
     /**
      * The module class.
      */
-    private final Class moduleClass;
+    private final Class<? extends JsiiModule> moduleClass;
 
     /**
      * The name of the module.
@@ -33,7 +33,7 @@ public class JsiiModule {
      * @param moduleClass The module class.
      * @param bundleResourceName The name of the bundle resource.
      */
-    public JsiiModule(final String moduleName, final String moduleVersion, final Class moduleClass, final String bundleResourceName) {
+    public JsiiModule(final String moduleName, final String moduleVersion, final Class<? extends JsiiModule> moduleClass, final String bundleResourceName) {
         this.moduleName = moduleName;
         this.moduleClass = moduleClass;
         this.bundleResourceName = bundleResourceName;
@@ -43,7 +43,7 @@ public class JsiiModule {
     /**
      * @return The URL of the code bundle.
      */
-    public Class getModuleClass() {
+    public Class<? extends JsiiModule> getModuleClass() {
         return this.moduleClass;
     }
 
@@ -71,7 +71,7 @@ public class JsiiModule {
     /**
      * @return A list of all classes for module dependencies.
      */
-    protected List<Class> getDependencies() {
+    protected List<Class<? extends JsiiModule>> getDependencies() {
         return Collections.emptyList();
     }
 }

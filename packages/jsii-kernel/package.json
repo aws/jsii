@@ -11,6 +11,7 @@
     "test": "nodeunit test/test.*.js"
   },
   "devDependencies": {
+    "@scope/jsii-calc-base": "^0.5.0-beta",
     "@scope/jsii-calc-lib": "^0.5.0-beta",
     "@types/fs-extra": "^4.0.8",
     "@types/node": "^9.6.18",

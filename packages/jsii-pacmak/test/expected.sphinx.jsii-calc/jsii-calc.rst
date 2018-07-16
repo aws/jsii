@@ -1,4 +1,4 @@
-.. @jsii-pacmak:meta@ {"fingerprint":"48d0f05188c647ee97587881c59fa527"}
+.. @jsii-pacmak:meta@ {"fingerprint":"066c188c7e48f21e999c54bf08b86aff"}
 
 jsii-calc
 =========
@@ -47,6 +47,13 @@ AllTypes
 
    This class includes property for all types supported by jsii. The setters will validate that the value set is of the expected type and throw otherwise.
 
+
+
+   .. py:method:: enumMethod(value) -> jsii-calc.StringEnum
+
+      :param value: 
+      :type value: :py:class:`~jsii-calc.StringEnum`
+      :rtype: :py:class:`~jsii-calc.StringEnum`
 
 
    .. py:attribute:: booleanProperty
@@ -112,6 +119,11 @@ AllTypes
    .. py:attribute:: unionMapProperty
 
       :type: string or number
+
+
+   .. py:attribute:: optionalEnumValue
+
+      :type: :py:class:`~jsii-calc.StringEnum` or undefined
 
 
    .. py:attribute:: enumProperty
@@ -1201,6 +1213,18 @@ Statics
    .. py:attribute:: ConstObj
 
       :type: :py:class:`~jsii-calc.DoubleTrouble` *(readonly)* *(static)*
+
+
+StringEnum (enum)
+^^^^^^^^^^^^^^^^^
+
+.. py:class:: StringEnum
+
+   .. py:data:: A
+
+   .. py:data:: B
+
+   .. py:data:: C
 
 
 Sum

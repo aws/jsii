@@ -20,14 +20,7 @@ namespace AWS.Jsii.Generator.UnitTests
             (
                 name: "jsii$myPackage$",
                 package: "myPackage",
-                names: new Dictionary<string, string>
-                {
-                    { "dotnet", "My.Assembly" }
-                },
-                nativeNames: new Dictionary<string, IDictionary<string, string>>
-                {
-                    { "jsii$myPackage$", new Dictionary<string, string> { { "dotnet", "My.Assembly" } } }
-                },
+                targets: new Targets(dotnet: "My.Assembly"),
                 version: "myVersion",
                 types: types.ToDictionary(t => t.FullyQualifiedName)
             );
@@ -58,14 +51,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 (
                     name: "jsii$my_assembly1$",
                     package: "myPackage1",
-                    names: new Dictionary<string, string>
-                    {
-                        { "dotnet", "My.Assembly1" }
-                    },
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>
-                    {
-                        { "jsii$my_assembly1$", new Dictionary<string, string> { { "dotnet", "My.Assembly1" } } }
-                    },
+                    targets: new Targets(dotnet: "My.Assembly1"),
                     version: "myVersion",
                     types: new Dictionary<string, Type>()
                 );
@@ -73,36 +59,19 @@ namespace AWS.Jsii.Generator.UnitTests
                 (
                     name: "jsii$my_assembly2$",
                     package: "myPackage2",
-                    names: new Dictionary<string, string>
-                    {
-                        { "dotnet", "My.Assembly2" }
-                    },
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>
-                    {
-                        { "jsii$my_assembly1$", new Dictionary<string, string> { { "dotnet", "My.Assembly1" } } },
-                        { "jsii$my_assembly2$", new Dictionary<string, string> { { "dotnet", "My.Assembly2" } } }
-                    },
+                    targets: new Targets(dotnet: "My.Assembly2"),
                     version: "myVersion",
                     types: new Dictionary<string, Type>(),
-                    dependencies: new[] { assembly1 }.ToDictionary(a => a.Package, a => new PackageVersion(a.Package, a.Version))
+                    dependencies: new[] { assembly1 }.ToDictionary(a => a.Name, a => new PackageVersion(a.Package, a.Version, a.Targets, a.Dependencies))
                 );
                 Assembly assembly3 = new Assembly
                 (
                     name: "jsii$my_assembly3$",
                     package: "myPackage3",
-                    names: new Dictionary<string, string>
-                    {
-                        { "dotnet", "My.Assembly3" }
-                    },
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>
-                    {
-                        { "jsii$my_assembly1$", new Dictionary<string, string> { { "dotnet", "My.Assembly1" } } },
-                        { "jsii$my_assembly2$", new Dictionary<string, string> { { "dotnet", "My.Assembly2" } } },
-                        { "jsii$my_assembly3$", new Dictionary<string, string> { { "dotnet", "My.Assembly3" } } }
-                    },
+                    targets: new Targets(dotnet: "My.Assembly3"),
                     version: "myVersion",
                     types: new Dictionary<string, Type>(),
-                    dependencies: new[] { assembly2 }.ToDictionary(a => a.Package, a => new PackageVersion(a.Package, a.Version))
+                    dependencies: new[] { assembly2 }.ToDictionary(a => a.Name, a => new PackageVersion(a.Package, a.Version, a.Targets, a.Dependencies))
                 );
 
                 ISymbolMap symbolMap = new SymbolMap();
@@ -142,14 +111,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 (
                     name: "jsii$myPackage$",
                     package: "my-package",
-                    names: new Dictionary<string, string>
-                    {
-                        { "dotnet", "MyNamespace" }
-                    },
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>
-                    {
-                        { "jsii$myPackage$", new Dictionary<string, string> { { "dotnet", "MyNamespace" } } }
-                    },
+                    targets: new Targets(dotnet: "MyNamespace"),
                     version: "myVersion",
                     types: new Dictionary<string, Type>
                     {
@@ -185,14 +147,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 (
                     name: "jsii$myPackage$",
                     package: "my-package",
-                    names: new Dictionary<string, string>
-                    {
-                        { "dotnet", "MyNamespace" }
-                    },
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>
-                    {
-                        { "jsii$myPackage$", new Dictionary<string, string> { { "dotnet", "MyNamespace" } } }
-                    },
+                    targets: new Targets(dotnet: "MyNamespace"),
                     version: "myVersion",
                     types: new Dictionary<string, Type>
                     {
@@ -257,18 +212,13 @@ namespace AWS.Jsii.Generator.UnitTests
                 (
                     name: "jsii$myPackage1$",
                     package: "my-package-1",
-                    names: new Dictionary<string, string> { { "dotnet", "MyNamespace1" } },
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>
-                    {
-                        { "jsii$myPackage1$", new Dictionary<string, string> { { "dotnet", "MyNamespace1" } } },
-                        { "jsii$myPackage2$", new Dictionary<string, string> { { "dotnet", "MyNamespace2" } } }
-                    },
+                    targets: new Targets(dotnet: "MyNamespace1"),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
                     externalTypes: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
-                        { "jsii$myPackage2$", new PackageVersion("jsii$myPackage2", "myVersion") }
+                        { "jsii$myPackage2$", new PackageVersion("my-package-2", "myVersion", new Targets(dotnet: "MyNamespace2")) }
                     }
                 );
 
@@ -312,18 +262,13 @@ namespace AWS.Jsii.Generator.UnitTests
                 (
                     name: "jsii$myPackage1$",
                     package: "myPackage",
-                    names: new Dictionary<string, string> { { "dotnet", "MyNamespace1" } },
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>
-                    {
-                        { "jsii$myPackage1$", new Dictionary<string, string> { { "dotnet", "MyNamespace1" } } },
-                        { "jsii$myPackage2$", new Dictionary<string, string> { { "dotnet", "MyNamespace2" } } }
-                    },
+                    targets: new Targets(dotnet: "MyNamespace1"),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
                     externalTypes: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
-                        { "jsii$myPackage2$", new PackageVersion("jsii$myPackage2$", "myVersion") }
+                        { "jsii$myPackage2$", new PackageVersion("my-package-2", "myVersion", new Targets(dotnet: "MyNamespace2")) }
                     }
                 );
 
@@ -367,18 +312,13 @@ namespace AWS.Jsii.Generator.UnitTests
                 (
                     name: "jsii$myPackage1$",
                     package: "my-package-1",
-                    names: new Dictionary<string, string> { { "dotnet", "MyNamespace1" } },
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>
-                    {
-                        { "jsii$myPackage1$", new Dictionary<string, string> { { "dotnet", "MyNamespace1" } } },
-                        { "jsii$myPackage2$", new Dictionary<string, string> { { "dotnet", "MyNamespace2" } } }
-                    },
+                    targets: new Targets(dotnet: "MyNamespace1"),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
                     externalTypes: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
-                        { "jsii$myPackage2$", new PackageVersion("my-package-2", "myVersion") }
+                        { "jsii$myPackage2$", new PackageVersion("my-package-2", "myVersion", new Targets(dotnet: "MyNamespace2")) }
                     }
                 );
 
@@ -548,18 +488,13 @@ namespace AWS.Jsii.Generator.UnitTests
                 (
                     name: "jsii$myPackage1$",
                     package: "my-package-1",
-                    names: new Dictionary<string, string> { { "dotnet", "MyNamespace1" } },
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>
-                    {
-                        { "jsii$myPackage1$", new Dictionary<string, string> { { "dotnet", "MyNamespace1" } } },
-                        { "jsii$myPackage2$", new Dictionary<string, string> { { "dotnet", "MyNamespace2" } } }
-                    },
+                    targets: new Targets(dotnet: "MyNamespace1"),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
                     externalTypes: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
-                        { "jsii$myPackage2$", new PackageVersion("my-package-2", "myVersion") }
+                        { "jsii$myPackage2$", new PackageVersion("my-package-2", "myVersion", new Targets(dotnet: "MyNamespace2")) }
                     }
                 );
 
@@ -601,20 +536,15 @@ namespace AWS.Jsii.Generator.UnitTests
 
                 Assembly assembly = new Assembly
                 (
-                    name: "jsii$myNamespace1$",
+                    name: "jsii$myPackage1$",
                     package: "myPackage",
-                    names: new Dictionary<string, string> { { "dotnet", "MyNamespace1" } },
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>
-                    {
-                        { "jsii$myPackage1$", new Dictionary<string, string> { { "dotnet", "MyNamespace1" } } },
-                        { "jsii$myPackage2$", new Dictionary<string, string> { { "dotnet", "MyNamespace2" } } }
-                    },
+                    targets: new Targets(dotnet: "MyNamespace1"),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
                     externalTypes: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
-                        { "jsii$myPackage2$", new PackageVersion("my-package-2", "myVersion") }
+                        { "jsii$myPackage2$", new PackageVersion("my-package-2", "myVersion", new Targets(dotnet: "MyNamespace2")) }
                     }
                 );
 
@@ -658,18 +588,13 @@ namespace AWS.Jsii.Generator.UnitTests
                 (
                     name: "jsii$myPackage1$",
                     package: "my-package-1",
-                    names: new Dictionary<string, string> { { "dotnet", "MyNamespace1" } },
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>
-                    {
-                        { "jsii$myPackage1$", new Dictionary<string, string> { { "dotnet", "MyNamespace1" } } },
-                        { "jsii$myPackage2$", new Dictionary<string, string> { { "dotnet", "MyNamespace2" } } }
-                    },
+                    targets: new Targets(dotnet: "MyNamespace1"),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
                     externalTypes: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
-                        { "jsii$myPackage2$", new PackageVersion("my-package-2", "myVersion") }
+                        { "jsii$myPackage2$", new PackageVersion("my-package-2", "myVersion", new Targets(dotnet: "MyNamespace2")) }
                     }
                 );
 
@@ -839,18 +764,13 @@ namespace AWS.Jsii.Generator.UnitTests
                 (
                     name: "jsii$myPackage1$",
                     package: "my-package-1",
-                    names: new Dictionary<string, string> { { "dotnet", "MyNamespace1" } },
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>
-                    {
-                        { "jsii$myPackage1$", new Dictionary<string, string> { { "dotnet", "MyNamespace1" } } },
-                        { "jsii$myPackage2$", new Dictionary<string, string> { { "dotnet", "MyNamespace2" } } }
-                    },
+                    targets: new Targets(dotnet: "MyNamespace1"),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
                     externalTypes: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
-                        { "jsii$myPackage2$", new PackageVersion("my-package-2", "myVersion") }
+                        { "jsii$myPackage2$", new PackageVersion("my-package-2", "myVersion", new Targets(dotnet: "MyNamespace2")) }
                     }
                 );
 
@@ -894,18 +814,13 @@ namespace AWS.Jsii.Generator.UnitTests
                 (
                     name: "jsii$myPackage1$",
                     package: "my-package",
-                    names: new Dictionary<string, string> { { "dotnet", "MyNamespace1" } },
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>
-                    {
-                        { "jsii$myPackage1$", new Dictionary<string, string> { { "dotnet", "MyNamespace1" } } },
-                        { "jsii$myPackage2$", new Dictionary<string, string> { { "dotnet", "MyNamespace2" } } }
-                    },
+                    targets: new Targets(dotnet: "MyNamespace1"),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
                     externalTypes: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
-                        { "jsii$myPackage2$", new PackageVersion("my-package-2", "myVersion") }
+                        { "jsii$myPackage2$", new PackageVersion("my-package-2", "myVersion", new Targets(dotnet: "MyNamespace2")) }
                     }
                 );
 
@@ -949,18 +864,13 @@ namespace AWS.Jsii.Generator.UnitTests
                 (
                     name: "jsii$myPackage1$",
                     package: "my-package",
-                    names: new Dictionary<string, string> { { "dotnet", "MyNamespace1" } },
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>
-                    {
-                        { "jsii$myPackage1$", new Dictionary<string, string> { { "dotnet", "MyNamespace1" } } },
-                        { "jsii$myPackage2$", new Dictionary<string, string> { { "dotnet", "MyNamespace2" } } }
-                    },
+                    targets: new Targets(dotnet: "MyNamespace1"),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
                     externalTypes: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
-                        { "jsii$myPackage2$", new PackageVersion("my-package-2", "myVersion") }
+                        { "jsii$myPackage2$", new PackageVersion("my-package-2", "myVersion", new Targets(dotnet: "MyNamespace2")) }
                     }
                 );
 

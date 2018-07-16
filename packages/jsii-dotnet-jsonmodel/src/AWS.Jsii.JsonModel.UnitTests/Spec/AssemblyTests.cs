@@ -1,4 +1,5 @@
 ﻿using AWS.Jsii.JsonModel.Spec;
+using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -21,11 +22,9 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 (
                     name: "myName",
                     package: "myPackage",
-                    names: new Dictionary<string, string>(),
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>(),
+                    targets: new Targets(null),
                     version: "myVersion",
                     types: new Dictionary<string, JsonModel.Spec.Type>(),
-                    code: "myCode",
                     dependencies : new Dictionary<string, PackageVersion>(),
                     bundled: new Dictionary<string, string>(),
                     docs: new Docs()
@@ -37,14 +36,12 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
   ""package"": ""myPackage"",
-  ""names"": {},
-  ""nativenames"": {},
   ""version"": ""myVersion"",
   ""types"": {},
-  ""code"": ""myCode"",
-  ""dependencies"": {},
   ""bundled"": {},
-  ""docs"": {}
+  ""docs"": {},
+  ""dependencies"": {},
+  ""targets"": {}
 }";
 
                 Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
@@ -57,11 +54,9 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 (
                     name: null,
                     package: "myPackage",
-                    names: new Dictionary<string, string>(),
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>(),
+                    targets: new Targets(null),
                     version: "myVersion",
                     types: new Dictionary<string, JsonModel.Spec.Type>(),
-                    code: "myCode",
                     dependencies: new Dictionary<string, PackageVersion>(),
                     bundled: new Dictionary<string, string>(),
                     docs: new Docs()
@@ -75,29 +70,25 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 (
                     name: "myName",
                     package: null,
-                    names: new Dictionary<string, string>(),
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>(),
+                    targets: new Targets(null),
                     version: "myVersion",
                     types: new Dictionary<string, JsonModel.Spec.Type>(),
-                    code: "myCode",
                     dependencies: new Dictionary<string, PackageVersion>(),
                     bundled: new Dictionary<string, string>(),
                     docs: new Docs()
                 ));
             }
 
-            [Fact(DisplayName = Prefix + nameof(ShouldThrowOnMissingNames))]
-            public void ShouldThrowOnMissingNames()
+            [Fact(DisplayName = Prefix + nameof(ShouldThrowOnMissingTargets))]
+            public void ShouldThrowOnMissingTargets()
             {
                 Assert.Throws<ArgumentNullException>(() => new Assembly
                 (
                     name: "myName",
                     package: "myPackage",
-                    names: null,
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>(),
                     version: "myVersion",
+                    targets: null,
                     types: new Dictionary<string, JsonModel.Spec.Type>(),
-                    code: "myCode",
                     dependencies: new Dictionary<string, PackageVersion>(),
                     bundled: new Dictionary<string, string>(),
                     docs: new Docs()
@@ -111,11 +102,9 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 (
                     name: "myName",
                     package: "myPackage",
-                    names: new Dictionary<string, string>(),
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>(),
+                    targets: new Targets(null),
                     version: null,
                     types: new Dictionary<string, JsonModel.Spec.Type>(),
-                    code: "myCode",
                     dependencies: new Dictionary<string, PackageVersion>(),
                     bundled: new Dictionary<string, string>(),
                     docs: new Docs()
@@ -129,49 +118,13 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 (
                     name: "myName",
                     package: "myPackage",
-                    names: new Dictionary<string, string>(),
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>(),
+                    targets: new Targets(null),
                     version: "myVersion",
                     types: null,
-                    code: "myCode",
                     dependencies: new Dictionary<string, PackageVersion>(),
                     bundled: new Dictionary<string, string>(),
                     docs: new Docs()
                 ));
-            }
-
-            [Fact(DisplayName = Prefix + nameof(ShouldNotSerializeMissingCode))]
-            public void ShouldNotSerializeMissingCode()
-            {
-                Assembly assembly = new Assembly
-                (
-                    name: "myName",
-                    package: "myPackage",
-                    names: new Dictionary<string, string>(),
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>(),
-                    version: "myVersion",
-                    types: new Dictionary<string, JsonModel.Spec.Type>(),
-                    code: null,
-                    dependencies: new Dictionary<string, PackageVersion>(),
-                    bundled: new Dictionary<string, string>(),
-                    docs: new Docs()
-                );
-
-                string actual = JsonConvert.SerializeObject(assembly, Formatting.Indented);
-                const string expected = @"{
-  ""schema"": ""jsii/1.0"",
-  ""name"": ""myName"",
-  ""package"": ""myPackage"",
-  ""names"": {},
-  ""nativenames"": {},
-  ""version"": ""myVersion"",
-  ""types"": {},
-  ""dependencies"": {},
-  ""bundled"": {},
-  ""docs"": {}
-}";
-
-                Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
             }
 
             [Fact(DisplayName = Prefix + nameof(ShouldNotSerializeMissingDependencies))]
@@ -181,11 +134,9 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 (
                     name: "myName",
                     package: "myPackage",
-                    names: new Dictionary<string, string>(),
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>(),
+                    targets: new Targets(null),
                     version: "myVersion",
                     types: new Dictionary<string, JsonModel.Spec.Type>(),
-                    code: "myCode",
                     dependencies: null,
                     bundled: new Dictionary<string, string>(),
                     docs: new Docs()
@@ -196,13 +147,11 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
   ""package"": ""myPackage"",
-  ""names"": {},
-  ""nativenames"": {},
   ""version"": ""myVersion"",
   ""types"": {},
-  ""code"": ""myCode"",
   ""bundled"": {},
-  ""docs"": {}
+  ""docs"": {},
+  ""targets"": {}
 }";
 
                 Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
@@ -215,11 +164,9 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 (
                     name: "myName",
                     package: "myPackage",
-                    names: new Dictionary<string, string>(),
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>(),
+                    targets: new Targets(null),
                     version: "myVersion",
                     types: new Dictionary<string, JsonModel.Spec.Type>(),
-                    code: "myCode",
                     dependencies: new Dictionary<string, PackageVersion>(),
                     bundled: null,
                     docs: new Docs()
@@ -230,13 +177,11 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
   ""package"": ""myPackage"",
-  ""names"": {},
-  ""nativenames"": {},
   ""version"": ""myVersion"",
   ""types"": {},
-  ""code"": ""myCode"",
+  ""docs"": {},
   ""dependencies"": {},
-  ""docs"": {}
+  ""targets"": {}
 }";
 
                 Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
@@ -249,11 +194,9 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 (
                     name: "myName",
                     package: "myPackage",
-                    names: new Dictionary<string, string>(),
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>(),
+                    targets: new Targets(null),
                     version: "myVersion",
                     types: new Dictionary<string, JsonModel.Spec.Type>(),
-                    code: "myCode",
                     dependencies: new Dictionary<string, PackageVersion>(),
                     bundled: new Dictionary<string, string>(),
                     docs: null
@@ -264,13 +207,11 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
   ""package"": ""myPackage"",
-  ""names"": {},
-  ""nativenames"": {},
   ""version"": ""myVersion"",
   ""types"": {},
-  ""code"": ""myCode"",
+  ""bundled"": {},
   ""dependencies"": {},
-  ""bundled"": {}
+  ""targets"": {}
 }";
 
                 Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
@@ -288,11 +229,9 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
   ""package"": ""myPackage"",
-  ""names"": {},
-  ""nativenames"": {},
+  ""targets"": {},
   ""version"": ""myVersion"",
   ""types"": {},
-  ""code"": ""myCode"",
   ""dependencies"": {},
   ""bundled"": {},
   ""docs"": {}
@@ -303,10 +242,40 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 Assert.Equal("jsii/1.0", actual.Schema, ignoreLineEndingDifferences: true);
                 Assert.Equal("myName", actual.Name, ignoreLineEndingDifferences: true);
                 Assert.Equal("myPackage", actual.Package, ignoreLineEndingDifferences: true);
-                Assert.Empty(actual.Names);
+                Assert.Null(actual.Targets.DotNet);
                 Assert.Equal("myVersion", actual.Version, ignoreLineEndingDifferences: true);
                 Assert.Empty(actual.Types);
-                Assert.Equal("myCode", actual.Code, ignoreLineEndingDifferences: true);
+                Assert.Empty(actual.Dependencies);
+                Assert.Empty(actual.Bundled);
+                Assert.Empty(actual.Docs);
+            }
+
+            [Fact(DisplayName = Prefix + nameof(ShouldDeserializeAllMembersWithDotNetTarget))]
+            public void ShouldDeserializeAllMembersWithDotNetTarget()
+            {
+                const string json = @"{
+  ""schema"": ""jsii/1.0"",
+  ""name"": ""myName"",
+  ""package"": ""myPackage"",
+  ""targets"": {
+    ""dotnet"": { ""namespace"": ""AWS.Cdk.Test"" },
+    ""java"": { ""package"": ""com.amazonaws.cdk.Test"" }
+  },
+  ""version"": ""myVersion"",
+  ""types"": {},
+  ""dependencies"": {},
+  ""bundled"": {},
+  ""docs"": {}
+}";
+
+                Assembly actual = JsonConvert.DeserializeObject<Assembly>(json);
+
+                Assert.Equal("jsii/1.0", actual.Schema, ignoreLineEndingDifferences: true);
+                Assert.Equal("myName", actual.Name, ignoreLineEndingDifferences: true);
+                Assert.Equal("myPackage", actual.Package, ignoreLineEndingDifferences: true);
+                Assert.Equal("AWS.Cdk.Test", actual.Targets.DotNet?.Namespace);
+                Assert.Equal("myVersion", actual.Version, ignoreLineEndingDifferences: true);
+                Assert.Empty(actual.Types);
                 Assert.Empty(actual.Dependencies);
                 Assert.Empty(actual.Bundled);
                 Assert.Empty(actual.Docs);
@@ -318,11 +287,9 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 const string json = @"{
   ""schema"": ""jsii/1.0"",
   ""package"": ""myPackage"",
-  ""names"": {},
-  ""nativenames"": {},
+  ""targets"": {},
   ""version"": ""myVersion"",
   ""types"": {},
-  ""code"": ""myCode"",
   ""dependencies"": {},
   ""bundled"": {},
   ""docs"": {}
@@ -337,11 +304,9 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 const string json = @"{
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
-  ""names"": {},
-  ""nativenames"": {},
+  ""targets"": {},
   ""version"": ""myVersion"",
   ""types"": {},
-  ""code"": ""myCode"",
   ""dependencies"": {},
   ""bundled"": {},
   ""docs"": {}
@@ -350,17 +315,15 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 Assert.Throws<ArgumentNullException>(() => JsonConvert.DeserializeObject<Assembly>(json));
             }
 
-            [Fact(DisplayName = Prefix + nameof(ShouldThrowOnMissingNames))]
-            public void ShouldThrowOnMissingNames()
+            [Fact(DisplayName = Prefix + nameof(ShouldThrowOnMissingTargets))]
+            public void ShouldThrowOnMissingTargets()
             {
                 const string json = @"{
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
   ""package"": ""myPackage"",
-  ""nativenames"": {},
   ""version"": ""myVersion"",
   ""types"": {},
-  ""code"": ""myCode"",
   ""dependencies"": {},
   ""bundled"": {},
   ""docs"": {}
@@ -376,10 +339,8 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
   ""package"": ""myPackage"",
-  ""names"": {},
-  ""nativenames"": {},
+  ""targets"": {},
   ""types"": {},
-  ""code"": ""myCode"",
   ""dependencies"": {},
   ""bundled"": {},
   ""docs"": {}
@@ -395,36 +356,14 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
   ""package"": ""myPackage"",
-  ""names"": {},
-  ""nativenames"": {},
+  ""targets"": {},
   ""version"": ""myVersion"",
-  ""code"": ""myCode"",
   ""dependencies"": {},
   ""bundled"": {},
   ""docs"": {}
 }";
 
                 Assert.Throws<ArgumentNullException>(() => JsonConvert.DeserializeObject<Assembly>(json));
-            }
-
-            [Fact(DisplayName = Prefix + nameof(ShouldNotDeserializeMissingCode))]
-            public void ShouldNotDeserializeMissingCode()
-            {
-                const string json = @"{
-  ""schema"": ""jsii/1.0"",
-  ""name"": ""myName"",
-  ""package"": ""myPackage"",
-  ""names"": {},
-  ""nativenames"": {},
-  ""version"": ""myVersion"",
-  ""types"": {},
-  ""dependencies"": {},
-  ""bundled"": {},
-  ""docs"": {}
-}";
-
-                Assembly actual = JsonConvert.DeserializeObject<Assembly>(json);
-                Assert.Null(actual.Code);
             }
 
             [Fact(DisplayName = Prefix + nameof(ShouldNotDeserializeMissingDependencies))]
@@ -434,11 +373,9 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
   ""package"": ""myPackage"",
-  ""names"": {},
-  ""nativenames"": {},
+  ""targets"": {},
   ""version"": ""myVersion"",
   ""types"": {},
-  ""code"": ""myCode"",
   ""bundled"": {},
   ""docs"": {}
 }";
@@ -454,11 +391,9 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
   ""package"": ""myPackage"",
-  ""names"": {},
-  ""nativenames"": {},
+  ""targets"": {},
   ""version"": ""myVersion"",
   ""types"": {},
-  ""code"": ""myCode"",
   ""dependencies"": {},
   ""docs"": {}
 }";
@@ -474,11 +409,9 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
   ""package"": ""myPackage"",
-  ""names"": {},
-  ""nativenames"": {},
+  ""targets"": {},
   ""version"": ""myVersion"",
   ""types"": {},
-  ""code"": ""myCode"",
   ""dependencies"": {},
   ""bundled"": {}
 }";
