@@ -1,9 +1,9 @@
-import { spawn } from 'child_process';
 import * as fs from 'fs-extra';
 import * as spec from 'jsii-spec';
 import { TypeKind } from 'jsii-spec';
 import * as path from 'path';
 import { SourceMapConsumer } from 'source-map';
+import * as tar from 'tar';
 import * as vm from 'vm';
 import * as api from './api';
 import { TOKEN_DATE, TOKEN_ENUM, TOKEN_REF } from './api';
@@ -108,27 +108,12 @@ export class Kernel {
                 assembly: assm.metadata.name,
                 types: assm.metadata.typecount,
             };
-
         } else {
-
+            // untar the archive to a staging directory, read the jsii spec from it
+            // and then move it to the node_modules directory of the kernel.
             const staging = await fs.mkdtemp('/tmp/jsii-kernel-install-staging-');
             try {
-                const child = spawn('tar', [ '-xf', req.tarball ], { cwd: staging, stdio: [ 'ignore', 'pipe', 'pipe' ] });
-
-                let out = '';
-                child.stdout.on('data', chunk => out += chunk.toString());
-                child.stderr.on('data', chunk => out += chunk.toString());
-
-                await new Promise((ok, fail) => {
-                    child.once('error', err => fail(err));
-                    child.once('exit', status => {
-                        if (status !== 0) {
-                            fail(new Error(`Child exit with status ${status}: ${out}`));
-                        } else {
-                            ok();
-                        }
-                    });
-                });
+                await tar.extract({ strict: true, file: req.tarball, cwd: staging });
 
                 // read .jsii metadata from the root of the package
                 const  jsiiMetadataFile = path.join(staging, 'package', spec.SPEC_FILE_NAME);
@@ -137,7 +122,7 @@ export class Kernel {
                 }
                 const assmSpec = await fs.readJson(jsiiMetadataFile) as spec.Assembly;
 
-                // "install" to install directory
+                // "install" to "node_modules" directory
                 await fs.move(path.join(staging, 'package'), packageDir);
 
                 // load the module and capture it's closure
