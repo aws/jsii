@@ -2505,7 +2505,7 @@
     },
     "jsii-calc.NodeStandardLibrary": {
       "docs": {
-        "comment": "Tests to verify that jsii modules can use the node standard library."
+        "comment": "Test fixture to verify that jsii modules can use the node standard library."
       },
       "kind": "class",
       "properties": [

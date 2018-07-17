@@ -1,4 +1,4 @@
-.. @jsii-pacmak:meta@ {"fingerprint":"31b8c8f1b7b5acc0c12b887f243afb29"}
+.. @jsii-pacmak:meta@ {"fingerprint":"6ceb5ff67832661336187e7bf9f0cb1a"}
 
 jsii-calc
 =========
@@ -993,7 +993,7 @@ NodeStandardLibrary
 
 .. py:class:: NodeStandardLibrary()
 
-   Tests to verify that jsii modules can use the node standard library.
+   Test fixture to verify that jsii modules can use the node standard library.
 
 
 

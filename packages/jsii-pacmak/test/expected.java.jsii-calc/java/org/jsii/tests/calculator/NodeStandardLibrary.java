@@ -1,6 +1,6 @@
 package org.jsii.tests.calculator;
 /**
- * Tests to verify that jsii modules can use the node standard library.
+ * Test fixture to verify that jsii modules can use the node standard library.
  */
 @org.jsii.Jsii(module = org.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.NodeStandardLibrary")
 public class NodeStandardLibrary extends org.jsii.JsiiObject {

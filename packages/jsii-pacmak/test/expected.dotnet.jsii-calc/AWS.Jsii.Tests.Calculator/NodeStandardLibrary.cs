@@ -2,7 +2,7 @@ using AWS.Jsii.Runtime.Deputy;
 
 namespace AWS.Jsii.Tests.Calculator
 {
-    /// <summary>Tests to verify that jsii modules can use the node standard library.</summary>
+    /// <summary>Test fixture to verify that jsii modules can use the node standard library.</summary>
     [JsiiClass(typeof(NodeStandardLibrary), "jsii-calc.NodeStandardLibrary", "[]")]
     public class NodeStandardLibrary : DeputyBase
     {
