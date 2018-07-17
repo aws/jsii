@@ -1048,7 +1048,7 @@ export class UseBundledDependency {
 }
 
 /**
- * Tests to verify that jsii modules can use the node standard library.
+ * Test fixture to verify that jsii modules can use the node standard library.
  */
 export class NodeStandardLibrary {
     /**
