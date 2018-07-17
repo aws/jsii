@@ -12,6 +12,9 @@ import { fileSystemLoader, includeAndRenderExamples, loadFromFile } from './lite
 import readPackageMetadata from './package-metadata';
 import { filterEmpty } from './util';
 
+// tslint:disable-next-line:no-var-requires
+const sortJson = require('sort-json');
+
 /**
  * Given a CommonJS (npm) typescript package, produces a JSII specification for it.
  * @param packageDir Root directory of the package (where package.json resides)
@@ -64,7 +67,7 @@ export async function compilePackage(packageDir: string, includeDirs = [ 'test',
 
     // Not accounting for the 'fingerprint' field when fingerprinting.
     delete mod.fingerprint;
-    mod.fingerprint = md5(JSON.stringify(mod, filterEmpty));
+    mod.fingerprint = md5(JSON.stringify(sortJson(mod), filterEmpty));
 
     return mod;
 }

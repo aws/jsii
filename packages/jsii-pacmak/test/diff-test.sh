@@ -65,10 +65,6 @@ function assert-generator() {
             success=false
         fi
     done
-
-    echo
-    echo "SUCCESS"
-    echo
 }
 
 assert-generator jsii-calc-base
@@ -81,5 +77,6 @@ if ${success}; then
     rm -fr "${workdir}"
 else
     echo "SOME TESTS FAILED"
+    exit 1
 fi
 
