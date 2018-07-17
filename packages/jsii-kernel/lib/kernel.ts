@@ -418,7 +418,7 @@ export class Kernel {
         const assembly = this._assemblyFor(assemblyName);
         const targets = assembly.metadata.targets;
         if (!targets) {
-            throw new Error(`Unexpected - "nativenames" for ${assemblyName} doesn't include the module itself`);
+            throw new Error(`Unexpected - "targets" for ${assemblyName} is missing!`);
         }
 
         return { naming: targets };
