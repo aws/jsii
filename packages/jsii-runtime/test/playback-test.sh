@@ -18,6 +18,8 @@ export JSII_RECORD=$(mktemp -d) # recording dir output
 export JSII_NOSTACK=1           # stack traces will not match
 export JSII_DEBUG=1             # emit debug log from jsii-runtime
 
+jsii_runtime_program="../dist/jsii-runtime.js"
+
 # run jsii-kernel tests and save recordings
 nodeunit ../../jsii-kernel/test/test.kernel.js >& /tmp/test-output || {
     cat /tmp/test-output
@@ -35,9 +37,9 @@ for file in $(ls -1 ${JSII_RECORD}); do
 
     # play back recording into jsii-runtime (responses are ignored) and save all stderr lines
     # that start with "> " or "< " to ${actual}, to be diffed with recording.
-    cat ${recording} | node ../bin/jsii-runtime 2> /tmp/jsii-runtime.stderr 1> /dev/null
+    cat ${recording} | node ${jsii_runtime_program} 2> /tmp/jsii-runtime.stderr 1> /dev/null
     cat /tmp/jsii-runtime.stderr | grep '^[<>] ' > ${actual} || {
-        cat ${recording} | ../bin/jsii-runtime
+        cat ${recording} | node ${jsii_runtime_program}
         exit 1
     }
 
