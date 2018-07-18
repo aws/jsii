@@ -23,10 +23,11 @@ namespace AWS.Jsii.Generator
         {
             ISet<string> memberNames = new HashSet<string>(MemberNames.Values);
 
-            while (memberNames.Contains(Name) || namespaceNames.Contains(FrameworkFullyQualifiedName))
+            while (memberNames.Contains(Name) || namespaceNames.Contains(FrameworkFullyQualifiedName) || Namespace.EndsWith($".{Name}", StringComparison.InvariantCulture))
             {
                 Name += "_";
             }
+
         }
 
         public Type Type { get; }

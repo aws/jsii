@@ -27,16 +27,7 @@
       }
     }
   },
-  "nametree": {
-    "@scope/jsii-calc-base": {
-      "Base": {
-        "_": "@scope/jsii-calc-base.Base"
-      }
-    }
-  },
-  "typecount": 1,
   "name": "@scope/jsii-calc-base",
-  "package": "@scope/jsii-calc-base",
   "version": "0.5.0-beta",
   "targets": {
     "java": {
@@ -53,5 +44,5 @@
       "npm": "@scope/jsii-calc-base"
     }
   },
-  "fingerprint": "e85e051724c5895b88c8c10fa4dc9f6a"
+  "fingerprint": "f6e1aeb814998395016818a3dfcd67af"
 }

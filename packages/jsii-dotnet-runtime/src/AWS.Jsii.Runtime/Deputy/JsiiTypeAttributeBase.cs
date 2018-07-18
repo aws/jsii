@@ -35,7 +35,8 @@ namespace AWS.Jsii.Runtime.Deputy
 
             // find the .tgz resource
             var tarballResourceName = assembly.GetManifestResourceNames().FirstOrDefault(name => name.EndsWith(".tgz"));
-            if (tarballResourceName == null) {
+            if (tarballResourceName == null)
+            {
                 throw new JsiiException("Cannot find embedded tarball resource in assembly " + assembly.GetName(), null);
             }
 

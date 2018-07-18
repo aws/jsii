@@ -8,50 +8,46 @@ namespace AWS.Jsii.JsonModel.Api.Response
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class NamingResponse : IKernelResponse
     {
-        public NamingResponse(Naming naming)
+        public NamingResponse(NamingData naming)
         {
             Naming = naming ?? throw new ArgumentNullException(nameof(naming));
         }
 
         [JsonProperty("naming")]
-        public Naming Naming { get; }
-    }
+        public NamingData Naming { get; }
 
-    [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public class Naming
-    {
-        public Naming(DotNetNaming dotnet, IDictionary<string, object> others = null)
+        [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+        public class NamingData
         {
-            DotNet = dotnet;
-            Others = others;
+            public NamingData(DotNetNaming dotnet, IDictionary<string, object> others = null)
+            {
+                DotNet = dotnet ?? throw new ArgumentNullException(nameof(dotnet));
+            }
+            
+            [JsonProperty("dotnet", NullValueHandling = NullValueHandling.Ignore)]
+            public DotNetNaming DotNet { get; }
+            
+            [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+            public class DotNetNaming
+            {
+                public DotNetNaming(string @namespace)
+                {
+                    Namespace = @namespace;
+                }
+                
+                public static implicit operator DotNetNaming(string @namespace)
+                {
+                    return new DotNetNaming(@namespace);
+                }
+                
+                public static implicit operator string(DotNetNaming naming)
+                {
+                    return naming.Namespace;
+                }
+                
+                [JsonProperty("namespace")]
+                public string Namespace { get; }
+            }
         }
-
-        [JsonProperty("dotnet", NullValueHandling = NullValueHandling.Ignore)]
-        public DotNetNaming DotNet { get; }
-
-        [JsonExtensionData]
-        public IDictionary<string, object> Others;
-    }
-
-    [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public class DotNetNaming
-    {
-        public DotNetNaming(string @namespace)
-        {
-            Namespace = @namespace;
-        }
-
-        public static implicit operator DotNetNaming(string ns)
-        {
-            return new DotNetNaming(ns);
-        }
-
-        public static implicit operator string(DotNetNaming t)
-        {
-            return t.Namespace;
-        }
-
-        [JsonProperty("namespace")]
-        public string Namespace { get; }
     }
 }

@@ -227,30 +227,7 @@
       "datatype": true
     }
   },
-  "nametree": {
-    "@scope/jsii-calc-lib": {
-      "Value": {
-        "_": "@scope/jsii-calc-lib.Value"
-      },
-      "Number": {
-        "_": "@scope/jsii-calc-lib.Number"
-      },
-      "Operation": {
-        "_": "@scope/jsii-calc-lib.Operation"
-      },
-      "IFriendly": {
-        "_": "@scope/jsii-calc-lib.IFriendly"
-      },
-      "MyFirstStruct": {
-        "_": "@scope/jsii-calc-lib.MyFirstStruct"
-      },
-      "StructWithOnlyOptionals": {
-        "_": "@scope/jsii-calc-lib.StructWithOnlyOptionals"
-      }
-    }
-  },
-  "typecount": 6,
-  "externalTypes": {
+  "externals": {
     "@scope/jsii-calc-base.Base": {
       "docs": {
         "comment": "A base class."
@@ -278,11 +255,9 @@
     }
   },
   "name": "@scope/jsii-calc-lib",
-  "package": "@scope/jsii-calc-lib",
   "version": "0.5.0-beta",
   "dependencies": {
     "@scope/jsii-calc-base": {
-      "package": "@scope/jsii-calc-base",
       "version": "0.5.0-beta",
       "targets": {
         "java": {
@@ -316,5 +291,5 @@
       "npm": "@scope/jsii-calc-lib"
     }
   },
-  "fingerprint": "e50275dd3b50439e383cf863cc816488"
+  "fingerprint": "251281e31d43defdc2806124a743ece2"
 }

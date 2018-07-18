@@ -137,27 +137,31 @@ namespace AWS.Jsii.Generator
 
                 IEnumerable<string> GetDependencies()
                 {
-                    Stack<IDictionary<string, PackageVersion>> stack = new Stack<IDictionary<string, PackageVersion>>();
-                    if (assembly.Dependencies != null)
+                    foreach (string dependencyName in GetDependenciesCore(assembly))
                     {
-                        stack.Push(assembly.Dependencies);
+                        yield return dependencyName;
                     }
 
-                    while (stack.LongCount() > 0)
+                    IEnumerable<string> GetDependenciesCore(DependencyRoot root)
                     {
-                        foreach (KeyValuePair<string, PackageVersion> entry in stack.Pop())
+                        if (root.Dependencies == null)
                         {
-                            yield return symbols.GetAssemblyName(entry.Key);
-                            if (entry.Value.Dependencies != null)
+                            yield break;
+                        }
+                        foreach (var kvp in root.Dependencies)
+                        {
+                            yield return symbols.GetAssemblyName(kvp.Key);
+                            foreach (string dependencyName in GetDependenciesCore(kvp.Value))
                             {
-                                stack.Push(entry.Value.Dependencies);
+                                yield return dependencyName;
                             }
                         }
                     }
                 }
             }
 
-            void SaveAssemblyInfo(string name, string version, string tarball) {
+            void SaveAssemblyInfo(string name, string version, string tarball)
+            {
                 SyntaxTree assemblyInfo = SF.SyntaxTree(
                     SF.CompilationUnit(
                         SF.List<ExternAliasDirectiveSyntax>(),
@@ -200,20 +204,20 @@ namespace AWS.Jsii.Generator
                 switch (type.Kind)
                 {
                     case TypeKind.Class:
-                        SaveTypeFile($"{symbols.GetName(type)}.cs", new ClassGenerator(assembly.Package, (ClassType)type, symbols).CreateSyntaxTree());
+                        SaveTypeFile($"{symbols.GetName(type)}.cs", new ClassGenerator(assembly.Name, (ClassType)type, symbols).CreateSyntaxTree());
                         return;
                     case TypeKind.Enum:
-                        SaveTypeFile($"{symbols.GetName(type)}.cs", new EnumGenerator(assembly.Package, (EnumType)type, symbols).CreateSyntaxTree());
+                        SaveTypeFile($"{symbols.GetName(type)}.cs", new EnumGenerator(assembly.Name, (EnumType)type, symbols).CreateSyntaxTree());
                         return;
                     case TypeKind.Interface:
                         InterfaceType interfaceType = (InterfaceType)type;
 
-                        SaveTypeFile($"{symbols.GetName(interfaceType)}.cs", new InterfaceGenerator(assembly.Package, interfaceType, symbols).CreateSyntaxTree());
-                        SaveTypeFile($"{symbols.GetInterfaceProxyName(interfaceType)}.cs", new InterfaceProxyGenerator(assembly.Package, interfaceType, symbols).CreateSyntaxTree());
+                        SaveTypeFile($"{symbols.GetName(interfaceType)}.cs", new InterfaceGenerator(assembly.Name, interfaceType, symbols).CreateSyntaxTree());
+                        SaveTypeFile($"{symbols.GetInterfaceProxyName(interfaceType)}.cs", new InterfaceProxyGenerator(assembly.Name, interfaceType, symbols).CreateSyntaxTree());
 
                         if (interfaceType.IsDataType == true)
                         {
-                            SaveTypeFile($"{symbols.GetInterfaceDefaultName(interfaceType)}.cs", new InterfaceDefaultGenerator(assembly.Package, interfaceType, symbols).CreateSyntaxTree());
+                            SaveTypeFile($"{symbols.GetInterfaceDefaultName(interfaceType)}.cs", new InterfaceDefaultGenerator(assembly.Name, interfaceType, symbols).CreateSyntaxTree());
                         }
 
                         return;

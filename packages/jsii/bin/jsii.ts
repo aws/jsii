@@ -2,6 +2,7 @@
 import 'source-map-support/register';
 import * as yargs from 'yargs';
 import { bundle } from '../lib/bundle';
+import { VERSION } from '../lib/version';
 import { watch } from '../lib/watch';
 
 process.on('unhandledRejection', err => {
@@ -21,6 +22,7 @@ async function main(dir: string, args: any) {
 const argv = yargs
     .usage('Usage: jsii [options]')
     .option('watch', { alias: 'w', desc: 'alias for tsc --watch (tsconfig.json will be created)' })
+    .version(VERSION)
     .argv;
 
 main(process.cwd(), argv).catch(err => {

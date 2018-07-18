@@ -68,9 +68,7 @@ export abstract class Generator implements IGenerator {
      */
     generate() {
         this.onBeginAssembly(this.assembly);
-        if (this.assembly.nametree) {
-            this.visit(this.assembly.nametree);
-        }
+        this.visit(spec.NameTree.of(this.assembly));
         this.onEndAssembly(this.assembly);
     }
 
@@ -200,23 +198,22 @@ export abstract class Generator implements IGenerator {
     protected onField(cls: spec.ClassType, prop: spec.Property, union?: spec.UnionTypeReference) { cls; prop; union }
 
     private visit(node: spec.NameTree, names = new Array<string>()) {
-        let namespace = (!node._ && names.length > 0) ? names.join('.') : undefined;
+        let namespace = (!node.fqn && names.length > 0) ? names.join('.') : undefined;
 
         if (namespace) {
             this.onBeginNamespace(namespace);
         }
 
         let visitChildren = () => {
-            Object.keys(node).sort().forEach(name => {
-                if (name === '_') return;
-                this.visit(node[name], names.concat(name));
+            Object.keys(node.children).sort().forEach(name => {
+                this.visit(node.children[name], names.concat(name));
             })
         }
 
-        if (node._) {
-            let type = this.assembly.types[node._];
+        if (node.fqn) {
+            let type = this.assembly.types[node.fqn];
             if (!type) {
-                throw new Error(`Malformed jsii file. Cannot find type: ${node._}`);
+                throw new Error(`Malformed jsii file. Cannot find type: ${node.fqn}`);
             }
             if (!this.shouldExcludeType(type.name)) {
                 switch (type.kind) {
@@ -475,7 +472,7 @@ export abstract class Generator implements IGenerator {
                 return type;
             }
 
-            const externalType = asm.externalTypes && asm.externalTypes[fqn];
+            const externalType = asm.externals && asm.externals[fqn];
             if (externalType) {
                 return externalType;
             }

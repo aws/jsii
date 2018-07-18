@@ -16,9 +16,11 @@ namespace AWS.Jsii.Runtime.Services
             _fileSystem = fileSystem;
         }
 
-        public string ExtractResource(Assembly assembly, string resourceName, string bag, string fileName) {
+        public string ExtractResource(Assembly assembly, string resourceName, string bag, string fileName)
+        {
             string workingDirectory = null;
-            if (!_bags.TryGetValue(bag, out workingDirectory)) {
+            if (!_bags.TryGetValue(bag, out workingDirectory))
+            {
                 workingDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
                 _fileSystem.Directory.CreateDirectory(workingDirectory);
                 _bags[bag] = workingDirectory;
@@ -26,8 +28,10 @@ namespace AWS.Jsii.Runtime.Services
 
             var outputPath = Path.Combine(workingDirectory, fileName ?? resourceName);
             using (var output = _fileSystem.File.Create(outputPath))
-            using (var stream = assembly.GetManifestResourceStream(resourceName)) {
-                if (stream == null) {
+            using (var stream = assembly.GetManifestResourceStream(resourceName))
+            {
+                if (stream == null)
+                {
                     throw new JsiiException("Cannot find embedded resource: " + resourceName + " in assembly " + assembly.GetName(), null);
                 }
 
@@ -39,7 +43,8 @@ namespace AWS.Jsii.Runtime.Services
 
         void IDisposable.Dispose()
         {
-            foreach (var workdir in _bags.Values) {
+            foreach (var workdir in _bags.Values)
+            {
                 Directory.Delete(workdir, true);
             }
         }

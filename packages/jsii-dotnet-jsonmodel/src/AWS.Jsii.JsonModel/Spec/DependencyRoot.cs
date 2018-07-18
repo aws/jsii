@@ -8,12 +8,12 @@ namespace AWS.Jsii.JsonModel.Spec
     {
         public DependencyRoot
         (
-            IDictionary<string, PackageVersion> dependencies,
-            Targets targets
+            Targets targets,
+            IDictionary<string, PackageVersion> dependencies = null
         )
         {
-            Dependencies = dependencies;
             Targets = targets ?? throw new ArgumentNullException(nameof(targets));
+            Dependencies = dependencies;
         }
 
         [JsonProperty("dependencies", NullValueHandling = NullValueHandling.Ignore)]

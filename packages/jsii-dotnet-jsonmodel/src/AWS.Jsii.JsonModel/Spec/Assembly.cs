@@ -11,22 +11,20 @@ namespace AWS.Jsii.JsonModel.Spec
         public Assembly
         (
             string name,
-            string package,
             Targets targets,
             string version,
             IDictionary<string, Type> types,
-            IDictionary<string, Type> externalTypes = null,
+            IDictionary<string, Type> externals = null,
             IDictionary<string, PackageVersion> dependencies = null,
             IDictionary<string, string> bundled = null,
             Docs docs = null,
             Readme readme = null
-        ): base(dependencies, targets)
+        ): base(targets, dependencies)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
-            Package = package ?? throw new ArgumentNullException(nameof(package));
             Version = version ?? throw new ArgumentNullException(nameof(version));
             Types = types ?? throw new ArgumentNullException(nameof(types));
-            ExternalTypes = externalTypes;
+            Externals = externals;
             Bundled = bundled;
             Docs = docs;
             Readme = readme;
@@ -38,9 +36,6 @@ namespace AWS.Jsii.JsonModel.Spec
         [JsonProperty("name")]
         public string Name { get; }
 
-        [JsonProperty("package")]
-        public string Package { get; }
-
         [JsonProperty("version")]
         public string Version { get; }
 
@@ -48,12 +43,9 @@ namespace AWS.Jsii.JsonModel.Spec
         [JsonConverter(typeof(TypeDictionaryConverter))]
         public IDictionary<string, Type> Types { get; }
 
-        [JsonProperty("externalTypes", ItemConverterType = typeof(TypeConverter), NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("externals", ItemConverterType = typeof(TypeConverter), NullValueHandling = NullValueHandling.Ignore)]
         [JsonConverter(typeof(TypeDictionaryConverter))]
-        public IDictionary<string, Type> ExternalTypes { get; }
-
-        [JsonProperty("code", NullValueHandling = NullValueHandling.Ignore)]
-        public string Code { get; set; }
+        public IDictionary<string, Type> Externals { get; }
 
         [JsonProperty("bundled", NullValueHandling = NullValueHandling.Ignore)]
         public IDictionary<string, string> Bundled { get; }

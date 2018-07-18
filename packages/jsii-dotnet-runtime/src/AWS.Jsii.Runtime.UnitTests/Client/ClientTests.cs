@@ -99,8 +99,7 @@ namespace AWS.Jsii.Runtime.UnitTests.Client
                 Assembly assembly = new Assembly
                 (
                     name: "myName",
-                    package: "myPackage",
-                    targets: new Targets(null),
+                    targets: new Targets("Dot.Net.Namespace"),
                     version: "myVersion",
                     types: new Dictionary<string, Type>()
                 );
@@ -124,15 +123,14 @@ namespace AWS.Jsii.Runtime.UnitTests.Client
                 Assembly assembly = new Assembly
                 (
                     name: "myName",
-                    package: "myPackage",
-                    targets: new Targets(null),
+                    targets: new Targets("Dot.Net.Namespace"),
                     version: "myVersion",
                     types: new Dictionary<string, Type>()
                 );
 
-                _loadedPackages.Contains("myPackage").Returns(true);
+                _loadedPackages.Contains(assembly.Name).Returns(true);
 
-                client.LoadPackage(assembly.Package, assembly.Version, "mytarball");
+                client.LoadPackage(assembly.Name, assembly.Version, "mytarball");
 
                 _runtime.DidNotReceive().WriteRequest(Arg.Any<string>());
                 _loadedPackages.DidNotReceive().Add(Arg.Any<string>());
@@ -169,8 +167,7 @@ namespace AWS.Jsii.Runtime.UnitTests.Client
                 Assembly assembly = new Assembly
                 (
                     name: "myName",
-                    package: "myPackage",
-                    targets: new Targets(null),
+                    targets: new Targets("Dot.Net.Namespace"),
                     version: "myVersion",
                     types: new Dictionary<string, Type>()
                 );
@@ -498,7 +495,7 @@ namespace AWS.Jsii.Runtime.UnitTests.Client
                 IClient client = CreateClient();
 
                 _runtime.ReadResponse().Returns(GetOkResponse(new NamingResponse(
-                    new Naming("DotNet.Name")
+                    new NamingResponse.NamingData(dotnet: "DotNet.Name")
                 )));
 
                 NamingRequest request = new NamingRequest("myAssembly");

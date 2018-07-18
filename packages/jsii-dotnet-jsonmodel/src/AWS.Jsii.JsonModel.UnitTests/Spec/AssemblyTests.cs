@@ -21,8 +21,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 Assembly assembly = new Assembly
                 (
                     name: "myName",
-                    package: "myPackage",
-                    targets: new Targets(null),
+                    targets: new Targets("Dot.Net.Namespace"),
                     version: "myVersion",
                     types: new Dictionary<string, JsonModel.Spec.Type>(),
                     dependencies : new Dictionary<string, PackageVersion>(),
@@ -35,13 +34,16 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 const string expected = @"{
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
-  ""package"": ""myPackage"",
   ""version"": ""myVersion"",
   ""types"": {},
   ""bundled"": {},
   ""docs"": {},
   ""dependencies"": {},
-  ""targets"": {}
+  ""targets"": {
+    ""dotnet"": {
+      ""namespace"": ""Dot.Net.Namespace""
+    }
+  }
 }";
 
                 Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
@@ -53,24 +55,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 Assert.Throws<ArgumentNullException>(() => new Assembly
                 (
                     name: null,
-                    package: "myPackage",
-                    targets: new Targets(null),
-                    version: "myVersion",
-                    types: new Dictionary<string, JsonModel.Spec.Type>(),
-                    dependencies: new Dictionary<string, PackageVersion>(),
-                    bundled: new Dictionary<string, string>(),
-                    docs: new Docs()
-                ));
-            }
-
-            [Fact(DisplayName = Prefix + nameof(ShouldThrowOnMissingPackage))]
-            public void ShouldThrowOnMissingPackage()
-            {
-                Assert.Throws<ArgumentNullException>(() => new Assembly
-                (
-                    name: "myName",
-                    package: null,
-                    targets: new Targets(null),
+                    targets: new Targets("Dot.Net.Namespace"),
                     version: "myVersion",
                     types: new Dictionary<string, JsonModel.Spec.Type>(),
                     dependencies: new Dictionary<string, PackageVersion>(),
@@ -85,7 +70,6 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 Assert.Throws<ArgumentNullException>(() => new Assembly
                 (
                     name: "myName",
-                    package: "myPackage",
                     version: "myVersion",
                     targets: null,
                     types: new Dictionary<string, JsonModel.Spec.Type>(),
@@ -101,8 +85,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 Assert.Throws<ArgumentNullException>(() => new Assembly
                 (
                     name: "myName",
-                    package: "myPackage",
-                    targets: new Targets(null),
+                    targets: new Targets("Dot.Net.Namespace"),
                     version: null,
                     types: new Dictionary<string, JsonModel.Spec.Type>(),
                     dependencies: new Dictionary<string, PackageVersion>(),
@@ -117,8 +100,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 Assert.Throws<ArgumentNullException>(() => new Assembly
                 (
                     name: "myName",
-                    package: "myPackage",
-                    targets: new Targets(null),
+                    targets: new Targets("Dot.Net.Namespace"),
                     version: "myVersion",
                     types: null,
                     dependencies: new Dictionary<string, PackageVersion>(),
@@ -133,8 +115,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 Assembly assembly = new Assembly
                 (
                     name: "myName",
-                    package: "myPackage",
-                    targets: new Targets(null),
+                    targets: new Targets("Dot.Net.Namespace"),
                     version: "myVersion",
                     types: new Dictionary<string, JsonModel.Spec.Type>(),
                     dependencies: null,
@@ -146,12 +127,15 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 const string expected = @"{
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
-  ""package"": ""myPackage"",
   ""version"": ""myVersion"",
   ""types"": {},
   ""bundled"": {},
   ""docs"": {},
-  ""targets"": {}
+  ""targets"": {
+    ""dotnet"": {
+      ""namespace"": ""Dot.Net.Namespace""
+    }
+  }
 }";
 
                 Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
@@ -163,8 +147,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 Assembly assembly = new Assembly
                 (
                     name: "myName",
-                    package: "myPackage",
-                    targets: new Targets(null),
+                    targets: new Targets("Dot.Net.Namespace"),
                     version: "myVersion",
                     types: new Dictionary<string, JsonModel.Spec.Type>(),
                     dependencies: new Dictionary<string, PackageVersion>(),
@@ -176,12 +159,15 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 const string expected = @"{
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
-  ""package"": ""myPackage"",
   ""version"": ""myVersion"",
   ""types"": {},
   ""docs"": {},
   ""dependencies"": {},
-  ""targets"": {}
+  ""targets"": {
+    ""dotnet"": {
+      ""namespace"": ""Dot.Net.Namespace""
+    }
+  }
 }";
 
                 Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
@@ -193,8 +179,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 Assembly assembly = new Assembly
                 (
                     name: "myName",
-                    package: "myPackage",
-                    targets: new Targets(null),
+                    targets: new Targets("Dot.Net.Namespace"),
                     version: "myVersion",
                     types: new Dictionary<string, JsonModel.Spec.Type>(),
                     dependencies: new Dictionary<string, PackageVersion>(),
@@ -206,12 +191,15 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 const string expected = @"{
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
-  ""package"": ""myPackage"",
   ""version"": ""myVersion"",
   ""types"": {},
   ""bundled"": {},
   ""dependencies"": {},
-  ""targets"": {}
+  ""targets"": {
+    ""dotnet"": {
+      ""namespace"": ""Dot.Net.Namespace""
+    }
+  }
 }";
 
                 Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
@@ -228,8 +216,11 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 const string json = @"{
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
-  ""package"": ""myPackage"",
-  ""targets"": {},
+  ""targets"": {
+    ""dotnet"": {
+      ""namespace"": ""Dot.Net.Namespace""
+    }
+  },
   ""version"": ""myVersion"",
   ""types"": {},
   ""dependencies"": {},
@@ -241,8 +232,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
 
                 Assert.Equal("jsii/1.0", actual.Schema, ignoreLineEndingDifferences: true);
                 Assert.Equal("myName", actual.Name, ignoreLineEndingDifferences: true);
-                Assert.Equal("myPackage", actual.Package, ignoreLineEndingDifferences: true);
-                Assert.Null(actual.Targets.DotNet);
+                Assert.Equal("Dot.Net.Namespace", actual.Targets.DotNet);
                 Assert.Equal("myVersion", actual.Version, ignoreLineEndingDifferences: true);
                 Assert.Empty(actual.Types);
                 Assert.Empty(actual.Dependencies);
@@ -256,7 +246,6 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 const string json = @"{
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
-  ""package"": ""myPackage"",
   ""targets"": {
     ""dotnet"": { ""namespace"": ""AWS.Cdk.Test"" },
     ""java"": { ""package"": ""com.amazonaws.cdk.Test"" }
@@ -272,7 +261,6 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
 
                 Assert.Equal("jsii/1.0", actual.Schema, ignoreLineEndingDifferences: true);
                 Assert.Equal("myName", actual.Name, ignoreLineEndingDifferences: true);
-                Assert.Equal("myPackage", actual.Package, ignoreLineEndingDifferences: true);
                 Assert.Equal("AWS.Cdk.Test", actual.Targets.DotNet?.Namespace);
                 Assert.Equal("myVersion", actual.Version, ignoreLineEndingDifferences: true);
                 Assert.Empty(actual.Types);
@@ -286,25 +274,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
             {
                 const string json = @"{
   ""schema"": ""jsii/1.0"",
-  ""package"": ""myPackage"",
-  ""targets"": {},
-  ""version"": ""myVersion"",
-  ""types"": {},
-  ""dependencies"": {},
-  ""bundled"": {},
-  ""docs"": {}
-}";
-
-                Assert.Throws<ArgumentNullException>(() => JsonConvert.DeserializeObject<Assembly>(json));
-            }
-
-            [Fact(DisplayName = Prefix + nameof(ShouldThrowOnMissingPackage))]
-            public void ShouldThrowOnMissingPackage()
-            {
-                const string json = @"{
-  ""schema"": ""jsii/1.0"",
-  ""name"": ""myName"",
-  ""targets"": {},
+  ""targets"": { ""dotnet"": { ""namespace"": ""AWS.Cdk.Test"" } },
   ""version"": ""myVersion"",
   ""types"": {},
   ""dependencies"": {},
@@ -321,8 +291,24 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 const string json = @"{
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
-  ""package"": ""myPackage"",
   ""version"": ""myVersion"",
+  ""types"": {},
+  ""dependencies"": {},
+  ""bundled"": {},
+  ""docs"": {}
+}";
+
+                Assert.Throws<ArgumentNullException>(() => JsonConvert.DeserializeObject<Assembly>(json));
+            }
+
+            [Fact(DisplayName = Prefix + nameof(ShouldThrowOnMissingDotNetTarget))]
+            public void ShouldThrowOnMissingDotNetTarget()
+            {
+                const string json = @"{
+  ""schema"": ""jsii/1.0"",
+  ""name"": ""myName"",
+  ""version"": ""myVersion"",
+  ""targets"": {},
   ""types"": {},
   ""dependencies"": {},
   ""bundled"": {},
@@ -338,8 +324,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 const string json = @"{
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
-  ""package"": ""myPackage"",
-  ""targets"": {},
+  ""targets"": { ""dotnet"": { ""namespace"": ""AWS.Cdk.Test"" } },
   ""types"": {},
   ""dependencies"": {},
   ""bundled"": {},
@@ -355,8 +340,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 const string json = @"{
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
-  ""package"": ""myPackage"",
-  ""targets"": {},
+  ""targets"": { ""dotnet"": { ""namespace"": ""AWS.Cdk.Test"" } },
   ""version"": ""myVersion"",
   ""dependencies"": {},
   ""bundled"": {},
@@ -372,8 +356,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 const string json = @"{
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
-  ""package"": ""myPackage"",
-  ""targets"": {},
+  ""targets"": { ""dotnet"": { ""namespace"": ""AWS.Cdk.Test"" } },
   ""version"": ""myVersion"",
   ""types"": {},
   ""bundled"": {},
@@ -390,8 +373,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 const string json = @"{
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
-  ""package"": ""myPackage"",
-  ""targets"": {},
+  ""targets"": { ""dotnet"": { ""namespace"": ""AWS.Cdk.Test"" } },
   ""version"": ""myVersion"",
   ""types"": {},
   ""dependencies"": {},
@@ -408,8 +390,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 const string json = @"{
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
-  ""package"": ""myPackage"",
-  ""targets"": {},
+  ""targets"": { ""dotnet"": { ""namespace"": ""AWS.Cdk.Test"" } },
   ""version"": ""myVersion"",
   ""types"": {},
   ""dependencies"": {},

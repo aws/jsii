@@ -3,18 +3,18 @@ using AWS.Jsii.Runtime.Deputy;
 namespace AWS.Jsii.Tests.Calculator.Base
 {
     /// <summary>A base class.</summary>
-    [JsiiClass(typeof(Base), "@scope/jsii-calc-base.Base", "[]")]
-    public abstract class Base : DeputyBase
+    [JsiiClass(typeof(Base_), "@scope/jsii-calc-base.Base", "[]")]
+    public abstract class Base_ : DeputyBase
     {
-        protected Base(): base(new DeputyProps(new object[]{}))
+        protected Base_(): base(new DeputyProps(new object[]{}))
         {
         }
 
-        protected Base(ByRefValue reference): base(reference)
+        protected Base_(ByRefValue reference): base(reference)
         {
         }
 
-        protected Base(DeputyProps props): base(props)
+        protected Base_(DeputyProps props): base(props)
         {
         }
 

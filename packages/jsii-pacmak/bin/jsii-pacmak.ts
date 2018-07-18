@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as yargs from 'yargs';
-import { generate } from '../lib';
+import { generate } from '../lib/index';
+import { VERSION } from '../lib/version';
 
 const argv = yargs
     .usage('Usage: jsii-pacmak -t target -o outdir <jsii-package-dir>')
@@ -11,6 +12,7 @@ const argv = yargs
     .demandOption('target')
     .demandOption('outdir')
     .demandCommand(1, '<jsii-package-dir> is required')
+    .version(VERSION)
     .argv;
 
 const target = argv.target;

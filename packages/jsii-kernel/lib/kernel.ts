@@ -106,7 +106,7 @@ export class Kernel {
 
             return {
                 assembly: assm.metadata.name,
-                types: assm.metadata.typecount,
+                types: Object.keys(assm.metadata.types).length,
             };
 
         } else {
@@ -147,7 +147,7 @@ export class Kernel {
 
                 return {
                     assembly: assmSpec.name,
-                    types: assmSpec.typecount,
+                    types: Object.keys(assmSpec.types).length,
                 };
             } finally {
                 this._debug('removing staging directory:', staging);

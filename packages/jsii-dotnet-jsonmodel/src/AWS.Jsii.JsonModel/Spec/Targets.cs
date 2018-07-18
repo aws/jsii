@@ -9,36 +9,32 @@ namespace AWS.Jsii.JsonModel.Spec
     {
         public Targets(DotNetTarget dotnet, IDictionary<string, object> others = null)
         {
-            DotNet = dotnet;
-            Others = others;
+            DotNet = dotnet ?? throw new ArgumentNullException(nameof(dotnet));
         }
 
         [JsonProperty("dotnet", NullValueHandling = NullValueHandling.Ignore)]
         public DotNetTarget DotNet { get; }
-
-        [JsonExtensionData]
-        public IDictionary<string, object> Others;
-    }
-
-    [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public class DotNetTarget
-    {
-        public DotNetTarget(string @namespace)
+        
+        [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+        public class DotNetTarget
         {
-            Namespace = @namespace ?? throw new ArgumentNullException(nameof(@namespace));
+            public DotNetTarget(string @namespace)
+            {
+                Namespace = @namespace ?? throw new ArgumentNullException(nameof(@namespace));
+            }
+            
+            public static implicit operator DotNetTarget(string @namespace)
+            {
+                return new DotNetTarget(@namespace);
+            }
+            
+            public static implicit operator string(DotNetTarget target)
+            {
+                return target.Namespace;
+            }
+            
+            [JsonProperty("namespace")]
+            public string Namespace { get; }
         }
-
-        public static implicit operator DotNetTarget(string ns)
-        {
-            return new DotNetTarget(ns);
-        }
-
-        public static implicit operator string(DotNetTarget t)
-        {
-            return t.Namespace;
-        }
-
-        [JsonProperty("namespace")]
-        public string Namespace { get; }
     }
 }

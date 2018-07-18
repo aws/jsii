@@ -28,10 +28,10 @@ namespace AWS.Jsii.Generator
             }
 
             _assemblyNames[assembly.Name] = assembly.GetNativeName();
-            assembly.RecordAssemblyNames(_assemblyNames);
+            RecordAssemblyNames(assembly);
 
             var types = assembly.Types?.Values ?? Enumerable.Empty<Type>();
-            var externalTypes = assembly.ExternalTypes?.Values ?? Enumerable.Empty<Type>();
+            var externalTypes = assembly.Externals?.Values ?? Enumerable.Empty<Type>();
             var allTypes = externalTypes.Concat(types);
 
             foreach (Type type in allTypes)
@@ -69,6 +69,19 @@ namespace AWS.Jsii.Generator
                         throw new ArgumentException($"Type {type.Name} has unrecognized kind {type.Kind}", nameof(type));
                 }
             }
+
+            void RecordAssemblyNames(DependencyRoot root)
+            {
+                if (root.Dependencies == null)
+                {
+                    return;
+                }
+                foreach (string packageName in root.Dependencies.Keys)
+                {
+                    _assemblyNames[packageName] = root.Dependencies[packageName].GetNativeName();
+                    RecordAssemblyNames(root.Dependencies[packageName]);
+                }
+            }
         }
 
         #region name
@@ -92,12 +105,6 @@ namespace AWS.Jsii.Generator
             type = type ?? throw new ArgumentNullException(nameof(type));
 
             TypeMetadata metadata = _types[type.FullyQualifiedName];
-
-            if (disambiguate && metadata.Namespace.EndsWith($".{metadata.Name}"))
-            {
-                // In this case, the un-qualified name refers to the namespace, not the type - it needs to be locally qualified
-                return $"{metadata.Name}.{metadata.Name}";
-            }
 
             disambiguate = disambiguate && _types.Values
                 .Any(m => m.Type.FullyQualifiedName != metadata.Type.FullyQualifiedName && m.Name == metadata.Name);

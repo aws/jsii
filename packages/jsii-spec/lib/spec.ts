@@ -16,25 +16,20 @@ export class Assembly implements Documentable {
     public name: string;
 
     /**
-     * The npm package name of this module
-     */
-    public package: string;
-
-    /**
      * A fingerprint that can be used to determine if the specification has changed.
      */
     public fingerprint: string;
+
+    /**
+     * The version of the module
+     */
+    public version: string;
 
     /**
      * A map of target name to configuration, which is used when generating packages for
      * various languages.
      */
     public targets: AssemblyTargets;
-
-    /**
-     * The version of the module
-     */
-    public version: string;
 
     /**
      * Dependencies on other modules (with semver), the key is the JSII assembly name.
@@ -58,57 +53,24 @@ export class Assembly implements Documentable {
      * over the types that are used by this one without necessarily
      * having to load dependent assemblies.
      */
-    public externalTypes?: { [fqn: string]: Type };
-
-    /**
-     * Number of types in the spec.
-     */
-    public typecount: number;
-
-    /**
-     * Namespace tree (see description on `NameTree`).
-     */
-    public nametree: NameTree;
+    public externals?: { [fqn: string]: Type };
 
     /**
      * Documentation
      */
     public docs = new Docs();
 
-    public readme?: { markdown: string };
-
     /**
-     * Assembly javascript code. Must be namespaced by assembly name.
+     * The top-level readme document for this assembly (if any).
      */
-    public code?: string;
+    public readme?: { markdown: string };
 }
 
 /**
  * Configurable targets for an asembly.
  */
 export interface AssemblyTargets {
-    /** Information about the .Net target */
-    dotnet?: {
-        /** The name of the .Net root namespace (also the NuGet package ID) */
-        namespace: string;
-    };
-    /** Information about the Java target */
-    java?: {
-        /** The name of the root package for classes in this assembly */
-        package: string;
-        /** Maven package information */
-        maven: {
-            groupId: string;
-            artifactId: string;
-        }
-    };
-    /** Information about the JavaScript target */
-    js?: {
-        /** The name of the NPM package. */
-        npm: string;
-    }
-
-    /** Information about other languages */
+    /** Information about a particular language's targets */
     [language: string]: { [key: string]: any } | undefined;
 }
 
@@ -116,8 +78,6 @@ export interface AssemblyTargets {
  * The version of a package.
  */
 export interface PackageVersion {
-    /** The name of the package in it's native ecosystem */
-    package: string;
     /** Version of the package. */
     version: string;
     /** Targets for a given assembly. */
@@ -530,99 +490,4 @@ export class EnumType extends Type {
 
 export function isEnumType(type: Type): type is EnumType {
     return type.kind === TypeKind.Enum;
-}
-
-/**
- * A tree of all names in the module. A node represent a type (terminal)
- * and may represent another node in the namespace (at the same time).
- * Therefore, a key of '_' represents a terminal and references the fqn
- * of the type.
- *
- * For example, say we have the following types:
- *   - aws.ec2.Host
- *   - aws.ec2.Instance
- *   - aws.ec2.Instance.Subtype
- *
- * the the name tree will look like this:
- *
- * nametree: {
- *   aws: {
- *     ec2: {
- *       Host: {
- *         _: 'aws.ec2.Host'
- *       },
- *       Instance: {
- *         _: 'aws.ec2.Host',
- *         Subtype: 'aws.ec2.Host.Subtype'
- *       }
- *     }
- *   }
- * }
- */
-export class NameTree {
-
-    [ key: string ]: any
-
-    /**
-     * Returns the FQN of a concerete type within this node or undefined.
-     */
-    public getType(): string | undefined {
-        return this._;
-    }
-
-    /**
-     * Returns 'true' if this node has child trees.
-     */
-    public hasChildren() {
-        return this.children().length > 0;
-    }
-
-    /**
-     * Returns all the child names of this tree (or an empty array).
-     */
-    public children(): string[] {
-        return Object.keys(this).filter(n => n !== '_');
-    }
-
-    /**
-     * Invoke an action for each child in the tree
-     * @param action The function to invoke for each child
-     */
-    public forEachChild(action: (child: NameTree) => void) {
-        this.children().map(n => this[n]).forEach(action);
-    }
-
-    /**
-     * Inserts a name into the name tree
-     * @param fullPath The full path of the name to add to the tree
-     * @param rest The rest parts of the path left to insert (null indicates all of them)
-     */
-    public add(fullPath: string, rest?: string[]) {
-        // this means we have the full path to add
-        if (!rest) {
-            rest = fullPath.split('.');
-        }
-
-        const curr = rest.shift();
-
-        // this means we reached a terminal node
-        if (!curr) {
-            if (this._) {
-                throw new Error(`${fullPath} is already in the tree`);
-            }
-            this._ = fullPath;
-            return; // done!
-        }
-
-        if (!this[curr]) {
-            this[curr] = new NameTree();
-        }
-
-        if (!(this[curr] instanceof NameTree)) {
-            throw new Error('Sub trees must be NameTrees');
-        }
-
-        // add the rest
-        (this[curr] as NameTree).add(fullPath, rest);
-    }
 }

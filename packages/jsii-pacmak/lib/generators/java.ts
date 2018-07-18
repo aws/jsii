@@ -778,6 +778,18 @@ export default class JavaGenerator extends Generator {
         this.code.closeBlock();
     }
 
+    /**
+     * Computes the java FQN for a JSII FQN:
+     * 1. Determine which assembly the FQN belongs to (first component of the FQN)
+     * 2. Locate the `targets.java.package` value for that assembly (this assembly, or one of the dependencies)
+     * 3. Return the java FQN: ``<module.targets.java.package>.<FQN stipped of first component>``
+     *
+     * @param fqn the JSII FQN to be used.
+     *
+     * @returns the corresponding Java FQN.
+     *
+     * @throws if the assembly the FQN belongs to does not have a `targets.java.package` set.
+     */
     private toNativeFqn(fqn: string): string {
         const [mod, ...name] = fqn.split('.');
         if (mod === this.assembly.name) {
