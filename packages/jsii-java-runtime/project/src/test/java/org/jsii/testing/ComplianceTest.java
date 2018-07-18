@@ -20,6 +20,7 @@ import org.jsii.tests.calculator.JSObjectLiteralToNative;
 import org.jsii.tests.calculator.JSObjectLiteralToNativeClass;
 import org.jsii.tests.calculator.Multiply;
 import org.jsii.tests.calculator.Negate;
+import org.jsii.tests.calculator.NodeStandardLibrary;
 import org.jsii.tests.calculator.NumberGenerator;
 import org.jsii.tests.calculator.Polymorphism;
 import org.jsii.tests.calculator.Power;
@@ -796,6 +797,16 @@ public class ComplianceTest {
         obj.import_();
         obj.const_();
         assertEquals("hello", obj.getWhile()); // properties do not need to be slufieid
+    }
+
+    @Test
+    public void nodeStandardLibrary() {
+        NodeStandardLibrary obj = new NodeStandardLibrary();
+        assertEquals("Hello, resource!", obj.fsReadFile());
+        assertEquals("Hello, resource! SYNC!", obj.fsReadFileSync());
+        assertTrue(obj.getOsPlatform().length() > 0);
+        assertEquals("6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50",
+            obj.cryptoSha256());
     }
 
     static class MulTen extends Multiply {

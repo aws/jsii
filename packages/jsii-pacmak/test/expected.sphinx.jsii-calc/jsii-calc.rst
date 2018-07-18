@@ -1,4 +1,4 @@
-.. @jsii-pacmak:meta@ {"fingerprint":"8a53059f7bdb1375eddfeb1df32aae51"}
+.. @jsii-pacmak:meta@ {"fingerprint":"gGMsbVRE540thPXTKlhMAg=="}
 
 jsii-calc
 =========
@@ -986,6 +986,50 @@ Negate
 
 
       :type: number *(readonly)*
+
+
+NodeStandardLibrary
+^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: NodeStandardLibrary()
+
+   Test fixture to verify that jsii modules can use the node standard library.
+
+
+
+   .. py:method:: fsReadFile() -> string
+
+      Reads a local resource file (resource.txt) asynchronously.
+
+
+      :return: "Hello, resource!"
+      :rtype: string
+
+
+   .. py:method:: fsReadFileSync() -> string
+
+      Sync version of fsReadFile.
+
+
+      :return: "Hello, resource! SYNC!"
+      :rtype: string
+
+
+   .. py:method:: cryptoSha256() -> string
+
+      Uses node.js "crypto" module to calculate sha256 of a string.
+
+
+      :return: "6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50"
+      :rtype: string
+
+
+   .. py:attribute:: osPlatform
+
+      Returns the current os.platform() from the "os" node module.
+
+
+      :type: string *(readonly)*
 
 
 NumberGenerator

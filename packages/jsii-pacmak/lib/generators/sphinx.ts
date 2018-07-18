@@ -37,7 +37,7 @@ export default class SphinxDocsGenerator extends Generator {
             const matches = data.match(/^\.\. @jsii-pacmak:meta@ (.+)$/m);
             if (!matches) { return false; }
             const meta = JSON.parse(matches[1]);
-            return meta.fingerprint === this.assembly.fingerprint;
+            return meta.fingerprint === this.fingerprint;
         } catch (e) {
             return false;
         }
@@ -61,7 +61,7 @@ export default class SphinxDocsGenerator extends Generator {
 
         this.code.openFile(`${fsSafeName(assm.name)}.rst`);
 
-        const meta = { fingerprint: assm.fingerprint };
+        const meta = { fingerprint: this.fingerprint };
         this.code.line(`.. @jsii-pacmak:meta@ ${JSON.stringify(meta)}`);
         this.code.line();
 

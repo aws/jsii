@@ -1,8 +1,10 @@
 import * as clone from 'clone';
 import { CodeMaker } from 'codemaker';
+import * as crypto from 'crypto';
 import * as fs from 'fs-extra';
 import * as spec from 'jsii-spec';
 import * as path from 'path';
+import { VERSION } from './version';
 
 // tslint:disable
 
@@ -50,6 +52,7 @@ export abstract class Generator implements IGenerator {
     private readonly excludeTypes = new Array<string>();
     protected readonly code = new CodeMaker();
     protected assembly: spec.Assembly;
+    protected fingerprint: string;
 
     constructor(options = new GeneratorOptions()) {
         this.options = options;
@@ -61,6 +64,13 @@ export abstract class Generator implements IGenerator {
         if (this.assembly.schema !== spec.SPEC_VERSION) {
             throw new Error(`Invalid schema version "${this.assembly.schema}". Expecting "${spec.SPEC_VERSION}"`);
         }
+
+        // Including the version of jsii-pacmak in the fingerprint, as a new version may imply different code generation.
+        this.fingerprint = crypto.createHash('md5')
+                                 .update(VERSION)
+                                 .update('\0')
+                                 .update(this.assembly.fingerprint)
+                                 .digest('base64')
     }
 
     /**

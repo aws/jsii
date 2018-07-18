@@ -759,6 +759,17 @@ namespace AWS.Jsii.Runtime.IntegrationTests
             throw new NotImplementedException();
         }
 
+        [Fact(DisplayName = Prefix + nameof(NodeStandardLibrary))]
+        public void NodeStandardLibrary() {
+            NodeStandardLibrary obj = new NodeStandardLibrary();
+            Assert.Equal("Hello, resource!", obj.FsReadFile());
+            Assert.Equal("Hello, resource! SYNC!", obj.FsReadFileSync());
+            Assert.True(obj.OsPlatform.Length > 0);
+            Assert.Equal("6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50",
+                obj.CryptoSha256());
+        }
+
+
         class MulTen : Multiply
         {
             public MulTen(int value)

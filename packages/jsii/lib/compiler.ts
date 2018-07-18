@@ -3,7 +3,7 @@ import * as clone from 'clone';
 import * as fs from 'fs-extra';
 import * as glob from 'glob';
 import * as spec from 'jsii-spec';
-import * as md5 from 'md5';
+import * as crypto from 'crypto';
 import * as path from 'path';
 import * as ts from 'typescript';
 import * as util from 'util';
@@ -66,7 +66,7 @@ export async function compilePackage(packageDir: string, includeDirs = [ 'test',
 
     // Not accounting for the 'fingerprint' field when fingerprinting.
     delete mod.fingerprint;
-    mod.fingerprint = md5(JSON.stringify(sortJson(mod), filterEmpty));
+    mod.fingerprint = crypto.createHash('md5').update(JSON.stringify(sortJson(mod), filterEmpty)).digest('base64');
 
     return mod;
 }
