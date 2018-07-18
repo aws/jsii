@@ -32,7 +32,7 @@ export class GeneratorOptions {
 }
 
 export interface IGenerator {
-    generate(): void;
+    generate(fingerprint: boolean): void;
     load(jsiiFile: string): Promise<void>;
     /**
      * Determine if the generated artifacts for this generator are already up-to-date.
@@ -52,10 +52,14 @@ export abstract class Generator implements IGenerator {
     private readonly excludeTypes = new Array<string>();
     protected readonly code = new CodeMaker();
     protected assembly: spec.Assembly;
-    protected fingerprint: string;
+    private fingerprint: string;
 
     constructor(options = new GeneratorOptions()) {
         this.options = options;
+    }
+
+    public get metadata() {
+        return { fingerprint: this.fingerprint };
     }
 
     public async load(jsiiFile: string) {
@@ -76,8 +80,8 @@ export abstract class Generator implements IGenerator {
     /**
      * Runs the generator (in-memory).
      */
-    generate() {
-        this.onBeginAssembly(this.assembly);
+    generate(fingerprint: boolean) {
+        this.onBeginAssembly(this.assembly, fingerprint);
         this.visit(spec.NameTree.of(this.assembly));
         this.onEndAssembly(this.assembly);
     }
@@ -131,7 +135,7 @@ export abstract class Generator implements IGenerator {
     //
     // Assembly
 
-    protected onBeginAssembly(_assm: spec.Assembly) { }
+    protected onBeginAssembly(_assm: spec.Assembly, _fingerprint: boolean) { }
     protected onEndAssembly(_assm: spec.Assembly) { }
 
     //

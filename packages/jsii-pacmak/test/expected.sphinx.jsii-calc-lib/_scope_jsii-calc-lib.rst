@@ -1,5 +1,3 @@
-.. @jsii-pacmak:meta@ {"fingerprint":"BRXQ7PQKFrsGdnfQ8hKIvg=="}
-
 @scope/jsii-calc-lib
 ====================
 

@@ -37,7 +37,7 @@ export default class SphinxDocsGenerator extends Generator {
             const matches = data.match(/^\.\. @jsii-pacmak:meta@ (.+)$/m);
             if (!matches) { return false; }
             const meta = JSON.parse(matches[1]);
-            return meta.fingerprint === this.fingerprint;
+            return meta.fingerprint === this.metadata.fingerprint;
         } catch (e) {
             return false;
         }
@@ -50,7 +50,7 @@ export default class SphinxDocsGenerator extends Generator {
         return undefined;
     }
 
-    protected onBeginAssembly(assm: spec.Assembly) {
+    protected onBeginAssembly(assm: spec.Assembly, fingerprint: boolean) {
         this.tocPath = new Array<string>(); // As a safety measure, in case previous assembly somehow didn't get it back to 0.
         if (assm.readme) {
             this.readmeFile = `_${fsSafeName(assm.name)}.README.md`;
@@ -61,9 +61,10 @@ export default class SphinxDocsGenerator extends Generator {
 
         this.code.openFile(`${fsSafeName(assm.name)}.rst`);
 
-        const meta = { fingerprint: this.fingerprint };
-        this.code.line(`.. @jsii-pacmak:meta@ ${JSON.stringify(meta)}`);
-        this.code.line();
+        if (fingerprint) {
+            this.code.line(`.. @jsii-pacmak:meta@ ${JSON.stringify(this.metadata)}`);
+            this.code.line();
+        }
 
         this.openSection(assm.name);
         this.code.line();
