@@ -45,7 +45,7 @@ function assert-generator() {
         echo "Running jsii-pacmak for language ${lang}"
         echo "    Actual: ${outdir}"
         echo "    Expected: ${original_expected}"
-        ../bin/jsii-pacmak -t ${lang} -o ${outdir} ${module_root}
+        ../bin/jsii-pacmak -t ${lang} -o ${outdir} ${module_root} --no-fingerprint
 
         # change the placeholder back
         if [ -n "${expected_tarball_placeholder}" ]; then
@@ -65,14 +65,11 @@ function assert-generator() {
             success=false
         fi
     done
-
-    echo
-    echo "SUCCESS"
-    echo
 }
 
-assert-generator jsii-calc
+assert-generator jsii-calc-base
 assert-generator jsii-calc-lib
+assert-generator jsii-calc
 
 if ${success}; then
     # only remove working directory if tests pass. Otherwise, user might want to
@@ -80,5 +77,6 @@ if ${success}; then
     rm -fr "${workdir}"
 else
     echo "SOME TESTS FAILED"
+    exit 1
 fi
 

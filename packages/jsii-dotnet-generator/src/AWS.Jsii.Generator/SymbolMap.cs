@@ -28,13 +28,10 @@ namespace AWS.Jsii.Generator
             }
 
             _assemblyNames[assembly.Name] = assembly.GetNativeName();
-            foreach (string packageName in assembly.NativeNames.Keys)
-            {
-                _assemblyNames[packageName] = assembly.GetNativeName(packageName);
-            }
+            RecordAssemblyNames(assembly);
 
             var types = assembly.Types?.Values ?? Enumerable.Empty<Type>();
-            var externalTypes = assembly.ExternalTypes?.Values ?? Enumerable.Empty<Type>();
+            var externalTypes = assembly.Externals?.Values ?? Enumerable.Empty<Type>();
             var allTypes = externalTypes.Concat(types);
 
             foreach (Type type in allTypes)
@@ -70,6 +67,19 @@ namespace AWS.Jsii.Generator
 
                     default:
                         throw new ArgumentException($"Type {type.Name} has unrecognized kind {type.Kind}", nameof(type));
+                }
+            }
+
+            void RecordAssemblyNames(DependencyRoot root)
+            {
+                if (root.Dependencies == null)
+                {
+                    return;
+                }
+                foreach (string packageName in root.Dependencies.Keys)
+                {
+                    _assemblyNames[packageName] = root.Dependencies[packageName].GetNativeName();
+                    RecordAssemblyNames(root.Dependencies[packageName]);
                 }
             }
         }

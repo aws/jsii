@@ -189,9 +189,9 @@ namespace AWS.Jsii.Runtime.IntegrationTests
         public void CreateObjectAndCtorOverloads()
         {
             // TODO: Generator should create a parameterless constructor.
-            new Calculator(new CalculatorProps());
+            new Calculator_(new CalculatorProps());
 
-            new Calculator(new CalculatorProps
+            new Calculator_(new CalculatorProps
             {
                 MaximumValue = 10
             });
@@ -214,7 +214,7 @@ namespace AWS.Jsii.Runtime.IntegrationTests
         public void CallMethods()
         {
             // TODO: Generator should create a parameterless constructor.
-            Calculator calc = new Calculator(new CalculatorProps());
+            Calculator_ calc = new Calculator_(new CalculatorProps());
 
             calc.Add(10);
             Assert.Equal((double)10, calc.Value);
@@ -233,7 +233,7 @@ namespace AWS.Jsii.Runtime.IntegrationTests
         public void UnmarkshallIntoAbstractType()
         {
             // TODO: Generator should create a parameterless constructor.
-            Calculator calc = new Calculator(new CalculatorProps());
+            Calculator_ calc = new Calculator_(new CalculatorProps());
 
             calc.Add(120);
             Value_ value = calc.Curr;
@@ -244,7 +244,7 @@ namespace AWS.Jsii.Runtime.IntegrationTests
         public void GetAndSetNotPrimitiveProperties()
         {
             // TODO: Generator should create a parameterless constructor.
-            Calculator calc = new Calculator(new CalculatorProps());
+            Calculator_ calc = new Calculator_(new CalculatorProps());
 
             calc.Add(3200000);
             calc.Neg();
@@ -256,7 +256,7 @@ namespace AWS.Jsii.Runtime.IntegrationTests
         public void GetAndSetEnumValues()
         {
             // TODO: Generator should create a parameterless constructor.
-            Calculator calc = new Calculator(new CalculatorProps());
+            Calculator_ calc = new Calculator_(new CalculatorProps());
 
             calc.Add(9);
             calc.Pow(3);
@@ -270,7 +270,7 @@ namespace AWS.Jsii.Runtime.IntegrationTests
         public void UndefinedAndNull()
         {
             // TODO: Generator should create a parameterless constructor.
-            Calculator calculator = new Calculator(new CalculatorProps());
+            Calculator_ calculator = new Calculator_(new CalculatorProps());
 
             Assert.Null(calculator.MaxValue);
             calculator.MaxValue = null;
@@ -291,7 +291,7 @@ namespace AWS.Jsii.Runtime.IntegrationTests
         public void Maps()
         {
             // TODO: Generator should create a parameterless constructor.
-            Calculator calc = new Calculator(new CalculatorProps());
+            Calculator_ calc = new Calculator_(new CalculatorProps());
 
             calc.Add(10);
             calc.Add(20);
@@ -310,7 +310,7 @@ namespace AWS.Jsii.Runtime.IntegrationTests
         [Fact(DisplayName = Prefix + nameof(FluentApi))]
         public void FluentApi()
         {
-            Calculator calc = new Calculator(new CalculatorProps
+            Calculator_ calc = new Calculator_(new CalculatorProps
             {
                 InitialValue = 20,
                 MaximumValue = 30,
@@ -322,7 +322,7 @@ namespace AWS.Jsii.Runtime.IntegrationTests
         [Fact(DisplayName = Prefix + nameof(Exceptions))]
         public void Exceptions()
         {
-            Calculator calc = new Calculator(new CalculatorProps
+            Calculator_ calc = new Calculator_(new CalculatorProps
             {
                 InitialValue = 20,
                 MaximumValue = 30,
@@ -342,7 +342,7 @@ namespace AWS.Jsii.Runtime.IntegrationTests
         public void UnionProperties()
         {
             // TODO: Generator should create a parameterless constructor.
-            Calculator calc = new Calculator(new CalculatorProps());
+            Calculator_ calc = new Calculator_(new CalculatorProps());
 
             calc.UnionProperty = new Multiply(new Number(9), new Number(3));
             Assert.IsType<Multiply>(calc.UnionProperty);
@@ -356,7 +356,7 @@ namespace AWS.Jsii.Runtime.IntegrationTests
         public void SubClassing()
         {
             // TODO: Generator should create a parameterless constructor.
-            Calculator calc = new Calculator(new CalculatorProps());
+            Calculator_ calc = new Calculator_(new CalculatorProps());
 
             calc.Curr = new AddTen(33);
             calc.Neg();

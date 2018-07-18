@@ -6,9 +6,17 @@
   "private": true,
   "jsii": {
     "outdir": "dist",
-    "names": {
-      "java": "org.jsii.tests.calculator",
-      "dotnet": "AWS.Jsii.Tests.Calculator"
+    "targets": {
+      "java": {
+        "package": "org.jsii.tests.calculator",
+        "maven": {
+          "groupId": "org.jsii.tests",
+          "artifactId": "calculator"
+        }
+      },
+      "dotnet": {
+        "namespace": "AWS.Jsii.Tests.Calculator"
+      }
     }
   },
   "scripts": {

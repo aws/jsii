@@ -13,7 +13,8 @@ namespace AWS.Jsii.Runtime.Deputy
             Value = value ?? throw new ArgumentNullException(nameof(value));
 
             var lastIndex = value.LastIndexOf('@');
-            if (lastIndex == -1) {
+            if (lastIndex == -1)
+            {
                 throw new ArgumentException($"Unexpected format for byref value: {value}", nameof(value));
             }
 

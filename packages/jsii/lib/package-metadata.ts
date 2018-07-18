@@ -33,10 +33,10 @@ export interface PackageMetadata {
     bundledDependencies: string[]
 
     /**
-     * Mapping of language => module-name
-     * For example, { "java": "com.amazonaws.cdk" }
+     * Mapping of package manager => configuration
+     * For example, { "mvn": { basePackage: "com.amazonaws.cdk", groupId: "com.amazonaws.cdk", artifactId: "core" } }
      */
-    names: { [language: string]: string }
+    targets: { [name: string]: { [key: string]: any | undefined } };
 
     /**
      * Package npm dependencies (package.dependencies)
@@ -60,6 +60,7 @@ export default async function readPackageMetadata(moduleDir: string): Promise<Pa
     if (!pkg.main)    { pkg.main = 'index.js'; }
 
     if (!pkg.jsii.outdir) { throw new Error(`${pkgFile} must contain a "jsii.outdir" field`); }
+    if (!pkg.jsii.targets) { throw new Error(`${pkgFile} must contain a "jsii.targets" field`); }
     if (!pkg.types.endsWith('.d.ts')) {
         const quickFix = pkg.types.endsWith('.ts') ? `Fix this by setting "types" to "${pkg.types.replace(/\.ts$/, '.d.ts')}"`
                                                    : '';
@@ -81,7 +82,7 @@ export default async function readPackageMetadata(moduleDir: string): Promise<Pa
         main,
         dependencies: pkg.dependencies || {},
         bundledDependencies: pkg.bundledDependencies || [],
-        names: pkg.jsii.names || {},
+        targets: pkg.jsii.targets || {},
         entrypoint: types.replace(/\.d\.ts$/, '.ts')
     };
 }

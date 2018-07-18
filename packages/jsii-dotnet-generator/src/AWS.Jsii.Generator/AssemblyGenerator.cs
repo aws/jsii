@@ -137,19 +137,31 @@ namespace AWS.Jsii.Generator
 
                 IEnumerable<string> GetDependencies()
                 {
-                    if (assembly.Dependencies == null)
+                    foreach (string dependencyName in GetDependenciesCore(assembly))
                     {
-                        yield break;
+                        yield return dependencyName;
                     }
 
-                    foreach (string packageName in assembly.Dependencies.Keys)
+                    IEnumerable<string> GetDependenciesCore(DependencyRoot root)
                     {
-                        yield return symbols.GetAssemblyName(packageName);
+                        if (root.Dependencies == null)
+                        {
+                            yield break;
+                        }
+                        foreach (var kvp in root.Dependencies)
+                        {
+                            yield return symbols.GetAssemblyName(kvp.Key);
+                            foreach (string dependencyName in GetDependenciesCore(kvp.Value))
+                            {
+                                yield return dependencyName;
+                            }
+                        }
                     }
                 }
             }
 
-            void SaveAssemblyInfo(string name, string version, string tarball) {
+            void SaveAssemblyInfo(string name, string version, string tarball)
+            {
                 SyntaxTree assemblyInfo = SF.SyntaxTree(
                     SF.CompilationUnit(
                         SF.List<ExternAliasDirectiveSyntax>(),
@@ -192,22 +204,22 @@ namespace AWS.Jsii.Generator
                 switch (type.Kind)
                 {
                     case TypeKind.Class:
-                        SaveTypeFile($"{symbols.GetName(type)}.cs", new ClassGenerator(assembly.Package, (ClassType)type, symbols).CreateSyntaxTree());
+                        SaveTypeFile($"{symbols.GetName(type)}.cs", new ClassGenerator(assembly.Name, (ClassType)type, symbols).CreateSyntaxTree());
                         return;
                     case TypeKind.Enum:
-                        SaveTypeFile($"{symbols.GetName(type)}.cs", new EnumGenerator(assembly.Package, (EnumType)type, symbols).CreateSyntaxTree());
+                        SaveTypeFile($"{symbols.GetName(type)}.cs", new EnumGenerator(assembly.Name, (EnumType)type, symbols).CreateSyntaxTree());
                         return;
                     case TypeKind.Interface:
                         InterfaceType interfaceType = (InterfaceType)type;
 
-                        SaveTypeFile($"{symbols.GetName(interfaceType)}.cs", new InterfaceGenerator(assembly.Package, interfaceType, symbols).CreateSyntaxTree());
-                        SaveTypeFile($"{symbols.GetInterfaceProxyName(interfaceType)}.cs", new InterfaceProxyGenerator(assembly.Package, interfaceType, symbols).CreateSyntaxTree());
+                        SaveTypeFile($"{symbols.GetName(interfaceType)}.cs", new InterfaceGenerator(assembly.Name, interfaceType, symbols).CreateSyntaxTree());
+                        SaveTypeFile($"{symbols.GetInterfaceProxyName(interfaceType)}.cs", new InterfaceProxyGenerator(assembly.Name, interfaceType, symbols).CreateSyntaxTree());
 
                         if (interfaceType.IsDataType == true)
                         {
-                            SaveTypeFile($"{symbols.GetInterfaceDefaultName(interfaceType)}.cs", new InterfaceDefaultGenerator(assembly.Package, interfaceType, symbols).CreateSyntaxTree());
+                            SaveTypeFile($"{symbols.GetInterfaceDefaultName(interfaceType)}.cs", new InterfaceDefaultGenerator(assembly.Name, interfaceType, symbols).CreateSyntaxTree());
                         }
-                        
+
                         return;
                     default:
                         throw new ArgumentException($"Unkown type kind: {type.Kind}", nameof(type));

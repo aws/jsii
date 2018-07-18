@@ -55,7 +55,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
     /**
      * The set of modules we already loaded into the VM.
      */
-    private Set<Class> loadedModules = new HashSet<>();
+    private Set<Class<? extends JsiiModule>> loadedModules = new HashSet<>();
 
     /**
      * @return The singleton instance.
@@ -102,7 +102,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
         }
 
         // Load dependencies
-        for (Class dep: module.getDependencies()) {
+        for (Class<? extends JsiiModule> dep: module.getDependencies()) {
             loadModule(dep);
         }
 
@@ -217,7 +217,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
         if (!names.has("java")) {
             throw new JsiiException("No java name for module " + moduleName);
         }
-        return names.get("java").textValue() + "." + typeName;
+        return names.get("java").get("package").textValue() + "." + typeName;
     }
 
     /**
@@ -237,7 +237,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
                 klass = Class.forName(nativeName + "$" + INTERFACE_PROXY_CLASS_NAME);
             }
             try {
-                Constructor ctor = klass.getDeclaredConstructor(JsiiObject.InitializationMode.class);
+                Constructor<? extends Object> ctor = klass.getDeclaredConstructor(JsiiObject.InitializationMode.class);
                 ctor.setAccessible(true);
                 JsiiObject newObj = (JsiiObject) ctor.newInstance(JsiiObject.InitializationMode.Jsii);
                 ctor.setAccessible(false);
@@ -262,7 +262,8 @@ public final class JsiiEngine implements JsiiCallbackHandler {
      * @param enumRef The jsii enum ref.
      * @return The java enum value.
      */
-    public Enum findEnumValue(final String enumRef) {
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public Enum<?> findEnumValue(final String enumRef) {
         String[] parts = enumRef.split("/");
         if (parts.length != 2) {
             throw new JsiiException("Malformed enum reference: " + enumRef);
@@ -410,7 +411,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
      * @param signature Method signature
      * @return a {@link Method}.
      */
-    private Method findCallbackMethod(final Class klass, final String signature) {
+    private Method findCallbackMethod(final Class<?> klass, final String signature) {
         for (Method method : klass.getMethods()) {
 
             if (method.toString().equals(signature)) {
@@ -434,7 +435,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
      * @return An object reference for the new object.
      */
     public JsiiObjectRef createNewObject(final Object uninitializedNativeObject, final Object... args) {
-        Class klass = uninitializedNativeObject.getClass();
+        Class<? extends Object> klass = uninitializedNativeObject.getClass();
         Jsii jsii = tryGetJsiiAnnotation(klass, true);
         String fqn = "Object"; // if we can't determine FQN, we just create an empty JS object
 
@@ -456,10 +457,10 @@ public final class JsiiEngine implements JsiiCallbackHandler {
      * @param classToInspect The java class to inspect for
      * @return A list of method names that should be overridden.
      */
-    private static Collection<JsiiOverride> discoverOverrides(final Class classToInspect) {
+    private static Collection<JsiiOverride> discoverOverrides(final Class<?> classToInspect) {
         Map<String, JsiiOverride> overrides = new HashMap<>();
 
-        Class klass = classToInspect;
+        Class<?> klass = classToInspect;
 
         // if we reached a generated jsii class or Object, we should stop collecting those overrides since
         // all the rest of the hierarchy is generated all the way up to JsiiObject and java.lang.Object.
@@ -511,7 +512,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
      * @param inherited If 'true' will look for the annotation up the class hierarchy.
      * @return The annotation or null.
      */
-    static Jsii tryGetJsiiAnnotation(final Class type, final boolean inherited) {
+    static Jsii tryGetJsiiAnnotation(final Class<?> type, final boolean inherited) {
         Jsii[] ann;
 
         if (inherited) {
@@ -533,7 +534,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
      * @param nativeClass The java class.
      * @return The FQN.
      */
-    String loadModuleForClass(Class nativeClass) {
+    String loadModuleForClass(Class<?> nativeClass) {
         final Jsii jsii = tryGetJsiiAnnotation(nativeClass, true);
         if (jsii == null) {
             throw new JsiiException("Unable to find @Jsii annotation for class");

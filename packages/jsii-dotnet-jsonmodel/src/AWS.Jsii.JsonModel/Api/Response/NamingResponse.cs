@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using AWS.Jsii.JsonModel.Converters;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
@@ -7,12 +8,46 @@ namespace AWS.Jsii.JsonModel.Api.Response
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class NamingResponse : IKernelResponse
     {
-        public NamingResponse(IDictionary<string, string> naming)
+        public NamingResponse(NamingData naming)
         {
             Naming = naming ?? throw new ArgumentNullException(nameof(naming));
         }
 
         [JsonProperty("naming")]
-        public IDictionary<string, string> Naming { get; }
+        public NamingData Naming { get; }
+
+        [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+        public class NamingData
+        {
+            public NamingData(DotNetNaming dotnet, IDictionary<string, object> others = null)
+            {
+                DotNet = dotnet ?? throw new ArgumentNullException(nameof(dotnet));
+            }
+            
+            [JsonProperty("dotnet", NullValueHandling = NullValueHandling.Ignore)]
+            public DotNetNaming DotNet { get; }
+            
+            [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+            public class DotNetNaming
+            {
+                public DotNetNaming(string @namespace)
+                {
+                    Namespace = @namespace;
+                }
+                
+                public static implicit operator DotNetNaming(string @namespace)
+                {
+                    return new DotNetNaming(@namespace);
+                }
+                
+                public static implicit operator string(DotNetNaming naming)
+                {
+                    return naming.Namespace;
+                }
+                
+                [JsonProperty("namespace")]
+                public string Namespace { get; }
+            }
+        }
     }
 }

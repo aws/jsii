@@ -2562,151 +2562,7 @@
       }
     }
   },
-  "nametree": {
-    "jsii-calc": {
-      "IFriendlier": {
-        "_": "jsii-calc.IFriendlier"
-      },
-      "IRandomNumberGenerator": {
-        "_": "jsii-calc.IRandomNumberGenerator"
-      },
-      "IFriendlyRandomGenerator": {
-        "_": "jsii-calc.IFriendlyRandomGenerator"
-      },
-      "BinaryOperation": {
-        "_": "jsii-calc.BinaryOperation"
-      },
-      "Add": {
-        "_": "jsii-calc.Add"
-      },
-      "Multiply": {
-        "_": "jsii-calc.Multiply"
-      },
-      "UnaryOperation": {
-        "_": "jsii-calc.UnaryOperation"
-      },
-      "Negate": {
-        "_": "jsii-calc.Negate"
-      },
-      "composition": {
-        "CompositionStringStyle": {
-          "_": "jsii-calc.composition.CompositionStringStyle"
-        },
-        "CompositeOperation": {
-          "_": "jsii-calc.composition.CompositeOperation"
-        }
-      },
-      "Sum": {
-        "_": "jsii-calc.Sum"
-      },
-      "Power": {
-        "_": "jsii-calc.Power"
-      },
-      "CalculatorProps": {
-        "_": "jsii-calc.CalculatorProps"
-      },
-      "Calculator": {
-        "_": "jsii-calc.Calculator"
-      },
-      "AllTypesEnum": {
-        "_": "jsii-calc.AllTypesEnum"
-      },
-      "StringEnum": {
-        "_": "jsii-calc.StringEnum"
-      },
-      "AllTypes": {
-        "_": "jsii-calc.AllTypes"
-      },
-      "JSObjectLiteralToNative": {
-        "_": "jsii-calc.JSObjectLiteralToNative"
-      },
-      "JSObjectLiteralToNativeClass": {
-        "_": "jsii-calc.JSObjectLiteralToNativeClass"
-      },
-      "ObjectRefsInCollections": {
-        "_": "jsii-calc.ObjectRefsInCollections"
-      },
-      "RuntimeTypeChecking": {
-        "_": "jsii-calc.RuntimeTypeChecking"
-      },
-      "DerivedClassHasNoProperties": {
-        "Base": {
-          "_": "jsii-calc.DerivedClassHasNoProperties.Base"
-        },
-        "Derived": {
-          "_": "jsii-calc.DerivedClassHasNoProperties.Derived"
-        }
-      },
-      "AsyncVirtualMethods": {
-        "_": "jsii-calc.AsyncVirtualMethods"
-      },
-      "SyncVirtualMethods": {
-        "_": "jsii-calc.SyncVirtualMethods"
-      },
-      "VirtualMethodPlayground": {
-        "_": "jsii-calc.VirtualMethodPlayground"
-      },
-      "DoubleTrouble": {
-        "_": "jsii-calc.DoubleTrouble"
-      },
-      "Polymorphism": {
-        "_": "jsii-calc.Polymorphism"
-      },
-      "NumberGenerator": {
-        "_": "jsii-calc.NumberGenerator"
-      },
-      "JSObjectLiteralForInterface": {
-        "_": "jsii-calc.JSObjectLiteralForInterface"
-      },
-      "DerivedStruct": {
-        "_": "jsii-calc.DerivedStruct"
-      },
-      "GiveMeStructs": {
-        "_": "jsii-calc.GiveMeStructs"
-      },
-      "IInterfaceWithProperties": {
-        "_": "jsii-calc.IInterfaceWithProperties"
-      },
-      "IInterfaceWithPropertiesExtension": {
-        "_": "jsii-calc.IInterfaceWithPropertiesExtension"
-      },
-      "UsesInterfaceWithProperties": {
-        "_": "jsii-calc.UsesInterfaceWithProperties"
-      },
-      "AllowedMethodNames": {
-        "_": "jsii-calc.AllowedMethodNames"
-      },
-      "ReturnsNumber": {
-        "_": "jsii-calc.ReturnsNumber"
-      },
-      "OverrideReturnsObject": {
-        "_": "jsii-calc.OverrideReturnsObject"
-      },
-      "Thrower": {
-        "_": "jsii-calc.Thrower"
-      },
-      "VariadicMethod": {
-        "_": "jsii-calc.VariadicMethod"
-      },
-      "Statics": {
-        "_": "jsii-calc.Statics"
-      },
-      "JavaReservedWords": {
-        "_": "jsii-calc.JavaReservedWords"
-      },
-      "UnionProperties": {
-        "_": "jsii-calc.UnionProperties"
-      },
-      "UseBundledDependency": {
-        "_": "jsii-calc.UseBundledDependency"
-      },
-      "NodeStandardLibrary": {
-        "_": "jsii-calc.NodeStandardLibrary"
-      }
-    }
-  },
-  "typecount": 45,
-  "externalTypes": {
+  "externals": {
     "@scope/jsii-calc-lib.IFriendly": {
       "docs": {
         "comment": "Applies to classes that are considered friendly. These classes can be greeted with\na \"hello\" or \"goodbye\" blessing and they will respond back in a fun and friendly manner."
@@ -2784,10 +2640,29 @@
           "returns": {
             "primitive": "string"
           }
-        },
+        }
+      ],
+      "fqn": "@scope/jsii-calc-lib.Value",
+      "module": "@scope/jsii-calc-lib",
+      "namespace": "@scope/jsii-calc-lib",
+      "name": "Value",
+      "base": {
+        "fqn": "@scope/jsii-calc-base.Base"
+      },
+      "abstract": true,
+      "initializer": {
+        "initializer": true
+      }
+    },
+    "@scope/jsii-calc-base.Base": {
+      "docs": {
+        "comment": "A base class."
+      },
+      "kind": "class",
+      "methods": [
         {
           "docs": {
-            "comment": "Returns the name of the class (to verify native type names are created for derived classes)."
+            "returns": "the name of the class (to verify native type names are created for derived classes)."
           },
           "name": "typeName",
           "returns": {
@@ -2795,10 +2670,10 @@
           }
         }
       ],
-      "fqn": "@scope/jsii-calc-lib.Value",
-      "module": "@scope/jsii-calc-lib",
-      "namespace": "@scope/jsii-calc-lib",
-      "name": "Value",
+      "fqn": "@scope/jsii-calc-base.Base",
+      "module": "@scope/jsii-calc-base",
+      "namespace": "@scope/jsii-calc-base",
+      "name": "Base",
       "abstract": true,
       "initializer": {
         "initializer": true
@@ -2886,35 +2761,67 @@
     }
   },
   "name": "jsii-calc",
-  "package": "jsii-calc",
   "version": "0.5.0-beta",
   "dependencies": {
     "@scope/jsii-calc-lib": {
-      "package": "@scope/jsii-calc-lib",
-      "version": "0.5.0-beta"
+      "version": "0.5.0-beta",
+      "targets": {
+        "java": {
+          "package": "org.jsii.tests.calculator.lib",
+          "maven": {
+            "groupId": "org.jsii.tests",
+            "artifactId": "calculator-lib"
+          }
+        },
+        "dotnet": {
+          "namespace": "AWS.Jsii.Tests.Calculator.Lib"
+        },
+        "js": {
+          "npm": "@scope/jsii-calc-lib"
+        }
+      },
+      "dependencies": {
+        "@scope/jsii-calc-base": {
+          "version": "0.5.0-beta",
+          "targets": {
+            "java": {
+              "package": "org.jsii.tests.calculator.base",
+              "maven": {
+                "groupId": "org.jsii.tests",
+                "artifactId": "calculator-base"
+              }
+            },
+            "dotnet": {
+              "namespace": "AWS.Jsii.Tests.Calculator.Base"
+            },
+            "js": {
+              "npm": "@scope/jsii-calc-base"
+            }
+          }
+        }
+      }
     }
   },
   "bundled": {
     "jsii-calc-bundled": "^0.5.0-beta"
   },
-  "names": {
-    "java": "org.jsii.tests.calculator",
-    "dotnet": "AWS.Jsii.Tests.Calculator",
-    "js": "jsii-calc"
-  },
-  "nativenames": {
-    "@scope/jsii-calc-lib": {
-      "java": "org.jsii.tests.calculator.lib",
-      "dotnet": "AWS.Jsii.Tests.Calculator.Lib",
-      "js": "@scope/jsii-calc-lib"
+  "targets": {
+    "java": {
+      "package": "org.jsii.tests.calculator",
+      "maven": {
+        "groupId": "org.jsii.tests",
+        "artifactId": "calculator"
+      }
     },
-    "jsii-calc": {
-      "java": "org.jsii.tests.calculator",
-      "dotnet": "AWS.Jsii.Tests.Calculator",
-      "js": "jsii-calc"
+    "dotnet": {
+      "namespace": "AWS.Jsii.Tests.Calculator"
+    },
+    "js": {
+      "npm": "jsii-calc"
     }
   },
   "readme": {
     "markdown": "## JSII Calculator\n\nThis library is used to demonstrate and test the features of JSII\n"
-  }
+  },
+  "fingerprint": "QHKInukyOeNTUkVwyZrO4A=="
 }

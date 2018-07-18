@@ -11,5 +11,7 @@
   <ItemGroup>
     <PackageReference Include="AWS.Jsii.Runtime" Version="1.0.0" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\AWS.Jsii.Tests.Calculator.Base\AWS.Jsii.Tests.Calculator.Base.csproj" />
+  </ItemGroup>
 </Project>

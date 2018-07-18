@@ -106,7 +106,7 @@ export class Kernel {
 
             return {
                 assembly: assm.metadata.name,
-                types: assm.metadata.typecount,
+                types: Object.keys(assm.metadata.types).length,
             };
         } else {
             // untar the archive to a staging directory, read the jsii spec from it
@@ -132,7 +132,7 @@ export class Kernel {
 
                 return {
                     assembly: assmSpec.name,
-                    types: assmSpec.typecount,
+                    types: Object.keys(assmSpec.types).length,
                 };
             } finally {
                 this._debug('removing staging directory:', staging);
@@ -401,13 +401,12 @@ export class Kernel {
         this._debug('naming', assemblyName);
 
         const assembly = this._assemblyFor(assemblyName);
-        const typeInfo = assembly.metadata;
-        const names = typeInfo.nativenames[assemblyName];
-        if (!names) {
-            throw new Error(`Unexpected - "nativenames" for ${assemblyName} doesn't include the module itself`);
+        const targets = assembly.metadata.targets;
+        if (!targets) {
+            throw new Error(`Unexpected - "targets" for ${assemblyName} is missing!`);
         }
 
-        return { naming: names };
+        return { naming: targets };
     }
 
     public stats(_req?: api.StatsRequest): api.StatsResponse {

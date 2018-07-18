@@ -10,8 +10,10 @@ import { closeRecording, recordInteraction } from './recording';
 
 // extract versions of fixtures
 // tslint:disable:no-var-requires
+const calcBaseVersion = require('@scope/jsii-calc-base/package.json').version.replace(/\+.+$/, '');
 const calcLibVersion = require('@scope/jsii-calc-lib/package.json').version.replace(/\+.+$/, '');
 const calcVersion = require('jsii-calc/package.json').version.replace(/\+.+$/, '');
+// tslint:enable:no-var-requires
 
 // tslint:disable:no-console
 // tslint:disable:max-line-length
@@ -195,8 +197,22 @@ defineTest('objects created inside the sandbox are returned with type info and n
 });
 
 defineTest('naming allows returns the module name for different languages', async (test, sandbox) => {
-    test.deepEqual(sandbox.naming({ assembly: 'jsii-calc' }).naming, { java: 'org.jsii.tests.calculator', dotnet: 'AWS.Jsii.Tests.Calculator', js: 'jsii-calc' });
-    test.deepEqual(sandbox.naming({ assembly: '@scope/jsii-calc-lib' }).naming, { java: 'org.jsii.tests.calculator.lib', dotnet: 'AWS.Jsii.Tests.Calculator.Lib', js: '@scope/jsii-calc-lib' });
+    test.deepEqual(sandbox.naming({ assembly: 'jsii-calc' }).naming, {
+        java: {
+            package: 'org.jsii.tests.calculator',
+            maven: { groupId: 'org.jsii.tests', artifactId: 'calculator' }
+        },
+        dotnet: { namespace: 'AWS.Jsii.Tests.Calculator' },
+        js: { npm: 'jsii-calc' }
+    });
+    test.deepEqual(sandbox.naming({ assembly: '@scope/jsii-calc-lib' }).naming, {
+        java: {
+            package: 'org.jsii.tests.calculator.lib',
+            maven: { groupId: 'org.jsii.tests', artifactId: 'calculator-lib' }
+        },
+        dotnet: { namespace: 'AWS.Jsii.Tests.Calculator.Lib' },
+        js: { npm: '@scope/jsii-calc-lib' }
+    });
 });
 
 defineTest('collection of objects', async (test, sandbox) => {
@@ -848,6 +864,7 @@ async function createCalculatorSandbox(name: string) {
 
     sandbox.traceEnabled = `${process.env.JSII_DEBUG}` === '1';
 
+    await sandbox.load({ tarball: await preparePackage('@scope/jsii-calc-base'), name: '@scope/jsii-calc-base', version: calcBaseVersion });
     await sandbox.load({ tarball: await preparePackage('@scope/jsii-calc-lib'), name: '@scope/jsii-calc-lib', version: calcLibVersion });
     await sandbox.load({ tarball: await preparePackage('jsii-calc'), name: 'jsii-calc', version: calcVersion });
     return sandbox;

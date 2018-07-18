@@ -1,8 +1,10 @@
 import * as clone from 'clone';
 import { CodeMaker } from 'codemaker';
+import * as crypto from 'crypto';
 import * as fs from 'fs-extra';
 import * as spec from 'jsii-spec';
 import * as path from 'path';
+import { VERSION } from './version';
 
 // tslint:disable
 
@@ -10,12 +12,6 @@ import * as path from 'path';
  * Options for the code generator framework.
  */
 export class GeneratorOptions {
-    /**
-     * The target language.
-     * If not defined, toNativeFqn(fqn) won't work.
-     */
-    target?: string
-
     /**
      * If this property is set to 'true', union properties are "expanded" into multiple
      * properties, each with a different type and a postfix based on the type name. This
@@ -36,7 +32,7 @@ export class GeneratorOptions {
 }
 
 export interface IGenerator {
-    generate(): void;
+    generate(fingerprint: boolean): void;
     load(jsiiFile: string): Promise<void>;
     /**
      * Determine if the generated artifacts for this generator are already up-to-date.
@@ -54,13 +50,16 @@ export interface IGenerator {
 export abstract class Generator implements IGenerator {
     private readonly options: GeneratorOptions;
     private readonly excludeTypes = new Array<string>();
-    private readonly target?: string
     protected readonly code = new CodeMaker();
     protected assembly: spec.Assembly;
+    private fingerprint: string;
 
     constructor(options = new GeneratorOptions()) {
         this.options = options;
-        this.target = options.target;
+    }
+
+    public get metadata() {
+        return { fingerprint: this.fingerprint };
     }
 
     public async load(jsiiFile: string) {
@@ -69,16 +68,21 @@ export abstract class Generator implements IGenerator {
         if (this.assembly.schema !== spec.SPEC_VERSION) {
             throw new Error(`Invalid schema version "${this.assembly.schema}". Expecting "${spec.SPEC_VERSION}"`);
         }
+
+        // Including the version of jsii-pacmak in the fingerprint, as a new version may imply different code generation.
+        this.fingerprint = crypto.createHash('md5')
+                                 .update(VERSION)
+                                 .update('\0')
+                                 .update(this.assembly.fingerprint)
+                                 .digest('base64')
     }
 
     /**
      * Runs the generator (in-memory).
      */
-    generate() {
-        this.onBeginAssembly(this.assembly);
-        if (this.assembly.nametree) {
-            this.visit(this.assembly.nametree);
-        }
+    generate(fingerprint: boolean) {
+        this.onBeginAssembly(this.assembly, fingerprint);
+        this.visit(spec.NameTree.of(this.assembly));
         this.onEndAssembly(this.assembly);
     }
 
@@ -118,34 +122,6 @@ export abstract class Generator implements IGenerator {
         return await this.code.save(outdir);
     }
 
-    /**
-     * Given an FQN returns it's "native FQN" based on the language.
-     * For example, jsii$module.name.space.Type => com.mymodule.name.space.Type
-     */
-    protected toNativeFqn(fqn: string) {
-        if (!this.target) {
-            throw new Error('You must specify the `target` option in order to use toNativeFqn');
-        }
-
-        const components = fqn.split('.');
-        const moduleName = components[0];
-
-        let typeName = components.slice(1);
-
-
-        const names = this.assembly.nativenames[moduleName];
-        if (!names) {
-            throw new Error(`Cannot find native names for module ${moduleName}`);
-        }
-
-        const nativeModule = names[this.target];
-        if (!nativeModule) {
-            throw new Error(`Cannot find '${this.target}' name for module '${moduleName}' of fqn '${fqn}'`);
-        }
-
-        return [ nativeModule ].concat(typeName).join('.');
-    }
-
     //
     // Bundled assembly
     // jsii modules should bundle the assembly itself as a resource and use the load() kernel API to load it.
@@ -159,7 +135,7 @@ export abstract class Generator implements IGenerator {
     //
     // Assembly
 
-    protected onBeginAssembly(_assm: spec.Assembly) { }
+    protected onBeginAssembly(_assm: spec.Assembly, _fingerprint: boolean) { }
     protected onEndAssembly(_assm: spec.Assembly) { }
 
     //
@@ -236,23 +212,22 @@ export abstract class Generator implements IGenerator {
     protected onField(cls: spec.ClassType, prop: spec.Property, union?: spec.UnionTypeReference) { cls; prop; union }
 
     private visit(node: spec.NameTree, names = new Array<string>()) {
-        let namespace = (!node._ && names.length > 0) ? names.join('.') : undefined;
+        let namespace = (!node.fqn && names.length > 0) ? names.join('.') : undefined;
 
         if (namespace) {
             this.onBeginNamespace(namespace);
         }
 
         let visitChildren = () => {
-            Object.keys(node).sort().forEach(name => {
-                if (name === '_') return;
-                this.visit(node[name], names.concat(name));
+            Object.keys(node.children).sort().forEach(name => {
+                this.visit(node.children[name], names.concat(name));
             })
         }
 
-        if (node._) {
-            let type = this.assembly.types[node._];
+        if (node.fqn) {
+            let type = this.assembly.types[node.fqn];
             if (!type) {
-                throw new Error(`Malformed jsii file. Cannot find type: ${node._}`);
+                throw new Error(`Malformed jsii file. Cannot find type: ${node.fqn}`);
             }
             if (!this.shouldExcludeType(type.name)) {
                 switch (type.kind) {
@@ -511,7 +486,7 @@ export abstract class Generator implements IGenerator {
                 return type;
             }
 
-            const externalType = asm.externalTypes && asm.externalTypes[fqn];
+            const externalType = asm.externals && asm.externals[fqn];
             if (externalType) {
                 return externalType;
             }

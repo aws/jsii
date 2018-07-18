@@ -6,9 +6,17 @@
   "private": true,
   "jsii": {
     "outdir": "dist",
-    "names": {
-      "java": "org.jsii.tests.calculator.lib",
-      "dotnet": "AWS.Jsii.Tests.Calculator.Lib"
+    "targets": {
+      "java": {
+        "package": "org.jsii.tests.calculator.lib",
+        "maven": {
+          "groupId": "org.jsii.tests",
+          "artifactId": "calculator-lib"
+        }
+      },
+      "dotnet": {
+        "namespace": "AWS.Jsii.Tests.Calculator.Lib"
+      }
     }
   },
   "scripts": {
@@ -19,6 +27,9 @@
     "jsii": "^0.5.0-beta",
     "jsii-build-tools": "^0.5.0-beta",
     "typescript": "^2.9.2"
+  },
+  "dependencies": {
+    "@scope/jsii-calc-base": "^0.5.0-beta"
   },
   "author": {
     "name": "Amazon Web Services",

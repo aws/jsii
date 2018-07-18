@@ -1,10 +1,11 @@
 using AWS.Jsii.Runtime.Deputy;
+using AWS.Jsii.Tests.Calculator.Base;
 
 namespace AWS.Jsii.Tests.Calculator.Lib
 {
     /// <summary>Abstract class which represents a numeric value.</summary>
     [JsiiClass(typeof(Value_), "@scope/jsii-calc-lib.Value", "[]")]
-    public abstract class Value_ : DeputyBase
+    public abstract class Value_ : Base_
     {
         protected Value_(): base(new DeputyProps(new object[]{}))
         {
@@ -30,13 +31,6 @@ namespace AWS.Jsii.Tests.Calculator.Lib
         public override string ToString()
         {
             return InvokeMethod<string>(new object[]{});
-        }
-
-        /// <summary>Returns the name of the class (to verify native type names are created for derived classes).</summary>
-        [JsiiMethod("typeName", "{\"primitive\":\"any\"}", "[]")]
-        public virtual object TypeName()
-        {
-            return InvokeMethod<object>(new object[]{});
         }
     }
 }

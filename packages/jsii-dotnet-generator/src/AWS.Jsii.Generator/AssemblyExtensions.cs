@@ -1,41 +1,29 @@
 ﻿using AWS.Jsii.JsonModel.Spec;
 using System;
+using System.Collections.Generic;
 
 namespace AWS.Jsii.Generator
 {
     public static class AssemblyExtensions
     {
-        const string DotNetKey = "dotnet";
-
-        public static string GetNativeName(this Assembly assembly)
-        {
-            assembly = assembly ?? throw new ArgumentNullException(nameof(assembly));
-
-            if (!assembly.Names.ContainsKey(DotNetKey) || string.IsNullOrWhiteSpace(assembly.Names[DotNetKey]))
-            {
-                throw new ArgumentException($"Assembly ${assembly.Name} does not contain a .NET namespace mapping", nameof(assembly));
-            }
-
-            return assembly.Names[DotNetKey];
-        }
-
         public static string GetNativeName(this Assembly assembly, string packageName)
         {
-            assembly = assembly ?? throw new ArgumentNullException(nameof(assembly));
-            packageName = packageName ?? throw new ArgumentNullException(nameof(packageName));
-
-            if (!assembly.NativeNames.ContainsKey(packageName))
+            if (packageName == assembly.Name)
             {
-                throw new ArgumentException($"Assembly ${assembly.Name} does not contain namespace mappings for {packageName}", nameof(assembly));
+                return assembly.GetNativeName();
+            }
+            if (assembly.Dependencies == null)
+            {
+                throw new ArgumentException($"Assembly {assembly.Name} does not define namespace mappings for {packageName}");
             }
 
-            var name = assembly.NativeNames[packageName];
-            if (name?.ContainsKey(DotNetKey) != true)
+            string result = assembly.TryGetNativeName(packageName);
+            if (result == null)
             {
-                throw new ArgumentException($"Assembly ${assembly.Name} does not contain a .NET namespace mapping for {packageName}", nameof(assembly));
+                throw new ArgumentException($"Assembly {assembly.Name} does not define namespace mappings for {packageName}");
             }
 
-            return name[DotNetKey];
+            return result;
         }
     }
 }

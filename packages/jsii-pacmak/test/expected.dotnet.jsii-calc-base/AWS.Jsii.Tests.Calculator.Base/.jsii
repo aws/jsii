@@ -1,0 +1,48 @@
+{
+  "schema": "jsii/1.0",
+  "types": {
+    "@scope/jsii-calc-base.Base": {
+      "docs": {
+        "comment": "A base class."
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "docs": {
+            "returns": "the name of the class (to verify native type names are created for derived classes)."
+          },
+          "name": "typeName",
+          "returns": {
+            "primitive": "any"
+          }
+        }
+      ],
+      "fqn": "@scope/jsii-calc-base.Base",
+      "module": "@scope/jsii-calc-base",
+      "namespace": "@scope/jsii-calc-base",
+      "name": "Base",
+      "abstract": true,
+      "initializer": {
+        "initializer": true
+      }
+    }
+  },
+  "name": "@scope/jsii-calc-base",
+  "version": "0.5.0-beta",
+  "targets": {
+    "java": {
+      "package": "org.jsii.tests.calculator.base",
+      "maven": {
+        "groupId": "org.jsii.tests",
+        "artifactId": "calculator-base"
+      }
+    },
+    "dotnet": {
+      "namespace": "AWS.Jsii.Tests.Calculator.Base"
+    },
+    "js": {
+      "npm": "@scope/jsii-calc-base"
+    }
+  },
+  "fingerprint": "9uGuuBSZg5UBaBij381nrw=="
+}

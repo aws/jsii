@@ -41,12 +41,9 @@ namespace AWS.Jsii.Generator.UnitTests
 @"{
     ""name"": ""jsii$aws_cdk_cx_api$"",
     ""package"": ""aws-cdk-cx-api"",
-    ""names"": {
-        ""dotnet"": ""Aws.Cdk.CxApi""
-    },
-    ""nativenames"": {
-        ""jsii$aws_cdk_cx_api$"": {
-            ""dotnet"": ""Aws.Cdk.CxApi""
+    ""targets"": {
+        ""dotnet"": {
+            ""namespace"": ""Aws.Cdk.CxApi""
         }
     },
     ""version"": """",
@@ -71,10 +68,10 @@ namespace AWS.Jsii.Generator.UnitTests
 
             IDirectory directory = Substitute.For<IDirectory>();
             directory.Exists(packageOutputRoot).Returns(true, false);
-            
+
             IFile file = Substitute.For<IFile>();
             file.ReadAllText(jsonPath).Returns(json);
-            
+
             IFileSystem fileSystem = Substitute.For<IFileSystem>();
             fileSystem.Directory.Returns(directory);
             fileSystem.File.Returns(file);
@@ -111,12 +108,9 @@ namespace AWS.Jsii.Generator.UnitTests
 @"{
     ""name"": ""jsii$aws_cdk_cx_api$"",
     ""package"": ""aws-cdk-cx-api"",
-    ""names"": {
-        ""dotnet"": ""Aws.Cdk.CxApi""
-    },
-    ""nativenames"": {
-        ""jsii$aws_cdk_cx_api$"": {
-            ""dotnet"": ""Aws.Cdk.CxApi""
+    ""targets"": {
+        ""dotnet"": {
+            ""namespace"": ""Aws.Cdk.CxApi""
         }
     },
     ""version"": """",
@@ -176,15 +170,9 @@ namespace AWS.Jsii.Generator.UnitTests
 @"{
     ""name"": ""jsii$aws_cdk$"",
     ""package"": ""aws-cdk"",
-    ""names"": {
-        ""dotnet"": ""Aws.Cdk""
-    },
-    ""nativenames"": {
-        ""jsii$aws_cdk$"": {
-            ""dotnet"": ""Aws.Cdk""
-        },
-        ""jsii$aws_cdk_cx_api$"": {
-            ""dotnet"": ""Aws.Cdk.CxApi""
+    ""targets"": {
+        ""dotnet"": {
+            ""namespace"": ""Aws.Cdk""
         }
     },
     ""version"": """",
@@ -192,7 +180,12 @@ namespace AWS.Jsii.Generator.UnitTests
     ""dependencies"": {
         ""jsii$aws_cdk_cx_api$"": {
             ""package"": ""aws-cdk-cx-api"",
-            ""version"": """"
+            ""version"": """",
+            ""targets"": {
+                ""dotnet"": {
+                    ""namespace"": ""Aws.Cdk.CxApi""
+                }
+            }
         }
     }
 }";
@@ -254,12 +247,9 @@ namespace AWS.Jsii.Generator.UnitTests
 @"{
     ""name"": ""jsii$aws_cdk_cx_api$"",
     ""package"": ""aws-cdk-cx-api"",
-    ""names"": {
-        ""dotnet"": ""Aws.Cdk.CxApi""
-    },
-    ""nativenames"": {
-        ""jsii$aws_cdk_cx_api$"": {
-            ""dotnet"": ""Aws.Cdk.CxApi""
+    ""targets"": {
+        ""dotnet"": {
+            ""namespace"": ""Aws.Cdk.CxApi""
         }
     },
     ""version"": """",

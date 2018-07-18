@@ -18,16 +18,8 @@ namespace AWS.Jsii.Generator.UnitTests
         {
             assembly = new Assembly
             (
-                name: "jsii$myPackage$",
-                package: "myPackage",
-                names: new Dictionary<string, string>
-                {
-                    { "dotnet", "My.Assembly" }
-                },
-                nativeNames: new Dictionary<string, IDictionary<string, string>>
-                {
-                    { "jsii$myPackage$", new Dictionary<string, string> { { "dotnet", "My.Assembly" } } }
-                },
+                name: "my-package",
+                targets: new Targets(dotnet: "My.Assembly"),
                 version: "myVersion",
                 types: types.ToDictionary(t => t.FullyQualifiedName)
             );
@@ -57,52 +49,25 @@ namespace AWS.Jsii.Generator.UnitTests
                 Assembly assembly1 = new Assembly
                 (
                     name: "jsii$my_assembly1$",
-                    package: "myPackage1",
-                    names: new Dictionary<string, string>
-                    {
-                        { "dotnet", "My.Assembly1" }
-                    },
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>
-                    {
-                        { "jsii$my_assembly1$", new Dictionary<string, string> { { "dotnet", "My.Assembly1" } } }
-                    },
+                    targets: new Targets(dotnet: "My.Assembly1"),
                     version: "myVersion",
                     types: new Dictionary<string, Type>()
                 );
                 Assembly assembly2 = new Assembly
                 (
                     name: "jsii$my_assembly2$",
-                    package: "myPackage2",
-                    names: new Dictionary<string, string>
-                    {
-                        { "dotnet", "My.Assembly2" }
-                    },
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>
-                    {
-                        { "jsii$my_assembly1$", new Dictionary<string, string> { { "dotnet", "My.Assembly1" } } },
-                        { "jsii$my_assembly2$", new Dictionary<string, string> { { "dotnet", "My.Assembly2" } } }
-                    },
+                    targets: new Targets(dotnet: "My.Assembly2"),
                     version: "myVersion",
                     types: new Dictionary<string, Type>(),
-                    dependencies: new[] { assembly1 }.ToDictionary(a => a.Package, a => new PackageVersion(a.Package, a.Version))
+                    dependencies: new[] { assembly1 }.ToDictionary(a => a.Name, a => new PackageVersion(a.Version, a.Targets, a.Dependencies))
                 );
                 Assembly assembly3 = new Assembly
                 (
                     name: "jsii$my_assembly3$",
-                    package: "myPackage3",
-                    names: new Dictionary<string, string>
-                    {
-                        { "dotnet", "My.Assembly3" }
-                    },
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>
-                    {
-                        { "jsii$my_assembly1$", new Dictionary<string, string> { { "dotnet", "My.Assembly1" } } },
-                        { "jsii$my_assembly2$", new Dictionary<string, string> { { "dotnet", "My.Assembly2" } } },
-                        { "jsii$my_assembly3$", new Dictionary<string, string> { { "dotnet", "My.Assembly3" } } }
-                    },
+                    targets: new Targets(dotnet: "My.Assembly3"),
                     version: "myVersion",
                     types: new Dictionary<string, Type>(),
-                    dependencies: new[] { assembly2 }.ToDictionary(a => a.Package, a => new PackageVersion(a.Package, a.Version))
+                    dependencies: new[] { assembly2 }.ToDictionary(a => a.Name, a => new PackageVersion(a.Version, a.Targets, a.Dependencies))
                 );
 
                 ISymbolMap symbolMap = new SymbolMap();
@@ -124,32 +89,24 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type1 = new ClassType
                 (
                     fullyQualifiedName: "myFqn1",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "MyType",
-                    @namespace: "jsii$myPackage$",
+                    @namespace: "my-package",
                     isAbstract: false
                 );
                 Type type2 = new ClassType
                 (
                     fullyQualifiedName: "myFqn2",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myType2",
-                    @namespace: "jsii$myPackage$.MyType",
+                    @namespace: "my-package.MyType",
                     isAbstract: false
                 );
 
                 Assembly assembly = new Assembly
                 (
-                    name: "jsii$myPackage$",
-                    package: "my-package",
-                    names: new Dictionary<string, string>
-                    {
-                        { "dotnet", "MyNamespace" }
-                    },
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>
-                    {
-                        { "jsii$myPackage$", new Dictionary<string, string> { { "dotnet", "MyNamespace" } } }
-                    },
+                    name: "my-package",
+                    targets: new Targets(dotnet: "MyNamespace"),
                     version: "myVersion",
                     types: new Dictionary<string, Type>
                     {
@@ -171,9 +128,9 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myType",
-                    @namespace: "jsii$myPackage$",
+                    @namespace: "my-package",
                     isAbstract: false,
                     properties: new[]
                     {
@@ -183,16 +140,8 @@ namespace AWS.Jsii.Generator.UnitTests
 
                 Assembly assembly = new Assembly
                 (
-                    name: "jsii$myPackage$",
-                    package: "my-package",
-                    names: new Dictionary<string, string>
-                    {
-                        { "dotnet", "MyNamespace" }
-                    },
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>
-                    {
-                        { "jsii$myPackage$", new Dictionary<string, string> { { "dotnet", "MyNamespace" } } }
-                    },
+                    name: "my-package",
+                    targets: new Targets(dotnet: "MyNamespace"),
                     version: "myVersion",
                     types: new Dictionary<string, Type>
                     {
@@ -218,7 +167,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new EnumType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myType",
                     @namespace: "jsii$my_assembly$",
                     members: new EnumMember[] { }
@@ -239,36 +188,30 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type1 = new EnumType
                 (
                     fullyQualifiedName: "myFqn1",
-                    module: "jsii$myPackage1$",
+                    module: "my-package-1",
                     name: "myType",
-                    @namespace: "jsii$myPackage1$",
+                    @namespace: "my-package-1",
                     members: new EnumMember[] { }
                 );
                 Type type2 = new EnumType
                 (
                     fullyQualifiedName: "myFqn2",
-                    module: "jsii$myPackage2$",
+                    module: "my-package-2",
                     name: "myType",
-                    @namespace: "jsii$myPackage2$",
+                    @namespace: "my-package-2",
                     members: new EnumMember[] { }
                 );
 
                 Assembly assembly = new Assembly
                 (
-                    name: "jsii$myPackage1$",
-                    package: "my-package-1",
-                    names: new Dictionary<string, string> { { "dotnet", "MyNamespace1" } },
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>
-                    {
-                        { "jsii$myPackage1$", new Dictionary<string, string> { { "dotnet", "MyNamespace1" } } },
-                        { "jsii$myPackage2$", new Dictionary<string, string> { { "dotnet", "MyNamespace2" } } }
-                    },
+                    name: "my-package-1",
+                    targets: new Targets(dotnet: "MyNamespace1"),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
-                    externalTypes: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
+                    externals: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
-                        { "jsii$myPackage2$", new PackageVersion("jsii$myPackage2", "myVersion") }
+                        { "my-package-2", new PackageVersion("myVersion", new Targets(dotnet: "MyNamespace2")) }
                     }
                 );
 
@@ -294,36 +237,30 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type1 = new EnumType
                 (
                     fullyQualifiedName: "myFqn1",
-                    module: "jsii$myPackage1$",
+                    module: "my-package-1",
                     name: "myType1",
-                    @namespace: "jsii$myPackage1$",
+                    @namespace: "my-package-1",
                     members: new EnumMember[] { }
                 );
                 Type type2 = new EnumType
                 (
                     fullyQualifiedName: "myFqn2",
-                    module: "jsii$myPackage2$",
+                    module: "my-package-2",
                     name: "myType2",
-                    @namespace: "jsii$myPackage2$",
+                    @namespace: "my-package-2",
                     members: new EnumMember[] { }
                 );
 
                 Assembly assembly = new Assembly
                 (
-                    name: "jsii$myPackage1$",
-                    package: "myPackage",
-                    names: new Dictionary<string, string> { { "dotnet", "MyNamespace1" } },
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>
-                    {
-                        { "jsii$myPackage1$", new Dictionary<string, string> { { "dotnet", "MyNamespace1" } } },
-                        { "jsii$myPackage2$", new Dictionary<string, string> { { "dotnet", "MyNamespace2" } } }
-                    },
+                    name: "my-package-1",
+                    targets: new Targets(dotnet: "MyNamespace1"),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
-                    externalTypes: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
+                    externals: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
-                        { "jsii$myPackage2$", new PackageVersion("jsii$myPackage2$", "myVersion") }
+                        { "my-package-2", new PackageVersion("myVersion", new Targets(dotnet: "MyNamespace2")) }
                     }
                 );
 
@@ -349,36 +286,30 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type1 = new EnumType
                 (
                     fullyQualifiedName: "myFqn1",
-                    module: "jsii$myPackage1$",
+                    module: "my-package-1",
                     name: "myType",
-                    @namespace: "jsii$myPackage1$",
+                    @namespace: "my-package-1",
                     members: new EnumMember[] { }
                 );
                 Type type2 = new EnumType
                 (
                     fullyQualifiedName: "myFqn2",
-                    module: "jsii$myPackage2$",
+                    module: "my-package-2",
                     name: "myType",
-                    @namespace: "jsii$myPackage2$",
+                    @namespace: "my-package-2",
                     members: new EnumMember[] { }
                 );
 
                 Assembly assembly = new Assembly
                 (
-                    name: "jsii$myPackage1$",
-                    package: "my-package-1",
-                    names: new Dictionary<string, string> { { "dotnet", "MyNamespace1" } },
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>
-                    {
-                        { "jsii$myPackage1$", new Dictionary<string, string> { { "dotnet", "MyNamespace1" } } },
-                        { "jsii$myPackage2$", new Dictionary<string, string> { { "dotnet", "MyNamespace2" } } }
-                    },
+                    name: "my-package-1",
+                    targets: new Targets(dotnet: "MyNamespace1"),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
-                    externalTypes: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
+                    externals: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
-                        { "jsii$myPackage2$", new PackageVersion("my-package-2", "myVersion") }
+                        { "my-package-2", new PackageVersion("myVersion", new Targets(dotnet: "MyNamespace2")) }
                     }
                 );
 
@@ -411,7 +342,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myType",
                     @namespace: "jsii$my_assembly$",
                     isAbstract: false,
@@ -438,9 +369,9 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myType",
-                    @namespace: "jsii$myPackage$",
+                    @namespace: "my-package",
                     isAbstract: false,
                     properties: new[] { property }
                 );
@@ -458,9 +389,9 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new EnumType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myType",
-                    @namespace: "jsii$myPackage$",
+                    @namespace: "my-package",
                     members: new[] { member }
                 );
 
@@ -485,9 +416,9 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myType",
-                    @namespace: "jsii$myPackage$",
+                    @namespace: "my-package",
                     isAbstract: false,
                     methods: new[] { method }
                 );
@@ -509,9 +440,9 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new EnumType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myType",
-                    @namespace: "jsii$myPackage$",
+                    @namespace: "my-package",
                     members: new EnumMember[] { }
                 );
 
@@ -530,36 +461,30 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type1 = new EnumType
                 (
                     fullyQualifiedName: "myFqn1",
-                    module: "jsii$myPackage1$",
+                    module: "my-package-1",
                     name: "myType",
-                    @namespace: "jsii$myPackage1$",
+                    @namespace: "my-package-1",
                     members: new EnumMember[] { }
                 );
                 Type type2 = new EnumType
                 (
                     fullyQualifiedName: "myFqn2",
-                    module: "jsii$myPackage2$",
+                    module: "my-package-2",
                     name: "myType",
-                    @namespace: "jsii$myPackage2$",
+                    @namespace: "my-package-2",
                     members: new EnumMember[] { }
                 );
 
                 Assembly assembly = new Assembly
                 (
-                    name: "jsii$myPackage1$",
-                    package: "my-package-1",
-                    names: new Dictionary<string, string> { { "dotnet", "MyNamespace1" } },
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>
-                    {
-                        { "jsii$myPackage1$", new Dictionary<string, string> { { "dotnet", "MyNamespace1" } } },
-                        { "jsii$myPackage2$", new Dictionary<string, string> { { "dotnet", "MyNamespace2" } } }
-                    },
+                    name: "my-package-1",
+                    targets: new Targets(dotnet: "MyNamespace1"),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
-                    externalTypes: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
+                    externals: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
-                        { "jsii$myPackage2$", new PackageVersion("my-package-2", "myVersion") }
+                        { "my-package-2", new PackageVersion("myVersion", new Targets(dotnet: "MyNamespace2")) }
                     }
                 );
 
@@ -585,36 +510,30 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type1 = new EnumType
                 (
                     fullyQualifiedName: "myFqn1",
-                    module: "jsii$myPackage1$",
+                    module: "my-package-1",
                     name: "myType1",
-                    @namespace: "jsii$myPackage1$",
+                    @namespace: "my-package-1",
                     members: new EnumMember[] { }
                 );
                 Type type2 = new EnumType
                 (
                     fullyQualifiedName: "myFqn2",
-                    module: "jsii$myPackage2$",
+                    module: "my-package-2",
                     name: "myType2",
-                    @namespace: "jsii$myPackage2$",
+                    @namespace: "my-package-2",
                     members: new EnumMember[] { }
                 );
 
                 Assembly assembly = new Assembly
                 (
-                    name: "jsii$myNamespace1$",
-                    package: "myPackage",
-                    names: new Dictionary<string, string> { { "dotnet", "MyNamespace1" } },
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>
-                    {
-                        { "jsii$myPackage1$", new Dictionary<string, string> { { "dotnet", "MyNamespace1" } } },
-                        { "jsii$myPackage2$", new Dictionary<string, string> { { "dotnet", "MyNamespace2" } } }
-                    },
+                    name: "my-package-1",
+                    targets: new Targets(dotnet: "MyNamespace1"),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
-                    externalTypes: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
+                    externals: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
-                        { "jsii$myPackage2$", new PackageVersion("my-package-2", "myVersion") }
+                        { "my-package-2", new PackageVersion("myVersion", new Targets(dotnet: "MyNamespace2")) }
                     }
                 );
 
@@ -640,36 +559,30 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type1 = new EnumType
                 (
                     fullyQualifiedName: "myFqn1",
-                    module: "jsii$myPackage1$",
+                    module: "my-package-1",
                     name: "myType",
-                    @namespace: "jsii$myPackage1$",
+                    @namespace: "my-package-1",
                     members: new EnumMember[] { }
                 );
                 Type type2 = new EnumType
                 (
                     fullyQualifiedName: "myFqn2",
-                    module: "jsii$myPackage2$",
+                    module: "my-package-2",
                     name: "myType",
-                    @namespace: "jsii$myPackage2$",
+                    @namespace: "my-package-2",
                     members: new EnumMember[] { }
                 );
 
                 Assembly assembly = new Assembly
                 (
-                    name: "jsii$myPackage1$",
-                    package: "my-package-1",
-                    names: new Dictionary<string, string> { { "dotnet", "MyNamespace1" } },
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>
-                    {
-                        { "jsii$myPackage1$", new Dictionary<string, string> { { "dotnet", "MyNamespace1" } } },
-                        { "jsii$myPackage2$", new Dictionary<string, string> { { "dotnet", "MyNamespace2" } } }
-                    },
+                    name: "my-package-1",
+                    targets: new Targets(dotnet: "MyNamespace1"),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
-                    externalTypes: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
+                    externals: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
-                        { "jsii$myPackage2$", new PackageVersion("my-package-2", "myVersion") }
+                        { "my-package-2", new PackageVersion("myVersion", new Targets(dotnet: "MyNamespace2")) }
                     }
                 );
 
@@ -702,9 +615,9 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myType",
-                    @namespace: "jsii$myPackage$",
+                    @namespace: "my-package",
                     isAbstract: false,
                     methods: new[] { method }
                 );
@@ -729,9 +642,9 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myType",
-                    @namespace: "jsii$myPackage$",
+                    @namespace: "my-package",
                     isAbstract: false,
                     properties: new[] { property }
                 );
@@ -749,9 +662,9 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new EnumType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myType",
-                    @namespace: "jsii$myPackage$",
+                    @namespace: "my-package",
                     members: new[] { member }
                 );
 
@@ -776,9 +689,9 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myType",
-                    @namespace: "jsii$myPackage$",
+                    @namespace: "my-package",
                     isAbstract: false,
                     methods: new[] { method }
                 );
@@ -800,9 +713,9 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new EnumType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myType",
-                    @namespace: "jsii$myPackage$",
+                    @namespace: "my-package",
                     members: new EnumMember[] { }
                 );
 
@@ -821,36 +734,30 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type1 = new EnumType
                 (
                     fullyQualifiedName: "myFqn1",
-                    module: "jsii$myPackage1$",
+                    module: "my-package-1",
                     name: "myType",
-                    @namespace: "jsii$myPackage1$",
+                    @namespace: "my-package-1",
                     members: new EnumMember[] { }
                 );
                 Type type2 = new EnumType
                 (
                     fullyQualifiedName: "myFqn2",
-                    module: "jsii$myPackage2$",
+                    module: "my-package-2",
                     name: "myType",
-                    @namespace: "jsii$myPackage2$",
+                    @namespace: "my-package-2",
                     members: new EnumMember[] { }
                 );
 
                 Assembly assembly = new Assembly
                 (
-                    name: "jsii$myPackage1$",
-                    package: "my-package-1",
-                    names: new Dictionary<string, string> { { "dotnet", "MyNamespace1" } },
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>
-                    {
-                        { "jsii$myPackage1$", new Dictionary<string, string> { { "dotnet", "MyNamespace1" } } },
-                        { "jsii$myPackage2$", new Dictionary<string, string> { { "dotnet", "MyNamespace2" } } }
-                    },
+                    name: "my-package-1",
+                    targets: new Targets(dotnet: "MyNamespace1"),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
-                    externalTypes: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
+                    externals: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
-                        { "jsii$myPackage2$", new PackageVersion("my-package-2", "myVersion") }
+                        { "my-package-2", new PackageVersion("myVersion", new Targets(dotnet: "MyNamespace2")) }
                     }
                 );
 
@@ -876,36 +783,30 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type1 = new EnumType
                 (
                     fullyQualifiedName: "myFqn1",
-                    module: "jsii$myPackage1$",
+                    module: "my-package-1",
                     name: "myType1",
-                    @namespace: "jsii$myPackage1$",
+                    @namespace: "my-package-1",
                     members: new EnumMember[] { }
                 );
                 Type type2 = new EnumType
                 (
                     fullyQualifiedName: "myFqn2",
-                    module: "jsii$myPackage2$",
+                    module: "my-package-2",
                     name: "myType2",
-                    @namespace: "jsii$myPackage2$",
+                    @namespace: "my-package-2",
                     members: new EnumMember[] { }
                 );
 
                 Assembly assembly = new Assembly
                 (
-                    name: "jsii$myPackage1$",
-                    package: "my-package",
-                    names: new Dictionary<string, string> { { "dotnet", "MyNamespace1" } },
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>
-                    {
-                        { "jsii$myPackage1$", new Dictionary<string, string> { { "dotnet", "MyNamespace1" } } },
-                        { "jsii$myPackage2$", new Dictionary<string, string> { { "dotnet", "MyNamespace2" } } }
-                    },
+                    name: "my-package-1",
+                    targets: new Targets(dotnet: "MyNamespace1"),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
-                    externalTypes: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
+                    externals: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
-                        { "jsii$myPackage2$", new PackageVersion("my-package-2", "myVersion") }
+                        { "my-package-2", new PackageVersion("myVersion", new Targets(dotnet: "MyNamespace2")) }
                     }
                 );
 
@@ -931,36 +832,30 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type1 = new EnumType
                 (
                     fullyQualifiedName: "myFqn1",
-                    module: "jsii$myPackage1$",
+                    module: "my-package-1",
                     name: "myType",
-                    @namespace: "jsii$myPackage1$",
+                    @namespace: "my-package-1",
                     members: new EnumMember[] { }
                 );
                 Type type2 = new EnumType
                 (
                     fullyQualifiedName: "myFqn2",
-                    module: "jsii$myPackage2$",
+                    module: "my-package-2",
                     name: "myType",
-                    @namespace: "jsii$myPackage2$",
+                    @namespace: "my-package-2",
                     members: new EnumMember[] { }
                 );
 
                 Assembly assembly = new Assembly
                 (
-                    name: "jsii$myPackage1$",
-                    package: "my-package",
-                    names: new Dictionary<string, string> { { "dotnet", "MyNamespace1" } },
-                    nativeNames: new Dictionary<string, IDictionary<string, string>>
-                    {
-                        { "jsii$myPackage1$", new Dictionary<string, string> { { "dotnet", "MyNamespace1" } } },
-                        { "jsii$myPackage2$", new Dictionary<string, string> { { "dotnet", "MyNamespace2" } } }
-                    },
+                    name: "my-package-1",
+                    targets: new Targets(dotnet: "MyNamespace1"),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
-                    externalTypes: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
+                    externals: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
-                        { "jsii$myPackage2$", new PackageVersion("my-package-2", "myVersion") }
+                        { "my-package-2", new PackageVersion("myVersion", new Targets(dotnet: "MyNamespace2")) }
                     }
                 );
 
@@ -993,9 +888,9 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myType",
-                    @namespace: "jsii$myPackage$",
+                    @namespace: "my-package",
                     isAbstract: false,
                     methods: new[] { method }
                 );
@@ -1020,9 +915,9 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myType",
-                    @namespace: "jsii$myPackage$",
+                    @namespace: "my-package",
                     isAbstract: false,
                     properties: new[] { property }
                 );
@@ -1040,9 +935,9 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new EnumType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myType",
-                    @namespace: "jsii$myPackage$",
+                    @namespace: "my-package",
                     members: new[] { member }
                 );
 
@@ -1067,9 +962,9 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myType",
-                    @namespace: "jsii$myPackage$",
+                    @namespace: "my-package",
                     isAbstract: false,
                     methods: new[] { method }
                 );
@@ -1091,9 +986,9 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myName",
-                    @namespace: "jsii$myPackage$",
+                    @namespace: "my-package",
                     isAbstract: false
                 );
 
@@ -1109,9 +1004,9 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myName",
-                    @namespace: "jsii$myPackage$",
+                    @namespace: "my-package",
                     isAbstract: false
                 );
 
@@ -1132,9 +1027,9 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myName",
-                    @namespace: "jsii$myPackage$",
+                    @namespace: "my-package",
                     isAbstract: false
                 );
 
@@ -1150,9 +1045,9 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myName",
-                    @namespace: "jsii$myPackage$",
+                    @namespace: "my-package",
                     isAbstract: false
                 );
 
@@ -1173,9 +1068,9 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myName",
-                    @namespace: "jsii$myPackage$",
+                    @namespace: "my-package",
                     isAbstract: false
                 );
 
@@ -1191,9 +1086,9 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myName",
-                    @namespace: "jsii$myPackage$",
+                    @namespace: "my-package",
                     isAbstract: false
                 );
 
@@ -1214,16 +1109,16 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myName",
-                    @namespace: "jsii$myPackage$",
+                    @namespace: "my-package",
                     isAbstract: false
                 );
 
                 ISymbolMap symbolMap = GetSymbolMap(type);
 
                 string actual = symbolMap.GetPackage(type);
-                Assert.Equal("jsii$myPackage$", actual, ignoreLineEndingDifferences: true);
+                Assert.Equal("my-package", actual, ignoreLineEndingDifferences: true);
             }
 
             [Fact(DisplayName = _Prefix + nameof(GetsFrameworkPackageFromFqn))]
@@ -1232,16 +1127,16 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myName",
-                    @namespace: "jsii$myPackage$",
+                    @namespace: "my-package",
                     isAbstract: false
                 );
 
                 ISymbolMap symbolMap = GetSymbolMap(type);
 
                 string actual = symbolMap.GetPackage("myFqn");
-                Assert.Equal("jsii$myPackage$", actual, ignoreLineEndingDifferences: true);
+                Assert.Equal("my-package", actual, ignoreLineEndingDifferences: true);
             }
         }
 
@@ -1255,16 +1150,16 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myName",
-                    @namespace: "jsii$myPackage$",
+                    @namespace: "my-package",
                     isAbstract: false
                 );
 
                 ISymbolMap symbolMap = GetSymbolMap(type);
 
                 string actual = symbolMap.GetPackageSyntaxToken(type).ToString();
-                Assert.Equal("jsii$myPackage$", actual, ignoreLineEndingDifferences: true);
+                Assert.Equal("my-package", actual, ignoreLineEndingDifferences: true);
             }
 
             [Fact(DisplayName = _Prefix + nameof(GetsFrameworkPackageFromFqn))]
@@ -1273,16 +1168,16 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myName",
-                    @namespace: "jsii$myPackage$",
+                    @namespace: "my-package",
                     isAbstract: false
                 );
 
                 ISymbolMap symbolMap = GetSymbolMap(type);
 
                 string actual = symbolMap.GetPackageSyntaxToken("myFqn").ToString();
-                Assert.Equal("jsii$myPackage$", actual, ignoreLineEndingDifferences: true);
+                Assert.Equal("my-package", actual, ignoreLineEndingDifferences: true);
             }
         }
 
@@ -1296,16 +1191,16 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myName",
-                    @namespace: "jsii$myPackage$",
+                    @namespace: "my-package",
                     isAbstract: false
                 );
 
                 ISymbolMap symbolMap = GetSymbolMap(type);
 
                 string actual = symbolMap.GetPackageSyntax(type).ToString();
-                Assert.Equal("jsii$myPackage$", actual, ignoreLineEndingDifferences: true);
+                Assert.Equal("my-package", actual, ignoreLineEndingDifferences: true);
             }
 
             [Fact(DisplayName = _Prefix + nameof(GetsFrameworkPackageFromFqn))]
@@ -1314,16 +1209,16 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myName",
-                    @namespace: "jsii$myPackage$",
+                    @namespace: "my-package",
                     isAbstract: false
                 );
 
                 ISymbolMap symbolMap = GetSymbolMap(type);
 
                 string actual = symbolMap.GetPackageSyntax("myFqn").ToString();
-                Assert.Equal("jsii$myPackage$", actual, ignoreLineEndingDifferences: true);
+                Assert.Equal("my-package", actual, ignoreLineEndingDifferences: true);
             }
         }
 
@@ -1402,9 +1297,9 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myName",
-                    @namespace: "jsii$myPackage$",
+                    @namespace: "my-package",
                     isAbstract: false
                 );
 
@@ -1426,9 +1321,9 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "jsii$myPackage$",
+                    module: "my-package",
                     name: "myName",
-                    @namespace: "jsii$myPackage$",
+                    @namespace: "my-package",
                     isAbstract: false
                 );
 
@@ -1438,9 +1333,9 @@ namespace AWS.Jsii.Generator.UnitTests
                 ClassType actual = symbolMap.GetTypeFromFullyQualifiedName("myFqn") as ClassType;
                 Assert.NotNull(actual);
                 Assert.Equal("myFqn", actual.FullyQualifiedName, ignoreLineEndingDifferences: true);
-                Assert.Equal("jsii$myPackage$", actual.Module, ignoreLineEndingDifferences: true);
+                Assert.Equal("my-package", actual.Module, ignoreLineEndingDifferences: true);
                 Assert.Equal("myName", actual.Name, ignoreLineEndingDifferences: true);
-                Assert.Equal("jsii$myPackage$", actual.Namespace, ignoreLineEndingDifferences: true);
+                Assert.Equal("my-package", actual.Namespace, ignoreLineEndingDifferences: true);
                 Assert.False(actual.IsAbstract);
             }
         }

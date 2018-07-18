@@ -3,12 +3,17 @@ import * as clone from 'clone';
 import * as fs from 'fs-extra';
 import * as glob from 'glob';
 import * as spec from 'jsii-spec';
+import * as crypto from 'crypto';
 import * as path from 'path';
 import * as ts from 'typescript';
 import * as util from 'util';
 import { getCompilerOptions, saveCompilerOptions, saveLinterOptions } from './compiler-options';
 import { fileSystemLoader, includeAndRenderExamples, loadFromFile } from './literate';
 import readPackageMetadata from './package-metadata';
+import { filterEmpty } from './util';
+
+// tslint:disable-next-line:no-var-requires
+const sortJson = require('sort-json');
 
 /**
  * Given a CommonJS (npm) typescript package, produces a JSII specification for it.
@@ -42,32 +47,26 @@ export async function compilePackage(packageDir: string, includeDirs = [ 'test',
     await saveCompilerOptions(packageDir);
     await saveLinterOptions(packageDir);
 
-    // determine list of languages we need our dependencies to specify names for. otherwise,
-    // we won't be able to determine the name of types for that dependency.
-    const languages = new Set<string>(Object.keys(pkg.names));
-
-    const { lookup, dependencies, bundled, nativenames } =
-        await readDependencies(packageDir, pkg.dependencies, pkg.bundledDependencies, languages);
+    const targets = new Set(Object.keys(pkg.targets));
+    const { lookup, dependencies, bundled } = await readDependencies(packageDir, pkg.dependencies, pkg.bundledDependencies, targets);
 
     const mod = await compileSources(pkg.entrypoint, files, lookup);
 
     // add package information
     mod.name = pkg.name;
-    mod.package = pkg.name;
     mod.version = pkg.version.replace(/\+.+$/, ''); // omit "+build" postfix
     mod.dependencies = dependencies;
     mod.bundled = bundled;
-    mod.names = pkg.names;
+    mod.targets = pkg.targets;
 
-    // automatically add a "js" name based on the npm name.
-    mod.names.js = pkg.name;
-
-    // create a map of native names for this module and all dependencies
-    // to allow generators and runtimes to translate jsii names to native names.
-    mod.nativenames = nativenames;
-    mod.nativenames[mod.name] = mod.names;
+    // automatically add a "js" target based on the npm name.
+    mod.targets.js = { npm: pkg.name };
 
     mod.readme = await loadReadme(packageDir);
+
+    // Not accounting for the 'fingerprint' field when fingerprinting.
+    delete mod.fingerprint;
+    mod.fingerprint = crypto.createHash('md5').update(JSON.stringify(sortJson(mod), filterEmpty)).digest('base64');
 
     return mod;
 }
@@ -118,7 +117,7 @@ export async function compileSources(entrypoint: string,
 
     if (rootModule) {
         await processModule(rootModule, []);
-        createNameTree(mod, types);
+        addTypeInfo(mod, types);
         verifyUnexportedTypes(mod, typeRefs, externalTypes);
         normalizeInitializers(mod, externalTypes);
     }
@@ -1139,22 +1138,6 @@ function compileProgramSync(files: string[], options: ts.CompilerOptions) {
 }
 
 /**
- * Creates the name tree and type map and also adds parent relationships to all types.
- */
-function createNameTree(mod: spec.Assembly, types: spec.Type[]) {
-    mod.types = { };
-    mod.nametree = new spec.NameTree();
-    mod.typecount = types.length;
-
-    for (const type of types) {
-        mod.types[type.fqn] = type;
-        mod.nametree.add(type.fqn);
-    }
-
-    addSubtypes(mod);
-}
-
-/**
  * Ensures that all types have an initializer.
  * - If there's a base class with an initializer, it will be cloned.
  * - If not, an empty initializer is defined.
@@ -1211,37 +1194,40 @@ function normalizeInitializers(mod: spec.Assembly, externalTypes: Map<string, sp
 }
 
 /**
- * Add "subtypes" and "parenttype" to all nodes.
+ * Add "subtypes" and "parenttype" to all types, and registers the types in the assembly.
  * Also verifies that we don't have weird situations that can be supported by all langauges.
- * @param mod The module
+ *
+ * @param mod   The module
+ * @param types The types to be registered.
  */
-function addSubtypes(mod: spec.Assembly) {
+function addTypeInfo(mod: spec.Assembly, types: spec.Type[]) {
+    if (!mod.types) { mod.types = {}; }
+    for (const type of types) {
+        mod.types[type.fqn] = type;
+    }
 
-    function visit(node: spec.NameTree) {
+    visitTree(spec.NameTree.of(mod));
 
-        const parentFqn = node.getType();
-        if (parentFqn) {
-            const parentType = mod.types[parentFqn];
+    function visitTree(node: spec.NameTree) {
+        if (node.fqn) {
+            const parentType = mod.types[node.fqn];
 
-            for (const childname of node.children()) {
-                const child = node[childname];
-                const childFqn = child.getType();
-
+            for (const childName of Object.keys(node.children)) {
+                const child = node.children[childName];
                 // there are some programming languages that won't be able to support
                 // a namespace as a sub-name of a concrete type (e.g. java), so we can't support that.
-                if (!childFqn) {
+                if (!child.fqn) {
                     // tslint:disable-next-line:max-line-length
-                    throw new Error(`All child names of a type '${parentFqn}' must point to concrete types, but '${childname}' is a namespaces, and this structure cannot be supported in all languages (e.g. Java)`);
+                    throw new Error(`All child names of a type '${node.fqn}' must point to concrete types, but '${node.fqn}.${childName}' is a namespaces, and this structure cannot be supported in all languages (e.g. Java)`);
                 }
-                mod.types[childFqn].parenttype = parentFqn;
-                parentType.subtypes!.push(childFqn);
+                mod.types[child.fqn].parenttype = node.fqn;
+                if (!parentType.subtypes) { parentType.subtypes = []; }
+                parentType.subtypes.push(child.fqn);
             }
         }
 
-        node.forEachChild(visit);
+        Object.values(node.children).forEach(visitTree);
     }
-
-    visit(mod.nametree);
 }
 
 function verifyUnexportedTypes(mod: spec.Assembly, typeRefs: Set<ReferencedFqn>, externalTypes: Map<string, spec.Type>) {
@@ -1256,13 +1242,44 @@ function verifyUnexportedTypes(mod: spec.Assembly, typeRefs: Set<ReferencedFqn>,
         }
 
         if (externalType) {
-            if (!mod.externalTypes) { mod.externalTypes = {}; }
-            mod.externalTypes[ref.fqn] = externalTypes.get(ref.fqn)!;
+            if (!mod.externals) { mod.externals = {}; }
+            const extType = externalTypes.get(ref.fqn)!;
+            mod.externals[ref.fqn] = extType;
+
+            hoistExternalBaseType(extType as spec.ClassType);
         }
     }
 
     if (errors.length > 0) {
         throw new Error(`Found unexported types in the API, which are also not exported by any dependency:\n  ${errors.join('\n  ')}`);
+    }
+
+    /**
+     * Bring the base type and interfaces of external types into the current module's ``externalTypes`` map, so the assembly contains
+     * the specification of the full type hierarchy. This enables code generators to reason over a complete type specification without
+     * having to necessarily be able to load the assemblies that define them.
+     *
+     * @param type the type whose base and interfaces need to be hoisted.
+     */
+    function hoistExternalBaseType(type: spec.Type) {
+        if (!mod.externals) { mod.externals = {}; }
+        if (spec.isClassType(type) && type.base && !(type.base.fqn in mod.externals)) {
+            const baseFqn = type.base.fqn;
+            if (!externalTypes.has(baseFqn)) { throw new Error(`Unable to find the definition of ${baseFqn}, a base type of ${type.fqn}`); }
+            const baseType = externalTypes.get(baseFqn)!;
+            mod.externals[baseFqn] = baseType;
+            hoistExternalBaseType(baseType);
+        }
+        if ((spec.isClassType(type) || spec.isInterfaceType(type)) && type.interfaces) {
+            for (const iface of type.interfaces) {
+                const ifaceFqn = iface.fqn;
+                if (ifaceFqn in mod.externals) { continue; }
+                if (!externalTypes.has(ifaceFqn)) { throw new Error(`Unable to find the definition of ${ifaceFqn}, an interface of ${type.fqn}`); }
+                const ifaceType = externalTypes.get(ifaceFqn)!;
+                mod.externals[ifaceFqn] = ifaceType;
+                hoistExternalBaseType(ifaceType);
+            }
+        }
     }
 }
 
@@ -1273,11 +1290,10 @@ function verifyUnexportedTypes(mod: spec.Assembly, typeRefs: Set<ReferencedFqn>,
  * @param rootDir The root dir of the module
  * @param packageDeps The 'dependencies' section of package.json
  */
-async function readDependencies(rootDir: string, packageDeps: any, bundledDeps: undefined | string[], languages: Set<string>) {
+async function readDependencies(rootDir: string, packageDeps: any, bundledDeps: undefined | string[], targets: Set<string>) {
     const lookup = new Map<string, spec.Type>();
     const dependencies: { [dep: string]: spec.PackageVersion } = { };
     const bundled: { [name: string]: string } = { };
-    const nativenames: { [name: string]: { [language: string]: string } } = {};
 
     bundledDeps = bundledDeps || [ ];
     packageDeps = packageDeps || { };
@@ -1287,24 +1303,23 @@ async function readDependencies(rootDir: string, packageDeps: any, bundledDeps: 
 
         // verify that dependencies specify names for all languages defined by this package
         // this is required in order for us to be able to resolve jsii symbols in native languages.
-        for (const lang of languages) {
-            if (!(lang in pkg.names)) {
+        for (const target of targets) {
+            if (!(target in pkg.targets)) {
                 // tslint:disable-next-line:max-line-length
-                throw new Error(`Dependent package ${packageName} does not have a name specified for language '${lang}' which is defined by this module`);
+                throw new Error(`Dependent package ${packageName} does not have a configuration specified for target '${target}' which is defined by this module`);
             }
         }
 
-        const moduleName = packageName;
+        const moduleName = jsii.name;
 
-        dependencies[moduleName] = { package: jsii.package, version: jsii.version };
-        nativenames[moduleName] = jsii.names;
+        dependencies[moduleName] = { version: jsii.version, targets: jsii.targets, dependencies: jsii.dependencies };
 
         // add all types to lookup table.
         if (jsii.types) {
             Object.keys(jsii.types).forEach(fqn => lookup.set(fqn, jsii.types[fqn]));
         }
-        if (jsii.externalTypes) {
-            Object.keys(jsii.externalTypes).forEach(fqn => lookup.set(fqn, jsii.externalTypes![fqn]));
+        if (jsii.externals) {
+            Object.keys(jsii.externals).forEach(fqn => lookup.set(fqn, jsii.externals![fqn]));
         }
     }
 
@@ -1325,7 +1340,7 @@ async function readDependencies(rootDir: string, packageDeps: any, bundledDeps: 
         throw new Error(`There are some dependencies defined as jsiiBundledDependencies but we could not find them under "dependencies": ${bundledDeps.join()}`);
     }
 
-    return { lookup, dependencies, bundled, nativenames };
+    return { lookup, dependencies, bundled };
 }
 
 async function findModuleRoot(dir: string, packageName: string): Promise<string | undefined> {

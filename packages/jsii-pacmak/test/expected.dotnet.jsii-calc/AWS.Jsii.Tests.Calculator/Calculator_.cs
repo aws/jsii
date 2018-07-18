@@ -6,18 +6,18 @@ using System.Collections.Generic;
 namespace AWS.Jsii.Tests.Calculator
 {
     /// <summary>A calculator which maintains a current value and allows adding operations.</summary>
-    [JsiiClass(typeof(Calculator), "jsii-calc.Calculator", "[{\"name\":\"props\",\"type\":{\"fqn\":\"jsii-calc.CalculatorProps\",\"optional\":true}}]")]
-    public class Calculator : CompositeOperation
+    [JsiiClass(typeof(Calculator_), "jsii-calc.Calculator", "[{\"name\":\"props\",\"type\":{\"fqn\":\"jsii-calc.CalculatorProps\",\"optional\":true}}]")]
+    public class Calculator_ : CompositeOperation
     {
-        public Calculator(ICalculatorProps props): base(new DeputyProps(new object[]{props}))
+        public Calculator_(ICalculatorProps props): base(new DeputyProps(new object[]{props}))
         {
         }
 
-        protected Calculator(ByRefValue reference): base(reference)
+        protected Calculator_(ByRefValue reference): base(reference)
         {
         }
 
-        protected Calculator(DeputyProps props): base(props)
+        protected Calculator_(DeputyProps props): base(props)
         {
         }
 

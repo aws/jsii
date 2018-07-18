@@ -20,7 +20,7 @@ async function newGeneratorForLanguage(lang: string): Promise<IGenerator> {
     return new GeneratorClass();
 }
 
-export async function generate(lang: string, packageDir: string, outDir: string, force: boolean) {
+export async function generate(lang: string, packageDir: string, outDir: string, fingerprint: boolean = true, force: boolean = false) {
     const jsiiFile = path.join(packageDir, SPEC_FILE_NAME);
 
     const generator = await newGeneratorForLanguage(lang);
@@ -32,7 +32,7 @@ export async function generate(lang: string, packageDir: string, outDir: string,
         return;
     }
 
-    generator.generate();
+    generator.generate(fingerprint);
 
     const tarball = await npmPack(packageDir);
     try {

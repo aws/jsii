@@ -14,11 +14,13 @@ namespace AWS.Jsii.Runtime.Services
 
             // deploy embedded resources to the temp directory
             var assembly = Assembly.GetExecutingAssembly();
-            foreach (var name in files) {
+            foreach (var name in files)
+            {
                 var resourceName = "AWS.Jsii.Runtime.jsii_runtime." + name;
                 var path = resourceExtractor.ExtractResource(assembly, resourceName, "jsii-runtime", name);
 
-                if (name == ENTRYPOINT) {
+                if (name == ENTRYPOINT)
+                {
                     JsiiRuntimePath = path;
                 }
             }

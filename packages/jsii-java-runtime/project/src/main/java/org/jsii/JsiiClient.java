@@ -12,10 +12,8 @@ import org.jsii.api.CreateRequest;
 import org.jsii.api.JsiiOverride;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -279,7 +277,7 @@ public class JsiiClient {
     /**
      * Returns all names for a jsii module.
      * @param moduleName The name of the module.
-     * @return The result (map from "lang" to "name").
+     * @return The result (map from "lang" to language configuration).
      */
     public JsonNode getModuleNames(final String moduleName) {
         ObjectNode req = makeRequest("naming");

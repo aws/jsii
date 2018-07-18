@@ -7,10 +7,12 @@
   "scripts": {
     "watch": "tsc -w",
     "build": "tsc",
-    "test": "echo OK"
+    "test": "nodeunit test/test.*.js"
   },
   "devDependencies": {
     "@types/node": "^9.6.18",
+    "@types/nodeunit": "^0.0.30",
+    "nodeunit": "^0.11.3",
     "typescript": "^2.9.2"
   },
   "author": {

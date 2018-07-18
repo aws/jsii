@@ -18,7 +18,7 @@ public @interface Jsii {
      * The jsii module class that hosts this type.
      * @return The class which represents this jsii module.
      */
-    Class module();
+    Class<? extends JsiiModule> module();
 
     /**
      * The jsii FQN (fully qualified name) for this type.
