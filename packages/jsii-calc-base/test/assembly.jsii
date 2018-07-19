@@ -1,17 +1,17 @@
 {
-  "schema": "jsii/1.0",
+  "fingerprint": "NetPppABp7sUix2ULCXbMndcKG8dpgY5r02UEEupSqg=",
   "name": "@scope/jsii-calc-base",
-  "version": "0.5.0-beta",
+  "schema": "jsii/1.0",
   "targets": {
-    "java": {
-      "package": "org.jsii.tests.calculator.base",
-      "maven": {
-        "groupId": "org.jsii.tests",
-        "artifactId": "calculator-base"
-      }
-    },
     "dotnet": {
       "namespace": "AWS.Jsii.Tests.Calculator.Base"
+    },
+    "java": {
+      "maven": {
+        "artifactId": "calculator-base",
+        "groupId": "org.jsii.tests"
+      },
+      "package": "org.jsii.tests.calculator.base"
     },
     "js": {
       "npm": "@scope/jsii-calc-base"
@@ -19,30 +19,30 @@
   },
   "types": {
     "@scope/jsii-calc-base.Base": {
-      "kind": "class",
-      "fqn": "@scope/jsii-calc-base.Base",
-      "name": "Base",
-      "module": "@scope/jsii-calc-base",
+      "abstract": true,
       "docs": {
         "comment": "A base class."
       },
-      "namespace": "@scope/jsii-calc-base",
-      "abstract": true,
+      "fqn": "@scope/jsii-calc-base.Base",
       "initializer": {
         "initializer": true
       },
+      "kind": "class",
       "methods": [
         {
-          "name": "typeName",
           "docs": {
             "returns": "the name of the class (to verify native type names are created for derived classes)."
           },
+          "name": "typeName",
           "returns": {
             "primitive": "any"
           }
         }
-      ]
+      ],
+      "module": "@scope/jsii-calc-base",
+      "name": "Base",
+      "namespace": "@scope/jsii-calc-base"
     }
   },
-  "fingerprint": "9uGuuBSZg5UBaBij381nrw=="
+  "version": "0.5.0-beta"
 }

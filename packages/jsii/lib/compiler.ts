@@ -51,25 +51,33 @@ export async function compilePackage(packageDir: string, includeDirs = [ 'test',
     const targets = new Set(Object.keys(pkg.targets));
     const { lookup, dependencies, bundled } = await readDependencies(packageDir, pkg.dependencies, pkg.bundledDependencies, targets);
 
-    const mod = await compileSources(pkg.entrypoint, files, lookup);
+    const assm = await compileSources(pkg.entrypoint, files, lookup);
 
     // add package information
-    mod.name = pkg.name;
-    mod.version = pkg.version.replace(/\+.+$/, ''); // omit "+build" postfix
-    mod.dependencies = dependencies;
-    mod.bundled = bundled;
-    mod.targets = pkg.targets;
+    assm.name = pkg.name;
+    assm.version = pkg.version.replace(/\+.+$/, ''); // omit "+build" postfix
+    assm.dependencies = dependencies;
+    assm.bundled = bundled;
+    assm.targets = pkg.targets;
 
     // automatically add a "js" target based on the npm name.
-    mod.targets.js = { npm: pkg.name };
+    assm.targets.js = { npm: pkg.name };
 
-    mod.readme = await loadReadme(packageDir);
+    assm.readme = await loadReadme(packageDir);
+    return normalizeAssembly();
 
-    // Not accounting for the 'fingerprint' field when fingerprinting.
-    delete mod.fingerprint;
-    mod.fingerprint = crypto.createHash('md5').update(JSON.stringify(sortJson(mod), filterEmpty)).digest('base64');
-
-    return mod;
+    /**
+     * Normalizes (aka sorts) and fingerprints the assembly.
+     */
+    function normalizeAssembly() {
+        const sorted = sortJson(assm);
+        // Not accounting for the 'fingerprint' field when fingerprinting.
+        delete sorted.fingerprint;
+        const fingerprint = crypto.createHash('sha256')
+                                  .update(JSON.stringify(sortJson(sorted), filterEmpty))
+                                  .digest('base64');
+        return { fingerprint, ...sorted } as spec.Assembly;
+    }
 }
 
 async function loadReadme(packageDir: string): Promise<{ markdown: string } | undefined> {
