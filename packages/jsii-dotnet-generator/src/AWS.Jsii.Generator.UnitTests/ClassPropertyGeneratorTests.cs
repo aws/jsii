@@ -15,7 +15,7 @@ namespace AWS.Jsii.Generator.UnitTests
             ClassType classType = new ClassType
             (
                 fullyQualifiedName: "myClassFqn",
-                module: "myModule",
+                assembly: "myModule",
                 name: "myClass",
                 @namespace: "myNamespace",
                 isAbstract: true,

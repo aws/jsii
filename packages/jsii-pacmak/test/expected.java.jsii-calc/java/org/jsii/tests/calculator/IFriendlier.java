@@ -4,8 +4,8 @@ package org.jsii.tests.calculator;
  */
 public interface IFriendlier extends org.jsii.JsiiSerializable, org.jsii.tests.calculator.lib.IFriendly {
     /**
-     * @returns A goodbye blessing.
      * Say goodbye.
+     * @returns A goodbye blessing.
      */
     java.lang.String goodbye();
     /**
@@ -21,8 +21,8 @@ public interface IFriendlier extends org.jsii.JsiiSerializable, org.jsii.tests.c
             super(mode);
         }
         /**
-         * @returns A goodbye blessing.
          * Say goodbye.
+         * @returns A goodbye blessing.
          */
         public java.lang.String goodbye() {
             return this.jsiiCall("goodbye", java.lang.String.class);

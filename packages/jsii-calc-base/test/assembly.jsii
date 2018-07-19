@@ -1,5 +1,5 @@
 {
-  "fingerprint": "NetPppABp7sUix2ULCXbMndcKG8dpgY5r02UEEupSqg=",
+  "fingerprint": "erGu0jB21wjK5tVE/Bxl3I0FHLhVRCdsAArpsGrQYQE=",
   "name": "@scope/jsii-calc-base",
   "schema": "jsii/1.0",
   "targets": {
@@ -20,6 +20,7 @@
   "types": {
     "@scope/jsii-calc-base.Base": {
       "abstract": true,
+      "assembly": "@scope/jsii-calc-base",
       "docs": {
         "comment": "A base class."
       },
@@ -39,7 +40,6 @@
           }
         }
       ],
-      "module": "@scope/jsii-calc-base",
       "name": "Base",
       "namespace": "@scope/jsii-calc-base"
     }

@@ -342,7 +342,7 @@ export default class JavaGenerator extends Generator {
         this.code.closeBlock();
 
         interface Prop {
-            docs: spec.Docs
+            docs?: spec.Docs
             spec: spec.Property
             propName: string
             fieldName: string
@@ -591,7 +591,7 @@ export default class JavaGenerator extends Generator {
             const value = doc.docs[key];
             if (key === 'comment') {
                 value.split('\n').forEach(s => this.code.line(` * ${s}`));
-            } else {
+            } else if (key !== 'param' || !(doc as spec.Method).parameters) {
                 this.code.line(` * @${key} ${value.replace(/\n/g, ' ')}`);
             }
         }
@@ -629,11 +629,11 @@ export default class JavaGenerator extends Generator {
     }
 
     private toJavaTypes(typeref: spec.TypeReference, forMarshalling = false): string[] {
-        if (typeref.primitive) {
+        if (spec.isPrimitiveTypeReference(typeref)) {
             return [ this.toJavaPrimitive(typeref.primitive) ];
-        } else if (typeref.collection) {
-            return [ this.toJavaCollection(typeref.collection, forMarshalling) ];
-        } else if (typeref.fqn) {
+        } else if (spec.isCollectionTypeReference(typeref)) {
+            return [ this.toJavaCollection(typeref, forMarshalling) ];
+        } else if (spec.isNamedTypeReference(typeref)) {
             return [ this.toNativeFqn(typeref.fqn) ];
         } else if (typeref.union) {
             const types = new Array<string>();
@@ -648,13 +648,13 @@ export default class JavaGenerator extends Generator {
         }
     }
 
-    private toJavaCollection(collection: spec.CollectionTypeReference, forMarshalling: boolean) {
-        const elementJavaType = this.toJavaType(collection.elementtype);
-        switch (collection.kind) {
+    private toJavaCollection(ref: spec.CollectionTypeReference, forMarshalling: boolean) {
+        const elementJavaType = this.toJavaType(ref.collection.elementtype);
+        switch (ref.collection.kind) {
             case spec.CollectionKind.Array: return forMarshalling ? 'java.util.List' : `java.util.List<${elementJavaType}>`;
             case spec.CollectionKind.Map: return forMarshalling ? 'java.util.Map' : `java.util.Map<java.lang.String, ${elementJavaType}>`;
             default:
-                throw new Error(`Unsupported collection kind: ${collection.kind}`);
+                throw new Error(`Unsupported collection kind: ${ref.collection.kind}`);
         }
     }
 
@@ -793,14 +793,14 @@ export default class JavaGenerator extends Generator {
     private toNativeFqn(fqn: string): string {
         const [mod, ...name] = fqn.split('.');
         if (mod === this.assembly.name) {
-            if (!this.assembly.targets.java) {
+            if (!(this.assembly.targets && this.assembly.targets.java)) {
                 throw new Error(`This module doesn't have a java configuration: unable to determine a package name.`);
             }
             return [this.assembly.targets.java.package, ...name].join('.');
         }
         const depMod = this.assembly.dependencies && this.assembly.dependencies[mod];
         if (!depMod) { throw new Error(`No dependency found for module ${mod}`); }
-        const pkg = depMod.targets.java && depMod.targets.java.package;
+        const pkg = depMod.targets && depMod.targets.java && depMod.targets.java.package;
         if (!pkg) { throw new Error(`The module ${mod} does not have a java.package setting`); }
         return [pkg, ...name].join('.');
     }

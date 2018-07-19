@@ -9,7 +9,7 @@ namespace AWS.Jsii.JsonModel.Spec
         public Type
         (
             string fullyQualifiedName,
-            string module,
+            string assembly,
             string name,
             string @namespace,
             TypeKind kind,
@@ -17,7 +17,7 @@ namespace AWS.Jsii.JsonModel.Spec
         )
         {
             FullyQualifiedName = fullyQualifiedName ?? throw new ArgumentNullException(nameof(fullyQualifiedName));
-            Module = module ?? throw new ArgumentNullException(nameof(module));
+            Assembly = assembly ?? throw new ArgumentNullException(nameof(assembly));
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Namespace = @namespace ?? throw new ArgumentNullException(nameof(@namespace));
             Kind = kind;
@@ -27,8 +27,8 @@ namespace AWS.Jsii.JsonModel.Spec
         [JsonProperty("fqn")]
         public string FullyQualifiedName { get; }
 
-        [JsonProperty("module")]
-        public string Module { get; }
+        [JsonProperty("assembly")]
+        public string Assembly { get; }
 
         [JsonProperty("name")]
         public string Name { get; }

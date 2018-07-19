@@ -2,7 +2,7 @@ import { Test, testCase } from 'nodeunit';
 import { NameTree } from '../lib/name-tree';
 import * as spec from '../lib/spec';
 
-const moduleName = '@foo/bar';
+const assemblyName = '@foo/bar';
 
 // tslint:disable:no-string-literal makes the code easier to grep.
 
@@ -12,14 +12,14 @@ export = testCase({
             // GIVEN
             const assm: spec.Assembly = {
                 schema: spec.SchemaVersion.V1_0,
-                name: moduleName,
+                name: assemblyName,
                 version: '0.0.1',
                 fingerprint: '<no-fingerprint>',
                 targets: {},
                 types: {
-                    'org.jsii.ClassA': makeType('org.jsii', 'ClassA', spec.TypeKind.Class),
-                    'org.jsii.ClassA.NestedInterface': makeType('org.jsii.ClassA', 'NestedInterface', spec.TypeKind.Interface),
-                    'org.jsii.enums.EnumType': makeType('org.jsii.enums', 'EnumType', spec.TypeKind.Enum)
+                    'org.jsii.TypeA': makeType('org.jsii', 'TypeA'),
+                    'org.jsii.TypeA.NestedType': makeType('org.jsii.TypeA', 'NestedType'),
+                    'org.jsii.enums.TypeB': makeType('org.jsii.enums', 'TypeB')
                 }
             };
 
@@ -30,27 +30,27 @@ export = testCase({
             test.deepEqual(Object.keys(nameTree.children), ['org']);
             test.deepEqual(Object.keys(nameTree.children['org'].children), ['jsii']);
             test.deepEqual(new Set(Object.keys(nameTree.children['org'].children['jsii'].children)),
-                           new Set(['enums', 'ClassA']));
-            test.deepEqual(Object.keys(nameTree.children['org'].children['jsii'].children['enums'].children), ['EnumType']);
-            test.deepEqual(Object.keys(nameTree.children['org'].children['jsii'].children['ClassA'].children), ['NestedInterface']);
+                           new Set(['enums', 'TypeA']));
+            test.deepEqual(Object.keys(nameTree.children['org'].children['jsii'].children['enums'].children), ['TypeB']);
+            test.deepEqual(Object.keys(nameTree.children['org'].children['jsii'].children['TypeA'].children), ['NestedType']);
 
             test.equal(nameTree.fqn, null);
             test.equal(nameTree.children['org'].fqn, null);
             test.equal(nameTree.children['org'].children['jsii'].fqn, null);
             test.equal(nameTree.children['org'].children['jsii'].children['enums'].fqn, null);
 
-            test.equal(nameTree.children['org'].children['jsii'].children['ClassA'].fqn, 'org.jsii.ClassA');
-            test.equal(nameTree.children['org'].children['jsii'].children['ClassA'].children['NestedInterface'].fqn,
-                       'org.jsii.ClassA.NestedInterface');
-            test.equal(nameTree.children['org'].children['jsii'].children['enums'].children['EnumType'].fqn,
-                       'org.jsii.enums.EnumType');
+            test.equal(nameTree.children['org'].children['jsii'].children['TypeA'].fqn, 'org.jsii.TypeA');
+            test.equal(nameTree.children['org'].children['jsii'].children['TypeA'].children['NestedType'].fqn,
+                       'org.jsii.TypeA.NestedType');
+            test.equal(nameTree.children['org'].children['jsii'].children['enums'].children['TypeB'].fqn,
+                       'org.jsii.enums.TypeB');
 
             test.done();
         }
     }
 });
 
-function makeType(ns: string, name: string, kind: spec.TypeKind): spec.Type {
+function makeType(ns: string, name: string): spec.Type {
     const fqn = `${ns}.${name}`;
-    return { fqn, name, module: moduleName, kind };
+    return { fqn, name, assembly: assemblyName, kind: spec.TypeKind.Class };
 }

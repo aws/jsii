@@ -16,8 +16,8 @@ public class Number extends org.jsii.tests.calculator.lib.Value {
         org.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.of(value).toArray());
     }
     /**
-     * @param value The number.
      * The number.
+     * @param value The number.
      */
     public java.lang.Number getValue() {
         return this.jsiiGet("value", java.lang.Number.class);

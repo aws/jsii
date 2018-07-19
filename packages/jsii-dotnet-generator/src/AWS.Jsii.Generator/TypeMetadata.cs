@@ -14,7 +14,7 @@ namespace AWS.Jsii.Generator
             Type = type ?? throw new ArgumentNullException(nameof(type));
             assembly = assembly ?? throw new ArgumentNullException(nameof(assembly));
 
-            Package = type.Module;
+            Package = type.Assembly;
 
             Namespace = $"{assembly.GetNativeName(Package)}{type.Namespace.Substring(Package.Length)}";
         }

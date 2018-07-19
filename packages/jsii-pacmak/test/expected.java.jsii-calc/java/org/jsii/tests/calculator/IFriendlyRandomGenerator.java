@@ -9,8 +9,8 @@ public interface IFriendlyRandomGenerator extends org.jsii.JsiiSerializable, org
             super(mode);
         }
         /**
-         * @returns A random number.
          * Returns another random number.
+         * @returns A random number.
          */
         public java.lang.Number next() {
             return this.jsiiCall("next", java.lang.Number.class);

@@ -1,6 +1,5 @@
 import * as fs from 'fs-extra';
 import * as spec from 'jsii-spec';
-import { TypeKind } from 'jsii-spec';
 import * as path from 'path';
 import { SourceMapConsumer } from 'source-map';
 import * as tar from 'tar';
@@ -106,7 +105,7 @@ export class Kernel {
 
             return {
                 assembly: assm.metadata.name,
-                types: Object.keys(assm.metadata.types).length,
+                types: Object.keys(assm.metadata.types || {}).length,
             };
         } else {
             // untar the archive to a staging directory, read the jsii spec from it
@@ -132,7 +131,7 @@ export class Kernel {
 
                 return {
                     assembly: assmSpec.name,
-                    types: Object.keys(assmSpec.types).length,
+                    types: Object.keys(assmSpec.types || {}).length,
                 };
             } finally {
                 this._debug('removing staging directory:', staging);
@@ -420,8 +419,8 @@ export class Kernel {
 
         // add the __jsii__.fqn property on every constructor. this allows
         // traversing between the javascript and jsii worlds given any object.
-        for (const fqn of Object.keys(assm.metadata.types || { })) {
-            const typedef = assm.metadata.types[fqn];
+        for (const fqn of Object.keys(assm.metadata.types || {})) {
+            const typedef = assm.metadata.types![fqn];
             switch (typedef.kind) {
                 case spec.TypeKind.Interface:
                     continue; // interfaces don't really exist
@@ -635,19 +634,19 @@ export class Kernel {
     }
 
     private _formatTypeRef(typeRef: spec.TypeReference): string {
-        if (typeRef.collection) {
+        if (spec.isCollectionTypeReference(typeRef)) {
             return `${typeRef.collection.kind}<${this._formatTypeRef(typeRef.collection.elementtype)}>`;
         }
 
-        if (typeRef.fqn) {
+        if (spec.isNamedTypeReference(typeRef)) {
             return typeRef.fqn;
         }
 
-        if (typeRef.primitive) {
+        if (spec.isPrimitiveTypeReference(typeRef)) {
             return typeRef.primitive;
         }
 
-        if (typeRef.union) {
+        if (spec.isUnionTypeReference(typeRef)) {
             return typeRef.union.types.map(t => this._formatTypeRef(t)).join(' | ');
         }
 
@@ -751,7 +750,7 @@ export class Kernel {
             throw new Error(`Module '${moduleName}' not found`);
         }
 
-        const types = assembly.metadata.types;
+        const types = assembly.metadata.types || {};
         const fqnInfo = types[fqn];
         if (!fqnInfo) {
             throw new Error(`Type '${fqn}' not found`);
@@ -805,11 +804,11 @@ export class Kernel {
         let properties;
         let bases;
 
-        if (typeInfo.kind === TypeKind.Class) {
+        if (spec.isClassType(typeInfo)) {
             const classTypeInfo = typeInfo as spec.ClassType;
             properties = classTypeInfo.properties;
             bases = classTypeInfo.base ? [ classTypeInfo.base.fqn ] : [];
-        } else if (typeInfo.kind === TypeKind.Interface) {
+        } else if (spec.isInterfaceType(typeInfo)) {
             const interfaceTypeInfo = typeInfo as spec.InterfaceType;
             properties = interfaceTypeInfo.properties;
             bases = (interfaceTypeInfo.interfaces || []).map(x => x.fqn);
@@ -914,7 +913,7 @@ export class Kernel {
         // if the method/property returns an object literal and the return type
         // is a class, we create a new object based on the fqn and assign all keys.
         // so the client receives a real object.
-        if (typeof(v) === 'object' && targetType && targetType.fqn) {
+        if (typeof(v) === 'object' && targetType && spec.isNamedTypeReference(targetType)) {
             this._debug('coalescing to', targetType);
             const newObjRef = this._create({ fqn: targetType.fqn });
             const newObj = this._findObject(newObjRef);
@@ -936,7 +935,7 @@ export class Kernel {
             return v.map(x => this._fromSandbox(x));
         }
 
-        if (targetType && targetType.fqn) {
+        if (targetType && spec.isNamedTypeReference(targetType)) {
             const propType = this._typeInfoForFqn(targetType.fqn);
 
             // enum

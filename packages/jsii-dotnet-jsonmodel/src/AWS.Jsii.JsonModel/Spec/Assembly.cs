@@ -11,9 +11,9 @@ namespace AWS.Jsii.JsonModel.Spec
         public Assembly
         (
             string name,
-            Targets targets,
             string version,
-            IDictionary<string, Type> types,
+            IDictionary<string, Type> types = null,
+            Targets targets = null,
             IDictionary<string, Type> externals = null,
             IDictionary<string, PackageVersion> dependencies = null,
             IDictionary<string, string> bundled = null,
@@ -23,7 +23,7 @@ namespace AWS.Jsii.JsonModel.Spec
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Version = version ?? throw new ArgumentNullException(nameof(version));
-            Types = types ?? throw new ArgumentNullException(nameof(types));
+            Types = types;
             Externals = externals;
             Bundled = bundled;
             Docs = docs;

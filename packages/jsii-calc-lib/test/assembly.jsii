@@ -1,5 +1,5 @@
 {
-  "fingerprint": "/OOyBj3NuQqg4BC3bIRtFX9ayzHtFhxNn6VTTW/BJOc=",
+  "fingerprint": "94/Wj+3JnuKOsMX8ryCy+IZs8JpvSJyHm4IY5jmWWGM=",
   "dependencies": {
     "@scope/jsii-calc-base": {
       "targets": {
@@ -23,6 +23,7 @@
   "externals": {
     "@scope/jsii-calc-base.Base": {
       "abstract": true,
+      "assembly": "@scope/jsii-calc-base",
       "docs": {
         "comment": "A base class."
       },
@@ -42,7 +43,6 @@
           }
         }
       ],
-      "module": "@scope/jsii-calc-base",
       "name": "Base",
       "namespace": "@scope/jsii-calc-base"
     }
@@ -66,6 +66,7 @@
   },
   "types": {
     "@scope/jsii-calc-lib.IFriendly": {
+      "assembly": "@scope/jsii-calc-lib",
       "docs": {
         "comment": "Applies to classes that are considered friendly. These classes can be greeted with\na \"hello\" or \"goodbye\" blessing and they will respond back in a fun and friendly manner."
       },
@@ -82,18 +83,17 @@
           }
         }
       ],
-      "module": "@scope/jsii-calc-lib",
       "name": "IFriendly",
       "namespace": "@scope/jsii-calc-lib"
     },
     "@scope/jsii-calc-lib.MyFirstStruct": {
+      "assembly": "@scope/jsii-calc-lib",
       "datatype": true,
       "docs": {
         "comment": "This is the first struct we have created in jsii"
       },
       "fqn": "@scope/jsii-calc-lib.MyFirstStruct",
       "kind": "interface",
-      "module": "@scope/jsii-calc-lib",
       "name": "MyFirstStruct",
       "namespace": "@scope/jsii-calc-lib",
       "properties": [
@@ -130,6 +130,7 @@
       ]
     },
     "@scope/jsii-calc-lib.Number": {
+      "assembly": "@scope/jsii-calc-lib",
       "base": {
         "fqn": "@scope/jsii-calc-lib.Value"
       },
@@ -139,7 +140,8 @@
       "fqn": "@scope/jsii-calc-lib.Number",
       "initializer": {
         "docs": {
-          "comment": "Creates a Number object."
+          "comment": "Creates a Number object.",
+          "param": "value The number."
         },
         "initializer": true,
         "parameters": [
@@ -156,7 +158,6 @@
         ]
       },
       "kind": "class",
-      "module": "@scope/jsii-calc-lib",
       "name": "Number",
       "namespace": "@scope/jsii-calc-lib",
       "properties": [
@@ -185,6 +186,7 @@
     },
     "@scope/jsii-calc-lib.Operation": {
       "abstract": true,
+      "assembly": "@scope/jsii-calc-lib",
       "base": {
         "fqn": "@scope/jsii-calc-lib.Value"
       },
@@ -208,18 +210,17 @@
           }
         }
       ],
-      "module": "@scope/jsii-calc-lib",
       "name": "Operation",
       "namespace": "@scope/jsii-calc-lib"
     },
     "@scope/jsii-calc-lib.StructWithOnlyOptionals": {
+      "assembly": "@scope/jsii-calc-lib",
       "datatype": true,
       "docs": {
         "comment": "This is a struct with only optional properties."
       },
       "fqn": "@scope/jsii-calc-lib.StructWithOnlyOptionals",
       "kind": "interface",
-      "module": "@scope/jsii-calc-lib",
       "name": "StructWithOnlyOptionals",
       "namespace": "@scope/jsii-calc-lib",
       "properties": [
@@ -251,6 +252,7 @@
     },
     "@scope/jsii-calc-lib.Value": {
       "abstract": true,
+      "assembly": "@scope/jsii-calc-lib",
       "base": {
         "fqn": "@scope/jsii-calc-base.Base"
       },
@@ -273,7 +275,6 @@
           }
         }
       ],
-      "module": "@scope/jsii-calc-lib",
       "name": "Value",
       "namespace": "@scope/jsii-calc-lib",
       "properties": [

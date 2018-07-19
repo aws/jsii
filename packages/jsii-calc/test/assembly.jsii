@@ -1,5 +1,5 @@
 {
-  "fingerprint": "MKfR4FqEygPHR8bna+tX7TwoCW8yQdwowIDGm/u+ezA=",
+  "fingerprint": "tXiVsJkaI41VVtT7bJdmwdW4bO03N8y3bbcmRGdoano=",
   "bundled": {
     "jsii-calc-bundled": "^0.5.0-beta"
   },
@@ -46,6 +46,7 @@
   "externals": {
     "@scope/jsii-calc-base.Base": {
       "abstract": true,
+      "assembly": "@scope/jsii-calc-base",
       "docs": {
         "comment": "A base class."
       },
@@ -65,11 +66,11 @@
           }
         }
       ],
-      "module": "@scope/jsii-calc-base",
       "name": "Base",
       "namespace": "@scope/jsii-calc-base"
     },
     "@scope/jsii-calc-lib.IFriendly": {
+      "assembly": "@scope/jsii-calc-lib",
       "docs": {
         "comment": "Applies to classes that are considered friendly. These classes can be greeted with\na \"hello\" or \"goodbye\" blessing and they will respond back in a fun and friendly manner."
       },
@@ -86,18 +87,17 @@
           }
         }
       ],
-      "module": "@scope/jsii-calc-lib",
       "name": "IFriendly",
       "namespace": "@scope/jsii-calc-lib"
     },
     "@scope/jsii-calc-lib.MyFirstStruct": {
+      "assembly": "@scope/jsii-calc-lib",
       "datatype": true,
       "docs": {
         "comment": "This is the first struct we have created in jsii"
       },
       "fqn": "@scope/jsii-calc-lib.MyFirstStruct",
       "kind": "interface",
-      "module": "@scope/jsii-calc-lib",
       "name": "MyFirstStruct",
       "namespace": "@scope/jsii-calc-lib",
       "properties": [
@@ -135,6 +135,7 @@
     },
     "@scope/jsii-calc-lib.Operation": {
       "abstract": true,
+      "assembly": "@scope/jsii-calc-lib",
       "base": {
         "fqn": "@scope/jsii-calc-lib.Value"
       },
@@ -158,18 +159,17 @@
           }
         }
       ],
-      "module": "@scope/jsii-calc-lib",
       "name": "Operation",
       "namespace": "@scope/jsii-calc-lib"
     },
     "@scope/jsii-calc-lib.StructWithOnlyOptionals": {
+      "assembly": "@scope/jsii-calc-lib",
       "datatype": true,
       "docs": {
         "comment": "This is a struct with only optional properties."
       },
       "fqn": "@scope/jsii-calc-lib.StructWithOnlyOptionals",
       "kind": "interface",
-      "module": "@scope/jsii-calc-lib",
       "name": "StructWithOnlyOptionals",
       "namespace": "@scope/jsii-calc-lib",
       "properties": [
@@ -201,6 +201,7 @@
     },
     "@scope/jsii-calc-lib.Value": {
       "abstract": true,
+      "assembly": "@scope/jsii-calc-lib",
       "base": {
         "fqn": "@scope/jsii-calc-base.Base"
       },
@@ -223,7 +224,6 @@
           }
         }
       ],
-      "module": "@scope/jsii-calc-lib",
       "name": "Value",
       "namespace": "@scope/jsii-calc-lib",
       "properties": [
@@ -263,6 +263,7 @@
   },
   "types": {
     "jsii-calc.Add": {
+      "assembly": "jsii-calc",
       "base": {
         "fqn": "jsii-calc.BinaryOperation"
       },
@@ -272,7 +273,8 @@
       "fqn": "jsii-calc.Add",
       "initializer": {
         "docs": {
-          "comment": "Creates a BinaryOperation"
+          "comment": "Creates a BinaryOperation",
+          "param": "rhs Right-hand side operand"
         },
         "initializer": true,
         "parameters": [
@@ -310,7 +312,6 @@
           }
         }
       ],
-      "module": "jsii-calc",
       "name": "Add",
       "namespace": "jsii-calc",
       "properties": [
@@ -327,6 +328,7 @@
       ]
     },
     "jsii-calc.AllTypes": {
+      "assembly": "jsii-calc",
       "docs": {
         "comment": "This class includes property for all types supported by jsii. The setters will validate\nthat the value set is of the expected type and throw otherwise."
       },
@@ -351,7 +353,6 @@
           }
         }
       ],
-      "module": "jsii-calc",
       "name": "AllTypes",
       "namespace": "jsii-calc",
       "properties": [
@@ -516,6 +517,7 @@
       ]
     },
     "jsii-calc.AllTypesEnum": {
+      "assembly": "jsii-calc",
       "fqn": "jsii-calc.AllTypesEnum",
       "kind": "enum",
       "members": [
@@ -529,11 +531,11 @@
           "name": "ThisIsGreat"
         }
       ],
-      "module": "jsii-calc",
       "name": "AllTypesEnum",
       "namespace": "jsii-calc"
     },
     "jsii-calc.AllowedMethodNames": {
+      "assembly": "jsii-calc",
       "fqn": "jsii-calc.AllowedMethodNames",
       "initializer": {
         "initializer": true
@@ -618,11 +620,11 @@
           ]
         }
       ],
-      "module": "jsii-calc",
       "name": "AllowedMethodNames",
       "namespace": "jsii-calc"
     },
     "jsii-calc.AsyncVirtualMethods": {
+      "assembly": "jsii-calc",
       "fqn": "jsii-calc.AsyncVirtualMethods",
       "initializer": {
         "initializer": true
@@ -685,12 +687,12 @@
           }
         }
       ],
-      "module": "jsii-calc",
       "name": "AsyncVirtualMethods",
       "namespace": "jsii-calc"
     },
     "jsii-calc.BinaryOperation": {
       "abstract": true,
+      "assembly": "jsii-calc",
       "base": {
         "fqn": "@scope/jsii-calc-lib.Operation"
       },
@@ -700,7 +702,8 @@
       "fqn": "jsii-calc.BinaryOperation",
       "initializer": {
         "docs": {
-          "comment": "Creates a BinaryOperation"
+          "comment": "Creates a BinaryOperation",
+          "param": "rhs Right-hand side operand"
         },
         "initializer": true,
         "parameters": [
@@ -743,7 +746,6 @@
           }
         }
       ],
-      "module": "jsii-calc",
       "name": "BinaryOperation",
       "namespace": "jsii-calc",
       "properties": [
@@ -772,6 +774,7 @@
       ]
     },
     "jsii-calc.Calculator": {
+      "assembly": "jsii-calc",
       "base": {
         "fqn": "jsii-calc.composition.CompositeOperation"
       },
@@ -781,7 +784,8 @@
       "fqn": "jsii-calc.Calculator",
       "initializer": {
         "docs": {
-          "comment": "Creates a Calculator object."
+          "comment": "Creates a Calculator object.",
+          "param": "props Initialization properties."
         },
         "initializer": true,
         "parameters": [
@@ -858,7 +862,6 @@
           }
         }
       ],
-      "module": "jsii-calc",
       "name": "Calculator",
       "namespace": "jsii-calc",
       "properties": [
@@ -951,13 +954,13 @@
       ]
     },
     "jsii-calc.CalculatorProps": {
+      "assembly": "jsii-calc",
       "datatype": true,
       "docs": {
         "comment": "Properties for Calculator."
       },
       "fqn": "jsii-calc.CalculatorProps",
       "kind": "interface",
-      "module": "jsii-calc",
       "name": "CalculatorProps",
       "namespace": "jsii-calc",
       "properties": [
@@ -978,12 +981,12 @@
       ]
     },
     "jsii-calc.DerivedClassHasNoProperties.Base": {
+      "assembly": "jsii-calc",
       "fqn": "jsii-calc.DerivedClassHasNoProperties.Base",
       "initializer": {
         "initializer": true
       },
       "kind": "class",
-      "module": "jsii-calc",
       "name": "Base",
       "namespace": "jsii-calc.DerivedClassHasNoProperties",
       "properties": [
@@ -996,6 +999,7 @@
       ]
     },
     "jsii-calc.DerivedClassHasNoProperties.Derived": {
+      "assembly": "jsii-calc",
       "base": {
         "fqn": "jsii-calc.DerivedClassHasNoProperties.Base"
       },
@@ -1004,11 +1008,11 @@
         "initializer": true
       },
       "kind": "class",
-      "module": "jsii-calc",
       "name": "Derived",
       "namespace": "jsii-calc.DerivedClassHasNoProperties"
     },
     "jsii-calc.DerivedStruct": {
+      "assembly": "jsii-calc",
       "datatype": true,
       "docs": {
         "comment": "A struct which derives from another struct."
@@ -1020,7 +1024,6 @@
         }
       ],
       "kind": "interface",
-      "module": "jsii-calc",
       "name": "DerivedStruct",
       "namespace": "jsii-calc",
       "properties": [
@@ -1075,6 +1078,7 @@
       ]
     },
     "jsii-calc.DoubleTrouble": {
+      "assembly": "jsii-calc",
       "fqn": "jsii-calc.DoubleTrouble",
       "initializer": {
         "initializer": true
@@ -1105,11 +1109,11 @@
           }
         }
       ],
-      "module": "jsii-calc",
       "name": "DoubleTrouble",
       "namespace": "jsii-calc"
     },
     "jsii-calc.GiveMeStructs": {
+      "assembly": "jsii-calc",
       "fqn": "jsii-calc.GiveMeStructs",
       "initializer": {
         "initializer": true
@@ -1168,7 +1172,6 @@
           }
         }
       ],
-      "module": "jsii-calc",
       "name": "GiveMeStructs",
       "namespace": "jsii-calc",
       "properties": [
@@ -1182,6 +1185,7 @@
       ]
     },
     "jsii-calc.IFriendlier": {
+      "assembly": "jsii-calc",
       "docs": {
         "comment": "Even friendlier classes can implement this interface."
       },
@@ -1213,11 +1217,11 @@
           }
         }
       ],
-      "module": "jsii-calc",
       "name": "IFriendlier",
       "namespace": "jsii-calc"
     },
     "jsii-calc.IFriendlyRandomGenerator": {
+      "assembly": "jsii-calc",
       "fqn": "jsii-calc.IFriendlyRandomGenerator",
       "interfaces": [
         {
@@ -1228,15 +1232,14 @@
         }
       ],
       "kind": "interface",
-      "module": "jsii-calc",
       "name": "IFriendlyRandomGenerator",
       "namespace": "jsii-calc"
     },
     "jsii-calc.IInterfaceWithProperties": {
+      "assembly": "jsii-calc",
       "datatype": true,
       "fqn": "jsii-calc.IInterfaceWithProperties",
       "kind": "interface",
-      "module": "jsii-calc",
       "name": "IInterfaceWithProperties",
       "namespace": "jsii-calc",
       "properties": [
@@ -1256,6 +1259,7 @@
       ]
     },
     "jsii-calc.IInterfaceWithPropertiesExtension": {
+      "assembly": "jsii-calc",
       "datatype": true,
       "fqn": "jsii-calc.IInterfaceWithPropertiesExtension",
       "interfaces": [
@@ -1264,7 +1268,6 @@
         }
       ],
       "kind": "interface",
-      "module": "jsii-calc",
       "name": "IInterfaceWithPropertiesExtension",
       "namespace": "jsii-calc",
       "properties": [
@@ -1277,6 +1280,7 @@
       ]
     },
     "jsii-calc.IRandomNumberGenerator": {
+      "assembly": "jsii-calc",
       "docs": {
         "comment": "Generates random numbers."
       },
@@ -1294,11 +1298,11 @@
           }
         }
       ],
-      "module": "jsii-calc",
       "name": "IRandomNumberGenerator",
       "namespace": "jsii-calc"
     },
     "jsii-calc.JSObjectLiteralForInterface": {
+      "assembly": "jsii-calc",
       "fqn": "jsii-calc.JSObjectLiteralForInterface",
       "initializer": {
         "initializer": true
@@ -1318,11 +1322,11 @@
           }
         }
       ],
-      "module": "jsii-calc",
       "name": "JSObjectLiteralForInterface",
       "namespace": "jsii-calc"
     },
     "jsii-calc.JSObjectLiteralToNative": {
+      "assembly": "jsii-calc",
       "fqn": "jsii-calc.JSObjectLiteralToNative",
       "initializer": {
         "initializer": true
@@ -1336,17 +1340,16 @@
           }
         }
       ],
-      "module": "jsii-calc",
       "name": "JSObjectLiteralToNative",
       "namespace": "jsii-calc"
     },
     "jsii-calc.JSObjectLiteralToNativeClass": {
+      "assembly": "jsii-calc",
       "fqn": "jsii-calc.JSObjectLiteralToNativeClass",
       "initializer": {
         "initializer": true
       },
       "kind": "class",
-      "module": "jsii-calc",
       "name": "JSObjectLiteralToNativeClass",
       "namespace": "jsii-calc",
       "properties": [
@@ -1365,6 +1368,7 @@
       ]
     },
     "jsii-calc.JavaReservedWords": {
+      "assembly": "jsii-calc",
       "fqn": "jsii-calc.JavaReservedWords",
       "initializer": {
         "initializer": true
@@ -1528,7 +1532,6 @@
           "name": "volatile"
         }
       ],
-      "module": "jsii-calc",
       "name": "JavaReservedWords",
       "namespace": "jsii-calc",
       "properties": [
@@ -1541,6 +1544,7 @@
       ]
     },
     "jsii-calc.Multiply": {
+      "assembly": "jsii-calc",
       "base": {
         "fqn": "jsii-calc.BinaryOperation"
       },
@@ -1550,7 +1554,8 @@
       "fqn": "jsii-calc.Multiply",
       "initializer": {
         "docs": {
-          "comment": "Creates a BinaryOperation"
+          "comment": "Creates a BinaryOperation",
+          "param": "rhs Right-hand side operand"
         },
         "initializer": true,
         "parameters": [
@@ -1623,7 +1628,6 @@
           }
         }
       ],
-      "module": "jsii-calc",
       "name": "Multiply",
       "namespace": "jsii-calc",
       "properties": [
@@ -1640,6 +1644,7 @@
       ]
     },
     "jsii-calc.Negate": {
+      "assembly": "jsii-calc",
       "base": {
         "fqn": "jsii-calc.UnaryOperation"
       },
@@ -1702,7 +1707,6 @@
           }
         }
       ],
-      "module": "jsii-calc",
       "name": "Negate",
       "namespace": "jsii-calc",
       "properties": [
@@ -1719,6 +1723,7 @@
       ]
     },
     "jsii-calc.NodeStandardLibrary": {
+      "assembly": "jsii-calc",
       "docs": {
         "comment": "Test fixture to verify that jsii modules can use the node standard library."
       },
@@ -1760,7 +1765,6 @@
           }
         }
       ],
-      "module": "jsii-calc",
       "name": "NodeStandardLibrary",
       "namespace": "jsii-calc",
       "properties": [
@@ -1777,6 +1781,7 @@
       ]
     },
     "jsii-calc.NumberGenerator": {
+      "assembly": "jsii-calc",
       "docs": {
         "comment": "This allows us to test that a reference can be stored for objects that\nimplement interfaces."
       },
@@ -1815,7 +1820,6 @@
           }
         }
       ],
-      "module": "jsii-calc",
       "name": "NumberGenerator",
       "namespace": "jsii-calc",
       "properties": [
@@ -1828,6 +1832,7 @@
       ]
     },
     "jsii-calc.ObjectRefsInCollections": {
+      "assembly": "jsii-calc",
       "docs": {
         "comment": "Verify that object references can be passed inside collections."
       },
@@ -1882,11 +1887,11 @@
           }
         }
       ],
-      "module": "jsii-calc",
       "name": "ObjectRefsInCollections",
       "namespace": "jsii-calc"
     },
     "jsii-calc.OverrideReturnsObject": {
+      "assembly": "jsii-calc",
       "fqn": "jsii-calc.OverrideReturnsObject",
       "initializer": {
         "initializer": true
@@ -1908,11 +1913,11 @@
           }
         }
       ],
-      "module": "jsii-calc",
       "name": "OverrideReturnsObject",
       "namespace": "jsii-calc"
     },
     "jsii-calc.Polymorphism": {
+      "assembly": "jsii-calc",
       "fqn": "jsii-calc.Polymorphism",
       "initializer": {
         "initializer": true
@@ -1934,11 +1939,11 @@
           }
         }
       ],
-      "module": "jsii-calc",
       "name": "Polymorphism",
       "namespace": "jsii-calc"
     },
     "jsii-calc.Power": {
+      "assembly": "jsii-calc",
       "base": {
         "fqn": "jsii-calc.composition.CompositeOperation"
       },
@@ -1948,7 +1953,8 @@
       "fqn": "jsii-calc.Power",
       "initializer": {
         "docs": {
-          "comment": "Creates a Power operation."
+          "comment": "Creates a Power operation.",
+          "param": "pow The number of times to multiply"
         },
         "initializer": true,
         "parameters": [
@@ -1975,7 +1981,6 @@
         ]
       },
       "kind": "class",
-      "module": "jsii-calc",
       "name": "Power",
       "namespace": "jsii-calc",
       "properties": [
@@ -2014,6 +2019,7 @@
       ]
     },
     "jsii-calc.ReturnsNumber": {
+      "assembly": "jsii-calc",
       "fqn": "jsii-calc.ReturnsNumber",
       "kind": "interface",
       "methods": [
@@ -2024,7 +2030,6 @@
           }
         }
       ],
-      "module": "jsii-calc",
       "name": "ReturnsNumber",
       "namespace": "jsii-calc",
       "properties": [
@@ -2038,6 +2043,7 @@
       ]
     },
     "jsii-calc.RuntimeTypeChecking": {
+      "assembly": "jsii-calc",
       "fqn": "jsii-calc.RuntimeTypeChecking",
       "initializer": {
         "initializer": true
@@ -2072,11 +2078,11 @@
           ]
         }
       ],
-      "module": "jsii-calc",
       "name": "RuntimeTypeChecking",
       "namespace": "jsii-calc"
     },
     "jsii-calc.Statics": {
+      "assembly": "jsii-calc",
       "fqn": "jsii-calc.Statics",
       "initializer": {
         "initializer": true,
@@ -2093,7 +2099,8 @@
       "methods": [
         {
           "docs": {
-            "comment": "Jsdocs for static method"
+            "comment": "Jsdocs for static method",
+            "param": "name The name of the person to say hello to"
           },
           "name": "staticMethod",
           "parameters": [
@@ -2120,7 +2127,6 @@
           }
         }
       ],
-      "module": "jsii-calc",
       "name": "Statics",
       "namespace": "jsii-calc",
       "properties": [
@@ -2201,6 +2207,7 @@
       ]
     },
     "jsii-calc.StringEnum": {
+      "assembly": "jsii-calc",
       "fqn": "jsii-calc.StringEnum",
       "kind": "enum",
       "members": [
@@ -2214,11 +2221,11 @@
           "name": "C"
         }
       ],
-      "module": "jsii-calc",
       "name": "StringEnum",
       "namespace": "jsii-calc"
     },
     "jsii-calc.Sum": {
+      "assembly": "jsii-calc",
       "base": {
         "fqn": "jsii-calc.composition.CompositeOperation"
       },
@@ -2230,7 +2237,6 @@
         "initializer": true
       },
       "kind": "class",
-      "module": "jsii-calc",
       "name": "Sum",
       "namespace": "jsii-calc",
       "properties": [
@@ -2261,6 +2267,7 @@
       ]
     },
     "jsii-calc.SyncVirtualMethods": {
+      "assembly": "jsii-calc",
       "fqn": "jsii-calc.SyncVirtualMethods",
       "initializer": {
         "initializer": true
@@ -2352,7 +2359,6 @@
           ]
         }
       ],
-      "module": "jsii-calc",
       "name": "SyncVirtualMethods",
       "namespace": "jsii-calc",
       "properties": [
@@ -2396,6 +2402,7 @@
       ]
     },
     "jsii-calc.Thrower": {
+      "assembly": "jsii-calc",
       "fqn": "jsii-calc.Thrower",
       "initializer": {
         "initializer": true
@@ -2406,12 +2413,12 @@
           "name": "throwError"
         }
       ],
-      "module": "jsii-calc",
       "name": "Thrower",
       "namespace": "jsii-calc"
     },
     "jsii-calc.UnaryOperation": {
       "abstract": true,
+      "assembly": "jsii-calc",
       "base": {
         "fqn": "@scope/jsii-calc-lib.Operation"
       },
@@ -2431,7 +2438,6 @@
         ]
       },
       "kind": "class",
-      "module": "jsii-calc",
       "name": "UnaryOperation",
       "namespace": "jsii-calc",
       "properties": [
@@ -2445,10 +2451,10 @@
       ]
     },
     "jsii-calc.UnionProperties": {
+      "assembly": "jsii-calc",
       "datatype": true,
       "fqn": "jsii-calc.UnionProperties",
       "kind": "interface",
-      "module": "jsii-calc",
       "name": "UnionProperties",
       "namespace": "jsii-calc",
       "properties": [
@@ -2490,6 +2496,7 @@
       ]
     },
     "jsii-calc.UseBundledDependency": {
+      "assembly": "jsii-calc",
       "fqn": "jsii-calc.UseBundledDependency",
       "initializer": {
         "initializer": true
@@ -2503,11 +2510,11 @@
           }
         }
       ],
-      "module": "jsii-calc",
       "name": "UseBundledDependency",
       "namespace": "jsii-calc"
     },
     "jsii-calc.UsesInterfaceWithProperties": {
+      "assembly": "jsii-calc",
       "fqn": "jsii-calc.UsesInterfaceWithProperties",
       "initializer": {
         "initializer": true,
@@ -2557,7 +2564,6 @@
           }
         }
       ],
-      "module": "jsii-calc",
       "name": "UsesInterfaceWithProperties",
       "namespace": "jsii-calc",
       "properties": [
@@ -2571,8 +2577,12 @@
       ]
     },
     "jsii-calc.VariadicMethod": {
+      "assembly": "jsii-calc",
       "fqn": "jsii-calc.VariadicMethod",
       "initializer": {
+        "docs": {
+          "param": "prefix a prefix that will be use for all values returned by ``#asArray``."
+        },
         "initializer": true,
         "parameters": [
           {
@@ -2592,6 +2602,9 @@
       "kind": "class",
       "methods": [
         {
+          "docs": {
+            "param": "others other elements to be included in the array."
+          },
           "name": "asArray",
           "parameters": [
             {
@@ -2627,11 +2640,11 @@
           "variadic": true
         }
       ],
-      "module": "jsii-calc",
       "name": "VariadicMethod",
       "namespace": "jsii-calc"
     },
     "jsii-calc.VirtualMethodPlayground": {
+      "assembly": "jsii-calc",
       "fqn": "jsii-calc.VirtualMethodPlayground",
       "initializer": {
         "initializer": true
@@ -2712,12 +2725,12 @@
           }
         }
       ],
-      "module": "jsii-calc",
       "name": "VirtualMethodPlayground",
       "namespace": "jsii-calc"
     },
     "jsii-calc.composition.CompositeOperation": {
       "abstract": true,
+      "assembly": "jsii-calc",
       "base": {
         "fqn": "@scope/jsii-calc-lib.Operation"
       },
@@ -2740,7 +2753,6 @@
           }
         }
       ],
-      "module": "jsii-calc",
       "name": "CompositeOperation",
       "namespace": "jsii-calc.composition",
       "properties": [
@@ -2805,6 +2817,7 @@
       ]
     },
     "jsii-calc.composition.CompositionStringStyle": {
+      "assembly": "jsii-calc",
       "docs": {
         "comment": "Style of .toString() output for CompositeOperation."
       },
@@ -2818,7 +2831,6 @@
           "name": "Decorated"
         }
       ],
-      "module": "jsii-calc",
       "name": "CompositionStringStyle",
       "namespace": "jsii-calc.composition"
     }
