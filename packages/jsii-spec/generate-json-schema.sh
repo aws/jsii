@@ -11,7 +11,7 @@ OUTPUT_FILE="${OUTPUT_DIR}/assembly.json"
 mkdir -p ${OUTPUT_DIR}
 
 echo "Generating JSON schema into ${OUTPUT_FILE}"
-node_modules/.bin/typescript-json-schema \
+typescript-json-schema                   \
     ${INPUT_FILE}      'Assembly'        \
     --out              ${OUTPUT_FILE}    \
     --refs             true              \
