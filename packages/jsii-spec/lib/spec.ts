@@ -237,11 +237,6 @@ export interface Property extends Documentable {
     abstract?: boolean;
 
     /**
-     * Documentation.
-     */
-    docs: Docs;
-
-    /**
      * Indicates if this is a static property.
      */
     static?: boolean;
@@ -268,11 +263,6 @@ export interface Parameter extends Documentable {
      * The type of the parameter.
      */
     type: TypeReference;
-
-    /**
-     * Documentation.
-     */
-    docs: Docs;
 
     /**
      * Whather this argument is the "rest" of a variadic signature.
@@ -315,11 +305,6 @@ export interface Method extends Documentable {
      * Is this method an abstract method (this means the class will also be an abstract class)
      */
     abstract?: boolean;
-
-    /**
-     * Documentation.
-     */
-    docs: Docs;
 
     /**
      * Indicates whether this method is variadic or not. When ``true``, the last
