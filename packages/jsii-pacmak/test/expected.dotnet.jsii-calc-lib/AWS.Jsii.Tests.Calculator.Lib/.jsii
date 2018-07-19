@@ -1,5 +1,5 @@
 {
-  "fingerprint": "94/Wj+3JnuKOsMX8ryCy+IZs8JpvSJyHm4IY5jmWWGM=",
+  "fingerprint": "iTJNVeXmbHGdxmTUBtoj+5KUK6isPr0eFtSbPL2963A=",
   "dependencies": {
     "@scope/jsii-calc-base": {
       "targets": {
@@ -140,15 +140,13 @@
       "fqn": "@scope/jsii-calc-lib.Number",
       "initializer": {
         "docs": {
-          "comment": "Creates a Number object.",
-          "param": "value The number."
+          "comment": "Creates a Number object."
         },
         "initializer": true,
         "parameters": [
           {
             "docs": {
-              "comment": "The number.",
-              "param": "value The number."
+              "comment": "The number."
             },
             "name": "value",
             "type": {
@@ -163,8 +161,7 @@
       "properties": [
         {
           "docs": {
-            "comment": "The number.",
-            "param": "value The number."
+            "comment": "The number."
           },
           "immutable": true,
           "name": "value",

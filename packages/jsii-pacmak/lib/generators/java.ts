@@ -574,7 +574,8 @@ export default class JavaGenerator extends Generator {
     }
 
     private addJavaDocs(doc: spec.Documentable, defaultText?: string) {
-        if (!defaultText && (!doc.docs || Object.keys(doc.docs).length === 0)) {
+        if (!defaultText && Object.keys(doc.docs || {}).length === 0
+                         && !((doc as spec.Method).parameters || []).find(p => Object.keys(p.docs || {}).length !== 0)) {
             return;
         }
 
@@ -583,7 +584,7 @@ export default class JavaGenerator extends Generator {
         this.code.line('/**');
 
         // If there are no docs
-        if (Object.keys(doc.docs).length === 0) {
+        if (Object.keys(doc.docs).length === 0 && defaultText) {
             this.code.line(` * ${defaultText}`);
         }
 
@@ -591,13 +592,13 @@ export default class JavaGenerator extends Generator {
             const value = doc.docs[key];
             if (key === 'comment') {
                 value.split('\n').forEach(s => this.code.line(` * ${s}`));
-            } else if (key !== 'param' || !(doc as spec.Method).parameters) {
+            } else {
                 this.code.line(` * @${key} ${value.replace(/\n/g, ' ')}`);
             }
         }
 
         // if this is a method, add docs for parameters
-        if ((doc as any).parameters) {
+        if ((doc as spec.Method).parameters) {
             const method = doc as spec.Method;
             if (method.parameters) {
                 for (const param of method.parameters) {

@@ -18,14 +18,12 @@ public class Power extends org.jsii.tests.calculator.composition.CompositeOperat
     }
     /**
      * The base of the power
-     * @param base The base of the power
      */
     public org.jsii.tests.calculator.lib.Value getBase() {
         return this.jsiiGet("base", org.jsii.tests.calculator.lib.Value.class);
     }
     /**
      * The number of times to multiply
-     * @param pow The number of times to multiply
      */
     public org.jsii.tests.calculator.lib.Value getPow() {
         return this.jsiiGet("pow", org.jsii.tests.calculator.lib.Value.class);

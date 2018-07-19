@@ -1,5 +1,5 @@
 {
-  "fingerprint": "tXiVsJkaI41VVtT7bJdmwdW4bO03N8y3bbcmRGdoano=",
+  "fingerprint": "A9t4hQIy+Vmt9bbmqQm7+5Lq7PeGlj50VW4ndWt9Z+w=",
   "bundled": {
     "jsii-calc-bundled": "^0.5.0-beta"
   },
@@ -273,15 +273,13 @@
       "fqn": "jsii-calc.Add",
       "initializer": {
         "docs": {
-          "comment": "Creates a BinaryOperation",
-          "param": "rhs Right-hand side operand"
+          "comment": "Creates a BinaryOperation"
         },
         "initializer": true,
         "parameters": [
           {
             "docs": {
-              "comment": "Left-hand side operand",
-              "param": "lhs Left-hand side operand"
+              "comment": "Left-hand side operand"
             },
             "name": "lhs",
             "type": {
@@ -290,8 +288,7 @@
           },
           {
             "docs": {
-              "comment": "Right-hand side operand",
-              "param": "rhs Right-hand side operand"
+              "comment": "Right-hand side operand"
             },
             "name": "rhs",
             "type": {
@@ -702,15 +699,13 @@
       "fqn": "jsii-calc.BinaryOperation",
       "initializer": {
         "docs": {
-          "comment": "Creates a BinaryOperation",
-          "param": "rhs Right-hand side operand"
+          "comment": "Creates a BinaryOperation"
         },
         "initializer": true,
         "parameters": [
           {
             "docs": {
-              "comment": "Left-hand side operand",
-              "param": "lhs Left-hand side operand"
+              "comment": "Left-hand side operand"
             },
             "name": "lhs",
             "type": {
@@ -719,8 +714,7 @@
           },
           {
             "docs": {
-              "comment": "Right-hand side operand",
-              "param": "rhs Right-hand side operand"
+              "comment": "Right-hand side operand"
             },
             "name": "rhs",
             "type": {
@@ -751,8 +745,7 @@
       "properties": [
         {
           "docs": {
-            "comment": "Left-hand side operand",
-            "param": "lhs Left-hand side operand"
+            "comment": "Left-hand side operand"
           },
           "immutable": true,
           "name": "lhs",
@@ -762,8 +755,7 @@
         },
         {
           "docs": {
-            "comment": "Right-hand side operand",
-            "param": "rhs Right-hand side operand"
+            "comment": "Right-hand side operand"
           },
           "immutable": true,
           "name": "rhs",
@@ -784,15 +776,13 @@
       "fqn": "jsii-calc.Calculator",
       "initializer": {
         "docs": {
-          "comment": "Creates a Calculator object.",
-          "param": "props Initialization properties."
+          "comment": "Creates a Calculator object."
         },
         "initializer": true,
         "parameters": [
           {
             "docs": {
-              "comment": "Initialization properties.",
-              "param": "props Initialization properties."
+              "comment": "Initialization properties."
             },
             "name": "props",
             "type": {
@@ -1554,15 +1544,13 @@
       "fqn": "jsii-calc.Multiply",
       "initializer": {
         "docs": {
-          "comment": "Creates a BinaryOperation",
-          "param": "rhs Right-hand side operand"
+          "comment": "Creates a BinaryOperation"
         },
         "initializer": true,
         "parameters": [
           {
             "docs": {
-              "comment": "Left-hand side operand",
-              "param": "lhs Left-hand side operand"
+              "comment": "Left-hand side operand"
             },
             "name": "lhs",
             "type": {
@@ -1571,8 +1559,7 @@
           },
           {
             "docs": {
-              "comment": "Right-hand side operand",
-              "param": "rhs Right-hand side operand"
+              "comment": "Right-hand side operand"
             },
             "name": "rhs",
             "type": {
@@ -1953,15 +1940,13 @@
       "fqn": "jsii-calc.Power",
       "initializer": {
         "docs": {
-          "comment": "Creates a Power operation.",
-          "param": "pow The number of times to multiply"
+          "comment": "Creates a Power operation."
         },
         "initializer": true,
         "parameters": [
           {
             "docs": {
-              "comment": "The base of the power",
-              "param": "base The base of the power"
+              "comment": "The base of the power"
             },
             "name": "base",
             "type": {
@@ -1970,8 +1955,7 @@
           },
           {
             "docs": {
-              "comment": "The number of times to multiply",
-              "param": "pow The number of times to multiply"
+              "comment": "The number of times to multiply"
             },
             "name": "pow",
             "type": {
@@ -1986,8 +1970,7 @@
       "properties": [
         {
           "docs": {
-            "comment": "The base of the power",
-            "param": "base The base of the power"
+            "comment": "The base of the power"
           },
           "immutable": true,
           "name": "base",
@@ -1997,8 +1980,7 @@
         },
         {
           "docs": {
-            "comment": "The number of times to multiply",
-            "param": "pow The number of times to multiply"
+            "comment": "The number of times to multiply"
           },
           "immutable": true,
           "name": "pow",
@@ -2099,15 +2081,13 @@
       "methods": [
         {
           "docs": {
-            "comment": "Jsdocs for static method",
-            "param": "name The name of the person to say hello to"
+            "comment": "Jsdocs for static method"
           },
           "name": "staticMethod",
           "parameters": [
             {
               "docs": {
-                "comment": "The name of the person to say hello to",
-                "param": "name The name of the person to say hello to"
+                "comment": "The name of the person to say hello to"
               },
               "name": "name",
               "type": {
@@ -2580,15 +2560,11 @@
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.VariadicMethod",
       "initializer": {
-        "docs": {
-          "param": "prefix a prefix that will be use for all values returned by ``#asArray``."
-        },
         "initializer": true,
         "parameters": [
           {
             "docs": {
-              "comment": "a prefix that will be use for all values returned by ``#asArray``.",
-              "param": "prefix a prefix that will be use for all values returned by ``#asArray``."
+              "comment": "a prefix that will be use for all values returned by ``#asArray``."
             },
             "name": "prefix",
             "type": {
@@ -2602,15 +2578,11 @@
       "kind": "class",
       "methods": [
         {
-          "docs": {
-            "param": "others other elements to be included in the array."
-          },
           "name": "asArray",
           "parameters": [
             {
               "docs": {
-                "comment": "the first element of the array to be returned (after the ``prefix`` provided at construction time).",
-                "param": "first the first element of the array to be returned (after the ``prefix`` provided at construction time)."
+                "comment": "the first element of the array to be returned (after the ``prefix`` provided at construction time)."
               },
               "name": "first",
               "type": {
@@ -2619,8 +2591,7 @@
             },
             {
               "docs": {
-                "comment": "other elements to be included in the array.",
-                "param": "others other elements to be included in the array."
+                "comment": "other elements to be included in the array."
               },
               "name": "others",
               "type": {

@@ -17,7 +17,6 @@ public class Number extends org.jsii.tests.calculator.lib.Value {
     }
     /**
      * The number.
-     * @param value The number.
      */
     public java.lang.Number getValue() {
         return this.jsiiGet("value", java.lang.Number.class);

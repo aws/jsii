@@ -433,6 +433,7 @@ export async function compileSources(entrypoint: string,
         }
 
         const initializer: spec.Method = {
+            parameters: [], // So this can be recognized as a Method by `addDocumentation`
             initializer: true
         };
 
@@ -529,7 +530,8 @@ export async function compileSources(entrypoint: string,
         }
 
         const method: spec.Method = {
-            name: decl.name.getText()
+            name: decl.name.getText(),
+            parameters: [], // So this can be recognized as a Method by `addDocumentation`
         };
 
         if (hasModifier(decl, ts.SyntaxKind.StaticKeyword)) {
@@ -922,15 +924,15 @@ export async function compileSources(entrypoint: string,
 
     function addDocumentation(target: spec.Documentable, symbol: ts.Symbol) {
         for (const tag of symbol.getJsDocTags()) {
-            // Don't duplicate @params for Methods that have parameters...
-            if (!(target as spec.Method).parameters || tag.name !== 'param') {
+            // Don't duplicate @params, they're handled on the params themselves...
+            if (tag.name !== 'param') {
                 target.docs = target.docs || {};
                 target.docs[tag.name] = tag.text || '';
             }
         }
 
         const comment = ts.displayPartsToString(symbol.getDocumentationComment(typeChecker));
-        if (comment && comment.length > 0) {
+        if (comment) {
             target.docs = target.docs || {};
             target.docs.comment = comment;
         }

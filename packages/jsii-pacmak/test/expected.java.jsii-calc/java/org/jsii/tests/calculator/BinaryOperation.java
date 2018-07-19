@@ -15,14 +15,12 @@ public abstract class BinaryOperation extends org.jsii.tests.calculator.lib.Oper
     }
     /**
      * Left-hand side operand
-     * @param lhs Left-hand side operand
      */
     public org.jsii.tests.calculator.lib.Value getLhs() {
         return this.jsiiGet("lhs", org.jsii.tests.calculator.lib.Value.class);
     }
     /**
      * Right-hand side operand
-     * @param rhs Right-hand side operand
      */
     public org.jsii.tests.calculator.lib.Value getRhs() {
         return this.jsiiGet("rhs", org.jsii.tests.calculator.lib.Value.class);
