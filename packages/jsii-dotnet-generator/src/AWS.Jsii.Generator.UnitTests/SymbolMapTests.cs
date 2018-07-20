@@ -89,7 +89,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type1 = new ClassType
                 (
                     fullyQualifiedName: "myFqn1",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "MyType",
                     @namespace: "my-package",
                     isAbstract: false
@@ -97,7 +97,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type2 = new ClassType
                 (
                     fullyQualifiedName: "myFqn2",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myType2",
                     @namespace: "my-package.MyType",
                     isAbstract: false
@@ -128,7 +128,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myType",
                     @namespace: "my-package",
                     isAbstract: false,
@@ -167,7 +167,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new EnumType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myType",
                     @namespace: "jsii$my_assembly$",
                     members: new EnumMember[] { }
@@ -188,7 +188,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type1 = new EnumType
                 (
                     fullyQualifiedName: "myFqn1",
-                    module: "my-package-1",
+                    assembly: "my-package-1",
                     name: "myType",
                     @namespace: "my-package-1",
                     members: new EnumMember[] { }
@@ -196,7 +196,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type2 = new EnumType
                 (
                     fullyQualifiedName: "myFqn2",
-                    module: "my-package-2",
+                    assembly: "my-package-2",
                     name: "myType",
                     @namespace: "my-package-2",
                     members: new EnumMember[] { }
@@ -237,7 +237,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type1 = new EnumType
                 (
                     fullyQualifiedName: "myFqn1",
-                    module: "my-package-1",
+                    assembly: "my-package-1",
                     name: "myType1",
                     @namespace: "my-package-1",
                     members: new EnumMember[] { }
@@ -245,7 +245,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type2 = new EnumType
                 (
                     fullyQualifiedName: "myFqn2",
-                    module: "my-package-2",
+                    assembly: "my-package-2",
                     name: "myType2",
                     @namespace: "my-package-2",
                     members: new EnumMember[] { }
@@ -286,7 +286,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type1 = new EnumType
                 (
                     fullyQualifiedName: "myFqn1",
-                    module: "my-package-1",
+                    assembly: "my-package-1",
                     name: "myType",
                     @namespace: "my-package-1",
                     members: new EnumMember[] { }
@@ -294,7 +294,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type2 = new EnumType
                 (
                     fullyQualifiedName: "myFqn2",
-                    module: "my-package-2",
+                    assembly: "my-package-2",
                     name: "myType",
                     @namespace: "my-package-2",
                     members: new EnumMember[] { }
@@ -342,7 +342,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myType",
                     @namespace: "jsii$my_assembly$",
                     isAbstract: false,
@@ -369,7 +369,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myType",
                     @namespace: "my-package",
                     isAbstract: false,
@@ -389,7 +389,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new EnumType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myType",
                     @namespace: "my-package",
                     members: new[] { member }
@@ -416,7 +416,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myType",
                     @namespace: "my-package",
                     isAbstract: false,
@@ -440,7 +440,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new EnumType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myType",
                     @namespace: "my-package",
                     members: new EnumMember[] { }
@@ -461,7 +461,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type1 = new EnumType
                 (
                     fullyQualifiedName: "myFqn1",
-                    module: "my-package-1",
+                    assembly: "my-package-1",
                     name: "myType",
                     @namespace: "my-package-1",
                     members: new EnumMember[] { }
@@ -469,7 +469,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type2 = new EnumType
                 (
                     fullyQualifiedName: "myFqn2",
-                    module: "my-package-2",
+                    assembly: "my-package-2",
                     name: "myType",
                     @namespace: "my-package-2",
                     members: new EnumMember[] { }
@@ -510,7 +510,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type1 = new EnumType
                 (
                     fullyQualifiedName: "myFqn1",
-                    module: "my-package-1",
+                    assembly: "my-package-1",
                     name: "myType1",
                     @namespace: "my-package-1",
                     members: new EnumMember[] { }
@@ -518,7 +518,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type2 = new EnumType
                 (
                     fullyQualifiedName: "myFqn2",
-                    module: "my-package-2",
+                    assembly: "my-package-2",
                     name: "myType2",
                     @namespace: "my-package-2",
                     members: new EnumMember[] { }
@@ -559,7 +559,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type1 = new EnumType
                 (
                     fullyQualifiedName: "myFqn1",
-                    module: "my-package-1",
+                    assembly: "my-package-1",
                     name: "myType",
                     @namespace: "my-package-1",
                     members: new EnumMember[] { }
@@ -567,7 +567,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type2 = new EnumType
                 (
                     fullyQualifiedName: "myFqn2",
-                    module: "my-package-2",
+                    assembly: "my-package-2",
                     name: "myType",
                     @namespace: "my-package-2",
                     members: new EnumMember[] { }
@@ -615,7 +615,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myType",
                     @namespace: "my-package",
                     isAbstract: false,
@@ -642,7 +642,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myType",
                     @namespace: "my-package",
                     isAbstract: false,
@@ -662,7 +662,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new EnumType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myType",
                     @namespace: "my-package",
                     members: new[] { member }
@@ -689,7 +689,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myType",
                     @namespace: "my-package",
                     isAbstract: false,
@@ -713,7 +713,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new EnumType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myType",
                     @namespace: "my-package",
                     members: new EnumMember[] { }
@@ -734,7 +734,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type1 = new EnumType
                 (
                     fullyQualifiedName: "myFqn1",
-                    module: "my-package-1",
+                    assembly: "my-package-1",
                     name: "myType",
                     @namespace: "my-package-1",
                     members: new EnumMember[] { }
@@ -742,7 +742,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type2 = new EnumType
                 (
                     fullyQualifiedName: "myFqn2",
-                    module: "my-package-2",
+                    assembly: "my-package-2",
                     name: "myType",
                     @namespace: "my-package-2",
                     members: new EnumMember[] { }
@@ -783,7 +783,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type1 = new EnumType
                 (
                     fullyQualifiedName: "myFqn1",
-                    module: "my-package-1",
+                    assembly: "my-package-1",
                     name: "myType1",
                     @namespace: "my-package-1",
                     members: new EnumMember[] { }
@@ -791,7 +791,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type2 = new EnumType
                 (
                     fullyQualifiedName: "myFqn2",
-                    module: "my-package-2",
+                    assembly: "my-package-2",
                     name: "myType2",
                     @namespace: "my-package-2",
                     members: new EnumMember[] { }
@@ -832,7 +832,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type1 = new EnumType
                 (
                     fullyQualifiedName: "myFqn1",
-                    module: "my-package-1",
+                    assembly: "my-package-1",
                     name: "myType",
                     @namespace: "my-package-1",
                     members: new EnumMember[] { }
@@ -840,7 +840,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type2 = new EnumType
                 (
                     fullyQualifiedName: "myFqn2",
-                    module: "my-package-2",
+                    assembly: "my-package-2",
                     name: "myType",
                     @namespace: "my-package-2",
                     members: new EnumMember[] { }
@@ -888,7 +888,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myType",
                     @namespace: "my-package",
                     isAbstract: false,
@@ -915,7 +915,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myType",
                     @namespace: "my-package",
                     isAbstract: false,
@@ -935,7 +935,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new EnumType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myType",
                     @namespace: "my-package",
                     members: new[] { member }
@@ -962,7 +962,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myType",
                     @namespace: "my-package",
                     isAbstract: false,
@@ -986,7 +986,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myName",
                     @namespace: "my-package",
                     isAbstract: false
@@ -1004,7 +1004,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myName",
                     @namespace: "my-package",
                     isAbstract: false
@@ -1027,7 +1027,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myName",
                     @namespace: "my-package",
                     isAbstract: false
@@ -1045,7 +1045,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myName",
                     @namespace: "my-package",
                     isAbstract: false
@@ -1068,7 +1068,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myName",
                     @namespace: "my-package",
                     isAbstract: false
@@ -1086,7 +1086,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myName",
                     @namespace: "my-package",
                     isAbstract: false
@@ -1109,7 +1109,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myName",
                     @namespace: "my-package",
                     isAbstract: false
@@ -1127,7 +1127,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myName",
                     @namespace: "my-package",
                     isAbstract: false
@@ -1150,7 +1150,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myName",
                     @namespace: "my-package",
                     isAbstract: false
@@ -1168,7 +1168,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myName",
                     @namespace: "my-package",
                     isAbstract: false
@@ -1191,7 +1191,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myName",
                     @namespace: "my-package",
                     isAbstract: false
@@ -1209,7 +1209,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myName",
                     @namespace: "my-package",
                     isAbstract: false
@@ -1297,7 +1297,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myName",
                     @namespace: "my-package",
                     isAbstract: false
@@ -1321,7 +1321,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 Type type = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "my-package",
+                    assembly: "my-package",
                     name: "myName",
                     @namespace: "my-package",
                     isAbstract: false
@@ -1333,7 +1333,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 ClassType actual = symbolMap.GetTypeFromFullyQualifiedName("myFqn") as ClassType;
                 Assert.NotNull(actual);
                 Assert.Equal("myFqn", actual.FullyQualifiedName, ignoreLineEndingDifferences: true);
-                Assert.Equal("my-package", actual.Module, ignoreLineEndingDifferences: true);
+                Assert.Equal("my-package", actual.Assembly, ignoreLineEndingDifferences: true);
                 Assert.Equal("myName", actual.Name, ignoreLineEndingDifferences: true);
                 Assert.Equal("my-package", actual.Namespace, ignoreLineEndingDifferences: true);
                 Assert.False(actual.IsAbstract);

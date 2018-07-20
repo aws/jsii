@@ -10,7 +10,7 @@ namespace AWS.Jsii.JsonModel.Spec
         public PackageVersion
         (
             string version,
-            Targets targets,
+            Targets targets = null,
             IDictionary<string, PackageVersion> dependencies = null
         ): base(targets, dependencies)
         {

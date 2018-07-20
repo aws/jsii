@@ -63,10 +63,10 @@ export abstract class Generator implements IGenerator {
     }
 
     public async load(jsiiFile: string) {
-        this.assembly = await fs.readJson(jsiiFile) as spec.Assembly;
+        this.assembly = spec.validateAssembly(await fs.readJson(jsiiFile));
 
-        if (this.assembly.schema !== spec.SPEC_VERSION) {
-            throw new Error(`Invalid schema version "${this.assembly.schema}". Expecting "${spec.SPEC_VERSION}"`);
+        if (this.assembly.schema !== spec.SchemaVersion.V1_0) {
+            throw new Error(`Invalid schema version "${this.assembly.schema}". Expecting "${spec.SchemaVersion.V1_0}"`);
         }
 
         // Including the version of jsii-pacmak in the fingerprint, as a new version may imply different code generation.
@@ -147,7 +147,7 @@ export abstract class Generator implements IGenerator {
     //
     // Classes
 
-    protected onBeginClass(cls: spec.ClassType, abstract: boolean) { cls; abstract; }
+    protected onBeginClass(cls: spec.ClassType, abstract: boolean | undefined) { cls; abstract; }
     protected onEndClass(cls: spec.ClassType) { cls; }
 
     //
@@ -225,7 +225,7 @@ export abstract class Generator implements IGenerator {
         }
 
         if (node.fqn) {
-            let type = this.assembly.types[node.fqn];
+            let type = this.assembly.types && this.assembly.types[node.fqn];
             if (!type) {
                 throw new Error(`Malformed jsii file. Cannot find type: ${node.fqn}`);
             }
@@ -257,7 +257,7 @@ export abstract class Generator implements IGenerator {
                         this.onEndInterface(interfaceSpec);
                         break;
                     default:
-                        throw new Error('Unsupported type kind: ' + type.kind);
+                        throw new Error('Unsupported type kind: ' + (type as any).kind);
                 }
             }
         } else {
@@ -337,7 +337,7 @@ export abstract class Generator implements IGenerator {
         }
     }
 
-    private visitClass(cls: spec.ClassType, abstract: boolean) {
+    private visitClass(cls: spec.ClassType, abstract: boolean | undefined) {
         let initializer = cls.initializer;
         if (!abstract && initializer) {
 
@@ -375,35 +375,31 @@ export abstract class Generator implements IGenerator {
             this.onBeginProperties(cls);
             cls.properties.forEach(prop => {
                 if (this.hasField(cls, prop)) {
-                    this.onField(cls, prop, prop.type.union);
+                    this.onField(cls, prop, spec.isUnionTypeReference(prop.type) ? prop.type : undefined);
                 }
             })
 
             cls.properties.forEach(prop => {
-                // emit a regular property
-                let union = prop.type.union;
-
-                if (!union) {
+                if (!spec.isUnionTypeReference(prop.type)) {
                     if (!prop.static) {
                         this.onProperty(cls, prop);
                     } else {
                         this.onStaticProperty(cls, prop);
                     }
-                }
-                else {
+                } else {
                     // okay, this is a union. some languages support unions (mostly the dynamic ones) and some will need some help
                     // if `expandUnionProperties` is set, we will "expand" each property that has a union type into multiple properties
                     // and postfix their name with the type name (i.e. FooAsToken).
 
                     // first, emit a property for the union, for languages that support unions.
-                    this.onUnionProperty(cls, prop, union);
+                    this.onUnionProperty(cls, prop, prop.type);
 
                     // if require, we also "expand" the union for languages that don't support unions.
                     if (this.options.expandUnionProperties) {
-                        union.types.forEach((type, index) => {
+                        prop.type.union.types.forEach((type, index) => {
                             // create a clone of this property
                             let propClone = clone(prop) as spec.Property;
-                            let primary = this.isPrimaryExpandedUnionProperty(union, index);
+                            let primary = this.isPrimaryExpandedUnionProperty(prop.type as spec.UnionTypeReference, index);
                             let propertyName = primary ? prop.name : `${prop.name}As${this.displayNameForType(type)}`;
                             propClone.type = type;
                             propClone.type.optional = prop.type.optional;
@@ -426,13 +422,13 @@ export abstract class Generator implements IGenerator {
      * 2. The first primitive collection
      * 3. No primary
      */
-    protected isPrimaryExpandedUnionProperty(union: spec.UnionTypeReference | undefined, index: number) {
-        if (!union) {
+    protected isPrimaryExpandedUnionProperty(ref: spec.UnionTypeReference | undefined, index: number) {
+        if (!ref) {
             return false;
         }
 
-        return index === union.types.findIndex(t => {
-            if (t.primitive) {
+        return index === ref.union.types.findIndex(t => {
+            if (spec.isPrimitiveTypeReference(t)) {
                 return true;
             }
 
@@ -452,24 +448,24 @@ export abstract class Generator implements IGenerator {
 
     private displayNameForType(type: spec.TypeReference): string {
         // last name from FQN
-        if (type.fqn) {
+        if (spec.isNamedTypeReference(type)) {
             let comps = type.fqn.split('.');
             let last = comps[comps.length - 1];
             return this.code.toPascalCase(last);
         }
 
         // primitive name
-        if (type.primitive) {
+        if (spec.isPrimitiveTypeReference(type)) {
             return this.code.toPascalCase(type.primitive);
         }
 
         // ListOfX or MapOfX
-        let coll = type.collection;
+        let coll = spec.isCollectionTypeReference(type) && type.collection;
         if (coll) {
             return `${this.code.toPascalCase(coll.kind)}Of${this.displayNameForType(coll.elementtype)}`;
         }
 
-        let union = type.union;
+        let union = spec.isUnionTypeReference(type) && type.union;
         if (union) {
             return union.types.map(t => this.displayNameForType(t)).join('Or');
         }
@@ -481,7 +477,7 @@ export abstract class Generator implements IGenerator {
 
         const lookupType = (asm: spec.Assembly): spec.Type | undefined => {
 
-            const type = asm.types[fqn];
+            const type = asm.types && asm.types[fqn];
             if (type) {
                 return type;
             }

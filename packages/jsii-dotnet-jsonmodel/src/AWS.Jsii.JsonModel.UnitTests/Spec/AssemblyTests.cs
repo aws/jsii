@@ -64,21 +64,6 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 ));
             }
 
-            [Fact(DisplayName = Prefix + nameof(ShouldThrowOnMissingTargets))]
-            public void ShouldThrowOnMissingTargets()
-            {
-                Assert.Throws<ArgumentNullException>(() => new Assembly
-                (
-                    name: "myName",
-                    version: "myVersion",
-                    targets: null,
-                    types: new Dictionary<string, JsonModel.Spec.Type>(),
-                    dependencies: new Dictionary<string, PackageVersion>(),
-                    bundled: new Dictionary<string, string>(),
-                    docs: new Docs()
-                ));
-            }
-
             [Fact(DisplayName = Prefix + nameof(ShouldThrowOnMissingVersion))]
             public void ShouldThrowOnMissingVersion()
             {
@@ -88,21 +73,6 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                     targets: new Targets("Dot.Net.Namespace"),
                     version: null,
                     types: new Dictionary<string, JsonModel.Spec.Type>(),
-                    dependencies: new Dictionary<string, PackageVersion>(),
-                    bundled: new Dictionary<string, string>(),
-                    docs: new Docs()
-                ));
-            }
-
-            [Fact(DisplayName = Prefix + nameof(ShouldThrowOnMissingTypes))]
-            public void ShouldThrowOnMissingTypes()
-            {
-                Assert.Throws<ArgumentNullException>(() => new Assembly
-                (
-                    name: "myName",
-                    targets: new Targets("Dot.Net.Namespace"),
-                    version: "myVersion",
-                    types: null,
                     dependencies: new Dictionary<string, PackageVersion>(),
                     bundled: new Dictionary<string, string>(),
                     docs: new Docs()
@@ -216,11 +186,6 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 const string json = @"{
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
-  ""targets"": {
-    ""dotnet"": {
-      ""namespace"": ""Dot.Net.Namespace""
-    }
-  },
   ""version"": ""myVersion"",
   ""types"": {},
   ""dependencies"": {},
@@ -232,13 +197,38 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
 
                 Assert.Equal("jsii/1.0", actual.Schema, ignoreLineEndingDifferences: true);
                 Assert.Equal("myName", actual.Name, ignoreLineEndingDifferences: true);
-                Assert.Equal("Dot.Net.Namespace", actual.Targets.DotNet);
+                Assert.Null(actual.Targets);
                 Assert.Equal("myVersion", actual.Version, ignoreLineEndingDifferences: true);
                 Assert.Empty(actual.Types);
                 Assert.Empty(actual.Dependencies);
                 Assert.Empty(actual.Bundled);
                 Assert.Empty(actual.Docs);
             }
+
+            [Fact(DisplayName = Prefix + nameof(ShouldDeserializeAllMembersWithNoTypes))]
+            public void ShouldDeserializeAllMembersWithNoTypes()
+            {
+                const string json = @"{
+  ""schema"": ""jsii/1.0"",
+  ""name"": ""myName"",
+  ""version"": ""myVersion"",
+  ""dependencies"": {},
+  ""bundled"": {},
+  ""docs"": {}
+}";
+
+                Assembly actual = JsonConvert.DeserializeObject<Assembly>(json);
+
+                Assert.Equal("jsii/1.0", actual.Schema, ignoreLineEndingDifferences: true);
+                Assert.Equal("myName", actual.Name, ignoreLineEndingDifferences: true);
+                Assert.Null(actual.Targets);
+                Assert.Equal("myVersion", actual.Version, ignoreLineEndingDifferences: true);
+                Assert.Null(actual.Types);
+                Assert.Empty(actual.Dependencies);
+                Assert.Empty(actual.Bundled);
+                Assert.Empty(actual.Docs);
+            }
+
 
             [Fact(DisplayName = Prefix + nameof(ShouldDeserializeAllMembersWithDotNetTarget))]
             public void ShouldDeserializeAllMembersWithDotNetTarget()
@@ -285,22 +275,6 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 Assert.Throws<ArgumentNullException>(() => JsonConvert.DeserializeObject<Assembly>(json));
             }
 
-            [Fact(DisplayName = Prefix + nameof(ShouldThrowOnMissingTargets))]
-            public void ShouldThrowOnMissingTargets()
-            {
-                const string json = @"{
-  ""schema"": ""jsii/1.0"",
-  ""name"": ""myName"",
-  ""version"": ""myVersion"",
-  ""types"": {},
-  ""dependencies"": {},
-  ""bundled"": {},
-  ""docs"": {}
-}";
-
-                Assert.Throws<ArgumentNullException>(() => JsonConvert.DeserializeObject<Assembly>(json));
-            }
-
             [Fact(DisplayName = Prefix + nameof(ShouldThrowOnMissingDotNetTarget))]
             public void ShouldThrowOnMissingDotNetTarget()
             {
@@ -326,22 +300,6 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
   ""name"": ""myName"",
   ""targets"": { ""dotnet"": { ""namespace"": ""AWS.Cdk.Test"" } },
   ""types"": {},
-  ""dependencies"": {},
-  ""bundled"": {},
-  ""docs"": {}
-}";
-
-                Assert.Throws<ArgumentNullException>(() => JsonConvert.DeserializeObject<Assembly>(json));
-            }
-
-            [Fact(DisplayName = Prefix + nameof(ShouldThrowOnMissingTypes))]
-            public void ShouldThrowOnMissingTypes()
-            {
-                const string json = @"{
-  ""schema"": ""jsii/1.0"",
-  ""name"": ""myName"",
-  ""targets"": { ""dotnet"": { ""namespace"": ""AWS.Cdk.Test"" } },
-  ""version"": ""myVersion"",
   ""dependencies"": {},
   ""bundled"": {},
   ""docs"": {}

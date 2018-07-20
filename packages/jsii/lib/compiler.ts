@@ -1,12 +1,12 @@
-import * as Case from 'case';
-import * as clone from 'clone';
-import * as fs from 'fs-extra';
-import * as glob from 'glob';
-import * as spec from 'jsii-spec';
-import * as crypto from 'crypto';
-import * as path from 'path';
-import * as ts from 'typescript';
-import * as util from 'util';
+import Case = require('case');
+import clone = require('clone');
+import crypto = require('crypto');
+import fs = require('fs-extra');
+import glob = require('glob');
+import spec = require('jsii-spec');
+import path = require('path');
+import ts = require('typescript');
+import util = require('util');
 import { getCompilerOptions, saveCompilerOptions, saveLinterOptions } from './compiler-options';
 import { fileSystemLoader, includeAndRenderExamples, loadFromFile } from './literate';
 import readPackageMetadata from './package-metadata';
@@ -50,25 +50,37 @@ export async function compilePackage(packageDir: string, includeDirs = [ 'test',
     const targets = new Set(Object.keys(pkg.targets));
     const { lookup, dependencies, bundled } = await readDependencies(packageDir, pkg.dependencies, pkg.bundledDependencies, targets);
 
-    const mod = await compileSources(pkg.entrypoint, files, lookup);
+    const assm: spec.Assembly = {
+        schema: spec.SchemaVersion.V1_0,
+        name: pkg.name,
+        version: pkg.version.replace(/\+.+$/, ''),
+        targets: {
+            ...pkg.targets,
+            // automatically add a "js" target based on the npm name.
+            js: { npm: pkg.name }
+        },
+        readme: await loadReadme(packageDir),
+        dependencies,
+        bundled,
+        fingerprint: '<TBD>',
+        types: {}
+    };
+    await compileSources(pkg.entrypoint, files, lookup, assm);
 
-    // add package information
-    mod.name = pkg.name;
-    mod.version = pkg.version.replace(/\+.+$/, ''); // omit "+build" postfix
-    mod.dependencies = dependencies;
-    mod.bundled = bundled;
-    mod.targets = pkg.targets;
+    return normalizeAssembly();
 
-    // automatically add a "js" target based on the npm name.
-    mod.targets.js = { npm: pkg.name };
-
-    mod.readme = await loadReadme(packageDir);
-
-    // Not accounting for the 'fingerprint' field when fingerprinting.
-    delete mod.fingerprint;
-    mod.fingerprint = crypto.createHash('md5').update(JSON.stringify(sortJson(mod), filterEmpty)).digest('base64');
-
-    return mod;
+    /**
+     * Normalizes (aka sorts) and fingerprints the assembly.
+     */
+    function normalizeAssembly() {
+        const sorted = sortJson(assm);
+        // Not accounting for the 'fingerprint' field when fingerprinting.
+        delete sorted.fingerprint;
+        const fingerprint = crypto.createHash('sha256')
+                                  .update(JSON.stringify(sortJson(sorted), filterEmpty))
+                                  .digest('base64');
+        return { fingerprint, ...sorted } as spec.Assembly;
+    }
 }
 
 async function loadReadme(packageDir: string): Promise<{ markdown: string } | undefined> {
@@ -94,13 +106,17 @@ interface ReferencedFqn {
 
 /**
  * Compiles a set of source files and returns a spec. Note that the spec will not contain package information.
- * @param entrypoint The main source file.
- * @param otherSources Other source files to include.
+ * @param entrypoint            The main source file.
+ * @param otherSources          Other source files to include.
+ * @param externalTypes         Types imported from dependencies
+ * @params assm                 The assembly to add types to.
+ * @param treatWarningsAsErrors Fail on warnings
  */
 export async function compileSources(entrypoint: string,
                                      otherSources = new Array<string>(),
                                      externalTypes = new Map<string, spec.Type>(),
-                                     treatWarningsAsErrors = false): Promise<spec.Assembly> {
+                                     assm: spec.Assembly,
+                                     treatWarningsAsErrors = false): Promise<void> {
     const options = getCompilerOptions();
     const prog = compileProgramSync([ entrypoint, ...otherSources ], options);
     const typeChecker = prog.getTypeChecker();
@@ -109,7 +125,6 @@ export async function compileSources(entrypoint: string,
     const rootModule = typeChecker.getSymbolAtLocation(sourceFile);
 
     // this is it, start parsing...
-    const mod = new spec.Assembly();
     const types = new Array<spec.Type>();
 
     // collect all refs to FQNs so we can validate we don't use unexported types
@@ -117,12 +132,12 @@ export async function compileSources(entrypoint: string,
 
     if (rootModule) {
         await processModule(rootModule, []);
-        addTypeInfo(mod, types);
-        verifyUnexportedTypes(mod, typeRefs, externalTypes);
-        normalizeInitializers(mod, externalTypes);
+        addTypeInfo(assm, types);
+        verifyUnexportedTypes(assm, typeRefs, externalTypes);
+        normalizeInitializers(assm, externalTypes);
     }
 
-    return mod;
+    return; // Below this are helper functions
 
     /**
      * Process a module
@@ -168,7 +183,7 @@ export async function compileSources(entrypoint: string,
             sym.declarations[0].kind === ts.SyntaxKind.InterfaceDeclaration;
     }
 
-    async function tryProcessBaseType(type: ts.Type, ctx: string[]) {
+    async function tryProcessBaseType(type: ts.Type, ctx: string[]): Promise<spec.NamedTypeReference | undefined> {
         ctx = newContext(ctx, type.symbol ? type.symbol.name : '<unknown-base-class>');
 
         const baseTypes = type.getBaseTypes();
@@ -181,19 +196,19 @@ export async function compileSources(entrypoint: string,
         }
 
         const resolvedType = await resolveType(baseTypes[0], ctx);
-        if (!resolvedType.fqn) {
+        if (!spec.isNamedTypeReference(resolvedType)) {
             throw error(ctx, 'Unexpected base type: ' + JSON.stringify(resolvedType));
         }
 
-        return resolvedType as spec.UserTypeReference;
+        return resolvedType;
     }
 
-    async function tryProcessClassInterfaces(decl: ts.ClassDeclaration, ctx: string[]): Promise<spec.UserTypeReference[] | undefined> {
+    async function tryProcessClassInterfaces(decl: ts.ClassDeclaration, ctx: string[]): Promise<spec.NamedTypeReference[] | undefined> {
         if (!decl.heritageClauses) {
             return;
         }
 
-        const result = new Array<spec.UserTypeReference>();
+        const result = new Array<spec.NamedTypeReference>();
 
         for (const hc of decl.heritageClauses) {
             if (hc.token === ts.SyntaxKind.ExtendsKeyword) {
@@ -207,8 +222,9 @@ export async function compileSources(entrypoint: string,
             for (const expr of hc.types || [ ]) {
                 const type = typeChecker.getTypeFromTypeNode(expr);
 
-                const ref = new spec.UserTypeReference();
-                ref.fqn = await getFullyQualifiedName(type.symbol!, ctx);
+                const ref: spec.NamedTypeReference = {
+                    fqn: await getFullyQualifiedName(type.symbol!, ctx)
+                };
 
                 result.push(ref);
             }
@@ -220,7 +236,6 @@ export async function compileSources(entrypoint: string,
     async function tryProcessInterface(symbol: ts.Symbol, ctx: string[]): Promise<spec.InterfaceType | undefined> {
         ctx = newContext(ctx, symbol.name);
 
-        const entity = new spec.InterfaceType();
         const name = await getFullyQualifiedName(symbol, ctx);
         if (!name) {
             throw error(ctx, 'Cannot determine type name');
@@ -228,13 +243,17 @@ export async function compileSources(entrypoint: string,
 
         const decl = symbol.declarations![0] as ts.InterfaceDeclaration;
 
-        populateEntityName(entity, name, ctx);
+        const entity: spec.InterfaceType = {
+            kind: spec.TypeKind.Interface,
+            ...makeEntityName(name, ctx)
+        };
+
         checkTypeName(entity.name, ctx);
 
         addDocumentation(entity, symbol);
 
         const interfaceType = typeChecker.getDeclaredTypeOfSymbol(symbol);
-        const bases = new Array<spec.UserTypeReference>();
+        const bases = new Array<spec.NamedTypeReference>();
         const baseTypes = interfaceType.getBaseTypes() || [];
         for (const base of baseTypes) {
             const fqn = await getFullyQualifiedName(base.symbol!, ctx);
@@ -261,7 +280,8 @@ export async function compileSources(entrypoint: string,
                 if (ts.isMethodSignature(mem.valueDeclaration)) {
                     const method = await tryProcessMethod(mem, ctx);
                     if (method) {
-                        entity.methods!.push(method);
+                        if (!entity.methods) { entity.methods = []; }
+                        entity.methods.push(method);
                     }
                     continue;
                 }
@@ -289,7 +309,6 @@ export async function compileSources(entrypoint: string,
     async function tryProcessClass(symbol: ts.Symbol, ctx: string[]): Promise<spec.ClassType | undefined> {
         ctx = newContext(ctx, symbol.name);
 
-        const entity = new spec.ClassType();
         const name = await getFullyQualifiedName(symbol, ctx);
         if (!name) {
             throw error(ctx, 'Cannot determine type name');
@@ -300,8 +319,11 @@ export async function compileSources(entrypoint: string,
         if (isHidden(decl)) {
             return undefined;
         }
+        const entity: spec.ClassType = {
+            kind: spec.TypeKind.Class,
+            ...makeEntityName(name, ctx)
+        };
 
-        populateEntityName(entity, name, ctx);
         checkTypeName(entity.name, ctx);
 
         addDocumentation(entity, symbol);
@@ -332,7 +354,8 @@ export async function compileSources(entrypoint: string,
                         if (ts.isParameterPropertyDeclaration(p.valueDeclaration!)) {
                             const prop = await tryProcessProperty(p, ctx);
                             if (prop) {
-                                entity.properties!.push(prop);
+                                entity.properties = entity.properties || [];
+                                entity.properties.push(prop);
                             }
                         }
                     }
@@ -352,7 +375,8 @@ export async function compileSources(entrypoint: string,
             if (ts.isMethodDeclaration(memberDecl)) {
                 const method = await tryProcessMethod(mem, ctx);
                 if (method) {
-                    entity.methods!.push(method);
+                    entity.methods = entity.methods || [];
+                    entity.methods.push(method);
                 }
                 continue;
             }
@@ -360,7 +384,8 @@ export async function compileSources(entrypoint: string,
             if (ts.isPropertyDeclaration(memberDecl) || ts.isParameterPropertyDeclaration(memberDecl)) {
                 const prop = await tryProcessProperty(mem, ctx);
                 if (prop) {
-                    entity.properties!.push(prop);
+                    entity.properties = entity.properties || [];
+                    entity.properties.push(prop);
                 }
                 continue;
             }
@@ -368,7 +393,8 @@ export async function compileSources(entrypoint: string,
             if (ts.isGetAccessorDeclaration(memberDecl)) {
                 const prop = await tryProcessAccessor(mem, ctx);
                 if (prop) {
-                    entity.properties!.push(prop);
+                    entity.properties = entity.properties || [];
+                    entity.properties.push(prop);
                 }
                 continue;
             }
@@ -406,15 +432,18 @@ export async function compileSources(entrypoint: string,
             throw error(ctx, 'Unable to determine constructor signature');
         }
 
-        const initializer = new spec.Method();
-        initializer.initializer = true;
+        const initializer: spec.Method = {
+            parameters: [], // So this can be recognized as a Method by `addDocumentation`
+            initializer: true
+        };
 
         addDocumentation(initializer, member);
 
         for (const p of signature.getParameters()) {
             try {
                 const param = await processParameter(p, ctx);
-                initializer.parameters!.push(param);
+                initializer.parameters = initializer.parameters || [];
+                initializer.parameters.push(param);
                 if (param.variadic) { initializer.variadic = true; }
             } catch (e) {
                 // if a parameter could not be added, but it's optional
@@ -434,7 +463,6 @@ export async function compileSources(entrypoint: string,
     async function tryProcessEnum(symbol: ts.Symbol, ctx: string[]): Promise<spec.EnumType | undefined> {
         ctx = newContext(ctx, symbol.name);
 
-        const entity = new spec.EnumType();
         const name = await getFullyQualifiedName(symbol, ctx);
         if (!name) {
             throw error(ctx, 'Cannot determine type name for enum: ' + symbol.getName());
@@ -444,22 +472,19 @@ export async function compileSources(entrypoint: string,
             return undefined;
         }
 
-        populateEntityName(entity, name, ctx);
+        const entity: spec.EnumType = {
+            kind: spec.TypeKind.Enum,
+            ...makeEntityName(name, ctx),
+            members: []
+        };
         addDocumentation(entity, symbol);
         checkTypeName(entity.name, ctx);
 
         const decl = symbol.valueDeclaration as ts.EnumDeclaration;
 
-        decl.members.forEach(mem => {
-
-            const member = new spec.EnumMember();
-            member.name = mem.name.getText();
-
-            // TODO: enum member doc
-            // addDocumentation(member, sym);
-
-            entity.members.push(member);
-        });
+        for (const mem of decl.members) {
+            entity.members.push({ name: mem.name.getText() });
+        }
 
         return entity;
     }
@@ -469,25 +494,28 @@ export async function compileSources(entrypoint: string,
 
         const decl = symbol.valueDeclaration as ts.ParameterDeclaration;
 
-        const param = new spec.Parameter();
-        param.name = decl.name.getText();
-
+        const typeAtLocation = typeChecker.getTypeAtLocation(decl);
+        const param: spec.Parameter = {
+            name: decl.name.getText(),
+            type: await resolveType(typeAtLocation, ctx),
+        };
         addDocumentation(param, symbol);
 
-        const typeAtLocation = typeChecker.getTypeAtLocation(decl);
-        param.type = await resolveType(typeAtLocation, ctx);
         if (decl.dotDotDotToken) {
             param.variadic = true;
-            // TypeScript requires variadic arguments are typed as lists.
-            param.type = param.type.collection!.elementtype;
+            // TypeScript requires variadic arguments are typed as lists, but JSII represents them as scalars.
+            if (!spec.isCollectionTypeReference(param.type)) {
+                throw new Error(`Invalid variadic parameter ${param.name}: type ${JSON.stringify(param.type)} is not a collection`);
+            }
+            param.type = param.type.collection.elementtype;
         }
 
-        if (param.type.union) {
+        if (spec.isUnionTypeReference(param.type)) {
             throw error(ctx, 'Unions are not allowed for parameter types');
         }
 
         if (typeChecker.isOptionalParameter(decl)) {
-            param.type.optional = true;
+            param.type = { ...param.type, optional: true };
         }
 
         return param;
@@ -496,8 +524,15 @@ export async function compileSources(entrypoint: string,
     async function tryProcessMethod(symbol: ts.Symbol, ctx: string[]): Promise<spec.Method | undefined> {
         ctx = newContext(ctx, symbol.name);
         const decl = symbol.valueDeclaration as ts.MethodDeclaration;
-        const method = new spec.Method();
-        method.name = decl.name.getText();
+
+        if (isHidden(decl)) {
+            return undefined;
+        }
+
+        const method: spec.Method = {
+            name: decl.name.getText(),
+            parameters: [], // So this can be recognized as a Method by `addDocumentation`
+        };
 
         if (hasModifier(decl, ts.SyntaxKind.StaticKeyword)) {
             method.static = true;
@@ -509,10 +544,6 @@ export async function compileSources(entrypoint: string,
 
         if (isAbstract(decl)) {
             method.abstract = true;
-        }
-
-        if (isHidden(decl)) {
-            return undefined;
         }
 
         const methodSignature = typeChecker.getSignatureFromDeclaration(decl);
@@ -535,7 +566,8 @@ export async function compileSources(entrypoint: string,
         if (params) {
             for (const p of params) {
                 const param = await processParameter(p, ctx);
-                method.parameters!.push(param);
+                method.parameters = method.parameters || [];
+                method.parameters.push(param);
                 if (param.variadic) { method.variadic = true; }
             }
         }
@@ -546,13 +578,7 @@ export async function compileSources(entrypoint: string,
     }
 
     async function tryProcessAccessor(symbol: ts.Symbol, ctx: string[]): Promise<spec.Property | undefined> {
-
         ctx = newContext(ctx, symbol.name);
-
-        const prop = new spec.Property();
-        prop.name = symbol.name;
-
-        addDocumentation(prop, symbol);
 
         if (!symbol.declarations) {
             throw error(ctx, 'unable to extract declarations');
@@ -584,7 +610,12 @@ export async function compileSources(entrypoint: string,
             throw error(ctx, 'cannot resolve property signature');
         }
 
-        prop.type = await resolveType(signature.getReturnType(), ctx);
+        const prop: spec.Property = {
+            name: symbol.name,
+            type: await resolveType(signature.getReturnType(), ctx)
+        };
+
+        addDocumentation(prop, symbol);
 
         if (hasModifier(getterDecl, ts.SyntaxKind.StaticKeyword)) {
             prop.static = true;
@@ -608,28 +639,28 @@ export async function compileSources(entrypoint: string,
         ctx = newContext(ctx, symbol.name);
 
         const decl = symbol.valueDeclaration as ts.PropertyDeclaration;
-        const prop = new spec.Property();
-        prop.name = decl.name.getText();
-
-        if (hasModifier(decl, ts.SyntaxKind.StaticKeyword)) {
-            prop.static = true;
-        }
-
-        addDocumentation(prop, symbol);
 
         if (isHidden(decl)) {
             return undefined;
         }
 
         const typeAtLocation = typeChecker.getTypeAtLocation(decl);
-        prop.type = await resolveType(typeAtLocation, ctx);
+        const prop: spec.Property = {
+            name: decl.name.getText(),
+            type: await resolveType(typeAtLocation, ctx)
+        };
+        addDocumentation(prop, symbol);
+
+        if (hasModifier(decl, ts.SyntaxKind.StaticKeyword)) {
+            prop.static = true;
+        }
 
         if (hasModifier(decl, ts.SyntaxKind.ReadonlyKeyword)) {
             prop.immutable = true;
         }
 
         if (decl.questionToken) {
-            prop.type.optional = true;
+            prop.type = { ...prop.type, optional: true };
         }
 
         if (isProtected(decl)) {
@@ -668,7 +699,7 @@ export async function compileSources(entrypoint: string,
         return undefined;
     }
 
-    async function resolveArrayType(type: ts.Type, ctx: string[]) {
+    async function resolveArrayType(type: ts.Type, ctx: string[]): Promise<spec.CollectionTypeReference> {
         const typeRef = type as ts.TypeReference;
         if (!typeRef.typeArguments) {
             throw error(ctx, 'Array must be defined with a single type argument <T>');
@@ -678,24 +709,26 @@ export async function compileSources(entrypoint: string,
             throw error(ctx, 'Array<> can only have a single type argument');
         }
 
-        const ret = new spec.TypeReference();
-        ret.collection = new spec.CollectionTypeReference();
-        ret.collection.elementtype = await resolveType(typeRef.typeArguments[0], ctx);
-        ret.collection.kind = spec.CollectionKind.Array;
-        return ret;
+        return {
+            collection: {
+                elementtype: await resolveType(typeRef.typeArguments[0], ctx),
+                kind: spec.CollectionKind.Array
+            }
+        };
     }
 
-    async function resolveMapType(type: ts.Type, ctx: string[]) {
+    async function resolveMapType(type: ts.Type, ctx: string[]): Promise<spec.TypeReference> {
         const objectType = type.getStringIndexType();
         if (!objectType) {
             throw error(ctx, 'Only string indexes are supported');
         }
 
-        const ret = new spec.TypeReference();
-        ret.collection = new spec.CollectionTypeReference();
-        ret.collection.elementtype = await await resolveType(objectType, ctx);
-        ret.collection.kind = spec.CollectionKind.Map;
-        return ret;
+        return {
+            collection: {
+                elementtype: await await resolveType(objectType, ctx),
+                kind: spec.CollectionKind.Map
+            }
+        };
     }
 
     function includesType(searched: spec.TypeReference[], item: spec.TypeReference) {
@@ -703,35 +736,33 @@ export async function compileSources(entrypoint: string,
         return searched.map(x => JSON.stringify(x)).filter(x => x === json).length > 0;
     }
 
-    async function resolveUnionType(type: ts.UnionType, ctx: string[]) {
-        const ret = new spec.TypeReference();
-        const union = ret.union = new spec.UnionTypeReference();
+    async function resolveUnionType(type: ts.UnionType, ctx: string[]): Promise<spec.TypeReference> {
+        const typeRef: spec.UnionTypeReference = { union: { types: [] } };
+        let optional: boolean | undefined;
 
         for (const subtype of type.types) {
             // If a union contains "undefined", it simply means it's an optional
             // tslint:disable-next-line:no-bitwise
             if (subtype.flags & ts.TypeFlags.Undefined) {
-                ret.optional = true;
+                optional = true;
                 continue;
             }
 
             const resolvedType = await resolveType(subtype, ctx);
-            if (includesType(union.types, resolvedType)) {
+            if (includesType(typeRef.union.types, resolvedType)) {
                 continue;
             }
 
-            union.types.push(resolvedType);
+            typeRef.union.types.push(resolvedType);
         }
 
         // if the union type only has one type, it was probably because we had <undefined | Bla>, so we can
         // convert this to a normal type.
-        if (union.types.length === 1) {
-            const normalType = union.types[0];
-            normalType.optional = ret.optional;
-            return normalType;
+        if (typeRef.union.types.length === 1) {
+            return { ...typeRef.union.types[0], optional };
         }
 
-        return ret;
+        return typeRef;
     }
 
     async function resolveType(type: ts.Type, ctx: string[]): Promise<spec.TypeReference> {
@@ -753,8 +784,9 @@ export async function compileSources(entrypoint: string,
 
         const primitiveType = tryResolvePrimitiveType(type);
         if (primitiveType) {
-            const res = new spec.TypeReference();
-            res.primitive = primitiveType;
+            const res: spec.PrimitiveTypeReference = {
+                primitive: primitiveType
+            };
             return res;
         }
 
@@ -774,8 +806,9 @@ export async function compileSources(entrypoint: string,
             return resolvedType;
         }
 
-        const ret = new spec.TypeReference();
-        ret.fqn = await getFullyQualifiedName(type.symbol, ctx);
+        const ret: spec.NamedTypeReference = {
+            fqn: await getFullyQualifiedName(type.symbol, ctx)
+        };
 
         // add this FQN to the list of types referenced by our public APIs.
         // this will be crossed referenced later with the list of exported types
@@ -890,15 +923,17 @@ export async function compileSources(entrypoint: string,
     }
 
     function addDocumentation(target: spec.Documentable, symbol: ts.Symbol) {
-        symbol.getJsDocTags().forEach(tag => {
-            // Don't duplicate @params for stuff that declares parameters...
-            if (!(target as any).parameters || tag.name !== 'param') {
+        for (const tag of symbol.getJsDocTags()) {
+            // Don't duplicate @params, they're handled on the params themselves...
+            if (tag.name !== 'param') {
+                target.docs = target.docs || {};
                 target.docs[tag.name] = tag.text || '';
             }
-        });
+        }
 
         const comment = ts.displayPartsToString(symbol.getDocumentationComment(typeChecker));
-        if (comment && comment.length > 0) {
+        if (comment) {
+            target.docs = target.docs || {};
             target.docs.comment = comment;
         }
     }
@@ -1001,18 +1036,20 @@ export async function compileSources(entrypoint: string,
         return !hasModifier(decl, ts.SyntaxKind.PrivateKeyword);
     }
 
-    function populateEntityName(entity: spec.Type, fqn: string, ctx: string[]) {
+    function makeEntityName(fqn: string, ctx: string[]) {
         const parts = fqn.split('.');
 
-        // fqn may be <module>.<name> or <module>...<namespace>...<name>
+        // fqn may be <assembly>.<name> or <assembly>...<namespace>...<name>
         if (parts.length < 2) {
             throw error(ctx, `Unable to parse fqn '${fqn}. Expecting at least 2 components`);
         }
 
-        entity.fqn = fqn;
-        entity.module = parts[0]; // first component is always the module name
-        entity.namespace = parts.slice(0, parts.length - 1).join('.');
-        entity.name = parts[parts.length - 1];
+        return {
+            fqn,
+            assembly: parts[0], // First segment is the assembly name
+            namespace: parts.slice(0, parts.length - 1).join('.'),
+            name: parts[parts.length - 1]
+        };
     }
 
     function startsWithUpperCase(symbol: string) {
@@ -1053,8 +1090,8 @@ export async function compileSources(entrypoint: string,
         // for property methods.
 
         let paramCount = 0;
-        if (member instanceof spec.Method) {
-            paramCount = (member.parameters || []).length;
+        if ((member as spec.Method).parameters) {
+            paramCount = ((member as spec.Method).parameters || []).length;
         }
 
         if (symbol.startsWith('get') && startsWithUpperCase(symbol.substr(3)) && paramCount === 0) {
@@ -1116,7 +1153,7 @@ function compileProgramSync(files: string[], options: ts.CompilerOptions) {
     const result = prog.emit();
     const errors = ts.getPreEmitDiagnostics(prog).concat(result.diagnostics);
 
-    errors.forEach(d => {
+    for (const d of errors) {
         const file = d.file;
         const start = d.start;
         if (!file || !start) {
@@ -1128,7 +1165,7 @@ function compileProgramSync(files: string[], options: ts.CompilerOptions) {
             // tslint:disable-next-line:no-console
             console.log(`ERROR: ${file.fileName} (${line + 1},${character + 1}): ${message}`);
         }
-    });
+    }
 
     if (errors.length > 0) {
         throw new Error('Build failed');
@@ -1144,16 +1181,13 @@ function compileProgramSync(files: string[], options: ts.CompilerOptions) {
  * This is because JavaScript does that implicitly (but in many languages this is not the case), so we might as well do it here.
  */
 function normalizeInitializers(mod: spec.Assembly, externalTypes: Map<string, spec.Type>) {
-
-    for (const fqn of Object.keys(mod.types)) {
-        const type = mod.types[fqn];
+    for (const type of Object.values(mod.types || {})) {
         if (type.kind === spec.TypeKind.Class) {
             normalize(type as spec.ClassType);
         }
     }
 
     function normalize(cls: spec.ClassType) {
-
         // if we already have an initializer, we are done.
         if (cls.initializer) {
             return;
@@ -1161,8 +1195,7 @@ function normalizeInitializers(mod: spec.Assembly, externalTypes: Map<string, sp
 
         // if we don't have a base class, produce an initializer without any arguments
         if (!cls.base) {
-            cls.initializer = new spec.Method();
-            cls.initializer.initializer = true;
+            cls.initializer = { initializer: true };
             return;
         }
 
@@ -1171,7 +1204,7 @@ function normalizeInitializers(mod: spec.Assembly, externalTypes: Map<string, sp
         }
 
         // normalize initializer for base class first
-        let base = mod.types[cls.base.fqn] as spec.ClassType;
+        let base = mod.types![cls.base.fqn] as spec.ClassType;
         if (base) {
             normalize(base);
         } else {
@@ -1201,7 +1234,7 @@ function normalizeInitializers(mod: spec.Assembly, externalTypes: Map<string, sp
  * @param types The types to be registered.
  */
 function addTypeInfo(mod: spec.Assembly, types: spec.Type[]) {
-    if (!mod.types) { mod.types = {}; }
+    mod.types = mod.types || {};
     for (const type of types) {
         mod.types[type.fqn] = type;
     }
@@ -1210,7 +1243,7 @@ function addTypeInfo(mod: spec.Assembly, types: spec.Type[]) {
 
     function visitTree(node: spec.NameTree) {
         if (node.fqn) {
-            const parentType = mod.types[node.fqn];
+            const parentType = mod.types![node.fqn];
 
             for (const childName of Object.keys(node.children)) {
                 const child = node.children[childName];
@@ -1220,7 +1253,7 @@ function addTypeInfo(mod: spec.Assembly, types: spec.Type[]) {
                     // tslint:disable-next-line:max-line-length
                     throw new Error(`All child names of a type '${node.fqn}' must point to concrete types, but '${node.fqn}.${childName}' is a namespaces, and this structure cannot be supported in all languages (e.g. Java)`);
                 }
-                mod.types[child.fqn].parenttype = node.fqn;
+                mod.types![child.fqn].parenttype = node.fqn;
                 if (!parentType.subtypes) { parentType.subtypes = []; }
                 parentType.subtypes.push(child.fqn);
             }
@@ -1234,7 +1267,7 @@ function verifyUnexportedTypes(mod: spec.Assembly, typeRefs: Set<ReferencedFqn>,
     const errors = new Array<string>();
 
     for (const ref of typeRefs) {
-        const localType = ref.fqn in mod.types;
+        const localType = mod.types && (ref.fqn in mod.types);
         const externalType = externalTypes.has(ref.fqn);
 
         if (!localType && !externalType) {
@@ -1316,10 +1349,10 @@ async function readDependencies(rootDir: string, packageDeps: any, bundledDeps: 
 
         // add all types to lookup table.
         if (jsii.types) {
-            Object.keys(jsii.types).forEach(fqn => lookup.set(fqn, jsii.types[fqn]));
+            for (const fqn of Object.keys(jsii.types)) { lookup.set(fqn, jsii.types[fqn]); }
         }
         if (jsii.externals) {
-            Object.keys(jsii.externals).forEach(fqn => lookup.set(fqn, jsii.externals![fqn]));
+            for (const fqn of Object.keys(jsii.externals)) { lookup.set(fqn, jsii.externals![fqn]); }
         }
     }
 
@@ -1366,9 +1399,10 @@ async function readJsiiForModule(rootDir: string, packageName: string) {
     const pkg = await readPackageMetadata(moduleDir);
 
     const jsiiFilePath = path.join(moduleDir, spec.SPEC_FILE_NAME);
-    const jsii = await fs.readJson(jsiiFilePath) as spec.Assembly;
-    if (jsii.schema !== spec.SPEC_VERSION) {
-        throw new Error(`The jsii spec of module ${packageName} has version ${jsii.schema} while we expect ${spec.SPEC_VERSION} (TODO: semver)`);
+    const jsii = spec.validateAssembly(await fs.readJson(jsiiFilePath));
+    if (jsii.schema !== spec.SchemaVersion.V1_0) {
+        // tslint:disable-next-line:max-line-length
+        throw new Error(`The jsii spec of module ${packageName} has version ${jsii.schema} while we expect ${spec.SchemaVersion.V1_0} (TODO: semver)`);
     }
 
     return { pkg, jsii, moduleDir };
