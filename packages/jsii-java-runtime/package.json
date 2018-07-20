@@ -2,13 +2,15 @@
   "name": "jsii-java-runtime",
   "version": "0.5.0-beta",
   "description": "Java client for jsii runtime",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "gen": "/bin/bash ./generate.sh",
-    "build": "npm run gen && cd project && mvn package",
+    "build": "tsc && npm run gen && cd project && mvn package",
     "test": "echo ok"
   },
   "devDependencies": {
+    "@types/node": "^9.6.18",
     "jsii-calc": "^0.5.0-beta",
     "@scope/jsii-calc-lib": "^0.5.0-beta",
     "jsii-pacmak": "^0.5.0-beta",

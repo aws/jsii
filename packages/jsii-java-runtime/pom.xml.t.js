@@ -1,6 +1,4 @@
-const groupId = 'com.amazonaws';
-const artifactId = 'jsii-runtime';
-const version = require('./package.json').version.replace(/\+.+$/, ''); // omit "+build" postfix
+const { groupId, artifactId, version } = require('./lib').maven;
 
 process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -40,7 +38,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <artifactId>jackson-databind</artifactId>
             <version>2.9.5</version>
         </dependency>
-        
+
         <!-- https://mvnrepository.com/artifact/com.google.guava/guava-io -->
         <dependency>
             <groupId>com.google.guava</groupId>
