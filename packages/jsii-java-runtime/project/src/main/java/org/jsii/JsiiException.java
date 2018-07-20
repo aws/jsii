@@ -3,7 +3,7 @@ package org.jsii;
 /**
  * An error raised by the jsii runtime.
  */
-public class JsiiException extends RuntimeException {
+public final class JsiiException extends RuntimeException {
 
     /**
      * Creates an exception.

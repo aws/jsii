@@ -46,6 +46,13 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <version>r03</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.google.code.findbugs/jsr305 -->
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>[3.0.2,)</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api -->
         <dependency>
             <groupId>javax.annotation</groupId>

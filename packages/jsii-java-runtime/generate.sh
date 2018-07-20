@@ -3,7 +3,11 @@ set -euo pipefail
 project="./project"
 
 for ASSM in $(find ./node_modules/jsii-calc -follow -name .jsii); do
-    jsii-pacmak --target java --outdir ${project}/src/test $(dirname ${ASSM})
+    staging="${TMPDIR}/generate"
+    mkdir -p ${staging}
+    jsii-pacmak --target java --outdir ${staging} $(dirname ${ASSM})
+    cp -r ${staging}/src/main/* ${project}/src/test/
+    rm -rf ${staging}
 done
 
 # generate pom.xml and JsiiVersion.java with version from package.json

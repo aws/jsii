@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.stream.Stream;
+import javax.annotation.Nullable;
 
 /**
  * Represents a JavaScript object in the Java world.
@@ -55,7 +56,8 @@ public class JsiiObject implements JsiiSerializable {
      * @param <T> Java type for the return value.
      * @return A return value.
      */
-    protected <T> T jsiiCall(final String method, final Class<T> returnType, final Object... args) {
+    @Nullable
+    protected final <T> T jsiiCall(final String method, final Class<T> returnType, @Nullable final Object... args) {
         try {
             return OM.treeToValue(this.engine.getClient().callMethod(
                     this.objRef,
@@ -77,7 +79,8 @@ public class JsiiObject implements JsiiSerializable {
      * @param <T> Return type.
      * @return Return value.
      */
-    protected static <T> T jsiiStaticCall(final Class nativeClass, final String method, final Class<T> returnType, final Object... args) {
+    @Nullable
+    protected static <T> T jsiiStaticCall(final Class nativeClass, final String method, final Class<T> returnType, @Nullable final Object... args) {
         String fqn = engine.loadModuleForClass(nativeClass);
         try {
             return OM.treeToValue(engine.getClient().callStaticMethod(
@@ -99,7 +102,8 @@ public class JsiiObject implements JsiiSerializable {
      * @param <T> Java type for the return value.
      * @return A ereturn value.
      */
-    protected <T> T jsiiAsyncCall(final String method, final Class<T> returnType, final Object... args) {
+    @Nullable
+    protected final <T> T jsiiAsyncCall(final String method, final Class<T> returnType, @Nullable final Object... args) {
         try {
             JsiiClient client = engine.getClient();
             JsiiPromise promise = client.beginAsyncMethod(this.objRef, method, OM.valueToTree(args));
@@ -120,7 +124,8 @@ public class JsiiObject implements JsiiSerializable {
      * @param <T> The Java type of the property.
      * @return The property value.
      */
-    protected <T> T jsiiGet(final String property, final Class<T> type) {
+    @Nullable
+    protected final <T> T jsiiGet(final String property, final Class<T> type) {
         try {
             return OM.treeToValue(engine.getClient().getPropertyValue(this.objRef, property), type);
         } catch (JsonProcessingException e) {
@@ -136,6 +141,7 @@ public class JsiiObject implements JsiiSerializable {
      * @param <T> Return type
      * @return Return value
      */
+    @Nullable
     protected static <T> T jsiiStaticGet(final Class nativeClass, final String property, final Class<T> type) {
         try {
             String fqn = engine.loadModuleForClass(nativeClass);
@@ -150,7 +156,7 @@ public class JsiiObject implements JsiiSerializable {
      * @param property The name of the property.
      * @param value The property value.
      */
-    protected void jsiiSet(final String property, final Object value) {
+    protected final void jsiiSet(final String property, @Nullable final Object value) {
         engine.getClient().setPropertyValue(this.objRef, property, OM.valueToTree(value));
     }
 
@@ -160,7 +166,7 @@ public class JsiiObject implements JsiiSerializable {
      * @param property The name of the property
      * @param value The value
      */
-    static protected void jsiiStaticSet(final Class nativeClass, final String property, final Object value) {
+    protected static void jsiiStaticSet(final Class nativeClass, final String property, @Nullable final Object value) {
         String fqn = engine.loadModuleForClass(nativeClass);
         engine.getClient().setStaticPropertyValue(fqn, property, OM.valueToTree(value));
     }
@@ -169,7 +175,7 @@ public class JsiiObject implements JsiiSerializable {
      * Sets the jsii object reference for this object.
      * @param objRef The objref
      */
-    void setObjRef(final JsiiObjectRef objRef) {
+    final void setObjRef(final JsiiObjectRef objRef) {
         this.objRef = objRef;
     }
 
@@ -177,7 +183,7 @@ public class JsiiObject implements JsiiSerializable {
      * Gets the jsii object reference for this object.
      * @return The objref.
      */
-    JsiiObjectRef getObjRef() {
+    final JsiiObjectRef getObjRef() {
         return objRef;
     }
 }

@@ -22,7 +22,7 @@ import static org.jsii.Util.extractResource;
 /**
  * Manages the jsii-runtime child process.
  */
-public class JsiiRuntime {
+public final class JsiiRuntime {
     /**
      * Extract the "+<sha>" postfix from a full version number.
      */

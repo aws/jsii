@@ -25,7 +25,7 @@ import static org.jsii.Util.readString;
 /**
  * HTTP client for jsii-server.
  */
-public class JsiiClient {
+public final class JsiiClient {
     /**
      * JSON node factory.
      */
