@@ -13,10 +13,10 @@ public interface UnionProperties extends org.jsii.JsiiSerializable {
         return new Builder();
     }
     /**
-     * A fluent step builder class for UnionProperties.
-     * The build() method will be available once all required properties are fulfilled.
+     * A fluent step builder class for {@link UnionProperties}.
+     * The {@link #build()} method will be available once all required properties are fulfilled.
      */
-    class Builder {
+    final class Builder {
         public Build withBar(final java.lang.String value) {
             return new FullBuilder().withBar(value);
         }
@@ -33,16 +33,16 @@ public interface UnionProperties extends org.jsii.JsiiSerializable {
              */
             UnionProperties build();
             /**
-             * Sets the value for UnionProperties::Foo.
+             * Sets the value for {@link UnionProperties#foo}.
              */
             Build withFoo(final java.lang.String value);
             /**
-             * Sets the value for UnionProperties::Foo.
+             * Sets the value for {@link UnionProperties#foo}.
              */
             Build withFoo(final java.lang.Number value);
         }
 
-        class FullBuilder implements Build {
+        final class FullBuilder implements Build {
 
             private Jsii$Pojo instance = new Jsii$Pojo();
 
@@ -78,9 +78,9 @@ public interface UnionProperties extends org.jsii.JsiiSerializable {
     }
 
     /**
-     * A PoJo (plain-old-java-object) class that implements this interface.
+     * A PoJo (plain-old-java-object) class that implements {@link UnionProperties}.
      */
-    class Jsii$Pojo implements UnionProperties {
+    final class Jsii$Pojo implements UnionProperties {
 
         /**
          * Constructor used by builders.
@@ -114,14 +114,14 @@ public interface UnionProperties extends org.jsii.JsiiSerializable {
         protected Jsii$Proxy(final org.jsii.JsiiObject.InitializationMode mode) {
             super(mode);
         }
-        @javax.annotations.Nullable
+        @javax.annotation.Nullable
         public java.lang.Object getFoo() {
             return this.jsiiGet("foo", java.lang.Object.class);
         }
-        public void setFoo(@javax.annotations.Nullable final java.lang.String value) {
+        public void setFoo(@javax.annotation.Nullable final java.lang.String value) {
             this.jsiiSet("foo", value);
         }
-        public void setFoo(@javax.annotations.Nullable final java.lang.Number value) {
+        public void setFoo(@javax.annotation.Nullable final java.lang.Number value) {
             this.jsiiSet("foo", value);
         }
         public java.lang.Object getBar() {

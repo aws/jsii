@@ -19,7 +19,7 @@ public interface CalculatorProps extends org.jsii.JsiiSerializable {
     /**
      * A fluent builder class for {@link CalculatorProps}.
      */
-    public static class Builder {
+    public static final class Builder {
         private Jsii$Pojo instance = new Jsii$Pojo();
 
         public Builder withInitialValue(final java.lang.Number value) {
@@ -38,9 +38,9 @@ public interface CalculatorProps extends org.jsii.JsiiSerializable {
     }
 
     /**
-     * A PoJo (plain-old-java-object) class that implements this interface.
+     * A PoJo (plain-old-java-object) class that implements {@link CalculatorProps}.
      */
-    class Jsii$Pojo implements CalculatorProps {
+    final class Jsii$Pojo implements CalculatorProps {
 
         /**
          * Constructor used by builders.
@@ -74,18 +74,18 @@ public interface CalculatorProps extends org.jsii.JsiiSerializable {
         protected Jsii$Proxy(final org.jsii.JsiiObject.InitializationMode mode) {
             super(mode);
         }
-        @javax.annotations.Nullable
+        @javax.annotation.Nullable
         public java.lang.Number getInitialValue() {
             return this.jsiiGet("initialValue", java.lang.Number.class);
         }
-        public void setInitialValue(@javax.annotations.Nullable final java.lang.Number value) {
+        public void setInitialValue(@javax.annotation.Nullable final java.lang.Number value) {
             this.jsiiSet("initialValue", value);
         }
-        @javax.annotations.Nullable
+        @javax.annotation.Nullable
         public java.lang.Number getMaximumValue() {
             return this.jsiiGet("maximumValue", java.lang.Number.class);
         }
-        public void setMaximumValue(@javax.annotations.Nullable final java.lang.Number value) {
+        public void setMaximumValue(@javax.annotation.Nullable final java.lang.Number value) {
             this.jsiiSet("maximumValue", value);
         }
     }

@@ -99,11 +99,11 @@ public class AllTypes extends org.jsii.JsiiObject {
     public void setUnionMapProperty(final java.util.Map<java.lang.String, java.lang.Object> value) {
         this.jsiiSet("unionMapProperty", java.util.Objects.requireNonNull(value, "unionMapProperty is required"));
     }
-    @javax.annotations.Nullable
+    @javax.annotation.Nullable
     public org.jsii.tests.calculator.StringEnum getOptionalEnumValue() {
         return this.jsiiGet("optionalEnumValue", org.jsii.tests.calculator.StringEnum.class);
     }
-    public void setOptionalEnumValue(@javax.annotations.Nullable final org.jsii.tests.calculator.StringEnum value) {
+    public void setOptionalEnumValue(@javax.annotation.Nullable final org.jsii.tests.calculator.StringEnum value) {
         this.jsiiSet("optionalEnumValue", value);
     }
     public org.jsii.tests.calculator.AllTypesEnum getEnumProperty() {

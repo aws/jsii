@@ -11,7 +11,7 @@ public class Calculator extends org.jsii.tests.calculator.composition.CompositeO
      * Creates a Calculator object.
      * @param props Initialization properties.
      */
-    public Calculator(@javax.annotations.Nullable final org.jsii.tests.calculator.CalculatorProps props) {
+    public Calculator(@javax.annotation.Nullable final org.jsii.tests.calculator.CalculatorProps props) {
         super(org.jsii.JsiiObject.InitializationMode.Jsii);
         org.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.of(props).toArray());
     }
@@ -79,14 +79,14 @@ public class Calculator extends org.jsii.tests.calculator.composition.CompositeO
     /**
      * The maximum value allows in this calculator.
      */
-    @javax.annotations.Nullable
+    @javax.annotation.Nullable
     public java.lang.Number getMaxValue() {
         return this.jsiiGet("maxValue", java.lang.Number.class);
     }
     /**
      * The maximum value allows in this calculator.
      */
-    public void setMaxValue(@javax.annotations.Nullable final java.lang.Number value) {
+    public void setMaxValue(@javax.annotation.Nullable final java.lang.Number value) {
         this.jsiiSet("maxValue", value);
     }
     /**
@@ -98,26 +98,26 @@ public class Calculator extends org.jsii.tests.calculator.composition.CompositeO
     /**
      * Example of a property that accepts a union of types.
      */
-    @javax.annotations.Nullable
+    @javax.annotation.Nullable
     public java.lang.Object getUnionProperty() {
         return this.jsiiGet("unionProperty", java.lang.Object.class);
     }
     /**
      * Example of a property that accepts a union of types.
      */
-    public void setUnionProperty(@javax.annotations.Nullable final org.jsii.tests.calculator.Add value) {
+    public void setUnionProperty(@javax.annotation.Nullable final org.jsii.tests.calculator.Add value) {
         this.jsiiSet("unionProperty", value);
     }
     /**
      * Example of a property that accepts a union of types.
      */
-    public void setUnionProperty(@javax.annotations.Nullable final org.jsii.tests.calculator.Multiply value) {
+    public void setUnionProperty(@javax.annotation.Nullable final org.jsii.tests.calculator.Multiply value) {
         this.jsiiSet("unionProperty", value);
     }
     /**
      * Example of a property that accepts a union of types.
      */
-    public void setUnionProperty(@javax.annotations.Nullable final org.jsii.tests.calculator.Power value) {
+    public void setUnionProperty(@javax.annotation.Nullable final org.jsii.tests.calculator.Power value) {
         this.jsiiSet("unionProperty", value);
     }
 }

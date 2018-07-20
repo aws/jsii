@@ -11,24 +11,24 @@ public interface IInterfaceWithPropertiesExtension extends org.jsii.JsiiSerializ
         return new Builder();
     }
     /**
-     * A fluent step builder class for IInterfaceWithPropertiesExtension.
-     * The build() method will be available once all required properties are fulfilled.
+     * A fluent step builder class for {@link IInterfaceWithPropertiesExtension}.
+     * The {@link #build()} method will be available once all required properties are fulfilled.
      */
-    class Builder {
+    final class Builder {
         public ReadOnlyStringStep withFoo(final java.lang.Number value) {
             return new FullBuilder().withFoo(value);
         }
 
         public interface ReadOnlyStringStep {
             /**
-             * Sets the value for IInterfaceWithPropertiesExtension::ReadOnlyString.
+             * Sets the value for {@link IInterfaceWithPropertiesExtension#readOnlyString}.
              */
             ReadWriteStringStep withReadOnlyString(final java.lang.String value);
         }
 
         public interface ReadWriteStringStep {
             /**
-             * Sets the value for IInterfaceWithPropertiesExtension::ReadWriteString.
+             * Sets the value for {@link IInterfaceWithPropertiesExtension#readWriteString}.
              */
             Build withReadWriteString(final java.lang.String value);
         }
@@ -40,7 +40,7 @@ public interface IInterfaceWithPropertiesExtension extends org.jsii.JsiiSerializ
             IInterfaceWithPropertiesExtension build();
         }
 
-        class FullBuilder implements ReadOnlyStringStep, ReadWriteStringStep, Build {
+        final class FullBuilder implements ReadOnlyStringStep, ReadWriteStringStep, Build {
 
             private Jsii$Pojo instance = new Jsii$Pojo();
 
@@ -68,9 +68,9 @@ public interface IInterfaceWithPropertiesExtension extends org.jsii.JsiiSerializ
     }
 
     /**
-     * A PoJo (plain-old-java-object) class that implements this interface.
+     * A PoJo (plain-old-java-object) class that implements {@link IInterfaceWithPropertiesExtension}.
      */
-    class Jsii$Pojo implements IInterfaceWithPropertiesExtension {
+    final class Jsii$Pojo implements IInterfaceWithPropertiesExtension {
 
         /**
          * Constructor used by builders.

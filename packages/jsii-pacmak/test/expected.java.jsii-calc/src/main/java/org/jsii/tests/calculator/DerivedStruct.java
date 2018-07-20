@@ -34,10 +34,10 @@ public interface DerivedStruct extends org.jsii.JsiiSerializable, org.jsii.tests
         return new Builder();
     }
     /**
-     * A fluent step builder class for DerivedStruct.
-     * The build() method will be available once all required properties are fulfilled.
+     * A fluent step builder class for {@link DerivedStruct}.
+     * The {@link #build()} method will be available once all required properties are fulfilled.
      */
-    class Builder {
+    final class Builder {
         /**
          * An example of a non primitive property.
          */
@@ -47,14 +47,14 @@ public interface DerivedStruct extends org.jsii.JsiiSerializable, org.jsii.tests
 
         public interface BoolStep {
             /**
-             * Sets the value for DerivedStruct::Bool.
+             * Sets the value for {@link DerivedStruct#bool}.
              */
             AnotherRequiredStep withBool(final java.lang.Boolean value);
         }
 
         public interface AnotherRequiredStep {
             /**
-             * Sets the value for DerivedStruct::AnotherRequired.
+             * Sets the value for {@link DerivedStruct#anotherRequired}.
              */
             AstringStep withAnotherRequired(final java.time.Instant value);
         }
@@ -79,7 +79,7 @@ public interface DerivedStruct extends org.jsii.JsiiSerializable, org.jsii.tests
              */
             DerivedStruct build();
             /**
-             * Sets the value for DerivedStruct::OptionalArray.
+             * Sets the value for {@link DerivedStruct#optionalArray}.
              */
             Build withOptionalArray(final java.util.List<java.lang.String> value);
             /**
@@ -87,12 +87,12 @@ public interface DerivedStruct extends org.jsii.JsiiSerializable, org.jsii.tests
              */
             Build withAnotherOptional(final java.util.Map<java.lang.String, org.jsii.tests.calculator.lib.Value> value);
             /**
-             * Sets the value for DerivedStruct::FirstOptional.
+             * Sets the value for {@link DerivedStruct#firstOptional}.
              */
             Build withFirstOptional(final java.util.List<java.lang.String> value);
         }
 
-        class FullBuilder implements BoolStep, AnotherRequiredStep, AstringStep, AnumberStep, Build {
+        final class FullBuilder implements BoolStep, AnotherRequiredStep, AstringStep, AnumberStep, Build {
 
             private Jsii$Pojo instance = new Jsii$Pojo();
 
@@ -154,9 +154,9 @@ public interface DerivedStruct extends org.jsii.JsiiSerializable, org.jsii.tests
     }
 
     /**
-     * A PoJo (plain-old-java-object) class that implements this interface.
+     * A PoJo (plain-old-java-object) class that implements {@link DerivedStruct}.
      */
-    class Jsii$Pojo implements DerivedStruct {
+    final class Jsii$Pojo implements DerivedStruct {
 
         /**
          * Constructor used by builders.
@@ -268,24 +268,24 @@ public interface DerivedStruct extends org.jsii.JsiiSerializable, org.jsii.tests
         public void setAnotherRequired(final java.time.Instant value) {
             this.jsiiSet("anotherRequired", java.util.Objects.requireNonNull(value, "anotherRequired is required"));
         }
-        @javax.annotations.Nullable
+        @javax.annotation.Nullable
         public java.util.List<java.lang.String> getOptionalArray() {
             return this.jsiiGet("optionalArray", java.util.List.class);
         }
-        public void setOptionalArray(@javax.annotations.Nullable final java.util.List<java.lang.String> value) {
+        public void setOptionalArray(@javax.annotation.Nullable final java.util.List<java.lang.String> value) {
             this.jsiiSet("optionalArray", value);
         }
         /**
          * This is optional.
          */
-        @javax.annotations.Nullable
+        @javax.annotation.Nullable
         public java.util.Map<java.lang.String, org.jsii.tests.calculator.lib.Value> getAnotherOptional() {
             return this.jsiiGet("anotherOptional", java.util.Map.class);
         }
         /**
          * This is optional.
          */
-        public void setAnotherOptional(@javax.annotations.Nullable final java.util.Map<java.lang.String, org.jsii.tests.calculator.lib.Value> value) {
+        public void setAnotherOptional(@javax.annotation.Nullable final java.util.Map<java.lang.String, org.jsii.tests.calculator.lib.Value> value) {
             this.jsiiSet("anotherOptional", value);
         }
         /**
@@ -312,11 +312,11 @@ public interface DerivedStruct extends org.jsii.JsiiSerializable, org.jsii.tests
         public void setAnumber(final java.lang.Number value) {
             this.jsiiSet("anumber", java.util.Objects.requireNonNull(value, "anumber is required"));
         }
-        @javax.annotations.Nullable
+        @javax.annotation.Nullable
         public java.util.List<java.lang.String> getFirstOptional() {
             return this.jsiiGet("firstOptional", java.util.List.class);
         }
-        public void setFirstOptional(@javax.annotations.Nullable final java.util.List<java.lang.String> value) {
+        public void setFirstOptional(@javax.annotation.Nullable final java.util.List<java.lang.String> value) {
             this.jsiiSet("firstOptional", value);
         }
     }

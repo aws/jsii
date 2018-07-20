@@ -78,7 +78,6 @@
           </execution>
         </executions>
         <configuration>
-          <failOnWarnings>true</failOnWarnings>
           <show>protected</show>
         </configuration>
       </plugin>

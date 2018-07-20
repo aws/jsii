@@ -9,7 +9,7 @@ const MODULE_CLASS_NAME = '$Module';
 const INTERFACE_PROXY_CLASS_NAME = 'Jsii$Proxy';
 const INTERFACE_POJO_CLASS_NAME = 'Jsii$Pojo';
 
-const JSR305_NULLABLE = '@javax.annotations.Nullable';
+const JSR305_NULLABLE = '@javax.annotation.Nullable';
 
 export default class JavaGenerator extends Generator {
     private moduleClass: string;
@@ -262,7 +262,6 @@ export default class JavaGenerator extends Generator {
                                     }
                                 },
                                 configuration: {
-                                    failOnWarnings: true,
                                     show: 'protected'
                                 }
                             }]
@@ -553,17 +552,17 @@ export default class JavaGenerator extends Generator {
         // reflect the first required prop and proxy to FullBuilder.
         if (requiredProps.length > 0) {
             this.code.line('/**');
-            this.code.line(` * A fluent step builder class for ${interfaceName}.`);
-            this.code.line(' * The build() method will be available once all required properties are fulfilled.');
+            this.code.line(` * A fluent step builder class for {@link ${interfaceName}}.`);
+            this.code.line(' * The {@link #build()} method will be available once all required properties are fulfilled.');
             this.code.line(' */');
-            this.code.openBlock(`class ${builderName}`);
+            this.code.openBlock(`final class ${builderName}`);
 
             const firstProp = requiredProps.shift()!;
             emitWithImplementation(firstProp, true);
 
             const emitWithInterfaceMethod = (prop: Prop) => {
                 for (const type of prop.javaTypes) {
-                    this.addJavaDocs(prop.spec, `Sets the value for ${interfaceName}::${prop.propName}.`);
+                    this.addJavaDocs(prop.spec, `Sets the value for {@link ${interfaceName}#${this.code.toCamelCase(prop.propName)}}.`);
                     this.code.line(`${prop.nextStepInterfaceName} with${prop.propName}(final ${type} value);`);
                 }
             };
@@ -591,7 +590,7 @@ export default class JavaGenerator extends Generator {
             // generate the FullBuilder
             this.code.line();
             const stepInterfaces = requiredProps.map(p => p.stepInterfaceName).concat([ 'Build' ]);
-            this.code.openBlock(`class FullBuilder implements ${stepInterfaces.join(', ')}`);
+            this.code.openBlock(`final class FullBuilder implements ${stepInterfaces.join(', ')}`);
 
             this.code.line();
             this.code.line(`private ${pojoName} instance = new ${pojoName}();`);
@@ -615,7 +614,7 @@ export default class JavaGenerator extends Generator {
             this.code.line('/**');
             this.code.line(` * A fluent builder class for {@link ${interfaceName}}.`);
             this.code.line(' */');
-            this.code.openBlock(`public static class ${builderName}`);
+            this.code.openBlock(`public static final class ${builderName}`);
 
             this.code.line(`private ${pojoName} instance = new ${pojoName}();`);
             this.code.line();
@@ -639,9 +638,9 @@ export default class JavaGenerator extends Generator {
 
         this.code.line();
         this.code.line('/**');
-        this.code.line(' * A PoJo (plain-old-java-object) class that implements this interface.');
+        this.code.line(` * A PoJo (plain-old-java-object) class that implements {@link ${interfaceName}}.`);
         this.code.line(' */');
-        this.code.openBlock(`class ${pojoName} implements ${interfaceName}`);
+        this.code.openBlock(`final class ${pojoName} implements ${interfaceName}`);
 
         this.code.line();
         this.code.line('/**');
@@ -870,8 +869,16 @@ export default class JavaGenerator extends Generator {
         const moduleFile = this.toJavaFilePath(this.makeModuleFqn(moduleName));
         this.code.openFile(moduleFile);
         this.code.line(`package ${this.toNativeFqn(moduleName)};`);
+        this.code.line();
+        if (Object.keys(mod.dependencies || {}).length > 0) {
+            this.code.line('import static java.util.Arrays.asList;');
+            this.code.line();
+            this.code.line('import java.util.List;');
+        }
+        this.code.line('import org.jsii.JsiiModule;');
+        this.code.line();
 
-        this.code.openBlock(`public class ${MODULE_CLASS_NAME} extends org.jsii.JsiiModule`);
+        this.code.openBlock(`public final class ${MODULE_CLASS_NAME} extends JsiiModule`);
 
         // ctor
         this.code.openBlock(`public ${MODULE_CLASS_NAME}()`);
@@ -885,9 +892,10 @@ export default class JavaGenerator extends Generator {
                 deps.push(`${this.makeModuleClass(dep)}.class`);
             }
 
+            this.code.line();
             this.code.line('@Override');
-            this.code.openBlock(`public java.util.List<Class<? extends org.jsii.JsiiModule>> getDependencies()`);
-            this.code.line(`return java.util.Arrays.asList(${deps.join(', ')});`);
+            this.code.openBlock(`public List<Class<? extends JsiiModule>> getDependencies()`);
+            this.code.line(`return asList(${deps.join(', ')});`);
             this.code.closeBlock();
         }
 

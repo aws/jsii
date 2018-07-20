@@ -44,29 +44,29 @@ public abstract class JsiiModule {
     /**
      * @return The URL of the code bundle.
      */
-    public Class<? extends JsiiModule> getModuleClass() {
+    public final Class<? extends JsiiModule> getModuleClass() {
         return this.moduleClass;
     }
 
     /**
      * @return The name of the bundle resource.
      */
-    public String getBundleResourceName() {
-        return bundleResourceName;
+    public final String getBundleResourceName() {
+        return this.bundleResourceName;
     }
 
     /**
      * @return The name of the module.
      */
-    public String getModuleName() {
-        return moduleName;
+    public final String getModuleName() {
+        return this.moduleName;
     }
 
     /**
      * @return The version of this module.
      */
-    public String getModuleVersion() {
-        return moduleVersion;
+    public final String getModuleVersion() {
+        return this.moduleVersion;
     }
 
     /**

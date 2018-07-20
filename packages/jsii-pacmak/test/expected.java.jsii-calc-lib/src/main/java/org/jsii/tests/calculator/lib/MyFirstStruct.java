@@ -30,10 +30,10 @@ public interface MyFirstStruct extends org.jsii.JsiiSerializable {
         return new Builder();
     }
     /**
-     * A fluent step builder class for MyFirstStruct.
-     * The build() method will be available once all required properties are fulfilled.
+     * A fluent step builder class for {@link MyFirstStruct}.
+     * The {@link #build()} method will be available once all required properties are fulfilled.
      */
-    class Builder {
+    final class Builder {
         /**
          * A string value
          */
@@ -54,12 +54,12 @@ public interface MyFirstStruct extends org.jsii.JsiiSerializable {
              */
             MyFirstStruct build();
             /**
-             * Sets the value for MyFirstStruct::FirstOptional.
+             * Sets the value for {@link MyFirstStruct#firstOptional}.
              */
             Build withFirstOptional(final java.util.List<java.lang.String> value);
         }
 
-        class FullBuilder implements AnumberStep, Build {
+        final class FullBuilder implements AnumberStep, Build {
 
             private Jsii$Pojo instance = new Jsii$Pojo();
 
@@ -92,9 +92,9 @@ public interface MyFirstStruct extends org.jsii.JsiiSerializable {
     }
 
     /**
-     * A PoJo (plain-old-java-object) class that implements this interface.
+     * A PoJo (plain-old-java-object) class that implements {@link MyFirstStruct}.
      */
-    class Jsii$Pojo implements MyFirstStruct {
+    final class Jsii$Pojo implements MyFirstStruct {
 
         /**
          * Constructor used by builders.
@@ -161,11 +161,11 @@ public interface MyFirstStruct extends org.jsii.JsiiSerializable {
         public void setAnumber(final java.lang.Number value) {
             this.jsiiSet("anumber", java.util.Objects.requireNonNull(value, "anumber is required"));
         }
-        @javax.annotations.Nullable
+        @javax.annotation.Nullable
         public java.util.List<java.lang.String> getFirstOptional() {
             return this.jsiiGet("firstOptional", java.util.List.class);
         }
-        public void setFirstOptional(@javax.annotations.Nullable final java.util.List<java.lang.String> value) {
+        public void setFirstOptional(@javax.annotation.Nullable final java.util.List<java.lang.String> value) {
             this.jsiiSet("firstOptional", value);
         }
     }

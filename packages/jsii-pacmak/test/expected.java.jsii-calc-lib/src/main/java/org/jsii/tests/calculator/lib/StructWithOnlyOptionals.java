@@ -27,7 +27,7 @@ public interface StructWithOnlyOptionals extends org.jsii.JsiiSerializable {
     /**
      * A fluent builder class for {@link StructWithOnlyOptionals}.
      */
-    public static class Builder {
+    public static final class Builder {
         private Jsii$Pojo instance = new Jsii$Pojo();
 
         /**
@@ -53,9 +53,9 @@ public interface StructWithOnlyOptionals extends org.jsii.JsiiSerializable {
     }
 
     /**
-     * A PoJo (plain-old-java-object) class that implements this interface.
+     * A PoJo (plain-old-java-object) class that implements {@link StructWithOnlyOptionals}.
      */
-    class Jsii$Pojo implements StructWithOnlyOptionals {
+    final class Jsii$Pojo implements StructWithOnlyOptionals {
 
         /**
          * Constructor used by builders.
@@ -101,28 +101,28 @@ public interface StructWithOnlyOptionals extends org.jsii.JsiiSerializable {
         /**
          * The first optional!
          */
-        @javax.annotations.Nullable
+        @javax.annotation.Nullable
         public java.lang.String getOptional1() {
             return this.jsiiGet("optional1", java.lang.String.class);
         }
         /**
          * The first optional!
          */
-        public void setOptional1(@javax.annotations.Nullable final java.lang.String value) {
+        public void setOptional1(@javax.annotation.Nullable final java.lang.String value) {
             this.jsiiSet("optional1", value);
         }
-        @javax.annotations.Nullable
+        @javax.annotation.Nullable
         public java.lang.Number getOptional2() {
             return this.jsiiGet("optional2", java.lang.Number.class);
         }
-        public void setOptional2(@javax.annotations.Nullable final java.lang.Number value) {
+        public void setOptional2(@javax.annotation.Nullable final java.lang.Number value) {
             this.jsiiSet("optional2", value);
         }
-        @javax.annotations.Nullable
+        @javax.annotation.Nullable
         public java.lang.Boolean getOptional3() {
             return this.jsiiGet("optional3", java.lang.Boolean.class);
         }
-        public void setOptional3(@javax.annotations.Nullable final java.lang.Boolean value) {
+        public void setOptional3(@javax.annotation.Nullable final java.lang.Boolean value) {
             this.jsiiSet("optional3", value);
         }
     }

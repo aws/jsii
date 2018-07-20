@@ -12,17 +12,17 @@ public interface IInterfaceWithProperties extends org.jsii.JsiiSerializable {
         return new Builder();
     }
     /**
-     * A fluent step builder class for IInterfaceWithProperties.
-     * The build() method will be available once all required properties are fulfilled.
+     * A fluent step builder class for {@link IInterfaceWithProperties}.
+     * The {@link #build()} method will be available once all required properties are fulfilled.
      */
-    class Builder {
+    final class Builder {
         public ReadWriteStringStep withReadOnlyString(final java.lang.String value) {
             return new FullBuilder().withReadOnlyString(value);
         }
 
         public interface ReadWriteStringStep {
             /**
-             * Sets the value for IInterfaceWithProperties::ReadWriteString.
+             * Sets the value for {@link IInterfaceWithProperties#readWriteString}.
              */
             Build withReadWriteString(final java.lang.String value);
         }
@@ -34,7 +34,7 @@ public interface IInterfaceWithProperties extends org.jsii.JsiiSerializable {
             IInterfaceWithProperties build();
         }
 
-        class FullBuilder implements ReadWriteStringStep, Build {
+        final class FullBuilder implements ReadWriteStringStep, Build {
 
             private Jsii$Pojo instance = new Jsii$Pojo();
 
@@ -57,9 +57,9 @@ public interface IInterfaceWithProperties extends org.jsii.JsiiSerializable {
     }
 
     /**
-     * A PoJo (plain-old-java-object) class that implements this interface.
+     * A PoJo (plain-old-java-object) class that implements {@link IInterfaceWithProperties}.
      */
-    class Jsii$Pojo implements IInterfaceWithProperties {
+    final class Jsii$Pojo implements IInterfaceWithProperties {
 
         /**
          * Constructor used by builders.
