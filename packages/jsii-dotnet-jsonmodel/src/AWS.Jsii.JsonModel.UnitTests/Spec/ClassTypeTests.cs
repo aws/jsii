@@ -19,7 +19,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 ClassType classType = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "myModule",
+                    assembly: "myModule",
                     name: "myName",
                     @namespace: "myNamespace",
                     isAbstract: true,
@@ -46,7 +46,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
   ""methods"": [],
   ""interfaces"": [],
   ""fqn"": ""myFqn"",
-  ""module"": ""myModule"",
+  ""assembly"": ""myModule"",
   ""name"": ""myName"",
   ""namespace"": ""myNamespace"",
   ""kind"": ""class"",
@@ -62,7 +62,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 Assert.Throws<ArgumentNullException>(() => new ClassType
                 (
                     fullyQualifiedName: null,
-                    module: "myModule",
+                    assembly: "myModule",
                     name: "myName",
                     @namespace: "myNamespace",
                     isAbstract: true,
@@ -75,13 +75,13 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 ));
             }
 
-            [Fact(DisplayName = Prefix + nameof(ShouldThrowOnMissingModule))]
-            public void ShouldThrowOnMissingModule()
+            [Fact(DisplayName = Prefix + nameof(ShouldThrowOnMissingAssembly))]
+            public void ShouldThrowOnMissingAssembly()
             {
                 Assert.Throws<ArgumentNullException>(() => new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: null,
+                    assembly: null,
                     name: "myName",
                     @namespace: "myNamespace",
                     isAbstract: true,
@@ -100,7 +100,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 Assert.Throws<ArgumentNullException>(() => new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "myModule",
+                    assembly: "myModule",
                     name: null,
                     @namespace: "myNamespace",
                     isAbstract: true,
@@ -119,7 +119,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 Assert.Throws<ArgumentNullException>(() => new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "myModule",
+                    assembly: "myModule",
                     name: "myName",
                     @namespace: null,
                     isAbstract: true,
@@ -138,7 +138,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 ClassType classType = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "myModule",
+                    assembly: "myModule",
                     name: "myName",
                     @namespace: "myNamespace",
                     isAbstract: true,
@@ -164,7 +164,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
   ""methods"": [],
   ""interfaces"": [],
   ""fqn"": ""myFqn"",
-  ""module"": ""myModule"",
+  ""assembly"": ""myModule"",
   ""name"": ""myName"",
   ""namespace"": ""myNamespace"",
   ""kind"": ""class""
@@ -179,7 +179,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 ClassType classType = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "myModule",
+                    assembly: "myModule",
                     name: "myName",
                     @namespace: "myNamespace",
                     isAbstract: true,
@@ -204,7 +204,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
   ""methods"": [],
   ""interfaces"": [],
   ""fqn"": ""myFqn"",
-  ""module"": ""myModule"",
+  ""assembly"": ""myModule"",
   ""name"": ""myName"",
   ""namespace"": ""myNamespace"",
   ""kind"": ""class"",
@@ -220,7 +220,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 ClassType classType = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "myModule",
+                    assembly: "myModule",
                     name: "myName",
                     @namespace: "myNamespace",
                     isAbstract: true,
@@ -245,7 +245,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
   ""properties"": [],
   ""interfaces"": [],
   ""fqn"": ""myFqn"",
-  ""module"": ""myModule"",
+  ""assembly"": ""myModule"",
   ""name"": ""myName"",
   ""namespace"": ""myNamespace"",
   ""kind"": ""class"",
@@ -261,7 +261,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 ClassType classType = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "myModule",
+                    assembly: "myModule",
                     name: "myName",
                     @namespace: "myNamespace",
                     isAbstract: true,
@@ -284,7 +284,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
   ""methods"": [],
   ""interfaces"": [],
   ""fqn"": ""myFqn"",
-  ""module"": ""myModule"",
+  ""assembly"": ""myModule"",
   ""name"": ""myName"",
   ""namespace"": ""myNamespace"",
   ""kind"": ""class"",
@@ -300,7 +300,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 ClassType classType = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "myModule",
+                    assembly: "myModule",
                     name: "myName",
                     @namespace: "myNamespace",
                     isAbstract: true,
@@ -321,7 +321,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
   ""methods"": [],
   ""interfaces"": [],
   ""fqn"": ""myFqn"",
-  ""module"": ""myModule"",
+  ""assembly"": ""myModule"",
   ""name"": ""myName"",
   ""namespace"": ""myNamespace"",
   ""kind"": ""class"",
@@ -337,7 +337,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 ClassType classType = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
-                    module: "myModule",
+                    assembly: "myModule",
                     name: "myName",
                     @namespace: "myNamespace",
                     isAbstract: true,
@@ -362,7 +362,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
   ""properties"": [],
   ""methods"": [],
   ""fqn"": ""myFqn"",
-  ""module"": ""myModule"",
+  ""assembly"": ""myModule"",
   ""name"": ""myName"",
   ""namespace"": ""myNamespace"",
   ""kind"": ""class"",
@@ -394,7 +394,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
   ""methods"": [],
   ""interfaces"": [],
   ""fqn"": ""myFqn"",
-  ""module"": ""myModule"",
+  ""assembly"": ""myModule"",
   ""name"": ""myName"",
   ""namespace"": ""myNamespace"",
   ""kind"": ""class"",
@@ -410,7 +410,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 Assert.NotNull(actual.Initializer);
                 Assert.Empty(actual.Interfaces);
                 Assert.Equal("myFqn", actual.FullyQualifiedName, ignoreLineEndingDifferences: true);
-                Assert.Equal("myModule", actual.Module, ignoreLineEndingDifferences: true);
+                Assert.Equal("myModule", actual.Assembly, ignoreLineEndingDifferences: true);
                 Assert.Equal("myName", actual.Name, ignoreLineEndingDifferences: true);
                 Assert.Equal("myNamespace", actual.Namespace, ignoreLineEndingDifferences: true);
                 Assert.Equal(TypeKind.Class, actual.Kind);
@@ -433,7 +433,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
     ""fqn"": ""myBaseFqn""
   },
   ""interfaces"": [],
-  ""module"": ""myModule"",
+  ""assembly"": ""myModule"",
   ""name"": ""myName"",
   ""namespace"": ""myNamespace"",
   ""kind"": ""class"",
@@ -443,8 +443,8 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
                 Assert.Throws<ArgumentNullException>(() => JsonConvert.DeserializeObject<ClassType>(json));
             }
 
-            [Fact(DisplayName = Prefix + nameof(ShouldThrowOnMissingModule))]
-            public void ShouldThrowOnMissingModule()
+            [Fact(DisplayName = Prefix + nameof(ShouldThrowOnMissingAssembly))]
+            public void ShouldThrowOnMissingAssembly()
             {
                 const string json = @"{
   ""abstract"": true,
@@ -486,7 +486,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
   },
   ""interfaces"": [],
   ""fqn"": ""myFqn"",
-  ""module"": ""myModule"",
+  ""assembly"": ""myModule"",
   ""namespace"": ""myNamespace"",
   ""kind"": ""class"",
   ""docs"": {}
@@ -512,7 +512,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
   },
   ""interfaces"": [],
   ""fqn"": ""myFqn"",
-  ""module"": ""myModule"",
+  ""assembly"": ""myModule"",
   ""name"": ""myName"",
   ""kind"": ""class"",
   ""docs"": {}
@@ -538,7 +538,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
   },
   ""interfaces"": [],
   ""fqn"": ""myFqn"",
-  ""module"": ""myModule"",
+  ""assembly"": ""myModule"",
   ""name"": ""myName"",
   ""namespace"": ""myNamespace"",
   ""kind"": ""class""
@@ -565,7 +565,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
   },
   ""interfaces"": [],
   ""fqn"": ""myFqn"",
-  ""module"": ""myModule"",
+  ""assembly"": ""myModule"",
   ""name"": ""myName"",
   ""namespace"": ""myNamespace"",
   ""kind"": ""class"",
@@ -593,7 +593,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
   },
   ""interfaces"": [],
   ""fqn"": ""myFqn"",
-  ""module"": ""myModule"",
+  ""assembly"": ""myModule"",
   ""name"": ""myName"",
   ""namespace"": ""myNamespace"",
   ""kind"": ""class"",
@@ -619,7 +619,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
   ""methods"": [],
   ""interfaces"": [],
   ""fqn"": ""myFqn"",
-  ""module"": ""myModule"",
+  ""assembly"": ""myModule"",
   ""name"": ""myName"",
   ""namespace"": ""myNamespace"",
   ""kind"": ""class"",
@@ -643,7 +643,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
   },
   ""interfaces"": [],
   ""fqn"": ""myFqn"",
-  ""module"": ""myModule"",
+  ""assembly"": ""myModule"",
   ""name"": ""myName"",
   ""namespace"": ""myNamespace"",
   ""kind"": ""class"",
@@ -671,7 +671,7 @@ namespace AWS.Jsii.JsonModel.UnitTests.Spec
     ""fqn"": ""myBaseFqn""
   },
   ""fqn"": ""myFqn"",
-  ""module"": ""myModule"",
+  ""assembly"": ""myModule"",
   ""name"": ""myName"",
   ""namespace"": ""myNamespace"",
   ""kind"": ""class"",

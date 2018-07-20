@@ -215,7 +215,7 @@ namespace AWS.Jsii.Generator.UnitTests
         }
       ],
       ""fqn"": ""jsii$aws_cdk_cx_api$.Environment"",
-      ""module"": ""jsii$aws_cdk_cx_api$"",
+      ""assembly"": ""jsii$aws_cdk_cx_api$"",
       ""namespace"": ""jsii$aws_cdk_cx_api$"",
       ""name"": ""Environment"",
       ""datatype"": true

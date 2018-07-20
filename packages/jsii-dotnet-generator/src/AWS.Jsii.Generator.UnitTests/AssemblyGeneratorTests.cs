@@ -51,7 +51,7 @@ namespace AWS.Jsii.Generator.UnitTests
         ""jsii$aws_cdk_cx_api$.MissingContext"": {
             ""kind"": ""class"",
             ""fqn"": ""jsii$aws_cdk_cx_api$.MissingContext"",
-            ""module"": ""jsii$aws_cdk_cx_api$"",
+            ""assembly"": ""jsii$aws_cdk_cx_api$"",
             ""namespace"": ""jsii$aws_cdk_cx_api$"",
             ""name"": ""MissingContext"",
             ""initializer"": {
@@ -257,7 +257,7 @@ namespace AWS.Jsii.Generator.UnitTests
         ""jsii$aws_cdk_cx_api$.MissingContext"": {
             ""kind"": ""class"",
             ""fqn"": ""jsii$aws_cdk_cx_api$.MissingContext"",
-            ""module"": ""jsii$aws_cdk_cx_api$"",
+            ""assembly"": ""jsii$aws_cdk_cx_api$"",
             ""namespace"": ""jsii$aws_cdk_cx_api$"",
             ""name"": ""MissingContext"",
             ""initializer"": {

@@ -6,14 +6,19 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "watch": "tsc -w",
-    "build": "tsc",
+    "build": "tsc && bash generate-json-schema.sh",
     "test": "nodeunit test/test.*.js"
   },
   "devDependencies": {
+    "@types/jsonschema": "^1.1.1",
     "@types/node": "^9.6.18",
     "@types/nodeunit": "^0.0.30",
     "nodeunit": "^0.11.3",
-    "typescript": "^2.9.2"
+    "typescript": "^2.9.2",
+    "typescript-json-schema": "^0.27.0"
+  },
+  "dependencies": {
+    "jsonschema": "^1.2.4"
   },
   "author": {
     "name": "Amazon Web Services",

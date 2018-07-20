@@ -10,7 +10,7 @@ namespace AWS.Jsii.JsonModel.Spec
         (
             // Type properties
             string fullyQualifiedName,
-            string module,
+            string assembly,
             string name,
             string @namespace,
 
@@ -30,7 +30,7 @@ namespace AWS.Jsii.JsonModel.Spec
             : base
             (
                 fullyQualifiedName,
-                module,
+                assembly,
                 name,
                 @namespace,
                 TypeKind.Class,

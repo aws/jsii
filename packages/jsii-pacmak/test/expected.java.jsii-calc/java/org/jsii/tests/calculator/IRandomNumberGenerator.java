@@ -4,8 +4,8 @@ package org.jsii.tests.calculator;
  */
 public interface IRandomNumberGenerator extends org.jsii.JsiiSerializable {
     /**
-     * @returns A random number.
      * Returns another random number.
+     * @returns A random number.
      */
     java.lang.Number next();
 
@@ -17,8 +17,8 @@ public interface IRandomNumberGenerator extends org.jsii.JsiiSerializable {
             super(mode);
         }
         /**
-         * @returns A random number.
          * Returns another random number.
+         * @returns A random number.
          */
         public java.lang.Number next() {
             return this.jsiiCall("next", java.lang.Number.class);

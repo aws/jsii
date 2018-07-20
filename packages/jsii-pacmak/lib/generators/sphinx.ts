@@ -415,7 +415,7 @@ export default class SphinxDocsGenerator extends Generator {
         this.code.line();
         doclines.split('\n').forEach(line => this.code.line(line));
 
-        if (element.docs.link) {
+        if (element.docs && element.docs.link) {
             this.code.line(element.docs.link);
         }
 
@@ -441,18 +441,18 @@ export default class SphinxDocsGenerator extends Generator {
 
     private renderTypeRef(type: spec.TypeReference): { display: string, ref: string } {
         let result: { display: string, ref: string };
-        if (type.fqn) {
+        if (spec.isNamedTypeReference(type)) {
             const fqn = this.toNativeFqn(type.fqn);
             result = {
                 ref: `:py:class:\`${type.fqn.startsWith(`${this.assembly.name}.`) ? '~' : ''}${fqn}\``,
                 display: fqn
             };
-        } else if (type.primitive) {
+        } else if (spec.isPrimitiveTypeReference(type)) {
             result = {
                 ref: type.primitive,
                 display: type.primitive
             };
-        } else if (type.collection) {
+        } else if (spec.isCollectionTypeReference(type)) {
             const elementType = this.renderTypeRef(type.collection.elementtype);
 
             switch (type.collection.kind) {
@@ -471,7 +471,7 @@ export default class SphinxDocsGenerator extends Generator {
                 default:
                     throw new Error(`Unexpected collection kind: ${type.collection.kind}`);
             }
-        } else if (type.union) {
+        } else if (spec.isUnionTypeReference(type)) {
             result = {
                 display: type.union.types.map(t => this.renderTypeRef(t).display).join(' or '),
                 ref: type.union.types.map(t => this.renderTypeRef(t).ref).join(' or '),

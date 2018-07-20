@@ -47,13 +47,10 @@ namespace AWS.Jsii.Generator
                 GetSemicolonToken()
             );
 
-            if (Method.Docs != null)
-            {
-                MethodDocCommentGenerator generator = new MethodDocCommentGenerator(Method, Symbols);
-                SyntaxTriviaList trivia = SF.TriviaList(generator.CreateDocComment());
+            MethodDocCommentGenerator generator = new MethodDocCommentGenerator(Method, Symbols);
+            SyntaxTriviaList trivia = SF.TriviaList(generator.CreateDocComment());
 
-                declaration = declaration.WithLeadingTrivia(trivia);
-            }
+            declaration = declaration.WithLeadingTrivia(trivia);
 
             return declaration;
         }

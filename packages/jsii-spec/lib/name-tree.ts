@@ -42,7 +42,7 @@ import * as spec from './spec';
 export class NameTree {
     public static of(assm: spec.Assembly): NameTree {
         const nameTree = new NameTree();
-        for (const type of Object.values(assm.types)) {
+        for (const type of Object.values(assm.types || {})) {
             nameTree.register(type.fqn);
         }
         return nameTree;

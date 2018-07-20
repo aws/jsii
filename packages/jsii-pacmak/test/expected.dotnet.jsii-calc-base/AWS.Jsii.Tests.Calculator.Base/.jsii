@@ -1,9 +1,32 @@
 {
+  "fingerprint": "erGu0jB21wjK5tVE/Bxl3I0FHLhVRCdsAArpsGrQYQE=",
+  "name": "@scope/jsii-calc-base",
   "schema": "jsii/1.0",
+  "targets": {
+    "dotnet": {
+      "namespace": "AWS.Jsii.Tests.Calculator.Base"
+    },
+    "java": {
+      "maven": {
+        "artifactId": "calculator-base",
+        "groupId": "org.jsii.tests"
+      },
+      "package": "org.jsii.tests.calculator.base"
+    },
+    "js": {
+      "npm": "@scope/jsii-calc-base"
+    }
+  },
   "types": {
     "@scope/jsii-calc-base.Base": {
+      "abstract": true,
+      "assembly": "@scope/jsii-calc-base",
       "docs": {
         "comment": "A base class."
+      },
+      "fqn": "@scope/jsii-calc-base.Base",
+      "initializer": {
+        "initializer": true
       },
       "kind": "class",
       "methods": [
@@ -17,32 +40,9 @@
           }
         }
       ],
-      "fqn": "@scope/jsii-calc-base.Base",
-      "module": "@scope/jsii-calc-base",
-      "namespace": "@scope/jsii-calc-base",
       "name": "Base",
-      "abstract": true,
-      "initializer": {
-        "initializer": true
-      }
+      "namespace": "@scope/jsii-calc-base"
     }
   },
-  "name": "@scope/jsii-calc-base",
-  "version": "0.5.0-beta",
-  "targets": {
-    "java": {
-      "package": "org.jsii.tests.calculator.base",
-      "maven": {
-        "groupId": "org.jsii.tests",
-        "artifactId": "calculator-base"
-      }
-    },
-    "dotnet": {
-      "namespace": "AWS.Jsii.Tests.Calculator.Base"
-    },
-    "js": {
-      "npm": "@scope/jsii-calc-base"
-    }
-  },
-  "fingerprint": "9uGuuBSZg5UBaBij381nrw=="
+  "version": "0.5.0-beta"
 }

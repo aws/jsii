@@ -1,69 +1,73 @@
-export const SPEC_VERSION = 'jsii/1.0'; // minor version = no breaking change
 export const SPEC_FILE_NAME = '.jsii';
 
 /**
- * A module specification.
+ * A JSII assembly specification.
  */
-export class Assembly implements Documentable {
+export interface Assembly extends Documentable {
     /**
      * The version of the spec schema
      */
-    public schema = SPEC_VERSION;
+    schema: SchemaVersion.V1_0;
 
     /**
-     * The name of the module
+     * The name of the assembly
+     * @minLength 1
      */
-    public name: string;
+    name: string;
 
     /**
      * A fingerprint that can be used to determine if the specification has changed.
+     * @minLength 1
      */
-    public fingerprint: string;
+    fingerprint: string;
 
     /**
-     * The version of the module
+     * The version of the assembly
+     * @minLength 1
      */
-    public version: string;
+    version: string;
 
     /**
      * A map of target name to configuration, which is used when generating packages for
      * various languages.
      */
-    public targets: AssemblyTargets;
+    targets?: AssemblyTargets;
 
     /**
-     * Dependencies on other modules (with semver), the key is the JSII assembly name.
+     * Dependencies on other assemblies (with semver), the key is the JSII assembly name.
      */
-    public dependencies?: { [module: string]: PackageVersion };
+    dependencies?: { [assembly: string]: PackageVersion };
 
     /**
-     * List if bundled dependencies (these are not expected to be jsii modules).
+     * List if bundled dependencies (these are not expected to be jsii assemblies).
      */
-    public bundled?: { [module: string]: string };
+    bundled?: { [module: string]: string };
 
     /**
-     * All types in the module, keyed by their fully-qualified-name
+     * All types in the assembly, keyed by their fully-qualified-name
      */
-    public types: { [fqn: string]: Type };
+    types?: { [fqn: string]: Type };
 
     /**
      * All external types that are referenced from the visible
-     * type signatures in this module (through ``types``). This
+     * type signatures in this assembly (through ``types``). This
      * is provided so that consumers of an ``Assembly`` can reason
      * over the types that are used by this one without necessarily
      * having to load dependent assemblies.
      */
-    public externals?: { [fqn: string]: Type };
-
-    /**
-     * Documentation
-     */
-    public docs = new Docs();
+    externals?: { [fqn: string]: Type };
 
     /**
      * The top-level readme document for this assembly (if any).
      */
-    public readme?: { markdown: string };
+    readme?: { markdown: string };
+}
+
+/**
+ * Versions of the JSII Assembly Specification.
+ */
+export enum SchemaVersion {
+    V1_0 = 'jsii/1.0'
 }
 
 /**
@@ -78,28 +82,32 @@ export interface AssemblyTargets {
  * The version of a package.
  */
 export interface PackageVersion {
-    /** Version of the package. */
+    /**
+     * Version of the package.
+     * @minLength 1
+     */
     version: string;
+
     /** Targets for a given assembly. */
-    targets: AssemblyTargets;
+    targets?: AssemblyTargets;
 
     /** Dependencies of this dependency */
-    dependencies?: { [module: string]: PackageVersion };
+    dependencies?: { [assembly: string]: PackageVersion };
 }
 
 /**
  * Key value pairs of documentation nodes.
  * Based on JSDoc.
  */
-export class Docs {
-    [ key: string ]: string;
+export interface Docs {
+    [key: string]: string;
 }
 
 /**
  * Indicates that an entity is documentable.
  */
 export interface Documentable {
-    docs: Docs;
+    docs?: Docs;
 }
 
 /**
@@ -131,252 +139,255 @@ export enum PrimitiveType {
 }
 
 /**
- * A reference to a collection type.
- */
-export class CollectionTypeReference {
-    /**
-     * The kind of collection.
-     */
-    public kind: CollectionKind;
-
-    /**
-     * The type of an element (map keys are always strings).
-     */
-    public elementtype: TypeReference;
-}
-
-/**
- * Represents a union type, which can be one of a list of types.
- */
-export class UnionTypeReference {
-    /**
-     * All the possible types (including the primary type).
-     */
-    public types = new Array<TypeReference>();
-}
-
-/**
  * A reference to a type (primitive, collection or fqn).
  */
-export class TypeReference {
-    /**
-     * If this is a reference to another type in the module, this will be
-     * the fully-qualified-name of the type (can be located in spec.types[fqn]).
-     * Mutually exclusive with `primitive` and `collection`.
-     */
-    public fqn?: string;
+export type TypeReference = TypeReferenceBase & (NamedTypeReference | PrimitiveTypeReference | CollectionTypeReference | UnionTypeReference);
 
-    /**
-     * If this is a reference to a primitive type, this will include the
-     * primitive type kind.
-     * Mutually exclusive with `fqn` and `collection`.
-     */
-    public primitive?: PrimitiveType;
-
-    /**
-     * If this is a reference to a collection type, this will include the
-     * collection reference.
-     * Mutually exclusive with `fqn` and `primitive`.
-     */
-    public collection?: CollectionTypeReference;
-
-    /**
-     * Indicates that this is a union type, which means it can be one of a set of types.
-     */
-    public union?: UnionTypeReference;
-
+/**
+ * Common attributes of a TypeReference.
+ */
+export interface TypeReferenceBase {
     /**
      * Indicates if this value is optional.
      */
-    public optional?: boolean;
+    optional?: boolean;
 
     /**
      * Indicates if this type refers to a promise.
      */
-    public promise?: boolean;
+    promise?: boolean;
 }
 
 /**
- * A type reference for a user type (FQN).
+ * Reference to a named type, defined by this assembly or one of it's dependencies.
  */
-export class UserTypeReference extends TypeReference {
+export interface NamedTypeReference extends TypeReferenceBase {
     /**
-     * The fully-qualified-name of the type (can be located in spec.types[fqn]).
+     * The fully-qualified-name of the type (can be located in exactly one of
+     * ``spec.types[fqn]``` or ``spec.externals[fqn]``, depending on whether the
+     * type is respecitvely defined by this assembly or imported from a
+     * dependency).
      */
-    public fqn: string;
+    fqn: string;
+}
+export function isNamedTypeReference(ref: TypeReference): ref is NamedTypeReference {
+    return !!(ref as NamedTypeReference).fqn;
+}
+
+/**
+ * Reference to a primitive type.
+ */
+export interface PrimitiveTypeReference extends TypeReferenceBase {
+    /**
+     * If this is a reference to a primitive type, this will include the
+     * primitive type kind.
+     */
+    primitive: PrimitiveType;
+}
+export function isPrimitiveTypeReference(ref: TypeReference): ref is PrimitiveTypeReference {
+    return !!(ref as PrimitiveTypeReference).primitive;
+}
+
+/**
+ * Reference to a collection type.
+ */
+export interface CollectionTypeReference extends TypeReferenceBase {
+    collection: {
+        /**
+         * The kind of collection.
+         */
+        kind: CollectionKind;
+
+        /**
+         * The type of an element (map keys are always strings).
+         */
+        elementtype: TypeReference;
+    };
+}
+export function isCollectionTypeReference(ref: TypeReference): ref is CollectionTypeReference {
+    return !!(ref as CollectionTypeReference).collection;
+}
+
+/**
+ * Reference to a union type.
+ */
+export interface UnionTypeReference extends TypeReferenceBase {
+    /**
+     * Indicates that this is a union type, which means it can be one of a set of types.
+     */
+    union: {
+        /**
+         * All the possible types (including the primary type).
+         * @minItems 2
+         */
+        types: TypeReference[];
+    }
+}
+export function isUnionTypeReference(ref: TypeReference): ref is UnionTypeReference {
+    return !!(ref as UnionTypeReference).union;
 }
 
 /**
  * A class property.
  */
-export class Property implements Documentable {
+export interface Property extends Documentable {
     /**
      * The name of the property.
+     * @minLength 1
      */
-    public name: string;
+    name: string;
 
     /**
      * The type of the property.
      */
-    public type: TypeReference;
+    type: TypeReference;
 
     /**
      * Indicates if this property only has a getter (immutable).
      */
-    public immutable?: boolean;
+    immutable?: boolean;
 
     /**
      * Indicates if this property is protected (otherwise it is public)
      */
-    public protected?: boolean;
+    protected?: boolean;
 
     /**
      * Indicates if this property is abstract
      */
-    public abstract?: boolean;
-
-    /**
-     * Documentation.
-     */
-    public docs = new Docs();
+    abstract?: boolean;
 
     /**
      * Indicates if this is a static property.
      */
-    public static?: boolean;
+    static?: boolean;
 
     /**
      * A hint that indicates that this static, immutable property is initialized
      * during startup. This allows emitting "const" idioms in different target languages.
      * Implies `static` and `immutable`.
      */
-    public const?: boolean;
+    const?: boolean;
 }
 
 /**
  * Represents a method parameter.
  */
-export class Parameter implements Documentable {
+export interface Parameter extends Documentable {
 
     /**
      * The name of the parameter.
+     * @minLength 1
      */
-    public name: string;
+    name: string;
 
     /**
      * The type of the parameter.
      */
-    public type: TypeReference;
-
-    /**
-     * Documentation.
-     */
-    public docs = new Docs();
+    type: TypeReference;
 
     /**
      * Whather this argument is the "rest" of a variadic signature.
      * The ``#type`` is that of every individual argument of the variadic list.
      */
-    public variadic?: boolean;
+    variadic?: boolean;
 }
 
 /**
  * Represents a method.
  */
-export class Method implements Documentable {
+export interface Method extends Documentable {
 
     /**
      * The name of the method. Undefined if this method is a initializer.
      */
-    public name?: string;
+    name?: string;
 
     /**
      * The return type of the method (undefined if void or initializer)
      */
-    public returns?: TypeReference;
+    returns?: TypeReference;
 
     /**
      * The parameters of the method/initializer
      */
-    public parameters ? = new Array<Parameter>();
+    parameters?: Parameter[];
 
     /**
      * True if this method is an initializer, in which case it won't have a return type
      */
-    public initializer: boolean;
+    initializer?: boolean;
 
     /**
      * Indicates if this method is protected (otherwise it is public)
      */
-    public protected: boolean;
+    protected?: boolean;
 
     /**
      * Is this method an abstract method (this means the class will also be an abstract class)
      */
-    public abstract: boolean;
-
-    /**
-     * Documentation.
-     */
-    public docs = new Docs();
+    abstract?: boolean;
 
     /**
      * Indicates whether this method is variadic or not. When ``true``, the last
      * element of ``#parameters`` will also be flagged ``#variadic``.
      */
-    public variadic?: boolean;
+    variadic?: boolean;
 
     /**
      * Indicates if this is a static method.
      */
-    public static?: boolean;
+    static?: boolean;
 }
 
 /**
  * Represents a type definition (not a type reference).
  */
-export class Type implements Documentable {
+export type Type = TypeBase & (ClassType | EnumType | InterfaceType);
+
+/**
+ * Common attributes of a type definition.
+ */
+export interface TypeBase extends Documentable {
     /**
-     * The fully qualified name of the type (<module>.<namespace>.<name>)
+     * The fully qualified name of the type (<assembly>.<namespace>.<name>)
+     * @minLength 1
      */
-    public fqn: string;
+    fqn: string;
 
     /**
-     * The name of the module. Cannot be undefined.
+     * The name of the assembly. Cannot be undefined.
+     * @minLength 1
      */
-    public module: string;
+    assembly: string;
 
     /**
      * The namespace of the type (foo.goo.doo).
      * It is possible that namespace will be undefined, in which case the type is at the root
-     * of the module.
+     * of the assembly.
      */
-    public namespace?: string;
+    namespace?: string;
 
     /**
      * The simple name of the type (MyClass).
+     * @minLength 1
      */
-    public name: string;
+    name: string;
 
     /**
      * The kind of the type.
      */
-    public kind: TypeKind;
-
-    /**
-     * Documentation.
-     */
-    public docs = new Docs();
+    kind: TypeKind;
 
     /**
      * FQNs of all the subtypes of this type.
      */
-    public subtypes ? = new Array<string>();
+    subtypes?: string[];
 
     /**
      * FQN of the parent type of this type (or undefined if this is not a subtype).
      */
-    public parenttype?: string;
+    parenttype?: string;
 }
 
 /**
@@ -391,61 +402,61 @@ export enum TypeKind {
 /**
  * Represents classes.
  */
-export class ClassType extends Type {
-    public kind = TypeKind.Class;
+export interface ClassType extends TypeBase {
+    kind: TypeKind.Class;
 
     /**
      * Base class (optional).
      */
-    public base?: UserTypeReference;
+    base?: NamedTypeReference;
 
     /**
      * Initializer (constructor) method.
      */
-    public initializer?: Method;
+    initializer?: Method;
 
     /**
      * List of properties.
      */
-    public properties ? = new Array<Property>();
+    properties?: Property[];
 
     /**
      * List of methods.
      */
-    public methods ? = new Array<Method>();
+    methods?: Method[];
 
     /**
      * Indicates if this class is an abstract class.
      */
-    public abstract: boolean;
+    abstract?: boolean;
 
     /**
      * The set of interfaces implemented by this class.
      */
-    public interfaces ? = new Array<UserTypeReference>();
+    interfaces?: NamedTypeReference[];
 }
 
 export function isClassType(type: Type): type is ClassType {
     return type.kind === TypeKind.Class;
 }
 
-export class InterfaceType extends Type {
-    public kind = TypeKind.Interface;
+export interface InterfaceType extends TypeBase {
+    kind: TypeKind.Interface;
 
     /**
      * All the base interfaces that this interface extends.
      */
-    public interfaces ? = new Array<UserTypeReference>();
+    interfaces?: NamedTypeReference[];
 
     /**
      * List of methods.
      */
-    public methods ? = new Array<Method>();
+    methods?: Method[];
 
     /**
      * List of properties.
      */
-    public properties ? = new Array<Property>();
+    properties?: Property[];
 
     /**
      * True if this interface only contains properties. Different backends might
@@ -454,7 +465,7 @@ export class InterfaceType extends Type {
      * which will allow users to create a concrete object with data which
      * adheres to this interface.
      */
-    public datatype?: boolean;
+    datatype?: boolean;
 }
 
 export function isInterfaceType(type: Type): type is InterfaceType {
@@ -464,28 +475,23 @@ export function isInterfaceType(type: Type): type is InterfaceType {
 /**
  * Represents a member of an enum.
  */
-export class EnumMember implements Documentable {
+export interface EnumMember extends Documentable {
     /**
      * The name/symbol of the member.
      */
-    public name: string;
-
-    /**
-     * Documentation.
-     */
-    public docs = new Docs();
+    name: string;
 }
 
 /**
  * Represents an enum type.
  */
-export class EnumType extends Type {
-    public kind = TypeKind.Enum;
+export interface EnumType extends TypeBase {
+    kind: TypeKind.Enum;
 
     /**
      * Members of the enum.
      */
-    public members = new Array<EnumMember>();
+    members: EnumMember[];
 }
 
 export function isEnumType(type: Type): type is EnumType {

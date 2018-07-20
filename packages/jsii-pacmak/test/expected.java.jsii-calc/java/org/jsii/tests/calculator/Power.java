@@ -17,14 +17,12 @@ public class Power extends org.jsii.tests.calculator.composition.CompositeOperat
         org.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.concat(java.util.stream.Stream.of(base), java.util.stream.Stream.of(pow)).toArray());
     }
     /**
-     * @param base The base of the power
      * The base of the power
      */
     public org.jsii.tests.calculator.lib.Value getBase() {
         return this.jsiiGet("base", org.jsii.tests.calculator.lib.Value.class);
     }
     /**
-     * @param pow The number of times to multiply
      * The number of times to multiply
      */
     public org.jsii.tests.calculator.lib.Value getPow() {
