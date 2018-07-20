@@ -10,18 +10,18 @@ public class NumberGenerator extends org.jsii.JsiiObject {
     }
     public NumberGenerator(final org.jsii.tests.calculator.IRandomNumberGenerator generator) {
         super(org.jsii.JsiiObject.InitializationMode.Jsii);
-        org.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.of(generator).toArray());
+        org.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.of(java.util.Objects.requireNonNull(generator, "generator is required")).toArray());
     }
     public java.lang.Number nextTimes100() {
         return this.jsiiCall("nextTimes100", java.lang.Number.class);
     }
     public java.lang.Boolean isSameGenerator(final org.jsii.tests.calculator.IRandomNumberGenerator gen) {
-        return this.jsiiCall("isSameGenerator", java.lang.Boolean.class, java.util.stream.Stream.of(gen).toArray());
+        return this.jsiiCall("isSameGenerator", java.lang.Boolean.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(gen, "gen is required")).toArray());
     }
     public org.jsii.tests.calculator.IRandomNumberGenerator getGenerator() {
         return this.jsiiGet("generator", org.jsii.tests.calculator.IRandomNumberGenerator.class);
     }
     public void setGenerator(final org.jsii.tests.calculator.IRandomNumberGenerator value) {
-        this.jsiiSet("generator", value);
+        this.jsiiSet("generator", java.util.Objects.requireNonNull(value, "generator is required"));
     }
 }

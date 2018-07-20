@@ -9,7 +9,7 @@ public class Negate extends org.jsii.tests.calculator.UnaryOperation implements 
     }
     public Negate(final org.jsii.tests.calculator.lib.Value operand) {
         super(org.jsii.JsiiObject.InitializationMode.Jsii);
-        org.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.of(operand).toArray());
+        org.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.of(java.util.Objects.requireNonNull(operand, "operand is required")).toArray());
     }
     /**
      * String representation of the value.

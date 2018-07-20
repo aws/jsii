@@ -21,7 +21,7 @@ public class Sum extends org.jsii.tests.calculator.composition.CompositeOperatio
      * The parts to sum.
      */
     public void setParts(final java.util.List<org.jsii.tests.calculator.lib.Value> value) {
-        this.jsiiSet("parts", value);
+        this.jsiiSet("parts", java.util.Objects.requireNonNull(value, "parts is required"));
     }
     /**
      * The expression that this operation consists of.

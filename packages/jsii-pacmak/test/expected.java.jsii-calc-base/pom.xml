@@ -15,6 +15,12 @@
       <artifactId>jsii-runtime</artifactId>
       <version>0.5.0-beta</version>
     </dependency>
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>jsr305</artifactId>
+      <version>[3.0.2,)</version>
+      <scope>compile</scope>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
@@ -53,6 +59,23 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.0.1</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <failOnWarnings>true</failOnWarnings>
+          <show>protected</show>
+        </configuration>
       </plugin>
     </plugins>
   </build>

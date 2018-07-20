@@ -13,21 +13,21 @@ public class NodeStandardLibrary extends org.jsii.JsiiObject {
     }
     /**
      * Reads a local resource file (resource.txt) asynchronously.
-     * @returns "Hello, resource!"
+     * @return "Hello, resource!"
      */
     public java.lang.String fsReadFile() {
         return this.jsiiAsyncCall("fsReadFile", java.lang.String.class);
     }
     /**
      * Sync version of fsReadFile.
-     * @returns "Hello, resource! SYNC!"
+     * @return "Hello, resource! SYNC!"
      */
     public java.lang.String fsReadFileSync() {
         return this.jsiiCall("fsReadFileSync", java.lang.String.class);
     }
     /**
      * Uses node.js "crypto" module to calculate sha256 of a string.
-     * @returns "6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50"
+     * @return "6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50"
      */
     public java.lang.String cryptoSha256() {
         return this.jsiiCall("cryptoSha256", java.lang.String.class);

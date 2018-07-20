@@ -12,7 +12,7 @@ public class AsyncVirtualMethods extends org.jsii.JsiiObject {
         return this.jsiiAsyncCall("callMe", java.lang.Number.class);
     }
     public java.lang.Number overrideMe(final java.lang.Number mult) {
-        return this.jsiiAsyncCall("overrideMe", java.lang.Number.class, java.util.stream.Stream.of(mult).toArray());
+        return this.jsiiAsyncCall("overrideMe", java.lang.Number.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(mult, "mult is required")).toArray());
     }
     public java.lang.Number overrideMeToo() {
         return this.jsiiAsyncCall("overrideMeToo", java.lang.Number.class);

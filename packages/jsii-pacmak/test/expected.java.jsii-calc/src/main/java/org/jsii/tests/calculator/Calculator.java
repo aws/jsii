@@ -11,7 +11,7 @@ public class Calculator extends org.jsii.tests.calculator.composition.CompositeO
      * Creates a Calculator object.
      * @param props Initialization properties.
      */
-    public Calculator(final org.jsii.tests.calculator.CalculatorProps props) {
+    public Calculator(@javax.annotations.Nullable final org.jsii.tests.calculator.CalculatorProps props) {
         super(org.jsii.JsiiObject.InitializationMode.Jsii);
         org.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.of(props).toArray());
     }
@@ -26,19 +26,19 @@ public class Calculator extends org.jsii.tests.calculator.composition.CompositeO
      * Adds a number to the current value.
      */
     public void add(final java.lang.Number value) {
-        this.jsiiCall("add", Void.class, java.util.stream.Stream.of(value).toArray());
+        this.jsiiCall("add", Void.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(value, "value is required")).toArray());
     }
     /**
      * Multiplies the current value by a number.
      */
     public void mul(final java.lang.Number value) {
-        this.jsiiCall("mul", Void.class, java.util.stream.Stream.of(value).toArray());
+        this.jsiiCall("mul", Void.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(value, "value is required")).toArray());
     }
     /**
      * Raises the current value by a power.
      */
     public void pow(final java.lang.Number value) {
-        this.jsiiCall("pow", Void.class, java.util.stream.Stream.of(value).toArray());
+        this.jsiiCall("pow", Void.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(value, "value is required")).toArray());
     }
     /**
      * Negates the current value.
@@ -62,7 +62,7 @@ public class Calculator extends org.jsii.tests.calculator.composition.CompositeO
      * The current value.
      */
     public void setCurr(final org.jsii.tests.calculator.lib.Value value) {
-        this.jsiiSet("curr", value);
+        this.jsiiSet("curr", java.util.Objects.requireNonNull(value, "curr is required"));
     }
     /**
      * A map of per operation name of all operations performed.
@@ -79,13 +79,14 @@ public class Calculator extends org.jsii.tests.calculator.composition.CompositeO
     /**
      * The maximum value allows in this calculator.
      */
+    @javax.annotations.Nullable
     public java.lang.Number getMaxValue() {
         return this.jsiiGet("maxValue", java.lang.Number.class);
     }
     /**
      * The maximum value allows in this calculator.
      */
-    public void setMaxValue(final java.lang.Number value) {
+    public void setMaxValue(@javax.annotations.Nullable final java.lang.Number value) {
         this.jsiiSet("maxValue", value);
     }
     /**
@@ -97,25 +98,26 @@ public class Calculator extends org.jsii.tests.calculator.composition.CompositeO
     /**
      * Example of a property that accepts a union of types.
      */
+    @javax.annotations.Nullable
     public java.lang.Object getUnionProperty() {
         return this.jsiiGet("unionProperty", java.lang.Object.class);
     }
     /**
      * Example of a property that accepts a union of types.
      */
-    public void setUnionProperty(final org.jsii.tests.calculator.Add value) {
+    public void setUnionProperty(@javax.annotations.Nullable final org.jsii.tests.calculator.Add value) {
         this.jsiiSet("unionProperty", value);
     }
     /**
      * Example of a property that accepts a union of types.
      */
-    public void setUnionProperty(final org.jsii.tests.calculator.Multiply value) {
+    public void setUnionProperty(@javax.annotations.Nullable final org.jsii.tests.calculator.Multiply value) {
         this.jsiiSet("unionProperty", value);
     }
     /**
      * Example of a property that accepts a union of types.
      */
-    public void setUnionProperty(final org.jsii.tests.calculator.Power value) {
+    public void setUnionProperty(@javax.annotations.Nullable final org.jsii.tests.calculator.Power value) {
         this.jsiiSet("unionProperty", value);
     }
 }

@@ -9,6 +9,8 @@ const MODULE_CLASS_NAME = '$Module';
 const INTERFACE_PROXY_CLASS_NAME = 'Jsii$Proxy';
 const INTERFACE_POJO_CLASS_NAME = 'Jsii$Pojo';
 
+const JSR305_NULLABLE = '@javax.annotations.Nullable';
+
 export default class JavaGenerator extends Generator {
     private moduleClass: string;
 
@@ -249,6 +251,20 @@ export default class JavaGenerator extends Generator {
                                         goals: { goal: 'jar' }
                                     }
                                 }
+                            }, {
+                                groupId: 'org.apache.maven.plugins',
+                                artifactId: 'maven-javadoc-plugin',
+                                version: '3.0.1',
+                                executions: {
+                                    execution: {
+                                        id: 'attach-javadocs',
+                                        goals: { goal: 'jar' }
+                                    }
+                                },
+                                configuration: {
+                                    failOnWarnings: true,
+                                    show: 'protected'
+                                }
                             }]
                         }
                     }
@@ -270,6 +286,12 @@ export default class JavaGenerator extends Generator {
                 });
             }
             dependencies.push(jsiiJavaRuntime.maven);
+            dependencies.push({
+                groupId: 'com.google.code.findbugs',
+                artifactId: 'jsr305',
+                version: '[3.0.2,)',
+                scope: 'compile'
+            });
             return dependencies;
         }
     }
@@ -318,6 +340,7 @@ export default class JavaGenerator extends Generator {
         // for unions we only generate overloads for setters, not getters.
         if (includeGetter) {
             this.addJavaDocs(prop);
+            if (prop.type.optional) { this.code.line(JSR305_NULLABLE); }
             this.code.openBlock(`${access} ${statc}${getterType} get${propName}()`);
 
             let statement = 'return ';
@@ -336,7 +359,8 @@ export default class JavaGenerator extends Generator {
         if (!prop.immutable) {
             for (const type of setterTypes) {
                 this.addJavaDocs(prop);
-                this.code.openBlock(`${access} ${statc}void set${propName}(final ${type} value)`);
+                const nullable = prop.type.optional ? `${JSR305_NULLABLE} ` : '';
+                this.code.openBlock(`${access} ${statc}void set${propName}(${nullable}final ${type} value)`);
                 let statement = '';
 
                 if (prop.static) {
@@ -344,7 +368,8 @@ export default class JavaGenerator extends Generator {
                 } else {
                     statement += 'this.jsiiSet(';
                 }
-                statement += `"${prop.name}\", value);`;
+                const value = prop.type.optional ? 'value' : `java.util.Objects.requireNonNull(value, "${prop.name} is required")`;
+                statement += `"${prop.name}\", ${value});`;
                 this.code.line(statement);
                 this.code.closeBlock();
             }
@@ -359,6 +384,7 @@ export default class JavaGenerator extends Generator {
         const methodName = slugify(method.name);
         const signature = `${returnType} ${methodName}(${this.renderMethodParameters(method)})`;
         this.addJavaDocs(method);
+        if (method.returns && method.returns.optional) { this.code.line(JSR305_NULLABLE); }
         if (method.abstract) {
             this.code.line(`${access} abstract ${signature};`);
         } else {
@@ -512,7 +538,8 @@ export default class JavaGenerator extends Generator {
                     this.code.line(`return new FullBuilder().with${prop.propName}(value);`);
                 } else {
                     if (!prop.optional) {
-                        this.code.line(`java.util.Objects.requireNonNull(value, "${prop.fieldName} is required");`);
+                        const propPath = `${interfaceName}#${this.code.toCamelCase(prop.propName)}`;
+                        this.code.line(`java.util.Objects.requireNonNull(value, "${propPath} is required");`);
                     }
                     this.code.line(`this.instance.${prop.fieldName} = value;`);
                     this.code.line('return this;');
@@ -553,7 +580,7 @@ export default class JavaGenerator extends Generator {
             this.code.line();
             this.code.openBlock(`public interface Build`);
             this.code.line(`/**`);
-            this.code.line(` * Returns a new ${interfaceName} object, initialized with the values set on this builder.`);
+            this.code.line(` * @return a new {@link ${interfaceName}} object, initialized with the values set on this builder.`);
             this.code.line(` */`);
             this.code.line(`${interfaceName} build();`);
             for (const opt of optionalProps) {
@@ -586,7 +613,7 @@ export default class JavaGenerator extends Generator {
         } else {
             this.code.line();
             this.code.line('/**');
-            this.code.line(` * A fluent builder class for ${interfaceName}.`);
+            this.code.line(` * A fluent builder class for {@link ${interfaceName}}.`);
             this.code.line(' */');
             this.code.openBlock(`public static class ${builderName}`);
 
@@ -686,6 +713,8 @@ export default class JavaGenerator extends Generator {
             const value = doc.docs[key];
             if (key === 'comment') {
                 value.split('\n').forEach(s => this.code.line(` * ${s}`));
+            } else if (key === 'returns' && !('return' in doc.docs)) {
+                this.code.line(` * @return ${value.replace(/\n/g, ' ')}`);
             } else {
                 this.code.line(` * @${key} ${value.replace(/\n/g, ' ')}`);
             }
@@ -770,7 +799,8 @@ export default class JavaGenerator extends Generator {
         if (!method.parameters || method.parameters.length === 0) { return ''; }
         let paramStream: string = '';
         for (const param of method.parameters) {
-            const thisParam = `${param.variadic ? 'java.util.Arrays.stream' : 'java.util.stream.Stream.of'}(${param.name})`;
+            const paramValue = param.type.optional ? param.name : `java.util.Objects.requireNonNull(${param.name}, "${param.name} is required")`;
+            const thisParam = `${param.variadic ? 'java.util.Arrays.stream' : 'java.util.stream.Stream.of'}(${paramValue})`;
             if (paramStream === '') {
                 paramStream = thisParam;
             } else {
@@ -815,7 +845,8 @@ export default class JavaGenerator extends Generator {
         const params = [];
         if (method.parameters) {
             for (const p of method.parameters) {
-                params.push(`final ${this.toJavaType(p.type)}${p.variadic ? '...' : ''} ${p.name}`);
+                const nullable = p.type.optional ? `${JSR305_NULLABLE} ` : '';
+                params.push(`${nullable}final ${this.toJavaType(p.type)}${p.variadic ? '...' : ''} ${p.name}`);
             }
         }
         return params.join(', ');

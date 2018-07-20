@@ -9,6 +9,6 @@ public class OverrideReturnsObject extends org.jsii.JsiiObject {
         org.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
     public java.lang.Number test(final org.jsii.tests.calculator.ReturnsNumber obj) {
-        return this.jsiiCall("test", java.lang.Number.class, java.util.stream.Stream.of(obj).toArray());
+        return this.jsiiCall("test", java.lang.Number.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(obj, "obj is required")).toArray());
     }
 }

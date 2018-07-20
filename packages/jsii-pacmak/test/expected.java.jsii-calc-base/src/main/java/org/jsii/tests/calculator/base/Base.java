@@ -8,7 +8,7 @@ public abstract class Base extends org.jsii.JsiiObject {
         super(mode);
     }
     /**
-     * @returns the name of the class (to verify native type names are created for derived classes).
+     * @return the name of the class (to verify native type names are created for derived classes).
      */
     public java.lang.Object typeName() {
         return this.jsiiCall("typeName", java.lang.Object.class);

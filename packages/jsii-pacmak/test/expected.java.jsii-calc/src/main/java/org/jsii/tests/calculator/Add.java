@@ -14,7 +14,7 @@ public class Add extends org.jsii.tests.calculator.BinaryOperation {
      */
     public Add(final org.jsii.tests.calculator.lib.Value lhs, final org.jsii.tests.calculator.lib.Value rhs) {
         super(org.jsii.JsiiObject.InitializationMode.Jsii);
-        org.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.concat(java.util.stream.Stream.of(lhs), java.util.stream.Stream.of(rhs)).toArray());
+        org.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.concat(java.util.stream.Stream.of(java.util.Objects.requireNonNull(lhs, "lhs is required")), java.util.stream.Stream.of(java.util.Objects.requireNonNull(rhs, "rhs is required"))).toArray());
     }
     /**
      * String representation of the value.

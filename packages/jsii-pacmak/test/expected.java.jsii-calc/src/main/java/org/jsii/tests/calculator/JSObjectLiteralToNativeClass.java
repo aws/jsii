@@ -12,12 +12,12 @@ public class JSObjectLiteralToNativeClass extends org.jsii.JsiiObject {
         return this.jsiiGet("propA", java.lang.String.class);
     }
     public void setPropA(final java.lang.String value) {
-        this.jsiiSet("propA", value);
+        this.jsiiSet("propA", java.util.Objects.requireNonNull(value, "propA is required"));
     }
     public java.lang.Number getPropB() {
         return this.jsiiGet("propB", java.lang.Number.class);
     }
     public void setPropB(final java.lang.Number value) {
-        this.jsiiSet("propB", value);
+        this.jsiiSet("propB", java.util.Objects.requireNonNull(value, "propB is required"));
     }
 }

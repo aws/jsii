@@ -50,7 +50,7 @@ public interface MyFirstStruct extends org.jsii.JsiiSerializable {
 
         public interface Build {
             /**
-             * Returns a new MyFirstStruct object, initialized with the values set on this builder.
+             * @return a new {@link MyFirstStruct} object, initialized with the values set on this builder.
              */
             MyFirstStruct build();
             /**
@@ -67,7 +67,7 @@ public interface MyFirstStruct extends org.jsii.JsiiSerializable {
              * A string value
              */
             public AnumberStep withAstring(final java.lang.String value) {
-                java.util.Objects.requireNonNull(value, "_astring is required");
+                java.util.Objects.requireNonNull(value, "MyFirstStruct#astring is required");
                 this.instance._astring = value;
                 return this;
             }
@@ -75,7 +75,7 @@ public interface MyFirstStruct extends org.jsii.JsiiSerializable {
              * An awesome number value
              */
             public Build withAnumber(final java.lang.Number value) {
-                java.util.Objects.requireNonNull(value, "_anumber is required");
+                java.util.Objects.requireNonNull(value, "MyFirstStruct#anumber is required");
                 this.instance._anumber = value;
                 return this;
             }
@@ -147,7 +147,7 @@ public interface MyFirstStruct extends org.jsii.JsiiSerializable {
          * A string value
          */
         public void setAstring(final java.lang.String value) {
-            this.jsiiSet("astring", value);
+            this.jsiiSet("astring", java.util.Objects.requireNonNull(value, "astring is required"));
         }
         /**
          * An awesome number value
@@ -159,12 +159,13 @@ public interface MyFirstStruct extends org.jsii.JsiiSerializable {
          * An awesome number value
          */
         public void setAnumber(final java.lang.Number value) {
-            this.jsiiSet("anumber", value);
+            this.jsiiSet("anumber", java.util.Objects.requireNonNull(value, "anumber is required"));
         }
+        @javax.annotations.Nullable
         public java.util.List<java.lang.String> getFirstOptional() {
             return this.jsiiGet("firstOptional", java.util.List.class);
         }
-        public void setFirstOptional(final java.util.List<java.lang.String> value) {
+        public void setFirstOptional(@javax.annotations.Nullable final java.util.List<java.lang.String> value) {
             this.jsiiSet("firstOptional", value);
         }
     }

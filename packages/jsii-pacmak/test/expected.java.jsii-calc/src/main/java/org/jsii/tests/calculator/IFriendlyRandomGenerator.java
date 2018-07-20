@@ -10,7 +10,7 @@ public interface IFriendlyRandomGenerator extends org.jsii.JsiiSerializable, org
         }
         /**
          * Returns another random number.
-         * @returns A random number.
+         * @return A random number.
          */
         public java.lang.Number next() {
             return this.jsiiCall("next", java.lang.Number.class);

@@ -168,6 +168,6 @@ public class JavaReservedWords extends org.jsii.JsiiObject {
         return this.jsiiGet("while", java.lang.String.class);
     }
     public void setWhile(final java.lang.String value) {
-        this.jsiiSet("while", value);
+        this.jsiiSet("while", java.util.Objects.requireNonNull(value, "while is required"));
     }
 }

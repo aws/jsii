@@ -14,7 +14,7 @@ public class Power extends org.jsii.tests.calculator.composition.CompositeOperat
      */
     public Power(final org.jsii.tests.calculator.lib.Value base, final org.jsii.tests.calculator.lib.Value pow) {
         super(org.jsii.JsiiObject.InitializationMode.Jsii);
-        org.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.concat(java.util.stream.Stream.of(base), java.util.stream.Stream.of(pow)).toArray());
+        org.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.concat(java.util.stream.Stream.of(java.util.Objects.requireNonNull(base, "base is required")), java.util.stream.Stream.of(java.util.Objects.requireNonNull(pow, "pow is required"))).toArray());
     }
     /**
      * The base of the power

@@ -29,7 +29,7 @@ public interface UnionProperties extends org.jsii.JsiiSerializable {
 
         public interface Build {
             /**
-             * Returns a new UnionProperties object, initialized with the values set on this builder.
+             * @return a new {@link UnionProperties} object, initialized with the values set on this builder.
              */
             UnionProperties build();
             /**
@@ -55,17 +55,17 @@ public interface UnionProperties extends org.jsii.JsiiSerializable {
                 return this;
             }
             public Build withBar(final java.lang.String value) {
-                java.util.Objects.requireNonNull(value, "_bar is required");
+                java.util.Objects.requireNonNull(value, "UnionProperties#bar is required");
                 this.instance._bar = value;
                 return this;
             }
             public Build withBar(final java.lang.Number value) {
-                java.util.Objects.requireNonNull(value, "_bar is required");
+                java.util.Objects.requireNonNull(value, "UnionProperties#bar is required");
                 this.instance._bar = value;
                 return this;
             }
             public Build withBar(final org.jsii.tests.calculator.AllTypes value) {
-                java.util.Objects.requireNonNull(value, "_bar is required");
+                java.util.Objects.requireNonNull(value, "UnionProperties#bar is required");
                 this.instance._bar = value;
                 return this;
             }
@@ -114,13 +114,14 @@ public interface UnionProperties extends org.jsii.JsiiSerializable {
         protected Jsii$Proxy(final org.jsii.JsiiObject.InitializationMode mode) {
             super(mode);
         }
+        @javax.annotations.Nullable
         public java.lang.Object getFoo() {
             return this.jsiiGet("foo", java.lang.Object.class);
         }
-        public void setFoo(final java.lang.String value) {
+        public void setFoo(@javax.annotations.Nullable final java.lang.String value) {
             this.jsiiSet("foo", value);
         }
-        public void setFoo(final java.lang.Number value) {
+        public void setFoo(@javax.annotations.Nullable final java.lang.Number value) {
             this.jsiiSet("foo", value);
         }
         public java.lang.Object getBar() {

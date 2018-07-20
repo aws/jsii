@@ -12,14 +12,14 @@ public class Statics extends org.jsii.JsiiObject {
     }
     public Statics(final java.lang.String value) {
         super(org.jsii.JsiiObject.InitializationMode.Jsii);
-        org.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.of(value).toArray());
+        org.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.of(java.util.Objects.requireNonNull(value, "value is required")).toArray());
     }
     /**
      * Jsdocs for static method
      * @param name The name of the person to say hello to
      */
     public static java.lang.String staticMethod(final java.lang.String name) {
-        return org.jsii.JsiiObject.jsiiStaticCall(org.jsii.tests.calculator.Statics.class, "staticMethod", java.lang.String.class, java.util.stream.Stream.of(name).toArray());
+        return org.jsii.JsiiObject.jsiiStaticCall(org.jsii.tests.calculator.Statics.class, "staticMethod", java.lang.String.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(name, "name is required")).toArray());
     }
     public java.lang.String justMethod() {
         return this.jsiiCall("justMethod", java.lang.String.class);
@@ -51,13 +51,13 @@ public class Statics extends org.jsii.JsiiObject {
      * Jsdocs for static setter.
      */
     public static void setInstance(final org.jsii.tests.calculator.Statics value) {
-        org.jsii.JsiiObject.jsiiStaticSet(org.jsii.tests.calculator.Statics.class, "instance", value);
+        org.jsii.JsiiObject.jsiiStaticSet(org.jsii.tests.calculator.Statics.class, "instance", java.util.Objects.requireNonNull(value, "instance is required"));
     }
     public static java.lang.Number getNonConstStatic() {
         return org.jsii.JsiiObject.jsiiStaticGet(org.jsii.tests.calculator.Statics.class, "nonConstStatic", java.lang.Number.class);
     }
     public static void setNonConstStatic(final java.lang.Number value) {
-        org.jsii.JsiiObject.jsiiStaticSet(org.jsii.tests.calculator.Statics.class, "nonConstStatic", value);
+        org.jsii.JsiiObject.jsiiStaticSet(org.jsii.tests.calculator.Statics.class, "nonConstStatic", java.util.Objects.requireNonNull(value, "nonConstStatic is required"));
     }
     public final static org.jsii.tests.calculator.DoubleTrouble CONST_OBJ;
 }

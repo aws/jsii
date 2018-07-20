@@ -29,7 +29,7 @@ public interface IInterfaceWithProperties extends org.jsii.JsiiSerializable {
 
         public interface Build {
             /**
-             * Returns a new IInterfaceWithProperties object, initialized with the values set on this builder.
+             * @return a new {@link IInterfaceWithProperties} object, initialized with the values set on this builder.
              */
             IInterfaceWithProperties build();
         }
@@ -39,12 +39,12 @@ public interface IInterfaceWithProperties extends org.jsii.JsiiSerializable {
             private Jsii$Pojo instance = new Jsii$Pojo();
 
             public ReadWriteStringStep withReadOnlyString(final java.lang.String value) {
-                java.util.Objects.requireNonNull(value, "_readOnlyString is required");
+                java.util.Objects.requireNonNull(value, "IInterfaceWithProperties#readOnlyString is required");
                 this.instance._readOnlyString = value;
                 return this;
             }
             public Build withReadWriteString(final java.lang.String value) {
-                java.util.Objects.requireNonNull(value, "_readWriteString is required");
+                java.util.Objects.requireNonNull(value, "IInterfaceWithProperties#readWriteString is required");
                 this.instance._readWriteString = value;
                 return this;
             }
@@ -97,7 +97,7 @@ public interface IInterfaceWithProperties extends org.jsii.JsiiSerializable {
             return this.jsiiGet("readWriteString", java.lang.String.class);
         }
         public void setReadWriteString(final java.lang.String value) {
-            this.jsiiSet("readWriteString", value);
+            this.jsiiSet("readWriteString", java.util.Objects.requireNonNull(value, "readWriteString is required"));
         }
     }
 }

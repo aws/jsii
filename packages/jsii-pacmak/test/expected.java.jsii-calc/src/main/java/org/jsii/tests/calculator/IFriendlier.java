@@ -5,7 +5,7 @@ package org.jsii.tests.calculator;
 public interface IFriendlier extends org.jsii.JsiiSerializable, org.jsii.tests.calculator.lib.IFriendly {
     /**
      * Say goodbye.
-     * @returns A goodbye blessing.
+     * @return A goodbye blessing.
      */
     java.lang.String goodbye();
     /**
@@ -22,7 +22,7 @@ public interface IFriendlier extends org.jsii.JsiiSerializable, org.jsii.tests.c
         }
         /**
          * Say goodbye.
-         * @returns A goodbye blessing.
+         * @return A goodbye blessing.
          */
         public java.lang.String goodbye() {
             return this.jsiiCall("goodbye", java.lang.String.class);

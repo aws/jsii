@@ -17,7 +17,7 @@ public interface CalculatorProps extends org.jsii.JsiiSerializable {
     }
 
     /**
-     * A fluent builder class for CalculatorProps.
+     * A fluent builder class for {@link CalculatorProps}.
      */
     public static class Builder {
         private Jsii$Pojo instance = new Jsii$Pojo();
@@ -74,16 +74,18 @@ public interface CalculatorProps extends org.jsii.JsiiSerializable {
         protected Jsii$Proxy(final org.jsii.JsiiObject.InitializationMode mode) {
             super(mode);
         }
+        @javax.annotations.Nullable
         public java.lang.Number getInitialValue() {
             return this.jsiiGet("initialValue", java.lang.Number.class);
         }
-        public void setInitialValue(final java.lang.Number value) {
+        public void setInitialValue(@javax.annotations.Nullable final java.lang.Number value) {
             this.jsiiSet("initialValue", value);
         }
+        @javax.annotations.Nullable
         public java.lang.Number getMaximumValue() {
             return this.jsiiGet("maximumValue", java.lang.Number.class);
         }
-        public void setMaximumValue(final java.lang.Number value) {
+        public void setMaximumValue(@javax.annotations.Nullable final java.lang.Number value) {
             this.jsiiSet("maximumValue", value);
         }
     }

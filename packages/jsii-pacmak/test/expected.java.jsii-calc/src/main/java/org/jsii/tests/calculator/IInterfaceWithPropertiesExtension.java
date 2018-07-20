@@ -35,7 +35,7 @@ public interface IInterfaceWithPropertiesExtension extends org.jsii.JsiiSerializ
 
         public interface Build {
             /**
-             * Returns a new IInterfaceWithPropertiesExtension object, initialized with the values set on this builder.
+             * @return a new {@link IInterfaceWithPropertiesExtension} object, initialized with the values set on this builder.
              */
             IInterfaceWithPropertiesExtension build();
         }
@@ -45,17 +45,17 @@ public interface IInterfaceWithPropertiesExtension extends org.jsii.JsiiSerializ
             private Jsii$Pojo instance = new Jsii$Pojo();
 
             public ReadOnlyStringStep withFoo(final java.lang.Number value) {
-                java.util.Objects.requireNonNull(value, "_foo is required");
+                java.util.Objects.requireNonNull(value, "IInterfaceWithPropertiesExtension#foo is required");
                 this.instance._foo = value;
                 return this;
             }
             public ReadWriteStringStep withReadOnlyString(final java.lang.String value) {
-                java.util.Objects.requireNonNull(value, "_readOnlyString is required");
+                java.util.Objects.requireNonNull(value, "IInterfaceWithPropertiesExtension#readOnlyString is required");
                 this.instance._readOnlyString = value;
                 return this;
             }
             public Build withReadWriteString(final java.lang.String value) {
-                java.util.Objects.requireNonNull(value, "_readWriteString is required");
+                java.util.Objects.requireNonNull(value, "IInterfaceWithPropertiesExtension#readWriteString is required");
                 this.instance._readWriteString = value;
                 return this;
             }
@@ -114,7 +114,7 @@ public interface IInterfaceWithPropertiesExtension extends org.jsii.JsiiSerializ
             return this.jsiiGet("foo", java.lang.Number.class);
         }
         public void setFoo(final java.lang.Number value) {
-            this.jsiiSet("foo", value);
+            this.jsiiSet("foo", java.util.Objects.requireNonNull(value, "foo is required"));
         }
         public java.lang.String getReadOnlyString() {
             return this.jsiiGet("readOnlyString", java.lang.String.class);
@@ -123,7 +123,7 @@ public interface IInterfaceWithPropertiesExtension extends org.jsii.JsiiSerializ
             return this.jsiiGet("readWriteString", java.lang.String.class);
         }
         public void setReadWriteString(final java.lang.String value) {
-            this.jsiiSet("readWriteString", value);
+            this.jsiiSet("readWriteString", java.util.Objects.requireNonNull(value, "readWriteString is required"));
         }
     }
 }

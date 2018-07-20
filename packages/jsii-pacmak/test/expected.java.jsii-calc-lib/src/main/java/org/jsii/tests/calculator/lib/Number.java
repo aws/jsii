@@ -13,7 +13,7 @@ public class Number extends org.jsii.tests.calculator.lib.Value {
      */
     public Number(final java.lang.Number value) {
         super(org.jsii.JsiiObject.InitializationMode.Jsii);
-        org.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.of(value).toArray());
+        org.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.of(java.util.Objects.requireNonNull(value, "value is required")).toArray());
     }
     /**
      * The number.

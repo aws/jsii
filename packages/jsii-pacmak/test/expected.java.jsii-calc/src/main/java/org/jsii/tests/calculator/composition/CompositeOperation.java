@@ -23,7 +23,7 @@ public abstract class CompositeOperation extends org.jsii.tests.calculator.lib.O
      * The .toString() style.
      */
     public void setStringStyle(final org.jsii.tests.calculator.composition.CompositionStringStyle value) {
-        this.jsiiSet("stringStyle", value);
+        this.jsiiSet("stringStyle", java.util.Objects.requireNonNull(value, "stringStyle is required"));
     }
     /**
      * A set of prefixes to include in a decorated .toString().
@@ -35,7 +35,7 @@ public abstract class CompositeOperation extends org.jsii.tests.calculator.lib.O
      * A set of prefixes to include in a decorated .toString().
      */
     public void setDecorationPrefixes(final java.util.List<java.lang.String> value) {
-        this.jsiiSet("decorationPrefixes", value);
+        this.jsiiSet("decorationPrefixes", java.util.Objects.requireNonNull(value, "decorationPrefixes is required"));
     }
     /**
      * A set of postfixes to include in a decorated .toString().
@@ -47,7 +47,7 @@ public abstract class CompositeOperation extends org.jsii.tests.calculator.lib.O
      * A set of postfixes to include in a decorated .toString().
      */
     public void setDecorationPostfixes(final java.util.List<java.lang.String> value) {
-        this.jsiiSet("decorationPostfixes", value);
+        this.jsiiSet("decorationPostfixes", java.util.Objects.requireNonNull(value, "decorationPostfixes is required"));
     }
     /**
      * The value.
