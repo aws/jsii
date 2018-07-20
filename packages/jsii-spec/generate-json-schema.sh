@@ -6,7 +6,7 @@ INPUT_FILE='lib/spec.d.ts'
 
 # Output
 OUTPUT_DIR='schema'
-OUTPUT_FILE="${OUTPUT_DIR}/assembly.json"
+OUTPUT_FILE="${OUTPUT_DIR}/jsii-spec.schema.json"
 
 mkdir -p ${OUTPUT_DIR}
 

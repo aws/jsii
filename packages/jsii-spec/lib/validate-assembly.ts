@@ -2,7 +2,7 @@ import jsonschema = require('jsonschema');
 import { Assembly } from './spec';
 
 // tslint:disable-next-line:no-var-requires
-export const schema: jsonschema.Schema = require('../schema/assembly.json');
+export const schema: jsonschema.Schema = require('../schema/jsii-spec.schema.json');
 
 export function validateAssembly(obj: any): Assembly {
     const validator = new jsonschema.Validator();
