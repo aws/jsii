@@ -30,6 +30,7 @@ public class JsiiModule {
     /**
      * Creates a module.
      * @param moduleName The name of the module.
+     * @param moduleVersion The version of the module.
      * @param moduleClass The module class.
      * @param bundleResourceName The name of the bundle resource.
      */

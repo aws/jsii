@@ -46,6 +46,13 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <version>r03</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api -->
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <version>[1.2,)</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -74,6 +81,24 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
                 </executions>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <failOnWarnings>true</failOnWarnings>
+                    <show>protected</show>
+                </configuration>
+            </plugin>
+
             <!-- Deploys the jars to a local maven repo -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -89,6 +114,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
                         <configuration>
                             <file>\${project.build.directory}/\${project.artifactId}-\${project.version}.jar</file>
                             <sources>\${project.build.directory}/\${project.artifactId}-\${project.version}-sources.jar</sources>
+                            <javadocs>\${project.build.directory}/\${project.artifactId}-\${project.version}-javadocs.jar</javadocs>
                             <url>file:../maven-repo</url>
                             <groupId>\${project.groupId}</groupId>
                             <artifactId>\${project.artifactId}</artifactId>
