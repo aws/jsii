@@ -273,6 +273,45 @@ export async function compileSources(entrypoint: string,
 
                 // Skip properties that are not direct members of this type.
                 if (mem.valueDeclaration.parent !== decl) {
+                    if (ts.isMethodSignature(mem.valueDeclaration)) {
+                        const methodDeclaration = symbol.valueDeclaration as ts.MethodDeclaration;
+
+                        if ((!methodDeclaration) || isHidden(methodDeclaration)) {
+                            continue;
+                        }
+
+                        if (methodDeclaration.type) {
+                            const type = typeChecker.getTypeAtLocation(methodDeclaration.type);
+                            if (type.symbol) {
+                                await getFullyQualifiedName(type.symbol!, ctx);
+                            }
+                        }
+
+                        for (const parameter of methodDeclaration.parameters) {
+                            if (parameter.type) {
+                                const type = typeChecker.getTypeAtLocation(parameter.type);
+                                if (type.symbol) {
+                                    await getFullyQualifiedName(type.symbol, ctx);
+                                }
+                            }
+                        }
+                    }
+
+                    if (mem.valueDeclaration.kind === ts.SyntaxKind.PropertySignature) {
+                        const propertyDeclaration = symbol.valueDeclaration as ts.PropertyDeclaration;
+
+                        if ((!propertyDeclaration) || isHidden(propertyDeclaration)) {
+                            continue;
+                        }
+                        
+                        if (propertyDeclaration.type) {
+                            const type = typeChecker.getTypeAtLocation(propertyDeclaration.type);
+                            if (type.symbol) {
+                                await getFullyQualifiedName(type.symbol!, ctx);
+                            }
+                        }
+                    }
+
                     continue;
                 }
 
