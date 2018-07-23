@@ -18,11 +18,6 @@ namespace AWS.Jsii.JsonModel.Spec
             Type = type ?? throw new ArgumentNullException(nameof(type));
             Docs = docs;
             IsVariadic = isVariadic;
-
-            if (IsVariadic == true)
-            {
-                Console.Error.WriteLine($"Warning: Parameter '{Name}' is marked as variadic, but variadics are not yet implemented.");
-            }
         }
 
         [JsonProperty("name")]

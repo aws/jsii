@@ -57,8 +57,9 @@ namespace AWS.Jsii.Generator
             }
             _fileSystem.Directory.CreateDirectory(packageOutputRoot);
 
-            _fileSystem.File.Copy(tarballPath, packageOutputRoot);
-            _fileSystem.File.Copy(jsiiFile, packageOutputRoot);
+            // On Windows, the full destination path including the filename is required.
+            _fileSystem.File.Copy(tarballPath, Path.Combine(packageOutputRoot, Path.GetFileName(tarballPath)));
+            _fileSystem.File.Copy(jsiiFile, Path.Combine(packageOutputRoot, Path.GetFileName(jsiiFile)));
 
             Save(packageOutputRoot, symbols, assembly, new FileInfo(tarballPath).Name, new FileInfo(jsiiFile).Name);
         }
