@@ -13,7 +13,9 @@ namespace AWS.Jsii.JsonModel.Spec
             bool? isImmutable = null,
             bool? isProtected = null,
             bool? isAbstract = null,
-            Docs docs = null
+            Docs docs = null,
+            bool? isStatic = null,
+            bool? isConstant = null
         )
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
@@ -22,6 +24,8 @@ namespace AWS.Jsii.JsonModel.Spec
             IsProtected = isProtected;
             IsAbstract = isAbstract;
             Docs = docs;
+            IsStatic = isStatic;
+            IsConstant = isConstant;
         }
 
         [JsonProperty("name")]
@@ -41,5 +45,11 @@ namespace AWS.Jsii.JsonModel.Spec
 
         [JsonProperty("docs", NullValueHandling = NullValueHandling.Ignore)]
         public Docs Docs { get; }
+
+        [JsonProperty("static", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? IsStatic { get; }
+
+        [JsonProperty("const", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? IsConstant { get; }
     }
 }

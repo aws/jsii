@@ -22,7 +22,7 @@ namespace AWS.Jsii.Tests.Calculator.Base
         [JsiiMethod("typeName", "{\"primitive\":\"any\"}", "[]")]
         public virtual object TypeName()
         {
-            return InvokeMethod<object>(new object[]{});
+            return InvokeInstanceMethod<object>(new object[]{});
         }
     }
 }

@@ -23,21 +23,21 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiProperty("lhs", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public virtual Value_ Lhs
         {
-            get => GetProperty<Value_>();
+            get => GetInstanceProperty<Value_>();
         }
 
         /// <summary>Right-hand side operand</summary>
         [JsiiProperty("rhs", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public virtual Value_ Rhs
         {
-            get => GetProperty<Value_>();
+            get => GetInstanceProperty<Value_>();
         }
 
         /// <summary>Say hello!</summary>
         [JsiiMethod("hello", "{\"primitive\":\"string\"}", "[]")]
         public virtual string Hello()
         {
-            return InvokeMethod<string>(new object[]{});
+            return InvokeInstanceMethod<string>(new object[]{});
         }
     }
 }

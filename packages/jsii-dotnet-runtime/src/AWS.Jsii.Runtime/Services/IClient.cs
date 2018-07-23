@@ -29,13 +29,25 @@ namespace AWS.Jsii.Runtime.Services
 
         GetResponse Get(GetRequest request);
 
+        GetResponse StaticGet(string fullyQualifiedName, string property);
+
+        GetResponse StaticGet(StaticGetRequest request);
+
         SetResponse Set(ObjectReference objectReference, string property, object value);
 
         SetResponse Set(SetRequest request);
 
+        SetResponse StaticSet(string fullyQualifiedName, string property, object value);
+
+        SetResponse StaticSet(StaticSetRequest request);
+
         InvokeResponse Invoke(ObjectReference objectReference, string method, object[] arguments = null);
 
         InvokeResponse Invoke(InvokeRequest request);
+
+        InvokeResponse StaticInvoke(string fullyQualifiedName, string method, object[] arguments = null);
+
+        InvokeResponse StaticInvoke(StaticInvokeRequest request);
 
         BeginResponse Begin(ObjectReference objectReference, string method, object[] arguments = null);
 

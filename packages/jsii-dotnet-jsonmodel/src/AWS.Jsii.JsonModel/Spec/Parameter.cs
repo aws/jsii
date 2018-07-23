@@ -10,12 +10,19 @@ namespace AWS.Jsii.JsonModel.Spec
         (
             string name,
             TypeReference type,
-            Docs docs = null
+            Docs docs = null,
+            bool? isVariadic = null
         )
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Type = type ?? throw new ArgumentNullException(nameof(type));
             Docs = docs;
+            IsVariadic = isVariadic;
+
+            if (IsVariadic == true)
+            {
+                Console.Error.WriteLine($"Warning: Parameter '{Name}' is marked as variadic, but variadics are not yet implemented.");
+            }
         }
 
         [JsonProperty("name")]
@@ -26,5 +33,8 @@ namespace AWS.Jsii.JsonModel.Spec
 
         [JsonProperty("docs", NullValueHandling = NullValueHandling.Ignore)]
         public Docs Docs { get; }
+
+        [JsonProperty("variadic", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? IsVariadic { get; }
     }
 }

@@ -23,35 +23,35 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiProperty("value", "{\"primitive\":\"number\"}")]
         public override double Value
         {
-            get => GetProperty<double>();
+            get => GetInstanceProperty<double>();
         }
 
         /// <summary>String representation of the value.</summary>
         [JsiiMethod("toString", "{\"primitive\":\"string\"}", "[]")]
         public override string ToString()
         {
-            return InvokeMethod<string>(new object[]{});
+            return InvokeInstanceMethod<string>(new object[]{});
         }
 
         /// <summary>Say hello!</summary>
         [JsiiMethod("hello", "{\"primitive\":\"string\"}", "[]")]
         public virtual string Hello()
         {
-            return InvokeMethod<string>(new object[]{});
+            return InvokeInstanceMethod<string>(new object[]{});
         }
 
         /// <summary>Say goodbye.</summary>
         [JsiiMethod("goodbye", "{\"primitive\":\"string\"}", "[]")]
         public virtual string Goodbye()
         {
-            return InvokeMethod<string>(new object[]{});
+            return InvokeInstanceMethod<string>(new object[]{});
         }
 
         /// <summary>Say farewell.</summary>
         [JsiiMethod("farewell", "{\"primitive\":\"string\"}", "[]")]
         public virtual string Farewell()
         {
-            return InvokeMethod<string>(new object[]{});
+            return InvokeInstanceMethod<string>(new object[]{});
         }
     }
 }

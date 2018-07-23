@@ -45,7 +45,7 @@ namespace AWS.Jsii.Generator.UnitTests
 @"[JsiiMethod(""myMethod"", null, ""[]"")]
 public virtual void MyMethod()
 {
-    InvokeVoidMethod(new object[]{});
+    InvokeInstanceVoidMethod(new object[]{});
 }";
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
@@ -62,7 +62,7 @@ public virtual void MyMethod()
 @"[JsiiMethod(""myMethod"", null, ""[]"")]
 protected virtual void MyMethod()
 {
-    InvokeVoidMethod(new object[]{});
+    InvokeInstanceVoidMethod(new object[]{});
 }";
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
@@ -104,7 +104,7 @@ public abstract void MyMethod();";
 @"[JsiiMethod(""myMethod"", null, ""[{\""name\"":\""myParam\"",\""type\"":{\""fqn\"":\""myParamTypeFqn\""}},{\""name\"":\""event\"",\""type\"":{\""primitive\"":\""string\""}}]"")]
 public virtual void MyMethod(MyParamType myParam, string @event)
 {
-    InvokeVoidMethod(new object[]{myParam, @event});
+    InvokeInstanceVoidMethod(new object[]{myParam, @event});
 }";
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
@@ -125,7 +125,7 @@ public virtual void MyMethod(MyParamType myParam, string @event)
 @"[JsiiMethod(""myMethod"", null, ""[]"")]
 public virtual void MyMethod()
 {
-    InvokeVoidMethod(new object[]{});
+    InvokeInstanceVoidMethod(new object[]{});
 }";
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
@@ -135,7 +135,10 @@ public virtual void MyMethod()
         {
             Method method = new Method
             (
-                false, false, false, name: "myMethod",
+                isInitializer: false,
+                isProtected: false,
+                isAbstract: false,
+                name: "myMethod",
                 returns: new TypeReference("myReturnTypeFqn")
             );
 
@@ -147,7 +150,33 @@ public virtual void MyMethod()
 @"[JsiiMethod(""myMethod"", ""{\""fqn\"":\""myReturnTypeFqn\""}"", ""[]"")]
 public virtual MyReturnType MyMethod()
 {
-    return InvokeMethod<MyReturnType>(new object[]{});
+    return InvokeInstanceMethod<MyReturnType>(new object[]{});
+}";
+            Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(SupportsStaticMethods))]
+        public void SupportsStaticMethods()
+        {
+            Method method = new Method
+            (
+                isInitializer: false,
+                isProtected: false,
+                isAbstract: false,
+                name: "myMethod",
+                returns: new TypeReference("myReturnTypeFqn"),
+                isStatic: true
+            );
+
+            Symbols.MapMethodName("myClassFqn", "myMethod", "MyMethod");
+            Symbols.MapTypeName("myReturnTypeFqn", "MyReturnType", JsonModel.Spec.TypeKind.Class);
+
+            string actual = Render(method);
+            string expected =
+@"[JsiiMethod(""myMethod"", ""{\""fqn\"":\""myReturnTypeFqn\""}"", ""[]"")]
+public static MyReturnType MyMethod()
+{
+    return InvokeStaticMethod<MyReturnType>(typeof(MyClass), new object[]{});
 }";
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }

@@ -23,14 +23,14 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiProperty("value", "{\"primitive\":\"number\"}")]
         public override double Value
         {
-            get => GetProperty<double>();
+            get => GetInstanceProperty<double>();
         }
 
         /// <summary>String representation of the value.</summary>
         [JsiiMethod("toString", "{\"primitive\":\"string\"}", "[]")]
         public override string ToString()
         {
-            return InvokeMethod<string>(new object[]{});
+            return InvokeInstanceMethod<string>(new object[]{});
         }
     }
 }

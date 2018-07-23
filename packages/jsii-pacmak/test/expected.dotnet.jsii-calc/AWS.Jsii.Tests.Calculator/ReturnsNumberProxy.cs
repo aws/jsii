@@ -12,13 +12,13 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiProperty("numberProp", "{\"primitive\":\"number\"}")]
         public virtual double NumberProp
         {
-            get => GetProperty<double>();
+            get => GetInstanceProperty<double>();
         }
 
         [JsiiMethod("obtainNumber", "{\"primitive\":\"number\"}", "[]")]
         public virtual double ObtainNumber()
         {
-            return InvokeMethod<double>(new object[]{});
+            return InvokeInstanceMethod<double>(new object[]{});
         }
     }
 }

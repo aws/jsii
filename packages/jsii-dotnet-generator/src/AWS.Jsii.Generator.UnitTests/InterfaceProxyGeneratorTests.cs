@@ -77,7 +77,7 @@ namespace AWS.Jsii.Generator.UnitTests
         [JsiiMethod(""myMethod"", null, ""[]"")]
         public virtual void MyMethod()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
     }
 }";
@@ -135,13 +135,13 @@ namespace AWS.Jsii.Generator.UnitTests
         [JsiiMethod(""myBaseMethod"", null, ""[]"")]
         public virtual void MyBaseMethod()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod(""myAncestorMethod"", null, ""[]"")]
         public virtual void MyAncestorMethod()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
     }
 }";
@@ -243,24 +243,24 @@ namespace AWS.Jsii.Generator.UnitTests
         [JsiiProperty(""name"", ""{\""primitive\"":\""string\""}"")]
         public virtual string Name
         {
-            get => GetProperty<string>();
-            set => SetProperty(value);
+            get => GetInstanceProperty<string>();
+            set => SetInstanceProperty(value);
         }
 
         /// <summary>The 12-digit AWS account ID for the account this environment deploys into </summary>
         [JsiiProperty(""account"", ""{\""primitive\"":\""string\""}"")]
         public virtual string Account
         {
-            get => GetProperty<string>();
-            set => SetProperty(value);
+            get => GetInstanceProperty<string>();
+            set => SetInstanceProperty(value);
         }
 
         /// <summary>The AWS region name where this environment deploys into </summary>
         [JsiiProperty(""region"", ""{\""primitive\"":\""string\""}"")]
         public virtual string Region
         {
-            get => GetProperty<string>();
-            set => SetProperty(value);
+            get => GetInstanceProperty<string>();
+            set => SetInstanceProperty(value);
         }
     }
 }";

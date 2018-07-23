@@ -20,320 +20,320 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiProperty("while", "{\"primitive\":\"string\"}")]
         public virtual string While
         {
-            get => GetProperty<string>();
-            set => SetProperty(value);
+            get => GetInstanceProperty<string>();
+            set => SetInstanceProperty(value);
         }
 
         [JsiiMethod("abstract", null, "[]")]
         public virtual void Abstract()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("assert", null, "[]")]
         public virtual void Assert()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("boolean", null, "[]")]
         public virtual void Boolean()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("break", null, "[]")]
         public virtual void Break()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("byte", null, "[]")]
         public virtual void Byte()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("case", null, "[]")]
         public virtual void Case()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("catch", null, "[]")]
         public virtual void Catch()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("char", null, "[]")]
         public virtual void Char()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("class", null, "[]")]
         public virtual void Class()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("const", null, "[]")]
         public virtual void Const()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("continue", null, "[]")]
         public virtual void Continue()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("default", null, "[]")]
         public virtual void Default()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("double", null, "[]")]
         public virtual void Double()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("do", null, "[]")]
         public virtual void Do()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("else", null, "[]")]
         public virtual void Else()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("enum", null, "[]")]
         public virtual void Enum()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("extends", null, "[]")]
         public virtual void Extends()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("false", null, "[]")]
         public virtual void False()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("final", null, "[]")]
         public virtual void Final()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("finally", null, "[]")]
         public virtual void Finally()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("float", null, "[]")]
         public virtual void Float()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("for", null, "[]")]
         public virtual void For()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("goto", null, "[]")]
         public virtual void Goto()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("if", null, "[]")]
         public virtual void If()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("implements", null, "[]")]
         public virtual void Implements()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("import", null, "[]")]
         public virtual void Import()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("instanceof", null, "[]")]
         public virtual void Instanceof()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("int", null, "[]")]
         public virtual void Int()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("interface", null, "[]")]
         public virtual void Interface()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("long", null, "[]")]
         public virtual void Long()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("native", null, "[]")]
         public virtual void Native()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("new", null, "[]")]
         public virtual void New()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("null", null, "[]")]
         public virtual void Null()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("package", null, "[]")]
         public virtual void Package()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("private", null, "[]")]
         public virtual void Private()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("protected", null, "[]")]
         public virtual void Protected()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("public", null, "[]")]
         public virtual void Public()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("return", null, "[]")]
         public virtual void Return()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("short", null, "[]")]
         public virtual void Short()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("static", null, "[]")]
         public virtual void Static()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("strictfp", null, "[]")]
         public virtual void Strictfp()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("super", null, "[]")]
         public virtual void Super()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("switch", null, "[]")]
         public virtual void Switch()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("synchronized", null, "[]")]
         public virtual void Synchronized()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("this", null, "[]")]
         public virtual void This()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("throw", null, "[]")]
         public virtual void Throw()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("throws", null, "[]")]
         public virtual void Throws()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("transient", null, "[]")]
         public virtual void Transient()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("true", null, "[]")]
         public virtual void True()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("try", null, "[]")]
         public virtual void Try()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("void", null, "[]")]
         public virtual void Void()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod("volatile", null, "[]")]
         public virtual void Volatile()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
     }
 }

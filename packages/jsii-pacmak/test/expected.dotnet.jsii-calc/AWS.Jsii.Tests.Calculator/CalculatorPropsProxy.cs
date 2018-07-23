@@ -13,15 +13,15 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiProperty("initialValue", "{\"primitive\":\"number\",\"optional\":true}")]
         public virtual double? InitialValue
         {
-            get => GetProperty<double? >();
-            set => SetProperty(value);
+            get => GetInstanceProperty<double? >();
+            set => SetInstanceProperty(value);
         }
 
         [JsiiProperty("maximumValue", "{\"primitive\":\"number\",\"optional\":true}")]
         public virtual double? MaximumValue
         {
-            get => GetProperty<double? >();
-            set => SetProperty(value);
+            get => GetInstanceProperty<double? >();
+            set => SetInstanceProperty(value);
         }
     }
 }

@@ -21,66 +21,70 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiProperty("value", "{\"primitive\":\"string\"}")]
         public virtual string Value
         {
-            get => GetProperty<string>();
+            get => GetInstanceProperty<string>();
         }
 
         /// <summary>Jsdocs for static property.</summary>
         [JsiiProperty("Foo", "{\"primitive\":\"string\"}")]
-        public virtual string Foo
+        public static string Foo
         {
-            get => GetProperty<string>();
+            get;
         }
 
+        = GetStaticProperty<string>(typeof(Statics));
         /// <summary>Constants may also use all-caps.</summary>
         [JsiiProperty("BAR", "{\"primitive\":\"number\"}")]
-        public virtual double BAR
+        public static double BAR
         {
-            get => GetProperty<double>();
+            get;
         }
 
+        = GetStaticProperty<double>(typeof(Statics));
         /// <summary>Constants can also use camelCase.</summary>
         [JsiiProperty("zooBar", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"primitive\":\"string\"}}}")]
-        public virtual IDictionary<string, string> ZooBar
+        public static IDictionary<string, string> ZooBar
         {
-            get => GetProperty<IDictionary<string, string>>();
+            get;
         }
 
+        = GetStaticProperty<IDictionary<string, string>>(typeof(Statics));
         /// <summary>
         /// Jsdocs for static getter.
         /// Jsdocs for static setter.
         /// </summary>
         [JsiiProperty("instance", "{\"fqn\":\"jsii-calc.Statics\"}")]
-        public virtual Statics Instance
+        public static Statics Instance
         {
-            get => GetProperty<Statics>();
-            set => SetProperty(value);
+            get => GetStaticProperty<Statics>(typeof(Statics));
+            set => SetStaticProperty(typeof(Statics), value);
         }
 
         [JsiiProperty("nonConstStatic", "{\"primitive\":\"number\"}")]
-        public virtual double NonConstStatic
+        public static double NonConstStatic
         {
-            get => GetProperty<double>();
-            set => SetProperty(value);
+            get => GetStaticProperty<double>(typeof(Statics));
+            set => SetStaticProperty(typeof(Statics), value);
         }
 
         [JsiiProperty("ConstObj", "{\"fqn\":\"jsii-calc.DoubleTrouble\"}")]
-        public virtual DoubleTrouble ConstObj
+        public static DoubleTrouble ConstObj
         {
-            get => GetProperty<DoubleTrouble>();
+            get;
         }
 
+        = GetStaticProperty<DoubleTrouble>(typeof(Statics));
         /// <summary>Jsdocs for static method</summary>
         /// <param name = "name">The name of the person to say hello to</param>
         [JsiiMethod("staticMethod", "{\"primitive\":\"string\"}", "[{\"name\":\"name\",\"type\":{\"primitive\":\"string\"}}]")]
-        public virtual string StaticMethod(string name)
+        public static string StaticMethod(string name)
         {
-            return InvokeMethod<string>(new object[]{name});
+            return InvokeStaticMethod<string>(typeof(Statics), new object[]{name});
         }
 
         [JsiiMethod("justMethod", "{\"primitive\":\"string\"}", "[]")]
         public virtual string JustMethod()
         {
-            return InvokeMethod<string>(new object[]{});
+            return InvokeInstanceMethod<string>(new object[]{});
         }
     }
 }

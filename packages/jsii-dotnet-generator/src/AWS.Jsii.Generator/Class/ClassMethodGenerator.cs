@@ -40,6 +40,12 @@ namespace AWS.Jsii.Generator.Class
         {
             yield return Method.IsProtected ? SyntaxKind.ProtectedKeyword : SyntaxKind.PublicKeyword;
 
+            if (Method.IsStatic == true)
+            {
+                yield return SyntaxKind.StaticKeyword;
+                yield break;
+            }
+
             if (Method.IsAbstract)
             {
                 if (IsDefinedOnAncestor)

@@ -14,7 +14,9 @@ namespace AWS.Jsii.JsonModel.Spec
             Parameter[] parameters = null,
             Docs docs = null,
             string name = null,
-            TypeReference returns = null
+            TypeReference returns = null,
+            bool? isVariadic = null,
+            bool? isStatic = null
         )
         {
             IsInitializer = isInitializer;
@@ -24,6 +26,13 @@ namespace AWS.Jsii.JsonModel.Spec
             Docs = docs;
             Name = name;
             Returns = returns;
+            IsVariadic = isVariadic;
+            IsStatic = isStatic;
+
+            if (IsVariadic == true)
+            {
+                Console.Error.WriteLine($"Warning: Method '{Name}' is marked as variadic, but variadics are not yet implemented.");
+            }
         }
 
 
@@ -47,5 +56,11 @@ namespace AWS.Jsii.JsonModel.Spec
 
         [JsonProperty("returns", NullValueHandling = NullValueHandling.Ignore)]
         public TypeReference Returns { get; }
+
+        [JsonProperty("variadic", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? IsVariadic { get; }
+
+        [JsonProperty("static", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? IsStatic { get; }
     }
 }

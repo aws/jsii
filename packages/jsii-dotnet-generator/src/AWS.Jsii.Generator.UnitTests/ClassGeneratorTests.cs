@@ -182,8 +182,8 @@ namespace AWS.Jsii.Generator.UnitTests
         [JsiiProperty(""myProp"", ""{\""fqn\"":\""myPropTypeFqn\""}"")]
         public virtual MyPropType MyProp
         {
-            get => GetProperty<MyPropType>();
-            set => SetProperty(value);
+            get => GetInstanceProperty<MyPropType>();
+            set => SetInstanceProperty(value);
         }
     }
 }";
@@ -237,7 +237,7 @@ namespace AWS.Jsii.Generator.UnitTests
         [JsiiMethod(""myMethod"", null, ""[]"")]
         public virtual void MyMethod()
         {
-            InvokeVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
     }
 }";

@@ -20,7 +20,7 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiMethod("test", "{\"primitive\":\"number\"}", "[{\"name\":\"obj\",\"type\":{\"fqn\":\"jsii-calc.ReturnsNumber\"}}]")]
         public virtual double Test(IReturnsNumber obj)
         {
-            return InvokeMethod<double>(new object[]{obj});
+            return InvokeInstanceMethod<double>(new object[]{obj});
         }
     }
 }

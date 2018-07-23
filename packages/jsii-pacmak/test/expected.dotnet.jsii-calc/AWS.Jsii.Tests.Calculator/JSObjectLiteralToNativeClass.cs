@@ -20,15 +20,15 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiProperty("propA", "{\"primitive\":\"string\"}")]
         public virtual string PropA
         {
-            get => GetProperty<string>();
-            set => SetProperty(value);
+            get => GetInstanceProperty<string>();
+            set => SetInstanceProperty(value);
         }
 
         [JsiiProperty("propB", "{\"primitive\":\"number\"}")]
         public virtual double PropB
         {
-            get => GetProperty<double>();
-            set => SetProperty(value);
+            get => GetInstanceProperty<double>();
+            set => SetInstanceProperty(value);
         }
     }
 }

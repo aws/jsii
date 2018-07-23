@@ -14,22 +14,22 @@ namespace AWS.Jsii.Tests.Calculator.Lib
         [JsiiProperty("optional1", "{\"primitive\":\"string\",\"optional\":true}")]
         public virtual string Optional1
         {
-            get => GetProperty<string>();
-            set => SetProperty(value);
+            get => GetInstanceProperty<string>();
+            set => SetInstanceProperty(value);
         }
 
         [JsiiProperty("optional2", "{\"primitive\":\"number\",\"optional\":true}")]
         public virtual double? Optional2
         {
-            get => GetProperty<double? >();
-            set => SetProperty(value);
+            get => GetInstanceProperty<double? >();
+            set => SetInstanceProperty(value);
         }
 
         [JsiiProperty("optional3", "{\"primitive\":\"boolean\",\"optional\":true}")]
         public virtual bool? Optional3
         {
-            get => GetProperty<bool? >();
-            set => SetProperty(value);
+            get => GetInstanceProperty<bool? >();
+            set => SetInstanceProperty(value);
         }
     }
 }

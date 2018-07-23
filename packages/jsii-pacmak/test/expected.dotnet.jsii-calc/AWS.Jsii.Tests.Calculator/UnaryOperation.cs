@@ -22,7 +22,7 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiProperty("operand", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public virtual Value_ Operand
         {
-            get => GetProperty<Value_>();
+            get => GetInstanceProperty<Value_>();
         }
     }
 }

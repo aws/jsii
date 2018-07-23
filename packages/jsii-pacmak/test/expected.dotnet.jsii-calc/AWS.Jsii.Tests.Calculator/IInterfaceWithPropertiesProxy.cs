@@ -12,14 +12,14 @@ namespace AWS.Jsii.Tests.Calculator
         [JsiiProperty("readOnlyString", "{\"primitive\":\"string\"}")]
         public virtual string ReadOnlyString
         {
-            get => GetProperty<string>();
+            get => GetInstanceProperty<string>();
         }
 
         [JsiiProperty("readWriteString", "{\"primitive\":\"string\"}")]
         public virtual string ReadWriteString
         {
-            get => GetProperty<string>();
-            set => SetProperty(value);
+            get => GetInstanceProperty<string>();
+            set => SetInstanceProperty(value);
         }
     }
 }

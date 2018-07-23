@@ -19,9 +19,10 @@
     <PackageReference Include="AWS.Jsii.JsonModel" Version="1.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
+    <ItemGroup>
     <EmbeddedResource Include="jsii-runtime\jsii-runtime.js" />
     <EmbeddedResource Include="jsii-runtime\jsii-runtime.js.map" />
     <EmbeddedResource Include="jsii-runtime\mappings.wasm" />
   </ItemGroup>
+
 </Project>

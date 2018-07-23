@@ -30,16 +30,13 @@ namespace AWS.Jsii.Runtime.Deputy
             public object[] Arguments { get; }
         }
 
-        const BindingFlags MemberFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
-
-        readonly IServiceProvider _serviceProvider;
+        const BindingFlags StaticMemberFlags = BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
+        const BindingFlags InstanceMemberFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
         protected DeputyBase(DeputyProps props = null)
         {
             props = props ?? new DeputyProps();
 
-            _serviceProvider = ServiceContainer.ServiceProvider;
-            
             System.Type type = GetType();
 
             // If this is a native object, it won't have any jsii metadata.
@@ -47,7 +44,8 @@ namespace AWS.Jsii.Runtime.Deputy
             string fullyQualifiedName = attribute?.FullyQualifiedName ?? "Object";
             Parameter[] parameters = attribute?.Parameters ?? new Parameter[] { };
 
-            IClient client = _serviceProvider.GetRequiredService<IClient>();
+            IServiceProvider serviceProvider = ServiceContainer.ServiceProvider;
+            IClient client = serviceProvider.GetRequiredService<IClient>();
             CreateResponse response = client.Create(
                 fullyQualifiedName,
                 ConvertArguments(parameters, props.Arguments),
@@ -55,7 +53,7 @@ namespace AWS.Jsii.Runtime.Deputy
             );
 
             Reference = new ByRefValue(response["$jsii.byref"]);
-            IReferenceMap referenceMap = _serviceProvider.GetRequiredService<IReferenceMap>();
+            IReferenceMap referenceMap = serviceProvider.GetRequiredService<IReferenceMap>();
             referenceMap.AddNativeReference(Reference, this);
 
             Override[] GetOverrides()
@@ -96,103 +94,206 @@ namespace AWS.Jsii.Runtime.Deputy
         {
             Reference = reference ?? throw new ArgumentNullException(nameof(reference));
 
-            _serviceProvider = ServiceContainer.ServiceProvider;
-            IReferenceMap referenceMap = _serviceProvider.GetRequiredService<IReferenceMap>();
+            IServiceProvider serviceProvider = ServiceContainer.ServiceProvider;
+            IReferenceMap referenceMap = serviceProvider.GetRequiredService<IReferenceMap>();
             referenceMap.AddNativeReference(Reference, this);
         }
 
         public ByRefValue Reference { get; }
 
-        protected T GetProperty<T>([CallerMemberName] string callerMemberName = null)
+        #region GetProperty
+
+        protected static T GetStaticProperty<T>(System.Type type, [CallerMemberName] string propertyName = null)
         {
-            JsiiPropertyAttribute attribute = GetPropertyAttribute(callerMemberName);
+            type = type ?? throw new ArgumentNullException(nameof(type));
+            propertyName = propertyName ?? throw new ArgumentNullException(nameof(propertyName));
 
-            IClient client = _serviceProvider.GetRequiredService<IClient>();
-            GetResponse response = client.Get(Reference.ToObjectReference(), attribute.Name);
-            object value = response.Value;
+            JsiiClassAttribute classAttribute = ReflectionUtils.GetClassAttribute(type);
+            JsiiPropertyAttribute propertyAttribute = GetStaticPropertyAttribute(type, propertyName);
 
-            IJsiiToFrameworkConverter converter = _serviceProvider.GetRequiredService<IJsiiToFrameworkConverter>();
-            IReferenceMap referenceMap = _serviceProvider.GetRequiredService<IReferenceMap>();
-            if (!converter.TryConvert(attribute.Type, referenceMap, value, out object frameworkValue))
+            return GetPropertyCore<T>(
+                propertyAttribute,
+                client => client.StaticGet(classAttribute.FullyQualifiedName, propertyAttribute.Name)
+            );
+        }
+
+        protected T GetInstanceProperty<T>([CallerMemberName] string propertyName = null)
+        {
+            propertyName = propertyName ?? throw new ArgumentNullException(nameof(propertyName));
+
+            JsiiPropertyAttribute propertyAttribute = GetInstancePropertyAttribute(propertyName);
+
+            return GetPropertyCore<T>(
+                propertyAttribute,
+                client => client.Get(Reference.ToObjectReference(), propertyAttribute.Name)
+            );
+        }
+
+        static T GetPropertyCore<T>(JsiiPropertyAttribute propertyAttribute, Func<IClient, GetResponse> getFunc)
+        {
+            IServiceProvider serviceProvider = ServiceContainer.ServiceProvider;
+            IClient client = serviceProvider.GetRequiredService<IClient>();
+
+            GetResponse response = getFunc(client);
+
+            IJsiiToFrameworkConverter converter = serviceProvider.GetRequiredService<IJsiiToFrameworkConverter>();
+            IReferenceMap referenceMap = serviceProvider.GetRequiredService<IReferenceMap>();
+            if (!converter.TryConvert(propertyAttribute.Type, referenceMap, response.Value, out object frameworkValue))
             {
-                throw new ArgumentException($"Could not convert value '{value}' for property '{callerMemberName}'", nameof(value));
+                throw new ArgumentException($"Could not convert value '{response.Value}' for property '{propertyAttribute.Name}'", nameof(getFunc));
             }
 
             return (T)frameworkValue;
         }
 
-        protected void SetProperty<T>(T value, [CallerMemberName] string callerMemberName = null)
-        {
-            JsiiPropertyAttribute attribute = GetPropertyAttribute(callerMemberName);
+        #endregion
 
-            IFrameworkToJsiiConverter converter = _serviceProvider.GetRequiredService<IFrameworkToJsiiConverter>();
-            IReferenceMap referenceMap = _serviceProvider.GetRequiredService<IReferenceMap>();
-            if (!converter.TryConvert(attribute.Type, referenceMap, value, out object jsiiValue))
+        #region SetProperty
+
+        protected static void SetStaticProperty<T>(System.Type type, T value, [CallerMemberName] string propertyName = null)
+        {
+            type = type ?? throw new ArgumentNullException(nameof(type));
+            propertyName = propertyName ?? throw new ArgumentNullException(nameof(propertyName));
+
+            JsiiClassAttribute classAttribute = ReflectionUtils.GetClassAttribute(type);
+            JsiiPropertyAttribute propertyAttribute = GetStaticPropertyAttribute(type, propertyName);
+
+            SetPropertyCore(
+                value,
+                propertyAttribute,
+                (client, jsiiValue) => client.StaticSet(classAttribute.FullyQualifiedName, propertyAttribute.Name, jsiiValue)
+            );
+        }
+
+        protected void SetInstanceProperty<T>(T value, [CallerMemberName] string propertyName = null)
+        {
+            propertyName = propertyName ?? throw new ArgumentNullException(nameof(propertyName));
+
+            JsiiPropertyAttribute propertyAttribute = GetInstancePropertyAttribute(propertyName);
+
+            SetPropertyCore(
+                value,
+                propertyAttribute,
+                (client, jsiiValue) => client.Set(Reference.ToObjectReference(), propertyAttribute.Name, jsiiValue)
+            );
+        }
+
+        static void SetPropertyCore<T>(T value, JsiiPropertyAttribute propertyAttribute, Action<IClient, object> setAction)
+        {
+            IServiceProvider serviceProvider = ServiceContainer.ServiceProvider;
+            IFrameworkToJsiiConverter converter = serviceProvider.GetRequiredService<IFrameworkToJsiiConverter>();
+            IReferenceMap referenceMap = serviceProvider.GetRequiredService<IReferenceMap>();
+            if (!converter.TryConvert(propertyAttribute.Type, referenceMap, value, out object jsiiValue))
             {
-                throw new ArgumentException($"Could not set property '{callerMemberName}' to '{value}'", nameof(value));
+                throw new ArgumentException($"Could not set property '{propertyAttribute.Name}' to '{value}'", nameof(value));
             }
 
-            IClient client = _serviceProvider.GetRequiredService<IClient>();
-            client.Set(Reference.ToObjectReference(), attribute.Name, jsiiValue);
+            IClient client = serviceProvider.GetRequiredService<IClient>();
+            setAction(client, jsiiValue);
         }
 
-        protected void InvokeVoidMethod(object[] arguments, [CallerMemberName] string callerMemberName = null)
+        #endregion
+
+        #region InvokeMethod
+
+        protected static void InvokeStaticVoidMethod(System.Type type, object[] arguments, [CallerMemberName] string methodName = null)
         {
-            InvokeMethod<object>(arguments, callerMemberName);
+            InvokeStaticMethod<object>(type, arguments, methodName);
         }
 
-        protected T InvokeMethod<T>(object[] arguments, [CallerMemberName] string callerMemberName = null)
+        protected void InvokeInstanceVoidMethod(object[] arguments, [CallerMemberName] string methodName = null)
         {
-            JsiiMethodAttribute attribute = GetMethodAttribute(callerMemberName);
+            InvokeInstanceMethod<object>(arguments, methodName);
+        }
 
-            IClient client = _serviceProvider.GetRequiredService<IClient>();;
-            IJsiiToFrameworkConverter converter = _serviceProvider.GetRequiredService<IJsiiToFrameworkConverter>();
-            IReferenceMap referenceMap = _serviceProvider.GetRequiredService<IReferenceMap>();
+        protected static T InvokeStaticMethod<T>(System.Type type, object[] arguments, [CallerMemberName] string methodName = null)
+        {
+            JsiiMethodAttribute methodAttribute = GetStaticMethodAttribute(type, methodName);
+            JsiiClassAttribute classAttribute = ReflectionUtils.GetClassAttribute(type);
+
+            return InvokeMethodCore<T>(
+                methodAttribute,
+                arguments,
+                (client, args) => throw new ArgumentException("Async static methods are not supported in JSII", nameof(methodAttribute)),
+                (client, args) => client.StaticInvoke(
+                    classAttribute.FullyQualifiedName,
+                    methodAttribute.Name,
+                    ConvertArguments(methodAttribute.Parameters, arguments)
+                )
+            );
+        }
+
+        protected T InvokeInstanceMethod<T>(object[] arguments, [CallerMemberName] string methodName = null)
+        {
+            JsiiMethodAttribute methodAttribute = GetInstanceMethodAttribute(methodName);
+
+            return InvokeMethodCore<T>(
+                methodAttribute,
+                arguments,
+                (client, args) => client.Begin(
+                    Reference.ToObjectReference(),
+                    methodAttribute.Name,
+                    ConvertArguments(methodAttribute.Parameters, arguments)
+                ),
+                (client, args) => client.Invoke(
+                    Reference.ToObjectReference(),
+                    methodAttribute.Name,
+                    ConvertArguments(methodAttribute.Parameters, arguments)
+                )
+            );
+        }
+
+        static T InvokeMethodCore<T>(
+            JsiiMethodAttribute methodAttribute,
+            object[] arguments,
+            Func<IClient, object[], BeginResponse> beginFunc,
+            Func<IClient, object[], InvokeResponse> invokeFunc
+        )
+        {
+            IServiceProvider serviceProvider = ServiceContainer.ServiceProvider;
+            IClient client = serviceProvider.GetRequiredService<IClient>(); ;
+            IJsiiToFrameworkConverter converter = serviceProvider.GetRequiredService<IJsiiToFrameworkConverter>();
+            IReferenceMap referenceMap = serviceProvider.GetRequiredService<IReferenceMap>();
 
             object result = GetResult();
-            if (!converter.TryConvert(attribute.Returns, referenceMap, result, out object frameworkValue))
+            if (!converter.TryConvert(methodAttribute.Returns, referenceMap, result, out object frameworkValue))
             {
-                throw new ArgumentException($"Could not convert result '{result}' for method '{callerMemberName}'", nameof(result));
+                throw new ArgumentException($"Could not convert result '{result}' for method '{methodAttribute.Name}'", nameof(result));
             }
 
             return (T)frameworkValue;
 
             object GetResult()
             {
-                if (attribute.Returns?.IsPromise == true)
-                {
-                    BeginResponse beginResponse = client.Begin
-                    (
-                        Reference.ToObjectReference(),
-                        attribute.Name,
-                        ConvertArguments(attribute.Parameters, arguments)
-                    );
+                object[] args = ConvertArguments(methodAttribute.Parameters, arguments);
 
-                    InvokeCallbacks(client, referenceMap);
+                if (methodAttribute.Returns?.IsPromise == true)
+                {
+                    BeginResponse beginResponse = beginFunc(client, args);
+
+                    InvokeCallbacks();
 
                     return client.End(beginResponse.PromiseId).Result;
                 }
 
-                InvokeResponse response = client.Invoke
-                (
-                    Reference.ToObjectReference(),
-                    attribute.Name,
-                    ConvertArguments(attribute.Parameters, arguments)
-                );
+                InvokeResponse invokeResponse = invokeFunc(client, args);
 
-                return response.Result;
+                return invokeResponse.Result;
             }
         }
 
-        void InvokeCallbacks(IClient client, IReferenceMap referenceMap)
+        static void InvokeCallbacks()
         {
+            IServiceProvider serviceProvider = ServiceContainer.ServiceProvider;
+            IClient client = serviceProvider.GetRequiredService<IClient>();
+            IFrameworkToJsiiConverter converter = serviceProvider.GetRequiredService<IFrameworkToJsiiConverter>();
+            IReferenceMap referenceMap = serviceProvider.GetRequiredService<IReferenceMap>();
+
             CallbacksResponse callbacks = client.Callbacks();
             while (callbacks.Callbacks.Any())
             {
                 foreach (Callback callback in callbacks.Callbacks)
                 {
-                    IFrameworkToJsiiConverter converter = _serviceProvider.GetRequiredService<IFrameworkToJsiiConverter>();
-
                     object result = callback.InvokeCallback(referenceMap, converter, out string error);
 
                     client.Complete(callback.CallbackId, error, result);
@@ -202,8 +303,14 @@ namespace AWS.Jsii.Runtime.Deputy
             }
         }
 
-        object[] ConvertArguments(Parameter[] parameters, params object[] arguments)
+        #endregion
+
+        #region ConvertArguments
+
+        static object[] ConvertArguments(Parameter[] parameters, params object[] arguments)
         {
+            IServiceProvider serviceProvider = ServiceContainer.ServiceProvider;
+
             if (parameters == null && arguments == null)
             {
                 return new object[] { };
@@ -214,8 +321,8 @@ namespace AWS.Jsii.Runtime.Deputy
                 throw new ArgumentException("Arguments do not match method parameters", nameof(arguments));
             }
 
-            IFrameworkToJsiiConverter converter = _serviceProvider.GetRequiredService<IFrameworkToJsiiConverter>();
-            IReferenceMap referenceMap = _serviceProvider.GetRequiredService<IReferenceMap>();
+            IFrameworkToJsiiConverter converter = serviceProvider.GetRequiredService<IFrameworkToJsiiConverter>();
+            IReferenceMap referenceMap = serviceProvider.GetRequiredService<IReferenceMap>();
 
             return parameters.Zip(arguments, (parameter, frameworkArgument) =>
             {
@@ -228,16 +335,26 @@ namespace AWS.Jsii.Runtime.Deputy
             }).ToArray();
         }
 
-        JsiiPropertyAttribute GetPropertyAttribute(string propertyName)
+        #endregion
+
+        #region GetPropertyAttribute
+
+        static JsiiPropertyAttribute GetStaticPropertyAttribute(System.Type type, string propertyName)
         {
-            if (propertyName == null)
-            {
-                throw new ArgumentNullException(nameof(propertyName));
-            }
+            return GetPropertyAttributeCore(type, propertyName, StaticMemberFlags);
+        }
 
-            System.Type type = GetType();
+        JsiiPropertyAttribute GetInstancePropertyAttribute(string propertyName)
+        {
+            return GetPropertyAttributeCore(GetType(), propertyName, InstanceMemberFlags);
+        }
 
-            PropertyInfo propertyInfo = type.GetProperty(propertyName, MemberFlags);
+        static JsiiPropertyAttribute GetPropertyAttributeCore(System.Type type, string propertyName, BindingFlags bindingFlags)
+        {
+            type = type ?? throw new ArgumentNullException(nameof(type));
+            propertyName = propertyName ?? throw new ArgumentNullException(nameof(propertyName));
+
+            PropertyInfo propertyInfo = type.GetProperty(propertyName, bindingFlags);
             if (propertyInfo == null)
             {
                 throw new ArgumentException($"Property {propertyName} does not exist", nameof(propertyName));
@@ -252,28 +369,40 @@ namespace AWS.Jsii.Runtime.Deputy
             return attribute;
         }
 
-        JsiiMethodAttribute GetMethodAttribute(string methodName)
+        #endregion
+
+        #region GetMethodAttribute
+
+        static JsiiMethodAttribute GetStaticMethodAttribute(System.Type type, string methodName)
         {
-            if (methodName == null)
-            {
-                throw new ArgumentNullException(nameof(methodName));
-            }
+            return GetMethodAttributeCore(type, methodName, StaticMemberFlags);
+        }
 
-            System.Type type = GetType();
+        JsiiMethodAttribute GetInstanceMethodAttribute(string methodName)
+        {
+            return GetMethodAttributeCore(GetType(), methodName, InstanceMemberFlags);
+        }
 
-            MethodInfo methodInfo = type.GetMethod(methodName, MemberFlags);
+        static JsiiMethodAttribute GetMethodAttributeCore(System.Type type, string methodName, BindingFlags bindingFlags)
+        {
+            methodName = methodName ?? throw new ArgumentNullException(nameof(methodName));
+            type = type ?? throw new ArgumentNullException(nameof(type));
+
+            MethodInfo methodInfo = type.GetMethod(methodName, bindingFlags);
             if (methodInfo == null)
             {
                 throw new ArgumentException($"Method {methodName} does not exist", nameof(methodName));
             }
 
-            JsiiMethodAttribute attribute = methodInfo.GetCustomAttribute<JsiiMethodAttribute>();
-            if (attribute == null)
+            JsiiMethodAttribute methodAttribute = methodInfo.GetCustomAttribute<JsiiMethodAttribute>();
+            if (methodAttribute == null)
             {
                 throw new ArgumentException($"Method {methodName} is missing JsiiMethodAttribute", nameof(methodName));
             }
 
-            return attribute;
+            return methodAttribute;
         }
+
+        #endregion
     }
 }
