@@ -1,2 +1,1 @@
-export { Generator } from './generator';
-export { generate } from './program';
+export { Target } from './target';

@@ -3,7 +3,7 @@ import fs = require('fs-extra');
 import spec = require('jsii-spec');
 import path = require('path');
 
-import { Generator } from './generator';
+import { IGenerator } from './generator';
 
 export abstract class Target {
     public static readonly all = new Promise<{ [name: string]: TargetConstructor }>(async (ok, ko) => {
@@ -25,7 +25,7 @@ export abstract class Target {
     protected readonly force: boolean;
     protected readonly arguments: { [name: string]: any };
 
-    protected abstract get generator(): Generator;
+    protected abstract get generator(): IGenerator;
 
     constructor(options: TargetOptions) {
         this.packageDir = options.packageDir;
@@ -57,7 +57,11 @@ export abstract class Target {
      * @param sourceDir the directory where the generated source was put.
      * @param targetDir the directory where the build artifacts will be placed.
      */
-    public abstract build(sourceDir: string, outDir: string): Promise<void>;
+    public async build(sourceDir: string, outDir: string) {
+        // tslint:disable-next-line:no-console
+        console.log(`${this.constructor.name} does not implement a build phase - publishing the generated source to ${outDir}`);
+        await fs.copy(sourceDir, outDir, { overwrite: true, recursive: true });
+    }
 
     protected runCommand(cmd: string, args: string[], options: childProcess.SpawnOptions): Promise<string> {
         return new Promise<string>((resolve, reject) => {
