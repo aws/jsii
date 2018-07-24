@@ -14,7 +14,7 @@ public interface UnionProperties extends org.jsii.JsiiSerializable {
     }
     /**
      * A fluent step builder class for {@link UnionProperties}.
-     * The {@link #build()} method will be available once all required properties are fulfilled.
+     * The {@link Build#build()} method will be available once all required properties are fulfilled.
      */
     final class Builder {
         public Build withBar(final java.lang.String value) {
@@ -33,11 +33,11 @@ public interface UnionProperties extends org.jsii.JsiiSerializable {
              */
             UnionProperties build();
             /**
-             * Sets the value for {@link UnionProperties#foo}.
+             * Sets the value for {@link UnionProperties#getFoo}.
              */
             Build withFoo(final java.lang.String value);
             /**
-             * Sets the value for {@link UnionProperties#foo}.
+             * Sets the value for {@link UnionProperties#getFoo}.
              */
             Build withFoo(final java.lang.Number value);
         }

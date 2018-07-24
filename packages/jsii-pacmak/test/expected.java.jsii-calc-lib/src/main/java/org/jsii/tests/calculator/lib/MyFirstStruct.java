@@ -31,7 +31,7 @@ public interface MyFirstStruct extends org.jsii.JsiiSerializable {
     }
     /**
      * A fluent step builder class for {@link MyFirstStruct}.
-     * The {@link #build()} method will be available once all required properties are fulfilled.
+     * The {@link Build#build()} method will be available once all required properties are fulfilled.
      */
     final class Builder {
         /**
@@ -54,7 +54,7 @@ public interface MyFirstStruct extends org.jsii.JsiiSerializable {
              */
             MyFirstStruct build();
             /**
-             * Sets the value for {@link MyFirstStruct#firstOptional}.
+             * Sets the value for {@link MyFirstStruct#getFirstOptional}.
              */
             Build withFirstOptional(final java.util.List<java.lang.String> value);
         }

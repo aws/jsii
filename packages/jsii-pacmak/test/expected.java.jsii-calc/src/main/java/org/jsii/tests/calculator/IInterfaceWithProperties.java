@@ -13,7 +13,7 @@ public interface IInterfaceWithProperties extends org.jsii.JsiiSerializable {
     }
     /**
      * A fluent step builder class for {@link IInterfaceWithProperties}.
-     * The {@link #build()} method will be available once all required properties are fulfilled.
+     * The {@link Build#build()} method will be available once all required properties are fulfilled.
      */
     final class Builder {
         public ReadWriteStringStep withReadOnlyString(final java.lang.String value) {
@@ -22,7 +22,7 @@ public interface IInterfaceWithProperties extends org.jsii.JsiiSerializable {
 
         public interface ReadWriteStringStep {
             /**
-             * Sets the value for {@link IInterfaceWithProperties#readWriteString}.
+             * Sets the value for {@link IInterfaceWithProperties#getReadWriteString}.
              */
             Build withReadWriteString(final java.lang.String value);
         }

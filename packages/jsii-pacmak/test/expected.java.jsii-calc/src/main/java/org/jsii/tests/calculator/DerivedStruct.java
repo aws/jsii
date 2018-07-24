@@ -35,7 +35,7 @@ public interface DerivedStruct extends org.jsii.JsiiSerializable, org.jsii.tests
     }
     /**
      * A fluent step builder class for {@link DerivedStruct}.
-     * The {@link #build()} method will be available once all required properties are fulfilled.
+     * The {@link Build#build()} method will be available once all required properties are fulfilled.
      */
     final class Builder {
         /**
@@ -47,14 +47,14 @@ public interface DerivedStruct extends org.jsii.JsiiSerializable, org.jsii.tests
 
         public interface BoolStep {
             /**
-             * Sets the value for {@link DerivedStruct#bool}.
+             * Sets the value for {@link DerivedStruct#getBool}.
              */
             AnotherRequiredStep withBool(final java.lang.Boolean value);
         }
 
         public interface AnotherRequiredStep {
             /**
-             * Sets the value for {@link DerivedStruct#anotherRequired}.
+             * Sets the value for {@link DerivedStruct#getAnotherRequired}.
              */
             AstringStep withAnotherRequired(final java.time.Instant value);
         }
@@ -79,7 +79,7 @@ public interface DerivedStruct extends org.jsii.JsiiSerializable, org.jsii.tests
              */
             DerivedStruct build();
             /**
-             * Sets the value for {@link DerivedStruct#optionalArray}.
+             * Sets the value for {@link DerivedStruct#getOptionalArray}.
              */
             Build withOptionalArray(final java.util.List<java.lang.String> value);
             /**
@@ -87,7 +87,7 @@ public interface DerivedStruct extends org.jsii.JsiiSerializable, org.jsii.tests
              */
             Build withAnotherOptional(final java.util.Map<java.lang.String, org.jsii.tests.calculator.lib.Value> value);
             /**
-             * Sets the value for {@link DerivedStruct#firstOptional}.
+             * Sets the value for {@link DerivedStruct#getFirstOptional}.
              */
             Build withFirstOptional(final java.util.List<java.lang.String> value);
         }

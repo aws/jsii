@@ -2,7 +2,7 @@
 set -e
 cd $(dirname $0)
 
-langs=$((cd ../lib/generators && ls -1 *.d.ts) | sed -e 's/\.d\.ts//')
+langs=$((cd ../lib/targets && ls -1 *.js) | sed -e 's/\.js//')
 workdir="$(mktemp -d)"
 success=true
 
@@ -45,7 +45,7 @@ function assert-generator() {
         echo "Running jsii-pacmak for language ${lang}"
         echo "    Actual: ${outdir}"
         echo "    Expected: ${original_expected}"
-        ../bin/jsii-pacmak -t ${lang} -o ${outdir} ${module_root} --no-fingerprint
+        ../bin/jsii-pacmak --target ${lang} --outdir ${outdir} ${module_root} --code-only --no-fingerprint
 
         # change the placeholder back
         if [ -n "${expected_tarball_placeholder}" ]; then

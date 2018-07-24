@@ -266,6 +266,42 @@ export default class JavaGenerator extends Generator {
                                 }
                             }]
                         }
+                    },
+
+                    'profiles': {
+                        profile: {
+                            id: 'publishing',
+                            activation: {
+                                property: { name: 'publish.url' }
+                            },
+                            build: {
+                                plugins: {
+                                    plugin: {
+                                        groupId: 'org.apache.maven.plugins',
+                                        artifactId: 'maven-deploy-plugin',
+                                        version: '2.8.2',
+                                        executions: {
+                                            execution: {
+                                                id: 'deploy-file',
+                                                phase: 'package',
+                                                goals: { goal: 'deploy-file' },
+                                                configuration: {
+                                                    file:     '${project.build.directory}/${project.artifactId}-${project.version}.jar',
+                                                    sources:  '${project.build.directory}/${project.artifactId}-${project.version}-sources.jar',
+                                                    javadocs: '${project.build.directory}/${project.artifactId}-${project.version}-javadocs.jar',
+                                                    url: '${publish.url}',
+                                                    groupId: '${project.groupId}',
+                                                    artifactId: '${project.artifactId}',
+                                                    version: '${project.version}',
+                                                    pomFile: '${project.basedir}/pom.xml',
+                                                    packaging: 'jar'
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }, { encoding: 'UTF-8' }).end({ pretty: true })
@@ -553,7 +589,7 @@ export default class JavaGenerator extends Generator {
         if (requiredProps.length > 0) {
             this.code.line('/**');
             this.code.line(` * A fluent step builder class for {@link ${interfaceName}}.`);
-            this.code.line(' * The {@link #build()} method will be available once all required properties are fulfilled.');
+            this.code.line(' * The {@link Build#build()} method will be available once all required properties are fulfilled.');
             this.code.line(' */');
             this.code.openBlock(`final class ${builderName}`);
 
@@ -562,7 +598,7 @@ export default class JavaGenerator extends Generator {
 
             const emitWithInterfaceMethod = (prop: Prop) => {
                 for (const type of prop.javaTypes) {
-                    this.addJavaDocs(prop.spec, `Sets the value for {@link ${interfaceName}#${this.code.toCamelCase(prop.propName)}}.`);
+                    this.addJavaDocs(prop.spec, `Sets the value for {@link ${interfaceName}#get${prop.propName}}.`);
                     this.code.line(`${prop.nextStepInterfaceName} with${prop.propName}(final ${type} value);`);
                 }
             };

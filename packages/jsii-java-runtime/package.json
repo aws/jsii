@@ -6,8 +6,9 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "gen": "/bin/bash ./generate.sh",
+    "gen-test": "/bin/bash ./generate-test.sh",
     "build": "tsc && npm run gen && cd project && mvn package",
-    "test": "echo ok"
+    "test": "tsc && npm run gen-test && cd test-project && mvn test --settings=../conf/user.xml"
   },
   "devDependencies": {
     "@types/node": "^9.6.18",
