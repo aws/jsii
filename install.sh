@@ -9,4 +9,4 @@ export PATH=node_modules/.bin:$PATH
 
 echo "============================================================================================="
 echo "boostrapping..."
-lerna bootstrap # --reject-cycles # Temporarily disabled - re-introduce once jsii runtimes have separate test packages
+lerna bootstrap --reject-cycles
