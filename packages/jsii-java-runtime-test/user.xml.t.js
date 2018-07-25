@@ -1,3 +1,5 @@
+const jsiiJavaRuntime = require('jsii-java-runtime');
+
 process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
 <settings xmlns="http://maven.apache.org/POM/4.0.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -11,11 +13,11 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <repositories>
                 <repository>
                     <id>jsii-runtime</id>
-                    <url>file://${process.cwd()}/maven-repo</url>
+                    <url>file://${jsiiJavaRuntime.repository}</url>
                 </repository>
                 <repository>
                     <id>jsii-calc</id>
-                    <url>file://${process.cwd()}/test-maven-repo</url>
+                    <url>file://${process.cwd()}/maven-repo</url>
                 </repository>
             </repositories>
         </profile>

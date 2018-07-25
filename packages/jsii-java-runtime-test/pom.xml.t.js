@@ -1,4 +1,4 @@
-const { groupId, artifactId, version } = require('./lib').maven;
+const { groupId, artifactId, version } = require('jsii-java-runtime').maven;
 
 process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"

@@ -3,3 +3,5 @@
 *.d.ts
 !*.t.js
 maven-repo
+test-maven-repo
+conf

@@ -1,17 +1,19 @@
 {
-  "name": "jsii-java-runtime",
+  "name": "jsii-java-runtime-test",
   "version": "0.5.0-beta",
-  "description": "Java client for jsii runtime",
+  "description": "Tests for the Java client for jsii runtime",
+  "private": true,
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "gen": "/bin/bash ./generate.sh",
-    "build": "tsc && npm run gen && cd project && mvn package",
-    "test": "echo 'Tests are performed by jsii-java-runtime-test'"
+    "build": "/bin/bash ./generate.sh",
+    "test": "cd project && mvn test --settings=../conf/user.xml"
   },
   "devDependencies": {
     "@types/node": "^9.6.18",
-    "jsii-runtime": "^0.5.0-beta"
+    "jsii-calc": "^0.5.0-beta",
+    "jsii-java-runtime": "^0.5.0-beta",
+    "jsii-pacmak": "^0.5.0-beta"
   },
   "author": {
     "name": "Amazon Web Services",
