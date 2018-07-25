@@ -1,6 +1,4 @@
-const groupId = 'com.amazonaws';
-const artifactId = 'jsii-runtime';
-const version = require('./package.json').version.replace(/\+.+$/, ''); // omit "+build" postfix
+const { groupId, artifactId, version } = require('./lib').maven;
 
 process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -19,14 +17,6 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
     </properties>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/junit/junit -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -40,7 +30,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <artifactId>jackson-databind</artifactId>
             <version>2.9.5</version>
         </dependency>
-        
+
         <!-- https://mvnrepository.com/artifact/com.google.guava/guava-io -->
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -48,6 +38,20 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <version>r03</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.google.code.findbugs/jsr305 -->
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>[3.0.2,)</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api -->
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <version>[1.2,)</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -76,6 +80,24 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
                 </executions>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <failOnWarnings>true</failOnWarnings>
+                    <show>protected</show>
+                </configuration>
+            </plugin>
+
             <!-- Deploys the jars to a local maven repo -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -91,6 +113,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
                         <configuration>
                             <file>\${project.build.directory}/\${project.artifactId}-\${project.version}.jar</file>
                             <sources>\${project.build.directory}/\${project.artifactId}-\${project.version}-sources.jar</sources>
+                            <javadocs>\${project.build.directory}/\${project.artifactId}-\${project.version}-javadocs.jar</javadocs>
                             <url>file:../maven-repo</url>
                             <groupId>\${project.groupId}</groupId>
                             <artifactId>\${project.artifactId}</artifactId>

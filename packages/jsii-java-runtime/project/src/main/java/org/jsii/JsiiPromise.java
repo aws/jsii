@@ -3,7 +3,7 @@ package org.jsii;
 /**
  * Represents a promise to a result of an async method execution.
  */
-public class JsiiPromise {
+public final class JsiiPromise {
     /**
      * The ID of the promise.
      */

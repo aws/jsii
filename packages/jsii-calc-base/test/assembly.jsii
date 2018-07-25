@@ -1,5 +1,5 @@
 {
-  "fingerprint": "erGu0jB21wjK5tVE/Bxl3I0FHLhVRCdsAArpsGrQYQE=",
+  "fingerprint": "6QpycDQPS3xZIJX4/Y1LasffU7gz9N7tbFkH3hBTOVM=",
   "name": "@scope/jsii-calc-base",
   "schema": "jsii/1.0",
   "targets": {
@@ -32,7 +32,7 @@
       "methods": [
         {
           "docs": {
-            "returns": "the name of the class (to verify native type names are created for derived classes)."
+            "return": "the name of the class (to verify native type names are created for derived classes)."
           },
           "name": "typeName",
           "returns": {

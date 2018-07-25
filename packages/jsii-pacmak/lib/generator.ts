@@ -70,7 +70,7 @@ export abstract class Generator implements IGenerator {
         }
 
         // Including the version of jsii-pacmak in the fingerprint, as a new version may imply different code generation.
-        this.fingerprint = crypto.createHash('md5')
+        this.fingerprint = crypto.createHash('sha256')
                                  .update(VERSION)
                                  .update('\0')
                                  .update(this.assembly.fingerprint)

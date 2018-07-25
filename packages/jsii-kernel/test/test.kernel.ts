@@ -1,9 +1,9 @@
-import * as fs from 'fs-extra';
-import { generate } from 'jsii-pacmak';
+import childProcess = require('child_process');
+import fs = require('fs-extra');
 import { Test } from 'nodeunit';
 import { join } from 'path';
-import * as path from 'path';
-import * as vm from 'vm';
+import path = require('path');
+import vm = require('vm');
 import { api, Kernel } from '../lib';
 import { Callback, TOKEN_REF } from '../lib/api';
 import { closeRecording, recordInteraction } from './recording';
@@ -885,7 +885,16 @@ async function preparePackage(module: string, useCache = true) {
     }
 
     const packageRoot = findPackageRoot(module);
-    await generate('pack-only', packageRoot, staging, true);
+    await new Promise((ok, ko) => {
+        const child = childProcess.spawn('npm', ['pack', packageRoot], { cwd: staging, shell: true, stdio: ['ignore', 'pipe', 'ignore'] });
+        const stdout = new Array<Buffer>();
+        child.stdout.on('data', chunk => stdout.push(Buffer.from(chunk)));
+        child.once('exit', async (code, signal) => {
+            if (code === 0) { return ok(); }
+            if (code != null) { return ko(`Process exited with code ${code}`); }
+            ko(`Process killed by signal ${signal}`);
+        });
+    });
     const dir = path.join(staging, (await fs.readdir(staging))[0]);
     cache[module] = dir;
     return dir;

@@ -143,7 +143,7 @@ namespace AWS.Jsii.Generator.UnitTests
         {
             Docs docs = new Docs
             {
-                { "returns", "my comment" }
+                { "return", "my comment" }
             };
 
             string actual = Render(docs);

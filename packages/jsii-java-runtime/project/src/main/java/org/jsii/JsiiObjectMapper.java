@@ -23,7 +23,7 @@ import static org.jsii.JsiiEngine.tryGetJsiiAnnotation;
 /**
  * Implements serialization/deserialization of jsii data.
  */
-public class JsiiObjectMapper {
+public final class JsiiObjectMapper {
 
     /**
      * JSON token that represents an object reference.

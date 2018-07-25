@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Represents a jsii JavaScript module.
  */
-public class JsiiModule {
+public abstract class JsiiModule {
     /**
      * The module class.
      */
@@ -30,6 +30,7 @@ public class JsiiModule {
     /**
      * Creates a module.
      * @param moduleName The name of the module.
+     * @param moduleVersion The version of the module.
      * @param moduleClass The module class.
      * @param bundleResourceName The name of the bundle resource.
      */
@@ -43,29 +44,29 @@ public class JsiiModule {
     /**
      * @return The URL of the code bundle.
      */
-    public Class<? extends JsiiModule> getModuleClass() {
+    public final Class<? extends JsiiModule> getModuleClass() {
         return this.moduleClass;
     }
 
     /**
      * @return The name of the bundle resource.
      */
-    public String getBundleResourceName() {
-        return bundleResourceName;
+    public final String getBundleResourceName() {
+        return this.bundleResourceName;
     }
 
     /**
      * @return The name of the module.
      */
-    public String getModuleName() {
-        return moduleName;
+    public final String getModuleName() {
+        return this.moduleName;
     }
 
     /**
      * @return The version of this module.
      */
-    public String getModuleVersion() {
-        return moduleVersion;
+    public final String getModuleVersion() {
+        return this.moduleVersion;
     }
 
     /**

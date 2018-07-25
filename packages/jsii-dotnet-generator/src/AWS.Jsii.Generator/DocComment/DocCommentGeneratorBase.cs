@@ -16,7 +16,7 @@ namespace AWS.Jsii.Generator.DocComment
         {
             "comment",
             "param",
-            "returns",
+            "return",
         });
 
         public DocCommentGeneratorBase(T documentable)
@@ -67,12 +67,12 @@ namespace AWS.Jsii.Generator.DocComment
 
         protected IEnumerable<XmlNodeSyntax> GetReturnsNodes()
         {
-            if (Documentable.Docs?.ContainsKey("returns") != true)
+            if (Documentable.Docs?.ContainsKey("return") != true)
             {
                 yield break;
             }
 
-            string text = Documentable.Docs["returns"];
+            string text = Documentable.Docs["return"];
 
             yield return SF.XmlText(" ").WithLeadingTrivia(SF.DocumentationCommentExterior(" "));
             yield return SF.XmlReturnsElement(GetXmlNodes(text).ToArray());

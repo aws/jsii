@@ -1,0 +1,5 @@
+.vscode
+!*.js
+maven-repo
+test-maven-repo
+conf

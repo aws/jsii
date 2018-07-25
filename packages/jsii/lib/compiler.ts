@@ -927,7 +927,7 @@ export async function compileSources(entrypoint: string,
             // Don't duplicate @params, they're handled on the params themselves...
             if (tag.name !== 'param') {
                 target.docs = target.docs || {};
-                target.docs[tag.name] = tag.text || '';
+                target.docs[normalize(tag.name)] = tag.text || '';
             }
         }
 
@@ -935,6 +935,14 @@ export async function compileSources(entrypoint: string,
         if (comment) {
             target.docs = target.docs || {};
             target.docs.comment = comment;
+        }
+
+        function normalize(tagName: string): string {
+            switch (tagName) {
+                // JavaDoc is very particular about it being @return.
+                case 'returns': return 'return';
+                default: return tagName;
+            }
         }
     }
 

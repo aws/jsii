@@ -1,4 +1,5 @@
 .vscode
-!index.js
+*.js
+*.d.ts
 !*.t.js
 maven-repo

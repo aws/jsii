@@ -11,11 +11,11 @@
   "devDependencies": {
     "@scope/jsii-calc-lib": "^0.5.0-beta",
     "jsii-calc": "^0.5.0-beta",
-    "jsii-pacmak": "^0.5.0-beta"
+    "jsii-pacmak": "^0.5.0-beta",
+    "jsii-runtime": "^0.5.0-beta"
   },
   "dependencies": {
-    "jsii-dotnet-jsonmodel": "^0.5.0-beta",
-    "jsii-runtime": "^0.5.0-beta"
+    "jsii-dotnet-jsonmodel": "^0.5.0-beta"
   },
   "repository": {
     "type": "git",
