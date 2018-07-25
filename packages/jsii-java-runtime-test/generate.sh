@@ -12,7 +12,7 @@ mkdir -p conf
 
 staging="maven-repo"
 mkdir -p ${staging}
-for ASSM in $(find ./node_modules/jsii-calc -follow -name .jsii); do
+for ASSM in $(node toposort.js $(find ./node_modules/jsii-calc -follow -name .jsii)); do
     echo "Generating java bindings for ${ASSM}"
     jsii-pacmak --target java --outdir ${staging} $(dirname ${ASSM}) --mvn-settings=${PWD}/conf/user.xml
 done

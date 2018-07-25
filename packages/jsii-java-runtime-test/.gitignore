@@ -1,7 +1,5 @@
 .vscode
-*.js
-*.d.ts
-!*.t.js
+!*.js
 maven-repo
 test-maven-repo
 conf
