@@ -390,9 +390,9 @@ export default class SphinxDocsGenerator extends Generator {
 
         this.renderMethodParameters(method);
 
-        // @returns doc
-        if (method.docs && method.docs.returns) {
-            this.code.line(`:return: ${method.docs.returns}`);
+        // @return doc
+        if (method.docs && method.docs.return) {
+            this.code.line(`:return: ${method.docs.return}`);
         }
 
         if (method.returns) {

@@ -1,5 +1,5 @@
 {
-  "fingerprint": "A9t4hQIy+Vmt9bbmqQm7+5Lq7PeGlj50VW4ndWt9Z+w=",
+  "fingerprint": "c2wkEzqW3dYGRkmS3ds0ZKdviGDUFxVQPNljR3TK2XU=",
   "bundled": {
     "jsii-calc-bundled": "^0.5.0-beta"
   },
@@ -58,7 +58,7 @@
       "methods": [
         {
           "docs": {
-            "returns": "the name of the class (to verify native type names are created for derived classes)."
+            "return": "the name of the class (to verify native type names are created for derived classes)."
           },
           "name": "typeName",
           "returns": {
@@ -1190,7 +1190,7 @@
         {
           "docs": {
             "comment": "Say goodbye.",
-            "returns": "A goodbye blessing."
+            "return": "A goodbye blessing."
           },
           "name": "goodbye",
           "returns": {
@@ -1280,7 +1280,7 @@
         {
           "docs": {
             "comment": "Returns another random number.",
-            "returns": "A random number."
+            "return": "A random number."
           },
           "name": "next",
           "returns": {
@@ -1723,7 +1723,7 @@
         {
           "docs": {
             "comment": "Reads a local resource file (resource.txt) asynchronously.",
-            "returns": "\"Hello, resource!\""
+            "return": "\"Hello, resource!\""
           },
           "name": "fsReadFile",
           "returns": {
@@ -1734,7 +1734,7 @@
         {
           "docs": {
             "comment": "Sync version of fsReadFile.",
-            "returns": "\"Hello, resource! SYNC!\""
+            "return": "\"Hello, resource! SYNC!\""
           },
           "name": "fsReadFileSync",
           "returns": {
@@ -1744,7 +1744,7 @@
         {
           "docs": {
             "comment": "Uses node.js \"crypto\" module to calculate sha256 of a string.",
-            "returns": "\"6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50\""
+            "return": "\"6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50\""
           },
           "name": "cryptoSha256",
           "returns": {

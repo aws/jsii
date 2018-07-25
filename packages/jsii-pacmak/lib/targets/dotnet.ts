@@ -7,4 +7,9 @@ export default class Dotnet extends Target {
     constructor(options: TargetOptions) {
         super(options);
     }
+
+    public build(sourceDir: string, outDir: string) {
+        // TODO: Actually build!
+        return this.copyFiles(sourceDir, outDir);
+    }
 }

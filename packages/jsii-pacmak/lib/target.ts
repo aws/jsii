@@ -56,17 +56,19 @@ export abstract class Target {
     /**
      * Builds the generated code.
      *
-     * By default, this method merely copies the contents of ``sourceDir`` into
-     * ``outDir``, and emits a message indicating this. Implementors should
-     * override this method with appropriate behavior.
-     *
      * @param sourceDir the directory where the generated source was put.
      * @param outDir    the directory where the build artifacts will be placed.
      */
-    public async build(sourceDir: string, outDir: string) {
-        // tslint:disable-next-line:no-console
-        console.log(`${this.constructor.name} does not implement a build phase - publishing the generated source to ${outDir}`);
-        await fs.copy(sourceDir, outDir, { recursive: true });
+    public abstract build(sourceDir: string, outDir: string): Promise<void>;
+
+    /**
+     * A utility to copy files from one directory to another.
+     *
+     * @param sourceDir the directory to copy from.
+     * @param targetDir the directory to copy into.
+     */
+    protected async copyFiles(sourceDir: string, targetDir: string) {
+        await fs.copy(sourceDir, targetDir, { recursive: true });
     }
 
     protected runCommand(cmd: string, args: string[], options: childProcess.SpawnOptions): Promise<string> {

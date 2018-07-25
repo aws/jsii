@@ -7,4 +7,8 @@ export default class Sphinx extends Target {
     constructor(options: TargetOptions) {
         super(options);
     }
+
+    public build(sourceDir: string, outDir: string) {
+        return this.copyFiles(sourceDir, outDir);
+    }
 }
