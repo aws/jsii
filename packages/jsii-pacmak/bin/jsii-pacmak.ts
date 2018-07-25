@@ -4,18 +4,20 @@ import 'source-map-support/register';
 import fs = require('fs-extra');
 import os = require('os');
 import path = require('path');
+import process = require('process');
 import yargs = require('yargs');
 import { Target } from '../lib/target';
 import { VERSION } from '../lib/version';
 
 (async function main() {
+    const targets = await Target.findAll();
     const argv = yargs
         .usage('Usage: jsii-pacmak --target target --outdir outdir <jsii-package-dir>')
         .option('target', {
             alias: 't',
             type: 'string',
             desc: 'target language for which to generate bindings',
-            choices: Object.keys(await Target.all),
+            choices: Object.keys(targets),
             required: true
         })
         .option('outdir', {
@@ -46,20 +48,25 @@ import { VERSION } from '../lib/version';
         .version(VERSION)
         .argv;
 
-    const target = new (await Target.all)[argv.target]({
-        packageDir: argv._[0],
+    const packageDir = path.resolve(process.cwd(), argv._[0]);
+    const outDir = path.resolve(process.cwd(), argv.outdir);
+
+    // ``argv.target`` is guaranteed valid by ``yargs`` through the ``choices`` directive.
+    const target = new targets[argv.target]({
+        packageDir,
         fingerprint: argv.fingerprint,
         force: argv.force,
         arguments: argv
     });
 
-    const codeDir = argv.codeOnly ? argv.outdir : await fs.mkdtemp(path.join(os.tmpdir(), 'jsii-pacmak-code'));
+    const codeDir = argv.codeOnly ? outDir : await fs.mkdtemp(path.join(os.tmpdir(), 'jsii-pacmak-code'));
 
     await target.generateCode(codeDir);
-    if (!argv.codeOnly) {
-        await target.build(codeDir, argv.outdir);
-        await fs.remove(codeDir);
-    }
+
+    if (argv.codeOnly) { return; }
+
+    await target.build(codeDir, outDir);
+    await fs.remove(codeDir);
 
 })().catch(err => {
     process.stderr.write(err.stack + '\n');

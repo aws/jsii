@@ -320,7 +320,9 @@ export default class JavaGenerator extends Generator {
                     version: dep.version
                 });
             }
+            // The JSII java runtime base classes
             dependencies.push(jsiiJavaRuntime.maven);
+            // Provides @javax.annotation.Nullable (among other stuff)
             dependencies.push({
                 groupId: 'com.google.code.findbugs',
                 artifactId: 'jsr305',
@@ -748,8 +750,6 @@ export default class JavaGenerator extends Generator {
             const value = doc.docs[key];
             if (key === 'comment') {
                 value.split('\n').forEach(s => this.code.line(` * ${s}`));
-            } else if (key === 'returns' && !('return' in doc.docs)) {
-                this.code.line(` * @return ${value.replace(/\n/g, ' ')}`);
             } else {
                 this.code.line(` * @${key} ${value.replace(/\n/g, ' ')}`);
             }
@@ -996,6 +996,10 @@ const RESERVED_KEYWORDS = [
     'this', 'throw', 'throws', 'transient', 'true', 'try', 'void', 'volatile', 'while'
 ];
 
+/**
+ * This models the POM schema for a <dependency> entity
+ * @see https://maven.apache.org/pom.html#Dependencies
+ */
 interface MavenDependency {
     groupId: string;
     artifactId: string;

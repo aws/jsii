@@ -6,19 +6,21 @@ import path = require('path');
 import { IGenerator } from './generator';
 
 export abstract class Target {
-    public static readonly all = new Promise<{ [name: string]: TargetConstructor }>(async (ok, ko) => {
-        try {
-            const result: { [name: string]: TargetConstructor } = {};
-            const targetDir = path.join(__dirname, 'targets');
-            for (const name of await fs.readdir(targetDir)) {
-                if (!name.endsWith('.js')) { continue; }
-                result[name.slice(0, name.length - 3)] = require(path.join(targetDir, name)).default;
+    public static async findAll() {
+        return new Promise<{ [name: string]: TargetConstructor }>(async (ok, ko) => {
+            try {
+                const result: { [name: string]: TargetConstructor } = {};
+                const targetDir = path.join(__dirname, 'targets');
+                for (const name of await fs.readdir(targetDir)) {
+                    if (!name.endsWith('.js')) { continue; }
+                    result[path.basename(name, '.js')] = require(path.join(targetDir, name)).default;
+                }
+                ok(result);
+            } catch (e) {
+                ko(e);
             }
-            ok(result);
-        } catch (e) {
-            ko(e);
-        }
-    });
+        });
+    }
 
     protected readonly packageDir: string;
     protected readonly fingerprint: boolean;
@@ -54,13 +56,17 @@ export abstract class Target {
     /**
      * Builds the generated code.
      *
+     * By default, this method merely copies the contents of ``sourceDir`` into
+     * ``outDir``, and emits a message indicating this. Implementors should
+     * override this method with appropriate behavior.
+     *
      * @param sourceDir the directory where the generated source was put.
-     * @param targetDir the directory where the build artifacts will be placed.
+     * @param outDir    the directory where the build artifacts will be placed.
      */
     public async build(sourceDir: string, outDir: string) {
         // tslint:disable-next-line:no-console
         console.log(`${this.constructor.name} does not implement a build phase - publishing the generated source to ${outDir}`);
-        await fs.copy(sourceDir, outDir, { overwrite: true, recursive: true });
+        await fs.copy(sourceDir, outDir, { recursive: true });
     }
 
     protected runCommand(cmd: string, args: string[], options: childProcess.SpawnOptions): Promise<string> {

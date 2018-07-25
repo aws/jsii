@@ -1,6 +1,12 @@
 #!/bin/bash
 set -euo pipefail
 
+# Generates the necessary files to test the JSII runtime
+# * Java bindings for jsii-calc (and it's JSII dependencies)
+# * A maven user settings file to allow maven to use local repositories appropriately
+# * A POM file for the test project, that references the dependencies correctly
+# Executing this script is required for the test-project to be buildable
+
 mkdir -p conf
 /usr/bin/env node ./user.xml.t.js > conf/user.xml
 
