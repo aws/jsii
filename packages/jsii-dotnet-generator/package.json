@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "build": "/bin/bash ./build.sh",
-    "prepack": "/bin/bash ./prepack.sh",
     "test": "/bin/bash ./test.sh"
   },
   "dependencies": {
