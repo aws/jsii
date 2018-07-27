@@ -7,13 +7,7 @@ set -euo pipefail
 # explicitly clear the cache as a temporary workaround.
 dotnet nuget locals all --clear
 dotnet build -c Release ./src/AWS.Jsii.Generator.sln
-
-# TODO: Publishing for all four platforms takes ~30 seconds. It might
-# be worth skipping non-linux platforms for Debug builds.
-dotnet publish -c Release src/AWS.Jsii.Generator.CLI/ -r win-x86
-dotnet publish -c Release src/AWS.Jsii.Generator.CLI/ -r win-x64
-dotnet publish -c Release src/AWS.Jsii.Generator.CLI/ -r osx-x64
-dotnet publish -c Release src/AWS.Jsii.Generator.CLI/ -r linux-x64
+dotnet publish -c Release src/AWS.Jsii.Generator.CLI/
 
 mkdir -p cli
 rsync -av ./src/AWS.Jsii.Generator.CLI/bin/Release/netcoreapp2.0/ ./cli/
