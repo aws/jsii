@@ -7,3 +7,5 @@ set -euo pipefail
 # explicitly clear the cache as a temporary workaround.
 dotnet nuget locals all --clear
 dotnet build -c Release ./src/AWS.Jsii.JsonModel.sln
+
+cp -f ./bin/Release/NuGet/*.nupkg .

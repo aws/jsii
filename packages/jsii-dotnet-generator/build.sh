@@ -15,7 +15,7 @@ dotnet publish -c Release src/AWS.Jsii.Generator.CLI/ -r win-x64
 dotnet publish -c Release src/AWS.Jsii.Generator.CLI/ -r osx-x64
 dotnet publish -c Release src/AWS.Jsii.Generator.CLI/ -r linux-x64
 
-# This should be part of prepack, but it must be done BEFORE
-# pacmak tests are run, so we do it here.
 mkdir -p cli
 rsync -av ./src/AWS.Jsii.Generator.CLI/bin/Release/netcoreapp2.0/ ./cli/
+
+cp -f ./bin/Release/NuGet/*.nupkg .

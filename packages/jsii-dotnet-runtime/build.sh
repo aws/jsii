@@ -12,3 +12,5 @@ rsync -av node_modules/jsii-runtime/dist/ ${bundle_dir}
 # explicitly clear the cache as a temporary workaround.
 dotnet nuget locals all --clear
 dotnet build -c Release ./src/AWS.Jsii.Runtime.sln
+
+cp -f ./bin/Release/NuGet/*.nupkg .
