@@ -38,8 +38,8 @@ class DotNetGenerator implements IGenerator {
 
     public save(outdir: string, tarball: string): Promise<any> {
         const runtimeRoot = dirname(require.resolve('jsii-dotnet-generator/package.json'));
-        const cliPath = `${runtimeRoot}/cli/${this.getRuntime()}/publish/AWS.Jsii.Generator.CLI`;
-        const cli = spawn(cliPath, ['--jsii', this.jsiiFile, '--tarball', tarball, '--output', outdir], { stdio: 'inherit' });
+        const cliPath = `${runtimeRoot}/cli/publish/AWS.Jsii.Generator.CLI.dll`;
+        const cli = spawn("dotnet", [cliPath, '--jsii', this.jsiiFile, '--tarball', tarball, '--output', outdir], { stdio: 'inherit' });
 
         return new Promise<number>((resolve, reject) => {
             cli.once('exit', code => {
@@ -52,47 +52,5 @@ class DotNetGenerator implements IGenerator {
 
             cli.once('error', err => reject(err));
         });
-    }
-
-    private getRuntime(): string {
-        // We don't want to require dotnet core as a pacmak dependency,
-        // so we use dotnet publish to create a standalone bundle that
-        // includes the dotnet runtime. This bundle is platform-specific,
-        // so we generate a different bundle for each platform supported
-        // by nodejs.
-        return `${this.getPlatform()}-${this.getArchitecture()}`;
-    }
-
-    private getPlatform(): string {
-        switch (process.platform) {
-            case "darwin":
-                return "osx";
-
-            case "linux":
-                return "linux";
-
-            case "win32":
-                return "win";
-
-            default:
-                throw new Error(`Unsupported platform: '${process.platform}'`);
-        }
-    }
-
-    private getArchitecture(): string {
-        switch (process.arch) {
-            case "x32":
-                if (process.platform !== "win32") {
-                    throw new Error(`x86 architecture is not supported on ${process.platform}`);
-                }
-
-                return "x86";
-
-            case "x64":
-                return "x64";
-
-            default:
-                throw new Error(`Unsupported architecture: '${process.arch}'`);
-        }
     }
 }
