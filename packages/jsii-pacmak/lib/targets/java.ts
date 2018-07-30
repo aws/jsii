@@ -3,7 +3,7 @@ import jsiiJavaRuntime = require('jsii-java-runtime');
 import spec = require('jsii-spec');
 import path = require('path');
 import xmlbuilder = require('xmlbuilder');
-import { Generator, GeneratorOptions } from '../generator';
+import { Generator } from '../generator';
 import logging = require('../logging');
 import { Target, TargetOptions } from '../target';
 import { VERSION } from '../version';
