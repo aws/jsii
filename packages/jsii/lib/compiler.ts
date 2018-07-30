@@ -1287,7 +1287,7 @@ function verifyUnexportedTypes(mod: spec.Assembly, typeRefs: Set<ReferencedFqn>,
             const extType = externalTypes.get(ref.fqn)!;
             mod.externals[ref.fqn] = extType;
 
-            hoistExternalBaseType(extType as spec.ClassType);
+            hoistExternalTypeInfo(extType);
         }
     }
 
@@ -1302,23 +1302,64 @@ function verifyUnexportedTypes(mod: spec.Assembly, typeRefs: Set<ReferencedFqn>,
      *
      * @param type the type whose base and interfaces need to be hoisted.
      */
-    function hoistExternalBaseType(type: spec.Type) {
+    function hoistExternalTypeInfo(type: spec.Type, processed: Set<string> = new Set()) {
+        // Ensure we don't run into infinite loop if a type has a method that returns itself.
+        if (processed.has(type.fqn)) { return; }
+        processed.add(type.fqn);
+
         if (!mod.externals) { mod.externals = {}; }
-        if (spec.isClassType(type) && type.base && !(type.base.fqn in mod.externals)) {
+        mod.externals[type.fqn] = type;
+
+        if (spec.isClassType(type) && type.base) {
             const baseFqn = type.base.fqn;
-            if (!externalTypes.has(baseFqn)) { throw new Error(`Unable to find the definition of ${baseFqn}, a base type of ${type.fqn}`); }
+            if (!externalTypes.has(baseFqn)) {
+                errors.push(`Unable to find the definition of ${baseFqn}, a base type of ${type.fqn}`);
+                return;
+            }
             const baseType = externalTypes.get(baseFqn)!;
             mod.externals[baseFqn] = baseType;
-            hoistExternalBaseType(baseType);
+            hoistExternalTypeInfo(baseType, processed);
         }
-        if ((spec.isClassType(type) || spec.isInterfaceType(type)) && type.interfaces) {
-            for (const iface of type.interfaces) {
+        if ((spec.isClassType(type) || spec.isInterfaceType(type))) {
+            for (const iface of type.interfaces || []) {
                 const ifaceFqn = iface.fqn;
                 if (ifaceFqn in mod.externals) { continue; }
-                if (!externalTypes.has(ifaceFqn)) { throw new Error(`Unable to find the definition of ${ifaceFqn}, an interface of ${type.fqn}`); }
+                if (!externalTypes.has(ifaceFqn)) {
+                    errors.push(`Unable to find the definition of ${ifaceFqn}, an interface of ${type.fqn}`);
+                    continue;
+                }
                 const ifaceType = externalTypes.get(ifaceFqn)!;
                 mod.externals[ifaceFqn] = ifaceType;
-                hoistExternalBaseType(ifaceType);
+                hoistExternalTypeInfo(ifaceType, processed);
+            }
+            for (const method of type.methods || []) {
+                if (method.returns && spec.isNamedTypeReference(method.returns)) {
+                    const returnType = externalTypes.get(method.returns.fqn);
+                    if (!returnType) {
+                        errors.push(`Unable to locate external return type of ${type.fqn}.${method.name}: ${method.returns.fqn}`);
+                        continue;
+                    }
+                    hoistExternalTypeInfo(returnType, processed);
+                }
+                for (const param of method.parameters || []) {
+                    if (!spec.isNamedTypeReference(param.type)) { continue; }
+                    const paramType = externalTypes.get(param.type.fqn);
+                    if (!paramType) {
+                        // tslint:disable-next-line:max-line-length
+                        errors.push(`Unable to locate external type of parameter ${param.name} of ${type.fqn}.${method.name}: ${param.type.fqn}`);
+                        continue;
+                    }
+                    hoistExternalTypeInfo(paramType, processed);
+                }
+            }
+            for (const prop of type.properties || []) {
+                if (!spec.isNamedTypeReference(prop.type)) { continue; }
+                const propType = externalTypes.get(prop.type.fqn);
+                if (!propType) {
+                    errors.push(`Unable to locate external type of property ${prop.name} of ${type.fqn}: ${prop.type.fqn}`);
+                    continue;
+                }
+                hoistExternalTypeInfo(propType, processed);
             }
         }
     }
