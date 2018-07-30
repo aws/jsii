@@ -1,5 +1,5 @@
 {
-  "fingerprint": "7As+xCfP2si1HVa+9kEPVWNjr8tSX6yChFrxTnmRnPY=",
+  "fingerprint": "3AfPWe794Dvhsi+mUxfqs/Xd+6sDNEgUgsOFkWq60C0=",
   "dependencies": {
     "@scope/jsii-calc-base": {
       "targets": {
@@ -9,7 +9,7 @@
         "java": {
           "maven": {
             "artifactId": "calculator-base",
-            "groupId": "org.jsii.tests"
+            "groupId": "com.amazonaws.jsii.tests"
           },
           "package": "org.jsii.tests.calculator.base"
         },
@@ -56,7 +56,7 @@
     "java": {
       "maven": {
         "artifactId": "calculator-lib",
-        "groupId": "org.jsii.tests"
+        "groupId": "com.amazonaws.jsii.tests"
       },
       "package": "org.jsii.tests.calculator.lib"
     },

@@ -1,6 +1,7 @@
 !index.js
 .idea
 pom.xml
+user.xml
 
 .classpath
 .project

@@ -4,6 +4,8 @@ import spec = require('jsii-spec');
 import path = require('path');
 
 import { IGenerator } from './generator';
+import logging = require('./logging');
+import { resolveDependencyDirectory } from './util';
 
 export abstract class Target {
     public static async findAll() {
@@ -26,6 +28,7 @@ export abstract class Target {
     protected readonly fingerprint: boolean;
     protected readonly force: boolean;
     protected readonly arguments: { [name: string]: any };
+    protected readonly targetName: string;
 
     protected abstract get generator(): IGenerator;
 
@@ -34,6 +37,7 @@ export abstract class Target {
         this.fingerprint = options.fingerprint != null ? options.fingerprint : true;
         this.force = options.force != null ? options.force : false;
         this.arguments = options.arguments;
+        this.targetName = options.targetName;
     }
 
     /**
@@ -76,8 +80,18 @@ export abstract class Target {
             const child = childProcess.spawn(cmd, args, { ...options, shell: true, stdio: ['ignore', 'pipe', 'pipe'] });
             const stdout = new Array<Buffer>();
             const stderr = new Array<Buffer>();
-            child.stdout.on('data', chunk => stdout.push(Buffer.from(chunk)));
-            child.stderr.on('data', chunk => stderr.push(Buffer.from(chunk)));
+            child.stdout.on('data', chunk => {
+                if (logging.level >= logging.LEVEL_VERBOSE) {
+                    process.stderr.write(chunk); // notice - we emit all build output to stderr
+                }
+                stdout.push(Buffer.from(chunk));
+            });
+            child.stderr.on('data', chunk => {
+                if (logging.level >= logging.LEVEL_VERBOSE) {
+                    process.stderr.write(chunk);
+                }
+                stderr.push(Buffer.from(chunk));
+            });
             child.once('error', reject);
             child.once('exit', (code, signal) => {
                 const out = Buffer.concat(stdout).toString('utf-8');
@@ -87,6 +101,41 @@ export abstract class Target {
                 reject(new Error(`Process terminated by signal ${signal}\n${out}\n${err}`));
             });
         });
+    }
+
+    /**
+     * Traverses the dep graph and returns a list of pacmak output directories
+     * available locally for this specific target. This allows target builds to
+     * take local dependencies in case a dependency is checked-out.
+     *
+     * @param packageDir The directory of the package to resolve from.
+     */
+    protected async findLocalDepsOutput(packageDir: string, isRoot = true) {
+        const results = new Array<string>();
+        const pkg = await fs.readJson(path.join(packageDir, 'package.json'));
+
+        // no jsii or jsii.outdir - either a misconfigured jsii package or a non-jsii dependency. either way, we are done here.
+        if (!pkg.jsii || !pkg.jsii.outdir) {
+            return [];
+        }
+
+        // if an output directory exists for this module, then we add it to our
+        // list of results (unless it's the root package, which we are currently building)
+        const outdir = path.join(packageDir, pkg.jsii.outdir, this.targetName);
+        if (!isRoot && await fs.pathExists(outdir)) {
+            logging.debug(`Found ${outdir} as a local dependency output`);
+            results.push(outdir);
+        }
+
+        // now descend to dependencies
+        for (const dependencyName of Object.keys(pkg.dependencies || {})) {
+            const dependencyDir =  resolveDependencyDirectory(packageDir, dependencyName);
+            for (const dir of await this.findLocalDepsOutput(dependencyDir, /* isRoot */ false)) {
+                results.push(dir);
+            }
+        }
+
+        return results;
     }
 
     private npmPack(): Promise<string> {
@@ -99,6 +148,9 @@ export interface TargetConstructor {
 }
 
 export interface TargetOptions {
+    /** The name of the target language we are generating */
+    targetName: string;
+
     /** The directory where the JSII package is located */
     packageDir: string;
     /**

@@ -7,7 +7,7 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "/bin/bash ./generate.sh",
-    "test": "cd project && mvn test --settings=../conf/user.xml"
+    "test": "cd project && mvn test --settings=user.xml"
   },
   "devDependencies": {
     "@types/node": "^9.6.18",
