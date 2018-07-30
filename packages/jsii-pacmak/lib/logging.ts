@@ -3,14 +3,23 @@ export let level = 0;
 export const LEVEL_INFO    = 1;
 export const LEVEL_VERBOSE = 2;
 
+export enum Level {
+    QUIET = 0,
+    INFO = 1,
+    VERBOSE = 2,
+}
+
 export function info(fmt: string, ...args: any[]) {
-    if (level >= LEVEL_INFO) {
-        console.error.call(console, ...[ '[INFO]', fmt, ...args ]);
-    }
+    log(Level.INFO, fmt, ...args);
 }
 
 export function debug(fmt: string, ...args: any[]) {
-    if (level >= LEVEL_VERBOSE) {
-        console.error.call(console, ...[ '[DEBUG]', fmt, ...args ]);
+    log(Level.VERBOSE, fmt, ...args);
+}
+
+function log(messageLevel: Level, fmt: string, ...args: any[]) {
+    if (level >= messageLevel) {
+        const levelName = Level[messageLevel];
+        console.error.call(console, ...[ `[jsii-pacmak] [${levelName}]`, fmt, ...args ]);
     }
 }
