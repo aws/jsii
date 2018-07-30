@@ -6,25 +6,29 @@ import os = require('os');
 import path = require('path');
 import process = require('process');
 import yargs = require('yargs');
+import logging = require('../lib/logging');
 import { Target } from '../lib/target';
+import { resolveDependencyDirectory } from '../lib/util';
 import { VERSION } from '../lib/version';
 
 (async function main() {
-    const targets = await Target.findAll();
+    const targetConstructors = await Target.findAll();
     const argv = yargs
-        .usage('Usage: jsii-pacmak --target target --outdir outdir <jsii-package-dir>')
-        .option('target', {
+        .usage('Usage: jsii-pacmak [-t target,...] [-o outdir] [package-dir]')
+        .option('targets', {
             alias: 't',
-            type: 'string',
-            desc: 'target language for which to generate bindings',
-            choices: Object.keys(targets),
-            required: true
+            type: 'array',
+            desc: 'target languages for which to generate bindings',
+            defaultDescription: 'all targets defined in `package.json` will be generated',
+            choices: Object.keys(targetConstructors),
+            required: false
         })
         .option('outdir', {
             alias: 'o',
             type: 'string',
             desc: 'directory where artifacts will be generated',
-            required: true
+            defaultDescription: 'based on `jsii.output` in `package.json`',
+            required: false
         })
         .option('code-only', {
             alias: 'c',
@@ -44,29 +48,98 @@ import { VERSION } from '../lib/version';
             desc: 'force generation of new artifacts, even if the fingerprints match',
             default: false
         })
-        .demandCommand(1, 1, '<jsii-package-dir> is required', 'only one <jsii-package-dir> can be provided')
+        .option('recurse', {
+            alias: 'R',
+            type: 'boolean',
+            desc: 'recursively generate and build all dependencies into `outdir`',
+            default: false
+        })
+        .option('verbose', {
+            alias: 'v',
+            type: 'boolean',
+            desc: 'emit verbose build output',
+            count: true,
+            default: 0
+        })
+        .option('clean', {
+            type: 'boolean',
+            desc: 'clean up temporary files upon success (use --no-clean to disable)',
+            default: true,
+        })
         .version(VERSION)
         .argv;
 
-    const packageDir = path.resolve(process.cwd(), argv._[0]);
-    const outDir = path.resolve(process.cwd(), argv.outdir);
+    logging.level = argv.verbose !== undefined ? argv.verbose : 0;
 
-    // ``argv.target`` is guaranteed valid by ``yargs`` through the ``choices`` directive.
-    const target = new targets[argv.target]({
-        packageDir,
-        fingerprint: argv.fingerprint,
-        force: argv.force,
-        arguments: argv
-    });
+    logging.debug('command line arguments:', argv);
 
-    const codeDir = argv.codeOnly ? outDir : await fs.mkdtemp(path.join(os.tmpdir(), 'jsii-pacmak-code'));
+    const rootDir = path.resolve(process.cwd(), argv._[0] || '.');
 
-    await target.generateCode(codeDir);
+    await buildPackage(rootDir);
 
-    if (argv.codeOnly) { return; }
+    async function buildPackage(packageDir: string, isRoot = true) {
 
-    await target.build(codeDir, outDir);
-    await fs.remove(codeDir);
+        // read package.json and extract the "jsii" configuration from it.
+        const pkg = await fs.readJson(path.join(packageDir, 'package.json'));
+        if (!pkg.jsii || !pkg.jsii.outdir || !pkg.jsii.targets) {
+            if (isRoot) {
+                throw new Error(`Invalid "jsii" section in ${packageDir}. Expecting "outdir" and "targets"`);
+            } else {
+                return; // just move on, this is not a jsii package
+            }
+        }
+
+        // if --recurse is set, find dependency dirs and build them.
+        if (argv.recurse) {
+            for (const dep of Object.keys(pkg.dependencies || { })) {
+                const depDir = resolveDependencyDirectory(packageDir, dep);
+                await buildPackage(depDir, /* isRoot */ false);
+            }
+        }
+
+        // outdir is either by package.json/jsii.outdir (relative to package root) or via command line (relative to cwd)
+        const outDir = argv.outdir !== undefined ? path.resolve(process.cwd(), argv.outdir) : path.resolve(packageDir, pkg.jsii.outdir);
+        const targets = argv.targets || [ ...Object.keys(pkg.jsii.targets), 'npm' ]; // "npm" is an implicit target
+
+        logging.info(`Building ${path.relative(process.cwd(), packageDir)} (${targets.join(',')}) into ${path.relative(process.cwd(), outDir)}`);
+
+        for (const targetName of targets) {
+             // if we are targeting a single language, output to outdir, otherwise outdir/<target>
+            const targetOutputDir = targets.length > 1 ? path.join(outDir, targetName) : outDir;
+            logging.debug(`Building ${pkg.name}/${targetName}: ${targetOutputDir}`);
+            await generateTarget(packageDir, targetName, targetOutputDir);
+        }
+    }
+
+    async function generateTarget(packageDir: string, targetName: string, targetOutputDir: string) {
+        // ``argv.target`` is guaranteed valid by ``yargs`` through the ``choices`` directive.
+        const targetConstructor = targetConstructors[targetName];
+        if (!targetConstructor) {
+            throw new Error(`Unsupported target ${targetName}`);
+        }
+
+        const target = new targetConstructor({
+            targetName,
+            packageDir,
+            fingerprint: argv.fingerprint,
+            force: argv.force,
+            arguments: argv
+        });
+
+        const codeDir = argv.codeOnly ? targetOutputDir : await fs.mkdtemp(path.join(os.tmpdir(), 'jsii-pacmak-code'));
+
+        await target.generateCode(codeDir);
+
+        if (argv.codeOnly) { return; }
+
+        await target.build(codeDir, targetOutputDir);
+
+        if (argv.clean) {
+            await fs.remove(codeDir);
+        } else {
+            logging.info('Generated code retained at:', codeDir);
+        }
+    }
 
 })().catch(err => {
     process.stderr.write(err.stack + '\n');

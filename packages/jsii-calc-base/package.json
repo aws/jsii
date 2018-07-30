@@ -10,13 +10,14 @@
       "java": {
         "package": "org.jsii.tests.calculator.base",
         "maven": {
-          "groupId": "org.jsii.tests",
+          "groupId": "com.amazonaws.jsii.tests",
           "artifactId": "calculator-base"
         }
       },
       "dotnet": {
         "namespace": "AWS.Jsii.Tests.Calculator.Base"
-      }
+      },
+      "sphinx": { }
     }
   },
   "scripts": {

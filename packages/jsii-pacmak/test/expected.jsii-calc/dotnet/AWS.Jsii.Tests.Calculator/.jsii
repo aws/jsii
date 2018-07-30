@@ -1,5 +1,5 @@
 {
-  "fingerprint": "c2wkEzqW3dYGRkmS3ds0ZKdviGDUFxVQPNljR3TK2XU=",
+  "fingerprint": "1EnNo4rE+0vdweKO6WsgNnIa6escahSlsYrRROh3u/s=",
   "bundled": {
     "jsii-calc-bundled": "^0.5.0-beta"
   },
@@ -14,7 +14,7 @@
             "java": {
               "maven": {
                 "artifactId": "calculator-base",
-                "groupId": "org.jsii.tests"
+                "groupId": "com.amazonaws.jsii.tests"
               },
               "package": "org.jsii.tests.calculator.base"
             },
@@ -32,7 +32,7 @@
         "java": {
           "maven": {
             "artifactId": "calculator-lib",
-            "groupId": "org.jsii.tests"
+            "groupId": "com.amazonaws.jsii.tests"
           },
           "package": "org.jsii.tests.calculator.lib"
         },
@@ -253,7 +253,7 @@
     "java": {
       "maven": {
         "artifactId": "calculator",
-        "groupId": "org.jsii.tests"
+        "groupId": "com.amazonaws.jsii.tests"
       },
       "package": "org.jsii.tests.calculator"
     },

@@ -10,13 +10,14 @@
       "java": {
         "package": "org.jsii.tests.calculator",
         "maven": {
-          "groupId": "org.jsii.tests",
+          "groupId": "com.amazonaws.jsii.tests",
           "artifactId": "calculator"
         }
       },
       "dotnet": {
         "namespace": "AWS.Jsii.Tests.Calculator"
-      }
+      },
+      "sphinx": { }
     }
   },
   "scripts": {
