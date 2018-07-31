@@ -1,6 +1,7 @@
 import Case = require('case');
 import clone = require('clone');
 import crypto = require('crypto');
+import deepEqual = require('deep-equal');
 import fs = require('fs-extra');
 import glob = require('glob');
 import spec = require('jsii-spec');
@@ -1311,7 +1312,7 @@ function validateOverriddenSignatures(mod: spec.Assembly) {
 
         function validateMethod(currentMethod: spec.Method, ancestorMethod: spec.Method) {
             const where = `${currentFqn}.${currentMethod.name}`;
-            if (!spec.typesReferencesEqual(currentMethod.returns, ancestorMethod.returns)) {
+            if (!typeReferencesEqual(currentMethod.returns, ancestorMethod.returns)) {
                 const orig = spec.describeTypeReference(ancestorMethod.returns);
                 const cur = spec.describeTypeReference(currentMethod.returns);
                 throw new Error(`${where}: return type changed from ${orig} (in ${ancestorFqn}) to ${cur}`);
@@ -1326,7 +1327,7 @@ function validateOverriddenSignatures(mod: spec.Assembly) {
             }
             for (let i = 0; i < currentParams.length; i++) {
                 if (currentParams[i].variadic !== ancestorParams[i].variadic ||
-                    !spec.typesReferencesEqual(currentParams[i].type, ancestorParams[i].type)) {
+                    !typeReferencesEqual(currentParams[i].type, ancestorParams[i].type)) {
                     const orig = spec.describeTypeReference(ancestorParams[i].type);
                     const cur = spec.describeTypeReference(currentParams[i].type);
 
@@ -1337,7 +1338,7 @@ function validateOverriddenSignatures(mod: spec.Assembly) {
         }
 
         function validateProperty(currentProperty: spec.Property, ancestorProperty: spec.Property) {
-            if (!spec.typesReferencesEqual(currentProperty.type, ancestorProperty.type)) {
+            if (!typeReferencesEqual(currentProperty.type, ancestorProperty.type)) {
                 const orig = spec.describeTypeReference(ancestorProperty.type);
                 const cur = spec.describeTypeReference(currentProperty.type);
 
@@ -1586,4 +1587,11 @@ function buildMap<T>(xs: T[], keyFn: (x: T) => (string | undefined)): {[key: str
         if (key !== undefined) { ret[key] = x; }
     }
     return ret;
+}
+
+/**
+ * True if the type references refer to the same type
+ */
+export function typeReferencesEqual(a?: spec.TypeReference, b?: spec.TypeReference): boolean {
+    return deepEqual(a, b, { strict: true });
 }

@@ -506,44 +506,6 @@ export function isClassOrInterfaceType(type: Type): type is (InterfaceType | Cla
 }
 
 /**
- * True if the type references refer to the same type
- */
-export function typesReferencesEqual(a?: TypeReference, b?: TypeReference): boolean {
-    if (a === undefined) { return b === undefined; }
-    if (b === undefined) { return a === undefined; }
-
-    if (a.optional !== b.optional || a.promise !== b.promise) {
-        return false;
-    }
-
-    if (isNamedTypeReference(a)) {
-        if (!isNamedTypeReference(b)) { return false; }
-        return a.fqn === b.fqn;
-    }
-
-    if (isPrimitiveTypeReference(a)) {
-        if (!isPrimitiveTypeReference(b)) { return false; }
-        return a.primitive === b.primitive;
-    }
-
-    if (isCollectionTypeReference(a)) {
-        if (!isCollectionTypeReference(b)) { return false; }
-        return a.collection.kind === b.collection.kind && typesReferencesEqual(a.collection.elementtype, b.collection.elementtype);
-    }
-
-    if (isUnionTypeReference(a)) {
-        if (!isUnionTypeReference(b)) { return false; }
-        if (a.union.types.length !== b.union.types.length) { return false; }
-        for (let i = 0; i < a.union.types.length; i++) {
-            if (!typesReferencesEqual(a.union.types[i], b.union.types[i])) { return false; }
-        }
-        return true;
-    }
-
-    throw new Error('Do not know how to compare type references');
-}
-
-/**
  * Return a string representation of the given type reference
  */
 export function describeTypeReference(a?: TypeReference): string {
