@@ -1,5 +1,5 @@
 {
-  "fingerprint": "1EnNo4rE+0vdweKO6WsgNnIa6escahSlsYrRROh3u/s=",
+  "fingerprint": "AD22R2+GuhxMZ22XRq6i53Ar5YhtcIRqni1pLSV/ylU=",
   "bundled": {
     "jsii-calc-bundled": "^0.5.0-beta"
   },
@@ -129,6 +129,58 @@
               "kind": "array"
             },
             "optional": true
+          }
+        }
+      ]
+    },
+    "@scope/jsii-calc-lib.Number": {
+      "assembly": "@scope/jsii-calc-lib",
+      "base": {
+        "fqn": "@scope/jsii-calc-lib.Value"
+      },
+      "docs": {
+        "comment": "Represents a concrete number."
+      },
+      "fqn": "@scope/jsii-calc-lib.Number",
+      "initializer": {
+        "docs": {
+          "comment": "Creates a Number object."
+        },
+        "initializer": true,
+        "parameters": [
+          {
+            "docs": {
+              "comment": "The number."
+            },
+            "name": "value",
+            "type": {
+              "primitive": "number"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "name": "Number",
+      "namespace": "@scope/jsii-calc-lib",
+      "properties": [
+        {
+          "docs": {
+            "comment": "The number."
+          },
+          "immutable": true,
+          "name": "value",
+          "type": {
+            "primitive": "number"
+          }
+        },
+        {
+          "docs": {
+            "comment": "The number multiplied by 2."
+          },
+          "immutable": true,
+          "name": "doubleValue",
+          "type": {
+            "primitive": "number"
           }
         }
       ]
