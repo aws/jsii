@@ -43,46 +43,6 @@ namespace AWS.Jsii.Generator.UnitTests
                 Assert.Equal("My.Assembly", actual, ignoreLineEndingDifferences: true);
             }
 
-            [Fact(DisplayName = Prefix + nameof(RecursivelyLoadsDependencies))]
-            public void RecursivelyLoadsDependencies()
-            {
-                Assembly assembly1 = new Assembly
-                (
-                    name: "jsii$my_assembly1$",
-                    targets: new Targets(dotnet: "My.Assembly1"),
-                    version: "myVersion",
-                    types: new Dictionary<string, Type>()
-                );
-                Assembly assembly2 = new Assembly
-                (
-                    name: "jsii$my_assembly2$",
-                    targets: new Targets(dotnet: "My.Assembly2"),
-                    version: "myVersion",
-                    types: new Dictionary<string, Type>(),
-                    dependencies: new[] { assembly1 }.ToDictionary(a => a.Name, a => new PackageVersion(a.Version, a.Targets, a.Dependencies))
-                );
-                Assembly assembly3 = new Assembly
-                (
-                    name: "jsii$my_assembly3$",
-                    targets: new Targets(dotnet: "My.Assembly3"),
-                    version: "myVersion",
-                    types: new Dictionary<string, Type>(),
-                    dependencies: new[] { assembly2 }.ToDictionary(a => a.Name, a => new PackageVersion(a.Version, a.Targets, a.Dependencies))
-                );
-
-                ISymbolMap symbolMap = new SymbolMap();
-                symbolMap.Add(assembly3);
-
-                string actual = symbolMap.GetName(assembly1);
-                Assert.Equal("My.Assembly1", actual, ignoreLineEndingDifferences: true);
-
-                actual = symbolMap.GetName(assembly2);
-                Assert.Equal("My.Assembly2", actual, ignoreLineEndingDifferences: true);
-
-                actual = symbolMap.GetName(assembly3);
-                Assert.Equal("My.Assembly3", actual, ignoreLineEndingDifferences: true);
-            }
-
             [Fact(DisplayName = Prefix + nameof(RenamesTypeOnNamespaceConflict))]
             public void RenamesTypeOnNamespaceConflict()
             {
@@ -202,21 +162,28 @@ namespace AWS.Jsii.Generator.UnitTests
                     members: new EnumMember[] { }
                 );
 
-                Assembly assembly = new Assembly
+                Assembly assembly1 = new Assembly
                 (
                     name: "my-package-1",
                     targets: new Targets(dotnet: "MyNamespace1"),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
-                    externals: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
                         { "my-package-2", new PackageVersion("myVersion", new Targets(dotnet: "MyNamespace2")) }
                     }
                 );
+                Assembly assembly2 = new Assembly
+                (
+                    name: "my-package-2",
+                    targets: new Targets(dotnet: "MyNamespace2"),
+                    version: "myVersion",
+                    types: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } }
+                );
 
                 ISymbolMap symbolMap = new SymbolMap();
-                symbolMap.Add(assembly);
+                symbolMap.Add(assembly1);
+                symbolMap.Add(assembly2);
 
                 // GetName(Type type)
                 string actual1 = symbolMap.GetName(type1, true);
@@ -251,21 +218,28 @@ namespace AWS.Jsii.Generator.UnitTests
                     members: new EnumMember[] { }
                 );
 
-                Assembly assembly = new Assembly
+                Assembly assembly1 = new Assembly
                 (
                     name: "my-package-1",
                     targets: new Targets(dotnet: "MyNamespace1"),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
-                    externals: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
                         { "my-package-2", new PackageVersion("myVersion", new Targets(dotnet: "MyNamespace2")) }
                     }
                 );
+                Assembly assembly2 = new Assembly
+                (
+                    name: "my-package-2",
+                    targets: new Targets(dotnet: "MyNamespace2"),
+                    version: "myVersion",
+                    types: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } }
+                );
 
                 ISymbolMap symbolMap = new SymbolMap();
-                symbolMap.Add(assembly);
+                symbolMap.Add(assembly1);
+                symbolMap.Add(assembly2);
 
                 // GetName(Type type)
                 string actual1 = symbolMap.GetName(type1, true);
@@ -300,21 +274,28 @@ namespace AWS.Jsii.Generator.UnitTests
                     members: new EnumMember[] { }
                 );
 
-                Assembly assembly = new Assembly
+                Assembly assembly1 = new Assembly
                 (
                     name: "my-package-1",
                     targets: new Targets(dotnet: "MyNamespace1"),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
-                    externals: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
                         { "my-package-2", new PackageVersion("myVersion", new Targets(dotnet: "MyNamespace2")) }
                     }
                 );
+                Assembly assembly2 = new Assembly
+                (
+                    name: "my-package-2",
+                    targets: new Targets(dotnet: "MyNamespace2"),
+                    version: "myVersion",
+                    types: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } }
+                );
 
                 ISymbolMap symbolMap = new SymbolMap();
-                symbolMap.Add(assembly);
+                symbolMap.Add(assembly1);
+                symbolMap.Add(assembly2);
 
                 // GetName(Type type)
                 string actual1 = symbolMap.GetName(type1);
@@ -475,21 +456,28 @@ namespace AWS.Jsii.Generator.UnitTests
                     members: new EnumMember[] { }
                 );
 
-                Assembly assembly = new Assembly
+                Assembly assembly1 = new Assembly
                 (
                     name: "my-package-1",
                     targets: new Targets(dotnet: "MyNamespace1"),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
-                    externals: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
                         { "my-package-2", new PackageVersion("myVersion", new Targets(dotnet: "MyNamespace2")) }
                     }
                 );
+                Assembly assembly2 = new Assembly
+                (
+                    name: "my-package-2",
+                    targets: new Targets(dotnet: "MyNamespace2"),
+                    version: "myVersion",
+                    types: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } }
+                );
 
                 ISymbolMap symbolMap = new SymbolMap();
-                symbolMap.Add(assembly);
+                symbolMap.Add(assembly1);
+                symbolMap.Add(assembly2);
 
                 // GetNameSyntaxToken(Type type)
                 string actual1 = symbolMap.GetNameSyntaxToken(type1, true).ToString();
@@ -524,21 +512,28 @@ namespace AWS.Jsii.Generator.UnitTests
                     members: new EnumMember[] { }
                 );
 
-                Assembly assembly = new Assembly
+                Assembly assembly1 = new Assembly
                 (
                     name: "my-package-1",
                     targets: new Targets(dotnet: "MyNamespace1"),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
-                    externals: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
                         { "my-package-2", new PackageVersion("myVersion", new Targets(dotnet: "MyNamespace2")) }
                     }
                 );
+                Assembly assembly2 = new Assembly
+                (
+                    name: "my-package-2",
+                    targets: new Targets(dotnet: "MyNamespace2"),
+                    version: "myVersion",
+                    types: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } }
+                );
 
                 ISymbolMap symbolMap = new SymbolMap();
-                symbolMap.Add(assembly);
+                symbolMap.Add(assembly1);
+                symbolMap.Add(assembly2);
 
                 // GetNameSyntaxToken(Type type)
                 string actual1 = symbolMap.GetNameSyntaxToken(type1, true).ToString();
@@ -573,21 +568,28 @@ namespace AWS.Jsii.Generator.UnitTests
                     members: new EnumMember[] { }
                 );
 
-                Assembly assembly = new Assembly
+                Assembly assembly1 = new Assembly
                 (
                     name: "my-package-1",
                     targets: new Targets(dotnet: "MyNamespace1"),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
-                    externals: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
                         { "my-package-2", new PackageVersion("myVersion", new Targets(dotnet: "MyNamespace2")) }
                     }
                 );
+                Assembly assembly2 = new Assembly
+                (
+                   name: "my-package-2",
+                   targets: new Targets(dotnet: "MyNamespace2"),
+                   version: "myVersion",
+                   types: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } }
+               );
 
                 ISymbolMap symbolMap = new SymbolMap();
-                symbolMap.Add(assembly);
+                symbolMap.Add(assembly1);
+                symbolMap.Add(assembly2);
 
                 // GetNameSyntaxToken(Type type)
                 string actual1 = symbolMap.GetNameSyntaxToken(type1).ToString();
@@ -748,21 +750,28 @@ namespace AWS.Jsii.Generator.UnitTests
                     members: new EnumMember[] { }
                 );
 
-                Assembly assembly = new Assembly
+                Assembly assembly1 = new Assembly
                 (
                     name: "my-package-1",
                     targets: new Targets(dotnet: "MyNamespace1"),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
-                    externals: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
                         { "my-package-2", new PackageVersion("myVersion", new Targets(dotnet: "MyNamespace2")) }
                     }
                 );
+                Assembly assembly2 = new Assembly
+                (
+                    name: "my-package-2",
+                    targets: new Targets(dotnet: "MyNamespace2"),
+                    version: "myVersion",
+                    types: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } }
+                );
 
                 ISymbolMap symbolMap = new SymbolMap();
-                symbolMap.Add(assembly);
+                symbolMap.Add(assembly1);
+                symbolMap.Add(assembly2);
 
                 // GetNameSyntax(Type type)
                 string actual1 = symbolMap.GetNameSyntax(type1, true).ToString();
@@ -797,21 +806,28 @@ namespace AWS.Jsii.Generator.UnitTests
                     members: new EnumMember[] { }
                 );
 
-                Assembly assembly = new Assembly
+                Assembly assembly1 = new Assembly
                 (
                     name: "my-package-1",
                     targets: new Targets(dotnet: "MyNamespace1"),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
-                    externals: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
                         { "my-package-2", new PackageVersion("myVersion", new Targets(dotnet: "MyNamespace2")) }
                     }
                 );
+                Assembly assembly2 = new Assembly
+                (
+                    name: "my-package-2",
+                    targets: new Targets(dotnet: "MyNamespace2"),
+                    version: "myVersion",
+                    types: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } }
+                );
 
                 ISymbolMap symbolMap = new SymbolMap();
-                symbolMap.Add(assembly);
+                symbolMap.Add(assembly1);
+                symbolMap.Add(assembly2);
 
                 // GetNameSyntax(Type type)
                 string actual1 = symbolMap.GetNameSyntax(type1, true).ToString();
@@ -846,21 +862,28 @@ namespace AWS.Jsii.Generator.UnitTests
                     members: new EnumMember[] { }
                 );
 
-                Assembly assembly = new Assembly
+                Assembly assembly1 = new Assembly
                 (
                     name: "my-package-1",
                     targets: new Targets(dotnet: "MyNamespace1"),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
-                    externals: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
                         { "my-package-2", new PackageVersion("myVersion", new Targets(dotnet: "MyNamespace2")) }
                     }
                 );
+                Assembly assembly2 = new Assembly
+                (
+                    name: "my-package-2",
+                    targets: new Targets(dotnet: "MyNamespace2"),
+                    version: "myVersion",
+                    types: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } }
+                );
 
                 ISymbolMap symbolMap = new SymbolMap();
-                symbolMap.Add(assembly);
+                symbolMap.Add(assembly1);
+                symbolMap.Add(assembly2);
 
                 // GetNameSyntax(Type type)
                 string actual1 = symbolMap.GetNameSyntax(type1).ToString();

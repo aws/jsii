@@ -1,5 +1,5 @@
 {
-  "fingerprint": "3AfPWe794Dvhsi+mUxfqs/Xd+6sDNEgUgsOFkWq60C0=",
+  "fingerprint": "JbCzWSU4dzTupU5nV428KGHCX5+wi/2x2OU6aXYckiU=",
   "dependencies": {
     "@scope/jsii-calc-base": {
       "targets": {
@@ -18,33 +18,6 @@
         }
       },
       "version": "0.5.0-beta"
-    }
-  },
-  "externals": {
-    "@scope/jsii-calc-base.Base": {
-      "abstract": true,
-      "assembly": "@scope/jsii-calc-base",
-      "docs": {
-        "comment": "A base class."
-      },
-      "fqn": "@scope/jsii-calc-base.Base",
-      "initializer": {
-        "initializer": true
-      },
-      "kind": "class",
-      "methods": [
-        {
-          "docs": {
-            "return": "the name of the class (to verify native type names are created for derived classes)."
-          },
-          "name": "typeName",
-          "returns": {
-            "primitive": "any"
-          }
-        }
-      ],
-      "name": "Base",
-      "namespace": "@scope/jsii-calc-base"
     }
   },
   "name": "@scope/jsii-calc-lib",

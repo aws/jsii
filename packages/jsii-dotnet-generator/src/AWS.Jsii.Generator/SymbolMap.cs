@@ -28,13 +28,10 @@ namespace AWS.Jsii.Generator
             }
 
             _assemblyNames[assembly.Name] = assembly.GetNativeName();
-            RecordAssemblyNames(assembly);
 
             var types = assembly.Types?.Values ?? Enumerable.Empty<Type>();
-            var externalTypes = assembly.Externals?.Values ?? Enumerable.Empty<Type>();
-            var allTypes = externalTypes.Concat(types);
 
-            foreach (Type type in allTypes)
+            foreach (Type type in types)
             {
                 if (!_types.ContainsKey(type.FullyQualifiedName))
                 {
@@ -46,7 +43,7 @@ namespace AWS.Jsii.Generator
             // TODO: Disallow name conflicts at the jsii-authoring level. This requires the
             // TypeScript-to-Jsii compiler to be aware of .NET name-conversion logic.
             ISet<string> namespaceNames = new HashSet<string>(_types.Values.Select(t => t.Namespace));
-            foreach (Type type in allTypes)
+            foreach (Type type in types)
             {
                 TypeMetadata metadata = _types[type.FullyQualifiedName];
                 metadata.ResolveTypeNameConflicts(namespaceNames);
@@ -67,19 +64,6 @@ namespace AWS.Jsii.Generator
 
                     default:
                         throw new ArgumentException($"Type {type.Name} has unrecognized kind {type.Kind}", nameof(type));
-                }
-            }
-
-            void RecordAssemblyNames(DependencyRoot root)
-            {
-                if (root.Dependencies == null)
-                {
-                    return;
-                }
-                foreach (string packageName in root.Dependencies.Keys)
-                {
-                    _assemblyNames[packageName] = root.Dependencies[packageName].GetNativeName();
-                    RecordAssemblyNames(root.Dependencies[packageName]);
                 }
             }
         }

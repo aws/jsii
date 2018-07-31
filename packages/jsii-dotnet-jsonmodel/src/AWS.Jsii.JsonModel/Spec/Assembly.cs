@@ -14,7 +14,6 @@ namespace AWS.Jsii.JsonModel.Spec
             string version,
             IDictionary<string, Type> types = null,
             Targets targets = null,
-            IDictionary<string, Type> externals = null,
             IDictionary<string, PackageVersion> dependencies = null,
             IDictionary<string, string> bundled = null,
             Docs docs = null,
@@ -24,7 +23,6 @@ namespace AWS.Jsii.JsonModel.Spec
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Version = version ?? throw new ArgumentNullException(nameof(version));
             Types = types;
-            Externals = externals;
             Bundled = bundled;
             Docs = docs;
             Readme = readme;
@@ -42,10 +40,6 @@ namespace AWS.Jsii.JsonModel.Spec
         [JsonProperty("types", ItemConverterType = typeof(TypeConverter))]
         [JsonConverter(typeof(TypeDictionaryConverter))]
         public IDictionary<string, Type> Types { get; }
-
-        [JsonProperty("externals", ItemConverterType = typeof(TypeConverter), NullValueHandling = NullValueHandling.Ignore)]
-        [JsonConverter(typeof(TypeDictionaryConverter))]
-        public IDictionary<string, Type> Externals { get; }
 
         [JsonProperty("bundled", NullValueHandling = NullValueHandling.Ignore)]
         public IDictionary<string, string> Bundled { get; }

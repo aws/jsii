@@ -233,15 +233,31 @@ namespace AWS.Jsii.Generator.UnitTests
         }
     }
 }";
+            string cxJson =
+@"{
+    ""name"": ""jsii$aws_cdk_cx_api$"",
+    ""version"": """",
+    ""targets"": {
+        ""dotnet"": {
+            ""namespace"": ""Aws.Cdk.CxApi""
+        }
+    },
+    ""types"": {}
+}";
 
             string jsonPath = GetJsonPath("aws-cdk");
+            string cxJsonPath = Path.Combine(Path.GetDirectoryName(jsonPath), "node_modules", "jsii$aws_cdk_cx_api$");
             string projectFilePath = GetProjectFilePath("Aws.Cdk", "Aws.Cdk");
 
             IFile file = Substitute.For<IFile>();
             file.ReadAllText(jsonPath).Returns(json);
+            file.ReadAllText(Path.Combine(cxJsonPath, ".jsii")).Returns(cxJson);
+
+            IDirectory directory = Substitute.For<IDirectory>();
+            directory.Exists(cxJsonPath).Returns(true);
 
             IFileSystem fileSystem = Substitute.For<IFileSystem>();
-            fileSystem.Directory.Returns(Substitute.For<IDirectory>());
+            fileSystem.Directory.Returns(directory);
             fileSystem.File.Returns(file);
 
             Symbols.MapTypeToPackage("aws-cdk", "Aws.Cdk");

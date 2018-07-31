@@ -52,6 +52,7 @@ export abstract class Generator implements IGenerator {
     private readonly excludeTypes = new Array<string>();
     protected readonly code = new CodeMaker();
     protected assembly: spec.Assembly;
+    private externals: { [name: string]: spec.Type | undefined } = {};
     private fingerprint: string;
 
     constructor(options = new GeneratorOptions()) {
@@ -74,7 +75,13 @@ export abstract class Generator implements IGenerator {
                                  .update(VERSION)
                                  .update('\0')
                                  .update(this.assembly.fingerprint)
-                                 .digest('base64')
+                                 .digest('base64');
+
+        this.externals = {};
+        const loaded = new Set<string>();
+        for (const name of Object.keys(this.assembly.dependencies || {})) {
+            await this.loadDependency(name, this.assembly.dependencies![name].version, path.dirname(jsiiFile), loaded);
+        }
     }
 
     /**
@@ -482,7 +489,7 @@ export abstract class Generator implements IGenerator {
                 return type;
             }
 
-            const externalType = asm.externals && asm.externals[fqn];
+            const externalType = this.externals[fqn];
             if (externalType) {
                 return externalType;
             }
@@ -496,5 +503,34 @@ export abstract class Generator implements IGenerator {
         }
 
         return ret;
+    }
+
+    private async loadDependency(name: string, version: string, dir: string, loaded: Set<string>) {
+        if (loaded.has(name)) { return; }
+        const moduleRoot = findModuleRoot();
+        const assmFile = path.join(moduleRoot, '.jsii');
+        if (!await fs.pathExists(assmFile)) {
+            throw new Error(`Module ${name} has no .jsii file. Did you forget to build it?`);
+        }
+        const assm = spec.validateAssembly(JSON.parse(await fs.readFile(assmFile, { encoding: 'utf-8' })));
+        if (assm.version !== version) {
+            throw new Error(`Module ${name} found with version ${assm.version}, but version ${version} was expected`);
+        }
+        for (const type of Object.values(assm.types || {})) {
+            this.externals[type.fqn] = type;
+        }
+        loaded.add(name);
+        for (const depName of Object.keys(assm.dependencies || {})) {
+            const dep = assm.dependencies![depName];
+            await this.loadDependency(depName, dep.version, moduleRoot, loaded);
+        }
+
+        function findModuleRoot() {
+            try {
+                return path.dirname(require.resolve(path.join(name, 'package.json'), { paths: [dir] }))
+            } catch (e) {
+                throw new Error(`Failed to locate module root ${name} using npm resolution from ${dir}`);
+            }
+        }
     }
 }

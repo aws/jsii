@@ -49,15 +49,6 @@ export interface Assembly extends Documentable {
     types?: { [fqn: string]: Type };
 
     /**
-     * All external types that are referenced from the visible
-     * type signatures in this assembly (through ``types``). This
-     * is provided so that consumers of an ``Assembly`` can reason
-     * over the types that are used by this one without necessarily
-     * having to load dependent assemblies.
-     */
-    externals?: { [fqn: string]: Type };
-
-    /**
      * The top-level readme document for this assembly (if any).
      */
     readme?: { markdown: string };
@@ -163,10 +154,8 @@ export interface TypeReferenceBase {
  */
 export interface NamedTypeReference extends TypeReferenceBase {
     /**
-     * The fully-qualified-name of the type (can be located in exactly one of
-     * ``spec.types[fqn]``` or ``spec.externals[fqn]``, depending on whether the
-     * type is respecitvely defined by this assembly or imported from a
-     * dependency).
+     * The fully-qualified-name of the type (can be located in the
+     * ``spec.types[fqn]``` of the assembly that defines the type).
      */
     fqn: string;
 }

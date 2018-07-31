@@ -50,6 +50,8 @@ namespace AWS.Jsii.Generator
             Assembly assembly = JsonConvert.DeserializeObject<Assembly>(assemblyJson);
             symbols.Add(assembly);
 
+            LoadDependencies(assembly, Path.GetDirectoryName(jsiiFile));
+
             string packageOutputRoot = Path.Combine(_outputRoot, assembly.GetNativeName());
             if (_fileSystem.Directory.Exists(packageOutputRoot))
             {
@@ -62,6 +64,37 @@ namespace AWS.Jsii.Generator
             _fileSystem.File.Copy(jsiiFile, Path.Combine(packageOutputRoot, Path.GetFileName(jsiiFile)));
 
             Save(packageOutputRoot, symbols, assembly, new FileInfo(tarballPath).Name, new FileInfo(jsiiFile).Name);
+
+            void LoadDependencies(DependencyRoot dependencyRoot, string packageDirectory)
+            {
+                if (dependencyRoot.Dependencies == null)
+                {
+                    return;
+                }
+                foreach (KeyValuePair<string, PackageVersion> entry in dependencyRoot.Dependencies)
+                {
+                    string depRoot = ResolvePackage(entry.Key, packageDirectory);
+                    string depFile= Path.Combine(depRoot, ".jsii");
+                    string depJson = _fileSystem.File.ReadAllText(depFile);
+                    Assembly depAssembly = JsonConvert.DeserializeObject<Assembly>(depJson);
+                    symbols.Add(depAssembly);
+                    LoadDependencies(depAssembly, depRoot);
+                }
+
+                string ResolvePackage(string packageName, string directory)
+                {
+                    do
+                    {
+                        string candidate = Path.Combine(directory, "node_modules", packageName);
+                        if (_fileSystem.Directory.Exists(candidate))
+                        {
+                            return candidate;
+                        }
+                        directory = Path.GetDirectoryName(directory);
+                    } while (directory != "");
+                    throw new FileNotFoundException($"Could not resolve package named {packageName}");
+                }
+            }
         }
 
         void Save(string packageOutputRoot, ISymbolMap symbols, Assembly assembly, string tarballFileName, string jsiiFileName)
