@@ -134,6 +134,7 @@ export async function compileSources(entrypoint: string,
         await processModule(rootModule, []);
         addTypeInfo(assm, types);
         verifyUnexportedTypes(assm, typeRefs, externalTypes);
+        validateOverriddenSignatures(assm);
         normalizeInitializers(assm, externalTypes);
     }
 
@@ -1271,6 +1272,105 @@ function addTypeInfo(mod: spec.Assembly, types: spec.Type[]) {
     }
 }
 
+/**
+ * Verify that overridden methods don't change the signature.
+ *
+ * Changing the types of arguments or the return type is not allowed in C#.
+ *
+ * Must be called after verifyUnexportedTypes() which hoists external types.
+ */
+function validateOverriddenSignatures(mod: spec.Assembly) {
+    if (!mod.types) { return; }
+
+    for (const typeName of Object.keys(mod.types)) {
+        // Checking type against self should never fail, and implies
+        // checking against all ancestors anyway.
+        checkTypeAgainst(typeName, typeName);
+    }
+
+    type MethodMap = {[name: string]: spec.Method};
+    type PropertyMap = {[name: string]: spec.Property};
+
+    function checkTypeAgainst(currentFqn: string, ancestorFqn: string) {
+        const current = getType(currentFqn);
+        const ancestor = getType(ancestorFqn);
+
+        validateMap(methodMap(current), methodMap(ancestor), validateMethod);
+        validateMap(propertyMap(current), propertyMap(ancestor), validateProperty);
+
+        // Validate against ancestors of ancestor
+        if (spec.isClassType(ancestor) && ancestor.base) {
+            checkTypeAgainst(currentFqn, ancestor.base.fqn);
+        }
+        if (spec.isClassOrInterfaceType(ancestor) && ancestor.interfaces) {
+            for (const extendsInterface of ancestor.interfaces) {
+                checkTypeAgainst(currentFqn, extendsInterface.fqn);
+            }
+        }
+
+        function validateMethod(currentMethod: spec.Method, ancestorMethod: spec.Method) {
+            if (!spec.typesReferencesEqual(currentMethod.returns, ancestorMethod.returns)) {
+                throw new Error(`${currentFqn}.${currentMethod.name}: return type of method changed (inherited from ${ancestorFqn})`);
+            }
+
+            const currentParams = currentMethod.parameters || [];
+            const ancestorParams = ancestorMethod.parameters || [];
+            if (currentParams.length !== ancestorParams.length) {
+                throw new Error(`${currentFqn}.${currentMethod.name}: method parameter count changed (inherited from ${ancestorFqn})`);
+            }
+            for (let i = 0; i < currentParams.length; i++) {
+                if (currentParams[i].variadic !== ancestorParams[i].variadic ||
+                    !spec.typesReferencesEqual(currentParams[i].type, ancestorParams[i].type)) {
+                    // tslint:disable-next-line:max-line-length
+                    throw new Error(`${currentFqn}.${currentMethod.name}: method parameter type changed for ${currentParams[i].name} (inherited from ${ancestorFqn})`);
+                }
+            }
+        }
+
+        function validateProperty(currentProperty: spec.Property, ancestorProperty: spec.Property) {
+            if (!spec.typesReferencesEqual(currentProperty.type, ancestorProperty.type)) {
+                throw new Error(`${currentFqn}.${currentProperty.name}: type of property changed (inherited from ${ancestorFqn})`);
+            }
+        }
+    }
+
+    /**
+     * Execute a validation function against matching elements from two maps
+     */
+    function validateMap<T>(currentMap: {[key: string]: T}, ancestorMap: {[key: string]: T}, comparisonFn: (a: T, b: T) => void) {
+        for (const name of Object.keys(currentMap)) {
+            if (name in ancestorMap) {
+                comparisonFn(currentMap[name], ancestorMap[name]);
+            }
+        }
+    }
+
+    /**
+     * Return a map of all instance methods of a type
+     */
+    function methodMap(type: spec.Type): MethodMap {
+        const methods = spec.isClassOrInterfaceType(type) ? (type.methods || []) : [];
+        return buildMap(methods.filter(m => !m.static), m => m.name);
+    }
+
+    /**
+     * Return a map of all instance properties of a type
+     */
+    function propertyMap(type: spec.Type): PropertyMap {
+        const properties = spec.isClassOrInterfaceType(type) ? (type.properties || []) : [];
+        return buildMap(properties.filter(m => !m.static), m => m.name);
+    }
+
+    /**
+     * Find the Type object for a given fqn
+     */
+    function getType(fqn: string): spec.Type {
+        if (mod.types && mod.types[fqn]) { return mod.types[fqn]; }
+        if (mod.externals && mod.externals[fqn]) { return mod.externals[fqn]; }
+        throw new Error(`Unknown type: ${fqn}`);
+    }
+}
+
 function verifyUnexportedTypes(mod: spec.Assembly, typeRefs: Set<ReferencedFqn>, externalTypes: Map<string, spec.Type>) {
     const errors = new Array<string>();
 
@@ -1459,4 +1559,18 @@ async function readJsiiForModule(rootDir: string, packageName: string) {
 
 async function aglob(pattern: string) {
     return new Promise<string[]>((ok, fail) => glob(pattern, (err, matches) => err ? fail(err) : ok(matches)));
+}
+
+/**
+ * Build a map from a list using the given function to derive keys
+ *
+ * If the key function returns undefined, the value is not added to the map.
+ */
+function buildMap<T>(xs: T[], keyFn: (x: T) => (string | undefined)): {[key: string]: T} {
+    const ret: {[key: string]: T}  = {};
+    for (const x of xs) {
+        const key = keyFn(x);
+        if (key !== undefined) { ret[key] = x; }
+    }
+    return ret;
 }
