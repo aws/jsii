@@ -1275,7 +1275,8 @@ function addTypeInfo(mod: spec.Assembly, types: spec.Type[]) {
 /**
  * Verify that overridden methods don't change the signature.
  *
- * Changing the types of arguments or the return type is not allowed in C#.
+ * Changing the types of arguments or the return type is not allowed in
+ * some languages (such as C#).
  *
  * Must be called after verifyUnexportedTypes() which hoists external types.
  */
