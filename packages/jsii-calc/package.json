@@ -15,7 +15,7 @@
         }
       },
       "dotnet": {
-        "namespace": "AWS.Jsii.Tests.Calculator"
+        "namespace": "Amazon.JSII.Tests.Calculator"
       },
       "sphinx": { }
     }
