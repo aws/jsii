@@ -1,5 +1,5 @@
 // tslint:disable-next-line:comment-format
-///!MATCH_ERROR: type of property changed
+///!MATCH_ERROR: type changed
 
 export class Superclass {}
 export class Subclass extends Superclass {}
