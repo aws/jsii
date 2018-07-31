@@ -35,7 +35,7 @@
     "name": "Amazon Web Services",
     "url": "https://aws.amazon.com"
   },
-  "license": "LicenseRef-LICENSE",
+  "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "git://github.com/awslabs/jsii"

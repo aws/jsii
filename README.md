@@ -2,20 +2,188 @@
 
 ![Build Status](https://codebuild.us-east-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiOThRRFVsVlRBTEhocVZOckE0bFlFWEtwNU0xUmtNUlRRclY0R2VYTGJaOXRlaVdaVnREV2lhVGtDUzQzUDRMMCtuYWpSTWo4N1FGTEV5Zm9yZ0dEb2dBPSIsIml2UGFyYW1ldGVyU3BlYyI6InFVbktYSlpDem1YN1JCeU8iLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)
 
-[![experimental](http://badges.github.io/stability-badges/dist/experimental.svg)](http://github.com/badges/stability-badges)
+__jsii__ allows code in any language to naturally interact with JavaScript classes.
 
-__jsii__ is a common JavaScript runtime which enables reusing JavaScript modules
-from across multiple programming languages.
-
-The jsii compiler uses the TypeScript compiler (and in the future, other
-strongly typed languages that compile to JavaScript) to produce type-annotated
-bundles which can be used to generate idiomatic class libraries in a variety of
-target languages. The generated classes proxy calls to a JavaScript runtime,
-effectively allowing __jsii__ modules to be __"written once and used everywhere"__.
-
-> NOTE: Due to performance of the hosted javascript engine and marshaling costs,
+> NOTE: Due to performance of the hosted JavaScript engine and marshaling costs,
 __jsii__ modules are likely to be used for development and build tools, as
 oppose to performance-sensitive runtime behavior.
+
+For example:
+
+```ts
+export class HelloJsii {
+    public sayHello(name: string) {
+        return `Hello, ${name}!`
+    }
+}
+```
+
+Now, we can use this class from Java:
+
+```java
+const hello = new HelloJsii();
+hello.sayHello("World"); // => Hello, World!
+```
+
+From .NET:
+
+```csharp
+var hello = new HelloJsii();
+hello.SayHello("World"); // => Hello, World!
+```
+
+From Python (WIP):
+
+```python
+hello = HelloJsii()
+hello.say_hello("World"); # => Hello, World!
+```
+
+From Ruby (WIP):
+
+```ruby
+hello = HelloJsii.new
+hello.say_hello 'World' # => Hello, World!
+```
+
+# Getting Started
+
+Let's create our first jsii TypeScript module.
+
+Define a `package.json`:
+
+```json
+{
+  "name": "hello-jsii",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "jsii": {
+    "outdir": "dist",
+    "targets": {
+      "java": {
+        "package": "com.acme.hello",
+        "maven": {
+          "groupId": "com.acme.hello",
+          "artifactId": "hello-jsii"
+        }
+      },
+      "dotnet": {
+        "namespace": "Acme.Hello"
+      },
+      "sphinx": { }
+    }
+  },
+  "scripts": {
+    "build": "jsii",
+    "pacmak": "jsii-pacmak"
+  },
+  "devDependencies": {
+    "jsii": "^0.5.0-beta",
+    "@jsii/pacmak": "^0.5.0-beta"
+  }
+}
+```
+
+
+
+## Features
+
+### Language features
+
+ * Classes
+ * Inheritance
+ * Constructors
+ * Methods
+ * Properties
+ * Abstract Members
+ * Virtual Overrides
+ * Async Methods
+ * Variadic Arguments
+ * Static Methods and Properties
+ * Static Constants
+ * Abstract Classes
+ * Interfaces
+ * Enums
+ * Primitive Types: string, number, boolean, date, json, any
+ * Collection Types: arrays, maps
+ * Union Types (limited support)
+ * Module Dependencies
+ * Data Interfaces
+
+### Source Languages
+
+ * TypeScript
+
+### Target Languages
+
+ * __Java__ - generates a ready-to-publish Maven package.
+ * __.NET__ - generates a ready-to-publish NuGet package.
+ * __Sphinx__ - generates a Sphinx reStructuredText document for the module with README and reference docs.
+ * __Python__ (work in progress) - generates a ready-to-publish PyPI package.
+ * __Ruby__ (work in progress) - generates a ready-to-publish RubyGem.
+
+## What kind of sorcery is this?
+
+So how does this thing work?
+
+Given a source npm module written in one of the supported _source_ languages
+(currently, only [TypeScript] is supported as source), we produce a "header
+file" (called the ".jsii spec") which describes the public API for the module.
+
+[TypeScript]: https://www.typescriptlang.org/
+
+Here the .jsii spec for the above example:
+
+```json
+{
+  "types": {
+    "hello-jsii.HelloJsii": {
+      "assembly": "hello-jsii",
+      "fqn": "hello-jsii.HelloJsii",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "sayHello",
+          "parameters": [
+            {
+              "name": "name",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ],
+          "returns": {
+            "primitive": "string"
+          }
+        }
+      ],
+      "name": "HelloJsii",
+      "namespace": "hello-jsii"
+    }
+  }
+}
+```
+
+Now, we have two artifacts: the compiled module with .js code and the .jsii spec.
+This two artifacts are used as input to the next stage we call __pacmak__
+(stands for "package maker").
+
+__pacmak__ reads the .jsii spec and module information from `package.json` and
+generates a _ready-to-publish_ package artifact for each requested target
+language. For example, it will produce a Maven package for Java, a NuGet package
+for .NET, a PyPI module for Python, etc.
+
+The generated packages include _proxy classes_ which represent the API of source
+module, "translated" to the idioms and conventions of each target language. So
+if we had a `HelloJsii` class in the source module with a method `sayHello`, the
+.NET generator will emit a `HelloJsii` class with a method `SayHello`.
+
+At runtime, when code interacts with proxy classes - creates instances, invokes
+methods, gets or sets properties - the calls are marshaled in and out to a
+Node.js VM loaded with the source JavaScript module.
 
 # Development Environment
 
