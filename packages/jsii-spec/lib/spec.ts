@@ -542,3 +542,27 @@ export function typesReferencesEqual(a?: TypeReference, b?: TypeReference): bool
 
     throw new Error('Do not know how to compare type references');
 }
+
+/**
+ * Return a string representation of the given type reference
+ */
+export function describeTypeReference(a?: TypeReference): string {
+    if (a === undefined) { return '(none)'; }
+
+    if (isNamedTypeReference(a)) {
+        return a.fqn;
+    }
+
+    if (isPrimitiveTypeReference(a)) {
+        return a.primitive;
+    }
+
+    if (isCollectionTypeReference(a)) {
+        return `${a.collection.kind}<${describeTypeReference(a.collection.elementtype)}>`;
+    }
+    if (isUnionTypeReference(a)) {
+        return a.union.types.map(describeTypeReference).join('|');
+    }
+
+    throw new Error('Unrecognized type reference');
+}

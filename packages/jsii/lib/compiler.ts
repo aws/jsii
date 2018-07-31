@@ -1309,27 +1309,38 @@ function validateOverriddenSignatures(mod: spec.Assembly) {
         }
 
         function validateMethod(currentMethod: spec.Method, ancestorMethod: spec.Method) {
+            const where = `${currentFqn}.${currentMethod.name}`;
             if (!spec.typesReferencesEqual(currentMethod.returns, ancestorMethod.returns)) {
-                throw new Error(`${currentFqn}.${currentMethod.name}: return type of method changed (inherited from ${ancestorFqn})`);
+                const orig = spec.describeTypeReference(ancestorMethod.returns);
+                const cur = spec.describeTypeReference(currentMethod.returns);
+                throw new Error(`${where}: return type changed from ${orig} (in ${ancestorFqn}) to ${cur}`);
             }
 
             const currentParams = currentMethod.parameters || [];
             const ancestorParams = ancestorMethod.parameters || [];
             if (currentParams.length !== ancestorParams.length) {
-                throw new Error(`${currentFqn}.${currentMethod.name}: method parameter count changed (inherited from ${ancestorFqn})`);
+                const orig = ancestorParams.length;
+                const cur = currentParams.length;
+                throw new Error(`${where}: parameter count changed from ${orig} (in ${ancestorFqn}) to ${cur}`);
             }
             for (let i = 0; i < currentParams.length; i++) {
                 if (currentParams[i].variadic !== ancestorParams[i].variadic ||
                     !spec.typesReferencesEqual(currentParams[i].type, ancestorParams[i].type)) {
+                    const orig = spec.describeTypeReference(ancestorParams[i].type);
+                    const cur = spec.describeTypeReference(currentParams[i].type);
+
                     // tslint:disable-next-line:max-line-length
-                    throw new Error(`${currentFqn}.${currentMethod.name}: method parameter type changed for ${currentParams[i].name} (inherited from ${ancestorFqn})`);
+                    throw new Error(`${where}: parameter ${i + 1} type changed from ${orig} (in ${ancestorFqn}) to ${cur}`);
                 }
             }
         }
 
         function validateProperty(currentProperty: spec.Property, ancestorProperty: spec.Property) {
             if (!spec.typesReferencesEqual(currentProperty.type, ancestorProperty.type)) {
-                throw new Error(`${currentFqn}.${currentProperty.name}: type of property changed (inherited from ${ancestorFqn})`);
+                const orig = spec.describeTypeReference(ancestorProperty.type);
+                const cur = spec.describeTypeReference(currentProperty.type);
+
+                throw new Error(`${currentFqn}.${currentProperty.name}: type changed from ${orig} (in ${ancestorFqn}) to ${cur}`);
             }
         }
     }
@@ -1350,7 +1361,8 @@ function validateOverriddenSignatures(mod: spec.Assembly) {
      */
     function methodMap(type: spec.Type): MethodMap {
         const methods = spec.isClassOrInterfaceType(type) ? (type.methods || []) : [];
-        return buildMap(methods.filter(m => !m.static), m => m.name);
+        // Prepend '_' to avoid collissions with built-in functions on Object such as toString().
+        return buildMap(methods.filter(m => !m.static), m => '_' + m.name);
     }
 
     /**
@@ -1358,7 +1370,7 @@ function validateOverriddenSignatures(mod: spec.Assembly) {
      */
     function propertyMap(type: spec.Type): PropertyMap {
         const properties = spec.isClassOrInterfaceType(type) ? (type.properties || []) : [];
-        return buildMap(properties.filter(m => !m.static), m => m.name);
+        return buildMap(properties.filter(m => !m.static), m => '_' + m.name);
     }
 
     /**
