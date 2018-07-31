@@ -133,8 +133,7 @@ namespace Amazon.JSII.Generator
                         new XElement("ItemGroup",
                             new XElement("PackageReference",
                                 new XAttribute("Include", "Amazon.JSII.Runtime"),
-                                // TODO: Use the jsii version number
-                                new XAttribute("Version", "1.0.0")
+                                new XAttribute("Version", "0.5.0-beta")
                             )
                         ),
                         new XElement("ItemGroup",

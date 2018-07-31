@@ -16,7 +16,7 @@
     <PackageReference Include="Node.js.redist" Version="8.9.1" />
     <PackageReference Include="NuGet.Client" Version="4.2.0" />
     <PackageReference Include="System.IO.FileSystem.AccessControl" Version="4.5.0-rc1" />
-    <PackageReference Include="Amazon.JSII.JsonModel" Version="1.0.0" />
+    <PackageReference Include="Amazon.JSII.JsonModel" Version="0.5.0-beta" />
   </ItemGroup>
 
     <ItemGroup>

@@ -200,7 +200,7 @@ namespace Amazon.JSII.Generator.UnitTests
     <EmbeddedResource Include=""aws-cdk-cx-api-1.2.3.5.tgz"" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include=""Amazon.JSII.Runtime"" Version=""1.0.0"" />
+    <PackageReference Include=""Amazon.JSII.Runtime"" Version=""0.5.0-beta"" />
   </ItemGroup>
   <ItemGroup />
 </Project>";
@@ -291,7 +291,7 @@ namespace Amazon.JSII.Generator.UnitTests
     <EmbeddedResource Include=""aws-cdk-1.2.3.4.tgz"" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include=""Amazon.JSII.Runtime"" Version=""1.0.0"" />
+    <PackageReference Include=""Amazon.JSII.Runtime"" Version=""0.5.0-beta"" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include=""..\Aws.Cdk.CxApi\Aws.Cdk.CxApi.csproj"" />
@@ -348,7 +348,7 @@ namespace Amazon.JSII.Generator.UnitTests
 
 [assembly: JsiiAssembly(""jsii$aws_cdk_cx_api$"", """", ""aws-cdk-cx-api-1.2.3.5.tgz"")]",
                         code,
-                        ignoreWhiteSpaceDifferences: true
+                        ignoreLineEndingDifferences: true
                     )
                 )
             );

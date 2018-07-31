@@ -1,5 +1,6 @@
 <Project>
   <PropertyGroup>
     <PackageOutputPath>..\..\bin\$(Configuration)\NuGet\</PackageOutputPath>
+    <PackageVersion>0.5.0-beta</PackageVersion>
   </PropertyGroup>
 </Project>
