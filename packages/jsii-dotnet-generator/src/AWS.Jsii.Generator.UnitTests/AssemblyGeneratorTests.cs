@@ -101,8 +101,52 @@ namespace AWS.Jsii.Generator.UnitTests
             file.Received().WriteAllText(typeFilePath, Arg.Any<string>());
         }
 
-        [Fact(DisplayName = Prefix + nameof(WritesBasicProfileFile))]
-        public void WritesBasicProfileFile()
+        [Fact(DisplayName = Prefix + nameof(CopiesJsiiToOutput))]
+        public void CopiesJsiiToOutput()
+        {
+            const string json =
+@"{
+    ""name"": ""jsii$aws_cdk_cx_api$"",
+    ""targets"": {
+        ""dotnet"": {
+            ""namespace"": ""Aws.Cdk.CxApi""
+        }
+    },
+    ""version"": """",
+    ""types"": {}
+}";
+
+            string jsonPath = GetJsonPath("aws-cdk-cx-api");
+            string projectFilePath = GetProjectFilePath("Aws.Cdk.CxApi", "Aws.Cdk.CxApi");
+
+            IFile file = Substitute.For<IFile>();
+            file.ReadAllText(jsonPath).Returns(json);
+
+            IFileSystem fileSystem = Substitute.For<IFileSystem>();
+            fileSystem.Directory.Returns(Substitute.For<IDirectory>());
+            fileSystem.File.Returns(file);
+
+            Symbols.MapTypeToPackage("aws-cdk-cx-api", "Aws.Cdk.CxApi");
+
+            AssemblyGenerator generator = new AssemblyGenerator
+            (
+                OutputRoot,
+                "myAuthors",
+                "myCompany",
+                fileSystem
+            );
+            generator.Generate
+            (
+                Path.Combine(InputRoot, "aws-cdk-cx-api", "dist", Constants.SPEC_FILE_NAME),
+                Path.Combine(InputRoot, "aws-cdk-cx-api", "aws-cdk-cx-api-1.2.3.5.tgz"),
+                Symbols
+            );
+
+            file.Received().Copy(jsonPath, Path.Combine(OutputRoot, "Aws.Cdk.CxApi", ".jsii"));
+        }
+
+        [Fact(DisplayName = Prefix + nameof(CreatesBasicProjectFile))]
+        public void CreatesBasicProjectFile()
         {
             const string json =
 @"{
@@ -163,8 +207,8 @@ namespace AWS.Jsii.Generator.UnitTests
             file.Received().WriteAllText(projectFilePath, Arg.Is<string>(actual => PlatformIndependentEqual(expected, actual)));
         }
 
-        [Fact(DisplayName = Prefix + nameof(WritesProjectFileWithDependencies))]
-        public void WritesProjectFileWithDependencies()
+        [Fact(DisplayName = Prefix + nameof(CreatesProjectFileWithDependencies))]
+        public void CreatesProjectFileWithDependencies()
         {
             string json =
 @"{
@@ -240,8 +284,56 @@ namespace AWS.Jsii.Generator.UnitTests
             file.Received().WriteAllText(projectFilePath, Arg.Is<string>(actual => PlatformIndependentEqual(expected, actual)));
         }
 
-        [Fact(DisplayName = Prefix + nameof(WriteBasicTypeFile))]
-        public void WriteBasicTypeFile()
+        [Fact(DisplayName = Prefix + nameof(CreatesAssemblyInfo))]
+        public void CreatesAssemblyInfo()
+        {
+            const string json =
+@"{
+    ""name"": ""jsii$aws_cdk_cx_api$"",
+    ""targets"": {
+        ""dotnet"": {
+            ""namespace"": ""Aws.Cdk.CxApi""
+        }
+    },
+    ""version"": """",
+    ""types"": {}
+}";
+
+            string jsonPath = GetJsonPath("aws-cdk-cx-api");
+            string projectFilePath = GetProjectFilePath("Aws.Cdk.CxApi", "Aws.Cdk.CxApi");
+
+            IFile file = Substitute.For<IFile>();
+            file.ReadAllText(jsonPath).Returns(json);
+
+            IFileSystem fileSystem = Substitute.For<IFileSystem>();
+            fileSystem.Directory.Returns(Substitute.For<IDirectory>());
+            fileSystem.File.Returns(file);
+
+            Symbols.MapTypeToPackage("aws-cdk-cx-api", "Aws.Cdk.CxApi");
+
+            AssemblyGenerator generator = new AssemblyGenerator
+            (
+                OutputRoot,
+                "myAuthors",
+                "myCompany",
+                fileSystem
+            );
+            generator.Generate
+            (
+                Path.Combine(InputRoot, "aws-cdk-cx-api", "dist", Constants.SPEC_FILE_NAME),
+                Path.Combine(InputRoot, "aws-cdk-cx-api", "aws-cdk-cx-api-1.2.3.5.tgz"),
+                Symbols
+            );
+
+            file.Received().WriteAllText(Path.Combine(OutputRoot, "Aws.Cdk.CxApi", "AssemblyInfo.cs"),
+@"using AWS.Jsii.Runtime.Deputy;
+
+[assembly: JsiiAssembly(""jsii$aws_cdk_cx_api$"", """", ""aws-cdk-cx-api-1.2.3.5.tgz"")]"
+            );
+        }
+
+        [Fact(DisplayName = Prefix + nameof(CreatesBasicTypeFile))]
+        public void CreatesBasicTypeFile()
         {
             const string json =
 @"{

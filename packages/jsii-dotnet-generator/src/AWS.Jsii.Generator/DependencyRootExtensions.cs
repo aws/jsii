@@ -10,7 +10,7 @@ namespace AWS.Jsii.Generator
         {
             root = root ?? throw new ArgumentNullException(nameof(root));
 
-            if (string.IsNullOrWhiteSpace(root.Targets.DotNet?.Namespace))
+            if (string.IsNullOrWhiteSpace(root.Targets?.DotNet?.Namespace))
             {
                 throw new ArgumentException($"Assembly does not contain a .NET namespace mapping", nameof(root));
             }

@@ -4,20 +4,28 @@ using Microsoft.CodeAnalysis;
 using Xunit;
 using SF = Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
-namespace AWS.Jsii.Generator.UnitTests
+namespace AWS.Jsii.Generator.UnitTests.DocComment
 {
-    public class EnumMemberDocCommentGeneratorTests : GeneratorTestBase
+    public class MethodDocCommentGeneratorTests : GeneratorTestBase
     {
-        const string Prefix = nameof(Generator) + "." + nameof(EnumMemberDocCommentGenerator) + ".";
+        const string Prefix = nameof(Generator) + "." + nameof(MethodDocCommentGenerator) + ".";
 
-        string Render(Docs docs)
+        string Render(Docs docs, params Parameter[] parameters)
         {
-            EnumMember member = new EnumMember("member", docs);
-            EnumMemberDocCommentGenerator generator = new EnumMemberDocCommentGenerator(member);
+            Method method = new Method(
+                false,
+                false,
+                false,
+                parameters,
+                docs,
+                name: "method"
+            );
+
+            MethodDocCommentGenerator generator = new MethodDocCommentGenerator(method, Symbols);
 
             SyntaxTrivia docComment = generator.CreateDocComment();
             SyntaxTree tree = SF.SyntaxTree(
-                SF.EnumMemberDeclaration("Member")
+                SF.MethodDeclaration(SF.ParseTypeName("void"), "Method")
                     .WithLeadingTrivia(generator.CreateDocComment())
                     .NormalizeWhitespace(elasticTrivia: true)
             );
@@ -36,7 +44,7 @@ namespace AWS.Jsii.Generator.UnitTests
             string actual = Render(docs);
             string expected =
 @"/// <summary>my comment</summary>
-        Member";
+        void Method()";
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
@@ -57,11 +65,11 @@ namespace AWS.Jsii.Generator.UnitTests
 /// my
 /// comment
 /// </summary>
-        Member";
+        void Method()";
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
-        
+
         [Fact(DisplayName = Prefix + nameof(IncludesSingleLineRemarks))]
         public void IncludesSingleLineRemarks()
         {
@@ -73,7 +81,7 @@ namespace AWS.Jsii.Generator.UnitTests
             string actual = Render(docs);
             string expected =
 @"/// <remarks>myKey: my comment</remarks>
-        Member";
+        void Method()";
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
@@ -86,7 +94,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 { "myKey1", "my\ncomment" },
                 { "myKey2", "my\r\ncomment" }
             };
-            
+
             string actual = Render(docs);
             string expected =
 @"/// <remarks>
@@ -95,7 +103,7 @@ namespace AWS.Jsii.Generator.UnitTests
 /// myKey2: my
 /// comment
 /// </remarks>
-        Member";
+        void Method()";
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
@@ -111,7 +119,7 @@ namespace AWS.Jsii.Generator.UnitTests
             string actual = Render(docs);
             string expected =
 @"/// <remarks>link: www.example.com </remarks>
-        Member";
+        void Method()";
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
@@ -125,13 +133,13 @@ namespace AWS.Jsii.Generator.UnitTests
             };
 
             string actual = Render(docs);
-            string expected = @"Member";
+            string expected = @"void Method()";
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
 
-        [Fact(DisplayName = Prefix + nameof(IgnoresReturns))]
-        public void IgnoresReturns()
+        [Fact(DisplayName = Prefix + nameof(IncludesReturns))]
+        public void IncludesReturns()
         {
             Docs docs = new Docs
             {
@@ -139,7 +147,77 @@ namespace AWS.Jsii.Generator.UnitTests
             };
 
             string actual = Render(docs);
-            string expected = @"Member";
+            string expected =
+@"/// <returns>my comment</returns>
+        void Method()";
+
+            Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(IgnoresParameterParam))]
+        public void IgnoresParameterParam()
+        {
+            Parameter parameter = new Parameter(
+                "myParam",
+                new TypeReference(primitive: PrimitiveType.String),
+                new Docs
+                {
+                    { "param", "my comment" }
+                }
+            );
+
+            Symbols.MapParameterName("myParam", "myParam");
+
+            string actual = Render(null, parameter);
+            string expected = @"void Method()";
+
+            Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(IgnoresParameterParam))]
+        public void TrimsParameterSummary()
+        {
+            Parameter parameter = new Parameter(
+                "myParam",
+                new TypeReference(primitive: PrimitiveType.String),
+                new Docs
+                {
+                    { "comment", "my comment" }
+                }
+            );
+
+            Symbols.MapParameterName("myParam", "myParam");
+
+            string actual = Render(null, parameter);
+            string expected =
+@"/// <param name = ""myParam"">my comment</param>
+        void Method()";
+
+            Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(IncludesParameterRemarks))]
+        public void IncludesParameterRemarks()
+        {
+            Parameter parameter = new Parameter(
+                "myParam",
+                new TypeReference(primitive: PrimitiveType.String),
+                new Docs
+                {
+                    { "myKey1", "my comment" },
+                    { "myKey2", "my comment" }
+                }
+            );
+
+            Symbols.MapParameterName("myParam", "myParam");
+
+            string actual = Render(null, parameter);
+            string expected =
+@"/// <param name = ""myParam"">
+/// myKey1: my comment
+/// myKey2: my comment
+/// </param>
+        void Method()";
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }

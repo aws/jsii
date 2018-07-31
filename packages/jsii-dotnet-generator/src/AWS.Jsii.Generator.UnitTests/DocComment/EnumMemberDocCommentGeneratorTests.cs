@@ -4,28 +4,20 @@ using Microsoft.CodeAnalysis;
 using Xunit;
 using SF = Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
-namespace AWS.Jsii.Generator.UnitTests
+namespace AWS.Jsii.Generator.UnitTests.DocComment
 {
-    public class PropertyDocCommentGeneratorTests : GeneratorTestBase
+    public class EnumMemberDocCommentGeneratorTests : GeneratorTestBase
     {
-        const string Prefix = nameof(Generator) + "." + nameof(PropertyDocCommentGenerator) + ".";
+        const string Prefix = nameof(Generator) + "." + nameof(EnumMemberDocCommentGenerator) + ".";
 
         string Render(Docs docs)
         {
-            Property property = new Property(
-                "myProp",
-                new TypeReference(primitive: PrimitiveType.String),
-                false,
-                false,
-                false,
-                docs
-            );
-
-            PropertyDocCommentGenerator generator = new PropertyDocCommentGenerator(property);
+            EnumMember member = new EnumMember("member", docs);
+            EnumMemberDocCommentGenerator generator = new EnumMemberDocCommentGenerator(member);
 
             SyntaxTrivia docComment = generator.CreateDocComment();
             SyntaxTree tree = SF.SyntaxTree(
-                SF.PropertyDeclaration(SF.ParseTypeName("string"), "MyProp")
+                SF.EnumMemberDeclaration("Member")
                     .WithLeadingTrivia(generator.CreateDocComment())
                     .NormalizeWhitespace(elasticTrivia: true)
             );
@@ -44,7 +36,7 @@ namespace AWS.Jsii.Generator.UnitTests
             string actual = Render(docs);
             string expected =
 @"/// <summary>my comment</summary>
-        string MyProp";
+        Member";
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
@@ -65,11 +57,11 @@ namespace AWS.Jsii.Generator.UnitTests
 /// my
 /// comment
 /// </summary>
-        string MyProp";
+        Member";
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
-
+        
         [Fact(DisplayName = Prefix + nameof(IncludesSingleLineRemarks))]
         public void IncludesSingleLineRemarks()
         {
@@ -81,7 +73,7 @@ namespace AWS.Jsii.Generator.UnitTests
             string actual = Render(docs);
             string expected =
 @"/// <remarks>myKey: my comment</remarks>
-        string MyProp";
+        Member";
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
@@ -94,7 +86,7 @@ namespace AWS.Jsii.Generator.UnitTests
                 { "myKey1", "my\ncomment" },
                 { "myKey2", "my\r\ncomment" }
             };
-
+            
             string actual = Render(docs);
             string expected =
 @"/// <remarks>
@@ -103,7 +95,7 @@ namespace AWS.Jsii.Generator.UnitTests
 /// myKey2: my
 /// comment
 /// </remarks>
-        string MyProp";
+        Member";
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
@@ -119,7 +111,7 @@ namespace AWS.Jsii.Generator.UnitTests
             string actual = Render(docs);
             string expected =
 @"/// <remarks>link: www.example.com </remarks>
-        string MyProp";
+        Member";
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
@@ -133,13 +125,13 @@ namespace AWS.Jsii.Generator.UnitTests
             };
 
             string actual = Render(docs);
-            string expected = @"string MyProp";
+            string expected = @"Member";
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
 
-        [Fact(DisplayName = Prefix + nameof(IncludesReturns))]
-        public void IncludesReturns()
+        [Fact(DisplayName = Prefix + nameof(IgnoresReturns))]
+        public void IgnoresReturns()
         {
             Docs docs = new Docs
             {
@@ -147,9 +139,7 @@ namespace AWS.Jsii.Generator.UnitTests
             };
 
             string actual = Render(docs);
-            string expected =
-@"/// <returns>my comment</returns>
-        string MyProp";
+            string expected = @"Member";
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
