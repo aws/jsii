@@ -6,6 +6,6 @@ set -euo pipefail
 # up an old build from the cache if it exists. So we
 # explicitly clear the cache as a temporary workaround.
 dotnet nuget locals all --clear
-dotnet build -c Release ./src/AWS.Jsii.JsonModel.sln
+dotnet build -c Release ./src/Amazon.JSII.JsonModel.sln
 
 cp -f ./bin/Release/NuGet/*.nupkg .

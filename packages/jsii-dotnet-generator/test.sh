@@ -2,4 +2,4 @@
 set -euo pipefail
 
 # Run unit tests
-dotnet test -c Release ./src/AWS.Jsii.Generator.UnitTests
+dotnet test -c Release ./src/Amazon.JSII.Generator.UnitTests
