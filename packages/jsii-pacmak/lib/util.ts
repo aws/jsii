@@ -11,7 +11,8 @@ import logging = require('./logging');
  * @return the resolved directory path.
  */
 export function resolveDependencyDirectory(packageDir: string, dependencyName: string): string {
-    return path.dirname(require.resolve(`${dependencyName}/package.json`, { paths: [packageDir] }));
+    const lookupPaths = [ path.join(packageDir, 'node_modules') ];
+    return path.dirname(require.resolve(`${dependencyName}/package.json`, { paths: lookupPaths }));
 }
 
 export function shell(cmd: string, args: string[], options: SpawnOptions): Promise<string> {
@@ -54,7 +55,7 @@ export function shell(cmd: string, args: string[], options: SpawnOptions): Promi
 export async function loadAssembly(modulePath: string): Promise<spec.Assembly> {
     const assmPath = path.join(modulePath, spec.SPEC_FILE_NAME);
     if (!await fs.pathExists(assmPath)) {
-        throw new Error(`Could not find ${spec.SPEC_FILE_NAME} in ${modulePath}. Was the module built?`);
+        throw new Error(`Could not find ${assmPath}. Was the module built?`);
     }
     return spec.validateAssembly(await fs.readJson(assmPath));
 }
