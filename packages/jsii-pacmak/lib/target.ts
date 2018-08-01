@@ -1,6 +1,5 @@
 import childProcess = require('child_process');
 import fs = require('fs-extra');
-import spec = require('jsii-spec');
 import path = require('path');
 
 import { IGenerator } from './generator';
@@ -46,11 +45,7 @@ export abstract class Target {
      * @param outDir the directory where the generated source will be placed.
      */
     public async generateCode(outDir: string): Promise<void> {
-        const jsiiFile = path.join(this.packageDir, spec.SPEC_FILE_NAME);
-        if (!await fs.pathExists(jsiiFile)) {
-            throw new Error(`No JSII assembly found at ${jsiiFile}`);
-        }
-        await this.generator.load(jsiiFile);
+        await this.generator.load(this.packageDir);
         if (this.force || !await this.generator.upToDate(outDir)) {
             await this.generator.generate(this.fingerprint);
             await this.generator.save(outDir, await this.npmPack());

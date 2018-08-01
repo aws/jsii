@@ -4,6 +4,7 @@ import * as crypto from 'crypto';
 import * as fs from 'fs-extra';
 import * as spec from 'jsii-spec';
 import * as path from 'path';
+import util = require('./util');
 import { VERSION } from './version';
 
 // tslint:disable
@@ -33,7 +34,13 @@ export class GeneratorOptions {
 
 export interface IGenerator {
     generate(fingerprint: boolean): void;
-    load(jsiiFile: string): Promise<void>;
+
+    /**
+     * Load a module into the generator.
+     * @param packageDir is the root directory of the module.
+     */
+    load(packageDir: string): Promise<void>;
+
     /**
      * Determine if the generated artifacts for this generator are already up-to-date.
      * @param outDir the directory where generated artifacts would be placed.
@@ -63,8 +70,8 @@ export abstract class Generator implements IGenerator {
         return { fingerprint: this.fingerprint };
     }
 
-    public async load(jsiiFile: string) {
-        this.assembly = spec.validateAssembly(await fs.readJson(jsiiFile));
+    public async load(packageDir: string) {
+        this.assembly = await util.loadAssembly(packageDir);
 
         if (this.assembly.schema !== spec.SchemaVersion.V1_0) {
             throw new Error(`Invalid schema version "${this.assembly.schema}". Expecting "${spec.SchemaVersion.V1_0}"`);
@@ -80,7 +87,7 @@ export abstract class Generator implements IGenerator {
         this.externals = {};
         const loaded = new Set<string>();
         for (const name of Object.keys(this.assembly.dependencies || {})) {
-            await this.loadDependency(name, this.assembly.dependencies![name].version, path.dirname(jsiiFile), loaded);
+            await this.loadDependency(name, this.assembly.dependencies![name].version, packageDir, loaded);
         }
     }
 
@@ -505,14 +512,23 @@ export abstract class Generator implements IGenerator {
         return ret;
     }
 
-    private async loadDependency(name: string, version: string, dir: string, loaded: Set<string>) {
+    /**
+     * Loads a dependency assembly and makes the types it defines available in ``this.externals``. The modules are
+     * loaded transitively (dependencies of the assembly will be loaded using this function, too).
+     *
+     * @param name       the name of the dependency to be loaded.
+     * @param version    the expected (aka declared) version of the dependency.
+     * @param packageDir the root directory of the package that declares the dependency.
+     * @param loaded     a cache of already-loaded modules (helps avoid multi-loading dependencies that appear multiple
+     *                   times in the full dependency closure).
+     *
+     * @throws if no module with the requested name can be resolved (using npm resolution mechanisms), if the resolved
+     *         module lacks a ``.jsii`` file, or if the version does not match the requested one (TODO: Semver?).
+     */
+    private async loadDependency(name: string, version: string, packageDir: string, loaded: Set<string>) {
         if (loaded.has(name)) { return; }
-        const moduleRoot = findModuleRoot();
-        const assmFile = path.join(moduleRoot, '.jsii');
-        if (!await fs.pathExists(assmFile)) {
-            throw new Error(`Module ${name} has no .jsii file. Did you forget to build it?`);
-        }
-        const assm = spec.validateAssembly(JSON.parse(await fs.readFile(assmFile, { encoding: 'utf-8' })));
+        const moduleRoot = util.resolveDependencyDirectory(packageDir, name);
+        const assm = await util.loadAssembly(moduleRoot);
         if (assm.version !== version) {
             throw new Error(`Module ${name} found with version ${assm.version}, but version ${version} was expected`);
         }
@@ -523,14 +539,6 @@ export abstract class Generator implements IGenerator {
         for (const depName of Object.keys(assm.dependencies || {})) {
             const dep = assm.dependencies![depName];
             await this.loadDependency(depName, dep.version, moduleRoot, loaded);
-        }
-
-        function findModuleRoot() {
-            try {
-                return path.dirname(require.resolve(path.join(name, 'package.json'), { paths: [dir] }))
-            } catch (e) {
-                throw new Error(`Failed to locate module root ${name} using npm resolution from ${dir}`);
-            }
         }
     }
 }

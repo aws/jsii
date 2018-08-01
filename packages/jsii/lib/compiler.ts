@@ -1303,7 +1303,16 @@ async function readDependencies(rootDir: string, packageDeps: any, bundledDeps: 
     bundledDeps = bundledDeps || [ ];
     packageDeps = packageDeps || { };
 
+    // Used to make sure we don't re-load dependencies that are present multiple times in the tree closure.
     const visited = new Set<string>();
+    /**
+     * Loads a dependency assembly, registers the types it declares in the ``lookup`` map, and adds an entry in the
+     * ``mod.dependencies`` unless the dependency is ``transitive``.
+     *
+     * @param packageName   the name of the package found in dependencies, which will be registered.
+     * @param moduleRootDir the root directory of the module that declares the dependency being loaded.
+     * @param transitive    whether this dependeency is transitive (aka it shouldn't be added to ``mod.dependencies``)
+     */
     async function addDependency(packageName: string, moduleRootDir: string, transitive = false) {
         if (visited.has(packageName)) { return; }
         const { jsii, pkg, moduleDir } = await readJsiiForModule(moduleRootDir, packageName);
@@ -1330,7 +1339,7 @@ async function readDependencies(rootDir: string, packageDeps: any, bundledDeps: 
 
         if (jsii.dependencies) {
             for (const name of Object.keys(jsii.dependencies)) {
-                await addDependency(name, moduleDir, true);
+                await addDependency(name, moduleDir, /* transitive */ true);
             }
         }
     }

@@ -71,10 +71,11 @@ namespace AWS.Jsii.Generator
                 {
                     return;
                 }
+
                 foreach (KeyValuePair<string, PackageVersion> entry in dependencyRoot.Dependencies)
                 {
                     string depRoot = ResolvePackage(entry.Key, packageDirectory);
-                    string depFile= Path.Combine(depRoot, ".jsii");
+                    string depFile = Path.Combine(depRoot, ".jsii");
                     string depJson = _fileSystem.File.ReadAllText(depFile);
                     Assembly depAssembly = JsonConvert.DeserializeObject<Assembly>(depJson);
                     symbols.Add(depAssembly);
@@ -83,16 +84,16 @@ namespace AWS.Jsii.Generator
 
                 string ResolvePackage(string packageName, string directory)
                 {
-                    do
+                    if (string.IsNullOrEmpty(directory))
                     {
-                        string candidate = Path.Combine(directory, "node_modules", packageName);
-                        if (_fileSystem.Directory.Exists(candidate))
-                        {
-                            return candidate;
-                        }
-                        directory = Path.GetDirectoryName(directory);
-                    } while (directory != "");
-                    throw new FileNotFoundException($"Could not resolve package named {packageName}");
+                        throw new FileNotFoundException($"Could not resolve package named {packageName}");
+                    }
+                    string candidate = Path.Combine(directory, "node_modules", packageName);
+                    if (_fileSystem.Directory.Exists(candidate))
+                    {
+                        return candidate;
+                    }
+                    return ResolvePackage(packageName, Path.GetDirectoryName(directory));
                 }
             }
         }

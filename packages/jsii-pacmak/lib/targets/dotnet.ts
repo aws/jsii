@@ -1,5 +1,6 @@
-import { spawn } from 'child_process';
-import { dirname } from 'path';
+import childProcess = require('child_process');
+import spec = require('jsii-spec');
+import path = require('path');
 import { IGenerator } from '../generator';
 import { Target, TargetOptions } from '../target';
 
@@ -28,8 +29,8 @@ class DotNetGenerator implements IGenerator {
         // Support can be added relatively easily if necessary.
     }
 
-    public async load(jsiiFile: string) {
-        this.jsiiFile = jsiiFile;
+    public async load(packageRoot: string) {
+        this.jsiiFile = path.join(packageRoot, spec.SPEC_FILE_NAME);
     }
 
     public upToDate(_: string): Promise<boolean> {
@@ -37,9 +38,9 @@ class DotNetGenerator implements IGenerator {
     }
 
     public save(outdir: string, tarball: string): Promise<any> {
-        const runtimeRoot = dirname(require.resolve('jsii-dotnet-generator/package.json'));
+        const runtimeRoot = path.dirname(require.resolve('jsii-dotnet-generator/package.json'));
         const cliPath = `${runtimeRoot}/cli/publish/AWS.Jsii.Generator.CLI.dll`;
-        const cli = spawn("dotnet", [cliPath, '--jsii', this.jsiiFile, '--tarball', tarball, '--output', outdir], { stdio: 'inherit' });
+        const cli = childProcess.spawn("dotnet", [cliPath, '--jsii', this.jsiiFile, '--tarball', tarball, '--output', outdir], { stdio: 'inherit' });
 
         return new Promise<number>((resolve, reject) => {
             cli.once('exit', code => {
