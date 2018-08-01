@@ -1,4 +1,4 @@
-using AWS.Jsii.Runtime.Deputy;
+using Amazon.JSII.Runtime.Deputy;
 using System.Collections.Generic;
 
 namespace Amazon.JSII.Tests.Calculator

@@ -1,5 +1,5 @@
+using Amazon.JSII.Runtime.Deputy;
 using Amazon.JSII.Tests.Calculator.composition;
-using AWS.Jsii.Runtime.Deputy;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;

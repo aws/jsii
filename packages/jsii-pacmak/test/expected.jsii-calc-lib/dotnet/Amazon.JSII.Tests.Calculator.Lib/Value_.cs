@@ -1,5 +1,5 @@
+using Amazon.JSII.Runtime.Deputy;
 using Amazon.JSII.Tests.Calculator.Base;
-using AWS.Jsii.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.Calculator.Lib
 {

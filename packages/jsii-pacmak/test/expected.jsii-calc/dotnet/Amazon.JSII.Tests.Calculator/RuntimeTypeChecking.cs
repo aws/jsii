@@ -1,4 +1,4 @@
-using AWS.Jsii.Runtime.Deputy;
+using Amazon.JSII.Runtime.Deputy;
 using System;
 
 namespace Amazon.JSII.Tests.Calculator

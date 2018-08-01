@@ -1,4 +1,4 @@
-using AWS.Jsii.Runtime.Deputy;
+using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.Calculator.Lib
 {

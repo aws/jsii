@@ -9,7 +9,7 @@
     <EmbeddedResource Include="jsii-calc-0.5.0-beta.tgz" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="AWS.Jsii.Runtime" Version="1.0.0" />
+    <PackageReference Include="Amazon.JSII.Runtime" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Amazon.JSII.Tests.Calculator.Lib\Amazon.JSII.Tests.Calculator.Lib.csproj" />
