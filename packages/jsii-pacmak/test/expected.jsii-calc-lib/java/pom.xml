@@ -86,6 +86,7 @@
           </execution>
         </executions>
         <configuration>
+          <failOnError>false</failOnError>
           <show>protected</show>
         </configuration>
       </plugin>
