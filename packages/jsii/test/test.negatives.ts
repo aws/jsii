@@ -39,7 +39,10 @@ for (const source of fs.readdirSync(negativesDir)) {
             await compileSources(path.join(negativesDir, source),
                                  undefined /* No extra source */,
                                  undefined /* No external types */,
-                                 { schema: spec.SchemaVersion.V1_0, name: 'foo', version: 'bar', fingerprint: 'baz', targets: {}, types: {} },
+                                 {
+                                    schema: spec.SchemaVersion.V1_0, name: 'foo', version: 'bar', license: 'NONE', fingerprint: 'baz',
+                                    targets: {}, types: {}
+                                },
                                  true /* warnings as errors */);
         } catch (e) {
             for (const match of matchError) {

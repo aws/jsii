@@ -1,6 +1,9 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
 
+// tslint:disable-next-line:no-var-requires
+const spdxLicenceList = require('spdx-license-list');
+
 export interface PackageMetadata {
     /**
      * Package name (package.name)
@@ -11,6 +14,11 @@ export interface PackageMetadata {
      * Package version (package.version)
      */
     version: string
+
+    /**
+     * The SPDX license name for the package.
+     */
+    license: string;
 
     /**
      * The module's entrypoint (package.main)
@@ -59,6 +67,11 @@ export default async function readPackageMetadata(moduleDir: string): Promise<Pa
     if (!pkg.jsii)    { pkg.jsii = { outdir: '.' }; }
     if (!pkg.main)    { pkg.main = 'index.js'; }
 
+    if (!pkg.license) { throw new Error(`${pkgFile} must contain a "license" field (with an SPDX license identifier)`); }
+    if (!(pkg.license in spdxLicenceList)) {
+        throw new Error(`${pkgFile} has "license" ${pkg.license}, which doesn't appear to be a valid SPDX identifier`);
+    }
+
     if (!pkg.jsii.outdir) { throw new Error(`${pkgFile} must contain a "jsii.outdir" field`); }
     if (!pkg.jsii.targets) { throw new Error(`${pkgFile} must contain a "jsii.targets" field`); }
     if (!pkg.types.endsWith('.d.ts')) {
@@ -78,6 +91,7 @@ export default async function readPackageMetadata(moduleDir: string): Promise<Pa
     return {
         name: pkg.name,
         version: pkg.version,
+        license: pkg.license,
         outdir,
         main,
         dependencies: pkg.dependencies || {},

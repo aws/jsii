@@ -2,6 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <name>Java bindings for @scope/jsii-calc-base</name>
+  <licenses>
+    <license>
+      <name>Apache License 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+      <distribution>repo</distribution>
+      <comments>An OSI-approved license</comments>
+    </license>
+  </licenses>
   <artifactId>calculator-base</artifactId>
   <groupId>com.amazonaws.jsii.tests</groupId>
   <version>0.5.0-beta</version>
@@ -80,7 +88,34 @@
   </build>
   <profiles>
     <profile>
-      <id>publishing</id>
+      <id>sign</id>
+      <activation>
+        <!-- See: https://maven.apache.org/plugins/maven-gpg-plugin/sign-mojo.html -->
+        <property>
+          <name>gpg.keyname</name>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.5</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>deploy</id>
       <activation>
         <property>
           <name>publish.url</name>

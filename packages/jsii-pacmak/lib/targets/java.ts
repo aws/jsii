@@ -8,6 +8,9 @@ import logging = require('../logging');
 import { Target, TargetOptions } from '../target';
 import { VERSION } from '../version';
 
+// tslint:disable-next-line:no-var-requires
+const spdxLicenseList = require('spdx-license-list');
+
 export default class JavaPackageMaker extends Target {
     protected readonly generator = new JavaGenerator();
 
@@ -25,7 +28,7 @@ export default class JavaPackageMaker extends Target {
         }
 
         const userXml = await this.generateMavenSettingsForLocalDeps(sourceDir, outDir);
-        await this.runCommand('mvn', [...mvnArguments, 'package', '-D', `publish.url=${url}`, `--settings=${userXml}`], { cwd: sourceDir });
+        await this.runCommand('mvn', [...mvnArguments, 'package', `-D=publish.url=${url}`, `--settings=${userXml}`], { cwd: sourceDir });
     }
 
     /**
@@ -58,7 +61,7 @@ export default class JavaPackageMaker extends Target {
 
         const profileName = 'local-jsii-modules';
         const settings = xmlbuilder.create({
-            project: {
+            settings: {
                 '@xmlns': 'http://maven.apache.org/POM/4.0.0',
                 '@xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
                 '@xsi:schemaLocation': 'http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd',
@@ -301,6 +304,10 @@ class JavaGenerator extends Generator {
                     'modelVersion': '4.0.0',
                     'name': `Java bindings for ${assm.name}`,
 
+                    'licenses': {
+                        license: getLicense()
+                    },
+
                     ...assm.targets.java.maven,
                     'version': assm.version,
                     'packaging': 'jar',
@@ -357,8 +364,30 @@ class JavaGenerator extends Generator {
                     },
 
                     'profiles': {
-                        profile: {
-                            id: 'publishing',
+                        profile: [{
+                            id: 'sign',
+                            activation: {
+                                '#comment': 'See: https://maven.apache.org/plugins/maven-gpg-plugin/sign-mojo.html',
+                                'property': { name: 'gpg.keyname' }
+                            },
+                            build: {
+                                plugins: {
+                                    plugin: {
+                                        groupId: 'org.apache.maven.plugins',
+                                        artifactId: 'maven-gpg-plugin',
+                                        version: '1.5',
+                                        executions: {
+                                            execution: {
+                                                id: 'sign-artifacts',
+                                                phase: 'package',
+                                                goals: { goal: 'sign' }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }, {
+                            id: 'deploy',
                             activation: {
                                 property: { name: 'publish.url' }
                             },
@@ -374,22 +403,22 @@ class JavaGenerator extends Generator {
                                                 phase: 'package',
                                                 goals: { goal: 'deploy-file' },
                                                 configuration: {
-                                                    file:     '${project.build.directory}/${project.artifactId}-${project.version}.jar',
-                                                    sources:  '${project.build.directory}/${project.artifactId}-${project.version}-sources.jar',
-                                                    javadocs: '${project.build.directory}/${project.artifactId}-${project.version}-javadocs.jar',
-                                                    url: '${publish.url}',
-                                                    groupId: '${project.groupId}',
+                                                    file:       '${project.build.directory}/${project.artifactId}-${project.version}.jar',
+                                                    sources:    '${project.build.directory}/${project.artifactId}-${project.version}-sources.jar',
+                                                    javadocs:   '${project.build.directory}/${project.artifactId}-${project.version}-javadocs.jar',
+                                                    url:        '${publish.url}',
+                                                    groupId:    '${project.groupId}',
                                                     artifactId: '${project.artifactId}',
-                                                    version: '${project.version}',
-                                                    pomFile: '${project.basedir}/pom.xml',
-                                                    packaging: 'jar'
+                                                    version:    '${project.version}',
+                                                    pomFile:    '${project.basedir}/pom.xml',
+                                                    packaging:  'jar'
                                                 }
                                             }
                                         }
                                     }
                                 }
                             }
-                        }
+                        }]
                     }
                 }
             }, { encoding: 'UTF-8' }).end({ pretty: true })
@@ -418,6 +447,20 @@ class JavaGenerator extends Generator {
                 scope: 'compile'
             });
             return dependencies;
+        }
+
+        /**
+         * Get the maven-style license block for a the assembly.
+         * @see https://maven.apache.org/pom.html#Licenses
+         */
+        function getLicense() {
+            const spdx = spdxLicenseList[assm.license];
+            return spdx && {
+                name: spdx.name,
+                url: spdx.url,
+                distribution: 'repo',
+                comments: spdx.osiApproved ? 'An OSI-approved license' : undefined
+            };
         }
     }
 

@@ -54,6 +54,7 @@ export async function compilePackage(packageDir: string, includeDirs = [ 'test',
         schema: spec.SchemaVersion.V1_0,
         name: pkg.name,
         version: pkg.version.replace(/\+.+$/, ''),
+        license: pkg.license,
         targets: {
             ...pkg.targets,
             // automatically add a "js" target based on the npm name.

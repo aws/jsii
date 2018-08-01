@@ -1,5 +1,5 @@
 {
-  "fingerprint": "tTyyMeA0wpOdqE9aJmKa9fhQf0MpOSDY+PF4SIE7wmM=",
+  "fingerprint": "zmdpszdkcQaxiwMA5nr+avUpv5ZGa+zrzFAdUIxnqTo=",
   "dependencies": {
     "@scope/jsii-calc-base": {
       "targets": {
@@ -20,6 +20,7 @@
       "version": "0.5.0-beta"
     }
   },
+  "license": "Apache-2.0",
   "name": "@scope/jsii-calc-lib",
   "schema": "jsii/1.0",
   "targets": {
