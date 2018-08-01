@@ -8,7 +8,7 @@ import process = require('process');
 import yargs = require('yargs');
 import logging = require('../lib/logging');
 import { Target } from '../lib/target';
-import { resolveDependencyDirectory } from '../lib/util';
+import { resolveDependencyDirectory, shell } from '../lib/util';
 import { VERSION } from '../lib/version';
 
 (async function main() {
@@ -101,17 +101,27 @@ import { VERSION } from '../lib/version';
         const outDir = argv.outdir !== undefined ? path.resolve(process.cwd(), argv.outdir) : path.resolve(packageDir, pkg.jsii.outdir);
         const targets = argv.targets || [ ...Object.keys(pkg.jsii.targets), 'npm' ]; // "npm" is an implicit target
 
-        logging.info(`Building ${path.relative(process.cwd(), packageDir)} (${targets.join(',')}) into ${path.relative(process.cwd(), outDir)}`);
+        logging.info(`Building ${pkg.name} (${targets.join(',')}) into ${path.relative(process.cwd(), outDir)}`);
 
-        for (const targetName of targets) {
-             // if we are targeting a single language, output to outdir, otherwise outdir/<target>
-            const targetOutputDir = targets.length > 1 ? path.join(outDir, targetName) : outDir;
-            logging.debug(`Building ${pkg.name}/${targetName}: ${targetOutputDir}`);
-            await generateTarget(packageDir, targetName, targetOutputDir);
+        // if outdir is coming from package.json, verify it is excluded by .npmignore. if it is explicitly
+        // defined via --out, don't perform this verification.
+        const npmIgnoreExclude = argv.outdir ? undefined : outDir;
+        const tarball = await npmPack(packageDir, npmIgnoreExclude);
+        try {
+            for (const targetName of targets) {
+                // if we are targeting a single language, output to outdir, otherwise outdir/<target>
+                const targetOutputDir = targets.length > 1 ? path.join(outDir, targetName) : outDir;
+                logging.debug(`Building ${pkg.name}/${targetName}: ${targetOutputDir}`);
+                await generateTarget(packageDir, targetName, targetOutputDir, tarball);
+            }
+        } finally {
+            logging.debug(`Removing ${tarball}`);
+            await fs.remove(tarball);
         }
+
     }
 
-    async function generateTarget(packageDir: string, targetName: string, targetOutputDir: string) {
+    async function generateTarget(packageDir: string, targetName: string, targetOutputDir: string, tarball: string) {
         // ``argv.target`` is guaranteed valid by ``yargs`` through the ``choices`` directive.
         const targetConstructor = targetConstructors[targetName];
         if (!targetConstructor) {
@@ -128,10 +138,13 @@ import { VERSION } from '../lib/version';
 
         const codeDir = argv.codeOnly ? targetOutputDir : await fs.mkdtemp(path.join(os.tmpdir(), 'jsii-pacmak-code'));
 
-        await target.generateCode(codeDir);
+        logging.debug(`Generating ${targetName} code into ${codeDir}...`);
+
+        await target.generateCode(codeDir, tarball);
 
         if (argv.codeOnly) { return; }
 
+        logging.debug(`Building into ${targetOutputDir}...`);
         await target.build(codeDir, targetOutputDir);
 
         if (argv.clean) {
@@ -145,3 +158,28 @@ import { VERSION } from '../lib/version';
     process.stderr.write(err.stack + '\n');
     process.exit(1);
 });
+
+async function npmPack(packageDir: string, excludeOutDir?: string): Promise<string> {
+    // if excludeOutdir is defined, verify that it is excluded by .npmignore
+    if (excludeOutDir) {
+        const npmIgnorePath = path.join(packageDir, '.npmignore');
+        const npmIgnoreLine = path.relative(packageDir, excludeOutDir);
+        let outDirIgnored = false;
+        if (await fs.pathExists(npmIgnorePath)) {
+            const contents = (await fs.readFile(npmIgnorePath)).toString().split('\n');
+            outDirIgnored = contents.indexOf(npmIgnoreLine) !== -1;
+        }
+
+        if (!outDirIgnored) {
+            throw new Error(`${npmIgnorePath} is expected to include the jsii output directory "${npmIgnoreLine}"`);
+        }
+    }
+
+    logging.debug(`Running "npm pack" in ${packageDir}`);
+    const args = [ 'pack' ];
+    if (logging.level >= logging.LEVEL_VERBOSE) {
+        args.push('--loglevel=verbose');
+    }
+    const out = await shell('npm', [ 'pack' ], { cwd: packageDir });
+    return path.resolve(packageDir, out.trim());
+}

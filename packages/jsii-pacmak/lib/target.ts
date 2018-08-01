@@ -1,4 +1,3 @@
-import childProcess = require('child_process');
 import fs = require('fs-extra');
 import spec = require('jsii-spec');
 import path = require('path');
@@ -45,7 +44,7 @@ export abstract class Target {
      *
      * @param outDir the directory where the generated source will be placed.
      */
-    public async generateCode(outDir: string): Promise<void> {
+    public async generateCode(outDir: string, tarball: string): Promise<void> {
         const jsiiFile = path.join(this.packageDir, spec.SPEC_FILE_NAME);
         if (!await fs.pathExists(jsiiFile)) {
             throw new Error(`No JSII assembly found at ${jsiiFile}`);
@@ -53,7 +52,7 @@ export abstract class Target {
         await this.generator.load(jsiiFile);
         if (this.force || !await this.generator.upToDate(outDir)) {
             await this.generator.generate(this.fingerprint);
-            await this.generator.save(outDir, await this.npmPack());
+            await this.generator.save(outDir, tarball);
         }
     }
 
@@ -73,34 +72,6 @@ export abstract class Target {
      */
     protected async copyFiles(sourceDir: string, targetDir: string) {
         await fs.copy(sourceDir, targetDir, { recursive: true });
-    }
-
-    protected runCommand(cmd: string, args: string[], options: childProcess.SpawnOptions): Promise<string> {
-        return new Promise<string>((resolve, reject) => {
-            const child = childProcess.spawn(cmd, args, { ...options, shell: true, stdio: ['ignore', 'pipe', 'pipe'] });
-            const stdout = new Array<Buffer>();
-            const stderr = new Array<Buffer>();
-            child.stdout.on('data', chunk => {
-                if (logging.level >= logging.LEVEL_VERBOSE) {
-                    process.stderr.write(chunk); // notice - we emit all build output to stderr
-                }
-                stdout.push(Buffer.from(chunk));
-            });
-            child.stderr.on('data', chunk => {
-                if (logging.level >= logging.LEVEL_VERBOSE) {
-                    process.stderr.write(chunk);
-                }
-                stderr.push(Buffer.from(chunk));
-            });
-            child.once('error', reject);
-            child.once('exit', (code, signal) => {
-                const out = Buffer.concat(stdout).toString('utf-8');
-                if (code === 0) { return resolve(path.resolve(this.packageDir, out.trim())); }
-                const err = Buffer.concat(stderr).toString('utf-8');
-                if (code != null) { return reject(new Error(`Process exited with status ${code}\n${out}\n${err}`)); }
-                reject(new Error(`Process terminated by signal ${signal}\n${out}\n${err}`));
-            });
-        });
     }
 
     /**
@@ -136,10 +107,6 @@ export abstract class Target {
         }
 
         return results;
-    }
-
-    private npmPack(): Promise<string> {
-        return this.runCommand('npm', ['pack'], { cwd: this.packageDir });
     }
 }
 
