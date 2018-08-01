@@ -1,14 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <UsingTask TaskName="Amazon.JSII.Generator.BuildTasks.GenerateJsiiVersionFile" AssemblyFile="$(MSBuildProjectDirectory)/../../build/Amazon.JSII.Generator.BuildTasks/Amazon.JSII.Generator.BuildTasks/bin/Debug/netstandard2.0/Amazon.JSII.Generator.BuildTasks.dll" />
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Authors>Matthew Pirocchi &lt;pirocchi@amazon.com&gt;</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Company>Amazon Web Services LLC</Company>
+    <PackageOutputPath>..\..\bin\$(Configuration)\NuGet\</PackageOutputPath>
+    <PackageVersion>$(JsiiVersion)</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="2.8.0" />
-    <PackageReference Include="Amazon.JSII.JsonModel" Version="0.5.0-beta" />
+    <PackageReference Include="Amazon.JSII.JsonModel" Version="$(JsiiVersion)" />
   </ItemGroup>
+
+  <Target Name="UpdateJsiiVersion" BeforeTargets="BeforeBuild">
+      <PropertyGroup>
+          <JsiiVersionPath>$(MSBuildProjectDirectory)/JsiiVersion.cs</JsiiVersionPath>
+          <JsiiVersionTemplatePath>$(JsiiVersionPath).template</JsiiVersionTemplatePath>
+      </PropertyGroup>
+
+      <GenerateJsiiVersionFile TemplatePath="$(JsiiVersionTemplatePath)" OutputPath="$(JsiiVersionPath)" Version="$(JsiiVersion)" />
+  </Target>
 </Project>

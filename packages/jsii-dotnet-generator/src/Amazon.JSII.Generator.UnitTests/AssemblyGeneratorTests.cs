@@ -187,8 +187,7 @@ namespace Amazon.JSII.Generator.UnitTests
                 Symbols
             );
 
-            // TODO: Use a NuGet reference instead of a project reference.
-            const string expected =
+            string expected =
 @"<Project Sdk=""Microsoft.NET.Sdk"">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -200,7 +199,7 @@ namespace Amazon.JSII.Generator.UnitTests
     <EmbeddedResource Include=""aws-cdk-cx-api-1.2.3.5.tgz"" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include=""Amazon.JSII.Runtime"" Version=""0.5.0-beta"" />
+    <PackageReference Include=""Amazon.JSII.Runtime"" Version=""" + JsiiVersion.Version + @""" />
   </ItemGroup>
   <ItemGroup />
 </Project>";
@@ -278,8 +277,7 @@ namespace Amazon.JSII.Generator.UnitTests
                 Symbols
             );
 
-            // TODO: Use a NuGet reference instead of a project reference.
-            const string expected =
+            string expected =
 @"<Project Sdk=""Microsoft.NET.Sdk"">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -291,7 +289,7 @@ namespace Amazon.JSII.Generator.UnitTests
     <EmbeddedResource Include=""aws-cdk-1.2.3.4.tgz"" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include=""Amazon.JSII.Runtime"" Version=""0.5.0-beta"" />
+    <PackageReference Include=""Amazon.JSII.Runtime"" Version=""" + JsiiVersion.Version + @""" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include=""..\Aws.Cdk.CxApi\Aws.Cdk.CxApi.csproj"" />

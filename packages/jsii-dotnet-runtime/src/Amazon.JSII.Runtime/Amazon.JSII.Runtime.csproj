@@ -3,9 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>Matthew Pirocchi &lt;pirocchi@amazon.com&gt;</Authors>
-    <Company>Amazon Web Services LLC</Company>
-    <AssemblyName>Amazon.JSII.Runtime</AssemblyName>
+    <PackageOutputPath>..\..\bin\$(Configuration)\NuGet\</PackageOutputPath>
+    <PackageVersion>$(JsiiVersion)</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,7 +15,7 @@
     <PackageReference Include="Node.js.redist" Version="8.9.1" />
     <PackageReference Include="NuGet.Client" Version="4.2.0" />
     <PackageReference Include="System.IO.FileSystem.AccessControl" Version="4.5.0-rc1" />
-    <PackageReference Include="Amazon.JSII.JsonModel" Version="0.5.0-beta" />
+    <PackageReference Include="Amazon.JSII.JsonModel" Version="$(JsiiVersion)" />
   </ItemGroup>
 
     <ItemGroup>

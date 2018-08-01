@@ -1,0 +1,7 @@
+<Project>
+  <PropertyGroup>
+    <Authors>Amazon Web Services LLC</Authors>
+    <Company>Amazon Web Services LLC</Company>
+    <JsiiVersion>0.5.0-beta</JsiiVersion>
+  </PropertyGroup>
+</Project>

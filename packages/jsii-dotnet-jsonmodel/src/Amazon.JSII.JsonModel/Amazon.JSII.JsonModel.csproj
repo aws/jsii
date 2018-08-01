@@ -3,11 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Company>Amazon Web Services LLC</Company>
-    <Authors>Matthew Pirocchi &lt;pirocchi@amazon.com&gt;</Authors>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <AssemblyName>Amazon.JSII.JsonModel</AssemblyName>
-    <RootNamespace>Amazon.JSII.JsonModel</RootNamespace>
+    <PackageOutputPath>..\..\bin\$(Configuration)\NuGet\</PackageOutputPath>
+    <PackageVersion>$(JsiiVersion)</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
