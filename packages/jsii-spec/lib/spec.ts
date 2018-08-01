@@ -28,6 +28,11 @@ export interface Assembly extends Documentable {
     version: string;
 
     /**
+     * The SPDX name of the license this assembly is distributed on.
+     */
+    license: string;
+
+    /**
      * A map of target name to configuration, which is used when generating packages for
      * various languages.
      */

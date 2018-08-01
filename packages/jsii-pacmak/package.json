@@ -25,6 +25,7 @@
     "jsii-java-runtime": "^0.5.0-beta",
     "jsii-spec": "^0.5.0-beta",
     "source-map-support": "^0.5.6",
+    "spdx-license-list": "^4.1.0",
     "xmlbuilder": "^10.0.0",
     "yargs": "^12.0.0"
   },
