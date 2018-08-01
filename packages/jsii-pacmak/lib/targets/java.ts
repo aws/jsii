@@ -6,6 +6,7 @@ import xmlbuilder = require('xmlbuilder');
 import { Generator } from '../generator';
 import logging = require('../logging');
 import { Target, TargetOptions } from '../target';
+import { shell } from '../util';
 import { VERSION } from '../version';
 
 // tslint:disable-next-line:no-var-requires
@@ -28,7 +29,7 @@ export default class JavaPackageMaker extends Target {
         }
 
         const userXml = await this.generateMavenSettingsForLocalDeps(sourceDir, outDir);
-        await this.runCommand('mvn', [...mvnArguments, 'package', `-D=publish.url=${url}`, `--settings=${userXml}`], { cwd: sourceDir });
+        await shell('mvn', [...mvnArguments, 'package', `-D=publish.url=${url}`, `--settings=${userXml}`], { cwd: sourceDir });
     }
 
     /**
@@ -357,6 +358,7 @@ class JavaGenerator extends Generator {
                                     }
                                 },
                                 configuration: {
+                                    failOnError: false,
                                     show: 'protected'
                                 }
                             }]

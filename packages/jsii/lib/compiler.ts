@@ -1367,7 +1367,8 @@ async function readDependencies(rootDir: string, packageDeps: any, bundledDeps: 
 
 async function findModuleRoot(dir: string, packageName: string): Promise<string | undefined> {
     try {
-        return path.dirname(require.resolve(path.join(packageName, 'package.json'), { paths: [dir] }));
+        const paths = [ path.join(dir, 'node_modules') ];
+        return path.dirname(require.resolve(path.join(packageName, 'package.json'), { paths }));
     } catch (e) {
         return undefined;
     }
