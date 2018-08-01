@@ -14,6 +14,7 @@ export = testCase({
                 schema: spec.SchemaVersion.V1_0,
                 name: assemblyName,
                 version: '0.0.1',
+                license: 'NONE',
                 fingerprint: '<no-fingerprint>',
                 targets: {},
                 types: {

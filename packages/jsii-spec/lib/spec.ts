@@ -28,6 +28,11 @@ export interface Assembly extends Documentable {
     version: string;
 
     /**
+     * The SPDX name of the license this assembly is distributed on.
+     */
+    license: string;
+
+    /**
      * A map of target name to configuration, which is used when generating packages for
      * various languages.
      */
@@ -47,15 +52,6 @@ export interface Assembly extends Documentable {
      * All types in the assembly, keyed by their fully-qualified-name
      */
     types?: { [fqn: string]: Type };
-
-    /**
-     * All external types that are referenced from the visible
-     * type signatures in this assembly (through ``types``). This
-     * is provided so that consumers of an ``Assembly`` can reason
-     * over the types that are used by this one without necessarily
-     * having to load dependent assemblies.
-     */
-    externals?: { [fqn: string]: Type };
 
     /**
      * The top-level readme document for this assembly (if any).
@@ -163,10 +159,8 @@ export interface TypeReferenceBase {
  */
 export interface NamedTypeReference extends TypeReferenceBase {
     /**
-     * The fully-qualified-name of the type (can be located in exactly one of
-     * ``spec.types[fqn]``` or ``spec.externals[fqn]``, depending on whether the
-     * type is respecitvely defined by this assembly or imported from a
-     * dependency).
+     * The fully-qualified-name of the type (can be located in the
+     * ``spec.types[fqn]``` of the assembly that defines the type).
      */
     fqn: string;
 }

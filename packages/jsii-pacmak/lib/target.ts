@@ -1,5 +1,4 @@
 import fs = require('fs-extra');
-import spec = require('jsii-spec');
 import path = require('path');
 
 import { IGenerator } from './generator';

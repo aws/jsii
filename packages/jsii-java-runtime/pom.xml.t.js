@@ -12,6 +12,15 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
     <artifactId>${artifactId}</artifactId>
     <version>${version}</version>
 
+    <licenses>
+        <license>
+            <name>Apache License 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+            <distribution>repo</distribution>
+            <comments>An OSI-approved license</comments>
+        </license>
+    </licenses>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -97,36 +106,45 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
                     <show>protected</show>
                 </configuration>
             </plugin>
-
-            <!-- Deploys the jars to a local maven repo -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.8.2</version>
-                <executions>
-                    <execution>
-                        <id>deploy-file</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>deploy-file</goal>
-                        </goals>
-                        <configuration>
-                            <file>\${project.build.directory}/\${project.artifactId}-\${project.version}.jar</file>
-                            <sources>\${project.build.directory}/\${project.artifactId}-\${project.version}-sources.jar</sources>
-                            <javadocs>\${project.build.directory}/\${project.artifactId}-\${project.version}-javadocs.jar</javadocs>
-                            <url>file:../maven-repo</url>
-                            <groupId>\${project.groupId}</groupId>
-                            <artifactId>\${project.artifactId}</artifactId>
-                            <version>\${project.version}</version>
-                            <pomFile>\${project.basedir}/pom.xml</pomFile>
-                            <packaging>jar</packaging>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
         </plugins>
     </build>
 
+    <distributionManagement>
+        <repository>
+            <id>central</id>
+            <name>Maven Central</name>
+            <url>http://repo.maven.apache.org/maven2</url>
+        </repository>
+    </distributionManagement>
+
+    <profiles>
+        <profile>
+            <id>sign</id>
+            <activation>
+                <!-- See: https://maven.apache.org/plugins/maven-gpg-plugin/sign-mojo.html -->
+                <property>
+                    <name>gpg.keyname</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.5</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
 `);

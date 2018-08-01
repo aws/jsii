@@ -1,5 +1,6 @@
 {
-  "fingerprint": "JYtYo+q7G8adUmsSLvMbHrmeDiHMVRdYU+iBAgcqDYs=",
+  "fingerprint": "sSxXNJ/dGt/v6Tm7/1IjgRx/oPq0wVG6WWSrZaPglLk=",
+  "license": "Apache-2.0",
   "name": "@scope/jsii-calc-base",
   "schema": "jsii/1.0",
   "targets": {
