@@ -50,9 +50,6 @@ export async function compilePackage(packageDir: string, includeDirs = [ 'test',
     const targets = new Set(Object.keys(pkg.targets));
     const { lookup, dependencies, bundled } = await readDependencies(packageDir, pkg.dependencies, pkg.bundledDependencies, targets);
 
-    const externals: { [name: string]: spec.Type } = {};
-    lookup.forEach((v, k) => externals[k] = v);
-
     const assm: spec.Assembly = {
         schema: spec.SchemaVersion.V1_0,
         name: pkg.name,
@@ -66,8 +63,7 @@ export async function compilePackage(packageDir: string, includeDirs = [ 'test',
         dependencies,
         bundled,
         fingerprint: '<TBD>',
-        types: {},
-        externals
+        types: {}
     };
     await compileSources(pkg.entrypoint, files, lookup, assm);
 
@@ -1307,8 +1303,19 @@ async function readDependencies(rootDir: string, packageDeps: any, bundledDeps: 
     bundledDeps = bundledDeps || [ ];
     packageDeps = packageDeps || { };
 
-    async function addDependency(packageName: string, moduleRootDir: string) {
-        const { jsii, pkg } = await readJsiiForModule(moduleRootDir, packageName);
+    // Used to make sure we don't re-load dependencies that are present multiple times in the tree closure.
+    const visited = new Set<string>();
+    /**
+     * Loads a dependency assembly, registers the types it declares in the ``lookup`` map, and adds an entry in the
+     * ``mod.dependencies`` unless the dependency is ``transitive``.
+     *
+     * @param packageName   the name of the package found in dependencies, which will be registered.
+     * @param moduleRootDir the root directory of the module that declares the dependency being loaded.
+     * @param transitive    whether this dependeency is transitive (aka it shouldn't be added to ``mod.dependencies``)
+     */
+    async function addDependency(packageName: string, moduleRootDir: string, transitive = false) {
+        if (visited.has(packageName)) { return; }
+        const { jsii, pkg, moduleDir } = await readJsiiForModule(moduleRootDir, packageName);
 
         // verify that dependencies specify names for all languages defined by this package
         // this is required in order for us to be able to resolve jsii symbols in native languages.
@@ -1320,15 +1327,20 @@ async function readDependencies(rootDir: string, packageDeps: any, bundledDeps: 
         }
 
         const moduleName = jsii.name;
-
-        dependencies[moduleName] = { version: jsii.version, targets: jsii.targets, dependencies: jsii.dependencies };
+        visited.add(moduleName);
+        if (!transitive) {
+            dependencies[moduleName] = { version: jsii.version, targets: jsii.targets, dependencies: jsii.dependencies };
+        }
 
         // add all types to lookup table.
         if (jsii.types) {
             for (const fqn of Object.keys(jsii.types)) { lookup.set(fqn, jsii.types[fqn]); }
         }
-        if (jsii.externals) {
-            for (const fqn of Object.keys(jsii.externals)) { lookup.set(fqn, jsii.externals![fqn]); }
+
+        if (jsii.dependencies) {
+            for (const name of Object.keys(jsii.dependencies)) {
+                await addDependency(name, moduleDir, /* transitive */ true);
+            }
         }
     }
 
@@ -1353,23 +1365,17 @@ async function readDependencies(rootDir: string, packageDeps: any, bundledDeps: 
 }
 
 async function findModuleRoot(dir: string, packageName: string): Promise<string | undefined> {
-    if (dir === '/') {
+    try {
+        return path.dirname(require.resolve(path.join(packageName, 'package.json'), { paths: [dir] }));
+    } catch (e) {
         return undefined;
     }
-
-    const moduleDir = path.join(dir, 'node_modules', packageName);
-    const exists = await fs.pathExists(moduleDir);
-    if (exists) {
-        return moduleDir;
-    }
-
-    return findModuleRoot(path.resolve(dir, '..'), packageName);
 }
 
 async function readJsiiForModule(rootDir: string, packageName: string) {
     const moduleDir = await findModuleRoot(rootDir, packageName);
     if (!moduleDir) {
-        throw new Error(`Cannot find ${packageName} under node_modules (here or up the tree)`);
+        throw new Error(`Cannot find ${packageName} using node module resolution from ${rootDir}`);
     }
 
     const pkg = await readPackageMetadata(moduleDir);
