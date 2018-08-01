@@ -2,4 +2,4 @@
 set -euo pipefail
 
 # Run unit tests
-dotnet test -c Release ./src/AWS.Jsii.JsonModel.UnitTests
+dotnet test -c Release ./src/Amazon.JSII.JsonModel.UnitTests

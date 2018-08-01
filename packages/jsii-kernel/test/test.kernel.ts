@@ -202,7 +202,7 @@ defineTest('naming allows returns the module name for different languages', asyn
             package: 'org.jsii.tests.calculator',
             maven: { groupId: 'com.amazonaws.jsii.tests', artifactId: 'calculator' }
         },
-        dotnet: { namespace: 'AWS.Jsii.Tests.Calculator' },
+        dotnet: { namespace: 'Amazon.JSII.Tests.Calculator' },
         js: { npm: 'jsii-calc' }
     });
     test.deepEqual(sandbox.naming({ assembly: '@scope/jsii-calc-lib' }).naming, {
@@ -210,7 +210,7 @@ defineTest('naming allows returns the module name for different languages', asyn
             package: 'org.jsii.tests.calculator.lib',
             maven: { groupId: 'com.amazonaws.jsii.tests', artifactId: 'calculator-lib' }
         },
-        dotnet: { namespace: 'AWS.Jsii.Tests.Calculator.Lib' },
+        dotnet: { namespace: 'Amazon.JSII.Tests.Calculator.Lib' },
         js: { npm: '@scope/jsii-calc-lib' }
     });
 });
