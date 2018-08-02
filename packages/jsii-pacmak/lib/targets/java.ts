@@ -320,11 +320,20 @@ class JavaGenerator extends Generator {
                     ...comment,
 
                     'modelVersion': '4.0.0',
-                    'name': `Java bindings for ${assm.name}`,
+                    'name': '${project.groupId}:${project.artifactId}',
+                    'description': assm.description,
+                    'url': assm.homepage,
 
                     'licenses': {
                         license: getLicense()
                     },
+
+                    'scm': {
+                        connection: `scm:${assm.repository.type}:${assm.repository.url}`,
+                        url: assm.repository.url
+                    },
+
+                    // TODO: add developer!
 
                     ...assm.targets.java.maven,
                     'version': assm.version,

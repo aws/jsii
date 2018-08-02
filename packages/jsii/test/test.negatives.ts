@@ -41,6 +41,7 @@ for (const source of fs.readdirSync(negativesDir)) {
                                  undefined /* No external types */,
                                  {
                                     schema: spec.SchemaVersion.V1_0, name: 'foo', version: 'bar', license: 'NONE', fingerprint: 'baz',
+                                    description: 'hello', homepage: 'http://foo', repository: { url: 'http://', type: 'git' },
                                     targets: {}, types: {}
                                 },
                                  true /* warnings as errors */);

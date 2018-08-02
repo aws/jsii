@@ -11,6 +11,31 @@ export interface PackageMetadata {
     name: string
 
     /**
+     * Description of the module
+     */
+    description: string;
+
+    /**
+     * The url to the project homepage.
+     */
+    homepage: string;
+
+    /**
+     * The module repository
+     */
+    repository: {
+        /**
+         * Type of repository.
+         */
+        type: string;
+
+        /**
+         * The URL of the repository.
+         */
+        url: string;
+    };
+
+    /**
      * Package version (package.version)
      */
     version: string
@@ -72,6 +97,14 @@ export default async function readPackageMetadata(moduleDir: string): Promise<Pa
         throw new Error(`${pkgFile} has "license" ${pkg.license}, which doesn't appear to be a valid SPDX identifier`);
     }
 
+    if (!pkg.repository || !pkg.repository.url || !pkg.repository.type) {
+        throw new Error(`${pkgFile} must contain a "repository" field with "url" and "type"`);
+    }
+
+    // default "description" to "name" and "homepage" to repo url
+    if (!pkg.description) { pkg.description = pkg.name; }
+    if (!pkg.homepage) { pkg.homepage = pkg.repository.url; }
+
     if (!pkg.jsii.outdir) { throw new Error(`${pkgFile} must contain a "jsii.outdir" field`); }
     if (!pkg.jsii.targets) { throw new Error(`${pkgFile} must contain a "jsii.targets" field`); }
     if (!pkg.types.endsWith('.d.ts')) {
@@ -90,6 +123,9 @@ export default async function readPackageMetadata(moduleDir: string): Promise<Pa
 
     return {
         name: pkg.name,
+        description: pkg.description,
+        homepage: pkg.homepage,
+        repository: pkg.repository,
         version: pkg.version,
         license: pkg.license,
         outdir,

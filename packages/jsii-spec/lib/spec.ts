@@ -16,6 +16,35 @@ export interface Assembly extends Documentable {
     name: string;
 
     /**
+     * Description of the assembly, maps to "description" from package.json
+     * This is required since some package managers (like Maven) require it.
+     */
+    description: string;
+
+    /**
+     * The url to the project homepage. Maps to "homepage" from package.json.
+     */
+    homepage: string;
+
+    /**
+     * The module repository, maps to "repository" from package.json
+     * This is required since some package managers (like Maven) require it.
+     */
+    repository: {
+        /**
+         * Type of repository.
+         */
+        type: string;
+
+        /**
+         * The URL of the repository.
+         */
+        url: string;
+    };
+
+    // TODO: add author!
+
+    /**
      * A fingerprint that can be used to determine if the specification has changed.
      * @minLength 1
      */
