@@ -1,6 +1,30 @@
 @scope/jsii-calc-lib
 ====================
 
+.. tabs::
+
+   .. group-tab:: Maven
+
+      ::
+
+         <?xml version="1.0"?>
+         <dependency>
+           <groupId>com.amazonaws.jsii.tests</groupId>
+           <artifactId>calculator-lib</artifactId>
+           <version>[0.5.0-beta,0.5.0)</version>
+         </dependency>
+
+
+   .. group-tab:: NPM
+
+      ::
+
+         {
+           "@scope/jsii-calc-lib": "^0.5.0-beta"
+         }
+
+
+
 Reference
 ---------
 
@@ -10,6 +34,18 @@ IFriendly (interface)
 ^^^^^^^^^^^^^^^^^^^^^
 
 .. py:class:: IFriendly
+
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.lib.IFriendly
+
+      .. code-tab:: typescript
+
+         IFriendly
+
+
 
    Applies to classes that are considered friendly. These classes can be greeted with a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
 
@@ -28,6 +64,18 @@ MyFirstStruct (interface)
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. py:class:: MyFirstStruct
+
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.lib.MyFirstStruct
+
+      .. code-tab:: typescript
+
+         MyFirstStruct
+
+
 
    This is the first struct we have created in jsii
 
@@ -60,6 +108,22 @@ Number
 
 .. py:class:: Number(value)
 
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.lib.Number
+
+      .. code-tab:: javascript
+
+         Number
+
+      .. code-tab:: typescript
+
+         Number
+
+
+
    Represents a concrete number.
 
 
@@ -88,6 +152,22 @@ Operation
 
 .. py:class:: Operation()
 
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.lib.Operation
+
+      .. code-tab:: javascript
+
+         Operation
+
+      .. code-tab:: typescript
+
+         Operation
+
+
+
    Represents an operation on values.
 
 
@@ -107,6 +187,18 @@ StructWithOnlyOptionals (interface)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. py:class:: StructWithOnlyOptionals
+
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.lib.StructWithOnlyOptionals
+
+      .. code-tab:: typescript
+
+         StructWithOnlyOptionals
+
+
 
    This is a struct with only optional properties.
 
@@ -135,6 +227,22 @@ Value
 ^^^^^
 
 .. py:class:: Value()
+
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.lib.Value
+
+      .. code-tab:: javascript
+
+         Value
+
+      .. code-tab:: typescript
+
+         Value
+
+
 
    Abstract class which represents a numeric value.
 

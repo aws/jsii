@@ -1,6 +1,30 @@
 jsii-calc
 =========
 
+.. tabs::
+
+   .. group-tab:: Maven
+
+      ::
+
+         <?xml version="1.0"?>
+         <dependency>
+           <groupId>com.amazonaws.jsii.tests</groupId>
+           <artifactId>calculator</artifactId>
+           <version>[0.5.0-beta,0.5.0)</version>
+         </dependency>
+
+
+   .. group-tab:: NPM
+
+      ::
+
+         {
+           "jsii-calc": "^0.5.0-beta"
+         }
+
+
+
 .. mdinclude:: ./_jsii-calc.README.md
 
 Reference
@@ -12,6 +36,22 @@ Add
 ^^^
 
 .. py:class:: Add(lhs, rhs)
+
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.Add
+
+      .. code-tab:: javascript
+
+         Add
+
+      .. code-tab:: typescript
+
+         Add
+
+
 
    The "+" binary operation.
 
@@ -42,6 +82,22 @@ AllTypes
 ^^^^^^^^
 
 .. py:class:: AllTypes()
+
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.AllTypes
+
+      .. code-tab:: javascript
+
+         AllTypes
+
+      .. code-tab:: typescript
+
+         AllTypes
+
+
 
    This class includes property for all types supported by jsii. The setters will validate that the value set is of the expected type and throw otherwise.
 
@@ -139,6 +195,22 @@ AllTypesEnum (enum)
 
 .. py:class:: AllTypesEnum
 
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.AllTypesEnum
+
+      .. code-tab:: javascript
+
+         AllTypesEnum
+
+      .. code-tab:: typescript
+
+         AllTypesEnum
+
+
+
    .. py:data:: MyEnumValue
 
    .. py:data:: YourEnumValue
@@ -150,6 +222,22 @@ AllowedMethodNames
 ^^^^^^^^^^^^^^^^^^
 
 .. py:class:: AllowedMethodNames()
+
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.AllowedMethodNames
+
+      .. code-tab:: javascript
+
+         AllowedMethodNames
+
+      .. code-tab:: typescript
+
+         AllowedMethodNames
+
+
 
 
    .. py:method:: getFoo(withParam) -> string
@@ -196,6 +284,22 @@ AsyncVirtualMethods
 
 .. py:class:: AsyncVirtualMethods()
 
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.AsyncVirtualMethods
+
+      .. code-tab:: javascript
+
+         AsyncVirtualMethods
+
+      .. code-tab:: typescript
+
+         AsyncVirtualMethods
+
+
+
 
    .. py:method:: callMe() -> number
 
@@ -240,6 +344,22 @@ BinaryOperation
 
 .. py:class:: BinaryOperation(lhs, rhs)
 
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.BinaryOperation
+
+      .. code-tab:: javascript
+
+         BinaryOperation
+
+      .. code-tab:: typescript
+
+         BinaryOperation
+
+
+
    Represents an operation with two operands.
 
 
@@ -279,6 +399,22 @@ Calculator
 ^^^^^^^^^^
 
 .. py:class:: Calculator([props])
+
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.Calculator
+
+      .. code-tab:: javascript
+
+         Calculator
+
+      .. code-tab:: typescript
+
+         Calculator
+
+
 
    A calculator which maintains a current value and allows adding operations.
 
@@ -382,6 +518,18 @@ CalculatorProps (interface)
 
 .. py:class:: CalculatorProps
 
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.CalculatorProps
+
+      .. code-tab:: typescript
+
+         CalculatorProps
+
+
+
    Properties for Calculator.
 
 
@@ -407,6 +555,22 @@ Base
 
 .. py:class:: Base()
 
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.DerivedClassHasNoProperties.Base
+
+      .. code-tab:: javascript
+
+         DerivedClassHasNoProperties.Base
+
+      .. code-tab:: typescript
+
+         DerivedClassHasNoProperties.Base
+
+
+
 
    .. py:attribute:: prop
 
@@ -418,6 +582,22 @@ Derived
 
 .. py:class:: Derived()
 
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.DerivedClassHasNoProperties.Derived
+
+      .. code-tab:: javascript
+
+         DerivedClassHasNoProperties.Derived
+
+      .. code-tab:: typescript
+
+         DerivedClassHasNoProperties.Derived
+
+
+
    :extends: :py:class:`~jsii-calc.DerivedClassHasNoProperties.Base`
 
 
@@ -427,6 +607,18 @@ DerivedStruct (interface)
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. py:class:: DerivedStruct
+
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.DerivedStruct
+
+      .. code-tab:: typescript
+
+         DerivedStruct
+
+
 
    A struct which derives from another struct.
 
@@ -470,6 +662,22 @@ DoubleTrouble
 
 .. py:class:: DoubleTrouble()
 
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.DoubleTrouble
+
+      .. code-tab:: javascript
+
+         DoubleTrouble
+
+      .. code-tab:: typescript
+
+         DoubleTrouble
+
+
+
    :implements: :py:class:`~jsii-calc.IFriendlyRandomGenerator`
 
    .. py:method:: next() -> number
@@ -492,6 +700,22 @@ GiveMeStructs
 ^^^^^^^^^^^^^
 
 .. py:class:: GiveMeStructs()
+
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.GiveMeStructs
+
+      .. code-tab:: javascript
+
+         GiveMeStructs
+
+      .. code-tab:: typescript
+
+         GiveMeStructs
+
+
 
 
    .. py:method:: readFirstNumber(first) -> number
@@ -534,6 +758,18 @@ IFriendlier (interface)
 
 .. py:class:: IFriendlier
 
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.IFriendlier
+
+      .. code-tab:: typescript
+
+         IFriendlier
+
+
+
    Even friendlier classes can implement this interface.
 
 
@@ -562,6 +798,18 @@ IFriendlyRandomGenerator (interface)
 
 .. py:class:: IFriendlyRandomGenerator
 
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.IFriendlyRandomGenerator
+
+      .. code-tab:: typescript
+
+         IFriendlyRandomGenerator
+
+
+
    :extends: :py:class:`~jsii-calc.IRandomNumberGenerator`
    :extends: :py:class:`@scope/jsii-calc-lib.IFriendly`
 
@@ -570,6 +818,18 @@ IInterfaceWithProperties (interface)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. py:class:: IInterfaceWithProperties
+
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.IInterfaceWithProperties
+
+      .. code-tab:: typescript
+
+         IInterfaceWithProperties
+
+
 
 
 
@@ -588,6 +848,18 @@ IInterfaceWithPropertiesExtension (interface)
 
 .. py:class:: IInterfaceWithPropertiesExtension
 
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.IInterfaceWithPropertiesExtension
+
+      .. code-tab:: typescript
+
+         IInterfaceWithPropertiesExtension
+
+
+
    :extends: :py:class:`~jsii-calc.IInterfaceWithProperties`
 
 
@@ -600,6 +872,18 @@ IRandomNumberGenerator (interface)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. py:class:: IRandomNumberGenerator
+
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.IRandomNumberGenerator
+
+      .. code-tab:: typescript
+
+         IRandomNumberGenerator
+
+
 
    Generates random numbers.
 
@@ -620,6 +904,22 @@ JSObjectLiteralForInterface
 
 .. py:class:: JSObjectLiteralForInterface()
 
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.JSObjectLiteralForInterface
+
+      .. code-tab:: javascript
+
+         JSObjectLiteralForInterface
+
+      .. code-tab:: typescript
+
+         JSObjectLiteralForInterface
+
+
+
 
    .. py:method:: giveMeFriendly() -> @scope/jsii-calc-lib.IFriendly
 
@@ -636,6 +936,22 @@ JSObjectLiteralToNative
 
 .. py:class:: JSObjectLiteralToNative()
 
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.JSObjectLiteralToNative
+
+      .. code-tab:: javascript
+
+         JSObjectLiteralToNative
+
+      .. code-tab:: typescript
+
+         JSObjectLiteralToNative
+
+
+
 
    .. py:method:: returnLiteral() -> jsii-calc.JSObjectLiteralToNativeClass
 
@@ -646,6 +962,22 @@ JSObjectLiteralToNativeClass
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. py:class:: JSObjectLiteralToNativeClass()
+
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.JSObjectLiteralToNativeClass
+
+      .. code-tab:: javascript
+
+         JSObjectLiteralToNativeClass
+
+      .. code-tab:: typescript
+
+         JSObjectLiteralToNativeClass
+
+
 
 
    .. py:attribute:: propA
@@ -662,6 +994,22 @@ JavaReservedWords
 ^^^^^^^^^^^^^^^^^
 
 .. py:class:: JavaReservedWords()
+
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.JavaReservedWords
+
+      .. code-tab:: javascript
+
+         JavaReservedWords
+
+      .. code-tab:: typescript
+
+         JavaReservedWords
+
+
 
 
    .. py:method:: abstract()
@@ -882,6 +1230,22 @@ Multiply
 
 .. py:class:: Multiply(lhs, rhs)
 
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.Multiply
+
+      .. code-tab:: javascript
+
+         Multiply
+
+      .. code-tab:: typescript
+
+         Multiply
+
+
+
    The "*" binary operation.
 
 
@@ -938,6 +1302,22 @@ Negate
 
 .. py:class:: Negate(operand)
 
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.Negate
+
+      .. code-tab:: javascript
+
+         Negate
+
+      .. code-tab:: typescript
+
+         Negate
+
+
+
    The negation operation ("-value")
 
 
@@ -991,6 +1371,22 @@ NodeStandardLibrary
 
 .. py:class:: NodeStandardLibrary()
 
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.NodeStandardLibrary
+
+      .. code-tab:: javascript
+
+         NodeStandardLibrary
+
+      .. code-tab:: typescript
+
+         NodeStandardLibrary
+
+
+
    Test fixture to verify that jsii modules can use the node standard library.
 
 
@@ -1035,6 +1431,22 @@ NumberGenerator
 
 .. py:class:: NumberGenerator(generator)
 
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.NumberGenerator
+
+      .. code-tab:: javascript
+
+         NumberGenerator
+
+      .. code-tab:: typescript
+
+         NumberGenerator
+
+
+
    This allows us to test that a reference can be stored for objects that implement interfaces.
 
 
@@ -1062,6 +1474,22 @@ ObjectRefsInCollections
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 .. py:class:: ObjectRefsInCollections()
+
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.ObjectRefsInCollections
+
+      .. code-tab:: javascript
+
+         ObjectRefsInCollections
+
+      .. code-tab:: typescript
+
+         ObjectRefsInCollections
+
+
 
    Verify that object references can be passed inside collections.
 
@@ -1092,6 +1520,22 @@ OverrideReturnsObject
 
 .. py:class:: OverrideReturnsObject()
 
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.OverrideReturnsObject
+
+      .. code-tab:: javascript
+
+         OverrideReturnsObject
+
+      .. code-tab:: typescript
+
+         OverrideReturnsObject
+
+
+
 
    .. py:method:: test(obj) -> number
 
@@ -1105,6 +1549,22 @@ Polymorphism
 
 .. py:class:: Polymorphism()
 
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.Polymorphism
+
+      .. code-tab:: javascript
+
+         Polymorphism
+
+      .. code-tab:: typescript
+
+         Polymorphism
+
+
+
 
    .. py:method:: sayHello(friendly) -> string
 
@@ -1117,6 +1577,22 @@ Power
 ^^^^^
 
 .. py:class:: Power(base, pow)
+
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.Power
+
+      .. code-tab:: javascript
+
+         Power
+
+      .. code-tab:: typescript
+
+         Power
+
+
 
    The power operation.
 
@@ -1156,6 +1632,18 @@ ReturnsNumber (interface)
 
 .. py:class:: ReturnsNumber
 
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.ReturnsNumber
+
+      .. code-tab:: typescript
+
+         ReturnsNumber
+
+
+
 
 
    .. py:attribute:: numberProp
@@ -1172,6 +1660,22 @@ RuntimeTypeChecking
 ^^^^^^^^^^^^^^^^^^^
 
 .. py:class:: RuntimeTypeChecking()
+
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.RuntimeTypeChecking
+
+      .. code-tab:: javascript
+
+         RuntimeTypeChecking
+
+      .. code-tab:: typescript
+
+         RuntimeTypeChecking
+
+
 
 
    .. py:method:: methodWithOptionalArguments(arg1, arg2, [arg3])
@@ -1191,6 +1695,22 @@ Statics
 ^^^^^^^
 
 .. py:class:: Statics(value)
+
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.Statics
+
+      .. code-tab:: javascript
+
+         Statics
+
+      .. code-tab:: typescript
+
+         Statics
+
+
 
    :param value: 
    :type value: string
@@ -1262,6 +1782,22 @@ StringEnum (enum)
 
 .. py:class:: StringEnum
 
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.StringEnum
+
+      .. code-tab:: javascript
+
+         StringEnum
+
+      .. code-tab:: typescript
+
+         StringEnum
+
+
+
    .. py:data:: A
 
    .. py:data:: B
@@ -1273,6 +1809,22 @@ Sum
 ^^^
 
 .. py:class:: Sum()
+
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.Sum
+
+      .. code-tab:: javascript
+
+         Sum
+
+      .. code-tab:: typescript
+
+         Sum
+
+
 
    An operation that sums multiple values.
 
@@ -1299,6 +1851,22 @@ SyncVirtualMethods
 ^^^^^^^^^^^^^^^^^^
 
 .. py:class:: SyncVirtualMethods()
+
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.SyncVirtualMethods
+
+      .. code-tab:: javascript
+
+         SyncVirtualMethods
+
+      .. code-tab:: typescript
+
+         SyncVirtualMethods
+
+
 
 
    .. py:method:: callerIsMethod() -> number
@@ -1391,6 +1959,22 @@ Thrower
 
 .. py:class:: Thrower()
 
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.Thrower
+
+      .. code-tab:: javascript
+
+         Thrower
+
+      .. code-tab:: typescript
+
+         Thrower
+
+
+
 
    .. py:method:: throwError()
 
@@ -1400,6 +1984,22 @@ UnaryOperation
 ^^^^^^^^^^^^^^
 
 .. py:class:: UnaryOperation(operand)
+
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.UnaryOperation
+
+      .. code-tab:: javascript
+
+         UnaryOperation
+
+      .. code-tab:: typescript
+
+         UnaryOperation
+
+
 
    An operation on a single operand.
 
@@ -1419,6 +2019,18 @@ UnionProperties (interface)
 
 .. py:class:: UnionProperties
 
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.UnionProperties
+
+      .. code-tab:: typescript
+
+         UnionProperties
+
+
+
 
 
    .. py:attribute:: foo
@@ -1436,6 +2048,22 @@ UseBundledDependency
 
 .. py:class:: UseBundledDependency()
 
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.UseBundledDependency
+
+      .. code-tab:: javascript
+
+         UseBundledDependency
+
+      .. code-tab:: typescript
+
+         UseBundledDependency
+
+
+
 
    .. py:method:: value() -> any
 
@@ -1446,6 +2074,22 @@ UsesInterfaceWithProperties
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. py:class:: UsesInterfaceWithProperties(obj)
+
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.UsesInterfaceWithProperties
+
+      .. code-tab:: javascript
+
+         UsesInterfaceWithProperties
+
+      .. code-tab:: typescript
+
+         UsesInterfaceWithProperties
+
+
 
    :param obj: 
    :type obj: :py:class:`~jsii-calc.IInterfaceWithProperties`
@@ -1479,6 +2123,22 @@ VariadicMethod
 
 .. py:class:: VariadicMethod(*prefix)
 
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.VariadicMethod
+
+      .. code-tab:: javascript
+
+         VariadicMethod
+
+      .. code-tab:: typescript
+
+         VariadicMethod
+
+
+
    :param \*prefix: a prefix that will be use for all values returned by ``#asArray``.
    :type \*prefix: number
 
@@ -1495,6 +2155,22 @@ VirtualMethodPlayground
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 .. py:class:: VirtualMethodPlayground()
+
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.VirtualMethodPlayground
+
+      .. code-tab:: javascript
+
+         VirtualMethodPlayground
+
+      .. code-tab:: typescript
+
+         VirtualMethodPlayground
+
+
 
 
    .. py:method:: serialSumAsync(count) -> number
@@ -1541,6 +2217,22 @@ CompositeOperation
 ~~~~~~~~~~~~~~~~~~
 
 .. py:class:: CompositeOperation()
+
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.composition.CompositeOperation
+
+      .. code-tab:: javascript
+
+         composition.CompositeOperation
+
+      .. code-tab:: typescript
+
+         composition.CompositeOperation
+
+
 
    Abstract operation composed from an expression of other operations.
 
@@ -1600,6 +2292,25 @@ CompositionStringStyle (enum)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. py:class:: CompositionStringStyle
+
+   .. tabs::
+
+      .. code-tab:: java
+
+         org.jsii.tests.calculator.composition.CompositionStringStyle
+
+      .. code-tab:: javascript
+
+         composition.CompositionStringStyle
+
+      .. code-tab:: typescript
+
+         composition.CompositionStringStyle
+
+
+
+   Style of .toString() output for CompositeOperation.
+
 
    .. py:data:: Normal
 

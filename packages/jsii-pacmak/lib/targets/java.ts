@@ -2,6 +2,7 @@ import fs = require('fs-extra');
 import jsiiJavaRuntime = require('jsii-java-runtime');
 import spec = require('jsii-spec');
 import path = require('path');
+import semver = require('semver');
 import xmlbuilder = require('xmlbuilder');
 import { Generator } from '../generator';
 import logging = require('../logging');
@@ -12,7 +13,30 @@ import { VERSION } from '../version';
 // tslint:disable-next-line:no-var-requires
 const spdxLicenseList = require('spdx-license-list');
 
-export default class JavaPackageMaker extends Target {
+export default class Java extends Target {
+    public static toPackageCoordinates(assm: spec.Assembly) {
+        const parsedVersion = semver.parse(assm.version);
+        const nextVersion = parsedVersion
+            && (parsedVersion.major !== 0 ? parsedVersion.inc('major')
+                                          : parsedVersion.inc('minor'));
+        return {
+            repository: 'Maven',
+            coordinates: xmlbuilder.create({
+                dependency: {
+                    groupId: assm.targets!.java!.maven.groupId,
+                    artifactId: assm.targets!.java!.maven.artifactId,
+                    version: nextVersion ? `[${assm.version},${nextVersion})`
+                                         : assm.version
+                }
+            }).end({ pretty: true })
+        };
+    }
+
+    public static toNativeNames(type: spec.Type, options: any) {
+        const [, ...name] = type.fqn.split('.');
+        return { java: [options.package, ...name].join('.') };
+    }
+
     protected readonly generator = new JavaGenerator();
 
     constructor(options: TargetOptions) {

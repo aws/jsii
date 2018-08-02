@@ -2,7 +2,24 @@ import * as spec from 'jsii-spec';
 import { Generator } from '../generator';
 import { Target, TargetOptions } from '../target';
 
-export default class Npm extends Target {
+export default class Js extends Target {
+    public static toPackageCoordinates(assm: spec.Assembly) {
+        return {
+            repository: 'NPM',
+            coordinates: JSON.stringify({ [assm.name]: `^${assm.version}` }, null, 2)
+        };
+    }
+
+    public static toNativeNames(type: spec.Type) {
+        const [, ...name] = type.fqn.split('.');
+        const resolvedName = name.join('.');
+        const result: { typescript: string, javascript?: string } = { typescript: resolvedName };
+        if (!spec.isInterfaceType(type)) {
+            result.javascript = resolvedName;
+        }
+        return result;
+    }
+
     protected readonly generator = new PackOnly();
 
     constructor(options: TargetOptions) {

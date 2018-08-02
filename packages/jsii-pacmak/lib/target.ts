@@ -1,4 +1,5 @@
 import fs = require('fs-extra');
+import spec = require('jsii-spec');
 import path = require('path');
 
 import { IGenerator } from './generator';
@@ -106,6 +107,21 @@ export abstract class Target {
 }
 
 export interface TargetConstructor {
+    /**
+     * Provides the coordinates of an assembly in the usual package repository for the target.
+     * @param assm the assembly for which coodinates are requested.
+     * @return the name of the repository, and the coordinates within it.
+     */
+    toPackageCoordinates?: (assm: spec.Assembly) => { repository: string, coordinates: string };
+
+    /**
+     * Provides the native name(s) of a Type. Particularly useful when generating documentation.
+     * @param type    the JSII type for which a native name is requested.
+     * @param options the target-specific options provided.
+     * @return the native name of the target for each supported language.
+     */
+    toNativeNames?: (type: spec.Type, options: any) => { [name: string]: string };
+
     new(options: TargetOptions): Target;
 }
 
