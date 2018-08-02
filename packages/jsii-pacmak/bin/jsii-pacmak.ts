@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-import 'source-map-support/register';
-
 import fs = require('fs-extra');
 import os = require('os');
 import path = require('path');

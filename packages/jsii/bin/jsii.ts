@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-import 'source-map-support/register';
 import * as yargs from 'yargs';
 import { bundle } from '../lib/bundle';
 import { VERSION } from '../lib/version';
