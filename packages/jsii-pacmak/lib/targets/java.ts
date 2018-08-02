@@ -29,7 +29,11 @@ export default class JavaPackageMaker extends Target {
         }
 
         const userXml = await this.generateMavenSettingsForLocalDeps(sourceDir, outDir);
-        await shell('mvn', [...mvnArguments, 'package', `-D=publish.url=${url}`, `--settings=${userXml}`], { cwd: sourceDir });
+        await shell(
+            'mvn',
+            [...mvnArguments, 'deploy', `-D=altDeploymentRepository=local::default::${url}`, `--settings=${userXml}`],
+            { cwd: sourceDir }
+        );
     }
 
     /**
@@ -363,64 +367,6 @@ class JavaGenerator extends Generator {
                                 }
                             }]
                         }
-                    },
-
-                    'profiles': {
-                        profile: [{
-                            id: 'sign',
-                            activation: {
-                                '#comment': 'See: https://maven.apache.org/plugins/maven-gpg-plugin/sign-mojo.html',
-                                'property': { name: 'gpg.keyname' }
-                            },
-                            build: {
-                                plugins: {
-                                    plugin: {
-                                        groupId: 'org.apache.maven.plugins',
-                                        artifactId: 'maven-gpg-plugin',
-                                        version: '1.5',
-                                        executions: {
-                                            execution: {
-                                                id: 'sign-artifacts',
-                                                phase: 'package',
-                                                goals: { goal: 'sign' }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }, {
-                            id: 'deploy',
-                            activation: {
-                                property: { name: 'publish.url' }
-                            },
-                            build: {
-                                plugins: {
-                                    plugin: {
-                                        groupId: 'org.apache.maven.plugins',
-                                        artifactId: 'maven-deploy-plugin',
-                                        version: '2.8.2',
-                                        executions: {
-                                            execution: {
-                                                id: 'deploy-file',
-                                                phase: 'package',
-                                                goals: { goal: 'deploy-file' },
-                                                configuration: {
-                                                    file:       '${project.build.directory}/${project.artifactId}-${project.version}.jar',
-                                                    sources:    '${project.build.directory}/${project.artifactId}-${project.version}-sources.jar',
-                                                    javadocs:   '${project.build.directory}/${project.artifactId}-${project.version}-javadocs.jar',
-                                                    url:        '${publish.url}',
-                                                    groupId:    '${project.groupId}',
-                                                    artifactId: '${project.artifactId}',
-                                                    version:    '${project.version}',
-                                                    pomFile:    '${project.basedir}/pom.xml',
-                                                    packaging:  'jar'
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }]
                     }
                 }
             }, { encoding: 'UTF-8' }).end({ pretty: true })
