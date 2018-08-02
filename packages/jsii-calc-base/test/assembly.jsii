@@ -1,5 +1,5 @@
 {
-  "fingerprint": "AbgsFSHcGWq8Xsv24aPMtxmH++KhnSPc+0aKr4L+xZ0=",
+  "fingerprint": "AZjH7xHmfhvOLw4jhYR+bvWgz7kbytxWnS5nznKLXQE=",
   "dependencies": {
     "@scope/jsii-calc-base-of-base": {
       "targets": {
@@ -9,9 +9,9 @@
         "java": {
           "maven": {
             "artifactId": "calculator-base-of-base",
-            "groupId": "com.amazonaws.jsii.tests"
+            "groupId": "software.amazon.jsii.tests"
           },
-          "package": "org.jsii.tests.calculator.baseofbase"
+          "package": "software.amazon.jsii.tests.calculator.baseofbase"
         },
         "js": {
           "npm": "@scope/jsii-calc-base-of-base"
@@ -30,9 +30,9 @@
     "java": {
       "maven": {
         "artifactId": "calculator-base",
-        "groupId": "com.amazonaws.jsii.tests"
+        "groupId": "software.amazon.jsii.tests"
       },
-      "package": "org.jsii.tests.calculator.base"
+      "package": "software.amazon.jsii.tests.calculator.base"
     },
     "js": {
       "npm": "@scope/jsii-calc-base"

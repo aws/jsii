@@ -1,7 +1,7 @@
 import path = require('path');
 
 export const maven = {
-    groupId: 'com.amazonaws.jsii',
+    groupId: 'software.amazon.jsii',
     artifactId: 'jsii-runtime',
     version: require('../package.json').version.replace(/\+.+$/, '')
 };
