@@ -75,9 +75,13 @@ import { VERSION } from '../lib/version';
 
     const rootDir = path.resolve(process.cwd(), argv._[0] || '.');
 
+    const visited = new Set<string>();
     await buildPackage(rootDir);
 
     async function buildPackage(packageDir: string, isRoot = true) {
+        if (visited.has(packageDir)) {
+            return; // already built
+        }
 
         // read package.json and extract the "jsii" configuration from it.
         const pkg = await fs.readJson(path.join(packageDir, 'package.json'));
@@ -138,19 +142,19 @@ import { VERSION } from '../lib/version';
 
         const codeDir = argv.codeOnly ? targetOutputDir : await fs.mkdtemp(path.join(os.tmpdir(), 'jsii-pacmak-code'));
 
-        logging.debug(`Generating ${targetName} code into ${codeDir}...`);
+        logging.debug(`Generating ${targetName} code into ${codeDir}`);
 
         await target.generateCode(codeDir, tarball);
 
         if (argv.codeOnly) { return; }
 
-        logging.debug(`Building into ${targetOutputDir}...`);
+        logging.debug(`Building into ${targetOutputDir}`);
         await target.build(codeDir, targetOutputDir);
 
         if (argv.clean) {
             await fs.remove(codeDir);
         } else {
-            logging.info('Generated code retained at:', codeDir);
+            logging.info(`Generated code for ${targetName} retained at: ${codeDir}`);
         }
     }
 

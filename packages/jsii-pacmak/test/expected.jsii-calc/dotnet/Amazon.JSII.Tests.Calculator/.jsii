@@ -1,10 +1,30 @@
 {
-  "fingerprint": "X441hyFnA1ayEsK4vQkzmEabpSsXH/ziRhj77A1swGE=",
+  "fingerprint": "g/h92qxCA5aj5AolCf2n+quf44BIvYBTRY60Re4eD3M=",
   "bundled": {
     "jsii-calc-bundled": "^0.5.0-beta"
   },
   "dependencies": {
     "@scope/jsii-calc-base": {
+      "dependencies": {
+        "@scope/jsii-calc-base-of-base": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.JSII.Tests.Calculator.BaseOfBase"
+            },
+            "java": {
+              "maven": {
+                "artifactId": "calculator-base-of-base",
+                "groupId": "com.amazonaws.jsii.tests"
+              },
+              "package": "org.jsii.tests.calculator.baseofbase"
+            },
+            "js": {
+              "npm": "@scope/jsii-calc-base-of-base"
+            }
+          },
+          "version": "0.5.0-beta"
+        }
+      },
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.Calculator.Base"
@@ -25,6 +45,26 @@
     "@scope/jsii-calc-lib": {
       "dependencies": {
         "@scope/jsii-calc-base": {
+          "dependencies": {
+            "@scope/jsii-calc-base-of-base": {
+              "targets": {
+                "dotnet": {
+                  "namespace": "Amazon.JSII.Tests.Calculator.BaseOfBase"
+                },
+                "java": {
+                  "maven": {
+                    "artifactId": "calculator-base-of-base",
+                    "groupId": "com.amazonaws.jsii.tests"
+                  },
+                  "package": "org.jsii.tests.calculator.baseofbase"
+                },
+                "js": {
+                  "npm": "@scope/jsii-calc-base-of-base"
+                }
+              },
+              "version": "0.5.0-beta"
+            }
+          },
           "targets": {
             "dotnet": {
               "namespace": "Amazon.JSII.Tests.Calculator.Base"
@@ -1111,6 +1151,27 @@
       ],
       "name": "IRandomNumberGenerator",
       "namespace": "jsii-calc"
+    },
+    "jsii-calc.ImplictBaseOfBase": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "fqn": "jsii-calc.ImplictBaseOfBase",
+      "interfaces": [
+        {
+          "fqn": "@scope/jsii-calc-base.BaseProps"
+        }
+      ],
+      "kind": "interface",
+      "name": "ImplictBaseOfBase",
+      "namespace": "jsii-calc",
+      "properties": [
+        {
+          "name": "goo",
+          "type": {
+            "primitive": "date"
+          }
+        }
+      ]
     },
     "jsii-calc.JSObjectLiteralForInterface": {
       "assembly": "jsii-calc",
@@ -2316,6 +2377,9 @@
     },
     "jsii-calc.UseCalcBase": {
       "assembly": "jsii-calc",
+      "docs": {
+        "comment": "Depend on a type from jsii-calc-base as a test for awslabs/jsii#128"
+      },
       "fqn": "jsii-calc.UseCalcBase",
       "initializer": {
         "initializer": true

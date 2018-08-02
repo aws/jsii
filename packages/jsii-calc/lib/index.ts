@@ -6,7 +6,7 @@ import * as os from 'os';
 import * as crypto from 'crypto';
 import { promisify } from 'util';
 const bundled = require('jsii-calc-bundled');
-import { Base } from '@scope/jsii-calc-base';
+import base = require('@scope/jsii-calc-base');
 const readFile = promisify(fs.readFile);
 
 /**
@@ -1092,9 +1092,13 @@ export class NodeStandardLibrary {
  * Depend on a type from jsii-calc-base as a test for awslabs/jsii#128
  */
 export class UseCalcBase {
-    public hello(): Base {
+    public hello(): base.Base {
         return {
             typeName: () => "hello"
         }
     }
+}
+
+export interface ImplictBaseOfBase extends base.BaseProps {
+    goo: Date;
 }

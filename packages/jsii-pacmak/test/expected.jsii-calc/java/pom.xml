@@ -29,6 +29,11 @@
       <version>0.5.0-beta</version>
     </dependency>
     <dependency>
+      <artifactId>calculator-base-of-base</artifactId>
+      <groupId>com.amazonaws.jsii.tests</groupId>
+      <version>0.5.0-beta</version>
+    </dependency>
+    <dependency>
       <groupId>com.amazonaws.jsii</groupId>
       <artifactId>jsii-runtime</artifactId>
       <version>0.5.0-beta</version>

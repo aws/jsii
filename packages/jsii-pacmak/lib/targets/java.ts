@@ -110,13 +110,24 @@ const JSR305_NULLABLE = '@javax.annotation.Nullable';
 class JavaGenerator extends Generator {
     private moduleClass: string;
 
+    /**
+     * A map of all the modules ever referenced during code generation. These include
+     * direct dependencies but can potentially also include transitive dependencies, when,
+     * for example, we need to refer to their types when flatting the class hierarchy for
+     * interface proxies.
+     */
+    private readonly referencedModules: { [name: string]: spec.PackageVersion } = { };
+
     constructor() {
         super({ generateOverloadsForMethodWithOptionals: true });
     }
 
-    protected onBeginAssembly(assm: spec.Assembly, fingerprint: boolean) {
-        this.emitMavenPom(assm, fingerprint);
+    protected onBeginAssembly(assm: spec.Assembly, _fingerprint: boolean) {
         this.moduleClass = this.emitModuleFile(assm);
+    }
+
+    protected onEndAssembly(assm: spec.Assembly, fingerprint: boolean) {
+        this.emitMavenPom(assm, fingerprint);
     }
 
     protected getAssemblyOutputDir(mod: spec.Assembly) {
@@ -283,6 +294,8 @@ class JavaGenerator extends Generator {
     }
 
     private emitMavenPom(assm: spec.Assembly, fingerprint: boolean) {
+        const self = this;
+
         if (!(assm.targets && assm.targets.java)) {
             throw new Error(`Assembly ${assm.name} does not declare a java target`);
         }
@@ -375,8 +388,9 @@ class JavaGenerator extends Generator {
 
         function mavenDependencies() {
             const dependencies = new Array<MavenDependency>();
-            for (const depName of Object.keys(assm.dependencies || {})) {
-                const dep = assm.dependencies![depName];
+            const allDeps = { ...(assm.dependencies || {}), ...self.referencedModules };
+            for (const depName of Object.keys(allDeps)) {
+                const dep = allDeps[depName];
                 if (!(dep.targets && dep.targets.java)) {
                     throw new Error(`Assembly ${assm.name} depends on ${depName}, which does not declare a java target`);
                 }
@@ -1041,17 +1055,19 @@ class JavaGenerator extends Generator {
      */
     private toNativeFqn(fqn: string): string {
         const [mod, ...name] = fqn.split('.');
-        if (mod === this.assembly.name) {
-            if (!(this.assembly.targets && this.assembly.targets.java)) {
-                throw new Error(`This module doesn't have a java configuration: unable to determine a package name.`);
-            }
-            return [this.assembly.targets.java.package, ...name].join('.');
+        const depMod = this.findModule(mod);
+        const javaPackage = depMod.targets && depMod.targets.java && depMod.targets.java.package;
+        if (!javaPackage) { throw new Error(`The module ${mod} does not have a java.package setting`); }
+
+        // since this type was needed for some reason when we generate this code, we want to make
+        // sure it's module is included as a direct dependency, even if it's not defined as a direct
+        // dependency of this assembly in jsii. this can happen, for example, when we generate
+        // interface proxies and builders which "flatten" the hirarchy.
+        if (mod !== this.assembly.name) {
+            this.referencedModules[mod] = depMod;
         }
-        const depMod = this.assembly.dependencies && this.assembly.dependencies[mod];
-        if (!depMod) { throw new Error(`No dependency found for module ${mod}`); }
-        const pkg = depMod.targets && depMod.targets.java && depMod.targets.java.package;
-        if (!pkg) { throw new Error(`The module ${mod} does not have a java.package setting`); }
-        return [pkg, ...name].join('.');
+
+        return [javaPackage, ...name].join('.');
     }
 }
 

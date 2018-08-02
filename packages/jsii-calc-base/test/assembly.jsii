@@ -1,5 +1,25 @@
 {
-  "fingerprint": "sSxXNJ/dGt/v6Tm7/1IjgRx/oPq0wVG6WWSrZaPglLk=",
+  "fingerprint": "AbgsFSHcGWq8Xsv24aPMtxmH++KhnSPc+0aKr4L+xZ0=",
+  "dependencies": {
+    "@scope/jsii-calc-base-of-base": {
+      "targets": {
+        "dotnet": {
+          "namespace": "Amazon.JSII.Tests.Calculator.BaseOfBase"
+        },
+        "java": {
+          "maven": {
+            "artifactId": "calculator-base-of-base",
+            "groupId": "com.amazonaws.jsii.tests"
+          },
+          "package": "org.jsii.tests.calculator.baseofbase"
+        },
+        "js": {
+          "npm": "@scope/jsii-calc-base-of-base"
+        }
+      },
+      "version": "0.5.0-beta"
+    }
+  },
   "license": "Apache-2.0",
   "name": "@scope/jsii-calc-base",
   "schema": "jsii/1.0",
@@ -43,6 +63,27 @@
       ],
       "name": "Base",
       "namespace": "@scope/jsii-calc-base"
+    },
+    "@scope/jsii-calc-base.BaseProps": {
+      "assembly": "@scope/jsii-calc-base",
+      "datatype": true,
+      "fqn": "@scope/jsii-calc-base.BaseProps",
+      "interfaces": [
+        {
+          "fqn": "@scope/jsii-calc-base-of-base.VeryBaseProps"
+        }
+      ],
+      "kind": "interface",
+      "name": "BaseProps",
+      "namespace": "@scope/jsii-calc-base",
+      "properties": [
+        {
+          "name": "bar",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
     }
   },
   "version": "0.5.0-beta"

@@ -13,5 +13,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Amazon.JSII.Tests.Calculator.Base\Amazon.JSII.Tests.Calculator.Base.csproj" />
+    <ProjectReference Include="..\Amazon.JSII.Tests.Calculator.BaseOfBase\Amazon.JSII.Tests.Calculator.BaseOfBase.csproj" />
   </ItemGroup>
 </Project>
