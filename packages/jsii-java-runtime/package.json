@@ -16,11 +16,13 @@
   },
   "author": {
     "name": "Amazon Web Services",
-    "url": "https://aws.amazon.com"
+    "url": "https://aws.amazon.com",
+    "email": "aws-jsii@amazon.com"
   },
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "git://github.com/awslabs/jsii"
-  }
+  },
+  "homepage": "https://github.com/awslabs/jsii"
 }
