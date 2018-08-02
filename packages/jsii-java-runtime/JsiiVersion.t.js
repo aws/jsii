@@ -1,6 +1,6 @@
 const path = require('path');
 const version = require('jsii-runtime/package.json').version.replace(/\+.+$/, ''); // omit "+build" postfix;
-process.stdout.write(`package org.jsii;
+process.stdout.write(`package software.amazon.jsii;
 
 @javax.annotation.Generated(value = "${path.basename(__filename)}", date = "${new Date().toISOString()}")
 final class JsiiVersion {

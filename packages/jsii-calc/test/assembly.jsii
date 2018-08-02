@@ -1,5 +1,5 @@
 {
-  "fingerprint": "g/h92qxCA5aj5AolCf2n+quf44BIvYBTRY60Re4eD3M=",
+  "fingerprint": "nsCbQd2MWExG9K41wLxcfqN3N/TeNzveuNFXUO5sB6M=",
   "bundled": {
     "jsii-calc-bundled": "^0.5.0-beta"
   },
@@ -14,9 +14,9 @@
             "java": {
               "maven": {
                 "artifactId": "calculator-base-of-base",
-                "groupId": "com.amazonaws.jsii.tests"
+                "groupId": "software.amazon.jsii.tests"
               },
-              "package": "org.jsii.tests.calculator.baseofbase"
+              "package": "software.amazon.jsii.tests.calculator.baseofbase"
             },
             "js": {
               "npm": "@scope/jsii-calc-base-of-base"
@@ -32,9 +32,9 @@
         "java": {
           "maven": {
             "artifactId": "calculator-base",
-            "groupId": "com.amazonaws.jsii.tests"
+            "groupId": "software.amazon.jsii.tests"
           },
-          "package": "org.jsii.tests.calculator.base"
+          "package": "software.amazon.jsii.tests.calculator.base"
         },
         "js": {
           "npm": "@scope/jsii-calc-base"
@@ -54,9 +54,9 @@
                 "java": {
                   "maven": {
                     "artifactId": "calculator-base-of-base",
-                    "groupId": "com.amazonaws.jsii.tests"
+                    "groupId": "software.amazon.jsii.tests"
                   },
-                  "package": "org.jsii.tests.calculator.baseofbase"
+                  "package": "software.amazon.jsii.tests.calculator.baseofbase"
                 },
                 "js": {
                   "npm": "@scope/jsii-calc-base-of-base"
@@ -72,9 +72,9 @@
             "java": {
               "maven": {
                 "artifactId": "calculator-base",
-                "groupId": "com.amazonaws.jsii.tests"
+                "groupId": "software.amazon.jsii.tests"
               },
-              "package": "org.jsii.tests.calculator.base"
+              "package": "software.amazon.jsii.tests.calculator.base"
             },
             "js": {
               "npm": "@scope/jsii-calc-base"
@@ -90,9 +90,9 @@
         "java": {
           "maven": {
             "artifactId": "calculator-lib",
-            "groupId": "com.amazonaws.jsii.tests"
+            "groupId": "software.amazon.jsii.tests"
           },
-          "package": "org.jsii.tests.calculator.lib"
+          "package": "software.amazon.jsii.tests.calculator.lib"
         },
         "js": {
           "npm": "@scope/jsii-calc-lib"
@@ -114,9 +114,9 @@
     "java": {
       "maven": {
         "artifactId": "calculator",
-        "groupId": "com.amazonaws.jsii.tests"
+        "groupId": "software.amazon.jsii.tests"
       },
-      "package": "org.jsii.tests.calculator"
+      "package": "software.amazon.jsii.tests.calculator"
     },
     "js": {
       "npm": "jsii-calc"

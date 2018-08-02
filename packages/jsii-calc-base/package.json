@@ -8,9 +8,9 @@
     "outdir": "dist",
     "targets": {
       "java": {
-        "package": "org.jsii.tests.calculator.base",
+        "package": "software.amazon.jsii.tests.calculator.base",
         "maven": {
-          "groupId": "com.amazonaws.jsii.tests",
+          "groupId": "software.amazon.jsii.tests",
           "artifactId": "calculator-base"
         }
       },
