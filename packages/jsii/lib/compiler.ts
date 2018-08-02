@@ -1315,7 +1315,12 @@ async function readDependencies(rootDir: string, packageDeps: any, bundledDeps: 
      * @param transitive    whether this dependeency is transitive (aka it shouldn't be added to ``mod.dependencies``)
      */
     async function addDependency(packageName: string, moduleRootDir: string, transitive = false) {
-        if (visited.has(packageName)) { return; }
+        // no need to re-visit transitive dependencies (also handles cycles)
+        // if this is a direct dependency, we must add it to the assembly
+        if (visited.has(packageName) && transitive) {
+            return;
+        }
+
         const { jsii, pkg, moduleDir } = await readJsiiForModule(moduleRootDir, packageName);
 
         // verify that dependencies specify names for all languages defined by this package
@@ -1330,12 +1335,18 @@ async function readDependencies(rootDir: string, packageDeps: any, bundledDeps: 
         const moduleName = jsii.name;
         visited.add(moduleName);
         if (!transitive) {
-            dependencies[moduleName] = { version: jsii.version, targets: jsii.targets, dependencies: jsii.dependencies };
+            dependencies[moduleName] = {
+                version: jsii.version,
+                targets: jsii.targets,
+                dependencies: jsii.dependencies
+            };
         }
 
         // add all types to lookup table.
         if (jsii.types) {
-            for (const fqn of Object.keys(jsii.types)) { lookup.set(fqn, jsii.types[fqn]); }
+            for (const fqn of Object.keys(jsii.types)) {
+                lookup.set(fqn, jsii.types[fqn]);
+            }
         }
 
         if (jsii.dependencies) {

@@ -11,7 +11,7 @@
     </license>
   </licenses>
   <artifactId>calculator-base</artifactId>
-  <groupId>com.amazonaws.jsii.tests</groupId>
+  <groupId>software.amazon.jsii.tests</groupId>
   <version>0.5.0-beta</version>
   <packaging>jar</packaging>
   <properties>
@@ -19,7 +19,12 @@
   </properties>
   <dependencies>
     <dependency>
-      <groupId>com.amazonaws.jsii</groupId>
+      <artifactId>calculator-base-of-base</artifactId>
+      <groupId>software.amazon.jsii.tests</groupId>
+      <version>0.5.0-beta</version>
+    </dependency>
+    <dependency>
+      <groupId>software.amazon.jsii</groupId>
       <artifactId>jsii-runtime</artifactId>
       <version>0.5.0-beta</version>
     </dependency>

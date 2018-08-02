@@ -110,13 +110,24 @@ const JSR305_NULLABLE = '@javax.annotation.Nullable';
 class JavaGenerator extends Generator {
     private moduleClass: string;
 
+    /**
+     * A map of all the modules ever referenced during code generation. These include
+     * direct dependencies but can potentially also include transitive dependencies, when,
+     * for example, we need to refer to their types when flatting the class hierarchy for
+     * interface proxies.
+     */
+    private readonly referencedModules: { [name: string]: spec.PackageVersion } = { };
+
     constructor() {
         super({ generateOverloadsForMethodWithOptionals: true });
     }
 
-    protected onBeginAssembly(assm: spec.Assembly, fingerprint: boolean) {
-        this.emitMavenPom(assm, fingerprint);
+    protected onBeginAssembly(assm: spec.Assembly, _fingerprint: boolean) {
         this.moduleClass = this.emitModuleFile(assm);
+    }
+
+    protected onEndAssembly(assm: spec.Assembly, fingerprint: boolean) {
+        this.emitMavenPom(assm, fingerprint);
     }
 
     protected getAssemblyOutputDir(mod: spec.Assembly) {
@@ -139,7 +150,7 @@ class JavaGenerator extends Generator {
         const inner = cls.parenttype ? ' static' : '';
         const absPrefix = abstract ? ' abstract' : '';
 
-        this.code.line(`@org.jsii.Jsii(module = ${this.moduleClass}.class, fqn = "${cls.fqn}")`);
+        this.code.line(`@software.amazon.jsii.Jsii(module = ${this.moduleClass}.class, fqn = "${cls.fqn}")`);
         this.code.openBlock(`public${inner}${absPrefix} class ${cls.name}${extendsExpression}${implementsExpr}`);
 
         this.emitJsiiInitializers(cls.name);
@@ -153,8 +164,8 @@ class JavaGenerator extends Generator {
     protected onInitializer(cls: spec.ClassType, method: spec.Method) {
         this.addJavaDocs(method);
         this.code.openBlock(`${this.renderAccessLevel(method)} ${cls.name}(${this.renderMethodParameters(method)})`);
-        this.code.line('super(org.jsii.JsiiObject.InitializationMode.Jsii);');
-        this.code.line(`org.jsii.JsiiEngine.getInstance().createNewObject(this${this.renderMethodCallArguments(method)});`);
+        this.code.line('super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);');
+        this.code.line(`software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this${this.renderMethodCallArguments(method)});`);
         this.code.closeBlock();
     }
 
@@ -208,7 +219,7 @@ class JavaGenerator extends Generator {
     protected onBeginEnum(enm: spec.EnumType) {
         this.openFileIfNeeded(enm);
         this.addJavaDocs(enm);
-        this.code.line(`@org.jsii.Jsii(module = ${this.moduleClass}.class, fqn = "${enm.fqn}")`);
+        this.code.line(`@software.amazon.jsii.Jsii(module = ${this.moduleClass}.class, fqn = "${enm.fqn}")`);
         this.code.openBlock(`public enum ${enm.name}`);
     }
     protected onEndEnum(enm: spec.EnumType) {
@@ -237,7 +248,7 @@ class JavaGenerator extends Generator {
 
         // all interfaces always extend JsiiInterface so we can identify that it is a jsii interface.
         const interfaces = ifc.interfaces || [];
-        const bases = [ 'org.jsii.JsiiSerializable', ...interfaces.map(x => this.toNativeFqn(x.fqn!)) ].join(', ');
+        const bases = [ 'software.amazon.jsii.JsiiSerializable', ...interfaces.map(x => this.toNativeFqn(x.fqn!)) ].join(', ');
 
         const inner = ifc.parenttype ? ' static' : '';
         this.code.openBlock(`public${inner} interface ${ifc.name} extends ${bases}`);
@@ -283,6 +294,8 @@ class JavaGenerator extends Generator {
     }
 
     private emitMavenPom(assm: spec.Assembly, fingerprint: boolean) {
+        const self = this;
+
         if (!(assm.targets && assm.targets.java)) {
             throw new Error(`Assembly ${assm.name} does not declare a java target`);
         }
@@ -375,8 +388,9 @@ class JavaGenerator extends Generator {
 
         function mavenDependencies() {
             const dependencies = new Array<MavenDependency>();
-            for (const depName of Object.keys(assm.dependencies || {})) {
-                const dep = assm.dependencies![depName];
+            const allDeps = { ...(assm.dependencies || {}), ...self.referencedModules };
+            for (const depName of Object.keys(allDeps)) {
+                const dep = allDeps[depName];
                 if (!(dep.targets && dep.targets.java)) {
                     throw new Error(`Assembly ${assm.name} depends on ${depName}, which does not declare a java target`);
                 }
@@ -425,7 +439,7 @@ class JavaGenerator extends Generator {
         for (const prop of consts) {
             const constName = this.renderConstName(prop);
             const propClass = this.toJavaType(prop.type, true);
-            this.code.line(`${constName} = org.jsii.JsiiObject.jsiiStaticGet(${javaClass}.class, "${prop.name}", ${propClass}.class);`);
+            this.code.line(`${constName} = software.amazon.jsii.JsiiObject.jsiiStaticGet(${javaClass}.class, "${prop.name}", ${propClass}.class);`);
         }
 
         this.code.closeBlock();
@@ -461,7 +475,7 @@ class JavaGenerator extends Generator {
 
             let statement = 'return ';
             if (prop.static) {
-                statement += `org.jsii.JsiiObject.jsiiStaticGet(${javaClass}.class, `;
+                statement += `software.amazon.jsii.JsiiObject.jsiiStaticGet(${javaClass}.class, `;
             } else {
                 statement += `this.jsiiGet(`;
             }
@@ -480,7 +494,7 @@ class JavaGenerator extends Generator {
                 let statement = '';
 
                 if (prop.static) {
-                    statement += `org.jsii.JsiiObject.jsiiStaticSet(${javaClass}.class, `;
+                    statement += `software.amazon.jsii.JsiiObject.jsiiStaticSet(${javaClass}.class, `;
                 } else {
                     statement += 'this.jsiiSet(';
                 }
@@ -523,7 +537,7 @@ class JavaGenerator extends Generator {
         this.code.line('/**');
         this.code.line(' * A proxy class which for javascript object literal which adhere to this interface.');
         this.code.line(' */');
-        this.code.openBlock(`class ${name} extends org.jsii.JsiiObject implements ${this.toNativeFqn(ifc.fqn)}`);
+        this.code.openBlock(`class ${name} extends software.amazon.jsii.JsiiObject implements ${this.toNativeFqn(ifc.fqn)}`);
         this.emitJsiiInitializers(name);
 
         // compile a list of all unique methods from the current interface and all
@@ -851,7 +865,7 @@ class JavaGenerator extends Generator {
 
     private getClassBase(cls: spec.ClassType) {
         if (!cls.base) {
-            return 'org.jsii.JsiiObject';
+            return 'software.amazon.jsii.JsiiObject';
         }
 
         return this.toJavaType(cls.base);
@@ -933,7 +947,7 @@ class JavaGenerator extends Generator {
 
         if (method.static) {
             const javaClass = this.toJavaType(cls);
-            statement += `org.jsii.JsiiObject.jsiiStaticCall(${javaClass}.class, `;
+            statement += `software.amazon.jsii.JsiiObject.jsiiStaticCall(${javaClass}.class, `;
         } else {
             if (async) {
                 statement += `this.jsiiAsyncCall(`;
@@ -990,7 +1004,7 @@ class JavaGenerator extends Generator {
             this.code.line();
             this.code.line('import java.util.List;');
         }
-        this.code.line('import org.jsii.JsiiModule;');
+        this.code.line('import software.amazon.jsii.JsiiModule;');
         this.code.line();
 
         this.code.openBlock(`public final class ${MODULE_CLASS_NAME} extends JsiiModule`);
@@ -1022,7 +1036,7 @@ class JavaGenerator extends Generator {
     }
 
     private emitJsiiInitializers(className: string) {
-        this.code.openBlock(`protected ${className}(final org.jsii.JsiiObject.InitializationMode mode)`);
+        this.code.openBlock(`protected ${className}(final software.amazon.jsii.JsiiObject.InitializationMode mode)`);
         this.code.line(`super(mode);`);
         this.code.closeBlock();
     }
@@ -1041,17 +1055,19 @@ class JavaGenerator extends Generator {
      */
     private toNativeFqn(fqn: string): string {
         const [mod, ...name] = fqn.split('.');
-        if (mod === this.assembly.name) {
-            if (!(this.assembly.targets && this.assembly.targets.java)) {
-                throw new Error(`This module doesn't have a java configuration: unable to determine a package name.`);
-            }
-            return [this.assembly.targets.java.package, ...name].join('.');
+        const depMod = this.findModule(mod);
+        const javaPackage = depMod.targets && depMod.targets.java && depMod.targets.java.package;
+        if (!javaPackage) { throw new Error(`The module ${mod} does not have a java.package setting`); }
+
+        // since this type was needed for some reason when we generate this code, we want to make
+        // sure it's module is included as a direct dependency, even if it's not defined as a direct
+        // dependency of this assembly in jsii. this can happen, for example, when we generate
+        // interface proxies and builders which "flatten" the hirarchy.
+        if (mod !== this.assembly.name) {
+            this.referencedModules[mod] = depMod;
         }
-        const depMod = this.assembly.dependencies && this.assembly.dependencies[mod];
-        if (!depMod) { throw new Error(`No dependency found for module ${mod}`); }
-        const pkg = depMod.targets && depMod.targets.java && depMod.targets.java.package;
-        if (!pkg) { throw new Error(`The module ${mod} does not have a java.package setting`); }
-        return [pkg, ...name].join('.');
+
+        return [javaPackage, ...name].join('.');
     }
 }
 

@@ -1,0 +1,58 @@
+{
+  "fingerprint": "9vYD7y7TmztCAYJefkU/M0DlAIIBXmSoy6MstJgRNCY=",
+  "license": "Apache-2.0",
+  "name": "@scope/jsii-calc-base-of-base",
+  "schema": "jsii/1.0",
+  "targets": {
+    "dotnet": {
+      "namespace": "Amazon.JSII.Tests.Calculator.BaseOfBase"
+    },
+    "java": {
+      "maven": {
+        "artifactId": "calculator-base-of-base",
+        "groupId": "software.amazon.jsii.tests"
+      },
+      "package": "software.amazon.jsii.tests.calculator.baseofbase"
+    },
+    "js": {
+      "npm": "@scope/jsii-calc-base-of-base"
+    }
+  },
+  "types": {
+    "@scope/jsii-calc-base-of-base.Very": {
+      "assembly": "@scope/jsii-calc-base-of-base",
+      "fqn": "@scope/jsii-calc-base-of-base.Very",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "hey",
+          "returns": {
+            "primitive": "number"
+          }
+        }
+      ],
+      "name": "Very",
+      "namespace": "@scope/jsii-calc-base-of-base"
+    },
+    "@scope/jsii-calc-base-of-base.VeryBaseProps": {
+      "assembly": "@scope/jsii-calc-base-of-base",
+      "datatype": true,
+      "fqn": "@scope/jsii-calc-base-of-base.VeryBaseProps",
+      "kind": "interface",
+      "name": "VeryBaseProps",
+      "namespace": "@scope/jsii-calc-base-of-base",
+      "properties": [
+        {
+          "name": "foo",
+          "type": {
+            "fqn": "@scope/jsii-calc-base-of-base.Very"
+          }
+        }
+      ]
+    }
+  },
+  "version": "0.5.0-beta"
+}

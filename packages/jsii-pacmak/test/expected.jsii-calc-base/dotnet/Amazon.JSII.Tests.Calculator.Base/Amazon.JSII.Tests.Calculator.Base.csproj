@@ -11,5 +11,7 @@
   <ItemGroup>
     <PackageReference Include="Amazon.JSII.Runtime" Version="0.5.0-beta" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Amazon.JSII.Tests.Calculator.BaseOfBase\Amazon.JSII.Tests.Calculator.BaseOfBase.csproj" />
+  </ItemGroup>
 </Project>

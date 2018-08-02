@@ -1,4 +1,3 @@
-import 'source-map-support/register'
 import { KernelHost } from './host'
 import { InputOutput } from './in-out'
 

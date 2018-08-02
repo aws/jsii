@@ -137,7 +137,7 @@ namespace Amazon.JSII.Generator
                             )
                         ),
                         new XElement("ItemGroup",
-                            GetDependencies().Select(dependencyName =>
+                            GetDependencies().Distinct().Select(dependencyName =>
                                 new XElement("ProjectReference",
                                     new XAttribute("Include", $@"..\{dependencyName}\{dependencyName}.csproj")
                                 )

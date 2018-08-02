@@ -7,9 +7,7 @@ dotnet test -c Release ./src/Amazon.JSII.Runtime.UnitTests
 
 # Regenerate jsii-calc and jsii-calc-lib before running integration tests.
 echo "Generating code for the calculator library (for integration tests)"
-jsii-pacmak -t dotnet -o ./test ../jsii-calc-base
-jsii-pacmak -t dotnet -o ./test ../jsii-calc-lib
-jsii-pacmak -t dotnet -o ./test ../jsii-calc
+jsii-pacmak -t dotnet --recurse -o ./test ../jsii-calc
 
 # Run integration tests
 echo "Running integration tests"

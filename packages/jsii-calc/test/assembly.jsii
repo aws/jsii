@@ -1,12 +1,70 @@
 {
-  "fingerprint": "YIOURB5Tj5Kj2w1IGOKGSNbNysK9fYLBJoDMCLVERII=",
+  "fingerprint": "nsCbQd2MWExG9K41wLxcfqN3N/TeNzveuNFXUO5sB6M=",
   "bundled": {
     "jsii-calc-bundled": "^0.5.0-beta"
   },
   "dependencies": {
+    "@scope/jsii-calc-base": {
+      "dependencies": {
+        "@scope/jsii-calc-base-of-base": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.JSII.Tests.Calculator.BaseOfBase"
+            },
+            "java": {
+              "maven": {
+                "artifactId": "calculator-base-of-base",
+                "groupId": "software.amazon.jsii.tests"
+              },
+              "package": "software.amazon.jsii.tests.calculator.baseofbase"
+            },
+            "js": {
+              "npm": "@scope/jsii-calc-base-of-base"
+            }
+          },
+          "version": "0.5.0-beta"
+        }
+      },
+      "targets": {
+        "dotnet": {
+          "namespace": "Amazon.JSII.Tests.Calculator.Base"
+        },
+        "java": {
+          "maven": {
+            "artifactId": "calculator-base",
+            "groupId": "software.amazon.jsii.tests"
+          },
+          "package": "software.amazon.jsii.tests.calculator.base"
+        },
+        "js": {
+          "npm": "@scope/jsii-calc-base"
+        }
+      },
+      "version": "0.5.0-beta"
+    },
     "@scope/jsii-calc-lib": {
       "dependencies": {
         "@scope/jsii-calc-base": {
+          "dependencies": {
+            "@scope/jsii-calc-base-of-base": {
+              "targets": {
+                "dotnet": {
+                  "namespace": "Amazon.JSII.Tests.Calculator.BaseOfBase"
+                },
+                "java": {
+                  "maven": {
+                    "artifactId": "calculator-base-of-base",
+                    "groupId": "software.amazon.jsii.tests"
+                  },
+                  "package": "software.amazon.jsii.tests.calculator.baseofbase"
+                },
+                "js": {
+                  "npm": "@scope/jsii-calc-base-of-base"
+                }
+              },
+              "version": "0.5.0-beta"
+            }
+          },
           "targets": {
             "dotnet": {
               "namespace": "Amazon.JSII.Tests.Calculator.Base"
@@ -14,9 +72,9 @@
             "java": {
               "maven": {
                 "artifactId": "calculator-base",
-                "groupId": "com.amazonaws.jsii.tests"
+                "groupId": "software.amazon.jsii.tests"
               },
-              "package": "org.jsii.tests.calculator.base"
+              "package": "software.amazon.jsii.tests.calculator.base"
             },
             "js": {
               "npm": "@scope/jsii-calc-base"
@@ -32,9 +90,9 @@
         "java": {
           "maven": {
             "artifactId": "calculator-lib",
-            "groupId": "com.amazonaws.jsii.tests"
+            "groupId": "software.amazon.jsii.tests"
           },
-          "package": "org.jsii.tests.calculator.lib"
+          "package": "software.amazon.jsii.tests.calculator.lib"
         },
         "js": {
           "npm": "@scope/jsii-calc-lib"
@@ -56,9 +114,9 @@
     "java": {
       "maven": {
         "artifactId": "calculator",
-        "groupId": "com.amazonaws.jsii.tests"
+        "groupId": "software.amazon.jsii.tests"
       },
-      "package": "org.jsii.tests.calculator"
+      "package": "software.amazon.jsii.tests.calculator"
     },
     "js": {
       "npm": "jsii-calc"
@@ -1093,6 +1151,27 @@
       ],
       "name": "IRandomNumberGenerator",
       "namespace": "jsii-calc"
+    },
+    "jsii-calc.ImplictBaseOfBase": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "fqn": "jsii-calc.ImplictBaseOfBase",
+      "interfaces": [
+        {
+          "fqn": "@scope/jsii-calc-base.BaseProps"
+        }
+      ],
+      "kind": "interface",
+      "name": "ImplictBaseOfBase",
+      "namespace": "jsii-calc",
+      "properties": [
+        {
+          "name": "goo",
+          "type": {
+            "primitive": "date"
+          }
+        }
+      ]
     },
     "jsii-calc.JSObjectLiteralForInterface": {
       "assembly": "jsii-calc",
@@ -2294,6 +2373,27 @@
         }
       ],
       "name": "UseBundledDependency",
+      "namespace": "jsii-calc"
+    },
+    "jsii-calc.UseCalcBase": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "comment": "Depend on a type from jsii-calc-base as a test for awslabs/jsii#128"
+      },
+      "fqn": "jsii-calc.UseCalcBase",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "hello",
+          "returns": {
+            "fqn": "@scope/jsii-calc-base.Base"
+          }
+        }
+      ],
+      "name": "UseCalcBase",
       "namespace": "jsii-calc"
     },
     "jsii-calc.UsesInterfaceWithProperties": {

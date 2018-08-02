@@ -1,3 +1,4 @@
+const packageInfo = require('./package.json');
 const { groupId, artifactId, version } = require('./lib').maven;
 
 process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
@@ -12,6 +13,16 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
     <artifactId>${artifactId}</artifactId>
     <version>${version}</version>
 
+    <name>\${project.groupId}:\${project.artifactId}</name>
+    <description>${packageInfo.description}</description>
+    <url>${packageInfo.homepage}</url>
+
+    <scm>
+        <connection>scm:${packageInfo.repository.type}:${packageInfo.repository.url}</connection>
+        <developerConnection>scm:${packageInfo.repository.type}:${packageInfo.repository.url}</developerConnection>
+        <url>${packageInfo.repository.url.replace(`${packageInfo.repository.type}:`, 'https:')}</url>
+    </scm>
+
     <licenses>
         <license>
             <name>Apache License 2.0</name>
@@ -20,6 +31,15 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <comments>An OSI-approved license</comments>
         </license>
     </licenses>
+
+    <developers>
+        <developer>
+            <name>${packageInfo.author.name}</name>
+            <email>${packageInfo.author.email}</email>
+            <organization>${packageInfo.author.name}</organization>
+            <organizationUrl>${packageInfo.author.url}</organizationUrl>
+        </developer>
+    </developers>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -1,0 +1,41 @@
+{
+  "name": "@scope/jsii-calc-base-of-base",
+  "version": "0.5.0-beta",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "private": true,
+  "jsii": {
+    "outdir": "dist",
+    "targets": {
+      "java": {
+        "package": "software.amazon.jsii.tests.calculator.baseofbase",
+        "maven": {
+          "groupId": "software.amazon.jsii.tests",
+          "artifactId": "calculator-base-of-base"
+        }
+      },
+      "dotnet": {
+        "namespace": "Amazon.JSII.Tests.Calculator.BaseOfBase"
+      },
+      "sphinx": { }
+    }
+  },
+  "scripts": {
+    "build": "jsii",
+    "test": "diff-test test/assembly.jsii .jsii"
+  },
+  "devDependencies": {
+    "jsii": "^0.5.0-beta",
+    "jsii-build-tools": "^0.5.0-beta",
+    "typescript": "^2.9.2"
+  },
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com"
+  },
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/awslabs/jsii"
+  }
+}

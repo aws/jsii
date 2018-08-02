@@ -199,16 +199,16 @@ defineTest('objects created inside the sandbox are returned with type info and n
 defineTest('naming allows returns the module name for different languages', async (test, sandbox) => {
     test.deepEqual(sandbox.naming({ assembly: 'jsii-calc' }).naming, {
         java: {
-            package: 'org.jsii.tests.calculator',
-            maven: { groupId: 'com.amazonaws.jsii.tests', artifactId: 'calculator' }
+            package: 'software.amazon.jsii.tests.calculator',
+            maven: { groupId: 'software.amazon.jsii.tests', artifactId: 'calculator' }
         },
         dotnet: { namespace: 'Amazon.JSII.Tests.Calculator' },
         js: { npm: 'jsii-calc' }
     });
     test.deepEqual(sandbox.naming({ assembly: '@scope/jsii-calc-lib' }).naming, {
         java: {
-            package: 'org.jsii.tests.calculator.lib',
-            maven: { groupId: 'com.amazonaws.jsii.tests', artifactId: 'calculator-lib' }
+            package: 'software.amazon.jsii.tests.calculator.lib',
+            maven: { groupId: 'software.amazon.jsii.tests', artifactId: 'calculator-lib' }
         },
         dotnet: { namespace: 'Amazon.JSII.Tests.Calculator.Lib' },
         js: { npm: '@scope/jsii-calc-lib' }
