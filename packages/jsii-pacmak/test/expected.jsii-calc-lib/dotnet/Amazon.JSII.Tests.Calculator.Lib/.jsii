@@ -1,7 +1,27 @@
 {
-  "fingerprint": "zmdpszdkcQaxiwMA5nr+avUpv5ZGa+zrzFAdUIxnqTo=",
+  "fingerprint": "yNDW5igvbLXWZTavevyYaJp698Dy9UEded8RSx0WiGI=",
   "dependencies": {
     "@scope/jsii-calc-base": {
+      "dependencies": {
+        "@scope/jsii-calc-base-of-base": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.JSII.Tests.Calculator.BaseOfBase"
+            },
+            "java": {
+              "maven": {
+                "artifactId": "calculator-base-of-base",
+                "groupId": "com.amazonaws.jsii.tests"
+              },
+              "package": "org.jsii.tests.calculator.baseofbase"
+            },
+            "js": {
+              "npm": "@scope/jsii-calc-base-of-base"
+            }
+          },
+          "version": "0.5.0-beta"
+        }
+      },
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.Calculator.Base"

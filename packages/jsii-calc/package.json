@@ -29,6 +29,7 @@
   ],
   "dependencies": {
     "@scope/jsii-calc-lib": "^0.5.0-beta",
+    "@scope/jsii-calc-base": "^0.5.0-beta",
     "jsii-calc-bundled": "^0.5.0-beta"
   },
   "devDependencies": {

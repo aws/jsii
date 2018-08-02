@@ -615,6 +615,19 @@ IRandomNumberGenerator (interface)
       :rtype: number
 
 
+ImplictBaseOfBase (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: ImplictBaseOfBase
+
+   :extends: :py:class:`@scope/jsii-calc-base.BaseProps`
+
+
+   .. py:attribute:: goo
+
+      :type: date
+
+
 JSObjectLiteralForInterface
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -1440,6 +1453,20 @@ UseBundledDependency
    .. py:method:: value() -> any
 
       :rtype: any
+
+
+UseCalcBase
+^^^^^^^^^^^
+
+.. py:class:: UseCalcBase()
+
+   Depend on a type from jsii-calc-base as a test for awslabs/jsii#128
+
+
+
+   .. py:method:: hello() -> @scope/jsii-calc-base.Base
+
+      :rtype: :py:class:`@scope/jsii-calc-base.Base`
 
 
 UsesInterfaceWithProperties

@@ -1,5 +1,5 @@
 {
-  "name": "@scope/jsii-calc-base",
+  "name": "@scope/jsii-calc-base-of-base",
   "version": "0.5.0-beta",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -8,14 +8,14 @@
     "outdir": "dist",
     "targets": {
       "java": {
-        "package": "org.jsii.tests.calculator.base",
+        "package": "org.jsii.tests.calculator.baseofbase",
         "maven": {
           "groupId": "com.amazonaws.jsii.tests",
-          "artifactId": "calculator-base"
+          "artifactId": "calculator-base-of-base"
         }
       },
       "dotnet": {
-        "namespace": "Amazon.JSII.Tests.Calculator.Base"
+        "namespace": "Amazon.JSII.Tests.Calculator.BaseOfBase"
       },
       "sphinx": { }
     }
@@ -28,9 +28,6 @@
     "jsii": "^0.5.0-beta",
     "jsii-build-tools": "^0.5.0-beta",
     "typescript": "^2.9.2"
-  },
-  "dependencies": {
-    "@scope/jsii-calc-base-of-base": "^0.5.0-beta"
   },
   "author": {
     "name": "Amazon Web Services",
