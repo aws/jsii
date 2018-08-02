@@ -1442,6 +1442,17 @@ UseBundledDependency
       :rtype: any
 
 
+UseCalcBase
+^^^^^^^^^^^
+
+.. py:class:: UseCalcBase()
+
+
+   .. py:method:: hello() -> @scope/jsii-calc-base.Base
+
+      :rtype: :py:class:`@scope/jsii-calc-base.Base`
+
+
 UsesInterfaceWithProperties
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

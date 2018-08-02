@@ -12,6 +12,6 @@ public final class $Module extends JsiiModule {
 
     @Override
     public List<Class<? extends JsiiModule>> getDependencies() {
-        return asList(org.jsii.tests.calculator.lib.$Module.class);
+        return asList(org.jsii.tests.calculator.base.$Module.class, org.jsii.tests.calculator.lib.$Module.class);
     }
 }

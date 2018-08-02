@@ -6,6 +6,7 @@ import * as os from 'os';
 import * as crypto from 'crypto';
 import { promisify } from 'util';
 const bundled = require('jsii-calc-bundled');
+import { Base } from '@scope/jsii-calc-base';
 const readFile = promisify(fs.readFile);
 
 /**
@@ -1084,5 +1085,16 @@ export class NodeStandardLibrary {
 
         hash.update('some data to hash');
         return hash.digest('hex');
+    }
+}
+
+/**
+ * Depend on a type from jsii-calc-base as a test for awslabs/jsii#128
+ */
+export class UseCalcBase {
+    public hello(): Base {
+        return {
+            typeName: () => "hello"
+        }
     }
 }

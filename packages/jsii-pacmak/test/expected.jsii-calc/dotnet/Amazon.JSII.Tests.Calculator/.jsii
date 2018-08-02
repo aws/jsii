@@ -1,9 +1,27 @@
 {
-  "fingerprint": "YIOURB5Tj5Kj2w1IGOKGSNbNysK9fYLBJoDMCLVERII=",
+  "fingerprint": "X441hyFnA1ayEsK4vQkzmEabpSsXH/ziRhj77A1swGE=",
   "bundled": {
     "jsii-calc-bundled": "^0.5.0-beta"
   },
   "dependencies": {
+    "@scope/jsii-calc-base": {
+      "targets": {
+        "dotnet": {
+          "namespace": "Amazon.JSII.Tests.Calculator.Base"
+        },
+        "java": {
+          "maven": {
+            "artifactId": "calculator-base",
+            "groupId": "com.amazonaws.jsii.tests"
+          },
+          "package": "org.jsii.tests.calculator.base"
+        },
+        "js": {
+          "npm": "@scope/jsii-calc-base"
+        }
+      },
+      "version": "0.5.0-beta"
+    },
     "@scope/jsii-calc-lib": {
       "dependencies": {
         "@scope/jsii-calc-base": {
@@ -2294,6 +2312,24 @@
         }
       ],
       "name": "UseBundledDependency",
+      "namespace": "jsii-calc"
+    },
+    "jsii-calc.UseCalcBase": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.UseCalcBase",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "hello",
+          "returns": {
+            "fqn": "@scope/jsii-calc-base.Base"
+          }
+        }
+      ],
+      "name": "UseCalcBase",
       "namespace": "jsii-calc"
     },
     "jsii-calc.UsesInterfaceWithProperties": {
