@@ -25,8 +25,7 @@
   },
   "dependencies": {
     "jsii-kernel": "^0.5.0-beta",
-    "jsii-spec": "^0.5.0-beta",
-    "source-map-support": "^0.5.6"
+    "jsii-spec": "^0.5.0-beta"
   },
   "author": {
     "name": "Amazon Web Services",
