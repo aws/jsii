@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-dotnet build -c Debug ./build/Amazon.JSII.Generator.BuildTasks/Amazon.JSII.Generator.BuildTasks.sln
+npm run gen
 
 # TODO: Auto-rev NuGet package versions on each local build.
 # Because we we don't rev the versions, dotnet will pick

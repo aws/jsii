@@ -1,7 +1,0 @@
-namespace Amazon.JSII.Generator
-{
-    public static class JsiiVersion
-    {
-        public static readonly string Version = "%JSII_VERSION%";
-    }
-}

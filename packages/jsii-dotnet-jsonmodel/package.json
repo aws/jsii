@@ -4,8 +4,12 @@
   "description": ".NET json model for jsii spec and api.",
   "main": "index.js",
   "scripts": {
+    "gen": "/bin/bash ./generate.sh",
     "build": "/bin/bash ./build.sh",
     "test": "/bin/bash ./test.sh"
+  },
+  "devDependencies": {
+    "jsii-spec": "^0.5.0-beta"
   },
   "repository": {
     "type": "git",
