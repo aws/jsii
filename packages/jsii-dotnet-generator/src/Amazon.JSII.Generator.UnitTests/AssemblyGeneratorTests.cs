@@ -157,7 +157,7 @@ namespace Amazon.JSII.Generator.UnitTests
             ""namespace"": ""Aws.Cdk.CxApi""
         }
     },
-    ""version"": """",
+    ""version"": ""1.2.3"",
     ""types"": {}
 }";
 
@@ -195,6 +195,7 @@ namespace Amazon.JSII.Generator.UnitTests
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>myAuthors</Authors>
     <Company>myCompany</Company>
+    <PackageVersion>1.2.3</PackageVersion>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include=""aws-cdk-cx-api-1.2.3.5.tgz"" />
@@ -219,7 +220,7 @@ namespace Amazon.JSII.Generator.UnitTests
             ""namespace"": ""Aws.Cdk""
         }
     },
-    ""version"": """",
+    ""version"": ""1.2.3"",
     ""types"": {},
     ""dependencies"": {
         ""jsii$aws_cdk_cx_api$"": {
@@ -286,6 +287,7 @@ namespace Amazon.JSII.Generator.UnitTests
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>myAuthors</Authors>
     <Company>myCompany</Company>
+    <PackageVersion>1.2.3</PackageVersion>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include=""aws-cdk-1.2.3.4.tgz"" />
@@ -348,7 +350,7 @@ namespace Amazon.JSII.Generator.UnitTests
 
 [assembly: JsiiAssembly(""jsii$aws_cdk_cx_api$"", """", ""aws-cdk-cx-api-1.2.3.5.tgz"")]",
                         code,
-                        ignoreWhiteSpaceDifferences: true
+                        ignoreLineEndingDifferences: true
                     )
                 )
             );

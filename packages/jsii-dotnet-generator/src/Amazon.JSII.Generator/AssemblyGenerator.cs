@@ -123,7 +123,8 @@ namespace Amazon.JSII.Generator
                             new XElement("TargetFramework", "netstandard2.0"),
                             new XElement("GeneratePackageOnBuild", true),
                             new XElement("Authors", _authors),
-                            new XElement("Company", _company)
+                            new XElement("Company", _company),
+                            new XElement("PackageVersion", assembly.Version)
                         ),
                         new XElement("ItemGroup",
                             new XElement("EmbeddedResource",
