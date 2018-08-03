@@ -39,7 +39,8 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
     </developers>
 
     <scm>
-        <url>${packageInfo.repository.url.replace(/^git:/, 'https:')}</url>
+        <connection>scm:${packageInfo.repository.type}:${packageInfo.repository.url}</connection>
+        <url>${packageInfo.repository.url}</url>
     </scm>
 
     <properties>
