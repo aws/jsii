@@ -141,11 +141,18 @@ export default async function readPackageMetadata(moduleDir: string): Promise<Pa
         throw new Error(`${pkgFile} must contain a "repository" field with "url"`);
     }
     if (!pkg.repository.type) {
-        if (pkg.repository.url.startsWith('git:') || pkg.repository.url.indexOf('://github.com/') !== -1) {
+        if (pkg.repository.url.startsWith('git:') || pkg.repository.url.endsWith('.git') || pkg.repository.url.indexOf('://github.com/') !== -1) {
             pkg.repository.type = 'git';
-        } else {
-            throw new Error(`${pkgFile} must specify the "repository.type" field (could not guess from ${pkg.repository.url})`);
+        } else if (!pkg.repository.url.startsWith('http://') && !pkg.repository.url.startsWith('https://')) {
+            const matches = pkg.repository.url.match(/^([^:]+):/);
+            if (matches) {
+                pkg.repository.type = matches[1];
+            }
         }
+    }
+    // Defaulting repository type failed :(
+    if (!pkg.repository.type) {
+        throw new Error(`${pkgFile} must specify the "repository.type" field (could not guess from ${pkg.repository.url})`);
     }
 
     // Not validating presence of "roles", because we have smart defaults
