@@ -32,7 +32,7 @@ export interface Assembly extends Documentable {
      */
     repository: {
         /**
-         * Type of repository.
+         * The type of the repository (``git``, ``svn``, ...)
          */
         type: string;
 
@@ -42,7 +42,15 @@ export interface Assembly extends Documentable {
         url: string;
     };
 
-    // TODO: add author!
+    /**
+     * The main author of this package.
+     */
+    author: Person;
+
+    /**
+     * Additional contributors to this package.
+     */
+    contributors?: Person[];
 
     /**
      * A fingerprint that can be used to determine if the specification has changed.
@@ -93,6 +101,33 @@ export interface Assembly extends Documentable {
  */
 export enum SchemaVersion {
     V1_0 = 'jsii/1.0'
+}
+
+/**
+ * Metadata about people or organizations associated with the project that
+ * resulted in the Assembly. Some of this metadata is required in order to
+ * publish to certain package repositories (for example, Maven Central), but is
+ * not normalized, and the meaning of fields (role, for example), is up to each
+ * project maintainer.
+ */
+export interface Person {
+    /** The name of the person */
+    name: string;
+
+    /**
+     * A list of roles this person has in the project, for example `maintainer`,
+     * `contributor`, `owner`, ...
+     */
+    roles: string[];
+
+    /** The email of the person */
+    email?: string;
+
+    /** The URL for the person */
+    url?: string;
+
+    /** If true, this person is, in fact, an organization */
+    organization?: boolean;
 }
 
 /**

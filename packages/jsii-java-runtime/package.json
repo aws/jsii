@@ -22,7 +22,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git://github.com/awslabs/jsii"
+    "url": "https://github.com/awslabs/jsii.git"
   },
   "homepage": "https://github.com/awslabs/jsii"
 }

@@ -21,6 +21,16 @@ export interface PackageMetadata {
     homepage: string;
 
     /**
+     * The author of the package.
+     */
+    author: Person;
+
+    /**
+     * Additional contributors
+     */
+    contributors?: Person[];
+
+    /**
      * The module repository
      */
     repository: {
@@ -77,6 +87,36 @@ export interface PackageMetadata {
     dependencies: { [name: string]: string }
 }
 
+/**
+ * Information about a person involved with the project.
+ */
+export interface Person {
+    /**
+     * The name of the person
+     */
+    name: string;
+
+    /**
+     * The roles of the person.
+     */
+    roles: string[];
+
+    /**
+     * The email of the person.
+     */
+    email?: string;
+
+    /**
+     * The URL for the person.
+     */
+    url?: string;
+
+    /**
+     * Whether the person is an organization
+     */
+    organization?: boolean;
+}
+
 export default async function readPackageMetadata(moduleDir: string): Promise<PackageMetadata> {
     const pkgFile = path.resolve(path.join(moduleDir, 'package.json'));
 
@@ -99,6 +139,23 @@ export default async function readPackageMetadata(moduleDir: string): Promise<Pa
 
     if (!pkg.repository || !pkg.repository.url || !pkg.repository.type) {
         throw new Error(`${pkgFile} must contain a "repository" field with "url" and "type"`);
+    }
+
+    // Not validating presence of "roles", because we have smart defaults
+    if (!pkg.author || !pkg.author.name) {
+        throw new Error(`${pkgFile} must contain an "author" field with "name"`);
+    }
+
+    // Not validating presence of "roles", because we have smart defaults
+    if (pkg.contributors) {
+        if (!Array.isArray(pkg.contributors)) {
+            throw new Error(`${pkgFile}'s "contributors" field must be an array`);
+        }
+        for (const contributor of pkg.contributors) {
+            if (!contributor.name) {
+                throw new Error(`All elements of the "contributors" field of ${pkgFile} must have a "name"`);
+            }
+        }
     }
 
     // default "description" to "name" and "homepage" to repo url
@@ -125,6 +182,8 @@ export default async function readPackageMetadata(moduleDir: string): Promise<Pa
         name: pkg.name,
         description: pkg.description,
         homepage: pkg.homepage,
+        author: cleanPerson(pkg.author, 'author'),
+        contributors: pkg.contributors && pkg.contributors.map((p: Person) => cleanPerson(p, 'contributor')),
         repository: pkg.repository,
         version: pkg.version,
         license: pkg.license,
@@ -134,5 +193,23 @@ export default async function readPackageMetadata(moduleDir: string): Promise<Pa
         bundledDependencies: pkg.bundledDependencies || [],
         targets: pkg.jsii.targets || {},
         entrypoint: types.replace(/\.d\.ts$/, '.ts')
+    };
+}
+
+/**
+ * Ensures a ``Person`` instance does not have any additional fields, and that
+ * the ``roles`` field (if set) contains no duplicates.
+ *
+ * @param person the person to be cleaned.
+ *
+ * @returns the cleaned up person.
+ */
+function cleanPerson(person: Person, defaultRole: string): Person {
+    return {
+        name: person.name,
+        email: person.email,
+        url: person.url,
+        roles: (person.roles && [...new Set(person.roles)]) || [defaultRole],
+        organization: person.organization
     };
 }

@@ -57,6 +57,8 @@ export async function compilePackage(packageDir: string, includeDirs = [ 'test',
         license: pkg.license,
         description: pkg.description,
         homepage: pkg.homepage,
+        author: pkg.author,
+        contributors: pkg.contributors,
         repository: pkg.repository,
         targets: {
             ...pkg.targets,
