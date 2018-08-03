@@ -202,9 +202,8 @@ namespace Amazon.JSII.Generator.UnitTests
   <ItemGroup>
     <PackageReference Include=""Amazon.JSII.Runtime"" Version=""" + JsiiVersion.Version + @""" />
   </ItemGroup>
-  <ItemGroup />
 </Project>";
-            file.Received().WriteAllText(projectFilePath, Arg.Is<string>(actual => PlatformIndependentEqual(expected, actual)));
+            file.Received().WriteAllText(projectFilePath, Arg.Do<string>(actual => PlatformIndependentEqual(expected, actual)));
         }
 
         [Fact(DisplayName = Prefix + nameof(CreatesProjectFileWithDependencies))]
@@ -292,12 +291,10 @@ namespace Amazon.JSII.Generator.UnitTests
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include=""Amazon.JSII.Runtime"" Version=""" + JsiiVersion.Version + @""" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include=""..\Aws.Cdk.CxApi\Aws.Cdk.CxApi.csproj"" />
+    <ProjectReference Include=""..\Aws.Cdk.CxApi\Aws.Cdk.CxApi.csproj"" Version=""" + JsiiVersion.Version + @""" />
   </ItemGroup>
 </Project>";
-            file.Received().WriteAllText(projectFilePath, Arg.Is<string>(actual => PlatformIndependentEqual(expected, actual)));
+            file.Received().WriteAllText(projectFilePath, Arg.Do<string>(actual => PlatformIndependentEqual(expected, actual)));
         }
 
         [Fact(DisplayName = Prefix + nameof(CreatesAssemblyInfo))]

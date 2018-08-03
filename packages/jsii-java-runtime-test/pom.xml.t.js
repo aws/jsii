@@ -20,7 +20,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
         <dependency>
             <groupId>software.amazon.jsii.tests</groupId>
             <artifactId>calculator</artifactId>
-            <version>[0.5.0-beta,)</version>
+            <version>[0.6.2,)</version>
             <scope>test</scope>
         </dependency>
 

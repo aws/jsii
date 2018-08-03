@@ -135,12 +135,14 @@ namespace Amazon.JSII.Generator
                             new XElement("PackageReference",
                                 new XAttribute("Include", "Amazon.JSII.Runtime"),
                                 new XAttribute("Version", JsiiVersion.Version)
-                            )
-                        ),
-                        new XElement("ItemGroup",
-                            GetDependencies().Distinct().Select(dependencyName =>
-                                new XElement("ProjectReference",
-                                    new XAttribute("Include", $@"..\{dependencyName}\{dependencyName}.csproj")
+                            ),
+                            GetDependencies()
+                                .Distinct()
+                                .Select(d => new { Package = symbols.GetAssemblyName(d.Key), Version = d.Value.Version})
+                                .Select(d =>
+                                    new XElement("PackageReference",
+                                        new XAttribute("Include", d.Package),
+                                        new XAttribute("Version", d.Version)
                                 )
                             )
                         )
@@ -170,14 +172,14 @@ namespace Amazon.JSII.Generator
                 string csProjPath = Path.Combine(packageOutputRoot, $"{assembly.GetNativeName()}.csproj");
                 _fileSystem.File.WriteAllText(csProjPath, builder.ToString());
 
-                IEnumerable<string> GetDependencies()
+                IEnumerable<KeyValuePair<string, PackageVersion>> GetDependencies()
                 {
-                    foreach (string dependencyName in GetDependenciesCore(assembly))
+                    foreach (KeyValuePair<string, PackageVersion> dependency in GetDependenciesCore(assembly))
                     {
-                        yield return dependencyName;
+                        yield return dependency;
                     }
 
-                    IEnumerable<string> GetDependenciesCore(DependencyRoot root)
+                    IEnumerable<KeyValuePair<string, PackageVersion>> GetDependenciesCore(DependencyRoot root)
                     {
                         if (root.Dependencies == null)
                         {
@@ -185,10 +187,10 @@ namespace Amazon.JSII.Generator
                         }
                         foreach (var kvp in root.Dependencies)
                         {
-                            yield return symbols.GetAssemblyName(kvp.Key);
-                            foreach (string dependencyName in GetDependenciesCore(kvp.Value))
+                            yield return kvp;
+                            foreach (KeyValuePair<string, PackageVersion> dependency in GetDependenciesCore(kvp.Value))
                             {
-                                yield return dependencyName;
+                                yield return dependency;
                             }
                         }
                     }

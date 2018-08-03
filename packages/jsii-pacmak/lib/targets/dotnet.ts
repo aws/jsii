@@ -1,8 +1,14 @@
 import childProcess = require('child_process');
+import fs = require('fs-extra');
+import jsiiDotNetJsonModel = require('jsii-dotnet-jsonmodel');
+import jsiiDotNetRuntime = require('jsii-dotnet-runtime');
 import spec = require('jsii-spec');
 import path = require('path');
+import xmlbuilder = require('xmlbuilder');
 import { IGenerator } from '../generator';
+import logging = require('../logging');
 import { Target, TargetOptions } from '../target';
+import { shell } from '../util';
 
 export default class Dotnet extends Target {
     protected readonly generator = new DotNetGenerator();
@@ -11,9 +17,71 @@ export default class Dotnet extends Target {
         super(options);
     }
 
-    public build(sourceDir: string, outDir: string) {
-        // TODO: Actually build!
-        return this.copyFiles(sourceDir, outDir);
+    public async build(sourceDir: string, outDir: string): Promise<void> {
+        await this.generateNuGetConfigForLocalDeps(sourceDir, outDir);
+
+        const pkg = await fs.readJson(path.join(this.packageDir, 'package.json'));
+        const namespace: string = pkg.jsii.targets.dotnet.namespace;
+        const project: string = path.join(namespace, `${namespace}.csproj`);
+
+        await shell(
+            'dotnet',
+            [ 'build', project, '-c', 'Release' ],
+            { cwd: sourceDir }
+        );
+
+        await this.copyFiles(path.join(sourceDir, namespace, 'bin', 'Release'), outDir);
+        await fs.remove(path.join(outDir, 'netstandard2.0'));
+    }
+
+    private async generateNuGetConfigForLocalDeps(sourceDirectory: string, currentOutputDirectory: string): Promise<void> {
+        // Traverse the dependency graph of this module and find all modules that have
+        // an <outdir>/dotnet directory. We will add those as local NuGet repositories.
+        // This enables building against local modules.
+        const localRepos = await this.findLocalDepsOutput(this.packageDir);
+
+        // Add the current output directory as a local repo for the case where we build multiple packages
+        // into the same output. NuGet throws an error if a source directory doesn't exist, so we check
+        // before adding it to the list.
+        if (await fs.pathExists(currentOutputDirectory)) {
+            localRepos.push(currentOutputDirectory);
+        }
+
+        // If dotnet-jsonmodel is checked-out and we can find a local repository, add it to the list.
+        const localDotNetJsonModel = jsiiDotNetJsonModel.repository;
+        if (await fs.pathExists(localDotNetJsonModel)) {
+            localRepos.push(localDotNetJsonModel);
+        }
+
+        // If dotnet-runtime is checked-out and we can find a local repository, add it to the list.
+        const localDotNetRuntime = jsiiDotNetRuntime.repository;
+        if (await fs.pathExists(localDotNetRuntime)) {
+            localRepos.push(localDotNetRuntime);
+        }
+
+        logging.debug('local NuGet repos:', localRepos);
+
+        // Construct XML content.
+        const configuration = xmlbuilder.create('configuration', { encoding: 'UTF-8' });
+        const packageSources = configuration.ele('packageSources');
+
+        const nugetOrgAdd = packageSources.ele('add');
+        nugetOrgAdd.att('key', 'nuget.org');
+        nugetOrgAdd.att('value', 'https://api.nuget.org/v3/index.json');
+        nugetOrgAdd.att('protocolVersion', '3');
+
+        localRepos.forEach((repo, index) => {
+            const add = packageSources.ele('add');
+            add.att('key', `local-${index}`);
+            add.att('value', path.join(repo));
+        });
+
+        const xml = configuration.end({ pretty: true });
+
+        // Write XML content to NuGet.config.
+        const filePath = path.join(sourceDirectory, 'NuGet.config');
+        logging.debug(`Generated ${filePath}`);
+        await fs.writeFile(filePath, xml);
     }
 }
 

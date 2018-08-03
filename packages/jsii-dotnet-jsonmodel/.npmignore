@@ -4,5 +4,4 @@
 # bundle only...
 !*.nupkg
 !package.json
-!index.js
-
+!lib/index.js
