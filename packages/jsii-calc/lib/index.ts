@@ -1,5 +1,5 @@
 // tslint:disable
-import { Operation, Value, Number, IFriendly, MyFirstStruct, StructWithOnlyOptionals } from '@scope/jsii-calc-lib'
+import { Operation, Value, Number, IFriendly, MyFirstStruct, StructWithOnlyOptionals, EnumFromScopedModule } from '@scope/jsii-calc-lib'
 import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
@@ -1101,4 +1101,19 @@ export class UseCalcBase {
 
 export interface ImplictBaseOfBase extends base.BaseProps {
     goo: Date;
+}
+
+/**
+ * See awslabs/jsii#138
+ */
+export class ReferenceEnumFromScopedPackage {
+    public foo?: EnumFromScopedModule = EnumFromScopedModule.Value2;
+
+    public loadFoo(): EnumFromScopedModule | undefined {
+        return this.foo;
+    }
+
+    public saveFoo(value: EnumFromScopedModule) {
+        this.foo = value;
+    }
 }

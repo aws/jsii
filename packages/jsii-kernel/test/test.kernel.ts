@@ -167,6 +167,29 @@ defineTest('in/out enum values', async (test, sandbox) => {
     test.deepEqual(sandbox.get({ objref: alltypes, property: 'enumProperty' }).value, { '$jsii.enum': 'jsii-calc.AllTypesEnum/ThisIsGreat' });
 });
 
+defineTest('enum values from @scoped packages awslabs/jsii#138', async (test, sandbox) => {
+    const objref = sandbox.create({ fqn: 'jsii-calc.ReferenceEnumFromScopedPackage' });
+
+    const value = sandbox.get({ objref, property: 'foo' });
+    test.deepEqual(value, { value: { '$jsii.enum': '@scope/jsii-calc-lib.EnumFromScopedModule/Value2' } });
+
+    sandbox.set({ objref, property: 'foo', value: { '$jsii.enum': '@scope/jsii-calc-lib.EnumFromScopedModule/Value1' }});
+    const ret = sandbox.invoke({ objref, method: 'loadFoo' });
+    test.deepEqual(ret, { result: { '$jsii.enum': '@scope/jsii-calc-lib.EnumFromScopedModule/Value1' } });
+
+    sandbox.invoke({ objref, method: 'saveFoo', args: [ { '$jsii.enum': '@scope/jsii-calc-lib.EnumFromScopedModule/Value2' } ] });
+    const value2 = sandbox.get({ objref, property: 'foo' });
+    test.deepEqual(value2, { value: { '$jsii.enum': '@scope/jsii-calc-lib.EnumFromScopedModule/Value2' } });
+});
+
+defineTest('fails for invalid enum member name', async (test, sandbox) => {
+    const objref = sandbox.create({ fqn: 'jsii-calc.ReferenceEnumFromScopedPackage' });
+
+    test.throws(() => {
+        sandbox.set({ objref, property: 'foo', value: { '$jsii.enum': '@scope/jsii-calc-lib.EnumFromScopedModule/ValueX' }});
+    }, /No enum member named ValueX/);
+});
+
 defineTest('set for a non existing property', async (test, sandbox) => {
     const obj = sandbox.create({ fqn: 'jsii-calc.SyncVirtualMethods' });
     test.throws(() => sandbox.set({ objref: obj, property: 'idontexist', value: 'Foo' }));

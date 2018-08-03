@@ -81,6 +81,8 @@ import { VERSION } from '../lib/version';
             return; // already built
         }
 
+        visited.add(packageDir);
+
         // read package.json and extract the "jsii" configuration from it.
         const pkg = await fs.readJson(path.join(packageDir, 'package.json'));
         if (!pkg.jsii || !pkg.jsii.outdir || !pkg.jsii.targets) {
