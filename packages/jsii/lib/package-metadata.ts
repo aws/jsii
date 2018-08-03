@@ -137,8 +137,15 @@ export default async function readPackageMetadata(moduleDir: string): Promise<Pa
         throw new Error(`${pkgFile} has "license" ${pkg.license}, which doesn't appear to be a valid SPDX identifier`);
     }
 
-    if (!pkg.repository || !pkg.repository.url || !pkg.repository.type) {
-        throw new Error(`${pkgFile} must contain a "repository" field with "url" and "type"`);
+    if (!pkg.repository || !pkg.repository.url) {
+        throw new Error(`${pkgFile} must contain a "repository" field with "url"`);
+    }
+    if (!pkg.repository.type) {
+        if (pkg.repository.url.startsWith('git:') || pkg.repository.url.indexOf('://github.com/') !== -1) {
+            pkg.repository.type = 'git';
+        } else {
+            throw new Error(`${pkgFile} must specify the "repository.type" field (could not guess from ${pkg.repository.url})`);
+        }
     }
 
     // Not validating presence of "roles", because we have smart defaults
