@@ -12,16 +12,11 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
     <groupId>${groupId}</groupId>
     <artifactId>${artifactId}</artifactId>
     <version>${version}</version>
+    <packaging>jar</packaging>
 
-    <name>\${project.groupId}:\${project.artifactId}</name>
+    <name>${packageInfo.name}</name>
     <description>${packageInfo.description}</description>
     <url>${packageInfo.homepage}</url>
-
-    <scm>
-        <connection>scm:${packageInfo.repository.type}:${packageInfo.repository.url}</connection>
-        <developerConnection>scm:${packageInfo.repository.type}:${packageInfo.repository.url}</developerConnection>
-        <url>${packageInfo.repository.url.replace(`${packageInfo.repository.type}:`, 'https:')}</url>
-    </scm>
 
     <licenses>
         <license>
@@ -34,12 +29,19 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
 
     <developers>
         <developer>
-            <name>${packageInfo.author.name}</name>
-            <email>${packageInfo.author.email}</email>
+            <id>amazonwebservices</id>
             <organization>${packageInfo.author.name}</organization>
             <organizationUrl>${packageInfo.author.url}</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
         </developer>
     </developers>
+
+    <scm>
+        <connection>scm:${packageInfo.repository.type}:${packageInfo.repository.url}</connection>
+        <url>${packageInfo.repository.url}</url>
+    </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

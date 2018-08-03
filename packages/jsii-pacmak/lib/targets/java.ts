@@ -320,10 +320,21 @@ class JavaGenerator extends Generator {
                     ...comment,
 
                     'modelVersion': '4.0.0',
-                    'name': `Java bindings for ${assm.name}`,
+                    'name': '${project.groupId}:${project.artifactId}',
+                    'description': assm.description,
+                    'url': assm.homepage,
 
                     'licenses': {
                         license: getLicense()
+                    },
+
+                    'developers': {
+                        developer: mavenDevelopers()
+                    },
+
+                    'scm': {
+                        connection: `scm:${assm.repository.type}:${assm.repository.url}`,
+                        url: assm.repository.url
                     },
 
                     ...assm.targets.java.maven,
@@ -409,6 +420,25 @@ class JavaGenerator extends Generator {
                 scope: 'compile'
             });
             return dependencies;
+        }
+
+        function mavenDevelopers() {
+            return [assm.author, ...(assm.contributors || [])].map(toDeveloper);
+
+            function toDeveloper(person: spec.Person) {
+                const developer: any = {
+                    [person.organization ? 'organization' : 'name']: person.name,
+                    roles: { role: person.roles }
+                };
+                // We cannot set "undefined" or "null" to a field - this causes invalid XML to be emitted (per POM schema).
+                if (person.email) {
+                    developer.email = person.email;
+                }
+                if (person.url) {
+                    developer[person.organization ? 'organizationUrl' : 'url'] = person.url;
+                }
+                return developer;
+            }
         }
 
         /**
