@@ -8,9 +8,6 @@
     "build": "/bin/bash ./build.sh",
     "test": "/bin/bash ./test.sh"
   },
-  "devDependencies": {
-    "jsii-spec": "^0.5.0-beta"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/awslabs/jsii.git"

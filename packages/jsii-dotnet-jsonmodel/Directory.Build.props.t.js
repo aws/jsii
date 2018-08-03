@@ -1,5 +1,5 @@
 const path = require('path');
-const version = require('jsii-spec/package.json').version.replace(/\+.+$/, ''); // omit "+build" postfix;
+const version = require('./package.json').version.replace(/\+.+$/, ''); // omit "+build" postfix;
 process.stdout.write(`<Project>
 <PropertyGroup>
   <Authors>Amazon Web Services LLC</Authors>
