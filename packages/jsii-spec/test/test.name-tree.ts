@@ -13,6 +13,13 @@ export = testCase({
             const assm: spec.Assembly = {
                 schema: spec.SchemaVersion.V1_0,
                 name: assemblyName,
+                description: 'bla',
+                homepage: 'https://github.com/bla/bla',
+                author: { name: 'Author', roles: ['author'] },
+                repository: {
+                    type: 'scm',
+                    url: 'https://github.com/bla/bla'
+                },
                 version: '0.0.1',
                 license: 'NONE',
                 fingerprint: '<no-fingerprint>',

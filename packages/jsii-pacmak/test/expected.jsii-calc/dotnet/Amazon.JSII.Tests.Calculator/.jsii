@@ -1,8 +1,39 @@
 {
-  "fingerprint": "nsCbQd2MWExG9K41wLxcfqN3N/TeNzveuNFXUO5sB6M=",
+  "fingerprint": "ZR90w/OQ/vVxm0Cg1sicOKwbZxbGK43MXqj2ksUyCrk=",
+  "author": {
+    "name": "Amazon Web Services",
+    "organization": true,
+    "roles": [
+      "author"
+    ],
+    "url": "https://aws.amazon.com"
+  },
   "bundled": {
     "jsii-calc-bundled": "^0.5.0-beta"
   },
+  "contributors": [
+    {
+      "name": "Elad Ben-Israel",
+      "roles": [
+        "maintainer"
+      ],
+      "url": "https://github.com/eladb"
+    },
+    {
+      "name": "Rico Huijbers",
+      "roles": [
+        "maintainer"
+      ],
+      "url": "https://github.com/rix0rrr"
+    },
+    {
+      "name": "Romain Marcadier-Muller",
+      "roles": [
+        "maintainer"
+      ],
+      "url": "https://github.com/RomainMuller"
+    }
+  ],
   "dependencies": {
     "@scope/jsii-calc-base": {
       "dependencies": {
@@ -101,10 +132,16 @@
       "version": "0.5.0-beta"
     }
   },
+  "description": "jsii-calc",
+  "homepage": "https://github.com/awslabs/jsii.git",
   "license": "Apache-2.0",
   "name": "jsii-calc",
   "readme": {
     "markdown": "## JSII Calculator\n\nThis library is used to demonstrate and test the features of JSII\n"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/awslabs/jsii.git"
   },
   "schema": "jsii/1.0",
   "targets": {

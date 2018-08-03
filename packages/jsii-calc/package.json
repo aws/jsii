@@ -40,11 +40,27 @@
   },
   "author": {
     "name": "Amazon Web Services",
-    "url": "https://aws.amazon.com"
+    "url": "https://aws.amazon.com",
+    "organization": true
   },
+  "contributors": [
+    {
+      "name": "Elad Ben-Israel",
+      "url": "https://github.com/eladb",
+      "roles": ["maintainer"]
+    }, {
+      "name": "Rico Huijbers",
+      "url": "https://github.com/rix0rrr",
+      "roles": ["maintainer"]
+    }, {
+      "name": "Romain Marcadier-Muller",
+      "url": "https://github.com/RomainMuller",
+      "roles": ["maintainer"]
+    }
+  ],
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git://github.com/awslabs/jsii"
+    "url": "https://github.com/awslabs/jsii.git"
   }
 }

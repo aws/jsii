@@ -1,7 +1,21 @@
 {
-  "fingerprint": "9vYD7y7TmztCAYJefkU/M0DlAIIBXmSoy6MstJgRNCY=",
+  "fingerprint": "Z4zGGHCxV6V1AFS1e1zetFr+xlfBTqUGx2blMlzCtZc=",
+  "author": {
+    "name": "Amazon Web Services",
+    "organization": true,
+    "roles": [
+      "author"
+    ],
+    "url": "https://aws.amazon.com"
+  },
+  "description": "@scope/jsii-calc-base-of-base",
+  "homepage": "https://github.com/awslabs/jsii.git",
   "license": "Apache-2.0",
   "name": "@scope/jsii-calc-base-of-base",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/awslabs/jsii.git"
+  },
   "schema": "jsii/1.0",
   "targets": {
     "dotnet": {

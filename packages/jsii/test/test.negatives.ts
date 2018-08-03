@@ -40,8 +40,20 @@ for (const source of fs.readdirSync(negativesDir)) {
                                  undefined /* No extra source */,
                                  undefined /* No external types */,
                                  {
-                                    schema: spec.SchemaVersion.V1_0, name: 'foo', version: 'bar', license: 'NONE', fingerprint: 'baz',
-                                    targets: {}, types: {}
+                                    schema: spec.SchemaVersion.V1_0,
+                                    name: 'foo',
+                                    version: 'bar',
+                                    license: 'NONE',
+                                    author: { name: 'Author', roles: ['author'] },
+                                    fingerprint: 'baz',
+                                    description: 'hello',
+                                    homepage: 'http://foo',
+                                    repository: {
+                                        url: 'http://',
+                                        type: 'git'
+                                    },
+                                    targets: {},
+                                    types: {}
                                 },
                                  true /* warnings as errors */);
         } catch (e) {
