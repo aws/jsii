@@ -245,7 +245,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void enumFromScopedModule() {
+    public void useEnumFromScopedModule() {
         ReferenceEnumFromScopedPackage obj = new ReferenceEnumFromScopedPackage();
         assertEquals(EnumFromScopedModule.Value2, obj.getFoo());
         obj.setFoo(EnumFromScopedModule.Value1);
