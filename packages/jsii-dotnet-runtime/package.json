@@ -4,6 +4,7 @@
   "description": ".NET client for jsii runtime",
   "main": "index.js",
   "scripts": {
+    "gen": "/bin/bash ./generate.sh",
     "build": "/bin/bash ./build.sh",
     "test": "/bin/bash ./test.sh"
   },

@@ -1,0 +1,3 @@
+src/Directory.Build.props
+
+!*.t.js

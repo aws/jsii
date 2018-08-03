@@ -1,6 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
+npm run gen
+
 # embed jsii-runtime as a resource
 bundle_dir="src/Amazon.JSII.Runtime/jsii-runtime"
 mkdir -p ${bundle_dir}
