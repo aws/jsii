@@ -8,6 +8,7 @@ import logging = require('../lib/logging');
 import { Target } from '../lib/target';
 import { resolveDependencyDirectory, shell } from '../lib/util';
 import { VERSION } from '../lib/version';
+import { SPEC_FILE_NAME } from '../node_modules/jsii-spec';
 
 (async function main() {
     const targetConstructors = await Target.findAll();
@@ -64,6 +65,11 @@ import { VERSION } from '../lib/version';
             desc: 'clean up temporary files upon success (use --no-clean to disable)',
             default: true,
         })
+        .option('npmignore', {
+            type: 'boolean',
+            desc: 'Auto-update .npmignore to exclude the output directory and include the .jsii file',
+            default: true
+        })
         .version(VERSION)
         .argv;
 
@@ -105,10 +111,16 @@ import { VERSION } from '../lib/version';
 
         logging.info(`Building ${pkg.name} (${targets.join(',')}) into ${path.relative(process.cwd(), outDir)}`);
 
-        // if outdir is coming from package.json, verify it is excluded by .npmignore. if it is explicitly
-        // defined via --out, don't perform this verification.
-        const npmIgnoreExclude = argv.outdir ? undefined : outDir;
-        const tarball = await npmPack(packageDir, npmIgnoreExclude);
+        if (argv.npmignore) {
+            // if outdir is coming from package.json, verify it is excluded by .npmignore. if it is explicitly
+            // defined via --out, don't perform this verification.
+            const npmIgnoreExclude = argv.outdir ? undefined : outDir;
+
+            // updates .npmignore to exclude the output directory and include the .jsii file
+            await updateNpmIgnore(packageDir, npmIgnoreExclude);
+        }
+
+        const tarball = await npmPack(packageDir);
         try {
             for (const targetName of targets) {
                 // if we are targeting a single language, output to outdir, otherwise outdir/<target>
@@ -161,22 +173,7 @@ import { VERSION } from '../lib/version';
     process.exit(1);
 });
 
-async function npmPack(packageDir: string, excludeOutDir?: string): Promise<string> {
-    // if excludeOutdir is defined, verify that it is excluded by .npmignore
-    if (excludeOutDir) {
-        const npmIgnorePath = path.join(packageDir, '.npmignore');
-        const npmIgnoreLine = path.relative(packageDir, excludeOutDir);
-        let outDirIgnored = false;
-        if (await fs.pathExists(npmIgnorePath)) {
-            const contents = (await fs.readFile(npmIgnorePath)).toString().split('\n');
-            outDirIgnored = contents.indexOf(npmIgnoreLine) !== -1;
-        }
-
-        if (!outDirIgnored) {
-            throw new Error(`${npmIgnorePath} is expected to include the jsii output directory "${npmIgnoreLine}"`);
-        }
-    }
-
+async function npmPack(packageDir: string): Promise<string> {
     logging.debug(`Running "npm pack" in ${packageDir}`);
     const args = [ 'pack' ];
     if (logging.level >= logging.LEVEL_VERBOSE) {
@@ -184,4 +181,54 @@ async function npmPack(packageDir: string, excludeOutDir?: string): Promise<stri
     }
     const out = await shell('npm', [ 'pack' ], { cwd: packageDir });
     return path.resolve(packageDir, out.trim());
+}
+
+async function updateNpmIgnore(packageDir: string, excludeOutdir: string | undefined) {
+    const npmIgnorePath = path.join(packageDir, '.npmignore');
+    let lines = new Array<string>();
+    let modified = false;
+    if (await fs.pathExists(npmIgnorePath)) {
+        lines = (await fs.readFile(npmIgnorePath)).toString().split('\n');
+    }
+
+    // if this is a fresh .npmignore, we can be a bit more opinionated
+    // otherwise, we add just add stuff that's critical
+    if (lines.length === 0) {
+        excludePattern('Exclude typescript source and config', '*.ts', 'tsconfig.json');
+        includePattern('Include javascript files and typescript declarations', '*.js', '*.d.ts');
+    }
+
+    if (excludeOutdir) {
+        excludePattern('Exclude jsii outdir', path.relative(packageDir, excludeOutdir));
+    }
+
+    includePattern('Include .jsii', SPEC_FILE_NAME);
+
+    if (modified) {
+        await fs.writeFile(npmIgnorePath, lines.join('\n') + '\n');
+        logging.info('Updated .npmignre');
+    }
+
+    function includePattern(comment: string, ...patterns: string[]) {
+        excludePattern(comment, ...patterns.map(p => `!${p}`));
+    }
+
+    function excludePattern(comment: string, ...patterns: string[]) {
+        let first = true;
+        for (const pattern of patterns) {
+            if (lines.indexOf(pattern) !== -1) {
+                return; // already in .npmignore
+            }
+
+            modified = true;
+
+            if (first) {
+                lines.push('');
+                lines.push(`# ${comment}`);
+                first = false;
+            }
+
+            lines.push(pattern);
+        }
+    }
 }
