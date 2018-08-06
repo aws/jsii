@@ -1,6 +1,6 @@
 {
   "name": "jsii-dotnet-runtime",
-  "version": "0.5.0-beta",
+  "version": "0.6.0",
   "description": ".NET client for jsii runtime",
   "main": "index.js",
   "scripts": {
@@ -10,14 +10,14 @@
     "package": "package-dotnet"
   },
   "devDependencies": {
-    "@scope/jsii-calc-lib": "^0.5.0-beta",
-    "jsii-calc": "^0.5.0-beta",
-    "jsii-pacmak": "^0.5.0-beta",
-    "jsii-runtime": "^0.5.0-beta",
-    "jsii-build-tools": "^0.5.0-beta"
+    "@scope/jsii-calc-lib": "^0.6.0",
+    "jsii-build-tools": "^0.6.0",
+    "jsii-calc": "^0.6.0",
+    "jsii-pacmak": "^0.6.0",
+    "jsii-runtime": "^0.6.0"
   },
   "dependencies": {
-    "jsii-dotnet-jsonmodel": "^0.5.0-beta"
+    "jsii-dotnet-jsonmodel": "^0.6.0"
   },
   "repository": {
     "type": "git",

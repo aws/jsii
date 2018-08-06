@@ -1,6 +1,6 @@
 {
   "name": "@scope/jsii-calc-base-of-base",
-  "version": "0.5.0-beta",
+  "version": "0.6.0",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "private": true,
@@ -17,7 +17,7 @@
       "dotnet": {
         "namespace": "Amazon.JSII.Tests.Calculator.BaseOfBase"
       },
-      "sphinx": { }
+      "sphinx": {}
     }
   },
   "scripts": {
@@ -25,8 +25,8 @@
     "test": "diff-test test/assembly.jsii .jsii"
   },
   "devDependencies": {
-    "jsii": "^0.5.0-beta",
-    "jsii-build-tools": "^0.5.0-beta",
+    "jsii": "^0.6.0",
+    "jsii-build-tools": "^0.6.0",
     "typescript": "^2.9.2"
   },
   "author": {

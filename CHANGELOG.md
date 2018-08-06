@@ -1,3 +1,7 @@
+## 0.6.0 - 2018-08-06
+
+* First public release
+
 ## 0.5.0 - 2018-06-20
 
 * Support variadics in methods.
