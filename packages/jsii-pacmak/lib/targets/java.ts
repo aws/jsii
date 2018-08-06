@@ -4,14 +4,47 @@ import path = require('path');
 import xmlbuilder = require('xmlbuilder');
 import { Generator } from '../generator';
 import logging = require('../logging');
-import { Target, TargetOptions } from '../target';
+import { PackageInfo, Target, TargetOptions } from '../target';
 import { shell } from '../util';
 import { VERSION, VERSION_DESC } from '../version';
 
 // tslint:disable-next-line:no-var-requires
 const spdxLicenseList = require('spdx-license-list');
 
-export default class JavaPackageMaker extends Target {
+export default class Java extends Target {
+    public static toPackageInfos(assm: spec.Assembly): { [language: string]: PackageInfo } {
+        const groupId = assm.targets!.java!.maven.groupId;
+        const artifactId = assm.targets!.java!.maven.artifactId;
+        const url = `https://repo1.maven.org/maven2/${groupId.replace(/\./g, '/')}/${artifactId}/${assm.version}/`;
+        return {
+            java: {
+                repository: 'Maven Central', url,
+                usage: {
+                    'Apache Maven': {
+                        language: 'xml',
+                        code: xmlbuilder.create({
+                            dependency: { groupId, artifactId, version: assm.version }
+                        }).end({ pretty: true }).replace(/<\?\s*xml(\s[^>]+)?>\s*/m, '')
+                    },
+                    'Apache Buildr': `'${groupId}:${artifactId}:jar:${assm.version}'`,
+                    'Apache Ivy': {
+                        language: 'xml',
+                        code: xmlbuilder.create({
+                            dependency: { '@groupId': groupId, '@name': artifactId, '@rev': assm.version }
+                        }).end({ pretty: true }).replace(/<\?\s*xml(\s[^>]+)?>\s*/m, '')
+                    },
+                    'Groovy Grape': `@Grapes(\n@Grab(group='${groupId}', module='${artifactId}', version='${assm.version}')\n)`,
+                    'Gradle / Grails': `compile '${groupId}:${artifactId}:${assm.version}'`,
+                }
+            }
+        };
+    }
+
+    public static toNativeReference(type: spec.Type, options: any) {
+        const [, ...name] = type.fqn.split('.');
+        return { java: `import ${[options.package, ...name].join('.')};` };
+    }
+
     protected readonly generator = new JavaGenerator();
 
     constructor(options: TargetOptions) {

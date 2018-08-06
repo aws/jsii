@@ -15,7 +15,7 @@ import { SPEC_FILE_NAME } from '../node_modules/jsii-spec';
     const argv = yargs
         .usage('Usage: jsii-pacmak [-t target,...] [-o outdir] [package-dir]')
         .option('targets', {
-            alias: 't',
+            alias: ['target', 't'],
             type: 'array',
             desc: 'target languages for which to generate bindings',
             defaultDescription: 'all targets defined in `package.json` will be generated',
@@ -109,7 +109,7 @@ import { SPEC_FILE_NAME } from '../node_modules/jsii-spec';
 
         // outdir is either by package.json/jsii.outdir (relative to package root) or via command line (relative to cwd)
         const outDir = argv.outdir !== undefined ? path.resolve(process.cwd(), argv.outdir) : path.resolve(packageDir, pkg.jsii.outdir);
-        const targets = argv.targets || [ ...Object.keys(pkg.jsii.targets), 'js' ]; // "js" is an implicit target
+        const targets = argv.targets || [ ...Object.keys(pkg.jsii.targets), 'js' ]; // "js" is an implicit target.
 
         logging.info(`Building ${pkg.name} (${targets.join(',')}) into ${path.relative(process.cwd(), outDir)}`);
 

@@ -9,6 +9,6 @@ Gem::Specification.new do |s|
   s.summary = pkg['description']
   s.authors = pkg['author']
   s.files = Dir['lib/**']
-  puts s.files
   s.require_paths = ['lib']
+  s.required_ruby_version = '>= 2.2'
 end

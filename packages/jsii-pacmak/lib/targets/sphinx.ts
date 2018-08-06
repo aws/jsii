@@ -1,8 +1,8 @@
-import * as fs from 'fs-extra';
-import * as spec from 'jsii-spec';
-import * as path from 'path';
+import fs = require('fs-extra');
+import spec = require('jsii-spec');
+import path = require('path');
 import { Generator } from '../generator';
-import { Target, TargetOptions } from '../target';
+import { Target, TargetConstructor, TargetOptions } from '../target';
 
 export default class Sphinx extends Target {
     protected readonly generator = new SphinxDocsGenerator();
@@ -31,6 +31,7 @@ class SphinxDocsGenerator extends Generator {
     private readmeFile?: string;
     private namespaceStack = new Array<NamespaceStackEntry>();
     private tocPath = new Array<string>();
+    private targets: { [name: string]: TargetConstructor } = {};
 
     private get topNamespace(): NamespaceStackEntry {
         return this.namespaceStack.length > 0
@@ -44,6 +45,11 @@ class SphinxDocsGenerator extends Generator {
         this.code.openBlockFormatter = s => s || '';
         this.code.closeBlockFormatter = _ => '';
         this.code.indentation = 3;
+    }
+
+    public async load(packageRoot: string) {
+        await super.load(packageRoot);
+        this.targets = await Target.findAll();
     }
 
     public async upToDate(outDir: string): Promise<boolean> {
@@ -85,6 +91,43 @@ class SphinxDocsGenerator extends Generator {
 
         this.openSection(assm.name);
         this.code.line();
+        if (assm.targets) {
+            this.code.openBlock('.. tabs::');
+            this.code.line();
+            for (const targetName of Object.keys(assm.targets).sort()) {
+                const target = this.targets[targetName];
+                if (!target || !target.toPackageInfos) { continue; }
+                const packageInfos = target.toPackageInfos(assm);
+                for (const language of Object.keys(packageInfos).sort()) {
+                    const packageInfo = packageInfos[language];
+                    this.code.openBlock(`.. group-tab:: ${formatLanguage(language)}`);
+                    this.code.line();
+
+                    this.code.line(`View in \`${packageInfo.repository} <${packageInfo.url}>\`_`);
+                    this.code.line();
+
+                    for (const mgrName of Object.keys(packageInfo.usage).sort()) {
+                        const mgr = packageInfo.usage[mgrName];
+                        this.code.line(`**${mgrName}**:`);
+                        this.code.line();
+                        if (typeof mgr === 'string') {
+                            this.code.openBlock('.. code-block:: none');
+                            this.code.line();
+                            mgr.split('\n').forEach(s => this.code.line(s));
+                            this.code.closeBlock();
+                        } else {
+                            this.code.openBlock(`.. code-block:: ${mgr.language}`);
+                            this.code.line();
+                            mgr.code.split('\n').forEach(s => this.code.line(s));
+                            this.code.closeBlock();
+                        }
+                    }
+
+                    this.code.closeBlock();
+                }
+            }
+            this.code.closeBlock();
+        }
 
         this.assemblyName = assm.name;
     }
@@ -170,6 +213,7 @@ class SphinxDocsGenerator extends Generator {
         }
 
         this.code.openBlock(`.. py:class:: ${className}${sig}`);
+        this.renderNames(cls);
         this.renderDocsLine(cls);
         this.code.line();
 
@@ -267,6 +311,8 @@ class SphinxDocsGenerator extends Generator {
         }
 
         this.code.openBlock(`.. py:class:: ${enumName}`);
+        this.renderNames(enm);
+        this.renderDocsLine(enm);
         this.code.line();
     }
 
@@ -288,7 +334,7 @@ class SphinxDocsGenerator extends Generator {
         }
 
         this.code.openBlock(`.. py:class:: ${ifc.name}`);
-
+        this.renderNames(ifc);
         this.renderDocsLine(ifc);
         this.code.line();
 
@@ -516,6 +562,32 @@ class SphinxDocsGenerator extends Generator {
     private toNativeFqn(name: string): string {
         return name;
     }
+
+    private async renderNames(type: spec.Type) {
+        this.code.line();
+        this.code.line('**Language-specific names:**');
+        this.code.line();
+        this.code.openBlock('.. tabs::');
+        this.code.line();
+
+        if (this.assembly.targets) {
+            for (const targetName of Object.keys(this.assembly.targets).sort()) {
+                if (targetName === 'sphinx') { continue; }
+                const target = this.targets[targetName];
+                if (!target || !target.toNativeReference) { continue; }
+                const options = this.assembly.targets[targetName];
+
+                const names = target.toNativeReference(type, options);
+                for (const language of Object.keys(names).sort()) {
+                    this.code.openBlock(`.. code-tab:: ${language}`);
+                    this.code.line();
+                    this.code.line(names[language]);
+                    this.code.closeBlock();
+                }
+            }
+        }
+        this.code.closeBlock();
+    }
 }
 
 function dup(char: string, times: number) {
@@ -532,4 +604,26 @@ function dup(char: string, times: number) {
 function fsSafeName(x: string) {
     // Strip unsafe characters
     return x.replace(/[^a-zA-Z0-9_.-]/g, '_');
+}
+
+/**
+ * Obtains a display-friendly string from a language name.
+ *
+ * @param language the language name code (e.g: javascript)
+ *
+ * @returns a display-friendly name if possible (e.g: JavaScript)
+ */
+function formatLanguage(language: string): string {
+    switch (language) {
+    case 'csharp':
+        return 'C#';
+    case 'java':
+        return 'Java';
+    case 'javascript':
+        return 'JavaScript';
+    case 'typescript':
+        return 'TypeScript';
+    default:
+        return language;
+    }
 }
