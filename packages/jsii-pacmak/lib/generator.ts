@@ -5,7 +5,7 @@ import * as fs from 'fs-extra';
 import * as spec from 'jsii-spec';
 import * as path from 'path';
 import util = require('./util');
-import { VERSION } from './version';
+import { VERSION_DESC } from './version';
 
 // tslint:disable
 
@@ -79,7 +79,7 @@ export abstract class Generator implements IGenerator {
 
         // Including the version of jsii-pacmak in the fingerprint, as a new version may imply different code generation.
         this.fingerprint = crypto.createHash('sha256')
-                                 .update(VERSION)
+                                 .update(VERSION_DESC)
                                  .update('\0')
                                  .update(this.assembly.fingerprint)
                                  .digest('base64');

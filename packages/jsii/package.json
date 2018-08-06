@@ -9,8 +9,9 @@
   },
   "scripts": {
     "watch": "tsc -w",
-    "build": "bash generate.sh && tsc && chmod +x bin/jsii",
-    "test": "nodeunit test/test.*.js"
+    "build": "/bin/bash generate.sh && tsc && chmod +x bin/jsii",
+    "test": "nodeunit test/test.*.js",
+    "package": "package-js"
   },
   "keywords": [
     "jsii",
@@ -23,6 +24,7 @@
     "@types/node": "^9.6.18",
     "@types/nodeunit": "0.0.30",
     "@types/yargs": "^11.0.0",
+    "jsii-build-tools": "0.5.0-beta",
     "nodeunit": "^0.11.2"
   },
   "dependencies": {

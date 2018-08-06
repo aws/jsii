@@ -3,6 +3,7 @@ module.exports = {
     mode: 'production',
     entry: './lib/program.js',
     output: {
+        path: __dirname + '/webpack',
         filename: 'jsii-runtime.js'
     },
     devtool: 'source-maps',

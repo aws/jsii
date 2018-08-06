@@ -6,7 +6,8 @@
   "scripts": {
     "gen": "/bin/bash ./generate.sh",
     "build": "/bin/bash ./build.sh",
-    "test": "/bin/bash ./test.sh"
+    "test": "/bin/bash ./test.sh",
+    "package": "package-dotnet"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,8 @@
     "name": "Amazon Web Services",
     "url": "https://aws.amazon.com"
   },
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "jsii-build-tools": "^0.5.0-beta"
+  }
 }
