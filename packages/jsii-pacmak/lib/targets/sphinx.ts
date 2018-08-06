@@ -98,9 +98,9 @@ class SphinxDocsGenerator extends Generator {
                 const target = this.targets[targetName];
                 if (!target || !target.toPackageInfos) { continue; }
                 const packageInfos = target.toPackageInfos(assm);
-                for (const language of Object.keys(packageInfos)) {
+                for (const language of Object.keys(packageInfos).sort()) {
                     const packageInfo = packageInfos[language];
-                    this.code.openBlock(`.. group-tab:: ${language}`);
+                    this.code.openBlock(`.. group-tab:: ${formatLanguage(language)}`);
                     this.code.line();
 
                     this.code.line(`View in \`${packageInfo.repository} <${packageInfo.url}>\`_`);
@@ -604,4 +604,26 @@ function dup(char: string, times: number) {
 function fsSafeName(x: string) {
     // Strip unsafe characters
     return x.replace(/[^a-zA-Z0-9_.-]/g, '_');
+}
+
+/**
+ * Obtains a display-friendly string from a language name.
+ *
+ * @param language the language name code (e.g: javascript)
+ *
+ * @returns a display-friendly name if possible (e.g: JavaScript)
+ */
+function formatLanguage(language: string): string {
+    switch (language) {
+    case 'csharp':
+        return 'C#';
+    case 'java':
+        return 'Java';
+    case 'javascript':
+        return 'JavaScript';
+    case 'typescript':
+        return 'TypeScript';
+    default:
+        return language;
+    }
 }
