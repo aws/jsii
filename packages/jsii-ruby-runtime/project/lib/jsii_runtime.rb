@@ -39,21 +39,21 @@ module Aws
         end
       end
 
-      define_api(:load)
-      define_api(:create)
-      define_api(:del)
-      define_api(:get)
-      define_api(:sget)
-      define_api(:set)
-      define_api(:sset)
-      define_api(:invoke)
-      define_api(:sinvoke)
-      define_api(:begin)
-      define_api(:end)
-      define_api(:callbacks)
-      define_api(:complete)
-      define_api(:naming)
-      define_api(:stats)
+      define_api :load
+      define_api :create
+      define_api :del
+      define_api :get
+      define_api :sget
+      define_api :set
+      define_api :sset
+      define_api :invoke
+      define_api :sinvoke
+      define_api :begin
+      define_api :end
+      define_api :callbacks
+      define_api :complete
+      define_api :naming
+      define_api :stats
 
       def on_callback(&blk)
         @callback_handler = blk
@@ -73,7 +73,7 @@ module Aws
         return process_error(resp) if resp['error']
         return process_callback(resp) if resp['callback']
 
-        # nil "ok" means undefined result (or void).
+        # if resp["ok"] is nil, it means 'undefined' (or void), so we just return it as-is
         resp['ok']
       end
 
@@ -98,12 +98,12 @@ module Aws
       def process_error(resp)
         message = resp['error']
         stack = resp['stack']
-        message += "\n" + stack unless stack.nil?
+        message += "\n#{stack}" if stack
         raise JsiiError, message
       end
 
       def process_callback(resp)
-        raise JsiiError, 'no callback handler registered with on_callback' if @callback_handler.nil?
+        raise JsiiError, 'no callback handler registered with on_callback' unless @callback_handler
         callback = resp['callback']
 
         result = nil
