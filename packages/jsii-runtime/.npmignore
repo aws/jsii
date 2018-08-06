@@ -2,3 +2,4 @@
 *.ts
 !*.d.ts
 *.sh
+dist

@@ -7,11 +7,13 @@
   "scripts": {
     "gen": "/bin/bash ./generate.sh",
     "build": "tsc && npm run gen && cd project && mvn deploy -D altDeploymentRepository=local::default::file://${PWD}/../maven-repo",
-    "test": "echo 'Tests are performed by jsii-java-runtime-test'"
+    "test": "echo 'Tests are performed by jsii-java-runtime-test'",
+    "package": "package-java"
   },
   "devDependencies": {
     "@types/node": "^9.6.18",
     "jsii-runtime": "^0.5.0-beta",
+    "jsii-build-tools": "^0.5.0-beta",
     "typescript": "^2.9.2"
   },
   "author": {

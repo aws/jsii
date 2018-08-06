@@ -7,7 +7,7 @@ echo "${version}" > project/version.txt
 
 # embed jsii-runtime as a resource
 mkdir -p ${res}
-rsync -av node_modules/jsii-runtime/dist/ ${res}
+rsync -av node_modules/jsii-runtime/webpack/ ${res}
 
 # generate jsii-calc for ruby
 mkdir -p project/test/jsii-calc

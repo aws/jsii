@@ -7,7 +7,7 @@ import yargs = require('yargs');
 import logging = require('../lib/logging');
 import { Target } from '../lib/target';
 import { resolveDependencyDirectory, shell } from '../lib/util';
-import { VERSION } from '../lib/version';
+import { VERSION_DESC } from '../lib/version';
 import { SPEC_FILE_NAME } from '../node_modules/jsii-spec';
 
 (async function main() {
@@ -70,7 +70,7 @@ import { SPEC_FILE_NAME } from '../node_modules/jsii-spec';
             desc: 'Auto-update .npmignore to exclude the output directory and include the .jsii file',
             default: true
         })
-        .version(VERSION)
+        .version(VERSION_DESC)
         .argv;
 
     logging.level = argv.verbose !== undefined ? argv.verbose : 0;
@@ -109,7 +109,7 @@ import { SPEC_FILE_NAME } from '../node_modules/jsii-spec';
 
         // outdir is either by package.json/jsii.outdir (relative to package root) or via command line (relative to cwd)
         const outDir = argv.outdir !== undefined ? path.resolve(process.cwd(), argv.outdir) : path.resolve(packageDir, pkg.jsii.outdir);
-        const targets = argv.targets || [ ...Object.keys(pkg.jsii.targets), 'npm' ]; // "npm" is an implicit target
+        const targets = argv.targets || [ ...Object.keys(pkg.jsii.targets), 'js' ]; // "js" is an implicit target
 
         logging.info(`Building ${pkg.name} (${targets.join(',')}) into ${path.relative(process.cwd(), outDir)}`);
 

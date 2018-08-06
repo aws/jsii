@@ -1,0 +1,7 @@
+#!/bin/bash
+set -euo pipefail
+rm -fr dist/dotnet
+mkdir -p dist/dotnet
+cp *.nupkg dist/dotnet
+
+

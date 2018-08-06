@@ -2,3 +2,7 @@
 *.ts
 !*.d.ts
 *.tgz
+
+
+# Include .jsii
+!.jsii

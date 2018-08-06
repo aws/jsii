@@ -2,7 +2,7 @@ import * as spec from 'jsii-spec';
 import { Generator } from '../generator';
 import { Target, TargetOptions } from '../target';
 
-export default class Npm extends Target {
+export default class JavaScript extends Target {
     protected readonly generator = new PackOnly();
 
     constructor(options: TargetOptions) {

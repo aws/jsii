@@ -18,7 +18,7 @@ export JSII_RECORD=$(mktemp -d) # recording dir output
 export JSII_NOSTACK=1           # stack traces will not match
 export JSII_DEBUG=1             # emit debug log from jsii-runtime
 
-jsii_runtime_program="../dist/jsii-runtime.js"
+jsii_runtime_program="../webpack/jsii-runtime.js"
 
 # run jsii-kernel tests and save recordings
 nodeunit ../../jsii-kernel/test/test.kernel.js >& /tmp/test-output || {
