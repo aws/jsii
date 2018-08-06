@@ -1,6 +1,6 @@
 {
   "name": "jsii-calc",
-  "version": "0.5.0-beta",
+  "version": "0.6.0",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "private": true,
@@ -17,7 +17,7 @@
       "dotnet": {
         "namespace": "Amazon.JSII.Tests.Calculator"
       },
-      "sphinx": { }
+      "sphinx": {}
     }
   },
   "scripts": {
@@ -28,14 +28,14 @@
     "jsii-calc-bundled"
   ],
   "dependencies": {
-    "@scope/jsii-calc-lib": "^0.5.0-beta",
-    "@scope/jsii-calc-base": "^0.5.0-beta",
-    "jsii-calc-bundled": "^0.5.0-beta"
+    "@scope/jsii-calc-base": "^0.6.0",
+    "@scope/jsii-calc-lib": "^0.6.0",
+    "jsii-calc-bundled": "^0.6.0"
   },
   "devDependencies": {
     "@types/node": "^9.6.18",
-    "jsii": "^0.5.0-beta",
-    "jsii-build-tools": "^0.5.0-beta",
+    "jsii": "^0.6.0",
+    "jsii-build-tools": "^0.6.0",
     "typescript": "^2.9.2"
   },
   "author": {
@@ -47,15 +47,23 @@
     {
       "name": "Elad Ben-Israel",
       "url": "https://github.com/eladb",
-      "roles": ["maintainer"]
-    }, {
+      "roles": [
+        "maintainer"
+      ]
+    },
+    {
       "name": "Rico Huijbers",
       "url": "https://github.com/rix0rrr",
-      "roles": ["maintainer"]
-    }, {
+      "roles": [
+        "maintainer"
+      ]
+    },
+    {
       "name": "Romain Marcadier-Muller",
       "url": "https://github.com/RomainMuller",
-      "roles": ["maintainer"]
+      "roles": [
+        "maintainer"
+      ]
     }
   ],
   "license": "Apache-2.0",

@@ -4,13 +4,13 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors></Authors>
     <Company></Company>
-    <PackageVersion>0.5.0-beta</PackageVersion>
+    <PackageVersion>0.6.0</PackageVersion>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="scope-jsii-calc-lib-0.5.0-beta.tgz" />
+    <EmbeddedResource Include="scope-jsii-calc-lib-0.6.0.tgz" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Amazon.JSII.Runtime" Version="0.5.0-beta" />
+    <PackageReference Include="Amazon.JSII.Runtime" Version="0.6.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Amazon.JSII.Tests.Calculator.Base\Amazon.JSII.Tests.Calculator.Base.csproj" />

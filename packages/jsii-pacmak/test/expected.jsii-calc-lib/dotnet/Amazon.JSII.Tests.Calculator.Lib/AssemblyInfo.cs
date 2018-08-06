@@ -1,3 +1,3 @@
 using Amazon.JSII.Runtime.Deputy;
 
-[assembly: JsiiAssembly("@scope/jsii-calc-lib", "0.5.0-beta", "scope-jsii-calc-lib-0.5.0-beta.tgz")]
+[assembly: JsiiAssembly("@scope/jsii-calc-lib", "0.6.0", "scope-jsii-calc-lib-0.6.0.tgz")]
