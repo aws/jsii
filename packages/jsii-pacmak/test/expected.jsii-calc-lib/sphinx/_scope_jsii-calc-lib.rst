@@ -3,25 +3,95 @@
 
 .. tabs::
 
-   .. group-tab:: Maven
+   .. group-tab:: Java
 
-      ::
+      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator-lib/0.5.0-beta/>`_
 
-         <?xml version="1.0"?>
+      **Apache Buildr**:
+
+      .. code-block:: none
+
+         'software.amazon.jsii.tests:calculator-lib:jar:0.5.0-beta'
+
+      **Apache Ivy**:
+
+      .. code-block:: xml
+
+         <dependency groupId="software.amazon.jsii.tests" name="calculator-lib" rev="0.5.0-beta"/>
+
+      **Apache Maven**:
+
+      .. code-block:: xml
+
          <dependency>
-           <groupId>com.amazonaws.jsii.tests</groupId>
+           <groupId>software.amazon.jsii.tests</groupId>
            <artifactId>calculator-lib</artifactId>
-           <version>[0.5.0-beta,0.5.0)</version>
+           <version>0.5.0-beta</version>
          </dependency>
 
+      **Gradle / Grails**:
 
-   .. group-tab:: NPM
+      .. code-block:: none
 
-      ::
+         compile 'software.amazon.jsii.tests:calculator-lib:0.5.0-beta'
+
+      **Groovy Grape**:
+
+      .. code-block:: none
+
+         @Grapes(
+         @Grab(group='software.amazon.jsii.tests', module='calculator-lib', version='0.5.0-beta')
+         )
+
+
+   .. group-tab:: JavaScript
+
+      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-lib/v/0.5.0-beta>`_
+
+      **npm**:
+
+      .. code-block:: console
+
+         $ npm i @scope/jsii-calc-lib@0.5.0-beta
+
+      **package.json**:
+
+      .. code-block:: js
 
          {
            "@scope/jsii-calc-lib": "^0.5.0-beta"
          }
+
+      **yarn**:
+
+      .. code-block:: console
+
+         $ yarn add @scope/jsii-calc-lib@0.5.0-beta
+
+
+   .. group-tab:: TypeScript
+
+      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-lib/v/0.5.0-beta>`_
+
+      **npm**:
+
+      .. code-block:: console
+
+         $ npm i @scope/jsii-calc-lib@0.5.0-beta
+
+      **package.json**:
+
+      .. code-block:: js
+
+         {
+           "@scope/jsii-calc-lib": "^0.5.0-beta"
+         }
+
+      **yarn**:
+
+      .. code-block:: console
+
+         $ yarn add @scope/jsii-calc-lib@0.5.0-beta
 
 
 
@@ -35,6 +105,27 @@ EnumFromScopedModule (enum)
 
 .. py:class:: EnumFromScopedModule
 
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule;
+
+      .. code-tab:: javascript
+
+         const { EnumFromScopedModule } = require('@scope/jsii-calc-lib');
+
+      .. code-tab:: typescript
+
+         import { EnumFromScopedModule } from '@scope/jsii-calc-lib';
+
+
+
+   Check that enums from @scoped packages can be references. See awslabs/jsii#138
+
+
    .. py:data:: Value1
 
    .. py:data:: Value2
@@ -45,15 +136,21 @@ IFriendly (interface)
 
 .. py:class:: IFriendly
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.lib.IFriendly
+         import software.amazon.jsii.tests.calculator.lib.IFriendly;
+
+      .. code-tab:: javascript
+
+         // IFriendly is an interface
 
       .. code-tab:: typescript
 
-         IFriendly
+         import { IFriendly } from '@scope/jsii-calc-lib';
 
 
 
@@ -75,15 +172,21 @@ MyFirstStruct (interface)
 
 .. py:class:: MyFirstStruct
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.lib.MyFirstStruct
+         import software.amazon.jsii.tests.calculator.lib.MyFirstStruct;
+
+      .. code-tab:: javascript
+
+         // MyFirstStruct is an interface
 
       .. code-tab:: typescript
 
-         MyFirstStruct
+         import { MyFirstStruct } from '@scope/jsii-calc-lib';
 
 
 
@@ -118,19 +221,21 @@ Number
 
 .. py:class:: Number(value)
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.lib.Number
+         import software.amazon.jsii.tests.calculator.lib.Number;
 
       .. code-tab:: javascript
 
-         Number
+         const { Number } = require('@scope/jsii-calc-lib');
 
       .. code-tab:: typescript
 
-         Number
+         import { Number } from '@scope/jsii-calc-lib';
 
 
 
@@ -162,19 +267,21 @@ Operation
 
 .. py:class:: Operation()
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.lib.Operation
+         import software.amazon.jsii.tests.calculator.lib.Operation;
 
       .. code-tab:: javascript
 
-         Operation
+         const { Operation } = require('@scope/jsii-calc-lib');
 
       .. code-tab:: typescript
 
-         Operation
+         import { Operation } from '@scope/jsii-calc-lib';
 
 
 
@@ -198,15 +305,21 @@ StructWithOnlyOptionals (interface)
 
 .. py:class:: StructWithOnlyOptionals
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.lib.StructWithOnlyOptionals
+         import software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals;
+
+      .. code-tab:: javascript
+
+         // StructWithOnlyOptionals is an interface
 
       .. code-tab:: typescript
 
-         StructWithOnlyOptionals
+         import { StructWithOnlyOptionals } from '@scope/jsii-calc-lib';
 
 
 
@@ -238,19 +351,21 @@ Value
 
 .. py:class:: Value()
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.lib.Value
+         import software.amazon.jsii.tests.calculator.lib.Value;
 
       .. code-tab:: javascript
 
-         Value
+         const { Value } = require('@scope/jsii-calc-lib');
 
       .. code-tab:: typescript
 
-         Value
+         import { Value } from '@scope/jsii-calc-lib';
 
 
 

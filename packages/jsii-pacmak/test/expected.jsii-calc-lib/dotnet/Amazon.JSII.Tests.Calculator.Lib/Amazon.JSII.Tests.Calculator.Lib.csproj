@@ -10,7 +10,7 @@
     <EmbeddedResource Include="scope-jsii-calc-lib-0.5.0-beta.tgz" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Amazon.JSII.Runtime" Version="0.5.0-beta" />
+    <PackageReference Include="Amazon.JSII.Runtime" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Amazon.JSII.Tests.Calculator.Base\Amazon.JSII.Tests.Calculator.Base.csproj" />

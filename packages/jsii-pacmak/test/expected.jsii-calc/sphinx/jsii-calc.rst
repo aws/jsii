@@ -3,25 +3,95 @@ jsii-calc
 
 .. tabs::
 
-   .. group-tab:: Maven
+   .. group-tab:: Java
 
-      ::
+      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator/0.5.0-beta/>`_
 
-         <?xml version="1.0"?>
+      **Apache Buildr**:
+
+      .. code-block:: none
+
+         'software.amazon.jsii.tests:calculator:jar:0.5.0-beta'
+
+      **Apache Ivy**:
+
+      .. code-block:: xml
+
+         <dependency groupId="software.amazon.jsii.tests" name="calculator" rev="0.5.0-beta"/>
+
+      **Apache Maven**:
+
+      .. code-block:: xml
+
          <dependency>
-           <groupId>com.amazonaws.jsii.tests</groupId>
+           <groupId>software.amazon.jsii.tests</groupId>
            <artifactId>calculator</artifactId>
-           <version>[0.5.0-beta,0.5.0)</version>
+           <version>0.5.0-beta</version>
          </dependency>
 
+      **Gradle / Grails**:
 
-   .. group-tab:: NPM
+      .. code-block:: none
 
-      ::
+         compile 'software.amazon.jsii.tests:calculator:0.5.0-beta'
+
+      **Groovy Grape**:
+
+      .. code-block:: none
+
+         @Grapes(
+         @Grab(group='software.amazon.jsii.tests', module='calculator', version='0.5.0-beta')
+         )
+
+
+   .. group-tab:: JavaScript
+
+      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.5.0-beta>`_
+
+      **npm**:
+
+      .. code-block:: console
+
+         $ npm i jsii-calc@0.5.0-beta
+
+      **package.json**:
+
+      .. code-block:: js
 
          {
            "jsii-calc": "^0.5.0-beta"
          }
+
+      **yarn**:
+
+      .. code-block:: console
+
+         $ yarn add jsii-calc@0.5.0-beta
+
+
+   .. group-tab:: TypeScript
+
+      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.5.0-beta>`_
+
+      **npm**:
+
+      .. code-block:: console
+
+         $ npm i jsii-calc@0.5.0-beta
+
+      **package.json**:
+
+      .. code-block:: js
+
+         {
+           "jsii-calc": "^0.5.0-beta"
+         }
+
+      **yarn**:
+
+      .. code-block:: console
+
+         $ yarn add jsii-calc@0.5.0-beta
 
 
 
@@ -37,19 +107,21 @@ Add
 
 .. py:class:: Add(lhs, rhs)
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.Add
+         import software.amazon.jsii.tests.calculator.Add;
 
       .. code-tab:: javascript
 
-         Add
+         const { Add } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         Add
+         import { Add } from 'jsii-calc';
 
 
 
@@ -83,19 +155,21 @@ AllTypes
 
 .. py:class:: AllTypes()
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.AllTypes
+         import software.amazon.jsii.tests.calculator.AllTypes;
 
       .. code-tab:: javascript
 
-         AllTypes
+         const { AllTypes } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         AllTypes
+         import { AllTypes } from 'jsii-calc';
 
 
 
@@ -195,19 +269,21 @@ AllTypesEnum (enum)
 
 .. py:class:: AllTypesEnum
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.AllTypesEnum
+         import software.amazon.jsii.tests.calculator.AllTypesEnum;
 
       .. code-tab:: javascript
 
-         AllTypesEnum
+         const { AllTypesEnum } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         AllTypesEnum
+         import { AllTypesEnum } from 'jsii-calc';
 
 
 
@@ -223,19 +299,21 @@ AllowedMethodNames
 
 .. py:class:: AllowedMethodNames()
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.AllowedMethodNames
+         import software.amazon.jsii.tests.calculator.AllowedMethodNames;
 
       .. code-tab:: javascript
 
-         AllowedMethodNames
+         const { AllowedMethodNames } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         AllowedMethodNames
+         import { AllowedMethodNames } from 'jsii-calc';
 
 
 
@@ -284,19 +362,21 @@ AsyncVirtualMethods
 
 .. py:class:: AsyncVirtualMethods()
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.AsyncVirtualMethods
+         import software.amazon.jsii.tests.calculator.AsyncVirtualMethods;
 
       .. code-tab:: javascript
 
-         AsyncVirtualMethods
+         const { AsyncVirtualMethods } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         AsyncVirtualMethods
+         import { AsyncVirtualMethods } from 'jsii-calc';
 
 
 
@@ -344,19 +424,21 @@ BinaryOperation
 
 .. py:class:: BinaryOperation(lhs, rhs)
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.BinaryOperation
+         import software.amazon.jsii.tests.calculator.BinaryOperation;
 
       .. code-tab:: javascript
 
-         BinaryOperation
+         const { BinaryOperation } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         BinaryOperation
+         import { BinaryOperation } from 'jsii-calc';
 
 
 
@@ -400,19 +482,21 @@ Calculator
 
 .. py:class:: Calculator([props])
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.Calculator
+         import software.amazon.jsii.tests.calculator.Calculator;
 
       .. code-tab:: javascript
 
-         Calculator
+         const { Calculator } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         Calculator
+         import { Calculator } from 'jsii-calc';
 
 
 
@@ -518,15 +602,21 @@ CalculatorProps (interface)
 
 .. py:class:: CalculatorProps
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.CalculatorProps
+         import software.amazon.jsii.tests.calculator.CalculatorProps;
+
+      .. code-tab:: javascript
+
+         // CalculatorProps is an interface
 
       .. code-tab:: typescript
 
-         CalculatorProps
+         import { CalculatorProps } from 'jsii-calc';
 
 
 
@@ -555,19 +645,21 @@ Base
 
 .. py:class:: Base()
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.DerivedClassHasNoProperties.Base
+         import software.amazon.jsii.tests.calculator.DerivedClassHasNoProperties.Base;
 
       .. code-tab:: javascript
 
-         DerivedClassHasNoProperties.Base
+         const { DerivedClassHasNoProperties.Base } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         DerivedClassHasNoProperties.Base
+         import { DerivedClassHasNoProperties.Base } from 'jsii-calc';
 
 
 
@@ -582,19 +674,21 @@ Derived
 
 .. py:class:: Derived()
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.DerivedClassHasNoProperties.Derived
+         import software.amazon.jsii.tests.calculator.DerivedClassHasNoProperties.Derived;
 
       .. code-tab:: javascript
 
-         DerivedClassHasNoProperties.Derived
+         const { DerivedClassHasNoProperties.Derived } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         DerivedClassHasNoProperties.Derived
+         import { DerivedClassHasNoProperties.Derived } from 'jsii-calc';
 
 
 
@@ -608,15 +702,21 @@ DerivedStruct (interface)
 
 .. py:class:: DerivedStruct
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.DerivedStruct
+         import software.amazon.jsii.tests.calculator.DerivedStruct;
+
+      .. code-tab:: javascript
+
+         // DerivedStruct is an interface
 
       .. code-tab:: typescript
 
-         DerivedStruct
+         import { DerivedStruct } from 'jsii-calc';
 
 
 
@@ -662,19 +762,21 @@ DoubleTrouble
 
 .. py:class:: DoubleTrouble()
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.DoubleTrouble
+         import software.amazon.jsii.tests.calculator.DoubleTrouble;
 
       .. code-tab:: javascript
 
-         DoubleTrouble
+         const { DoubleTrouble } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         DoubleTrouble
+         import { DoubleTrouble } from 'jsii-calc';
 
 
 
@@ -701,19 +803,21 @@ GiveMeStructs
 
 .. py:class:: GiveMeStructs()
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.GiveMeStructs
+         import software.amazon.jsii.tests.calculator.GiveMeStructs;
 
       .. code-tab:: javascript
 
-         GiveMeStructs
+         const { GiveMeStructs } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         GiveMeStructs
+         import { GiveMeStructs } from 'jsii-calc';
 
 
 
@@ -758,15 +862,21 @@ IFriendlier (interface)
 
 .. py:class:: IFriendlier
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.IFriendlier
+         import software.amazon.jsii.tests.calculator.IFriendlier;
+
+      .. code-tab:: javascript
+
+         // IFriendlier is an interface
 
       .. code-tab:: typescript
 
-         IFriendlier
+         import { IFriendlier } from 'jsii-calc';
 
 
 
@@ -798,15 +908,21 @@ IFriendlyRandomGenerator (interface)
 
 .. py:class:: IFriendlyRandomGenerator
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.IFriendlyRandomGenerator
+         import software.amazon.jsii.tests.calculator.IFriendlyRandomGenerator;
+
+      .. code-tab:: javascript
+
+         // IFriendlyRandomGenerator is an interface
 
       .. code-tab:: typescript
 
-         IFriendlyRandomGenerator
+         import { IFriendlyRandomGenerator } from 'jsii-calc';
 
 
 
@@ -819,15 +935,21 @@ IInterfaceWithProperties (interface)
 
 .. py:class:: IInterfaceWithProperties
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.IInterfaceWithProperties
+         import software.amazon.jsii.tests.calculator.IInterfaceWithProperties;
+
+      .. code-tab:: javascript
+
+         // IInterfaceWithProperties is an interface
 
       .. code-tab:: typescript
 
-         IInterfaceWithProperties
+         import { IInterfaceWithProperties } from 'jsii-calc';
 
 
 
@@ -848,15 +970,21 @@ IInterfaceWithPropertiesExtension (interface)
 
 .. py:class:: IInterfaceWithPropertiesExtension
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.IInterfaceWithPropertiesExtension
+         import software.amazon.jsii.tests.calculator.IInterfaceWithPropertiesExtension;
+
+      .. code-tab:: javascript
+
+         // IInterfaceWithPropertiesExtension is an interface
 
       .. code-tab:: typescript
 
-         IInterfaceWithPropertiesExtension
+         import { IInterfaceWithPropertiesExtension } from 'jsii-calc';
 
 
 
@@ -873,15 +1001,21 @@ IRandomNumberGenerator (interface)
 
 .. py:class:: IRandomNumberGenerator
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.IRandomNumberGenerator
+         import software.amazon.jsii.tests.calculator.IRandomNumberGenerator;
+
+      .. code-tab:: javascript
+
+         // IRandomNumberGenerator is an interface
 
       .. code-tab:: typescript
 
-         IRandomNumberGenerator
+         import { IRandomNumberGenerator } from 'jsii-calc';
 
 
 
@@ -904,6 +1038,24 @@ ImplictBaseOfBase (interface)
 
 .. py:class:: ImplictBaseOfBase
 
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.ImplictBaseOfBase;
+
+      .. code-tab:: javascript
+
+         // ImplictBaseOfBase is an interface
+
+      .. code-tab:: typescript
+
+         import { ImplictBaseOfBase } from 'jsii-calc';
+
+
+
    :extends: :py:class:`@scope/jsii-calc-base.BaseProps`
 
 
@@ -917,19 +1069,21 @@ JSObjectLiteralForInterface
 
 .. py:class:: JSObjectLiteralForInterface()
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.JSObjectLiteralForInterface
+         import software.amazon.jsii.tests.calculator.JSObjectLiteralForInterface;
 
       .. code-tab:: javascript
 
-         JSObjectLiteralForInterface
+         const { JSObjectLiteralForInterface } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         JSObjectLiteralForInterface
+         import { JSObjectLiteralForInterface } from 'jsii-calc';
 
 
 
@@ -949,19 +1103,21 @@ JSObjectLiteralToNative
 
 .. py:class:: JSObjectLiteralToNative()
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.JSObjectLiteralToNative
+         import software.amazon.jsii.tests.calculator.JSObjectLiteralToNative;
 
       .. code-tab:: javascript
 
-         JSObjectLiteralToNative
+         const { JSObjectLiteralToNative } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         JSObjectLiteralToNative
+         import { JSObjectLiteralToNative } from 'jsii-calc';
 
 
 
@@ -976,19 +1132,21 @@ JSObjectLiteralToNativeClass
 
 .. py:class:: JSObjectLiteralToNativeClass()
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.JSObjectLiteralToNativeClass
+         import software.amazon.jsii.tests.calculator.JSObjectLiteralToNativeClass;
 
       .. code-tab:: javascript
 
-         JSObjectLiteralToNativeClass
+         const { JSObjectLiteralToNativeClass } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         JSObjectLiteralToNativeClass
+         import { JSObjectLiteralToNativeClass } from 'jsii-calc';
 
 
 
@@ -1008,19 +1166,21 @@ JavaReservedWords
 
 .. py:class:: JavaReservedWords()
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.JavaReservedWords
+         import software.amazon.jsii.tests.calculator.JavaReservedWords;
 
       .. code-tab:: javascript
 
-         JavaReservedWords
+         const { JavaReservedWords } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         JavaReservedWords
+         import { JavaReservedWords } from 'jsii-calc';
 
 
 
@@ -1243,19 +1403,21 @@ Multiply
 
 .. py:class:: Multiply(lhs, rhs)
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.Multiply
+         import software.amazon.jsii.tests.calculator.Multiply;
 
       .. code-tab:: javascript
 
-         Multiply
+         const { Multiply } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         Multiply
+         import { Multiply } from 'jsii-calc';
 
 
 
@@ -1315,19 +1477,21 @@ Negate
 
 .. py:class:: Negate(operand)
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.Negate
+         import software.amazon.jsii.tests.calculator.Negate;
 
       .. code-tab:: javascript
 
-         Negate
+         const { Negate } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         Negate
+         import { Negate } from 'jsii-calc';
 
 
 
@@ -1384,19 +1548,21 @@ NodeStandardLibrary
 
 .. py:class:: NodeStandardLibrary()
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.NodeStandardLibrary
+         import software.amazon.jsii.tests.calculator.NodeStandardLibrary;
 
       .. code-tab:: javascript
 
-         NodeStandardLibrary
+         const { NodeStandardLibrary } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         NodeStandardLibrary
+         import { NodeStandardLibrary } from 'jsii-calc';
 
 
 
@@ -1444,19 +1610,21 @@ NumberGenerator
 
 .. py:class:: NumberGenerator(generator)
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.NumberGenerator
+         import software.amazon.jsii.tests.calculator.NumberGenerator;
 
       .. code-tab:: javascript
 
-         NumberGenerator
+         const { NumberGenerator } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         NumberGenerator
+         import { NumberGenerator } from 'jsii-calc';
 
 
 
@@ -1488,19 +1656,21 @@ ObjectRefsInCollections
 
 .. py:class:: ObjectRefsInCollections()
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.ObjectRefsInCollections
+         import software.amazon.jsii.tests.calculator.ObjectRefsInCollections;
 
       .. code-tab:: javascript
 
-         ObjectRefsInCollections
+         const { ObjectRefsInCollections } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         ObjectRefsInCollections
+         import { ObjectRefsInCollections } from 'jsii-calc';
 
 
 
@@ -1533,19 +1703,21 @@ OverrideReturnsObject
 
 .. py:class:: OverrideReturnsObject()
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.OverrideReturnsObject
+         import software.amazon.jsii.tests.calculator.OverrideReturnsObject;
 
       .. code-tab:: javascript
 
-         OverrideReturnsObject
+         const { OverrideReturnsObject } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         OverrideReturnsObject
+         import { OverrideReturnsObject } from 'jsii-calc';
 
 
 
@@ -1562,19 +1734,21 @@ Polymorphism
 
 .. py:class:: Polymorphism()
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.Polymorphism
+         import software.amazon.jsii.tests.calculator.Polymorphism;
 
       .. code-tab:: javascript
 
-         Polymorphism
+         const { Polymorphism } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         Polymorphism
+         import { Polymorphism } from 'jsii-calc';
 
 
 
@@ -1591,19 +1765,21 @@ Power
 
 .. py:class:: Power(base, pow)
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.Power
+         import software.amazon.jsii.tests.calculator.Power;
 
       .. code-tab:: javascript
 
-         Power
+         const { Power } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         Power
+         import { Power } from 'jsii-calc';
 
 
 
@@ -1645,6 +1821,24 @@ ReferenceEnumFromScopedPackage
 
 .. py:class:: ReferenceEnumFromScopedPackage()
 
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.ReferenceEnumFromScopedPackage;
+
+      .. code-tab:: javascript
+
+         const { ReferenceEnumFromScopedPackage } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { ReferenceEnumFromScopedPackage } from 'jsii-calc';
+
+
+
    See awslabs/jsii#138
 
 
@@ -1670,15 +1864,21 @@ ReturnsNumber (interface)
 
 .. py:class:: ReturnsNumber
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.ReturnsNumber
+         import software.amazon.jsii.tests.calculator.ReturnsNumber;
+
+      .. code-tab:: javascript
+
+         // ReturnsNumber is an interface
 
       .. code-tab:: typescript
 
-         ReturnsNumber
+         import { ReturnsNumber } from 'jsii-calc';
 
 
 
@@ -1699,19 +1899,21 @@ RuntimeTypeChecking
 
 .. py:class:: RuntimeTypeChecking()
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.RuntimeTypeChecking
+         import software.amazon.jsii.tests.calculator.RuntimeTypeChecking;
 
       .. code-tab:: javascript
 
-         RuntimeTypeChecking
+         const { RuntimeTypeChecking } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         RuntimeTypeChecking
+         import { RuntimeTypeChecking } from 'jsii-calc';
 
 
 
@@ -1734,19 +1936,21 @@ Statics
 
 .. py:class:: Statics(value)
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.Statics
+         import software.amazon.jsii.tests.calculator.Statics;
 
       .. code-tab:: javascript
 
-         Statics
+         const { Statics } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         Statics
+         import { Statics } from 'jsii-calc';
 
 
 
@@ -1820,19 +2024,21 @@ StringEnum (enum)
 
 .. py:class:: StringEnum
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.StringEnum
+         import software.amazon.jsii.tests.calculator.StringEnum;
 
       .. code-tab:: javascript
 
-         StringEnum
+         const { StringEnum } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         StringEnum
+         import { StringEnum } from 'jsii-calc';
 
 
 
@@ -1848,19 +2054,21 @@ Sum
 
 .. py:class:: Sum()
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.Sum
+         import software.amazon.jsii.tests.calculator.Sum;
 
       .. code-tab:: javascript
 
-         Sum
+         const { Sum } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         Sum
+         import { Sum } from 'jsii-calc';
 
 
 
@@ -1890,19 +2098,21 @@ SyncVirtualMethods
 
 .. py:class:: SyncVirtualMethods()
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.SyncVirtualMethods
+         import software.amazon.jsii.tests.calculator.SyncVirtualMethods;
 
       .. code-tab:: javascript
 
-         SyncVirtualMethods
+         const { SyncVirtualMethods } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         SyncVirtualMethods
+         import { SyncVirtualMethods } from 'jsii-calc';
 
 
 
@@ -1997,19 +2207,21 @@ Thrower
 
 .. py:class:: Thrower()
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.Thrower
+         import software.amazon.jsii.tests.calculator.Thrower;
 
       .. code-tab:: javascript
 
-         Thrower
+         const { Thrower } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         Thrower
+         import { Thrower } from 'jsii-calc';
 
 
 
@@ -2023,19 +2235,21 @@ UnaryOperation
 
 .. py:class:: UnaryOperation(operand)
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.UnaryOperation
+         import software.amazon.jsii.tests.calculator.UnaryOperation;
 
       .. code-tab:: javascript
 
-         UnaryOperation
+         const { UnaryOperation } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         UnaryOperation
+         import { UnaryOperation } from 'jsii-calc';
 
 
 
@@ -2057,15 +2271,21 @@ UnionProperties (interface)
 
 .. py:class:: UnionProperties
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.UnionProperties
+         import software.amazon.jsii.tests.calculator.UnionProperties;
+
+      .. code-tab:: javascript
+
+         // UnionProperties is an interface
 
       .. code-tab:: typescript
 
-         UnionProperties
+         import { UnionProperties } from 'jsii-calc';
 
 
 
@@ -2086,19 +2306,21 @@ UseBundledDependency
 
 .. py:class:: UseBundledDependency()
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.UseBundledDependency
+         import software.amazon.jsii.tests.calculator.UseBundledDependency;
 
       .. code-tab:: javascript
 
-         UseBundledDependency
+         const { UseBundledDependency } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         UseBundledDependency
+         import { UseBundledDependency } from 'jsii-calc';
 
 
 
@@ -2112,6 +2334,24 @@ UseCalcBase
 ^^^^^^^^^^^
 
 .. py:class:: UseCalcBase()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.UseCalcBase;
+
+      .. code-tab:: javascript
+
+         const { UseCalcBase } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { UseCalcBase } from 'jsii-calc';
+
+
 
    Depend on a type from jsii-calc-base as a test for awslabs/jsii#128
 
@@ -2127,19 +2367,21 @@ UsesInterfaceWithProperties
 
 .. py:class:: UsesInterfaceWithProperties(obj)
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.UsesInterfaceWithProperties
+         import software.amazon.jsii.tests.calculator.UsesInterfaceWithProperties;
 
       .. code-tab:: javascript
 
-         UsesInterfaceWithProperties
+         const { UsesInterfaceWithProperties } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         UsesInterfaceWithProperties
+         import { UsesInterfaceWithProperties } from 'jsii-calc';
 
 
 
@@ -2175,19 +2417,21 @@ VariadicMethod
 
 .. py:class:: VariadicMethod(*prefix)
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.VariadicMethod
+         import software.amazon.jsii.tests.calculator.VariadicMethod;
 
       .. code-tab:: javascript
 
-         VariadicMethod
+         const { VariadicMethod } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         VariadicMethod
+         import { VariadicMethod } from 'jsii-calc';
 
 
 
@@ -2208,19 +2452,21 @@ VirtualMethodPlayground
 
 .. py:class:: VirtualMethodPlayground()
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.VirtualMethodPlayground
+         import software.amazon.jsii.tests.calculator.VirtualMethodPlayground;
 
       .. code-tab:: javascript
 
-         VirtualMethodPlayground
+         const { VirtualMethodPlayground } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         VirtualMethodPlayground
+         import { VirtualMethodPlayground } from 'jsii-calc';
 
 
 
@@ -2270,19 +2516,21 @@ CompositeOperation
 
 .. py:class:: CompositeOperation()
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.composition.CompositeOperation
+         import software.amazon.jsii.tests.calculator.composition.CompositeOperation;
 
       .. code-tab:: javascript
 
-         composition.CompositeOperation
+         const { composition.CompositeOperation } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         composition.CompositeOperation
+         import { composition.CompositeOperation } from 'jsii-calc';
 
 
 
@@ -2345,19 +2593,21 @@ CompositionStringStyle (enum)
 
 .. py:class:: CompositionStringStyle
 
+   **Language-specific names:**
+
    .. tabs::
 
       .. code-tab:: java
 
-         org.jsii.tests.calculator.composition.CompositionStringStyle
+         import software.amazon.jsii.tests.calculator.composition.CompositionStringStyle;
 
       .. code-tab:: javascript
 
-         composition.CompositionStringStyle
+         const { composition.CompositionStringStyle } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         composition.CompositionStringStyle
+         import { composition.CompositionStringStyle } from 'jsii-calc';
 
 
 
