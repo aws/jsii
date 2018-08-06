@@ -1,6 +1,6 @@
 {
   "name": "jsii-dotnet-generator",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": ".NET code generator for jsii assemblies",
   "main": "index.js",
   "scripts": {
@@ -10,10 +10,10 @@
     "package": "package-dotnet"
   },
   "dependencies": {
-    "jsii-dotnet-jsonmodel": "^0.6.0"
+    "jsii-dotnet-jsonmodel": "^0.6.1"
   },
   "devDependencies": {
-    "jsii-build-tools": "^0.6.0"
+    "jsii-build-tools": "^0.6.1"
   },
   "repository": {
     "type": "git",
