@@ -8,7 +8,7 @@
     "watch": "tsc -w",
     "build": "tsc && bash generate-json-schema.sh",
     "test": "nodeunit test/test.*.js",
-    "package": "package-js"
+    "package": "find node_modules/.bin && package-js"
   },
   "devDependencies": {
     "@types/jsonschema": "^1.1.1",

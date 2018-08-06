@@ -12,10 +12,10 @@ export PATH=node_modules/.bin:$PATH
 
 echo "============================================================================================="
 echo "building..."
-lerna run build --stream
+lerna run build
 
 echo "============================================================================================="
 echo "testing..."
-lerna run test --stream
+lerna run test
 
 touch $BUILD_INDICATOR
