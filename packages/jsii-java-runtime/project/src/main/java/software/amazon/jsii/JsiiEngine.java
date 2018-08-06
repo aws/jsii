@@ -264,13 +264,13 @@ public final class JsiiEngine implements JsiiCallbackHandler {
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public Enum<?> findEnumValue(final String enumRef) {
-        String[] parts = enumRef.split("/");
-        if (parts.length != 2) {
+        int sep = enumRef.lastIndexOf('/');
+        if (sep == -1) {
             throw new JsiiException("Malformed enum reference: " + enumRef);
         }
 
-        String typeName = parts[0];
-        String valueName = parts[1];
+        String typeName = enumRef.substring(0, sep);
+        String valueName = enumRef.substring(sep + 1);
 
         String enumClass = resolveJavaClassName(typeName);
         try {

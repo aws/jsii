@@ -855,14 +855,21 @@ export class Kernel {
         // enums
         if (typeof v === 'object' && TOKEN_ENUM in v) {
             this._debug('Enum:', v);
-            const parts = v[TOKEN_ENUM].split('/');
-            if (parts.length !== 2) {
+
+            const value = v[TOKEN_ENUM] as string;
+            const sep = value.lastIndexOf('/');
+            if (sep === -1) {
                 throw new Error(`Malformed enum value: ${v[TOKEN_ENUM]}`);
             }
-            const typeName = parts[0];
-            const valueName = parts[1];
+
+            const typeName = value.substr(0, sep);
+            const valueName = value.substr(sep + 1);
 
             const enumValue = this._findSymbol(typeName)[valueName];
+            if (enumValue === undefined) {
+                throw new Error(`No enum member named ${valueName} in ${typeName}`);
+            }
+
             this._debug('resolved enum value:', enumValue);
             return enumValue;
         }

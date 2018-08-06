@@ -43,7 +43,7 @@ function assert-generator() {
         echo "The diff-test.sh harness will replace it with the real expected tarball" >> ${tarball_placeholder}
     done
 
-    if ! diff -arq ${outdir} ${expected}; then
+    if ! diff --strip-trailing-cr -arq ${outdir} ${expected}; then
         echo
         echo "------------------------------------------------------------------------"
         echo " diff-test for pacmak generator ${module} failed"

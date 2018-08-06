@@ -1,5 +1,5 @@
 {
-  "fingerprint": "ZR90w/OQ/vVxm0Cg1sicOKwbZxbGK43MXqj2ksUyCrk=",
+  "fingerprint": "ENUxKESaYuaH8SRuMSsikJscFgsj+E8Ey1WvHIsNsZg=",
   "author": {
     "name": "Amazon Web Services",
     "organization": true,
@@ -1915,6 +1915,48 @@
           "name": "expression",
           "type": {
             "fqn": "@scope/jsii-calc-lib.Value"
+          }
+        }
+      ]
+    },
+    "jsii-calc.ReferenceEnumFromScopedPackage": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "comment": "See awslabs/jsii#138"
+      },
+      "fqn": "jsii-calc.ReferenceEnumFromScopedPackage",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "loadFoo",
+          "returns": {
+            "fqn": "@scope/jsii-calc-lib.EnumFromScopedModule",
+            "optional": true
+          }
+        },
+        {
+          "name": "saveFoo",
+          "parameters": [
+            {
+              "name": "value",
+              "type": {
+                "fqn": "@scope/jsii-calc-lib.EnumFromScopedModule"
+              }
+            }
+          ]
+        }
+      ],
+      "name": "ReferenceEnumFromScopedPackage",
+      "namespace": "jsii-calc",
+      "properties": [
+        {
+          "name": "foo",
+          "type": {
+            "fqn": "@scope/jsii-calc-lib.EnumFromScopedModule",
+            "optional": true
           }
         }
       ]

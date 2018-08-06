@@ -11,14 +11,14 @@ namespace Amazon.JSII.Runtime.Deputy
         {
             Value = value ?? throw new ArgumentNullException(nameof(value));
 
-            string[] valueTokens = value.Split('/');
-            if (valueTokens.Length != 2)
+            int sep = value.LastIndexOf('/');
+            if (sep == -1)
             {
                 throw new ArgumentException($"Unexpected format for enum value: {value}", nameof(value));
             }
 
-            FullyQualifiedName = valueTokens[0];
-            MemberName = valueTokens[1];
+            FullyQualifiedName = value.Substring(0, sep);
+            MemberName = value.Substring(sep + 1);
         }
 
         public EnumValue(string fullyQualifiedName, string memberName) : this($"{fullyQualifiedName}/{memberName}")

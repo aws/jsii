@@ -24,12 +24,14 @@ import software.amazon.jsii.tests.calculator.NodeStandardLibrary;
 import software.amazon.jsii.tests.calculator.NumberGenerator;
 import software.amazon.jsii.tests.calculator.Polymorphism;
 import software.amazon.jsii.tests.calculator.Power;
+import software.amazon.jsii.tests.calculator.ReferenceEnumFromScopedPackage;
 import software.amazon.jsii.tests.calculator.Statics;
 import software.amazon.jsii.tests.calculator.Sum;
 import software.amazon.jsii.tests.calculator.SyncVirtualMethods;
 import software.amazon.jsii.tests.calculator.UnionProperties;
 import software.amazon.jsii.tests.calculator.UsesInterfaceWithProperties;
 import software.amazon.jsii.tests.calculator.composition.CompositionStringStyle;
+import software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule;
 import software.amazon.jsii.tests.calculator.lib.IFriendly;
 import software.amazon.jsii.tests.calculator.lib.MyFirstStruct;
 import software.amazon.jsii.tests.calculator.lib.Number;
@@ -240,6 +242,16 @@ public class ComplianceTest {
         calc.setStringStyle(CompositionStringStyle.Decorated);
         assertEquals(CompositionStringStyle.Decorated, calc.getStringStyle());
         assertEquals("<<[[{{(((1 * (0 + 9)) * (0 + 9)) * (0 + 9))}}]]>>", calc.toString());
+    }
+
+    @Test
+    public void useEnumFromScopedModule() {
+        ReferenceEnumFromScopedPackage obj = new ReferenceEnumFromScopedPackage();
+        assertEquals(EnumFromScopedModule.Value2, obj.getFoo());
+        obj.setFoo(EnumFromScopedModule.Value1);
+        assertEquals(EnumFromScopedModule.Value1, obj.loadFoo());
+        obj.saveFoo(EnumFromScopedModule.Value2);
+        assertEquals(EnumFromScopedModule.Value2, obj.getFoo());
     }
 
     @Test
