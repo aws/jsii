@@ -4,7 +4,11 @@
   "description": "Internal repository-level tools",
   "private": true,
   "bin": {
-    "diff-test": "bin/diff-test"
+    "diff-test": "bin/diff-test",
+    "package-js": "bin/package-js",
+    "package-java": "bin/package-java",
+    "package-dotnet": "bin/package-dotnet",
+    "package-ruby": "bin/package-ruby"
   },
   "scripts": {
     "build": "chmod +x bin/*"
@@ -19,6 +23,6 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git://github.com/awslabs/jsii"
+    "url": "https://github.com/awslabs/jsii.git"
   }
 }

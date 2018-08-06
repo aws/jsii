@@ -16,6 +16,43 @@ export interface Assembly extends Documentable {
     name: string;
 
     /**
+     * Description of the assembly, maps to "description" from package.json
+     * This is required since some package managers (like Maven) require it.
+     */
+    description: string;
+
+    /**
+     * The url to the project homepage. Maps to "homepage" from package.json.
+     */
+    homepage: string;
+
+    /**
+     * The module repository, maps to "repository" from package.json
+     * This is required since some package managers (like Maven) require it.
+     */
+    repository: {
+        /**
+         * The type of the repository (``git``, ``svn``, ...)
+         */
+        type: string;
+
+        /**
+         * The URL of the repository.
+         */
+        url: string;
+    };
+
+    /**
+     * The main author of this package.
+     */
+    author: Person;
+
+    /**
+     * Additional contributors to this package.
+     */
+    contributors?: Person[];
+
+    /**
      * A fingerprint that can be used to determine if the specification has changed.
      * @minLength 1
      */
@@ -64,6 +101,33 @@ export interface Assembly extends Documentable {
  */
 export enum SchemaVersion {
     V1_0 = 'jsii/1.0'
+}
+
+/**
+ * Metadata about people or organizations associated with the project that
+ * resulted in the Assembly. Some of this metadata is required in order to
+ * publish to certain package repositories (for example, Maven Central), but is
+ * not normalized, and the meaning of fields (role, for example), is up to each
+ * project maintainer.
+ */
+export interface Person {
+    /** The name of the person */
+    name: string;
+
+    /**
+     * A list of roles this person has in the project, for example `maintainer`,
+     * `contributor`, `owner`, ...
+     */
+    roles: string[];
+
+    /** The email of the person */
+    email?: string;
+
+    /** The URL for the person */
+    url?: string;
+
+    /** If true, this person is, in fact, an organization */
+    organization?: boolean;
 }
 
 /**
@@ -490,4 +554,35 @@ export interface EnumType extends TypeBase {
 
 export function isEnumType(type: Type): type is EnumType {
     return type.kind === TypeKind.Enum;
+}
+
+/**
+ * Return whether this type is a class or interface type
+ */
+export function isClassOrInterfaceType(type: Type): type is (InterfaceType | ClassType) {
+    return isClassType(type) || isInterfaceType(type);
+}
+
+/**
+ * Return a string representation of the given type reference
+ */
+export function describeTypeReference(a?: TypeReference): string {
+    if (a === undefined) { return '(none)'; }
+
+    if (isNamedTypeReference(a)) {
+        return a.fqn;
+    }
+
+    if (isPrimitiveTypeReference(a)) {
+        return a.primitive;
+    }
+
+    if (isCollectionTypeReference(a)) {
+        return `${a.collection.kind}<${describeTypeReference(a.collection.elementtype)}>`;
+    }
+    if (isUnionTypeReference(a)) {
+        return a.union.types.map(describeTypeReference).join('|');
+    }
+
+    throw new Error('Unrecognized type reference');
 }

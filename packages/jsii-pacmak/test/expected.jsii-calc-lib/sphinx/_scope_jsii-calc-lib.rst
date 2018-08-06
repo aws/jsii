@@ -30,6 +30,16 @@ Reference
 
 .. py:module:: @scope/jsii-calc-lib
 
+EnumFromScopedModule (enum)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: EnumFromScopedModule
+
+   .. py:data:: Value1
+
+   .. py:data:: Value2
+
+
 IFriendly (interface)
 ^^^^^^^^^^^^^^^^^^^^^
 

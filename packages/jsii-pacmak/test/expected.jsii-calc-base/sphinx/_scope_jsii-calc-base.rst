@@ -62,3 +62,16 @@ Base
       :rtype: any
 
 
+BaseProps (interface)
+^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: BaseProps
+
+   :extends: :py:class:`@scope/jsii-calc-base-of-base.VeryBaseProps`
+
+
+   .. py:attribute:: bar
+
+      :type: string
+
+

@@ -1,3 +1,4 @@
 *.js
 dist
+webpack
 !webpack.config.js

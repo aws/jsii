@@ -1,0 +1,17 @@
+Metrics/LineLength:
+  Max: 200
+
+Metrics/MethodLength:
+  Max: 1000
+
+Layout/IndentHash:
+  EnforcedStyle: consistent
+
+Style/GuardClause:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false

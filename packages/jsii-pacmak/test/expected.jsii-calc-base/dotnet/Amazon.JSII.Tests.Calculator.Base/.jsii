@@ -1,7 +1,41 @@
 {
-  "fingerprint": "sSxXNJ/dGt/v6Tm7/1IjgRx/oPq0wVG6WWSrZaPglLk=",
+  "fingerprint": "JydvlKNXeEbEaaW6abaQAY1wlLyrf5uORVKFzjiTU24=",
+  "author": {
+    "name": "Amazon Web Services",
+    "organization": true,
+    "roles": [
+      "author"
+    ],
+    "url": "https://aws.amazon.com"
+  },
+  "dependencies": {
+    "@scope/jsii-calc-base-of-base": {
+      "targets": {
+        "dotnet": {
+          "namespace": "Amazon.JSII.Tests.Calculator.BaseOfBase"
+        },
+        "java": {
+          "maven": {
+            "artifactId": "calculator-base-of-base",
+            "groupId": "software.amazon.jsii.tests"
+          },
+          "package": "software.amazon.jsii.tests.calculator.baseofbase"
+        },
+        "js": {
+          "npm": "@scope/jsii-calc-base-of-base"
+        }
+      },
+      "version": "0.5.0-beta"
+    }
+  },
+  "description": "@scope/jsii-calc-base",
+  "homepage": "https://github.com/awslabs/jsii.git",
   "license": "Apache-2.0",
   "name": "@scope/jsii-calc-base",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/awslabs/jsii.git"
+  },
   "schema": "jsii/1.0",
   "targets": {
     "dotnet": {
@@ -10,9 +44,9 @@
     "java": {
       "maven": {
         "artifactId": "calculator-base",
-        "groupId": "com.amazonaws.jsii.tests"
+        "groupId": "software.amazon.jsii.tests"
       },
-      "package": "org.jsii.tests.calculator.base"
+      "package": "software.amazon.jsii.tests.calculator.base"
     },
     "js": {
       "npm": "@scope/jsii-calc-base"
@@ -43,6 +77,27 @@
       ],
       "name": "Base",
       "namespace": "@scope/jsii-calc-base"
+    },
+    "@scope/jsii-calc-base.BaseProps": {
+      "assembly": "@scope/jsii-calc-base",
+      "datatype": true,
+      "fqn": "@scope/jsii-calc-base.BaseProps",
+      "interfaces": [
+        {
+          "fqn": "@scope/jsii-calc-base-of-base.VeryBaseProps"
+        }
+      ],
+      "kind": "interface",
+      "name": "BaseProps",
+      "namespace": "@scope/jsii-calc-base",
+      "properties": [
+        {
+          "name": "bar",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
     }
   },
   "version": "0.5.0-beta"

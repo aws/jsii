@@ -123,7 +123,8 @@ namespace Amazon.JSII.Generator
                             new XElement("TargetFramework", "netstandard2.0"),
                             new XElement("GeneratePackageOnBuild", true),
                             new XElement("Authors", _authors),
-                            new XElement("Company", _company)
+                            new XElement("Company", _company),
+                            new XElement("PackageVersion", assembly.Version)
                         ),
                         new XElement("ItemGroup",
                             new XElement("EmbeddedResource",
@@ -133,12 +134,11 @@ namespace Amazon.JSII.Generator
                         new XElement("ItemGroup",
                             new XElement("PackageReference",
                                 new XAttribute("Include", "Amazon.JSII.Runtime"),
-                                // TODO: Use the jsii version number
-                                new XAttribute("Version", "1.0.0")
+                                new XAttribute("Version", JsiiVersion.Version)
                             )
                         ),
                         new XElement("ItemGroup",
-                            GetDependencies().Select(dependencyName =>
+                            GetDependencies().Distinct().Select(dependencyName =>
                                 new XElement("ProjectReference",
                                     new XAttribute("Include", $@"..\{dependencyName}\{dependencyName}.csproj")
                                 )

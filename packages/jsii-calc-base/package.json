@@ -8,9 +8,9 @@
     "outdir": "dist",
     "targets": {
       "java": {
-        "package": "org.jsii.tests.calculator.base",
+        "package": "software.amazon.jsii.tests.calculator.base",
         "maven": {
-          "groupId": "com.amazonaws.jsii.tests",
+          "groupId": "software.amazon.jsii.tests",
           "artifactId": "calculator-base"
         }
       },
@@ -29,13 +29,17 @@
     "jsii-build-tools": "^0.5.0-beta",
     "typescript": "^2.9.2"
   },
+  "dependencies": {
+    "@scope/jsii-calc-base-of-base": "^0.5.0-beta"
+  },
   "author": {
     "name": "Amazon Web Services",
-    "url": "https://aws.amazon.com"
+    "url": "https://aws.amazon.com",
+    "organization": true
   },
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git://github.com/awslabs/jsii"
+    "url": "https://github.com/awslabs/jsii.git"
   }
 }

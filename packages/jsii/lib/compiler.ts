@@ -1,6 +1,7 @@
 import Case = require('case');
 import clone = require('clone');
 import crypto = require('crypto');
+import deepEqual = require('deep-equal');
 import fs = require('fs-extra');
 import glob = require('glob');
 import spec = require('jsii-spec');
@@ -55,6 +56,11 @@ export async function compilePackage(packageDir: string, includeDirs = [ 'test',
         name: pkg.name,
         version: pkg.version.replace(/\+.+$/, ''),
         license: pkg.license,
+        description: pkg.description,
+        homepage: pkg.homepage,
+        author: pkg.author,
+        contributors: pkg.contributors,
+        repository: pkg.repository,
         targets: {
             ...pkg.targets,
             // automatically add a "js" target based on the npm name.
@@ -135,6 +141,7 @@ export async function compileSources(entrypoint: string,
         await processModule(rootModule, []);
         addTypeInfo(assm, types);
         verifyUnexportedTypes(assm, typeRefs, externalTypes);
+        validateOverriddenSignatures(assm);
         normalizeInitializers(assm, externalTypes);
     }
 
@@ -1272,6 +1279,118 @@ function addTypeInfo(mod: spec.Assembly, types: spec.Type[]) {
     }
 }
 
+/**
+ * Verify that overridden methods don't change the signature.
+ *
+ * Changing the types of arguments or the return type is not allowed in
+ * some languages (such as C#).
+ *
+ * Must be called after verifyUnexportedTypes() which hoists external types.
+ */
+function validateOverriddenSignatures(mod: spec.Assembly) {
+    if (!mod.types) { return; }
+
+    for (const typeName of Object.keys(mod.types)) {
+        // Checking type against self should never fail, and implies
+        // checking against all ancestors anyway.
+        checkTypeAgainst(typeName, typeName);
+    }
+
+    type MethodMap = {[name: string]: spec.Method};
+    type PropertyMap = {[name: string]: spec.Property};
+
+    function checkTypeAgainst(currentFqn: string, ancestorFqn: string) {
+        const current = getType(currentFqn);
+        const ancestor = getType(ancestorFqn);
+
+        validateMap(methodMap(current), methodMap(ancestor), validateMethod);
+        validateMap(propertyMap(current), propertyMap(ancestor), validateProperty);
+
+        // Validate against ancestors of ancestor
+        if (spec.isClassType(ancestor) && ancestor.base) {
+            checkTypeAgainst(currentFqn, ancestor.base.fqn);
+        }
+        if (spec.isClassOrInterfaceType(ancestor) && ancestor.interfaces) {
+            for (const extendsInterface of ancestor.interfaces) {
+                checkTypeAgainst(currentFqn, extendsInterface.fqn);
+            }
+        }
+
+        function validateMethod(currentMethod: spec.Method, ancestorMethod: spec.Method) {
+            const where = `${currentFqn}.${currentMethod.name}`;
+            if (!typeReferencesEqual(currentMethod.returns, ancestorMethod.returns)) {
+                const orig = spec.describeTypeReference(ancestorMethod.returns);
+                const cur = spec.describeTypeReference(currentMethod.returns);
+                throw new Error(`${where}: return type changed from ${orig} (in ${ancestorFqn}) to ${cur}`);
+            }
+
+            const currentParams = currentMethod.parameters || [];
+            const ancestorParams = ancestorMethod.parameters || [];
+            if (currentParams.length !== ancestorParams.length) {
+                const orig = ancestorParams.length;
+                const cur = currentParams.length;
+                throw new Error(`${where}: parameter count changed from ${orig} (in ${ancestorFqn}) to ${cur}`);
+            }
+            for (let i = 0; i < currentParams.length; i++) {
+                if (currentParams[i].variadic !== ancestorParams[i].variadic ||
+                    !typeReferencesEqual(currentParams[i].type, ancestorParams[i].type)) {
+                    const orig = spec.describeTypeReference(ancestorParams[i].type);
+                    const cur = spec.describeTypeReference(currentParams[i].type);
+
+                    // tslint:disable-next-line:max-line-length
+                    throw new Error(`${where}: parameter ${i + 1} type changed from ${orig} (in ${ancestorFqn}) to ${cur}`);
+                }
+            }
+        }
+
+        function validateProperty(currentProperty: spec.Property, ancestorProperty: spec.Property) {
+            if (!typeReferencesEqual(currentProperty.type, ancestorProperty.type)) {
+                const orig = spec.describeTypeReference(ancestorProperty.type);
+                const cur = spec.describeTypeReference(currentProperty.type);
+
+                throw new Error(`${currentFqn}.${currentProperty.name}: type changed from ${orig} (in ${ancestorFqn}) to ${cur}`);
+            }
+        }
+    }
+
+    /**
+     * Execute a validation function against matching elements from two maps
+     */
+    function validateMap<T>(currentMap: {[key: string]: T}, ancestorMap: {[key: string]: T}, comparisonFn: (a: T, b: T) => void) {
+        for (const name of Object.keys(currentMap)) {
+            if (name in ancestorMap) {
+                comparisonFn(currentMap[name], ancestorMap[name]);
+            }
+        }
+    }
+
+    /**
+     * Return a map of all instance methods of a type
+     */
+    function methodMap(type: spec.Type): MethodMap {
+        const methods = spec.isClassOrInterfaceType(type) ? (type.methods || []) : [];
+        // Prepend '_' to avoid collissions with built-in functions on Object such as toString().
+        return buildMap(methods.filter(m => !m.static), m => '_' + m.name);
+    }
+
+    /**
+     * Return a map of all instance properties of a type
+     */
+    function propertyMap(type: spec.Type): PropertyMap {
+        const properties = spec.isClassOrInterfaceType(type) ? (type.properties || []) : [];
+        return buildMap(properties.filter(m => !m.static), m => '_' + m.name);
+    }
+
+    /**
+     * Find the Type object for a given fqn
+     */
+    function getType(fqn: string): spec.Type {
+        if (mod.types && mod.types[fqn]) { return mod.types[fqn]; }
+        if (mod.externals && mod.externals[fqn]) { return mod.externals[fqn]; }
+        throw new Error(`Unknown type: ${fqn}`);
+    }
+}
+
 function verifyUnexportedTypes(mod: spec.Assembly, typeRefs: Set<ReferencedFqn>, externalTypes: Map<string, spec.Type>) {
     const errors = new Array<string>();
 
@@ -1315,7 +1434,12 @@ async function readDependencies(rootDir: string, packageDeps: any, bundledDeps: 
      * @param transitive    whether this dependeency is transitive (aka it shouldn't be added to ``mod.dependencies``)
      */
     async function addDependency(packageName: string, moduleRootDir: string, transitive = false) {
-        if (visited.has(packageName)) { return; }
+        // no need to re-visit transitive dependencies (also handles cycles)
+        // if this is a direct dependency, we must add it to the assembly
+        if (visited.has(packageName) && transitive) {
+            return;
+        }
+
         const { jsii, pkg, moduleDir } = await readJsiiForModule(moduleRootDir, packageName);
 
         // verify that dependencies specify names for all languages defined by this package
@@ -1330,12 +1454,18 @@ async function readDependencies(rootDir: string, packageDeps: any, bundledDeps: 
         const moduleName = jsii.name;
         visited.add(moduleName);
         if (!transitive) {
-            dependencies[moduleName] = { version: jsii.version, targets: jsii.targets, dependencies: jsii.dependencies };
+            dependencies[moduleName] = {
+                version: jsii.version,
+                targets: jsii.targets,
+                dependencies: jsii.dependencies
+            };
         }
 
         // add all types to lookup table.
         if (jsii.types) {
-            for (const fqn of Object.keys(jsii.types)) { lookup.set(fqn, jsii.types[fqn]); }
+            for (const fqn of Object.keys(jsii.types)) {
+                lookup.set(fqn, jsii.types[fqn]);
+            }
         }
 
         if (jsii.dependencies) {
@@ -1394,4 +1524,25 @@ async function readJsiiForModule(rootDir: string, packageName: string) {
 
 async function aglob(pattern: string) {
     return new Promise<string[]>((ok, fail) => glob(pattern, (err, matches) => err ? fail(err) : ok(matches)));
+}
+
+/**
+ * Build a map from a list using the given function to derive keys
+ *
+ * If the key function returns undefined, the value is not added to the map.
+ */
+function buildMap<T>(xs: T[], keyFn: (x: T) => (string | undefined)): {[key: string]: T} {
+    const ret: {[key: string]: T}  = {};
+    for (const x of xs) {
+        const key = keyFn(x);
+        if (key !== undefined) { ret[key] = x; }
+    }
+    return ret;
+}
+
+/**
+ * True if the type references refer to the same type
+ */
+export function typeReferencesEqual(a?: spec.TypeReference, b?: spec.TypeReference): boolean {
+    return deepEqual(a, b, { strict: true });
 }

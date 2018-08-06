@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <name>Java bindings for @scope/jsii-calc-lib</name>
+  <name>${project.groupId}:${project.artifactId}</name>
+  <description>@scope/jsii-calc-lib</description>
+  <url>https://github.com/awslabs/jsii.git</url>
   <licenses>
     <license>
       <name>Apache License 2.0</name>
@@ -10,8 +12,21 @@
       <comments>An OSI-approved license</comments>
     </license>
   </licenses>
+  <developers>
+    <developer>
+      <organization>Amazon Web Services</organization>
+      <roles>
+        <role>author</role>
+      </roles>
+      <organizationUrl>https://aws.amazon.com</organizationUrl>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:https://github.com/awslabs/jsii.git</connection>
+    <url>https://github.com/awslabs/jsii.git</url>
+  </scm>
   <artifactId>calculator-lib</artifactId>
-  <groupId>com.amazonaws.jsii.tests</groupId>
+  <groupId>software.amazon.jsii.tests</groupId>
   <version>0.5.0-beta</version>
   <packaging>jar</packaging>
   <properties>
@@ -20,11 +35,11 @@
   <dependencies>
     <dependency>
       <artifactId>calculator-base</artifactId>
-      <groupId>com.amazonaws.jsii.tests</groupId>
+      <groupId>software.amazon.jsii.tests</groupId>
       <version>0.5.0-beta</version>
     </dependency>
     <dependency>
-      <groupId>com.amazonaws.jsii</groupId>
+      <groupId>software.amazon.jsii</groupId>
       <artifactId>jsii-runtime</artifactId>
       <version>0.5.0-beta</version>
     </dependency>

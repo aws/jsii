@@ -8,7 +8,8 @@
     "build": "tsc && tslint -p .",
     "watch": "tsc -w",
     "lint": "tslint -p . --force",
-    "test": "nodeunit test/test.*.js"
+    "test": "nodeunit test/test.*.js",
+    "package": "package-js"
   },
   "devDependencies": {
     "@scope/jsii-calc-base": "^0.5.0-beta",
@@ -19,6 +20,7 @@
     "@types/tar": "^4.0.0",
     "fs-extra": "^4.0.3",
     "jsii-calc": "^0.5.0-beta",
+    "jsii-build-tools": "^0.5.0-beta",
     "nodeunit": "^0.11.2",
     "tslint": "*",
     "typescript": "^2.9.2"
@@ -35,6 +37,6 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git://github.com/awslabs/jsii"
+    "url": "https://github.com/awslabs/jsii.git"
   }
 }

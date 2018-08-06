@@ -5,7 +5,7 @@ import * as fs from 'fs-extra';
 import * as spec from 'jsii-spec';
 import * as path from 'path';
 import util = require('./util');
-import { VERSION } from './version';
+import { VERSION_DESC } from './version';
 
 // tslint:disable
 
@@ -79,7 +79,7 @@ export abstract class Generator implements IGenerator {
 
         // Including the version of jsii-pacmak in the fingerprint, as a new version may imply different code generation.
         this.fingerprint = crypto.createHash('sha256')
-                                 .update(VERSION)
+                                 .update(VERSION_DESC)
                                  .update('\0')
                                  .update(this.assembly.fingerprint)
                                  .digest('base64');
@@ -97,7 +97,7 @@ export abstract class Generator implements IGenerator {
     generate(fingerprint: boolean) {
         this.onBeginAssembly(this.assembly, fingerprint);
         this.visit(spec.NameTree.of(this.assembly));
-        this.onEndAssembly(this.assembly);
+        this.onEndAssembly(this.assembly, fingerprint);
     }
 
     upToDate(_: string): Promise<boolean> {
@@ -150,7 +150,7 @@ export abstract class Generator implements IGenerator {
     // Assembly
 
     protected onBeginAssembly(_assm: spec.Assembly, _fingerprint: boolean) { }
-    protected onEndAssembly(_assm: spec.Assembly) { }
+    protected onEndAssembly(_assm: spec.Assembly, _fingerprint: boolean) { }
 
     //
     // Namespaces
@@ -485,6 +485,49 @@ export abstract class Generator implements IGenerator {
         }
 
         throw new Error(`Cannot determine display name for type: ${JSON.stringify(type)}`);
+    }
+
+    /**
+     * Looks up a jsii module in the dependency tree.
+     * @param name The name of the jsii module to look up
+     */
+    protected findModule(name: string) {
+
+        // if this is the current module, return it
+        if (this.assembly.name === name) {
+            return this.assembly;
+        }
+
+        // look up in all deps, recursively
+        const found = lookupModule(this.assembly);
+        if (!found) {
+            throw new Error(`Unable to find module ${name} as a direct or indirect dependency of ${this.assembly.name}`);
+        }
+
+        return found;
+
+        function lookupModule(parent: spec.PackageVersion): spec.PackageVersion | undefined {
+            const indirect = parent.dependencies && parent.dependencies[name];
+            if (indirect) {
+                return indirect;
+            }
+
+            for (const depName of Object.keys(parent.dependencies || { })) {
+                const dep = parent.dependencies![depName];
+
+                if (depName === name) {
+                    return dep;
+                }
+
+                const transitive = lookupModule(dep);
+                if (transitive) {
+                    return transitive;
+                }
+            }
+
+            return undefined;
+        }
+
     }
 
     protected findType(fqn: string) {

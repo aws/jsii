@@ -8,9 +8,9 @@
     "outdir": "dist",
     "targets": {
       "java": {
-        "package": "org.jsii.tests.calculator.lib",
+        "package": "software.amazon.jsii.tests.calculator.lib",
         "maven": {
-          "groupId": "com.amazonaws.jsii.tests",
+          "groupId": "software.amazon.jsii.tests",
           "artifactId": "calculator-lib"
         }
       },
@@ -34,11 +34,12 @@
   },
   "author": {
     "name": "Amazon Web Services",
-    "url": "https://aws.amazon.com"
+    "url": "https://aws.amazon.com",
+    "organization": true
   },
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git://github.com/awslabs/jsii"
+    "url": "https://github.com/awslabs/jsii.git"
   }
 }

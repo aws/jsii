@@ -2,7 +2,7 @@ import * as spec from 'jsii-spec';
 import { Generator } from '../generator';
 import { PackageInfo, Target, TargetOptions } from '../target';
 
-export default class Js extends Target {
+export default class JavaScript extends Target {
     public static toPackageInfos(assm: spec.Assembly): { [language: string]: PackageInfo } {
         const packageInfo: PackageInfo = {
             repository: 'NPM',

@@ -1,3 +1,4 @@
+const packageInfo = require('./package.json');
 const { groupId, artifactId, version } = require('./lib').maven;
 
 process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
@@ -11,6 +12,11 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
     <groupId>${groupId}</groupId>
     <artifactId>${artifactId}</artifactId>
     <version>${version}</version>
+    <packaging>jar</packaging>
+
+    <name>${packageInfo.name}</name>
+    <description>${packageInfo.description}</description>
+    <url>${packageInfo.homepage}</url>
 
     <licenses>
         <license>
@@ -20,6 +26,22 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <comments>An OSI-approved license</comments>
         </license>
     </licenses>
+
+    <developers>
+        <developer>
+            <id>amazonwebservices</id>
+            <organization>${packageInfo.author.name}</organization>
+            <organizationUrl>${packageInfo.author.url}</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:${packageInfo.repository.type}:${packageInfo.repository.url}</connection>
+        <url>${packageInfo.repository.url}</url>
+    </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

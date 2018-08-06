@@ -50,5 +50,5 @@ used to implement a compliance test for each language.
 
 Until we have full documentation (or an ability to automatically generate those
 tests somehow), please refer to the **jsii-java-runtime** library as a reference
-(see the `org.jsii.Compliance` test class.)
+(see the `software.amazon.jsii.Compliance` test class.)
 

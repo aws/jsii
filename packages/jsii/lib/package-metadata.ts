@@ -11,6 +11,41 @@ export interface PackageMetadata {
     name: string
 
     /**
+     * Description of the module
+     */
+    description: string;
+
+    /**
+     * The url to the project homepage.
+     */
+    homepage: string;
+
+    /**
+     * The author of the package.
+     */
+    author: Person;
+
+    /**
+     * Additional contributors
+     */
+    contributors?: Person[];
+
+    /**
+     * The module repository
+     */
+    repository: {
+        /**
+         * Type of repository.
+         */
+        type: string;
+
+        /**
+         * The URL of the repository.
+         */
+        url: string;
+    };
+
+    /**
      * Package version (package.version)
      */
     version: string
@@ -52,6 +87,36 @@ export interface PackageMetadata {
     dependencies: { [name: string]: string }
 }
 
+/**
+ * Information about a person involved with the project.
+ */
+export interface Person {
+    /**
+     * The name of the person
+     */
+    name: string;
+
+    /**
+     * The roles of the person.
+     */
+    roles: string[];
+
+    /**
+     * The email of the person.
+     */
+    email?: string;
+
+    /**
+     * The URL for the person.
+     */
+    url?: string;
+
+    /**
+     * Whether the person is an organization
+     */
+    organization?: boolean;
+}
+
 export default async function readPackageMetadata(moduleDir: string): Promise<PackageMetadata> {
     const pkgFile = path.resolve(path.join(moduleDir, 'package.json'));
 
@@ -72,6 +137,45 @@ export default async function readPackageMetadata(moduleDir: string): Promise<Pa
         throw new Error(`${pkgFile} has "license" ${pkg.license}, which doesn't appear to be a valid SPDX identifier`);
     }
 
+    if (!pkg.repository || !pkg.repository.url) {
+        throw new Error(`${pkgFile} must contain a "repository" field with "url"`);
+    }
+    if (!pkg.repository.type) {
+        if (pkg.repository.url.startsWith('git:') || pkg.repository.url.endsWith('.git') || pkg.repository.url.indexOf('://github.com/') !== -1) {
+            pkg.repository.type = 'git';
+        } else if (!pkg.repository.url.startsWith('http://') && !pkg.repository.url.startsWith('https://')) {
+            const matches = pkg.repository.url.match(/^([^:]+):/);
+            if (matches) {
+                pkg.repository.type = matches[1];
+            }
+        }
+    }
+    // Defaulting repository type failed :(
+    if (!pkg.repository.type) {
+        throw new Error(`${pkgFile} must specify the "repository.type" field (could not guess from ${pkg.repository.url})`);
+    }
+
+    // Not validating presence of "roles", because we have smart defaults
+    if (!pkg.author || !pkg.author.name) {
+        throw new Error(`${pkgFile} must contain an "author" field with "name"`);
+    }
+
+    // Not validating presence of "roles", because we have smart defaults
+    if (pkg.contributors) {
+        if (!Array.isArray(pkg.contributors)) {
+            throw new Error(`${pkgFile}'s "contributors" field must be an array`);
+        }
+        for (const contributor of pkg.contributors) {
+            if (!contributor.name) {
+                throw new Error(`All elements of the "contributors" field of ${pkgFile} must have a "name"`);
+            }
+        }
+    }
+
+    // default "description" to "name" and "homepage" to repo url
+    if (!pkg.description) { pkg.description = pkg.name; }
+    if (!pkg.homepage) { pkg.homepage = pkg.repository.url; }
+
     if (!pkg.jsii.outdir) { throw new Error(`${pkgFile} must contain a "jsii.outdir" field`); }
     if (!pkg.jsii.targets) { throw new Error(`${pkgFile} must contain a "jsii.targets" field`); }
     if (!pkg.types.endsWith('.d.ts')) {
@@ -90,6 +194,11 @@ export default async function readPackageMetadata(moduleDir: string): Promise<Pa
 
     return {
         name: pkg.name,
+        description: pkg.description,
+        homepage: pkg.homepage,
+        author: cleanPerson(pkg.author, 'author'),
+        contributors: pkg.contributors && pkg.contributors.map((p: Person) => cleanPerson(p, 'contributor')),
+        repository: pkg.repository,
         version: pkg.version,
         license: pkg.license,
         outdir,
@@ -98,5 +207,23 @@ export default async function readPackageMetadata(moduleDir: string): Promise<Pa
         bundledDependencies: pkg.bundledDependencies || [],
         targets: pkg.jsii.targets || {},
         entrypoint: types.replace(/\.d\.ts$/, '.ts')
+    };
+}
+
+/**
+ * Ensures a ``Person`` instance does not have any additional fields, and that
+ * the ``roles`` field (if set) contains no duplicates.
+ *
+ * @param person the person to be cleaned.
+ *
+ * @returns the cleaned up person.
+ */
+function cleanPerson(person: Person, defaultRole: string): Person {
+    return {
+        name: person.name,
+        email: person.email,
+        url: person.url,
+        roles: (person.roles && [...new Set(person.roles)]) || [defaultRole],
+        organization: person.organization
     };
 }

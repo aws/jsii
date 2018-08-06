@@ -1,10 +1,12 @@
 #!/bin/bash
 set -euo pipefail
 
+npm run gen
+
 # embed jsii-runtime as a resource
 bundle_dir="src/Amazon.JSII.Runtime/jsii-runtime"
 mkdir -p ${bundle_dir}
-rsync -av node_modules/jsii-runtime/dist/ ${bundle_dir}
+rsync -av node_modules/jsii-runtime/webpack/ ${bundle_dir}
 
 # TODO: Auto-rev NuGet package versions on each local build.
 # Because we we don't rev the versions, dotnet will pick
