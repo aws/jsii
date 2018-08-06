@@ -1,5 +1,5 @@
 {
-  "fingerprint": "GbVnxjsdaq598NCRdOJ8entjQRwThRmFgdeLNaQbIZY=",
+  "fingerprint": "yzHGjyI4/53o87fPNjR/Nz/4G58kg5jVoKtgwdqaEU8=",
   "author": {
     "name": "Amazon Web Services",
     "organization": true,
@@ -73,6 +73,24 @@
     }
   },
   "types": {
+    "@scope/jsii-calc-lib.EnumFromScopedModule": {
+      "assembly": "@scope/jsii-calc-lib",
+      "docs": {
+        "comment": "Check that enums from @scoped packages can be references.\nSee awslabs/jsii#138"
+      },
+      "fqn": "@scope/jsii-calc-lib.EnumFromScopedModule",
+      "kind": "enum",
+      "members": [
+        {
+          "name": "Value1"
+        },
+        {
+          "name": "Value2"
+        }
+      ],
+      "name": "EnumFromScopedModule",
+      "namespace": "@scope/jsii-calc-lib"
+    },
     "@scope/jsii-calc-lib.IFriendly": {
       "assembly": "@scope/jsii-calc-lib",
       "docs": {

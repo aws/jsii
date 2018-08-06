@@ -266,6 +266,17 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal("<<[[{{(((1 * (0 + 9)) * (0 + 9)) * (0 + 9))}}]]>>", calc.ToString());
         }
 
+        [Fact(DisplayName = Prefix + nameof(EnumFromScopedModule))]
+        public void UseEnumFromScopedModule()
+        {
+            ReferenceEnumFromScopedPackage obj = new ReferenceEnumFromScopedPackage();
+            Assert.Equal(EnumFromScopedModule.Value2, obj.Foo);
+            obj.Foo = EnumFromScopedModule.Value1;
+            Assert.Equal(EnumFromScopedModule.Value1, obj.LoadFoo());
+            obj.SaveFoo(EnumFromScopedModule.Value2);
+            Assert.Equal(EnumFromScopedModule.Value2, obj.Foo);
+        }
+
         [Fact(DisplayName = Prefix + nameof(UndefinedAndNull))]
         public void UndefinedAndNull()
         {

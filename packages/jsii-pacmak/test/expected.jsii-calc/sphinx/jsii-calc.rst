@@ -1164,6 +1164,31 @@ Power
       :type: :py:class:`@scope/jsii-calc-lib.Value` *(readonly)*
 
 
+ReferenceEnumFromScopedPackage
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: ReferenceEnumFromScopedPackage()
+
+   See awslabs/jsii#138
+
+
+
+   .. py:method:: loadFoo() -> @scope/jsii-calc-lib.EnumFromScopedModule
+
+      :rtype: :py:class:`@scope/jsii-calc-lib.EnumFromScopedModule` or undefined
+
+
+   .. py:method:: saveFoo(value)
+
+      :param value: 
+      :type value: :py:class:`@scope/jsii-calc-lib.EnumFromScopedModule`
+
+
+   .. py:attribute:: foo
+
+      :type: :py:class:`@scope/jsii-calc-lib.EnumFromScopedModule` or undefined
+
+
 ReturnsNumber (interface)
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 

@@ -82,3 +82,12 @@ export interface StructWithOnlyOptionals {
     optional2?: number
     optional3?: boolean
 }
+
+/**
+ * Check that enums from @scoped packages can be references.
+ * See awslabs/jsii#138
+ */
+export enum EnumFromScopedModule {
+    Value1,
+    Value2
+}
