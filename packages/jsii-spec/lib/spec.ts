@@ -555,3 +555,34 @@ export interface EnumType extends TypeBase {
 export function isEnumType(type: Type): type is EnumType {
     return type.kind === TypeKind.Enum;
 }
+
+/**
+ * Return whether this type is a class or interface type
+ */
+export function isClassOrInterfaceType(type: Type): type is (InterfaceType | ClassType) {
+    return isClassType(type) || isInterfaceType(type);
+}
+
+/**
+ * Return a string representation of the given type reference
+ */
+export function describeTypeReference(a?: TypeReference): string {
+    if (a === undefined) { return '(none)'; }
+
+    if (isNamedTypeReference(a)) {
+        return a.fqn;
+    }
+
+    if (isPrimitiveTypeReference(a)) {
+        return a.primitive;
+    }
+
+    if (isCollectionTypeReference(a)) {
+        return `${a.collection.kind}<${describeTypeReference(a.collection.elementtype)}>`;
+    }
+    if (isUnionTypeReference(a)) {
+        return a.union.types.map(describeTypeReference).join('|');
+    }
+
+    throw new Error('Unrecognized type reference');
+}
