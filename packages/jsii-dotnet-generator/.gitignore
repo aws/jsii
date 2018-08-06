@@ -1,0 +1,4 @@
+src/Amazon.JSII.Generator/JsiiVersion.cs
+src/Directory.Build.props
+
+!*.t.js
