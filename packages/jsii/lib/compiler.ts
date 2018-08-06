@@ -141,7 +141,7 @@ export async function compileSources(entrypoint: string,
         await processModule(rootModule, []);
         addTypeInfo(assm, types);
         verifyUnexportedTypes(assm, typeRefs, externalTypes);
-        validateOverriddenSignatures(assm);
+        validateOverriddenSignatures(assm, externalTypes);
         normalizeInitializers(assm, externalTypes);
     }
 
@@ -1287,7 +1287,7 @@ function addTypeInfo(mod: spec.Assembly, types: spec.Type[]) {
  *
  * Must be called after verifyUnexportedTypes() which hoists external types.
  */
-function validateOverriddenSignatures(mod: spec.Assembly) {
+function validateOverriddenSignatures(mod: spec.Assembly, externalTypes: Map<string, spec.Type>) {
     if (!mod.types) { return; }
 
     for (const typeName of Object.keys(mod.types)) {
@@ -1386,7 +1386,7 @@ function validateOverriddenSignatures(mod: spec.Assembly) {
      */
     function getType(fqn: string): spec.Type {
         if (mod.types && mod.types[fqn]) { return mod.types[fqn]; }
-        if (mod.externals && mod.externals[fqn]) { return mod.externals[fqn]; }
+        if (externalTypes && externalTypes.has(fqn)) { return externalTypes.get(fqn)!; }
         throw new Error(`Unknown type: ${fqn}`);
     }
 }
