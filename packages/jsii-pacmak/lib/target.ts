@@ -49,6 +49,8 @@ export abstract class Target {
         if (this.force || !await this.generator.upToDate(outDir)) {
             await this.generator.generate(this.fingerprint);
             await this.generator.save(outDir, tarball);
+        } else {
+            logging.info(`Generated code for ${this.targetName} was already up-to-date in ${outDir} (use --force to re-generate)`);
         }
     }
 
@@ -108,21 +110,47 @@ export abstract class Target {
 
 export interface TargetConstructor {
     /**
-     * Provides the coordinates of an assembly in the usual package repository for the target.
+     * Provides information about an assembly in the usual package repositories for the target. This includes information
+     * necessary to locate the package in the repositories (a URL to the repository's public endpoint), as well as usage
+     * instructions for the various configruation files (e.g: Maven POM, Gemfile, ...) and/or installation instructions
+     * using the standard command line tools (npm, yarn, ...).
+     *
      * @param assm the assembly for which coodinates are requested.
-     * @return the name of the repository, and the coordinates within it.
+     *
+     * @return Information about the assembly in the various package managers supported for a given language.
      */
-    toPackageCoordinates?: (assm: spec.Assembly) => { repository: string, coordinates: string };
+    toPackageInfos?: (assm: spec.Assembly) => { [language: string]: PackageInfo };
 
     /**
-     * Provides the native name(s) of a Type. Particularly useful when generating documentation.
-     * @param type    the JSII type for which a native name is requested.
+     * Provides the native way to reference a Type, for example a Java import statement, or a Javscript require directive.
+     * Particularly useful when generating documentation.
+     *
+     * @param type    the JSII type for which a native reference is requested.
      * @param options the target-specific options provided.
-     * @return the native name of the target for each supported language.
+     *
+     * @return the native reference for the target for each supported language.
      */
-    toNativeNames?: (type: spec.Type, options: any) => { [name: string]: string };
+    toNativeReference?: (type: spec.Type, options: any) => { [language: string]: string };
 
     new(options: TargetOptions): Target;
+}
+
+/**
+ * Information about a package
+ */
+export interface PackageInfo {
+    /** The name by which the package repository is known */
+    repository: string;
+
+    /** The URL to the package within it's repository */
+    url: string;
+
+    /**
+     * Configuration fragments or installation instructions, by client scenario (e.g: maven + gradle). Values can be a
+     * plain string (documentation should render as a pre-formatted block of text using monospace font), or an object
+     * describing a language-tagged block of code.
+     */
+    usage: { [label: string]: string | { language: string, code: string } };
 }
 
 export interface TargetOptions {

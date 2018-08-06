@@ -1,21 +1,40 @@
 import * as spec from 'jsii-spec';
 import { Generator } from '../generator';
-import { Target, TargetOptions } from '../target';
+import { PackageInfo, Target, TargetOptions } from '../target';
 
 export default class Js extends Target {
-    public static toPackageCoordinates(assm: spec.Assembly) {
-        return {
+    public static toPackageInfos(assm: spec.Assembly): { [language: string]: PackageInfo } {
+        const packageInfo: PackageInfo = {
             repository: 'NPM',
-            coordinates: JSON.stringify({ [assm.name]: `^${assm.version}` }, null, 2)
+            url: `https://www.npmjs.com/package/${assm.name}/v/${assm.version}`,
+            usage: {
+                'package.json': {
+                    language: 'js',
+                    code: JSON.stringify({ [assm.name]: `^${assm.version}` }, null, 2)
+                },
+                'npm': {
+                    language: 'console',
+                    code: `$ npm i ${assm.name}@${assm.version}`
+                },
+                'yarn': {
+                    language: 'console',
+                    code: `$ yarn add ${assm.name}@${assm.version}`
+                }
+            }
         };
+        return { typescript: packageInfo, javascript: packageInfo };
     }
 
-    public static toNativeNames(type: spec.Type) {
+    public static toNativeReference(type: spec.Type) {
         const [, ...name] = type.fqn.split('.');
         const resolvedName = name.join('.');
-        const result: { typescript: string, javascript?: string } = { typescript: resolvedName };
+        const result: { typescript: string, javascript?: string } = {
+            typescript: `import { ${resolvedName} } from '${type.assembly}';`
+        };
         if (!spec.isInterfaceType(type)) {
-            result.javascript = resolvedName;
+            result.javascript = `const { ${resolvedName} } = require('${type.assembly}');`;
+        } else {
+            result.javascript = `// ${resolvedName} is an interface`;
         }
         return result;
     }

@@ -94,21 +94,37 @@ class SphinxDocsGenerator extends Generator {
         if (assm.targets) {
             this.code.openBlock('.. tabs::');
             this.code.line();
-            for (const language of Object.keys(assm.targets).sort()) {
-                const target = this.targets[language];
-                if (!target || !target.toPackageCoordinates) { continue; }
-                const { repository, coordinates } = target.toPackageCoordinates(assm);
-                this.code.openBlock(`.. group-tab:: ${repository}`);
-                this.code.line();
+            for (const targetName of Object.keys(assm.targets).sort()) {
+                const target = this.targets[targetName];
+                if (!target || !target.toPackageInfos) { continue; }
+                const packageInfos = target.toPackageInfos(assm);
+                for (const language of Object.keys(packageInfos)) {
+                    const packageInfo = packageInfos[language];
+                    this.code.openBlock(`.. group-tab:: ${language}`);
+                    this.code.line();
 
-                this.code.openBlock('::');
-                this.code.line();
-                for (const line of coordinates.split('\n')) {
-                    this.code.line(line);
+                    this.code.line(`View in \`${packageInfo.repository} <${packageInfo.url}>\`_`);
+                    this.code.line();
+
+                    for (const mgrName of Object.keys(packageInfo.usage).sort()) {
+                        const mgr = packageInfo.usage[mgrName];
+                        this.code.line(`**${mgrName}**:`);
+                        this.code.line();
+                        if (typeof mgr === 'string') {
+                            this.code.openBlock('.. code-block:: none');
+                            this.code.line();
+                            mgr.split('\n').forEach(s => this.code.line(s));
+                            this.code.closeBlock();
+                        } else {
+                            this.code.openBlock(`.. code-block:: ${mgr.language}`);
+                            this.code.line();
+                            mgr.code.split('\n').forEach(s => this.code.line(s));
+                            this.code.closeBlock();
+                        }
+                    }
+
+                    this.code.closeBlock();
                 }
-                this.code.closeBlock();
-
-                this.code.closeBlock();
             }
             this.code.closeBlock();
         }
@@ -549,6 +565,8 @@ class SphinxDocsGenerator extends Generator {
 
     private async renderNames(type: spec.Type) {
         this.code.line();
+        this.code.line('**Language-specific names:**');
+        this.code.line();
         this.code.openBlock('.. tabs::');
         this.code.line();
 
@@ -556,10 +574,10 @@ class SphinxDocsGenerator extends Generator {
             for (const targetName of Object.keys(this.assembly.targets).sort()) {
                 if (targetName === 'sphinx') { continue; }
                 const target = this.targets[targetName];
-                if (!target || !target.toNativeNames) { continue; }
+                if (!target || !target.toNativeReference) { continue; }
                 const options = this.assembly.targets[targetName];
 
-                const names = target.toNativeNames(type, options);
+                const names = target.toNativeReference(type, options);
                 for (const language of Object.keys(names).sort()) {
                     this.code.openBlock(`.. code-tab:: ${language}`);
                     this.code.line();

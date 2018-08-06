@@ -2,11 +2,10 @@ import fs = require('fs-extra');
 import jsiiJavaRuntime = require('jsii-java-runtime');
 import spec = require('jsii-spec');
 import path = require('path');
-import semver = require('semver');
 import xmlbuilder = require('xmlbuilder');
 import { Generator } from '../generator';
 import logging = require('../logging');
-import { Target, TargetOptions } from '../target';
+import { PackageInfo, Target, TargetOptions } from '../target';
 import { shell } from '../util';
 import { VERSION } from '../version';
 
@@ -14,27 +13,37 @@ import { VERSION } from '../version';
 const spdxLicenseList = require('spdx-license-list');
 
 export default class Java extends Target {
-    public static toPackageCoordinates(assm: spec.Assembly) {
-        const parsedVersion = semver.parse(assm.version);
-        const nextVersion = parsedVersion
-            && (parsedVersion.major !== 0 ? parsedVersion.inc('major')
-                                          : parsedVersion.inc('minor'));
+    public static toPackageInfos(assm: spec.Assembly): { [language: string]: PackageInfo } {
+        const groupId = assm.targets!.java!.maven.groupId;
+        const artifactId = assm.targets!.java!.maven.artifactId;
+        const url = `https://repo1.maven.org/maven2/${groupId.replace(/\./g, '/')}/${artifactId}/${assm.version}/`;
         return {
-            repository: 'Maven',
-            coordinates: xmlbuilder.create({
-                dependency: {
-                    groupId: assm.targets!.java!.maven.groupId,
-                    artifactId: assm.targets!.java!.maven.artifactId,
-                    version: nextVersion ? `[${assm.version},${nextVersion})`
-                                         : assm.version
+            java: {
+                repository: 'Maven Central', url,
+                usage: {
+                    'Apache Maven': {
+                        language: 'xml',
+                        code: xmlbuilder.create({
+                            dependency: { groupId, artifactId, version: assm.version }
+                        }).end({ pretty: true }).replace(/<\?\s*xml(\s[^>]+)?>\s*/m, '')
+                    },
+                    'Apache Buildr': `'${groupId}:${artifactId}:jar:${assm.version}'`,
+                    'Apache Ivy': {
+                        language: 'xml',
+                        code: xmlbuilder.create({
+                            dependency: { '@groupId': groupId, '@name': artifactId, '@rev': assm.version }
+                        }).end({ pretty: true }).replace(/<\?\s*xml(\s[^>]+)?>\s*/m, '')
+                    },
+                    'Groovy Grape': `@Grapes(\n@Grab(group='${groupId}', module='${artifactId}', version='${assm.version}')\n)`,
+                    'Gradle / Grails': `compile '${groupId}:${artifactId}:${assm.version}'`,
                 }
-            }).end({ pretty: true })
+            }
         };
     }
 
-    public static toNativeNames(type: spec.Type, options: any) {
+    public static toNativeReference(type: spec.Type, options: any) {
         const [, ...name] = type.fqn.split('.');
-        return { java: [options.package, ...name].join('.') };
+        return { java: `import ${[options.package, ...name].join('.')};` };
     }
 
     protected readonly generator = new JavaGenerator();
