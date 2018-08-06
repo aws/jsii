@@ -117,7 +117,9 @@ export interface TargetConstructor {
      *
      * @param assm the assembly for which coodinates are requested.
      *
-     * @return Information about the assembly in the various package managers supported for a given language.
+     * @return Information about the assembly in the various package managers supported for a given language. The return
+     *         value is a hash, as some packages can be used across different languages (typescript & javascript, java &
+     *         scala & clojure & kotlin...).
      */
     toPackageInfos?: (assm: spec.Assembly) => { [language: string]: PackageInfo };
 
@@ -128,7 +130,8 @@ export interface TargetConstructor {
      * @param type    the JSII type for which a native reference is requested.
      * @param options the target-specific options provided.
      *
-     * @return the native reference for the target for each supported language.
+     * @return the native reference for the target for each supported language (there can be multiple languages
+     *         supported by a given target: typescript & javascript, java & scala & clojure & kotlin, ...)
      */
     toNativeReference?: (type: spec.Type, options: any) => { [language: string]: string };
 
@@ -149,6 +152,20 @@ export interface PackageInfo {
      * Configuration fragments or installation instructions, by client scenario (e.g: maven + gradle). Values can be a
      * plain string (documentation should render as a pre-formatted block of text using monospace font), or an object
      * describing a language-tagged block of code.
+     *
+     * @example {
+     *              maven: {
+     *                  language: 'xml',
+     *                  code: '<dependency><groupId>grp</groupId><artifactId>art</artifactId><version>version</version></dependency>'
+     *              },
+     *              gradle: "compile 'grp:art:version'",
+     *          }
+     *
+     * @example {
+     *              npm: { language: 'console', code: '$ npm install pkg' },
+     *              yarn: { language: 'console', code: '$ yarn add pkg' },
+     *              'package.json': { language: json, code: '{"pkg": "^version" }' }
+     *          }
      */
     usage: { [label: string]: string | { language: string, code: string } };
 }
