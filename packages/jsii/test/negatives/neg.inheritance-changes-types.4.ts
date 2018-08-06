@@ -1,5 +1,5 @@
 // tslint:disable-next-line:comment-format
-///!MATCH_ERROR: property 'something' inherited from from jsii.ISomething but definition changed
+///!MATCH_ERROR: type changed
 
 export class Superclass {}
 export class Subclass extends Superclass {}
