@@ -1311,38 +1311,31 @@ function validateOverriddenSignatures(mod: spec.Assembly) {
         }
 
         function validateMethod(currentMethod: spec.Method, ancestorMethod: spec.Method) {
-            const where = `${currentFqn}.${currentMethod.name}`;
-            if (!typeReferencesEqual(currentMethod.returns, ancestorMethod.returns)) {
-                const orig = spec.describeTypeReference(ancestorMethod.returns);
-                const cur = spec.describeTypeReference(currentMethod.returns);
-                throw new Error(`${where}: return type changed from ${orig} (in ${ancestorFqn}) to ${cur}`);
-            }
+            // By default deep equal checks too much. For example, it should be okay
+            // to rename parameters, so we don't want to check those. An easy way to skip
+            // checking that is to copy the ancestor names onto the child.
+            //
+            // NOTE: because objects are passed by reference, we need to clone to make
+            // sure we don't destroy the old names.
+            currentMethod = clone(currentMethod);
+            ancestorMethod = clone(ancestorMethod);
 
-            const currentParams = currentMethod.parameters || [];
             const ancestorParams = ancestorMethod.parameters || [];
-            if (currentParams.length !== ancestorParams.length) {
-                const orig = ancestorParams.length;
-                const cur = currentParams.length;
-                throw new Error(`${where}: parameter count changed from ${orig} (in ${ancestorFqn}) to ${cur}`);
+            const currentParams = currentMethod.parameters || [];
+            for (let i = 0; i < Math.min(ancestorParams.length, currentParams.length); i++) {
+                currentParams[i].name = ancestorParams[i].name;
             }
-            for (let i = 0; i < currentParams.length; i++) {
-                if (currentParams[i].variadic !== ancestorParams[i].variadic ||
-                    !typeReferencesEqual(currentParams[i].type, ancestorParams[i].type)) {
-                    const orig = spec.describeTypeReference(ancestorParams[i].type);
-                    const cur = spec.describeTypeReference(currentParams[i].type);
 
-                    // tslint:disable-next-line:max-line-length
-                    throw new Error(`${where}: parameter ${i + 1} type changed from ${orig} (in ${ancestorFqn}) to ${cur}`);
-                }
+            if (!deepEqual(currentMethod, ancestorMethod)) {
+                // tslint:disable-next-line:max-line-length
+                throw new Error(`${currentFqn}: method '${currentMethod.name}' inherited from from ${ancestorFqn} but definition changed; base: ${JSON.stringify(ancestorMethod)}; overridden: ${JSON.stringify(currentMethod)}`);
             }
         }
 
         function validateProperty(currentProperty: spec.Property, ancestorProperty: spec.Property) {
-            if (!typeReferencesEqual(currentProperty.type, ancestorProperty.type)) {
-                const orig = spec.describeTypeReference(ancestorProperty.type);
-                const cur = spec.describeTypeReference(currentProperty.type);
-
-                throw new Error(`${currentFqn}.${currentProperty.name}: type changed from ${orig} (in ${ancestorFqn}) to ${cur}`);
+            if (!deepEqual(currentProperty, ancestorProperty)) {
+                // tslint:disable-next-line:max-line-length
+                throw new Error(`${currentFqn}: property '${currentProperty.name}' inherited from from ${ancestorFqn} but definition changed; base: ${JSON.stringify(ancestorProperty)}; overridden: ${JSON.stringify(currentProperty)}`);
             }
         }
     }

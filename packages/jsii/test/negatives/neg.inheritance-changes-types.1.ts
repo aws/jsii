@@ -1,5 +1,5 @@
 // tslint:disable-next-line:comment-format
-///!MATCH_ERROR: return type changed
+///!MATCH_ERROR: method 'returnSomething' inherited from from jsii.ISomething but definition changed
 
 export class Superclass {}
 export class Subclass extends Superclass {}
