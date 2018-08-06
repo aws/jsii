@@ -13,6 +13,10 @@ version="$(node -e "console.log(require('./lerna.json').version)")"
 commit="${CODEBUILD_RESOLVED_SOURCE_VERSION:-"$(git rev-parse --verify HEAD)"}"
 
 cd pack
+
+# .version is needed by buildable publishers
+echo ${version} > .version
+
 dist=${root}/dist
 output=${dist}/jsii-${version}+${commit:0:7}.zip
 rm -fr ${dist}
