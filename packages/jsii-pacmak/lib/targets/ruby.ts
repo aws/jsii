@@ -10,6 +10,7 @@ export default class Ruby extends Target {
     }
 
     public build(sourceDir: string, outDir: string) {
+        // TODO: "gem build"
         return this.copyFiles(sourceDir, outDir);
     }
 }
