@@ -5,19 +5,19 @@
 
    .. group-tab:: Java
 
-      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator-base/0.5.0-beta/>`_
+      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator-base/0.6.0/>`_
 
       **Apache Buildr**:
 
       .. code-block:: none
 
-         'software.amazon.jsii.tests:calculator-base:jar:0.5.0-beta'
+         'software.amazon.jsii.tests:calculator-base:jar:0.6.0'
 
       **Apache Ivy**:
 
       .. code-block:: xml
 
-         <dependency groupId="software.amazon.jsii.tests" name="calculator-base" rev="0.5.0-beta"/>
+         <dependency groupId="software.amazon.jsii.tests" name="calculator-base" rev="0.6.0"/>
 
       **Apache Maven**:
 
@@ -26,72 +26,72 @@
          <dependency>
            <groupId>software.amazon.jsii.tests</groupId>
            <artifactId>calculator-base</artifactId>
-           <version>0.5.0-beta</version>
+           <version>0.6.0</version>
          </dependency>
 
       **Gradle / Grails**:
 
       .. code-block:: none
 
-         compile 'software.amazon.jsii.tests:calculator-base:0.5.0-beta'
+         compile 'software.amazon.jsii.tests:calculator-base:0.6.0'
 
       **Groovy Grape**:
 
       .. code-block:: none
 
          @Grapes(
-         @Grab(group='software.amazon.jsii.tests', module='calculator-base', version='0.5.0-beta')
+         @Grab(group='software.amazon.jsii.tests', module='calculator-base', version='0.6.0')
          )
 
 
    .. group-tab:: JavaScript
 
-      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-base/v/0.5.0-beta>`_
+      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-base/v/0.6.0>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i @scope/jsii-calc-base@0.5.0-beta
+         $ npm i @scope/jsii-calc-base@0.6.0
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "@scope/jsii-calc-base": "^0.5.0-beta"
+           "@scope/jsii-calc-base": "^0.6.0"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add @scope/jsii-calc-base@0.5.0-beta
+         $ yarn add @scope/jsii-calc-base@0.6.0
 
 
    .. group-tab:: TypeScript
 
-      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-base/v/0.5.0-beta>`_
+      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-base/v/0.6.0>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i @scope/jsii-calc-base@0.5.0-beta
+         $ npm i @scope/jsii-calc-base@0.6.0
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "@scope/jsii-calc-base": "^0.5.0-beta"
+           "@scope/jsii-calc-base": "^0.6.0"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add @scope/jsii-calc-base@0.5.0-beta
+         $ yarn add @scope/jsii-calc-base@0.6.0
 
 
 
