@@ -20,6 +20,7 @@ export function debug(fmt: string, ...args: any[]) {
 function log(messageLevel: Level, fmt: string, ...args: any[]) {
     if (level >= messageLevel) {
         const levelName = Level[messageLevel];
+        // tslint:disable-next-line:no-console
         console.error.call(console, ...[ `[jsii-pacmak] [${levelName}]`, fmt, ...args ]);
     }
 }
