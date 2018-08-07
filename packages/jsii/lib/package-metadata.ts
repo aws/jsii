@@ -127,7 +127,7 @@ export default async function readPackageMetadata(moduleDir: string): Promise<Pa
 
     // defaults
     if (!pkg.name)    { pkg.name = path.basename(moduleDir); }
-    if (!pkg.version) { pkg.version = '1.0.0'; }
+    if (!pkg.version) { throw new Error(`${pkgFile} must contain a "version" field (with value following the semver syntax)`); }
     if (!pkg.types)   { pkg.types = 'index.d.ts'; }
     if (!pkg.jsii)    { pkg.jsii = { outdir: '.' }; }
     if (!pkg.main)    { pkg.main = 'index.js'; }
