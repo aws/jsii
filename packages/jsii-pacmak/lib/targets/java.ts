@@ -1180,11 +1180,10 @@ interface MavenDependency {
  * to Maven Central.
  */
 async function findJavaRuntimeLocalRepository() {
-    const localMavenRepo = path.resolve(path.join(__dirname, '..', '..', '..', 'jsii-java-runtime', 'maven-repo'));
-    if (await fs.pathExists(localMavenRepo)) {
-        logging.debug('Compiling against local jsii-java-runtime at:', localMavenRepo);
-        return localMavenRepo;
-    } else {
+    try {
+        const javaRuntime = require('jsii-java-runtime');
+        return javaRuntime.repository;
+    } catch (e) {
         return undefined;
     }
 }
