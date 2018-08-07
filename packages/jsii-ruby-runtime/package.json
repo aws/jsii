@@ -4,6 +4,7 @@
   "description": "Ruby client for jsii runtime",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "private": true,
   "scripts": {
     "gen": "/bin/bash generate.sh",
     "deps": "cd project && bundle install",

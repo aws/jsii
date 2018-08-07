@@ -8,7 +8,8 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "bash generate.sh && tsc && chmod +x bin/jsii-pacmak && tslint -p .",
+    "gen": "/bin/bash generate.sh",
+    "build": "npm run gen && tsc && chmod +x bin/jsii-pacmak && tslint -p .",
     "watch": "tsc -w",
     "lint": "tslint -p . --force",
     "test": "/bin/bash test/diff-test.sh",
@@ -22,13 +23,13 @@
     "clone": "^2.1.1",
     "codemaker": "^0.6.2",
     "fs-extra": "^4.0.3",
-    "jsii-dotnet-generator": "^0.6.2",
     "jsii-spec": "^0.6.2",
     "spdx-license-list": "^4.1.0",
     "xmlbuilder": "^10.0.0",
     "yargs": "^12.0.0"
   },
   "devDependencies": {
+    "jsii-dotnet-generator": "^0.6.2",
     "@scope/jsii-calc-lib": "^0.6.2",
     "@types/clone": "^0.1.30",
     "@types/fs-extra": "^4.0.8",

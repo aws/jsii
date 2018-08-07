@@ -3,6 +3,7 @@
   "version": "0.6.2",
   "description": ".NET code generator for jsii assemblies",
   "main": "index.js",
+  "private": true,
   "scripts": {
     "gen": "/bin/bash ./generate.sh",
     "build": "/bin/bash ./build.sh",

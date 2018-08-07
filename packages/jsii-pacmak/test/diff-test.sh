@@ -31,17 +31,12 @@ function assert-generator() {
 
     # put the real expected tarball instead of the placeholder
     for expected_tarball_placeholder in $(find ${expected} -name "*.tgz" || true); do
-        rm -f ${expected_tarball_placeholder} && cp ${expected_tarball} ${expected_tarball_placeholder}
+        rm -f ${expected_tarball_placeholder}
+        cp ${expected_tarball} ${expected_tarball_placeholder}
     done
 
     echo "Running jsii-pacmak test for ${module}"
     ../bin/jsii-pacmak --outdir ${outdir} ${module_root} --code-only --no-fingerprint
-
-    # change the placeholder back
-    for tarball_placeholder in $(find ${original_expected} -name "*.tgz" || true); do
-        echo "Placeholder for the expected module tarball"                              > ${tarball_placeholder}
-        echo "The diff-test.sh harness will replace it with the real expected tarball" >> ${tarball_placeholder}
-    done
 
     if ! diff --strip-trailing-cr -arq ${outdir} ${expected}; then
         if [ -n "${UPDATE_DIFF:-}" ]; then
@@ -60,6 +55,12 @@ function assert-generator() {
             success=false
         fi
     fi
+
+    # change the placeholder back (we do this after UPDATE_DIFF)
+    for tarball_placeholder in $(find ${original_expected} -name "*.tgz" || true); do
+        echo "Placeholder for the expected module tarball"                              > ${tarball_placeholder}
+        echo "The diff-test.sh harness will replace it with the real expected tarball" >> ${tarball_placeholder}
+    done
 }
 
 assert-generator jsii-calc-base

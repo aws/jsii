@@ -3,6 +3,7 @@
   "version": "0.6.2",
   "description": ".NET client for jsii runtime",
   "main": "index.js",
+  "private": true,
   "scripts": {
     "gen": "/bin/bash ./generate.sh",
     "build": "/bin/bash ./build.sh",

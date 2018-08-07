@@ -4,6 +4,7 @@
   "description": "Java client for jsii runtime",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "private": true,
   "scripts": {
     "gen": "/bin/bash ./generate.sh",
     "build": "tsc && npm run gen && cd project && mvn deploy -D altDeploymentRepository=local::default::file://${PWD}/../maven-repo",
