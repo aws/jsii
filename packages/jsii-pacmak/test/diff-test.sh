@@ -47,7 +47,6 @@ function assert-generator() {
         if [ -n "${UPDATE_DIFF:-}" ]; then
             echo "⚡️ UPDATE_DIFF is set, overwriting ${original_expected}"
             rsync -av --delete ${outdir}/ ${original_expected}/
-            exit 0
         else
             echo
             echo "------------------------------------------------------------------------"
