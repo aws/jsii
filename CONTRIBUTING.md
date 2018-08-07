@@ -51,6 +51,10 @@ All modules within this repository have the following scripts:
 Each one of these scripts can be executed either from the root of the repo using
 `lerna run xxx --scope <package>` or from individual modules using `npm run xxx`.
 
+### Bump
+
+To bump the version of this repository, use the [`./bump.sh`](./bump.sh) script.
+
 ### Packaging and Bundling
 
 This repository emits artifacts in multiple languages. The
