@@ -1,1 +1,2 @@
 lib/version.ts
+lib/targets/dotnet-generator/

@@ -39,8 +39,7 @@ class DotNetGenerator implements IGenerator {
 
     public save(outdir: string, tarball: string): Promise<any> {
         return new Promise<number>((resolve, reject) => {
-            const runtimeRoot = path.dirname(require.resolve('jsii-dotnet-generator/package.json'));
-            const cliPath = path.join(runtimeRoot, 'cli', 'publish', 'Amazon.JSII.Generator.CLI.dll');
+            const cliPath = path.join(__dirname, 'dotnet-generator', 'Amazon.JSII.Generator.CLI.dll');
             const cli = childProcess.spawn(
                 'dotnet',
                 [cliPath, '--jsii', this.jsiiFile, '--tarball', tarball, '--output', outdir],
