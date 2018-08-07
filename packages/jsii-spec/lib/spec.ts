@@ -569,19 +569,26 @@ export function isClassOrInterfaceType(type: Type): type is (InterfaceType | Cla
 export function describeTypeReference(a?: TypeReference): string {
     if (a === undefined) { return '(none)'; }
 
+    const optionalMarker = a.optional ? '?' : '';
+
     if (isNamedTypeReference(a)) {
-        return a.fqn;
+        return `${a.fqn}${optionalMarker}`;
     }
 
     if (isPrimitiveTypeReference(a)) {
-        return a.primitive;
+        return `${a.primitive}${optionalMarker}`;
     }
 
     if (isCollectionTypeReference(a)) {
-        return `${a.collection.kind}<${describeTypeReference(a.collection.elementtype)}>`;
+        return `${a.collection.kind}<${describeTypeReference(a.collection.elementtype)}>${optionalMarker}`;
     }
     if (isUnionTypeReference(a)) {
-        return a.union.types.map(describeTypeReference).join('|');
+        const unionType = a.union.types.map(describeTypeReference).join(' | ');
+        if (a.optional) {
+            return `(${unionType})${optionalMarker}`;
+        } else {
+            return unionType;
+        }
     }
 
     throw new Error('Unrecognized type reference');
