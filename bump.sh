@@ -1,0 +1,15 @@
+#!/bin/bash
+set -euo pipefail
+ver=${1:-}
+if [ -z "${ver}" ]; then
+  echo "usage: ./bump.sh <version>"
+  exit 1
+fi
+
+lerna publish --skip-npm --skip-git --conventional-commits --repo-version ${ver}
+
+lerna run build
+
+# update test expectations
+UPDATE_DIFF=1 lerna run test
+

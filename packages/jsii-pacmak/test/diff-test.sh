@@ -44,14 +44,21 @@ function assert-generator() {
     done
 
     if ! diff --strip-trailing-cr -arq ${outdir} ${expected}; then
-        echo
-        echo "------------------------------------------------------------------------"
-        echo " diff-test for pacmak generator ${module} failed"
-        echo "------------------------------------------------------------------------"
-        echo " To update expectation run:"
-        echo "    rsync -av --delete ${outdir}/ ${original_expected}/"
-        echo "------------------------------------------------------------------------"
-        success=false
+        if [ -n "${UPDATE_DIFF:-}" ]; then
+            echo "⚡️ UPDATE_DIFF is set, overwriting ${original_expected}"
+            rsync -av --delete ${outdir}/ ${original_expected}/
+        else
+            echo
+            echo "------------------------------------------------------------------------"
+            echo " diff-test for pacmak generator ${module} failed"
+            echo "------------------------------------------------------------------------"
+            echo " To update expectation run:"
+            echo "    rsync -av --delete ${outdir}/ ${original_expected}/"
+            echo " Or, execute this test again with:"
+            echo "    UPDATE_DIFF=1"
+            echo "------------------------------------------------------------------------"
+            success=false
+        fi
     fi
 }
 
@@ -65,6 +72,10 @@ if ${success}; then
     rm -fr "${workdir}"
 else
     echo "SOME TESTS FAILED"
+    echo
+    echo "Execute this test again with:"
+    echo "    UPDATE_DIFF=1"
+    echo
     exit 1
 fi
 

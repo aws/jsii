@@ -1,6 +1,6 @@
 {
   "name": "jsii-dotnet-jsonmodel",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": ".NET json model for jsii spec and api.",
   "main": "index.js",
   "scripts": {
@@ -19,6 +19,6 @@
   },
   "license": "Apache-2.0",
   "devDependencies": {
-    "jsii-build-tools": "^0.6.1"
+    "jsii-build-tools": "^0.6.2"
   }
 }

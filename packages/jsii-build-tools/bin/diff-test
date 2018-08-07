@@ -14,7 +14,18 @@ actual="$(resolve-path $2)"
 diff ${actual} ${expected} || {
   echo
   echo "========================================================================="
-  echo "test failed. to update:"
-  echo "    cp ${actual} ${expected}"
-  exit 1
+
+  if [ -n "${UPDATE_DIFF:-}" ]; then
+    echo "⚡️ UPDATE_DIFF is set, overwriting ${expected}"
+    cp ${actual} ${expected}
+    exit 0
+  else
+    echo "test failed. to update:"
+    echo "    cp ${actual} ${expected}"
+    echo
+    echo "or, execute again with:"
+    echo "   UPDATE_DIFF=1"
+    echo
+    exit 1
+  fi
 }
