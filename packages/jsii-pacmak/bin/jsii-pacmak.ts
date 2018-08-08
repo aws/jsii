@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import fs = require('fs-extra');
+import spec = require('jsii-spec');
 import os = require('os');
 import path = require('path');
 import process = require('process');
@@ -8,7 +9,6 @@ import logging = require('../lib/logging');
 import { Target } from '../lib/target';
 import { resolveDependencyDirectory, shell } from '../lib/util';
 import { VERSION_DESC } from '../lib/version';
-import { SPEC_FILE_NAME } from '../node_modules/jsii-spec';
 
 (async function main() {
     const targetConstructors = await Target.findAll();
@@ -204,7 +204,7 @@ async function updateNpmIgnore(packageDir: string, excludeOutdir: string | undef
         excludePattern('Exclude jsii outdir', path.relative(packageDir, excludeOutdir));
     }
 
-    includePattern('Include .jsii', SPEC_FILE_NAME);
+    includePattern('Include .jsii', spec.SPEC_FILE_NAME);
 
     if (modified) {
         await fs.writeFile(npmIgnorePath, lines.join('\n') + '\n');
