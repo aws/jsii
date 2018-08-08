@@ -5,19 +5,19 @@ jsii-calc
 
    .. group-tab:: Java
 
-      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator/0.6.2/>`_
+      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator/0.6.3/>`_
 
       **Apache Buildr**:
 
       .. code-block:: none
 
-         'software.amazon.jsii.tests:calculator:jar:0.6.2'
+         'software.amazon.jsii.tests:calculator:jar:0.6.3'
 
       **Apache Ivy**:
 
       .. code-block:: xml
 
-         <dependency groupId="software.amazon.jsii.tests" name="calculator" rev="0.6.2"/>
+         <dependency groupId="software.amazon.jsii.tests" name="calculator" rev="0.6.3"/>
 
       **Apache Maven**:
 
@@ -26,72 +26,72 @@ jsii-calc
          <dependency>
            <groupId>software.amazon.jsii.tests</groupId>
            <artifactId>calculator</artifactId>
-           <version>0.6.2</version>
+           <version>0.6.3</version>
          </dependency>
 
       **Gradle / Grails**:
 
       .. code-block:: none
 
-         compile 'software.amazon.jsii.tests:calculator:0.6.2'
+         compile 'software.amazon.jsii.tests:calculator:0.6.3'
 
       **Groovy Grape**:
 
       .. code-block:: none
 
          @Grapes(
-         @Grab(group='software.amazon.jsii.tests', module='calculator', version='0.6.2')
+         @Grab(group='software.amazon.jsii.tests', module='calculator', version='0.6.3')
          )
 
 
    .. group-tab:: JavaScript
 
-      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.6.2>`_
+      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.6.3>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i jsii-calc@0.6.2
+         $ npm i jsii-calc@0.6.3
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "jsii-calc": "^0.6.2"
+           "jsii-calc": "^0.6.3"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add jsii-calc@0.6.2
+         $ yarn add jsii-calc@0.6.3
 
 
    .. group-tab:: TypeScript
 
-      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.6.2>`_
+      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.6.3>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i jsii-calc@0.6.2
+         $ npm i jsii-calc@0.6.3
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "jsii-calc": "^0.6.2"
+           "jsii-calc": "^0.6.3"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add jsii-calc@0.6.2
+         $ yarn add jsii-calc@0.6.3
 
 
 
