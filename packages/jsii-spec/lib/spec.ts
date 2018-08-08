@@ -193,7 +193,7 @@ export enum PrimitiveType {
     Json = 'json',
 
     /**
-     * Any value or object (i.e. Object)
+     * Value with "any" or "unknown" type (aka Object)
      */
     Any = 'any'
 }

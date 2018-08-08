@@ -17,7 +17,7 @@
     "@types/node": "^9.6.18",
     "@types/nodeunit": "0.0.30",
     "nodeunit": "^0.11.2",
-    "typescript": "^2.9.2"
+    "typescript": "^3.0.1"
   },
   "dependencies": {
     "camelcase": "^4.1.0",

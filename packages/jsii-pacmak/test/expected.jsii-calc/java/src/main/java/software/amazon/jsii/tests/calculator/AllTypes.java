@@ -75,6 +75,24 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
     public void setAnyMapProperty(final java.util.Map<java.lang.String, java.lang.Object> value) {
         this.jsiiSet("anyMapProperty", java.util.Objects.requireNonNull(value, "anyMapProperty is required"));
     }
+    public java.lang.Object getUnknownProperty() {
+        return this.jsiiGet("unknownProperty", java.lang.Object.class);
+    }
+    public void setUnknownProperty(final java.lang.Object value) {
+        this.jsiiSet("unknownProperty", java.util.Objects.requireNonNull(value, "unknownProperty is required"));
+    }
+    public java.util.List<java.lang.Object> getUnknownArrayProperty() {
+        return this.jsiiGet("unknownArrayProperty", java.util.List.class);
+    }
+    public void setUnknownArrayProperty(final java.util.List<java.lang.Object> value) {
+        this.jsiiSet("unknownArrayProperty", java.util.Objects.requireNonNull(value, "unknownArrayProperty is required"));
+    }
+    public java.util.Map<java.lang.String, java.lang.Object> getUnknownMapProperty() {
+        return this.jsiiGet("unknownMapProperty", java.util.Map.class);
+    }
+    public void setUnknownMapProperty(final java.util.Map<java.lang.String, java.lang.Object> value) {
+        this.jsiiSet("unknownMapProperty", java.util.Objects.requireNonNull(value, "unknownMapProperty is required"));
+    }
     public java.lang.Object getUnionProperty() {
         return this.jsiiGet("unionProperty", java.lang.Object.class);
     }

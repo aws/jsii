@@ -856,7 +856,7 @@ export async function compileSources(entrypoint: string,
                 return spec.PrimitiveType.Json;
             }
             // tslint:disable-next-line:no-bitwise
-            if (!aType.symbol && aType.flags & ts.TypeFlags.Any) {
+            if (!aType.symbol && aType.flags & (ts.TypeFlags.Any | ts.TypeFlags.Unknown)) {
                 return spec.PrimitiveType.Any;
             }
 

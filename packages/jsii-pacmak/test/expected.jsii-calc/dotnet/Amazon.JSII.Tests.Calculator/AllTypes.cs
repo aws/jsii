@@ -95,6 +95,27 @@ namespace Amazon.JSII.Tests.Calculator
             set => SetInstanceProperty(value);
         }
 
+        [JsiiProperty("unknownProperty", "{\"primitive\":\"any\"}")]
+        public virtual object UnknownProperty
+        {
+            get => GetInstanceProperty<object>();
+            set => SetInstanceProperty(value);
+        }
+
+        [JsiiProperty("unknownArrayProperty", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"any\"}}}")]
+        public virtual object[] UnknownArrayProperty
+        {
+            get => GetInstanceProperty<object[]>();
+            set => SetInstanceProperty(value);
+        }
+
+        [JsiiProperty("unknownMapProperty", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"primitive\":\"any\"}}}")]
+        public virtual IDictionary<string, object> UnknownMapProperty
+        {
+            get => GetInstanceProperty<IDictionary<string, object>>();
+            set => SetInstanceProperty(value);
+        }
+
         [JsiiProperty("unionProperty", "{\"union\":{\"types\":[{\"primitive\":\"string\"},{\"primitive\":\"number\"},{\"fqn\":\"jsii-calc.Multiply\"}]}}")]
         public virtual object UnionProperty
         {

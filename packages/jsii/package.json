@@ -38,7 +38,7 @@
     "sort-json": "^2.0.0",
     "source-map-loader": "^0.2.3",
     "spdx-license-list": "^4.1.0",
-    "typescript": "^2.9.2",
+    "typescript": "^3.0.1",
     "yargs": "^11.0.0"
   },
   "author": {
