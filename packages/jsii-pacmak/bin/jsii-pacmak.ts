@@ -182,7 +182,7 @@ async function npmPack(packageDir: string, tmpdir: string): Promise<string> {
     if (logging.level >= logging.LEVEL_VERBOSE) {
         args.push('--loglevel=verbose');
     }
-    const out = await shell('npm', [ 'pack' ], { cwd: tmpdir });
+    const out = await shell('npm', args, { cwd: tmpdir });
     return path.resolve(tmpdir, out.trim());
 }
 
