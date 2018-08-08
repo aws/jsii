@@ -55,27 +55,25 @@ hello.say_hello 'World' # => Hello, World!
 
 ## Getting Started
 
-Let's create our first jsii TypeScript module.
+Let's create our first jsii TypeScript module!
 
-### Initialize the project
+```console
+$ npm init -y
+$ npm i --save-dev jsii jsii-pacmak
+```
 
-Define a `package.json`:
+Edit your `package.json`:
 
-```json
+```js
 {
-  "name": "hello-jsii",
-  "version": "1.0.0",
-  "license": "Apache-2.0",
+  // ...
+  
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "jsii",
     "watch": "jsii -w",
     "package": "jsii-pacmak -v"
-  },
-  "devDependencies": {
-    "jsii": "^0.6.0",
-    "jsii-pacmak": "^0.6.0"
   },
   "jsii": {
     "outdir": "dist",
@@ -96,48 +94,18 @@ Define a `package.json`:
 }
 ```
 
-What's going on here?
+So, what's going on here?
 
-#### `jsii`
-
-The `jsii` section in your `package.json` is the [jsii
-configuration](#configuration) for your module. It tells jsii which target
-languages to package, and includes additional required information for the
-jsii packager (also known as "pacmak").
-
-#### `npm run build``
-
-The `build` script script uses `jsii` to compile your code.
-
-`jsii` wraps the TypeScript compiler (`tsc`) and will compile your .ts files into .js files.
-
-Note that `jsii` is rather opinionated about how the TypeScript compiler is configured (for now),
-so it will generate a `tsconfig.json` file for you with the correct options so you an spin up
-a TypeScript-supporting IDE. No need to check-in this file.
-
-The `watch` script (optional) will invoke `tsc -w` which will monitor your
-filesystem for changes and recompile your .ts files to .js (note that jsii
-errors will not be reported in this mode)
-
-#### `npm run package`
-
-The `package` script invokes `jsii-pacmak`, which is the __jsii packager__.
-
-Pacmak will will generate _and compile_ your package to all target languages. The output packages
-will be emitted to `outdir` (in the above case `dist`).
-
-The `-v` switch tells pacmak to print some messages.
-
-Run `jsii-pacmak --help` for more options.
-
-#### Required package.json fields
-
-* `license` is required (with SPDX license identifier).
-* `main` and `types` are also required and specify the javascript and typescript
-  declarations entry points of the module.
-* `version` is required.
-
-### Module Code
+* The `jsii` section in your `package.json` is the [jsii configuration](#configuration) for your module. 
+  It tells jsii which target languages to package, and includes additional required information for the
+  jsii packager.
+* `npm run build` uses `jsii` to compile your code. It invokes the TypeScript compiler (`tsc`) and will compile 
+  your .ts files into .js files.
+* `npm run watch` will invoke `tsc -w` which will monitor your filesystem for changes and recompile 
+   your .ts files to .js (note that jsii errors will not be reported in this mode)
+* `npm run package` invokes `jsii-pacmak`, which is the __jsii packager__. It will generate _and compile_ your 
+   package to all target languages. The output packages will be emitted to `outdir` (in the above case `dist`).
+* Other required `package.json` fields: `license`, `main`, `types`.
 
 Okay, we are ready to write some code. Create a `lib/index.ts` file:
 
@@ -149,9 +117,7 @@ export class HelloJsii {
 }
 ```
 
-### Build
-
-And build your module:
+Build your module:
 
 ```console
 $ npm run build
@@ -219,8 +185,6 @@ This file includes all the information needed in order to package your module in
 jsii-supported language. It contains the module metadata from `package.json` and a full declaration
 of your module's public API.
 
-### Packaging
-
 Okay, now the magic happens:
 
 ```console
@@ -232,11 +196,7 @@ Now, if you check out the contents of `dist`, you'll find:
 
 ```
 ├── dotnet
-│   └── Acme.Hello
-│       ├── Acme.Hello.csproj
-│       ├── AssemblyInfo.cs
-│       ├── HelloJsii.cs
-│       └── hello-jsii-1.0.0.tgz
+│   └── Acme.Hello.nupkg
 ├── java
 │   └── com
 │       └── acme
