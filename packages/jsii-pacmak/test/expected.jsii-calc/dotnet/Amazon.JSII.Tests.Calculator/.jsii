@@ -1,5 +1,5 @@
 {
-  "fingerprint": "OM0O7mUegs3OOtV20uJoWHe5CwCYy7au8gvgacfsNC0=",
+  "fingerprint": "ytw9S3sXrflkCuvIO7fAadwsq2IXUfqOL/rvUp65VOI=",
   "author": {
     "name": "Amazon Web Services",
     "organization": true,
@@ -322,6 +322,34 @@
         },
         {
           "name": "anyMapProperty",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "primitive": "any"
+              },
+              "kind": "map"
+            }
+          }
+        },
+        {
+          "name": "unknownProperty",
+          "type": {
+            "primitive": "any"
+          }
+        },
+        {
+          "name": "unknownArrayProperty",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "primitive": "any"
+              },
+              "kind": "array"
+            }
+          }
+        },
+        {
+          "name": "unknownMapProperty",
           "type": {
             "collection": {
               "elementtype": {
