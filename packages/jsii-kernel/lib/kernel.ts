@@ -978,6 +978,7 @@ export class Kernel {
 
     private _debug(...args: any[]) {
         if (this.traceEnabled) {
+            // tslint:disable-next-line:no-console
             console.error.apply(console, [
                 '[jsii-kernel]',
                 args[0],

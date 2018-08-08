@@ -16,13 +16,15 @@
   "devDependencies": {
     "jsii-build-tools": "^0.6.2"
   },
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com",
+    "email": "aws-jsii@amazon.com"
+  },
+  "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/awslabs/jsii.git"
   },
-  "author": {
-    "name": "Amazon Web Services",
-    "url": "https://aws.amazon.com"
-  },
-  "license": "Apache-2.0"
+  "homepage": "https://github.com/awslabs/jsii"
 }

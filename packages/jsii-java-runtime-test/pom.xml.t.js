@@ -1,4 +1,5 @@
 const { groupId, artifactId, version } = require('jsii-java-runtime').maven;
+const calculatorVersion = require('jsii-calc/package.json').version;
 
 process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -20,7 +21,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
         <dependency>
             <groupId>software.amazon.jsii.tests</groupId>
             <artifactId>calculator</artifactId>
-            <version>[0.5.0-beta,)</version>
+            <version>${calculatorVersion}</version>
             <scope>test</scope>
         </dependency>
 

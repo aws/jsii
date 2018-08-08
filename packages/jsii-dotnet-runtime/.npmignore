@@ -1,8 +1,2 @@
 # by default, exclude everything
 *
-
-# bundle only...
-!*.nupkg
-!package.json
-!index.js
-

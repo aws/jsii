@@ -2,24 +2,28 @@
   "name": "jsii-dotnet-jsonmodel",
   "version": "0.6.2",
   "description": ".NET json model for jsii spec and api.",
-  "main": "index.js",
+  "main": "lib/index.js",
   "private": true,
+  "types": "lib/index.d.ts",
   "scripts": {
     "gen": "/bin/bash ./generate.sh",
-    "build": "/bin/bash ./build.sh",
+    "build": "tsc && /bin/bash ./build.sh",
     "test": "/bin/bash ./test.sh",
     "package": "package-dotnet"
+  },
+  "devDependencies": {
+    "@types/node": "^9.6.18",
+    "typescript": "^2.9.2",
+    "jsii-build-tools": "^0.6.2"
+  },
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com",
+    "email": "aws-jsii@amazon.com"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/awslabs/jsii.git"
   },
-  "author": {
-    "name": "Amazon Web Services",
-    "url": "https://aws.amazon.com"
-  },
-  "license": "Apache-2.0",
-  "devDependencies": {
-    "jsii-build-tools": "^0.6.2"
-  }
+  "homepage": "https://github.com/awslabs/jsii"
 }

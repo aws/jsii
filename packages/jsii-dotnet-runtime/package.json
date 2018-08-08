@@ -2,31 +2,33 @@
   "name": "jsii-dotnet-runtime",
   "version": "0.6.2",
   "description": ".NET client for jsii runtime",
-  "main": "index.js",
+  "main": "lib/index.js",
   "private": true,
+  "types": "lib/index.d.ts",
   "scripts": {
     "gen": "/bin/bash ./generate.sh",
-    "build": "/bin/bash ./build.sh",
+    "build": "npm run gen && tsc && /bin/bash ./build.sh",
     "test": "/bin/bash ./test.sh",
     "package": "package-dotnet"
   },
   "devDependencies": {
-    "@scope/jsii-calc-lib": "^0.6.2",
-    "jsii-build-tools": "^0.6.2",
-    "jsii-calc": "^0.6.2",
-    "jsii-pacmak": "^0.6.2",
-    "jsii-runtime": "^0.6.2"
+    "@types/node": "^9.6.18",
+    "typescript": "^2.9.2",
+    "jsii-runtime": "^0.6.2",
+    "jsii-build-tools": "^0.6.2"
   },
   "dependencies": {
     "jsii-dotnet-jsonmodel": "^0.6.2"
   },
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com",
+    "email": "aws-jsii@amazon.com"
+  },
+  "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/awslabs/jsii.git"
   },
-  "author": {
-    "name": "Amazon Web Services",
-    "url": "https://aws.amazon.com"
-  },
-  "license": "Apache-2.0"
+  "homepage": "https://github.com/awslabs/jsii"
 }
