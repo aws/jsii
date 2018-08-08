@@ -122,8 +122,9 @@ import { SPEC_FILE_NAME } from '../node_modules/jsii-spec';
             await updateNpmIgnore(packageDir, npmIgnoreExclude);
         }
 
-        const tarball = await npmPack(packageDir);
+        const tmpdir = await fs.mkdtemp(path.join(os.tmpdir(), 'npm-pack'));
         try {
+            const tarball = await npmPack(packageDir, tmpdir);
             for (const targetName of targets) {
                 // if we are targeting a single language, output to outdir, otherwise outdir/<target>
                 const targetOutputDir = targets.length > 1 ? path.join(outDir, targetName) : outDir;
@@ -131,8 +132,8 @@ import { SPEC_FILE_NAME } from '../node_modules/jsii-spec';
                 await generateTarget(packageDir, targetName, targetOutputDir, tarball);
             }
         } finally {
-            logging.debug(`Removing ${tarball}`);
-            await fs.remove(tarball);
+            logging.debug(`Removing ${tmpdir}`);
+            await fs.remove(tmpdir);
         }
 
     }
@@ -175,14 +176,14 @@ import { SPEC_FILE_NAME } from '../node_modules/jsii-spec';
     process.exit(1);
 });
 
-async function npmPack(packageDir: string): Promise<string> {
-    logging.debug(`Running "npm pack" in ${packageDir}`);
-    const args = [ 'pack' ];
+async function npmPack(packageDir: string, tmpdir: string): Promise<string> {
+    logging.debug(`Running "npm pack ${packageDir}" in ${tmpdir}`);
+    const args = [ 'pack', packageDir ];
     if (logging.level >= logging.LEVEL_VERBOSE) {
         args.push('--loglevel=verbose');
     }
-    const out = await shell('npm', [ 'pack' ], { cwd: packageDir });
-    return path.resolve(packageDir, out.trim());
+    const out = await shell('npm', [ 'pack' ], { cwd: tmpdir });
+    return path.resolve(tmpdir, out.trim());
 }
 
 async function updateNpmIgnore(packageDir: string, excludeOutdir: string | undefined) {
