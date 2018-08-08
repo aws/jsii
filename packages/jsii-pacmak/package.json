@@ -42,7 +42,7 @@
     "jsii-java-runtime": "^0.6.2",
     "nodeunit": "^0.11.2",
     "tslint": "*",
-    "typescript": "^2.9.2"
+    "typescript": "^3.0.1"
   },
   "author": {
     "name": "Amazon Web Services",

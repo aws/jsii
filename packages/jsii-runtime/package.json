@@ -20,7 +20,7 @@
     "jsii-build-tools": "^0.6.2",
     "jsii-calc": "^0.6.2",
     "nodeunit": "^0.11.2",
-    "typescript": "^2.9.2",
+    "typescript": "^3.0.1",
     "wasm-loader": "^1.3.0",
     "webpack": "^4.12.0",
     "webpack-command": "^0.2.1"
