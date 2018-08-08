@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <PackageReference Include="Amazon.JSII.Tests.Calculator" Version="0.6.2" />
-    <!--<ProjectReference Include="..\Amazon.JSII.Tests.Calculator\Amazon.JSII.Tests.Calculator.csproj" />-->
   </ItemGroup>
 
   <ItemGroup>

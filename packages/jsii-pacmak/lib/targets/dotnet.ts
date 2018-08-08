@@ -1,7 +1,5 @@
 import childProcess = require('child_process');
 import fs = require('fs-extra');
-import jsiiDotNetJsonModel = require('jsii-dotnet-jsonmodel');
-import jsiiDotNetRuntime = require('jsii-dotnet-runtime');
 import spec = require('jsii-spec');
 import path = require('path');
 import xmlbuilder = require('xmlbuilder');
@@ -48,15 +46,25 @@ export default class Dotnet extends Target {
         }
 
         // If dotnet-jsonmodel is checked-out and we can find a local repository, add it to the list.
-        const localDotNetJsonModel = jsiiDotNetJsonModel.repository;
-        if (await fs.pathExists(localDotNetJsonModel)) {
-            localRepos.push(localDotNetJsonModel);
+        try {
+            const jsiiDotNetJsonModel = require('jsii-dotnet-jsonmodel');
+            const localDotNetJsonModel = jsiiDotNetJsonModel.repository;
+            if (await fs.pathExists(localDotNetJsonModel)) {
+                localRepos.push(localDotNetJsonModel);
+            }
+        } catch {
+            // Couldn't locate jsii-dotnet-jsonmodel, which is owkay!
         }
 
         // If dotnet-runtime is checked-out and we can find a local repository, add it to the list.
-        const localDotNetRuntime = jsiiDotNetRuntime.repository;
-        if (await fs.pathExists(localDotNetRuntime)) {
-            localRepos.push(localDotNetRuntime);
+        try {
+            const jsiiDotNetRuntime = require('jsii-dotnet-runtime');
+            const localDotNetRuntime = jsiiDotNetRuntime.repository;
+            if (await fs.pathExists(localDotNetRuntime)) {
+                localRepos.push(localDotNetRuntime);
+            }
+        } catch {
+            // Couldn't locate jsii-dotnet-runtime, which is owkay!
         }
 
         logging.debug('local NuGet repos:', localRepos);
