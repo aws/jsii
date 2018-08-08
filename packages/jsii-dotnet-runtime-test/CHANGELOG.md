@@ -9,12 +9,4 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-**Note:** Version bump only for package @scope/jsii-calc-base-of-base
-
-<a name="0.6.2"></a>
-## 0.6.2 (2018-08-07)
-
-
-
-
-**Note:** Version bump only for package @scope/jsii-calc-base-of-base
+**Note:** Version bump only for package jsii-dotnet-runtime-test

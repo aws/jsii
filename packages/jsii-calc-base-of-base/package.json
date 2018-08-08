@@ -1,6 +1,6 @@
 {
   "name": "@scope/jsii-calc-base-of-base",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "private": true,
@@ -25,8 +25,8 @@
     "test": "diff-test test/assembly.jsii .jsii"
   },
   "devDependencies": {
-    "jsii": "^0.6.2",
-    "jsii-build-tools": "^0.6.2",
+    "jsii": "^0.6.3",
+    "jsii-build-tools": "^0.6.3",
     "typescript": "^3.0.1"
   },
   "author": {
