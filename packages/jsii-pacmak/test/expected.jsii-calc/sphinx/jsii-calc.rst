@@ -234,6 +234,21 @@ AllTypes
       :type: any
 
 
+   .. py:attribute:: unknownProperty
+
+      :type: any
+
+
+   .. py:attribute:: unknownArrayProperty
+
+      :type: any
+
+
+   .. py:attribute:: unknownMapProperty
+
+      :type: any
+
+
    .. py:attribute:: unionProperty
 
       :type: string or number or :py:class:`~jsii-calc.Multiply`

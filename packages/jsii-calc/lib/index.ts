@@ -485,6 +485,12 @@ export class AllTypes {
     anyArrayProperty: any[] = [];
     anyMapProperty: { [key: string]: any } = {};
 
+    // non-typed (unknown)
+
+    unknownProperty: unknown;
+    unknownArrayProperty: unknown[] = [];
+    unknownMapProperty: { [key: string]: unknown } = {};
+
     // unions
 
     unionProperty: string | number | Number | Multiply = 'foo';
