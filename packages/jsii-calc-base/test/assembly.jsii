@@ -1,5 +1,5 @@
 {
-  "fingerprint": "HTWrbS7aTdxIRcwMOhJGALIGrJOV4ND7EMVhync0Rsk=",
+  "fingerprint": "b+UZfT/No0vxqTQ1n3lIsyw7olqARDbeGj853lNFoE8=",
   "author": {
     "name": "Amazon Web Services",
     "organization": true,
@@ -25,7 +25,7 @@
           "npm": "@scope/jsii-calc-base-of-base"
         }
       },
-      "version": "0.6.3"
+      "version": "0.6.4"
     }
   },
   "description": "@scope/jsii-calc-base",
@@ -100,5 +100,5 @@
       ]
     }
   },
-  "version": "0.6.3"
+  "version": "0.6.4"
 }

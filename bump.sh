@@ -6,7 +6,7 @@ if [ -z "${ver}" ]; then
   exit 1
 fi
 
-lerna publish --skip-npm --skip-git --conventional-commits --repo-version ${ver}
+lerna publish --force-publish=* --skip-npm --skip-git --conventional-commits --repo-version ${ver}
 
 lerna run build
 
