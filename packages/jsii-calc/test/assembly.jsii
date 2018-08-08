@@ -1,5 +1,5 @@
 {
-  "fingerprint": "cCTJJkYwsVsiQCSGpm08UaluuA270SLqytzIPYxJW+Q=",
+  "fingerprint": "nIH7ZdupMWqiPid9t2N934g0BDqSHVKuq6mrGdRpuYk=",
   "author": {
     "name": "Amazon Web Services",
     "organization": true,
@@ -9,7 +9,7 @@
     "url": "https://aws.amazon.com"
   },
   "bundled": {
-    "jsii-calc-bundled": "^0.6.2"
+    "jsii-calc-bundled": "^0.6.4"
   },
   "contributors": [
     {
@@ -53,7 +53,7 @@
               "npm": "@scope/jsii-calc-base-of-base"
             }
           },
-          "version": "0.6.3"
+          "version": "0.6.4"
         }
       },
       "targets": {
@@ -71,7 +71,7 @@
           "npm": "@scope/jsii-calc-base"
         }
       },
-      "version": "0.6.3"
+      "version": "0.6.4"
     },
     "@scope/jsii-calc-lib": {
       "dependencies": {
@@ -93,7 +93,7 @@
                   "npm": "@scope/jsii-calc-base-of-base"
                 }
               },
-              "version": "0.6.3"
+              "version": "0.6.4"
             }
           },
           "targets": {
@@ -111,7 +111,7 @@
               "npm": "@scope/jsii-calc-base"
             }
           },
-          "version": "0.6.3"
+          "version": "0.6.4"
         }
       },
       "targets": {
@@ -129,7 +129,7 @@
           "npm": "@scope/jsii-calc-lib"
         }
       },
-      "version": "0.6.3"
+      "version": "0.6.4"
     }
   },
   "description": "jsii-calc",
@@ -2816,5 +2816,5 @@
       "namespace": "jsii-calc.composition"
     }
   },
-  "version": "0.6.3"
+  "version": "0.6.4"
 }
