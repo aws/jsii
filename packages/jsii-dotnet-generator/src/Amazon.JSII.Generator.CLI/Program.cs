@@ -20,7 +20,7 @@ namespace Amazon.JSII.Generator.CLI
 
         static void Generate(Options options)
         {
-            AssemblyGenerator generator = new AssemblyGenerator(options.OutputDirectory, "", "");
+            AssemblyGenerator generator = new AssemblyGenerator(options.OutputDirectory);
 
             generator.Generate(options.JsiiFile, options.Tarball);
         }

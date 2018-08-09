@@ -99,7 +99,16 @@ namespace Amazon.JSII.Runtime.UnitTests.Client
                 Assembly assembly = new Assembly
                 (
                     name: "myName",
-                    targets: new Targets("Dot.Net.Namespace"),
+                    description: "",
+                    homepage: "",
+                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                    author: new Person(name: "", roles: new string[]{ }),
+                    fingerprint: "",
+                    license: "",
+                    targets: new AssemblyTargets(new AssemblyTargets.DotNetTarget(
+                        @namespace: "Dot.Net.Namespace",
+                        packageId: "Dot.Net.PackageId"
+                    )),
                     version: "myVersion",
                     types: new Dictionary<string, Type>()
                 );
@@ -123,7 +132,16 @@ namespace Amazon.JSII.Runtime.UnitTests.Client
                 Assembly assembly = new Assembly
                 (
                     name: "myName",
-                    targets: new Targets("Dot.Net.Namespace"),
+                    description: "",
+                    homepage: "",
+                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                    author: new Person(name: "", roles: new string[] { }),
+                    fingerprint: "",
+                    license: "",
+                    targets: new AssemblyTargets(new AssemblyTargets.DotNetTarget(
+                        @namespace: "Dot.Net.Namespace",
+                        packageId: "Dot.Net.PackageId"
+                    )),
                     version: "myVersion",
                     types: new Dictionary<string, Type>()
                 );
@@ -167,7 +185,16 @@ namespace Amazon.JSII.Runtime.UnitTests.Client
                 Assembly assembly = new Assembly
                 (
                     name: "myName",
-                    targets: new Targets("Dot.Net.Namespace"),
+                    description: "",
+                    homepage: "",
+                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                    author: new Person(name: "", roles: new string[] { }),
+                    fingerprint: "",
+                    license: "",
+                    targets: new AssemblyTargets(new AssemblyTargets.DotNetTarget(
+                        @namespace: "Dot.Net.Namespace",
+                        packageId: "Dot.Net.PackageId"
+                    )),
                     version: "myVersion",
                     types: new Dictionary<string, Type>()
                 );

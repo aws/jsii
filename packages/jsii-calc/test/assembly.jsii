@@ -1,5 +1,5 @@
 {
-  "fingerprint": "nIH7ZdupMWqiPid9t2N934g0BDqSHVKuq6mrGdRpuYk=",
+  "fingerprint": "4hr7d742QVoXg5SKsc71Byf1QABcdQ0HEixthntx9g4=",
   "author": {
     "name": "Amazon Web Services",
     "organization": true,
@@ -40,7 +40,8 @@
         "@scope/jsii-calc-base-of-base": {
           "targets": {
             "dotnet": {
-              "namespace": "Amazon.JSII.Tests.Calculator.BaseOfBase"
+              "namespace": "Amazon.JSII.Tests.Calculator.BaseOfBase",
+              "packageId": "Amazon.JSII.Tests.Calculator.BaseOfBase"
             },
             "java": {
               "maven": {
@@ -58,7 +59,8 @@
       },
       "targets": {
         "dotnet": {
-          "namespace": "Amazon.JSII.Tests.Calculator.Base"
+          "namespace": "Amazon.JSII.Tests.Calculator.Base",
+          "packageId": "Amazon.JSII.Tests.Calculator.Base"
         },
         "java": {
           "maven": {
@@ -80,7 +82,8 @@
             "@scope/jsii-calc-base-of-base": {
               "targets": {
                 "dotnet": {
-                  "namespace": "Amazon.JSII.Tests.Calculator.BaseOfBase"
+                  "namespace": "Amazon.JSII.Tests.Calculator.BaseOfBase",
+                  "packageId": "Amazon.JSII.Tests.Calculator.BaseOfBase"
                 },
                 "java": {
                   "maven": {
@@ -98,7 +101,8 @@
           },
           "targets": {
             "dotnet": {
-              "namespace": "Amazon.JSII.Tests.Calculator.Base"
+              "namespace": "Amazon.JSII.Tests.Calculator.Base",
+              "packageId": "Amazon.JSII.Tests.Calculator.Base"
             },
             "java": {
               "maven": {
@@ -116,7 +120,8 @@
       },
       "targets": {
         "dotnet": {
-          "namespace": "Amazon.JSII.Tests.Calculator.Lib"
+          "namespace": "Amazon.JSII.Tests.Calculator.Lib",
+          "packageId": "Amazon.JSII.Tests.Calculator.Lib"
         },
         "java": {
           "maven": {
@@ -146,7 +151,8 @@
   "schema": "jsii/1.0",
   "targets": {
     "dotnet": {
-      "namespace": "Amazon.JSII.Tests.Calculator"
+      "namespace": "Amazon.JSII.Tests.Calculator",
+      "packageId": "Amazon.JSII.Tests.Calculator"
     },
     "java": {
       "maven": {

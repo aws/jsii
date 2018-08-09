@@ -21,27 +21,85 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 Assembly assembly = new Assembly
                 (
                     name: "myName",
-                    targets: new Targets("Dot.Net.Namespace"),
+                    description: "My description",
+                    homepage: "http://www.example.com/",
+                    repository: new Assembly.AssemblyRepository(
+                        type: "git",
+                        url: "http://github.com/"
+                    ),
+                    author: new Person(
+                        name: "Jane Doe",
+                        roles: new[] { "Administrator" }
+                    ),
+                    fingerprint: "myFingerprint",
                     version: "myVersion",
-                    types: new Dictionary<string, JsonModel.Spec.Type>(),
-                    dependencies : new Dictionary<string, PackageVersion>(),
+                    license: "Apache-2.0",
+                    targets: new AssemblyTargets(new AssemblyTargets.DotNetTarget(
+                        @namespace: "Dot.Net.Namespace",
+                        packageId: "Dot.Net.PackageId",
+                        signAssembly: true,
+                        assemblyOriginatorKey: "key.snk",
+                        tags: new [] { "tag1", "tag2" },
+                        iconUrl: "http://www.example.com/icon.png"
+                    )),
+                    dependencies: new Dictionary<string, PackageVersion>(),
+                    contributors: new Person[] {
+                        new Person(
+                            name: "John Doe",
+                            roles: new[] { "Contributor" }
+                        )
+                    },
                     bundled: new Dictionary<string, string>(),
-                    docs: new Docs()
-
+                    types: new Dictionary<string, JsonModel.Spec.Type>(),
+                    docs: new Docs(),
+                    readme: new Readme("myReadme")
                 );
 
                 string actual = JsonConvert.SerializeObject(assembly, Formatting.Indented);
                 const string expected = @"{
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
+  ""description"": ""My description"",
+  ""homepage"": ""http://www.example.com/"",
+  ""repository"": {
+    ""type"": ""git"",
+    ""url"": ""http://github.com/""
+  },
+  ""author"": {
+    ""name"": ""Jane Doe"",
+    ""roles"": [
+      ""Administrator""
+    ]
+  },
+  ""fingerprint"": ""myFingerprint"",
   ""version"": ""myVersion"",
-  ""types"": {},
+  ""license"": ""Apache-2.0"",
+  ""contributors"": [
+    {
+      ""name"": ""John Doe"",
+      ""roles"": [
+        ""Contributor""
+      ]
+    }
+  ],
   ""bundled"": {},
+  ""types"": {},
   ""docs"": {},
+  ""readme"": {
+    ""markdown"": ""myReadme""
+  },
   ""dependencies"": {},
   ""targets"": {
     ""dotnet"": {
-      ""namespace"": ""Dot.Net.Namespace""
+      ""namespace"": ""Dot.Net.Namespace"",
+      ""packageId"": ""Dot.Net.PackageId"",
+      ""signAssembly"": true,
+      ""assemblyOriginatorKey"": ""key.snk"",
+      ""tags"": [
+        ""tag1"",
+        ""tag2""
+      ],
+      ""iconUrl"": ""http://www.example.com/icon.png""
     }
   }
 }";
@@ -55,11 +113,24 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 Assert.Throws<ArgumentNullException>(() => new Assembly
                 (
                     name: null,
-                    targets: new Targets("Dot.Net.Namespace"),
-                    version: "myVersion",
-                    types: new Dictionary<string, JsonModel.Spec.Type>(),
+                    description: "",
+                    homepage: "",
+                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                    author: new Person(name: "", roles: new string[] { }),
+                    fingerprint: "",
+                    version: "",
+                    license: "",
+                    targets: new AssemblyTargets(new AssemblyTargets.DotNetTarget(
+                        @namespace: "Dot.Net.Namespace",
+                        packageId: "Dot.Net.PackageId",
+                        signAssembly: true,
+                        assemblyOriginatorKey: "key.snk",
+                        tags: new[] { "tag1", "tag2" },
+                        iconUrl: "http://www.example.com/icon.png"
+                    )),
                     dependencies: new Dictionary<string, PackageVersion>(),
                     bundled: new Dictionary<string, string>(),
+                    types: new Dictionary<string, JsonModel.Spec.Type>(),
                     docs: new Docs()
                 ));
             }
@@ -70,8 +141,21 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 Assert.Throws<ArgumentNullException>(() => new Assembly
                 (
                     name: "myName",
-                    targets: new Targets("Dot.Net.Namespace"),
+                    description: "",
+                    homepage: "",
+                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                    author: new Person(name: "", roles: new string[] { }),
+                    fingerprint: "",
                     version: null,
+                    license: "",
+                    targets: new AssemblyTargets(new AssemblyTargets.DotNetTarget(
+                        @namespace: "Dot.Net.Namespace",
+                        packageId: "Dot.Net.PackageId",
+                        signAssembly: true,
+                        assemblyOriginatorKey: "key.snk",
+                        tags: new[] { "tag1", "tag2" },
+                        iconUrl: "http://www.example.com/icon.png"
+                    )),
                     types: new Dictionary<string, JsonModel.Spec.Type>(),
                     dependencies: new Dictionary<string, PackageVersion>(),
                     bundled: new Dictionary<string, string>(),
@@ -85,8 +169,21 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 Assembly assembly = new Assembly
                 (
                     name: "myName",
-                    targets: new Targets("Dot.Net.Namespace"),
-                    version: "myVersion",
+                    description: "",
+                    homepage: "",
+                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                    author: new Person(name: "", roles: new string[] { }),
+                    fingerprint: "",
+                    version: "",
+                    license: "",
+                    targets: new AssemblyTargets(new AssemblyTargets.DotNetTarget(
+                        @namespace: "Dot.Net.Namespace",
+                        packageId: "Dot.Net.PackageId",
+                        signAssembly: true,
+                        assemblyOriginatorKey: "key.snk",
+                        tags: new[] { "tag1", "tag2" },
+                        iconUrl: "http://www.example.com/icon.png"
+                    )),
                     types: new Dictionary<string, JsonModel.Spec.Type>(),
                     dependencies: null,
                     bundled: new Dictionary<string, string>(),
@@ -97,13 +194,33 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 const string expected = @"{
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
-  ""version"": ""myVersion"",
-  ""types"": {},
+  ""description"": """",
+  ""homepage"": """",
+  ""repository"": {
+    ""type"": """",
+    ""url"": """"
+  },
+  ""author"": {
+    ""name"": """",
+    ""roles"": []
+  },
+  ""fingerprint"": """",
+  ""version"": """",
+  ""license"": """",
   ""bundled"": {},
+  ""types"": {},
   ""docs"": {},
   ""targets"": {
     ""dotnet"": {
-      ""namespace"": ""Dot.Net.Namespace""
+      ""namespace"": ""Dot.Net.Namespace"",
+      ""packageId"": ""Dot.Net.PackageId"",
+      ""signAssembly"": true,
+      ""assemblyOriginatorKey"": ""key.snk"",
+      ""tags"": [
+        ""tag1"",
+        ""tag2""
+      ],
+      ""iconUrl"": ""http://www.example.com/icon.png""
     }
   }
 }";
@@ -117,8 +234,21 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 Assembly assembly = new Assembly
                 (
                     name: "myName",
-                    targets: new Targets("Dot.Net.Namespace"),
-                    version: "myVersion",
+                    description: "",
+                    homepage: "",
+                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                    author: new Person(name: "", roles: new string[] { }),
+                    fingerprint: "",
+                    version: "",
+                    license: "",
+                    targets: new AssemblyTargets(new AssemblyTargets.DotNetTarget(
+                        @namespace: "Dot.Net.Namespace",
+                        packageId: "Dot.Net.PackageId",
+                        signAssembly: true,
+                        assemblyOriginatorKey: "key.snk",
+                        tags: new[] { "tag1", "tag2" },
+                        iconUrl: "http://www.example.com/icon.png"
+                    )),
                     types: new Dictionary<string, JsonModel.Spec.Type>(),
                     dependencies: new Dictionary<string, PackageVersion>(),
                     bundled: null,
@@ -129,13 +259,33 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 const string expected = @"{
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
-  ""version"": ""myVersion"",
+  ""description"": """",
+  ""homepage"": """",
+  ""repository"": {
+    ""type"": """",
+    ""url"": """"
+  },
+  ""author"": {
+    ""name"": """",
+    ""roles"": []
+  },
+  ""fingerprint"": """",
+  ""version"": """",
+  ""license"": """",
   ""types"": {},
   ""docs"": {},
   ""dependencies"": {},
   ""targets"": {
     ""dotnet"": {
-      ""namespace"": ""Dot.Net.Namespace""
+      ""namespace"": ""Dot.Net.Namespace"",
+      ""packageId"": ""Dot.Net.PackageId"",
+      ""signAssembly"": true,
+      ""assemblyOriginatorKey"": ""key.snk"",
+      ""tags"": [
+        ""tag1"",
+        ""tag2""
+      ],
+      ""iconUrl"": ""http://www.example.com/icon.png""
     }
   }
 }";
@@ -149,8 +299,21 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 Assembly assembly = new Assembly
                 (
                     name: "myName",
-                    targets: new Targets("Dot.Net.Namespace"),
-                    version: "myVersion",
+                    description: "",
+                    homepage: "",
+                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                    author: new Person(name: "", roles: new string[] { }),
+                    fingerprint: "",
+                    version: "",
+                    license: "",
+                    targets: new AssemblyTargets(new AssemblyTargets.DotNetTarget(
+                        @namespace: "Dot.Net.Namespace",
+                        packageId: "Dot.Net.PackageId",
+                        signAssembly: true,
+                        assemblyOriginatorKey: "key.snk",
+                        tags: new[] { "tag1", "tag2" },
+                        iconUrl: "http://www.example.com/icon.png"
+                    )),
                     types: new Dictionary<string, JsonModel.Spec.Type>(),
                     dependencies: new Dictionary<string, PackageVersion>(),
                     bundled: new Dictionary<string, string>(),
@@ -161,13 +324,33 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 const string expected = @"{
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
-  ""version"": ""myVersion"",
-  ""types"": {},
+  ""description"": """",
+  ""homepage"": """",
+  ""repository"": {
+    ""type"": """",
+    ""url"": """"
+  },
+  ""author"": {
+    ""name"": """",
+    ""roles"": []
+  },
+  ""fingerprint"": """",
+  ""version"": """",
+  ""license"": """",
   ""bundled"": {},
+  ""types"": {},
   ""dependencies"": {},
   ""targets"": {
     ""dotnet"": {
-      ""namespace"": ""Dot.Net.Namespace""
+      ""namespace"": ""Dot.Net.Namespace"",
+      ""packageId"": ""Dot.Net.PackageId"",
+      ""signAssembly"": true,
+      ""assemblyOriginatorKey"": ""key.snk"",
+      ""tags"": [
+        ""tag1"",
+        ""tag2""
+      ],
+      ""iconUrl"": ""http://www.example.com/icon.png""
     }
   }
 }";
@@ -186,7 +369,19 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 const string json = @"{
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
+  ""description"": """",
+  ""homepage"": """",
+  ""repository"": {
+    ""type"": """",
+    ""url"": """"
+  },
+  ""author"": {
+    ""name"": """",
+    ""roles"": []
+  },
+  ""fingerprint"": """",
   ""version"": ""myVersion"",
+  ""license"": """",
   ""types"": {},
   ""dependencies"": {},
   ""bundled"": {},
@@ -211,7 +406,19 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 const string json = @"{
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
+  ""description"": """",
+  ""homepage"": """",
+  ""repository"": {
+    ""type"": """",
+    ""url"": """"
+  },
+  ""author"": {
+    ""name"": """",
+    ""roles"": []
+  },
+  ""fingerprint"": """",
   ""version"": ""myVersion"",
+  ""license"": """",
   ""dependencies"": {},
   ""bundled"": {},
   ""docs"": {}
@@ -237,10 +444,32 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
   ""targets"": {
-    ""dotnet"": { ""namespace"": ""AWS.Cdk.Test"" },
+    ""dotnet"": {
+      ""namespace"": ""Dot.Net.Namespace"",
+      ""packageId"": ""Dot.Net.PackageId"",
+      ""signAssembly"": true,
+      ""assemblyOriginatorKey"": ""key.snk"",
+      ""tags"": [
+        ""tag1"",
+        ""tag2""
+      ],
+      ""iconUrl"": ""http://www.example.com/icon.png""
+    },
     ""java"": { ""package"": ""com.amazonaws.cdk.Test"" }
   },
+  ""description"": """",
+  ""homepage"": """",
+  ""repository"": {
+    ""type"": """",
+    ""url"": """"
+  },
+  ""author"": {
+    ""name"": """",
+    ""roles"": []
+  },
+  ""fingerprint"": """",
   ""version"": ""myVersion"",
+  ""license"": """",
   ""types"": {},
   ""dependencies"": {},
   ""bundled"": {},
@@ -251,7 +480,21 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
 
                 Assert.Equal("jsii/1.0", actual.Schema, ignoreLineEndingDifferences: true);
                 Assert.Equal("myName", actual.Name, ignoreLineEndingDifferences: true);
-                Assert.Equal("AWS.Cdk.Test", actual.Targets.DotNet?.Namespace);
+
+                AssemblyTargets.DotNetTarget dotNetTarget = actual.Targets.DotNet;
+                Assert.NotNull(dotNetTarget);
+                Assert.Equal("Dot.Net.Namespace", dotNetTarget.Namespace);
+                Assert.Equal("Dot.Net.PackageId", dotNetTarget.PackageId);
+                Assert.True(dotNetTarget.SignAssembly);
+                Assert.Equal("key.snk", dotNetTarget.AssemblyOriginatorKey);
+                Assert.Collection
+                (
+                    dotNetTarget.Tags,
+                    tag => Assert.Equal("tag1", tag),
+                    tag => Assert.Equal("tag2", tag)
+                );
+                Assert.Equal("http://www.example.com/icon.png", dotNetTarget.IconUrl);
+
                 Assert.Equal("myVersion", actual.Version, ignoreLineEndingDifferences: true);
                 Assert.Empty(actual.Types);
                 Assert.Empty(actual.Dependencies);
@@ -264,8 +507,25 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
             {
                 const string json = @"{
   ""schema"": ""jsii/1.0"",
-  ""targets"": { ""dotnet"": { ""namespace"": ""AWS.Cdk.Test"" } },
-  ""version"": ""myVersion"",
+  ""targets"": {
+    ""dotnet"": {
+      ""namespace"": ""AWS.Cdk.Test"",
+      ""packageId"": ""AWS.Cdk.Test""
+    }
+  },
+  ""description"": """",
+  ""homepage"": """",
+  ""repository"": {
+    ""type"": """",
+    ""url"": """"
+  },
+  ""author"": {
+    ""name"": """",
+    ""roles"": []
+  },
+  ""fingerprint"": """",
+  ""version"": """",
+  ""license"": """",
   ""types"": {},
   ""dependencies"": {},
   ""bundled"": {},
@@ -281,7 +541,19 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 const string json = @"{
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
-  ""version"": ""myVersion"",
+  ""description"": """",
+  ""homepage"": """",
+  ""repository"": {
+    ""type"": """",
+    ""url"": """"
+  },
+  ""author"": {
+    ""name"": """",
+    ""roles"": []
+  },
+  ""fingerprint"": """",
+  ""version"": """",
+  ""license"": """",
   ""targets"": {},
   ""types"": {},
   ""dependencies"": {},
@@ -298,7 +570,24 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 const string json = @"{
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
-  ""targets"": { ""dotnet"": { ""namespace"": ""AWS.Cdk.Test"" } },
+  ""targets"": {
+    ""dotnet"": {
+      ""namespace"": ""AWS.Cdk.Test"",
+      ""packageId"": ""AWS.Cdk.Test""
+    }
+  },
+  ""description"": """",
+  ""homepage"": """",
+  ""repository"": {
+    ""type"": """",
+    ""url"": """"
+  },
+  ""author"": {
+    ""name"": """",
+    ""roles"": []
+  },
+  ""fingerprint"": """",
+  ""license"": """",
   ""types"": {},
   ""dependencies"": {},
   ""bundled"": {},
@@ -314,8 +603,25 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 const string json = @"{
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
-  ""targets"": { ""dotnet"": { ""namespace"": ""AWS.Cdk.Test"" } },
-  ""version"": ""myVersion"",
+  ""targets"": {
+    ""dotnet"": {
+      ""namespace"": ""AWS.Cdk.Test"",
+      ""packageId"": ""AWS.Cdk.Test""
+    }
+  },
+  ""description"": """",
+  ""homepage"": """",
+  ""repository"": {
+    ""type"": """",
+    ""url"": """"
+  },
+  ""author"": {
+    ""name"": """",
+    ""roles"": []
+  },
+  ""fingerprint"": """",
+  ""version"": """",
+  ""license"": """",
   ""types"": {},
   ""bundled"": {},
   ""docs"": {}
@@ -331,8 +637,25 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 const string json = @"{
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
-  ""targets"": { ""dotnet"": { ""namespace"": ""AWS.Cdk.Test"" } },
-  ""version"": ""myVersion"",
+  ""targets"": {
+    ""dotnet"": {
+      ""namespace"": ""AWS.Cdk.Test"",
+      ""packageId"": ""AWS.Cdk.Test""
+    }
+  },
+  ""description"": """",
+  ""homepage"": """",
+  ""repository"": {
+    ""type"": """",
+    ""url"": """"
+  },
+  ""author"": {
+    ""name"": """",
+    ""roles"": []
+  },
+  ""fingerprint"": """",
+  ""version"": """",
+  ""license"": """",
   ""types"": {},
   ""dependencies"": {},
   ""docs"": {}
@@ -348,8 +671,25 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 const string json = @"{
   ""schema"": ""jsii/1.0"",
   ""name"": ""myName"",
-  ""targets"": { ""dotnet"": { ""namespace"": ""AWS.Cdk.Test"" } },
-  ""version"": ""myVersion"",
+  ""targets"": {
+    ""dotnet"": {
+      ""namespace"": ""AWS.Cdk.Test"",
+      ""packageId"": ""AWS.Cdk.Test""
+    }
+  },
+  ""description"": """",
+  ""homepage"": """",
+  ""repository"": {
+    ""type"": """",
+    ""url"": """"
+  },
+  ""author"": {
+    ""name"": """",
+    ""roles"": []
+  },
+  ""fingerprint"": """",
+  ""version"": """",
+  ""license"": """",
   ""types"": {},
   ""dependencies"": {},
   ""bundled"": {}

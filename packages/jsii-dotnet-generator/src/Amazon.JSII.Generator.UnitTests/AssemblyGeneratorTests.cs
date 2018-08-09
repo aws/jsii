@@ -40,10 +40,22 @@ namespace Amazon.JSII.Generator.UnitTests
             const string json =
 @"{
     ""name"": ""jsii$aws_cdk_cx_api$"",
-    ""package"": ""aws-cdk-cx-api"",
+    ""description"": """",
+    ""homepage"": """",
+    ""repository"": {
+      ""type"": """",
+      ""url"": """"
+    },
+    ""author"": {
+      ""name"": """",
+      ""roles"": []
+    },
+    ""fingerprint"": """",
+    ""license"": """",
     ""targets"": {
         ""dotnet"": {
-            ""namespace"": ""Aws.Cdk.CxApi""
+            ""namespace"": ""Aws.Cdk.CxApi"",
+            ""packageId"": ""Aws.Cdk.CxApi""
         }
     },
     ""version"": """",
@@ -83,8 +95,6 @@ namespace Amazon.JSII.Generator.UnitTests
             AssemblyGenerator generator = new AssemblyGenerator
             (
                 OutputRoot,
-                "",
-                "",
                 fileSystem
             );
             generator.Generate
@@ -107,9 +117,22 @@ namespace Amazon.JSII.Generator.UnitTests
             const string json =
 @"{
     ""name"": ""jsii$aws_cdk_cx_api$"",
+    ""description"": """",
+    ""homepage"": """",
+    ""repository"": {
+      ""type"": """",
+      ""url"": """"
+    },
+    ""author"": {
+      ""name"": """",
+      ""roles"": []
+    },
+    ""fingerprint"": """",
+    ""license"": """",
     ""targets"": {
         ""dotnet"": {
-            ""namespace"": ""Aws.Cdk.CxApi""
+            ""namespace"": ""Aws.Cdk.CxApi"",
+            ""packageId"": ""Aws.Cdk.CxApi""
         }
     },
     ""version"": """",
@@ -131,8 +154,6 @@ namespace Amazon.JSII.Generator.UnitTests
             AssemblyGenerator generator = new AssemblyGenerator
             (
                 OutputRoot,
-                "myAuthors",
-                "myCompany",
                 fileSystem
             );
             generator.Generate
@@ -151,10 +172,22 @@ namespace Amazon.JSII.Generator.UnitTests
             const string json =
 @"{
     ""name"": ""jsii$aws_cdk_cx_api$"",
-    ""package"": ""aws-cdk-cx-api"",
+    ""description"": """",
+    ""homepage"": """",
+    ""repository"": {
+      ""type"": """",
+      ""url"": """"
+    },
+    ""author"": {
+      ""name"": """",
+      ""roles"": []
+    },
+    ""fingerprint"": """",
+    ""license"": """",
     ""targets"": {
         ""dotnet"": {
-            ""namespace"": ""Aws.Cdk.CxApi""
+            ""namespace"": ""Aws.Cdk.CxApi"",
+            ""packageId"": ""Aws.Cdk.CxApi""
         }
     },
     ""version"": ""1.2.3"",
@@ -176,8 +209,6 @@ namespace Amazon.JSII.Generator.UnitTests
             AssemblyGenerator generator = new AssemblyGenerator
             (
                 OutputRoot,
-                "myAuthors",
-                "myCompany",
                 fileSystem
             );
             generator.Generate
@@ -212,10 +243,22 @@ namespace Amazon.JSII.Generator.UnitTests
             string json =
 @"{
     ""name"": ""jsii$aws_cdk$"",
-    ""package"": ""aws-cdk"",
+    ""description"": """",
+    ""homepage"": """",
+    ""repository"": {
+      ""type"": """",
+      ""url"": """"
+    },
+    ""author"": {
+      ""name"": """",
+      ""roles"": []
+    },
+    ""fingerprint"": """",
+    ""license"": """",
     ""targets"": {
         ""dotnet"": {
-            ""namespace"": ""Aws.Cdk""
+            ""namespace"": ""Aws.Cdk"",
+            ""packageId"": ""Aws.Cdk""
         }
     },
     ""version"": ""1.2.3"",
@@ -226,7 +269,8 @@ namespace Amazon.JSII.Generator.UnitTests
             ""version"": """",
             ""targets"": {
                 ""dotnet"": {
-                    ""namespace"": ""Aws.Cdk.CxApi""
+                    ""namespace"": ""Aws.Cdk.CxApi"",
+                    ""packageId"": ""Aws.Cdk.CxApi""
                 }
             }
         }
@@ -235,10 +279,23 @@ namespace Amazon.JSII.Generator.UnitTests
             string cxJson =
 @"{
     ""name"": ""jsii$aws_cdk_cx_api$"",
+    ""description"": """",
+    ""homepage"": """",
+    ""repository"": {
+      ""type"": """",
+      ""url"": """"
+    },
+    ""author"": {
+      ""name"": """",
+      ""roles"": []
+    },
+    ""fingerprint"": """",
+    ""license"": """",
     ""version"": """",
     ""targets"": {
         ""dotnet"": {
-            ""namespace"": ""Aws.Cdk.CxApi""
+            ""namespace"": ""Aws.Cdk.CxApi"",
+            ""packageId"": ""Aws.Cdk.CxApi""
         }
     },
     ""types"": {}
@@ -266,8 +323,6 @@ namespace Amazon.JSII.Generator.UnitTests
             AssemblyGenerator generator = new AssemblyGenerator
             (
                 OutputRoot,
-                "myAuthors",
-                "myCompany",
                 fileSystem
             );
             generator.Generate
@@ -303,9 +358,22 @@ namespace Amazon.JSII.Generator.UnitTests
             const string json =
 @"{
     ""name"": ""jsii$aws_cdk_cx_api$"",
+    ""description"": """",
+    ""homepage"": """",
+    ""repository"": {
+      ""type"": """",
+      ""url"": """"
+    },
+    ""author"": {
+      ""name"": """",
+      ""roles"": []
+    },
+    ""fingerprint"": """",
+    ""license"": """",
     ""targets"": {
         ""dotnet"": {
-            ""namespace"": ""Aws.Cdk.CxApi""
+            ""namespace"": ""Aws.Cdk.CxApi"",
+            ""packageId"": ""Aws.Cdk.CxApi""
         }
     },
     ""version"": """",
@@ -327,8 +395,6 @@ namespace Amazon.JSII.Generator.UnitTests
             AssemblyGenerator generator = new AssemblyGenerator
             (
                 OutputRoot,
-                "myAuthors",
-                "myCompany",
                 fileSystem
             );
             generator.Generate
@@ -357,10 +423,22 @@ namespace Amazon.JSII.Generator.UnitTests
             const string json =
 @"{
     ""name"": ""jsii$aws_cdk_cx_api$"",
-    ""package"": ""aws-cdk-cx-api"",
+    ""description"": """",
+    ""homepage"": """",
+    ""repository"": {
+      ""type"": """",
+      ""url"": """"
+    },
+    ""author"": {
+      ""name"": """",
+      ""roles"": []
+    },
+    ""fingerprint"": """",
+    ""license"": """",
     ""targets"": {
         ""dotnet"": {
-            ""namespace"": ""Aws.Cdk.CxApi""
+            ""namespace"": ""Aws.Cdk.CxApi"",
+            ""packageId"": ""Aws.Cdk.CxApi""
         }
     },
     ""version"": """",
@@ -395,8 +473,6 @@ namespace Amazon.JSII.Generator.UnitTests
             AssemblyGenerator generator = new AssemblyGenerator
             (
                 OutputRoot,
-                "",
-                "",
                 fileSystem
             );
             generator.Generate

@@ -1,5 +1,5 @@
 {
-  "fingerprint": "qwjIHOtTOSWOv5qzVdHj4SDgxmnWYsacVvR7BkAVlo8=",
+  "fingerprint": "TG5iHDURFXP3eGuVFwCU45xgyr1bMUgsWPdXDH55o4Y=",
   "author": {
     "name": "Amazon Web Services",
     "organization": true,
@@ -14,7 +14,8 @@
         "@scope/jsii-calc-base-of-base": {
           "targets": {
             "dotnet": {
-              "namespace": "Amazon.JSII.Tests.Calculator.BaseOfBase"
+              "namespace": "Amazon.JSII.Tests.Calculator.BaseOfBase",
+              "packageId": "Amazon.JSII.Tests.Calculator.BaseOfBase"
             },
             "java": {
               "maven": {
@@ -32,7 +33,8 @@
       },
       "targets": {
         "dotnet": {
-          "namespace": "Amazon.JSII.Tests.Calculator.Base"
+          "namespace": "Amazon.JSII.Tests.Calculator.Base",
+          "packageId": "Amazon.JSII.Tests.Calculator.Base"
         },
         "java": {
           "maven": {
@@ -59,7 +61,8 @@
   "schema": "jsii/1.0",
   "targets": {
     "dotnet": {
-      "namespace": "Amazon.JSII.Tests.Calculator.Lib"
+      "namespace": "Amazon.JSII.Tests.Calculator.Lib",
+      "packageId": "Amazon.JSII.Tests.Calculator.Lib"
     },
     "java": {
       "maven": {

@@ -29,21 +29,21 @@ namespace Amazon.JSII.JsonModel.Converters
             {
                 case TypeKind.Enum:
                 {
-                    EnumType derivedType = value as EnumType ?? throw new ArgumentException($"Value has type kind '${type.Kind}', but is not an instance of {nameof(EnumType)}", nameof(value));
+                    EnumType derivedType = value as EnumType ?? throw new ArgumentException($"Value has type kind '{type.Kind}', but is not an instance of {nameof(EnumType)}", nameof(value));
                     string json = JsonConvert.SerializeObject(derivedType);
                     writer.WriteRawValue(json);
                     break;
                 }
                 case TypeKind.Class:
                 {
-                    ClassType derivedType = value as ClassType ?? throw new ArgumentException($"Value has type kind '${type.Kind}', but is not an instance of {nameof(ClassType)}", nameof(value));
+                    ClassType derivedType = value as ClassType ?? throw new ArgumentException($"Value has type kind '{type.Kind}', but is not an instance of {nameof(ClassType)}", nameof(value));
                     string json = JsonConvert.SerializeObject(derivedType);
                     writer.WriteRawValue(json);
                     break;
                 }
                 case TypeKind.Interface:
                 {
-                    InterfaceType derivedType = value as InterfaceType ?? throw new ArgumentException($"Value has type kind '${type.Kind}', but is not an instance of {nameof(InterfaceType)}", nameof(value));
+                    InterfaceType derivedType = value as InterfaceType ?? throw new ArgumentException($"Value has type kind '{type.Kind}', but is not an instance of {nameof(InterfaceType)}", nameof(value));
                     string json = JsonConvert.SerializeObject(derivedType);
                     writer.WriteRawValue(json);
                     break;

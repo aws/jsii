@@ -23,21 +23,15 @@ namespace Amazon.JSII.Generator
     public class AssemblyGenerator
     {
         readonly string _outputRoot;
-        readonly string _authors;
-        readonly string _company;
         readonly IFileSystem _fileSystem;
 
         public AssemblyGenerator
         (
             string outputRoot,
-            string authors,
-            string company,
             IFileSystem fileSystem = null
         )
         {
             _outputRoot = outputRoot ?? throw new ArgumentNullException(nameof(outputRoot));
-            _authors = authors ?? throw new ArgumentNullException(nameof(authors));
-            _company = company ?? throw new ArgumentNullException(nameof(company));
             _fileSystem = fileSystem ?? new FileSystem();
         }
 
@@ -103,7 +97,7 @@ namespace Amazon.JSII.Generator
             if (assembly.Docs != null)
             {
                 // TODO: Use Microsoft.Extensions.Logging instead of Console.Error.
-                Console.Error.WriteLine("Warning: Ignoring documentation comment on assembly ${assembly.Name}. Assembly-level documentation comments are not supported for .NET");
+                Console.Error.WriteLine($"Warning: Ignoring documentation comment on assembly {assembly.Name}. Assembly-level documentation comments are not supported for .NET");
             }
 
             SaveProjectFile();
@@ -119,13 +113,7 @@ namespace Amazon.JSII.Generator
                 XElement project =
                     new XElement("Project",
                         new XAttribute("Sdk", "Microsoft.NET.Sdk"),
-                        new XElement("PropertyGroup",
-                            new XElement("TargetFramework", "netstandard2.0"),
-                            new XElement("GeneratePackageOnBuild", true),
-                            new XElement("Authors", _authors),
-                            new XElement("Company", _company),
-                            new XElement("PackageVersion", assembly.Version)
-                        ),
+                        new XElement("PropertyGroup", assembly.GetMsBuildProperties()),
                         new XElement("ItemGroup",
                             new XElement("EmbeddedResource",
                                 new XAttribute("Include", tarballFileName)
@@ -138,7 +126,7 @@ namespace Amazon.JSII.Generator
                             ),
                             GetDependencies()
                                 .Distinct()
-                                .Select(d => new { Package = symbols.GetAssemblyName(d.Key), Version = d.Value.Version})
+                                .Select(d => new { Package = symbols.GetAssemblyName(d.Key), d.Value.Version})
                                 .Select(d =>
                                     new XElement("PackageReference",
                                         new XAttribute("Include", d.Package),

@@ -1,5 +1,5 @@
 {
-  "fingerprint": "I/HF4zJK5eV4ZLmNLDEzShkHVsxngX3K/y2SEYjXsxU=",
+  "fingerprint": "4UjBtqw6VsSJSEq49KOthIVWab5cZb3gjgvF7DPh2dk=",
   "author": {
     "name": "Amazon Web Services",
     "organization": true,
@@ -19,7 +19,8 @@
   "schema": "jsii/1.0",
   "targets": {
     "dotnet": {
-      "namespace": "Amazon.JSII.Tests.Calculator.BaseOfBase"
+      "namespace": "Amazon.JSII.Tests.Calculator.BaseOfBase",
+      "packageId": "Amazon.JSII.Tests.Calculator.BaseOfBase"
     },
     "java": {
       "maven": {

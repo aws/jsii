@@ -15,7 +15,8 @@
         }
       },
       "dotnet": {
-        "namespace": "Amazon.JSII.Tests.Calculator.BaseOfBase"
+        "namespace": "Amazon.JSII.Tests.Calculator.BaseOfBase",
+        "packageId": "Amazon.JSII.Tests.Calculator.BaseOfBase"
       },
       "sphinx": {}
     }

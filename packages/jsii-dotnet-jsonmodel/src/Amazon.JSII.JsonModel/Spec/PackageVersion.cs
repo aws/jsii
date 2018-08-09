@@ -10,7 +10,7 @@ namespace Amazon.JSII.JsonModel.Spec
         public PackageVersion
         (
             string version,
-            Targets targets = null,
+            AssemblyTargets targets = null,
             IDictionary<string, PackageVersion> dependencies = null
         ): base(targets, dependencies)
         {
