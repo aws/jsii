@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "camelcase": "^4.1.0",
-    "decamelize": "^1.2.0",
+    "decamelize": "^2.0.0",
     "fs-extra": "^4.0.3"
   },
   "author": {
