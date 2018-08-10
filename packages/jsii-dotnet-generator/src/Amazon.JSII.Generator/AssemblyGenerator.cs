@@ -46,7 +46,7 @@ namespace Amazon.JSII.Generator
 
             LoadDependencies(assembly, Path.GetDirectoryName(jsiiFile));
 
-            string packageOutputRoot = Path.Combine(_outputRoot, assembly.GetNativeName());
+            string packageOutputRoot = Path.Combine(_outputRoot, assembly.GetNativePackageId());
             if (_fileSystem.Directory.Exists(packageOutputRoot))
             {
                 _fileSystem.Directory.Delete(packageOutputRoot, true);
@@ -157,7 +157,7 @@ namespace Amazon.JSII.Generator
                     project.Save(writer);
                 }
 
-                string csProjPath = Path.Combine(packageOutputRoot, $"{assembly.GetNativeName()}.csproj");
+                string csProjPath = Path.Combine(packageOutputRoot, $"{assembly.GetNativePackageId()}.csproj");
                 _fileSystem.File.WriteAllText(csProjPath, builder.ToString());
 
                 IEnumerable<KeyValuePair<string, PackageVersion>> GetDependencies()

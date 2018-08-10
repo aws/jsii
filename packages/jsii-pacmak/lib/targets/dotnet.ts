@@ -19,8 +19,8 @@ export default class Dotnet extends Target {
         await this.generateNuGetConfigForLocalDeps(sourceDir, outDir);
 
         const pkg = await fs.readJson(path.join(this.packageDir, 'package.json'));
-        const namespace: string = pkg.jsii.targets.dotnet.namespace;
-        const project: string = path.join(namespace, `${namespace}.csproj`);
+        const packageId: string = pkg.jsii.targets.dotnet.packageId;
+        const project: string = path.join(packageId, `${packageId}.csproj`);
 
         await shell(
             'dotnet',
@@ -28,7 +28,7 @@ export default class Dotnet extends Target {
             { cwd: sourceDir }
         );
 
-        await this.copyFiles(path.join(sourceDir, namespace, 'bin', 'Release'), outDir);
+        await this.copyFiles(path.join(sourceDir, packageId, 'bin', 'Release'), outDir);
         await fs.remove(path.join(outDir, 'netstandard2.0'));
     }
 

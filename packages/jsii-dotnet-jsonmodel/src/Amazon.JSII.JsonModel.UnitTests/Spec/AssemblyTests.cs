@@ -39,7 +39,6 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                         packageId: "Dot.Net.PackageId",
                         signAssembly: true,
                         assemblyOriginatorKey: "key.snk",
-                        tags: new [] { "tag1", "tag2" },
                         iconUrl: "http://www.example.com/icon.png"
                     )),
                     dependencies: new Dictionary<string, PackageVersion>(),
@@ -95,10 +94,6 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
       ""packageId"": ""Dot.Net.PackageId"",
       ""signAssembly"": true,
       ""assemblyOriginatorKey"": ""key.snk"",
-      ""tags"": [
-        ""tag1"",
-        ""tag2""
-      ],
       ""iconUrl"": ""http://www.example.com/icon.png""
     }
   }
@@ -125,7 +120,6 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                         packageId: "Dot.Net.PackageId",
                         signAssembly: true,
                         assemblyOriginatorKey: "key.snk",
-                        tags: new[] { "tag1", "tag2" },
                         iconUrl: "http://www.example.com/icon.png"
                     )),
                     dependencies: new Dictionary<string, PackageVersion>(),
@@ -153,7 +147,6 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                         packageId: "Dot.Net.PackageId",
                         signAssembly: true,
                         assemblyOriginatorKey: "key.snk",
-                        tags: new[] { "tag1", "tag2" },
                         iconUrl: "http://www.example.com/icon.png"
                     )),
                     types: new Dictionary<string, JsonModel.Spec.Type>(),
@@ -181,7 +174,6 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                         packageId: "Dot.Net.PackageId",
                         signAssembly: true,
                         assemblyOriginatorKey: "key.snk",
-                        tags: new[] { "tag1", "tag2" },
                         iconUrl: "http://www.example.com/icon.png"
                     )),
                     types: new Dictionary<string, JsonModel.Spec.Type>(),
@@ -216,10 +208,6 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
       ""packageId"": ""Dot.Net.PackageId"",
       ""signAssembly"": true,
       ""assemblyOriginatorKey"": ""key.snk"",
-      ""tags"": [
-        ""tag1"",
-        ""tag2""
-      ],
       ""iconUrl"": ""http://www.example.com/icon.png""
     }
   }
@@ -246,7 +234,6 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                         packageId: "Dot.Net.PackageId",
                         signAssembly: true,
                         assemblyOriginatorKey: "key.snk",
-                        tags: new[] { "tag1", "tag2" },
                         iconUrl: "http://www.example.com/icon.png"
                     )),
                     types: new Dictionary<string, JsonModel.Spec.Type>(),
@@ -281,10 +268,6 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
       ""packageId"": ""Dot.Net.PackageId"",
       ""signAssembly"": true,
       ""assemblyOriginatorKey"": ""key.snk"",
-      ""tags"": [
-        ""tag1"",
-        ""tag2""
-      ],
       ""iconUrl"": ""http://www.example.com/icon.png""
     }
   }
@@ -311,7 +294,6 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                         packageId: "Dot.Net.PackageId",
                         signAssembly: true,
                         assemblyOriginatorKey: "key.snk",
-                        tags: new[] { "tag1", "tag2" },
                         iconUrl: "http://www.example.com/icon.png"
                     )),
                     types: new Dictionary<string, JsonModel.Spec.Type>(),
@@ -346,10 +328,6 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
       ""packageId"": ""Dot.Net.PackageId"",
       ""signAssembly"": true,
       ""assemblyOriginatorKey"": ""key.snk"",
-      ""tags"": [
-        ""tag1"",
-        ""tag2""
-      ],
       ""iconUrl"": ""http://www.example.com/icon.png""
     }
   }
@@ -449,10 +427,6 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
       ""packageId"": ""Dot.Net.PackageId"",
       ""signAssembly"": true,
       ""assemblyOriginatorKey"": ""key.snk"",
-      ""tags"": [
-        ""tag1"",
-        ""tag2""
-      ],
       ""iconUrl"": ""http://www.example.com/icon.png""
     },
     ""java"": { ""package"": ""com.amazonaws.cdk.Test"" }
@@ -487,12 +461,6 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 Assert.Equal("Dot.Net.PackageId", dotNetTarget.PackageId);
                 Assert.True(dotNetTarget.SignAssembly);
                 Assert.Equal("key.snk", dotNetTarget.AssemblyOriginatorKey);
-                Assert.Collection
-                (
-                    dotNetTarget.Tags,
-                    tag => Assert.Equal("tag1", tag),
-                    tag => Assert.Equal("tag2", tag)
-                );
                 Assert.Equal("http://www.example.com/icon.png", dotNetTarget.IconUrl);
 
                 Assert.Equal("myVersion", actual.Version, ignoreLineEndingDifferences: true);

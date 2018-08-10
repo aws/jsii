@@ -18,8 +18,8 @@ namespace Amazon.JSII.Generator.UnitTests
             [Fact(DisplayName = _Prefix + nameof(ThrowsOnNullAssembly))]
             public void ThrowsOnNullAssembly()
             {
-                ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => ((Assembly)null).GetNativeName());
-                Assert.Equal("root", exception.ParamName);
+                ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => ((Assembly)null).GetNativeNamespace());
+                Assert.Equal("assembly", exception.ParamName);
             }
 
             [Fact(DisplayName = _Prefix + nameof(ThrowsOnMissingDotNetKey))]
@@ -38,8 +38,8 @@ namespace Amazon.JSII.Generator.UnitTests
                     types: new Dictionary<string, JsonModel.Spec.Type>()
                 );
 
-                ArgumentException exception = Assert.Throws<ArgumentException>(() => assembly.GetNativeName());
-                Assert.Equal("root", exception.ParamName);
+                ArgumentException exception = Assert.Throws<ArgumentException>(() => assembly.GetNativeNamespace());
+                Assert.Equal("assembly", exception.ParamName);
             }
 
             [Fact(DisplayName = _Prefix + nameof(ThrowsOnEmptyDotNetNamespace))]
@@ -61,8 +61,8 @@ namespace Amazon.JSII.Generator.UnitTests
                     types: new Dictionary<string, JsonModel.Spec.Type>()
                 );
 
-                ArgumentException exception = Assert.Throws<ArgumentException>(() => assembly.GetNativeName());
-                Assert.Equal("root", exception.ParamName);
+                ArgumentException exception = Assert.Throws<ArgumentException>(() => assembly.GetNativeNamespace());
+                Assert.Equal("assembly", exception.ParamName);
             }
 
             [Fact(DisplayName = _Prefix + nameof(RetrievesDotNetName))]
@@ -84,7 +84,7 @@ namespace Amazon.JSII.Generator.UnitTests
                     types: new Dictionary<string, JsonModel.Spec.Type>()
                 );
 
-                string actual = assembly.GetNativeName();
+                string actual = assembly.GetNativeNamespace();
                 Assert.Equal("myNativeName", actual);
             }
         }
@@ -96,44 +96,8 @@ namespace Amazon.JSII.Generator.UnitTests
             [Fact(DisplayName = _Prefix + nameof(ThrowsOnNullAssembly))]
             public void ThrowsOnNullAssembly()
             {
-                ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => ((Assembly)null).GetNativeName("myPackage"));
+                ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => ((Assembly)null).GetNativeNamespace("myPackage"));
                 Assert.Equal("assembly", exception.ParamName);
-            }
-
-            [Fact(DisplayName = _Prefix + nameof(ThrowsOnNullPackage))]
-            public void ThrowsOnNullPackage()
-            {
-                Assembly assembly = new Assembly(
-                    name: "myName",
-                    description: "",
-                    homepage: "",
-                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
-                    author: new Person(name: "", roles: new string[] { }),
-                    fingerprint: "",
-                    license: "",
-                    targets: new AssemblyTargets(new AssemblyTargets.DotNetTarget(
-                        @namespace: "myNativeName",
-                        packageId: "myPackageId1"
-                    )),
-                    dependencies: new Dictionary<string, PackageVersion>
-                    {
-                        {
-                            "myPackage",
-                            new PackageVersion(
-                                "0.0.1",
-                                new AssemblyTargets(new AssemblyTargets.DotNetTarget(
-                                    @namespace: "myPackageNativeName",
-                                    packageId: "myPackageId2"
-                                ))
-                            )
-                        }
-                    },
-                    version: "myVersion",
-                    types: new Dictionary<string, JsonModel.Spec.Type>()
-                );
-
-                ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => assembly.GetNativeName(null));
-                Assert.Equal("packageName", exception.ParamName);
             }
 
             [Fact(DisplayName = _Prefix + nameof(ThrowsOnMissingPackage))]
@@ -169,7 +133,7 @@ namespace Amazon.JSII.Generator.UnitTests
                     types: new Dictionary<string, JsonModel.Spec.Type>()
                 );
 
-                ArgumentException exception = Assert.Throws<ArgumentException>(() => assembly.GetNativeName("notMyPackage"));
+                ArgumentException exception = Assert.Throws<ArgumentException>(() => assembly.GetNativeNamespace("notMyPackage"));
                 Assert.Equal("assembly", exception.ParamName);
             }
 
@@ -199,8 +163,8 @@ namespace Amazon.JSII.Generator.UnitTests
                     types: new Dictionary<string, JsonModel.Spec.Type>()
                 );
 
-                ArgumentException exception = Assert.Throws<ArgumentException>(() => assembly.GetNativeName("myPackage"));
-                Assert.Equal("root", exception.ParamName);
+                ArgumentException exception = Assert.Throws<ArgumentException>(() => assembly.GetNativeNamespace("myPackage"));
+                Assert.Equal("assembly", exception.ParamName);
             }
 
             [Fact(DisplayName = _Prefix + nameof(ThrowsOnEmptyDotNetKey))]
@@ -235,8 +199,8 @@ namespace Amazon.JSII.Generator.UnitTests
                     types: new Dictionary<string, JsonModel.Spec.Type>()
                 );
 
-                ArgumentException exception = Assert.Throws<ArgumentException>(() => assembly.GetNativeName("myPackage"));
-                Assert.Equal("root", exception.ParamName);
+                ArgumentException exception = Assert.Throws<ArgumentException>(() => assembly.GetNativeNamespace("myPackage"));
+                Assert.Equal("assembly", exception.ParamName);
             }
 
             [Fact(DisplayName = _Prefix + nameof(RetrievesDotNetName))]
@@ -271,7 +235,7 @@ namespace Amazon.JSII.Generator.UnitTests
                     types: new Dictionary<string, JsonModel.Spec.Type>()
                 );
 
-                string actual = assembly.GetNativeName("myPackage");
+                string actual = assembly.GetNativeNamespace("myPackage");
                 Assert.Equal("myPackageNativeName", actual);
             }
         }
@@ -305,7 +269,6 @@ namespace Amazon.JSII.Generator.UnitTests
                         title: "My Human Readable Title",
                         signAssembly: true,
                         assemblyOriginatorKey: "key.snk",
-                        tags: new[] { "tag1", "tag2" },
                         iconUrl: "https://www.example.com/icon.svg"
                     ))
                 );
@@ -323,7 +286,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     element => Assert.Equal("<Title>My Human Readable Title</Title>", element.ToString()),
                     element => Assert.Equal("<SignAssembly>true</SignAssembly>", element.ToString()),
                     element => Assert.Equal("<AssemblyOriginatorKey>key.snk</AssemblyOriginatorKey>", element.ToString()),
-                    element => Assert.Equal("<Tags>tag1 tag2</Tags>", element.ToString()),
                     element => Assert.Equal("<IconUrl>http://www.example.com/icon.svg</IconUrl>", element.ToString())
                 );
             }

@@ -27,7 +27,7 @@ namespace Amazon.JSII.Generator
                 return;
             }
 
-            _assemblyNames[assembly.Name] = assembly.GetNativeName();
+            _assemblyNames[assembly.Name] = assembly.GetNativePackageId();
 
             var types = assembly.Types?.Values ?? Enumerable.Empty<Type>();
 

@@ -7,28 +7,50 @@ namespace Amazon.JSII.Generator
 {
     public static class AssemblyExtensions
     {
-        public static string GetNativeName(this Assembly assembly, string packageName)
+        public static string GetNativePackageId(this Assembly assembly, string targetPackageName = null)
         {
             assembly = assembly ?? throw new ArgumentNullException(nameof(assembly));
-            packageName = packageName ?? throw new ArgumentNullException(nameof(packageName));
 
-            if (packageName == assembly.Name)
+            string packageId = assembly.GetNativeProperty
+            (
+                assembly.Name,
+                targetPackageName ?? assembly.Name,
+                d => d.Targets?.DotNet?.PackageId
+            );
+
+            if (string.IsNullOrWhiteSpace(packageId))
             {
-                return assembly.GetNativeName();
+                throw new ArgumentException
+                (
+                    $"Assembly {assembly.Name} does not include a package id mapping for {targetPackageName ?? assembly.Name}",
+                    nameof(assembly)
+                );
             }
 
-            if (assembly.Dependencies == null)
+            return packageId;
+        }
+
+        public static string GetNativeNamespace(this Assembly assembly, string targetPackageName = null)
+        {
+            assembly = assembly ?? throw new ArgumentNullException(nameof(assembly));
+
+            string @namespace = assembly.GetNativeProperty
+           (
+               assembly.Name,
+               targetPackageName ?? assembly.Name,
+               d => d.Targets?.DotNet?.Namespace
+           );
+
+            if (string.IsNullOrWhiteSpace(@namespace))
             {
-                throw new ArgumentException($"Assembly '{assembly.Name}' does not define namespace mappings for '{packageName}'", nameof(assembly));
+                throw new ArgumentException
+                (
+                    $"Assembly {assembly.Name} does not include a namespace mapping for {targetPackageName ?? assembly.Name}",
+                    nameof(assembly)
+                );
             }
 
-            var name = assembly.TryGetNativeName(packageName);
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentException($"Assembly '{assembly.Name}' does not define namespace mappings for '{packageName}'", nameof(assembly));
-            }
-
-            return name;
+            return @namespace;
         }
 
         public static IEnumerable<XElement> GetMsBuildProperties(this Assembly assembly)
@@ -58,12 +80,6 @@ namespace Amazon.JSII.Generator
             if (assembly.Targets.DotNet.AssemblyOriginatorKey != null)
             {
                 yield return new XElement("AssemblyOriginatorKey", assembly.Targets.DotNet.AssemblyOriginatorKey);
-            }
-
-            if (assembly.Targets.DotNet.Tags != null)
-            {
-                // NuGet expects the list of tags to be space-delimited.
-                yield return new XElement("Tags", string.Join(" ", assembly.Targets.DotNet.Tags));
             }
 
             if (assembly.Targets.DotNet.IconUrl != null)

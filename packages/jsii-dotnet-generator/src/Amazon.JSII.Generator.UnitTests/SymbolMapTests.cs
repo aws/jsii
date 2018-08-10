@@ -49,7 +49,7 @@ namespace Amazon.JSII.Generator.UnitTests
                 ISymbolMap symbolMap = GetSymbolMap(out Assembly assembly);
 
                 string actual = symbolMap.GetName(assembly);
-                Assert.Equal("My.Namespace", actual, ignoreLineEndingDifferences: true);
+                Assert.Equal("My.PackageId", actual, ignoreLineEndingDifferences: true);
             }
 
             [Fact(DisplayName = Prefix + nameof(RenamesTypeOnNamespaceConflict))]

@@ -29,9 +29,10 @@ namespace Amazon.JSII.Generator.UnitTests
             return $"{Path.Combine(GetPackageOutputRoot(dotnetPackage), dotnetAssembly)}.csproj";
         }
 
-        static string GetTypeFilePath(string dotnetPackage, string dotnetType)
+        static string GetTypeFilePath(string dotnetPackage, string dotnetNamespace, string dotnetType)
         {
-            return $"{Path.Combine(GetPackageOutputRoot(dotnetPackage), dotnetType)}.cs";
+            string directory = Path.Combine(GetPackageOutputRoot(dotnetPackage), Path.Combine(dotnetNamespace.Split('.')));
+            return $"{Path.Combine(directory, dotnetType)}.cs";
         }
 
         [Fact(DisplayName = Prefix + nameof(AccessesFileSystemThroughShim))]
@@ -54,8 +55,8 @@ namespace Amazon.JSII.Generator.UnitTests
     ""license"": """",
     ""targets"": {
         ""dotnet"": {
-            ""namespace"": ""Aws.Cdk.CxApi"",
-            ""packageId"": ""Aws.Cdk.CxApi""
+            ""namespace"": ""Aws.Cdk.CxApiNamespace"",
+            ""packageId"": ""Aws.Cdk.CxApiPackageId""
         }
     },
     ""version"": """",
@@ -74,9 +75,9 @@ namespace Amazon.JSII.Generator.UnitTests
 }";
 
             string jsonPath = GetJsonPath("aws-cdk-cx-api");
-            string packageOutputRoot = GetPackageOutputRoot("Aws.Cdk.CxApi");
-            string projectFilePath = GetProjectFilePath("Aws.Cdk.CxApi", "Aws.Cdk.CxApi");
-            string typeFilePath = GetTypeFilePath("Aws.Cdk.CxApi", "MissingContext");
+            string packageOutputRoot = GetPackageOutputRoot("Aws.Cdk.CxApiPackageId");
+            string projectFilePath = GetProjectFilePath("Aws.Cdk.CxApiPackageId", "Aws.Cdk.CxApiPackageId");
+            string typeFilePath = GetTypeFilePath("Aws.Cdk.CxApiPackageId", "Aws.Cdk.CxApiNamespace", "MissingContext");
 
             IDirectory directory = Substitute.For<IDirectory>();
             directory.Exists(packageOutputRoot).Returns(true, false);
@@ -88,9 +89,9 @@ namespace Amazon.JSII.Generator.UnitTests
             fileSystem.Directory.Returns(directory);
             fileSystem.File.Returns(file);
 
-            Symbols.MapTypeToPackage("aws-cdk-cx-api", "Aws.Cdk.CxApi");
-            Symbols.MapNamespace("jsii$aws_cdk_cx_api$", "Aws.Cdk.CxApi");
-            Symbols.MapTypeName("jsii$aws_cdk_cx_api$.MissingContext", "MissingContext", JsonModel.Spec.TypeKind.Class);
+            //Symbols.MapTypeToPackage("aws-cdk-cx-api", "Aws.Cdk.CxApi");
+            Symbols.MapNamespace("jsii$aws_cdk_cx_api$", "Aws.Cdk.CxApiNamespace");
+            Symbols.MapTypeName("jsii$aws_cdk_cx_api$.MissingContext", "MissingContext", TypeKind.Class);
 
             AssemblyGenerator generator = new AssemblyGenerator
             (
@@ -131,8 +132,8 @@ namespace Amazon.JSII.Generator.UnitTests
     ""license"": """",
     ""targets"": {
         ""dotnet"": {
-            ""namespace"": ""Aws.Cdk.CxApi"",
-            ""packageId"": ""Aws.Cdk.CxApi""
+            ""namespace"": ""Aws.Cdk.CxApiNamespace"",
+            ""packageId"": ""Aws.Cdk.CxApiPackageId""
         }
     },
     ""version"": """",
@@ -149,7 +150,7 @@ namespace Amazon.JSII.Generator.UnitTests
             fileSystem.Directory.Returns(Substitute.For<IDirectory>());
             fileSystem.File.Returns(file);
 
-            Symbols.MapTypeToPackage("aws-cdk-cx-api", "Aws.Cdk.CxApi");
+            Symbols.MapTypeToPackage("aws-cdk-cx-api", "Aws.Cdk.CxApiPackageId");
 
             AssemblyGenerator generator = new AssemblyGenerator
             (
@@ -163,7 +164,7 @@ namespace Amazon.JSII.Generator.UnitTests
                 Symbols
             );
 
-            file.Received().Copy(jsonPath, Path.Combine(OutputRoot, "Aws.Cdk.CxApi", ".jsii"));
+            file.Received().Copy(jsonPath, Path.Combine(OutputRoot, "Aws.Cdk.CxApiPackageId", ".jsii"));
         }
 
         [Fact(DisplayName = Prefix + nameof(CreatesBasicProjectFile))]
@@ -186,8 +187,8 @@ namespace Amazon.JSII.Generator.UnitTests
     ""license"": """",
     ""targets"": {
         ""dotnet"": {
-            ""namespace"": ""Aws.Cdk.CxApi"",
-            ""packageId"": ""Aws.Cdk.CxApi""
+            ""namespace"": ""Aws.Cdk.CxApiNamespace"",
+            ""packageId"": ""Aws.Cdk.CxApiPackageId""
         }
     },
     ""version"": ""1.2.3"",
@@ -195,7 +196,7 @@ namespace Amazon.JSII.Generator.UnitTests
 }";
 
             string jsonPath = GetJsonPath("aws-cdk-cx-api");
-            string projectFilePath = GetProjectFilePath("Aws.Cdk.CxApi", "Aws.Cdk.CxApi");
+            string projectFilePath = GetProjectFilePath("Aws.Cdk.CxApiPackageId", "Aws.Cdk.CxApiPackageId");
 
             IFile file = Substitute.For<IFile>();
             file.ReadAllText(jsonPath).Returns(json);
@@ -204,7 +205,7 @@ namespace Amazon.JSII.Generator.UnitTests
             fileSystem.Directory.Returns(Substitute.For<IDirectory>());
             fileSystem.File.Returns(file);
 
-            Symbols.MapTypeToPackage("aws-cdk-cx-api", "Aws.Cdk.CxApi");
+            Symbols.MapTypeToPackage("aws-cdk-cx-api", "Aws.Cdk.CxApiPackageId");
 
             AssemblyGenerator generator = new AssemblyGenerator
             (
@@ -257,8 +258,8 @@ namespace Amazon.JSII.Generator.UnitTests
     ""license"": """",
     ""targets"": {
         ""dotnet"": {
-            ""namespace"": ""Aws.Cdk"",
-            ""packageId"": ""Aws.Cdk""
+            ""namespace"": ""Aws.CdkNamespace"",
+            ""packageId"": ""Aws.CdkPackageId""
         }
     },
     ""version"": ""1.2.3"",
@@ -294,8 +295,8 @@ namespace Amazon.JSII.Generator.UnitTests
     ""version"": """",
     ""targets"": {
         ""dotnet"": {
-            ""namespace"": ""Aws.Cdk.CxApi"",
-            ""packageId"": ""Aws.Cdk.CxApi""
+            ""namespace"": ""Aws.Cdk.CxApiNamespace"",
+            ""packageId"": ""Aws.Cdk.CxApiPackageId""
         }
     },
     ""types"": {}
@@ -303,7 +304,7 @@ namespace Amazon.JSII.Generator.UnitTests
 
             string jsonPath = GetJsonPath("aws-cdk");
             string cxJsonPath = Path.Combine(Path.GetDirectoryName(jsonPath), "node_modules", "jsii$aws_cdk_cx_api$");
-            string projectFilePath = GetProjectFilePath("Aws.Cdk", "Aws.Cdk");
+            string projectFilePath = GetProjectFilePath("Aws.CdkPackageId", "Aws.CdkPackageId");
 
             IFile file = Substitute.For<IFile>();
             file.ReadAllText(jsonPath).Returns(json);
@@ -316,9 +317,9 @@ namespace Amazon.JSII.Generator.UnitTests
             fileSystem.Directory.Returns(directory);
             fileSystem.File.Returns(file);
 
-            Symbols.MapTypeToPackage("aws-cdk", "Aws.Cdk");
-            Symbols.MapTypeToPackage("aws-cdk-cx-api", "Aws.Cdk.CxApi");
-            Symbols.MapAssemblyName("jsii$aws_cdk_cx_api$", "Aws.Cdk.CxApi");
+            Symbols.MapTypeToPackage("aws-cdk", "Aws.CdkPackageId");
+            Symbols.MapTypeToPackage("aws-cdk-cx-api", "Aws.Cdk.CxApiNamespace");
+            Symbols.MapAssemblyName("jsii$aws_cdk_cx_api$", "Aws.Cdk.CxApiPackageId");
 
             AssemblyGenerator generator = new AssemblyGenerator
             (
@@ -372,8 +373,8 @@ namespace Amazon.JSII.Generator.UnitTests
     ""license"": """",
     ""targets"": {
         ""dotnet"": {
-            ""namespace"": ""Aws.Cdk.CxApi"",
-            ""packageId"": ""Aws.Cdk.CxApi""
+            ""namespace"": ""Aws.Cdk.CxApiNamespace"",
+            ""packageId"": ""Aws.Cdk.CxApiPackageId""
         }
     },
     ""version"": """",
@@ -381,7 +382,7 @@ namespace Amazon.JSII.Generator.UnitTests
 }";
 
             string jsonPath = GetJsonPath("aws-cdk-cx-api");
-            string projectFilePath = GetProjectFilePath("Aws.Cdk.CxApi", "Aws.Cdk.CxApi");
+            string projectFilePath = GetProjectFilePath("Aws.Cdk.CxApiPackageId", "Aws.Cdk.CxApiPackageId");
 
             IFile file = Substitute.For<IFile>();
             file.ReadAllText(jsonPath).Returns(json);
@@ -390,7 +391,7 @@ namespace Amazon.JSII.Generator.UnitTests
             fileSystem.Directory.Returns(Substitute.For<IDirectory>());
             fileSystem.File.Returns(file);
 
-            Symbols.MapTypeToPackage("aws-cdk-cx-api", "Aws.Cdk.CxApi");
+            Symbols.MapTypeToPackage("aws-cdk-cx-api", "Aws.Cdk.CxApiPackageId");
 
             AssemblyGenerator generator = new AssemblyGenerator
             (
@@ -404,7 +405,7 @@ namespace Amazon.JSII.Generator.UnitTests
                 Symbols
             );
 
-            file.Received().WriteAllText(Path.Combine(OutputRoot, "Aws.Cdk.CxApi", "AssemblyInfo.cs"),
+            file.Received().WriteAllText(Path.Combine(OutputRoot, "Aws.Cdk.CxApiPackageId", "AssemblyInfo.cs"),
                 Arg.Do<string>(
                     code => Assert.Equal(
 @"using Amazon.JSII.Runtime.Deputy;
@@ -437,8 +438,8 @@ namespace Amazon.JSII.Generator.UnitTests
     ""license"": """",
     ""targets"": {
         ""dotnet"": {
-            ""namespace"": ""Aws.Cdk.CxApi"",
-            ""packageId"": ""Aws.Cdk.CxApi""
+            ""namespace"": ""Aws.Cdk.CxApiNamespace"",
+            ""packageId"": ""Aws.Cdk.CxApiPackageId""
         }
     },
     ""version"": """",
@@ -457,7 +458,7 @@ namespace Amazon.JSII.Generator.UnitTests
 }";
 
             string jsonPath = GetJsonPath("aws-cdk-cx-api");
-            string typeFilePath = GetTypeFilePath("Aws.Cdk.CxApi", "MissingContext");
+            string typeFilePath = GetTypeFilePath("Aws.Cdk.CxApiPackageId", "Aws.Cdk.CxApiNamespace", "MissingContext");
 
             IFile file = Substitute.For<IFile>();
             file.ReadAllText(jsonPath).Returns(json);
@@ -466,9 +467,9 @@ namespace Amazon.JSII.Generator.UnitTests
             fileSystem.Directory.Returns(Substitute.For<IDirectory>());
             fileSystem.File.Returns(file);
 
-            Symbols.MapTypeToPackage("aws-cdk-cx-api", "Aws.Cdk.CxApi");
-            Symbols.MapNamespace("jsii$aws_cdk_cx_api$", "Aws.Cdk.CxApi");
-            Symbols.MapTypeName("jsii$aws_cdk_cx_api$.MissingContext", "MissingContext", JsonModel.Spec.TypeKind.Class);
+            Symbols.MapTypeToPackage("aws-cdk-cx-api", "Aws.Cdk.CxApiPackageId");
+            Symbols.MapNamespace("jsii$aws_cdk_cx_api$", "Aws.Cdk.CxApiNamespace");
+            Symbols.MapTypeName("jsii$aws_cdk_cx_api$.MissingContext", "MissingContext", TypeKind.Class);
 
             AssemblyGenerator generator = new AssemblyGenerator
             (
@@ -486,7 +487,7 @@ namespace Amazon.JSII.Generator.UnitTests
             string expected =
 @"using Amazon.JSII.Runtime.Deputy;
 
-namespace Aws.Cdk.CxApi
+namespace Aws.Cdk.CxApiNamespace
 {
     [JsiiClass(typeof(MissingContext), ""jsii$aws_cdk_cx_api$.MissingContext"", ""[]"")]
     public class MissingContext : DeputyBase

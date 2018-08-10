@@ -1,44 +1,32 @@
 ﻿using Amazon.JSII.JsonModel.Spec;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Amazon.JSII.Generator
 {
     public static class DependencyRootExtensions
     {
-        public static string GetNativeName(this DependencyRoot root)
+        internal static string GetNativeProperty(
+            this DependencyRoot root,
+            string currentPackageName,
+            string targetPackageName,
+            Func<DependencyRoot, string> selector
+        )
         {
             root = root ?? throw new ArgumentNullException(nameof(root));
+            selector = selector ?? throw new ArgumentNullException(nameof(selector));
+            currentPackageName = currentPackageName ?? throw new ArgumentNullException(nameof(currentPackageName));
+            targetPackageName = targetPackageName ?? throw new ArgumentNullException(nameof(targetPackageName));
 
-            if (string.IsNullOrWhiteSpace(root.Targets?.DotNet?.Namespace))
+            if (currentPackageName == targetPackageName)
             {
-                throw new ArgumentException($"Assembly does not contain a .NET namespace mapping", nameof(root));
+                return selector(root);
             }
 
-            return root.Targets.DotNet.Namespace;
-        }
-
-        internal static string TryGetNativeName(this DependencyRoot root, string packageName)
-        {
-            if (root.Dependencies == null)
-            {
-                return null;
-            }
-            if (root.Dependencies.ContainsKey(packageName))
-            {
-                return root.Dependencies[packageName].GetNativeName();
-            }
-
-            foreach (PackageVersion dependency in root.Dependencies.Values)
-            {
-                string name = dependency.TryGetNativeName(packageName);
-                if (name != null)
-                {
-                    return name;
-                }
-            }
-
-            return null;
+            return (root.Dependencies ?? Enumerable.Empty<KeyValuePair<string, PackageVersion>>())
+                .Select(kvp => GetNativeProperty(kvp.Value, kvp.Key, targetPackageName, selector))
+                .FirstOrDefault(p => p != null);
         }
     }
 }

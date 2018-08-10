@@ -1,8 +1,8 @@
 using Amazon.JSII.Runtime.Deputy;
 using Amazon.JSII.Runtime.Services;
-using Amazon.JSII.Tests.Calculator;
-using Amazon.JSII.Tests.Calculator.composition;
-using Amazon.JSII.Tests.Calculator.Lib;
+using Amazon.JSII.Tests.CalculatorNamespace;
+using Amazon.JSII.Tests.CalculatorNamespace.composition;
+using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -189,9 +189,9 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         public void CreateObjectAndCtorOverloads()
         {
             // TODO: Generator should create a parameterless constructor.
-            new Calculator_(new CalculatorProps());
+            new Calculator(new CalculatorProps());
 
-            new Calculator_(new CalculatorProps
+            new Calculator(new CalculatorProps
             {
                 MaximumValue = 10
             });
@@ -214,7 +214,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         public void CallMethods()
         {
             // TODO: Generator should create a parameterless constructor.
-            Calculator_ calc = new Calculator_(new CalculatorProps());
+            Calculator calc = new Calculator(new CalculatorProps());
 
             calc.Add(10);
             Assert.Equal((double)10, calc.Value);
@@ -233,7 +233,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         public void UnmarkshallIntoAbstractType()
         {
             // TODO: Generator should create a parameterless constructor.
-            Calculator_ calc = new Calculator_(new CalculatorProps());
+            Calculator calc = new Calculator(new CalculatorProps());
 
             calc.Add(120);
             Value_ value = calc.Curr;
@@ -244,7 +244,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         public void GetAndSetNotPrimitiveProperties()
         {
             // TODO: Generator should create a parameterless constructor.
-            Calculator_ calc = new Calculator_(new CalculatorProps());
+            Calculator calc = new Calculator(new CalculatorProps());
 
             calc.Add(3200000);
             calc.Neg();
@@ -256,7 +256,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         public void GetAndSetEnumValues()
         {
             // TODO: Generator should create a parameterless constructor.
-            Calculator_ calc = new Calculator_(new CalculatorProps());
+            Calculator calc = new Calculator(new CalculatorProps());
 
             calc.Add(9);
             calc.Pow(3);
@@ -281,7 +281,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         public void UndefinedAndNull()
         {
             // TODO: Generator should create a parameterless constructor.
-            Calculator_ calculator = new Calculator_(new CalculatorProps());
+            Calculator calculator = new Calculator(new CalculatorProps());
 
             Assert.Null(calculator.MaxValue);
             calculator.MaxValue = null;
@@ -302,7 +302,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         public void Maps()
         {
             // TODO: Generator should create a parameterless constructor.
-            Calculator_ calc = new Calculator_(new CalculatorProps());
+            Calculator calc = new Calculator(new CalculatorProps());
 
             calc.Add(10);
             calc.Add(20);
@@ -321,7 +321,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         [Fact(DisplayName = Prefix + nameof(FluentApi))]
         public void FluentApi()
         {
-            Calculator_ calc = new Calculator_(new CalculatorProps
+            Calculator calc = new Calculator(new CalculatorProps
             {
                 InitialValue = 20,
                 MaximumValue = 30,
@@ -333,7 +333,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         [Fact(DisplayName = Prefix + nameof(Exceptions))]
         public void Exceptions()
         {
-            Calculator_ calc = new Calculator_(new CalculatorProps
+            Calculator calc = new Calculator(new CalculatorProps
             {
                 InitialValue = 20,
                 MaximumValue = 30,
@@ -353,7 +353,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         public void UnionProperties()
         {
             // TODO: Generator should create a parameterless constructor.
-            Calculator_ calc = new Calculator_(new CalculatorProps());
+            Calculator calc = new Calculator(new CalculatorProps());
 
             calc.UnionProperty = new Multiply(new Number(9), new Number(3));
             Assert.IsType<Multiply>(calc.UnionProperty);
@@ -367,7 +367,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         public void SubClassing()
         {
             // TODO: Generator should create a parameterless constructor.
-            Calculator_ calc = new Calculator_(new CalculatorProps());
+            Calculator calc = new Calculator(new CalculatorProps());
 
             calc.Curr = new AddTen(33);
             calc.Neg();
