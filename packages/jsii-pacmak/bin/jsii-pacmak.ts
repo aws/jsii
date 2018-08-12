@@ -183,7 +183,8 @@ async function npmPack(packageDir: string, tmpdir: string): Promise<string> {
         args.push('--loglevel=verbose');
     }
     const out = await shell('npm', args, { cwd: tmpdir });
-    return path.resolve(tmpdir, out.trim());
+    const lines = out.trim().split(os.EOL);
+    return path.resolve(tmpdir, lines[lines.length - 1].trim());
 }
 
 async function updateNpmIgnore(packageDir: string, excludeOutdir: string | undefined) {
