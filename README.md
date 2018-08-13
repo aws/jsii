@@ -86,7 +86,8 @@ Edit your `package.json`:
         }
       },
       "dotnet": {
-        "namespace": "Acme.Hello"
+        "namespace": "Acme.Hello",
+        "packageId": "Acme.Hello"
       },
       "sphinx": { }
     }
@@ -136,7 +137,8 @@ You should also see a `.jsii` file in the root:
   "schema": "jsii/1.0",
   "targets": {
     "dotnet": {
-      "namespace": "Acme.Hello"
+      "namespace": "Acme.Hello",
+      "packageId": "Acme.Hello"
     },
     "java": {
       "maven": {
@@ -265,7 +267,15 @@ The following targets are currently supported:
 ```json
 {
   "dotnet": {
-    "namespace": "Acme.Hello"
+    /* required */
+    "namespace": "Acme.Hello",
+    "packageId": "Acme.Hello",
+
+    /* optional */
+    "title": "ACME Hello",
+    "iconUrl": "path/to/icon.svg",
+    "signAssembly": true,
+    "assemblyOriginatorKey": "key.snk"
   }
 }
 ```
