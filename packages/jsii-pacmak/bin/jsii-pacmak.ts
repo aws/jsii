@@ -183,6 +183,9 @@ async function npmPack(packageDir: string, tmpdir: string): Promise<string> {
         args.push('--loglevel=verbose');
     }
     const out = await shell('npm', args, { cwd: tmpdir });
+    // Take only the last line of npm pack which should contain the
+    // tarball name. otherwise, there can be a lot of extra noise there
+    // from scripts that emit to STDOUT.
     const lines = out.trim().split(os.EOL);
     return path.resolve(tmpdir, lines[lines.length - 1].trim());
 }
