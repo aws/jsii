@@ -8,9 +8,9 @@
     "jsii": "bin/jsii"
   },
   "scripts": {
-    "watch": "tsc -b -w",
-    "build": "/bin/bash generate.sh && tsc -b && chmod +x bin/jsii",
-    "test": "tsc -b test && nodeunit test/test.*.js",
+    "watch": "tsc -w",
+    "build": "/bin/bash generate.sh && tsc && chmod +x bin/jsii",
+    "test": "nodeunit test/test.*.js",
     "package": "package-js"
   },
   "keywords": [

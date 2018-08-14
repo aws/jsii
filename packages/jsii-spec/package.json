@@ -5,9 +5,9 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "watch": "tsc -b -w",
-    "build": "tsc -b && bash generate-json-schema.sh",
-    "test": "tsc -b test && nodeunit test/test.*.js",
+    "watch": "tsc -w",
+    "build": "tsc && bash generate-json-schema.sh",
+    "test": "nodeunit test/test.*.js",
     "package": "package-js"
   },
   "devDependencies": {
