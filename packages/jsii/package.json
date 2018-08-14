@@ -8,9 +8,9 @@
     "jsii": "bin/jsii"
   },
   "scripts": {
-    "watch": "tsc -w",
-    "build": "/bin/bash generate.sh && tsc && chmod +x bin/jsii",
-    "test": "nodeunit test/test.*.js",
+    "watch": "tsc -b -w",
+    "build": "/bin/bash generate.sh && tsc -b && chmod +x bin/jsii",
+    "test": "tsc -b test && nodeunit test/test.*.js",
     "package": "package-js"
   },
   "keywords": [
@@ -19,6 +19,7 @@
   ],
   "devDependencies": {
     "@types/clone": "^0.1.30",
+    "@types/deep-equal": "^1.0.1",
     "@types/fs-extra": "^4.0.8",
     "@types/glob": "^5.0.32",
     "@types/node": "^9.6.18",
@@ -28,7 +29,6 @@
     "nodeunit": "^0.11.2"
   },
   "dependencies": {
-    "@types/deep-equal": "^1.0.1",
     "case": "^1.5.5",
     "clone": "^2.1.1",
     "deep-equal": "^1.0.1",

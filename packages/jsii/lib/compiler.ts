@@ -12,7 +12,6 @@ import { getCompilerOptions, saveCompilerOptions, saveLinterOptions } from './co
 import { fileSystemLoader, includeAndRenderExamples, loadFromFile } from './literate';
 import readPackageMetadata from './package-metadata';
 import { filterEmpty } from './util';
-import { loadProjectInfo } from './project-info';
 
 // tslint:disable-next-line:no-var-requires
 const sortJson = require('sort-json');
