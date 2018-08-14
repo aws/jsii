@@ -24,11 +24,11 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<IStructWithOnlyOptionals>();
         }
 
-        /// <summary>Returns the "anumber" from a MyFirstStruct struct;</summary>
-        [JsiiMethod("readFirstNumber", "{\"primitive\":\"number\"}", "[{\"name\":\"first\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.MyFirstStruct\"}}]")]
-        public virtual double ReadFirstNumber(IMyFirstStruct first)
+        /// <summary>Accepts a struct of type DerivedStruct and returns a struct of type FirstStruct.</summary>
+        [JsiiMethod("derivedToFirst", "{\"fqn\":\"@scope/jsii-calc-lib.MyFirstStruct\"}", "[{\"name\":\"derived\",\"type\":{\"fqn\":\"jsii-calc.DerivedStruct\"}}]")]
+        public virtual IMyFirstStruct DerivedToFirst(IDerivedStruct derived)
         {
-            return InvokeInstanceMethod<double>(new object[]{first});
+            return InvokeInstanceMethod<IMyFirstStruct>(new object[]{derived});
         }
 
         /// <summary>Returns the boolean from a DerivedStruct struct.</summary>
@@ -38,11 +38,11 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<DoubleTrouble>(new object[]{derived});
         }
 
-        /// <summary>Accepts a struct of type DerivedStruct and returns a struct of type FirstStruct.</summary>
-        [JsiiMethod("derivedToFirst", "{\"fqn\":\"@scope/jsii-calc-lib.MyFirstStruct\"}", "[{\"name\":\"derived\",\"type\":{\"fqn\":\"jsii-calc.DerivedStruct\"}}]")]
-        public virtual IMyFirstStruct DerivedToFirst(IDerivedStruct derived)
+        /// <summary>Returns the "anumber" from a MyFirstStruct struct;</summary>
+        [JsiiMethod("readFirstNumber", "{\"primitive\":\"number\"}", "[{\"name\":\"first\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.MyFirstStruct\"}}]")]
+        public virtual double ReadFirstNumber(IMyFirstStruct first)
         {
-            return InvokeInstanceMethod<IMyFirstStruct>(new object[]{derived});
+            return InvokeInstanceMethod<double>(new object[]{first});
         }
     }
 }

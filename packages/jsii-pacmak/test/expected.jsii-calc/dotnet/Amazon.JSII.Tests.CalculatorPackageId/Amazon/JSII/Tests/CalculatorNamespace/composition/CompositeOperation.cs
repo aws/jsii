@@ -19,11 +19,28 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
         {
         }
 
-        /// <summary>The .toString() style.</summary>
-        [JsiiProperty("stringStyle", "{\"fqn\":\"jsii-calc.composition.CompositionStringStyle\"}")]
-        public virtual CompositionStringStyle StringStyle
+        /// <summary>
+        /// The expression that this operation consists of.
+        /// Must be implemented by derived classes.
+        /// </summary>
+        [JsiiProperty("expression", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
+        public virtual Value_ Expression
         {
-            get => GetInstanceProperty<CompositionStringStyle>();
+            get => GetInstanceProperty<Value_>();
+        }
+
+        /// <summary>The value.</summary>
+        [JsiiProperty("value", "{\"primitive\":\"number\"}")]
+        public override double Value
+        {
+            get => GetInstanceProperty<double>();
+        }
+
+        /// <summary>A set of postfixes to include in a decorated .toString().</summary>
+        [JsiiProperty("decorationPostfixes", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}}}")]
+        public virtual string[] DecorationPostfixes
+        {
+            get => GetInstanceProperty<string[]>();
             set => SetInstanceProperty(value);
         }
 
@@ -35,29 +52,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
             set => SetInstanceProperty(value);
         }
 
-        /// <summary>A set of postfixes to include in a decorated .toString().</summary>
-        [JsiiProperty("decorationPostfixes", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}}}")]
-        public virtual string[] DecorationPostfixes
+        /// <summary>The .toString() style.</summary>
+        [JsiiProperty("stringStyle", "{\"fqn\":\"jsii-calc.composition.CompositionStringStyle\"}")]
+        public virtual CompositionStringStyle StringStyle
         {
-            get => GetInstanceProperty<string[]>();
+            get => GetInstanceProperty<CompositionStringStyle>();
             set => SetInstanceProperty(value);
-        }
-
-        /// <summary>The value.</summary>
-        [JsiiProperty("value", "{\"primitive\":\"number\"}")]
-        public override double Value
-        {
-            get => GetInstanceProperty<double>();
-        }
-
-        /// <summary>
-        /// The expression that this operation consists of.
-        /// Must be implemented by derived classes.
-        /// </summary>
-        [JsiiProperty("expression", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
-        public virtual Value_ Expression
-        {
-            get => GetInstanceProperty<Value_>();
         }
 
         /// <summary>String representation of the value.</summary>

@@ -23,18 +23,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<double>(new object[]{});
         }
 
-        [JsiiMethod("overrideMe", "{\"primitive\":\"number\",\"promise\":true}", "[{\"name\":\"mult\",\"type\":{\"primitive\":\"number\"}}]")]
-        public virtual double OverrideMe(double mult)
-        {
-            return InvokeInstanceMethod<double>(new object[]{mult});
-        }
-
-        [JsiiMethod("overrideMeToo", "{\"primitive\":\"number\",\"promise\":true}", "[]")]
-        public virtual double OverrideMeToo()
-        {
-            return InvokeInstanceMethod<double>(new object[]{});
-        }
-
         /// <summary>Just calls "overrideMeToo"</summary>
         [JsiiMethod("callMe2", "{\"primitive\":\"number\",\"promise\":true}", "[]")]
         public virtual double CallMe2()
@@ -56,6 +44,18 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         [JsiiMethod("dontOverrideMe", "{\"primitive\":\"number\"}", "[]")]
         public virtual double DontOverrideMe()
+        {
+            return InvokeInstanceMethod<double>(new object[]{});
+        }
+
+        [JsiiMethod("overrideMe", "{\"primitive\":\"number\",\"promise\":true}", "[{\"name\":\"mult\",\"type\":{\"primitive\":\"number\"}}]")]
+        public virtual double OverrideMe(double mult)
+        {
+            return InvokeInstanceMethod<double>(new object[]{mult});
+        }
+
+        [JsiiMethod("overrideMeToo", "{\"primitive\":\"number\",\"promise\":true}", "[]")]
+        public virtual double OverrideMeToo()
         {
             return InvokeInstanceMethod<double>(new object[]{});
         }

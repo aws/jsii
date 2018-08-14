@@ -29,16 +29,16 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<string>(new object[]{});
         }
 
-        [JsiiMethod("writeAndRead", "{\"primitive\":\"string\"}", "[{\"name\":\"value\",\"type\":{\"primitive\":\"string\"}}]")]
-        public virtual string WriteAndRead(string value)
-        {
-            return InvokeInstanceMethod<string>(new object[]{value});
-        }
-
         [JsiiMethod("readStringAndNumber", "{\"primitive\":\"string\"}", "[{\"name\":\"ext\",\"type\":{\"fqn\":\"jsii-calc.IInterfaceWithPropertiesExtension\"}}]")]
         public virtual string ReadStringAndNumber(IIInterfaceWithPropertiesExtension ext)
         {
             return InvokeInstanceMethod<string>(new object[]{ext});
+        }
+
+        [JsiiMethod("writeAndRead", "{\"primitive\":\"string\"}", "[{\"name\":\"value\",\"type\":{\"primitive\":\"string\"}}]")]
+        public virtual string WriteAndRead(string value)
+        {
+            return InvokeInstanceMethod<string>(new object[]{value});
         }
     }
 }

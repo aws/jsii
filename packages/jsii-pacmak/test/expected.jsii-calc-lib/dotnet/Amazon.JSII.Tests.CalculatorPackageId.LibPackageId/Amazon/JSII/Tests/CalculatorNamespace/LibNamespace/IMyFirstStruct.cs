@@ -6,17 +6,17 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     [JsiiInterface(typeof(IMyFirstStruct), "@scope/jsii-calc-lib.MyFirstStruct")]
     public interface IMyFirstStruct
     {
-        /// <summary>A string value</summary>
-        [JsiiProperty("astring", "{\"primitive\":\"string\"}")]
-        string Astring
+        /// <summary>An awesome number value</summary>
+        [JsiiProperty("anumber", "{\"primitive\":\"number\"}")]
+        double Anumber
         {
             get;
             set;
         }
 
-        /// <summary>An awesome number value</summary>
-        [JsiiProperty("anumber", "{\"primitive\":\"number\"}")]
-        double Anumber
+        /// <summary>A string value</summary>
+        [JsiiProperty("astring", "{\"primitive\":\"string\"}")]
+        string Astring
         {
             get;
             set;

@@ -9,11 +9,13 @@ export = nodeunit.testCase({
         async 'correctly loads valid file'(test: nodeunit.Test) {
             try {
                 await withTempDir(async (tmpdir) => {
-                    const packageInfo = require('../package.json');
+                    const packageInfo = require('./jsii-test/package.json');
                     await fs.writeJson(path.join(tmpdir, 'package.json'), packageInfo);
                     const md = await readPackageMetadata(tmpdir);
                     test.notEqual(md, null);
                 });
+            } catch (e) {
+                test.doesNotThrow(() => { throw e; });
             } finally {
                 test.done();
             }
@@ -22,7 +24,7 @@ export = nodeunit.testCase({
             let error: Error;
             try {
                 await withTempDir(async (tmpdir) => {
-                    const packageInfo = require('../package.json');
+                    const packageInfo = require('./jsii-test/package.json');
                     delete packageInfo.version;
                     await fs.writeJson(path.join(tmpdir, 'package.json'), packageInfo);
                     await readPackageMetadata(tmpdir);

@@ -10,19 +10,19 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
-        /// <summary>A string value</summary>
-        [JsiiProperty("astring", "{\"primitive\":\"string\"}")]
-        public virtual string Astring
-        {
-            get => GetInstanceProperty<string>();
-            set => SetInstanceProperty(value);
-        }
-
         /// <summary>An awesome number value</summary>
         [JsiiProperty("anumber", "{\"primitive\":\"number\"}")]
         public virtual double Anumber
         {
             get => GetInstanceProperty<double>();
+            set => SetInstanceProperty(value);
+        }
+
+        /// <summary>A string value</summary>
+        [JsiiProperty("astring", "{\"primitive\":\"string\"}")]
+        public virtual string Astring
+        {
+            get => GetInstanceProperty<string>();
             set => SetInstanceProperty(value);
         }
 

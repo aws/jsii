@@ -1,4 +1,6 @@
 package software.amazon.jsii.tests.calculator;
+
+@javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.VariadicMethod")
 public class VariadicMethod extends software.amazon.jsii.JsiiObject {
     protected VariadicMethod(final software.amazon.jsii.JsiiObject.InitializationMode mode) {

@@ -21,19 +21,11 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>The current value.</summary>
-        [JsiiProperty("curr", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
-        public virtual Value_ Curr
+        /// <summary>Returns the expression.</summary>
+        [JsiiProperty("expression", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
+        public override Value_ Expression
         {
             get => GetInstanceProperty<Value_>();
-            set => SetInstanceProperty(value);
-        }
-
-        /// <summary>A map of per operation name of all operations performed.</summary>
-        [JsiiProperty("operationsMap", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}}}")]
-        public virtual IDictionary<string, Value_[]> OperationsMap
-        {
-            get => GetInstanceProperty<IDictionary<string, Value_[]>>();
         }
 
         /// <summary>A log of all operations.</summary>
@@ -43,19 +35,27 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<Value_[]>();
         }
 
+        /// <summary>A map of per operation name of all operations performed.</summary>
+        [JsiiProperty("operationsMap", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}}}")]
+        public virtual IDictionary<string, Value_[]> OperationsMap
+        {
+            get => GetInstanceProperty<IDictionary<string, Value_[]>>();
+        }
+
+        /// <summary>The current value.</summary>
+        [JsiiProperty("curr", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
+        public virtual Value_ Curr
+        {
+            get => GetInstanceProperty<Value_>();
+            set => SetInstanceProperty(value);
+        }
+
         /// <summary>The maximum value allows in this calculator.</summary>
         [JsiiProperty("maxValue", "{\"primitive\":\"number\",\"optional\":true}")]
         public virtual double? MaxValue
         {
             get => GetInstanceProperty<double? >();
             set => SetInstanceProperty(value);
-        }
-
-        /// <summary>Returns the expression.</summary>
-        [JsiiProperty("expression", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
-        public override Value_ Expression
-        {
-            get => GetInstanceProperty<Value_>();
         }
 
         /// <summary>Example of a property that accepts a union of types.</summary>
@@ -80,18 +80,18 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             InvokeInstanceVoidMethod(new object[]{value});
         }
 
-        /// <summary>Raises the current value by a power.</summary>
-        [JsiiMethod("pow", null, "[{\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]
-        public virtual void Pow(double value)
-        {
-            InvokeInstanceVoidMethod(new object[]{value});
-        }
-
         /// <summary>Negates the current value.</summary>
         [JsiiMethod("neg", null, "[]")]
         public virtual void Neg()
         {
             InvokeInstanceVoidMethod(new object[]{});
+        }
+
+        /// <summary>Raises the current value by a power.</summary>
+        [JsiiMethod("pow", null, "[{\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]
+        public virtual void Pow(double value)
+        {
+            InvokeInstanceVoidMethod(new object[]{value});
         }
 
         /// <summary>Returns teh value of the union property (if defined).</summary>

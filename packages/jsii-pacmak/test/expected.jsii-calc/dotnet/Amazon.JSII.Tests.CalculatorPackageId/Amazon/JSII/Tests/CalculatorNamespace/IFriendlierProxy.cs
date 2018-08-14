@@ -10,17 +10,17 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>Say goodbye.</summary>
-        /// <returns>A goodbye blessing.</returns>
-        [JsiiMethod("goodbye", "{\"primitive\":\"string\"}", "[]")]
-        public virtual string Goodbye()
+        /// <summary>Say farewell.</summary>
+        [JsiiMethod("farewell", "{\"primitive\":\"string\"}", "[]")]
+        public virtual string Farewell()
         {
             return InvokeInstanceMethod<string>(new object[]{});
         }
 
-        /// <summary>Say farewell.</summary>
-        [JsiiMethod("farewell", "{\"primitive\":\"string\"}", "[]")]
-        public virtual string Farewell()
+        /// <summary>Say goodbye.</summary>
+        /// <returns>A goodbye blessing.</returns>
+        [JsiiMethod("goodbye", "{\"primitive\":\"string\"}", "[]")]
+        public virtual string Goodbye()
         {
             return InvokeInstanceMethod<string>(new object[]{});
         }

@@ -1,7 +1,9 @@
 package software.amazon.jsii.tests.calculator;
+
 /**
  * The power operation.
  */
+@javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.Power")
 public class Power extends software.amazon.jsii.tests.calculator.composition.CompositeOperation {
     protected Power(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
@@ -23,16 +25,16 @@ public class Power extends software.amazon.jsii.tests.calculator.composition.Com
         return this.jsiiGet("base", software.amazon.jsii.tests.calculator.lib.Value.class);
     }
     /**
-     * The number of times to multiply
-     */
-    public software.amazon.jsii.tests.calculator.lib.Value getPow() {
-        return this.jsiiGet("pow", software.amazon.jsii.tests.calculator.lib.Value.class);
-    }
-    /**
      * The expression that this operation consists of.
      * Must be implemented by derived classes.
      */
     public software.amazon.jsii.tests.calculator.lib.Value getExpression() {
         return this.jsiiGet("expression", software.amazon.jsii.tests.calculator.lib.Value.class);
+    }
+    /**
+     * The number of times to multiply
+     */
+    public software.amazon.jsii.tests.calculator.lib.Value getPow() {
+        return this.jsiiGet("pow", software.amazon.jsii.tests.calculator.lib.Value.class);
     }
 }

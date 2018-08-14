@@ -13,11 +13,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>An example of a non primitive property.</summary>
-        [JsiiProperty("nonPrimitive", "{\"fqn\":\"jsii-calc.DoubleTrouble\"}")]
-        public virtual DoubleTrouble NonPrimitive
+        [JsiiProperty("anotherRequired", "{\"primitive\":\"date\"}")]
+        public virtual DateTime AnotherRequired
         {
-            get => GetInstanceProperty<DoubleTrouble>();
+            get => GetInstanceProperty<DateTime>();
             set => SetInstanceProperty(value);
         }
 
@@ -28,17 +27,11 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        [JsiiProperty("anotherRequired", "{\"primitive\":\"date\"}")]
-        public virtual DateTime AnotherRequired
+        /// <summary>An example of a non primitive property.</summary>
+        [JsiiProperty("nonPrimitive", "{\"fqn\":\"jsii-calc.DoubleTrouble\"}")]
+        public virtual DoubleTrouble NonPrimitive
         {
-            get => GetInstanceProperty<DateTime>();
-            set => SetInstanceProperty(value);
-        }
-
-        [JsiiProperty("optionalArray", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"optional\":true}")]
-        public virtual string[] OptionalArray
-        {
-            get => GetInstanceProperty<string[]>();
+            get => GetInstanceProperty<DoubleTrouble>();
             set => SetInstanceProperty(value);
         }
 
@@ -50,11 +43,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        /// <summary>A string value</summary>
-        [JsiiProperty("astring", "{\"primitive\":\"string\"}")]
-        public virtual string Astring
+        [JsiiProperty("optionalArray", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"optional\":true}")]
+        public virtual string[] OptionalArray
         {
-            get => GetInstanceProperty<string>();
+            get => GetInstanceProperty<string[]>();
             set => SetInstanceProperty(value);
         }
 
@@ -63,6 +55,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public virtual double Anumber
         {
             get => GetInstanceProperty<double>();
+            set => SetInstanceProperty(value);
+        }
+
+        /// <summary>A string value</summary>
+        [JsiiProperty("astring", "{\"primitive\":\"string\"}")]
+        public virtual string Astring
+        {
+            get => GetInstanceProperty<string>();
             set => SetInstanceProperty(value);
         }
 

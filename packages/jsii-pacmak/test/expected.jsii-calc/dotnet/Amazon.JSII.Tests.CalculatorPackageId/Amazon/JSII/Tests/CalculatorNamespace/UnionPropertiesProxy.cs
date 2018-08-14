@@ -9,17 +9,17 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        [JsiiProperty("bar", "{\"union\":{\"types\":[{\"primitive\":\"string\"},{\"primitive\":\"number\"},{\"fqn\":\"jsii-calc.AllTypes\"}]}}")]
+        public virtual object Bar
+        {
+            get => GetInstanceProperty<object>();
+        }
+
         [JsiiProperty("foo", "{\"union\":{\"types\":[{\"primitive\":\"string\"},{\"primitive\":\"number\"}]},\"optional\":true}")]
         public virtual object Foo
         {
             get => GetInstanceProperty<object>();
             set => SetInstanceProperty(value);
-        }
-
-        [JsiiProperty("bar", "{\"union\":{\"types\":[{\"primitive\":\"string\"},{\"primitive\":\"number\"},{\"fqn\":\"jsii-calc.AllTypes\"}]}}")]
-        public virtual object Bar
-        {
-            get => GetInstanceProperty<object>();
         }
     }
 }

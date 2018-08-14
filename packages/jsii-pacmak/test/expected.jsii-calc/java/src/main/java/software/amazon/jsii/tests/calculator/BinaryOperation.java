@@ -1,7 +1,9 @@
 package software.amazon.jsii.tests.calculator;
+
 /**
  * Represents an operation with two operands.
  */
+@javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.BinaryOperation")
 public abstract class BinaryOperation extends software.amazon.jsii.tests.calculator.lib.Operation implements software.amazon.jsii.tests.calculator.lib.IFriendly {
     protected BinaryOperation(final software.amazon.jsii.JsiiObject.InitializationMode mode) {

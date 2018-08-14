@@ -9,9 +9,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(typeof(IDerivedStruct), "jsii-calc.DerivedStruct")]
     public interface IDerivedStruct : IMyFirstStruct
     {
-        /// <summary>An example of a non primitive property.</summary>
-        [JsiiProperty("nonPrimitive", "{\"fqn\":\"jsii-calc.DoubleTrouble\"}")]
-        DoubleTrouble NonPrimitive
+        [JsiiProperty("anotherRequired", "{\"primitive\":\"date\"}")]
+        DateTime AnotherRequired
         {
             get;
             set;
@@ -24,15 +23,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
-        [JsiiProperty("anotherRequired", "{\"primitive\":\"date\"}")]
-        DateTime AnotherRequired
-        {
-            get;
-            set;
-        }
-
-        [JsiiProperty("optionalArray", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"optional\":true}")]
-        string[] OptionalArray
+        /// <summary>An example of a non primitive property.</summary>
+        [JsiiProperty("nonPrimitive", "{\"fqn\":\"jsii-calc.DoubleTrouble\"}")]
+        DoubleTrouble NonPrimitive
         {
             get;
             set;
@@ -41,6 +34,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>This is optional.</summary>
         [JsiiProperty("anotherOptional", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},\"optional\":true}")]
         IDictionary<string, Value_> AnotherOptional
+        {
+            get;
+            set;
+        }
+
+        [JsiiProperty("optionalArray", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"optional\":true}")]
+        string[] OptionalArray
         {
             get;
             set;

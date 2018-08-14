@@ -1,5 +1,4 @@
 {
-  "fingerprint": "3lcys0/Cd5ZbPR/CXccsL3Fdb66mNsVBs8jb+ySL0oU=",
   "author": {
     "name": "Amazon Web Services",
     "organization": true,
@@ -102,5 +101,6 @@
       ]
     }
   },
-  "version": "0.6.4"
+  "version": "0.6.4",
+  "fingerprint": "b+UZfT/No0vxqTQ1n3lIsyw7olqARDbeGj853lNFoE8="
 }

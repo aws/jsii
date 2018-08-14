@@ -1,5 +1,4 @@
 {
-  "fingerprint": "TTYo91AyKTcjF5jv1DjNFwJ1qLxMdEUIY8f3WkFycBQ=",
   "author": {
     "name": "Amazon Web Services",
     "organization": true,
@@ -258,61 +257,10 @@
       "namespace": "jsii-calc",
       "properties": [
         {
-          "name": "booleanProperty",
-          "type": {
-            "primitive": "boolean"
-          }
-        },
-        {
-          "name": "stringProperty",
-          "type": {
-            "primitive": "string"
-          }
-        },
-        {
-          "name": "numberProperty",
+          "immutable": true,
+          "name": "enumPropertyValue",
           "type": {
             "primitive": "number"
-          }
-        },
-        {
-          "name": "dateProperty",
-          "type": {
-            "primitive": "date"
-          }
-        },
-        {
-          "name": "jsonProperty",
-          "type": {
-            "primitive": "json"
-          }
-        },
-        {
-          "name": "mapProperty",
-          "type": {
-            "collection": {
-              "elementtype": {
-                "primitive": "number"
-              },
-              "kind": "map"
-            }
-          }
-        },
-        {
-          "name": "arrayProperty",
-          "type": {
-            "collection": {
-              "elementtype": {
-                "primitive": "string"
-              },
-              "kind": "array"
-            }
-          }
-        },
-        {
-          "name": "anyProperty",
-          "type": {
-            "primitive": "any"
           }
         },
         {
@@ -338,49 +286,67 @@
           }
         },
         {
-          "name": "unknownProperty",
+          "name": "anyProperty",
           "type": {
             "primitive": "any"
           }
         },
         {
-          "name": "unknownArrayProperty",
+          "name": "arrayProperty",
           "type": {
             "collection": {
               "elementtype": {
-                "primitive": "any"
+                "primitive": "string"
               },
               "kind": "array"
             }
           }
         },
         {
-          "name": "unknownMapProperty",
+          "name": "booleanProperty",
+          "type": {
+            "primitive": "boolean"
+          }
+        },
+        {
+          "name": "dateProperty",
+          "type": {
+            "primitive": "date"
+          }
+        },
+        {
+          "name": "enumProperty",
+          "type": {
+            "fqn": "jsii-calc.AllTypesEnum"
+          }
+        },
+        {
+          "name": "jsonProperty",
+          "type": {
+            "primitive": "json"
+          }
+        },
+        {
+          "name": "mapProperty",
           "type": {
             "collection": {
               "elementtype": {
-                "primitive": "any"
+                "primitive": "number"
               },
               "kind": "map"
             }
           }
         },
         {
-          "name": "unionProperty",
+          "name": "numberProperty",
           "type": {
-            "union": {
-              "types": [
-                {
-                  "primitive": "string"
-                },
-                {
-                  "primitive": "number"
-                },
-                {
-                  "fqn": "jsii-calc.Multiply"
-                }
-              ]
-            }
+            "primitive": "number"
+          }
+        },
+        {
+          "name": "stringProperty",
+          "type": {
+            "primitive": "string"
           }
         },
         {
@@ -424,23 +390,56 @@
           }
         },
         {
+          "name": "unionProperty",
+          "type": {
+            "union": {
+              "types": [
+                {
+                  "primitive": "string"
+                },
+                {
+                  "primitive": "number"
+                },
+                {
+                  "fqn": "jsii-calc.Multiply"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "unknownArrayProperty",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "primitive": "any"
+              },
+              "kind": "array"
+            }
+          }
+        },
+        {
+          "name": "unknownMapProperty",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "primitive": "any"
+              },
+              "kind": "map"
+            }
+          }
+        },
+        {
+          "name": "unknownProperty",
+          "type": {
+            "primitive": "any"
+          }
+        },
+        {
           "name": "optionalEnumValue",
           "type": {
             "fqn": "jsii-calc.StringEnum",
             "optional": true
-          }
-        },
-        {
-          "name": "enumProperty",
-          "type": {
-            "fqn": "jsii-calc.AllTypesEnum"
-          }
-        },
-        {
-          "immutable": true,
-          "name": "enumPropertyValue",
-          "type": {
-            "primitive": "number"
           }
         }
       ]
@@ -472,23 +471,6 @@
       "kind": "class",
       "methods": [
         {
-          "docs": {
-            "comment": "getXxx() is not allowed (see negatives), but getXxx(a, ...) is okay."
-          },
-          "name": "getFoo",
-          "parameters": [
-            {
-              "name": "withParam",
-              "type": {
-                "primitive": "string"
-              }
-            }
-          ],
-          "returns": {
-            "primitive": "string"
-          }
-        },
-        {
           "name": "getBar",
           "parameters": [
             {
@@ -507,23 +489,20 @@
         },
         {
           "docs": {
-            "comment": "setFoo(x) is not allowed (see negatives), but setXxx(a, b, ...) is okay."
+            "comment": "getXxx() is not allowed (see negatives), but getXxx(a, ...) is okay."
           },
-          "name": "setFoo",
+          "name": "getFoo",
           "parameters": [
             {
-              "name": "_x",
+              "name": "withParam",
               "type": {
                 "primitive": "string"
               }
-            },
-            {
-              "name": "_y",
-              "type": {
-                "primitive": "number"
-              }
             }
-          ]
+          ],
+          "returns": {
+            "primitive": "string"
+          }
         },
         {
           "name": "setBar",
@@ -547,6 +526,26 @@
               }
             }
           ]
+        },
+        {
+          "docs": {
+            "comment": "setFoo(x) is not allowed (see negatives), but setXxx(a, b, ...) is okay."
+          },
+          "name": "setFoo",
+          "parameters": [
+            {
+              "name": "_x",
+              "type": {
+                "primitive": "string"
+              }
+            },
+            {
+              "name": "_y",
+              "type": {
+                "primitive": "number"
+              }
+            }
+          ]
         }
       ],
       "name": "AllowedMethodNames",
@@ -562,28 +561,6 @@
       "methods": [
         {
           "name": "callMe",
-          "returns": {
-            "primitive": "number",
-            "promise": true
-          }
-        },
-        {
-          "name": "overrideMe",
-          "parameters": [
-            {
-              "name": "mult",
-              "type": {
-                "primitive": "number"
-              }
-            }
-          ],
-          "returns": {
-            "primitive": "number",
-            "promise": true
-          }
-        },
-        {
-          "name": "overrideMeToo",
           "returns": {
             "primitive": "number",
             "promise": true
@@ -613,6 +590,28 @@
           "name": "dontOverrideMe",
           "returns": {
             "primitive": "number"
+          }
+        },
+        {
+          "name": "overrideMe",
+          "parameters": [
+            {
+              "name": "mult",
+              "type": {
+                "primitive": "number"
+              }
+            }
+          ],
+          "returns": {
+            "primitive": "number",
+            "promise": true
+          }
+        },
+        {
+          "name": "overrideMeToo",
+          "returns": {
+            "primitive": "number",
+            "promise": true
           }
         }
       ],
@@ -756,6 +755,12 @@
         },
         {
           "docs": {
+            "comment": "Negates the current value."
+          },
+          "name": "neg"
+        },
+        {
+          "docs": {
             "comment": "Raises the current value by a power."
           },
           "name": "pow",
@@ -767,12 +772,6 @@
               }
             }
           ]
-        },
-        {
-          "docs": {
-            "comment": "Negates the current value."
-          },
-          "name": "neg"
         },
         {
           "docs": {
@@ -789,11 +788,27 @@
       "properties": [
         {
           "docs": {
-            "comment": "The current value."
+            "comment": "Returns the expression."
           },
-          "name": "curr",
+          "immutable": true,
+          "name": "expression",
           "type": {
             "fqn": "@scope/jsii-calc-lib.Value"
+          }
+        },
+        {
+          "docs": {
+            "comment": "A log of all operations."
+          },
+          "immutable": true,
+          "name": "operationsLog",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "fqn": "@scope/jsii-calc-lib.Value"
+              },
+              "kind": "array"
+            }
           }
         },
         {
@@ -818,17 +833,11 @@
         },
         {
           "docs": {
-            "comment": "A log of all operations."
+            "comment": "The current value."
           },
-          "immutable": true,
-          "name": "operationsLog",
+          "name": "curr",
           "type": {
-            "collection": {
-              "elementtype": {
-                "fqn": "@scope/jsii-calc-lib.Value"
-              },
-              "kind": "array"
-            }
+            "fqn": "@scope/jsii-calc-lib.Value"
           }
         },
         {
@@ -839,16 +848,6 @@
           "type": {
             "optional": true,
             "primitive": "number"
-          }
-        },
-        {
-          "docs": {
-            "comment": "Returns the expression."
-          },
-          "immutable": true,
-          "name": "expression",
-          "type": {
-            "fqn": "@scope/jsii-calc-lib.Value"
           }
         },
         {
@@ -950,12 +949,9 @@
       "namespace": "jsii-calc",
       "properties": [
         {
-          "docs": {
-            "comment": "An example of a non primitive property."
-          },
-          "name": "nonPrimitive",
+          "name": "anotherRequired",
           "type": {
-            "fqn": "jsii-calc.DoubleTrouble"
+            "primitive": "date"
           }
         },
         {
@@ -965,21 +961,12 @@
           }
         },
         {
-          "name": "anotherRequired",
+          "docs": {
+            "comment": "An example of a non primitive property."
+          },
+          "name": "nonPrimitive",
           "type": {
-            "primitive": "date"
-          }
-        },
-        {
-          "name": "optionalArray",
-          "type": {
-            "collection": {
-              "elementtype": {
-                "primitive": "string"
-              },
-              "kind": "array"
-            },
-            "optional": true
+            "fqn": "jsii-calc.DoubleTrouble"
           }
         },
         {
@@ -993,6 +980,18 @@
                 "fqn": "@scope/jsii-calc-lib.Value"
               },
               "kind": "map"
+            },
+            "optional": true
+          }
+        },
+        {
+          "name": "optionalArray",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "primitive": "string"
+              },
+              "kind": "array"
             },
             "optional": true
           }
@@ -1014,20 +1013,20 @@
       "methods": [
         {
           "docs": {
-            "comment": "Returns another random number."
-          },
-          "name": "next",
-          "returns": {
-            "primitive": "number"
-          }
-        },
-        {
-          "docs": {
             "comment": "Say hello!"
           },
           "name": "hello",
           "returns": {
             "primitive": "string"
+          }
+        },
+        {
+          "docs": {
+            "comment": "Returns another random number."
+          },
+          "name": "next",
+          "returns": {
+            "primitive": "number"
           }
         }
       ],
@@ -1044,19 +1043,19 @@
       "methods": [
         {
           "docs": {
-            "comment": "Returns the \"anumber\" from a MyFirstStruct struct;"
+            "comment": "Accepts a struct of type DerivedStruct and returns a struct of type FirstStruct."
           },
-          "name": "readFirstNumber",
+          "name": "derivedToFirst",
           "parameters": [
             {
-              "name": "first",
+              "name": "derived",
               "type": {
-                "fqn": "@scope/jsii-calc-lib.MyFirstStruct"
+                "fqn": "jsii-calc.DerivedStruct"
               }
             }
           ],
           "returns": {
-            "primitive": "number"
+            "fqn": "@scope/jsii-calc-lib.MyFirstStruct"
           }
         },
         {
@@ -1078,19 +1077,19 @@
         },
         {
           "docs": {
-            "comment": "Accepts a struct of type DerivedStruct and returns a struct of type FirstStruct."
+            "comment": "Returns the \"anumber\" from a MyFirstStruct struct;"
           },
-          "name": "derivedToFirst",
+          "name": "readFirstNumber",
           "parameters": [
             {
-              "name": "derived",
+              "name": "first",
               "type": {
-                "fqn": "jsii-calc.DerivedStruct"
+                "fqn": "@scope/jsii-calc-lib.MyFirstStruct"
               }
             }
           ],
           "returns": {
-            "fqn": "@scope/jsii-calc-lib.MyFirstStruct"
+            "primitive": "number"
           }
         }
       ],
@@ -1121,19 +1120,19 @@
       "methods": [
         {
           "docs": {
-            "comment": "Say goodbye.",
-            "return": "A goodbye blessing."
+            "comment": "Say farewell."
           },
-          "name": "goodbye",
+          "name": "farewell",
           "returns": {
             "primitive": "string"
           }
         },
         {
           "docs": {
-            "comment": "Say farewell."
+            "comment": "Say goodbye.",
+            "return": "A goodbye blessing."
           },
-          "name": "farewell",
+          "name": "goodbye",
           "returns": {
             "primitive": "string"
           }
@@ -1355,10 +1354,10 @@
           "name": "default"
         },
         {
-          "name": "double"
+          "name": "do"
         },
         {
-          "name": "do"
+          "name": "double"
         },
         {
           "name": "else"
@@ -1533,9 +1532,9 @@
       "methods": [
         {
           "docs": {
-            "comment": "String representation of the value."
+            "comment": "Say farewell."
           },
-          "name": "toString",
+          "name": "farewell",
           "returns": {
             "primitive": "string"
           }
@@ -1551,20 +1550,20 @@
         },
         {
           "docs": {
-            "comment": "Say farewell."
-          },
-          "name": "farewell",
-          "returns": {
-            "primitive": "string"
-          }
-        },
-        {
-          "docs": {
             "comment": "Returns another random number."
           },
           "name": "next",
           "returns": {
             "primitive": "number"
+          }
+        },
+        {
+          "docs": {
+            "comment": "String representation of the value."
+          },
+          "name": "toString",
+          "returns": {
+            "primitive": "string"
           }
         }
       ],
@@ -1612,18 +1611,9 @@
       "methods": [
         {
           "docs": {
-            "comment": "String representation of the value."
+            "comment": "Say farewell."
           },
-          "name": "toString",
-          "returns": {
-            "primitive": "string"
-          }
-        },
-        {
-          "docs": {
-            "comment": "Say hello!"
-          },
-          "name": "hello",
+          "name": "farewell",
           "returns": {
             "primitive": "string"
           }
@@ -1639,9 +1629,18 @@
         },
         {
           "docs": {
-            "comment": "Say farewell."
+            "comment": "Say hello!"
           },
-          "name": "farewell",
+          "name": "hello",
+          "returns": {
+            "primitive": "string"
+          }
+        },
+        {
+          "docs": {
+            "comment": "String representation of the value."
+          },
+          "name": "toString",
           "returns": {
             "primitive": "string"
           }
@@ -1675,6 +1674,16 @@
       "methods": [
         {
           "docs": {
+            "comment": "Uses node.js \"crypto\" module to calculate sha256 of a string.",
+            "return": "\"6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50\""
+          },
+          "name": "cryptoSha256",
+          "returns": {
+            "primitive": "string"
+          }
+        },
+        {
+          "docs": {
             "comment": "Reads a local resource file (resource.txt) asynchronously.",
             "return": "\"Hello, resource!\""
           },
@@ -1690,16 +1699,6 @@
             "return": "\"Hello, resource! SYNC!\""
           },
           "name": "fsReadFileSync",
-          "returns": {
-            "primitive": "string"
-          }
-        },
-        {
-          "docs": {
-            "comment": "Uses node.js \"crypto\" module to calculate sha256 of a string.",
-            "return": "\"6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50\""
-          },
-          "name": "cryptoSha256",
           "returns": {
             "primitive": "string"
           }
@@ -1740,12 +1739,6 @@
       "kind": "class",
       "methods": [
         {
-          "name": "nextTimes100",
-          "returns": {
-            "primitive": "number"
-          }
-        },
-        {
           "name": "isSameGenerator",
           "parameters": [
             {
@@ -1757,6 +1750,12 @@
           ],
           "returns": {
             "primitive": "boolean"
+          }
+        },
+        {
+          "name": "nextTimes100",
+          "returns": {
+            "primitive": "number"
           }
         }
       ],
@@ -1933,20 +1932,20 @@
         },
         {
           "docs": {
-            "comment": "The number of times to multiply"
+            "comment": "The expression that this operation consists of.\nMust be implemented by derived classes."
           },
           "immutable": true,
-          "name": "pow",
+          "name": "expression",
           "type": {
             "fqn": "@scope/jsii-calc-lib.Value"
           }
         },
         {
           "docs": {
-            "comment": "The expression that this operation consists of.\nMust be implemented by derived classes."
+            "comment": "The number of times to multiply"
           },
           "immutable": true,
-          "name": "expression",
+          "name": "pow",
           "type": {
             "fqn": "@scope/jsii-calc-lib.Value"
           }
@@ -2106,10 +2105,24 @@
       "namespace": "jsii-calc",
       "properties": [
         {
+          "const": true,
+          "docs": {
+            "comment": "Constants may also use all-caps."
+          },
           "immutable": true,
-          "name": "value",
+          "name": "BAR",
+          "static": true,
           "type": {
-            "primitive": "string"
+            "primitive": "number"
+          }
+        },
+        {
+          "const": true,
+          "immutable": true,
+          "name": "ConstObj",
+          "static": true,
+          "type": {
+            "fqn": "jsii-calc.DoubleTrouble"
           }
         },
         {
@@ -2122,18 +2135,6 @@
           "static": true,
           "type": {
             "primitive": "string"
-          }
-        },
-        {
-          "const": true,
-          "docs": {
-            "comment": "Constants may also use all-caps."
-          },
-          "immutable": true,
-          "name": "BAR",
-          "static": true,
-          "type": {
-            "primitive": "number"
           }
         },
         {
@@ -2171,12 +2172,10 @@
           }
         },
         {
-          "const": true,
           "immutable": true,
-          "name": "ConstObj",
-          "static": true,
+          "name": "value",
           "type": {
-            "fqn": "jsii-calc.DoubleTrouble"
+            "primitive": "string"
           }
         }
       ]
@@ -2217,6 +2216,16 @@
       "properties": [
         {
           "docs": {
+            "comment": "The expression that this operation consists of.\nMust be implemented by derived classes."
+          },
+          "immutable": true,
+          "name": "expression",
+          "type": {
+            "fqn": "@scope/jsii-calc-lib.Value"
+          }
+        },
+        {
+          "docs": {
             "comment": "The parts to sum."
           },
           "name": "parts",
@@ -2227,16 +2236,6 @@
               },
               "kind": "array"
             }
-          }
-        },
-        {
-          "docs": {
-            "comment": "The expression that this operation consists of.\nMust be implemented by derived classes."
-          },
-          "immutable": true,
-          "name": "expression",
-          "type": {
-            "fqn": "@scope/jsii-calc-lib.Value"
           }
         }
       ]
@@ -2250,12 +2249,6 @@
       "kind": "class",
       "methods": [
         {
-          "name": "callerIsMethod",
-          "returns": {
-            "primitive": "number"
-          }
-        },
-        {
           "name": "callerIsAsync",
           "returns": {
             "primitive": "number",
@@ -2263,40 +2256,9 @@
           }
         },
         {
-          "name": "virtualMethod",
-          "parameters": [
-            {
-              "name": "n",
-              "type": {
-                "primitive": "number"
-              }
-            }
-          ],
+          "name": "callerIsMethod",
           "returns": {
             "primitive": "number"
-          }
-        },
-        {
-          "name": "modifyValueOfTheProperty",
-          "parameters": [
-            {
-              "name": "value",
-              "type": {
-                "primitive": "string"
-              }
-            }
-          ]
-        },
-        {
-          "name": "retrieveValueOfTheProperty",
-          "returns": {
-            "primitive": "string"
-          }
-        },
-        {
-          "name": "retrieveReadOnlyProperty",
-          "returns": {
-            "primitive": "string"
           }
         },
         {
@@ -2311,13 +2273,50 @@
           ]
         },
         {
+          "name": "modifyValueOfTheProperty",
+          "parameters": [
+            {
+              "name": "value",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ]
+        },
+        {
+          "name": "readA",
+          "returns": {
+            "primitive": "number"
+          }
+        },
+        {
           "name": "retrieveOtherProperty",
           "returns": {
             "primitive": "string"
           }
         },
         {
-          "name": "readA",
+          "name": "retrieveReadOnlyProperty",
+          "returns": {
+            "primitive": "string"
+          }
+        },
+        {
+          "name": "retrieveValueOfTheProperty",
+          "returns": {
+            "primitive": "string"
+          }
+        },
+        {
+          "name": "virtualMethod",
+          "parameters": [
+            {
+              "name": "n",
+              "type": {
+                "primitive": "number"
+              }
+            }
+          ],
           "returns": {
             "primitive": "number"
           }
@@ -2338,22 +2337,22 @@
       "namespace": "jsii-calc",
       "properties": [
         {
-          "name": "callerIsProperty",
+          "immutable": true,
+          "name": "readonlyProperty",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "name": "a",
           "type": {
             "primitive": "number"
           }
         },
         {
-          "name": "theProperty",
+          "name": "callerIsProperty",
           "type": {
-            "primitive": "string"
-          }
-        },
-        {
-          "immutable": true,
-          "name": "readonlyProperty",
-          "type": {
-            "primitive": "string"
+            "primitive": "number"
           }
         },
         {
@@ -2363,15 +2362,15 @@
           }
         },
         {
-          "name": "valueOfOtherProperty",
+          "name": "theProperty",
           "type": {
             "primitive": "string"
           }
         },
         {
-          "name": "a",
+          "name": "valueOfOtherProperty",
           "type": {
-            "primitive": "number"
+            "primitive": "string"
           }
         }
       ]
@@ -2434,22 +2433,6 @@
       "namespace": "jsii-calc",
       "properties": [
         {
-          "name": "foo",
-          "type": {
-            "optional": true,
-            "union": {
-              "types": [
-                {
-                  "primitive": "string"
-                },
-                {
-                  "primitive": "number"
-                }
-              ]
-            }
-          }
-        },
-        {
           "immutable": true,
           "name": "bar",
           "type": {
@@ -2463,6 +2446,22 @@
                 },
                 {
                   "fqn": "jsii-calc.AllTypes"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "foo",
+          "type": {
+            "optional": true,
+            "union": {
+              "types": [
+                {
+                  "primitive": "string"
+                },
+                {
+                  "primitive": "number"
                 }
               ]
             }
@@ -2532,12 +2531,12 @@
           }
         },
         {
-          "name": "writeAndRead",
+          "name": "readStringAndNumber",
           "parameters": [
             {
-              "name": "value",
+              "name": "ext",
               "type": {
-                "primitive": "string"
+                "fqn": "jsii-calc.IInterfaceWithPropertiesExtension"
               }
             }
           ],
@@ -2546,12 +2545,12 @@
           }
         },
         {
-          "name": "readStringAndNumber",
+          "name": "writeAndRead",
           "parameters": [
             {
-              "name": "ext",
+              "name": "value",
               "type": {
-                "fqn": "jsii-calc.IInterfaceWithPropertiesExtension"
+                "primitive": "string"
               }
             }
           ],
@@ -2639,50 +2638,6 @@
       "kind": "class",
       "methods": [
         {
-          "name": "serialSumAsync",
-          "parameters": [
-            {
-              "name": "count",
-              "type": {
-                "primitive": "number"
-              }
-            }
-          ],
-          "returns": {
-            "primitive": "number",
-            "promise": true
-          }
-        },
-        {
-          "name": "parallelSumAsync",
-          "parameters": [
-            {
-              "name": "count",
-              "type": {
-                "primitive": "number"
-              }
-            }
-          ],
-          "returns": {
-            "primitive": "number",
-            "promise": true
-          }
-        },
-        {
-          "name": "sumSync",
-          "parameters": [
-            {
-              "name": "count",
-              "type": {
-                "primitive": "number"
-              }
-            }
-          ],
-          "returns": {
-            "primitive": "number"
-          }
-        },
-        {
           "name": "overrideMeAsync",
           "parameters": [
             {
@@ -2702,6 +2657,50 @@
           "parameters": [
             {
               "name": "index",
+              "type": {
+                "primitive": "number"
+              }
+            }
+          ],
+          "returns": {
+            "primitive": "number"
+          }
+        },
+        {
+          "name": "parallelSumAsync",
+          "parameters": [
+            {
+              "name": "count",
+              "type": {
+                "primitive": "number"
+              }
+            }
+          ],
+          "returns": {
+            "primitive": "number",
+            "promise": true
+          }
+        },
+        {
+          "name": "serialSumAsync",
+          "parameters": [
+            {
+              "name": "count",
+              "type": {
+                "primitive": "number"
+              }
+            }
+          ],
+          "returns": {
+            "primitive": "number",
+            "promise": true
+          }
+        },
+        {
+          "name": "sumSync",
+          "parameters": [
+            {
+              "name": "count",
               "type": {
                 "primitive": "number"
               }
@@ -2744,26 +2743,24 @@
       "namespace": "jsii-calc.composition",
       "properties": [
         {
+          "abstract": true,
           "docs": {
-            "comment": "The .toString() style."
+            "comment": "The expression that this operation consists of.\nMust be implemented by derived classes."
           },
-          "name": "stringStyle",
+          "immutable": true,
+          "name": "expression",
           "type": {
-            "fqn": "jsii-calc.composition.CompositionStringStyle"
+            "fqn": "@scope/jsii-calc-lib.Value"
           }
         },
         {
           "docs": {
-            "comment": "A set of prefixes to include in a decorated .toString()."
+            "comment": "The value."
           },
-          "name": "decorationPrefixes",
+          "immutable": true,
+          "name": "value",
           "type": {
-            "collection": {
-              "elementtype": {
-                "primitive": "string"
-              },
-              "kind": "array"
-            }
+            "primitive": "number"
           }
         },
         {
@@ -2782,23 +2779,25 @@
         },
         {
           "docs": {
-            "comment": "The value."
+            "comment": "A set of prefixes to include in a decorated .toString()."
           },
-          "immutable": true,
-          "name": "value",
+          "name": "decorationPrefixes",
           "type": {
-            "primitive": "number"
+            "collection": {
+              "elementtype": {
+                "primitive": "string"
+              },
+              "kind": "array"
+            }
           }
         },
         {
-          "abstract": true,
           "docs": {
-            "comment": "The expression that this operation consists of.\nMust be implemented by derived classes."
+            "comment": "The .toString() style."
           },
-          "immutable": true,
-          "name": "expression",
+          "name": "stringStyle",
           "type": {
-            "fqn": "@scope/jsii-calc-lib.Value"
+            "fqn": "jsii-calc.composition.CompositionStringStyle"
           }
         }
       ]
@@ -2822,5 +2821,6 @@
       "namespace": "jsii-calc.composition"
     }
   },
-  "version": "0.6.4"
+  "version": "0.6.4",
+  "fingerprint": "ukdkUVnf3jHKB7TV8FhG/tHnl04+DaTZSoIEZxym6Js="
 }
