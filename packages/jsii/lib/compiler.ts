@@ -12,6 +12,7 @@ import { getCompilerOptions, saveCompilerOptions, saveLinterOptions } from './co
 import { fileSystemLoader, includeAndRenderExamples, loadFromFile } from './literate';
 import readPackageMetadata from './package-metadata';
 import { filterEmpty } from './util';
+import { loadProjectInfo } from './project-info';
 
 // tslint:disable-next-line:no-var-requires
 const sortJson = require('sort-json');
@@ -80,13 +81,35 @@ export async function compilePackage(packageDir: string, includeDirs = [ 'test',
      * Normalizes (aka sorts) and fingerprints the assembly.
      */
     function normalizeAssembly() {
-        const sorted = sortJson(assm);
+        const sorted: spec.Assembly = sortJson(assm);
+        for (const type of Object.values(sorted.types || {})) {
+            if (spec.isClassOrInterfaceType(type)) {
+                type.methods = type.methods && _sortMembers(type.methods);
+                type.properties = type.properties && _sortMembers(type.properties);
+            }
+        }
         // Not accounting for the 'fingerprint' field when fingerprinting.
         delete sorted.fingerprint;
         const fingerprint = crypto.createHash('sha256')
-                                  .update(JSON.stringify(sortJson(sorted), filterEmpty))
+                                  .update(JSON.stringify(sorted, filterEmpty))
                                   .digest('base64');
-        return { fingerprint, ...sorted } as spec.Assembly;
+        return { ...sorted, fingerprint } as spec.Assembly;
+
+        /**
+         * Sort members (aka Methods or Properties) so static members are listed before non-static members, and members
+         * of each group are listed in alphanumerical order.
+         *
+         * @param arr the elements to sort
+         *
+         * @return a sorted copy of ``arr``.
+         */
+        function _sortMembers<T extends { name?: string, static?: boolean }>(arr: T[]): T[] {
+            return arr.sort((lval: T, rval: T) => {
+                const lstr = `${lval.static ? '0' : '1'}|${lval.name}`;
+                const rstr = `${rval.static ? '0' : '1'}|${rval.name}`;
+                return lstr.localeCompare(rstr);
+            });
+        }
     }
 }
 
