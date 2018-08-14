@@ -1,72 +1,77 @@
-import fs = require('fs');
-import spec = require('jsii-spec');
-import { Test } from 'nodeunit';
+import fs = require('fs-extra');
+import nodeunit = require('nodeunit');
 import path = require('path');
-import { compileSources } from '../lib/compiler';
+import ts = require('typescript');
+import { Compiler } from '../lib/compiler';
+import { ProjectInfo } from '../lib/project-info';
 
-const tests: any = { };
-const negativesDir = path.join(__dirname, 'negatives');
+const SOURCE_DIR = path.join(__dirname, 'negatives');
 
-const MATCH_ERROR_MARKER = '///!MATCH_ERROR:';
+const testCases: { [name: string]: (test: nodeunit.Test) => void } = {};
 
-async function getExpectedErrorMessage(filePath: string) {
-    return new Promise<string[]>((ok, fail) => {
-        return fs.readFile(filePath, (err, data) => {
-            if (err) { return fail(err); }
-            const matches = data.toString()
-                .split('\n')
-                .filter(line => line.startsWith(MATCH_ERROR_MARKER))
-                .map(line => line.substr(MATCH_ERROR_MARKER.length))
-                .map(line => line.trim());
-
-            if (matches.length === 0) {
-                throw new Error(`Expecting at least one ${MATCH_ERROR_MARKER} in each neg. test, none found in ${filePath}`);
-            }
-            ok(matches);
-        });
-    });
-}
-
-for (const source of fs.readdirSync(negativesDir)) {
-    if (!source.endsWith('.ts') || source.endsWith('.d.ts')) { continue; }
-    if (!source.startsWith('neg.')) { continue; }
-
-    tests[source] = async (test: Test) => {
-        const filePath = path.join(negativesDir, source);
-        const matchError = await getExpectedErrorMessage(filePath);
-        let failed = false;
-        try {
-            await compileSources(path.join(negativesDir, source),
-                                 undefined /* No extra source */,
-                                 undefined /* No external types */,
-                                 {
-                                    schema: spec.SchemaVersion.V1_0,
-                                    name: 'foo',
-                                    version: 'bar',
-                                    license: 'NONE',
-                                    author: { name: 'Author', roles: ['author'] },
-                                    fingerprint: 'baz',
-                                    description: 'hello',
-                                    homepage: 'http://foo',
-                                    repository: {
-                                        url: 'http://',
-                                        type: 'git'
-                                    },
-                                    targets: {},
-                                    types: {}
-                                },
-                                 true /* warnings as errors */);
-        } catch (e) {
-            for (const match of matchError) {
-                if (e.message.indexOf(match) === -1) {
-                    test.ifError(new Error(`Compile failed, but error message didn't match expected text "${match}". Error was: ${e.message}`));
-                }
-            }
-            failed = true;
+for (const source of fs.readdirSync(SOURCE_DIR)) {
+    if (!source.startsWith('neg.') || !source.endsWith('.ts') || source.endsWith('.d.ts')) { continue; }
+    const filePath = path.join(SOURCE_DIR, source);
+    testCases[source.replace(/neg\.(.+)\.ts/, '$1')] = async (test: nodeunit.Test) => {
+        const expectations = await _getExpectedErrorMessage(filePath);
+        test.ok(expectations.length > 0, `Expected error messages should be specified using ${MATCH_ERROR_MARKER}`);
+        const compiler = new Compiler({ projectInfo: _makeProjectInfo(source), watch: false });
+        const emitResult = await compiler.emit(path.join(SOURCE_DIR, source));
+        test.equal(emitResult.emitSkipped, true, `emitSkipped should be true`);
+        const errors = emitResult.diagnostics.filter(diag => diag.category === ts.DiagnosticCategory.Error);
+        for (const expectation of expectations) {
+            test.notEqual(errors.find(e => _messageText(e).indexOf(expectation) !== -1),
+                          null,
+                          `No error contained: ${expectation}. Errors: \n${errors.map((e, i) => `[${i}] ${e.messageText}`).join('\n')}`);
         }
-        test.ok(failed, 'Compilation was expected to fail');
+
+        // Cleaning up...
+        for (const file of await fs.readdir(SOURCE_DIR)) {
+            if (file.startsWith('neg.') && (file.endsWith('.d.ts') || file.endsWith('.js'))) {
+                await fs.remove(path.join(SOURCE_DIR, file));
+            }
+            await fs.remove(path.join(SOURCE_DIR, '.jsii'));
+            await fs.remove(path.join(SOURCE_DIR, 'tsconfig.json'));
+        }
+
         test.done();
     };
 }
 
-export default tests;
+export = nodeunit.testCase({ 'jsii rejections': testCases });
+
+const MATCH_ERROR_MARKER = '///!MATCH_ERROR:';
+async function _getExpectedErrorMessage(file: string): Promise<string[]> {
+    const data = await fs.readFile(file, { encoding: 'utf8' });
+    const lines = data.split('\n');
+    const matches = lines.filter(line => line.startsWith(MATCH_ERROR_MARKER))
+                         .map(line => line.substr(MATCH_ERROR_MARKER.length).trim());
+    return matches;
+}
+
+function _messageText(diagnostic: ts.Diagnostic | ts.DiagnosticMessageChain): string {
+    if (typeof diagnostic.messageText === 'string') {
+        return diagnostic.messageText;
+    }
+    if (diagnostic.messageText.next) {
+        return diagnostic.messageText.messageText + '|' + _messageText(diagnostic.messageText.next);
+    }
+    return diagnostic.messageText.messageText;
+}
+
+function _makeProjectInfo(types: string): ProjectInfo {
+    return {
+        projectRoot: SOURCE_DIR,
+        types,
+        main: types.replace(/(?:\.d)?\.ts(x?)/, '.js$1'),
+        name: 'jsii', // That's what package.json would tell if we look up...
+        version: '0.0.1',
+        license: 'Apache-2.0',
+        author: { name: 'John Doe', roles: ['author'] },
+        repository: { type: 'git', url: 'https://github.com/awslabs/jsii.git' },
+        dependencies: [],
+        transitiveDependencies: [],
+        bundleDependencies: {},
+        targets: {}
+    };
+}

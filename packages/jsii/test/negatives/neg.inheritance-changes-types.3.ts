@@ -1,14 +1,17 @@
-// tslint:disable-next-line:comment-format
-///!MATCH_ERROR: parameter 1 type changed
+// tslint:disable:comment-format
+// tslint:disable-next-line:max-line-length
+///!MATCH_ERROR: jsii.SomethingSpecific#takeSomething changes type of argument _argument when overriding jsii.Something (expected jsii.Superclass, found jsii.Subclass
 
 export class Superclass {}
 export class Subclass extends Superclass {}
 
-export interface ISomething {
-    takeSomething(argument: Superclass): void;
+export class Something {
+    public takeSomething(_argument: Superclass): void {
+        // Nothing
+    }
 }
 
-export class Something implements ISomething {
+export class SomethingSpecific extends Something {
     public takeSomething(_argument: Subclass): void {
         // Nothing
     }

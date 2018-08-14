@@ -1,53 +1,49 @@
 {
-  "name": "jsii",
-  "version": "0.6.4",
-  "description": "TypeScript compiler for jsii",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
-  "bin": {
-    "jsii": "bin/jsii"
-  },
-  "scripts": {
-    "watch": "tsc -w",
-    "build": "/bin/bash generate.sh && tsc && chmod +x bin/jsii",
-    "test": "nodeunit test/test.*.js",
-    "package": "package-js"
-  },
-  "keywords": [
-    "jsii",
-    "aws"
-  ],
-  "devDependencies": {
-    "@types/clone": "^0.1.30",
-    "@types/deep-equal": "^1.0.1",
-    "@types/fs-extra": "^4.0.8",
-    "@types/glob": "^5.0.32",
-    "@types/node": "^9.6.18",
-    "@types/nodeunit": "0.0.30",
-    "@types/yargs": "^11.0.0",
-    "jsii-build-tools": "^0.6.4",
-    "nodeunit": "^0.11.2"
-  },
-  "dependencies": {
-    "case": "^1.5.5",
-    "clone": "^2.1.1",
-    "deep-equal": "^1.0.1",
-    "fs-extra": "^4.0.3",
-    "glob": "^7.1.2",
-    "jsii-spec": "^0.6.4",
-    "sort-json": "^2.0.0",
-    "source-map-loader": "^0.2.3",
-    "spdx-license-list": "^4.1.0",
-    "typescript": "^3.0.1",
-    "yargs": "^11.0.0"
-  },
-  "author": {
-    "name": "Amazon Web Services",
-    "url": "https://aws.amazon.com"
-  },
-  "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/awslabs/jsii.git"
-  }
+    "name": "jsii",
+    "version": "0.6.4",
+    "description": "TypeScript compiler for jsii",
+    "license": "Apache-2.0",
+    "author": {
+        "name": "Amazon Web Services",
+        "url": "https://aws.amazon.com",
+        "organization": true
+    },
+    "bin": {
+        "jsii": "bin/jsii"
+    },
+    "scripts": {
+        "build": "bash ./generate.sh && tsc",
+        "watch": "bash ./generate.sh && tsc -w",
+        "test": "nyc nodeunit test/test.*.js"
+    },
+    "devDependencies": {
+        "@types/clone": "^0.1.30",
+        "@types/colors": "^1.2.1",
+        "@types/deep-equal": "^1.0.1",
+        "@types/fs-extra": "^5.0.4",
+        "@types/log4js": "^2.3.5",
+        "@types/node": "^8.10.24",
+        "@types/nodeunit": "^0.0.30",
+        "@types/semver": "^5.5.0",
+        "@types/yargs": "^11.1.1",
+        "clone": "^2.1.2",
+        "nodeunit": "^0.11.3",
+        "nyc": "^12.0.2"
+    },
+    "dependencies": {
+        "case": "^1.5.5",
+        "colors": "^1.3.1",
+        "deep-equal": "^1.0.1",
+        "fs-extra": "^7.0.0",
+        "jsii-spec": "^0.6.4",
+        "log4js": "^3.0.4",
+        "semver": "^5.5.0",
+        "sort-json": "^2.0.0",
+        "spdx-license-list": "^4.1.0",
+        "typescript": "^3.0.1",
+        "yargs": "^12.0.1"
+    },
+    "nyc": {
+        "reporter": ["lcov", "text"]
+    }
 }

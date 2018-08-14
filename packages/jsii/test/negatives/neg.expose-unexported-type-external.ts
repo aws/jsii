@@ -1,10 +1,10 @@
-///!MATCH_ERROR: Found unexported types in the API, which are also not exported by any dependency
+///!MATCH_ERROR: Exported APIs cannot use un-exported type jsii.UnexportedType
 
 // Attempt to expose an unexported type defined in another file should fial
 // because that type will not be available in the module spec.
 
-import { UnexportedType } from './mylib'
+import { UnexportedType } from './mylib';
 
 export class ExportedType {
-    p?: UnexportedType
+    public p?: UnexportedType;
 }

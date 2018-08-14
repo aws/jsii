@@ -1,0 +1,2 @@
+# Generated C# code will have CRLF line endings, making git pretty awkward
+.cs eol=crlf

@@ -24,6 +24,7 @@
   },
   "scripts": {
     "build": "jsii",
+    "watch": "jsii -w",
     "test": "node test/test.calc.js && diff-test test/assembly.jsii .jsii"
   },
   "bundledDependencies": [

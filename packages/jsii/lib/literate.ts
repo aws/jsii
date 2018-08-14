@@ -116,9 +116,7 @@ export function contentToLines(content: string): string[] {
  * Return a file system loader given a base directory
  */
 export function fileSystemLoader(directory: string): FileLoader {
-    return function(fileName: string) {
-        return loadFromFile(path.resolve(directory, fileName));
-    };
+    return fileName => loadFromFile(path.resolve(directory, fileName));
 }
 
 const RELEVANT_TAG = '/// !show';
@@ -144,7 +142,7 @@ function findRelevantLines(lines: string[]): string[] {
         } else if (line.trim() === DETAIL_TAG) {
             inRelevant = false;
         } else {
-            if (inRelevant) ret.push(line);
+            if (inRelevant) { ret.push(line); }
         }
     }
 
@@ -156,10 +154,10 @@ function findRelevantLines(lines: string[]): string[] {
  * Remove common leading whitespace from the given lines
  */
 function stripCommonIndent(lines: string[]): string[] {
-    const whitespace = /^(\s*)/;
-    const indents = lines.map(x => whitespace.exec(x)![1].length);
+    const leadingWhitespace = /^(\s*)/;
+    const indents = lines.map(l => leadingWhitespace.exec(l)![1].length);
     const commonIndent = Math.min(...indents);
-    return lines.map(x => x.substr(commonIndent));
+    return lines.map(l => l.substr(commonIndent));
 }
 
 /**
@@ -185,14 +183,11 @@ function markdownify(lines: string[]): string[] {
     return ret;
 
     /**
-     * Flush typescript lines with a ``` block around it.
+     * Flush typescript lines with a triple-backtick-ts block around it.
      */
     function flushTS() {
         if (typescriptLines.length !== 0) {
-            ret.push('```ts');
-            ret.push(...typescriptLines);
-            ret.push('```');
-
+            ret.push('```ts', ...typescriptLines, '```');
             typescriptLines.splice(0); // Clear
         }
     }

@@ -1,13 +1,14 @@
-// tslint:disable-next-line:comment-format
-///!MATCH_ERROR: type changed
+// tslint:disable:comment-format
+// tslint:disable-next-line:max-line-length
+///!MATCH_ERROR: jsii.SomethingSpecific#something changes the type of property when overriding jsii.Something (expected jsii.Superclass, found jsii.Subclass)
 
 export class Superclass {}
 export class Subclass extends Superclass {}
 
-export interface ISomething {
-    something: Superclass;
+export class Something {
+    public something: Superclass;
 }
 
-export class Something implements ISomething {
+export class SomethingSpecific extends Something {
     public something: Subclass = new Subclass();
 }

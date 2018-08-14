@@ -6,8 +6,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation
     [JsiiEnum(typeof(CompositionStringStyle), "jsii-calc.composition.CompositeOperation.CompositionStringStyle")]
     public enum CompositionStringStyle
     {
+        /// <summary>Normal string expression </summary>
         [JsiiEnumMember("Normal")]
         Normal,
+        /// <summary>Decorated string expression </summary>
         [JsiiEnumMember("Decorated")]
         Decorated
     }
