@@ -1010,6 +1010,17 @@ class JavaGenerator extends Generator {
             this.code.closeBlock();
         }
 
+        this.code.line();
+        this.code.line('@Override');
+        this.code.openBlock('protected Class<?> resolveClass(final String fqn) throws ClassNotFoundException');
+        this.code.openBlock('switch (fqn)');
+        for (const type of Object.keys(this.assembly.types || {})) {
+            this.code.line(`case "${type}": return ${this.toNativeFqn(type)}.class;`);
+        }
+        this.code.line('default: throw new ClassNotFoundException("Unknown JSII type: " + fqn);');
+        this.code.closeBlock();
+        this.code.closeBlock();
+
         this.code.closeBlock();
 
         this.code.closeFile(moduleFile);

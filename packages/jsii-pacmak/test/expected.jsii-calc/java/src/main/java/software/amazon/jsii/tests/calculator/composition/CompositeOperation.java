@@ -55,13 +55,21 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
     /**
      * The .toString() style.
      */
-    public software.amazon.jsii.tests.calculator.composition.CompositionStringStyle getStringStyle() {
-        return this.jsiiGet("stringStyle", software.amazon.jsii.tests.calculator.composition.CompositionStringStyle.class);
+    public software.amazon.jsii.tests.calculator.composition.CompositeOperation.CompositionStringStyle getStringStyle() {
+        return this.jsiiGet("stringStyle", software.amazon.jsii.tests.calculator.composition.CompositeOperation.CompositionStringStyle.class);
     }
     /**
      * The .toString() style.
      */
-    public void setStringStyle(final software.amazon.jsii.tests.calculator.composition.CompositionStringStyle value) {
+    public void setStringStyle(final software.amazon.jsii.tests.calculator.composition.CompositeOperation.CompositionStringStyle value) {
         this.jsiiSet("stringStyle", java.util.Objects.requireNonNull(value, "stringStyle is required"));
+    }
+    /**
+     * Style of .toString() output for CompositeOperation.
+     */
+    @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.composition.CompositeOperation.CompositionStringStyle")
+    public enum CompositionStringStyle {
+        Normal,
+        Decorated,
     }
 }

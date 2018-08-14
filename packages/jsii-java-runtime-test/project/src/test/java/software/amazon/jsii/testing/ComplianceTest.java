@@ -30,7 +30,7 @@ import software.amazon.jsii.tests.calculator.Sum;
 import software.amazon.jsii.tests.calculator.SyncVirtualMethods;
 import software.amazon.jsii.tests.calculator.UnionProperties;
 import software.amazon.jsii.tests.calculator.UsesInterfaceWithProperties;
-import software.amazon.jsii.tests.calculator.composition.CompositionStringStyle;
+import software.amazon.jsii.tests.calculator.composition.CompositeOperation;
 import software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule;
 import software.amazon.jsii.tests.calculator.lib.IFriendly;
 import software.amazon.jsii.tests.calculator.lib.MyFirstStruct;
@@ -238,9 +238,9 @@ public class ComplianceTest {
         Calculator calc = new Calculator();
         calc.add(9);
         calc.pow(3);
-        assertEquals(CompositionStringStyle.Normal, calc.getStringStyle());
-        calc.setStringStyle(CompositionStringStyle.Decorated);
-        assertEquals(CompositionStringStyle.Decorated, calc.getStringStyle());
+        assertEquals(CompositeOperation.CompositionStringStyle.Normal, calc.getStringStyle());
+        calc.setStringStyle(CompositeOperation.CompositionStringStyle.Decorated);
+        assertEquals(CompositeOperation.CompositionStringStyle.Decorated, calc.getStringStyle());
         assertEquals("<<[[{{(((1 * (0 + 9)) * (0 + 9)) * (0 + 9))}}]]>>", calc.toString());
     }
 

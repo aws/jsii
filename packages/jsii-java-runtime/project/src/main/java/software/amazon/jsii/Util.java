@@ -2,10 +2,10 @@ package software.amazon.jsii;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Scanner;
 
 /**
  * Utilities.
@@ -30,11 +30,13 @@ final class Util {
      * @return A string.
      */
     static String readString(final InputStream is) {
-        java.util.Scanner s = new java.util.Scanner(is, "UTF-8").useDelimiter("\\A");
-        if (s.hasNext()) {
-            return s.next();
-        } else {
-            return "";
+        try (final Scanner s = new Scanner(is, "UTF-8")) {
+            s.useDelimiter("\\A");
+            if (s.hasNext()) {
+                return s.next();
+            } else {
+                return "";
+            }
         }
     }
 
@@ -97,7 +99,7 @@ final class Util {
      * @return The full path of the saved resource
      * @throws IOException If there was an I/O error
      */
-    static String extractResource(final Class klass, final String resourceName, final String outputDirectory) throws IOException {
+    static String extractResource(final Class<?> klass, final String resourceName, final String outputDirectory) throws IOException {
         String directory = outputDirectory;
         if (directory == null) {
             directory = Files.createTempDirectory("jsii-java-runtime-resource").toString();

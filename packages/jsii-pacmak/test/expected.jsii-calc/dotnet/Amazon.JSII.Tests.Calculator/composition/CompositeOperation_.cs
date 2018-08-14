@@ -1,21 +1,22 @@
 using Amazon.JSII.Runtime.Deputy;
+using Amazon.JSII.Tests.Calculator.composition.CompositeOperation;
 using Amazon.JSII.Tests.Calculator.Lib;
 
 namespace Amazon.JSII.Tests.Calculator.composition
 {
     /// <summary>Abstract operation composed from an expression of other operations.</summary>
-    [JsiiClass(typeof(CompositeOperation), "jsii-calc.composition.CompositeOperation", "[]")]
-    public abstract class CompositeOperation : Operation
+    [JsiiClass(typeof(CompositeOperation_), "jsii-calc.composition.CompositeOperation", "[]")]
+    public abstract class CompositeOperation_ : Operation
     {
-        protected CompositeOperation(): base(new DeputyProps(new object[]{}))
+        protected CompositeOperation_(): base(new DeputyProps(new object[]{}))
         {
         }
 
-        protected CompositeOperation(ByRefValue reference): base(reference)
+        protected CompositeOperation_(ByRefValue reference): base(reference)
         {
         }
 
-        protected CompositeOperation(DeputyProps props): base(props)
+        protected CompositeOperation_(DeputyProps props): base(props)
         {
         }
 
@@ -53,7 +54,7 @@ namespace Amazon.JSII.Tests.Calculator.composition
         }
 
         /// <summary>The .toString() style.</summary>
-        [JsiiProperty("stringStyle", "{\"fqn\":\"jsii-calc.composition.CompositionStringStyle\"}")]
+        [JsiiProperty("stringStyle", "{\"fqn\":\"jsii-calc.composition.CompositeOperation.CompositionStringStyle\"}")]
         public virtual CompositionStringStyle StringStyle
         {
             get => GetInstanceProperty<CompositionStringStyle>();

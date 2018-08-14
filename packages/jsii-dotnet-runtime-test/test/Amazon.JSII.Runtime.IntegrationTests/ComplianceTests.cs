@@ -2,6 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 using Amazon.JSII.Runtime.Services;
 using Amazon.JSII.Tests.Calculator;
 using Amazon.JSII.Tests.Calculator.composition;
+using Amazon.JSII.Tests.Calculator.composition.CompositeOperation;
 using Amazon.JSII.Tests.Calculator.Lib;
 using Newtonsoft.Json.Linq;
 using System;
