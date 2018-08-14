@@ -18,20 +18,6 @@ namespace Amazon.JSII.Tests.Calculator
         {
         }
 
-        [JsiiProperty("value", "{\"primitive\":\"string\"}")]
-        public virtual string Value
-        {
-            get => GetInstanceProperty<string>();
-        }
-
-        /// <summary>Jsdocs for static property.</summary>
-        [JsiiProperty("Foo", "{\"primitive\":\"string\"}")]
-        public static string Foo
-        {
-            get;
-        }
-
-        = GetStaticProperty<string>(typeof(Statics));
         /// <summary>Constants may also use all-caps.</summary>
         [JsiiProperty("BAR", "{\"primitive\":\"number\"}")]
         public static double BAR
@@ -40,6 +26,21 @@ namespace Amazon.JSII.Tests.Calculator
         }
 
         = GetStaticProperty<double>(typeof(Statics));
+        [JsiiProperty("ConstObj", "{\"fqn\":\"jsii-calc.DoubleTrouble\"}")]
+        public static DoubleTrouble ConstObj
+        {
+            get;
+        }
+
+        = GetStaticProperty<DoubleTrouble>(typeof(Statics));
+        /// <summary>Jsdocs for static property.</summary>
+        [JsiiProperty("Foo", "{\"primitive\":\"string\"}")]
+        public static string Foo
+        {
+            get;
+        }
+
+        = GetStaticProperty<string>(typeof(Statics));
         /// <summary>Constants can also use camelCase.</summary>
         [JsiiProperty("zooBar", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"primitive\":\"string\"}}}")]
         public static IDictionary<string, string> ZooBar
@@ -66,13 +67,12 @@ namespace Amazon.JSII.Tests.Calculator
             set => SetStaticProperty(typeof(Statics), value);
         }
 
-        [JsiiProperty("ConstObj", "{\"fqn\":\"jsii-calc.DoubleTrouble\"}")]
-        public static DoubleTrouble ConstObj
+        [JsiiProperty("value", "{\"primitive\":\"string\"}")]
+        public virtual string Value
         {
-            get;
+            get => GetInstanceProperty<string>();
         }
 
-        = GetStaticProperty<DoubleTrouble>(typeof(Statics));
         /// <summary>Jsdocs for static method</summary>
         /// <param name = "name">The name of the person to say hello to</param>
         [JsiiMethod("staticMethod", "{\"primitive\":\"string\"}", "[{\"name\":\"name\",\"type\":{\"primitive\":\"string\"}}]")]

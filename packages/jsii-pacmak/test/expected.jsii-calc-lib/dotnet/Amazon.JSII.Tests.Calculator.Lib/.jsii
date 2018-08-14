@@ -1,5 +1,4 @@
 {
-  "fingerprint": "qwjIHOtTOSWOv5qzVdHj4SDgxmnWYsacVvR7BkAVlo8=",
   "author": {
     "name": "Amazon Web Services",
     "organization": true,
@@ -125,20 +124,20 @@
       "properties": [
         {
           "docs": {
-            "comment": "A string value"
-          },
-          "name": "astring",
-          "type": {
-            "primitive": "string"
-          }
-        },
-        {
-          "docs": {
             "comment": "An awesome number value"
           },
           "name": "anumber",
           "type": {
             "primitive": "number"
+          }
+        },
+        {
+          "docs": {
+            "comment": "A string value"
+          },
+          "name": "astring",
+          "type": {
+            "primitive": "string"
           }
         },
         {
@@ -187,20 +186,20 @@
       "properties": [
         {
           "docs": {
-            "comment": "The number."
+            "comment": "The number multiplied by 2."
           },
           "immutable": true,
-          "name": "value",
+          "name": "doubleValue",
           "type": {
             "primitive": "number"
           }
         },
         {
           "docs": {
-            "comment": "The number multiplied by 2."
+            "comment": "The number."
           },
           "immutable": true,
-          "name": "doubleValue",
+          "name": "value",
           "type": {
             "primitive": "number"
           }
@@ -315,5 +314,6 @@
       ]
     }
   },
-  "version": "0.6.4"
+  "version": "0.6.4",
+  "fingerprint": "MHdlbqyf1RV6moIHslfpKnl7yjQoYVvvZLfxFXWihrU="
 }

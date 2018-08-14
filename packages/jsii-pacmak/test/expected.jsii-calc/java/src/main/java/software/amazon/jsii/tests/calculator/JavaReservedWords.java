@@ -1,4 +1,6 @@
 package software.amazon.jsii.tests.calculator;
+
+@javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.JavaReservedWords")
 public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
     protected JavaReservedWords(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
@@ -44,11 +46,11 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
     public void default_() {
         this.jsiiCall("default", Void.class);
     }
-    public void double_() {
-        this.jsiiCall("double", Void.class);
-    }
     public void do_() {
         this.jsiiCall("do", Void.class);
+    }
+    public void double_() {
+        this.jsiiCall("double", Void.class);
     }
     public void else_() {
         this.jsiiCall("else", Void.class);

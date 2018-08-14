@@ -20,14 +20,6 @@ namespace Amazon.JSII.Tests.Calculator
         {
         }
 
-        /// <summary>The parts to sum.</summary>
-        [JsiiProperty("parts", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}")]
-        public virtual Value_[] Parts
-        {
-            get => GetInstanceProperty<Value_[]>();
-            set => SetInstanceProperty(value);
-        }
-
         /// <summary>
         /// The expression that this operation consists of.
         /// Must be implemented by derived classes.
@@ -36,6 +28,14 @@ namespace Amazon.JSII.Tests.Calculator
         public override Value_ Expression
         {
             get => GetInstanceProperty<Value_>();
+        }
+
+        /// <summary>The parts to sum.</summary>
+        [JsiiProperty("parts", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}")]
+        public virtual Value_[] Parts
+        {
+            get => GetInstanceProperty<Value_[]>();
+            set => SetInstanceProperty(value);
         }
     }
 }

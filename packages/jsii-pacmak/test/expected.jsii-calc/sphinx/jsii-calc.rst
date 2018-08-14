@@ -184,44 +184,9 @@ AllTypes
       :rtype: :py:class:`~jsii-calc.StringEnum`
 
 
-   .. py:attribute:: booleanProperty
+   .. py:attribute:: enumPropertyValue
 
-      :type: boolean
-
-
-   .. py:attribute:: stringProperty
-
-      :type: string
-
-
-   .. py:attribute:: numberProperty
-
-      :type: number
-
-
-   .. py:attribute:: dateProperty
-
-      :type: date
-
-
-   .. py:attribute:: jsonProperty
-
-      :type: json
-
-
-   .. py:attribute:: mapProperty
-
-      :type: number
-
-
-   .. py:attribute:: arrayProperty
-
-      :type: string
-
-
-   .. py:attribute:: anyProperty
-
-      :type: any
+      :type: number *(readonly)*
 
 
    .. py:attribute:: anyArrayProperty
@@ -234,24 +199,49 @@ AllTypes
       :type: any
 
 
-   .. py:attribute:: unknownProperty
+   .. py:attribute:: anyProperty
 
       :type: any
 
 
-   .. py:attribute:: unknownArrayProperty
+   .. py:attribute:: arrayProperty
 
-      :type: any
-
-
-   .. py:attribute:: unknownMapProperty
-
-      :type: any
+      :type: string
 
 
-   .. py:attribute:: unionProperty
+   .. py:attribute:: booleanProperty
 
-      :type: string or number or :py:class:`~jsii-calc.Multiply`
+      :type: boolean
+
+
+   .. py:attribute:: dateProperty
+
+      :type: date
+
+
+   .. py:attribute:: enumProperty
+
+      :type: :py:class:`~jsii-calc.AllTypesEnum`
+
+
+   .. py:attribute:: jsonProperty
+
+      :type: json
+
+
+   .. py:attribute:: mapProperty
+
+      :type: number
+
+
+   .. py:attribute:: numberProperty
+
+      :type: number
+
+
+   .. py:attribute:: stringProperty
+
+      :type: string
 
 
    .. py:attribute:: unionArrayProperty
@@ -264,19 +254,29 @@ AllTypes
       :type: string or number
 
 
+   .. py:attribute:: unionProperty
+
+      :type: string or number or :py:class:`~jsii-calc.Multiply`
+
+
+   .. py:attribute:: unknownArrayProperty
+
+      :type: any
+
+
+   .. py:attribute:: unknownMapProperty
+
+      :type: any
+
+
+   .. py:attribute:: unknownProperty
+
+      :type: any
+
+
    .. py:attribute:: optionalEnumValue
 
       :type: :py:class:`~jsii-calc.StringEnum` or undefined
-
-
-   .. py:attribute:: enumProperty
-
-      :type: :py:class:`~jsii-calc.AllTypesEnum`
-
-
-   .. py:attribute:: enumPropertyValue
-
-      :type: number *(readonly)*
 
 
 AllTypesEnum (enum)
@@ -333,6 +333,14 @@ AllowedMethodNames
 
 
 
+   .. py:method:: getBar(_p1, _p2)
+
+      :param _p1: 
+      :type _p1: string
+      :param _p2: 
+      :type _p2: number
+
+
    .. py:method:: getFoo(withParam) -> string
 
       getXxx() is not allowed (see negatives), but getXxx(a, ...) is okay.
@@ -343,12 +351,14 @@ AllowedMethodNames
       :rtype: string
 
 
-   .. py:method:: getBar(_p1, _p2)
+   .. py:method:: setBar(_x, _y, _z)
 
-      :param _p1: 
-      :type _p1: string
-      :param _p2: 
-      :type _p2: number
+      :param _x: 
+      :type _x: string
+      :param _y: 
+      :type _y: number
+      :param _z: 
+      :type _z: boolean
 
 
    .. py:method:: setFoo(_x, _y)
@@ -360,16 +370,6 @@ AllowedMethodNames
       :type _x: string
       :param _y: 
       :type _y: number
-
-
-   .. py:method:: setBar(_x, _y, _z)
-
-      :param _x: 
-      :type _x: string
-      :param _y: 
-      :type _y: number
-      :param _z: 
-      :type _z: boolean
 
 
 AsyncVirtualMethods
@@ -401,18 +401,6 @@ AsyncVirtualMethods
       :rtype: number
 
 
-   .. py:method:: overrideMe(mult) -> number
-
-      :param mult: 
-      :type mult: number
-      :rtype: number
-
-
-   .. py:method:: overrideMeToo() -> number
-
-      :rtype: number
-
-
    .. py:method:: callMe2() -> number
 
       Just calls "overrideMeToo"
@@ -430,6 +418,18 @@ AsyncVirtualMethods
 
 
    .. py:method:: dontOverrideMe() -> number
+
+      :rtype: number
+
+
+   .. py:method:: overrideMe(mult) -> number
+
+      :param mult: 
+      :type mult: number
+      :rtype: number
+
+
+   .. py:method:: overrideMeToo() -> number
 
       :rtype: number
 
@@ -540,6 +540,13 @@ Calculator
       :type value: number
 
 
+   .. py:method:: neg()
+
+      Negates the current value.
+
+
+
+
    .. py:method:: pow(value)
 
       Raises the current value by a power.
@@ -547,13 +554,6 @@ Calculator
 
       :param value: 
       :type value: number
-
-
-   .. py:method:: neg()
-
-      Negates the current value.
-
-
 
 
    .. py:method:: readUnionValue() -> number
@@ -564,17 +564,9 @@ Calculator
       :rtype: number
 
 
-   .. py:attribute:: curr
+   .. py:attribute:: expression
 
-      The current value.
-
-
-      :type: :py:class:`@scope/jsii-calc-lib.Value`
-
-
-   .. py:attribute:: operationsMap
-
-      A map of per operation name of all operations performed.
+      Returns the expression.
 
 
       :type: :py:class:`@scope/jsii-calc-lib.Value` *(readonly)*
@@ -588,20 +580,28 @@ Calculator
       :type: :py:class:`@scope/jsii-calc-lib.Value` *(readonly)*
 
 
+   .. py:attribute:: operationsMap
+
+      A map of per operation name of all operations performed.
+
+
+      :type: :py:class:`@scope/jsii-calc-lib.Value` *(readonly)*
+
+
+   .. py:attribute:: curr
+
+      The current value.
+
+
+      :type: :py:class:`@scope/jsii-calc-lib.Value`
+
+
    .. py:attribute:: maxValue
 
       The maximum value allows in this calculator.
 
 
       :type: number or undefined
-
-
-   .. py:attribute:: expression
-
-      Returns the expression.
-
-
-      :type: :py:class:`@scope/jsii-calc-lib.Value` *(readonly)*
 
 
    .. py:attribute:: unionProperty
@@ -741,6 +741,16 @@ DerivedStruct (interface)
    :extends: :py:class:`@scope/jsii-calc-lib.MyFirstStruct`
 
 
+   .. py:attribute:: anotherRequired
+
+      :type: date
+
+
+   .. py:attribute:: bool
+
+      :type: boolean
+
+
    .. py:attribute:: nonPrimitive
 
       An example of a non primitive property.
@@ -749,27 +759,17 @@ DerivedStruct (interface)
       :type: :py:class:`~jsii-calc.DoubleTrouble`
 
 
-   .. py:attribute:: bool
-
-      :type: boolean
-
-
-   .. py:attribute:: anotherRequired
-
-      :type: date
-
-
-   .. py:attribute:: optionalArray
-
-      :type: string or undefined
-
-
    .. py:attribute:: anotherOptional
 
       This is optional.
 
 
       :type: :py:class:`@scope/jsii-calc-lib.Value` or undefined
+
+
+   .. py:attribute:: optionalArray
+
+      :type: string or undefined
 
 
 DoubleTrouble
@@ -797,20 +797,20 @@ DoubleTrouble
 
    :implements: :py:class:`~jsii-calc.IFriendlyRandomGenerator`
 
-   .. py:method:: next() -> number
-
-      Returns another random number.
-
-
-      :rtype: number
-
-
    .. py:method:: hello() -> string
 
       Say hello!
 
 
       :rtype: string
+
+
+   .. py:method:: next() -> number
+
+      Returns another random number.
+
+
+      :rtype: number
 
 
 GiveMeStructs
@@ -837,14 +837,14 @@ GiveMeStructs
 
 
 
-   .. py:method:: readFirstNumber(first) -> number
+   .. py:method:: derivedToFirst(derived) -> @scope/jsii-calc-lib.MyFirstStruct
 
-      Returns the "anumber" from a MyFirstStruct struct;
+      Accepts a struct of type DerivedStruct and returns a struct of type FirstStruct.
 
 
-      :param first: 
-      :type first: :py:class:`@scope/jsii-calc-lib.MyFirstStruct`
-      :rtype: number
+      :param derived: 
+      :type derived: :py:class:`~jsii-calc.DerivedStruct`
+      :rtype: :py:class:`@scope/jsii-calc-lib.MyFirstStruct`
 
 
    .. py:method:: readDerivedNonPrimitive(derived) -> jsii-calc.DoubleTrouble
@@ -857,14 +857,14 @@ GiveMeStructs
       :rtype: :py:class:`~jsii-calc.DoubleTrouble`
 
 
-   .. py:method:: derivedToFirst(derived) -> @scope/jsii-calc-lib.MyFirstStruct
+   .. py:method:: readFirstNumber(first) -> number
 
-      Accepts a struct of type DerivedStruct and returns a struct of type FirstStruct.
+      Returns the "anumber" from a MyFirstStruct struct;
 
 
-      :param derived: 
-      :type derived: :py:class:`~jsii-calc.DerivedStruct`
-      :rtype: :py:class:`@scope/jsii-calc-lib.MyFirstStruct`
+      :param first: 
+      :type first: :py:class:`@scope/jsii-calc-lib.MyFirstStruct`
+      :rtype: number
 
 
    .. py:attribute:: structLiteral
@@ -901,20 +901,20 @@ IFriendlier (interface)
    :extends: :py:class:`@scope/jsii-calc-lib.IFriendly`
 
 
+   .. py:method:: farewell() -> string
+
+      Say farewell.
+
+
+      :rtype: string
+
+
    .. py:method:: goodbye() -> string
 
       Say goodbye.
 
 
       :return: A goodbye blessing.
-      :rtype: string
-
-
-   .. py:method:: farewell() -> string
-
-      Say farewell.
-
-
       :rtype: string
 
 
@@ -1248,11 +1248,11 @@ JavaReservedWords
 
 
 
-   .. py:method:: double()
-
-
-
    .. py:method:: do()
+
+
+
+   .. py:method:: double()
 
 
 
@@ -1447,9 +1447,9 @@ Multiply
    :param rhs: Right-hand side operand
    :type rhs: :py:class:`@scope/jsii-calc-lib.Value`
 
-   .. py:method:: toString() -> string
+   .. py:method:: farewell() -> string
 
-      String representation of the value.
+      Say farewell.
 
 
       :rtype: string
@@ -1463,20 +1463,20 @@ Multiply
       :rtype: string
 
 
-   .. py:method:: farewell() -> string
-
-      Say farewell.
-
-
-      :rtype: string
-
-
    .. py:method:: next() -> number
 
       Returns another random number.
 
 
       :rtype: number
+
+
+   .. py:method:: toString() -> string
+
+      String representation of the value.
+
+
+      :rtype: string
 
 
    .. py:attribute:: value
@@ -1518,17 +1518,9 @@ Negate
    :param operand: 
    :type operand: :py:class:`@scope/jsii-calc-lib.Value`
 
-   .. py:method:: toString() -> string
+   .. py:method:: farewell() -> string
 
-      String representation of the value.
-
-
-      :rtype: string
-
-
-   .. py:method:: hello() -> string
-
-      Say hello!
+      Say farewell.
 
 
       :rtype: string
@@ -1542,9 +1534,17 @@ Negate
       :rtype: string
 
 
-   .. py:method:: farewell() -> string
+   .. py:method:: hello() -> string
 
-      Say farewell.
+      Say hello!
+
+
+      :rtype: string
+
+
+   .. py:method:: toString() -> string
+
+      String representation of the value.
 
 
       :rtype: string
@@ -1585,6 +1585,15 @@ NodeStandardLibrary
 
 
 
+   .. py:method:: cryptoSha256() -> string
+
+      Uses node.js "crypto" module to calculate sha256 of a string.
+
+
+      :return: "6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50"
+      :rtype: string
+
+
    .. py:method:: fsReadFile() -> string
 
       Reads a local resource file (resource.txt) asynchronously.
@@ -1600,15 +1609,6 @@ NodeStandardLibrary
 
 
       :return: "Hello, resource! SYNC!"
-      :rtype: string
-
-
-   .. py:method:: cryptoSha256() -> string
-
-      Uses node.js "crypto" module to calculate sha256 of a string.
-
-
-      :return: "6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50"
       :rtype: string
 
 
@@ -1649,16 +1649,16 @@ NumberGenerator
    :param generator: 
    :type generator: :py:class:`~jsii-calc.IRandomNumberGenerator`
 
-   .. py:method:: nextTimes100() -> number
-
-      :rtype: number
-
-
    .. py:method:: isSameGenerator(gen) -> boolean
 
       :param gen: 
       :type gen: :py:class:`~jsii-calc.IRandomNumberGenerator`
       :rtype: boolean
+
+
+   .. py:method:: nextTimes100() -> number
+
+      :rtype: number
 
 
    .. py:attribute:: generator
@@ -1815,17 +1815,17 @@ Power
       :type: :py:class:`@scope/jsii-calc-lib.Value` *(readonly)*
 
 
-   .. py:attribute:: pow
+   .. py:attribute:: expression
 
-      The number of times to multiply
+      The expression that this operation consists of. Must be implemented by derived classes.
 
 
       :type: :py:class:`@scope/jsii-calc-lib.Value` *(readonly)*
 
 
-   .. py:attribute:: expression
+   .. py:attribute:: pow
 
-      The expression that this operation consists of. Must be implemented by derived classes.
+      The number of times to multiply
 
 
       :type: :py:class:`@scope/jsii-calc-lib.Value` *(readonly)*
@@ -1987,9 +1987,17 @@ Statics
       :rtype: string
 
 
-   .. py:attribute:: value
+   .. py:attribute:: BAR
 
-      :type: string *(readonly)*
+      Constants may also use all-caps.
+
+
+      :type: number *(readonly)* *(static)*
+
+
+   .. py:attribute:: ConstObj
+
+      :type: :py:class:`~jsii-calc.DoubleTrouble` *(readonly)* *(static)*
 
 
    .. py:attribute:: Foo
@@ -1998,14 +2006,6 @@ Statics
 
 
       :type: string *(readonly)* *(static)*
-
-
-   .. py:attribute:: BAR
-
-      Constants may also use all-caps.
-
-
-      :type: number *(readonly)* *(static)*
 
 
    .. py:attribute:: zooBar
@@ -2029,9 +2029,9 @@ Statics
       :type: number *(static)*
 
 
-   .. py:attribute:: ConstObj
+   .. py:attribute:: value
 
-      :type: :py:class:`~jsii-calc.DoubleTrouble` *(readonly)* *(static)*
+      :type: string *(readonly)*
 
 
 StringEnum (enum)
@@ -2092,20 +2092,20 @@ Sum
 
    :extends: :py:class:`~jsii-calc.composition.CompositeOperation`
 
-   .. py:attribute:: parts
-
-      The parts to sum.
-
-
-      :type: :py:class:`@scope/jsii-calc-lib.Value`
-
-
    .. py:attribute:: expression
 
       The expression that this operation consists of. Must be implemented by derived classes.
 
 
       :type: :py:class:`@scope/jsii-calc-lib.Value` *(readonly)*
+
+
+   .. py:attribute:: parts
+
+      The parts to sum.
+
+
+      :type: :py:class:`@scope/jsii-calc-lib.Value`
 
 
 SyncVirtualMethods
@@ -2132,21 +2132,20 @@ SyncVirtualMethods
 
 
 
-   .. py:method:: callerIsMethod() -> number
-
-      :rtype: number
-
-
    .. py:method:: callerIsAsync() -> number
 
       :rtype: number
 
 
-   .. py:method:: virtualMethod(n) -> number
+   .. py:method:: callerIsMethod() -> number
 
-      :param n: 
-      :type n: number
       :rtype: number
+
+
+   .. py:method:: modifyOtherProperty(value)
+
+      :param value: 
+      :type value: string
 
 
    .. py:method:: modifyValueOfTheProperty(value)
@@ -2155,7 +2154,12 @@ SyncVirtualMethods
       :type value: string
 
 
-   .. py:method:: retrieveValueOfTheProperty() -> string
+   .. py:method:: readA() -> number
+
+      :rtype: number
+
+
+   .. py:method:: retrieveOtherProperty() -> string
 
       :rtype: string
 
@@ -2165,19 +2169,15 @@ SyncVirtualMethods
       :rtype: string
 
 
-   .. py:method:: modifyOtherProperty(value)
-
-      :param value: 
-      :type value: string
-
-
-   .. py:method:: retrieveOtherProperty() -> string
+   .. py:method:: retrieveValueOfTheProperty() -> string
 
       :rtype: string
 
 
-   .. py:method:: readA() -> number
+   .. py:method:: virtualMethod(n) -> number
 
+      :param n: 
+      :type n: number
       :rtype: number
 
 
@@ -2187,19 +2187,19 @@ SyncVirtualMethods
       :type value: number
 
 
-   .. py:attribute:: callerIsProperty
+   .. py:attribute:: readonlyProperty
+
+      :type: string *(readonly)*
+
+
+   .. py:attribute:: a
 
       :type: number
 
 
-   .. py:attribute:: theProperty
+   .. py:attribute:: callerIsProperty
 
-      :type: string
-
-
-   .. py:attribute:: readonlyProperty
-
-      :type: string *(readonly)*
+      :type: number
 
 
    .. py:attribute:: otherProperty
@@ -2207,14 +2207,14 @@ SyncVirtualMethods
       :type: string
 
 
-   .. py:attribute:: valueOfOtherProperty
+   .. py:attribute:: theProperty
 
       :type: string
 
 
-   .. py:attribute:: a
+   .. py:attribute:: valueOfOtherProperty
 
-      :type: number
+      :type: string
 
 
 Thrower
@@ -2306,14 +2306,14 @@ UnionProperties (interface)
 
 
 
-   .. py:attribute:: foo
-
-      :type: string or number or undefined
-
-
    .. py:attribute:: bar
 
       :type: string or number or :py:class:`~jsii-calc.AllTypes` *(readonly)*
+
+
+   .. py:attribute:: foo
+
+      :type: string or number or undefined
 
 
 UseBundledDependency
@@ -2408,17 +2408,17 @@ UsesInterfaceWithProperties
       :rtype: string
 
 
-   .. py:method:: writeAndRead(value) -> string
-
-      :param value: 
-      :type value: string
-      :rtype: string
-
-
    .. py:method:: readStringAndNumber(ext) -> string
 
       :param ext: 
       :type ext: :py:class:`~jsii-calc.IInterfaceWithPropertiesExtension`
+      :rtype: string
+
+
+   .. py:method:: writeAndRead(value) -> string
+
+      :param value: 
+      :type value: string
       :rtype: string
 
 
@@ -2486,27 +2486,6 @@ VirtualMethodPlayground
 
 
 
-   .. py:method:: serialSumAsync(count) -> number
-
-      :param count: 
-      :type count: number
-      :rtype: number
-
-
-   .. py:method:: parallelSumAsync(count) -> number
-
-      :param count: 
-      :type count: number
-      :rtype: number
-
-
-   .. py:method:: sumSync(count) -> number
-
-      :param count: 
-      :type count: number
-      :rtype: number
-
-
    .. py:method:: overrideMeAsync(index) -> number
 
       :param index: 
@@ -2518,6 +2497,27 @@ VirtualMethodPlayground
 
       :param index: 
       :type index: number
+      :rtype: number
+
+
+   .. py:method:: parallelSumAsync(count) -> number
+
+      :param count: 
+      :type count: number
+      :rtype: number
+
+
+   .. py:method:: serialSumAsync(count) -> number
+
+      :param count: 
+      :type count: number
+      :rtype: number
+
+
+   .. py:method:: sumSync(count) -> number
+
+      :param count: 
+      :type count: number
       :rtype: number
 
 
@@ -2563,28 +2563,12 @@ CompositeOperation
       :rtype: string
 
 
-   .. py:attribute:: stringStyle
+   .. py:attribute:: expression
 
-      The .toString() style.
-
-
-      :type: :py:class:`~jsii-calc.composition.CompositionStringStyle`
+      The expression that this operation consists of. Must be implemented by derived classes.
 
 
-   .. py:attribute:: decorationPrefixes
-
-      A set of prefixes to include in a decorated .toString().
-
-
-      :type: string
-
-
-   .. py:attribute:: decorationPostfixes
-
-      A set of postfixes to include in a decorated .toString().
-
-
-      :type: string
+      :type: :py:class:`@scope/jsii-calc-lib.Value` *(readonly)* *(abstract)*
 
 
    .. py:attribute:: value
@@ -2595,12 +2579,28 @@ CompositeOperation
       :type: number *(readonly)*
 
 
-   .. py:attribute:: expression
+   .. py:attribute:: decorationPostfixes
 
-      The expression that this operation consists of. Must be implemented by derived classes.
+      A set of postfixes to include in a decorated .toString().
 
 
-      :type: :py:class:`@scope/jsii-calc-lib.Value` *(readonly)* *(abstract)*
+      :type: string
+
+
+   .. py:attribute:: decorationPrefixes
+
+      A set of prefixes to include in a decorated .toString().
+
+
+      :type: string
+
+
+   .. py:attribute:: stringStyle
+
+      The .toString() style.
+
+
+      :type: :py:class:`~jsii-calc.composition.CompositionStringStyle`
 
 
 CompositionStringStyle (enum)

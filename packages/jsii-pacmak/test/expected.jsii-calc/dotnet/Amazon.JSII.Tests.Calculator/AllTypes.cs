@@ -25,6 +25,40 @@ namespace Amazon.JSII.Tests.Calculator
         {
         }
 
+        [JsiiProperty("enumPropertyValue", "{\"primitive\":\"number\"}")]
+        public virtual double EnumPropertyValue
+        {
+            get => GetInstanceProperty<double>();
+        }
+
+        [JsiiProperty("anyArrayProperty", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"any\"}}}")]
+        public virtual object[] AnyArrayProperty
+        {
+            get => GetInstanceProperty<object[]>();
+            set => SetInstanceProperty(value);
+        }
+
+        [JsiiProperty("anyMapProperty", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"primitive\":\"any\"}}}")]
+        public virtual IDictionary<string, object> AnyMapProperty
+        {
+            get => GetInstanceProperty<IDictionary<string, object>>();
+            set => SetInstanceProperty(value);
+        }
+
+        [JsiiProperty("anyProperty", "{\"primitive\":\"any\"}")]
+        public virtual object AnyProperty
+        {
+            get => GetInstanceProperty<object>();
+            set => SetInstanceProperty(value);
+        }
+
+        [JsiiProperty("arrayProperty", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}}}")]
+        public virtual string[] ArrayProperty
+        {
+            get => GetInstanceProperty<string[]>();
+            set => SetInstanceProperty(value);
+        }
+
         [JsiiProperty("booleanProperty", "{\"primitive\":\"boolean\"}")]
         public virtual bool BooleanProperty
         {
@@ -32,24 +66,17 @@ namespace Amazon.JSII.Tests.Calculator
             set => SetInstanceProperty(value);
         }
 
-        [JsiiProperty("stringProperty", "{\"primitive\":\"string\"}")]
-        public virtual string StringProperty
-        {
-            get => GetInstanceProperty<string>();
-            set => SetInstanceProperty(value);
-        }
-
-        [JsiiProperty("numberProperty", "{\"primitive\":\"number\"}")]
-        public virtual double NumberProperty
-        {
-            get => GetInstanceProperty<double>();
-            set => SetInstanceProperty(value);
-        }
-
         [JsiiProperty("dateProperty", "{\"primitive\":\"date\"}")]
         public virtual DateTime DateProperty
         {
             get => GetInstanceProperty<DateTime>();
+            set => SetInstanceProperty(value);
+        }
+
+        [JsiiProperty("enumProperty", "{\"fqn\":\"jsii-calc.AllTypesEnum\"}")]
+        public virtual AllTypesEnum EnumProperty
+        {
+            get => GetInstanceProperty<AllTypesEnum>();
             set => SetInstanceProperty(value);
         }
 
@@ -67,36 +94,36 @@ namespace Amazon.JSII.Tests.Calculator
             set => SetInstanceProperty(value);
         }
 
-        [JsiiProperty("arrayProperty", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}}}")]
-        public virtual string[] ArrayProperty
+        [JsiiProperty("numberProperty", "{\"primitive\":\"number\"}")]
+        public virtual double NumberProperty
         {
-            get => GetInstanceProperty<string[]>();
+            get => GetInstanceProperty<double>();
             set => SetInstanceProperty(value);
         }
 
-        [JsiiProperty("anyProperty", "{\"primitive\":\"any\"}")]
-        public virtual object AnyProperty
+        [JsiiProperty("stringProperty", "{\"primitive\":\"string\"}")]
+        public virtual string StringProperty
         {
-            get => GetInstanceProperty<object>();
+            get => GetInstanceProperty<string>();
             set => SetInstanceProperty(value);
         }
 
-        [JsiiProperty("anyArrayProperty", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"any\"}}}")]
-        public virtual object[] AnyArrayProperty
+        [JsiiProperty("unionArrayProperty", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"union\":{\"types\":[{\"primitive\":\"number\"},{\"fqn\":\"jsii-calc.composition.CompositeOperation\"}]}}}}")]
+        public virtual object[] UnionArrayProperty
         {
             get => GetInstanceProperty<object[]>();
             set => SetInstanceProperty(value);
         }
 
-        [JsiiProperty("anyMapProperty", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"primitive\":\"any\"}}}")]
-        public virtual IDictionary<string, object> AnyMapProperty
+        [JsiiProperty("unionMapProperty", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"union\":{\"types\":[{\"primitive\":\"string\"},{\"primitive\":\"number\"}]}}}}")]
+        public virtual IDictionary<string, object> UnionMapProperty
         {
             get => GetInstanceProperty<IDictionary<string, object>>();
             set => SetInstanceProperty(value);
         }
 
-        [JsiiProperty("unknownProperty", "{\"primitive\":\"any\"}")]
-        public virtual object UnknownProperty
+        [JsiiProperty("unionProperty", "{\"union\":{\"types\":[{\"primitive\":\"string\"},{\"primitive\":\"number\"},{\"fqn\":\"jsii-calc.Multiply\"}]}}")]
+        public virtual object UnionProperty
         {
             get => GetInstanceProperty<object>();
             set => SetInstanceProperty(value);
@@ -116,24 +143,10 @@ namespace Amazon.JSII.Tests.Calculator
             set => SetInstanceProperty(value);
         }
 
-        [JsiiProperty("unionProperty", "{\"union\":{\"types\":[{\"primitive\":\"string\"},{\"primitive\":\"number\"},{\"fqn\":\"jsii-calc.Multiply\"}]}}")]
-        public virtual object UnionProperty
+        [JsiiProperty("unknownProperty", "{\"primitive\":\"any\"}")]
+        public virtual object UnknownProperty
         {
             get => GetInstanceProperty<object>();
-            set => SetInstanceProperty(value);
-        }
-
-        [JsiiProperty("unionArrayProperty", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"union\":{\"types\":[{\"primitive\":\"number\"},{\"fqn\":\"jsii-calc.composition.CompositeOperation\"}]}}}}")]
-        public virtual object[] UnionArrayProperty
-        {
-            get => GetInstanceProperty<object[]>();
-            set => SetInstanceProperty(value);
-        }
-
-        [JsiiProperty("unionMapProperty", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"union\":{\"types\":[{\"primitive\":\"string\"},{\"primitive\":\"number\"}]}}}}")]
-        public virtual IDictionary<string, object> UnionMapProperty
-        {
-            get => GetInstanceProperty<IDictionary<string, object>>();
             set => SetInstanceProperty(value);
         }
 
@@ -142,19 +155,6 @@ namespace Amazon.JSII.Tests.Calculator
         {
             get => GetInstanceProperty<StringEnum>();
             set => SetInstanceProperty(value);
-        }
-
-        [JsiiProperty("enumProperty", "{\"fqn\":\"jsii-calc.AllTypesEnum\"}")]
-        public virtual AllTypesEnum EnumProperty
-        {
-            get => GetInstanceProperty<AllTypesEnum>();
-            set => SetInstanceProperty(value);
-        }
-
-        [JsiiProperty("enumPropertyValue", "{\"primitive\":\"number\"}")]
-        public virtual double EnumPropertyValue
-        {
-            get => GetInstanceProperty<double>();
         }
 
         [JsiiMethod("enumMethod", "{\"fqn\":\"jsii-calc.StringEnum\"}", "[{\"name\":\"value\",\"type\":{\"fqn\":\"jsii-calc.StringEnum\"}}]")]

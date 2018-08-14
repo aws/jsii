@@ -1,133 +1,129 @@
 package software.amazon.jsii.tests.calculator;
+
+@javax.annotation.Generated(value = "jsii-pacmak")
 public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.base.BaseProps {
     java.time.Instant getGoo();
     void setGoo(final java.time.Instant value);
 
-    // ==================================================================
-    // Builder
-    // ==================================================================
-
+    /**
+     * @return a {@link Builder} of {@link ImplictBaseOfBase}
+     */
     static Builder builder() {
         return new Builder();
     }
+
     /**
-     * A fluent step builder class for {@link ImplictBaseOfBase}.
-     * The {@link Build#build()} method will be available once all required properties are fulfilled.
+     * A builder for {@link ImplictBaseOfBase}
      */
     final class Builder {
-        public BarStep withGoo(final java.time.Instant value) {
-            return new FullBuilder().withGoo(value);
-        }
-
-        public interface BarStep {
-            /**
-             * Sets the value for {@link ImplictBaseOfBase#getBar}.
-             */
-            FooStep withBar(final java.lang.String value);
-        }
-
-        public interface FooStep {
-            /**
-             * Sets the value for {@link ImplictBaseOfBase#getFoo}.
-             */
-            Build withFoo(final software.amazon.jsii.tests.calculator.baseofbase.Very value);
-        }
-
-        public interface Build {
-            /**
-             * @return a new {@link ImplictBaseOfBase} object, initialized with the values set on this builder.
-             */
-            ImplictBaseOfBase build();
-        }
-
-        final class FullBuilder implements BarStep, FooStep, Build {
-
-            private Jsii$Pojo instance = new Jsii$Pojo();
-
-            public BarStep withGoo(final java.time.Instant value) {
-                java.util.Objects.requireNonNull(value, "ImplictBaseOfBase#goo is required");
-                this.instance._goo = value;
-                return this;
-            }
-            public FooStep withBar(final java.lang.String value) {
-                java.util.Objects.requireNonNull(value, "ImplictBaseOfBase#bar is required");
-                this.instance._bar = value;
-                return this;
-            }
-            public Build withFoo(final software.amazon.jsii.tests.calculator.baseofbase.Very value) {
-                java.util.Objects.requireNonNull(value, "ImplictBaseOfBase#foo is required");
-                this.instance._foo = value;
-                return this;
-            }
-            public ImplictBaseOfBase build() {
-                ImplictBaseOfBase result = this.instance;
-                this.instance = new Jsii$Pojo();
-                return result;
-            }
-        }
-    }
-
-    /**
-     * A PoJo (plain-old-java-object) class that implements {@link ImplictBaseOfBase}.
-     */
-    final class Jsii$Pojo implements ImplictBaseOfBase {
+        private java.time.Instant _goo;
+        private java.lang.String _bar;
+        private software.amazon.jsii.tests.calculator.baseofbase.Very _foo;
 
         /**
-         * Constructor used by builders.
+         * Sets the value of Goo
+         * @param value the value to be set
+         * @return {@code this}
          */
-        protected Jsii$Pojo() { }
-
-
-        protected java.time.Instant _goo;
-
-        public java.time.Instant getGoo() {
-            return this._goo;
+        public Builder withGoo(final java.time.Instant value) {
+            this._goo = java.util.Objects.requireNonNull(value, "goo is required");
+            return this;
         }
-        public void setGoo(final java.time.Instant value) {
-            this._goo = value;
+        /**
+         * Sets the value of Bar
+         * @param value the value to be set
+         * @return {@code this}
+         */
+        public Builder withBar(final java.lang.String value) {
+            this._bar = java.util.Objects.requireNonNull(value, "bar is required");
+            return this;
+        }
+        /**
+         * Sets the value of Foo
+         * @param value the value to be set
+         * @return {@code this}
+         */
+        public Builder withFoo(final software.amazon.jsii.tests.calculator.baseofbase.Very value) {
+            this._foo = java.util.Objects.requireNonNull(value, "foo is required");
+            return this;
         }
 
-        protected java.lang.String _bar;
+        /**
+         * Builds the configured instance.
+         * @return a new instance of {@link ImplictBaseOfBase}
+         * @throws NullPointerException if any required attribute was not provided
+         */
+        public ImplictBaseOfBase build() {
+            return new ImplictBaseOfBase() {
+                private java.time.Instant goo = java.util.Objects.requireNonNull(_goo, "goo is required");
+                private java.lang.String bar = java.util.Objects.requireNonNull(_bar, "bar is required");
+                private software.amazon.jsii.tests.calculator.baseofbase.Very foo = java.util.Objects.requireNonNull(_foo, "foo is required");
 
-        public java.lang.String getBar() {
-            return this._bar;
-        }
-        public void setBar(final java.lang.String value) {
-            this._bar = value;
-        }
+                @Override
+                public java.time.Instant getGoo() {
+                    return this.goo;
+                }
 
-        protected software.amazon.jsii.tests.calculator.baseofbase.Very _foo;
+                @Override
+                public void setGoo(final java.time.Instant value) {
+                    this.goo = java.util.Objects.requireNonNull(value, "goo is required");
+                }
 
-        public software.amazon.jsii.tests.calculator.baseofbase.Very getFoo() {
-            return this._foo;
-        }
-        public void setFoo(final software.amazon.jsii.tests.calculator.baseofbase.Very value) {
-            this._foo = value;
+                @Override
+                public java.lang.String getBar() {
+                    return this.bar;
+                }
+
+                @Override
+                public void setBar(final java.lang.String value) {
+                    this.bar = java.util.Objects.requireNonNull(value, "bar is required");
+                }
+
+                @Override
+                public software.amazon.jsii.tests.calculator.baseofbase.Very getFoo() {
+                    return this.foo;
+                }
+
+                @Override
+                public void setFoo(final software.amazon.jsii.tests.calculator.baseofbase.Very value) {
+                    this.foo = java.util.Objects.requireNonNull(value, "foo is required");
+                }
+
+            };
         }
     }
 
     /**
      * A proxy class which for javascript object literal which adhere to this interface.
      */
-    class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.ImplictBaseOfBase {
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.ImplictBaseOfBase {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
             super(mode);
         }
+
+        @Override
         public java.time.Instant getGoo() {
             return this.jsiiGet("goo", java.time.Instant.class);
         }
+        @Override
         public void setGoo(final java.time.Instant value) {
             this.jsiiSet("goo", java.util.Objects.requireNonNull(value, "goo is required"));
         }
+
+        @Override
         public java.lang.String getBar() {
             return this.jsiiGet("bar", java.lang.String.class);
         }
+        @Override
         public void setBar(final java.lang.String value) {
             this.jsiiSet("bar", java.util.Objects.requireNonNull(value, "bar is required"));
         }
+
+        @Override
         public software.amazon.jsii.tests.calculator.baseofbase.Very getFoo() {
             return this.jsiiGet("foo", software.amazon.jsii.tests.calculator.baseofbase.Very.class);
         }
+        @Override
         public void setFoo(final software.amazon.jsii.tests.calculator.baseofbase.Very value) {
             this.jsiiSet("foo", java.util.Objects.requireNonNull(value, "foo is required"));
         }

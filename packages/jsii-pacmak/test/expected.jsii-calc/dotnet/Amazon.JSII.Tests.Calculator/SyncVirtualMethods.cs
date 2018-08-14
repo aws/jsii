@@ -17,6 +17,19 @@ namespace Amazon.JSII.Tests.Calculator
         {
         }
 
+        [JsiiProperty("readonlyProperty", "{\"primitive\":\"string\"}")]
+        public virtual string ReadonlyProperty
+        {
+            get => GetInstanceProperty<string>();
+        }
+
+        [JsiiProperty("a", "{\"primitive\":\"number\"}")]
+        public virtual double A
+        {
+            get => GetInstanceProperty<double>();
+            set => SetInstanceProperty(value);
+        }
+
         [JsiiProperty("callerIsProperty", "{\"primitive\":\"number\"}")]
         public virtual double CallerIsProperty
         {
@@ -24,21 +37,15 @@ namespace Amazon.JSII.Tests.Calculator
             set => SetInstanceProperty(value);
         }
 
-        [JsiiProperty("theProperty", "{\"primitive\":\"string\"}")]
-        public virtual string TheProperty
+        [JsiiProperty("otherProperty", "{\"primitive\":\"string\"}")]
+        public virtual string OtherProperty
         {
             get => GetInstanceProperty<string>();
             set => SetInstanceProperty(value);
         }
 
-        [JsiiProperty("readonlyProperty", "{\"primitive\":\"string\"}")]
-        public virtual string ReadonlyProperty
-        {
-            get => GetInstanceProperty<string>();
-        }
-
-        [JsiiProperty("otherProperty", "{\"primitive\":\"string\"}")]
-        public virtual string OtherProperty
+        [JsiiProperty("theProperty", "{\"primitive\":\"string\"}")]
+        public virtual string TheProperty
         {
             get => GetInstanceProperty<string>();
             set => SetInstanceProperty(value);
@@ -51,11 +58,10 @@ namespace Amazon.JSII.Tests.Calculator
             set => SetInstanceProperty(value);
         }
 
-        [JsiiProperty("a", "{\"primitive\":\"number\"}")]
-        public virtual double A
+        [JsiiMethod("callerIsAsync", "{\"primitive\":\"number\",\"promise\":true}", "[]")]
+        public virtual double CallerIsAsync()
         {
-            get => GetInstanceProperty<double>();
-            set => SetInstanceProperty(value);
+            return InvokeInstanceMethod<double>(new object[]{});
         }
 
         [JsiiMethod("callerIsMethod", "{\"primitive\":\"number\"}", "[]")]
@@ -64,16 +70,10 @@ namespace Amazon.JSII.Tests.Calculator
             return InvokeInstanceMethod<double>(new object[]{});
         }
 
-        [JsiiMethod("callerIsAsync", "{\"primitive\":\"number\",\"promise\":true}", "[]")]
-        public virtual double CallerIsAsync()
+        [JsiiMethod("modifyOtherProperty", null, "[{\"name\":\"value\",\"type\":{\"primitive\":\"string\"}}]")]
+        public virtual void ModifyOtherProperty(string value)
         {
-            return InvokeInstanceMethod<double>(new object[]{});
-        }
-
-        [JsiiMethod("virtualMethod", "{\"primitive\":\"number\"}", "[{\"name\":\"n\",\"type\":{\"primitive\":\"number\"}}]")]
-        public virtual double VirtualMethod(double n)
-        {
-            return InvokeInstanceMethod<double>(new object[]{n});
+            InvokeInstanceVoidMethod(new object[]{value});
         }
 
         [JsiiMethod("modifyValueOfTheProperty", null, "[{\"name\":\"value\",\"type\":{\"primitive\":\"string\"}}]")]
@@ -82,8 +82,14 @@ namespace Amazon.JSII.Tests.Calculator
             InvokeInstanceVoidMethod(new object[]{value});
         }
 
-        [JsiiMethod("retrieveValueOfTheProperty", "{\"primitive\":\"string\"}", "[]")]
-        public virtual string RetrieveValueOfTheProperty()
+        [JsiiMethod("readA", "{\"primitive\":\"number\"}", "[]")]
+        public virtual double ReadA()
+        {
+            return InvokeInstanceMethod<double>(new object[]{});
+        }
+
+        [JsiiMethod("retrieveOtherProperty", "{\"primitive\":\"string\"}", "[]")]
+        public virtual string RetrieveOtherProperty()
         {
             return InvokeInstanceMethod<string>(new object[]{});
         }
@@ -94,22 +100,16 @@ namespace Amazon.JSII.Tests.Calculator
             return InvokeInstanceMethod<string>(new object[]{});
         }
 
-        [JsiiMethod("modifyOtherProperty", null, "[{\"name\":\"value\",\"type\":{\"primitive\":\"string\"}}]")]
-        public virtual void ModifyOtherProperty(string value)
-        {
-            InvokeInstanceVoidMethod(new object[]{value});
-        }
-
-        [JsiiMethod("retrieveOtherProperty", "{\"primitive\":\"string\"}", "[]")]
-        public virtual string RetrieveOtherProperty()
+        [JsiiMethod("retrieveValueOfTheProperty", "{\"primitive\":\"string\"}", "[]")]
+        public virtual string RetrieveValueOfTheProperty()
         {
             return InvokeInstanceMethod<string>(new object[]{});
         }
 
-        [JsiiMethod("readA", "{\"primitive\":\"number\"}", "[]")]
-        public virtual double ReadA()
+        [JsiiMethod("virtualMethod", "{\"primitive\":\"number\"}", "[{\"name\":\"n\",\"type\":{\"primitive\":\"number\"}}]")]
+        public virtual double VirtualMethod(double n)
         {
-            return InvokeInstanceMethod<double>(new object[]{});
+            return InvokeInstanceMethod<double>(new object[]{n});
         }
 
         [JsiiMethod("writeA", null, "[{\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]

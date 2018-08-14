@@ -8,9 +8,8 @@ namespace Amazon.JSII.Tests.Calculator
     /// <summary>A struct which derives from another struct.</summary>
     public class DerivedStruct : DeputyBase, IDerivedStruct
     {
-        /// <summary>An example of a non primitive property.</summary>
-        [JsiiProperty("nonPrimitive", "{\"fqn\":\"jsii-calc.DoubleTrouble\"}", true)]
-        public DoubleTrouble NonPrimitive
+        [JsiiProperty("anotherRequired", "{\"primitive\":\"date\"}", true)]
+        public DateTime AnotherRequired
         {
             get;
             set;
@@ -23,15 +22,9 @@ namespace Amazon.JSII.Tests.Calculator
             set;
         }
 
-        [JsiiProperty("anotherRequired", "{\"primitive\":\"date\"}", true)]
-        public DateTime AnotherRequired
-        {
-            get;
-            set;
-        }
-
-        [JsiiProperty("optionalArray", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"optional\":true}", true)]
-        public string[] OptionalArray
+        /// <summary>An example of a non primitive property.</summary>
+        [JsiiProperty("nonPrimitive", "{\"fqn\":\"jsii-calc.DoubleTrouble\"}", true)]
+        public DoubleTrouble NonPrimitive
         {
             get;
             set;
@@ -45,9 +38,8 @@ namespace Amazon.JSII.Tests.Calculator
             set;
         }
 
-        /// <summary>A string value</summary>
-        [JsiiProperty("astring", "{\"primitive\":\"string\"}", true)]
-        public string Astring
+        [JsiiProperty("optionalArray", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"optional\":true}", true)]
+        public string[] OptionalArray
         {
             get;
             set;
@@ -56,6 +48,14 @@ namespace Amazon.JSII.Tests.Calculator
         /// <summary>An awesome number value</summary>
         [JsiiProperty("anumber", "{\"primitive\":\"number\"}", true)]
         public double Anumber
+        {
+            get;
+            set;
+        }
+
+        /// <summary>A string value</summary>
+        [JsiiProperty("astring", "{\"primitive\":\"string\"}", true)]
+        public string Astring
         {
             get;
             set;

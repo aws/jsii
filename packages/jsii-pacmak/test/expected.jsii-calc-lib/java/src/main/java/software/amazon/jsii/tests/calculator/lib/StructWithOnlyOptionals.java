@@ -1,7 +1,9 @@
 package software.amazon.jsii.tests.calculator.lib;
+
 /**
  * This is a struct with only optional properties.
  */
+@javax.annotation.Generated(value = "jsii-pacmak")
 public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerializable {
     /**
      * The first optional!
@@ -16,91 +18,112 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
     java.lang.Boolean getOptional3();
     void setOptional3(final java.lang.Boolean value);
 
-    // ==================================================================
-    // Builder
-    // ==================================================================
-
+    /**
+     * @return a {@link Builder} of {@link StructWithOnlyOptionals}
+     */
     static Builder builder() {
         return new Builder();
     }
 
     /**
-     * A fluent builder class for {@link StructWithOnlyOptionals}.
+     * A builder for {@link StructWithOnlyOptionals}
      */
-    public static final class Builder {
-        private Jsii$Pojo instance = new Jsii$Pojo();
+    final class Builder {
+        @javax.annotation.Nullable
+        private java.lang.String _optional1;
+        @javax.annotation.Nullable
+        private java.lang.Number _optional2;
+        @javax.annotation.Nullable
+        private java.lang.Boolean _optional3;
 
         /**
-         * The first optional!
+         * Sets the value of Optional1
+         * @param value The first optional!
+         * @return {@code this}
          */
-        public Builder withOptional1(final java.lang.String value) {
-            this.instance._optional1 = value;
-            return this;
-        }
-        public Builder withOptional2(final java.lang.Number value) {
-            this.instance._optional2 = value;
-            return this;
-        }
-        public Builder withOptional3(final java.lang.Boolean value) {
-            this.instance._optional3 = value;
-            return this;
-        }
-        public StructWithOnlyOptionals build() {
-            StructWithOnlyOptionals result = this.instance;
-            this.instance = new Jsii$Pojo();
-            return result;
-        }
-    }
-
-    /**
-     * A PoJo (plain-old-java-object) class that implements {@link StructWithOnlyOptionals}.
-     */
-    final class Jsii$Pojo implements StructWithOnlyOptionals {
-
-        /**
-         * Constructor used by builders.
-         */
-        protected Jsii$Pojo() { }
-
-
-        protected java.lang.String _optional1;
-
-        public java.lang.String getOptional1() {
-            return this._optional1;
-        }
-        public void setOptional1(final java.lang.String value) {
+        public Builder withOptional1(@javax.annotation.Nullable final java.lang.String value) {
             this._optional1 = value;
+            return this;
         }
-
-        protected java.lang.Number _optional2;
-
-        public java.lang.Number getOptional2() {
-            return this._optional2;
-        }
-        public void setOptional2(final java.lang.Number value) {
+        /**
+         * Sets the value of Optional2
+         * @param value the value to be set
+         * @return {@code this}
+         */
+        public Builder withOptional2(@javax.annotation.Nullable final java.lang.Number value) {
             this._optional2 = value;
+            return this;
         }
-
-        protected java.lang.Boolean _optional3;
-
-        public java.lang.Boolean getOptional3() {
-            return this._optional3;
-        }
-        public void setOptional3(final java.lang.Boolean value) {
+        /**
+         * Sets the value of Optional3
+         * @param value the value to be set
+         * @return {@code this}
+         */
+        public Builder withOptional3(@javax.annotation.Nullable final java.lang.Boolean value) {
             this._optional3 = value;
+            return this;
+        }
+
+        /**
+         * Builds the configured instance.
+         * @return a new instance of {@link StructWithOnlyOptionals}
+         * @throws NullPointerException if any required attribute was not provided
+         */
+        public StructWithOnlyOptionals build() {
+            return new StructWithOnlyOptionals() {
+                @javax.annotation.Nullable
+                private java.lang.String optional1 = _optional1;
+                @javax.annotation.Nullable
+                private java.lang.Number optional2 = _optional2;
+                @javax.annotation.Nullable
+                private java.lang.Boolean optional3 = _optional3;
+
+                @Override
+                public java.lang.String getOptional1() {
+                    return this.optional1;
+                }
+
+                @Override
+                public void setOptional1(@javax.annotation.Nullable final java.lang.String value) {
+                    this.optional1 = value;
+                }
+
+                @Override
+                public java.lang.Number getOptional2() {
+                    return this.optional2;
+                }
+
+                @Override
+                public void setOptional2(@javax.annotation.Nullable final java.lang.Number value) {
+                    this.optional2 = value;
+                }
+
+                @Override
+                public java.lang.Boolean getOptional3() {
+                    return this.optional3;
+                }
+
+                @Override
+                public void setOptional3(@javax.annotation.Nullable final java.lang.Boolean value) {
+                    this.optional3 = value;
+                }
+
+            };
         }
     }
 
     /**
      * A proxy class which for javascript object literal which adhere to this interface.
      */
-    class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals {
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
             super(mode);
         }
+
         /**
          * The first optional!
          */
+        @Override
         @javax.annotation.Nullable
         public java.lang.String getOptional1() {
             return this.jsiiGet("optional1", java.lang.String.class);
@@ -108,20 +131,27 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
         /**
          * The first optional!
          */
+        @Override
         public void setOptional1(@javax.annotation.Nullable final java.lang.String value) {
             this.jsiiSet("optional1", value);
         }
+
+        @Override
         @javax.annotation.Nullable
         public java.lang.Number getOptional2() {
             return this.jsiiGet("optional2", java.lang.Number.class);
         }
+        @Override
         public void setOptional2(@javax.annotation.Nullable final java.lang.Number value) {
             this.jsiiSet("optional2", value);
         }
+
+        @Override
         @javax.annotation.Nullable
         public java.lang.Boolean getOptional3() {
             return this.jsiiGet("optional3", java.lang.Boolean.class);
         }
+        @Override
         public void setOptional3(@javax.annotation.Nullable final java.lang.Boolean value) {
             this.jsiiSet("optional3", value);
         }

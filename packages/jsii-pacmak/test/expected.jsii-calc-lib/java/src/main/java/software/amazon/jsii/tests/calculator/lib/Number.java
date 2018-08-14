@@ -1,7 +1,9 @@
 package software.amazon.jsii.tests.calculator.lib;
+
 /**
  * Represents a concrete number.
  */
+@javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.Number")
 public class Number extends software.amazon.jsii.tests.calculator.lib.Value {
     protected Number(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
@@ -16,15 +18,15 @@ public class Number extends software.amazon.jsii.tests.calculator.lib.Value {
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.of(java.util.Objects.requireNonNull(value, "value is required")).toArray());
     }
     /**
-     * The number.
-     */
-    public java.lang.Number getValue() {
-        return this.jsiiGet("value", java.lang.Number.class);
-    }
-    /**
      * The number multiplied by 2.
      */
     public java.lang.Number getDoubleValue() {
         return this.jsiiGet("doubleValue", java.lang.Number.class);
+    }
+    /**
+     * The number.
+     */
+    public java.lang.Number getValue() {
+        return this.jsiiGet("value", java.lang.Number.class);
     }
 }

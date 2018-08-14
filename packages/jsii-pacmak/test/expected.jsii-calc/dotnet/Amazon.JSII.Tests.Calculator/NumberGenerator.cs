@@ -28,16 +28,16 @@ namespace Amazon.JSII.Tests.Calculator
             set => SetInstanceProperty(value);
         }
 
-        [JsiiMethod("nextTimes100", "{\"primitive\":\"number\"}", "[]")]
-        public virtual double NextTimes100()
-        {
-            return InvokeInstanceMethod<double>(new object[]{});
-        }
-
         [JsiiMethod("isSameGenerator", "{\"primitive\":\"boolean\"}", "[{\"name\":\"gen\",\"type\":{\"fqn\":\"jsii-calc.IRandomNumberGenerator\"}}]")]
         public virtual bool IsSameGenerator(IIRandomNumberGenerator gen)
         {
             return InvokeInstanceMethod<bool>(new object[]{gen});
+        }
+
+        [JsiiMethod("nextTimes100", "{\"primitive\":\"number\"}", "[]")]
+        public virtual double NextTimes100()
+        {
+            return InvokeInstanceMethod<double>(new object[]{});
         }
     }
 }

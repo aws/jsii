@@ -131,22 +131,22 @@ public class ComplianceTest {
 
         // json (notice that when deserialized, it is deserialized as a map).
         types.setAnyProperty(new ObjectMapper().readTree("{ \"Goo\": [ \"Hello\", { \"World\": 123 } ] }"));
-        assertEquals(123, ((Map)((List)((Map)types.getAnyProperty()).get("Goo")).get(1)).get("World"));
+        assertEquals(123, ((Map<?, ?>)((List<?>)((Map<?, ?>)types.getAnyProperty()).get("Goo")).get(1)).get("World"));
 
         // array
         types.setAnyProperty(Arrays.asList("Hello", "World"));
-        assertEquals("Hello", ((List)types.getAnyProperty()).get(0));
-        assertEquals("World", ((List)types.getAnyProperty()).get(1));
+        assertEquals("Hello", ((List<?>)types.getAnyProperty()).get(0));
+        assertEquals("World", ((List<?>)types.getAnyProperty()).get(1));
 
         // array of any
         types.setAnyArrayProperty(Arrays.asList("Hybrid", new Number(12), 123, false));
         assertEquals(123, types.getAnyArrayProperty().get(2));
 
         // map
-        Map map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         map.put("MapKey", "MapValue");
         types.setAnyProperty(map);
-        assertEquals("MapValue", ((Map)types.getAnyProperty()).get("MapKey"));
+        assertEquals("MapValue", ((Map<?, ?>)types.getAnyProperty()).get("MapKey"));
 
         // map of any
         map.put("Goo", 19289812);
@@ -184,7 +184,7 @@ public class ComplianceTest {
 
         // array
         types.setUnionArrayProperty(Arrays.asList("Hello", 123, new Number(33)));
-        assertEquals(33, ((Number)((List)types.getUnionArrayProperty()).get(2)).getValue());
+        assertEquals(33, ((Number)((List<?>)types.getUnionArrayProperty()).get(2)).getValue());
     }
 
 
@@ -293,17 +293,15 @@ public class ComplianceTest {
     }
 
     @Test
-    public void unionPropertiesWithFluentBuilder() throws Exception {
+    public void unionPropertiesWithBuilder() throws Exception {
 
         // verify we have a withXxx overload for each union type
-        UnionProperties.Builder firstBuilder = UnionProperties.builder();
-        assertNotNull(firstBuilder.getClass().getMethod("withBar", java.lang.Number.class));
-        assertNotNull(firstBuilder.getClass().getMethod("withBar", String.class));
-        assertNotNull(firstBuilder.getClass().getMethod("withBar", AllTypes.class));
-
-        UnionProperties.Builder.Build lastBuilder = firstBuilder.withBar(1);
-        lastBuilder.getClass().getMethod("withFoo", String.class);
-        lastBuilder.getClass().getMethod("withFoo", java.lang.Number.class);
+        UnionProperties.Builder builder = UnionProperties.builder();
+        assertNotNull(builder.getClass().getMethod("withBar", java.lang.Number.class));
+        assertNotNull(builder.getClass().getMethod("withBar", String.class));
+        assertNotNull(builder.getClass().getMethod("withBar", AllTypes.class));
+        assertNotNull(builder.getClass().getMethod("withFoo", String.class));
+        assertNotNull(builder.getClass().getMethod("withFoo", java.lang.Number.class));
 
         UnionProperties obj1 = UnionProperties.builder()
             .withBar(12)

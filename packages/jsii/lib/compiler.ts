@@ -80,13 +80,52 @@ export async function compilePackage(packageDir: string, includeDirs = [ 'test',
      * Normalizes (aka sorts) and fingerprints the assembly.
      */
     function normalizeAssembly() {
-        const sorted = sortJson(assm);
+        const sorted: spec.Assembly = sortJson(assm);
+        for (const type of Object.values(sorted.types || {})) {
+            if (spec.isClassOrInterfaceType(type)) {
+                type.methods = type.methods && _sortMembers(type.methods);
+                type.properties = type.properties && _sortMembers(type.properties);
+            }
+        }
         // Not accounting for the 'fingerprint' field when fingerprinting.
         delete sorted.fingerprint;
         const fingerprint = crypto.createHash('sha256')
-                                  .update(JSON.stringify(sortJson(sorted), filterEmpty))
+                                  .update(JSON.stringify(sorted, filterEmpty))
                                   .digest('base64');
-        return { fingerprint, ...sorted } as spec.Assembly;
+        return { ...sorted, fingerprint } as spec.Assembly;
+
+        /**
+         * Sort members (aka Methods or Properties) so that:
+         *
+         * - static members are listed before non-static members
+         * - immutable properties are listed before mutable properties
+         * - required properties are listed before optional properties
+         * - members are listed alphanumarically sorted
+         *
+         * @param arr the elements to sort
+         *
+         * @return a sorted copy of ``arr``.
+         */
+        function _sortMembers<T extends ComparableMember>(arr: T[]): T[] {
+            return arr.sort((lval: T, rval: T) => {
+                return _comparable(lval).localeCompare(_comparable(rval));
+            });
+
+            function _comparable(val: T): string {
+                return [
+                    val.static ? '0' : '1',
+                    val.immutable ? '0' : '1',
+                    !(val.type && val.type.optional) ? '0' : '1',
+                    val.name
+                ].join('|');
+            }
+        }
+        type ComparableMember = {
+            name?: string;
+            static?: boolean;
+            immutable?: boolean;
+            type?: { optional?: boolean; };
+        };
     }
 }
 

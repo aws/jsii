@@ -96,14 +96,14 @@ namespace Amazon.JSII.Tests.Calculator
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("double", null, "[]")]
-        public virtual void Double()
+        [JsiiMethod("do", null, "[]")]
+        public virtual void Do()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("do", null, "[]")]
-        public virtual void Do()
+        [JsiiMethod("double", null, "[]")]
+        public virtual void Double()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }

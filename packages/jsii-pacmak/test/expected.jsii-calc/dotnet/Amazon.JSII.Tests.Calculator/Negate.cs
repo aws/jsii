@@ -26,16 +26,9 @@ namespace Amazon.JSII.Tests.Calculator
             get => GetInstanceProperty<double>();
         }
 
-        /// <summary>String representation of the value.</summary>
-        [JsiiMethod("toString", "{\"primitive\":\"string\"}", "[]")]
-        public override string ToString()
-        {
-            return InvokeInstanceMethod<string>(new object[]{});
-        }
-
-        /// <summary>Say hello!</summary>
-        [JsiiMethod("hello", "{\"primitive\":\"string\"}", "[]")]
-        public virtual string Hello()
+        /// <summary>Say farewell.</summary>
+        [JsiiMethod("farewell", "{\"primitive\":\"string\"}", "[]")]
+        public virtual string Farewell()
         {
             return InvokeInstanceMethod<string>(new object[]{});
         }
@@ -47,9 +40,16 @@ namespace Amazon.JSII.Tests.Calculator
             return InvokeInstanceMethod<string>(new object[]{});
         }
 
-        /// <summary>Say farewell.</summary>
-        [JsiiMethod("farewell", "{\"primitive\":\"string\"}", "[]")]
-        public virtual string Farewell()
+        /// <summary>Say hello!</summary>
+        [JsiiMethod("hello", "{\"primitive\":\"string\"}", "[]")]
+        public virtual string Hello()
+        {
+            return InvokeInstanceMethod<string>(new object[]{});
+        }
+
+        /// <summary>String representation of the value.</summary>
+        [JsiiMethod("toString", "{\"primitive\":\"string\"}", "[]")]
+        public override string ToString()
         {
             return InvokeInstanceMethod<string>(new object[]{});
         }

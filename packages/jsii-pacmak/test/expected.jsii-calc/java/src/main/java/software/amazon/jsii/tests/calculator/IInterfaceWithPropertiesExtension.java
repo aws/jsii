@@ -1,127 +1,120 @@
 package software.amazon.jsii.tests.calculator;
+
+@javax.annotation.Generated(value = "jsii-pacmak")
 public interface IInterfaceWithPropertiesExtension extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.IInterfaceWithProperties {
     java.lang.Number getFoo();
     void setFoo(final java.lang.Number value);
 
-    // ==================================================================
-    // Builder
-    // ==================================================================
-
+    /**
+     * @return a {@link Builder} of {@link IInterfaceWithPropertiesExtension}
+     */
     static Builder builder() {
         return new Builder();
     }
+
     /**
-     * A fluent step builder class for {@link IInterfaceWithPropertiesExtension}.
-     * The {@link Build#build()} method will be available once all required properties are fulfilled.
+     * A builder for {@link IInterfaceWithPropertiesExtension}
      */
     final class Builder {
-        public ReadOnlyStringStep withFoo(final java.lang.Number value) {
-            return new FullBuilder().withFoo(value);
-        }
-
-        public interface ReadOnlyStringStep {
-            /**
-             * Sets the value for {@link IInterfaceWithPropertiesExtension#getReadOnlyString}.
-             */
-            ReadWriteStringStep withReadOnlyString(final java.lang.String value);
-        }
-
-        public interface ReadWriteStringStep {
-            /**
-             * Sets the value for {@link IInterfaceWithPropertiesExtension#getReadWriteString}.
-             */
-            Build withReadWriteString(final java.lang.String value);
-        }
-
-        public interface Build {
-            /**
-             * @return a new {@link IInterfaceWithPropertiesExtension} object, initialized with the values set on this builder.
-             */
-            IInterfaceWithPropertiesExtension build();
-        }
-
-        final class FullBuilder implements ReadOnlyStringStep, ReadWriteStringStep, Build {
-
-            private Jsii$Pojo instance = new Jsii$Pojo();
-
-            public ReadOnlyStringStep withFoo(final java.lang.Number value) {
-                java.util.Objects.requireNonNull(value, "IInterfaceWithPropertiesExtension#foo is required");
-                this.instance._foo = value;
-                return this;
-            }
-            public ReadWriteStringStep withReadOnlyString(final java.lang.String value) {
-                java.util.Objects.requireNonNull(value, "IInterfaceWithPropertiesExtension#readOnlyString is required");
-                this.instance._readOnlyString = value;
-                return this;
-            }
-            public Build withReadWriteString(final java.lang.String value) {
-                java.util.Objects.requireNonNull(value, "IInterfaceWithPropertiesExtension#readWriteString is required");
-                this.instance._readWriteString = value;
-                return this;
-            }
-            public IInterfaceWithPropertiesExtension build() {
-                IInterfaceWithPropertiesExtension result = this.instance;
-                this.instance = new Jsii$Pojo();
-                return result;
-            }
-        }
-    }
-
-    /**
-     * A PoJo (plain-old-java-object) class that implements {@link IInterfaceWithPropertiesExtension}.
-     */
-    final class Jsii$Pojo implements IInterfaceWithPropertiesExtension {
+        private java.lang.Number _foo;
+        private java.lang.String _readOnlyString;
+        private java.lang.String _readWriteString;
 
         /**
-         * Constructor used by builders.
+         * Sets the value of Foo
+         * @param value the value to be set
+         * @return {@code this}
          */
-        protected Jsii$Pojo() { }
-
-
-        protected java.lang.Number _foo;
-
-        public java.lang.Number getFoo() {
-            return this._foo;
+        public Builder withFoo(final java.lang.Number value) {
+            this._foo = java.util.Objects.requireNonNull(value, "foo is required");
+            return this;
         }
-        public void setFoo(final java.lang.Number value) {
-            this._foo = value;
+        /**
+         * Sets the value of ReadOnlyString
+         * @param value the value to be set
+         * @return {@code this}
+         */
+        public Builder withReadOnlyString(final java.lang.String value) {
+            this._readOnlyString = java.util.Objects.requireNonNull(value, "readOnlyString is required");
+            return this;
+        }
+        /**
+         * Sets the value of ReadWriteString
+         * @param value the value to be set
+         * @return {@code this}
+         */
+        public Builder withReadWriteString(final java.lang.String value) {
+            this._readWriteString = java.util.Objects.requireNonNull(value, "readWriteString is required");
+            return this;
         }
 
-        protected java.lang.String _readOnlyString;
+        /**
+         * Builds the configured instance.
+         * @return a new instance of {@link IInterfaceWithPropertiesExtension}
+         * @throws NullPointerException if any required attribute was not provided
+         */
+        public IInterfaceWithPropertiesExtension build() {
+            return new IInterfaceWithPropertiesExtension() {
+                private java.lang.Number foo = java.util.Objects.requireNonNull(_foo, "foo is required");
+                private final java.lang.String readOnlyString = java.util.Objects.requireNonNull(_readOnlyString, "readOnlyString is required");
+                private java.lang.String readWriteString = java.util.Objects.requireNonNull(_readWriteString, "readWriteString is required");
 
-        public java.lang.String getReadOnlyString() {
-            return this._readOnlyString;
-        }
+                @Override
+                public java.lang.Number getFoo() {
+                    return this.foo;
+                }
 
-        protected java.lang.String _readWriteString;
+                @Override
+                public void setFoo(final java.lang.Number value) {
+                    this.foo = java.util.Objects.requireNonNull(value, "foo is required");
+                }
 
-        public java.lang.String getReadWriteString() {
-            return this._readWriteString;
-        }
-        public void setReadWriteString(final java.lang.String value) {
-            this._readWriteString = value;
+                @Override
+                public java.lang.String getReadOnlyString() {
+                    return this.readOnlyString;
+                }
+
+                @Override
+                public java.lang.String getReadWriteString() {
+                    return this.readWriteString;
+                }
+
+                @Override
+                public void setReadWriteString(final java.lang.String value) {
+                    this.readWriteString = java.util.Objects.requireNonNull(value, "readWriteString is required");
+                }
+
+            };
         }
     }
 
     /**
      * A proxy class which for javascript object literal which adhere to this interface.
      */
-    class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IInterfaceWithPropertiesExtension {
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IInterfaceWithPropertiesExtension {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
             super(mode);
         }
+
+        @Override
         public java.lang.Number getFoo() {
             return this.jsiiGet("foo", java.lang.Number.class);
         }
+        @Override
         public void setFoo(final java.lang.Number value) {
             this.jsiiSet("foo", java.util.Objects.requireNonNull(value, "foo is required"));
         }
+
+        @Override
         public java.lang.String getReadOnlyString() {
             return this.jsiiGet("readOnlyString", java.lang.String.class);
         }
+
+        @Override
         public java.lang.String getReadWriteString() {
             return this.jsiiGet("readWriteString", java.lang.String.class);
         }
+        @Override
         public void setReadWriteString(final java.lang.String value) {
             this.jsiiSet("readWriteString", java.util.Objects.requireNonNull(value, "readWriteString is required"));
         }
