@@ -768,7 +768,7 @@ defineTest('exceptions include a stack trace into the original source code', asy
         try {
             sandbox.invoke({ objref: obj, method: 'throwError' });
         } catch (error) {
-            const regexp = /^\s*at Thrower\.doThrowError \(.*jsii[-_]calc.*\/lib\/index\.ts:\d+:\d+\)$/m;
+            const regexp = /^\s*at Thrower\.doThrowError \(.*jsii[-_]calc.*\/lib\/compliance\.ts:\d+:\d+\)$/m;
             test.ok(regexp.test(error.stack), 'The stack trace includes the path to the original source file');
             throw error;
         }

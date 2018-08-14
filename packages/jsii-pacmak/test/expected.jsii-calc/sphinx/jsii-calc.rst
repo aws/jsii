@@ -2600,38 +2600,35 @@ CompositeOperation
       The .toString() style.
 
 
-      :type: :py:class:`~jsii-calc.composition.CompositionStringStyle`
+      :type: :py:class:`~jsii-calc.composition.CompositeOperation.CompositionStringStyle`
 
+   .. py:class:: CompositionStringStyle
 
-CompositionStringStyle (enum)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      **Language-specific names:**
 
-.. py:class:: CompositionStringStyle
+      .. tabs::
 
-   **Language-specific names:**
+         .. code-tab:: java
 
-   .. tabs::
+            import software.amazon.jsii.tests.calculator.composition.CompositeOperation.CompositionStringStyle;
 
-      .. code-tab:: java
+         .. code-tab:: javascript
 
-         import software.amazon.jsii.tests.calculator.composition.CompositionStringStyle;
+            const { composition.CompositeOperation.CompositionStringStyle } = require('jsii-calc');
 
-      .. code-tab:: javascript
+         .. code-tab:: typescript
 
-         const { composition.CompositionStringStyle } = require('jsii-calc');
-
-      .. code-tab:: typescript
-
-         import { composition.CompositionStringStyle } from 'jsii-calc';
+            import { composition.CompositeOperation.CompositionStringStyle } from 'jsii-calc';
 
 
 
-   Style of .toString() output for CompositeOperation.
+      Style of .toString() output for CompositeOperation.
 
 
-   .. py:data:: Normal
+      .. py:data:: Normal
 
-   .. py:data:: Decorated
+      .. py:data:: Decorated
+
 
 
 

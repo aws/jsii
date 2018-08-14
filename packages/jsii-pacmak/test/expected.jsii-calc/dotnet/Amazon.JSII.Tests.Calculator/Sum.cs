@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.Calculator
 {
     /// <summary>An operation that sums multiple values.</summary>
     [JsiiClass(typeof(Sum), "jsii-calc.Sum", "[]")]
-    public class Sum : CompositeOperation
+    public class Sum : CompositeOperation_
     {
         public Sum(): base(new DeputyProps(new object[]{}))
         {

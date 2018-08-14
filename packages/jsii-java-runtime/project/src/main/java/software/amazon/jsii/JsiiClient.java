@@ -3,7 +3,6 @@ package software.amazon.jsii;
 import software.amazon.jsii.api.Callback;
 import software.amazon.jsii.api.CreateRequest;
 import software.amazon.jsii.api.JsiiOverride;
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,15 +11,12 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import static software.amazon.jsii.Util.extractResource;
-import static software.amazon.jsii.Util.readString;
 
 /**
  * HTTP client for jsii-server.
@@ -308,51 +304,5 @@ public final class JsiiClient {
         ObjectNode req = makeRequest(api);
         req.set("objref", objRef.toJson());
         return req;
-    }
-
-    /**
-     * Reads an HTTP response and parses it as JSON.
-     * @param conn The connection.
-     * @return The response.
-     * @throws IOException If there was a problem.
-     */
-    private static JsonNode readJsonResponse(final HttpURLConnection conn) throws IOException {
-        String responseText = "";
-        try {
-            responseText = readString(conn.getInputStream());
-            if (responseText.isEmpty()) {
-                return null;
-            }
-            return STD_OM.readTree(responseText);
-        } catch (JsonParseException e2) {
-            throw new JsiiException("Unexpected response: \n" + responseText);
-        } catch (IOException e) {
-            responseText = readString(conn.getErrorStream());
-
-            JsonNode error = STD_OM.readTree(responseText);
-            if (error.has("error")) {
-                responseText = error.get("error").textValue();
-            }
-
-            if (responseText == null || responseText.isEmpty()) {
-                responseText = e.getMessage();
-            }
-
-            throw new JsiiException(responseText);
-        }
-    }
-
-    /**
-     * Writes a JSON body to an HTTP request.
-     * @param conn The request.
-     * @param json The body.
-     * @throws IOException If there was an error.
-     */
-    private static void writeJsonRequest(final HttpURLConnection conn, final JsonNode json) throws IOException {
-        conn.setDoOutput(true);
-        conn.setRequestProperty("Content-Type", "application/json");
-        try (OutputStream request = conn.getOutputStream()) {
-            request.write(json.toString().getBytes("UTF-8"));
-        }
     }
 }

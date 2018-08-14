@@ -7,7 +7,7 @@ namespace Amazon.JSII.Tests.Calculator
 {
     /// <summary>A calculator which maintains a current value and allows adding operations.</summary>
     [JsiiClass(typeof(Calculator_), "jsii-calc.Calculator", "[{\"name\":\"props\",\"type\":{\"fqn\":\"jsii-calc.CalculatorProps\",\"optional\":true}}]")]
-    public class Calculator_ : CompositeOperation
+    public class Calculator_ : CompositeOperation_
     {
         public Calculator_(ICalculatorProps props): base(new DeputyProps(new object[]{props}))
         {

@@ -1,9 +1,9 @@
 using Amazon.JSII.Runtime.Deputy;
 
-namespace Amazon.JSII.Tests.Calculator.composition
+namespace Amazon.JSII.Tests.Calculator.composition.CompositeOperation
 {
     /// <summary>Style of .toString() output for CompositeOperation.</summary>
-    [JsiiEnum(typeof(CompositionStringStyle), "jsii-calc.composition.CompositionStringStyle")]
+    [JsiiEnum(typeof(CompositionStringStyle), "jsii-calc.composition.CompositeOperation.CompositionStringStyle")]
     public enum CompositionStringStyle
     {
         [JsiiEnumMember("Normal")]

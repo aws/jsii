@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.Calculator
 {
     /// <summary>The power operation.</summary>
     [JsiiClass(typeof(Power), "jsii-calc.Power", "[{\"name\":\"base\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},{\"name\":\"pow\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
-    public class Power : CompositeOperation
+    public class Power : CompositeOperation_
     {
         public Power(Value_ @base, Value_ pow): base(new DeputyProps(new object[]{@base, pow}))
         {
