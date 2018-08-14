@@ -1,7 +1,9 @@
 package software.amazon.jsii.tests.calculator;
+
 /**
  * A calculator which maintains a current value and allows adding operations.
  */
+@javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.Calculator")
 public class Calculator extends software.amazon.jsii.tests.calculator.composition.CompositeOperation {
     protected Calculator(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
@@ -35,22 +37,40 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
         this.jsiiCall("mul", Void.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(value, "value is required")).toArray());
     }
     /**
-     * Raises the current value by a power.
-     */
-    public void pow(final java.lang.Number value) {
-        this.jsiiCall("pow", Void.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(value, "value is required")).toArray());
-    }
-    /**
      * Negates the current value.
      */
     public void neg() {
         this.jsiiCall("neg", Void.class);
     }
     /**
+     * Raises the current value by a power.
+     */
+    public void pow(final java.lang.Number value) {
+        this.jsiiCall("pow", Void.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(value, "value is required")).toArray());
+    }
+    /**
      * Returns teh value of the union property (if defined).
      */
     public java.lang.Number readUnionValue() {
         return this.jsiiCall("readUnionValue", java.lang.Number.class);
+    }
+    /**
+     * Returns the expression.
+     */
+    public software.amazon.jsii.tests.calculator.lib.Value getExpression() {
+        return this.jsiiGet("expression", software.amazon.jsii.tests.calculator.lib.Value.class);
+    }
+    /**
+     * A log of all operations.
+     */
+    public java.util.List<software.amazon.jsii.tests.calculator.lib.Value> getOperationsLog() {
+        return this.jsiiGet("operationsLog", java.util.List.class);
+    }
+    /**
+     * A map of per operation name of all operations performed.
+     */
+    public java.util.Map<java.lang.String, java.util.List<software.amazon.jsii.tests.calculator.lib.Value>> getOperationsMap() {
+        return this.jsiiGet("operationsMap", java.util.Map.class);
     }
     /**
      * The current value.
@@ -65,18 +85,6 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
         this.jsiiSet("curr", java.util.Objects.requireNonNull(value, "curr is required"));
     }
     /**
-     * A map of per operation name of all operations performed.
-     */
-    public java.util.Map<java.lang.String, java.util.List<software.amazon.jsii.tests.calculator.lib.Value>> getOperationsMap() {
-        return this.jsiiGet("operationsMap", java.util.Map.class);
-    }
-    /**
-     * A log of all operations.
-     */
-    public java.util.List<software.amazon.jsii.tests.calculator.lib.Value> getOperationsLog() {
-        return this.jsiiGet("operationsLog", java.util.List.class);
-    }
-    /**
      * The maximum value allows in this calculator.
      */
     @javax.annotation.Nullable
@@ -88,12 +96,6 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      */
     public void setMaxValue(@javax.annotation.Nullable final java.lang.Number value) {
         this.jsiiSet("maxValue", value);
-    }
-    /**
-     * Returns the expression.
-     */
-    public software.amazon.jsii.tests.calculator.lib.Value getExpression() {
-        return this.jsiiGet("expression", software.amazon.jsii.tests.calculator.lib.Value.class);
     }
     /**
      * Example of a property that accepts a union of types.

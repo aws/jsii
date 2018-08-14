@@ -1,101 +1,91 @@
 package software.amazon.jsii.tests.calculator;
+
+@javax.annotation.Generated(value = "jsii-pacmak")
 public interface IInterfaceWithProperties extends software.amazon.jsii.JsiiSerializable {
     java.lang.String getReadOnlyString();
     java.lang.String getReadWriteString();
     void setReadWriteString(final java.lang.String value);
 
-    // ==================================================================
-    // Builder
-    // ==================================================================
-
+    /**
+     * @return a {@link Builder} of {@link IInterfaceWithProperties}
+     */
     static Builder builder() {
         return new Builder();
     }
+
     /**
-     * A fluent step builder class for {@link IInterfaceWithProperties}.
-     * The {@link Build#build()} method will be available once all required properties are fulfilled.
+     * A builder for {@link IInterfaceWithProperties}
      */
     final class Builder {
-        public ReadWriteStringStep withReadOnlyString(final java.lang.String value) {
-            return new FullBuilder().withReadOnlyString(value);
-        }
-
-        public interface ReadWriteStringStep {
-            /**
-             * Sets the value for {@link IInterfaceWithProperties#getReadWriteString}.
-             */
-            Build withReadWriteString(final java.lang.String value);
-        }
-
-        public interface Build {
-            /**
-             * @return a new {@link IInterfaceWithProperties} object, initialized with the values set on this builder.
-             */
-            IInterfaceWithProperties build();
-        }
-
-        final class FullBuilder implements ReadWriteStringStep, Build {
-
-            private Jsii$Pojo instance = new Jsii$Pojo();
-
-            public ReadWriteStringStep withReadOnlyString(final java.lang.String value) {
-                java.util.Objects.requireNonNull(value, "IInterfaceWithProperties#readOnlyString is required");
-                this.instance._readOnlyString = value;
-                return this;
-            }
-            public Build withReadWriteString(final java.lang.String value) {
-                java.util.Objects.requireNonNull(value, "IInterfaceWithProperties#readWriteString is required");
-                this.instance._readWriteString = value;
-                return this;
-            }
-            public IInterfaceWithProperties build() {
-                IInterfaceWithProperties result = this.instance;
-                this.instance = new Jsii$Pojo();
-                return result;
-            }
-        }
-    }
-
-    /**
-     * A PoJo (plain-old-java-object) class that implements {@link IInterfaceWithProperties}.
-     */
-    final class Jsii$Pojo implements IInterfaceWithProperties {
+        private java.lang.String _readOnlyString;
+        private java.lang.String _readWriteString;
 
         /**
-         * Constructor used by builders.
+         * Sets the value of ReadOnlyString
+         * @param value the value to be set
+         * @return {@code this}
          */
-        protected Jsii$Pojo() { }
-
-
-        protected java.lang.String _readOnlyString;
-
-        public java.lang.String getReadOnlyString() {
-            return this._readOnlyString;
+        public Builder withReadOnlyString(final java.lang.String value) {
+            this._readOnlyString = java.util.Objects.requireNonNull(value, "readOnlyString is required");
+            return this;
+        }
+        /**
+         * Sets the value of ReadWriteString
+         * @param value the value to be set
+         * @return {@code this}
+         */
+        public Builder withReadWriteString(final java.lang.String value) {
+            this._readWriteString = java.util.Objects.requireNonNull(value, "readWriteString is required");
+            return this;
         }
 
-        protected java.lang.String _readWriteString;
+        /**
+         * Builds the configured instance.
+         * @return a new instance of {@link IInterfaceWithProperties}
+         * @throws NullPointerException if any required attribute was not provided
+         */
+        public IInterfaceWithProperties build() {
+            return new IInterfaceWithProperties() {
+                private final java.lang.String readOnlyString = java.util.Objects.requireNonNull(_readOnlyString, "readOnlyString is required");
+                private java.lang.String readWriteString = java.util.Objects.requireNonNull(_readWriteString, "readWriteString is required");
 
-        public java.lang.String getReadWriteString() {
-            return this._readWriteString;
-        }
-        public void setReadWriteString(final java.lang.String value) {
-            this._readWriteString = value;
+                @Override
+                public java.lang.String getReadOnlyString() {
+                    return this.readOnlyString;
+                }
+
+                @Override
+                public java.lang.String getReadWriteString() {
+                    return this.readWriteString;
+                }
+
+                @Override
+                public void setReadWriteString(final java.lang.String value) {
+                    this.readWriteString = java.util.Objects.requireNonNull(value, "readWriteString is required");
+                }
+
+            };
         }
     }
 
     /**
      * A proxy class which for javascript object literal which adhere to this interface.
      */
-    class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IInterfaceWithProperties {
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IInterfaceWithProperties {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
             super(mode);
         }
+
+        @Override
         public java.lang.String getReadOnlyString() {
             return this.jsiiGet("readOnlyString", java.lang.String.class);
         }
+
+        @Override
         public java.lang.String getReadWriteString() {
             return this.jsiiGet("readWriteString", java.lang.String.class);
         }
+        @Override
         public void setReadWriteString(final java.lang.String value) {
             this.jsiiSet("readWriteString", java.util.Objects.requireNonNull(value, "readWriteString is required"));
         }

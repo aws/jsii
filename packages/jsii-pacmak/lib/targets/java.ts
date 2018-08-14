@@ -135,11 +135,12 @@ export default class Java extends Target {
 
 const MODULE_CLASS_NAME = '$Module';
 const INTERFACE_PROXY_CLASS_NAME = 'Jsii$Proxy';
-const INTERFACE_POJO_CLASS_NAME = 'Jsii$Pojo';
 
 const JSR305_NULLABLE = '@javax.annotation.Nullable';
 
 class JavaGenerator extends Generator {
+    /** If false, @Generated will not include generator version nor timestamp */
+    private emitFullGeneratorInfo?: boolean;
     private moduleClass: string;
 
     /**
@@ -154,12 +155,14 @@ class JavaGenerator extends Generator {
         super({ generateOverloadsForMethodWithOptionals: true });
     }
 
-    protected onBeginAssembly(assm: spec.Assembly, _fingerprint: boolean) {
+    protected onBeginAssembly(assm: spec.Assembly, fingerprint: boolean) {
+        this.emitFullGeneratorInfo = fingerprint;
         this.moduleClass = this.emitModuleFile(assm);
     }
 
     protected onEndAssembly(assm: spec.Assembly, fingerprint: boolean) {
         this.emitMavenPom(assm, fingerprint);
+        delete this.emitFullGeneratorInfo;
     }
 
     protected getAssemblyOutputDir(mod: spec.Assembly) {
@@ -182,6 +185,7 @@ class JavaGenerator extends Generator {
         const inner = cls.parenttype ? ' static' : '';
         const absPrefix = abstract ? ' abstract' : '';
 
+        if (!cls.parenttype) { this.emitGeneratedAnnotation(); }
         this.code.line(`@software.amazon.jsii.Jsii(module = ${this.moduleClass}.class, fqn = "${cls.fqn}")`);
         this.code.openBlock(`public${inner}${absPrefix} class ${cls.name}${extendsExpression}${implementsExpr}`);
 
@@ -251,6 +255,7 @@ class JavaGenerator extends Generator {
     protected onBeginEnum(enm: spec.EnumType) {
         this.openFileIfNeeded(enm);
         this.addJavaDocs(enm);
+        if (!enm.parenttype) { this.emitGeneratedAnnotation(); }
         this.code.line(`@software.amazon.jsii.Jsii(module = ${this.moduleClass}.class, fqn = "${enm.fqn}")`);
         this.code.openBlock(`public enum ${enm.name}`);
     }
@@ -283,6 +288,7 @@ class JavaGenerator extends Generator {
         const bases = [ 'software.amazon.jsii.JsiiSerializable', ...interfaces.map(x => this.toNativeFqn(x.fqn!)) ].join(', ');
 
         const inner = ifc.parenttype ? ' static' : '';
+        if (!ifc.parenttype) { this.emitGeneratedAnnotation(); }
         this.code.openBlock(`public${inner} interface ${ifc.name} extends ${bases}`);
     }
 
@@ -449,12 +455,12 @@ class JavaGenerator extends Generator {
                 version: VERSION
             });
 
-            // Provides @javax.annotation.Nullable (among other stuff)
+            // Provides @javax.annotation.*
             dependencies.push({
-                groupId: 'com.google.code.findbugs',
-                artifactId: 'jsr305',
-                version: '[3.0.2,)',
-                scope: 'compile'
+                groupId: 'javax.annotation',
+                artifactId: 'javax.annotation-api',
+                version: '[1.3.2,)',
+                scope: 'provided'
             });
             return dependencies;
         }
@@ -525,7 +531,7 @@ class JavaGenerator extends Generator {
         this.code.line(`${access} final static ${propType} ${propName};`);
     }
 
-    private emitProperty(cls: spec.Type, prop: spec.Property, includeGetter = true) {
+    private emitProperty(cls: spec.Type, prop: spec.Property, includeGetter = true, overrides = false) {
         const getterType = this.toJavaType(prop.type);
         const setterTypes = this.toJavaTypes(prop.type);
         const propClass = this.toJavaType(prop.type, true);
@@ -537,6 +543,7 @@ class JavaGenerator extends Generator {
         // for unions we only generate overloads for setters, not getters.
         if (includeGetter) {
             this.addJavaDocs(prop);
+            if (overrides) { this.code.line('@Override'); }
             if (prop.type.optional) { this.code.line(JSR305_NULLABLE); }
             this.code.openBlock(`${access} ${statc}${getterType} get${propName}()`);
 
@@ -556,6 +563,7 @@ class JavaGenerator extends Generator {
         if (!prop.immutable) {
             for (const type of setterTypes) {
                 this.addJavaDocs(prop);
+                if (overrides) { this.code.line('@Override'); }
                 const nullable = prop.type.optional ? `${JSR305_NULLABLE} ` : '';
                 this.code.openBlock(`${access} ${statc}void set${propName}(${nullable}final ${type} value)`);
                 let statement = '';
@@ -573,7 +581,7 @@ class JavaGenerator extends Generator {
         }
     }
 
-    private emitMethod(cls: spec.Type, method: spec.Method) {
+    private emitMethod(cls: spec.Type, method: spec.Method, overrides = false) {
         const returnType = method.returns ? this.toJavaType(method.returns) : 'void';
         const statc = method.static ? 'static ' : '';
         const access = this.renderAccessLevel(method);
@@ -581,6 +589,7 @@ class JavaGenerator extends Generator {
         const methodName = slugify(method.name);
         const signature = `${returnType} ${methodName}(${this.renderMethodParameters(method)})`;
         this.addJavaDocs(method);
+        if (overrides) { this.code.line('@Override'); }
         if (method.returns && method.returns.optional) { this.code.line(JSR305_NULLABLE); }
         if (method.abstract) {
             this.code.line(`${access} abstract ${signature};`);
@@ -604,7 +613,7 @@ class JavaGenerator extends Generator {
         this.code.line('/**');
         this.code.line(' * A proxy class which for javascript object literal which adhere to this interface.');
         this.code.line(' */');
-        this.code.openBlock(`class ${name} extends software.amazon.jsii.JsiiObject implements ${this.toNativeFqn(ifc.fqn)}`);
+        this.code.openBlock(`final class ${name} extends software.amazon.jsii.JsiiObject implements ${this.toNativeFqn(ifc.fqn)}`);
         this.emitJsiiInitializers(name);
 
         // compile a list of all unique methods from the current interface and all
@@ -631,13 +640,15 @@ class JavaGenerator extends Generator {
         // emit all properties
         for (const propName of Object.keys(properties)) {
             const prop = properties[propName];
-            this.emitProperty(ifc, prop);
+            this.code.line();
+            this.emitProperty(ifc, prop, /* includeGetter: */ undefined, /* overrides: */ true);
         }
 
         // emit all the methods
         for (const methodName of Object.keys(methods)) {
             const method = methods[methodName];
-            this.emitMethod(ifc, method);
+            this.code.line();
+            this.emitMethod(ifc, method, /* overrides: */ true);
         }
 
         this.code.closeBlock();
@@ -646,14 +657,11 @@ class JavaGenerator extends Generator {
     private emitInterfaceBuilder(ifc: spec.InterfaceType) {
         const interfaceName = ifc.name;
         const builderName = 'Builder';
-        const pojoName = INTERFACE_POJO_CLASS_NAME;
 
         this.code.line();
-        this.code.line('// ==================================================================');
-        this.code.line('// Builder');
-        this.code.line('// ==================================================================');
-        this.code.line();
-
+        this.code.line('/**');
+        this.code.line(` * @return a {@link Builder} of {@link ${interfaceName}}`);
+        this.code.line(' */');
         this.code.openBlock(`static ${builderName} builder()`);
         this.code.line(`return new ${builderName}();`);
         this.code.closeBlock();
@@ -666,15 +674,11 @@ class JavaGenerator extends Generator {
             fieldJavaType: string
             javaTypes: string[]
             optional?: boolean
-            stepInterfaceName: string
-            nextStepInterfaceName?: string
             inherited: boolean
             immutable: boolean
         }
 
         const props = new Array<Prop>();
-        const requiredProps = new Array<Prop>();
-        const optionalProps = new Array<Prop>();
 
         // collect all properties from all base structs
         const self = this;
@@ -688,22 +692,14 @@ class JavaGenerator extends Generator {
                     docs: property.docs,
                     spec: property,
                     propName, optional,
-                    fieldName: '_' + self.code.toCamelCase(property.name),
+                    fieldName: self.code.toCamelCase(property.name),
                     fieldJavaType: self.toJavaType(property.type),
                     javaTypes: self.toJavaTypes(property.type),
                     immutable: property.immutable || false,
-                    stepInterfaceName: optional ? 'Build' : `${propName}Step`,
-                    nextStepInterfaceName: optional ? 'Build' : undefined, /* will be determined later */
                     inherited: isBaseClass,
                 };
 
                 props.push(prop);
-
-                if (prop.optional) {
-                    optionalProps.push(prop);
-                } else {
-                    requiredProps.push(prop);
-                }
             }
 
             // add props of base struct
@@ -714,158 +710,76 @@ class JavaGenerator extends Generator {
 
         collectProps(ifc);
 
-        // determine `nextStepInterfaceName` for each property.
-        requiredProps.forEach((p, i) => {
-            const nextRequired = requiredProps[i + 1];
-            const nextStep = nextRequired ? nextRequired.stepInterfaceName : 'Build';
-            p.nextStepInterfaceName = nextStep;
-        });
+        this.code.line();
+        this.code.line('/**');
+        this.code.line(` * A builder for {@link ${interfaceName}}`);
+        this.code.line(' */');
+        this.code.openBlock(`final class ${builderName}`);
 
-        // if there are non required props at all, we just use the builder
-        if (requiredProps.length === 0) {
-            props.forEach(p => p.nextStepInterfaceName = builderName);
+        for (const prop of props) {
+            if (prop.optional) {
+                this.code.line(JSR305_NULLABLE);
+            }
+            this.code.line(`private ${prop.fieldJavaType} _${prop.fieldName};`);
         }
-
-        const emitWithImplementation = (prop: Prop, isFirstProp = false) => {
+        this.code.line();
+        for (const prop of props) {
             for (const type of prop.javaTypes) {
-                this.addJavaDocs(prop);
-                this.code.openBlock(`public ${prop.nextStepInterfaceName} with${prop.propName}(final ${type} value)`);
-
-                if (isFirstProp) {
-                    this.code.line(`return new FullBuilder().with${prop.propName}(value);`);
+                this.code.line('/**');
+                this.code.line(` * Sets the value of ${prop.propName}`);
+                if (prop.docs && prop.docs.comment) {
+                    this.code.line(` * @param value ${prop.docs.comment}`);
                 } else {
-                    if (!prop.optional) {
-                        const propPath = `${interfaceName}#${this.code.toCamelCase(prop.propName)}`;
-                        this.code.line(`java.util.Objects.requireNonNull(value, "${propPath} is required");`);
-                    }
-                    this.code.line(`this.instance.${prop.fieldName} = value;`);
-                    this.code.line('return this;');
+                    this.code.line(` * @param value the value to be set`);
                 }
-
+                this.code.line(` * @return {@code this}`);
+                this.code.line(' */');
+                this.code.openBlock(`public ${builderName} with${prop.propName}(${prop.optional ? `${JSR305_NULLABLE} ` : ''}final ${type} value)`);
+                this.code.line(`this._${prop.fieldName} = ${_validateIfNonOptional('value', prop)};`);
+                this.code.line('return this;');
                 this.code.closeBlock();
-            }
-        };
-
-        // If there are no required props, Builder /is/ the FullBuilder. Otherwise, Builder will
-        // reflect the first required prop and proxy to FullBuilder.
-        if (requiredProps.length > 0) {
-            this.code.line('/**');
-            this.code.line(` * A fluent step builder class for {@link ${interfaceName}}.`);
-            this.code.line(' * The {@link Build#build()} method will be available once all required properties are fulfilled.');
-            this.code.line(' */');
-            this.code.openBlock(`final class ${builderName}`);
-
-            const firstProp = requiredProps.shift()!;
-            emitWithImplementation(firstProp, true);
-
-            const emitWithInterfaceMethod = (prop: Prop) => {
-                for (const type of prop.javaTypes) {
-                    this.addJavaDocs(prop.spec, `Sets the value for {@link ${interfaceName}#get${prop.propName}}.`);
-                    this.code.line(`${prop.nextStepInterfaceName} with${prop.propName}(final ${type} value);`);
-                }
-            };
-
-            // generate step interfaces
-            for (const rp of requiredProps) {
-                this.code.line();
-                this.code.openBlock(`public interface ${rp.stepInterfaceName}`);
-                emitWithInterfaceMethod(rp);
-                this.code.closeBlock();
-            }
-
-            // generate 'Build' interface
-            this.code.line();
-            this.code.openBlock(`public interface Build`);
-            this.code.line(`/**`);
-            this.code.line(` * @return a new {@link ${interfaceName}} object, initialized with the values set on this builder.`);
-            this.code.line(` */`);
-            this.code.line(`${interfaceName} build();`);
-            for (const opt of optionalProps) {
-                emitWithInterfaceMethod(opt);
-            }
-            this.code.closeBlock();
-
-            // generate the FullBuilder
-            this.code.line();
-            const stepInterfaces = requiredProps.map(p => p.stepInterfaceName).concat([ 'Build' ]);
-            this.code.openBlock(`final class FullBuilder implements ${stepInterfaces.join(', ')}`);
-
-            this.code.line();
-            this.code.line(`private ${pojoName} instance = new ${pojoName}();`);
-            this.code.line();
-
-            for (const prop of props) {
-                emitWithImplementation(prop);
-            }
-
-            this.code.openBlock(`public ${interfaceName} build()`);
-            this.code.line(`${interfaceName} result = this.instance;`);
-            this.code.line(`this.instance = new ${pojoName}();`);
-            this.code.line(`return result;`);
-            this.code.closeBlock();
-
-            this.code.closeBlock(); // FullBuilder
-
-            this.code.closeBlock(); // Builder
-        } else {
-            this.code.line();
-            this.code.line('/**');
-            this.code.line(` * A fluent builder class for {@link ${interfaceName}}.`);
-            this.code.line(' */');
-            this.code.openBlock(`public static final class ${builderName}`);
-
-            this.code.line(`private ${pojoName} instance = new ${pojoName}();`);
-            this.code.line();
-
-            for (const prop of props) {
-                emitWithImplementation(prop);
-            }
-
-            this.code.openBlock(`public ${interfaceName} build()`);
-            this.code.line(`${interfaceName} result = this.instance;`);
-            this.code.line(`this.instance = new ${pojoName}();`);
-            this.code.line(`return result;`);
-            this.code.closeBlock();
-
-            this.code.closeBlock(); // FullBuilder
-
-            if (requiredProps.length > 0) {
-                this.code.closeBlock(); // Builder
             }
         }
-
         this.code.line();
         this.code.line('/**');
-        this.code.line(` * A PoJo (plain-old-java-object) class that implements {@link ${interfaceName}}.`);
+        this.code.line(' * Builds the configured instance.');
+        this.code.line(` * @return a new instance of {@link ${interfaceName}}`);
+        this.code.line(' * @throws NullPointerException if any required attribute was not provided');
         this.code.line(' */');
-        this.code.openBlock(`final class ${pojoName} implements ${interfaceName}`);
-
-        this.code.line();
-        this.code.line('/**');
-        this.code.line(' * Constructor used by builders.');
-        this.code.line(' */');
-        this.code.line(`protected ${pojoName}() { }`);
-        this.code.line();
-
-        props.forEach(p => {
+        this.code.openBlock(`public ${interfaceName} build()`);
+        this.code.openBlock(`return new ${interfaceName}()`);
+        for (const prop of props) {
+            if (prop.optional) { this.code.line(JSR305_NULLABLE); }
+            // tslint:disable-next-line:max-line-length
+            this.code.line(`private${prop.immutable ? ' final' : ''} ${prop.fieldJavaType} ${prop.fieldName} = ${_validateIfNonOptional(`_${prop.fieldName}`, prop)};`);
+        }
+        for (const prop of props) {
             this.code.line();
-            this.code.line(`protected ${p.fieldJavaType} ${p.fieldName};`);
-            this.code.line();
-
-            this.code.openBlock(`public ${p.fieldJavaType} get${p.propName}()`);
-            this.code.line(`return this.${p.fieldName};`);
+            this.code.line('@Override');
+            this.code.openBlock(`public ${prop.fieldJavaType} get${prop.propName}()`);
+            this.code.line(`return this.${prop.fieldName};`);
             this.code.closeBlock();
-
-            if (!p.immutable) {
-                for (const type of p.javaTypes) {
-                    this.code.openBlock(`public void set${p.propName}(final ${type} value)`);
-                    this.code.line(`this.${p.fieldName} = value;`);
+            if (!prop.immutable) {
+                for (const type of prop.javaTypes) {
+                    this.code.line();
+                    this.code.line('@Override');
+                    this.code.openBlock(`public void set${prop.propName}(${prop.optional ? `${JSR305_NULLABLE} ` : ''}final ${type} value)`);
+                    this.code.line(`this.${prop.fieldName} = ${_validateIfNonOptional('value', prop)};`);
                     this.code.closeBlock();
                 }
             }
-        });
+        }
+        this.code.unindent();
+        this.code.line(`};`); /* return new Foo() */
 
-        this.code.closeBlock();
+        this.code.closeBlock(/* public Foo build() */);
+
+        this.code.closeBlock(/* final class Builder */);
+
+        function _validateIfNonOptional(variable: string, prop: Prop): string {
+            if (prop.optional) { return variable; }
+            return `java.util.Objects.requireNonNull(${variable}, "${prop.fieldName} is required")`;
+        }
     }
 
     private openFileIfNeeded(type: spec.Type) {
@@ -876,6 +790,7 @@ class JavaGenerator extends Generator {
         this.code.openFile(this.toJavaFilePath(type.fqn));
         if (type.namespace) {
             this.code.line(`package ${this.toNativeFqn(type.namespace)};`);
+            this.code.line();
         }
     }
 
@@ -1135,6 +1050,19 @@ class JavaGenerator extends Generator {
         }
 
         return [javaPackage, ...name].join('.');
+    }
+
+    /**
+     * Emits an ``@Generated`` annotation honoring the ``this.emitFullGeneratorInfo`` setting.
+     */
+    private emitGeneratedAnnotation() {
+        const date = this.emitFullGeneratorInfo
+                   ? `, date = "${new Date().toISOString()}"`
+                   : '';
+        const generator = this.emitFullGeneratorInfo
+                        ? `jsii-pacmak/${VERSION_DESC}`
+                        : 'jsii-pacmak';
+        this.code.line(`@javax.annotation.Generated(value = "${generator}"${date})`);
     }
 }
 

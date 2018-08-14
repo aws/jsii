@@ -95,20 +95,37 @@ export async function compilePackage(packageDir: string, includeDirs = [ 'test',
         return { ...sorted, fingerprint } as spec.Assembly;
 
         /**
-         * Sort members (aka Methods or Properties) so static members are listed before non-static members, and members
-         * of each group are listed in alphanumerical order.
+         * Sort members (aka Methods or Properties) so that:
+         *
+         * - static members are listed before non-static members
+         * - immutable properties are listed before mutable properties
+         * - required properties are listed before optional properties
+         * - members are listed alphanumarically sorted
          *
          * @param arr the elements to sort
          *
          * @return a sorted copy of ``arr``.
          */
-        function _sortMembers<T extends { name?: string, static?: boolean }>(arr: T[]): T[] {
+        function _sortMembers<T extends ComparableMember>(arr: T[]): T[] {
             return arr.sort((lval: T, rval: T) => {
-                const lstr = `${lval.static ? '0' : '1'}|${lval.name}`;
-                const rstr = `${rval.static ? '0' : '1'}|${rval.name}`;
-                return lstr.localeCompare(rstr);
+                return _comparable(lval).localeCompare(_comparable(rval));
             });
+
+            function _comparable(val: T): string {
+                return [
+                    val.static ? '0' : '1',
+                    val.immutable ? '0' : '1',
+                    !(val.type && val.type.optional) ? '0' : '1',
+                    val.name
+                ].join('|');
+            }
         }
+        type ComparableMember = {
+            name?: string;
+            static?: boolean;
+            immutable?: boolean;
+            type?: { optional?: boolean; };
+        };
     }
 }
 

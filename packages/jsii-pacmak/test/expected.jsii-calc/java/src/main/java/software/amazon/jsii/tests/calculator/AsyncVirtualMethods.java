@@ -1,4 +1,6 @@
 package software.amazon.jsii.tests.calculator;
+
+@javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.AsyncVirtualMethods")
 public class AsyncVirtualMethods extends software.amazon.jsii.JsiiObject {
     protected AsyncVirtualMethods(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
@@ -10,12 +12,6 @@ public class AsyncVirtualMethods extends software.amazon.jsii.JsiiObject {
     }
     public java.lang.Number callMe() {
         return this.jsiiAsyncCall("callMe", java.lang.Number.class);
-    }
-    public java.lang.Number overrideMe(final java.lang.Number mult) {
-        return this.jsiiAsyncCall("overrideMe", java.lang.Number.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(mult, "mult is required")).toArray());
-    }
-    public java.lang.Number overrideMeToo() {
-        return this.jsiiAsyncCall("overrideMeToo", java.lang.Number.class);
     }
     /**
      * Just calls "overrideMeToo"
@@ -34,5 +30,11 @@ public class AsyncVirtualMethods extends software.amazon.jsii.JsiiObject {
     }
     public java.lang.Number dontOverrideMe() {
         return this.jsiiCall("dontOverrideMe", java.lang.Number.class);
+    }
+    public java.lang.Number overrideMe(final java.lang.Number mult) {
+        return this.jsiiAsyncCall("overrideMe", java.lang.Number.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(mult, "mult is required")).toArray());
+    }
+    public java.lang.Number overrideMeToo() {
+        return this.jsiiAsyncCall("overrideMeToo", java.lang.Number.class);
     }
 }

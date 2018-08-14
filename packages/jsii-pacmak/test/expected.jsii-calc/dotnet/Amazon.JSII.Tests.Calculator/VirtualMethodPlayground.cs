@@ -17,24 +17,6 @@ namespace Amazon.JSII.Tests.Calculator
         {
         }
 
-        [JsiiMethod("serialSumAsync", "{\"primitive\":\"number\",\"promise\":true}", "[{\"name\":\"count\",\"type\":{\"primitive\":\"number\"}}]")]
-        public virtual double SerialSumAsync(double count)
-        {
-            return InvokeInstanceMethod<double>(new object[]{count});
-        }
-
-        [JsiiMethod("parallelSumAsync", "{\"primitive\":\"number\",\"promise\":true}", "[{\"name\":\"count\",\"type\":{\"primitive\":\"number\"}}]")]
-        public virtual double ParallelSumAsync(double count)
-        {
-            return InvokeInstanceMethod<double>(new object[]{count});
-        }
-
-        [JsiiMethod("sumSync", "{\"primitive\":\"number\"}", "[{\"name\":\"count\",\"type\":{\"primitive\":\"number\"}}]")]
-        public virtual double SumSync(double count)
-        {
-            return InvokeInstanceMethod<double>(new object[]{count});
-        }
-
         [JsiiMethod("overrideMeAsync", "{\"primitive\":\"number\",\"promise\":true}", "[{\"name\":\"index\",\"type\":{\"primitive\":\"number\"}}]")]
         public virtual double OverrideMeAsync(double index)
         {
@@ -45,6 +27,24 @@ namespace Amazon.JSII.Tests.Calculator
         public virtual double OverrideMeSync(double index)
         {
             return InvokeInstanceMethod<double>(new object[]{index});
+        }
+
+        [JsiiMethod("parallelSumAsync", "{\"primitive\":\"number\",\"promise\":true}", "[{\"name\":\"count\",\"type\":{\"primitive\":\"number\"}}]")]
+        public virtual double ParallelSumAsync(double count)
+        {
+            return InvokeInstanceMethod<double>(new object[]{count});
+        }
+
+        [JsiiMethod("serialSumAsync", "{\"primitive\":\"number\",\"promise\":true}", "[{\"name\":\"count\",\"type\":{\"primitive\":\"number\"}}]")]
+        public virtual double SerialSumAsync(double count)
+        {
+            return InvokeInstanceMethod<double>(new object[]{count});
+        }
+
+        [JsiiMethod("sumSync", "{\"primitive\":\"number\"}", "[{\"name\":\"count\",\"type\":{\"primitive\":\"number\"}}]")]
+        public virtual double SumSync(double count)
+        {
+            return InvokeInstanceMethod<double>(new object[]{count});
         }
     }
 }

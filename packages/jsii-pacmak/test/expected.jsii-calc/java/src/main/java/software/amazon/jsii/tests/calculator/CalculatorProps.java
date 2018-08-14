@@ -1,90 +1,110 @@
 package software.amazon.jsii.tests.calculator;
+
 /**
  * Properties for Calculator.
  */
+@javax.annotation.Generated(value = "jsii-pacmak")
 public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
     java.lang.Number getInitialValue();
     void setInitialValue(final java.lang.Number value);
     java.lang.Number getMaximumValue();
     void setMaximumValue(final java.lang.Number value);
 
-    // ==================================================================
-    // Builder
-    // ==================================================================
-
+    /**
+     * @return a {@link Builder} of {@link CalculatorProps}
+     */
     static Builder builder() {
         return new Builder();
     }
 
     /**
-     * A fluent builder class for {@link CalculatorProps}.
+     * A builder for {@link CalculatorProps}
      */
-    public static final class Builder {
-        private Jsii$Pojo instance = new Jsii$Pojo();
-
-        public Builder withInitialValue(final java.lang.Number value) {
-            this.instance._initialValue = value;
-            return this;
-        }
-        public Builder withMaximumValue(final java.lang.Number value) {
-            this.instance._maximumValue = value;
-            return this;
-        }
-        public CalculatorProps build() {
-            CalculatorProps result = this.instance;
-            this.instance = new Jsii$Pojo();
-            return result;
-        }
-    }
-
-    /**
-     * A PoJo (plain-old-java-object) class that implements {@link CalculatorProps}.
-     */
-    final class Jsii$Pojo implements CalculatorProps {
+    final class Builder {
+        @javax.annotation.Nullable
+        private java.lang.Number _initialValue;
+        @javax.annotation.Nullable
+        private java.lang.Number _maximumValue;
 
         /**
-         * Constructor used by builders.
+         * Sets the value of InitialValue
+         * @param value the value to be set
+         * @return {@code this}
          */
-        protected Jsii$Pojo() { }
-
-
-        protected java.lang.Number _initialValue;
-
-        public java.lang.Number getInitialValue() {
-            return this._initialValue;
-        }
-        public void setInitialValue(final java.lang.Number value) {
+        public Builder withInitialValue(@javax.annotation.Nullable final java.lang.Number value) {
             this._initialValue = value;
+            return this;
         }
-
-        protected java.lang.Number _maximumValue;
-
-        public java.lang.Number getMaximumValue() {
-            return this._maximumValue;
-        }
-        public void setMaximumValue(final java.lang.Number value) {
+        /**
+         * Sets the value of MaximumValue
+         * @param value the value to be set
+         * @return {@code this}
+         */
+        public Builder withMaximumValue(@javax.annotation.Nullable final java.lang.Number value) {
             this._maximumValue = value;
+            return this;
+        }
+
+        /**
+         * Builds the configured instance.
+         * @return a new instance of {@link CalculatorProps}
+         * @throws NullPointerException if any required attribute was not provided
+         */
+        public CalculatorProps build() {
+            return new CalculatorProps() {
+                @javax.annotation.Nullable
+                private java.lang.Number initialValue = _initialValue;
+                @javax.annotation.Nullable
+                private java.lang.Number maximumValue = _maximumValue;
+
+                @Override
+                public java.lang.Number getInitialValue() {
+                    return this.initialValue;
+                }
+
+                @Override
+                public void setInitialValue(@javax.annotation.Nullable final java.lang.Number value) {
+                    this.initialValue = value;
+                }
+
+                @Override
+                public java.lang.Number getMaximumValue() {
+                    return this.maximumValue;
+                }
+
+                @Override
+                public void setMaximumValue(@javax.annotation.Nullable final java.lang.Number value) {
+                    this.maximumValue = value;
+                }
+
+            };
         }
     }
 
     /**
      * A proxy class which for javascript object literal which adhere to this interface.
      */
-    class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.CalculatorProps {
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.CalculatorProps {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
             super(mode);
         }
+
+        @Override
         @javax.annotation.Nullable
         public java.lang.Number getInitialValue() {
             return this.jsiiGet("initialValue", java.lang.Number.class);
         }
+        @Override
         public void setInitialValue(@javax.annotation.Nullable final java.lang.Number value) {
             this.jsiiSet("initialValue", value);
         }
+
+        @Override
         @javax.annotation.Nullable
         public java.lang.Number getMaximumValue() {
             return this.jsiiGet("maximumValue", java.lang.Number.class);
         }
+        @Override
         public void setMaximumValue(@javax.annotation.Nullable final java.lang.Number value) {
             this.jsiiSet("maximumValue", value);
         }

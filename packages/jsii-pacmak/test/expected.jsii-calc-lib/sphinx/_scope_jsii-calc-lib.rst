@@ -195,20 +195,20 @@ MyFirstStruct (interface)
 
 
 
-   .. py:attribute:: astring
-
-      A string value
-
-
-      :type: string
-
-
    .. py:attribute:: anumber
 
       An awesome number value
 
 
       :type: number
+
+
+   .. py:attribute:: astring
+
+      A string value
+
+
+      :type: string
 
 
    .. py:attribute:: firstOptional
@@ -246,17 +246,17 @@ Number
    :param value: The number.
    :type value: number
 
-   .. py:attribute:: value
+   .. py:attribute:: doubleValue
 
-      The number.
+      The number multiplied by 2.
 
 
       :type: number *(readonly)*
 
 
-   .. py:attribute:: doubleValue
+   .. py:attribute:: value
 
-      The number multiplied by 2.
+      The number.
 
 
       :type: number *(readonly)*
