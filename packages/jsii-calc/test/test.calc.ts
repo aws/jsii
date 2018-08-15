@@ -1,18 +1,18 @@
-import * as assert from 'assert'
-import { Add, Multiply, Negate, Power, Calculator, Sum } from '../lib'
-import { Number } from '@scope/jsii-calc-lib'
-import { composition } from '../lib'
+import calcLib = require('@scope/jsii-calc-lib');
+import * as assert from 'assert';
+import { Add, Calculator, Multiply, Negate, Power, Sum } from '../lib';
+import { composition } from '../lib';
 
 //
 // * Constructors
 // * Primitive Getters
 //
 
-assert.equal(new Negate(new Add(new Number(20), new Number(10))).value, -30);
-assert.equal(new Multiply(new Add(new Number(5), new Number(5)), new Number(2)).value, 20);
-assert.equal(3 * 3 * 3 * 3, new Power(new Number(3), new Number(4)).value);
-assert.equal(999, new Power(new Number(999), new Number(1)).value);
-assert.equal(1, new Power(new Number(999), new Number(0)).value);
+assert.equal(new Negate(new Add(new calcLib.Number(20), new calcLib.Number(10))).value, -30);
+assert.equal(new Multiply(new Add(new calcLib.Number(5), new calcLib.Number(5)), new calcLib.Number(2)).value, 20);
+assert.equal(3 * 3 * 3 * 3, new Power(new calcLib.Number(3), new calcLib.Number(4)).value);
+assert.equal(999, new Power(new calcLib.Number(999), new calcLib.Number(1)).value);
+assert.equal(1, new Power(new calcLib.Number(999), new calcLib.Number(0)).value);
 
 //
 // * Methods
@@ -28,10 +28,10 @@ calc.neg();   assert.equal(-3200000, calc.value);
 // Setters
 //
 
-calc.curr = new Multiply(new Number(2), calc.curr);
+calc.curr = new Multiply(new calcLib.Number(2), calc.curr);
 assert.equal(-6400000, calc.value);
-calc.stringStyle = composition.CompositionStringStyle.Decorated;
-assert.equal(calc.toString(), 
+calc.stringStyle = composition.CompositeOperation.CompositionStringStyle.Decorated;
+assert.equal(calc.toString(),
     '<<[[{{(2 * -(((((1 * ((0 + 10) * 2)) * ((0 + 10) * 2)) * ((0 + 10) * 2)) * ((0 + 10) * 2)) * ((0 + 10) * 2)))}}]]>>');
 
 //
@@ -40,7 +40,7 @@ assert.equal(calc.toString(),
 
 const sum = new Sum();
 assert.equal(sum.parts.length, 0);
-sum.parts = [ new Number(5), new Number(10), new Multiply(new Number(2), new Number(3)) ];
+sum.parts = [ new calcLib.Number(5), new calcLib.Number(10), new Multiply(new calcLib.Number(2), new calcLib.Number(3)) ];
 assert.equal(10 + 5 + (2 * 3), sum.value);
 assert.equal(sum.parts[0].value, 5);
 assert.equal(sum.parts[2].value, 6);
@@ -77,11 +77,12 @@ assert.equal(calc3.value, 33.0);
 // Union properties
 //
 
-calc3.unionProperty = new Multiply(new Number(9), new Number(3));
+calc3.unionProperty = new Multiply(new calcLib.Number(9), new calcLib.Number(3));
 assert.equal(calc3.readUnionValue(), 9 * 3);
 
 //
 // All primitive types
 //
 
+// tslint:disable-next-line:no-console
 console.log('ok');

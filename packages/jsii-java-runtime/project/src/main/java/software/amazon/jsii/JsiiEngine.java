@@ -13,11 +13,8 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import static software.amazon.jsii.Util.isJavaPropertyMethod;
 import static software.amazon.jsii.Util.javaPropertyToJSProperty;
@@ -55,7 +52,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
     /**
      * The set of modules we already loaded into the VM.
      */
-    private Set<Class<? extends JsiiModule>> loadedModules = new HashSet<>();
+    private Map<String, JsiiModule> loadedModules = new HashMap<>();
 
     /**
      * @return The singleton instance.
@@ -90,15 +87,15 @@ public final class JsiiEngine implements JsiiCallbackHandler {
                     + ". It must be derived from JsiiModule");
         }
 
-        if (this.loadedModules.contains(moduleClass)) {
-            return;
-        }
-
         JsiiModule module;
         try {
             module = moduleClass.newInstance();
         } catch (IllegalAccessException | InstantiationException e) {
             throw new JsiiException(e);
+        }
+
+        if (this.loadedModules.containsKey(module.getModuleName())) {
+            return;
         }
 
         // Load dependencies
@@ -109,7 +106,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
         this.getClient().loadModule(module);
 
         // indicate that it was loaded
-        this.loadedModules.add(moduleClass);
+        this.loadedModules.put(module.getModuleName(), module);
     }
 
     /**
@@ -198,12 +195,13 @@ public final class JsiiEngine implements JsiiCallbackHandler {
     }
 
     /**
-     * Given a jsii FQN, returns the Java class name for it.
+     * Given a jsii FQN, returns the Java class for it.
+     *
      * @param fqn The FQN.
+     *
      * @return The Java class name.
      */
-    private String resolveJavaClassName(final String fqn) {
-
+    private Class<?> resolveJavaClass(final String fqn) throws ClassNotFoundException {
         String[] parts = fqn.split("\\.");
         if (parts.length < 2) {
             throw new JsiiException("Malformed FQN: " + fqn);
@@ -211,13 +209,16 @@ public final class JsiiEngine implements JsiiCallbackHandler {
 
         String moduleName = parts[0];
 
-        String typeName = String.join(".", Arrays.stream(parts).skip(1).collect(Collectors.toList()));
-
         JsonNode names = this.getClient().getModuleNames(moduleName);
         if (!names.has("java")) {
             throw new JsiiException("No java name for module " + moduleName);
         }
-        return names.get("java").get("package").textValue() + "." + typeName;
+
+        final JsiiModule module = this.loadedModules.get(moduleName);
+        if (module == null) {
+            throw new JsiiException("No loaded module is named " + moduleName);
+        }
+        return module.resolveClass(fqn);
     }
 
     /**
@@ -229,12 +230,11 @@ public final class JsiiEngine implements JsiiCallbackHandler {
      * @return An object derived from JsiiObject.
      */
     private JsiiObject createNative(final String fqn) {
-        String nativeName = resolveJavaClassName(fqn);
         try {
-            Class<?> klass = Class.forName(nativeName);
+            Class<?> klass = resolveJavaClass(fqn);
             if (klass.isInterface()) {
                 // "$" is used to represent inner classes in Java
-                klass = Class.forName(nativeName + "$" + INTERFACE_PROXY_CLASS_NAME);
+                klass = Class.forName(klass.getCanonicalName() + "$" + INTERFACE_PROXY_CLASS_NAME);
             }
             try {
                 Constructor<? extends Object> ctor = klass.getDeclaredConstructor(JsiiObject.InitializationMode.class);
@@ -252,7 +252,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
                         + e.getMessage());
             }
         } catch (ClassNotFoundException e) {
-            System.err.println("WARNING: Cannot find the class: " + nativeName + ". Defaulting to JsiiObject");
+            System.err.println("WARNING: Cannot find the class: " + fqn + ". Defaulting to JsiiObject");
             return new JsiiObject(JsiiObject.InitializationMode.Jsii);
         }
     }
@@ -271,15 +271,12 @@ public final class JsiiEngine implements JsiiCallbackHandler {
 
         String typeName = enumRef.substring(0, sep);
         String valueName = enumRef.substring(sep + 1);
-
-        String enumClass = resolveJavaClassName(typeName);
         try {
-            Class klass = Class.forName(enumClass);
+            Class klass = resolveJavaClass(typeName);
             return Enum.valueOf(klass, valueName);
-        } catch (ClassNotFoundException e) {
-            throw new JsiiException("Cannot resolve enum type: " + enumClass);
+        } catch (final ClassNotFoundException e) {
+            throw new JsiiException("Unable to resolve enum type " + typeName, e);
         }
-
     }
 
     /**

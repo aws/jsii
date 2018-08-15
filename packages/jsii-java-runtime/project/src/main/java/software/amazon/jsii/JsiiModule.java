@@ -75,4 +75,15 @@ public abstract class JsiiModule {
     protected List<Class<? extends JsiiModule>> getDependencies() {
         return Collections.emptyList();
     }
+
+    /**
+     * Resolves a class of this module given it's jsii Fully Qualified Name (FQN)
+     *
+     * @param fqn the jsii FQN of the class being looked up.
+     *
+     * @return the Java class that correspons to the FQN.
+     *
+     * @throws ClassNotFoundException if the requested jsii FQN does not correspond to a known class.
+     */
+    protected abstract Class<?> resolveClass(final String fqn) throws ClassNotFoundException;
 }

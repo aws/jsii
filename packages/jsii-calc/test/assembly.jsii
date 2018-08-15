@@ -2797,17 +2797,20 @@
           },
           "name": "stringStyle",
           "type": {
-            "fqn": "jsii-calc.composition.CompositionStringStyle"
+            "fqn": "jsii-calc.composition.CompositeOperation.CompositionStringStyle"
           }
         }
+      ],
+      "subtypes": [
+        "jsii-calc.composition.CompositeOperation.CompositionStringStyle"
       ]
     },
-    "jsii-calc.composition.CompositionStringStyle": {
+    "jsii-calc.composition.CompositeOperation.CompositionStringStyle": {
       "assembly": "jsii-calc",
       "docs": {
         "comment": "Style of .toString() output for CompositeOperation."
       },
-      "fqn": "jsii-calc.composition.CompositionStringStyle",
+      "fqn": "jsii-calc.composition.CompositeOperation.CompositionStringStyle",
       "kind": "enum",
       "members": [
         {
@@ -2818,9 +2821,10 @@
         }
       ],
       "name": "CompositionStringStyle",
-      "namespace": "jsii-calc.composition"
+      "namespace": "jsii-calc.composition.CompositeOperation",
+      "parenttype": "jsii-calc.composition.CompositeOperation"
     }
   },
   "version": "0.6.4",
-  "fingerprint": "ukdkUVnf3jHKB7TV8FhG/tHnl04+DaTZSoIEZxym6Js="
+  "fingerprint": "gKUNI8uBG+ge5Ccbk0ay+JZ+j4C/4hPATR3jvtVm0Po="
 }
