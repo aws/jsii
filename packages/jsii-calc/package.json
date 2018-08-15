@@ -1,6 +1,7 @@
 {
   "name": "jsii-calc",
   "version": "0.6.4",
+  "description": "A simple calcuator built on JSII.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "private": true,
@@ -15,7 +16,8 @@
         }
       },
       "dotnet": {
-        "namespace": "Amazon.JSII.Tests.Calculator"
+        "namespace": "Amazon.JSII.Tests.CalculatorNamespace",
+        "packageId": "Amazon.JSII.Tests.CalculatorPackageId"
       },
       "sphinx": {}
     }

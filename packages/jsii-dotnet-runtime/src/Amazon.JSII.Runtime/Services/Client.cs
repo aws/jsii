@@ -168,7 +168,7 @@ namespace Amazon.JSII.Runtime.Services
                 return;
             }
 
-            _logger.LogDebug($"Loading package {package}@${version}...");
+            _logger.LogDebug($"Loading package {package}@{version}...");
             _loadedPackages.Add(package);
 
             LoadResponse response = Load(package, version, tarballPath);

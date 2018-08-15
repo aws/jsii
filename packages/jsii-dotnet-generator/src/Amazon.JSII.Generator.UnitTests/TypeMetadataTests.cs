@@ -16,14 +16,26 @@ namespace Amazon.JSII.Generator.UnitTests
 
             readonly Assembly _assembly = new Assembly(
                 name: "myName",
-                targets: new Targets(new Targets.DotNetTarget("myNativeName")),
+                description: "",
+                homepage: "",
+                repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                author: new Person(name: "", roles: new string[] { }),
+                fingerprint: "",
+                license: "",
+                targets: new AssemblyTargets(new AssemblyTargets.DotNetTarget(
+                    @namespace: "myNativeName",
+                    packageId: "myPackageId1"
+                )),
                 dependencies: new Dictionary<string, PackageVersion>
                 {
                     {
                         "myModule",
                         new PackageVersion(
                             "0.0.1",
-                            new Targets(new Targets.DotNetTarget("myPackageNativeName"))
+                            new AssemblyTargets(new AssemblyTargets.DotNetTarget(
+                                @namespace: "myPackageNativeName",
+                                packageId: "myPackageId2"
+                            ))
                         )
                     }
                 },
@@ -152,14 +164,26 @@ namespace Amazon.JSII.Generator.UnitTests
 
             readonly Assembly _assembly = new Assembly(
                 name: "myName",
-                targets: new Targets(new Targets.DotNetTarget("myNativeName")),
+                description: "",
+                homepage: "",
+                repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                author: new Person(name: "", roles: new string[] { }),
+                fingerprint: "",
+                license: "",
+                targets: new AssemblyTargets(new AssemblyTargets.DotNetTarget(
+                    @namespace: "myNativeName",
+                    packageId: "myPackageId1"
+                )),
                 dependencies: new Dictionary<string, PackageVersion>
                 {
                     {
                         "myModule",
                         new PackageVersion(
                             "0.0.1",
-                            new Targets(new Targets.DotNetTarget("myPackageNativeName"))
+                            new AssemblyTargets(new AssemblyTargets.DotNetTarget(
+                                @namespace: "myPackageNativeName",
+                                packageId: "myPackageId2"
+                            ))
                         )
                     }
                 },
@@ -258,14 +282,26 @@ namespace Amazon.JSII.Generator.UnitTests
 
             readonly Assembly _assembly = new Assembly(
                 name: "myName",
-                targets: new Targets(new Targets.DotNetTarget("myNativeName")),
+                description: "",
+                homepage: "",
+                repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                author: new Person(name: "", roles: new string[] { }),
+                fingerprint: "",
+                license: "",
+                targets: new AssemblyTargets(new AssemblyTargets.DotNetTarget(
+                    @namespace: "myNativeName",
+                    packageId: "myPackageId1"
+                )),
                 dependencies: new Dictionary<string, PackageVersion>
                 {
                     {
                         "myModule",
                         new PackageVersion(
                             "0.0.1",
-                            new Targets(new Targets.DotNetTarget("myPackageNativeName"))
+                            new AssemblyTargets(new AssemblyTargets.DotNetTarget(
+                                @namespace: "myPackageNativeName",
+                                packageId: "myPackageId2"
+                            ))
                         )
                     }
                 },

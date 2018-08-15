@@ -7,7 +7,7 @@
     ],
     "url": "https://aws.amazon.com"
   },
-  "description": "@scope/jsii-calc-base-of-base",
+  "description": "An example transitive dependency for jsii-calc.",
   "homepage": "https://github.com/awslabs/jsii.git",
   "license": "Apache-2.0",
   "name": "@scope/jsii-calc-base-of-base",
@@ -18,7 +18,8 @@
   "schema": "jsii/1.0",
   "targets": {
     "dotnet": {
-      "namespace": "Amazon.JSII.Tests.Calculator.BaseOfBase"
+      "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
+      "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId"
     },
     "java": {
       "maven": {
@@ -68,5 +69,5 @@
     }
   },
   "version": "0.6.4",
-  "fingerprint": "I/HF4zJK5eV4ZLmNLDEzShkHVsxngX3K/y2SEYjXsxU="
+  "fingerprint": "2YF/qObQgbuJSs52vT9/Z7sgEO0mc2zP0jCuFWGUM4w="
 }

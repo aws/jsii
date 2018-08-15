@@ -19,7 +19,16 @@ namespace Amazon.JSII.Generator.UnitTests
             assembly = new Assembly
             (
                 name: "my-package",
-                targets: new Targets(dotnet: "My.Assembly"),
+                description: "",
+                homepage: "",
+                repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                author: new Person(name: "", roles: new string[] { }),
+                fingerprint: "",
+                license: "",
+                targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
+                    @namespace: "My.Namespace",
+                    packageId: "My.PackageId"
+                )),
                 version: "myVersion",
                 types: types.ToDictionary(t => t.FullyQualifiedName)
             );
@@ -40,7 +49,7 @@ namespace Amazon.JSII.Generator.UnitTests
                 ISymbolMap symbolMap = GetSymbolMap(out Assembly assembly);
 
                 string actual = symbolMap.GetName(assembly);
-                Assert.Equal("My.Assembly", actual, ignoreLineEndingDifferences: true);
+                Assert.Equal("My.PackageId", actual, ignoreLineEndingDifferences: true);
             }
 
             [Fact(DisplayName = Prefix + nameof(RenamesTypeOnNamespaceConflict))]
@@ -66,7 +75,16 @@ namespace Amazon.JSII.Generator.UnitTests
                 Assembly assembly = new Assembly
                 (
                     name: "my-package",
-                    targets: new Targets(dotnet: "MyNamespace"),
+                    description: "",
+                    homepage: "",
+                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                    author: new Person(name: "", roles: new string[] { }),
+                    fingerprint: "",
+                    license: "",
+                    targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
+                        @namespace: "My.Namespace",
+                        packageId: "My.PackageId"
+                    )),
                     version: "myVersion",
                     types: new Dictionary<string, Type>
                     {
@@ -101,7 +119,16 @@ namespace Amazon.JSII.Generator.UnitTests
                 Assembly assembly = new Assembly
                 (
                     name: "my-package",
-                    targets: new Targets(dotnet: "MyNamespace"),
+                    description: "",
+                    homepage: "",
+                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                    author: new Person(name: "", roles: new string[] { }),
+                    fingerprint: "",
+                    license: "",
+                    targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
+                        @namespace: "My.Namespace",
+                        packageId: "My.PackageId"
+                    )),
                     version: "myVersion",
                     types: new Dictionary<string, Type>
                     {
@@ -165,18 +192,45 @@ namespace Amazon.JSII.Generator.UnitTests
                 Assembly assembly1 = new Assembly
                 (
                     name: "my-package-1",
-                    targets: new Targets(dotnet: "MyNamespace1"),
+                    description: "",
+                    homepage: "",
+                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                    author: new Person(name: "", roles: new string[] { }),
+                    fingerprint: "",
+                    license: "",
+                    targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
+                        @namespace: "My.Namespace1",
+                        packageId: "My.PackageId1"
+                    )),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
-                        { "my-package-2", new PackageVersion("myVersion", new Targets(dotnet: "MyNamespace2")) }
+                        {
+                            "my-package-2",
+                            new PackageVersion(
+                                version: "myVersion",
+                                targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
+                                    @namespace: "My.Namespace2",
+                                    packageId: "My.PackageId2"
+                                ))
+                            )
+                        }
                     }
                 );
                 Assembly assembly2 = new Assembly
                 (
                     name: "my-package-2",
-                    targets: new Targets(dotnet: "MyNamespace2"),
+                    description: "",
+                    homepage: "",
+                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                    author: new Person(name: "", roles: new string[] { }),
+                    fingerprint: "",
+                    license: "",
+                    targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
+                        @namespace: "My.Namespace2",
+                        packageId: "My.PackageId2"
+                    )),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } }
                 );
@@ -188,14 +242,14 @@ namespace Amazon.JSII.Generator.UnitTests
                 // GetName(Type type)
                 string actual1 = symbolMap.GetName(type1, true);
                 string actual2 = symbolMap.GetName(type2, true);
-                Assert.Equal("MyNamespace1.MyType", actual1, ignoreLineEndingDifferences: true);
-                Assert.Equal("MyNamespace2.MyType", actual2, ignoreLineEndingDifferences: true);
+                Assert.Equal("My.Namespace1.MyType", actual1, ignoreLineEndingDifferences: true);
+                Assert.Equal("My.Namespace2.MyType", actual2, ignoreLineEndingDifferences: true);
 
                 // GetName(string fullyQualifiedName)
                 actual1 = symbolMap.GetName("myFqn1", true);
                 actual2 = symbolMap.GetName("myFqn2", true);
-                Assert.Equal("MyNamespace1.MyType", actual1, ignoreLineEndingDifferences: true);
-                Assert.Equal("MyNamespace2.MyType", actual2, ignoreLineEndingDifferences: true);
+                Assert.Equal("My.Namespace1.MyType", actual1, ignoreLineEndingDifferences: true);
+                Assert.Equal("My.Namespace2.MyType", actual2, ignoreLineEndingDifferences: true);
             }
 
             [Fact(DisplayName = Prefix + nameof(DoesNotDisambiguateTypeNameIfNoConflict))]
@@ -221,18 +275,45 @@ namespace Amazon.JSII.Generator.UnitTests
                 Assembly assembly1 = new Assembly
                 (
                     name: "my-package-1",
-                    targets: new Targets(dotnet: "MyNamespace1"),
+                    description: "",
+                    homepage: "",
+                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                    author: new Person(name: "", roles: new string[] { }),
+                    fingerprint: "",
+                    license: "",
+                    targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
+                        @namespace: "My.Namespace1",
+                        packageId: "My.PackageId1"
+                    )),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
-                        { "my-package-2", new PackageVersion("myVersion", new Targets(dotnet: "MyNamespace2")) }
+                        {
+                            "my-package-2",
+                            new PackageVersion(
+                                version: "myVersion",
+                                targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
+                                    @namespace: "My.Namespace2",
+                                    packageId: "My.PackageId2"
+                                ))
+                            )
+                        }
                     }
                 );
                 Assembly assembly2 = new Assembly
                 (
                     name: "my-package-2",
-                    targets: new Targets(dotnet: "MyNamespace2"),
+                    description: "",
+                    homepage: "",
+                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                    author: new Person(name: "", roles: new string[] { }),
+                    fingerprint: "",
+                    license: "",
+                    targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
+                        @namespace: "My.Namespace2",
+                        packageId: "My.PackageId2"
+                    )),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } }
                 );
@@ -277,18 +358,45 @@ namespace Amazon.JSII.Generator.UnitTests
                 Assembly assembly1 = new Assembly
                 (
                     name: "my-package-1",
-                    targets: new Targets(dotnet: "MyNamespace1"),
+                    description: "",
+                    homepage: "",
+                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                    author: new Person(name: "", roles: new string[] { }),
+                    fingerprint: "",
+                    license: "",
+                    targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
+                        @namespace: "My.Namespace1",
+                        packageId: "My.PackageId1"
+                    )),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
-                        { "my-package-2", new PackageVersion("myVersion", new Targets(dotnet: "MyNamespace2")) }
+                        {
+                            "my-package-2",
+                            new PackageVersion(
+                                version: "myVersion",
+                                targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
+                                    @namespace: "My.Namespace2",
+                                    packageId: "My.PackageId2"
+                                ))
+                            )
+                        }
                     }
                 );
                 Assembly assembly2 = new Assembly
                 (
                     name: "my-package-2",
-                    targets: new Targets(dotnet: "MyNamespace2"),
+                    description: "",
+                    homepage: "",
+                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                    author: new Person(name: "", roles: new string[] { }),
+                    fingerprint: "",
+                    license: "",
+                    targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
+                        @namespace: "My.Namespace2",
+                        packageId: "My.PackageId2"
+                    )),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } }
                 );
@@ -459,18 +567,45 @@ namespace Amazon.JSII.Generator.UnitTests
                 Assembly assembly1 = new Assembly
                 (
                     name: "my-package-1",
-                    targets: new Targets(dotnet: "MyNamespace1"),
+                    description: "",
+                    homepage: "",
+                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                    author: new Person(name: "", roles: new string[] { }),
+                    fingerprint: "",
+                    license: "",
+                    targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
+                        @namespace: "My.Namespace1",
+                        packageId: "My.PackageId1"
+                    )),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
-                        { "my-package-2", new PackageVersion("myVersion", new Targets(dotnet: "MyNamespace2")) }
+                        {
+                            "my-package-2",
+                            new PackageVersion(
+                                version: "myVersion",
+                                targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
+                                    @namespace: "My.Namespace2",
+                                    packageId: "My.PackageId2"
+                                ))
+                            )
+                        }
                     }
                 );
                 Assembly assembly2 = new Assembly
                 (
                     name: "my-package-2",
-                    targets: new Targets(dotnet: "MyNamespace2"),
+                    description: "",
+                    homepage: "",
+                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                    author: new Person(name: "", roles: new string[] { }),
+                    fingerprint: "",
+                    license: "",
+                    targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
+                        @namespace: "My.Namespace2",
+                        packageId: "My.PackageId2"
+                    )),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } }
                 );
@@ -482,14 +617,14 @@ namespace Amazon.JSII.Generator.UnitTests
                 // GetNameSyntaxToken(Type type)
                 string actual1 = symbolMap.GetNameSyntaxToken(type1, true).ToString();
                 string actual2 = symbolMap.GetNameSyntaxToken(type2, true).ToString();
-                Assert.Equal("MyNamespace1.MyType", actual1, ignoreLineEndingDifferences: true);
-                Assert.Equal("MyNamespace2.MyType", actual2, ignoreLineEndingDifferences: true);
+                Assert.Equal("My.Namespace1.MyType", actual1, ignoreLineEndingDifferences: true);
+                Assert.Equal("My.Namespace2.MyType", actual2, ignoreLineEndingDifferences: true);
 
                 // GetNameSyntaxToken(string fullyQualifiedName)
                 actual1 = symbolMap.GetNameSyntaxToken("myFqn1", true).ToString();
                 actual2 = symbolMap.GetNameSyntaxToken("myFqn2", true).ToString();
-                Assert.Equal("MyNamespace1.MyType", actual1, ignoreLineEndingDifferences: true);
-                Assert.Equal("MyNamespace2.MyType", actual2, ignoreLineEndingDifferences: true);
+                Assert.Equal("My.Namespace1.MyType", actual1, ignoreLineEndingDifferences: true);
+                Assert.Equal("My.Namespace2.MyType", actual2, ignoreLineEndingDifferences: true);
             }
 
             [Fact(DisplayName = Prefix + nameof(DoesNotDisambiguateTypeNameIfNoConflict))]
@@ -515,18 +650,45 @@ namespace Amazon.JSII.Generator.UnitTests
                 Assembly assembly1 = new Assembly
                 (
                     name: "my-package-1",
-                    targets: new Targets(dotnet: "MyNamespace1"),
+                    description: "",
+                    homepage: "",
+                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                    author: new Person(name: "", roles: new string[] { }),
+                    fingerprint: "",
+                    license: "",
+                    targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
+                        @namespace: "My.Namespace1",
+                        packageId: "My.PackageId1"
+                    )),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
-                        { "my-package-2", new PackageVersion("myVersion", new Targets(dotnet: "MyNamespace2")) }
+                        {
+                            "my-package-2",
+                            new PackageVersion(
+                                version: "myVersion",
+                                targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
+                                    @namespace: "My.Namespace2",
+                                    packageId: "My.PackageId2"
+                                ))
+                            )
+                        }
                     }
                 );
                 Assembly assembly2 = new Assembly
                 (
                     name: "my-package-2",
-                    targets: new Targets(dotnet: "MyNamespace2"),
+                    description: "",
+                    homepage: "",
+                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                    author: new Person(name: "", roles: new string[] { }),
+                    fingerprint: "",
+                    license: "",
+                    targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
+                        @namespace: "My.Namespace2",
+                        packageId: "My.PackageId2"
+                    )),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } }
                 );
@@ -571,21 +733,48 @@ namespace Amazon.JSII.Generator.UnitTests
                 Assembly assembly1 = new Assembly
                 (
                     name: "my-package-1",
-                    targets: new Targets(dotnet: "MyNamespace1"),
+                    description: "",
+                    homepage: "",
+                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                    author: new Person(name: "", roles: new string[] { }),
+                    fingerprint: "",
+                    license: "",
+                    targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
+                        @namespace: "My.Namespace1",
+                        packageId: "My.PackageId1"
+                    )),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
-                        { "my-package-2", new PackageVersion("myVersion", new Targets(dotnet: "MyNamespace2")) }
+                        {
+                            "my-package-2",
+                            new PackageVersion(
+                                version: "myVersion",
+                                targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
+                                    @namespace: "My.Namespace2",
+                                    packageId: "My.PackageId2"
+                                ))
+                            )
+                        }
                     }
                 );
                 Assembly assembly2 = new Assembly
                 (
-                   name: "my-package-2",
-                   targets: new Targets(dotnet: "MyNamespace2"),
-                   version: "myVersion",
-                   types: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } }
-               );
+                    name: "my-package-2",
+                    description: "",
+                    homepage: "",
+                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                    author: new Person(name: "", roles: new string[] { }),
+                    fingerprint: "",
+                    license: "",
+                    targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
+                        @namespace: "My.Namespace2",
+                        packageId: "My.PackageId2"
+                    )),
+                    version: "myVersion",
+                    types: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } }
+                );
 
                 ISymbolMap symbolMap = new SymbolMap();
                 symbolMap.Add(assembly1);
@@ -753,18 +942,45 @@ namespace Amazon.JSII.Generator.UnitTests
                 Assembly assembly1 = new Assembly
                 (
                     name: "my-package-1",
-                    targets: new Targets(dotnet: "MyNamespace1"),
+                    description: "",
+                    homepage: "",
+                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                    author: new Person(name: "", roles: new string[] { }),
+                    fingerprint: "",
+                    license: "",
+                    targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
+                        @namespace: "My.Namespace1",
+                        packageId: "My.PackageId1"
+                    )),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
-                        { "my-package-2", new PackageVersion("myVersion", new Targets(dotnet: "MyNamespace2")) }
+                        {
+                            "my-package-2",
+                            new PackageVersion(
+                                version: "myVersion",
+                                targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
+                                    @namespace: "My.Namespace2",
+                                    packageId: "My.PackageId2"
+                                ))
+                            )
+                        }
                     }
                 );
                 Assembly assembly2 = new Assembly
                 (
                     name: "my-package-2",
-                    targets: new Targets(dotnet: "MyNamespace2"),
+                    description: "",
+                    homepage: "",
+                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                    author: new Person(name: "", roles: new string[] { }),
+                    fingerprint: "",
+                    license: "",
+                    targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
+                        @namespace: "My.Namespace2",
+                        packageId: "My.PackageId2"
+                    )),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } }
                 );
@@ -776,14 +992,14 @@ namespace Amazon.JSII.Generator.UnitTests
                 // GetNameSyntax(Type type)
                 string actual1 = symbolMap.GetNameSyntax(type1, true).ToString();
                 string actual2 = symbolMap.GetNameSyntax(type2, true).ToString();
-                Assert.Equal("MyNamespace1.MyType", actual1, ignoreLineEndingDifferences: true);
-                Assert.Equal("MyNamespace2.MyType", actual2, ignoreLineEndingDifferences: true);
+                Assert.Equal("My.Namespace1.MyType", actual1, ignoreLineEndingDifferences: true);
+                Assert.Equal("My.Namespace2.MyType", actual2, ignoreLineEndingDifferences: true);
 
                 // GetNameSyntax(string fullyQualifiedName)
                 actual1 = symbolMap.GetNameSyntax("myFqn1", true).ToString();
                 actual2 = symbolMap.GetNameSyntax("myFqn2", true).ToString();
-                Assert.Equal("MyNamespace1.MyType", actual1, ignoreLineEndingDifferences: true);
-                Assert.Equal("MyNamespace2.MyType", actual2, ignoreLineEndingDifferences: true);
+                Assert.Equal("My.Namespace1.MyType", actual1, ignoreLineEndingDifferences: true);
+                Assert.Equal("My.Namespace2.MyType", actual2, ignoreLineEndingDifferences: true);
             }
 
             [Fact(DisplayName = Prefix + nameof(DoesNotDisambiguateTypeNameIfNoConflict))]
@@ -809,18 +1025,45 @@ namespace Amazon.JSII.Generator.UnitTests
                 Assembly assembly1 = new Assembly
                 (
                     name: "my-package-1",
-                    targets: new Targets(dotnet: "MyNamespace1"),
+                    description: "",
+                    homepage: "",
+                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                    author: new Person(name: "", roles: new string[] { }),
+                    fingerprint: "",
+                    license: "",
+                    targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
+                        @namespace: "My.Namespace1",
+                        packageId: "My.PackageId1"
+                    )),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
-                        { "my-package-2", new PackageVersion("myVersion", new Targets(dotnet: "MyNamespace2")) }
+                        {
+                            "my-package-2",
+                            new PackageVersion(
+                                version: "myVersion",
+                                targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
+                                    @namespace: "My.Namespace2",
+                                    packageId: "My.PackageId2"
+                                ))
+                            )
+                        }
                     }
                 );
                 Assembly assembly2 = new Assembly
                 (
                     name: "my-package-2",
-                    targets: new Targets(dotnet: "MyNamespace2"),
+                    description: "",
+                    homepage: "",
+                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                    author: new Person(name: "", roles: new string[] { }),
+                    fingerprint: "",
+                    license: "",
+                    targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
+                        @namespace: "My.Namespace2",
+                        packageId: "My.PackageId2"
+                    )),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } }
                 );
@@ -865,18 +1108,45 @@ namespace Amazon.JSII.Generator.UnitTests
                 Assembly assembly1 = new Assembly
                 (
                     name: "my-package-1",
-                    targets: new Targets(dotnet: "MyNamespace1"),
+                    description: "",
+                    homepage: "",
+                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                    author: new Person(name: "", roles: new string[] { }),
+                    fingerprint: "",
+                    license: "",
+                    targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
+                        @namespace: "My.Namespace1",
+                        packageId: "My.PackageId1"
+                    )),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
                     dependencies: new Dictionary<string, PackageVersion>
                     {
-                        { "my-package-2", new PackageVersion("myVersion", new Targets(dotnet: "MyNamespace2")) }
+                        {
+                            "my-package-2",
+                            new PackageVersion(
+                                "myVersion",
+                                targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
+                                    @namespace: "My.Namespace2",
+                                    packageId: "My.PackageId2"
+                                ))
+                            )
+                        }
                     }
                 );
                 Assembly assembly2 = new Assembly
                 (
                     name: "my-package-2",
-                    targets: new Targets(dotnet: "MyNamespace2"),
+                    description: "",
+                    homepage: "",
+                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
+                    author: new Person(name: "", roles: new string[] { }),
+                    fingerprint: "",
+                    license: "",
+                    targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
+                        @namespace: "My.Namespace2",
+                        packageId: "My.PackageId2"
+                    )),
                     version: "myVersion",
                     types: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } }
                 );
@@ -1018,7 +1288,7 @@ namespace Amazon.JSII.Generator.UnitTests
                 ISymbolMap symbolMap = GetSymbolMap(type);
 
                 string actual = symbolMap.GetNamespace(type);
-                Assert.Equal("My.Assembly", actual, ignoreLineEndingDifferences: true);
+                Assert.Equal("My.Namespace", actual, ignoreLineEndingDifferences: true);
             }
 
             [Fact(DisplayName = _Prefix + nameof(GetsFrameworkNamespaceFromFqn))]
@@ -1036,7 +1306,7 @@ namespace Amazon.JSII.Generator.UnitTests
                 ISymbolMap symbolMap = GetSymbolMap(type);
 
                 string actual = symbolMap.GetNamespace("myFqn");
-                Assert.Equal("My.Assembly", actual, ignoreLineEndingDifferences: true);
+                Assert.Equal("My.Namespace", actual, ignoreLineEndingDifferences: true);
             }
         }
 
@@ -1059,7 +1329,7 @@ namespace Amazon.JSII.Generator.UnitTests
                 ISymbolMap symbolMap = GetSymbolMap(type);
 
                 string actual = symbolMap.GetNamespaceSyntaxToken(type).ToString();
-                Assert.Equal("My.Assembly", actual, ignoreLineEndingDifferences: true);
+                Assert.Equal("My.Namespace", actual, ignoreLineEndingDifferences: true);
             }
 
             [Fact(DisplayName = _Prefix + nameof(GetsFrameworkNamespaceFromFqn))]
@@ -1077,7 +1347,7 @@ namespace Amazon.JSII.Generator.UnitTests
                 ISymbolMap symbolMap = GetSymbolMap(type);
 
                 string actual = symbolMap.GetNamespaceSyntaxToken("myFqn").ToString();
-                Assert.Equal("My.Assembly", actual, ignoreLineEndingDifferences: true);
+                Assert.Equal("My.Namespace", actual, ignoreLineEndingDifferences: true);
             }
         }
 
@@ -1100,7 +1370,7 @@ namespace Amazon.JSII.Generator.UnitTests
                 ISymbolMap symbolMap = GetSymbolMap(type);
 
                 string actual = symbolMap.GetNamespaceSyntax(type).ToString();
-                Assert.Equal("My.Assembly", actual, ignoreLineEndingDifferences: true);
+                Assert.Equal("My.Namespace", actual, ignoreLineEndingDifferences: true);
             }
 
             [Fact(DisplayName = _Prefix + nameof(GetsFrameworkNamespaceFromFqn))]
@@ -1118,7 +1388,7 @@ namespace Amazon.JSII.Generator.UnitTests
                 ISymbolMap symbolMap = GetSymbolMap(type);
 
                 string actual = symbolMap.GetNamespaceSyntax("myFqn").ToString();
-                Assert.Equal("My.Assembly", actual, ignoreLineEndingDifferences: true);
+                Assert.Equal("My.Namespace", actual, ignoreLineEndingDifferences: true);
             }
         }
 

@@ -86,7 +86,8 @@ Edit your `package.json`:
         }
       },
       "dotnet": {
-        "namespace": "Acme.Hello"
+        "namespace": "Acme.HelloNamespace",
+        "packageId": "Acme.HelloPackage"
       },
       "sphinx": { }
     }
@@ -136,7 +137,8 @@ You should also see a `.jsii` file in the root:
   "schema": "jsii/1.0",
   "targets": {
     "dotnet": {
-      "namespace": "Acme.Hello"
+      "namespace": "Acme.HelloNamespace",
+      "packageId": "Acme.HelloPackage"
     },
     "java": {
       "maven": {
@@ -262,10 +264,26 @@ The following targets are currently supported:
 
 * `dotnet` - packages the module as a .NET/NuGet package. Requires the following config:
 
-```json
+```js
 {
   "dotnet": {
-    "namespace": "Acme.Hello"
+    /* Required. */
+    "namespace": "Acme.HelloNamespace",
+
+    /* Required. */
+    "packageId": "Acme.HelloPackage",
+
+    /* Optional. Default: Value of packageId. */
+    "title": "ACME Hello",
+
+    /* Optional. Default: null (no icon). */
+    "iconUrl": "path/to/icon.svg",
+
+    /* Optional. Used in conjunction with assemblyOriginatorKey. Default: false. */
+    "signAssembly": true,
+
+    /* Optional. Used in conjunction with signAssembly. Default: null. */
+    "assemblyOriginatorKey": "path/to/key.snk"
   }
 }
 ```

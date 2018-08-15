@@ -8,7 +8,7 @@ namespace Amazon.JSII.JsonModel.Spec
     {
         public DependencyRoot
         (
-            Targets targets = null,
+            AssemblyTargets targets = null,
             IDictionary<string, PackageVersion> dependencies = null
         )
         {
@@ -20,6 +20,6 @@ namespace Amazon.JSII.JsonModel.Spec
         public IDictionary<string, PackageVersion> Dependencies { get; }
 
         [JsonProperty("targets")]
-        public Targets Targets { get; }
+        public AssemblyTargets Targets { get; }
     }
 }

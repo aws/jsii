@@ -1,6 +1,7 @@
 {
   "name": "@scope/jsii-calc-base",
   "version": "0.6.4",
+  "description": "An example direct dependency for jsii-calc.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "private": true,
@@ -15,7 +16,8 @@
         }
       },
       "dotnet": {
-        "namespace": "Amazon.JSII.Tests.Calculator.Base"
+        "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
+        "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BasePackageId"
       },
       "sphinx": {}
     }

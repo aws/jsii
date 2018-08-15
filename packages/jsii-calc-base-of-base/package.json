@@ -1,6 +1,7 @@
 {
   "name": "@scope/jsii-calc-base-of-base",
   "version": "0.6.4",
+  "description": "An example transitive dependency for jsii-calc.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "private": true,
@@ -15,7 +16,8 @@
         }
       },
       "dotnet": {
-        "namespace": "Amazon.JSII.Tests.Calculator.BaseOfBase"
+        "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
+        "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId"
       },
       "sphinx": {}
     }

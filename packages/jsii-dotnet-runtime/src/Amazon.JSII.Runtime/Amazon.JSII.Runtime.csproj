@@ -13,7 +13,6 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="Node.js.redist" Version="8.9.1" />
-    <PackageReference Include="NuGet.Client" Version="4.2.0" />
     <PackageReference Include="System.IO.FileSystem.AccessControl" Version="4.5.0-rc1" />
     <PackageReference Include="Amazon.JSII.JsonModel" Version="$(JsiiVersion)" />
   </ItemGroup>
