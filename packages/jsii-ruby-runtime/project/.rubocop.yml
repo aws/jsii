@@ -15,3 +15,7 @@ Style/IfUnlessModifier:
 
 Metrics/AbcSize:
   Enabled: false
+
+AllCops:
+  TargetRubyVersion: 2.2
+
