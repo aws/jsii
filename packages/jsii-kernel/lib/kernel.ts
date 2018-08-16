@@ -1,5 +1,6 @@
 import * as fs from 'fs-extra';
 import * as spec from 'jsii-spec';
+import * as os from 'os';
 import * as path from 'path';
 import { SourceMapConsumer } from 'source-map';
 import * as tar from 'tar';
@@ -73,7 +74,7 @@ export class Kernel {
         }
 
         if (!this.installDir) {
-            this.installDir  = await fs.mkdtemp('/tmp/jsii-kernel-');
+            this.installDir  = await fs.mkdtemp(path.join(os.tmpdir(), 'jsii-kernel-'));
             await fs.mkdirp(path.join(this.installDir, 'node_modules'));
             this._debug('creating jsii-kernel modules workdir:', this.installDir);
 
@@ -110,7 +111,7 @@ export class Kernel {
         } else {
             // untar the archive to a staging directory, read the jsii spec from it
             // and then move it to the node_modules directory of the kernel.
-            const staging = await fs.mkdtemp('/tmp/jsii-kernel-install-staging-');
+            const staging = await fs.mkdtemp(path.join(os.tmpdir(), 'jsii-kernel-install-staging-'));
             try {
                 await tar.extract({ strict: true, file: req.tarball, cwd: staging });
 
