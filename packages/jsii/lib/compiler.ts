@@ -178,18 +178,7 @@ export async function compileSources(entrypoint: string,
 
     if (rootModule) {
         await processModule(rootModule, []);
-        for (const type of types.sort((l, r) => l.fqn.localeCompare(r.fqn))) {
-            assm.types = assm.types || {};
-            if (type.namespace) {
-                const ns = `${type.assembly}.${type.namespace}`;
-                const parentType = Object.values(types).find(t => ns.startsWith(`${t.fqn}.`));
-                if (parentType) {
-                    // tslint:disable-next-line:max-line-length
-                    throw new Error(`All child names of a type '${parentType.fqn}' must point to concrete types, but '${ns}' is a namespaces, and this structure cannot be supported in all languages (e.g. Java)`);
-                }
-            }
-            assm.types[type.fqn] = type;
-        }
+        addTypeInfo(assm, types);
         verifyUnexportedTypes(assm, typeRefs, externalTypes);
         validateOverriddenSignatures(assm, externalTypes);
         normalizeInitializers(assm, externalTypes);
@@ -1290,6 +1279,21 @@ function normalizeInitializers(mod: spec.Assembly, externalTypes: Map<string, sp
         cls.initializer = clone(base.initializer);
     }
 
+}
+
+function addTypeInfo(assm: spec.Assembly, types: spec.Type[]) {
+    for (const type of types) {
+        assm.types = assm.types || {};
+        if (type.namespace) {
+            const ns = `${type.assembly}.${type.namespace}`;
+            const parentType = Object.values(types).find(t => ns.startsWith(`${t.fqn}.`));
+            if (parentType) {
+                // tslint:disable-next-line:max-line-length
+                throw new Error(`All child names of a type '${parentType.fqn}' must point to concrete types, but '${ns}' is a namespaces, and this structure cannot be supported in all languages (e.g. Java)`);
+            }
+        }
+        assm.types[type.fqn] = type;
+    }
 }
 
 /**

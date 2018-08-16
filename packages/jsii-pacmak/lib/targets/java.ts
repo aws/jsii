@@ -1056,7 +1056,9 @@ class JavaGenerator extends Generator {
     private toNativeFqn(fqn: string): string {
         const [mod, ...name] = fqn.split('.');
         const depMod = this.findModule(mod);
-        // Make sure any type that's used from a dependency is listed as a direct dependency of the POM.
+        // Make sure any dependency (direct or transitive) of which any type is explicitly referenced by the generated
+        // code is included in the generated POM's dependencies section (protecting the artifact from changes in the
+        // dependencies' dependency structure).
         if (mod !== this.assembly.name) {
             this.referencedModules[mod] = depMod;
         }
