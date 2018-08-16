@@ -13,12 +13,14 @@ public class ObjectRefsInCollections extends software.amazon.jsii.JsiiObject {
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
+
     /**
      * Returns the sum of all values
      */
     public java.lang.Number sumFromArray(final java.util.List<software.amazon.jsii.tests.calculator.lib.Value> values) {
         return this.jsiiCall("sumFromArray", java.lang.Number.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(values, "values is required")).toArray());
     }
+
     /**
      * Returns the sum of all values in a map
      */

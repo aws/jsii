@@ -30,14 +30,13 @@ namespace Amazon.JSII.Generator.UnitTests
         {
             EnumType type = new EnumType
             (
-                "myEnumFqn",
-                "myModule",
-                "myEnum",
-                "myNamespace",
-                new EnumMember[] { }
+                fullyQualifiedName: "myEnumFqn",
+                assembly: "myModule",
+                name: "myEnum",
+                members: new EnumMember[] { }
             );
 
-            Symbols.MapNamespace("myNamespace", "MyNamespace");
+            Symbols.MapNamespace(type.QualifiedNamespace, "MyNamespace");
 
             NamespaceSet namespaces = new NamespaceSet(Symbols, SF.ParseName("MyCurrentNamespace"));
             namespaces.Add(type);

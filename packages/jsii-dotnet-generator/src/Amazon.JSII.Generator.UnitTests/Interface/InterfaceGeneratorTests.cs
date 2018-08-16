@@ -11,11 +11,11 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
 
         string Render(InterfaceType interfaceType)
         {
-            Symbols.MapTypeToPackage("myInterfaceFqn", "myPackage");
-            Symbols.MapNamespace("myNamespace", "MyNamespace");
+            Symbols.MapTypeToPackage("myInterfaceFqn", interfaceType.Assembly);
+            Symbols.MapNamespace(interfaceType.QualifiedNamespace, "MyNamespace");
             Symbols.MapTypeName("myInterfaceFqn", "MyInterface", kind: JsonModel.Spec.TypeKind.Interface);
 
-            InterfaceGenerator generator = new InterfaceGenerator("myPackage", interfaceType, Symbols, Namespaces);
+            InterfaceGenerator generator = new InterfaceGenerator(interfaceType.Assembly, interfaceType, Symbols, Namespaces);
 
             SyntaxTree syntaxTree = generator.CreateSyntaxTree();
             return syntaxTree.ToString();
@@ -26,10 +26,9 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
         {
             InterfaceType interfaceType = new InterfaceType
             (
-                "myInterfaceFqn",
-                "myPackage",
-                "MyInterface",
-                "myNamespace"
+                fullyQualifiedName: "myInterfaceFqn",
+                assembly: "myPackage",
+                name: "MyInterface"
             );
 
             string actual = Render(interfaceType);
@@ -49,10 +48,9 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
         {
             InterfaceType interfaceType = new InterfaceType
             (
-                "myInterfaceFqn",
-                "myPackage",
-                "MyInterface",
-                "myNamespace",
+                fullyQualifiedName: "myInterfaceFqn",
+                assembly: "myPackage",
+                name: "MyInterface",
                 interfaces: new[]
                 {
                     new TypeReference(fullyQualifiedName: "myBaseFqn1"),
@@ -80,10 +78,9 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
         {
             InterfaceType interfaceType = new InterfaceType
             (
-                "myInterfaceFqn",
-                "",
-                "MyInterface",
-                "myNamespace",
+                fullyQualifiedName: "myInterfaceFqn",
+                assembly: "",
+                name: "MyInterface",
                 methods: new Method[] { new Method(false, false, false, name: "myMethod") }
             );
 

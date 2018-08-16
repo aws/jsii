@@ -47,7 +47,7 @@ namespace Amazon.JSII.Generator.UnitTests
                 fullyQualifiedName: "myFqn",
                 assembly: "myModule",
                 name: "myName",
-                @namespace: "myModule_myNamespace",
+                @namespace: "myNamespace",
                 isAbstract: false
             );
 
@@ -78,7 +78,7 @@ namespace Amazon.JSII.Generator.UnitTests
             {
                 ClassTypeMetadata metadata = new ClassTypeMetadata(_type, _assembly);
 
-                Assert.Equal("myPackageNativeName_myNamespace.MyName", metadata.FrameworkFullyQualifiedName);
+                Assert.Equal("myPackageNativeName.myNamespace.MyName", metadata.FrameworkFullyQualifiedName);
             }
 
             [Fact(DisplayName = _Prefix + nameof(SetsPackage))]
@@ -94,7 +94,7 @@ namespace Amazon.JSII.Generator.UnitTests
             {
                 ClassTypeMetadata metadata = new ClassTypeMetadata(_type, _assembly);
 
-                Assert.Equal("myPackageNativeName_myNamespace", metadata.Namespace);
+                Assert.Equal("myPackageNativeName.myNamespace", metadata.Namespace);
             }
 
             [Fact(DisplayName = _Prefix + nameof(DisambiguatesNamespaceConflicts))]
@@ -102,7 +102,7 @@ namespace Amazon.JSII.Generator.UnitTests
             {
                 ClassTypeMetadata metadata = new ClassTypeMetadata(_type, _assembly);
                 metadata.ResolveTypeNameConflicts(new HashSet<string>(new[] {
-                    "myPackageNativeName_myNamespace.MyName"
+                    "myPackageNativeName.myNamespace.MyName"
                 }));
 
                 Assert.Equal("MyName_", metadata.Name);
@@ -115,7 +115,7 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "myModule",
                     name: "myName",
-                    @namespace: "myModule_myNamespace",
+                    @namespace: "myNamespace",
                     isAbstract: false,
                     properties: new[] {
                         new Property(
@@ -138,7 +138,7 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "myModule",
                     name: "myName",
-                    @namespace: "myModule_myNamespace",
+                    @namespace: "myNamespace",
                     isAbstract: false,
                     methods: new[] {
                         new Method(
@@ -195,7 +195,7 @@ namespace Amazon.JSII.Generator.UnitTests
                 fullyQualifiedName: "myFqn",
                 assembly: "myModule",
                 name: "myName",
-                @namespace: "myModule_myNamespace",
+                @namespace: "myNamespace",
                 members: new EnumMember[] { }
             );
 
@@ -226,7 +226,7 @@ namespace Amazon.JSII.Generator.UnitTests
             {
                 EnumTypeMetadata metadata = new EnumTypeMetadata(_type, _assembly);
 
-                Assert.Equal("myPackageNativeName_myNamespace.MyName", metadata.FrameworkFullyQualifiedName);
+                Assert.Equal("myPackageNativeName.myNamespace.MyName", metadata.FrameworkFullyQualifiedName);
             }
 
             [Fact(DisplayName = _Prefix + nameof(SetsPackage))]
@@ -242,7 +242,7 @@ namespace Amazon.JSII.Generator.UnitTests
             {
                 EnumTypeMetadata metadata = new EnumTypeMetadata(_type, _assembly);
 
-                Assert.Equal("myPackageNativeName_myNamespace", metadata.Namespace);
+                Assert.Equal("myPackageNativeName.myNamespace", metadata.Namespace);
             }
 
             [Fact(DisplayName = _Prefix + nameof(DisambiguatesNamespaceConflicts))]
@@ -250,7 +250,7 @@ namespace Amazon.JSII.Generator.UnitTests
             {
                 EnumTypeMetadata metadata = new EnumTypeMetadata(_type, _assembly);
                 metadata.ResolveTypeNameConflicts(new HashSet<string>(new[] {
-                    "myPackageNativeName_myNamespace.MyName"
+                    "myPackageNativeName.myNamespace.MyName"
                 }));
 
                 Assert.Equal("MyName_", metadata.Name);
@@ -263,7 +263,7 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "myModule",
                     name: "myName",
-                    @namespace: "myModule_myNamespace",
+                    @namespace: "myNamespace",
                     members: new[] {
                         new EnumMember("myName")
                     }
@@ -313,7 +313,7 @@ namespace Amazon.JSII.Generator.UnitTests
                 fullyQualifiedName: "myFqn",
                 assembly: "myModule",
                 name: "myName",
-                @namespace: "myModule_myNamespace",
+                @namespace: "myNamespace",
                 isDataType: true
             );
 
@@ -367,7 +367,7 @@ namespace Amazon.JSII.Generator.UnitTests
             {
                 InterfaceTypeMetadata metadata = new InterfaceTypeMetadata(_type, _assembly);
 
-                Assert.Equal("myPackageNativeName_myNamespace.IMyName", metadata.FrameworkFullyQualifiedName);
+                Assert.Equal("myPackageNativeName.myNamespace.IMyName", metadata.FrameworkFullyQualifiedName);
             }
 
             [Fact(DisplayName = _Prefix + nameof(SetsFrameworkFullyQualifiedProxyName))]
@@ -375,7 +375,7 @@ namespace Amazon.JSII.Generator.UnitTests
             {
                 InterfaceTypeMetadata metadata = new InterfaceTypeMetadata(_type, _assembly);
 
-                Assert.Equal("myPackageNativeName_myNamespace.MyNameProxy", metadata.FrameworkFullyQualifiedProxyName);
+                Assert.Equal("myPackageNativeName.myNamespace.MyNameProxy", metadata.FrameworkFullyQualifiedProxyName);
             }
 
             [Fact(DisplayName = _Prefix + nameof(SetsFrameworkFullyQualifiedDefaultName))]
@@ -383,7 +383,7 @@ namespace Amazon.JSII.Generator.UnitTests
             {
                 InterfaceTypeMetadata metadata = new InterfaceTypeMetadata(_type, _assembly);
 
-                Assert.Equal("myPackageNativeName_myNamespace.MyName", metadata.FrameworkFullyQualifiedDefaultName);
+                Assert.Equal("myPackageNativeName.myNamespace.MyName", metadata.FrameworkFullyQualifiedDefaultName);
             }
 
             [Fact(DisplayName = _Prefix + nameof(SetsPackage))]
@@ -399,7 +399,7 @@ namespace Amazon.JSII.Generator.UnitTests
             {
                 InterfaceTypeMetadata metadata = new InterfaceTypeMetadata(_type, _assembly);
 
-                Assert.Equal("myPackageNativeName_myNamespace", metadata.Namespace);
+                Assert.Equal("myPackageNativeName.myNamespace", metadata.Namespace);
             }
 
             [Fact(DisplayName = _Prefix + nameof(DisambiguatesNamespaceConflicts))]
@@ -407,7 +407,7 @@ namespace Amazon.JSII.Generator.UnitTests
             {
                 InterfaceTypeMetadata metadata = new InterfaceTypeMetadata(_type, _assembly);
                 metadata.ResolveTypeNameConflicts(new HashSet<string>(new[] {
-                    "myPackageNativeName_myNamespace.IMyName"
+                    "myPackageNativeName.myNamespace.IMyName"
                 }));
 
                 Assert.Equal("IMyName_", metadata.Name);
@@ -420,7 +420,7 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "myModule",
                     name: "myName",
-                    @namespace: "myModule_myNamespace",
+                    @namespace: "myNamespace",
                     properties: new[] {
                         new Property(
                             name: "iMyName",
@@ -442,7 +442,7 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "myModule",
                     name: "myName",
-                    @namespace: "myModule_myNamespace",
+                    @namespace: "myNamespace",
                     methods: new[] {
                         new Method(
                             isInitializer: false,

@@ -90,8 +90,7 @@
           "name": "Value2"
         }
       ],
-      "name": "EnumFromScopedModule",
-      "namespace": "@scope/jsii-calc-lib"
+      "name": "EnumFromScopedModule"
     },
     "@scope/jsii-calc-lib.IFriendly": {
       "assembly": "@scope/jsii-calc-lib",
@@ -111,8 +110,7 @@
           }
         }
       ],
-      "name": "IFriendly",
-      "namespace": "@scope/jsii-calc-lib"
+      "name": "IFriendly"
     },
     "@scope/jsii-calc-lib.MyFirstStruct": {
       "assembly": "@scope/jsii-calc-lib",
@@ -123,7 +121,6 @@
       "fqn": "@scope/jsii-calc-lib.MyFirstStruct",
       "kind": "interface",
       "name": "MyFirstStruct",
-      "namespace": "@scope/jsii-calc-lib",
       "properties": [
         {
           "docs": {
@@ -185,7 +182,6 @@
       },
       "kind": "class",
       "name": "Number",
-      "namespace": "@scope/jsii-calc-lib",
       "properties": [
         {
           "docs": {
@@ -203,6 +199,9 @@
           },
           "immutable": true,
           "name": "value",
+          "overrides": {
+            "fqn": "@scope/jsii-calc-lib.Value"
+          },
           "type": {
             "primitive": "number"
           }
@@ -230,13 +229,15 @@
             "comment": "String representation of the value."
           },
           "name": "toString",
+          "overrides": {
+            "fqn": "@scope/jsii-calc-lib.Value"
+          },
           "returns": {
             "primitive": "string"
           }
         }
       ],
-      "name": "Operation",
-      "namespace": "@scope/jsii-calc-lib"
+      "name": "Operation"
     },
     "@scope/jsii-calc-lib.StructWithOnlyOptionals": {
       "assembly": "@scope/jsii-calc-lib",
@@ -247,7 +248,6 @@
       "fqn": "@scope/jsii-calc-lib.StructWithOnlyOptionals",
       "kind": "interface",
       "name": "StructWithOnlyOptionals",
-      "namespace": "@scope/jsii-calc-lib",
       "properties": [
         {
           "docs": {
@@ -301,7 +301,6 @@
         }
       ],
       "name": "Value",
-      "namespace": "@scope/jsii-calc-lib",
       "properties": [
         {
           "abstract": true,
@@ -318,5 +317,5 @@
     }
   },
   "version": "0.6.4",
-  "fingerprint": "jA30G5c81DZXD/7DMYLvdlY8XwEevVQAMAwkUBmPE64="
+  "fingerprint": "OLAA8NNlr68J5/yK8t4MB/T0+9GLicN/w/JsSqop/fA="
 }

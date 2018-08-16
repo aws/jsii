@@ -13,19 +13,23 @@ public class Sum extends software.amazon.jsii.tests.calculator.composition.Compo
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
+
     /**
      * The expression that this operation consists of.
      * Must be implemented by derived classes.
      */
+    @Override
     public software.amazon.jsii.tests.calculator.lib.Value getExpression() {
         return this.jsiiGet("expression", software.amazon.jsii.tests.calculator.lib.Value.class);
     }
+
     /**
      * The parts to sum.
      */
     public java.util.List<software.amazon.jsii.tests.calculator.lib.Value> getParts() {
         return this.jsiiGet("parts", java.util.List.class);
     }
+
     /**
      * The parts to sum.
      */

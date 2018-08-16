@@ -105,6 +105,7 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
         public java.time.Instant getGoo() {
             return this.jsiiGet("goo", java.time.Instant.class);
         }
+
         @Override
         public void setGoo(final java.time.Instant value) {
             this.jsiiSet("goo", java.util.Objects.requireNonNull(value, "goo is required"));
@@ -114,6 +115,7 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
         public java.lang.String getBar() {
             return this.jsiiGet("bar", java.lang.String.class);
         }
+
         @Override
         public void setBar(final java.lang.String value) {
             this.jsiiSet("bar", java.util.Objects.requireNonNull(value, "bar is required"));
@@ -123,6 +125,7 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
         public software.amazon.jsii.tests.calculator.baseofbase.Very getFoo() {
             return this.jsiiGet("foo", software.amazon.jsii.tests.calculator.baseofbase.Very.class);
         }
+
         @Override
         public void setFoo(final software.amazon.jsii.tests.calculator.baseofbase.Very value) {
             this.jsiiSet("foo", java.util.Objects.requireNonNull(value, "foo is required"));

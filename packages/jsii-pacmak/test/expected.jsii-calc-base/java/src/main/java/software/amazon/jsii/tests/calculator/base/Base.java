@@ -9,6 +9,7 @@ public abstract class Base extends software.amazon.jsii.JsiiObject {
     protected Base(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
         super(mode);
     }
+
     /**
      * @return the name of the class (to verify native type names are created for derived classes).
      */

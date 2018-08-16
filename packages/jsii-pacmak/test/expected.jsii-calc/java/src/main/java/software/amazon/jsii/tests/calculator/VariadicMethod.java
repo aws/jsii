@@ -13,6 +13,7 @@ public class VariadicMethod extends software.amazon.jsii.JsiiObject {
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.Arrays.stream(java.util.Objects.requireNonNull(prefix, "prefix is required")).toArray());
     }
+
     /**
      * @param first the first element of the array to be returned (after the ``prefix`` provided at construction time).
      * @param others other elements to be included in the array.

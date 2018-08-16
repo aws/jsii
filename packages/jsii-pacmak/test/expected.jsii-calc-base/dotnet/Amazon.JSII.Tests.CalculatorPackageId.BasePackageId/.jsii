@@ -76,8 +76,7 @@
           }
         }
       ],
-      "name": "Base",
-      "namespace": "@scope/jsii-calc-base"
+      "name": "Base"
     },
     "@scope/jsii-calc-base.BaseProps": {
       "assembly": "@scope/jsii-calc-base",
@@ -90,7 +89,6 @@
       ],
       "kind": "interface",
       "name": "BaseProps",
-      "namespace": "@scope/jsii-calc-base",
       "properties": [
         {
           "name": "bar",
@@ -102,5 +100,5 @@
     }
   },
   "version": "0.6.4",
-  "fingerprint": "3lcys0/Cd5ZbPR/CXccsL3Fdb66mNsVBs8jb+ySL0oU="
+  "fingerprint": "3AQHE+SKelQy94tarTiCYoSyQkfZyWyqSY/QU1fDmdE="
 }

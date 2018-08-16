@@ -129,6 +129,7 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
         public java.lang.Number getAnumber() {
             return this.jsiiGet("anumber", java.lang.Number.class);
         }
+
         /**
          * An awesome number value
          */
@@ -144,6 +145,7 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
         public java.lang.String getAstring() {
             return this.jsiiGet("astring", java.lang.String.class);
         }
+
         /**
          * A string value
          */
@@ -157,6 +159,7 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
         public java.util.List<java.lang.String> getFirstOptional() {
             return this.jsiiGet("firstOptional", java.util.List.class);
         }
+
         @Override
         public void setFirstOptional(@javax.annotation.Nullable final java.util.List<java.lang.String> value) {
             this.jsiiSet("firstOptional", value);

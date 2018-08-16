@@ -10,15 +10,18 @@ public class AsyncVirtualMethods extends software.amazon.jsii.JsiiObject {
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
+
     public java.lang.Number callMe() {
         return this.jsiiAsyncCall("callMe", java.lang.Number.class);
     }
+
     /**
      * Just calls "overrideMeToo"
      */
     public java.lang.Number callMe2() {
         return this.jsiiAsyncCall("callMe2", java.lang.Number.class);
     }
+
     /**
      * This method calls the "callMe" async method indirectly, which will then
      * invoke a virtual method. This is a "double promise" situation, which
@@ -28,12 +31,15 @@ public class AsyncVirtualMethods extends software.amazon.jsii.JsiiObject {
     public java.lang.Number callMeDoublePromise() {
         return this.jsiiAsyncCall("callMeDoublePromise", java.lang.Number.class);
     }
+
     public java.lang.Number dontOverrideMe() {
         return this.jsiiCall("dontOverrideMe", java.lang.Number.class);
     }
+
     public java.lang.Number overrideMe(final java.lang.Number mult) {
         return this.jsiiAsyncCall("overrideMe", java.lang.Number.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(mult, "mult is required")).toArray());
     }
+
     public java.lang.Number overrideMeToo() {
         return this.jsiiAsyncCall("overrideMeToo", java.lang.Number.class);
     }

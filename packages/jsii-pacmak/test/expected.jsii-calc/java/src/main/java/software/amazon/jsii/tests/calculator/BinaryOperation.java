@@ -9,18 +9,22 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
     protected BinaryOperation(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
         super(mode);
     }
+
     /**
      * Say hello!
      */
+    @Override
     public java.lang.String hello() {
         return this.jsiiCall("hello", java.lang.String.class);
     }
+
     /**
      * Left-hand side operand
      */
     public software.amazon.jsii.tests.calculator.lib.Value getLhs() {
         return this.jsiiGet("lhs", software.amazon.jsii.tests.calculator.lib.Value.class);
     }
+
     /**
      * Right-hand side operand
      */

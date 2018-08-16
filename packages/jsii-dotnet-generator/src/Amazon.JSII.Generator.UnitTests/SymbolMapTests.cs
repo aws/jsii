@@ -60,7 +60,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn1",
                     assembly: "my-package",
                     name: "MyType",
-                    @namespace: "my-package",
                     isAbstract: false
                 );
                 Type type2 = new ClassType
@@ -68,7 +67,7 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn2",
                     assembly: "my-package",
                     name: "myType2",
-                    @namespace: "my-package.MyType",
+                    @namespace: "MyType",
                     isAbstract: false
                 );
 
@@ -108,7 +107,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "my-package",
                     name: "myType",
-                    @namespace: "my-package",
                     isAbstract: false,
                     properties: new[]
                     {
@@ -156,7 +154,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "my-package",
                     name: "myType",
-                    @namespace: "jsii$my_assembly$",
                     members: new EnumMember[] { }
                 );
 
@@ -177,7 +174,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn1",
                     assembly: "my-package-1",
                     name: "myType",
-                    @namespace: "my-package-1",
                     members: new EnumMember[] { }
                 );
                 Type type2 = new EnumType
@@ -185,7 +181,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn2",
                     assembly: "my-package-2",
                     name: "myType",
-                    @namespace: "my-package-2",
                     members: new EnumMember[] { }
                 );
 
@@ -260,7 +255,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn1",
                     assembly: "my-package-1",
                     name: "myType1",
-                    @namespace: "my-package-1",
                     members: new EnumMember[] { }
                 );
                 Type type2 = new EnumType
@@ -268,7 +262,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn2",
                     assembly: "my-package-2",
                     name: "myType2",
-                    @namespace: "my-package-2",
                     members: new EnumMember[] { }
                 );
 
@@ -343,7 +336,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn1",
                     assembly: "my-package-1",
                     name: "myType",
-                    @namespace: "my-package-1",
                     members: new EnumMember[] { }
                 );
                 Type type2 = new EnumType
@@ -351,7 +343,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn2",
                     assembly: "my-package-2",
                     name: "myType",
-                    @namespace: "my-package-2",
                     members: new EnumMember[] { }
                 );
 
@@ -433,7 +424,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "my-package",
                     name: "myType",
-                    @namespace: "jsii$my_assembly$",
                     isAbstract: false,
                     methods: new[] { method }
                 );
@@ -460,7 +450,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "my-package",
                     name: "myType",
-                    @namespace: "my-package",
                     isAbstract: false,
                     properties: new[] { property }
                 );
@@ -480,7 +469,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "my-package",
                     name: "myType",
-                    @namespace: "my-package",
                     members: new[] { member }
                 );
 
@@ -507,7 +495,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "my-package",
                     name: "myType",
-                    @namespace: "my-package",
                     isAbstract: false,
                     methods: new[] { method }
                 );
@@ -531,7 +518,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "my-package",
                     name: "myType",
-                    @namespace: "my-package",
                     members: new EnumMember[] { }
                 );
 
@@ -552,7 +538,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn1",
                     assembly: "my-package-1",
                     name: "myType",
-                    @namespace: "my-package-1",
                     members: new EnumMember[] { }
                 );
                 Type type2 = new EnumType
@@ -560,7 +545,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn2",
                     assembly: "my-package-2",
                     name: "myType",
-                    @namespace: "my-package-2",
                     members: new EnumMember[] { }
                 );
 
@@ -635,7 +619,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn1",
                     assembly: "my-package-1",
                     name: "myType1",
-                    @namespace: "my-package-1",
                     members: new EnumMember[] { }
                 );
                 Type type2 = new EnumType
@@ -643,7 +626,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn2",
                     assembly: "my-package-2",
                     name: "myType2",
-                    @namespace: "my-package-2",
                     members: new EnumMember[] { }
                 );
 
@@ -718,7 +700,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn1",
                     assembly: "my-package-1",
                     name: "myType",
-                    @namespace: "my-package-1",
                     members: new EnumMember[] { }
                 );
                 Type type2 = new EnumType
@@ -726,7 +707,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn2",
                     assembly: "my-package-2",
                     name: "myType",
-                    @namespace: "my-package-2",
                     members: new EnumMember[] { }
                 );
 
@@ -808,7 +788,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "my-package",
                     name: "myType",
-                    @namespace: "my-package",
                     isAbstract: false,
                     methods: new[] { method }
                 );
@@ -835,7 +814,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "my-package",
                     name: "myType",
-                    @namespace: "my-package",
                     isAbstract: false,
                     properties: new[] { property }
                 );
@@ -855,7 +833,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "my-package",
                     name: "myType",
-                    @namespace: "my-package",
                     members: new[] { member }
                 );
 
@@ -882,7 +859,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "my-package",
                     name: "myType",
-                    @namespace: "my-package",
                     isAbstract: false,
                     methods: new[] { method }
                 );
@@ -906,7 +882,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "my-package",
                     name: "myType",
-                    @namespace: "my-package",
                     members: new EnumMember[] { }
                 );
 
@@ -927,7 +902,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn1",
                     assembly: "my-package-1",
                     name: "myType",
-                    @namespace: "my-package-1",
                     members: new EnumMember[] { }
                 );
                 Type type2 = new EnumType
@@ -935,7 +909,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn2",
                     assembly: "my-package-2",
                     name: "myType",
-                    @namespace: "my-package-2",
                     members: new EnumMember[] { }
                 );
 
@@ -1010,7 +983,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn1",
                     assembly: "my-package-1",
                     name: "myType1",
-                    @namespace: "my-package-1",
                     members: new EnumMember[] { }
                 );
                 Type type2 = new EnumType
@@ -1018,7 +990,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn2",
                     assembly: "my-package-2",
                     name: "myType2",
-                    @namespace: "my-package-2",
                     members: new EnumMember[] { }
                 );
 
@@ -1093,7 +1064,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn1",
                     assembly: "my-package-1",
                     name: "myType",
-                    @namespace: "my-package-1",
                     members: new EnumMember[] { }
                 );
                 Type type2 = new EnumType
@@ -1101,7 +1071,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn2",
                     assembly: "my-package-2",
                     name: "myType",
-                    @namespace: "my-package-2",
                     members: new EnumMember[] { }
                 );
 
@@ -1183,7 +1152,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "my-package",
                     name: "myType",
-                    @namespace: "my-package",
                     isAbstract: false,
                     methods: new[] { method }
                 );
@@ -1210,7 +1178,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "my-package",
                     name: "myType",
-                    @namespace: "my-package",
                     isAbstract: false,
                     properties: new[] { property }
                 );
@@ -1230,7 +1197,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "my-package",
                     name: "myType",
-                    @namespace: "my-package",
                     members: new[] { member }
                 );
 
@@ -1257,7 +1223,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "my-package",
                     name: "myType",
-                    @namespace: "my-package",
                     isAbstract: false,
                     methods: new[] { method }
                 );
@@ -1281,7 +1246,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "my-package",
                     name: "myName",
-                    @namespace: "my-package",
                     isAbstract: false
                 );
 
@@ -1299,7 +1263,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "my-package",
                     name: "myName",
-                    @namespace: "my-package",
                     isAbstract: false
                 );
 
@@ -1322,7 +1285,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "my-package",
                     name: "myName",
-                    @namespace: "my-package",
                     isAbstract: false
                 );
 
@@ -1340,7 +1302,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "my-package",
                     name: "myName",
-                    @namespace: "my-package",
                     isAbstract: false
                 );
 
@@ -1363,7 +1324,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "my-package",
                     name: "myName",
-                    @namespace: "my-package",
                     isAbstract: false
                 );
 
@@ -1381,7 +1341,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "my-package",
                     name: "myName",
-                    @namespace: "my-package",
                     isAbstract: false
                 );
 
@@ -1404,7 +1363,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "my-package",
                     name: "myName",
-                    @namespace: "my-package",
                     isAbstract: false
                 );
 
@@ -1422,7 +1380,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "my-package",
                     name: "myName",
-                    @namespace: "my-package",
                     isAbstract: false
                 );
 
@@ -1445,7 +1402,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "my-package",
                     name: "myName",
-                    @namespace: "my-package",
                     isAbstract: false
                 );
 
@@ -1463,7 +1419,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "my-package",
                     name: "myName",
-                    @namespace: "my-package",
                     isAbstract: false
                 );
 
@@ -1486,7 +1441,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "my-package",
                     name: "myName",
-                    @namespace: "my-package",
                     isAbstract: false
                 );
 
@@ -1504,7 +1458,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "my-package",
                     name: "myName",
-                    @namespace: "my-package",
                     isAbstract: false
                 );
 
@@ -1592,7 +1545,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "my-package",
                     name: "myName",
-                    @namespace: "my-package",
                     isAbstract: false
                 );
 
@@ -1616,7 +1568,6 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn",
                     assembly: "my-package",
                     name: "myName",
-                    @namespace: "my-package",
                     isAbstract: false
                 );
 

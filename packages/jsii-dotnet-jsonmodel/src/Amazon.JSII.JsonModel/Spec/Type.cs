@@ -19,7 +19,7 @@ namespace Amazon.JSII.JsonModel.Spec
             FullyQualifiedName = fullyQualifiedName ?? throw new ArgumentNullException(nameof(fullyQualifiedName));
             Assembly = assembly ?? throw new ArgumentNullException(nameof(assembly));
             Name = name ?? throw new ArgumentNullException(nameof(name));
-            Namespace = @namespace ?? throw new ArgumentNullException(nameof(@namespace));
+            Namespace = @namespace;
             Kind = kind;
             Docs = docs;
         }
@@ -33,7 +33,7 @@ namespace Amazon.JSII.JsonModel.Spec
         [JsonProperty("name")]
         public string Name { get; }
 
-        [JsonProperty("namespace")]
+        [JsonProperty("namespace", NullValueHandling = NullValueHandling.Ignore)]
         public string Namespace { get; }
 
         [JsonProperty("kind")]
@@ -41,5 +41,8 @@ namespace Amazon.JSII.JsonModel.Spec
 
         [JsonProperty("docs", NullValueHandling = NullValueHandling.Ignore)]
         public Docs Docs { get; }
+
+        [JsonIgnore]
+        public string QualifiedNamespace => this.Assembly + (this.Namespace != null ? $".{this.Namespace}" : "");
     }
 }

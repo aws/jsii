@@ -134,13 +134,13 @@ namespace Amazon.JSII.Generator.UnitTests
         public static void MapNamespace(this ISymbolMap symbols, string jsiiNamespace, string frameworkNamespace)
         {
             symbols
-                .GetNamespace(Arg.Is<Type>(t => t.Namespace == jsiiNamespace))
+                .GetNamespace(Arg.Is<Type>(t => t.QualifiedNamespace == jsiiNamespace))
                 .Returns(frameworkNamespace);
             symbols
-                .GetNamespaceSyntaxToken(Arg.Is<Type>(t => t.Namespace == jsiiNamespace))
+                .GetNamespaceSyntaxToken(Arg.Is<Type>(t => t.QualifiedNamespace == jsiiNamespace))
                 .Returns(SF.ParseToken(frameworkNamespace));
             symbols
-                .GetNamespaceSyntax(Arg.Is<Type>(t => t.Namespace == jsiiNamespace))
+                .GetNamespaceSyntax(Arg.Is<Type>(t => t.QualifiedNamespace == jsiiNamespace))
                 .Returns(SF.ParseName(frameworkNamespace));
         }
 

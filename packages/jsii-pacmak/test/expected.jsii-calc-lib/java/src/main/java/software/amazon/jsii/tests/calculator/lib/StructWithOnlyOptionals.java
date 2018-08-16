@@ -128,6 +128,7 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
         public java.lang.String getOptional1() {
             return this.jsiiGet("optional1", java.lang.String.class);
         }
+
         /**
          * The first optional!
          */
@@ -141,6 +142,7 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
         public java.lang.Number getOptional2() {
             return this.jsiiGet("optional2", java.lang.Number.class);
         }
+
         @Override
         public void setOptional2(@javax.annotation.Nullable final java.lang.Number value) {
             this.jsiiSet("optional2", value);
@@ -151,6 +153,7 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
         public java.lang.Boolean getOptional3() {
             return this.jsiiGet("optional3", java.lang.Boolean.class);
         }
+
         @Override
         public void setOptional3(@javax.annotation.Nullable final java.lang.Boolean value) {
             this.jsiiSet("optional3", value);

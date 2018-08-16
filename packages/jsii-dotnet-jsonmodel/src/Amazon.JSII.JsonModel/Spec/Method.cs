@@ -4,7 +4,7 @@ using System;
 namespace Amazon.JSII.JsonModel.Spec
 {
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public class Method : IDocumentable
+    public class Method : IDocumentable, IOverridable
     {
         public Method
         (
@@ -16,7 +16,8 @@ namespace Amazon.JSII.JsonModel.Spec
             string name = null,
             TypeReference returns = null,
             bool? isVariadic = null,
-            bool? isStatic = null
+            bool? isStatic = null,
+            UserTypeReference overrides = null
         )
         {
             IsInitializer = isInitializer;
@@ -28,6 +29,7 @@ namespace Amazon.JSII.JsonModel.Spec
             Returns = returns;
             IsVariadic = isVariadic;
             IsStatic = isStatic;
+            Overrides = overrides;
         }
 
 
@@ -57,5 +59,8 @@ namespace Amazon.JSII.JsonModel.Spec
 
         [JsonProperty("static", NullValueHandling = NullValueHandling.Ignore)]
         public bool? IsStatic { get; }
+
+        [JsonProperty("overrides", NullValueHandling = NullValueHandling.Ignore)]
+        public UserTypeReference Overrides { get; }
     }
 }

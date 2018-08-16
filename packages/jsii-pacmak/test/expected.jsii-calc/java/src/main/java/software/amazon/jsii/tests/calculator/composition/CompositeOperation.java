@@ -9,12 +9,15 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
     protected CompositeOperation(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
         super(mode);
     }
+
     /**
      * String representation of the value.
      */
+    @Override
     public java.lang.String toString() {
         return this.jsiiCall("toString", java.lang.String.class);
     }
+
     /**
      * The expression that this operation consists of.
      * Must be implemented by derived classes.
@@ -22,42 +25,50 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
     public software.amazon.jsii.tests.calculator.lib.Value getExpression() {
         return this.jsiiGet("expression", software.amazon.jsii.tests.calculator.lib.Value.class);
     }
+
     /**
      * The value.
      */
+    @Override
     public java.lang.Number getValue() {
         return this.jsiiGet("value", java.lang.Number.class);
     }
+
     /**
      * A set of postfixes to include in a decorated .toString().
      */
     public java.util.List<java.lang.String> getDecorationPostfixes() {
         return this.jsiiGet("decorationPostfixes", java.util.List.class);
     }
+
     /**
      * A set of postfixes to include in a decorated .toString().
      */
     public void setDecorationPostfixes(final java.util.List<java.lang.String> value) {
         this.jsiiSet("decorationPostfixes", java.util.Objects.requireNonNull(value, "decorationPostfixes is required"));
     }
+
     /**
      * A set of prefixes to include in a decorated .toString().
      */
     public java.util.List<java.lang.String> getDecorationPrefixes() {
         return this.jsiiGet("decorationPrefixes", java.util.List.class);
     }
+
     /**
      * A set of prefixes to include in a decorated .toString().
      */
     public void setDecorationPrefixes(final java.util.List<java.lang.String> value) {
         this.jsiiSet("decorationPrefixes", java.util.Objects.requireNonNull(value, "decorationPrefixes is required"));
     }
+
     /**
      * The .toString() style.
      */
     public software.amazon.jsii.tests.calculator.composition.CompositeOperation.CompositionStringStyle getStringStyle() {
         return this.jsiiGet("stringStyle", software.amazon.jsii.tests.calculator.composition.CompositeOperation.CompositionStringStyle.class);
     }
+
     /**
      * The .toString() style.
      */

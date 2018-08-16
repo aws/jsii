@@ -12,7 +12,7 @@ namespace Amazon.JSII.JsonModel.Spec
             string fullyQualifiedName,
             string assembly,
             string name,
-            string @namespace,
+            string @namespace = null,
 
             // Type properties
             Docs docs = null,

@@ -113,10 +113,10 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 ));
             }
 
-            [Fact(DisplayName = Prefix + nameof(ShouldThrowOnMissingNamespace))]
-            public void ShouldThrowOnMissingNamespace()
+            [Fact(DisplayName = Prefix + nameof(ShouldNotSerializeMissingNamespace))]
+            public void ShouldNotSerializeMissingNamespace()
             {
-                Assert.Throws<ArgumentNullException>(() => new ClassType
+                ClassType classType = new ClassType
                 (
                     fullyQualifiedName: "myFqn",
                     assembly: "myModule",
@@ -129,7 +129,28 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                     @base: new TypeReference("myBaseFqn"),
                     initializer: new Method(true, false, false),
                     interfaces: new TypeReference[] { }
-                ));
+                );
+                string actual = JsonConvert.SerializeObject(classType, Formatting.Indented);
+                const string expected = @"{
+  ""abstract"": true,
+  ""base"": {
+    ""fqn"": ""myBaseFqn""
+  },
+  ""initializer"": {
+    ""initializer"": true,
+    ""protected"": false,
+    ""abstract"": false
+  },
+  ""properties"": [],
+  ""methods"": [],
+  ""interfaces"": [],
+  ""fqn"": ""myFqn"",
+  ""assembly"": ""myModule"",
+  ""name"": ""myName"",
+  ""kind"": ""class"",
+  ""docs"": {}
+}";
+                Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
             }
 
             [Fact(DisplayName = Prefix + nameof(ShouldNotSerializeMissingDocs))]
@@ -495,8 +516,8 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 Assert.Throws<ArgumentNullException>(() => JsonConvert.DeserializeObject<ClassType>(json));
             }
 
-            [Fact(DisplayName = Prefix + nameof(ShouldThrowOnMissingNamespace))]
-            public void ShouldThrowOnMissingNamespace()
+            [Fact(DisplayName = Prefix + nameof(ShouldNotDeserializeMissingNamespace))]
+            public void ShouldNotDeserializeMissingNamespace()
             {
                 const string json = @"{
   ""abstract"": true,
@@ -518,7 +539,8 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
   ""docs"": {}
 }";
 
-                Assert.Throws<ArgumentNullException>(() => JsonConvert.DeserializeObject<ClassType>(json));
+                ClassType actual = JsonConvert.DeserializeObject<ClassType>(json);
+                Assert.Null(actual.Namespace);
             }
 
             [Fact(DisplayName = Prefix + nameof(ShouldNotDeserializeMissingDocs))]

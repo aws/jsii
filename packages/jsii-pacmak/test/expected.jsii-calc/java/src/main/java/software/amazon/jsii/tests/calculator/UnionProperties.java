@@ -121,10 +121,12 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
         public java.lang.Object getFoo() {
             return this.jsiiGet("foo", java.lang.Object.class);
         }
+
         @Override
         public void setFoo(@javax.annotation.Nullable final java.lang.String value) {
             this.jsiiSet("foo", value);
         }
+
         @Override
         public void setFoo(@javax.annotation.Nullable final java.lang.Number value) {
             this.jsiiSet("foo", value);

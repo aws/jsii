@@ -94,6 +94,7 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
         public java.lang.Number getInitialValue() {
             return this.jsiiGet("initialValue", java.lang.Number.class);
         }
+
         @Override
         public void setInitialValue(@javax.annotation.Nullable final java.lang.Number value) {
             this.jsiiSet("initialValue", value);
@@ -104,6 +105,7 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
         public java.lang.Number getMaximumValue() {
             return this.jsiiGet("maximumValue", java.lang.Number.class);
         }
+
         @Override
         public void setMaximumValue(@javax.annotation.Nullable final java.lang.Number value) {
             this.jsiiSet("maximumValue", value);

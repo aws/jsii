@@ -273,7 +273,7 @@ namespace Amazon.JSII.Generator
         {
             string fullyQualifiedName = (type ?? throw new ArgumentNullException(nameof(type))).FullyQualifiedName;
 
-            return _types[fullyQualifiedName].Namespace;
+            return _types[fullyQualifiedName].Namespace ?? "";
         }
 
         public string GetNamespace(string fullyQualifiedName)

@@ -178,7 +178,18 @@ export async function compileSources(entrypoint: string,
 
     if (rootModule) {
         await processModule(rootModule, []);
-        addTypeInfo(assm, types);
+        for (const type of types.sort((l, r) => l.fqn.localeCompare(r.fqn))) {
+            assm.types = assm.types || {};
+            if (type.namespace) {
+                const ns = `${type.assembly}.${type.namespace}`;
+                const parentType = Object.values(types).find(t => ns.startsWith(`${t.fqn}.`));
+                if (parentType) {
+                    // tslint:disable-next-line:max-line-length
+                    throw new Error(`All child names of a type '${parentType.fqn}' must point to concrete types, but '${ns}' is a namespaces, and this structure cannot be supported in all languages (e.g. Java)`);
+                }
+            }
+            assm.types[type.fqn] = type;
+        }
         verifyUnexportedTypes(assm, typeRefs, externalTypes);
         validateOverriddenSignatures(assm, externalTypes);
         normalizeInitializers(assm, externalTypes);
@@ -1092,16 +1103,16 @@ export async function compileSources(entrypoint: string,
     }
 
     function makeEntityName(fqn: string, ctx: string[]) {
-        const parts = fqn.split('.');
+        const [assembly, ...parts] = fqn.split('.');
 
         // fqn may be <assembly>.<name> or <assembly>...<namespace>...<name>
-        if (parts.length < 2) {
+        if (parts.length < 1) {
             throw error(ctx, `Unable to parse fqn '${fqn}. Expecting at least 2 components`);
         }
 
         return {
             fqn,
-            assembly: parts[0], // First segment is the assembly name
+            assembly, // First segment is the assembly name
             namespace: parts.slice(0, parts.length - 1).join('.'),
             name: parts[parts.length - 1]
         };
@@ -1282,43 +1293,6 @@ function normalizeInitializers(mod: spec.Assembly, externalTypes: Map<string, sp
 }
 
 /**
- * Add "subtypes" and "parenttype" to all types, and registers the types in the assembly.
- * Also verifies that we don't have weird situations that can be supported by all langauges.
- *
- * @param mod   The module
- * @param types The types to be registered.
- */
-function addTypeInfo(mod: spec.Assembly, types: spec.Type[]) {
-    mod.types = mod.types || {};
-    for (const type of types) {
-        mod.types[type.fqn] = type;
-    }
-
-    visitTree(spec.NameTree.of(mod));
-
-    function visitTree(node: spec.NameTree) {
-        if (node.fqn) {
-            const parentType = mod.types![node.fqn];
-
-            for (const childName of Object.keys(node.children)) {
-                const child = node.children[childName];
-                // there are some programming languages that won't be able to support
-                // a namespace as a sub-name of a concrete type (e.g. java), so we can't support that.
-                if (!child.fqn) {
-                    // tslint:disable-next-line:max-line-length
-                    throw new Error(`All child names of a type '${node.fqn}' must point to concrete types, but '${node.fqn}.${childName}' is a namespaces, and this structure cannot be supported in all languages (e.g. Java)`);
-                }
-                mod.types![child.fqn].parenttype = node.fqn;
-                if (!parentType.subtypes) { parentType.subtypes = []; }
-                parentType.subtypes.push(child.fqn);
-            }
-        }
-
-        Object.values(node.children).forEach(visitTree);
-    }
-}
-
-/**
  * Verify that overridden methods don't change the signature.
  *
  * Changing the types of arguments or the return type is not allowed in
@@ -1380,6 +1354,7 @@ function validateOverriddenSignatures(mod: spec.Assembly, externalTypes: Map<str
                     throw new Error(`${where}: parameter ${i + 1} type changed from ${orig} (in ${ancestorFqn}) to ${cur}`);
                 }
             }
+            if (currentFqn !== ancestorFqn) { currentMethod.overrides = { fqn: ancestorFqn }; }
         }
 
         function validateProperty(currentProperty: spec.Property, ancestorProperty: spec.Property) {
@@ -1389,6 +1364,7 @@ function validateOverriddenSignatures(mod: spec.Assembly, externalTypes: Map<str
 
                 throw new Error(`${currentFqn}.${currentProperty.name}: type changed from ${orig} (in ${ancestorFqn}) to ${cur}`);
             }
+            if (currentFqn !== ancestorFqn) { currentProperty.overrides = { fqn: ancestorFqn }; }
         }
     }
 

@@ -239,6 +239,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         public java.time.Instant getAnotherRequired() {
             return this.jsiiGet("anotherRequired", java.time.Instant.class);
         }
+
         @Override
         public void setAnotherRequired(final java.time.Instant value) {
             this.jsiiSet("anotherRequired", java.util.Objects.requireNonNull(value, "anotherRequired is required"));
@@ -248,6 +249,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         public java.lang.Boolean getBool() {
             return this.jsiiGet("bool", java.lang.Boolean.class);
         }
+
         @Override
         public void setBool(final java.lang.Boolean value) {
             this.jsiiSet("bool", java.util.Objects.requireNonNull(value, "bool is required"));
@@ -260,6 +262,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         public software.amazon.jsii.tests.calculator.DoubleTrouble getNonPrimitive() {
             return this.jsiiGet("nonPrimitive", software.amazon.jsii.tests.calculator.DoubleTrouble.class);
         }
+
         /**
          * An example of a non primitive property.
          */
@@ -276,6 +279,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         public java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> getAnotherOptional() {
             return this.jsiiGet("anotherOptional", java.util.Map.class);
         }
+
         /**
          * This is optional.
          */
@@ -289,6 +293,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         public java.util.List<java.lang.String> getOptionalArray() {
             return this.jsiiGet("optionalArray", java.util.List.class);
         }
+
         @Override
         public void setOptionalArray(@javax.annotation.Nullable final java.util.List<java.lang.String> value) {
             this.jsiiSet("optionalArray", value);
@@ -301,6 +306,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         public java.lang.Number getAnumber() {
             return this.jsiiGet("anumber", java.lang.Number.class);
         }
+
         /**
          * An awesome number value
          */
@@ -316,6 +322,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         public java.lang.String getAstring() {
             return this.jsiiGet("astring", java.lang.String.class);
         }
+
         /**
          * A string value
          */
@@ -329,6 +336,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         public java.util.List<java.lang.String> getFirstOptional() {
             return this.jsiiGet("firstOptional", java.util.List.class);
         }
+
         @Override
         public void setFirstOptional(@javax.annotation.Nullable final java.util.List<java.lang.String> value) {
             this.jsiiSet("firstOptional", value);
