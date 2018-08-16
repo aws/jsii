@@ -12,11 +12,11 @@ namespace Amazon.JSII.Generator.UnitTests.Class
 
         string Render(ClassType classType)
         {
-            Symbols.MapTypeToPackage("myFqn", "myPackage");
-            Symbols.MapNamespace("myNamespace", "MyNamespace");
+            Symbols.MapTypeToPackage("myFqn", classType.Assembly);
+            Symbols.MapNamespace(classType.QualifiedNamespace, "MyNamespace");
             Symbols.MapTypeName("myFqn", "MyClass", JsonModel.Spec.TypeKind.Class);
 
-            ClassGenerator generator = new ClassGenerator("myPackage", classType, Symbols, Namespaces);
+            ClassGenerator generator = new ClassGenerator(classType.Assembly, classType, Symbols, Namespaces);
 
             SyntaxTree syntaxTree = generator.CreateSyntaxTree();
             return syntaxTree.ToString();
@@ -27,11 +27,10 @@ namespace Amazon.JSII.Generator.UnitTests.Class
         {
             ClassType classType = new ClassType
             (
-                "myFqn",
-                "myPackage",
-                "myClass",
-                "myNamespace",
-                false,
+                fullyQualifiedName: "myFqn",
+                assembly: "myPackage",
+                name: "myClass",
+                isAbstract: false,
                 initializer: new Method(true, false, false)
             );
 
@@ -63,11 +62,10 @@ namespace Amazon.JSII.Generator.UnitTests.Class
         {
             ClassType classType = new ClassType
             (
-                "myFqn",
-                "myPackage",
-                "myClass",
-                "myNamespace",
-                true,
+                fullyQualifiedName: "myFqn",
+                assembly: "myPackage",
+                name: "myClass",
+                isAbstract: true,
                 initializer: new Method(true, false, false)
             );
 
@@ -100,11 +98,10 @@ namespace Amazon.JSII.Generator.UnitTests.Class
             // Docs are not currently generated as part of the C# code.
             ClassType classType = new ClassType
             (
-                "myFqn",
-                "myPackage",
-                "myClass",
-                "myNamespace",
-                false,
+                fullyQualifiedName: "myFqn",
+                assembly: "myPackage",
+                name: "myClass",
+                isAbstract: false,
                 initializer: new Method(true, false, false),
                 docs: new Docs { { "foo", "bar" } }
             );
@@ -138,11 +135,10 @@ namespace Amazon.JSII.Generator.UnitTests.Class
         {
             ClassType classType = new ClassType
             (
-                "myFqn",
-                "myPackage",
-                "myClass",
-                "myNamespace",
-                false,
+                fullyQualifiedName: "myFqn",
+                assembly: "myPackage",
+                name: "myClass",
+                isAbstract: false,
                 initializer: new Method(true, false, false),
                 properties: new[]
                 {
@@ -195,11 +191,10 @@ namespace Amazon.JSII.Generator.UnitTests.Class
         {
             ClassType classType = new ClassType
             (
-                "myFqn",
-                "myPackage",
-                "myClass",
-                "myNamespace",
-                false,
+                fullyQualifiedName: "myFqn",
+                assembly: "myPackage",
+                name: "myClass",
+                isAbstract: false,
                 initializer: new Method(true, false, false),
                 methods: new[]
                 {
@@ -249,11 +244,10 @@ namespace Amazon.JSII.Generator.UnitTests.Class
         {
             ClassType classType = new ClassType
             (
-                "myFqn",
-                "myPackage",
-                "myClass",
-                "myNamespace",
-                false,
+                fullyQualifiedName: "myFqn",
+                assembly: "myPackage",
+                name: "myClass",
+                isAbstract: false,
                 initializer: new Method(true, false, false),
                 @base: new TypeReference("myBaseTypeFqn")
             );
@@ -288,11 +282,10 @@ namespace Amazon.JSII.Generator.UnitTests.Class
         {
             ClassType classType = new ClassType
             (
-                "myFqn",
-                "myPackage",
-                "myClass",
-                "myNamespace",
-                false,
+                fullyQualifiedName: "myFqn",
+                assembly: "myPackage",
+                name: "myClass",
+                isAbstract: false,
                 initializer: new Method(true, false, false),
                 interfaces: new[]
                 {

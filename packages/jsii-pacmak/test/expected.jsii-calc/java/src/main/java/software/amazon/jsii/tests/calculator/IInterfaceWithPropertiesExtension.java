@@ -100,6 +100,7 @@ public interface IInterfaceWithPropertiesExtension extends software.amazon.jsii.
         public java.lang.Number getFoo() {
             return this.jsiiGet("foo", java.lang.Number.class);
         }
+
         @Override
         public void setFoo(final java.lang.Number value) {
             this.jsiiSet("foo", java.util.Objects.requireNonNull(value, "foo is required"));
@@ -114,6 +115,7 @@ public interface IInterfaceWithPropertiesExtension extends software.amazon.jsii.
         public java.lang.String getReadWriteString() {
             return this.jsiiGet("readWriteString", java.lang.String.class);
         }
+
         @Override
         public void setReadWriteString(final java.lang.String value) {
             this.jsiiSet("readWriteString", java.util.Objects.requireNonNull(value, "readWriteString is required"));

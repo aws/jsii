@@ -21,11 +21,10 @@ namespace Amazon.JSII.Generator.UnitTests
                 {
                     grandParentType = new ClassType
                     (
-                        "myGrandParentTypeFqn",
-                        "myPackage",
-                        "myGrandParentType",
-                        "myNamespace",
-                        false
+                        fullyQualifiedName: "myGrandParentTypeFqn",
+                        assembly: "myPackage",
+                        name: "myGrandParentType",
+                        isAbstract: false
                     );
 
                     Symbols.MapFullyQualifiedNameToType("myGrandParentTypeFqn", grandParentType);
@@ -36,11 +35,10 @@ namespace Amazon.JSII.Generator.UnitTests
                 {
                     parentType = new ClassType
                     (
-                        "myParentTypeFqn",
-                        "myPackage",
-                        "myParentType",
-                        "myNamespace",
-                        false,
+                        fullyQualifiedName: "myParentTypeFqn",
+                        assembly: "myPackage",
+                        name: "myParentType",
+                        isAbstract: false,
                         @base: includeGrandparent ? new TypeReference("myGrandParentTypeFqn") : null
                     );
                     Symbols.MapFullyQualifiedNameToType("myParentTypeFqn", parentType);
@@ -48,11 +46,10 @@ namespace Amazon.JSII.Generator.UnitTests
 
                 ClassType classType = new ClassType
                 (
-                    "myClassFqn",
-                    "myPackage",
-                    "myClass",
-                    "myNamespace",
-                    false,
+                    fullyQualifiedName: "myClassFqn",
+                    assembly: "myPackage",
+                    name: "myClass",
+                    isAbstract: false,
                     @base: includeParent ? new TypeReference("myParentTypeFqn") : null
                 );
                 Symbols.MapFullyQualifiedNameToType("myClassFqn", classType);
@@ -110,20 +107,18 @@ namespace Amazon.JSII.Generator.UnitTests
             {
                 InterfaceType interfaceType = new InterfaceType
                 (
-                    "myInterfaceFqn",
-                    "myPackage",
-                    "myInterface",
-                    "myNamespace"
+                    fullyQualifiedName: "myInterfaceFqn",
+                    assembly: "myPackage",
+                    name: "myInterface"
                 );
                 Symbols.MapFullyQualifiedNameToType("myInterfaceFqn", interfaceType);
 
                 ClassType classType = new ClassType
                 (
-                    "myClassFqn",
-                    "myPackage",
-                    "myClass",
-                    "myNamespace",
-                    false,
+                    fullyQualifiedName: "myClassFqn",
+                    assembly: "myPackage",
+                    name: "myClass",
+                    isAbstract: false,
                     interfaces: new[] { new TypeReference("myInterfaceFqn") }
                 );
                 Symbols.MapFullyQualifiedNameToType("myClassFqn", classType);

@@ -10,6 +10,7 @@ public class JSObjectLiteralToNative extends software.amazon.jsii.JsiiObject {
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
+
     public software.amazon.jsii.tests.calculator.JSObjectLiteralToNativeClass returnLiteral() {
         return this.jsiiCall("returnLiteral", software.amazon.jsii.tests.calculator.JSObjectLiteralToNativeClass.class);
     }

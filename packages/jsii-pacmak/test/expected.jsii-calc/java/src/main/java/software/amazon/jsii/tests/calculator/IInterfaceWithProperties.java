@@ -85,6 +85,7 @@ public interface IInterfaceWithProperties extends software.amazon.jsii.JsiiSeria
         public java.lang.String getReadWriteString() {
             return this.jsiiGet("readWriteString", java.lang.String.class);
         }
+
         @Override
         public void setReadWriteString(final java.lang.String value) {
             this.jsiiSet("readWriteString", java.util.Objects.requireNonNull(value, "readWriteString is required"));

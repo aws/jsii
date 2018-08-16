@@ -10,6 +10,7 @@ public class Thrower extends software.amazon.jsii.JsiiObject {
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
+
     public void throwError() {
         this.jsiiCall("throwError", Void.class);
     }

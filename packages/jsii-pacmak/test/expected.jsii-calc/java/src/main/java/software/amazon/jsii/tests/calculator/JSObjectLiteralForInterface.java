@@ -10,9 +10,11 @@ public class JSObjectLiteralForInterface extends software.amazon.jsii.JsiiObject
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
+
     public software.amazon.jsii.tests.calculator.lib.IFriendly giveMeFriendly() {
         return this.jsiiCall("giveMeFriendly", software.amazon.jsii.tests.calculator.lib.IFriendly.class);
     }
+
     public software.amazon.jsii.tests.calculator.IFriendlyRandomGenerator giveMeFriendlyGenerator() {
         return this.jsiiCall("giveMeFriendlyGenerator", software.amazon.jsii.tests.calculator.IFriendlyRandomGenerator.class);
     }

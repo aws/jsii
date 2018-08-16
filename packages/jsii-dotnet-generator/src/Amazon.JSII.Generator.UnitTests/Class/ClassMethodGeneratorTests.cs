@@ -14,11 +14,10 @@ namespace Amazon.JSII.Generator.UnitTests.Class
         {
             ClassType classType = new ClassType
             (
-                "myClassFqn",
-                "myModule",
-                "myClass",
-                "myNamespace",
-                true,
+                fullyQualifiedName: "myClassFqn",
+                assembly: "myModule",
+                name: "myClass",
+                isAbstract: true,
                 initializer: new Method(true, false, false),
                 methods: new[] { method }
             );

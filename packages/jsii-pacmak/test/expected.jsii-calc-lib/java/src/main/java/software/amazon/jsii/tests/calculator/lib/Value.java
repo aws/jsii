@@ -9,12 +9,14 @@ public abstract class Value extends software.amazon.jsii.tests.calculator.base.B
     protected Value(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
         super(mode);
     }
+
     /**
      * String representation of the value.
      */
     public java.lang.String toString() {
         return this.jsiiCall("toString", java.lang.String.class);
     }
+
     /**
      * The value.
      */

@@ -10,15 +10,19 @@ public class DoubleTrouble extends software.amazon.jsii.JsiiObject implements so
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
+
     /**
      * Say hello!
      */
+    @Override
     public java.lang.String hello() {
         return this.jsiiCall("hello", java.lang.String.class);
     }
+
     /**
      * Returns another random number.
      */
+    @Override
     public java.lang.Number next() {
         return this.jsiiCall("next", java.lang.Number.class);
     }

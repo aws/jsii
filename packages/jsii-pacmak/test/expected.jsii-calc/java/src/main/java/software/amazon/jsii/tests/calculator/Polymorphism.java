@@ -10,6 +10,7 @@ public class Polymorphism extends software.amazon.jsii.JsiiObject {
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
+
     public java.lang.String sayHello(final software.amazon.jsii.tests.calculator.lib.IFriendly friendly) {
         return this.jsiiCall("sayHello", java.lang.String.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(friendly, "friendly is required")).toArray());
     }

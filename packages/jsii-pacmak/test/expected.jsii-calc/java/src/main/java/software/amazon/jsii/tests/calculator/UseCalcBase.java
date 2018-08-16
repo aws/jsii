@@ -13,6 +13,7 @@ public class UseCalcBase extends software.amazon.jsii.JsiiObject {
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
+
     public software.amazon.jsii.tests.calculator.base.Base hello() {
         return this.jsiiCall("hello", software.amazon.jsii.tests.calculator.base.Base.class);
     }

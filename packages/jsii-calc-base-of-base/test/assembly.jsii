@@ -48,8 +48,7 @@
           }
         }
       ],
-      "name": "Very",
-      "namespace": "@scope/jsii-calc-base-of-base"
+      "name": "Very"
     },
     "@scope/jsii-calc-base-of-base.VeryBaseProps": {
       "assembly": "@scope/jsii-calc-base-of-base",
@@ -57,7 +56,6 @@
       "fqn": "@scope/jsii-calc-base-of-base.VeryBaseProps",
       "kind": "interface",
       "name": "VeryBaseProps",
-      "namespace": "@scope/jsii-calc-base-of-base",
       "properties": [
         {
           "name": "foo",
@@ -69,5 +67,5 @@
     }
   },
   "version": "0.6.4",
-  "fingerprint": "2YF/qObQgbuJSs52vT9/Z7sgEO0mc2zP0jCuFWGUM4w="
+  "fingerprint": "BYFoYeCugh6Ij5+JFgLKdiVReNDIC0o3t1BJkBqlN10="
 }

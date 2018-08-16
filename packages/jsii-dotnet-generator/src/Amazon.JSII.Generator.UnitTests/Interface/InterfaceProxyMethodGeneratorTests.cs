@@ -22,7 +22,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
             );
 
             Symbols.MapTypeToPackage("myInterfaceFqn", "myPackage");
-            Symbols.MapNamespace("myNamespace", "MyNamespace");
+            Symbols.MapNamespace("", "MyNamespace");
             Symbols.MapTypeName("myInterfaceFqn", "MyInterface", JsonModel.Spec.TypeKind.Interface);
 
             var generator = new InterfaceProxyMethodGenerator(interfaceType, method, Symbols, Namespaces);

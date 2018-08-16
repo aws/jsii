@@ -10,6 +10,7 @@ public class UseBundledDependency extends software.amazon.jsii.JsiiObject {
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
+
     public java.lang.Object value() {
         return this.jsiiCall("value", java.lang.Object.class);
     }

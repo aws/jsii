@@ -67,19 +67,17 @@ namespace Amazon.JSII.Generator.UnitTests
             {
                 Type paramType1 = new EnumType
                 (
-                    "myParamTypeFqn1",
-                    "myPackage",
-                    "myParamType",
-                    "myNamespace1",
-                    new EnumMember[] { }
+                    fullyQualifiedName: "myParamTypeFqn1",
+                    assembly: "myPackage",
+                    name: "myParamType",
+                    members: new EnumMember[] { }
                 );
                 Type paramType2 = new EnumType
                 (
-                    "myParamTypeFqn2",
-                    "myPackage",
-                    "myParamType",
-                    "myNamespace2",
-                    new EnumMember[] { }
+                    fullyQualifiedName: "myParamTypeFqn2",
+                    assembly: "myPackage",
+                    name: "myParamType",
+                    members: new EnumMember[] { }
                 );
                 Method method = new Method
                 (

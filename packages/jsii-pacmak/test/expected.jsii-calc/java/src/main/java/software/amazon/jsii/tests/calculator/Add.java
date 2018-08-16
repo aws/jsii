@@ -18,15 +18,19 @@ public class Add extends software.amazon.jsii.tests.calculator.BinaryOperation {
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.concat(java.util.stream.Stream.of(java.util.Objects.requireNonNull(lhs, "lhs is required")), java.util.stream.Stream.of(java.util.Objects.requireNonNull(rhs, "rhs is required"))).toArray());
     }
+
     /**
      * String representation of the value.
      */
+    @Override
     public java.lang.String toString() {
         return this.jsiiCall("toString", java.lang.String.class);
     }
+
     /**
      * The value.
      */
+    @Override
     public java.lang.Number getValue() {
         return this.jsiiGet("value", java.lang.Number.class);
     }

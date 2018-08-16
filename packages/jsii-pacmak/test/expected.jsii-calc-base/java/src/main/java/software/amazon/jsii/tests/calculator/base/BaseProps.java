@@ -84,6 +84,7 @@ public interface BaseProps extends software.amazon.jsii.JsiiSerializable, softwa
         public java.lang.String getBar() {
             return this.jsiiGet("bar", java.lang.String.class);
         }
+
         @Override
         public void setBar(final java.lang.String value) {
             this.jsiiSet("bar", java.util.Objects.requireNonNull(value, "bar is required"));
@@ -93,6 +94,7 @@ public interface BaseProps extends software.amazon.jsii.JsiiSerializable, softwa
         public software.amazon.jsii.tests.calculator.baseofbase.Very getFoo() {
             return this.jsiiGet("foo", software.amazon.jsii.tests.calculator.baseofbase.Very.class);
         }
+
         @Override
         public void setFoo(final software.amazon.jsii.tests.calculator.baseofbase.Very value) {
             this.jsiiSet("foo", java.util.Objects.requireNonNull(value, "foo is required"));

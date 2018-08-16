@@ -286,9 +286,22 @@ export function isUnionTypeReference(ref: TypeReference): ref is UnionTypeRefere
 }
 
 /**
+ * Methods and properties can be overridden from parent classes or implemented from interfaces.
+ */
+export interface Overridable {
+    /**
+     * The name of the parent type (class or interface) that this entity overrides or implements. If undefined, then
+     * this entity is the first in it's hierarchy to declare this entity.
+     *
+     * @default undefined
+     */
+    overrides?: NamedTypeReference;
+}
+
+/**
  * A class property.
  */
-export interface Property extends Documentable {
+export interface Property extends Documentable, Overridable {
     /**
      * The name of the property.
      * @minLength 1
@@ -354,7 +367,7 @@ export interface Parameter extends Documentable {
 /**
  * Represents a method.
  */
-export interface Method extends Documentable {
+export interface Method extends Documentable, Overridable {
 
     /**
      * The name of the method. Undefined if this method is a initializer.
@@ -408,21 +421,21 @@ export type Type = TypeBase & (ClassType | EnumType | InterfaceType);
  */
 export interface TypeBase extends Documentable {
     /**
-     * The fully qualified name of the type (<assembly>.<namespace>.<name>)
-     * @minLength 1
+     * The fully qualified name of the type (``<assembly>.<namespace>.<name>``)
+     * @minLength 3
      */
     fqn: string;
 
     /**
-     * The name of the assembly. Cannot be undefined.
+     * The name of the assembly the type belongs to.
      * @minLength 1
      */
     assembly: string;
 
     /**
-     * The namespace of the type (foo.goo.doo).
-     * It is possible that namespace will be undefined, in which case the type is at the root
-     * of the assembly.
+     * The namespace of the type (``foo.bar.baz``). When undefined, the type is located at the root of the assembly
+     * (it's ``fqn`` would be like ``<assembly>.<name>``). If the `namespace` corresponds to an existing type's
+     * namespace-qualified (e.g: ``<namespace>.<name>``), then the current type is a nested type.
      */
     namespace?: string;
 
@@ -436,16 +449,6 @@ export interface TypeBase extends Documentable {
      * The kind of the type.
      */
     kind: TypeKind;
-
-    /**
-     * FQNs of all the subtypes of this type.
-     */
-    subtypes?: string[];
-
-    /**
-     * FQN of the parent type of this type (or undefined if this is not a subtype).
-     */
-    parenttype?: string;
 }
 
 /**

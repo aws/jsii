@@ -12,11 +12,11 @@ namespace Amazon.JSII.Generator.UnitTests.Enum
 
         string Render(EnumType enumType)
         {
-            Symbols.MapTypeToPackage("myEnumFqn", "myPackage");
-            Symbols.MapNamespace("myNamespace", "MyNamespace");
+            Symbols.MapTypeToPackage("myEnumFqn", enumType.Assembly);
+            Symbols.MapNamespace(enumType.QualifiedNamespace, "MyNamespace");
             Symbols.MapTypeName("myEnumFqn", "MyEnum", JsonModel.Spec.TypeKind.Enum);
 
-            EnumGenerator generator = new EnumGenerator("myPackage", enumType, Symbols, Namespaces);
+            EnumGenerator generator = new EnumGenerator(enumType.Assembly, enumType, Symbols, Namespaces);
 
             SyntaxTree syntaxTree = generator.CreateSyntaxTree();
             return syntaxTree.ToString();
@@ -27,8 +27,10 @@ namespace Amazon.JSII.Generator.UnitTests.Enum
         {
             EnumType enumType = new EnumType
             (
-                "myEnumFqn", "myPackage", "myEnum", "myNamespace",
-                new EnumMember[] { }
+                fullyQualifiedName: "myEnumFqn", 
+                assembly: "myPackage", 
+                name: "myEnum",
+                members: new EnumMember[] { }
             );
 
             string actual = Render(enumType);
@@ -48,8 +50,10 @@ namespace Amazon.JSII.Generator.UnitTests.Enum
         {
             EnumType enumType = new EnumType
             (
-                "myEnumFqn", "myPackage", "myEnum", "myNamespace",
-                new EnumMember[]
+                fullyQualifiedName: "myEnumFqn", 
+                assembly: "myPackage", 
+                name: "myEnum",
+                members: new EnumMember[]
                 {
                     new EnumMember("member1"),
                     new EnumMember("member2"),
@@ -80,9 +84,11 @@ namespace Amazon.JSII.Generator.UnitTests.Enum
         {
             EnumType enumType = new EnumType
             (
-                "myEnumFqn", "myPackage", "myEnum", "myNamespace",
-                new EnumMember[] { },
-                new Docs
+                fullyQualifiedName: "myEnumFqn",
+                assembly: "myPackage",
+                name: "myEnum",
+                members: new EnumMember[] { },
+                docs: new Docs
                 {
                     { "foo", "bar" }
                 }
@@ -106,8 +112,10 @@ namespace Amazon.JSII.Generator.UnitTests.Enum
         {
             EnumType enumType = new EnumType
             (
-                "myEnumFqn", "myPackage", "myEnum", "myNamespace",
-                new EnumMember[]
+                fullyQualifiedName: "myEnumFqn",
+                assembly: "myPackage",
+                name: "myEnum",
+                members: new EnumMember[]
                 {
                     new EnumMember("member1", new Docs { { "foo", "bar" } }),
                     new EnumMember("member2", new Docs { { "foo", "bar" } }),

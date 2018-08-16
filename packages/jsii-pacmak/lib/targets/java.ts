@@ -182,10 +182,11 @@ class JavaGenerator extends Generator {
             implementsExpr = ' implements ' + cls.interfaces.map(x => this.toNativeFqn(x.fqn!));
         }
 
-        const inner = cls.parenttype ? ' static' : '';
+        const nested = this.isNested(cls);
+        const inner = nested ? ' static' : '';
         const absPrefix = abstract ? ' abstract' : '';
 
-        if (!cls.parenttype) { this.emitGeneratedAnnotation(); }
+        if (!nested) { this.emitGeneratedAnnotation(); }
         this.code.line(`@software.amazon.jsii.Jsii(module = ${this.moduleClass}.class, fqn = "${cls.fqn}")`);
         this.code.openBlock(`public${inner}${absPrefix} class ${cls.name}${extendsExpression}${implementsExpr}`);
 
@@ -255,7 +256,7 @@ class JavaGenerator extends Generator {
     protected onBeginEnum(enm: spec.EnumType) {
         this.openFileIfNeeded(enm);
         this.addJavaDocs(enm);
-        if (!enm.parenttype) { this.emitGeneratedAnnotation(); }
+        if (!this.isNested(enm)) { this.emitGeneratedAnnotation(); }
         this.code.line(`@software.amazon.jsii.Jsii(module = ${this.moduleClass}.class, fqn = "${enm.fqn}")`);
         this.code.openBlock(`public enum ${enm.name}`);
     }
@@ -287,8 +288,9 @@ class JavaGenerator extends Generator {
         const interfaces = ifc.interfaces || [];
         const bases = [ 'software.amazon.jsii.JsiiSerializable', ...interfaces.map(x => this.toNativeFqn(x.fqn!)) ].join(', ');
 
-        const inner = ifc.parenttype ? ' static' : '';
-        if (!ifc.parenttype) { this.emitGeneratedAnnotation(); }
+        const nested = this.isNested(ifc);
+        const inner = nested ? ' static' : '';
+        if (!nested) { this.emitGeneratedAnnotation(); }
         this.code.openBlock(`public${inner} interface ${ifc.name} extends ${bases}`);
     }
 
@@ -531,7 +533,7 @@ class JavaGenerator extends Generator {
         this.code.line(`${access} final static ${propType} ${propName};`);
     }
 
-    private emitProperty(cls: spec.Type, prop: spec.Property, includeGetter = true, overrides = false) {
+    private emitProperty(cls: spec.Type, prop: spec.Property, includeGetter = true, overrides: boolean = !!prop.overrides) {
         const getterType = this.toJavaType(prop.type);
         const setterTypes = this.toJavaTypes(prop.type);
         const propClass = this.toJavaType(prop.type, true);
@@ -542,6 +544,7 @@ class JavaGenerator extends Generator {
 
         // for unions we only generate overloads for setters, not getters.
         if (includeGetter) {
+            this.code.line();
             this.addJavaDocs(prop);
             if (overrides) { this.code.line('@Override'); }
             if (prop.type.optional) { this.code.line(JSR305_NULLABLE); }
@@ -562,6 +565,7 @@ class JavaGenerator extends Generator {
 
         if (!prop.immutable) {
             for (const type of setterTypes) {
+                this.code.line();
                 this.addJavaDocs(prop);
                 if (overrides) { this.code.line('@Override'); }
                 const nullable = prop.type.optional ? `${JSR305_NULLABLE} ` : '';
@@ -581,13 +585,14 @@ class JavaGenerator extends Generator {
         }
     }
 
-    private emitMethod(cls: spec.Type, method: spec.Method, overrides = false) {
+    private emitMethod(cls: spec.Type, method: spec.Method, overrides: boolean = !!method.overrides) {
         const returnType = method.returns ? this.toJavaType(method.returns) : 'void';
         const statc = method.static ? 'static ' : '';
         const access = this.renderAccessLevel(method);
         const async = !!(method.returns && method.returns.promise);
         const methodName = slugify(method.name);
         const signature = `${returnType} ${methodName}(${this.renderMethodParameters(method)})`;
+        this.code.line();
         this.addJavaDocs(method);
         if (overrides) { this.code.line('@Override'); }
         if (method.returns && method.returns.optional) { this.code.line(JSR305_NULLABLE); }
@@ -640,14 +645,12 @@ class JavaGenerator extends Generator {
         // emit all properties
         for (const propName of Object.keys(properties)) {
             const prop = properties[propName];
-            this.code.line();
             this.emitProperty(ifc, prop, /* includeGetter: */ undefined, /* overrides: */ true);
         }
 
         // emit all the methods
         for (const methodName of Object.keys(methods)) {
             const method = methods[methodName];
-            this.code.line();
             this.emitMethod(ifc, method, /* overrides: */ true);
         }
 
@@ -783,22 +786,26 @@ class JavaGenerator extends Generator {
     }
 
     private openFileIfNeeded(type: spec.Type) {
-        if (type.parenttype) {
+        if (this.isNested(type)) {
             return;
         }
 
         this.code.openFile(this.toJavaFilePath(type.fqn));
-        if (type.namespace) {
-            this.code.line(`package ${this.toNativeFqn(type.namespace)};`);
-            this.code.line();
-        }
+        this.code.line(`package ${this.getNativeName(this.assembly, type.namespace)};`);
+        this.code.line();
     }
 
     private closeFileIfNeeded(type: spec.Type) {
-        if (type.parenttype) {
+        if (this.isNested(type)) {
             return;
         }
         this.code.closeFile(this.toJavaFilePath(type.fqn));
+    }
+
+    private isNested(type: spec.Type) {
+        if (!this.assembly.types || !type.namespace) { return false; }
+        const parent = `${type.assembly}.${type.namespace}`;
+        return parent in this.assembly.types;
     }
 
     private toJavaFilePath(fqn: string) {
@@ -1049,18 +1056,23 @@ class JavaGenerator extends Generator {
     private toNativeFqn(fqn: string): string {
         const [mod, ...name] = fqn.split('.');
         const depMod = this.findModule(mod);
-        const javaPackage = depMod.targets && depMod.targets.java && depMod.targets.java.package;
-        if (!javaPackage) { throw new Error(`The module ${mod} does not have a java.package setting`); }
-
-        // since this type was needed for some reason when we generate this code, we want to make
-        // sure it's module is included as a direct dependency, even if it's not defined as a direct
-        // dependency of this assembly in jsii. this can happen, for example, when we generate
-        // interface proxies and builders which "flatten" the hirarchy.
+        // Make sure any dependency (direct or transitive) of which any type is explicitly referenced by the generated
+        // code is included in the generated POM's dependencies section (protecting the artifact from changes in the
+        // dependencies' dependency structure).
         if (mod !== this.assembly.name) {
             this.referencedModules[mod] = depMod;
         }
+        return this.getNativeName(depMod, name.join('.'), mod);
+    }
 
-        return [javaPackage, ...name].join('.');
+    private getNativeName(assm: spec.Assembly, name: string | undefined): string;
+    private getNativeName(assm: spec.PackageVersion, name: string | undefined, assmName: string): string;
+    private getNativeName(assm: spec.Assembly | spec.PackageVersion,
+                          name: string | undefined,
+                          assmName: string = (assm as spec.Assembly).name): string {
+        const javaPackage = assm.targets && assm.targets.java && assm.targets.java.package;
+        if (!javaPackage) { throw new Error(`The module ${assmName} does not have a java.package setting`); }
+        return `${javaPackage}${name ? `.${name}` : ''}`;
     }
 
     /**

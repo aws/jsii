@@ -13,7 +13,8 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
         string Render(InterfaceType interfaceType, string package = "myPackage", string @namespace = "MyNamespace", string typeName = "MyInterface")
         {
             Symbols.MapTypeToPackage(interfaceType.FullyQualifiedName, package);
-            Symbols.MapNamespace(interfaceType.Namespace, @namespace);
+            string suffix = interfaceType.Namespace != null ? "." + interfaceType.Namespace : "";
+            Symbols.MapNamespace(interfaceType.Assembly + suffix, @namespace);
             Symbols.MapTypeName(interfaceType.FullyQualifiedName, typeName, JsonModel.Spec.TypeKind.Interface);
 
             var generator = new InterfaceProxyGenerator(package, interfaceType, Symbols, Namespaces);

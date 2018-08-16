@@ -207,13 +207,15 @@
             "comment": "String representation of the value."
           },
           "name": "toString",
+          "overrides": {
+            "fqn": "@scope/jsii-calc-lib.Value"
+          },
           "returns": {
             "primitive": "string"
           }
         }
       ],
       "name": "Add",
-      "namespace": "jsii-calc",
       "properties": [
         {
           "docs": {
@@ -221,6 +223,9 @@
           },
           "immutable": true,
           "name": "value",
+          "overrides": {
+            "fqn": "@scope/jsii-calc-lib.Value"
+          },
           "type": {
             "primitive": "number"
           }
@@ -254,7 +259,6 @@
         }
       ],
       "name": "AllTypes",
-      "namespace": "jsii-calc",
       "properties": [
         {
           "immutable": true,
@@ -459,8 +463,7 @@
           "name": "ThisIsGreat"
         }
       ],
-      "name": "AllTypesEnum",
-      "namespace": "jsii-calc"
+      "name": "AllTypesEnum"
     },
     "jsii-calc.AllowedMethodNames": {
       "assembly": "jsii-calc",
@@ -548,8 +551,7 @@
           ]
         }
       ],
-      "name": "AllowedMethodNames",
-      "namespace": "jsii-calc"
+      "name": "AllowedMethodNames"
     },
     "jsii-calc.AsyncVirtualMethods": {
       "assembly": "jsii-calc",
@@ -615,8 +617,7 @@
           }
         }
       ],
-      "name": "AsyncVirtualMethods",
-      "namespace": "jsii-calc"
+      "name": "AsyncVirtualMethods"
     },
     "jsii-calc.BinaryOperation": {
       "abstract": true,
@@ -666,13 +667,15 @@
             "comment": "Say hello!"
           },
           "name": "hello",
+          "overrides": {
+            "fqn": "@scope/jsii-calc-lib.IFriendly"
+          },
           "returns": {
             "primitive": "string"
           }
         }
       ],
       "name": "BinaryOperation",
-      "namespace": "jsii-calc",
       "properties": [
         {
           "docs": {
@@ -784,7 +787,6 @@
         }
       ],
       "name": "Calculator",
-      "namespace": "jsii-calc",
       "properties": [
         {
           "docs": {
@@ -792,6 +794,9 @@
           },
           "immutable": true,
           "name": "expression",
+          "overrides": {
+            "fqn": "jsii-calc.composition.CompositeOperation"
+          },
           "type": {
             "fqn": "@scope/jsii-calc-lib.Value"
           }
@@ -883,7 +888,6 @@
       "fqn": "jsii-calc.CalculatorProps",
       "kind": "interface",
       "name": "CalculatorProps",
-      "namespace": "jsii-calc",
       "properties": [
         {
           "name": "initialValue",
@@ -909,7 +913,7 @@
       },
       "kind": "class",
       "name": "Base",
-      "namespace": "jsii-calc.DerivedClassHasNoProperties",
+      "namespace": "DerivedClassHasNoProperties",
       "properties": [
         {
           "name": "prop",
@@ -930,7 +934,7 @@
       },
       "kind": "class",
       "name": "Derived",
-      "namespace": "jsii-calc.DerivedClassHasNoProperties"
+      "namespace": "DerivedClassHasNoProperties"
     },
     "jsii-calc.DerivedStruct": {
       "assembly": "jsii-calc",
@@ -946,7 +950,6 @@
       ],
       "kind": "interface",
       "name": "DerivedStruct",
-      "namespace": "jsii-calc",
       "properties": [
         {
           "name": "anotherRequired",
@@ -1016,6 +1019,9 @@
             "comment": "Say hello!"
           },
           "name": "hello",
+          "overrides": {
+            "fqn": "@scope/jsii-calc-lib.IFriendly"
+          },
           "returns": {
             "primitive": "string"
           }
@@ -1025,13 +1031,15 @@
             "comment": "Returns another random number."
           },
           "name": "next",
+          "overrides": {
+            "fqn": "jsii-calc.IRandomNumberGenerator"
+          },
           "returns": {
             "primitive": "number"
           }
         }
       ],
-      "name": "DoubleTrouble",
-      "namespace": "jsii-calc"
+      "name": "DoubleTrouble"
     },
     "jsii-calc.GiveMeStructs": {
       "assembly": "jsii-calc",
@@ -1094,7 +1102,6 @@
         }
       ],
       "name": "GiveMeStructs",
-      "namespace": "jsii-calc",
       "properties": [
         {
           "immutable": true,
@@ -1138,8 +1145,7 @@
           }
         }
       ],
-      "name": "IFriendlier",
-      "namespace": "jsii-calc"
+      "name": "IFriendlier"
     },
     "jsii-calc.IFriendlyRandomGenerator": {
       "assembly": "jsii-calc",
@@ -1153,8 +1159,7 @@
         }
       ],
       "kind": "interface",
-      "name": "IFriendlyRandomGenerator",
-      "namespace": "jsii-calc"
+      "name": "IFriendlyRandomGenerator"
     },
     "jsii-calc.IInterfaceWithProperties": {
       "assembly": "jsii-calc",
@@ -1162,7 +1167,6 @@
       "fqn": "jsii-calc.IInterfaceWithProperties",
       "kind": "interface",
       "name": "IInterfaceWithProperties",
-      "namespace": "jsii-calc",
       "properties": [
         {
           "immutable": true,
@@ -1190,7 +1194,6 @@
       ],
       "kind": "interface",
       "name": "IInterfaceWithPropertiesExtension",
-      "namespace": "jsii-calc",
       "properties": [
         {
           "name": "foo",
@@ -1219,8 +1222,7 @@
           }
         }
       ],
-      "name": "IRandomNumberGenerator",
-      "namespace": "jsii-calc"
+      "name": "IRandomNumberGenerator"
     },
     "jsii-calc.ImplictBaseOfBase": {
       "assembly": "jsii-calc",
@@ -1233,7 +1235,6 @@
       ],
       "kind": "interface",
       "name": "ImplictBaseOfBase",
-      "namespace": "jsii-calc",
       "properties": [
         {
           "name": "goo",
@@ -1264,8 +1265,7 @@
           }
         }
       ],
-      "name": "JSObjectLiteralForInterface",
-      "namespace": "jsii-calc"
+      "name": "JSObjectLiteralForInterface"
     },
     "jsii-calc.JSObjectLiteralToNative": {
       "assembly": "jsii-calc",
@@ -1282,8 +1282,7 @@
           }
         }
       ],
-      "name": "JSObjectLiteralToNative",
-      "namespace": "jsii-calc"
+      "name": "JSObjectLiteralToNative"
     },
     "jsii-calc.JSObjectLiteralToNativeClass": {
       "assembly": "jsii-calc",
@@ -1293,7 +1292,6 @@
       },
       "kind": "class",
       "name": "JSObjectLiteralToNativeClass",
-      "namespace": "jsii-calc",
       "properties": [
         {
           "name": "propA",
@@ -1475,7 +1473,6 @@
         }
       ],
       "name": "JavaReservedWords",
-      "namespace": "jsii-calc",
       "properties": [
         {
           "name": "while",
@@ -1535,6 +1532,9 @@
             "comment": "Say farewell."
           },
           "name": "farewell",
+          "overrides": {
+            "fqn": "jsii-calc.IFriendlier"
+          },
           "returns": {
             "primitive": "string"
           }
@@ -1544,6 +1544,9 @@
             "comment": "Say goodbye."
           },
           "name": "goodbye",
+          "overrides": {
+            "fqn": "jsii-calc.IFriendlier"
+          },
           "returns": {
             "primitive": "string"
           }
@@ -1553,6 +1556,9 @@
             "comment": "Returns another random number."
           },
           "name": "next",
+          "overrides": {
+            "fqn": "jsii-calc.IRandomNumberGenerator"
+          },
           "returns": {
             "primitive": "number"
           }
@@ -1562,13 +1568,15 @@
             "comment": "String representation of the value."
           },
           "name": "toString",
+          "overrides": {
+            "fqn": "@scope/jsii-calc-lib.Value"
+          },
           "returns": {
             "primitive": "string"
           }
         }
       ],
       "name": "Multiply",
-      "namespace": "jsii-calc",
       "properties": [
         {
           "docs": {
@@ -1576,6 +1584,9 @@
           },
           "immutable": true,
           "name": "value",
+          "overrides": {
+            "fqn": "@scope/jsii-calc-lib.Value"
+          },
           "type": {
             "primitive": "number"
           }
@@ -1614,6 +1625,9 @@
             "comment": "Say farewell."
           },
           "name": "farewell",
+          "overrides": {
+            "fqn": "jsii-calc.IFriendlier"
+          },
           "returns": {
             "primitive": "string"
           }
@@ -1623,6 +1637,9 @@
             "comment": "Say goodbye."
           },
           "name": "goodbye",
+          "overrides": {
+            "fqn": "jsii-calc.IFriendlier"
+          },
           "returns": {
             "primitive": "string"
           }
@@ -1632,6 +1649,9 @@
             "comment": "Say hello!"
           },
           "name": "hello",
+          "overrides": {
+            "fqn": "@scope/jsii-calc-lib.IFriendly"
+          },
           "returns": {
             "primitive": "string"
           }
@@ -1641,13 +1661,15 @@
             "comment": "String representation of the value."
           },
           "name": "toString",
+          "overrides": {
+            "fqn": "@scope/jsii-calc-lib.Value"
+          },
           "returns": {
             "primitive": "string"
           }
         }
       ],
       "name": "Negate",
-      "namespace": "jsii-calc",
       "properties": [
         {
           "docs": {
@@ -1655,6 +1677,9 @@
           },
           "immutable": true,
           "name": "value",
+          "overrides": {
+            "fqn": "@scope/jsii-calc-lib.Value"
+          },
           "type": {
             "primitive": "number"
           }
@@ -1705,7 +1730,6 @@
         }
       ],
       "name": "NodeStandardLibrary",
-      "namespace": "jsii-calc",
       "properties": [
         {
           "docs": {
@@ -1760,7 +1784,6 @@
         }
       ],
       "name": "NumberGenerator",
-      "namespace": "jsii-calc",
       "properties": [
         {
           "name": "generator",
@@ -1826,8 +1849,7 @@
           }
         }
       ],
-      "name": "ObjectRefsInCollections",
-      "namespace": "jsii-calc"
+      "name": "ObjectRefsInCollections"
     },
     "jsii-calc.OverrideReturnsObject": {
       "assembly": "jsii-calc",
@@ -1852,8 +1874,7 @@
           }
         }
       ],
-      "name": "OverrideReturnsObject",
-      "namespace": "jsii-calc"
+      "name": "OverrideReturnsObject"
     },
     "jsii-calc.Polymorphism": {
       "assembly": "jsii-calc",
@@ -1878,8 +1899,7 @@
           }
         }
       ],
-      "name": "Polymorphism",
-      "namespace": "jsii-calc"
+      "name": "Polymorphism"
     },
     "jsii-calc.Power": {
       "assembly": "jsii-calc",
@@ -1918,7 +1938,6 @@
       },
       "kind": "class",
       "name": "Power",
-      "namespace": "jsii-calc",
       "properties": [
         {
           "docs": {
@@ -1936,6 +1955,9 @@
           },
           "immutable": true,
           "name": "expression",
+          "overrides": {
+            "fqn": "jsii-calc.composition.CompositeOperation"
+          },
           "type": {
             "fqn": "@scope/jsii-calc-lib.Value"
           }
@@ -1983,7 +2005,6 @@
         }
       ],
       "name": "ReferenceEnumFromScopedPackage",
-      "namespace": "jsii-calc",
       "properties": [
         {
           "name": "foo",
@@ -2007,7 +2028,6 @@
         }
       ],
       "name": "ReturnsNumber",
-      "namespace": "jsii-calc",
       "properties": [
         {
           "immutable": true,
@@ -2054,8 +2074,7 @@
           ]
         }
       ],
-      "name": "RuntimeTypeChecking",
-      "namespace": "jsii-calc"
+      "name": "RuntimeTypeChecking"
     },
     "jsii-calc.Statics": {
       "assembly": "jsii-calc",
@@ -2102,7 +2121,6 @@
         }
       ],
       "name": "Statics",
-      "namespace": "jsii-calc",
       "properties": [
         {
           "const": true,
@@ -2195,8 +2213,7 @@
           "name": "C"
         }
       ],
-      "name": "StringEnum",
-      "namespace": "jsii-calc"
+      "name": "StringEnum"
     },
     "jsii-calc.Sum": {
       "assembly": "jsii-calc",
@@ -2212,7 +2229,6 @@
       },
       "kind": "class",
       "name": "Sum",
-      "namespace": "jsii-calc",
       "properties": [
         {
           "docs": {
@@ -2220,6 +2236,9 @@
           },
           "immutable": true,
           "name": "expression",
+          "overrides": {
+            "fqn": "jsii-calc.composition.CompositeOperation"
+          },
           "type": {
             "fqn": "@scope/jsii-calc-lib.Value"
           }
@@ -2334,7 +2353,6 @@
         }
       ],
       "name": "SyncVirtualMethods",
-      "namespace": "jsii-calc",
       "properties": [
         {
           "immutable": true,
@@ -2387,8 +2405,7 @@
           "name": "throwError"
         }
       ],
-      "name": "Thrower",
-      "namespace": "jsii-calc"
+      "name": "Thrower"
     },
     "jsii-calc.UnaryOperation": {
       "abstract": true,
@@ -2413,7 +2430,6 @@
       },
       "kind": "class",
       "name": "UnaryOperation",
-      "namespace": "jsii-calc",
       "properties": [
         {
           "immutable": true,
@@ -2430,7 +2446,6 @@
       "fqn": "jsii-calc.UnionProperties",
       "kind": "interface",
       "name": "UnionProperties",
-      "namespace": "jsii-calc",
       "properties": [
         {
           "immutable": true,
@@ -2484,8 +2499,7 @@
           }
         }
       ],
-      "name": "UseBundledDependency",
-      "namespace": "jsii-calc"
+      "name": "UseBundledDependency"
     },
     "jsii-calc.UseCalcBase": {
       "assembly": "jsii-calc",
@@ -2505,8 +2519,7 @@
           }
         }
       ],
-      "name": "UseCalcBase",
-      "namespace": "jsii-calc"
+      "name": "UseCalcBase"
     },
     "jsii-calc.UsesInterfaceWithProperties": {
       "assembly": "jsii-calc",
@@ -2560,7 +2573,6 @@
         }
       ],
       "name": "UsesInterfaceWithProperties",
-      "namespace": "jsii-calc",
       "properties": [
         {
           "immutable": true,
@@ -2626,8 +2638,7 @@
           "variadic": true
         }
       ],
-      "name": "VariadicMethod",
-      "namespace": "jsii-calc"
+      "name": "VariadicMethod"
     },
     "jsii-calc.VirtualMethodPlayground": {
       "assembly": "jsii-calc",
@@ -2711,8 +2722,7 @@
           }
         }
       ],
-      "name": "VirtualMethodPlayground",
-      "namespace": "jsii-calc"
+      "name": "VirtualMethodPlayground"
     },
     "jsii-calc.composition.CompositeOperation": {
       "abstract": true,
@@ -2734,13 +2744,16 @@
             "comment": "String representation of the value."
           },
           "name": "toString",
+          "overrides": {
+            "fqn": "@scope/jsii-calc-lib.Value"
+          },
           "returns": {
             "primitive": "string"
           }
         }
       ],
       "name": "CompositeOperation",
-      "namespace": "jsii-calc.composition",
+      "namespace": "composition",
       "properties": [
         {
           "abstract": true,
@@ -2759,6 +2772,9 @@
           },
           "immutable": true,
           "name": "value",
+          "overrides": {
+            "fqn": "@scope/jsii-calc-lib.Value"
+          },
           "type": {
             "primitive": "number"
           }
@@ -2800,9 +2816,6 @@
             "fqn": "jsii-calc.composition.CompositeOperation.CompositionStringStyle"
           }
         }
-      ],
-      "subtypes": [
-        "jsii-calc.composition.CompositeOperation.CompositionStringStyle"
       ]
     },
     "jsii-calc.composition.CompositeOperation.CompositionStringStyle": {
@@ -2821,10 +2834,9 @@
         }
       ],
       "name": "CompositionStringStyle",
-      "namespace": "jsii-calc.composition.CompositeOperation",
-      "parenttype": "jsii-calc.composition.CompositeOperation"
+      "namespace": "composition.CompositeOperation"
     }
   },
   "version": "0.6.4",
-  "fingerprint": "gKUNI8uBG+ge5Ccbk0ay+JZ+j4C/4hPATR3jvtVm0Po="
+  "fingerprint": "w6KwhZtZH4/dMIvQlPb9nAIbic1GnqUVTSxVuf7TKbU="
 }
