@@ -1358,7 +1358,10 @@ function validateOverriddenSignatures(mod: spec.Assembly, externalTypes: Map<str
                     throw new Error(`${where}: parameter ${i + 1} type changed from ${orig} (in ${ancestorFqn}) to ${cur}`);
                 }
             }
-            if (currentFqn !== ancestorFqn) { currentMethod.overrides = { fqn: ancestorFqn }; }
+            // Register the closest ancestor that is being overridden
+            if (!currentMethod.overrides && currentFqn !== ancestorFqn) {
+                currentMethod.overrides = { fqn: ancestorFqn };
+            }
         }
 
         function validateProperty(currentProperty: spec.Property, ancestorProperty: spec.Property) {
@@ -1368,7 +1371,10 @@ function validateOverriddenSignatures(mod: spec.Assembly, externalTypes: Map<str
 
                 throw new Error(`${currentFqn}.${currentProperty.name}: type changed from ${orig} (in ${ancestorFqn}) to ${cur}`);
             }
-            if (currentFqn !== ancestorFqn) { currentProperty.overrides = { fqn: ancestorFqn }; }
+            // Register the closest ancestor that is being overridden
+            if (!currentProperty.overrides && currentFqn !== ancestorFqn) {
+                currentProperty.overrides = { fqn: ancestorFqn };
+            }
         }
     }
 

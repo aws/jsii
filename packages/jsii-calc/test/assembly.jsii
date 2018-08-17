@@ -208,7 +208,7 @@
           },
           "name": "toString",
           "overrides": {
-            "fqn": "@scope/jsii-calc-lib.Value"
+            "fqn": "@scope/jsii-calc-lib.Operation"
           },
           "returns": {
             "primitive": "string"
@@ -1569,7 +1569,7 @@
           },
           "name": "toString",
           "overrides": {
-            "fqn": "@scope/jsii-calc-lib.Value"
+            "fqn": "@scope/jsii-calc-lib.Operation"
           },
           "returns": {
             "primitive": "string"
@@ -1662,7 +1662,7 @@
           },
           "name": "toString",
           "overrides": {
-            "fqn": "@scope/jsii-calc-lib.Value"
+            "fqn": "@scope/jsii-calc-lib.Operation"
           },
           "returns": {
             "primitive": "string"
@@ -2745,7 +2745,7 @@
           },
           "name": "toString",
           "overrides": {
-            "fqn": "@scope/jsii-calc-lib.Value"
+            "fqn": "@scope/jsii-calc-lib.Operation"
           },
           "returns": {
             "primitive": "string"
@@ -2838,5 +2838,5 @@
     }
   },
   "version": "0.6.4",
-  "fingerprint": "w6KwhZtZH4/dMIvQlPb9nAIbic1GnqUVTSxVuf7TKbU="
+  "fingerprint": "J/33pyDX7y9AI1Vizdu+HEO/87ED05WoSxg41CSYHtw="
 }
