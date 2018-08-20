@@ -1,4 +1,5 @@
 ﻿using Amazon.JSII.JsonModel.Spec;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -47,7 +48,7 @@ namespace Amazon.JSII.Generator.UnitTests
                 fullyQualifiedName: "myFqn",
                 assembly: "myModule",
                 name: "myName",
-                @namespace: "myNamespace",
+                @namespace: "myModule.myNamespace",
                 isAbstract: false
             );
 
@@ -156,6 +157,75 @@ namespace Amazon.JSII.Generator.UnitTests
 
                 Assert.Equal("MyName_", metadata.Name);
             }
+
+            [Fact(DisplayName = _Prefix + nameof(EscapesScopedNamespace))]
+            public void EscapesScopedNamespace()
+            {
+                // If a folder or filename begins with @, the C# compiler interprets it as a response file (i.e. .rsp), breaking compilation.
+                // Additionally, C# namespaces may not include @. This also breaks compilation.
+
+                ClassType type = new ClassType(
+                    fullyQualifiedName: "@aws-cdk/cx-api.AppRuntime",
+                    assembly: "@aws-cdk/cx-api",
+                    name: "AppRuntime",
+                    @namespace: "@aws-cdk/cx-api",
+                    docs: new Docs
+                    {
+                        { "comment", "Information about the application's runtime components." }
+                    },
+                    properties: new Property[]
+                    {
+                        new Property(
+                            name: "libraries",
+                            type: new TypeReference(
+                                collection: new CollectionTypeReference(
+                                    CollectionKind.Map,
+                                    new TypeReference(primitive: PrimitiveType.String)
+                                )
+                            ),
+                            docs: new Docs
+                            {
+                                { "comment", "The list of libraries loaded in the application, associated with their versions." }
+                            }
+                        )
+                    },
+                    isAbstract: false
+                );
+
+                Assembly assembly = new Assembly(
+                    name: "@aws-cdk/cx-api",
+                    description: "Cloud executable protocol",
+                    homepage: "https://github.com/awslabs/aws-cdk",
+                    repository: new Assembly.AssemblyRepository(
+                        type: "git",
+                        url: "https://github.com/awslabs/aws-cdk.git"
+                    ),
+                    author: new Person(
+                        name: "Amazon Web Services",
+                        organization: true,
+                        roles: new[] { "author" },
+                        url: "https://aws.amazon.com"
+                    ),
+                    fingerprint: "Waqr5eba/zt52r9/c3IpkqJRi7kbpxl5vJKj4jt8fxE=",
+                    version: "0.8.2",
+                    license: "Apache-2.0",
+                    targets: new AssemblyTargets(
+                        dotnet: new AssemblyTargets.DotNetTarget(
+                            @namespace: "Amazon.CDK.CXAPI",
+                            packageId: "Amazon.CDK.CXAPI"
+                        )
+                    ),
+                    types: new Dictionary<string, JsonModel.Spec.Type> {
+                        { type.FullyQualifiedName, type }
+                    },
+                    readme: new Readme("## Cloud Executable protocol\nThis module is part of the [AWS Cloud Development Kit](https://github.com/awslabs/aws-cdk) project.\n")
+                );
+
+                ClassTypeMetadata metadata = new ClassTypeMetadata(type, assembly);
+                metadata.ResolveTypeNameConflicts(new HashSet<string>());
+
+                Assert.Equal("Amazon.CDK.CXAPI.AppRuntime", metadata.FrameworkFullyQualifiedName);
+            }
         }
 
         public class Enum
@@ -195,7 +265,7 @@ namespace Amazon.JSII.Generator.UnitTests
                 fullyQualifiedName: "myFqn",
                 assembly: "myModule",
                 name: "myName",
-                @namespace: "myNamespace",
+                @namespace: "myModule.myNamespace",
                 members: new EnumMember[] { }
             );
 
@@ -274,6 +344,62 @@ namespace Amazon.JSII.Generator.UnitTests
 
                 Assert.Equal("MyName_", metadata.Name);
             }
+
+            [Fact(DisplayName = _Prefix + nameof(EscapesScopedNamespace))]
+            public void EscapesScopedNamespace()
+            {
+                // If a folder or filename begins with @, the C# compiler interprets it as a response file (i.e. .rsp), breaking compilation.
+                // Additionally, C# namespaces may not include @. This also breaks compilation.
+
+                EnumType type = new EnumType(
+                    fullyQualifiedName: "@aws-cdk/cx-api.AppRuntime",
+                    assembly: "@aws-cdk/cx-api",
+                    name: "AppRuntime",
+                    @namespace: "@aws-cdk/cx-api",
+                    docs: new Docs
+                    {
+                        { "comment", "Information about the application's runtime components." }
+                    },
+                    members: new EnumMember[]
+                    {
+                        new EnumMember("myEnumMember")
+                    }
+                );
+
+                Assembly assembly = new Assembly(
+                    name: "@aws-cdk/cx-api",
+                    description: "Cloud executable protocol",
+                    homepage: "https://github.com/awslabs/aws-cdk",
+                    repository: new Assembly.AssemblyRepository(
+                        type: "git",
+                        url: "https://github.com/awslabs/aws-cdk.git"
+                    ),
+                    author: new Person(
+                        name: "Amazon Web Services",
+                        organization: true,
+                        roles: new[] { "author" },
+                        url: "https://aws.amazon.com"
+                    ),
+                    fingerprint: "Waqr5eba/zt52r9/c3IpkqJRi7kbpxl5vJKj4jt8fxE=",
+                    version: "0.8.2",
+                    license: "Apache-2.0",
+                    targets: new AssemblyTargets(
+                        dotnet: new AssemblyTargets.DotNetTarget(
+                            @namespace: "Amazon.CDK.CXAPI",
+                            packageId: "Amazon.CDK.CXAPI"
+                        )
+                    ),
+                    types: new Dictionary<string, JsonModel.Spec.Type> {
+                        { type.FullyQualifiedName, type }
+                    },
+                    readme: new Readme("## Cloud Executable protocol\nThis module is part of the [AWS Cloud Development Kit](https://github.com/awslabs/aws-cdk) project.\n")
+                );
+
+                EnumTypeMetadata metadata = new EnumTypeMetadata(type, assembly);
+                metadata.ResolveTypeNameConflicts(new HashSet<string>());
+
+                Assert.Equal("Amazon.CDK.CXAPI.AppRuntime", metadata.FrameworkFullyQualifiedName);
+            }
         }
 
         public class Interface
@@ -313,7 +439,7 @@ namespace Amazon.JSII.Generator.UnitTests
                 fullyQualifiedName: "myFqn",
                 assembly: "myModule",
                 name: "myName",
-                @namespace: "myNamespace",
+                @namespace: "myModule.myNamespace",
                 isDataType: true
             );
 
@@ -458,6 +584,75 @@ namespace Amazon.JSII.Generator.UnitTests
                 metadata.ResolveTypeNameConflicts(new HashSet<string>());
 
                 Assert.Equal("IMyName_", metadata.Name);
+            }
+
+            [Fact(DisplayName = _Prefix + nameof(EscapesScopedNamespace))]
+            public void EscapesScopedNamespace()
+            {
+                // If a folder or filename begins with @, the C# compiler interprets it as a response file (i.e. .rsp), breaking compilation.
+                // Additionally, C# namespaces may not include @. This also breaks compilation.
+
+                InterfaceType type = new InterfaceType(
+                    fullyQualifiedName: "@aws-cdk/cx-api.AppRuntime",
+                    assembly: "@aws-cdk/cx-api",
+                    name: "AppRuntime",
+                    @namespace: "@aws-cdk/cx-api",
+                    docs: new Docs
+                    {
+                        { "comment", "Information about the application's runtime components." }
+                    },
+                    properties: new Property[]
+                    {
+                        new Property(
+                            name: "libraries",
+                            type: new TypeReference(
+                                collection: new CollectionTypeReference(
+                                    CollectionKind.Map,
+                                    new TypeReference(primitive: PrimitiveType.String)
+                                )
+                            ),
+                            docs: new Docs
+                            {
+                                { "comment", "The list of libraries loaded in the application, associated with their versions." }
+                            }
+                        )
+                    },
+                    isDataType: true
+                );
+
+                Assembly assembly = new Assembly(
+                    name: "@aws-cdk/cx-api",
+                    description: "Cloud executable protocol",
+                    homepage: "https://github.com/awslabs/aws-cdk",
+                    repository: new Assembly.AssemblyRepository(
+                        type: "git",
+                        url: "https://github.com/awslabs/aws-cdk.git"
+                    ),
+                    author: new Person(
+                        name: "Amazon Web Services",
+                        organization: true,
+                        roles: new[] { "author" },
+                        url: "https://aws.amazon.com"
+                    ),
+                    fingerprint: "Waqr5eba/zt52r9/c3IpkqJRi7kbpxl5vJKj4jt8fxE=",
+                    version: "0.8.2",
+                    license: "Apache-2.0",
+                    targets: new AssemblyTargets(
+                        dotnet: new AssemblyTargets.DotNetTarget(
+                            @namespace: "Amazon.CDK.CXAPI",
+                            packageId: "Amazon.CDK.CXAPI"
+                        )
+                    ),
+                    types: new Dictionary<string, JsonModel.Spec.Type> {
+                        { type.FullyQualifiedName, type }
+                    },
+                    readme: new Readme("## Cloud Executable protocol\nThis module is part of the [AWS Cloud Development Kit](https://github.com/awslabs/aws-cdk) project.\n")
+                );
+
+                InterfaceTypeMetadata metadata = new InterfaceTypeMetadata(type, assembly);
+                metadata.ResolveTypeNameConflicts(new HashSet<string>());
+
+                Assert.Equal("Amazon.CDK.CXAPI.IAppRuntime", metadata.FrameworkFullyQualifiedName);
             }
         }
     }

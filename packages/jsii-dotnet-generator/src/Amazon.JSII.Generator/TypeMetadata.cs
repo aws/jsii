@@ -16,8 +16,8 @@ namespace Amazon.JSII.Generator
 
             Package = type.Assembly;
 
-            string suffix = type.Namespace != null ? $".{type.Namespace}" : "";
-            Namespace = $"{assembly.GetNativeNamespace(Package)}{suffix}";
+            string nativeNamespace = assembly.GetNativeNamespace(Package);
+            Namespace = type.Namespace?.Replace(Package, nativeNamespace) ?? nativeNamespace;
         }
 
         public virtual void ResolveTypeNameConflicts(ISet<string> namespaceNames)
