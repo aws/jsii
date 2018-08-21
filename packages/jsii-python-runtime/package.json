@@ -1,0 +1,32 @@
+{
+  "name": "jsii-python-runtime",
+  "version": "0.0.0",
+  "description": "Python client for jsii runtime",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo ok",
+    "prepack": "echo ok",
+    "test": "echo ok"
+  },
+  "dependencies": {
+    "jsii-runtime": "^0.6.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/awslabs/jsii"
+  },
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com"
+  },
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com",
+    "organization": true
+  },
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/awslabs/jsii.git"
+  }
+}
