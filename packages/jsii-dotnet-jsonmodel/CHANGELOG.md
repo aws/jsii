@@ -11,6 +11,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package jsii-dotnet-jsonmodel
 
+<a name="0.7.0"></a>
+# [0.7.0](https://github.com/awslabs/jsii/compare/v0.6.4...v0.7.0) (2018-08-21)
+
+
+
+
+**Note:** Version bump only for package jsii-dotnet-jsonmodel
+
 <a name="0.6.4"></a>
 ## [0.6.4](https://github.com/awslabs/jsii/compare/v0.6.3...v0.6.4) (2018-08-08)
 

@@ -14,6 +14,17 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
+<a name="0.7.0"></a>
+# [0.7.0](https://github.com/awslabs/jsii/compare/v0.6.4...v0.7.0) (2018-08-21)
+
+
+### Bug Fixes
+
+* **kernel:** can't find temp directory on Windows ([#184](https://github.com/awslabs/jsii/issues/184)) ([1aec545](https://github.com/awslabs/jsii/commit/1aec545)), closes [#183](https://github.com/awslabs/jsii/issues/183)
+
+
+
+
 <a name="0.6.4"></a>
 ## [0.6.4](https://github.com/awslabs/jsii/compare/v0.6.3...v0.6.4) (2018-08-08)
 
