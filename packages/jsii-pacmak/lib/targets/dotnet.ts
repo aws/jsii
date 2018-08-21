@@ -28,7 +28,9 @@ export default class Dotnet extends Target {
             { cwd: sourceDir }
         );
 
-        await this.copyFiles(path.join(sourceDir, packageId, 'bin', 'Release'), outDir);
+        await this.copyFiles(
+            path.join(sourceDir, packageId, 'bin', 'Release'),
+            path.join(outDir, this.targetName));
         await fs.remove(path.join(outDir, 'netstandard2.0'));
     }
 

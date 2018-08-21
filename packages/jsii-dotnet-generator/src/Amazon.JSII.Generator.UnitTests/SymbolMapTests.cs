@@ -60,6 +60,7 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn1",
                     assembly: "my-package",
                     name: "MyType",
+                    @namespace: "my-package",
                     isAbstract: false
                 );
                 Type type2 = new ClassType
@@ -67,7 +68,7 @@ namespace Amazon.JSII.Generator.UnitTests
                     fullyQualifiedName: "myFqn2",
                     assembly: "my-package",
                     name: "myType2",
-                    @namespace: "MyType",
+                    @namespace: "my-package.MyType",
                     isAbstract: false
                 );
 
