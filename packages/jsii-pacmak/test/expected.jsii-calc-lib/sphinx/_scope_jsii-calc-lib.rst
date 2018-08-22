@@ -167,6 +167,35 @@ IFriendly (interface)
       :rtype: string
 
 
+Jigger
+^^^^^^
+
+.. py:class:: Jigger()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.lib.Jigger;
+
+      .. code-tab:: javascript
+
+         const { Jigger } = require('@scope/jsii-calc-lib');
+
+      .. code-tab:: typescript
+
+         import { Jigger } from '@scope/jsii-calc-lib';
+
+
+
+
+   .. py:method:: jigger() -> string => string
+
+      :rtype: string
+
+
 MyFirstStruct (interface)
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
