@@ -112,28 +112,6 @@
       ],
       "name": "IFriendly"
     },
-    "@scope/jsii-calc-lib.Jigger": {
-      "assembly": "@scope/jsii-calc-lib",
-      "fqn": "@scope/jsii-calc-lib.Jigger",
-      "initializer": {
-        "initializer": true
-      },
-      "kind": "class",
-      "methods": [
-        {
-          "name": "jigger",
-          "returns": {
-            "collection": {
-              "elementtype": {
-                "primitive": "string"
-              },
-              "kind": "map"
-            }
-          }
-        }
-      ],
-      "name": "Jigger"
-    },
     "@scope/jsii-calc-lib.MyFirstStruct": {
       "assembly": "@scope/jsii-calc-lib",
       "datatype": true,
@@ -339,5 +317,5 @@
     }
   },
   "version": "0.7.0",
-  "fingerprint": "mcoZvwTkCKjhhJD/C3jmJnlXlEiuXImjuAMqcKdoBgA="
+  "fingerprint": "cJwqDmnlSH8GlZB8eSap9Wmo/J62VcVeX2H2V98rlXI="
 }
