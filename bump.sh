@@ -6,10 +6,10 @@ if [ -z "${ver}" ]; then
   exit 1
 fi
 
-lerna publish --force-publish=* --skip-npm --skip-git --conventional-commits --repo-version ${ver}
+node_modules/.bin/lerna publish --force-publish=* --skip-npm --skip-git --conventional-commits --repo-version ${ver}
 
-lerna run build
+node_modules/.bin/lerna run build
 
 # update test expectations
-UPDATE_DIFF=1 lerna run test
+UPDATE_DIFF=1 node_modules/.bin/lerna run test
 
