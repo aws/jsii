@@ -126,7 +126,7 @@ export class Kernel {
                 await fs.move(path.join(staging, 'package'), packageDir);
 
                 // load the module and capture it's closure
-                const closure = this._execute(`require("${packageDir}")`, packageDir);
+                const closure = this._execute(`require(String.raw\`${packageDir}\`)`, packageDir);
                 const assm = new Assembly(assmSpec, closure);
                 this._addAssembly(assm);
 
