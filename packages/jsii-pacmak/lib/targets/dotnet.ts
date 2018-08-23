@@ -5,10 +5,37 @@ import path = require('path');
 import xmlbuilder = require('xmlbuilder');
 import { IGenerator } from '../generator';
 import logging = require('../logging');
-import { Target, TargetOptions } from '../target';
+import { PackageInfo, Target, TargetOptions } from '../target';
 import { shell } from '../util';
 
 export default class Dotnet extends Target {
+    public static toPackageInfos(assm: spec.Assembly): { [language: string]: PackageInfo } {
+        const packageId = assm.targets!.dotnet!.packageId;
+        const version = assm.version;
+        const packageInfo: PackageInfo = {
+            repository: 'Nuget',
+            url: `https://www.nuget.org/packages/${packageId}/${version}`,
+            usage: {
+                dotnet: {
+                    language: 'console',
+                    code: `dotnet add package ${packageId} --version ${version}`
+                },
+                csproj: {
+                    language: 'xml',
+                    code: `<PackageReference Include="${packageId}" Version="${version}" />`
+                }
+            }
+        };
+        return {'C#': packageInfo};
+    }
+
+    // @ts-ignore: type is a required parameter
+    public static toNativeReference(type: spec.Type, options: any) {
+        return {
+            'c#': `using ${options.namespace};`
+        };
+    }
+
     protected readonly generator = new DotNetGenerator();
 
     constructor(options: TargetOptions) {
