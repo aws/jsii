@@ -563,7 +563,7 @@ class SphinxDocsGenerator extends Generator {
         return name;
     }
 
-    private async renderNames(type: spec.Type) {
+    private renderNames(type: spec.Type) {
         this.code.line();
         this.code.line('**Language-specific names:**');
         this.code.line();
