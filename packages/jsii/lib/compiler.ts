@@ -1371,6 +1371,11 @@ function validateOverriddenSignatures(mod: spec.Assembly, externalTypes: Map<str
 
                 throw new Error(`${currentFqn}.${currentProperty.name}: type changed from ${orig} (in ${ancestorFqn}) to ${cur}`);
             }
+            if (!!currentProperty.immutable !== !!ancestorProperty.immutable) {
+                const orig = ancestorProperty.immutable ? 'readonly' : 'read-write';
+                const cur = currentProperty.immutable ? 'readonly' : 'read-write';
+                throw new Error(`${currentFqn}.${currentProperty.name}: immutability changed from ${orig} (in ${ancestorFqn}) to ${cur}`);
+            }
             // Register the closest ancestor that is being overridden
             if (!currentProperty.overrides && currentFqn !== ancestorFqn) {
                 currentProperty.overrides = { fqn: ancestorFqn };
