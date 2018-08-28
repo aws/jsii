@@ -5,6 +5,3 @@
 
 # Include .jsii
 !.jsii
-
-# Don't include build-tools
-build-tools

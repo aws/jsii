@@ -25,13 +25,8 @@
   "scripts": {
     "build": "jsii",
     "watch": "jsii -w",
-    "test": "node test/test.calc.js && diff-test test/assembly.jsii .jsii",
-    "preinstall": "node build-tools/preinstall.js",
-    "postinstall": "node build-tools/postinstall.js"
+    "test": "node test/test.calc.js && diff-test test/assembly.jsii .jsii"
   },
-  "bundledDependencies": [
-    "jsii-calc-bundled"
-  ],
   "dependencies": {
     "@scope/jsii-calc-base": "^0.7.1",
     "@scope/jsii-calc-lib": "^0.7.1",
