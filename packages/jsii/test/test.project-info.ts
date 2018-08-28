@@ -74,7 +74,7 @@ export = nodeunit.testCase({
                     test.done();
                 }
             }, info => {
-                info.dependencies['bundled'] = '^1.2.3';
+                info.dependencies.bundled = '^1.2.3';
                 info.bundleDependencies = ['bundled'];
             });
         },
@@ -90,7 +90,7 @@ export = nodeunit.testCase({
                     test.done();
                 }
             }, info => {
-                info.dependencies['bundled'] = '^1.2.3';
+                info.dependencies.bundled = '^1.2.3';
                 info.bundledDependencies = ['bundled'];
             });
         },

@@ -1,5 +1,5 @@
 // tslint:disable-next-line:comment-format
-///!MATCH_ERROR: changes immutability of property when implementing jsii.IInterface
+///!MATCH_ERROR:jsii.Implementation#property changes immutability of property when implementing jsii.IInterface
 
 export interface IInterface {
     property: string;

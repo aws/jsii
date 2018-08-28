@@ -39,7 +39,7 @@ export async function loadProjectInfo(projectRoot: string): Promise<ProjectInfo>
 
     const bundleDependencies: { [name: string]: string } = {};
     (pkg.bundleDependencies || pkg.bundledDependencies || []).forEach((name: string) => {
-        const version = pkg.dependencies[name];
+        const version = pkg.dependencies && pkg.dependencies[name];
         if (!version) {
             throw new Error(`The "package.json" has "${name}" in "bundleDependencies", but it is not declared in "dependencies"`);
         }

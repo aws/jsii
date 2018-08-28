@@ -124,7 +124,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
                     </execution>
                 </executions>
                 <configuration>
-                    <failOnWarnings>true</failOnWarnings>
+                    <failOnWarnings>false</failOnWarnings>
                     <show>protected</show>
                 </configuration>
             </plugin>
