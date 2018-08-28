@@ -1,7 +1,7 @@
-///!MATCH_ERROR: ERROR 'hello_world' must use camelCase
+///!MATCH_ERROR: Method and property names must use camelCase: hello_world
 
 export class MyClass {
-    hello_world() {
+    public hello_world() {
         return "hi";
     }
 }

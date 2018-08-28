@@ -1,4 +1,4 @@
-///!MATCH_ERROR: 'Prop' is a static property and must use camelCase
+///!MATCH_ERROR: Method and property names must use camelCase: Prop
 
 export class MyClass {
     static get Prop() {

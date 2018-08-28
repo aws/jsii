@@ -1,5 +1,5 @@
 // tslint:disable-next-line:comment-format
-///!MATCH_ERROR: immutability changed from read-write (in jsii.IInterface) to readonly
+///!MATCH_ERROR:jsii.Implementation#property changes immutability of property when implementing jsii.IInterface
 
 export interface IInterface {
     property: string;

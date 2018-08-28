@@ -80,7 +80,13 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
      */
     @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.composition.CompositeOperation.CompositionStringStyle")
     public enum CompositionStringStyle {
+        /**
+         * Normal string expression 
+         */
         Normal,
+        /**
+         * Decorated string expression 
+         */
         Decorated,
     }
 }

@@ -1,5 +1,5 @@
-///!MATCH_ERROR: ERROR 'PROP' must use camelCase
+///!MATCH_ERROR: Method and property names must use camelCase: PROP
 
 export class MyClass {
-    PROP?: number;
+    public PROP?: number;
 }

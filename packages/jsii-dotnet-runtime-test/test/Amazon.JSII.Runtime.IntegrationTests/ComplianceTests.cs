@@ -178,7 +178,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             IDictionary<string, object> map = new Dictionary<string, object>();
             map["Foo"] = new Multiply(new Number(2), new Number(00));
             types.UnionMapProperty = map;
-            
+
 
             // array
             types.UnionArrayProperty = new object[] { "Hello", 123, new Number(3) };
@@ -571,7 +571,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             throw new NotImplementedException();
         }
 
-        
+
         [Fact(DisplayName = Prefix + nameof(SyncOverrides_SyncOverrides))]
         public void SyncOverrides_SyncOverrides()
         {

@@ -228,8 +228,8 @@ export interface NamedTypeReference extends TypeReferenceBase {
      */
     fqn: string;
 }
-export function isNamedTypeReference(ref: TypeReference): ref is NamedTypeReference {
-    return !!(ref as NamedTypeReference).fqn;
+export function isNamedTypeReference(ref: TypeReference | undefined): ref is NamedTypeReference {
+    return ref != null && !!(ref as NamedTypeReference).fqn;
 }
 
 /**
@@ -242,8 +242,8 @@ export interface PrimitiveTypeReference extends TypeReferenceBase {
      */
     primitive: PrimitiveType;
 }
-export function isPrimitiveTypeReference(ref: TypeReference): ref is PrimitiveTypeReference {
-    return !!(ref as PrimitiveTypeReference).primitive;
+export function isPrimitiveTypeReference(ref: TypeReference | undefined): ref is PrimitiveTypeReference {
+    return ref != null && !!(ref as PrimitiveTypeReference).primitive;
 }
 
 /**
@@ -262,8 +262,8 @@ export interface CollectionTypeReference extends TypeReferenceBase {
         elementtype: TypeReference;
     };
 }
-export function isCollectionTypeReference(ref: TypeReference): ref is CollectionTypeReference {
-    return !!(ref as CollectionTypeReference).collection;
+export function isCollectionTypeReference(ref: TypeReference | undefined): ref is CollectionTypeReference {
+    return ref != null && !!(ref as CollectionTypeReference).collection;
 }
 
 /**
@@ -281,8 +281,8 @@ export interface UnionTypeReference extends TypeReferenceBase {
         types: TypeReference[];
     }
 }
-export function isUnionTypeReference(ref: TypeReference): ref is UnionTypeReference {
-    return !!(ref as UnionTypeReference).union;
+export function isUnionTypeReference(ref: TypeReference | undefined): ref is UnionTypeReference {
+    return ref != null && !!(ref as UnionTypeReference).union;
 }
 
 /**
@@ -497,8 +497,8 @@ export interface ClassType extends TypeBase {
     interfaces?: NamedTypeReference[];
 }
 
-export function isClassType(type: Type): type is ClassType {
-    return type.kind === TypeKind.Class;
+export function isClassType(type: Type | undefined): type is ClassType {
+    return type != null && type.kind === TypeKind.Class;
 }
 
 export interface InterfaceType extends TypeBase {
@@ -529,8 +529,8 @@ export interface InterfaceType extends TypeBase {
     datatype?: boolean;
 }
 
-export function isInterfaceType(type: Type): type is InterfaceType {
-    return type.kind === TypeKind.Interface;
+export function isInterfaceType(type: Type | undefined): type is InterfaceType {
+    return type != null && type.kind === TypeKind.Interface;
 }
 
 /**
@@ -555,14 +555,14 @@ export interface EnumType extends TypeBase {
     members: EnumMember[];
 }
 
-export function isEnumType(type: Type): type is EnumType {
-    return type.kind === TypeKind.Enum;
+export function isEnumType(type: Type | undefined): type is EnumType {
+    return type != null && type.kind === TypeKind.Enum;
 }
 
 /**
  * Return whether this type is a class or interface type
  */
-export function isClassOrInterfaceType(type: Type): type is (InterfaceType | ClassType) {
+export function isClassOrInterfaceType(type: Type | undefined): type is (InterfaceType | ClassType) {
     return isClassType(type) || isInterfaceType(type);
 }
 

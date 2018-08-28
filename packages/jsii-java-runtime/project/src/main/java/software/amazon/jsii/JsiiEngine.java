@@ -245,11 +245,11 @@ public final class JsiiEngine implements JsiiCallbackHandler {
             } catch (NoSuchMethodException e) {
                 throw new JsiiException("Cannot create native object of type "
                         + klass.getName()
-                        + " without a constructor that accepts an InitializationMode argument");
+                        + " without a constructor that accepts an InitializationMode argument", e);
 
             } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
                 throw new JsiiException("Unable to instantiate a new object for FQN " + fqn + ": "
-                        + e.getMessage());
+                        + e.getMessage(), e);
             }
         } catch (ClassNotFoundException e) {
             System.err.println("WARNING: Cannot find the class: " + fqn + ". Defaulting to JsiiObject");

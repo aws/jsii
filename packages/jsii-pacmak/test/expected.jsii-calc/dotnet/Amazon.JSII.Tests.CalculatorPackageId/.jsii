@@ -2827,9 +2827,15 @@
       "kind": "enum",
       "members": [
         {
+          "docs": {
+            "comment": "Normal string expression "
+          },
           "name": "Normal"
         },
         {
+          "docs": {
+            "comment": "Decorated string expression "
+          },
           "name": "Decorated"
         }
       ],
@@ -2838,5 +2844,5 @@
     }
   },
   "version": "0.7.1",
-  "fingerprint": "THQKxLYNQLK1jrNJjV/vj5ZU4obwt7XJmk5Vfz6hHVo="
+  "fingerprint": "xRKsZzmRl0yM7EYcHnUbf691eFzAupWFIvCbEqWcUuA="
 }
