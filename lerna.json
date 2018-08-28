@@ -3,6 +3,10 @@
   "packages": [
     "packages/*"
   ],
-  "rejectCycles": true,
-  "version": "0.7.0"
+  "command": {
+    "bootstrap": {
+      "rejectCycles": true
+    }
+  },
+  "version": "0.7.1"
 }
