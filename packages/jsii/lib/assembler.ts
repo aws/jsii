@@ -119,15 +119,15 @@ export class Assembler implements Emitter {
             await fs.writeJson(assemblyPath, _fingerprint(assembly), { replacer: utils.filterEmpty, spaces: 2 });
         }
 
-        // Clearing ``this._types`` to allow contents to be garbage-collected.
-        delete this._types;
-
         try {
             return {
                 diagnostics: [...this._diagnostics, ...validationResult.diagnostics],
                 emitSkipped: validationResult.emitSkipped
             };
         } finally {
+            // Clearing ``this._types`` to allow contents to be garbage-collected.
+            delete this._types;
+
             // Clearing ``this._diagnostics`` and ``this._deferred`` to allow contents to be garbage-collected.
             delete this._diagnostics;
             delete this._deferred;

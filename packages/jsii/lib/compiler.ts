@@ -40,7 +40,7 @@ export const DIAGNOSTICS = 'diagnostics';
 export interface CompilerOptions {
     /** The information about the project to be built */
     projectInfo: ProjectInfo;
-    /** Whether the compiler should watch for changes or juts compile once */
+    /** Whether the compiler should watch for changes or just compile once */
     watch: boolean;
 }
 
@@ -49,6 +49,8 @@ export class Compiler implements Emitter {
 
     /**
      * Compiles the configured program.
+     *
+     * @param files can be specified to override the standard source code location logic. Useful for example when testing "negatives".
      */
     public async emit(...files: string[]): Promise<EmitResult | never> {
         if (this.options.watch) {
