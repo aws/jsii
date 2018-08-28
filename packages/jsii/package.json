@@ -9,7 +9,7 @@
   },
   "scripts": {
     "watch": "tsc -w",
-    "build": "/bin/bash generate.sh && tsc && chmod +x bin/jsii",
+    "build": "cp ../../README.md . && /bin/bash generate.sh && tsc && chmod +x bin/jsii",
     "test": "nodeunit test/test.*.js",
     "package": "package-js"
   },
