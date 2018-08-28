@@ -1,6 +1,6 @@
 {
   "name": "jsii",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "TypeScript compiler for jsii",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -25,7 +25,7 @@
     "@types/node": "^9.6.18",
     "@types/nodeunit": "0.0.30",
     "@types/yargs": "^11.0.0",
-    "jsii-build-tools": "^0.7.0",
+    "jsii-build-tools": "^0.7.1",
     "nodeunit": "^0.11.2"
   },
   "dependencies": {
@@ -34,7 +34,7 @@
     "deep-equal": "^1.0.1",
     "fs-extra": "^4.0.3",
     "glob": "^7.1.2",
-    "jsii-spec": "^0.7.0",
+    "jsii-spec": "^0.7.1",
     "sort-json": "^2.0.0",
     "source-map-loader": "^0.2.3",
     "spdx-license-list": "^4.1.0",
