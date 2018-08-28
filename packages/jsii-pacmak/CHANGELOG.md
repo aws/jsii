@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.7.1"></a>
+## [0.7.1](https://github.com/awslabs/jsii/compare/v0.7.0...v0.7.1) (2018-08-28)
+
+### Bug Fixes
+
+* **jsii-pacmak:** Output .NET build artifacts to `dist/dotnet/` instead of just `dist/` ([#192](https://github.com/awslabs/jsii/issues/192)) ([f25c8c4](https://github.com/awslabs/jsii/commit/f25c8c45ba3de62c05d5d115f8aad675f85a3f31))
+
+
 <a name="0.7.0"></a>
 # [0.7.0](https://github.com/awslabs/jsii/compare/v0.6.4...v0.7.0) (2018-08-21)
 

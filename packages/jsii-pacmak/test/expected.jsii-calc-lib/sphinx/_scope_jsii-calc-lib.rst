@@ -5,19 +5,19 @@
 
    .. group-tab:: Java
 
-      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator-lib/0.7.0/>`_
+      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator-lib/0.7.1/>`_
 
       **Apache Buildr**:
 
       .. code-block:: none
 
-         'software.amazon.jsii.tests:calculator-lib:jar:0.7.0'
+         'software.amazon.jsii.tests:calculator-lib:jar:0.7.1'
 
       **Apache Ivy**:
 
       .. code-block:: xml
 
-         <dependency groupId="software.amazon.jsii.tests" name="calculator-lib" rev="0.7.0"/>
+         <dependency groupId="software.amazon.jsii.tests" name="calculator-lib" rev="0.7.1"/>
 
       **Apache Maven**:
 
@@ -26,72 +26,72 @@
          <dependency>
            <groupId>software.amazon.jsii.tests</groupId>
            <artifactId>calculator-lib</artifactId>
-           <version>0.7.0</version>
+           <version>0.7.1</version>
          </dependency>
 
       **Gradle / Grails**:
 
       .. code-block:: none
 
-         compile 'software.amazon.jsii.tests:calculator-lib:0.7.0'
+         compile 'software.amazon.jsii.tests:calculator-lib:0.7.1'
 
       **Groovy Grape**:
 
       .. code-block:: none
 
          @Grapes(
-         @Grab(group='software.amazon.jsii.tests', module='calculator-lib', version='0.7.0')
+         @Grab(group='software.amazon.jsii.tests', module='calculator-lib', version='0.7.1')
          )
 
 
    .. group-tab:: JavaScript
 
-      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-lib/v/0.7.0>`_
+      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-lib/v/0.7.1>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i @scope/jsii-calc-lib@0.7.0
+         $ npm i @scope/jsii-calc-lib@0.7.1
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "@scope/jsii-calc-lib": "^0.7.0"
+           "@scope/jsii-calc-lib": "^0.7.1"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add @scope/jsii-calc-lib@0.7.0
+         $ yarn add @scope/jsii-calc-lib@0.7.1
 
 
    .. group-tab:: TypeScript
 
-      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-lib/v/0.7.0>`_
+      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-lib/v/0.7.1>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i @scope/jsii-calc-lib@0.7.0
+         $ npm i @scope/jsii-calc-lib@0.7.1
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "@scope/jsii-calc-lib": "^0.7.0"
+           "@scope/jsii-calc-lib": "^0.7.1"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add @scope/jsii-calc-lib@0.7.0
+         $ yarn add @scope/jsii-calc-lib@0.7.1
 
 
 
