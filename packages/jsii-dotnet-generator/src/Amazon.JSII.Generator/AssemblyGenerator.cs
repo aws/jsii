@@ -131,8 +131,8 @@ namespace Amazon.JSII.Generator
                                     new XElement("PackageReference",
                                         new XAttribute("Include", d.Package),
                                         new XAttribute("Version", d.Version)
+                                    )
                                 )
-                            )
                         )
                     );
 

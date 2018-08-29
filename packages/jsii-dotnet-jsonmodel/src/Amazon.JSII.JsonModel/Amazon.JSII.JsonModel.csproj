@@ -1,10 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../NuGet.Metadata.props" />
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageOutputPath>..\..\bin\$(Configuration)\NuGet\</PackageOutputPath>
-    <PackageVersion>$(JsiiVersion)</PackageVersion>
+    <PackageId>Amazon.JSII.JsonModel</PackageId>
+    <Title>.NET JsonModel for JSII</Title>
   </PropertyGroup>
 
   <ItemGroup>

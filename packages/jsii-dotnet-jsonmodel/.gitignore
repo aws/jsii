@@ -1,3 +1,4 @@
 src/Directory.Build.props
+src/NuGet.Metadata.props
 
 !*.t.js

@@ -74,7 +74,10 @@ namespace Amazon.JSII.Generator
 
             if (assembly.Targets.DotNet.SignAssembly != null)
             {
-                yield return new XElement("SignAssembly", assembly.Targets.DotNet.SignAssembly);
+                yield return new XElement("SignAssembly",
+                    new XAttribute("Condition", @"Exists('$(AssemblyOriginatorKeyFile)')"),
+                    assembly.Targets.DotNet.SignAssembly
+                );
             }
 
             if (assembly.Targets.DotNet.AssemblyOriginatorKeyFile != null)
