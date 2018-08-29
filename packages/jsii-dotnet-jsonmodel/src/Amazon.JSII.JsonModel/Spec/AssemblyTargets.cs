@@ -24,7 +24,7 @@ namespace Amazon.JSII.JsonModel.Spec
                 string packageId,
                 string title = null,
                 bool? signAssembly = null,
-                string assemblyOriginatorKey = null,
+                string assemblyOriginatorKeyFile = null,
                 string iconUrl = null
             )
             {
@@ -33,7 +33,7 @@ namespace Amazon.JSII.JsonModel.Spec
 
                 Title = title;
                 SignAssembly = signAssembly;
-                AssemblyOriginatorKey = assemblyOriginatorKey;
+                AssemblyOriginatorKeyFile = assemblyOriginatorKeyFile;
                 IconUrl = iconUrl;
             }
             
@@ -49,8 +49,8 @@ namespace Amazon.JSII.JsonModel.Spec
             [JsonProperty("signAssembly", NullValueHandling = NullValueHandling.Ignore)]
             public bool? SignAssembly { get; }
 
-            [JsonProperty("assemblyOriginatorKey", NullValueHandling = NullValueHandling.Ignore)]
-            public string AssemblyOriginatorKey { get; }
+            [JsonProperty("assemblyOriginatorKeyFile", NullValueHandling = NullValueHandling.Ignore)]
+            public string AssemblyOriginatorKeyFile { get; }
 
             [JsonProperty("iconUrl", NullValueHandling = NullValueHandling.Ignore)]
             public string IconUrl { get; }
