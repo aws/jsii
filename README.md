@@ -279,11 +279,11 @@ The following targets are currently supported:
     /* Optional. Default: null (no icon). */
     "iconUrl": "path/to/icon.svg",
 
-    /* Optional. Used in conjunction with assemblyOriginatorKey. Default: false. */
+    /* Optional. Used in conjunction with assemblyOriginatorKeyFile. Default: false. */
     "signAssembly": true,
 
     /* Optional. Used in conjunction with signAssembly. Default: null. */
-    "assemblyOriginatorKey": "path/to/key.snk"
+    "assemblyOriginatorKeyFile": "path/to/key.snk"
   }
 }
 ```
