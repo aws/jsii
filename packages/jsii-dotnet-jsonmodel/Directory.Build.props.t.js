@@ -1,10 +1,9 @@
-const path = require('path');
-const version = require('./package.json').version.replace(/\+.+$/, ''); // omit "+build" postfix;
+const version = require('./package.json').version.replace(/\+.+$/, ''); // omit "+build" suffix
+
 process.stdout.write(`<Project>
-<PropertyGroup>
-  <Authors>Amazon Web Services LLC</Authors>
-  <Company>Amazon Web Services LLC</Company>
-  <JsiiVersion>${version}</JsiiVersion>
-</PropertyGroup>
+  <PropertyGroup>
+    <JsiiVersion>${version}</JsiiVersion>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
 </Project>
 `);
