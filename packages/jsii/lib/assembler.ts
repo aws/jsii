@@ -248,8 +248,8 @@ export class Assembler implements Emitter {
                 LOG.trace(`Entering namespace: ${colors.cyan([...namePrefix, moduleType.symbol.name].join('.'))}`);
             }
             const allTypes = new Array<spec.Type>();
-            for (const prop of moduleType.getProperties()) {
-                allTypes.push(...await this._visitNode(prop.valueDeclaration, namePrefix.concat(node.name.getText())));
+            for (const prop of this._typeChecker.getExportsOfModule(moduleType.symbol)) {
+                allTypes.push(...await this._visitNode(prop.declarations[0], namePrefix.concat(node.name.getText())));
             }
             if (LOG.isTraceEnabled()) {
                 LOG.trace(`Leaving namespace:  ${colors.cyan([...namePrefix, moduleType.symbol.name].join('.'))}`);
