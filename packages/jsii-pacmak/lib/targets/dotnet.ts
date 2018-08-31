@@ -16,13 +16,17 @@ export default class Dotnet extends Target {
             repository: 'Nuget',
             url: `https://www.nuget.org/packages/${packageId}/${version}`,
             usage: {
-                dotnet: {
+                'csproj': {
+                    language: 'xml',
+                    code: `<PackageReference Include="${packageId}" Version="${version}" />`
+                },
+                'dotnet': {
                     language: 'console',
                     code: `dotnet add package ${packageId} --version ${version}`
                 },
-                csproj: {
+                'packages.config': {
                     language: 'xml',
-                    code: `<PackageReference Include="${packageId}" Version="${version}" />`
+                    code: `<package id="${packageId}" version="${version}" />`
                 }
             }
         };

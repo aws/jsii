@@ -19,6 +19,12 @@
 
          dotnet add package Amazon.JSII.Tests.CalculatorPackageId.BasePackageId --version 0.7.0
 
+      **packages.config**:
+
+      .. code-block:: xml
+
+         <package id="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" version="0.7.0" />
+
 
    .. group-tab:: Java
 
