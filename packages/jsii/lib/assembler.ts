@@ -382,7 +382,7 @@ export class Assembler implements Emitter {
                         jsiiType.initializer.parameters = jsiiType.initializer.parameters || [];
                         jsiiType.initializer.parameters.push(await this._toParameter(param));
                         if (ts.isParameterPropertyDeclaration(param.valueDeclaration)) {
-                            this._visitProperty(param, jsiiType);
+                            await this._visitProperty(param, jsiiType);
                         }
                         jsiiType.initializer.variadic = jsiiType.initializer.parameters
                             && jsiiType.initializer.parameters.find(p => !!p.variadic) != null;
@@ -391,18 +391,20 @@ export class Assembler implements Emitter {
                 this._visitDocumentation(constructor, jsiiType.initializer);
             }
         } else if (jsiiType.base) {
-            const baseType = this._dereference(jsiiType.base);
-            if (!baseType) {
-                this._diagnostic(type.symbol.valueDeclaration,
-                                 ts.DiagnosticCategory.Error,
-                                 `Unable to resolve type ${jsiiType.base.fqn} (base type of ${jsiiType.fqn})`);
-            } else if (spec.isClassType(baseType)) {
-                jsiiType.initializer = baseType.initializer;
-            } else {
-                this._diagnostic(type.symbol.valueDeclaration,
-                    ts.DiagnosticCategory.Error,
-                    `Base type of ${jsiiType.fqn} (${jsiiType.base.fqn}) is not a class`);
-            }
+            this._defer(() => {
+                const baseType = this._dereference(jsiiType.base!);
+                if (!baseType) {
+                    this._diagnostic(type.symbol.valueDeclaration,
+                                    ts.DiagnosticCategory.Error,
+                                    `Unable to resolve type ${jsiiType.base!.fqn} (base type of ${jsiiType.fqn})`);
+                } else if (spec.isClassType(baseType)) {
+                    jsiiType.initializer = baseType.initializer;
+                } else {
+                    this._diagnostic(type.symbol.valueDeclaration,
+                        ts.DiagnosticCategory.Error,
+                        `Base type of ${jsiiType.fqn} (${jsiiType.base!.fqn}) is not a class`);
+                }
+            });
         } else {
             jsiiType.initializer = { initializer: true };
         }
@@ -495,12 +497,20 @@ export class Assembler implements Emitter {
                                  `Base type of ${jsiiType.fqn} is not a named type (${spec.describeTypeReference(ref)})`);
                 continue;
             }
-            if (!spec.isInterfaceType(this._dereference(ref))) {
-                this._diagnostic(base.symbol.valueDeclaration,
-                                 ts.DiagnosticCategory.Error,
-                                 `Base type of ${jsiiType.fqn} is not an interface (${spec.describeTypeReference(ref)})`);
-                continue;
-            }
+            this._defer(() => {
+                if (!spec.isInterfaceType(this._dereference(ref))) {
+                    const baseType = this._dereference(ref);
+                    if (baseType) {
+                        this._diagnostic(base.symbol.valueDeclaration,
+                                        ts.DiagnosticCategory.Error,
+                                        `Base type of ${jsiiType.fqn} is not an interface (${baseType.kind} ${spec.describeTypeReference(ref)})`);
+                    } else {
+                        this._diagnostic(base.symbol.valueDeclaration,
+                            ts.DiagnosticCategory.Error,
+                            `Base type of ${jsiiType.fqn} could not be resolved (${spec.describeTypeReference(ref)})`);
+                    }
+                }
+            });
             if (jsiiType.interfaces) {
                 jsiiType.interfaces.push(ref);
             } else {
