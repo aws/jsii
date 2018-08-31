@@ -5,25 +5,25 @@
 
    .. group-tab:: C#
 
-      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/0.7.0>`_
+      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/0.7.1>`_
 
       **csproj**:
 
       .. code-block:: xml
 
-         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" Version="0.7.0" />
+         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" Version="0.7.1" />
 
       **dotnet**:
 
       .. code-block:: console
 
-         dotnet add package Amazon.JSII.Tests.CalculatorPackageId.LibPackageId --version 0.7.0
+         dotnet add package Amazon.JSII.Tests.CalculatorPackageId.LibPackageId --version 0.7.1
 
       **packages.config**:
 
       .. code-block:: xml
 
-         <package id="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" version="0.7.0" />
+         <package id="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" version="0.7.1" />
 
 
    .. group-tab:: Java
