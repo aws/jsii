@@ -3,6 +3,29 @@
 
 .. tabs::
 
+   .. group-tab:: C#
+
+      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId.BasePackageId/0.7.1>`_
+
+      **csproj**:
+
+      .. code-block:: xml
+
+         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" Version="0.7.1" />
+
+      **dotnet**:
+
+      .. code-block:: console
+
+         dotnet add package Amazon.JSII.Tests.CalculatorPackageId.BasePackageId --version 0.7.1
+
+      **packages.config**:
+
+      .. code-block:: xml
+
+         <package id="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" version="0.7.1" />
+
+
    .. group-tab:: Java
 
       View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator-base/0.7.1/>`_
@@ -109,6 +132,10 @@ Base
 
    .. tabs::
 
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace;
+
       .. code-tab:: java
 
          import software.amazon.jsii.tests.calculator.base.Base;
@@ -142,6 +169,10 @@ BaseProps (interface)
    **Language-specific names:**
 
    .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace;
 
       .. code-tab:: java
 

@@ -3,6 +3,29 @@
 
 .. tabs::
 
+   .. group-tab:: C#
+
+      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/0.7.1>`_
+
+      **csproj**:
+
+      .. code-block:: xml
+
+         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" Version="0.7.1" />
+
+      **dotnet**:
+
+      .. code-block:: console
+
+         dotnet add package Amazon.JSII.Tests.CalculatorPackageId.LibPackageId --version 0.7.1
+
+      **packages.config**:
+
+      .. code-block:: xml
+
+         <package id="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" version="0.7.1" />
+
+
    .. group-tab:: Java
 
       View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator-lib/0.7.1/>`_
@@ -109,6 +132,10 @@ EnumFromScopedModule (enum)
 
    .. tabs::
 
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
+
       .. code-tab:: java
 
          import software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule;
@@ -139,6 +166,10 @@ IFriendly (interface)
    **Language-specific names:**
 
    .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
       .. code-tab:: java
 
@@ -175,6 +206,10 @@ MyFirstStruct (interface)
    **Language-specific names:**
 
    .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
       .. code-tab:: java
 
@@ -225,6 +260,10 @@ Number
 
    .. tabs::
 
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
+
       .. code-tab:: java
 
          import software.amazon.jsii.tests.calculator.lib.Number;
@@ -271,6 +310,10 @@ Operation
 
    .. tabs::
 
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
+
       .. code-tab:: java
 
          import software.amazon.jsii.tests.calculator.lib.Operation;
@@ -308,6 +351,10 @@ StructWithOnlyOptionals (interface)
    **Language-specific names:**
 
    .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
       .. code-tab:: java
 
@@ -354,6 +401,10 @@ Value
    **Language-specific names:**
 
    .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
       .. code-tab:: java
 
