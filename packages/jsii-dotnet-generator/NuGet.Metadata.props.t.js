@@ -11,7 +11,7 @@ process.stdout.write(`<Project>
     <Authors>${package.author.name}</Authors>
     <Company>${package.author.name}</Company>
     <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
-    <SignAssembly Condition="Exists('$(AssemblyOriginatorKeyFile)')">True</SignAssembly>
+    <SignAssembly Condition=" '$(ENABLE_DOTNET_STRONG_NAME_SIGNING)' != '' ">True</SignAssembly>
   </PropertyGroup>
 </Project>
 `);
