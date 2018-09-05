@@ -652,6 +652,10 @@ class JavaGenerator extends Generator {
         for (const methodName of Object.keys(methods)) {
             const method = methods[methodName];
             this.emitMethod(ifc, method, /* overrides: */ true);
+
+            for (const overloadedMethod of this.createOverloadsForOptionals(method)) {
+                this.emitMethod(ifc, overloadedMethod, /* overrides: */ true);
+            }
         }
 
         this.code.closeBlock();

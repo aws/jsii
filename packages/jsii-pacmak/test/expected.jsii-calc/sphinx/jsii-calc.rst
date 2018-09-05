@@ -1295,6 +1295,46 @@ Hello (interface)
 
 .. py:currentmodule:: jsii-calc
 
+InterfaceWithOptionalMethodArguments (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: InterfaceWithOptionalMethodArguments
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.InterfaceWithOptionalMethodArguments;
+
+      .. code-tab:: javascript
+
+         // InterfaceWithOptionalMethodArguments is an interface
+
+      .. code-tab:: typescript
+
+         import { InterfaceWithOptionalMethodArguments } from 'jsii-calc';
+
+
+
+   awslabs/jsii#175 Interface proxies (and builders) do not respect optional arguments in methods
+
+
+
+
+   .. py:method:: hello(arg1, [arg2])
+
+      :param arg1: 
+      :type arg1: string
+      :param arg2: 
+      :type arg2: number or undefined
+
+
 JSObjectLiteralForInterface
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

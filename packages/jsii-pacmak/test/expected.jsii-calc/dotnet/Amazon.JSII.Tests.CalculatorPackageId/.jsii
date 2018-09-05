@@ -1295,6 +1295,35 @@
         }
       ]
     },
+    "jsii-calc.InterfaceWithOptionalMethodArguments": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "comment": "awslabs/jsii#175\nInterface proxies (and builders) do not respect optional arguments in methods"
+      },
+      "fqn": "jsii-calc.InterfaceWithOptionalMethodArguments",
+      "kind": "interface",
+      "methods": [
+        {
+          "name": "hello",
+          "parameters": [
+            {
+              "name": "arg1",
+              "type": {
+                "primitive": "string"
+              }
+            },
+            {
+              "name": "arg2",
+              "type": {
+                "optional": true,
+                "primitive": "number"
+              }
+            }
+          ]
+        }
+      ],
+      "name": "InterfaceWithOptionalMethodArguments"
+    },
     "jsii-calc.JSObjectLiteralForInterface": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.JSObjectLiteralForInterface",
@@ -2895,5 +2924,5 @@
     }
   },
   "version": "0.7.1",
-  "fingerprint": "kLi/5UqkB6zGOVxj7UcMCVnDhIx51fN9Fo9aNKDHqPY="
+  "fingerprint": "3uROoDToOcKIpYs9haAGnS37Iebz1/+ldcknrh37qDQ="
 }

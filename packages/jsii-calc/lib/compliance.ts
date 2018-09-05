@@ -806,3 +806,11 @@ export namespace InterfaceInNamespaceIncludesClasses {
         foo: number
     }
 }
+
+/**
+ * awslabs/jsii#175
+ * Interface proxies (and builders) do not respect optional arguments in methods
+ */
+export interface InterfaceWithOptionalMethodArguments {
+    hello(arg1: string, arg2?: number): void
+}
