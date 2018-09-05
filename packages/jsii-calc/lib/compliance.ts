@@ -782,3 +782,35 @@ export class ReferenceEnumFromScopedPackage {
         this.foo = value;
     }
 }
+
+/**
+ * awslabs/jsii#208
+ * Interface within a namespace
+ */
+export namespace InterfaceInNamespaceOnlyInterface {
+
+    // it's a special case when only an interface is exported from a namespace
+    export interface Hello {
+        foo: number
+    }
+
+}
+
+export namespace InterfaceInNamespaceIncludesClasses {
+
+    export class Foo {
+        public bar?: string;
+    }
+
+    export interface Hello {
+        foo: number
+    }
+}
+
+/**
+ * awslabs/jsii#175
+ * Interface proxies (and builders) do not respect optional arguments in methods
+ */
+export interface InterfaceWithOptionalMethodArguments {
+    hello(arg1: string, arg2?: number): void
+}

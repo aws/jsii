@@ -517,33 +517,42 @@ class SphinxDocsGenerator extends Generator {
             };
         } else if (spec.isCollectionTypeReference(type)) {
             const elementType = this.renderTypeRef(type.collection.elementtype);
+            const ref = wrap(elementType.ref);
+            const display = wrap(elementType.display);
 
             switch (type.collection.kind) {
                 case spec.CollectionKind.Array:
                     result = {
-                        ref: elementType.ref,
-                        display: `${elementType.display}[]`
+                        ref: `${ref}[]`,
+                        display: `${display}[]`
                     };
                     break;
                 case spec.CollectionKind.Map:
                     result = {
-                        ref: elementType.ref,
-                        display: `string => ${elementType.display}`
+                        ref: `string => ${ref}`,
+                        display: `string => ${display}`
                     };
                     break;
                 default:
                     throw new Error(`Unexpected collection kind: ${type.collection.kind}`);
             }
         } else if (spec.isUnionTypeReference(type)) {
+            const mappedTypes = type.union.types.map(t => this.renderTypeRef(t));
             result = {
-                display: type.union.types.map(t => this.renderTypeRef(t).display).join(' or '),
-                ref: type.union.types.map(t => this.renderTypeRef(t).ref).join(' or '),
+                display: mappedTypes.map(t => t.display).join(' or '),
+                ref: mappedTypes.map(t => t.ref).join(' or '),
             };
         } else {
             throw new Error('Unexpected type ref');
         }
         if (type.optional) { result.ref = `${result.ref} or undefined`; }
         return result;
+
+        // Wrap a string between parenthesis if it contains " or "
+        function wrap(str: string): string {
+            if (str.indexOf(' or ') === -1) { return str; }
+            return `(${str})`;
+        }
     }
 
     private renderProperty(prop: spec.Property) {

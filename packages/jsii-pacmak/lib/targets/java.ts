@@ -652,6 +652,10 @@ class JavaGenerator extends Generator {
         for (const methodName of Object.keys(methods)) {
             const method = methods[methodName];
             this.emitMethod(ifc, method, /* overrides: */ true);
+
+            for (const overloadedMethod of this.createOverloadsForOptionals(method)) {
+                this.emitMethod(ifc, overloadedMethod, /* overrides: */ true);
+            }
         }
 
         this.code.closeBlock();
@@ -754,20 +758,20 @@ class JavaGenerator extends Generator {
         for (const prop of props) {
             if (prop.optional) { this.code.line(JSR305_NULLABLE); }
             // tslint:disable-next-line:max-line-length
-            this.code.line(`private${prop.immutable ? ' final' : ''} ${prop.fieldJavaType} ${prop.fieldName} = ${_validateIfNonOptional(`_${prop.fieldName}`, prop)};`);
+            this.code.line(`private${prop.immutable ? ' final' : ''} ${prop.fieldJavaType} $${prop.fieldName} = ${_validateIfNonOptional(`_${prop.fieldName}`, prop)};`);
         }
         for (const prop of props) {
             this.code.line();
             this.code.line('@Override');
             this.code.openBlock(`public ${prop.fieldJavaType} get${prop.propName}()`);
-            this.code.line(`return this.${prop.fieldName};`);
+            this.code.line(`return this.$${prop.fieldName};`);
             this.code.closeBlock();
             if (!prop.immutable) {
                 for (const type of prop.javaTypes) {
                     this.code.line();
                     this.code.line('@Override');
                     this.code.openBlock(`public void set${prop.propName}(${prop.optional ? `${JSR305_NULLABLE} ` : ''}final ${type} value)`);
-                    this.code.line(`this.${prop.fieldName} = ${_validateIfNonOptional('value', prop)};`);
+                    this.code.line(`this.$${prop.fieldName} = ${_validateIfNonOptional('value', prop)};`);
                     this.code.closeBlock();
                 }
             }

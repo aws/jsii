@@ -37,6 +37,10 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.IInterfaceWithPropertiesExtension": return software.amazon.jsii.tests.calculator.IInterfaceWithPropertiesExtension.class;
             case "jsii-calc.IRandomNumberGenerator": return software.amazon.jsii.tests.calculator.IRandomNumberGenerator.class;
             case "jsii-calc.ImplictBaseOfBase": return software.amazon.jsii.tests.calculator.ImplictBaseOfBase.class;
+            case "jsii-calc.InterfaceInNamespaceIncludesClasses.Foo": return software.amazon.jsii.tests.calculator.InterfaceInNamespaceIncludesClasses.Foo.class;
+            case "jsii-calc.InterfaceInNamespaceIncludesClasses.Hello": return software.amazon.jsii.tests.calculator.InterfaceInNamespaceIncludesClasses.Hello.class;
+            case "jsii-calc.InterfaceInNamespaceOnlyInterface.Hello": return software.amazon.jsii.tests.calculator.InterfaceInNamespaceOnlyInterface.Hello.class;
+            case "jsii-calc.InterfaceWithOptionalMethodArguments": return software.amazon.jsii.tests.calculator.InterfaceWithOptionalMethodArguments.class;
             case "jsii-calc.JSObjectLiteralForInterface": return software.amazon.jsii.tests.calculator.JSObjectLiteralForInterface.class;
             case "jsii-calc.JSObjectLiteralToNative": return software.amazon.jsii.tests.calculator.JSObjectLiteralToNative.class;
             case "jsii-calc.JSObjectLiteralToNativeClass": return software.amazon.jsii.tests.calculator.JSObjectLiteralToNativeClass.class;

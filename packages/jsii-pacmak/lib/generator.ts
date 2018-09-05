@@ -302,7 +302,16 @@ export abstract class Generator implements IGenerator {
         return this.excludeTypes.includes(name);
     }
 
-    private createOverloadsForOptionals(method: spec.Method) {
+    /**
+     * Returns all the method overloads needed to satisfy optional arguments.
+     * For example, for the method `foo(bar: string, hello?: number, world?: number)`
+     * this method will return:
+     *  - foo(bar: string)
+     *  - foo(bar: string, hello: number)
+     *
+     * Notice that the method that contains all the arguments will not be returned.
+     */
+    protected createOverloadsForOptionals(method: spec.Method) {
         const methods = new Array<spec.Method>();
 
         // if option disabled, just return the empty array.

@@ -75,28 +75,28 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
          */
         public UnionProperties build() {
             return new UnionProperties() {
-                private final java.lang.Object bar = java.util.Objects.requireNonNull(_bar, "bar is required");
+                private final java.lang.Object $bar = java.util.Objects.requireNonNull(_bar, "bar is required");
                 @javax.annotation.Nullable
-                private java.lang.Object foo = _foo;
+                private java.lang.Object $foo = _foo;
 
                 @Override
                 public java.lang.Object getBar() {
-                    return this.bar;
+                    return this.$bar;
                 }
 
                 @Override
                 public java.lang.Object getFoo() {
-                    return this.foo;
+                    return this.$foo;
                 }
 
                 @Override
                 public void setFoo(@javax.annotation.Nullable final java.lang.String value) {
-                    this.foo = value;
+                    this.$foo = value;
                 }
 
                 @Override
                 public void setFoo(@javax.annotation.Nullable final java.lang.Number value) {
-                    this.foo = value;
+                    this.$foo = value;
                 }
 
             };

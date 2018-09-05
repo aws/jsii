@@ -72,40 +72,40 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
         public StructWithOnlyOptionals build() {
             return new StructWithOnlyOptionals() {
                 @javax.annotation.Nullable
-                private java.lang.String optional1 = _optional1;
+                private java.lang.String $optional1 = _optional1;
                 @javax.annotation.Nullable
-                private java.lang.Number optional2 = _optional2;
+                private java.lang.Number $optional2 = _optional2;
                 @javax.annotation.Nullable
-                private java.lang.Boolean optional3 = _optional3;
+                private java.lang.Boolean $optional3 = _optional3;
 
                 @Override
                 public java.lang.String getOptional1() {
-                    return this.optional1;
+                    return this.$optional1;
                 }
 
                 @Override
                 public void setOptional1(@javax.annotation.Nullable final java.lang.String value) {
-                    this.optional1 = value;
+                    this.$optional1 = value;
                 }
 
                 @Override
                 public java.lang.Number getOptional2() {
-                    return this.optional2;
+                    return this.$optional2;
                 }
 
                 @Override
                 public void setOptional2(@javax.annotation.Nullable final java.lang.Number value) {
-                    this.optional2 = value;
+                    this.$optional2 = value;
                 }
 
                 @Override
                 public java.lang.Boolean getOptional3() {
-                    return this.optional3;
+                    return this.$optional3;
                 }
 
                 @Override
                 public void setOptional3(@javax.annotation.Nullable final java.lang.Boolean value) {
-                    this.optional3 = value;
+                    this.$optional3 = value;
                 }
 
             };

@@ -45,27 +45,27 @@ public interface BaseProps extends software.amazon.jsii.JsiiSerializable, softwa
          */
         public BaseProps build() {
             return new BaseProps() {
-                private java.lang.String bar = java.util.Objects.requireNonNull(_bar, "bar is required");
-                private software.amazon.jsii.tests.calculator.baseofbase.Very foo = java.util.Objects.requireNonNull(_foo, "foo is required");
+                private java.lang.String $bar = java.util.Objects.requireNonNull(_bar, "bar is required");
+                private software.amazon.jsii.tests.calculator.baseofbase.Very $foo = java.util.Objects.requireNonNull(_foo, "foo is required");
 
                 @Override
                 public java.lang.String getBar() {
-                    return this.bar;
+                    return this.$bar;
                 }
 
                 @Override
                 public void setBar(final java.lang.String value) {
-                    this.bar = java.util.Objects.requireNonNull(value, "bar is required");
+                    this.$bar = java.util.Objects.requireNonNull(value, "bar is required");
                 }
 
                 @Override
                 public software.amazon.jsii.tests.calculator.baseofbase.Very getFoo() {
-                    return this.foo;
+                    return this.$foo;
                 }
 
                 @Override
                 public void setFoo(final software.amazon.jsii.tests.calculator.baseofbase.Very value) {
-                    this.foo = java.util.Objects.requireNonNull(value, "foo is required");
+                    this.$foo = java.util.Objects.requireNonNull(value, "foo is required");
                 }
 
             };
