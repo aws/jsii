@@ -9,7 +9,7 @@
     "test": "echo ok"
   },
   "dependencies": {
-    "jsii-runtime": "^0.6.4"
+    "jsii-runtime": "^0.7.1"
   },
   "repository": {
     "type": "git",
@@ -17,16 +17,8 @@
   },
   "author": {
     "name": "Amazon Web Services",
-    "url": "https://aws.amazon.com"
-  },
-  "author": {
-    "name": "Amazon Web Services",
     "url": "https://aws.amazon.com",
     "organization": true
   },
-  "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/awslabs/jsii.git"
-  }
+  "license": "Apache-2.0"
 }
