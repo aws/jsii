@@ -3,6 +3,29 @@ jsii-calc
 
 .. tabs::
 
+   .. group-tab:: C#
+
+      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId/0.7.1>`_
+
+      **csproj**:
+
+      .. code-block:: xml
+
+         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId" Version="0.7.1" />
+
+      **dotnet**:
+
+      .. code-block:: console
+
+         dotnet add package Amazon.JSII.Tests.CalculatorPackageId --version 0.7.1
+
+      **packages.config**:
+
+      .. code-block:: xml
+
+         <package id="Amazon.JSII.Tests.CalculatorPackageId" version="0.7.1" />
+
+
    .. group-tab:: Java
 
       View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator/0.7.1/>`_
@@ -111,6 +134,10 @@ Add
 
    .. tabs::
 
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
       .. code-tab:: java
 
          import software.amazon.jsii.tests.calculator.Add;
@@ -158,6 +185,10 @@ AllTypes
    **Language-specific names:**
 
    .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
 
       .. code-tab:: java
 
@@ -288,6 +319,10 @@ AllTypesEnum (enum)
 
    .. tabs::
 
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
       .. code-tab:: java
 
          import software.amazon.jsii.tests.calculator.AllTypesEnum;
@@ -317,6 +352,10 @@ AllowedMethodNames
    **Language-specific names:**
 
    .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
 
       .. code-tab:: java
 
@@ -381,6 +420,10 @@ AsyncVirtualMethods
 
    .. tabs::
 
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
       .. code-tab:: java
 
          import software.amazon.jsii.tests.calculator.AsyncVirtualMethods;
@@ -443,6 +486,10 @@ BinaryOperation
 
    .. tabs::
 
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
       .. code-tab:: java
 
          import software.amazon.jsii.tests.calculator.BinaryOperation;
@@ -500,6 +547,10 @@ Calculator
    **Language-specific names:**
 
    .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
 
       .. code-tab:: java
 
@@ -621,6 +672,10 @@ CalculatorProps (interface)
 
    .. tabs::
 
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
       .. code-tab:: java
 
          import software.amazon.jsii.tests.calculator.CalculatorProps;
@@ -664,6 +719,10 @@ Base
 
    .. tabs::
 
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
       .. code-tab:: java
 
          import software.amazon.jsii.tests.calculator.DerivedClassHasNoProperties.Base;
@@ -693,6 +752,10 @@ Derived
 
    .. tabs::
 
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
       .. code-tab:: java
 
          import software.amazon.jsii.tests.calculator.DerivedClassHasNoProperties.Derived;
@@ -720,6 +783,10 @@ DerivedStruct (interface)
    **Language-specific names:**
 
    .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
 
       .. code-tab:: java
 
@@ -781,6 +848,10 @@ DoubleTrouble
 
    .. tabs::
 
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
       .. code-tab:: java
 
          import software.amazon.jsii.tests.calculator.DoubleTrouble;
@@ -821,6 +892,10 @@ GiveMeStructs
    **Language-specific names:**
 
    .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
 
       .. code-tab:: java
 
@@ -881,6 +956,10 @@ IFriendlier (interface)
 
    .. tabs::
 
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
       .. code-tab:: java
 
          import software.amazon.jsii.tests.calculator.IFriendlier;
@@ -927,6 +1006,10 @@ IFriendlyRandomGenerator (interface)
 
    .. tabs::
 
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
       .. code-tab:: java
 
          import software.amazon.jsii.tests.calculator.IFriendlyRandomGenerator;
@@ -953,6 +1036,10 @@ IInterfaceWithProperties (interface)
    **Language-specific names:**
 
    .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
 
       .. code-tab:: java
 
@@ -989,6 +1076,10 @@ IInterfaceWithPropertiesExtension (interface)
 
    .. tabs::
 
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
       .. code-tab:: java
 
          import software.amazon.jsii.tests.calculator.IInterfaceWithPropertiesExtension;
@@ -1019,6 +1110,10 @@ IRandomNumberGenerator (interface)
    **Language-specific names:**
 
    .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
 
       .. code-tab:: java
 
@@ -1057,6 +1152,10 @@ ImplictBaseOfBase (interface)
 
    .. tabs::
 
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
       .. code-tab:: java
 
          import software.amazon.jsii.tests.calculator.ImplictBaseOfBase;
@@ -1087,6 +1186,10 @@ JSObjectLiteralForInterface
    **Language-specific names:**
 
    .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
 
       .. code-tab:: java
 
@@ -1122,6 +1225,10 @@ JSObjectLiteralToNative
 
    .. tabs::
 
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
       .. code-tab:: java
 
          import software.amazon.jsii.tests.calculator.JSObjectLiteralToNative;
@@ -1150,6 +1257,10 @@ JSObjectLiteralToNativeClass
    **Language-specific names:**
 
    .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
 
       .. code-tab:: java
 
@@ -1184,6 +1295,10 @@ JavaReservedWords
    **Language-specific names:**
 
    .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
 
       .. code-tab:: java
 
@@ -1422,6 +1537,10 @@ Multiply
 
    .. tabs::
 
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
       .. code-tab:: java
 
          import software.amazon.jsii.tests.calculator.Multiply;
@@ -1496,6 +1615,10 @@ Negate
 
    .. tabs::
 
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
       .. code-tab:: java
 
          import software.amazon.jsii.tests.calculator.Negate;
@@ -1567,6 +1690,10 @@ NodeStandardLibrary
 
    .. tabs::
 
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
       .. code-tab:: java
 
          import software.amazon.jsii.tests.calculator.NodeStandardLibrary;
@@ -1629,6 +1756,10 @@ NumberGenerator
 
    .. tabs::
 
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
       .. code-tab:: java
 
          import software.amazon.jsii.tests.calculator.NumberGenerator;
@@ -1674,6 +1805,10 @@ ObjectRefsInCollections
    **Language-specific names:**
 
    .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
 
       .. code-tab:: java
 
@@ -1722,6 +1857,10 @@ OverrideReturnsObject
 
    .. tabs::
 
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
       .. code-tab:: java
 
          import software.amazon.jsii.tests.calculator.OverrideReturnsObject;
@@ -1753,6 +1892,10 @@ Polymorphism
 
    .. tabs::
 
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
       .. code-tab:: java
 
          import software.amazon.jsii.tests.calculator.Polymorphism;
@@ -1783,6 +1926,10 @@ Power
    **Language-specific names:**
 
    .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
 
       .. code-tab:: java
 
@@ -1840,6 +1987,10 @@ ReferenceEnumFromScopedPackage
 
    .. tabs::
 
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
       .. code-tab:: java
 
          import software.amazon.jsii.tests.calculator.ReferenceEnumFromScopedPackage;
@@ -1883,6 +2034,10 @@ ReturnsNumber (interface)
 
    .. tabs::
 
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
       .. code-tab:: java
 
          import software.amazon.jsii.tests.calculator.ReturnsNumber;
@@ -1917,6 +2072,10 @@ RuntimeTypeChecking
    **Language-specific names:**
 
    .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
 
       .. code-tab:: java
 
@@ -1954,6 +2113,10 @@ Statics
    **Language-specific names:**
 
    .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
 
       .. code-tab:: java
 
@@ -2043,6 +2206,10 @@ StringEnum (enum)
 
    .. tabs::
 
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
       .. code-tab:: java
 
          import software.amazon.jsii.tests.calculator.StringEnum;
@@ -2072,6 +2239,10 @@ Sum
    **Language-specific names:**
 
    .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
 
       .. code-tab:: java
 
@@ -2116,6 +2287,10 @@ SyncVirtualMethods
    **Language-specific names:**
 
    .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
 
       .. code-tab:: java
 
@@ -2226,6 +2401,10 @@ Thrower
 
    .. tabs::
 
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
       .. code-tab:: java
 
          import software.amazon.jsii.tests.calculator.Thrower;
@@ -2253,6 +2432,10 @@ UnaryOperation
    **Language-specific names:**
 
    .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
 
       .. code-tab:: java
 
@@ -2290,6 +2473,10 @@ UnionProperties (interface)
 
    .. tabs::
 
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
       .. code-tab:: java
 
          import software.amazon.jsii.tests.calculator.UnionProperties;
@@ -2325,6 +2512,10 @@ UseBundledDependency
 
    .. tabs::
 
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
       .. code-tab:: java
 
          import software.amazon.jsii.tests.calculator.UseBundledDependency;
@@ -2353,6 +2544,10 @@ UseCalcBase
    **Language-specific names:**
 
    .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
 
       .. code-tab:: java
 
@@ -2385,6 +2580,10 @@ UsesInterfaceWithProperties
    **Language-specific names:**
 
    .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
 
       .. code-tab:: java
 
@@ -2436,6 +2635,10 @@ VariadicMethod
 
    .. tabs::
 
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
       .. code-tab:: java
 
          import software.amazon.jsii.tests.calculator.VariadicMethod;
@@ -2470,6 +2673,10 @@ VirtualMethodPlayground
    **Language-specific names:**
 
    .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
 
       .. code-tab:: java
 
@@ -2534,6 +2741,10 @@ CompositeOperation
    **Language-specific names:**
 
    .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
 
       .. code-tab:: java
 
@@ -2607,6 +2818,10 @@ CompositeOperation
       **Language-specific names:**
 
       .. tabs::
+
+         .. code-tab:: c#
+
+            using Amazon.JSII.Tests.CalculatorNamespace;
 
          .. code-tab:: java
 

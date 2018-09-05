@@ -268,7 +268,7 @@ namespace Amazon.JSII.Generator.UnitTests
                         packageId: "My.PackageId",
                         title: "My Human Readable Title",
                         signAssembly: true,
-                        assemblyOriginatorKey: "key.snk",
+                        assemblyOriginatorKeyFile: "key.snk",
                         iconUrl: "https://www.example.com/icon.svg"
                     ))
                 );
@@ -285,7 +285,7 @@ namespace Amazon.JSII.Generator.UnitTests
                     element => Assert.Equal("<Authors>Jane Doe</Authors>", element.ToString()),
                     element => Assert.Equal("<Title>My Human Readable Title</Title>", element.ToString()),
                     element => Assert.Equal("<SignAssembly>true</SignAssembly>", element.ToString()),
-                    element => Assert.Equal("<AssemblyOriginatorKey>key.snk</AssemblyOriginatorKey>", element.ToString()),
+                    element => Assert.Equal("<AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>", element.ToString()),
                     element => Assert.Equal("<IconUrl>http://www.example.com/icon.svg</IconUrl>", element.ToString())
                 );
             }
