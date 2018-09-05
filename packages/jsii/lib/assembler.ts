@@ -243,17 +243,18 @@ export class Assembler implements Emitter {
         } else if (ts.isEnumDeclaration(node) && _isExported(node)) {
             jsiiType = await this._visitEnum(this._typeChecker.getTypeAtLocation(node), namePrefix);
         } else if (ts.isModuleDeclaration(node)) {
-            const moduleType = this._typeChecker.getTypeAtLocation(node);
-            if (LOG.isTraceEnabled()) {
-                LOG.trace(`Entering namespace: ${colors.cyan([...namePrefix, moduleType.symbol.name].join('.'))}`);
-            }
+            const moduleDecl = node as ts.ModuleDeclaration;
+            const name = node.name.getText();
+            const symbol = (moduleDecl as any).symbol;
+
+            if (LOG.isTraceEnabled()) { LOG.trace(`Entering namespace: ${colors.cyan([...namePrefix, name].join('.'))}`); }
+
             const allTypes = new Array<spec.Type>();
-            for (const prop of this._typeChecker.getExportsOfModule(moduleType.symbol)) {
+            for (const prop of this._typeChecker.getExportsOfModule(symbol)) {
                 allTypes.push(...await this._visitNode(prop.declarations[0], namePrefix.concat(node.name.getText())));
             }
-            if (LOG.isTraceEnabled()) {
-                LOG.trace(`Leaving namespace:  ${colors.cyan([...namePrefix, moduleType.symbol.name].join('.'))}`);
-            }
+
+            if (LOG.isTraceEnabled()) { LOG.trace(`Leaving namespace:  ${colors.cyan([...namePrefix, name].join('.'))}`); }
             return allTypes;
         } else {
             this._diagnostic(node, ts.DiagnosticCategory.Message, `Skipping ${ts.SyntaxKind[node.kind]} node`);

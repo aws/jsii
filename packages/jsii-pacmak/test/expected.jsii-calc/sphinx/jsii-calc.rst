@@ -1178,6 +1178,123 @@ ImplictBaseOfBase (interface)
       :type: date
 
 
+
+InterfaceInNamespaceIncludesClasses
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. py:module:: jsii-calc.InterfaceInNamespaceIncludesClasses
+
+Foo
+~~~
+
+.. py:class:: Foo()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.InterfaceInNamespaceIncludesClasses.Foo;
+
+      .. code-tab:: javascript
+
+         const { InterfaceInNamespaceIncludesClasses.Foo } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { InterfaceInNamespaceIncludesClasses.Foo } from 'jsii-calc';
+
+
+
+
+   .. py:attribute:: bar
+
+      :type: string or undefined
+
+
+Hello (interface)
+~~~~~~~~~~~~~~~~~
+
+.. py:class:: Hello
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.InterfaceInNamespaceIncludesClasses.Hello;
+
+      .. code-tab:: javascript
+
+         // InterfaceInNamespaceIncludesClasses.Hello is an interface
+
+      .. code-tab:: typescript
+
+         import { InterfaceInNamespaceIncludesClasses.Hello } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: foo
+
+      :type: number
+
+
+
+.. py:currentmodule:: jsii-calc
+
+
+InterfaceInNamespaceOnlyInterface
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. py:module:: jsii-calc.InterfaceInNamespaceOnlyInterface
+
+Hello (interface)
+~~~~~~~~~~~~~~~~~
+
+.. py:class:: Hello
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.InterfaceInNamespaceOnlyInterface.Hello;
+
+      .. code-tab:: javascript
+
+         // InterfaceInNamespaceOnlyInterface.Hello is an interface
+
+      .. code-tab:: typescript
+
+         import { InterfaceInNamespaceOnlyInterface.Hello } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: foo
+
+      :type: number
+
+
+
+.. py:currentmodule:: jsii-calc
+
 JSObjectLiteralForInterface
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

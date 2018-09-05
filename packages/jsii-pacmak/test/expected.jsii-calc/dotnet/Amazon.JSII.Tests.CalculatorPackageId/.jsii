@@ -1244,6 +1244,57 @@
         }
       ]
     },
+    "jsii-calc.InterfaceInNamespaceIncludesClasses.Foo": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.InterfaceInNamespaceIncludesClasses.Foo",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "name": "Foo",
+      "namespace": "InterfaceInNamespaceIncludesClasses",
+      "properties": [
+        {
+          "name": "bar",
+          "type": {
+            "optional": true,
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.InterfaceInNamespaceIncludesClasses.Hello": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "fqn": "jsii-calc.InterfaceInNamespaceIncludesClasses.Hello",
+      "kind": "interface",
+      "name": "Hello",
+      "namespace": "InterfaceInNamespaceIncludesClasses",
+      "properties": [
+        {
+          "name": "foo",
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
+    },
+    "jsii-calc.InterfaceInNamespaceOnlyInterface.Hello": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "fqn": "jsii-calc.InterfaceInNamespaceOnlyInterface.Hello",
+      "kind": "interface",
+      "name": "Hello",
+      "namespace": "InterfaceInNamespaceOnlyInterface",
+      "properties": [
+        {
+          "name": "foo",
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
+    },
     "jsii-calc.JSObjectLiteralForInterface": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.JSObjectLiteralForInterface",
@@ -2844,5 +2895,5 @@
     }
   },
   "version": "0.7.1",
-  "fingerprint": "xRKsZzmRl0yM7EYcHnUbf691eFzAupWFIvCbEqWcUuA="
+  "fingerprint": "kLi/5UqkB6zGOVxj7UcMCVnDhIx51fN9Fo9aNKDHqPY="
 }
