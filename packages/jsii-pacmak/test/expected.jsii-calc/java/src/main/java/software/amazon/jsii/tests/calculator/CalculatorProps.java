@@ -53,28 +53,28 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
         public CalculatorProps build() {
             return new CalculatorProps() {
                 @javax.annotation.Nullable
-                private java.lang.Number initialValue = _initialValue;
+                private java.lang.Number $initialValue = _initialValue;
                 @javax.annotation.Nullable
-                private java.lang.Number maximumValue = _maximumValue;
+                private java.lang.Number $maximumValue = _maximumValue;
 
                 @Override
                 public java.lang.Number getInitialValue() {
-                    return this.initialValue;
+                    return this.$initialValue;
                 }
 
                 @Override
                 public void setInitialValue(@javax.annotation.Nullable final java.lang.Number value) {
-                    this.initialValue = value;
+                    this.$initialValue = value;
                 }
 
                 @Override
                 public java.lang.Number getMaximumValue() {
-                    return this.maximumValue;
+                    return this.$maximumValue;
                 }
 
                 @Override
                 public void setMaximumValue(@javax.annotation.Nullable final java.lang.Number value) {
-                    this.maximumValue = value;
+                    this.$maximumValue = value;
                 }
 
             };

@@ -141,7 +141,8 @@ function _toPerson(value: any, field: string, defaultRole: string = field): spec
 
 function _tryResolve(mod: string, searchPath: string): string {
     try {
-        return require.resolve(mod, { paths: [searchPath] });
+        const paths = [ searchPath, path.join(searchPath, 'node_modules') ];
+        return require.resolve(mod, { paths });
     } catch (e) {
         throw new Error(`Unable to locate module: ${mod}`);
     }

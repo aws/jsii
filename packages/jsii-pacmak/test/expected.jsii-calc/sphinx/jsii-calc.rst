@@ -222,12 +222,12 @@ AllTypes
 
    .. py:attribute:: anyArrayProperty
 
-      :type: any
+      :type: any[]
 
 
    .. py:attribute:: anyMapProperty
 
-      :type: any
+      :type: string => any
 
 
    .. py:attribute:: anyProperty
@@ -237,7 +237,7 @@ AllTypes
 
    .. py:attribute:: arrayProperty
 
-      :type: string
+      :type: string[]
 
 
    .. py:attribute:: booleanProperty
@@ -262,7 +262,7 @@ AllTypes
 
    .. py:attribute:: mapProperty
 
-      :type: number
+      :type: string => number
 
 
    .. py:attribute:: numberProperty
@@ -277,12 +277,12 @@ AllTypes
 
    .. py:attribute:: unionArrayProperty
 
-      :type: number or :py:class:`~jsii-calc.composition.CompositeOperation`
+      :type: (number or :py:class:`~jsii-calc.composition.CompositeOperation`)[]
 
 
    .. py:attribute:: unionMapProperty
 
-      :type: string or number
+      :type: string => (string or number)
 
 
    .. py:attribute:: unionProperty
@@ -292,12 +292,12 @@ AllTypes
 
    .. py:attribute:: unknownArrayProperty
 
-      :type: any
+      :type: any[]
 
 
    .. py:attribute:: unknownMapProperty
 
-      :type: any
+      :type: string => any
 
 
    .. py:attribute:: unknownProperty
@@ -628,7 +628,7 @@ Calculator
       A log of all operations.
 
 
-      :type: :py:class:`@scope/jsii-calc-lib.Value` *(readonly)*
+      :type: :py:class:`@scope/jsii-calc-lib.Value`[] *(readonly)*
 
 
    .. py:attribute:: operationsMap
@@ -636,7 +636,7 @@ Calculator
       A map of per operation name of all operations performed.
 
 
-      :type: :py:class:`@scope/jsii-calc-lib.Value` *(readonly)*
+      :type: string => :py:class:`@scope/jsii-calc-lib.Value`[] *(readonly)*
 
 
    .. py:attribute:: curr
@@ -831,12 +831,12 @@ DerivedStruct (interface)
       This is optional.
 
 
-      :type: :py:class:`@scope/jsii-calc-lib.Value` or undefined
+      :type: string => :py:class:`@scope/jsii-calc-lib.Value` or undefined
 
 
    .. py:attribute:: optionalArray
 
-      :type: string or undefined
+      :type: string[] or undefined
 
 
 DoubleTrouble
@@ -1834,7 +1834,7 @@ ObjectRefsInCollections
 
 
       :param values: 
-      :type values: :py:class:`@scope/jsii-calc-lib.Value`
+      :type values: :py:class:`@scope/jsii-calc-lib.Value`[]
       :rtype: number
 
 
@@ -1844,7 +1844,7 @@ ObjectRefsInCollections
 
 
       :param values: 
-      :type values: :py:class:`@scope/jsii-calc-lib.Value`
+      :type values: string => :py:class:`@scope/jsii-calc-lib.Value`
       :rtype: number
 
 
@@ -2176,7 +2176,7 @@ Statics
       Constants can also use camelCase.
 
 
-      :type: string *(readonly)* *(static)*
+      :type: string => string *(readonly)* *(static)*
 
 
    .. py:attribute:: instance
@@ -2276,7 +2276,7 @@ Sum
       The parts to sum.
 
 
-      :type: :py:class:`@scope/jsii-calc-lib.Value`
+      :type: :py:class:`@scope/jsii-calc-lib.Value`[]
 
 
 SyncVirtualMethods
@@ -2662,7 +2662,7 @@ VariadicMethod
       :type first: number
       :param \*others: other elements to be included in the array.
       :type \*others: number
-      :rtype: number
+      :rtype: number[]
 
 
 VirtualMethodPlayground
@@ -2795,7 +2795,7 @@ CompositeOperation
       A set of postfixes to include in a decorated .toString().
 
 
-      :type: string
+      :type: string[]
 
 
    .. py:attribute:: decorationPrefixes
@@ -2803,7 +2803,7 @@ CompositeOperation
       A set of prefixes to include in a decorated .toString().
 
 
-      :type: string
+      :type: string[]
 
 
    .. py:attribute:: stringStyle

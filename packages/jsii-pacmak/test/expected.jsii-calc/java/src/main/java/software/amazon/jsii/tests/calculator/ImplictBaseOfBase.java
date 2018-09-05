@@ -55,38 +55,38 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
          */
         public ImplictBaseOfBase build() {
             return new ImplictBaseOfBase() {
-                private java.time.Instant goo = java.util.Objects.requireNonNull(_goo, "goo is required");
-                private java.lang.String bar = java.util.Objects.requireNonNull(_bar, "bar is required");
-                private software.amazon.jsii.tests.calculator.baseofbase.Very foo = java.util.Objects.requireNonNull(_foo, "foo is required");
+                private java.time.Instant $goo = java.util.Objects.requireNonNull(_goo, "goo is required");
+                private java.lang.String $bar = java.util.Objects.requireNonNull(_bar, "bar is required");
+                private software.amazon.jsii.tests.calculator.baseofbase.Very $foo = java.util.Objects.requireNonNull(_foo, "foo is required");
 
                 @Override
                 public java.time.Instant getGoo() {
-                    return this.goo;
+                    return this.$goo;
                 }
 
                 @Override
                 public void setGoo(final java.time.Instant value) {
-                    this.goo = java.util.Objects.requireNonNull(value, "goo is required");
+                    this.$goo = java.util.Objects.requireNonNull(value, "goo is required");
                 }
 
                 @Override
                 public java.lang.String getBar() {
-                    return this.bar;
+                    return this.$bar;
                 }
 
                 @Override
                 public void setBar(final java.lang.String value) {
-                    this.bar = java.util.Objects.requireNonNull(value, "bar is required");
+                    this.$bar = java.util.Objects.requireNonNull(value, "bar is required");
                 }
 
                 @Override
                 public software.amazon.jsii.tests.calculator.baseofbase.Very getFoo() {
-                    return this.foo;
+                    return this.$foo;
                 }
 
                 @Override
                 public void setFoo(final software.amazon.jsii.tests.calculator.baseofbase.Very value) {
-                    this.foo = java.util.Objects.requireNonNull(value, "foo is required");
+                    this.$foo = java.util.Objects.requireNonNull(value, "foo is required");
                 }
 
             };

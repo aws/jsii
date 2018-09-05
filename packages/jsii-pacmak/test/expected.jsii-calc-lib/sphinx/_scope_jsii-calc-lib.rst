@@ -248,7 +248,7 @@ MyFirstStruct (interface)
 
    .. py:attribute:: firstOptional
 
-      :type: string or undefined
+      :type: string[] or undefined
 
 
 Number

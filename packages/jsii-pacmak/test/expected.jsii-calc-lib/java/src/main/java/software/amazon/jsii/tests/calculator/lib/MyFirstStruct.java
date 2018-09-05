@@ -75,39 +75,39 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
          */
         public MyFirstStruct build() {
             return new MyFirstStruct() {
-                private java.lang.Number anumber = java.util.Objects.requireNonNull(_anumber, "anumber is required");
-                private java.lang.String astring = java.util.Objects.requireNonNull(_astring, "astring is required");
+                private java.lang.Number $anumber = java.util.Objects.requireNonNull(_anumber, "anumber is required");
+                private java.lang.String $astring = java.util.Objects.requireNonNull(_astring, "astring is required");
                 @javax.annotation.Nullable
-                private java.util.List<java.lang.String> firstOptional = _firstOptional;
+                private java.util.List<java.lang.String> $firstOptional = _firstOptional;
 
                 @Override
                 public java.lang.Number getAnumber() {
-                    return this.anumber;
+                    return this.$anumber;
                 }
 
                 @Override
                 public void setAnumber(final java.lang.Number value) {
-                    this.anumber = java.util.Objects.requireNonNull(value, "anumber is required");
+                    this.$anumber = java.util.Objects.requireNonNull(value, "anumber is required");
                 }
 
                 @Override
                 public java.lang.String getAstring() {
-                    return this.astring;
+                    return this.$astring;
                 }
 
                 @Override
                 public void setAstring(final java.lang.String value) {
-                    this.astring = java.util.Objects.requireNonNull(value, "astring is required");
+                    this.$astring = java.util.Objects.requireNonNull(value, "astring is required");
                 }
 
                 @Override
                 public java.util.List<java.lang.String> getFirstOptional() {
-                    return this.firstOptional;
+                    return this.$firstOptional;
                 }
 
                 @Override
                 public void setFirstOptional(@javax.annotation.Nullable final java.util.List<java.lang.String> value) {
-                    this.firstOptional = value;
+                    this.$firstOptional = value;
                 }
 
             };

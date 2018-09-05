@@ -55,33 +55,33 @@ public interface IInterfaceWithPropertiesExtension extends software.amazon.jsii.
          */
         public IInterfaceWithPropertiesExtension build() {
             return new IInterfaceWithPropertiesExtension() {
-                private java.lang.Number foo = java.util.Objects.requireNonNull(_foo, "foo is required");
-                private final java.lang.String readOnlyString = java.util.Objects.requireNonNull(_readOnlyString, "readOnlyString is required");
-                private java.lang.String readWriteString = java.util.Objects.requireNonNull(_readWriteString, "readWriteString is required");
+                private java.lang.Number $foo = java.util.Objects.requireNonNull(_foo, "foo is required");
+                private final java.lang.String $readOnlyString = java.util.Objects.requireNonNull(_readOnlyString, "readOnlyString is required");
+                private java.lang.String $readWriteString = java.util.Objects.requireNonNull(_readWriteString, "readWriteString is required");
 
                 @Override
                 public java.lang.Number getFoo() {
-                    return this.foo;
+                    return this.$foo;
                 }
 
                 @Override
                 public void setFoo(final java.lang.Number value) {
-                    this.foo = java.util.Objects.requireNonNull(value, "foo is required");
+                    this.$foo = java.util.Objects.requireNonNull(value, "foo is required");
                 }
 
                 @Override
                 public java.lang.String getReadOnlyString() {
-                    return this.readOnlyString;
+                    return this.$readOnlyString;
                 }
 
                 @Override
                 public java.lang.String getReadWriteString() {
-                    return this.readWriteString;
+                    return this.$readWriteString;
                 }
 
                 @Override
                 public void setReadWriteString(final java.lang.String value) {
-                    this.readWriteString = java.util.Objects.requireNonNull(value, "readWriteString is required");
+                    this.$readWriteString = java.util.Objects.requireNonNull(value, "readWriteString is required");
                 }
 
             };
