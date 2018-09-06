@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageVersion>0.7.2</PackageVersion>
+    <PackageVersion>0.7.3</PackageVersion>
     <PackageId>Amazon.JSII.Tests.CalculatorPackageId</PackageId>
     <Description>A simple calcuator built on JSII.</Description>
     <ProjectUrl>https://github.com/awslabs/jsii.git</ProjectUrl>
@@ -11,14 +11,14 @@
     <Language>en-US</Language>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="jsii-calc-0.7.2.tgz" />
+    <EmbeddedResource Include="jsii-calc-0.7.3.tgz" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Amazon.JSII.Runtime" Version="0.7.2" />
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" Version="0.7.2" />
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="0.7.2" />
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" Version="0.7.2" />
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" Version="0.7.2" />
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="0.7.2" />
+    <PackageReference Include="Amazon.JSII.Runtime" Version="0.7.3" />
+    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" Version="0.7.3" />
+    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="0.7.3" />
+    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" Version="0.7.3" />
+    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" Version="0.7.3" />
+    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="0.7.3" />
   </ItemGroup>
 </Project>

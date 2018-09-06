@@ -1,6 +1,6 @@
 {
   "name": "jsii-dotnet-runtime-test",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "Tests for the .NET client for jsii runtime",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -12,9 +12,9 @@
   },
   "devDependencies": {
     "@types/node": "^9.6.18",
-    "jsii-calc": "^0.7.2",
-    "jsii-dotnet-runtime": "^0.7.2",
-    "jsii-pacmak": "^0.7.2",
+    "jsii-calc": "^0.7.3",
+    "jsii-dotnet-runtime": "^0.7.3",
+    "jsii-pacmak": "^0.7.3",
     "typescript": "^3.0.1"
   },
   "author": {
