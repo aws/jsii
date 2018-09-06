@@ -12,7 +12,7 @@
         "jsii": "bin/jsii"
     },
     "scripts": {
-        "build": "bash ./generate.sh && tsc",
+        "build": "cp ../../README.md . && bash ./generate.sh && tsc",
         "watch": "bash ./generate.sh && tsc -w",
         "test": "nyc nodeunit test/test.*.js",
         "package": "package-js"

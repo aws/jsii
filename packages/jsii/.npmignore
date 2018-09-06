@@ -1,3 +1,7 @@
 *
-!*.js
-!*.d.ts
+
+!**/*.js
+!**/*.d.ts
+!bin/jsii
+
+coverage
