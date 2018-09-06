@@ -8,7 +8,7 @@
     "url": "https://aws.amazon.com"
   },
   "bundled": {
-    "jsii-calc-bundled": "^0.7.1"
+    "jsii-calc-bundled": "^0.7.2"
   },
   "contributors": [
     {
@@ -53,7 +53,7 @@
               "npm": "@scope/jsii-calc-base-of-base"
             }
           },
-          "version": "0.7.1"
+          "version": "0.7.2"
         }
       },
       "targets": {
@@ -72,7 +72,7 @@
           "npm": "@scope/jsii-calc-base"
         }
       },
-      "version": "0.7.1"
+      "version": "0.7.2"
     },
     "@scope/jsii-calc-lib": {
       "dependencies": {
@@ -95,7 +95,7 @@
                   "npm": "@scope/jsii-calc-base-of-base"
                 }
               },
-              "version": "0.7.1"
+              "version": "0.7.2"
             }
           },
           "targets": {
@@ -114,7 +114,7 @@
               "npm": "@scope/jsii-calc-base"
             }
           },
-          "version": "0.7.1"
+          "version": "0.7.2"
         }
       },
       "targets": {
@@ -133,7 +133,7 @@
           "npm": "@scope/jsii-calc-lib"
         }
       },
-      "version": "0.7.1"
+      "version": "0.7.2"
     }
   },
   "description": "A simple calcuator built on JSII.",
@@ -2923,6 +2923,6 @@
       "namespace": "composition.CompositeOperation"
     }
   },
-  "version": "0.7.1",
-  "fingerprint": "3uROoDToOcKIpYs9haAGnS37Iebz1/+ldcknrh37qDQ="
+  "version": "0.7.2",
+  "fingerprint": "nHPhW3Albvj9ofMYOPhVccNT7QB1Q0sOyrrlj2WhvS0="
 }
