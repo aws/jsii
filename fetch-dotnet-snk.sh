@@ -23,19 +23,19 @@ apt install jq -y
 
 if [ -z ${DOTNET_STRONG_NAME_ROLE_ARN:-} ]; then
     echo "Strong name signing is enabled, but DOTNET_STRONG_NAME_ROLE_ARN is not set."
-    echo_usage()
+    echo_usage
     exit 1
 fi
 
 if [ -z ${DOTNET_STRONG_NAME_SECRET_REGION:-}]; then
     echo "Strong name signing is enabled, but DOTNET_STRONG_NAME_SECRET_REGION is not set."
-    echo_usage()
+    echo_usage
     exit 1
 fi
 
 if [ -z ${DOTNET_STRONG_NAME_SECRET_ID:-} ]; then
     echo "Strong name signing is enabled, but DOTNET_STRONG_NAME_SECRET_ID is not set."
-    echo_usage()
+    echo_usage
     exit 1
 fi
 
