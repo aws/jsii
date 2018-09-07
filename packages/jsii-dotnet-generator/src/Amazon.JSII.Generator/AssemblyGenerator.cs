@@ -25,8 +25,7 @@ namespace Amazon.JSII.Generator
         readonly string _outputRoot;
         readonly IFileSystem _fileSystem;
 
-        public AssemblyGenerator
-        (
+        public AssemblyGenerator(
             string outputRoot,
             IFileSystem fileSystem = null
         )
@@ -102,6 +101,7 @@ namespace Amazon.JSII.Generator
 
             SaveProjectFile();
             SaveAssemblyInfo(assembly.Name, assembly.Version, tarballFileName);
+            SaveDependencyAnchorFile();
 
             foreach (Type type in assembly.Types?.Values ?? Enumerable.Empty<Type>())
             {
@@ -185,6 +185,64 @@ namespace Amazon.JSII.Generator
                 }
             }
 
+            void SaveDependencyAnchorFile()
+            {
+                string anchorNamespace = $"{assembly.GetNativeNamespace()}.Internal.DependencyResolution";
+                var syntaxTree = SF.SyntaxTree(
+                    SF.CompilationUnit(
+                        SF.List<ExternAliasDirectiveSyntax>(),
+                        SF.List<UsingDirectiveSyntax>(),
+                        SF.List<AttributeListSyntax>(),
+                        SF.List<MemberDeclarationSyntax>(new[] {
+                            SF.NamespaceDeclaration(
+                                SF.IdentifierName(anchorNamespace),
+                                SF.List<ExternAliasDirectiveSyntax>(),
+                                SF.List<UsingDirectiveSyntax>(),
+                                SF.List(new MemberDeclarationSyntax[] { GenerateDependencyAnchor() })
+                            )
+                        })
+                    ).NormalizeWhitespace(elasticTrivia: true)
+                );
+
+                string directory = Path.Combine(packageOutputRoot, Path.Combine(anchorNamespace.Split('.')));
+                SaveSyntaxTree(directory, "Anchor.cs", syntaxTree);
+
+                ClassDeclarationSyntax GenerateDependencyAnchor() {
+                    return SF.ClassDeclaration(
+                        SF.List<AttributeListSyntax>(),
+                        SF.TokenList(SF.Token(SyntaxKind.PublicKeyword)),
+                        SF.Identifier("Anchor"),
+                        null,
+                        null,
+                        SF.List<TypeParameterConstraintClauseSyntax>(),
+                        SF.List(new MemberDeclarationSyntax[] {
+                            SF.ConstructorDeclaration(
+                                SF.List<AttributeListSyntax>(),
+                                SF.TokenList(SF.Token(SyntaxKind.PublicKeyword)),
+                                SF.Identifier("Anchor"),
+                                SF.ParameterList(SF.SeparatedList<ParameterSyntax>()),
+                                null,
+                                SF.Block(SF.List(GenerateAnchorReferences())),
+                                null
+                            )
+                        })
+                    );
+
+                    IEnumerable<StatementSyntax> GenerateAnchorReferences()
+                    {
+                        return assembly.Dependencies?.Keys
+                            .Select(k => assembly.GetNativeNamespace(k))
+                            .Select(n => $"{n}.Internal.DependencyResolution.Anchor")
+                            .Select(t => SF.ExpressionStatement(SF.ObjectCreationExpression(
+                                SF.Token(SyntaxKind.NewKeyword),
+                                SF.ParseTypeName(t),
+                                SF.ArgumentList(SF.SeparatedList<ArgumentSyntax>()),
+                                null
+                            ))) ?? Enumerable.Empty<StatementSyntax>();
+                    }
+                }
+            }
+
             void SaveAssemblyInfo(string name, string version, string tarball)
             {
                 SyntaxTree assemblyInfo = SF.SyntaxTree(
@@ -252,16 +310,21 @@ namespace Amazon.JSII.Generator
 
                 void SaveTypeFile(string filename, SyntaxTree syntaxTree)
                 {
-                    if (!_fileSystem.Directory.Exists(directory))
-                    {
-                        _fileSystem.Directory.CreateDirectory(directory);
-                    }
-
-                    _fileSystem.File.WriteAllText(
-                        Path.Combine(directory, filename),
-                        syntaxTree.ToString()
-                    );
+                    SaveSyntaxTree(directory, filename, syntaxTree);
                 }
+            }
+
+            void SaveSyntaxTree(string directory, string filename, SyntaxTree syntaxTree)
+            {
+                if (!_fileSystem.Directory.Exists(directory))
+                {
+                    _fileSystem.Directory.CreateDirectory(directory);
+                }
+
+                _fileSystem.File.WriteAllText(
+                    Path.Combine(directory, filename),
+                    syntaxTree.ToString()
+                );
             }
         }
     }

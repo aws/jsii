@@ -29,6 +29,17 @@ namespace Amazon.JSII.Generator.UnitTests
             return $"{Path.Combine(GetPackageOutputRoot(dotnetPackage), dotnetAssembly)}.csproj";
         }
 
+        static string GetAnchorFilePath(string dotnetPackage, string dotnetNamespace)
+        {
+            string path = GetPackageOutputRoot(dotnetPackage);
+
+            foreach (string token in dotnetNamespace.Split('.')) {
+                path = Path.Combine(path, token);
+            }
+
+            return Path.Combine(path, "Internal", "DependencyResolution", "Anchor.cs");
+        }
+
         static string GetTypeFilePath(string dotnetPackage, string dotnetNamespace, string dotnetType)
         {
             string directory = Path.Combine(GetPackageOutputRoot(dotnetPackage), Path.Combine(dotnetNamespace.Split('.')));
@@ -350,6 +361,115 @@ namespace Amazon.JSII.Generator.UnitTests
   </ItemGroup>
 </Project>";
             file.Received().WriteAllText(projectFilePath, Arg.Do<string>(actual => PlatformIndependentEqual(expected, actual)));
+        }
+
+        [Fact(DisplayName = Prefix + nameof(CreatesAnchorFile))]
+        public void CreatesAnchorFile()
+        {
+            string json =
+@"{
+    ""name"": ""jsii$aws_cdk$"",
+    ""description"": """",
+    ""homepage"": """",
+    ""repository"": {
+      ""type"": """",
+      ""url"": """"
+    },
+    ""author"": {
+      ""name"": """",
+      ""roles"": []
+    },
+    ""fingerprint"": """",
+    ""license"": """",
+    ""targets"": {
+        ""dotnet"": {
+            ""namespace"": ""Aws.CdkNamespace"",
+            ""packageId"": ""Aws.CdkPackageId""
+        }
+    },
+    ""version"": ""1.2.3"",
+    ""types"": {},
+    ""dependencies"": {
+        ""jsii$aws_cdk_cx_api$"": {
+            ""package"": ""aws-cdk-cx-api"",
+            ""version"": """",
+            ""targets"": {
+                ""dotnet"": {
+                    ""namespace"": ""Aws.Cdk.CxApi"",
+                    ""packageId"": ""Aws.Cdk.CxApi""
+                }
+            }
+        }
+    }
+}";
+            string cxJson =
+@"{
+    ""name"": ""jsii$aws_cdk_cx_api$"",
+    ""description"": """",
+    ""homepage"": """",
+    ""repository"": {
+      ""type"": """",
+      ""url"": """"
+    },
+    ""author"": {
+      ""name"": """",
+      ""roles"": []
+    },
+    ""fingerprint"": """",
+    ""license"": """",
+    ""version"": """",
+    ""targets"": {
+        ""dotnet"": {
+            ""namespace"": ""Aws.Cdk.CxApiNamespace"",
+            ""packageId"": ""Aws.Cdk.CxApiPackageId""
+        }
+    },
+    ""types"": {}
+}";
+
+            string jsonPath = GetJsonPath("aws-cdk");
+            string cxJsonPath = Path.Combine(Path.GetDirectoryName(jsonPath), "node_modules", "jsii$aws_cdk_cx_api$");
+            string anchorFilePath = GetAnchorFilePath("Aws.CdkPackageId", "Aws.CdkNamespace");
+
+            IFile file = Substitute.For<IFile>();
+            file.ReadAllText(jsonPath).Returns(json);
+            file.ReadAllText(Path.Combine(cxJsonPath, ".jsii")).Returns(cxJson);
+
+            IDirectory directory = Substitute.For<IDirectory>();
+            directory.Exists(cxJsonPath).Returns(true);
+
+            IFileSystem fileSystem = Substitute.For<IFileSystem>();
+            fileSystem.Directory.Returns(directory);
+            fileSystem.File.Returns(file);
+
+            Symbols.MapTypeToPackage("aws-cdk", "Aws.CdkPackageId");
+            Symbols.MapTypeToPackage("aws-cdk-cx-api", "Aws.Cdk.CxApiNamespace");
+            Symbols.MapAssemblyName("jsii$aws_cdk_cx_api$", "Aws.Cdk.CxApiPackageId");
+
+            AssemblyGenerator generator = new AssemblyGenerator
+            (
+                OutputRoot,
+                fileSystem
+            );
+            generator.Generate
+            (
+                Path.Combine(InputRoot, "aws-cdk", "dist", Constants.SPEC_FILE_NAME),
+                Path.Combine(InputRoot, "aws-cdk", "aws-cdk-1.2.3.4.tgz"),
+                Symbols
+            );
+
+            string expected =
+@"namespace Aws.CdkNamespace.Internal.DependencyResolution
+{
+    public class Anchor
+    {
+        public Anchor()
+        {
+            new Aws.Cdk.CxApiNamespace.Internal.DependencyResolution.Anchor();
+        }
+    }
+}";
+            file.Received().WriteAllText(anchorFilePath, Arg.Do<string>(actual => PlatformIndependentEqual(expected, actual)));
         }
 
         [Fact(DisplayName = Prefix + nameof(CreatesAssemblyInfo))]
