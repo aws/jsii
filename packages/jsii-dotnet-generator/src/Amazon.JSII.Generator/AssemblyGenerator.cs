@@ -204,7 +204,7 @@ namespace Amazon.JSII.Generator
                     ).NormalizeWhitespace(elasticTrivia: true)
                 );
 
-                string directory = Path.Combine(packageOutputRoot, Path.Combine(anchorNamespace.Split('.')));
+                string directory = GetNamespaceDirectory(packageOutputRoot, @anchorNamespace);
                 SaveSyntaxTree(directory, "Anchor.cs", syntaxTree);
 
                 ClassDeclarationSyntax GenerateDependencyAnchor() {
@@ -275,14 +275,8 @@ namespace Amazon.JSII.Generator
 
             void SaveType(Type type)
             {
-                string packageName = Path.GetFileName(packageOutputRoot);
                 string @namespace = symbols.GetNamespace(type);
-                if (@namespace.StartsWith(packageName))
-                {
-                    @namespace = @namespace.Substring(packageName.Length).TrimStart('.');
-                }
-
-                string directory = Path.Combine(packageOutputRoot, Path.Combine(@namespace.Split('.')));
+                string directory = GetNamespaceDirectory(packageOutputRoot, @namespace);
 
                 switch (type.Kind)
                 {
@@ -326,6 +320,21 @@ namespace Amazon.JSII.Generator
                     syntaxTree.ToString()
                 );
             }
+        }
+
+        string GetNamespaceDirectory(string packageOutputRoot, string @namespace)
+        {
+            string packageName = Path.GetFileName(packageOutputRoot);
+
+            // packageOutputRoot is typically a directory like My.Root.Namespace/
+            // We don't want to create redundant directories, i.e.
+            // My.Root.Namespace/My/Root/Namespace/Sub/Namespace. We just
+            // want My.Root.Namespace/Sub/Namespace.
+            if (@namespace.StartsWith(packageName)) {
+                @namespace = @namespace.Substring(packageName.Length).TrimStart('.');
+            }
+
+            return Path.Combine(packageOutputRoot, Path.Combine(@namespace.Split('.')));
         }
     }
 }
