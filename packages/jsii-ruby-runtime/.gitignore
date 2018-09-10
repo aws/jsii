@@ -1,4 +1,5 @@
 project/version.txt
 project/test/jsii-calc
 project/resources
+project/vendor
 *.gem

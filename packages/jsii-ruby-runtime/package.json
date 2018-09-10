@@ -7,8 +7,8 @@
   "private": true,
   "scripts": {
     "gen": "/bin/bash generate.sh",
-    "deps": "cd project && bundle install",
-    "lint": "cd project && rubocop",
+    "deps": "cd project && bundle install --path vendor/bundle --binstubs vendor/bin",
+    "lint": "cd project && vendor/bin/rubocop",
     "build": "npm run gen && npm run deps && npm run lint && gem build project/*.gemspec",
     "test": "cd project && ruby test/suite.rb",
     "package": "package-ruby"
