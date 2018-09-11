@@ -149,7 +149,7 @@ class _NodeProcess:
 
         # TODO: Replace with proper error.
         assert (
-            resp.hello == "jsii-runtime@0.7.1"
+            resp.hello == "jsii-runtime@0.7.4"
         ), f"Invalid JSII Runtime Version: {resp.hello!r}"
 
     def send(
