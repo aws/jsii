@@ -4,6 +4,38 @@ import typing
 import weakref
 
 
+_types = {}
+
+
+class _ReferenceMap:
+    def __init__(self, types):
+        self._refs = weakref.WeakValueDictionary()
+        self._types = types
+
+    def register(self, ref, inst):
+        self._refs[ref] = inst
+
+    def resolve(self, ref):
+        # First we need to check our reference map to see if we have any instance that
+        # already matches this reference.
+        try:
+            return self._refs[ref.ref]
+        except KeyError:
+            pass
+
+        # If we got to this point, then we didn't have a referene for this, in that case
+        # we want to create a new instance, but we need to create it in such a way that
+        # we don't try to recreate the type inside of the JSII interface.
+        class_ = _types[ref.ref.split("@", 1)[0]]
+        return class_.__class__.from_reference(class_, ref)
+
+
+_refs = _ReferenceMap(_types)
+
+
+resolve_reference = _refs.resolve
+
+
 class JSIIMeta(type):
     def __new__(cls, name, bases, attrs, *, jsii_type, jsii_kernel):
         # TODO: We need to figure out exactly what we're going to do this the kernel
@@ -35,16 +67,18 @@ class JSIIMeta(type):
         for key, value in obj.__jsii_class_properties__.items():
             value.__set_name__(obj, key)
 
+        _types[obj.__jsii_type__] = obj
+
         return obj
 
     def __call__(cls, *args, **kwargs):
-        # Create our object at the Python level.
-        obj = cls.__new__(cls, *args, **kwargs)
-
         # Create our object at the JS level.
         # TODO: Handle args/kwargs
         # TODO: Handle Overrides
-        obj.__jsii_ref__ = cls.__jsii_kernel__.create(cls)
+        ref = cls.__jsii_kernel__.create(cls)
+
+        # Create our object at the Python level.
+        obj = cls.__class__.from_reference(cls, ref, *args, **kwargs)
 
         # Whenever the object we're creating gets garbage collected, then we want to
         # delete it from the JS runtime as well.
@@ -53,9 +87,17 @@ class JSIIMeta(type):
         #       at the JS level? What mechanics are in place for this if any?
         weakref.finalize(obj, cls.__jsii_kernel__.delete, obj.__jsii_ref__)
 
-        # Instatiate our object at the PYthon level.
+        # Instatiate our object at the Python level.
         if isinstance(obj, cls):
             obj.__init__(*args, **kwargs)
+
+        return obj
+
+    def from_reference(cls, ref, *args, **kwargs):
+        obj = cls.__new__(cls, *args, **kwargs)
+        obj.__jsii_ref__ = ref
+
+        _refs.register(obj.__jsii_ref__.ref, obj)
 
         return obj
 

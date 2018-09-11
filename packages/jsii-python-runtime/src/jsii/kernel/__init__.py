@@ -1,6 +1,11 @@
 from typing import Any, List, Optional, Type
 
+import collections.abc
+import functools
+
 import attr
+
+import jsii.runtime
 
 from jsii._utils import Singleton
 from jsii.kernel.providers import BaseKernel, ProcessKernel
@@ -17,6 +22,23 @@ from jsii.kernel.types import (
     StatsRequest,
     ObjRef,
 )
+
+
+def _recursize_dereference(d):
+    if isinstance(d, collections.abc.Mapping):
+        return {k: _recursize_dereference(v) for k, v in d.items()}
+    elif isinstance(d, ObjRef):
+        return jsii.runtime.resolve_reference(d)
+    else:
+        return d
+
+
+def _dereferenced(fn):
+    @functools.wraps(fn)
+    def wrapped(*args, **kwargs):
+        return _recursize_dereference(fn(*args, **kwargs))
+
+    return wrapped
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
@@ -52,14 +74,14 @@ class Kernel(metaclass=Singleton):
     def delete(self, ref: ObjRef) -> None:
         self.provider.delete(DeleteRequest(objref=ref))
 
+    @_dereferenced
     def get(self, ref: ObjRef, property: str) -> Any:
         return self.provider.get(GetRequest(objref=ref, property_=property)).value
 
     def set(self, ref: ObjRef, property: str, value: Any) -> None:
-        self.provider.set(
-            SetRequest(objref=ref, property_=property, value=value)
-        )
+        self.provider.set(SetRequest(objref=ref, property_=property, value=value))
 
+    @_dereferenced
     def sget(self, klass: Any, property: str) -> Any:
         return self.provider.sget(
             StaticGetRequest(fqn=klass.__jsii_type__, property_=property)
@@ -70,6 +92,7 @@ class Kernel(metaclass=Singleton):
             StaticSetRequest(fqn=klass.__jsii_type__, property_=property, value=value)
         )
 
+    @_dereferenced
     def invoke(self, ref: ObjRef, method: str, args: Optional[List[Any]] = None) -> Any:
         if args is None:
             args = []
@@ -78,6 +101,7 @@ class Kernel(metaclass=Singleton):
             InvokeRequest(objref=ref, method=method, args=args)
         ).result
 
+    @_dereferenced
     def sinvoke(self, klass: Any, method: str, args: Optional[List[Any]] = None) -> Any:
         if args is None:
             args = []

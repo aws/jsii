@@ -70,11 +70,19 @@ def _with_api_key(api_name, asdict):
 
 
 def _with_reference(data, type_):
-    return type_(data["$jsii.byref"])
+    if not isinstance(data, type_):
+        return type_(ref=data.ref)
+    return data
 
 
 def _unstructure_ref(value):
     return {"$jsii.byref": value.ref}
+
+
+def ohook(d):
+    if d.keys() == {"$jsii.byref"}:
+        return ObjRef(ref=d["$jsii.byref"])
+    return d
 
 
 class _NodeProcess:
@@ -125,7 +133,7 @@ class _NodeProcess:
         self.stop()
 
     def _next_message(self) -> Mapping[Any, Any]:
-        return json.loads(self._process.stdout.readline())
+        return json.loads(self._process.stdout.readline(), object_hook=ohook)
 
     def start(self):
         self._process = subprocess.Popen(
