@@ -321,10 +321,11 @@ export class Assembler implements Emitter {
                 continue;
             }
             this._defer(() => {
-                if (!spec.isClassType(this._dereference(ref, base.symbol.valueDeclaration))) {
+                const deref = this._dereference(ref, base.symbol.valueDeclaration);
+                if (deref && !spec.isClassType(deref)) {
                     this._diagnostic(base.symbol.valueDeclaration,
                                     ts.DiagnosticCategory.Error,
-                                    `Base type of ${jsiiType.fqn} is not a class or cannot be dereferenced (${spec.describeTypeReference(ref)})`);
+                                    `Base type of ${jsiiType.fqn} is not a class (${spec.describeTypeReference(ref)})`);
                 }
             });
             jsiiType.base = ref;
@@ -347,7 +348,8 @@ export class Assembler implements Emitter {
                     continue;
                 }
                 this._defer(() => {
-                    if (!spec.isInterfaceType(this._dereference(typeRef, expression))) {
+                    const deref = this._dereference(typeRef, expression);
+                    if (deref && !spec.isInterfaceType(deref)) {
                         this._diagnostic(expression,
                                         ts.DiagnosticCategory.Error,
                                         `Implements clause of ${jsiiType.fqn} uses ${spec.describeTypeReference(typeRef)} as an interface`);
@@ -401,16 +403,14 @@ export class Assembler implements Emitter {
         } else if (jsiiType.base) {
             this._defer(() => {
                 const baseType = this._dereference(jsiiType.base!, type.symbol.valueDeclaration);
-                if (!baseType) {
-                    this._diagnostic(type.symbol.valueDeclaration,
-                                    ts.DiagnosticCategory.Error,
-                                    `Unable to resolve type ${jsiiType.base!.fqn} (base type of ${jsiiType.fqn})`);
-                } else if (spec.isClassType(baseType)) {
-                    jsiiType.initializer = baseType.initializer;
-                } else {
-                    this._diagnostic(type.symbol.valueDeclaration,
-                        ts.DiagnosticCategory.Error,
-                        `Base type of ${jsiiType.fqn} (${jsiiType.base!.fqn}) is not a class or cannot be dereferenced`);
+                if (baseType) {
+                    if (spec.isClassType(baseType)) {
+                        jsiiType.initializer = baseType.initializer;
+                    } else {
+                        this._diagnostic(type.symbol.valueDeclaration,
+                            ts.DiagnosticCategory.Error,
+                            `Base type of ${jsiiType.fqn} (${jsiiType.base!.fqn}) is not a class`);
+                    }
                 }
             });
         } else {
@@ -507,18 +507,12 @@ export class Assembler implements Emitter {
             }
             this._defer(() => {
                 const baseType = this._dereference(ref, base.symbol.valueDeclaration);
-                if (!spec.isInterfaceType(baseType)) {
-                    if (baseType) {
-                        // tslint:disable:max-line-length
-                        this._diagnostic(base.symbol.valueDeclaration,
-                                        ts.DiagnosticCategory.Error,
-                                        `Base type of ${jsiiType.fqn} is not an interface or cannot be dereferenced (${baseType.kind} ${spec.describeTypeReference(ref)})`);
-                        // tslint:enable:max-line-length
-                    } else {
-                        this._diagnostic(base.symbol.valueDeclaration,
-                            ts.DiagnosticCategory.Error,
-                            `Base type of ${jsiiType.fqn} could not be resolved (${spec.describeTypeReference(ref)})`);
-                    }
+                if (baseType && !spec.isInterfaceType(baseType)) {
+                    // tslint:disable:max-line-length
+                    this._diagnostic(base.symbol.valueDeclaration,
+                                    ts.DiagnosticCategory.Error,
+                                    `Base type of ${jsiiType.fqn} is not an interface (${baseType.kind} ${spec.describeTypeReference(ref)})`);
+                    // tslint:enable:max-line-length
                 }
             });
             if (jsiiType.interfaces) {
