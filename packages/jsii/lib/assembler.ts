@@ -162,14 +162,21 @@ export class Assembler implements Emitter {
      *
      * @returns the de-referenced type, if it was found, otherwise ``undefined``.
      */
-    private _dereference(ref: spec.NamedTypeReference): spec.Type | undefined {
+    private _dereference(ref: spec.NamedTypeReference, referencingNode: ts.Node): spec.Type | undefined {
         const [assm, ] = ref.fqn.split('.');
+        let type;
         if (assm === this.projectInfo.name) {
-            return this._types[ref.fqn];
+            type = this._types[ref.fqn];
         } else {
             const assembly = this.projectInfo.transitiveDependencies.find(dep => dep.name === assm);
-            return assembly && assembly.types && assembly.types[ref.fqn];
+            type = assembly && assembly.types && assembly.types[ref.fqn];
         }
+
+        if (!type) {
+            this._diagnostic(referencingNode, ts.DiagnosticCategory.Error, `Unable to resolve referenced type '${ref.fqn}'. Missing export?`);
+        }
+
+        return type;
     }
 
     private _diagnostic(node: ts.Node | null, category: ts.DiagnosticCategory, messageText: string) {
@@ -206,7 +213,7 @@ export class Assembler implements Emitter {
             return `unknown.${typeName}`;
         }
         const fqn = `${pkg.name}.${typeName}`;
-        if (pkg.name !== this.projectInfo.name && !this._dereference({ fqn })) {
+        if (pkg.name !== this.projectInfo.name && !this._dereference({ fqn }, type.symbol.valueDeclaration)) {
             this._diagnostic(type.symbol.valueDeclaration,
                              ts.DiagnosticCategory.Error,
                              `Use of foreign type not present in the ${pkg.name}'s assembly: ${fqn}`);
@@ -314,10 +321,10 @@ export class Assembler implements Emitter {
                 continue;
             }
             this._defer(() => {
-                if (!spec.isClassType(this._dereference(ref))) {
+                if (!spec.isClassType(this._dereference(ref, base.symbol.valueDeclaration))) {
                     this._diagnostic(base.symbol.valueDeclaration,
                                     ts.DiagnosticCategory.Error,
-                                    `Base type of ${jsiiType.fqn} is not a class (${spec.describeTypeReference(ref)})`);
+                                    `Base type of ${jsiiType.fqn} is not a class or cannot be dereferenced (${spec.describeTypeReference(ref)})`);
                 }
             });
             jsiiType.base = ref;
@@ -340,7 +347,7 @@ export class Assembler implements Emitter {
                     continue;
                 }
                 this._defer(() => {
-                    if (!spec.isInterfaceType(this._dereference(typeRef))) {
+                    if (!spec.isInterfaceType(this._dereference(typeRef, expression))) {
                         this._diagnostic(expression,
                                         ts.DiagnosticCategory.Error,
                                         `Implements clause of ${jsiiType.fqn} uses ${spec.describeTypeReference(typeRef)} as an interface`);
@@ -393,7 +400,7 @@ export class Assembler implements Emitter {
             }
         } else if (jsiiType.base) {
             this._defer(() => {
-                const baseType = this._dereference(jsiiType.base!);
+                const baseType = this._dereference(jsiiType.base!, type.symbol.valueDeclaration);
                 if (!baseType) {
                     this._diagnostic(type.symbol.valueDeclaration,
                                     ts.DiagnosticCategory.Error,
@@ -403,7 +410,7 @@ export class Assembler implements Emitter {
                 } else {
                     this._diagnostic(type.symbol.valueDeclaration,
                         ts.DiagnosticCategory.Error,
-                        `Base type of ${jsiiType.fqn} (${jsiiType.base!.fqn}) is not a class`);
+                        `Base type of ${jsiiType.fqn} (${jsiiType.base!.fqn}) is not a class or cannot be dereferenced`);
                 }
             });
         } else {
@@ -499,12 +506,14 @@ export class Assembler implements Emitter {
                 continue;
             }
             this._defer(() => {
-                if (!spec.isInterfaceType(this._dereference(ref))) {
-                    const baseType = this._dereference(ref);
+                const baseType = this._dereference(ref, base.symbol.valueDeclaration);
+                if (!spec.isInterfaceType(baseType)) {
                     if (baseType) {
+                        // tslint:disable:max-line-length
                         this._diagnostic(base.symbol.valueDeclaration,
                                         ts.DiagnosticCategory.Error,
-                                        `Base type of ${jsiiType.fqn} is not an interface (${baseType.kind} ${spec.describeTypeReference(ref)})`);
+                                        `Base type of ${jsiiType.fqn} is not an interface or cannot be dereferenced (${baseType.kind} ${spec.describeTypeReference(ref)})`);
+                        // tslint:enable:max-line-length
                     } else {
                         this._diagnostic(base.symbol.valueDeclaration,
                             ts.DiagnosticCategory.Error,
