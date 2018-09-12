@@ -193,6 +193,6 @@ BaseProps (interface)
 
    .. py:attribute:: bar
 
-      :type: string
+      :type: string *(abstract)*
 
 

@@ -115,9 +115,9 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
     }
 
     /**
-     * A proxy class which for javascript object literal which adhere to this interface.
+     * A proxy class which represents a concrete javascript instance of this type.
      */
-    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.lib.MyFirstStruct {
+    final static class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.lib.MyFirstStruct {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
             super(mode);
         }

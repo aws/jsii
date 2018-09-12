@@ -91,6 +91,7 @@
       "name": "BaseProps",
       "properties": [
         {
+          "abstract": true,
           "name": "bar",
           "type": {
             "primitive": "string"
@@ -100,5 +101,5 @@
     }
   },
   "version": "0.7.4",
-  "fingerprint": "/t6/DercTjOI1TLjj3MowD7pZkpm70sJQdeKwQMpa9M="
+  "fingerprint": "6NsGM++itCYmctZJdOp8kPJ3CfBnajQ78wNpY+EwZIQ="
 }

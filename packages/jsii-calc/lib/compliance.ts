@@ -814,3 +814,55 @@ export namespace InterfaceInNamespaceIncludesClasses {
 export interface InterfaceWithOptionalMethodArguments {
     hello(arg1: string, arg2?: number): void
 }
+
+/**
+ * awslabs/jsii#220
+ * Abstract return type
+ */
+
+export interface InterfaceImplementedByAbstractClass {
+    readonly propFromInterface: string;
+}
+
+export abstract class AbstractClassBase {
+    public abstract readonly abstractProperty: string;
+}
+
+export abstract class AbstractClass extends AbstractClassBase implements InterfaceImplementedByAbstractClass {
+    public nonAbstractMethod() {
+        return 42;
+    }
+
+    public abstract abstractMethod(name: string): string;
+
+    public get propFromInterface() {
+        return 'propFromInterfaceValue';
+    }
+}
+
+class ConcreteClass extends AbstractClass {
+    public abstractMethod(name: string) {
+        return `Hello, ${name}!!`;
+    }
+
+    public get abstractProperty() {
+        return 'Hello, dude!';
+    }
+}
+
+
+export class AbstractClassReturner {
+    public giveMeAbstract(): AbstractClass {
+        return new ConcreteClass();
+    }
+
+    public giveMeInterface(): InterfaceImplementedByAbstractClass {
+        return new ConcreteClass();
+    }
+
+    public get returnAbstractFromProperty(): AbstractClassBase {
+        return {
+            abstractProperty: 'hello-abstract-property'
+        }
+    }
+}

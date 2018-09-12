@@ -125,6 +125,132 @@ Reference
 
 .. py:module:: jsii-calc
 
+AbstractClass
+^^^^^^^^^^^^^
+
+.. py:class:: AbstractClass()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.AbstractClass;
+
+      .. code-tab:: javascript
+
+         const { AbstractClass } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { AbstractClass } from 'jsii-calc';
+
+
+
+   :extends: :py:class:`~jsii-calc.AbstractClassBase`
+   :implements: :py:class:`~jsii-calc.InterfaceImplementedByAbstractClass`
+   :abstract: Yes
+
+   .. py:method:: abstractMethod(name) -> string
+
+      :param name: 
+      :type name: string
+      :rtype: string
+      :abstract: Yes
+
+
+   .. py:method:: nonAbstractMethod() -> number
+
+      :rtype: number
+
+
+   .. py:attribute:: propFromInterface
+
+      :type: string *(readonly)*
+
+
+AbstractClassBase
+^^^^^^^^^^^^^^^^^
+
+.. py:class:: AbstractClassBase()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.AbstractClassBase;
+
+      .. code-tab:: javascript
+
+         const { AbstractClassBase } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { AbstractClassBase } from 'jsii-calc';
+
+
+
+   :abstract: Yes
+
+   .. py:attribute:: abstractProperty
+
+      :type: string *(readonly)* *(abstract)*
+
+
+AbstractClassReturner
+^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: AbstractClassReturner()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.AbstractClassReturner;
+
+      .. code-tab:: javascript
+
+         const { AbstractClassReturner } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { AbstractClassReturner } from 'jsii-calc';
+
+
+
+
+   .. py:method:: giveMeAbstract() -> jsii-calc.AbstractClass
+
+      :rtype: :py:class:`~jsii-calc.AbstractClass`
+
+
+   .. py:method:: giveMeInterface() -> jsii-calc.InterfaceImplementedByAbstractClass
+
+      :rtype: :py:class:`~jsii-calc.InterfaceImplementedByAbstractClass`
+
+
+   .. py:attribute:: returnAbstractFromProperty
+
+      :type: :py:class:`~jsii-calc.AbstractClassBase` *(readonly)*
+
+
 Add
 ^^^
 
@@ -697,12 +823,12 @@ CalculatorProps (interface)
 
    .. py:attribute:: initialValue
 
-      :type: number or undefined
+      :type: number or undefined *(abstract)*
 
 
    .. py:attribute:: maximumValue
 
-      :type: number or undefined
+      :type: number or undefined *(abstract)*
 
 
 
@@ -810,12 +936,12 @@ DerivedStruct (interface)
 
    .. py:attribute:: anotherRequired
 
-      :type: date
+      :type: date *(abstract)*
 
 
    .. py:attribute:: bool
 
-      :type: boolean
+      :type: boolean *(abstract)*
 
 
    .. py:attribute:: nonPrimitive
@@ -823,7 +949,7 @@ DerivedStruct (interface)
       An example of a non primitive property.
 
 
-      :type: :py:class:`~jsii-calc.DoubleTrouble`
+      :type: :py:class:`~jsii-calc.DoubleTrouble` *(abstract)*
 
 
    .. py:attribute:: anotherOptional
@@ -831,12 +957,12 @@ DerivedStruct (interface)
       This is optional.
 
 
-      :type: string => :py:class:`@scope/jsii-calc-lib.Value` or undefined
+      :type: string => :py:class:`@scope/jsii-calc-lib.Value` or undefined *(abstract)*
 
 
    .. py:attribute:: optionalArray
 
-      :type: string[] or undefined
+      :type: string[] or undefined *(abstract)*
 
 
 DoubleTrouble
@@ -986,6 +1112,7 @@ IFriendlier (interface)
 
 
       :rtype: string
+      :abstract: Yes
 
 
    .. py:method:: goodbye() -> string
@@ -995,6 +1122,7 @@ IFriendlier (interface)
 
       :return: A goodbye blessing.
       :rtype: string
+      :abstract: Yes
 
 
 IFriendlyRandomGenerator (interface)
@@ -1059,12 +1187,12 @@ IInterfaceWithProperties (interface)
 
    .. py:attribute:: readOnlyString
 
-      :type: string *(readonly)*
+      :type: string *(readonly)* *(abstract)*
 
 
    .. py:attribute:: readWriteString
 
-      :type: string
+      :type: string *(abstract)*
 
 
 IInterfaceWithPropertiesExtension (interface)
@@ -1099,7 +1227,7 @@ IInterfaceWithPropertiesExtension (interface)
 
    .. py:attribute:: foo
 
-      :type: number
+      :type: number *(abstract)*
 
 
 IRandomNumberGenerator (interface)
@@ -1141,6 +1269,7 @@ IRandomNumberGenerator (interface)
 
       :return: A random number.
       :rtype: number
+      :abstract: Yes
 
 
 ImplictBaseOfBase (interface)
@@ -1175,7 +1304,44 @@ ImplictBaseOfBase (interface)
 
    .. py:attribute:: goo
 
-      :type: date
+      :type: date *(abstract)*
+
+
+InterfaceImplementedByAbstractClass (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: InterfaceImplementedByAbstractClass
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.InterfaceImplementedByAbstractClass;
+
+      .. code-tab:: javascript
+
+         // InterfaceImplementedByAbstractClass is an interface
+
+      .. code-tab:: typescript
+
+         import { InterfaceImplementedByAbstractClass } from 'jsii-calc';
+
+
+
+   awslabs/jsii#220 Abstract return type
+
+
+
+
+   .. py:attribute:: propFromInterface
+
+      :type: string *(readonly)* *(abstract)*
 
 
 
@@ -1247,7 +1413,7 @@ Hello (interface)
 
    .. py:attribute:: foo
 
-      :type: number
+      :type: number *(abstract)*
 
 
 
@@ -1289,7 +1455,7 @@ Hello (interface)
 
    .. py:attribute:: foo
 
-      :type: number
+      :type: number *(abstract)*
 
 
 
@@ -1333,6 +1499,7 @@ InterfaceWithOptionalMethodArguments (interface)
       :type arg1: string
       :param arg2: 
       :type arg2: number or undefined
+      :abstract: Yes
 
 
 JSObjectLiteralForInterface
@@ -2213,12 +2380,13 @@ ReturnsNumber (interface)
 
    .. py:attribute:: numberProp
 
-      :type: number *(readonly)*
+      :type: number *(readonly)* *(abstract)*
 
 
    .. py:method:: obtainNumber() -> number
 
       :rtype: number
+      :abstract: Yes
 
 
 RuntimeTypeChecking
@@ -2652,12 +2820,12 @@ UnionProperties (interface)
 
    .. py:attribute:: bar
 
-      :type: string or number or :py:class:`~jsii-calc.AllTypes` *(readonly)*
+      :type: string or number or :py:class:`~jsii-calc.AllTypes` *(readonly)* *(abstract)*
 
 
    .. py:attribute:: foo
 
-      :type: string or number or undefined
+      :type: string or number or undefined *(abstract)*
 
 
 UseBundledDependency

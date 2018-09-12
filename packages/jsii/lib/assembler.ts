@@ -298,7 +298,7 @@ export class Assembler implements Emitter {
             namespace: namespace.join('.')
         };
 
-        if (_isAbstract(type.symbol)) {
+        if (_isAbstract(type.symbol, jsiiType)) {
             jsiiType.abstract = true;
         }
         for (const base of (type.getBaseTypes() || [])) {
@@ -553,7 +553,7 @@ export class Assembler implements Emitter {
         }
         const returnType = signature.getReturnType();
         const method: spec.Method = {
-            abstract: _isAbstract(symbol),
+            abstract: _isAbstract(symbol, type),
             name: symbol.name,
             parameters: await Promise.all(signature.getParameters().map(p => this._toParameter(p))),
             protected: _isProtected(symbol),
@@ -586,7 +586,7 @@ export class Assembler implements Emitter {
                                                     | ts.AccessorDeclaration
                                                     | ts.ParameterPropertyDeclaration);
         const property: spec.Property = {
-            abstract: _isAbstract(symbol),
+            abstract: _isAbstract(symbol, type),
             name: symbol.name,
             protected: _isProtected(symbol),
             static: _isStatic(symbol),
@@ -787,7 +787,12 @@ function _fingerprint(assembly: spec.Assembly): spec.Assembly {
     return { ...assembly, fingerprint };
 }
 
-function _isAbstract(symbol: ts.Symbol): boolean {
+function _isAbstract(symbol: ts.Symbol, declaringType: spec.ClassType | spec.InterfaceType): boolean {
+    // everything is abstract in interfaces
+    if (declaringType.kind === spec.TypeKind.Interface) {
+        return true;
+    }
+
     return !!symbol.valueDeclaration
         // tslint:disable-next-line:no-bitwise
         && (ts.getCombinedModifierFlags(symbol.valueDeclaration) & ts.ModifierFlags.Abstract) !== 0;

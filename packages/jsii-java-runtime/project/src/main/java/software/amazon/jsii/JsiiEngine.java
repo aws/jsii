@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -232,7 +233,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
     private JsiiObject createNative(final String fqn) {
         try {
             Class<?> klass = resolveJavaClass(fqn);
-            if (klass.isInterface()) {
+            if (klass.isInterface() || Modifier.isAbstract(klass.getModifiers())) {
                 // "$" is used to represent inner classes in Java
                 klass = Class.forName(klass.getCanonicalName() + "$" + INTERFACE_PROXY_CLASS_NAME);
             }
