@@ -20,11 +20,16 @@ for dist in $(lerna exec "[ -d ./dist ] && echo \${PWD}/dist || true"); do
 done
 
 # create a build.json file with build metadata
+# commit is obtained from CODEBUILD_RESOLVED_SOURCE_VERSION.
+# if not defined (i.e. local build or CodePipeline build), use the HEAD commit hash
 version="$(node -e "console.log(require('./lerna.json').version)")"
+commit="${CODEBUILD_RESOLVED_SOURCE_VERSION:-"$(git rev-parse --verify HEAD)"}"
+
 cat > ${distdir}/build.json <<HERE
 {
   "name": "jsii",
-  "version": "${version}"
+  "version": "${version}",
+  "commit": "${commit}"
 }
 HERE
 
