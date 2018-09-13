@@ -21,7 +21,7 @@ namespace Amazon.JSII.Generator.Interface
             return SF.ClassDeclaration
             (
                 CreateAttributes(),
-                SF.TokenList(SF.Token(SyntaxKind.InternalKeyword)),
+                SF.TokenList(SF.Token(SyntaxKind.InternalKeyword), SF.Token(SyntaxKind.SealedKeyword)),
                 GetProxyTypeNameSyntax(),
                 null,
                 CreateBaseList(),

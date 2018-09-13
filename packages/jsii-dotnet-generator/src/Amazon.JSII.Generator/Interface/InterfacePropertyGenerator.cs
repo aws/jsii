@@ -14,7 +14,7 @@ namespace Amazon.JSII.Generator.Interface
         public InterfacePropertyGenerator(InterfaceType type, Property property, ISymbolMap symbols, INamespaceSet namespaces)
             : base(type, property, symbols, namespaces)
         {
-            if (property.IsAbstract == false)
+            if (property.IsAbstract != true)
             {
                 throw new ArgumentException("Interface properties must be abstract", nameof(property));
             }
