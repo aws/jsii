@@ -1,6 +1,6 @@
 {
   "name": "@scope/jsii-calc-base-of-base",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "An example transitive dependency for jsii-calc.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -27,8 +27,8 @@
     "test": "diff-test test/assembly.jsii .jsii"
   },
   "devDependencies": {
-    "jsii": "^0.7.4",
-    "jsii-build-tools": "^0.7.4",
+    "jsii": "^0.7.5",
+    "jsii-build-tools": "^0.7.5",
     "typescript": "^3.0.1"
   },
   "author": {

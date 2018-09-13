@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.7.5"></a>
+## [0.7.5](https://github.com/awslabs/jsii/compare/v0.7.4...v0.7.5) (2018-09-13)
+
+### Known Issues
+
+* **dotnet**: unable to instantiate objects when return type is abstract ([#223](https://github.com/awslabs/jsii/issues/223))
+
+### Bug Fixes
+
+* **java:** support abstract return types ([#224](https://github.com/awslabs/jsii/issues/224)) ([3257223](https://github.com/awslabs/jsii/commit/3257223)), closes [#220](https://github.com/awslabs/jsii/issues/220) [#223](https://github.com/awslabs/jsii/issues/223) [awslabs/aws-cdk#680](https://github.com/awslabs/aws-cdk/issues/680)
+
+
 <a name="0.7.4"></a>
 ## [0.7.4](https://github.com/awslabs/jsii/compare/v0.7.3...v0.7.4) (2018-09-10)
 
@@ -85,17 +97,17 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * Denote the optional aspect of types when describing them ([#159](https://github.com/awslabs/jsii/issues/159))
 
 <a name="0.6.2"></a>
-## 0.6.2 (2018-08-07)
+## [0.6.2](https://github.com/awslabs/jsii/compare/v0.6.0...v0.6.2) (2018-08-07)
 
 ### Bug Fixes
 
 * "Malformed enum value" when using @scoped packages ([#139](https://github.com/awslabs/jsii/issues/139)) ([4e70209](https://github.com/awslabs/jsii/commit/4e70209)), closes [#138](https://github.com/awslabs/jsii/issues/138)
 
-## 0.6.0 - 2018-08-06
+## [0.6.0](https://github.com/awslabs/jsii/compare/v0.5.0...v0.6.0) (2018-08-06)
 
 * First public release
 
-## 0.5.0 - 2018-06-20
+## 0.5.0 (2018-06-20)
 
 * Support variadics in methods.
 * Support for static methods, properties and constants
