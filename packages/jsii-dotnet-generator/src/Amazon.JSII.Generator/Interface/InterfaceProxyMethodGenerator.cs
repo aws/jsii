@@ -12,7 +12,7 @@ namespace Amazon.JSII.Generator.Interface
         public InterfaceProxyMethodGenerator(InterfaceType type, Method method, ISymbolMap symbols, INamespaceSet namespaces)
             : base(type, method, symbols, namespaces)
         {
-            if (!method.IsAbstract)
+            if (method.IsAbstract != true)
             {
                 throw new ArgumentException("Interface methods must be abstract", nameof(method));
             }

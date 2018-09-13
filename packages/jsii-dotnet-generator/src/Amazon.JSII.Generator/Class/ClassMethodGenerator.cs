@@ -46,7 +46,7 @@ namespace Amazon.JSII.Generator.Class
                 yield break;
             }
 
-            if (Method.IsAbstract)
+            if (Method.IsAbstract == true)
             {
                 if (IsDefinedOnAncestor)
                 {
@@ -64,7 +64,7 @@ namespace Amazon.JSII.Generator.Class
 
         protected override BlockSyntax GetBody()
         {
-            if (Method.IsAbstract)
+            if (Method.IsAbstract == true)
             {
                 return null;
             }
@@ -77,6 +77,6 @@ namespace Amazon.JSII.Generator.Class
             return SF.Block(SF.ReturnStatement(CreateInvocationExpression()));
         }
 
-        protected override bool HasSemicolon => Method.IsAbstract;
+        protected override bool HasSemicolon => Method.IsAbstract == true;
     }
 }
