@@ -196,6 +196,7 @@ IFriendly (interface)
 
 
       :rtype: string
+      :abstract: Yes
 
 
 MyFirstStruct (interface)
@@ -235,7 +236,7 @@ MyFirstStruct (interface)
       An awesome number value
 
 
-      :type: number
+      :type: number *(abstract)*
 
 
    .. py:attribute:: astring
@@ -243,12 +244,12 @@ MyFirstStruct (interface)
       A string value
 
 
-      :type: string
+      :type: string *(abstract)*
 
 
    .. py:attribute:: firstOptional
 
-      :type: string[] or undefined
+      :type: string[] or undefined *(abstract)*
 
 
 Number
@@ -380,17 +381,17 @@ StructWithOnlyOptionals (interface)
       The first optional!
 
 
-      :type: string or undefined
+      :type: string or undefined *(abstract)*
 
 
    .. py:attribute:: optional2
 
-      :type: number or undefined
+      :type: number or undefined *(abstract)*
 
 
    .. py:attribute:: optional3
 
-      :type: boolean or undefined
+      :type: boolean or undefined *(abstract)*
 
 
 Value

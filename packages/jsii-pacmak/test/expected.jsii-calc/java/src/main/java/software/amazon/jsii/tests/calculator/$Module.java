@@ -18,6 +18,9 @@ public final class $Module extends JsiiModule {
     @Override
     protected Class<?> resolveClass(final String fqn) throws ClassNotFoundException {
         switch (fqn) {
+            case "jsii-calc.AbstractClass": return software.amazon.jsii.tests.calculator.AbstractClass.class;
+            case "jsii-calc.AbstractClassBase": return software.amazon.jsii.tests.calculator.AbstractClassBase.class;
+            case "jsii-calc.AbstractClassReturner": return software.amazon.jsii.tests.calculator.AbstractClassReturner.class;
             case "jsii-calc.Add": return software.amazon.jsii.tests.calculator.Add.class;
             case "jsii-calc.AllTypes": return software.amazon.jsii.tests.calculator.AllTypes.class;
             case "jsii-calc.AllTypesEnum": return software.amazon.jsii.tests.calculator.AllTypesEnum.class;
@@ -37,6 +40,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.IInterfaceWithPropertiesExtension": return software.amazon.jsii.tests.calculator.IInterfaceWithPropertiesExtension.class;
             case "jsii-calc.IRandomNumberGenerator": return software.amazon.jsii.tests.calculator.IRandomNumberGenerator.class;
             case "jsii-calc.ImplictBaseOfBase": return software.amazon.jsii.tests.calculator.ImplictBaseOfBase.class;
+            case "jsii-calc.InterfaceImplementedByAbstractClass": return software.amazon.jsii.tests.calculator.InterfaceImplementedByAbstractClass.class;
             case "jsii-calc.InterfaceInNamespaceIncludesClasses.Foo": return software.amazon.jsii.tests.calculator.InterfaceInNamespaceIncludesClasses.Foo.class;
             case "jsii-calc.InterfaceInNamespaceIncludesClasses.Hello": return software.amazon.jsii.tests.calculator.InterfaceInNamespaceIncludesClasses.Hello.class;
             case "jsii-calc.InterfaceInNamespaceOnlyInterface.Hello": return software.amazon.jsii.tests.calculator.InterfaceInNamespaceOnlyInterface.Hello.class;

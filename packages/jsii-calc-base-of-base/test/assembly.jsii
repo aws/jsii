@@ -58,6 +58,7 @@
       "name": "VeryBaseProps",
       "properties": [
         {
+          "abstract": true,
           "name": "foo",
           "type": {
             "fqn": "@scope/jsii-calc-base-of-base.Very"
@@ -67,5 +68,5 @@
     }
   },
   "version": "0.7.4",
-  "fingerprint": "xM+yEz06NDR7n4G5n4VDoITs275dSqMhFDXgKOErl/M="
+  "fingerprint": "uxjBWk0nRDSHNR2FL01kRusKUoxa53smUFsizIJYBSs="
 }

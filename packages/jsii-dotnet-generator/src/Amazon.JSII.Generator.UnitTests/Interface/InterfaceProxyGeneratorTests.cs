@@ -59,7 +59,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
                 "myPackage",
                 "myInterface",
                 "myNamespace",
-                methods: new Method[] { new Method(false, false, false, name: "myMethod") }
+                methods: new Method[] { new Method(false, false, true, name: "myMethod") }
             );
 
             Symbols.MapMethodName("myInterfaceFqn", "myMethod", "MyMethod");
@@ -94,7 +94,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
                 "myPackage",
                 "myAncestorInterface",
                 "myNamespace",
-                methods: new [] { new Method(false, false, false, name: "myAncestorMethod") }
+                methods: new [] { new Method(false, false, true, name: "myAncestorMethod") }
             );
             InterfaceType baseInterface = new InterfaceType
             (
@@ -102,7 +102,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
                 "myPackage",
                 "myBaseInterface",
                 "myNamespace",
-                methods: new[] { new Method(false, false, false, name: "myBaseMethod") },
+                methods: new[] { new Method(false, false, true, name: "myBaseMethod") },
                 interfaces: new[] { new TypeReference("myAncestorInterfaceFqn") }
             );
             InterfaceType interfaceType = new InterfaceType
@@ -191,6 +191,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
           ""docs"": {
             ""comment"": ""The arbitrary name of this environment (user-set, or at least user-meaningful) ""
           },
+          ""abstract"": true,
           ""name"": ""name"",
           ""type"": {
             ""primitive"": ""string""
@@ -200,6 +201,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
           ""docs"": {
             ""comment"": ""The 12-digit AWS account ID for the account this environment deploys into ""
           },
+          ""abstract"": true,
           ""name"": ""account"",
           ""type"": {
             ""primitive"": ""string""
@@ -209,6 +211,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
           ""docs"": {
             ""comment"": ""The AWS region name where this environment deploys into ""
           },
+          ""abstract"": true,
           ""name"": ""region"",
           ""type"": {
             ""primitive"": ""string""

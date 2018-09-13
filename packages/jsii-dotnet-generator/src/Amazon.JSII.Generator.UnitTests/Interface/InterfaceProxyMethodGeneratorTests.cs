@@ -34,7 +34,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
         [Fact(DisplayName = Prefix + nameof(IncludesAttribute))]
         public void IncludesAttribute()
         {
-            Method method = new Method(false, false, false, name: "myMethod");
+            Method method = new Method(false, false, true, name: "myMethod");
 
             Symbols.MapMethodName("myInterfaceFqn", "myMethod", "MyMethod");
 
@@ -53,7 +53,7 @@ public virtual void MyMethod()
         {
             Method method = new Method
             (
-                false, false, false, name: "myMethod",
+                false, false, true, name: "myMethod",
                 parameters: new[]
                 {
                     new Parameter("myParam", new TypeReference("myParamTypeFqn")),
@@ -81,7 +81,7 @@ public virtual void MyMethod(MyParamType myParam, string @event)
         {
             Method method = new Method
             (
-                false, false, false, name: "myMethod",
+                false, false, true, name: "myMethod",
                 docs: new Docs { { "foo", "bar" } }
             );
 
@@ -102,7 +102,7 @@ public virtual void MyMethod()
         {
             Method method = new Method
             (
-                false, false, false, name: "myMethod",
+                false, false, true, name: "myMethod",
                 returns: new TypeReference("myReturnTypeFqn")
             );
 

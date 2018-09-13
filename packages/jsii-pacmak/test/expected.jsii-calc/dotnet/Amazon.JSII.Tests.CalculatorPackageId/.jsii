@@ -165,6 +165,111 @@
     }
   },
   "types": {
+    "jsii-calc.AbstractClass": {
+      "abstract": true,
+      "assembly": "jsii-calc",
+      "base": {
+        "fqn": "jsii-calc.AbstractClassBase"
+      },
+      "fqn": "jsii-calc.AbstractClass",
+      "initializer": {
+        "initializer": true
+      },
+      "interfaces": [
+        {
+          "fqn": "jsii-calc.InterfaceImplementedByAbstractClass"
+        }
+      ],
+      "kind": "class",
+      "methods": [
+        {
+          "abstract": true,
+          "name": "abstractMethod",
+          "parameters": [
+            {
+              "name": "name",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ],
+          "returns": {
+            "primitive": "string"
+          }
+        },
+        {
+          "name": "nonAbstractMethod",
+          "returns": {
+            "primitive": "number"
+          }
+        }
+      ],
+      "name": "AbstractClass",
+      "properties": [
+        {
+          "immutable": true,
+          "name": "propFromInterface",
+          "overrides": {
+            "fqn": "jsii-calc.InterfaceImplementedByAbstractClass"
+          },
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.AbstractClassBase": {
+      "abstract": true,
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.AbstractClassBase",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "name": "AbstractClassBase",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "name": "abstractProperty",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.AbstractClassReturner": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.AbstractClassReturner",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "giveMeAbstract",
+          "returns": {
+            "fqn": "jsii-calc.AbstractClass"
+          }
+        },
+        {
+          "name": "giveMeInterface",
+          "returns": {
+            "fqn": "jsii-calc.InterfaceImplementedByAbstractClass"
+          }
+        }
+      ],
+      "name": "AbstractClassReturner",
+      "properties": [
+        {
+          "immutable": true,
+          "name": "returnAbstractFromProperty",
+          "type": {
+            "fqn": "jsii-calc.AbstractClassBase"
+          }
+        }
+      ]
+    },
     "jsii-calc.Add": {
       "assembly": "jsii-calc",
       "base": {
@@ -890,6 +995,7 @@
       "name": "CalculatorProps",
       "properties": [
         {
+          "abstract": true,
           "name": "initialValue",
           "type": {
             "optional": true,
@@ -897,6 +1003,7 @@
           }
         },
         {
+          "abstract": true,
           "name": "maximumValue",
           "type": {
             "optional": true,
@@ -952,18 +1059,21 @@
       "name": "DerivedStruct",
       "properties": [
         {
+          "abstract": true,
           "name": "anotherRequired",
           "type": {
             "primitive": "date"
           }
         },
         {
+          "abstract": true,
           "name": "bool",
           "type": {
             "primitive": "boolean"
           }
         },
         {
+          "abstract": true,
           "docs": {
             "comment": "An example of a non primitive property."
           },
@@ -973,6 +1083,7 @@
           }
         },
         {
+          "abstract": true,
           "docs": {
             "comment": "This is optional."
           },
@@ -988,6 +1099,7 @@
           }
         },
         {
+          "abstract": true,
           "name": "optionalArray",
           "type": {
             "collection": {
@@ -1126,6 +1238,7 @@
       "kind": "interface",
       "methods": [
         {
+          "abstract": true,
           "docs": {
             "comment": "Say farewell."
           },
@@ -1135,6 +1248,7 @@
           }
         },
         {
+          "abstract": true,
           "docs": {
             "comment": "Say goodbye.",
             "return": "A goodbye blessing."
@@ -1169,6 +1283,7 @@
       "name": "IInterfaceWithProperties",
       "properties": [
         {
+          "abstract": true,
           "immutable": true,
           "name": "readOnlyString",
           "type": {
@@ -1176,6 +1291,7 @@
           }
         },
         {
+          "abstract": true,
           "name": "readWriteString",
           "type": {
             "primitive": "string"
@@ -1196,6 +1312,7 @@
       "name": "IInterfaceWithPropertiesExtension",
       "properties": [
         {
+          "abstract": true,
           "name": "foo",
           "type": {
             "primitive": "number"
@@ -1212,6 +1329,7 @@
       "kind": "interface",
       "methods": [
         {
+          "abstract": true,
           "docs": {
             "comment": "Returns another random number.",
             "return": "A random number."
@@ -1237,9 +1355,30 @@
       "name": "ImplictBaseOfBase",
       "properties": [
         {
+          "abstract": true,
           "name": "goo",
           "type": {
             "primitive": "date"
+          }
+        }
+      ]
+    },
+    "jsii-calc.InterfaceImplementedByAbstractClass": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "comment": "awslabs/jsii#220\nAbstract return type"
+      },
+      "fqn": "jsii-calc.InterfaceImplementedByAbstractClass",
+      "kind": "interface",
+      "name": "InterfaceImplementedByAbstractClass",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "name": "propFromInterface",
+          "type": {
+            "primitive": "string"
           }
         }
       ]
@@ -1272,6 +1411,7 @@
       "namespace": "InterfaceInNamespaceIncludesClasses",
       "properties": [
         {
+          "abstract": true,
           "name": "foo",
           "type": {
             "primitive": "number"
@@ -1288,6 +1428,7 @@
       "namespace": "InterfaceInNamespaceOnlyInterface",
       "properties": [
         {
+          "abstract": true,
           "name": "foo",
           "type": {
             "primitive": "number"
@@ -1304,6 +1445,7 @@
       "kind": "interface",
       "methods": [
         {
+          "abstract": true,
           "name": "hello",
           "parameters": [
             {
@@ -2101,6 +2243,7 @@
       "kind": "interface",
       "methods": [
         {
+          "abstract": true,
           "name": "obtainNumber",
           "returns": {
             "primitive": "number"
@@ -2110,6 +2253,7 @@
       "name": "ReturnsNumber",
       "properties": [
         {
+          "abstract": true,
           "immutable": true,
           "name": "numberProp",
           "type": {
@@ -2528,6 +2672,7 @@
       "name": "UnionProperties",
       "properties": [
         {
+          "abstract": true,
           "immutable": true,
           "name": "bar",
           "type": {
@@ -2547,6 +2692,7 @@
           }
         },
         {
+          "abstract": true,
           "name": "foo",
           "type": {
             "optional": true,
@@ -2924,5 +3070,5 @@
     }
   },
   "version": "0.7.4",
-  "fingerprint": "24z7SEbRKIt7qRAyBqepDewNh+2kbwGcOBLFVu2Hgi8="
+  "fingerprint": "hajD3L82lt+a5tNLGsSr/WrmrdtMKz+aAkPIHgN3LE8="
 }

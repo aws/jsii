@@ -3,6 +3,8 @@ package software.amazon.jsii.testing;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import software.amazon.jsii.JsiiException;
+import software.amazon.jsii.tests.calculator.AbstractClass;
+import software.amazon.jsii.tests.calculator.AbstractClassReturner;
 import software.amazon.jsii.tests.calculator.Add;
 import software.amazon.jsii.tests.calculator.AllTypes;
 import software.amazon.jsii.tests.calculator.AsyncVirtualMethods;
@@ -15,6 +17,7 @@ import software.amazon.jsii.tests.calculator.IFriendlier;
 import software.amazon.jsii.tests.calculator.IFriendlyRandomGenerator;
 import software.amazon.jsii.tests.calculator.IInterfaceWithProperties;
 import software.amazon.jsii.tests.calculator.IRandomNumberGenerator;
+import software.amazon.jsii.tests.calculator.InterfaceImplementedByAbstractClass;
 import software.amazon.jsii.tests.calculator.JSObjectLiteralForInterface;
 import software.amazon.jsii.tests.calculator.JSObjectLiteralToNative;
 import software.amazon.jsii.tests.calculator.JSObjectLiteralToNativeClass;
@@ -817,6 +820,21 @@ public class ComplianceTest {
         assertTrue(obj.getOsPlatform().length() > 0);
         assertEquals("6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50",
             obj.cryptoSha256());
+    }
+
+    @Test
+    public void returnAbstract() {
+        AbstractClassReturner obj = new AbstractClassReturner();
+        AbstractClass obj2 = obj.giveMeAbstract();
+
+        assertEquals("Hello, John!!", obj2.abstractMethod("John"));
+        assertEquals("propFromInterfaceValue", obj2.getPropFromInterface());
+        assertEquals(42, obj2.nonAbstractMethod());
+
+        InterfaceImplementedByAbstractClass iface = obj.giveMeInterface();
+        assertEquals("propFromInterfaceValue", iface.getPropFromInterface());
+
+        assertEquals("hello-abstract-property", obj.getReturnAbstractFromProperty().getAbstractProperty());
     }
 
     static class MulTen extends Multiply {

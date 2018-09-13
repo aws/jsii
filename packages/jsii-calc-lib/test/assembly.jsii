@@ -101,6 +101,7 @@
       "kind": "interface",
       "methods": [
         {
+          "abstract": true,
           "docs": {
             "comment": "Say hello!"
           },
@@ -123,6 +124,7 @@
       "name": "MyFirstStruct",
       "properties": [
         {
+          "abstract": true,
           "docs": {
             "comment": "An awesome number value"
           },
@@ -132,6 +134,7 @@
           }
         },
         {
+          "abstract": true,
           "docs": {
             "comment": "A string value"
           },
@@ -141,6 +144,7 @@
           }
         },
         {
+          "abstract": true,
           "name": "firstOptional",
           "type": {
             "collection": {
@@ -250,6 +254,7 @@
       "name": "StructWithOnlyOptionals",
       "properties": [
         {
+          "abstract": true,
           "docs": {
             "comment": "The first optional!"
           },
@@ -260,6 +265,7 @@
           }
         },
         {
+          "abstract": true,
           "name": "optional2",
           "type": {
             "optional": true,
@@ -267,6 +273,7 @@
           }
         },
         {
+          "abstract": true,
           "name": "optional3",
           "type": {
             "optional": true,
@@ -317,5 +324,5 @@
     }
   },
   "version": "0.7.4",
-  "fingerprint": "dGLkY7rPKJjBMLQCOCj5AXR3Q1+cZcoiazcIhDUV++8="
+  "fingerprint": "PD1bhVhBjZ0dNrD8K4FK6RT+W5RhpkTEJDml/OiM7Ws="
 }
