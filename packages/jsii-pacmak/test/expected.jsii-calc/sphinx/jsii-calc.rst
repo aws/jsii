@@ -831,6 +831,55 @@ CalculatorProps (interface)
       :type: number or undefined *(abstract)*
 
 
+DefaultedConstructorArgument
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: DefaultedConstructorArgument([arg1, arg2, [arg3]])
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.DefaultedConstructorArgument;
+
+      .. code-tab:: javascript
+
+         const { DefaultedConstructorArgument } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { DefaultedConstructorArgument } from 'jsii-calc';
+
+
+
+   :param arg1: 
+   :type arg1: number or undefined
+   :param arg2: 
+   :type arg2: string
+   :param arg3: 
+   :type arg3: date or undefined
+
+   .. py:attribute:: arg1
+
+      :type: number *(readonly)*
+
+
+   .. py:attribute:: arg2
+
+      :type: string *(readonly)*
+
+
+   .. py:attribute:: arg3
+
+      :type: date *(readonly)*
+
+
 
 DerivedClassHasNoProperties
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -2172,6 +2221,55 @@ ObjectRefsInCollections
       :rtype: number
 
 
+OptionalConstructorArgument
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: OptionalConstructorArgument(arg1, arg2, [arg3])
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.OptionalConstructorArgument;
+
+      .. code-tab:: javascript
+
+         const { OptionalConstructorArgument } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { OptionalConstructorArgument } from 'jsii-calc';
+
+
+
+   :param arg1: 
+   :type arg1: number
+   :param arg2: 
+   :type arg2: string
+   :param arg3: 
+   :type arg3: date or undefined
+
+   .. py:attribute:: arg1
+
+      :type: number *(readonly)*
+
+
+   .. py:attribute:: arg2
+
+      :type: string *(readonly)*
+
+
+   .. py:attribute:: arg3
+
+      :type: date or undefined *(readonly)*
+
+
 OverrideReturnsObject
 ^^^^^^^^^^^^^^^^^^^^^
 
@@ -2415,6 +2513,16 @@ RuntimeTypeChecking
          import { RuntimeTypeChecking } from 'jsii-calc';
 
 
+
+
+   .. py:method:: methodWithDefaultedArguments([arg1, arg2, [arg3]])
+
+      :param arg1: 
+      :type arg1: number or undefined
+      :param arg2: 
+      :type arg2: string
+      :param arg3: 
+      :type arg3: date or undefined
 
 
    .. py:method:: methodWithOptionalArguments(arg1, arg2, [arg3])

@@ -618,13 +618,17 @@ export class Assembler implements Emitter {
         if (LOG.isTraceEnabled()) {
             LOG.trace(`Processing parameter: ${colors.cyan(paramSymbol.name)}`);
         }
+        const paramDeclaration = paramSymbol.valueDeclaration as ts.ParameterDeclaration;
         const parameter: spec.Parameter = {
             name: paramSymbol.name,
             type: await this._typeReference(this._typeChecker.getTypeAtLocation(paramSymbol.valueDeclaration), paramSymbol.valueDeclaration),
-            variadic: !!(paramSymbol.valueDeclaration as ts.ParameterDeclaration).dotDotDotToken
+            variadic: !!paramDeclaration.dotDotDotToken
         };
         if (parameter.variadic) {
             parameter.type = (parameter.type as spec.CollectionTypeReference).collection.elementtype;
+        }
+        if (paramDeclaration.initializer != null) {
+            parameter.type.optional = true;
         }
         this._visitDocumentation(paramSymbol, parameter);
         return parameter;

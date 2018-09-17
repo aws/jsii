@@ -1012,6 +1012,60 @@
         }
       ]
     },
+    "jsii-calc.DefaultedConstructorArgument": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.DefaultedConstructorArgument",
+      "initializer": {
+        "initializer": true,
+        "parameters": [
+          {
+            "name": "arg1",
+            "type": {
+              "optional": true,
+              "primitive": "number"
+            }
+          },
+          {
+            "name": "arg2",
+            "type": {
+              "primitive": "string"
+            }
+          },
+          {
+            "name": "arg3",
+            "type": {
+              "optional": true,
+              "primitive": "date"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "name": "DefaultedConstructorArgument",
+      "properties": [
+        {
+          "immutable": true,
+          "name": "arg1",
+          "type": {
+            "primitive": "number"
+          }
+        },
+        {
+          "immutable": true,
+          "name": "arg2",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "immutable": true,
+          "name": "arg3",
+          "type": {
+            "primitive": "date"
+          }
+        }
+      ]
+    },
     "jsii-calc.DerivedClassHasNoProperties.Base": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.DerivedClassHasNoProperties.Base",
@@ -2073,6 +2127,60 @@
       ],
       "name": "ObjectRefsInCollections"
     },
+    "jsii-calc.OptionalConstructorArgument": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.OptionalConstructorArgument",
+      "initializer": {
+        "initializer": true,
+        "parameters": [
+          {
+            "name": "arg1",
+            "type": {
+              "primitive": "number"
+            }
+          },
+          {
+            "name": "arg2",
+            "type": {
+              "primitive": "string"
+            }
+          },
+          {
+            "name": "arg3",
+            "type": {
+              "optional": true,
+              "primitive": "date"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "name": "OptionalConstructorArgument",
+      "properties": [
+        {
+          "immutable": true,
+          "name": "arg1",
+          "type": {
+            "primitive": "number"
+          }
+        },
+        {
+          "immutable": true,
+          "name": "arg2",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "immutable": true,
+          "name": "arg3",
+          "type": {
+            "optional": true,
+            "primitive": "date"
+          }
+        }
+      ]
+    },
     "jsii-calc.OverrideReturnsObject": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.OverrideReturnsObject",
@@ -2270,6 +2378,31 @@
       },
       "kind": "class",
       "methods": [
+        {
+          "name": "methodWithDefaultedArguments",
+          "parameters": [
+            {
+              "name": "arg1",
+              "type": {
+                "optional": true,
+                "primitive": "number"
+              }
+            },
+            {
+              "name": "arg2",
+              "type": {
+                "primitive": "string"
+              }
+            },
+            {
+              "name": "arg3",
+              "type": {
+                "optional": true,
+                "primitive": "date"
+              }
+            }
+          ]
+        },
         {
           "docs": {
             "comment": "Used to verify verification of number of method arguments."
@@ -3070,5 +3203,5 @@
     }
   },
   "version": "0.7.5",
-  "fingerprint": "XrmsNUcNdYiHEC6BRVT5XoeVmYQZzjYgiu6MyibgOwk="
+  "fingerprint": "PrLv57d+5ukv/bps1DvjB9DpM5DS6TpCEld13gQUTe8="
 }

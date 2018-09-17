@@ -240,6 +240,22 @@ export class RuntimeTypeChecking {
     public methodWithOptionalArguments(arg1: number, arg2: string, arg3?: Date) {
         arg1; arg2; arg3;
     }
+
+    public methodWithDefaultedArguments(arg1: number = 2, arg2: string, arg3: Date = new Date()) {
+        arg1; arg2; arg3;
+    }
+}
+
+export class OptionalConstructorArgument {
+    public constructor(public readonly arg1: number,
+                       public readonly arg2: string,
+                       public readonly arg3?: Date) {}
+}
+
+export class DefaultedConstructorArgument {
+    public constructor(public readonly arg1: number = 2,
+                       public readonly arg2: string,
+                       public readonly arg3: Date = new Date()) {}
 }
 
 export namespace DerivedClassHasNoProperties {
