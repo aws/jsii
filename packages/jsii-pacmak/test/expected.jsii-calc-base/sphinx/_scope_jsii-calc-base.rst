@@ -1,6 +1,9 @@
 @scope/jsii-calc-base
 =====================
 
+Reference
+---------
+
 .. tabs::
 
    .. group-tab:: C#
@@ -117,9 +120,6 @@
          $ yarn add @scope/jsii-calc-base@0.7.5
 
 
-
-Reference
----------
 
 .. py:module:: @scope/jsii-calc-base
 

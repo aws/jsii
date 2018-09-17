@@ -28,7 +28,6 @@ const HMARKS = ['=', '-', '^', '~', '"', '#'];
 
 class SphinxDocsGenerator extends Generator {
     private assemblyName?: string;
-    private readmeFile?: string;
     private namespaceStack = new Array<NamespaceStackEntry>();
     private tocPath = new Array<string>();
     private targets: { [name: string]: TargetConstructor } = {};
@@ -75,12 +74,8 @@ class SphinxDocsGenerator extends Generator {
 
     protected onBeginAssembly(assm: spec.Assembly, fingerprint: boolean) {
         this.tocPath = new Array<string>(); // As a safety measure, in case previous assembly somehow didn't get it back to 0.
-        if (assm.readme) {
-            this.readmeFile = `_${fsSafeName(assm.name)}.README.md`;
-            this.code.openFile(this.readmeFile);
-            this.code.line(assm.readme.markdown);
-            this.code.closeFile(this.readmeFile);
-        }
+
+        const { readmeFile, readmeHeader } = this.emitReadme(assm);
 
         this.code.openFile(`${fsSafeName(assm.name)}.rst`);
 
@@ -89,8 +84,17 @@ class SphinxDocsGenerator extends Generator {
             this.code.line();
         }
 
-        this.openSection(assm.name);
+        // use the readme header if defined or the assembly name otherwise
+        this.openSection(readmeHeader || assm.name);
         this.code.line();
+
+        if (readmeFile) {
+            this.code.line(`.. mdinclude:: ./${readmeFile}`);
+            this.code.line();
+        }
+        this.openSection('Reference');
+        this.code.line();
+
         if (assm.targets) {
             this.code.openBlock('.. tabs::');
             this.code.line();
@@ -136,7 +140,6 @@ class SphinxDocsGenerator extends Generator {
         this.closeSection();
         this.code.closeFile(`${fsSafeName(assm.name)}.rst`);
 
-        delete this.readmeFile;
         delete this.assemblyName;
     }
 
@@ -158,14 +161,8 @@ class SphinxDocsGenerator extends Generator {
                 this.code.line();
                 this.openSection(conciseName);
             }
-        } else {
-            if (this.readmeFile) {
-                this.code.line(`.. mdinclude:: ./${this.readmeFile}`);
-                this.code.line();
-            }
-            this.openSection('Reference');
-            this.code.line();
         }
+
         this.code.line(`.. py:module:: ${nativeName}`);
         this.code.line();
     }
@@ -596,6 +593,38 @@ class SphinxDocsGenerator extends Generator {
             }
         }
         this.code.closeBlock();
+    }
+
+    /**
+     * Emits the README markdown file, while stripping off the first H1 header (if exists).
+     * @returns readme: the name of the file (or undefined)
+     * @returns header: the contents of the header (or undefined)
+     */
+    private emitReadme(assm: spec.Assembly): { readmeFile?: string, readmeHeader?: string } {
+        if (!assm.readme) {
+            return {
+                readmeFile: undefined,
+                readmeHeader: undefined
+            };
+        }
+
+        let lines = assm.readme.markdown.split('\n');
+        let readmeHeader;
+
+        if (lines[0].startsWith('# ')) {
+            readmeHeader = lines[0].substr(2);
+            lines = lines.slice(1);
+        }
+
+        const readmeFile = `_${fsSafeName(assm.name)}.README.md`;
+        this.code.openFile(readmeFile);
+        this.code.line(lines.join('\n'));
+        this.code.closeFile(readmeFile);
+
+        return {
+            readmeFile,
+            readmeHeader
+        };
     }
 }
 
