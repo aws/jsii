@@ -282,7 +282,7 @@ Number
    Represents a concrete number.
 
 
-   :extends: :py:class:`~@scope/jsii-calc-lib.Value`
+   :extends: :py:class:`~@scope/jsii-calc-lib.Value`\ 
    :param value: The number.
    :type value: number
 
@@ -332,7 +332,7 @@ Operation
    Represents an operation on values.
 
 
-   :extends: :py:class:`~@scope/jsii-calc-lib.Value`
+   :extends: :py:class:`~@scope/jsii-calc-lib.Value`\ 
    :abstract: Yes
 
    .. py:method:: toString() -> string
@@ -424,7 +424,7 @@ Value
    Abstract class which represents a numeric value.
 
 
-   :extends: :py:class:`@scope/jsii-calc-base.Base`
+   :extends: :py:class:`@scope/jsii-calc-base.Base`\ 
    :abstract: Yes
 
    .. py:method:: toString() -> string

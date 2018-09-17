@@ -188,7 +188,7 @@ BaseProps (interface)
 
 
 
-   :extends: :py:class:`@scope/jsii-calc-base-of-base.VeryBaseProps`
+   :extends: :py:class:`@scope/jsii-calc-base-of-base.VeryBaseProps`\ 
 
 
    .. py:attribute:: bar

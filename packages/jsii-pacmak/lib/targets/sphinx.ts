@@ -507,7 +507,7 @@ class SphinxDocsGenerator extends Generator {
         if (spec.isNamedTypeReference(type)) {
             const fqn = this.toNativeFqn(type.fqn);
             result = {
-                ref: `:py:class:\`${type.fqn.startsWith(`${this.assembly.name}.`) ? '~' : ''}${fqn}\``,
+                ref: `:py:class:\`${type.fqn.startsWith(`${this.assembly.name}.`) ? '~' : ''}${fqn}\`\\ `,
                 display: fqn
             };
         } else if (spec.isPrimitiveTypeReference(type)) {
