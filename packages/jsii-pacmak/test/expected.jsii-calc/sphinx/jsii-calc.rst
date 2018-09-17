@@ -1,5 +1,10 @@
-jsii-calc
-=========
+jsii Calculator
+===============
+
+.. mdinclude:: ./_jsii-calc.README.md
+
+Reference
+---------
 
 .. tabs::
 
@@ -117,11 +122,6 @@ jsii-calc
          $ yarn add jsii-calc@0.7.5
 
 
-
-.. mdinclude:: ./_jsii-calc.README.md
-
-Reference
----------
 
 .. py:module:: jsii-calc
 
