@@ -2271,6 +2271,31 @@
       "kind": "class",
       "methods": [
         {
+          "name": "methodWithDefaultedArguments",
+          "parameters": [
+            {
+              "name": "arg1",
+              "type": {
+                "optional": true,
+                "primitive": "number"
+              }
+            },
+            {
+              "name": "arg2",
+              "type": {
+                "primitive": "string"
+              }
+            },
+            {
+              "name": "arg3",
+              "type": {
+                "optional": true,
+                "primitive": "date"
+              }
+            }
+          ]
+        },
+        {
           "docs": {
             "comment": "Used to verify verification of number of method arguments."
           },
@@ -3070,5 +3095,5 @@
     }
   },
   "version": "0.7.5",
-  "fingerprint": "XrmsNUcNdYiHEC6BRVT5XoeVmYQZzjYgiu6MyibgOwk="
+  "fingerprint": "Ywp3EW+cv1wVMiKbYcuDGIc5pIYI3RQtcVzwVBMg0aM="
 }

@@ -240,6 +240,10 @@ export class RuntimeTypeChecking {
     public methodWithOptionalArguments(arg1: number, arg2: string, arg3?: Date) {
         arg1; arg2; arg3;
     }
+
+    public methodWithDefaultedArguments(arg1: number = 2, arg2: string, arg3: Date = new Date()) {
+        arg1; arg2; arg3;
+    }
 }
 
 export namespace DerivedClassHasNoProperties {

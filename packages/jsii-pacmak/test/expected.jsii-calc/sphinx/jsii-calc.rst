@@ -2417,6 +2417,16 @@ RuntimeTypeChecking
 
 
 
+   .. py:method:: methodWithDefaultedArguments([arg1, arg2, [arg3]])
+
+      :param arg1: 
+      :type arg1: number or undefined
+      :param arg2: 
+      :type arg2: string
+      :param arg3: 
+      :type arg3: date or undefined
+
+
    .. py:method:: methodWithOptionalArguments(arg1, arg2, [arg3])
 
       Used to verify verification of number of method arguments.
