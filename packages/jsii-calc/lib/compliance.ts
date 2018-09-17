@@ -246,6 +246,18 @@ export class RuntimeTypeChecking {
     }
 }
 
+export class OptionalConstructorArgument {
+    public constructor(public readonly arg1: number,
+                       public readonly arg2: string,
+                       public readonly arg3?: Date) {}
+}
+
+export class DefaultedConstructorArgument {
+    public constructor(public readonly arg1: number = 2,
+                       public readonly arg2: string,
+                       public readonly arg3: Date = new Date()) {}
+}
+
 export namespace DerivedClassHasNoProperties {
 
     export class Base {
