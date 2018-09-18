@@ -249,7 +249,7 @@ MyFirstStruct (interface)
 
    .. py:attribute:: firstOptional
 
-      :type: string[] or undefined *(abstract)*
+      :type: string[] or ``undefined`` *(abstract)*
 
 
 Number
@@ -296,10 +296,30 @@ Number
 
    .. py:attribute:: value
 
+      *Implements* :py:meth:`@scope/jsii-calc-lib.Value.value`
+
       The number.
 
 
       :type: number *(readonly)*
+
+
+   .. py:method:: typeName() -> any
+
+      *Inherited from* :py:meth:`@scope/jsii-calc-base.Base.typeName`
+
+      :return: the name of the class (to verify native type names are created for derived classes).
+      :rtype: any
+
+
+   .. py:method:: toString() -> string
+
+      *Inherited from* :py:meth:`@scope/jsii-calc-lib.Value.toString`
+
+      String representation of the value.
+
+
+      :rtype: string
 
 
 Operation
@@ -337,11 +357,31 @@ Operation
 
    .. py:method:: toString() -> string
 
+      *Overrides* :py:meth:`@scope/jsii-calc-lib.Value.toString`
+
       String representation of the value.
 
 
       :rtype: string
       :abstract: Yes
+
+
+   .. py:method:: typeName() -> any
+
+      *Inherited from* :py:meth:`@scope/jsii-calc-base.Base.typeName`
+
+      :return: the name of the class (to verify native type names are created for derived classes).
+      :rtype: any
+
+
+   .. py:attribute:: value
+
+      *Inherited from* :py:attr:`@scope/jsii-calc-lib.Value.value`
+
+      The value.
+
+
+      :type: number *(readonly)* *(abstract)*
 
 
 StructWithOnlyOptionals (interface)
@@ -381,17 +421,17 @@ StructWithOnlyOptionals (interface)
       The first optional!
 
 
-      :type: string or undefined *(abstract)*
+      :type: string or ``undefined`` *(abstract)*
 
 
    .. py:attribute:: optional2
 
-      :type: number or undefined *(abstract)*
+      :type: number or ``undefined`` *(abstract)*
 
 
    .. py:attribute:: optional3
 
-      :type: boolean or undefined *(abstract)*
+      :type: boolean or ``undefined`` *(abstract)*
 
 
 Value
@@ -441,5 +481,13 @@ Value
 
 
       :type: number *(readonly)* *(abstract)*
+
+
+   .. py:method:: typeName() -> any
+
+      *Inherited from* :py:meth:`@scope/jsii-calc-base.Base.typeName`
+
+      :return: the name of the class (to verify native type names are created for derived classes).
+      :rtype: any
 
 
