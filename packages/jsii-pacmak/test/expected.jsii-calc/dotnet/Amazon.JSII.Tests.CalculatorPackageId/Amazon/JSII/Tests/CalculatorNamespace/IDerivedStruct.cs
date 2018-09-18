@@ -39,6 +39,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
+        [JsiiProperty("optionalAny", "{\"primitive\":\"any\",\"optional\":true}")]
+        object OptionalAny
+        {
+            get;
+            set;
+        }
+
         [JsiiProperty("optionalArray", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"optional\":true}")]
         string[] OptionalArray
         {

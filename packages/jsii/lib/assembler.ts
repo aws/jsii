@@ -604,6 +604,10 @@ export class Assembler implements Emitter {
             property.immutable = (ts.getCombinedModifierFlags(signature) & ts.ModifierFlags.Readonly) !== 0;
         }
 
+        if (signature.questionToken) {
+            property.type.optional = true;
+        }
+
         if (property.static && property.immutable && ts.isPropertyDeclaration(signature) && signature.initializer) {
             property.const = true;
         }
@@ -627,7 +631,7 @@ export class Assembler implements Emitter {
         if (parameter.variadic) {
             parameter.type = (parameter.type as spec.CollectionTypeReference).collection.elementtype;
         }
-        if (paramDeclaration.initializer != null) {
+        if (paramDeclaration.initializer || paramDeclaration.questionToken) {
             parameter.type.optional = true;
         }
         this._visitDocumentation(paramSymbol, parameter);

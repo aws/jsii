@@ -1154,6 +1154,14 @@
         },
         {
           "abstract": true,
+          "name": "optionalAny",
+          "type": {
+            "optional": true,
+            "primitive": "any"
+          }
+        },
+        {
+          "abstract": true,
           "name": "optionalArray",
           "type": {
             "collection": {
@@ -2404,6 +2412,18 @@
           ]
         },
         {
+          "name": "methodWithOptionalAnyArgument",
+          "parameters": [
+            {
+              "name": "arg",
+              "type": {
+                "optional": true,
+                "primitive": "any"
+              }
+            }
+          ]
+        },
+        {
           "docs": {
             "comment": "Used to verify verification of number of method arguments."
           },
@@ -3203,5 +3223,5 @@
     }
   },
   "version": "0.7.5",
-  "fingerprint": "PrLv57d+5ukv/bps1DvjB9DpM5DS6TpCEld13gQUTe8="
+  "fingerprint": "E87+31Zrd9jEqf4+WTZ2u/A6uHS/HQFxOau1yxxuecM="
 }

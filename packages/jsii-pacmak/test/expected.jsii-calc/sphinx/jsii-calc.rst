@@ -1009,6 +1009,11 @@ DerivedStruct (interface)
       :type: string => :py:class:`@scope/jsii-calc-lib.Value`\  or undefined *(abstract)*
 
 
+   .. py:attribute:: optionalAny
+
+      :type: any or undefined *(abstract)*
+
+
    .. py:attribute:: optionalArray
 
       :type: string[] or undefined *(abstract)*
@@ -2523,6 +2528,12 @@ RuntimeTypeChecking
       :type arg2: string
       :param arg3: 
       :type arg3: date or undefined
+
+
+   .. py:method:: methodWithOptionalAnyArgument([arg])
+
+      :param arg: 
+      :type arg: any or undefined
 
 
    .. py:method:: methodWithOptionalArguments(arg1, arg2, [arg3])
