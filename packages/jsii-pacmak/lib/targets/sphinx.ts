@@ -388,13 +388,13 @@ class SphinxDocsGenerator extends Generator {
         for (const parent of parents) {
             const parentType = this.findType(parent.fqn) as spec.ClassType | spec.InterfaceType;
             for (const method of parentType.methods || []) {
-                if (knownMembers.has(method.name!)) { continue; }
+                if (method.static || knownMembers.has(method.name!)) { continue; }
                 result[parentType.fqn] = result[parentType.fqn] || { methods: [], properties: [] };
                 result[parentType.fqn].methods.push(method);
                 knownMembers.add(method.name!);
             }
             for (const property of parentType.properties || []) {
-                if (knownMembers.has(property.name!)) { continue; }
+                if (property.static || knownMembers.has(property.name!)) { continue; }
                 result[parentType.fqn] = result[parentType.fqn] || { methods: [], properties: [] };
                 result[parentType.fqn].properties.push(property);
                 knownMembers.add(property.name);
