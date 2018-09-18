@@ -377,6 +377,7 @@
           "type": {
             "collection": {
               "elementtype": {
+                "optional": true,
                 "primitive": "any"
               },
               "kind": "array"
@@ -388,16 +389,11 @@
           "type": {
             "collection": {
               "elementtype": {
+                "optional": true,
                 "primitive": "any"
               },
               "kind": "map"
             }
-          }
-        },
-        {
-          "name": "anyProperty",
-          "type": {
-            "primitive": "any"
           }
         },
         {
@@ -521,6 +517,7 @@
           "type": {
             "collection": {
               "elementtype": {
+                "optional": true,
                 "primitive": "any"
               },
               "kind": "array"
@@ -532,6 +529,7 @@
           "type": {
             "collection": {
               "elementtype": {
+                "optional": true,
                 "primitive": "any"
               },
               "kind": "map"
@@ -539,8 +537,9 @@
           }
         },
         {
-          "name": "unknownProperty",
+          "name": "anyProperty",
           "type": {
+            "optional": true,
             "primitive": "any"
           }
         },
@@ -549,6 +548,13 @@
           "type": {
             "fqn": "jsii-calc.StringEnum",
             "optional": true
+          }
+        },
+        {
+          "name": "unknownProperty",
+          "type": {
+            "optional": true,
+            "primitive": "any"
           }
         }
       ]
@@ -2874,6 +2880,7 @@
         {
           "name": "value",
           "returns": {
+            "optional": true,
             "primitive": "any"
           }
         }
@@ -3223,5 +3230,5 @@
     }
   },
   "version": "0.7.5",
-  "fingerprint": "E87+31Zrd9jEqf4+WTZ2u/A6uHS/HQFxOau1yxxuecM="
+  "fingerprint": "Zt3ElcP9k7ABYhwmP1xNZBni1sFj9iw0FZwWOe8n+L8="
 }

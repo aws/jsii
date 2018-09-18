@@ -654,7 +654,7 @@ export class Assembler implements Emitter {
 
         if (!type.symbol) {
             this._diagnostic(declaration, ts.DiagnosticCategory.Error, `Non-primitive types must have a symbol`);
-            return { primitive: spec.PrimitiveType.Any };
+            return { primitive: spec.PrimitiveType.Any, optional: true };
         }
 
         if (type.symbol.name === 'Array') {
@@ -671,7 +671,7 @@ export class Assembler implements Emitter {
                 this._diagnostic(declaration,
                                  ts.DiagnosticCategory.Error,
                                  `Un-specified promise type (need to specify as Promise<T>)`);
-                return { primitive: spec.PrimitiveType.Any, promise: true };
+                return { primitive: spec.PrimitiveType.Any, optional: true, promise: true };
             } else {
                 return {
                     ...await this._typeReference(typeRef.typeArguments[0], declaration),
@@ -693,7 +693,7 @@ export class Assembler implements Emitter {
                 this._diagnostic(declaration,
                                  ts.DiagnosticCategory.Error,
                                  `Array references must have exactly one type argument (found ${count})`);
-                elementtype = { primitive: spec.PrimitiveType.Any };
+                elementtype = { primitive: spec.PrimitiveType.Any, optional: true };
             }
 
             return {
@@ -713,7 +713,7 @@ export class Assembler implements Emitter {
                 this._diagnostic(declaration,
                                  ts.DiagnosticCategory.Error,
                                  `Only string index maps are supported`);
-                elementtype = { primitive: spec.PrimitiveType.Any };
+                elementtype = { primitive: spec.PrimitiveType.Any, optional: true };
             }
             return {
                 collection: {
@@ -731,7 +731,7 @@ export class Assembler implements Emitter {
                 }
                 // tslint:disable-next-line:no-bitwise
                 if (type.flags & (ts.TypeFlags.Any | ts.TypeFlags.Unknown)) {
-                    return { primitive: spec.PrimitiveType.Any };
+                    return { primitive: spec.PrimitiveType.Any, optional: true };
                 }
             } else {
                 switch (type.symbol.name) {
