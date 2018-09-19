@@ -198,7 +198,7 @@ BaseProps (interface)
 
    .. py:attribute:: foo
 
-      *Inherited from* :py:attr:`@scope/jsii-calc-base-of-base.VeryBaseProps.foo`
+      *Inherited from* :py:attr:`@scope/jsii-calc-base-of-base.VeryBaseProps <@scope/jsii-calc-base-of-base.VeryBaseProps.foo>`
 
       :type: :py:class:`@scope/jsii-calc-base-of-base.Very`\  *(abstract)*
 

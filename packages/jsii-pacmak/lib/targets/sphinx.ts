@@ -505,7 +505,7 @@ class SphinxDocsGenerator extends Generator {
 
         if (inheritedFrom) {
             this.code.line();
-            this.code.line(`*Inherited from* :py:meth:\`${inheritedFrom}.${method.name}\``);
+            this.code.line(`*Inherited from* :py:meth:\`${inheritedFrom} <${inheritedFrom}.${method.name}>\``);
         } else if (method.overrides) {
             this.code.line();
             const superType = this.findType(method.overrides.fqn) as spec.ClassType | spec.InterfaceType;
@@ -634,7 +634,7 @@ class SphinxDocsGenerator extends Generator {
         this.code.openBlock(`.. py:attribute:: ${prop.name}`);
         if (inheritedFrom) {
             this.code.line();
-            this.code.line(`*Inherited from* :py:attr:\`${inheritedFrom}.${prop.name}\``);
+            this.code.line(`*Inherited from* :py:attr:\`${inheritedFrom} <${inheritedFrom}.${prop.name}>\``);
         } else if (prop.overrides) {
             this.code.line();
             const superType = this.findType(prop.overrides.fqn) as spec.ClassType | spec.InterfaceType;

@@ -306,7 +306,7 @@ Number
 
    .. py:method:: typeName() -> any
 
-      *Inherited from* :py:meth:`@scope/jsii-calc-base.Base.typeName`
+      *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
 
       :return: the name of the class (to verify native type names are created for derived classes).
       :rtype: any
@@ -314,7 +314,7 @@ Number
 
    .. py:method:: toString() -> string
 
-      *Inherited from* :py:meth:`@scope/jsii-calc-lib.Value.toString`
+      *Inherited from* :py:meth:`@scope/jsii-calc-lib.Value <@scope/jsii-calc-lib.Value.toString>`
 
       String representation of the value.
 
@@ -368,7 +368,7 @@ Operation
 
    .. py:method:: typeName() -> any
 
-      *Inherited from* :py:meth:`@scope/jsii-calc-base.Base.typeName`
+      *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
 
       :return: the name of the class (to verify native type names are created for derived classes).
       :rtype: any
@@ -376,7 +376,7 @@ Operation
 
    .. py:attribute:: value
 
-      *Inherited from* :py:attr:`@scope/jsii-calc-lib.Value.value`
+      *Inherited from* :py:attr:`@scope/jsii-calc-lib.Value <@scope/jsii-calc-lib.Value.value>`
 
       The value.
 
@@ -485,7 +485,7 @@ Value
 
    .. py:method:: typeName() -> any
 
-      *Inherited from* :py:meth:`@scope/jsii-calc-base.Base.typeName`
+      *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
 
       :return: the name of the class (to verify native type names are created for derived classes).
       :rtype: any
