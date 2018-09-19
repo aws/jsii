@@ -43,6 +43,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
+        [JsiiProperty("optionalAny", "{\"primitive\":\"any\",\"optional\":true}")]
+        public virtual object OptionalAny
+        {
+            get => GetInstanceProperty<object>();
+            set => SetInstanceProperty(value);
+        }
+
         [JsiiProperty("optionalArray", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"optional\":true}")]
         public virtual string[] OptionalArray
         {

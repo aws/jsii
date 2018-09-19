@@ -19,6 +19,14 @@ public class RuntimeTypeChecking extends software.amazon.jsii.JsiiObject {
         this.jsiiCall("methodWithDefaultedArguments", Void.class, java.util.stream.Stream.concat(java.util.stream.Stream.of(arg1), java.util.stream.Stream.of(java.util.Objects.requireNonNull(arg2, "arg2 is required"))).toArray());
     }
 
+    public void methodWithOptionalAnyArgument(@javax.annotation.Nullable final java.lang.Object arg) {
+        this.jsiiCall("methodWithOptionalAnyArgument", Void.class, java.util.stream.Stream.of(arg).toArray());
+    }
+
+    public void methodWithOptionalAnyArgument() {
+        this.jsiiCall("methodWithOptionalAnyArgument", Void.class);
+    }
+
     /**
      * Used to verify verification of number of method arguments.
      */

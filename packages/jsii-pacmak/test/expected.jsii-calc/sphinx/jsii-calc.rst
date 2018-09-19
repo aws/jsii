@@ -348,17 +348,12 @@ AllTypes
 
    .. py:attribute:: anyArrayProperty
 
-      :type: any[]
+      :type: (any or undefined)[]
 
 
    .. py:attribute:: anyMapProperty
 
-      :type: string => any
-
-
-   .. py:attribute:: anyProperty
-
-      :type: any
+      :type: string => (any or undefined)
 
 
    .. py:attribute:: arrayProperty
@@ -418,22 +413,27 @@ AllTypes
 
    .. py:attribute:: unknownArrayProperty
 
-      :type: any[]
+      :type: (any or undefined)[]
 
 
    .. py:attribute:: unknownMapProperty
 
-      :type: string => any
+      :type: string => (any or undefined)
 
 
-   .. py:attribute:: unknownProperty
+   .. py:attribute:: anyProperty
 
-      :type: any
+      :type: any or undefined
 
 
    .. py:attribute:: optionalEnumValue
 
       :type: :py:class:`~jsii-calc.StringEnum`\  or undefined
+
+
+   .. py:attribute:: unknownProperty
+
+      :type: any or undefined
 
 
 AllTypesEnum (enum)
@@ -1007,6 +1007,11 @@ DerivedStruct (interface)
 
 
       :type: string => :py:class:`@scope/jsii-calc-lib.Value`\  or undefined *(abstract)*
+
+
+   .. py:attribute:: optionalAny
+
+      :type: any or undefined *(abstract)*
 
 
    .. py:attribute:: optionalArray
@@ -2525,6 +2530,12 @@ RuntimeTypeChecking
       :type arg3: date or undefined
 
 
+   .. py:method:: methodWithOptionalAnyArgument([arg])
+
+      :param arg: 
+      :type arg: any or undefined
+
+
    .. py:method:: methodWithOptionalArguments(arg1, arg2, [arg3])
 
       Used to verify verification of number of method arguments.
@@ -2966,7 +2977,7 @@ UseBundledDependency
 
    .. py:method:: value() -> any
 
-      :rtype: any
+      :rtype: any or undefined
 
 
 UseCalcBase

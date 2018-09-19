@@ -244,6 +244,10 @@ export class RuntimeTypeChecking {
     public methodWithDefaultedArguments(arg1: number = 2, arg2: string, arg3: Date = new Date()) {
         arg1; arg2; arg3;
     }
+
+    public methodWithOptionalAnyArgument(arg?: any) {
+        arg;
+    }
 }
 
 export class OptionalConstructorArgument {
@@ -479,6 +483,7 @@ export interface DerivedStruct extends MyFirstStruct {
     bool: boolean
     anotherRequired: Date
     optionalArray?: string[]
+    optionalAny?: any
     /**
      * This is optional.
      */

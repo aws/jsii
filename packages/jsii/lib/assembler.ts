@@ -604,6 +604,10 @@ export class Assembler implements Emitter {
             property.immutable = (ts.getCombinedModifierFlags(signature) & ts.ModifierFlags.Readonly) !== 0;
         }
 
+        if (signature.questionToken) {
+            property.type.optional = true;
+        }
+
         if (property.static && property.immutable && ts.isPropertyDeclaration(signature) && signature.initializer) {
             property.const = true;
         }
@@ -627,7 +631,7 @@ export class Assembler implements Emitter {
         if (parameter.variadic) {
             parameter.type = (parameter.type as spec.CollectionTypeReference).collection.elementtype;
         }
-        if (paramDeclaration.initializer != null) {
+        if (paramDeclaration.initializer || paramDeclaration.questionToken) {
             parameter.type.optional = true;
         }
         this._visitDocumentation(paramSymbol, parameter);
@@ -650,7 +654,7 @@ export class Assembler implements Emitter {
 
         if (!type.symbol) {
             this._diagnostic(declaration, ts.DiagnosticCategory.Error, `Non-primitive types must have a symbol`);
-            return { primitive: spec.PrimitiveType.Any };
+            return { primitive: spec.PrimitiveType.Any, optional: true };
         }
 
         if (type.symbol.name === 'Array') {
@@ -667,7 +671,7 @@ export class Assembler implements Emitter {
                 this._diagnostic(declaration,
                                  ts.DiagnosticCategory.Error,
                                  `Un-specified promise type (need to specify as Promise<T>)`);
-                return { primitive: spec.PrimitiveType.Any, promise: true };
+                return { primitive: spec.PrimitiveType.Any, optional: true, promise: true };
             } else {
                 return {
                     ...await this._typeReference(typeRef.typeArguments[0], declaration),
@@ -689,7 +693,7 @@ export class Assembler implements Emitter {
                 this._diagnostic(declaration,
                                  ts.DiagnosticCategory.Error,
                                  `Array references must have exactly one type argument (found ${count})`);
-                elementtype = { primitive: spec.PrimitiveType.Any };
+                elementtype = { primitive: spec.PrimitiveType.Any, optional: true };
             }
 
             return {
@@ -709,7 +713,7 @@ export class Assembler implements Emitter {
                 this._diagnostic(declaration,
                                  ts.DiagnosticCategory.Error,
                                  `Only string index maps are supported`);
-                elementtype = { primitive: spec.PrimitiveType.Any };
+                elementtype = { primitive: spec.PrimitiveType.Any, optional: true };
             }
             return {
                 collection: {
@@ -727,7 +731,7 @@ export class Assembler implements Emitter {
                 }
                 // tslint:disable-next-line:no-bitwise
                 if (type.flags & (ts.TypeFlags.Any | ts.TypeFlags.Unknown)) {
-                    return { primitive: spec.PrimitiveType.Any };
+                    return { primitive: spec.PrimitiveType.Any, optional: true };
                 }
             } else {
                 switch (type.symbol.name) {
