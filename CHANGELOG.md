@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.7.6"></a>
+## [0.7.6](https://github.com/awslabs/jsii/compare/v0.7.5...v0.7.6) (2018-09-20)
+
+
+### Bug Fixes
+
+* Sphinx generated incorrect type references for display ([#232](https://github.com/awslabs/jsii/issues/232)) ([b664805](https://github.com/awslabs/jsii/commit/b664805))
+* **jsii:** Defaulted parameters were not rendered as optional ([#234](https://github.com/awslabs/jsii/issues/234)) ([578bf9c](https://github.com/awslabs/jsii/commit/578bf9c)), closes [#233](https://github.com/awslabs/jsii/issues/233)
+* **jsii:** Don't skip emit on TS errors when in "watch" mode ([#236](https://github.com/awslabs/jsii/issues/236)) ([30d1491](https://github.com/awslabs/jsii/commit/30d1491)), closes [#235](https://github.com/awslabs/jsii/issues/235)
+* **jsii:** Optional `any` represented as required ([#237](https://github.com/awslabs/jsii/issues/237)) ([91074f3](https://github.com/awslabs/jsii/commit/91074f3)), closes [#230](https://github.com/awslabs/jsii/issues/230)
+
+
+### Features
+
+* **sphinx:** allow readme file to define sphinx header and reorganize topic ([#229](https://github.com/awslabs/jsii/issues/229)) ([405da9c](https://github.com/awslabs/jsii/commit/405da9c)), closes [#228](https://github.com/awslabs/jsii/issues/228) [#185](https://github.com/awslabs/jsii/issues/185)
+* Document overriden/inherited members ([#238](https://github.com/awslabs/jsii/issues/238)) ([7a6278a](https://github.com/awslabs/jsii/commit/7a6278a)), closes [#196](https://github.com/awslabs/jsii/issues/196)
+
+
+
+
 <a name="0.7.5"></a>
 ## [0.7.5](https://github.com/awslabs/jsii/compare/v0.7.4...v0.7.5) (2018-09-13)
 
