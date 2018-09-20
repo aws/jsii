@@ -2,46 +2,17 @@ from typing import Any, Callable, TypeVar
 
 import typing
 import weakref
+import os
 
-from jsii.kernel import Kernel
+from jsii import _reference_map
+from jsii._compat import importlib_resources
+from jsii._kernel import Kernel
 
 
 # Yea, a global here is kind of gross, however, there's not really a better way of
 # handling this. Fundamentally this is a global value, since we can only reasonably
 # have a single kernel active at any one time in a real program.
 kernel = Kernel()
-
-
-_types = {}
-
-
-class _ReferenceMap:
-    def __init__(self, types):
-        self._refs = weakref.WeakValueDictionary()
-        self._types = types
-
-    def register(self, ref, inst):
-        self._refs[ref] = inst
-
-    def resolve(self, ref):
-        # First we need to check our reference map to see if we have any instance that
-        # already matches this reference.
-        try:
-            return self._refs[ref.ref]
-        except KeyError:
-            pass
-
-        # If we got to this point, then we didn't have a referene for this, in that case
-        # we want to create a new instance, but we need to create it in such a way that
-        # we don't try to recreate the type inside of the JSII interface.
-        class_ = _types[ref.ref.split("@", 1)[0]]
-        return class_.__class__.from_reference(class_, ref)
-
-
-_refs = _ReferenceMap(_types)
-
-
-resolve_reference = _refs.resolve
 
 
 class JSIIMeta(type):
@@ -75,7 +46,7 @@ class JSIIMeta(type):
         for key, value in obj.__jsii_class_properties__.items():
             value.__set_name__(obj, key)
 
-        _types[obj.__jsii_type__] = obj
+        _reference_map.register_type(obj.__jsii_type__, obj)
 
         return obj
 
@@ -105,7 +76,7 @@ class JSIIMeta(type):
         obj = cls.__new__(cls, *args, **kwargs)
         obj.__jsii_ref__ = ref
 
-        _refs.register(obj.__jsii_ref__.ref, obj)
+        _reference_map.register_reference(obj.__jsii_ref__.ref, obj)
 
         return obj
 

@@ -2,7 +2,7 @@ import abc
 
 from typing import Optional
 
-from jsii.kernel.types import (
+from jsii._kernel.types import (
     LoadRequest,
     LoadResponse,
     CreateRequest,

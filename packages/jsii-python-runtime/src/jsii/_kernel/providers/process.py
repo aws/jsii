@@ -7,8 +7,8 @@ import attr
 import cattr  # type: ignore
 
 from jsii._utils import memoized_property
-from jsii.kernel.providers.base import BaseKernel
-from jsii.kernel.types import (
+from jsii._kernel.providers.base import BaseKernel
+from jsii._kernel.types import (
     ObjRef,
     KernelRequest,
     KernelResponse,
