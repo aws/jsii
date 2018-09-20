@@ -4,6 +4,8 @@ import typing
 import weakref
 import os
 
+import attr
+
 from jsii import _reference_map
 from jsii._compat import importlib_resources
 from jsii._kernel import Kernel
@@ -13,6 +15,34 @@ from jsii._kernel import Kernel
 # handling this. Fundamentally this is a global value, since we can only reasonably
 # have a single kernel active at any one time in a real program.
 kernel = Kernel()
+
+
+@attr.s(auto_attribs=True, frozen=True, slots=True)
+class JSIIAssembly:
+
+    name: str
+    version: str
+    module: str
+    filename: str
+
+    @classmethod
+    def load(cls, *args, _kernel=kernel, **kwargs):
+        # Our object here really just acts as a record for our JSIIAssembly, it doesn't
+        # offer any functionality itself, besides this class method that will trigger
+        # the loading of the given assembly in the JSII Kernel.
+        assembly = cls(*args, **kwargs)
+
+        # Actually load the assembly into the kernel, we're using the
+        # importlib.resources API here isntead of manually constructing the path, in
+        # the hopes that this will make JSII modules able to be used with zipimport
+        # instead of only on the FS.
+        with importlib_resources.path(
+            f"{assembly.module}._jsii", assembly.filename
+        ) as assembly_path:
+            _kernel.load(assembly.name, assembly.version, os.fspath(assembly_path))
+
+        # Give our record of the assembly back to the caller.
+        return assembly
 
 
 class JSIIMeta(type):
