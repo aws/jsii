@@ -10,42 +10,42 @@ Reference
 
    .. group-tab:: C#
 
-      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId/0.7.5>`_
+      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId/0.7.6>`_
 
       **csproj**:
 
       .. code-block:: xml
 
-         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId" Version="0.7.5" />
+         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId" Version="0.7.6" />
 
       **dotnet**:
 
       .. code-block:: console
 
-         dotnet add package Amazon.JSII.Tests.CalculatorPackageId --version 0.7.5
+         dotnet add package Amazon.JSII.Tests.CalculatorPackageId --version 0.7.6
 
       **packages.config**:
 
       .. code-block:: xml
 
-         <package id="Amazon.JSII.Tests.CalculatorPackageId" version="0.7.5" />
+         <package id="Amazon.JSII.Tests.CalculatorPackageId" version="0.7.6" />
 
 
    .. group-tab:: Java
 
-      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator/0.7.5/>`_
+      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator/0.7.6/>`_
 
       **Apache Buildr**:
 
       .. code-block:: none
 
-         'software.amazon.jsii.tests:calculator:jar:0.7.5'
+         'software.amazon.jsii.tests:calculator:jar:0.7.6'
 
       **Apache Ivy**:
 
       .. code-block:: xml
 
-         <dependency groupId="software.amazon.jsii.tests" name="calculator" rev="0.7.5"/>
+         <dependency groupId="software.amazon.jsii.tests" name="calculator" rev="0.7.6"/>
 
       **Apache Maven**:
 
@@ -54,72 +54,72 @@ Reference
          <dependency>
            <groupId>software.amazon.jsii.tests</groupId>
            <artifactId>calculator</artifactId>
-           <version>0.7.5</version>
+           <version>0.7.6</version>
          </dependency>
 
       **Gradle / Grails**:
 
       .. code-block:: none
 
-         compile 'software.amazon.jsii.tests:calculator:0.7.5'
+         compile 'software.amazon.jsii.tests:calculator:0.7.6'
 
       **Groovy Grape**:
 
       .. code-block:: none
 
          @Grapes(
-         @Grab(group='software.amazon.jsii.tests', module='calculator', version='0.7.5')
+         @Grab(group='software.amazon.jsii.tests', module='calculator', version='0.7.6')
          )
 
 
    .. group-tab:: JavaScript
 
-      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.7.5>`_
+      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.7.6>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i jsii-calc@0.7.5
+         $ npm i jsii-calc@0.7.6
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "jsii-calc": "^0.7.5"
+           "jsii-calc": "^0.7.6"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add jsii-calc@0.7.5
+         $ yarn add jsii-calc@0.7.6
 
 
    .. group-tab:: TypeScript
 
-      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.7.5>`_
+      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.7.6>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i jsii-calc@0.7.5
+         $ npm i jsii-calc@0.7.6
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "jsii-calc": "^0.7.5"
+           "jsii-calc": "^0.7.6"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add jsii-calc@0.7.5
+         $ yarn add jsii-calc@0.7.6
 
 
 
@@ -321,7 +321,7 @@ Add
       *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
 
       :return: the name of the class (to verify native type names are created for derived classes).
-      :rtype: any
+      :rtype: any or ``undefined``
 
 
    .. py:method:: hello() -> string
@@ -399,12 +399,12 @@ AllTypes
 
    .. py:attribute:: anyArrayProperty
 
-      :type: (any or undefined)[]
+      :type: (any or ``undefined``)[]
 
 
    .. py:attribute:: anyMapProperty
 
-      :type: string => (any or undefined)
+      :type: string => (any or ``undefined``)
 
 
    .. py:attribute:: arrayProperty
@@ -464,17 +464,17 @@ AllTypes
 
    .. py:attribute:: unknownArrayProperty
 
-      :type: (any or undefined)[]
+      :type: (any or ``undefined``)[]
 
 
    .. py:attribute:: unknownMapProperty
 
-      :type: string => (any or undefined)
+      :type: string => (any or ``undefined``)
 
 
    .. py:attribute:: anyProperty
 
-      :type: any or undefined
+      :type: any or ``undefined``
 
 
    .. py:attribute:: optionalEnumValue
@@ -484,7 +484,7 @@ AllTypes
 
    .. py:attribute:: unknownProperty
 
-      :type: any or undefined
+      :type: any or ``undefined``
 
 
 AllTypesEnum (enum)
@@ -723,7 +723,7 @@ BinaryOperation
       *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
 
       :return: the name of the class (to verify native type names are created for derived classes).
-      :rtype: any
+      :rtype: any or ``undefined``
 
 
    .. py:method:: toString() -> string
@@ -878,7 +878,7 @@ Calculator
       *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
 
       :return: the name of the class (to verify native type names are created for derived classes).
-      :rtype: any
+      :rtype: any or ``undefined``
 
 
    .. py:method:: toString() -> string
@@ -1160,7 +1160,7 @@ DerivedStruct (interface)
 
    .. py:attribute:: optionalAny
 
-      :type: any or undefined *(abstract)*
+      :type: any or ``undefined`` *(abstract)*
 
 
    .. py:attribute:: optionalArray
@@ -2241,7 +2241,7 @@ Multiply
       *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
 
       :return: the name of the class (to verify native type names are created for derived classes).
-      :rtype: any
+      :rtype: any or ``undefined``
 
 
    .. py:method:: hello() -> string
@@ -2364,7 +2364,7 @@ Negate
       *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
 
       :return: the name of the class (to verify native type names are created for derived classes).
-      :rtype: any
+      :rtype: any or ``undefined``
 
 
    .. py:attribute:: operand
@@ -2727,7 +2727,7 @@ Power
       *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
 
       :return: the name of the class (to verify native type names are created for derived classes).
-      :rtype: any
+      :rtype: any or ``undefined``
 
 
    .. py:method:: toString() -> string
@@ -2908,7 +2908,7 @@ RuntimeTypeChecking
    .. py:method:: methodWithOptionalAnyArgument([arg])
 
       :param arg: 
-      :type arg: any or undefined
+      :type arg: any or ``undefined``
 
 
    .. py:method:: methodWithOptionalArguments(arg1, arg2, [arg3])
@@ -3105,7 +3105,7 @@ Sum
       *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
 
       :return: the name of the class (to verify native type names are created for derived classes).
-      :rtype: any
+      :rtype: any or ``undefined``
 
 
    .. py:method:: toString() -> string
@@ -3348,7 +3348,7 @@ UnaryOperation
       *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
 
       :return: the name of the class (to verify native type names are created for derived classes).
-      :rtype: any
+      :rtype: any or ``undefined``
 
 
    .. py:method:: toString() -> string
@@ -3441,7 +3441,7 @@ UseBundledDependency
 
    .. py:method:: value() -> any
 
-      :rtype: any or undefined
+      :rtype: any or ``undefined``
 
 
 UseCalcBase
@@ -3769,7 +3769,7 @@ CompositeOperation
       *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
 
       :return: the name of the class (to verify native type names are created for derived classes).
-      :rtype: any
+      :rtype: any or ``undefined``
 
 
 
