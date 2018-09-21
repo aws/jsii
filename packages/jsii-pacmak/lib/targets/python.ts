@@ -34,6 +34,9 @@ const debug = function(o: any) {
 }
 
 
+const PYTHON_BUILTIN_TYPES = ["bool", "str", "None"]
+
+
 class Module {
 
     readonly name: string;
@@ -42,6 +45,7 @@ class Module {
 
     private buffer: object[];
     private exportedNames: string[];
+    private importedModules: string[];
 
     constructor(ns: string, assembly?: [spec.Assembly, string]) {
         this.name = ns;
@@ -53,12 +57,45 @@ class Module {
 
         this.buffer = [];
         this.exportedNames = [];
+        this.importedModules = [];
     }
 
     // Adds a name to the list of names that this module will export, this will control
     // things like what is listed inside of __all__.
     public exportName(name: string) {
         this.exportedNames.push(name);
+    }
+
+    // Adds a name to the list of modules that should be imported at the top of this
+    // file.
+    public importModule(name: string) {
+        this.importedModules.push(name);
+    }
+
+    public maybeImportType(type: string) {
+        if (PYTHON_BUILTIN_TYPES.indexOf(type) > -1) {
+            // For built in types, we don't need to do anything, and can just return now
+            return;
+        }
+
+        const [, typeModule] = type.match(/(.*)\.(.*)/) as any[];
+
+        // Given a name like foo.bar.Frob, we want to import the module that Frob exists
+        // in. Given that all classes exported by JSII have to be pascal cased, and all
+        // of our imports are snake cases, this should be safe. We're going to double
+        // check this though, to ensure that our importable here is safe.
+        if (typeModule != typeModule.toLowerCase()) {
+            // If we ever get to this point, we'll need to implment aliasing for our
+            // imports.
+            throw new Error("Type module is not lower case.")
+        }
+
+        // We only want to actually import the type for this module, if it isn't the
+        // module that we're currently in, otherwise we'll jus rely on the module scope
+        // to make the name available to us.
+        if (typeModule != this.name) {
+            this.importModule(typeModule);
+        }
     }
 
     // We're purposely replicating the API of CodeMaker here, because CodeMaker cannot
@@ -120,6 +157,15 @@ class Module {
                 ]
             )
         )
+
+        // Go over all of the modules that we need to import, and import them.
+        for (let [idx, modName] of this.importedModules.sort().entries()) {
+            if (idx == 0) {
+                code.line();
+            }
+
+            code.line(`import ${modName}`);
+        }
 
         // Determine if we need to write out the kernel load line.
         if (this.assembly && this.assemblyFilename) {
@@ -253,8 +299,12 @@ class PythonGenerator extends Generator {
     }
 
     private emitPythonMethod(name?: string, implicitParam?: string, params: spec.Parameter[] = [], returns?: spec.TypeReference) {
+        let module = this.currentModule();
+
         // TODO: Handle imports (if needed) for type.
         const returnType = returns ? this.toPythonType(returns) : "None";
+        module.maybeImportType(returnType);
+
 
         // We need to turn a list of JSII parameters, into Python style arguments with
         // gradual typing, so we'll have to iterate over the list of parameters, and
@@ -263,12 +313,12 @@ class PythonGenerator extends Generator {
 
         let pythonParams: string[] = implicitParam ? [implicitParam] : [];
         for (let param of params) {
-            pythonParams.push(`${param.name}: ${this.toPythonType(param.type)}`);
+            let paramType = this.toPythonType(param.type);
+            module.maybeImportType(paramType);
+            pythonParams.push(`${param.name}: ${this.formatPythonType(paramType)}`);
         }
 
-        let module = this.currentModule();
-
-        module.openBlock(`def ${name}(${pythonParams.join(", ")}) -> ${returnType}`);
+        module.openBlock(`def ${name}(${pythonParams.join(", ")}) -> ${this.formatPythonType(returnType)}`);
         module.line("...");
         module.closeBlock();
     }
@@ -279,7 +329,7 @@ class PythonGenerator extends Generator {
         } else if (spec.isNamedTypeReference(typeref)) {
             // TODO: We need to actually handle this, isntead of just returning the FQN
             //       as a string.
-            return `"${typeref.fqn}"`;
+            return this.toPythonFQN(typeref.fqn);
         } else {
             throw new Error("Invalid type reference: " + JSON.stringify(typeref));
         }
@@ -320,11 +370,47 @@ class PythonGenerator extends Generator {
 
     private toPythonPrimitive(primitive: spec.PrimitiveType): string {
         switch (primitive) {
-            case spec.PrimitiveType.String:
-                return "str";
+            case spec.PrimitiveType.Boolean: return "bool";
+            case spec.PrimitiveType.Date:    return "dateetime.datetime";
+            case spec.PrimitiveType.Json:    return "typing.Mapping[typing.Any, typing.Any]";
+            case spec.PrimitiveType.Number:  return "numbers.Number";
+            case spec.PrimitiveType.String:  return "str";
+            case spec.PrimitiveType.Any:     return "typing.Any";
             default:
                 throw new Error("Unknown primitive type: " + primitive);
         }
+    }
+
+    private toPythonFQN(name: string): string {
+        return name.split(".").map((cur, idx, arr) => {
+            if (idx == arr.length - 1) {
+                return cur;
+            } else {
+                return this.toPythonModuleName(cur);
+            }
+        }).join(".");
+    }
+
+    private formatPythonType(type: string) {
+        // Built in types do not need formatted in any particular way.
+        if(PYTHON_BUILTIN_TYPES.indexOf(type) > -1) {
+            return type;
+        }
+
+        const [, typeModule, typeName] = type.match(/(.*)\.(.*)/) as any[];
+
+        // Types whose module is different than our current module, can also just be
+        // formatted as they are.
+        if (this.currentModule().name != typeModule) {
+            return type;
+        }
+
+        // Otherwise, this is a type that exists in this module, and we can jsut emit
+        // the name.
+        // TODO: We currently emit this as a string, because that's how forward
+        //       references used to work prior to 3.7. Ideally we will move to using 3.7
+        //       and can just use native forward references.
+        return `"${typeName}"`;
     }
 
     private currentModule(): Module {
