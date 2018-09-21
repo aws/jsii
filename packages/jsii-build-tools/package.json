@@ -8,7 +8,8 @@
     "package-js": "bin/package-js",
     "package-java": "bin/package-java",
     "package-dotnet": "bin/package-dotnet",
-    "package-ruby": "bin/package-ruby"
+    "package-ruby": "bin/package-ruby",
+    "package-python": "bin/package-python"
   },
   "scripts": {
     "build": "chmod +x bin/*"

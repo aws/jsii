@@ -1,0 +1,9 @@
+#!/usr/bin/env python3
+import json
+
+with open("package.json") as fp:
+    data = json.load(fp)
+
+
+with open("src/jsii/_metadata.json", "w") as fp:
+    json.dump({"version": data["version"]}, fp)

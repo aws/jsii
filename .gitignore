@@ -368,3 +368,10 @@ jspm_packages/
 # that NuGet uses for external packages. We don't want to ignore the
 # lerna packages.
 !/packages/*
+
+
+# Python packages generate this while building them.
+*.egg-info
+
+# MyPy cache
+.mypy_cache/

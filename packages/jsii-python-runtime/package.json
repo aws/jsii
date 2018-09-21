@@ -4,11 +4,14 @@
   "description": "Python client for jsii runtime",
   "main": "index.js",
   "scripts": {
-    "build": "echo ok",
+    "generate": "bin/generate",
+    "build": "npm run generate && python setup.py sdist -d . bdist_wheel -d . && rm -rf build",
+    "package": "package-python",
     "prepack": "echo ok",
     "test": "echo ok"
   },
   "dependencies": {
+    "jsii-build-tools": "^0.7.4",
     "jsii-runtime": "^0.7.1"
   },
   "repository": {
