@@ -41,6 +41,7 @@ class Module {
     readonly assemblyFilename?: string;
 
     private buffer: object[];
+    private exportedNames: string[];
 
     constructor(ns: string, assembly?: [spec.Assembly, string]) {
         this.name = ns;
@@ -51,6 +52,13 @@ class Module {
         }
 
         this.buffer = [];
+        this.exportedNames = [];
+    }
+
+    // Adds a name to the list of names that this module will export, this will control
+    // things like what is listed inside of __all__.
+    public exportName(name: string) {
+        this.exportedNames.push(name);
     }
 
     // We're purposely replicating the API of CodeMaker here, because CodeMaker cannot
@@ -115,6 +123,7 @@ class Module {
 
         // Determine if we need to write out the kernel load line.
         if (this.assembly && this.assemblyFilename) {
+            this.exportName("__jsii_assembly__");
             code.line(`__jsii_assembly__ = _runtime.JSIIAssembly.load("${this.assembly.name}", "${this.assembly.version}", __name__, "${this.assemblyFilename}")`);
         }
 
@@ -126,6 +135,10 @@ class Module {
 
             (code as any)[methodName](...args);
         }
+
+        // Whatever names we've exported, we'll write out our __all__ that lists them.
+        const stringifiedExportedNames = this.exportedNames.sort().map(s => `"${s}"`);
+        code.line(`__all__ = [${stringifiedExportedNames.join(", ")}]`);
     }
 
     private generateImportFrom(from: string, names: string[]): string {
@@ -198,6 +211,7 @@ class PythonGenerator extends Generator {
         // TODO: Figure out what to do with abstract here.
         abstract;
 
+        this.currentModule().exportName(cls.name);
         this.currentModule().openBlock(`class ${cls.name}(metaclass=_JSIIMeta, jsii_type="${cls.fqn}")`);
     }
 
