@@ -172,7 +172,7 @@ class Module {
         // Determine if we need to write out the kernel load line.
         if (this.assembly && this.assemblyFilename) {
             this.exportName("__jsii_assembly__");
-            code.line(`__jsii_assembly__ = _runtime.JSIIAssembly.load("${this.assembly.name}", "${this.assembly.version}", __name__, "${this.assemblyFilename}")`);
+            code.line(`__jsii_assembly__ = _JSIIAssembly.load("${this.assembly.name}", "${this.assembly.version}", __name__, "${this.assemblyFilename}")`);
         }
 
         // Now that we've gotten all of the module header stuff done, we need to go
