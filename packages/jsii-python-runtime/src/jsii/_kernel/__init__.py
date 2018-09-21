@@ -87,7 +87,7 @@ class Kernel(metaclass=Singleton):
         ).value
 
     def sset(self, klass: Any, property: str, value: Any) -> None:
-        return self.provider.sset(
+        self.provider.sset(
             StaticSetRequest(fqn=klass.__jsii_type__, property_=property, value=value)
         )
 

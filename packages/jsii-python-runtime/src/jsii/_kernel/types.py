@@ -42,8 +42,8 @@ class LoadResponse:
 class CreateRequest:
 
     fqn: str
-    args: Optional[List[Any]] = attr.Factory(list)
-    overrides: Optional[List[Override]] = attr.Factory(list)
+    args: List[Any] = attr.Factory(list)
+    overrides: List[Override] = attr.Factory(list)
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)

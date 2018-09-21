@@ -1,6 +1,9 @@
-try:
+import sys
+
+
+if sys.version_info >= (3, 7):
     import importlib.resources as importlib_resources
-except ImportError:
+else:
     import importlib_resources
 
 
