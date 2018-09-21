@@ -1,8 +1,8 @@
-﻿using Amazon.JSII.JsonModel.Api;
-using Amazon.JSII.Runtime.Deputy;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Amazon.JSII.JsonModel.Api;
+using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Runtime.Services
 {
@@ -20,7 +20,9 @@ namespace Amazon.JSII.Runtime.Services
         {
             if (_references.ContainsKey(reference.Value))
             {
-                throw new ArgumentException($"Cannot add reference for {reference.Value}: A reference with this name already exists", nameof(reference));
+                throw new ArgumentException(
+                    $"Cannot add reference for {reference.Value}: A reference with this name already exists",
+                    nameof(reference));
             }
 
             _references[reference.Value] = nativeReference;
@@ -36,7 +38,7 @@ namespace Amazon.JSII.Runtime.Services
             if (!_references.ContainsKey(byRefValue.Value))
             {
                 ConstructorInfo constructorInfo = GetByRefConstructor();
-                _references[byRefValue.Value] = (DeputyBase)constructorInfo.Invoke(new object[] { byRefValue });
+                _references[byRefValue.Value] = (DeputyBase) constructorInfo.Invoke(new object[] {byRefValue});
             }
 
             return _references[byRefValue.Value];
@@ -46,8 +48,9 @@ namespace Amazon.JSII.Runtime.Services
                 Type type = _types.GetClassType(byRefValue.FullyQualifiedName);
                 if (type == null)
                 {
-                    type = _types.GetInterfaceProxyType(byRefValue.FullyQualifiedName);
+                    type = _types.GetProxyType(byRefValue.FullyQualifiedName);
                 }
+
                 if (type == null)
                 {
                     throw new ArgumentException(
@@ -58,7 +61,13 @@ namespace Amazon.JSII.Runtime.Services
 
                 BindingFlags constructorFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
-                return type.GetConstructor(constructorFlags, null, new[] { typeof(ByRefValue) }, null);
+                // Get proxy class implementation for abstract types.
+                if (type.IsClass && type.IsAbstract)
+                {
+                    type = _types.GetProxyType(byRefValue.FullyQualifiedName);
+                }
+
+                return type.GetConstructor(constructorFlags, null, new[] {typeof(ByRefValue)}, null);
             }
         }
     }

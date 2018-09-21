@@ -281,25 +281,47 @@ namespace Amazon.JSII.Generator
                 switch (type.Kind)
                 {
                     case TypeKind.Class:
-                        SaveTypeFile($"{symbols.GetName(type)}.cs", new ClassGenerator(assembly.Name, (ClassType)type, symbols).CreateSyntaxTree());
-                        return;
-                    case TypeKind.Enum:
-                        SaveTypeFile($"{symbols.GetName(type)}.cs", new EnumGenerator(assembly.Name, (EnumType)type, symbols).CreateSyntaxTree());
-                        return;
-                    case TypeKind.Interface:
-                        InterfaceType interfaceType = (InterfaceType)type;
+                    {
+                        var classType = (ClassType) type;
+                        
+                        if (classType.IsAbstract)
+                        {
+                            SaveTypeFile($"{symbols.GetAbstractClassProxyName(classType)}.cs",
+                                new AbstractClassProxyGenerator(assembly.Name, classType, symbols).CreateSyntaxTree());
+                        }
 
-                        SaveTypeFile($"{symbols.GetName(interfaceType)}.cs", new InterfaceGenerator(assembly.Name, interfaceType, symbols).CreateSyntaxTree());
-                        SaveTypeFile($"{symbols.GetInterfaceProxyName(interfaceType)}.cs", new InterfaceProxyGenerator(assembly.Name, interfaceType, symbols).CreateSyntaxTree());
+                        SaveTypeFile($"{symbols.GetName(type)}.cs",
+                            new ClassGenerator(assembly.Name, classType, symbols).CreateSyntaxTree());
+                        return;
+                    }
+                    case TypeKind.Enum:
+                    {
+                        SaveTypeFile($"{symbols.GetName(type)}.cs",
+                            new EnumGenerator(assembly.Name, (EnumType) type, symbols).CreateSyntaxTree());
+                        return;
+                    }
+                    case TypeKind.Interface:
+                    {
+                        InterfaceType interfaceType = (InterfaceType) type;
+
+                        SaveTypeFile($"{symbols.GetName(interfaceType)}.cs",
+                            new InterfaceGenerator(assembly.Name, interfaceType, symbols).CreateSyntaxTree());
+                        SaveTypeFile($"{symbols.GetInterfaceProxyName(interfaceType)}.cs",
+                            new InterfaceProxyGenerator(assembly.Name, interfaceType, symbols).CreateSyntaxTree());
 
                         if (interfaceType.IsDataType == true)
                         {
-                            SaveTypeFile($"{symbols.GetInterfaceDefaultName(interfaceType)}.cs", new InterfaceDefaultGenerator(assembly.Name, interfaceType, symbols).CreateSyntaxTree());
+                            SaveTypeFile($"{symbols.GetInterfaceDefaultName(interfaceType)}.cs",
+                                new InterfaceDefaultGenerator(assembly.Name, interfaceType, symbols)
+                                    .CreateSyntaxTree());
                         }
 
                         return;
+                    }
                     default:
+                    {
                         throw new ArgumentException($"Unkown type kind: {type.Kind}", nameof(type));
+                    }
                 }
 
                 void SaveTypeFile(string filename, SyntaxTree syntaxTree)

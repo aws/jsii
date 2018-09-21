@@ -1,11 +1,13 @@
-﻿using Microsoft.Extensions.Logging;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using PrimitiveType = Amazon.JSII.JsonModel.Spec.PrimitiveType;
-using CollectionKind = Amazon.JSII.JsonModel.Spec.CollectionKind;
+using Amazon.JSII.JsonModel.Spec;
 using Amazon.JSII.Runtime.Deputy;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
+using Assembly = System.Reflection.Assembly;
+using Type = System.Type;
 
 namespace Amazon.JSII.Runtime.Services
 {
@@ -42,12 +44,12 @@ namespace Amazon.JSII.Runtime.Services
             return GetType<JsiiInterfaceAttribute>(fullyQualifiedName);
         }
 
-        public Type GetInterfaceProxyType(string fullyQualifiedName)
+        public Type GetProxyType(string fullyQualifiedName)
         {
             return GetType<JsiiInterfaceProxyAttribute>(fullyQualifiedName + ProxySuffix);
         }
 
-        public Type GetFrameworkType(JsonModel.Spec.TypeReference reference)
+        public Type GetFrameworkType(TypeReference reference)
         {
             bool isOptional = reference.IsOptional == true;
 
@@ -79,7 +81,7 @@ namespace Amazon.JSII.Runtime.Services
                     case PrimitiveType.Date:
                         return MakeNullableIfOptional(typeof(DateTime));
                     case PrimitiveType.Json:
-                        return typeof(Newtonsoft.Json.Linq.JObject);
+                        return typeof(JObject);
                     case PrimitiveType.Number:
                         return MakeNullableIfOptional(typeof(double));
                     case PrimitiveType.String:
