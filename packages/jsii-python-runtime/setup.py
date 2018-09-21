@@ -11,7 +11,10 @@ setuptools.setup(
     version=metadata["version"],
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src"),
-    package_data={"jsii": ["_metadata.json"]},
+    package_data={
+        "jsii": ["_metadata.json"],
+        "jsii._embedded.jsii": ["*.js", "*.js.map", "*.wasm"],
+    },
     install_requires=[
         "attrs",
         "cattrs",

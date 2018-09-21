@@ -1,11 +1,18 @@
+import contextlib
+import importlib.machinery
 import json
+import os.path
 import subprocess
+import tempfile
 
 from typing import Type, Union, Mapping, Any, Optional
 
 import attr
 import cattr  # type: ignore
 
+import jsii._embedded.jsii
+
+from jsii._compat import importlib_resources
 from jsii._utils import memoized_property
 from jsii._kernel.providers.base import BaseKernel
 from jsii._kernel.types import (
@@ -129,15 +136,62 @@ class _NodeProcess:
         self._serializer.register_unstructure_hook(ObjRef, _unstructure_ref)
         self._serializer.register_structure_hook(ObjRef, _with_reference)
 
+        self._ctx_stack = contextlib.ExitStack()
+
     def __del__(self):
         self.stop()
+
+    def _jsii_runtime(self):
+        # We have the JSII Runtime bundled with our package and we want to extract it,
+        # however if we just blindly use importlib.resources for this, we're going to
+        # have our jsii-runtime.js existing in a *different* temporary directory from
+        # the jsii-runtime.js.map, which we don't want. We can manually set up a
+        # temporary directory and extract our resources to there, but we don't want to
+        # pay the case of setting up a a temporary directory and shuffling bytes around
+        # in the common case where these files already exist on disk side by side. So
+        # we will check what loader the embedded package used, if it's a
+        # SourceFileLoader then we'll assume it's going to be on the filesystem and
+        # just use importlib.resources.path.
+
+        # jsii-runtime.js MUST be the first item in this list.
+        filenames = ["jsii-runtime.js", "jsii-runtime.js.map", "mappings.wasm"]
+
+        if isinstance(
+            jsii._embedded.jsii.__loader__, importlib.machinery.SourceFileLoader
+        ):
+            paths = [
+                self._ctx_stack.enter_context(
+                    importlib_resources.path(jsii._embedded.jsii, f)
+                )
+                for f in filenames
+            ]
+        else:
+            tmpdir = self._ctx_stack.enter_context(tempfile.TemporaryDirectory())
+            paths = [os.path.join(tmpdir, filename) for filename in filenames]
+
+            for path, filename in zip(paths, filenames):
+                with open(path, "wb") as fp:
+                    fp.write(
+                        importlib_resources.read_binary(jsii._embedded.jsii, filename)
+                    )
+
+        # Ensure that our jsii-runtime.js is the first entry in our paths, and that all
+        # of our paths, are in a commmon directory, and we didn't get them split into
+        # multiple directories somehow.
+        assert os.path.basename(paths[0]) == filenames[0]
+        assert os.path.commonpath(paths) == os.path.dirname(paths[0])
+
+        # Return our first path, which should be the path for jsii-runtime.js
+        return paths[0]
 
     def _next_message(self) -> Mapping[Any, Any]:
         return json.loads(self._process.stdout.readline(), object_hook=ohook)
 
     def start(self):
         self._process = subprocess.Popen(
-            "jsii-runtime", shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE
+            ["node", self._jsii_runtime()],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
         )
         self.handshake()
 
@@ -149,6 +203,8 @@ class _NodeProcess:
             self._process.wait(timeout=5)
         except subprocess.TimeoutExpired:
             self._process.kill()
+
+        self._ctx_stack.close()
 
     def handshake(self):
         resp: _HelloResponse = self._serializer.structure(
