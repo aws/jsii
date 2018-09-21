@@ -22,7 +22,9 @@ export default class Python extends Target {
         // this here is easy.
         await shell("black", ["--py36", sourceDir], {});
 
-        return this.copyFiles(sourceDir, outDir);
+        // Actually package up our code, both as a sdist and a wheel for publishing.
+        await shell("python", ["setup.py", "sdist", "--dist-dir", outDir], { cwd: sourceDir });
+        await shell("python", ["setup.py", "bdist_wheel", "--dist-dir", outDir], { cwd: sourceDir });
     }
 }
 
@@ -223,6 +225,46 @@ class PythonGenerator extends Generator {
 
         this.code.openFile(assemblyInitFilename);
         this.code.closeFile(assemblyInitFilename);
+    }
+
+    protected onEndAssembly(assm: spec.Assembly, _fingerprint: boolean) {
+        debug("onEndAssembly");
+        debug(assm);
+
+        // We need to write out our packaging for the Python ecosystem here.
+        // TODO:
+        //      - Author
+        //      - README
+        //      - License
+        //      - Classifiers
+        //      - install_requires
+        this.code.openFile("setup.py");
+        this.code.line("import setuptools");
+        this.code.indent("setuptools.setup(");
+        this.code.line(`name="${assm.name}",`);
+        this.code.line(`version="${assm.version}",`);
+        this.code.line(`description="${assm.description}",`);
+        this.code.line(`url="${assm.homepage}",`);
+        this.code.line('package_dir={"": "src"},');
+        this.code.line('packages=setuptools.find_packages(where="src"),');
+        this.code.line(`package_data={"${this.toPythonModuleName(assm.name)}._jsii": ["*.jsii.tgz"]},`);
+        this.code.line('python_requires=">=3.6",');
+        this.code.unindent(")");
+        this.code.closeFile("setup.py");
+
+        // Because we're good citizens, we're going to go ahead and support pyproject.toml
+        // as well.
+        // TODO: Might be easier to just use a TOML library to write this out.
+        this.code.openFile("pyproject.toml");
+        this.code.line("[build-system]");
+        this.code.line('requires = ["setuptools", "wheel"]');
+        this.code.closeFile("pyproject.toml");
+
+        // We also need to write out a MANIFEST.in to ensure that all of our required
+        // files are included.
+        this.code.openFile("MANIFEST.in")
+        this.code.line("include pyproject.toml")
+        this.code.closeFile("MANIFEST.in")
     }
 
     protected onBeginNamespace(ns: string) {
@@ -426,10 +468,6 @@ class PythonGenerator extends Generator {
     }
 
     // Not Currently Used
-
-    protected onEndAssembly(_assm: spec.Assembly, _fingerprint: boolean) {
-        debug("onEndAssembly");
-    }
 
     protected onBeginInterface(_ifc: spec.InterfaceType) {
         debug("onBeginInterface");
