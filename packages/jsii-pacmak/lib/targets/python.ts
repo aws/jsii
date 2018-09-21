@@ -99,11 +99,23 @@ class Module {
     public write(code: CodeMaker) {
         // Before we do Anything, we need to write out our module headers, this is where
         // we handle stuff like imports, any required initialization, etc.
-        code.line("from jsii.runtime import JSIIAssembly, JSIIMeta, jsii_method, jsii_property, jsii_classmethod, jsii_classproperty")
+        code.line(
+            this.generateImportFrom(
+                "jsii.runtime",
+                [
+                    "JSIIAssembly",
+                    "JSIIMeta",
+                    "jsii_method",
+                    "jsii_property",
+                    "jsii_classmethod",
+                    "jsii_classproperty",
+                ]
+            )
+        )
 
         // Determine if we need to write out the kernel load line.
         if (this.assembly && this.assemblyFilename) {
-            code.line(`__jsii_assembly__ = JSIIAssembly.load("${this.assembly.name}", "${this.assembly.version}", __name__, "${this.assemblyFilename}")`);
+            code.line(`__jsii_assembly__ = _runtime.JSIIAssembly.load("${this.assembly.name}", "${this.assembly.version}", __name__, "${this.assemblyFilename}")`);
         }
 
         // Now that we've gotten all of the module header stuff done, we need to go
@@ -114,6 +126,15 @@ class Module {
 
             (code as any)[methodName](...args);
         }
+    }
+
+    private generateImportFrom(from: string, names: string[]): string {
+        // Whenever we import something, we want to prefix all of the names we're
+        // importing with an underscore to indicate that these names are private. We
+        // do this, because otherwise we could get clashes in the names we use, and the
+        // names of exported classes.
+        const importNames = names.map(n => `${n} as _${n}`);
+        return `from ${from} import ${importNames.join(", ")}`;
     }
 }
 
@@ -177,7 +198,7 @@ class PythonGenerator extends Generator {
         // TODO: Figure out what to do with abstract here.
         abstract;
 
-        this.currentModule().openBlock(`class ${cls.name}(metaclass=JSIIMeta, jsii_type="${cls.fqn}")`);
+        this.currentModule().openBlock(`class ${cls.name}(metaclass=_JSIIMeta, jsii_type="${cls.fqn}")`);
     }
 
     protected onEndClass(_cls: spec.ClassType) {
@@ -190,14 +211,14 @@ class PythonGenerator extends Generator {
         debug("onStaticMethod");
 
         // TODO: Handle the case where the Python name and the JSII name differ.
-        this.currentModule().line("@jsii_classmethod");
+        this.currentModule().line("@_jsii_classmethod");
         this.emitPythonMethod(method.name, "cls", method.parameters, method.returns);
     }
 
     protected onMethod(_cls: spec.ClassType, method: spec.Method) {
         debug("onMethod");
 
-        this.currentModule().line("@jsii_method");
+        this.currentModule().line("@_jsii_method");
         this.emitPythonMethod(method.name, "self", method.parameters, method.returns);
     }
 
@@ -206,14 +227,14 @@ class PythonGenerator extends Generator {
 
         // TODO: Properties have a bunch of states, they can have getters and setters
         //       we need to better handle all of these cases.
-        this.currentModule().line("@jsii_classproperty");
+        this.currentModule().line("@_jsii_classproperty");
         this.emitPythonMethod(prop.name, "self", [], prop.type);
     }
 
     protected onProperty(_cls: spec.ClassType, prop: spec.Property) {
         debug("onProperty");
 
-        this.currentModule().line("@jsii_property");
+        this.currentModule().line("@_jsii_property");
         this.emitPythonMethod(prop.name, "self", [], prop.type);
     }
 
