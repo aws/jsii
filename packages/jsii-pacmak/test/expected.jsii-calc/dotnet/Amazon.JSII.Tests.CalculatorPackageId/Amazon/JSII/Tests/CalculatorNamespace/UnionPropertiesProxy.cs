@@ -2,21 +2,21 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiInterfaceProxy(typeof(IUnionProperties), "jsii-calc.UnionProperties")]
-    internal class UnionPropertiesProxy : DeputyBase, IUnionProperties
+    [JsiiTypeProxy(typeof(IUnionProperties), "jsii-calc.UnionProperties")]
+    internal sealed class UnionPropertiesProxy : DeputyBase, IUnionProperties
     {
         private UnionPropertiesProxy(ByRefValue reference): base(reference)
         {
         }
 
         [JsiiProperty("bar", "{\"union\":{\"types\":[{\"primitive\":\"string\"},{\"primitive\":\"number\"},{\"fqn\":\"jsii-calc.AllTypes\"}]}}")]
-        public virtual object Bar
+        public object Bar
         {
             get => GetInstanceProperty<object>();
         }
 
         [JsiiProperty("foo", "{\"union\":{\"types\":[{\"primitive\":\"string\"},{\"primitive\":\"number\"}]},\"optional\":true}")]
-        public virtual object Foo
+        public object Foo
         {
             get => GetInstanceProperty<object>();
             set => SetInstanceProperty(value);

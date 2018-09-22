@@ -3,6 +3,7 @@ using Amazon.JSII.JsonModel.Spec;
 using Microsoft.CodeAnalysis;
 using Newtonsoft.Json;
 using Xunit;
+using TypeKind = Amazon.JSII.JsonModel.Spec.TypeKind;
 
 namespace Amazon.JSII.Generator.UnitTests.Interface
 {
@@ -10,12 +11,13 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
     {
         const string Prefix = nameof(Generator) + "." + nameof(InterfaceProxyGenerator) + ".";
 
-        string Render(InterfaceType interfaceType, string package = "myPackage", string @namespace = "MyNamespace", string typeName = "MyInterface")
+        string Render(InterfaceType interfaceType, string package = "myPackage", string @namespace = "MyNamespace",
+            string typeName = "MyInterface")
         {
             Symbols.MapTypeToPackage(interfaceType.FullyQualifiedName, package);
             string suffix = interfaceType.Namespace != null ? "." + interfaceType.Namespace : "";
             Symbols.MapNamespace(interfaceType.Assembly + suffix, @namespace);
-            Symbols.MapTypeName(interfaceType.FullyQualifiedName, typeName, JsonModel.Spec.TypeKind.Interface);
+            Symbols.MapTypeName(interfaceType.FullyQualifiedName, typeName, TypeKind.Interface);
 
             var generator = new InterfaceProxyGenerator(package, interfaceType, Symbols, Namespaces);
 
@@ -37,10 +39,10 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
 
             string actual = Render(interfaceType);
             string expected =
-@"namespace MyNamespace
+                @"namespace MyNamespace
 {
-    [JsiiInterfaceProxy(typeof(IMyInterface), ""myInterfaceFqn"")]
-    internal class MyInterfaceProxy : DeputyBase, IMyInterface
+    [JsiiTypeProxy(typeof(IMyInterface), ""myInterfaceFqn"")]
+    internal sealed class MyInterfaceProxy : DeputyBase, IMyInterface
     {
         private MyInterfaceProxy(ByRefValue reference): base(reference)
         {
@@ -59,24 +61,24 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
                 "myPackage",
                 "myInterface",
                 "myNamespace",
-                methods: new Method[] { new Method(false, false, true, name: "myMethod") }
+                methods: new Method[] {new Method(false, false, true, name: "myMethod")}
             );
 
             Symbols.MapMethodName("myInterfaceFqn", "myMethod", "MyMethod");
 
             string actual = Render(interfaceType);
             string expected =
-@"namespace MyNamespace
+                @"namespace MyNamespace
 {
-    [JsiiInterfaceProxy(typeof(IMyInterface), ""myInterfaceFqn"")]
-    internal class MyInterfaceProxy : DeputyBase, IMyInterface
+    [JsiiTypeProxy(typeof(IMyInterface), ""myInterfaceFqn"")]
+    internal sealed class MyInterfaceProxy : DeputyBase, IMyInterface
     {
         private MyInterfaceProxy(ByRefValue reference): base(reference)
         {
         }
 
         [JsiiMethod(""myMethod"", null, ""[]"")]
-        public virtual void MyMethod()
+        public void MyMethod()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
@@ -94,7 +96,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
                 "myPackage",
                 "myAncestorInterface",
                 "myNamespace",
-                methods: new [] { new Method(false, false, true, name: "myAncestorMethod") }
+                methods: new[] {new Method(false, false, true, name: "myAncestorMethod")}
             );
             InterfaceType baseInterface = new InterfaceType
             (
@@ -102,8 +104,8 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
                 "myPackage",
                 "myBaseInterface",
                 "myNamespace",
-                methods: new[] { new Method(false, false, true, name: "myBaseMethod") },
-                interfaces: new[] { new TypeReference("myAncestorInterfaceFqn") }
+                methods: new[] {new Method(false, false, true, name: "myBaseMethod")},
+                interfaces: new[] {new TypeReference("myAncestorInterfaceFqn")}
             );
             InterfaceType interfaceType = new InterfaceType
             (
@@ -111,36 +113,36 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
                 "myPackage",
                 "myInterface",
                 "myNamespace",
-                interfaces: new[] { new TypeReference("myBaseInterfaceFqn") }
+                interfaces: new[] {new TypeReference("myBaseInterfaceFqn")}
             );
 
-            Symbols.MapTypeName("myAncestorInterfaceFqn", "MyAncestorInterface", JsonModel.Spec.TypeKind.Interface);
+            Symbols.MapTypeName("myAncestorInterfaceFqn", "MyAncestorInterface", TypeKind.Interface);
             Symbols.MapFullyQualifiedNameToType("myAncestorInterfaceFqn", ancestorInterface);
             Symbols.MapMethodName("myInterfaceFqn", "myAncestorMethod", "MyAncestorMethod");
 
-            Symbols.MapTypeName("myBaseInterfaceFqn", "MyBaseInterface", JsonModel.Spec.TypeKind.Interface);
+            Symbols.MapTypeName("myBaseInterfaceFqn", "MyBaseInterface", TypeKind.Interface);
             Symbols.MapFullyQualifiedNameToType("myBaseInterfaceFqn", baseInterface);
             Symbols.MapMethodName("myInterfaceFqn", "myBaseMethod", "MyBaseMethod");
 
             string actual = Render(interfaceType);
             string expected =
-@"namespace MyNamespace
+                @"namespace MyNamespace
 {
-    [JsiiInterfaceProxy(typeof(IMyInterface), ""myInterfaceFqn"")]
-    internal class MyInterfaceProxy : DeputyBase, IMyInterface
+    [JsiiTypeProxy(typeof(IMyInterface), ""myInterfaceFqn"")]
+    internal sealed class MyInterfaceProxy : DeputyBase, IMyInterface
     {
         private MyInterfaceProxy(ByRefValue reference): base(reference)
         {
         }
 
         [JsiiMethod(""myBaseMethod"", null, ""[]"")]
-        public virtual void MyBaseMethod()
+        public void MyBaseMethod()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod(""myAncestorMethod"", null, ""[]"")]
-        public virtual void MyAncestorMethod()
+        public void MyAncestorMethod()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
@@ -158,16 +160,16 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
                 "myPackage",
                 "myInterface",
                 "myNamespace",
-                docs: new Docs { { "foo", "bar" } }
+                docs: new Docs {{"foo", "bar"}}
             );
 
             string actual = Render(interfaceType);
             string expected =
-@"namespace MyNamespace
+                @"namespace MyNamespace
 {
     /// <remarks>foo: bar</remarks>
-    [JsiiInterfaceProxy(typeof(IMyInterface), ""myInterfaceFqn"")]
-    internal class MyInterfaceProxy : DeputyBase, IMyInterface
+    [JsiiTypeProxy(typeof(IMyInterface), ""myInterfaceFqn"")]
+    internal sealed class MyInterfaceProxy : DeputyBase, IMyInterface
     {
         private MyInterfaceProxy(ByRefValue reference): base(reference)
         {
@@ -181,7 +183,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
         public void EnvironmentRegression()
         {
             const string json =
-@"    {
+                @"    {
       ""docs"": {
         ""comment"": ""Models an AWS execution environment, for use within the CDK toolkit.""
       },
@@ -231,13 +233,14 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
             Symbols.MapPropertyName("jsii$aws_cdk_cx_api$.Environment", "account", "Account");
             Symbols.MapPropertyName("jsii$aws_cdk_cx_api$.Environment", "region", "Region");
 
-            string actual = Render(interfaceType, package: "aws-cdk-cx-api", @namespace: "Aws.Cdk.CxApi", typeName: "Environment");
+            string actual = Render(interfaceType, package: "aws-cdk-cx-api", @namespace: "Aws.Cdk.CxApi",
+                typeName: "Environment");
             string expected =
-@"namespace Aws.Cdk.CxApi
+                @"namespace Aws.Cdk.CxApi
 {
     /// <summary>Models an AWS execution environment, for use within the CDK toolkit.</summary>
-    [JsiiInterfaceProxy(typeof(IEnvironment), ""jsii$aws_cdk_cx_api$.Environment"")]
-    internal class EnvironmentProxy : DeputyBase, IEnvironment
+    [JsiiTypeProxy(typeof(IEnvironment), ""jsii$aws_cdk_cx_api$.Environment"")]
+    internal sealed class EnvironmentProxy : DeputyBase, IEnvironment
     {
         private EnvironmentProxy(ByRefValue reference): base(reference)
         {
@@ -245,7 +248,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
 
         /// <summary>The arbitrary name of this environment (user-set, or at least user-meaningful) </summary>
         [JsiiProperty(""name"", ""{\""primitive\"":\""string\""}"")]
-        public virtual string Name
+        public string Name
         {
             get => GetInstanceProperty<string>();
             set => SetInstanceProperty(value);
@@ -253,7 +256,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
 
         /// <summary>The 12-digit AWS account ID for the account this environment deploys into </summary>
         [JsiiProperty(""account"", ""{\""primitive\"":\""string\""}"")]
-        public virtual string Account
+        public string Account
         {
             get => GetInstanceProperty<string>();
             set => SetInstanceProperty(value);
@@ -261,7 +264,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
 
         /// <summary>The AWS region name where this environment deploys into </summary>
         [JsiiProperty(""region"", ""{\""primitive\"":\""string\""}"")]
-        public virtual string Region
+        public string Region
         {
             get => GetInstanceProperty<string>();
             set => SetInstanceProperty(value);

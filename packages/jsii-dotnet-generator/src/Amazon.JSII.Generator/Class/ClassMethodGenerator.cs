@@ -1,10 +1,8 @@
-﻿using Amazon.JSII.JsonModel.Spec;
-using Microsoft.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Amazon.JSII.JsonModel.Spec;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using SF = Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Amazon.JSII.Generator.Class
@@ -16,15 +14,15 @@ namespace Amazon.JSII.Generator.Class
         {
         }
 
-        bool IsDefinedOnAncestor
+        protected bool IsDefinedOnAncestor
         {
             get
             {
-                string[] objectMethods = new[]
+                string[] objectMethods =
                 {
                     "ToString",
                     "GetHashCode",
-                    "Equals",
+                    "Equals"
                 };
 
                 if (objectMethods.Contains(NameUtils.ConvertMethodName(Method.Name)))

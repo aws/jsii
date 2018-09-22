@@ -1,13 +1,10 @@
+using System;
+using System.Collections.Generic;
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Runtime.Services;
 using Amazon.JSII.Tests.CalculatorNamespace;
-using Amazon.JSII.Tests.CalculatorNamespace.composition;
 using Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation;
 using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.IO;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -784,13 +781,30 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         }
 
         [Fact(DisplayName = Prefix + nameof(NodeStandardLibrary))]
-        public void NodeStandardLibrary() {
+        public void NodeStandardLibrary() 
+        {
             NodeStandardLibrary obj = new NodeStandardLibrary();
             Assert.Equal("Hello, resource!", obj.FsReadFile());
             Assert.Equal("Hello, resource! SYNC!", obj.FsReadFileSync());
             Assert.True(obj.OsPlatform.Length > 0);
             Assert.Equal("6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50",
                 obj.CryptoSha256());
+        }
+        
+        [Fact(DisplayName = Prefix + nameof(ReturnAbstract))]
+        public void ReturnAbstract()
+        {
+            var obj = new AbstractClassReturner();
+            var obj2 = obj.GiveMeAbstract();
+
+            Assert.Equal("Hello, John!!", obj2.AbstractMethod("John"));
+            Assert.Equal("propFromInterfaceValue", obj2.PropFromInterface);
+            Assert.Equal(42, obj2.NonAbstractMethod());
+
+            var iface = obj.GiveMeInterface();
+            Assert.Equal("propFromInterfaceValue", iface.PropFromInterface);
+
+            Assert.Equal("hello-abstract-property", obj.ReturnAbstractFromProperty.AbstractProperty);
         }
 
 

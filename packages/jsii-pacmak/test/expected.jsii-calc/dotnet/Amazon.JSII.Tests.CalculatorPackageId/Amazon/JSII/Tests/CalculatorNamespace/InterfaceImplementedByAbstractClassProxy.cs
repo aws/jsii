@@ -6,15 +6,15 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// awslabs/jsii#220
     /// Abstract return type
     /// </summary>
-    [JsiiInterfaceProxy(typeof(IInterfaceImplementedByAbstractClass), "jsii-calc.InterfaceImplementedByAbstractClass")]
-    internal class InterfaceImplementedByAbstractClassProxy : DeputyBase, IInterfaceImplementedByAbstractClass
+    [JsiiTypeProxy(typeof(IInterfaceImplementedByAbstractClass), "jsii-calc.InterfaceImplementedByAbstractClass")]
+    internal sealed class InterfaceImplementedByAbstractClassProxy : DeputyBase, IInterfaceImplementedByAbstractClass
     {
         private InterfaceImplementedByAbstractClassProxy(ByRefValue reference): base(reference)
         {
         }
 
         [JsiiProperty("propFromInterface", "{\"primitive\":\"string\"}")]
-        public virtual string PropFromInterface
+        public string PropFromInterface
         {
             get => GetInstanceProperty<string>();
         }

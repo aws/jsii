@@ -15,6 +15,8 @@ namespace Amazon.JSII.Generator
         string GetName(Type type, bool disambiguate = false);
 
         string GetName(string fullyQualifiedName, bool disambiguate = false);
+        
+        string GetAbstractClassProxyName(ClassType type, bool disambiguate = false);
 
         string GetInterfaceProxyName(InterfaceType type, bool disambiguate = false);
 
