@@ -2,6 +2,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <IncludeSource>true</IncludeSource>
     <PackageVersion>0.7.6</PackageVersion>
     <PackageId>Amazon.JSII.Tests.CalculatorPackageId.BasePackageId</PackageId>
     <Description>An example direct dependency for jsii-calc.</Description>
