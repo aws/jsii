@@ -46,7 +46,9 @@ namespace Amazon.JSII.Runtime.Services
             ConstructorInfo GetByRefConstructor()
             {
                 Type type = _types.GetClassType(byRefValue.FullyQualifiedName);
-                if (type == null)
+
+                // If type is an interface or abstract class
+                if (type == null || type.IsAbstract)
                 {
                     type = _types.GetProxyType(byRefValue.FullyQualifiedName);
                 }
@@ -60,12 +62,6 @@ namespace Amazon.JSII.Runtime.Services
                 }
 
                 BindingFlags constructorFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
-
-                // Get proxy class implementation for abstract types.
-                if (type.IsClass && type.IsAbstract)
-                {
-                    type = _types.GetProxyType(byRefValue.FullyQualifiedName);
-                }
 
                 return type.GetConstructor(constructorFlags, null, new[] {typeof(ByRefValue)}, null);
             }

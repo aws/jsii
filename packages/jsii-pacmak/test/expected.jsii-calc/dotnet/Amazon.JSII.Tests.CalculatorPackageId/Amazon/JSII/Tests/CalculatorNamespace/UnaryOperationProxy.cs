@@ -3,8 +3,8 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>An operation on a single operand.</summary>
-    [JsiiInterfaceProxy(typeof(UnaryOperation), "jsii-calc.UnaryOperation")]
-    internal class UnaryOperationProxy : UnaryOperation
+    [JsiiTypeProxy(typeof(UnaryOperation), "jsii-calc.UnaryOperation")]
+    internal sealed class UnaryOperationProxy : UnaryOperation
     {
         private UnaryOperationProxy(ByRefValue reference): base(reference)
         {

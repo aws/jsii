@@ -3,6 +3,7 @@ using Amazon.JSII.JsonModel.Spec;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Xunit;
+using TypeKind = Amazon.JSII.JsonModel.Spec.TypeKind;
 
 namespace Amazon.JSII.Generator.UnitTests.Interface
 {
@@ -23,7 +24,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
 
             Symbols.MapTypeToPackage("myInterfaceFqn", "myPackage");
             Symbols.MapNamespace("", "MyNamespace");
-            Symbols.MapTypeName("myInterfaceFqn", "MyInterface", JsonModel.Spec.TypeKind.Interface);
+            Symbols.MapTypeName("myInterfaceFqn", "MyInterface", TypeKind.Interface);
 
             var generator = new InterfaceProxyMethodGenerator(interfaceType, method, Symbols, Namespaces);
 
@@ -41,7 +42,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
             string actual = Render(method);
             string expected =
 @"[JsiiMethod(""myMethod"", null, ""[]"")]
-public virtual void MyMethod()
+public void MyMethod()
 {
     InvokeInstanceVoidMethod(new object[]{});
 }";
@@ -62,14 +63,14 @@ public virtual void MyMethod()
             );
 
             Symbols.MapMethodName("myInterfaceFqn", "myMethod", "MyMethod");
-            Symbols.MapTypeName("myParamTypeFqn", "MyParamType", JsonModel.Spec.TypeKind.Class);
+            Symbols.MapTypeName("myParamTypeFqn", "MyParamType", TypeKind.Class);
             Symbols.MapParameterName("myParam", "myParam");
             Symbols.MapParameterName("event", "@event");
 
             string actual = Render(method);
             string expected =
 @"[JsiiMethod(""myMethod"", null, ""[{\""name\"":\""myParam\"",\""type\"":{\""fqn\"":\""myParamTypeFqn\""}},{\""name\"":\""event\"",\""type\"":{\""primitive\"":\""string\""}}]"")]
-public virtual void MyMethod(MyParamType myParam, string @event)
+public void MyMethod(MyParamType myParam, string @event)
 {
     InvokeInstanceVoidMethod(new object[]{myParam, @event});
 }";
@@ -90,7 +91,7 @@ public virtual void MyMethod(MyParamType myParam, string @event)
             string actual = Render(method);
             string expected =
 @"[JsiiMethod(""myMethod"", null, ""[]"")]
-public virtual void MyMethod()
+public void MyMethod()
 {
     InvokeInstanceVoidMethod(new object[]{});
 }";
@@ -107,12 +108,12 @@ public virtual void MyMethod()
             );
 
             Symbols.MapMethodName("myInterfaceFqn", "myMethod", "MyMethod");
-            Symbols.MapTypeName("myReturnTypeFqn", "MyReturnType", JsonModel.Spec.TypeKind.Class);
+            Symbols.MapTypeName("myReturnTypeFqn", "MyReturnType", TypeKind.Class);
 
             string actual = Render(method);
             string expected =
 @"[JsiiMethod(""myMethod"", ""{\""fqn\"":\""myReturnTypeFqn\""}"", ""[]"")]
-public virtual MyReturnType MyMethod()
+public MyReturnType MyMethod()
 {
     return InvokeInstanceMethod<MyReturnType>(new object[]{});
 }";

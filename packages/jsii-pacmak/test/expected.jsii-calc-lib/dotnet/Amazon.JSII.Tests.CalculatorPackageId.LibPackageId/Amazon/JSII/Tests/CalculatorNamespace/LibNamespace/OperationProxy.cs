@@ -3,8 +3,8 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
     /// <summary>Represents an operation on values.</summary>
-    [JsiiInterfaceProxy(typeof(Operation), "@scope/jsii-calc-lib.Operation")]
-    internal class OperationProxy : Operation
+    [JsiiTypeProxy(typeof(Operation), "@scope/jsii-calc-lib.Operation")]
+    internal sealed class OperationProxy : Operation
     {
         private OperationProxy(ByRefValue reference): base(reference)
         {

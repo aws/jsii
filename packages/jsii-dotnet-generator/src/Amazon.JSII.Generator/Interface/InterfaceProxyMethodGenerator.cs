@@ -1,8 +1,8 @@
-﻿using Amazon.JSII.JsonModel.Spec;
+﻿using System;
+using System.Collections.Generic;
+using Amazon.JSII.JsonModel.Spec;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System;
-using System.Collections.Generic;
 using SF = Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Amazon.JSII.Generator.Interface
@@ -34,7 +34,6 @@ namespace Amazon.JSII.Generator.Interface
         protected override IEnumerable<SyntaxKind> GetModifierKeywords()
         {
             yield return SyntaxKind.PublicKeyword;
-            yield return SyntaxKind.VirtualKeyword;
         }
 
         protected override BlockSyntax GetBody()

@@ -2,8 +2,8 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiInterfaceProxy(typeof(AbstractClass), "jsii-calc.AbstractClass")]
-    internal class AbstractClassProxy : AbstractClass
+    [JsiiTypeProxy(typeof(AbstractClass), "jsii-calc.AbstractClass")]
+    internal sealed class AbstractClassProxy : AbstractClass
     {
         private AbstractClassProxy(ByRefValue reference): base(reference)
         {

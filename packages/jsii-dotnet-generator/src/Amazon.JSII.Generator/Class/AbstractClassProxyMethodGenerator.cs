@@ -23,10 +23,6 @@ namespace Amazon.JSII.Generator.Class
             {
                 yield return SyntaxKind.OverrideKeyword;
             }
-            else
-            {
-                yield return SyntaxKind.VirtualKeyword;
-            }
         }
 
         protected override BlockSyntax GetBody()

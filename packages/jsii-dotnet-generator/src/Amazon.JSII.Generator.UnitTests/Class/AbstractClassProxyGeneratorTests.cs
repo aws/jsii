@@ -36,8 +36,8 @@ namespace Amazon.JSII.Generator.UnitTests.Class
             var expected =
                 @"namespace MyNamespace
 {
-    [JsiiInterfaceProxy(typeof(MyClass), ""myFqn"")]
-    internal class MyClassProxy : MyClass
+    [JsiiTypeProxy(typeof(MyClass), ""myFqn"")]
+    internal sealed class MyClassProxy : MyClass
     {
         private MyClassProxy(ByRefValue reference): base(reference)
         {
@@ -66,8 +66,8 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                 @"namespace MyNamespace
 {
     /// <remarks>foo: bar</remarks>
-    [JsiiInterfaceProxy(typeof(MyClass), ""myFqn"")]
-    internal class MyClassProxy : MyClass
+    [JsiiTypeProxy(typeof(MyClass), ""myFqn"")]
+    internal sealed class MyClassProxy : MyClass
     {
         private MyClassProxy(ByRefValue reference): base(reference)
         {
@@ -115,8 +115,8 @@ namespace Amazon.JSII.Generator.UnitTests.Class
             string expected =
                 @"namespace MyNamespace
 {
-    [JsiiInterfaceProxy(typeof(MyClass), ""myFqn"")]
-    internal class MyClassProxy : MyClass
+    [JsiiTypeProxy(typeof(MyClass), ""myFqn"")]
+    internal sealed class MyClassProxy : MyClass
     {
         private MyClassProxy(ByRefValue reference): base(reference)
         {
@@ -168,8 +168,8 @@ namespace Amazon.JSII.Generator.UnitTests.Class
             string expected =
                 @"namespace MyNamespace
 {
-    [JsiiInterfaceProxy(typeof(MyClass), ""myFqn"")]
-    internal class MyClassProxy : MyClass
+    [JsiiTypeProxy(typeof(MyClass), ""myFqn"")]
+    internal sealed class MyClassProxy : MyClass
     {
         private MyClassProxy(ByRefValue reference): base(reference)
         {

@@ -368,3 +368,6 @@ jspm_packages/
 # that NuGet uses for external packages. We don't want to ignore the
 # lerna packages.
 !/packages/*
+
+#MacOS metadata
+.DS_Store

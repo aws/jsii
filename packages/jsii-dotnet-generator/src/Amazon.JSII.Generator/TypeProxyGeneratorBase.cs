@@ -20,7 +20,9 @@ namespace Amazon.JSII.Generator
             return SF.ClassDeclaration
             (
                 CreateAttributes(),
-                SF.TokenList(SF.Token(SyntaxKind.InternalKeyword)),
+                SF.TokenList(
+                    SF.Token(SyntaxKind.InternalKeyword),
+                    SF.Token(SyntaxKind.SealedKeyword)),
                 GetProxyTypeNameSyntax(),
                 null,
                 CreateBaseList(),
@@ -38,7 +40,7 @@ namespace Amazon.JSII.Generator
                     SF.AttributeList(SF.SeparatedList(new[]
                     {
                         SF.Attribute(
-                            SF.ParseName("JsiiInterfaceProxy"),
+                            SF.ParseName("JsiiTypeProxy"),
                             SF.ParseAttributeArgumentList($"({typeOfExpression}, {fullyQualifiedNameLiteral})")
                         )
                     }))
@@ -51,7 +53,7 @@ namespace Amazon.JSII.Generator
 
                 IEnumerable<BaseTypeSyntax> GetBaseTypes()
                 {
-                    if (IsImplementingInterface)
+                    if (Type is InterfaceType)
                     {
                         yield return SF.SimpleBaseType(SF.ParseTypeName("DeputyBase"));
                     }
@@ -89,8 +91,6 @@ namespace Amazon.JSII.Generator
                 null
             );
         }
-
-        private bool IsImplementingInterface => Type is InterfaceType;
 
         protected abstract SyntaxToken GetProxyTypeNameSyntax();
 

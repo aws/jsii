@@ -4,8 +4,8 @@ using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 namespace Amazon.JSII.Tests.CalculatorNamespace.composition
 {
     /// <summary>Abstract operation composed from an expression of other operations.</summary>
-    [JsiiInterfaceProxy(typeof(CompositeOperation_), "jsii-calc.composition.CompositeOperation")]
-    internal class CompositeOperationProxy : CompositeOperation_
+    [JsiiTypeProxy(typeof(CompositeOperation_), "jsii-calc.composition.CompositeOperation")]
+    internal sealed class CompositeOperationProxy : CompositeOperation_
     {
         private CompositeOperationProxy(ByRefValue reference): base(reference)
         {

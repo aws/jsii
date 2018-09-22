@@ -94,7 +94,12 @@ namespace Amazon.JSII.Generator.Class
                 return methods;
             }
 
-            // Only get the first declaration encountered, and keep it if it is abstract.
+            /*
+              Only get the first declaration encountered, and keep it if it is abstract. The list contains ALL
+              methods and properties encountered, in the order encountered. An abstract class can have concrete
+              implementations. Therefore, we only generate methods/properties if the first member encountered
+              is unimplemented. 
+            */
             return GetAllMethodsRecurse(type, Enumerable.Empty<Method>())
                 .GroupBy(m => (m.Name,
                     string.Join("",
@@ -154,7 +159,12 @@ namespace Amazon.JSII.Generator.Class
                 return properties;
             }
 
-            // Only get the first declaration encountered, and keep it if it is abstract.
+            /*
+              Only get the first declaration encountered, and keep it if it is abstract. The list contains ALL
+              methods and properties encountered, in the order encountered. An abstract class can have concrete
+              implementations. Therefore, we only generate methods/properties if the first member encountered
+              is unimplemented. 
+            */
             return GetAllPropertiesRecurse(type, Enumerable.Empty<Property>())
                 .GroupBy(p => p.Name)
                 .Select(g => g.First())

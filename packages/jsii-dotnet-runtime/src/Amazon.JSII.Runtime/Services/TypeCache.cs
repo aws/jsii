@@ -46,7 +46,7 @@ namespace Amazon.JSII.Runtime.Services
 
         public Type GetProxyType(string fullyQualifiedName)
         {
-            return GetType<JsiiInterfaceProxyAttribute>(fullyQualifiedName + ProxySuffix);
+            return GetType<JsiiTypeProxyAttribute>(fullyQualifiedName + ProxySuffix);
         }
 
         public Type GetFrameworkType(TypeReference reference)
@@ -160,7 +160,7 @@ namespace Amazon.JSII.Runtime.Services
                 if (attribute != null)
                 {
                     string fullyQualifiedName = attribute.FullyQualifiedName;
-                    if (attribute is JsiiInterfaceProxyAttribute)
+                    if (attribute is JsiiTypeProxyAttribute)
                     {
                         fullyQualifiedName += ProxySuffix;
                     }
