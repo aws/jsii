@@ -14,6 +14,7 @@ import { VERSION_DESC } from '../lib/version';
     const targetConstructors = await Target.findAll();
     const argv = yargs
         .usage('Usage: jsii-pacmak [-t target,...] [-o outdir] [package-dir]')
+        .env('JSII_PACMAK')
         .option('targets', {
             alias: ['target', 't'],
             type: 'array',
@@ -45,6 +46,11 @@ import { VERSION_DESC } from '../lib/version';
             alias: 'f',
             type: 'boolean',
             desc: 'force generation of new artifacts, even if the fingerprints match',
+            default: false
+        })
+        .option('force-subdirectory', {
+            type: 'boolean',
+            desc: 'force generation into a target-named subdirectory, even in single-target mode',
             default: false
         })
         .option('recurse', {
@@ -80,9 +86,9 @@ import { VERSION_DESC } from '../lib/version';
     const rootDir = path.resolve(process.cwd(), argv._[0] || '.');
 
     const visited = new Set<string>();
-    await buildPackage(rootDir);
+    await buildPackage(rootDir, true /* isRoot */, argv.forceSubdirectory);
 
-    async function buildPackage(packageDir: string, isRoot = true) {
+    async function buildPackage(packageDir: string, isRoot: boolean, forceSubdirectory: boolean) {
         if (visited.has(packageDir)) {
             return; // already built
         }
@@ -103,7 +109,7 @@ import { VERSION_DESC } from '../lib/version';
         if (argv.recurse) {
             for (const dep of Object.keys(pkg.dependencies || { })) {
                 const depDir = resolveDependencyDirectory(packageDir, dep);
-                await buildPackage(depDir, /* isRoot */ false);
+                await buildPackage(depDir, /* isRoot */ false, forceSubdirectory);
             }
         }
 
@@ -127,7 +133,7 @@ import { VERSION_DESC } from '../lib/version';
             const tarball = await npmPack(packageDir, tmpdir);
             for (const targetName of targets) {
                 // if we are targeting a single language, output to outdir, otherwise outdir/<target>
-                const targetOutputDir = targets.length > 1 ? path.join(outDir, targetName) : outDir;
+                const targetOutputDir = (targets.length > 1 || forceSubdirectory) ? path.join(outDir, targetName) : outDir;
                 logging.debug(`Building ${pkg.name}/${targetName}: ${targetOutputDir}`);
                 await generateTarget(packageDir, targetName, targetOutputDir, tarball);
             }

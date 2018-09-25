@@ -10,9 +10,9 @@ public interface InterfaceWithOptionalMethodArguments extends software.amazon.js
     void hello(final java.lang.String arg1);
 
     /**
-     * A proxy class which for javascript object literal which adhere to this interface.
+     * A proxy class which represents a concrete javascript instance of this type.
      */
-    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.InterfaceWithOptionalMethodArguments {
+    final static class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.InterfaceWithOptionalMethodArguments {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
             super(mode);
         }

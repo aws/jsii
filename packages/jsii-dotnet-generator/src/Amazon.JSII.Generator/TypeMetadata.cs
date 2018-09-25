@@ -67,6 +67,31 @@ namespace Amazon.JSII.Generator
         }
     }
 
+    public class AbstractClassTypeMetadata : ClassTypeMetadata
+    {
+        public string ProxyName { get; private set; }
+        
+        public string FrameworkFullyQualifiedProxyName => $"{Namespace}.{ProxyName}";
+        
+        public AbstractClassTypeMetadata(ClassType type, Assembly assembly)
+            : base(type, assembly)
+        {
+            ProxyName = $"{Name}Proxy";
+        }
+
+        public override void ResolveTypeNameConflicts(ISet<string> namespaceNames)
+        {
+            base.ResolveTypeNameConflicts(namespaceNames);
+
+            ISet<string> memberNames = new HashSet<string>(MemberNames.Values);
+
+            while (memberNames.Contains(ProxyName) || namespaceNames.Contains(FrameworkFullyQualifiedProxyName))
+            {
+                ProxyName += "_";
+            }
+        }
+    }
+
     public class EnumTypeMetadata : TypeMetadata
     {
         public EnumTypeMetadata(EnumType type, Assembly assembly)
@@ -82,7 +107,6 @@ namespace Amazon.JSII.Generator
             MemberNames = new ReadOnlyDictionary<string, string>(memberNames);
             Name = NameUtils.ConvertTypeName(type.Name);
         }
-
     }
 
     public class InterfaceTypeMetadata : TypeMetadata

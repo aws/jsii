@@ -375,3 +375,6 @@ jspm_packages/
 
 # MyPy cache
 .mypy_cache/
+
+#MacOS metadata
+.DS_Store

@@ -11,9 +11,9 @@ namespace Amazon.JSII.Generator.Interface
         public InterfaceMethodGenerator(InterfaceType type, Method method, ISymbolMap symbols, INamespaceSet namespaces)
             : base(type, method, symbols, namespaces)
         {
-            if (method.IsAbstract)
+            if (method.IsAbstract != true)
             {
-                throw new ArgumentException("Abstract methods are not allowed on interfaces", nameof(method));
+                throw new ArgumentException("Interface methods must be abstract", nameof(method));
             }
 
             if (method.IsProtected)

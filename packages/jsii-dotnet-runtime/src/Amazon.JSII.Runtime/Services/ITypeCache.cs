@@ -10,7 +10,7 @@ namespace Amazon.JSII.Runtime.Services
 
         Type GetInterfaceType(string fullyQualifiedName);
 
-        Type GetInterfaceProxyType(string fullyQualifiedName);
+        Type GetProxyType(string fullyQualifiedName);
 
         Type GetFrameworkType(JsonModel.Spec.TypeReference reference);
     }

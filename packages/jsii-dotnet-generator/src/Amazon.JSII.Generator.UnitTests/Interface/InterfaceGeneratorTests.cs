@@ -81,7 +81,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
                 fullyQualifiedName: "myInterfaceFqn",
                 assembly: "",
                 name: "MyInterface",
-                methods: new Method[] { new Method(false, false, false, name: "myMethod") }
+                methods: new Method[] { new Method(false, false, true, name: "myMethod") }
             );
 
             Symbols.MapMethodName("myInterfaceFqn", "myMethod", "MyMethod");

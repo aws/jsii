@@ -3,9 +3,9 @@
 namespace Amazon.JSII.Runtime.Deputy
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
-    public class JsiiInterfaceProxyAttribute : JsiiTypeAttributeBase
+    public class JsiiTypeProxyAttribute : JsiiTypeAttributeBase
     {
-        public JsiiInterfaceProxyAttribute(Type nativeType, string fullyQualifiedName)
+        public JsiiTypeProxyAttribute(Type nativeType, string fullyQualifiedName)
             : base(nativeType, fullyQualifiedName)
         {
         }

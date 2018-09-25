@@ -7,7 +7,7 @@ import software.amazon.jsii.JsiiModule;
 
 public final class $Module extends JsiiModule {
     public $Module() {
-        super("jsii-calc", "0.7.4", $Module.class, "jsii-calc@0.7.4.jsii.tgz");
+        super("jsii-calc", "0.7.6", $Module.class, "jsii-calc@0.7.6.jsii.tgz");
     }
 
     @Override
@@ -18,6 +18,9 @@ public final class $Module extends JsiiModule {
     @Override
     protected Class<?> resolveClass(final String fqn) throws ClassNotFoundException {
         switch (fqn) {
+            case "jsii-calc.AbstractClass": return software.amazon.jsii.tests.calculator.AbstractClass.class;
+            case "jsii-calc.AbstractClassBase": return software.amazon.jsii.tests.calculator.AbstractClassBase.class;
+            case "jsii-calc.AbstractClassReturner": return software.amazon.jsii.tests.calculator.AbstractClassReturner.class;
             case "jsii-calc.Add": return software.amazon.jsii.tests.calculator.Add.class;
             case "jsii-calc.AllTypes": return software.amazon.jsii.tests.calculator.AllTypes.class;
             case "jsii-calc.AllTypesEnum": return software.amazon.jsii.tests.calculator.AllTypesEnum.class;
@@ -26,6 +29,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.BinaryOperation": return software.amazon.jsii.tests.calculator.BinaryOperation.class;
             case "jsii-calc.Calculator": return software.amazon.jsii.tests.calculator.Calculator.class;
             case "jsii-calc.CalculatorProps": return software.amazon.jsii.tests.calculator.CalculatorProps.class;
+            case "jsii-calc.DefaultedConstructorArgument": return software.amazon.jsii.tests.calculator.DefaultedConstructorArgument.class;
             case "jsii-calc.DerivedClassHasNoProperties.Base": return software.amazon.jsii.tests.calculator.DerivedClassHasNoProperties.Base.class;
             case "jsii-calc.DerivedClassHasNoProperties.Derived": return software.amazon.jsii.tests.calculator.DerivedClassHasNoProperties.Derived.class;
             case "jsii-calc.DerivedStruct": return software.amazon.jsii.tests.calculator.DerivedStruct.class;
@@ -37,6 +41,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.IInterfaceWithPropertiesExtension": return software.amazon.jsii.tests.calculator.IInterfaceWithPropertiesExtension.class;
             case "jsii-calc.IRandomNumberGenerator": return software.amazon.jsii.tests.calculator.IRandomNumberGenerator.class;
             case "jsii-calc.ImplictBaseOfBase": return software.amazon.jsii.tests.calculator.ImplictBaseOfBase.class;
+            case "jsii-calc.InterfaceImplementedByAbstractClass": return software.amazon.jsii.tests.calculator.InterfaceImplementedByAbstractClass.class;
             case "jsii-calc.InterfaceInNamespaceIncludesClasses.Foo": return software.amazon.jsii.tests.calculator.InterfaceInNamespaceIncludesClasses.Foo.class;
             case "jsii-calc.InterfaceInNamespaceIncludesClasses.Hello": return software.amazon.jsii.tests.calculator.InterfaceInNamespaceIncludesClasses.Hello.class;
             case "jsii-calc.InterfaceInNamespaceOnlyInterface.Hello": return software.amazon.jsii.tests.calculator.InterfaceInNamespaceOnlyInterface.Hello.class;
@@ -50,6 +55,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.NodeStandardLibrary": return software.amazon.jsii.tests.calculator.NodeStandardLibrary.class;
             case "jsii-calc.NumberGenerator": return software.amazon.jsii.tests.calculator.NumberGenerator.class;
             case "jsii-calc.ObjectRefsInCollections": return software.amazon.jsii.tests.calculator.ObjectRefsInCollections.class;
+            case "jsii-calc.OptionalConstructorArgument": return software.amazon.jsii.tests.calculator.OptionalConstructorArgument.class;
             case "jsii-calc.OverrideReturnsObject": return software.amazon.jsii.tests.calculator.OverrideReturnsObject.class;
             case "jsii-calc.Polymorphism": return software.amazon.jsii.tests.calculator.Polymorphism.class;
             case "jsii-calc.Power": return software.amazon.jsii.tests.calculator.Power.class;

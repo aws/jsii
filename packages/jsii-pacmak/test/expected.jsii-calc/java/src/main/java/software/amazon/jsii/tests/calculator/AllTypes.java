@@ -39,14 +39,6 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
         this.jsiiSet("anyMapProperty", java.util.Objects.requireNonNull(value, "anyMapProperty is required"));
     }
 
-    public java.lang.Object getAnyProperty() {
-        return this.jsiiGet("anyProperty", java.lang.Object.class);
-    }
-
-    public void setAnyProperty(final java.lang.Object value) {
-        this.jsiiSet("anyProperty", java.util.Objects.requireNonNull(value, "anyProperty is required"));
-    }
-
     public java.util.List<java.lang.String> getArrayProperty() {
         return this.jsiiGet("arrayProperty", java.util.List.class);
     }
@@ -159,12 +151,13 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
         this.jsiiSet("unknownMapProperty", java.util.Objects.requireNonNull(value, "unknownMapProperty is required"));
     }
 
-    public java.lang.Object getUnknownProperty() {
-        return this.jsiiGet("unknownProperty", java.lang.Object.class);
+    @javax.annotation.Nullable
+    public java.lang.Object getAnyProperty() {
+        return this.jsiiGet("anyProperty", java.lang.Object.class);
     }
 
-    public void setUnknownProperty(final java.lang.Object value) {
-        this.jsiiSet("unknownProperty", java.util.Objects.requireNonNull(value, "unknownProperty is required"));
+    public void setAnyProperty(@javax.annotation.Nullable final java.lang.Object value) {
+        this.jsiiSet("anyProperty", value);
     }
 
     @javax.annotation.Nullable
@@ -174,5 +167,14 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
 
     public void setOptionalEnumValue(@javax.annotation.Nullable final software.amazon.jsii.tests.calculator.StringEnum value) {
         this.jsiiSet("optionalEnumValue", value);
+    }
+
+    @javax.annotation.Nullable
+    public java.lang.Object getUnknownProperty() {
+        return this.jsiiGet("unknownProperty", java.lang.Object.class);
+    }
+
+    public void setUnknownProperty(@javax.annotation.Nullable final java.lang.Object value) {
+        this.jsiiSet("unknownProperty", value);
     }
 }

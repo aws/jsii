@@ -1,46 +1,49 @@
 @scope/jsii-calc-lib
 ====================
 
+Reference
+---------
+
 .. tabs::
 
    .. group-tab:: C#
 
-      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/0.7.4>`_
+      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/0.7.6>`_
 
       **csproj**:
 
       .. code-block:: xml
 
-         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" Version="0.7.4" />
+         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" Version="0.7.6" />
 
       **dotnet**:
 
       .. code-block:: console
 
-         dotnet add package Amazon.JSII.Tests.CalculatorPackageId.LibPackageId --version 0.7.4
+         dotnet add package Amazon.JSII.Tests.CalculatorPackageId.LibPackageId --version 0.7.6
 
       **packages.config**:
 
       .. code-block:: xml
 
-         <package id="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" version="0.7.4" />
+         <package id="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" version="0.7.6" />
 
 
    .. group-tab:: Java
 
-      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator-lib/0.7.4/>`_
+      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator-lib/0.7.6/>`_
 
       **Apache Buildr**:
 
       .. code-block:: none
 
-         'software.amazon.jsii.tests:calculator-lib:jar:0.7.4'
+         'software.amazon.jsii.tests:calculator-lib:jar:0.7.6'
 
       **Apache Ivy**:
 
       .. code-block:: xml
 
-         <dependency groupId="software.amazon.jsii.tests" name="calculator-lib" rev="0.7.4"/>
+         <dependency groupId="software.amazon.jsii.tests" name="calculator-lib" rev="0.7.6"/>
 
       **Apache Maven**:
 
@@ -49,77 +52,74 @@
          <dependency>
            <groupId>software.amazon.jsii.tests</groupId>
            <artifactId>calculator-lib</artifactId>
-           <version>0.7.4</version>
+           <version>0.7.6</version>
          </dependency>
 
       **Gradle / Grails**:
 
       .. code-block:: none
 
-         compile 'software.amazon.jsii.tests:calculator-lib:0.7.4'
+         compile 'software.amazon.jsii.tests:calculator-lib:0.7.6'
 
       **Groovy Grape**:
 
       .. code-block:: none
 
          @Grapes(
-         @Grab(group='software.amazon.jsii.tests', module='calculator-lib', version='0.7.4')
+         @Grab(group='software.amazon.jsii.tests', module='calculator-lib', version='0.7.6')
          )
 
 
    .. group-tab:: JavaScript
 
-      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-lib/v/0.7.4>`_
+      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-lib/v/0.7.6>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i @scope/jsii-calc-lib@0.7.4
+         $ npm i @scope/jsii-calc-lib@0.7.6
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "@scope/jsii-calc-lib": "^0.7.4"
+           "@scope/jsii-calc-lib": "^0.7.6"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add @scope/jsii-calc-lib@0.7.4
+         $ yarn add @scope/jsii-calc-lib@0.7.6
 
 
    .. group-tab:: TypeScript
 
-      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-lib/v/0.7.4>`_
+      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-lib/v/0.7.6>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i @scope/jsii-calc-lib@0.7.4
+         $ npm i @scope/jsii-calc-lib@0.7.6
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "@scope/jsii-calc-lib": "^0.7.4"
+           "@scope/jsii-calc-lib": "^0.7.6"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add @scope/jsii-calc-lib@0.7.4
+         $ yarn add @scope/jsii-calc-lib@0.7.6
 
 
-
-Reference
----------
 
 .. py:module:: @scope/jsii-calc-lib
 
@@ -196,6 +196,7 @@ IFriendly (interface)
 
 
       :rtype: string
+      :abstract: Yes
 
 
 MyFirstStruct (interface)
@@ -235,7 +236,7 @@ MyFirstStruct (interface)
       An awesome number value
 
 
-      :type: number
+      :type: number *(abstract)*
 
 
    .. py:attribute:: astring
@@ -243,12 +244,12 @@ MyFirstStruct (interface)
       A string value
 
 
-      :type: string
+      :type: string *(abstract)*
 
 
    .. py:attribute:: firstOptional
 
-      :type: string[] or undefined
+      :type: string[] or ``undefined`` *(abstract)*
 
 
 Number
@@ -281,7 +282,7 @@ Number
    Represents a concrete number.
 
 
-   :extends: :py:class:`~@scope/jsii-calc-lib.Value`
+   :extends: :py:class:`~@scope/jsii-calc-lib.Value`\ 
    :param value: The number.
    :type value: number
 
@@ -295,10 +296,30 @@ Number
 
    .. py:attribute:: value
 
+      *Implements* :py:meth:`@scope/jsii-calc-lib.Value.value`
+
       The number.
 
 
       :type: number *(readonly)*
+
+
+   .. py:method:: typeName() -> any
+
+      *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
+
+      :return: the name of the class (to verify native type names are created for derived classes).
+      :rtype: any or ``undefined``
+
+
+   .. py:method:: toString() -> string
+
+      *Inherited from* :py:meth:`@scope/jsii-calc-lib.Value <@scope/jsii-calc-lib.Value.toString>`
+
+      String representation of the value.
+
+
+      :rtype: string
 
 
 Operation
@@ -331,16 +352,36 @@ Operation
    Represents an operation on values.
 
 
-   :extends: :py:class:`~@scope/jsii-calc-lib.Value`
+   :extends: :py:class:`~@scope/jsii-calc-lib.Value`\ 
    :abstract: Yes
 
    .. py:method:: toString() -> string
+
+      *Overrides* :py:meth:`@scope/jsii-calc-lib.Value.toString`
 
       String representation of the value.
 
 
       :rtype: string
       :abstract: Yes
+
+
+   .. py:method:: typeName() -> any
+
+      *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
+
+      :return: the name of the class (to verify native type names are created for derived classes).
+      :rtype: any or ``undefined``
+
+
+   .. py:attribute:: value
+
+      *Inherited from* :py:attr:`@scope/jsii-calc-lib.Value <@scope/jsii-calc-lib.Value.value>`
+
+      The value.
+
+
+      :type: number *(readonly)* *(abstract)*
 
 
 StructWithOnlyOptionals (interface)
@@ -380,17 +421,17 @@ StructWithOnlyOptionals (interface)
       The first optional!
 
 
-      :type: string or undefined
+      :type: string or ``undefined`` *(abstract)*
 
 
    .. py:attribute:: optional2
 
-      :type: number or undefined
+      :type: number or ``undefined`` *(abstract)*
 
 
    .. py:attribute:: optional3
 
-      :type: boolean or undefined
+      :type: boolean or ``undefined`` *(abstract)*
 
 
 Value
@@ -423,7 +464,7 @@ Value
    Abstract class which represents a numeric value.
 
 
-   :extends: :py:class:`@scope/jsii-calc-base.Base`
+   :extends: :py:class:`@scope/jsii-calc-base.Base`\ 
    :abstract: Yes
 
    .. py:method:: toString() -> string
@@ -440,5 +481,13 @@ Value
 
 
       :type: number *(readonly)* *(abstract)*
+
+
+   .. py:method:: typeName() -> any
+
+      *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
+
+      :return: the name of the class (to verify native type names are created for derived classes).
+      :rtype: any or ``undefined``
 
 

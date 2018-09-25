@@ -115,7 +115,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 return
                     _types.GetClassType(fullyQualifiedName) != null ||
                     _types.GetInterfaceType(fullyQualifiedName) != null ||
-                    _types.GetInterfaceProxyType(fullyQualifiedName) != null;
+                    _types.GetProxyType(fullyQualifiedName) != null;
             }
         }
 

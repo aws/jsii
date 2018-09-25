@@ -15,4 +15,29 @@ public abstract class Operation extends software.amazon.jsii.tests.calculator.li
      */
     @Override
     public abstract java.lang.String toString();
+
+    /**
+     * A proxy class which represents a concrete javascript instance of this type.
+     */
+    final static class Jsii$Proxy extends software.amazon.jsii.tests.calculator.lib.Operation {
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
+            super(mode);
+        }
+
+        /**
+         * The value.
+         */
+        @Override
+        public java.lang.Number getValue() {
+            return this.jsiiGet("value", java.lang.Number.class);
+        }
+
+        /**
+         * String representation of the value.
+         */
+        @Override
+        public java.lang.String toString() {
+            return this.jsiiCall("toString", java.lang.String.class);
+        }
+    }
 }

@@ -3,22 +3,22 @@ using Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace
 {
-    [JsiiInterfaceProxy(typeof(IBaseProps), "@scope/jsii-calc-base.BaseProps")]
-    internal class BasePropsProxy : DeputyBase, IBaseProps
+    [JsiiTypeProxy(typeof(IBaseProps), "@scope/jsii-calc-base.BaseProps")]
+    internal sealed class BasePropsProxy : DeputyBase, IBaseProps
     {
         private BasePropsProxy(ByRefValue reference): base(reference)
         {
         }
 
         [JsiiProperty("bar", "{\"primitive\":\"string\"}")]
-        public virtual string Bar
+        public string Bar
         {
             get => GetInstanceProperty<string>();
             set => SetInstanceProperty(value);
         }
 
         [JsiiProperty("foo", "{\"fqn\":\"@scope/jsii-calc-base-of-base.Very\"}")]
-        public virtual Very Foo
+        public Very Foo
         {
             get => GetInstanceProperty<Very>();
             set => SetInstanceProperty(value);

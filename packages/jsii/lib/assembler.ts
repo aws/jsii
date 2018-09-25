@@ -162,14 +162,21 @@ export class Assembler implements Emitter {
      *
      * @returns the de-referenced type, if it was found, otherwise ``undefined``.
      */
-    private _dereference(ref: spec.NamedTypeReference): spec.Type | undefined {
+    private _dereference(ref: spec.NamedTypeReference, referencingNode: ts.Node): spec.Type | undefined {
         const [assm, ] = ref.fqn.split('.');
+        let type;
         if (assm === this.projectInfo.name) {
-            return this._types[ref.fqn];
+            type = this._types[ref.fqn];
         } else {
             const assembly = this.projectInfo.transitiveDependencies.find(dep => dep.name === assm);
-            return assembly && assembly.types && assembly.types[ref.fqn];
+            type = assembly && assembly.types && assembly.types[ref.fqn];
         }
+
+        if (!type) {
+            this._diagnostic(referencingNode, ts.DiagnosticCategory.Error, `Unable to resolve referenced type '${ref.fqn}'. Missing export?`);
+        }
+
+        return type;
     }
 
     private _diagnostic(node: ts.Node | null, category: ts.DiagnosticCategory, messageText: string) {
@@ -206,7 +213,7 @@ export class Assembler implements Emitter {
             return `unknown.${typeName}`;
         }
         const fqn = `${pkg.name}.${typeName}`;
-        if (pkg.name !== this.projectInfo.name && !this._dereference({ fqn })) {
+        if (pkg.name !== this.projectInfo.name && !this._dereference({ fqn }, type.symbol.valueDeclaration)) {
             this._diagnostic(type.symbol.valueDeclaration,
                              ts.DiagnosticCategory.Error,
                              `Use of foreign type not present in the ${pkg.name}'s assembly: ${fqn}`);
@@ -298,7 +305,7 @@ export class Assembler implements Emitter {
             namespace: namespace.join('.')
         };
 
-        if (_isAbstract(type.symbol)) {
+        if (_isAbstract(type.symbol, jsiiType)) {
             jsiiType.abstract = true;
         }
         for (const base of (type.getBaseTypes() || [])) {
@@ -314,7 +321,8 @@ export class Assembler implements Emitter {
                 continue;
             }
             this._defer(() => {
-                if (!spec.isClassType(this._dereference(ref))) {
+                const deref = this._dereference(ref, base.symbol.valueDeclaration);
+                if (deref && !spec.isClassType(deref)) {
                     this._diagnostic(base.symbol.valueDeclaration,
                                     ts.DiagnosticCategory.Error,
                                     `Base type of ${jsiiType.fqn} is not a class (${spec.describeTypeReference(ref)})`);
@@ -340,7 +348,8 @@ export class Assembler implements Emitter {
                     continue;
                 }
                 this._defer(() => {
-                    if (!spec.isInterfaceType(this._dereference(typeRef))) {
+                    const deref = this._dereference(typeRef, expression);
+                    if (deref && !spec.isInterfaceType(deref)) {
                         this._diagnostic(expression,
                                         ts.DiagnosticCategory.Error,
                                         `Implements clause of ${jsiiType.fqn} uses ${spec.describeTypeReference(typeRef)} as an interface`);
@@ -393,17 +402,15 @@ export class Assembler implements Emitter {
             }
         } else if (jsiiType.base) {
             this._defer(() => {
-                const baseType = this._dereference(jsiiType.base!);
-                if (!baseType) {
-                    this._diagnostic(type.symbol.valueDeclaration,
-                                    ts.DiagnosticCategory.Error,
-                                    `Unable to resolve type ${jsiiType.base!.fqn} (base type of ${jsiiType.fqn})`);
-                } else if (spec.isClassType(baseType)) {
-                    jsiiType.initializer = baseType.initializer;
-                } else {
-                    this._diagnostic(type.symbol.valueDeclaration,
-                        ts.DiagnosticCategory.Error,
-                        `Base type of ${jsiiType.fqn} (${jsiiType.base!.fqn}) is not a class`);
+                const baseType = this._dereference(jsiiType.base!, type.symbol.valueDeclaration);
+                if (baseType) {
+                    if (spec.isClassType(baseType)) {
+                        jsiiType.initializer = baseType.initializer;
+                    } else {
+                        this._diagnostic(type.symbol.valueDeclaration,
+                            ts.DiagnosticCategory.Error,
+                            `Base type of ${jsiiType.fqn} (${jsiiType.base!.fqn}) is not a class`);
+                    }
                 }
             });
         } else {
@@ -499,17 +506,13 @@ export class Assembler implements Emitter {
                 continue;
             }
             this._defer(() => {
-                if (!spec.isInterfaceType(this._dereference(ref))) {
-                    const baseType = this._dereference(ref);
-                    if (baseType) {
-                        this._diagnostic(base.symbol.valueDeclaration,
-                                        ts.DiagnosticCategory.Error,
-                                        `Base type of ${jsiiType.fqn} is not an interface (${baseType.kind} ${spec.describeTypeReference(ref)})`);
-                    } else {
-                        this._diagnostic(base.symbol.valueDeclaration,
-                            ts.DiagnosticCategory.Error,
-                            `Base type of ${jsiiType.fqn} could not be resolved (${spec.describeTypeReference(ref)})`);
-                    }
+                const baseType = this._dereference(ref, base.symbol.valueDeclaration);
+                if (baseType && !spec.isInterfaceType(baseType)) {
+                    // tslint:disable:max-line-length
+                    this._diagnostic(base.symbol.valueDeclaration,
+                                    ts.DiagnosticCategory.Error,
+                                    `Base type of ${jsiiType.fqn} is not an interface (${baseType.kind} ${spec.describeTypeReference(ref)})`);
+                    // tslint:enable:max-line-length
                 }
             });
             if (jsiiType.interfaces) {
@@ -553,7 +556,7 @@ export class Assembler implements Emitter {
         }
         const returnType = signature.getReturnType();
         const method: spec.Method = {
-            abstract: _isAbstract(symbol),
+            abstract: _isAbstract(symbol, type),
             name: symbol.name,
             parameters: await Promise.all(signature.getParameters().map(p => this._toParameter(p))),
             protected: _isProtected(symbol),
@@ -586,7 +589,7 @@ export class Assembler implements Emitter {
                                                     | ts.AccessorDeclaration
                                                     | ts.ParameterPropertyDeclaration);
         const property: spec.Property = {
-            abstract: _isAbstract(symbol),
+            abstract: _isAbstract(symbol, type),
             name: symbol.name,
             protected: _isProtected(symbol),
             static: _isStatic(symbol),
@@ -599,6 +602,10 @@ export class Assembler implements Emitter {
         } else {
             // tslint:disable-next-line:no-bitwise
             property.immutable = (ts.getCombinedModifierFlags(signature) & ts.ModifierFlags.Readonly) !== 0;
+        }
+
+        if (signature.questionToken) {
+            property.type.optional = true;
         }
 
         if (property.static && property.immutable && ts.isPropertyDeclaration(signature) && signature.initializer) {
@@ -615,13 +622,17 @@ export class Assembler implements Emitter {
         if (LOG.isTraceEnabled()) {
             LOG.trace(`Processing parameter: ${colors.cyan(paramSymbol.name)}`);
         }
+        const paramDeclaration = paramSymbol.valueDeclaration as ts.ParameterDeclaration;
         const parameter: spec.Parameter = {
             name: paramSymbol.name,
             type: await this._typeReference(this._typeChecker.getTypeAtLocation(paramSymbol.valueDeclaration), paramSymbol.valueDeclaration),
-            variadic: !!(paramSymbol.valueDeclaration as ts.ParameterDeclaration).dotDotDotToken
+            variadic: !!paramDeclaration.dotDotDotToken
         };
         if (parameter.variadic) {
             parameter.type = (parameter.type as spec.CollectionTypeReference).collection.elementtype;
+        }
+        if (paramDeclaration.initializer || paramDeclaration.questionToken) {
+            parameter.type.optional = true;
         }
         this._visitDocumentation(paramSymbol, parameter);
         return parameter;
@@ -643,7 +654,7 @@ export class Assembler implements Emitter {
 
         if (!type.symbol) {
             this._diagnostic(declaration, ts.DiagnosticCategory.Error, `Non-primitive types must have a symbol`);
-            return { primitive: spec.PrimitiveType.Any };
+            return { primitive: spec.PrimitiveType.Any, optional: true };
         }
 
         if (type.symbol.name === 'Array') {
@@ -660,7 +671,7 @@ export class Assembler implements Emitter {
                 this._diagnostic(declaration,
                                  ts.DiagnosticCategory.Error,
                                  `Un-specified promise type (need to specify as Promise<T>)`);
-                return { primitive: spec.PrimitiveType.Any, promise: true };
+                return { primitive: spec.PrimitiveType.Any, optional: true, promise: true };
             } else {
                 return {
                     ...await this._typeReference(typeRef.typeArguments[0], declaration),
@@ -682,7 +693,7 @@ export class Assembler implements Emitter {
                 this._diagnostic(declaration,
                                  ts.DiagnosticCategory.Error,
                                  `Array references must have exactly one type argument (found ${count})`);
-                elementtype = { primitive: spec.PrimitiveType.Any };
+                elementtype = { primitive: spec.PrimitiveType.Any, optional: true };
             }
 
             return {
@@ -702,7 +713,7 @@ export class Assembler implements Emitter {
                 this._diagnostic(declaration,
                                  ts.DiagnosticCategory.Error,
                                  `Only string index maps are supported`);
-                elementtype = { primitive: spec.PrimitiveType.Any };
+                elementtype = { primitive: spec.PrimitiveType.Any, optional: true };
             }
             return {
                 collection: {
@@ -720,7 +731,7 @@ export class Assembler implements Emitter {
                 }
                 // tslint:disable-next-line:no-bitwise
                 if (type.flags & (ts.TypeFlags.Any | ts.TypeFlags.Unknown)) {
-                    return { primitive: spec.PrimitiveType.Any };
+                    return { primitive: spec.PrimitiveType.Any, optional: true };
                 }
             } else {
                 switch (type.symbol.name) {
@@ -787,7 +798,12 @@ function _fingerprint(assembly: spec.Assembly): spec.Assembly {
     return { ...assembly, fingerprint };
 }
 
-function _isAbstract(symbol: ts.Symbol): boolean {
+function _isAbstract(symbol: ts.Symbol, declaringType: spec.ClassType | spec.InterfaceType): boolean {
+    // everything is abstract in interfaces
+    if (declaringType.kind === spec.TypeKind.Interface) {
+        return true;
+    }
+
     return !!symbol.valueDeclaration
         // tslint:disable-next-line:no-bitwise
         && (ts.getCombinedModifierFlags(symbol.valueDeclaration) & ts.ModifierFlags.Abstract) !== 0;
