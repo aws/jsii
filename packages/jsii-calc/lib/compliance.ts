@@ -910,5 +910,3 @@ export class DoNotOverridePrivates {
         return this.privateProperty;
     }
 }
-
-
