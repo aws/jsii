@@ -871,7 +871,6 @@ class ConcreteClass extends AbstractClass {
     }
 }
 
-
 export class AbstractClassReturner {
     public giveMeAbstract(): AbstractClass {
         return new ConcreteClass();
@@ -885,5 +884,21 @@ export class AbstractClassReturner {
         return {
             abstractProperty: 'hello-abstract-property'
         }
+    }
+}
+
+export class DoNotOverridePrivates {
+    private privateMethod(): string {
+        return 'privateMethod';
+    }
+
+    private privateProperty = 'privateProperty';
+
+    public privateMethodValue() {
+        return this.privateMethod();
+    }
+
+    public privatePropertyValue() {
+        return this.privateProperty;
     }
 }

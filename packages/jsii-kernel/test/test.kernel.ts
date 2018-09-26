@@ -18,6 +18,8 @@ const calcVersion = require('jsii-calc/package.json').version.replace(/\+.+$/, '
 // tslint:disable:no-console
 // tslint:disable:max-line-length
 
+process.setMaxListeners(9999); // since every kernel instance adds an `on('exit')` handler.
+
 process.on('unhandledRejection', e => {
     console.error(e.stack);
     process.exit(1);
@@ -872,6 +874,52 @@ defineTest('node.js standard library', async (test, sandbox) => {
     test.deepEqual(sandbox.invoke({ objref, method: 'cryptoSha256' }),
         { result: "6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50" });
 });
+
+defineTest('overrides: method instead of property with the same name', async (test, sandbox) => {
+    test.throws(() => {
+        sandbox.create({ fqn: 'jsii-calc.SyncVirtualMethods', overrides: [
+            { method: 'theProperty' }
+        ]});
+    }, /Trying to override property/);
+});
+
+defineTest('overrides: property instead of method with the same name', async (test, sandbox) => {
+    test.throws(() => {
+        sandbox.create({ fqn: 'jsii-calc.SyncVirtualMethods', overrides: [
+            { property: 'virtualMethod' }
+        ]});
+    }, /Trying to override method/);
+});
+
+defineTest('overrides: skip overrides of private methods', async (test, sandbox) => {
+    const objref = sandbox.create({ fqn: 'jsii-calc.DoNotOverridePrivates', overrides: [
+        { method: 'privateMethod' }
+    ]});
+
+    sandbox.callbackHandler = makeSyncCallbackHandler(_ => {
+        test.ok(false, 'override callback should not be called');
+        return 'privateMethodBoom!';
+    });
+
+    const result = sandbox.invoke({ objref, method: 'privateMethodValue' });
+    test.deepEqual(result.result, 'privateMethod');
+});
+
+defineTest('overrides: skip overrides of private properties', async (test, sandbox) => {
+    const objref = sandbox.create({ fqn: 'jsii-calc.DoNotOverridePrivates', overrides: [
+        { property: 'privateProperty' }
+    ]});
+
+    sandbox.callbackHandler = makeSyncCallbackHandler(_ => {
+        test.ok(false, 'override callback should not be called');
+        return 'privatePropertyBoom!';
+    });
+
+    const result = sandbox.invoke({ objref, method: 'privatePropertyValue' });
+    test.deepEqual(result.result, 'privateProperty');
+});
+
+// =================================================================================================
 
 const testNames: { [name: string]: boolean } = { };
 

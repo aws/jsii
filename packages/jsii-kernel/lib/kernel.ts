@@ -467,12 +467,7 @@ export class Kernel {
         const objref = this._createObjref(obj, fqn);
 
         // overrides: for each one of the override method names, installs a
-        // method on the newly created object which represents the remote
-        // override. Overrides are always async. When an override is called, it
-        // returns a promise which adds a callback to the pending callbacks
-        // list. This list is then retrieved by the client (using
-        // pendingCallbacks() and promises are fulfilled using
-        // completeCallback(), which in turn, fulfills the internal promise.
+        // method on the newly created object which represents the remote "reverse proxy".
 
         if (overrides) {
             this._debug('overrides', overrides);
@@ -488,11 +483,15 @@ export class Kernel {
 
                     methods.add(override.method);
 
-                    // check that the method being overridden actually exists on the
-                    // class and is an async method.
+                    // check that the method being overridden actually exists
                     let methodInfo;
                     if (fqn !== EMPTY_OBJECT_FQN) {
-                        methodInfo = this._tryTypeInfoForMethod(fqn, override.method); // throws if method cannot be found
+                        // error if we can find a property with this name
+                        if (this._tryTypeInfoForProperty(fqn, override.method)) {
+                            throw new Error(`Trying to override property '${override.method}' as a method`);
+                        }
+
+                        methodInfo = this._tryTypeInfoForMethod(fqn, override.method);
                     }
 
                     this._applyMethodOverride(obj, objref, override, methodInfo);
@@ -500,7 +499,18 @@ export class Kernel {
                     if (override.method) { throw new Error(overrideTypeErrorMessage); }
                     if (properties.has(override.property)) { throw Error(`Duplicate override for property '${override.property}'`); }
                     properties.add(override.property);
-                    this._applyPropertyOverride(obj, objref, override);
+
+                    let propInfo: spec.Property | undefined;
+                    if (fqn !== EMPTY_OBJECT_FQN) {
+                        // error if we can find a method with this name
+                        if (this._tryTypeInfoForMethod(fqn, override.property)) {
+                            throw new Error(`Trying to override method '${override.property}' as a property`);
+                        }
+
+                        propInfo = this._tryTypeInfoForProperty(fqn, override.property);
+                    }
+
+                    this._applyPropertyOverride(obj, objref, override, propInfo);
                 } else {
                     throw new Error(overrideTypeErrorMessage);
                 }
@@ -514,9 +524,15 @@ export class Kernel {
         return `$jsii$super$${name}$`;
     }
 
-    private _applyPropertyOverride(obj: any, objref: api.ObjRef, override: api.Override) {
+    private _applyPropertyOverride(obj: any, objref: api.ObjRef, override: api.Override, propInfo?: spec.Property) {
         const self = this;
         const propertyName = override.property!;
+
+        // if this is a private property (i.e. doesn't have `propInfo` the object has a key)
+        if (!propInfo && propertyName in obj) {
+            this._debug(`Skipping override of private property ${propertyName}`);
+            return;
+        }
 
         this._debug('apply override', propertyName);
 
@@ -563,6 +579,13 @@ export class Kernel {
         const self = this;
         const methodName = override.method!;
 
+        // If this is a private method (doesn't have methodInfo, key resolves on the object), we
+        // are going to skip the override.
+        if (!methodInfo && obj[methodName]) {
+            this._debug(`Skipping override of private method ${methodName}`);
+            return;
+        }
+
         // note that we are applying the override even if the method doesn't exist
         // on the type spec in order to allow native code to override methods from
         // interfaces.
@@ -589,6 +612,8 @@ export class Kernel {
                     });
                 }
             });
+        } else if (!methodInfo && Object.keys(obj).includes(methodName)) {
+            throw new Error('boom');
         } else {
             // sync method override (method info is not required)
             Object.defineProperty(obj, methodName, {
@@ -795,11 +820,10 @@ export class Kernel {
         return undefined;
     }
 
-    private _typeInfoForProperty(fqn: string, property: string): spec.Property {
+    private _tryTypeInfoForProperty(fqn: string, property: string): spec.Property | undefined {
         if (!fqn) {
             throw new Error('missing "fqn"');
         }
-
         const typeInfo = this._typeInfoForFqn(fqn);
 
         let properties;
@@ -825,10 +849,21 @@ export class Kernel {
 
         // recurse to parent type (if exists)
         for (const baseFqn of bases) {
-            return this._typeInfoForProperty(baseFqn, property);
+            const ret = this._tryTypeInfoForProperty(baseFqn, property);
+            if (ret) {
+                return ret;
+            }
         }
 
-        throw new Error(`Type ${typeInfo.fqn} doesn't have a property '${property}'`);
+        return undefined;
+    }
+
+    private _typeInfoForProperty(fqn: string, property: string): spec.Property {
+        const typeInfo = this._tryTypeInfoForProperty(fqn, property);
+        if (!typeInfo) {
+            throw new Error(`Type ${fqn} doesn't have a property '${property}'`);
+        }
+        return typeInfo;
     }
 
     private _toSandbox(v: any): any {

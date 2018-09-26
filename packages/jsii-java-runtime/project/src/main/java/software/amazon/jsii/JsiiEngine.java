@@ -468,6 +468,10 @@ public final class JsiiEngine implements JsiiCallbackHandler {
 
             // add all the methods in the current class
             for (Method method : klass.getDeclaredMethods()) {
+                if (Modifier.isPrivate(method.getModifiers())) {
+                    continue;
+                }
+
                 String methodName = method.getName();
 
                 // check if this is a property ("getXXX" or "setXXX", oh java!)
