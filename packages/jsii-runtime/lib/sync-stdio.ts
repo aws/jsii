@@ -7,14 +7,14 @@ const INPUT_BUFFER_SIZE = 1024 * 1024; // not related to max line length
 
 export class SyncStdio {
     private inputQueue = new Array<string>();
-    private currentLine = ''
+    private currentLine = '';
 
     writeErrorLine(line: string) {
-        this.writeBuffer(new Buffer(`${line}\n`), STDERR_FD);
+        this.writeBuffer(Buffer.from(`${line}\n`), STDERR_FD);
     }
 
     writeLine(line: string) {
-        this.writeBuffer(new Buffer(`${line}\n`), STDOUT_FD);
+        this.writeBuffer(Buffer.from(`${line}\n`), STDOUT_FD);
     }
 
     readLine(): string | undefined {
@@ -22,7 +22,7 @@ export class SyncStdio {
             return this.inputQueue.shift();
         }
 
-        const buff = new Buffer(INPUT_BUFFER_SIZE);
+        const buff = Buffer.alloc(INPUT_BUFFER_SIZE);
         const read = fs.readSync(STDIN_FD, buff, 0, buff.length, null);
 
         if (read === 0) {
