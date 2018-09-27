@@ -23,4 +23,21 @@ public abstract class Value extends software.amazon.jsii.tests.calculator.base.B
     public java.lang.Number getValue() {
         return this.jsiiGet("value", java.lang.Number.class);
     }
+
+    /**
+     * A proxy class which represents a concrete javascript instance of this type.
+     */
+    final static class Jsii$Proxy extends software.amazon.jsii.tests.calculator.lib.Value {
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
+            super(mode);
+        }
+
+        /**
+         * The value.
+         */
+        @Override
+        public java.lang.Number getValue() {
+            return this.jsiiGet("value", java.lang.Number.class);
+        }
+    }
 }

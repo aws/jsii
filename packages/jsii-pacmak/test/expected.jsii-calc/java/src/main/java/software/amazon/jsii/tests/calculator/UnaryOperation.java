@@ -13,4 +13,29 @@ public abstract class UnaryOperation extends software.amazon.jsii.tests.calculat
     public software.amazon.jsii.tests.calculator.lib.Value getOperand() {
         return this.jsiiGet("operand", software.amazon.jsii.tests.calculator.lib.Value.class);
     }
+
+    /**
+     * A proxy class which represents a concrete javascript instance of this type.
+     */
+    final static class Jsii$Proxy extends software.amazon.jsii.tests.calculator.UnaryOperation {
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
+            super(mode);
+        }
+
+        /**
+         * The value.
+         */
+        @Override
+        public java.lang.Number getValue() {
+            return this.jsiiGet("value", java.lang.Number.class);
+        }
+
+        /**
+         * String representation of the value.
+         */
+        @Override
+        public java.lang.String toString() {
+            return this.jsiiCall("toString", java.lang.String.class);
+        }
+    }
 }

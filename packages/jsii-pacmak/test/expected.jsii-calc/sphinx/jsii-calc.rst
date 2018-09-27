@@ -1,46 +1,51 @@
-jsii-calc
-=========
+jsii Calculator
+===============
+
+.. mdinclude:: ./_jsii-calc.README.md
+
+Reference
+---------
 
 .. tabs::
 
    .. group-tab:: C#
 
-      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId/0.7.4>`_
+      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId/0.7.6>`_
 
       **csproj**:
 
       .. code-block:: xml
 
-         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId" Version="0.7.4" />
+         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId" Version="0.7.6" />
 
       **dotnet**:
 
       .. code-block:: console
 
-         dotnet add package Amazon.JSII.Tests.CalculatorPackageId --version 0.7.4
+         dotnet add package Amazon.JSII.Tests.CalculatorPackageId --version 0.7.6
 
       **packages.config**:
 
       .. code-block:: xml
 
-         <package id="Amazon.JSII.Tests.CalculatorPackageId" version="0.7.4" />
+         <package id="Amazon.JSII.Tests.CalculatorPackageId" version="0.7.6" />
 
 
    .. group-tab:: Java
 
-      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator/0.7.4/>`_
+      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator/0.7.6/>`_
 
       **Apache Buildr**:
 
       .. code-block:: none
 
-         'software.amazon.jsii.tests:calculator:jar:0.7.4'
+         'software.amazon.jsii.tests:calculator:jar:0.7.6'
 
       **Apache Ivy**:
 
       .. code-block:: xml
 
-         <dependency groupId="software.amazon.jsii.tests" name="calculator" rev="0.7.4"/>
+         <dependency groupId="software.amazon.jsii.tests" name="calculator" rev="0.7.6"/>
 
       **Apache Maven**:
 
@@ -49,81 +54,211 @@ jsii-calc
          <dependency>
            <groupId>software.amazon.jsii.tests</groupId>
            <artifactId>calculator</artifactId>
-           <version>0.7.4</version>
+           <version>0.7.6</version>
          </dependency>
 
       **Gradle / Grails**:
 
       .. code-block:: none
 
-         compile 'software.amazon.jsii.tests:calculator:0.7.4'
+         compile 'software.amazon.jsii.tests:calculator:0.7.6'
 
       **Groovy Grape**:
 
       .. code-block:: none
 
          @Grapes(
-         @Grab(group='software.amazon.jsii.tests', module='calculator', version='0.7.4')
+         @Grab(group='software.amazon.jsii.tests', module='calculator', version='0.7.6')
          )
 
 
    .. group-tab:: JavaScript
 
-      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.7.4>`_
+      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.7.6>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i jsii-calc@0.7.4
+         $ npm i jsii-calc@0.7.6
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "jsii-calc": "^0.7.4"
+           "jsii-calc": "^0.7.6"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add jsii-calc@0.7.4
+         $ yarn add jsii-calc@0.7.6
 
 
    .. group-tab:: TypeScript
 
-      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.7.4>`_
+      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.7.6>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i jsii-calc@0.7.4
+         $ npm i jsii-calc@0.7.6
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "jsii-calc": "^0.7.4"
+           "jsii-calc": "^0.7.6"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add jsii-calc@0.7.4
+         $ yarn add jsii-calc@0.7.6
 
 
-
-.. mdinclude:: ./_jsii-calc.README.md
-
-Reference
----------
 
 .. py:module:: jsii-calc
+
+AbstractClass
+^^^^^^^^^^^^^
+
+.. py:class:: AbstractClass()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.AbstractClass;
+
+      .. code-tab:: javascript
+
+         const { AbstractClass } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { AbstractClass } from 'jsii-calc';
+
+
+
+   :extends: :py:class:`~jsii-calc.AbstractClassBase`\ 
+   :implements: :py:class:`~jsii-calc.InterfaceImplementedByAbstractClass`\ 
+   :abstract: Yes
+
+   .. py:method:: abstractMethod(name) -> string
+
+      :param name: 
+      :type name: string
+      :rtype: string
+      :abstract: Yes
+
+
+   .. py:method:: nonAbstractMethod() -> number
+
+      :rtype: number
+
+
+   .. py:attribute:: propFromInterface
+
+      *Implements* :py:meth:`jsii-calc.InterfaceImplementedByAbstractClass.propFromInterface`
+
+      :type: string *(readonly)*
+
+
+   .. py:attribute:: abstractProperty
+
+      *Inherited from* :py:attr:`jsii-calc.AbstractClassBase <jsii-calc.AbstractClassBase.abstractProperty>`
+
+      :type: string *(readonly)* *(abstract)*
+
+
+AbstractClassBase
+^^^^^^^^^^^^^^^^^
+
+.. py:class:: AbstractClassBase()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.AbstractClassBase;
+
+      .. code-tab:: javascript
+
+         const { AbstractClassBase } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { AbstractClassBase } from 'jsii-calc';
+
+
+
+   :abstract: Yes
+
+   .. py:attribute:: abstractProperty
+
+      :type: string *(readonly)* *(abstract)*
+
+
+AbstractClassReturner
+^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: AbstractClassReturner()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.AbstractClassReturner;
+
+      .. code-tab:: javascript
+
+         const { AbstractClassReturner } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { AbstractClassReturner } from 'jsii-calc';
+
+
+
+
+   .. py:method:: giveMeAbstract() -> jsii-calc.AbstractClass
+
+      :rtype: :py:class:`~jsii-calc.AbstractClass`\ 
+
+
+   .. py:method:: giveMeInterface() -> jsii-calc.InterfaceImplementedByAbstractClass
+
+      :rtype: :py:class:`~jsii-calc.InterfaceImplementedByAbstractClass`\ 
+
+
+   .. py:attribute:: returnAbstractFromProperty
+
+      :type: :py:class:`~jsii-calc.AbstractClassBase`\  *(readonly)*
+
 
 Add
 ^^^
@@ -155,13 +290,15 @@ Add
    The "+" binary operation.
 
 
-   :extends: :py:class:`~jsii-calc.BinaryOperation`
+   :extends: :py:class:`~jsii-calc.BinaryOperation`\ 
    :param lhs: Left-hand side operand
-   :type lhs: :py:class:`@scope/jsii-calc-lib.Value`
+   :type lhs: :py:class:`@scope/jsii-calc-lib.Value`\ 
    :param rhs: Right-hand side operand
-   :type rhs: :py:class:`@scope/jsii-calc-lib.Value`
+   :type rhs: :py:class:`@scope/jsii-calc-lib.Value`\ 
 
    .. py:method:: toString() -> string
+
+      *Implements* :py:meth:`@scope/jsii-calc-lib.Operation.toString`
 
       String representation of the value.
 
@@ -171,10 +308,50 @@ Add
 
    .. py:attribute:: value
 
+      *Implements* :py:meth:`@scope/jsii-calc-lib.Value.value`
+
       The value.
 
 
       :type: number *(readonly)*
+
+
+   .. py:method:: typeName() -> any
+
+      *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
+
+      :return: the name of the class (to verify native type names are created for derived classes).
+      :rtype: any or ``undefined``
+
+
+   .. py:method:: hello() -> string
+
+      *Inherited from* :py:meth:`jsii-calc.BinaryOperation <jsii-calc.BinaryOperation.hello>`
+
+      Say hello!
+
+
+      :rtype: string
+
+
+   .. py:attribute:: lhs
+
+      *Inherited from* :py:attr:`jsii-calc.BinaryOperation <jsii-calc.BinaryOperation.lhs>`
+
+      Left-hand side operand
+
+
+      :type: :py:class:`@scope/jsii-calc-lib.Value`\  *(readonly)*
+
+
+   .. py:attribute:: rhs
+
+      *Inherited from* :py:attr:`jsii-calc.BinaryOperation <jsii-calc.BinaryOperation.rhs>`
+
+      Right-hand side operand
+
+
+      :type: :py:class:`@scope/jsii-calc-lib.Value`\  *(readonly)*
 
 
 AllTypes
@@ -211,8 +388,8 @@ AllTypes
    .. py:method:: enumMethod(value) -> jsii-calc.StringEnum
 
       :param value: 
-      :type value: :py:class:`~jsii-calc.StringEnum`
-      :rtype: :py:class:`~jsii-calc.StringEnum`
+      :type value: :py:class:`~jsii-calc.StringEnum`\ 
+      :rtype: :py:class:`~jsii-calc.StringEnum`\ 
 
 
    .. py:attribute:: enumPropertyValue
@@ -222,17 +399,12 @@ AllTypes
 
    .. py:attribute:: anyArrayProperty
 
-      :type: any[]
+      :type: (any or ``undefined``)[]
 
 
    .. py:attribute:: anyMapProperty
 
-      :type: string => any
-
-
-   .. py:attribute:: anyProperty
-
-      :type: any
+      :type: string => (any or ``undefined``)
 
 
    .. py:attribute:: arrayProperty
@@ -252,7 +424,7 @@ AllTypes
 
    .. py:attribute:: enumProperty
 
-      :type: :py:class:`~jsii-calc.AllTypesEnum`
+      :type: :py:class:`~jsii-calc.AllTypesEnum`\ 
 
 
    .. py:attribute:: jsonProperty
@@ -277,7 +449,7 @@ AllTypes
 
    .. py:attribute:: unionArrayProperty
 
-      :type: (number or :py:class:`~jsii-calc.composition.CompositeOperation`)[]
+      :type: (number or :py:class:`~jsii-calc.composition.CompositeOperation`\ )[]
 
 
    .. py:attribute:: unionMapProperty
@@ -287,27 +459,32 @@ AllTypes
 
    .. py:attribute:: unionProperty
 
-      :type: string or number or :py:class:`~jsii-calc.Multiply`
+      :type: string or number or :py:class:`~jsii-calc.Multiply`\ 
 
 
    .. py:attribute:: unknownArrayProperty
 
-      :type: any[]
+      :type: (any or ``undefined``)[]
 
 
    .. py:attribute:: unknownMapProperty
 
-      :type: string => any
+      :type: string => (any or ``undefined``)
 
 
-   .. py:attribute:: unknownProperty
+   .. py:attribute:: anyProperty
 
-      :type: any
+      :type: any or ``undefined``
 
 
    .. py:attribute:: optionalEnumValue
 
-      :type: :py:class:`~jsii-calc.StringEnum` or undefined
+      :type: :py:class:`~jsii-calc.StringEnum`\  or ``undefined``
+
+
+   .. py:attribute:: unknownProperty
+
+      :type: any or ``undefined``
 
 
 AllTypesEnum (enum)
@@ -507,15 +684,17 @@ BinaryOperation
    Represents an operation with two operands.
 
 
-   :extends: :py:class:`@scope/jsii-calc-lib.Operation`
-   :implements: :py:class:`@scope/jsii-calc-lib.IFriendly`
+   :extends: :py:class:`@scope/jsii-calc-lib.Operation`\ 
+   :implements: :py:class:`@scope/jsii-calc-lib.IFriendly`\ 
    :abstract: Yes
    :param lhs: Left-hand side operand
-   :type lhs: :py:class:`@scope/jsii-calc-lib.Value`
+   :type lhs: :py:class:`@scope/jsii-calc-lib.Value`\ 
    :param rhs: Right-hand side operand
-   :type rhs: :py:class:`@scope/jsii-calc-lib.Value`
+   :type rhs: :py:class:`@scope/jsii-calc-lib.Value`\ 
 
    .. py:method:: hello() -> string
+
+      *Implements* :py:meth:`@scope/jsii-calc-lib.IFriendly.hello`
 
       Say hello!
 
@@ -528,7 +707,7 @@ BinaryOperation
       Left-hand side operand
 
 
-      :type: :py:class:`@scope/jsii-calc-lib.Value` *(readonly)*
+      :type: :py:class:`@scope/jsii-calc-lib.Value`\  *(readonly)*
 
 
    .. py:attribute:: rhs
@@ -536,7 +715,36 @@ BinaryOperation
       Right-hand side operand
 
 
-      :type: :py:class:`@scope/jsii-calc-lib.Value` *(readonly)*
+      :type: :py:class:`@scope/jsii-calc-lib.Value`\  *(readonly)*
+
+
+   .. py:method:: typeName() -> any
+
+      *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
+
+      :return: the name of the class (to verify native type names are created for derived classes).
+      :rtype: any or ``undefined``
+
+
+   .. py:method:: toString() -> string
+
+      *Inherited from* :py:meth:`@scope/jsii-calc-lib.Operation <@scope/jsii-calc-lib.Operation.toString>`
+
+      String representation of the value.
+
+
+      :rtype: string
+      :abstract: Yes
+
+
+   .. py:attribute:: value
+
+      *Inherited from* :py:attr:`@scope/jsii-calc-lib.Value <@scope/jsii-calc-lib.Value.value>`
+
+      The value.
+
+
+      :type: number *(readonly)* *(abstract)*
 
 
 Calculator
@@ -569,9 +777,9 @@ Calculator
    A calculator which maintains a current value and allows adding operations.
 
 
-   :extends: :py:class:`~jsii-calc.composition.CompositeOperation`
+   :extends: :py:class:`~jsii-calc.composition.CompositeOperation`\ 
    :param props: Initialization properties.
-   :type props: :py:class:`~jsii-calc.CalculatorProps` or undefined
+   :type props: :py:class:`~jsii-calc.CalculatorProps`\  or ``undefined``
 
    .. py:method:: add(value)
 
@@ -617,10 +825,12 @@ Calculator
 
    .. py:attribute:: expression
 
+      *Implements* :py:meth:`jsii-calc.composition.CompositeOperation.expression`
+
       Returns the expression.
 
 
-      :type: :py:class:`@scope/jsii-calc-lib.Value` *(readonly)*
+      :type: :py:class:`@scope/jsii-calc-lib.Value`\  *(readonly)*
 
 
    .. py:attribute:: operationsLog
@@ -628,7 +838,7 @@ Calculator
       A log of all operations.
 
 
-      :type: :py:class:`@scope/jsii-calc-lib.Value`[] *(readonly)*
+      :type: :py:class:`@scope/jsii-calc-lib.Value`\ [] *(readonly)*
 
 
    .. py:attribute:: operationsMap
@@ -636,7 +846,7 @@ Calculator
       A map of per operation name of all operations performed.
 
 
-      :type: string => :py:class:`@scope/jsii-calc-lib.Value`[] *(readonly)*
+      :type: string => :py:class:`@scope/jsii-calc-lib.Value`\ [] *(readonly)*
 
 
    .. py:attribute:: curr
@@ -644,7 +854,7 @@ Calculator
       The current value.
 
 
-      :type: :py:class:`@scope/jsii-calc-lib.Value`
+      :type: :py:class:`@scope/jsii-calc-lib.Value`\ 
 
 
    .. py:attribute:: maxValue
@@ -652,7 +862,7 @@ Calculator
       The maximum value allows in this calculator.
 
 
-      :type: number or undefined
+      :type: number or ``undefined``
 
 
    .. py:attribute:: unionProperty
@@ -660,7 +870,65 @@ Calculator
       Example of a property that accepts a union of types.
 
 
-      :type: :py:class:`~jsii-calc.Add` or :py:class:`~jsii-calc.Multiply` or :py:class:`~jsii-calc.Power` or undefined
+      :type: :py:class:`~jsii-calc.Add`\  or :py:class:`~jsii-calc.Multiply`\  or :py:class:`~jsii-calc.Power`\  or ``undefined``
+
+
+   .. py:method:: typeName() -> any
+
+      *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
+
+      :return: the name of the class (to verify native type names are created for derived classes).
+      :rtype: any or ``undefined``
+
+
+   .. py:method:: toString() -> string
+
+      *Inherited from* :py:meth:`jsii-calc.composition.CompositeOperation <jsii-calc.composition.CompositeOperation.toString>`
+
+      String representation of the value.
+
+
+      :rtype: string
+
+
+   .. py:attribute:: value
+
+      *Inherited from* :py:attr:`jsii-calc.composition.CompositeOperation <jsii-calc.composition.CompositeOperation.value>`
+
+      The value.
+
+
+      :type: number *(readonly)*
+
+
+   .. py:attribute:: decorationPostfixes
+
+      *Inherited from* :py:attr:`jsii-calc.composition.CompositeOperation <jsii-calc.composition.CompositeOperation.decorationPostfixes>`
+
+      A set of postfixes to include in a decorated .toString().
+
+
+      :type: string[]
+
+
+   .. py:attribute:: decorationPrefixes
+
+      *Inherited from* :py:attr:`jsii-calc.composition.CompositeOperation <jsii-calc.composition.CompositeOperation.decorationPrefixes>`
+
+      A set of prefixes to include in a decorated .toString().
+
+
+      :type: string[]
+
+
+   .. py:attribute:: stringStyle
+
+      *Inherited from* :py:attr:`jsii-calc.composition.CompositeOperation <jsii-calc.composition.CompositeOperation.stringStyle>`
+
+      The .toString() style.
+
+
+      :type: :py:class:`~jsii-calc.composition.CompositeOperation.CompositionStringStyle`\ 
 
 
 CalculatorProps (interface)
@@ -697,12 +965,61 @@ CalculatorProps (interface)
 
    .. py:attribute:: initialValue
 
-      :type: number or undefined
+      :type: number or ``undefined`` *(abstract)*
 
 
    .. py:attribute:: maximumValue
 
-      :type: number or undefined
+      :type: number or ``undefined`` *(abstract)*
+
+
+DefaultedConstructorArgument
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: DefaultedConstructorArgument(arg1, arg2, [arg3])
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.DefaultedConstructorArgument;
+
+      .. code-tab:: javascript
+
+         const { DefaultedConstructorArgument } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { DefaultedConstructorArgument } from 'jsii-calc';
+
+
+
+   :param arg1: 
+   :type arg1: number or ``undefined``
+   :param arg2: 
+   :type arg2: string
+   :param arg3: 
+   :type arg3: date or ``undefined``
+
+   .. py:attribute:: arg1
+
+      :type: number *(readonly)*
+
+
+   .. py:attribute:: arg2
+
+      :type: string *(readonly)*
+
+
+   .. py:attribute:: arg3
+
+      :type: date *(readonly)*
 
 
 
@@ -770,7 +1087,14 @@ Derived
 
 
 
-   :extends: :py:class:`~jsii-calc.DerivedClassHasNoProperties.Base`
+   :extends: :py:class:`~jsii-calc.DerivedClassHasNoProperties.Base`\ 
+
+   .. py:attribute:: prop
+
+      *Inherited from* :py:attr:`jsii-calc.DerivedClassHasNoProperties.Base <jsii-calc.DerivedClassHasNoProperties.Base.prop>`
+
+      :type: string
+
 
 
 .. py:currentmodule:: jsii-calc
@@ -805,17 +1129,17 @@ DerivedStruct (interface)
    A struct which derives from another struct.
 
 
-   :extends: :py:class:`@scope/jsii-calc-lib.MyFirstStruct`
+   :extends: :py:class:`@scope/jsii-calc-lib.MyFirstStruct`\ 
 
 
    .. py:attribute:: anotherRequired
 
-      :type: date
+      :type: date *(abstract)*
 
 
    .. py:attribute:: bool
 
-      :type: boolean
+      :type: boolean *(abstract)*
 
 
    .. py:attribute:: nonPrimitive
@@ -823,7 +1147,7 @@ DerivedStruct (interface)
       An example of a non primitive property.
 
 
-      :type: :py:class:`~jsii-calc.DoubleTrouble`
+      :type: :py:class:`~jsii-calc.DoubleTrouble`\  *(abstract)*
 
 
    .. py:attribute:: anotherOptional
@@ -831,12 +1155,44 @@ DerivedStruct (interface)
       This is optional.
 
 
-      :type: string => :py:class:`@scope/jsii-calc-lib.Value` or undefined
+      :type: string => :py:class:`@scope/jsii-calc-lib.Value`\  or ``undefined`` *(abstract)*
+
+
+   .. py:attribute:: optionalAny
+
+      :type: any or ``undefined`` *(abstract)*
 
 
    .. py:attribute:: optionalArray
 
-      :type: string[] or undefined
+      :type: string[] or ``undefined`` *(abstract)*
+
+
+   .. py:attribute:: anumber
+
+      *Inherited from* :py:attr:`@scope/jsii-calc-lib.MyFirstStruct <@scope/jsii-calc-lib.MyFirstStruct.anumber>`
+
+      An awesome number value
+
+
+      :type: number *(abstract)*
+
+
+   .. py:attribute:: astring
+
+      *Inherited from* :py:attr:`@scope/jsii-calc-lib.MyFirstStruct <@scope/jsii-calc-lib.MyFirstStruct.astring>`
+
+      A string value
+
+
+      :type: string *(abstract)*
+
+
+   .. py:attribute:: firstOptional
+
+      *Inherited from* :py:attr:`@scope/jsii-calc-lib.MyFirstStruct <@scope/jsii-calc-lib.MyFirstStruct.firstOptional>`
+
+      :type: string[] or ``undefined`` *(abstract)*
 
 
 DoubleTrouble
@@ -866,9 +1222,11 @@ DoubleTrouble
 
 
 
-   :implements: :py:class:`~jsii-calc.IFriendlyRandomGenerator`
+   :implements: :py:class:`~jsii-calc.IFriendlyRandomGenerator`\ 
 
    .. py:method:: hello() -> string
+
+      *Implements* :py:meth:`@scope/jsii-calc-lib.IFriendly.hello`
 
       Say hello!
 
@@ -877,6 +1235,8 @@ DoubleTrouble
 
 
    .. py:method:: next() -> number
+
+      *Implements* :py:meth:`jsii-calc.IRandomNumberGenerator.next`
 
       Returns another random number.
 
@@ -918,8 +1278,8 @@ GiveMeStructs
 
 
       :param derived: 
-      :type derived: :py:class:`~jsii-calc.DerivedStruct`
-      :rtype: :py:class:`@scope/jsii-calc-lib.MyFirstStruct`
+      :type derived: :py:class:`~jsii-calc.DerivedStruct`\ 
+      :rtype: :py:class:`@scope/jsii-calc-lib.MyFirstStruct`\ 
 
 
    .. py:method:: readDerivedNonPrimitive(derived) -> jsii-calc.DoubleTrouble
@@ -928,8 +1288,8 @@ GiveMeStructs
 
 
       :param derived: 
-      :type derived: :py:class:`~jsii-calc.DerivedStruct`
-      :rtype: :py:class:`~jsii-calc.DoubleTrouble`
+      :type derived: :py:class:`~jsii-calc.DerivedStruct`\ 
+      :rtype: :py:class:`~jsii-calc.DoubleTrouble`\ 
 
 
    .. py:method:: readFirstNumber(first) -> number
@@ -938,13 +1298,13 @@ GiveMeStructs
 
 
       :param first: 
-      :type first: :py:class:`@scope/jsii-calc-lib.MyFirstStruct`
+      :type first: :py:class:`@scope/jsii-calc-lib.MyFirstStruct`\ 
       :rtype: number
 
 
    .. py:attribute:: structLiteral
 
-      :type: :py:class:`@scope/jsii-calc-lib.StructWithOnlyOptionals` *(readonly)*
+      :type: :py:class:`@scope/jsii-calc-lib.StructWithOnlyOptionals`\  *(readonly)*
 
 
 IFriendlier (interface)
@@ -977,7 +1337,7 @@ IFriendlier (interface)
    Even friendlier classes can implement this interface.
 
 
-   :extends: :py:class:`@scope/jsii-calc-lib.IFriendly`
+   :extends: :py:class:`@scope/jsii-calc-lib.IFriendly`\ 
 
 
    .. py:method:: farewell() -> string
@@ -986,6 +1346,7 @@ IFriendlier (interface)
 
 
       :rtype: string
+      :abstract: Yes
 
 
    .. py:method:: goodbye() -> string
@@ -995,6 +1356,18 @@ IFriendlier (interface)
 
       :return: A goodbye blessing.
       :rtype: string
+      :abstract: Yes
+
+
+   .. py:method:: hello() -> string
+
+      *Inherited from* :py:meth:`@scope/jsii-calc-lib.IFriendly <@scope/jsii-calc-lib.IFriendly.hello>`
+
+      Say hello!
+
+
+      :rtype: string
+      :abstract: Yes
 
 
 IFriendlyRandomGenerator (interface)
@@ -1024,8 +1397,31 @@ IFriendlyRandomGenerator (interface)
 
 
 
-   :extends: :py:class:`~jsii-calc.IRandomNumberGenerator`
-   :extends: :py:class:`@scope/jsii-calc-lib.IFriendly`
+   :extends: :py:class:`~jsii-calc.IRandomNumberGenerator`\ 
+   :extends: :py:class:`@scope/jsii-calc-lib.IFriendly`\ 
+
+
+   .. py:method:: hello() -> string
+
+      *Inherited from* :py:meth:`@scope/jsii-calc-lib.IFriendly <@scope/jsii-calc-lib.IFriendly.hello>`
+
+      Say hello!
+
+
+      :rtype: string
+      :abstract: Yes
+
+
+   .. py:method:: next() -> number
+
+      *Inherited from* :py:meth:`jsii-calc.IRandomNumberGenerator <jsii-calc.IRandomNumberGenerator.next>`
+
+      Returns another random number.
+
+
+      :return: A random number.
+      :rtype: number
+      :abstract: Yes
 
 
 IInterfaceWithProperties (interface)
@@ -1059,12 +1455,12 @@ IInterfaceWithProperties (interface)
 
    .. py:attribute:: readOnlyString
 
-      :type: string *(readonly)*
+      :type: string *(readonly)* *(abstract)*
 
 
    .. py:attribute:: readWriteString
 
-      :type: string
+      :type: string *(abstract)*
 
 
 IInterfaceWithPropertiesExtension (interface)
@@ -1094,12 +1490,26 @@ IInterfaceWithPropertiesExtension (interface)
 
 
 
-   :extends: :py:class:`~jsii-calc.IInterfaceWithProperties`
+   :extends: :py:class:`~jsii-calc.IInterfaceWithProperties`\ 
 
 
    .. py:attribute:: foo
 
-      :type: number
+      :type: number *(abstract)*
+
+
+   .. py:attribute:: readOnlyString
+
+      *Inherited from* :py:attr:`jsii-calc.IInterfaceWithProperties <jsii-calc.IInterfaceWithProperties.readOnlyString>`
+
+      :type: string *(readonly)* *(abstract)*
+
+
+   .. py:attribute:: readWriteString
+
+      *Inherited from* :py:attr:`jsii-calc.IInterfaceWithProperties <jsii-calc.IInterfaceWithProperties.readWriteString>`
+
+      :type: string *(abstract)*
 
 
 IRandomNumberGenerator (interface)
@@ -1141,6 +1551,7 @@ IRandomNumberGenerator (interface)
 
       :return: A random number.
       :rtype: number
+      :abstract: Yes
 
 
 ImplictBaseOfBase (interface)
@@ -1170,12 +1581,63 @@ ImplictBaseOfBase (interface)
 
 
 
-   :extends: :py:class:`@scope/jsii-calc-base.BaseProps`
+   :extends: :py:class:`@scope/jsii-calc-base.BaseProps`\ 
 
 
    .. py:attribute:: goo
 
-      :type: date
+      :type: date *(abstract)*
+
+
+   .. py:attribute:: foo
+
+      *Inherited from* :py:attr:`@scope/jsii-calc-base-of-base.VeryBaseProps <@scope/jsii-calc-base-of-base.VeryBaseProps.foo>`
+
+      :type: :py:class:`@scope/jsii-calc-base-of-base.Very`\  *(abstract)*
+
+
+   .. py:attribute:: bar
+
+      *Inherited from* :py:attr:`@scope/jsii-calc-base.BaseProps <@scope/jsii-calc-base.BaseProps.bar>`
+
+      :type: string *(abstract)*
+
+
+InterfaceImplementedByAbstractClass (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: InterfaceImplementedByAbstractClass
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.InterfaceImplementedByAbstractClass;
+
+      .. code-tab:: javascript
+
+         // InterfaceImplementedByAbstractClass is an interface
+
+      .. code-tab:: typescript
+
+         import { InterfaceImplementedByAbstractClass } from 'jsii-calc';
+
+
+
+   awslabs/jsii#220 Abstract return type
+
+
+
+
+   .. py:attribute:: propFromInterface
+
+      :type: string *(readonly)* *(abstract)*
 
 
 
@@ -1213,7 +1675,7 @@ Foo
 
    .. py:attribute:: bar
 
-      :type: string or undefined
+      :type: string or ``undefined``
 
 
 Hello (interface)
@@ -1247,7 +1709,7 @@ Hello (interface)
 
    .. py:attribute:: foo
 
-      :type: number
+      :type: number *(abstract)*
 
 
 
@@ -1289,7 +1751,7 @@ Hello (interface)
 
    .. py:attribute:: foo
 
-      :type: number
+      :type: number *(abstract)*
 
 
 
@@ -1332,7 +1794,8 @@ InterfaceWithOptionalMethodArguments (interface)
       :param arg1: 
       :type arg1: string
       :param arg2: 
-      :type arg2: number or undefined
+      :type arg2: number or ``undefined``
+      :abstract: Yes
 
 
 JSObjectLiteralForInterface
@@ -1365,12 +1828,12 @@ JSObjectLiteralForInterface
 
    .. py:method:: giveMeFriendly() -> @scope/jsii-calc-lib.IFriendly
 
-      :rtype: :py:class:`@scope/jsii-calc-lib.IFriendly`
+      :rtype: :py:class:`@scope/jsii-calc-lib.IFriendly`\ 
 
 
    .. py:method:: giveMeFriendlyGenerator() -> jsii-calc.IFriendlyRandomGenerator
 
-      :rtype: :py:class:`~jsii-calc.IFriendlyRandomGenerator`
+      :rtype: :py:class:`~jsii-calc.IFriendlyRandomGenerator`\ 
 
 
 JSObjectLiteralToNative
@@ -1403,7 +1866,7 @@ JSObjectLiteralToNative
 
    .. py:method:: returnLiteral() -> jsii-calc.JSObjectLiteralToNativeClass
 
-      :rtype: :py:class:`~jsii-calc.JSObjectLiteralToNativeClass`
+      :rtype: :py:class:`~jsii-calc.JSObjectLiteralToNativeClass`\ 
 
 
 JSObjectLiteralToNativeClass
@@ -1715,15 +2178,17 @@ Multiply
    The "*" binary operation.
 
 
-   :extends: :py:class:`~jsii-calc.BinaryOperation`
-   :implements: :py:class:`~jsii-calc.IFriendlier`
-   :implements: :py:class:`~jsii-calc.IRandomNumberGenerator`
+   :extends: :py:class:`~jsii-calc.BinaryOperation`\ 
+   :implements: :py:class:`~jsii-calc.IFriendlier`\ 
+   :implements: :py:class:`~jsii-calc.IRandomNumberGenerator`\ 
    :param lhs: Left-hand side operand
-   :type lhs: :py:class:`@scope/jsii-calc-lib.Value`
+   :type lhs: :py:class:`@scope/jsii-calc-lib.Value`\ 
    :param rhs: Right-hand side operand
-   :type rhs: :py:class:`@scope/jsii-calc-lib.Value`
+   :type rhs: :py:class:`@scope/jsii-calc-lib.Value`\ 
 
    .. py:method:: farewell() -> string
+
+      *Implements* :py:meth:`jsii-calc.IFriendlier.farewell`
 
       Say farewell.
 
@@ -1733,6 +2198,8 @@ Multiply
 
    .. py:method:: goodbye() -> string
 
+      *Implements* :py:meth:`jsii-calc.IFriendlier.goodbye`
+
       Say goodbye.
 
 
@@ -1740,6 +2207,8 @@ Multiply
 
 
    .. py:method:: next() -> number
+
+      *Implements* :py:meth:`jsii-calc.IRandomNumberGenerator.next`
 
       Returns another random number.
 
@@ -1749,6 +2218,8 @@ Multiply
 
    .. py:method:: toString() -> string
 
+      *Implements* :py:meth:`@scope/jsii-calc-lib.Operation.toString`
+
       String representation of the value.
 
 
@@ -1757,10 +2228,50 @@ Multiply
 
    .. py:attribute:: value
 
+      *Implements* :py:meth:`@scope/jsii-calc-lib.Value.value`
+
       The value.
 
 
       :type: number *(readonly)*
+
+
+   .. py:method:: typeName() -> any
+
+      *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
+
+      :return: the name of the class (to verify native type names are created for derived classes).
+      :rtype: any or ``undefined``
+
+
+   .. py:method:: hello() -> string
+
+      *Inherited from* :py:meth:`jsii-calc.BinaryOperation <jsii-calc.BinaryOperation.hello>`
+
+      Say hello!
+
+
+      :rtype: string
+
+
+   .. py:attribute:: lhs
+
+      *Inherited from* :py:attr:`jsii-calc.BinaryOperation <jsii-calc.BinaryOperation.lhs>`
+
+      Left-hand side operand
+
+
+      :type: :py:class:`@scope/jsii-calc-lib.Value`\  *(readonly)*
+
+
+   .. py:attribute:: rhs
+
+      *Inherited from* :py:attr:`jsii-calc.BinaryOperation <jsii-calc.BinaryOperation.rhs>`
+
+      Right-hand side operand
+
+
+      :type: :py:class:`@scope/jsii-calc-lib.Value`\  *(readonly)*
 
 
 Negate
@@ -1793,12 +2304,14 @@ Negate
    The negation operation ("-value")
 
 
-   :extends: :py:class:`~jsii-calc.UnaryOperation`
-   :implements: :py:class:`~jsii-calc.IFriendlier`
+   :extends: :py:class:`~jsii-calc.UnaryOperation`\ 
+   :implements: :py:class:`~jsii-calc.IFriendlier`\ 
    :param operand: 
-   :type operand: :py:class:`@scope/jsii-calc-lib.Value`
+   :type operand: :py:class:`@scope/jsii-calc-lib.Value`\ 
 
    .. py:method:: farewell() -> string
+
+      *Implements* :py:meth:`jsii-calc.IFriendlier.farewell`
 
       Say farewell.
 
@@ -1808,6 +2321,8 @@ Negate
 
    .. py:method:: goodbye() -> string
 
+      *Implements* :py:meth:`jsii-calc.IFriendlier.goodbye`
+
       Say goodbye.
 
 
@@ -1815,6 +2330,8 @@ Negate
 
 
    .. py:method:: hello() -> string
+
+      *Implements* :py:meth:`@scope/jsii-calc-lib.IFriendly.hello`
 
       Say hello!
 
@@ -1824,6 +2341,8 @@ Negate
 
    .. py:method:: toString() -> string
 
+      *Implements* :py:meth:`@scope/jsii-calc-lib.Operation.toString`
+
       String representation of the value.
 
 
@@ -1832,10 +2351,27 @@ Negate
 
    .. py:attribute:: value
 
+      *Implements* :py:meth:`@scope/jsii-calc-lib.Value.value`
+
       The value.
 
 
       :type: number *(readonly)*
+
+
+   .. py:method:: typeName() -> any
+
+      *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
+
+      :return: the name of the class (to verify native type names are created for derived classes).
+      :rtype: any or ``undefined``
+
+
+   .. py:attribute:: operand
+
+      *Inherited from* :py:attr:`jsii-calc.UnaryOperation <jsii-calc.UnaryOperation.operand>`
+
+      :type: :py:class:`@scope/jsii-calc-lib.Value`\  *(readonly)*
 
 
 NodeStandardLibrary
@@ -1935,12 +2471,12 @@ NumberGenerator
 
 
    :param generator: 
-   :type generator: :py:class:`~jsii-calc.IRandomNumberGenerator`
+   :type generator: :py:class:`~jsii-calc.IRandomNumberGenerator`\ 
 
    .. py:method:: isSameGenerator(gen) -> boolean
 
       :param gen: 
-      :type gen: :py:class:`~jsii-calc.IRandomNumberGenerator`
+      :type gen: :py:class:`~jsii-calc.IRandomNumberGenerator`\ 
       :rtype: boolean
 
 
@@ -1951,7 +2487,7 @@ NumberGenerator
 
    .. py:attribute:: generator
 
-      :type: :py:class:`~jsii-calc.IRandomNumberGenerator`
+      :type: :py:class:`~jsii-calc.IRandomNumberGenerator`\ 
 
 
 ObjectRefsInCollections
@@ -1991,7 +2527,7 @@ ObjectRefsInCollections
 
 
       :param values: 
-      :type values: :py:class:`@scope/jsii-calc-lib.Value`[]
+      :type values: :py:class:`@scope/jsii-calc-lib.Value`\ []
       :rtype: number
 
 
@@ -2001,8 +2537,57 @@ ObjectRefsInCollections
 
 
       :param values: 
-      :type values: string => :py:class:`@scope/jsii-calc-lib.Value`
+      :type values: string => :py:class:`@scope/jsii-calc-lib.Value`\ 
       :rtype: number
+
+
+OptionalConstructorArgument
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: OptionalConstructorArgument(arg1, arg2, [arg3])
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.OptionalConstructorArgument;
+
+      .. code-tab:: javascript
+
+         const { OptionalConstructorArgument } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { OptionalConstructorArgument } from 'jsii-calc';
+
+
+
+   :param arg1: 
+   :type arg1: number
+   :param arg2: 
+   :type arg2: string
+   :param arg3: 
+   :type arg3: date or ``undefined``
+
+   .. py:attribute:: arg1
+
+      :type: number *(readonly)*
+
+
+   .. py:attribute:: arg2
+
+      :type: string *(readonly)*
+
+
+   .. py:attribute:: arg3
+
+      :type: date or ``undefined`` *(readonly)*
 
 
 OverrideReturnsObject
@@ -2036,7 +2621,7 @@ OverrideReturnsObject
    .. py:method:: test(obj) -> number
 
       :param obj: 
-      :type obj: :py:class:`~jsii-calc.ReturnsNumber`
+      :type obj: :py:class:`~jsii-calc.ReturnsNumber`\ 
       :rtype: number
 
 
@@ -2071,7 +2656,7 @@ Polymorphism
    .. py:method:: sayHello(friendly) -> string
 
       :param friendly: 
-      :type friendly: :py:class:`@scope/jsii-calc-lib.IFriendly`
+      :type friendly: :py:class:`@scope/jsii-calc-lib.IFriendly`\ 
       :rtype: string
 
 
@@ -2105,26 +2690,28 @@ Power
    The power operation.
 
 
-   :extends: :py:class:`~jsii-calc.composition.CompositeOperation`
+   :extends: :py:class:`~jsii-calc.composition.CompositeOperation`\ 
    :param base: The base of the power
-   :type base: :py:class:`@scope/jsii-calc-lib.Value`
+   :type base: :py:class:`@scope/jsii-calc-lib.Value`\ 
    :param pow: The number of times to multiply
-   :type pow: :py:class:`@scope/jsii-calc-lib.Value`
+   :type pow: :py:class:`@scope/jsii-calc-lib.Value`\ 
 
    .. py:attribute:: base
 
       The base of the power
 
 
-      :type: :py:class:`@scope/jsii-calc-lib.Value` *(readonly)*
+      :type: :py:class:`@scope/jsii-calc-lib.Value`\  *(readonly)*
 
 
    .. py:attribute:: expression
 
+      *Implements* :py:meth:`jsii-calc.composition.CompositeOperation.expression`
+
       The expression that this operation consists of. Must be implemented by derived classes.
 
 
-      :type: :py:class:`@scope/jsii-calc-lib.Value` *(readonly)*
+      :type: :py:class:`@scope/jsii-calc-lib.Value`\  *(readonly)*
 
 
    .. py:attribute:: pow
@@ -2132,7 +2719,65 @@ Power
       The number of times to multiply
 
 
-      :type: :py:class:`@scope/jsii-calc-lib.Value` *(readonly)*
+      :type: :py:class:`@scope/jsii-calc-lib.Value`\  *(readonly)*
+
+
+   .. py:method:: typeName() -> any
+
+      *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
+
+      :return: the name of the class (to verify native type names are created for derived classes).
+      :rtype: any or ``undefined``
+
+
+   .. py:method:: toString() -> string
+
+      *Inherited from* :py:meth:`jsii-calc.composition.CompositeOperation <jsii-calc.composition.CompositeOperation.toString>`
+
+      String representation of the value.
+
+
+      :rtype: string
+
+
+   .. py:attribute:: value
+
+      *Inherited from* :py:attr:`jsii-calc.composition.CompositeOperation <jsii-calc.composition.CompositeOperation.value>`
+
+      The value.
+
+
+      :type: number *(readonly)*
+
+
+   .. py:attribute:: decorationPostfixes
+
+      *Inherited from* :py:attr:`jsii-calc.composition.CompositeOperation <jsii-calc.composition.CompositeOperation.decorationPostfixes>`
+
+      A set of postfixes to include in a decorated .toString().
+
+
+      :type: string[]
+
+
+   .. py:attribute:: decorationPrefixes
+
+      *Inherited from* :py:attr:`jsii-calc.composition.CompositeOperation <jsii-calc.composition.CompositeOperation.decorationPrefixes>`
+
+      A set of prefixes to include in a decorated .toString().
+
+
+      :type: string[]
+
+
+   .. py:attribute:: stringStyle
+
+      *Inherited from* :py:attr:`jsii-calc.composition.CompositeOperation <jsii-calc.composition.CompositeOperation.stringStyle>`
+
+      The .toString() style.
+
+
+      :type: :py:class:`~jsii-calc.composition.CompositeOperation.CompositionStringStyle`\ 
 
 
 ReferenceEnumFromScopedPackage
@@ -2168,18 +2813,18 @@ ReferenceEnumFromScopedPackage
 
    .. py:method:: loadFoo() -> @scope/jsii-calc-lib.EnumFromScopedModule
 
-      :rtype: :py:class:`@scope/jsii-calc-lib.EnumFromScopedModule` or undefined
+      :rtype: :py:class:`@scope/jsii-calc-lib.EnumFromScopedModule`\  or ``undefined``
 
 
    .. py:method:: saveFoo(value)
 
       :param value: 
-      :type value: :py:class:`@scope/jsii-calc-lib.EnumFromScopedModule`
+      :type value: :py:class:`@scope/jsii-calc-lib.EnumFromScopedModule`\ 
 
 
    .. py:attribute:: foo
 
-      :type: :py:class:`@scope/jsii-calc-lib.EnumFromScopedModule` or undefined
+      :type: :py:class:`@scope/jsii-calc-lib.EnumFromScopedModule`\  or ``undefined``
 
 
 ReturnsNumber (interface)
@@ -2213,12 +2858,13 @@ ReturnsNumber (interface)
 
    .. py:attribute:: numberProp
 
-      :type: number *(readonly)*
+      :type: number *(readonly)* *(abstract)*
 
 
    .. py:method:: obtainNumber() -> number
 
       :rtype: number
+      :abstract: Yes
 
 
 RuntimeTypeChecking
@@ -2249,6 +2895,22 @@ RuntimeTypeChecking
 
 
 
+   .. py:method:: methodWithDefaultedArguments(arg1, arg2, [arg3])
+
+      :param arg1: 
+      :type arg1: number or ``undefined``
+      :param arg2: 
+      :type arg2: string
+      :param arg3: 
+      :type arg3: date or ``undefined``
+
+
+   .. py:method:: methodWithOptionalAnyArgument([arg])
+
+      :param arg: 
+      :type arg: any or ``undefined``
+
+
    .. py:method:: methodWithOptionalArguments(arg1, arg2, [arg3])
 
       Used to verify verification of number of method arguments.
@@ -2259,7 +2921,7 @@ RuntimeTypeChecking
       :param arg2: 
       :type arg2: string
       :param arg3: 
-      :type arg3: date or undefined
+      :type arg3: date or ``undefined``
 
 
 Statics
@@ -2317,7 +2979,7 @@ Statics
 
    .. py:attribute:: ConstObj
 
-      :type: :py:class:`~jsii-calc.DoubleTrouble` *(readonly)* *(static)*
+      :type: :py:class:`~jsii-calc.DoubleTrouble`\  *(readonly)* *(static)*
 
 
    .. py:attribute:: Foo
@@ -2341,7 +3003,7 @@ Statics
       Jsdocs for static getter. Jsdocs for static setter.
 
 
-      :type: :py:class:`~jsii-calc.Statics` *(static)*
+      :type: :py:class:`~jsii-calc.Statics`\  *(static)*
 
 
    .. py:attribute:: nonConstStatic
@@ -2418,14 +3080,16 @@ Sum
    An operation that sums multiple values.
 
 
-   :extends: :py:class:`~jsii-calc.composition.CompositeOperation`
+   :extends: :py:class:`~jsii-calc.composition.CompositeOperation`\ 
 
    .. py:attribute:: expression
+
+      *Implements* :py:meth:`jsii-calc.composition.CompositeOperation.expression`
 
       The expression that this operation consists of. Must be implemented by derived classes.
 
 
-      :type: :py:class:`@scope/jsii-calc-lib.Value` *(readonly)*
+      :type: :py:class:`@scope/jsii-calc-lib.Value`\  *(readonly)*
 
 
    .. py:attribute:: parts
@@ -2433,7 +3097,65 @@ Sum
       The parts to sum.
 
 
-      :type: :py:class:`@scope/jsii-calc-lib.Value`[]
+      :type: :py:class:`@scope/jsii-calc-lib.Value`\ []
+
+
+   .. py:method:: typeName() -> any
+
+      *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
+
+      :return: the name of the class (to verify native type names are created for derived classes).
+      :rtype: any or ``undefined``
+
+
+   .. py:method:: toString() -> string
+
+      *Inherited from* :py:meth:`jsii-calc.composition.CompositeOperation <jsii-calc.composition.CompositeOperation.toString>`
+
+      String representation of the value.
+
+
+      :rtype: string
+
+
+   .. py:attribute:: value
+
+      *Inherited from* :py:attr:`jsii-calc.composition.CompositeOperation <jsii-calc.composition.CompositeOperation.value>`
+
+      The value.
+
+
+      :type: number *(readonly)*
+
+
+   .. py:attribute:: decorationPostfixes
+
+      *Inherited from* :py:attr:`jsii-calc.composition.CompositeOperation <jsii-calc.composition.CompositeOperation.decorationPostfixes>`
+
+      A set of postfixes to include in a decorated .toString().
+
+
+      :type: string[]
+
+
+   .. py:attribute:: decorationPrefixes
+
+      *Inherited from* :py:attr:`jsii-calc.composition.CompositeOperation <jsii-calc.composition.CompositeOperation.decorationPrefixes>`
+
+      A set of prefixes to include in a decorated .toString().
+
+
+      :type: string[]
+
+
+   .. py:attribute:: stringStyle
+
+      *Inherited from* :py:attr:`jsii-calc.composition.CompositeOperation <jsii-calc.composition.CompositeOperation.stringStyle>`
+
+      The .toString() style.
+
+
+      :type: :py:class:`~jsii-calc.composition.CompositeOperation.CompositionStringStyle`\ 
 
 
 SyncVirtualMethods
@@ -2611,14 +3333,43 @@ UnaryOperation
    An operation on a single operand.
 
 
-   :extends: :py:class:`@scope/jsii-calc-lib.Operation`
+   :extends: :py:class:`@scope/jsii-calc-lib.Operation`\ 
    :abstract: Yes
    :param operand: 
-   :type operand: :py:class:`@scope/jsii-calc-lib.Value`
+   :type operand: :py:class:`@scope/jsii-calc-lib.Value`\ 
 
    .. py:attribute:: operand
 
-      :type: :py:class:`@scope/jsii-calc-lib.Value` *(readonly)*
+      :type: :py:class:`@scope/jsii-calc-lib.Value`\  *(readonly)*
+
+
+   .. py:method:: typeName() -> any
+
+      *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
+
+      :return: the name of the class (to verify native type names are created for derived classes).
+      :rtype: any or ``undefined``
+
+
+   .. py:method:: toString() -> string
+
+      *Inherited from* :py:meth:`@scope/jsii-calc-lib.Operation <@scope/jsii-calc-lib.Operation.toString>`
+
+      String representation of the value.
+
+
+      :rtype: string
+      :abstract: Yes
+
+
+   .. py:attribute:: value
+
+      *Inherited from* :py:attr:`@scope/jsii-calc-lib.Value <@scope/jsii-calc-lib.Value.value>`
+
+      The value.
+
+
+      :type: number *(readonly)* *(abstract)*
 
 
 UnionProperties (interface)
@@ -2652,12 +3403,12 @@ UnionProperties (interface)
 
    .. py:attribute:: bar
 
-      :type: string or number or :py:class:`~jsii-calc.AllTypes` *(readonly)*
+      :type: string or number or :py:class:`~jsii-calc.AllTypes`\  *(readonly)* *(abstract)*
 
 
    .. py:attribute:: foo
 
-      :type: string or number or undefined
+      :type: string or number or ``undefined`` *(abstract)*
 
 
 UseBundledDependency
@@ -2690,7 +3441,7 @@ UseBundledDependency
 
    .. py:method:: value() -> any
 
-      :rtype: any
+      :rtype: any or ``undefined``
 
 
 UseCalcBase
@@ -2726,7 +3477,7 @@ UseCalcBase
 
    .. py:method:: hello() -> @scope/jsii-calc-base.Base
 
-      :rtype: :py:class:`@scope/jsii-calc-base.Base`
+      :rtype: :py:class:`@scope/jsii-calc-base.Base`\ 
 
 
 UsesInterfaceWithProperties
@@ -2757,7 +3508,7 @@ UsesInterfaceWithProperties
 
 
    :param obj: 
-   :type obj: :py:class:`~jsii-calc.IInterfaceWithProperties`
+   :type obj: :py:class:`~jsii-calc.IInterfaceWithProperties`\ 
 
    .. py:method:: justRead() -> string
 
@@ -2767,7 +3518,7 @@ UsesInterfaceWithProperties
    .. py:method:: readStringAndNumber(ext) -> string
 
       :param ext: 
-      :type ext: :py:class:`~jsii-calc.IInterfaceWithPropertiesExtension`
+      :type ext: :py:class:`~jsii-calc.IInterfaceWithPropertiesExtension`\ 
       :rtype: string
 
 
@@ -2780,7 +3531,7 @@ UsesInterfaceWithProperties
 
    .. py:attribute:: obj
 
-      :type: :py:class:`~jsii-calc.IInterfaceWithProperties` *(readonly)*
+      :type: :py:class:`~jsii-calc.IInterfaceWithProperties`\  *(readonly)*
 
 
 VariadicMethod
@@ -2920,10 +3671,12 @@ CompositeOperation
    Abstract operation composed from an expression of other operations.
 
 
-   :extends: :py:class:`@scope/jsii-calc-lib.Operation`
+   :extends: :py:class:`@scope/jsii-calc-lib.Operation`\ 
    :abstract: Yes
 
    .. py:method:: toString() -> string
+
+      *Implements* :py:meth:`@scope/jsii-calc-lib.Operation.toString`
 
       String representation of the value.
 
@@ -2936,10 +3689,12 @@ CompositeOperation
       The expression that this operation consists of. Must be implemented by derived classes.
 
 
-      :type: :py:class:`@scope/jsii-calc-lib.Value` *(readonly)* *(abstract)*
+      :type: :py:class:`@scope/jsii-calc-lib.Value`\  *(readonly)* *(abstract)*
 
 
    .. py:attribute:: value
+
+      *Implements* :py:meth:`@scope/jsii-calc-lib.Value.value`
 
       The value.
 
@@ -2968,7 +3723,7 @@ CompositeOperation
       The .toString() style.
 
 
-      :type: :py:class:`~jsii-calc.composition.CompositeOperation.CompositionStringStyle`
+      :type: :py:class:`~jsii-calc.composition.CompositeOperation.CompositionStringStyle`\ 
 
    .. py:class:: CompositionStringStyle
 
@@ -3007,6 +3762,14 @@ CompositeOperation
       Decorated string expression 
 
 
+
+
+   .. py:method:: typeName() -> any
+
+      *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
+
+      :return: the name of the class (to verify native type names are created for derived classes).
+      :rtype: any or ``undefined``
 
 
 

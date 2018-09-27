@@ -1,7 +1,6 @@
 ﻿using Amazon.JSII.JsonModel.Spec;
 using NSubstitute;
 using SF = Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
-using Type = Amazon.JSII.JsonModel.Spec.Type;
 
 namespace Amazon.JSII.Generator.UnitTests
 {
@@ -89,6 +88,15 @@ namespace Amazon.JSII.Generator.UnitTests
                     .Returns(SF.ParseName(defaultName));
 
                 frameworkName = $"I{frameworkName}";
+            }
+            
+            if (kind == TypeKind.Class)
+            {
+                string proxyName = $"{frameworkName}Proxy";
+
+                symbols
+                    .GetAbstractClassProxyName(Arg.Is<ClassType>(t => t.FullyQualifiedName == fullyQualifiedName), disambiguate: Arg.Any<bool>())
+                    .Returns(proxyName);
             }
             
             symbols

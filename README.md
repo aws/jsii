@@ -232,72 +232,6 @@ under `sphinx`, etc.
 
 That's it. You are ready to rock!
 
-## Configuration
-
-jsii configuration is read from the module's `package.json` and includes the following options:
-
- * `targets` - the list of target languages this module will be packaged for. For each
-   target, you would need to specify some naming information such as namespaces, package manager
-   coordinates, etc. See [supported targets](#targets) for details.
- * `outdir` - the default output directory (relative to package root) for
-   __jsii-pacmak__. This is where target artifacts are emitted during packaging. Each artifact
-   will be emitted under `<outdir>/<target>` (e.g. `dist/java`, `dist/js`, etc).
-
-### Targets
-
-The following targets are currently supported:
-
- * `js` - implicit - every module will always have a "js" target (dah!).
- * `java` - packages the module as in Java/Maven package. Requires the following config:
-
-```json
-{
-  "java": {
-    "package": "com.acme.hello",
-    "maven": {
-      "groupId": "com.acme.hello",
-      "artifactId": "hello-jsii"
-    }
-  }
-}
-```
-
-* `dotnet` - packages the module as a .NET/NuGet package. Requires the following config:
-
-```js
-{
-  "dotnet": {
-    /* Required. */
-    "namespace": "Acme.HelloNamespace",
-
-    /* Required. */
-    "packageId": "Acme.HelloPackage",
-
-    /* Optional. Default: Value of packageId. */
-    "title": "ACME Hello",
-
-    /* Optional. Default: null (no icon). */
-    "iconUrl": "path/to/icon.svg",
-
-    /* Optional. Used in conjunction with assemblyOriginatorKeyFile. Default: false. */
-    "signAssembly": true,
-
-    /* Optional. Used in conjunction with signAssembly. Default: null. */
-    "assemblyOriginatorKeyFile": "path/to/key.snk"
-  }
-}
-```
-
-* `sphinx` - produces sphinx documentation for the module. No config is required, but an empty
-  entry will be needed in order to package this target:
-
-```json
-{
-  "sphinx": { }
-}
-```
-
-
 ## Features
 
 ### Language features
@@ -333,6 +267,115 @@ The following targets are currently supported:
  * __Sphinx__ - generates a Sphinx reStructuredText document for the module with README and reference docs.
  * __Python__ (work in progress) - generates a ready-to-publish PyPI package.
  * __Ruby__ (work in progress) - generates a ready-to-publish RubyGem.
+
+
+## Targets
+
+jsii configuration is read from the `jsii` section in the module's
+`package.json` and includes the following options:
+
+ * `targets` - the list of target languages this module will be packaged for. For each
+   target, you would need to specify some naming information such as namespaces, package manager
+   coordinates, etc. See [supported targets](#targets) for details.
+ * `outdir` - the default output directory (relative to package root) for
+   __jsii-pacmak__. This is where target artifacts are emitted during packaging.
+   Each artifact will be emitted under `<outdir>/<target>` (e.g. `dist/java`,
+   `dist/js`, etc). Conventionally we use `"dist"` for outdir.
+
+### Java
+
+The `java` target will produce a ready-to-deploy Maven package for your jsii module.
+
+The `$outdir/java` directory will include the contents of a staged offline Maven
+repository. javadocs and sources are included automatically in the Maven package
+
+This repository can be published to [Maven Central](https://search.maven.org/)
+via the `deploy-staged-repository` command of the
+[nexus-staging-maven-plugin](https://mvnrepository.com/artifact/org.sonatype.plugins/nexus-staging-maven-plugin).
+See [Sonatype
+documentation](https://mvnrepository.com/artifact/org.sonatype.plugins/nexus-staging-maven-plugin)
+and [this gist](https://gist.github.com/eladb/9caa04253b268e8a8f3d658184202806)
+as a reference.
+
+To package your jsii module for Java, add the following configuration to the `jsii`
+section in `package.json`:
+
+```json
+{
+  "java": {
+    "package": "com.acme.hello",
+    "maven": {
+      "groupId": "com.acme.hello",
+      "artifactId": "hello-jsii"
+    }
+  }
+}
+```
+
+### .NET
+
+The `dotnet` target will produce a ready-to-publish NuGet package for your module.
+
+The `$outdir/dotnet` directory will include `.nupkg` files, which can
+be [published to NuGet](https://docs.microsoft.com/en-us/nuget/create-packages/publish-a-package).
+
+To package your jsii module as for .NET, add this configuration to the `jsii`
+section in `package.json`:
+
+```js
+{
+  "dotnet": {
+    "namespace": "Acme.HelloNamespace", // required
+    "packageId": "Acme.HelloPackage",   // required
+    "title": "ACME Hello",              // optional (default: packageId)
+    "iconUrl": "path/to/icon.svg",      // optional (default: no icon)
+
+    // strong-name signing
+    "signAssembly": true,                          // optional (default: false)
+    "assemblyOriginatorKeyFile": "path/to/key.snk" // optional
+  }
+}
+```
+
+### Sphinx
+
+The sphinx target emits a [Sphinx](http://www.sphinx-doc.org/en/master/)
+documentation topic for the module, that can be used to build a Sphinx
+documentation website. It's not a complete website.
+
+
+The `$outdir/sphinx` directory will include two files:
+
+ * `<module-name>.rst` - the Sphinx topic entry point
+ * `<module-name>.README.md` (optional) - the module's README.md file (if exists)
+
+The `.rst` file will use [m2r](https://github.com/miyakogi/m2r) to
+[`mdinclude`](https://miyakogi.github.io/m2r/example.html#include-markdown-file)
+the README.md file into the topic.
+
+NOTE: if the first line of your `README.md` file starts with `# ` (an H1
+header), the contents of this line will be used as the first header of the
+topic. Otherwise, the module's name will be used.
+
+You will need to build a Sphinx documentation website with this `.rst` included.
+
+To package your jsii module as a Sphinx topic, add an empty object to the
+`jsii` section in `package.json` under the `sphinx` key:
+
+```json
+{
+  "sphinx": { }
+}
+```
+
+### JavaScript
+
+An implicit JavaScript target will always be created. No configuration is needed.
+
+The `$outdir/js` directory will include that npm tarball of the module (created
+with [`npm pack`](https://docs.npmjs.com/cli/pack)).
+
+Tarballs can be published to npmjs.org using [`npm publish`](https://docs.npmjs.com/cli/publish)
 
 ## What kind of sorcery is this?
 

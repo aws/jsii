@@ -4,9 +4,9 @@ package software.amazon.jsii.tests.calculator;
 public interface IFriendlyRandomGenerator extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.IRandomNumberGenerator, software.amazon.jsii.tests.calculator.lib.IFriendly {
 
     /**
-     * A proxy class which for javascript object literal which adhere to this interface.
+     * A proxy class which represents a concrete javascript instance of this type.
      */
-    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IFriendlyRandomGenerator {
+    final static class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IFriendlyRandomGenerator {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
             super(mode);
         }

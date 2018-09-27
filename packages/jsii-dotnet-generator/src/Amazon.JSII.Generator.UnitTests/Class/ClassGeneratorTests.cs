@@ -1,20 +1,20 @@
 ﻿using Amazon.JSII.Generator.Class;
-using Amazon.JSII.Generator.Interface;
 using Amazon.JSII.JsonModel.Spec;
 using Microsoft.CodeAnalysis;
 using Xunit;
+using TypeKind = Amazon.JSII.JsonModel.Spec.TypeKind;
 
 namespace Amazon.JSII.Generator.UnitTests.Class
 {
     public class ClassGeneratorTests : GeneratorTestBase
     {
-        const string Prefix = nameof(Generator) + "." + nameof(InterfaceGenerator) + ".";
+        const string Prefix = nameof(Generator) + "." + nameof(ClassGenerator) + ".";
 
-        string Render(ClassType classType)
+        private string Render(ClassType classType)
         {
             Symbols.MapTypeToPackage("myFqn", classType.Assembly);
             Symbols.MapNamespace(classType.QualifiedNamespace, "MyNamespace");
-            Symbols.MapTypeName("myFqn", "MyClass", JsonModel.Spec.TypeKind.Class);
+            Symbols.MapTypeName("myFqn", "MyClass", TypeKind.Class);
 
             ClassGenerator generator = new ClassGenerator(classType.Assembly, classType, Symbols, Namespaces);
 
@@ -36,7 +36,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
 
             string actual = Render(classType);
             string expected =
-@"namespace MyNamespace
+                @"namespace MyNamespace
 {
     [JsiiClass(typeof(MyClass), ""myFqn"", ""[]"")]
     public class MyClass : DeputyBase
@@ -71,7 +71,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
 
             string actual = Render(classType);
             string expected =
-@"namespace MyNamespace
+                @"namespace MyNamespace
 {
     [JsiiClass(typeof(MyClass), ""myFqn"", ""[]"")]
     public abstract class MyClass : DeputyBase
@@ -103,12 +103,12 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                 name: "myClass",
                 isAbstract: false,
                 initializer: new Method(true, false, false),
-                docs: new Docs { { "foo", "bar" } }
+                docs: new Docs {{"foo", "bar"}}
             );
 
             string actual = Render(classType);
             string expected =
-@"namespace MyNamespace
+                @"namespace MyNamespace
 {
     /// <remarks>foo: bar</remarks>
     [JsiiClass(typeof(MyClass), ""myFqn"", ""[]"")]
@@ -144,7 +144,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                 {
                     new Property
                     (
-                        name: "myProp", 
+                        name: "myProp",
                         type: new TypeReference("myPropTypeFqn"),
                         isImmutable: false,
                         isAbstract: false,
@@ -153,12 +153,12 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                 }
             );
 
-            Symbols.MapTypeName("myPropTypeFqn", "MyPropType", JsonModel.Spec.TypeKind.Class);
+            Symbols.MapTypeName("myPropTypeFqn", "MyPropType", TypeKind.Class);
             Symbols.MapPropertyName("myFqn", "myProp", "MyProp");
 
             string actual = Render(classType);
             string expected =
-@"namespace MyNamespace
+                @"namespace MyNamespace
 {
     [JsiiClass(typeof(MyClass), ""myFqn"", ""[]"")]
     public class MyClass : DeputyBase
@@ -212,7 +212,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
 
             string actual = Render(classType);
             string expected =
-@"namespace MyNamespace
+                @"namespace MyNamespace
 {
     [JsiiClass(typeof(MyClass), ""myFqn"", ""[]"")]
     public class MyClass : DeputyBase
@@ -252,11 +252,11 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                 @base: new TypeReference("myBaseTypeFqn")
             );
 
-            Symbols.MapTypeName("myBaseTypeFqn", "MyBaseType", JsonModel.Spec.TypeKind.Class);
+            Symbols.MapTypeName("myBaseTypeFqn", "MyBaseType", TypeKind.Class);
 
             string actual = Render(classType);
             string expected =
-@"namespace MyNamespace
+                @"namespace MyNamespace
 {
     [JsiiClass(typeof(MyClass), ""myFqn"", ""[]"")]
     public class MyClass : MyBaseType
@@ -294,12 +294,12 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                 }
             );
 
-            Symbols.MapTypeName("myInterfaceFqn1", "MyInterface1", JsonModel.Spec.TypeKind.Interface);
-            Symbols.MapTypeName("myInterfaceFqn2", "MyInterface2", JsonModel.Spec.TypeKind.Interface);
+            Symbols.MapTypeName("myInterfaceFqn1", "MyInterface1", TypeKind.Interface);
+            Symbols.MapTypeName("myInterfaceFqn2", "MyInterface2", TypeKind.Interface);
 
             string actual = Render(classType);
             string expected =
-@"namespace MyNamespace
+                @"namespace MyNamespace
 {
     [JsiiClass(typeof(MyClass), ""myFqn"", ""[]"")]
     public class MyClass : DeputyBase, IMyInterface1, IMyInterface2

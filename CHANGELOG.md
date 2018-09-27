@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.7.6"></a>
+## [0.7.6](https://github.com/awslabs/jsii/compare/v0.7.5...v0.7.6) (2018-09-20)
+
+
+### Bug Fixes
+
+* Sphinx generated incorrect type references for display ([#232](https://github.com/awslabs/jsii/issues/232)) ([b664805](https://github.com/awslabs/jsii/commit/b664805))
+* **jsii:** Defaulted parameters were not rendered as optional ([#234](https://github.com/awslabs/jsii/issues/234)) ([578bf9c](https://github.com/awslabs/jsii/commit/578bf9c)), closes [#233](https://github.com/awslabs/jsii/issues/233)
+* **jsii:** Don't skip emit on TS errors when in "watch" mode ([#236](https://github.com/awslabs/jsii/issues/236)) ([30d1491](https://github.com/awslabs/jsii/commit/30d1491)), closes [#235](https://github.com/awslabs/jsii/issues/235)
+* **jsii:** Optional `any` represented as required ([#237](https://github.com/awslabs/jsii/issues/237)) ([91074f3](https://github.com/awslabs/jsii/commit/91074f3)), closes [#230](https://github.com/awslabs/jsii/issues/230)
+
+
+### Features
+
+* **sphinx:** allow readme file to define sphinx header and reorganize topic ([#229](https://github.com/awslabs/jsii/issues/229)) ([405da9c](https://github.com/awslabs/jsii/commit/405da9c)), closes [#228](https://github.com/awslabs/jsii/issues/228) [#185](https://github.com/awslabs/jsii/issues/185)
+* Document overriden/inherited members ([#238](https://github.com/awslabs/jsii/issues/238)) ([7a6278a](https://github.com/awslabs/jsii/commit/7a6278a)), closes [#196](https://github.com/awslabs/jsii/issues/196)
+
+
+
+
+<a name="0.7.5"></a>
+## [0.7.5](https://github.com/awslabs/jsii/compare/v0.7.4...v0.7.5) (2018-09-13)
+
+### Known Issues
+
+* **dotnet**: unable to instantiate objects when return type is abstract ([#223](https://github.com/awslabs/jsii/issues/223))
+
+### Bug Fixes
+
+* **java:** support abstract return types ([#224](https://github.com/awslabs/jsii/issues/224)) ([3257223](https://github.com/awslabs/jsii/commit/3257223)), closes [#220](https://github.com/awslabs/jsii/issues/220) [#223](https://github.com/awslabs/jsii/issues/223) [awslabs/aws-cdk#680](https://github.com/awslabs/aws-cdk/issues/680)
+
+
 <a name="0.7.4"></a>
 ## [0.7.4](https://github.com/awslabs/jsii/compare/v0.7.3...v0.7.4) (2018-09-10)
 
@@ -85,17 +117,17 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * Denote the optional aspect of types when describing them ([#159](https://github.com/awslabs/jsii/issues/159))
 
 <a name="0.6.2"></a>
-## 0.6.2 (2018-08-07)
+## [0.6.2](https://github.com/awslabs/jsii/compare/v0.6.0...v0.6.2) (2018-08-07)
 
 ### Bug Fixes
 
 * "Malformed enum value" when using @scoped packages ([#139](https://github.com/awslabs/jsii/issues/139)) ([4e70209](https://github.com/awslabs/jsii/commit/4e70209)), closes [#138](https://github.com/awslabs/jsii/issues/138)
 
-## 0.6.0 - 2018-08-06
+## [0.6.0](https://github.com/awslabs/jsii/compare/v0.5.0...v0.6.0) (2018-08-06)
 
 * First public release
 
-## 0.5.0 - 2018-06-20
+## 0.5.0 (2018-06-20)
 
 * Support variadics in methods.
 * Support for static methods, properties and constants

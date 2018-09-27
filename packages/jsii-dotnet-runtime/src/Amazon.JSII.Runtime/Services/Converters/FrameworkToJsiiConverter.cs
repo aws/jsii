@@ -35,7 +35,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
             System.Type type = value.GetType();
 
-            if (type.GetCustomAttribute<JsiiInterfaceProxyAttribute>() != null)
+            if (type.GetCustomAttribute<JsiiTypeProxyAttribute>() != null)
             {
                 throw new ArgumentException
                 (

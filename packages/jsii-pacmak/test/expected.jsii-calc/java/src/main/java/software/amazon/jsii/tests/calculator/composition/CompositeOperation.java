@@ -89,4 +89,38 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
          */
         Decorated,
     }
+
+    /**
+     * A proxy class which represents a concrete javascript instance of this type.
+     */
+    final static class Jsii$Proxy extends software.amazon.jsii.tests.calculator.composition.CompositeOperation {
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
+            super(mode);
+        }
+
+        /**
+         * The expression that this operation consists of.
+         * Must be implemented by derived classes.
+         */
+        @Override
+        public software.amazon.jsii.tests.calculator.lib.Value getExpression() {
+            return this.jsiiGet("expression", software.amazon.jsii.tests.calculator.lib.Value.class);
+        }
+
+        /**
+         * The value.
+         */
+        @Override
+        public java.lang.Number getValue() {
+            return this.jsiiGet("value", java.lang.Number.class);
+        }
+
+        /**
+         * String representation of the value.
+         */
+        @Override
+        public java.lang.String toString() {
+            return this.jsiiCall("toString", java.lang.String.class);
+        }
+    }
 }

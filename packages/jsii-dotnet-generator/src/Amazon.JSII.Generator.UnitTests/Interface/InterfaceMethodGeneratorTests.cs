@@ -39,7 +39,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
             (
                 false,
                 false,
-                false,
+                true,
                 name: "myMethod",
                 returns: new TypeReference(fullyQualifiedName: "myReturnTypeFqn")
             );
@@ -55,7 +55,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
             (
                 false,
                 false,
-                false,
+                true,
                 name: "myMethod",
                 parameters: new[]
                 {
@@ -81,7 +81,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
             (
                 false,
                 false,
-                false,
+                true,
                 name: "myMethod"
             );
 
@@ -100,7 +100,7 @@ void MyMethod();";
             (
                 false,
                 false,
-                false,
+                true,
                 name: "myMethod",
                 parameters: new[]
                 {
@@ -135,7 +135,7 @@ void MyMethod(string myParameter1, string @event);";
             (
                 false,
                 false,
-                false,
+                true,
                 name: "myMethod",
                 returns: new TypeReference(primitive: PrimitiveType.String)
             );

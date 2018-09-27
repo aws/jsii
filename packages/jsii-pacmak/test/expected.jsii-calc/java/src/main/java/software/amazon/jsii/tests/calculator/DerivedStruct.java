@@ -25,6 +25,8 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
      * This is optional.
      */
     void setAnotherOptional(final java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> value);
+    java.lang.Object getOptionalAny();
+    void setOptionalAny(final java.lang.Object value);
     java.util.List<java.lang.String> getOptionalArray();
     void setOptionalArray(final java.util.List<java.lang.String> value);
 
@@ -44,6 +46,8 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         private software.amazon.jsii.tests.calculator.DoubleTrouble _nonPrimitive;
         @javax.annotation.Nullable
         private java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> _anotherOptional;
+        @javax.annotation.Nullable
+        private java.lang.Object _optionalAny;
         @javax.annotation.Nullable
         private java.util.List<java.lang.String> _optionalArray;
         private java.lang.Number _anumber;
@@ -85,6 +89,15 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
          */
         public Builder withAnotherOptional(@javax.annotation.Nullable final java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> value) {
             this._anotherOptional = value;
+            return this;
+        }
+        /**
+         * Sets the value of OptionalAny
+         * @param value the value to be set
+         * @return {@code this}
+         */
+        public Builder withOptionalAny(@javax.annotation.Nullable final java.lang.Object value) {
+            this._optionalAny = value;
             return this;
         }
         /**
@@ -137,6 +150,8 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
                 @javax.annotation.Nullable
                 private java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> $anotherOptional = _anotherOptional;
                 @javax.annotation.Nullable
+                private java.lang.Object $optionalAny = _optionalAny;
+                @javax.annotation.Nullable
                 private java.util.List<java.lang.String> $optionalArray = _optionalArray;
                 private java.lang.Number $anumber = java.util.Objects.requireNonNull(_anumber, "anumber is required");
                 private java.lang.String $astring = java.util.Objects.requireNonNull(_astring, "astring is required");
@@ -184,6 +199,16 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
                 }
 
                 @Override
+                public java.lang.Object getOptionalAny() {
+                    return this.$optionalAny;
+                }
+
+                @Override
+                public void setOptionalAny(@javax.annotation.Nullable final java.lang.Object value) {
+                    this.$optionalAny = value;
+                }
+
+                @Override
                 public java.util.List<java.lang.String> getOptionalArray() {
                     return this.$optionalArray;
                 }
@@ -228,9 +253,9 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
     }
 
     /**
-     * A proxy class which for javascript object literal which adhere to this interface.
+     * A proxy class which represents a concrete javascript instance of this type.
      */
-    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.DerivedStruct {
+    final static class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.DerivedStruct {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
             super(mode);
         }
@@ -286,6 +311,17 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         @Override
         public void setAnotherOptional(@javax.annotation.Nullable final java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> value) {
             this.jsiiSet("anotherOptional", value);
+        }
+
+        @Override
+        @javax.annotation.Nullable
+        public java.lang.Object getOptionalAny() {
+            return this.jsiiGet("optionalAny", java.lang.Object.class);
+        }
+
+        @Override
+        public void setOptionalAny(@javax.annotation.Nullable final java.lang.Object value) {
+            this.jsiiSet("optionalAny", value);
         }
 
         @Override

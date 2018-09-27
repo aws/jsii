@@ -83,7 +83,7 @@ export class Compiler implements Emitter {
             const projectRoot = this.options.projectInfo.projectRoot;
             const host = ts.createWatchCompilerHost(
                 await this._writeTypeScriptConfig(),
-                COMPILER_OPTIONS,
+                { ...COMPILER_OPTIONS, noEmitOnError: false },
                 { ...ts.sys, getCurrentDirectory() { return projectRoot; } }
             );
             const orig = host.afterProgramCreate;

@@ -1,8 +1,8 @@
-﻿using Amazon.JSII.JsonModel.Spec;
+﻿using System;
+using System.Collections.Generic;
+using Amazon.JSII.JsonModel.Spec;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System;
-using System.Collections.Generic;
 using SF = Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Amazon.JSII.Generator.Interface
@@ -12,9 +12,9 @@ namespace Amazon.JSII.Generator.Interface
         public InterfaceProxyMethodGenerator(InterfaceType type, Method method, ISymbolMap symbols, INamespaceSet namespaces)
             : base(type, method, symbols, namespaces)
         {
-            if (method.IsAbstract)
+            if (method.IsAbstract != true)
             {
-                throw new ArgumentException("Abstract methods are not allowed on interfaces", nameof(method));
+                throw new ArgumentException("Interface methods must be abstract", nameof(method));
             }
 
             if (method.IsProtected)
@@ -34,7 +34,6 @@ namespace Amazon.JSII.Generator.Interface
         protected override IEnumerable<SyntaxKind> GetModifierKeywords()
         {
             yield return SyntaxKind.PublicKeyword;
-            yield return SyntaxKind.VirtualKeyword;
         }
 
         protected override BlockSyntax GetBody()
