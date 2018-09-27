@@ -14,6 +14,7 @@ import { TOKEN_DATE, TOKEN_ENUM, TOKEN_REF } from './api';
  */
 const OBJID_PROP = '$__jsii__objid__$';
 const FQN_PROP = '$__jsii__fqn__$';
+const PROXIES_PROP = '$__jsii__proxies__$';
 
 /**
  * A special FQN that can be used to create empty javascript objects.
@@ -923,12 +924,17 @@ export class Kernel {
         // so the client receives a real object.
         if (typeof(v) === 'object' && targetType && spec.isNamedTypeReference(targetType)) {
             this._debug('coalescing to', targetType);
-            const newObjRef = this._create({ fqn: targetType.fqn });
-            const newObj = this._findObject(newObjRef);
-            for (const k of Object.keys(v)) {
-                newObj[k] = v[k];
-            }
-            return newObjRef;
+            const proxies = v[PROXIES_PROP] = v[PROXIES_PROP] || {};
+            if (proxies[targetType.fqn]) { return proxies[targetType.fqn]; }
+            const proxy = new Proxy(v, {
+                has(target: any, propertyKey: string) {
+                    return propertyKey in target || propertyKey === FQN_PROP;
+                },
+                get(target: any, propertyKey: string) {
+                    return propertyKey === FQN_PROP ? targetType.fqn : target[propertyKey];
+                }
+            });
+            return this._createObjref(proxy, targetType.fqn);
         }
 
         // date (https://stackoverflow.com/a/643827/737957)
