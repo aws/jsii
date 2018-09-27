@@ -15,6 +15,7 @@ import { TOKEN_DATE, TOKEN_ENUM, TOKEN_REF } from './api';
 const OBJID_PROP = '$__jsii__objid__$';
 const FQN_PROP = '$__jsii__fqn__$';
 const PROXIES_PROP = '$__jsii__proxies__$';
+const PROXY_REFERENT_PROP = '$__jsii__proxy_referent__$';
 
 /**
  * A special FQN that can be used to create empty javascript objects.
@@ -150,8 +151,13 @@ export class Kernel {
         const { objref } = req;
 
         this._debug('del', objref);
-        this._findObject(objref); // make sure object exists
+        const obj = this._findObject(objref); // make sure object exists
         delete this.objects[objref[TOKEN_REF]];
+
+        if (obj[PROXY_REFERENT_PROP]) {
+            // De-register the proxy if this was a proxy...
+            delete obj[PROXY_REFERENT_PROP][PROXIES_PROP][obj[FQN_PROP]];
+        }
 
         return { };
     }
@@ -924,17 +930,13 @@ export class Kernel {
         // so the client receives a real object.
         if (typeof(v) === 'object' && targetType && spec.isNamedTypeReference(targetType)) {
             this._debug('coalescing to', targetType);
-            const proxies = v[PROXIES_PROP] = v[PROXIES_PROP] || {};
-            if (proxies[targetType.fqn]) { return proxies[targetType.fqn]; }
-            const proxy = new Proxy(v, {
-                has(target: any, propertyKey: string) {
-                    return propertyKey in target || propertyKey === FQN_PROP;
-                },
-                get(target: any, propertyKey: string) {
-                    return propertyKey === FQN_PROP ? targetType.fqn : target[propertyKey];
-                }
-            });
-            return this._createObjref(proxy, targetType.fqn);
+            const proxies: Proxies = v[PROXIES_PROP] = v[PROXIES_PROP] || {};
+            if (!proxies[targetType.fqn]) {
+                const handler = new KernelProxyHandler(v);
+                const proxy = new Proxy(v, handler);
+                proxies[targetType.fqn] = { objRef: this._createObjref(proxy, targetType.fqn), handler };
+            }
+            return proxies[targetType.fqn].objRef;
         }
 
         // date (https://stackoverflow.com/a/643827/737957)
@@ -1140,4 +1142,98 @@ function mapSource(err: Error, sourceMaps: { [assm: string]: SourceMapConsumer }
         }
         return frame;
     }
+}
+
+type PropertyId = string | number | symbol;
+class KernelProxyHandler implements ProxyHandler<any> {
+    private readonly ownProperties: { [key: string]: any } = {};
+
+    constructor(public readonly referent: any) {
+        // Proxy-properties must exist as non-configurable & writable on the referent.
+        for (const prop of [FQN_PROP, OBJID_PROP]) {
+            Object.defineProperty(referent, prop, {
+                configurable: false,
+                enumerable: false,
+                writable: true,
+                value: undefined
+            });
+        }
+    }
+
+    public defineProperty(target: any, property: PropertyId, attributes: PropertyDescriptor): boolean {
+        switch (property) {
+        case FQN_PROP:
+        case OBJID_PROP:
+            return Object.defineProperty(this.ownProperties, property, attributes);
+        default:
+            return Object.defineProperty(target, property, attributes);
+        }
+    }
+
+    public deleteProperty(target: any, property: PropertyId) {
+        switch (property) {
+        case FQN_PROP:
+        case OBJID_PROP:
+            delete this.ownProperties[property];
+            break;
+        default:
+            delete target[property];
+        }
+        return true;
+    }
+
+    public getOwnPropertyDescriptor(target: any, property: PropertyId) {
+        switch (property) {
+        case FQN_PROP:
+        case OBJID_PROP:
+            return Object.getOwnPropertyDescriptor(this.ownProperties, property);
+        default:
+            return Object.getOwnPropertyDescriptor(target, property);
+        }
+    }
+
+    public get(target: any, property: PropertyId) {
+        switch (property) {
+        // Magical property for the proxy, so we can tell it's one...
+        case PROXY_REFERENT_PROP:
+            return this.referent;
+        case FQN_PROP:
+        case OBJID_PROP:
+            return this.ownProperties[property];
+        default:
+            return target[property];
+        }
+    }
+
+    public set(target: any, property: PropertyId, value: any) {
+        switch (property) {
+        case FQN_PROP:
+        case OBJID_PROP:
+            this.ownProperties[property] = value;
+            break;
+        default:
+            target[property] = value;
+        }
+        return true;
+    }
+
+    public has(target: any, property: PropertyId) {
+        switch (property) {
+        case FQN_PROP:
+        case OBJID_PROP:
+            return property in this.ownProperties;
+        default:
+            return property in target;
+        }
+    }
+
+    public ownKeys(target: any) {
+        return Reflect.ownKeys(target).concat(Reflect.ownKeys(this.ownProperties));
+    }
+}
+
+type Proxies = { [fqn: string]: ProxyReference };
+interface ProxyReference {
+    objRef: api.ObjRef;
+    handler: KernelProxyHandler;
 }

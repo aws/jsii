@@ -886,6 +886,8 @@ defineTest('object literals are returned by reference', async (test, sandbox) =>
                    objref: sandbox.get({ objref, property: 'mutableObject' }).value,
                    property: 'value'
                }).value);
+
+    sandbox.del({ objref: property });
 });
 
 const testNames: { [name: string]: boolean } = { };
