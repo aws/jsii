@@ -930,10 +930,17 @@ export class Kernel {
         // so the client receives a real object.
         if (typeof(v) === 'object' && targetType && spec.isNamedTypeReference(targetType)) {
             this._debug('coalescing to', targetType);
+            /*
+             * We "cache" proxy instances in [PROXIES_PROP] so we can return an
+             * identical object reference upon multiple accesses of the same
+             * object literal under the same exposed type. This results in a
+             * behavior that is more consistent with class instances.
+             */
             const proxies: Proxies = v[PROXIES_PROP] = v[PROXIES_PROP] || {};
             if (!proxies[targetType.fqn]) {
                 const handler = new KernelProxyHandler(v);
                 const proxy = new Proxy(v, handler);
+                // _createObjref will set the FQN_PROP & OBJID_PROP on the proxy.
                 proxies[targetType.fqn] = { objRef: this._createObjref(proxy, targetType.fqn), handler };
             }
             return proxies[targetType.fqn].objRef;
@@ -1144,12 +1151,26 @@ function mapSource(err: Error, sourceMaps: { [assm: string]: SourceMapConsumer }
     }
 }
 
-type PropertyId = string | number | symbol;
+type ObjectKey = string | number | symbol;
+/**
+ * A Proxy handler class to support mutation of the returned object literals, as
+ * they may "embody" several different interfaces. The handler is in particular
+ * responsible to make sure the ``FQN_PROP`` and ``OBJID_PROP`` do not get set
+ * on the ``referent`` object, for this would cause subsequent accesses to
+ * possibly return incorrect object references.
+ */
 class KernelProxyHandler implements ProxyHandler<any> {
     private readonly ownProperties: { [key: string]: any } = {};
 
+    /**
+     * @param referent the "real" value that will be returned.
+     */
     constructor(public readonly referent: any) {
-        // Proxy-properties must exist as non-configurable & writable on the referent.
+        /*
+         * Proxy-properties must exist as non-configurable & writable on the
+         * referent, otherwise the Proxy will not allow returning ``true`` in
+         * response to ``defineProperty``.
+         */
         for (const prop of [FQN_PROP, OBJID_PROP]) {
             Object.defineProperty(referent, prop, {
                 configurable: false,
@@ -1160,7 +1181,7 @@ class KernelProxyHandler implements ProxyHandler<any> {
         }
     }
 
-    public defineProperty(target: any, property: PropertyId, attributes: PropertyDescriptor): boolean {
+    public defineProperty(target: any, property: ObjectKey, attributes: PropertyDescriptor): boolean {
         switch (property) {
         case FQN_PROP:
         case OBJID_PROP:
@@ -1170,7 +1191,7 @@ class KernelProxyHandler implements ProxyHandler<any> {
         }
     }
 
-    public deleteProperty(target: any, property: PropertyId) {
+    public deleteProperty(target: any, property: ObjectKey): boolean {
         switch (property) {
         case FQN_PROP:
         case OBJID_PROP:
@@ -1182,7 +1203,7 @@ class KernelProxyHandler implements ProxyHandler<any> {
         return true;
     }
 
-    public getOwnPropertyDescriptor(target: any, property: PropertyId) {
+    public getOwnPropertyDescriptor(target: any, property: ObjectKey): PropertyDescriptor | undefined {
         switch (property) {
         case FQN_PROP:
         case OBJID_PROP:
@@ -1192,7 +1213,7 @@ class KernelProxyHandler implements ProxyHandler<any> {
         }
     }
 
-    public get(target: any, property: PropertyId) {
+    public get(target: any, property: ObjectKey): any {
         switch (property) {
         // Magical property for the proxy, so we can tell it's one...
         case PROXY_REFERENT_PROP:
@@ -1205,7 +1226,7 @@ class KernelProxyHandler implements ProxyHandler<any> {
         }
     }
 
-    public set(target: any, property: PropertyId, value: any) {
+    public set(target: any, property: ObjectKey, value: any): boolean {
         switch (property) {
         case FQN_PROP:
         case OBJID_PROP:
@@ -1217,7 +1238,7 @@ class KernelProxyHandler implements ProxyHandler<any> {
         return true;
     }
 
-    public has(target: any, property: PropertyId) {
+    public has(target: any, property: ObjectKey): boolean {
         switch (property) {
         case FQN_PROP:
         case OBJID_PROP:
@@ -1227,7 +1248,7 @@ class KernelProxyHandler implements ProxyHandler<any> {
         }
     }
 
-    public ownKeys(target: any) {
+    public ownKeys(target: any): ObjectKey[] {
         return Reflect.ownKeys(target).concat(Reflect.ownKeys(this.ownProperties));
     }
 }
