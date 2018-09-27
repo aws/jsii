@@ -6,7 +6,7 @@ module.exports = {
         path: __dirname + '/webpack',
         filename: 'jsii-runtime.js'
     },
-    devtool: 'inline-source-map',
+    devtool: 'source-map',
     target: 'node',
     node: {
         console: false,
