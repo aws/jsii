@@ -78,7 +78,9 @@ class Module {
     // Adds a name to the list of modules that should be imported at the top of this
     // file.
     public importModule(name: string) {
-        this.importedModules.push(name);
+        if (!this.importedModules.includes(name)) {
+            this.importedModules.push(name);
+        }
     }
 
     public maybeImportType(type: string) {
@@ -90,10 +92,10 @@ class Module {
         if (type.match(/[^\[]*\[.+\]/)) {
             const [, genericType, innerTypes] = type.match(/([^\[]*)\[(.+)\]/) as any[];
 
-            types.push(genericType);
-            types.push(...innerTypes.split(","));
+            types.push(genericType.trim());
+            types.push(...innerTypes.split(",").map((s: string) => s.trim()));
         } else {
-            types.push(type);
+            types.push(type.trim());
         }
 
         // Loop over all of the types we've discovered, and check them for being
