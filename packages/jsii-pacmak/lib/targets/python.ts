@@ -75,28 +75,44 @@ class Module {
     }
 
     public maybeImportType(type: string) {
-        if (PYTHON_BUILTIN_TYPES.indexOf(type) > -1) {
-            // For built in types, we don't need to do anything, and can just return now
-            return;
+        let types: string[] = [];
+
+        // Before we do anything else, we need to split apart any collections, these
+        // always have the syntax of something[something, maybesomething], so we'll
+        // check for [] first.
+        if (type.match(/[^\[]*\[.+\]/)) {
+            const [, genericType, innerTypes] = type.match(/([^\[]*)\[(.+)\]/) as any[];
+
+            types.push(genericType);
+            types.push(...innerTypes.split(","));
+        } else {
+            types.push(type);
         }
 
-        const [, typeModule] = type.match(/(.*)\.(.*)/) as any[];
+        // Loop over all of the types we've discovered, and check them for being
+        // importable
+        for (let type of types) {
+            // For built in types, we don't need to do anything, and can just move on.
+            if (PYTHON_BUILTIN_TYPES.indexOf(type) > -1) { continue; }
 
-        // Given a name like foo.bar.Frob, we want to import the module that Frob exists
-        // in. Given that all classes exported by JSII have to be pascal cased, and all
-        // of our imports are snake cases, this should be safe. We're going to double
-        // check this though, to ensure that our importable here is safe.
-        if (typeModule != typeModule.toLowerCase()) {
-            // If we ever get to this point, we'll need to implment aliasing for our
-            // imports.
-            throw new Error("Type module is not lower case.")
-        }
+            let [, typeModule] = type.match(/(.*)\.(.*)/) as any[];
 
-        // We only want to actually import the type for this module, if it isn't the
-        // module that we're currently in, otherwise we'll jus rely on the module scope
-        // to make the name available to us.
-        if (typeModule != this.name) {
-            this.importModule(typeModule);
+            // Given a name like foo.bar.Frob, we want to import the module that Frob exists
+            // in. Given that all classes exported by JSII have to be pascal cased, and all
+            // of our imports are snake cases, this should be safe. We're going to double
+            // check this though, to ensure that our importable here is safe.
+            if (typeModule != typeModule.toLowerCase()) {
+                // If we ever get to this point, we'll need to implment aliasing for our
+                // imports.
+                throw new Error(`Type module is not lower case: '${typeModule}'`);
+            }
+
+            // We only want to actually import the type for this module, if it isn't the
+            // module that we're currently in, otherwise we'll jus rely on the module scope
+            // to make the name available to us.
+            if (typeModule != this.name) {
+                this.importModule(typeModule);
+            }
         }
     }
 
@@ -368,9 +384,9 @@ class PythonGenerator extends Generator {
     private toPythonType(typeref: spec.TypeReference): string {
         if (spec.isPrimitiveTypeReference(typeref)) {
             return this.toPythonPrimitive(typeref.primitive);
+        } else if (spec.isCollectionTypeReference(typeref)) {
+            return this.toPythonCollection(typeref);
         } else if (spec.isNamedTypeReference(typeref)) {
-            // TODO: We need to actually handle this, isntead of just returning the FQN
-            //       as a string.
             return this.toPythonFQN(typeref.fqn);
         } else {
             throw new Error("Invalid type reference: " + JSON.stringify(typeref));
@@ -395,19 +411,16 @@ class PythonGenerator extends Generator {
             throw new Error('Invalid type reference: ' + JSON.stringify(typeref));
         }
         */
+    }
 
-        /*
-        switch (primitive) {
-            case spec.PrimitiveType.Boolean: return 'java.lang.Boolean';
-            case spec.PrimitiveType.Date: return 'java.time.Instant';
-            case spec.PrimitiveType.Json: return 'com.fasterxml.jackson.databind.node.ObjectNode';
-            case spec.PrimitiveType.Number: return 'java.lang.Number';
-            case spec.PrimitiveType.String: return 'java.lang.String';
-            case spec.PrimitiveType.Any: return 'java.lang.Object';
+    private toPythonCollection(ref: spec.CollectionTypeReference) {
+        const elementPythonType = this.toPythonType(ref.collection.elementtype);
+        switch (ref.collection.kind) {
+            case spec.CollectionKind.Array: return `typing.List[${elementPythonType}]`;
+            case spec.CollectionKind.Map: return `typing.Mapping[str,${elementPythonType}]`;
             default:
-                throw new Error('Unknown primitive type: ' + primitive);
+                throw new Error(`Unsupported collection kind: ${ref.collection.kind}`);
         }
-        */
     }
 
     private toPythonPrimitive(primitive: spec.PrimitiveType): string {
