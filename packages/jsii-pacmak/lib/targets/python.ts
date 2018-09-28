@@ -244,8 +244,6 @@ class PythonGenerator extends Generator {
     }
 
     protected onBeginAssembly(assm: spec.Assembly, _fingerprint: boolean) {
-        debug("onBeginAssembly");
-
         // We need to write out an __init__.py for our _jsii package so that
         // importlib.resources will be able to load our assembly from it.
         const assemblyInitFilename = path.join(this.getAssemblyOutputDir(assm), "__init__.py");
@@ -255,8 +253,6 @@ class PythonGenerator extends Generator {
     }
 
     protected onEndAssembly(assm: spec.Assembly, _fingerprint: boolean) {
-        debug("onEndAssembly");
-
         const packageName = this.toPythonPackageName(assm.name);
         const moduleNames = this.modules.map(m => m.name);
 
@@ -297,8 +293,6 @@ class PythonGenerator extends Generator {
     }
 
     protected onBeginNamespace(ns: string) {
-        debug(`onBeginNamespace: ${ns}`);
-
         const moduleName = this.toPythonModuleName(ns);
         const loadAssembly = this.assembly.name == ns ? true : false;
 
@@ -314,9 +308,7 @@ class PythonGenerator extends Generator {
         this.moduleStack.push(mod);
     }
 
-    protected onEndNamespace(ns: string) {
-        debug(`onEndNamespace: ${ns}`);
-
+    protected onEndNamespace(_ns: string) {
         let module = this.moduleStack.pop() as Module;
         let moduleFilename = path.join("src", this.toPythonModuleFilename(module.name), "__init__.py");
 
@@ -326,8 +318,6 @@ class PythonGenerator extends Generator {
     }
 
     protected onBeginClass(cls: spec.ClassType, abstract: boolean | undefined) {
-        debug("onBeginClass");
-
         const clsName = this.toPythonIdentifier(cls.name);
 
         // TODO: Figure out what to do with abstract here.
@@ -338,14 +328,10 @@ class PythonGenerator extends Generator {
     }
 
     protected onEndClass(_cls: spec.ClassType) {
-        debug("onEndClass");
-
         this.currentModule().closeBlock();
     }
 
     protected onStaticMethod(_cls: spec.ClassType, method: spec.Method) {
-        debug("onStaticMethod");
-
         // TODO: Handle the case where the Python name and the JSII name differ.
         const methodName = this.toPythonIdentifier(method.name!);
 
@@ -354,8 +340,6 @@ class PythonGenerator extends Generator {
     }
 
     protected onMethod(_cls: spec.ClassType, method: spec.Method) {
-        debug("onMethod");
-
         // TODO: Handle the case where the Python name and the JSII name differ.
         const methodName = this.toPythonIdentifier(method.name!);
 
@@ -364,8 +348,6 @@ class PythonGenerator extends Generator {
     }
 
     protected onStaticProperty(_cls: spec.ClassType, prop: spec.Property) {
-        debug("onStaticProperty");
-
         // TODO: Handle the case where the Python name and the JSII name differ.
         const propertyName = this.toPythonIdentifier(prop.name!);
 
@@ -376,8 +358,6 @@ class PythonGenerator extends Generator {
     }
 
     protected onProperty(_cls: spec.ClassType, prop: spec.Property) {
-        debug("onProperty");
-
         // TODO: Handle the case where the Python name and the JSII name differ.
         const propertyName = this.toPythonIdentifier(prop.name!);
 
@@ -542,33 +522,41 @@ class PythonGenerator extends Generator {
 
     protected onBeginInterface(_ifc: spec.InterfaceType) {
         debug("onBeginInterface");
+        throw new Error("Unhandled Type: Interface");
     }
 
     protected onEndInterface(_ifc: spec.InterfaceType) {
         debug("onEndInterface");
+        throw new Error("Unhandled Type: Interface");
     }
 
     protected onInterfaceMethod(_ifc: spec.InterfaceType, _method: spec.Method) {
         debug("onInterfaceMethod");
+        throw new Error("Unhandled Type: InterfaceMethod");
     }
 
     protected onInterfaceMethodOverload(_ifc: spec.InterfaceType, _overload: spec.Method, _originalMethod: spec.Method) {
         debug("onInterfaceMethodOverload");
+        throw new Error("Unhandled Type: InterfaceMethodOverload");
     }
 
     protected onInterfaceProperty(_ifc: spec.InterfaceType, _prop: spec.Property) {
         debug("onInterfaceProperty");
+        throw new Error("Unhandled Type: InterfaceProperty");
     }
 
     protected onUnionProperty(_cls: spec.ClassType, _prop: spec.Property, _union: spec.UnionTypeReference) {
         debug("onUnionProperty");
+        throw new Error("Unhandled Type: UnionProperty");
     }
 
     protected onMethodOverload(_cls: spec.ClassType, _overload: spec.Method, _originalMethod: spec.Method) {
         debug("onMethodOverload");
+        throw new Error("Unhandled Type: MethodOverload");
     }
 
     protected onStaticMethodOverload(_cls: spec.ClassType, _overload: spec.Method, _originalMethod: spec.Method) {
         debug("onStaticMethodOverload");
+        throw new Error("Unhandled Type: StaticMethodOverload");
     }
 }
