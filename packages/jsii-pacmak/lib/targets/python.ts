@@ -38,6 +38,13 @@ const debug = function(o: any) {
 
 const PYTHON_BUILTIN_TYPES = ["bool", "str", "None"]
 
+const PYTHON_KEYWORDS = [
+    "False", "None", "True", "and", "as", "assert", "async", "await", "break", "class",
+    "continue", "def", "del", "elif", "else", "except", "finally", "for", "from",
+    "global", "if", "import", "in", "is", "lambda", "nonlocal", "not", "or", "pass",
+    "raise", "return", "try", "while", "with", "yield"
+]
+
 
 class Module {
 
@@ -312,11 +319,13 @@ class PythonGenerator extends Generator {
     protected onBeginClass(cls: spec.ClassType, abstract: boolean | undefined) {
         debug("onBeginClass");
 
+        const clsName = this.toPythonIdentifier(cls.name);
+
         // TODO: Figure out what to do with abstract here.
         abstract;
 
-        this.currentModule().exportName(cls.name);
-        this.currentModule().openBlock(`class ${cls.name}(metaclass=_JSIIMeta, jsii_type="${cls.fqn}")`);
+        this.currentModule().exportName(clsName);
+        this.currentModule().openBlock(`class ${clsName}(metaclass=_JSIIMeta, jsii_type="${cls.fqn}")`);
     }
 
     protected onEndClass(_cls: spec.ClassType) {
@@ -329,31 +338,42 @@ class PythonGenerator extends Generator {
         debug("onStaticMethod");
 
         // TODO: Handle the case where the Python name and the JSII name differ.
+        const methodName = this.toPythonIdentifier(method.name!);
+
         this.currentModule().line("@_jsii_classmethod");
-        this.emitPythonMethod(method.name, "cls", method.parameters, method.returns);
+        this.emitPythonMethod(methodName, "cls", method.parameters, method.returns);
     }
 
     protected onMethod(_cls: spec.ClassType, method: spec.Method) {
         debug("onMethod");
 
+        // TODO: Handle the case where the Python name and the JSII name differ.
+        const methodName = this.toPythonIdentifier(method.name!);
+
         this.currentModule().line("@_jsii_method");
-        this.emitPythonMethod(method.name, "self", method.parameters, method.returns);
+        this.emitPythonMethod(methodName, "self", method.parameters, method.returns);
     }
 
     protected onStaticProperty(_cls: spec.ClassType, prop: spec.Property) {
         debug("onStaticProperty");
 
+        // TODO: Handle the case where the Python name and the JSII name differ.
+        const propertyName = this.toPythonIdentifier(prop.name!);
+
         // TODO: Properties have a bunch of states, they can have getters and setters
         //       we need to better handle all of these cases.
         this.currentModule().line("@_jsii_classproperty");
-        this.emitPythonMethod(prop.name, "self", [], prop.type);
+        this.emitPythonMethod(propertyName, "self", [], prop.type);
     }
 
     protected onProperty(_cls: spec.ClassType, prop: spec.Property) {
         debug("onProperty");
 
+        // TODO: Handle the case where the Python name and the JSII name differ.
+        const propertyName = this.toPythonIdentifier(prop.name!);
+
         this.currentModule().line("@_jsii_property");
-        this.emitPythonMethod(prop.name, "self", [], prop.type);
+        this.emitPythonMethod(propertyName, "self", [], prop.type);
     }
 
     private emitPythonMethod(name?: string, implicitParam?: string, params: spec.Parameter[] = [], returns?: spec.TypeReference) {
@@ -371,14 +391,25 @@ class PythonGenerator extends Generator {
 
         let pythonParams: string[] = implicitParam ? [implicitParam] : [];
         for (let param of params) {
+            let paramName = this.toPythonIdentifier(param.name);
             let paramType = this.toPythonType(param.type);
+
             module.maybeImportType(paramType);
-            pythonParams.push(`${param.name}: ${this.formatPythonType(paramType)}`);
+
+            pythonParams.push(`${paramName}: ${this.formatPythonType(paramType)}`);
         }
 
         module.openBlock(`def ${name}(${pythonParams.join(", ")}) -> ${this.formatPythonType(returnType)}`);
         module.line("...");
         module.closeBlock();
+    }
+
+    private toPythonIdentifier(name: string): string {
+        if (PYTHON_KEYWORDS.indexOf(name) > -1) {
+            return name + "_";
+        }
+
+        return name;
     }
 
     private toPythonType(typeref: spec.TypeReference): string {
@@ -439,7 +470,7 @@ class PythonGenerator extends Generator {
     private toPythonFQN(name: string): string {
         return name.split(".").map((cur, idx, arr) => {
             if (idx == arr.length - 1) {
-                return cur;
+                return this.toPythonIdentifier(cur);
             } else {
                 return this.toPythonModuleName(cur);
             }
