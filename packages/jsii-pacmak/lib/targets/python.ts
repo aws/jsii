@@ -412,29 +412,15 @@ class PythonGenerator extends Generator {
             return this.toPythonCollection(typeref);
         } else if (spec.isNamedTypeReference(typeref)) {
             return this.toPythonFQN(typeref.fqn);
-        } else {
-            throw new Error("Invalid type reference: " + JSON.stringify(typeref));
-        }
-
-        /*
-        if (spec.isPrimitiveTypeReference(typeref)) {
-            return [ this.toJavaPrimitive(typeref.primitive) ];
-        } else if (spec.isCollectionTypeReference(typeref)) {
-            return [ this.toJavaCollection(typeref, forMarshalling) ];
-        } else if (spec.isNamedTypeReference(typeref)) {
-            return [ this.toNativeFqn(typeref.fqn) ];
         } else if (typeref.union) {
             const types = new Array<string>();
             for (const subtype of typeref.union.types) {
-                for (const t of this.toJavaTypes(subtype, forMarshalling)) {
-                    types.push(t);
-                }
+                types.push(this.toPythonType(subtype));
             }
-            return types;
+            return `typing.Union[${types.join(", ")}]`;
         } else {
-            throw new Error('Invalid type reference: ' + JSON.stringify(typeref));
+            throw new Error("Invalid type reference: " + JSON.stringify(typeref));
         }
-        */
     }
 
     private toPythonCollection(ref: spec.CollectionTypeReference) {
