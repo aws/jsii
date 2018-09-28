@@ -19,6 +19,7 @@ setuptools.setup(
         "attrs",
         "cattrs",
         "importlib_resources ; python_version < '3.7'",
+        "typing_extensions>=3.6.4",
     ],
     python_requires=">=3.6",
 )

@@ -171,6 +171,7 @@ class Module {
     public write(code: CodeMaker) {
         // Before we do Anything, we need to write out our module headers, this is where
         // we handle stuff like imports, any required initialization, etc.
+        code.line(this.generateImportFrom("jsii.compat", ["Protocol"]));
         code.line(
             this.generateImportFrom(
                 "jsii.runtime",
@@ -183,7 +184,7 @@ class Module {
                     "jsii_classproperty",
                 ]
             )
-        )
+        );
 
         // Go over all of the modules that we need to import, and import them.
         for (let [idx, modName] of this.importedModules.sort().entries()) {
@@ -365,6 +366,41 @@ class PythonGenerator extends Generator {
         this.emitPythonMethod(propertyName, "self", [], prop.type);
     }
 
+    protected onBeginInterface(ifc: spec.InterfaceType) {
+        const currentModule = this.currentModule();
+        const interfaceName = this.toPythonIdentifier(ifc.name);
+
+        let interfaceBases: string[] = [];
+        for (let interfaceBase of (ifc.interfaces || [])) {
+            let interfaceBaseType = this.toPythonType(interfaceBase);
+            interfaceBases.push(this.formatPythonType(interfaceBaseType, true));
+            currentModule.maybeImportType(interfaceBaseType);
+        }
+        interfaceBases.push("_Protocol");
+
+        // TODO: Data Type
+
+        currentModule.exportName(interfaceName);
+        currentModule.openBlock(`class ${interfaceName}(${interfaceBases.join(",")})`);
+    }
+
+    protected onEndInterface(_ifc: spec.InterfaceType) {
+        this.currentModule().closeBlock();
+    }
+
+    protected onInterfaceMethod(_ifc: spec.InterfaceType, method: spec.Method) {
+        const methodName = this.toPythonIdentifier(method.name!);
+
+        this.emitPythonMethod(methodName, "self", method.parameters, method.returns);
+    }
+
+    protected onInterfaceProperty(_ifc: spec.InterfaceType, prop: spec.Property) {
+        const propertyName = this.toPythonIdentifier(prop.name!);
+
+        this.currentModule().line("@property");
+        this.emitPythonMethod(propertyName, "self", [], prop.type);
+    }
+
     private emitPythonMethod(name?: string, implicitParam?: string, params: spec.Parameter[] = [], returns?: spec.TypeReference) {
         let module = this.currentModule();
 
@@ -456,7 +492,7 @@ class PythonGenerator extends Generator {
         }).join(".");
     }
 
-    private formatPythonType(type: string) {
+    private formatPythonType(type: string, fowardReference: boolean = false) {
         // Built in types do not need formatted in any particular way.
         if(PYTHON_BUILTIN_TYPES.indexOf(type) > -1) {
             return type;
@@ -475,7 +511,7 @@ class PythonGenerator extends Generator {
         // TODO: We currently emit this as a string, because that's how forward
         //       references used to work prior to 3.7. Ideally we will move to using 3.7
         //       and can just use native forward references.
-        return `"${typeName}"`;
+        return fowardReference ? typeName : `"${typeName}"`;
     }
 
     private currentModule(): Module {
@@ -506,29 +542,9 @@ class PythonGenerator extends Generator {
 
     // Not Currently Used
 
-    protected onBeginInterface(_ifc: spec.InterfaceType) {
-        debug("onBeginInterface");
-        throw new Error("Unhandled Type: Interface");
-    }
-
-    protected onEndInterface(_ifc: spec.InterfaceType) {
-        debug("onEndInterface");
-        throw new Error("Unhandled Type: Interface");
-    }
-
-    protected onInterfaceMethod(_ifc: spec.InterfaceType, _method: spec.Method) {
-        debug("onInterfaceMethod");
-        throw new Error("Unhandled Type: InterfaceMethod");
-    }
-
     protected onInterfaceMethodOverload(_ifc: spec.InterfaceType, _overload: spec.Method, _originalMethod: spec.Method) {
         debug("onInterfaceMethodOverload");
         throw new Error("Unhandled Type: InterfaceMethodOverload");
-    }
-
-    protected onInterfaceProperty(_ifc: spec.InterfaceType, _prop: spec.Property) {
-        debug("onInterfaceProperty");
-        throw new Error("Unhandled Type: InterfaceProperty");
     }
 
     protected onUnionProperty(_cls: spec.ClassType, _prop: spec.Property, _union: spec.UnionTypeReference) {
