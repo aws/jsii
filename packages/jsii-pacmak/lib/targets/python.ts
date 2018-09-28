@@ -224,6 +224,7 @@ class Module {
 
 class PythonGenerator extends Generator {
 
+    private modules: Module[];
     private moduleStack: Module[];
 
     constructor(options = new GeneratorOptions()) {
@@ -232,6 +233,7 @@ class PythonGenerator extends Generator {
         this.code.openBlockFormatter = s => `${s}:`;
         this.code.closeBlockFormatter = _s => "";
 
+        this.modules = [];
         this.moduleStack = [];
     }
 
@@ -252,7 +254,9 @@ class PythonGenerator extends Generator {
 
     protected onEndAssembly(assm: spec.Assembly, _fingerprint: boolean) {
         debug("onEndAssembly");
-        debug(assm);
+
+        const packageName = this.toPythonPackageName(assm.name);
+        const moduleNames = this.modules.map(m => m.name);
 
         // We need to write out our packaging for the Python ecosystem here.
         // TODO:
@@ -264,12 +268,12 @@ class PythonGenerator extends Generator {
         this.code.openFile("setup.py");
         this.code.line("import setuptools");
         this.code.indent("setuptools.setup(");
-        this.code.line(`name="${assm.name}",`);
+        this.code.line(`name="${packageName}",`);
         this.code.line(`version="${assm.version}",`);
         this.code.line(`description="${assm.description}",`);
         this.code.line(`url="${assm.homepage}",`);
         this.code.line('package_dir={"": "src"},');
-        this.code.line('packages=setuptools.find_packages(where="src"),');
+        this.code.line(`packages=[${moduleNames.map(m => `"${m}"`).join(",")}],`)
         this.code.line(`package_data={"${this.toPythonModuleName(assm.name)}._jsii": ["*.jsii.tgz"]},`);
         this.code.line('python_requires=">=3.6",');
         this.code.unindent(")");
@@ -302,7 +306,10 @@ class PythonGenerator extends Generator {
             moduleArgs.push([this.assembly, this.getAssemblyFileName()]);
         }
 
-        this.moduleStack.push(new Module(moduleName, ...moduleArgs));
+        let mod = new Module(moduleName, ...moduleArgs);
+
+        this.modules.push(mod);
+        this.moduleStack.push(mod);
     }
 
     protected onEndNamespace(ns: string) {
@@ -402,6 +409,10 @@ class PythonGenerator extends Generator {
         module.openBlock(`def ${name}(${pythonParams.join(", ")}) -> ${this.formatPythonType(returnType)}`);
         module.line("...");
         module.closeBlock();
+    }
+
+    private toPythonPackageName(name: string): string {
+        return this.toPythonModuleName(name).replace(/_/g, "-");
     }
 
     private toPythonIdentifier(name: string): string {
