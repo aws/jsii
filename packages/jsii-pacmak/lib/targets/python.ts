@@ -473,11 +473,25 @@ class PythonGenerator extends Generator {
     }
 
     private toPythonModuleName(name: string): string {
-        return this.code.toSnakeCase(name.replace(/-/g, "_"));
+        if (name.match(/^@[^/]+\/[^/]+$/)) {
+            name = name.replace(/^@/g, "");
+            name = name.replace(/\//g, ".");
+        }
+
+        name = this.code.toSnakeCase(name.replace(/-/g, "_"));
+
+        return name;
     }
 
     private toPythonModuleFilename(name: string): string {
-        return name.replace(/\./g, "/");
+        if (name.match(/^@[^/]+\/[^/]+$/)) {
+            name = name.replace(/^@/g, "");
+            name = name.replace(/\//g, ".");
+        }
+
+        name = name.replace(/\./g, "/");
+
+        return name;
     }
 
     // Not Currently Used
