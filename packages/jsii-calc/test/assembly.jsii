@@ -3214,13 +3214,13 @@
       "members": [
         {
           "docs": {
-            "comment": "Normal string expression "
+            "comment": "Normal string expression"
           },
           "name": "Normal"
         },
         {
           "docs": {
-            "comment": "Decorated string expression "
+            "comment": "Decorated string expression"
           },
           "name": "Decorated"
         }
@@ -3230,5 +3230,5 @@
     }
   },
   "version": "0.7.6",
-  "fingerprint": "ecDtx3DHVZi7UjyCDhGncg4jbSRaD536bUyh6YzAxlY="
+  "fingerprint": "69gxyc+AUg7O9yvaAWtnojtgzgCjrF869fn9Qq4X2fA="
 }

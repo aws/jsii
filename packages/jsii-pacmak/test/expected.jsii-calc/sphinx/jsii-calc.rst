@@ -3754,12 +3754,12 @@ CompositeOperation
 
       .. py:data:: Normal
 
-      Normal string expression 
+      Normal string expression
 
 
       .. py:data:: Decorated
 
-      Decorated string expression 
+      Decorated string expression
 
 
 
