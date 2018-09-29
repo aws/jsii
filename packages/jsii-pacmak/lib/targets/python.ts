@@ -348,8 +348,16 @@ class PythonGenerator extends Generator {
         this.currentModule().openBlock(`class ${clsName}(metaclass=_JSIIMeta, jsii_type="${cls.fqn}")`);
     }
 
-    protected onEndClass(_cls: spec.ClassType) {
-        this.currentModule().closeBlock();
+    protected onEndClass(cls: spec.ClassType) {
+        const currentModule = this.currentModule();
+
+        // If our class does not have any members, then we need to emit a pass statement
+        // to give it *some* kind of a body.
+        if (cls.properties == undefined && cls.methods == undefined) {
+            currentModule.line("pass");
+        }
+
+        currentModule.closeBlock();
     }
 
     protected onStaticMethod(_cls: spec.ClassType, method: spec.Method) {
@@ -404,8 +412,16 @@ class PythonGenerator extends Generator {
         currentModule.openBlock(`class ${interfaceName}(${interfaceBases.join(",")})`);
     }
 
-    protected onEndInterface(_ifc: spec.InterfaceType) {
-        this.currentModule().closeBlock();
+    protected onEndInterface(ifc: spec.InterfaceType) {
+        const currentModule = this.currentModule();
+
+        // If our interface does not have any members, then we need to emit a pass
+        // statement to give it *some* kind of a body.
+        if (ifc.properties == undefined && ifc.methods == undefined) {
+            currentModule.line("pass");
+        }
+
+        currentModule.closeBlock();
     }
 
     protected onInterfaceMethod(_ifc: spec.InterfaceType, method: spec.Method) {
