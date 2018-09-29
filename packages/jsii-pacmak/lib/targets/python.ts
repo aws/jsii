@@ -241,7 +241,7 @@ class PythonGenerator extends Generator {
     }
 
     protected getAssemblyOutputDir(mod: spec.Assembly) {
-        return path.join("src", this.toPythonModuleName(mod.name), "_jsii");
+        return path.join("src", this.toPythonModuleFilename(this.toPythonModuleName(mod.name)), "_jsii");
     }
 
     protected onBeginAssembly(assm: spec.Assembly, _fingerprint: boolean) {
@@ -255,7 +255,11 @@ class PythonGenerator extends Generator {
 
     protected onEndAssembly(assm: spec.Assembly, _fingerprint: boolean) {
         const packageName = this.toPythonPackageName(assm.name);
+        const topLevelModuleName = this.toPythonModuleName(packageName);
         const moduleNames = this.modules.map(m => m.name);
+
+        moduleNames.push(`${topLevelModuleName}._jsii`);
+        moduleNames.sort();
 
         // We need to write out our packaging for the Python ecosystem here.
         // TODO:
@@ -273,7 +277,7 @@ class PythonGenerator extends Generator {
         this.code.line(`url="${assm.homepage}",`);
         this.code.line('package_dir={"": "src"},');
         this.code.line(`packages=[${moduleNames.map(m => `"${m}"`).join(",")}],`)
-        this.code.line(`package_data={"${this.toPythonModuleName(assm.name)}._jsii": ["*.jsii.tgz"]},`);
+        this.code.line(`package_data={"${topLevelModuleName}._jsii": ["*.jsii.tgz"]},`);
         this.code.line('python_requires=">=3.6",');
         this.code.unindent(")");
         this.code.closeFile("setup.py");
