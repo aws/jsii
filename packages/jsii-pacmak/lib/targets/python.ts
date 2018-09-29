@@ -379,7 +379,7 @@ class PythonGenerator extends Generator {
         let interfaceBases: string[] = [];
         for (let interfaceBase of (ifc.interfaces || [])) {
             let interfaceBaseType = this.toPythonType(interfaceBase);
-            interfaceBases.push(this.formatPythonType(interfaceBaseType, true));
+            interfaceBases.push(this.formatPythonType(interfaceBaseType, true, currentModule.name));
             currentModule.maybeImportType(interfaceBaseType);
         }
         interfaceBases.push("_Protocol");
@@ -435,10 +435,10 @@ class PythonGenerator extends Generator {
 
             module.maybeImportType(paramType);
 
-            pythonParams.push(`${paramName}: ${this.formatPythonType(paramType)}`);
+            pythonParams.push(`${paramName}: ${this.formatPythonType(paramType, false, module.name)}`);
         }
 
-        module.openBlock(`def ${name}(${pythonParams.join(", ")}) -> ${this.formatPythonType(returnType)}`);
+        module.openBlock(`def ${name}(${pythonParams.join(", ")}) -> ${this.formatPythonType(returnType, false, module.name)}`);
         module.line("...");
         module.closeBlock();
     }
@@ -506,26 +506,40 @@ class PythonGenerator extends Generator {
         }).join(".");
     }
 
-    private formatPythonType(type: string, fowardReference: boolean = false) {
-        // Built in types do not need formatted in any particular way.
-        if(PYTHON_BUILTIN_TYPES.indexOf(type) > -1) {
-            return type;
+    private formatPythonType(type: string, forwardReference: boolean = false, moduleName: string) {
+        // If we split our types by any of the "special" characters that can't appear in
+        // identifiers (like "[],") then we will get a list of all of the identifiers,
+        // no matter how nested they are. The downside is we might get trailing/leading
+        // spaces or empty items so we'll need to trim and filter this list.
+        const types = type.split(/[\[\],]/).map((s: string) => s.trim()).filter(s => s != "");
+
+        for (let innerType of types) {
+            // Built in types do not need formatted in any particular way.
+            if(PYTHON_BUILTIN_TYPES.indexOf(innerType) > -1) {
+                continue;
+            }
+
+            // If we do not have a current moduleName, or the type is not within that
+            // module, then we don't format it any particular way.
+            if (!innerType.startsWith(moduleName + ".")) {
+                continue;
+            } else {
+                const re = new RegExp('[^\[,\s]"?' + innerType + '"?[$\],\s]');
+
+                // If this is our current module, then we need to correctly handle our
+                // forward references, by placing the type inside of quotes, unless
+                // we're returning real forward references.
+                if (!forwardReference) {
+                    type = type.replace(re, `"${innerType}"`);
+                }
+
+                // Now that we've handled (or not) our forward references, then we want
+                // to replace the module with just the type name.
+                type = type.replace(re, innerType.substring(moduleName.length + 1, innerType.length));
+            }
         }
 
-        const [, typeModule, typeName] = type.match(/(.*)\.(.*)/) as any[];
-
-        // Types whose module is different than our current module, can also just be
-        // formatted as they are.
-        if (this.currentModule().name != typeModule) {
-            return type;
-        }
-
-        // Otherwise, this is a type that exists in this module, and we can jsut emit
-        // the name.
-        // TODO: We currently emit this as a string, because that's how forward
-        //       references used to work prior to 3.7. Ideally we will move to using 3.7
-        //       and can just use native forward references.
-        return fowardReference ? typeName : `"${typeName}"`;
+        return type;
     }
 
     private currentModule(): Module {
