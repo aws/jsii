@@ -84,7 +84,11 @@ class Module {
     }
 
     public maybeImportType(type: string) {
-        const types = this.extractTypes(type);
+        // If we split our types by any of the "special" characters that can't appear in
+        // identifiers (like "[],") then we will get a list of all of the identifiers,
+        // no matter how nested they are. The downside is we might get trailing/leading
+        // spaces or empty items so we'll need to trim and filter this list.
+        const types = type.split(/[\[\],]/).map((s: string) => s.trim()).filter(s => s != "");
 
         // Loop over all of the types we've discovered, and check them for being
         // importable
@@ -111,34 +115,6 @@ class Module {
                 this.importModule(typeModule);
             }
         }
-    }
-
-    private extractTypes(type: string): string[] {
-        let types: string[] = [];
-
-        // Before we do anything else, we need to split apart any collections, these
-        // always have the syntax of something[something, maybesomething], so we'll
-        // check for [] first.
-        if (type.match(/[^\[]*\[.+\]/)) {
-            let [, genericType, parsedTypes] = type.match(/([^\[]*)\[(.+)\]/) as any[];
-            parsedTypes = parsedTypes.split(",").map((s: string) => s.trim());
-
-            const innerTypes: string[] = [];
-            for (let innerType of parsedTypes) {
-                if (innerType.match(/\[/)) {
-                    innerTypes.push(...this.extractTypes(innerType));
-                } else {
-                    innerTypes.push(innerType);
-                }
-            }
-
-            types.push(genericType.trim());
-            types.push(...innerTypes);
-        } else {
-            types.push(type.trim());
-        }
-
-        return types;
     }
 
     // We're purposely replicating the API of CodeMaker here, because CodeMaker cannot
