@@ -83,6 +83,8 @@ class Module {
         }
     }
 
+    // Giving a type hint, extract all of the relevant types that are involved, and if
+    // they are defined in another module, mark that module for import.
     public maybeImportType(type: string) {
         // If we split our types by any of the "special" characters that can't appear in
         // identifiers (like "[],") then we will get a list of all of the identifiers,
