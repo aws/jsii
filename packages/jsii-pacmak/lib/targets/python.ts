@@ -156,23 +156,378 @@ function formatPythonType(type: string, forwardReference: boolean = false, modul
         if (!innerType.startsWith(moduleName + ".")) {
             continue;
         } else {
-            const re = new RegExp('[^\[,\s]"?' + innerType + '"?[$\],\s]');
+            const typeName = innerType.substring(moduleName.length + 1, innerType.length);
+            const re = new RegExp('((?:^|[[,\\s])"?)' + innerType + '("?(?:$|[\\],\\s]))');
 
             // If this is our current module, then we need to correctly handle our
             // forward references, by placing the type inside of quotes, unless
             // we're returning real forward references.
             if (!forwardReference) {
-                type = type.replace(re, `"${innerType}"`);
+                type = type.replace(re, `$1"${innerType}"$2`);
             }
 
             // Now that we've handled (or not) our forward references, then we want
             // to replace the module with just the type name.
-            type = type.replace(re, innerType.substring(moduleName.length + 1, innerType.length));
+            // type = type.replace(re, "$1" + innerType.substring(moduleName.length + 1, innerType.length) + "$2");
+            type = type.replace(re, `$1${typeName}$2`);
         }
     }
 
     return type;
 }
+
+
+interface Writable {
+    write(code: CodeMaker): void;
+}
+
+
+interface WithMembers {
+    addMember(member: PythonItem): PythonItem;
+}
+
+
+
+interface PythonItem {
+    readonly name: string;
+    requiredTypes(): string[];
+}
+
+
+type ModuleMember = PythonItem & WithMembers & Writable;
+
+
+class InterfaceMethod implements PythonItem, Writable {
+
+    public readonly moduleName: string;
+    public readonly name: string;
+
+    private readonly parameters: spec.Parameter[];
+    private readonly returns?: spec.TypeReference;
+
+    constructor(moduleName: string, name: string, parameters: spec.Parameter[], returns?: spec.TypeReference) {
+        this.moduleName = moduleName;
+        this.name = name;
+        this.parameters = parameters;
+        this.returns = returns;
+    }
+
+    public requiredTypes(): string[] {
+        const types: string[] = [this.getReturnType(this.returns)];
+
+        for (let param of this.parameters) {
+            types.push(toPythonType(param.type));
+        }
+
+        return types;
+    }
+
+    public write(code: CodeMaker) {
+        const returnType = this.getReturnType(this.returns);
+
+        // We need to turn a list of JSII parameters, into Python style arguments with
+        // gradual typing, so we'll have to iterate over the list of parameters, and
+        // build the list, converting as we go.
+        // TODO: Handle imports (if needed) for all of these types.
+        let pythonParams: string[] = ["self"]
+        for (let param of this.parameters) {
+            const paramName = toPythonIdentifier(param.name);
+            const paramType = toPythonType(param.type);
+
+            pythonParams.push(`${paramName}: ${formatPythonType(paramType, false, this.moduleName)}`);
+        }
+
+        code.openBlock(`def ${this.name}(${pythonParams.join(", ")}) -> ${formatPythonType(returnType, false, this.moduleName)}`);
+        code.line("...");
+        code.closeBlock();
+    }
+
+    private getReturnType(type?: spec.TypeReference): string {
+        return type ? toPythonType(type) : "None";
+    }
+}
+
+class InterfaceProperty implements PythonItem, Writable {
+
+    public readonly moduleName: string;
+    public readonly name: string;
+    private readonly type: spec.TypeReference;
+
+    constructor(moduleName: string, name: string, type: spec.TypeReference) {
+        this.moduleName = moduleName;
+        this.name = name;
+        this.type = type;
+    }
+
+    public requiredTypes(): string[] {
+        return [toPythonType(this.type)];
+    }
+
+    public write(code: CodeMaker) {
+        const returnType = toPythonType(this.type);
+
+        code.line("@property");
+        code.openBlock(`def ${this.name}(self) -> ${formatPythonType(returnType, false, this.moduleName)}`);
+        code.line("...");
+        code.closeBlock();
+    }
+}
+
+
+class Interface implements ModuleMember {
+
+    public readonly moduleName: string;
+    public readonly name: string;
+
+    private bases: string[];
+    private members: (PythonItem & Writable)[];
+
+    constructor(moduleName: string, name: string, bases: string[]) {
+        this.moduleName = moduleName;
+        this.name = name;
+
+        this.bases = bases;
+        this.members = [];
+    }
+
+    public addMember(member: PythonItem & Writable): PythonItem {
+        this.members.push(member);
+        return member;
+    }
+
+    public requiredTypes(): string[] {
+        const types = this.bases.slice();
+
+        for (let member of this.members) {
+            types.push(...member.requiredTypes());
+        }
+
+        return types;
+    }
+
+    public write(code: CodeMaker) {
+        // TODO: Data Types?
+
+        const interfaceBases = this.bases.map(baseType => formatPythonType(baseType, true, this.moduleName));
+        interfaceBases.push("_Protocol");
+
+        code.openBlock(`class ${this.name}(${interfaceBases.join(",")})`);
+        if (this.members.length > 0) {
+            for (let member of this.members) {
+                member.write(code);
+            }
+        } else {
+            code.line("pass");
+        }
+        code.closeBlock();
+    }
+}
+
+
+class StaticMethod implements PythonItem, Writable {
+
+    public readonly moduleName: string;
+    public readonly name: string;
+
+    private readonly parameters: spec.Parameter[];
+    private readonly returns?: spec.TypeReference;
+
+    constructor(moduleName: string, name: string, parameters: spec.Parameter[], returns?: spec.TypeReference) {
+        this.moduleName = moduleName;
+        this.name = name;
+        this.parameters = parameters;
+        this.returns = returns;
+    }
+
+    public requiredTypes(): string[] {
+        const types: string[] = [this.getReturnType(this.returns)];
+
+        for (let param of this.parameters) {
+            types.push(toPythonType(param.type));
+        }
+
+        return types;
+    }
+
+    public write(code: CodeMaker) {
+        const returnType = this.getReturnType(this.returns);
+
+        // We need to turn a list of JSII parameters, into Python style arguments with
+        // gradual typing, so we'll have to iterate over the list of parameters, and
+        // build the list, converting as we go.
+        // TODO: Handle imports (if needed) for all of these types.
+        let pythonParams: string[] = ["cls"]
+        for (let param of this.parameters) {
+            const paramName = toPythonIdentifier(param.name);
+            const paramType = toPythonType(param.type);
+
+            pythonParams.push(`${paramName}: ${formatPythonType(paramType, false, this.moduleName)}`);
+        }
+
+        code.line("@_jsii_classmethod");
+        code.openBlock(`def ${this.name}(${pythonParams.join(", ")}) -> ${formatPythonType(returnType, false, this.moduleName)}`);
+        code.line("...");
+        code.closeBlock();
+    }
+
+    private getReturnType(type?: spec.TypeReference): string {
+        return type ? toPythonType(type) : "None";
+    }
+}
+
+
+class Method implements PythonItem, Writable {
+
+    public readonly moduleName: string;
+    public readonly name: string;
+
+    private readonly parameters: spec.Parameter[];
+    private readonly returns?: spec.TypeReference;
+
+    constructor(moduleName: string, name: string, parameters: spec.Parameter[], returns?: spec.TypeReference) {
+        this.moduleName = moduleName;
+        this.name = name;
+        this.parameters = parameters;
+        this.returns = returns;
+    }
+
+    public requiredTypes(): string[] {
+        const types: string[] = [this.getReturnType(this.returns)];
+
+        for (let param of this.parameters) {
+            types.push(toPythonType(param.type));
+        }
+
+        return types;
+    }
+
+    public write(code: CodeMaker) {
+        const returnType = this.getReturnType(this.returns);
+
+        // We need to turn a list of JSII parameters, into Python style arguments with
+        // gradual typing, so we'll have to iterate over the list of parameters, and
+        // build the list, converting as we go.
+        // TODO: Handle imports (if needed) for all of these types.
+        let pythonParams: string[] = ["self"]
+        for (let param of this.parameters) {
+            const paramName = toPythonIdentifier(param.name);
+            const paramType = toPythonType(param.type);
+
+            pythonParams.push(`${paramName}: ${formatPythonType(paramType, false, this.moduleName)}`);
+        }
+
+        code.line("@_jsii_method");
+        code.openBlock(`def ${this.name}(${pythonParams.join(", ")}) -> ${formatPythonType(returnType, false, this.moduleName)}`);
+        code.line("...");
+        code.closeBlock();
+    }
+
+    private getReturnType(type?: spec.TypeReference): string {
+        return type ? toPythonType(type) : "None";
+    }
+}
+
+
+class StaticProperty implements PythonItem, Writable {
+
+    public readonly moduleName: string;
+    public readonly name: string;
+    private readonly type: spec.TypeReference;
+
+    constructor(moduleName: string, name: string, type: spec.TypeReference) {
+        this.moduleName = moduleName;
+        this.name = name;
+        this.type = type;
+    }
+
+    public requiredTypes(): string[] {
+        return [toPythonType(this.type)];
+    }
+
+    public write(code: CodeMaker) {
+        const returnType = toPythonType(this.type);
+
+        code.line("@_jsii_classproperty");
+        code.openBlock(`def ${this.name}(cls) -> ${formatPythonType(returnType, false, this.moduleName)}`);
+        code.line("...");
+        code.closeBlock();
+    }
+}
+
+
+class Property implements PythonItem, Writable {
+
+    public readonly moduleName: string;
+    public readonly name: string;
+    private readonly type: spec.TypeReference;
+
+    constructor(moduleName: string, name: string, type: spec.TypeReference) {
+        this.moduleName = moduleName;
+        this.name = name;
+        this.type = type;
+    }
+
+    public requiredTypes(): string[] {
+        return [toPythonType(this.type)];
+    }
+
+    public write(code: CodeMaker) {
+        const returnType = toPythonType(this.type);
+
+        code.line("@_jsii_property");
+        code.openBlock(`def ${this.name}(self) -> ${formatPythonType(returnType, false, this.moduleName)}`);
+        code.line("...");
+        code.closeBlock();
+    }
+}
+
+
+class Class implements ModuleMember {
+    public readonly moduleName: string;
+    public readonly name: string;
+
+    private jsii_fqn: string;
+    private members: (PythonItem & Writable)[];
+
+    constructor(moduleName: string, name: string, jsii_fqn: string) {
+        this.moduleName = moduleName;
+        this.name = name;
+
+        this.jsii_fqn = jsii_fqn;
+        this.members = [];
+    }
+
+    public addMember(member: PythonItem & Writable): PythonItem {
+        this.members.push(member);
+        return member;
+    }
+
+    public requiredTypes(): string[] {
+        const types: string[] = [];
+
+        for (let member of this.members) {
+            types.push(...member.requiredTypes());
+        }
+
+        return types;
+    }
+
+    public write(code: CodeMaker) {
+        // TODO: Data Types?
+        // TODO: Bases
+
+        code.openBlock(`class ${this.name}(metaclass=_JSIIMeta, jsii_type="${this.jsii_fqn}")`);
+        if (this.members.length > 0) {
+            for (let member of this.members) {
+                member.write(code);
+            }
+        } else {
+            code.line("pass");
+        }
+        code.closeBlock();
+    }
+}
+
 
 
 class Module {
@@ -181,9 +536,7 @@ class Module {
     readonly assembly?: spec.Assembly;
     readonly assemblyFilename?: string;
 
-    private buffer: object[];
-    private exportedNames: string[];
-    private importedModules: string[];
+    private members: ModuleMember[];
 
     constructor(ns: string, assembly?: [spec.Assembly, string]) {
         this.name = ns;
@@ -193,107 +546,18 @@ class Module {
             this.assemblyFilename = assembly[1];
         }
 
-        this.buffer = [];
-        this.exportedNames = [];
-        this.importedModules = [];
+        this.members = [];
     }
 
-    // Adds a name to the list of names that this module will export, this will control
-    // things like what is listed inside of __all__.
-    public exportName(name: string) {
-        this.exportedNames.push(name);
-    }
+    public addMember(member: ModuleMember): ModuleMember {
+        this.members.push(member);
 
-    // Adds a name to the list of modules that should be imported at the top of this
-    // file.
-    public importModule(name: string) {
-        if (!this.importedModules.includes(name)) {
-            this.importedModules.push(name);
-        }
-    }
-
-    // Giving a type hint, extract all of the relevant types that are involved, and if
-    // they are defined in another module, mark that module for import.
-    public maybeImportType(type: string) {
-        // If we split our types by any of the "special" characters that can't appear in
-        // identifiers (like "[],") then we will get a list of all of the identifiers,
-        // no matter how nested they are. The downside is we might get trailing/leading
-        // spaces or empty items so we'll need to trim and filter this list.
-        const types = type.split(/[\[\],]/).map((s: string) => s.trim()).filter(s => s != "");
-
-        // Loop over all of the types we've discovered, and check them for being
-        // importable
-        for (let type of types) {
-            // For built in types, we don't need to do anything, and can just move on.
-            if (PYTHON_BUILTIN_TYPES.indexOf(type) > -1) { continue; }
-
-            let [, typeModule] = type.match(/(.*)\.(.*)/) as any[];
-
-            // Given a name like foo.bar.Frob, we want to import the module that Frob exists
-            // in. Given that all classes exported by JSII have to be pascal cased, and all
-            // of our imports are snake cases, this should be safe. We're going to double
-            // check this though, to ensure that our importable here is safe.
-            if (typeModule != typeModule.toLowerCase()) {
-                // If we ever get to this point, we'll need to implment aliasing for our
-                // imports.
-                throw new Error(`Type module is not lower case: '${typeModule}'`);
-            }
-
-            // We only want to actually import the type for this module, if it isn't the
-            // module that we're currently in, otherwise we'll jus rely on the module scope
-            // to make the name available to us.
-            if (typeModule != this.name) {
-                this.importModule(typeModule);
-            }
-        }
-    }
-
-    // We're purposely replicating the API of CodeMaker here, because CodeMaker cannot
-    // Operate on more than one file at a time, so we have to buffer our calls to
-    // CodeMaker, otherwise we can end up in inconsistent state when we get things like:
-    //      - onBeginNamespace(foo)
-    //      - onBeginNamespace(foo.bar)
-    //      - OnEndNamespace(foo.bar)
-    //      - Inconsitent State, where we're now back in the scope of foo, but due to
-    //        the fact that if we had opened a file in onBeginNamespace(foo), we would
-    //        have had to close it for onBeginNamespace(foo.bar), and re-opening it
-    //        would overwrite the contents.
-    //      - OnEndNamespace(foo)
-    // To solve this, we buffer all of the things we *would* have written out via
-    // CodeMaker via this API, and then we will just iterate over it in the
-    // onEndNamespace event and write it out then.
-
-    public line(...args: any[]) {
-        this.buffer.push({method: "line", args: args});
-    }
-
-    public indent(...args: any[]) {
-        this.buffer.push({method: "indent", args: args});
-    }
-
-    public unindent(...args: any[]) {
-        this.buffer.push({method: "unindent", args: args});
-    }
-
-    public open(...args: any[]) {
-        this.buffer.push({method: "open", args: args});
-    }
-
-    public close(...args: any[]) {
-        this.buffer.push({method: "close", args: args});
-    }
-
-    public openBlock(...args: any[]) {
-        this.buffer.push({method: "openBlock", args: args});
-    }
-
-    public closeBlock(...args: any[]) {
-        this.buffer.push({method: "closeBlock", args: args});
+        return member;
     }
 
     public write(code: CodeMaker) {
-        // Before we do Anything, we need to write out our module headers, this is where
-        // we handle stuff like imports, any required initialization, etc.
+        // Before we write anything else, we need to write out our module headers, this
+        // is where we handle stuff like imports, any required initialization, etc.
         code.line(this.generateImportFrom("jsii.compat", ["Protocol"]));
         code.line(
             this.generateImportFrom(
@@ -310,7 +574,8 @@ class Module {
         );
 
         // Go over all of the modules that we need to import, and import them.
-        for (let [idx, modName] of this.importedModules.sort().entries()) {
+        // for (let [idx, modName] of this.importedModules.sort().entries()) {
+        for (let [idx, modName] of this.getRequiredTypeImports().sort().entries()) {
             if (idx == 0) {
                 code.line();
             }
@@ -320,22 +585,83 @@ class Module {
 
         // Determine if we need to write out the kernel load line.
         if (this.assembly && this.assemblyFilename) {
-            this.exportName("__jsii_assembly__");
             code.line(`__jsii_assembly__ = _JSIIAssembly.load("${this.assembly.name}", "${this.assembly.version}", __name__, "${this.assemblyFilename}")`);
         }
 
         // Now that we've gotten all of the module header stuff done, we need to go
         // through and actually write out the meat of our module.
-        for (let buffered of this.buffer) {
-            let methodName = (buffered as any)["method"] as string;
-            let args = (buffered as any)["args"] as any[];
-
-            (code as any)[methodName](...args);
+        // TODO: We need to handle sorting our members prior to writing them out, so
+        //       that we write out anything that a particular member depends on, prior
+        //       to actually writing out that member.
+        for (let member of this.members) {
+            member.write(code);
         }
 
-        // Whatever names we've exported, we'll write out our __all__ that lists them.
-        const stringifiedExportedNames = this.exportedNames.sort().map(s => `"${s}"`);
-        code.line(`__all__ = [${stringifiedExportedNames.join(", ")}]`);
+        // // Whatever names we've exported, we'll write out our __all__ that lists them.
+        code.line(`__all__ = [${this.getExportedNames().map(s => `"${s}"`).join(", ")}]`);
+    }
+
+    private getRequiredTypeImports(): string[] {
+        const types: string[] = []
+        const imports: string[] = [];
+
+        // Compute a list of all of of the types that
+        for (let member of this.members) {
+            types.push(...member.requiredTypes());
+        }
+
+        // Go over our types, and generate a list of imports that we need to import for
+        // our module.
+        for (let type of types) {
+            // If we split our types by any of the "special" characters that can't appear in
+            // identifiers (like "[],") then we will get a list of all of the identifiers,
+            // no matter how nested they are. The downside is we might get trailing/leading
+            // spaces or empty items so we'll need to trim and filter this list.
+            const subTypes = type.split(/[\[\],]/).map((s: string) => s.trim()).filter(s => s != "");
+
+            // Loop over all of the types we've discovered, and check them for being
+            // importable
+            for (let subType of subTypes) {
+                // For built in types, we don't need to do anything, and can just move on.
+                if (PYTHON_BUILTIN_TYPES.indexOf(subType) > -1) { continue; }
+
+                let [, typeModule] = subType.match(/(.*)\.(.*)/) as any[];
+
+                // Given a name like foo.bar.Frob, we want to import the module that Frob exists
+                // in. Given that all classes exported by JSII have to be pascal cased, and all
+                // of our imports are snake cases, this should be safe. We're going to double
+                // check this though, to ensure that our importable here is safe.
+                if (typeModule != typeModule.toLowerCase()) {
+                    // If we ever get to this point, we'll need to implment aliasing for our
+                    // imports.
+                    throw new Error(`Type module is not lower case: '${typeModule}'`);
+                }
+
+                // We only want to actually import the type for this module, if it isn't the
+                // module that we're currently in, otherwise we'll jus rely on the module scope
+                // to make the name available to us.
+                if (typeModule != this.name && imports.indexOf(typeModule) == -1) {
+                    imports.push(typeModule);
+                }
+            }
+        }
+
+        return imports;
+    }
+
+    private getExportedNames(): string[] {
+        // We assume that anything that is a member of this module, will be exported by
+        // this module.
+        const exportedNames = this.members.map(m => m.name);
+
+        // If this module will be outputting the Assembly, then we also want to export
+        // our assembly variable.
+        if (this.assembly && this.assemblyFilename) {
+            exportedNames.push("__jsii_assembly__");
+        }
+
+        return exportedNames.sort();
+
     }
 
     private generateImportFrom(from: string, names: string[]): string {
@@ -350,6 +676,7 @@ class Module {
 
 class PythonGenerator extends Generator {
 
+    private currentMember?: ModuleMember;
     private modules: Module[];
     private moduleStack: Module[];
 
@@ -359,6 +686,7 @@ class PythonGenerator extends Generator {
         this.code.openBlockFormatter = s => `${s}:`;
         this.code.closeBlockFormatter = _s => "";
 
+        this.currentMember = undefined;
         this.modules = [];
         this.moduleStack = [];
     }
@@ -446,130 +774,101 @@ class PythonGenerator extends Generator {
     }
 
     protected onBeginClass(cls: spec.ClassType, abstract: boolean | undefined) {
-        const clsName = toPythonIdentifier(cls.name);
+        const currentModule = this.currentModule();
 
         // TODO: Figure out what to do with abstract here.
         abstract;
 
-        this.currentModule().exportName(clsName);
-        this.currentModule().openBlock(`class ${clsName}(metaclass=_JSIIMeta, jsii_type="${cls.fqn}")`);
+        this.currentMember = currentModule.addMember(
+            new Class(
+                currentModule.name,
+                toPythonIdentifier(cls.name),
+                cls.fqn
+            )
+        );
     }
 
-    protected onEndClass(cls: spec.ClassType) {
-        const currentModule = this.currentModule();
-
-        // If our class does not have any members, then we need to emit a pass statement
-        // to give it *some* kind of a body.
-        if (cls.properties == undefined && cls.methods == undefined) {
-            currentModule.line("pass");
-        }
-
-        currentModule.closeBlock();
+    protected onEndClass(_cls: spec.ClassType) {
+        this.currentMember = undefined;
     }
 
     protected onStaticMethod(_cls: spec.ClassType, method: spec.Method) {
-        // TODO: Handle the case where the Python name and the JSII name differ.
-        const methodName = toPythonIdentifier(method.name!);
-
-        this.currentModule().line("@_jsii_classmethod");
-        this.emitPythonMethod(methodName, "cls", method.parameters, method.returns);
+        this.currentMember!.addMember(
+            new StaticMethod(
+                this.currentModule().name,
+                toPythonIdentifier(method.name!),
+                method.parameters || [],
+                method.returns
+            )
+        );
     }
 
     protected onMethod(_cls: spec.ClassType, method: spec.Method) {
-        // TODO: Handle the case where the Python name and the JSII name differ.
-        const methodName = toPythonIdentifier(method.name!);
-
-        this.currentModule().line("@_jsii_method");
-        this.emitPythonMethod(methodName, "self", method.parameters, method.returns);
+        this.currentMember!.addMember(
+            new Method(
+                this.currentModule().name,
+                toPythonIdentifier(method.name!),
+                method.parameters || [],
+                method.returns
+            )
+        );
     }
 
     protected onStaticProperty(_cls: spec.ClassType, prop: spec.Property) {
-        // TODO: Handle the case where the Python name and the JSII name differ.
-        const propertyName = toPythonIdentifier(prop.name!);
-
-        // TODO: Properties have a bunch of states, they can have getters and setters
-        //       we need to better handle all of these cases.
-        this.currentModule().line("@_jsii_classproperty");
-        this.emitPythonMethod(propertyName, "self", [], prop.type);
+        this.currentMember!.addMember(
+            new StaticProperty(
+                this.currentModule().name,
+                toPythonIdentifier(prop.name!),
+                prop.type,
+            )
+        );
     }
 
     protected onProperty(_cls: spec.ClassType, prop: spec.Property) {
-        // TODO: Handle the case where the Python name and the JSII name differ.
-        const propertyName = toPythonIdentifier(prop.name!);
-
-        this.currentModule().line("@_jsii_property");
-        this.emitPythonMethod(propertyName, "self", [], prop.type);
+        this.currentMember!.addMember(
+            new Property(
+                this.currentModule().name,
+                toPythonIdentifier(prop.name!),
+                prop.type,
+            )
+        );
     }
 
     protected onBeginInterface(ifc: spec.InterfaceType) {
         const currentModule = this.currentModule();
-        const interfaceName = this.toPythonIdentifier(ifc.name);
 
-        let interfaceBases: string[] = [];
-        for (let interfaceBase of (ifc.interfaces || [])) {
-            let interfaceBaseType = this.toPythonType(interfaceBase);
-            interfaceBases.push(this.formatPythonType(interfaceBaseType, true, currentModule.name));
-            currentModule.maybeImportType(interfaceBaseType);
-        }
-        interfaceBases.push("_Protocol");
-
-        // TODO: Data Type
-
-        currentModule.exportName(interfaceName);
-        currentModule.openBlock(`class ${interfaceName}(${interfaceBases.join(",")})`);
+        this.currentMember = currentModule.addMember(
+            new Interface(
+                currentModule.name,
+                toPythonIdentifier(ifc.name),
+                (ifc.interfaces || []).map(i => toPythonType(i))
+            )
+        );
     }
 
-    protected onEndInterface(ifc: spec.InterfaceType) {
-        const currentModule = this.currentModule();
-
-        // If our interface does not have any members, then we need to emit a pass
-        // statement to give it *some* kind of a body.
-        if (ifc.properties == undefined && ifc.methods == undefined) {
-            currentModule.line("pass");
-        }
-
-        currentModule.closeBlock();
+    protected onEndInterface(_ifc: spec.InterfaceType) {
+        this.currentMember = undefined;
     }
 
     protected onInterfaceMethod(_ifc: spec.InterfaceType, method: spec.Method) {
-        const methodName = toPythonIdentifier(method.name!);
-
-        this.emitPythonMethod(methodName, "self", method.parameters, method.returns);
+        this.currentMember!.addMember(
+            new InterfaceMethod(
+                this.currentModule().name,
+                toPythonIdentifier(method.name!),
+                method.parameters || [],
+                method.returns
+            )
+        );
     }
 
     protected onInterfaceProperty(_ifc: spec.InterfaceType, prop: spec.Property) {
-        const propertyName = toPythonIdentifier(prop.name!);
-
-        this.currentModule().line("@property");
-        this.emitPythonMethod(propertyName, "self", [], prop.type);
-    }
-
-    private emitPythonMethod(name?: string, implicitParam?: string, params: spec.Parameter[] = [], returns?: spec.TypeReference) {
-        let module = this.currentModule();
-
-        // TODO: Handle imports (if needed) for type.
-        const returnType = returns ? toPythonType(returns) : "None";
-        module.maybeImportType(returnType);
-
-
-        // We need to turn a list of JSII parameters, into Python style arguments with
-        // gradual typing, so we'll have to iterate over the list of parameters, and
-        // build the list, converting as we go.
-        // TODO: Handle imports (if needed) for all of these types.
-
-        let pythonParams: string[] = implicitParam ? [implicitParam] : [];
-        for (let param of params) {
-            let paramName = toPythonIdentifier(param.name);
-            let paramType = toPythonType(param.type);
-
-            module.maybeImportType(paramType);
-
-            pythonParams.push(`${paramName}: ${formatPythonType(paramType, false, module.name)}`);
-        }
-
-        module.openBlock(`def ${name}(${pythonParams.join(", ")}) -> ${formatPythonType(returnType, false, module.name)}`);
-        module.line("...");
-        module.closeBlock();
+        this.currentMember!.addMember(
+            new InterfaceProperty(
+                this.currentModule().name,
+                toPythonIdentifier(prop.name!),
+                prop.type,
+            )
+        );
     }
 
     private currentModule(): Module {
