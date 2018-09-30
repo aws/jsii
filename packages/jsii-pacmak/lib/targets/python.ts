@@ -167,7 +167,7 @@ const formatPythonType = (type: string, forwardReference: boolean = false, modul
     return type;
 };
 
-const sortMembers = (sortable: Array<PythonItem & WithDependencies>): Array<PythonItem & WithDependencies> => {
+const sortMembers = (sortable: PythonCollectionNode[]): PythonCollectionNode[] => {
     // We're going to take a copy of our sortable item, because it'll make it easier if
     // this method doesn't have side effects.
     sortable = sortable.slice();
@@ -215,26 +215,35 @@ const sortMembers = (sortable: Array<PythonItem & WithDependencies>): Array<Pyth
     return sortable;
 };
 
-interface Writable {
-    write(code: CodeMaker): void;
-}
+interface PythonNode {
 
-interface WithMembers {
-    addMember(member: PythonItem): PythonItem;
-}
+    // The name of the module that this Node exists in.
+    readonly moduleName: string;
 
-interface WithDependencies {
-    readonly depends_on: string[];
-}
-
-interface PythonItem {
+    // The name of the given Node.
     readonly name: string;
+
+    // Returns a list of all of the FQN Python types that this Node requires, this
+    // should traverse all of it's members to get the full list of all types required to
+    // exist (i.e. be imported).
     requiredTypes(): string[];
+
+    // Emits the entire tree of objects represented by this object into the given
+    // CodeMaker object.
+    emit(code: CodeMaker): void;
 }
 
-type ModuleMember = PythonItem & WithMembers & WithDependencies & Writable;
+interface PythonCollectionNode extends PythonNode {
+    // A list of other nodes that this node depends on, can be used to sort a list of
+    // nodes so that nodes get emited *after* the nodes it depends on.
+    readonly depends_on: string[];
 
-class BaseMethod implements PythonItem, Writable {
+    // Given a particular item, add it as a member of this collection of nodes, returns
+    // the original member back.
+    addMember(member: PythonNode): PythonNode;
+}
+
+class BaseMethod implements PythonNode {
 
     public readonly moduleName: string;
     public readonly name: string;
@@ -262,7 +271,7 @@ class BaseMethod implements PythonItem, Writable {
         return types;
     }
 
-    public write(code: CodeMaker) {
+    public emit(code: CodeMaker) {
         const returnType = this.getReturnType(this.returns);
 
         // We need to turn a list of JSII parameters, into Python style arguments with
@@ -291,7 +300,7 @@ class BaseMethod implements PythonItem, Writable {
     }
 }
 
-class BaseProperty implements PythonItem, Writable {
+class BaseProperty implements PythonNode {
 
     public readonly moduleName: string;
     public readonly name: string;
@@ -311,7 +320,7 @@ class BaseProperty implements PythonItem, Writable {
         return [toPythonType(this.type)];
     }
 
-    public write(code: CodeMaker) {
+    public emit(code: CodeMaker) {
         const returnType = toPythonType(this.type);
 
         code.line(`@${this.decorator}`);
@@ -330,13 +339,13 @@ class InterfaceProperty extends BaseProperty {
     protected readonly implicitParameter: string = "self";
 }
 
-class Interface implements ModuleMember {
+class Interface implements PythonCollectionNode {
 
     public readonly moduleName: string;
     public readonly name: string;
 
     private bases: string[];
-    private members: Array<PythonItem & Writable>;
+    private members: PythonNode[];
 
     constructor(moduleName: string, name: string, bases: string[]) {
         this.moduleName = moduleName;
@@ -350,7 +359,7 @@ class Interface implements ModuleMember {
         return this.bases;
     }
 
-    public addMember(member: PythonItem & Writable): PythonItem {
+    public addMember(member: PythonNode): PythonNode {
         this.members.push(member);
         return member;
     }
@@ -365,7 +374,7 @@ class Interface implements ModuleMember {
         return types;
     }
 
-    public write(code: CodeMaker) {
+    public emit(code: CodeMaker) {
         // TODO: Data Types?
 
         const interfaceBases = this.bases.map(baseType => formatPythonType(baseType, true, this.moduleName));
@@ -374,7 +383,7 @@ class Interface implements ModuleMember {
         code.openBlock(`class ${this.name}(${interfaceBases.join(",")})`);
         if (this.members.length > 0) {
             for (const member of this.members) {
-                member.write(code);
+                member.emit(code);
             }
         } else {
             code.line("pass");
@@ -403,12 +412,12 @@ class Property extends BaseProperty {
     protected readonly implicitParameter: string = "self";
 }
 
-class Class implements ModuleMember {
+class Class implements PythonCollectionNode {
     public readonly moduleName: string;
     public readonly name: string;
 
     private jsiiFQN: string;
-    private members: Array<PythonItem & Writable>;
+    private members: PythonNode[];
 
     constructor(moduleName: string, name: string, jsiiFQN: string) {
         this.moduleName = moduleName;
@@ -422,7 +431,7 @@ class Class implements ModuleMember {
         return [];
     }
 
-    public addMember(member: PythonItem & Writable): PythonItem {
+    public addMember(member: PythonNode): PythonNode {
         this.members.push(member);
         return member;
     }
@@ -437,14 +446,14 @@ class Class implements ModuleMember {
         return types;
     }
 
-    public write(code: CodeMaker) {
+    public emit(code: CodeMaker) {
         // TODO: Data Types?
         // TODO: Bases
 
         code.openBlock(`class ${this.name}(metaclass=_JSIIMeta, jsii_type="${this.jsiiFQN}")`);
         if (this.members.length > 0) {
             for (const member of this.members) {
-                member.write(code);
+                member.emit(code);
             }
         } else {
             code.line("pass");
@@ -459,7 +468,7 @@ class Module {
     public readonly assembly?: spec.Assembly;
     public readonly assemblyFilename?: string;
 
-    private members: ModuleMember[];
+    private members: PythonCollectionNode[];
 
     constructor(ns: string, assembly?: [spec.Assembly, string]) {
         this.name = ns;
@@ -472,13 +481,12 @@ class Module {
         this.members = [];
     }
 
-    public addMember(member: ModuleMember): ModuleMember {
+    public addMember(member: PythonCollectionNode): PythonCollectionNode {
         this.members.push(member);
-
         return member;
     }
 
-    public write(code: CodeMaker) {
+    public emit(code: CodeMaker) {
         // Before we write anything else, we need to write out our module headers, this
         // is where we handle stuff like imports, any required initialization, etc.
         code.line(this.generateImportFrom("jsii.compat", ["Protocol"]));
@@ -519,8 +527,8 @@ class Module {
 
         // Now that we've gotten all of the module header stuff done, we need to go
         // through and actually write out the meat of our module.
-        for (const member of (sortMembers(this.members)) as ModuleMember[]) {
-            member.write(code);
+        for (const member of sortMembers(this.members)) {
+            member.emit(code);
         }
 
         // // Whatever names we've exported, we'll write out our __all__ that lists them.
@@ -602,7 +610,7 @@ class Module {
 
 class PythonGenerator extends Generator {
 
-    private currentMember?: ModuleMember;
+    private currentMember?: PythonCollectionNode;
     private modules: Module[];
     private moduleStack: Module[];
 
@@ -695,7 +703,7 @@ class PythonGenerator extends Generator {
         const moduleFilename = path.join("src", toPythonModuleFilename(module.name), "__init__.py");
 
         this.code.openFile(moduleFilename);
-        module.write(this.code);
+        module.emit(this.code);
         this.code.closeFile(moduleFilename);
     }
 
