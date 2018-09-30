@@ -167,53 +167,45 @@ const formatPythonType = (type: string, forwardReference: boolean = false, modul
     return type;
 };
 
+const setDifference = (setA: Set<any>, setB: Set<any>): Set<any> => {
+    const difference = new Set(setA);
+    for (const elem of setB) {
+        difference.delete(elem);
+    }
+    return difference;
+};
+
 const sortMembers = (sortable: PythonCollectionNode[]): PythonCollectionNode[] => {
+    const sorted: PythonCollectionNode[] = [];
+    const sortedFQNs: Set<string> = new Set();
+
     // We're going to take a copy of our sortable item, because it'll make it easier if
     // this method doesn't have side effects.
     sortable = sortable.slice();
 
-    // Actually sort our now copied array.
-    sortable.sort((first, second): number => {
-        // There are 4 possible states that the first and second members could be in:
-        //  1. Neither member depends on the other.
-        //  2. The left member depends on the right member.
-        //  3. The right member depends on the left member.
-        //  4. The two members depends on each other.
-        //
-        //  In the case of (1), we can't determine ordering by using the dependencies
-        //  so we'll move along and fall back to another ordering mechanism.
-        //
-        // In the case of (2), then we want the right member to come first, so that
-        // we render it prior to the left member. The opposite is true for (3).
-        //
-        // In the case of (4), we've got a cyclic dependency, and we have to error
-        // out because there's no way for us to represent that.
-        if (first.depends_on.indexOf(second.name) > -1 && second.depends_on.indexOf(first.name) > -1) {
-            throw new Error(`${first.name} and ${second.name} have a cyclic dependency and cannot be rendered.`);
-        } else if (first.depends_on.indexOf(second.name)) {
-            return 1;
-        } else if (second.depends_on.indexOf(first.name)) {
-            return -1;
+    while (sortable.length > 0) {
+        let idx: number | undefined;
+
+        for (const [idx2, item] of sortable.entries()) {
+            if (setDifference(new Set(item.depends_on), sortedFQNs).size === 0) {
+                sorted.push(item);
+                sortedFQNs.add(item.fqn);
+                idx = idx2;
+                break;
+            } else {
+                idx = undefined;
+            }
         }
 
-        // If we've gotten here, then the two members given to us do not depend on
-        // each other. Perhaps in the future we could be smarter and try to do a
-        // non mandatory dependency so Type Hints might not need forward references
-        // in *every* case... however for now we'll just do the simpliest thing, and
-        // sort the two items alphabetically.
-        if (first.name < second.name) {
-            return -1;
-        } else if (first.name > second.name) {
-            return 1;
+        if (idx === undefined) {
+            throw new Error("Could not sort members.");
+        } else {
+            sortable.splice(idx, 1);
         }
+    }
 
-        // Finally, if we've gotten all the way here, then the two members must
-        // somehow be equal, and we'll just have to return a 0.
-        return 0;
-    });
-
-    return sortable;
-};
+    return sorted;
+    };
 
 interface PythonNode {
 
@@ -222,6 +214,9 @@ interface PythonNode {
 
     // The name of the given Node.
     readonly name: string;
+
+    // The fully qualifed name of this node.
+    readonly fqn: string;
 
     // Returns a list of all of the FQN Python types that this Node requires, this
     // should traverse all of it's members to get the full list of all types required to
@@ -259,6 +254,10 @@ class BaseMethod implements PythonNode {
         this.name = name;
         this.parameters = parameters;
         this.returns = returns;
+    }
+
+    get fqn(): string {
+        return `${this.moduleName}.${this.name}`;
     }
 
     public requiredTypes(): string[] {
@@ -316,6 +315,10 @@ class BaseProperty implements PythonNode {
         this.type = type;
     }
 
+    get fqn(): string {
+        return `${this.moduleName}.${this.name}`;
+    }
+
     public requiredTypes(): string[] {
         return [toPythonType(this.type)];
     }
@@ -353,6 +356,10 @@ class Interface implements PythonCollectionNode {
         this.bases = bases;
 
         this.members = [];
+    }
+
+    get fqn(): string {
+        return `${this.moduleName}.${this.name}`;
     }
 
     get depends_on(): string[] {
@@ -425,6 +432,10 @@ class Class implements PythonCollectionNode {
 
         this.jsiiFQN = jsiiFQN;
         this.members = [];
+    }
+
+    get fqn(): string {
+        return `${this.moduleName}.${this.name}`;
     }
 
     get depends_on(): string[] {
