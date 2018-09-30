@@ -197,10 +197,13 @@ interface PythonItem {
 type ModuleMember = PythonItem & WithMembers & Writable;
 
 
-class InterfaceMethod implements PythonItem, Writable {
+class BaseMethod implements PythonItem, Writable {
 
     public readonly moduleName: string;
     public readonly name: string;
+
+    protected readonly decorator?: string;
+    protected readonly implicitParameter: string;
 
     private readonly parameters: spec.Parameter[];
     private readonly returns?: spec.TypeReference;
@@ -229,12 +232,16 @@ class InterfaceMethod implements PythonItem, Writable {
         // gradual typing, so we'll have to iterate over the list of parameters, and
         // build the list, converting as we go.
         // TODO: Handle imports (if needed) for all of these types.
-        let pythonParams: string[] = ["self"]
+        let pythonParams: string[] = [this.implicitParameter];
         for (let param of this.parameters) {
             const paramName = toPythonIdentifier(param.name);
             const paramType = toPythonType(param.type);
 
             pythonParams.push(`${paramName}: ${formatPythonType(paramType, false, this.moduleName)}`);
+        }
+
+        if (this.decorator != undefined) {
+            code.line(`@${this.decorator}`);
         }
 
         code.openBlock(`def ${this.name}(${pythonParams.join(", ")}) -> ${formatPythonType(returnType, false, this.moduleName)}`);
@@ -246,6 +253,12 @@ class InterfaceMethod implements PythonItem, Writable {
         return type ? toPythonType(type) : "None";
     }
 }
+
+
+class InterfaceMethod extends BaseMethod {
+    protected readonly implicitParameter: string = "self";
+}
+
 
 class InterfaceProperty implements PythonItem, Writable {
 
@@ -324,107 +337,15 @@ class Interface implements ModuleMember {
 }
 
 
-class StaticMethod implements PythonItem, Writable {
-
-    public readonly moduleName: string;
-    public readonly name: string;
-
-    private readonly parameters: spec.Parameter[];
-    private readonly returns?: spec.TypeReference;
-
-    constructor(moduleName: string, name: string, parameters: spec.Parameter[], returns?: spec.TypeReference) {
-        this.moduleName = moduleName;
-        this.name = name;
-        this.parameters = parameters;
-        this.returns = returns;
-    }
-
-    public requiredTypes(): string[] {
-        const types: string[] = [this.getReturnType(this.returns)];
-
-        for (let param of this.parameters) {
-            types.push(toPythonType(param.type));
-        }
-
-        return types;
-    }
-
-    public write(code: CodeMaker) {
-        const returnType = this.getReturnType(this.returns);
-
-        // We need to turn a list of JSII parameters, into Python style arguments with
-        // gradual typing, so we'll have to iterate over the list of parameters, and
-        // build the list, converting as we go.
-        // TODO: Handle imports (if needed) for all of these types.
-        let pythonParams: string[] = ["cls"]
-        for (let param of this.parameters) {
-            const paramName = toPythonIdentifier(param.name);
-            const paramType = toPythonType(param.type);
-
-            pythonParams.push(`${paramName}: ${formatPythonType(paramType, false, this.moduleName)}`);
-        }
-
-        code.line("@_jsii_classmethod");
-        code.openBlock(`def ${this.name}(${pythonParams.join(", ")}) -> ${formatPythonType(returnType, false, this.moduleName)}`);
-        code.line("...");
-        code.closeBlock();
-    }
-
-    private getReturnType(type?: spec.TypeReference): string {
-        return type ? toPythonType(type) : "None";
-    }
+class StaticMethod extends BaseMethod {
+    protected readonly decorator?: string = "_jsii_classmethod";
+    protected readonly implicitParameter: string = "cls";
 }
 
 
-class Method implements PythonItem, Writable {
-
-    public readonly moduleName: string;
-    public readonly name: string;
-
-    private readonly parameters: spec.Parameter[];
-    private readonly returns?: spec.TypeReference;
-
-    constructor(moduleName: string, name: string, parameters: spec.Parameter[], returns?: spec.TypeReference) {
-        this.moduleName = moduleName;
-        this.name = name;
-        this.parameters = parameters;
-        this.returns = returns;
-    }
-
-    public requiredTypes(): string[] {
-        const types: string[] = [this.getReturnType(this.returns)];
-
-        for (let param of this.parameters) {
-            types.push(toPythonType(param.type));
-        }
-
-        return types;
-    }
-
-    public write(code: CodeMaker) {
-        const returnType = this.getReturnType(this.returns);
-
-        // We need to turn a list of JSII parameters, into Python style arguments with
-        // gradual typing, so we'll have to iterate over the list of parameters, and
-        // build the list, converting as we go.
-        // TODO: Handle imports (if needed) for all of these types.
-        let pythonParams: string[] = ["self"]
-        for (let param of this.parameters) {
-            const paramName = toPythonIdentifier(param.name);
-            const paramType = toPythonType(param.type);
-
-            pythonParams.push(`${paramName}: ${formatPythonType(paramType, false, this.moduleName)}`);
-        }
-
-        code.line("@_jsii_method");
-        code.openBlock(`def ${this.name}(${pythonParams.join(", ")}) -> ${formatPythonType(returnType, false, this.moduleName)}`);
-        code.line("...");
-        code.closeBlock();
-    }
-
-    private getReturnType(type?: spec.TypeReference): string {
-        return type ? toPythonType(type) : "None";
-    }
+class Method extends BaseMethod {
+    protected readonly decorator?: string = "_jsii_method";
+    protected readonly implicitParameter: string = "self";
 }
 
 
