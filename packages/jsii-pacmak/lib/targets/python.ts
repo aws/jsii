@@ -1,11 +1,10 @@
-/* tslint:disable */
 import path = require('path');
 import util = require('util');
 
+import { CodeMaker, toSnakeCase } from 'codemaker';
 import * as spec from 'jsii-spec';
 import { Generator, GeneratorOptions } from '../generator';
 import { Target, TargetOptions } from '../target';
-import { CodeMaker, toSnakeCase } from 'codemaker';
 import { shell } from '../util';
 
 export default class Python extends Target {
@@ -31,22 +30,21 @@ export default class Python extends Target {
 // ##################
 // # CODE GENERATOR #
 // ##################
-const debug = function(o: any) {
+const debug = (o: any) => {
+    // tslint:disable-next-line:no-console
     console.log(util.inspect(o, false, null, true));
-}
+};
 
-
-const PYTHON_BUILTIN_TYPES = ["bool", "str", "None"]
+const PYTHON_BUILTIN_TYPES = ["bool", "str", "None"];
 
 const PYTHON_KEYWORDS = [
     "False", "None", "True", "and", "as", "assert", "async", "await", "break", "class",
     "continue", "def", "del", "elif", "else", "except", "finally", "for", "from",
     "global", "if", "import", "in", "is", "lambda", "nonlocal", "not", "or", "pass",
     "raise", "return", "try", "while", "with", "yield"
-]
+];
 
-
-function toPythonModuleName(name: string): string {
+const toPythonModuleName = (name: string): string => {
     if (name.match(/^@[^/]+\/[^/]+$/)) {
         name = name.replace(/^@/g, "");
         name = name.replace(/\//g, ".");
@@ -55,10 +53,9 @@ function toPythonModuleName(name: string): string {
     name = toSnakeCase(name.replace(/-/g, "_"));
 
     return name;
-}
+};
 
-
-function toPythonModuleFilename(name: string): string {
+const toPythonModuleFilename = (name: string): string => {
     if (name.match(/^@[^/]+\/[^/]+$/)) {
         name = name.replace(/^@/g, "");
         name = name.replace(/\//g, ".");
@@ -67,24 +64,21 @@ function toPythonModuleFilename(name: string): string {
     name = name.replace(/\./g, "/");
 
     return name;
-}
+};
 
-
-function toPythonPackageName(name: string): string {
+const toPythonPackageName = (name: string): string => {
     return toPythonModuleName(name).replace(/_/g, "-");
-}
+};
 
-
-function toPythonIdentifier(name: string): string {
+const toPythonIdentifier = (name: string): string => {
     if (PYTHON_KEYWORDS.indexOf(name) > -1) {
         return name + "_";
     }
 
     return name;
-}
+};
 
-
-function toPythonType(typeref: spec.TypeReference): string {
+const toPythonType = (typeref: spec.TypeReference): string => {
     if (spec.isPrimitiveTypeReference(typeref)) {
         return toPythonPrimitive(typeref.primitive);
     } else if (spec.isCollectionTypeReference(typeref)) {
@@ -100,9 +94,9 @@ function toPythonType(typeref: spec.TypeReference): string {
     } else {
         throw new Error("Invalid type reference: " + JSON.stringify(typeref));
     }
-}
+};
 
-function toPythonCollection(ref: spec.CollectionTypeReference) {
+const toPythonCollection = (ref: spec.CollectionTypeReference) => {
     const elementPythonType = toPythonType(ref.collection.elementtype);
     switch (ref.collection.kind) {
         case spec.CollectionKind.Array: return `typing.List[${elementPythonType}]`;
@@ -110,44 +104,41 @@ function toPythonCollection(ref: spec.CollectionTypeReference) {
         default:
             throw new Error(`Unsupported collection kind: ${ref.collection.kind}`);
     }
-}
+};
 
-
-function toPythonPrimitive(primitive: spec.PrimitiveType): string {
+const toPythonPrimitive = (primitive: spec.PrimitiveType): string => {
     switch (primitive) {
         case spec.PrimitiveType.Boolean: return "bool";
-        case spec.PrimitiveType.Date:    return "dateetime.datetime";
-        case spec.PrimitiveType.Json:    return "typing.Mapping[typing.Any, typing.Any]";
-        case spec.PrimitiveType.Number:  return "numbers.Number";
-        case spec.PrimitiveType.String:  return "str";
-        case spec.PrimitiveType.Any:     return "typing.Any";
+        case spec.PrimitiveType.Date: return "dateetime.datetime";
+        case spec.PrimitiveType.Json: return "typing.Mapping[typing.Any, typing.Any]";
+        case spec.PrimitiveType.Number: return "numbers.Number";
+        case spec.PrimitiveType.String: return "str";
+        case spec.PrimitiveType.Any: return "typing.Any";
         default:
             throw new Error("Unknown primitive type: " + primitive);
     }
-}
+};
 
-
-function toPythonFQN(name: string): string {
+const toPythonFQN = (name: string): string => {
     return name.split(".").map((cur, idx, arr) => {
-        if (idx == arr.length - 1) {
+        if (idx === arr.length - 1) {
             return toPythonIdentifier(cur);
         } else {
             return toPythonModuleName(cur);
         }
     }).join(".");
-}
+};
 
-
-function formatPythonType(type: string, forwardReference: boolean = false, moduleName: string) {
+const formatPythonType = (type: string, forwardReference: boolean = false, moduleName: string) => {
     // If we split our types by any of the "special" characters that can't appear in
     // identifiers (like "[],") then we will get a list of all of the identifiers,
     // no matter how nested they are. The downside is we might get trailing/leading
     // spaces or empty items so we'll need to trim and filter this list.
-    const types = type.split(/[\[\],]/).map((s: string) => s.trim()).filter(s => s != "");
+    const types = type.split(/[\[\],]/).map((s: string) => s.trim()).filter(s => s !== "");
 
-    for (let innerType of types) {
+    for (const innerType of types) {
         // Built in types do not need formatted in any particular way.
-        if(PYTHON_BUILTIN_TYPES.indexOf(innerType) > -1) {
+        if (PYTHON_BUILTIN_TYPES.indexOf(innerType) > -1) {
             continue;
         }
 
@@ -174,9 +165,9 @@ function formatPythonType(type: string, forwardReference: boolean = false, modul
     }
 
     return type;
-}
+};
 
-function sortMembers(sortable: (PythonItem & WithDependencies)[]): (PythonItem & WithDependencies)[] {
+const sortMembers = (sortable: Array<PythonItem & WithDependencies>): Array<PythonItem & WithDependencies> => {
     // We're going to take a copy of our sortable item, because it'll make it easier if
     // this method doesn't have side effects.
     sortable = sortable.slice();
@@ -222,32 +213,26 @@ function sortMembers(sortable: (PythonItem & WithDependencies)[]): (PythonItem &
     });
 
     return sortable;
-}
-
+};
 
 interface Writable {
     write(code: CodeMaker): void;
 }
 
-
 interface WithMembers {
     addMember(member: PythonItem): PythonItem;
 }
 
-
 interface WithDependencies {
     readonly depends_on: string[];
 }
-
 
 interface PythonItem {
     readonly name: string;
     requiredTypes(): string[];
 }
 
-
 type ModuleMember = PythonItem & WithMembers & WithDependencies & Writable;
-
 
 class BaseMethod implements PythonItem, Writable {
 
@@ -270,7 +255,7 @@ class BaseMethod implements PythonItem, Writable {
     public requiredTypes(): string[] {
         const types: string[] = [this.getReturnType(this.returns)];
 
-        for (let param of this.parameters) {
+        for (const param of this.parameters) {
             types.push(toPythonType(param.type));
         }
 
@@ -284,15 +269,15 @@ class BaseMethod implements PythonItem, Writable {
         // gradual typing, so we'll have to iterate over the list of parameters, and
         // build the list, converting as we go.
         // TODO: Handle imports (if needed) for all of these types.
-        let pythonParams: string[] = [this.implicitParameter];
-        for (let param of this.parameters) {
+        const pythonParams: string[] = [this.implicitParameter];
+        for (const param of this.parameters) {
             const paramName = toPythonIdentifier(param.name);
             const paramType = toPythonType(param.type);
 
             pythonParams.push(`${paramName}: ${formatPythonType(paramType, false, this.moduleName)}`);
         }
 
-        if (this.decorator != undefined) {
+        if (this.decorator !== undefined) {
             code.line(`@${this.decorator}`);
         }
 
@@ -305,7 +290,6 @@ class BaseMethod implements PythonItem, Writable {
         return type ? toPythonType(type) : "None";
     }
 }
-
 
 class BaseProperty implements PythonItem, Writable {
 
@@ -337,17 +321,14 @@ class BaseProperty implements PythonItem, Writable {
     }
 }
 
-
 class InterfaceMethod extends BaseMethod {
     protected readonly implicitParameter: string = "self";
 }
-
 
 class InterfaceProperty extends BaseProperty {
     protected readonly decorator: string = "property";
     protected readonly implicitParameter: string = "self";
 }
-
 
 class Interface implements ModuleMember {
 
@@ -355,7 +336,7 @@ class Interface implements ModuleMember {
     public readonly name: string;
 
     private bases: string[];
-    private members: (PythonItem & Writable)[];
+    private members: Array<PythonItem & Writable>;
 
     constructor(moduleName: string, name: string, bases: string[]) {
         this.moduleName = moduleName;
@@ -377,7 +358,7 @@ class Interface implements ModuleMember {
     public requiredTypes(): string[] {
         const types = this.bases.slice();
 
-        for (let member of this.members) {
+        for (const member of this.members) {
             types.push(...member.requiredTypes());
         }
 
@@ -392,7 +373,7 @@ class Interface implements ModuleMember {
 
         code.openBlock(`class ${this.name}(${interfaceBases.join(",")})`);
         if (this.members.length > 0) {
-            for (let member of this.members) {
+            for (const member of this.members) {
                 member.write(code);
             }
         } else {
@@ -402,43 +383,38 @@ class Interface implements ModuleMember {
     }
 }
 
-
 class StaticMethod extends BaseMethod {
     protected readonly decorator?: string = "_jsii_classmethod";
     protected readonly implicitParameter: string = "cls";
 }
-
 
 class Method extends BaseMethod {
     protected readonly decorator?: string = "_jsii_method";
     protected readonly implicitParameter: string = "self";
 }
 
-
 class StaticProperty extends BaseProperty {
     protected readonly decorator: string = "_jsii_classproperty";
     protected readonly implicitParameter: string = "cls";
 }
-
 
 class Property extends BaseProperty {
     protected readonly decorator: string = "_jsii_property";
     protected readonly implicitParameter: string = "self";
 }
 
-
 class Class implements ModuleMember {
     public readonly moduleName: string;
     public readonly name: string;
 
-    private jsii_fqn: string;
-    private members: (PythonItem & Writable)[];
+    private jsiiFQN: string;
+    private members: Array<PythonItem & Writable>;
 
-    constructor(moduleName: string, name: string, jsii_fqn: string) {
+    constructor(moduleName: string, name: string, jsiiFQN: string) {
         this.moduleName = moduleName;
         this.name = name;
 
-        this.jsii_fqn = jsii_fqn;
+        this.jsiiFQN = jsiiFQN;
         this.members = [];
     }
 
@@ -454,7 +430,7 @@ class Class implements ModuleMember {
     public requiredTypes(): string[] {
         const types: string[] = [];
 
-        for (let member of this.members) {
+        for (const member of this.members) {
             types.push(...member.requiredTypes());
         }
 
@@ -465,9 +441,9 @@ class Class implements ModuleMember {
         // TODO: Data Types?
         // TODO: Bases
 
-        code.openBlock(`class ${this.name}(metaclass=_JSIIMeta, jsii_type="${this.jsii_fqn}")`);
+        code.openBlock(`class ${this.name}(metaclass=_JSIIMeta, jsii_type="${this.jsiiFQN}")`);
         if (this.members.length > 0) {
-            for (let member of this.members) {
+            for (const member of this.members) {
                 member.write(code);
             }
         } else {
@@ -477,20 +453,18 @@ class Class implements ModuleMember {
     }
 }
 
-
-
 class Module {
 
-    readonly name: string;
-    readonly assembly?: spec.Assembly;
-    readonly assemblyFilename?: string;
+    public readonly name: string;
+    public readonly assembly?: spec.Assembly;
+    public readonly assemblyFilename?: string;
 
     private members: ModuleMember[];
 
     constructor(ns: string, assembly?: [spec.Assembly, string]) {
         this.name = ns;
 
-        if (assembly != undefined) {
+        if (assembly !== undefined) {
             this.assembly = assembly[0];
             this.assemblyFilename = assembly[1];
         }
@@ -524,8 +498,8 @@ class Module {
 
         // Go over all of the modules that we need to import, and import them.
         // for (let [idx, modName] of this.importedModules.sort().entries()) {
-        for (let [idx, modName] of this.getRequiredTypeImports().sort().entries()) {
-            if (idx == 0) {
+        for (const [idx, modName] of this.getRequiredTypeImports().sort().entries()) {
+            if (idx === 0) {
                 code.line();
             }
 
@@ -534,12 +508,18 @@ class Module {
 
         // Determine if we need to write out the kernel load line.
         if (this.assembly && this.assemblyFilename) {
-            code.line(`__jsii_assembly__ = _JSIIAssembly.load("${this.assembly.name}", "${this.assembly.version}", __name__, "${this.assemblyFilename}")`);
+            code.line(
+                `__jsii_assembly__ = _JSIIAssembly.load(` +
+                `"${this.assembly.name}", ` +
+                `"${this.assembly.version}", ` +
+                `__name__, ` +
+                `"${this.assemblyFilename}")`
+            );
         }
 
         // Now that we've gotten all of the module header stuff done, we need to go
         // through and actually write out the meat of our module.
-        for (let member of (sortMembers(this.members)) as ModuleMember[]) {
+        for (const member of (sortMembers(this.members)) as ModuleMember[]) {
             member.write(code);
         }
 
@@ -548,36 +528,36 @@ class Module {
     }
 
     private getRequiredTypeImports(): string[] {
-        const types: string[] = []
+        const types: string[] = [];
         const imports: string[] = [];
 
         // Compute a list of all of of the types that
-        for (let member of this.members) {
+        for (const member of this.members) {
             types.push(...member.requiredTypes());
         }
 
         // Go over our types, and generate a list of imports that we need to import for
         // our module.
-        for (let type of types) {
+        for (const type of types) {
             // If we split our types by any of the "special" characters that can't appear in
             // identifiers (like "[],") then we will get a list of all of the identifiers,
             // no matter how nested they are. The downside is we might get trailing/leading
             // spaces or empty items so we'll need to trim and filter this list.
-            const subTypes = type.split(/[\[\],]/).map((s: string) => s.trim()).filter(s => s != "");
+            const subTypes = type.split(/[\[\],]/).map((s: string) => s.trim()).filter(s => s !== "");
 
             // Loop over all of the types we've discovered, and check them for being
             // importable
-            for (let subType of subTypes) {
+            for (const subType of subTypes) {
                 // For built in types, we don't need to do anything, and can just move on.
                 if (PYTHON_BUILTIN_TYPES.indexOf(subType) > -1) { continue; }
 
-                let [, typeModule] = subType.match(/(.*)\.(.*)/) as any[];
+                const [, typeModule] = subType.match(/(.*)\.(.*)/) as any[];
 
                 // Given a name like foo.bar.Frob, we want to import the module that Frob exists
                 // in. Given that all classes exported by JSII have to be pascal cased, and all
                 // of our imports are snake cases, this should be safe. We're going to double
                 // check this though, to ensure that our importable here is safe.
-                if (typeModule != typeModule.toLowerCase()) {
+                if (typeModule !== typeModule.toLowerCase()) {
                     // If we ever get to this point, we'll need to implment aliasing for our
                     // imports.
                     throw new Error(`Type module is not lower case: '${typeModule}'`);
@@ -586,7 +566,7 @@ class Module {
                 // We only want to actually import the type for this module, if it isn't the
                 // module that we're currently in, otherwise we'll jus rely on the module scope
                 // to make the name available to us.
-                if (typeModule != this.name && imports.indexOf(typeModule) == -1) {
+                if (typeModule !== this.name && imports.indexOf(typeModule) === -1) {
                     imports.push(typeModule);
                 }
             }
@@ -673,7 +653,7 @@ class PythonGenerator extends Generator {
         this.code.line(`description="${assm.description}",`);
         this.code.line(`url="${assm.homepage}",`);
         this.code.line('package_dir={"": "src"},');
-        this.code.line(`packages=[${moduleNames.map(m => `"${m}"`).join(",")}],`)
+        this.code.line(`packages=[${moduleNames.map(m => `"${m}"`).join(",")}],`);
         this.code.line(`package_data={"${topLevelModuleName}._jsii": ["*.jsii.tgz"]},`);
         this.code.line('python_requires=">=3.6",');
         this.code.unindent(")");
@@ -689,41 +669,40 @@ class PythonGenerator extends Generator {
 
         // We also need to write out a MANIFEST.in to ensure that all of our required
         // files are included.
-        this.code.openFile("MANIFEST.in")
-        this.code.line("include pyproject.toml")
-        this.code.closeFile("MANIFEST.in")
+        this.code.openFile("MANIFEST.in");
+        this.code.line("include pyproject.toml");
+        this.code.closeFile("MANIFEST.in");
     }
 
     protected onBeginNamespace(ns: string) {
         const moduleName = toPythonModuleName(ns);
-        const loadAssembly = this.assembly.name == ns ? true : false;
+        const loadAssembly = this.assembly.name === ns ? true : false;
 
-        let moduleArgs: any[] = [];
+        const moduleArgs: any[] = [];
 
         if (loadAssembly) {
             moduleArgs.push([this.assembly, this.getAssemblyFileName()]);
         }
 
-        let mod = new Module(moduleName, ...moduleArgs);
+        const mod = new Module(moduleName, ...moduleArgs);
 
         this.modules.push(mod);
         this.moduleStack.push(mod);
     }
 
     protected onEndNamespace(_ns: string) {
-        let module = this.moduleStack.pop() as Module;
-        let moduleFilename = path.join("src", toPythonModuleFilename(module.name), "__init__.py");
+        const module = this.moduleStack.pop() as Module;
+        const moduleFilename = path.join("src", toPythonModuleFilename(module.name), "__init__.py");
 
         this.code.openFile(moduleFilename);
         module.write(this.code);
         this.code.closeFile(moduleFilename);
     }
 
-    protected onBeginClass(cls: spec.ClassType, abstract: boolean | undefined) {
+    protected onBeginClass(cls: spec.ClassType, _abstract: boolean | undefined) {
         const currentModule = this.currentModule();
 
         // TODO: Figure out what to do with abstract here.
-        abstract;
 
         this.currentMember = currentModule.addMember(
             new Class(
@@ -817,10 +796,6 @@ class PythonGenerator extends Generator {
         );
     }
 
-    private currentModule(): Module {
-        return this.moduleStack.slice(-1)[0];
-    }
-
     // Not Currently Used
 
     protected onInterfaceMethodOverload(_ifc: spec.InterfaceType, _overload: spec.Method, _originalMethod: spec.Method) {
@@ -841,5 +816,11 @@ class PythonGenerator extends Generator {
     protected onStaticMethodOverload(_cls: spec.ClassType, _overload: spec.Method, _originalMethod: spec.Method) {
         debug("onStaticMethodOverload");
         throw new Error("Unhandled Type: StaticMethodOverload");
+    }
+
+    // End Not Currently Used
+
+    private currentModule(): Module {
+        return this.moduleStack.slice(-1)[0];
     }
 }
