@@ -176,6 +176,54 @@ function formatPythonType(type: string, forwardReference: boolean = false, modul
     return type;
 }
 
+function sortMembers(sortable: (PythonItem & WithDependencies)[]): (PythonItem & WithDependencies)[] {
+    // We're going to take a copy of our sortable item, because it'll make it easier if
+    // this method doesn't have side effects.
+    sortable = sortable.slice();
+
+    // Actually sort our now copied array.
+    sortable.sort((first, second): number => {
+        // There are 4 possible states that the first and second members could be in:
+        //  1. Neither member depends on the other.
+        //  2. The left member depends on the right member.
+        //  3. The right member depends on the left member.
+        //  4. The two members depends on each other.
+        //
+        //  In the case of (1), we can't determine ordering by using the dependencies
+        //  so we'll move along and fall back to another ordering mechanism.
+        //
+        // In the case of (2), then we want the right member to come first, so that
+        // we render it prior to the left member. The opposite is true for (3).
+        //
+        // In the case of (4), we've got a cyclic dependency, and we have to error
+        // out because there's no way for us to represent that.
+        if (first.depends_on.indexOf(second.name) > -1 && second.depends_on.indexOf(first.name) > -1) {
+            throw new Error(`${first.name} and ${second.name} have a cyclic dependency and cannot be rendered.`);
+        } else if (first.depends_on.indexOf(second.name)) {
+            return 1;
+        } else if (second.depends_on.indexOf(first.name)) {
+            return -1;
+        }
+
+        // If we've gotten here, then the two members given to us do not depend on
+        // each other. Perhaps in the future we could be smarter and try to do a
+        // non mandatory dependency so Type Hints might not need forward references
+        // in *every* case... however for now we'll just do the simpliest thing, and
+        // sort the two items alphabetically.
+        if (first.name < second.name) {
+            return -1;
+        } else if (first.name > second.name) {
+            return 1;
+        }
+
+        // Finally, if we've gotten all the way here, then the two members must
+        // somehow be equal, and we'll just have to return a 0.
+        return 0;
+    });
+
+    return sortable;
+}
+
 
 interface Writable {
     write(code: CodeMaker): void;
@@ -187,6 +235,10 @@ interface WithMembers {
 }
 
 
+interface WithDependencies {
+    readonly depends_on: string[];
+}
+
 
 interface PythonItem {
     readonly name: string;
@@ -194,7 +246,7 @@ interface PythonItem {
 }
 
 
-type ModuleMember = PythonItem & WithMembers & Writable;
+type ModuleMember = PythonItem & WithMembers & WithDependencies & Writable;
 
 
 class BaseMethod implements PythonItem, Writable {
@@ -308,9 +360,13 @@ class Interface implements ModuleMember {
     constructor(moduleName: string, name: string, bases: string[]) {
         this.moduleName = moduleName;
         this.name = name;
-
         this.bases = bases;
+
         this.members = [];
+    }
+
+    get depends_on(): string[] {
+        return this.bases;
     }
 
     public addMember(member: PythonItem & Writable): PythonItem {
@@ -384,6 +440,10 @@ class Class implements ModuleMember {
 
         this.jsii_fqn = jsii_fqn;
         this.members = [];
+    }
+
+    get depends_on(): string[] {
+        return [];
     }
 
     public addMember(member: PythonItem & Writable): PythonItem {
@@ -479,10 +539,7 @@ class Module {
 
         // Now that we've gotten all of the module header stuff done, we need to go
         // through and actually write out the meat of our module.
-        // TODO: We need to handle sorting our members prior to writing them out, so
-        //       that we write out anything that a particular member depends on, prior
-        //       to actually writing out that member.
-        for (let member of this.members) {
+        for (let member of (sortMembers(this.members)) as ModuleMember[]) {
             member.write(code);
         }
 
