@@ -5,7 +5,7 @@ import util = require('util');
 import * as spec from 'jsii-spec';
 import { Generator, GeneratorOptions } from '../generator';
 import { Target, TargetOptions } from '../target';
-import { CodeMaker } from 'codemaker';
+import { CodeMaker, toSnakeCase } from 'codemaker';
 import { shell } from '../util';
 
 export default class Python extends Target {
@@ -44,6 +44,135 @@ const PYTHON_KEYWORDS = [
     "global", "if", "import", "in", "is", "lambda", "nonlocal", "not", "or", "pass",
     "raise", "return", "try", "while", "with", "yield"
 ]
+
+
+function toPythonModuleName(name: string): string {
+    if (name.match(/^@[^/]+\/[^/]+$/)) {
+        name = name.replace(/^@/g, "");
+        name = name.replace(/\//g, ".");
+    }
+
+    name = toSnakeCase(name.replace(/-/g, "_"));
+
+    return name;
+}
+
+
+function toPythonModuleFilename(name: string): string {
+    if (name.match(/^@[^/]+\/[^/]+$/)) {
+        name = name.replace(/^@/g, "");
+        name = name.replace(/\//g, ".");
+    }
+
+    name = name.replace(/\./g, "/");
+
+    return name;
+}
+
+
+function toPythonPackageName(name: string): string {
+    return toPythonModuleName(name).replace(/_/g, "-");
+}
+
+
+function toPythonIdentifier(name: string): string {
+    if (PYTHON_KEYWORDS.indexOf(name) > -1) {
+        return name + "_";
+    }
+
+    return name;
+}
+
+
+function toPythonType(typeref: spec.TypeReference): string {
+    if (spec.isPrimitiveTypeReference(typeref)) {
+        return toPythonPrimitive(typeref.primitive);
+    } else if (spec.isCollectionTypeReference(typeref)) {
+        return toPythonCollection(typeref);
+    } else if (spec.isNamedTypeReference(typeref)) {
+        return toPythonFQN(typeref.fqn);
+    } else if (typeref.union) {
+        const types = new Array<string>();
+        for (const subtype of typeref.union.types) {
+            types.push(toPythonType(subtype));
+        }
+        return `typing.Union[${types.join(", ")}]`;
+    } else {
+        throw new Error("Invalid type reference: " + JSON.stringify(typeref));
+    }
+}
+
+function toPythonCollection(ref: spec.CollectionTypeReference) {
+    const elementPythonType = toPythonType(ref.collection.elementtype);
+    switch (ref.collection.kind) {
+        case spec.CollectionKind.Array: return `typing.List[${elementPythonType}]`;
+        case spec.CollectionKind.Map: return `typing.Mapping[str,${elementPythonType}]`;
+        default:
+            throw new Error(`Unsupported collection kind: ${ref.collection.kind}`);
+    }
+}
+
+
+function toPythonPrimitive(primitive: spec.PrimitiveType): string {
+    switch (primitive) {
+        case spec.PrimitiveType.Boolean: return "bool";
+        case spec.PrimitiveType.Date:    return "dateetime.datetime";
+        case spec.PrimitiveType.Json:    return "typing.Mapping[typing.Any, typing.Any]";
+        case spec.PrimitiveType.Number:  return "numbers.Number";
+        case spec.PrimitiveType.String:  return "str";
+        case spec.PrimitiveType.Any:     return "typing.Any";
+        default:
+            throw new Error("Unknown primitive type: " + primitive);
+    }
+}
+
+
+function toPythonFQN(name: string): string {
+    return name.split(".").map((cur, idx, arr) => {
+        if (idx == arr.length - 1) {
+            return toPythonIdentifier(cur);
+        } else {
+            return toPythonModuleName(cur);
+        }
+    }).join(".");
+}
+
+
+function formatPythonType(type: string, forwardReference: boolean = false, moduleName: string) {
+    // If we split our types by any of the "special" characters that can't appear in
+    // identifiers (like "[],") then we will get a list of all of the identifiers,
+    // no matter how nested they are. The downside is we might get trailing/leading
+    // spaces or empty items so we'll need to trim and filter this list.
+    const types = type.split(/[\[\],]/).map((s: string) => s.trim()).filter(s => s != "");
+
+    for (let innerType of types) {
+        // Built in types do not need formatted in any particular way.
+        if(PYTHON_BUILTIN_TYPES.indexOf(innerType) > -1) {
+            continue;
+        }
+
+        // If we do not have a current moduleName, or the type is not within that
+        // module, then we don't format it any particular way.
+        if (!innerType.startsWith(moduleName + ".")) {
+            continue;
+        } else {
+            const re = new RegExp('[^\[,\s]"?' + innerType + '"?[$\],\s]');
+
+            // If this is our current module, then we need to correctly handle our
+            // forward references, by placing the type inside of quotes, unless
+            // we're returning real forward references.
+            if (!forwardReference) {
+                type = type.replace(re, `"${innerType}"`);
+            }
+
+            // Now that we've handled (or not) our forward references, then we want
+            // to replace the module with just the type name.
+            type = type.replace(re, innerType.substring(moduleName.length + 1, innerType.length));
+        }
+    }
+
+    return type;
+}
 
 
 class Module {
@@ -235,7 +364,7 @@ class PythonGenerator extends Generator {
     }
 
     protected getAssemblyOutputDir(mod: spec.Assembly) {
-        return path.join("src", this.toPythonModuleFilename(this.toPythonModuleName(mod.name)), "_jsii");
+        return path.join("src", toPythonModuleFilename(toPythonModuleName(mod.name)), "_jsii");
     }
 
     protected onBeginAssembly(assm: spec.Assembly, _fingerprint: boolean) {
@@ -248,8 +377,8 @@ class PythonGenerator extends Generator {
     }
 
     protected onEndAssembly(assm: spec.Assembly, _fingerprint: boolean) {
-        const packageName = this.toPythonPackageName(assm.name);
-        const topLevelModuleName = this.toPythonModuleName(packageName);
+        const packageName = toPythonPackageName(assm.name);
+        const topLevelModuleName = toPythonModuleName(packageName);
         const moduleNames = this.modules.map(m => m.name);
 
         moduleNames.push(`${topLevelModuleName}._jsii`);
@@ -292,7 +421,7 @@ class PythonGenerator extends Generator {
     }
 
     protected onBeginNamespace(ns: string) {
-        const moduleName = this.toPythonModuleName(ns);
+        const moduleName = toPythonModuleName(ns);
         const loadAssembly = this.assembly.name == ns ? true : false;
 
         let moduleArgs: any[] = [];
@@ -309,7 +438,7 @@ class PythonGenerator extends Generator {
 
     protected onEndNamespace(_ns: string) {
         let module = this.moduleStack.pop() as Module;
-        let moduleFilename = path.join("src", this.toPythonModuleFilename(module.name), "__init__.py");
+        let moduleFilename = path.join("src", toPythonModuleFilename(module.name), "__init__.py");
 
         this.code.openFile(moduleFilename);
         module.write(this.code);
@@ -317,7 +446,7 @@ class PythonGenerator extends Generator {
     }
 
     protected onBeginClass(cls: spec.ClassType, abstract: boolean | undefined) {
-        const clsName = this.toPythonIdentifier(cls.name);
+        const clsName = toPythonIdentifier(cls.name);
 
         // TODO: Figure out what to do with abstract here.
         abstract;
@@ -340,7 +469,7 @@ class PythonGenerator extends Generator {
 
     protected onStaticMethod(_cls: spec.ClassType, method: spec.Method) {
         // TODO: Handle the case where the Python name and the JSII name differ.
-        const methodName = this.toPythonIdentifier(method.name!);
+        const methodName = toPythonIdentifier(method.name!);
 
         this.currentModule().line("@_jsii_classmethod");
         this.emitPythonMethod(methodName, "cls", method.parameters, method.returns);
@@ -348,7 +477,7 @@ class PythonGenerator extends Generator {
 
     protected onMethod(_cls: spec.ClassType, method: spec.Method) {
         // TODO: Handle the case where the Python name and the JSII name differ.
-        const methodName = this.toPythonIdentifier(method.name!);
+        const methodName = toPythonIdentifier(method.name!);
 
         this.currentModule().line("@_jsii_method");
         this.emitPythonMethod(methodName, "self", method.parameters, method.returns);
@@ -356,7 +485,7 @@ class PythonGenerator extends Generator {
 
     protected onStaticProperty(_cls: spec.ClassType, prop: spec.Property) {
         // TODO: Handle the case where the Python name and the JSII name differ.
-        const propertyName = this.toPythonIdentifier(prop.name!);
+        const propertyName = toPythonIdentifier(prop.name!);
 
         // TODO: Properties have a bunch of states, they can have getters and setters
         //       we need to better handle all of these cases.
@@ -366,7 +495,7 @@ class PythonGenerator extends Generator {
 
     protected onProperty(_cls: spec.ClassType, prop: spec.Property) {
         // TODO: Handle the case where the Python name and the JSII name differ.
-        const propertyName = this.toPythonIdentifier(prop.name!);
+        const propertyName = toPythonIdentifier(prop.name!);
 
         this.currentModule().line("@_jsii_property");
         this.emitPythonMethod(propertyName, "self", [], prop.type);
@@ -403,13 +532,13 @@ class PythonGenerator extends Generator {
     }
 
     protected onInterfaceMethod(_ifc: spec.InterfaceType, method: spec.Method) {
-        const methodName = this.toPythonIdentifier(method.name!);
+        const methodName = toPythonIdentifier(method.name!);
 
         this.emitPythonMethod(methodName, "self", method.parameters, method.returns);
     }
 
     protected onInterfaceProperty(_ifc: spec.InterfaceType, prop: spec.Property) {
-        const propertyName = this.toPythonIdentifier(prop.name!);
+        const propertyName = toPythonIdentifier(prop.name!);
 
         this.currentModule().line("@property");
         this.emitPythonMethod(propertyName, "self", [], prop.type);
@@ -419,7 +548,7 @@ class PythonGenerator extends Generator {
         let module = this.currentModule();
 
         // TODO: Handle imports (if needed) for type.
-        const returnType = returns ? this.toPythonType(returns) : "None";
+        const returnType = returns ? toPythonType(returns) : "None";
         module.maybeImportType(returnType);
 
 
@@ -430,142 +559,21 @@ class PythonGenerator extends Generator {
 
         let pythonParams: string[] = implicitParam ? [implicitParam] : [];
         for (let param of params) {
-            let paramName = this.toPythonIdentifier(param.name);
-            let paramType = this.toPythonType(param.type);
+            let paramName = toPythonIdentifier(param.name);
+            let paramType = toPythonType(param.type);
 
             module.maybeImportType(paramType);
 
-            pythonParams.push(`${paramName}: ${this.formatPythonType(paramType, false, module.name)}`);
+            pythonParams.push(`${paramName}: ${formatPythonType(paramType, false, module.name)}`);
         }
 
-        module.openBlock(`def ${name}(${pythonParams.join(", ")}) -> ${this.formatPythonType(returnType, false, module.name)}`);
+        module.openBlock(`def ${name}(${pythonParams.join(", ")}) -> ${formatPythonType(returnType, false, module.name)}`);
         module.line("...");
         module.closeBlock();
     }
 
-    private toPythonPackageName(name: string): string {
-        return this.toPythonModuleName(name).replace(/_/g, "-");
-    }
-
-    private toPythonIdentifier(name: string): string {
-        if (PYTHON_KEYWORDS.indexOf(name) > -1) {
-            return name + "_";
-        }
-
-        return name;
-    }
-
-    private toPythonType(typeref: spec.TypeReference): string {
-        if (spec.isPrimitiveTypeReference(typeref)) {
-            return this.toPythonPrimitive(typeref.primitive);
-        } else if (spec.isCollectionTypeReference(typeref)) {
-            return this.toPythonCollection(typeref);
-        } else if (spec.isNamedTypeReference(typeref)) {
-            return this.toPythonFQN(typeref.fqn);
-        } else if (typeref.union) {
-            const types = new Array<string>();
-            for (const subtype of typeref.union.types) {
-                types.push(this.toPythonType(subtype));
-            }
-            return `typing.Union[${types.join(", ")}]`;
-        } else {
-            throw new Error("Invalid type reference: " + JSON.stringify(typeref));
-        }
-    }
-
-    private toPythonCollection(ref: spec.CollectionTypeReference) {
-        const elementPythonType = this.toPythonType(ref.collection.elementtype);
-        switch (ref.collection.kind) {
-            case spec.CollectionKind.Array: return `typing.List[${elementPythonType}]`;
-            case spec.CollectionKind.Map: return `typing.Mapping[str,${elementPythonType}]`;
-            default:
-                throw new Error(`Unsupported collection kind: ${ref.collection.kind}`);
-        }
-    }
-
-    private toPythonPrimitive(primitive: spec.PrimitiveType): string {
-        switch (primitive) {
-            case spec.PrimitiveType.Boolean: return "bool";
-            case spec.PrimitiveType.Date:    return "dateetime.datetime";
-            case spec.PrimitiveType.Json:    return "typing.Mapping[typing.Any, typing.Any]";
-            case spec.PrimitiveType.Number:  return "numbers.Number";
-            case spec.PrimitiveType.String:  return "str";
-            case spec.PrimitiveType.Any:     return "typing.Any";
-            default:
-                throw new Error("Unknown primitive type: " + primitive);
-        }
-    }
-
-    private toPythonFQN(name: string): string {
-        return name.split(".").map((cur, idx, arr) => {
-            if (idx == arr.length - 1) {
-                return this.toPythonIdentifier(cur);
-            } else {
-                return this.toPythonModuleName(cur);
-            }
-        }).join(".");
-    }
-
-    private formatPythonType(type: string, forwardReference: boolean = false, moduleName: string) {
-        // If we split our types by any of the "special" characters that can't appear in
-        // identifiers (like "[],") then we will get a list of all of the identifiers,
-        // no matter how nested they are. The downside is we might get trailing/leading
-        // spaces or empty items so we'll need to trim and filter this list.
-        const types = type.split(/[\[\],]/).map((s: string) => s.trim()).filter(s => s != "");
-
-        for (let innerType of types) {
-            // Built in types do not need formatted in any particular way.
-            if(PYTHON_BUILTIN_TYPES.indexOf(innerType) > -1) {
-                continue;
-            }
-
-            // If we do not have a current moduleName, or the type is not within that
-            // module, then we don't format it any particular way.
-            if (!innerType.startsWith(moduleName + ".")) {
-                continue;
-            } else {
-                const re = new RegExp('[^\[,\s]"?' + innerType + '"?[$\],\s]');
-
-                // If this is our current module, then we need to correctly handle our
-                // forward references, by placing the type inside of quotes, unless
-                // we're returning real forward references.
-                if (!forwardReference) {
-                    type = type.replace(re, `"${innerType}"`);
-                }
-
-                // Now that we've handled (or not) our forward references, then we want
-                // to replace the module with just the type name.
-                type = type.replace(re, innerType.substring(moduleName.length + 1, innerType.length));
-            }
-        }
-
-        return type;
-    }
-
     private currentModule(): Module {
         return this.moduleStack.slice(-1)[0];
-    }
-
-    private toPythonModuleName(name: string): string {
-        if (name.match(/^@[^/]+\/[^/]+$/)) {
-            name = name.replace(/^@/g, "");
-            name = name.replace(/\//g, ".");
-        }
-
-        name = this.code.toSnakeCase(name.replace(/-/g, "_"));
-
-        return name;
-    }
-
-    private toPythonModuleFilename(name: string): string {
-        if (name.match(/^@[^/]+\/[^/]+$/)) {
-            name = name.replace(/^@/g, "");
-            name = name.replace(/\//g, ".");
-        }
-
-        name = name.replace(/\./g, "/");
-
-        return name;
     }
 
     // Not Currently Used
