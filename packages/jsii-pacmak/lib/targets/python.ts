@@ -255,15 +255,14 @@ class BaseMethod implements PythonItem, Writable {
 }
 
 
-class InterfaceMethod extends BaseMethod {
-    protected readonly implicitParameter: string = "self";
-}
-
-
-class InterfaceProperty implements PythonItem, Writable {
+class BaseProperty implements PythonItem, Writable {
 
     public readonly moduleName: string;
     public readonly name: string;
+
+    protected readonly decorator: string;
+    protected readonly implicitParameter: string;
+
     private readonly type: spec.TypeReference;
 
     constructor(moduleName: string, name: string, type: spec.TypeReference) {
@@ -279,11 +278,22 @@ class InterfaceProperty implements PythonItem, Writable {
     public write(code: CodeMaker) {
         const returnType = toPythonType(this.type);
 
-        code.line("@property");
-        code.openBlock(`def ${this.name}(self) -> ${formatPythonType(returnType, false, this.moduleName)}`);
+        code.line(`@${this.decorator}`);
+        code.openBlock(`def ${this.name}(${this.implicitParameter}) -> ${formatPythonType(returnType, false, this.moduleName)}`);
         code.line("...");
         code.closeBlock();
     }
+}
+
+
+class InterfaceMethod extends BaseMethod {
+    protected readonly implicitParameter: string = "self";
+}
+
+
+class InterfaceProperty extends BaseProperty {
+    protected readonly decorator: string = "property";
+    protected readonly implicitParameter: string = "self";
 }
 
 
@@ -349,57 +359,15 @@ class Method extends BaseMethod {
 }
 
 
-class StaticProperty implements PythonItem, Writable {
-
-    public readonly moduleName: string;
-    public readonly name: string;
-    private readonly type: spec.TypeReference;
-
-    constructor(moduleName: string, name: string, type: spec.TypeReference) {
-        this.moduleName = moduleName;
-        this.name = name;
-        this.type = type;
-    }
-
-    public requiredTypes(): string[] {
-        return [toPythonType(this.type)];
-    }
-
-    public write(code: CodeMaker) {
-        const returnType = toPythonType(this.type);
-
-        code.line("@_jsii_classproperty");
-        code.openBlock(`def ${this.name}(cls) -> ${formatPythonType(returnType, false, this.moduleName)}`);
-        code.line("...");
-        code.closeBlock();
-    }
+class StaticProperty extends BaseProperty {
+    protected readonly decorator: string = "_jsii_classproperty";
+    protected readonly implicitParameter: string = "cls";
 }
 
 
-class Property implements PythonItem, Writable {
-
-    public readonly moduleName: string;
-    public readonly name: string;
-    private readonly type: spec.TypeReference;
-
-    constructor(moduleName: string, name: string, type: spec.TypeReference) {
-        this.moduleName = moduleName;
-        this.name = name;
-        this.type = type;
-    }
-
-    public requiredTypes(): string[] {
-        return [toPythonType(this.type)];
-    }
-
-    public write(code: CodeMaker) {
-        const returnType = toPythonType(this.type);
-
-        code.line("@_jsii_property");
-        code.openBlock(`def ${this.name}(self) -> ${formatPythonType(returnType, false, this.moduleName)}`);
-        code.line("...");
-        code.closeBlock();
-    }
+class Property extends BaseProperty {
+    protected readonly decorator: string = "_jsii_property";
+    protected readonly implicitParameter: string = "self";
 }
 
 
