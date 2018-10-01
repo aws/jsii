@@ -1018,6 +1018,23 @@
         }
       ]
     },
+    "jsii-calc.ClassWithMutableObjectLiteralProperty": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.ClassWithMutableObjectLiteralProperty",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "name": "ClassWithMutableObjectLiteralProperty",
+      "properties": [
+        {
+          "name": "mutableObject",
+          "type": {
+            "fqn": "jsii-calc.MutableObjectLiteral"
+          }
+        }
+      ]
+    },
     "jsii-calc.DefaultedConstructorArgument": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.DefaultedConstructorArgument",
@@ -1879,6 +1896,22 @@
           },
           "type": {
             "primitive": "number"
+          }
+        }
+      ]
+    },
+    "jsii-calc.MutableObjectLiteral": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "fqn": "jsii-calc.MutableObjectLiteral",
+      "kind": "interface",
+      "name": "MutableObjectLiteral",
+      "properties": [
+        {
+          "abstract": true,
+          "name": "value",
+          "type": {
+            "primitive": "string"
           }
         }
       ]
@@ -3230,5 +3263,5 @@
     }
   },
   "version": "0.7.6",
-  "fingerprint": "69gxyc+AUg7O9yvaAWtnojtgzgCjrF869fn9Qq4X2fA="
+  "fingerprint": "BFT/z3s6IMAAkCjnq3nn+dZUxSqp7tx/E54uljg/XvQ="
 }

@@ -873,6 +873,23 @@ defineTest('node.js standard library', async (test, sandbox) => {
         { result: "6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50" });
 });
 
+// @see awslabs/jsii#248
+defineTest('object literals are returned by reference', async (test, sandbox) => {
+    const objref = sandbox.create({ fqn: 'jsii-calc.ClassWithMutableObjectLiteralProperty' });
+    const property = sandbox.get({ objref, property: 'mutableObject' }).value;
+
+    const newValue = 'Bazinga!1!';
+    sandbox.set({ objref: property, property: 'value', value: newValue });
+
+    test.equal(newValue,
+               sandbox.get({
+                   objref: sandbox.get({ objref, property: 'mutableObject' }).value,
+                   property: 'value'
+               }).value);
+
+    sandbox.del({ objref: property });
+});
+
 const testNames: { [name: string]: boolean } = { };
 
 async function createCalculatorSandbox(name: string) {
