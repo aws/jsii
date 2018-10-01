@@ -3247,13 +3247,13 @@
       "members": [
         {
           "docs": {
-            "comment": "Normal string expression "
+            "comment": "Normal string expression"
           },
           "name": "Normal"
         },
         {
           "docs": {
-            "comment": "Decorated string expression "
+            "comment": "Decorated string expression"
           },
           "name": "Decorated"
         }
@@ -3263,5 +3263,5 @@
     }
   },
   "version": "0.7.6",
-  "fingerprint": "DFShLmIJQmPjTv5Dmz4JoBKqoCtAyifD1RpCuHo+sEc="
+  "fingerprint": "BFT/z3s6IMAAkCjnq3nn+dZUxSqp7tx/E54uljg/XvQ="
 }
