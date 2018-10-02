@@ -75,7 +75,7 @@ function _defaultValidations(): ValidationFunction[] {
             if (member.static && (member as spec.Property).const) { continue; }
             if (member.name && member.name !== Case.camel(member.name)) {
                 diagnostic(ts.DiagnosticCategory.Error,
-                            `Method and non-const property names must use camelCase: ${member.name}`);
+                            `Method and non-static non-readonly property names must use camelCase: ${member.name}`);
             }
         }
     }
