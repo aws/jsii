@@ -887,6 +887,14 @@ export class AbstractClassReturner {
     }
 }
 
+export interface MutableObjectLiteral {
+    value: string;
+}
+
+export class ClassWithMutableObjectLiteralProperty {
+    public mutableObject: MutableObjectLiteral = { value: 'default' };
+}
+
 export class DoNotOverridePrivates {
     private privateMethod(): string {
         return 'privateMethod';
@@ -902,3 +910,5 @@ export class DoNotOverridePrivates {
         return this.privateProperty;
     }
 }
+
+

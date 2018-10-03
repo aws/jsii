@@ -6,7 +6,7 @@ module.exports = {
         path: __dirname + '/webpack',
         filename: 'jsii-runtime.js'
     },
-    devtool: 'source-maps',
+    devtool: 'source-map',
     target: 'node',
     node: {
         console: false,
@@ -16,5 +16,12 @@ module.exports = {
         __dirname: false,
         Buffer: false,
         setImmediate: false,
+    },
+    module: {
+        rules: [{
+            test: /\.js$/,
+            use: ['source-map-loader'],
+            enforce: 'pre'
+        }]
     }
 }

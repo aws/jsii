@@ -14,6 +14,8 @@ import { TOKEN_DATE, TOKEN_ENUM, TOKEN_REF } from './api';
  */
 const OBJID_PROP = '$__jsii__objid__$';
 const FQN_PROP = '$__jsii__fqn__$';
+const PROXIES_PROP = '$__jsii__proxies__$';
+const PROXY_REFERENT_PROP = '$__jsii__proxy_referent__$';
 
 /**
  * A special FQN that can be used to create empty javascript objects.
@@ -149,8 +151,13 @@ export class Kernel {
         const { objref } = req;
 
         this._debug('del', objref);
-        this._findObject(objref); // make sure object exists
+        const obj = this._findObject(objref); // make sure object exists
         delete this.objects[objref[TOKEN_REF]];
+
+        if (obj[PROXY_REFERENT_PROP]) {
+            // De-register the proxy if this was a proxy...
+            delete obj[PROXY_REFERENT_PROP][PROXIES_PROP][obj[FQN_PROP]];
+        }
 
         return { };
     }
@@ -958,12 +965,20 @@ export class Kernel {
         // so the client receives a real object.
         if (typeof(v) === 'object' && targetType && spec.isNamedTypeReference(targetType)) {
             this._debug('coalescing to', targetType);
-            const newObjRef = this._create({ fqn: targetType.fqn });
-            const newObj = this._findObject(newObjRef);
-            for (const k of Object.keys(v)) {
-                newObj[k] = v[k];
+            /*
+             * We "cache" proxy instances in [PROXIES_PROP] so we can return an
+             * identical object reference upon multiple accesses of the same
+             * object literal under the same exposed type. This results in a
+             * behavior that is more consistent with class instances.
+             */
+            const proxies: Proxies = v[PROXIES_PROP] = v[PROXIES_PROP] || {};
+            if (!proxies[targetType.fqn]) {
+                const handler = new KernelProxyHandler(v);
+                const proxy = new Proxy(v, handler);
+                // _createObjref will set the FQN_PROP & OBJID_PROP on the proxy.
+                proxies[targetType.fqn] = { objRef: this._createObjref(proxy, targetType.fqn), handler };
             }
-            return newObjRef;
+            return proxies[targetType.fqn].objRef;
         }
 
         // date (https://stackoverflow.com/a/643827/737957)
@@ -1169,4 +1184,112 @@ function mapSource(err: Error, sourceMaps: { [assm: string]: SourceMapConsumer }
         }
         return frame;
     }
+}
+
+type ObjectKey = string | number | symbol;
+/**
+ * A Proxy handler class to support mutation of the returned object literals, as
+ * they may "embody" several different interfaces. The handler is in particular
+ * responsible to make sure the ``FQN_PROP`` and ``OBJID_PROP`` do not get set
+ * on the ``referent`` object, for this would cause subsequent accesses to
+ * possibly return incorrect object references.
+ */
+class KernelProxyHandler implements ProxyHandler<any> {
+    private readonly ownProperties: { [key: string]: any } = {};
+
+    /**
+     * @param referent the "real" value that will be returned.
+     */
+    constructor(public readonly referent: any) {
+        /*
+         * Proxy-properties must exist as non-configurable & writable on the
+         * referent, otherwise the Proxy will not allow returning ``true`` in
+         * response to ``defineProperty``.
+         */
+        for (const prop of [FQN_PROP, OBJID_PROP]) {
+            Object.defineProperty(referent, prop, {
+                configurable: false,
+                enumerable: false,
+                writable: true,
+                value: undefined
+            });
+        }
+    }
+
+    public defineProperty(target: any, property: ObjectKey, attributes: PropertyDescriptor): boolean {
+        switch (property) {
+        case FQN_PROP:
+        case OBJID_PROP:
+            return Object.defineProperty(this.ownProperties, property, attributes);
+        default:
+            return Object.defineProperty(target, property, attributes);
+        }
+    }
+
+    public deleteProperty(target: any, property: ObjectKey): boolean {
+        switch (property) {
+        case FQN_PROP:
+        case OBJID_PROP:
+            delete this.ownProperties[property];
+            break;
+        default:
+            delete target[property];
+        }
+        return true;
+    }
+
+    public getOwnPropertyDescriptor(target: any, property: ObjectKey): PropertyDescriptor | undefined {
+        switch (property) {
+        case FQN_PROP:
+        case OBJID_PROP:
+            return Object.getOwnPropertyDescriptor(this.ownProperties, property);
+        default:
+            return Object.getOwnPropertyDescriptor(target, property);
+        }
+    }
+
+    public get(target: any, property: ObjectKey): any {
+        switch (property) {
+        // Magical property for the proxy, so we can tell it's one...
+        case PROXY_REFERENT_PROP:
+            return this.referent;
+        case FQN_PROP:
+        case OBJID_PROP:
+            return this.ownProperties[property];
+        default:
+            return target[property];
+        }
+    }
+
+    public set(target: any, property: ObjectKey, value: any): boolean {
+        switch (property) {
+        case FQN_PROP:
+        case OBJID_PROP:
+            this.ownProperties[property] = value;
+            break;
+        default:
+            target[property] = value;
+        }
+        return true;
+    }
+
+    public has(target: any, property: ObjectKey): boolean {
+        switch (property) {
+        case FQN_PROP:
+        case OBJID_PROP:
+            return property in this.ownProperties;
+        default:
+            return property in target;
+        }
+    }
+
+    public ownKeys(target: any): ObjectKey[] {
+        return Reflect.ownKeys(target).concat(Reflect.ownKeys(this.ownProperties));
+    }
+}
+
+type Proxies = { [fqn: string]: ProxyReference };
+interface ProxyReference {
+    objRef: api.ObjRef;
+    handler: KernelProxyHandler;
 }

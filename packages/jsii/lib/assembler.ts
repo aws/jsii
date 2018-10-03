@@ -202,19 +202,21 @@ export class Assembler implements Emitter {
     private async _getFQN(type: ts.Type): Promise<string> {
         const tsName = this._typeChecker.getFullyQualifiedName(type.symbol);
         const groups = tsName.match(/^\"([^\"]+)\"\.(.*)$/);
+        let node = type.symbol.valueDeclaration;
+        if (!node && type.symbol.declarations.length > 0) { node = type.symbol.declarations[0]; }
         if (!groups) {
-            this._diagnostic(type.symbol.valueDeclaration, ts.DiagnosticCategory.Error, `Cannot use private type ${tsName} in exported declarations`);
+            this._diagnostic(node, ts.DiagnosticCategory.Error, `Cannot use private type ${tsName} in exported declarations`);
             return tsName;
         }
         const [, modulePath, typeName, ] = groups;
         const pkg = await _findPackageInfo(modulePath);
         if (!pkg) {
-            this._diagnostic(type.symbol.valueDeclaration, ts.DiagnosticCategory.Error, `Could not find module for ${modulePath}`);
+            this._diagnostic(node, ts.DiagnosticCategory.Error, `Could not find module for ${modulePath}`);
             return `unknown.${typeName}`;
         }
         const fqn = `${pkg.name}.${typeName}`;
         if (pkg.name !== this.projectInfo.name && !this._dereference({ fqn }, type.symbol.valueDeclaration)) {
-            this._diagnostic(type.symbol.valueDeclaration,
+            this._diagnostic(node,
                              ts.DiagnosticCategory.Error,
                              `Use of foreign type not present in the ${pkg.name}'s assembly: ${fqn}`);
         }

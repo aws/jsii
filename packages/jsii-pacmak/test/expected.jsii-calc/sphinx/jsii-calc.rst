@@ -973,6 +973,39 @@ CalculatorProps (interface)
       :type: number or ``undefined`` *(abstract)*
 
 
+ClassWithMutableObjectLiteralProperty
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: ClassWithMutableObjectLiteralProperty()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.ClassWithMutableObjectLiteralProperty;
+
+      .. code-tab:: javascript
+
+         const { ClassWithMutableObjectLiteralProperty } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { ClassWithMutableObjectLiteralProperty } from 'jsii-calc';
+
+
+
+
+   .. py:attribute:: mutableObject
+
+      :type: :py:class:`~jsii-calc.MutableObjectLiteral`\ 
+
+
 DefaultedConstructorArgument
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -2310,6 +2343,40 @@ Multiply
 
 
       :type: :py:class:`@scope/jsii-calc-lib.Value`\  *(readonly)*
+
+
+MutableObjectLiteral (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: MutableObjectLiteral
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.MutableObjectLiteral;
+
+      .. code-tab:: javascript
+
+         // MutableObjectLiteral is an interface
+
+      .. code-tab:: typescript
+
+         import { MutableObjectLiteral } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: value
+
+      :type: string *(abstract)*
 
 
 Negate
@@ -3792,12 +3859,12 @@ CompositeOperation
 
       .. py:data:: Normal
 
-      Normal string expression 
+      Normal string expression
 
 
       .. py:data:: Decorated
 
-      Decorated string expression 
+      Decorated string expression
 
 
 

@@ -1018,6 +1018,23 @@
         }
       ]
     },
+    "jsii-calc.ClassWithMutableObjectLiteralProperty": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.ClassWithMutableObjectLiteralProperty",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "name": "ClassWithMutableObjectLiteralProperty",
+      "properties": [
+        {
+          "name": "mutableObject",
+          "type": {
+            "fqn": "jsii-calc.MutableObjectLiteral"
+          }
+        }
+      ]
+    },
     "jsii-calc.DefaultedConstructorArgument": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.DefaultedConstructorArgument",
@@ -1902,6 +1919,22 @@
           },
           "type": {
             "primitive": "number"
+          }
+        }
+      ]
+    },
+    "jsii-calc.MutableObjectLiteral": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "fqn": "jsii-calc.MutableObjectLiteral",
+      "kind": "interface",
+      "name": "MutableObjectLiteral",
+      "properties": [
+        {
+          "abstract": true,
+          "name": "value",
+          "type": {
+            "primitive": "string"
           }
         }
       ]
@@ -3237,13 +3270,13 @@
       "members": [
         {
           "docs": {
-            "comment": "Normal string expression "
+            "comment": "Normal string expression"
           },
           "name": "Normal"
         },
         {
           "docs": {
-            "comment": "Decorated string expression "
+            "comment": "Decorated string expression"
           },
           "name": "Decorated"
         }
