@@ -936,7 +936,6 @@ defineTest('overrides: skip overrides of private properties', async (test, sandb
     test.deepEqual(result.result, 'privateProperty');
 });
 
-
 // =================================================================================================
 
 const testNames: { [name: string]: boolean } = { };
