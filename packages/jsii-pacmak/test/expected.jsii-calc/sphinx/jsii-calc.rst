@@ -1256,6 +1256,12 @@ DoNotOverridePrivates
 
 
 
+   .. py:method:: changePrivatePropertyValue(newValue)
+
+      :param newValue: 
+      :type newValue: string
+
+
    .. py:method:: privateMethodValue() -> string
 
       :rtype: string

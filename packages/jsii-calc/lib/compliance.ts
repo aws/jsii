@@ -909,4 +909,8 @@ export class DoNotOverridePrivates {
     public privatePropertyValue() {
         return this.privateProperty;
     }
+
+    public changePrivatePropertyValue(newValue: string) {
+        this.privateProperty = newValue;
+    }
 }

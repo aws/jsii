@@ -619,8 +619,6 @@ export class Kernel {
                     });
                 }
             });
-        } else if (!methodInfo && Object.keys(obj).includes(methodName)) {
-            throw new Error('boom');
         } else {
             // sync method override (method info is not required)
             Object.defineProperty(obj, methodName, {

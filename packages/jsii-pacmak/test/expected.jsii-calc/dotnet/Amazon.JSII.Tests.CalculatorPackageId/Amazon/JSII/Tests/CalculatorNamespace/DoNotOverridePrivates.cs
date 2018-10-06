@@ -17,6 +17,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        [JsiiMethod("changePrivatePropertyValue", null, "[{\"name\":\"newValue\",\"type\":{\"primitive\":\"string\"}}]")]
+        public virtual void ChangePrivatePropertyValue(string newValue)
+        {
+            InvokeInstanceVoidMethod(new object[]{newValue});
+        }
+
         [JsiiMethod("privateMethodValue", "{\"primitive\":\"string\"}", "[]")]
         public virtual string PrivateMethodValue()
         {

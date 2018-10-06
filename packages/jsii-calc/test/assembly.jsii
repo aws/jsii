@@ -1207,6 +1207,17 @@
       "kind": "class",
       "methods": [
         {
+          "name": "changePrivatePropertyValue",
+          "parameters": [
+            {
+              "name": "newValue",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ]
+        },
+        {
           "name": "privateMethodValue",
           "returns": {
             "primitive": "string"

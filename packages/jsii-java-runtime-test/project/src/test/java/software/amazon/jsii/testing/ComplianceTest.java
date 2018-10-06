@@ -888,9 +888,16 @@ public class ComplianceTest {
             public String getPrivateProperty() {
                 return "privateProperty-Override";
             }
+            public void setPrivateProperty(String value) {
+                throw new RuntimeException("Boom");
+            }
         };
 
         assertEquals("privateProperty", obj.privatePropertyValue());
+
+        // verify the setter override is not invoked.
+        obj.changePrivatePropertyValue("MyNewValue");
+        assertEquals("MyNewValue", obj.privatePropertyValue());
     }
 
     @Test
@@ -899,11 +906,17 @@ public class ComplianceTest {
             private String getPrivateProperty() {
                 return "privateProperty-Override";
             }
+            public void setPrivateProperty(String value) {
+                throw new RuntimeException("Boom");
+            }
         };
 
         assertEquals("privateProperty", obj.privatePropertyValue());
-    }
 
+        // verify the setter override is not invoked.
+        obj.changePrivatePropertyValue("MyNewValue");
+        assertEquals("MyNewValue", obj.privatePropertyValue());
+    }
 
     static class MulTen extends Multiply {
         public MulTen(final int value) {
