@@ -18,6 +18,8 @@ const calcVersion = require('jsii-calc/package.json').version.replace(/\+.+$/, '
 // tslint:disable:no-console
 // tslint:disable:max-line-length
 
+process.setMaxListeners(9999); // since every kernel instance adds an `on('exit')` handler.
+
 process.on('unhandledRejection', e => {
     console.error(e.stack);
     process.exit(1);
@@ -889,6 +891,52 @@ defineTest('object literals are returned by reference', async (test, sandbox) =>
 
     sandbox.del({ objref: property });
 });
+
+defineTest('overrides: method instead of property with the same name', async (test, sandbox) => {
+    test.throws(() => {
+        sandbox.create({ fqn: 'jsii-calc.SyncVirtualMethods', overrides: [
+            { method: 'theProperty' }
+        ]});
+    }, /Trying to override property/);
+});
+
+defineTest('overrides: property instead of method with the same name', async (test, sandbox) => {
+    test.throws(() => {
+        sandbox.create({ fqn: 'jsii-calc.SyncVirtualMethods', overrides: [
+            { property: 'virtualMethod' }
+        ]});
+    }, /Trying to override method/);
+});
+
+defineTest('overrides: skip overrides of private methods', async (test, sandbox) => {
+    const objref = sandbox.create({ fqn: 'jsii-calc.DoNotOverridePrivates', overrides: [
+        { method: 'privateMethod' }
+    ]});
+
+    sandbox.callbackHandler = makeSyncCallbackHandler(_ => {
+        test.ok(false, 'override callback should not be called');
+        return 'privateMethodBoom!';
+    });
+
+    const result = sandbox.invoke({ objref, method: 'privateMethodValue' });
+    test.deepEqual(result.result, 'privateMethod');
+});
+
+defineTest('overrides: skip overrides of private properties', async (test, sandbox) => {
+    const objref = sandbox.create({ fqn: 'jsii-calc.DoNotOverridePrivates', overrides: [
+        { property: 'privateProperty' }
+    ]});
+
+    sandbox.callbackHandler = makeSyncCallbackHandler(_ => {
+        test.ok(false, 'override callback should not be called');
+        return 'privatePropertyBoom!';
+    });
+
+    const result = sandbox.invoke({ objref, method: 'privatePropertyValue' });
+    test.deepEqual(result.result, 'privateProperty');
+});
+
+// =================================================================================================
 
 const testNames: { [name: string]: boolean } = { };
 

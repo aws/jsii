@@ -1228,6 +1228,50 @@ DerivedStruct (interface)
       :type: string[] or ``undefined`` *(abstract)*
 
 
+DoNotOverridePrivates
+^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: DoNotOverridePrivates()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.DoNotOverridePrivates;
+
+      .. code-tab:: javascript
+
+         const { DoNotOverridePrivates } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { DoNotOverridePrivates } from 'jsii-calc';
+
+
+
+
+   .. py:method:: changePrivatePropertyValue(newValue)
+
+      :param newValue: 
+      :type newValue: string
+
+
+   .. py:method:: privateMethodValue() -> string
+
+      :rtype: string
+
+
+   .. py:method:: privatePropertyValue() -> string
+
+      :rtype: string
+
+
 DoubleTrouble
 ^^^^^^^^^^^^^
 

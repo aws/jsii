@@ -1198,6 +1198,40 @@
         }
       ]
     },
+    "jsii-calc.DoNotOverridePrivates": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.DoNotOverridePrivates",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "changePrivatePropertyValue",
+          "parameters": [
+            {
+              "name": "newValue",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ]
+        },
+        {
+          "name": "privateMethodValue",
+          "returns": {
+            "primitive": "string"
+          }
+        },
+        {
+          "name": "privatePropertyValue",
+          "returns": {
+            "primitive": "string"
+          }
+        }
+      ],
+      "name": "DoNotOverridePrivates"
+    },
     "jsii-calc.DoubleTrouble": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.DoubleTrouble",
@@ -3263,5 +3297,5 @@
     }
   },
   "version": "0.7.6",
-  "fingerprint": "BFT/z3s6IMAAkCjnq3nn+dZUxSqp7tx/E54uljg/XvQ="
+  "fingerprint": "IrPnQp841TiCOiG/Z2z18s0K8pxTwuMglW1UJ2t1zsM="
 }
