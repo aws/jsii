@@ -914,3 +914,11 @@ export class DoNotOverridePrivates {
         this.privateProperty = newValue;
     }
 }
+
+/**
+ * Class that implements interface properties automatically, but using a private constructor
+ */
+export class ClassWithPrivateConstructorAndAutomaticProperties implements IInterfaceWithProperties {
+    private constructor(public readonly readOnlyString: string, public readWriteString: string) {
+    }
+}
