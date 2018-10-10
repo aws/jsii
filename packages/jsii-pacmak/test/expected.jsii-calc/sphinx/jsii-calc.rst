@@ -10,42 +10,42 @@ Reference
 
    .. group-tab:: C#
 
-      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId/0.7.6>`_
+      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId/0.7.7>`_
 
       **csproj**:
 
       .. code-block:: xml
 
-         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId" Version="0.7.6" />
+         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId" Version="0.7.7" />
 
       **dotnet**:
 
       .. code-block:: console
 
-         dotnet add package Amazon.JSII.Tests.CalculatorPackageId --version 0.7.6
+         dotnet add package Amazon.JSII.Tests.CalculatorPackageId --version 0.7.7
 
       **packages.config**:
 
       .. code-block:: xml
 
-         <package id="Amazon.JSII.Tests.CalculatorPackageId" version="0.7.6" />
+         <package id="Amazon.JSII.Tests.CalculatorPackageId" version="0.7.7" />
 
 
    .. group-tab:: Java
 
-      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator/0.7.6/>`_
+      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator/0.7.7/>`_
 
       **Apache Buildr**:
 
       .. code-block:: none
 
-         'software.amazon.jsii.tests:calculator:jar:0.7.6'
+         'software.amazon.jsii.tests:calculator:jar:0.7.7'
 
       **Apache Ivy**:
 
       .. code-block:: xml
 
-         <dependency groupId="software.amazon.jsii.tests" name="calculator" rev="0.7.6"/>
+         <dependency groupId="software.amazon.jsii.tests" name="calculator" rev="0.7.7"/>
 
       **Apache Maven**:
 
@@ -54,72 +54,72 @@ Reference
          <dependency>
            <groupId>software.amazon.jsii.tests</groupId>
            <artifactId>calculator</artifactId>
-           <version>0.7.6</version>
+           <version>0.7.7</version>
          </dependency>
 
       **Gradle / Grails**:
 
       .. code-block:: none
 
-         compile 'software.amazon.jsii.tests:calculator:0.7.6'
+         compile 'software.amazon.jsii.tests:calculator:0.7.7'
 
       **Groovy Grape**:
 
       .. code-block:: none
 
          @Grapes(
-         @Grab(group='software.amazon.jsii.tests', module='calculator', version='0.7.6')
+         @Grab(group='software.amazon.jsii.tests', module='calculator', version='0.7.7')
          )
 
 
    .. group-tab:: JavaScript
 
-      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.7.6>`_
+      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.7.7>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i jsii-calc@0.7.6
+         $ npm i jsii-calc@0.7.7
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "jsii-calc": "^0.7.6"
+           "jsii-calc": "^0.7.7"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add jsii-calc@0.7.6
+         $ yarn add jsii-calc@0.7.7
 
 
    .. group-tab:: TypeScript
 
-      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.7.6>`_
+      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.7.7>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i jsii-calc@0.7.6
+         $ npm i jsii-calc@0.7.7
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "jsii-calc": "^0.7.6"
+           "jsii-calc": "^0.7.7"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add jsii-calc@0.7.6
+         $ yarn add jsii-calc@0.7.7
 
 
 
@@ -973,6 +973,85 @@ CalculatorProps (interface)
       :type: number or ``undefined`` *(abstract)*
 
 
+ClassWithMutableObjectLiteralProperty
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: ClassWithMutableObjectLiteralProperty()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.ClassWithMutableObjectLiteralProperty;
+
+      .. code-tab:: javascript
+
+         const { ClassWithMutableObjectLiteralProperty } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { ClassWithMutableObjectLiteralProperty } from 'jsii-calc';
+
+
+
+
+   .. py:attribute:: mutableObject
+
+      :type: :py:class:`~jsii-calc.MutableObjectLiteral`\ 
+
+
+ClassWithPrivateConstructorAndAutomaticProperties
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: ClassWithPrivateConstructorAndAutomaticProperties
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties;
+
+      .. code-tab:: javascript
+
+         const { ClassWithPrivateConstructorAndAutomaticProperties } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { ClassWithPrivateConstructorAndAutomaticProperties } from 'jsii-calc';
+
+
+
+   Class that implements interface properties automatically, but using a private constructor
+
+
+   :implements: :py:class:`~jsii-calc.IInterfaceWithProperties`\ 
+
+   .. py:attribute:: readOnlyString
+
+      *Implements* :py:meth:`jsii-calc.IInterfaceWithProperties.readOnlyString`
+
+      :type: string *(readonly)*
+
+
+   .. py:attribute:: readWriteString
+
+      *Implements* :py:meth:`jsii-calc.IInterfaceWithProperties.readWriteString`
+
+      :type: string
+
+
 DefaultedConstructorArgument
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -1193,6 +1272,50 @@ DerivedStruct (interface)
       *Inherited from* :py:attr:`@scope/jsii-calc-lib.MyFirstStruct <@scope/jsii-calc-lib.MyFirstStruct.firstOptional>`
 
       :type: string[] or ``undefined`` *(abstract)*
+
+
+DoNotOverridePrivates
+^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: DoNotOverridePrivates()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.DoNotOverridePrivates;
+
+      .. code-tab:: javascript
+
+         const { DoNotOverridePrivates } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { DoNotOverridePrivates } from 'jsii-calc';
+
+
+
+
+   .. py:method:: changePrivatePropertyValue(newValue)
+
+      :param newValue: 
+      :type newValue: string
+
+
+   .. py:method:: privateMethodValue() -> string
+
+      :rtype: string
+
+
+   .. py:method:: privatePropertyValue() -> string
+
+      :rtype: string
 
 
 DoubleTrouble
@@ -2272,6 +2395,40 @@ Multiply
 
 
       :type: :py:class:`@scope/jsii-calc-lib.Value`\  *(readonly)*
+
+
+MutableObjectLiteral (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: MutableObjectLiteral
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.MutableObjectLiteral;
+
+      .. code-tab:: javascript
+
+         // MutableObjectLiteral is an interface
+
+      .. code-tab:: typescript
+
+         import { MutableObjectLiteral } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: value
+
+      :type: string *(abstract)*
 
 
 Negate
@@ -3754,12 +3911,12 @@ CompositeOperation
 
       .. py:data:: Normal
 
-      Normal string expression 
+      Normal string expression
 
 
       .. py:data:: Decorated
 
-      Decorated string expression 
+      Decorated string expression
 
 
 

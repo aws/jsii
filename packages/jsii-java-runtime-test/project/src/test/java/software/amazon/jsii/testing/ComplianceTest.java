@@ -11,6 +11,7 @@ import software.amazon.jsii.tests.calculator.AsyncVirtualMethods;
 import software.amazon.jsii.tests.calculator.Calculator;
 import software.amazon.jsii.tests.calculator.CalculatorProps;
 import software.amazon.jsii.tests.calculator.DerivedStruct;
+import software.amazon.jsii.tests.calculator.DoNotOverridePrivates;
 import software.amazon.jsii.tests.calculator.DoubleTrouble;
 import software.amazon.jsii.tests.calculator.GiveMeStructs;
 import software.amazon.jsii.tests.calculator.IFriendlier;
@@ -835,6 +836,86 @@ public class ComplianceTest {
         assertEquals("propFromInterfaceValue", iface.getPropFromInterface());
 
         assertEquals("hello-abstract-property", obj.getReturnAbstractFromProperty().getAbstractProperty());
+    }
+
+    @Test
+    public void doNotOverridePrivates_method_public() {
+        DoNotOverridePrivates obj = new DoNotOverridePrivates() {
+            public String privateMethod() {
+                return "privateMethod-Override";
+            }
+        };
+
+        assertEquals("privateMethod", obj.privateMethodValue());
+    }
+
+    @Test
+    public void doNotOverridePrivates_method_private() {
+        DoNotOverridePrivates obj = new DoNotOverridePrivates() {
+            private String privateMethod() {
+                return "privateMethod-Override";
+            }
+        };
+
+        assertEquals("privateMethod", obj.privateMethodValue());
+    }
+
+    @Test
+    public void doNotOverridePrivates_property_by_name_private() {
+        DoNotOverridePrivates obj = new DoNotOverridePrivates() {
+            private String privateProperty() {
+                return "privateProperty-Override";
+            }
+        };
+
+        assertEquals("privateProperty", obj.privatePropertyValue());
+    }
+
+    @Test
+    public void doNotOverridePrivates_property_by_name_public() {
+        DoNotOverridePrivates obj = new DoNotOverridePrivates() {
+            public String privateProperty() {
+                return "privateProperty-Override";
+            }
+        };
+
+        assertEquals("privateProperty", obj.privatePropertyValue());
+    }
+
+    @Test
+    public void doNotOverridePrivates_property_getter_public() {
+        DoNotOverridePrivates obj = new DoNotOverridePrivates() {
+            public String getPrivateProperty() {
+                return "privateProperty-Override";
+            }
+            public void setPrivateProperty(String value) {
+                throw new RuntimeException("Boom");
+            }
+        };
+
+        assertEquals("privateProperty", obj.privatePropertyValue());
+
+        // verify the setter override is not invoked.
+        obj.changePrivatePropertyValue("MyNewValue");
+        assertEquals("MyNewValue", obj.privatePropertyValue());
+    }
+
+    @Test
+    public void doNotOverridePrivates_property_getter_private() {
+        DoNotOverridePrivates obj = new DoNotOverridePrivates() {
+            private String getPrivateProperty() {
+                return "privateProperty-Override";
+            }
+            public void setPrivateProperty(String value) {
+                throw new RuntimeException("Boom");
+            }
+        };
+
+        assertEquals("privateProperty", obj.privatePropertyValue());
+
+        // verify the setter override is not invoked.
+        obj.changePrivatePropertyValue("MyNewValue");
+        assertEquals("MyNewValue", obj.privatePropertyValue());
     }
 
     static class MulTen extends Multiply {

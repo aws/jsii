@@ -1,10 +1,10 @@
-﻿using Amazon.JSII.JsonModel.Spec;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Amazon.JSII.JsonModel.Spec;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using SF = Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Amazon.JSII.Generator
@@ -44,7 +44,7 @@ namespace Amazon.JSII.Generator
         public static SyntaxToken GetParametersJsonSyntaxToken(this Method method)
         {
             // Strip docs before serializing.
-            Parameter[] parameters = (method.Parameters ?? Enumerable.Empty<Parameter>())
+            Parameter[] parameters = (method?.Parameters ?? Enumerable.Empty<Parameter>())
                 .Select(p => new Parameter(p.Name, p.Type))
                 .ToArray();
 

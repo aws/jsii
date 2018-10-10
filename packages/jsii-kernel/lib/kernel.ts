@@ -14,6 +14,8 @@ import { TOKEN_DATE, TOKEN_ENUM, TOKEN_REF } from './api';
  */
 const OBJID_PROP = '$__jsii__objid__$';
 const FQN_PROP = '$__jsii__fqn__$';
+const PROXIES_PROP = '$__jsii__proxies__$';
+const PROXY_REFERENT_PROP = '$__jsii__proxy_referent__$';
 
 /**
  * A special FQN that can be used to create empty javascript objects.
@@ -149,8 +151,13 @@ export class Kernel {
         const { objref } = req;
 
         this._debug('del', objref);
-        this._findObject(objref); // make sure object exists
+        const obj = this._findObject(objref); // make sure object exists
         delete this.objects[objref[TOKEN_REF]];
+
+        if (obj[PROXY_REFERENT_PROP]) {
+            // De-register the proxy if this was a proxy...
+            delete obj[PROXY_REFERENT_PROP][PROXIES_PROP][obj[FQN_PROP]];
+        }
 
         return { };
     }
@@ -467,12 +474,7 @@ export class Kernel {
         const objref = this._createObjref(obj, fqn);
 
         // overrides: for each one of the override method names, installs a
-        // method on the newly created object which represents the remote
-        // override. Overrides are always async. When an override is called, it
-        // returns a promise which adds a callback to the pending callbacks
-        // list. This list is then retrieved by the client (using
-        // pendingCallbacks() and promises are fulfilled using
-        // completeCallback(), which in turn, fulfills the internal promise.
+        // method on the newly created object which represents the remote "reverse proxy".
 
         if (overrides) {
             this._debug('overrides', overrides);
@@ -488,11 +490,15 @@ export class Kernel {
 
                     methods.add(override.method);
 
-                    // check that the method being overridden actually exists on the
-                    // class and is an async method.
+                    // check that the method being overridden actually exists
                     let methodInfo;
                     if (fqn !== EMPTY_OBJECT_FQN) {
-                        methodInfo = this._tryTypeInfoForMethod(fqn, override.method); // throws if method cannot be found
+                        // error if we can find a property with this name
+                        if (this._tryTypeInfoForProperty(fqn, override.method)) {
+                            throw new Error(`Trying to override property '${override.method}' as a method`);
+                        }
+
+                        methodInfo = this._tryTypeInfoForMethod(fqn, override.method);
                     }
 
                     this._applyMethodOverride(obj, objref, override, methodInfo);
@@ -500,7 +506,18 @@ export class Kernel {
                     if (override.method) { throw new Error(overrideTypeErrorMessage); }
                     if (properties.has(override.property)) { throw Error(`Duplicate override for property '${override.property}'`); }
                     properties.add(override.property);
-                    this._applyPropertyOverride(obj, objref, override);
+
+                    let propInfo: spec.Property | undefined;
+                    if (fqn !== EMPTY_OBJECT_FQN) {
+                        // error if we can find a method with this name
+                        if (this._tryTypeInfoForMethod(fqn, override.property)) {
+                            throw new Error(`Trying to override method '${override.property}' as a property`);
+                        }
+
+                        propInfo = this._tryTypeInfoForProperty(fqn, override.property);
+                    }
+
+                    this._applyPropertyOverride(obj, objref, override, propInfo);
                 } else {
                     throw new Error(overrideTypeErrorMessage);
                 }
@@ -514,9 +531,15 @@ export class Kernel {
         return `$jsii$super$${name}$`;
     }
 
-    private _applyPropertyOverride(obj: any, objref: api.ObjRef, override: api.Override) {
+    private _applyPropertyOverride(obj: any, objref: api.ObjRef, override: api.Override, propInfo?: spec.Property) {
         const self = this;
         const propertyName = override.property!;
+
+        // if this is a private property (i.e. doesn't have `propInfo` the object has a key)
+        if (!propInfo && propertyName in obj) {
+            this._debug(`Skipping override of private property ${propertyName}`);
+            return;
+        }
 
         this._debug('apply override', propertyName);
 
@@ -562,6 +585,13 @@ export class Kernel {
     private _applyMethodOverride(obj: any, objref: api.ObjRef, override: api.Override, methodInfo?: spec.Method) {
         const self = this;
         const methodName = override.method!;
+
+        // If this is a private method (doesn't have methodInfo, key resolves on the object), we
+        // are going to skip the override.
+        if (!methodInfo && obj[methodName]) {
+            this._debug(`Skipping override of private method ${methodName}`);
+            return;
+        }
 
         // note that we are applying the override even if the method doesn't exist
         // on the type spec in order to allow native code to override methods from
@@ -795,11 +825,10 @@ export class Kernel {
         return undefined;
     }
 
-    private _typeInfoForProperty(fqn: string, property: string): spec.Property {
+    private _tryTypeInfoForProperty(fqn: string, property: string): spec.Property | undefined {
         if (!fqn) {
             throw new Error('missing "fqn"');
         }
-
         const typeInfo = this._typeInfoForFqn(fqn);
 
         let properties;
@@ -825,10 +854,21 @@ export class Kernel {
 
         // recurse to parent type (if exists)
         for (const baseFqn of bases) {
-            return this._typeInfoForProperty(baseFqn, property);
+            const ret = this._tryTypeInfoForProperty(baseFqn, property);
+            if (ret) {
+                return ret;
+            }
         }
 
-        throw new Error(`Type ${typeInfo.fqn} doesn't have a property '${property}'`);
+        return undefined;
+    }
+
+    private _typeInfoForProperty(fqn: string, property: string): spec.Property {
+        const typeInfo = this._tryTypeInfoForProperty(fqn, property);
+        if (!typeInfo) {
+            throw new Error(`Type ${fqn} doesn't have a property '${property}'`);
+        }
+        return typeInfo;
     }
 
     private _toSandbox(v: any): any {
@@ -923,12 +963,20 @@ export class Kernel {
         // so the client receives a real object.
         if (typeof(v) === 'object' && targetType && spec.isNamedTypeReference(targetType)) {
             this._debug('coalescing to', targetType);
-            const newObjRef = this._create({ fqn: targetType.fqn });
-            const newObj = this._findObject(newObjRef);
-            for (const k of Object.keys(v)) {
-                newObj[k] = v[k];
+            /*
+             * We "cache" proxy instances in [PROXIES_PROP] so we can return an
+             * identical object reference upon multiple accesses of the same
+             * object literal under the same exposed type. This results in a
+             * behavior that is more consistent with class instances.
+             */
+            const proxies: Proxies = v[PROXIES_PROP] = v[PROXIES_PROP] || {};
+            if (!proxies[targetType.fqn]) {
+                const handler = new KernelProxyHandler(v);
+                const proxy = new Proxy(v, handler);
+                // _createObjref will set the FQN_PROP & OBJID_PROP on the proxy.
+                proxies[targetType.fqn] = { objRef: this._createObjref(proxy, targetType.fqn), handler };
             }
-            return newObjRef;
+            return proxies[targetType.fqn].objRef;
         }
 
         // date (https://stackoverflow.com/a/643827/737957)
@@ -1134,4 +1182,112 @@ function mapSource(err: Error, sourceMaps: { [assm: string]: SourceMapConsumer }
         }
         return frame;
     }
+}
+
+type ObjectKey = string | number | symbol;
+/**
+ * A Proxy handler class to support mutation of the returned object literals, as
+ * they may "embody" several different interfaces. The handler is in particular
+ * responsible to make sure the ``FQN_PROP`` and ``OBJID_PROP`` do not get set
+ * on the ``referent`` object, for this would cause subsequent accesses to
+ * possibly return incorrect object references.
+ */
+class KernelProxyHandler implements ProxyHandler<any> {
+    private readonly ownProperties: { [key: string]: any } = {};
+
+    /**
+     * @param referent the "real" value that will be returned.
+     */
+    constructor(public readonly referent: any) {
+        /*
+         * Proxy-properties must exist as non-configurable & writable on the
+         * referent, otherwise the Proxy will not allow returning ``true`` in
+         * response to ``defineProperty``.
+         */
+        for (const prop of [FQN_PROP, OBJID_PROP]) {
+            Object.defineProperty(referent, prop, {
+                configurable: false,
+                enumerable: false,
+                writable: true,
+                value: undefined
+            });
+        }
+    }
+
+    public defineProperty(target: any, property: ObjectKey, attributes: PropertyDescriptor): boolean {
+        switch (property) {
+        case FQN_PROP:
+        case OBJID_PROP:
+            return Object.defineProperty(this.ownProperties, property, attributes);
+        default:
+            return Object.defineProperty(target, property, attributes);
+        }
+    }
+
+    public deleteProperty(target: any, property: ObjectKey): boolean {
+        switch (property) {
+        case FQN_PROP:
+        case OBJID_PROP:
+            delete this.ownProperties[property];
+            break;
+        default:
+            delete target[property];
+        }
+        return true;
+    }
+
+    public getOwnPropertyDescriptor(target: any, property: ObjectKey): PropertyDescriptor | undefined {
+        switch (property) {
+        case FQN_PROP:
+        case OBJID_PROP:
+            return Object.getOwnPropertyDescriptor(this.ownProperties, property);
+        default:
+            return Object.getOwnPropertyDescriptor(target, property);
+        }
+    }
+
+    public get(target: any, property: ObjectKey): any {
+        switch (property) {
+        // Magical property for the proxy, so we can tell it's one...
+        case PROXY_REFERENT_PROP:
+            return this.referent;
+        case FQN_PROP:
+        case OBJID_PROP:
+            return this.ownProperties[property];
+        default:
+            return target[property];
+        }
+    }
+
+    public set(target: any, property: ObjectKey, value: any): boolean {
+        switch (property) {
+        case FQN_PROP:
+        case OBJID_PROP:
+            this.ownProperties[property] = value;
+            break;
+        default:
+            target[property] = value;
+        }
+        return true;
+    }
+
+    public has(target: any, property: ObjectKey): boolean {
+        switch (property) {
+        case FQN_PROP:
+        case OBJID_PROP:
+            return property in this.ownProperties;
+        default:
+            return property in target;
+        }
+    }
+
+    public ownKeys(target: any): ObjectKey[] {
+        return Reflect.ownKeys(target).concat(Reflect.ownKeys(this.ownProperties));
+    }
+}
+
+type Proxies = { [fqn: string]: ProxyReference };
+interface ProxyReference {
+    objRef: api.ObjRef;
+    handler: KernelProxyHandler;
 }

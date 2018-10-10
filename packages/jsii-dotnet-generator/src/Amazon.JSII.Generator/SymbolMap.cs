@@ -1,11 +1,12 @@
-﻿using Amazon.JSII.JsonModel.Spec;
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Amazon.JSII.JsonModel.Spec;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using SF = Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 using Type = Amazon.JSII.JsonModel.Spec.Type;
+using TypeKind = Amazon.JSII.JsonModel.Spec.TypeKind;
 
 namespace Amazon.JSII.Generator
 {
@@ -53,7 +54,7 @@ namespace Amazon.JSII.Generator
             {
                 switch (type.Kind)
                 {
-                    case JsonModel.Spec.TypeKind.Class:
+                    case TypeKind.Class:
                     {
                         var classType = (ClassType) type;
                         if (classType.IsAbstract)
@@ -62,11 +63,11 @@ namespace Amazon.JSII.Generator
                         }
                         return new ClassTypeMetadata((ClassType)type, assembly);
                     }
-                    case JsonModel.Spec.TypeKind.Enum:
+                    case TypeKind.Enum:
                     {
                         return new EnumTypeMetadata((EnumType)type, assembly);   
                     }
-                    case JsonModel.Spec.TypeKind.Interface:
+                    case TypeKind.Interface:
                     {
                         return new InterfaceTypeMetadata((InterfaceType)type, assembly);   
                     }
@@ -415,7 +416,7 @@ namespace Amazon.JSII.Generator
             {
                 Type type = GetTypeFromFullyQualifiedName(typeReference.FullyQualifiedName);
 
-                return SF.ParseTypeName(GetName(type));
+                return SF.ParseTypeName(GetName(type, true));
             }
 
             throw new ArgumentException("Invalid type reference", nameof(typeReference));

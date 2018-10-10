@@ -871,7 +871,6 @@ class ConcreteClass extends AbstractClass {
     }
 }
 
-
 export class AbstractClassReturner {
     public giveMeAbstract(): AbstractClass {
         return new ConcreteClass();
@@ -885,5 +884,41 @@ export class AbstractClassReturner {
         return {
             abstractProperty: 'hello-abstract-property'
         }
+    }
+}
+
+export interface MutableObjectLiteral {
+    value: string;
+}
+
+export class ClassWithMutableObjectLiteralProperty {
+    public mutableObject: MutableObjectLiteral = { value: 'default' };
+}
+
+export class DoNotOverridePrivates {
+    private privateMethod(): string {
+        return 'privateMethod';
+    }
+
+    private privateProperty = 'privateProperty';
+
+    public privateMethodValue() {
+        return this.privateMethod();
+    }
+
+    public privatePropertyValue() {
+        return this.privateProperty;
+    }
+
+    public changePrivatePropertyValue(newValue: string) {
+        this.privateProperty = newValue;
+    }
+}
+
+/**
+ * Class that implements interface properties automatically, but using a private constructor
+ */
+export class ClassWithPrivateConstructorAndAutomaticProperties implements IInterfaceWithProperties {
+    private constructor(public readonly readOnlyString: string, public readWriteString: string) {
     }
 }

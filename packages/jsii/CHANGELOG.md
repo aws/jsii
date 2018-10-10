@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.7.7"></a>
+## [0.7.7](https://github.com/awslabs/jsii/compare/v0.7.6...v0.7.7) (2018-10-10)
+
+
+### Bug Fixes
+
+* **jsii:** better usage reporting of private types ([#247](https://github.com/awslabs/jsii/issues/247)) ([96ac5d6](https://github.com/awslabs/jsii/commit/96ac5d6))
+* **jsii:** support  public autoproperties in private constructor ([#256](https://github.com/awslabs/jsii/issues/256)) ([181012e](https://github.com/awslabs/jsii/commit/181012e))
+* **jsii:** use default jsx compiler options ([#260](https://github.com/awslabs/jsii/issues/260)) ([660ae79](https://github.com/awslabs/jsii/commit/660ae79)), closes [awslabs/aws-cdk#830](https://github.com/awslabs/aws-cdk/issues/830)
+
+
+
+
 <a name="0.7.6"></a>
 ## [0.7.6](https://github.com/awslabs/jsii/compare/v0.7.5...v0.7.6) (2018-09-20)
 

@@ -20,9 +20,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         [JsiiMethod("hello", "{\"fqn\":\"@scope/jsii-calc-base.Base\"}", "[]")]
-        public virtual Base Hello()
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.Base Hello()
         {
-            return InvokeInstanceMethod<Base>(new object[]{});
+            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.Base>(new object[]{});
         }
     }
 }

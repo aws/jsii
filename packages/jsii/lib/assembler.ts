@@ -202,19 +202,21 @@ export class Assembler implements Emitter {
     private async _getFQN(type: ts.Type): Promise<string> {
         const tsName = this._typeChecker.getFullyQualifiedName(type.symbol);
         const groups = tsName.match(/^\"([^\"]+)\"\.(.*)$/);
+        let node = type.symbol.valueDeclaration;
+        if (!node && type.symbol.declarations.length > 0) { node = type.symbol.declarations[0]; }
         if (!groups) {
-            this._diagnostic(type.symbol.valueDeclaration, ts.DiagnosticCategory.Error, `Cannot use private type ${tsName} in exported declarations`);
+            this._diagnostic(node, ts.DiagnosticCategory.Error, `Cannot use private type ${tsName} in exported declarations`);
             return tsName;
         }
         const [, modulePath, typeName, ] = groups;
         const pkg = await _findPackageInfo(modulePath);
         if (!pkg) {
-            this._diagnostic(type.symbol.valueDeclaration, ts.DiagnosticCategory.Error, `Could not find module for ${modulePath}`);
+            this._diagnostic(node, ts.DiagnosticCategory.Error, `Could not find module for ${modulePath}`);
             return `unknown.${typeName}`;
         }
         const fqn = `${pkg.name}.${typeName}`;
         if (pkg.name !== this.projectInfo.name && !this._dereference({ fqn }, type.symbol.valueDeclaration)) {
-            this._diagnostic(type.symbol.valueDeclaration,
+            this._diagnostic(node,
                              ts.DiagnosticCategory.Error,
                              `Use of foreign type not present in the ${pkg.name}'s assembly: ${fqn}`);
         }
@@ -383,22 +385,29 @@ export class Assembler implements Emitter {
         const constructor = type.symbol.members && type.symbol.members.get(ts.InternalSymbolName.Constructor);
         const ctorDeclaration = constructor && (constructor.declarations[0] as ts.ConstructorDeclaration);
         if (constructor && ctorDeclaration) {
+            const signature = this._typeChecker.getSignatureFromDeclaration(ctorDeclaration);
+
             // tslint:disable-next-line:no-bitwise
             if ((ts.getCombinedModifierFlags(ctorDeclaration) & ts.ModifierFlags.Private) === 0) {
-                const signature = this._typeChecker.getSignatureFromDeclaration(ctorDeclaration);
                 jsiiType.initializer = { initializer: true };
                 if (signature) {
                     for (const param of signature.getParameters()) {
                         jsiiType.initializer.parameters = jsiiType.initializer.parameters || [];
                         jsiiType.initializer.parameters.push(await this._toParameter(param));
-                        if (ts.isParameterPropertyDeclaration(param.valueDeclaration)) {
-                            await this._visitProperty(param, jsiiType);
-                        }
                         jsiiType.initializer.variadic = jsiiType.initializer.parameters
                             && jsiiType.initializer.parameters.find(p => !!p.variadic) != null;
                     }
                 }
                 this._visitDocumentation(constructor, jsiiType.initializer);
+            }
+
+            // Proces constructor-based property declarations even if constructor is private
+            if (signature) {
+                for (const param of signature.getParameters()) {
+                    if (ts.isParameterPropertyDeclaration(param.valueDeclaration)) {
+                        await this._visitProperty(param, jsiiType);
+                    }
+                }
             }
         } else if (jsiiType.base) {
             this._defer(() => {
@@ -449,7 +458,7 @@ export class Assembler implements Emitter {
      * @returns ``documentable``
      */
     private _visitDocumentation<T extends spec.Documentable>(symbol: ts.Symbol | ts.Signature, documentable: T): T {
-        const comment = ts.displayPartsToString(symbol.getDocumentationComment(this._typeChecker));
+        const comment = ts.displayPartsToString(symbol.getDocumentationComment(this._typeChecker)).trim();
         if (comment) {
             if (LOG.isTraceEnabled()) {
                 LOG.trace(`Found documentation comment: ${colors.yellow(comment)}`);
