@@ -67,8 +67,11 @@ class Kernel(metaclass=Singleton):
         self.provider.load(LoadRequest(name=name, version=version, tarball=tarball))
 
     # TODO: Can we do protocols in typing?
-    def create(self, klass: Any) -> ObjRef:
-        return self.provider.create(CreateRequest(fqn=klass.__jsii_type__))
+    def create(self, klass: Any, args: Optional[List[Any]] = None) -> ObjRef:
+        if args is None:
+            args = []
+
+        return self.provider.create(CreateRequest(fqn=klass.__jsii_type__, args=args))
 
     def delete(self, ref: ObjRef) -> None:
         self.provider.delete(DeleteRequest(objref=ref))

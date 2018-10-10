@@ -92,6 +92,12 @@ def ohook(d):
     return d
 
 
+def jdefault(obj):
+    if hasattr(obj, "__jsii_ref__"):
+        return _unstructure_ref(obj.__jsii_ref__)
+    raise TypeError
+
+
 class _NodeProcess:
     def __init__(self):
         self._serializer = cattr.Converter()
@@ -224,7 +230,7 @@ class _NodeProcess:
         # #python-attrs/attrs#429 fixed.
         if "property_" in req_dict:
             req_dict["property"] = req_dict.pop("property_")
-        data = json.dumps(req_dict).encode("utf8")
+        data = json.dumps(req_dict, default=jdefault).encode("utf8")
 
         # Send our data, ensure that it is framed with a trailing \n
         self._process.stdin.write(b"%b\n" % (data,))

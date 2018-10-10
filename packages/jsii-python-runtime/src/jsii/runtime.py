@@ -84,10 +84,10 @@ class JSIIMeta(type):
         # Create our object at the JS level.
         # TODO: Handle args/kwargs
         # TODO: Handle Overrides
-        ref = cls.__jsii_kernel__.create(cls)
+        ref = cls.__jsii_kernel__.create(cls, args=args)
 
         # Create our object at the Python level.
-        obj = cls.__class__.from_reference(cls, ref, *args, **kwargs)
+        obj = cls.__class__.from_reference(cls, ref, **kwargs)
 
         # Whenever the object we're creating gets garbage collected, then we want to
         # delete it from the JS runtime as well.
@@ -98,7 +98,7 @@ class JSIIMeta(type):
 
         # Instatiate our object at the Python level.
         if isinstance(obj, cls):
-            obj.__init__(*args, **kwargs)
+            obj.__init__(**kwargs)
 
         return obj
 
