@@ -42,6 +42,7 @@ import software.amazon.jsii.tests.calculator.lib.Number;
 import software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals;
 import software.amazon.jsii.tests.calculator.lib.Value;
 import software.amazon.jsii.tests.calculator.JavaReservedWords;
+import software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -916,6 +917,14 @@ public class ComplianceTest {
         // verify the setter override is not invoked.
         obj.changePrivatePropertyValue("MyNewValue");
         assertEquals("MyNewValue", obj.privatePropertyValue());
+    }
+
+    @Test
+    public void classWithPrivateConstructorAndAutomaticProperties() {
+        ClassWithPrivateConstructorAndAutomaticProperties obj = ClassWithPrivateConstructorAndAutomaticProperties.create("Hello", "Bye");
+        assertEquals("Bye", obj.getReadWriteString());
+        obj.setReadWriteString("Hello");
+        assertEquals("Hello", obj.getReadOnlyString());
     }
 
     static class MulTen extends Multiply {

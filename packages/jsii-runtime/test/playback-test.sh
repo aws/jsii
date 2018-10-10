@@ -7,7 +7,7 @@
 # We then execute jsii-runtime and pipe these inputs via STDIN.
 #
 # jsii-runtime emits the same logging format (inputs and outputs) to STDERR, so we capture
-# these lines and then diff them with the expected file to validate. 
+# these lines and then diff them with the expected file to validate.
 #
 # If the outputs are the same the test passed.
 #
