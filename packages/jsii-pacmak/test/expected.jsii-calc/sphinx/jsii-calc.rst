@@ -1006,6 +1006,52 @@ ClassWithMutableObjectLiteralProperty
       :type: :py:class:`~jsii-calc.MutableObjectLiteral`\ 
 
 
+ClassWithPrivateConstructorAndAutomaticProperties
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: ClassWithPrivateConstructorAndAutomaticProperties
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties;
+
+      .. code-tab:: javascript
+
+         const { ClassWithPrivateConstructorAndAutomaticProperties } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { ClassWithPrivateConstructorAndAutomaticProperties } from 'jsii-calc';
+
+
+
+   Class that implements interface properties automatically, but using a private constructor
+
+
+   :implements: :py:class:`~jsii-calc.IInterfaceWithProperties`\ 
+
+   .. py:attribute:: readOnlyString
+
+      *Implements* :py:meth:`jsii-calc.IInterfaceWithProperties.readOnlyString`
+
+      :type: string *(readonly)*
+
+
+   .. py:attribute:: readWriteString
+
+      *Implements* :py:meth:`jsii-calc.IInterfaceWithProperties.readWriteString`
+
+      :type: string
+
+
 DefaultedConstructorArgument
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
