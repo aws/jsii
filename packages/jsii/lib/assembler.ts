@@ -385,22 +385,29 @@ export class Assembler implements Emitter {
         const constructor = type.symbol.members && type.symbol.members.get(ts.InternalSymbolName.Constructor);
         const ctorDeclaration = constructor && (constructor.declarations[0] as ts.ConstructorDeclaration);
         if (constructor && ctorDeclaration) {
+            const signature = this._typeChecker.getSignatureFromDeclaration(ctorDeclaration);
+
             // tslint:disable-next-line:no-bitwise
             if ((ts.getCombinedModifierFlags(ctorDeclaration) & ts.ModifierFlags.Private) === 0) {
-                const signature = this._typeChecker.getSignatureFromDeclaration(ctorDeclaration);
                 jsiiType.initializer = { initializer: true };
                 if (signature) {
                     for (const param of signature.getParameters()) {
                         jsiiType.initializer.parameters = jsiiType.initializer.parameters || [];
                         jsiiType.initializer.parameters.push(await this._toParameter(param));
-                        if (ts.isParameterPropertyDeclaration(param.valueDeclaration)) {
-                            await this._visitProperty(param, jsiiType);
-                        }
                         jsiiType.initializer.variadic = jsiiType.initializer.parameters
                             && jsiiType.initializer.parameters.find(p => !!p.variadic) != null;
                     }
                 }
                 this._visitDocumentation(constructor, jsiiType.initializer);
+            }
+
+            // Proces constructor-based property declarations even if constructor is private
+            if (signature) {
+                for (const param of signature.getParameters()) {
+                    if (ts.isParameterPropertyDeclaration(param.valueDeclaration)) {
+                        await this._visitProperty(param, jsiiType);
+                    }
+                }
             }
         } else if (jsiiType.base) {
             this._defer(() => {
@@ -451,7 +458,7 @@ export class Assembler implements Emitter {
      * @returns ``documentable``
      */
     private _visitDocumentation<T extends spec.Documentable>(symbol: ts.Symbol | ts.Signature, documentable: T): T {
-        const comment = ts.displayPartsToString(symbol.getDocumentationComment(this._typeChecker));
+        const comment = ts.displayPartsToString(symbol.getDocumentationComment(this._typeChecker)).trim();
         if (comment) {
             if (LOG.isTraceEnabled()) {
                 LOG.trace(`Found documentation comment: ${colors.yellow(comment)}`);

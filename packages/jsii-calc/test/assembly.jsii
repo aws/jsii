@@ -1035,6 +1035,41 @@
         }
       ]
     },
+    "jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "comment": "Class that implements interface properties automatically, but using a private constructor"
+      },
+      "fqn": "jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties",
+      "interfaces": [
+        {
+          "fqn": "jsii-calc.IInterfaceWithProperties"
+        }
+      ],
+      "kind": "class",
+      "name": "ClassWithPrivateConstructorAndAutomaticProperties",
+      "properties": [
+        {
+          "immutable": true,
+          "name": "readOnlyString",
+          "overrides": {
+            "fqn": "jsii-calc.IInterfaceWithProperties"
+          },
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "name": "readWriteString",
+          "overrides": {
+            "fqn": "jsii-calc.IInterfaceWithProperties"
+          },
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.DefaultedConstructorArgument": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.DefaultedConstructorArgument",
@@ -3297,5 +3332,5 @@
     }
   },
   "version": "0.7.6",
-  "fingerprint": "IrPnQp841TiCOiG/Z2z18s0K8pxTwuMglW1UJ2t1zsM="
+  "fingerprint": "eFasWxN7YC37iWdz+dDbEFTSQCzyangrqP5Nu02rzpw="
 }
