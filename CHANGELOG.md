@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.7.7"></a>
+## [0.7.7](https://github.com/awslabs/jsii/compare/v0.7.6...v0.7.7) (2018-10-10)
+
+
+### Bug Fixes
+
+* **dotnet:** abstract classes should have proxy implementations ([#241](https://github.com/awslabs/jsii/issues/241)) ([828a26f](https://github.com/awslabs/jsii/commit/828a26f)), closes [#223](https://github.com/awslabs/jsii/issues/223)
+* **jsii:** better usage reporting of private types ([#247](https://github.com/awslabs/jsii/issues/247)) ([96ac5d6](https://github.com/awslabs/jsii/commit/96ac5d6))
+* **jsii:** support  public autoproperties in private constructor ([#256](https://github.com/awslabs/jsii/issues/256)) ([181012e](https://github.com/awslabs/jsii/commit/181012e))
+* **jsii:** use default jsx compiler options ([#260](https://github.com/awslabs/jsii/issues/260)) ([660ae79](https://github.com/awslabs/jsii/commit/660ae79)), closes [awslabs/aws-cdk#830](https://github.com/awslabs/aws-cdk/issues/830)
+* **jsii-dotnet-generator:** Use FQ type returns in conflict. ([#258](https://github.com/awslabs/jsii/issues/258)) ([a78784a](https://github.com/awslabs/jsii/commit/a78784a)), closes [#252](https://github.com/awslabs/jsii/issues/252)
+* **jsii-runtime:** Use buffer factory methods instead of constructor. ([#246](https://github.com/awslabs/jsii/issues/246)) ([6ad6b9d](https://github.com/awslabs/jsii/commit/6ad6b9d))
+* **kernel:** Return object literals as references ([#249](https://github.com/awslabs/jsii/issues/249)) ([61cb3a4](https://github.com/awslabs/jsii/commit/61cb3a4)), closes [#248](https://github.com/awslabs/jsii/issues/248) [awslabs/aws-cdk#774](https://github.com/awslabs/aws-cdk/issues/774)
+
+
+
+
 <a name="0.7.6"></a>
 ## [0.7.6](https://github.com/awslabs/jsii/compare/v0.7.5...v0.7.6) (2018-09-20)
 
