@@ -28,7 +28,7 @@ class _ReferenceMap:
         # If we got to this point, then we didn't have a referene for this, in that case
         # we want to create a new instance, but we need to create it in such a way that
         # we don't try to recreate the type inside of the JSII interface.
-        class_ = _types[ref.ref.split("@", 1)[0]]
+        class_ = _types[ref.ref.rsplit("@", 1)[0]]
         return class_.__class__.from_reference(class_, ref)
 
 
