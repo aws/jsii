@@ -57,6 +57,36 @@ namespace Amazon.JSII.Generator.UnitTests.Class
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
 
+        [Fact(DisplayName = Prefix + nameof(AllowsPrivateConstructor))]
+        public void AllowsPrivateConstructor()
+        {
+            ClassType classType = new ClassType
+            (
+                fullyQualifiedName: "myFqn",
+                assembly: "myPackage",
+                name: "myClass",
+                isAbstract: false
+            );
+
+            string actual = Render(classType);
+            string expected =
+                @"namespace MyNamespace
+{
+    [JsiiClass(typeof(MyClass), ""myFqn"", ""[]"")]
+    public class MyClass : DeputyBase
+    {
+        protected MyClass(ByRefValue reference): base(reference)
+        {
+        }
+
+        protected MyClass(DeputyProps props): base(props)
+        {
+        }
+    }
+}";
+            Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
+        }
+
         [Fact(DisplayName = Prefix + nameof(IncludesAbstractKeyword))]
         public void IncludesAbstractKeyword()
         {
