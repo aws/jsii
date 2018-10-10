@@ -16,8 +16,6 @@ const COMPILER_OPTIONS: ts.CompilerOptions = {
     experimentalDecorators: true,
     inlineSourceMap: true,
     inlineSources: true,
-    jsx: ts.JsxEmit.React,
-    jsxFactory: 'jsx.create',
     lib: ['lib.es2016.d.ts', 'lib.es2017.object.d.ts', 'lib.es2017.string.d.ts'],
     module: ts.ModuleKind.CommonJS,
     noEmitOnError: true,
