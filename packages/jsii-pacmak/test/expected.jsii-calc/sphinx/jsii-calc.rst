@@ -1038,6 +1038,15 @@ ClassWithPrivateConstructorAndAutomaticProperties
 
    :implements: :py:class:`~jsii-calc.IInterfaceWithProperties`\ 
 
+   .. py:staticmethod:: create(readOnlyString, readWriteString) -> jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties
+
+      :param readOnlyString: 
+      :type readOnlyString: string
+      :param readWriteString: 
+      :type readWriteString: string
+      :rtype: :py:class:`~jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties`\ 
+
+
    .. py:attribute:: readOnlyString
 
       *Implements* :py:meth:`jsii-calc.IInterfaceWithProperties.readOnlyString`
@@ -1544,6 +1553,97 @@ IFriendlyRandomGenerator (interface)
 
       :return: A random number.
       :rtype: number
+      :abstract: Yes
+
+
+IInterfaceThatShouldNotBeADataType (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: IInterfaceThatShouldNotBeADataType
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.IInterfaceThatShouldNotBeADataType;
+
+      .. code-tab:: javascript
+
+         // IInterfaceThatShouldNotBeADataType is an interface
+
+      .. code-tab:: typescript
+
+         import { IInterfaceThatShouldNotBeADataType } from 'jsii-calc';
+
+
+
+   Even though this interface has only properties, it is disqualified from being a datatype because it inherits from an interface that is not a datatype.
+
+
+   :extends: :py:class:`~jsii-calc.IInterfaceWithMethods`\ 
+
+
+   .. py:attribute:: otherValue
+
+      :type: string *(readonly)* *(abstract)*
+
+
+   .. py:method:: doThings()
+
+      *Inherited from* :py:meth:`jsii-calc.IInterfaceWithMethods <jsii-calc.IInterfaceWithMethods.doThings>`
+
+      :abstract: Yes
+
+
+   .. py:attribute:: value
+
+      *Inherited from* :py:attr:`jsii-calc.IInterfaceWithMethods <jsii-calc.IInterfaceWithMethods.value>`
+
+      :type: string *(readonly)* *(abstract)*
+
+
+IInterfaceWithMethods (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: IInterfaceWithMethods
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.IInterfaceWithMethods;
+
+      .. code-tab:: javascript
+
+         // IInterfaceWithMethods is an interface
+
+      .. code-tab:: typescript
+
+         import { IInterfaceWithMethods } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: value
+
+      :type: string *(readonly)* *(abstract)*
+
+
+   .. py:method:: doThings()
+
       :abstract: Yes
 
 
