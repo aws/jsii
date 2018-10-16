@@ -143,19 +143,6 @@ export class Assembler implements Emitter {
     }
 
     /**
-     * Defer checks for after the program has been entirely processed; useful for verifying type references that may not
-     * have been discovered yet, and verifying properties about them.
-     *
-     * @param fqn FQN of the current type.
-     * @param deps List of FQNs of types this callback depends on. All deferreds for all
-     * @param cb the function to be called in a deferred way. It will be bound with ``this``, so it can depend on using
-     *           ``this``.
-     */
-    private _defer(fqn: string, depFqns: string[], cb: () => void) {
-        this._deferred.push({ fqn, depFqns, cb: cb.bind(this) });
-    }
-
-    /**
      * Defer a callback until a (set of) types are available
      *
      * This is a helper function around _defer() which encapsulates the _dereference
@@ -165,7 +152,7 @@ export class Assembler implements Emitter {
      * that case anyway.
      */
     // tslint:disable-next-line:max-line-length
-    private _deferUntilTypeAvailable(fqn: string, baseTypes: NamedTypeReference[], referencingNode: ts.Node, cb: (...xs: spec.Type[]) => void) {
+    private _deferUntilTypesAvailable(fqn: string, baseTypes: NamedTypeReference[], referencingNode: ts.Node, cb: (...xs: spec.Type[]) => void) {
         // We can do this one eagerly
         if (baseTypes.length === 0) {
             cb();
@@ -178,6 +165,22 @@ export class Assembler implements Emitter {
                 return cb(...resolved as spec.Type[]);
             }
         });
+    }
+
+    /**
+     * Defer checks for after the program has been entirely processed; useful for verifying type references that may not
+     * have been discovered yet, and verifying properties about them.
+     *
+     * The callback is guaranteed to be executed only after all deferreds for all types in 'dependedFqns' have
+     * been executed.
+     *
+     * @param fqn FQN of the current type.
+     * @param deps List of FQNs of types this callback depends on. All deferreds for all
+     * @param cb the function to be called in a deferred way. It will be bound with ``this``, so it can depend on using
+     *           ``this``.
+     */
+    private _defer(fqn: string, dependedFqns: string[], cb: () => void) {
+        this._deferred.push({ fqn, dependedFqns, cb: cb.bind(this) });
     }
 
     /**
@@ -349,7 +352,7 @@ export class Assembler implements Emitter {
                                 `Base type of ${jsiiType.fqn} is not a named type (${spec.describeTypeReference(ref)})`);
                 continue;
             }
-            this._deferUntilTypeAvailable(fqn, [ref], base.symbol.valueDeclaration, (deref) => {
+            this._deferUntilTypesAvailable(fqn, [ref], base.symbol.valueDeclaration, (deref) => {
                 if (!spec.isClassType(deref)) {
                     this._diagnostic(base.symbol.valueDeclaration,
                                     ts.DiagnosticCategory.Error,
@@ -375,7 +378,7 @@ export class Assembler implements Emitter {
                                      `Interface of ${jsiiType.fqn} is not a named type (${spec.describeTypeReference(typeRef)})`);
                     continue;
                 }
-                this._deferUntilTypeAvailable(fqn, [typeRef], expression, (deref) => {
+                this._deferUntilTypesAvailable(fqn, [typeRef], expression, (deref) => {
                     if (!spec.isInterfaceType(deref)) {
                         this._diagnostic(expression,
                                         ts.DiagnosticCategory.Error,
@@ -435,7 +438,7 @@ export class Assembler implements Emitter {
                 }
             }
         } else if (jsiiType.base) {
-            this._deferUntilTypeAvailable(fqn, [jsiiType.base!], type.symbol.valueDeclaration, (baseType) => {
+            this._deferUntilTypesAvailable(fqn, [jsiiType.base!], type.symbol.valueDeclaration, (baseType) => {
                 if (spec.isClassType(baseType)) {
                     jsiiType.initializer = baseType.initializer;
                 } else {
@@ -539,7 +542,7 @@ export class Assembler implements Emitter {
                                  `Base type of ${jsiiType.fqn} is not a named type (${spec.describeTypeReference(ref)})`);
                 continue;
             }
-            this._deferUntilTypeAvailable(fqn, [ref], base.symbol.valueDeclaration, (baseType) => {
+            this._deferUntilTypesAvailable(fqn, [ref], base.symbol.valueDeclaration, (baseType) => {
                 if (!spec.isInterfaceType(baseType)) {
                     // tslint:disable:max-line-length
                     this._diagnostic(base.symbol.valueDeclaration,
@@ -573,7 +576,7 @@ export class Assembler implements Emitter {
         // Calculate datatype based on the datatypeness of this interface and all of its parents
         // To keep the spec minimal the actual values of the attribute are "true" or "undefined" (to represent "false").
         // tslint:disable-next-line:no-console
-        this._deferUntilTypeAvailable(fqn, jsiiType.interfaces || [], type.symbol.valueDeclaration, (...bases: spec.Type[]) => {
+        this._deferUntilTypesAvailable(fqn, jsiiType.interfaces || [], type.symbol.valueDeclaration, (...bases: spec.Type[]) => {
             if ((jsiiType.methods || []).length === 0 && (jsiiType.properties || []).length > 0) {
                 jsiiType.datatype = true;
             }
@@ -830,7 +833,7 @@ export class Assembler implements Emitter {
             // Invoke all deferreds with no more dependencies and remove them from the list.
             let invoked = false;
             for (let i = 0; i < this._deferred.length; i++) {
-                if (this._deferred[i].depFqns.length === 0) {
+                if (this._deferred[i].dependedFqns.length === 0) {
                     const deferred = this._deferred.splice(i, 1)[0];
                     deferred.cb();
                     invoked = true;
@@ -847,7 +850,7 @@ export class Assembler implements Emitter {
          * Retain only elements in the dependencyfqn that are also in the set
          */
         function restrictDependenciesTo(def: DeferredRecord, fqns: Set<string>) {
-            def.depFqns = def.depFqns.filter(fqns.has.bind(fqns));
+            def.dependedFqns = def.dependedFqns.filter(fqns.has.bind(fqns));
         }
     }
 }
@@ -984,8 +987,25 @@ function _toDependencies(assemblies: ReadonlyArray<spec.Assembly>): { [name: str
     return result;
 }
 
+/**
+ * Deferred processing that needs to happen in a second, ordered pass
+ */
 interface DeferredRecord {
+    /**
+     * The FQN of the type the action will be executed on
+     */
     fqn: string;
-    depFqns: string[];
+
+    /**
+     * Dependency FQNs of the types that need to be processed before analysis.
+     *
+     * All deferred analysis actions for the types listed here must be complete
+     * before this analysis action can run.
+     */
+    dependedFqns: string[];
+
+    /**
+     * Callback representing the action to run.
+     */
     cb: () => void;
 }
