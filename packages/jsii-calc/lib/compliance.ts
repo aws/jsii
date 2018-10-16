@@ -919,6 +919,10 @@ export class DoNotOverridePrivates {
  * Class that implements interface properties automatically, but using a private constructor
  */
 export class ClassWithPrivateConstructorAndAutomaticProperties implements IInterfaceWithProperties {
+    public static create(readOnlyString: string, readWriteString: string) {
+        return new ClassWithPrivateConstructorAndAutomaticProperties(readOnlyString, readWriteString);
+    }
+
     private constructor(public readonly readOnlyString: string, public readWriteString: string) {
     }
 }

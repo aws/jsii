@@ -26,5 +26,11 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<string>();
             set => SetInstanceProperty(value);
         }
+
+        [JsiiMethod("create", "{\"fqn\":\"jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties\"}", "[{\"name\":\"readOnlyString\",\"type\":{\"primitive\":\"string\"}},{\"name\":\"readWriteString\",\"type\":{\"primitive\":\"string\"}}]")]
+        public static ClassWithPrivateConstructorAndAutomaticProperties Create(string readOnlyString, string readWriteString)
+        {
+            return InvokeStaticMethod<ClassWithPrivateConstructorAndAutomaticProperties>(typeof(ClassWithPrivateConstructorAndAutomaticProperties), new object[]{readOnlyString, readWriteString});
+        }
     }
 }

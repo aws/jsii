@@ -1047,6 +1047,29 @@
         }
       ],
       "kind": "class",
+      "methods": [
+        {
+          "name": "create",
+          "parameters": [
+            {
+              "name": "readOnlyString",
+              "type": {
+                "primitive": "string"
+              }
+            },
+            {
+              "name": "readWriteString",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ],
+          "returns": {
+            "fqn": "jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties"
+          },
+          "static": true
+        }
+      ],
       "name": "ClassWithPrivateConstructorAndAutomaticProperties",
       "properties": [
         {
@@ -3378,5 +3401,5 @@
     }
   },
   "version": "0.7.7",
-  "fingerprint": "bxhDOTLZBrkP11/RKcB3NDECWyzz3uPDRFgQXpHtrc0="
+  "fingerprint": "vJH1gHlpRxKo77e0kE+6KATwgsZB0VpBcFEo/9OIG7Q="
 }
