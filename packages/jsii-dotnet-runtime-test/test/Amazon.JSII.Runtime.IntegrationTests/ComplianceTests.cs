@@ -811,22 +811,11 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         [Fact(DisplayName = Prefix + nameof(TestClassWithPrivateConstructorAndAutomaticProperties))]
         public void TestClassWithPrivateConstructorAndAutomaticProperties()
         {
-            var testType = typeof(ClassWithPrivateConstructorAndAutomaticProperties);
+            var obj = ClassWithPrivateConstructorAndAutomaticProperties.Create("Hello", "Bye");
+            Assert.Equal("Bye", obj.ReadWriteString);
+            obj.ReadWriteString = "Hello";
 
-            // No public constructors
-            Assert.Equal(0, testType.GetConstructors().Select(c => c.IsPublic).Count());
-
-            var readOnlyProperty =
-                testType.GetProperty(nameof(ClassWithPrivateConstructorAndAutomaticProperties.ReadOnlyString));
-
-            Assert.True(readOnlyProperty.CanRead);
-            Assert.False(readOnlyProperty.CanWrite);
-
-            var readWriteProperty =
-                testType.GetProperty(nameof(ClassWithPrivateConstructorAndAutomaticProperties.ReadWriteString));
-
-            Assert.True(readWriteProperty.CanRead);
-            Assert.True(readWriteProperty.CanWrite);
+            Assert.Equal("Hello", obj.ReadOnlyString);
         }
 
         class MulTen : Multiply
