@@ -922,3 +922,16 @@ export class ClassWithPrivateConstructorAndAutomaticProperties implements IInter
     private constructor(public readonly readOnlyString: string, public readWriteString: string) {
     }
 }
+
+export interface IInterfaceWithMethods {
+    readonly value: string;
+    doThings(): void;
+}
+
+/**
+ * Even though this interface has only properties, it is disqualified from being a datatype
+ * because it inherits from an interface that is not a datatype.
+ */
+export interface IInterfaceThatShouldNotBeADataType extends IInterfaceWithMethods {
+    readonly otherValue: string;
+}

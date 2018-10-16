@@ -11,6 +11,7 @@ import literate = require('./literate');
 import { ProjectInfo } from './project-info';
 import utils = require('./utils');
 import { Validator } from './validator';
+import { NamedTypeReference, isInterfaceType } from 'jsii-spec';
 
 // tslint:disable:no-var-requires Modules without TypeScript definitions
 const sortJson = require('sort-json');
@@ -23,7 +24,7 @@ const LOG = log4js.getLogger('jsii/assembler');
  */
 export class Assembler implements Emitter {
     private _diagnostics = new Array<Diagnostic>();
-    private _deferred = new Array<() => void>();
+    private _deferred = new Array<DeferredRecord>();
     private _types: { [fqn: string]: spec.Type };
 
     /**
@@ -75,9 +76,8 @@ export class Assembler implements Emitter {
                 await this._visitNode(node.declarations[0]);
             }
         }
-        for (const deferred of this._deferred) {
-            deferred();
-        }
+
+        this.callDeferredsInOrder();
 
         // Skip emitting if any diagnostic message is an error
         if (this._diagnostics.find(diag => diag.category === ts.DiagnosticCategory.Error) != null) {
@@ -87,9 +87,8 @@ export class Assembler implements Emitter {
             try {
                 return { diagnostics: this._diagnostics, emitSkipped: true };
             } finally {
-                // Clearing ``this._diagnostics`` and ``this._deferred`` to allow contents to be garbage-collected.
+                // Clearing ``this._diagnostics`` to allow contents to be garbage-collected.
                 delete this._diagnostics;
-                delete this._deferred;
             }
         }
 
@@ -128,9 +127,8 @@ export class Assembler implements Emitter {
             // Clearing ``this._types`` to allow contents to be garbage-collected.
             delete this._types;
 
-            // Clearing ``this._diagnostics`` and ``this._deferred`` to allow contents to be garbage-collected.
+            // Clearing ``this._diagnostics`` to allow contents to be garbage-collected.
             delete this._diagnostics;
-            delete this._deferred;
         }
 
         async function _loadReadme(this: Assembler) {
@@ -148,11 +146,38 @@ export class Assembler implements Emitter {
      * Defer checks for after the program has been entirely processed; useful for verifying type references that may not
      * have been discovered yet, and verifying properties about them.
      *
+     * @param fqn FQN of the current type.
+     * @param deps List of FQNs of types this callback depends on. All deferreds for all
      * @param cb the function to be called in a deferred way. It will be bound with ``this``, so it can depend on using
      *           ``this``.
      */
-    private _defer(cb: () => void) {
-        this._deferred.push(cb.bind(this));
+    private _defer(fqn: string, depFqns: string[], cb: () => void) {
+        this._deferred.push({ fqn, depFqns, cb: cb.bind(this) });
+    }
+
+    /**
+     * Defer a callback until a (set of) types are available
+     *
+     * This is a helper function around _defer() which encapsulates the _dereference
+     * action (which is basically the majority use case for _defer anyway).
+     *
+     * Will not invoke the function with any 'undefined's; an error will already have been emitted in
+     * that case anyway.
+     */
+    // tslint:disable-next-line:max-line-length
+    private _deferUntilTypeAvailable(fqn: string, baseTypes: NamedTypeReference[], referencingNode: ts.Node, cb: (...xs: spec.Type[]) => void) {
+        // We can do this one eagerly
+        if (baseTypes.length === 0) {
+            cb();
+            return;
+        }
+
+        this._defer(fqn, baseTypes.map(x => x.fqn), () => {
+            const resolved = baseTypes.map(x => this._dereference(x, referencingNode)).filter(x => x !== undefined);
+            if (resolved.length > 0) {
+                return cb(...resolved as spec.Type[]);
+            }
+        });
     }
 
     /**
@@ -299,9 +324,11 @@ export class Assembler implements Emitter {
             LOG.trace(`Processing class: ${colors.gray(namespace.join('.'))}.${colors.cyan(type.symbol.name)}`);
         }
 
+        const fqn = `${[this.projectInfo.name, ...namespace].join('.')}.${type.symbol.name}`;
+
         const jsiiType: spec.ClassType = {
             assembly: this.projectInfo.name,
-            fqn: `${[this.projectInfo.name, ...namespace].join('.')}.${type.symbol.name}`,
+            fqn,
             kind: spec.TypeKind.Class,
             name: type.symbol.name,
             namespace: namespace.join('.')
@@ -322,9 +349,8 @@ export class Assembler implements Emitter {
                                 `Base type of ${jsiiType.fqn} is not a named type (${spec.describeTypeReference(ref)})`);
                 continue;
             }
-            this._defer(() => {
-                const deref = this._dereference(ref, base.symbol.valueDeclaration);
-                if (deref && !spec.isClassType(deref)) {
+            this._deferUntilTypeAvailable(fqn, [ref], base.symbol.valueDeclaration, (deref) => {
+                if (!spec.isClassType(deref)) {
                     this._diagnostic(base.symbol.valueDeclaration,
                                     ts.DiagnosticCategory.Error,
                                     `Base type of ${jsiiType.fqn} is not a class (${spec.describeTypeReference(ref)})`);
@@ -349,9 +375,8 @@ export class Assembler implements Emitter {
                                      `Interface of ${jsiiType.fqn} is not a named type (${spec.describeTypeReference(typeRef)})`);
                     continue;
                 }
-                this._defer(() => {
-                    const deref = this._dereference(typeRef, expression);
-                    if (deref && !spec.isInterfaceType(deref)) {
+                this._deferUntilTypeAvailable(fqn, [typeRef], expression, (deref) => {
+                    if (!spec.isInterfaceType(deref)) {
                         this._diagnostic(expression,
                                         ts.DiagnosticCategory.Error,
                                         `Implements clause of ${jsiiType.fqn} uses ${spec.describeTypeReference(typeRef)} as an interface`);
@@ -410,16 +435,13 @@ export class Assembler implements Emitter {
                 }
             }
         } else if (jsiiType.base) {
-            this._defer(() => {
-                const baseType = this._dereference(jsiiType.base!, type.symbol.valueDeclaration);
-                if (baseType) {
-                    if (spec.isClassType(baseType)) {
-                        jsiiType.initializer = baseType.initializer;
-                    } else {
-                        this._diagnostic(type.symbol.valueDeclaration,
-                            ts.DiagnosticCategory.Error,
-                            `Base type of ${jsiiType.fqn} (${jsiiType.base!.fqn}) is not a class`);
-                    }
+            this._deferUntilTypeAvailable(fqn, [jsiiType.base!], type.symbol.valueDeclaration, (baseType) => {
+                if (spec.isClassType(baseType)) {
+                    jsiiType.initializer = baseType.initializer;
+                } else {
+                    this._diagnostic(type.symbol.valueDeclaration,
+                        ts.DiagnosticCategory.Error,
+                        `Base type of ${jsiiType.fqn} (${jsiiType.base!.fqn}) is not a class`);
                 }
             });
         } else {
@@ -499,13 +521,16 @@ export class Assembler implements Emitter {
             LOG.trace(`Processing interface: ${colors.gray(namespace.join('.'))}.${colors.cyan(type.symbol.name)}`);
         }
 
+        const fqn = `${[this.projectInfo.name, ...namespace].join('.')}.${type.symbol.name}`;
+
         const jsiiType: spec.InterfaceType = {
             assembly: this.projectInfo.name,
-            fqn: `${[this.projectInfo.name, ...namespace].join('.')}.${type.symbol.name}`,
+            fqn,
             kind: spec.TypeKind.Interface,
             name: type.symbol.name,
             namespace: namespace.join('.')
         };
+
         for (const base of (type.getBaseTypes() || [])) {
             const ref = await this._typeReference(base, type.symbol.valueDeclaration);
             if (!spec.isNamedTypeReference(ref)) {
@@ -514,9 +539,8 @@ export class Assembler implements Emitter {
                                  `Base type of ${jsiiType.fqn} is not a named type (${spec.describeTypeReference(ref)})`);
                 continue;
             }
-            this._defer(() => {
-                const baseType = this._dereference(ref, base.symbol.valueDeclaration);
-                if (baseType && !spec.isInterfaceType(baseType)) {
+            this._deferUntilTypeAvailable(fqn, [ref], base.symbol.valueDeclaration, (baseType) => {
+                if (!spec.isInterfaceType(baseType)) {
                     // tslint:disable:max-line-length
                     this._diagnostic(base.symbol.valueDeclaration,
                                     ts.DiagnosticCategory.Error,
@@ -545,9 +569,20 @@ export class Assembler implements Emitter {
                                  `Ignoring un-handled ${ts.SyntaxKind[member.valueDeclaration.kind]} member`);
             }
         }
-        if ((jsiiType.methods || []).length === 0 && (jsiiType.properties || []).length > 0) {
-            jsiiType.datatype = true;
-        }
+
+        // Calculate datatype based on the datatypeness of this interface and all of its parents
+        // To keep the spec minimal the actual values of the attribute are "true" or "undefined" (to represent "false").
+        // tslint:disable-next-line:no-console
+        this._deferUntilTypeAvailable(fqn, jsiiType.interfaces || [], type.symbol.valueDeclaration, (...bases: spec.Type[]) => {
+            if ((jsiiType.methods || []).length === 0 && (jsiiType.properties || []).length > 0) {
+                jsiiType.datatype = true;
+            }
+            for (const base of bases) {
+                if (isInterfaceType(base) && !base.datatype) {
+                    jsiiType.datatype = undefined;
+                }
+            }
+        });
 
         return _sortMembers(this._visitDocumentation(type.symbol, jsiiType));
     }
@@ -780,6 +815,41 @@ export class Assembler implements Emitter {
                 : { union: { types }, optional };
         }
     }
+
+    private callDeferredsInOrder() {
+        // Do a topological call order of all deferreds.
+        while (this._deferred.length > 0) {
+            // All fqns in dependency lists that don't have any pending
+            // deferreds themselves can be executed now, so are removed from
+            // dependency lists.
+            const pendingFqns = new Set<string>(this._deferred.map(x => x.fqn));
+            for (const deferred of this._deferred) {
+                restrictDependenciesTo(deferred, pendingFqns);
+            }
+
+            // Invoke all deferreds with no more dependencies and remove them from the list.
+            let invoked = false;
+            for (let i = 0; i < this._deferred.length; i++) {
+                if (this._deferred[i].depFqns.length === 0) {
+                    const deferred = this._deferred.splice(i, 1)[0];
+                    deferred.cb();
+                    invoked = true;
+                }
+            }
+
+            if (!invoked) {
+                // Apparently we're stuck. Complain loudly.
+                throw new Error(`Could not invoke any more deferreds, cyclic dependency? Remaining: ${JSON.stringify(this._deferred, undefined, 2)}`);
+            }
+        }
+
+        /**
+         * Retain only elements in the dependencyfqn that are also in the set
+         */
+        function restrictDependenciesTo(def: DeferredRecord, fqns: Set<string>) {
+            def.depFqns = def.depFqns.filter(fqns.has.bind(fqns));
+        }
+    }
 }
 
 /**
@@ -912,4 +982,10 @@ function _toDependencies(assemblies: ReadonlyArray<spec.Assembly>): { [name: str
         };
     }
     return result;
+}
+
+interface DeferredRecord {
+    fqn: string;
+    depFqns: string[];
+    cb: () => void;
 }
