@@ -1038,6 +1038,15 @@ ClassWithPrivateConstructorAndAutomaticProperties
 
    :implements: :py:class:`~jsii-calc.IInterfaceWithProperties`\ 
 
+   .. py:staticmethod:: create(readOnlyString, readWriteString) -> jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties
+
+      :param readOnlyString: 
+      :type readOnlyString: string
+      :param readWriteString: 
+      :type readWriteString: string
+      :rtype: :py:class:`~jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties`\ 
+
+
    .. py:attribute:: readOnlyString
 
       *Implements* :py:meth:`jsii-calc.IInterfaceWithProperties.readOnlyString`
