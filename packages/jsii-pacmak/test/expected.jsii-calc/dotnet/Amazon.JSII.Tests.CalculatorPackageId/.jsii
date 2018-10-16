@@ -1452,6 +1452,52 @@
       "kind": "interface",
       "name": "IFriendlyRandomGenerator"
     },
+    "jsii-calc.IInterfaceThatShouldNotBeADataType": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "comment": "Even though this interface has only properties, it is disqualified from being a datatype\nbecause it inherits from an interface that is not a datatype."
+      },
+      "fqn": "jsii-calc.IInterfaceThatShouldNotBeADataType",
+      "interfaces": [
+        {
+          "fqn": "jsii-calc.IInterfaceWithMethods"
+        }
+      ],
+      "kind": "interface",
+      "name": "IInterfaceThatShouldNotBeADataType",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "name": "otherValue",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.IInterfaceWithMethods": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.IInterfaceWithMethods",
+      "kind": "interface",
+      "methods": [
+        {
+          "abstract": true,
+          "name": "doThings"
+        }
+      ],
+      "name": "IInterfaceWithMethods",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "name": "value",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.IInterfaceWithProperties": {
       "assembly": "jsii-calc",
       "datatype": true,
@@ -3355,5 +3401,5 @@
     }
   },
   "version": "0.7.7",
-  "fingerprint": "16f4wL/B1M7rOOzyAzBEtqlOi2GYhDAU5rctonoha5Y="
+  "fingerprint": "vJH1gHlpRxKo77e0kE+6KATwgsZB0VpBcFEo/9OIG7Q="
 }
