@@ -363,7 +363,7 @@ class Interface implements PythonCollectionNode {
     }
 
     get depends_on(): string[] {
-        return this.bases;
+        return this.bases.filter(base => base.startsWith(this.moduleName + "."));
     }
 
     public addMember(member: PythonNode): PythonNode {
