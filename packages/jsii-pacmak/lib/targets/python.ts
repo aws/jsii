@@ -109,7 +109,7 @@ const toPythonCollection = (ref: spec.CollectionTypeReference) => {
 const toPythonPrimitive = (primitive: spec.PrimitiveType): string => {
     switch (primitive) {
         case spec.PrimitiveType.Boolean: return "bool";
-        case spec.PrimitiveType.Date: return "dateetime.datetime";
+        case spec.PrimitiveType.Date: return "datetime.datetime";
         case spec.PrimitiveType.Json: return "typing.Mapping[typing.Any, typing.Any]";
         case spec.PrimitiveType.Number: return "numbers.Number";
         case spec.PrimitiveType.String: return "str";
