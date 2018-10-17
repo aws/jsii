@@ -122,7 +122,7 @@ class InvokeRequest:
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class InvokeResponse:
 
-    result: Any
+    result: Any = None
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
