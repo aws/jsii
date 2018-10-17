@@ -473,6 +473,73 @@ class Class implements PythonCollectionNode {
     }
 }
 
+class Enum implements PythonCollectionNode {
+    public readonly moduleName: string;
+    public readonly name: string;
+
+    private members: PythonNode[];
+
+    constructor(moduleName: string, name: string) {
+        this.moduleName = moduleName;
+        this.name = name;
+        this.members = [];
+    }
+
+    get fqn(): string {
+        return `${this.moduleName}.${this.name}`;
+    }
+
+    get depends_on(): string[] {
+        return [];
+    }
+
+    public addMember(member: PythonNode): PythonNode {
+        this.members.push(member);
+        return member;
+    }
+
+    public requiredTypes(): string[] {
+        return ["enum.Enum"];
+    }
+
+    public emit(code: CodeMaker) {
+        code.openBlock(`class ${this.name}(enum.Enum)`);
+        if (this.members.length > 0) {
+            for (const member of this.members) {
+                member.emit(code);
+            }
+        } else {
+            code.line("pass");
+        }
+        code.closeBlock();
+    }
+}
+
+class EnumMember implements PythonNode {
+    public readonly moduleName: string;
+    public readonly name: string;
+
+    private readonly value: string;
+
+    constructor(moduleName: string, name: string, value: string) {
+        this.moduleName = moduleName;
+        this.name = name;
+        this.value = value;
+    }
+
+    get fqn(): string {
+        return `${this.moduleName}.${this.name}`;
+    }
+
+    public requiredTypes(): string[] {
+        return [];
+    }
+
+    public emit(code: CodeMaker) {
+        code.line(`${this.name} = "${this.value}"`);
+    }
+}
+
 class Module {
 
     public readonly name: string;
@@ -811,6 +878,31 @@ class PythonGenerator extends Generator {
                 this.currentModule().name,
                 toPythonIdentifier(prop.name!),
                 prop.type,
+            )
+        );
+    }
+
+    protected onBeginEnum(enm: spec.EnumType) {
+        const currentModule = this.currentModule();
+
+        this.currentMember = currentModule.addMember(
+            new Enum(
+                currentModule.name,
+                toPythonIdentifier(enm.name),
+            )
+        );
+    }
+
+    protected onEndEnum(_enm: spec.EnumType) {
+        this.currentMember = undefined;
+    }
+
+    protected onEnumMember(_enm: spec.EnumType, member: spec.EnumMember) {
+        this.currentMember!.addMember(
+            new EnumMember(
+                this.currentModule().name,
+                toPythonIdentifier(member.name),
+                member.name
             )
         );
     }
