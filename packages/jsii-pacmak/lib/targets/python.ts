@@ -658,6 +658,18 @@ class Module {
             }
         }
 
+        // Add the additional dependencies that we require in order for imports to
+        // work correctly. These are dependencies at the JS level, isntead of at the
+        // Python level.
+        if (this.assembly !== undefined && this.assembly!.dependencies !== undefined) {
+            for (const depName of Object.keys(this.assembly!.dependencies!)) {
+                const moduleName = toPythonModuleName(depName);
+                if (imports.indexOf(moduleName) === -1) {
+                    imports.push(moduleName);
+                }
+            }
+        }
+
         return imports;
     }
 
