@@ -140,13 +140,13 @@ const toPythonPrimitive = (primitive: spec.PrimitiveType): string => {
 };
 
 const toPythonFQN = (name: string): string => {
-    return name.split(".").map((cur, idx, arr) => {
-        if (idx === arr.length - 1) {
-            return toPythonIdentifier(cur);
-        } else {
-            return toPythonModuleName(cur);
-        }
-    }).join(".");
+    const [, modulePart, typePart] = name.match(/^((?:[^A-Z\.][^\.]+\.?)+)\.([A-Z].+)$/) as string[];
+    const fqnParts = [
+        toPythonModuleName(modulePart),
+        typePart.split(".").map(cur => toPythonIdentifier(cur)).join(".")
+    ];
+
+    return fqnParts.join(".");
 };
 
 const formatPythonType = (type: string, forwardReference: boolean = false, moduleName: string) => {
@@ -155,6 +155,7 @@ const formatPythonType = (type: string, forwardReference: boolean = false, modul
     // no matter how nested they are. The downside is we might get trailing/leading
     // spaces or empty items so we'll need to trim and filter this list.
     const types = type.split(/[\[\],]/).map((s: string) => s.trim()).filter(s => s !== "");
+    // const moduleRe = new RegExp(`^${escapeStringRegexp(moduleName)}\.([A-Z].+)$`);
 
     for (const innerType of types) {
         // Built in types do not need formatted in any particular way.
@@ -164,16 +165,18 @@ const formatPythonType = (type: string, forwardReference: boolean = false, modul
 
         // If we do not have a current moduleName, or the type is not within that
         // module, then we don't format it any particular way.
+        // if (!moduleRe.test(innerType)) {
         if (!innerType.startsWith(moduleName + ".")) {
             continue;
         } else {
             const typeName = innerType.substring(moduleName.length + 1, innerType.length);
+            // const [, typeName] = innerType.match(moduleRe) as string[];
             const re = new RegExp('((?:^|[[,\\s])"?)' + innerType + '("?(?:$|[\\],\\s]))');
 
             // If this is our current module, then we need to correctly handle our
             // forward references, by placing the type inside of quotes, unless
             // we're returning real forward references.
-            if (!forwardReference) {
+            if (!forwardReference && !typeName.match(/^[a-z]/)) {
                 type = type.replace(re, `$1"${innerType}"$2`);
             }
 
@@ -242,11 +245,6 @@ interface PythonNode {
     // The fully qualifed name of this node.
     readonly fqn: string;
 
-    // Returns a list of all of the FQN Python types that this Node requires, this
-    // should traverse all of it's members to get the full list of all types required to
-    // exist (i.e. be imported).
-    requiredTypes(): string[];
-
     // Emits the entire tree of objects represented by this object into the given
     // CodeMaker object.
     emit(code: CodeMaker): void;
@@ -297,16 +295,6 @@ class BaseMethod implements PythonNode {
 
     get fqn(): string {
         return `${this.moduleName}.${this.name}`;
-    }
-
-    public requiredTypes(): string[] {
-        const types: string[] = [this.getReturnType(this.returns)];
-
-        for (const param of this.parameters) {
-            types.push(toPythonType(param.type));
-        }
-
-        return types;
     }
 
     public emit(code: CodeMaker) {
@@ -450,10 +438,6 @@ class BaseProperty implements PythonNode {
         return `${this.moduleName}.${this.name}`;
     }
 
-    public requiredTypes(): string[] {
-        return [toPythonType(this.type)];
-    }
-
     public emit(code: CodeMaker) {
         const returnType = toPythonType(this.type);
 
@@ -525,16 +509,6 @@ class Interface implements PythonCollectionNode {
         return member;
     }
 
-    public requiredTypes(): string[] {
-        const types = this.bases.slice();
-
-        for (const member of this.members) {
-            types.push(...member.requiredTypes());
-        }
-
-        return types;
-    }
-
     public emit(code: CodeMaker) {
         const interfaceBases = this.bases.map(baseType => formatPythonType(baseType, true, this.moduleName));
         interfaceBases.push("_Protocol");
@@ -572,10 +546,6 @@ class TypedDictProperty implements PythonNode {
         return this.type.optional || false;
     }
 
-    public requiredTypes(): string[] {
-        return [toPythonType(this.type)];
-    }
-
     public emit(code: CodeMaker) {
         const propType: string = formatPythonType(toPythonType(this.type, false), undefined, this.moduleName);
         code.line(`${this.name}: ${propType}`);
@@ -606,16 +576,6 @@ class TypedDict implements PythonCollectionNode {
     public addMember(member: TypedDictProperty): TypedDictProperty {
         this.members.push(member);
         return member;
-    }
-
-    public requiredTypes(): string[] {
-        const types: string[] = [];
-
-        for (const member of this.members) {
-            types.push(...member.requiredTypes());
-        }
-
-        return types;
     }
 
     public emit(code: CodeMaker) {
@@ -732,16 +692,6 @@ class Class implements PythonCollectionNode {
         return member;
     }
 
-    public requiredTypes(): string[] {
-        const types: string[] = [];
-
-        for (const member of this.members) {
-            types.push(...member.requiredTypes());
-        }
-
-        return types;
-    }
-
     public emit(code: CodeMaker) {
         const classParams: string[] = this.bases.map(baseType => formatPythonType(baseType, true, this.moduleName));
 
@@ -785,10 +735,6 @@ class Enum implements PythonCollectionNode {
         return member;
     }
 
-    public requiredTypes(): string[] {
-        return ["enum.Enum"];
-    }
-
     public emit(code: CodeMaker) {
         code.openBlock(`class ${this.name}(enum.Enum)`);
         if (this.members.length > 0) {
@@ -818,10 +764,6 @@ class EnumMember implements PythonNode {
         return `${this.moduleName}.${this.name}`;
     }
 
-    public requiredTypes(): string[] {
-        return [];
-    }
-
     public emit(code: CodeMaker) {
         code.line(`${this.name} = "${this.value}"`);
     }
@@ -830,20 +772,21 @@ class EnumMember implements PythonNode {
 class Module {
 
     public readonly name: string;
-    public readonly assembly?: spec.Assembly;
-    public readonly assemblyFilename?: string;
+    public readonly assembly: spec.Assembly;
+    public readonly assemblyFilename: string;
+    public readonly loadAssembly: boolean;
 
     private members: PythonCollectionNode[];
+    private subModules: string[];
 
-    constructor(ns: string, assembly?: [spec.Assembly, string]) {
+    constructor(ns: string, assembly: spec.Assembly, assemblyFilename: string, loadAssembly: boolean = false) {
         this.name = ns;
-
-        if (assembly !== undefined) {
-            this.assembly = assembly[0];
-            this.assemblyFilename = assembly[1];
-        }
+        this.assembly = assembly;
+        this.assemblyFilename = assemblyFilename;
+        this.loadAssembly = loadAssembly;
 
         this.members = [];
+        this.subModules = [];
     }
 
     public addMember(member: PythonCollectionNode): PythonCollectionNode {
@@ -851,9 +794,17 @@ class Module {
         return member;
     }
 
+    public addSubmodule(module: string) {
+        this.subModules.push(module);
+    }
+
     public emit(code: CodeMaker) {
         // Before we write anything else, we need to write out our module headers, this
         // is where we handle stuff like imports, any required initialization, etc.
+        code.line("import datetime");
+        code.line("import enum");
+        code.line("import typing");
+        code.line();
         code.line("import jsii");
         code.line("import publication");
         code.line();
@@ -862,16 +813,30 @@ class Module {
 
         // Go over all of the modules that we need to import, and import them.
         // for (let [idx, modName] of this.importedModules.sort().entries()) {
-        for (const [idx, modName] of this.getRequiredTypeImports().sort().entries()) {
+        const dependencies = Object.keys(this.assembly.dependencies || {});
+        for (const [idx, depName] of dependencies.sort().entries()) {
+            // If this our first dependency, add a blank line to format our imports
+            // slightly nicer.
             if (idx === 0) {
                 code.line();
             }
 
-            code.line(`import ${modName}`);
+            code.line(`import ${toPythonModuleName(depName)}`);
+        }
+
+        const moduleRe = new RegExp(`^${escapeStringRegexp(this.name)}\.`);
+        for (const [idx, subModule] of this.subModules.sort().entries()) {
+            // If this our first subModule, add a blank line to format our imports
+            // slightly nicer.
+            if (idx === 0) {
+                code.line();
+            }
+
+            code.line(`from . import ${subModule.replace(moduleRe, "")}`);
         }
 
         // Determine if we need to write out the kernel load line.
-        if (this.assembly && this.assemblyFilename) {
+        if (this.loadAssembly) {
             code.line(
                 `__jsii_assembly__ = jsii.JSIIAssembly.load(` +
                 `"${this.assembly.name}", ` +
@@ -896,66 +861,6 @@ class Module {
         code.line("publication.publish()");
     }
 
-    private getRequiredTypeImports(): string[] {
-        const types: string[] = [];
-        const imports: string[] = [];
-
-        // Compute a list of all of of the types that
-        for (const member of this.members) {
-            types.push(...member.requiredTypes());
-        }
-
-        // Go over our types, and generate a list of imports that we need to import for
-        // our module.
-        for (const type of types) {
-            // If we split our types by any of the "special" characters that can't appear in
-            // identifiers (like "[],") then we will get a list of all of the identifiers,
-            // no matter how nested they are. The downside is we might get trailing/leading
-            // spaces or empty items so we'll need to trim and filter this list.
-            const subTypes = type.split(/[\[\],]/).map((s: string) => s.trim()).filter(s => s !== "");
-
-            // Loop over all of the types we've discovered, and check them for being
-            // importable
-            for (const subType of subTypes) {
-                // For built in types, we don't need to do anything, and can just move on.
-                if (PYTHON_BUILTIN_TYPES.indexOf(subType) > -1) { continue; }
-
-                const [, typeModule] = subType.match(/(.*)\.(.*)/) as any[];
-
-                // Given a name like foo.bar.Frob, we want to import the module that Frob exists
-                // in. Given that all classes exported by JSII have to be pascal cased, and all
-                // of our imports are snake cases, this should be safe. We're going to double
-                // check this though, to ensure that our importable here is safe.
-                if (typeModule !== typeModule.toLowerCase()) {
-                    // If we ever get to this point, we'll need to implment aliasing for our
-                    // imports.
-                    throw new Error(`Type module is not lower case: '${typeModule}'`);
-                }
-
-                // We only want to actually import the type for this module, if it isn't the
-                // module that we're currently in, otherwise we'll jus rely on the module scope
-                // to make the name available to us.
-                if (typeModule !== this.name && imports.indexOf(typeModule) === -1) {
-                    imports.push(typeModule);
-                }
-            }
-        }
-
-        // Add the additional dependencies that we require in order for imports to
-        // work correctly. These are dependencies at the JS level, isntead of at the
-        // Python level.
-        if (this.assembly !== undefined && this.assembly!.dependencies !== undefined) {
-            for (const depName of Object.keys(this.assembly!.dependencies!)) {
-                const moduleName = toPythonModuleName(depName);
-                if (imports.indexOf(moduleName) === -1) {
-                    imports.push(moduleName);
-                }
-            }
-        }
-
-        return imports;
-    }
-
     private getExportedNames(): string[] {
         // We assume that anything that is a member of this module, will be exported by
         // this module.
@@ -963,9 +868,13 @@ class Module {
 
         // If this module will be outputting the Assembly, then we also want to export
         // our assembly variable.
-        if (this.assembly && this.assemblyFilename) {
+        if (this.loadAssembly) {
             exportedNames.push("__jsii_assembly__");
         }
+
+        // We also need to export all of our submodules.
+        const moduleRe = new RegExp(`^${escapeStringRegexp(this.name)}\.`);
+        exportedNames.push(...this.subModules.map(item => item.replace(moduleRe, "")));
 
         return exportedNames.sort();
 
@@ -1065,14 +974,11 @@ class PythonGenerator extends Generator {
     protected onBeginNamespace(ns: string) {
         const moduleName = toPythonModuleName(ns);
         const loadAssembly = this.assembly.name === ns ? true : false;
+        const mod = new Module(moduleName, this.assembly, this.getAssemblyFileName(), loadAssembly);
 
-        const moduleArgs: any[] = [];
-
-        if (loadAssembly) {
-            moduleArgs.push([this.assembly, this.getAssemblyFileName()]);
+        for (const parentMod of this.moduleStack) {
+            parentMod.addSubmodule(moduleName);
         }
-
-        const mod = new Module(moduleName, ...moduleArgs);
 
         this.modules.push(mod);
         this.moduleStack.push(mod);
@@ -1239,13 +1145,9 @@ class PythonGenerator extends Generator {
 
     protected onBeginEnum(enm: spec.EnumType) {
         const currentModule = this.currentModule();
+        const newMember = new Enum(currentModule.name, toPythonIdentifier(enm.name));
 
-        this.currentMember = currentModule.addMember(
-            new Enum(
-                currentModule.name,
-                toPythonIdentifier(enm.name),
-            )
-        );
+        this.currentMember = currentModule.addMember(newMember);
     }
 
     protected onEndEnum(_enm: spec.EnumType) {

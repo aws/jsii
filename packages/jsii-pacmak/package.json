@@ -20,8 +20,10 @@
     "aws"
   ],
   "dependencies": {
+    "@types/escape-string-regexp": "^1.0.0",
     "clone": "^2.1.1",
     "codemaker": "^0.7.7",
+    "escape-string-regexp": "^1.0.5",
     "fs-extra": "^4.0.3",
     "jsii-spec": "^0.7.7",
     "spdx-license-list": "^4.1.0",
