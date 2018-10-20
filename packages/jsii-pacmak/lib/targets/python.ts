@@ -253,6 +253,7 @@ class BaseMethod implements PythonNode {
 
     protected readonly decorator?: string;
     protected readonly implicitParameter: string;
+    protected readonly jsiiMethod?: string;
 
     protected readonly jsName: string;
     protected readonly parameters: spec.Parameter[];
@@ -304,8 +305,17 @@ class BaseMethod implements PythonNode {
         code.closeBlock();
     }
 
-    protected emitBody(code: CodeMaker) {
-        code.line("...");
+    private emitBody(code: CodeMaker) {
+        if (this.jsiiMethod === undefined) {
+            code.line("...");
+        } else {
+            const paramNames: string[] = [];
+            for (const param of this.parameters) {
+                paramNames.push(toPythonIdentifier(param.name));
+            }
+
+            code.line(`return jsii.${this.jsiiMethod}(${this.implicitParameter}, "${this.jsName}", [${paramNames.join(", ")}])`);
+        }
     }
 
     private getReturnType(type?: spec.TypeReference): string {
@@ -320,6 +330,8 @@ class BaseProperty implements PythonNode {
 
     protected readonly decorator: string;
     protected readonly implicitParameter: string;
+    protected readonly jsiiGetMethod?: string;
+    protected readonly jsiiSetMethod?: string;
 
     protected readonly jsName: string;
     private readonly type: spec.TypeReference;
@@ -357,12 +369,20 @@ class BaseProperty implements PythonNode {
         }
     }
 
-    protected emitGetterBody(code: CodeMaker) {
-        code.line("...");
+    private emitGetterBody(code: CodeMaker) {
+        if (this.jsiiGetMethod === undefined) {
+            code.line("...");
+        } else {
+            code.line(`return jsii.${this.jsiiGetMethod}(${this.implicitParameter}, "${this.jsName}")`);
+        }
     }
 
-    protected emitSetterBody(code: CodeMaker) {
-        code.line("...");
+    private emitSetterBody(code: CodeMaker) {
+        if (this.jsiiSetMethod === undefined) {
+            code.line("...");
+        } else {
+            code.line(`return jsii.${this.jsiiSetMethod}(${this.implicitParameter}, "${this.jsName}", value)`);
+        }
     }
 }
 
@@ -435,54 +455,26 @@ class Interface implements PythonCollectionNode {
 class StaticMethod extends BaseMethod {
     protected readonly decorator?: string = "classmethod";
     protected readonly implicitParameter: string = "cls";
-
-    protected emitBody(code: CodeMaker) {
-        const paramNames: string[] = [];
-        for (const param of this.parameters) {
-            paramNames.push(toPythonIdentifier(param.name));
-        }
-
-        code.line(`return jsii.sinvoke(${this.implicitParameter}, "${this.jsName}", [${paramNames.join(", ")}])`);
-    }
+    protected readonly jsiiMethod: string = "sinvoke";
 }
 
 class Method extends BaseMethod {
     protected readonly implicitParameter: string = "self";
-
-    protected emitBody(code: CodeMaker) {
-        const paramNames: string[] = [];
-        for (const param of this.parameters) {
-            paramNames.push(toPythonIdentifier(param.name));
-        }
-
-        code.line(`return jsii.invoke(${this.implicitParameter}, "${this.jsName}", [${paramNames.join(", ")}])`);
-    }
+    protected readonly jsiiMethod: string = "invoke";
 }
 
 class StaticProperty extends BaseProperty {
     protected readonly decorator: string = "classproperty";
     protected readonly implicitParameter: string = "cls";
-
-    protected emitGetterBody(code: CodeMaker) {
-        code.line(`return jsii.sget(${this.implicitParameter}, "${this.jsName}")`);
-    }
-
-    protected emitSetterBody(code: CodeMaker) {
-        code.line(`return jsii.sset(${this.implicitParameter}, "${this.jsName}", value)`);
-    }
+    protected readonly jsiiGetMethod: string = "sget";
+    protected readonly jsiiSetMethod: string = "sset";
 }
 
 class Property extends BaseProperty {
     protected readonly decorator: string = "property";
     protected readonly implicitParameter: string = "self";
-
-    protected emitGetterBody(code: CodeMaker) {
-        code.line(`return jsii.get(${this.implicitParameter}, "${this.jsName}")`);
-    }
-
-    protected emitSetterBody(code: CodeMaker) {
-        code.line(`return jsii.set(${this.implicitParameter}, "${this.jsName}", value)`);
-    }
+    protected readonly jsiiGetMethod: string = "get";
+    protected readonly jsiiSetMethod: string = "set";
 }
 
 class Class implements PythonCollectionNode {
