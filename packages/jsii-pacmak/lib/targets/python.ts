@@ -775,6 +775,7 @@ class PythonGenerator extends Generator {
         const packageName = toPythonPackageName(assm.name);
         const topLevelModuleName = toPythonModuleName(packageName);
         const moduleNames = this.modules.map(m => m.name);
+        const pyTypedFilename = path.join("src", toPythonModuleFilename(topLevelModuleName), "py.typed");
 
         moduleNames.push(`${topLevelModuleName}._jsii`);
         moduleNames.sort();
@@ -795,7 +796,7 @@ class PythonGenerator extends Generator {
         this.code.line(`url="${assm.homepage}",`);
         this.code.line('package_dir={"": "src"},');
         this.code.line(`packages=[${moduleNames.map(m => `"${m}"`).join(",")}],`);
-        this.code.line(`package_data={"${topLevelModuleName}._jsii": ["*.jsii.tgz"]},`);
+        this.code.line(`package_data={"${topLevelModuleName}": ["py.typed"], "${topLevelModuleName}._jsii": ["*.jsii.tgz"]},`);
         this.code.line('python_requires=">=3.6",');
         this.code.unindent(")");
         this.code.closeFile("setup.py");
@@ -813,6 +814,11 @@ class PythonGenerator extends Generator {
         this.code.openFile("MANIFEST.in");
         this.code.line("include pyproject.toml");
         this.code.closeFile("MANIFEST.in");
+
+        // We also need to write out a py.typed file, to Signal to MyPy that these files
+        // are safe to use for typechecking.
+        this.code.openFile(pyTypedFilename);
+        this.code.closeFile(pyTypedFilename);
     }
 
     protected onBeginNamespace(ns: string) {
