@@ -78,6 +78,14 @@ const toPythonIdentifier = (name: string): string => {
     return name;
 };
 
+const toPythonMethodName = (name: string): string => {
+    return toPythonIdentifier(toSnakeCase(name));
+};
+
+const toPythonPropertyName = (name: string): string => {
+    return toPythonIdentifier(toSnakeCase(name));
+};
+
 const toPythonType = (typeref: spec.TypeReference): string => {
     if (spec.isPrimitiveTypeReference(typeref)) {
         return toPythonPrimitive(typeref.primitive);
@@ -246,12 +254,14 @@ class BaseMethod implements PythonNode {
     protected readonly decorator?: string;
     protected readonly implicitParameter: string;
 
+    protected readonly jsName: string;
     protected readonly parameters: spec.Parameter[];
     protected readonly returns?: spec.TypeReference;
 
-    constructor(moduleName: string, name: string, parameters: spec.Parameter[], returns?: spec.TypeReference) {
+    constructor(moduleName: string, name: string, jsName: string, parameters: spec.Parameter[], returns?: spec.TypeReference) {
         this.moduleName = moduleName;
         this.name = name;
+        this.jsName = jsName;
         this.parameters = parameters;
         this.returns = returns;
     }
@@ -311,12 +321,14 @@ class BaseProperty implements PythonNode {
     protected readonly decorator: string;
     protected readonly implicitParameter: string;
 
+    protected readonly jsName: string;
     private readonly type: spec.TypeReference;
     private readonly immutable: boolean;
 
-    constructor(moduleName: string, name: string, type: spec.TypeReference, immutable: boolean) {
+    constructor(moduleName: string, name: string, jsName: string, type: spec.TypeReference, immutable: boolean) {
         this.moduleName = moduleName;
         this.name = name;
+        this.jsName = jsName;
         this.type = type;
         this.immutable = immutable;
     }
@@ -430,7 +442,7 @@ class StaticMethod extends BaseMethod {
             paramNames.push(toPythonIdentifier(param.name));
         }
 
-        code.line(`return jsii.sinvoke(${this.implicitParameter}, "${this.name}", [${paramNames.join(", ")}])`);
+        code.line(`return jsii.sinvoke(${this.implicitParameter}, "${this.jsName}", [${paramNames.join(", ")}])`);
     }
 }
 
@@ -443,7 +455,7 @@ class Method extends BaseMethod {
             paramNames.push(toPythonIdentifier(param.name));
         }
 
-        code.line(`return jsii.invoke(${this.implicitParameter}, "${this.name}", [${paramNames.join(", ")}])`);
+        code.line(`return jsii.invoke(${this.implicitParameter}, "${this.jsName}", [${paramNames.join(", ")}])`);
     }
 }
 
@@ -452,11 +464,11 @@ class StaticProperty extends BaseProperty {
     protected readonly implicitParameter: string = "cls";
 
     protected emitGetterBody(code: CodeMaker) {
-        code.line(`return jsii.sget(${this.implicitParameter}, "${this.name}")`);
+        code.line(`return jsii.sget(${this.implicitParameter}, "${this.jsName}")`);
     }
 
     protected emitSetterBody(code: CodeMaker) {
-        code.line(`return jsii.sset(${this.implicitParameter}, "${this.name}", value)`);
+        code.line(`return jsii.sset(${this.implicitParameter}, "${this.jsName}", value)`);
     }
 }
 
@@ -465,11 +477,11 @@ class Property extends BaseProperty {
     protected readonly implicitParameter: string = "self";
 
     protected emitGetterBody(code: CodeMaker) {
-        code.line(`return jsii.get(${this.implicitParameter}, "${this.name}")`);
+        code.line(`return jsii.get(${this.implicitParameter}, "${this.jsName}")`);
     }
 
     protected emitSetterBody(code: CodeMaker) {
-        code.line(`return jsii.set(${this.implicitParameter}, "${this.name}", value)`);
+        code.line(`return jsii.set(${this.implicitParameter}, "${this.jsName}", value)`);
     }
 }
 
@@ -868,7 +880,8 @@ class PythonGenerator extends Generator {
         this.currentMember!.addMember(
             new StaticMethod(
                 this.currentModule().name,
-                toPythonIdentifier(method.name!),
+                toPythonMethodName(method.name!),
+                method.name!,
                 method.parameters || [],
                 method.returns
             )
@@ -879,7 +892,8 @@ class PythonGenerator extends Generator {
         this.currentMember!.addMember(
             new Method(
                 this.currentModule().name,
-                toPythonIdentifier(method.name!),
+                toPythonMethodName(method.name!),
+                method.name!,
                 method.parameters || [],
                 method.returns
             )
@@ -890,7 +904,8 @@ class PythonGenerator extends Generator {
         this.currentMember!.addMember(
             new StaticProperty(
                 this.currentModule().name,
-                toPythonIdentifier(prop.name!),
+                toPythonPropertyName(prop.name!),
+                prop.name!,
                 prop.type,
                 prop.immutable || false
             )
@@ -901,7 +916,8 @@ class PythonGenerator extends Generator {
         this.currentMember!.addMember(
             new Property(
                 this.currentModule().name,
-                toPythonIdentifier(prop.name!),
+                toPythonPropertyName(prop.name!),
+                prop.name!,
                 prop.type,
                 prop.immutable || false,
             )
@@ -928,7 +944,8 @@ class PythonGenerator extends Generator {
         this.currentMember!.addMember(
             new InterfaceMethod(
                 this.currentModule().name,
-                toPythonIdentifier(method.name!),
+                toPythonMethodName(method.name!),
+                method.name!,
                 method.parameters || [],
                 method.returns
             )
@@ -939,7 +956,8 @@ class PythonGenerator extends Generator {
         this.currentMember!.addMember(
             new InterfaceProperty(
                 this.currentModule().name,
-                toPythonIdentifier(prop.name!),
+                toPythonPropertyName(prop.name!),
+                prop.name!,
                 prop.type,
                 true,
             )
