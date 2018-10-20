@@ -8,6 +8,7 @@ import attr
 from jsii import _reference_map
 from jsii._utils import Singleton
 from jsii._kernel.providers import BaseKernel, ProcessKernel
+from jsii._kernel.types import JSClass, Referenceable
 from jsii._kernel.types import (
     LoadRequest,
     CreateRequest,
@@ -66,8 +67,7 @@ class Kernel(metaclass=Singleton):
     def load(self, name: str, version: str, tarball: str) -> None:
         self.provider.load(LoadRequest(name=name, version=version, tarball=tarball))
 
-    # TODO: Can we do protocols in typing?
-    def create(self, klass: Any, args: Optional[List[Any]] = None) -> ObjRef:
+    def create(self, klass: JSClass, args: Optional[List[Any]] = None) -> ObjRef:
         if args is None:
             args = []
 
@@ -77,34 +77,42 @@ class Kernel(metaclass=Singleton):
         self.provider.delete(DeleteRequest(objref=ref))
 
     @_dereferenced
-    def get(self, ref: ObjRef, property: str) -> Any:
-        return self.provider.get(GetRequest(objref=ref, property_=property)).value
+    def get(self, obj: Referenceable, property: str) -> Any:
+        return self.provider.get(
+            GetRequest(objref=obj.__jsii_ref__, property_=property)
+        ).value
 
-    def set(self, ref: ObjRef, property: str, value: Any) -> None:
-        self.provider.set(SetRequest(objref=ref, property_=property, value=value))
+    def set(self, obj: Referenceable, property: str, value: Any) -> None:
+        self.provider.set(
+            SetRequest(objref=obj.__jsii_ref__, property_=property, value=value)
+        )
 
     @_dereferenced
-    def sget(self, klass: Any, property: str) -> Any:
+    def sget(self, klass: JSClass, property: str) -> Any:
         return self.provider.sget(
             StaticGetRequest(fqn=klass.__jsii_type__, property_=property)
         ).value
 
-    def sset(self, klass: Any, property: str, value: Any) -> None:
+    def sset(self, klass: JSClass, property: str, value: Any) -> None:
         self.provider.sset(
             StaticSetRequest(fqn=klass.__jsii_type__, property_=property, value=value)
         )
 
     @_dereferenced
-    def invoke(self, ref: ObjRef, method: str, args: Optional[List[Any]] = None) -> Any:
+    def invoke(
+        self, obj: Referenceable, method: str, args: Optional[List[Any]] = None
+    ) -> Any:
         if args is None:
             args = []
 
         return self.provider.invoke(
-            InvokeRequest(objref=ref, method=method, args=args)
+            InvokeRequest(objref=obj.__jsii_ref__, method=method, args=args)
         ).result
 
     @_dereferenced
-    def sinvoke(self, klass: Any, method: str, args: Optional[List[Any]] = None) -> Any:
+    def sinvoke(
+        self, klass: JSClass, method: str, args: Optional[List[Any]] = None
+    ) -> Any:
         if args is None:
             args = []
 

@@ -246,8 +246,8 @@ class BaseMethod implements PythonNode {
     protected readonly decorator?: string;
     protected readonly implicitParameter: string;
 
-    private readonly parameters: spec.Parameter[];
-    private readonly returns?: spec.TypeReference;
+    protected readonly parameters: spec.Parameter[];
+    protected readonly returns?: spec.TypeReference;
 
     constructor(moduleName: string, name: string, parameters: spec.Parameter[], returns?: spec.TypeReference) {
         this.moduleName = moduleName;
@@ -290,8 +290,12 @@ class BaseMethod implements PythonNode {
         }
 
         code.openBlock(`def ${this.name}(${pythonParams.join(", ")}) -> ${formatPythonType(returnType, false, this.moduleName)}`);
-        code.line("...");
+        this.emitBody(code);
         code.closeBlock();
+    }
+
+    protected emitBody(code: CodeMaker) {
+        code.line("...");
     }
 
     private getReturnType(type?: spec.TypeReference): string {
@@ -308,11 +312,13 @@ class BaseProperty implements PythonNode {
     protected readonly implicitParameter: string;
 
     private readonly type: spec.TypeReference;
+    private readonly immutable: boolean;
 
-    constructor(moduleName: string, name: string, type: spec.TypeReference) {
+    constructor(moduleName: string, name: string, type: spec.TypeReference, immutable: boolean) {
         this.moduleName = moduleName;
         this.name = name;
         this.type = type;
+        this.immutable = immutable;
     }
 
     get fqn(): string {
@@ -328,8 +334,23 @@ class BaseProperty implements PythonNode {
 
         code.line(`@${this.decorator}`);
         code.openBlock(`def ${this.name}(${this.implicitParameter}) -> ${formatPythonType(returnType, false, this.moduleName)}`);
-        code.line("...");
+        this.emitGetterBody(code);
         code.closeBlock();
+
+        if (!this.immutable) {
+            code.line(`@${this.name}.setter`);
+            code.openBlock(`def ${this.name}(${this.implicitParameter}, value: ${formatPythonType(returnType, false, this.moduleName)})`);
+            this.emitSetterBody(code);
+            code.closeBlock();
+        }
+    }
+
+    protected emitGetterBody(code: CodeMaker) {
+        code.line("...");
+    }
+
+    protected emitSetterBody(code: CodeMaker) {
+        code.line("...");
     }
 }
 
@@ -400,23 +421,56 @@ class Interface implements PythonCollectionNode {
 }
 
 class StaticMethod extends BaseMethod {
-    protected readonly decorator?: string = "_jsii_classmethod";
+    protected readonly decorator?: string = "classmethod";
     protected readonly implicitParameter: string = "cls";
+
+    protected emitBody(code: CodeMaker) {
+        const paramNames: string[] = [];
+        for (const param of this.parameters) {
+            paramNames.push(toPythonIdentifier(param.name));
+        }
+
+        code.line(`return jsii.sinvoke(${this.implicitParameter}, "${this.name}", [${paramNames.join(", ")}])`);
+    }
 }
 
 class Method extends BaseMethod {
-    protected readonly decorator?: string = "_jsii_method";
     protected readonly implicitParameter: string = "self";
+
+    protected emitBody(code: CodeMaker) {
+        const paramNames: string[] = [];
+        for (const param of this.parameters) {
+            paramNames.push(toPythonIdentifier(param.name));
+        }
+
+        code.line(`return jsii.invoke(${this.implicitParameter}, "${this.name}", [${paramNames.join(", ")}])`);
+    }
 }
 
 class StaticProperty extends BaseProperty {
-    protected readonly decorator: string = "_jsii_classproperty";
+    protected readonly decorator: string = "classproperty";
     protected readonly implicitParameter: string = "cls";
+
+    protected emitGetterBody(code: CodeMaker) {
+        code.line(`return jsii.sget(${this.implicitParameter}, "${this.name}")`);
+    }
+
+    protected emitSetterBody(code: CodeMaker) {
+        code.line(`return jsii.sset(${this.implicitParameter}, "${this.name}", value)`);
+    }
 }
 
 class Property extends BaseProperty {
-    protected readonly decorator: string = "_jsii_property";
+    protected readonly decorator: string = "property";
     protected readonly implicitParameter: string = "self";
+
+    protected emitGetterBody(code: CodeMaker) {
+        code.line(`return jsii.get(${this.implicitParameter}, "${this.name}")`);
+    }
+
+    protected emitSetterBody(code: CodeMaker) {
+        code.line(`return jsii.set(${this.implicitParameter}, "${this.name}", value)`);
+    }
 }
 
 class Class implements PythonCollectionNode {
@@ -461,7 +515,7 @@ class Class implements PythonCollectionNode {
         // TODO: Data Types?
         // TODO: Bases
 
-        code.openBlock(`class ${this.name}(metaclass=_JSIIMeta, jsii_type="${this.jsiiFQN}")`);
+        code.openBlock(`class ${this.name}(metaclass=jsii.JSIIMeta, jsii_type="${this.jsiiFQN}")`);
         if (this.members.length > 0) {
             for (const member of this.members) {
                 member.emit(code);
@@ -567,20 +621,9 @@ class Module {
     public emit(code: CodeMaker) {
         // Before we write anything else, we need to write out our module headers, this
         // is where we handle stuff like imports, any required initialization, etc.
+        code.line("import jsii");
         code.line(this.generateImportFrom("jsii.compat", ["Protocol"]));
-        code.line(
-            this.generateImportFrom(
-                "jsii.runtime",
-                [
-                    "JSIIAssembly",
-                    "JSIIMeta",
-                    "jsii_method",
-                    "jsii_property",
-                    "jsii_classmethod",
-                    "jsii_classproperty",
-                ]
-            )
-        );
+        code.line("from jsii.python import classproperty");
 
         // Go over all of the modules that we need to import, and import them.
         // for (let [idx, modName] of this.importedModules.sort().entries()) {
@@ -595,7 +638,7 @@ class Module {
         // Determine if we need to write out the kernel load line.
         if (this.assembly && this.assemblyFilename) {
             code.line(
-                `__jsii_assembly__ = _JSIIAssembly.load(` +
+                `__jsii_assembly__ = jsii.JSIIAssembly.load(` +
                 `"${this.assembly.name}", ` +
                 `"${this.assembly.version}", ` +
                 `__name__, ` +
@@ -843,6 +886,7 @@ class PythonGenerator extends Generator {
                 this.currentModule().name,
                 toPythonIdentifier(prop.name!),
                 prop.type,
+                prop.immutable || false
             )
         );
     }
@@ -853,6 +897,7 @@ class PythonGenerator extends Generator {
                 this.currentModule().name,
                 toPythonIdentifier(prop.name!),
                 prop.type,
+                prop.immutable || false,
             )
         );
     }
@@ -890,6 +935,7 @@ class PythonGenerator extends Generator {
                 this.currentModule().name,
                 toPythonIdentifier(prop.name!),
                 prop.type,
+                true,
             )
         );
     }
