@@ -87,7 +87,7 @@ const toPythonPropertyName = (name: string): string => {
     return toPythonIdentifier(toSnakeCase(name));
 };
 
-const toPythonType = (typeref: spec.TypeReference): string => {
+const toPythonType = (typeref: spec.TypeReference, respectOptional: boolean = true): string => {
     let pythonType: string;
 
     // Get the underlying python type.
@@ -108,7 +108,8 @@ const toPythonType = (typeref: spec.TypeReference): string => {
     }
 
     // If our type is Optional, then we'll wrap our underlying type with typing.Optional
-    if (typeref.optional) {
+    // However, if we're not respecting optionals, then we'll just skip over this.
+    if (respectOptional && typeref.optional) {
         pythonType = `typing.Optional[${pythonType}]`;
     }
 
@@ -372,12 +373,30 @@ class BaseMethod implements PythonNode {
         const argName: string = toPythonIdentifier(lastParameter.name);
         const typeName: string = formatPythonType(toPythonType(lastParameter.type), true, this.moduleName);
 
-        const propMembers: string[] = [];
+        // We need to build up a list of properties, which are mandatory, these are the
+        // ones we will specifiy to start with in our dictionary literal.
+        const mandatoryPropMembers: string[] = [];
         for (const prop of this.liftedProp!.properties || []) {
-            propMembers.push(`"${toPythonIdentifier(prop.name)}": ${toPythonIdentifier(prop.name)}`);
-        }
+            if (prop.type.optional) {
+                continue;
+            }
 
-        code.line(`${argName}: ${typeName} = {${propMembers.join(", ")}}`);
+            mandatoryPropMembers.push(`"${toPythonIdentifier(prop.name)}": ${toPythonIdentifier(prop.name)}`);
+        }
+        code.line(`${argName}: ${typeName} = {${mandatoryPropMembers.join(", ")}}`);
+        code.line();
+
+        // Now we'll go through our optional properties, and if they haven't been set
+        // we'll add them to our dictionary.
+        for (const prop of this.liftedProp!.properties || []) {
+            if (!prop.type.optional) {
+                continue;
+            }
+
+            code.openBlock(`if ${toPythonIdentifier(prop.name)} is not None`);
+            code.line(`${argName}["${toPythonIdentifier(prop.name)}"] = ${toPythonIdentifier(prop.name)}`);
+            code.closeBlock();
+        }
     }
 
     private emitJsiiMethodCall(code: CodeMaker) {
@@ -549,12 +568,16 @@ class TypedDictProperty implements PythonNode {
         return `${this.moduleName}.${this.name}`;
     }
 
+    get optional(): boolean {
+        return this.type.optional || false;
+    }
+
     public requiredTypes(): string[] {
         return [toPythonType(this.type)];
     }
 
     public emit(code: CodeMaker) {
-        const propType: string = formatPythonType(toPythonType(this.type), undefined, this.moduleName);
+        const propType: string = formatPythonType(toPythonType(this.type, false), undefined, this.moduleName);
         code.line(`${this.name}: ${propType}`);
     }
 }
@@ -563,7 +586,7 @@ class TypedDict implements PythonCollectionNode {
     public readonly moduleName: string;
     public readonly name: string;
 
-    private members: PythonNode[];
+    private members: TypedDictProperty[];
 
     constructor(moduleName: string, name: string) {
         this.moduleName = moduleName;
@@ -596,15 +619,54 @@ class TypedDict implements PythonCollectionNode {
     }
 
     public emit(code: CodeMaker) {
-        code.openBlock(`class ${this.name}(_TypedDict, total=False)`);
-        if (this.members.length > 0) {
-            for (const member of this.members) {
+        // MyPy doesn't let us mark some keys as optional, and some keys as mandatory,
+        // we can either mark either the entire class as mandatory or the entire class
+        // as optional. However, we can make two classes, one with all mandatory keys
+        // and one with all optional keys in order to emulate this. So we'll go ahead
+        // and implement this "split" class logic.
+
+        const mandatoryMembers = this.members.filter(item => !item.optional);
+        const optionalMembers = this.members.filter(item => item.optional);
+
+        if (mandatoryMembers.length >= 1 && optionalMembers.length >= 1) {
+            // In this case, we have both mandatory *and* optional members, so we'll
+            // do our split class logic.
+
+            // We'll emit the optional members first, just because it's a little nicer
+            // for the final class in the chain to have the mandatory members.
+            code.openBlock(`class _${this.name}(_TypedDict, total=False)`);
+            for (const member of optionalMembers) {
                 member.emit(code);
             }
+            code.closeBlock();
+
+            // Now we'll emit the mandatory members.
+            code.openBlock(`class ${this.name}(_${this.name})`);
+            for (const member of mandatoryMembers) {
+                member.emit(code);
+            }
+            code.closeBlock();
         } else {
-            code.line("pass");
+            // In this case we either have no members, or we have all of one type, so
+            // we'll see if we have any optional members, if we don't then we'll use
+            // total=True instead of total=False for the class.
+            if (optionalMembers.length >= 1) {
+                code.openBlock(`class ${this.name}(_TypedDict, total=False)`);
+            } else {
+                code.openBlock(`class ${this.name}(_TypedDict)`);
+            }
+
+            // Finally we'll just iterate over and emit all of our members.
+            if (this.members.length > 0) {
+                for (const member of this.members) {
+                    member.emit(code);
+                }
+            } else {
+                code.line("pass");
+            }
+
+            code.closeBlock();
         }
-        code.closeBlock();
     }
 }
 
