@@ -88,21 +88,31 @@ const toPythonPropertyName = (name: string): string => {
 };
 
 const toPythonType = (typeref: spec.TypeReference): string => {
+    let pythonType: string;
+
+    // Get the underlying python type.
     if (spec.isPrimitiveTypeReference(typeref)) {
-        return toPythonPrimitive(typeref.primitive);
+        pythonType = toPythonPrimitive(typeref.primitive);
     } else if (spec.isCollectionTypeReference(typeref)) {
-        return toPythonCollection(typeref);
+        pythonType = toPythonCollection(typeref);
     } else if (spec.isNamedTypeReference(typeref)) {
-        return toPythonFQN(typeref.fqn);
+        pythonType = toPythonFQN(typeref.fqn);
     } else if (typeref.union) {
         const types = new Array<string>();
         for (const subtype of typeref.union.types) {
             types.push(toPythonType(subtype));
         }
-        return `typing.Union[${types.join(", ")}]`;
+        pythonType = `typing.Union[${types.join(", ")}]`;
     } else {
         throw new Error("Invalid type reference: " + JSON.stringify(typeref));
     }
+
+    // If our type is Optional, then we'll wrap our underlying type with typing.Optional
+    if (typeref.optional) {
+        pythonType = `typing.Optional[${pythonType}]`;
+    }
+
+    return pythonType;
 };
 
 const toPythonCollection = (ref: spec.CollectionTypeReference) => {
@@ -266,19 +276,22 @@ class BaseMethod implements PythonNode {
     private readonly jsName?: string;
     private readonly parameters: spec.Parameter[];
     private readonly returns?: spec.TypeReference;
+    private readonly liftedProp?: spec.InterfaceType;
 
     constructor(moduleName: string,
                 parent: PythonCollectionNode,
                 name: string,
                 jsName: string | undefined,
                 parameters: spec.Parameter[],
-                returns?: spec.TypeReference) {
+                returns?: spec.TypeReference,
+                liftedProp?: spec.InterfaceType) {
         this.moduleName = moduleName;
         this.parent = parent;
         this.name = name;
         this.jsName = jsName;
         this.parameters = parameters;
         this.returns = returns;
+        this.liftedProp = liftedProp;
     }
 
     get fqn(): string {
@@ -310,6 +323,29 @@ class BaseMethod implements PythonNode {
             pythonParams.push(`${paramName}: ${formatPythonType(paramType, false, this.moduleName)}`);
         }
 
+        // If we have a lifted parameter, then we'll drop the last argument to our params
+        // and then we'll lift all of the params of the lifted type as keyword arguments
+        // to the function.
+        if (this.liftedProp !== undefined) {
+            // Remove our last item.
+            pythonParams.pop();
+
+            if (this.liftedProp.properties !== undefined && this.liftedProp.properties.length >= 1) {
+                // All of these parameters are keyword only arguments, so we'll mark them
+                // as such.
+                pythonParams.push("*");
+
+                // Iterate over all of our props, and reflect them into our params.
+                for (const prop of this.liftedProp.properties) {
+                    const paramName = toPythonIdentifier(prop.name);
+                    const paramType = toPythonType(prop.type);
+                    const paramDefault = prop.type.optional ? "=None" : "";
+
+                    pythonParams.push(`${paramName}: ${formatPythonType(paramType, false, this.moduleName)}${paramDefault}`);
+                }
+            }
+        }
+
         if (this.decorator !== undefined) {
             code.line(`@${this.decorator}`);
         }
@@ -323,24 +359,45 @@ class BaseMethod implements PythonNode {
         if (this.jsiiMethod === undefined) {
             code.line("...");
         } else {
-            const methodPrefix: string = this.returnFromJSIIMethod ? "return " : "";
-
-            const jsiiMethodParams: string[] = [];
-            if (this.classAsFirstParameter) {
-                jsiiMethodParams.push(this.parent.name);
-            }
-            jsiiMethodParams.push(this.implicitParameter);
-            if (this.jsName !== undefined) {
-                jsiiMethodParams.push(`"${this.jsName}"`);
+            if (this.liftedProp !== undefined) {
+                this.emitAutoProps(code);
             }
 
-            const paramNames: string[] = [];
-            for (const param of this.parameters) {
-                paramNames.push(toPythonIdentifier(param.name));
-            }
-
-            code.line(`${methodPrefix}jsii.${this.jsiiMethod}(${jsiiMethodParams.join(", ")}, [${paramNames.join(", ")}])`);
+            this.emitJsiiMethodCall(code);
         }
+    }
+
+    private emitAutoProps(code: CodeMaker) {
+        const lastParameter = this.parameters.slice(-1)[0];
+        const argName: string = toPythonIdentifier(lastParameter.name);
+        const typeName: string = formatPythonType(toPythonType(lastParameter.type), true, this.moduleName);
+
+        const propMembers: string[] = [];
+        for (const prop of this.liftedProp!.properties || []) {
+            propMembers.push(`"${toPythonIdentifier(prop.name)}": ${toPythonIdentifier(prop.name)}`);
+        }
+
+        code.line(`${argName}: ${typeName} = {${propMembers.join(", ")}}`);
+    }
+
+    private emitJsiiMethodCall(code: CodeMaker) {
+        const methodPrefix: string = this.returnFromJSIIMethod ? "return " : "";
+
+        const jsiiMethodParams: string[] = [];
+        if (this.classAsFirstParameter) {
+            jsiiMethodParams.push(this.parent.name);
+        }
+        jsiiMethodParams.push(this.implicitParameter);
+        if (this.jsName !== undefined) {
+            jsiiMethodParams.push(`"${this.jsName}"`);
+        }
+
+        const paramNames: string[] = [];
+        for (const param of this.parameters) {
+            paramNames.push(toPythonIdentifier(param.name));
+        }
+
+        code.line(`${methodPrefix}jsii.${this.jsiiMethod}(${jsiiMethodParams.join(", ")}, [${paramNames.join(", ")}])`);
     }
 
     private getReturnType(type?: spec.TypeReference): string {
@@ -982,7 +1039,8 @@ class PythonGenerator extends Generator {
                     "__init__",
                     undefined,
                     cls.initializer.parameters || [],
-                    cls.initializer.returns
+                    cls.initializer.returns,
+                    this.getliftedProp(cls.initializer),
                 )
             );
         }
@@ -1000,7 +1058,8 @@ class PythonGenerator extends Generator {
                 toPythonMethodName(method.name!),
                 method.name!,
                 method.parameters || [],
-                method.returns
+                method.returns,
+                this.getliftedProp(method),
             )
         );
     }
@@ -1013,7 +1072,8 @@ class PythonGenerator extends Generator {
                 toPythonMethodName(method.name!),
                 method.name!,
                 method.parameters || [],
-                method.returns
+                method.returns,
+                this.getliftedProp(method),
             )
         );
     }
@@ -1079,7 +1139,8 @@ class PythonGenerator extends Generator {
                 toPythonMethodName(method.name!),
                 method.name!,
                 method.parameters || [],
-                method.returns
+                method.returns,
+                this.getliftedProp(method),
             )
         );
     }
@@ -1154,6 +1215,23 @@ class PythonGenerator extends Generator {
     }
 
     // End Not Currently Used
+
+    private getliftedProp(method: spec.Method): spec.InterfaceType | undefined {
+        // If there are parameters to this method, and if the last parameter's type is
+        // a datatype interface, then we want to lift the members of that last paramter
+        // as keyword arguments to this function.
+        if (method.parameters !== undefined && method.parameters.length >= 1) {
+            const lastParameter = method.parameters.slice(-1)[0];
+            if (spec.isNamedTypeReference(lastParameter.type)) {
+                const lastParameterType = this.findType(lastParameter.type.fqn);
+                if (spec.isInterfaceType(lastParameterType) && lastParameterType.datatype) {
+                    return lastParameterType;
+                }
+            }
+        }
+
+        return undefined;
+    }
 
     private currentModule(): Module {
         return this.moduleStack.slice(-1)[0];
