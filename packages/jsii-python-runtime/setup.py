@@ -12,7 +12,7 @@ setuptools.setup(
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src"),
     package_data={
-        "jsii": ["_metadata.json"],
+        "jsii": ["_metadata.json", "py.typed"],
         "jsii._embedded.jsii": ["*.js", "*.js.map", "*.wasm"],
     },
     install_requires=[
