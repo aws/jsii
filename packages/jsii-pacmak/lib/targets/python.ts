@@ -509,13 +509,15 @@ class Class implements PythonCollectionNode {
     public readonly name: string;
 
     private jsiiFQN: string;
+    private bases: string[];
     private members: PythonNode[];
 
-    constructor(moduleName: string, name: string, jsiiFQN: string) {
+    constructor(moduleName: string, name: string, jsiiFQN: string, bases: string[]) {
         this.moduleName = moduleName;
         this.name = name;
 
         this.jsiiFQN = jsiiFQN;
+        this.bases = bases;
         this.members = [];
     }
 
@@ -524,7 +526,7 @@ class Class implements PythonCollectionNode {
     }
 
     get depends_on(): string[] {
-        return [];
+        return this.bases.filter(base => base.startsWith(this.moduleName + "."));
     }
 
     public addMember(member: PythonNode): PythonNode {
@@ -544,9 +546,13 @@ class Class implements PythonCollectionNode {
 
     public emit(code: CodeMaker) {
         // TODO: Data Types?
-        // TODO: Bases
 
-        code.openBlock(`class ${this.name}(metaclass=jsii.JSIIMeta, jsii_type="${this.jsiiFQN}")`);
+        let basesString: string = "";
+        if (this.bases.length >= 1) {
+            basesString = this.bases.join(", ") + ", ";
+        }
+
+        code.openBlock(`class ${this.name}(${basesString}metaclass=jsii.JSIIMeta, jsii_type="${this.jsiiFQN}")`);
         if (this.members.length > 0) {
             for (const member of this.members) {
                 member.emit(code);
@@ -886,7 +892,8 @@ class PythonGenerator extends Generator {
             new Class(
                 currentModule.name,
                 toPythonIdentifier(cls.name),
-                cls.fqn
+                cls.fqn,
+                ((cls.base !== undefined ? [cls.base] : []).concat(cls.interfaces || [])).map(b => toPythonType(b)),
             )
         );
 
