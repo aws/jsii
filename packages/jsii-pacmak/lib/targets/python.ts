@@ -120,7 +120,7 @@ const toPythonPrimitive = (primitive: spec.PrimitiveType): string => {
         case spec.PrimitiveType.Boolean: return "bool";
         case spec.PrimitiveType.Date: return "datetime.datetime";
         case spec.PrimitiveType.Json: return "typing.Mapping[typing.Any, typing.Any]";
-        case spec.PrimitiveType.Number: return "numbers.Number";
+        case spec.PrimitiveType.Number: return "jsii.Number";
         case spec.PrimitiveType.String: return "str";
         case spec.PrimitiveType.Any: return "typing.Any";
         default:

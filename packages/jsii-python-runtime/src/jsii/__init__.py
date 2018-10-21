@@ -1,4 +1,11 @@
+from typing import Union
+
 from ._runtime import JSIIAssembly, JSIIMeta, kernel
+
+
+# JS doesn't have distinct float or integer types, but we do. So we'll define our own
+# type alias that will allow either.
+Number = Union[int, float]
 
 
 # Alias our Kernel methods here, so that jsii.<method> works. This will hide the fact
@@ -18,6 +25,7 @@ stats = kernel.stats
 __all__ = [
     "JSIIAssembly",
     "JSIIMeta",
+    "Number",
     "load",
     "create",
     "delete",
