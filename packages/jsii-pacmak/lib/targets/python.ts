@@ -624,14 +624,12 @@ class Class implements PythonCollectionNode {
     }
 
     public emit(code: CodeMaker) {
-        // TODO: Data Types?
+        const classParams: string[] = this.bases.map(baseType => formatPythonType(baseType, true, this.moduleName));
 
-        let basesString: string = "";
-        if (this.bases.length >= 1) {
-            basesString = this.bases.join(", ") + ", ";
-        }
+        classParams.push("metaclass=jsii.JSIIMeta");
+        classParams.push(`jsii_type="${this.jsiiFQN}"`);
 
-        code.openBlock(`class ${this.name}(${basesString}metaclass=jsii.JSIIMeta, jsii_type="${this.jsiiFQN}")`);
+        code.openBlock(`class ${this.name}(${classParams.join(", ")})`);
         if (this.members.length > 0) {
             for (const member of this.members) {
                 member.emit(code);
