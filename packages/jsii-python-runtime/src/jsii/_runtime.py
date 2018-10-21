@@ -44,8 +44,13 @@ class JSIIAssembly:
 
 
 class JSIIMeta(_ClassPropertyMeta, type):
-    def __new__(cls, name, bases, attrs, *, jsii_type):
-        attrs["__jsii_type__"] = jsii_type
+    def __new__(cls, name, bases, attrs, *, jsii_type=None):
+        # We want to ensure that subclasses of a JSII class do not require setting the
+        # jsii_type keyword argument. They should be able to subclass it as normal.
+        # Since their parent class will have the __jsii_type__ variable defined, they
+        # will as well anyways.
+        if jsii_type is not None:
+            attrs["__jsii_type__"] = jsii_type
 
         obj = super().__new__(name, bases, attrs)
 
