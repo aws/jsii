@@ -263,9 +263,9 @@ class BaseMethod implements PythonNode {
     protected readonly classAsFirstParameter: boolean = false;
     protected readonly returnFromJSIIMethod: boolean = true;
 
-    protected readonly jsName?: string;
-    protected readonly parameters: spec.Parameter[];
-    protected readonly returns?: spec.TypeReference;
+    private readonly jsName?: string;
+    private readonly parameters: spec.Parameter[];
+    private readonly returns?: spec.TypeReference;
 
     constructor(moduleName: string,
                 parent: PythonCollectionNode,
