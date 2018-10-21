@@ -970,7 +970,7 @@ class PythonGenerator extends Generator {
                 currentModule.name,
                 toPythonIdentifier(cls.name),
                 cls.fqn,
-                ((cls.base !== undefined ? [cls.base] : []).concat(cls.interfaces || [])).map(b => toPythonType(b)),
+                (cls.base !== undefined ? [cls.base] : []).map(b => toPythonType(b)),
             )
         );
 
