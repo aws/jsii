@@ -52,7 +52,7 @@ class JSIIMeta(_ClassPropertyMeta, type):
         if jsii_type is not None:
             attrs["__jsii_type__"] = jsii_type
 
-        obj = super().__new__(name, bases, attrs)
+        obj = super().__new__(cls, name, bases, attrs)
 
         _reference_map.register_type(obj.__jsii_type__, obj)
 
