@@ -460,12 +460,86 @@ class Interface implements PythonCollectionNode {
     }
 
     public emit(code: CodeMaker) {
-        // TODO: Data Types?
-
         const interfaceBases = this.bases.map(baseType => formatPythonType(baseType, true, this.moduleName));
         interfaceBases.push("_Protocol");
 
         code.openBlock(`class ${this.name}(${interfaceBases.join(",")})`);
+        if (this.members.length > 0) {
+            for (const member of this.members) {
+                member.emit(code);
+            }
+        } else {
+            code.line("pass");
+        }
+        code.closeBlock();
+    }
+}
+
+class TypedDictProperty implements PythonNode {
+
+    public readonly moduleName: string;
+    public readonly name: string;
+
+    private readonly type: spec.TypeReference;
+
+    constructor(moduleName: string, name: string, type: spec.TypeReference) {
+        this.moduleName = moduleName;
+        this.name = name;
+        this.type = type;
+    }
+
+    get fqn(): string {
+        return `${this.moduleName}.${this.name}`;
+    }
+
+    public requiredTypes(): string[] {
+        return [toPythonType(this.type)];
+    }
+
+    public emit(code: CodeMaker) {
+        const propType: string = formatPythonType(toPythonType(this.type), undefined, this.moduleName);
+        code.line(`${this.name}: ${propType}`);
+    }
+}
+
+class TypedDict implements PythonCollectionNode {
+    public readonly moduleName: string;
+    public readonly name: string;
+
+    private members: PythonNode[];
+
+    constructor(moduleName: string, name: string) {
+        this.moduleName = moduleName;
+        this.name = name;
+
+        this.members = [];
+    }
+
+    get fqn(): string {
+        return `${this.moduleName}.${this.name}`;
+    }
+
+    get depends_on(): string[] {
+        return [];
+    }
+
+    public addMember(member: TypedDictProperty): TypedDictProperty {
+        this.members.push(member);
+        return member;
+    }
+
+    public requiredTypes(): string[] {
+        const types: string[] = [];
+
+        for (const member of this.members) {
+            types.push(...member.requiredTypes());
+        }
+
+        return types;
+    }
+
+    public emit(code: CodeMaker) {
+        code.openBlock(`class ${this.name}(_TypedDict, total=False)`);
         if (this.members.length > 0) {
             for (const member of this.members) {
                 member.emit(code);
@@ -664,7 +738,7 @@ class Module {
         // Before we write anything else, we need to write out our module headers, this
         // is where we handle stuff like imports, any required initialization, etc.
         code.line("import jsii");
-        code.line(this.generateImportFrom("jsii.compat", ["Protocol"]));
+        code.line(this.generateImportFrom("jsii.compat", ["Protocol", "TypedDict"]));
         code.line("from jsii.python import classproperty");
 
         // Go over all of the modules that we need to import, and import them.
@@ -973,20 +1047,33 @@ class PythonGenerator extends Generator {
     protected onBeginInterface(ifc: spec.InterfaceType) {
         const currentModule = this.currentModule();
 
-        this.currentMember = currentModule.addMember(
-            new Interface(
-                currentModule.name,
-                toPythonIdentifier(ifc.name),
-                (ifc.interfaces || []).map(i => toPythonType(i))
-            )
-        );
+        if (ifc.datatype) {
+            this.currentMember = currentModule.addMember(
+                new TypedDict(
+                    currentModule.name,
+                    toPythonIdentifier(ifc.name)
+                )
+            );
+        } else {
+            this.currentMember = currentModule.addMember(
+                new Interface(
+                    currentModule.name,
+                    toPythonIdentifier(ifc.name),
+                    (ifc.interfaces || []).map(i => toPythonType(i))
+                )
+            );
+        }
     }
 
     protected onEndInterface(_ifc: spec.InterfaceType) {
         this.currentMember = undefined;
     }
 
-    protected onInterfaceMethod(_ifc: spec.InterfaceType, method: spec.Method) {
+    protected onInterfaceMethod(ifc: spec.InterfaceType, method: spec.Method) {
+        if (ifc.datatype) {
+            throw new Error("Cannot have a method on a data type.");
+        }
+
         this.currentMember!.addMember(
             new InterfaceMethod(
                 this.currentModule().name,
@@ -999,16 +1086,26 @@ class PythonGenerator extends Generator {
         );
     }
 
-    protected onInterfaceProperty(_ifc: spec.InterfaceType, prop: spec.Property) {
-        this.currentMember!.addMember(
-            new InterfaceProperty(
-                this.currentModule().name,
-                toPythonPropertyName(prop.name!),
-                prop.name!,
-                prop.type,
-                true,
-            )
-        );
+    protected onInterfaceProperty(ifc: spec.InterfaceType, prop: spec.Property) {
+        if (ifc.datatype) {
+            this.currentMember!.addMember(
+                new TypedDictProperty(
+                    this.currentModule().name,
+                    toPythonIdentifier(prop.name!),
+                    prop.type,
+                )
+            );
+        } else {
+            this.currentMember!.addMember(
+                new InterfaceProperty(
+                    this.currentModule().name,
+                    toPythonPropertyName(prop.name!),
+                    prop.name!,
+                    prop.type,
+                    true,
+                )
+            );
+        }
     }
 
     protected onBeginEnum(enm: spec.EnumType) {
