@@ -2,6 +2,7 @@ import path = require('path');
 import util = require('util');
 
 import { CodeMaker, toSnakeCase } from 'codemaker';
+import * as escapeStringRegexp from 'escape-string-regexp';
 import * as spec from 'jsii-spec';
 import { Generator, GeneratorOptions } from '../generator';
 import { Target, TargetOptions } from '../target';
@@ -213,6 +214,10 @@ const sortMembers = (sortable: PythonCollectionNode[]): PythonCollectionNode[] =
     }
 
     return sorted;
+};
+
+const isInModule = (modName: string, fqn: string): boolean => {
+    return new RegExp(`^${escapeStringRegexp(modName)}\.[^\.]+$`).test(fqn);
 };
 
 interface PythonNode {
@@ -436,7 +441,7 @@ class Interface implements PythonCollectionNode {
     }
 
     get depends_on(): string[] {
-        return this.bases.filter(base => base.startsWith(this.moduleName + "."));
+        return this.bases.filter(base => isInModule(this.moduleName, base));
     }
 
     public addMember(member: PythonNode): PythonNode {
@@ -526,7 +531,7 @@ class Class implements PythonCollectionNode {
     }
 
     get depends_on(): string[] {
-        return this.bases.filter(base => base.startsWith(this.moduleName + "."));
+        return this.bases.filter(base => isInModule(this.moduleName, base));
     }
 
     public addMember(member: PythonNode): PythonNode {
