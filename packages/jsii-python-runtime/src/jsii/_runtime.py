@@ -54,36 +54,25 @@ class JSIIMeta(_ClassPropertyMeta, type):
 
         obj = super().__new__(cls, name, bases, attrs)
 
-        _reference_map.register_type(obj.__jsii_type__, obj)
+        # Now that we've created the class, we'll need to register it with our reference
+        # mapper. We only do this for types that are actually jsii types, and not any
+        # subclasses of them.
+        if jsii_type is not None:
+            _reference_map.register_type(obj)
 
         return obj
 
     def __call__(cls, *args, **kwargs):
-        # Create our object at the JS level.
-        # TODO: Handle args/kwargs
-        # TODO: Handle Overrides
-        ref = kernel.create(cls, args=args)
+        inst = super().__call__(*args, **kwargs)
 
-        # Create our object at the Python level.
-        obj = cls.__class__.from_reference(cls, ref, **kwargs)
+        # Register this instance with our reference map.
+        _reference_map.register_reference(inst)
 
         # Whenever the object we're creating gets garbage collected, then we want to
         # delete it from the JS runtime as well.
         # TODO: Figure out if this is *really* true, what happens if something goes
         #       out of scope at the Python level, but something is holding onto it
         #       at the JS level? What mechanics are in place for this if any?
-        weakref.finalize(obj, kernel.delete, obj.__jsii_ref__)
+        weakref.finalize(inst, kernel.delete, inst.__jsii_ref__)
 
-        # Instatiate our object at the Python level.
-        if isinstance(obj, cls):
-            obj.__init__(**kwargs)
-
-        return obj
-
-    def from_reference(cls, ref, *args, **kwargs):
-        obj = cls.__new__(cls, *args, **kwargs)
-        obj.__jsii_ref__ = ref
-
-        _reference_map.register_reference(obj.__jsii_ref__.ref, obj)
-
-        return obj
+        return inst

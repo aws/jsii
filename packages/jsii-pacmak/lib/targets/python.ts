@@ -213,7 +213,7 @@ const sortMembers = (sortable: PythonCollectionNode[]): PythonCollectionNode[] =
     }
 
     return sorted;
-    };
+};
 
 interface PythonNode {
 
@@ -249,18 +249,27 @@ interface PythonCollectionNode extends PythonNode {
 class BaseMethod implements PythonNode {
 
     public readonly moduleName: string;
+    public readonly parent: PythonCollectionNode;
     public readonly name: string;
 
     protected readonly decorator?: string;
     protected readonly implicitParameter: string;
     protected readonly jsiiMethod?: string;
+    protected readonly classAsFirstParameter: boolean = false;
+    protected readonly returnFromJSIIMethod: boolean = true;
 
-    protected readonly jsName: string;
+    protected readonly jsName?: string;
     protected readonly parameters: spec.Parameter[];
     protected readonly returns?: spec.TypeReference;
 
-    constructor(moduleName: string, name: string, jsName: string, parameters: spec.Parameter[], returns?: spec.TypeReference) {
+    constructor(moduleName: string,
+                parent: PythonCollectionNode,
+                name: string,
+                jsName: string | undefined,
+                parameters: spec.Parameter[],
+                returns?: spec.TypeReference) {
         this.moduleName = moduleName;
+        this.parent = parent;
         this.name = name;
         this.jsName = jsName;
         this.parameters = parameters;
@@ -309,12 +318,23 @@ class BaseMethod implements PythonNode {
         if (this.jsiiMethod === undefined) {
             code.line("...");
         } else {
+            const methodPrefix: string = this.returnFromJSIIMethod ? "return " : "";
+
+            const jsiiMethodParams: string[] = [];
+            if (this.classAsFirstParameter) {
+                jsiiMethodParams.push(this.parent.name);
+            }
+            jsiiMethodParams.push(this.implicitParameter);
+            if (this.jsName !== undefined) {
+                jsiiMethodParams.push(`"${this.jsName}"`);
+            }
+
             const paramNames: string[] = [];
             for (const param of this.parameters) {
                 paramNames.push(toPythonIdentifier(param.name));
             }
 
-            code.line(`return jsii.${this.jsiiMethod}(${this.implicitParameter}, "${this.jsName}", [${paramNames.join(", ")}])`);
+            code.line(`${methodPrefix}jsii.${this.jsiiMethod}(${jsiiMethodParams.join(", ")}, [${paramNames.join(", ")}])`);
         }
     }
 
@@ -456,6 +476,13 @@ class StaticMethod extends BaseMethod {
     protected readonly decorator?: string = "classmethod";
     protected readonly implicitParameter: string = "cls";
     protected readonly jsiiMethod: string = "sinvoke";
+}
+
+class Initializer extends BaseMethod {
+    protected readonly implicitParameter: string = "self";
+    protected readonly jsiiMethod: string = "create";
+    protected readonly classAsFirstParameter: boolean = true;
+    protected readonly returnFromJSIIMethod: boolean = false;
 }
 
 class Method extends BaseMethod {
@@ -862,6 +889,19 @@ class PythonGenerator extends Generator {
                 cls.fqn
             )
         );
+
+        if (cls.initializer !== undefined) {
+            this.currentMember.addMember(
+                new Initializer(
+                    currentModule.name,
+                    this.currentMember,
+                    "__init__",
+                    undefined,
+                    cls.initializer.parameters || [],
+                    cls.initializer.returns
+                )
+            );
+        }
     }
 
     protected onEndClass(_cls: spec.ClassType) {
@@ -872,6 +912,7 @@ class PythonGenerator extends Generator {
         this.currentMember!.addMember(
             new StaticMethod(
                 this.currentModule().name,
+                this.currentMember!,
                 toPythonMethodName(method.name!),
                 method.name!,
                 method.parameters || [],
@@ -884,6 +925,7 @@ class PythonGenerator extends Generator {
         this.currentMember!.addMember(
             new Method(
                 this.currentModule().name,
+                this.currentMember!,
                 toPythonMethodName(method.name!),
                 method.name!,
                 method.parameters || [],
@@ -936,6 +978,7 @@ class PythonGenerator extends Generator {
         this.currentMember!.addMember(
             new InterfaceMethod(
                 this.currentModule().name,
+                this.currentMember!,
                 toPythonMethodName(method.name!),
                 method.name!,
                 method.parameters || [],

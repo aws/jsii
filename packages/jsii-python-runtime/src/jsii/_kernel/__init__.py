@@ -67,11 +67,17 @@ class Kernel(metaclass=Singleton):
     def load(self, name: str, version: str, tarball: str) -> None:
         self.provider.load(LoadRequest(name=name, version=version, tarball=tarball))
 
-    def create(self, klass: JSClass, args: Optional[List[Any]] = None) -> ObjRef:
+    # TODO: Is there a way to say that obj has to be an instance of klass?
+    def create(
+        self, klass: JSClass, obj: Any, args: Optional[List[Any]] = None
+    ) -> ObjRef:
         if args is None:
             args = []
 
-        return self.provider.create(CreateRequest(fqn=klass.__jsii_type__, args=args))
+        # TODO: Handle Overrides
+        obj.__jsii_ref__ = self.provider.create(
+            CreateRequest(fqn=klass.__jsii_type__, args=args)
+        )
 
     def delete(self, ref: ObjRef) -> None:
         self.provider.delete(DeleteRequest(objref=ref))
