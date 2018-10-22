@@ -855,6 +855,8 @@ class Module {
         // Before we write anything else, we need to write out our module headers, this
         // is where we handle stuff like imports, any required initialization, etc.
         code.line("import jsii");
+        code.line("import publication");
+        code.line();
         code.line(this.generateImportFrom("jsii.compat", ["Protocol", "TypedDict"]));
         code.line("from jsii.python import classproperty");
 
@@ -885,8 +887,13 @@ class Module {
             member.emit(code);
         }
 
-        // // Whatever names we've exported, we'll write out our __all__ that lists them.
+        // Whatever names we've exported, we'll write out our __all__ that lists them.
         code.line(`__all__ = [${this.getExportedNames().map(s => `"${s}"`).join(", ")}]`);
+
+        // Finally, we'll use publication to ensure that all of the non-public names
+        // get hidden from dir(), tab-complete, etc.
+        code.line();
+        code.line("publication.publish()");
     }
 
     private getRequiredTypeImports(): string[] {
@@ -1031,6 +1038,7 @@ class PythonGenerator extends Generator {
         this.code.line(`packages=[${moduleNames.map(m => `"${m}"`).join(",")}],`);
         this.code.line(`package_data={"${topLevelModuleName}": ["py.typed"], "${topLevelModuleName}._jsii": ["*.jsii.tgz"]},`);
         this.code.line('python_requires=">=3.6",');
+        this.code.line(`install_requires=["publication"],`);
         this.code.unindent(")");
         this.code.closeFile("setup.py");
 
