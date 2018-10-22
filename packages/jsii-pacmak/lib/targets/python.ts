@@ -333,6 +333,17 @@ class BaseMethod implements PythonNode {
                     pythonParams.push(`${paramName}: ${formatPythonType(paramType, false, this.moduleName)}${paramDefault}`);
                 }
             }
+        } else if (this.parameters.length >= 1 && this.parameters.slice(-1)[0].variadic) {
+            // Another situation we could be in, is that instead of having a plain parameter
+            // we have a variadic parameter where we need to expand the last parameter as a
+            // *args.
+            pythonParams.pop();
+
+            const lastParameter = this.parameters.slice(-1)[0];
+            const paramName = toPythonIdentifier(lastParameter.name);
+            const paramType = toPythonType(lastParameter.type, false);
+
+            pythonParams.push(`*${paramName}: ${formatPythonType(paramType, false, this.moduleName)}`);
         }
 
         if (this.decorator !== undefined) {
