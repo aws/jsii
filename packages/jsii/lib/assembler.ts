@@ -577,13 +577,27 @@ export class Assembler implements Emitter {
         // To keep the spec minimal the actual values of the attribute are "true" or "undefined" (to represent "false").
         // tslint:disable-next-line:no-console
         this._deferUntilTypesAvailable(fqn, jsiiType.interfaces || [], type.symbol.valueDeclaration, (...bases: spec.Type[]) => {
-            if ((jsiiType.methods || []).length === 0 && (jsiiType.properties || []).length > 0) {
+            if ((jsiiType.methods || []).length === 0) {
                 jsiiType.datatype = true;
             }
             for (const base of bases) {
                 if (isInterfaceType(base) && !base.datatype) {
                     jsiiType.datatype = undefined;
                 }
+            }
+
+            const interfaceName = isInterfaceName(jsiiType.name);
+
+            // If it's not a datatype the name must start with an "I".
+            if (!jsiiType.datatype && !interfaceName) {
+                this._diagnostic(type.symbol.declarations[0],
+                                ts.DiagnosticCategory.Error,
+                                `Interface contains behavior: name should be "I${jsiiType.name}"`);
+            }
+
+            // If the name starts with an "I" it is not intended as a datatype, so switch that off.
+            if (jsiiType.datatype && interfaceName) {
+                jsiiType.datatype = undefined;
             }
         });
 
@@ -1008,4 +1022,14 @@ interface DeferredRecord {
      * Callback representing the action to run.
      */
     cb: () => void;
+}
+
+/**
+ * Whether or not the given name is conventionally an interface name
+ *
+ * It's an interface name if it starts with I and has another capital
+ * (so we don't mark IonicColumnProps as an interface).
+ */
+function isInterfaceName(name: string) {
+    return name.length >= 2 && name.charAt(0) === 'I' && name.charAt(1).toUpperCase() === name.charAt(1);
 }

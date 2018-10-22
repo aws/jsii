@@ -16,7 +16,7 @@ import software.amazon.jsii.tests.calculator.DoubleTrouble;
 import software.amazon.jsii.tests.calculator.GiveMeStructs;
 import software.amazon.jsii.tests.calculator.IFriendlier;
 import software.amazon.jsii.tests.calculator.IFriendlyRandomGenerator;
-import software.amazon.jsii.tests.calculator.IInterfaceWithProperties;
+import software.amazon.jsii.tests.calculator.InterfaceWithProperties;
 import software.amazon.jsii.tests.calculator.IRandomNumberGenerator;
 import software.amazon.jsii.tests.calculator.InterfaceImplementedByAbstractClass;
 import software.amazon.jsii.tests.calculator.JSObjectLiteralForInterface;
@@ -555,7 +555,7 @@ public class ComplianceTest {
 
     @Test
     public void propertyOverrides_interfaces() {
-        IInterfaceWithProperties obj = new IInterfaceWithProperties() {
+        InterfaceWithProperties obj = new InterfaceWithProperties() {
             private String x;
 
             @Override
@@ -581,7 +581,7 @@ public class ComplianceTest {
 
     @Test
     public void interfaceBuilder() {
-        IInterfaceWithProperties obj = IInterfaceWithProperties.builder()
+        InterfaceWithProperties obj = InterfaceWithProperties.builder()
                 .withReadOnlyString("READ_ONLY")
                 .withReadWriteString("READ_WRITE")
                 .build();
