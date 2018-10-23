@@ -6,10 +6,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// awslabs/jsii#175
     /// Interface proxies (and builders) do not respect optional arguments in methods
     /// </summary>
-    [JsiiTypeProxy(typeof(IInterfaceWithOptionalMethodArguments), "jsii-calc.InterfaceWithOptionalMethodArguments")]
-    internal sealed class InterfaceWithOptionalMethodArgumentsProxy : DeputyBase, IInterfaceWithOptionalMethodArguments
+    [JsiiTypeProxy(typeof(IIInterfaceWithOptionalMethodArguments), "jsii-calc.IInterfaceWithOptionalMethodArguments")]
+    internal sealed class IInterfaceWithOptionalMethodArgumentsProxy : DeputyBase, IIInterfaceWithOptionalMethodArguments
     {
-        private InterfaceWithOptionalMethodArgumentsProxy(ByRefValue reference): base(reference)
+        private IInterfaceWithOptionalMethodArgumentsProxy(ByRefValue reference): base(reference)
         {
         }
 

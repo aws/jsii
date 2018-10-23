@@ -1036,7 +1036,7 @@ ClassWithPrivateConstructorAndAutomaticProperties
    Class that implements interface properties automatically, but using a private constructor
 
 
-   :implements: :py:class:`~jsii-calc.IInterfaceWithProperties`\ 
+   :implements: :py:class:`~jsii-calc.InterfaceWithProperties`\ 
 
    .. py:staticmethod:: create(readOnlyString, readWriteString) -> jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties
 
@@ -1049,14 +1049,14 @@ ClassWithPrivateConstructorAndAutomaticProperties
 
    .. py:attribute:: readOnlyString
 
-      *Implements* :py:meth:`jsii-calc.IInterfaceWithProperties.readOnlyString`
+      *Implements* :py:meth:`jsii-calc.InterfaceWithProperties.readOnlyString`
 
       :type: string *(readonly)*
 
 
    .. py:attribute:: readWriteString
 
-      *Implements* :py:meth:`jsii-calc.IInterfaceWithProperties.readWriteString`
+      *Implements* :py:meth:`jsii-calc.InterfaceWithProperties.readWriteString`
 
       :type: string
 
@@ -1647,49 +1647,10 @@ IInterfaceWithMethods (interface)
       :abstract: Yes
 
 
-IInterfaceWithProperties (interface)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+IInterfaceWithOptionalMethodArguments (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. py:class:: IInterfaceWithProperties
-
-   **Language-specific names:**
-
-   .. tabs::
-
-      .. code-tab:: c#
-
-         using Amazon.JSII.Tests.CalculatorNamespace;
-
-      .. code-tab:: java
-
-         import software.amazon.jsii.tests.calculator.IInterfaceWithProperties;
-
-      .. code-tab:: javascript
-
-         // IInterfaceWithProperties is an interface
-
-      .. code-tab:: typescript
-
-         import { IInterfaceWithProperties } from 'jsii-calc';
-
-
-
-
-
-   .. py:attribute:: readOnlyString
-
-      :type: string *(readonly)* *(abstract)*
-
-
-   .. py:attribute:: readWriteString
-
-      :type: string *(abstract)*
-
-
-IInterfaceWithPropertiesExtension (interface)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. py:class:: IInterfaceWithPropertiesExtension
+.. py:class:: IInterfaceWithOptionalMethodArguments
 
    **Language-specific names:**
 
@@ -1701,38 +1662,30 @@ IInterfaceWithPropertiesExtension (interface)
 
       .. code-tab:: java
 
-         import software.amazon.jsii.tests.calculator.IInterfaceWithPropertiesExtension;
+         import software.amazon.jsii.tests.calculator.IInterfaceWithOptionalMethodArguments;
 
       .. code-tab:: javascript
 
-         // IInterfaceWithPropertiesExtension is an interface
+         // IInterfaceWithOptionalMethodArguments is an interface
 
       .. code-tab:: typescript
 
-         import { IInterfaceWithPropertiesExtension } from 'jsii-calc';
+         import { IInterfaceWithOptionalMethodArguments } from 'jsii-calc';
 
 
 
-   :extends: :py:class:`~jsii-calc.IInterfaceWithProperties`\ 
+   awslabs/jsii#175 Interface proxies (and builders) do not respect optional arguments in methods
 
 
-   .. py:attribute:: foo
-
-      :type: number *(abstract)*
 
 
-   .. py:attribute:: readOnlyString
+   .. py:method:: hello(arg1, [arg2])
 
-      *Inherited from* :py:attr:`jsii-calc.IInterfaceWithProperties <jsii-calc.IInterfaceWithProperties.readOnlyString>`
-
-      :type: string *(readonly)* *(abstract)*
-
-
-   .. py:attribute:: readWriteString
-
-      *Inherited from* :py:attr:`jsii-calc.IInterfaceWithProperties <jsii-calc.IInterfaceWithProperties.readWriteString>`
-
-      :type: string *(abstract)*
+      :param arg1: 
+      :type arg1: string
+      :param arg2: 
+      :type arg2: number or ``undefined``
+      :abstract: Yes
 
 
 IRandomNumberGenerator (interface)
@@ -1773,6 +1726,46 @@ IRandomNumberGenerator (interface)
 
 
       :return: A random number.
+      :rtype: number
+      :abstract: Yes
+
+
+IReturnsNumber (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: IReturnsNumber
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.IReturnsNumber;
+
+      .. code-tab:: javascript
+
+         // IReturnsNumber is an interface
+
+      .. code-tab:: typescript
+
+         import { IReturnsNumber } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: numberProp
+
+      :type: number *(readonly)* *(abstract)*
+
+
+   .. py:method:: obtainNumber() -> number
+
       :rtype: number
       :abstract: Yes
 
@@ -1980,10 +1973,10 @@ Hello (interface)
 
 .. py:currentmodule:: jsii-calc
 
-InterfaceWithOptionalMethodArguments (interface)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+InterfaceWithProperties (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. py:class:: InterfaceWithOptionalMethodArguments
+.. py:class:: InterfaceWithProperties
 
    **Language-specific names:**
 
@@ -1995,30 +1988,77 @@ InterfaceWithOptionalMethodArguments (interface)
 
       .. code-tab:: java
 
-         import software.amazon.jsii.tests.calculator.InterfaceWithOptionalMethodArguments;
+         import software.amazon.jsii.tests.calculator.InterfaceWithProperties;
 
       .. code-tab:: javascript
 
-         // InterfaceWithOptionalMethodArguments is an interface
+         // InterfaceWithProperties is an interface
 
       .. code-tab:: typescript
 
-         import { InterfaceWithOptionalMethodArguments } from 'jsii-calc';
-
-
-
-   awslabs/jsii#175 Interface proxies (and builders) do not respect optional arguments in methods
+         import { InterfaceWithProperties } from 'jsii-calc';
 
 
 
 
-   .. py:method:: hello(arg1, [arg2])
 
-      :param arg1: 
-      :type arg1: string
-      :param arg2: 
-      :type arg2: number or ``undefined``
-      :abstract: Yes
+   .. py:attribute:: readOnlyString
+
+      :type: string *(readonly)* *(abstract)*
+
+
+   .. py:attribute:: readWriteString
+
+      :type: string *(abstract)*
+
+
+InterfaceWithPropertiesExtension (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: InterfaceWithPropertiesExtension
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.InterfaceWithPropertiesExtension;
+
+      .. code-tab:: javascript
+
+         // InterfaceWithPropertiesExtension is an interface
+
+      .. code-tab:: typescript
+
+         import { InterfaceWithPropertiesExtension } from 'jsii-calc';
+
+
+
+   :extends: :py:class:`~jsii-calc.InterfaceWithProperties`\ 
+
+
+   .. py:attribute:: foo
+
+      :type: number *(abstract)*
+
+
+   .. py:attribute:: readOnlyString
+
+      *Inherited from* :py:attr:`jsii-calc.InterfaceWithProperties <jsii-calc.InterfaceWithProperties.readOnlyString>`
+
+      :type: string *(readonly)* *(abstract)*
+
+
+   .. py:attribute:: readWriteString
+
+      *Inherited from* :py:attr:`jsii-calc.InterfaceWithProperties <jsii-calc.InterfaceWithProperties.readWriteString>`
+
+      :type: string *(abstract)*
 
 
 JSObjectLiteralForInterface
@@ -2878,7 +2918,7 @@ OverrideReturnsObject
    .. py:method:: test(obj) -> number
 
       :param obj: 
-      :type obj: :py:class:`~jsii-calc.ReturnsNumber`\ 
+      :type obj: :py:class:`~jsii-calc.IReturnsNumber`\ 
       :rtype: number
 
 
@@ -3082,46 +3122,6 @@ ReferenceEnumFromScopedPackage
    .. py:attribute:: foo
 
       :type: :py:class:`@scope/jsii-calc-lib.EnumFromScopedModule`\  or ``undefined``
-
-
-ReturnsNumber (interface)
-^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. py:class:: ReturnsNumber
-
-   **Language-specific names:**
-
-   .. tabs::
-
-      .. code-tab:: c#
-
-         using Amazon.JSII.Tests.CalculatorNamespace;
-
-      .. code-tab:: java
-
-         import software.amazon.jsii.tests.calculator.ReturnsNumber;
-
-      .. code-tab:: javascript
-
-         // ReturnsNumber is an interface
-
-      .. code-tab:: typescript
-
-         import { ReturnsNumber } from 'jsii-calc';
-
-
-
-
-
-   .. py:attribute:: numberProp
-
-      :type: number *(readonly)* *(abstract)*
-
-
-   .. py:method:: obtainNumber() -> number
-
-      :rtype: number
-      :abstract: Yes
 
 
 RuntimeTypeChecking
@@ -3765,7 +3765,7 @@ UsesInterfaceWithProperties
 
 
    :param obj: 
-   :type obj: :py:class:`~jsii-calc.IInterfaceWithProperties`\ 
+   :type obj: :py:class:`~jsii-calc.InterfaceWithProperties`\ 
 
    .. py:method:: justRead() -> string
 
@@ -3775,7 +3775,7 @@ UsesInterfaceWithProperties
    .. py:method:: readStringAndNumber(ext) -> string
 
       :param ext: 
-      :type ext: :py:class:`~jsii-calc.IInterfaceWithPropertiesExtension`\ 
+      :type ext: :py:class:`~jsii-calc.InterfaceWithPropertiesExtension`\ 
       :rtype: string
 
 
@@ -3788,7 +3788,7 @@ UsesInterfaceWithProperties
 
    .. py:attribute:: obj
 
-      :type: :py:class:`~jsii-calc.IInterfaceWithProperties`\  *(readonly)*
+      :type: :py:class:`~jsii-calc.InterfaceWithProperties`\  *(readonly)*
 
 
 VariadicMethod

@@ -2,10 +2,10 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiTypeProxy(typeof(IReturnsNumber), "jsii-calc.ReturnsNumber")]
-    internal sealed class ReturnsNumberProxy : DeputyBase, IReturnsNumber
+    [JsiiTypeProxy(typeof(IIReturnsNumber), "jsii-calc.IReturnsNumber")]
+    internal sealed class IReturnsNumberProxy : DeputyBase, IIReturnsNumber
     {
-        private ReturnsNumberProxy(ByRefValue reference): base(reference)
+        private IReturnsNumberProxy(ByRefValue reference): base(reference)
         {
         }
 

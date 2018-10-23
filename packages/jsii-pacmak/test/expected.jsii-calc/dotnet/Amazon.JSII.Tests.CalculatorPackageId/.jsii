@@ -1043,7 +1043,7 @@
       "fqn": "jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties",
       "interfaces": [
         {
-          "fqn": "jsii-calc.IInterfaceWithProperties"
+          "fqn": "jsii-calc.InterfaceWithProperties"
         }
       ],
       "kind": "class",
@@ -1076,7 +1076,7 @@
           "immutable": true,
           "name": "readOnlyString",
           "overrides": {
-            "fqn": "jsii-calc.IInterfaceWithProperties"
+            "fqn": "jsii-calc.InterfaceWithProperties"
           },
           "type": {
             "primitive": "string"
@@ -1085,7 +1085,7 @@
         {
           "name": "readWriteString",
           "overrides": {
-            "fqn": "jsii-calc.IInterfaceWithProperties"
+            "fqn": "jsii-calc.InterfaceWithProperties"
           },
           "type": {
             "primitive": "string"
@@ -1498,50 +1498,35 @@
         }
       ]
     },
-    "jsii-calc.IInterfaceWithProperties": {
+    "jsii-calc.IInterfaceWithOptionalMethodArguments": {
       "assembly": "jsii-calc",
-      "datatype": true,
-      "fqn": "jsii-calc.IInterfaceWithProperties",
+      "docs": {
+        "comment": "awslabs/jsii#175\nInterface proxies (and builders) do not respect optional arguments in methods"
+      },
+      "fqn": "jsii-calc.IInterfaceWithOptionalMethodArguments",
       "kind": "interface",
-      "name": "IInterfaceWithProperties",
-      "properties": [
+      "methods": [
         {
           "abstract": true,
-          "immutable": true,
-          "name": "readOnlyString",
-          "type": {
-            "primitive": "string"
-          }
-        },
-        {
-          "abstract": true,
-          "name": "readWriteString",
-          "type": {
-            "primitive": "string"
-          }
-        }
-      ]
-    },
-    "jsii-calc.IInterfaceWithPropertiesExtension": {
-      "assembly": "jsii-calc",
-      "datatype": true,
-      "fqn": "jsii-calc.IInterfaceWithPropertiesExtension",
-      "interfaces": [
-        {
-          "fqn": "jsii-calc.IInterfaceWithProperties"
+          "name": "hello",
+          "parameters": [
+            {
+              "name": "arg1",
+              "type": {
+                "primitive": "string"
+              }
+            },
+            {
+              "name": "arg2",
+              "type": {
+                "optional": true,
+                "primitive": "number"
+              }
+            }
+          ]
         }
       ],
-      "kind": "interface",
-      "name": "IInterfaceWithPropertiesExtension",
-      "properties": [
-        {
-          "abstract": true,
-          "name": "foo",
-          "type": {
-            "primitive": "number"
-          }
-        }
-      ]
+      "name": "IInterfaceWithOptionalMethodArguments"
     },
     "jsii-calc.IRandomNumberGenerator": {
       "assembly": "jsii-calc",
@@ -1564,6 +1549,31 @@
         }
       ],
       "name": "IRandomNumberGenerator"
+    },
+    "jsii-calc.IReturnsNumber": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.IReturnsNumber",
+      "kind": "interface",
+      "methods": [
+        {
+          "abstract": true,
+          "name": "obtainNumber",
+          "returns": {
+            "primitive": "number"
+          }
+        }
+      ],
+      "name": "IReturnsNumber",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "name": "numberProp",
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
     },
     "jsii-calc.ImplictBaseOfBase": {
       "assembly": "jsii-calc",
@@ -1659,35 +1669,50 @@
         }
       ]
     },
-    "jsii-calc.InterfaceWithOptionalMethodArguments": {
+    "jsii-calc.InterfaceWithProperties": {
       "assembly": "jsii-calc",
-      "docs": {
-        "comment": "awslabs/jsii#175\nInterface proxies (and builders) do not respect optional arguments in methods"
-      },
-      "fqn": "jsii-calc.InterfaceWithOptionalMethodArguments",
+      "datatype": true,
+      "fqn": "jsii-calc.InterfaceWithProperties",
       "kind": "interface",
-      "methods": [
+      "name": "InterfaceWithProperties",
+      "properties": [
         {
           "abstract": true,
-          "name": "hello",
-          "parameters": [
-            {
-              "name": "arg1",
-              "type": {
-                "primitive": "string"
-              }
-            },
-            {
-              "name": "arg2",
-              "type": {
-                "optional": true,
-                "primitive": "number"
-              }
-            }
-          ]
+          "immutable": true,
+          "name": "readOnlyString",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "name": "readWriteString",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.InterfaceWithPropertiesExtension": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "fqn": "jsii-calc.InterfaceWithPropertiesExtension",
+      "interfaces": [
+        {
+          "fqn": "jsii-calc.InterfaceWithProperties"
         }
       ],
-      "name": "InterfaceWithOptionalMethodArguments"
+      "kind": "interface",
+      "name": "InterfaceWithPropertiesExtension",
+      "properties": [
+        {
+          "abstract": true,
+          "name": "foo",
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
     },
     "jsii-calc.JSObjectLiteralForInterface": {
       "assembly": "jsii-calc",
@@ -2380,7 +2405,7 @@
             {
               "name": "obj",
               "type": {
-                "fqn": "jsii-calc.ReturnsNumber"
+                "fqn": "jsii-calc.IReturnsNumber"
               }
             }
           ],
@@ -2526,31 +2551,6 @@
           "type": {
             "fqn": "@scope/jsii-calc-lib.EnumFromScopedModule",
             "optional": true
-          }
-        }
-      ]
-    },
-    "jsii-calc.ReturnsNumber": {
-      "assembly": "jsii-calc",
-      "fqn": "jsii-calc.ReturnsNumber",
-      "kind": "interface",
-      "methods": [
-        {
-          "abstract": true,
-          "name": "obtainNumber",
-          "returns": {
-            "primitive": "number"
-          }
-        }
-      ],
-      "name": "ReturnsNumber",
-      "properties": [
-        {
-          "abstract": true,
-          "immutable": true,
-          "name": "numberProp",
-          "type": {
-            "primitive": "number"
           }
         }
       ]
@@ -3087,7 +3087,7 @@
           {
             "name": "obj",
             "type": {
-              "fqn": "jsii-calc.IInterfaceWithProperties"
+              "fqn": "jsii-calc.InterfaceWithProperties"
             }
           }
         ]
@@ -3106,7 +3106,7 @@
             {
               "name": "ext",
               "type": {
-                "fqn": "jsii-calc.IInterfaceWithPropertiesExtension"
+                "fqn": "jsii-calc.InterfaceWithPropertiesExtension"
               }
             }
           ],
@@ -3135,7 +3135,7 @@
           "immutable": true,
           "name": "obj",
           "type": {
-            "fqn": "jsii-calc.IInterfaceWithProperties"
+            "fqn": "jsii-calc.InterfaceWithProperties"
           }
         }
       ]
@@ -3401,5 +3401,5 @@
     }
   },
   "version": "0.7.7",
-  "fingerprint": "vJH1gHlpRxKo77e0kE+6KATwgsZB0VpBcFEo/9OIG7Q="
+  "fingerprint": "ztjwo/sf4owA37SlePL0icwoE4gA3UJyvQ2Zl89FSco="
 }

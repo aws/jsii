@@ -2,8 +2,8 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiInterface(typeof(IReturnsNumber), "jsii-calc.ReturnsNumber")]
-    public interface IReturnsNumber
+    [JsiiInterface(typeof(IIReturnsNumber), "jsii-calc.IReturnsNumber")]
+    public interface IIReturnsNumber
     {
         [JsiiProperty("numberProp", "{\"primitive\":\"number\"}")]
         double NumberProp

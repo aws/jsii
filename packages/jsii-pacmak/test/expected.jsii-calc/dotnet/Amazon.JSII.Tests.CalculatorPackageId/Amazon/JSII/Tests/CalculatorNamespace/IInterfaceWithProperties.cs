@@ -2,16 +2,17 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    public class IInterfaceWithProperties : DeputyBase, IIInterfaceWithProperties
+    [JsiiInterface(typeof(IInterfaceWithProperties), "jsii-calc.InterfaceWithProperties")]
+    public interface IInterfaceWithProperties
     {
-        [JsiiProperty("readOnlyString", "{\"primitive\":\"string\"}", true)]
-        public string ReadOnlyString
+        [JsiiProperty("readOnlyString", "{\"primitive\":\"string\"}")]
+        string ReadOnlyString
         {
             get;
         }
 
-        [JsiiProperty("readWriteString", "{\"primitive\":\"string\"}", true)]
-        public string ReadWriteString
+        [JsiiProperty("readWriteString", "{\"primitive\":\"string\"}")]
+        string ReadWriteString
         {
             get;
             set;
