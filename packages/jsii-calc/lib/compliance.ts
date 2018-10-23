@@ -520,17 +520,17 @@ export class GiveMeStructs {
     }
 }
 
-export interface IInterfaceWithProperties {
+export interface InterfaceWithProperties {
     readonly readOnlyString: string;
     readWriteString: string;
 }
 
-export interface IInterfaceWithPropertiesExtension extends IInterfaceWithProperties {
+export interface InterfaceWithPropertiesExtension extends InterfaceWithProperties {
     foo: number;
 }
 
 export class UsesInterfaceWithProperties {
-    constructor(public readonly obj: IInterfaceWithProperties) {
+    constructor(public readonly obj: InterfaceWithProperties) {
 
     }
 
@@ -543,7 +543,7 @@ export class UsesInterfaceWithProperties {
         return this.obj.readWriteString;
     }
 
-    public readStringAndNumber(ext: IInterfaceWithPropertiesExtension) {
+    public readStringAndNumber(ext: InterfaceWithPropertiesExtension) {
         return `base=${ext.readOnlyString} child=${ext.foo} keys=[${Object.keys(ext).join(',')}]`;
     }
 }
@@ -573,13 +573,13 @@ export class AllowedMethodNames {
     }
 }
 
-export interface ReturnsNumber {
+export interface IReturnsNumber {
     obtainNumber(): Number;
     readonly numberProp: Number;
 }
 
 export class OverrideReturnsObject {
-    public test(obj: ReturnsNumber) {
+    public test(obj: IReturnsNumber) {
         return obj.obtainNumber().doubleValue + obj.numberProp.doubleValue;
     }
 }
@@ -832,7 +832,7 @@ export namespace InterfaceInNamespaceIncludesClasses {
  * awslabs/jsii#175
  * Interface proxies (and builders) do not respect optional arguments in methods
  */
-export interface InterfaceWithOptionalMethodArguments {
+export interface IInterfaceWithOptionalMethodArguments {
     hello(arg1: string, arg2?: number): void
 }
 
@@ -918,7 +918,7 @@ export class DoNotOverridePrivates {
 /**
  * Class that implements interface properties automatically, but using a private constructor
  */
-export class ClassWithPrivateConstructorAndAutomaticProperties implements IInterfaceWithProperties {
+export class ClassWithPrivateConstructorAndAutomaticProperties implements InterfaceWithProperties {
     public static create(readOnlyString: string, readWriteString: string) {
         return new ClassWithPrivateConstructorAndAutomaticProperties(readOnlyString, readWriteString);
     }

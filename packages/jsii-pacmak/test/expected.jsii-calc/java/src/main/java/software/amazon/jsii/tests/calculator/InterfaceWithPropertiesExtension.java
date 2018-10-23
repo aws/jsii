@@ -1,25 +1,34 @@
 package software.amazon.jsii.tests.calculator;
 
 @javax.annotation.Generated(value = "jsii-pacmak")
-public interface IInterfaceWithProperties extends software.amazon.jsii.JsiiSerializable {
-    java.lang.String getReadOnlyString();
-    java.lang.String getReadWriteString();
-    void setReadWriteString(final java.lang.String value);
+public interface InterfaceWithPropertiesExtension extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.InterfaceWithProperties {
+    java.lang.Number getFoo();
+    void setFoo(final java.lang.Number value);
 
     /**
-     * @return a {@link Builder} of {@link IInterfaceWithProperties}
+     * @return a {@link Builder} of {@link InterfaceWithPropertiesExtension}
      */
     static Builder builder() {
         return new Builder();
     }
 
     /**
-     * A builder for {@link IInterfaceWithProperties}
+     * A builder for {@link InterfaceWithPropertiesExtension}
      */
     final class Builder {
+        private java.lang.Number _foo;
         private java.lang.String _readOnlyString;
         private java.lang.String _readWriteString;
 
+        /**
+         * Sets the value of Foo
+         * @param value the value to be set
+         * @return {@code this}
+         */
+        public Builder withFoo(final java.lang.Number value) {
+            this._foo = java.util.Objects.requireNonNull(value, "foo is required");
+            return this;
+        }
         /**
          * Sets the value of ReadOnlyString
          * @param value the value to be set
@@ -41,13 +50,24 @@ public interface IInterfaceWithProperties extends software.amazon.jsii.JsiiSeria
 
         /**
          * Builds the configured instance.
-         * @return a new instance of {@link IInterfaceWithProperties}
+         * @return a new instance of {@link InterfaceWithPropertiesExtension}
          * @throws NullPointerException if any required attribute was not provided
          */
-        public IInterfaceWithProperties build() {
-            return new IInterfaceWithProperties() {
+        public InterfaceWithPropertiesExtension build() {
+            return new InterfaceWithPropertiesExtension() {
+                private java.lang.Number $foo = java.util.Objects.requireNonNull(_foo, "foo is required");
                 private final java.lang.String $readOnlyString = java.util.Objects.requireNonNull(_readOnlyString, "readOnlyString is required");
                 private java.lang.String $readWriteString = java.util.Objects.requireNonNull(_readWriteString, "readWriteString is required");
+
+                @Override
+                public java.lang.Number getFoo() {
+                    return this.$foo;
+                }
+
+                @Override
+                public void setFoo(final java.lang.Number value) {
+                    this.$foo = java.util.Objects.requireNonNull(value, "foo is required");
+                }
 
                 @Override
                 public java.lang.String getReadOnlyString() {
@@ -71,9 +91,19 @@ public interface IInterfaceWithProperties extends software.amazon.jsii.JsiiSeria
     /**
      * A proxy class which represents a concrete javascript instance of this type.
      */
-    final static class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IInterfaceWithProperties {
+    final static class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.InterfaceWithPropertiesExtension {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
             super(mode);
+        }
+
+        @Override
+        public java.lang.Number getFoo() {
+            return this.jsiiGet("foo", java.lang.Number.class);
+        }
+
+        @Override
+        public void setFoo(final java.lang.Number value) {
+            this.jsiiSet("foo", java.util.Objects.requireNonNull(value, "foo is required"));
         }
 
         @Override

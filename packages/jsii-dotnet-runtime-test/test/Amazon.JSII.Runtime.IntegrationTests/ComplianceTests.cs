@@ -493,7 +493,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             }
         }
 
-        class InterfaceWithProperties : DeputyBase, IIInterfaceWithProperties
+        class InterfaceWithProperties : DeputyBase, IInterfaceWithProperties
         {
             string _x;
 
