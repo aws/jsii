@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.7.8"></a>
+## [0.7.8](https://github.com/awslabs/jsii/compare/v0.7.7...v0.7.8) (2018-10-23)
+
+
+### Bug Fixes
+
+* **jsii:** use base interfaces for 'datatype' property ([#265](https://github.com/awslabs/jsii/issues/265)) ([1c56902](https://github.com/awslabs/jsii/commit/1c56902)), closes [#264](https://github.com/awslabs/jsii/issues/264)
+* match behavioral interface to 'I'-prefix ([#271](https://github.com/awslabs/jsii/issues/271)) ([03103f3](https://github.com/awslabs/jsii/commit/03103f3))
+* require distinct argument and property names ([#272](https://github.com/awslabs/jsii/issues/272)) ([4d2f268](https://github.com/awslabs/jsii/commit/4d2f268)), closes [#268](https://github.com/awslabs/jsii/issues/268)
+
+
+
+
 <a name="0.7.7"></a>
 ## [0.7.7](https://github.com/awslabs/jsii/compare/v0.7.6...v0.7.7) (2018-10-10)
 
