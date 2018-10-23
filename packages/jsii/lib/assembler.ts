@@ -190,7 +190,7 @@ export class Assembler implements Emitter {
      *
      * @returns the de-referenced type, if it was found, otherwise ``undefined``.
      */
-    private _dereference(ref: spec.NamedTypeReference, referencingNode: ts.Node): spec.Type | undefined {
+    private _dereference(ref: spec.NamedTypeReference, referencingNode: ts.Node | null): spec.Type | undefined {
         const [assm, ] = ref.fqn.split('.');
         let type;
         if (assm === this.projectInfo.name) {
@@ -615,11 +615,13 @@ export class Assembler implements Emitter {
             this._diagnostic(declaration, ts.DiagnosticCategory.Error, `Unable to compute signature for ${type.fqn}#${symbol.name}`);
             return;
         }
+        const parameters = await Promise.all(signature.getParameters().map(p => this._toParameter(p)));
+
         const returnType = signature.getReturnType();
         const method: spec.Method = {
             abstract: _isAbstract(symbol, type),
             name: symbol.name,
-            parameters: await Promise.all(signature.getParameters().map(p => this._toParameter(p))),
+            parameters,
             protected: _isProtected(symbol),
             returns: _isVoid(returnType) ? undefined : await this._typeReference(returnType, declaration),
             static: _isStatic(symbol),
@@ -627,6 +629,29 @@ export class Assembler implements Emitter {
         method.variadic = method.parameters && method.parameters.find(p => !!p.variadic) != null;
 
         this._visitDocumentation(symbol, method);
+
+        // If the last parameter is a datatype, verify that it does not share any field names with
+        // other function arguments, so that it can be turned into keyword arguments by jsii frontends
+        // that support such.
+        const lastParamTypeRef = apply(last(parameters), x => x.type);
+        const lastParamSymbol = last(signature.getParameters());
+        if (lastParamTypeRef && spec.isNamedTypeReference(lastParamTypeRef)) {
+            this._deferUntilTypesAvailable(symbol.name, [lastParamTypeRef], lastParamSymbol!.declarations[0], (lastParamType) => {
+                if (!spec.isInterfaceType(lastParamType) || !lastParamType.datatype) { return; }
+
+                // Liftable datatype, make sure no parameter names match any of the properties in the datatype
+                const propNames = this.allProperties(lastParamType);
+                const paramNames = new Set(parameters.slice(0, parameters.length - 1).map(x => x.name));
+                const sharedNames = intersection(propNames, paramNames);
+
+                if (sharedNames.size > 0) {
+                    this._diagnostic(
+                        declaration,
+                        ts.DiagnosticCategory.Error,
+                        `Name occurs in both function arguments and in datatype properties, rename one: ${Array.from(sharedNames).join(', ')}`);
+                }
+            });
+        }
 
         type.methods = type.methods || [];
         type.methods.push(method);
@@ -867,6 +892,31 @@ export class Assembler implements Emitter {
             def.dependedFqns = def.dependedFqns.filter(fqns.has.bind(fqns));
         }
     }
+
+    /**
+     * Return the set of all (inherited) properties of an interface
+     */
+    private allProperties(root: spec.InterfaceType): Set<string> {
+        const self = this;
+
+        const ret = new Set<string>();
+        recurse(root);
+        return ret;
+
+        function recurse(int: spec.InterfaceType) {
+            for (const property of int.properties || []) {
+                ret.add(property.name);
+            }
+
+            for (const baseRef of int.interfaces || []) {
+                const base = self._dereference(baseRef, null);
+                if (!base) { throw new Error('Impossible to have unresolvable base in allProperties()'); }
+                if (!spec.isInterfaceType(base)) { throw new Error('Impossible to have non-interface base in allProperties()'); }
+
+                recurse(base);
+            }
+        }
+    }
 }
 
 /**
@@ -1022,6 +1072,33 @@ interface DeferredRecord {
      * Callback representing the action to run.
      */
     cb: () => void;
+}
+
+/**
+ * Return the last element from a list
+ */
+function last<T>(xs: T[]): T | undefined {
+    return xs.length > 0 ? xs[xs.length - 1] : undefined;
+}
+
+/**
+ * Apply a function to a value if it's not equal to undefined
+ */
+function apply<T, U>(x: T | undefined, fn: (x: T) => U | undefined): U | undefined {
+    return x !== undefined ? fn(x) : undefined;
+}
+
+/**
+ * Return the intersection of two sets
+ */
+function intersection<T>(xs: Set<T>, ys: Set<T>): Set<T> {
+    const ret = new Set<T>();
+    for (const x of xs) {
+        if (ys.has(x)) {
+            ret.add(x);
+        }
+    }
+    return ret;
 }
 
 /**
