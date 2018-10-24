@@ -688,7 +688,11 @@ class Module implements PythonType {
         }
 
         // Whatever names we've exported, we'll write out our __all__ that lists them.
-        code.line(`__all__ = [${this.members.map(m => `"${m.name}"`).sort().join(", ")}]`);
+        const exportedMembers = this.members.map(m => `"${m.name}"`);
+        if (this.loadAssembly) {
+            exportedMembers.push(`"__jsii_assembly__"`);
+        }
+        code.line(`__all__ = [${exportedMembers.sort().join(", ")}]`);
 
         // Finally, we'll use publication to ensure that all of the non-public names
         // get hidden from dir(), tab-complete, etc.
