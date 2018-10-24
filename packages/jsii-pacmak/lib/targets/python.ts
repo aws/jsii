@@ -2,7 +2,6 @@ import path = require('path');
 import util = require('util');
 
 import { CodeMaker, toSnakeCase } from 'codemaker';
-import * as escapeStringRegexp from 'escape-string-regexp';
 import * as spec from 'jsii-spec';
 import { Generator, GeneratorOptions } from '../generator';
 import { Target, TargetOptions } from '../target';
@@ -31,7 +30,7 @@ export default class Python extends Target {
 // ##################
 // # CODE GENERATOR #
 // ##################
-const debug = (o: any) => {
+export const debug = (o: any) => {
     // tslint:disable-next-line:no-console
     console.log(util.inspect(o, false, null, true));
 };
@@ -56,15 +55,8 @@ const toPythonModuleName = (name: string): string => {
     return name;
 };
 
-const toPythonModuleFilename = (name: string): string => {
-    if (name.match(/^@[^/]+\/[^/]+$/)) {
-        name = name.replace(/^@/g, "");
-        name = name.replace(/\//g, ".");
-    }
-
-    name = name.replace(/\./g, "/");
-
-    return name;
+const pythonModuleNameToFilename = (name: string): string => {
+    return name.replace(/\./g, "/");
 };
 
 const toPythonPackageName = (name: string): string => {
@@ -87,109 +79,6 @@ const toPythonPropertyName = (name: string): string => {
     return toPythonIdentifier(toSnakeCase(name));
 };
 
-const toPythonType = (typeref: spec.TypeReference, respectOptional: boolean = true): string => {
-    let pythonType: string;
-
-    // Get the underlying python type.
-    if (spec.isPrimitiveTypeReference(typeref)) {
-        pythonType = toPythonPrimitive(typeref.primitive);
-    } else if (spec.isCollectionTypeReference(typeref)) {
-        pythonType = toPythonCollection(typeref);
-    } else if (spec.isNamedTypeReference(typeref)) {
-        pythonType = toPythonFQN(typeref.fqn);
-    } else if (typeref.union) {
-        const types = new Array<string>();
-        for (const subtype of typeref.union.types) {
-            types.push(toPythonType(subtype));
-        }
-        pythonType = `typing.Union[${types.join(", ")}]`;
-    } else {
-        throw new Error("Invalid type reference: " + JSON.stringify(typeref));
-    }
-
-    // If our type is Optional, then we'll wrap our underlying type with typing.Optional
-    // However, if we're not respecting optionals, then we'll just skip over this.
-    if (respectOptional && typeref.optional) {
-        pythonType = `typing.Optional[${pythonType}]`;
-    }
-
-    return pythonType;
-};
-
-const toPythonCollection = (ref: spec.CollectionTypeReference) => {
-    const elementPythonType = toPythonType(ref.collection.elementtype);
-    switch (ref.collection.kind) {
-        case spec.CollectionKind.Array: return `typing.List[${elementPythonType}]`;
-        case spec.CollectionKind.Map: return `typing.Mapping[str,${elementPythonType}]`;
-        default:
-            throw new Error(`Unsupported collection kind: ${ref.collection.kind}`);
-    }
-};
-
-const toPythonPrimitive = (primitive: spec.PrimitiveType): string => {
-    switch (primitive) {
-        case spec.PrimitiveType.Boolean: return "bool";
-        case spec.PrimitiveType.Date: return "datetime.datetime";
-        case spec.PrimitiveType.Json: return "typing.Mapping[typing.Any, typing.Any]";
-        case spec.PrimitiveType.Number: return "jsii.Number";
-        case spec.PrimitiveType.String: return "str";
-        case spec.PrimitiveType.Any: return "typing.Any";
-        default:
-            throw new Error("Unknown primitive type: " + primitive);
-    }
-};
-
-const toPythonFQN = (name: string): string => {
-    const [, modulePart, typePart] = name.match(/^((?:[^A-Z\.][^\.]+\.?)+)\.([A-Z].+)$/) as string[];
-    const fqnParts = [
-        toPythonModuleName(modulePart),
-        typePart.split(".").map(cur => toPythonIdentifier(cur)).join(".")
-    ];
-
-    return fqnParts.join(".");
-};
-
-const formatPythonType = (type: string, forwardReference: boolean = false, moduleName: string) => {
-    // If we split our types by any of the "special" characters that can't appear in
-    // identifiers (like "[],") then we will get a list of all of the identifiers,
-    // no matter how nested they are. The downside is we might get trailing/leading
-    // spaces or empty items so we'll need to trim and filter this list.
-    const types = type.split(/[\[\],]/).map((s: string) => s.trim()).filter(s => s !== "");
-    // const moduleRe = new RegExp(`^${escapeStringRegexp(moduleName)}\.([A-Z].+)$`);
-
-    for (const innerType of types) {
-        // Built in types do not need formatted in any particular way.
-        if (PYTHON_BUILTIN_TYPES.indexOf(innerType) > -1) {
-            continue;
-        }
-
-        // If we do not have a current moduleName, or the type is not within that
-        // module, then we don't format it any particular way.
-        // if (!moduleRe.test(innerType)) {
-        if (!innerType.startsWith(moduleName + ".")) {
-            continue;
-        } else {
-            const typeName = innerType.substring(moduleName.length + 1, innerType.length);
-            // const [, typeName] = innerType.match(moduleRe) as string[];
-            const re = new RegExp('((?:^|[[,\\s])"?)' + innerType + '("?(?:$|[\\],\\s]))');
-
-            // If this is our current module, then we need to correctly handle our
-            // forward references, by placing the type inside of quotes, unless
-            // we're returning real forward references.
-            if (!forwardReference && !typeName.match(/^[a-z]/)) {
-                type = type.replace(re, `$1"${innerType}"$2`);
-            }
-
-            // Now that we've handled (or not) our forward references, then we want
-            // to replace the module with just the type name.
-            // type = type.replace(re, "$1" + innerType.substring(moduleName.length + 1, innerType.length) + "$2");
-            type = type.replace(re, `$1${typeName}$2`);
-        }
-    }
-
-    return type;
-};
-
 const setDifference = (setA: Set<any>, setB: Set<any>): Set<any> => {
     const difference = new Set(setA);
     for (const elem of setB) {
@@ -198,77 +87,142 @@ const setDifference = (setA: Set<any>, setB: Set<any>): Set<any> => {
     return difference;
 };
 
-const sortMembers = (sortable: PythonCollectionNode[]): PythonCollectionNode[] => {
-    const sorted: PythonCollectionNode[] = [];
-    const sortedFQNs: Set<string> = new Set();
+const sortMembers = (sortable: PythonBase[], resolver: TypeResolver): PythonBase[] => {
+    const sorted: PythonBase[] = [];
+    const seen: Set<PythonBase> = new Set();
 
     // We're going to take a copy of our sortable item, because it'll make it easier if
     // this method doesn't have side effects.
     sortable = sortable.slice();
 
-    while (sortable.length > 0) {
-        let idx: number | undefined;
+    // The first thing we want to do, is push any item which is not sortable to the very
+    // front of the list. This will be things like methods, properties, etc.
+    for (const item of sortable) {
+        if (!isSortableType(item)) {
+            sorted.push(item);
+            seen.add(item);
+        }
+    }
+    sortable = sortable.filter(i => !seen.has(i));
 
-        for (const [idx2, item] of sortable.entries()) {
-            if (setDifference(new Set(item.depends_on), sortedFQNs).size === 0) {
+    // Now that we've pulled out everything that couldn't possibly have dependencies,
+    // we will go through the remaining items, and pull off any items which have no
+    // dependencies that we haven't already sorted.
+    while (sortable.length > 0) {
+        for (const item of (sortable as Array<PythonBase & ISortableType>)) {
+            const itemDeps: Set<PythonBase> = new Set(item.dependsOn(resolver).map(i => resolver.getType(i)));
+            if (setDifference(itemDeps, seen).size === 0) {
                 sorted.push(item);
-                sortedFQNs.add(item.fqn);
-                idx = idx2;
+                seen.add(item);
+
                 break;
-            } else {
-                idx = undefined;
             }
         }
 
-        if (idx === undefined) {
+        const leftover = sortable.filter(i => !seen.has(i));
+        if (leftover === sortable) {
             throw new Error("Could not sort members.");
         } else {
-            sortable.splice(idx, 1);
+            sortable = leftover;
         }
     }
 
     return sorted;
 };
 
-const isInModule = (modName: string, fqn: string): boolean => {
-    return new RegExp(`^${escapeStringRegexp(modName)}\.[^\.]+$`).test(fqn);
-};
-
-interface PythonNode {
-
-    // The name of the module that this Node exists in.
-    readonly moduleName: string;
-
-    // The name of the given Node.
+interface PythonBase {
     readonly name: string;
 
-    // The fully qualifed name of this node.
-    readonly fqn: string;
-
-    // Emits the entire tree of objects represented by this object into the given
-    // CodeMaker object.
-    emit(code: CodeMaker): void;
+    emit(code: CodeMaker, resolver: TypeResolver): void;
 }
 
-interface PythonCollectionNode extends PythonNode {
-    // A list of other nodes that this node depends on, can be used to sort a list of
-    // nodes so that nodes get emited *after* the nodes it depends on.
-    readonly depends_on: string[];
+interface PythonType extends PythonBase {
+    // The JSII FQN for this item, if this item doesn't exist as a JSII type, then it
+    // doesn't have a FQN and it should be null;
+    readonly fqn: string | null;
 
-    // Given a particular item, add it as a member of this collection of nodes, returns
-    // the original member back.
-    addMember(member: PythonNode): PythonNode;
+    addMember(member: PythonBase): void;
 }
 
-class BaseMethod implements PythonNode {
+interface ISortableType {
+    dependsOn(resolver: TypeResolver): spec.NamedTypeReference[];
+}
 
-    public readonly moduleName: string;
-    public readonly parent: PythonCollectionNode;
+function isSortableType(arg: any): arg is ISortableType {
+    return arg.dependsOn !== undefined;
+}
+
+interface PythonTypeOpts {
+    bases?: spec.TypeReference[];
+}
+
+abstract class BasePythonClassType implements PythonType, ISortableType {
+
+    public readonly name: string;
+    public readonly fqn: string | null;
+
+    protected bases: spec.TypeReference[];
+    protected members: PythonBase[];
+
+    constructor(name: string, fqn: string, opts: PythonTypeOpts) {
+        const {
+            bases = [],
+        } = opts;
+
+        this.name = name;
+        this.fqn = fqn;
+        this.bases = bases;
+        this.members = [];
+    }
+
+    public dependsOn(resolver: TypeResolver): spec.NamedTypeReference[] {
+        const dependencies: spec.NamedTypeReference[] = [];
+
+        // We need to return any bases that are in the same module.
+        for (const base of this.bases) {
+            if (spec.isNamedTypeReference(base)) {
+                if (resolver.isInModule(base)) {
+                    dependencies.push(base);
+                }
+            }
+        }
+
+        return dependencies;
+    }
+
+    public addMember(member: PythonBase) {
+        this.members.push(member);
+    }
+
+    public emit(code: CodeMaker, resolver: TypeResolver) {
+        code.openBlock(`class ${this.name}(${this.getClassParams(resolver).join(", ")})`);
+
+        if (this.members.length > 0) {
+            for (const member of sortMembers(this.members, resolver)) {
+                member.emit(code, resolver);
+            }
+        } else {
+            code.line("pass");
+        }
+
+        code.closeBlock();
+    }
+
+    protected abstract getClassParams(resolver: TypeResolver): string[];
+}
+
+interface BaseMethodOpts {
+    liftedProp?: spec.InterfaceType,
+    parent?: spec.NamedTypeReference,
+}
+
+abstract class BaseMethod implements PythonBase {
+
     public readonly name: string;
 
-    protected readonly decorator?: string;
-    protected readonly implicitParameter: string;
+    protected readonly abstract implicitParameter: string;
     protected readonly jsiiMethod?: string;
+    protected readonly decorator?: string;
     protected readonly classAsFirstParameter: boolean = false;
     protected readonly returnFromJSIIMethod: boolean = true;
 
@@ -276,40 +230,38 @@ class BaseMethod implements PythonNode {
     private readonly parameters: spec.Parameter[];
     private readonly returns?: spec.TypeReference;
     private readonly liftedProp?: spec.InterfaceType;
+    private readonly parent?: spec.NamedTypeReference;
 
-    constructor(moduleName: string,
-                parent: PythonCollectionNode,
-                name: string,
+    constructor(name: string,
                 jsName: string | undefined,
                 parameters: spec.Parameter[],
                 returns?: spec.TypeReference,
-                liftedProp?: spec.InterfaceType) {
-        this.moduleName = moduleName;
-        this.parent = parent;
+                opts: BaseMethodOpts = {}) {
         this.name = name;
         this.jsName = jsName;
         this.parameters = parameters;
         this.returns = returns;
-        this.liftedProp = liftedProp;
+        this.liftedProp = opts.liftedProp;
+        this.parent = opts.parent;
     }
 
-    get fqn(): string {
-        return `${this.moduleName}.${this.name}`;
-    }
-
-    public emit(code: CodeMaker) {
-        const returnType = this.getReturnType(this.returns);
+    public emit(code: CodeMaker, resolver: TypeResolver) {
+        let returnType: string;
+        if (this.returns !== undefined) {
+            returnType = resolver.resolve(this.returns, { forwardReferences: false });
+        } else {
+            returnType = "None";
+        }
 
         // We need to turn a list of JSII parameters, into Python style arguments with
         // gradual typing, so we'll have to iterate over the list of parameters, and
         // build the list, converting as we go.
-        // TODO: Handle imports (if needed) for all of these types.
         const pythonParams: string[] = [this.implicitParameter];
         for (const param of this.parameters) {
             const paramName = toPythonIdentifier(param.name);
-            const paramType = toPythonType(param.type);
+            const paramType = resolver.resolve(param.type, { forwardReferences: false});
 
-            pythonParams.push(`${paramName}: ${formatPythonType(paramType, false, this.moduleName)}`);
+            pythonParams.push(`${paramName}: ${paramType}`);
         }
 
         // If we have a lifted parameter, then we'll drop the last argument to our params
@@ -327,10 +279,10 @@ class BaseMethod implements PythonNode {
                 // Iterate over all of our props, and reflect them into our params.
                 for (const prop of this.liftedProp.properties) {
                     const paramName = toPythonIdentifier(prop.name);
-                    const paramType = toPythonType(prop.type);
+                    const paramType = resolver.resolve(prop.type, { forwardReferences: false });
                     const paramDefault = prop.type.optional ? "=None" : "";
 
-                    pythonParams.push(`${paramName}: ${formatPythonType(paramType, false, this.moduleName)}${paramDefault}`);
+                    pythonParams.push(`${paramName}: ${paramType}${paramDefault}`);
                 }
             }
         } else if (this.parameters.length >= 1 && this.parameters.slice(-1)[0].variadic) {
@@ -341,36 +293,39 @@ class BaseMethod implements PythonNode {
 
             const lastParameter = this.parameters.slice(-1)[0];
             const paramName = toPythonIdentifier(lastParameter.name);
-            const paramType = toPythonType(lastParameter.type, false);
+            const paramType = resolver.resolve(
+                lastParameter.type,
+                { forwardReferences: false, ignoreOptional: true },
+            );
 
-            pythonParams.push(`*${paramName}: ${formatPythonType(paramType, false, this.moduleName)}`);
+            pythonParams.push(`*${paramName}: ${paramType}`);
         }
 
         if (this.decorator !== undefined) {
             code.line(`@${this.decorator}`);
         }
 
-        code.openBlock(`def ${this.name}(${pythonParams.join(", ")}) -> ${formatPythonType(returnType, false, this.moduleName)}`);
-        this.emitBody(code);
+        code.openBlock(`def ${this.name}(${pythonParams.join(", ")}) -> ${returnType}`);
+        this.emitBody(code, resolver);
         code.closeBlock();
     }
 
-    private emitBody(code: CodeMaker) {
+    private emitBody(code: CodeMaker, resolver: TypeResolver) {
         if (this.jsiiMethod === undefined) {
             code.line("...");
         } else {
             if (this.liftedProp !== undefined) {
-                this.emitAutoProps(code);
+                this.emitAutoProps(code, resolver);
             }
 
-            this.emitJsiiMethodCall(code);
+            this.emitJsiiMethodCall(code, resolver);
         }
     }
 
-    private emitAutoProps(code: CodeMaker) {
+    private emitAutoProps(code: CodeMaker, resolver: TypeResolver) {
         const lastParameter = this.parameters.slice(-1)[0];
-        const argName: string = toPythonIdentifier(lastParameter.name);
-        const typeName: string = formatPythonType(toPythonType(lastParameter.type), true, this.moduleName);
+        const argName = toPythonIdentifier(lastParameter.name);
+        const typeName = resolver.resolve(lastParameter.type);
 
         // We need to build up a list of properties, which are mandatory, these are the
         // ones we will specifiy to start with in our dictionary literal.
@@ -398,12 +353,15 @@ class BaseMethod implements PythonNode {
         }
     }
 
-    private emitJsiiMethodCall(code: CodeMaker) {
+    private emitJsiiMethodCall(code: CodeMaker, resolver: TypeResolver) {
         const methodPrefix: string = this.returnFromJSIIMethod ? "return " : "";
 
         const jsiiMethodParams: string[] = [];
         if (this.classAsFirstParameter) {
-            jsiiMethodParams.push(this.parent.name);
+            if (this.parent === undefined) {
+                throw new Error("Parent not known.");
+            }
+            jsiiMethodParams.push(resolver.resolve(this.parent));
         }
         jsiiMethodParams.push(this.implicitParameter);
         if (this.jsName !== undefined) {
@@ -417,69 +375,71 @@ class BaseMethod implements PythonNode {
 
         code.line(`${methodPrefix}jsii.${this.jsiiMethod}(${jsiiMethodParams.join(", ")}, [${paramNames.join(", ")}])`);
     }
-
-    private getReturnType(type?: spec.TypeReference): string {
-        return type ? toPythonType(type) : "None";
-    }
 }
 
-class BaseProperty implements PythonNode {
+interface BasePropertyOpts {
+    immutable?: boolean;
+}
 
-    public readonly moduleName: string;
+abstract class BaseProperty implements PythonBase {
+
     public readonly name: string;
 
-    protected readonly decorator: string;
-    protected readonly implicitParameter: string;
+    protected readonly abstract decorator: string;
+    protected readonly abstract implicitParameter: string;
     protected readonly jsiiGetMethod?: string;
     protected readonly jsiiSetMethod?: string;
 
-    protected readonly jsName: string;
+    private readonly jsName: string;
     private readonly type: spec.TypeReference;
     private readonly immutable: boolean;
 
-    constructor(moduleName: string, name: string, jsName: string, type: spec.TypeReference, immutable: boolean) {
-        this.moduleName = moduleName;
+    constructor(name: string, jsName: string, type: spec.TypeReference, opts: BasePropertyOpts = {}) {
+        const {
+            immutable = false,
+        } = opts;
+
         this.name = name;
         this.jsName = jsName;
         this.type = type;
         this.immutable = immutable;
     }
 
-    get fqn(): string {
-        return `${this.moduleName}.${this.name}`;
-    }
-
-    public emit(code: CodeMaker) {
-        const returnType = toPythonType(this.type);
+    public emit(code: CodeMaker, resolver: TypeResolver) {
+        const pythonType = resolver.resolve(this.type, { forwardReferences: false });
 
         code.line(`@${this.decorator}`);
-        code.openBlock(`def ${this.name}(${this.implicitParameter}) -> ${formatPythonType(returnType, false, this.moduleName)}`);
-        this.emitGetterBody(code);
+        code.openBlock(`def ${this.name}(${this.implicitParameter}) -> ${pythonType}`);
+        if (this.jsiiGetMethod !== undefined) {
+            code.line(`return jsii.${this.jsiiGetMethod}(${this.implicitParameter}, "${this.jsName}")`);
+        } else {
+            code.line("...");
+        }
         code.closeBlock();
 
         if (!this.immutable) {
             code.line(`@${this.name}.setter`);
-            code.openBlock(`def ${this.name}(${this.implicitParameter}, value: ${formatPythonType(returnType, false, this.moduleName)})`);
-            this.emitSetterBody(code);
+            code.openBlock(`def ${this.name}(${this.implicitParameter}, value: ${pythonType})`);
+            if (this.jsiiSetMethod !== undefined) {
+                code.line(`return jsii.${this.jsiiSetMethod}(${this.implicitParameter}, "${this.jsName}", value)`);
+            } else {
+                code.line("...");
+            }
             code.closeBlock();
         }
     }
+}
 
-    private emitGetterBody(code: CodeMaker) {
-        if (this.jsiiGetMethod === undefined) {
-            code.line("...");
-        } else {
-            code.line(`return jsii.${this.jsiiGetMethod}(${this.implicitParameter}, "${this.jsName}")`);
-        }
+class Interface extends BasePythonClassType {
+
+    protected getClassParams(resolver: TypeResolver): string[] {
+        const params: string[] = this.bases.map(b => resolver.resolve(b));
+
+        params.push("jsii.compat.Protocol");
+
+        return params;
     }
 
-    private emitSetterBody(code: CodeMaker) {
-        if (this.jsiiSetMethod === undefined) {
-            code.line("...");
-        } else {
-            code.line(`return jsii.${this.jsiiSetMethod}(${this.implicitParameter}, "${this.jsName}", value)`);
-        }
-    }
 }
 
 class InterfaceMethod extends BaseMethod {
@@ -491,113 +451,23 @@ class InterfaceProperty extends BaseProperty {
     protected readonly implicitParameter: string = "self";
 }
 
-class Interface implements PythonCollectionNode {
+class TypedDict extends BasePythonClassType {
 
-    public readonly moduleName: string;
-    public readonly name: string;
-
-    private bases: string[];
-    private members: PythonNode[];
-
-    constructor(moduleName: string, name: string, bases: string[]) {
-        this.moduleName = moduleName;
-        this.name = name;
-        this.bases = bases;
-
-        this.members = [];
-    }
-
-    get fqn(): string {
-        return `${this.moduleName}.${this.name}`;
-    }
-
-    get depends_on(): string[] {
-        return this.bases.filter(base => isInModule(this.moduleName, base));
-    }
-
-    public addMember(member: PythonNode): PythonNode {
-        this.members.push(member);
-        return member;
-    }
-
-    public emit(code: CodeMaker) {
-        const interfaceBases = this.bases.map(baseType => formatPythonType(baseType, true, this.moduleName));
-        interfaceBases.push("_Protocol");
-
-        code.openBlock(`class ${this.name}(${interfaceBases.join(",")})`);
-        if (this.members.length > 0) {
-            for (const member of this.members) {
-                member.emit(code);
-            }
-        } else {
-            code.line("pass");
-        }
-        code.closeBlock();
-    }
-}
-
-class TypedDictProperty implements PythonNode {
-
-    public readonly moduleName: string;
-    public readonly name: string;
-
-    private readonly type: spec.TypeReference;
-
-    constructor(moduleName: string, name: string, type: spec.TypeReference) {
-        this.moduleName = moduleName;
-        this.name = name;
-        this.type = type;
-    }
-
-    get fqn(): string {
-        return `${this.moduleName}.${this.name}`;
-    }
-
-    get optional(): boolean {
-        return this.type.optional || false;
-    }
-
-    public emit(code: CodeMaker) {
-        const propType: string = formatPythonType(toPythonType(this.type, false), undefined, this.moduleName);
-        code.line(`${this.name}: ${propType}`);
-    }
-}
-
-class TypedDict implements PythonCollectionNode {
-    public readonly moduleName: string;
-    public readonly name: string;
-
-    private members: TypedDictProperty[];
-
-    constructor(moduleName: string, name: string) {
-        this.moduleName = moduleName;
-        this.name = name;
-
-        this.members = [];
-    }
-
-    get fqn(): string {
-        return `${this.moduleName}.${this.name}`;
-    }
-
-    get depends_on(): string[] {
-        return [];
-    }
-
-    public addMember(member: TypedDictProperty): TypedDictProperty {
-        this.members.push(member);
-        return member;
-    }
-
-    public emit(code: CodeMaker) {
+    public emit(code: CodeMaker, resolver: TypeResolver) {
         // MyPy doesn't let us mark some keys as optional, and some keys as mandatory,
         // we can either mark either the entire class as mandatory or the entire class
         // as optional. However, we can make two classes, one with all mandatory keys
         // and one with all optional keys in order to emulate this. So we'll go ahead
         // and implement this "split" class logic.
 
-        const mandatoryMembers = this.members.filter(item => !item.optional);
-        const optionalMembers = this.members.filter(item => item.optional);
+        const classParams = this.getClassParams(resolver);
+
+        const mandatoryMembers = this.members.filter(
+            item => item instanceof TypedDictProperty ? !item.optional : true
+        );
+        const optionalMembers = this.members.filter(
+            item => item instanceof TypedDictProperty ? item.optional : false
+        );
 
         if (mandatoryMembers.length >= 1 && optionalMembers.length >= 1) {
             // In this case, we have both mandatory *and* optional members, so we'll
@@ -605,16 +475,16 @@ class TypedDict implements PythonCollectionNode {
 
             // We'll emit the optional members first, just because it's a little nicer
             // for the final class in the chain to have the mandatory members.
-            code.openBlock(`class _${this.name}(_TypedDict, total=False)`);
+            code.openBlock(`class _${this.name}(${classParams.concat(["total=False"]).join(", ")})`);
             for (const member of optionalMembers) {
-                member.emit(code);
+                member.emit(code, resolver);
             }
             code.closeBlock();
 
             // Now we'll emit the mandatory members.
             code.openBlock(`class ${this.name}(_${this.name})`);
-            for (const member of mandatoryMembers) {
-                member.emit(code);
+            for (const member of sortMembers(mandatoryMembers, resolver)) {
+                member.emit(code, resolver);
             }
             code.closeBlock();
         } else {
@@ -622,15 +492,15 @@ class TypedDict implements PythonCollectionNode {
             // we'll see if we have any optional members, if we don't then we'll use
             // total=True instead of total=False for the class.
             if (optionalMembers.length >= 1) {
-                code.openBlock(`class ${this.name}(_TypedDict, total=False)`);
+                code.openBlock(`class ${this.name}(${classParams.concat(["total=False"]).join(", ")})`);
             } else {
-                code.openBlock(`class ${this.name}(_TypedDict)`);
+                code.openBlock(`class ${this.name}(${classParams.join(", ")})`);
             }
 
             // Finally we'll just iterate over and emit all of our members.
             if (this.members.length > 0) {
-                for (const member of this.members) {
-                    member.emit(code);
+                for (const member of sortMembers(this.members, resolver)) {
+                    member.emit(code, resolver);
                 }
             } else {
                 code.line("pass");
@@ -639,6 +509,52 @@ class TypedDict implements PythonCollectionNode {
             code.closeBlock();
         }
     }
+
+    protected getClassParams(resolver: TypeResolver): string[] {
+        const params: string[] = this.bases.map(b => resolver.resolve(b));
+
+        params.push("jsii.compat.TypedDict");
+
+        return params;
+    }
+
+}
+
+class TypedDictProperty implements PythonBase {
+
+    public readonly name: string;
+
+    private readonly type: spec.TypeReference;
+
+    constructor(name: string, type: spec.TypeReference) {
+        this.name = name;
+        this.type = type;
+    }
+
+    get optional(): boolean {
+        return this.type.optional !== undefined ? this.type.optional : false;
+    }
+
+    public emit(code: CodeMaker, resolver: TypeResolver) {
+        const resolvedType = resolver.resolve(
+            this.type,
+            { forwardReferences: false, ignoreOptional: true }
+        );
+        code.line(`${this.name}: ${resolvedType}`);
+    }
+}
+
+class Class extends BasePythonClassType {
+
+    protected getClassParams(resolver: TypeResolver): string[] {
+        const params: string[] = this.bases.map(b => resolver.resolve(b));
+
+        params.push("metaclass=jsii.JSIIMeta");
+        params.push(`jsii_type="${this.fqn}"`);
+
+        return params;
+    }
+
 }
 
 class StaticMethod extends BaseMethod {
@@ -673,143 +589,63 @@ class Property extends BaseProperty {
     protected readonly jsiiSetMethod: string = "set";
 }
 
-class Class implements PythonCollectionNode {
-    public readonly moduleName: string;
-    public readonly name: string;
+class Enum extends BasePythonClassType {
 
-    private jsiiFQN: string;
-    private bases: string[];
-    private members: PythonNode[];
-
-    constructor(moduleName: string, name: string, jsiiFQN: string, bases: string[]) {
-        this.moduleName = moduleName;
-        this.name = name;
-
-        this.jsiiFQN = jsiiFQN;
-        this.bases = bases;
-        this.members = [];
+    protected getClassParams(_resolver: TypeResolver): string[] {
+        return ["enum.Enum"];
     }
 
-    get fqn(): string {
-        return `${this.moduleName}.${this.name}`;
-    }
-
-    get depends_on(): string[] {
-        return this.bases.filter(base => isInModule(this.moduleName, base));
-    }
-
-    public addMember(member: PythonNode): PythonNode {
-        this.members.push(member);
-        return member;
-    }
-
-    public emit(code: CodeMaker) {
-        const classParams: string[] = this.bases.map(baseType => formatPythonType(baseType, true, this.moduleName));
-
-        classParams.push("metaclass=jsii.JSIIMeta");
-        classParams.push(`jsii_type="${this.jsiiFQN}"`);
-
-        code.openBlock(`class ${this.name}(${classParams.join(", ")})`);
-        if (this.members.length > 0) {
-            for (const member of this.members) {
-                member.emit(code);
-            }
-        } else {
-            code.line("pass");
-        }
-        code.closeBlock();
-    }
 }
 
-class Enum implements PythonCollectionNode {
-    public readonly moduleName: string;
-    public readonly name: string;
+class EnumMember implements PythonBase {
 
-    private members: PythonNode[];
-
-    constructor(moduleName: string, name: string) {
-        this.moduleName = moduleName;
-        this.name = name;
-        this.members = [];
-    }
-
-    get fqn(): string {
-        return `${this.moduleName}.${this.name}`;
-    }
-
-    get depends_on(): string[] {
-        return [];
-    }
-
-    public addMember(member: PythonNode): PythonNode {
-        this.members.push(member);
-        return member;
-    }
-
-    public emit(code: CodeMaker) {
-        code.openBlock(`class ${this.name}(enum.Enum)`);
-        if (this.members.length > 0) {
-            for (const member of this.members) {
-                member.emit(code);
-            }
-        } else {
-            code.line("pass");
-        }
-        code.closeBlock();
-    }
-}
-
-class EnumMember implements PythonNode {
-    public readonly moduleName: string;
     public readonly name: string;
 
     private readonly value: string;
 
-    constructor(moduleName: string, name: string, value: string) {
-        this.moduleName = moduleName;
+    constructor(name: string, value: string) {
         this.name = name;
         this.value = value;
     }
 
-    get fqn(): string {
-        return `${this.moduleName}.${this.name}`;
-    }
-
-    public emit(code: CodeMaker) {
+    public emit(code: CodeMaker, _resolver: TypeResolver) {
         code.line(`${this.name} = "${this.value}"`);
     }
 }
 
-class Module {
+interface ModuleOpts {
+    assembly: spec.Assembly,
+    assemblyFilename: string;
+    loadAssembly: boolean;
+}
+
+class Module implements PythonType {
 
     public readonly name: string;
-    public readonly assembly: spec.Assembly;
-    public readonly assemblyFilename: string;
-    public readonly loadAssembly: boolean;
+    public readonly fqn: string | null;
 
-    private members: PythonCollectionNode[];
-    private subModules: string[];
+    private assembly: spec.Assembly;
+    private assemblyFilename: string;
+    private loadAssembly: boolean;
+    private members: PythonBase[];
 
-    constructor(ns: string, assembly: spec.Assembly, assemblyFilename: string, loadAssembly: boolean = false) {
-        this.name = ns;
-        this.assembly = assembly;
-        this.assemblyFilename = assemblyFilename;
-        this.loadAssembly = loadAssembly;
+    constructor(name: string, fqn: string | null, opts: ModuleOpts) {
+        this.name = name;
+        this.fqn = fqn;
 
+        this.assembly = opts.assembly;
+        this.assemblyFilename = opts.assemblyFilename;
+        this.loadAssembly = opts.loadAssembly;
         this.members = [];
-        this.subModules = [];
     }
 
-    public addMember(member: PythonCollectionNode): PythonCollectionNode {
+    public addMember(member: PythonBase) {
         this.members.push(member);
-        return member;
     }
 
-    public addSubmodule(module: string) {
-        this.subModules.push(module);
-    }
+    public emit(code: CodeMaker, resolver: TypeResolver) {
+        resolver = this.fqn ? resolver.bind(this.fqn) : resolver;
 
-    public emit(code: CodeMaker) {
         // Before we write anything else, we need to write out our module headers, this
         // is where we handle stuff like imports, any required initialization, etc.
         code.line("import datetime");
@@ -817,9 +653,9 @@ class Module {
         code.line("import typing");
         code.line();
         code.line("import jsii");
+        code.line("import jsii.compat");
         code.line("import publication");
         code.line();
-        code.line(this.generateImportFrom("jsii.compat", ["Protocol", "TypedDict"]));
         code.line("from jsii.python import classproperty");
 
         // Go over all of the modules that we need to import, and import them.
@@ -835,17 +671,6 @@ class Module {
             code.line(`import ${toPythonModuleName(depName)}`);
         }
 
-        const moduleRe = new RegExp(`^${escapeStringRegexp(this.name)}\.`);
-        for (const [idx, subModule] of this.subModules.sort().entries()) {
-            // If this our first subModule, add a blank line to format our imports
-            // slightly nicer.
-            if (idx === 0) {
-                code.line();
-            }
-
-            code.line(`from . import ${subModule.replace(moduleRe, "")}`);
-        }
-
         // Determine if we need to write out the kernel load line.
         if (this.loadAssembly) {
             code.line(
@@ -857,55 +682,288 @@ class Module {
             );
         }
 
-        // Now that we've gotten all of the module header stuff done, we need to go
-        // through and actually write out the meat of our module.
-        for (const member of sortMembers(this.members)) {
-            member.emit(code);
+        // Emit all of our members.
+        for (const member of sortMembers(this.members, resolver)) {
+            member.emit(code, resolver);
         }
 
         // Whatever names we've exported, we'll write out our __all__ that lists them.
-        code.line(`__all__ = [${this.getExportedNames().map(s => `"${s}"`).join(", ")}]`);
+        code.line(`__all__ = [${this.members.map(m => `"${m.name}"`).sort().join(", ")}]`);
 
         // Finally, we'll use publication to ensure that all of the non-public names
         // get hidden from dir(), tab-complete, etc.
         code.line();
         code.line("publication.publish()");
     }
+}
 
-    private getExportedNames(): string[] {
-        // We assume that anything that is a member of this module, will be exported by
-        // this module.
-        const exportedNames = this.members.map(m => m.name);
+interface PackageMetadata {
+    summary?: string;
+    readme?: string;
+    url?: string;
+}
 
-        // If this module will be outputting the Assembly, then we also want to export
-        // our assembly variable.
-        if (this.loadAssembly) {
-            exportedNames.push("__jsii_assembly__");
-        }
+interface PackageData {
+    filename: string;
+    data: string | null;
+}
 
-        // We also need to export all of our submodules.
-        const moduleRe = new RegExp(`^${escapeStringRegexp(this.name)}\.`);
-        exportedNames.push(...this.subModules.map(item => item.replace(moduleRe, "")));
+class Package {
 
-        return exportedNames.sort();
+    public readonly name: string;
+    public readonly version: string;
+    public readonly metadata: PackageMetadata;
 
+    private modules: Map<string, Module>;
+    private data: Map<string, PackageData[]>;
+
+    constructor(name: string, version: string, metadata: PackageMetadata) {
+        this.name = name;
+        this.version = version;
+        this.metadata = metadata;
+
+        this.modules = new Map();
+        this.data = new Map();
     }
 
-    private generateImportFrom(from: string, names: string[]): string {
-        // Whenever we import something, we want to prefix all of the names we're
-        // importing with an underscore to indicate that these names are private. We
-        // do this, because otherwise we could get clashes in the names we use, and the
-        // names of exported classes.
-        const importNames = names.map(n => `${n} as _${n}`);
-        return `from ${from} import ${importNames.join(", ")}`;
+    public addModule(module: Module) {
+        this.modules.set(module.name, module);
+    }
+
+    public addData(module: Module, filename: string, data: string | null) {
+        if (!this.data.has(module.name)) {
+            this.data.set(module.name, new Array());
+        }
+
+        this.data.get(module.name)!.push({filename, data});
+    }
+
+    public write(code: CodeMaker, resolver: TypeResolver) {
+        const modules = [...this.modules.values()].sort((a, b) => a.name.localeCompare(b.name));
+
+        // Iterate over all of our modules, and write them out to disk.
+        for (const mod of modules) {
+            const filename = path.join("src", pythonModuleNameToFilename(mod.name), "__init__.py");
+
+            code.openFile(filename);
+            mod.emit(code, resolver);
+            code.closeFile(filename);
+        }
+
+        // Handle our package data.
+        const packageData: {[key: string]: string[]} = {};
+        for (const [mod, pdata] of this.data) {
+            for (const data of pdata) {
+                if (data.data != null) {
+                    const filepath = path.join("src", pythonModuleNameToFilename(mod), data.filename);
+
+                    code.openFile(filepath);
+                    code.line(data.data);
+                    code.closeFile(filepath);
+                }
+            }
+
+            packageData[mod] = pdata.map(pd => pd.filename);
+        }
+
+        const setupKwargs = {
+            name: this.name,
+            version: this.version,
+            description: this.metadata.summary,
+            url: this.metadata.url,
+            package_dir: {"": "src"},
+            packages: modules.map(m => m.name),
+            package_data: packageData,
+            python_requires: ">=3.6",
+            install_requires: ["publication"],
+        };
+
+        // We Need a setup.py to make this Package, actually a Package.
+        // TODO:
+        //      - Author
+        //      - License
+        //      - Classifiers
+        code.openFile("setup.py");
+        code.line("import json");
+        code.line("import setuptools");
+        code.line();
+        code.line('kwargs = json.loads("""');
+        code.line(JSON.stringify(setupKwargs, null, 4));
+        code.line('""")');
+        code.line();
+        code.line("setuptools.setup(**kwargs)");
+        code.closeFile("setup.py");
+
+        // Because we're good citizens, we're going to go ahead and support pyproject.toml
+        // as well.
+        // TODO: Might be easier to just use a TOML library to write this out.
+        code.openFile("pyproject.toml");
+        code.line("[build-system]");
+        code.line('requires = ["setuptools", "wheel"]');
+        code.closeFile("pyproject.toml");
+
+        // We also need to write out a MANIFEST.in to ensure that all of our required
+        // files are included.
+        code.openFile("MANIFEST.in");
+        code.line("include pyproject.toml");
+        code.closeFile("MANIFEST.in");
+    }
+}
+
+interface TypeResolverOpts {
+    forwardReferences?: boolean;
+    ignoreOptional?: boolean;
+}
+
+class TypeResolver {
+
+    private readonly types: Map<string, PythonType>;
+    private boundTo?: string;
+    private readonly moduleRe = new RegExp("^((?:[^A-Z\.][^\.]+\.?)+)\.([A-Z].+)$");
+
+    constructor(types: Map<string, PythonType>, boundTo?: string) {
+        this.types = types;
+        this.boundTo = boundTo !== undefined ? this.toPythonFQN(boundTo) : boundTo;
+    }
+
+    public bind(fqn: string): TypeResolver {
+        return new TypeResolver(this.types, fqn);
+    }
+
+    public isInModule(typeRef: spec.NamedTypeReference): boolean {
+        const pythonType = this.toPythonFQN(typeRef.fqn);
+        const [, moduleName] = pythonType.match(this.moduleRe) as string[];
+
+        return this.boundTo !== undefined && this.boundTo === moduleName;
+    }
+
+    public getType(typeRef: spec.NamedTypeReference): PythonType {
+        const type = this.types.get(typeRef.fqn);
+
+        if (type === undefined) {
+            throw new Error(`Could not locate type: "${typeRef.fqn}"`);
+        }
+
+        return type;
+    }
+
+    public resolve(
+            typeRef: spec.TypeReference,
+            opts: TypeResolverOpts = { forwardReferences: true, ignoreOptional: false }): string {
+        // First, we need to resolve our given type reference into the Python type.
+        let pythonType = this.toPythonType(typeRef, opts.ignoreOptional);
+
+        // If we split our types by any of the "special" characters that can't appear in
+        // identifiers (like "[],") then we will get a list of all of the identifiers,
+        // no matter how nested they are. The downside is we might get trailing/leading
+        // spaces or empty items so we'll need to trim and filter this list.
+        const types = pythonType.split(/[\[\],]/).map((s: string) => s.trim()).filter(s => s !== "");
+
+        for (const innerType of types) {
+            // Built in types do not need formatted in any particular way.
+            if (PYTHON_BUILTIN_TYPES.indexOf(innerType) > -1) {
+                continue;
+            }
+
+            const [, moduleName, typeName] = innerType.match(this.moduleRe) as string[];
+
+            // If our resolver is not bound to the same module as the type we're trying to
+            // resolve, then we'll just skip ahead to the next one, no further changes are
+            // reqired.
+            if (this.boundTo === undefined || moduleName !== this.boundTo) {
+                continue;
+            } else {
+            // Otherwise, we have to implement some particular logic in order to deal
+            // with forward references and trimming our module name out of the type.
+                // This re will look for the entire type, boxed by either the start/end of
+                // a string, a comma, a space, a quote, or open/closing brackets. This will
+                // ensure that we only match whole type names, and not partial ones.
+                const re = new RegExp('((?:^|[[,\\s])"?)' + innerType + '("?(?:$|[\\],\\s]))');
+
+                // We need to handle forward references, our caller knows if we're able to
+                // use them in the current context or not, so if not, we'll wrap our forward
+                // reference in quotes.
+                if (opts.forwardReferences !== undefined && !opts.forwardReferences) {
+                    pythonType = pythonType.replace(re, `$1"${innerType}"$2`);
+                }
+
+                // Now that we've gotten forward references out of the way, we will want
+                // to replace the entire type string, with just the type portion.
+                pythonType = pythonType.replace(re, `$1${typeName}$2`);
+            }
+        }
+
+        return pythonType;
+    }
+
+    private toPythonType(typeRef: spec.TypeReference, ignoreOptional?: boolean): string {
+        let pythonType: string;
+
+        // Get the underlying python type.
+        if (spec.isPrimitiveTypeReference(typeRef)) {
+            pythonType = this.toPythonPrimitive(typeRef.primitive);
+        } else if (spec.isCollectionTypeReference(typeRef)) {
+            pythonType = this.toPythonCollection(typeRef);
+        } else if (spec.isNamedTypeReference(typeRef)) {
+            pythonType = this.toPythonFQN(typeRef.fqn);
+        } else if (typeRef.union) {
+            const types = new Array<string>();
+            for (const subtype of typeRef.union.types) {
+                types.push(this.toPythonType(subtype));
+            }
+            pythonType = `typing.Union[${types.join(", ")}]`;
+        } else {
+            throw new Error("Invalid type reference: " + JSON.stringify(typeRef));
+        }
+
+        // If our type is Optional, then we'll wrap our underlying type with typing.Optional
+        // However, if we're not respecting optionals, then we'll just skip over this.
+        if (!ignoreOptional && typeRef.optional) {
+            pythonType = `typing.Optional[${pythonType}]`;
+        }
+
+        return pythonType;
+    }
+
+    private toPythonPrimitive(primitive: spec.PrimitiveType): string {
+        switch (primitive) {
+            case spec.PrimitiveType.Boolean: return "bool";
+            case spec.PrimitiveType.Date: return "datetime.datetime";
+            case spec.PrimitiveType.Json: return "typing.Mapping[typing.Any, typing.Any]";
+            case spec.PrimitiveType.Number: return "jsii.Number";
+            case spec.PrimitiveType.String: return "str";
+            case spec.PrimitiveType.Any: return "typing.Any";
+            default:
+                throw new Error("Unknown primitive type: " + primitive);
+        }
+    }
+
+    private toPythonCollection(ref: spec.CollectionTypeReference): string {
+        const elementPythonType = this.toPythonType(ref.collection.elementtype);
+        switch (ref.collection.kind) {
+            case spec.CollectionKind.Array: return `typing.List[${elementPythonType}]`;
+            case spec.CollectionKind.Map: return `typing.Mapping[str,${elementPythonType}]`;
+            default:
+                throw new Error(`Unsupported collection kind: ${ref.collection.kind}`);
+        }
+    }
+
+    private toPythonFQN(fqn: string): string {
+        const [, modulePart, typePart] = fqn.match(/^((?:[^A-Z\.][^\.]+\.?)+)(?:\.([A-Z].+))?$/) as string[];
+        const fqnParts: string[] = [toPythonModuleName(modulePart)];
+
+        if (typePart) {
+            fqnParts.push(typePart.split(".").map(cur => toPythonIdentifier(cur)).join("."));
+        }
+
+        return fqnParts.join(".");
     }
 }
 
 class PythonGenerator extends Generator {
 
-    private currentMember?: PythonCollectionNode;
-    private modules: Module[];
-    private moduleStack: Module[];
+    private package: Package;
+    private types: Map<string, PythonType>;
 
     constructor(options = new GeneratorOptions()) {
         super(options);
@@ -913,291 +971,255 @@ class PythonGenerator extends Generator {
         this.code.openBlockFormatter = s => `${s}:`;
         this.code.closeBlockFormatter = _s => "";
 
-        this.currentMember = undefined;
-        this.modules = [];
-        this.moduleStack = [];
+        this.types = new Map();
     }
 
-    protected getAssemblyOutputDir(mod: spec.Assembly) {
-        return path.join("src", toPythonModuleFilename(toPythonModuleName(mod.name)), "_jsii");
+    protected getAssemblyOutputDir(assm: spec.Assembly) {
+        return path.join("src", pythonModuleNameToFilename(this.getAssemblyModuleName(assm)));
     }
 
     protected onBeginAssembly(assm: spec.Assembly, _fingerprint: boolean) {
-        // We need to write out an __init__.py for our _jsii package so that
-        // importlib.resources will be able to load our assembly from it.
-        const assemblyInitFilename = path.join(this.getAssemblyOutputDir(assm), "__init__.py");
+        this.package = new Package(
+            toPythonPackageName(assm.name),
+            assm.version,
+            {
+                summary: assm.description,
+                readme: assm.readme !== undefined ? assm.readme.markdown : "",
+                url: assm.homepage,
+            },
+        );
 
-        this.code.openFile(assemblyInitFilename);
-        this.code.closeFile(assemblyInitFilename);
+        const assemblyModule = new Module(
+            this.getAssemblyModuleName(assm),
+            null,
+            { assembly: assm,
+              assemblyFilename: this.getAssemblyFileName(),
+              loadAssembly: false },
+        );
+
+        this.package.addModule(assemblyModule);
+        this.package.addData(assemblyModule, this.getAssemblyFileName(), null);
     }
 
-    protected onEndAssembly(assm: spec.Assembly, _fingerprint: boolean) {
-        const packageName = toPythonPackageName(assm.name);
-        const topLevelModuleName = toPythonModuleName(packageName);
-        const moduleNames = this.modules.map(m => m.name);
-        const pyTypedFilename = path.join("src", toPythonModuleFilename(topLevelModuleName), "py.typed");
-
-        moduleNames.push(`${topLevelModuleName}._jsii`);
-        moduleNames.sort();
-
-        // We need to write out our packaging for the Python ecosystem here.
-        // TODO:
-        //      - Author
-        //      - README
-        //      - License
-        //      - Classifiers
-        //      - install_requires
-        this.code.openFile("setup.py");
-        this.code.line("import setuptools");
-        this.code.indent("setuptools.setup(");
-        this.code.line(`name="${packageName}",`);
-        this.code.line(`version="${assm.version}",`);
-        this.code.line(`description="${assm.description}",`);
-        this.code.line(`url="${assm.homepage}",`);
-        this.code.line('package_dir={"": "src"},');
-        this.code.line(`packages=[${moduleNames.map(m => `"${m}"`).join(",")}],`);
-        this.code.line(`package_data={"${topLevelModuleName}": ["py.typed"], "${topLevelModuleName}._jsii": ["*.jsii.tgz"]},`);
-        this.code.line('python_requires=">=3.6",');
-        this.code.line(`install_requires=["publication"],`);
-        this.code.unindent(")");
-        this.code.closeFile("setup.py");
-
-        // Because we're good citizens, we're going to go ahead and support pyproject.toml
-        // as well.
-        // TODO: Might be easier to just use a TOML library to write this out.
-        this.code.openFile("pyproject.toml");
-        this.code.line("[build-system]");
-        this.code.line('requires = ["setuptools", "wheel"]');
-        this.code.closeFile("pyproject.toml");
-
-        // We also need to write out a MANIFEST.in to ensure that all of our required
-        // files are included.
-        this.code.openFile("MANIFEST.in");
-        this.code.line("include pyproject.toml");
-        this.code.closeFile("MANIFEST.in");
-
-        // We also need to write out a py.typed file, to Signal to MyPy that these files
-        // are safe to use for typechecking.
-        this.code.openFile(pyTypedFilename);
-        this.code.closeFile(pyTypedFilename);
+    protected onEndAssembly(_assm: spec.Assembly, _fingerprint: boolean) {
+        this.package.write(this.code, new TypeResolver(this.types));
     }
 
     protected onBeginNamespace(ns: string) {
-        const moduleName = toPythonModuleName(ns);
-        const loadAssembly = this.assembly.name === ns ? true : false;
-        const mod = new Module(moduleName, this.assembly, this.getAssemblyFileName(), loadAssembly);
+        const module = new Module(
+            toPythonModuleName(ns),
+            ns,
+            { assembly: this.assembly,
+              assemblyFilename: this.getAssemblyFileName(),
+              loadAssembly: ns === this.assembly.name },
+        );
 
-        for (const parentMod of this.moduleStack) {
-            parentMod.addSubmodule(moduleName);
+        this.package.addModule(module);
+        this.types.set(ns, module);
+
+        // If this is our top level namespace, then we'll want to add a py.typed marker
+        // so that all of our typing works.
+        if (ns === this.assembly.name) {
+            this.package.addData(module, "py.typed", "");
         }
-
-        this.modules.push(mod);
-        this.moduleStack.push(mod);
-    }
-
-    protected onEndNamespace(_ns: string) {
-        const module = this.moduleStack.pop() as Module;
-        const moduleFilename = path.join("src", toPythonModuleFilename(module.name), "__init__.py");
-
-        this.code.openFile(moduleFilename);
-        module.emit(this.code);
-        this.code.closeFile(moduleFilename);
     }
 
     protected onBeginClass(cls: spec.ClassType, _abstract: boolean | undefined) {
-        const currentModule = this.currentModule();
-
         // TODO: Figure out what to do with abstract here.
-
-        this.currentMember = currentModule.addMember(
-            new Class(
-                currentModule.name,
-                toPythonIdentifier(cls.name),
-                cls.fqn,
-                (cls.base !== undefined ? [cls.base] : []).map(b => toPythonType(b)),
-            )
+        const klass = new Class(
+            toPythonIdentifier(cls.name),
+            cls.fqn,
+            { bases: cls.base !== undefined ? [cls.base] : [] }
         );
 
         if (cls.initializer !== undefined) {
-            this.currentMember.addMember(
+            const { parameters = [] } = cls.initializer;
+
+            klass.addMember(
                 new Initializer(
-                    currentModule.name,
-                    this.currentMember,
                     "__init__",
                     undefined,
-                    cls.initializer.parameters || [],
+                    parameters,
                     cls.initializer.returns,
-                    this.getliftedProp(cls.initializer),
+                    { liftedProp: this.getliftedProp(cls.initializer), parent: cls },
                 )
             );
         }
+
+        this.addPythonType(klass);
     }
 
-    protected onEndClass(_cls: spec.ClassType) {
-        this.currentMember = undefined;
-    }
+    protected onStaticMethod(cls: spec.ClassType, method: spec.Method) {
+        const { parameters = [] } = method;
 
-    protected onStaticMethod(_cls: spec.ClassType, method: spec.Method) {
-        this.currentMember!.addMember(
+        this.getPythonType(cls.fqn).addMember(
             new StaticMethod(
-                this.currentModule().name,
-                this.currentMember!,
                 toPythonMethodName(method.name!),
-                method.name!,
-                method.parameters || [],
+                method.name,
+                parameters,
                 method.returns,
-                this.getliftedProp(method),
+                { liftedProp: this.getliftedProp(method) },
             )
         );
     }
 
-    protected onMethod(_cls: spec.ClassType, method: spec.Method) {
-        this.currentMember!.addMember(
-            new Method(
-                this.currentModule().name,
-                this.currentMember!,
-                toPythonMethodName(method.name!),
-                method.name!,
-                method.parameters || [],
-                method.returns,
-                this.getliftedProp(method),
-            )
-        );
-    }
-
-    protected onStaticProperty(_cls: spec.ClassType, prop: spec.Property) {
-        this.currentMember!.addMember(
+    protected onStaticProperty(cls: spec.ClassType, prop: spec.Property) {
+        this.getPythonType(cls.fqn).addMember(
             new StaticProperty(
-                this.currentModule().name,
-                toPythonPropertyName(prop.name!),
-                prop.name!,
+                toPythonPropertyName(prop.name),
+                prop.name,
                 prop.type,
-                prop.immutable || false
+                { immutable: prop.immutable },
             )
         );
     }
 
-    protected onProperty(_cls: spec.ClassType, prop: spec.Property) {
-        this.currentMember!.addMember(
+    protected onMethod(cls: spec.ClassType, method: spec.Method) {
+        const { parameters = [] } = method;
+
+        this.getPythonType(cls.fqn).addMember(
+            new Method(
+                toPythonMethodName(method.name!),
+                method.name,
+                parameters,
+                method.returns,
+                { liftedProp: this.getliftedProp(method) },
+            )
+        );
+    }
+
+    protected onProperty(cls: spec.ClassType, prop: spec.Property) {
+        this.getPythonType(cls.fqn).addMember(
             new Property(
-                this.currentModule().name,
-                toPythonPropertyName(prop.name!),
-                prop.name!,
+                toPythonPropertyName(prop.name),
+                prop.name,
                 prop.type,
-                prop.immutable || false,
+                { immutable: prop.immutable },
             )
         );
     }
 
     protected onBeginInterface(ifc: spec.InterfaceType) {
-        const currentModule = this.currentModule();
+        let iface: Interface | TypedDict;
 
         if (ifc.datatype) {
-            this.currentMember = currentModule.addMember(
-                new TypedDict(
-                    currentModule.name,
-                    toPythonIdentifier(ifc.name)
-                )
+            iface = new TypedDict(
+                toPythonIdentifier(ifc.name),
+                ifc.fqn,
+                { bases: ifc.interfaces },
             );
         } else {
-            this.currentMember = currentModule.addMember(
-                new Interface(
-                    currentModule.name,
-                    toPythonIdentifier(ifc.name),
-                    (ifc.interfaces || []).map(i => toPythonType(i))
-                )
+            iface = new Interface(
+                toPythonIdentifier(ifc.name),
+                ifc.fqn,
+                { bases: ifc.interfaces },
             );
         }
+
+        this.addPythonType(iface);
     }
 
-    protected onEndInterface(_ifc: spec.InterfaceType) {
-        this.currentMember = undefined;
-    }
+    protected onEndInterface(_ifc: spec.InterfaceType) { return; }
 
     protected onInterfaceMethod(ifc: spec.InterfaceType, method: spec.Method) {
-        if (ifc.datatype) {
-            throw new Error("Cannot have a method on a data type.");
-        }
+        const { parameters = [] } = method;
 
-        this.currentMember!.addMember(
+        this.getPythonType(ifc.fqn).addMember(
             new InterfaceMethod(
-                this.currentModule().name,
-                this.currentMember!,
                 toPythonMethodName(method.name!),
-                method.name!,
-                method.parameters || [],
+                method.name,
+                parameters,
                 method.returns,
-                this.getliftedProp(method),
+                { liftedProp: this.getliftedProp(method) },
             )
         );
     }
 
     protected onInterfaceProperty(ifc: spec.InterfaceType, prop: spec.Property) {
+        let ifaceProperty: InterfaceProperty | TypedDictProperty;
+
         if (ifc.datatype) {
-            this.currentMember!.addMember(
-                new TypedDictProperty(
-                    this.currentModule().name,
-                    toPythonIdentifier(prop.name!),
-                    prop.type,
-                )
+            ifaceProperty = new TypedDictProperty(
+                toPythonIdentifier(prop.name),
+                prop.type,
             );
         } else {
-            this.currentMember!.addMember(
-                new InterfaceProperty(
-                    this.currentModule().name,
-                    toPythonPropertyName(prop.name!),
-                    prop.name!,
-                    prop.type,
-                    true,
-                )
+            ifaceProperty = new InterfaceProperty(
+                toPythonPropertyName(prop.name),
+                prop.name,
+                prop.type,
+                { immutable: prop.immutable },
             );
         }
+
+        this.getPythonType(ifc.fqn).addMember(ifaceProperty);
     }
 
     protected onBeginEnum(enm: spec.EnumType) {
-        const currentModule = this.currentModule();
-        const newMember = new Enum(currentModule.name, toPythonIdentifier(enm.name));
-
-        this.currentMember = currentModule.addMember(newMember);
+        this.addPythonType(new Enum(toPythonIdentifier(enm.name), enm.fqn, {}));
     }
 
-    protected onEndEnum(_enm: spec.EnumType) {
-        this.currentMember = undefined;
-    }
-
-    protected onEnumMember(_enm: spec.EnumType, member: spec.EnumMember) {
-        this.currentMember!.addMember(
+    protected onEnumMember(enm: spec.EnumType, member: spec.EnumMember) {
+        this.getPythonType(enm.fqn).addMember(
             new EnumMember(
-                this.currentModule().name,
                 toPythonIdentifier(member.name),
-                member.name
+                member.name,
             )
         );
     }
 
-    // Not Currently Used
-
     protected onInterfaceMethodOverload(_ifc: spec.InterfaceType, _overload: spec.Method, _originalMethod: spec.Method) {
-        debug("onInterfaceMethodOverload");
         throw new Error("Unhandled Type: InterfaceMethodOverload");
     }
 
     protected onUnionProperty(_cls: spec.ClassType, _prop: spec.Property, _union: spec.UnionTypeReference) {
-        debug("onUnionProperty");
         throw new Error("Unhandled Type: UnionProperty");
     }
 
     protected onMethodOverload(_cls: spec.ClassType, _overload: spec.Method, _originalMethod: spec.Method) {
-        debug("onMethodOverload");
         throw new Error("Unhandled Type: MethodOverload");
     }
 
     protected onStaticMethodOverload(_cls: spec.ClassType, _overload: spec.Method, _originalMethod: spec.Method) {
-        debug("onStaticMethodOverload");
         throw new Error("Unhandled Type: StaticMethodOverload");
     }
 
-    // End Not Currently Used
+    private getAssemblyModuleName(assm: spec.Assembly): string {
+        return `${toPythonModuleName(assm.name)}._jsii`;
+    }
+
+    private getParentFQN(fqn: string): string {
+        const m = fqn.match(/^(.+)\.[^\.]+$/);
+
+        if (m === null) {
+            throw new Error(`Could not determine parent FQN of: ${fqn}`);
+        }
+
+        return m[1];
+    }
+
+    private getParent(fqn: string): PythonType {
+        return this.getPythonType(this.getParentFQN(fqn));
+    }
+
+    private getPythonType(fqn: string): PythonType {
+        const type = this.types.get(fqn);
+
+        if (type === undefined) {
+            throw new Error(`Could not locate type: "${fqn}"`);
+        }
+
+        return type;
+    }
+
+    private addPythonType(type: PythonType) {
+        if (type.fqn === null) {
+            throw new Error("Cannot add a Python type without a FQN.");
+        }
+
+        this.getParent(type.fqn).addMember(type);
+        this.types.set(type.fqn, type);
+    }
 
     private getliftedProp(method: spec.Method): spec.InterfaceType | undefined {
         // If there are parameters to this method, and if the last parameter's type is
@@ -1214,9 +1236,5 @@ class PythonGenerator extends Generator {
         }
 
         return undefined;
-    }
-
-    private currentModule(): Module {
-        return this.moduleStack.slice(-1)[0];
     }
 }
