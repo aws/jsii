@@ -819,6 +819,7 @@ class TypeResolver {
 
     private readonly types: Map<string, PythonType>;
     private boundTo?: string;
+    private readonly stdTypesRe = new RegExp("^(datetime\.datetime|typing\.[A-Z][a-z]+|jsii\.Number)$");
     private readonly moduleRe = new RegExp("^((?:[^A-Z\.][^\.]+\.?)+)\.([A-Z].+)$");
 
     constructor(types: Map<string, PythonType>, boundTo?: string) {
@@ -862,6 +863,12 @@ class TypeResolver {
         for (const innerType of types) {
             // Built in types do not need formatted in any particular way.
             if (PYTHON_BUILTIN_TYPES.indexOf(innerType) > -1) {
+                continue;
+            }
+
+            // These are not exactly built in types, but they're also not types that
+            // this resolver has to worry about.
+            if (this.stdTypesRe.test(innerType)) {
                 continue;
             }
 
