@@ -1,3 +1,4 @@
+import abc
 import weakref
 import os
 
@@ -76,3 +77,7 @@ class JSIIMeta(_ClassPropertyMeta, type):
         weakref.finalize(inst, kernel.delete, inst.__jsii_ref__)
 
         return inst
+
+
+class JSIIAbstractClass(abc.ABCMeta, JSIIMeta):
+    pass

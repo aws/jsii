@@ -249,6 +249,7 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
 }
 
 interface BaseMethodOpts {
+    abstract?: boolean;
     liftedProp?: spec.InterfaceType,
     parent?: spec.NamedTypeReference,
 }
@@ -268,18 +269,22 @@ abstract class BaseMethod implements PythonBase {
     private readonly returns?: spec.TypeReference;
     private readonly liftedProp?: spec.InterfaceType;
     private readonly parent?: spec.NamedTypeReference;
+    private readonly abstract: boolean;
 
     constructor(name: string,
                 jsName: string | undefined,
                 parameters: spec.Parameter[],
                 returns?: spec.TypeReference,
                 opts: BaseMethodOpts = {}) {
+        const { abstract = false } = opts;
+
         this.name = name;
         this.jsName = jsName;
         this.parameters = parameters;
         this.returns = returns;
         this.liftedProp = opts.liftedProp;
         this.parent = opts.parent;
+        this.abstract = abstract;
     }
 
     public getTypes(): spec.NamedTypeReference[] {
@@ -359,13 +364,17 @@ abstract class BaseMethod implements PythonBase {
             code.line(`@${this.decorator}`);
         }
 
+        if (this.abstract) {
+            code.line("@abc.abstractmethod");
+        }
+
         code.openBlock(`def ${this.name}(${pythonParams.join(", ")}) -> ${returnType}`);
         this.emitBody(code, resolver);
         code.closeBlock();
     }
 
     private emitBody(code: CodeMaker, resolver: TypeResolver) {
-        if (this.jsiiMethod === undefined) {
+        if (this.jsiiMethod === undefined || this.abstract) {
             code.line("...");
         } else {
             if (this.liftedProp !== undefined) {
@@ -432,6 +441,7 @@ abstract class BaseMethod implements PythonBase {
 }
 
 interface BasePropertyOpts {
+    abstract?: boolean;
     immutable?: boolean;
 }
 
@@ -446,16 +456,19 @@ abstract class BaseProperty implements PythonBase {
 
     private readonly jsName: string;
     private readonly type: spec.TypeReference;
+    private readonly abstract: boolean;
     private readonly immutable: boolean;
 
     constructor(name: string, jsName: string, type: spec.TypeReference, opts: BasePropertyOpts = {}) {
         const {
+            abstract = false,
             immutable = false,
         } = opts;
 
         this.name = name;
         this.jsName = jsName;
         this.type = type;
+        this.abstract = abstract;
         this.immutable = immutable;
     }
 
@@ -467,8 +480,11 @@ abstract class BaseProperty implements PythonBase {
         const pythonType = resolver.resolve(this.type, { forwardReferences: false });
 
         code.line(`@${this.decorator}`);
+        if (this.abstract) {
+            code.line("@abc.abstractmethod");
+        }
         code.openBlock(`def ${this.name}(${this.implicitParameter}) -> ${pythonType}`);
-        if (this.jsiiGetMethod !== undefined) {
+        if (this.jsiiGetMethod !== undefined && !this.abstract) {
             code.line(`return jsii.${this.jsiiGetMethod}(${this.implicitParameter}, "${this.jsName}")`);
         } else {
             code.line("...");
@@ -477,8 +493,11 @@ abstract class BaseProperty implements PythonBase {
 
         if (!this.immutable) {
             code.line(`@${this.name}.setter`);
+            if (this.abstract) {
+                code.line("@abc.abstractmethod");
+            }
             code.openBlock(`def ${this.name}(${this.implicitParameter}, value: ${pythonType})`);
-            if (this.jsiiSetMethod !== undefined) {
+            if (this.jsiiSetMethod !== undefined && !this.abstract) {
                 code.line(`return jsii.${this.jsiiSetMethod}(${this.implicitParameter}, "${this.jsName}", value)`);
             } else {
                 code.line("...");
@@ -618,12 +637,27 @@ class TypedDictProperty implements PythonBase {
     }
 }
 
+interface ClassOpts extends PythonTypeOpts {
+    abstract?: boolean;
+}
+
 class Class extends BasePythonClassType {
+
+    private abstract: boolean;
+
+    constructor(name: string, fqn: string, opts: ClassOpts) {
+        super(name, fqn, opts);
+
+        const { abstract = false } = opts;
+
+        this.abstract = abstract;
+    }
 
     protected getClassParams(resolver: TypeResolver): string[] {
         const params: string[] = this.bases.map(b => resolver.resolve(b));
+        const metaclass: string = this.abstract ? "JSIIAbstractClass" : "JSIIMeta";
 
-        params.push("metaclass=jsii.JSIIMeta");
+        params.push(`metaclass=jsii.${metaclass}`);
         params.push(`jsii_type="${this.fqn}"`);
 
         return params;
@@ -734,6 +768,7 @@ class Module implements PythonType {
 
         // Before we write anything else, we need to write out our module headers, this
         // is where we handle stuff like imports, any required initialization, etc.
+        code.line("import abc");
         code.line("import datetime");
         code.line("import enum");
         code.line("import typing");
@@ -1175,12 +1210,11 @@ class PythonGenerator extends Generator {
         }
     }
 
-    protected onBeginClass(cls: spec.ClassType, _abstract: boolean | undefined) {
-        // TODO: Figure out what to do with abstract here.
+    protected onBeginClass(cls: spec.ClassType, abstract: boolean | undefined) {
         const klass = new Class(
             toPythonIdentifier(cls.name),
             cls.fqn,
-            { bases: cls.base !== undefined ? [cls.base] : [] }
+            { abstract, bases: cls.base !== undefined ? [cls.base] : [] }
         );
 
         if (cls.initializer !== undefined) {
@@ -1209,7 +1243,7 @@ class PythonGenerator extends Generator {
                 method.name,
                 parameters,
                 method.returns,
-                { liftedProp: this.getliftedProp(method) },
+                { abstract: method.abstract, liftedProp: this.getliftedProp(method) },
             )
         );
     }
@@ -1220,7 +1254,7 @@ class PythonGenerator extends Generator {
                 toPythonPropertyName(prop.name),
                 prop.name,
                 prop.type,
-                { immutable: prop.immutable },
+                { abstract: prop.abstract, immutable: prop.immutable },
             )
         );
     }
@@ -1234,7 +1268,7 @@ class PythonGenerator extends Generator {
                 method.name,
                 parameters,
                 method.returns,
-                { liftedProp: this.getliftedProp(method) },
+                { abstract: method.abstract, liftedProp: this.getliftedProp(method) },
             )
         );
     }
@@ -1245,7 +1279,7 @@ class PythonGenerator extends Generator {
                 toPythonPropertyName(prop.name),
                 prop.name,
                 prop.type,
-                { immutable: prop.immutable },
+                { abstract: prop.abstract, immutable: prop.immutable },
             )
         );
     }
