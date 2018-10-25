@@ -6,7 +6,7 @@ class _ClassProperty:
     def __get__(self, obj, klass=None):
         if klass is None:
             klass = type(obj)
-        return self.fget.__get__(obj, klass)()
+        return self.fget.__get__(obj, klass)(klass)
 
     def __set__(self, obj, value):
         if not self.fset:
