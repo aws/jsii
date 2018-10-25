@@ -371,7 +371,7 @@ abstract class BaseMethod implements PythonBase {
     private emitAutoProps(code: CodeMaker, resolver: TypeResolver) {
         const lastParameter = this.parameters.slice(-1)[0];
         const argName = toPythonIdentifier(lastParameter.name);
-        const typeName = resolver.resolve(lastParameter.type);
+        const typeName = resolver.resolve(lastParameter.type, {ignoreOptional: true });
 
         // We need to build up a list of properties, which are mandatory, these are the
         // ones we will specifiy to start with in our dictionary literal.
