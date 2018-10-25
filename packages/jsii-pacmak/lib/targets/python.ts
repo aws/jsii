@@ -824,7 +824,7 @@ class TypeResolver {
     private readonly types: Map<string, PythonType>;
     private boundTo?: string;
     private readonly stdTypesRe = new RegExp("^(datetime\.datetime|typing\.[A-Z][a-z]+|jsii\.Number)$");
-    private readonly moduleRe = new RegExp("^((?:[^A-Z\.][^\.]+\.?)+)\.([A-Z].+)$");
+    private readonly moduleRe = new RegExp("^((?:[^A-Z\.][^\.]+\.)*(?:[^A-Z\.][^\.]+))\.([A-Z].+)$");
 
     constructor(types: Map<string, PythonType>, boundTo?: string) {
         this.types = types;
