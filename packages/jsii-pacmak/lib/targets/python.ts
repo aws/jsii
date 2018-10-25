@@ -305,8 +305,9 @@ abstract class BaseMethod implements PythonBase {
         for (const param of this.parameters) {
             const paramName = toPythonIdentifier(param.name);
             const paramType = resolver.resolve(param.type, { forwardReferences: false});
+            const paramDefault = param.type.optional ? "=None" : "";
 
-            pythonParams.push(`${paramName}: ${paramType}`);
+            pythonParams.push(`${paramName}: ${paramType}${paramDefault}`);
         }
 
         // If we have a lifted parameter, then we'll drop the last argument to our params
