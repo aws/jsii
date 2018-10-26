@@ -311,14 +311,28 @@ abstract class BaseMethod implements PythonBase {
             returnType = "None";
         }
 
+        // We cannot (currently?) trust the JSII to accurately tell us whether a
+        // parameter is truly optional or not. Because of that, we have to selectively
+        // choose when we're going to respect the optional flag and emit a default value
+        // to only be at the tail end of the method signature.
+        // See: https://github.com/awslabs/jsii/issues/284
+        let optionalStartsAt: number | undefined;
+        for (const [idx, param] of this.parameters.entries()) {
+            if (param.type.optional && optionalStartsAt === undefined) {
+                optionalStartsAt = idx;
+            } else if (!param.type.optional) {
+                optionalStartsAt = undefined;
+            }
+        }
+
         // We need to turn a list of JSII parameters, into Python style arguments with
         // gradual typing, so we'll have to iterate over the list of parameters, and
         // build the list, converting as we go.
         const pythonParams: string[] = [this.implicitParameter];
-        for (const param of this.parameters) {
+        for (const [idx, param] of this.parameters.entries()) {
             const paramName = toPythonIdentifier(param.name);
             const paramType = resolver.resolve(param.type, { forwardReferences: false});
-            const paramDefault = param.type.optional ? "=None" : "";
+            const paramDefault = optionalStartsAt !== undefined && idx >= optionalStartsAt ? "=None" : "";
 
             pythonParams.push(`${paramName}: ${paramType}${paramDefault}`);
         }
