@@ -1118,7 +1118,10 @@ class TypeResolver {
 
         // If our type is Optional, then we'll wrap our underlying type with typing.Optional
         // However, if we're not respecting optionals, then we'll just skip over this.
-        if (!ignoreOptional && typeRef.optional) {
+        // We explicitly don't emit this when our type is typing.Any, because typing.Any
+        // already implied that None is an accepted type.
+        // See: https://github.com/awslabs/jsii/issues/284
+        if (!ignoreOptional && typeRef.optional && pythonType !== "typing.Any") {
             pythonType = `typing.Optional[${pythonType}]`;
         }
 
