@@ -806,7 +806,7 @@ class Module implements PythonType {
     }
 
     private emitDependencyImports(code: CodeMaker, resolver: TypeResolver) {
-        const moduleRe = new RegExp(`^${escapeStringRegexp(this.name)}\.(.+)$`);
+        const moduleRe = new RegExp(`^${escapeStringRegexp(this.name)}\\.(.+)$`);
         const deps = Array.from(
             new Set([
                 ...Object.keys(this.assembly.dependencies || {}).map(d => toPythonModuleName(d)),
@@ -962,16 +962,16 @@ class TypeResolver {
 
     private readonly types: Map<string, PythonType>;
     private boundTo?: string;
-    private readonly stdTypesRe = new RegExp("^(datetime\.datetime|typing\.[A-Z][a-z]+|jsii\.Number)$");
+    private readonly stdTypesRe = new RegExp("^(datetime\\.datetime|typing\\.[A-Z][a-z]+|jsii\\.Number)$");
     private readonly boundRe: RegExp;
-    private readonly moduleRe = new RegExp("^((?:[^A-Z\.][^\.]+\.)*(?:[^A-Z\.][^\.]+))\.([A-Z].+)$");
+    private readonly moduleRe = new RegExp("^((?:[^A-Z\.][^\\.]+\\.)*(?:[^A-Z\\.][^\\.]+))\\.([A-Z].+)$");
 
     constructor(types: Map<string, PythonType>, boundTo?: string) {
         this.types = types;
         this.boundTo = boundTo !== undefined ? this.toPythonFQN(boundTo) : boundTo;
 
         if (this.boundTo !== undefined) {
-            this.boundRe = new RegExp(`^(${escapeStringRegexp(this.boundTo)})\.(.+)$`);
+            this.boundRe = new RegExp(`^(${escapeStringRegexp(this.boundTo)})\\.(.+)$`);
         }
     }
 
