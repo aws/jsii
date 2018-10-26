@@ -165,10 +165,6 @@ interface PythonType extends PythonBase {
     addMember(member: PythonBase): void;
 }
 
-function isPythonType(arg: PythonBase): arg is PythonType {
-    return (arg as any).fqn !== undefined;
-}
-
 interface ISortableType {
     dependsOn(resolver: TypeResolver): spec.NamedTypeReference[];
 }
@@ -233,10 +229,6 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
         if (this.members.length > 0) {
             for (const member of sortMembers(this.members, resolver)) {
                 member.emit(code, resolver);
-
-                if (isPythonType(member)) {
-                    resolver.markTypeEmitted(member);
-                }
             }
         } else {
             code.line("pass");
@@ -569,10 +561,6 @@ class TypedDict extends BasePythonClassType {
             code.openBlock(`class _${this.name}(${classParams.concat(["total=False"]).join(", ")})`);
             for (const member of optionalMembers) {
                 member.emit(code, resolver);
-
-                if (isPythonType(member)) {
-                    resolver.markTypeEmitted(member);
-                }
             }
             code.closeBlock();
 
@@ -580,10 +568,6 @@ class TypedDict extends BasePythonClassType {
             code.openBlock(`class ${this.name}(_${this.name})`);
             for (const member of sortMembers(mandatoryMembers, resolver)) {
                 member.emit(code, resolver);
-
-                if (isPythonType(member)) {
-                    resolver.markTypeEmitted(member);
-                }
             }
             code.closeBlock();
         } else {
@@ -600,10 +584,6 @@ class TypedDict extends BasePythonClassType {
             if (this.members.length > 0) {
                 for (const member of sortMembers(this.members, resolver)) {
                     member.emit(code, resolver);
-
-                    if (isPythonType(member)) {
-                        resolver.markTypeEmitted(member);
-                    }
                 }
             } else {
                 code.line("pass");
@@ -810,10 +790,6 @@ class Module implements PythonType {
         // Emit all of our members.
         for (const member of sortMembers(this.members, resolver)) {
             member.emit(code, resolver);
-
-            if (isPythonType(member)) {
-                resolver.markTypeEmitted(member);
-            }
         }
 
         // Whatever names we've exported, we'll write out our __all__ that lists them.
@@ -989,12 +965,10 @@ class TypeResolver {
     private readonly stdTypesRe = new RegExp("^(datetime\.datetime|typing\.[A-Z][a-z]+|jsii\.Number)$");
     private readonly boundRe: RegExp;
     private readonly moduleRe = new RegExp("^((?:[^A-Z\.][^\.]+\.)*(?:[^A-Z\.][^\.]+))\.([A-Z].+)$");
-    private readonly emitted: Set<string>;
 
     constructor(types: Map<string, PythonType>, boundTo?: string) {
         this.types = types;
         this.boundTo = boundTo !== undefined ? this.toPythonFQN(boundTo) : boundTo;
-        this.emitted = new Set();
 
         if (this.boundTo !== undefined) {
             this.boundRe = new RegExp(`^(${escapeStringRegexp(this.boundTo)})\.(.+)$`);
@@ -1031,12 +1005,6 @@ class TypeResolver {
             }
         }
         return modules;
-    }
-
-    public markTypeEmitted(type: PythonType) {
-        if (type.fqn) {
-            this.emitted.add(this.toPythonFQN(type.fqn));
-        }
     }
 
     public resolve(
@@ -1083,7 +1051,7 @@ class TypeResolver {
                 // We have special logic here for checking if our thing is actually *in*
                 // our module, behond what we've already done, because our other logic will
                 // work for submodules, but this can't.
-                if (!forwardReferences && this.isInModule(innerType) && !this.emitted.has(innerType)) {
+                if (!forwardReferences && this.isInModule(innerType)) {
                     pythonType = pythonType.replace(re, `$1"${innerType}"$2`);
                 }
 
