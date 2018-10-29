@@ -10,42 +10,42 @@ Reference
 
    .. group-tab:: C#
 
-      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId/0.7.7>`_
+      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId/0.7.8>`_
 
       **csproj**:
 
       .. code-block:: xml
 
-         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId" Version="0.7.7" />
+         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId" Version="0.7.8" />
 
       **dotnet**:
 
       .. code-block:: console
 
-         dotnet add package Amazon.JSII.Tests.CalculatorPackageId --version 0.7.7
+         dotnet add package Amazon.JSII.Tests.CalculatorPackageId --version 0.7.8
 
       **packages.config**:
 
       .. code-block:: xml
 
-         <package id="Amazon.JSII.Tests.CalculatorPackageId" version="0.7.7" />
+         <package id="Amazon.JSII.Tests.CalculatorPackageId" version="0.7.8" />
 
 
    .. group-tab:: Java
 
-      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator/0.7.7/>`_
+      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator/0.7.8/>`_
 
       **Apache Buildr**:
 
       .. code-block:: none
 
-         'software.amazon.jsii.tests:calculator:jar:0.7.7'
+         'software.amazon.jsii.tests:calculator:jar:0.7.8'
 
       **Apache Ivy**:
 
       .. code-block:: xml
 
-         <dependency groupId="software.amazon.jsii.tests" name="calculator" rev="0.7.7"/>
+         <dependency groupId="software.amazon.jsii.tests" name="calculator" rev="0.7.8"/>
 
       **Apache Maven**:
 
@@ -54,72 +54,72 @@ Reference
          <dependency>
            <groupId>software.amazon.jsii.tests</groupId>
            <artifactId>calculator</artifactId>
-           <version>0.7.7</version>
+           <version>0.7.8</version>
          </dependency>
 
       **Gradle / Grails**:
 
       .. code-block:: none
 
-         compile 'software.amazon.jsii.tests:calculator:0.7.7'
+         compile 'software.amazon.jsii.tests:calculator:0.7.8'
 
       **Groovy Grape**:
 
       .. code-block:: none
 
          @Grapes(
-         @Grab(group='software.amazon.jsii.tests', module='calculator', version='0.7.7')
+         @Grab(group='software.amazon.jsii.tests', module='calculator', version='0.7.8')
          )
 
 
    .. group-tab:: JavaScript
 
-      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.7.7>`_
+      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.7.8>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i jsii-calc@0.7.7
+         $ npm i jsii-calc@0.7.8
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "jsii-calc": "^0.7.7"
+           "jsii-calc": "^0.7.8"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add jsii-calc@0.7.7
+         $ yarn add jsii-calc@0.7.8
 
 
    .. group-tab:: TypeScript
 
-      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.7.7>`_
+      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.7.8>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i jsii-calc@0.7.7
+         $ npm i jsii-calc@0.7.8
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "jsii-calc": "^0.7.7"
+           "jsii-calc": "^0.7.8"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add jsii-calc@0.7.7
+         $ yarn add jsii-calc@0.7.8
 
 
 
