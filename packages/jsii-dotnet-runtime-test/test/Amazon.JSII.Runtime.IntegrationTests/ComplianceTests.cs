@@ -462,8 +462,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         {
             AsyncVirtualMethodsChild obj = new AsyncVirtualMethodsChild();
 
-            RuntimeException exception = Assert.Throws<RuntimeException>(() => obj.CallMe());
-            Assert.Equal("Thrown by native code", exception.Message);
+            JsiiException exception = Assert.Throws<JsiiException>(() => obj.CallMe());
+            Assert.Contains("Thrown by native code", exception.Message);
         }
 
         class SyncVirtualMethodsChild_Set_CallsSuper : SyncVirtualMethods
@@ -531,8 +531,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         {
             SyncVirtualMethodsChild_Throws so = new SyncVirtualMethodsChild_Throws();
 
-            RuntimeException exception = Assert.Throws<RuntimeException>(() => so.RetrieveValueOfTheProperty());
-            Assert.Equal("Oh no, this is bad", exception.Message);
+            JsiiException exception = Assert.Throws<JsiiException>(() => so.RetrieveValueOfTheProperty());
+            Assert.Contains("Oh no, this is bad", exception.Message);
         }
 
         [Fact(DisplayName = Prefix + nameof(PropertyOverrides_Set_CallsSuper))]
@@ -549,8 +549,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         {
             SyncVirtualMethodsChild_Throws so = new SyncVirtualMethodsChild_Throws();
 
-            RuntimeException exception = Assert.Throws<RuntimeException>(() => so.ModifyValueOfTheProperty("Hii"));
-            Assert.Equal("Exception from overloaded setter", exception.Message);
+            JsiiException exception = Assert.Throws<JsiiException>(() => so.ModifyValueOfTheProperty("Hii"));
+            Assert.Contains("Exception from overloaded setter", exception.Message);
         }
 
         [Fact(DisplayName = Prefix + nameof(PropertyOverrides_Interfaces))]

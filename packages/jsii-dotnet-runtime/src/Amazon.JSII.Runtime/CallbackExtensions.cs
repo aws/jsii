@@ -29,14 +29,13 @@ namespace Amazon.JSII.Runtime
             }
             catch (TargetInvocationException e)
             {
-                throw e.InnerException;
-            }
-            catch (TargetParameterCountException)
-            {
-                throw;
+                // An exception was thrown by the method being invoked
+                error = e.InnerException.ToString();
+                return null;
             }
             catch (Exception e)
             {
+                // An exception was thrown while preparing the request or processing the result
                 error = e.ToString();
                 return null;
             }
