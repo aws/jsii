@@ -79,11 +79,11 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
         this.jsiiSet("jsonProperty", java.util.Objects.requireNonNull(value, "jsonProperty is required"));
     }
 
-    public java.util.Map<java.lang.String, java.lang.Number> getMapProperty() {
+    public java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Number> getMapProperty() {
         return this.jsiiGet("mapProperty", java.util.Map.class);
     }
 
-    public void setMapProperty(final java.util.Map<java.lang.String, java.lang.Number> value) {
+    public void setMapProperty(final java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Number> value) {
         this.jsiiSet("mapProperty", java.util.Objects.requireNonNull(value, "mapProperty is required"));
     }
 
@@ -132,6 +132,10 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
     }
 
     public void setUnionProperty(final software.amazon.jsii.tests.calculator.Multiply value) {
+        this.jsiiSet("unionProperty", java.util.Objects.requireNonNull(value, "unionProperty is required"));
+    }
+
+    public void setUnionProperty(final software.amazon.jsii.tests.calculator.lib.Number value) {
         this.jsiiSet("unionProperty", java.util.Objects.requireNonNull(value, "unionProperty is required"));
     }
 

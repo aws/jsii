@@ -15,10 +15,11 @@ namespace Amazon.JSII.Runtime
         {
             try
             {
-                object frameworkResult = callback.InvokeCallbackCore(referenceMap);
+                TypeReference returnType;
+                object frameworkResult = callback.InvokeCallbackCore(referenceMap, out returnType);
 
                 converter.TryConvert(
-                    new TypeReference(primitive: PrimitiveType.Any),
+                    returnType ?? new TypeReference(primitive: PrimitiveType.Any),
                     referenceMap,
                     frameworkResult,
                     out object result
@@ -41,28 +42,29 @@ namespace Amazon.JSII.Runtime
             }
         }
 
-        static object InvokeCallbackCore(this Callback callback, IReferenceMap referenceMap)
+        static object InvokeCallbackCore(this Callback callback, IReferenceMap referenceMap, out TypeReference returnType)
         {
             if (callback.Invoke != null)
             {
-                return InvokeMethod(callback.Invoke, referenceMap);
+                return InvokeMethod(callback.Invoke, referenceMap, out returnType);
             }
 
             if (callback.Get != null)
             {
-                return InvokeGetter(callback.Get, referenceMap);
+                return InvokeGetter(callback.Get, referenceMap, out returnType);
             }
 
             if (callback.Set != null)
             {
                 InvokeSetter(callback.Set, referenceMap);
+                returnType = null;
                 return null;
             }
 
             throw new ArgumentException("Callback does not specificy a method, getter, or setter to invoke");
         }
 
-        static object InvokeMethod(InvokeRequest request, IReferenceMap referenceMap)
+        static object InvokeMethod(InvokeRequest request, IReferenceMap referenceMap, out TypeReference returnType)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
             DeputyBase deputy = referenceMap.GetOrCreateNativeReference(request.ObjectReference);
@@ -74,10 +76,13 @@ namespace Amazon.JSII.Runtime
                 throw new InvalidOperationException($"Received callback for {deputy.GetType().Name}.{request.Method} getter, but this method does not exist");
             }
 
+            JsiiMethodAttribute attribute = methodInfo.GetCustomAttribute<JsiiMethodAttribute>();
+            returnType = attribute?.Returns;
+
             return methodInfo.Invoke(deputy, request.Arguments);
         }
 
-        static object InvokeGetter(GetRequest request, IReferenceMap referenceMap)
+        static object InvokeGetter(GetRequest request, IReferenceMap referenceMap, out TypeReference returnType)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
             DeputyBase deputy = referenceMap.GetOrCreateNativeReference(request.ObjectReference);
@@ -87,6 +92,9 @@ namespace Amazon.JSII.Runtime
             {
                 throw new InvalidOperationException($"Received callback for {deputy.GetType().Name}.{request.Property} getter, but this property does not exist");
             }
+
+            JsiiPropertyAttribute attribute = propertyInfo.GetCustomAttribute<JsiiPropertyAttribute>();
+            returnType = attribute?.Type;
 
             MethodInfo methodInfo = propertyInfo.GetGetMethod();
             if (methodInfo == null)

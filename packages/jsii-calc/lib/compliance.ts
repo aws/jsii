@@ -1,5 +1,5 @@
 // tslint:disable
-import { Value, Number, IFriendly, MyFirstStruct, StructWithOnlyOptionals, EnumFromScopedModule } from '@scope/jsii-calc-lib';
+import { Value, Number, IFriendly, IDoublable, MyFirstStruct, StructWithOnlyOptionals, EnumFromScopedModule } from '@scope/jsii-calc-lib';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
@@ -574,7 +574,7 @@ export class AllowedMethodNames {
 }
 
 export interface IReturnsNumber {
-    obtainNumber(): Number;
+    obtainNumber(): IDoublable;
     readonly numberProp: Number;
 }
 

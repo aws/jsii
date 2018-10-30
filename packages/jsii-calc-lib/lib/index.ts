@@ -7,20 +7,27 @@ export abstract class Value extends base.Base {
     /**
      * The value.
      */
-    abstract readonly value: number
+    public abstract readonly value: number;
 
     /**
      * String representation of the value.
      */
-    toString() {
+    public toString() {
         return this.value.toString();
     }
 }
 
 /**
+ * The general contract for a concrete number.
+ */
+export interface IDoublable {
+    readonly doubleValue: number;
+}
+
+/**
  * Represents a concrete number.
  */
-export class Number extends Value {
+export class Number extends Value implements IDoublable {
     /**
      * Creates a Number object.
      * @param value The number.
@@ -41,7 +48,7 @@ export class Number extends Value {
  * Represents an operation on values.
  */
 export abstract class Operation extends Value {
-    abstract toString(): string
+    public abstract toString(): string;
 }
 
 /**

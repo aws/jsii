@@ -2,8 +2,8 @@ package software.amazon.jsii.tests.calculator;
 
 @javax.annotation.Generated(value = "jsii-pacmak")
 public interface IReturnsNumber extends software.amazon.jsii.JsiiSerializable {
-    java.lang.Number getNumberProp();
-    java.lang.Number obtainNumber();
+    software.amazon.jsii.tests.calculator.lib.Number getNumberProp();
+    software.amazon.jsii.tests.calculator.lib.IDoublable obtainNumber();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.
@@ -14,13 +14,13 @@ public interface IReturnsNumber extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public java.lang.Number getNumberProp() {
-            return this.jsiiGet("numberProp", java.lang.Number.class);
+        public software.amazon.jsii.tests.calculator.lib.Number getNumberProp() {
+            return this.jsiiGet("numberProp", software.amazon.jsii.tests.calculator.lib.Number.class);
         }
 
         @Override
-        public java.lang.Number obtainNumber() {
-            return this.jsiiCall("obtainNumber", java.lang.Number.class);
+        public software.amazon.jsii.tests.calculator.lib.IDoublable obtainNumber() {
+            return this.jsiiCall("obtainNumber", software.amazon.jsii.tests.calculator.lib.IDoublable.class);
         }
     }
 }

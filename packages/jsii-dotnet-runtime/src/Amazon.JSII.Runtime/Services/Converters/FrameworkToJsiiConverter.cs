@@ -251,6 +251,10 @@ namespace Amazon.JSII.Runtime.Services.Converters
                     return false;
                 }
 
+                if (convertedElement != null && !(convertedElement is String) && !convertedElement.GetType().IsPrimitive)
+                {
+                    convertedElement = JObject.FromObject(convertedElement);
+                }
                 resultObject.Add(new JProperty(key, convertedElement));
             }
 

@@ -436,7 +436,7 @@
           "type": {
             "collection": {
               "elementtype": {
-                "primitive": "number"
+                "fqn": "@scope/jsii-calc-lib.Number"
               },
               "kind": "map"
             }
@@ -486,6 +486,9 @@
                     },
                     {
                       "primitive": "number"
+                    },
+                    {
+                      "fqn": "@scope/jsii-calc-lib.Number"
                     }
                   ]
                 }
@@ -507,6 +510,9 @@
                 },
                 {
                   "fqn": "jsii-calc.Multiply"
+                },
+                {
+                  "fqn": "@scope/jsii-calc-lib.Number"
                 }
               ]
             }
@@ -1559,7 +1565,7 @@
           "abstract": true,
           "name": "obtainNumber",
           "returns": {
-            "primitive": "number"
+            "fqn": "@scope/jsii-calc-lib.IDoublable"
           }
         }
       ],
@@ -1570,7 +1576,7 @@
           "immutable": true,
           "name": "numberProp",
           "type": {
-            "primitive": "number"
+            "fqn": "@scope/jsii-calc-lib.Number"
           }
         }
       ]
@@ -3401,5 +3407,5 @@
     }
   },
   "version": "0.7.8",
-  "fingerprint": "fhzPkiQLwsWAnEdA5+YEotaWom2Av1au0q2FzpexXaQ="
+  "fingerprint": "jHSXTzCSZbwYMvLKpeZB6SE8hNgYgt9/2JF1ihM41SI="
 }

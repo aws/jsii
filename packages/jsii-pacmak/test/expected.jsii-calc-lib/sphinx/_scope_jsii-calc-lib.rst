@@ -158,6 +158,43 @@ EnumFromScopedModule (enum)
    .. py:data:: Value2
 
 
+IDoublable (interface)
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: IDoublable
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.lib.IDoublable;
+
+      .. code-tab:: javascript
+
+         // IDoublable is an interface
+
+      .. code-tab:: typescript
+
+         import { IDoublable } from '@scope/jsii-calc-lib';
+
+
+
+   The general contract for a concrete number.
+
+
+
+
+   .. py:attribute:: doubleValue
+
+      :type: number *(readonly)* *(abstract)*
+
+
 IFriendly (interface)
 ^^^^^^^^^^^^^^^^^^^^^
 
@@ -283,10 +320,13 @@ Number
 
 
    :extends: :py:class:`~@scope/jsii-calc-lib.Value`\ 
+   :implements: :py:class:`~@scope/jsii-calc-lib.IDoublable`\ 
    :param value: The number.
    :type value: number
 
    .. py:attribute:: doubleValue
+
+      *Implements* :py:meth:`@scope/jsii-calc-lib.IDoublable.doubleValue`
 
       The number multiplied by 2.
 

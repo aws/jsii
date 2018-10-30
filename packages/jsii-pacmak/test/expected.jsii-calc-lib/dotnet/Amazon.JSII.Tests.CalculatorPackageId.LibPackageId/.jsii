@@ -92,6 +92,25 @@
       ],
       "name": "EnumFromScopedModule"
     },
+    "@scope/jsii-calc-lib.IDoublable": {
+      "assembly": "@scope/jsii-calc-lib",
+      "docs": {
+        "comment": "The general contract for a concrete number."
+      },
+      "fqn": "@scope/jsii-calc-lib.IDoublable",
+      "kind": "interface",
+      "name": "IDoublable",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "name": "doubleValue",
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
+    },
     "@scope/jsii-calc-lib.IFriendly": {
       "assembly": "@scope/jsii-calc-lib",
       "docs": {
@@ -184,6 +203,11 @@
           }
         ]
       },
+      "interfaces": [
+        {
+          "fqn": "@scope/jsii-calc-lib.IDoublable"
+        }
+      ],
       "kind": "class",
       "name": "Number",
       "properties": [
@@ -193,6 +217,9 @@
           },
           "immutable": true,
           "name": "doubleValue",
+          "overrides": {
+            "fqn": "@scope/jsii-calc-lib.IDoublable"
+          },
           "type": {
             "primitive": "number"
           }
@@ -324,5 +351,5 @@
     }
   },
   "version": "0.7.8",
-  "fingerprint": "16sTfW7oHGAWfPOj50gWvXsI1REjbNbpk7VUpG1JVVI="
+  "fingerprint": "HzcyHys0b9gFmP4dogeIJmGE6GVtrSo/P0S54Vd/X8U="
 }
