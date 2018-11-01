@@ -23,8 +23,8 @@ export default class Python extends Target {
         await shell("black", ["--py36", sourceDir], {});
 
         // Actually package up our code, both as a sdist and a wheel for publishing.
-        await shell("python", ["setup.py", "sdist", "--dist-dir", outDir], { cwd: sourceDir });
-        await shell("python", ["setup.py", "bdist_wheel", "--dist-dir", outDir], { cwd: sourceDir });
+        await shell("python3", ["setup.py", "sdist", "--dist-dir", outDir], { cwd: sourceDir });
+        await shell("python3", ["setup.py", "bdist_wheel", "--dist-dir", outDir], { cwd: sourceDir });
     }
 }
 
