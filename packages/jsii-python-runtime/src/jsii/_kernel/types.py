@@ -81,7 +81,7 @@ class StaticGetRequest:
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class GetResponse:
 
-    value: Any
+    value: Any = None
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)

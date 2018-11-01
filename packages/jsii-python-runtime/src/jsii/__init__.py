@@ -1,6 +1,6 @@
 from typing import Union
 
-from ._runtime import JSIIAssembly, JSIIMeta, JSIIAbstractClass, kernel
+from ._runtime import JSIIAssembly, JSIIMeta, JSIIAbstractClass, data_type, kernel
 
 
 # JS doesn't have distinct float or integer types, but we do. So we'll define our own
@@ -27,6 +27,8 @@ __all__ = [
     "JSIIMeta",
     "JSIIAbstractClass",
     "Number",
+    "data_type",
+    "kernel",
     "load",
     "create",
     "delete",

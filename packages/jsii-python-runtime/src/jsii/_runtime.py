@@ -81,3 +81,12 @@ class JSIIMeta(_ClassPropertyMeta, type):
 
 class JSIIAbstractClass(abc.ABCMeta, JSIIMeta):
     pass
+
+
+def data_type(*, jsii_type):
+    def deco(cls):
+        cls.__jsii_type__ = jsii_type
+        _reference_map.register_data_type(cls)
+        return cls
+
+    return deco

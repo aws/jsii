@@ -24,19 +24,19 @@ from jsii._kernel.types import (
 )
 
 
-def _recursize_dereference(d):
+def _recursize_dereference(kernel, d):
     if isinstance(d, collections.abc.Mapping):
-        return {k: _recursize_dereference(v) for k, v in d.items()}
+        return {k: _recursize_dereference(kernel, v) for k, v in d.items()}
     elif isinstance(d, ObjRef):
-        return _reference_map.resolve_reference(d)
+        return _reference_map.resolve_reference(kernel, d)
     else:
         return d
 
 
 def _dereferenced(fn):
     @functools.wraps(fn)
-    def wrapped(*args, **kwargs):
-        return _recursize_dereference(fn(*args, **kwargs))
+    def wrapped(kernel, *args, **kwargs):
+        return _recursize_dereference(kernel, fn(kernel, *args, **kwargs))
 
     return wrapped
 

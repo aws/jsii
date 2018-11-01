@@ -560,12 +560,15 @@ class TypedDict extends BasePythonClassType {
             code.closeBlock();
 
             // Now we'll emit the mandatory members.
+            code.line(`@jsii.data_type(jsii_type="${this.fqn}")`);
             code.openBlock(`class ${this.name}(_${this.name})`);
             for (const member of sortMembers(mandatoryMembers, resolver)) {
                 member.emit(code, resolver);
             }
             code.closeBlock();
         } else {
+            code.line(`@jsii.data_type(jsii_type="${this.fqn}")`);
+
             // In this case we either have no members, or we have all of one type, so
             // we'll see if we have any optional members, if we don't then we'll use
             // total=True instead of total=False for the class.
