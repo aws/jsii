@@ -90,3 +90,11 @@ def data_type(*, jsii_type):
         return cls
 
     return deco
+
+
+def member(*, jsii_name):
+    def deco(fn):
+        fn.__jsii_name__ = jsii_name
+        return fn
+
+    return deco

@@ -373,6 +373,10 @@ abstract class BaseMethod implements PythonBase {
             pythonParams.push(`*${paramName}: ${paramType}`);
         }
 
+        if (this.jsName !== undefined) {
+            code.line(`@jsii.member(jsii_name="${this.jsName}")`);
+        }
+
         if (this.decorator !== undefined) {
             code.line(`@${this.decorator}`);
         }
@@ -494,6 +498,7 @@ abstract class BaseProperty implements PythonBase {
         const pythonType = resolver.resolve(this.type, { forwardReferences: false });
 
         code.line(`@${this.decorator}`);
+        code.line(`@jsii.member(jsii_name="${this.jsName}")`);
         if (renderAbstract && this.abstract) {
             code.line("@abc.abstractmethod");
         }

@@ -1,3 +1,5 @@
+import inspect
+
 from typing import Any, List, Optional, Type
 
 import collections.abc
@@ -21,7 +23,40 @@ from jsii._kernel.types import (
     StaticSetRequest,
     StatsRequest,
     ObjRef,
+    Override,
 )
+
+
+_nothing = object()
+
+
+def _get_overides(klass: JSClass, obj: Any) -> List[Override]:
+    overrides = []
+
+    # We need to inspect each item in the MRO, until we get to our JSClass, at that
+    # point we'll bail, because those methods are not the overriden methods, but the
+    # "real" methods.
+    for mro_klass in type(obj).mro():
+        if mro_klass is klass:
+            break
+
+        for name, item in mro_klass.__dict__.items():
+            # We're only interested in things that also exist on the JSII class, and
+            # which are themselves, jsii members.
+            original = getattr(klass, name, _nothing)
+            if original is not _nothing:
+                if inspect.isfunction(item) and hasattr(original, "__jsii_name__"):
+                    overrides.append(
+                        Override(method=original.__jsii_name__, cookie=name)
+                    )
+                elif inspect.isdatadescriptor(item) and hasattr(
+                    original.fget, "__jsii_name__"
+                ):
+                    overrides.append(
+                        Override(property=original.fget.__jsii_name__, cookie=name)
+                    )
+
+    return overrides
 
 
 def _recursize_dereference(kernel, d):
@@ -74,9 +109,10 @@ class Kernel(metaclass=Singleton):
         if args is None:
             args = []
 
-        # TODO: Handle Overrides
+        overrides = _get_overides(klass, obj)
+
         obj.__jsii_ref__ = self.provider.create(
-            CreateRequest(fqn=klass.__jsii_type__, args=args)
+            CreateRequest(fqn=klass.__jsii_type__, args=args, overrides=overrides)
         )
 
     def delete(self, ref: ObjRef) -> None:
