@@ -1,4 +1,5 @@
 # This module exists to break an import cycle between jsii.runtime and jsii.kernel
+import inspect
 import weakref
 
 from .compat import TypedDict
@@ -45,8 +46,13 @@ class _ReferenceMap:
         if class_fqn in _types:
             klass = _types[class_fqn]
 
-            # Create our instance, bypassing __init__ by directly calling __new__, and then
-            # assign our reference to __jsii_ref__
+            # If this class is an abstract class, then we'll use the generated proxy
+            # class instead of the abstract class to handle return values for this type.
+            if inspect.isabstract(klass):
+                klass = klass.__jsii_proxy_class__()
+
+            # Create our instance, bypassing __init__ by directly calling __new__, and
+            # then assign our reference to __jsii_ref__
             inst = klass.__new__(klass)
             inst.__jsii_ref__ = ref
         elif class_fqn in _data_types:

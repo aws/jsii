@@ -152,7 +152,7 @@ const recurseForNamedTypeReferences = (typeRef: spec.TypeReference): spec.NamedT
 interface PythonBase {
     readonly name: string;
 
-    emit(code: CodeMaker, resolver: TypeResolver): void;
+    emit(code: CodeMaker, resolver: TypeResolver, opts?: any): void;
 }
 
 interface PythonType extends PythonBase {
@@ -239,6 +239,8 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
 
         code.openBlock(`class ${this.name}${bases}`);
 
+        this.emitPreamble(code, resolver);
+
         if (this.members.length > 0) {
             for (const member of sortMembers(this.members, resolver)) {
                 member.emit(code, resolver);
@@ -251,6 +253,8 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     }
 
     protected abstract getClassParams(resolver: TypeResolver): string[];
+
+    protected emitPreamble(_code: CodeMaker, _resolver: TypeResolver) { return; }
 }
 
 interface BaseMethodOpts {
@@ -259,9 +263,14 @@ interface BaseMethodOpts {
     parent?: spec.NamedTypeReference,
 }
 
+interface BaseMethodEmitOpts {
+    renderAbstract?: boolean;
+}
+
 abstract class BaseMethod implements PythonBase {
 
     public readonly name: string;
+    public readonly abstract: boolean;
 
     protected readonly abstract implicitParameter: string;
     protected readonly jsiiMethod?: string;
@@ -274,7 +283,6 @@ abstract class BaseMethod implements PythonBase {
     private readonly returns?: spec.TypeReference;
     private readonly liftedProp?: spec.InterfaceType;
     private readonly parent?: spec.NamedTypeReference;
-    private readonly abstract: boolean;
 
     constructor(name: string,
                 jsName: string | undefined,
@@ -284,15 +292,17 @@ abstract class BaseMethod implements PythonBase {
         const { abstract = false } = opts;
 
         this.name = name;
+        this.abstract = abstract;
         this.jsName = jsName;
         this.parameters = parameters;
         this.returns = returns;
         this.liftedProp = opts.liftedProp;
         this.parent = opts.parent;
-        this.abstract = abstract;
     }
 
-    public emit(code: CodeMaker, resolver: TypeResolver) {
+    public emit(code: CodeMaker, resolver: TypeResolver, opts?: BaseMethodEmitOpts) {
+        const { renderAbstract = true } = opts || {};
+
         let returnType: string;
         if (this.returns !== undefined) {
             returnType = resolver.resolve(this.returns, { forwardReferences: false });
@@ -367,17 +377,17 @@ abstract class BaseMethod implements PythonBase {
             code.line(`@${this.decorator}`);
         }
 
-        if (this.abstract) {
+        if (renderAbstract && this.abstract) {
             code.line("@abc.abstractmethod");
         }
 
         code.openBlock(`def ${this.name}(${pythonParams.join(", ")}) -> ${returnType}`);
-        this.emitBody(code, resolver);
+        this.emitBody(code, resolver, renderAbstract);
         code.closeBlock();
     }
 
-    private emitBody(code: CodeMaker, resolver: TypeResolver) {
-        if (this.jsiiMethod === undefined || this.abstract) {
+    private emitBody(code: CodeMaker, resolver: TypeResolver, renderAbstract: boolean) {
+        if (this.jsiiMethod === undefined || (renderAbstract && this.abstract)) {
             code.line("...");
         } else {
             if (this.liftedProp !== undefined) {
@@ -448,9 +458,14 @@ interface BasePropertyOpts {
     immutable?: boolean;
 }
 
+interface BasePropertyEmitOpts {
+    renderAbstract?: boolean;
+}
+
 abstract class BaseProperty implements PythonBase {
 
     public readonly name: string;
+    public readonly abstract: boolean;
 
     protected readonly abstract decorator: string;
     protected readonly abstract implicitParameter: string;
@@ -459,7 +474,6 @@ abstract class BaseProperty implements PythonBase {
 
     private readonly jsName: string;
     private readonly type: spec.TypeReference;
-    private readonly abstract: boolean;
     private readonly immutable: boolean;
 
     constructor(name: string, jsName: string, type: spec.TypeReference, opts: BasePropertyOpts = {}) {
@@ -469,21 +483,22 @@ abstract class BaseProperty implements PythonBase {
         } = opts;
 
         this.name = name;
+        this.abstract = abstract;
         this.jsName = jsName;
         this.type = type;
-        this.abstract = abstract;
         this.immutable = immutable;
     }
 
-    public emit(code: CodeMaker, resolver: TypeResolver) {
+    public emit(code: CodeMaker, resolver: TypeResolver, opts?: BasePropertyEmitOpts) {
+        const { renderAbstract = true } = opts || {};
         const pythonType = resolver.resolve(this.type, { forwardReferences: false });
 
         code.line(`@${this.decorator}`);
-        if (this.abstract) {
+        if (renderAbstract && this.abstract) {
             code.line("@abc.abstractmethod");
         }
         code.openBlock(`def ${this.name}(${this.implicitParameter}) -> ${pythonType}`);
-        if (this.jsiiGetMethod !== undefined && !this.abstract) {
+        if (this.jsiiGetMethod !== undefined && (!renderAbstract || !this.abstract)) {
             code.line(`return jsii.${this.jsiiGetMethod}(${this.implicitParameter}, "${this.jsName}")`);
         } else {
             code.line("...");
@@ -492,11 +507,11 @@ abstract class BaseProperty implements PythonBase {
 
         if (!this.immutable) {
             code.line(`@${this.name}.setter`);
-            if (this.abstract) {
+            if (renderAbstract && this.abstract) {
                 code.line("@abc.abstractmethod");
             }
             code.openBlock(`def ${this.name}(${this.implicitParameter}, value: ${pythonType})`);
-            if (this.jsiiSetMethod !== undefined && !this.abstract) {
+            if (this.jsiiSetMethod !== undefined && (!renderAbstract || !this.abstract)) {
                 code.line(`return jsii.${this.jsiiSetMethod}(${this.implicitParameter}, "${this.jsName}", value)`);
             } else {
                 code.line("...");
@@ -641,6 +656,43 @@ class Class extends BasePythonClassType {
         this.abstract = abstract;
     }
 
+    public emit(code: CodeMaker, resolver: TypeResolver) {
+        // First we do our normal class logic for emitting our members.
+        super.emit(code, resolver);
+
+        // Then, if our class is Abstract, we have to go through and redo all of
+        // this logic, except only emiting abstract methods and properties as non
+        // abstract, and subclassing our initial class.
+        if (this.abstract) {
+            resolver = this.fqn ? resolver.bind(this.fqn) : resolver;
+            code.openBlock(`class ${this.getProxyClassName()}(${this.name})`);
+
+            // Filter our list of members to *only* be abstract members, and not any
+            // other types.
+            const abstractMembers = this.members.filter(
+                m => (m instanceof BaseMethod || m instanceof BaseProperty) && m.abstract
+            );
+            if (abstractMembers.length > 0) {
+                for (const member of abstractMembers) {
+                    member.emit(code, resolver, { renderAbstract: false });
+                }
+            } else {
+                code.line("pass");
+            }
+
+            code.closeBlock();
+        }
+    }
+
+    protected emitPreamble(code: CodeMaker, _resolver: TypeResolver) {
+        if (this.abstract) {
+            code.line("@staticmethod");
+            code.openBlock("def __jsii_proxy_class__()");
+            code.line(`return ${this.getProxyClassName()}`);
+            code.closeBlock();
+        }
+    }
+
     protected getClassParams(resolver: TypeResolver): string[] {
         const params: string[] = this.bases.map(b => resolver.resolve(b));
         const metaclass: string = this.abstract ? "JSIIAbstractClass" : "JSIIMeta";
@@ -651,6 +703,9 @@ class Class extends BasePythonClassType {
         return params;
     }
 
+    private getProxyClassName(): string {
+        return `_${this.name}Proxy`;
+    }
 }
 
 class StaticMethod extends BaseMethod {
