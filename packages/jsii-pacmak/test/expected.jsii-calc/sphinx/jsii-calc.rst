@@ -434,7 +434,7 @@ AllTypes
 
    .. py:attribute:: mapProperty
 
-      :type: string => :py:class:`@scope/jsii-calc-lib.Number`\ 
+      :type: string => number
 
 
    .. py:attribute:: numberProperty
@@ -454,12 +454,12 @@ AllTypes
 
    .. py:attribute:: unionMapProperty
 
-      :type: string => (string or number or :py:class:`@scope/jsii-calc-lib.Number`\ )
+      :type: string => (string or number)
 
 
    .. py:attribute:: unionProperty
 
-      :type: string or number or :py:class:`~jsii-calc.Multiply`\  or :py:class:`@scope/jsii-calc-lib.Number`\ 
+      :type: string or number or :py:class:`~jsii-calc.Multiply`\ 
 
 
    .. py:attribute:: unknownArrayProperty
@@ -1761,12 +1761,12 @@ IReturnsNumber (interface)
 
    .. py:attribute:: numberProp
 
-      :type: :py:class:`@scope/jsii-calc-lib.Number`\  *(readonly)* *(abstract)*
+      :type: number *(readonly)* *(abstract)*
 
 
-   .. py:method:: obtainNumber() -> @scope/jsii-calc-lib.IDoublable
+   .. py:method:: obtainNumber() -> number
 
-      :rtype: :py:class:`@scope/jsii-calc-lib.IDoublable`\ 
+      :rtype: number
       :abstract: Yes
 
 

@@ -37,6 +37,7 @@
     "@scope/jsii-calc-base": {
       "dependencies": {
         "@scope/jsii-calc-base-of-base": {
+          "peer": true,
           "targets": {
             "dotnet": {
               "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
@@ -56,6 +57,7 @@
           "version": "0.7.8"
         }
       },
+      "peer": true,
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
@@ -79,6 +81,7 @@
         "@scope/jsii-calc-base": {
           "dependencies": {
             "@scope/jsii-calc-base-of-base": {
+              "peer": true,
               "targets": {
                 "dotnet": {
                   "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
@@ -98,6 +101,7 @@
               "version": "0.7.8"
             }
           },
+          "peer": true,
           "targets": {
             "dotnet": {
               "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
@@ -117,6 +121,7 @@
           "version": "0.7.8"
         }
       },
+      "peer": true,
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.LibNamespace",
@@ -436,7 +441,7 @@
           "type": {
             "collection": {
               "elementtype": {
-                "fqn": "@scope/jsii-calc-lib.Number"
+                "primitive": "number"
               },
               "kind": "map"
             }
@@ -486,9 +491,6 @@
                     },
                     {
                       "primitive": "number"
-                    },
-                    {
-                      "fqn": "@scope/jsii-calc-lib.Number"
                     }
                   ]
                 }
@@ -510,9 +512,6 @@
                 },
                 {
                   "fqn": "jsii-calc.Multiply"
-                },
-                {
-                  "fqn": "@scope/jsii-calc-lib.Number"
                 }
               ]
             }
@@ -1565,7 +1564,7 @@
           "abstract": true,
           "name": "obtainNumber",
           "returns": {
-            "fqn": "@scope/jsii-calc-lib.IDoublable"
+            "primitive": "number"
           }
         }
       ],
@@ -1576,7 +1575,7 @@
           "immutable": true,
           "name": "numberProp",
           "type": {
-            "fqn": "@scope/jsii-calc-lib.Number"
+            "primitive": "number"
           }
         }
       ]
@@ -3407,5 +3406,5 @@
     }
   },
   "version": "0.7.8",
-  "fingerprint": "jHSXTzCSZbwYMvLKpeZB6SE8hNgYgt9/2JF1ihM41SI="
+  "fingerprint": "6C8tdqFzq/f4vOKx4UbCkGYriU4I7jeOQ2gsOsgC3cE="
 }

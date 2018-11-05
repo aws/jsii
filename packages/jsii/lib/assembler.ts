@@ -3,6 +3,7 @@ import crypto = require('crypto');
 import deepEqual = require('deep-equal');
 import fs = require('fs-extra');
 import spec = require('jsii-spec');
+import { isInterfaceType, NamedTypeReference } from 'jsii-spec';
 import log4js = require('log4js');
 import path = require('path');
 import ts = require('typescript');
@@ -103,7 +104,7 @@ export class Assembler implements Emitter {
             author: this.projectInfo.author,
             contributors: this.projectInfo.contributors && [...this.projectInfo.contributors],
             repository: this.projectInfo.repository,
-            dependencies: _toDependencies(this.projectInfo.dependencies),
+            dependencies: _toDependencies(this.projectInfo.dependencies, this.projectInfo.peerDependencies),
             bundled: this.projectInfo.bundleDependencies,
             types: this._types,
             targets: this.projectInfo.targets,
@@ -199,6 +200,18 @@ export class Assembler implements Emitter {
         } else {
             const assembly = this.projectInfo.transitiveDependencies.find(dep => dep.name === assm);
             type = assembly && assembly.types && assembly.types[ref.fqn];
+
+            // since we are exposing a type of this assembly in this module's public API,
+            // we expect it to appear as a peer dependency instead of a normal dependency.
+            if (assembly) {
+                const asPeerDependency = this.projectInfo.peerDependencies.find(d => d.name === assembly.name);
+                if (!asPeerDependency) {
+                    this._diagnostic(referencingNode, ts.DiagnosticCategory.Warning,
+                        `The type '${ref.fqn}' is exposed in the public API of this module. ` +
+                        `Therefore, the module '${assembly.name}' must also be defined under "peerDependencies". ` +
+                        `You can use the "jsii-fix-peers" utility to fix.`);
+                }
+            }
         }
 
         if (!type) {
@@ -1045,13 +1058,32 @@ function _sortMembers(type: spec.ClassType | spec.InterfaceType): spec.ClassTyp
     };
 }
 
-function _toDependencies(assemblies: ReadonlyArray<spec.Assembly>): { [name: string]: spec.PackageVersion } {
+function _toDependencies(assemblies: ReadonlyArray<spec.Assembly>, peers: ReadonlyArray<spec.Assembly>): { [name: string]: spec.PackageVersion } {
     const result: { [name: string]: spec.PackageVersion } = {};
     for (const assembly of assemblies) {
         result[assembly.name] = {
             version: assembly.version,
             targets: assembly.targets,
             dependencies: assembly.dependencies
+        };
+    }
+
+    for (const peer of peers) {
+        if (peer.name in result) {
+            // module already appears as a normal dependency. just make sure it's the same version
+            const depVersion = result[peer.name].version;
+            if (depVersion !== peer.version) {
+                throw new Error(
+                    `Module '${peer.name}' appears both as a dependency (${depVersion}) ` +
+                    `and a peer dependency (${peer.version}), with mismatching versions`);
+            }
+        }
+
+        result[peer.name] = {
+            version: peer.version,
+            targets: peer.targets,
+            dependencies: peer.dependencies,
+            peer: true
         };
     }
     return result;

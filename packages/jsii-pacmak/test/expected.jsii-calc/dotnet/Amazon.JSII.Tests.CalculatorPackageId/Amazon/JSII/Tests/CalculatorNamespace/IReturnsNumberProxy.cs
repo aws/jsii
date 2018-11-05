@@ -1,5 +1,4 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
@@ -10,16 +9,16 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("numberProp", "{\"fqn\":\"@scope/jsii-calc-lib.Number\"}")]
-        public Number NumberProp
+        [JsiiProperty("numberProp", "{\"primitive\":\"number\"}")]
+        public double NumberProp
         {
-            get => GetInstanceProperty<Number>();
+            get => GetInstanceProperty<double>();
         }
 
-        [JsiiMethod("obtainNumber", "{\"fqn\":\"@scope/jsii-calc-lib.IDoublable\"}", "[]")]
-        public IIDoublable ObtainNumber()
+        [JsiiMethod("obtainNumber", "{\"primitive\":\"number\"}", "[]")]
+        public double ObtainNumber()
         {
-            return InvokeInstanceMethod<IIDoublable>(new object[]{});
+            return InvokeInstanceMethod<double>(new object[]{});
         }
     }
 }

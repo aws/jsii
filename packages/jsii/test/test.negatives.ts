@@ -70,6 +70,7 @@ function _makeProjectInfo(types: string): ProjectInfo {
         author: { name: 'John Doe', roles: ['author'] },
         repository: { type: 'git', url: 'https://github.com/awslabs/jsii.git' },
         dependencies: [],
+        peerDependencies: [],
         transitiveDependencies: [],
         bundleDependencies: {},
         targets: {}
