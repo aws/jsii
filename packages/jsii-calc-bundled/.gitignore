@@ -1,2 +1,13 @@
-!index.js
+tsconfig.json
+tslint.json
+dist
 .jsii
+*.tgz
+
+*.js
+*.d.ts
+node_modules/
+.nyc_output/
+coverage/
+
+!index.js

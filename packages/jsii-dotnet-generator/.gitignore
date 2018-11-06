@@ -3,3 +3,14 @@ src/Directory.Build.props
 src/NuGet.Metadata.props
 
 !*.t.js
+
+*.js
+*.d.ts
+node_modules/
+.nyc_output/
+coverage/
+
+*.nupkg
+bin/
+cli/
+obj/
