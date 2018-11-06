@@ -37,6 +37,7 @@
     "@scope/jsii-calc-base": {
       "dependencies": {
         "@scope/jsii-calc-base-of-base": {
+          "peer": true,
           "targets": {
             "dotnet": {
               "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
@@ -56,6 +57,7 @@
           "version": "0.7.8"
         }
       },
+      "peer": true,
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
@@ -79,6 +81,7 @@
         "@scope/jsii-calc-base": {
           "dependencies": {
             "@scope/jsii-calc-base-of-base": {
+              "peer": true,
               "targets": {
                 "dotnet": {
                   "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
@@ -98,6 +101,7 @@
               "version": "0.7.8"
             }
           },
+          "peer": true,
           "targets": {
             "dotnet": {
               "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
@@ -117,6 +121,7 @@
           "version": "0.7.8"
         }
       },
+      "peer": true,
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.LibNamespace",
@@ -3407,5 +3412,5 @@
     }
   },
   "version": "0.7.8",
-  "fingerprint": "jHSXTzCSZbwYMvLKpeZB6SE8hNgYgt9/2JF1ihM41SI="
+  "fingerprint": "Xn7Rk17rqR3AaMx3+ssxT0GR1sCWwz0OGC+C8QuLI3A="
 }

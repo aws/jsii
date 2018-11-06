@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@scope/jsii-calc-base-of-base": {
+      "peer": true,
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
@@ -102,5 +103,5 @@
     }
   },
   "version": "0.7.8",
-  "fingerprint": "G+ZeFV6LQWFdp9ZuDgqN4rS10q/JBHuy0Wo8qaTK/t8="
+  "fingerprint": "K1rAUs6WiQ5lF08T46B8v/5UL8T8Ot59e0Nc8rh2jiQ="
 }
