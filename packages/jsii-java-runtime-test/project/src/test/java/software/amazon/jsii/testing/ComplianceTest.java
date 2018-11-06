@@ -109,8 +109,8 @@ public class ComplianceTest {
         assertEquals("World", types.getArrayProperty().get(1));
 
         // map
-        Map<String, java.lang.Number> map = new HashMap<>();
-        map.put("Foo", 123);
+        Map<String, Number> map = new HashMap<>();
+        map.put("Foo", new Number(123));
         types.setMapProperty(map);
     }
 

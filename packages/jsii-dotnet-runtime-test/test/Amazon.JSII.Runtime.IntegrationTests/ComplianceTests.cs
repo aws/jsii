@@ -83,10 +83,10 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal("World", types.ArrayProperty[1]);
 
             // map
-            IDictionary<string, double> map = new Dictionary<string, double>();
-            map["Foo"] = 123;
+            IDictionary<string, Number> map = new Dictionary<string, Number>();
+            map["Foo"] = new Number(123);
             types.MapProperty = map;
-            Assert.Equal((double) 123, types.MapProperty["Foo"]);
+            Assert.Equal((double) 123, types.MapProperty["Foo"].Value);
         }
 
         [Fact(DisplayName = Prefix + nameof(DynamicTypes))]
@@ -816,6 +816,43 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             obj.ReadWriteString = "Hello";
 
             Assert.Equal("Hello", obj.ReadOnlyString);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(TestReturnInterfaceFromOverride))]
+        public void TestReturnInterfaceFromOverride()
+        {
+            var n = 1337;
+            var obj = new OverrideReturnsObject();
+            var arg = new NumberReturner(n);
+            Assert.Equal(4 * n, obj.Test(arg));
+        }
+
+        class NumberReturner : DeputyBase, IIReturnsNumber
+        {
+            public NumberReturner(double number)
+            {
+                NumberProp = new Number(number);
+            }
+
+            [JsiiProperty("numberProp", "{\"fqn\":\"@scope/jsii-calc-lib.Number\"}", true)]
+            public Number NumberProp { get; }
+
+            [JsiiMethod("obtainNumber", "{\"fqn\":\"@scope/jsii-calc-lib.IDoublable\"}", "[]",true)]
+            public IIDoublable ObtainNumber()
+            {
+                return new Doublable(this.NumberProp);
+            }
+
+            class Doublable : DeputyBase, IIDoublable
+            {
+                public Doublable(Number number)
+                {
+                    this.DoubleValue = number.DoubleValue;
+                }
+
+                [JsiiProperty("doubleValue","{\"primitive\":\"number\"}",true)]
+                public Double DoubleValue { get; }
+            }
         }
 
         class MulTen : Multiply

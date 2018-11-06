@@ -1,5 +1,6 @@
 using Amazon.JSII.Runtime.Deputy;
 using Amazon.JSII.Tests.CalculatorNamespace.composition;
+using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -80,10 +81,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        [JsiiProperty("mapProperty", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"primitive\":\"number\"}}}")]
-        public virtual IDictionary<string, double> MapProperty
+        [JsiiProperty("mapProperty", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Number\"}}}")]
+        public virtual IDictionary<string, Number> MapProperty
         {
-            get => GetInstanceProperty<IDictionary<string, double>>();
+            get => GetInstanceProperty<IDictionary<string, Number>>();
             set => SetInstanceProperty(value);
         }
 
@@ -108,14 +109,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        [JsiiProperty("unionMapProperty", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"union\":{\"types\":[{\"primitive\":\"string\"},{\"primitive\":\"number\"}]}}}}")]
+        [JsiiProperty("unionMapProperty", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"union\":{\"types\":[{\"primitive\":\"string\"},{\"primitive\":\"number\"},{\"fqn\":\"@scope/jsii-calc-lib.Number\"}]}}}}")]
         public virtual IDictionary<string, object> UnionMapProperty
         {
             get => GetInstanceProperty<IDictionary<string, object>>();
             set => SetInstanceProperty(value);
         }
 
-        [JsiiProperty("unionProperty", "{\"union\":{\"types\":[{\"primitive\":\"string\"},{\"primitive\":\"number\"},{\"fqn\":\"jsii-calc.Multiply\"}]}}")]
+        [JsiiProperty("unionProperty", "{\"union\":{\"types\":[{\"primitive\":\"string\"},{\"primitive\":\"number\"},{\"fqn\":\"jsii-calc.Multiply\"},{\"fqn\":\"@scope/jsii-calc-lib.Number\"}]}}")]
         public virtual object UnionProperty
         {
             get => GetInstanceProperty<object>();

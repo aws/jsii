@@ -67,13 +67,16 @@ export class Compiler implements Emitter {
     private async _buildOnce(files: string[]): Promise<EmitResult> {
         await this._writeTypeScriptConfig();
         const host = ts.createCompilerHost(COMPILER_OPTIONS);
+        if (!host.getDefaultLibLocation) {
+            throw new Error('No default library location was found on the TypeScript compiler host!');
+        }
         host.getCurrentDirectory = () => this.options.projectInfo.projectRoot;
         const prog = ts.createProgram(
             files.concat(_pathOfLibraries(host)),
             COMPILER_OPTIONS,
             host
         );
-        return await this._consumeProgram(prog);
+        return await this._consumeProgram(prog, host.getDefaultLibLocation());
     }
 
     private async _startWatch(): Promise<never> {
@@ -84,9 +87,12 @@ export class Compiler implements Emitter {
                 { ...COMPILER_OPTIONS, noEmitOnError: false },
                 { ...ts.sys, getCurrentDirectory() { return projectRoot; } }
             );
+            if (!host.getDefaultLibLocation) {
+                throw new Error('No default library location was found on the TypeScript compiler host!');
+            }
             const orig = host.afterProgramCreate;
             host.afterProgramCreate = async builderProgram => {
-                await this._consumeProgram(builderProgram.getProgram());
+                await this._consumeProgram(builderProgram.getProgram(), host.getDefaultLibLocation!());
                 if (orig) { orig.call(host, builderProgram); }
             };
             ts.createWatchProgram(host);
@@ -94,13 +100,13 @@ export class Compiler implements Emitter {
         });
     }
 
-    private async _consumeProgram(program: ts.Program): Promise<EmitResult> {
+    private async _consumeProgram(program: ts.Program, stdlib: string): Promise<EmitResult> {
         const emit = program.emit();
         if (emit.emitSkipped) {
             LOG.error('Compilation errors prevented the JSII assembly from being created');
             return emit;
         }
-        const assembler = new Assembler(this.options.projectInfo, program);
+        const assembler = new Assembler(this.options.projectInfo, program, stdlib);
         const assmEmit = await assembler.emit();
         if (assmEmit.emitSkipped) {
             LOG.error('Type model errors prevented the JSII assembly from being created');

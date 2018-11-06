@@ -11,7 +11,6 @@ import literate = require('./literate');
 import { ProjectInfo } from './project-info';
 import utils = require('./utils');
 import { Validator } from './validator';
-import { NamedTypeReference, isInterfaceType } from 'jsii-spec';
 
 // tslint:disable:no-var-requires Modules without TypeScript definitions
 const sortJson = require('sort-json');
@@ -30,9 +29,11 @@ export class Assembler implements Emitter {
     /**
      * @param projectInfo information about the package being assembled
      * @param program     the TypeScript program to be assembled from
+     * @param stdlib      the directory where the TypeScript stdlib is rooted
      */
     public constructor(public readonly projectInfo: ProjectInfo,
-                       public readonly program: ts.Program) {}
+                       public readonly program: ts.Program,
+                       public readonly stdlib: string) {}
 
     private get _typeChecker(): ts.TypeChecker {
         return this.program.getTypeChecker();
@@ -152,7 +153,7 @@ export class Assembler implements Emitter {
      * that case anyway.
      */
     // tslint:disable-next-line:max-line-length
-    private _deferUntilTypesAvailable(fqn: string, baseTypes: NamedTypeReference[], referencingNode: ts.Node, cb: (...xs: spec.Type[]) => void) {
+    private _deferUntilTypesAvailable(fqn: string, baseTypes: spec.NamedTypeReference[], referencingNode: ts.Node, cb: (...xs: spec.Type[]) => void) {
         // We can do this one eagerly
         if (baseTypes.length === 0) {
             cb();
@@ -581,7 +582,7 @@ export class Assembler implements Emitter {
                 jsiiType.datatype = true;
             }
             for (const base of bases) {
-                if (isInterfaceType(base) && !base.datatype) {
+                if (spec.isInterfaceType(base) && !base.datatype) {
                     jsiiType.datatype = undefined;
                 }
             }
@@ -731,7 +732,7 @@ export class Assembler implements Emitter {
             type = this._typeChecker.getApparentType(type);
         }
 
-        const primitiveType = _tryMakePrimitiveType();
+        const primitiveType = _tryMakePrimitiveType.call(this);
         if (primitiveType) { return primitiveType; }
 
         if (type.isUnion() && !_isEnumLike(type)) {
@@ -809,7 +810,7 @@ export class Assembler implements Emitter {
             };
         }
 
-        function _tryMakePrimitiveType(): spec.PrimitiveTypeReference | undefined {
+        function _tryMakePrimitiveType(this: Assembler): spec.PrimitiveTypeReference | undefined {
             if (!type.symbol) {
                 // tslint:disable-next-line:no-bitwise
                 if (type.flags & ts.TypeFlags.Object) {
@@ -819,7 +820,7 @@ export class Assembler implements Emitter {
                 if (type.flags & (ts.TypeFlags.Any | ts.TypeFlags.Unknown)) {
                     return { primitive: spec.PrimitiveType.Any, optional: true };
                 }
-            } else {
+            } else if (type.symbol.valueDeclaration && isUnder(type.symbol.valueDeclaration.getSourceFile().fileName, this.stdlib)) {
                 switch (type.symbol.name) {
                 case 'Boolean':
                     return { primitive: spec.PrimitiveType.Boolean };
@@ -833,6 +834,11 @@ export class Assembler implements Emitter {
             }
             // Not a primitive type!
             return undefined;
+
+            function isUnder(file: string, dir: string): boolean {
+                const relative = path.relative(dir, file);
+                return !relative.startsWith(path.sep) && !relative.startsWith('..');
+            }
         }
 
         async function _unionType(this: Assembler): Promise<spec.TypeReference> {
