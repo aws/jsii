@@ -15,13 +15,12 @@ namespace Amazon.JSII.Runtime
         {
             try
             {
-                TypeReference returnType;
-                object frameworkResult = callback.InvokeCallbackCore(referenceMap, out returnType);
+                CallbackResult frameworkResult = callback.InvokeCallbackCore(referenceMap);
 
                 converter.TryConvert(
-                    returnType ?? new TypeReference(primitive: PrimitiveType.Any),
+                    frameworkResult.Type,
                     referenceMap,
-                    frameworkResult,
+                    frameworkResult.Value,
                     out object result
                 );
 
@@ -42,29 +41,28 @@ namespace Amazon.JSII.Runtime
             }
         }
 
-        static object InvokeCallbackCore(this Callback callback, IReferenceMap referenceMap, out TypeReference returnType)
+        static CallbackResult InvokeCallbackCore(this Callback callback, IReferenceMap referenceMap)
         {
             if (callback.Invoke != null)
             {
-                return InvokeMethod(callback.Invoke, referenceMap, out returnType);
+                return InvokeMethod(callback.Invoke, referenceMap);
             }
 
             if (callback.Get != null)
             {
-                return InvokeGetter(callback.Get, referenceMap, out returnType);
+                return InvokeGetter(callback.Get, referenceMap);
             }
 
             if (callback.Set != null)
             {
                 InvokeSetter(callback.Set, referenceMap);
-                returnType = null;
                 return null;
             }
 
             throw new ArgumentException("Callback does not specificy a method, getter, or setter to invoke");
         }
 
-        static object InvokeMethod(InvokeRequest request, IReferenceMap referenceMap, out TypeReference returnType)
+        static CallbackResult InvokeMethod(InvokeRequest request, IReferenceMap referenceMap)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
             DeputyBase deputy = referenceMap.GetOrCreateNativeReference(request.ObjectReference);
@@ -77,12 +75,10 @@ namespace Amazon.JSII.Runtime
             }
 
             JsiiMethodAttribute attribute = methodInfo.GetCustomAttribute<JsiiMethodAttribute>();
-            returnType = attribute?.Returns;
-
-            return methodInfo.Invoke(deputy, request.Arguments);
+            return new CallbackResult(attribute?.Returns, methodInfo.Invoke(deputy, request.Arguments));
         }
 
-        static object InvokeGetter(GetRequest request, IReferenceMap referenceMap, out TypeReference returnType)
+        static CallbackResult InvokeGetter(GetRequest request, IReferenceMap referenceMap)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
             DeputyBase deputy = referenceMap.GetOrCreateNativeReference(request.ObjectReference);
@@ -94,7 +90,6 @@ namespace Amazon.JSII.Runtime
             }
 
             JsiiPropertyAttribute attribute = propertyInfo.GetCustomAttribute<JsiiPropertyAttribute>();
-            returnType = attribute?.Type;
 
             MethodInfo methodInfo = propertyInfo.GetGetMethod();
             if (methodInfo == null)
@@ -102,7 +97,7 @@ namespace Amazon.JSII.Runtime
                 throw new InvalidOperationException($"Received callback for {deputy.GetType().Name}.{request.Property} getter, but this property does not have a getter");
             }
 
-            return methodInfo.Invoke(deputy, new object[] { });
+            return new CallbackResult(attribute?.Type, methodInfo.Invoke(deputy, new object[] { }));
         }
 
         static void InvokeSetter(SetRequest request, IReferenceMap referenceMap)
@@ -124,5 +119,17 @@ namespace Amazon.JSII.Runtime
 
             methodInfo.Invoke(deputy, new object[] { request.Value });
         }
+    }
+
+    internal class CallbackResult
+    {
+        public CallbackResult(TypeReference type, object value)
+        {
+            Type = type ?? new TypeReference(primitive: PrimitiveType.Any);
+            Value = value;
+        }
+
+        public TypeReference Type { get; }
+        public object Value { get; }
     }
 }
