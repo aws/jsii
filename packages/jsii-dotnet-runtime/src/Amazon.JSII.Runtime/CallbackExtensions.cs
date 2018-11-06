@@ -18,9 +18,9 @@ namespace Amazon.JSII.Runtime
                 CallbackResult frameworkResult = callback.InvokeCallbackCore(referenceMap);
 
                 converter.TryConvert(
-                    frameworkResult.Type,
+                    frameworkResult?.Type ?? new TypeReference(primitive: PrimitiveType.Any),
                     referenceMap,
-                    frameworkResult.Value,
+                    frameworkResult?.Value,
                     out object result
                 );
 
@@ -125,7 +125,7 @@ namespace Amazon.JSII.Runtime
     {
         public CallbackResult(TypeReference type, object value)
         {
-            Type = type ?? new TypeReference(primitive: PrimitiveType.Any);
+            Type = type;
             Value = value;
         }
 
