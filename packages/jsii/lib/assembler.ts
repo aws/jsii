@@ -3,7 +3,6 @@ import crypto = require('crypto');
 import deepEqual = require('deep-equal');
 import fs = require('fs-extra');
 import spec = require('jsii-spec');
-import { isInterfaceType, NamedTypeReference } from 'jsii-spec';
 import log4js = require('log4js');
 import path = require('path');
 import ts = require('typescript');
