@@ -6,3 +6,16 @@ test/Directory.Build.props
 
 # consumed by generate.sh
 !*.t.js
+
+*.nupkg
+bin/
+cli/
+obj/
+
+
+*.js
+*.d.ts
+node_modules/
+.nyc_output/
+coverage/
+

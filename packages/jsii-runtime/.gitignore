@@ -2,3 +2,9 @@
 dist
 webpack
 !webpack.config.js
+
+*.js
+*.d.ts
+node_modules/
+.nyc_output/
+coverage/
