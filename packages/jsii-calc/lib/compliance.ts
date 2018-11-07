@@ -939,3 +939,12 @@ export interface IInterfaceWithMethods {
 export interface IInterfaceThatShouldNotBeADataType extends IInterfaceWithMethods {
     readonly otherValue: string;
 }
+
+/**
+ * jsii#284: do not recognize "any" as an optional argument
+ */
+export class DoNotRecognizeAnyAsOptional {
+    public method(_requiredAny: any, _optionalAny?: any, _optionalString?: string) {
+
+    }
+}

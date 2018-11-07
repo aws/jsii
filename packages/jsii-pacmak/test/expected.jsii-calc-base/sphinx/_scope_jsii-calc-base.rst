@@ -158,7 +158,7 @@ Base
    .. py:method:: typeName() -> any
 
       :return: the name of the class (to verify native type names are created for derived classes).
-      :rtype: any or ``undefined``
+      :rtype: any
 
 
 BaseProps (interface)

@@ -321,7 +321,7 @@ Add
       *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
 
       :return: the name of the class (to verify native type names are created for derived classes).
-      :rtype: any or ``undefined``
+      :rtype: any
 
 
    .. py:method:: hello() -> string
@@ -399,12 +399,17 @@ AllTypes
 
    .. py:attribute:: anyArrayProperty
 
-      :type: (any or ``undefined``)[]
+      :type: any[]
 
 
    .. py:attribute:: anyMapProperty
 
-      :type: string => (any or ``undefined``)
+      :type: string => any
+
+
+   .. py:attribute:: anyProperty
+
+      :type: any
 
 
    .. py:attribute:: arrayProperty
@@ -464,27 +469,22 @@ AllTypes
 
    .. py:attribute:: unknownArrayProperty
 
-      :type: (any or ``undefined``)[]
+      :type: any[]
 
 
    .. py:attribute:: unknownMapProperty
 
-      :type: string => (any or ``undefined``)
+      :type: string => any
 
 
-   .. py:attribute:: anyProperty
+   .. py:attribute:: unknownProperty
 
-      :type: any or ``undefined``
+      :type: any
 
 
    .. py:attribute:: optionalEnumValue
 
       :type: :py:class:`~jsii-calc.StringEnum`\  or ``undefined``
-
-
-   .. py:attribute:: unknownProperty
-
-      :type: any or ``undefined``
 
 
 AllTypesEnum (enum)
@@ -723,7 +723,7 @@ BinaryOperation
       *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
 
       :return: the name of the class (to verify native type names are created for derived classes).
-      :rtype: any or ``undefined``
+      :rtype: any
 
 
    .. py:method:: toString() -> string
@@ -878,7 +878,7 @@ Calculator
       *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
 
       :return: the name of the class (to verify native type names are created for derived classes).
-      :rtype: any or ``undefined``
+      :rtype: any
 
 
    .. py:method:: toString() -> string
@@ -1325,6 +1325,47 @@ DoNotOverridePrivates
    .. py:method:: privatePropertyValue() -> string
 
       :rtype: string
+
+
+DoNotRecognizeAnyAsOptional
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: DoNotRecognizeAnyAsOptional()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.DoNotRecognizeAnyAsOptional;
+
+      .. code-tab:: javascript
+
+         const { DoNotRecognizeAnyAsOptional } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { DoNotRecognizeAnyAsOptional } from 'jsii-calc';
+
+
+
+   jsii#284: do not recognize "any" as an optional argument
+
+
+
+   .. py:method:: method(_requiredAny, [_optionalAny, [_optionalString]])
+
+      :param _requiredAny: 
+      :type _requiredAny: any
+      :param _optionalAny: 
+      :type _optionalAny: any or ``undefined``
+      :param _optionalString: 
+      :type _optionalString: string or ``undefined``
 
 
 DoubleTrouble
@@ -2504,7 +2545,7 @@ Multiply
       *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
 
       :return: the name of the class (to verify native type names are created for derived classes).
-      :rtype: any or ``undefined``
+      :rtype: any
 
 
    .. py:method:: hello() -> string
@@ -2661,7 +2702,7 @@ Negate
       *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
 
       :return: the name of the class (to verify native type names are created for derived classes).
-      :rtype: any or ``undefined``
+      :rtype: any
 
 
    .. py:attribute:: operand
@@ -3024,7 +3065,7 @@ Power
       *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
 
       :return: the name of the class (to verify native type names are created for derived classes).
-      :rtype: any or ``undefined``
+      :rtype: any
 
 
    .. py:method:: toString() -> string
@@ -3362,7 +3403,7 @@ Sum
       *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
 
       :return: the name of the class (to verify native type names are created for derived classes).
-      :rtype: any or ``undefined``
+      :rtype: any
 
 
    .. py:method:: toString() -> string
@@ -3605,7 +3646,7 @@ UnaryOperation
       *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
 
       :return: the name of the class (to verify native type names are created for derived classes).
-      :rtype: any or ``undefined``
+      :rtype: any
 
 
    .. py:method:: toString() -> string
@@ -3698,7 +3739,7 @@ UseBundledDependency
 
    .. py:method:: value() -> any
 
-      :rtype: any or ``undefined``
+      :rtype: any
 
 
 UseCalcBase
@@ -4026,7 +4067,7 @@ CompositeOperation
       *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
 
       :return: the name of the class (to verify native type names are created for derived classes).
-      :rtype: any or ``undefined``
+      :rtype: any
 
 
 

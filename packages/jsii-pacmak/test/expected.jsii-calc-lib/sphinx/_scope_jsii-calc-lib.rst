@@ -349,7 +349,7 @@ Number
       *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
 
       :return: the name of the class (to verify native type names are created for derived classes).
-      :rtype: any or ``undefined``
+      :rtype: any
 
 
    .. py:method:: toString() -> string
@@ -411,7 +411,7 @@ Operation
       *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
 
       :return: the name of the class (to verify native type names are created for derived classes).
-      :rtype: any or ``undefined``
+      :rtype: any
 
 
    .. py:attribute:: value
@@ -528,6 +528,6 @@ Value
       *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
 
       :return: the name of the class (to verify native type names are created for derived classes).
-      :rtype: any or ``undefined``
+      :rtype: any
 
 

@@ -382,7 +382,6 @@
           "type": {
             "collection": {
               "elementtype": {
-                "optional": true,
                 "primitive": "any"
               },
               "kind": "array"
@@ -394,11 +393,16 @@
           "type": {
             "collection": {
               "elementtype": {
-                "optional": true,
                 "primitive": "any"
               },
               "kind": "map"
             }
+          }
+        },
+        {
+          "name": "anyProperty",
+          "type": {
+            "primitive": "any"
           }
         },
         {
@@ -528,7 +532,6 @@
           "type": {
             "collection": {
               "elementtype": {
-                "optional": true,
                 "primitive": "any"
               },
               "kind": "array"
@@ -540,7 +543,6 @@
           "type": {
             "collection": {
               "elementtype": {
-                "optional": true,
                 "primitive": "any"
               },
               "kind": "map"
@@ -548,9 +550,8 @@
           }
         },
         {
-          "name": "anyProperty",
+          "name": "unknownProperty",
           "type": {
-            "optional": true,
             "primitive": "any"
           }
         },
@@ -559,13 +560,6 @@
           "type": {
             "fqn": "jsii-calc.StringEnum",
             "optional": true
-          }
-        },
-        {
-          "name": "unknownProperty",
-          "type": {
-            "optional": true,
-            "primitive": "any"
           }
         }
       ]
@@ -1300,6 +1294,45 @@
         }
       ],
       "name": "DoNotOverridePrivates"
+    },
+    "jsii-calc.DoNotRecognizeAnyAsOptional": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "comment": "jsii#284: do not recognize \"any\" as an optional argument"
+      },
+      "fqn": "jsii-calc.DoNotRecognizeAnyAsOptional",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "method",
+          "parameters": [
+            {
+              "name": "_requiredAny",
+              "type": {
+                "primitive": "any"
+              }
+            },
+            {
+              "name": "_optionalAny",
+              "type": {
+                "optional": true,
+                "primitive": "any"
+              }
+            },
+            {
+              "name": "_optionalString",
+              "type": {
+                "optional": true,
+                "primitive": "string"
+              }
+            }
+          ]
+        }
+      ],
+      "name": "DoNotRecognizeAnyAsOptional"
     },
     "jsii-calc.DoubleTrouble": {
       "assembly": "jsii-calc",
@@ -3062,7 +3095,6 @@
         {
           "name": "value",
           "returns": {
-            "optional": true,
             "primitive": "any"
           }
         }
@@ -3412,5 +3444,5 @@
     }
   },
   "version": "0.7.8",
-  "fingerprint": "Xn7Rk17rqR3AaMx3+ssxT0GR1sCWwz0OGC+C8QuLI3A="
+  "fingerprint": "2BaszImarh4WChl9DFUcygfTpEfXU17fHQT2wgEptfM="
 }
