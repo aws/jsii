@@ -11,7 +11,6 @@ public class UseBundledDependency extends software.amazon.jsii.JsiiObject {
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
-    @javax.annotation.Nullable
     public java.lang.Object value() {
         return this.jsiiCall("value", java.lang.Object.class);
     }

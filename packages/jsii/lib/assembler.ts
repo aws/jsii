@@ -812,7 +812,7 @@ export class Assembler implements Emitter {
                 this._diagnostic(declaration,
                                  ts.DiagnosticCategory.Error,
                                  `Only string index maps are supported`);
-                elementtype = { primitive: spec.PrimitiveType.Any, optional: true };
+                elementtype = { primitive: spec.PrimitiveType.Any };
             }
             return {
                 collection: {
@@ -830,7 +830,7 @@ export class Assembler implements Emitter {
                 }
                 // tslint:disable-next-line:no-bitwise
                 if (type.flags & (ts.TypeFlags.Any | ts.TypeFlags.Unknown)) {
-                    return { primitive: spec.PrimitiveType.Any, optional: true };
+                    return { primitive: spec.PrimitiveType.Any };
                 }
             } else if (type.symbol.valueDeclaration && isUnder(type.symbol.valueDeclaration.getSourceFile().fileName, this.stdlib)) {
                 switch (type.symbol.name) {
