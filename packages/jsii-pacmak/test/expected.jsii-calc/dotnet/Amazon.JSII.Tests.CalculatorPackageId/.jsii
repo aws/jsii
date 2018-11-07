@@ -2350,7 +2350,6 @@
           "type": {
             "collection": {
               "elementtype": {
-                "optional": true,
                 "primitive": "any"
               },
               "kind": "array"
@@ -3538,5 +3537,5 @@
     }
   },
   "version": "0.7.8",
-  "fingerprint": "2BaszImarh4WChl9DFUcygfTpEfXU17fHQT2wgEptfM="
+  "fingerprint": "FZk0ePQ2XUte84CmnOjU3PPCl6QUA88ke6wHIJKhyzo="
 }

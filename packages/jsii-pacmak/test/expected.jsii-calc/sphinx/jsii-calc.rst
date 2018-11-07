@@ -2865,7 +2865,7 @@ NullShouldBeTreatedAsUndefinedData (interface)
 
    .. py:attribute:: arrayWithThreeElementsAndUndefinedAsSecondArgument
 
-      :type: (any or ``undefined``)[] *(abstract)*
+      :type: any[] *(abstract)*
 
 
    .. py:attribute:: thisShouldBeUndefined
