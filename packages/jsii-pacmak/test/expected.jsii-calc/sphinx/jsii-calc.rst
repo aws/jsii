@@ -2778,6 +2778,101 @@ NodeStandardLibrary
       :type: string *(readonly)*
 
 
+NullShouldBeTreatedAsUndefined
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: NullShouldBeTreatedAsUndefined(_param1, [optional])
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefined;
+
+      .. code-tab:: javascript
+
+         const { NullShouldBeTreatedAsUndefined } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { NullShouldBeTreatedAsUndefined } from 'jsii-calc';
+
+
+
+   jsii#282, aws-cdk#157: null should be treated as "undefined"
+
+
+   :param _param1: 
+   :type _param1: string
+   :param optional: 
+   :type optional: any or ``undefined``
+
+   .. py:method:: giveMeUndefined([value])
+
+      :param value: 
+      :type value: any or ``undefined``
+
+
+   .. py:method:: giveMeUndefinedInsideAnObject(input)
+
+      :param input: 
+      :type input: :py:class:`~jsii-calc.NullShouldBeTreatedAsUndefinedData`\ 
+
+
+   .. py:method:: verifyPropertyIsUndefined()
+
+
+
+   .. py:attribute:: changeMeToUndefined
+
+      :type: string or ``undefined``
+
+
+NullShouldBeTreatedAsUndefinedData (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: NullShouldBeTreatedAsUndefinedData
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefinedData;
+
+      .. code-tab:: javascript
+
+         // NullShouldBeTreatedAsUndefinedData is an interface
+
+      .. code-tab:: typescript
+
+         import { NullShouldBeTreatedAsUndefinedData } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: arrayWithThreeElementsAndUndefinedAsSecondArgument
+
+      :type: (any or ``undefined``)[] *(abstract)*
+
+
+   .. py:attribute:: thisShouldBeUndefined
+
+      :type: any or ``undefined`` *(abstract)*
+
+
 NumberGenerator
 ^^^^^^^^^^^^^^^
 

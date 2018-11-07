@@ -61,6 +61,8 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.MutableObjectLiteral": return software.amazon.jsii.tests.calculator.MutableObjectLiteral.class;
             case "jsii-calc.Negate": return software.amazon.jsii.tests.calculator.Negate.class;
             case "jsii-calc.NodeStandardLibrary": return software.amazon.jsii.tests.calculator.NodeStandardLibrary.class;
+            case "jsii-calc.NullShouldBeTreatedAsUndefined": return software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefined.class;
+            case "jsii-calc.NullShouldBeTreatedAsUndefinedData": return software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefinedData.class;
             case "jsii-calc.NumberGenerator": return software.amazon.jsii.tests.calculator.NumberGenerator.class;
             case "jsii-calc.ObjectRefsInCollections": return software.amazon.jsii.tests.calculator.ObjectRefsInCollections.class;
             case "jsii-calc.OptionalConstructorArgument": return software.amazon.jsii.tests.calculator.OptionalConstructorArgument.class;

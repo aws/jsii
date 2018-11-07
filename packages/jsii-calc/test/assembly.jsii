@@ -2273,6 +2273,100 @@
         }
       ]
     },
+    "jsii-calc.NullShouldBeTreatedAsUndefined": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "comment": "jsii#282, aws-cdk#157: null should be treated as \"undefined\""
+      },
+      "fqn": "jsii-calc.NullShouldBeTreatedAsUndefined",
+      "initializer": {
+        "initializer": true,
+        "parameters": [
+          {
+            "name": "_param1",
+            "type": {
+              "primitive": "string"
+            }
+          },
+          {
+            "name": "optional",
+            "type": {
+              "optional": true,
+              "primitive": "any"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "giveMeUndefined",
+          "parameters": [
+            {
+              "name": "value",
+              "type": {
+                "optional": true,
+                "primitive": "any"
+              }
+            }
+          ]
+        },
+        {
+          "name": "giveMeUndefinedInsideAnObject",
+          "parameters": [
+            {
+              "name": "input",
+              "type": {
+                "fqn": "jsii-calc.NullShouldBeTreatedAsUndefinedData"
+              }
+            }
+          ]
+        },
+        {
+          "name": "verifyPropertyIsUndefined"
+        }
+      ],
+      "name": "NullShouldBeTreatedAsUndefined",
+      "properties": [
+        {
+          "name": "changeMeToUndefined",
+          "type": {
+            "optional": true,
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.NullShouldBeTreatedAsUndefinedData": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "fqn": "jsii-calc.NullShouldBeTreatedAsUndefinedData",
+      "kind": "interface",
+      "name": "NullShouldBeTreatedAsUndefinedData",
+      "properties": [
+        {
+          "abstract": true,
+          "name": "arrayWithThreeElementsAndUndefinedAsSecondArgument",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "optional": true,
+                "primitive": "any"
+              },
+              "kind": "array"
+            }
+          }
+        },
+        {
+          "abstract": true,
+          "name": "thisShouldBeUndefined",
+          "type": {
+            "optional": true,
+            "primitive": "any"
+          }
+        }
+      ]
+    },
     "jsii-calc.NumberGenerator": {
       "assembly": "jsii-calc",
       "docs": {

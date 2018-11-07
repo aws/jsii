@@ -948,3 +948,49 @@ export class DoNotRecognizeAnyAsOptional {
 
     }
 }
+
+/**
+ * jsii#282, aws-cdk#157: null should be treated as "undefined"
+ */
+export class NullShouldBeTreatedAsUndefined {
+    public changeMeToUndefined? = "hello";
+
+    constructor(_param1: string, optional?: any) {
+        if (optional !== undefined) {
+            throw new Error('Expecting second constructor argument to be "undefined"');
+        }
+    }
+
+    public giveMeUndefined(value?: any) {
+        if (value !== undefined) {
+            throw new Error('I am disappointed. I expected undefined and got: ' + JSON.stringify(value));
+        }
+    }
+
+    public giveMeUndefinedInsideAnObject(input: NullShouldBeTreatedAsUndefinedData) {
+        if (input.thisShouldBeUndefined !== undefined) {
+            throw new Error('I am disappointed. I expected undefined in "thisShouldBeUndefined" and got: ' + JSON.stringify(input));
+        }
+
+        const array = input.arrayWithThreeElementsAndUndefinedAsSecondArgument;
+        if (array.length !== 3) {
+            throw new Error('Expecting "arrayWithThreeElementsAndUndefinedAsSecondArgument" to have three elements: ' + JSON.stringify(input));
+        }
+
+        if (array[1] !== undefined) {
+            throw new Error('Expected arrayWithThreeElementsAndUndefinedAsSecondArgument[1] to be undefined: ' + JSON.stringify(input))
+        }
+    }
+
+    public verifyPropertyIsUndefined() {
+        if (this.changeMeToUndefined !== undefined) {
+            throw new Error('Expecting property "changeMeToUndefined" to be undefined, and it is: ' + this.changeMeToUndefined);
+        }
+    }
+}
+
+export interface NullShouldBeTreatedAsUndefinedData {
+    thisShouldBeUndefined?: any;
+    arrayWithThreeElementsAndUndefinedAsSecondArgument: any[];
+}
+
