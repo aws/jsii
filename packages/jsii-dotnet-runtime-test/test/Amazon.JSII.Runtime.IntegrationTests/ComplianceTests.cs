@@ -827,6 +827,27 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(4 * n, obj.Test(arg));
         }
 
+        [Fact(DisplayName = Prefix + nameof(NullShouldBeTreatedAsUndefined))]
+        public void NullShouldBeTreatedAsUndefined()
+        {
+            // ctor
+            var obj = new NullShouldBeTreatedAsUndefined("param1", null);
+
+            // method argument
+            obj.GiveMeUndefined(null);
+
+            // inside object
+            obj.GiveMeUndefinedInsideAnObject(new NullShouldBeTreatedAsUndefinedData
+            {
+                ThisShouldBeUndefined = null,
+                ArrayWithThreeElementsAndUndefinedAsSecondArgument = new[] { "hello", null, "world" }
+            });
+
+            // property
+            obj.ChangeMeToUndefined = null;
+            obj.VerifyPropertyIsUndefined();
+        }
+
         class NumberReturner : DeputyBase, IIReturnsNumber
         {
             public NumberReturner(double number)

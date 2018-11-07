@@ -25,6 +25,8 @@ import software.amazon.jsii.tests.calculator.JSObjectLiteralToNativeClass;
 import software.amazon.jsii.tests.calculator.Multiply;
 import software.amazon.jsii.tests.calculator.Negate;
 import software.amazon.jsii.tests.calculator.NodeStandardLibrary;
+import software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefined;
+import software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefinedData;
 import software.amazon.jsii.tests.calculator.NumberGenerator;
 import software.amazon.jsii.tests.calculator.Polymorphism;
 import software.amazon.jsii.tests.calculator.Power;
@@ -925,6 +927,18 @@ public class ComplianceTest {
         assertEquals("Bye", obj.getReadWriteString());
         obj.setReadWriteString("Hello");
         assertEquals("Hello", obj.getReadOnlyString());
+    }
+
+    @Test
+    public void nullShouldBeTreatedAsUndefined() {
+        NullShouldBeTreatedAsUndefined obj = new NullShouldBeTreatedAsUndefined("hello", null);
+        obj.giveMeUndefined(null);
+        obj.giveMeUndefinedInsideAnObject(NullShouldBeTreatedAsUndefinedData.builder()
+                .withThisShouldBeUndefined(null)
+                .withArrayWithThreeElementsAndUndefinedAsSecondArgument(Arrays.asList("hello", null, "boom"))
+                .build());
+        obj.setChangeMeToUndefined(null);
+        obj.verifyPropertyIsUndefined();
     }
 
     static class MulTen extends Multiply {
