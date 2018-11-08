@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Amazon.JSII.Runtime.Deputy;
 using Amazon.JSII.Tests.CalculatorNamespace;
 using Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation;
@@ -9,12 +8,14 @@ using Newtonsoft.Json.Linq;
 using Xunit;
 using Xunit.Abstractions;
 
+[assembly: CollectionBehavior(DisableTestParallelization = true)]
+
 namespace Amazon.JSII.Runtime.IntegrationTests
 {
     /// <summary>
     /// Ported from packages/jsii-java-runtime/src/test/java/org/jsii/testing/ComplianceTest.java.
     /// </summary>
-    public class ComplianceTests : IntegrationTestBase
+    public class ComplianceTests : IClassFixture<ServiceContainerFixture>
     {
         class RuntimeException : Exception
         {
@@ -29,8 +30,9 @@ namespace Amazon.JSII.Runtime.IntegrationTests
 
         const string Prefix = nameof(IntegrationTests) + ".Compliance.";
 
-        public ComplianceTests(ITestOutputHelper output) : base(output)
+        public ComplianceTests(ITestOutputHelper outputHelper, ServiceContainerFixture serviceContainerFixture)
         {
+            serviceContainerFixture.SetOverride(outputHelper);
         }
 
         [Fact(DisplayName = Prefix + nameof(PrimitiveTypes))]
@@ -837,7 +839,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             [JsiiProperty("numberProp", "{\"fqn\":\"@scope/jsii-calc-lib.Number\"}", true)]
             public Number NumberProp { get; }
 
-            [JsiiMethod("obtainNumber", "{\"fqn\":\"@scope/jsii-calc-lib.IDoublable\"}", "[]",true)]
+            [JsiiMethod("obtainNumber", "{\"fqn\":\"@scope/jsii-calc-lib.IDoublable\"}", "[]", true)]
             public IIDoublable ObtainNumber()
             {
                 return new Doublable(this.NumberProp);
@@ -850,7 +852,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                     this.DoubleValue = number.DoubleValue;
                 }
 
-                [JsiiProperty("doubleValue","{\"primitive\":\"number\"}",true)]
+                [JsiiProperty("doubleValue", "{\"primitive\":\"number\"}", true)]
                 public Double DoubleValue { get; }
             }
         }
