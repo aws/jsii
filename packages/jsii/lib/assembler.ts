@@ -440,9 +440,10 @@ export class Assembler implements Emitter {
                     }
                 }
                 this._visitDocumentation(constructor, jsiiType.initializer);
+                this._verifyConsecutiveOptionals(type.symbol.valueDeclaration, jsiiType.initializer.parameters);
             }
 
-            // Proces constructor-based property declarations even if constructor is private
+            // Process constructor-based property declarations even if constructor is private
             if (signature) {
                 for (const param of signature.getParameters()) {
                     if (ts.isParameterPropertyDeclaration(param.valueDeclaration)) {
@@ -641,6 +642,8 @@ export class Assembler implements Emitter {
         };
         method.variadic = method.parameters && method.parameters.find(p => !!p.variadic) != null;
 
+        this._verifyConsecutiveOptionals(declaration, method.parameters);
+
         this._visitDocumentation(symbol, method);
 
         // If the last parameter is a datatype, verify that it does not share any field names with
@@ -733,6 +736,7 @@ export class Assembler implements Emitter {
         if (paramDeclaration.initializer || paramDeclaration.questionToken) {
             parameter.type.optional = true;
         }
+
         this._visitDocumentation(paramSymbol, parameter);
         return parameter;
     }
@@ -932,6 +936,28 @@ export class Assembler implements Emitter {
                 if (!spec.isInterfaceType(base)) { throw new Error('Impossible to have non-interface base in allProperties()'); }
 
                 recurse(base);
+            }
+        }
+    }
+
+    /**
+     * Verifies that if a method has an optional parameter, all consecutive
+     * parameters are optionals as well.
+     */
+    private _verifyConsecutiveOptionals(node: ts.Node, parameters?: spec.Parameter[]) {
+        if (!parameters) {
+            return;
+        }
+
+        let optional = false;
+        for (const p of parameters) {
+            if (optional && !p.type.optional) {
+                this._diagnostic(node, ts.DiagnosticCategory.Error,
+                    `Parameter ${p.name} must be optional since it comes after an optional parameter`);
+            }
+
+            if (p.type.optional) {
+                optional = true;
             }
         }
     }

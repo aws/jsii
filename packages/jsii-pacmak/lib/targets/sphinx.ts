@@ -254,12 +254,12 @@ class SphinxDocsGenerator extends Generator {
     //
     // Properties
 
-    protected onProperty(_cls: spec.ClassType, prop: spec.Property) {
-        this.renderProperty(prop);
+    protected onProperty(cls: spec.ClassType, prop: spec.Property) {
+        this.renderProperty(cls, prop);
     }
 
-    protected onStaticProperty(_cls: spec.ClassType, prop: spec.Property) {
-        this.renderProperty(prop);
+    protected onStaticProperty(cls: spec.ClassType, prop: spec.Property) {
+        this.renderProperty(cls, prop);
     }
 
     //
@@ -357,8 +357,8 @@ class SphinxDocsGenerator extends Generator {
         this.onInterfaceMethod(ifc, overload);
     }
 
-    protected onInterfaceProperty(_ifc: spec.InterfaceType, property: spec.Property) {
-        this.renderProperty(property);
+    protected onInterfaceProperty(ifc: spec.InterfaceType, property: spec.Property) {
+        this.renderProperty(ifc, property);
     }
 
     private renderInheritedMembers(entity: spec.ClassType | spec.InterfaceType) {
@@ -373,7 +373,7 @@ class SphinxDocsGenerator extends Generator {
                 }
             }
             for (const property of entities.properties) {
-                this.renderProperty(property, source);
+                this.renderProperty(entity, property, source);
             }
         }
     }
@@ -543,13 +543,13 @@ class SphinxDocsGenerator extends Generator {
     }
 
     private renderDocsLine(element: spec.Documentable) {
-        const doclines = this.renderDocs(element, false);
+        const doclines = this.renderDocs(element, true);
         if (doclines.length === 0) {
             return;
         }
 
         this.code.line();
-        doclines.split('\n').forEach(line => this.code.line(line));
+        doclines.split('\n').forEach(line => this.code.line(line + '\n'));
 
         if (element.docs && element.docs.link) {
             this.code.line(element.docs.link);
@@ -618,7 +618,7 @@ class SphinxDocsGenerator extends Generator {
         } else {
             throw new Error('Unexpected type ref');
         }
-        if (type.optional) { result.ref = `${result.ref} or \`\`undefined\`\``; }
+        if (type.optional) { result.ref = `${result.ref} *(optional)*`; }
         return result;
 
         // Wrap a string between parenthesis if it contains " or "
@@ -628,7 +628,7 @@ class SphinxDocsGenerator extends Generator {
         }
     }
 
-    private renderProperty(prop: spec.Property, inheritedFrom?: string) {
+    private renderProperty(parent: spec.TypeBase, prop: spec.Property, inheritedFrom?: string) {
         this.code.line();
         const type = this.renderTypeRef(prop.type);
         this.code.openBlock(`.. py:attribute:: ${prop.name}`);
@@ -651,9 +651,14 @@ class SphinxDocsGenerator extends Generator {
             this.code.line();
         }
         const readonly = prop.immutable ? ' *(readonly)*' : '';
-        const abs = prop.abstract ? ' *(abstract)*' : '';
+        const abs = (parent.kind !== spec.TypeKind.Interface &&  prop.abstract) ? ' *(abstract)*' : '';
         const stat = prop.static ? ' *(static)*' : '';
         this.code.line(`:type: ${type.ref}${readonly}${abs}${stat}`);
+
+        if (prop.docs && prop.docs.default) {
+            this.code.line(`:default: ${prop.docs.default}`);
+        }
+
         this.code.closeBlock();
     }
 
