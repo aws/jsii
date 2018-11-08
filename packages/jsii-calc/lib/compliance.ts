@@ -241,7 +241,7 @@ export class RuntimeTypeChecking {
         arg1; arg2; arg3;
     }
 
-    public methodWithDefaultedArguments(arg1: number = 2, arg2: string, arg3: Date = new Date()) {
+    public methodWithDefaultedArguments(arg1: number = 2, arg2?: string, arg3: Date = new Date()) {
         arg1; arg2; arg3;
     }
 
@@ -258,7 +258,7 @@ export class OptionalConstructorArgument {
 
 export class DefaultedConstructorArgument {
     public constructor(public readonly arg1: number = 2,
-                       public readonly arg2: string,
+                       public readonly arg2?: string,
                        public readonly arg3: Date = new Date()) {}
 }
 
@@ -994,3 +994,65 @@ export interface NullShouldBeTreatedAsUndefinedData {
     arrayWithThreeElementsAndUndefinedAsSecondArgument: any[];
 }
 
+/**
+ * jsii#298: show default values in sphinx documentation, and respect newlines.
+ **/
+export interface LoadBalancedFargateServiceProps {
+    /**
+     * The number of cpu units used by the task.
+     * Valid values, which determines your range of valid values for the memory parameter:
+     * 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB
+     * 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB
+     * 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB
+     * 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments
+     * 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments
+     *
+     * This default is set in the underlying FargateTaskDefinition construct.
+     *
+     * @default 256
+     */
+    cpu?: string;
+  
+    /**
+     * The amount (in MiB) of memory used by the task.
+     *
+     * This field is required and you must use one of the following values, which determines your range of valid values
+     * for the cpu parameter:
+     *
+     * 0.5GB, 1GB, 2GB - Available cpu values: 256 (.25 vCPU)
+     *
+     * 1GB, 2GB, 3GB, 4GB - Available cpu values: 512 (.5 vCPU)
+     *
+     * 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB - Available cpu values: 1024 (1 vCPU)
+     *
+     * Between 4GB and 16GB in 1GB increments - Available cpu values: 2048 (2 vCPU)
+     *
+     * Between 8GB and 30GB in 1GB increments - Available cpu values: 4096 (4 vCPU)
+     *
+     * This default is set in the underlying FargateTaskDefinition construct.
+     *
+     * @default 512
+     */
+    memoryMiB?: string;
+  
+    /**
+     * The container port of the application load balancer attached to your Fargate service. Corresponds to container port mapping.
+     *
+     * @default 80
+     */
+    containerPort?: number;
+  
+    /**
+     * Determines whether the Application Load Balancer will be internet-facing
+     *
+     * @default true
+     */
+    publicLoadBalancer?: boolean;
+  
+    /**
+     * Determines whether your Fargate Service will be assigned a public IP address.
+     *
+     * @default false
+     */
+    publicTasks?: boolean;
+}

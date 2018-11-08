@@ -18,7 +18,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod("methodWithDefaultedArguments", null, "[{\"name\":\"arg1\",\"type\":{\"primitive\":\"number\",\"optional\":true}},{\"name\":\"arg2\",\"type\":{\"primitive\":\"string\"}},{\"name\":\"arg3\",\"type\":{\"primitive\":\"date\",\"optional\":true}}]")]
+        [JsiiMethod("methodWithDefaultedArguments", null, "[{\"name\":\"arg1\",\"type\":{\"primitive\":\"number\",\"optional\":true}},{\"name\":\"arg2\",\"type\":{\"primitive\":\"string\",\"optional\":true}},{\"name\":\"arg3\",\"type\":{\"primitive\":\"date\",\"optional\":true}}]")]
         public virtual void MethodWithDefaultedArguments(double? arg1, string arg2, DateTime? arg3)
         {
             InvokeInstanceVoidMethod(new object[]{arg1, arg2, arg3});

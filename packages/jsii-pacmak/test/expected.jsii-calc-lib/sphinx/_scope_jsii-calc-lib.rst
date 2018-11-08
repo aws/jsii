@@ -150,7 +150,10 @@ EnumFromScopedModule (enum)
 
 
 
-   Check that enums from @scoped packages can be references. See awslabs/jsii#138
+   Check that enums from @scoped packages can be references.
+
+   See awslabs/jsii#138
+
 
 
    .. py:data:: Value1
@@ -190,9 +193,10 @@ IDoublable (interface)
 
 
 
+
    .. py:attribute:: doubleValue
 
-      :type: number *(readonly)* *(abstract)*
+      :type: number *(readonly)*
 
 
 IFriendly (interface)
@@ -222,7 +226,10 @@ IFriendly (interface)
 
 
 
-   Applies to classes that are considered friendly. These classes can be greeted with a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
+   Applies to classes that are considered friendly. These classes can be greeted with
+
+   a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
+
 
 
 
@@ -230,6 +237,7 @@ IFriendly (interface)
    .. py:method:: hello() -> string
 
       Say hello!
+
 
 
       :rtype: string
@@ -268,12 +276,14 @@ MyFirstStruct (interface)
 
 
 
+
    .. py:attribute:: anumber
 
       An awesome number value
 
 
-      :type: number *(abstract)*
+
+      :type: number
 
 
    .. py:attribute:: astring
@@ -281,12 +291,13 @@ MyFirstStruct (interface)
       A string value
 
 
-      :type: string *(abstract)*
+
+      :type: string
 
 
    .. py:attribute:: firstOptional
 
-      :type: string[] or ``undefined`` *(abstract)*
+      :type: string[] *(optional)*
 
 
 Number
@@ -319,6 +330,7 @@ Number
    Represents a concrete number.
 
 
+
    :extends: :py:class:`~@scope/jsii-calc-lib.Value`\ 
    :implements: :py:class:`~@scope/jsii-calc-lib.IDoublable`\ 
    :param value: The number.
@@ -331,6 +343,7 @@ Number
       The number multiplied by 2.
 
 
+
       :type: number *(readonly)*
 
 
@@ -339,6 +352,7 @@ Number
       *Implements* :py:meth:`@scope/jsii-calc-lib.Value.value`
 
       The number.
+
 
 
       :type: number *(readonly)*
@@ -357,6 +371,7 @@ Number
       *Inherited from* :py:meth:`@scope/jsii-calc-lib.Value <@scope/jsii-calc-lib.Value.toString>`
 
       String representation of the value.
+
 
 
       :rtype: string
@@ -392,6 +407,7 @@ Operation
    Represents an operation on values.
 
 
+
    :extends: :py:class:`~@scope/jsii-calc-lib.Value`\ 
    :abstract: Yes
 
@@ -400,6 +416,7 @@ Operation
       *Overrides* :py:meth:`@scope/jsii-calc-lib.Value.toString`
 
       String representation of the value.
+
 
 
       :rtype: string
@@ -419,6 +436,7 @@ Operation
       *Inherited from* :py:attr:`@scope/jsii-calc-lib.Value <@scope/jsii-calc-lib.Value.value>`
 
       The value.
+
 
 
       :type: number *(readonly)* *(abstract)*
@@ -456,22 +474,24 @@ StructWithOnlyOptionals (interface)
 
 
 
+
    .. py:attribute:: optional1
 
       The first optional!
 
 
-      :type: string or ``undefined`` *(abstract)*
+
+      :type: string *(optional)*
 
 
    .. py:attribute:: optional2
 
-      :type: number or ``undefined`` *(abstract)*
+      :type: number *(optional)*
 
 
    .. py:attribute:: optional3
 
-      :type: boolean or ``undefined`` *(abstract)*
+      :type: boolean *(optional)*
 
 
 Value
@@ -504,6 +524,7 @@ Value
    Abstract class which represents a numeric value.
 
 
+
    :extends: :py:class:`@scope/jsii-calc-base.Base`\ 
    :abstract: Yes
 
@@ -512,12 +533,14 @@ Value
       String representation of the value.
 
 
+
       :rtype: string
 
 
    .. py:attribute:: value
 
       The value.
+
 
 
       :type: number *(readonly)* *(abstract)*
