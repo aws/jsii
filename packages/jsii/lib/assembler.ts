@@ -1085,6 +1085,7 @@ function _sortMembers(type: spec.ClassType | spec.InterfaceType): spec.ClassTyp
 
 function _toDependencies(assemblies: ReadonlyArray<spec.Assembly>, peers: ReadonlyArray<spec.Assembly>): { [name: string]: spec.PackageVersion } {
     const result: { [name: string]: spec.PackageVersion } = {};
+
     for (const assembly of assemblies) {
         result[assembly.name] = {
             version: assembly.version,
@@ -1094,16 +1095,6 @@ function _toDependencies(assemblies: ReadonlyArray<spec.Assembly>, peers: Readon
     }
 
     for (const peer of peers) {
-        if (peer.name in result) {
-            // module already appears as a normal dependency. just make sure it's the same version
-            const depVersion = result[peer.name].version;
-            if (depVersion !== peer.version) {
-                throw new Error(
-                    `Module '${peer.name}' appears both as a dependency (${depVersion}) ` +
-                    `and a peer dependency (${peer.version}), with mismatching versions`);
-            }
-        }
-
         result[peer.name] = {
             version: peer.version,
             targets: peer.targets,
