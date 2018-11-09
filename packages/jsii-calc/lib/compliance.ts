@@ -994,6 +994,12 @@ export interface NullShouldBeTreatedAsUndefinedData {
     arrayWithThreeElementsAndUndefinedAsSecondArgument: any[];
 }
 
+export class DontComplainAboutVariadicAfterOptional {
+    public optionalAndVariadic(optional?: string, ...things: string[]) {
+        return `${optional} and ${things.join(',')}`;
+    }
+}
+
 /**
  * jsii#298: show default values in sphinx documentation, and respect newlines.
  **/
@@ -1012,7 +1018,7 @@ export interface LoadBalancedFargateServiceProps {
      * @default 256
      */
     cpu?: string;
-  
+
     /**
      * The amount (in MiB) of memory used by the task.
      *
@@ -1034,21 +1040,21 @@ export interface LoadBalancedFargateServiceProps {
      * @default 512
      */
     memoryMiB?: string;
-  
+
     /**
      * The container port of the application load balancer attached to your Fargate service. Corresponds to container port mapping.
      *
      * @default 80
      */
     containerPort?: number;
-  
+
     /**
      * Determines whether the Application Load Balancer will be internet-facing
      *
      * @default true
      */
     publicLoadBalancer?: boolean;
-  
+
     /**
      * Determines whether your Fargate Service will be assigned a public IP address.
      *
