@@ -1418,6 +1418,43 @@ DoNotRecognizeAnyAsOptional
       :type _optionalString: string *(optional)*
 
 
+DontComplainAboutVariadicAfterOptional
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: DontComplainAboutVariadicAfterOptional()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.DontComplainAboutVariadicAfterOptional;
+
+      .. code-tab:: javascript
+
+         const { DontComplainAboutVariadicAfterOptional } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { DontComplainAboutVariadicAfterOptional } from 'jsii-calc';
+
+
+
+
+   .. py:method:: optionalAndVariadic(optional, *things) -> string
+
+      :param optional: 
+      :type optional: string *(optional)*
+      :param \*things: 
+      :type \*things: string
+      :rtype: string
+
+
 DoubleTrouble
 ^^^^^^^^^^^^^
 

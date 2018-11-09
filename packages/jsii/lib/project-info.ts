@@ -44,21 +44,13 @@ export async function loadProjectInfo(projectRoot: string): Promise<ProjectInfo>
         if (!version) {
             throw new Error(`The "package.json" has "${name}" in "bundleDependencies", but it is not declared in "dependencies"`);
         }
+
+        if (pkg.peerDependencies && name in pkg.peerDependencies) {
+            throw new Error(`The "package.json" has "${name}" in "bundleDependencies", and also in "peerDependencies"`);
+        }
+
         bundleDependencies[name] = version;
     });
-
-    // verify peer dependencies and dependencies have the same version specs
-    const deps = pkg.dependencies || { };
-    const peerDeps = pkg.peerDependencies || { };
-    for (const module of Object.keys(peerDeps)) {
-        const peerVersion = peerDeps[module];
-        const depVersion = deps[module];
-        if (depVersion && peerVersion !== depVersion) {
-            throw new Error(
-                `The module '${module}' is specified as ${peerVersion} under ` +
-                `"peerDependencieds" and as ${depVersion} under "dependencies"`);
-        }
-    }
 
     const transitiveAssemblies: { [name: string]: spec.Assembly } = {};
     const dependencies =
