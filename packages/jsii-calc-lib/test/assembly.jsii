@@ -11,6 +11,7 @@
     "@scope/jsii-calc-base": {
       "dependencies": {
         "@scope/jsii-calc-base-of-base": {
+          "peer": true,
           "targets": {
             "dotnet": {
               "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
@@ -30,6 +31,7 @@
           "version": "0.7.8"
         }
       },
+      "peer": true,
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
@@ -91,6 +93,25 @@
         }
       ],
       "name": "EnumFromScopedModule"
+    },
+    "@scope/jsii-calc-lib.IDoublable": {
+      "assembly": "@scope/jsii-calc-lib",
+      "docs": {
+        "comment": "The general contract for a concrete number."
+      },
+      "fqn": "@scope/jsii-calc-lib.IDoublable",
+      "kind": "interface",
+      "name": "IDoublable",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "name": "doubleValue",
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
     },
     "@scope/jsii-calc-lib.IFriendly": {
       "assembly": "@scope/jsii-calc-lib",
@@ -184,6 +205,11 @@
           }
         ]
       },
+      "interfaces": [
+        {
+          "fqn": "@scope/jsii-calc-lib.IDoublable"
+        }
+      ],
       "kind": "class",
       "name": "Number",
       "properties": [
@@ -193,6 +219,9 @@
           },
           "immutable": true,
           "name": "doubleValue",
+          "overrides": {
+            "fqn": "@scope/jsii-calc-lib.IDoublable"
+          },
           "type": {
             "primitive": "number"
           }
@@ -324,5 +353,5 @@
     }
   },
   "version": "0.7.8",
-  "fingerprint": "16sTfW7oHGAWfPOj50gWvXsI1REjbNbpk7VUpG1JVVI="
+  "fingerprint": "ENH00UDSeTnXKpvD3/vp0k8zyd+KCHzc9QWB151/gM8="
 }

@@ -936,6 +936,29 @@ defineTest('overrides: skip overrides of private properties', async (test, sandb
     test.deepEqual(result.result, 'privateProperty');
 });
 
+defineTest('nulls are converted to undefined - ctor', async (_test, sandbox) => {
+    sandbox.create({ fqn: 'jsii-calc.NullShouldBeTreatedAsUndefined', args: [ "foo", null ] });
+});
+
+defineTest('nulls are converted to undefined - method arguments', async (_test, sandbox) => {
+    const objref = sandbox.create({ fqn: 'jsii-calc.NullShouldBeTreatedAsUndefined', args: [ "foo" ] });
+    sandbox.invoke({ objref, method: 'giveMeUndefined', args: [ null ] });
+});
+
+defineTest('nulls are converted to undefined - inside objects', async (_test, sandbox) => {
+    const objref = sandbox.create({ fqn: 'jsii-calc.NullShouldBeTreatedAsUndefined', args: [ "foo" ] });
+    sandbox.invoke({ objref, method: 'giveMeUndefinedInsideAnObject', args: [ {
+        thisShouldBeUndefined: null,
+        arrayWithThreeElementsAndUndefinedAsSecondArgument: [ 'one', null, 'two' ]
+    } ]});
+});
+
+defineTest('nulls are converted to undefined - properties', async (_test, sandbox) => {
+    const objref = sandbox.create({ fqn: 'jsii-calc.NullShouldBeTreatedAsUndefined', args: [ "foo" ] });
+    sandbox.set({ objref, property: 'changeMeToUndefined', value: null });
+    sandbox.invoke({ objref, method: 'verifyPropertyIsUndefined' });
+});
+
 // =================================================================================================
 
 const testNames: { [name: string]: boolean } = { };

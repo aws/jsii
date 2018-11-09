@@ -877,9 +877,10 @@ export class Kernel {
             return undefined;
         }
 
-        // null
+        // null is treated as "undefined" because most languages do not have this distinction
+        // see awslabs/aws-cdk#157 and awslabs/jsii#282
         if (v === null) {
-            return null;
+            return undefined;
         }
 
         // pointer

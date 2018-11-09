@@ -11,7 +11,6 @@ import literate = require('./literate');
 import { ProjectInfo } from './project-info';
 import utils = require('./utils');
 import { Validator } from './validator';
-import { NamedTypeReference, isInterfaceType } from 'jsii-spec';
 
 // tslint:disable:no-var-requires Modules without TypeScript definitions
 const sortJson = require('sort-json');
@@ -30,9 +29,11 @@ export class Assembler implements Emitter {
     /**
      * @param projectInfo information about the package being assembled
      * @param program     the TypeScript program to be assembled from
+     * @param stdlib      the directory where the TypeScript stdlib is rooted
      */
     public constructor(public readonly projectInfo: ProjectInfo,
-                       public readonly program: ts.Program) {}
+                       public readonly program: ts.Program,
+                       public readonly stdlib: string) {}
 
     private get _typeChecker(): ts.TypeChecker {
         return this.program.getTypeChecker();
@@ -102,7 +103,7 @@ export class Assembler implements Emitter {
             author: this.projectInfo.author,
             contributors: this.projectInfo.contributors && [...this.projectInfo.contributors],
             repository: this.projectInfo.repository,
-            dependencies: _toDependencies(this.projectInfo.dependencies),
+            dependencies: _toDependencies(this.projectInfo.dependencies, this.projectInfo.peerDependencies),
             bundled: this.projectInfo.bundleDependencies,
             types: this._types,
             targets: this.projectInfo.targets,
@@ -152,7 +153,7 @@ export class Assembler implements Emitter {
      * that case anyway.
      */
     // tslint:disable-next-line:max-line-length
-    private _deferUntilTypesAvailable(fqn: string, baseTypes: NamedTypeReference[], referencingNode: ts.Node, cb: (...xs: spec.Type[]) => void) {
+    private _deferUntilTypesAvailable(fqn: string, baseTypes: spec.NamedTypeReference[], referencingNode: ts.Node, cb: (...xs: spec.Type[]) => void) {
         // We can do this one eagerly
         if (baseTypes.length === 0) {
             cb();
@@ -198,6 +199,18 @@ export class Assembler implements Emitter {
         } else {
             const assembly = this.projectInfo.transitiveDependencies.find(dep => dep.name === assm);
             type = assembly && assembly.types && assembly.types[ref.fqn];
+
+            // since we are exposing a type of this assembly in this module's public API,
+            // we expect it to appear as a peer dependency instead of a normal dependency.
+            if (assembly) {
+                const asPeerDependency = this.projectInfo.peerDependencies.find(d => d.name === assembly.name);
+                if (!asPeerDependency) {
+                    this._diagnostic(referencingNode, ts.DiagnosticCategory.Warning,
+                        `The type '${ref.fqn}' is exposed in the public API of this module. ` +
+                        `Therefore, the module '${assembly.name}' must also be defined under "peerDependencies". ` +
+                        `You can use the "jsii-fix-peers" utility to fix.`);
+                }
+            }
         }
 
         if (!type) {
@@ -427,9 +440,10 @@ export class Assembler implements Emitter {
                     }
                 }
                 this._visitDocumentation(constructor, jsiiType.initializer);
+                this._verifyConsecutiveOptionals(type.symbol.valueDeclaration, jsiiType.initializer.parameters);
             }
 
-            // Proces constructor-based property declarations even if constructor is private
+            // Process constructor-based property declarations even if constructor is private
             if (signature) {
                 for (const param of signature.getParameters()) {
                     if (ts.isParameterPropertyDeclaration(param.valueDeclaration)) {
@@ -581,7 +595,7 @@ export class Assembler implements Emitter {
                 jsiiType.datatype = true;
             }
             for (const base of bases) {
-                if (isInterfaceType(base) && !base.datatype) {
+                if (spec.isInterfaceType(base) && !base.datatype) {
                     jsiiType.datatype = undefined;
                 }
             }
@@ -627,6 +641,8 @@ export class Assembler implements Emitter {
             static: _isStatic(symbol),
         };
         method.variadic = method.parameters && method.parameters.find(p => !!p.variadic) != null;
+
+        this._verifyConsecutiveOptionals(declaration, method.parameters);
 
         this._visitDocumentation(symbol, method);
 
@@ -720,6 +736,7 @@ export class Assembler implements Emitter {
         if (paramDeclaration.initializer || paramDeclaration.questionToken) {
             parameter.type.optional = true;
         }
+
         this._visitDocumentation(paramSymbol, parameter);
         return parameter;
     }
@@ -731,7 +748,7 @@ export class Assembler implements Emitter {
             type = this._typeChecker.getApparentType(type);
         }
 
-        const primitiveType = _tryMakePrimitiveType();
+        const primitiveType = _tryMakePrimitiveType.call(this);
         if (primitiveType) { return primitiveType; }
 
         if (type.isUnion() && !_isEnumLike(type)) {
@@ -799,7 +816,7 @@ export class Assembler implements Emitter {
                 this._diagnostic(declaration,
                                  ts.DiagnosticCategory.Error,
                                  `Only string index maps are supported`);
-                elementtype = { primitive: spec.PrimitiveType.Any, optional: true };
+                elementtype = { primitive: spec.PrimitiveType.Any };
             }
             return {
                 collection: {
@@ -809,7 +826,7 @@ export class Assembler implements Emitter {
             };
         }
 
-        function _tryMakePrimitiveType(): spec.PrimitiveTypeReference | undefined {
+        function _tryMakePrimitiveType(this: Assembler): spec.PrimitiveTypeReference | undefined {
             if (!type.symbol) {
                 // tslint:disable-next-line:no-bitwise
                 if (type.flags & ts.TypeFlags.Object) {
@@ -817,9 +834,9 @@ export class Assembler implements Emitter {
                 }
                 // tslint:disable-next-line:no-bitwise
                 if (type.flags & (ts.TypeFlags.Any | ts.TypeFlags.Unknown)) {
-                    return { primitive: spec.PrimitiveType.Any, optional: true };
+                    return { primitive: spec.PrimitiveType.Any };
                 }
-            } else {
+            } else if (type.symbol.valueDeclaration && isUnder(type.symbol.valueDeclaration.getSourceFile().fileName, this.stdlib)) {
                 switch (type.symbol.name) {
                 case 'Boolean':
                     return { primitive: spec.PrimitiveType.Boolean };
@@ -833,6 +850,11 @@ export class Assembler implements Emitter {
             }
             // Not a primitive type!
             return undefined;
+
+            function isUnder(file: string, dir: string): boolean {
+                const relative = path.relative(dir, file);
+                return !relative.startsWith(path.sep) && !relative.startsWith('..');
+            }
         }
 
         async function _unionType(this: Assembler): Promise<spec.TypeReference> {
@@ -914,6 +936,28 @@ export class Assembler implements Emitter {
                 if (!spec.isInterfaceType(base)) { throw new Error('Impossible to have non-interface base in allProperties()'); }
 
                 recurse(base);
+            }
+        }
+    }
+
+    /**
+     * Verifies that if a method has an optional parameter, all consecutive
+     * parameters are optionals as well.
+     */
+    private _verifyConsecutiveOptionals(node: ts.Node, parameters?: spec.Parameter[]) {
+        if (!parameters) {
+            return;
+        }
+
+        let optional = false;
+        for (const p of parameters) {
+            if (optional && !p.type.optional) {
+                this._diagnostic(node, ts.DiagnosticCategory.Error,
+                    `Parameter ${p.name} must be optional since it comes after an optional parameter`);
+            }
+
+            if (p.type.optional) {
+                optional = true;
             }
         }
     }
@@ -1039,13 +1083,32 @@ function _sortMembers(type: spec.ClassType | spec.InterfaceType): spec.ClassTyp
     };
 }
 
-function _toDependencies(assemblies: ReadonlyArray<spec.Assembly>): { [name: string]: spec.PackageVersion } {
+function _toDependencies(assemblies: ReadonlyArray<spec.Assembly>, peers: ReadonlyArray<spec.Assembly>): { [name: string]: spec.PackageVersion } {
     const result: { [name: string]: spec.PackageVersion } = {};
     for (const assembly of assemblies) {
         result[assembly.name] = {
             version: assembly.version,
             targets: assembly.targets,
             dependencies: assembly.dependencies
+        };
+    }
+
+    for (const peer of peers) {
+        if (peer.name in result) {
+            // module already appears as a normal dependency. just make sure it's the same version
+            const depVersion = result[peer.name].version;
+            if (depVersion !== peer.version) {
+                throw new Error(
+                    `Module '${peer.name}' appears both as a dependency (${depVersion}) ` +
+                    `and a peer dependency (${peer.version}), with mismatching versions`);
+            }
+        }
+
+        result[peer.name] = {
+            version: peer.version,
+            targets: peer.targets,
+            dependencies: peer.dependencies,
+            peer: true
         };
     }
     return result;

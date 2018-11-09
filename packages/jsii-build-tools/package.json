@@ -15,7 +15,7 @@
     "build": "chmod +x bin/*"
   },
   "dependencies": {
-    "fs-extra": "^4.0.3"
+    "fs-extra": "^7.0.0"
   },
   "author": {
     "name": "Amazon Web Services",

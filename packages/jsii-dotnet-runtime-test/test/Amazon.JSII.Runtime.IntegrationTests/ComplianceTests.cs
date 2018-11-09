@@ -83,10 +83,10 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal("World", types.ArrayProperty[1]);
 
             // map
-            IDictionary<string, double> map = new Dictionary<string, double>();
-            map["Foo"] = 123;
+            IDictionary<string, Number> map = new Dictionary<string, Number>();
+            map["Foo"] = new Number(123);
             types.MapProperty = map;
-            Assert.Equal((double) 123, types.MapProperty["Foo"]);
+            Assert.Equal((double) 123, types.MapProperty["Foo"].Value);
         }
 
         [Fact(DisplayName = Prefix + nameof(DynamicTypes))]
@@ -462,8 +462,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         {
             AsyncVirtualMethodsChild obj = new AsyncVirtualMethodsChild();
 
-            RuntimeException exception = Assert.Throws<RuntimeException>(() => obj.CallMe());
-            Assert.Equal("Thrown by native code", exception.Message);
+            JsiiException exception = Assert.Throws<JsiiException>(() => obj.CallMe());
+            Assert.Contains("Thrown by native code", exception.Message);
         }
 
         class SyncVirtualMethodsChild_Set_CallsSuper : SyncVirtualMethods
@@ -531,8 +531,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         {
             SyncVirtualMethodsChild_Throws so = new SyncVirtualMethodsChild_Throws();
 
-            RuntimeException exception = Assert.Throws<RuntimeException>(() => so.RetrieveValueOfTheProperty());
-            Assert.Equal("Oh no, this is bad", exception.Message);
+            JsiiException exception = Assert.Throws<JsiiException>(() => so.RetrieveValueOfTheProperty());
+            Assert.Contains("Oh no, this is bad", exception.Message);
         }
 
         [Fact(DisplayName = Prefix + nameof(PropertyOverrides_Set_CallsSuper))]
@@ -549,8 +549,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         {
             SyncVirtualMethodsChild_Throws so = new SyncVirtualMethodsChild_Throws();
 
-            RuntimeException exception = Assert.Throws<RuntimeException>(() => so.ModifyValueOfTheProperty("Hii"));
-            Assert.Equal("Exception from overloaded setter", exception.Message);
+            JsiiException exception = Assert.Throws<JsiiException>(() => so.ModifyValueOfTheProperty("Hii"));
+            Assert.Contains("Exception from overloaded setter", exception.Message);
         }
 
         [Fact(DisplayName = Prefix + nameof(PropertyOverrides_Interfaces))]
@@ -816,6 +816,64 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             obj.ReadWriteString = "Hello";
 
             Assert.Equal("Hello", obj.ReadOnlyString);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(TestReturnInterfaceFromOverride))]
+        public void TestReturnInterfaceFromOverride()
+        {
+            var n = 1337;
+            var obj = new OverrideReturnsObject();
+            var arg = new NumberReturner(n);
+            Assert.Equal(4 * n, obj.Test(arg));
+        }
+
+        [Fact(DisplayName = Prefix + nameof(NullShouldBeTreatedAsUndefined))]
+        public void NullShouldBeTreatedAsUndefined()
+        {
+            // ctor
+            var obj = new NullShouldBeTreatedAsUndefined("param1", null);
+
+            // method argument
+            obj.GiveMeUndefined(null);
+
+            // inside object
+            obj.GiveMeUndefinedInsideAnObject(new NullShouldBeTreatedAsUndefinedData
+            {
+                ThisShouldBeUndefined = null,
+                ArrayWithThreeElementsAndUndefinedAsSecondArgument = new[] { "hello", null, "world" }
+            });
+
+            // property
+            obj.ChangeMeToUndefined = null;
+            obj.VerifyPropertyIsUndefined();
+        }
+
+        class NumberReturner : DeputyBase, IIReturnsNumber
+        {
+            public NumberReturner(double number)
+            {
+                NumberProp = new Number(number);
+            }
+
+            [JsiiProperty("numberProp", "{\"fqn\":\"@scope/jsii-calc-lib.Number\"}", true)]
+            public Number NumberProp { get; }
+
+            [JsiiMethod("obtainNumber", "{\"fqn\":\"@scope/jsii-calc-lib.IDoublable\"}", "[]",true)]
+            public IIDoublable ObtainNumber()
+            {
+                return new Doublable(this.NumberProp);
+            }
+
+            class Doublable : DeputyBase, IIDoublable
+            {
+                public Doublable(Number number)
+                {
+                    this.DoubleValue = number.DoubleValue;
+                }
+
+                [JsiiProperty("doubleValue","{\"primitive\":\"number\"}",true)]
+                public Double DoubleValue { get; }
+            }
         }
 
         class MulTen : Multiply
