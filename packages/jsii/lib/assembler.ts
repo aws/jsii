@@ -951,7 +951,7 @@ export class Assembler implements Emitter {
 
         let optional = false;
         for (const p of parameters) {
-            if (optional && !p.type.optional) {
+            if (optional && !p.type.optional && !p.variadic) {
                 this._diagnostic(node, ts.DiagnosticCategory.Error,
                     `Parameter ${p.name} must be optional since it comes after an optional parameter`);
             }
