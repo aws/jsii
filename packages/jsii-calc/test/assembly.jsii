@@ -1336,6 +1336,40 @@
       ],
       "name": "DoNotRecognizeAnyAsOptional"
     },
+    "jsii-calc.DontComplainAboutVariadicAfterOptional": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.DontComplainAboutVariadicAfterOptional",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "optionalAndVariadic",
+          "parameters": [
+            {
+              "name": "optional",
+              "type": {
+                "optional": true,
+                "primitive": "string"
+              }
+            },
+            {
+              "name": "things",
+              "type": {
+                "primitive": "string"
+              },
+              "variadic": true
+            }
+          ],
+          "returns": {
+            "primitive": "string"
+          },
+          "variadic": true
+        }
+      ],
+      "name": "DontComplainAboutVariadicAfterOptional"
+    },
     "jsii-calc.DoubleTrouble": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.DoubleTrouble",
@@ -3612,5 +3646,5 @@
     }
   },
   "version": "0.7.8",
-  "fingerprint": "3UAOWGBZzphiNp40hKAbXcsM27uWdwmXnbiPU74ZroU="
+  "fingerprint": "MNdOxOP9VioCZlGXuccW1Zu64GAKSSIg93bLN+YDPYE="
 }
