@@ -9,6 +9,9 @@ namespace Amazon.JSII.Runtime.Deputy
 {
     public abstract class JsiiTypeAttributeBase : Attribute
     {
+        // It's possible that a user is creating types in a multithreaded application.
+        // This is not explicity supported, but making the list thread-safe to protect
+        // against this possibility.
         private static readonly ConcurrentBag<string> ProcessedAssemblies =
             new ConcurrentBag<string>();
 
@@ -56,7 +59,6 @@ namespace Amazon.JSII.Runtime.Deputy
             client.LoadPackage(attribute.Name, attribute.Version, tarballPath);
 
             ProcessedAssemblies.Add(GetAssemblyKey(assembly));
-
 
             string GetAssemblyKey(Assembly assemblyReference) => assemblyReference.GetName().FullName;
         }
