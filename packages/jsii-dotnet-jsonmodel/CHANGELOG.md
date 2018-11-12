@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.8.0"></a>
+# [0.8.0](https://github.com/awslabs/jsii/compare/v0.7.8...v0.8.0) (2018-11-12)
+
+
+### Bug Fixes
+
+* **dotnet/runtime:** Incorrect callback response format ([#286](https://github.com/awslabs/jsii/issues/286)) ([1b851e1](https://github.com/awslabs/jsii/commit/1b851e1)), closes [#285](https://github.com/awslabs/jsii/issues/285)
+
+
+
+
 <a name="0.7.8"></a>
 ## [0.7.8](https://github.com/awslabs/jsii/compare/v0.7.7...v0.7.8) (2018-10-23)
 
