@@ -3,5 +3,7 @@
 !**/*.js
 !**/*.d.ts
 !bin/jsii
+!bin/jsii-fix-peers
+
 
 coverage
