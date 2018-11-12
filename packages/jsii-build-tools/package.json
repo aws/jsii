@@ -1,6 +1,6 @@
 {
   "name": "jsii-build-tools",
-  "version": "0.7.9",
+  "version": "0.7.10",
   "description": "Internal repository-level tools",
   "private": true,
   "bin": {
