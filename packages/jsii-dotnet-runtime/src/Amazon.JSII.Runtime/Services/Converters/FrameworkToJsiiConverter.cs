@@ -36,17 +36,6 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
             Type type = value.GetType();
 
-            /*if (type.GetCustomAttribute<JsiiTypeProxyAttribute>() != null)
-            {
-                throw new ArgumentException
-                (
-                    "Interface proxies are one-way (jsii to framework). " +
-                    "They may not be converted back to jsii. " +
-                    "Instead, use a concrete type that implements the interface.",
-                    nameof(value)
-                );
-            }*/
-
             if (value is DeputyBase deputyValue)
             {
                 result = deputyValue.Reference;
