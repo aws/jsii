@@ -324,12 +324,34 @@ abstract class BaseMethod implements PythonBase {
             }
         }
 
+        // We cannot (currently?) blindly use the names given to us by the JSII for
+        // initializers, because our keyword lifting will allow two names to clash.
+        // This can hopefully be removed once we get https://github.com/awslabs/jsii/issues/288
+        // resolved, so build up a list of all of the prop names so we can check against
+        // them later.
+        const liftedPropNames: Set<string> = new Set();
+        if (this.liftedProp !== undefined
+                && this.liftedProp.properties !== undefined
+                && this.liftedProp.properties.length >= 1) {
+            for (const prop of this.liftedProp.properties) {
+                liftedPropNames.add(toPythonIdentifier(prop.name));
+            }
+        }
+
         // We need to turn a list of JSII parameters, into Python style arguments with
         // gradual typing, so we'll have to iterate over the list of parameters, and
         // build the list, converting as we go.
         const pythonParams: string[] = [this.implicitParameter];
         for (const [idx, param] of this.parameters.entries()) {
-            const paramName = toPythonIdentifier(param.name);
+            // We cannot (currently?) blindly use the names given to us by the JSII for
+            // initializers, because our keyword lifting will allow two names to clash.
+            // This can hopefully be removed once we get https://github.com/awslabs/jsii/issues/288
+            // resolved.
+            let paramName: string = toPythonIdentifier(param.name);
+            while (liftedPropNames.has(paramName)) {
+                paramName = `${paramName}_`;
+            }
+
             const paramType = resolver.resolve(param.type, { forwardReferences: false});
             const paramDefault = optionalStartsAt !== undefined && idx >= optionalStartsAt ? "=None" : "";
 
