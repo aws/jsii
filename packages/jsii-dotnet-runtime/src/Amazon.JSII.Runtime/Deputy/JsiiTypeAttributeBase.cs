@@ -1,14 +1,20 @@
-﻿using Amazon.JSII.Runtime.Services;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Reflection;
+using Amazon.JSII.Runtime.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Amazon.JSII.Runtime.Deputy
 {
     public abstract class JsiiTypeAttributeBase : Attribute
     {
+        // It's possible that a user is creating types in a multithreaded application.
+        // This is not explicity supported, but making the list thread-safe to protect
+        // against this possibility.
+        private static readonly ConcurrentBag<string> ProcessedAssemblies =
+            new ConcurrentBag<string>();
+
         protected JsiiTypeAttributeBase(Type nativeType, string fullyQualifiedName)
         {
             nativeType = nativeType ?? throw new ArgumentNullException(nameof(nativeType));
@@ -17,27 +23,32 @@ namespace Amazon.JSII.Runtime.Deputy
             Load(nativeType.Assembly);
         }
 
-        void Load(Assembly assembly)
+        private static void Load(Assembly assembly)
         {
-            IEnumerable<Assembly> dependencies = assembly.GetReferencedAssemblies()
-                .Select(assemblyName => Assembly.Load(assemblyName));
-
-            JsiiAssemblyAttribute attribute = assembly.GetCustomAttribute<JsiiAssemblyAttribute>();
-            if (attribute == null)
+            if (ProcessedAssemblies.Contains(GetAssemblyKey(assembly)))
             {
                 return;
             }
 
-            foreach (Assembly dependency in dependencies)
+            var attribute = assembly.GetCustomAttribute<JsiiAssemblyAttribute>();
+            if (attribute == null)
             {
-                Load(dependency);
+                ProcessedAssemblies.Add(GetAssemblyKey(assembly));
+                return;
+            }
+
+            foreach (var referencedAssembly in assembly.GetReferencedAssemblies())
+            {
+                var loadedReference = Assembly.Load(referencedAssembly);
+                Load(loadedReference);
             }
 
             // find the .tgz resource
             var tarballResourceName = assembly.GetManifestResourceNames().FirstOrDefault(name => name.EndsWith(".tgz"));
             if (tarballResourceName == null)
             {
-                throw new JsiiException("Cannot find embedded tarball resource in assembly " + assembly.GetName(), null);
+                throw new JsiiException("Cannot find embedded tarball resource in assembly " + assembly.GetName(),
+                    null);
             }
 
             IServiceProvider serviceProvider = ServiceContainer.ServiceProvider;
@@ -46,6 +57,10 @@ namespace Amazon.JSII.Runtime.Deputy
 
             IClient client = serviceProvider.GetRequiredService<IClient>();
             client.LoadPackage(attribute.Name, attribute.Version, tarballPath);
+
+            ProcessedAssemblies.Add(GetAssemblyKey(assembly));
+
+            string GetAssemblyKey(Assembly assemblyReference) => assemblyReference.GetName().FullName;
         }
 
         public string FullyQualifiedName { get; }

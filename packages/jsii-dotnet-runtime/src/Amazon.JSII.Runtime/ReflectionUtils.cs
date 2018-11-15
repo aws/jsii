@@ -1,7 +1,7 @@
-﻿using Amazon.JSII.Runtime.Deputy;
-using System;
+﻿using System;
 using System.Linq;
 using System.Reflection;
+using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Runtime
 {
@@ -35,7 +35,8 @@ namespace Amazon.JSII.Runtime
 
             if (methodInfo == null)
             {
-                throw new ArgumentNullException($"Class {classType.Name} does not have a method called {name}", nameof(name));
+                throw new ArgumentNullException($"Class {classType.Name} does not have a method called {name}",
+                    nameof(name));
             }
 
             return methodInfo;
@@ -52,7 +53,8 @@ namespace Amazon.JSII.Runtime
 
             if (propertyInfo == null)
             {
-                throw new ArgumentNullException($"Class {classType.Name} does not have a property called {name}", nameof(name));
+                throw new ArgumentNullException($"Class {classType.Name} does not have a property called {name}",
+                    nameof(name));
             }
 
             return propertyInfo;
@@ -65,23 +67,13 @@ namespace Amazon.JSII.Runtime
 
         public static JsiiClassAttribute GetClassAttribute(Type type)
         {
-            Type current = type;
-
-            while (current != null)
+            if (type == null)
             {
-                // JsiiClassAttribute can't be inheritable, because we need to distinguish between JSII
-                // types and native extensions of JSII types. So we have to search the inheritance tree
-                // manually.
-                JsiiClassAttribute classAttribute = current.GetCustomAttribute<JsiiClassAttribute>();
-                if (classAttribute != null)
-                {
-                    return classAttribute;
-                }
-
-                current = current.BaseType;
+                return null;
             }
 
-            return null;
+            return type.GetCustomAttribute<JsiiClassAttribute>()
+                   ?? GetClassAttribute(type.BaseType);
         }
     }
 }
