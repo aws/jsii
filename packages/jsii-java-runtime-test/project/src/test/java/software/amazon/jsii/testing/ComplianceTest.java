@@ -14,6 +14,7 @@ import software.amazon.jsii.tests.calculator.DerivedStruct;
 import software.amazon.jsii.tests.calculator.DoNotOverridePrivates;
 import software.amazon.jsii.tests.calculator.DoubleTrouble;
 import software.amazon.jsii.tests.calculator.GiveMeStructs;
+import software.amazon.jsii.tests.calculator.GreetingAugmenter;
 import software.amazon.jsii.tests.calculator.IFriendlier;
 import software.amazon.jsii.tests.calculator.IFriendlyRandomGenerator;
 import software.amazon.jsii.tests.calculator.InterfaceWithProperties;
@@ -703,6 +704,17 @@ public class ComplianceTest {
         IFriendlyRandomGenerator gen = obj.giveMeFriendlyGenerator();
         assertEquals("giveMeFriendlyGenerator", gen.hello());
         assertEquals(42, gen.next());
+    }
+
+    @Test
+    public void testInterfaceParameter() {
+        JSObjectLiteralForInterface obj = new JSObjectLiteralForInterface();
+        IFriendly friendly = obj.giveMeFriendly();
+        assertEquals("I am literally friendly!", friendly.hello());
+
+        GreetingAugmenter greetingAugmenter = new GreetingAugmenter();
+        String betterGreeting = greetingAugmenter.betterGreeting(friendly);
+        assertEquals("I am literally friendly! Let me buy you a drink!", betterGreeting);
     }
 
     @Test

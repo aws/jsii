@@ -1,14 +1,24 @@
 // tslint:disable
-import { Value, Number, IFriendly, IDoublable, MyFirstStruct, StructWithOnlyOptionals, EnumFromScopedModule } from '@scope/jsii-calc-lib';
+import {
+    EnumFromScopedModule,
+    IDoublable,
+    IFriendly,
+    MyFirstStruct,
+    Number,
+    StructWithOnlyOptionals,
+    Value
+} from '@scope/jsii-calc-lib';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
 import * as crypto from 'crypto';
 import { promisify } from 'util';
+import { composition, IFriendlyRandomGenerator, IRandomNumberGenerator, Multiply } from './calculator';
+
 const bundled = require('jsii-calc-bundled');
 import base = require('@scope/jsii-calc-base');
+
 const readFile = promisify(fs.readFile);
-import { composition, IFriendlyRandomGenerator, IRandomNumberGenerator, Multiply } from './calculator';
 
 export enum AllTypesEnum {
     MyEnumValue,
@@ -38,7 +48,7 @@ export class AllTypes {
 
     set booleanProperty(value: boolean) {
         if (typeof(value) !== 'boolean') {
-            throw new Error('not a boolean')
+            throw new Error('not a boolean');
         }
         this.boolValue = value;
     }
@@ -140,7 +150,7 @@ export class AllTypes {
 
     // non-typed (any)
 
-    anyProperty: any
+    anyProperty: any;
     anyArrayProperty: any[] = [];
     anyMapProperty: { [key: string]: any } = {};
 
@@ -197,7 +207,7 @@ export class JSObjectLiteralToNative {
         return {
             propA: 'Hello',
             propB: 102
-        }
+        };
     }
 }
 
@@ -238,11 +248,15 @@ export class RuntimeTypeChecking {
      * Used to verify verification of number of method arguments.
      */
     public methodWithOptionalArguments(arg1: number, arg2: string, arg3?: Date) {
-        arg1; arg2; arg3;
+        arg1;
+        arg2;
+        arg3;
     }
 
     public methodWithDefaultedArguments(arg1: number = 2, arg2?: string, arg3: Date = new Date()) {
-        arg1; arg2; arg3;
+        arg1;
+        arg2;
+        arg3;
     }
 
     public methodWithOptionalAnyArgument(arg?: any) {
@@ -253,13 +267,15 @@ export class RuntimeTypeChecking {
 export class OptionalConstructorArgument {
     public constructor(public readonly arg1: number,
                        public readonly arg2: string,
-                       public readonly arg3?: Date) {}
+                       public readonly arg3?: Date) {
+    }
 }
 
 export class DefaultedConstructorArgument {
     public constructor(public readonly arg1: number = 2,
                        public readonly arg2?: string,
-                       public readonly arg3: Date = new Date()) {}
+                       public readonly arg3: Date = new Date()) {
+    }
 }
 
 export namespace DerivedClassHasNoProperties {
@@ -427,8 +443,13 @@ export class VirtualMethodPlayground {
 }
 
 export class DoubleTrouble implements IFriendlyRandomGenerator {
-    next() { return 12; }
-    hello() { return 'world'; }
+    next() {
+        return 12;
+    }
+
+    hello() {
+        return 'world';
+    }
 }
 
 export class Polymorphism {
@@ -470,6 +491,12 @@ export class JSObjectLiteralForInterface {
         };
     }
 
+}
+
+export class GreetingAugmenter {
+    betterGreeting(friendly: IFriendly): string {
+        return friendly.hello() + ' Let me buy you a drink!';
+    }
 }
 
 /**
@@ -516,7 +543,7 @@ export class GiveMeStructs {
         return {
             optional1: 'optional1FromStructLiteral',
             optional3: false
-        }
+        };
     }
 }
 
@@ -575,6 +602,7 @@ export class AllowedMethodNames {
 
 export interface IReturnsNumber {
     obtainNumber(): IDoublable;
+
     readonly numberProp: Number;
 }
 
@@ -614,7 +642,8 @@ export class VariadicMethod {
 }
 
 export class Statics {
-    constructor(public readonly value: string) { }
+    constructor(public readonly value: string) {
+    }
 
     /**
      * Jsdocs for static method
@@ -643,7 +672,7 @@ export class Statics {
      */
     public static readonly zooBar: { [name: string]: string } = { hello: 'world' };
 
-    private static _instance?: Statics
+    private static _instance?: Statics;
 
     /**
      * Jsdocs for static getter.
@@ -668,58 +697,162 @@ export class Statics {
 
 // https://en.wikipedia.org/wiki/List_of_Java_keywords
 export class JavaReservedWords {
-    public abstract() { }
-    public assert() { }
-    public boolean() { }
-    public break() { }
-    public byte() { }
-    public case() { }
-    public catch() { }
-    public char() { }
-    public class() { }
-    public const() { }
-    public continue() { }
-    public default() { }
-    public double() { }
-    public do() { }
-    public else() { }
-    public enum() { }
-    public extends() { }
-    public false() { }
-    public final() { }
-    public finally() { }
-    public float() { }
-    public for() { }
-    public goto() { }
-    public if() { }
-    public implements() { }
-    public import() { }
-    public instanceof() { }
-    public int() { }
-    public interface() { }
-    public long() { }
-    public native() { }
-    public new() { }
-    public null() { }
-    public package() { }
-    public private() { }
-    public protected() { }
-    public public() { }
-    public return() { }
-    public short() { }
-    public static() { }
-    public strictfp() { }
-    public super() { }
-    public switch() { }
-    public synchronized() { }
-    public this() { }
-    public throw() { }
-    public throws() { }
-    public transient() { }
-    public true() { }
-    public try() { }
-    public void() { }
-    public volatile() { }
+    public abstract() {
+    }
+
+    public assert() {
+    }
+
+    public boolean() {
+    }
+
+    public break() {
+    }
+
+    public byte() {
+    }
+
+    public case() {
+    }
+
+    public catch() {
+    }
+
+    public char() {
+    }
+
+    public class() {
+    }
+
+    public const() {
+    }
+
+    public continue() {
+    }
+
+    public default() {
+    }
+
+    public double() {
+    }
+
+    public do() {
+    }
+
+    public else() {
+    }
+
+    public enum() {
+    }
+
+    public extends() {
+    }
+
+    public false() {
+    }
+
+    public final() {
+    }
+
+    public finally() {
+    }
+
+    public float() {
+    }
+
+    public for() {
+    }
+
+    public goto() {
+    }
+
+    public if() {
+    }
+
+    public implements() {
+    }
+
+    public import() {
+    }
+
+    public instanceof() {
+    }
+
+    public int() {
+    }
+
+    public interface() {
+    }
+
+    public long() {
+    }
+
+    public native() {
+    }
+
+    public new() {
+    }
+
+    public null() {
+    }
+
+    public package() {
+    }
+
+    public private() {
+    }
+
+    public protected() {
+    }
+
+    public public() {
+    }
+
+    public return() {
+    }
+
+    public short() {
+    }
+
+    public static() {
+    }
+
+    public strictfp() {
+    }
+
+    public super() {
+    }
+
+    public switch() {
+    }
+
+    public synchronized() {
+    }
+
+    public this() {
+    }
+
+    public throw() {
+    }
+
+    public throws() {
+    }
+
+    public transient() {
+    }
+
+    public true() {
+    }
+
+    public try() {
+    }
+
+    public void() {
+    }
+
+    public volatile() {
+    }
+
     public while = 'hello';
 }
 
@@ -780,8 +913,8 @@ export class NodeStandardLibrary {
 export class UseCalcBase {
     public hello(): base.Base {
         return {
-            typeName: () => "hello"
-        }
+            typeName: () => 'hello'
+        };
     }
 }
 
@@ -883,7 +1016,7 @@ export class AbstractClassReturner {
     public get returnAbstractFromProperty(): AbstractClassBase {
         return {
             abstractProperty: 'hello-abstract-property'
-        }
+        };
     }
 }
 
@@ -929,6 +1062,7 @@ export class ClassWithPrivateConstructorAndAutomaticProperties implements Interf
 
 export interface IInterfaceWithMethods {
     readonly value: string;
+
     doThings(): void;
 }
 
@@ -953,7 +1087,7 @@ export class DoNotRecognizeAnyAsOptional {
  * jsii#282, aws-cdk#157: null should be treated as "undefined"
  */
 export class NullShouldBeTreatedAsUndefined {
-    public changeMeToUndefined? = "hello";
+    public changeMeToUndefined? = 'hello';
 
     constructor(_param1: string, optional?: any) {
         if (optional !== undefined) {
@@ -978,7 +1112,7 @@ export class NullShouldBeTreatedAsUndefined {
         }
 
         if (array[1] !== undefined) {
-            throw new Error('Expected arrayWithThreeElementsAndUndefinedAsSecondArgument[1] to be undefined: ' + JSON.stringify(input))
+            throw new Error('Expected arrayWithThreeElementsAndUndefinedAsSecondArgument[1] to be undefined: ' + JSON.stringify(input));
         }
     }
 
