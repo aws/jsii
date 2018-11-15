@@ -1481,6 +1481,31 @@
         }
       ]
     },
+    "jsii-calc.GreetingAugmenter": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.GreetingAugmenter",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "betterGreeting",
+          "parameters": [
+            {
+              "name": "friendly",
+              "type": {
+                "fqn": "@scope/jsii-calc-lib.IFriendly"
+              }
+            }
+          ],
+          "returns": {
+            "primitive": "string"
+          }
+        }
+      ],
+      "name": "GreetingAugmenter"
+    },
     "jsii-calc.IFriendlier": {
       "assembly": "jsii-calc",
       "docs": {
@@ -3646,5 +3671,5 @@
     }
   },
   "version": "0.7.10",
-  "fingerprint": "rxx0uqvwitnI8U0/tQLwhghDWxc85lS6Gghk4xDtIx0="
+  "fingerprint": "FD4+eWzYL86xxcqBEJh/D6O533Bbjwo/LHD4si6frmg="
 }

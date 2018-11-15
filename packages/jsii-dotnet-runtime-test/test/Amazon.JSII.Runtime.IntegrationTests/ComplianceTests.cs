@@ -708,6 +708,18 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal((double) 42, gen.Next());
         }
 
+        [Fact(DisplayName = Prefix + nameof(TestInterfaceParameter))]
+        public void TestInterfaceParameter()
+        {
+            var obj = new JSObjectLiteralForInterface();
+            var friendly = obj.GiveMeFriendly();
+            Assert.Equal("I am literally friendly!", friendly.Hello());
+
+            var greetingAugmenter = new GreetingAugmenter();
+            var betterGreeting = greetingAugmenter.BetterGreeting(friendly);
+            Assert.Equal("I am literally friendly! Let me buy you a drink!", betterGreeting);
+        }
+
         [Fact(DisplayName = Prefix + nameof(Structs_StepBuilders), Skip = "There is no fluent API for C#")]
         public void Structs_StepBuilders()
         {
@@ -842,7 +854,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             obj.GiveMeUndefinedInsideAnObject(new NullShouldBeTreatedAsUndefinedData
             {
                 ThisShouldBeUndefined = null,
-                ArrayWithThreeElementsAndUndefinedAsSecondArgument = new[] { "hello", null, "world" }
+                ArrayWithThreeElementsAndUndefinedAsSecondArgument = new[] {"hello", null, "world"}
             });
 
             // property

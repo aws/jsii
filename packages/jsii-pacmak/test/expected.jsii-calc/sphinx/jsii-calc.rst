@@ -1572,6 +1572,41 @@ GiveMeStructs
       :type: :py:class:`@scope/jsii-calc-lib.StructWithOnlyOptionals`\  *(readonly)*
 
 
+GreetingAugmenter
+^^^^^^^^^^^^^^^^^
+
+.. py:class:: GreetingAugmenter()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.GreetingAugmenter;
+
+      .. code-tab:: javascript
+
+         const { GreetingAugmenter } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { GreetingAugmenter } from 'jsii-calc';
+
+
+
+
+   .. py:method:: betterGreeting(friendly) -> string
+
+      :param friendly: 
+      :type friendly: :py:class:`@scope/jsii-calc-lib.IFriendly`\ 
+      :rtype: string
+
+
 IFriendlier (interface)
 ^^^^^^^^^^^^^^^^^^^^^^^
 
