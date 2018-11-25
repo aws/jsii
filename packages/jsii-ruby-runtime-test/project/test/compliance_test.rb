@@ -336,6 +336,15 @@ class JsiiComplianceTest < Test::Unit::TestCase
     assert_equal 102, obj2.prop_b
   end
 
+  def test_fluent_api_with_derived_classes
+    obj = DerivedFromAllTypes.new
+    obj.string_property = 'Hello'
+    obj.number_property = 12
+
+    assert_equal "Hello", obj.string_property
+    assert_equal 12, obj.number_property
+  end
+
   private
 
   def compliance(name)
@@ -347,4 +356,8 @@ class AddTen < Jsii::Calc::Add
   def initialize(value)
     super(Jsii::CalcLib::Number.new(value), Jsii::CalcLib::Number.new(10))
   end
+end
+
+class DerivedFromAllTypes < Jsii::Calc::AllTypes
+
 end
