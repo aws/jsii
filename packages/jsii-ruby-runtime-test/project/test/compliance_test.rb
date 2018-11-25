@@ -216,6 +216,19 @@ class JsiiComplianceTest < Test::Unit::TestCase
     assert_equal '<<[[{{(((1 * (0 + 9)) * (0 + 9)) * (0 + 9))}}]]>>', calc.to_string
   end
 
+  def test_use_enum_from_scoped_module
+    compliance "useEnumFromScopedModule"
+
+    obj = Jsii::Calc::ReferenceEnumFromScopedPackage.new
+    assert_equal Jsii::CalcLib::EnumFromScopedModule::VALUE2, obj.foo
+
+    obj.foo = Jsii::CalcLib::EnumFromScopedModule::VALUE1
+    assert_equal Jsii::CalcLib::EnumFromScopedModule::VALUE1, obj.load_foo
+
+    obj.save_foo Jsii::CalcLib::EnumFromScopedModule::VALUE2
+    assert_equal Jsii::CalcLib::EnumFromScopedModule::VALUE2, obj.foo
+  end
+
   private
 
   def compliance(name)

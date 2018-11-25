@@ -226,7 +226,7 @@ class RubyGenerator extends Generator {
 
   protected onMethod(_cls: spec.ClassType, method: spec.Method) {
     this.code.openBlock(`def ${this.renderMethodSignature(method)}`);
-    this.code.line(`_jsii.invoke(objref: @objref, method: '${method.name}', args: ${this.renderMethodInvokeArgs(method)})['result']`);
+    this.code.line(`_jsii.from_jsii(_jsii.invoke(objref: @objref, method: '${method.name}', args: ${this.renderMethodInvokeArgs(method)})['result'])`);
     this.code.closeBlock();
   }
 
