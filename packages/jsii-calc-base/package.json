@@ -19,7 +19,11 @@
         "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
         "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BasePackageId"
       },
-      "sphinx": {}
+      "sphinx": {},
+      "ruby": {
+        "gem": "jsii-calc-ruby-base",
+        "module": "Jsii::CalcBase"
+      }
     }
   },
   "scripts": {

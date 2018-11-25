@@ -10,5 +10,7 @@ mkdir -p ${res}
 rsync -av node_modules/jsii-runtime/webpack/ ${res}
 
 # generate jsii-calc for ruby
-mkdir -p project/test/jsii-calc
-jsii-pacmak -t ruby -o project/test/jsii-calc --recurse node_modules/jsii-calc
+outdir="project/vendor/cache"
+rm -fr ${outdir}
+mkdir -p ${outdir}
+jsii-pacmak -vv --no-clean -t ruby -o ${outdir} --recurse node_modules/jsii-calc

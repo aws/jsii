@@ -2,16 +2,25 @@ require 'test/unit'
 require 'test/unit/ui/console/testrunner'
 require_relative '../lib/jsii_runtime'
 
+require 'jsii-calc-ruby'
+require 'jsii-calc-ruby-lib'
+require 'jsii-calc-ruby-base'
+require 'jsii-calc-ruby-base-of-base'
+
 # Tests for Aws::Jsii::Runtime
 class JsiiRuntimeTest < Test::Unit::TestCase
   def setup
     @version = File.read(File.join(File.dirname(__FILE__), '..', 'version.txt')).strip
     @client = Aws::Jsii::Runtime.new
 
-    load_test_module('jsii-calc-base-of-base', '@scope/jsii-calc-base-of-base')
-    load_test_module('jsii-calc-base', '@scope/jsii-calc-base')
-    load_test_module('jsii-calc-lib', '@scope/jsii-calc-lib')
-    load_test_module('jsii-calc', 'jsii-calc')
+    load_module Jsii::CalcBaseOfBase
+    load_module Jsii::CalcBase
+    load_module Jsii::CalcLib
+    load_module Jsii::Calc
+  end
+
+  def load_module(mod)
+    @client.load(tarball: mod.tarball, name: mod.name, version: mod.version)
   end
 
   def teardown
@@ -103,12 +112,5 @@ class JsiiRuntimeTest < Test::Unit::TestCase
     assert_raise Aws::Jsii::JsiiError do
       @client.invoke(objref: objref, method: 'callerIsMethod')
     end
-  end
-
-  private
-
-  def load_test_module(file_name, module_name)
-    tarball = File.join(File.dirname(__FILE__), 'jsii-calc', "#{file_name}@#{@version}.jsii.tgz")
-    @client.load(tarball: tarball, name: module_name, version: @version)
   end
 end

@@ -10,7 +10,7 @@
     "deps": "cd project && bundle install --path vendor/bundle --binstubs vendor/bin",
     "lint": "cd project && vendor/bin/rubocop",
     "build": "npm run gen && npm run deps && npm run lint && gem build project/*.gemspec",
-    "test": "cd project && ruby test/suite.rb",
+    "test": "cd project && GEM_PATH=$PWD/vendor/bundle/ruby/2.5.0 ruby test/suite.rb",
     "package": "package-ruby"
   },
   "devDependencies": {
