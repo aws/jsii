@@ -278,6 +278,9 @@ public class ComplianceTest {
         assertEquals(5, sum.getParts().get(0).getValue());
         assertEquals(6, sum.getParts().get(2).getValue());
         assertEquals("(((0 + 5) + 10) + (2 * 3))", sum.toString());
+
+        // verify that idiomatic "toString" works (let compiler coerce to a string)
+        assertEquals("(((0 + 5) + 10) + (2 * 3))", "" + sum);
     }
 
     @Test

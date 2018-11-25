@@ -9,6 +9,14 @@ module Aws
         @objref = v
       end
 
+      def to_s
+        if self.respond_to?(:to_string)
+          return self.to_string
+        else
+          super
+        end
+      end
+
       protected
 
       def _jsii

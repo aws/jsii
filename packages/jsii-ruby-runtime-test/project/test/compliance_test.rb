@@ -229,6 +229,64 @@ class JsiiComplianceTest < Test::Unit::TestCase
     assert_equal Jsii::CalcLib::EnumFromScopedModule::VALUE2, obj.foo
   end
 
+  def test_undefined_and_null
+    compliance "undefinedAndNull"
+
+    calculator = Jsii::Calc::Calculator.new
+    assert_nil calculator.max_value
+    calculator.max_value = nil
+  end
+
+  def test_arrays
+    compliance "arrays"
+
+    sum = Jsii::Calc::Sum.new
+    sum.parts = [
+      Jsii::CalcLib::Number.new(5),
+      Jsii::CalcLib::Number.new(10),
+      Jsii::Calc::Multiply.new(
+        Jsii::CalcLib::Number.new(2),
+        Jsii::CalcLib::Number.new(3),
+      )
+    ]
+    assert_equal 5 + 10 + (2 * 3), sum.value
+    assert_equal 5, sum.parts[0].value
+    assert_equal 6, sum.parts[2].value
+    assert_equal '(((0 + 5) + 10) + (2 * 3))', sum.to_string
+
+    # idiomatic to string
+    assert_equal '(((0 + 5) + 10) + (2 * 3))', "#{sum}"
+  end
+
+      #
+      # @Test
+      # public void arrays() {
+      #     assertEquals("(((0 + 5) + 10) + (2 * 3))", sum.toString());
+      # }
+      #
+      # @Test
+      # public void maps() {
+      #     Calculator calc2 = new Calculator(); // Initializer overload (props is optional)
+      #     calc2.add(10);
+      #     calc2.add(20);
+      #     calc2.mul(2);
+      #     assertEquals(2, calc2.getOperationsMap().get("add").size());
+      #     assertEquals(1, calc2.getOperationsMap().get("mul").size());
+      #     assertEquals(30, calc2.getOperationsMap().get("add").get(1).getValue());
+      # }
+      #
+      # @Test
+      # public void fluentApi() {
+      #     final Calculator calc3 = new Calculator(CalculatorProps.builder()
+      #             .withInitialValue(20)
+      #             .withMaximumValue(30)
+      #             .build());
+      #     calc3.add(3);
+      #     assertEquals(23, calc3.getValue());
+      # }
+      #
+
+
   private
 
   def compliance(name)
