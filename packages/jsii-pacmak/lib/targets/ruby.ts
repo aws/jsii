@@ -219,13 +219,18 @@ class RubyGenerator extends Generator {
     this.onProperty(cls, prop);
   }
 
+  protected onMethod(_cls: spec.ClassType, method: spec.Method) {
+    this.code.openBlock(`def ${this.renderMethodSignature(method)}`);
+    this.code.line(`@runtime.invoke(objref: @objref, method: '${method.name}', args: ${this.renderMethodInvokeArgs(method)})`)
+    this.code.closeBlock();
+  }
+
   protected onBeginInterface(_ifc: spec.InterfaceType) { return; }
   protected onEndInterface(_ifc: spec.InterfaceType) { return; }
   protected onInterfaceMethod(_ifc: spec.InterfaceType, _method: spec.Method) { return; }
   protected onInterfaceMethodOverload(_ifc: spec.InterfaceType, _overload: spec.Method, _originalMethod: spec.Method) { return; }
   protected onInterfaceProperty(_ifc: spec.InterfaceType, _prop: spec.Property) { return; }
   protected onStaticProperty(_cls: spec.ClassType, _prop: spec.Property) { return; }
-  protected onMethod(_cls: spec.ClassType, _method: spec.Method) { return; }
   protected onMethodOverload(_cls: spec.ClassType, _overload: spec.Method, _originalMethod: spec.Method) { return; }
   protected onStaticMethod(_cls: spec.ClassType, _method: spec.Method) { return; }
   protected onStaticMethodOverload(_cls: spec.ClassType, _overload: spec.Method, _originalMethod: spec.Method) { return; }

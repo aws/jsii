@@ -175,6 +175,16 @@ class JsiiComplianceTest < Test::Unit::TestCase
       Jsii::CalcLib::Number.new(0)).value
   end
 
+  def test_call_methods
+    compliance "callMethods"
+
+    calc = Jsii::Calc::Calculator.new
+    calc.add(10); assert_equal 10, calc.value
+    calc.mul(2);  assert_equal 20, calc.value
+    calc.pow(5);  assert_equal 20 * 20 * 20 * 20 * 20, calc.value
+    calc.neg;     assert_equal -3200000, calc.value
+  end
+
   private
 
   def compliance(name)
