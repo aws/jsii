@@ -195,6 +195,16 @@ class JsiiComplianceTest < Test::Unit::TestCase
     assert_equal 120, value.value
   end
 
+  def test_get_and_set_non_primitive_properties
+    compliance "getAndSetNonPrimitiveProperties"
+
+    calc = Jsii::Calc::Calculator.new
+    calc.add 3200000
+    calc.neg
+    calc.curr = Jsii::Calc::Multiply.new(Jsii::CalcLib::Number.new(2), calc.curr)
+    assert_equal -6400000, calc.value
+  end
+
   private
 
   def compliance(name)
