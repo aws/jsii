@@ -3,6 +3,7 @@ require 'logger'
 require 'json'
 require_relative 'errors'
 require_relative 'base'
+require_relative 'enum'
 
 TOKEN_DATE = '$jsii.date'
 TOKEN_REF  = '$jsii.byref'
@@ -115,6 +116,10 @@ module Aws
           return x._jsii_objref
         end
 
+        if x.kind_of?(JsiiEnum)
+          return { TOKEN_ENUM => x.fqn }
+        end
+
         # primitive
         return x
       end
@@ -127,6 +132,10 @@ module Aws
 
           if not x[TOKEN_REF].nil?
             return find_create_objref(x)
+          end
+
+          if not x[TOKEN_ENUM].nil?
+            return resolve_ruby_enum(x)
           end
 
           return x.map { |k,v| [ k, self.from_jsii(v) ] }.to_h
@@ -227,6 +236,13 @@ module Aws
         cls = @fqn_map[fqn]
         raise "Unable to resolve Ruby type for objref #{ref}" if cls.nil?
         return cls
+      end
+
+      def resolve_ruby_enum(enum)
+        fqn = enum[TOKEN_ENUM]
+        ref = @fqn_map[fqn]
+        raise "Unable to resolve enum reference for FQN #{fqn}" if ref.nil?
+        return ref
       end
     end
   end

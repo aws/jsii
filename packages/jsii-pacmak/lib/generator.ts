@@ -225,6 +225,16 @@ export abstract class Generator implements IGenerator {
     protected hasField(cls: spec.ClassType, prop: spec.Property): boolean { cls; prop; return false; }
     protected onField(cls: spec.ClassType, prop: spec.Property, union?: spec.UnionTypeReference) { cls; prop; union }
 
+    /**
+     * Indicates if a type is nested within another type. This usually means you wouldn't want
+     * to create a new file for it.
+     */
+    protected isNested(type: spec.Type) {
+        if (!this.assembly.types || !type.namespace) { return false; }
+        const parent = `${type.assembly}.${type.namespace}`;
+        return parent in this.assembly.types;
+    }
+
     private visit(node: spec.NameTree, names = new Array<string>()) {
         let namespace = (!node.fqn && names.length > 0) ? names.join('.') : undefined;
 

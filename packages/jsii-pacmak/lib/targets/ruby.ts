@@ -47,8 +47,8 @@ class RubyGenerator extends Generator {
   private rubyGem: string;
   private rubyModule: string;
 
-  private currentClassRelativeRequires: Set<string>;
-  private currentClassRequires: Set<string>;
+  private currentClassRelativeRequires?: Set<string>;
+  private currentClassRequires?: Set<string>;
 
   constructor(options?: GeneratorOptions) {
     super(options);
@@ -156,17 +156,13 @@ class RubyGenerator extends Generator {
     this.currentClassRequires = new Set<string>();
     this.currentClassRelativeRequires = new Set<string>();
 
-    const relativePath = path.join(this.rubyGem, this.toRubyFileName(cls));
-    const filePath = path.join('lib', relativePath);
-    this.code.openFile(filePath);
-    this.files.push(relativePath);
+    this.openFileForType(cls);
 
     this.code.line(`require_relative '${this.toRubyDepsFileName(cls)}'`);
 
     const baseClass = cls.base ? this.toRubyReference(cls.base) : 'Aws::Jsii::JsiiObject';
     const className = this.toRubyTypeName(cls.name);
 
-    this.code.openBlock(`module ${this.rubyModule}`);
 
     this.code.openBlock(`class ${className} < ${baseClass}`);
 
@@ -185,12 +181,15 @@ class RubyGenerator extends Generator {
     const className = this.toRubyTypeName(cls.name);
     this.code.line(`Aws::Jsii::Runtime::instance.map_fqn('${cls.fqn}', ${className})`);
 
-    this.code.closeBlock();
-    this.code.closeFile(path.join('lib', path.join(this.rubyGem, this.toRubyFileName(cls))));
+    this.closeFileForType(cls);
 
     const depsFile = path.join('lib', path.join(this.rubyGem, this.toRubyDepsFileName(cls)));
     this.code.openFile(depsFile);
     this.code.line(`# dependencies for ${this.toRubyFileName(cls)}`);
+
+    if (!this.currentClassRequires || !this.currentClassRelativeRequires) {
+      throw new Error(`Unexpected: not in class context?`);
+    }
 
     for (const rr of this.currentClassRelativeRequires) {
       this.code.line(`require_relative '${rr}'`);
@@ -201,6 +200,8 @@ class RubyGenerator extends Generator {
     }
 
     this.code.closeFile(depsFile);
+    this.currentClassRequires = undefined;
+    this.currentClassRelativeRequires = undefined;
   }
 
   protected onProperty(_cls: spec.ClassType, prop: spec.Property) {
@@ -214,7 +215,7 @@ class RubyGenerator extends Generator {
     // setter
     if (!prop.immutable) {
         this.code.openBlock(`def ${propName}=(val)`);
-        this.code.line(`_jsii.set(objref: @objref, property: '${prop.name}', value: _jsii.to_jsii(val))`)
+        this.code.line(`_jsii.set(objref: @objref, property: '${prop.name}', value: _jsii.to_jsii(val))`);
         this.code.closeBlock();
     }
   }
@@ -225,8 +226,44 @@ class RubyGenerator extends Generator {
 
   protected onMethod(_cls: spec.ClassType, method: spec.Method) {
     this.code.openBlock(`def ${this.renderMethodSignature(method)}`);
-    this.code.line(`_jsii.invoke(objref: @objref, method: '${method.name}', args: ${this.renderMethodInvokeArgs(method)})`)
+    this.code.line(`_jsii.invoke(objref: @objref, method: '${method.name}', args: ${this.renderMethodInvokeArgs(method)})['result']`);
     this.code.closeBlock();
+  }
+
+  protected onBeginEnum(enm: spec.EnumType) {
+    this.openFileForType(enm);
+
+    const fqnMap: { [fqn: string]: string } = { };
+
+    const enumName = this.toRubyTypeName(enm.name);
+    this.code.openBlock(`class ${enumName} < Aws::Jsii::JsiiEnum`);
+
+    for (const member of enm.members) {
+      const memberName = this.code.toSnakeCase(member.name).toLocaleUpperCase();
+      const fqn = `${enm.fqn}/${member.name}`;
+      const friendlyName = `${enumName}::${memberName}`;
+      this.code.line(`${memberName} = ${enumName}.new('${fqn}', '${friendlyName}')`);
+
+      fqnMap[fqn] = `${enumName}::${memberName}`;
+    }
+
+    this.code.closeBlock(); // enum
+
+    // now add to map
+    for (const fqn of Object.keys(fqnMap)) {
+      const member = fqnMap[fqn];
+      this.code.line(`Aws::Jsii::Runtime::instance.map_fqn('${fqn}', ${member})`);
+    }
+
+    this.closeFileForType(enm);
+  }
+
+  protected onEnumMember(_enm: spec.EnumType, _member: spec.EnumMember) {
+    return; // covered in onBeginEnum
+  }
+
+  protected onEndEnum(enm: spec.EnumType) {
+    return; // covered in onBeginEnum
   }
 
   protected onBeginInterface(_ifc: spec.InterfaceType) { return; }
@@ -279,6 +316,33 @@ class RubyGenerator extends Generator {
     return args;
   }
 
+  private openFileForType(type: spec.Type) {
+    if (this.isNested(type)) {
+        return;
+    }
+
+    const relativePath = path.join(this.rubyGem, this.toRubyFileName(type));
+    const filePath = path.join('lib', relativePath);
+    this.code.openFile(filePath);
+    this.files.push(relativePath);
+
+    // open root module
+    this.code.openBlock(`module ${this.rubyModule}`);
+  }
+
+  private closeFileForType(type: spec.Type) {
+    if (this.isNested(type)) {
+        return;
+    }
+
+    // close root module
+    this.code.closeBlock();
+
+    const relativePath = path.join(this.rubyGem, this.toRubyFileName(type));
+    const filePath = path.join('lib', relativePath);
+    this.code.closeFile(filePath);
+  }
+
   private toRubyFileName(type: spec.Type) {
     return this.code.toSnakeCase(type.name) + '.rb';
   }
@@ -299,6 +363,10 @@ class RubyGenerator extends Generator {
     const type = this.findType(ref.fqn);
     const mod = this.findModule(type.assembly);
     const { rubyGem, rubyModule } = this.parseRubyTarget(mod.targets);
+
+    if (!this.currentClassRelativeRequires || !this.currentClassRequires) {
+      throw  new Error(`Unexpected: trying to reference outside of a class context`);
+    }
 
     if (rubyModule === this.rubyModule) {
       this.currentClassRelativeRequires.add(this.toRubyFileName(type));

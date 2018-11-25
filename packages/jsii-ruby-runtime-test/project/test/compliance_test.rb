@@ -205,6 +205,17 @@ class JsiiComplianceTest < Test::Unit::TestCase
     assert_equal -6400000, calc.value
   end
 
+  def test_get_and_set_enum_values
+    compliance "getAndSetEnumValues"
+
+    calc = Jsii::Calc::Calculator.new
+    calc.add 9
+    calc.pow 3
+    assert_equal Jsii::Calc::CompositeOperation::CompositionStringStyle::NORMAL, calc.string_style
+    calc.string_style = Jsii::Calc::CompositeOperation::CompositionStringStyle::DECORATED
+    assert_equal '<<[[{{(((1 * (0 + 9)) * (0 + 9)) * (0 + 9))}}]]>>', calc.to_string
+  end
+
   private
 
   def compliance(name)

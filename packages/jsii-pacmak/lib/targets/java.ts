@@ -830,12 +830,6 @@ class JavaGenerator extends Generator {
         this.code.closeFile(this.toJavaFilePath(type.fqn));
     }
 
-    private isNested(type: spec.Type) {
-        if (!this.assembly.types || !type.namespace) { return false; }
-        const parent = `${type.assembly}.${type.namespace}`;
-        return parent in this.assembly.types;
-    }
-
     private toJavaFilePath(fqn: string) {
         const nativeFqn = this.toNativeFqn(fqn);
         return path.join('src', 'main', 'java', ...nativeFqn.split('.')) + '.java';
