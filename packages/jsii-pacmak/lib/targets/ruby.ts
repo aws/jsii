@@ -168,8 +168,7 @@ class RubyGenerator extends Generator {
     if (cls.initializer) {
       this.code.openBlock(`def ${this.renderMethodSignature(cls.initializer, 'initialize')}`);
       const args = this.renderMethodInvokeArgs(cls.initializer);
-      this.code.line(`objref = _jsii.create(fqn: '${cls.fqn}', args: ${args})`);
-      this.code.line(`_jsii.register_object(objref, self)`);
+      this.code.line(`objref = _jsii_create(fqn: '${cls.fqn}', args: ${args})`);
       this.code.closeBlock();
     }
   }
@@ -208,13 +207,13 @@ class RubyGenerator extends Generator {
 
     // getter
     this.code.openBlock(`def ${propName}`);
-    this.code.line(`return _jsii.from_jsii(_jsii.get(objref: @objref, property: '${prop.name}')['value'])`);
+    this.code.line(`return _jsii_get(property: '${prop.name}')`)
     this.code.closeBlock();
 
     // setter
     if (!prop.immutable) {
         this.code.openBlock(`def ${propName}=(val)`);
-        this.code.line(`_jsii.set(objref: @objref, property: '${prop.name}', value: _jsii.to_jsii(val))`);
+        this.code.line(`_jsii_set(property: '${prop.name}', value: val)`);
         this.code.closeBlock();
     }
   }
@@ -225,7 +224,14 @@ class RubyGenerator extends Generator {
 
   protected onMethod(_cls: spec.ClassType, method: spec.Method) {
     this.code.openBlock(`def ${this.renderMethodSignature(method)}`);
-    this.code.line(`_jsii.from_jsii(_jsii.invoke(objref: @objref, method: '${method.name}', args: ${this.renderMethodInvokeArgs(method)})['result'])`);
+    const args = this.renderMethodInvokeArgs(method);
+
+    if (method.returns && method.returns.promise) {
+      this.code.line(`_jsii_begin(method: '${method.name}', args: ${args})`);
+    } else {
+      this.code.line(`_jsii_invoke(method: '${method.name}', args: ${args})`);
+    }
+
     this.code.closeBlock();
   }
 
@@ -342,7 +348,7 @@ class RubyGenerator extends Generator {
 
   private renderMethodInvokeArgs(method: spec.Method) {
     const params = method.parameters || [];
-    let args = '_jsii.to_jsii([';
+    let args = '[';
     for (let i = 0; i < params.length; ++i) {
       const p = params[i];
       let paramName = this.toRubyMemberName(p.name);
@@ -362,7 +368,7 @@ class RubyGenerator extends Generator {
         args += ', ';
       }
     }
-    args += '])';
+    args += ']';
     return args;
   }
 

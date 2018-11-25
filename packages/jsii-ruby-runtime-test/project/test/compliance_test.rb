@@ -372,6 +372,14 @@ class JsiiComplianceTest < Test::Unit::TestCase
     assert_same native_obj2, unmarshalled_native_obj
   end
 
+  def test_async_overrides_call_async_method
+    compliance "asyncOverrides_callAsyncMethod"
+
+    obj = Jsii::Calc::AsyncVirtualMethods.new
+    assert_equal 128, obj.call_me
+    assert_equal 528, obj.override_me(44)
+  end
+
   private
 
   def compliance(name)
