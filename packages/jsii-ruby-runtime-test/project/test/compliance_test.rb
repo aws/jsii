@@ -8,7 +8,7 @@ class JsiiComplianceTest < Test::Unit::TestCase
 
     types = Jsii::Calc::AllTypes.new
     types.boolean_property = true
-    assert_equal types.boolean_property, true
+    assert_equal true, types.boolean_property
   end
 
   private

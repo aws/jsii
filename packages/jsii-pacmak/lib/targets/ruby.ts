@@ -5,6 +5,8 @@ import { Generator, GeneratorOptions } from '../generator';
 import { Target, TargetOptions } from '../target';
 import { shell } from '../util';
 
+// tslint:disable:max-line-length
+
 export default class Ruby extends Target {
   protected readonly generator = new RubyGenerator();
 
@@ -79,6 +81,27 @@ class RubyGenerator extends Generator {
 
     this.code.line(`require 'jsii_runtime'`);
 
+    this.code.line();
+    this.code.line(`# dependent modules`);
+
+    // require all dependencies
+    for (const name of Object.keys(assm.dependencies || {})) {
+      const dep = assm.dependencies![name];
+      if (!dep.targets || !dep.targets.ruby) {
+        throw new Error(`No ruby target for dependency ${name}`);
+      }
+
+      const gem = dep.targets.ruby.gem;
+      if (!gem) {
+        throw new Error(`No ruby "gem" for dependency ${gem}`);
+      }
+
+      this.code.line(`require '${gem}'`);
+    }
+
+    this.code.line();
+    this.code.line(`# define module`);
+
     const moduleComponents = this.rubyModule.split('::');
     for (const m of moduleComponents) {
       this.code.openBlock(`module ${m}`);
@@ -100,11 +123,18 @@ class RubyGenerator extends Generator {
       this.code.closeBlock();
     }
 
+    // load module to runtime
+    this.code.line();
+    this.code.line(`# load jsii module to jsii runtime`);
+    // tslint:disable-next-line:max-line-length
+    this.code.line(`Aws::Jsii::Runtime::instance::load(name: ${this.rubyModule}::name, version: ${this.rubyModule}::version, tarball: ${this.rubyModule}::tarball)`);
+
+    this.code.line();
+    this.code.line(`# export all types from this module`);
     for (const file of this.files) {
       this.code.line(`require_relative '${file}'`);
     }
 
-    this.code.line(`puts "loaded ${this.gemName}"`);
     this.code.closeFile(rootFile);
 
     const gemSpec = `${this.gemName}.gemspec`;
@@ -140,7 +170,8 @@ class RubyGenerator extends Generator {
 
     if (cls.initializer) {
       this.code.openBlock(`def ${this.renderMethodSignature(cls.initializer, 'initialize')}`);
-      this.code.line(`Aws::Jsii::Runtime::instance.create(fqn: '${cls.fqn}', args: [ ])`);
+      const args = this.renderMethodInvokeArgs(cls.initializer);
+      this.code.line(`@objref = Aws::Jsii::Runtime::instance.create(fqn: '${cls.fqn}', args: ${args})`);
       this.code.closeBlock();
     }
   }
@@ -156,11 +187,13 @@ class RubyGenerator extends Generator {
 
     // getter
     this.code.openBlock(`def ${propName}`);
+    this.code.line(`return Aws::Jsii::Serialization::from_jsii(Aws::Jsii::Runtime::instance.get(objref: @objref, property: '${prop.name}')['value'])`);
     this.code.closeBlock();
 
     // setter
     if (!prop.immutable) {
         this.code.openBlock(`def ${propName}=(val)`);
+        this.code.line(`Aws::Jsii::Runtime::instance.set(objref: @objref, property: '${prop.name}', value: Aws::Jsii::Serialization::to_jsii(val))`)
         this.code.closeBlock();
     }
   }
@@ -200,6 +233,21 @@ class RubyGenerator extends Generator {
     }
     signature += ')';
     return signature;
+  }
+
+  private renderMethodInvokeArgs(method: spec.Method) {
+    const params = method.parameters || [];
+    let args = 'Aws::Jsii::Serialization::to_jsii([';
+    for (let i = 0; i < params.length; ++i) {
+      const p = params[i];
+      const paramName = this.toRubyName(p.name);
+      args += paramName;
+      if (i < params.length - 1) {
+        args += ', ';
+      }
+    }
+    args += '])';
+    return args;
   }
 
   private toRubyFileName(type: spec.Type) {
