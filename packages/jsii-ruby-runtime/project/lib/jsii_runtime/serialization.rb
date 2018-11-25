@@ -1,3 +1,7 @@
+require 'date'
+
+DATE_TOKEN = '$jsii.date'
+
 module Aws
   module Jsii
     module Serialization
@@ -18,12 +22,24 @@ module Aws
           return x.map { |k,v| [k, self.to_jsii(v)] }.to_h
         end
 
+        # date
+        if x.kind_of?(DateTime)
+          return { DATE_TOKEN => x.iso8601 }
+        end
+
         # primitive
         return x
       end
 
       def self.from_jsii(x)
         puts "!!! from_jsii #{x}"
+
+        if x.kind_of?(Hash)
+          if not x[DATE_TOKEN].nil?
+            return DateTime.parse(x[DATE_TOKEN])
+          end
+        end
+
         return x
       end
     end

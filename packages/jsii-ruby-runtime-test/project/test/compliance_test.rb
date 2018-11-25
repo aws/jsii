@@ -1,6 +1,7 @@
 require 'jsii-calc-ruby'
 require 'test/unit'
 require 'test/unit/ui/console/testrunner'
+require 'date'
 
 class JsiiComplianceTest < Test::Unit::TestCase
   def test_primitive_types
@@ -19,6 +20,10 @@ class JsiiComplianceTest < Test::Unit::TestCase
     # number
     types.number_property = 1234
     assert_equal 1234, types.number_property
+
+    # date
+    types.date_property = DateTime.parse('2018-11-25T08:17:49+00:00')
+    assert_equal DateTime.parse('2018-11-25T08:17:49+00:00'), types.date_property
   end
 
   private
