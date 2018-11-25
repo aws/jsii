@@ -7,8 +7,18 @@ class JsiiComplianceTest < Test::Unit::TestCase
     compliance "primitiveTypes"
 
     types = Jsii::Calc::AllTypes.new
+
+    # boolean
     types.boolean_property = true
     assert_equal true, types.boolean_property
+
+    # string
+    types.string_property = 'foo'
+    assert_equal 'foo', types.string_property
+
+    # number
+    types.number_property = 1234
+    assert_equal 1234, types.number_property
   end
 
   private
@@ -19,25 +29,6 @@ class JsiiComplianceTest < Test::Unit::TestCase
     puts "-------------------------------------------------"
   end
 
-  # /**
-  #  * Verify that we can marshal and unmarshal objects without type information.
-  #  */
-  # @Test
-  # public void primitiveTypes() throws IOException {
-  #     AllTypes types = new AllTypes();
-  #
-  #     // boolean
-  #     types.setBooleanProperty(true);
-  #     assertEquals(true, types.getBooleanProperty());
-  #
-  #     // string
-  #     types.setStringProperty("foo");
-  #     assertEquals("foo", types.getStringProperty());
-  #
-  #     // number
-  #     types.setNumberProperty(1234);
-  #     assertEquals(1234, types.getNumberProperty());
-  #
   #     // date
   #     types.setDateProperty(Instant.ofEpochMilli(123));
   #     assertEquals(Instant.ofEpochMilli(123), types.getDateProperty());
