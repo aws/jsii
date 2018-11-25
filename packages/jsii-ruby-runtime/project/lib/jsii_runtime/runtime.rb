@@ -40,12 +40,18 @@ module Aws
         handshake
 
         at_exit { close }
+
+        @fqn_map = { }
       end
 
       def close
         @logger.debug('closing jsii-runtime child-process streams...')
         @stdin.close
         @stdout.close
+      end
+
+      def map_fqn(fqn, cls)
+        @fqn_map[fqn] = cls
       end
 
       def self.define_api(api)
@@ -79,6 +85,8 @@ module Aws
         ref = objref[TOKEN_REF]
         raise "objref #{ref} already registered" if not @objects[ref].nil?
         @objects[ref] = obj
+        obj._jsii_objref = objref
+
         ref
       end
 
@@ -104,7 +112,7 @@ module Aws
 
         # object reference
         if x.kind_of?(JsiiObject)
-          return x._objref
+          return x._jsii_objref
         end
 
         # primitive
@@ -140,9 +148,11 @@ module Aws
 
         obj = @objects[ref]
 
-        # object created in javascript land, so we need a proxy for it here
+        # object created in javascript land, so we need to dynamically create
+        # an instanc for it here based on it's ruby type
         if obj.nil?
-          obj = JsiiProxy.new(objref)
+          cls = resolve_ruby_type(objref)
+          obj = cls.allocate
           register_object(objref, obj)
         end
 
@@ -208,6 +218,15 @@ module Aws
           err: err,
           result: result
         })
+      end
+
+      def resolve_ruby_type(objref)
+        ref = objref[TOKEN_REF]
+        fqn = ref.split('@')[0]
+
+        cls = @fqn_map[fqn]
+        raise "Unable to resolve Ruby type for objref #{ref}" if cls.nil?
+        return cls
       end
     end
   end

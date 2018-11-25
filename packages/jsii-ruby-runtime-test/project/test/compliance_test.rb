@@ -185,6 +185,16 @@ class JsiiComplianceTest < Test::Unit::TestCase
     calc.neg;     assert_equal -3200000, calc.value
   end
 
+  def test_unmarshall_into_abstract_type
+    compliance "unmarshallIntoAbstractType"
+
+    calc = Jsii::Calc::Calculator.new
+    calc.add 120
+
+    value = calc.curr
+    assert_equal 120, value.value
+  end
+
   private
 
   def compliance(name)

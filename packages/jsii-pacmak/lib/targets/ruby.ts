@@ -167,20 +167,24 @@ class RubyGenerator extends Generator {
     const className = this.toRubyTypeName(cls.name);
 
     this.code.openBlock(`module ${this.rubyModule}`);
+
     this.code.openBlock(`class ${className} < ${baseClass}`);
 
     if (cls.initializer) {
       this.code.openBlock(`def ${this.renderMethodSignature(cls.initializer, 'initialize')}`);
       const args = this.renderMethodInvokeArgs(cls.initializer);
-      this.code.line(`@runtime = Aws::Jsii::Runtime::instance`);
-      this.code.line(`@objref = @runtime.create(fqn: '${cls.fqn}', args: ${args})`);
-      this.code.line(`@runtime.register_object(@objref, self)`);
+      this.code.line(`objref = _jsii.create(fqn: '${cls.fqn}', args: ${args})`);
+      this.code.line(`_jsii.register_object(objref, self)`);
       this.code.closeBlock();
     }
   }
 
   protected onEndClass(cls: spec.ClassType) {
-    this.code.closeBlock();
+    this.code.closeBlock(); // class
+
+    const className = this.toRubyTypeName(cls.name);
+    this.code.line(`Aws::Jsii::Runtime::instance.map_fqn('${cls.fqn}', ${className})`);
+
     this.code.closeBlock();
     this.code.closeFile(path.join('lib', path.join(this.rubyGem, this.toRubyFileName(cls))));
 
@@ -204,13 +208,13 @@ class RubyGenerator extends Generator {
 
     // getter
     this.code.openBlock(`def ${propName}`);
-    this.code.line(`return @runtime.from_jsii(@runtime.get(objref: @objref, property: '${prop.name}')['value'])`);
+    this.code.line(`return _jsii.from_jsii(_jsii.get(objref: @objref, property: '${prop.name}')['value'])`);
     this.code.closeBlock();
 
     // setter
     if (!prop.immutable) {
         this.code.openBlock(`def ${propName}=(val)`);
-        this.code.line(`@runtime.set(objref: @objref, property: '${prop.name}', value: @runtime.to_jsii(val))`)
+        this.code.line(`_jsii.set(objref: @objref, property: '${prop.name}', value: _jsii.to_jsii(val))`)
         this.code.closeBlock();
     }
   }
@@ -221,7 +225,7 @@ class RubyGenerator extends Generator {
 
   protected onMethod(_cls: spec.ClassType, method: spec.Method) {
     this.code.openBlock(`def ${this.renderMethodSignature(method)}`);
-    this.code.line(`@runtime.invoke(objref: @objref, method: '${method.name}', args: ${this.renderMethodInvokeArgs(method)})`)
+    this.code.line(`_jsii.invoke(objref: @objref, method: '${method.name}', args: ${this.renderMethodInvokeArgs(method)})`)
     this.code.closeBlock();
   }
 
@@ -262,7 +266,7 @@ class RubyGenerator extends Generator {
 
   private renderMethodInvokeArgs(method: spec.Method) {
     const params = method.parameters || [];
-    let args = '@runtime.to_jsii([';
+    let args = '_jsii.to_jsii([';
     for (let i = 0; i < params.length; ++i) {
       const p = params[i];
       const paramName = this.toRubyMemberName(p.name);
