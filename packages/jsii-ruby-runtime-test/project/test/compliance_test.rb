@@ -274,13 +274,29 @@ class JsiiComplianceTest < Test::Unit::TestCase
   def test_data_types
     compliance "dataTypes"
 
-    calc3 = Jsii::Calc::Calculator.new({
-      initial_value: 20,
-      maximum_value: 30
-    })
+    calc3 = Jsii::Calc::Calculator.new(initial_value: 20, maximum_value: 30)
 
     calc3.add 3
     assert_equal 23, calc3.value
+  end
+
+  def test_union_properties_with_builder
+    compliance "unionPropertiesWithBuilder (skip)"
+  end
+
+  def test_exceptions
+    compliance "exceptions"
+
+    calc3 = Jsii::Calc::Calculator.new(initial_value: 20, maximum_value: 30)
+    calc3.add 3
+    assert_equal 23, calc3.value
+
+    thrown = false
+    assert_raise { calc3.add 10 }
+
+    calc3.max_value = 40
+    calc3.add 10
+    assert_equal 33, calc3.value
   end
 
   private
