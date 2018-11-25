@@ -198,8 +198,6 @@ public class ComplianceTest {
         assertEquals(33, ((Number)((List<?>)types.getUnionArrayProperty()).get(2)).getValue());
     }
 
-
-
     @Test
     public void createObjectAndCtorOverloads() {
         new Calculator();

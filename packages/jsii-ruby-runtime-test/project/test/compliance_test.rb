@@ -138,11 +138,46 @@ class JsiiComplianceTest < Test::Unit::TestCase
     assert_equal 33, types.union_array_property[2].value
   end
 
+  def test_create_object_and_ctor_overloads
+    compliance "createObjectAndCtorOverloads"
+
+    Jsii::Calc::Calculator.new
+    Jsii::Calc::Calculator.new({ maximum_value: 10 })
+  end
+
+  def test_get_set_primitive_properties
+    compliance "getSetPrimitiveProperties"
+
+    number = Jsii::CalcLib::Number.new(20)
+    assert_equal 20, number.value
+    assert_equal 40, number.double_value
+    assert_equal -30, Jsii::Calc::Negate.new(
+      Jsii::Calc::Add.new(
+        Jsii::CalcLib::Number.new(20),
+        Jsii::CalcLib::Number.new(10))).value
+
+    assert_equal 20, Jsii::Calc::Multiply.new(
+      Jsii::Calc::Add.new(
+        Jsii::CalcLib::Number.new(5),
+        Jsii::CalcLib::Number.new(5)),
+      Jsii::CalcLib::Number.new(2)).value
+
+    assert_equal 3 * 3 * 3 * 3, Jsii::Calc::Power.new(
+      Jsii::CalcLib::Number.new(3),
+      Jsii::CalcLib::Number.new(4)).value
+
+    assert_equal 999, Jsii::Calc::Power.new(
+      Jsii::CalcLib::Number.new(999),
+      Jsii::CalcLib::Number.new(1)).value
+
+    assert_equal 1, Jsii::Calc::Power.new(
+      Jsii::CalcLib::Number.new(999),
+      Jsii::CalcLib::Number.new(0)).value
+  end
+
   private
 
   def compliance(name)
-    puts "---------------| COMPLIANCE TEST |---------------"
-    puts name
-    puts "-------------------------------------------------"
+    puts "COMPLIANCE TEST: #{name}"
   end
 end

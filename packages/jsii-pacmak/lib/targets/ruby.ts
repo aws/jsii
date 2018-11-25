@@ -43,8 +43,12 @@ export default class Ruby extends Target {
 
 class RubyGenerator extends Generator {
   private files = new Array<string>();
-  private gemName: string;
+
+  private rubyGem: string;
   private rubyModule: string;
+
+  private currentClassRelativeRequires: Set<string>;
+  private currentClassRequires: Set<string>;
 
   constructor(options?: GeneratorOptions) {
     super(options);
@@ -59,24 +63,13 @@ class RubyGenerator extends Generator {
   }
 
   protected onBeginAssembly(assm: spec.Assembly, _fingerprint: boolean) {
-    if (!assm.targets || !assm.targets.ruby) {
-      throw new Error(`No "ruby" target in jsii manifest`);
-    }
-
-    this.gemName = assm.targets.ruby.gem;
-    this.rubyModule = assm.targets.ruby.module;
-
-    if (!this.gemName) {
-      throw new Error(`"ruby" jsii configuration is missing "gem"`);
-    }
-
-    if (!this.rubyModule) {
-      throw new Error(`"ruby" jsii configuration is missing "module"`);
-    }
+    const { rubyGem, rubyModule } = this.parseRubyTarget(assm.targets);
+    this.rubyGem = rubyGem;
+    this.rubyModule = rubyModule;
   }
 
   protected onEndAssembly(assm: spec.Assembly, _fingerprint: boolean) {
-    const rootFile = path.join('lib', `${this.gemName}.rb`);
+    const rootFile = path.join('lib', `${this.rubyGem}.rb`);
     this.code.openFile(rootFile);
 
     this.code.line(`require 'jsii_runtime'`);
@@ -137,11 +130,11 @@ class RubyGenerator extends Generator {
 
     this.code.closeFile(rootFile);
 
-    const gemSpec = `${this.gemName}.gemspec`;
+    const gemSpec = `${this.rubyGem}.gemspec`;
     this.code.openFile(gemSpec);
 
     this.code.openBlock('Gem::Specification.new do |s|');
-    this.code.line(`s.name = '${this.gemName}'`);
+    this.code.line(`s.name = '${this.rubyGem}'`);
     this.code.line(`s.summary = '${assm.description}'`);
     this.code.line(`s.homepage = '${assm.homepage}'`);
     this.code.line(`s.version = '${assm.version}'`);
@@ -160,13 +153,21 @@ class RubyGenerator extends Generator {
   }
 
   protected onBeginClass(cls: spec.ClassType, _abstract: boolean | undefined) {
-    const relativePath = path.join(this.gemName, this.toRubyFileName(cls));
+    this.currentClassRequires = new Set<string>();
+    this.currentClassRelativeRequires = new Set<string>();
+
+    const relativePath = path.join(this.rubyGem, this.toRubyFileName(cls));
     const filePath = path.join('lib', relativePath);
     this.code.openFile(filePath);
     this.files.push(relativePath);
 
+    this.code.line(`require_relative '${this.toRubyDepsFileName(cls)}'`);
+
+    const baseClass = cls.base ? this.toRubyReference(cls.base) : 'Aws::Jsii::JsiiObject';
+    const className = this.toRubyTypeName(cls.name);
+
     this.code.openBlock(`module ${this.rubyModule}`);
-    this.code.openBlock(`class ${cls.name} < Aws::Jsii::JsiiObject`);
+    this.code.openBlock(`class ${className} < ${baseClass}`);
 
     if (cls.initializer) {
       this.code.openBlock(`def ${this.renderMethodSignature(cls.initializer, 'initialize')}`);
@@ -181,11 +182,25 @@ class RubyGenerator extends Generator {
   protected onEndClass(cls: spec.ClassType) {
     this.code.closeBlock();
     this.code.closeBlock();
-    this.code.closeFile(path.join('lib', this.toRubyFileName(cls)));
+    this.code.closeFile(path.join('lib', path.join(this.rubyGem, this.toRubyFileName(cls))));
+
+    const depsFile = path.join('lib', path.join(this.rubyGem, this.toRubyDepsFileName(cls)));
+    this.code.openFile(depsFile);
+    this.code.line(`# dependencies for ${this.toRubyFileName(cls)}`);
+
+    for (const rr of this.currentClassRelativeRequires) {
+      this.code.line(`require_relative '${rr}'`);
+    }
+
+    for (const r of this.currentClassRequires) {
+      this.code.line(`require '${r}'`);
+    }
+
+    this.code.closeFile(depsFile);
   }
 
   protected onProperty(_cls: spec.ClassType, prop: spec.Property) {
-    const propName = this.toRubyName(prop.name);
+    const propName = this.toRubyMemberName(prop.name);
 
     // getter
     this.code.openBlock(`def ${propName}`);
@@ -217,14 +232,14 @@ class RubyGenerator extends Generator {
 
   private renderMethodSignature(method: spec.Method, name?: string) {
     const params = method.parameters || [];
-    const methodName = this.toRubyName(name || method.name || '');
+    const methodName = this.toRubyMemberName(name || method.name || '');
     if (!methodName) {
       throw new Error(`unexpected empty method name for method: ${JSON.stringify(method)}`);
     }
     let signature = methodName + '(';
     for (let i = 0 ; i < params.length; ++i) {
       const p = params[i];
-      const paramName = this.toRubyName(p.name);
+      const paramName = this.toRubyMemberName(p.name);
       if (p.variadic) {
         signature += `*`;
       }
@@ -245,7 +260,7 @@ class RubyGenerator extends Generator {
     let args = '@runtime.to_jsii([';
     for (let i = 0; i < params.length; ++i) {
       const p = params[i];
-      const paramName = this.toRubyName(p.name);
+      const paramName = this.toRubyMemberName(p.name);
       args += paramName;
       if (i < params.length - 1) {
         args += ', ';
@@ -259,8 +274,49 @@ class RubyGenerator extends Generator {
     return this.code.toSnakeCase(type.name) + '.rb';
   }
 
-  private toRubyName(name: string) {
+  private toRubyDepsFileName(type: spec.Type) {
+    return this.code.toSnakeCase(type.name) + '.deps.rb';
+  }
+
+  private toRubyMemberName(name: string) {
     return this.code.toSnakeCase(name);
+  }
+
+  private toRubyTypeName(name: string) {
+    return name;
+  }
+
+  private toRubyReference(ref: spec.NamedTypeReference) {
+    const type = this.findType(ref.fqn);
+    const mod = this.findModule(type.assembly);
+    const { rubyGem, rubyModule } = this.parseRubyTarget(mod.targets);
+
+    if (rubyModule === this.rubyModule) {
+      this.currentClassRelativeRequires.add(this.toRubyFileName(type));
+    } else {
+      this.currentClassRequires.add(rubyGem);
+    }
+
+    return `${rubyModule}::${this.toRubyTypeName(type.name)}`;
+  }
+
+  private parseRubyTarget(targets?: { [key: string]: any }) {
+    if (!targets || !targets.ruby) {
+      throw new Error(`No "ruby" target`);
+    }
+
+    const rubyGem = targets.ruby.gem;
+    const rubyModule = targets.ruby.module;
+
+    if (!rubyGem) {
+      throw new Error(`"ruby" jsii configuration is missing "gem"`);
+    }
+
+    if (!rubyModule) {
+      throw new Error(`"ruby" jsii configuration is missing "module"`);
+    }
+
+    return { rubyGem, rubyModule };
   }
 
 }

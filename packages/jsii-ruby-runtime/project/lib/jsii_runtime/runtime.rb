@@ -83,8 +83,6 @@ module Aws
       end
 
       def to_jsii(x)
-        puts "!!! to_jsii #{x}"
-
         if x.nil?
           return nil
         end
@@ -114,8 +112,6 @@ module Aws
       end
 
       def from_jsii(x)
-        puts "!!! from_jsii #{x}"
-
         if x.kind_of?(Hash)
           if not x[TOKEN_DATE].nil?
             return DateTime.parse(x[TOKEN_DATE])
