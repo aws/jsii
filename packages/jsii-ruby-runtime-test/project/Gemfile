@@ -1,0 +1,8 @@
+source 'https://rubygems.org'
+
+gem 'jsii-calc-ruby'
+gem 'jsii-calc-ruby-lib'
+gem 'jsii-calc-ruby-base'
+gem 'jsii-calc-ruby-base-of-base'
+
+# gem 'rubocop', '=0.57', require: false

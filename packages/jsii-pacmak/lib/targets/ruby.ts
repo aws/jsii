@@ -77,9 +77,7 @@ class RubyGenerator extends Generator {
     const rootFile = path.join('lib', `${this.gemName}.rb`);
     this.code.openFile(rootFile);
 
-    //
-    // create module/namespace tree
-    //
+    this.code.line(`require 'jsii_runtime'`);
 
     const moduleComponents = this.rubyModule.split('::');
     for (const m of moduleComponents) {
@@ -123,6 +121,9 @@ class RubyGenerator extends Generator {
     this.code.line(`s.files << '${this.getAssemblyFileName()}'`);
     this.code.line(`s.require_paths = [ 'lib' ]`);
     this.code.line(`s.required_ruby_version = '>= 2.2'`);
+
+    const runtimeVersion = require('jsii-ruby-runtime/package.json').version;
+    this.code.line(`s.add_dependency 'jsii_runtime', '${runtimeVersion}'`);
     this.code.closeBlock();
 
     this.code.closeFile(gemSpec);
@@ -136,6 +137,12 @@ class RubyGenerator extends Generator {
 
     this.code.openBlock(`module ${this.rubyModule}`);
     this.code.openBlock(`class ${cls.name}`);
+
+    if (cls.initializer) {
+      this.code.openBlock(`def ${this.renderMethodSignature(cls.initializer, 'initialize')}`);
+      this.code.line(`Aws::Jsii::Runtime::instance.create(fqn: '${cls.fqn}', args: [ ])`);
+      this.code.closeBlock();
+    }
   }
 
   protected onEndClass(cls: spec.ClassType) {
@@ -144,12 +151,25 @@ class RubyGenerator extends Generator {
     this.code.closeFile(path.join('lib', this.toRubyFileName(cls)));
   }
 
+  protected onProperty(_cls: spec.ClassType, prop: spec.Property) {
+    const propName = this.toRubyName(prop.name);
+
+    // getter
+    this.code.openBlock(`def ${propName}`);
+    this.code.closeBlock();
+
+    // setter
+    if (!prop.immutable) {
+        this.code.openBlock(`def ${propName}=(val)`);
+        this.code.closeBlock();
+    }
+  }
+
   protected onBeginInterface(_ifc: spec.InterfaceType) { return; }
   protected onEndInterface(_ifc: spec.InterfaceType) { return; }
   protected onInterfaceMethod(_ifc: spec.InterfaceType, _method: spec.Method) { return; }
   protected onInterfaceMethodOverload(_ifc: spec.InterfaceType, _overload: spec.Method, _originalMethod: spec.Method) { return; }
   protected onInterfaceProperty(_ifc: spec.InterfaceType, _prop: spec.Property) { return; }
-  protected onProperty(_cls: spec.ClassType, _prop: spec.Property) { return; }
   protected onStaticProperty(_cls: spec.ClassType, _prop: spec.Property) { return; }
   protected onUnionProperty(_cls: spec.ClassType, _prop: spec.Property, _union: spec.UnionTypeReference) { return; }
   protected onMethod(_cls: spec.ClassType, _method: spec.Method) { return; }
@@ -157,7 +177,37 @@ class RubyGenerator extends Generator {
   protected onStaticMethod(_cls: spec.ClassType, _method: spec.Method) { return; }
   protected onStaticMethodOverload(_cls: spec.ClassType, _overload: spec.Method, _originalMethod: spec.Method) { return; }
 
+  private renderMethodSignature(method: spec.Method, name?: string) {
+    const params = method.parameters || [];
+    const methodName = this.toRubyName(name || method.name || '');
+    if (!methodName) {
+      throw new Error(`unexpected empty method name for method: ${JSON.stringify(method)}`);
+    }
+    let signature = methodName + '(';
+    for (let i = 0 ; i < params.length; ++i) {
+      const p = params[i];
+      const paramName = this.toRubyName(p.name);
+      if (p.variadic) {
+        signature += `*`;
+      }
+      signature += paramName;
+      if (p.type.optional) {
+        signature += ` = nil`;
+      }
+      if (i < params.length - 1) {
+        signature += ', ';
+      }
+    }
+    signature += ')';
+    return signature;
+  }
+
   private toRubyFileName(type: spec.Type) {
     return this.code.toSnakeCase(type.name) + '.rb';
   }
+
+  private toRubyName(name: string) {
+    return this.code.toSnakeCase(name);
+  }
+
 }

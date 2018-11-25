@@ -1,19 +1,11 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    jsii-calc-ruby (0.7.11)
-    jsii-calc-ruby-base (0.7.11)
-    jsii-calc-ruby-base-of-base (0.7.11)
-    jsii-calc-ruby-lib (0.7.11)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  jsii-calc-ruby
-  jsii-calc-ruby-base
-  jsii-calc-ruby-base-of-base
-  jsii-calc-ruby-lib
 
 BUNDLED WITH
    1.16.3

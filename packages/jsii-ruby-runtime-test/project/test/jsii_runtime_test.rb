@@ -1,6 +1,6 @@
 require 'test/unit'
 require 'test/unit/ui/console/testrunner'
-require_relative '../lib/jsii_runtime'
+require 'jsii_runtime'
 
 require 'jsii-calc-ruby'
 require 'jsii-calc-ruby-lib'

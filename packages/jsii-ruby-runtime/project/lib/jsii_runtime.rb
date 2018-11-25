@@ -7,8 +7,17 @@ module Aws
   module Jsii
     # Represents the jsii-runtime
     class Runtime
-      def initialize(debug: false)
+      # singleton instance of jsii runtime
+      def self.instance
+        @@instance ||= Runtime.new
+      end
+
+      def initialize(debug = nil)
         @logger = Logger.new(STDERR)
+
+        if (debug.nil?)
+          debug = ENV['JSII_DEBUG'] == '1'
+        end
 
         @debug = debug
         @logger.level = debug ? Logger::DEBUG : Logger::INFO

@@ -1,7 +1,7 @@
 {
-  "name": "jsii-ruby-runtime",
+  "name": "jsii-ruby-runtime-test",
   "version": "0.7.11",
-  "description": "Ruby client for jsii runtime",
+  "description": "Compliance tests for Ruby jsii runtime",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "private": true,
@@ -9,13 +9,15 @@
     "gen": "/bin/bash generate.sh",
     "deps": "cd project && bundle install --local --path vendor/bundle --binstubs vendor/bin",
     "lint": "true # cd project && vendor/bin/rubocop",
-    "build": "npm run gen && npm run deps && npm run lint && cd project && gem build *.gemspec && mv *.gem ..",
+    "build": "npm run gen && npm run deps && npm run lint",
+    "test": "cd project && GEM_PATH=$PWD/vendor/bundle/ruby/2.5.0 ruby test/suite.rb",
     "package": "package-ruby"
   },
   "devDependencies": {
     "@types/node": "^8.10.37",
     "jsii-build-tools": "^0.7.11",
     "jsii-calc": "^0.7.11",
+    "jsii-ruby-runtime": "^0.7.11",
     "jsii-pacmak": "^0.7.11",
     "jsii-runtime": "^0.7.11",
     "typescript": "^3.1.6"

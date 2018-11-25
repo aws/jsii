@@ -8,7 +8,8 @@ Gem::Specification.new do |s|
   s.licenses = pkg['license']
   s.summary = pkg['description']
   s.authors = pkg['author']
-  s.files = Dir['lib/**/**'] + Dir['resources/**']
+  s.files = ['version.txt'] + Dir['lib/**/**'] + Dir['resources/**/**']
+  p s.files
   s.require_paths = ['lib']
   s.required_ruby_version = '>= 2.2'
 end
