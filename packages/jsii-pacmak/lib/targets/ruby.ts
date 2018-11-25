@@ -166,12 +166,14 @@ class RubyGenerator extends Generator {
     this.files.push(relativePath);
 
     this.code.openBlock(`module ${this.rubyModule}`);
-    this.code.openBlock(`class ${cls.name}`);
+    this.code.openBlock(`class ${cls.name} < Aws::Jsii::JsiiObject`);
 
     if (cls.initializer) {
       this.code.openBlock(`def ${this.renderMethodSignature(cls.initializer, 'initialize')}`);
       const args = this.renderMethodInvokeArgs(cls.initializer);
-      this.code.line(`@objref = Aws::Jsii::Runtime::instance.create(fqn: '${cls.fqn}', args: ${args})`);
+      this.code.line(`@runtime = Aws::Jsii::Runtime::instance`);
+      this.code.line(`@objref = @runtime.create(fqn: '${cls.fqn}', args: ${args})`);
+      this.code.line(`@runtime.register_object(@objref, self)`);
       this.code.closeBlock();
     }
   }
@@ -187,13 +189,13 @@ class RubyGenerator extends Generator {
 
     // getter
     this.code.openBlock(`def ${propName}`);
-    this.code.line(`return Aws::Jsii::Serialization::from_jsii(Aws::Jsii::Runtime::instance.get(objref: @objref, property: '${prop.name}')['value'])`);
+    this.code.line(`return @runtime.from_jsii(@runtime.get(objref: @objref, property: '${prop.name}')['value'])`);
     this.code.closeBlock();
 
     // setter
     if (!prop.immutable) {
         this.code.openBlock(`def ${propName}=(val)`);
-        this.code.line(`Aws::Jsii::Runtime::instance.set(objref: @objref, property: '${prop.name}', value: Aws::Jsii::Serialization::to_jsii(val))`)
+        this.code.line(`@runtime.set(objref: @objref, property: '${prop.name}', value: @runtime.to_jsii(val))`)
         this.code.closeBlock();
     }
   }
@@ -237,7 +239,7 @@ class RubyGenerator extends Generator {
 
   private renderMethodInvokeArgs(method: spec.Method) {
     const params = method.parameters || [];
-    let args = 'Aws::Jsii::Serialization::to_jsii([';
+    let args = '@runtime.to_jsii([';
     for (let i = 0; i < params.length; ++i) {
       const p = params[i];
       const paramName = this.toRubyName(p.name);

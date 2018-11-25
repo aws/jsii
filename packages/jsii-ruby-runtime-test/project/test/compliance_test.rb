@@ -32,7 +32,7 @@ class JsiiComplianceTest < Test::Unit::TestCase
   end
 
   def test_dates
-    compliance 'dates'
+    compliance 'date' # TODO: duplicate with "dynamicTypes"
 
     types = Jsii::Calc::AllTypes.new
 
@@ -57,6 +57,59 @@ class JsiiComplianceTest < Test::Unit::TestCase
     # map
     types.map_property = { "Foo" => 123 }
     assert_equal 123, types.map_property["Foo"]
+  end
+
+  def test_dynamic_types
+    compliance 'dynamicTypes'
+
+    types = Jsii::Calc::AllTypes.new
+
+    # boolean
+    types.any_property = false
+    assert_equal false, types.any_property
+
+    # string
+    types.any_property = 'string'
+    assert_equal 'string', types.any_property
+
+    # number
+    types.any_property = 12
+    assert_equal 12, types.any_property
+
+    # date
+    types.any_property = DateTime.parse('2018-11-25T08:17:49+00:00')
+    assert_equal DateTime.parse('2018-11-25T08:17:49+00:00'), types.any_property
+
+    # json
+    types.any_property = { "Goo": [ "Hello", { "World": 123 } ] }
+    assert_equal 123, types.any_property["Goo"][1]["World"]
+
+    # array
+    types.any_property = [ "Hello", "World" ]
+    assert_equal "Hello", types.any_property[0]
+    assert_equal "World", types.any_property[1]
+
+    # array of any
+    types.any_array_property = [ "Hybrid", Jsii::CalcLib::Number.new(12), 123, false ]
+    assert_equal 123, types.any_array_property[2]
+
+    # map
+    types.any_property = { "MapKey" => "MapValue" }
+    assert_equal "MapValue", types.any_property["MapKey"]
+
+    # map of any
+    types.any_map_property = {
+      "MapKey" => "MapValue",
+      "Goo" => 19289812
+    }
+    assert_equal 19289812, types.any_map_property["Goo"]
+
+    # classes
+    mult = Jsii::Calc::Multiply.new(Jsii::CalcLib::Number.new(10), Jsii::CalcLib::Number.new(20))
+    types.any_property = mult
+    assert_same mult, types.any_property
+    assert_true types.any_property.kind_of?(Jsii::Calc::Multiply)
+    assert_equal 200, types.any_property.value
   end
 
   private

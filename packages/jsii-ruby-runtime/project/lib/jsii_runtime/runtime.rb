@@ -2,6 +2,11 @@ require 'open3'
 require 'logger'
 require 'json'
 require_relative 'errors'
+require_relative 'base'
+
+TOKEN_DATE = '$jsii.date'
+TOKEN_REF  = '$jsii.byref'
+TOKEN_ENUM = '$jsii.enum'
 
 module Aws
   module Jsii
@@ -69,7 +74,78 @@ module Aws
         @callback_handler = blk
       end
 
+      def register_object(objref, obj)
+        @objects ||= {}
+        ref = objref[TOKEN_REF]
+        raise "objref #{ref} already registered" if not @objects[ref].nil?
+        @objects[ref] = obj
+        ref
+      end
+
+      def to_jsii(x)
+        puts "!!! to_jsii #{x}"
+
+        if x.nil?
+          return nil
+        end
+
+        # array
+        if x.kind_of?(Array)
+          return x.map { |e| self.to_jsii(e) }.to_a
+        end
+
+        # hash
+        if x.kind_of?(Hash)
+          return x.map { |k,v| [k, self.to_jsii(v)] }.to_h
+        end
+
+        # date
+        if x.kind_of?(DateTime)
+          return { TOKEN_DATE => x.iso8601 }
+        end
+
+        # object reference
+        if x.kind_of?(JsiiObject)
+          return x._objref
+        end
+
+        # primitive
+        return x
+      end
+
+      def from_jsii(x)
+        puts "!!! from_jsii #{x}"
+
+        if x.kind_of?(Hash)
+          if not x[TOKEN_DATE].nil?
+            return DateTime.parse(x[TOKEN_DATE])
+          end
+
+          if not x[TOKEN_REF].nil?
+            return find_create_objref(x)
+          end
+        end
+
+        return x
+      end
+
       private
+
+      def find_create_objref(objref)
+        @objects ||= {}
+
+        ref = objref[TOKEN_REF]
+
+        obj = @objects[ref]
+
+        # object created in javascript land, so we need a proxy for it here
+        if obj.nil?
+          obj = JsiiProxy.new(objref)
+          register_object(objref, obj)
+        end
+
+        return obj
+      end
 
       def request_response(req)
         req_s = JSON.generate(req.delete_if { |_, v| v.nil? })
