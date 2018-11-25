@@ -316,9 +316,35 @@ class JsiiComplianceTest < Test::Unit::TestCase
     assert_true calc3.union_property.kind_of?(Jsii::Calc::Power)
   end
 
+  def test_subclassing
+    compliance "subclassing"
+
+    calc = Jsii::Calc::Calculator.new
+    calc.curr = AddTen.new(33)
+    calc.neg
+
+    assert_equal -43, calc.value
+  end
+
+      #
+      # @Test
+      # public void subclassing() {
+      #     Calculator calc = new Calculator();
+      #     calc.setCurr(new AddTen(33));
+      #     calc.neg();
+      #     assertEquals(-43, calc.getValue());
+      # }
+
+
   private
 
   def compliance(name)
     puts "COMPLIANCE TEST: #{name}"
+  end
+end
+
+class AddTen < Jsii::Calc::Add
+  def initialize(value)
+    super(Jsii::CalcLib::Number.new(value), Jsii::CalcLib::Number.new(10))
   end
 end
