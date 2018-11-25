@@ -31,6 +31,35 @@ class JsiiComplianceTest < Test::Unit::TestCase
     assert_equal expected, types.json_property
   end
 
+  def test_dates
+    compliance "dates"
+
+    types = Jsii::Calc::AllTypes.new
+
+    # strong type
+    types.date_property = DateTime.parse('2018-11-25T08:17:49+00:00')
+    assert_equal DateTime.parse('2018-11-25T08:17:49+00:00'), types.date_property
+
+    # week type
+    types.any_property = DateTime.parse('2018-01-01T01:01:01+00:00')
+    assert_equal DateTime.parse('2018-01-01T01:01:01+00:00'), types.any_property
+  end
+
+  # @Test
+  # public void dates() {
+  #     AllTypes types = new AllTypes();
+  #
+  #     // strong type
+  #     types.setDateProperty(Instant.ofEpochMilli(123));
+  #     assertEquals(Instant.ofEpochMilli(123), types.getDateProperty());
+  #
+  #     // weak type
+  #     types.setAnyProperty(Instant.ofEpochSecond(999));
+  #     assertEquals(Instant.ofEpochSecond(999), types.getAnyProperty());
+  # }
+  #
+
+
   private
 
   def compliance(name)
@@ -38,11 +67,4 @@ class JsiiComplianceTest < Test::Unit::TestCase
     puts name
     puts "-------------------------------------------------"
   end
-
-  #
-  #     // json
-  #     types.setJsonProperty((ObjectNode) new ObjectMapper().readTree("{ \"Foo\": 123 }"));
-  #     assertEquals(123, types.getJsonProperty().get("Foo").numberValue());
-  # }
-
 end
