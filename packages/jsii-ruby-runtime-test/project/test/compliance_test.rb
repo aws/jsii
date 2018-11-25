@@ -337,12 +337,39 @@ class JsiiComplianceTest < Test::Unit::TestCase
   end
 
   def test_fluent_api_with_derived_classes
+    compliance "testFluentApiWithDerivedClasses"
+
     obj = DerivedFromAllTypes.new
     obj.string_property = 'Hello'
     obj.number_property = 12
 
     assert_equal "Hello", obj.string_property
     assert_equal 12, obj.number_property
+  end
+
+  def test_creation_of_native_objects_from_javascript_objects
+    compliance "creationOfNativeObjectsFromJavaScriptObjects"
+
+    types = Jsii::Calc::AllTypes.new
+
+    jsobj = Jsii::CalcLib::Number.new(44)
+    types.any_property = jsobj
+
+    unmarshalled_jsobj = types.any_property
+    assert_true unmarshalled_jsobj.kind_of?(Jsii::CalcLib::Number)
+
+    native_obj = AddTen.new(10)
+    types.any_property = native_obj
+
+    result1 = types.any_property
+    assert_same native_obj, result1
+
+    native_obj2 = MulTen.new(20)
+    types.any_property = native_obj2
+
+    unmarshalled_native_obj = types.any_property
+    assert_true unmarshalled_native_obj.kind_of?(MulTen)
+    assert_same native_obj2, unmarshalled_native_obj
   end
 
   private
@@ -360,4 +387,10 @@ end
 
 class DerivedFromAllTypes < Jsii::Calc::AllTypes
 
+end
+
+class MulTen < Jsii::Calc::Multiply
+  def initialize(value)
+    super(Jsii::CalcLib::Number.new(value), Jsii::CalcLib::Number.new(10))
+  end
 end
