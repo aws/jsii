@@ -326,15 +326,15 @@ class JsiiComplianceTest < Test::Unit::TestCase
     assert_equal -43, calc.value
   end
 
-      #
-      # @Test
-      # public void subclassing() {
-      #     Calculator calc = new Calculator();
-      #     calc.setCurr(new AddTen(33));
-      #     calc.neg();
-      #     assertEquals(-43, calc.getValue());
-      # }
+  def test_js_object_literal_to_native
+    compliance "testJSObjectLiteralToNative"
 
+    obj = Jsii::Calc::JSObjectLiteralToNative.new
+    obj2 = obj.return_literal
+
+    assert_equal 'Hello', obj2.prop_a
+    assert_equal 102, obj2.prop_b
+  end
 
   private
 
