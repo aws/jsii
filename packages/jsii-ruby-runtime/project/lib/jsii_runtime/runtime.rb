@@ -124,6 +124,12 @@ module Aws
           if not x[TOKEN_REF].nil?
             return find_create_objref(x)
           end
+
+          return x.map { |k,v| [ k, self.from_jsii(v) ] }.to_h
+        end
+
+        if (x.kind_of?(Array))
+          return x.map { |v| from_jsii(v) }.to_a
         end
 
         return x

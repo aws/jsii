@@ -191,6 +191,7 @@ public class ComplianceTest {
         Map<String, Object> map = new HashMap<>();
         map.put("Foo", new Multiply(new Number(2), new Number(99)));
         types.setUnionMapProperty(map);
+        // TODO: missing assert!
 
         // array
         types.setUnionArrayProperty(Arrays.asList("Hello", 123, new Number(33)));

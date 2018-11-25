@@ -112,6 +112,32 @@ class JsiiComplianceTest < Test::Unit::TestCase
     assert_equal 200, types.any_property.value
   end
 
+  def test_union_types
+    compliance "unionTypes"
+
+    types = Jsii::Calc::AllTypes.new
+
+    # number
+    types.union_property = 1234
+    assert_equal 1234, types.union_property
+
+    # string
+    types.union_property = 'hello'
+    assert_equal 'hello', types.union_property
+
+    # object
+    types.union_property = Jsii::Calc::Multiply.new(Jsii::CalcLib::Number.new(2), Jsii::CalcLib::Number.new(12))
+    assert_equal 24, types.union_property.value
+
+    # map
+    types.union_map_property = { "Foo" => Jsii::Calc::Multiply.new(Jsii::CalcLib::Number.new(2), Jsii::CalcLib::Number.new(99)) }
+    assert_equal 2 * 99, types.union_map_property["Foo"].value
+
+    # array
+    types.union_array_property = [ "Hello", 123, Jsii::CalcLib::Number.new(33) ]
+    assert_equal 33, types.union_array_property[2].value
+  end
+
   private
 
   def compliance(name)
