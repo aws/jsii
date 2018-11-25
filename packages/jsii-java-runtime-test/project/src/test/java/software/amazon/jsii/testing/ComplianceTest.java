@@ -115,6 +115,8 @@ public class ComplianceTest {
         Map<String, Number> map = new HashMap<>();
         map.put("Foo", new Number(123));
         types.setMapProperty(map);
+
+        // TODO: missing assertion
     }
 
     @Test

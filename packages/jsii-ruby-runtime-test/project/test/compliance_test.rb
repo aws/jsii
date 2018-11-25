@@ -5,7 +5,7 @@ require 'date'
 
 class JsiiComplianceTest < Test::Unit::TestCase
   def test_primitive_types
-    compliance "primitiveTypes"
+    compliance 'primitiveTypes'
 
     types = Jsii::Calc::AllTypes.new
 
@@ -32,7 +32,7 @@ class JsiiComplianceTest < Test::Unit::TestCase
   end
 
   def test_dates
-    compliance "dates"
+    compliance 'dates'
 
     types = Jsii::Calc::AllTypes.new
 
@@ -45,20 +45,19 @@ class JsiiComplianceTest < Test::Unit::TestCase
     assert_equal DateTime.parse('2018-01-01T01:01:01+00:00'), types.any_property
   end
 
-  # @Test
-  # public void dates() {
-  #     AllTypes types = new AllTypes();
-  #
-  #     // strong type
-  #     types.setDateProperty(Instant.ofEpochMilli(123));
-  #     assertEquals(Instant.ofEpochMilli(123), types.getDateProperty());
-  #
-  #     // weak type
-  #     types.setAnyProperty(Instant.ofEpochSecond(999));
-  #     assertEquals(Instant.ofEpochSecond(999), types.getAnyProperty());
-  # }
-  #
+  def test_collection_types
+    compliance 'collectionTypes'
 
+    types = Jsii::Calc::AllTypes.new
+
+    # array
+    types.array_property = [ 'hello', 'world' ]
+    assert_equal 'world', types.array_property[1]
+
+    # map
+    types.map_property = { "Foo" => 123 }
+    assert_equal 123, types.map_property["Foo"]
+  end
 
   private
 
