@@ -24,6 +24,11 @@ class JsiiComplianceTest < Test::Unit::TestCase
     # date
     types.date_property = DateTime.parse('2018-11-25T08:17:49+00:00')
     assert_equal DateTime.parse('2018-11-25T08:17:49+00:00'), types.date_property
+
+    # json
+    types.json_property = { 'foo' => 12, 'bar' => { 'hello' => 'world' } }
+    expected = { 'foo' => 12, 'bar' => { 'hello' => 'world' } }
+    assert_equal expected, types.json_property
   end
 
   private
@@ -34,9 +39,6 @@ class JsiiComplianceTest < Test::Unit::TestCase
     puts "-------------------------------------------------"
   end
 
-  #     // date
-  #     types.setDateProperty(Instant.ofEpochMilli(123));
-  #     assertEquals(Instant.ofEpochMilli(123), types.getDateProperty());
   #
   #     // json
   #     types.setJsonProperty((ObjectNode) new ObjectMapper().readTree("{ \"Foo\": 123 }"));
