@@ -299,6 +299,23 @@ class JsiiComplianceTest < Test::Unit::TestCase
     assert_equal 33, calc3.value
   end
 
+  def test_union_properties
+    compliance "unionProperties"
+
+    calc3 = Jsii::Calc::Calculator.new
+    calc3.union_property = Jsii::Calc::Multiply.new(
+      Jsii::CalcLib::Number.new(9),
+      Jsii::CalcLib::Number.new(3))
+
+    assert_true calc3.union_property.kind_of?(Jsii::Calc::Multiply)
+    assert_equal 9 * 3, calc3.read_union_value
+
+    calc3.union_property = Jsii::Calc::Power.new(
+      Jsii::CalcLib::Number.new(10),
+      Jsii::CalcLib::Number.new(3))
+    assert_true calc3.union_property.kind_of?(Jsii::Calc::Power)
+  end
+
   private
 
   def compliance(name)
