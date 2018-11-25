@@ -258,34 +258,30 @@ class JsiiComplianceTest < Test::Unit::TestCase
     assert_equal '(((0 + 5) + 10) + (2 * 3))', "#{sum}"
   end
 
-      #
-      # @Test
-      # public void arrays() {
-      #     assertEquals("(((0 + 5) + 10) + (2 * 3))", sum.toString());
-      # }
-      #
-      # @Test
-      # public void maps() {
-      #     Calculator calc2 = new Calculator(); // Initializer overload (props is optional)
-      #     calc2.add(10);
-      #     calc2.add(20);
-      #     calc2.mul(2);
-      #     assertEquals(2, calc2.getOperationsMap().get("add").size());
-      #     assertEquals(1, calc2.getOperationsMap().get("mul").size());
-      #     assertEquals(30, calc2.getOperationsMap().get("add").get(1).getValue());
-      # }
-      #
-      # @Test
-      # public void fluentApi() {
-      #     final Calculator calc3 = new Calculator(CalculatorProps.builder()
-      #             .withInitialValue(20)
-      #             .withMaximumValue(30)
-      #             .build());
-      #     calc3.add(3);
-      #     assertEquals(23, calc3.getValue());
-      # }
-      #
+  def test_maps
+    compliance "maps"
 
+    calc2 = Jsii::Calc::Calculator.new
+    calc2.add 10
+    calc2.add 20
+    calc2.mul 2
+
+    assert_equal 2, calc2.operations_map["add"].length
+    assert_equal 1, calc2.operations_map["mul"].length
+    assert_equal 30, calc2.operations_map["add"][1].value
+  end
+
+  def test_data_types
+    compliance "dataTypes"
+
+    calc3 = Jsii::Calc::Calculator.new({
+      initial_value: 20,
+      maximum_value: 30
+    })
+
+    calc3.add 3
+    assert_equal 23, calc3.value
+  end
 
   private
 

@@ -295,7 +295,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void fluentApi() {
+    public void dataTypes() {
         final Calculator calc3 = new Calculator(CalculatorProps.builder()
                 .withInitialValue(20)
                 .withMaximumValue(30)

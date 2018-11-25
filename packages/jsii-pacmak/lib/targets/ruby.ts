@@ -163,7 +163,6 @@ class RubyGenerator extends Generator {
     const baseClass = cls.base ? this.toRubyReference(cls.base) : 'Aws::Jsii::JsiiObject';
     const className = this.toRubyTypeName(cls.name);
 
-
     this.code.openBlock(`class ${className} < ${baseClass}`);
 
     if (cls.initializer) {
@@ -266,15 +265,55 @@ class RubyGenerator extends Generator {
     return; // covered in onBeginEnum
   }
 
-  protected onBeginInterface(_ifc: spec.InterfaceType) { return; }
-  protected onEndInterface(_ifc: spec.InterfaceType) { return; }
+  protected onBeginInterface(ifc: spec.InterfaceType) {
+
+    if (ifc.datatype) {
+      this.emitDataType(ifc);
+    }
+  }
+
+  protected onEndInterface(ifc: spec.InterfaceType) {
+    return;
+  }
+
   protected onInterfaceMethod(_ifc: spec.InterfaceType, _method: spec.Method) { return; }
   protected onInterfaceMethodOverload(_ifc: spec.InterfaceType, _overload: spec.Method, _originalMethod: spec.Method) { return; }
   protected onInterfaceProperty(_ifc: spec.InterfaceType, _prop: spec.Property) { return; }
+
   protected onStaticProperty(_cls: spec.ClassType, _prop: spec.Property) { return; }
   protected onMethodOverload(_cls: spec.ClassType, _overload: spec.Method, _originalMethod: spec.Method) { return; }
   protected onStaticMethod(_cls: spec.ClassType, _method: spec.Method) { return; }
   protected onStaticMethodOverload(_cls: spec.ClassType, _overload: spec.Method, _originalMethod: spec.Method) { return; }
+
+  private emitDataType(type: spec.InterfaceType) {
+    this.openFileForType(type);
+
+    const className = this.toRubyTypeName(type.name);
+
+    this.code.openBlock(`module ${className}`);
+    this.code.openBlock(`def self.to_jsii(hash)`);
+    this.code.line(`return nil if hash.nil?`);
+    this.code.line(`hash_copy = hash.clone`);
+    this.code.line(`ret = {}`);
+
+    for (const prop of type.properties || []) {
+      const propName = this.toRubyMemberName(prop.name);
+      this.code.openBlock(`if not hash_copy['${propName}'.to_sym].nil?`);
+      this.code.line(`ret['${prop.name}'] = hash_copy['${propName}'.to_sym]`);
+      this.code.line(`hash_copy.delete('${propName}'.to_sym)`);
+      this.code.closeBlock();
+    }
+
+    this.code.openBlock(`if not hash_copy.empty?`);
+    this.code.line(`raise "Unrecognized properties #{hash_copy.keys} for data interface ${className}"`);
+    this.code.closeBlock();
+
+    this.code.line(`return ret`);
+    this.code.closeBlock();
+    this.code.closeBlock();
+
+    this.closeFileForType(type);
+  }
 
   private renderMethodSignature(method: spec.Method, name?: string) {
     const params = method.parameters || [];
@@ -306,7 +345,18 @@ class RubyGenerator extends Generator {
     let args = '_jsii.to_jsii([';
     for (let i = 0; i < params.length; ++i) {
       const p = params[i];
-      const paramName = this.toRubyMemberName(p.name);
+      let paramName = this.toRubyMemberName(p.name);
+
+      if (spec.isNamedTypeReference(p.type)) {
+        const targetType = this.findType(p.type.fqn);
+        if (spec.isInterfaceType(targetType)) {
+          if (targetType.datatype) {
+            const dataTypeName = this.toRubyReference(targetType);
+            paramName = `${dataTypeName}::to_jsii(${paramName})`;
+          }
+        }
+      }
+
       args += paramName;
       if (i < params.length - 1) {
         args += ', ';
