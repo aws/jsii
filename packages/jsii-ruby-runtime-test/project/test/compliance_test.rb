@@ -384,7 +384,14 @@ class JsiiComplianceTest < Test::Unit::TestCase
     compliance "asyncOverrides_overrideAsyncMethod"
 
     obj = OverrideAsyncMethods.new
-    assert_equal(4452, obj.call_me)
+    assert_equal 4452, obj.call_me
+  end
+
+  def test_async_overrides_override_async_metohd_by_parent_class
+    compliance "asyncOverrides_overrideAsyncMethodByParentClass"
+
+    obj = OverrideAsyncMethodsByBaseClass.new
+    assert_equal 4452, obj.call_me
   end
 
   private
@@ -418,4 +425,8 @@ class OverrideAsyncMethods < Jsii::Calc::AsyncVirtualMethods
   def foo
     return 2222
   end
+end
+
+class OverrideAsyncMethodsByBaseClass < OverrideAsyncMethods
+
 end
