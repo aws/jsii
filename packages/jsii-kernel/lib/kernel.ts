@@ -961,7 +961,9 @@ export class Kernel {
             // have an object id, so we need to allocate one for it.
             this._debug('creating objref for', v);
             const fqn = this._fqnForObject(v);
-            return this._createObjref(v, fqn);
+            if (!targetType || !spec.isNamedTypeReference(targetType) || fqn === targetType.fqn) {
+                return this._createObjref(v, fqn);
+            }
         }
 
         // if the method/property returns an object literal and the return type
