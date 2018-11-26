@@ -148,7 +148,44 @@ module Aws
         return x
       end
 
+      def process_callback(callback)
+        result = nil
+        err = nil
+
+        begin
+          if @callback_handler
+            result = @callback_handler.call(callback)
+          else
+            if callback['invoke']
+              result = process_invoke_callback(callback['invoke'])
+            elsif callback['get']
+              result = process_get_callback(callback['get'])
+            elsif callback['set']
+              result = process_set_callback(callback['set'])
+            end
+          end
+        rescue StandardError => e
+          err = e
+        end
+
+        return {
+          cbid: callback['cbid'],
+          err: to_jsii(err),
+          result: to_jsii(result)
+        }
+      end
+
       private
+
+      def process_invoke_callback(invoke)
+        objref = invoke['objref']
+        method = invoke['method']
+        args = invoke['args']
+
+        obj = find_create_objref(objref)
+        ruby_method = obj._jsii_lookup_method(method)
+        return ruby_method.call(args)
+      end
 
       def find_create_objref(objref)
         @objects ||= {}
@@ -178,7 +215,11 @@ module Aws
         @logger.debug("< #{JSON.generate(resp)}")
 
         return process_error(resp) if resp['error']
-        return process_callback(resp) if resp['callback']
+
+        if resp['callback']
+          complete = process_callback(resp['callback'])
+          return request_response(complete: complete)
+        end
 
         # if resp["ok"] is nil, it means 'undefined' (or void), so we just return it as-is
         resp['ok']
@@ -207,26 +248,6 @@ module Aws
         stack = resp['stack']
         message += "\n#{stack}" if stack
         raise JsiiError, message
-      end
-
-      def process_callback(resp)
-        raise JsiiError, 'no callback handler registered with on_callback' unless @callback_handler
-        callback = resp['callback']
-
-        result = nil
-        err = nil
-
-        begin
-          result = @callback_handler.call(callback)
-        rescue StandardError => e
-          err = e
-        end
-
-        request_response(complete: {
-          cbid: callback['cbid'],
-          err: err,
-          result: result
-        })
       end
 
       def resolve_ruby_type(objref)

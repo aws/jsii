@@ -171,6 +171,25 @@ class RubyGenerator extends Generator {
       this.code.line(`objref = _jsii_create(fqn: '${cls.fqn}', args: ${args})`);
       this.code.closeBlock();
     }
+
+    // annotate this class as a generated class so we can determine overrides
+    this.code.openBlock(`def self._jsii_generated`);
+    this.code.line(`true`);
+    this.code.closeBlock();
+
+    //
+    // this.code.openBlock(`def _jsii_overrides`);
+    // this.code.line(`overrides = super`);
+    //
+    // for (const method of cls.methods || []) {
+    //   const methodName = this.toRubyMemberName(method.name!);
+    //   this.code.openBlock(`if ${className}.respond_to?('${methodName}')`);
+    //   this.code.line(`overrides << { 'method' => '${method.name}' }`);
+    //   this.code.closeBlock();
+    // }
+    //
+    // this.code.line(`return overrides`);
+    // this.code.closeBlock();
   }
 
   protected onEndClass(cls: spec.ClassType) {
@@ -178,6 +197,16 @@ class RubyGenerator extends Generator {
 
     const className = this.toRubyTypeName(cls.name);
     this.code.line(`Aws::Jsii::Runtime::instance.map_fqn('${cls.fqn}', ${className})`);
+
+    for (const method of cls.methods || []) {
+      const methodName = this.toRubyMemberName(method.name!);
+      this.code.line(`${className}::_jsii_map_method('${methodName}', '${method.name}')`);
+    }
+
+    for (const prop of cls.properties || []) {
+      const propName = this.toRubyMemberName(prop.name);
+      this.code.line(`${className}::_jsii_map_property('${propName}', '${prop.name}')`);
+    }
 
     this.closeFileForType(cls);
 
@@ -227,7 +256,7 @@ class RubyGenerator extends Generator {
     const args = this.renderMethodInvokeArgs(method);
 
     if (method.returns && method.returns.promise) {
-      this.code.line(`_jsii_begin(method: '${method.name}', args: ${args})`);
+      this.code.line(`_jsii_async_invoke(method: '${method.name}', args: ${args})`);
     } else {
       this.code.line(`_jsii_invoke(method: '${method.name}', args: ${args})`);
     }

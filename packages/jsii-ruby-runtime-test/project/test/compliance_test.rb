@@ -380,6 +380,13 @@ class JsiiComplianceTest < Test::Unit::TestCase
     assert_equal 528, obj.override_me(44)
   end
 
+  def test_async_overrides_override_async_method
+    compliance "asyncOverrides_overrideAsyncMethod"
+
+    obj = OverrideAsyncMethods.new
+    assert_equal(4452, obj.call_me)
+  end
+
   private
 
   def compliance(name)
@@ -400,5 +407,15 @@ end
 class MulTen < Jsii::Calc::Multiply
   def initialize(value)
     super(Jsii::CalcLib::Number.new(value), Jsii::CalcLib::Number.new(10))
+  end
+end
+
+class OverrideAsyncMethods < Jsii::Calc::AsyncVirtualMethods
+  def override_me(mult)
+    return foo * 2
+  end
+
+  def foo
+    return 2222
   end
 end
