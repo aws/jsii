@@ -862,6 +862,12 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             obj.VerifyPropertyIsUndefined();
         }
 
+        [Fact(DisplayName = Prefix + nameof(ReceiveInstanceOfPrivateClass))]
+        public void ReceiveInstanceOfPrivateClass()
+        {
+            Assert.True(new ReturnsPrivateImplementationOfInterface().PrivateImplementation.Success);
+        }
+
         class NumberReturner : DeputyBase, IIReturnsNumber
         {
             public NumberReturner(double number)

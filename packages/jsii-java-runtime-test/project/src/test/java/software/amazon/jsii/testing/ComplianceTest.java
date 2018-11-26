@@ -32,6 +32,7 @@ import software.amazon.jsii.tests.calculator.NumberGenerator;
 import software.amazon.jsii.tests.calculator.Polymorphism;
 import software.amazon.jsii.tests.calculator.Power;
 import software.amazon.jsii.tests.calculator.ReferenceEnumFromScopedPackage;
+import software.amazon.jsii.tests.calculator.ReturnsPrivateImplementationOfInterface;
 import software.amazon.jsii.tests.calculator.Statics;
 import software.amazon.jsii.tests.calculator.Sum;
 import software.amazon.jsii.tests.calculator.SyncVirtualMethods;
@@ -951,6 +952,14 @@ public class ComplianceTest {
                 .build());
         obj.setChangeMeToUndefined(null);
         obj.verifyPropertyIsUndefined();
+    }
+
+    /**
+     * @see https://github.com/awslabs/jsii/issues/320
+     */
+    @Test
+    public void receiveInstanceOfPrivateClass() {
+        assertTrue(new ReturnsPrivateImplementationOfInterface().getPrivateImplementation().getSuccess());
     }
 
     static class MulTen extends Multiply {

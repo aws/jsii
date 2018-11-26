@@ -39,6 +39,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.DoNotRecognizeAnyAsOptional": return software.amazon.jsii.tests.calculator.DoNotRecognizeAnyAsOptional.class;
             case "jsii-calc.DontComplainAboutVariadicAfterOptional": return software.amazon.jsii.tests.calculator.DontComplainAboutVariadicAfterOptional.class;
             case "jsii-calc.DoubleTrouble": return software.amazon.jsii.tests.calculator.DoubleTrouble.class;
+            case "jsii-calc.ExportedBaseClass": return software.amazon.jsii.tests.calculator.ExportedBaseClass.class;
             case "jsii-calc.GiveMeStructs": return software.amazon.jsii.tests.calculator.GiveMeStructs.class;
             case "jsii-calc.GreetingAugmenter": return software.amazon.jsii.tests.calculator.GreetingAugmenter.class;
             case "jsii-calc.IFriendlier": return software.amazon.jsii.tests.calculator.IFriendlier.class;
@@ -46,6 +47,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.IInterfaceThatShouldNotBeADataType": return software.amazon.jsii.tests.calculator.IInterfaceThatShouldNotBeADataType.class;
             case "jsii-calc.IInterfaceWithMethods": return software.amazon.jsii.tests.calculator.IInterfaceWithMethods.class;
             case "jsii-calc.IInterfaceWithOptionalMethodArguments": return software.amazon.jsii.tests.calculator.IInterfaceWithOptionalMethodArguments.class;
+            case "jsii-calc.IPrivatelyImplemented": return software.amazon.jsii.tests.calculator.IPrivatelyImplemented.class;
             case "jsii-calc.IRandomNumberGenerator": return software.amazon.jsii.tests.calculator.IRandomNumberGenerator.class;
             case "jsii-calc.IReturnsNumber": return software.amazon.jsii.tests.calculator.IReturnsNumber.class;
             case "jsii-calc.ImplictBaseOfBase": return software.amazon.jsii.tests.calculator.ImplictBaseOfBase.class;
@@ -73,6 +75,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.Polymorphism": return software.amazon.jsii.tests.calculator.Polymorphism.class;
             case "jsii-calc.Power": return software.amazon.jsii.tests.calculator.Power.class;
             case "jsii-calc.ReferenceEnumFromScopedPackage": return software.amazon.jsii.tests.calculator.ReferenceEnumFromScopedPackage.class;
+            case "jsii-calc.ReturnsPrivateImplementationOfInterface": return software.amazon.jsii.tests.calculator.ReturnsPrivateImplementationOfInterface.class;
             case "jsii-calc.RuntimeTypeChecking": return software.amazon.jsii.tests.calculator.RuntimeTypeChecking.class;
             case "jsii-calc.Statics": return software.amazon.jsii.tests.calculator.Statics.class;
             case "jsii-calc.StringEnum": return software.amazon.jsii.tests.calculator.StringEnum.class;

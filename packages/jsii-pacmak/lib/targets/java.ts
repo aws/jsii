@@ -389,7 +389,7 @@ class JavaGenerator extends Generator {
 
                     'properties': { 'project.build.sourceEncoding': 'UTF-8' },
 
-                    'dependencies': { dependency: mavenDependencies() },
+                    'dependencies': { dependency: mavenDependencies() },
 
                     'build': {
                         plugins: {
