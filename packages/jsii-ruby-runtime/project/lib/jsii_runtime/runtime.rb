@@ -165,7 +165,7 @@ module Aws
             end
           end
         rescue StandardError => e
-          err = e
+          err = e.full_message
         end
 
         return {
@@ -184,7 +184,7 @@ module Aws
 
         obj = find_create_objref(objref)
         ruby_method = obj._jsii_lookup_method(method)
-        return ruby_method.call(args)
+        return ruby_method.call(*args)
       end
 
       def find_create_objref(objref)

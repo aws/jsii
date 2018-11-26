@@ -402,13 +402,12 @@ class JsiiComplianceTest < Test::Unit::TestCase
     assert_equal 1209, obj.call_me
   end
 
-  # @Test
-  # public void asyncOverrides_overrideCallsSuper() {
-  #     OverrideCallsSuper obj = new OverrideCallsSuper();
-  #     assertEquals(1441, obj.overrideMe(12));
-  #     assertEquals(1209, obj.callMe());
-  # }
+  def test_async_overrides_two_overrides
+    compliance "asyncOverrides_twoOverrides"
 
+    obj = TwoOverrides.new
+    assert_equal 684, obj.call_me
+  end
 
   private
 
@@ -452,4 +451,14 @@ class OverrideCallsSuper < Jsii::Calc::AsyncVirtualMethods
     super_ret = super(mult)
     return super_ret * 10 + 1
   end
+end
+
+class TwoOverrides < Jsii::Calc::AsyncVirtualMethods
+    def override_me(mult)
+      666
+    end
+
+    def override_me_too
+      10
+    end
 end

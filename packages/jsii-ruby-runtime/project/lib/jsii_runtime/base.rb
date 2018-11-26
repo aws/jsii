@@ -61,10 +61,17 @@ module Aws
 
       def _jsii_async_invoke(method:, args:)
         promise = _jsii.begin(objref: @objref, method: method, args: args)
-        _jsii.callbacks["callbacks"].each do |callback|
-          complete = _jsii.process_callback(callback)
-          _jsii.complete(complete)
+
+        while true
+          callbacks = _jsii.callbacks["callbacks"]
+          break if callbacks.empty?
+          
+          callbacks.each do |callback|
+            complete = _jsii.process_callback(callback)
+            _jsii.complete(complete)
+          end
         end
+
         return _jsii.from_jsii(_jsii.end(promiseid: promise['promiseid'])['result'])
       end
 
