@@ -1506,6 +1506,41 @@ DoubleTrouble
       :rtype: number
 
 
+ExportedBaseClass
+^^^^^^^^^^^^^^^^^
+
+.. py:class:: ExportedBaseClass(success)
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.ExportedBaseClass;
+
+      .. code-tab:: javascript
+
+         const { ExportedBaseClass } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { ExportedBaseClass } from 'jsii-calc';
+
+
+
+   :param success: 
+   :type success: boolean
+
+   .. py:attribute:: success
+
+      :type: boolean *(readonly)*
+
+
 GiveMeStructs
 ^^^^^^^^^^^^^
 
@@ -1866,6 +1901,40 @@ IInterfaceWithOptionalMethodArguments (interface)
       :param arg2: 
       :type arg2: number *(optional)*
       :abstract: Yes
+
+
+IPrivatelyImplemented (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: IPrivatelyImplemented
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.IPrivatelyImplemented;
+
+      .. code-tab:: javascript
+
+         // IPrivatelyImplemented is an interface
+
+      .. code-tab:: typescript
+
+         import { IPrivatelyImplemented } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: success
+
+      :type: boolean *(readonly)*
 
 
 IRandomNumberGenerator (interface)
@@ -3570,6 +3639,45 @@ ReferenceEnumFromScopedPackage
    .. py:attribute:: foo
 
       :type: :py:class:`@scope/jsii-calc-lib.EnumFromScopedModule`\  *(optional)*
+
+
+ReturnsPrivateImplementationOfInterface
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: ReturnsPrivateImplementationOfInterface()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.ReturnsPrivateImplementationOfInterface;
+
+      .. code-tab:: javascript
+
+         const { ReturnsPrivateImplementationOfInterface } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { ReturnsPrivateImplementationOfInterface } from 'jsii-calc';
+
+
+
+   Helps ensure the JSII kernel & runtime cooperate correctly when an un-exported instance of a class is returned with
+
+   a declared type that is an exported interface, and the instance inherits from an exported class.
+
+
+
+
+   .. py:attribute:: privateImplementation
+
+      :type: :py:class:`~jsii-calc.IPrivatelyImplemented`\  *(readonly)*
 
 
 RuntimeTypeChecking

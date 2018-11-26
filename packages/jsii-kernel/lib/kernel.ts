@@ -435,7 +435,12 @@ export class Kernel {
                 case spec.TypeKind.Class:
                 case spec.TypeKind.Enum:
                     const constructor = this._findSymbol(fqn);
-                    constructor.__jsii__ = { fqn };
+                    Object.defineProperty(constructor, '__jsii__', {
+                        configurable: false,
+                        enumerable: false,
+                        writable: false,
+                        value: { fqn }
+                    });
             }
         }
     }

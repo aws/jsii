@@ -1196,3 +1196,28 @@ export interface LoadBalancedFargateServiceProps {
      */
     publicTasks?: boolean;
 }
+
+/**
+ * Helps ensure the JSII kernel & runtime cooperate correctly when an un-exported instance of a class is returned with
+ * a declared type that is an exported interface, and the instance inherits from an exported class.
+ *
+ * @returns an instance of an un-exported class that extends ``ExportedBaseClass``, declared as ``IPrivatelyImplemented``.
+ *
+ * @see https://github.com/awslabs/jsii/issues/320
+ */
+export class ReturnsPrivateImplementationOfInterface {
+    public get privateImplementation(): IPrivatelyImplemented {
+        return new PrivateImplementation();
+    }
+}
+export interface IPrivatelyImplemented {
+    readonly success: boolean;
+}
+export class ExportedBaseClass {
+    constructor(public readonly success: boolean) {}
+}
+class PrivateImplementation extends ExportedBaseClass implements IPrivatelyImplemented {
+    constructor() {
+        super(true);
+    }
+}
