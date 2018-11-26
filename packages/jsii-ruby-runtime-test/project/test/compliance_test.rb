@@ -394,6 +394,22 @@ class JsiiComplianceTest < Test::Unit::TestCase
     assert_equal 4452, obj.call_me
   end
 
+  def test_async_overrides_override_call_super
+    compliance "asyncOverrides_overrideCallsSuper"
+
+    obj = OverrideCallsSuper.new
+    assert_equal 1441, obj.override_me(12)
+    assert_equal 1209, obj.call_me
+  end
+
+  # @Test
+  # public void asyncOverrides_overrideCallsSuper() {
+  #     OverrideCallsSuper obj = new OverrideCallsSuper();
+  #     assertEquals(1441, obj.overrideMe(12));
+  #     assertEquals(1209, obj.callMe());
+  # }
+
+
   private
 
   def compliance(name)
@@ -429,4 +445,11 @@ end
 
 class OverrideAsyncMethodsByBaseClass < OverrideAsyncMethods
 
+end
+
+class OverrideCallsSuper < Jsii::Calc::AsyncVirtualMethods
+  def override_me(mult)
+    super_ret = super(mult)
+    return super_ret * 10 + 1
+  end
 end
