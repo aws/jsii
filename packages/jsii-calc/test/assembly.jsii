@@ -1410,6 +1410,32 @@
       ],
       "name": "DoubleTrouble"
     },
+    "jsii-calc.ExportedBaseClass": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.ExportedBaseClass",
+      "initializer": {
+        "initializer": true,
+        "parameters": [
+          {
+            "name": "success",
+            "type": {
+              "primitive": "boolean"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "name": "ExportedBaseClass",
+      "properties": [
+        {
+          "immutable": true,
+          "name": "success",
+          "type": {
+            "primitive": "boolean"
+          }
+        }
+      ]
+    },
     "jsii-calc.GiveMeStructs": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.GiveMeStructs",
@@ -1632,6 +1658,22 @@
         }
       ],
       "name": "IInterfaceWithOptionalMethodArguments"
+    },
+    "jsii-calc.IPrivatelyImplemented": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.IPrivatelyImplemented",
+      "kind": "interface",
+      "name": "IPrivatelyImplemented",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "name": "success",
+          "type": {
+            "primitive": "boolean"
+          }
+        }
+      ]
     },
     "jsii-calc.IRandomNumberGenerator": {
       "assembly": "jsii-calc",
@@ -2847,6 +2889,29 @@
           "type": {
             "fqn": "@scope/jsii-calc-lib.EnumFromScopedModule",
             "optional": true
+          }
+        }
+      ]
+    },
+    "jsii-calc.ReturnsPrivateImplementationOfInterface": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "comment": "Helps ensure the JSII kernel & runtime cooperate correctly when an un-exported instance of a class is returned with\na declared type that is an exported interface, and the instance inherits from an exported class.",
+        "return": "an instance of an un-exported class that extends ``ExportedBaseClass``, declared as ``IPrivatelyImplemented``.",
+        "see": "https://github.com/awslabs/jsii/issues/320"
+      },
+      "fqn": "jsii-calc.ReturnsPrivateImplementationOfInterface",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "name": "ReturnsPrivateImplementationOfInterface",
+      "properties": [
+        {
+          "immutable": true,
+          "name": "privateImplementation",
+          "type": {
+            "fqn": "jsii-calc.IPrivatelyImplemented"
           }
         }
       ]

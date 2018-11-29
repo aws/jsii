@@ -868,6 +868,12 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal("DotNet/" + Environment.Version.ToString(), JsiiAgent_.JsiiAgent);
         }
 
+        [Fact(DisplayName = Prefix + nameof(ReceiveInstanceOfPrivateClass))]
+        public void ReceiveInstanceOfPrivateClass()
+        {
+            Assert.True(new ReturnsPrivateImplementationOfInterface().PrivateImplementation.Success);
+        }
+
         class NumberReturner : DeputyBase, IIReturnsNumber
         {
             public NumberReturner(double number)
