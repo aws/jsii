@@ -2057,6 +2057,32 @@
         }
       ]
     },
+    "jsii-calc.JsiiAgent": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "comment": "Host runtime version should be set via JSII_AGENT"
+      },
+      "fqn": "jsii-calc.JsiiAgent",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "name": "JsiiAgent",
+      "properties": [
+        {
+          "docs": {
+            "comment": "Returns the value of the JSII_AGENT environment variable."
+          },
+          "immutable": true,
+          "name": "jsiiAgent",
+          "static": true,
+          "type": {
+            "optional": true,
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.LoadBalancedFargateServiceProps": {
       "assembly": "jsii-calc",
       "datatype": true,
@@ -3671,5 +3697,5 @@
     }
   },
   "version": "0.7.11",
-  "fingerprint": "2o7FtEirv0LpuaJ1G+wAxoHTW7FHr4U1taZ5GcVYt2o="
+  "fingerprint": "Wd0MWG0v1qaBoROkgYUltcLONrS4+yQU9Y+lwHTb5NA="
 }

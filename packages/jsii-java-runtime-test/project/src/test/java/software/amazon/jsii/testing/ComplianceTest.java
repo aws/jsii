@@ -37,6 +37,7 @@ import software.amazon.jsii.tests.calculator.Sum;
 import software.amazon.jsii.tests.calculator.SyncVirtualMethods;
 import software.amazon.jsii.tests.calculator.UnionProperties;
 import software.amazon.jsii.tests.calculator.UsesInterfaceWithProperties;
+import software.amazon.jsii.tests.calculator.JsiiAgent;
 import software.amazon.jsii.tests.calculator.composition.CompositeOperation;
 import software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule;
 import software.amazon.jsii.tests.calculator.lib.IFriendly;
@@ -951,6 +952,11 @@ public class ComplianceTest {
                 .build());
         obj.setChangeMeToUndefined(null);
         obj.verifyPropertyIsUndefined();
+    }
+    
+    @Test
+    public void testJsiiAgent() {
+        assertEquals("Java/" + System.getProperty("java.version"), JsiiAgent.getJsiiAgent());
     }
 
     static class MulTen extends Multiply {

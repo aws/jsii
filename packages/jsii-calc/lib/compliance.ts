@@ -1196,3 +1196,15 @@ export interface LoadBalancedFargateServiceProps {
      */
     publicTasks?: boolean;
 }
+
+/**
+ * Host runtime version should be set via JSII_AGENT
+ */
+export class JsiiAgent {
+    /**
+     * Returns the value of the JSII_AGENT environment variable.
+     */
+    public static get jsiiAgent(): string | undefined {
+        return process.env.JSII_AGENT;
+    }
+};

@@ -959,6 +959,10 @@ defineTest('nulls are converted to undefined - properties', async (_test, sandbo
     sandbox.invoke({ objref, method: 'verifyPropertyIsUndefined' });
 });
 
+defineTest('JSII_AGENT is undefined in node.js', async (test, sandbox) => {
+    test.equal(sandbox.sget({ fqn: 'jsii-calc.JsiiAgent', property: 'jsiiAgent' }).value, undefined);
+});
+
 // =================================================================================================
 
 const testNames: { [name: string]: boolean } = { };
