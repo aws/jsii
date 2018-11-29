@@ -2665,6 +2665,47 @@ JavaReservedWords
       :type: string
 
 
+JsiiAgent
+^^^^^^^^^
+
+.. py:class:: JsiiAgent()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.JsiiAgent;
+
+      .. code-tab:: javascript
+
+         const { JsiiAgent } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { JsiiAgent } from 'jsii-calc';
+
+
+
+   Host runtime version should be set via JSII_AGENT
+
+
+
+
+   .. py:attribute:: jsiiAgent
+
+      Returns the value of the JSII_AGENT environment variable.
+
+
+
+      :type: string *(optional)* *(readonly)* *(static)*
+
+
 LoadBalancedFargateServiceProps (interface)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

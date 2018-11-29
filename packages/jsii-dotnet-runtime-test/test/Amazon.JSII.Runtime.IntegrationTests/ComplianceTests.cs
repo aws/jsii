@@ -861,6 +861,12 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             obj.ChangeMeToUndefined = null;
             obj.VerifyPropertyIsUndefined();
         }
+        
+        [Fact(DisplayName = Prefix + nameof(JsiiAgent))]
+        public void JsiiAgent()
+        {
+            Assert.Equal("DotNet/" + Environment.Version.ToString(), JsiiAgent_.JsiiAgent);
+        }
 
         [Fact(DisplayName = Prefix + nameof(ReceiveInstanceOfPrivateClass))]
         public void ReceiveInstanceOfPrivateClass()

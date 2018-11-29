@@ -26,6 +26,8 @@ namespace Amazon.JSII.Runtime.Services
                 }
             };
 
+            _process.StartInfo.EnvironmentVariables.Add("JSII_AGENT", "DotNet/" + Environment.Version.ToString());
+
             _logger.LogDebug("Starting jsii runtime...");
             _logger.LogDebug($"{_process.StartInfo.FileName} {_process.StartInfo.Arguments}");
 

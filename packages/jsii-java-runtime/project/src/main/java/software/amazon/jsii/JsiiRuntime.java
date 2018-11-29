@@ -222,6 +222,8 @@ public final class JsiiRuntime {
         if (traceEnabled) {
             pb.environment().put("JSII_DEBUG", "1");
         }
+        
+        pb.environment().put("JSII_AGENT", "Java/" + System.getProperty("java.version"));
 
         try {
             this.childProcess = pb.start();

@@ -61,6 +61,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.JSObjectLiteralToNative": return software.amazon.jsii.tests.calculator.JSObjectLiteralToNative.class;
             case "jsii-calc.JSObjectLiteralToNativeClass": return software.amazon.jsii.tests.calculator.JSObjectLiteralToNativeClass.class;
             case "jsii-calc.JavaReservedWords": return software.amazon.jsii.tests.calculator.JavaReservedWords.class;
+            case "jsii-calc.JsiiAgent": return software.amazon.jsii.tests.calculator.JsiiAgent.class;
             case "jsii-calc.LoadBalancedFargateServiceProps": return software.amazon.jsii.tests.calculator.LoadBalancedFargateServiceProps.class;
             case "jsii-calc.Multiply": return software.amazon.jsii.tests.calculator.Multiply.class;
             case "jsii-calc.MutableObjectLiteral": return software.amazon.jsii.tests.calculator.MutableObjectLiteral.class;
