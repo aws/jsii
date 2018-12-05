@@ -13,7 +13,16 @@ const readFile = promisify(fs.readFile);
 const stat = promisify(fs.stat);
 
 export class TypeSystem {
+  /**
+   * All assemblies in this type system.
+   */
   public readonly assemblies = new Array<Assembly>();
+
+  /**
+   * The "root" assemblies (ones that loaded explicitly via a "load" call).
+   */
+  public readonly roots = new Array<Assembly>();
+
   private readonly _assemblyLookup: { [name: string]: Assembly } = { };
 
   /**
@@ -32,30 +41,32 @@ export class TypeSystem {
     }
   }
 
-  public async loadModule(module: string): Promise<Assembly> {
+  public async loadModule(dir: string): Promise<Assembly> {
     const visited = new Set<string>();
     const self = this;
 
-    const out = await _loadModule(module);
+    const out = await _loadModule(dir, true);
     if (!out) {
-      throw new Error(`Unable to load module ${module}`);
+      throw new Error(`Unable to load module from directory: ${dir}`);
     }
 
     return out;
 
-    async function _loadModule(moduleDirectory: string) {
+    async function _loadModule(moduleDirectory: string, isRoot = false) {
       if (visited.has(moduleDirectory)) {
         return;
       }
       visited.add(moduleDirectory);
+
       const filePath = path.join(moduleDirectory, 'package.json');
       const pkg = JSON.parse((await readFile(filePath)).toString());
       if (!pkg.jsii) {
         throw new Error(`No "jsii" section in ${filePath}`);
       }
 
-      const root = await self.loadFile(path.join(moduleDirectory, '.jsii'));
+      const root = await self.loadFile(path.join(moduleDirectory, '.jsii'), isRoot);
       const bundled: string[] = pkg.bundledDependencies || [];
+
       const loadDependencies = async (deps: { [name: string]: string }) => {
         for (const name of Object.keys(deps || {})) {
           if (bundled.includes(name)) {
@@ -75,14 +86,19 @@ export class TypeSystem {
     }
   }
 
-  public async loadFile(file: string) {
-    const asm = new Assembly(this, JSON.parse((await readFile(file)).toString()));
-    const exists = this._assemblyLookup[asm.name];
-    if (exists) {
-      return exists; // already loaded
+  public async loadFile(file: string, isRoot = true) {
+    const spec = JSON.parse((await readFile(file)).toString());
+    let asm = this._assemblyLookup[spec.name];
+    if (!asm) {
+      asm = new Assembly(this, spec);
+      this._assemblyLookup[asm.name] = asm;
+      this.assemblies.push(asm);
     }
-    this._assemblyLookup[asm.name] = asm;
-    this.assemblies.push(asm);
+
+    if (isRoot && !this.roots.includes(asm)) {
+      this.roots.push(asm);
+    }
+
     return asm;
   }
 

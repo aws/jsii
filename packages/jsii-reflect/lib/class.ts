@@ -42,14 +42,18 @@ export class ClassType extends Type {
   }
 
   /**
-   * List of properties.
+   * List of all properties (without inherited properties).
+   *
+   * You can use `getProperties(true)` to list all properties including inherited.
    */
   public get properties(): Property[] {
     return this.getProperties(false);
   }
 
   /**
-   * List of methods.
+   * List of methods (without inherited methods).
+   *
+   * You can use `getMethods(true)` to list all methods including inherited.
    */
   public get methods(): Method[] {
     return this.getMethods(false);

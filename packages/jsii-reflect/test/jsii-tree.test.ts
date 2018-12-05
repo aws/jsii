@@ -2,10 +2,13 @@ import child_process = require('child_process');
 import fs = require('fs');
 import path = require('path');
 import { promisify } from 'util';
+import { diffTest } from './util';
 
 const exec = promisify(child_process.exec);
 const writeFile = promisify(fs.writeFile);
 const readFile = promisify(fs.readFile);
+
+// tslint:disable:no-console
 
 test('jsii-tree', async () => {
   const stdout = await jsiiTree();
@@ -38,8 +41,10 @@ test(`jsii-tree --signatures`, async () => {
   await jsiiTreeTest('jsii-tree.test.signatures.expected.txt', '--signatures');
 });
 
-async function jsiiTreeTest(expected: string, ...args: string[]) {
-  expect(await jsiiTree(...args)).toEqual(await readExpected(expected));
+async function jsiiTreeTest(expectedFile: string, ...args: string[]) {
+  const actual = await jsiiTree(...args);
+
+  await diffTest(actual, expectedFile);
 }
 
 async function jsiiTree(...args: string[]) {
@@ -49,18 +54,14 @@ async function jsiiTree(...args: string[]) {
     '--no-colors',
     path.dirname(require.resolve('jsii-calc/package.json'))
   ].join(' ');
+
   const { stdout, stderr } = (await exec(command));
 
   await writeFile('jsii-tree.test.stdout', stdout);
 
   if (stderr) {
-    // tslint:disable-next-line:no-console
     console.error(stderr);
   }
 
   return stdout;
-}
-
-async function readExpected(file: string) {
-  return (await readFile(path.join(__dirname, file))).toString();
 }

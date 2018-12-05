@@ -28,6 +28,7 @@
     "ts-jest": "^23.10.5",
     "typescript": "^3.2.1",
     "jsii-calc": "^0.7.11",
+    "@scope/jsii-calc-lib": "^0.7.11",
     "jsii-build-tools": "^0.7.11"
   },
   "author": {

@@ -48,7 +48,7 @@ export class Assembly {
    * The module repository, maps to "repository" from package.json
    * This is required since some package managers (like Maven) require it.
    */
-  public get repository() {
+  public get repository(): { type: string, url: string } {
     return this.spec.repository;
   }
 
