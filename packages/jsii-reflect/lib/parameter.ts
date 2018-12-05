@@ -1,5 +1,5 @@
 import jsii = require('jsii-spec');
-import { Documentable } from './doc';
+import { Docs, Documentable } from './docs';
 import { Method } from './method';
 import { Type } from './type';
 import { TypeReference } from './type-ref';
@@ -35,7 +35,7 @@ export class Parameter implements Documentable {
     return !!this.spec.variadic;
   }
 
-  public get docs(): jsii.Docs | undefined {
-    return this.spec.docs;
+  public get docs(): Docs {
+    return new Docs(this.system, this, this.spec.docs);
   }
 }
