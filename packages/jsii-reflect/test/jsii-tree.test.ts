@@ -1,12 +1,9 @@
 import child_process = require('child_process');
-import fs = require('fs');
 import path = require('path');
 import { promisify } from 'util';
 import { diffTest } from './util';
 
 const exec = promisify(child_process.exec);
-const writeFile = promisify(fs.writeFile);
-const readFile = promisify(fs.readFile);
 
 // tslint:disable:no-console
 
@@ -56,8 +53,6 @@ async function jsiiTree(...args: string[]) {
   ].join(' ');
 
   const { stdout, stderr } = (await exec(command));
-
-  await writeFile('jsii-tree.test.stdout', stdout);
 
   if (stderr) {
     console.error(stderr);
