@@ -1,8 +1,11 @@
 import fs = require('fs');
 import path = require('path');
+import { promisify } from 'util';
 import { AsciiTree } from '../lib';
 
-test('big tree', cb => {
+const readFile = promisify(fs.readFile);
+
+test('big tree', async () => {
   const tree = new AsciiTree('root',
     new AsciiTree('child1',
       new AsciiTree('child1.1'),
@@ -36,10 +39,10 @@ test('big tree', cb => {
     new AsciiTree('child3'),
   );
 
-  diff(tree, 'big.expected.txt', cb);
+  await diff(tree, 'big.expected.txt');
 });
 
-test('basic example', cb => {
+test('basic example', async () => {
   const tree = new AsciiTree('root');
 
   tree.add(new AsciiTree('child1'));
@@ -51,10 +54,10 @@ test('basic example', cb => {
 
   tree.add(new AsciiTree('child3'));
 
-  diff(tree, 'basic.expected.txt', cb);
+  await diff(tree, 'basic.expected.txt');
 });
 
-test('extensability', cb => {
+test('extensability', async () => {
   class TitleNode extends AsciiTree {
     constructor(title: string, ...children: AsciiTree[]) {
       super([
@@ -83,10 +86,10 @@ test('extensability', cb => {
     new KeyValueNode('height', '40px')
   ));
 
-  diff(tree, 'extend.expected.txt', cb);
+  await diff(tree, 'extend.expected.txt');
 });
 
-test('multiline', cb => {
+test('multiline', async () => {
   class MultiLine extends AsciiTree {
     constructor(line: string, times: number) {
       let text = '';
@@ -119,10 +122,10 @@ test('multiline', cb => {
     )
   ));
 
-  diff(tree, 'multiline.expected.txt', cb);
+  await diff(tree, 'multiline.expected.txt');
 });
 
-test('toString', cb => {
+test('toString', async () => {
   const tree = new AsciiTree('root');
   tree.add(new AsciiTree('1'));
   tree.add(new AsciiTree('2', new AsciiTree('2.1'), new AsciiTree('2.2')));
@@ -134,20 +137,11 @@ test('toString', cb => {
  │ └── 2.2
  └── 3
 `);
-  cb();
 });
 
-function diff(tree: AsciiTree, expectedFile: string, cb: jest.DoneCallback) {
-  const actualFilePath = path.join(__dirname, '.actual.txt');
+async function diff(tree: AsciiTree, expectedFile: string) {
   const expectedFilePath = path.join(__dirname, expectedFile);
-  const out = fs.createWriteStream(actualFilePath);
-  tree.printTree(out);
-  out.close();
-
-  out.on('close', () => {
-    const actual = fs.readFileSync(actualFilePath).toString();
-    const expected = fs.readFileSync(expectedFilePath).toString();
-    expect(actual).toStrictEqual(expected);
-    cb();
-  });
+  const actual = tree.toString();
+  const expected = (await readFile(expectedFilePath)).toString();
+  expect(actual).toStrictEqual(expected);
 }
