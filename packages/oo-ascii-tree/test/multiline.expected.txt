@@ -1,0 +1,30 @@
+root
+ ├─┬ hello
+ │ ├─┬ hello-child-A [#0]
+ │ │ │ hello-child-A [#1]
+ │ │ │ hello-child-A [#2]
+ │ │ ├─┬ child of multi
+ │ │ │ └── boom [#0]
+ │ │ │     boom [#1]
+ │ │ │     boom [#2]
+ │ │ └── multi
+ │ │     line
+ │ │     child-of-multi
+ │ ├── hello-child-B [#0]
+ │ │   hello-child-B [#1]
+ │ │   hello-child-B [#2]
+ │ │   hello-child-B [#3]
+ │ │   hello-child-B [#4]
+ │ │   hello-child-B [#5]
+ │ │   hello-child-B [#6]
+ │ │   hello-child-B [#7]
+ │ │   hello-child-B [#8]
+ │ │   hello-child-B [#9]
+ │ └── just-a-node
+ ├── world
+ └─┬ boom
+   └─┬ trach
+     └── multi [#0]
+         multi [#1]
+         multi [#2]
+         multi [#3]

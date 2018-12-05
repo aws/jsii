@@ -1,0 +1,9 @@
+PROPS
+=====
+ ├── shape: circle
+ ├── color: red
+ └── background: blue
+DIMENSIONS
+==========
+ ├── width: 30px
+ └── height: 40px
