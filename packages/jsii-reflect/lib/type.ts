@@ -15,7 +15,6 @@ export abstract class Type implements Documentable {
 
   /**
    * The fully qualified name of the type (``<assembly>.<namespace>.<name>``)
-   * @minLength 3
    */
   public get fqn(): string {
     return this.spec.fqn;
@@ -32,7 +31,6 @@ export abstract class Type implements Documentable {
 
   /**
    * The simple name of the type (MyClass).
-   * @minLength 1
    */
   public get name(): string {
     return this.spec.name;

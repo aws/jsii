@@ -19,7 +19,6 @@ export class Property implements Documentable, Overridable {
 
   /**
    * The name of the property.
-   * @minLength 1
    */
   public get name(): string {
     return this.spec.name;

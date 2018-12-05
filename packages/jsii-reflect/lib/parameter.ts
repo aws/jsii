@@ -14,7 +14,6 @@ export class Parameter implements Documentable {
 
   /**
    * The name of the parameter.
-   * @minLength 1
    */
   public get name(): string {
     return this.spec.name;

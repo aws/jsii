@@ -13,10 +13,6 @@ export class InterfaceType extends Type {
     super(system, assembly, interfaceSpec);
   }
 
-  public get kind(): jsii.TypeKind {
-    return this.interfaceSpec.kind;
-  }
-
   /**
    * All the base interfaces that this interface extends.
    */
@@ -38,7 +34,7 @@ export class InterfaceType extends Type {
   /**
    * List of properties.
    */
-  get properties(): Property[] {
+  public get properties(): Property[] {
     return this.getProperties();
   }
 

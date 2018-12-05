@@ -19,7 +19,10 @@ export class Method implements Documentable, Overridable {
   }
 
   /**
-   * The name of the method. Undefined if this method is a initializer.
+   * The name of the method.
+   *
+   * If this method is an initializer (`method.initializer` is `true`), the name
+   * will be "<initializer>".
    */
   public get name(): string {
     if (this.initializer) {

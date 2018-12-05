@@ -71,26 +71,13 @@ export class TypeSystemTree extends AsciiTree {
     }
 
     const shouldUseColors = options.colors === undefined ? true : options.colors;
-    const colorsEnabled = colors.enabled;
-    try {
-      if (shouldUseColors) {
-        colors.enable();
-      } else {
-        colors.disable();
-      }
-
+    withColors(shouldUseColors, () => {
       if (typesys.assemblies.length > 0) {
         const assemblies = new TitleNode('assemblies');
         assemblies.add(...typesys.assemblies.map(a => new AssemblyNode(a, options)));
         this.add(assemblies);
       }
-    } finally {
-      if (colorsEnabled) {
-        colors.enable();
-      } else {
-        colors.disable();
-      }
-    }
+    });
   }
 }
 
@@ -196,7 +183,7 @@ export class TypeReferenceNode extends AsciiTree {
 
 export class ClassNode extends AsciiTree {
   constructor(type: ClassType, options: TypeSystemTreeOptions) {
-    super(`${colors.cyan(type.name)} ${colors.gray('class')}`);
+    super(`${colors.gray('class')} ${colors.cyan(type.name)}`);
 
     if (options.inheritance && type.base) {
       this.add(new KeyValueNode('base', type.base.name));
@@ -220,7 +207,7 @@ export class ClassNode extends AsciiTree {
 
 export class InterfaceNode extends AsciiTree {
   constructor(type: InterfaceType, options: TypeSystemTreeOptions) {
-    super(`${colors.cyan(type.name)} ${colors.gray('interface')}`);
+    super(`${colors.gray('interface')} ${colors.cyan(type.name)}`);
 
     if (options.inheritance && type.interfaces.length > 0) {
       const interfaces = new TitleNode('interfaces');
@@ -239,7 +226,7 @@ export class InterfaceNode extends AsciiTree {
 
 export class EnumNode extends AsciiTree {
   constructor(enumType: EnumType, options: TypeSystemTreeOptions) {
-    super(`${colors.cyan(enumType.name)} ${colors.gray('enum')}`);
+    super(`${colors.gray('enum')} ${colors.cyan(enumType.name)}`);
 
     if (options.members) {
       enumType.members.forEach(mem => {
@@ -274,5 +261,27 @@ class TextNode extends AsciiTree {
 class FlagNode extends AsciiTree {
   constructor(flag: string) {
     super(colors.italic(flag));
+  }
+}
+
+/**
+ * Invokes `block` with colors enabled/disabled and reverts to old value afterwards.
+ */
+function withColors(enabled: boolean, block: () => void) {
+  const oldEnabled = colors.enabled;
+  try {
+    if (enabled) {
+      colors.enable();
+    } else {
+      colors.disable();
+    }
+
+    block();
+  } finally {
+    if (oldEnabled) {
+      colors.enable();
+    } else {
+      colors.disable();
+    }
   }
 }

@@ -23,7 +23,6 @@ export class Assembly {
 
   /**
    * The name of the assembly
-   * @minLength 1
    */
   public get name(): string {
     return this.spec.name;
@@ -68,7 +67,6 @@ export class Assembly {
 
   /**
    * A fingerprint that can be used to determine if the specification has changed.
-   * @minLength 1
    */
   public get fingerprint(): string {
     return this.spec.fingerprint;
@@ -76,7 +74,6 @@ export class Assembly {
 
   /**
    * The version of the assembly
-   * @minLength 1
    */
   public get version(): string {
     return this.spec.version;

@@ -67,7 +67,9 @@ export class ClassType extends Type {
   }
 
   /**
-   * The set of interfaces implemented by this class.
+   * The set of interfaces implemented by this class (not including interfaces implemented by base classes).
+   *
+   * You can use `getInterfaces(true)` to list all interfaces implemented by base classes as well.
    */
   public get interfaces(): InterfaceType[] {
     return this.getInterfaces();
@@ -85,6 +87,10 @@ export class ClassType extends Type {
     return out;
   }
 
+  /**
+   * Lists all properties in this class.
+   * @param inherited include all properties inherited from base classes (default: false)
+   */
   public getProperties(inherited = false) {
     const out = new Array<Property>();
     if (inherited && this.base) {
@@ -96,6 +102,10 @@ export class ClassType extends Type {
     return out;
   }
 
+  /**
+   * List all methods in this class.
+   * @param inherited include all methods inherited from base classes (default: false)
+   */
   public getMethods(inherited = false) {
     const out = new Array<Method>();
     if (inherited && this.base) {
@@ -107,6 +117,10 @@ export class ClassType extends Type {
     return out;
   }
 
+  /**
+   * Lists all interfaces this class implements.
+   * @param inherited include all interfaces implemented by all base classes (default: false)
+   */
   public getInterfaces(inherited = false) {
     const out = new Array<InterfaceType>();
     if (inherited && this.base) {

@@ -14,7 +14,6 @@ export class Dependency {
 
   /**
    * Version of the package.
-   * @minLength 1
    */
   public get version() {
     return this.spec.version;
