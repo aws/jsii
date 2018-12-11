@@ -26,7 +26,7 @@
           "npm": "@scope/jsii-calc-base-of-base"
         }
       },
-      "version": "0.7.11"
+      "version": "0.7.12"
     }
   },
   "description": "An example direct dependency for jsii-calc.",
@@ -101,6 +101,6 @@
       ]
     }
   },
-  "version": "0.7.11",
-  "fingerprint": "7+rqMggqqTwjMniY97KB+19mEuBgrhSu74X2vabhtVM="
+  "version": "0.7.12",
+  "fingerprint": "3pqJEOKZRgPXOiiF+PxbeEFFHHT+nKtrlk0fLXjf07A="
 }
