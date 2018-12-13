@@ -8,6 +8,6 @@
 # @See https://help.github.com/articles/about-codeowners/
 
 *                               @awslabs/aws-cdk-team
-/docs/                          @Doug-AWS
-/packages/*-dotnet-*/           @costleya
-/packages/*-python-*/           @dstufft
+/docs/                          @awslabs/aws-cdk-team @Doug-AWS
+/packages/*-dotnet-*/           @awslabs/aws-cdk-team @costleya
+/packages/*-python-*/           @awslabs/aws-cdk-team @dstufft
