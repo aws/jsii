@@ -861,7 +861,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             obj.ChangeMeToUndefined = null;
             obj.VerifyPropertyIsUndefined();
         }
-        
+
         [Fact(DisplayName = Prefix + nameof(JsiiAgent))]
         public void JsiiAgent()
         {
