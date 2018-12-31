@@ -3,6 +3,82 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.7.12"></a>
+## [0.7.12](https://github.com/awslabs/jsii/compare/v0.7.11...v0.7.12) (2018-12-11)
+
+
+### Features
+
+* JSII_AGENT ([#325](https://github.com/awslabs/jsii/issues/325)) ([cf1d0c3](https://github.com/awslabs/jsii/commit/cf1d0c3)), closes [#324](https://github.com/awslabs/jsii/issues/324)
+* **jsii-reflect:** library for exploring jsii type systems ([#328](https://github.com/awslabs/jsii/issues/328)) ([69cdb32](https://github.com/awslabs/jsii/commit/69cdb32))
+
+
+
+
+<a name="0.7.11"></a>
+## [0.7.11](https://github.com/awslabs/jsii/compare/v0.7.10...v0.7.11) (2018-11-18)
+
+
+
+
+**Note:** Version bump only for package jsii-runtime
+
+<a name="0.7.10"></a>
+## [0.7.10](https://github.com/awslabs/jsii/compare/v0.7.9...v0.7.10) (2018-11-12)
+
+
+
+
+**Note:** Version bump only for package jsii-runtime
+
+<a name="0.7.9"></a>
+## [0.7.9](https://github.com/awslabs/jsii/compare/v0.7.8...v0.7.9) (2018-11-12)
+
+
+
+
+**Note:** Version bump only for package jsii-runtime
+
+<a name="0.7.8"></a>
+## [0.7.8](https://github.com/awslabs/jsii/compare/v0.7.7...v0.7.8) (2018-10-23)
+
+
+
+
+**Note:** Version bump only for package jsii-runtime
+
+<a name="0.7.7"></a>
+## [0.7.7](https://github.com/awslabs/jsii/compare/v0.7.6...v0.7.7) (2018-10-10)
+
+
+### Bug Fixes
+
+* **jsii:** support  public autoproperties in private constructor ([#256](https://github.com/awslabs/jsii/issues/256)) ([181012e](https://github.com/awslabs/jsii/commit/181012e))
+* **jsii-runtime:** Use buffer factory methods instead of constructor. ([#246](https://github.com/awslabs/jsii/issues/246)) ([6ad6b9d](https://github.com/awslabs/jsii/commit/6ad6b9d))
+* **kernel:** Return object literals as references ([#249](https://github.com/awslabs/jsii/issues/249)) ([61cb3a4](https://github.com/awslabs/jsii/commit/61cb3a4)), closes [#248](https://github.com/awslabs/jsii/issues/248) [awslabs/aws-cdk#774](https://github.com/awslabs/aws-cdk/issues/774)
+
+
+
+
+<a name="0.7.6"></a>
+## [0.7.6](https://github.com/awslabs/jsii/compare/v0.7.5...v0.7.6) (2018-09-20)
+
+
+
+
+**Note:** Version bump only for package jsii-runtime
+
+<a name="0.7.5"></a>
+## [0.7.5](https://github.com/awslabs/jsii/compare/v0.7.4...v0.7.5) (2018-09-13)
+
+
+### Bug Fixes
+
+* **java:** support abstract return types ([#224](https://github.com/awslabs/jsii/issues/224)) ([3257223](https://github.com/awslabs/jsii/commit/3257223)), closes [#220](https://github.com/awslabs/jsii/issues/220) [#223](https://github.com/awslabs/jsii/issues/223) [awslabs/aws-cdk#680](https://github.com/awslabs/aws-cdk/issues/680)
+
+
+
+
 <a name="0.7.4"></a>
 ## [0.7.4](https://github.com/awslabs/jsii/compare/v0.7.3...v0.7.4) (2018-09-10)
 

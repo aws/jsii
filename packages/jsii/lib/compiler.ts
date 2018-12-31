@@ -17,8 +17,6 @@ const COMPILER_OPTIONS: ts.CompilerOptions = {
     experimentalDecorators: true,
     inlineSourceMap: true,
     inlineSources: true,
-    jsx: ts.JsxEmit.React,
-    jsxFactory: 'jsx.create',
     lib: ['lib.es2016.d.ts', 'lib.es2017.object.d.ts', 'lib.es2017.string.d.ts'],
     module: ts.ModuleKind.CommonJS,
     noEmitOnError: true,
@@ -88,13 +86,17 @@ export class Compiler implements Emitter {
      * Do a single build
      */
     private async _buildOnce(): Promise<EmitResult> {
+        if (!this.compilerHost.getDefaultLibLocation) {
+            throw new Error('No default library location was found on the TypeScript compiler host!');
+        }
+
         const prog = ts.createProgram({
             rootNames: this.rootFiles.concat(_pathOfLibraries(this.compilerHost)),
             options: COMPILER_OPTIONS,
             projectReferences: this.typescriptConfig.references,
             host: this.compilerHost
         });
-        return await this._consumeProgram(prog);
+        return await this._consumeProgram(prog, this.compilerHost.getDefaultLibLocation());
     }
 
     /**
@@ -105,12 +107,15 @@ export class Compiler implements Emitter {
             const projectRoot = this.options.projectInfo.projectRoot;
             const host = ts.createWatchCompilerHost(
                 this.configPath,
-                COMPILER_OPTIONS,
+                { ...COMPILER_OPTIONS, noEmitOnError: false },
                 { ...ts.sys, getCurrentDirectory() { return projectRoot; } }
             );
+            if (!host.getDefaultLibLocation) {
+                throw new Error('No default library location was found on the TypeScript compiler host!');
+            }
             const orig = host.afterProgramCreate;
             host.afterProgramCreate = async builderProgram => {
-                await this._consumeProgram(builderProgram.getProgram());
+                await this._consumeProgram(builderProgram.getProgram(), host.getDefaultLibLocation!());
                 if (orig) { orig.call(host, builderProgram); }
             };
             ts.createWatchProgram(host);
@@ -118,13 +123,13 @@ export class Compiler implements Emitter {
         });
     }
 
-    private async _consumeProgram(program: ts.Program): Promise<EmitResult> {
+    private async _consumeProgram(program: ts.Program, stdlib: string): Promise<EmitResult> {
         const emit = program.emit();
         if (emit.emitSkipped) {
             LOG.error('Compilation errors prevented the JSII assembly from being created');
             return emit;
         }
-        const assembler = new Assembler(this.options.projectInfo, program);
+        const assembler = new Assembler(this.options.projectInfo, program, stdlib);
         const assmEmit = await assembler.emit();
         if (assmEmit.emitSkipped) {
             LOG.error('Type model errors prevented the JSII assembly from being created');

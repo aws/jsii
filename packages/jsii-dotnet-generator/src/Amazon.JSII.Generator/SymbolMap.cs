@@ -1,11 +1,12 @@
-﻿using Amazon.JSII.JsonModel.Spec;
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Amazon.JSII.JsonModel.Spec;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using SF = Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 using Type = Amazon.JSII.JsonModel.Spec.Type;
+using TypeKind = Amazon.JSII.JsonModel.Spec.TypeKind;
 
 namespace Amazon.JSII.Generator
 {
@@ -53,17 +54,27 @@ namespace Amazon.JSII.Generator
             {
                 switch (type.Kind)
                 {
-                    case JsonModel.Spec.TypeKind.Class:
+                    case TypeKind.Class:
+                    {
+                        var classType = (ClassType) type;
+                        if (classType.IsAbstract)
+                        {
+                            return new AbstractClassTypeMetadata(classType, assembly);
+                        }
                         return new ClassTypeMetadata((ClassType)type, assembly);
-
-                    case JsonModel.Spec.TypeKind.Enum:
-                        return new EnumTypeMetadata((EnumType)type, assembly);
-
-                    case JsonModel.Spec.TypeKind.Interface:
-                        return new InterfaceTypeMetadata((InterfaceType)type, assembly);
-
+                    }
+                    case TypeKind.Enum:
+                    {
+                        return new EnumTypeMetadata((EnumType)type, assembly);   
+                    }
+                    case TypeKind.Interface:
+                    {
+                        return new InterfaceTypeMetadata((InterfaceType)type, assembly);   
+                    }
                     default:
-                        throw new ArgumentException($"Type {type.Name} has unrecognized kind {type.Kind}", nameof(type));
+                    {
+                        throw new ArgumentException($"Type {type.Name} has unrecognized kind {type.Kind}", nameof(type));   
+                    }
                 }
             }
         }
@@ -101,6 +112,18 @@ namespace Amazon.JSII.Generator
             return GetName(GetTypeFromFullyQualifiedName(fullyQualifiedName), disambiguate);
         }
 
+        public string GetAbstractClassProxyName(ClassType type, bool disambiguate = false)
+        {
+            type = type ?? throw new ArgumentNullException(nameof(type));
+            
+            if (_types[type.FullyQualifiedName] is AbstractClassTypeMetadata metadata)
+            {
+                return metadata.ProxyName;
+            }
+
+            throw new ArgumentException($"Cannot get proxy name for '{type.FullyQualifiedName}' because it is not an abstract class.");
+        }
+
         public string GetInterfaceProxyName(InterfaceType type, bool disambiguate = false)
         {
             type = type ?? throw new ArgumentNullException(nameof(type));
@@ -110,7 +133,7 @@ namespace Amazon.JSII.Generator
                 return metadata.ProxyName;
             }
 
-            throw new ArgumentException($"Cannot get proxy name for '{type.FullyQualifiedName}' because it is not an interface");
+            throw new ArgumentException($"Cannot get proxy name for '{type.FullyQualifiedName}' because it is not an interface.");
         }
 
         public string GetInterfaceDefaultName(InterfaceType type, bool disambiguate = false)
@@ -122,7 +145,7 @@ namespace Amazon.JSII.Generator
                 return metadata.DefaultName;
             }
 
-            throw new ArgumentException($"Cannot get default name for '{type.FullyQualifiedName}' because it is not an interface");
+            throw new ArgumentException($"Cannot get default name for '{type.FullyQualifiedName}' because it is not an interface.");
         }
 
         public string GetName(Type type, Method method)
@@ -393,7 +416,7 @@ namespace Amazon.JSII.Generator
             {
                 Type type = GetTypeFromFullyQualifiedName(typeReference.FullyQualifiedName);
 
-                return SF.ParseTypeName(GetName(type));
+                return SF.ParseTypeName(GetName(type, true));
             }
 
             throw new ArgumentException("Invalid type reference", nameof(typeReference));

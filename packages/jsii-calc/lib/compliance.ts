@@ -1,14 +1,24 @@
 // tslint:disable
-import { Value, Number, IFriendly, MyFirstStruct, StructWithOnlyOptionals, EnumFromScopedModule } from '@scope/jsii-calc-lib';
+import {
+    EnumFromScopedModule,
+    IDoublable,
+    IFriendly,
+    MyFirstStruct,
+    Number,
+    StructWithOnlyOptionals,
+    Value
+} from '@scope/jsii-calc-lib';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
 import * as crypto from 'crypto';
 import { promisify } from 'util';
+import { composition, IFriendlyRandomGenerator, IRandomNumberGenerator, Multiply } from './calculator';
+
 const bundled = require('jsii-calc-bundled');
 import base = require('@scope/jsii-calc-base');
+
 const readFile = promisify(fs.readFile);
-import { composition, IFriendlyRandomGenerator, IRandomNumberGenerator, Multiply } from './calculator';
 
 export enum AllTypesEnum {
     MyEnumValue,
@@ -38,7 +48,7 @@ export class AllTypes {
 
     set booleanProperty(value: boolean) {
         if (typeof(value) !== 'boolean') {
-            throw new Error('not a boolean')
+            throw new Error('not a boolean');
         }
         this.boolValue = value;
     }
@@ -140,7 +150,7 @@ export class AllTypes {
 
     // non-typed (any)
 
-    anyProperty: any
+    anyProperty: any;
     anyArrayProperty: any[] = [];
     anyMapProperty: { [key: string]: any } = {};
 
@@ -197,7 +207,7 @@ export class JSObjectLiteralToNative {
         return {
             propA: 'Hello',
             propB: 102
-        }
+        };
     }
 }
 
@@ -238,7 +248,33 @@ export class RuntimeTypeChecking {
      * Used to verify verification of number of method arguments.
      */
     public methodWithOptionalArguments(arg1: number, arg2: string, arg3?: Date) {
-        arg1; arg2; arg3;
+        arg1;
+        arg2;
+        arg3;
+    }
+
+    public methodWithDefaultedArguments(arg1: number = 2, arg2?: string, arg3: Date = new Date()) {
+        arg1;
+        arg2;
+        arg3;
+    }
+
+    public methodWithOptionalAnyArgument(arg?: any) {
+        arg;
+    }
+}
+
+export class OptionalConstructorArgument {
+    public constructor(public readonly arg1: number,
+                       public readonly arg2: string,
+                       public readonly arg3?: Date) {
+    }
+}
+
+export class DefaultedConstructorArgument {
+    public constructor(public readonly arg1: number = 2,
+                       public readonly arg2?: string,
+                       public readonly arg3: Date = new Date()) {
     }
 }
 
@@ -407,8 +443,13 @@ export class VirtualMethodPlayground {
 }
 
 export class DoubleTrouble implements IFriendlyRandomGenerator {
-    next() { return 12; }
-    hello() { return 'world'; }
+    next() {
+        return 12;
+    }
+
+    hello() {
+        return 'world';
+    }
 }
 
 export class Polymorphism {
@@ -452,6 +493,12 @@ export class JSObjectLiteralForInterface {
 
 }
 
+export class GreetingAugmenter {
+    betterGreeting(friendly: IFriendly): string {
+        return friendly.hello() + ' Let me buy you a drink!';
+    }
+}
+
 /**
  * A struct which derives from another struct.
  */
@@ -463,6 +510,7 @@ export interface DerivedStruct extends MyFirstStruct {
     bool: boolean
     anotherRequired: Date
     optionalArray?: string[]
+    optionalAny?: any
     /**
      * This is optional.
      */
@@ -495,21 +543,21 @@ export class GiveMeStructs {
         return {
             optional1: 'optional1FromStructLiteral',
             optional3: false
-        }
+        };
     }
 }
 
-export interface IInterfaceWithProperties {
+export interface InterfaceWithProperties {
     readonly readOnlyString: string;
     readWriteString: string;
 }
 
-export interface IInterfaceWithPropertiesExtension extends IInterfaceWithProperties {
+export interface InterfaceWithPropertiesExtension extends InterfaceWithProperties {
     foo: number;
 }
 
 export class UsesInterfaceWithProperties {
-    constructor(public readonly obj: IInterfaceWithProperties) {
+    constructor(public readonly obj: InterfaceWithProperties) {
 
     }
 
@@ -522,7 +570,7 @@ export class UsesInterfaceWithProperties {
         return this.obj.readWriteString;
     }
 
-    public readStringAndNumber(ext: IInterfaceWithPropertiesExtension) {
+    public readStringAndNumber(ext: InterfaceWithPropertiesExtension) {
         return `base=${ext.readOnlyString} child=${ext.foo} keys=[${Object.keys(ext).join(',')}]`;
     }
 }
@@ -552,13 +600,14 @@ export class AllowedMethodNames {
     }
 }
 
-export interface ReturnsNumber {
-    obtainNumber(): Number;
+export interface IReturnsNumber {
+    obtainNumber(): IDoublable;
+
     readonly numberProp: Number;
 }
 
 export class OverrideReturnsObject {
-    public test(obj: ReturnsNumber) {
+    public test(obj: IReturnsNumber) {
         return obj.obtainNumber().doubleValue + obj.numberProp.doubleValue;
     }
 }
@@ -593,7 +642,8 @@ export class VariadicMethod {
 }
 
 export class Statics {
-    constructor(public readonly value: string) { }
+    constructor(public readonly value: string) {
+    }
 
     /**
      * Jsdocs for static method
@@ -622,7 +672,7 @@ export class Statics {
      */
     public static readonly zooBar: { [name: string]: string } = { hello: 'world' };
 
-    private static _instance?: Statics
+    private static _instance?: Statics;
 
     /**
      * Jsdocs for static getter.
@@ -647,58 +697,162 @@ export class Statics {
 
 // https://en.wikipedia.org/wiki/List_of_Java_keywords
 export class JavaReservedWords {
-    public abstract() { }
-    public assert() { }
-    public boolean() { }
-    public break() { }
-    public byte() { }
-    public case() { }
-    public catch() { }
-    public char() { }
-    public class() { }
-    public const() { }
-    public continue() { }
-    public default() { }
-    public double() { }
-    public do() { }
-    public else() { }
-    public enum() { }
-    public extends() { }
-    public false() { }
-    public final() { }
-    public finally() { }
-    public float() { }
-    public for() { }
-    public goto() { }
-    public if() { }
-    public implements() { }
-    public import() { }
-    public instanceof() { }
-    public int() { }
-    public interface() { }
-    public long() { }
-    public native() { }
-    public new() { }
-    public null() { }
-    public package() { }
-    public private() { }
-    public protected() { }
-    public public() { }
-    public return() { }
-    public short() { }
-    public static() { }
-    public strictfp() { }
-    public super() { }
-    public switch() { }
-    public synchronized() { }
-    public this() { }
-    public throw() { }
-    public throws() { }
-    public transient() { }
-    public true() { }
-    public try() { }
-    public void() { }
-    public volatile() { }
+    public abstract() {
+    }
+
+    public assert() {
+    }
+
+    public boolean() {
+    }
+
+    public break() {
+    }
+
+    public byte() {
+    }
+
+    public case() {
+    }
+
+    public catch() {
+    }
+
+    public char() {
+    }
+
+    public class() {
+    }
+
+    public const() {
+    }
+
+    public continue() {
+    }
+
+    public default() {
+    }
+
+    public double() {
+    }
+
+    public do() {
+    }
+
+    public else() {
+    }
+
+    public enum() {
+    }
+
+    public extends() {
+    }
+
+    public false() {
+    }
+
+    public final() {
+    }
+
+    public finally() {
+    }
+
+    public float() {
+    }
+
+    public for() {
+    }
+
+    public goto() {
+    }
+
+    public if() {
+    }
+
+    public implements() {
+    }
+
+    public import() {
+    }
+
+    public instanceof() {
+    }
+
+    public int() {
+    }
+
+    public interface() {
+    }
+
+    public long() {
+    }
+
+    public native() {
+    }
+
+    public new() {
+    }
+
+    public null() {
+    }
+
+    public package() {
+    }
+
+    public private() {
+    }
+
+    public protected() {
+    }
+
+    public public() {
+    }
+
+    public return() {
+    }
+
+    public short() {
+    }
+
+    public static() {
+    }
+
+    public strictfp() {
+    }
+
+    public super() {
+    }
+
+    public switch() {
+    }
+
+    public synchronized() {
+    }
+
+    public this() {
+    }
+
+    public throw() {
+    }
+
+    public throws() {
+    }
+
+    public transient() {
+    }
+
+    public true() {
+    }
+
+    public try() {
+    }
+
+    public void() {
+    }
+
+    public volatile() {
+    }
+
     public while = 'hello';
 }
 
@@ -759,8 +913,8 @@ export class NodeStandardLibrary {
 export class UseCalcBase {
     public hello(): base.Base {
         return {
-            typeName: () => "hello"
-        }
+            typeName: () => 'hello'
+        };
     }
 }
 
@@ -811,6 +965,271 @@ export namespace InterfaceInNamespaceIncludesClasses {
  * awslabs/jsii#175
  * Interface proxies (and builders) do not respect optional arguments in methods
  */
-export interface InterfaceWithOptionalMethodArguments {
+export interface IInterfaceWithOptionalMethodArguments {
     hello(arg1: string, arg2?: number): void
 }
+
+/**
+ * awslabs/jsii#220
+ * Abstract return type
+ */
+
+export interface InterfaceImplementedByAbstractClass {
+    readonly propFromInterface: string;
+}
+
+export abstract class AbstractClassBase {
+    public abstract readonly abstractProperty: string;
+}
+
+export abstract class AbstractClass extends AbstractClassBase implements InterfaceImplementedByAbstractClass {
+    public nonAbstractMethod() {
+        return 42;
+    }
+
+    public abstract abstractMethod(name: string): string;
+
+    public get propFromInterface() {
+        return 'propFromInterfaceValue';
+    }
+}
+
+class ConcreteClass extends AbstractClass {
+    public abstractMethod(name: string) {
+        return `Hello, ${name}!!`;
+    }
+
+    public get abstractProperty() {
+        return 'Hello, dude!';
+    }
+}
+
+export class AbstractClassReturner {
+    public giveMeAbstract(): AbstractClass {
+        return new ConcreteClass();
+    }
+
+    public giveMeInterface(): InterfaceImplementedByAbstractClass {
+        return new ConcreteClass();
+    }
+
+    public get returnAbstractFromProperty(): AbstractClassBase {
+        return {
+            abstractProperty: 'hello-abstract-property'
+        };
+    }
+}
+
+export interface MutableObjectLiteral {
+    value: string;
+}
+
+export class ClassWithMutableObjectLiteralProperty {
+    public mutableObject: MutableObjectLiteral = { value: 'default' };
+}
+
+export class DoNotOverridePrivates {
+    private privateMethod(): string {
+        return 'privateMethod';
+    }
+
+    private privateProperty = 'privateProperty';
+
+    public privateMethodValue() {
+        return this.privateMethod();
+    }
+
+    public privatePropertyValue() {
+        return this.privateProperty;
+    }
+
+    public changePrivatePropertyValue(newValue: string) {
+        this.privateProperty = newValue;
+    }
+}
+
+/**
+ * Class that implements interface properties automatically, but using a private constructor
+ */
+export class ClassWithPrivateConstructorAndAutomaticProperties implements InterfaceWithProperties {
+    public static create(readOnlyString: string, readWriteString: string) {
+        return new ClassWithPrivateConstructorAndAutomaticProperties(readOnlyString, readWriteString);
+    }
+
+    private constructor(public readonly readOnlyString: string, public readWriteString: string) {
+    }
+}
+
+export interface IInterfaceWithMethods {
+    readonly value: string;
+
+    doThings(): void;
+}
+
+/**
+ * Even though this interface has only properties, it is disqualified from being a datatype
+ * because it inherits from an interface that is not a datatype.
+ */
+export interface IInterfaceThatShouldNotBeADataType extends IInterfaceWithMethods {
+    readonly otherValue: string;
+}
+
+/**
+ * jsii#284: do not recognize "any" as an optional argument
+ */
+export class DoNotRecognizeAnyAsOptional {
+    public method(_requiredAny: any, _optionalAny?: any, _optionalString?: string) {
+
+    }
+}
+
+/**
+ * jsii#282, aws-cdk#157: null should be treated as "undefined"
+ */
+export class NullShouldBeTreatedAsUndefined {
+    public changeMeToUndefined? = 'hello';
+
+    constructor(_param1: string, optional?: any) {
+        if (optional !== undefined) {
+            throw new Error('Expecting second constructor argument to be "undefined"');
+        }
+    }
+
+    public giveMeUndefined(value?: any) {
+        if (value !== undefined) {
+            throw new Error('I am disappointed. I expected undefined and got: ' + JSON.stringify(value));
+        }
+    }
+
+    public giveMeUndefinedInsideAnObject(input: NullShouldBeTreatedAsUndefinedData) {
+        if (input.thisShouldBeUndefined !== undefined) {
+            throw new Error('I am disappointed. I expected undefined in "thisShouldBeUndefined" and got: ' + JSON.stringify(input));
+        }
+
+        const array = input.arrayWithThreeElementsAndUndefinedAsSecondArgument;
+        if (array.length !== 3) {
+            throw new Error('Expecting "arrayWithThreeElementsAndUndefinedAsSecondArgument" to have three elements: ' + JSON.stringify(input));
+        }
+
+        if (array[1] !== undefined) {
+            throw new Error('Expected arrayWithThreeElementsAndUndefinedAsSecondArgument[1] to be undefined: ' + JSON.stringify(input));
+        }
+    }
+
+    public verifyPropertyIsUndefined() {
+        if (this.changeMeToUndefined !== undefined) {
+            throw new Error('Expecting property "changeMeToUndefined" to be undefined, and it is: ' + this.changeMeToUndefined);
+        }
+    }
+}
+
+export interface NullShouldBeTreatedAsUndefinedData {
+    thisShouldBeUndefined?: any;
+    arrayWithThreeElementsAndUndefinedAsSecondArgument: any[];
+}
+
+export class DontComplainAboutVariadicAfterOptional {
+    public optionalAndVariadic(optional?: string, ...things: string[]) {
+        return `${optional} and ${things.join(',')}`;
+    }
+}
+
+/**
+ * jsii#298: show default values in sphinx documentation, and respect newlines.
+ **/
+export interface LoadBalancedFargateServiceProps {
+    /**
+     * The number of cpu units used by the task.
+     * Valid values, which determines your range of valid values for the memory parameter:
+     * 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB
+     * 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB
+     * 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB
+     * 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments
+     * 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments
+     *
+     * This default is set in the underlying FargateTaskDefinition construct.
+     *
+     * @default 256
+     */
+    cpu?: string;
+
+    /**
+     * The amount (in MiB) of memory used by the task.
+     *
+     * This field is required and you must use one of the following values, which determines your range of valid values
+     * for the cpu parameter:
+     *
+     * 0.5GB, 1GB, 2GB - Available cpu values: 256 (.25 vCPU)
+     *
+     * 1GB, 2GB, 3GB, 4GB - Available cpu values: 512 (.5 vCPU)
+     *
+     * 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB - Available cpu values: 1024 (1 vCPU)
+     *
+     * Between 4GB and 16GB in 1GB increments - Available cpu values: 2048 (2 vCPU)
+     *
+     * Between 8GB and 30GB in 1GB increments - Available cpu values: 4096 (4 vCPU)
+     *
+     * This default is set in the underlying FargateTaskDefinition construct.
+     *
+     * @default 512
+     */
+    memoryMiB?: string;
+
+    /**
+     * The container port of the application load balancer attached to your Fargate service. Corresponds to container port mapping.
+     *
+     * @default 80
+     */
+    containerPort?: number;
+
+    /**
+     * Determines whether the Application Load Balancer will be internet-facing
+     *
+     * @default true
+     */
+    publicLoadBalancer?: boolean;
+
+    /**
+     * Determines whether your Fargate Service will be assigned a public IP address.
+     *
+     * @default false
+     */
+    publicTasks?: boolean;
+}
+
+/**
+ * Helps ensure the JSII kernel & runtime cooperate correctly when an un-exported instance of a class is returned with
+ * a declared type that is an exported interface, and the instance inherits from an exported class.
+ *
+ * @returns an instance of an un-exported class that extends ``ExportedBaseClass``, declared as ``IPrivatelyImplemented``.
+ *
+ * @see https://github.com/awslabs/jsii/issues/320
+ */
+export class ReturnsPrivateImplementationOfInterface {
+    public get privateImplementation(): IPrivatelyImplemented {
+        return new PrivateImplementation();
+    }
+}
+export interface IPrivatelyImplemented {
+    readonly success: boolean;
+}
+export class ExportedBaseClass {
+    constructor(public readonly success: boolean) {}
+}
+class PrivateImplementation extends ExportedBaseClass implements IPrivatelyImplemented {
+    constructor() {
+        super(true);
+    }
+}
+
+/**
+ * Host runtime version should be set via JSII_AGENT
+ */
+export class JsiiAgent {
+    /**
+     * Returns the value of the JSII_AGENT environment variable.
+     */
+    public static get jsiiAgent(): string | undefined {
+        return process.env.JSII_AGENT;
+    }
+};

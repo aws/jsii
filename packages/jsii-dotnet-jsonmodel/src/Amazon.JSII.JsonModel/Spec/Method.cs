@@ -10,7 +10,7 @@ namespace Amazon.JSII.JsonModel.Spec
         (
             bool isInitializer,
             bool isProtected,
-            bool isAbstract,
+            bool? isAbstract = null,
             Parameter[] parameters = null,
             Docs docs = null,
             string name = null,
@@ -39,8 +39,8 @@ namespace Amazon.JSII.JsonModel.Spec
         [JsonProperty("protected")]
         public bool IsProtected { get; }
 
-        [JsonProperty("abstract")]
-        public bool IsAbstract { get; }
+        [JsonProperty("abstract", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? IsAbstract { get; }
 
         [JsonProperty("parameters", NullValueHandling = NullValueHandling.Ignore)]
         public Parameter[] Parameters { get; }

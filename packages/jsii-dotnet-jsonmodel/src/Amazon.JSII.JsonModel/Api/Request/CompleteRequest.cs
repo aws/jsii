@@ -19,7 +19,7 @@ namespace Amazon.JSII.JsonModel.Api.Request
         [JsonProperty("cbid")]
         public string CallbackId { get; }
 
-        [JsonProperty("error", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("err", NullValueHandling = NullValueHandling.Ignore)]
         public string Error { get; }
 
         [JsonProperty("result", NullValueHandling = NullValueHandling.Ignore)]

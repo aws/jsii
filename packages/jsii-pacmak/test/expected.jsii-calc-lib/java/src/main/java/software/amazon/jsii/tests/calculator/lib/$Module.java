@@ -7,7 +7,7 @@ import software.amazon.jsii.JsiiModule;
 
 public final class $Module extends JsiiModule {
     public $Module() {
-        super("@scope/jsii-calc-lib", "0.7.4", $Module.class, "jsii-calc-lib@0.7.4.jsii.tgz");
+        super("@scope/jsii-calc-lib", "0.7.12", $Module.class, "jsii-calc-lib@0.7.12.jsii.tgz");
     }
 
     @Override
@@ -19,6 +19,7 @@ public final class $Module extends JsiiModule {
     protected Class<?> resolveClass(final String fqn) throws ClassNotFoundException {
         switch (fqn) {
             case "@scope/jsii-calc-lib.EnumFromScopedModule": return software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule.class;
+            case "@scope/jsii-calc-lib.IDoublable": return software.amazon.jsii.tests.calculator.lib.IDoublable.class;
             case "@scope/jsii-calc-lib.IFriendly": return software.amazon.jsii.tests.calculator.lib.IFriendly.class;
             case "@scope/jsii-calc-lib.MyFirstStruct": return software.amazon.jsii.tests.calculator.lib.MyFirstStruct.class;
             case "@scope/jsii-calc-lib.Number": return software.amazon.jsii.tests.calculator.lib.Number.class;

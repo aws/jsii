@@ -11,6 +11,7 @@
     "@scope/jsii-calc-base": {
       "dependencies": {
         "@scope/jsii-calc-base-of-base": {
+          "peer": true,
           "targets": {
             "dotnet": {
               "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
@@ -27,9 +28,10 @@
               "npm": "@scope/jsii-calc-base-of-base"
             }
           },
-          "version": "0.7.4"
+          "version": "0.7.12"
         }
       },
+      "peer": true,
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
@@ -46,7 +48,7 @@
           "npm": "@scope/jsii-calc-base"
         }
       },
-      "version": "0.7.4"
+      "version": "0.7.12"
     }
   },
   "description": "A simple calcuator library built on JSII.",
@@ -92,6 +94,25 @@
       ],
       "name": "EnumFromScopedModule"
     },
+    "@scope/jsii-calc-lib.IDoublable": {
+      "assembly": "@scope/jsii-calc-lib",
+      "docs": {
+        "comment": "The general contract for a concrete number."
+      },
+      "fqn": "@scope/jsii-calc-lib.IDoublable",
+      "kind": "interface",
+      "name": "IDoublable",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "name": "doubleValue",
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
+    },
     "@scope/jsii-calc-lib.IFriendly": {
       "assembly": "@scope/jsii-calc-lib",
       "docs": {
@@ -101,6 +122,7 @@
       "kind": "interface",
       "methods": [
         {
+          "abstract": true,
           "docs": {
             "comment": "Say hello!"
           },
@@ -123,6 +145,7 @@
       "name": "MyFirstStruct",
       "properties": [
         {
+          "abstract": true,
           "docs": {
             "comment": "An awesome number value"
           },
@@ -132,6 +155,7 @@
           }
         },
         {
+          "abstract": true,
           "docs": {
             "comment": "A string value"
           },
@@ -141,6 +165,7 @@
           }
         },
         {
+          "abstract": true,
           "name": "firstOptional",
           "type": {
             "collection": {
@@ -180,6 +205,11 @@
           }
         ]
       },
+      "interfaces": [
+        {
+          "fqn": "@scope/jsii-calc-lib.IDoublable"
+        }
+      ],
       "kind": "class",
       "name": "Number",
       "properties": [
@@ -189,6 +219,9 @@
           },
           "immutable": true,
           "name": "doubleValue",
+          "overrides": {
+            "fqn": "@scope/jsii-calc-lib.IDoublable"
+          },
           "type": {
             "primitive": "number"
           }
@@ -250,6 +283,7 @@
       "name": "StructWithOnlyOptionals",
       "properties": [
         {
+          "abstract": true,
           "docs": {
             "comment": "The first optional!"
           },
@@ -260,6 +294,7 @@
           }
         },
         {
+          "abstract": true,
           "name": "optional2",
           "type": {
             "optional": true,
@@ -267,6 +302,7 @@
           }
         },
         {
+          "abstract": true,
           "name": "optional3",
           "type": {
             "optional": true,
@@ -316,6 +352,6 @@
       ]
     }
   },
-  "version": "0.7.4",
-  "fingerprint": "dGLkY7rPKJjBMLQCOCj5AXR3Q1+cZcoiazcIhDUV++8="
+  "version": "0.7.12",
+  "fingerprint": "Om7KPDj+VyUIbkpYUgkK0/hPKtBRmURN6XBA/w70ytw="
 }

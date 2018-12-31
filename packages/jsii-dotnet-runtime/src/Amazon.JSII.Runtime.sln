@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amazon.JSII.Runtime.UnitTests", "Amazon.JSII.Runtime.UnitTests\Amazon.JSII.Runtime.UnitTests.csproj", "{96CC0C0B-1D90-448F-9BFC-07CE93D2CE29}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amazon.JSII.Runtime.IntegrationTests", "..\..\jsii-dotnet-runtime-test\test\Amazon.JSII.Runtime.IntegrationTests\Amazon.JSII.Runtime.IntegrationTests.csproj", "{7BD15A18-BE3A-4729-9B8C-570BF214C4CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +30,10 @@ Global
 		{96CC0C0B-1D90-448F-9BFC-07CE93D2CE29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96CC0C0B-1D90-448F-9BFC-07CE93D2CE29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96CC0C0B-1D90-448F-9BFC-07CE93D2CE29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BD15A18-BE3A-4729-9B8C-570BF214C4CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BD15A18-BE3A-4729-9B8C-570BF214C4CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BD15A18-BE3A-4729-9B8C-570BF214C4CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BD15A18-BE3A-4729-9B8C-570BF214C4CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

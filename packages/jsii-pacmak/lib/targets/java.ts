@@ -1,3 +1,4 @@
+import clone = require('clone');
 import fs = require('fs-extra');
 import spec = require('jsii-spec');
 import path = require('path');
@@ -195,9 +196,14 @@ class JavaGenerator extends Generator {
     }
 
     protected onEndClass(cls: spec.ClassType) {
+        if (cls.abstract) {
+            this.emitInterfaceProxy(cls);
+        }
+
         this.code.closeBlock();
         this.closeFileIfNeeded(cls);
     }
+
     protected onInitializer(cls: spec.ClassType, method: spec.Method) {
         this.addJavaDocs(method);
         this.code.openBlock(`${this.renderAccessLevel(method)} ${cls.name}(${this.renderMethodParameters(method)})`);
@@ -383,7 +389,7 @@ class JavaGenerator extends Generator {
 
                     'properties': { 'project.build.sourceEncoding': 'UTF-8' },
 
-                    'dependencies': { dependency: mavenDependencies() },
+                    'dependencies': { dependency: mavenDependencies() },
 
                     'build': {
                         plugins: {
@@ -611,49 +617,67 @@ class JavaGenerator extends Generator {
      * able to interact with them, so we will create a proxy class which
      * implements this interface and has the same methods.
      */
-    private emitInterfaceProxy(ifc: spec.InterfaceType) {
+    private emitInterfaceProxy(ifc: spec.InterfaceType | spec.ClassType) {
         const name = INTERFACE_PROXY_CLASS_NAME;
 
         this.code.line();
         this.code.line('/**');
-        this.code.line(' * A proxy class which for javascript object literal which adhere to this interface.');
+        this.code.line(' * A proxy class which represents a concrete javascript instance of this type.');
         this.code.line(' */');
-        this.code.openBlock(`final class ${name} extends software.amazon.jsii.JsiiObject implements ${this.toNativeFqn(ifc.fqn)}`);
+
+        const suffix = ifc.kind === spec.TypeKind.Interface
+            ? `extends software.amazon.jsii.JsiiObject implements ${this.toNativeFqn(ifc.fqn)}`
+            : `extends ${this.toNativeFqn(ifc.fqn)}`;
+
+        this.code.openBlock(`final static class ${name} ${suffix}`);
         this.emitJsiiInitializers(name);
 
         // compile a list of all unique methods from the current interface and all
         // base interfaces (and their bases).
         const methods: { [name: string]: spec.Method } = {};
         const properties: { [name: string]: spec.Property } = {};
-        const collectMembers = (currentIfc: spec.InterfaceType) => {
-            for (const prop of currentIfc.properties || []) {
-                properties[prop.name] = prop;
-            }
-            for (const method of currentIfc.methods || []) {
-                methods[method.name!] = method;
-            }
-            for (const base of currentIfc.interfaces || []) {
-                const type = this.findType(base.fqn!);
-                if (type.kind !== spec.TypeKind.Interface) {
-                    throw new Error(`Base interfaces of an interface must be an interface (${base.fqn} is of type ${type.kind})`);
+        const collectAbstractMembers = (currentType: spec.InterfaceType | spec.ClassType) => {
+            for (const prop of currentType.properties || []) {
+                if (prop.abstract) {
+                    properties[prop.name] = prop;
                 }
-                collectMembers(type as spec.InterfaceType);
+            }
+            for (const method of currentType.methods || []) {
+                if (method.abstract) {
+                    methods[method.name!] = method;
+                }
+            }
+
+            const bases = new Array<spec.NamedTypeReference>();
+            bases.push(...currentType.interfaces || []);
+            if (currentType.kind === spec.TypeKind.Class && currentType.base) {
+                bases.push(currentType.base);
+            }
+            for (const base of bases) {
+                const type = this.findType(base.fqn!);
+                if (type.kind !== spec.TypeKind.Interface && type.kind !== spec.TypeKind.Class) {
+                    throw new Error(`Base interfaces of an interface must be an interface or a class (${base.fqn} is of type ${type.kind})`);
+                }
+                collectAbstractMembers(type);
             }
         };
-        collectMembers(ifc);
+        collectAbstractMembers(ifc);
 
         // emit all properties
         for (const propName of Object.keys(properties)) {
-            const prop = properties[propName];
+            const prop = clone(properties[propName]);
+            prop.abstract = false;
             this.emitProperty(ifc, prop, /* includeGetter: */ undefined, /* overrides: */ true);
         }
 
         // emit all the methods
         for (const methodName of Object.keys(methods)) {
-            const method = methods[methodName];
+            const method = clone(methods[methodName]);
+            method.abstract = false;
             this.emitMethod(ifc, method, /* overrides: */ true);
 
             for (const overloadedMethod of this.createOverloadsForOptionals(method)) {
+                overloadedMethod.abstract = false;
                 this.emitMethod(ifc, overloadedMethod, /* overrides: */ true);
             }
         }

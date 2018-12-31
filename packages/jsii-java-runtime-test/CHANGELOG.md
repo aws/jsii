@@ -3,6 +3,93 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.7.12"></a>
+## [0.7.12](https://github.com/awslabs/jsii/compare/v0.7.11...v0.7.12) (2018-12-11)
+
+
+### Bug Fixes
+
+* **kernel:** Correctly return instances of un-exported types ([#321](https://github.com/awslabs/jsii/issues/321)) ([9c59acc](https://github.com/awslabs/jsii/commit/9c59acc))
+
+
+### Features
+
+* JSII_AGENT ([#325](https://github.com/awslabs/jsii/issues/325)) ([cf1d0c3](https://github.com/awslabs/jsii/commit/cf1d0c3)), closes [#324](https://github.com/awslabs/jsii/issues/324)
+* **jsii-reflect:** library for exploring jsii type systems ([#328](https://github.com/awslabs/jsii/issues/328)) ([69cdb32](https://github.com/awslabs/jsii/commit/69cdb32))
+
+
+
+
+<a name="0.7.11"></a>
+## [0.7.11](https://github.com/awslabs/jsii/compare/v0.7.10...v0.7.11) (2018-11-18)
+
+
+### Bug Fixes
+
+* **jsii-dotnet-runtime:** Proxy parameters should not throw exception. ([#317](https://github.com/awslabs/jsii/issues/317)) ([acc8f22](https://github.com/awslabs/jsii/commit/acc8f22)), closes [#316](https://github.com/awslabs/jsii/issues/316)
+
+
+
+
+<a name="0.7.10"></a>
+## [0.7.10](https://github.com/awslabs/jsii/compare/v0.7.9...v0.7.10) (2018-11-12)
+
+
+
+
+**Note:** Version bump only for package jsii-java-runtime-test
+
+<a name="0.7.9"></a>
+## [0.7.9](https://github.com/awslabs/jsii/compare/v0.7.8...v0.7.9) (2018-11-12)
+
+
+### Bug Fixes
+
+* **jsii:** do not mark "any" or "unknown" as optional (unless "?") ([#295](https://github.com/awslabs/jsii/issues/295)) ([cdf5a53](https://github.com/awslabs/jsii/commit/cdf5a53)), closes [#284](https://github.com/awslabs/jsii/issues/284)
+* **jsii-runtime:** treat "null" as "undefined" ([#297](https://github.com/awslabs/jsii/issues/297)) ([43fb16a](https://github.com/awslabs/jsii/commit/43fb16a)), closes [awslabs/aws-cdk#157](https://github.com/awslabs/aws-cdk/issues/157) [#282](https://github.com/awslabs/jsii/issues/282)
+* **runtime/dotnet:** Correct a number of type mappings ([#291](https://github.com/awslabs/jsii/issues/291)) ([0d59dab](https://github.com/awslabs/jsii/commit/0d59dab)), closes [#290](https://github.com/awslabs/jsii/issues/290) [awslabs/aws-cdk#1027](https://github.com/awslabs/aws-cdk/issues/1027)
+
+
+
+
+<a name="0.7.8"></a>
+## [0.7.8](https://github.com/awslabs/jsii/compare/v0.7.7...v0.7.8) (2018-10-23)
+
+
+### Bug Fixes
+
+* match behavioral interface to 'I'-prefix ([#271](https://github.com/awslabs/jsii/issues/271)) ([03103f3](https://github.com/awslabs/jsii/commit/03103f3))
+
+
+
+
+<a name="0.7.7"></a>
+## [0.7.7](https://github.com/awslabs/jsii/compare/v0.7.6...v0.7.7) (2018-10-10)
+
+
+
+
+**Note:** Version bump only for package jsii-java-runtime-test
+
+<a name="0.7.6"></a>
+## [0.7.6](https://github.com/awslabs/jsii/compare/v0.7.5...v0.7.6) (2018-09-20)
+
+
+
+
+**Note:** Version bump only for package jsii-java-runtime-test
+
+<a name="0.7.5"></a>
+## [0.7.5](https://github.com/awslabs/jsii/compare/v0.7.4...v0.7.5) (2018-09-13)
+
+
+### Bug Fixes
+
+* **java:** support abstract return types ([#224](https://github.com/awslabs/jsii/issues/224)) ([3257223](https://github.com/awslabs/jsii/commit/3257223)), closes [#220](https://github.com/awslabs/jsii/issues/220) [#223](https://github.com/awslabs/jsii/issues/223) [awslabs/aws-cdk#680](https://github.com/awslabs/aws-cdk/issues/680)
+
+
+
+
 <a name="0.7.4"></a>
 ## [0.7.4](https://github.com/awslabs/jsii/compare/v0.7.3...v0.7.4) (2018-09-10)
 

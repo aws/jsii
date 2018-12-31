@@ -1,2 +1,12 @@
 lib/version.ts
 lib/targets/dotnet-generator/
+.classpath
+.project
+.settings
+target/
+
+*.js
+*.d.ts
+node_modules/
+.nyc_output/
+coverage/

@@ -26,6 +26,7 @@ export interface ProjectInfo {
     readonly types: string;
 
     readonly dependencies: ReadonlyArray<spec.Assembly>;
+    readonly peerDependencies: ReadonlyArray<spec.Assembly>;
     readonly transitiveDependencies: ReadonlyArray<spec.Assembly>;
     readonly bundleDependencies: { readonly [name: string]: string };
     readonly targets: spec.AssemblyTargets;
@@ -43,11 +44,21 @@ export async function loadProjectInfo(projectRoot: string): Promise<ProjectInfo>
         if (!version) {
             throw new Error(`The "package.json" has "${name}" in "bundleDependencies", but it is not declared in "dependencies"`);
         }
+
+        if (pkg.peerDependencies && name in pkg.peerDependencies) {
+            throw new Error(`The "package.json" has "${name}" in "bundleDependencies", and also in "peerDependencies"`);
+        }
+
         bundleDependencies[name] = version;
     });
 
-    const [dependencies, transitiveDependencies] =
-            await _loadDependencies(pkg.dependencies, projectRoot, new Set<string>(Object.keys(bundleDependencies)));
+    const transitiveAssemblies: { [name: string]: spec.Assembly } = {};
+    const dependencies =
+        await _loadDependencies(pkg.dependencies, projectRoot, transitiveAssemblies, new Set<string>(Object.keys(bundleDependencies)));
+    const peerDependencies =
+        await _loadDependencies(pkg.peerDependencies, projectRoot, transitiveAssemblies);
+
+    const transitiveDependencies = Object.keys(transitiveAssemblies).map(name => transitiveAssemblies[name]);
 
     return {
         projectRoot,
@@ -65,6 +76,7 @@ export async function loadProjectInfo(projectRoot: string): Promise<ProjectInfo>
         types: _required(pkg.types, 'The "package.json" file must specify the "types" attribute'),
 
         dependencies,
+        peerDependencies,
         transitiveDependencies,
         bundleDependencies,
         targets: {
@@ -90,10 +102,10 @@ function _guessRepositoryType(url: string): string {
 
 async function _loadDependencies(dependencies: { [name: string]: string | spec.PackageVersion } | undefined,
                                  searchPath: string,
-                                 bundled: Set<string> = new Set()): Promise<[spec.Assembly[], spec.Assembly[]]> {
-    if (!dependencies) { return [[], []]; }
+                                 transitiveAssemblies: { [name: string]: spec.Assembly },
+                                 bundled = new Set<string>()): Promise<spec.Assembly[]> {
+    if (!dependencies) { return []; }
     const assemblies = new Array<spec.Assembly>();
-    const transitiveAssemblies = new Array<spec.Assembly>();
     for (const name of Object.keys(dependencies)) {
         if (bundled.has(name)) { continue; }
         const dep = dependencies[name];
@@ -109,17 +121,13 @@ async function _loadDependencies(dependencies: { [name: string]: string | spec.
             throw new Error(`Declared dependency on version ${versionString} of ${name}, but version ${assm.version} was found`);
         }
         assemblies.push(assm);
-        transitiveAssemblies.push(assm);
+        transitiveAssemblies[assm.name] = assm;
         const pkgDir = path.dirname(pkg);
         if (assm.dependencies) {
-            const [depAssemblies, depTransitiveAssemblies, ] = await _loadDependencies(assm.dependencies, pkgDir);
-            for (const depAssembly of depAssemblies.concat(depTransitiveAssemblies)) {
-                if (transitiveAssemblies.find(a => a.name === depAssembly.name) != null) { continue; }
-                transitiveAssemblies.push(depAssembly);
-            }
+            await _loadDependencies(assm.dependencies, pkgDir, transitiveAssemblies);
         }
     }
-    return [assemblies, transitiveAssemblies];
+    return assemblies;
 }
 
 function _required<T>(value: T, message: string): T {

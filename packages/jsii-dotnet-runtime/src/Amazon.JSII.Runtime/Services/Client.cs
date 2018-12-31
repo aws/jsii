@@ -1,17 +1,13 @@
-﻿using Amazon.JSII.JsonModel.Api;
+﻿using System;
+using System.IO;
+using Amazon.JSII.JsonModel.Api;
 using Amazon.JSII.JsonModel.Api.Request;
 using Amazon.JSII.JsonModel.Api.Response;
 using Amazon.JSII.JsonModel.FileSystem;
-using Amazon.JSII.JsonModel.Spec;
 using Amazon.JSII.Runtime.Services.Converters;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using Assembly = Amazon.JSII.JsonModel.Spec.Assembly;
 
 namespace Amazon.JSII.Runtime.Services
 {
@@ -171,7 +167,7 @@ namespace Amazon.JSII.Runtime.Services
             _logger.LogDebug($"Loading package {package}@{version}...");
             _loadedPackages.Add(package);
 
-            LoadResponse response = Load(package, version, tarballPath);
+            Load(package, version, tarballPath);
         }
 
         public HelloResponse Hello()

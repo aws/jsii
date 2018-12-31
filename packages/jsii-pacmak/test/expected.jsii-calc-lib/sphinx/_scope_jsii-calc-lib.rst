@@ -1,46 +1,49 @@
 @scope/jsii-calc-lib
 ====================
 
+Reference
+---------
+
 .. tabs::
 
    .. group-tab:: C#
 
-      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/0.7.4>`_
+      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/0.7.12>`_
 
       **csproj**:
 
       .. code-block:: xml
 
-         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" Version="0.7.4" />
+         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" Version="0.7.12" />
 
       **dotnet**:
 
       .. code-block:: console
 
-         dotnet add package Amazon.JSII.Tests.CalculatorPackageId.LibPackageId --version 0.7.4
+         dotnet add package Amazon.JSII.Tests.CalculatorPackageId.LibPackageId --version 0.7.12
 
       **packages.config**:
 
       .. code-block:: xml
 
-         <package id="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" version="0.7.4" />
+         <package id="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" version="0.7.12" />
 
 
    .. group-tab:: Java
 
-      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator-lib/0.7.4/>`_
+      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator-lib/0.7.12/>`_
 
       **Apache Buildr**:
 
       .. code-block:: none
 
-         'software.amazon.jsii.tests:calculator-lib:jar:0.7.4'
+         'software.amazon.jsii.tests:calculator-lib:jar:0.7.12'
 
       **Apache Ivy**:
 
       .. code-block:: xml
 
-         <dependency groupId="software.amazon.jsii.tests" name="calculator-lib" rev="0.7.4"/>
+         <dependency groupId="software.amazon.jsii.tests" name="calculator-lib" rev="0.7.12"/>
 
       **Apache Maven**:
 
@@ -49,77 +52,74 @@
          <dependency>
            <groupId>software.amazon.jsii.tests</groupId>
            <artifactId>calculator-lib</artifactId>
-           <version>0.7.4</version>
+           <version>0.7.12</version>
          </dependency>
 
       **Gradle / Grails**:
 
       .. code-block:: none
 
-         compile 'software.amazon.jsii.tests:calculator-lib:0.7.4'
+         compile 'software.amazon.jsii.tests:calculator-lib:0.7.12'
 
       **Groovy Grape**:
 
       .. code-block:: none
 
          @Grapes(
-         @Grab(group='software.amazon.jsii.tests', module='calculator-lib', version='0.7.4')
+         @Grab(group='software.amazon.jsii.tests', module='calculator-lib', version='0.7.12')
          )
 
 
    .. group-tab:: JavaScript
 
-      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-lib/v/0.7.4>`_
+      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-lib/v/0.7.12>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i @scope/jsii-calc-lib@0.7.4
+         $ npm i @scope/jsii-calc-lib@0.7.12
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "@scope/jsii-calc-lib": "^0.7.4"
+           "@scope/jsii-calc-lib": "^0.7.12"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add @scope/jsii-calc-lib@0.7.4
+         $ yarn add @scope/jsii-calc-lib@0.7.12
 
 
    .. group-tab:: TypeScript
 
-      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-lib/v/0.7.4>`_
+      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-lib/v/0.7.12>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i @scope/jsii-calc-lib@0.7.4
+         $ npm i @scope/jsii-calc-lib@0.7.12
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "@scope/jsii-calc-lib": "^0.7.4"
+           "@scope/jsii-calc-lib": "^0.7.12"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add @scope/jsii-calc-lib@0.7.4
+         $ yarn add @scope/jsii-calc-lib@0.7.12
 
 
-
-Reference
----------
 
 .. py:module:: @scope/jsii-calc-lib
 
@@ -150,12 +150,53 @@ EnumFromScopedModule (enum)
 
 
 
-   Check that enums from @scoped packages can be references. See awslabs/jsii#138
+   Check that enums from @scoped packages can be references.
+
+   See awslabs/jsii#138
+
 
 
    .. py:data:: Value1
 
    .. py:data:: Value2
+
+
+IDoublable (interface)
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: IDoublable
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.lib.IDoublable;
+
+      .. code-tab:: javascript
+
+         // IDoublable is an interface
+
+      .. code-tab:: typescript
+
+         import { IDoublable } from '@scope/jsii-calc-lib';
+
+
+
+   The general contract for a concrete number.
+
+
+
+
+
+   .. py:attribute:: doubleValue
+
+      :type: number *(readonly)*
 
 
 IFriendly (interface)
@@ -185,7 +226,10 @@ IFriendly (interface)
 
 
 
-   Applies to classes that are considered friendly. These classes can be greeted with a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
+   Applies to classes that are considered friendly. These classes can be greeted with
+
+   a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
+
 
 
 
@@ -195,7 +239,9 @@ IFriendly (interface)
       Say hello!
 
 
+
       :rtype: string
+      :abstract: Yes
 
 
 MyFirstStruct (interface)
@@ -230,9 +276,11 @@ MyFirstStruct (interface)
 
 
 
+
    .. py:attribute:: anumber
 
       An awesome number value
+
 
 
       :type: number
@@ -243,12 +291,13 @@ MyFirstStruct (interface)
       A string value
 
 
+
       :type: string
 
 
    .. py:attribute:: firstOptional
 
-      :type: string[] or undefined
+      :type: string[] *(optional)*
 
 
 Number
@@ -281,13 +330,18 @@ Number
    Represents a concrete number.
 
 
-   :extends: :py:class:`~@scope/jsii-calc-lib.Value`
+
+   :extends: :py:class:`~@scope/jsii-calc-lib.Value`\ 
+   :implements: :py:class:`~@scope/jsii-calc-lib.IDoublable`\ 
    :param value: The number.
    :type value: number
 
    .. py:attribute:: doubleValue
 
+      *Implements* :py:meth:`@scope/jsii-calc-lib.IDoublable.doubleValue`
+
       The number multiplied by 2.
+
 
 
       :type: number *(readonly)*
@@ -295,10 +349,32 @@ Number
 
    .. py:attribute:: value
 
+      *Implements* :py:meth:`@scope/jsii-calc-lib.Value.value`
+
       The number.
 
 
+
       :type: number *(readonly)*
+
+
+   .. py:method:: typeName() -> any
+
+      *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
+
+      :return: the name of the class (to verify native type names are created for derived classes).
+      :rtype: any
+
+
+   .. py:method:: toString() -> string
+
+      *Inherited from* :py:meth:`@scope/jsii-calc-lib.Value <@scope/jsii-calc-lib.Value.toString>`
+
+      String representation of the value.
+
+
+
+      :rtype: string
 
 
 Operation
@@ -331,16 +407,39 @@ Operation
    Represents an operation on values.
 
 
-   :extends: :py:class:`~@scope/jsii-calc-lib.Value`
+
+   :extends: :py:class:`~@scope/jsii-calc-lib.Value`\ 
    :abstract: Yes
 
    .. py:method:: toString() -> string
 
+      *Overrides* :py:meth:`@scope/jsii-calc-lib.Value.toString`
+
       String representation of the value.
+
 
 
       :rtype: string
       :abstract: Yes
+
+
+   .. py:method:: typeName() -> any
+
+      *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
+
+      :return: the name of the class (to verify native type names are created for derived classes).
+      :rtype: any
+
+
+   .. py:attribute:: value
+
+      *Inherited from* :py:attr:`@scope/jsii-calc-lib.Value <@scope/jsii-calc-lib.Value.value>`
+
+      The value.
+
+
+
+      :type: number *(readonly)* *(abstract)*
 
 
 StructWithOnlyOptionals (interface)
@@ -375,22 +474,24 @@ StructWithOnlyOptionals (interface)
 
 
 
+
    .. py:attribute:: optional1
 
       The first optional!
 
 
-      :type: string or undefined
+
+      :type: string *(optional)*
 
 
    .. py:attribute:: optional2
 
-      :type: number or undefined
+      :type: number *(optional)*
 
 
    .. py:attribute:: optional3
 
-      :type: boolean or undefined
+      :type: boolean *(optional)*
 
 
 Value
@@ -423,12 +524,14 @@ Value
    Abstract class which represents a numeric value.
 
 
-   :extends: :py:class:`@scope/jsii-calc-base.Base`
+
+   :extends: :py:class:`@scope/jsii-calc-base.Base`\ 
    :abstract: Yes
 
    .. py:method:: toString() -> string
 
       String representation of the value.
+
 
 
       :rtype: string
@@ -439,6 +542,15 @@ Value
       The value.
 
 
+
       :type: number *(readonly)* *(abstract)*
+
+
+   .. py:method:: typeName() -> any
+
+      *Inherited from* :py:meth:`@scope/jsii-calc-base.Base <@scope/jsii-calc-base.Base.typeName>`
+
+      :return: the name of the class (to verify native type names are created for derived classes).
+      :rtype: any
 
 

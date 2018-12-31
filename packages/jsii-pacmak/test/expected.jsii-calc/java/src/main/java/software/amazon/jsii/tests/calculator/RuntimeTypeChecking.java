@@ -11,6 +11,30 @@ public class RuntimeTypeChecking extends software.amazon.jsii.JsiiObject {
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
+    public void methodWithDefaultedArguments(@javax.annotation.Nullable final java.lang.Number arg1, @javax.annotation.Nullable final java.lang.String arg2, @javax.annotation.Nullable final java.time.Instant arg3) {
+        this.jsiiCall("methodWithDefaultedArguments", Void.class, java.util.stream.Stream.concat(java.util.stream.Stream.concat(java.util.stream.Stream.of(arg1), java.util.stream.Stream.of(arg2)), java.util.stream.Stream.of(arg3)).toArray());
+    }
+
+    public void methodWithDefaultedArguments(@javax.annotation.Nullable final java.lang.Number arg1, @javax.annotation.Nullable final java.lang.String arg2) {
+        this.jsiiCall("methodWithDefaultedArguments", Void.class, java.util.stream.Stream.concat(java.util.stream.Stream.of(arg1), java.util.stream.Stream.of(arg2)).toArray());
+    }
+
+    public void methodWithDefaultedArguments(@javax.annotation.Nullable final java.lang.Number arg1) {
+        this.jsiiCall("methodWithDefaultedArguments", Void.class, java.util.stream.Stream.of(arg1).toArray());
+    }
+
+    public void methodWithDefaultedArguments() {
+        this.jsiiCall("methodWithDefaultedArguments", Void.class);
+    }
+
+    public void methodWithOptionalAnyArgument(@javax.annotation.Nullable final java.lang.Object arg) {
+        this.jsiiCall("methodWithOptionalAnyArgument", Void.class, java.util.stream.Stream.of(arg).toArray());
+    }
+
+    public void methodWithOptionalAnyArgument() {
+        this.jsiiCall("methodWithOptionalAnyArgument", Void.class);
+    }
+
     /**
      * Used to verify verification of number of method arguments.
      */

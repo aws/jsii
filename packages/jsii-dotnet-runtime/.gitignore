@@ -11,3 +11,15 @@ src/NuGet.Metadata.props
 
 # consumed by generate.sh
 !*.t.js
+
+*.js
+*.d.ts
+node_modules/
+.nyc_output/
+coverage/
+
+
+*.nupkg
+bin/
+cli/
+obj/

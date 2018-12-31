@@ -1,10 +1,11 @@
-﻿using Amazon.JSII.JsonModel.Spec;
-using Amazon.JSII.Runtime.Deputy;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Amazon.JSII.JsonModel.Spec;
+using Amazon.JSII.Runtime.Deputy;
+using Newtonsoft.Json.Linq;
+using Type = System.Type;
 
 namespace Amazon.JSII.Runtime.Services.Converters
 {
@@ -33,18 +34,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 return true;
             }
 
-            System.Type type = value.GetType();
-
-            if (type.GetCustomAttribute<JsiiInterfaceProxyAttribute>() != null)
-            {
-                throw new ArgumentException
-                (
-                    "Interface proxies are one-way (jsii to framework). " +
-                    "They may not be converted back to jsii. " +
-                    "Instead, use a concrete type that implements the interface.",
-                    nameof(value)
-                );
-            }
+            Type type = value.GetType();
 
             if (value is DeputyBase deputyValue)
             {
@@ -56,7 +46,8 @@ namespace Amazon.JSII.Runtime.Services.Converters
             return false;
         }
 
-        protected override bool TryConvertEnum(object value, bool isOptional, string fullyQualifiedName, out object result)
+        protected override bool TryConvertEnum(object value, bool isOptional, string fullyQualifiedName,
+            out object result)
         {
             if (value == null)
             {
@@ -64,7 +55,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 return isOptional;
             }
 
-            System.Type valueType = value.GetType();
+            Type valueType = value.GetType();
             JsiiEnumAttribute attribute = value.GetType().GetCustomAttribute<JsiiEnumAttribute>();
 
             if (attribute == null || attribute.FullyQualifiedName != fullyQualifiedName)
@@ -121,7 +112,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
             if (value.GetType().IsAssignableFrom(typeof(DateTime)))
             {
-                result = new DateValue((DateTime)value);
+                result = new DateValue((DateTime) value);
                 return true;
             }
 
@@ -175,7 +166,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
             if (value.GetType().IsAssignableFrom(typeof(string)))
             {
-                result = (string)value;
+                result = (string) value;
                 return true;
             }
 
@@ -183,7 +174,8 @@ namespace Amazon.JSII.Runtime.Services.Converters
             return false;
         }
 
-        protected override bool TryConvertArray(IReferenceMap referenceMap, TypeReference elementType, object value, out object result)
+        protected override bool TryConvertArray(IReferenceMap referenceMap, TypeReference elementType, object value,
+            out object result)
         {
             if (value == null)
             {
@@ -197,7 +189,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 return false;
             }
 
-            Array array = (Array)value;
+            Array array = (Array) value;
 
             JArray resultArray = new JArray();
             foreach (object element in array)
@@ -220,7 +212,8 @@ namespace Amazon.JSII.Runtime.Services.Converters
             return true;
         }
 
-        protected override bool TryConvertMap(IReferenceMap referenceMap, TypeReference elementType, object value, out object result)
+        protected override bool TryConvertMap(IReferenceMap referenceMap, TypeReference elementType, object value,
+            out object result)
         {
             if (value == null)
             {
@@ -228,27 +221,34 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 return true;
             }
 
-            System.Type valueType = value.GetType();
-            System.Type dictionaryInterface = valueType.GetInterfaces()
+            Type valueType = value.GetType();
+            Type dictionaryInterface = valueType.GetInterfaces()
                 .FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IDictionary<,>));
 
-            if (dictionaryInterface == null || !dictionaryInterface.GetGenericArguments()[0].IsAssignableFrom(typeof(string)))
+            if (dictionaryInterface == null ||
+                !dictionaryInterface.GetGenericArguments()[0].IsAssignableFrom(typeof(string)))
             {
                 result = null;
                 return false;
             }
 
-            IEnumerable<string> keys = (IEnumerable<string>)valueType.GetProperty("Keys").GetValue(value);
+            IEnumerable<string> keys = (IEnumerable<string>) valueType.GetProperty("Keys").GetValue(value);
             PropertyInfo indexer = ReflectionUtils.GetIndexer(valueType);
 
             JObject resultObject = new JObject();
             foreach (string key in keys)
             {
-                object element = indexer.GetValue(value, new object[] { key });
+                object element = indexer.GetValue(value, new object[] {key});
                 if (!TryConvert(elementType, referenceMap, element, out object convertedElement))
                 {
                     result = null;
                     return false;
+                }
+
+                if (convertedElement != null && !(convertedElement is String) &&
+                    !convertedElement.GetType().IsPrimitive)
+                {
+                    convertedElement = JObject.FromObject(convertedElement);
                 }
 
                 resultObject.Add(new JProperty(key, convertedElement));
@@ -265,7 +265,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             return InferType(referenceMap, value.GetType());
         }
 
-        TypeReference InferType(IReferenceMap referenceMap, System.Type type)
+        TypeReference InferType(IReferenceMap referenceMap, Type type)
         {
             type = type ?? throw new ArgumentNullException(nameof(type));
 
@@ -318,7 +318,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 );
             }
 
-            System.Type dictionaryInterface = type.GetInterfaces()
+            Type dictionaryInterface = type.GetInterfaces()
                 .FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IDictionary<,>));
             if (dictionaryInterface != null)
             {
@@ -327,7 +327,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
                     throw new ArgumentException("All dictionaries must have string keys", nameof(type));
                 }
 
-                System.Type elementType = dictionaryInterface.GetGenericArguments()[1];
+                Type elementType = dictionaryInterface.GetGenericArguments()[1];
                 return new TypeReference
                 (
                     collection: new CollectionTypeReference
