@@ -197,8 +197,13 @@ export class Compiler implements Emitter {
      *
      */
     private async findProjectReferences(): Promise<string[]> {
+        const packageJsonPath = path.join(this.options.projectInfo.projectRoot, 'package.json');
+
+        // If there's no package file, don't do anything
+        if (!await fs.pathExists(packageJsonPath)) { return []; }
+        const pkg = require(packageJsonPath);
+
         const ret = new Array<string>();
-        const pkg = require(path.join(this.options.projectInfo.projectRoot, 'package.json'));
         for (const dependencyMap of [pkg.dependencies, pkg.devDependencies]) {
             if (dependencyMap === undefined) { continue; }
 
