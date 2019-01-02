@@ -93,7 +93,8 @@ export class Compiler implements Emitter {
         const prog = ts.createProgram({
             rootNames: this.rootFiles.concat(_pathOfLibraries(this.compilerHost)),
             options: COMPILER_OPTIONS,
-            projectReferences: this.typescriptConfig.references,
+            // Make the references absolute for the compiler
+            projectReferences: this.typescriptConfig.references && this.typescriptConfig.references.map(ref => ({ path: path.resolve(ref.path) })),
             host: this.compilerHost
         });
         return await this._consumeProgram(prog, this.compilerHost.getDefaultLibLocation());
@@ -142,6 +143,8 @@ export class Compiler implements Emitter {
 
     /**
      * Build the TypeScript config object
+     *
+     * This is the object that will be written to disk.
      */
     private async buildTypeScriptConfig() {
         const references = await this.findProjectReferences();
@@ -158,8 +161,10 @@ export class Compiler implements Emitter {
             },
             include: ["**/*.ts"],
             exclude: ["node_modules"],
-            // Change the references a little. We write 'originalpath' to the file under 'path', which is
-            // the same as what the TypeScript compiler does.
+            // Change the references a little. We write 'originalpath' to the
+            // file under the 'path' key, which is the same as what the
+            // TypeScript compiler does. Make it relative so that the files are
+            // movable. Not strictly required but looks better.
             references: references.map(p => ({ path: p })),
         } as any;
     }
@@ -194,7 +199,6 @@ export class Compiler implements Emitter {
      *
      * Unfortunately it doesn't seem like the TypeScript compiler itself
      * resolves transitive references in a way that
-     *
      */
     private async findProjectReferences(): Promise<string[]> {
         const packageJsonPath = path.join(this.options.projectInfo.projectRoot, 'package.json');
@@ -216,12 +220,18 @@ export class Compiler implements Emitter {
                 tsconfigFile = await fs.realpath(tsconfigFile);
 
                 const tsconfig = require(tsconfigFile);
-                if (tsconfig.compilerOptions && tsconfig.compilerOptions.composite) {
-                    ret.push(path.dirname(tsconfigFile));
-                }
 
-                for (const reference of tsconfig.references || []) {
-                    ret.push(await fs.realpath(reference.path));
+                // Add references to any TypeScript package we find that is 'composite' enabled.
+                // Make it relative.
+                if (tsconfig.compilerOptions && tsconfig.compilerOptions.composite) {
+                    ret.push(path.relative(this.options.projectInfo.projectRoot, path.dirname(tsconfigFile)));
+                } else {
+                    // Not a composite package--if this package is in a node_modules directory, that is most
+                    // likely correct, otherwise it is most likely an error (heuristic here, I don't know how to
+                    // properly check this).
+                    if (tsconfigFile.indexOf('node_modules') > -1) {
+                        LOG.warn('%s: not a composite TypeScript package, but it probably should be', path.dirname(tsconfigFile));
+                    }
                 }
             }
         }
