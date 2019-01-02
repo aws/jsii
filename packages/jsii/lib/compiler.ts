@@ -53,7 +53,7 @@ export interface TypescriptConfig {
 export class Compiler implements Emitter {
     private readonly compilerHost: ts.CompilerHost;
     private typescriptConfig: TypescriptConfig;
-    private readonly rootFiles: string[] = [];
+    private rootFiles: string[] = [];
     private readonly configPath: string;
 
     public constructor(private readonly options: CompilerOptions) {
@@ -70,7 +70,7 @@ export class Compiler implements Emitter {
     public async emit(...files: string[]): Promise<EmitResult | never> {
         await this.buildTypeScriptConfig();
         await this.writeTypeScriptConfig();
-        await this.determineSources(files);
+        this.rootFiles = await this.determineSources(files);
 
         if (this.options.watch) {
             if (files.length > 0) {
@@ -160,7 +160,7 @@ export class Compiler implements Emitter {
                 jsx: COMPILER_OPTIONS.jsx && Case.snake(ts.JsxEmit[COMPILER_OPTIONS.jsx]),
             },
             include: ["**/*.ts"],
-            exclude: ["node_modules"],
+            exclude: ["node_modules"].concat(this.options.projectInfo.excludeTypescript),
             // Change the references a little. We write 'originalpath' to the
             // file under the 'path' key, which is the same as what the
             // TypeScript compiler does. Make it relative so that the files are
@@ -197,44 +197,41 @@ export class Compiler implements Emitter {
      * Enumerate all dependencies, if they have a tsconfig.json file with
      * "composite: true" we consider them project references.
      *
-     * Unfortunately it doesn't seem like the TypeScript compiler itself
-     * resolves transitive references in a way that
+     * (Note: TypeScript seems to only correctly find transitive project references
+     * if there's an "index" tsconfig.json of all projects somewhere up the directory
+     * tree)
      */
     private async findProjectReferences(): Promise<string[]> {
-        const packageJsonPath = path.join(this.options.projectInfo.projectRoot, 'package.json');
-
-        // If there's no package file, don't do anything
-        if (!await fs.pathExists(packageJsonPath)) { return []; }
-        const pkg = require(packageJsonPath);
+        const pkg = this.options.projectInfo.packageJson;
 
         const ret = new Array<string>();
-        for (const dependencyMap of [pkg.dependencies, pkg.devDependencies]) {
+
+        const dependencyNames = new Set();
+        for (const dependencyMap of [pkg.dependencies, pkg.devDependencies, pkg.peerDependencies]) {
             if (dependencyMap === undefined) { continue; }
+            Object.keys(dependencyMap).forEach(dependencyNames.add.bind(dependencyNames));
+        }
 
-            for (const depName of Object.keys(dependencyMap)) {
-                let tsconfigFile = path.join('node_modules', depName, 'tsconfig.json');
-                if (!await fs.pathExists(tsconfigFile)) { continue; }
+        for (const depName of dependencyNames) {
+            const tsconfigFile = await this.findMonorepoPeerTsconfig(depName);
+            if (!tsconfigFile) { continue; }
 
-                // Resolve symlinks, otherwise the TypeScript compiler will not
-                // find the project the files belong to.
-                tsconfigFile = await fs.realpath(tsconfigFile);
+            const tsconfig = require(tsconfigFile);
 
-                const tsconfig = require(tsconfigFile);
-
-                // Add references to any TypeScript package we find that is 'composite' enabled.
-                // Make it relative.
-                if (tsconfig.compilerOptions && tsconfig.compilerOptions.composite) {
-                    ret.push(path.relative(this.options.projectInfo.projectRoot, path.dirname(tsconfigFile)));
-                } else {
-                    // Not a composite package--if this package is in a node_modules directory, that is most
-                    // likely correct, otherwise it is most likely an error (heuristic here, I don't know how to
-                    // properly check this).
-                    if (tsconfigFile.indexOf('node_modules') > -1) {
-                        LOG.warn('%s: not a composite TypeScript package, but it probably should be', path.dirname(tsconfigFile));
-                    }
+            // Add references to any TypeScript package we find that is 'composite' enabled.
+            // Make it relative.
+            if (tsconfig.compilerOptions && tsconfig.compilerOptions.composite) {
+                ret.push(path.relative(this.options.projectInfo.projectRoot, path.dirname(tsconfigFile)));
+            } else {
+                // Not a composite package--if this package is in a node_modules directory, that is most
+                // likely correct, otherwise it is most likely an error (heuristic here, I don't know how to
+                // properly check this).
+                if (tsconfigFile.indexOf('node_modules') > -1) {
+                    LOG.warn('%s: not a composite TypeScript package, but it probably should be', path.dirname(tsconfigFile));
                 }
             }
         }
+
         return ret;
     }
 
@@ -245,16 +242,54 @@ export class Compiler implements Emitter {
      *
      * This makes it so that running 'tsc' and running 'jsii' has the same behavior.
      */
-    private async determineSources(files: string[]): Promise<void> {
-        this.rootFiles.splice(0);
+    private async determineSources(files: string[]): Promise<string[]> {
+        const ret = new Array<string>();
 
         if (files.length > 0) {
-            this.rootFiles.push(...files);
+            ret.push(...files);
         } else {
             const parseConfigHost = (ts as any /* private API */).parseConfigHostFromCompilerHost(this.compilerHost);
             const parsed = ts.parseJsonConfigFileContent(this.typescriptConfig, parseConfigHost, this.options.projectInfo.projectRoot);
-            this.rootFiles.push(...parsed.fileNames);
+            ret.push(...parsed.fileNames);
         }
+
+        return ret;
+    }
+
+    /**
+     * Resolve the given dependency name from the current package, and find the associated tsconfig.json location
+     *
+     * Because we have the following potential directory layout:
+     *
+     *   package/node_modules/some_dependency
+     *   package/tsconfig.json
+     *
+     * We resolve symlinks and only find a "TypeScript" dependency if doesn't have 'node_modules' in
+     * the path after resolving symlinks (i.e., if it's a peer package in the same monorepo).
+     *
+     * Returns undefined if no such tsconfig could be found.
+     */
+    private async findMonorepoPeerTsconfig(depName: string): Promise<string | undefined> {
+        const paths = nodeJsCompatibleSearchPaths(this.options.projectInfo.projectRoot);
+
+        let dep;
+        try {
+            dep = require.resolve(depName, { paths });
+        } catch (e) {
+            // We failed to 'require' the given dependency. This might be valid if the package
+            // does not have a 'main' entry in their package.json (such as 'cdk-integ-tools').
+            //
+            // In that case, the package cannot be required by the target package anyway so
+            // we might as well treat it as a non-TypeScript dependency.
+            LOG.debug(`Cannot require() dependency '${depName}' (this is okay if this is a tool package)`);
+            return undefined;
+        }
+
+        // Resolve symlinks, to check if this is a monorepo peer
+        const dependencyRealPath = await fs.realpath(dep);
+        if (dependencyRealPath.split(path.sep).includes('node_modules')) { return undefined; }
+
+        return await findUpwards(path.dirname(dependencyRealPath), 'tsconfig.json');
     }
 }
 
@@ -265,4 +300,34 @@ function _pathOfLibraries(host: ts.CompilerHost | ts.WatchCompilerHost<any>): st
         throw new Error(`Compiler host doesn't have a default library directory available for ${COMPILER_OPTIONS.lib.join(', ')}`);
     }
     return COMPILER_OPTIONS.lib.map(name => path.join(lib, name));
+}
+
+async function findUpwards(startingDirectory: string, filename: string): Promise<string | undefined> {
+  let dir = startingDirectory;
+
+  while (!await fs.pathExists(path.join(dir, filename))) {
+        const newdir = path.dirname(dir);
+        if (newdir === dir) {
+            throw new Error(`Did not find ${filename} upwards of ${startingDirectory}`);
+        }
+        dir = newdir;
+  }
+
+  return path.join(dir, filename);
+}
+
+/**
+ * Return all possible 'node_modules' directories from a given starting directory.
+ */
+function nodeJsCompatibleSearchPaths(dir: string): string[] {
+    const ret = new Array<string>();
+
+    let lastDir;
+    do {
+        ret.push(path.join(dir, 'node_modules'));
+        lastDir = dir;
+        dir = path.dirname(dir);
+    } while (dir !== lastDir); // path.dirname('/') === '/', also works on Windows
+
+    return ret;
 }

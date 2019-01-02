@@ -12,6 +12,7 @@ const LOG = log4js.getLogger('jsii/package-info');
 
 export interface ProjectInfo {
     readonly projectRoot: string;
+    readonly packageJson: any;
 
     readonly name: string;
     readonly version: string;
@@ -33,6 +34,7 @@ export interface ProjectInfo {
     readonly description?: string;
     readonly homepage?: string;
     readonly contributors?: ReadonlyArray<spec.Person>;
+    readonly excludeTypescript: string[];
 }
 
 export async function loadProjectInfo(projectRoot: string): Promise<ProjectInfo> {
@@ -62,6 +64,7 @@ export async function loadProjectInfo(projectRoot: string): Promise<ProjectInfo>
 
     return {
         projectRoot,
+        packageJson: pkg,
 
         name: _required(pkg.name, 'The "package.json" file must specify the "name" attribute'),
         version: _required(pkg.version, 'The "package.json" file must specify the "version" attribute'),
@@ -87,7 +90,9 @@ export async function loadProjectInfo(projectRoot: string): Promise<ProjectInfo>
         description: pkg.description,
         homepage: pkg.homepage,
         contributors: pkg.contributors
-            && (pkg.contributors as any[]).map((contrib, index) => _toPerson(contrib, `contributors[${index}]`, 'contributor'))
+            && (pkg.contributors as any[]).map((contrib, index) => _toPerson(contrib, `contributors[${index}]`, 'contributor')),
+
+        excludeTypescript: (pkg.jsii && pkg.jsii.excludeTypescript) || [],
     };
 }
 

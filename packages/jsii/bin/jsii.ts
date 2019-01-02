@@ -26,6 +26,7 @@ import { VERSION } from '../lib/version';
         projectInfo: await loadProjectInfo(projectRoot),
         watch: argv.watch
     });
+
     return { projectRoot, emitResult: await compiler.emit() };
 })().then(({ projectRoot, emitResult }) => {
     for (const diagnostic of emitResult.diagnostics) {

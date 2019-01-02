@@ -62,6 +62,7 @@ function _messageText(diagnostic: ts.Diagnostic | ts.DiagnosticMessageChain): st
 function _makeProjectInfo(types: string): ProjectInfo {
     return {
         projectRoot: SOURCE_DIR,
+        packageJson: undefined,
         types,
         main: types.replace(/(?:\.d)?\.ts(x?)/, '.js$1'),
         name: 'jsii', // That's what package.json would tell if we look up...
@@ -73,6 +74,7 @@ function _makeProjectInfo(types: string): ProjectInfo {
         peerDependencies: [],
         transitiveDependencies: [],
         bundleDependencies: {},
-        targets: {}
+        targets: {},
+        excludeTypescript: []
     };
 }
