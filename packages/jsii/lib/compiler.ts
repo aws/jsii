@@ -308,7 +308,7 @@ async function findUpwards(startingDirectory: string, filename: string): Promise
   while (!await fs.pathExists(path.join(dir, filename))) {
         const newdir = path.dirname(dir);
         if (newdir === dir) {
-            throw new Error(`Did not find ${filename} upwards of ${startingDirectory}`);
+            return undefined;
         }
         dir = newdir;
   }
