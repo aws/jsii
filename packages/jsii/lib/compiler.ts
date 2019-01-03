@@ -56,11 +56,15 @@ export class Compiler implements Emitter {
     private typescriptConfig: TypescriptConfig;
     private rootFiles: string[] = [];
     private readonly configPath: string;
+    private projectReferences: boolean;
 
     public constructor(private readonly options: CompilerOptions) {
         this.compilerHost = ts.createCompilerHost(COMPILER_OPTIONS);
         this.compilerHost.getCurrentDirectory = () => this.options.projectInfo.projectRoot;
         this.configPath = path.join(this.options.projectInfo.projectRoot, 'tsconfig.json');
+
+        this.projectReferences = options.projectReferences !== undefined ? options.projectReferences :
+                options.projectInfo.projectReferences !== undefined ? options.projectInfo.projectReferences : false;
     }
 
     /**
@@ -150,7 +154,7 @@ export class Compiler implements Emitter {
     private async buildTypeScriptConfig() {
         let references: string[] | undefined;
         let composite: boolean | undefined;
-        if (this.options.projectReferences === true) {
+        if (this.projectReferences) {
             references = await this.findProjectReferences();
             composite = true;
         }
