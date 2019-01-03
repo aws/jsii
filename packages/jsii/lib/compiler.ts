@@ -13,7 +13,6 @@ const COMPILER_OPTIONS: ts.CompilerOptions = {
     alwaysStrict: true,
     charset: 'utf8',
     declaration: true,
-    composite: true,
     experimentalDecorators: true,
     inlineSourceMap: true,
     inlineSources: true,
@@ -41,6 +40,8 @@ export interface CompilerOptions {
     projectInfo: ProjectInfo;
     /** Whether the compiler should watch for changes or just compile once */
     watch: boolean;
+    /** Whether to detect and generate TypeScript project references */
+    projectReferences?: boolean;
 }
 
 export interface TypescriptConfig {
@@ -147,11 +148,17 @@ export class Compiler implements Emitter {
      * This is the object that will be written to disk.
      */
     private async buildTypeScriptConfig() {
-        const references = await this.findProjectReferences();
+        let references: string[] | undefined;
+        let composite: boolean | undefined;
+        if (this.options.projectReferences === true) {
+            references = await this.findProjectReferences();
+            composite = true;
+        }
 
         this.typescriptConfig = {
             compilerOptions: {
                 ...COMPILER_OPTIONS,
+                composite,
                 // Need to stip the `lib.` prefix and `.d.ts` suffix
                 lib: COMPILER_OPTIONS.lib && COMPILER_OPTIONS.lib.map(name => name.slice(4, name.length - 5)),
                 // Those int-enums, we need to output the names instead
@@ -165,7 +172,7 @@ export class Compiler implements Emitter {
             // file under the 'path' key, which is the same as what the
             // TypeScript compiler does. Make it relative so that the files are
             // movable. Not strictly required but looks better.
-            references: references.map(p => ({ path: p })),
+            references: references && references.map(p => ({ path: p })),
         } as any;
     }
 

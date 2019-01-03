@@ -35,6 +35,7 @@ export interface ProjectInfo {
     readonly homepage?: string;
     readonly contributors?: ReadonlyArray<spec.Person>;
     readonly excludeTypescript: string[];
+    readonly projectReferences?: boolean;
 }
 
 export async function loadProjectInfo(projectRoot: string): Promise<ProjectInfo> {
@@ -93,6 +94,7 @@ export async function loadProjectInfo(projectRoot: string): Promise<ProjectInfo>
             && (pkg.contributors as any[]).map((contrib, index) => _toPerson(contrib, `contributors[${index}]`, 'contributor')),
 
         excludeTypescript: (pkg.jsii && pkg.jsii.excludeTypescript) || [],
+        projectReferences: pkg.jsii && pkg.jsii.projectReferences
     };
 }
 
