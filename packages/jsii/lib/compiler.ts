@@ -281,14 +281,9 @@ export class Compiler implements Emitter {
 
         let dep;
         try {
-            dep = require.resolve(depName, { paths });
+            dep = require.resolve(`${depName}/tsconfig.json`, { paths });
         } catch (e) {
-            // We failed to 'require' the given dependency. This might be valid if the package
-            // does not have a 'main' entry in their package.json (such as 'cdk-integ-tools').
-            //
-            // In that case, the package cannot be required by the target package anyway so
-            // we might as well treat it as a non-TypeScript dependency.
-            LOG.debug(`Cannot require() dependency '${depName}' (this is okay if this is a tool package)`);
+            // Package does not have a tsconfig.json
             return undefined;
         }
 
@@ -296,7 +291,7 @@ export class Compiler implements Emitter {
         const dependencyRealPath = await fs.realpath(dep);
         if (dependencyRealPath.split(path.sep).includes('node_modules')) { return undefined; }
 
-        return await findUpwards(path.dirname(dependencyRealPath), 'tsconfig.json');
+        return dependencyRealPath;
     }
 }
 
@@ -307,20 +302,6 @@ function _pathOfLibraries(host: ts.CompilerHost | ts.WatchCompilerHost<any>): st
         throw new Error(`Compiler host doesn't have a default library directory available for ${COMPILER_OPTIONS.lib.join(', ')}`);
     }
     return COMPILER_OPTIONS.lib.map(name => path.join(lib, name));
-}
-
-async function findUpwards(startingDirectory: string, filename: string): Promise<string | undefined> {
-  let dir = startingDirectory;
-
-  while (!await fs.pathExists(path.join(dir, filename))) {
-        const newdir = path.dirname(dir);
-        if (newdir === dir) {
-            return undefined;
-        }
-        dir = newdir;
-  }
-
-  return path.join(dir, filename);
 }
 
 /**
