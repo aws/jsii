@@ -12,6 +12,7 @@ const LOG = log4js.getLogger('jsii/package-info');
 
 export interface ProjectInfo {
     readonly projectRoot: string;
+    readonly packageJson: any;
 
     readonly name: string;
     readonly version: string;
@@ -33,6 +34,8 @@ export interface ProjectInfo {
     readonly description?: string;
     readonly homepage?: string;
     readonly contributors?: ReadonlyArray<spec.Person>;
+    readonly excludeTypescript: string[];
+    readonly projectReferences?: boolean;
 }
 
 export async function loadProjectInfo(projectRoot: string): Promise<ProjectInfo> {
@@ -62,6 +65,7 @@ export async function loadProjectInfo(projectRoot: string): Promise<ProjectInfo>
 
     return {
         projectRoot,
+        packageJson: pkg,
 
         name: _required(pkg.name, 'The "package.json" file must specify the "name" attribute'),
         version: _required(pkg.version, 'The "package.json" file must specify the "version" attribute'),
@@ -87,7 +91,10 @@ export async function loadProjectInfo(projectRoot: string): Promise<ProjectInfo>
         description: pkg.description,
         homepage: pkg.homepage,
         contributors: pkg.contributors
-            && (pkg.contributors as any[]).map((contrib, index) => _toPerson(contrib, `contributors[${index}]`, 'contributor'))
+            && (pkg.contributors as any[]).map((contrib, index) => _toPerson(contrib, `contributors[${index}]`, 'contributor')),
+
+        excludeTypescript: (pkg.jsii && pkg.jsii.excludeTypescript) || [],
+        projectReferences: pkg.jsii && pkg.jsii.projectReferences
     };
 }
 
@@ -116,7 +123,7 @@ async function _loadDependencies(dependencies: { [name: string]: string | spec.
         }
         const pkg = _tryResolve(path.join(name, '.jsii'), searchPath);
         LOG.debug(`Resolved dependency ${name} to ${pkg}`);
-        const assm = spec.validateAssembly(await fs.readJson(pkg));
+        const assm = await loadAndValidateAssembly(pkg);
         if (!version.intersects(new semver.Range(assm.version))) {
             throw new Error(`Declared dependency on version ${versionString} of ${name}, but version ${assm.version} was found`);
         }
@@ -128,6 +135,18 @@ async function _loadDependencies(dependencies: { [name: string]: string | spec.
         }
     }
     return assemblies;
+}
+
+const ASSEMBLY_CACHE = new Map<string, spec.Assembly>();
+
+/**
+ * Load a JSII filename and validate it; cached to avoid redundant loads of the same JSII assembly
+ */
+async function loadAndValidateAssembly(jsiiFileName: string): Promise<spec.Assembly> {
+    if (!ASSEMBLY_CACHE.has(jsiiFileName)) {
+        ASSEMBLY_CACHE.set(jsiiFileName, spec.validateAssembly(await fs.readJson(jsiiFileName)));
+    }
+    return ASSEMBLY_CACHE.get(jsiiFileName)!;
 }
 
 function _required<T>(value: T, message: string): T {
