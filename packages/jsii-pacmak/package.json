@@ -1,6 +1,6 @@
 {
   "name": "jsii-pacmak",
-  "version": "0.7.12",
+  "version": "0.7.13",
   "description": "A code generation framework for jsii backend languages",
   "bin": {
     "jsii-pacmak": "bin/jsii-pacmak"
@@ -21,27 +21,27 @@
   ],
   "dependencies": {
     "clone": "^2.1.1",
-    "codemaker": "^0.7.12",
+    "codemaker": "^0.7.13",
     "fs-extra": "^7.0.0",
-    "jsii-spec": "^0.7.12",
+    "jsii-spec": "^0.7.13",
     "spdx-license-list": "^4.1.0",
     "xmlbuilder": "^10.1.1",
     "yargs": "^12.0.2"
   },
   "devDependencies": {
-    "@scope/jsii-calc-lib": "^0.7.12",
+    "@scope/jsii-calc-lib": "^0.7.13",
     "@types/clone": "^0.1.30",
     "@types/fs-extra": "^5.0.4",
     "@types/node": "^8.10.37",
     "@types/nodeunit": "0.0.30",
     "@types/xmlbuilder": "^0.0.32",
     "@types/yargs": "^11.1.2",
-    "jsii-build-tools": "^0.7.12",
-    "jsii-calc": "^0.7.12",
-    "jsii-dotnet-generator": "^0.7.12",
-    "jsii-dotnet-jsonmodel": "^0.7.12",
-    "jsii-dotnet-runtime": "^0.7.12",
-    "jsii-java-runtime": "^0.7.12",
+    "jsii-build-tools": "^0.7.13",
+    "jsii-calc": "^0.7.13",
+    "jsii-dotnet-generator": "^0.7.13",
+    "jsii-dotnet-jsonmodel": "^0.7.13",
+    "jsii-dotnet-runtime": "^0.7.13",
+    "jsii-java-runtime": "^0.7.13",
     "nodeunit": "^0.11.3",
     "tslint": "*",
     "typescript": "^3.1.6"
