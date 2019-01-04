@@ -48,7 +48,7 @@ namespace Amazon.JSII.Runtime.Services
         {
             while (true)
             {
-                Console.WriteLine(_nodeProcess.StandardError.ReadLine());
+                Console.Error.WriteLine(_nodeProcess.StandardError.ReadLine());
             }
         }
     }
