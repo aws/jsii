@@ -12,6 +12,7 @@ Calculator
 ClassWithMutableObjectLiteralProperty
 ClassWithPrivateConstructorAndAutomaticProperties
 CompositeOperation
+Constructors
 DefaultedConstructorArgument
 Derived
 DoNotOverridePrivates
@@ -22,6 +23,7 @@ ExportedBaseClass
 Foo
 GiveMeStructs
 GreetingAugmenter
+InbetweenClass
 JSObjectLiteralForInterface
 JSObjectLiteralToNative
 JSObjectLiteralToNativeClass
@@ -39,6 +41,7 @@ OptionalConstructorArgument
 OverrideReturnsObject
 Polymorphism
 Power
+PublicClass
 ReferenceEnumFromScopedPackage
 ReturnsPrivateImplementationOfInterface
 RuntimeTypeChecking

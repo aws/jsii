@@ -885,7 +885,7 @@ defineTest('object literals are returned by reference', async (test, sandbox) =>
 
     test.equal(newValue,
                sandbox.get({
-                   objref: sandbox.get({ objref, property: 'mutableObject' }).value,
+                   objref: sandbox.get({ objref, property: 'mutableObject' }).value,
                    property: 'value'
                }).value);
 
@@ -961,6 +961,16 @@ defineTest('nulls are converted to undefined - properties', async (_test, sandbo
 
 defineTest('JSII_AGENT is undefined in node.js', async (test, sandbox) => {
     test.equal(sandbox.sget({ fqn: 'jsii-calc.JsiiAgent', property: 'jsiiAgent' }).value, undefined);
+});
+
+defineTest('ObjRefs are labeled with the "most correct" type', async (test, sandbox) => {
+    const classRef = sandbox.sinvoke({ fqn: 'jsii-calc.Constructors', method: 'makeClass' }).result as api.ObjRef;
+    const ifaceRef = sandbox.sinvoke({ fqn: 'jsii-calc.Constructors', method: 'makeInterface' }).result as api.ObjRef;
+
+    test.ok(classRef[api.TOKEN_REF].startsWith('jsii-calc.InbetweenClass'),
+            `${classRef[api.TOKEN_REF]} starts with jsii-calc.InbetweenClass`);
+    test.ok(ifaceRef[api.TOKEN_REF].startsWith('jsii-calc.IPublicInterface'),
+            `${ifaceRef[api.TOKEN_REF]} starts with jsii-calc.IPublicInterface`);
 });
 
 // =================================================================================================

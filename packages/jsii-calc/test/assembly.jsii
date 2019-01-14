@@ -1098,6 +1098,31 @@
         }
       ]
     },
+    "jsii-calc.Constructors": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.Constructors",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "makeClass",
+          "returns": {
+            "fqn": "jsii-calc.PublicClass"
+          },
+          "static": true
+        },
+        {
+          "name": "makeInterface",
+          "returns": {
+            "fqn": "jsii-calc.IPublicInterface"
+          },
+          "static": true
+        }
+      ],
+      "name": "Constructors"
+    },
     "jsii-calc.DefaultedConstructorArgument": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.DefaultedConstructorArgument",
@@ -1675,6 +1700,18 @@
         }
       ]
     },
+    "jsii-calc.IPublicInterface": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.IPublicInterface",
+      "kind": "interface",
+      "methods": [
+        {
+          "abstract": true,
+          "name": "bye"
+        }
+      ],
+      "name": "IPublicInterface"
+    },
     "jsii-calc.IRandomNumberGenerator": {
       "assembly": "jsii-calc",
       "docs": {
@@ -1742,6 +1779,18 @@
           }
         }
       ]
+    },
+    "jsii-calc.InbetweenClass": {
+      "assembly": "jsii-calc",
+      "base": {
+        "fqn": "jsii-calc.PublicClass"
+      },
+      "fqn": "jsii-calc.InbetweenClass",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "name": "InbetweenClass"
     },
     "jsii-calc.InterfaceImplementedByAbstractClass": {
       "assembly": "jsii-calc",
@@ -2852,6 +2901,20 @@
         }
       ]
     },
+    "jsii-calc.PublicClass": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.PublicClass",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "hello"
+        }
+      ],
+      "name": "PublicClass"
+    },
     "jsii-calc.ReferenceEnumFromScopedPackage": {
       "assembly": "jsii-calc",
       "docs": {
@@ -3762,5 +3825,5 @@
     }
   },
   "version": "0.7.13",
-  "fingerprint": "mc9Rni6GLgVDz8M6CGHapEiYbWsdEIl7CmBI0Qn+KXU="
+  "fingerprint": "WNp0Sw1d2+3FaQD0Fn01K4wYQi7Ms3w+NQatOylD1kM="
 }

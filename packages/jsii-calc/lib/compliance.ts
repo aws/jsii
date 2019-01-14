@@ -1233,3 +1233,23 @@ export class JsiiAgent {
         return process.env.JSII_AGENT;
     }
 };
+
+// https://github.com/awslabs/jsii/issues/345
+export class PublicClass {
+    public hello(): void {}
+}
+export interface IPublicInterface {
+    bye(): void;
+}
+export class InbetweenClass extends PublicClass {}
+class PrivateClass extends InbetweenClass implements IPublicInterface {
+    public bye(): void {}
+}
+export class Constructors {
+    public static makeClass(): PublicClass {
+        return new PrivateClass();
+    }
+    public static makeInterface(): IPublicInterface {
+        return new PrivateClass();
+    }
+}
