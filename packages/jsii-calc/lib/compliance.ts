@@ -1233,3 +1233,15 @@ export class JsiiAgent {
         return process.env.JSII_AGENT;
     }
 };
+
+// To support module augmentation classes must support multiple declaration sites
+// (the tail of which must be interfaces)
+export class AugmentableClass {
+    public methodOne(): void {
+        console.log('methodOne');
+    }
+}
+
+export interface AugmentableClass {
+    methodTwo(): void;
+}

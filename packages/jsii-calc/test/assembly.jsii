@@ -735,6 +735,23 @@
       ],
       "name": "AsyncVirtualMethods"
     },
+    "jsii-calc.AugmentableClass": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.AugmentableClass",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "methodOne"
+        },
+        {
+          "name": "methodTwo"
+        }
+      ],
+      "name": "AugmentableClass"
+    },
     "jsii-calc.BinaryOperation": {
       "abstract": true,
       "assembly": "jsii-calc",
@@ -3762,5 +3779,5 @@
     }
   },
   "version": "0.7.13",
-  "fingerprint": "mc9Rni6GLgVDz8M6CGHapEiYbWsdEIl7CmBI0Qn+KXU="
+  "fingerprint": "kVQZBTXJXszWu7fP44FqRm+QMkgefNrUB8cwlFl1TWY="
 }
