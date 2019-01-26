@@ -14,6 +14,7 @@ import software.amazon.jsii.tests.calculator.DerivedStruct;
 import software.amazon.jsii.tests.calculator.DoNotOverridePrivates;
 import software.amazon.jsii.tests.calculator.DoubleTrouble;
 import software.amazon.jsii.tests.calculator.GiveMeStructs;
+import software.amazon.jsii.tests.calculator.GreetingAugmenter;
 import software.amazon.jsii.tests.calculator.IFriendlier;
 import software.amazon.jsii.tests.calculator.IFriendlyRandomGenerator;
 import software.amazon.jsii.tests.calculator.InterfaceWithProperties;
@@ -31,11 +32,13 @@ import software.amazon.jsii.tests.calculator.NumberGenerator;
 import software.amazon.jsii.tests.calculator.Polymorphism;
 import software.amazon.jsii.tests.calculator.Power;
 import software.amazon.jsii.tests.calculator.ReferenceEnumFromScopedPackage;
+import software.amazon.jsii.tests.calculator.ReturnsPrivateImplementationOfInterface;
 import software.amazon.jsii.tests.calculator.Statics;
 import software.amazon.jsii.tests.calculator.Sum;
 import software.amazon.jsii.tests.calculator.SyncVirtualMethods;
 import software.amazon.jsii.tests.calculator.UnionProperties;
 import software.amazon.jsii.tests.calculator.UsesInterfaceWithProperties;
+import software.amazon.jsii.tests.calculator.JsiiAgent;
 import software.amazon.jsii.tests.calculator.composition.CompositeOperation;
 import software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule;
 import software.amazon.jsii.tests.calculator.lib.IFriendly;
@@ -706,6 +709,17 @@ public class ComplianceTest {
     }
 
     @Test
+    public void testInterfaceParameter() {
+        JSObjectLiteralForInterface obj = new JSObjectLiteralForInterface();
+        IFriendly friendly = obj.giveMeFriendly();
+        assertEquals("I am literally friendly!", friendly.hello());
+
+        GreetingAugmenter greetingAugmenter = new GreetingAugmenter();
+        String betterGreeting = greetingAugmenter.betterGreeting(friendly);
+        assertEquals("I am literally friendly! Let me buy you a drink!", betterGreeting);
+    }
+
+    @Test
     public void structs_stepBuilders() {
         Instant someInstant = Instant.now();
         DoubleTrouble nonPrim = new DoubleTrouble();
@@ -939,6 +953,19 @@ public class ComplianceTest {
                 .build());
         obj.setChangeMeToUndefined(null);
         obj.verifyPropertyIsUndefined();
+    }
+    
+    @Test
+    public void testJsiiAgent() {
+        assertEquals("Java/" + System.getProperty("java.version"), JsiiAgent.getJsiiAgent());
+    }
+
+    /**
+     * @see https://github.com/awslabs/jsii/issues/320
+     */
+    @Test
+    public void receiveInstanceOfPrivateClass() {
+        assertTrue(new ReturnsPrivateImplementationOfInterface().getPrivateImplementation().getSuccess());
     }
 
     static class MulTen extends Multiply {

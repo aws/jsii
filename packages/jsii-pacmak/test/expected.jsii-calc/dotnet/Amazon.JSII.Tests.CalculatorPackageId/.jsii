@@ -8,7 +8,7 @@
     "url": "https://aws.amazon.com"
   },
   "bundled": {
-    "jsii-calc-bundled": "^0.7.10"
+    "jsii-calc-bundled": "^0.7.13"
   },
   "contributors": [
     {
@@ -54,7 +54,7 @@
               "npm": "@scope/jsii-calc-base-of-base"
             }
           },
-          "version": "0.7.10"
+          "version": "0.7.13"
         }
       },
       "peer": true,
@@ -74,7 +74,7 @@
           "npm": "@scope/jsii-calc-base"
         }
       },
-      "version": "0.7.10"
+      "version": "0.7.13"
     },
     "@scope/jsii-calc-lib": {
       "dependencies": {
@@ -98,7 +98,7 @@
                   "npm": "@scope/jsii-calc-base-of-base"
                 }
               },
-              "version": "0.7.10"
+              "version": "0.7.13"
             }
           },
           "peer": true,
@@ -118,7 +118,7 @@
               "npm": "@scope/jsii-calc-base"
             }
           },
-          "version": "0.7.10"
+          "version": "0.7.13"
         }
       },
       "peer": true,
@@ -138,7 +138,7 @@
           "npm": "@scope/jsii-calc-lib"
         }
       },
-      "version": "0.7.10"
+      "version": "0.7.13"
     }
   },
   "description": "A simple calcuator built on JSII.",
@@ -1410,6 +1410,32 @@
       ],
       "name": "DoubleTrouble"
     },
+    "jsii-calc.ExportedBaseClass": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.ExportedBaseClass",
+      "initializer": {
+        "initializer": true,
+        "parameters": [
+          {
+            "name": "success",
+            "type": {
+              "primitive": "boolean"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "name": "ExportedBaseClass",
+      "properties": [
+        {
+          "immutable": true,
+          "name": "success",
+          "type": {
+            "primitive": "boolean"
+          }
+        }
+      ]
+    },
     "jsii-calc.GiveMeStructs": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.GiveMeStructs",
@@ -1480,6 +1506,31 @@
           }
         }
       ]
+    },
+    "jsii-calc.GreetingAugmenter": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.GreetingAugmenter",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "betterGreeting",
+          "parameters": [
+            {
+              "name": "friendly",
+              "type": {
+                "fqn": "@scope/jsii-calc-lib.IFriendly"
+              }
+            }
+          ],
+          "returns": {
+            "primitive": "string"
+          }
+        }
+      ],
+      "name": "GreetingAugmenter"
     },
     "jsii-calc.IFriendlier": {
       "assembly": "jsii-calc",
@@ -1607,6 +1658,22 @@
         }
       ],
       "name": "IInterfaceWithOptionalMethodArguments"
+    },
+    "jsii-calc.IPrivatelyImplemented": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.IPrivatelyImplemented",
+      "kind": "interface",
+      "name": "IPrivatelyImplemented",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "name": "success",
+          "type": {
+            "primitive": "boolean"
+          }
+        }
+      ]
     },
     "jsii-calc.IRandomNumberGenerator": {
       "assembly": "jsii-calc",
@@ -2027,6 +2094,32 @@
         {
           "name": "while",
           "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.JsiiAgent": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "comment": "Host runtime version should be set via JSII_AGENT"
+      },
+      "fqn": "jsii-calc.JsiiAgent",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "name": "JsiiAgent",
+      "properties": [
+        {
+          "docs": {
+            "comment": "Returns the value of the JSII_AGENT environment variable."
+          },
+          "immutable": true,
+          "name": "jsiiAgent",
+          "static": true,
+          "type": {
+            "optional": true,
             "primitive": "string"
           }
         }
@@ -2796,6 +2889,29 @@
           "type": {
             "fqn": "@scope/jsii-calc-lib.EnumFromScopedModule",
             "optional": true
+          }
+        }
+      ]
+    },
+    "jsii-calc.ReturnsPrivateImplementationOfInterface": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "comment": "Helps ensure the JSII kernel & runtime cooperate correctly when an un-exported instance of a class is returned with\na declared type that is an exported interface, and the instance inherits from an exported class.",
+        "return": "an instance of an un-exported class that extends ``ExportedBaseClass``, declared as ``IPrivatelyImplemented``.",
+        "see": "https://github.com/awslabs/jsii/issues/320"
+      },
+      "fqn": "jsii-calc.ReturnsPrivateImplementationOfInterface",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "name": "ReturnsPrivateImplementationOfInterface",
+      "properties": [
+        {
+          "immutable": true,
+          "name": "privateImplementation",
+          "type": {
+            "fqn": "jsii-calc.IPrivatelyImplemented"
           }
         }
       ]
@@ -3645,6 +3761,6 @@
       "namespace": "composition.CompositeOperation"
     }
   },
-  "version": "0.7.10",
-  "fingerprint": "rxx0uqvwitnI8U0/tQLwhghDWxc85lS6Gghk4xDtIx0="
+  "version": "0.7.13",
+  "fingerprint": "mc9Rni6GLgVDz8M6CGHapEiYbWsdEIl7CmBI0Qn+KXU="
 }

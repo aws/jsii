@@ -1,0 +1,6 @@
+root
+ ├── child1
+ ├─┬ child2
+ │ ├── grandchild1
+ │ └── grandchild2
+ └── child3

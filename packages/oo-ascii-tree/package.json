@@ -1,0 +1,30 @@
+{
+  "name": "oo-ascii-tree",
+  "version": "0.7.13",
+  "description": "object-oriented ascii tree renderer",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "jest",
+    "package": "package-js"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.3.10",
+    "@types/node": "^10.12.12",
+    "jest": "^23.6.0",
+    "jsii-build-tools": "^0.7.13",
+    "ts-jest": "^23.10.5",
+    "typescript": "^3.2.1"
+  },
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com"
+  },
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/awslabs/jsii.git"
+  }
+}

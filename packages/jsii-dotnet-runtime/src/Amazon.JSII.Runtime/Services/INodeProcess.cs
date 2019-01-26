@@ -5,8 +5,10 @@ namespace Amazon.JSII.Runtime.Services
 {
     public interface INodeProcess : IDisposable
     {
-        StreamWriter StandardInput { get; }
+        TextWriter StandardInput { get; }
 
-        StreamReader StandardOutput { get; }
+        TextReader StandardOutput { get; }
+
+        TextReader StandardError { get; }
     }
 }

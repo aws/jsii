@@ -10,42 +10,42 @@ Reference
 
    .. group-tab:: C#
 
-      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId/0.7.10>`_
+      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId/0.7.13>`_
 
       **csproj**:
 
       .. code-block:: xml
 
-         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId" Version="0.7.10" />
+         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId" Version="0.7.13" />
 
       **dotnet**:
 
       .. code-block:: console
 
-         dotnet add package Amazon.JSII.Tests.CalculatorPackageId --version 0.7.10
+         dotnet add package Amazon.JSII.Tests.CalculatorPackageId --version 0.7.13
 
       **packages.config**:
 
       .. code-block:: xml
 
-         <package id="Amazon.JSII.Tests.CalculatorPackageId" version="0.7.10" />
+         <package id="Amazon.JSII.Tests.CalculatorPackageId" version="0.7.13" />
 
 
    .. group-tab:: Java
 
-      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator/0.7.10/>`_
+      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator/0.7.13/>`_
 
       **Apache Buildr**:
 
       .. code-block:: none
 
-         'software.amazon.jsii.tests:calculator:jar:0.7.10'
+         'software.amazon.jsii.tests:calculator:jar:0.7.13'
 
       **Apache Ivy**:
 
       .. code-block:: xml
 
-         <dependency groupId="software.amazon.jsii.tests" name="calculator" rev="0.7.10"/>
+         <dependency groupId="software.amazon.jsii.tests" name="calculator" rev="0.7.13"/>
 
       **Apache Maven**:
 
@@ -54,72 +54,72 @@ Reference
          <dependency>
            <groupId>software.amazon.jsii.tests</groupId>
            <artifactId>calculator</artifactId>
-           <version>0.7.10</version>
+           <version>0.7.13</version>
          </dependency>
 
       **Gradle / Grails**:
 
       .. code-block:: none
 
-         compile 'software.amazon.jsii.tests:calculator:0.7.10'
+         compile 'software.amazon.jsii.tests:calculator:0.7.13'
 
       **Groovy Grape**:
 
       .. code-block:: none
 
          @Grapes(
-         @Grab(group='software.amazon.jsii.tests', module='calculator', version='0.7.10')
+         @Grab(group='software.amazon.jsii.tests', module='calculator', version='0.7.13')
          )
 
 
    .. group-tab:: JavaScript
 
-      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.7.10>`_
+      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.7.13>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i jsii-calc@0.7.10
+         $ npm i jsii-calc@0.7.13
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "jsii-calc": "^0.7.10"
+           "jsii-calc": "^0.7.13"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add jsii-calc@0.7.10
+         $ yarn add jsii-calc@0.7.13
 
 
    .. group-tab:: TypeScript
 
-      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.7.10>`_
+      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.7.13>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i jsii-calc@0.7.10
+         $ npm i jsii-calc@0.7.13
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "jsii-calc": "^0.7.10"
+           "jsii-calc": "^0.7.13"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add jsii-calc@0.7.10
+         $ yarn add jsii-calc@0.7.13
 
 
 
@@ -1506,6 +1506,41 @@ DoubleTrouble
       :rtype: number
 
 
+ExportedBaseClass
+^^^^^^^^^^^^^^^^^
+
+.. py:class:: ExportedBaseClass(success)
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.ExportedBaseClass;
+
+      .. code-tab:: javascript
+
+         const { ExportedBaseClass } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { ExportedBaseClass } from 'jsii-calc';
+
+
+
+   :param success: 
+   :type success: boolean
+
+   .. py:attribute:: success
+
+      :type: boolean *(readonly)*
+
+
 GiveMeStructs
 ^^^^^^^^^^^^^
 
@@ -1570,6 +1605,41 @@ GiveMeStructs
    .. py:attribute:: structLiteral
 
       :type: :py:class:`@scope/jsii-calc-lib.StructWithOnlyOptionals`\  *(readonly)*
+
+
+GreetingAugmenter
+^^^^^^^^^^^^^^^^^
+
+.. py:class:: GreetingAugmenter()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.GreetingAugmenter;
+
+      .. code-tab:: javascript
+
+         const { GreetingAugmenter } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { GreetingAugmenter } from 'jsii-calc';
+
+
+
+
+   .. py:method:: betterGreeting(friendly) -> string
+
+      :param friendly: 
+      :type friendly: :py:class:`@scope/jsii-calc-lib.IFriendly`\ 
+      :rtype: string
 
 
 IFriendlier (interface)
@@ -1831,6 +1901,40 @@ IInterfaceWithOptionalMethodArguments (interface)
       :param arg2: 
       :type arg2: number *(optional)*
       :abstract: Yes
+
+
+IPrivatelyImplemented (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: IPrivatelyImplemented
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.IPrivatelyImplemented;
+
+      .. code-tab:: javascript
+
+         // IPrivatelyImplemented is an interface
+
+      .. code-tab:: typescript
+
+         import { IPrivatelyImplemented } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: success
+
+      :type: boolean *(readonly)*
 
 
 IRandomNumberGenerator (interface)
@@ -2559,6 +2663,47 @@ JavaReservedWords
    .. py:attribute:: while
 
       :type: string
+
+
+JsiiAgent
+^^^^^^^^^
+
+.. py:class:: JsiiAgent()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.JsiiAgent;
+
+      .. code-tab:: javascript
+
+         const { JsiiAgent } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { JsiiAgent } from 'jsii-calc';
+
+
+
+   Host runtime version should be set via JSII_AGENT
+
+
+
+
+   .. py:attribute:: jsiiAgent
+
+      Returns the value of the JSII_AGENT environment variable.
+
+
+
+      :type: string *(optional)* *(readonly)* *(static)*
 
 
 LoadBalancedFargateServiceProps (interface)
@@ -3535,6 +3680,45 @@ ReferenceEnumFromScopedPackage
    .. py:attribute:: foo
 
       :type: :py:class:`@scope/jsii-calc-lib.EnumFromScopedModule`\  *(optional)*
+
+
+ReturnsPrivateImplementationOfInterface
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: ReturnsPrivateImplementationOfInterface()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.ReturnsPrivateImplementationOfInterface;
+
+      .. code-tab:: javascript
+
+         const { ReturnsPrivateImplementationOfInterface } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { ReturnsPrivateImplementationOfInterface } from 'jsii-calc';
+
+
+
+   Helps ensure the JSII kernel & runtime cooperate correctly when an un-exported instance of a class is returned with
+
+   a declared type that is an exported interface, and the instance inherits from an exported class.
+
+
+
+
+   .. py:attribute:: privateImplementation
+
+      :type: :py:class:`~jsii-calc.IPrivatelyImplemented`\  *(readonly)*
 
 
 RuntimeTypeChecking
