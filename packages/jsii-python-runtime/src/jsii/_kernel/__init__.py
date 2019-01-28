@@ -53,7 +53,7 @@ def _get_overides(klass: JSClass, obj: Any) -> List[Override]:
                     original.fget, "__jsii_name__"
                 ):
                     overrides.append(
-                        Override(property=original.fget.__jsii_name__, cookie=name)
+                        Override(property_=original.fget.__jsii_name__, cookie=name)
                     )
 
     return overrides
@@ -114,6 +114,8 @@ class Kernel(metaclass=Singleton):
         obj.__jsii_ref__ = self.provider.create(
             CreateRequest(fqn=klass.__jsii_type__, args=args, overrides=overrides)
         )
+
+        return obj.__jsii_ref__
 
     def delete(self, ref: ObjRef) -> None:
         self.provider.delete(DeleteRequest(objref=ref))

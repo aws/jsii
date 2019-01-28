@@ -232,8 +232,6 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     }
 
     public emit(code: CodeMaker, resolver: TypeResolver) {
-        resolver = this.fqn ? resolver.bind(this.fqn) : resolver;
-
         const classParams = this.getClassParams(resolver);
         const bases = classParams.length > 0 ? `(${classParams.join(", ")})` : "";
 
@@ -242,6 +240,7 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
         this.emitPreamble(code, resolver);
 
         if (this.members.length > 0) {
+            resolver = this.fqn ? resolver.bind(this.fqn) : resolver;
             for (const member of sortMembers(this.members, resolver)) {
                 member.emit(code, resolver);
             }
@@ -1433,7 +1432,7 @@ class PythonGenerator extends Generator {
     }
 
     protected onUnionProperty(_cls: spec.ClassType, _prop: spec.Property, _union: spec.UnionTypeReference) {
-        throw new Error("Unhandled Type: UnionProperty");
+        // console.log("Unhandled Type: UnionProperty");  // TODO: Handle this.
     }
 
     protected onMethodOverload(_cls: spec.ClassType, _overload: spec.Method, _originalMethod: spec.Method) {

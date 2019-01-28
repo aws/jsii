@@ -2852,6 +2852,113 @@
         }
       ]
     },
+    "jsii-calc.PythonReservedWords": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.PythonReservedWords",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "and"
+        },
+        {
+          "name": "as"
+        },
+        {
+          "name": "assert"
+        },
+        {
+          "name": "async"
+        },
+        {
+          "name": "await"
+        },
+        {
+          "name": "break"
+        },
+        {
+          "name": "class"
+        },
+        {
+          "name": "continue"
+        },
+        {
+          "name": "def"
+        },
+        {
+          "name": "del"
+        },
+        {
+          "name": "elif"
+        },
+        {
+          "name": "else"
+        },
+        {
+          "name": "except"
+        },
+        {
+          "name": "finally"
+        },
+        {
+          "name": "for"
+        },
+        {
+          "name": "from"
+        },
+        {
+          "name": "global"
+        },
+        {
+          "name": "if"
+        },
+        {
+          "name": "import"
+        },
+        {
+          "name": "in"
+        },
+        {
+          "name": "is"
+        },
+        {
+          "name": "lambda"
+        },
+        {
+          "name": "nonlocal"
+        },
+        {
+          "name": "not"
+        },
+        {
+          "name": "or"
+        },
+        {
+          "name": "pass"
+        },
+        {
+          "name": "raise"
+        },
+        {
+          "name": "return"
+        },
+        {
+          "name": "try"
+        },
+        {
+          "name": "while"
+        },
+        {
+          "name": "with"
+        },
+        {
+          "name": "yield"
+        }
+      ],
+      "name": "PythonReservedWords"
+    },
     "jsii-calc.ReferenceEnumFromScopedPackage": {
       "assembly": "jsii-calc",
       "docs": {
@@ -3762,5 +3869,5 @@
     }
   },
   "version": "0.7.13",
-  "fingerprint": "mc9Rni6GLgVDz8M6CGHapEiYbWsdEIl7CmBI0Qn+KXU="
+  "fingerprint": "jnCuLI3bHYyebm/iuj0FzQ+WlO3DpHBlADB7GWQc6pk="
 }

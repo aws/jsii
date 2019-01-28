@@ -39,6 +39,7 @@ OptionalConstructorArgument
 OverrideReturnsObject
 Polymorphism
 Power
+PythonReservedWords
 ReferenceEnumFromScopedPackage
 ReturnsPrivateImplementationOfInterface
 RuntimeTypeChecking

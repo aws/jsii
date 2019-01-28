@@ -1,5 +1,8 @@
+import json
+
 from typing import Union
 
+from jsii._compat import importlib_resources
 from ._runtime import (
     JSIIAssembly,
     JSIIMeta,
@@ -27,6 +30,12 @@ sset = kernel.sset
 invoke = kernel.invoke
 sinvoke = kernel.sinvoke
 stats = kernel.stats
+
+# Load our version number and other metadata.
+_meta = json.loads(importlib_resources.read_text("jsii", "_metadata.json"))
+
+__version__ = _meta["version"]
+__jsii_runtime_version__ = _meta["jsii-runtime"]["version"]
 
 
 __all__ = [

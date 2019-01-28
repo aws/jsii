@@ -2,19 +2,20 @@
 import inspect
 import weakref
 
-from .compat import TypedDict
+from typing import Any, MutableMapping
+
 from ._kernel.types import JSClass, Referenceable
 
 
 _types = {}
-_data_types = {}
+_data_types: MutableMapping[str, Any] = {}
 
 
 def register_type(klass: JSClass):
     _types[klass.__jsii_type__] = klass
 
 
-def register_data_type(data_type: TypedDict):
+def register_data_type(data_type: Any):
     _data_types[data_type.__jsii_type__] = data_type
 
 

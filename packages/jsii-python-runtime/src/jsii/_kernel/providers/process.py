@@ -5,13 +5,14 @@ import os.path
 import subprocess
 import tempfile
 
-from typing import Type, Union, Mapping, Any, Optional
+from typing import TYPE_CHECKING, Type, Union, Mapping, Any, Optional
 
 import attr
 import cattr  # type: ignore
 
 import jsii._embedded.jsii
 
+from jsii import __jsii_runtime_version__
 from jsii._compat import importlib_resources
 from jsii._utils import memoized_property
 from jsii._kernel.providers.base import BaseKernel
@@ -64,6 +65,10 @@ class _ErrorRespose:
 
 
 _ProcessResponse = Union[_OkayResponse, _ErrorRespose]
+# Workaround for mypy#5354
+_ProcessResponse_R: Type[Any]
+if not TYPE_CHECKING:
+    _ProcessResponse_R = _ProcessResponse
 
 
 def _with_api_key(api_name, asdict):
@@ -213,13 +218,14 @@ class _NodeProcess:
         self._ctx_stack.close()
 
     def handshake(self):
+        # Get the version of the runtime that we're using.
         resp: _HelloResponse = self._serializer.structure(
             self._next_message(), _HelloResponse
         )
 
         # TODO: Replace with proper error.
         assert (
-            resp.hello == "jsii-runtime@0.7.10"
+            resp.hello == f"jsii-runtime@{__jsii_runtime_version__}"
         ), f"Invalid JSII Runtime Version: {resp.hello!r}"
 
     def send(
@@ -237,7 +243,7 @@ class _NodeProcess:
         self._process.stdin.flush()
 
         resp: _ProcessResponse = self._serializer.structure(
-            self._next_message(), _ProcessResponse
+            self._next_message(), _ProcessResponse_R
         )
 
         if isinstance(resp, _OkayResponse):

@@ -668,6 +668,74 @@ assemblies
  │   │   └─┬ pow property
  │   │     ├── immutable
  │   │     └── type: class:@scope/jsii-calc-lib.Value
+ │   ├─┬ class PythonReservedWords
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ and() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ as() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ assert() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ async() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ await() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ break() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ class() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ continue() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ def() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ del() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ elif() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ else() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ except() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ finally() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ for() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ from() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ global() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ if() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ import() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ in() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ is() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ lambda() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ nonlocal() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ not() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ or() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ pass() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ raise() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ return() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ try() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ while() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ with() method
+ │   │   │ └── returns: void
+ │   │   └─┬ yield() method
+ │   │     └── returns: void
  │   ├─┬ class ReferenceEnumFromScopedPackage
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method

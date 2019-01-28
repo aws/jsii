@@ -276,6 +276,41 @@ assemblies
  │   │   ├── base property
  │   │   ├── expression property
  │   │   └── pow property
+ │   ├─┬ class PythonReservedWords
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── and() method
+ │   │   ├── as() method
+ │   │   ├── assert() method
+ │   │   ├── async() method
+ │   │   ├── await() method
+ │   │   ├── break() method
+ │   │   ├── class() method
+ │   │   ├── continue() method
+ │   │   ├── def() method
+ │   │   ├── del() method
+ │   │   ├── elif() method
+ │   │   ├── else() method
+ │   │   ├── except() method
+ │   │   ├── finally() method
+ │   │   ├── for() method
+ │   │   ├── from() method
+ │   │   ├── global() method
+ │   │   ├── if() method
+ │   │   ├── import() method
+ │   │   ├── in() method
+ │   │   ├── is() method
+ │   │   ├── lambda() method
+ │   │   ├── nonlocal() method
+ │   │   ├── not() method
+ │   │   ├── or() method
+ │   │   ├── pass() method
+ │   │   ├── raise() method
+ │   │   ├── return() method
+ │   │   ├── try() method
+ │   │   ├── while() method
+ │   │   ├── with() method
+ │   │   └── yield() method
  │   ├─┬ class ReferenceEnumFromScopedPackage
  │   │ └─┬ members
  │   │   ├── <initializer>() method

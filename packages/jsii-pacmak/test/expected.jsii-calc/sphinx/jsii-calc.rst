@@ -3634,6 +3634,162 @@ Power
       :type: :py:class:`~jsii-calc.composition.CompositeOperation.CompositionStringStyle`\ 
 
 
+PythonReservedWords
+^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: PythonReservedWords()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.PythonReservedWords;
+
+      .. code-tab:: javascript
+
+         const { PythonReservedWords } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { PythonReservedWords } from 'jsii-calc';
+
+
+
+
+   .. py:method:: and()
+
+
+
+   .. py:method:: as()
+
+
+
+   .. py:method:: assert()
+
+
+
+   .. py:method:: async()
+
+
+
+   .. py:method:: await()
+
+
+
+   .. py:method:: break()
+
+
+
+   .. py:method:: class()
+
+
+
+   .. py:method:: continue()
+
+
+
+   .. py:method:: def()
+
+
+
+   .. py:method:: del()
+
+
+
+   .. py:method:: elif()
+
+
+
+   .. py:method:: else()
+
+
+
+   .. py:method:: except()
+
+
+
+   .. py:method:: finally()
+
+
+
+   .. py:method:: for()
+
+
+
+   .. py:method:: from()
+
+
+
+   .. py:method:: global()
+
+
+
+   .. py:method:: if()
+
+
+
+   .. py:method:: import()
+
+
+
+   .. py:method:: in()
+
+
+
+   .. py:method:: is()
+
+
+
+   .. py:method:: lambda()
+
+
+
+   .. py:method:: nonlocal()
+
+
+
+   .. py:method:: not()
+
+
+
+   .. py:method:: or()
+
+
+
+   .. py:method:: pass()
+
+
+
+   .. py:method:: raise()
+
+
+
+   .. py:method:: return()
+
+
+
+   .. py:method:: try()
+
+
+
+   .. py:method:: while()
+
+
+
+   .. py:method:: with()
+
+
+
+   .. py:method:: yield()
+
+
+
 ReferenceEnumFromScopedPackage
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
