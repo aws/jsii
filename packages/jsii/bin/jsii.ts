@@ -3,7 +3,7 @@ import path = require('path');
 import process = require('process');
 import ts = require('typescript');
 import yargs = require('yargs');
-import { Compiler, DIAGNOSTICS } from '../lib/compiler';
+import { Compiler, DIAGNOSTICS } from '../lib/compiler';
 import { hasDomain } from '../lib/emitter';
 import { loadProjectInfo } from '../lib/project-info';
 import utils = require('../lib/utils');
@@ -27,7 +27,7 @@ import { VERSION } from '../lib/version';
     const compiler = new Compiler({
         projectInfo: await loadProjectInfo(projectRoot),
         watch: argv.watch,
-        projectReferences: argv.projectReferences
+        projectReferences: argv['project-references']
     });
 
     return { projectRoot, emitResult: await compiler.emit() };

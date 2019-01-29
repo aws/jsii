@@ -43,7 +43,7 @@
     "@types/node": "^8.10.37",
     "jsii": "^0.7.13",
     "jsii-build-tools": "^0.7.13",
-    "typescript": "^3.1.6"
+    "typescript": "^3.2.4"
   },
   "author": {
     "name": "Amazon Web Services",
