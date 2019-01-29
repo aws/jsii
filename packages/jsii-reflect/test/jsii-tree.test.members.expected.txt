@@ -90,6 +90,11 @@ assemblies
  │   │   ├── create(readOnlyString,readWriteString) method
  │   │   ├── readOnlyString property
  │   │   └── readWriteString property
+ │   ├─┬ class Constructors
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── makeClass() method
+ │   │   └── makeInterface() method
  │   ├─┬ class DefaultedConstructorArgument
  │   │ └─┬ members
  │   │   ├── <initializer>(arg1,arg2,arg3) method
@@ -137,6 +142,9 @@ assemblies
  │   │ └─┬ members
  │   │   ├── <initializer>() method
  │   │   └── betterGreeting(friendly) method
+ │   ├─┬ class InbetweenClass
+ │   │ └─┬ members
+ │   │   └── <initializer>() method
  │   ├─┬ class Foo
  │   │ └─┬ members
  │   │   ├── <initializer>() method
@@ -276,6 +284,10 @@ assemblies
  │   │   ├── base property
  │   │   ├── expression property
  │   │   └── pow property
+ │   ├─┬ class PublicClass
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── hello() method
  │   ├─┬ class ReferenceEnumFromScopedPackage
  │   │ └─┬ members
  │   │   ├── <initializer>() method
@@ -403,6 +415,9 @@ assemblies
  │   ├─┬ interface IPrivatelyImplemented
  │   │ └─┬ members
  │   │   └── success property
+ │   ├─┬ interface IPublicInterface
+ │   │ └─┬ members
+ │   │   └── bye() method
  │   ├─┬ interface IRandomNumberGenerator
  │   │ └─┬ members
  │   │   └── next() method

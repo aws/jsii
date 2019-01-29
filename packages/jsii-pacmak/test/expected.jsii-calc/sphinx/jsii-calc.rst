@@ -1105,6 +1105,44 @@ ClassWithPrivateConstructorAndAutomaticProperties
       :type: string
 
 
+Constructors
+^^^^^^^^^^^^
+
+.. py:class:: Constructors()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.Constructors;
+
+      .. code-tab:: javascript
+
+         const { Constructors } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { Constructors } from 'jsii-calc';
+
+
+
+
+   .. py:staticmethod:: makeClass() -> jsii-calc.PublicClass
+
+      :rtype: :py:class:`~jsii-calc.PublicClass`\ 
+
+
+   .. py:staticmethod:: makeInterface() -> jsii-calc.IPublicInterface
+
+      :rtype: :py:class:`~jsii-calc.IPublicInterface`\ 
+
+
 DefaultedConstructorArgument
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -1937,6 +1975,40 @@ IPrivatelyImplemented (interface)
       :type: boolean *(readonly)*
 
 
+IPublicInterface (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: IPublicInterface
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.IPublicInterface;
+
+      .. code-tab:: javascript
+
+         // IPublicInterface is an interface
+
+      .. code-tab:: typescript
+
+         import { IPublicInterface } from 'jsii-calc';
+
+
+
+
+
+   .. py:method:: bye()
+
+      :abstract: Yes
+
+
 IRandomNumberGenerator (interface)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -2068,6 +2140,41 @@ ImplictBaseOfBase (interface)
       *Inherited from* :py:attr:`@scope/jsii-calc-base.BaseProps <@scope/jsii-calc-base.BaseProps.bar>`
 
       :type: string
+
+
+InbetweenClass
+^^^^^^^^^^^^^^
+
+.. py:class:: InbetweenClass()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.InbetweenClass;
+
+      .. code-tab:: javascript
+
+         const { InbetweenClass } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { InbetweenClass } from 'jsii-calc';
+
+
+
+   :extends: :py:class:`~jsii-calc.PublicClass`\ 
+
+   .. py:method:: hello()
+
+      *Inherited from* :py:meth:`jsii-calc.PublicClass <jsii-calc.PublicClass.hello>`
+
 
 
 InterfaceImplementedByAbstractClass (interface)
@@ -3632,6 +3739,38 @@ Power
 
 
       :type: :py:class:`~jsii-calc.composition.CompositeOperation.CompositionStringStyle`\ 
+
+
+PublicClass
+^^^^^^^^^^^
+
+.. py:class:: PublicClass()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.PublicClass;
+
+      .. code-tab:: javascript
+
+         const { PublicClass } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { PublicClass } from 'jsii-calc';
+
+
+
+
+   .. py:method:: hello()
+
 
 
 ReferenceEnumFromScopedPackage
