@@ -5,3 +5,8 @@ lib/targets/dotnet-generator/
 .settings
 target/
 
+*.js
+*.d.ts
+node_modules/
+.nyc_output/
+coverage/

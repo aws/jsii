@@ -86,7 +86,7 @@ import { VERSION_DESC } from '../lib/version';
     const rootDir = path.resolve(process.cwd(), argv._[0] || '.');
 
     const visited = new Set<string>();
-    await buildPackage(rootDir, true /* isRoot */, argv.forceSubdirectory);
+    await buildPackage(rootDir, true /* isRoot */, argv['force-subdirectory']);
 
     async function buildPackage(packageDir: string, isRoot: boolean, forceSubdirectory: boolean) {
         if (visited.has(packageDir)) {
@@ -133,9 +133,11 @@ import { VERSION_DESC } from '../lib/version';
             const tarball = await npmPack(packageDir, tmpdir);
             for (const targetName of targets) {
                 // if we are targeting a single language, output to outdir, otherwise outdir/<target>
-                const targetOutputDir = (targets.length > 1 || forceSubdirectory) ? path.join(outDir, targetName) : outDir;
+                const targetOutputDir = (targets.length > 1 || forceSubdirectory)
+                                      ? path.join(outDir, targetName.toString())
+                                      : outDir;
                 logging.debug(`Building ${pkg.name}/${targetName}: ${targetOutputDir}`);
-                await generateTarget(packageDir, targetName, targetOutputDir, tarball);
+                await generateTarget(packageDir, targetName.toString(), targetOutputDir, tarball);
             }
         } finally {
             logging.debug(`Removing ${tmpdir}`);

@@ -3,6 +3,81 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.7.13"></a>
+## [0.7.13](https://github.com/awslabs/jsii/compare/v0.7.12...v0.7.13) (2019-01-03)
+
+
+
+
+**Note:** Version bump only for package jsii-dotnet-runtime
+
+<a name="0.7.12"></a>
+## [0.7.12](https://github.com/awslabs/jsii/compare/v0.7.11...v0.7.12) (2018-12-11)
+
+
+### Features
+
+* JSII_AGENT ([#325](https://github.com/awslabs/jsii/issues/325)) ([cf1d0c3](https://github.com/awslabs/jsii/commit/cf1d0c3)), closes [#324](https://github.com/awslabs/jsii/issues/324)
+
+
+
+
+<a name="0.7.11"></a>
+## [0.7.11](https://github.com/awslabs/jsii/compare/v0.7.10...v0.7.11) (2018-11-18)
+
+
+### Bug Fixes
+
+* **jsii-dotnet-runtime:** Build projects, not solutions. ([dc3be5e](https://github.com/awslabs/jsii/commit/dc3be5e))
+* **jsii-dotnet-runtime:** Proxy parameters should not throw exception. ([#317](https://github.com/awslabs/jsii/issues/317)) ([acc8f22](https://github.com/awslabs/jsii/commit/acc8f22)), closes [#316](https://github.com/awslabs/jsii/issues/316)
+
+
+### Features
+
+* **jsii-dotnet-runtime:** Improve .NET Performance ([20321af](https://github.com/awslabs/jsii/commit/20321af)), closes [#304](https://github.com/awslabs/jsii/issues/304)
+
+
+
+
+<a name="0.7.10"></a>
+## [0.7.10](https://github.com/awslabs/jsii/compare/v0.7.9...v0.7.10) (2018-11-12)
+
+
+
+
+**Note:** Version bump only for package jsii-dotnet-runtime
+
+<a name="0.7.9"></a>
+## [0.7.9](https://github.com/awslabs/jsii/compare/v0.7.8...v0.7.9) (2018-11-12)
+
+
+### Bug Fixes
+
+* **dotnet/runtime:** Incorrect callback response format ([#286](https://github.com/awslabs/jsii/issues/286)) ([1b851e1](https://github.com/awslabs/jsii/commit/1b851e1)), closes [#285](https://github.com/awslabs/jsii/issues/285)
+* **runtime/dotnet:** Correct a number of type mappings ([#291](https://github.com/awslabs/jsii/issues/291)) ([0d59dab](https://github.com/awslabs/jsii/commit/0d59dab)), closes [#290](https://github.com/awslabs/jsii/issues/290) [awslabs/aws-cdk#1027](https://github.com/awslabs/aws-cdk/issues/1027)
+
+
+
+
+<a name="0.7.8"></a>
+## [0.7.8](https://github.com/awslabs/jsii/compare/v0.7.7...v0.7.8) (2018-10-23)
+
+
+
+
+**Note:** Version bump only for package jsii-dotnet-runtime
+
+<a name="0.7.7"></a>
+## [0.7.7](https://github.com/awslabs/jsii/compare/v0.7.6...v0.7.7) (2018-10-10)
+
+
+### Bug Fixes
+
+* **dotnet:** abstract classes should have proxy implementations ([#241](https://github.com/awslabs/jsii/issues/241)) ([828a26f](https://github.com/awslabs/jsii/commit/828a26f)), closes [#223](https://github.com/awslabs/jsii/issues/223)
+
+
+
+
 <a name="0.7.6"></a>
 ## [0.7.6](https://github.com/awslabs/jsii/compare/v0.7.5...v0.7.6) (2018-09-20)
 

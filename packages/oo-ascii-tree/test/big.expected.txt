@@ -1,0 +1,25 @@
+root
+ ├─┬ child1
+ │ ├── child1.1
+ │ ├── child1.2
+ │ ├── child1.3
+ │ ├─┬ child1.4
+ │ │ ├── child1.4.1
+ │ │ ├── child1.4.2
+ │ │ └── child1.4.3
+ │ ├── child1.6
+ │ ├── child1.7
+ │ └── child1.8
+ ├─┬ child2
+ │ └─┬ child2.1
+ │   ├─┬ child2.1.1
+ │   │ ├── child.2.1.1.1
+ │   │ ├── child.2.1.1.2
+ │   │ ├─┬ child.2.1.1.3
+ │   │ │ ├── child.2.1.1.3.1
+ │   │ │ └── child.2.1.1.3.2
+ │   │ ├── child.2.1.1.4
+ │   │ ├── child.2.1.1.5
+ │   │ └── child.2.1.1.5
+ │   └── child2.1.2
+ └── child3

@@ -8,7 +8,7 @@
     "url": "https://aws.amazon.com"
   },
   "bundled": {
-    "jsii-calc-bundled": "^0.7.6"
+    "jsii-calc-bundled": "^0.7.13"
   },
   "contributors": [
     {
@@ -37,6 +37,7 @@
     "@scope/jsii-calc-base": {
       "dependencies": {
         "@scope/jsii-calc-base-of-base": {
+          "peer": true,
           "targets": {
             "dotnet": {
               "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
@@ -53,9 +54,10 @@
               "npm": "@scope/jsii-calc-base-of-base"
             }
           },
-          "version": "0.7.6"
+          "version": "0.7.13"
         }
       },
+      "peer": true,
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
@@ -72,13 +74,14 @@
           "npm": "@scope/jsii-calc-base"
         }
       },
-      "version": "0.7.6"
+      "version": "0.7.13"
     },
     "@scope/jsii-calc-lib": {
       "dependencies": {
         "@scope/jsii-calc-base": {
           "dependencies": {
             "@scope/jsii-calc-base-of-base": {
+              "peer": true,
               "targets": {
                 "dotnet": {
                   "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
@@ -95,9 +98,10 @@
                   "npm": "@scope/jsii-calc-base-of-base"
                 }
               },
-              "version": "0.7.6"
+              "version": "0.7.13"
             }
           },
+          "peer": true,
           "targets": {
             "dotnet": {
               "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
@@ -114,9 +118,10 @@
               "npm": "@scope/jsii-calc-base"
             }
           },
-          "version": "0.7.6"
+          "version": "0.7.13"
         }
       },
+      "peer": true,
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.LibNamespace",
@@ -133,7 +138,7 @@
           "npm": "@scope/jsii-calc-lib"
         }
       },
-      "version": "0.7.6"
+      "version": "0.7.13"
     }
   },
   "description": "A simple calcuator built on JSII.",
@@ -377,7 +382,6 @@
           "type": {
             "collection": {
               "elementtype": {
-                "optional": true,
                 "primitive": "any"
               },
               "kind": "array"
@@ -389,11 +393,16 @@
           "type": {
             "collection": {
               "elementtype": {
-                "optional": true,
                 "primitive": "any"
               },
               "kind": "map"
             }
+          }
+        },
+        {
+          "name": "anyProperty",
+          "type": {
+            "primitive": "any"
           }
         },
         {
@@ -436,7 +445,7 @@
           "type": {
             "collection": {
               "elementtype": {
-                "primitive": "number"
+                "fqn": "@scope/jsii-calc-lib.Number"
               },
               "kind": "map"
             }
@@ -486,6 +495,9 @@
                     },
                     {
                       "primitive": "number"
+                    },
+                    {
+                      "fqn": "@scope/jsii-calc-lib.Number"
                     }
                   ]
                 }
@@ -507,6 +519,9 @@
                 },
                 {
                   "fqn": "jsii-calc.Multiply"
+                },
+                {
+                  "fqn": "@scope/jsii-calc-lib.Number"
                 }
               ]
             }
@@ -517,7 +532,6 @@
           "type": {
             "collection": {
               "elementtype": {
-                "optional": true,
                 "primitive": "any"
               },
               "kind": "array"
@@ -529,7 +543,6 @@
           "type": {
             "collection": {
               "elementtype": {
-                "optional": true,
                 "primitive": "any"
               },
               "kind": "map"
@@ -537,9 +550,8 @@
           }
         },
         {
-          "name": "anyProperty",
+          "name": "unknownProperty",
           "type": {
-            "optional": true,
             "primitive": "any"
           }
         },
@@ -548,13 +560,6 @@
           "type": {
             "fqn": "jsii-calc.StringEnum",
             "optional": true
-          }
-        },
-        {
-          "name": "unknownProperty",
-          "type": {
-            "optional": true,
-            "primitive": "any"
           }
         }
       ]
@@ -1018,6 +1023,106 @@
         }
       ]
     },
+    "jsii-calc.ClassWithMutableObjectLiteralProperty": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.ClassWithMutableObjectLiteralProperty",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "name": "ClassWithMutableObjectLiteralProperty",
+      "properties": [
+        {
+          "name": "mutableObject",
+          "type": {
+            "fqn": "jsii-calc.MutableObjectLiteral"
+          }
+        }
+      ]
+    },
+    "jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "comment": "Class that implements interface properties automatically, but using a private constructor"
+      },
+      "fqn": "jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties",
+      "interfaces": [
+        {
+          "fqn": "jsii-calc.InterfaceWithProperties"
+        }
+      ],
+      "kind": "class",
+      "methods": [
+        {
+          "name": "create",
+          "parameters": [
+            {
+              "name": "readOnlyString",
+              "type": {
+                "primitive": "string"
+              }
+            },
+            {
+              "name": "readWriteString",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ],
+          "returns": {
+            "fqn": "jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties"
+          },
+          "static": true
+        }
+      ],
+      "name": "ClassWithPrivateConstructorAndAutomaticProperties",
+      "properties": [
+        {
+          "immutable": true,
+          "name": "readOnlyString",
+          "overrides": {
+            "fqn": "jsii-calc.InterfaceWithProperties"
+          },
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "name": "readWriteString",
+          "overrides": {
+            "fqn": "jsii-calc.InterfaceWithProperties"
+          },
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.Constructors": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.Constructors",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "makeClass",
+          "returns": {
+            "fqn": "jsii-calc.PublicClass"
+          },
+          "static": true
+        },
+        {
+          "name": "makeInterface",
+          "returns": {
+            "fqn": "jsii-calc.IPublicInterface"
+          },
+          "static": true
+        }
+      ],
+      "name": "Constructors"
+    },
     "jsii-calc.DefaultedConstructorArgument": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.DefaultedConstructorArgument",
@@ -1034,6 +1139,7 @@
           {
             "name": "arg2",
             "type": {
+              "optional": true,
               "primitive": "string"
             }
           },
@@ -1058,16 +1164,17 @@
         },
         {
           "immutable": true,
-          "name": "arg2",
+          "name": "arg3",
           "type": {
-            "primitive": "string"
+            "primitive": "date"
           }
         },
         {
           "immutable": true,
-          "name": "arg3",
+          "name": "arg2",
           "type": {
-            "primitive": "date"
+            "optional": true,
+            "primitive": "string"
           }
         }
       ]
@@ -1181,6 +1288,113 @@
         }
       ]
     },
+    "jsii-calc.DoNotOverridePrivates": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.DoNotOverridePrivates",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "changePrivatePropertyValue",
+          "parameters": [
+            {
+              "name": "newValue",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ]
+        },
+        {
+          "name": "privateMethodValue",
+          "returns": {
+            "primitive": "string"
+          }
+        },
+        {
+          "name": "privatePropertyValue",
+          "returns": {
+            "primitive": "string"
+          }
+        }
+      ],
+      "name": "DoNotOverridePrivates"
+    },
+    "jsii-calc.DoNotRecognizeAnyAsOptional": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "comment": "jsii#284: do not recognize \"any\" as an optional argument"
+      },
+      "fqn": "jsii-calc.DoNotRecognizeAnyAsOptional",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "method",
+          "parameters": [
+            {
+              "name": "_requiredAny",
+              "type": {
+                "primitive": "any"
+              }
+            },
+            {
+              "name": "_optionalAny",
+              "type": {
+                "optional": true,
+                "primitive": "any"
+              }
+            },
+            {
+              "name": "_optionalString",
+              "type": {
+                "optional": true,
+                "primitive": "string"
+              }
+            }
+          ]
+        }
+      ],
+      "name": "DoNotRecognizeAnyAsOptional"
+    },
+    "jsii-calc.DontComplainAboutVariadicAfterOptional": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.DontComplainAboutVariadicAfterOptional",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "optionalAndVariadic",
+          "parameters": [
+            {
+              "name": "optional",
+              "type": {
+                "optional": true,
+                "primitive": "string"
+              }
+            },
+            {
+              "name": "things",
+              "type": {
+                "primitive": "string"
+              },
+              "variadic": true
+            }
+          ],
+          "returns": {
+            "primitive": "string"
+          },
+          "variadic": true
+        }
+      ],
+      "name": "DontComplainAboutVariadicAfterOptional"
+    },
     "jsii-calc.DoubleTrouble": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.DoubleTrouble",
@@ -1220,6 +1434,32 @@
         }
       ],
       "name": "DoubleTrouble"
+    },
+    "jsii-calc.ExportedBaseClass": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.ExportedBaseClass",
+      "initializer": {
+        "initializer": true,
+        "parameters": [
+          {
+            "name": "success",
+            "type": {
+              "primitive": "boolean"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "name": "ExportedBaseClass",
+      "properties": [
+        {
+          "immutable": true,
+          "name": "success",
+          "type": {
+            "primitive": "boolean"
+          }
+        }
+      ]
     },
     "jsii-calc.GiveMeStructs": {
       "assembly": "jsii-calc",
@@ -1292,6 +1532,31 @@
         }
       ]
     },
+    "jsii-calc.GreetingAugmenter": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.GreetingAugmenter",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "betterGreeting",
+          "parameters": [
+            {
+              "name": "friendly",
+              "type": {
+                "fqn": "@scope/jsii-calc-lib.IFriendly"
+              }
+            }
+          ],
+          "returns": {
+            "primitive": "string"
+          }
+        }
+      ],
+      "name": "GreetingAugmenter"
+    },
     "jsii-calc.IFriendlier": {
       "assembly": "jsii-calc",
       "docs": {
@@ -1343,50 +1608,109 @@
       "kind": "interface",
       "name": "IFriendlyRandomGenerator"
     },
-    "jsii-calc.IInterfaceWithProperties": {
+    "jsii-calc.IInterfaceThatShouldNotBeADataType": {
       "assembly": "jsii-calc",
-      "datatype": true,
-      "fqn": "jsii-calc.IInterfaceWithProperties",
+      "docs": {
+        "comment": "Even though this interface has only properties, it is disqualified from being a datatype\nbecause it inherits from an interface that is not a datatype."
+      },
+      "fqn": "jsii-calc.IInterfaceThatShouldNotBeADataType",
+      "interfaces": [
+        {
+          "fqn": "jsii-calc.IInterfaceWithMethods"
+        }
+      ],
       "kind": "interface",
-      "name": "IInterfaceWithProperties",
+      "name": "IInterfaceThatShouldNotBeADataType",
       "properties": [
         {
           "abstract": true,
           "immutable": true,
-          "name": "readOnlyString",
-          "type": {
-            "primitive": "string"
-          }
-        },
-        {
-          "abstract": true,
-          "name": "readWriteString",
+          "name": "otherValue",
           "type": {
             "primitive": "string"
           }
         }
       ]
     },
-    "jsii-calc.IInterfaceWithPropertiesExtension": {
+    "jsii-calc.IInterfaceWithMethods": {
       "assembly": "jsii-calc",
-      "datatype": true,
-      "fqn": "jsii-calc.IInterfaceWithPropertiesExtension",
-      "interfaces": [
+      "fqn": "jsii-calc.IInterfaceWithMethods",
+      "kind": "interface",
+      "methods": [
         {
-          "fqn": "jsii-calc.IInterfaceWithProperties"
+          "abstract": true,
+          "name": "doThings"
         }
       ],
-      "kind": "interface",
-      "name": "IInterfaceWithPropertiesExtension",
+      "name": "IInterfaceWithMethods",
       "properties": [
         {
           "abstract": true,
-          "name": "foo",
+          "immutable": true,
+          "name": "value",
           "type": {
-            "primitive": "number"
+            "primitive": "string"
           }
         }
       ]
+    },
+    "jsii-calc.IInterfaceWithOptionalMethodArguments": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "comment": "awslabs/jsii#175\nInterface proxies (and builders) do not respect optional arguments in methods"
+      },
+      "fqn": "jsii-calc.IInterfaceWithOptionalMethodArguments",
+      "kind": "interface",
+      "methods": [
+        {
+          "abstract": true,
+          "name": "hello",
+          "parameters": [
+            {
+              "name": "arg1",
+              "type": {
+                "primitive": "string"
+              }
+            },
+            {
+              "name": "arg2",
+              "type": {
+                "optional": true,
+                "primitive": "number"
+              }
+            }
+          ]
+        }
+      ],
+      "name": "IInterfaceWithOptionalMethodArguments"
+    },
+    "jsii-calc.IPrivatelyImplemented": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.IPrivatelyImplemented",
+      "kind": "interface",
+      "name": "IPrivatelyImplemented",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "name": "success",
+          "type": {
+            "primitive": "boolean"
+          }
+        }
+      ]
+    },
+    "jsii-calc.IPublicInterface": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.IPublicInterface",
+      "kind": "interface",
+      "methods": [
+        {
+          "abstract": true,
+          "name": "bye"
+        }
+      ],
+      "name": "IPublicInterface"
     },
     "jsii-calc.IRandomNumberGenerator": {
       "assembly": "jsii-calc",
@@ -1410,6 +1734,31 @@
       ],
       "name": "IRandomNumberGenerator"
     },
+    "jsii-calc.IReturnsNumber": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.IReturnsNumber",
+      "kind": "interface",
+      "methods": [
+        {
+          "abstract": true,
+          "name": "obtainNumber",
+          "returns": {
+            "fqn": "@scope/jsii-calc-lib.IDoublable"
+          }
+        }
+      ],
+      "name": "IReturnsNumber",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "name": "numberProp",
+          "type": {
+            "fqn": "@scope/jsii-calc-lib.Number"
+          }
+        }
+      ]
+    },
     "jsii-calc.ImplictBaseOfBase": {
       "assembly": "jsii-calc",
       "datatype": true,
@@ -1430,6 +1779,18 @@
           }
         }
       ]
+    },
+    "jsii-calc.InbetweenClass": {
+      "assembly": "jsii-calc",
+      "base": {
+        "fqn": "jsii-calc.PublicClass"
+      },
+      "fqn": "jsii-calc.InbetweenClass",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "name": "InbetweenClass"
     },
     "jsii-calc.InterfaceImplementedByAbstractClass": {
       "assembly": "jsii-calc",
@@ -1504,35 +1865,50 @@
         }
       ]
     },
-    "jsii-calc.InterfaceWithOptionalMethodArguments": {
+    "jsii-calc.InterfaceWithProperties": {
       "assembly": "jsii-calc",
-      "docs": {
-        "comment": "awslabs/jsii#175\nInterface proxies (and builders) do not respect optional arguments in methods"
-      },
-      "fqn": "jsii-calc.InterfaceWithOptionalMethodArguments",
+      "datatype": true,
+      "fqn": "jsii-calc.InterfaceWithProperties",
       "kind": "interface",
-      "methods": [
+      "name": "InterfaceWithProperties",
+      "properties": [
         {
           "abstract": true,
-          "name": "hello",
-          "parameters": [
-            {
-              "name": "arg1",
-              "type": {
-                "primitive": "string"
-              }
-            },
-            {
-              "name": "arg2",
-              "type": {
-                "optional": true,
-                "primitive": "number"
-              }
-            }
-          ]
+          "immutable": true,
+          "name": "readOnlyString",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "name": "readWriteString",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.InterfaceWithPropertiesExtension": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "fqn": "jsii-calc.InterfaceWithPropertiesExtension",
+      "interfaces": [
+        {
+          "fqn": "jsii-calc.InterfaceWithProperties"
         }
       ],
-      "name": "InterfaceWithOptionalMethodArguments"
+      "kind": "interface",
+      "name": "InterfaceWithPropertiesExtension",
+      "properties": [
+        {
+          "abstract": true,
+          "name": "foo",
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
     },
     "jsii-calc.JSObjectLiteralForInterface": {
       "assembly": "jsii-calc",
@@ -1772,6 +2148,104 @@
         }
       ]
     },
+    "jsii-calc.JsiiAgent": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "comment": "Host runtime version should be set via JSII_AGENT"
+      },
+      "fqn": "jsii-calc.JsiiAgent",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "name": "JsiiAgent",
+      "properties": [
+        {
+          "docs": {
+            "comment": "Returns the value of the JSII_AGENT environment variable."
+          },
+          "immutable": true,
+          "name": "jsiiAgent",
+          "static": true,
+          "type": {
+            "optional": true,
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.LoadBalancedFargateServiceProps": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "comment": "jsii#298: show default values in sphinx documentation, and respect newlines."
+      },
+      "fqn": "jsii-calc.LoadBalancedFargateServiceProps",
+      "kind": "interface",
+      "name": "LoadBalancedFargateServiceProps",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "comment": "The container port of the application load balancer attached to your Fargate service. Corresponds to container port mapping.",
+            "default": "80"
+          },
+          "name": "containerPort",
+          "type": {
+            "optional": true,
+            "primitive": "number"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "comment": "The number of cpu units used by the task.\nValid values, which determines your range of valid values for the memory parameter:\n256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB\n512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB\n1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB\n2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments\n4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments\n\nThis default is set in the underlying FargateTaskDefinition construct.",
+            "default": "256"
+          },
+          "name": "cpu",
+          "type": {
+            "optional": true,
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "comment": "The amount (in MiB) of memory used by the task.\n\nThis field is required and you must use one of the following values, which determines your range of valid values\nfor the cpu parameter:\n\n0.5GB, 1GB, 2GB - Available cpu values: 256 (.25 vCPU)\n\n1GB, 2GB, 3GB, 4GB - Available cpu values: 512 (.5 vCPU)\n\n2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB - Available cpu values: 1024 (1 vCPU)\n\nBetween 4GB and 16GB in 1GB increments - Available cpu values: 2048 (2 vCPU)\n\nBetween 8GB and 30GB in 1GB increments - Available cpu values: 4096 (4 vCPU)\n\nThis default is set in the underlying FargateTaskDefinition construct.",
+            "default": "512"
+          },
+          "name": "memoryMiB",
+          "type": {
+            "optional": true,
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "comment": "Determines whether the Application Load Balancer will be internet-facing",
+            "default": "true"
+          },
+          "name": "publicLoadBalancer",
+          "type": {
+            "optional": true,
+            "primitive": "boolean"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "comment": "Determines whether your Fargate Service will be assigned a public IP address.",
+            "default": "false"
+          },
+          "name": "publicTasks",
+          "type": {
+            "optional": true,
+            "primitive": "boolean"
+          }
+        }
+      ]
+    },
     "jsii-calc.Multiply": {
       "assembly": "jsii-calc",
       "base": {
@@ -1879,6 +2353,22 @@
           },
           "type": {
             "primitive": "number"
+          }
+        }
+      ]
+    },
+    "jsii-calc.MutableObjectLiteral": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "fqn": "jsii-calc.MutableObjectLiteral",
+      "kind": "interface",
+      "name": "MutableObjectLiteral",
+      "properties": [
+        {
+          "abstract": true,
+          "name": "value",
+          "type": {
+            "primitive": "string"
           }
         }
       ]
@@ -2029,6 +2519,99 @@
           "name": "osPlatform",
           "type": {
             "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.NullShouldBeTreatedAsUndefined": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "comment": "jsii#282, aws-cdk#157: null should be treated as \"undefined\""
+      },
+      "fqn": "jsii-calc.NullShouldBeTreatedAsUndefined",
+      "initializer": {
+        "initializer": true,
+        "parameters": [
+          {
+            "name": "_param1",
+            "type": {
+              "primitive": "string"
+            }
+          },
+          {
+            "name": "optional",
+            "type": {
+              "optional": true,
+              "primitive": "any"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "giveMeUndefined",
+          "parameters": [
+            {
+              "name": "value",
+              "type": {
+                "optional": true,
+                "primitive": "any"
+              }
+            }
+          ]
+        },
+        {
+          "name": "giveMeUndefinedInsideAnObject",
+          "parameters": [
+            {
+              "name": "input",
+              "type": {
+                "fqn": "jsii-calc.NullShouldBeTreatedAsUndefinedData"
+              }
+            }
+          ]
+        },
+        {
+          "name": "verifyPropertyIsUndefined"
+        }
+      ],
+      "name": "NullShouldBeTreatedAsUndefined",
+      "properties": [
+        {
+          "name": "changeMeToUndefined",
+          "type": {
+            "optional": true,
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.NullShouldBeTreatedAsUndefinedData": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "fqn": "jsii-calc.NullShouldBeTreatedAsUndefinedData",
+      "kind": "interface",
+      "name": "NullShouldBeTreatedAsUndefinedData",
+      "properties": [
+        {
+          "abstract": true,
+          "name": "arrayWithThreeElementsAndUndefinedAsSecondArgument",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "primitive": "any"
+              },
+              "kind": "array"
+            }
+          }
+        },
+        {
+          "abstract": true,
+          "name": "thisShouldBeUndefined",
+          "type": {
+            "optional": true,
+            "primitive": "any"
           }
         }
       ]
@@ -2209,7 +2792,7 @@
             {
               "name": "obj",
               "type": {
-                "fqn": "jsii-calc.ReturnsNumber"
+                "fqn": "jsii-calc.IReturnsNumber"
               }
             }
           ],
@@ -2318,6 +2901,20 @@
         }
       ]
     },
+    "jsii-calc.PublicClass": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.PublicClass",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "hello"
+        }
+      ],
+      "name": "PublicClass"
+    },
     "jsii-calc.ReferenceEnumFromScopedPackage": {
       "assembly": "jsii-calc",
       "docs": {
@@ -2359,27 +2956,25 @@
         }
       ]
     },
-    "jsii-calc.ReturnsNumber": {
+    "jsii-calc.ReturnsPrivateImplementationOfInterface": {
       "assembly": "jsii-calc",
-      "fqn": "jsii-calc.ReturnsNumber",
-      "kind": "interface",
-      "methods": [
-        {
-          "abstract": true,
-          "name": "obtainNumber",
-          "returns": {
-            "primitive": "number"
-          }
-        }
-      ],
-      "name": "ReturnsNumber",
+      "docs": {
+        "comment": "Helps ensure the JSII kernel & runtime cooperate correctly when an un-exported instance of a class is returned with\na declared type that is an exported interface, and the instance inherits from an exported class.",
+        "return": "an instance of an un-exported class that extends ``ExportedBaseClass``, declared as ``IPrivatelyImplemented``.",
+        "see": "https://github.com/awslabs/jsii/issues/320"
+      },
+      "fqn": "jsii-calc.ReturnsPrivateImplementationOfInterface",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "name": "ReturnsPrivateImplementationOfInterface",
       "properties": [
         {
-          "abstract": true,
           "immutable": true,
-          "name": "numberProp",
+          "name": "privateImplementation",
           "type": {
-            "primitive": "number"
+            "fqn": "jsii-calc.IPrivatelyImplemented"
           }
         }
       ]
@@ -2405,6 +3000,7 @@
             {
               "name": "arg2",
               "type": {
+                "optional": true,
                 "primitive": "string"
               }
             },
@@ -2880,7 +3476,6 @@
         {
           "name": "value",
           "returns": {
-            "optional": true,
             "primitive": "any"
           }
         }
@@ -2916,7 +3511,7 @@
           {
             "name": "obj",
             "type": {
-              "fqn": "jsii-calc.IInterfaceWithProperties"
+              "fqn": "jsii-calc.InterfaceWithProperties"
             }
           }
         ]
@@ -2935,7 +3530,7 @@
             {
               "name": "ext",
               "type": {
-                "fqn": "jsii-calc.IInterfaceWithPropertiesExtension"
+                "fqn": "jsii-calc.InterfaceWithPropertiesExtension"
               }
             }
           ],
@@ -2964,7 +3559,7 @@
           "immutable": true,
           "name": "obj",
           "type": {
-            "fqn": "jsii-calc.IInterfaceWithProperties"
+            "fqn": "jsii-calc.InterfaceWithProperties"
           }
         }
       ]
@@ -3214,13 +3809,13 @@
       "members": [
         {
           "docs": {
-            "comment": "Normal string expression "
+            "comment": "Normal string expression"
           },
           "name": "Normal"
         },
         {
           "docs": {
-            "comment": "Decorated string expression "
+            "comment": "Decorated string expression"
           },
           "name": "Decorated"
         }
@@ -3229,6 +3824,6 @@
       "namespace": "composition.CompositeOperation"
     }
   },
-  "version": "0.7.6",
-  "fingerprint": "ecDtx3DHVZi7UjyCDhGncg4jbSRaD536bUyh6YzAxlY="
+  "version": "0.7.13",
+  "fingerprint": "WNp0Sw1d2+3FaQD0Fn01K4wYQi7Ms3w+NQatOylD1kM="
 }

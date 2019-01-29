@@ -1,6 +1,6 @@
 {
   "name": "jsii-spec",
-  "version": "0.7.6",
+  "version": "0.7.13",
   "description": "Specification for jsii assemblies",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -11,13 +11,12 @@
     "package": "package-js"
   },
   "devDependencies": {
-    "@types/jsonschema": "^1.1.1",
-    "@types/node": "^9.6.18",
+    "@types/node": "^8.10.37",
     "@types/nodeunit": "^0.0.30",
-    "jsii-build-tools": "^0.7.6",
+    "jsii-build-tools": "^0.7.13",
     "nodeunit": "^0.11.3",
-    "typescript": "^3.0.1",
-    "typescript-json-schema": "^0.27.0"
+    "typescript": "^3.2.4",
+    "typescript-json-schema": "^0.34.0"
   },
   "dependencies": {
     "jsonschema": "^1.2.4"

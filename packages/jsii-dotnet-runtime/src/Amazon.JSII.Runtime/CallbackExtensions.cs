@@ -15,12 +15,12 @@ namespace Amazon.JSII.Runtime
         {
             try
             {
-                object frameworkResult = callback.InvokeCallbackCore(referenceMap);
+                CallbackResult frameworkResult = callback.InvokeCallbackCore(referenceMap);
 
                 converter.TryConvert(
-                    new TypeReference(primitive: PrimitiveType.Any),
+                    frameworkResult?.Type ?? new TypeReference(primitive: PrimitiveType.Any),
                     referenceMap,
-                    frameworkResult,
+                    frameworkResult?.Value,
                     out object result
                 );
 
@@ -29,20 +29,19 @@ namespace Amazon.JSII.Runtime
             }
             catch (TargetInvocationException e)
             {
-                throw e.InnerException;
-            }
-            catch (TargetParameterCountException)
-            {
-                throw;
+                // An exception was thrown by the method being invoked
+                error = e.InnerException.ToString();
+                return null;
             }
             catch (Exception e)
             {
+                // An exception was thrown while preparing the request or processing the result
                 error = e.ToString();
                 return null;
             }
         }
 
-        static object InvokeCallbackCore(this Callback callback, IReferenceMap referenceMap)
+        static CallbackResult InvokeCallbackCore(this Callback callback, IReferenceMap referenceMap)
         {
             if (callback.Invoke != null)
             {
@@ -63,7 +62,7 @@ namespace Amazon.JSII.Runtime
             throw new ArgumentException("Callback does not specificy a method, getter, or setter to invoke");
         }
 
-        static object InvokeMethod(InvokeRequest request, IReferenceMap referenceMap)
+        static CallbackResult InvokeMethod(InvokeRequest request, IReferenceMap referenceMap)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
             DeputyBase deputy = referenceMap.GetOrCreateNativeReference(request.ObjectReference);
@@ -75,10 +74,11 @@ namespace Amazon.JSII.Runtime
                 throw new InvalidOperationException($"Received callback for {deputy.GetType().Name}.{request.Method} getter, but this method does not exist");
             }
 
-            return methodInfo.Invoke(deputy, request.Arguments);
+            JsiiMethodAttribute attribute = methodInfo.GetCustomAttribute<JsiiMethodAttribute>();
+            return new CallbackResult(attribute?.Returns, methodInfo.Invoke(deputy, request.Arguments));
         }
 
-        static object InvokeGetter(GetRequest request, IReferenceMap referenceMap)
+        static CallbackResult InvokeGetter(GetRequest request, IReferenceMap referenceMap)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
             DeputyBase deputy = referenceMap.GetOrCreateNativeReference(request.ObjectReference);
@@ -89,13 +89,15 @@ namespace Amazon.JSII.Runtime
                 throw new InvalidOperationException($"Received callback for {deputy.GetType().Name}.{request.Property} getter, but this property does not exist");
             }
 
+            JsiiPropertyAttribute attribute = propertyInfo.GetCustomAttribute<JsiiPropertyAttribute>();
+
             MethodInfo methodInfo = propertyInfo.GetGetMethod();
             if (methodInfo == null)
             {
                 throw new InvalidOperationException($"Received callback for {deputy.GetType().Name}.{request.Property} getter, but this property does not have a getter");
             }
 
-            return methodInfo.Invoke(deputy, new object[] { });
+            return new CallbackResult(attribute?.Type, methodInfo.Invoke(deputy, new object[] { }));
         }
 
         static void InvokeSetter(SetRequest request, IReferenceMap referenceMap)
@@ -117,5 +119,17 @@ namespace Amazon.JSII.Runtime
 
             methodInfo.Invoke(deputy, new object[] { request.Value });
         }
+    }
+
+    internal class CallbackResult
+    {
+        public CallbackResult(TypeReference type, object value)
+        {
+            Type = type;
+            Value = value;
+        }
+
+        public TypeReference Type { get; }
+        public object Value { get; }
     }
 }

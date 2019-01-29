@@ -1,0 +1,528 @@
+assemblies
+ ├─┬ jsii-calc
+ │ └─┬ types
+ │   ├─┬ class AbstractClass
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── abstractMethod(name) method
+ │   │   ├── nonAbstractMethod() method
+ │   │   └── propFromInterface property
+ │   ├─┬ class AbstractClassBase
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── abstractProperty property
+ │   ├─┬ class AbstractClassReturner
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── giveMeAbstract() method
+ │   │   ├── giveMeInterface() method
+ │   │   └── returnAbstractFromProperty property
+ │   ├─┬ class Add
+ │   │ └─┬ members
+ │   │   ├── <initializer>(lhs,rhs) method
+ │   │   ├── toString() method
+ │   │   └── value property
+ │   ├─┬ class AllTypes
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── enumMethod(value) method
+ │   │   ├── enumPropertyValue property
+ │   │   ├── anyArrayProperty property
+ │   │   ├── anyMapProperty property
+ │   │   ├── anyProperty property
+ │   │   ├── arrayProperty property
+ │   │   ├── booleanProperty property
+ │   │   ├── dateProperty property
+ │   │   ├── enumProperty property
+ │   │   ├── jsonProperty property
+ │   │   ├── mapProperty property
+ │   │   ├── numberProperty property
+ │   │   ├── stringProperty property
+ │   │   ├── unionArrayProperty property
+ │   │   ├── unionMapProperty property
+ │   │   ├── unionProperty property
+ │   │   ├── unknownArrayProperty property
+ │   │   ├── unknownMapProperty property
+ │   │   ├── unknownProperty property
+ │   │   └── optionalEnumValue property
+ │   ├─┬ class AllowedMethodNames
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── getBar(_p1,_p2) method
+ │   │   ├── getFoo(withParam) method
+ │   │   ├── setBar(_x,_y,_z) method
+ │   │   └── setFoo(_x,_y) method
+ │   ├─┬ class AsyncVirtualMethods
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── callMe() method
+ │   │   ├── callMe2() method
+ │   │   ├── callMeDoublePromise() method
+ │   │   ├── dontOverrideMe() method
+ │   │   ├── overrideMe(mult) method
+ │   │   └── overrideMeToo() method
+ │   ├─┬ class BinaryOperation
+ │   │ └─┬ members
+ │   │   ├── <initializer>(lhs,rhs) method
+ │   │   ├── hello() method
+ │   │   ├── lhs property
+ │   │   └── rhs property
+ │   ├─┬ class Calculator
+ │   │ └─┬ members
+ │   │   ├── <initializer>(props) method
+ │   │   ├── add(value) method
+ │   │   ├── mul(value) method
+ │   │   ├── neg() method
+ │   │   ├── pow(value) method
+ │   │   ├── readUnionValue() method
+ │   │   ├── expression property
+ │   │   ├── operationsLog property
+ │   │   ├── operationsMap property
+ │   │   ├── curr property
+ │   │   ├── maxValue property
+ │   │   └── unionProperty property
+ │   ├─┬ class ClassWithMutableObjectLiteralProperty
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── mutableObject property
+ │   ├─┬ class ClassWithPrivateConstructorAndAutomaticProperties
+ │   │ └─┬ members
+ │   │   ├── create(readOnlyString,readWriteString) method
+ │   │   ├── readOnlyString property
+ │   │   └── readWriteString property
+ │   ├─┬ class Constructors
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── makeClass() method
+ │   │   └── makeInterface() method
+ │   ├─┬ class DefaultedConstructorArgument
+ │   │ └─┬ members
+ │   │   ├── <initializer>(arg1,arg2,arg3) method
+ │   │   ├── arg1 property
+ │   │   ├── arg3 property
+ │   │   └── arg2 property
+ │   ├─┬ class Base
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── prop property
+ │   ├─┬ class Derived
+ │   │ └─┬ members
+ │   │   └── <initializer>() method
+ │   ├─┬ class DoNotOverridePrivates
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── changePrivatePropertyValue(newValue) method
+ │   │   ├── privateMethodValue() method
+ │   │   └── privatePropertyValue() method
+ │   ├─┬ class DoNotRecognizeAnyAsOptional
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── method(_requiredAny,_optionalAny,_optionalString) method
+ │   ├─┬ class DontComplainAboutVariadicAfterOptional
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── optionalAndVariadic(optional,things) method
+ │   ├─┬ class DoubleTrouble
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── hello() method
+ │   │   └── next() method
+ │   ├─┬ class ExportedBaseClass
+ │   │ └─┬ members
+ │   │   ├── <initializer>(success) method
+ │   │   └── success property
+ │   ├─┬ class GiveMeStructs
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── derivedToFirst(derived) method
+ │   │   ├── readDerivedNonPrimitive(derived) method
+ │   │   ├── readFirstNumber(first) method
+ │   │   └── structLiteral property
+ │   ├─┬ class GreetingAugmenter
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── betterGreeting(friendly) method
+ │   ├─┬ class InbetweenClass
+ │   │ └─┬ members
+ │   │   └── <initializer>() method
+ │   ├─┬ class Foo
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── bar property
+ │   ├─┬ class JSObjectLiteralForInterface
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── giveMeFriendly() method
+ │   │   └── giveMeFriendlyGenerator() method
+ │   ├─┬ class JSObjectLiteralToNative
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── returnLiteral() method
+ │   ├─┬ class JSObjectLiteralToNativeClass
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── propA property
+ │   │   └── propB property
+ │   ├─┬ class JavaReservedWords
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── abstract() method
+ │   │   ├── assert() method
+ │   │   ├── boolean() method
+ │   │   ├── break() method
+ │   │   ├── byte() method
+ │   │   ├── case() method
+ │   │   ├── catch() method
+ │   │   ├── char() method
+ │   │   ├── class() method
+ │   │   ├── const() method
+ │   │   ├── continue() method
+ │   │   ├── default() method
+ │   │   ├── do() method
+ │   │   ├── double() method
+ │   │   ├── else() method
+ │   │   ├── enum() method
+ │   │   ├── extends() method
+ │   │   ├── false() method
+ │   │   ├── final() method
+ │   │   ├── finally() method
+ │   │   ├── float() method
+ │   │   ├── for() method
+ │   │   ├── goto() method
+ │   │   ├── if() method
+ │   │   ├── implements() method
+ │   │   ├── import() method
+ │   │   ├── instanceof() method
+ │   │   ├── int() method
+ │   │   ├── interface() method
+ │   │   ├── long() method
+ │   │   ├── native() method
+ │   │   ├── new() method
+ │   │   ├── null() method
+ │   │   ├── package() method
+ │   │   ├── private() method
+ │   │   ├── protected() method
+ │   │   ├── public() method
+ │   │   ├── return() method
+ │   │   ├── short() method
+ │   │   ├── static() method
+ │   │   ├── strictfp() method
+ │   │   ├── super() method
+ │   │   ├── switch() method
+ │   │   ├── synchronized() method
+ │   │   ├── this() method
+ │   │   ├── throw() method
+ │   │   ├── throws() method
+ │   │   ├── transient() method
+ │   │   ├── true() method
+ │   │   ├── try() method
+ │   │   ├── void() method
+ │   │   ├── volatile() method
+ │   │   └── while property
+ │   ├─┬ class JsiiAgent
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── jsiiAgent property
+ │   ├─┬ class Multiply
+ │   │ └─┬ members
+ │   │   ├── <initializer>(lhs,rhs) method
+ │   │   ├── farewell() method
+ │   │   ├── goodbye() method
+ │   │   ├── next() method
+ │   │   ├── toString() method
+ │   │   └── value property
+ │   ├─┬ class Negate
+ │   │ └─┬ members
+ │   │   ├── <initializer>(operand) method
+ │   │   ├── farewell() method
+ │   │   ├── goodbye() method
+ │   │   ├── hello() method
+ │   │   ├── toString() method
+ │   │   └── value property
+ │   ├─┬ class NodeStandardLibrary
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── cryptoSha256() method
+ │   │   ├── fsReadFile() method
+ │   │   ├── fsReadFileSync() method
+ │   │   └── osPlatform property
+ │   ├─┬ class NullShouldBeTreatedAsUndefined
+ │   │ └─┬ members
+ │   │   ├── <initializer>(_param1,optional) method
+ │   │   ├── giveMeUndefined(value) method
+ │   │   ├── giveMeUndefinedInsideAnObject(input) method
+ │   │   ├── verifyPropertyIsUndefined() method
+ │   │   └── changeMeToUndefined property
+ │   ├─┬ class NumberGenerator
+ │   │ └─┬ members
+ │   │   ├── <initializer>(generator) method
+ │   │   ├── isSameGenerator(gen) method
+ │   │   ├── nextTimes100() method
+ │   │   └── generator property
+ │   ├─┬ class ObjectRefsInCollections
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── sumFromArray(values) method
+ │   │   └── sumFromMap(values) method
+ │   ├─┬ class OptionalConstructorArgument
+ │   │ └─┬ members
+ │   │   ├── <initializer>(arg1,arg2,arg3) method
+ │   │   ├── arg1 property
+ │   │   ├── arg2 property
+ │   │   └── arg3 property
+ │   ├─┬ class OverrideReturnsObject
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── test(obj) method
+ │   ├─┬ class Polymorphism
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── sayHello(friendly) method
+ │   ├─┬ class Power
+ │   │ └─┬ members
+ │   │   ├── <initializer>(base,pow) method
+ │   │   ├── base property
+ │   │   ├── expression property
+ │   │   └── pow property
+ │   ├─┬ class PublicClass
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── hello() method
+ │   ├─┬ class ReferenceEnumFromScopedPackage
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── loadFoo() method
+ │   │   ├── saveFoo(value) method
+ │   │   └── foo property
+ │   ├─┬ class ReturnsPrivateImplementationOfInterface
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── privateImplementation property
+ │   ├─┬ class RuntimeTypeChecking
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── methodWithDefaultedArguments(arg1,arg2,arg3) method
+ │   │   ├── methodWithOptionalAnyArgument(arg) method
+ │   │   └── methodWithOptionalArguments(arg1,arg2,arg3) method
+ │   ├─┬ class Statics
+ │   │ └─┬ members
+ │   │   ├── <initializer>(value) method
+ │   │   ├── staticMethod(name) method
+ │   │   ├── justMethod() method
+ │   │   ├── BAR property
+ │   │   ├── ConstObj property
+ │   │   ├── Foo property
+ │   │   ├── zooBar property
+ │   │   ├── instance property
+ │   │   ├── nonConstStatic property
+ │   │   └── value property
+ │   ├─┬ class Sum
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── expression property
+ │   │   └── parts property
+ │   ├─┬ class SyncVirtualMethods
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── callerIsAsync() method
+ │   │   ├── callerIsMethod() method
+ │   │   ├── modifyOtherProperty(value) method
+ │   │   ├── modifyValueOfTheProperty(value) method
+ │   │   ├── readA() method
+ │   │   ├── retrieveOtherProperty() method
+ │   │   ├── retrieveReadOnlyProperty() method
+ │   │   ├── retrieveValueOfTheProperty() method
+ │   │   ├── virtualMethod(n) method
+ │   │   ├── writeA(value) method
+ │   │   ├── readonlyProperty property
+ │   │   ├── a property
+ │   │   ├── callerIsProperty property
+ │   │   ├── otherProperty property
+ │   │   ├── theProperty property
+ │   │   └── valueOfOtherProperty property
+ │   ├─┬ class Thrower
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── throwError() method
+ │   ├─┬ class UnaryOperation
+ │   │ └─┬ members
+ │   │   ├── <initializer>(operand) method
+ │   │   └── operand property
+ │   ├─┬ class UseBundledDependency
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── value() method
+ │   ├─┬ class UseCalcBase
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── hello() method
+ │   ├─┬ class UsesInterfaceWithProperties
+ │   │ └─┬ members
+ │   │   ├── <initializer>(obj) method
+ │   │   ├── justRead() method
+ │   │   ├── readStringAndNumber(ext) method
+ │   │   ├── writeAndRead(value) method
+ │   │   └── obj property
+ │   ├─┬ class VariadicMethod
+ │   │ └─┬ members
+ │   │   ├── <initializer>(prefix) method
+ │   │   └── asArray(first,others) method
+ │   ├─┬ class VirtualMethodPlayground
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── overrideMeAsync(index) method
+ │   │   ├── overrideMeSync(index) method
+ │   │   ├── parallelSumAsync(count) method
+ │   │   ├── serialSumAsync(count) method
+ │   │   └── sumSync(count) method
+ │   ├─┬ class CompositeOperation
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── toString() method
+ │   │   ├── expression property
+ │   │   ├── value property
+ │   │   ├── decorationPostfixes property
+ │   │   ├── decorationPrefixes property
+ │   │   └── stringStyle property
+ │   ├─┬ interface CalculatorProps
+ │   │ └─┬ members
+ │   │   ├── initialValue property
+ │   │   └── maximumValue property
+ │   ├─┬ interface DerivedStruct
+ │   │ └─┬ members
+ │   │   ├── anotherRequired property
+ │   │   ├── bool property
+ │   │   ├── nonPrimitive property
+ │   │   ├── anotherOptional property
+ │   │   ├── optionalAny property
+ │   │   └── optionalArray property
+ │   ├─┬ interface IFriendlier
+ │   │ └─┬ members
+ │   │   ├── farewell() method
+ │   │   └── goodbye() method
+ │   ├─┬ interface IFriendlyRandomGenerator
+ │   │ └── members
+ │   ├─┬ interface IInterfaceThatShouldNotBeADataType
+ │   │ └─┬ members
+ │   │   └── otherValue property
+ │   ├─┬ interface IInterfaceWithMethods
+ │   │ └─┬ members
+ │   │   ├── doThings() method
+ │   │   └── value property
+ │   ├─┬ interface IInterfaceWithOptionalMethodArguments
+ │   │ └─┬ members
+ │   │   └── hello(arg1,arg2) method
+ │   ├─┬ interface IPrivatelyImplemented
+ │   │ └─┬ members
+ │   │   └── success property
+ │   ├─┬ interface IPublicInterface
+ │   │ └─┬ members
+ │   │   └── bye() method
+ │   ├─┬ interface IRandomNumberGenerator
+ │   │ └─┬ members
+ │   │   └── next() method
+ │   ├─┬ interface IReturnsNumber
+ │   │ └─┬ members
+ │   │   ├── obtainNumber() method
+ │   │   └── numberProp property
+ │   ├─┬ interface ImplictBaseOfBase
+ │   │ └─┬ members
+ │   │   └── goo property
+ │   ├─┬ interface InterfaceImplementedByAbstractClass
+ │   │ └─┬ members
+ │   │   └── propFromInterface property
+ │   ├─┬ interface Hello
+ │   │ └─┬ members
+ │   │   └── foo property
+ │   ├─┬ interface Hello
+ │   │ └─┬ members
+ │   │   └── foo property
+ │   ├─┬ interface InterfaceWithProperties
+ │   │ └─┬ members
+ │   │   ├── readOnlyString property
+ │   │   └── readWriteString property
+ │   ├─┬ interface InterfaceWithPropertiesExtension
+ │   │ └─┬ members
+ │   │   └── foo property
+ │   ├─┬ interface LoadBalancedFargateServiceProps
+ │   │ └─┬ members
+ │   │   ├── containerPort property
+ │   │   ├── cpu property
+ │   │   ├── memoryMiB property
+ │   │   ├── publicLoadBalancer property
+ │   │   └── publicTasks property
+ │   ├─┬ interface MutableObjectLiteral
+ │   │ └─┬ members
+ │   │   └── value property
+ │   ├─┬ interface NullShouldBeTreatedAsUndefinedData
+ │   │ └─┬ members
+ │   │   ├── arrayWithThreeElementsAndUndefinedAsSecondArgument property
+ │   │   └── thisShouldBeUndefined property
+ │   ├─┬ interface UnionProperties
+ │   │ └─┬ members
+ │   │   ├── bar property
+ │   │   └── foo property
+ │   ├─┬ enum AllTypesEnum
+ │   │ ├── MyEnumValue
+ │   │ ├── YourEnumValue
+ │   │ └── ThisIsGreat
+ │   ├─┬ enum StringEnum
+ │   │ ├── A
+ │   │ ├── B
+ │   │ └── C
+ │   └─┬ enum CompositionStringStyle
+ │     ├── Normal
+ │     └── Decorated
+ ├─┬ @scope/jsii-calc-base
+ │ └─┬ types
+ │   ├─┬ class Base
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── typeName() method
+ │   └─┬ interface BaseProps
+ │     └─┬ members
+ │       └── bar property
+ ├─┬ @scope/jsii-calc-base-of-base
+ │ └─┬ types
+ │   ├─┬ class Very
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── hey() method
+ │   └─┬ interface VeryBaseProps
+ │     └─┬ members
+ │       └── foo property
+ └─┬ @scope/jsii-calc-lib
+   └─┬ types
+     ├─┬ class Number
+     │ └─┬ members
+     │   ├── <initializer>(value) method
+     │   ├── doubleValue property
+     │   └── value property
+     ├─┬ class Operation
+     │ └─┬ members
+     │   ├── <initializer>() method
+     │   └── toString() method
+     ├─┬ class Value
+     │ └─┬ members
+     │   ├── <initializer>() method
+     │   ├── toString() method
+     │   └── value property
+     ├─┬ interface IDoublable
+     │ └─┬ members
+     │   └── doubleValue property
+     ├─┬ interface IFriendly
+     │ └─┬ members
+     │   └── hello() method
+     ├─┬ interface MyFirstStruct
+     │ └─┬ members
+     │   ├── anumber property
+     │   ├── astring property
+     │   └── firstOptional property
+     ├─┬ interface StructWithOnlyOptionals
+     │ └─┬ members
+     │   ├── optional1 property
+     │   ├── optional2 property
+     │   └── optional3 property
+     └─┬ enum EnumFromScopedModule
+       ├── Value1
+       └── Value2

@@ -251,7 +251,7 @@ namespace Amazon.JSII.Runtime.Deputy
         )
         {
             IServiceProvider serviceProvider = ServiceContainer.ServiceProvider;
-            IClient client = serviceProvider.GetRequiredService<IClient>(); ;
+            IClient client = serviceProvider.GetRequiredService<IClient>();
             IJsiiToFrameworkConverter converter = serviceProvider.GetRequiredService<IJsiiToFrameworkConverter>();
             IReferenceMap referenceMap = serviceProvider.GetRequiredService<IReferenceMap>();
 

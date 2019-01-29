@@ -1,9 +1,9 @@
-﻿using Amazon.JSII.JsonModel.Spec;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Amazon.JSII.JsonModel.Spec;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System.Collections.Generic;
-using System.Linq;
 using SF = Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Amazon.JSII.Generator.Class
@@ -97,37 +97,41 @@ namespace Amazon.JSII.Generator.Class
         {
             SyntaxToken typeName = Symbols.GetNameSyntaxToken(Type);
 
-            yield return SF.ConstructorDeclaration
-            (
-                SF.List<AttributeListSyntax>(),
-                SF.TokenList(SF.Token(
-                    Type.IsAbstract || Type.Initializer.IsProtected ?
-                       SyntaxKind.ProtectedKeyword :
-                       SyntaxKind.PublicKeyword
-                )),
-                typeName,
-                Type.Initializer.GetParameterListSyntax(Namespaces, Symbols),
-                SF.ConstructorInitializer
+            if (Type.Initializer != null)
+            {
+                yield return SF.ConstructorDeclaration
                 (
-                    SyntaxKind.BaseConstructorInitializer,
-                    SF.ArgumentList(
-                        SF.SeparatedList(new[] {
-                            SF.Argument(
-                                SF.ObjectCreationExpression(
-                                    SF.Token(SyntaxKind.NewKeyword),
-                                    SF.ParseTypeName("DeputyProps"),
-                                    SF.ArgumentList(SF.SeparatedList(
-                                        new[] { GetBaseArgument() }
-                                    )),
-                                    null
+                    SF.List<AttributeListSyntax>(),
+                    SF.TokenList(SF.Token(
+                        Type.IsAbstract || Type.Initializer.IsProtected
+                            ? SyntaxKind.ProtectedKeyword
+                            : SyntaxKind.PublicKeyword
+                    )),
+                    typeName,
+                    Type.Initializer.GetParameterListSyntax(Namespaces, Symbols),
+                    SF.ConstructorInitializer
+                    (
+                        SyntaxKind.BaseConstructorInitializer,
+                        SF.ArgumentList(
+                            SF.SeparatedList(new[]
+                            {
+                                SF.Argument(
+                                    SF.ObjectCreationExpression(
+                                        SF.Token(SyntaxKind.NewKeyword),
+                                        SF.ParseTypeName("DeputyProps"),
+                                        SF.ArgumentList(SF.SeparatedList(
+                                            new[] {GetBaseArgument()}
+                                        )),
+                                        null
+                                    )
                                 )
-                            )
-                        })
-                    )
-                ),
-                SF.Block(),
-                null
-            );
+                            })
+                        )
+                    ),
+                    SF.Block(),
+                    null
+                );
+            }
 
             yield return SF.ConstructorDeclaration
             (

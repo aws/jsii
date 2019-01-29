@@ -12,6 +12,7 @@ const LOG = log4js.getLogger('jsii/package-info');
 
 export interface ProjectInfo {
     readonly projectRoot: string;
+    readonly packageJson: any;
 
     readonly name: string;
     readonly version: string;
@@ -26,12 +27,15 @@ export interface ProjectInfo {
     readonly types: string;
 
     readonly dependencies: ReadonlyArray<spec.Assembly>;
+    readonly peerDependencies: ReadonlyArray<spec.Assembly>;
     readonly transitiveDependencies: ReadonlyArray<spec.Assembly>;
     readonly bundleDependencies: { readonly [name: string]: string };
     readonly targets: spec.AssemblyTargets;
     readonly description?: string;
     readonly homepage?: string;
     readonly contributors?: ReadonlyArray<spec.Person>;
+    readonly excludeTypescript: string[];
+    readonly projectReferences?: boolean;
 }
 
 export async function loadProjectInfo(projectRoot: string): Promise<ProjectInfo> {
@@ -43,14 +47,25 @@ export async function loadProjectInfo(projectRoot: string): Promise<ProjectInfo>
         if (!version) {
             throw new Error(`The "package.json" has "${name}" in "bundleDependencies", but it is not declared in "dependencies"`);
         }
+
+        if (pkg.peerDependencies && name in pkg.peerDependencies) {
+            throw new Error(`The "package.json" has "${name}" in "bundleDependencies", and also in "peerDependencies"`);
+        }
+
         bundleDependencies[name] = version;
     });
 
-    const [dependencies, transitiveDependencies] =
-            await _loadDependencies(pkg.dependencies, projectRoot, new Set<string>(Object.keys(bundleDependencies)));
+    const transitiveAssemblies: { [name: string]: spec.Assembly } = {};
+    const dependencies =
+        await _loadDependencies(pkg.dependencies, projectRoot, transitiveAssemblies, new Set<string>(Object.keys(bundleDependencies)));
+    const peerDependencies =
+        await _loadDependencies(pkg.peerDependencies, projectRoot, transitiveAssemblies);
+
+    const transitiveDependencies = Object.keys(transitiveAssemblies).map(name => transitiveAssemblies[name]);
 
     return {
         projectRoot,
+        packageJson: pkg,
 
         name: _required(pkg.name, 'The "package.json" file must specify the "name" attribute'),
         version: _required(pkg.version, 'The "package.json" file must specify the "version" attribute'),
@@ -65,6 +80,7 @@ export async function loadProjectInfo(projectRoot: string): Promise<ProjectInfo>
         types: _required(pkg.types, 'The "package.json" file must specify the "types" attribute'),
 
         dependencies,
+        peerDependencies,
         transitiveDependencies,
         bundleDependencies,
         targets: {
@@ -75,7 +91,10 @@ export async function loadProjectInfo(projectRoot: string): Promise<ProjectInfo>
         description: pkg.description,
         homepage: pkg.homepage,
         contributors: pkg.contributors
-            && (pkg.contributors as any[]).map((contrib, index) => _toPerson(contrib, `contributors[${index}]`, 'contributor'))
+            && (pkg.contributors as any[]).map((contrib, index) => _toPerson(contrib, `contributors[${index}]`, 'contributor')),
+
+        excludeTypescript: (pkg.jsii && pkg.jsii.excludeTypescript) || [],
+        projectReferences: pkg.jsii && pkg.jsii.projectReferences
     };
 }
 
@@ -90,10 +109,10 @@ function _guessRepositoryType(url: string): string {
 
 async function _loadDependencies(dependencies: { [name: string]: string | spec.PackageVersion } | undefined,
                                  searchPath: string,
-                                 bundled: Set<string> = new Set()): Promise<[spec.Assembly[], spec.Assembly[]]> {
-    if (!dependencies) { return [[], []]; }
+                                 transitiveAssemblies: { [name: string]: spec.Assembly },
+                                 bundled = new Set<string>()): Promise<spec.Assembly[]> {
+    if (!dependencies) { return []; }
     const assemblies = new Array<spec.Assembly>();
-    const transitiveAssemblies = new Array<spec.Assembly>();
     for (const name of Object.keys(dependencies)) {
         if (bundled.has(name)) { continue; }
         const dep = dependencies[name];
@@ -104,22 +123,30 @@ async function _loadDependencies(dependencies: { [name: string]: string | spec.
         }
         const pkg = _tryResolve(path.join(name, '.jsii'), searchPath);
         LOG.debug(`Resolved dependency ${name} to ${pkg}`);
-        const assm = spec.validateAssembly(await fs.readJson(pkg));
+        const assm = await loadAndValidateAssembly(pkg);
         if (!version.intersects(new semver.Range(assm.version))) {
             throw new Error(`Declared dependency on version ${versionString} of ${name}, but version ${assm.version} was found`);
         }
         assemblies.push(assm);
-        transitiveAssemblies.push(assm);
+        transitiveAssemblies[assm.name] = assm;
         const pkgDir = path.dirname(pkg);
         if (assm.dependencies) {
-            const [depAssemblies, depTransitiveAssemblies, ] = await _loadDependencies(assm.dependencies, pkgDir);
-            for (const depAssembly of depAssemblies.concat(depTransitiveAssemblies)) {
-                if (transitiveAssemblies.find(a => a.name === depAssembly.name) != null) { continue; }
-                transitiveAssemblies.push(depAssembly);
-            }
+            await _loadDependencies(assm.dependencies, pkgDir, transitiveAssemblies);
         }
     }
-    return [assemblies, transitiveAssemblies];
+    return assemblies;
+}
+
+const ASSEMBLY_CACHE = new Map<string, spec.Assembly>();
+
+/**
+ * Load a JSII filename and validate it; cached to avoid redundant loads of the same JSII assembly
+ */
+async function loadAndValidateAssembly(jsiiFileName: string): Promise<spec.Assembly> {
+    if (!ASSEMBLY_CACHE.has(jsiiFileName)) {
+        ASSEMBLY_CACHE.set(jsiiFileName, spec.validateAssembly(await fs.readJson(jsiiFileName)));
+    }
+    return ASSEMBLY_CACHE.get(jsiiFileName)!;
 }
 
 function _required<T>(value: T, message: string): T {

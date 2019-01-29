@@ -3,7 +3,7 @@ import path = require('path');
 import process = require('process');
 import ts = require('typescript');
 import yargs = require('yargs');
-import { Compiler, DIAGNOSTICS } from '../lib/compiler';
+import { Compiler, DIAGNOSTICS } from '../lib/compiler';
 import { hasDomain } from '../lib/emitter';
 import { loadProjectInfo } from '../lib/project-info';
 import utils = require('../lib/utils');
@@ -14,6 +14,8 @@ import { VERSION } from '../lib/version';
         .env('JSII')
         .option('watch', { alias: 'w', type: 'boolean', desc: 'Watch for file changes and recompile automatically' })
         .option('verbose', { alias: 'v', type: 'count', desc: 'Increase the verbosity of output', global: true })
+        // tslint:disable-next-line:max-line-length
+        .option('project-references', { alias: 'r', type: 'boolean', desc: 'Generate TypeScript project references (also [package.json].jsii.projectReferences)' })
         .help()
         .version(VERSION)
         .argv;
@@ -24,8 +26,10 @@ import { VERSION } from '../lib/version';
 
     const compiler = new Compiler({
         projectInfo: await loadProjectInfo(projectRoot),
-        watch: argv.watch
+        watch: argv.watch,
+        projectReferences: argv['project-references']
     });
+
     return { projectRoot, emitResult: await compiler.emit() };
 })().then(({ projectRoot, emitResult }) => {
     for (const diagnostic of emitResult.diagnostics) {

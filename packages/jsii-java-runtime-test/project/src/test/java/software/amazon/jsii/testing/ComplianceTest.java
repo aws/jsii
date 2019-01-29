@@ -11,12 +11,16 @@ import software.amazon.jsii.tests.calculator.AsyncVirtualMethods;
 import software.amazon.jsii.tests.calculator.Calculator;
 import software.amazon.jsii.tests.calculator.CalculatorProps;
 import software.amazon.jsii.tests.calculator.DerivedStruct;
+import software.amazon.jsii.tests.calculator.DoNotOverridePrivates;
 import software.amazon.jsii.tests.calculator.DoubleTrouble;
 import software.amazon.jsii.tests.calculator.GiveMeStructs;
+import software.amazon.jsii.tests.calculator.GreetingAugmenter;
 import software.amazon.jsii.tests.calculator.IFriendlier;
 import software.amazon.jsii.tests.calculator.IFriendlyRandomGenerator;
-import software.amazon.jsii.tests.calculator.IInterfaceWithProperties;
+import software.amazon.jsii.tests.calculator.IPublicInterface;
+import software.amazon.jsii.tests.calculator.InterfaceWithProperties;
 import software.amazon.jsii.tests.calculator.IRandomNumberGenerator;
+import software.amazon.jsii.tests.calculator.InbetweenClass;
 import software.amazon.jsii.tests.calculator.InterfaceImplementedByAbstractClass;
 import software.amazon.jsii.tests.calculator.JSObjectLiteralForInterface;
 import software.amazon.jsii.tests.calculator.JSObjectLiteralToNative;
@@ -24,15 +28,20 @@ import software.amazon.jsii.tests.calculator.JSObjectLiteralToNativeClass;
 import software.amazon.jsii.tests.calculator.Multiply;
 import software.amazon.jsii.tests.calculator.Negate;
 import software.amazon.jsii.tests.calculator.NodeStandardLibrary;
+import software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefined;
+import software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefinedData;
 import software.amazon.jsii.tests.calculator.NumberGenerator;
 import software.amazon.jsii.tests.calculator.Polymorphism;
 import software.amazon.jsii.tests.calculator.Power;
+import software.amazon.jsii.tests.calculator.PublicClass;
 import software.amazon.jsii.tests.calculator.ReferenceEnumFromScopedPackage;
+import software.amazon.jsii.tests.calculator.ReturnsPrivateImplementationOfInterface;
 import software.amazon.jsii.tests.calculator.Statics;
 import software.amazon.jsii.tests.calculator.Sum;
 import software.amazon.jsii.tests.calculator.SyncVirtualMethods;
 import software.amazon.jsii.tests.calculator.UnionProperties;
 import software.amazon.jsii.tests.calculator.UsesInterfaceWithProperties;
+import software.amazon.jsii.tests.calculator.JsiiAgent;
 import software.amazon.jsii.tests.calculator.composition.CompositeOperation;
 import software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule;
 import software.amazon.jsii.tests.calculator.lib.IFriendly;
@@ -41,6 +50,9 @@ import software.amazon.jsii.tests.calculator.lib.Number;
 import software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals;
 import software.amazon.jsii.tests.calculator.lib.Value;
 import software.amazon.jsii.tests.calculator.JavaReservedWords;
+import software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties;
+import software.amazon.jsii.tests.calculator.Constructors;
+
 import org.junit.Test;
 
 import java.io.IOException;
@@ -107,8 +119,8 @@ public class ComplianceTest {
         assertEquals("World", types.getArrayProperty().get(1));
 
         // map
-        Map<String, java.lang.Number> map = new HashMap<>();
-        map.put("Foo", 123);
+        Map<String, Number> map = new HashMap<>();
+        map.put("Foo", new Number(123));
         types.setMapProperty(map);
     }
 
@@ -553,7 +565,7 @@ public class ComplianceTest {
 
     @Test
     public void propertyOverrides_interfaces() {
-        IInterfaceWithProperties obj = new IInterfaceWithProperties() {
+        InterfaceWithProperties obj = new InterfaceWithProperties() {
             private String x;
 
             @Override
@@ -579,7 +591,7 @@ public class ComplianceTest {
 
     @Test
     public void interfaceBuilder() {
-        IInterfaceWithProperties obj = IInterfaceWithProperties.builder()
+        InterfaceWithProperties obj = InterfaceWithProperties.builder()
                 .withReadOnlyString("READ_ONLY")
                 .withReadWriteString("READ_WRITE")
                 .build();
@@ -699,6 +711,17 @@ public class ComplianceTest {
         IFriendlyRandomGenerator gen = obj.giveMeFriendlyGenerator();
         assertEquals("giveMeFriendlyGenerator", gen.hello());
         assertEquals(42, gen.next());
+    }
+
+    @Test
+    public void testInterfaceParameter() {
+        JSObjectLiteralForInterface obj = new JSObjectLiteralForInterface();
+        IFriendly friendly = obj.giveMeFriendly();
+        assertEquals("I am literally friendly!", friendly.hello());
+
+        GreetingAugmenter greetingAugmenter = new GreetingAugmenter();
+        String betterGreeting = greetingAugmenter.betterGreeting(friendly);
+        assertEquals("I am literally friendly! Let me buy you a drink!", betterGreeting);
     }
 
     @Test
@@ -835,6 +858,128 @@ public class ComplianceTest {
         assertEquals("propFromInterfaceValue", iface.getPropFromInterface());
 
         assertEquals("hello-abstract-property", obj.getReturnAbstractFromProperty().getAbstractProperty());
+    }
+
+    @Test
+    public void doNotOverridePrivates_method_public() {
+        DoNotOverridePrivates obj = new DoNotOverridePrivates() {
+            public String privateMethod() {
+                return "privateMethod-Override";
+            }
+        };
+
+        assertEquals("privateMethod", obj.privateMethodValue());
+    }
+
+    @Test
+    public void doNotOverridePrivates_method_private() {
+        DoNotOverridePrivates obj = new DoNotOverridePrivates() {
+            private String privateMethod() {
+                return "privateMethod-Override";
+            }
+        };
+
+        assertEquals("privateMethod", obj.privateMethodValue());
+    }
+
+    @Test
+    public void doNotOverridePrivates_property_by_name_private() {
+        DoNotOverridePrivates obj = new DoNotOverridePrivates() {
+            private String privateProperty() {
+                return "privateProperty-Override";
+            }
+        };
+
+        assertEquals("privateProperty", obj.privatePropertyValue());
+    }
+
+    @Test
+    public void doNotOverridePrivates_property_by_name_public() {
+        DoNotOverridePrivates obj = new DoNotOverridePrivates() {
+            public String privateProperty() {
+                return "privateProperty-Override";
+            }
+        };
+
+        assertEquals("privateProperty", obj.privatePropertyValue());
+    }
+
+    @Test
+    public void doNotOverridePrivates_property_getter_public() {
+        DoNotOverridePrivates obj = new DoNotOverridePrivates() {
+            public String getPrivateProperty() {
+                return "privateProperty-Override";
+            }
+            public void setPrivateProperty(String value) {
+                throw new RuntimeException("Boom");
+            }
+        };
+
+        assertEquals("privateProperty", obj.privatePropertyValue());
+
+        // verify the setter override is not invoked.
+        obj.changePrivatePropertyValue("MyNewValue");
+        assertEquals("MyNewValue", obj.privatePropertyValue());
+    }
+
+    @Test
+    public void doNotOverridePrivates_property_getter_private() {
+        DoNotOverridePrivates obj = new DoNotOverridePrivates() {
+            private String getPrivateProperty() {
+                return "privateProperty-Override";
+            }
+            public void setPrivateProperty(String value) {
+                throw new RuntimeException("Boom");
+            }
+        };
+
+        assertEquals("privateProperty", obj.privatePropertyValue());
+
+        // verify the setter override is not invoked.
+        obj.changePrivatePropertyValue("MyNewValue");
+        assertEquals("MyNewValue", obj.privatePropertyValue());
+    }
+
+    @Test
+    public void classWithPrivateConstructorAndAutomaticProperties() {
+        ClassWithPrivateConstructorAndAutomaticProperties obj = ClassWithPrivateConstructorAndAutomaticProperties.create("Hello", "Bye");
+        assertEquals("Bye", obj.getReadWriteString());
+        obj.setReadWriteString("Hello");
+        assertEquals("Hello", obj.getReadOnlyString());
+    }
+
+    @Test
+    public void nullShouldBeTreatedAsUndefined() {
+        NullShouldBeTreatedAsUndefined obj = new NullShouldBeTreatedAsUndefined("hello", null);
+        obj.giveMeUndefined(null);
+        obj.giveMeUndefinedInsideAnObject(NullShouldBeTreatedAsUndefinedData.builder()
+                .withThisShouldBeUndefined(null)
+                .withArrayWithThreeElementsAndUndefinedAsSecondArgument(Arrays.asList("hello", null, "boom"))
+                .build());
+        obj.setChangeMeToUndefined(null);
+        obj.verifyPropertyIsUndefined();
+    }
+
+    @Test
+    public void testJsiiAgent() {
+        assertEquals("Java/" + System.getProperty("java.version"), JsiiAgent.getJsiiAgent());
+    }
+
+    /**
+     * @see https://github.com/awslabs/jsii/issues/320
+     */
+    @Test
+    public void receiveInstanceOfPrivateClass() {
+        assertTrue(new ReturnsPrivateImplementationOfInterface().getPrivateImplementation().getSuccess());
+    }
+
+    @Test
+    public void objRefsAreLabelledUsingWithTheMostCorrectType() {
+        final PublicClass classRef = Constructors.makeClass();
+        final IPublicInterface ifaceRef = Constructors.makeInterface();
+
+        assertTrue(classRef instanceof InbetweenClass);
+        assertTrue(ifaceRef instanceof IPublicInterface);
     }
 
     static class MulTen extends Multiply {

@@ -18,6 +18,8 @@ const calcVersion = require('jsii-calc/package.json').version.replace(/\+.+$/, '
 // tslint:disable:no-console
 // tslint:disable:max-line-length
 
+process.setMaxListeners(9999); // since every kernel instance adds an `on('exit')` handler.
+
 process.on('unhandledRejection', e => {
     console.error(e.stack);
     process.exit(1);
@@ -872,6 +874,106 @@ defineTest('node.js standard library', async (test, sandbox) => {
     test.deepEqual(sandbox.invoke({ objref, method: 'cryptoSha256' }),
         { result: "6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50" });
 });
+
+// @see awslabs/jsii#248
+defineTest('object literals are returned by reference', async (test, sandbox) => {
+    const objref = sandbox.create({ fqn: 'jsii-calc.ClassWithMutableObjectLiteralProperty' });
+    const property = sandbox.get({ objref, property: 'mutableObject' }).value;
+
+    const newValue = 'Bazinga!1!';
+    sandbox.set({ objref: property, property: 'value', value: newValue });
+
+    test.equal(newValue,
+               sandbox.get({
+                   objref: sandbox.get({ objref, property: 'mutableObject' }).value,
+                   property: 'value'
+               }).value);
+
+    sandbox.del({ objref: property });
+});
+
+defineTest('overrides: method instead of property with the same name', async (test, sandbox) => {
+    test.throws(() => {
+        sandbox.create({ fqn: 'jsii-calc.SyncVirtualMethods', overrides: [
+            { method: 'theProperty' }
+        ]});
+    }, /Trying to override property/);
+});
+
+defineTest('overrides: property instead of method with the same name', async (test, sandbox) => {
+    test.throws(() => {
+        sandbox.create({ fqn: 'jsii-calc.SyncVirtualMethods', overrides: [
+            { property: 'virtualMethod' }
+        ]});
+    }, /Trying to override method/);
+});
+
+defineTest('overrides: skip overrides of private methods', async (test, sandbox) => {
+    const objref = sandbox.create({ fqn: 'jsii-calc.DoNotOverridePrivates', overrides: [
+        { method: 'privateMethod' }
+    ]});
+
+    sandbox.callbackHandler = makeSyncCallbackHandler(_ => {
+        test.ok(false, 'override callback should not be called');
+        return 'privateMethodBoom!';
+    });
+
+    const result = sandbox.invoke({ objref, method: 'privateMethodValue' });
+    test.deepEqual(result.result, 'privateMethod');
+});
+
+defineTest('overrides: skip overrides of private properties', async (test, sandbox) => {
+    const objref = sandbox.create({ fqn: 'jsii-calc.DoNotOverridePrivates', overrides: [
+        { property: 'privateProperty' }
+    ]});
+
+    sandbox.callbackHandler = makeSyncCallbackHandler(_ => {
+        test.ok(false, 'override callback should not be called');
+        return 'privatePropertyBoom!';
+    });
+
+    const result = sandbox.invoke({ objref, method: 'privatePropertyValue' });
+    test.deepEqual(result.result, 'privateProperty');
+});
+
+defineTest('nulls are converted to undefined - ctor', async (_test, sandbox) => {
+    sandbox.create({ fqn: 'jsii-calc.NullShouldBeTreatedAsUndefined', args: [ "foo", null ] });
+});
+
+defineTest('nulls are converted to undefined - method arguments', async (_test, sandbox) => {
+    const objref = sandbox.create({ fqn: 'jsii-calc.NullShouldBeTreatedAsUndefined', args: [ "foo" ] });
+    sandbox.invoke({ objref, method: 'giveMeUndefined', args: [ null ] });
+});
+
+defineTest('nulls are converted to undefined - inside objects', async (_test, sandbox) => {
+    const objref = sandbox.create({ fqn: 'jsii-calc.NullShouldBeTreatedAsUndefined', args: [ "foo" ] });
+    sandbox.invoke({ objref, method: 'giveMeUndefinedInsideAnObject', args: [ {
+        thisShouldBeUndefined: null,
+        arrayWithThreeElementsAndUndefinedAsSecondArgument: [ 'one', null, 'two' ]
+    } ]});
+});
+
+defineTest('nulls are converted to undefined - properties', async (_test, sandbox) => {
+    const objref = sandbox.create({ fqn: 'jsii-calc.NullShouldBeTreatedAsUndefined', args: [ "foo" ] });
+    sandbox.set({ objref, property: 'changeMeToUndefined', value: null });
+    sandbox.invoke({ objref, method: 'verifyPropertyIsUndefined' });
+});
+
+defineTest('JSII_AGENT is undefined in node.js', async (test, sandbox) => {
+    test.equal(sandbox.sget({ fqn: 'jsii-calc.JsiiAgent', property: 'jsiiAgent' }).value, undefined);
+});
+
+defineTest('ObjRefs are labeled with the "most correct" type', async (test, sandbox) => {
+    const classRef = sandbox.sinvoke({ fqn: 'jsii-calc.Constructors', method: 'makeClass' }).result as api.ObjRef;
+    const ifaceRef = sandbox.sinvoke({ fqn: 'jsii-calc.Constructors', method: 'makeInterface' }).result as api.ObjRef;
+
+    test.ok(classRef[api.TOKEN_REF].startsWith('jsii-calc.InbetweenClass'),
+            `${classRef[api.TOKEN_REF]} starts with jsii-calc.InbetweenClass`);
+    test.ok(ifaceRef[api.TOKEN_REF].startsWith('jsii-calc.IPublicInterface'),
+            `${ifaceRef[api.TOKEN_REF]} starts with jsii-calc.IPublicInterface`);
+});
+
+// =================================================================================================
 
 const testNames: { [name: string]: boolean } = { };
 
