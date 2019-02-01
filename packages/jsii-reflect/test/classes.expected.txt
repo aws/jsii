@@ -5,6 +5,7 @@ Add
 AllTypes
 AllowedMethodNames
 AsyncVirtualMethods
+AugmentableClass
 Base
 Base
 BinaryOperation

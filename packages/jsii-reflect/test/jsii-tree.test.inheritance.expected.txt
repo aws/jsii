@@ -11,6 +11,7 @@ assemblies
  │   ├── class AllTypes
  │   ├── class AllowedMethodNames
  │   ├── class AsyncVirtualMethods
+ │   ├── class AugmentableClass
  │   ├─┬ class BinaryOperation
  │   │ ├── base: Operation
  │   │ └── interfaces: IFriendly
