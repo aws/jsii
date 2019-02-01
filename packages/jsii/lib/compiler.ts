@@ -259,7 +259,7 @@ export class Compiler implements Emitter {
         if (files.length > 0) {
             ret.push(...files);
         } else {
-            const parseConfigHost = (ts as any /* private API */).parseConfigHostFromCompilerHost(this.compilerHost);
+            const parseConfigHost = parseConfigHostFromCompilerHost(this.compilerHost);
             const parsed = ts.parseJsonConfigFileContent(this.typescriptConfig, parseConfigHost, this.options.projectInfo.projectRoot);
             ret.push(...parsed.fileNames);
         }
@@ -322,4 +322,21 @@ function nodeJsCompatibleSearchPaths(dir: string): string[] {
     } while (dir !== lastDir); // path.dirname('/') === '/', also works on Windows
 
     return ret;
+}
+
+function parseConfigHostFromCompilerHost(host: ts.CompilerHost): ts.ParseConfigHost {
+    // Copied from upstream
+    // https://github.com/Microsoft/TypeScript/blob/9e05abcfd3f8bb3d6775144ede807daceab2e321/src/compiler/program.ts#L3105
+    return {
+        fileExists: f => host.fileExists(f),
+        readDirectory(root, extensions, excludes, includes, depth) {
+            if (host.readDirectory === undefined) {
+                throw new Error("'CompilerHost.readDirectory' must be implemented to correctly process 'projectReferences'");
+            }
+            return host.readDirectory!(root, extensions, excludes, includes, depth);
+        },
+        readFile: f => host.readFile(f),
+        useCaseSensitiveFileNames: host.useCaseSensitiveFileNames(),
+        trace: host.trace ? (s) => host.trace!(s) : undefined
+    };
 }
