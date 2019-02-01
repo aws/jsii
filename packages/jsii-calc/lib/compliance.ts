@@ -1245,3 +1245,26 @@ export class AugmentableClass {
 export interface AugmentableClass {
     methodTwo(): void;
 }
+
+// Ensure the JSII kernel tags instances with the "most appropriate" FQN type label, so that runtimes are able to
+// correctly choose the implementation proxy that should be used. Failure to do so could cause situations where userland
+// needs to up-cast an instance to an incompatible type, which certain runtimes (such as Java) will prevent.
+// @See https://github.com/awslabs/jsii/issues/345
+export class PublicClass {
+    public hello(): void {}
+}
+export interface IPublicInterface {
+    bye(): void;
+}
+export class InbetweenClass extends PublicClass {}
+class PrivateClass extends InbetweenClass implements IPublicInterface {
+    public bye(): void {}
+}
+export class Constructors {
+    public static makeClass(): PublicClass {
+        return new PrivateClass();
+    }
+    public static makeInterface(): IPublicInterface {
+        return new PrivateClass();
+    }
+}

@@ -3,6 +3,8 @@ const package = require('./package.json');
 process.stdout.write(`<Project>
   <PropertyGroup>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <IncludeSymbols>True</IncludeSymbols>
+    <IncludeSource>True</IncludeSource>
     <PackageOutputPath>..\\..\\bin\\$(Configuration)\\NuGet\\</PackageOutputPath>
     <PackageVersion>$(JsiiVersion)</PackageVersion>
     <Description>${package.description}</Description>

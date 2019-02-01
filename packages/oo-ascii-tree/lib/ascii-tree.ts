@@ -1,5 +1,3 @@
-import stream = require('stream');
-
 /**
  * A tree of nodes that can be ASCII visualized.
  */
@@ -25,7 +23,7 @@ export class AsciiTree {
   /**
    * Prints the tree to an output stream.
    */
-  public printTree(output: stream.Writable = process.stdout) {
+  public printTree(output: NodeJS.WritableStream = process.stdout) {
     let ancestorsPrefix = '';
 
     for (const parent of this.ancestors) {

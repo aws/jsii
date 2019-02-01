@@ -39,7 +39,7 @@ export interface CompilerOptions {
     /** The information about the project to be built */
     projectInfo: ProjectInfo;
     /** Whether the compiler should watch for changes or just compile once */
-    watch: boolean;
+    watch?: boolean;
     /** Whether to detect and generate TypeScript project references */
     projectReferences?: boolean;
 }

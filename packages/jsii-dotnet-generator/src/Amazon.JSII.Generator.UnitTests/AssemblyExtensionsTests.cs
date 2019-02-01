@@ -277,6 +277,8 @@ namespace Amazon.JSII.Generator.UnitTests
                 Assert.Collection(actual,
                     element => Assert.Equal("<TargetFramework>netstandard2.0</TargetFramework>", element.ToString()),
                     element => Assert.Equal("<GeneratePackageOnBuild>true</GeneratePackageOnBuild>", element.ToString()),
+                    element => Assert.Equal("<IncludeSymbols>True</IncludeSymbols>", element.ToString()),
+                    element => Assert.Equal("<IncludeSource>True</IncludeSource>", element.ToString()),
                     element => Assert.Equal("<PackageVersion>1.2.3</PackageVersion>", element.ToString()),
                     element => Assert.Equal("<PackageId>My.PackageId</PackageId>", element.ToString()),
                     element => Assert.Equal("<Description>my description</Description>", element.ToString()),
