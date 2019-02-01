@@ -325,6 +325,8 @@ function nodeJsCompatibleSearchPaths(dir: string): string[] {
 }
 
 function parseConfigHostFromCompilerHost(host: ts.CompilerHost): ts.ParseConfigHost {
+    // Copied from upstream
+    // https://github.com/Microsoft/TypeScript/blob/9e05abcfd3f8bb3d6775144ede807daceab2e321/src/compiler/program.ts#L3105
     return {
         fileExists: f => host.fileExists(f),
         readDirectory(root, extensions, excludes, includes, depth) {
