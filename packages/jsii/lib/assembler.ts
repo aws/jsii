@@ -406,20 +406,29 @@ export class Assembler implements Emitter {
             }
         }
 
-        for (const memberDecl of (type.symbol.valueDeclaration as ts.ClassDeclaration | ts.InterfaceDeclaration).members) {
-            const member: ts.Symbol = (memberDecl as any).symbol;
-            if (!(type.symbol.getDeclarations() || []).find(decl => decl === memberDecl.parent)) { continue; }
-            if (_isHidden(member)) { continue; }
-            if (ts.isMethodDeclaration(memberDecl) || ts.isMethodSignature(memberDecl)) {
-                await this._visitMethod(member, jsiiType);
-            } else if (ts.isPropertyDeclaration(memberDecl)
-                    || ts.isPropertySignature(memberDecl)
-                    || ts.isAccessor(memberDecl)) {
-                await this._visitProperty(member, jsiiType);
-            } else {
-                this._diagnostic(memberDecl,
-                                 ts.DiagnosticCategory.Warning,
-                                 `Ignoring un-handled ${ts.SyntaxKind[memberDecl.kind]} member`);
+        if (!type.isClass()) {
+            throw new Error('Oh no');
+        }
+
+        for (const decl of type.symbol.declarations) {
+            const classDecl = (decl as ts.ClassDeclaration | ts.InterfaceDeclaration);
+            if (!classDecl.members) { continue; }
+
+            for (const memberDecl of classDecl.members) {
+                const member: ts.Symbol = (memberDecl as any).symbol;
+                if (!(type.symbol.getDeclarations() || []).find(d => d === memberDecl.parent)) { continue; }
+                if (_isHidden(member)) { continue; }
+                if (ts.isMethodDeclaration(memberDecl) || ts.isMethodSignature(memberDecl)) {
+                    await this._visitMethod(member, jsiiType);
+                } else if (ts.isPropertyDeclaration(memberDecl)
+                        || ts.isPropertySignature(memberDecl)
+                        || ts.isAccessor(memberDecl)) {
+                    await this._visitProperty(member, jsiiType);
+                } else {
+                    this._diagnostic(memberDecl,
+                                    ts.DiagnosticCategory.Warning,
+                                    `Ignoring un-handled ${ts.SyntaxKind[memberDecl.kind]} member`);
+                }
             }
         }
 

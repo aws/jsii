@@ -673,6 +673,42 @@ AsyncVirtualMethods
       :rtype: number
 
 
+AugmentableClass
+^^^^^^^^^^^^^^^^
+
+.. py:class:: AugmentableClass()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.AugmentableClass;
+
+      .. code-tab:: javascript
+
+         const { AugmentableClass } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { AugmentableClass } from 'jsii-calc';
+
+
+
+
+   .. py:method:: methodOne()
+
+
+
+   .. py:method:: methodTwo()
+
+
+
 BinaryOperation
 ^^^^^^^^^^^^^^^
 

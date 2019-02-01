@@ -154,6 +154,14 @@ assemblies
  │   │   │ └── returns: primitive:number (promise)
  │   │   └─┬ overrideMeToo() method
  │   │     └── returns: primitive:number (promise)
+ │   ├─┬ class AugmentableClass
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ methodOne() method
+ │   │   │ └── returns: void
+ │   │   └─┬ methodTwo() method
+ │   │     └── returns: void
  │   ├─┬ class BinaryOperation
  │   │ ├── base: Operation
  │   │ ├── interfaces: IFriendly

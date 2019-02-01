@@ -61,6 +61,11 @@ assemblies
  │   │   ├── dontOverrideMe() method
  │   │   ├── overrideMe(mult) method
  │   │   └── overrideMeToo() method
+ │   ├─┬ class AugmentableClass
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── methodOne() method
+ │   │   └── methodTwo() method
  │   ├─┬ class BinaryOperation
  │   │ └─┬ members
  │   │   ├── <initializer>(lhs,rhs) method

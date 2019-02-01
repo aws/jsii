@@ -8,6 +8,7 @@ assemblies
  │   ├── class AllTypes
  │   ├── class AllowedMethodNames
  │   ├── class AsyncVirtualMethods
+ │   ├── class AugmentableClass
  │   ├── class BinaryOperation
  │   ├── class Calculator
  │   ├── class ClassWithMutableObjectLiteralProperty

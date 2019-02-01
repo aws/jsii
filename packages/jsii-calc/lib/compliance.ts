@@ -1234,6 +1234,18 @@ export class JsiiAgent {
     }
 };
 
+// To support module augmentation classes must support multiple declaration sites
+// (the tail of which must be interfaces)
+export class AugmentableClass {
+    public methodOne(): void {
+        console.log('methodOne');
+    }
+}
+
+export interface AugmentableClass {
+    methodTwo(): void;
+}
+
 // Ensure the JSII kernel tags instances with the "most appropriate" FQN type label, so that runtimes are able to
 // correctly choose the implementation proxy that should be used. Failure to do so could cause situations where userland
 // needs to up-cast an instance to an incompatible type, which certain runtimes (such as Java) will prevent.
