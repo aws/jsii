@@ -63,7 +63,8 @@ All modules within this repository have the following scripts:
 * `package` - emits publishable artifacts to `dist/<lang>`
 
 Each one of these scripts can be executed either from the root of the repo using
-`lerna run <script> --scope <package>` or from individual modules using `npm run <script>`.
+`npx lerna run <script> --scope <package>` or from individual modules using
+`npm run <script>`.
 
 ### Bump
 
