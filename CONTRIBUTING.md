@@ -41,7 +41,7 @@ This will get you into an interactive docker shell.
 docker run --net=host -it -v $PWD:$PWD -w $PWD ${IMAGE}
 ```
 
-You can then run ./install.sh and ./build.sh as described below.
+You can then run `./build.sh` as described below.
 
 ### Bootstrapping
 
