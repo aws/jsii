@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.7.14"></a>
+## [0.7.14](https://github.com/awslabs/jsii/compare/v0.7.13...v0.7.14) (2019-02-04)
+
+
+### Bug Fixes
+
+* remove use of private API ([#351](https://github.com/awslabs/jsii/issues/351)) ([874cbac](https://github.com/awslabs/jsii/commit/874cbac)), closes [#350](https://github.com/awslabs/jsii/issues/350)
+* **jsii-dotnet-runtime:** Fix EPIPE on Windows. ([1d7cc8b](https://github.com/awslabs/jsii/commit/1d7cc8b)), closes [#341](https://github.com/awslabs/jsii/issues/341)
+* **jsii-dotnet-runtime:** Redirect to STDERR. ([e20f401](https://github.com/awslabs/jsii/commit/e20f401))
+* **kernel:** Improve tagged type of wire values ([#346](https://github.com/awslabs/jsii/issues/346)) ([8ea39ac](https://github.com/awslabs/jsii/commit/8ea39ac)), closes [#345](https://github.com/awslabs/jsii/issues/345)
+
+
+### Features
+
+* **jsii:** support multiple class declaration sites ([#348](https://github.com/awslabs/jsii/issues/348)) ([4ecf28c](https://github.com/awslabs/jsii/commit/4ecf28c))
+* Generate NuGet symbol and source packages ([#243](https://github.com/awslabs/jsii/issues/243)) ([aafd405](https://github.com/awslabs/jsii/commit/aafd405))
+
+
+
+
 <a name="0.7.13"></a>
 ## [0.7.13](https://github.com/awslabs/jsii/compare/v0.7.12...v0.7.13) (2019-01-03)
 
