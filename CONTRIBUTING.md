@@ -23,11 +23,25 @@ also be used locally as follows:
 eval $(aws ecr get-login --no-include-email)
 IMAGE=260708760616.dkr.ecr.us-east-1.amazonaws.com/superchain:latest
 docker pull ${IMAGE}
+```
+
+Or if you don't have access to that ECS registry/image you can build the image
+yourself as follows (note that this may take quite some time):
+
+```shell
+$ git clone git@github.com:awslabs/aws-delivlib.git
+$ cd aws-delivlib/superchain
+$ docker build -t superchain .
+$ IMAGE=superchain
+```
+
+This will get you into an interactive docker shell.
+
+```shell
 docker run --net=host -it -v $PWD:$PWD -w $PWD ${IMAGE}
 ```
 
-This will get you into an interactive docker shell. You can then run
-./install.sh and ./build.sh as described below.
+You can then run ./install.sh and ./build.sh as described below.
 
 ### Bootstrapping
 
