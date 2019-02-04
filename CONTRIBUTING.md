@@ -60,10 +60,10 @@ All modules within this repository have the following scripts:
 * `build` - builds the module (usually runs the TypeScript compiler).
 * `watch` - runs `tsc -w` which picks up changes and builds them progressively.
 * `test` - uses `nodeunit test/test.*.js` to run all unit tests.
-* `package` - emits publishable artifacts to `dist/xxx` (where "xxx" is the language)
+* `package` - emits publishable artifacts to `dist/<lang>`
 
 Each one of these scripts can be executed either from the root of the repo using
-`lerna run xxx --scope <package>` or from individual modules using `npm run xxx`.
+`lerna run <script> --scope <package>` or from individual modules using `npm run <script>`.
 
 ### Bump
 
@@ -98,7 +98,7 @@ jsii language bindings consist of two main components:
 ### Runtime Client Library
 
 The runtime client library should be implemented as a module under
-`packages/jsii-xxx-runtime` (where `xxx` is the language).
+`packages/jsii-<lang>-runtime`.
 
 The jsii runtime client library usually includes the following components:
 
