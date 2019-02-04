@@ -1,7 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
+using Microsoft.Extensions.Logging;
 
 namespace Amazon.JSII.Runtime.Services
 {
@@ -23,8 +23,11 @@ namespace Amazon.JSII.Runtime.Services
                     Arguments = "--max-old-space-size=4096 " + jsiiRuntimeProvider.JsiiRuntimePath,
                     RedirectStandardInput = true,
                     RedirectStandardOutput = true,
+                    RedirectStandardError = true
                 }
             };
+
+            _process.StartInfo.EnvironmentVariables.Add("JSII_AGENT", "DotNet/" + Environment.Version);
 
             _logger.LogDebug("Starting jsii runtime...");
             _logger.LogDebug($"{_process.StartInfo.FileName} {_process.StartInfo.Arguments}");
@@ -32,12 +35,17 @@ namespace Amazon.JSII.Runtime.Services
             _process.Start();
         }
 
-        public StreamWriter StandardInput => _process.StandardInput;
+        public TextWriter StandardInput => _process.StandardInput;
 
-        public StreamReader StandardOutput => _process.StandardOutput;
+        public TextReader StandardOutput => _process.StandardOutput;
+
+        public TextReader StandardError => _process.StandardError;
 
         void IDisposable.Dispose()
         {
+            StandardInput.Dispose();
+            StandardOutput.Dispose();
+            StandardError.Dispose();
             _process.Dispose();
         }
     }

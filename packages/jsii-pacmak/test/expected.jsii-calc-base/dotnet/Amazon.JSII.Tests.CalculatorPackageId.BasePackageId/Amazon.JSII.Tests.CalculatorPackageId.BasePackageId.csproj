@@ -2,7 +2,9 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageVersion>0.7.11</PackageVersion>
+    <IncludeSymbols>true</IncludeSymbols>
+    <IncludeSource>true</IncludeSource>
+    <PackageVersion>0.7.14</PackageVersion>
     <PackageId>Amazon.JSII.Tests.CalculatorPackageId.BasePackageId</PackageId>
     <Description>An example direct dependency for jsii-calc.</Description>
     <ProjectUrl>https://github.com/awslabs/jsii.git</ProjectUrl>
@@ -11,10 +13,10 @@
     <Language>en-US</Language>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="scope-jsii-calc-base-0.7.11.tgz" />
+    <EmbeddedResource Include="scope-jsii-calc-base-0.7.14.tgz" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Amazon.JSII.Runtime" Version="0.7.11" />
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="0.7.11" />
+    <PackageReference Include="Amazon.JSII.Runtime" Version="0.7.14" />
+    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="0.7.14" />
   </ItemGroup>
 </Project>

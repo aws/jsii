@@ -1,6 +1,6 @@
 {
   "name": "jsii-java-runtime",
-  "version": "0.7.11",
+  "version": "0.7.14",
   "description": "Java client for jsii runtime",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -13,9 +13,9 @@
   },
   "devDependencies": {
     "@types/node": "^8.10.37",
-    "jsii-build-tools": "^0.7.11",
-    "jsii-runtime": "^0.7.11",
-    "typescript": "^3.1.6"
+    "jsii-build-tools": "^0.7.14",
+    "jsii-runtime": "^0.7.14",
+    "typescript": "^3.2.4"
   },
   "author": {
     "name": "Amazon Web Services",

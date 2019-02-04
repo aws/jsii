@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.7.14"></a>
+## [0.7.14](https://github.com/awslabs/jsii/compare/v0.7.13...v0.7.14) (2019-02-04)
+
+
+### Bug Fixes
+
+* **jsii-dotnet-runtime:** Fix EPIPE on Windows. ([1d7cc8b](https://github.com/awslabs/jsii/commit/1d7cc8b)), closes [#341](https://github.com/awslabs/jsii/issues/341)
+* **jsii-dotnet-runtime:** Redirect to STDERR. ([e20f401](https://github.com/awslabs/jsii/commit/e20f401))
+
+
+### Features
+
+* Generate NuGet symbol and source packages ([#243](https://github.com/awslabs/jsii/issues/243)) ([aafd405](https://github.com/awslabs/jsii/commit/aafd405))
+
+
+
+
+<a name="0.7.13"></a>
+## [0.7.13](https://github.com/awslabs/jsii/compare/v0.7.12...v0.7.13) (2019-01-03)
+
+
+
+
+**Note:** Version bump only for package jsii-dotnet-runtime
+
+<a name="0.7.12"></a>
+## [0.7.12](https://github.com/awslabs/jsii/compare/v0.7.11...v0.7.12) (2018-12-11)
+
+
+### Features
+
+* JSII_AGENT ([#325](https://github.com/awslabs/jsii/issues/325)) ([cf1d0c3](https://github.com/awslabs/jsii/commit/cf1d0c3)), closes [#324](https://github.com/awslabs/jsii/issues/324)
+
+
+
+
 <a name="0.7.11"></a>
 ## [0.7.11](https://github.com/awslabs/jsii/compare/v0.7.10...v0.7.11) (2018-11-18)
 

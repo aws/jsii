@@ -1196,3 +1196,75 @@ export interface LoadBalancedFargateServiceProps {
      */
     publicTasks?: boolean;
 }
+
+/**
+ * Helps ensure the JSII kernel & runtime cooperate correctly when an un-exported instance of a class is returned with
+ * a declared type that is an exported interface, and the instance inherits from an exported class.
+ *
+ * @returns an instance of an un-exported class that extends ``ExportedBaseClass``, declared as ``IPrivatelyImplemented``.
+ *
+ * @see https://github.com/awslabs/jsii/issues/320
+ */
+export class ReturnsPrivateImplementationOfInterface {
+    public get privateImplementation(): IPrivatelyImplemented {
+        return new PrivateImplementation();
+    }
+}
+export interface IPrivatelyImplemented {
+    readonly success: boolean;
+}
+export class ExportedBaseClass {
+    constructor(public readonly success: boolean) {}
+}
+class PrivateImplementation extends ExportedBaseClass implements IPrivatelyImplemented {
+    constructor() {
+        super(true);
+    }
+}
+
+/**
+ * Host runtime version should be set via JSII_AGENT
+ */
+export class JsiiAgent {
+    /**
+     * Returns the value of the JSII_AGENT environment variable.
+     */
+    public static get jsiiAgent(): string | undefined {
+        return process.env.JSII_AGENT;
+    }
+};
+
+// To support module augmentation classes must support multiple declaration sites
+// (the tail of which must be interfaces)
+export class AugmentableClass {
+    public methodOne(): void {
+        console.log('methodOne');
+    }
+}
+
+export interface AugmentableClass {
+    methodTwo(): void;
+}
+
+// Ensure the JSII kernel tags instances with the "most appropriate" FQN type label, so that runtimes are able to
+// correctly choose the implementation proxy that should be used. Failure to do so could cause situations where userland
+// needs to up-cast an instance to an incompatible type, which certain runtimes (such as Java) will prevent.
+// @See https://github.com/awslabs/jsii/issues/345
+export class PublicClass {
+    public hello(): void {}
+}
+export interface IPublicInterface {
+    bye(): void;
+}
+export class InbetweenClass extends PublicClass {}
+class PrivateClass extends InbetweenClass implements IPublicInterface {
+    public bye(): void {}
+}
+export class Constructors {
+    public static makeClass(): PublicClass {
+        return new PrivateClass();
+    }
+    public static makeInterface(): IPublicInterface {
+        return new PrivateClass();
+    }
+}

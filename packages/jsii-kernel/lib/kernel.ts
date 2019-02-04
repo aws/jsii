@@ -435,7 +435,12 @@ export class Kernel {
                 case spec.TypeKind.Class:
                 case spec.TypeKind.Enum:
                     const constructor = this._findSymbol(fqn);
-                    constructor.__jsii__ = { fqn };
+                    Object.defineProperty(constructor, '__jsii__', {
+                        configurable: false,
+                        enumerable: false,
+                        writable: false,
+                        value: { fqn }
+                    });
             }
         }
     }
@@ -956,7 +961,9 @@ export class Kernel {
             // have an object id, so we need to allocate one for it.
             this._debug('creating objref for', v);
             const fqn = this._fqnForObject(v);
-            return this._createObjref(v, fqn);
+            if (!targetType || !spec.isNamedTypeReference(targetType) || this._isAssignable(fqn, targetType)) {
+                return this._createObjref(v, fqn);
+            }
         }
 
         // if the method/property returns an object literal and the return type
@@ -1020,6 +1027,31 @@ export class Kernel {
         // primitive
         this._debug('primitive', v);
         return v;
+    }
+
+    /**
+     * Tests whether a given type (by it's FQN) can be assigned to a named type reference.
+     *
+     * @param actualTypeFqn the FQN of the type that is being tested.
+     * @param requiredType  the required reference type.
+     *
+     * @returns true if ``requiredType`` is a super-type (base class or implemented interface) of the type designated by
+     *          ``actualTypeFqn``.
+     */
+    private _isAssignable(actualTypeFqn: string, requiredType: spec.NamedTypeReference): boolean {
+        if (requiredType.fqn === actualTypeFqn) {
+            return true;
+        }
+        const actualType = this._typeInfoForFqn(actualTypeFqn);
+        if (spec.isClassType(actualType) && actualType.base) {
+            if (this._isAssignable(actualType.base.fqn, requiredType)) {
+                return true;
+            }
+        }
+        if (spec.isClassOrInterfaceType(actualType) && actualType.interfaces) {
+            return actualType.interfaces.find(iface => this._isAssignable(iface.fqn, requiredType)) != null;
+        }
+        return false;
     }
 
     private _toSandboxValues(args: any[]) {

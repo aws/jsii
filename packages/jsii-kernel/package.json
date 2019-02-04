@@ -1,6 +1,6 @@
 {
   "name": "jsii-kernel",
-  "version": "0.7.11",
+  "version": "0.7.14",
   "description": "kernel for jsii execution environment",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -12,23 +12,23 @@
     "package": "package-js"
   },
   "devDependencies": {
-    "@scope/jsii-calc-base": "^0.7.11",
-    "@scope/jsii-calc-lib": "^0.7.11",
+    "@scope/jsii-calc-base": "^0.7.14",
+    "@scope/jsii-calc-lib": "^0.7.14",
     "@types/fs-extra": "^5.0.4",
     "@types/node": "^8.10.37",
-    "@types/nodeunit": "0.0.30",
+    "@types/nodeunit": "^0.0.30",
     "@types/tar": "^4.0.0",
-    "fs-extra": "^7.0.0",
-    "jsii-build-tools": "^0.7.11",
-    "jsii-calc": "^0.7.11",
+    "fs-extra": "^7.0.1",
+    "jsii-build-tools": "^0.7.14",
+    "jsii-calc": "^0.7.14",
     "nodeunit": "^0.11.3",
-    "tslint": "*",
-    "typescript": "^3.1.6"
+    "tslint": "^5.12.1",
+    "typescript": "^3.2.4"
   },
   "dependencies": {
-    "jsii-spec": "^0.7.11",
-    "source-map": "^0.7.0",
-    "tar": "^4.4.7"
+    "jsii-spec": "^0.7.14",
+    "source-map": "^0.7.3",
+    "tar": "^4.4.8"
   },
   "author": {
     "name": "Amazon Web Services",

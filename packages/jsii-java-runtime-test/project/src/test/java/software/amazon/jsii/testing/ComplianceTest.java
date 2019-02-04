@@ -17,8 +17,10 @@ import software.amazon.jsii.tests.calculator.GiveMeStructs;
 import software.amazon.jsii.tests.calculator.GreetingAugmenter;
 import software.amazon.jsii.tests.calculator.IFriendlier;
 import software.amazon.jsii.tests.calculator.IFriendlyRandomGenerator;
+import software.amazon.jsii.tests.calculator.IPublicInterface;
 import software.amazon.jsii.tests.calculator.InterfaceWithProperties;
 import software.amazon.jsii.tests.calculator.IRandomNumberGenerator;
+import software.amazon.jsii.tests.calculator.InbetweenClass;
 import software.amazon.jsii.tests.calculator.InterfaceImplementedByAbstractClass;
 import software.amazon.jsii.tests.calculator.JSObjectLiteralForInterface;
 import software.amazon.jsii.tests.calculator.JSObjectLiteralToNative;
@@ -31,12 +33,15 @@ import software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefinedData;
 import software.amazon.jsii.tests.calculator.NumberGenerator;
 import software.amazon.jsii.tests.calculator.Polymorphism;
 import software.amazon.jsii.tests.calculator.Power;
+import software.amazon.jsii.tests.calculator.PublicClass;
 import software.amazon.jsii.tests.calculator.ReferenceEnumFromScopedPackage;
+import software.amazon.jsii.tests.calculator.ReturnsPrivateImplementationOfInterface;
 import software.amazon.jsii.tests.calculator.Statics;
 import software.amazon.jsii.tests.calculator.Sum;
 import software.amazon.jsii.tests.calculator.SyncVirtualMethods;
 import software.amazon.jsii.tests.calculator.UnionProperties;
 import software.amazon.jsii.tests.calculator.UsesInterfaceWithProperties;
+import software.amazon.jsii.tests.calculator.JsiiAgent;
 import software.amazon.jsii.tests.calculator.composition.CompositeOperation;
 import software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule;
 import software.amazon.jsii.tests.calculator.lib.IFriendly;
@@ -46,6 +51,8 @@ import software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals;
 import software.amazon.jsii.tests.calculator.lib.Value;
 import software.amazon.jsii.tests.calculator.JavaReservedWords;
 import software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties;
+import software.amazon.jsii.tests.calculator.Constructors;
+
 import org.junit.Test;
 
 import java.io.IOException;
@@ -955,6 +962,28 @@ public class ComplianceTest {
                 .build());
         obj.setChangeMeToUndefined(null);
         obj.verifyPropertyIsUndefined();
+    }
+
+    @Test
+    public void testJsiiAgent() {
+        assertEquals("Java/" + System.getProperty("java.version"), JsiiAgent.getJsiiAgent());
+    }
+
+    /**
+     * @see https://github.com/awslabs/jsii/issues/320
+     */
+    @Test
+    public void receiveInstanceOfPrivateClass() {
+        assertTrue(new ReturnsPrivateImplementationOfInterface().getPrivateImplementation().getSuccess());
+    }
+
+    @Test
+    public void objRefsAreLabelledUsingWithTheMostCorrectType() {
+        final PublicClass classRef = Constructors.makeClass();
+        final IPublicInterface ifaceRef = Constructors.makeInterface();
+
+        assertTrue(classRef instanceof InbetweenClass);
+        assertTrue(ifaceRef instanceof IPublicInterface);
     }
 
     static class MulTen extends Multiply {

@@ -8,7 +8,7 @@
     "url": "https://aws.amazon.com"
   },
   "bundled": {
-    "jsii-calc-bundled": "^0.7.11"
+    "jsii-calc-bundled": "^0.7.14"
   },
   "contributors": [
     {
@@ -54,7 +54,7 @@
               "npm": "@scope/jsii-calc-base-of-base"
             }
           },
-          "version": "0.7.11"
+          "version": "0.7.14"
         }
       },
       "peer": true,
@@ -74,7 +74,7 @@
           "npm": "@scope/jsii-calc-base"
         }
       },
-      "version": "0.7.11"
+      "version": "0.7.14"
     },
     "@scope/jsii-calc-lib": {
       "dependencies": {
@@ -98,7 +98,7 @@
                   "npm": "@scope/jsii-calc-base-of-base"
                 }
               },
-              "version": "0.7.11"
+              "version": "0.7.14"
             }
           },
           "peer": true,
@@ -118,7 +118,7 @@
               "npm": "@scope/jsii-calc-base"
             }
           },
-          "version": "0.7.11"
+          "version": "0.7.14"
         }
       },
       "peer": true,
@@ -138,7 +138,7 @@
           "npm": "@scope/jsii-calc-lib"
         }
       },
-      "version": "0.7.11"
+      "version": "0.7.14"
     }
   },
   "description": "A simple calcuator built on JSII.",
@@ -735,6 +735,23 @@
       ],
       "name": "AsyncVirtualMethods"
     },
+    "jsii-calc.AugmentableClass": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.AugmentableClass",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "methodOne"
+        },
+        {
+          "name": "methodTwo"
+        }
+      ],
+      "name": "AugmentableClass"
+    },
     "jsii-calc.BinaryOperation": {
       "abstract": true,
       "assembly": "jsii-calc",
@@ -1098,6 +1115,31 @@
         }
       ]
     },
+    "jsii-calc.Constructors": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.Constructors",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "makeClass",
+          "returns": {
+            "fqn": "jsii-calc.PublicClass"
+          },
+          "static": true
+        },
+        {
+          "name": "makeInterface",
+          "returns": {
+            "fqn": "jsii-calc.IPublicInterface"
+          },
+          "static": true
+        }
+      ],
+      "name": "Constructors"
+    },
     "jsii-calc.DefaultedConstructorArgument": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.DefaultedConstructorArgument",
@@ -1410,6 +1452,32 @@
       ],
       "name": "DoubleTrouble"
     },
+    "jsii-calc.ExportedBaseClass": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.ExportedBaseClass",
+      "initializer": {
+        "initializer": true,
+        "parameters": [
+          {
+            "name": "success",
+            "type": {
+              "primitive": "boolean"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "name": "ExportedBaseClass",
+      "properties": [
+        {
+          "immutable": true,
+          "name": "success",
+          "type": {
+            "primitive": "boolean"
+          }
+        }
+      ]
+    },
     "jsii-calc.GiveMeStructs": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.GiveMeStructs",
@@ -1633,6 +1701,34 @@
       ],
       "name": "IInterfaceWithOptionalMethodArguments"
     },
+    "jsii-calc.IPrivatelyImplemented": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.IPrivatelyImplemented",
+      "kind": "interface",
+      "name": "IPrivatelyImplemented",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "name": "success",
+          "type": {
+            "primitive": "boolean"
+          }
+        }
+      ]
+    },
+    "jsii-calc.IPublicInterface": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.IPublicInterface",
+      "kind": "interface",
+      "methods": [
+        {
+          "abstract": true,
+          "name": "bye"
+        }
+      ],
+      "name": "IPublicInterface"
+    },
     "jsii-calc.IRandomNumberGenerator": {
       "assembly": "jsii-calc",
       "docs": {
@@ -1700,6 +1796,18 @@
           }
         }
       ]
+    },
+    "jsii-calc.InbetweenClass": {
+      "assembly": "jsii-calc",
+      "base": {
+        "fqn": "jsii-calc.PublicClass"
+      },
+      "fqn": "jsii-calc.InbetweenClass",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "name": "InbetweenClass"
     },
     "jsii-calc.InterfaceImplementedByAbstractClass": {
       "assembly": "jsii-calc",
@@ -2052,6 +2160,32 @@
         {
           "name": "while",
           "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.JsiiAgent": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "comment": "Host runtime version should be set via JSII_AGENT"
+      },
+      "fqn": "jsii-calc.JsiiAgent",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "name": "JsiiAgent",
+      "properties": [
+        {
+          "docs": {
+            "comment": "Returns the value of the JSII_AGENT environment variable."
+          },
+          "immutable": true,
+          "name": "jsiiAgent",
+          "static": true,
+          "type": {
+            "optional": true,
             "primitive": "string"
           }
         }
@@ -2784,6 +2918,20 @@
         }
       ]
     },
+    "jsii-calc.PublicClass": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.PublicClass",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "hello"
+        }
+      ],
+      "name": "PublicClass"
+    },
     "jsii-calc.ReferenceEnumFromScopedPackage": {
       "assembly": "jsii-calc",
       "docs": {
@@ -2821,6 +2969,29 @@
           "type": {
             "fqn": "@scope/jsii-calc-lib.EnumFromScopedModule",
             "optional": true
+          }
+        }
+      ]
+    },
+    "jsii-calc.ReturnsPrivateImplementationOfInterface": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "comment": "Helps ensure the JSII kernel & runtime cooperate correctly when an un-exported instance of a class is returned with\na declared type that is an exported interface, and the instance inherits from an exported class.",
+        "return": "an instance of an un-exported class that extends ``ExportedBaseClass``, declared as ``IPrivatelyImplemented``.",
+        "see": "https://github.com/awslabs/jsii/issues/320"
+      },
+      "fqn": "jsii-calc.ReturnsPrivateImplementationOfInterface",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "name": "ReturnsPrivateImplementationOfInterface",
+      "properties": [
+        {
+          "immutable": true,
+          "name": "privateImplementation",
+          "type": {
+            "fqn": "jsii-calc.IPrivatelyImplemented"
           }
         }
       ]
@@ -3670,6 +3841,6 @@
       "namespace": "composition.CompositeOperation"
     }
   },
-  "version": "0.7.11",
-  "fingerprint": "2o7FtEirv0LpuaJ1G+wAxoHTW7FHr4U1taZ5GcVYt2o="
+  "version": "0.7.14",
+  "fingerprint": "GcECpwq2OHeqaiSnovp794YudgAyL3gzYJqJz36/13c="
 }

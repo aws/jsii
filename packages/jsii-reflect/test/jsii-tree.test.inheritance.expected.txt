@@ -1,0 +1,137 @@
+assemblies
+ ├─┬ jsii-calc
+ │ └─┬ types
+ │   ├─┬ class AbstractClass
+ │   │ ├── base: AbstractClassBase
+ │   │ └── interfaces: InterfaceImplementedByAbstractClass
+ │   ├── class AbstractClassBase
+ │   ├── class AbstractClassReturner
+ │   ├─┬ class Add
+ │   │ └── base: BinaryOperation
+ │   ├── class AllTypes
+ │   ├── class AllowedMethodNames
+ │   ├── class AsyncVirtualMethods
+ │   ├── class AugmentableClass
+ │   ├─┬ class BinaryOperation
+ │   │ ├── base: Operation
+ │   │ └── interfaces: IFriendly
+ │   ├─┬ class Calculator
+ │   │ └── base: CompositeOperation
+ │   ├── class ClassWithMutableObjectLiteralProperty
+ │   ├─┬ class ClassWithPrivateConstructorAndAutomaticProperties
+ │   │ └── interfaces: InterfaceWithProperties
+ │   ├── class Constructors
+ │   ├── class DefaultedConstructorArgument
+ │   ├── class Base
+ │   ├─┬ class Derived
+ │   │ └── base: Base
+ │   ├── class DoNotOverridePrivates
+ │   ├── class DoNotRecognizeAnyAsOptional
+ │   ├── class DontComplainAboutVariadicAfterOptional
+ │   ├─┬ class DoubleTrouble
+ │   │ └── interfaces: IFriendlyRandomGenerator
+ │   ├── class ExportedBaseClass
+ │   ├── class GiveMeStructs
+ │   ├── class GreetingAugmenter
+ │   ├─┬ class InbetweenClass
+ │   │ └── base: PublicClass
+ │   ├── class Foo
+ │   ├── class JSObjectLiteralForInterface
+ │   ├── class JSObjectLiteralToNative
+ │   ├── class JSObjectLiteralToNativeClass
+ │   ├── class JavaReservedWords
+ │   ├── class JsiiAgent
+ │   ├─┬ class Multiply
+ │   │ ├── base: BinaryOperation
+ │   │ └── interfaces: IFriendlier,IRandomNumberGenerator
+ │   ├─┬ class Negate
+ │   │ ├── base: UnaryOperation
+ │   │ └── interfaces: IFriendlier
+ │   ├── class NodeStandardLibrary
+ │   ├── class NullShouldBeTreatedAsUndefined
+ │   ├── class NumberGenerator
+ │   ├── class ObjectRefsInCollections
+ │   ├── class OptionalConstructorArgument
+ │   ├── class OverrideReturnsObject
+ │   ├── class Polymorphism
+ │   ├─┬ class Power
+ │   │ └── base: CompositeOperation
+ │   ├── class PublicClass
+ │   ├── class ReferenceEnumFromScopedPackage
+ │   ├── class ReturnsPrivateImplementationOfInterface
+ │   ├── class RuntimeTypeChecking
+ │   ├── class Statics
+ │   ├─┬ class Sum
+ │   │ └── base: CompositeOperation
+ │   ├── class SyncVirtualMethods
+ │   ├── class Thrower
+ │   ├─┬ class UnaryOperation
+ │   │ └── base: Operation
+ │   ├── class UseBundledDependency
+ │   ├── class UseCalcBase
+ │   ├── class UsesInterfaceWithProperties
+ │   ├── class VariadicMethod
+ │   ├── class VirtualMethodPlayground
+ │   ├─┬ class CompositeOperation
+ │   │ └── base: Operation
+ │   ├── interface CalculatorProps
+ │   ├─┬ interface DerivedStruct
+ │   │ └─┬ interfaces
+ │   │   └── MyFirstStruct
+ │   ├─┬ interface IFriendlier
+ │   │ └─┬ interfaces
+ │   │   └── IFriendly
+ │   ├─┬ interface IFriendlyRandomGenerator
+ │   │ └─┬ interfaces
+ │   │   ├── IRandomNumberGenerator
+ │   │   └── IFriendly
+ │   ├─┬ interface IInterfaceThatShouldNotBeADataType
+ │   │ └─┬ interfaces
+ │   │   └── IInterfaceWithMethods
+ │   ├── interface IInterfaceWithMethods
+ │   ├── interface IInterfaceWithOptionalMethodArguments
+ │   ├── interface IPrivatelyImplemented
+ │   ├── interface IPublicInterface
+ │   ├── interface IRandomNumberGenerator
+ │   ├── interface IReturnsNumber
+ │   ├─┬ interface ImplictBaseOfBase
+ │   │ └─┬ interfaces
+ │   │   └── BaseProps
+ │   ├── interface InterfaceImplementedByAbstractClass
+ │   ├── interface Hello
+ │   ├── interface Hello
+ │   ├── interface InterfaceWithProperties
+ │   ├─┬ interface InterfaceWithPropertiesExtension
+ │   │ └─┬ interfaces
+ │   │   └── InterfaceWithProperties
+ │   ├── interface LoadBalancedFargateServiceProps
+ │   ├── interface MutableObjectLiteral
+ │   ├── interface NullShouldBeTreatedAsUndefinedData
+ │   ├── interface UnionProperties
+ │   ├── enum AllTypesEnum
+ │   ├── enum StringEnum
+ │   └── enum CompositionStringStyle
+ ├─┬ @scope/jsii-calc-base
+ │ └─┬ types
+ │   ├── class Base
+ │   └─┬ interface BaseProps
+ │     └─┬ interfaces
+ │       └── VeryBaseProps
+ ├─┬ @scope/jsii-calc-base-of-base
+ │ └─┬ types
+ │   ├── class Very
+ │   └── interface VeryBaseProps
+ └─┬ @scope/jsii-calc-lib
+   └─┬ types
+     ├─┬ class Number
+     │ ├── base: Value
+     │ └── interfaces: IDoublable
+     ├─┬ class Operation
+     │ └── base: Value
+     ├─┬ class Value
+     │ └── base: Base
+     ├── interface IDoublable
+     ├── interface IFriendly
+     ├── interface MyFirstStruct
+     ├── interface StructWithOnlyOptionals
+     └── enum EnumFromScopedModule

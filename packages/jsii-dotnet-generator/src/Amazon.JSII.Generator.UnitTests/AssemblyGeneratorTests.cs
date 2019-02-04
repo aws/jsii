@@ -234,6 +234,8 @@ namespace Amazon.JSII.Generator.UnitTests
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <IncludeSource>true</IncludeSource>
     <Authors>myAuthors</Authors>
     <Company>myCompany</Company>
     <PackageVersion>1.2.3</PackageVersion>

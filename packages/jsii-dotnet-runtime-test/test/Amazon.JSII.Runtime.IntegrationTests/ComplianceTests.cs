@@ -862,6 +862,28 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             obj.VerifyPropertyIsUndefined();
         }
 
+        [Fact(DisplayName = Prefix + nameof(JsiiAgent))]
+        public void JsiiAgent()
+        {
+            Assert.Equal("DotNet/" + Environment.Version.ToString(), JsiiAgent_.JsiiAgent);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(ReceiveInstanceOfPrivateClass))]
+        public void ReceiveInstanceOfPrivateClass()
+        {
+            Assert.True(new ReturnsPrivateImplementationOfInterface().PrivateImplementation.Success);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(ObjRefsAreLabelledUsingWithTheMostCorrectType))]
+        public void ObjRefsAreLabelledUsingWithTheMostCorrectType()
+        {
+            var classRef = Constructors.MakeClass();
+            var ifaceRef = Constructors.MakeInterface();
+
+            Assert.Equal(typeof(InbetweenClass), classRef.GetType());
+            Assert.NotEqual(typeof(InbetweenClass), ifaceRef.GetType());
+        }
+
         class NumberReturner : DeputyBase, IIReturnsNumber
         {
             public NumberReturner(double number)
