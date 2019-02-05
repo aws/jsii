@@ -15,30 +15,22 @@ __jsii__, it relies on the following toolchains:
  - [Python 3.6.5](https://www.python.org/downloads/release/python-365/)
  - [Ruby 2.5.1](https://www.ruby-lang.org/en/news/2018/03/28/ruby-2-5-1-released/)
 
-When building on CodeBuild, these toolchains are all included in the
-[superchain](https://github.com/awslabs/superchain) docker image. This image can
-also be used locally as follows:
+Our CI/CD uses the "superchain" image from [aws-delivlib](https://github.com/awslabs/aws-delivlib). 
 
-```shell
-eval $(aws ecr get-login --no-include-email)
-IMAGE=260708760616.dkr.ecr.us-east-1.amazonaws.com/superchain:latest
-docker pull ${IMAGE}
-```
+This image can also be used locally like this (note that initial build may take quite some time):
 
-Or if you don't have access to that ECS registry/image you can build the image
-yourself as follows (note that this may take quite some time):
-
-```shell
+```console
 $ git clone git@github.com:awslabs/aws-delivlib.git
 $ cd aws-delivlib/superchain
 $ docker build -t superchain .
 $ IMAGE=superchain
 ```
 
-This will get you into an interactive docker shell.
+This will get you into an interactive docker shell:
 
-```shell
-docker run --net=host -it -v $PWD:$PWD -w $PWD ${IMAGE}
+```console
+$ cd jsii # go to the root of the jsii repo
+$ docker run --net=host -it -v $PWD:$PWD -w $PWD ${IMAGE}
 ```
 
 You can then run `./build.sh` as described below.
