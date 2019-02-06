@@ -5,6 +5,7 @@ Add
 AllTypes
 AllowedMethodNames
 AsyncVirtualMethods
+AugmentableClass
 Base
 Base
 BinaryOperation
@@ -12,6 +13,7 @@ Calculator
 ClassWithMutableObjectLiteralProperty
 ClassWithPrivateConstructorAndAutomaticProperties
 CompositeOperation
+Constructors
 DefaultedConstructorArgument
 Derived
 DoNotOverridePrivates
@@ -22,6 +24,7 @@ ExportedBaseClass
 Foo
 GiveMeStructs
 GreetingAugmenter
+InbetweenClass
 JSObjectLiteralForInterface
 JSObjectLiteralToNative
 JSObjectLiteralToNativeClass
@@ -40,6 +43,7 @@ OverrideReturnsObject
 Polymorphism
 Power
 PythonReservedWords
+PublicClass
 ReferenceEnumFromScopedPackage
 ReturnsPrivateImplementationOfInterface
 RuntimeTypeChecking

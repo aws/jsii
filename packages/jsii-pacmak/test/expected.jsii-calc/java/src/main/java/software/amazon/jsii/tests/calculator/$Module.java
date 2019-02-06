@@ -7,7 +7,7 @@ import software.amazon.jsii.JsiiModule;
 
 public final class $Module extends JsiiModule {
     public $Module() {
-        super("jsii-calc", "0.7.13", $Module.class, "jsii-calc@0.7.13.jsii.tgz");
+        super("jsii-calc", "0.7.14", $Module.class, "jsii-calc@0.7.14.jsii.tgz");
     }
 
     @Override
@@ -26,11 +26,13 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.AllTypesEnum": return software.amazon.jsii.tests.calculator.AllTypesEnum.class;
             case "jsii-calc.AllowedMethodNames": return software.amazon.jsii.tests.calculator.AllowedMethodNames.class;
             case "jsii-calc.AsyncVirtualMethods": return software.amazon.jsii.tests.calculator.AsyncVirtualMethods.class;
+            case "jsii-calc.AugmentableClass": return software.amazon.jsii.tests.calculator.AugmentableClass.class;
             case "jsii-calc.BinaryOperation": return software.amazon.jsii.tests.calculator.BinaryOperation.class;
             case "jsii-calc.Calculator": return software.amazon.jsii.tests.calculator.Calculator.class;
             case "jsii-calc.CalculatorProps": return software.amazon.jsii.tests.calculator.CalculatorProps.class;
             case "jsii-calc.ClassWithMutableObjectLiteralProperty": return software.amazon.jsii.tests.calculator.ClassWithMutableObjectLiteralProperty.class;
             case "jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties": return software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties.class;
+            case "jsii-calc.Constructors": return software.amazon.jsii.tests.calculator.Constructors.class;
             case "jsii-calc.DefaultedConstructorArgument": return software.amazon.jsii.tests.calculator.DefaultedConstructorArgument.class;
             case "jsii-calc.DerivedClassHasNoProperties.Base": return software.amazon.jsii.tests.calculator.DerivedClassHasNoProperties.Base.class;
             case "jsii-calc.DerivedClassHasNoProperties.Derived": return software.amazon.jsii.tests.calculator.DerivedClassHasNoProperties.Derived.class;
@@ -48,9 +50,11 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.IInterfaceWithMethods": return software.amazon.jsii.tests.calculator.IInterfaceWithMethods.class;
             case "jsii-calc.IInterfaceWithOptionalMethodArguments": return software.amazon.jsii.tests.calculator.IInterfaceWithOptionalMethodArguments.class;
             case "jsii-calc.IPrivatelyImplemented": return software.amazon.jsii.tests.calculator.IPrivatelyImplemented.class;
+            case "jsii-calc.IPublicInterface": return software.amazon.jsii.tests.calculator.IPublicInterface.class;
             case "jsii-calc.IRandomNumberGenerator": return software.amazon.jsii.tests.calculator.IRandomNumberGenerator.class;
             case "jsii-calc.IReturnsNumber": return software.amazon.jsii.tests.calculator.IReturnsNumber.class;
             case "jsii-calc.ImplictBaseOfBase": return software.amazon.jsii.tests.calculator.ImplictBaseOfBase.class;
+            case "jsii-calc.InbetweenClass": return software.amazon.jsii.tests.calculator.InbetweenClass.class;
             case "jsii-calc.InterfaceImplementedByAbstractClass": return software.amazon.jsii.tests.calculator.InterfaceImplementedByAbstractClass.class;
             case "jsii-calc.InterfaceInNamespaceIncludesClasses.Foo": return software.amazon.jsii.tests.calculator.InterfaceInNamespaceIncludesClasses.Foo.class;
             case "jsii-calc.InterfaceInNamespaceIncludesClasses.Hello": return software.amazon.jsii.tests.calculator.InterfaceInNamespaceIncludesClasses.Hello.class;
@@ -76,6 +80,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.Polymorphism": return software.amazon.jsii.tests.calculator.Polymorphism.class;
             case "jsii-calc.Power": return software.amazon.jsii.tests.calculator.Power.class;
             case "jsii-calc.PythonReservedWords": return software.amazon.jsii.tests.calculator.PythonReservedWords.class;
+            case "jsii-calc.PublicClass": return software.amazon.jsii.tests.calculator.PublicClass.class;
             case "jsii-calc.ReferenceEnumFromScopedPackage": return software.amazon.jsii.tests.calculator.ReferenceEnumFromScopedPackage.class;
             case "jsii-calc.ReturnsPrivateImplementationOfInterface": return software.amazon.jsii.tests.calculator.ReturnsPrivateImplementationOfInterface.class;
             case "jsii-calc.RuntimeTypeChecking": return software.amazon.jsii.tests.calculator.RuntimeTypeChecking.class;

@@ -1,6 +1,6 @@
 {
   "name": "codemaker",
-  "version": "0.7.13",
+  "version": "0.7.14",
   "description": "A tiny utility for generating source code",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -15,14 +15,14 @@
     "@types/decamelize": "^1.2.0",
     "@types/fs-extra": "^5.0.4",
     "@types/node": "^8.10.37",
-    "@types/nodeunit": "0.0.30",
+    "@types/nodeunit": "^0.0.30",
     "nodeunit": "^0.11.3",
-    "typescript": "^3.1.6"
+    "typescript": "^3.2.4"
   },
   "dependencies": {
-    "camelcase": "^4.1.0",
+    "camelcase": "^5.0.0",
     "decamelize": "^2.0.0",
-    "fs-extra": "^7.0.0"
+    "fs-extra": "^7.0.1"
   },
   "author": {
     "name": "Amazon Web Services",

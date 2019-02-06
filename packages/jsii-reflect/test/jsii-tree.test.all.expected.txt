@@ -154,6 +154,14 @@ assemblies
  │   │   │ └── returns: primitive:number (promise)
  │   │   └─┬ overrideMeToo() method
  │   │     └── returns: primitive:number (promise)
+ │   ├─┬ class AugmentableClass
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ methodOne() method
+ │   │   │ └── returns: void
+ │   │   └─┬ methodTwo() method
+ │   │     └── returns: void
  │   ├─┬ class BinaryOperation
  │   │ ├── base: Operation
  │   │ ├── interfaces: IFriendly
@@ -237,6 +245,16 @@ assemblies
  │   │   │ └── type: primitive:string
  │   │   └─┬ readWriteString property
  │   │     └── type: primitive:string
+ │   ├─┬ class Constructors
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ makeClass() method
+ │   │   │ ├── static
+ │   │   │ └── returns: class:jsii-calc.PublicClass
+ │   │   └─┬ makeInterface() method
+ │   │     ├── static
+ │   │     └── returns: interface:jsii-calc.IPublicInterface
  │   ├─┬ class DefaultedConstructorArgument
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(arg1,arg2,arg3) method
@@ -357,6 +375,11 @@ assemblies
  │   │     │ └─┬ friendly
  │   │     │   └── type: interface:@scope/jsii-calc-lib.IFriendly
  │   │     └── returns: primitive:string
+ │   ├─┬ class InbetweenClass
+ │   │ ├── base: PublicClass
+ │   │ └─┬ members
+ │   │   └─┬ <initializer>() method
+ │   │     └── returns: void
  │   ├─┬ class Foo
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -735,6 +758,11 @@ assemblies
  │   │   ├─┬ with() method
  │   │   │ └── returns: void
  │   │   └─┬ yield() method
+ │   ├─┬ class PublicClass
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>() method
+ │   │   │ └── returns: void
+ │   │   └─┬ hello() method
  │   │     └── returns: void
  │   ├─┬ class ReferenceEnumFromScopedPackage
  │   │ └─┬ members
@@ -1082,6 +1110,11 @@ assemblies
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: primitive:boolean
+ │   ├─┬ interface IPublicInterface
+ │   │ └─┬ members
+ │   │   └─┬ bye() method
+ │   │     ├── abstract
+ │   │     └── returns: void
  │   ├─┬ interface IRandomNumberGenerator
  │   │ └─┬ members
  │   │   └─┬ next() method

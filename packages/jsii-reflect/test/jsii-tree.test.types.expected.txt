@@ -8,10 +8,12 @@ assemblies
  │   ├── class AllTypes
  │   ├── class AllowedMethodNames
  │   ├── class AsyncVirtualMethods
+ │   ├── class AugmentableClass
  │   ├── class BinaryOperation
  │   ├── class Calculator
  │   ├── class ClassWithMutableObjectLiteralProperty
  │   ├── class ClassWithPrivateConstructorAndAutomaticProperties
+ │   ├── class Constructors
  │   ├── class DefaultedConstructorArgument
  │   ├── class Base
  │   ├── class Derived
@@ -22,6 +24,7 @@ assemblies
  │   ├── class ExportedBaseClass
  │   ├── class GiveMeStructs
  │   ├── class GreetingAugmenter
+ │   ├── class InbetweenClass
  │   ├── class Foo
  │   ├── class JSObjectLiteralForInterface
  │   ├── class JSObjectLiteralToNative
@@ -39,6 +42,7 @@ assemblies
  │   ├── class Polymorphism
  │   ├── class Power
  │   ├── class PythonReservedWords
+ │   ├── class PublicClass
  │   ├── class ReferenceEnumFromScopedPackage
  │   ├── class ReturnsPrivateImplementationOfInterface
  │   ├── class RuntimeTypeChecking
@@ -61,6 +65,7 @@ assemblies
  │   ├── interface IInterfaceWithMethods
  │   ├── interface IInterfaceWithOptionalMethodArguments
  │   ├── interface IPrivatelyImplemented
+ │   ├── interface IPublicInterface
  │   ├── interface IRandomNumberGenerator
  │   ├── interface IReturnsNumber
  │   ├── interface ImplictBaseOfBase

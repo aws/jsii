@@ -61,6 +61,11 @@ assemblies
  │   │   ├── dontOverrideMe() method
  │   │   ├── overrideMe(mult) method
  │   │   └── overrideMeToo() method
+ │   ├─┬ class AugmentableClass
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── methodOne() method
+ │   │   └── methodTwo() method
  │   ├─┬ class BinaryOperation
  │   │ └─┬ members
  │   │   ├── <initializer>(lhs,rhs) method
@@ -90,6 +95,11 @@ assemblies
  │   │   ├── create(readOnlyString,readWriteString) method
  │   │   ├── readOnlyString property
  │   │   └── readWriteString property
+ │   ├─┬ class Constructors
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── makeClass() method
+ │   │   └── makeInterface() method
  │   ├─┬ class DefaultedConstructorArgument
  │   │ └─┬ members
  │   │   ├── <initializer>(arg1,arg2,arg3) method
@@ -137,6 +147,9 @@ assemblies
  │   │ └─┬ members
  │   │   ├── <initializer>() method
  │   │   └── betterGreeting(friendly) method
+ │   ├─┬ class InbetweenClass
+ │   │ └─┬ members
+ │   │   └── <initializer>() method
  │   ├─┬ class Foo
  │   │ └─┬ members
  │   │   ├── <initializer>() method
@@ -311,6 +324,10 @@ assemblies
  │   │   ├── while() method
  │   │   ├── with() method
  │   │   └── yield() method
+ │   ├─┬ class PublicClass
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── hello() method
  │   ├─┬ class ReferenceEnumFromScopedPackage
  │   │ └─┬ members
  │   │   ├── <initializer>() method
@@ -438,6 +455,9 @@ assemblies
  │   ├─┬ interface IPrivatelyImplemented
  │   │ └─┬ members
  │   │   └── success property
+ │   ├─┬ interface IPublicInterface
+ │   │ └─┬ members
+ │   │   └── bye() method
  │   ├─┬ interface IRandomNumberGenerator
  │   │ └─┬ members
  │   │   └── next() method

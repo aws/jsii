@@ -15,19 +15,25 @@ __jsii__, it relies on the following toolchains:
  - [Python 3.6.5](https://www.python.org/downloads/release/python-365/)
  - [Ruby 2.5.1](https://www.ruby-lang.org/en/news/2018/03/28/ruby-2-5-1-released/)
 
-When building on CodeBuild, these toolchains are all included in the
-[superchain](https://github.com/awslabs/superchain) docker image. This image can
-also be used locally as follows:
+Our CI/CD uses the "superchain" image from [aws-delivlib](https://github.com/awslabs/aws-delivlib). 
 
-```shell
-eval $(aws ecr get-login --no-include-email)
-IMAGE=260708760616.dkr.ecr.us-east-1.amazonaws.com/superchain:latest
-docker pull ${IMAGE}
-docker run --net=host -it -v $PWD:$PWD -w $PWD ${IMAGE}
+This image can also be used locally like this (note that initial build may take quite some time):
+
+```console
+$ git clone git@github.com:awslabs/aws-delivlib.git
+$ cd aws-delivlib/superchain
+$ docker build -t superchain .
+$ IMAGE=superchain
 ```
 
-This will get you into an interactive docker shell. You can then run
-./install.sh and ./build.sh as described below.
+This will get you into an interactive docker shell:
+
+```console
+$ cd jsii # go to the root of the jsii repo
+$ docker run --net=host -it -v $PWD:$PWD -w $PWD ${IMAGE}
+```
+
+You can then run `./build.sh` as described below.
 
 ### Bootstrapping
 
@@ -46,10 +52,11 @@ All modules within this repository have the following scripts:
 * `build` - builds the module (usually runs the TypeScript compiler).
 * `watch` - runs `tsc -w` which picks up changes and builds them progressively.
 * `test` - uses `nodeunit test/test.*.js` to run all unit tests.
-* `package` - emits publishable artifacts to `dist/xxx` (where "xxx" is the language)
+* `package` - emits publishable artifacts to `dist/<lang>`
 
 Each one of these scripts can be executed either from the root of the repo using
-`lerna run xxx --scope <package>` or from individual modules using `npm run xxx`.
+`npx lerna run <script> --scope <package>` or from individual modules using
+`npm run <script>`.
 
 ### Bump
 
@@ -84,7 +91,7 @@ jsii language bindings consist of two main components:
 ### Runtime Client Library
 
 The runtime client library should be implemented as a module under
-`packages/jsii-xxx-runtime` (where `xxx` is the language).
+`packages/jsii-<lang>-runtime`.
 
 The jsii runtime client library usually includes the following components:
 
