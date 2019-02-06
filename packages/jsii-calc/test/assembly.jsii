@@ -2918,7 +2918,20 @@
         }
       ]
     },
-
+    "jsii-calc.PublicClass": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.PublicClass",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "hello"
+        }
+      ],
+      "name": "PublicClass"
+    },
     "jsii-calc.PythonReservedWords": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.PythonReservedWords",
@@ -3025,20 +3038,6 @@
         }
       ],
       "name": "PythonReservedWords"
-    },
-    "jsii-calc.PublicClass": {
-      "assembly": "jsii-calc",
-      "fqn": "jsii-calc.PublicClass",
-      "initializer": {
-        "initializer": true
-      },
-      "kind": "class",
-      "methods": [
-        {
-          "name": "hello"
-        }
-      ],
-      "name": "PublicClass"
     },
     "jsii-calc.ReferenceEnumFromScopedPackage": {
       "assembly": "jsii-calc",
@@ -3950,5 +3949,5 @@
     }
   },
   "version": "0.7.14",
-  "fingerprint": "GcECpwq2OHeqaiSnovp794YudgAyL3gzYJqJz36/13c="
+  "fingerprint": "vzzjYk0Hbo0lF9tGOMPQLWPG2MEEfhY22eDkXY+LDEE="
 }

@@ -56,8 +56,8 @@ assemblies
  │   ├── class Polymorphism
  │   ├─┬ class Power
  │   │ └── base: CompositeOperation
- │   ├── class PythonReservedWords
  │   ├── class PublicClass
+ │   ├── class PythonReservedWords
  │   ├── class ReferenceEnumFromScopedPackage
  │   ├── class ReturnsPrivateImplementationOfInterface
  │   ├── class RuntimeTypeChecking

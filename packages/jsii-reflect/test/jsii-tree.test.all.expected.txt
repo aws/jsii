@@ -691,6 +691,12 @@ assemblies
  │   │   └─┬ pow property
  │   │     ├── immutable
  │   │     └── type: class:@scope/jsii-calc-lib.Value
+ │   ├─┬ class PublicClass
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>() method
+ │   │   │ └── returns: void
+ │   │   └─┬ hello() method
+ │   │     └── returns: void
  │   ├─┬ class PythonReservedWords
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -758,11 +764,6 @@ assemblies
  │   │   ├─┬ with() method
  │   │   │ └── returns: void
  │   │   └─┬ yield() method
- │   ├─┬ class PublicClass
- │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
- │   │   └─┬ hello() method
  │   │     └── returns: void
  │   ├─┬ class ReferenceEnumFromScopedPackage
  │   │ └─┬ members

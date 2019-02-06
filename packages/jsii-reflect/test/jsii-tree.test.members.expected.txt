@@ -289,6 +289,10 @@ assemblies
  │   │   ├── base property
  │   │   ├── expression property
  │   │   └── pow property
+ │   ├─┬ class PublicClass
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── hello() method
  │   ├─┬ class PythonReservedWords
  │   │ └─┬ members
  │   │   ├── <initializer>() method
@@ -324,10 +328,6 @@ assemblies
  │   │   ├── while() method
  │   │   ├── with() method
  │   │   └── yield() method
- │   ├─┬ class PublicClass
- │   │ └─┬ members
- │   │   ├── <initializer>() method
- │   │   └── hello() method
  │   ├─┬ class ReferenceEnumFromScopedPackage
  │   │ └─┬ members
  │   │   ├── <initializer>() method

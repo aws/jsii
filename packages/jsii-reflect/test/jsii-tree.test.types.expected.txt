@@ -41,8 +41,8 @@ assemblies
  │   ├── class OverrideReturnsObject
  │   ├── class Polymorphism
  │   ├── class Power
- │   ├── class PythonReservedWords
  │   ├── class PublicClass
+ │   ├── class PythonReservedWords
  │   ├── class ReferenceEnumFromScopedPackage
  │   ├── class ReturnsPrivateImplementationOfInterface
  │   ├── class RuntimeTypeChecking

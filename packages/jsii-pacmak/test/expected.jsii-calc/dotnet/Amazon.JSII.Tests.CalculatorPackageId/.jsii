@@ -2932,6 +2932,113 @@
       ],
       "name": "PublicClass"
     },
+    "jsii-calc.PythonReservedWords": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.PythonReservedWords",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "and"
+        },
+        {
+          "name": "as"
+        },
+        {
+          "name": "assert"
+        },
+        {
+          "name": "async"
+        },
+        {
+          "name": "await"
+        },
+        {
+          "name": "break"
+        },
+        {
+          "name": "class"
+        },
+        {
+          "name": "continue"
+        },
+        {
+          "name": "def"
+        },
+        {
+          "name": "del"
+        },
+        {
+          "name": "elif"
+        },
+        {
+          "name": "else"
+        },
+        {
+          "name": "except"
+        },
+        {
+          "name": "finally"
+        },
+        {
+          "name": "for"
+        },
+        {
+          "name": "from"
+        },
+        {
+          "name": "global"
+        },
+        {
+          "name": "if"
+        },
+        {
+          "name": "import"
+        },
+        {
+          "name": "in"
+        },
+        {
+          "name": "is"
+        },
+        {
+          "name": "lambda"
+        },
+        {
+          "name": "nonlocal"
+        },
+        {
+          "name": "not"
+        },
+        {
+          "name": "or"
+        },
+        {
+          "name": "pass"
+        },
+        {
+          "name": "raise"
+        },
+        {
+          "name": "return"
+        },
+        {
+          "name": "try"
+        },
+        {
+          "name": "while"
+        },
+        {
+          "name": "with"
+        },
+        {
+          "name": "yield"
+        }
+      ],
+      "name": "PythonReservedWords"
+    },
     "jsii-calc.ReferenceEnumFromScopedPackage": {
       "assembly": "jsii-calc",
       "docs": {
@@ -3842,5 +3949,5 @@
     }
   },
   "version": "0.7.14",
-  "fingerprint": "GcECpwq2OHeqaiSnovp794YudgAyL3gzYJqJz36/13c="
+  "fingerprint": "vzzjYk0Hbo0lF9tGOMPQLWPG2MEEfhY22eDkXY+LDEE="
 }

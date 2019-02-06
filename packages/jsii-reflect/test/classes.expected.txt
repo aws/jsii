@@ -42,8 +42,8 @@ OptionalConstructorArgument
 OverrideReturnsObject
 Polymorphism
 Power
-PythonReservedWords
 PublicClass
+PythonReservedWords
 ReferenceEnumFromScopedPackage
 ReturnsPrivateImplementationOfInterface
 RuntimeTypeChecking
