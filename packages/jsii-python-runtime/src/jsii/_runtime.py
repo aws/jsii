@@ -69,13 +69,6 @@ class JSIIMeta(_ClassPropertyMeta, type):
         # Register this instance with our reference map.
         _reference_map.register_reference(inst)
 
-        # Whenever the object we're creating gets garbage collected, then we want to
-        # delete it from the JS runtime as well.
-        # TODO: Figure out if this is *really* true, what happens if something goes
-        #       out of scope at the Python level, but something is holding onto it
-        #       at the JS level? What mechanics are in place for this if any?
-        weakref.finalize(inst, kernel.delete, inst.__jsii_ref__)
-
         return inst
 
 

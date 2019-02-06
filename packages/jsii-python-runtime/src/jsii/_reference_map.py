@@ -1,6 +1,5 @@
 # This module exists to break an import cycle between jsii.runtime and jsii.kernel
 import inspect
-import weakref
 
 from typing import Any, MutableMapping
 
@@ -26,7 +25,11 @@ class _FakeReference:
 
 class _ReferenceMap:
     def __init__(self, types):
-        self._refs = weakref.WeakValueDictionary()
+        # We are using a real dictionary here instead of a WeakValueDictionary because
+        # the nature of the JSII is such that we can never free the memory of JSII
+        # objects ever, because we have no idea how many references exist on the *other*
+        # side.
+        self._refs = {}
         self._types = types
 
     def register(self, inst: Referenceable):
