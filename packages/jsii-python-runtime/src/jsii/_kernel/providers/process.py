@@ -12,7 +12,7 @@ import cattr  # type: ignore
 
 import jsii._embedded.jsii
 
-from jsii import __jsii_runtime_version__
+from jsii.__about__ import __jsii_runtime_version__
 from jsii._compat import importlib_resources
 from jsii._utils import memoized_property
 from jsii._kernel.providers.base import BaseKernel
