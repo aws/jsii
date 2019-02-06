@@ -1,3 +1,4 @@
+import datetime
 import contextlib
 import importlib.machinery
 import json
@@ -9,6 +10,7 @@ from typing import TYPE_CHECKING, Type, Union, Mapping, Any, Optional
 
 import attr
 import cattr  # type: ignore
+import dateutil.parser
 
 import jsii._embedded.jsii
 
@@ -94,12 +96,18 @@ def _unstructure_ref(value):
 def ohook(d):
     if d.keys() == {"$jsii.byref"}:
         return ObjRef(ref=d["$jsii.byref"])
+    if d.keys() == {"$jsii.date"}:
+        return dateutil.parser.isoparse(d["$jsii.date"])
     return d
 
 
 def jdefault(obj):
     if hasattr(obj, "__jsii_ref__"):
         return _unstructure_ref(obj.__jsii_ref__)
+    if isinstance(obj, datetime.datetime) and obj.tzinfo is not None:
+        return {"$jsii.date": obj.isoformat()}
+    elif isinstance(obj, datetime.datetime):
+        raise TypeError("Naive datetimes are not supported, please add a timzone.")
     raise TypeError
 
 

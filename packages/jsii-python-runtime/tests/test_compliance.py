@@ -1,6 +1,6 @@
 import platform
 
-from datetime import datetime
+from datetime import datetime, timezone
 
 import pytest
 
@@ -47,7 +47,6 @@ from scope.jsii_calc_lib import IFriendly, EnumFromScopedModule, Number
 #       Tests as closely as possible to make keeping them in sync easier.
 
 # These map distinct reasons for failures, so we an easily find them.
-xfail_datetime = pytest.mark.xfail(reason="Datetime Not Implemented", strict=True)
 xfail_objref_array = pytest.mark.xfail(
     reason="ObjRef -> Concrete Instance in Array Not Implemented", strict=True
 )
@@ -187,7 +186,6 @@ class MulTen(Multiply):
         super().__init__(Number(value), Number(10))
 
 
-@xfail_datetime
 def test_primitiveTypes():
     types = AllTypes()
 
@@ -204,25 +202,24 @@ def test_primitiveTypes():
     assert types.number_property == 1234
 
     # date
-    types.date_property = datetime.fromtimestamp(123 / 1000.0)
-    assert types.date_property == datetime.fromtimestamp(123 / 1000.0)
+    types.date_property = datetime.fromtimestamp(123 / 1000.0, tz=timezone.utc)
+    assert types.date_property == datetime.fromtimestamp(123 / 1000.0, tz=timezone.utc)
 
     # json
     types.json_property = {"Foo": 123}
     assert types.json_property.get("Foo") == 123
 
 
-@xfail_datetime
 def test_dates():
     types = AllTypes()
 
     # strong type
-    types.date_property = datetime.fromtimestamp(123 / 1000.0)
-    assert types.date_property == datetime.fromtimestamp(123 / 1000.0)
+    types.date_property = datetime.fromtimestamp(123 / 1000.0, tz=timezone.utc)
+    assert types.date_property == datetime.fromtimestamp(123 / 1000.0, tz=timezone.utc)
 
     # weak type
-    types.any_property(datetime.fromtimestamp(999 / 1000.0))
-    assert types.any_property == datetime.fromtimestamp(999 / 1000.0)
+    types.any_property = datetime.fromtimestamp(999 / 1000.0, tz=timezone.utc)
+    assert types.any_property == datetime.fromtimestamp(999 / 1000.0, tz=timezone.utc)
 
 
 def test_collectionTypes():
@@ -239,7 +236,6 @@ def test_collectionTypes():
     # TODO: No Assertion?
 
 
-@xfail_datetime
 def test_dynamicTypes():
     types = AllTypes()
 
@@ -256,8 +252,8 @@ def test_dynamicTypes():
     assert types.any_property == 12
 
     # date
-    types.any_property = datetime.fromtimestamp(1234 / 1000.0)
-    assert types.any_property == datetime.fromtimestamp(1234 / 1000.0)
+    types.any_property = datetime.fromtimestamp(1234 / 1000.0, tz=timezone.utc)
+    assert types.any_property == datetime.fromtimestamp(1234 / 1000.0, tz=timezone.utc)
 
     # json (notice that when deserialized, it is deserialized as a map).
     types.any_property = {"Goo": ["Hello", {"World": 123}]}
