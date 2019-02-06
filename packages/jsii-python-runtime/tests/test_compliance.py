@@ -47,9 +47,6 @@ from scope.jsii_calc_lib import IFriendly, EnumFromScopedModule, Number
 #       Tests as closely as possible to make keeping them in sync easier.
 
 # These map distinct reasons for failures, so we an easily find them.
-xfail_objref_array = pytest.mark.xfail(
-    reason="ObjRef -> Concrete Instance in Array Not Implemented", strict=True
-)
 xfail_enums = pytest.mark.xfail(
     reason="Implement (de)serialization of enums", strict=True
 )
@@ -287,7 +284,6 @@ def test_dynamicTypes():
     assert types.any_property.value == 200
 
 
-@xfail_objref_array
 def test_unionTypes():
     types = AllTypes()
 
@@ -393,7 +389,6 @@ def test_undefinedAndNull():
     calc.max_value = None
 
 
-@xfail_objref_array
 def test_arrays():
     sum_ = Sum()
     sum_.parts = [Number(5), Number(10), Multiply(Number(2), Number(3))]
@@ -404,7 +399,6 @@ def test_arrays():
     assert sum_.to_string() == "(((0 + 5) + 10) + (2 * 3))"
 
 
-@xfail_objref_array
 def test_maps():
     calc2 = Calculator()  # Initializer overload (props is optional)
     calc2.add(10)
