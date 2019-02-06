@@ -2,7 +2,6 @@ import inspect
 
 from typing import Any, List, Optional, Type
 
-import collections.abc
 import functools
 
 import attr
@@ -60,8 +59,10 @@ def _get_overides(klass: JSClass, obj: Any) -> List[Override]:
 
 
 def _recursize_dereference(kernel, d):
-    if isinstance(d, collections.abc.Mapping):
+    if isinstance(d, dict):
         return {k: _recursize_dereference(kernel, v) for k, v in d.items()}
+    elif isinstance(d, list):
+        return [_recursize_dereference(kernel, i) for i in d]
     elif isinstance(d, ObjRef):
         return _reference_map.resolve_reference(kernel, d)
     else:
