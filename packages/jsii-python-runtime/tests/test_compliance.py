@@ -64,9 +64,6 @@ xfail_pure_object = pytest.mark.xfail(
 xfail_literal_interface = pytest.mark.xfail(
     reason="Implement someone returning a literal interface", strict=True
 )
-xfail_const_naming = pytest.mark.xfail(
-    reason="Correct name of const (FOO != foo)", strict=True
-)
 xfail_abstract_class = pytest.mark.xfail(
     reason="Implement (or fix?) abstract class property", strict=True
 )
@@ -794,7 +791,6 @@ def test_statics():
     assert Statics.non_const_static == 100
 
 
-@xfail_const_naming
 def test_consts():
     obj = Statics.CONST_OBJ
 

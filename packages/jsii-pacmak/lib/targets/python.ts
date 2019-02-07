@@ -76,8 +76,12 @@ const toPythonMethodName = (name: string): string => {
     return toPythonIdentifier(toSnakeCase(name));
 };
 
-const toPythonPropertyName = (name: string): string => {
-    return toPythonIdentifier(toSnakeCase(name));
+const toPythonPropertyName = (name: string, constant: boolean = false): string => {
+    let value = toPythonIdentifier(toSnakeCase(name));
+    if (constant) {
+        value = value.toUpperCase();
+    }
+    return value;
 };
 
 const setDifference = (setA: Set<any>, setB: Set<any>): Set<any> => {
@@ -1325,7 +1329,7 @@ class PythonGenerator extends Generator {
     protected onStaticProperty(cls: spec.ClassType, prop: spec.Property) {
         this.getPythonType(cls.fqn).addMember(
             new StaticProperty(
-                toPythonPropertyName(prop.name),
+                toPythonPropertyName(prop.name, prop.const),
                 prop.name,
                 prop.type,
                 { abstract: prop.abstract, immutable: prop.immutable },
@@ -1350,7 +1354,7 @@ class PythonGenerator extends Generator {
     protected onProperty(cls: spec.ClassType, prop: spec.Property) {
         this.getPythonType(cls.fqn).addMember(
             new Property(
-                toPythonPropertyName(prop.name),
+                toPythonPropertyName(prop.name, prop.const),
                 prop.name,
                 prop.type,
                 { abstract: prop.abstract, immutable: prop.immutable },
@@ -1404,7 +1408,7 @@ class PythonGenerator extends Generator {
             );
         } else {
             ifaceProperty = new InterfaceProperty(
-                toPythonPropertyName(prop.name),
+                toPythonPropertyName(prop.name, prop.const),
                 prop.name,
                 prop.type,
                 { immutable: prop.immutable },
