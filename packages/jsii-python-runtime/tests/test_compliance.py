@@ -67,9 +67,6 @@ xfail_literal_interface = pytest.mark.xfail(
 xfail_abstract_class = pytest.mark.xfail(
     reason="Implement (or fix?) abstract class property", strict=True
 )
-xfail_jsii_agent = pytest.mark.xfail(
-    reason="Implement JSII_AGENT environment variable.", strict=True
-)
 xfail_private_class = pytest.mark.xfail(
     reason="Implement receiving a private class", strict=True
 )
@@ -892,7 +889,6 @@ def test_nullShouldBeTreatedAsUndefined():
     obj.verify_property_is_undefined()
 
 
-@xfail_jsii_agent
 def test_testJsiiAgent():
     assert JsiiAgent.jsii_agent == f"Python/{platform.python_version()}"
 

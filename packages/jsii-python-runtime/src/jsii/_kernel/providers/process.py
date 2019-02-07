@@ -2,7 +2,9 @@ import datetime
 import contextlib
 import importlib.machinery
 import json
+import os
 import os.path
+import platform
 import subprocess
 import tempfile
 
@@ -207,10 +209,14 @@ class _NodeProcess:
         return json.loads(self._process.stdout.readline(), object_hook=ohook)
 
     def start(self):
+        environ = os.environ.copy()
+        environ["JSII_AGENT"] = f"Python/{platform.python_version()}"
+
         self._process = subprocess.Popen(
             ["node", self._jsii_runtime()],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
+            env=environ,
         )
         self.handshake()
 
