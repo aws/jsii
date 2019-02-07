@@ -5,6 +5,7 @@ from ._runtime import (
     JSIIAssembly,
     JSIIMeta,
     JSIIAbstractClass,
+    enum,
     data_type,
     member,
     kernel,

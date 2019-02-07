@@ -76,6 +76,15 @@ class JSIIAbstractClass(abc.ABCMeta, JSIIMeta):
     pass
 
 
+def enum(*, jsii_type):
+    def deco(cls):
+        cls.__jsii_type__ = jsii_type
+        _reference_map.register_enum(cls)
+        return cls
+
+    return deco
+
+
 def data_type(*, jsii_type):
     def deco(cls):
         cls.__jsii_type__ = jsii_type

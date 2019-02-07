@@ -772,6 +772,11 @@ class Property extends BaseProperty {
 
 class Enum extends BasePythonClassType {
 
+    public emit(code: CodeMaker, resolver: TypeResolver) {
+        code.line(`@jsii.enum(jsii_type="${this.fqn}")`);
+        return super.emit(code, resolver);
+    }
+
     protected getClassParams(_resolver: TypeResolver): string[] {
         return ["enum.Enum"];
     }

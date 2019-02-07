@@ -11,6 +11,7 @@ from jsii._utils import Singleton
 from jsii._kernel.providers import BaseKernel, ProcessKernel
 from jsii._kernel.types import JSClass, Referenceable
 from jsii._kernel.types import (
+    EnumRef,
     LoadRequest,
     CreateRequest,
     DeleteRequest,
@@ -65,6 +66,8 @@ def _recursize_dereference(kernel, d):
         return [_recursize_dereference(kernel, i) for i in d]
     elif isinstance(d, ObjRef):
         return _reference_map.resolve_reference(kernel, d)
+    elif isinstance(d, EnumRef):
+        return _recursize_dereference(kernel, d.ref)(d.member)
     else:
         return d
 

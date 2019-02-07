@@ -47,9 +47,6 @@ from scope.jsii_calc_lib import IFriendly, EnumFromScopedModule, Number
 #       Tests as closely as possible to make keeping them in sync easier.
 
 # These map distinct reasons for failures, so we an easily find them.
-xfail_enums = pytest.mark.xfail(
-    reason="Implement (de)serialization of enums", strict=True
-)
 xfail_union_property = pytest.mark.xfail(
     reason="Implement union properties", strict=True
 )
@@ -351,7 +348,6 @@ def test_getAndSetNonPrimitiveProperties():
     assert calc.value == -6_400_000
 
 
-@xfail_enums
 def test_getAndSetEnumValues():
     calc = Calculator()
     calc.add(9)
@@ -363,11 +359,10 @@ def test_getAndSetEnumValues():
 
     calc.string_style = CompositeOperation.CompositionStringStyle.Decorated
 
-    assert calc.string_property == CompositeOperation.CompositionStringStyle.Decorated
+    assert calc.string_style == CompositeOperation.CompositionStringStyle.Decorated
     assert calc.to_string() == "<<[[{{(((1 * (0 + 9)) * (0 + 9)) * (0 + 9))}}]]>>"
 
 
-@xfail_enums
 def test_useEnumFromScopedModule():
     obj = ReferenceEnumFromScopedPackage()
     assert obj.foo == EnumFromScopedModule.Value2

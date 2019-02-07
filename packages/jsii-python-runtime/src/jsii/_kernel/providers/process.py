@@ -1,5 +1,6 @@
 import datetime
 import contextlib
+import enum
 import importlib.machinery
 import json
 import os
@@ -22,6 +23,7 @@ from jsii._utils import memoized_property
 from jsii._kernel.providers.base import BaseKernel
 from jsii._kernel.types import (
     ObjRef,
+    EnumRef,
     KernelRequest,
     KernelResponse,
     LoadRequest,
@@ -95,11 +97,18 @@ def _unstructure_ref(value):
     return {"$jsii.byref": value.ref}
 
 
+def _unstructure_enum(member):
+    return {"$jsii.enum": f"{member.__class__.__jsii_type__}/{member.value}"}
+
+
 def ohook(d):
     if d.keys() == {"$jsii.byref"}:
         return ObjRef(ref=d["$jsii.byref"])
     if d.keys() == {"$jsii.date"}:
         return dateutil.parser.isoparse(d["$jsii.date"])
+    if d.keys() == {"$jsii.enum"}:
+        ref, member = d["$jsii.enum"].rsplit("/", 1)
+        return EnumRef(ref=ObjRef(ref=ref + "@"), member=member)
     return d
 
 
@@ -116,6 +125,7 @@ def jdefault(obj):
 class _NodeProcess:
     def __init__(self):
         self._serializer = cattr.Converter()
+        self._serializer.register_unstructure_hook(enum.Enum, _unstructure_enum)
         self._serializer.register_unstructure_hook(
             LoadRequest,
             _with_api_key("load", self._serializer.unstructure_attrs_asdict),

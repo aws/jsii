@@ -8,6 +8,7 @@ from ._kernel.types import JSClass, Referenceable
 
 _types = {}
 _data_types: MutableMapping[str, Any] = {}
+_enums: MutableMapping[str, Any] = {}
 
 
 def register_type(klass: JSClass):
@@ -16,6 +17,10 @@ def register_type(klass: JSClass):
 
 def register_data_type(data_type: Any):
     _data_types[data_type.__jsii_type__] = data_type
+
+
+def register_enum(enum_type: Any):
+    _enums[enum_type.__jsii_type__] = enum_type
 
 
 class _FakeReference:
@@ -71,6 +76,8 @@ class _ReferenceMap:
                 # This is a hack, because our kernel expects an object that has a
                 # __jsii_ref__ attached to it, and we don't have one of those.
                 inst[name] = kernel.get(_FakeReference(ref), name)
+        elif class_fqn in _enums:
+            inst = _enums[class_fqn]
         else:
             raise ValueError(f"Unknown type: {class_fqn}")
 

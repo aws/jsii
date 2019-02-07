@@ -18,6 +18,13 @@ class ObjRef:
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
+class EnumRef:
+
+    ref: ObjRef
+    member: str
+
+
+@attr.s(auto_attribs=True, frozen=True, slots=True)
 class Override:
 
     method: Optional[str] = None
