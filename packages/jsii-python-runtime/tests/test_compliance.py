@@ -51,9 +51,6 @@ xfail_union_property = pytest.mark.xfail(
     reason="Implement union properties", strict=True
 )
 xfail_async = pytest.mark.xfail(reason="Implement async methods", strict=True)
-xfail_override_property = pytest.mark.xfail(
-    reason="Rename property_ to property", strict=True
-)
 xfail_error_handling = pytest.mark.xfail(reason="Implement Error Handling", strict=True)
 xfail_pure_object = pytest.mark.xfail(
     reason="Support sending arbitrary objects", strict=True
@@ -67,6 +64,7 @@ xfail_abstract_class = pytest.mark.xfail(
 xfail_private_class = pytest.mark.xfail(
     reason="Implement receiving a private class", strict=True
 )
+xfail_callbacks = pytest.mark.xfail(reason="Implement callback support", strict=True)
 
 
 class DerivedFromAllTypes(AllTypes):
@@ -521,7 +519,7 @@ def test_asyncOverrides_overrideThrows():
         obj.call_me()
 
 
-@xfail_override_property
+@xfail_callbacks
 def test_syncOverrides():
     obj = SyncOverrides()
     assert obj.caller_is_method() == 10 * 5
@@ -538,7 +536,7 @@ def test_syncOverrides():
     assert obj.caller_is_async == 10 * 5 * 3
 
 
-@xfail_override_property
+@xfail_callbacks
 def test_propertyOverrides_get_set():
     so = SyncOverrides()
     assert so.retrieve_value_of_the_property == "I am an override!"
@@ -546,7 +544,7 @@ def test_propertyOverrides_get_set():
     assert so.another_the_property == "New Value"
 
 
-@xfail_override_property
+@xfail_callbacks
 def test_propertyOverrides_get_calls_super():
     class SuperSyncVirtualMethods(SyncVirtualMethods):
         @property
@@ -563,7 +561,7 @@ def test_propertyOverrides_get_calls_super():
     assert so.the_property == "super:initial value"
 
 
-@xfail_override_property
+@xfail_callbacks
 def test_propertyOverrides_set_calls_super():
     class SuperSyncVirtualMethods(SyncVirtualMethods):
         @property
@@ -580,7 +578,7 @@ def test_propertyOverrides_set_calls_super():
     assert so.the_property == "New Value:by override"
 
 
-@xfail_override_property
+@xfail_callbacks
 def test_propertyOverrides_get_throws():
     class ThrowingSyncVirtualMethods(SyncVirtualMethods):
         @property
@@ -597,7 +595,7 @@ def test_propertyOverrides_get_throws():
         so.retrieve_value_of_the_property()
 
 
-@xfail_override_property
+@xfail_callbacks
 def test_propertyOverrides_set_throws():
     class ThrowingSyncVirtualMethods(SyncVirtualMethods):
         @property
@@ -649,7 +647,7 @@ def test_interfaceBuilder():
     assert interact.write_and_read("Hello") == "Hello"
 
 
-@xfail_override_property
+@xfail_callbacks
 def test_syncOverrides_callsSuper():
     obj = SyncOverrides()
     assert obj.caller_is_property == 10 * 5
@@ -657,7 +655,7 @@ def test_syncOverrides_callsSuper():
     assert obj.caller_is_property == 10 * 2
 
 
-@xfail_override_property
+@pytest.mark.skip
 def test_fail_syncOverrides_callsDoubleAsync_method():
     obj = SyncOverrides()
     obj.call_async = True
@@ -667,7 +665,7 @@ def test_fail_syncOverrides_callsDoubleAsync_method():
         obj.caller_is_method()
 
 
-@xfail_override_property
+@pytest.mark.skip
 def test_fail_syncOverrides_callsDoubleAsync_propertyGetter():
     obj = SyncOverrides()
     obj.call_async = True
@@ -677,7 +675,7 @@ def test_fail_syncOverrides_callsDoubleAsync_propertyGetter():
         obj.caller_is_property
 
 
-@xfail_override_property
+@pytest.mark.skip
 def test_fail_syncOverrides_callsDoubleAsync_propertySetter():
     obj = SyncOverrides()
     obj.call_async = True

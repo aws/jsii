@@ -24,6 +24,7 @@ from jsii._kernel.providers.base import BaseKernel
 from jsii._kernel.types import (
     ObjRef,
     EnumRef,
+    Override,
     KernelRequest,
     KernelResponse,
     LoadRequest,
@@ -75,6 +76,17 @@ _ProcessResponse = Union[_OkayResponse, _ErrorRespose]
 _ProcessResponse_R: Type[Any]
 if not TYPE_CHECKING:
     _ProcessResponse_R = _ProcessResponse
+
+
+def _property_fix(asdict):
+    def unstructurer(value):
+        unstructured = asdict(value)
+        if "property_" in unstructured:
+            unstructured["property"] = unstructured.pop("property_")
+
+        return unstructured
+
+    return unstructurer
 
 
 def _with_api_key(api_name, asdict):
@@ -139,18 +151,28 @@ class _NodeProcess:
             _with_api_key("del", self._serializer.unstructure_attrs_asdict),
         )
         self._serializer.register_unstructure_hook(
-            GetRequest, _with_api_key("get", self._serializer.unstructure_attrs_asdict)
+            GetRequest,
+            _with_api_key(
+                "get", _property_fix(self._serializer.unstructure_attrs_asdict)
+            ),
         )
         self._serializer.register_unstructure_hook(
             StaticGetRequest,
-            _with_api_key("sget", self._serializer.unstructure_attrs_asdict),
+            _with_api_key(
+                "sget", _property_fix(self._serializer.unstructure_attrs_asdict)
+            ),
         )
         self._serializer.register_unstructure_hook(
-            SetRequest, _with_api_key("set", self._serializer.unstructure_attrs_asdict)
+            SetRequest,
+            _with_api_key(
+                "set", _property_fix(self._serializer.unstructure_attrs_asdict)
+            ),
         )
         self._serializer.register_unstructure_hook(
             StaticSetRequest,
-            _with_api_key("sset", self._serializer.unstructure_attrs_asdict),
+            _with_api_key(
+                "sset", _property_fix(self._serializer.unstructure_attrs_asdict)
+            ),
         )
         self._serializer.register_unstructure_hook(
             InvokeRequest,
@@ -163,6 +185,9 @@ class _NodeProcess:
         self._serializer.register_unstructure_hook(
             StatsRequest,
             _with_api_key("stats", self._serializer.unstructure_attrs_asdict),
+        )
+        self._serializer.register_unstructure_hook(
+            Override, _property_fix(self._serializer.unstructure_attrs_asdict)
         )
         self._serializer.register_unstructure_hook(ObjRef, _unstructure_ref)
         self._serializer.register_structure_hook(ObjRef, _with_reference)
