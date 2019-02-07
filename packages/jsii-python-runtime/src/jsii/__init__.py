@@ -38,6 +38,7 @@ __all__ = [
     "JSIIMeta",
     "JSIIAbstractClass",
     "Number",
+    "enum",
     "data_type",
     "member",
     "kernel",

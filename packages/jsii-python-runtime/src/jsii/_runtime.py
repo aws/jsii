@@ -1,5 +1,4 @@
 import abc
-import weakref
 import os
 
 import attr
