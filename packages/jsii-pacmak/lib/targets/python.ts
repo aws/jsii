@@ -31,10 +31,6 @@ export default class Python extends Target {
 // ##################
 // # CODE GENERATOR #
 // ##################
-export const debug = (o: any) => {
-    // tslint:disable-next-line:no-console
-    console.log(util.inspect(o, false, null, true));
-};
 
 const PYTHON_BUILTIN_TYPES = ["bool", "str", "None"];
 
