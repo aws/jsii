@@ -1010,7 +1010,8 @@ class Package {
         // TODO: Might be easier to just use a TOML library to write this out.
         code.openFile("pyproject.toml");
         code.line("[build-system]");
-        code.line('requires = ["setuptools", "wheel"]');
+        code.line('requires = ["setuptools >= 35.0.2"]');
+        code.line('build-backend = "setuptools.build_meta"');
         code.closeFile("pyproject.toml");
 
         // We also need to write out a MANIFEST.in to ensure that all of our required
