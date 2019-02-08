@@ -72,15 +72,25 @@ const toPythonIdentifier = (name: string): string => {
     return name;
 };
 
-const toPythonMethodName = (name: string): string => {
-    return toPythonIdentifier(toSnakeCase(name));
+const toPythonMethodName = (name: string, protectedItem: boolean = false): string => {
+    let value = toPythonIdentifier(toSnakeCase(name));
+    if (protectedItem) {
+        value = "_" + value;
+    }
+    return value;
 };
 
-const toPythonPropertyName = (name: string, constant: boolean = false): string => {
+const toPythonPropertyName = (name: string, constant: boolean = false, protectedItem: boolean = false): string => {
     let value = toPythonIdentifier(toSnakeCase(name));
+
     if (constant) {
         value = value.toUpperCase();
     }
+
+    if (protectedItem) {
+        value = "_" + value;
+    }
+
     return value;
 };
 
@@ -1347,7 +1357,7 @@ class PythonGenerator extends Generator {
 
         this.getPythonType(cls.fqn).addMember(
             new Method(
-                toPythonMethodName(method.name!),
+                toPythonMethodName(method.name!, method.protected),
                 method.name,
                 parameters,
                 method.returns,
@@ -1359,7 +1369,7 @@ class PythonGenerator extends Generator {
     protected onProperty(cls: spec.ClassType, prop: spec.Property) {
         this.getPythonType(cls.fqn).addMember(
             new Property(
-                toPythonPropertyName(prop.name, prop.const),
+                toPythonPropertyName(prop.name, prop.const, prop.protected),
                 prop.name,
                 prop.type,
                 { abstract: prop.abstract, immutable: prop.immutable },
@@ -1394,7 +1404,7 @@ class PythonGenerator extends Generator {
 
         this.getPythonType(ifc.fqn).addMember(
             new InterfaceMethod(
-                toPythonMethodName(method.name!),
+                toPythonMethodName(method.name!, method.protected),
                 method.name,
                 parameters,
                 method.returns,
@@ -1413,7 +1423,7 @@ class PythonGenerator extends Generator {
             );
         } else {
             ifaceProperty = new InterfaceProperty(
-                toPythonPropertyName(prop.name, prop.const),
+                toPythonPropertyName(prop.name, prop.const, prop.protected),
                 prop.name,
                 prop.type,
                 { immutable: prop.immutable },
