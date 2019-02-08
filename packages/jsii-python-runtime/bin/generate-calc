@@ -25,9 +25,9 @@ subprocess.run(
         "--upgrade",
         "--find-links",
         os.path.abspath("."),
-    ]
-    + ["jsii"]  # TODO: Remove this.
-    + [d for d in os.listdir(".env/jsii-calc") if d.endswith(".whl")],
-    cwd=os.path.abspath(".env/jsii-calc"),
+        "--find-links",
+        os.path.abspath(".env/jsii-calc"),
+        "jsii-calc",
+    ],
     check=True,
 )

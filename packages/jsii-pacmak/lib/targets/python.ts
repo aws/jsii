@@ -1,5 +1,4 @@
 import path = require('path');
-import util = require('util');
 
 import { CodeMaker, toSnakeCase } from 'codemaker';
 import * as escapeStringRegexp from 'escape-string-regexp';
@@ -908,12 +907,6 @@ class Module implements PythonType {
     }
 }
 
-interface PackageMetadata {
-    summary?: string;
-    readme?: string;
-    url?: string;
-}
-
 interface PackageData {
     filename: string;
     data: string | null;
@@ -923,12 +916,12 @@ class Package {
 
     public readonly name: string;
     public readonly version: string;
-    public readonly metadata: PackageMetadata;
+    public readonly metadata: spec.Assembly;
 
     private modules: Map<string, Module>;
     private data: Map<string, PackageData[]>;
 
-    constructor(name: string, version: string, metadata: PackageMetadata) {
+    constructor(name: string, version: string, metadata: spec.Assembly) {
         this.name = name;
         this.version = version;
         this.metadata = metadata;
@@ -977,21 +970,52 @@ class Package {
             packageData[mod] = pdata.map(pd => pd.filename);
         }
 
+        // Compute our list of dependencies
+        const dependencies: string[] = [];
+        const expectedDeps = this.metadata.dependencies || {};
+        for (const depName of Object.keys(expectedDeps)) {
+            const depInfo = expectedDeps[depName];
+            if (depInfo.peer) {
+                // We need to figure out what our version range is.
+                // Basically, if it starts with Zero we want to restrict things to
+                // ~=X.Y.Z. If it does not start with zero, then we want to do ~=X.Y,>=X.Y.Z.
+                const versionParts = depInfo.version.split(".");
+                let versionSpecifier: string;
+                if (versionParts[0] === "0") {
+                    versionSpecifier = `~=${versionParts.slice(0, 3).join(".")}`;
+                } else {
+                    versionSpecifier = `~=${versionParts.slice(0, 2).join(".")},>=${versionParts.slice(0, 3).join(".")}`;
+                }
+
+                dependencies.push(`${toPythonPackageName(depName)}${versionSpecifier}`);
+            }
+        }
+
+        code.openFile("README.md");
+        code.line(this.metadata.readme !== undefined ? this.metadata.readme.markdown : "");
+        code.closeFile("README.md");
+
         const setupKwargs = {
             name: this.name,
             version: this.version,
-            description: this.metadata.summary,
-            url: this.metadata.url,
+            description: this.metadata.description,
+            url: this.metadata.homepage,
+            long_description_content_type: "text/markdown",
+            author: this.metadata.author.name + (
+                this.metadata.author.email !== undefined ? "<" + this.metadata.author.email + ">" : ""
+            ),
+            project_urls: {
+                Source: this.metadata.repository.url,
+            },
             package_dir: {"": "src"},
             packages: modules.map(m => m.name),
             package_data: packageData,
             python_requires: ">=3.6",
-            install_requires: ["publication"],
+            install_requires: ["jsii", "publication>=0.0.3"].concat(dependencies),
         };
 
         // We Need a setup.py to make this Package, actually a Package.
         // TODO:
-        //      - Author
         //      - License
         //      - Classifiers
         code.openFile("setup.py");
@@ -1002,6 +1026,10 @@ class Package {
         code.line(JSON.stringify(setupKwargs, null, 4));
         code.line('""")');
         code.line();
+        code.openBlock("with open('README.md') as fp");
+        code.line("kwargs['long_description'] = fp.read()");
+        code.closeBlock();
+        code.line();
         code.line("setuptools.setup(**kwargs)");
         code.closeFile("setup.py");
 
@@ -1010,7 +1038,7 @@ class Package {
         // TODO: Might be easier to just use a TOML library to write this out.
         code.openFile("pyproject.toml");
         code.line("[build-system]");
-        code.line('requires = ["setuptools >= 35.0.2"]');
+        code.line('requires = ["setuptools >= 38.6.0", "wheel >= 0.31.0"]');
         code.line('build-backend = "setuptools.build_meta"');
         code.closeFile("pyproject.toml");
 
@@ -1244,11 +1272,7 @@ class PythonGenerator extends Generator {
         this.package = new Package(
             toPythonPackageName(assm.name),
             assm.version,
-            {
-                summary: assm.description,
-                readme: assm.readme !== undefined ? assm.readme.markdown : "",
-                url: assm.homepage,
-            },
+            assm,
         );
 
         const assemblyModule = new Module(
