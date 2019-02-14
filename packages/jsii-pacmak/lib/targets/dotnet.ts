@@ -61,7 +61,7 @@ export default class Dotnet extends Target {
 
         await this.copyFiles(
             path.join(sourceDir, packageId, 'bin', 'Release'),
-            path.join(outDir, this.targetName));
+            outDir);
         await fs.remove(path.join(outDir, 'netstandard2.0'));
     }
 
