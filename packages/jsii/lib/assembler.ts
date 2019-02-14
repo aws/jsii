@@ -624,6 +624,27 @@ export class Assembler implements Emitter {
             }
         });
 
+        // Check that no interface declares a member that's already declared
+        // in a base type (not allowed in C#).
+        const memberNames = interfaceMemberNames(jsiiType);
+        const checkNoIntersection = (...bases: spec.Type[]) => {
+            for (const base of bases) {
+                if (!spec.isInterfaceType(base)) { continue; }
+
+                const baseMembers = interfaceMemberNames(base);
+                for (const memberName of memberNames) {
+                    if (baseMembers.includes(memberName)) {
+                        this._diagnostic(type.symbol.declarations[0],
+                                        ts.DiagnosticCategory.Error,
+                                        `Interface declares same member as inherited interface: ${memberName}`);
+                    }
+                }
+                // Recurse upwards
+                this._deferUntilTypesAvailable(fqn, base.interfaces || [], type.symbol.valueDeclaration, checkNoIntersection);
+            }
+        };
+        this._deferUntilTypesAvailable(fqn, jsiiType.interfaces || [], type.symbol.valueDeclaration, checkNoIntersection);
+
         return _sortMembers(this._visitDocumentation(type.symbol, jsiiType));
     }
 
@@ -1160,6 +1181,22 @@ function intersection<T>(xs: Set<T>, ys: Set<T>): Set<T> {
         if (ys.has(x)) {
             ret.add(x);
         }
+    }
+    return ret;
+}
+
+/**
+ * Return all members names of a JSII interface type
+ *
+ * Returns empty string for a non-interface type.
+ */
+function interfaceMemberNames(jsiiType: spec.InterfaceType): string[] {
+    const ret = new Array<string>();
+    if (jsiiType.methods) {
+        ret.push(...jsiiType.methods.map(m => m.name).filter(x => x !== undefined) as string[]);
+    }
+    if (jsiiType.properties) {
+        ret.push(...jsiiType.properties.map(m => m.name));
     }
     return ret;
 }
