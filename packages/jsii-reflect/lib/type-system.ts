@@ -102,6 +102,10 @@ export class TypeSystem {
     return asm;
   }
 
+  public hasAssembly(name: string): boolean {
+    return name in this._assemblyLookup;
+  }
+
   public findAssembly(name: string) {
     if (!(name in this._assemblyLookup)) {
       throw new Error(`Assembly "${name}" not found`);

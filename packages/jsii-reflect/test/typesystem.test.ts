@@ -9,12 +9,18 @@ beforeEach(async () => {
   await typesys.loadModule(resolveModuleDir('jsii-calc'));
 });
 
+test('TypeSystem.hasAssembly', () => {
+  expect(typesys.hasAssembly('@foo/bar')).toBeFalsy();
+  expect(typesys.hasAssembly('jsii-calc')).toBeTruthy();
+  expect(typesys.hasAssembly('@scope/jsii-calc-lib')).toBeTruthy();
+});
+
 test('TypeSystem.assemblies lists all the loaded assemblies', () => {
-  diffTest(typesys.assemblies.map(a => a.name).sort().join('\n'), 'assemblies.expected.txt');
+  return diffTest(typesys.assemblies.map(a => a.name).sort().join('\n'), 'assemblies.expected.txt');
 });
 
 test('TypeSystem.classes lists all the classes in the typesystem', () => {
-  diffTest(typesys.classes.map(c => c.name).sort().join('\n'), 'classes.expected.txt');
+  return diffTest(typesys.classes.map(c => c.name).sort().join('\n'), 'classes.expected.txt');
 });
 
 test('findClass', async () => {
