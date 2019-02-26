@@ -17,11 +17,7 @@ export class InterfaceType extends Type {
    * All the base interfaces that this interface extends.
    */
   public get interfaces(): InterfaceType[] {
-    if (!this.interfaceSpec.interfaces) {
-      return [];
-    }
-
-    return this.interfaceSpec.interfaces.map(i => this.system.findInterface(i.fqn));
+    return this.getInterfaces();
   }
 
   /**
@@ -49,6 +45,26 @@ export class InterfaceType extends Type {
     return !!this.datatype;
   }
 
+  /**
+   * Lists all interfaces this interface extends.
+   * @param inherited include all interfaces implemented by all super interfaces (default: false)
+   */
+  public getInterfaces(inherited = false): InterfaceType[] {
+    if (!this.interfaceSpec.interfaces) {
+      return [];
+    }
+
+    const result = new Set<InterfaceType>();
+    for (const iface of this.interfaceSpec.interfaces) {
+      const ifaceType = this.system.findInterface(iface.fqn);
+      if (!result.has(ifaceType) && inherited) {
+        ifaceType.getInterfaces(inherited).forEach(i => result.add(i));
+      }
+      result.add(ifaceType);
+    }
+    return Array.from(result);
+  }
+
   public getMethods(inherited = false) {
     const out = new Array<Method>();
     if (inherited) {
@@ -73,5 +89,13 @@ export class InterfaceType extends Type {
       out.push(...this.interfaceSpec.properties.map(p => new Property(this.system, this.assembly, this, p)));
     }
     return out;
+  }
+
+  public isDataType() {
+    return !!this.interfaceSpec.datatype;
+  }
+
+  public isInterfaceType() {
+    return true;
   }
 }
