@@ -14,4 +14,8 @@ export class EnumType extends Type {
   public get members() {
     return this.enumSpec.members;
   }
+
+  public isEnumType() {
+    return true;
+  }
 }

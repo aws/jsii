@@ -131,4 +131,8 @@ export class ClassType extends Type {
     }
     return out;
   }
+
+  public isClassType() {
+    return true;
+  }
 }
