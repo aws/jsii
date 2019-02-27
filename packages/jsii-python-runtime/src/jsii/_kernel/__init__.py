@@ -1,4 +1,5 @@
 import inspect
+import itertools
 
 from typing import Any, List, Optional, Type
 
@@ -36,25 +37,31 @@ def _get_overides(klass: JSClass, obj: Any) -> List[Override]:
     # We need to inspect each item in the MRO, until we get to our JSClass, at that
     # point we'll bail, because those methods are not the overriden methods, but the
     # "real" methods.
+    jsii_classes = [klass] + list(
+        itertools.chain.from_iterable(
+            (getattr(m, "__jsii_ifaces__", []) for m in type(obj).mro())
+        )
+    )
     for mro_klass in type(obj).mro():
         if mro_klass is klass:
             break
 
         for name, item in mro_klass.__dict__.items():
-            # We're only interested in things that also exist on the JSII class, and
-            # which are themselves, jsii members.
-            original = getattr(klass, name, _nothing)
-            if original is not _nothing:
-                if inspect.isfunction(item) and hasattr(original, "__jsii_name__"):
-                    overrides.append(
-                        Override(method=original.__jsii_name__, cookie=name)
-                    )
-                elif inspect.isdatadescriptor(item) and hasattr(
-                    original.fget, "__jsii_name__"
-                ):
-                    overrides.append(
-                        Override(property_=original.fget.__jsii_name__, cookie=name)
-                    )
+            # We're only interested in things that also exist on the JSII class or
+            # interfaces, and which are themselves, jsii members.
+            for jsii_class in jsii_classes:
+                original = getattr(jsii_class, name, _nothing)
+                if original is not _nothing:
+                    if inspect.isfunction(item) and hasattr(original, "__jsii_name__"):
+                        overrides.append(
+                            Override(method=original.__jsii_name__, cookie=name)
+                        )
+                    elif inspect.isdatadescriptor(item) and hasattr(
+                        original.fget, "__jsii_name__"
+                    ):
+                        overrides.append(
+                            Override(property_=original.fget.__jsii_name__, cookie=name)
+                        )
 
     return overrides
 

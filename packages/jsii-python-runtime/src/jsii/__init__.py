@@ -7,6 +7,7 @@ from ._runtime import (
     JSIIAbstractClass,
     enum,
     data_type,
+    implements,
     member,
     kernel,
 )
@@ -40,6 +41,7 @@ __all__ = [
     "Number",
     "enum",
     "data_type",
+    "implmenets",
     "member",
     "kernel",
     "load",

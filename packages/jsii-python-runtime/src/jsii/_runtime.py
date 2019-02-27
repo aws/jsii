@@ -99,3 +99,11 @@ def member(*, jsii_name):
         return fn
 
     return deco
+
+
+def implements(*interfaces):
+    def deco(cls):
+        cls.__jsii_ifaces__ = getattr(cls, "__jsii_ifaces__", []) + list(interfaces)
+        return cls
+
+    return deco

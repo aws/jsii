@@ -4,6 +4,8 @@ from datetime import datetime, timezone
 
 import pytest
 
+import jsii
+
 from jsii_calc import (
     AbstractClassReturner,
     Add,
@@ -127,6 +129,7 @@ class SyncOverrides(SyncVirtualMethods):
         self.another_the_property = value
 
 
+@jsii.implements(IFriendly)
 class SubclassNativeFriendlyRandom(Number):
     def __init__(self):
         super().__init__(908)
@@ -685,7 +688,7 @@ def test_fail_syncOverrides_callsDoubleAsync_propertySetter():
         obj.caller_is_property = 12
 
 
-@pytest.mark.xfail(reason="Unknown", strict=True)
+@xfail_callbacks
 def test_testInterfaces():
     friendly: IFriendly
     friendlier: IFriendlier

@@ -677,22 +677,62 @@ class TypedDictProperty implements PythonBase {
 
 interface ClassOpts extends PythonTypeOpts {
     abstract?: boolean;
+    interfaces?: spec.NamedTypeReference[];
 }
 
 class Class extends BasePythonClassType {
 
     private abstract: boolean;
+    private interfaces: spec.NamedTypeReference[];
 
     constructor(name: string, fqn: string, opts: ClassOpts) {
         super(name, fqn, opts);
 
-        const { abstract = false } = opts;
+        const { abstract = false, interfaces = [] } = opts;
 
         this.abstract = abstract;
+        this.interfaces = interfaces;
+    }
+
+    public dependsOn(resolver: TypeResolver): PythonType[] {
+        const dependencies: PythonType[] = super.dependsOn(resolver);
+        const parent = resolver.getParent(this.fqn!);
+
+        // We need to return any ifaces that are in the same module at the same level of
+        // nesting.
+        const seen: Set<string> = new Set();
+        for (const iface of this.interfaces) {
+            if (resolver.isInModule(iface)) {
+                // Given a iface, we need to locate the ifaces's parent that is the same
+                // as our parent, because we only care about dependencies that are at the
+                // same level of our own.
+                // TODO: We might need to recurse into our members to also find their
+                //       dependencies.
+                let ifaceItem = resolver.getType(iface);
+                let ifaceParent = resolver.getParent(iface);
+                while (ifaceParent !== parent) {
+                    ifaceItem = ifaceParent;
+                    ifaceParent = resolver.getParent(ifaceItem.fqn!);
+                }
+
+                if (!seen.has(ifaceItem.fqn!)) {
+                    dependencies.push(ifaceItem);
+                    seen.add(ifaceItem.fqn!);
+                }
+            }
+        }
+
+        return dependencies;
     }
 
     public emit(code: CodeMaker, resolver: TypeResolver) {
-        // First we do our normal class logic for emitting our members.
+        // First we emit our implments decorator
+        if (this.interfaces.length > 0) {
+            const interfaces: string[] = this.interfaces.map(b => resolver.resolve(b));
+            code.line(`@jsii.implements(${interfaces.join(", ")})`);
+        }
+
+        // Then we do our normal class logic for emitting our members.
         super.emit(code, resolver);
 
         // Then, if our class is Abstract, we have to go through and redo all of
@@ -1328,7 +1368,7 @@ class PythonGenerator extends Generator {
         const klass = new Class(
             toPythonIdentifier(cls.name),
             cls.fqn,
-            { abstract, bases: cls.base !== undefined ? [cls.base] : [] }
+            { abstract, bases: cls.base !== undefined ? [cls.base] : [], interfaces: cls.interfaces }
         );
 
         if (cls.initializer !== undefined) {
