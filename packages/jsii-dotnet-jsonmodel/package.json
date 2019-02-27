@@ -12,9 +12,9 @@
     "package": "package-dotnet"
   },
   "devDependencies": {
-    "@types/node": "^8.10.37",
+    "@types/node": "^8.10.40",
     "jsii-build-tools": "^0.7.14",
-    "typescript": "^3.2.4"
+    "typescript": "^3.3.3333"
   },
   "author": {
     "name": "Amazon Web Services",

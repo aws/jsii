@@ -28,8 +28,7 @@
   },
   "devDependencies": {
     "jsii": "^0.7.14",
-    "jsii-build-tools": "^0.7.14",
-    "typescript": "^3.2.4"
+    "jsii-build-tools": "^0.7.14"
   },
   "dependencies": {
     "@scope/jsii-calc-base": "^0.7.14"

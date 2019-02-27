@@ -18,18 +18,18 @@
     "fs-extra": "^7.0.1",
     "jsii-spec": "^0.7.14",
     "oo-ascii-tree": "^0.7.14",
-    "yargs": "^12.0.5"
+    "yargs": "^13.2.1"
   },
   "devDependencies": {
     "@scope/jsii-calc-lib": "^0.7.14",
-    "@types/fs-extra": "^5.0.4",
-    "@types/jest": "^23.3.13",
-    "@types/yargs": "^12.0.8",
-    "jest": "^24.0.0",
+    "@types/fs-extra": "^5.0.5",
+    "@types/jest": "^24.0.9",
+    "@types/yargs": "^12.0.9",
+    "jest": "^24.1.0",
     "jsii-build-tools": "^0.7.14",
     "jsii-calc": "^0.7.14",
     "ts-jest": "^24.0.0",
-    "typescript": "^3.2.4"
+    "typescript": "^3.3.3333"
   },
   "jest": {
     "preset": "ts-jest",
