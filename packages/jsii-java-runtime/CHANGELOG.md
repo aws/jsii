@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.7.15"></a>
+## [0.7.15](https://github.com/awslabs/jsii/compare/v0.7.14...v0.7.15) (2019-02-27)
+
+
+### Bug Fixes
+
+* Bump version of Jackson because of CVEs ([#362](https://github.com/awslabs/jsii/issues/362)) ([140aa4d](https://github.com/awslabs/jsii/commit/140aa4d))
+
+
+
+
 <a name="0.7.14"></a>
 ## [0.7.14](https://github.com/awslabs/jsii/compare/v0.7.13...v0.7.14) (2019-02-04)
 
