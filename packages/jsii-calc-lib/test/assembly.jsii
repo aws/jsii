@@ -28,7 +28,7 @@
               "npm": "@scope/jsii-calc-base-of-base"
             }
           },
-          "version": "0.7.14"
+          "version": "0.7.15"
         }
       },
       "peer": true,
@@ -48,7 +48,7 @@
           "npm": "@scope/jsii-calc-base"
         }
       },
-      "version": "0.7.14"
+      "version": "0.7.15"
     }
   },
   "description": "A simple calcuator library built on JSII.",
@@ -352,6 +352,6 @@
       ]
     }
   },
-  "version": "0.7.14",
-  "fingerprint": "T3/4Mh1BL5mlzzVg7fYpegphelki0TovJb7ofGBJwvg="
+  "version": "0.7.15",
+  "fingerprint": "EnCU/QTmMf/bWi02J7V0fRGn+poBMTFJPmh51q1e7M8="
 }
