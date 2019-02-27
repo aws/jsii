@@ -1,6 +1,6 @@
 {
   "name": "jsii-dotnet-generator",
-  "version": "0.7.14",
+  "version": "0.7.15",
   "description": ".NET code generator for jsii assemblies",
   "main": "index.js",
   "private": true,
@@ -11,10 +11,10 @@
     "package": "package-dotnet"
   },
   "dependencies": {
-    "jsii-dotnet-jsonmodel": "^0.7.14"
+    "jsii-dotnet-jsonmodel": "^0.7.15"
   },
   "devDependencies": {
-    "jsii-build-tools": "^0.7.14"
+    "jsii-build-tools": "^0.7.15"
   },
   "author": {
     "name": "Amazon Web Services",

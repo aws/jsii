@@ -51,7 +51,7 @@ import { VERSION_DESC } from '../lib/version';
         .option('force-subdirectory', {
             type: 'boolean',
             desc: 'force generation into a target-named subdirectory, even in single-target mode',
-            default: false
+            default: true,
         })
         .option('recurse', {
             alias: 'R',

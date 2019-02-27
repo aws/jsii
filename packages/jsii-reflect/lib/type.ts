@@ -1,6 +1,9 @@
 import jsii = require('jsii-spec');
 import { Assembly } from './assembly';
+import { ClassType } from './class';
 import { Docs, Documentable } from './docs';
+import { EnumType } from './enum';
+import { InterfaceType } from './interface';
 import { TypeSystem } from './type-system';
 
 export abstract class Type implements Documentable {
@@ -45,5 +48,71 @@ export abstract class Type implements Documentable {
 
   public get docs(): Docs {
     return new Docs(this.system, this, this.spec.docs);
+  }
+
+  /**
+   * Determines whether this is a Class type or not.
+   */
+  public isClassType(): this is ClassType {
+    return false;
+  }
+
+  /**
+   * Determines whether this is a Data Type (that is, an interface with no methods) or not.
+   */
+  public isDataType(): this is InterfaceType {
+    return false;
+  }
+
+  /**
+   * Determines whether this is an Enum type or not.
+   */
+  public isEnumType(): this is EnumType {
+    return false;
+  }
+
+  /**
+   * Determines whether this is an Interface type or not.
+   */
+  public isInterfaceType(): this is InterfaceType {
+    return false;
+  }
+
+  /**
+   * Determines whether this type extends a given base or not.
+   *
+   * @param base the candidate base type.
+   */
+  public extends(base: Type): boolean {
+    if (this === base) {
+      return true;
+    }
+    if ((this.isInterfaceType() || this.isClassType()) && base.isInterfaceType()) {
+      return this.getInterfaces(true).some(iface => iface === base);
+    }
+    if (this.isClassType() && base.isClassType()) {
+      return this.getAncestors().some(clazz => clazz === base);
+    }
+    return false;
+  }
+
+  /**
+   * Finds all type that:
+   * - extend this, if this is a ClassType
+   * - implement this, if this is an InterfaceType (this includes interfaces extending this)
+   *
+   * As classes and interfaces are considered to extend themselves, "this" will be part of all return values when called
+   * on classes and interfaces.
+   *
+   * The result will always be empty for types that are neither ClassType nor InterfaceType.
+   */
+  public get allImplementations(): Type[] {
+    if (this.isClassType() || this.isInterfaceType()) {
+      return [
+        ...this.system.classes.filter(c => c.extends(this)),
+        ...this.system.interfaces.filter(i => i.extends(this)),
+      ];
+    }
+    return [];
   }
 }

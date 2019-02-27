@@ -9,6 +9,8 @@ export interface ISomething {
     returnSomething(): Superclass;
 }
 
-export interface ISomethingElse extends ISomething {
-    returnSomething(): Subclass;
+export class ISomethingElse implements ISomething {
+    public returnSomething(): Subclass {
+        return new Subclass();
+    }
 }

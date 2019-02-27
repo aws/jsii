@@ -102,6 +102,15 @@ export class TypeSystem {
     return asm;
   }
 
+  /**
+   * Determines whether this TypeSystem includes a given assembly.
+   *
+   * @param name the name of the assembly being looked for.
+   */
+  public includesAssembly(name: string): boolean {
+    return name in this._assemblyLookup;
+  }
+
   public findAssembly(name: string) {
     if (!(name in this._assemblyLookup)) {
       throw new Error(`Assembly "${name}" not found`);
