@@ -19,7 +19,7 @@ export default class Python extends Target {
         // to do it in the code generation phase, because attempting to mix style and
         // function makes the code generation harder to maintain and read, while doing
         // this here is easy.
-        await shell("black", ["--py36", sourceDir], {});
+        // await shell("black", ["--py36", sourceDir], {});
 
         // Actually package up our code, both as a sdist and a wheel for publishing.
         await shell("python3", ["setup.py", "sdist", "--dist-dir", outDir], { cwd: sourceDir });
