@@ -240,7 +240,6 @@ KernelResponse = Union[
 
 
 class JSClass(Protocol):
-
     @property
     def __jsii_type__(self) -> str:
         """
@@ -249,7 +248,6 @@ class JSClass(Protocol):
 
 
 class Referenceable(Protocol):
-
     @property
     def __jsii_ref__(self) -> ObjRef:
         """

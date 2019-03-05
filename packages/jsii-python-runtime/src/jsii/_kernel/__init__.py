@@ -1,3 +1,4 @@
+import datetime
 import inspect
 import itertools
 
@@ -31,6 +32,10 @@ from jsii._kernel.types import (
 _nothing = object()
 
 
+class Object:
+    __jsii_type__ = "Object"
+
+
 def _get_overides(klass: JSClass, obj: Any) -> List[Override]:
     overrides = []
 
@@ -57,7 +62,7 @@ def _get_overides(klass: JSClass, obj: Any) -> List[Override]:
                             Override(method=original.__jsii_name__, cookie=name)
                         )
                     elif inspect.isdatadescriptor(item) and hasattr(
-                        original.fget, "__jsii_name__"
+                        getattr(original, "fget", None), "__jsii_name__"
                     ):
                         overrides.append(
                             Override(property_=original.fget.__jsii_name__, cookie=name)
@@ -85,6 +90,24 @@ def _dereferenced(fn):
         return _recursize_dereference(kernel, fn(kernel, *args, **kwargs))
 
     return wrapped
+
+
+# We need to recurse through our data structure and look for anything that the JSII
+# doesn't natively handle. These items will be created as "Object" types in the JSII.
+def _make_reference_for_native(kernel, d):
+    if isinstance(d, dict):
+        return {k: _make_reference_for_native(kernel, v) for k, v in d.items()}
+    elif isinstance(d, list):
+        return [_make_reference_for_native(kernel, i) for i in d]
+    elif hasattr(d, "__jsii_type__"):
+        return d
+    elif isinstance(d, (int, type(None), str, float, bool, datetime.datetime)):
+        return d
+    else:
+        d.__jsii__type__ = "Object"
+        kernel.create(Object, d)
+        _reference_map.register_reference(d)
+        return d
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
@@ -123,7 +146,11 @@ class Kernel(metaclass=Singleton):
         overrides = _get_overides(klass, obj)
 
         obj.__jsii_ref__ = self.provider.create(
-            CreateRequest(fqn=klass.__jsii_type__, args=args, overrides=overrides)
+            CreateRequest(
+                fqn=klass.__jsii_type__,
+                args=_make_reference_for_native(self, args),
+                overrides=overrides,
+            )
         )
 
         return obj.__jsii_ref__
@@ -139,7 +166,11 @@ class Kernel(metaclass=Singleton):
 
     def set(self, obj: Referenceable, property: str, value: Any) -> None:
         self.provider.set(
-            SetRequest(objref=obj.__jsii_ref__, property_=property, value=value)
+            SetRequest(
+                objref=obj.__jsii_ref__,
+                property_=property,
+                value=_make_reference_for_native(self, value),
+            )
         )
 
     @_dereferenced
@@ -150,7 +181,11 @@ class Kernel(metaclass=Singleton):
 
     def sset(self, klass: JSClass, property: str, value: Any) -> None:
         self.provider.sset(
-            StaticSetRequest(fqn=klass.__jsii_type__, property_=property, value=value)
+            StaticSetRequest(
+                fqn=klass.__jsii_type__,
+                property_=property,
+                value=_make_reference_for_native(self, value),
+            )
         )
 
     @_dereferenced
@@ -161,7 +196,11 @@ class Kernel(metaclass=Singleton):
             args = []
 
         return self.provider.invoke(
-            InvokeRequest(objref=obj.__jsii_ref__, method=method, args=args)
+            InvokeRequest(
+                objref=obj.__jsii_ref__,
+                method=method,
+                args=_make_reference_for_native(self, args),
+            )
         ).result
 
     @_dereferenced
@@ -172,7 +211,11 @@ class Kernel(metaclass=Singleton):
             args = []
 
         return self.provider.sinvoke(
-            StaticInvokeRequest(fqn=klass.__jsii_type__, method=method, args=args)
+            StaticInvokeRequest(
+                fqn=klass.__jsii_type__,
+                method=method,
+                args=_make_reference_for_native(self, args),
+            )
         ).result
 
     def stats(self):

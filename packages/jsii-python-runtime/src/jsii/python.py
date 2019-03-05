@@ -29,7 +29,6 @@ def classproperty(func):
 
 
 class _ClassPropertyMeta(type):
-
     def __setattr__(self, key, value):
         obj = getattr(self, key, None)
         if isinstance(obj, _ClassProperty):

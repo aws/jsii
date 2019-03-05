@@ -51,9 +51,6 @@ from scope.jsii_calc_lib import IFriendly, EnumFromScopedModule, Number
 # These map distinct reasons for failures, so we an easily find them.
 xfail_async = pytest.mark.xfail(reason="Implement async methods", strict=True)
 xfail_error_handling = pytest.mark.xfail(reason="Implement Error Handling", strict=True)
-xfail_pure_object = pytest.mark.xfail(
-    reason="Support sending arbitrary objects", strict=True
-)
 xfail_literal_interface = pytest.mark.xfail(
     reason="Implement someone returning a literal interface", strict=True
 )
@@ -127,6 +124,7 @@ class SyncOverrides(SyncVirtualMethods):
 
 
 @jsii.implements(IFriendly)
+@jsii.implements(IRandomNumberGenerator)
 class SubclassNativeFriendlyRandom(Number):
     def __init__(self):
         super().__init__(908)
@@ -141,7 +139,8 @@ class SubclassNativeFriendlyRandom(Number):
         return next_
 
 
-class PureNativeFriendlyRandom(IFriendlyRandomGenerator):
+@jsii.implements(IFriendlyRandomGenerator)
+class PureNativeFriendlyRandom:
     """
     In this case, the class does not derive from the JsiiObject hierarchy. It means
     that when we pass it along to javascript, we won't have an objref. This should
@@ -721,7 +720,7 @@ def test_testInterfaces():
     assert poly.say_hello(PureNativeFriendlyRandom()) == "oh, I am a native!"
 
 
-@xfail_pure_object
+@xfail_callbacks
 def test_testNativeObjectsWithInterfaces():
     # create a pure and native object, not part of the jsii hierarchy, only implements
     # a jsii interface
@@ -730,18 +729,18 @@ def test_testNativeObjectsWithInterfaces():
     generator_bound_to_p_subclassed_object = NumberGenerator(subclassed_native)
     generator_bound_to_pure_native = NumberGenerator(pure_native)
 
-    assert generator_bound_to_p_subclassed_object.get_generator() is subclassed_native
+    assert generator_bound_to_p_subclassed_object.generator is subclassed_native
     generator_bound_to_p_subclassed_object.is_same_generator(subclassed_native)
-    assert generator_bound_to_p_subclassed_object.next_times_100() == 10000
+    assert generator_bound_to_p_subclassed_object.next_times100() == 10000
 
     # When we invoke nextTimes100 again, it will use the objref and call into the same
     # object.
-    assert generator_bound_to_p_subclassed_object.next_times_100() == 20000
+    assert generator_bound_to_p_subclassed_object.next_times100() == 20000
 
-    assert generator_bound_to_pure_native.get_generator() is pure_native
+    assert generator_bound_to_pure_native.generator is pure_native
     generator_bound_to_pure_native.is_same_generator(pure_native)
-    assert generator_bound_to_pure_native.next_times_100() == 100_000
-    assert generator_bound_to_pure_native.next_times_100() == 200_000
+    assert generator_bound_to_pure_native.next_times100() == 100_000
+    assert generator_bound_to_pure_native.next_times100() == 200_000
 
 
 @xfail_literal_interface
