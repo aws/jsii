@@ -41,7 +41,7 @@ __all__ = [
     "Number",
     "enum",
     "data_type",
-    "implmenets",
+    "implements",
     "member",
     "kernel",
     "load",
