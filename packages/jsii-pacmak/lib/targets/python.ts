@@ -1438,6 +1438,10 @@ class PythonGenerator extends Generator {
         );
     }
 
+    protected onUnionProperty(cls: spec.ClassType, prop: spec.Property, _union: spec.UnionTypeReference) {
+        this.onProperty(cls, prop);
+    }
+
     protected onBeginInterface(ifc: spec.InterfaceType) {
         let iface: Interface | TypedDict;
 
@@ -1509,10 +1513,6 @@ class PythonGenerator extends Generator {
 
     protected onInterfaceMethodOverload(_ifc: spec.InterfaceType, _overload: spec.Method, _originalMethod: spec.Method) {
         throw new Error("Unhandled Type: InterfaceMethodOverload");
-    }
-
-    protected onUnionProperty(_cls: spec.ClassType, _prop: spec.Property, _union: spec.UnionTypeReference) {
-        // console.log("Unhandled Type: UnionProperty");  // TODO: Handle this.
     }
 
     protected onMethodOverload(_cls: spec.ClassType, _overload: spec.Method, _originalMethod: spec.Method) {

@@ -49,9 +49,6 @@ from scope.jsii_calc_lib import IFriendly, EnumFromScopedModule, Number
 #       Tests as closely as possible to make keeping them in sync easier.
 
 # These map distinct reasons for failures, so we an easily find them.
-xfail_union_property = pytest.mark.xfail(
-    reason="Implement union properties", strict=True
-)
 xfail_async = pytest.mark.xfail(reason="Implement async methods", strict=True)
 xfail_error_handling = pytest.mark.xfail(reason="Implement Error Handling", strict=True)
 xfail_pure_object = pytest.mark.xfail(
@@ -415,7 +412,6 @@ def test_exceptions():
     assert calc3.value == 33
 
 
-@xfail_union_property
 def test_unionProperties():
     calc3 = Calculator()
     calc3.union_property = Multiply(Number(9), Number(3))
@@ -423,9 +419,10 @@ def test_unionProperties():
     assert isinstance(calc3.union_property, Multiply)
     assert calc3.read_union_value() == 9 * 3
 
-    calc3.union_property == Power(Number(10), Number(3))
+    calc3.union_property = Power(Number(10), Number(3))
 
     assert isinstance(calc3.union_property, Power)
+    assert calc3.read_union_value() == 10 ** 3
 
 
 def test_subclassing():
