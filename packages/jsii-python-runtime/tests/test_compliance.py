@@ -50,7 +50,6 @@ from scope.jsii_calc_lib import IFriendly, EnumFromScopedModule, Number
 
 # These map distinct reasons for failures, so we an easily find them.
 xfail_async = pytest.mark.xfail(reason="Implement async methods", strict=True)
-xfail_error_handling = pytest.mark.xfail(reason="Implement Error Handling", strict=True)
 xfail_literal_interface = pytest.mark.xfail(
     reason="Implement someone returning a literal interface", strict=True
 )

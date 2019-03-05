@@ -45,6 +45,7 @@ from jsii._kernel.types import (
     StatsRequest,
     StatsResponse,
 )
+from jsii.errors import JSIIError, JavaScriptError
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
@@ -298,7 +299,7 @@ class _NodeProcess:
         if isinstance(resp, _OkayResponse):
             return self._serializer.structure(resp.ok, response_type)
         else:
-            raise NotImplementedError
+            raise JSIIError(resp.error) from JavaScriptError(resp.stack)
 
 
 class ProcessKernel(BaseKernel):
