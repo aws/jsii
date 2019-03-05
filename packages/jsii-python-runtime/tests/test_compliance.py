@@ -298,7 +298,7 @@ def test_unionTypes():
 
 def test_createObjectAndCtorOverloads():
     Calculator()
-    Calculator(maximumValue=10)
+    Calculator(maximum_value=10)
 
 
 def test_getSetPrimitiveProperties():
@@ -397,7 +397,7 @@ def test_maps():
 
 
 def test_exceptions():
-    calc3 = Calculator(initialValue=20, maximumValue=30)
+    calc3 = Calculator(initial_value=20, maximum_value=30)
     calc3.add(3)
 
     assert calc3.value == 23
@@ -640,7 +640,7 @@ def test_propertyOverrides_interfaces():
 
 def test_interfaceBuilder():
     interact = UsesInterfaceWithProperties(
-        readOnlyString="READ_ONLY", readWriteString="READ_WRITE"
+        read_only_string="READ_ONLY", read_write_string="READ_WRITE"
     )
     assert interact.just_read() == "READ_ONLY"
     assert interact.write_and_read("Hello") == "Hello"
@@ -874,8 +874,12 @@ def test_nullShouldBeTreatedAsUndefined():
     obj = NullShouldBeTreatedAsUndefined("hello", None)
     obj.give_me_undefined(None)
     obj.give_me_undefined_inside_an_object(
-        thisShouldBeUndefined=None,
-        arrayWithThreeElementsAndUndefinedAsSecondArgument=["hello", None, "boom"],
+        this_should_be_undefined=None,
+        array_with_three_elements_and_undefined_as_second_argument=[
+            "hello",
+            None,
+            "boom",
+        ],
     )
     obj.change_me_to_undefined = None
     obj.verify_property_is_undefined()

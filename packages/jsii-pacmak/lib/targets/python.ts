@@ -89,6 +89,10 @@ const toPythonPropertyName = (name: string, constant: boolean = false, protected
     return value;
 };
 
+const toPythonParameterName = (name: string): string => {
+    return toPythonIdentifier(toSnakeCase(name));
+};
+
 const setDifference = (setA: Set<any>, setB: Set<any>): Set<any> => {
     const difference = new Set(setA);
     for (const elem of setB) {
@@ -342,7 +346,7 @@ abstract class BaseMethod implements PythonBase {
                 && this.liftedProp.properties !== undefined
                 && this.liftedProp.properties.length >= 1) {
             for (const prop of this.liftedProp.properties) {
-                liftedPropNames.add(toPythonIdentifier(prop.name));
+                liftedPropNames.add(toPythonParameterName(prop.name));
             }
         }
 
@@ -355,7 +359,7 @@ abstract class BaseMethod implements PythonBase {
             // initializers, because our keyword lifting will allow two names to clash.
             // This can hopefully be removed once we get https://github.com/awslabs/jsii/issues/288
             // resolved.
-            let paramName: string = toPythonIdentifier(param.name);
+            let paramName: string = toPythonParameterName(param.name);
             while (liftedPropNames.has(paramName)) {
                 paramName = `${paramName}_`;
             }
@@ -380,7 +384,7 @@ abstract class BaseMethod implements PythonBase {
 
                 // Iterate over all of our props, and reflect them into our params.
                 for (const prop of this.liftedProp.properties) {
-                    const paramName = toPythonIdentifier(prop.name);
+                    const paramName = toPythonParameterName(prop.name);
                     const paramType = resolver.resolve(prop.type, { forwardReferences: false });
                     const paramDefault = prop.type.optional ? "=None" : "";
 
@@ -394,7 +398,7 @@ abstract class BaseMethod implements PythonBase {
             pythonParams.pop();
 
             const lastParameter = this.parameters.slice(-1)[0];
-            const paramName = toPythonIdentifier(lastParameter.name);
+            const paramName = toPythonParameterName(lastParameter.name);
             const paramType = resolver.resolve(
                 lastParameter.type,
                 { forwardReferences: false, ignoreOptional: true },
@@ -434,7 +438,7 @@ abstract class BaseMethod implements PythonBase {
 
     private emitAutoProps(code: CodeMaker, resolver: TypeResolver) {
         const lastParameter = this.parameters.slice(-1)[0];
-        const argName = toPythonIdentifier(lastParameter.name);
+        const argName = toPythonParameterName(lastParameter.name);
         const typeName = resolver.resolve(lastParameter.type, {ignoreOptional: true });
 
         // We need to build up a list of properties, which are mandatory, these are the
@@ -445,7 +449,7 @@ abstract class BaseMethod implements PythonBase {
                 continue;
             }
 
-            mandatoryPropMembers.push(`"${toPythonIdentifier(prop.name)}": ${toPythonIdentifier(prop.name)}`);
+            mandatoryPropMembers.push(`"${prop.name}": ${toPythonParameterName(prop.name)}`);
         }
         code.line(`${argName}: ${typeName} = {${mandatoryPropMembers.join(", ")}}`);
         code.line();
@@ -457,8 +461,8 @@ abstract class BaseMethod implements PythonBase {
                 continue;
             }
 
-            code.openBlock(`if ${toPythonIdentifier(prop.name)} is not None`);
-            code.line(`${argName}["${toPythonIdentifier(prop.name)}"] = ${toPythonIdentifier(prop.name)}`);
+            code.openBlock(`if ${toPythonParameterName(prop.name)} is not None`);
+            code.line(`${argName}["${prop.name}"] = ${toPythonParameterName(prop.name)}`);
             code.closeBlock();
         }
     }
@@ -480,7 +484,7 @@ abstract class BaseMethod implements PythonBase {
 
         const paramNames: string[] = [];
         for (const param of this.parameters) {
-            paramNames.push(toPythonIdentifier(param.name));
+            paramNames.push(toPythonParameterName(param.name));
         }
 
         code.line(`${methodPrefix}jsii.${this.jsiiMethod}(${jsiiMethodParams.join(", ")}, [${paramNames.join(", ")}])`);
