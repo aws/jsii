@@ -482,6 +482,15 @@ export class Assembler implements Emitter {
             LOG.trace(`Processing enum: ${colors.gray(namespace.join('.'))}.${colors.cyan(type.symbol.name)}`);
         }
 
+        const decl = type.symbol.valueDeclaration;
+        const flags = ts.getCombinedModifierFlags(decl);
+        // tslint:disable-next-line:no-bitwise
+        if (flags & ts.ModifierFlags.Const) {
+            this._diagnostic(decl,
+                             ts.DiagnosticCategory.Error,
+                            `Exported enum cannot be declared 'const'`);
+        }
+
         const jsiiType: spec.EnumType = {
             assembly: this.projectInfo.name,
             fqn: `${[this.projectInfo.name, ...namespace].join('.')}.${type.symbol.name}`,
