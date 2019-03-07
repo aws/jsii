@@ -1,6 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
+pip install wheel
+
 export NODE_OPTIONS="--max-old-space-size=4096 ${NODE_OPTIONS:-}"
 
 if ! npm ci --help; then
