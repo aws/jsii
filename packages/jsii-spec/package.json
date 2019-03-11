@@ -11,7 +11,7 @@
     "package": "package-js"
   },
   "devDependencies": {
-    "@types/node": "^8.10.40",
+    "@types/node": "^8.10.43",
     "@types/nodeunit": "^0.0.30",
     "jsii-build-tools": "^0.7.15",
     "nodeunit": "^0.11.3",

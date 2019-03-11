@@ -15,7 +15,7 @@
     "@scope/jsii-calc-base": "^0.7.15",
     "@scope/jsii-calc-lib": "^0.7.15",
     "@types/fs-extra": "^5.0.5",
-    "@types/node": "^8.10.40",
+    "@types/node": "^8.10.43",
     "@types/nodeunit": "^0.0.30",
     "@types/tar": "^4.0.0",
     "fs-extra": "^7.0.1",
