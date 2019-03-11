@@ -16,7 +16,7 @@
   "devDependencies": {
     "@scope/jsii-calc-base": "^0.7.15",
     "@scope/jsii-calc-lib": "^0.7.15",
-    "@types/node": "^8.10.40",
+    "@types/node": "^8.10.43",
     "jsii-build-tools": "^0.7.15",
     "jsii-calc": "^0.7.15",
     "nodeunit": "^0.11.3",

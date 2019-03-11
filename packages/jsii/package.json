@@ -24,7 +24,7 @@
         "@types/deep-equal": "^1.0.1",
         "@types/fs-extra": "^5.0.5",
         "@types/log4js": "^2.3.5",
-        "@types/node": "^8.10.40",
+        "@types/node": "^8.10.43",
         "@types/nodeunit": "^0.0.30",
         "@types/semver": "^5.5.0",
         "@types/yargs": "^12.0.9",
@@ -44,7 +44,7 @@
         "sort-json": "^2.0.0",
         "spdx-license-list": "^5.0.0",
         "typescript": "^3.3.3333",
-        "yargs": "^12.0.5"
+        "yargs": "^13.2.2"
     },
     "nyc": {
         "reporter": [

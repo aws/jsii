@@ -14,7 +14,7 @@
     "package": "package-ruby"
   },
   "devDependencies": {
-    "@types/node": "^8.10.37",
+    "@types/node": "^8.10.43",
     "jsii-build-tools": "^0.7.15",
     "jsii-calc": "^0.7.15",
     "jsii-pacmak": "^0.7.15",

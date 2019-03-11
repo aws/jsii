@@ -11,7 +11,7 @@
     "test": "/bin/bash ./test.sh"
   },
   "devDependencies": {
-    "@types/node": "^8.10.37",
+    "@types/node": "^8.10.43",
     "jsii-calc": "^0.7.15",
     "jsii-dotnet-runtime": "^0.7.15",
     "jsii-pacmak": "^0.7.15",
