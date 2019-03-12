@@ -1,0 +1,2 @@
+include pyproject.toml
+include src/jsii/_metadata.json

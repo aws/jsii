@@ -42,6 +42,7 @@ assemblies
  │   ├── class Polymorphism
  │   ├── class Power
  │   ├── class PublicClass
+ │   ├── class PythonReservedWords
  │   ├── class ReferenceEnumFromScopedPackage
  │   ├── class ReturnsPrivateImplementationOfInterface
  │   ├── class RuntimeTypeChecking

@@ -22,6 +22,7 @@
   "dependencies": {
     "clone": "^2.1.2",
     "codemaker": "^0.7.15",
+    "escape-string-regexp": "^1.0.5",
     "fs-extra": "^7.0.1",
     "jsii-spec": "^0.7.15",
     "spdx-license-list": "^5.0.0",
@@ -31,6 +32,7 @@
   "devDependencies": {
     "@scope/jsii-calc-lib": "^0.7.15",
     "@types/clone": "^0.1.30",
+    "@types/escape-string-regexp": "^1.0.0",
     "@types/fs-extra": "^5.0.5",
     "@types/node": "^8.10.43",
     "@types/nodeunit": "^0.0.30",

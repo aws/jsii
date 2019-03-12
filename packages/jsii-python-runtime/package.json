@@ -1,0 +1,29 @@
+{
+  "name": "jsii-python-runtime",
+  "version": "0.0.0",
+  "description": "Python client for jsii runtime",
+  "main": "index.js",
+  "scripts": {
+    "generate": "bin/generate",
+    "deps": "python -m venv .env && .env/bin/pip install pip==19.0.1 setuptools==40.7.0 wheel==0.32.3 && .env/bin/pip install -r requirements.txt",
+    "build": "npm run generate && npm run deps && .env/bin/python setup.py sdist -d . bdist_wheel -d . && rm -rf build",
+    "package": "package-python",
+    "test": ".env/bin/python bin/generate-calc && .env/bin/py.test -v --mypy"
+  },
+  "dependencies": {
+    "jsii-build-tools": "^0.7.4",
+    "jsii-calc": "^0.7.13",
+    "jsii-pacmak": "^0.7.13",
+    "jsii-runtime": "^0.7.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/awslabs/jsii"
+  },
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com",
+    "organization": true
+  },
+  "license": "Apache-2.0"
+}

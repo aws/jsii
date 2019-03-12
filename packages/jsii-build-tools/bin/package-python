@@ -1,0 +1,7 @@
+#!/bin/bash
+set -euo pipefail
+
+rm -rf dist/python
+mkdir -p dist/python
+mv *.whl dist/python
+mv *.tar.gz dist/python

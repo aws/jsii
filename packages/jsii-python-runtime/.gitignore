@@ -1,0 +1,12 @@
+src/jsii/_embedded
+src/jsii/_metadata.json
+
+*.egg-info
+dist/
+.env
+
+*.whl
+*.tar.gz
+
+__pycache__
+.mypy_cache

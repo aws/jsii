@@ -43,6 +43,7 @@ OverrideReturnsObject
 Polymorphism
 Power
 PublicClass
+PythonReservedWords
 ReferenceEnumFromScopedPackage
 ReturnsPrivateImplementationOfInterface
 RuntimeTypeChecking

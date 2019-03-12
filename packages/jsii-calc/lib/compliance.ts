@@ -856,6 +856,73 @@ export class JavaReservedWords {
     public while = 'hello';
 }
 
+export class PythonReservedWords {
+
+    public and() {}
+
+    public as() {}
+
+    public assert() {}
+
+    public async() {}
+
+    public await() {}
+
+    public break() {}
+
+    public class() {}
+
+    public continue() {}
+
+    public def() {}
+
+    public del() {}
+
+    public elif() {}
+
+    public else() {}
+
+    public except() {}
+
+    public finally() {}
+
+    public for() {}
+
+    public from() {}
+
+    public global() {}
+
+    public if() {}
+
+    public import() {}
+
+    public in() {}
+
+    public is() {}
+
+    public lambda() {}
+
+    public nonlocal() {}
+
+    public not() {}
+
+    public or() {}
+
+    public pass() {}
+
+    public raise() {}
+
+    public return() {}
+
+    public try() {}
+
+    public while() {}
+
+    public with() {}
+
+    public yield() {}
+}
+
 export interface UnionProperties {
     foo?: string | number;
     readonly bar: AllTypes | string | number;

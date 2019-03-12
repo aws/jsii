@@ -57,6 +57,7 @@ assemblies
  │   ├─┬ class Power
  │   │ └── base: CompositeOperation
  │   ├── class PublicClass
+ │   ├── class PythonReservedWords
  │   ├── class ReferenceEnumFromScopedPackage
  │   ├── class ReturnsPrivateImplementationOfInterface
  │   ├── class RuntimeTypeChecking
