@@ -1623,6 +1623,24 @@ EraseUndefinedHashValues
       :rtype: boolean
 
 
+   .. py:staticmethod:: prop1IsNull() -> any
+
+      We expect "prop1" to be erased
+
+
+
+      :rtype: any
+
+
+   .. py:staticmethod:: prop2IsUndefined() -> any
+
+      We expect "prop2" to be erased
+
+
+
+      :rtype: any
+
+
 EraseUndefinedHashValuesOptions (interface)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

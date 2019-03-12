@@ -1483,6 +1483,26 @@
             "primitive": "boolean"
           },
           "static": true
+        },
+        {
+          "docs": {
+            "comment": "We expect \"prop1\" to be erased"
+          },
+          "name": "prop1IsNull",
+          "returns": {
+            "primitive": "any"
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "comment": "We expect \"prop2\" to be erased"
+          },
+          "name": "prop2IsUndefined",
+          "returns": {
+            "primitive": "any"
+          },
+          "static": true
         }
       ],
       "name": "EraseUndefinedHashValues"
@@ -4009,5 +4029,5 @@
     }
   },
   "version": "0.7.15",
-  "fingerprint": "posWS/nMgx0E/o0GXKtEIhC/dyYKJg151HrfX77VydI="
+  "fingerprint": "DXEqEDn4p/1Rc0OVCrsby4jumnxo9mWqSNF9sb/laGU="
 }
