@@ -990,10 +990,14 @@ defineTest('toSandbox: "undefined" in hash values sent to JS should be treated a
     test.equal(option2Exists.result, true);
 });
 
-defineTest('fromSandbox: "null" in hash values returned from JS should be treated as non-existing keys', async (test, sandbox) => {
-    const output = sandbox.sinvoke({ fqn: 'jsii-calc.EraseUndefinedHashValues', method: 'returnHashWithUndefinedOption1' });
-    const option1 = sandbox.get({ objref: output.result, property: 'option1' });
-    test.equal(option1, {});
+defineTest('fromSandbox: "undefined" in hash values returned from JS erases the key', async (test, sandbox) => {
+    const output = sandbox.sinvoke({ fqn: 'jsii-calc.EraseUndefinedHashValues', method: 'prop2IsUndefined' });
+    test.deepEqual(output, { result: { prop1: 'value1' } });
+});
+
+defineTest('fromSandbox: "null" in hash values returned from JS erases the key', async (test, sandbox) => {
+    const output = sandbox.sinvoke({ fqn: 'jsii-calc.EraseUndefinedHashValues', method: 'prop1IsNull' });
+    test.deepEqual(output, { result: { prop2: 'value2' } });
 });
 
 // =================================================================================================

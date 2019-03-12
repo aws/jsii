@@ -1351,4 +1351,24 @@ export class EraseUndefinedHashValues {
     public static doesKeyExist(opts: EraseUndefinedHashValuesOptions, key: string): boolean {
         return key in opts;
     }
+
+    /**
+     * We expect "prop2" to be erased
+     */
+    public static prop2IsUndefined(): any {
+        return {
+            prop1: 'value1',
+            prop2: undefined
+        };
+    }
+
+    /**
+     * We expect "prop1" to be erased
+     */
+    public static prop1IsNull(): any {
+        return {
+            prop1: null,
+            prop2: 'value2'
+        };
+    }
 }
