@@ -682,20 +682,23 @@ class TypedDictProperty implements PythonBase {
 interface ClassOpts extends PythonTypeOpts {
     abstract?: boolean;
     interfaces?: spec.NamedTypeReference[];
+    abstractBases?: spec.ClassType[];
 }
 
 class Class extends BasePythonClassType {
 
     private abstract: boolean;
+    private abstractBases: spec.ClassType[];
     private interfaces: spec.NamedTypeReference[];
 
     constructor(name: string, fqn: string, opts: ClassOpts) {
         super(name, fqn, opts);
 
-        const { abstract = false, interfaces = [] } = opts;
+        const { abstract = false, interfaces = [], abstractBases = [] } = opts;
 
         this.abstract = abstract;
         this.interfaces = interfaces;
+        this.abstractBases = abstractBases;
     }
 
     public dependsOn(resolver: TypeResolver): PythonType[] {
@@ -744,7 +747,13 @@ class Class extends BasePythonClassType {
         // abstract, and subclassing our initial class.
         if (this.abstract) {
             resolver = this.fqn ? resolver.bind(this.fqn) : resolver;
-            code.openBlock(`class ${this.getProxyClassName()}(${this.name})`);
+
+            const proxyBases: string[] = [this.name];
+            for (const base of this.abstractBases) {
+                proxyBases.push(`jsii.proxy_for(${resolver.resolve(base)})`);
+            }
+
+            code.openBlock(`class ${this.getProxyClassName()}(${proxyBases.join(', ')})`);
 
             // Filter our list of members to *only* be abstract members, and not any
             // other types.
@@ -1372,7 +1381,8 @@ class PythonGenerator extends Generator {
         const klass = new Class(
             toPythonIdentifier(cls.name),
             cls.fqn,
-            { abstract, bases: cls.base !== undefined ? [cls.base] : [], interfaces: cls.interfaces }
+            { abstract, bases: cls.base !== undefined ? [cls.base] : [], interfaces: cls.interfaces,
+              abstractBases: abstract ? this.getAbstractBases(cls) : [] }
         );
 
         if (cls.initializer !== undefined) {
@@ -1579,5 +1589,23 @@ class PythonGenerator extends Generator {
         }
 
         return undefined;
+    }
+
+    private getAbstractBases(cls: spec.ClassType): spec.ClassType[] {
+        const abstractBases: spec.ClassType[] = [];
+
+        if (cls.base !== undefined) {
+            const base = this.findType(cls.base.fqn);
+
+            if (!spec.isClassType(base)) {
+                throw new Error("Class inheritence that isn't a class?");
+            }
+
+            if (base.abstract) {
+                abstractBases.push(base);
+            }
+        }
+
+        return abstractBases;
     }
 }
