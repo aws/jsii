@@ -132,6 +132,10 @@ assemblies
  │   │   ├── <initializer>() method
  │   │   ├── hello() method
  │   │   └── next() method
+ │   ├─┬ class EraseUndefinedHashValues
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── doesKeyExist(opts,key) method
  │   ├─┬ class ExportedBaseClass
  │   │ └─┬ members
  │   │   ├── <initializer>(success) method
@@ -436,6 +440,10 @@ assemblies
  │   │   ├── anotherOptional property
  │   │   ├── optionalAny property
  │   │   └── optionalArray property
+ │   ├─┬ interface EraseUndefinedHashValuesOptions
+ │   │ └─┬ members
+ │   │   ├── option1 property
+ │   │   └── option2 property
  │   ├─┬ interface IFriendlier
  │   │ └─┬ members
  │   │   ├── farewell() method

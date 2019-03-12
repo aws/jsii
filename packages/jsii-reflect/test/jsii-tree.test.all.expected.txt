@@ -334,6 +334,18 @@ assemblies
  │   │   │ └── returns: primitive:string
  │   │   └─┬ next() method
  │   │     └── returns: primitive:number
+ │   ├─┬ class EraseUndefinedHashValues
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>() method
+ │   │   │ └── returns: void
+ │   │   └─┬ doesKeyExist(opts,key) method
+ │   │     ├── static
+ │   │     ├─┬ parameters
+ │   │     │ ├─┬ opts
+ │   │     │ │ └── type: interface:jsii-calc.EraseUndefinedHashValuesOptions
+ │   │     │ └─┬ key
+ │   │     │   └── type: primitive:string
+ │   │     └── returns: primitive:boolean
  │   ├─┬ class ExportedBaseClass
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(success) method
@@ -1063,6 +1075,14 @@ assemblies
  │   │   └─┬ optionalArray property
  │   │     ├── abstract
  │   │     └── type: Array<primitive:string>
+ │   ├─┬ interface EraseUndefinedHashValuesOptions
+ │   │ └─┬ members
+ │   │   ├─┬ option1 property
+ │   │   │ ├── abstract
+ │   │   │ └── type: primitive:string (optional)
+ │   │   └─┬ option2 property
+ │   │     ├── abstract
+ │   │     └── type: primitive:string (optional)
  │   ├─┬ interface IFriendlier
  │   │ ├─┬ interfaces
  │   │ │ └── IFriendly

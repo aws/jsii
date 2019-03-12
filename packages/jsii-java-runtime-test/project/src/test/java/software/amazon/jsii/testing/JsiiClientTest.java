@@ -5,11 +5,14 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import software.amazon.jsii.JsiiClient;
 import software.amazon.jsii.JsiiException;
+import software.amazon.jsii.JsiiObjectMapper;
 import software.amazon.jsii.JsiiObjectRef;
 import software.amazon.jsii.JsiiPromise;
 import software.amazon.jsii.JsiiRuntime;
+import software.amazon.jsii.JsiiSerializable;
 import software.amazon.jsii.api.Callback;
 import software.amazon.jsii.api.JsiiOverride;
 import org.junit.Before;
@@ -215,6 +218,25 @@ public class JsiiClientTest {
         final String fqn = "jsii-calc.Statics";
         JsonNode result = client.callStaticMethod(fqn, "staticMethod", JSON.arrayNode().add("Foo"));
         assertEquals("hello ,Foo!", result.textValue());
+    }
+
+    /**
+     * If a JsiiSerializable object has a method named "$jsii$toJson", it will be
+     * used to serialize the object instead of the normal
+     */
+    @Test
+    public void serializeViaJsiiToJsonIfExists() {
+        JsiiObjectMapper om = JsiiObjectMapper.instance;
+        JsonNode result = om.valueToTree(new JsiiSerializable() {
+            public JsonNode $jsii$toJson() {
+                ObjectNode node = JSON.objectNode();
+                node.set("foo", OM.valueToTree("bar"));
+                node.set("hey", OM.valueToTree(42));
+                return node;
+            }
+        });
+
+        assertEquals("{\"foo\":\"bar\",\"hey\":42}", result.toString());
     }
 
     private ArrayNode toSandboxArray(final Object... values) {

@@ -1335,3 +1335,20 @@ export class Constructors {
         return new PrivateClass();
     }
 }
+
+// fixture to verify that null/undefined values in object hashes are treated
+// as "unset". see awslabs/aws-cdk#965.
+export interface EraseUndefinedHashValuesOptions {
+    option1?: string;
+    option2?: string;
+}
+
+export class EraseUndefinedHashValues {
+    /**
+     * Returns `true` if `key` is defined in `opts`. Used to check that undefined/null hash values
+     * are being erased when sending values from native code to JS.
+     */
+    public static doesKeyExist(opts: EraseUndefinedHashValuesOptions, key: string): boolean {
+        return key in opts;
+    }
+}

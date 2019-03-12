@@ -35,7 +35,7 @@ public final class JsiiClient {
     /**
      * Jsii custom object mapper.
      */
-    private static final JsiiObjectMapper JSII_OM = new JsiiObjectMapper();
+    private static final JsiiObjectMapper JSII_OM = JsiiObjectMapper.instance;
 
     /**
      * TCP port to connect to (always "localhost").

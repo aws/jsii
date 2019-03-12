@@ -1452,6 +1452,66 @@
       ],
       "name": "DoubleTrouble"
     },
+    "jsii-calc.EraseUndefinedHashValues": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.EraseUndefinedHashValues",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "docs": {
+            "comment": "Returns `true` if `key` is defined in `opts`. Used to check that undefined/null hash values\nare being erased when sending values from native code to JS."
+          },
+          "name": "doesKeyExist",
+          "parameters": [
+            {
+              "name": "opts",
+              "type": {
+                "fqn": "jsii-calc.EraseUndefinedHashValuesOptions"
+              }
+            },
+            {
+              "name": "key",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ],
+          "returns": {
+            "primitive": "boolean"
+          },
+          "static": true
+        }
+      ],
+      "name": "EraseUndefinedHashValues"
+    },
+    "jsii-calc.EraseUndefinedHashValuesOptions": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "fqn": "jsii-calc.EraseUndefinedHashValuesOptions",
+      "kind": "interface",
+      "name": "EraseUndefinedHashValuesOptions",
+      "properties": [
+        {
+          "abstract": true,
+          "name": "option1",
+          "type": {
+            "optional": true,
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "name": "option2",
+          "type": {
+            "optional": true,
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.ExportedBaseClass": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.ExportedBaseClass",
@@ -3949,5 +4009,5 @@
     }
   },
   "version": "0.7.15",
-  "fingerprint": "IWSOEhdZzuvrss5K2WBjZCawXayV13yCAKTj/kJ9+mo="
+  "fingerprint": "posWS/nMgx0E/o0GXKtEIhC/dyYKJg151HrfX77VydI="
 }

@@ -13,6 +13,8 @@ import software.amazon.jsii.tests.calculator.CalculatorProps;
 import software.amazon.jsii.tests.calculator.DerivedStruct;
 import software.amazon.jsii.tests.calculator.DoNotOverridePrivates;
 import software.amazon.jsii.tests.calculator.DoubleTrouble;
+import software.amazon.jsii.tests.calculator.EraseUndefinedHashValues;
+import software.amazon.jsii.tests.calculator.EraseUndefinedHashValuesOptions;
 import software.amazon.jsii.tests.calculator.GiveMeStructs;
 import software.amazon.jsii.tests.calculator.GreetingAugmenter;
 import software.amazon.jsii.tests.calculator.IFriendlier;
@@ -63,6 +65,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
@@ -980,6 +983,20 @@ public class ComplianceTest {
 
         assertTrue(classRef instanceof InbetweenClass);
         assertTrue(ifaceRef instanceof IPublicInterface);
+    }
+
+    /**
+     * Verifies that data values that are not set are recognized as unset keys
+     * in JavaScript-land. See https://github.com/awslabs/jsii/issues/375
+     */
+    @Test
+    public void eraseUnsetDataValues() {
+        EraseUndefinedHashValuesOptions opts = EraseUndefinedHashValuesOptions.builder()
+                .withOption1("option1")
+                .build();
+
+        assertTrue(EraseUndefinedHashValues.doesKeyExist(opts, "option1"));
+        assertFalse(EraseUndefinedHashValues.doesKeyExist(opts, "option2"));
     }
 
     static class MulTen extends Multiply {

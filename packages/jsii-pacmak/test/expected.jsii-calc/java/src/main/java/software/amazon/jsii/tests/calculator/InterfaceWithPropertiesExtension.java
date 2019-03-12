@@ -84,6 +84,15 @@ public interface InterfaceWithPropertiesExtension extends software.amazon.jsii.J
                     this.$readWriteString = java.util.Objects.requireNonNull(value, "readWriteString is required");
                 }
 
+                public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+                    software.amazon.jsii.JsiiObjectMapper om = software.amazon.jsii.JsiiObjectMapper.instance;
+                    com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+                    obj.set("foo", om.valueToTree(this.getFoo()));
+                    obj.set("readOnlyString", om.valueToTree(this.getReadOnlyString()));
+                    obj.set("readWriteString", om.valueToTree(this.getReadWriteString()));
+                    return obj;
+                }
+
             };
         }
     }

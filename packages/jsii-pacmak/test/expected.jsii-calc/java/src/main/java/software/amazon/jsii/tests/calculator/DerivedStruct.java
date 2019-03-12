@@ -248,6 +248,21 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
                     this.$firstOptional = value;
                 }
 
+                public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+                    software.amazon.jsii.JsiiObjectMapper om = software.amazon.jsii.JsiiObjectMapper.instance;
+                    com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+                    obj.set("anotherRequired", om.valueToTree(this.getAnotherRequired()));
+                    obj.set("bool", om.valueToTree(this.getBool()));
+                    obj.set("nonPrimitive", om.valueToTree(this.getNonPrimitive()));
+                    obj.set("anotherOptional", om.valueToTree(this.getAnotherOptional()));
+                    obj.set("optionalAny", om.valueToTree(this.getOptionalAny()));
+                    obj.set("optionalArray", om.valueToTree(this.getOptionalArray()));
+                    obj.set("anumber", om.valueToTree(this.getAnumber()));
+                    obj.set("astring", om.valueToTree(this.getAstring()));
+                    obj.set("firstOptional", om.valueToTree(this.getFirstOptional()));
+                    return obj;
+                }
+
             };
         }
     }

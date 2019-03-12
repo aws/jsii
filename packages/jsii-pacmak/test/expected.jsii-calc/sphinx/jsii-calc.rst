@@ -1580,6 +1580,88 @@ DoubleTrouble
       :rtype: number
 
 
+EraseUndefinedHashValues
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: EraseUndefinedHashValues()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.EraseUndefinedHashValues;
+
+      .. code-tab:: javascript
+
+         const { EraseUndefinedHashValues } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { EraseUndefinedHashValues } from 'jsii-calc';
+
+
+
+
+   .. py:staticmethod:: doesKeyExist(opts, key) -> boolean
+
+      Returns `true` if `key` is defined in `opts`. Used to check that undefined/null hash values
+
+      are being erased when sending values from native code to JS.
+
+
+
+      :param opts: 
+      :type opts: :py:class:`~jsii-calc.EraseUndefinedHashValuesOptions`\ 
+      :param key: 
+      :type key: string
+      :rtype: boolean
+
+
+EraseUndefinedHashValuesOptions (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: EraseUndefinedHashValuesOptions
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.EraseUndefinedHashValuesOptions;
+
+      .. code-tab:: javascript
+
+         // EraseUndefinedHashValuesOptions is an interface
+
+      .. code-tab:: typescript
+
+         import { EraseUndefinedHashValuesOptions } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: option1
+
+      :type: string *(optional)*
+
+
+   .. py:attribute:: option2
+
+      :type: string *(optional)*
+
+
 ExportedBaseClass
 ^^^^^^^^^^^^^^^^^
 

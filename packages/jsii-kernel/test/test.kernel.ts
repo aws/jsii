@@ -973,6 +973,29 @@ defineTest('ObjRefs are labeled with the "most correct" type', async (test, sand
             `${ifaceRef[api.TOKEN_REF]} starts with jsii-calc.IPublicInterface`);
 });
 
+defineTest('toSandbox: "null" in hash values send to JS should be treated as non-existing key', async (test, sandbox) => {
+    const input = { option1: null, option2: 'hello' };
+    const option1Exists = sandbox.sinvoke({ fqn: 'jsii-calc.EraseUndefinedHashValues', method: 'doesKeyExist', args: [ input, 'option1' ] });
+    test.equal(option1Exists.result, false);
+
+    const option2Exists = sandbox.sinvoke({ fqn: 'jsii-calc.EraseUndefinedHashValues', method: 'doesKeyExist', args: [ input, 'option2' ] });
+    test.equal(option2Exists.result, true);
+});
+
+defineTest('toSandbox: "undefined" in hash values sent to JS should be treated as non-existing key', async (test, sandbox) => {
+    const input = { option1: undefined, option2: 'hello' };
+    const option1Exists = sandbox.sinvoke({ fqn: 'jsii-calc.EraseUndefinedHashValues', method: 'doesKeyExist', args: [ input, 'option1' ] });
+    test.equal(option1Exists.result, false);
+    const option2Exists = sandbox.sinvoke({ fqn: 'jsii-calc.EraseUndefinedHashValues', method: 'doesKeyExist', args: [ input, 'option2' ] });
+    test.equal(option2Exists.result, true);
+});
+
+defineTest('fromSandbox: "null" in hash values returned from JS should be treated as non-existing keys', async (test, sandbox) => {
+    const output = sandbox.sinvoke({ fqn: 'jsii-calc.EraseUndefinedHashValues', method: 'returnHashWithUndefinedOption1' });
+    const option1 = sandbox.get({ objref: output.result, property: 'option1' });
+    test.equal(option1, {});
+});
+
 // =================================================================================================
 
 const testNames: { [name: string]: boolean } = { };

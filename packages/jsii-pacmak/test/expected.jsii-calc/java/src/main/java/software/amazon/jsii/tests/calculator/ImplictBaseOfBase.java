@@ -89,6 +89,15 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
                     this.$foo = java.util.Objects.requireNonNull(value, "foo is required");
                 }
 
+                public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+                    software.amazon.jsii.JsiiObjectMapper om = software.amazon.jsii.JsiiObjectMapper.instance;
+                    com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+                    obj.set("goo", om.valueToTree(this.getGoo()));
+                    obj.set("bar", om.valueToTree(this.getBar()));
+                    obj.set("foo", om.valueToTree(this.getFoo()));
+                    return obj;
+                }
+
             };
         }
     }

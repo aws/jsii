@@ -108,6 +108,15 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
                     this.$optional3 = value;
                 }
 
+                public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+                    software.amazon.jsii.JsiiObjectMapper om = software.amazon.jsii.JsiiObjectMapper.instance;
+                    com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+                    obj.set("optional1", om.valueToTree(this.getOptional1()));
+                    obj.set("optional2", om.valueToTree(this.getOptional2()));
+                    obj.set("optional3", om.valueToTree(this.getOptional3()));
+                    return obj;
+                }
+
             };
         }
     }

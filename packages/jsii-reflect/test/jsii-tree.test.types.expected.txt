@@ -21,6 +21,7 @@ assemblies
  │   ├── class DoNotRecognizeAnyAsOptional
  │   ├── class DontComplainAboutVariadicAfterOptional
  │   ├── class DoubleTrouble
+ │   ├── class EraseUndefinedHashValues
  │   ├── class ExportedBaseClass
  │   ├── class GiveMeStructs
  │   ├── class GreetingAugmenter
@@ -59,6 +60,7 @@ assemblies
  │   ├── class CompositeOperation
  │   ├── interface CalculatorProps
  │   ├── interface DerivedStruct
+ │   ├── interface EraseUndefinedHashValuesOptions
  │   ├── interface IFriendlier
  │   ├── interface IFriendlyRandomGenerator
  │   ├── interface IInterfaceThatShouldNotBeADataType

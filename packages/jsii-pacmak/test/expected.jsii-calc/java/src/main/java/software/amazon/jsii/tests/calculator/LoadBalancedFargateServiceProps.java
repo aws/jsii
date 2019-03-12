@@ -261,6 +261,17 @@ This default is set in the underlying FargateTaskDefinition construct.
                     this.$publicTasks = value;
                 }
 
+                public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+                    software.amazon.jsii.JsiiObjectMapper om = software.amazon.jsii.JsiiObjectMapper.instance;
+                    com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+                    obj.set("containerPort", om.valueToTree(this.getContainerPort()));
+                    obj.set("cpu", om.valueToTree(this.getCpu()));
+                    obj.set("memoryMiB", om.valueToTree(this.getMemoryMiB()));
+                    obj.set("publicLoadBalancer", om.valueToTree(this.getPublicLoadBalancer()));
+                    obj.set("publicTasks", om.valueToTree(this.getPublicTasks()));
+                    return obj;
+                }
+
             };
         }
     }
