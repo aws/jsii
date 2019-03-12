@@ -12,7 +12,7 @@
     "package": "package-java"
   },
   "devDependencies": {
-    "@types/node": "^8.10.37",
+    "@types/node": "^8.10.43",
     "jsii-build-tools": "^0.7.15",
     "jsii-runtime": "^0.7.15",
     "typescript": "^3.2.4"

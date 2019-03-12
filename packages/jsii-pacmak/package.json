@@ -27,14 +27,14 @@
     "jsii-spec": "^0.7.15",
     "spdx-license-list": "^5.0.0",
     "xmlbuilder": "^11.0.0",
-    "yargs": "^13.2.1"
+    "yargs": "^13.2.2"
   },
   "devDependencies": {
     "@scope/jsii-calc-lib": "^0.7.15",
     "@types/clone": "^0.1.30",
     "@types/escape-string-regexp": "^1.0.0",
     "@types/fs-extra": "^5.0.5",
-    "@types/node": "^8.10.37",
+    "@types/node": "^8.10.43",
     "@types/nodeunit": "^0.0.30",
     "@types/xmlbuilder": "^0.0.34",
     "@types/yargs": "^12.0.9",
@@ -45,7 +45,7 @@
     "jsii-dotnet-runtime": "^0.7.15",
     "jsii-java-runtime": "^0.7.15",
     "nodeunit": "^0.11.3",
-    "tslint": "^5.13.0",
+    "tslint": "^5.13.1",
     "typescript": "^3.3.3333"
   },
   "author": {
