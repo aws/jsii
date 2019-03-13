@@ -6,6 +6,7 @@ import spec = require('jsii-spec');
 import log4js = require('log4js');
 import path = require('path');
 import ts = require('typescript');
+import { JSII_DIAGNOSTICS_CODE } from './compiler';
 import { Diagnostic, Emitter } from './emitter';
 import literate = require('./literate');
 import { ProjectInfo } from './project-info';
@@ -223,8 +224,9 @@ export class Assembler implements Emitter {
     private _diagnostic(node: ts.Node | null, category: ts.DiagnosticCategory, messageText: string) {
         this._diagnostics.push({
             domain: 'JSII',
-            category, code: 0,
-            messageText,
+            category,
+            code: JSII_DIAGNOSTICS_CODE,
+            messageText: `JSII: ${messageText}`,
             file: node != null ? node.getSourceFile() : undefined,
             start: node != null ? node.getStart() : undefined,
             length: node != null ? node.getEnd() - node.getStart() : undefined
