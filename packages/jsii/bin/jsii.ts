@@ -1,10 +1,8 @@
 import log4js = require('log4js');
 import path = require('path');
 import process = require('process');
-import ts = require('typescript');
 import yargs = require('yargs');
 import { Compiler, DIAGNOSTICS } from '../lib/compiler';
-import { hasDomain } from '../lib/emitter';
 import { loadProjectInfo } from '../lib/project-info';
 import utils = require('../lib/utils');
 import { VERSION } from '../lib/version';
@@ -33,7 +31,7 @@ import { VERSION } from '../lib/version';
     return { projectRoot, emitResult: await compiler.emit() };
 })().then(({ projectRoot, emitResult }) => {
     for (const diagnostic of emitResult.diagnostics) {
-        _logDiagnostic(diagnostic, projectRoot);
+        utils.logDiagnostic(diagnostic, projectRoot);
     }
     if (emitResult.emitSkipped) {
         process.exit(1);
@@ -71,23 +69,4 @@ function _configureLog4js(verbosity: number) {
         default: return 'ALL';
         }
     }
-}
-
-function _logDiagnostic(diagnostic: ts.Diagnostic, projectRoot: string) {
-    const formatDiagnosticsHost = {
-        getCurrentDirectory: () => projectRoot,
-        getCanonicalFileName(fileName: string) { return fileName; },
-        getNewLine() { return '\n'; }
-    };
-
-    let message = diagnostic.file
-                ? ts.formatDiagnosticsWithColorAndContext([diagnostic], formatDiagnosticsHost)
-                : ts.formatDiagnostics([diagnostic], formatDiagnosticsHost);
-    if (hasDomain(diagnostic)) {
-        // Make sure error codes don't render as ``TS123``, instead e.g: ``JSII123``.
-        message = message.replace(/([^\w])TS(\d+)([^\w])/, `$1${diagnostic.domain}$2$3`);
-    }
-    const logFunc = utils.diagnosticsLogger(log4js.getLogger(DIAGNOSTICS), diagnostic);
-    if (!logFunc) { return; }
-    logFunc(message.trim());
 }

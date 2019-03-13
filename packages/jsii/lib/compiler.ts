@@ -34,6 +34,7 @@ const COMPILER_OPTIONS: ts.CompilerOptions = {
 
 const LOG = log4js.getLogger('jsii/compiler');
 export const DIAGNOSTICS = 'diagnostics';
+export const JSII_DIAGNOSTICS_CODE = 9999;
 
 export interface CompilerOptions {
     /** The information about the project to be built */
@@ -102,6 +103,7 @@ export class Compiler implements Emitter {
             projectReferences: this.typescriptConfig.references && this.typescriptConfig.references.map(ref => ({ path: path.resolve(ref.path) })),
             host: this.compilerHost
         });
+
         return await this._consumeProgram(prog, this.compilerHost.getDefaultLibLocation());
     }
 
@@ -121,7 +123,12 @@ export class Compiler implements Emitter {
             }
             const orig = host.afterProgramCreate;
             host.afterProgramCreate = async builderProgram => {
-                await this._consumeProgram(builderProgram.getProgram(), host.getDefaultLibLocation!());
+                const emitResult = await this._consumeProgram(builderProgram.getProgram(), host.getDefaultLibLocation!());
+
+                for (const diag of emitResult.diagnostics.filter(d => d.code === JSII_DIAGNOSTICS_CODE)) {
+                    utils.logDiagnostic(diag, projectRoot);
+                }
+
                 if (orig) { orig.call(host, builderProgram); }
             };
             ts.createWatchProgram(host);
@@ -133,13 +140,16 @@ export class Compiler implements Emitter {
         const emit = program.emit();
         if (emit.emitSkipped) {
             LOG.error('Compilation errors prevented the JSII assembly from being created');
-            return emit;
         }
+
+        // we continue to do jsii checker even if there are compilation errors so that
+        // jsii warnings will appear.
         const assembler = new Assembler(this.options.projectInfo, program, stdlib);
         const assmEmit = await assembler.emit();
         if (assmEmit.emitSkipped) {
             LOG.error('Type model errors prevented the JSII assembly from being created');
         }
+
         return {
             emitSkipped: assmEmit.emitSkipped,
             diagnostics: [...emit.diagnostics, ...assmEmit.diagnostics]
