@@ -1,7 +1,6 @@
 import log4js = require('log4js');
 import ts = require('typescript');
 import { DIAGNOSTICS } from './compiler';
-// import { hasDomain } from './emitter';
 
 /**
  * Obtains the relevant logger to be used for a given diagnostic message.
