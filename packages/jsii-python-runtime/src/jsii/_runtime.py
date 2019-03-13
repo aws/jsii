@@ -107,3 +107,10 @@ def implements(*interfaces):
         return cls
 
     return deco
+
+
+def proxy_for(abstract_class):
+    if not hasattr(abstract_class, "__jsii_proxy_class__"):
+        raise TypeError(f"{abstract_class} is not a JSII Abstract class.")
+
+    return abstract_class.__jsii_proxy_class__()

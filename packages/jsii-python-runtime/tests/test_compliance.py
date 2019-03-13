@@ -807,7 +807,6 @@ def test_nodeStandardLibrary():
     )
 
 
-@xfail_abstract_class
 def test_returnAbstract():
     obj = AbstractClassReturner()
     obj2 = obj.give_me_abstract()

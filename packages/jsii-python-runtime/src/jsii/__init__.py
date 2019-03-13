@@ -10,6 +10,7 @@ from ._runtime import (
     implements,
     member,
     kernel,
+    proxy_for,
 )
 
 
@@ -44,6 +45,7 @@ __all__ = [
     "implements",
     "member",
     "kernel",
+    "proxy_for",
     "load",
     "create",
     "delete",
