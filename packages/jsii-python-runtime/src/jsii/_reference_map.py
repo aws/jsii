@@ -9,6 +9,7 @@ from ._kernel.types import JSClass, Referenceable
 _types = {}
 _data_types: MutableMapping[str, Any] = {}
 _enums: MutableMapping[str, Any] = {}
+_interfaces: MutableMapping[str, Any] = {}
 
 
 def register_type(klass: JSClass):
@@ -21,6 +22,10 @@ def register_data_type(data_type: Any):
 
 def register_enum(enum_type: Any):
     _enums[enum_type.__jsii_type__] = enum_type
+
+
+def register_interface(iface: Any):
+    _interfaces[iface.__jsii_type__] = iface
 
 
 class _FakeReference:
@@ -78,6 +83,16 @@ class _ReferenceMap:
                 inst[name] = kernel.get(_FakeReference(ref), name)
         elif class_fqn in _enums:
             inst = _enums[class_fqn]
+        elif class_fqn in _interfaces:
+            # Get our proxy class by finding our interface, then asking it to give us
+            # the proxy class.
+            iface = _interfaces[class_fqn]
+            klass = iface.__jsii_proxy_class__()
+
+            # Create our instance, bypassing __init__ by directly calling __new__, and
+            # then assign our reference to __jsii_ref__
+            inst = klass.__new__(klass)
+            inst.__jsii_ref__ = ref
         else:
             raise ValueError(f"Unknown type: {class_fqn}")
 

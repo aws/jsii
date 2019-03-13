@@ -107,3 +107,19 @@ def implements(*interfaces):
         return cls
 
     return deco
+
+
+def interface(*, jsii_type):
+    def deco(iface):
+        iface.__jsii_type__ = jsii_type
+        _reference_map.register_interface(iface)
+        return iface
+
+    return deco
+
+
+def proxy_for(abstract_class):
+    if not hasattr(abstract_class, "__jsii_proxy_class__"):
+        raise TypeError(f"{abstract_class} is not a JSII Abstract class.")
+
+    return abstract_class.__jsii_proxy_class__()

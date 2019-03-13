@@ -50,15 +50,6 @@ from scope.jsii_calc_lib import IFriendly, EnumFromScopedModule, Number
 
 # These map distinct reasons for failures, so we an easily find them.
 xfail_async = pytest.mark.xfail(reason="Implement async methods", strict=True)
-xfail_literal_interface = pytest.mark.xfail(
-    reason="Implement someone returning a literal interface", strict=True
-)
-xfail_abstract_class = pytest.mark.xfail(
-    reason="Implement (or fix?) abstract class property", strict=True
-)
-xfail_private_class = pytest.mark.xfail(
-    reason="Implement receiving a private class", strict=True
-)
 xfail_callbacks = pytest.mark.xfail(reason="Implement callback support", strict=True)
 
 
@@ -742,7 +733,6 @@ def test_testNativeObjectsWithInterfaces():
     assert generator_bound_to_pure_native.next_times100() == 200_000
 
 
-@xfail_literal_interface
 def test_testLiteralInterface():
     obj = JSObjectLiteralForInterface()
     friendly = obj.give_me_friendly()
@@ -753,7 +743,6 @@ def test_testLiteralInterface():
     assert gen.next() == 42
 
 
-@xfail_literal_interface
 def test_testInterfaceParameter():
     obj = JSObjectLiteralForInterface()
     friendly = obj.give_me_friendly()
@@ -807,7 +796,6 @@ def test_nodeStandardLibrary():
     )
 
 
-@xfail_abstract_class
 def test_returnAbstract():
     obj = AbstractClassReturner()
     obj2 = obj.give_me_abstract()
@@ -888,6 +876,5 @@ def test_testJsiiAgent():
     assert JsiiAgent.jsii_agent == f"Python/{platform.python_version()}"
 
 
-@xfail_private_class
 def test_receiveInstanceOfPrivateClass():
     assert ReturnsPrivateImplementationOfInterface().private_implementation.success

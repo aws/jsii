@@ -8,8 +8,10 @@ from ._runtime import (
     enum,
     data_type,
     implements,
+    interface,
     member,
     kernel,
+    proxy_for,
 )
 
 
@@ -42,8 +44,10 @@ __all__ = [
     "enum",
     "data_type",
     "implements",
+    "interface",
     "member",
     "kernel",
+    "proxy_for",
     "load",
     "create",
     "delete",
