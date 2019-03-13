@@ -1,5 +1,6 @@
 import log4js = require('log4js');
 import ts = require('typescript');
+import { DIAGNOSTICS } from './compiler';
 
 /**
  * Obtains the relevant logger to be used for a given diagnostic message.
@@ -23,6 +24,20 @@ export function diagnosticsLogger(logger: log4js.Logger, diagnostic: ts.Diagnost
         if (!logger.isDebugEnabled()) { return undefined; }
         return logger.debug.bind(logger);
     }
+}
+export function logDiagnostic(diagnostic: ts.Diagnostic, projectRoot: string) {
+    const formatDiagnosticsHost = {
+        getCurrentDirectory: () => projectRoot,
+        getCanonicalFileName(fileName: string) { return fileName; },
+        getNewLine() { return '\n'; }
+    };
+
+    const message = diagnostic.file
+                ? ts.formatDiagnosticsWithColorAndContext([diagnostic], formatDiagnosticsHost)
+                : ts.formatDiagnostics([diagnostic], formatDiagnosticsHost);
+    const logFunc = diagnosticsLogger(log4js.getLogger(DIAGNOSTICS), diagnostic);
+    if (!logFunc) { return; }
+    logFunc(message.trim());
 }
 
 /**
