@@ -277,6 +277,7 @@ interface BaseMethodOpts {
 
 interface BaseMethodEmitOpts {
     renderAbstract?: boolean;
+    forceEmitBody?: boolean;
 }
 
 abstract class BaseMethod implements PythonBase {
@@ -285,10 +286,11 @@ abstract class BaseMethod implements PythonBase {
     public readonly abstract: boolean;
 
     protected readonly abstract implicitParameter: string;
-    protected readonly jsiiMethod?: string;
+    protected readonly jsiiMethod: string;
     protected readonly decorator?: string;
     protected readonly classAsFirstParameter: boolean = false;
     protected readonly returnFromJSIIMethod: boolean = true;
+    protected readonly shouldEmitBody: boolean = true;
 
     private readonly jsName?: string;
     private readonly parameters: spec.Parameter[];
@@ -313,7 +315,7 @@ abstract class BaseMethod implements PythonBase {
     }
 
     public emit(code: CodeMaker, resolver: TypeResolver, opts?: BaseMethodEmitOpts) {
-        const { renderAbstract = true } = opts || {};
+        const { renderAbstract = true, forceEmitBody = false } = opts || {};
 
         let returnType: string;
         if (this.returns !== undefined) {
@@ -420,12 +422,12 @@ abstract class BaseMethod implements PythonBase {
         }
 
         code.openBlock(`def ${this.name}(${pythonParams.join(", ")}) -> ${returnType}`);
-        this.emitBody(code, resolver, renderAbstract);
+        this.emitBody(code, resolver, renderAbstract, forceEmitBody);
         code.closeBlock();
     }
 
-    private emitBody(code: CodeMaker, resolver: TypeResolver, renderAbstract: boolean) {
-        if (this.jsiiMethod === undefined || (renderAbstract && this.abstract)) {
+    private emitBody(code: CodeMaker, resolver: TypeResolver, renderAbstract: boolean, forceEmitBody: boolean) {
+        if ((!this.shouldEmitBody && !forceEmitBody) || (renderAbstract && this.abstract)) {
             code.line("...");
         } else {
             if (this.liftedProp !== undefined) {
@@ -498,6 +500,7 @@ interface BasePropertyOpts {
 
 interface BasePropertyEmitOpts {
     renderAbstract?: boolean;
+    forceEmitBody?: boolean;
 }
 
 abstract class BaseProperty implements PythonBase {
@@ -507,8 +510,9 @@ abstract class BaseProperty implements PythonBase {
 
     protected readonly abstract decorator: string;
     protected readonly abstract implicitParameter: string;
-    protected readonly jsiiGetMethod?: string;
-    protected readonly jsiiSetMethod?: string;
+    protected readonly jsiiGetMethod: string;
+    protected readonly jsiiSetMethod: string;
+    protected readonly shouldEmitBody: boolean = true;
 
     private readonly jsName: string;
     private readonly type: spec.TypeReference;
@@ -528,7 +532,7 @@ abstract class BaseProperty implements PythonBase {
     }
 
     public emit(code: CodeMaker, resolver: TypeResolver, opts?: BasePropertyEmitOpts) {
-        const { renderAbstract = true } = opts || {};
+        const { renderAbstract = true, forceEmitBody = false } = opts || {};
         const pythonType = resolver.resolve(this.type, { forwardReferences: false });
 
         code.line(`@${this.decorator}`);
@@ -537,7 +541,7 @@ abstract class BaseProperty implements PythonBase {
             code.line("@abc.abstractmethod");
         }
         code.openBlock(`def ${this.name}(${this.implicitParameter}) -> ${pythonType}`);
-        if (this.jsiiGetMethod !== undefined && (!renderAbstract || !this.abstract)) {
+        if ((this.shouldEmitBody || forceEmitBody) && (!renderAbstract || !this.abstract)) {
             code.line(`return jsii.${this.jsiiGetMethod}(${this.implicitParameter}, "${this.jsName}")`);
         } else {
             code.line("...");
@@ -550,7 +554,7 @@ abstract class BaseProperty implements PythonBase {
                 code.line("@abc.abstractmethod");
             }
             code.openBlock(`def ${this.name}(${this.implicitParameter}, value: ${pythonType})`);
-            if (this.jsiiSetMethod !== undefined && (!renderAbstract || !this.abstract)) {
+            if ((this.shouldEmitBody || forceEmitBody) && (!renderAbstract || !this.abstract)) {
                 code.line(`return jsii.${this.jsiiSetMethod}(${this.implicitParameter}, "${this.jsName}", value)`);
             } else {
                 code.line("...");
@@ -562,6 +566,29 @@ abstract class BaseProperty implements PythonBase {
 
 class Interface extends BasePythonClassType {
 
+    public emit(code: CodeMaker, resolver: TypeResolver) {
+        code.line(`@jsii.interface(jsii_type="${this.fqn}")`);
+
+        // First we do our normal class logic for emitting our members.
+        super.emit(code, resolver);
+
+        // Then, we have to emit a Proxy class which implements our proxy interface.
+        resolver = this.fqn ? resolver.bind(this.fqn) : resolver;
+        const proxyBases: string[] = this.bases.map(b => `jsii.proxy_for(${resolver.resolve(b)})`);
+        code.openBlock(`class ${this.getProxyClassName()}(${proxyBases.join(", ")})`);
+        code.line(`__jsii_type__ = "${this.fqn}"`);
+
+        if (this.members.length > 0) {
+            for (const member of this.members) {
+                member.emit(code, resolver, { forceEmitBody: true });
+            }
+        } else {
+            code.line("pass");
+        }
+
+        code.closeBlock();
+    }
+
     protected getClassParams(resolver: TypeResolver): string[] {
         const params: string[] = this.bases.map(b => resolver.resolve(b));
 
@@ -570,15 +597,31 @@ class Interface extends BasePythonClassType {
         return params;
     }
 
+    protected emitPreamble(code: CodeMaker, _resolver: TypeResolver) {
+        code.line("@staticmethod");
+        code.openBlock("def __jsii_proxy_class__()");
+        code.line(`return ${this.getProxyClassName()}`);
+        code.closeBlock();
+    }
+
+    private getProxyClassName(): string {
+        return `_${this.name}Proxy`;
+    }
+
 }
 
 class InterfaceMethod extends BaseMethod {
     protected readonly implicitParameter: string = "self";
+    protected readonly jsiiMethod: string = "invoke";
+    protected readonly shouldEmitBody: boolean = false;
 }
 
 class InterfaceProperty extends BaseProperty {
     protected readonly decorator: string = "property";
     protected readonly implicitParameter: string = "self";
+    protected readonly jsiiGetMethod: string = "get";
+    protected readonly jsiiSetMethod: string = "set";
+    protected readonly shouldEmitBody: boolean = false;
 }
 
 class TypedDict extends BasePythonClassType {
