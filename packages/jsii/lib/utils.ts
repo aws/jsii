@@ -36,10 +36,6 @@ export function logDiagnostic(diagnostic: ts.Diagnostic, projectRoot: string) {
     const message = diagnostic.file
                 ? ts.formatDiagnosticsWithColorAndContext([diagnostic], formatDiagnosticsHost)
                 : ts.formatDiagnostics([diagnostic], formatDiagnosticsHost);
-    // if (hasDomain(diagnostic)) {
-    //     // Make sure error codes don't render as ``TS123``, instead e.g: ``JSII123``.
-    //     message = message.replace(/([^\w])TS(\d+)([^\w])/, `$1${diagnostic.domain}$2$3`);
-    // }
     const logFunc = diagnosticsLogger(log4js.getLogger(DIAGNOSTICS), diagnostic);
     if (!logFunc) { return; }
     logFunc(message.trim());
