@@ -337,9 +337,13 @@ export class Assembler implements Emitter {
         return [jsiiType];
     }
 
-    private async _visitClass(type: ts.Type, namespace: string[]): Promise<spec.ClassType> {
+    private async _visitClass(type: ts.Type, namespace: string[]): Promise<spec.ClassType | undefined> {
         if (LOG.isTraceEnabled()) {
             LOG.trace(`Processing class: ${colors.gray(namespace.join('.'))}.${colors.cyan(type.symbol.name)}`);
+        }
+
+        if (_isInternal(type.symbol)) {
+            return undefined;
         }
 
         const fqn = `${[this.projectInfo.name, ...namespace].join('.')}.${type.symbol.name}`;
@@ -479,9 +483,13 @@ export class Assembler implements Emitter {
         return _sortMembers(this._visitDocumentation(type.symbol, jsiiType));
     }
 
-    private async _visitEnum(type: ts.Type, namespace: string[]): Promise<spec.EnumType> {
+    private async _visitEnum(type: ts.Type, namespace: string[]): Promise<spec.EnumType | undefined> {
         if (LOG.isTraceEnabled()) {
             LOG.trace(`Processing enum: ${colors.gray(namespace.join('.'))}.${colors.cyan(type.symbol.name)}`);
+        }
+
+        if (_isInternal(type.symbol)) {
+            return undefined;
         }
 
         const decl = type.symbol.valueDeclaration;
@@ -553,9 +561,13 @@ export class Assembler implements Emitter {
         }
     }
 
-    private async _visitInterface(type: ts.Type, namespace: string[]): Promise<spec.InterfaceType> {
+    private async _visitInterface(type: ts.Type, namespace: string[]): Promise<spec.InterfaceType | undefined> {
         if (LOG.isTraceEnabled()) {
             LOG.trace(`Processing interface: ${colors.gray(namespace.join('.'))}.${colors.cyan(type.symbol.name)}`);
+        }
+
+        if (_isInternal(type.symbol)) {
+            return undefined;
         }
 
         const fqn = `${[this.projectInfo.name, ...namespace].join('.')}.${type.symbol.name}`;
@@ -723,6 +735,7 @@ export class Assembler implements Emitter {
              */
             return;
         }
+
         if (LOG.isTraceEnabled()) {
             LOG.trace(`Processing property: ${colors.green(type.fqn)}#${colors.cyan(symbol.name)}`);
         }
@@ -1058,10 +1071,15 @@ function _isExported(node: ts.Declaration): boolean {
  * @return ``true`` if the symbol should be hidden
  */
 function _isHidden(symbol: ts.Symbol): boolean {
-    return !symbol.valueDeclaration
-        || symbol.name.startsWith('_')
+    return _isInternal(symbol) // if this property is marked "@internal", we strip it from the API
+        || !symbol.valueDeclaration
         // tslint:disable-next-line:no-bitwise
         || (ts.getCombinedModifierFlags(symbol.valueDeclaration) & ts.ModifierFlags.Private) !== 0;
+}
+
+function _isInternal(symbol: ts.Symbol): boolean {
+    return symbol.getJsDocTags().some(tag => tag.name === 'internal')
+        || symbol.name.startsWith('_');
 }
 
 function _isProtected(symbol: ts.Symbol): boolean {
