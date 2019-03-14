@@ -20,7 +20,7 @@ import jsii._embedded.jsii
 from jsii.__meta__ import __jsii_runtime_version__
 from jsii._compat import importlib_resources
 from jsii._utils import memoized_property
-from jsii._kernel.providers.base import BaseKernel
+from jsii._kernel.providers.base import BaseProvider
 from jsii._kernel.types import (
     ObjRef,
     EnumRef,
@@ -302,7 +302,7 @@ class _NodeProcess:
             raise JSIIError(resp.error) from JavaScriptError(resp.stack)
 
 
-class ProcessKernel(BaseKernel):
+class ProcessProvider(BaseProvider):
     @memoized_property
     def _process(self) -> _NodeProcess:
         process = _NodeProcess()
