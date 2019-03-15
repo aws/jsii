@@ -12,6 +12,7 @@ from jsii import _reference_map
 from jsii._utils import Singleton
 from jsii._kernel.providers import BaseProvider, ProcessProvider
 from jsii._kernel.types import JSClass, Referenceable
+from jsii._kernel.types import Callback
 from jsii._kernel.types import (
     EnumRef,
     LoadRequest,
@@ -110,6 +111,12 @@ def _make_reference_for_native(kernel, d):
         return d
 
 
+def _handle_callback(kernel, callback):
+    obj = _reference_map.resolve_id(callback.invoke.objref.ref)
+    method = getattr(obj, callback.cookie)
+    return method(*callback.invoke.args)
+
+    
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class Statistics:
 
@@ -195,13 +202,17 @@ class Kernel(metaclass=Singleton):
         if args is None:
             args = []
 
-        return self.provider.invoke(
+        response = self.provider.invoke(
             InvokeRequest(
                 objref=obj.__jsii_ref__,
                 method=method,
                 args=_make_reference_for_native(self, args),
             )
-        ).result
+        )
+        if isinstance(response, Callback):
+            return _handle_callback(self, response)
+        else:
+            return response.result
 
     @_dereferenced
     def sinvoke(

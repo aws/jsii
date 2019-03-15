@@ -508,7 +508,6 @@ def test_asyncOverrides_overrideThrows():
         obj.call_me()
 
 
-@xfail_callbacks
 def test_syncOverrides():
     obj = SyncOverrides()
     assert obj.caller_is_method() == 10 * 5

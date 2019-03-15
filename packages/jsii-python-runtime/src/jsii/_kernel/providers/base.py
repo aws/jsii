@@ -1,6 +1,6 @@
 import abc
 
-from typing import Optional
+from typing import Optional, Union
 
 from jsii._kernel.types import (
     LoadRequest,
@@ -20,6 +20,7 @@ from jsii._kernel.types import (
     StaticSetRequest,
     StatsRequest,
     StatsResponse,
+    Callback
 )
 
 
@@ -55,7 +56,7 @@ class BaseProvider(metaclass=abc.ABCMeta):
         ...
 
     @abc.abstractmethod
-    def invoke(self, request: InvokeRequest) -> InvokeResponse:
+    def invoke(self, request: InvokeRequest) -> Union[InvokeResponse, Callback]:
         ...
 
     @abc.abstractmethod

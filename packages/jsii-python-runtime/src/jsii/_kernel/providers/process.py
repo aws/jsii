@@ -44,6 +44,7 @@ from jsii._kernel.types import (
     StaticSetRequest,
     StatsRequest,
     StatsResponse,
+    Callback
 )
 from jsii.errors import JSIIError, JavaScriptError
 
@@ -71,8 +72,13 @@ class _ErrorRespose:
     error: str
     stack: str
 
+@attr.s(auto_attribs=True, frozen=True, slots=True)
+class _CallbackResponse:
 
-_ProcessResponse = Union[_OkayResponse, _ErrorRespose]
+    callback: Callback
+
+
+_ProcessResponse = Union[_OkayResponse, _ErrorRespose, _CallbackResponse]
 # Workaround for mypy#5354
 _ProcessResponse_R: Type[Any]
 if not TYPE_CHECKING:
@@ -242,7 +248,9 @@ class _NodeProcess:
         return paths[0]
 
     def _next_message(self) -> Mapping[Any, Any]:
-        return json.loads(self._process.stdout.readline(), object_hook=ohook)
+        # return json.loads(self._process.stdout.readline(), object_hook=ohook)
+        msg = json.loads(self._process.stdout.readline(), object_hook=ohook)
+        return msg
 
     def start(self):
         environ = os.environ.copy()
@@ -281,6 +289,7 @@ class _NodeProcess:
     def send(
         self, request: KernelRequest, response_type: Type[KernelResponse]
     ) -> KernelResponse:
+        print('======== send =========')
         req_dict = self._serializer.unstructure(request)
         # TODO: We need a cleaner solution to this, ideally we'll get
         # #python-attrs/attrs#429 fixed.
@@ -291,13 +300,15 @@ class _NodeProcess:
         # Send our data, ensure that it is framed with a trailing \n
         self._process.stdin.write(b"%b\n" % (data,))
         self._process.stdin.flush()
-
+        
         resp: _ProcessResponse = self._serializer.structure(
             self._next_message(), _ProcessResponse_R
         )
 
         if isinstance(resp, _OkayResponse):
             return self._serializer.structure(resp.ok, response_type)
+        elif isinstance(resp, _CallbackResponse):
+            return resp.callback
         else:
             raise JSIIError(resp.error) from JavaScriptError(resp.stack)
 
@@ -328,7 +339,7 @@ class ProcessProvider(BaseProvider):
     def sset(self, request: StaticSetRequest) -> SetResponse:
         return self._process.send(request, SetResponse)
 
-    def invoke(self, request: InvokeRequest) -> InvokeResponse:
+    def invoke(self, request: InvokeRequest) -> Union[InvokeResponse, Callback]:
         return self._process.send(request, InvokeResponse)
 
     def sinvoke(self, request: StaticInvokeRequest) -> InvokeResponse:

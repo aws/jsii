@@ -98,9 +98,13 @@ class _ReferenceMap:
 
         return inst
 
+    def resolve_id(self, id):
+        return self._refs[id]
+
 
 _refs = _ReferenceMap(_types)
 
 
 register_reference = _refs.register
 resolve_reference = _refs.resolve
+resolve_id = _refs.resolve_id
