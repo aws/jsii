@@ -44,7 +44,9 @@ from jsii._kernel.types import (
     StaticSetRequest,
     StatsRequest,
     StatsResponse,
-    Callback
+    Callback,
+    CompleteRequest,
+    CompleteResponse,
 )
 from jsii.errors import JSIIError, JavaScriptError
 
@@ -77,6 +79,10 @@ class _CallbackResponse:
 
     callback: Callback
 
+@attr.s(auto_attribs=True, frozen=True, slots=True)
+class _CompleteRequest:
+
+    complete: CompleteRequest
 
 _ProcessResponse = Union[_OkayResponse, _ErrorRespose, _CallbackResponse]
 # Workaround for mypy#5354
@@ -196,6 +202,10 @@ class _NodeProcess:
         self._serializer.register_unstructure_hook(
             Override, _property_fix(self._serializer.unstructure_attrs_asdict)
         )
+        # self._serializer.register_unstructure_hook(
+        #     CompleteRequest,
+        #     _with_api_key("complete", self._serializer.unstructure_attrs_asdict),
+        # )
         self._serializer.register_unstructure_hook(ObjRef, _unstructure_ref)
         self._serializer.register_structure_hook(ObjRef, _with_reference)
 
@@ -289,7 +299,6 @@ class _NodeProcess:
     def send(
         self, request: KernelRequest, response_type: Type[KernelResponse]
     ) -> KernelResponse:
-        print('======== send =========')
         req_dict = self._serializer.unstructure(request)
         # TODO: We need a cleaner solution to this, ideally we'll get
         # #python-attrs/attrs#429 fixed.
@@ -347,6 +356,9 @@ class ProcessProvider(BaseProvider):
 
     def delete(self, request: DeleteRequest) -> DeleteResponse:
         return self._process.send(request, DeleteResponse)
+
+    def complete(self, request: CompleteRequest) -> InvokeResponse:
+        return self._process.send(_CompleteRequest(complete=request), InvokeResponse)
 
     def stats(self, request: Optional[StatsRequest] = None) -> StatsResponse:
         if request is None:

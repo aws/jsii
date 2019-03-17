@@ -2,7 +2,7 @@ import datetime
 import inspect
 import itertools
 
-from typing import Any, List, Optional, Type
+from typing import Any, List, Optional, Type, Union
 
 import functools
 
@@ -27,6 +27,11 @@ from jsii._kernel.types import (
     StatsRequest,
     ObjRef,
     Override,
+    CompleteRequest,
+    CompleteResponse,
+    GetResponse,
+    SetResponse,
+    InvokeResponse
 )
 
 
@@ -116,7 +121,24 @@ def _handle_callback(kernel, callback):
     method = getattr(obj, callback.cookie)
     return method(*callback.invoke.args)
 
+
+def _callback_till_result(kernel, response: Union[GetResponse, SetResponse, InvokeResponse, Callback]) -> Any:
+    while isinstance(response, Callback):
+        try:
+            result = _handle_callback(kernel, response)
+        except Exception as exc:
+            response = kernel.complete(response.cbid, str(exc), None)
+        else:
+            response = kernel.complete(response.cbid, None, result)
     
+    if isinstance(response, InvokeResponse):
+        return response.result
+    elif isinstance(response, GetResponse):
+        return response.value
+    else:
+        return response
+
+
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class Statistics:
 
@@ -167,9 +189,13 @@ class Kernel(metaclass=Singleton):
 
     @_dereferenced
     def get(self, obj: Referenceable, property: str) -> Any:
-        return self.provider.get(
+        response = self.provider.get(
             GetRequest(objref=obj.__jsii_ref__, property_=property)
-        ).value
+        )
+        if isinstance(response, Callback):
+            return _callback_till_result(self, response)
+        else:
+            return response.value
 
     def set(self, obj: Referenceable, property: str, value: Any) -> None:
         self.provider.set(
@@ -210,7 +236,7 @@ class Kernel(metaclass=Singleton):
             )
         )
         if isinstance(response, Callback):
-            return _handle_callback(self, response)
+            return _callback_till_result(self, response)
         else:
             return response.result
 
@@ -228,6 +254,18 @@ class Kernel(metaclass=Singleton):
                 args=_make_reference_for_native(self, args),
             )
         ).result
+
+    @_dereferenced
+    def complete(
+        self, cbid: str, err: Optional[str], result: Any
+    ) -> Any:
+        return self.provider.complete(
+            CompleteRequest(
+                cbid=cbid,
+                err=err,
+                result=result
+            )
+        )
 
     def stats(self):
         resp = self.provider.stats(StatsRequest())

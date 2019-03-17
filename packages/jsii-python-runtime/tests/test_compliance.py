@@ -673,7 +673,7 @@ def test_fail_syncOverrides_callsDoubleAsync_propertySetter():
         obj.caller_is_property = 12
 
 
-@xfail_callbacks
+# @xfail_callbacks
 def test_testInterfaces():
     friendly: IFriendly
     friendlier: IFriendlier
@@ -709,7 +709,7 @@ def test_testInterfaces():
     assert poly.say_hello(PureNativeFriendlyRandom()) == "oh, I am a native!"
 
 
-@xfail_callbacks
+# @xfail_callbacks
 def test_testNativeObjectsWithInterfaces():
     # create a pure and native object, not part of the jsii hierarchy, only implements
     # a jsii interface

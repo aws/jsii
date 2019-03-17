@@ -20,7 +20,8 @@ from jsii._kernel.types import (
     StaticSetRequest,
     StatsRequest,
     StatsResponse,
-    Callback
+    Callback,
+    CompleteRequest,
 )
 
 
@@ -63,6 +64,10 @@ class BaseProvider(metaclass=abc.ABCMeta):
     def sinvoke(self, request: StaticInvokeRequest) -> InvokeResponse:
         ...
 
+    @abc.abstractmethod
+    def complete(self, request: CompleteRequest) -> InvokeResponse:
+        ...
+        
     @abc.abstractmethod
     def delete(self, request: DeleteRequest) -> DeleteResponse:
         ...
