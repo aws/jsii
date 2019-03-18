@@ -1,7 +1,6 @@
 import log4js = require('log4js');
 import ts = require('typescript');
 import { DIAGNOSTICS } from './compiler';
-// import { hasDomain } from './emitter';
 
 /**
  * Obtains the relevant logger to be used for a given diagnostic message.
@@ -26,6 +25,7 @@ export function diagnosticsLogger(logger: log4js.Logger, diagnostic: ts.Diagnost
         return logger.debug.bind(logger);
     }
 }
+
 export function logDiagnostic(diagnostic: ts.Diagnostic, projectRoot: string) {
     const formatDiagnosticsHost = {
         getCurrentDirectory: () => projectRoot,
@@ -36,10 +36,7 @@ export function logDiagnostic(diagnostic: ts.Diagnostic, projectRoot: string) {
     const message = diagnostic.file
                 ? ts.formatDiagnosticsWithColorAndContext([diagnostic], formatDiagnosticsHost)
                 : ts.formatDiagnostics([diagnostic], formatDiagnosticsHost);
-    // if (hasDomain(diagnostic)) {
-    //     // Make sure error codes don't render as ``TS123``, instead e.g: ``JSII123``.
-    //     message = message.replace(/([^\w])TS(\d+)([^\w])/, `$1${diagnostic.domain}$2$3`);
-    // }
+
     const logFunc = diagnosticsLogger(log4js.getLogger(DIAGNOSTICS), diagnostic);
     if (!logFunc) { return; }
     logFunc(message.trim());

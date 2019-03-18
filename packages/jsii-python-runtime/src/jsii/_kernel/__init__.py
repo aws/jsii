@@ -10,7 +10,7 @@ import attr
 
 from jsii import _reference_map
 from jsii._utils import Singleton
-from jsii._kernel.providers import BaseKernel, ProcessKernel
+from jsii._kernel.providers import BaseProvider, ProcessProvider
 from jsii._kernel.types import JSClass, Referenceable
 from jsii._kernel.types import (
     EnumRef,
@@ -128,7 +128,7 @@ class Kernel(metaclass=Singleton):
     #       them at this layer to translate it to something more Pythonic, depending
     #       on what the provider layer looks like.
 
-    def __init__(self, provider_class: Type[BaseKernel] = ProcessKernel) -> None:
+    def __init__(self, provider_class: Type[BaseProvider] = ProcessProvider) -> None:
         self.provider = provider_class()
 
     # TODO: Do we want to return anything from this method? Is the return value useful

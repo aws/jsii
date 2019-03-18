@@ -1,5 +1,5 @@
-from jsii._kernel.providers.base import BaseKernel
-from jsii._kernel.providers.process import ProcessKernel
+from jsii._kernel.providers.base import BaseProvider
+from jsii._kernel.providers.process import ProcessProvider
 
 
-__all__ = ["BaseKernel", "ProcessKernel"]
+__all__ = ["BaseProvider", "ProcessProvider"]
