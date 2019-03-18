@@ -15,8 +15,12 @@ from jsii._kernel.types import JSClass, Referenceable
 from jsii._kernel.types import (
     EnumRef,
     LoadRequest,
+    BeginRequest,
+    CallbacksRequest,
     CreateRequest,
+    CompleteRequest,
     DeleteRequest,
+    EndRequest,
     GetRequest,
     InvokeRequest,
     SetRequest,
@@ -34,6 +38,12 @@ _nothing = object()
 
 class Object:
     __jsii_type__ = "Object"
+
+
+def _handle_callback(kernel, callback):
+    obj = _reference_map.resolve_id(callback.invoke.objref.ref)
+    method = getattr(obj, callback.cookie)
+    return method(*callback.invoke.args)
 
 
 def _get_overides(klass: JSClass, obj: Any) -> List[Override]:
@@ -217,6 +227,42 @@ class Kernel(metaclass=Singleton):
                 args=_make_reference_for_native(self, args),
             )
         ).result
+
+    @_dereferenced
+    def ainvoke(
+        self, obj: Referenceable, method: str, args: Optional[List[Any]] = None
+    ) -> Any:
+        if args is None:
+            args = []
+
+        promise = self.provider.begin(
+            BeginRequest(
+                objref=obj.__jsii_ref__,
+                method=method,
+                args=_make_reference_for_native(self, args),
+            )
+        )
+
+        callbacks = self.provider.callbacks(CallbacksRequest()).callbacks
+        while callbacks:
+            for callback in callbacks:
+                try:
+                    result = _handle_callback(self, callback)
+                except Exception as exc:
+                    # TODO: Maybe we want to print the whole traceback here?
+                    complete = self.provider.complete(
+                        CompleteRequest(cbid=callback.cbid, err=str(exc))
+                    )
+                else:
+                    complete = self.provider.complete(
+                        CompleteRequest(cbid=callback.cbid, result=result)
+                    )
+
+                assert complete.cbid == callback.cbid
+
+            callbacks = self.provider.callbacks(CallbacksRequest()).callbacks
+
+        return self.provider.end(EndRequest(promiseid=promise.promiseid)).result
 
     def stats(self):
         resp = self.provider.stats(StatsRequest())

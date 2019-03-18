@@ -30,6 +30,7 @@ set = kernel.set
 sget = kernel.sget
 sset = kernel.sset
 invoke = kernel.invoke
+ainvoke = kernel.ainvoke
 sinvoke = kernel.sinvoke
 stats = kernel.stats
 
@@ -56,6 +57,7 @@ __all__ = [
     "sget",
     "sset",
     "invoke",
+    "ainvoke",
     "sinvoke",
     "stats",
 ]
