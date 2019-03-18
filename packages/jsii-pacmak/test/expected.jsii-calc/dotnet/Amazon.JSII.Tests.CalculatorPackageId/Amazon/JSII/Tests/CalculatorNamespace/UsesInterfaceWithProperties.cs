@@ -2,10 +2,10 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(typeof(UsesInterfaceWithProperties), "jsii-calc.UsesInterfaceWithProperties", "[{\"name\":\"obj\",\"type\":{\"fqn\":\"jsii-calc.InterfaceWithProperties\"}}]")]
+    [JsiiClass(typeof(UsesInterfaceWithProperties), "jsii-calc.UsesInterfaceWithProperties", "[{\"name\":\"obj\",\"type\":{\"fqn\":\"jsii-calc.IInterfaceWithProperties\"}}]")]
     public class UsesInterfaceWithProperties : DeputyBase
     {
-        public UsesInterfaceWithProperties(IInterfaceWithProperties obj): base(new DeputyProps(new object[]{obj}))
+        public UsesInterfaceWithProperties(IIInterfaceWithProperties obj): base(new DeputyProps(new object[]{obj}))
         {
         }
 
@@ -17,10 +17,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("obj", "{\"fqn\":\"jsii-calc.InterfaceWithProperties\"}")]
-        public virtual IInterfaceWithProperties Obj
+        [JsiiProperty("obj", "{\"fqn\":\"jsii-calc.IInterfaceWithProperties\"}")]
+        public virtual IIInterfaceWithProperties Obj
         {
-            get => GetInstanceProperty<IInterfaceWithProperties>();
+            get => GetInstanceProperty<IIInterfaceWithProperties>();
         }
 
         [JsiiMethod("justRead", "{\"primitive\":\"string\"}", "[]")]
@@ -29,8 +29,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<string>(new object[]{});
         }
 
-        [JsiiMethod("readStringAndNumber", "{\"primitive\":\"string\"}", "[{\"name\":\"ext\",\"type\":{\"fqn\":\"jsii-calc.InterfaceWithPropertiesExtension\"}}]")]
-        public virtual string ReadStringAndNumber(IInterfaceWithPropertiesExtension ext)
+        [JsiiMethod("readStringAndNumber", "{\"primitive\":\"string\"}", "[{\"name\":\"ext\",\"type\":{\"fqn\":\"jsii-calc.IInterfaceWithPropertiesExtension\"}}]")]
+        public virtual string ReadStringAndNumber(IIInterfaceWithPropertiesExtension ext)
         {
             return InvokeInstanceMethod<string>(new object[]{ext});
         }

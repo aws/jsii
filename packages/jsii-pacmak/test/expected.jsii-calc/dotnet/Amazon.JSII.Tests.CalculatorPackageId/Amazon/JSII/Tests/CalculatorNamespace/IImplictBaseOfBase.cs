@@ -11,7 +11,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         DateTime Goo
         {
             get;
-            set;
         }
     }
 }

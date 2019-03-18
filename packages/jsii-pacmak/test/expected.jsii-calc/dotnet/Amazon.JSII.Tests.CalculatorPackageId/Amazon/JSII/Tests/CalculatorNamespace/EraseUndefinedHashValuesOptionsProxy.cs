@@ -13,14 +13,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public string Option1
         {
             get => GetInstanceProperty<string>();
-            set => SetInstanceProperty(value);
         }
 
         [JsiiProperty("option2", "{\"primitive\":\"string\",\"optional\":true}")]
         public string Option2
         {
             get => GetInstanceProperty<string>();
-            set => SetInstanceProperty(value);
         }
     }
 }

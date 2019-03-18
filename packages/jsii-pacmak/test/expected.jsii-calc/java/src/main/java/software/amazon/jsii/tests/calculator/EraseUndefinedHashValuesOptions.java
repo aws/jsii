@@ -3,9 +3,7 @@ package software.amazon.jsii.tests.calculator;
 @javax.annotation.Generated(value = "jsii-pacmak")
 public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.JsiiSerializable {
     java.lang.String getOption1();
-    void setOption1(final java.lang.String value);
     java.lang.String getOption2();
-    void setOption2(final java.lang.String value);
 
     /**
      * @return a {@link Builder} of {@link EraseUndefinedHashValuesOptions}
@@ -50,9 +48,9 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
         public EraseUndefinedHashValuesOptions build() {
             return new EraseUndefinedHashValuesOptions() {
                 @javax.annotation.Nullable
-                private java.lang.String $option1 = _option1;
+                private final java.lang.String $option1 = _option1;
                 @javax.annotation.Nullable
-                private java.lang.String $option2 = _option2;
+                private final java.lang.String $option2 = _option2;
 
                 @Override
                 public java.lang.String getOption1() {
@@ -60,18 +58,8 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
                 }
 
                 @Override
-                public void setOption1(@javax.annotation.Nullable final java.lang.String value) {
-                    this.$option1 = value;
-                }
-
-                @Override
                 public java.lang.String getOption2() {
                     return this.$option2;
-                }
-
-                @Override
-                public void setOption2(@javax.annotation.Nullable final java.lang.String value) {
-                    this.$option2 = value;
                 }
 
                 public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
@@ -101,19 +89,9 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
         }
 
         @Override
-        public void setOption1(@javax.annotation.Nullable final java.lang.String value) {
-            this.jsiiSet("option1", value);
-        }
-
-        @Override
         @javax.annotation.Nullable
         public java.lang.String getOption2() {
             return this.jsiiGet("option2", java.lang.String.class);
-        }
-
-        @Override
-        public void setOption2(@javax.annotation.Nullable final java.lang.String value) {
-            this.jsiiSet("option2", value);
         }
     }
 }

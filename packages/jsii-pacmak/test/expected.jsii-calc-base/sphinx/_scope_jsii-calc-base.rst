@@ -194,13 +194,13 @@ BaseProps (interface)
 
    .. py:attribute:: bar
 
-      :type: string
+      :type: string *(readonly)*
 
 
    .. py:attribute:: foo
 
       *Inherited from* :py:attr:`@scope/jsii-calc-base-of-base.VeryBaseProps <@scope/jsii-calc-base-of-base.VeryBaseProps.foo>`
 
-      :type: :py:class:`@scope/jsii-calc-base-of-base.Very`\ 
+      :type: :py:class:`@scope/jsii-calc-base-of-base.Very`\  *(readonly)*
 
 

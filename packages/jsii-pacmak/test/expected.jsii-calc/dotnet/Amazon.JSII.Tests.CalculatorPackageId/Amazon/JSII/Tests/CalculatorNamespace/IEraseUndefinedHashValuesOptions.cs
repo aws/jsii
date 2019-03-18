@@ -9,14 +9,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         string Option1
         {
             get;
-            set;
         }
 
         [JsiiProperty("option2", "{\"primitive\":\"string\",\"optional\":true}")]
         string Option2
         {
             get;
-            set;
         }
     }
 }

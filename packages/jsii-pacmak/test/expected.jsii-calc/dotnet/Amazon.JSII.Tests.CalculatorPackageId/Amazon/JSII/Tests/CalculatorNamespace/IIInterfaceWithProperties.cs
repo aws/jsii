@@ -2,8 +2,8 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiInterface(typeof(IInterfaceWithProperties), "jsii-calc.InterfaceWithProperties")]
-    public interface IInterfaceWithProperties
+    [JsiiInterface(typeof(IIInterfaceWithProperties), "jsii-calc.IInterfaceWithProperties")]
+    public interface IIInterfaceWithProperties
     {
         [JsiiProperty("readOnlyString", "{\"primitive\":\"string\"}")]
         string ReadOnlyString

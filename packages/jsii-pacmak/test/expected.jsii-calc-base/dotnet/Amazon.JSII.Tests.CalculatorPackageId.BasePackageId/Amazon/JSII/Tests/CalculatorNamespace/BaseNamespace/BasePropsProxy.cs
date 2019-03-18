@@ -14,14 +14,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace
         public string Bar
         {
             get => GetInstanceProperty<string>();
-            set => SetInstanceProperty(value);
         }
 
         [JsiiProperty("foo", "{\"fqn\":\"@scope/jsii-calc-base-of-base.Very\"}")]
         public Very Foo
         {
             get => GetInstanceProperty<Very>();
-            set => SetInstanceProperty(value);
         }
     }
 }

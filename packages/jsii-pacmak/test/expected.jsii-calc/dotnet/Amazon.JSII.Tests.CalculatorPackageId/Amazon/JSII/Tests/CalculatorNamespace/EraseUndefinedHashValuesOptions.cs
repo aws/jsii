@@ -2,7 +2,8 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    public class EraseUndefinedHashValuesOptions : DeputyBase, IEraseUndefinedHashValuesOptions
+    [JsiiByValue]
+    public class EraseUndefinedHashValuesOptions : IEraseUndefinedHashValuesOptions
     {
         [JsiiProperty("option1", "{\"primitive\":\"string\",\"optional\":true}", true)]
         public string Option1

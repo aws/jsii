@@ -15,21 +15,18 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public DateTime Goo
         {
             get => GetInstanceProperty<DateTime>();
-            set => SetInstanceProperty(value);
         }
 
         [JsiiProperty("bar", "{\"primitive\":\"string\"}")]
         public string Bar
         {
             get => GetInstanceProperty<string>();
-            set => SetInstanceProperty(value);
         }
 
         [JsiiProperty("foo", "{\"fqn\":\"@scope/jsii-calc-base-of-base.Very\"}")]
         public Very Foo
         {
             get => GetInstanceProperty<Very>();
-            set => SetInstanceProperty(value);
         }
     }
 }

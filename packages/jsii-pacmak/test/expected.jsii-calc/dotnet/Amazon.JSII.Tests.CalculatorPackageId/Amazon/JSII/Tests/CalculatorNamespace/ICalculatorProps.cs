@@ -10,14 +10,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         double? InitialValue
         {
             get;
-            set;
         }
 
         [JsiiProperty("maximumValue", "{\"primitive\":\"number\",\"optional\":true}")]
         double? MaximumValue
         {
             get;
-            set;
         }
     }
 }

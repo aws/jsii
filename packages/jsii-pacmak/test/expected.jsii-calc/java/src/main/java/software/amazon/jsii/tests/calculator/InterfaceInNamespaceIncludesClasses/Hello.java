@@ -3,7 +3,6 @@ package software.amazon.jsii.tests.calculator.InterfaceInNamespaceIncludesClasse
 @javax.annotation.Generated(value = "jsii-pacmak")
 public interface Hello extends software.amazon.jsii.JsiiSerializable {
     java.lang.Number getFoo();
-    void setFoo(final java.lang.Number value);
 
     /**
      * @return a {@link Builder} of {@link Hello}
@@ -35,16 +34,11 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
          */
         public Hello build() {
             return new Hello() {
-                private java.lang.Number $foo = java.util.Objects.requireNonNull(_foo, "foo is required");
+                private final java.lang.Number $foo = java.util.Objects.requireNonNull(_foo, "foo is required");
 
                 @Override
                 public java.lang.Number getFoo() {
                     return this.$foo;
-                }
-
-                @Override
-                public void setFoo(final java.lang.Number value) {
-                    this.$foo = java.util.Objects.requireNonNull(value, "foo is required");
                 }
 
                 public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
@@ -69,11 +63,6 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
         @Override
         public java.lang.Number getFoo() {
             return this.jsiiGet("foo", java.lang.Number.class);
-        }
-
-        @Override
-        public void setFoo(final java.lang.Number value) {
-            this.jsiiSet("foo", java.util.Objects.requireNonNull(value, "foo is required"));
         }
     }
 }

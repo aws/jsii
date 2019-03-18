@@ -3,7 +3,8 @@ using Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace
 {
-    public class BaseProps : DeputyBase, IBaseProps
+    [JsiiByValue]
+    public class BaseProps : IBaseProps
     {
         [JsiiProperty("bar", "{\"primitive\":\"string\"}", true)]
         public string Bar

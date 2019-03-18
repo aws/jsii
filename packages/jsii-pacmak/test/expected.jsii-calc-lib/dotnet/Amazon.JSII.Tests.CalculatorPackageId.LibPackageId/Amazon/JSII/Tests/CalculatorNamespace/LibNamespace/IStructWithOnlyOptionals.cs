@@ -11,21 +11,18 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         string Optional1
         {
             get;
-            set;
         }
 
         [JsiiProperty("optional2", "{\"primitive\":\"number\",\"optional\":true}")]
         double? Optional2
         {
             get;
-            set;
         }
 
         [JsiiProperty("optional3", "{\"primitive\":\"boolean\",\"optional\":true}")]
         bool? Optional3
         {
             get;
-            set;
         }
     }
 }

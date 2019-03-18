@@ -9,7 +9,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceOnlyInterfac
         double Foo
         {
             get;
-            set;
         }
     }
 }

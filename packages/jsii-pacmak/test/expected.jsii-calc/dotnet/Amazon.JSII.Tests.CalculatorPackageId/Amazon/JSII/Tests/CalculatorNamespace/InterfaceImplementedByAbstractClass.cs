@@ -6,12 +6,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// awslabs/jsii#220
     /// Abstract return type
     /// </summary>
-    public class InterfaceImplementedByAbstractClass : DeputyBase, IInterfaceImplementedByAbstractClass
+    [JsiiByValue]
+    public class InterfaceImplementedByAbstractClass : IInterfaceImplementedByAbstractClass
     {
         [JsiiProperty("propFromInterface", "{\"primitive\":\"string\"}", true)]
         public string PropFromInterface
         {
             get;
+            set;
         }
     }
 }
