@@ -228,9 +228,9 @@ assemblies
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
  │   │   └─┬ mutableObject property
- │   │     └── type: interface:jsii-calc.MutableObjectLiteral
+ │   │     └── type: interface:jsii-calc.IMutableObjectLiteral
  │   ├─┬ class ClassWithPrivateConstructorAndAutomaticProperties
- │   │ ├── interfaces: InterfaceWithProperties
+ │   │ ├── interfaces: IInterfaceWithProperties
  │   │ └─┬ members
  │   │   ├─┬ create(readOnlyString,readWriteString) method
  │   │   │ ├── static
@@ -338,14 +338,20 @@ assemblies
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
- │   │   └─┬ doesKeyExist(opts,key) method
+ │   │   ├─┬ doesKeyExist(opts,key) method
+ │   │   │ ├── static
+ │   │   │ ├─┬ parameters
+ │   │   │ │ ├─┬ opts
+ │   │   │ │ │ └── type: interface:jsii-calc.EraseUndefinedHashValuesOptions
+ │   │   │ │ └─┬ key
+ │   │   │ │   └── type: primitive:string
+ │   │   │ └── returns: primitive:boolean
+ │   │   ├─┬ prop1IsNull() method
+ │   │   │ ├── static
+ │   │   │ └── returns: primitive:any
+ │   │   └─┬ prop2IsUndefined() method
  │   │     ├── static
- │   │     ├─┬ parameters
- │   │     │ ├─┬ opts
- │   │     │ │ └── type: interface:jsii-calc.EraseUndefinedHashValuesOptions
- │   │     │ └─┬ key
- │   │     │   └── type: primitive:string
- │   │     └── returns: primitive:boolean
+ │   │     └── returns: primitive:any
  │   ├─┬ class ExportedBaseClass
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(success) method
@@ -961,14 +967,14 @@ assemblies
  │   │   ├─┬ <initializer>(obj) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ obj
- │   │   │ │   └── type: interface:jsii-calc.InterfaceWithProperties
+ │   │   │ │   └── type: interface:jsii-calc.IInterfaceWithProperties
  │   │   │ └── returns: void
  │   │   ├─┬ justRead() method
  │   │   │ └── returns: primitive:string
  │   │   ├─┬ readStringAndNumber(ext) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ ext
- │   │   │ │   └── type: interface:jsii-calc.InterfaceWithPropertiesExtension
+ │   │   │ │   └── type: interface:jsii-calc.IInterfaceWithPropertiesExtension
  │   │   │ └── returns: primitive:string
  │   │   ├─┬ writeAndRead(value) method
  │   │   │ ├─┬ parameters
@@ -977,7 +983,7 @@ assemblies
  │   │   │ └── returns: primitive:string
  │   │   └─┬ obj property
  │   │     ├── immutable
- │   │     └── type: interface:jsii-calc.InterfaceWithProperties
+ │   │     └── type: interface:jsii-calc.IInterfaceWithProperties
  │   ├─┬ class VariadicMethod
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(prefix) method
@@ -1049,9 +1055,11 @@ assemblies
  │   │ └─┬ members
  │   │   ├─┬ initialValue property
  │   │   │ ├── abstract
+ │   │   │ ├── immutable
  │   │   │ └── type: primitive:number (optional)
  │   │   └─┬ maximumValue property
  │   │     ├── abstract
+ │   │     ├── immutable
  │   │     └── type: primitive:number (optional)
  │   ├─┬ interface DerivedStruct
  │   │ ├─┬ interfaces
@@ -1059,29 +1067,37 @@ assemblies
  │   │ └─┬ members
  │   │   ├─┬ anotherRequired property
  │   │   │ ├── abstract
+ │   │   │ ├── immutable
  │   │   │ └── type: primitive:date
  │   │   ├─┬ bool property
  │   │   │ ├── abstract
+ │   │   │ ├── immutable
  │   │   │ └── type: primitive:boolean
  │   │   ├─┬ nonPrimitive property
  │   │   │ ├── abstract
+ │   │   │ ├── immutable
  │   │   │ └── type: class:jsii-calc.DoubleTrouble
  │   │   ├─┬ anotherOptional property
  │   │   │ ├── abstract
+ │   │   │ ├── immutable
  │   │   │ └── type: Map<string => class:@scope/jsii-calc-lib.Value>
  │   │   ├─┬ optionalAny property
  │   │   │ ├── abstract
+ │   │   │ ├── immutable
  │   │   │ └── type: primitive:any (optional)
  │   │   └─┬ optionalArray property
  │   │     ├── abstract
+ │   │     ├── immutable
  │   │     └── type: Array<primitive:string>
  │   ├─┬ interface EraseUndefinedHashValuesOptions
  │   │ └─┬ members
  │   │   ├─┬ option1 property
  │   │   │ ├── abstract
+ │   │   │ ├── immutable
  │   │   │ └── type: primitive:string (optional)
  │   │   └─┬ option2 property
  │   │     ├── abstract
+ │   │     ├── immutable
  │   │     └── type: primitive:string (optional)
  │   ├─┬ interface IFriendlier
  │   │ ├─┬ interfaces
@@ -1125,6 +1141,27 @@ assemblies
  │   │     │ └─┬ arg2
  │   │     │   └── type: primitive:number (optional)
  │   │     └── returns: void
+ │   ├─┬ interface IInterfaceWithProperties
+ │   │ └─┬ members
+ │   │   ├─┬ readOnlyString property
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: primitive:string
+ │   │   └─┬ readWriteString property
+ │   │     ├── abstract
+ │   │     └── type: primitive:string
+ │   ├─┬ interface IInterfaceWithPropertiesExtension
+ │   │ ├─┬ interfaces
+ │   │ │ └── IInterfaceWithProperties
+ │   │ └─┬ members
+ │   │   └─┬ foo property
+ │   │     ├── abstract
+ │   │     └── type: primitive:number
+ │   ├─┬ interface IMutableObjectLiteral
+ │   │ └─┬ members
+ │   │   └─┬ value property
+ │   │     ├── abstract
+ │   │     └── type: primitive:string
  │   ├─┬ interface IPrivatelyImplemented
  │   │ └─┬ members
  │   │   └─┬ success property
@@ -1156,6 +1193,7 @@ assemblies
  │   │ └─┬ members
  │   │   └─┬ goo property
  │   │     ├── abstract
+ │   │     ├── immutable
  │   │     └── type: primitive:date
  │   ├─┬ interface InterfaceImplementedByAbstractClass
  │   │ └─┬ members
@@ -1167,57 +1205,45 @@ assemblies
  │   │ └─┬ members
  │   │   └─┬ foo property
  │   │     ├── abstract
+ │   │     ├── immutable
  │   │     └── type: primitive:number
  │   ├─┬ interface Hello
  │   │ └─┬ members
  │   │   └─┬ foo property
  │   │     ├── abstract
- │   │     └── type: primitive:number
- │   ├─┬ interface InterfaceWithProperties
- │   │ └─┬ members
- │   │   ├─┬ readOnlyString property
- │   │   │ ├── abstract
- │   │   │ ├── immutable
- │   │   │ └── type: primitive:string
- │   │   └─┬ readWriteString property
- │   │     ├── abstract
- │   │     └── type: primitive:string
- │   ├─┬ interface InterfaceWithPropertiesExtension
- │   │ ├─┬ interfaces
- │   │ │ └── InterfaceWithProperties
- │   │ └─┬ members
- │   │   └─┬ foo property
- │   │     ├── abstract
+ │   │     ├── immutable
  │   │     └── type: primitive:number
  │   ├─┬ interface LoadBalancedFargateServiceProps
  │   │ └─┬ members
  │   │   ├─┬ containerPort property
  │   │   │ ├── abstract
+ │   │   │ ├── immutable
  │   │   │ └── type: primitive:number (optional)
  │   │   ├─┬ cpu property
  │   │   │ ├── abstract
+ │   │   │ ├── immutable
  │   │   │ └── type: primitive:string (optional)
  │   │   ├─┬ memoryMiB property
  │   │   │ ├── abstract
+ │   │   │ ├── immutable
  │   │   │ └── type: primitive:string (optional)
  │   │   ├─┬ publicLoadBalancer property
  │   │   │ ├── abstract
+ │   │   │ ├── immutable
  │   │   │ └── type: primitive:boolean (optional)
  │   │   └─┬ publicTasks property
  │   │     ├── abstract
+ │   │     ├── immutable
  │   │     └── type: primitive:boolean (optional)
- │   ├─┬ interface MutableObjectLiteral
- │   │ └─┬ members
- │   │   └─┬ value property
- │   │     ├── abstract
- │   │     └── type: primitive:string
  │   ├─┬ interface NullShouldBeTreatedAsUndefinedData
  │   │ └─┬ members
  │   │   ├─┬ arrayWithThreeElementsAndUndefinedAsSecondArgument property
  │   │   │ ├── abstract
+ │   │   │ ├── immutable
  │   │   │ └── type: Array<primitive:any>
  │   │   └─┬ thisShouldBeUndefined property
  │   │     ├── abstract
+ │   │     ├── immutable
  │   │     └── type: primitive:any (optional)
  │   ├─┬ interface UnionProperties
  │   │ └─┬ members
@@ -1227,6 +1253,7 @@ assemblies
  │   │   │ └── type: primitive:string | primitive:number | class:jsii-calc.AllTypes
  │   │   └─┬ foo property
  │   │     ├── abstract
+ │   │     ├── immutable
  │   │     └── type: primitive:string | primitive:number
  │   ├─┬ enum AllTypesEnum
  │   │ ├── MyEnumValue
@@ -1255,6 +1282,7 @@ assemblies
  │     └─┬ members
  │       └─┬ bar property
  │         ├── abstract
+ │         ├── immutable
  │         └── type: primitive:string
  ├─┬ @scope/jsii-calc-base-of-base
  │ └─┬ types
@@ -1268,6 +1296,7 @@ assemblies
  │     └─┬ members
  │       └─┬ foo property
  │         ├── abstract
+ │         ├── immutable
  │         └── type: class:@scope/jsii-calc-base-of-base.Very
  └─┬ @scope/jsii-calc-lib
    ├─┬ dependencies
@@ -1322,23 +1351,29 @@ assemblies
      │ └─┬ members
      │   ├─┬ anumber property
      │   │ ├── abstract
+     │   │ ├── immutable
      │   │ └── type: primitive:number
      │   ├─┬ astring property
      │   │ ├── abstract
+     │   │ ├── immutable
      │   │ └── type: primitive:string
      │   └─┬ firstOptional property
      │     ├── abstract
+     │     ├── immutable
      │     └── type: Array<primitive:string>
      ├─┬ interface StructWithOnlyOptionals
      │ └─┬ members
      │   ├─┬ optional1 property
      │   │ ├── abstract
+     │   │ ├── immutable
      │   │ └── type: primitive:string (optional)
      │   ├─┬ optional2 property
      │   │ ├── abstract
+     │   │ ├── immutable
      │   │ └── type: primitive:number (optional)
      │   └─┬ optional3 property
      │     ├── abstract
+     │     ├── immutable
      │     └── type: primitive:boolean (optional)
      └─┬ enum EnumFromScopedModule
        ├── Value1

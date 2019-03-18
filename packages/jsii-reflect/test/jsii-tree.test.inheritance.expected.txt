@@ -19,7 +19,7 @@ assemblies
  │   │ └── base: CompositeOperation
  │   ├── class ClassWithMutableObjectLiteralProperty
  │   ├─┬ class ClassWithPrivateConstructorAndAutomaticProperties
- │   │ └── interfaces: InterfaceWithProperties
+ │   │ └── interfaces: IInterfaceWithProperties
  │   ├── class Constructors
  │   ├── class DefaultedConstructorArgument
  │   ├── class Base
@@ -93,6 +93,11 @@ assemblies
  │   │   └── IInterfaceWithMethods
  │   ├── interface IInterfaceWithMethods
  │   ├── interface IInterfaceWithOptionalMethodArguments
+ │   ├── interface IInterfaceWithProperties
+ │   ├─┬ interface IInterfaceWithPropertiesExtension
+ │   │ └─┬ interfaces
+ │   │   └── IInterfaceWithProperties
+ │   ├── interface IMutableObjectLiteral
  │   ├── interface IPrivatelyImplemented
  │   ├── interface IPublicInterface
  │   ├── interface IRandomNumberGenerator
@@ -103,12 +108,7 @@ assemblies
  │   ├── interface InterfaceImplementedByAbstractClass
  │   ├── interface Hello
  │   ├── interface Hello
- │   ├── interface InterfaceWithProperties
- │   ├─┬ interface InterfaceWithPropertiesExtension
- │   │ └─┬ interfaces
- │   │   └── InterfaceWithProperties
  │   ├── interface LoadBalancedFargateServiceProps
- │   ├── interface MutableObjectLiteral
  │   ├── interface NullShouldBeTreatedAsUndefinedData
  │   ├── interface UnionProperties
  │   ├── enum AllTypesEnum

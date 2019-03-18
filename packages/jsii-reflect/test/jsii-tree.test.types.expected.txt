@@ -66,6 +66,9 @@ assemblies
  │   ├── interface IInterfaceThatShouldNotBeADataType
  │   ├── interface IInterfaceWithMethods
  │   ├── interface IInterfaceWithOptionalMethodArguments
+ │   ├── interface IInterfaceWithProperties
+ │   ├── interface IInterfaceWithPropertiesExtension
+ │   ├── interface IMutableObjectLiteral
  │   ├── interface IPrivatelyImplemented
  │   ├── interface IPublicInterface
  │   ├── interface IRandomNumberGenerator
@@ -74,10 +77,7 @@ assemblies
  │   ├── interface InterfaceImplementedByAbstractClass
  │   ├── interface Hello
  │   ├── interface Hello
- │   ├── interface InterfaceWithProperties
- │   ├── interface InterfaceWithPropertiesExtension
  │   ├── interface LoadBalancedFargateServiceProps
- │   ├── interface MutableObjectLiteral
  │   ├── interface NullShouldBeTreatedAsUndefinedData
  │   ├── interface UnionProperties
  │   ├── enum AllTypesEnum
