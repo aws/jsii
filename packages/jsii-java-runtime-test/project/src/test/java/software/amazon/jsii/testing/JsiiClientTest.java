@@ -20,6 +20,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -45,15 +46,14 @@ public class JsiiClientTest {
 
     @Test
     public void initialTest() {
-        JsiiObjectRef obj = client.createObject("@scope/jsii-calc-lib.Number", Arrays.asList(42));
+        JsiiObjectRef obj = client.createObject("@scope/jsii-calc-lib.Number", Collections.singletonList(42));
         assertEquals(84, fromSandbox(client.getPropertyValue(obj, "doubleValue")));
         assertEquals("Number", fromSandbox(client.callMethod(obj, "typeName", toSandboxArray())));
 
-        JsiiObjectRef calculatorProps = client.createObject("jsii-calc.CalculatorProps", Arrays.asList());
-        client.setPropertyValue(calculatorProps, "initialValue", toSandbox(100));
-        assertEquals(100, fromSandbox(client.getPropertyValue(calculatorProps, "initialValue")));
+        ObjectNode calculatorProps = JSON.objectNode();
+        calculatorProps.set("initialValue", JSON.numberNode(100));
 
-        JsiiObjectRef calculator = client.createObject("jsii-calc.Calculator", Arrays.asList(calculatorProps.toJson()));
+        JsiiObjectRef calculator = client.createObject("jsii-calc.Calculator", Collections.singletonList(calculatorProps));
         assertNull(fromSandbox(client.callMethod(calculator, "add", toSandboxArray(50))));
 
         JsiiObjectRef add = JsiiObjectRef.parse(client.getPropertyValue(calculator, "curr"));
