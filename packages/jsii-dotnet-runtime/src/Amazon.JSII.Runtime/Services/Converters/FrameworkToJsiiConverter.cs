@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Transactions;
 using Amazon.JSII.JsonModel.Spec;
 using Amazon.JSII.Runtime.Deputy;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using Type = System.Type;
 
 namespace Amazon.JSII.Runtime.Services.Converters
@@ -34,11 +36,38 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 return true;
             }
 
-            Type type = value.GetType();
-
             if (value is DeputyBase deputyValue)
             {
-                result = deputyValue.Reference;
+                result = JObject.FromObject(deputyValue.Reference);
+                return true;
+            }
+
+            if (Attribute.GetCustomAttribute(value.GetType(), typeof(JsiiByValueAttribute)) != null)
+            {
+                var resultObject = new JObject();
+                foreach (var prop in value.GetType().GetProperties())
+                {
+                    var jsiiProperty = (JsiiPropertyAttribute) prop.GetCustomAttribute(typeof(JsiiPropertyAttribute), true);
+                    if (jsiiProperty == null)
+                    {
+                        continue;
+                    }
+
+                    var propValue = prop.GetValue(value);
+                    if (propValue == null)
+                    {
+                        continue;
+                    }
+
+                    if (!TryConvert(jsiiProperty.Type, referenceMap, propValue, out var convertedPropValue) || convertedPropValue == null)
+                    {
+                        continue;
+                    }
+
+                    resultObject.Add(new JProperty(jsiiProperty.Name, convertedPropValue));
+                }
+
+                result = resultObject;
                 return true;
             }
 
@@ -80,7 +109,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 return false;
             }
 
-            result = new EnumValue(fullyQualifiedName, memberAttribute.Name);
+            result = JObject.FromObject(new EnumValue(fullyQualifiedName, memberAttribute.Name));
             return true;
         }
 
@@ -112,7 +141,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
             if (value.GetType().IsAssignableFrom(typeof(DateTime)))
             {
-                result = new DateValue((DateTime) value);
+                result = JObject.FromObject(new DateValue((DateTime) value));
                 return true;
             }
 
@@ -200,11 +229,6 @@ namespace Amazon.JSII.Runtime.Services.Converters
                     return false;
                 }
 
-                if (convertedElement != null && convertedElement.GetType() == typeof(ByRefValue))
-                {
-                    convertedElement = JObject.FromObject(convertedElement);
-                }
-
                 resultArray.Add(convertedElement);
             }
 
@@ -243,12 +267,6 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 {
                     result = null;
                     return false;
-                }
-
-                if (convertedElement != null && !(convertedElement is String) &&
-                    !convertedElement.GetType().IsPrimitive)
-                {
-                    convertedElement = JObject.FromObject(convertedElement);
                 }
 
                 resultObject.Add(new JProperty(key, convertedElement));

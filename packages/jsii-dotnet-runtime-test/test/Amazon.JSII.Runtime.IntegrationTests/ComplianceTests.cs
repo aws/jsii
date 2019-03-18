@@ -190,12 +190,11 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         public void CreateObjectAndCtorOverloads()
         {
             // TODO: Generator should create a parameterless constructor.
-            new Calculator(new CalculatorProps());
-
-            new Calculator(new CalculatorProps
-            {
-                MaximumValue = 10
+            new Calculator(null);
+            var calc = new Calculator(new CalculatorProps() {
+                InitialValue = 100
             });
+            Assert.Equal(100, calc.Value);
         }
 
         [Fact(DisplayName = Prefix + nameof(GetSetPrimitiveProperties))]
@@ -495,7 +494,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             }
         }
 
-        class InterfaceWithProperties : DeputyBase, IInterfaceWithProperties
+        class InterfaceWithProperties : DeputyBase, IIInterfaceWithProperties
         {
             string _x;
 
@@ -884,6 +883,19 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.NotEqual(typeof(InbetweenClass), ifaceRef.GetType());
         }
 
+        [Fact(DisplayName = Prefix + nameof(EraseUnsetDataValues))]
+        public void EraseUnsetDataValues()
+        {
+            var opts = new EraseUndefinedHashValuesOptions {
+                Option1 = "option1"
+            };
+
+            Assert.True(EraseUndefinedHashValues.DoesKeyExist(opts, "option1"));
+            Assert.False(EraseUndefinedHashValues.DoesKeyExist(opts, "option2"));
+            
+            Assert.Equal(new Dictionary<string, object> { ["prop2"] = "value2" }, EraseUndefinedHashValues.Prop1IsNull());
+            Assert.Equal(new Dictionary<string, object> { [ "prop1"] = "value1" }, EraseUndefinedHashValues.Prop2IsUndefined());
+        }
         class NumberReturner : DeputyBase, IIReturnsNumber
         {
             public NumberReturner(double number)
