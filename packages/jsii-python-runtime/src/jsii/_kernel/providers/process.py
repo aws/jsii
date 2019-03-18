@@ -202,10 +202,6 @@ class _NodeProcess:
         self._serializer.register_unstructure_hook(
             Override, _property_fix(self._serializer.unstructure_attrs_asdict)
         )
-        # self._serializer.register_unstructure_hook(
-        #     CompleteRequest,
-        #     _with_api_key("complete", self._serializer.unstructure_attrs_asdict),
-        # )
         self._serializer.register_unstructure_hook(ObjRef, _unstructure_ref)
         self._serializer.register_structure_hook(ObjRef, _with_reference)
 
@@ -313,7 +309,7 @@ class _NodeProcess:
         resp: _ProcessResponse = self._serializer.structure(
             self._next_message(), _ProcessResponse_R
         )
-
+    
         if isinstance(resp, _OkayResponse):
             return self._serializer.structure(resp.ok, response_type)
         elif isinstance(resp, _CallbackResponse):
@@ -357,7 +353,7 @@ class ProcessProvider(BaseProvider):
     def delete(self, request: DeleteRequest) -> DeleteResponse:
         return self._process.send(request, DeleteResponse)
 
-    def complete(self, request: CompleteRequest) -> InvokeResponse:
+    def complete(self, request: CompleteRequest) -> Union[InvokeResponse, GetResponse]:
         return self._process.send(_CompleteRequest(complete=request), InvokeResponse)
 
     def stats(self, request: Optional[StatsRequest] = None) -> StatsResponse:

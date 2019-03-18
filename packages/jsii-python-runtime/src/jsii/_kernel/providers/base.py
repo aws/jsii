@@ -65,9 +65,9 @@ class BaseProvider(metaclass=abc.ABCMeta):
         ...
 
     @abc.abstractmethod
-    def complete(self, request: CompleteRequest) -> InvokeResponse:
+    def complete(self, request: CompleteRequest) -> Union[InvokeResponse, GetResponse]:
         ...
-        
+
     @abc.abstractmethod
     def delete(self, request: DeleteRequest) -> DeleteResponse:
         ...
