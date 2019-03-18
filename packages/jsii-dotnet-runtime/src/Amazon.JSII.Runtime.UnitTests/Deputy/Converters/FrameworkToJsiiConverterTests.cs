@@ -121,8 +121,14 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                 bool success = _converter.TryConvert(reference, _referenceMap, now, out object actual);
 
                 Assert.True(success);
-                Assert.IsType<DateValue>(actual);
-                Assert.Equal(now, ((DateValue)actual).DateTime);
+                Assert.IsType<JObject>(actual);
+
+                var expected = new JObject
+                {
+                    new JProperty("$jsii.date", now.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"))
+                };
+
+                Assert.Equal(expected, actual);
 
                 success = _converter.TryConvert(reference, _referenceMap, null, out actual);
 
@@ -142,8 +148,12 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                 DateTime now = DateTime.Now;
                 bool success = _converter.TryConvert(reference, _referenceMap, now, out object actual);
                 Assert.True(success);
-                Assert.IsType<DateValue>(actual);
-                Assert.Equal(now, ((DateValue)actual).DateTime);
+                Assert.IsType<JObject>(actual);
+                var expected = new JObject
+                {
+                    new JProperty("$jsii.date", now.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"))
+                };
+                Assert.Equal(expected, actual);
 
                 success = _converter.TryConvert(reference, _referenceMap, null, out actual);
                 Assert.True(success);
@@ -220,9 +230,9 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                 TestClass myClass = new TestClass(byRef);
 
                 bool success = _converter.TryConvert(reference, _referenceMap, myClass, out object actual);
-
+                
                 Assert.True(success);
-                Assert.Same(byRef, actual);
+                Assert.Equal(JObject.FromObject(byRef), actual);
                 _referenceMap.Received().AddNativeReference(byRef, myClass);
             }
 
@@ -236,10 +246,12 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                 bool success = _converter.TryConvert(reference, _referenceMap, myEnum, out object actual);
 
                 Assert.True(success);
-                Assert.IsType<EnumValue>(actual);
-                EnumValue enumValue = (EnumValue)actual;
-                Assert.Equal("myEnumFqn", enumValue.FullyQualifiedName, ignoreLineEndingDifferences: true);
-                Assert.Equal("MyMember2", enumValue.MemberName, ignoreLineEndingDifferences: true);
+                Assert.IsType<JObject>(actual);
+                
+                var expected = new JObject {
+                    new JProperty("$jsii.enum", "myEnumFqn/MyMember2")
+                };
+                Assert.Equal(expected, actual);
             }
 
             [Fact(DisplayName = _Prefix + nameof(ConvertsNullClassReference))]
@@ -587,8 +599,13 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                 bool success = _converter.TryConvert(reference, _referenceMap, now, out object actual);
 
                 Assert.True(success);
-                Assert.IsType<DateValue>(actual);
-                Assert.Equal(now, ((DateValue)actual).DateTime);
+                Assert.IsType<JObject>(actual);
+
+                var expected = new JObject
+                {
+                    new JProperty("$jsii.date", now.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz"))
+                };
+                Assert.Equal(expected, actual);
             }
 
             [Fact(DisplayName = _Prefix + nameof(ConvertsJson))]
