@@ -3318,6 +3318,23 @@
       ],
       "name": "StringEnum"
     },
+    "jsii-calc.StripInternal": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.StripInternal",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "name": "StripInternal",
+      "properties": [
+        {
+          "name": "youSeeMe",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.Sum": {
       "assembly": "jsii-calc",
       "base": {
@@ -3949,5 +3966,5 @@
     }
   },
   "version": "0.7.15",
-  "fingerprint": "IWSOEhdZzuvrss5K2WBjZCawXayV13yCAKTj/kJ9+mo="
+  "fingerprint": "73Alf0ZvqK2FlLtj23s9t2mdHy29p1KR8E8O6oLIxh4="
 }

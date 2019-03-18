@@ -1335,3 +1335,34 @@ export class Constructors {
         return new PrivateClass();
     }
 }
+
+// internal can be used to represent members that can only be accessed from the current module
+export class StripInternal {
+    public youSeeMe = 'hello';
+
+    /**
+     * This is an internal thing
+     * @internal
+     */
+    public youDontSeeMeAlthoughIamPublic = 'world'
+}
+
+/**
+ * @internal
+ */
+export class InternalClass {
+    public iAmNotHere = 'yes';
+}
+
+/**
+ * @internal
+ */
+export interface IInternalInterface { }
+
+/**
+ * @internal
+ */
+export enum InternalEnum {
+    Member1 = 12,
+    Member2 = 23
+}
