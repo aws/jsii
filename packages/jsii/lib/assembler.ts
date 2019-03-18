@@ -229,7 +229,7 @@ export class Assembler implements Emitter {
             messageText: `JSII: ${messageText}`,
             file: node != null ? node.getSourceFile() : undefined,
             start: node != null ? node.getStart() : undefined,
-            length: node != null ? node.getEnd() - node.getStart() : undefined
+            length: node != null ? node.getEnd() - node.getStart() : undefined,
         });
     }
 
@@ -614,6 +614,7 @@ export class Assembler implements Emitter {
             if ((jsiiType.methods || []).length === 0) {
                 jsiiType.datatype = true;
             }
+
             for (const base of bases) {
                 if (spec.isInterfaceType(base) && !base.datatype) {
                     jsiiType.datatype = undefined;
@@ -632,6 +633,21 @@ export class Assembler implements Emitter {
             // If the name starts with an "I" it is not intended as a datatype, so switch that off.
             if (jsiiType.datatype && interfaceName) {
                 jsiiType.datatype = undefined;
+            }
+
+            // Okay, this is a data type, check that all properties are readonly
+            if (jsiiType.datatype) {
+                for (const prop of jsiiType.properties || []) {
+                    if (!prop.immutable) {
+                        const p = type.getProperty(prop.name)!;
+                        this._diagnostic(p.valueDeclaration,
+                            ts.DiagnosticCategory.Error,
+                            `The property '${prop.name}' in data type '${jsiiType.name}' must be 'readonly' since data is passed by-value`);
+
+                        // force property to be "readonly" since jsii languages will pass this by-value
+                        prop.immutable = true;
+                    }
+                }
             }
         });
 

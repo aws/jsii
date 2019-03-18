@@ -1024,6 +1024,7 @@
       "properties": [
         {
           "abstract": true,
+          "immutable": true,
           "name": "initialValue",
           "type": {
             "optional": true,
@@ -1032,6 +1033,7 @@
         },
         {
           "abstract": true,
+          "immutable": true,
           "name": "maximumValue",
           "type": {
             "optional": true,
@@ -1052,7 +1054,7 @@
         {
           "name": "mutableObject",
           "type": {
-            "fqn": "jsii-calc.MutableObjectLiteral"
+            "fqn": "jsii-calc.IMutableObjectLiteral"
           }
         }
       ]
@@ -1065,7 +1067,7 @@
       "fqn": "jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties",
       "interfaces": [
         {
-          "fqn": "jsii-calc.InterfaceWithProperties"
+          "fqn": "jsii-calc.IInterfaceWithProperties"
         }
       ],
       "kind": "class",
@@ -1098,7 +1100,7 @@
           "immutable": true,
           "name": "readOnlyString",
           "overrides": {
-            "fqn": "jsii-calc.InterfaceWithProperties"
+            "fqn": "jsii-calc.IInterfaceWithProperties"
           },
           "type": {
             "primitive": "string"
@@ -1107,7 +1109,7 @@
         {
           "name": "readWriteString",
           "overrides": {
-            "fqn": "jsii-calc.InterfaceWithProperties"
+            "fqn": "jsii-calc.IInterfaceWithProperties"
           },
           "type": {
             "primitive": "string"
@@ -1244,6 +1246,7 @@
       "properties": [
         {
           "abstract": true,
+          "immutable": true,
           "name": "anotherRequired",
           "type": {
             "primitive": "date"
@@ -1251,6 +1254,7 @@
         },
         {
           "abstract": true,
+          "immutable": true,
           "name": "bool",
           "type": {
             "primitive": "boolean"
@@ -1261,6 +1265,7 @@
           "docs": {
             "comment": "An example of a non primitive property."
           },
+          "immutable": true,
           "name": "nonPrimitive",
           "type": {
             "fqn": "jsii-calc.DoubleTrouble"
@@ -1271,6 +1276,7 @@
           "docs": {
             "comment": "This is optional."
           },
+          "immutable": true,
           "name": "anotherOptional",
           "type": {
             "collection": {
@@ -1284,6 +1290,7 @@
         },
         {
           "abstract": true,
+          "immutable": true,
           "name": "optionalAny",
           "type": {
             "optional": true,
@@ -1292,6 +1299,7 @@
         },
         {
           "abstract": true,
+          "immutable": true,
           "name": "optionalArray",
           "type": {
             "collection": {
@@ -1516,6 +1524,7 @@
       "properties": [
         {
           "abstract": true,
+          "immutable": true,
           "name": "option1",
           "type": {
             "optional": true,
@@ -1524,6 +1533,7 @@
         },
         {
           "abstract": true,
+          "immutable": true,
           "name": "option2",
           "type": {
             "optional": true,
@@ -1781,6 +1791,64 @@
       ],
       "name": "IInterfaceWithOptionalMethodArguments"
     },
+    "jsii-calc.IInterfaceWithProperties": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.IInterfaceWithProperties",
+      "kind": "interface",
+      "name": "IInterfaceWithProperties",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "name": "readOnlyString",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "name": "readWriteString",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.IInterfaceWithPropertiesExtension": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.IInterfaceWithPropertiesExtension",
+      "interfaces": [
+        {
+          "fqn": "jsii-calc.IInterfaceWithProperties"
+        }
+      ],
+      "kind": "interface",
+      "name": "IInterfaceWithPropertiesExtension",
+      "properties": [
+        {
+          "abstract": true,
+          "name": "foo",
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
+    },
+    "jsii-calc.IMutableObjectLiteral": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.IMutableObjectLiteral",
+      "kind": "interface",
+      "name": "IMutableObjectLiteral",
+      "properties": [
+        {
+          "abstract": true,
+          "name": "value",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.IPrivatelyImplemented": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.IPrivatelyImplemented",
@@ -1870,6 +1938,7 @@
       "properties": [
         {
           "abstract": true,
+          "immutable": true,
           "name": "goo",
           "type": {
             "primitive": "date"
@@ -1938,6 +2007,7 @@
       "properties": [
         {
           "abstract": true,
+          "immutable": true,
           "name": "foo",
           "type": {
             "primitive": "number"
@@ -1955,51 +2025,7 @@
       "properties": [
         {
           "abstract": true,
-          "name": "foo",
-          "type": {
-            "primitive": "number"
-          }
-        }
-      ]
-    },
-    "jsii-calc.InterfaceWithProperties": {
-      "assembly": "jsii-calc",
-      "datatype": true,
-      "fqn": "jsii-calc.InterfaceWithProperties",
-      "kind": "interface",
-      "name": "InterfaceWithProperties",
-      "properties": [
-        {
-          "abstract": true,
           "immutable": true,
-          "name": "readOnlyString",
-          "type": {
-            "primitive": "string"
-          }
-        },
-        {
-          "abstract": true,
-          "name": "readWriteString",
-          "type": {
-            "primitive": "string"
-          }
-        }
-      ]
-    },
-    "jsii-calc.InterfaceWithPropertiesExtension": {
-      "assembly": "jsii-calc",
-      "datatype": true,
-      "fqn": "jsii-calc.InterfaceWithPropertiesExtension",
-      "interfaces": [
-        {
-          "fqn": "jsii-calc.InterfaceWithProperties"
-        }
-      ],
-      "kind": "interface",
-      "name": "InterfaceWithPropertiesExtension",
-      "properties": [
-        {
-          "abstract": true,
           "name": "foo",
           "type": {
             "primitive": "number"
@@ -2287,6 +2313,7 @@
             "comment": "The container port of the application load balancer attached to your Fargate service. Corresponds to container port mapping.",
             "default": "80"
           },
+          "immutable": true,
           "name": "containerPort",
           "type": {
             "optional": true,
@@ -2299,6 +2326,7 @@
             "comment": "The number of cpu units used by the task.\nValid values, which determines your range of valid values for the memory parameter:\n256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB\n512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB\n1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB\n2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments\n4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments\n\nThis default is set in the underlying FargateTaskDefinition construct.",
             "default": "256"
           },
+          "immutable": true,
           "name": "cpu",
           "type": {
             "optional": true,
@@ -2311,6 +2339,7 @@
             "comment": "The amount (in MiB) of memory used by the task.\n\nThis field is required and you must use one of the following values, which determines your range of valid values\nfor the cpu parameter:\n\n0.5GB, 1GB, 2GB - Available cpu values: 256 (.25 vCPU)\n\n1GB, 2GB, 3GB, 4GB - Available cpu values: 512 (.5 vCPU)\n\n2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB - Available cpu values: 1024 (1 vCPU)\n\nBetween 4GB and 16GB in 1GB increments - Available cpu values: 2048 (2 vCPU)\n\nBetween 8GB and 30GB in 1GB increments - Available cpu values: 4096 (4 vCPU)\n\nThis default is set in the underlying FargateTaskDefinition construct.",
             "default": "512"
           },
+          "immutable": true,
           "name": "memoryMiB",
           "type": {
             "optional": true,
@@ -2323,6 +2352,7 @@
             "comment": "Determines whether the Application Load Balancer will be internet-facing",
             "default": "true"
           },
+          "immutable": true,
           "name": "publicLoadBalancer",
           "type": {
             "optional": true,
@@ -2335,6 +2365,7 @@
             "comment": "Determines whether your Fargate Service will be assigned a public IP address.",
             "default": "false"
           },
+          "immutable": true,
           "name": "publicTasks",
           "type": {
             "optional": true,
@@ -2450,22 +2481,6 @@
           },
           "type": {
             "primitive": "number"
-          }
-        }
-      ]
-    },
-    "jsii-calc.MutableObjectLiteral": {
-      "assembly": "jsii-calc",
-      "datatype": true,
-      "fqn": "jsii-calc.MutableObjectLiteral",
-      "kind": "interface",
-      "name": "MutableObjectLiteral",
-      "properties": [
-        {
-          "abstract": true,
-          "name": "value",
-          "type": {
-            "primitive": "string"
           }
         }
       ]
@@ -2693,6 +2708,7 @@
       "properties": [
         {
           "abstract": true,
+          "immutable": true,
           "name": "arrayWithThreeElementsAndUndefinedAsSecondArgument",
           "type": {
             "collection": {
@@ -2705,6 +2721,7 @@
         },
         {
           "abstract": true,
+          "immutable": true,
           "name": "thisShouldBeUndefined",
           "type": {
             "optional": true,
@@ -3652,6 +3669,7 @@
         },
         {
           "abstract": true,
+          "immutable": true,
           "name": "foo",
           "type": {
             "optional": true,
@@ -3715,7 +3733,7 @@
           {
             "name": "obj",
             "type": {
-              "fqn": "jsii-calc.InterfaceWithProperties"
+              "fqn": "jsii-calc.IInterfaceWithProperties"
             }
           }
         ]
@@ -3734,7 +3752,7 @@
             {
               "name": "ext",
               "type": {
-                "fqn": "jsii-calc.InterfaceWithPropertiesExtension"
+                "fqn": "jsii-calc.IInterfaceWithPropertiesExtension"
               }
             }
           ],
@@ -3763,7 +3781,7 @@
           "immutable": true,
           "name": "obj",
           "type": {
-            "fqn": "jsii-calc.InterfaceWithProperties"
+            "fqn": "jsii-calc.IInterfaceWithProperties"
           }
         }
       ]
@@ -4029,5 +4047,5 @@
     }
   },
   "version": "0.7.15",
-  "fingerprint": "DXEqEDn4p/1Rc0OVCrsby4jumnxo9mWqSNF9sb/laGU="
+  "fingerprint": "st+vjGuZxL7g/PpRsjxjyLo4wYgSBVL74jjEqSq9Cn8="
 }

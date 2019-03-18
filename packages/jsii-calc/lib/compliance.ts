@@ -506,15 +506,15 @@ export interface DerivedStruct extends MyFirstStruct {
     /**
      * An example of a non primitive property.
      */
-    nonPrimitive: DoubleTrouble
-    bool: boolean
-    anotherRequired: Date
-    optionalArray?: string[]
-    optionalAny?: any
+    readonly nonPrimitive: DoubleTrouble
+    readonly bool: boolean
+    readonly anotherRequired: Date
+    readonly optionalArray?: string[]
+    readonly optionalAny?: any
     /**
      * This is optional.
      */
-    anotherOptional?: { [key: string]: Value }
+    readonly anotherOptional?: { [key: string]: Value }
 }
 
 export class GiveMeStructs {
@@ -547,17 +547,17 @@ export class GiveMeStructs {
     }
 }
 
-export interface InterfaceWithProperties {
+export interface IInterfaceWithProperties {
     readonly readOnlyString: string;
     readWriteString: string;
 }
 
-export interface InterfaceWithPropertiesExtension extends InterfaceWithProperties {
+export interface IInterfaceWithPropertiesExtension extends IInterfaceWithProperties {
     foo: number;
 }
 
 export class UsesInterfaceWithProperties {
-    constructor(public readonly obj: InterfaceWithProperties) {
+    constructor(public readonly obj: IInterfaceWithProperties) {
 
     }
 
@@ -570,7 +570,7 @@ export class UsesInterfaceWithProperties {
         return this.obj.readWriteString;
     }
 
-    public readStringAndNumber(ext: InterfaceWithPropertiesExtension) {
+    public readStringAndNumber(ext: IInterfaceWithPropertiesExtension) {
         return `base=${ext.readOnlyString} child=${ext.foo} keys=[${Object.keys(ext).join(',')}]`;
     }
 }
@@ -924,7 +924,7 @@ export class PythonReservedWords {
 }
 
 export interface UnionProperties {
-    foo?: string | number;
+    readonly foo?: string | number;
     readonly bar: AllTypes | string | number;
 }
 
@@ -986,7 +986,7 @@ export class UseCalcBase {
 }
 
 export interface ImplictBaseOfBase extends base.BaseProps {
-    goo: Date;
+    readonly goo: Date;
 }
 
 /**
@@ -1012,7 +1012,7 @@ export namespace InterfaceInNamespaceOnlyInterface {
 
     // it's a special case when only an interface is exported from a namespace
     export interface Hello {
-        foo: number
+        readonly foo: number
     }
 
 }
@@ -1024,7 +1024,7 @@ export namespace InterfaceInNamespaceIncludesClasses {
     }
 
     export interface Hello {
-        foo: number
+        readonly foo: number
     }
 }
 
@@ -1087,12 +1087,12 @@ export class AbstractClassReturner {
     }
 }
 
-export interface MutableObjectLiteral {
+export interface IMutableObjectLiteral {
     value: string;
 }
 
 export class ClassWithMutableObjectLiteralProperty {
-    public mutableObject: MutableObjectLiteral = { value: 'default' };
+    public mutableObject: IMutableObjectLiteral = { value: 'default' };
 }
 
 export class DoNotOverridePrivates {
@@ -1118,7 +1118,7 @@ export class DoNotOverridePrivates {
 /**
  * Class that implements interface properties automatically, but using a private constructor
  */
-export class ClassWithPrivateConstructorAndAutomaticProperties implements InterfaceWithProperties {
+export class ClassWithPrivateConstructorAndAutomaticProperties implements IInterfaceWithProperties {
     public static create(readOnlyString: string, readWriteString: string) {
         return new ClassWithPrivateConstructorAndAutomaticProperties(readOnlyString, readWriteString);
     }
@@ -1191,8 +1191,8 @@ export class NullShouldBeTreatedAsUndefined {
 }
 
 export interface NullShouldBeTreatedAsUndefinedData {
-    thisShouldBeUndefined?: any;
-    arrayWithThreeElementsAndUndefinedAsSecondArgument: any[];
+    readonly thisShouldBeUndefined?: any;
+    readonly arrayWithThreeElementsAndUndefinedAsSecondArgument: any[];
 }
 
 export class DontComplainAboutVariadicAfterOptional {
@@ -1218,7 +1218,7 @@ export interface LoadBalancedFargateServiceProps {
      *
      * @default 256
      */
-    cpu?: string;
+    readonly cpu?: string;
 
     /**
      * The amount (in MiB) of memory used by the task.
@@ -1240,28 +1240,28 @@ export interface LoadBalancedFargateServiceProps {
      *
      * @default 512
      */
-    memoryMiB?: string;
+    readonly memoryMiB?: string;
 
     /**
      * The container port of the application load balancer attached to your Fargate service. Corresponds to container port mapping.
      *
      * @default 80
      */
-    containerPort?: number;
+    readonly containerPort?: number;
 
     /**
      * Determines whether the Application Load Balancer will be internet-facing
      *
      * @default true
      */
-    publicLoadBalancer?: boolean;
+    readonly publicLoadBalancer?: boolean;
 
     /**
      * Determines whether your Fargate Service will be assigned a public IP address.
      *
      * @default false
      */
-    publicTasks?: boolean;
+    readonly publicTasks?: boolean;
 }
 
 /**
@@ -1339,8 +1339,8 @@ export class Constructors {
 // fixture to verify that null/undefined values in object hashes are treated
 // as "unset". see awslabs/aws-cdk#965.
 export interface EraseUndefinedHashValuesOptions {
-    option1?: string;
-    option2?: string;
+    readonly option1?: string;
+    readonly option2?: string;
 }
 
 export class EraseUndefinedHashValues {

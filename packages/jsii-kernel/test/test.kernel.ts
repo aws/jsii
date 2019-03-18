@@ -204,17 +204,11 @@ defineTest('set for a readonly property', async (test, sandbox) => {
 
 defineTest('create object with ctor overloads', async (_test, sandbox) => {
     sandbox.create({ fqn: 'jsii-calc.Calculator' });
-
-    const calcprops = sandbox.create({ fqn: 'jsii-calc.CalculatorProps', args: [ ] });
-    sandbox.set({ objref: calcprops, property: 'initialValue', value: 100 });
-    sandbox.create({ fqn: 'jsii-calc.Calculator', args: [ calcprops ] });
+    sandbox.create({ fqn: 'jsii-calc.Calculator', args: [ { initialValue: 100 } ] });
 });
 
 defineTest('objects created inside the sandbox are returned with type info and new objid', async (test, sandbox) => {
-    const calcprops = sandbox.create({ fqn: 'jsii-calc.CalculatorProps' });
-    sandbox.set({ objref: calcprops, property: 'initialValue', value: 100 });
-
-    const calc = sandbox.create({ fqn: 'jsii-calc.Calculator', args: [ calcprops ] });
+    const calc = sandbox.create({ fqn: 'jsii-calc.Calculator', args: [ { initialValue: 100} ] });
     sandbox.invoke({ objref: calc, method: 'add', args: [ 50 ] });
 
     const add = sandbox.get({ objref: calc, property: 'curr' }).value;

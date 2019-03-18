@@ -460,7 +460,7 @@ export class Kernel {
                 return this._findSymbol(fqn);
 
             case spec.TypeKind.Interface:
-                return Object;
+                throw new Error(`Cannot create an object with an FQN of an interface: ${fqn}`);
 
             default:
                 throw new Error(`Unexpected FQN kind: ${fqn}`);
