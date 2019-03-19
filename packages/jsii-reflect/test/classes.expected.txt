@@ -48,6 +48,7 @@ ReferenceEnumFromScopedPackage
 ReturnsPrivateImplementationOfInterface
 RuntimeTypeChecking
 Statics
+StripInternal
 Sum
 SyncVirtualMethods
 Thrower

@@ -62,6 +62,7 @@ assemblies
  │   ├── class ReturnsPrivateImplementationOfInterface
  │   ├── class RuntimeTypeChecking
  │   ├── class Statics
+ │   ├── class StripInternal
  │   ├─┬ class Sum
  │   │ └── base: CompositeOperation
  │   ├── class SyncVirtualMethods

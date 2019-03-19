@@ -47,6 +47,7 @@ assemblies
  │   ├── class ReturnsPrivateImplementationOfInterface
  │   ├── class RuntimeTypeChecking
  │   ├── class Statics
+ │   ├── class StripInternal
  │   ├── class Sum
  │   ├── class SyncVirtualMethods
  │   ├── class Thrower

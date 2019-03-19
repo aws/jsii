@@ -356,6 +356,10 @@ assemblies
  │   │   ├── instance property
  │   │   ├── nonConstStatic property
  │   │   └── value property
+ │   ├─┬ class StripInternal
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── youSeeMe property
  │   ├─┬ class Sum
  │   │ └─┬ members
  │   │   ├── <initializer>() method

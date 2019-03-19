@@ -856,6 +856,12 @@ assemblies
  │   │   └─┬ value property
  │   │     ├── immutable
  │   │     └── type: primitive:string
+ │   ├─┬ class StripInternal
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>() method
+ │   │   │ └── returns: void
+ │   │   └─┬ youSeeMe property
+ │   │     └── type: primitive:string
  │   ├─┬ class Sum
  │   │ ├── base: CompositeOperation
  │   │ └─┬ members
