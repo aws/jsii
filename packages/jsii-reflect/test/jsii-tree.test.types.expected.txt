@@ -11,9 +11,12 @@ assemblies
  │   ├── class AugmentableClass
  │   ├── class BinaryOperation
  │   ├── class Calculator
+ │   ├── class ClassThatImplementsTheInternalInterface
+ │   ├── class ClassThatImplementsThePrivateInterface
  │   ├── class ClassWithMutableObjectLiteralProperty
  │   ├── class ClassWithPrivateConstructorAndAutomaticProperties
  │   ├── class Constructors
+ │   ├── class ConsumersOfThisCrazyTypeSystem
  │   ├── class DefaultedConstructorArgument
  │   ├── class Base
  │   ├── class Derived
@@ -66,12 +69,14 @@ assemblies
  │   ├── interface DerivedStruct
  │   ├── interface ExtendsInternalInterface
  │   ├── interface ExtendsPrivateInterface
+ │   ├── interface IAnotherPublicInterface
  │   ├── interface IFriendlier
  │   ├── interface IFriendlyRandomGenerator
  │   ├── interface IInterfaceThatShouldNotBeADataType
  │   ├── interface IInterfaceWithInternal
  │   ├── interface IInterfaceWithMethods
  │   ├── interface IInterfaceWithOptionalMethodArguments
+ │   ├── interface INonInternalInterface
  │   ├── interface IPrivatelyImplemented
  │   ├── interface IPublicInterface
  │   ├── interface IRandomNumberGenerator

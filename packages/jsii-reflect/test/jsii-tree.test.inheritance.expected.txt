@@ -17,10 +17,15 @@ assemblies
  │   │ └── interfaces: IFriendly
  │   ├─┬ class Calculator
  │   │ └── base: CompositeOperation
+ │   ├─┬ class ClassThatImplementsTheInternalInterface
+ │   │ └── interfaces: INonInternalInterface
+ │   ├─┬ class ClassThatImplementsThePrivateInterface
+ │   │ └── interfaces: INonInternalInterface
  │   ├── class ClassWithMutableObjectLiteralProperty
  │   ├─┬ class ClassWithPrivateConstructorAndAutomaticProperties
  │   │ └── interfaces: InterfaceWithProperties
  │   ├── class Constructors
+ │   ├── class ConsumersOfThisCrazyTypeSystem
  │   ├── class DefaultedConstructorArgument
  │   ├── class Base
  │   ├─┬ class Derived
@@ -88,6 +93,7 @@ assemblies
  │   │   └── MyFirstStruct
  │   ├── interface ExtendsInternalInterface
  │   ├── interface ExtendsPrivateInterface
+ │   ├── interface IAnotherPublicInterface
  │   ├─┬ interface IFriendlier
  │   │ └─┬ interfaces
  │   │   └── IFriendly
@@ -101,6 +107,9 @@ assemblies
  │   ├── interface IInterfaceWithInternal
  │   ├── interface IInterfaceWithMethods
  │   ├── interface IInterfaceWithOptionalMethodArguments
+ │   ├─┬ interface INonInternalInterface
+ │   │ └─┬ interfaces
+ │   │   └── IAnotherPublicInterface
  │   ├── interface IPrivatelyImplemented
  │   ├── interface IPublicInterface
  │   ├── interface IRandomNumberGenerator

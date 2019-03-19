@@ -1,4 +1,4 @@
-///!MATCH_ERROR: Implements clause of jsii.TryingToImplementClass uses jsii.NotAnInterface as an interface
+///!MATCH_ERROR: Inheritance clause of jsii.TryingToImplementClass uses jsii.NotAnInterface as an interface
 
 export class NotAnInterface {
     public meaningOfTheUniverse() {
