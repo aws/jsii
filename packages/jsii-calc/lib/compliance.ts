@@ -1372,3 +1372,92 @@ export class EraseUndefinedHashValues {
         };
     }
 }
+
+// internal can be used to represent members that can only be accessed from the current module
+export class StripInternal {
+    public youSeeMe = 'hello';
+
+    /**
+     * This is an internal thing
+     * @internal
+     */
+    public _youDontSeeMeAlthoughIamPublic = 'world'
+}
+
+/**
+ * @internal
+ */
+export class InternalClass {
+    public iAmNotHere = 'yes';
+}
+
+/**
+ * @internal
+ */
+export interface IInternalInterface {
+    prop: string;
+}
+
+/**
+ * @internal
+ */
+export enum InternalEnum {
+    Member1 = 12,
+    Member2 = 23
+}
+
+export interface IInterfaceWithInternal {
+    visible(): void;
+
+    /** @internal */
+    _hidden(): void;
+}
+
+export class ImplementsInterfaceWithInternal implements IInterfaceWithInternal {
+    visible() { }
+
+    /** @internal */
+    _hidden() { }
+
+    /** @internal */
+    _alsoHidden() { }
+
+    /** @internal */
+    _propertiesToo?: string;
+}
+
+export class ImplementsInterfaceWithInternalSubclass extends ImplementsInterfaceWithInternal {
+    /** @internal */
+    _alsoHidden() { }
+
+    /**
+     * @internal
+     */
+    public _propertiesToo?: string;
+}
+
+//
+// hidden interface erasure
+// if a class/interface uses a hidden (private/internal) interface as base, the base will
+// be erased from the API
+//
+
+interface IPrivateInterface {
+    private: string;
+}
+
+export interface ExtendsInternalInterface extends IInternalInterface {
+    readonly boom: boolean
+}
+
+export class ImplementInternalInterface implements IInternalInterface {
+    prop = 'implement me'
+}
+
+export class ImplementsPrivateInterface implements IPrivateInterface {
+    public private = 'i came from private into the light'
+}
+
+export interface ExtendsPrivateInterface extends IPrivateInterface {
+    readonly moreThings: string[];
+}

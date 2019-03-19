@@ -153,6 +153,21 @@ assemblies
  │   │ └─┬ members
  │   │   ├── <initializer>() method
  │   │   └── betterGreeting(friendly) method
+ │   ├─┬ class ImplementInternalInterface
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── prop property
+ │   ├─┬ class ImplementsInterfaceWithInternal
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── visible() method
+ │   ├─┬ class ImplementsInterfaceWithInternalSubclass
+ │   │ └─┬ members
+ │   │   └── <initializer>() method
+ │   ├─┬ class ImplementsPrivateInterface
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── private property
  │   ├─┬ class InbetweenClass
  │   │ └─┬ members
  │   │   └── <initializer>() method
@@ -362,6 +377,10 @@ assemblies
  │   │   ├── instance property
  │   │   ├── nonConstStatic property
  │   │   └── value property
+ │   ├─┬ class StripInternal
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── youSeeMe property
  │   ├─┬ class Sum
  │   │ └─┬ members
  │   │   ├── <initializer>() method
@@ -442,10 +461,19 @@ assemblies
  │   │   ├── anotherOptional property
  │   │   ├── optionalAny property
  │   │   └── optionalArray property
+<<<<<<< HEAD
  │   ├─┬ interface EraseUndefinedHashValuesOptions
  │   │ └─┬ members
  │   │   ├── option1 property
  │   │   └── option2 property
+=======
+ │   ├─┬ interface ExtendsInternalInterface
+ │   │ └─┬ members
+ │   │   └── boom property
+ │   ├─┬ interface ExtendsPrivateInterface
+ │   │ └─┬ members
+ │   │   └── moreThings property
+>>>>>>> origin/master
  │   ├─┬ interface IFriendlier
  │   │ └─┬ members
  │   │   ├── farewell() method
@@ -455,6 +483,9 @@ assemblies
  │   ├─┬ interface IInterfaceThatShouldNotBeADataType
  │   │ └─┬ members
  │   │   └── otherValue property
+ │   ├─┬ interface IInterfaceWithInternal
+ │   │ └─┬ members
+ │   │   └── visible() method
  │   ├─┬ interface IInterfaceWithMethods
  │   │ └─┬ members
  │   │   ├── doThings() method

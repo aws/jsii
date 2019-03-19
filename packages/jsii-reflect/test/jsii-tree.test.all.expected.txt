@@ -393,6 +393,30 @@ assemblies
  │   │     │ └─┬ friendly
  │   │     │   └── type: interface:@scope/jsii-calc-lib.IFriendly
  │   │     └── returns: primitive:string
+ │   ├─┬ class ImplementInternalInterface
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>() method
+ │   │   │ └── returns: void
+ │   │   └─┬ prop property
+ │   │     └── type: primitive:string
+ │   ├─┬ class ImplementsInterfaceWithInternal
+ │   │ ├── interfaces: IInterfaceWithInternal
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>() method
+ │   │   │ └── returns: void
+ │   │   └─┬ visible() method
+ │   │     └── returns: void
+ │   ├─┬ class ImplementsInterfaceWithInternalSubclass
+ │   │ ├── base: ImplementsInterfaceWithInternal
+ │   │ └─┬ members
+ │   │   └─┬ <initializer>() method
+ │   │     └── returns: void
+ │   ├─┬ class ImplementsPrivateInterface
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>() method
+ │   │   │ └── returns: void
+ │   │   └─┬ private property
+ │   │     └── type: primitive:string
  │   ├─┬ class InbetweenClass
  │   │ ├── base: PublicClass
  │   │ └─┬ members
@@ -874,6 +898,12 @@ assemblies
  │   │   └─┬ value property
  │   │     ├── immutable
  │   │     └── type: primitive:string
+ │   ├─┬ class StripInternal
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>() method
+ │   │   │ └── returns: void
+ │   │   └─┬ youSeeMe property
+ │   │     └── type: primitive:string
  │   ├─┬ class Sum
  │   │ ├── base: CompositeOperation
  │   │ └─┬ members
@@ -1089,6 +1119,7 @@ assemblies
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Array<primitive:string>
+<<<<<<< HEAD
  │   ├─┬ interface EraseUndefinedHashValuesOptions
  │   │ └─┬ members
  │   │   ├─┬ option1 property
@@ -1099,6 +1130,18 @@ assemblies
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: primitive:string (optional)
+=======
+ │   ├─┬ interface ExtendsInternalInterface
+ │   │ └─┬ members
+ │   │   └─┬ boom property
+ │   │     ├── abstract
+ │   │     └── type: primitive:boolean
+ │   ├─┬ interface ExtendsPrivateInterface
+ │   │ └─┬ members
+ │   │   └─┬ moreThings property
+ │   │     ├── abstract
+ │   │     └── type: Array<primitive:string>
+>>>>>>> origin/master
  │   ├─┬ interface IFriendlier
  │   │ ├─┬ interfaces
  │   │ │ └── IFriendly
@@ -1122,6 +1165,11 @@ assemblies
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: primitive:string
+ │   ├─┬ interface IInterfaceWithInternal
+ │   │ └─┬ members
+ │   │   └─┬ visible() method
+ │   │     ├── abstract
+ │   │     └── returns: void
  │   ├─┬ interface IInterfaceWithMethods
  │   │ └─┬ members
  │   │   ├─┬ doThings() method

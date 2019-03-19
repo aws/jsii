@@ -25,6 +25,10 @@ assemblies
  │   ├── class ExportedBaseClass
  │   ├── class GiveMeStructs
  │   ├── class GreetingAugmenter
+ │   ├── class ImplementInternalInterface
+ │   ├── class ImplementsInterfaceWithInternal
+ │   ├── class ImplementsInterfaceWithInternalSubclass
+ │   ├── class ImplementsPrivateInterface
  │   ├── class InbetweenClass
  │   ├── class Foo
  │   ├── class JSObjectLiteralForInterface
@@ -48,6 +52,7 @@ assemblies
  │   ├── class ReturnsPrivateImplementationOfInterface
  │   ├── class RuntimeTypeChecking
  │   ├── class Statics
+ │   ├── class StripInternal
  │   ├── class Sum
  │   ├── class SyncVirtualMethods
  │   ├── class Thrower
@@ -60,10 +65,16 @@ assemblies
  │   ├── class CompositeOperation
  │   ├── interface CalculatorProps
  │   ├── interface DerivedStruct
+<<<<<<< HEAD
  │   ├── interface EraseUndefinedHashValuesOptions
+=======
+ │   ├── interface ExtendsInternalInterface
+ │   ├── interface ExtendsPrivateInterface
+>>>>>>> origin/master
  │   ├── interface IFriendlier
  │   ├── interface IFriendlyRandomGenerator
  │   ├── interface IInterfaceThatShouldNotBeADataType
+ │   ├── interface IInterfaceWithInternal
  │   ├── interface IInterfaceWithMethods
  │   ├── interface IInterfaceWithOptionalMethodArguments
  │   ├── interface IInterfaceWithProperties

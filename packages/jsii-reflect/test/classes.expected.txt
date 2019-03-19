@@ -25,6 +25,10 @@ ExportedBaseClass
 Foo
 GiveMeStructs
 GreetingAugmenter
+ImplementInternalInterface
+ImplementsInterfaceWithInternal
+ImplementsInterfaceWithInternalSubclass
+ImplementsPrivateInterface
 InbetweenClass
 JSObjectLiteralForInterface
 JSObjectLiteralToNative
@@ -49,6 +53,7 @@ ReferenceEnumFromScopedPackage
 ReturnsPrivateImplementationOfInterface
 RuntimeTypeChecking
 Statics
+StripInternal
 Sum
 SyncVirtualMethods
 Thrower

@@ -34,6 +34,12 @@ assemblies
  │   ├── class ExportedBaseClass
  │   ├── class GiveMeStructs
  │   ├── class GreetingAugmenter
+ │   ├── class ImplementInternalInterface
+ │   ├─┬ class ImplementsInterfaceWithInternal
+ │   │ └── interfaces: IInterfaceWithInternal
+ │   ├─┬ class ImplementsInterfaceWithInternalSubclass
+ │   │ └── base: ImplementsInterfaceWithInternal
+ │   ├── class ImplementsPrivateInterface
  │   ├─┬ class InbetweenClass
  │   │ └── base: PublicClass
  │   ├── class Foo
@@ -63,6 +69,7 @@ assemblies
  │   ├── class ReturnsPrivateImplementationOfInterface
  │   ├── class RuntimeTypeChecking
  │   ├── class Statics
+ │   ├── class StripInternal
  │   ├─┬ class Sum
  │   │ └── base: CompositeOperation
  │   ├── class SyncVirtualMethods
@@ -80,7 +87,12 @@ assemblies
  │   ├─┬ interface DerivedStruct
  │   │ └─┬ interfaces
  │   │   └── MyFirstStruct
+<<<<<<< HEAD
  │   ├── interface EraseUndefinedHashValuesOptions
+=======
+ │   ├── interface ExtendsInternalInterface
+ │   ├── interface ExtendsPrivateInterface
+>>>>>>> origin/master
  │   ├─┬ interface IFriendlier
  │   │ └─┬ interfaces
  │   │   └── IFriendly
@@ -91,6 +103,7 @@ assemblies
  │   ├─┬ interface IInterfaceThatShouldNotBeADataType
  │   │ └─┬ interfaces
  │   │   └── IInterfaceWithMethods
+ │   ├── interface IInterfaceWithInternal
  │   ├── interface IInterfaceWithMethods
  │   ├── interface IInterfaceWithOptionalMethodArguments
  │   ├── interface IInterfaceWithProperties
