@@ -29,6 +29,7 @@ const COMPILER_OPTIONS: ts.CompilerOptions = {
     strict: true,
     strictNullChecks: true,
     strictPropertyInitialization: false,
+    stripInternal: true,
     target: ts.ScriptTarget.ES2018
 };
 

@@ -1478,6 +1478,43 @@
         }
       ]
     },
+    "jsii-calc.ExtendsInternalInterface": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "fqn": "jsii-calc.ExtendsInternalInterface",
+      "kind": "interface",
+      "name": "ExtendsInternalInterface",
+      "properties": [
+        {
+          "abstract": true,
+          "name": "boom",
+          "type": {
+            "primitive": "boolean"
+          }
+        }
+      ]
+    },
+    "jsii-calc.ExtendsPrivateInterface": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "fqn": "jsii-calc.ExtendsPrivateInterface",
+      "kind": "interface",
+      "name": "ExtendsPrivateInterface",
+      "properties": [
+        {
+          "abstract": true,
+          "name": "moreThings",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "primitive": "string"
+              },
+              "kind": "array"
+            }
+          }
+        }
+      ]
+    },
     "jsii-calc.GiveMeStructs": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.GiveMeStructs",
@@ -1649,6 +1686,18 @@
         }
       ]
     },
+    "jsii-calc.IInterfaceWithInternal": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.IInterfaceWithInternal",
+      "kind": "interface",
+      "methods": [
+        {
+          "abstract": true,
+          "name": "visible"
+        }
+      ],
+      "name": "IInterfaceWithInternal"
+    },
     "jsii-calc.IInterfaceWithMethods": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.IInterfaceWithMethods",
@@ -1772,6 +1821,74 @@
           "name": "numberProp",
           "type": {
             "fqn": "@scope/jsii-calc-lib.Number"
+          }
+        }
+      ]
+    },
+    "jsii-calc.ImplementInternalInterface": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.ImplementInternalInterface",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "name": "ImplementInternalInterface",
+      "properties": [
+        {
+          "name": "prop",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.ImplementsInterfaceWithInternal": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.ImplementsInterfaceWithInternal",
+      "initializer": {
+        "initializer": true
+      },
+      "interfaces": [
+        {
+          "fqn": "jsii-calc.IInterfaceWithInternal"
+        }
+      ],
+      "kind": "class",
+      "methods": [
+        {
+          "name": "visible",
+          "overrides": {
+            "fqn": "jsii-calc.IInterfaceWithInternal"
+          }
+        }
+      ],
+      "name": "ImplementsInterfaceWithInternal"
+    },
+    "jsii-calc.ImplementsInterfaceWithInternalSubclass": {
+      "assembly": "jsii-calc",
+      "base": {
+        "fqn": "jsii-calc.ImplementsInterfaceWithInternal"
+      },
+      "fqn": "jsii-calc.ImplementsInterfaceWithInternalSubclass",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "name": "ImplementsInterfaceWithInternalSubclass"
+    },
+    "jsii-calc.ImplementsPrivateInterface": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.ImplementsPrivateInterface",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "name": "ImplementsPrivateInterface",
+      "properties": [
+        {
+          "name": "private",
+          "type": {
+            "primitive": "string"
           }
         }
       ]
@@ -3318,6 +3435,23 @@
       ],
       "name": "StringEnum"
     },
+    "jsii-calc.StripInternal": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.StripInternal",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "name": "StripInternal",
+      "properties": [
+        {
+          "name": "youSeeMe",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.Sum": {
       "assembly": "jsii-calc",
       "base": {
@@ -3949,5 +4083,5 @@
     }
   },
   "version": "0.7.15",
-  "fingerprint": "IWSOEhdZzuvrss5K2WBjZCawXayV13yCAKTj/kJ9+mo="
+  "fingerprint": "iMxRj3lsHKNzSiBrjCyBH6Pp7Uvo+1Sxh/jN3hW+3nA="
 }
