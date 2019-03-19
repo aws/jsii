@@ -1344,7 +1344,7 @@ export class StripInternal {
      * This is an internal thing
      * @internal
      */
-    public youDontSeeMeAlthoughIamPublic = 'world'
+    public _youDontSeeMeAlthoughIamPublic = 'world'
 }
 
 /**
@@ -1357,7 +1357,9 @@ export class InternalClass {
 /**
  * @internal
  */
-export interface IInternalInterface { }
+export interface IInternalInterface {
+    prop: string;
+}
 
 /**
  * @internal
@@ -1365,4 +1367,60 @@ export interface IInternalInterface { }
 export enum InternalEnum {
     Member1 = 12,
     Member2 = 23
+}
+
+export interface IInterfaceWithInternal {
+    visible(): void;
+
+    /** @internal */
+    _hidden(): void;
+}
+
+export class ImplementsInterfaceWithInternal implements IInterfaceWithInternal {
+    visible() { }
+
+    /** @internal */
+    _hidden() { }
+
+    /** @internal */
+    _alsoHidden() { }
+
+    /** @internal */
+    _propertiesToo?: string;
+}
+
+export class ImplementsInterfaceWithInternalSubclass extends ImplementsInterfaceWithInternal {
+    /** @internal */
+    _alsoHidden() { }
+
+    /**
+     * @internal
+     */
+    public _propertiesToo?: string;
+}
+
+//
+// hidden interface erasure
+// if a class/interface uses a hidden (private/internal) interface as base, the base will
+// be erased from the API
+//
+
+interface IPrivateInterface {
+    private: string;
+}
+
+export interface ExtendsInternalInterface extends IInternalInterface {
+    boom: boolean
+}
+
+export class ImplementInternalInterface implements IInternalInterface {
+    prop = 'implement me'
+}
+
+export class ImplementsPrivateInterface implements IPrivateInterface {
+    public private = 'i came from private into the light'
+}
+
+export interface ExtendsPrivateInterface extends IPrivateInterface {
+    moreThings: string[];
 }
