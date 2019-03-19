@@ -17,10 +17,15 @@ assemblies
  │   │ └── interfaces: IFriendly
  │   ├─┬ class Calculator
  │   │ └── base: CompositeOperation
+ │   ├─┬ class ClassThatImplementsTheInternalInterface
+ │   │ └── interfaces: INonInternalInterface
+ │   ├─┬ class ClassThatImplementsThePrivateInterface
+ │   │ └── interfaces: INonInternalInterface
  │   ├── class ClassWithMutableObjectLiteralProperty
  │   ├─┬ class ClassWithPrivateConstructorAndAutomaticProperties
  │   │ └── interfaces: InterfaceWithProperties
  │   ├── class Constructors
+ │   ├── class ConsumersOfThisCrazyTypeSystem
  │   ├── class DefaultedConstructorArgument
  │   ├── class Base
  │   ├─┬ class Derived
@@ -33,6 +38,12 @@ assemblies
  │   ├── class ExportedBaseClass
  │   ├── class GiveMeStructs
  │   ├── class GreetingAugmenter
+ │   ├── class ImplementInternalInterface
+ │   ├─┬ class ImplementsInterfaceWithInternal
+ │   │ └── interfaces: IInterfaceWithInternal
+ │   ├─┬ class ImplementsInterfaceWithInternalSubclass
+ │   │ └── base: ImplementsInterfaceWithInternal
+ │   ├── class ImplementsPrivateInterface
  │   ├─┬ class InbetweenClass
  │   │ └── base: PublicClass
  │   ├── class Foo
@@ -62,6 +73,7 @@ assemblies
  │   ├── class ReturnsPrivateImplementationOfInterface
  │   ├── class RuntimeTypeChecking
  │   ├── class Statics
+ │   ├── class StripInternal
  │   ├─┬ class Sum
  │   │ └── base: CompositeOperation
  │   ├── class SyncVirtualMethods
@@ -79,6 +91,9 @@ assemblies
  │   ├─┬ interface DerivedStruct
  │   │ └─┬ interfaces
  │   │   └── MyFirstStruct
+ │   ├── interface ExtendsInternalInterface
+ │   ├── interface ExtendsPrivateInterface
+ │   ├── interface IAnotherPublicInterface
  │   ├─┬ interface IFriendlier
  │   │ └─┬ interfaces
  │   │   └── IFriendly
@@ -89,8 +104,12 @@ assemblies
  │   ├─┬ interface IInterfaceThatShouldNotBeADataType
  │   │ └─┬ interfaces
  │   │   └── IInterfaceWithMethods
+ │   ├── interface IInterfaceWithInternal
  │   ├── interface IInterfaceWithMethods
  │   ├── interface IInterfaceWithOptionalMethodArguments
+ │   ├─┬ interface INonInternalInterface
+ │   │ └─┬ interfaces
+ │   │   └── IAnotherPublicInterface
  │   ├── interface IPrivatelyImplemented
  │   ├── interface IPublicInterface
  │   ├── interface IRandomNumberGenerator

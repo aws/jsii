@@ -42,6 +42,14 @@ from jsii._kernel.types import (
     StaticGetRequest,
     StaticInvokeRequest,
     StaticSetRequest,
+    BeginRequest,
+    BeginResponse,
+    EndRequest,
+    EndResponse,
+    CallbacksRequest,
+    CallbacksResponse,
+    CompleteRequest,
+    CompleteResponse,
     StatsRequest,
     StatsResponse,
     Callback,
@@ -194,6 +202,21 @@ class _NodeProcess:
         self._serializer.register_unstructure_hook(
             StaticInvokeRequest,
             _with_api_key("sinvoke", self._serializer.unstructure_attrs_asdict),
+        )
+        self._serializer.register_unstructure_hook(
+            BeginRequest,
+            _with_api_key("begin", self._serializer.unstructure_attrs_asdict),
+        )
+        self._serializer.register_unstructure_hook(
+            EndRequest, _with_api_key("end", self._serializer.unstructure_attrs_asdict)
+        )
+        self._serializer.register_unstructure_hook(
+            CallbacksRequest,
+            _with_api_key("callbacks", self._serializer.unstructure_attrs_asdict),
+        )
+        self._serializer.register_unstructure_hook(
+            CompleteRequest,
+            _with_api_key("complete", self._serializer.unstructure_attrs_asdict),
         )
         self._serializer.register_unstructure_hook(
             StatsRequest,
@@ -353,8 +376,20 @@ class ProcessProvider(BaseProvider):
     def delete(self, request: DeleteRequest) -> DeleteResponse:
         return self._process.send(request, DeleteResponse)
 
-    def complete(self, request: CompleteRequest) -> Union[InvokeResponse, GetResponse]:
-        return self._process.send(_CompleteRequest(complete=request), InvokeResponse)
+    # def complete(self, request: CompleteRequest) -> Union[InvokeResponse, GetResponse]:
+    #     return self._process.send(_CompleteRequest(complete=request), InvokeResponse)
+    
+    def begin(self, request: BeginRequest) -> BeginResponse:
+        return self._process.send(request, BeginResponse)
+
+    def end(self, request: EndRequest) -> EndResponse:
+        return self._process.send(request, EndResponse)
+
+    def callbacks(self, request: CallbacksRequest) -> CallbacksResponse:
+        return self._process.send(request, CallbacksResponse)
+
+    def complete(self, request: CompleteRequest) -> CompleteResponse:
+        return self._process.send(request, CompleteResponse)
 
     def stats(self, request: Optional[StatsRequest] = None) -> StatsResponse:
         if request is None:

@@ -11,7 +11,7 @@ import { Diagnostic, Emitter } from './emitter';
 import literate = require('./literate');
 import { ProjectInfo } from './project-info';
 import utils = require('./utils');
-import { Validator } from './validator';
+import { Validator } from './validator';
 
 // tslint:disable:no-var-requires Modules without TypeScript definitions
 const sortJson = require('sort-json');
@@ -215,7 +215,9 @@ export class Assembler implements Emitter {
         }
 
         if (!type) {
-            this._diagnostic(referencingNode, ts.DiagnosticCategory.Error, `Unable to resolve referenced type '${ref.fqn}'. Missing export?`);
+            this._diagnostic(referencingNode, ts.DiagnosticCategory.Error,
+                `Unable to resolve referenced type '${ref.fqn}'. ` +
+                `Type may be @internal or unexported`);
         }
 
         return type;
@@ -337,9 +339,65 @@ export class Assembler implements Emitter {
         return [jsiiType];
     }
 
-    private async _visitClass(type: ts.Type, namespace: string[]): Promise<spec.ClassType> {
+    private async _processBaseInterfaces(fqn: string, baseTypes?: ts.Type[]) {
+        if (!baseTypes) {
+            return undefined;
+        }
+
+        const result = new Array<spec.NamedTypeReference>();
+        const baseInterfaces = new Set<ts.Type>();
+
+        const processBaseTypes = (types: ts.Type[]) => {
+            for (const iface of types) {
+
+                // base is private/internal, so we continue recursively with it's own bases
+                if (this._isPrivateOrInternal(iface.symbol)) {
+                    const bases = iface.getBaseTypes();
+                    if (bases) {
+                        processBaseTypes(bases);
+                    }
+
+                    continue;
+                }
+
+                baseInterfaces.add(iface);
+            }
+        };
+
+        processBaseTypes(baseTypes);
+
+        for (const iface of baseInterfaces) {
+            const decl = iface.symbol.valueDeclaration;
+            const typeRef = await this._typeReference(iface, decl);
+
+            if (!spec.isNamedTypeReference(typeRef)) {
+                this._diagnostic(decl,
+                                 ts.DiagnosticCategory.Error,
+                                 `Interface of ${fqn} is not a named type (${spec.describeTypeReference(typeRef)})`);
+                continue;
+            }
+
+            this._deferUntilTypesAvailable(fqn, [typeRef], decl, (deref) => {
+                if (!spec.isInterfaceType(deref)) {
+                    this._diagnostic(decl,
+                                    ts.DiagnosticCategory.Error,
+                                    `Inheritance clause of ${fqn} uses ${spec.describeTypeReference(typeRef)} as an interface`);
+                }
+            });
+
+            result.push(typeRef);
+        }
+
+        return result.length === 0 ? undefined : result;
+    }
+
+    private async _visitClass(type: ts.Type, namespace: string[]): Promise<spec.ClassType | undefined> {
         if (LOG.isTraceEnabled()) {
             LOG.trace(`Processing class: ${colors.gray(namespace.join('.'))}.${colors.cyan(type.symbol.name)}`);
+        }
+
+        if (_hasInternalJsDocTag(type.symbol)) {
+            return undefined;
         }
 
         const fqn = `${[this.projectInfo.name, ...namespace].join('.')}.${type.symbol.name}`;
@@ -360,7 +418,9 @@ export class Assembler implements Emitter {
                 this._diagnostic(base.symbol.valueDeclaration, ts.DiagnosticCategory.Error, `Found multiple base types for ${jsiiType.fqn}`);
                 continue;
             }
+
             const ref = await this._typeReference(base, type.symbol.valueDeclaration);
+
             if (!spec.isNamedTypeReference(ref)) {
                 this._diagnostic(base.symbol.valueDeclaration,
                                 ts.DiagnosticCategory.Error,
@@ -384,28 +444,8 @@ export class Assembler implements Emitter {
                 this._diagnostic(clause, ts.DiagnosticCategory.Error, `Ignoring ${ts.SyntaxKind[clause.token]} heritage clause`);
                 continue;
             }
-            for (const expression of clause.types) {
-                const iface = this._typeChecker.getTypeFromTypeNode(expression);
-                const typeRef = await this._typeReference(iface, iface.symbol.valueDeclaration);
-                if (!spec.isNamedTypeReference(typeRef)) {
-                    this._diagnostic(expression,
-                                     ts.DiagnosticCategory.Error,
-                                     `Interface of ${jsiiType.fqn} is not a named type (${spec.describeTypeReference(typeRef)})`);
-                    continue;
-                }
-                this._deferUntilTypesAvailable(fqn, [typeRef], expression, (deref) => {
-                    if (!spec.isInterfaceType(deref)) {
-                        this._diagnostic(expression,
-                                        ts.DiagnosticCategory.Error,
-                                        `Implements clause of ${jsiiType.fqn} uses ${spec.describeTypeReference(typeRef)} as an interface`);
-                    }
-                });
-                if (jsiiType.interfaces) {
-                    jsiiType.interfaces.push(typeRef);
-                } else {
-                    jsiiType.interfaces = [typeRef];
-                }
-            }
+
+            jsiiType.interfaces = await this._processBaseInterfaces(fqn, clause.types.map(t => this._typeChecker.getTypeFromTypeNode(t)));
         }
 
         if (!type.isClass()) {
@@ -418,8 +458,20 @@ export class Assembler implements Emitter {
 
             for (const memberDecl of classDecl.members) {
                 const member: ts.Symbol = (memberDecl as any).symbol;
-                if (!(type.symbol.getDeclarations() || []).find(d => d === memberDecl.parent)) { continue; }
-                if (_isHidden(member)) { continue; }
+
+                if (!(type.symbol.getDeclarations() || []).find(d => d === memberDecl.parent)) {
+                    continue;
+                }
+
+                if (this._isPrivateOrInternal(member, memberDecl)) {
+                    continue;
+                }
+
+                // constructors are handled later
+                if (ts.isConstructorDeclaration(memberDecl)) {
+                    continue;
+                }
+
                 if (ts.isMethodDeclaration(memberDecl) || ts.isMethodSignature(memberDecl)) {
                     await this._visitMethod(member, jsiiType);
                 } else if (ts.isPropertyDeclaration(memberDecl)
@@ -479,9 +531,45 @@ export class Assembler implements Emitter {
         return _sortMembers(this._visitDocumentation(type.symbol, jsiiType));
     }
 
-    private async _visitEnum(type: ts.Type, namespace: string[]): Promise<spec.EnumType> {
+    /**
+     * @returns true if this member is internal and should be omitted from the type manifest
+     */
+    private _isPrivateOrInternal(symbol: ts.Symbol, validateDeclaration?: ts.Declaration): boolean {
+        const hasInternalJsDocTag = _hasInternalJsDocTag(symbol);
+        const hasUnderscorePrefix = symbol.name !== '__constructor' && symbol.name.startsWith('_');
+
+        if (_isPrivate(symbol)) {
+            LOG.trace(`${symbol.name} is marked "private"`);
+            return true;
+        }
+
+        if (!hasInternalJsDocTag && !hasUnderscorePrefix) {
+            return false;
+        }
+
+        // we only validate if we have a declaration
+        if (validateDeclaration) {
+            if (!hasUnderscorePrefix) {
+                this._diagnostic(validateDeclaration, ts.DiagnosticCategory.Error,
+                    `${symbol.name}: the name of members marked as @internal must begin with an underscore`);
+            }
+
+            if (!hasInternalJsDocTag) {
+                this._diagnostic(validateDeclaration, ts.DiagnosticCategory.Error,
+                    `${symbol.name}: members with names that begin with an underscore must be marked as @internal via a JSDoc tag`);
+            }
+        }
+
+        return true;
+    }
+
+    private async _visitEnum(type: ts.Type, namespace: string[]): Promise<spec.EnumType | undefined> {
         if (LOG.isTraceEnabled()) {
             LOG.trace(`Processing enum: ${colors.gray(namespace.join('.'))}.${colors.cyan(type.symbol.name)}`);
+        }
+
+        if (_hasInternalJsDocTag(type.symbol)) {
+            return undefined;
         }
 
         const decl = type.symbol.valueDeclaration;
@@ -553,9 +641,13 @@ export class Assembler implements Emitter {
         }
     }
 
-    private async _visitInterface(type: ts.Type, namespace: string[]): Promise<spec.InterfaceType> {
+    private async _visitInterface(type: ts.Type, namespace: string[]): Promise<spec.InterfaceType | undefined> {
         if (LOG.isTraceEnabled()) {
             LOG.trace(`Processing interface: ${colors.gray(namespace.join('.'))}.${colors.cyan(type.symbol.name)}`);
+        }
+
+        if (_hasInternalJsDocTag(type.symbol)) {
+            return undefined;
         }
 
         const fqn = `${[this.projectInfo.name, ...namespace].join('.')}.${type.symbol.name}`;
@@ -568,32 +660,15 @@ export class Assembler implements Emitter {
             namespace: namespace.join('.')
         };
 
-        for (const base of (type.getBaseTypes() || [])) {
-            const ref = await this._typeReference(base, type.symbol.valueDeclaration);
-            if (!spec.isNamedTypeReference(ref)) {
-                this._diagnostic(base.symbol.valueDeclaration,
-                                 ts.DiagnosticCategory.Error,
-                                 `Base type of ${jsiiType.fqn} is not a named type (${spec.describeTypeReference(ref)})`);
-                continue;
-            }
-            this._deferUntilTypesAvailable(fqn, [ref], base.symbol.valueDeclaration, (baseType) => {
-                if (!spec.isInterfaceType(baseType)) {
-                    // tslint:disable:max-line-length
-                    this._diagnostic(base.symbol.valueDeclaration,
-                                    ts.DiagnosticCategory.Error,
-                                    `Base type of ${jsiiType.fqn} is not an interface (${baseType.kind} ${spec.describeTypeReference(ref)})`);
-                    // tslint:enable:max-line-length
-                }
-            });
-            if (jsiiType.interfaces) {
-                jsiiType.interfaces.push(ref);
-            } else {
-                jsiiType.interfaces = [ref];
-            }
-        }
+        jsiiType.interfaces = await this._processBaseInterfaces(fqn, type.getBaseTypes());
+
         for (const member of type.getProperties()) {
             if (!(type.symbol.getDeclarations() || []).find(decl => decl === member.valueDeclaration.parent)) { continue; }
-            if (_isHidden(member)) { continue; }
+
+            if (this._isPrivateOrInternal(member, member.valueDeclaration)) {
+                continue;
+            }
+
             if (ts.isMethodDeclaration(member.valueDeclaration) || ts.isMethodSignature(member.valueDeclaration)) {
                 await this._visitMethod(member, jsiiType);
             } else if (ts.isPropertyDeclaration(member.valueDeclaration)
@@ -723,6 +798,7 @@ export class Assembler implements Emitter {
              */
             return;
         }
+
         if (LOG.isTraceEnabled()) {
             LOG.trace(`Processing property: ${colors.green(type.fqn)}#${colors.cyan(symbol.name)}`);
         }
@@ -1051,17 +1127,34 @@ function _isExported(node: ts.Declaration): boolean {
 }
 
 /**
- * Members with names starting with ``_`` and members that are private are hidden.
+ * Members with names starting with `_` (and marked as @internal) and members
+ * that are private are hidden.
  *
  * @param symbol the symbol which should be assessed
  *
- * @return ``true`` if the symbol should be hidden
+ * @return `true` if the symbol should be hidden
  */
-function _isHidden(symbol: ts.Symbol): boolean {
-    return !symbol.valueDeclaration
-        || symbol.name.startsWith('_')
-        // tslint:disable-next-line:no-bitwise
-        || (ts.getCombinedModifierFlags(symbol.valueDeclaration) & ts.ModifierFlags.Private) !== 0;
+function _isPrivate(symbol: ts.Symbol): boolean {
+
+    // if the symbol doesn't have a value declaration, we are assuming it's a type (enum/interface/class)
+    // and check that it has an "export" modifier
+    if (!symbol.valueDeclaration) {
+        let hasExport = false;
+        for (const decl of symbol.declarations) {
+            // tslint:disable-next-line:no-bitwise
+            if (ts.getCombinedModifierFlags(decl) & ts.ModifierFlags.Export) {
+                hasExport = true;
+            }
+        }
+        return !hasExport;
+    }
+
+    // tslint:disable-next-line:no-bitwise
+    return symbol.valueDeclaration && (ts.getCombinedModifierFlags(symbol.valueDeclaration) & ts.ModifierFlags.Private) !== 0;
+}
+
+function _hasInternalJsDocTag(symbol: ts.Symbol) {
+    return symbol.getJsDocTags().some((t: any) => t.name === 'internal');
 }
 
 function _isProtected(symbol: ts.Symbol): boolean {

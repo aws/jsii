@@ -1335,3 +1335,144 @@ export class Constructors {
         return new PrivateClass();
     }
 }
+
+// internal can be used to represent members that can only be accessed from the current module
+export class StripInternal {
+    public youSeeMe = 'hello';
+
+    /**
+     * This is an internal thing
+     * @internal
+     */
+    public _youDontSeeMeAlthoughIamPublic = 'world'
+}
+
+/**
+ * @internal
+ */
+export class InternalClass {
+    public iAmNotHere = 'yes';
+}
+
+/**
+ * @internal
+ */
+export interface IInternalInterface {
+    prop: string;
+}
+
+/**
+ * @internal
+ */
+export enum InternalEnum {
+    Member1 = 12,
+    Member2 = 23
+}
+
+export interface IInterfaceWithInternal {
+    visible(): void;
+
+    /** @internal */
+    _hidden(): void;
+}
+
+export class ImplementsInterfaceWithInternal implements IInterfaceWithInternal {
+    visible() { }
+
+    /** @internal */
+    _hidden() { }
+
+    /** @internal */
+    _alsoHidden() { }
+
+    /** @internal */
+    _propertiesToo?: string;
+}
+
+export class ImplementsInterfaceWithInternalSubclass extends ImplementsInterfaceWithInternal {
+    /** @internal */
+    _alsoHidden() { }
+
+    /**
+     * @internal
+     */
+    public _propertiesToo?: string;
+}
+
+//
+// hidden interface erasure
+// if a class/interface uses a hidden (private/internal) interface as base, the base will
+// be erased from the API
+//
+
+interface IPrivateInterface {
+    private: string;
+}
+
+export interface ExtendsInternalInterface extends IInternalInterface {
+    boom: boolean
+}
+
+export class ImplementInternalInterface implements IInternalInterface {
+    prop = 'implement me'
+}
+
+export class ImplementsPrivateInterface implements IPrivateInterface {
+    public private = 'i came from private into the light'
+}
+
+export interface ExtendsPrivateInterface extends IPrivateInterface {
+    moreThings: string[];
+}
+
+//
+// hidden (private/internal) base interface erasure will copy non-hidden bases from
+// hidden to consuming type.
+//
+
+export interface IAnotherPublicInterface {
+    a: string;
+
+}
+
+/** @internal */
+export interface IAnotherInternalInterface extends IAnotherPublicInterface {
+    b: string;
+}
+
+export interface INonInternalInterface extends IAnotherInternalInterface {
+    c: string;
+}
+
+/** @internal */
+export interface IInternalInterfaceThatExtendsTheNonInternalOne extends INonInternalInterface {
+    d: string;
+}
+
+interface IPrivateInterfaceThatExtendsTheNonInternalOne extends INonInternalInterface {
+    e: string;
+}
+
+export class ClassThatImplementsTheInternalInterface implements IInternalInterfaceThatExtendsTheNonInternalOne, INonInternalInterface {
+    public a = 'a';
+    public b = 'b';
+    public c = 'c';
+    public d = 'd';
+}
+
+export class ClassThatImplementsThePrivateInterface implements IPrivateInterfaceThatExtendsTheNonInternalOne {
+    public a = 'a';
+    public b = 'b';
+    public c = 'c';
+    public e = 'e';
+}
+
+export class ConsumersOfThisCrazyTypeSystem {
+    public consumeAnotherPublicInterface(obj: IAnotherPublicInterface) {
+        return obj.a;
+    }
+
+    public consumeNonInternalInterface(obj: INonInternalInterface): any {
+        return { a: obj.a, b: obj.b, c: obj.c };
+    }
+}

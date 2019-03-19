@@ -857,6 +857,11 @@ class Method extends BaseMethod {
     protected readonly jsiiMethod: string = "invoke";
 }
 
+class AsyncMethod extends BaseMethod {
+    protected readonly implicitParameter: string = "self";
+    protected readonly jsiiMethod: string = "ainvoke";
+}
+
 class StaticProperty extends BaseProperty {
     protected readonly decorator: string = "classproperty";
     protected readonly implicitParameter: string = "cls";
@@ -1473,15 +1478,27 @@ class PythonGenerator extends Generator {
     protected onMethod(cls: spec.ClassType, method: spec.Method) {
         const { parameters = [] } = method;
 
-        this.getPythonType(cls.fqn).addMember(
-            new Method(
-                toPythonMethodName(method.name!, method.protected),
-                method.name,
-                parameters,
-                method.returns,
-                { abstract: method.abstract, liftedProp: this.getliftedProp(method) },
-            )
-        );
+        if (this.isAsyncMethod(method)) {
+            this.getPythonType(cls.fqn).addMember(
+                new AsyncMethod(
+                    toPythonMethodName(method.name!, method.protected),
+                    method.name,
+                    parameters,
+                    method.returns,
+                    { abstract: method.abstract, liftedProp: this.getliftedProp(method) },
+                )
+            );
+        } else {
+            this.getPythonType(cls.fqn).addMember(
+                new Method(
+                    toPythonMethodName(method.name!, method.protected),
+                    method.name,
+                    parameters,
+                    method.returns,
+                    { abstract: method.abstract, liftedProp: this.getliftedProp(method) },
+                )
+            );
+        }
     }
 
     protected onProperty(cls: spec.ClassType, prop: spec.Property) {
@@ -1650,5 +1667,9 @@ class PythonGenerator extends Generator {
         }
 
         return abstractBases;
+    }
+
+    private isAsyncMethod(method: spec.Method): boolean {
+        return method.returns !== undefined && method.returns.promise !== undefined && method.returns.promise;
     }
 }

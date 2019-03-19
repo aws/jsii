@@ -10,10 +10,13 @@ Base
 Base
 BinaryOperation
 Calculator
+ClassThatImplementsTheInternalInterface
+ClassThatImplementsThePrivateInterface
 ClassWithMutableObjectLiteralProperty
 ClassWithPrivateConstructorAndAutomaticProperties
 CompositeOperation
 Constructors
+ConsumersOfThisCrazyTypeSystem
 DefaultedConstructorArgument
 Derived
 DoNotOverridePrivates
@@ -24,6 +27,10 @@ ExportedBaseClass
 Foo
 GiveMeStructs
 GreetingAugmenter
+ImplementInternalInterface
+ImplementsInterfaceWithInternal
+ImplementsInterfaceWithInternalSubclass
+ImplementsPrivateInterface
 InbetweenClass
 JSObjectLiteralForInterface
 JSObjectLiteralToNative
@@ -48,6 +55,7 @@ ReferenceEnumFromScopedPackage
 ReturnsPrivateImplementationOfInterface
 RuntimeTypeChecking
 Statics
+StripInternal
 Sum
 SyncVirtualMethods
 Thrower

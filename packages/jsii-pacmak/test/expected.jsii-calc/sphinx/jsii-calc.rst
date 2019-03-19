@@ -1052,6 +1052,112 @@ CalculatorProps (interface)
       :type: number *(optional)*
 
 
+ClassThatImplementsTheInternalInterface
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: ClassThatImplementsTheInternalInterface()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.ClassThatImplementsTheInternalInterface;
+
+      .. code-tab:: javascript
+
+         const { ClassThatImplementsTheInternalInterface } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { ClassThatImplementsTheInternalInterface } from 'jsii-calc';
+
+
+
+   :implements: :py:class:`~jsii-calc.INonInternalInterface`\ 
+
+   .. py:attribute:: a
+
+      *Implements* :py:meth:`jsii-calc.IAnotherPublicInterface.a`
+
+      :type: string
+
+
+   .. py:attribute:: b
+
+      :type: string
+
+
+   .. py:attribute:: c
+
+      *Implements* :py:meth:`jsii-calc.INonInternalInterface.c`
+
+      :type: string
+
+
+   .. py:attribute:: d
+
+      :type: string
+
+
+ClassThatImplementsThePrivateInterface
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: ClassThatImplementsThePrivateInterface()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.ClassThatImplementsThePrivateInterface;
+
+      .. code-tab:: javascript
+
+         const { ClassThatImplementsThePrivateInterface } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { ClassThatImplementsThePrivateInterface } from 'jsii-calc';
+
+
+
+   :implements: :py:class:`~jsii-calc.INonInternalInterface`\ 
+
+   .. py:attribute:: a
+
+      *Implements* :py:meth:`jsii-calc.IAnotherPublicInterface.a`
+
+      :type: string
+
+
+   .. py:attribute:: b
+
+      :type: string
+
+
+   .. py:attribute:: c
+
+      *Implements* :py:meth:`jsii-calc.INonInternalInterface.c`
+
+      :type: string
+
+
+   .. py:attribute:: e
+
+      :type: string
+
+
 ClassWithMutableObjectLiteralProperty
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -1177,6 +1283,48 @@ Constructors
    .. py:staticmethod:: makeInterface() -> jsii-calc.IPublicInterface
 
       :rtype: :py:class:`~jsii-calc.IPublicInterface`\ 
+
+
+ConsumersOfThisCrazyTypeSystem
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: ConsumersOfThisCrazyTypeSystem()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.ConsumersOfThisCrazyTypeSystem;
+
+      .. code-tab:: javascript
+
+         const { ConsumersOfThisCrazyTypeSystem } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { ConsumersOfThisCrazyTypeSystem } from 'jsii-calc';
+
+
+
+
+   .. py:method:: consumeAnotherPublicInterface(obj) -> string
+
+      :param obj: 
+      :type obj: :py:class:`~jsii-calc.IAnotherPublicInterface`\ 
+      :rtype: string
+
+
+   .. py:method:: consumeNonInternalInterface(obj) -> any
+
+      :param obj: 
+      :type obj: :py:class:`~jsii-calc.INonInternalInterface`\ 
+      :rtype: any
 
 
 DefaultedConstructorArgument
@@ -1615,6 +1763,74 @@ ExportedBaseClass
       :type: boolean *(readonly)*
 
 
+ExtendsInternalInterface (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: ExtendsInternalInterface
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.ExtendsInternalInterface;
+
+      .. code-tab:: javascript
+
+         // ExtendsInternalInterface is an interface
+
+      .. code-tab:: typescript
+
+         import { ExtendsInternalInterface } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: boom
+
+      :type: boolean
+
+
+ExtendsPrivateInterface (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: ExtendsPrivateInterface
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.ExtendsPrivateInterface;
+
+      .. code-tab:: javascript
+
+         // ExtendsPrivateInterface is an interface
+
+      .. code-tab:: typescript
+
+         import { ExtendsPrivateInterface } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: moreThings
+
+      :type: string[]
+
+
 GiveMeStructs
 ^^^^^^^^^^^^^
 
@@ -1714,6 +1930,40 @@ GreetingAugmenter
       :param friendly: 
       :type friendly: :py:class:`@scope/jsii-calc-lib.IFriendly`\ 
       :rtype: string
+
+
+IAnotherPublicInterface (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: IAnotherPublicInterface
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.IAnotherPublicInterface;
+
+      .. code-tab:: javascript
+
+         // IAnotherPublicInterface is an interface
+
+      .. code-tab:: typescript
+
+         import { IAnotherPublicInterface } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: a
+
+      :type: string
 
 
 IFriendlier (interface)
@@ -1894,6 +2144,40 @@ IInterfaceThatShouldNotBeADataType (interface)
       :type: string *(readonly)*
 
 
+IInterfaceWithInternal (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: IInterfaceWithInternal
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.IInterfaceWithInternal;
+
+      .. code-tab:: javascript
+
+         // IInterfaceWithInternal is an interface
+
+      .. code-tab:: typescript
+
+         import { IInterfaceWithInternal } from 'jsii-calc';
+
+
+
+
+
+   .. py:method:: visible()
+
+      :abstract: Yes
+
+
 IInterfaceWithMethods (interface)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -1975,6 +2259,48 @@ IInterfaceWithOptionalMethodArguments (interface)
       :param arg2: 
       :type arg2: number *(optional)*
       :abstract: Yes
+
+
+INonInternalInterface (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: INonInternalInterface
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.INonInternalInterface;
+
+      .. code-tab:: javascript
+
+         // INonInternalInterface is an interface
+
+      .. code-tab:: typescript
+
+         import { INonInternalInterface } from 'jsii-calc';
+
+
+
+   :extends: :py:class:`~jsii-calc.IAnotherPublicInterface`\ 
+
+
+   .. py:attribute:: c
+
+      :type: string
+
+
+   .. py:attribute:: a
+
+      *Inherited from* :py:attr:`jsii-calc.IAnotherPublicInterface <jsii-calc.IAnotherPublicInterface.a>`
+
+      :type: string
 
 
 IPrivatelyImplemented (interface)
@@ -2127,6 +2453,142 @@ IReturnsNumber (interface)
 
       :rtype: :py:class:`@scope/jsii-calc-lib.IDoublable`\ 
       :abstract: Yes
+
+
+ImplementInternalInterface
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: ImplementInternalInterface()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.ImplementInternalInterface;
+
+      .. code-tab:: javascript
+
+         const { ImplementInternalInterface } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { ImplementInternalInterface } from 'jsii-calc';
+
+
+
+
+   .. py:attribute:: prop
+
+      :type: string
+
+
+ImplementsInterfaceWithInternal
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: ImplementsInterfaceWithInternal()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.ImplementsInterfaceWithInternal;
+
+      .. code-tab:: javascript
+
+         const { ImplementsInterfaceWithInternal } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { ImplementsInterfaceWithInternal } from 'jsii-calc';
+
+
+
+   :implements: :py:class:`~jsii-calc.IInterfaceWithInternal`\ 
+
+   .. py:method:: visible()
+
+      *Implements* :py:meth:`jsii-calc.IInterfaceWithInternal.visible`
+
+
+
+ImplementsInterfaceWithInternalSubclass
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: ImplementsInterfaceWithInternalSubclass()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.ImplementsInterfaceWithInternalSubclass;
+
+      .. code-tab:: javascript
+
+         const { ImplementsInterfaceWithInternalSubclass } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { ImplementsInterfaceWithInternalSubclass } from 'jsii-calc';
+
+
+
+   :extends: :py:class:`~jsii-calc.ImplementsInterfaceWithInternal`\ 
+
+   .. py:method:: visible()
+
+      *Inherited from* :py:meth:`jsii-calc.ImplementsInterfaceWithInternal <jsii-calc.ImplementsInterfaceWithInternal.visible>`
+
+
+
+ImplementsPrivateInterface
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: ImplementsPrivateInterface()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.ImplementsPrivateInterface;
+
+      .. code-tab:: javascript
+
+         const { ImplementsPrivateInterface } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { ImplementsPrivateInterface } from 'jsii-calc';
+
+
+
+
+   .. py:attribute:: private
+
+      :type: string
 
 
 ImplictBaseOfBase (interface)
@@ -4241,6 +4703,39 @@ StringEnum (enum)
    .. py:data:: B
 
    .. py:data:: C
+
+
+StripInternal
+^^^^^^^^^^^^^
+
+.. py:class:: StripInternal()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.StripInternal;
+
+      .. code-tab:: javascript
+
+         const { StripInternal } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { StripInternal } from 'jsii-calc';
+
+
+
+
+   .. py:attribute:: youSeeMe
+
+      :type: string
 
 
 Sum

@@ -86,6 +86,20 @@ assemblies
  │   │   ├── curr property
  │   │   ├── maxValue property
  │   │   └── unionProperty property
+ │   ├─┬ class ClassThatImplementsTheInternalInterface
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── a property
+ │   │   ├── b property
+ │   │   ├── c property
+ │   │   └── d property
+ │   ├─┬ class ClassThatImplementsThePrivateInterface
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── a property
+ │   │   ├── b property
+ │   │   ├── c property
+ │   │   └── e property
  │   ├─┬ class ClassWithMutableObjectLiteralProperty
  │   │ └─┬ members
  │   │   ├── <initializer>() method
@@ -100,6 +114,11 @@ assemblies
  │   │   ├── <initializer>() method
  │   │   ├── makeClass() method
  │   │   └── makeInterface() method
+ │   ├─┬ class ConsumersOfThisCrazyTypeSystem
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── consumeAnotherPublicInterface(obj) method
+ │   │   └── consumeNonInternalInterface(obj) method
  │   ├─┬ class DefaultedConstructorArgument
  │   │ └─┬ members
  │   │   ├── <initializer>(arg1,arg2,arg3) method
@@ -147,6 +166,21 @@ assemblies
  │   │ └─┬ members
  │   │   ├── <initializer>() method
  │   │   └── betterGreeting(friendly) method
+ │   ├─┬ class ImplementInternalInterface
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── prop property
+ │   ├─┬ class ImplementsInterfaceWithInternal
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── visible() method
+ │   ├─┬ class ImplementsInterfaceWithInternalSubclass
+ │   │ └─┬ members
+ │   │   └── <initializer>() method
+ │   ├─┬ class ImplementsPrivateInterface
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── private property
  │   ├─┬ class InbetweenClass
  │   │ └─┬ members
  │   │   └── <initializer>() method
@@ -356,6 +390,10 @@ assemblies
  │   │   ├── instance property
  │   │   ├── nonConstStatic property
  │   │   └── value property
+ │   ├─┬ class StripInternal
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── youSeeMe property
  │   ├─┬ class Sum
  │   │ └─┬ members
  │   │   ├── <initializer>() method
@@ -436,6 +474,15 @@ assemblies
  │   │   ├── anotherOptional property
  │   │   ├── optionalAny property
  │   │   └── optionalArray property
+ │   ├─┬ interface ExtendsInternalInterface
+ │   │ └─┬ members
+ │   │   └── boom property
+ │   ├─┬ interface ExtendsPrivateInterface
+ │   │ └─┬ members
+ │   │   └── moreThings property
+ │   ├─┬ interface IAnotherPublicInterface
+ │   │ └─┬ members
+ │   │   └── a property
  │   ├─┬ interface IFriendlier
  │   │ └─┬ members
  │   │   ├── farewell() method
@@ -445,6 +492,9 @@ assemblies
  │   ├─┬ interface IInterfaceThatShouldNotBeADataType
  │   │ └─┬ members
  │   │   └── otherValue property
+ │   ├─┬ interface IInterfaceWithInternal
+ │   │ └─┬ members
+ │   │   └── visible() method
  │   ├─┬ interface IInterfaceWithMethods
  │   │ └─┬ members
  │   │   ├── doThings() method
@@ -452,6 +502,9 @@ assemblies
  │   ├─┬ interface IInterfaceWithOptionalMethodArguments
  │   │ └─┬ members
  │   │   └── hello(arg1,arg2) method
+ │   ├─┬ interface INonInternalInterface
+ │   │ └─┬ members
+ │   │   └── c property
  │   ├─┬ interface IPrivatelyImplemented
  │   │ └─┬ members
  │   │   └── success property
