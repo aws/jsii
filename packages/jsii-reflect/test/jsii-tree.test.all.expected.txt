@@ -223,6 +223,32 @@ assemblies
  │   │   │ └── type: primitive:number (optional)
  │   │   └─┬ unionProperty property
  │   │     └── type: class:jsii-calc.Add | class:jsii-calc.Multiply | class:jsii-calc.Power
+ │   ├─┬ class ClassThatImplementsTheInternalInterface
+ │   │ ├── interfaces: INonInternalInterface
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ a property
+ │   │   │ └── type: primitive:string
+ │   │   ├─┬ b property
+ │   │   │ └── type: primitive:string
+ │   │   ├─┬ c property
+ │   │   │ └── type: primitive:string
+ │   │   └─┬ d property
+ │   │     └── type: primitive:string
+ │   ├─┬ class ClassThatImplementsThePrivateInterface
+ │   │ ├── interfaces: INonInternalInterface
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ a property
+ │   │   │ └── type: primitive:string
+ │   │   ├─┬ b property
+ │   │   │ └── type: primitive:string
+ │   │   ├─┬ c property
+ │   │   │ └── type: primitive:string
+ │   │   └─┬ e property
+ │   │     └── type: primitive:string
  │   ├─┬ class ClassWithMutableObjectLiteralProperty
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -255,6 +281,20 @@ assemblies
  │   │   └─┬ makeInterface() method
  │   │     ├── static
  │   │     └── returns: interface:jsii-calc.IPublicInterface
+ │   ├─┬ class ConsumersOfThisCrazyTypeSystem
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ consumeAnotherPublicInterface(obj) method
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ obj
+ │   │   │ │   └── type: interface:jsii-calc.IAnotherPublicInterface
+ │   │   │ └── returns: primitive:string
+ │   │   └─┬ consumeNonInternalInterface(obj) method
+ │   │     ├─┬ parameters
+ │   │     │ └─┬ obj
+ │   │     │   └── type: interface:jsii-calc.INonInternalInterface
+ │   │     └── returns: primitive:any
  │   ├─┬ class DefaultedConstructorArgument
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(arg1,arg2,arg3) method
@@ -1103,6 +1143,11 @@ assemblies
  │   │   └─┬ moreThings property
  │   │     ├── abstract
  │   │     └── type: Array<primitive:string>
+ │   ├─┬ interface IAnotherPublicInterface
+ │   │ └─┬ members
+ │   │   └─┬ a property
+ │   │     ├── abstract
+ │   │     └── type: primitive:string
  │   ├─┬ interface IFriendlier
  │   │ ├─┬ interfaces
  │   │ │ └── IFriendly
@@ -1150,6 +1195,13 @@ assemblies
  │   │     │ └─┬ arg2
  │   │     │   └── type: primitive:number (optional)
  │   │     └── returns: void
+ │   ├─┬ interface INonInternalInterface
+ │   │ ├─┬ interfaces
+ │   │ │ └── IAnotherPublicInterface
+ │   │ └─┬ members
+ │   │   └─┬ c property
+ │   │     ├── abstract
+ │   │     └── type: primitive:string
  │   ├─┬ interface IPrivatelyImplemented
  │   │ └─┬ members
  │   │   └─┬ success property
