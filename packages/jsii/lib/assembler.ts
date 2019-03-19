@@ -381,7 +381,7 @@ export class Assembler implements Emitter {
                 if (!spec.isInterfaceType(deref)) {
                     this._diagnostic(decl,
                                     ts.DiagnosticCategory.Error,
-                                    `Inheritence clause of ${fqn} uses ${spec.describeTypeReference(typeRef)} as an interface`);
+                                    `Inheritance clause of ${fqn} uses ${spec.describeTypeReference(typeRef)} as an interface`);
                 }
             });
 
