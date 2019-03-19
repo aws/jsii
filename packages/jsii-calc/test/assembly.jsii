@@ -1040,6 +1040,98 @@
         }
       ]
     },
+    "jsii-calc.ClassThatImplementsTheInternalInterface": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.ClassThatImplementsTheInternalInterface",
+      "initializer": {
+        "initializer": true
+      },
+      "interfaces": [
+        {
+          "fqn": "jsii-calc.INonInternalInterface"
+        }
+      ],
+      "kind": "class",
+      "name": "ClassThatImplementsTheInternalInterface",
+      "properties": [
+        {
+          "name": "a",
+          "overrides": {
+            "fqn": "jsii-calc.IAnotherPublicInterface"
+          },
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "name": "b",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "name": "c",
+          "overrides": {
+            "fqn": "jsii-calc.INonInternalInterface"
+          },
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "name": "d",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.ClassThatImplementsThePrivateInterface": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.ClassThatImplementsThePrivateInterface",
+      "initializer": {
+        "initializer": true
+      },
+      "interfaces": [
+        {
+          "fqn": "jsii-calc.INonInternalInterface"
+        }
+      ],
+      "kind": "class",
+      "name": "ClassThatImplementsThePrivateInterface",
+      "properties": [
+        {
+          "name": "a",
+          "overrides": {
+            "fqn": "jsii-calc.IAnotherPublicInterface"
+          },
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "name": "b",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "name": "c",
+          "overrides": {
+            "fqn": "jsii-calc.INonInternalInterface"
+          },
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "name": "e",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.ClassWithMutableObjectLiteralProperty": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.ClassWithMutableObjectLiteralProperty",
@@ -1139,6 +1231,45 @@
         }
       ],
       "name": "Constructors"
+    },
+    "jsii-calc.ConsumersOfThisCrazyTypeSystem": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.ConsumersOfThisCrazyTypeSystem",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "consumeAnotherPublicInterface",
+          "parameters": [
+            {
+              "name": "obj",
+              "type": {
+                "fqn": "jsii-calc.IAnotherPublicInterface"
+              }
+            }
+          ],
+          "returns": {
+            "primitive": "string"
+          }
+        },
+        {
+          "name": "consumeNonInternalInterface",
+          "parameters": [
+            {
+              "name": "obj",
+              "type": {
+                "fqn": "jsii-calc.INonInternalInterface"
+              }
+            }
+          ],
+          "returns": {
+            "primitive": "any"
+          }
+        }
+      ],
+      "name": "ConsumersOfThisCrazyTypeSystem"
     },
     "jsii-calc.DefaultedConstructorArgument": {
       "assembly": "jsii-calc",
@@ -1611,6 +1742,21 @@
       ],
       "name": "GreetingAugmenter"
     },
+    "jsii-calc.IAnotherPublicInterface": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.IAnotherPublicInterface",
+      "kind": "interface",
+      "name": "IAnotherPublicInterface",
+      "properties": [
+        {
+          "abstract": true,
+          "name": "a",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.IFriendlier": {
       "assembly": "jsii-calc",
       "docs": {
@@ -1749,6 +1895,26 @@
         }
       ],
       "name": "IInterfaceWithOptionalMethodArguments"
+    },
+    "jsii-calc.INonInternalInterface": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.INonInternalInterface",
+      "interfaces": [
+        {
+          "fqn": "jsii-calc.IAnotherPublicInterface"
+        }
+      ],
+      "kind": "interface",
+      "name": "INonInternalInterface",
+      "properties": [
+        {
+          "abstract": true,
+          "name": "c",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
     },
     "jsii-calc.IPrivatelyImplemented": {
       "assembly": "jsii-calc",
@@ -4083,5 +4249,5 @@
     }
   },
   "version": "0.7.15",
-  "fingerprint": "iMxRj3lsHKNzSiBrjCyBH6Pp7Uvo+1Sxh/jN3hW+3nA="
+  "fingerprint": "y7h6OQBzbQrvU43LHTizXl12OUAEOpXhqD02OJfmhWQ="
 }

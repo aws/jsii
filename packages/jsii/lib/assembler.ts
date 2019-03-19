@@ -215,7 +215,9 @@ export class Assembler implements Emitter {
         }
 
         if (!type) {
-            this._diagnostic(referencingNode, ts.DiagnosticCategory.Error, `Unable to resolve referenced type '${ref.fqn}'. Missing export?`);
+            this._diagnostic(referencingNode, ts.DiagnosticCategory.Error,
+                `Unable to resolve referenced type '${ref.fqn}'. ` +
+                `Type may be @internal or unexported`);
         }
 
         return type;
@@ -337,6 +339,58 @@ export class Assembler implements Emitter {
         return [jsiiType];
     }
 
+    private async _processBaseInterfaces(fqn: string, baseTypes?: ts.Type[]) {
+        if (!baseTypes) {
+            return undefined;
+        }
+
+        const result = new Array<spec.NamedTypeReference>();
+        const baseInterfaces = new Set<ts.Type>();
+
+        const processBaseTypes = (types: ts.Type[]) => {
+            for (const iface of types) {
+
+                // base is private/internal, so we continue recursively with it's own bases
+                if (this._isPrivateOrInternal(iface.symbol)) {
+                    const bases = iface.getBaseTypes();
+                    if (bases) {
+                        processBaseTypes(bases);
+                    }
+
+                    continue;
+                }
+
+                baseInterfaces.add(iface);
+            }
+        };
+
+        processBaseTypes(baseTypes);
+
+        for (const iface of baseInterfaces) {
+            const decl = iface.symbol.valueDeclaration;
+            const typeRef = await this._typeReference(iface, decl);
+
+            if (!spec.isNamedTypeReference(typeRef)) {
+                this._diagnostic(decl,
+                                 ts.DiagnosticCategory.Error,
+                                 `Interface of ${fqn} is not a named type (${spec.describeTypeReference(typeRef)})`);
+                continue;
+            }
+
+            this._deferUntilTypesAvailable(fqn, [typeRef], decl, (deref) => {
+                if (!spec.isInterfaceType(deref)) {
+                    this._diagnostic(decl,
+                                    ts.DiagnosticCategory.Error,
+                                    `Inheritence clause of ${fqn} uses ${spec.describeTypeReference(typeRef)} as an interface`);
+                }
+            });
+
+            result.push(typeRef);
+        }
+
+        return result.length === 0 ? undefined : result;
+    }
+
     private async _visitClass(type: ts.Type, namespace: string[]): Promise<spec.ClassType | undefined> {
         if (LOG.isTraceEnabled()) {
             LOG.trace(`Processing class: ${colors.gray(namespace.join('.'))}.${colors.cyan(type.symbol.name)}`);
@@ -391,35 +445,7 @@ export class Assembler implements Emitter {
                 continue;
             }
 
-            for (const expression of clause.types) {
-                const iface = this._typeChecker.getTypeFromTypeNode(expression);
-
-                // if this interface is internal/private, we erase it from the API definition
-                if (this._isPrivateOrInternal(iface.symbol)) {
-                    LOG.trace(`erasing hidden interface ${iface.symbol.name}`);
-                    continue;
-                }
-
-                const typeRef = await this._typeReference(iface, iface.symbol.valueDeclaration);
-
-                if (!spec.isNamedTypeReference(typeRef)) {
-                    this._diagnostic(expression,
-                                     ts.DiagnosticCategory.Error,
-                                     `Interface of ${jsiiType.fqn} is not a named type (${spec.describeTypeReference(typeRef)})`);
-                    continue;
-                }
-
-                this._deferUntilTypesAvailable(fqn, [typeRef], expression, (deref) => {
-                    if (!spec.isInterfaceType(deref)) {
-                        this._diagnostic(expression,
-                                        ts.DiagnosticCategory.Error,
-                                        `Implements clause of ${jsiiType.fqn} uses ${spec.describeTypeReference(typeRef)} as an interface`);
-                    }
-                });
-
-                jsiiType.interfaces = jsiiType.interfaces || [];
-                jsiiType.interfaces.push(typeRef);
-            }
+            jsiiType.interfaces = await this._processBaseInterfaces(fqn, clause.types.map(t => this._typeChecker.getTypeFromTypeNode(t)));
         }
 
         if (!type.isClass()) {
@@ -513,7 +539,7 @@ export class Assembler implements Emitter {
         const hasUnderscorePrefix = symbol.name !== '__constructor' && symbol.name.startsWith('_');
 
         if (_isPrivate(symbol)) {
-            LOG.trace(`skipping ${symbol.name} because it is marked "private"`);
+            LOG.trace(`${symbol.name} is marked "private"`);
             return true;
         }
 
@@ -634,35 +660,8 @@ export class Assembler implements Emitter {
             namespace: namespace.join('.')
         };
 
-        for (const base of (type.getBaseTypes() || [])) {
-            // if this interface is internal/private, we erase it from the API definition
-            if (this._isPrivateOrInternal(base.symbol)) {
-                LOG.trace(`erasing hidden interface ${base.symbol.name}`);
-                continue;
-            }
+        jsiiType.interfaces = await this._processBaseInterfaces(fqn, type.getBaseTypes());
 
-            const ref = await this._typeReference(base, type.symbol.valueDeclaration);
-
-            if (!spec.isNamedTypeReference(ref)) {
-                this._diagnostic(base.symbol.valueDeclaration,
-                                 ts.DiagnosticCategory.Error,
-                                 `Base type of ${jsiiType.fqn} is not a named type (${spec.describeTypeReference(ref)})`);
-                continue;
-            }
-
-            this._deferUntilTypesAvailable(fqn, [ref], base.symbol.valueDeclaration, (baseType) => {
-                if (!spec.isInterfaceType(baseType)) {
-                    // tslint:disable:max-line-length
-                    this._diagnostic(base.symbol.valueDeclaration,
-                                    ts.DiagnosticCategory.Error,
-                                    `Base type of ${jsiiType.fqn} is not an interface (${baseType.kind} ${spec.describeTypeReference(ref)})`);
-                    // tslint:enable:max-line-length
-                }
-            });
-
-            jsiiType.interfaces = jsiiType.interfaces || [];
-            jsiiType.interfaces.push(ref);
-        }
         for (const member of type.getProperties()) {
             if (!(type.symbol.getDeclarations() || []).find(decl => decl === member.valueDeclaration.parent)) { continue; }
 
