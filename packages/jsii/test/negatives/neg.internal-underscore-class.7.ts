@@ -1,6 +1,6 @@
 ///!MATCH_ERROR: the name of members marked as @internal must begin with an underscore
 
-export interface IMyInterface {
+export class MyClass {
   /** @internal */
-  methodWithInternalButNoUnderscore: string;
+  public methodWithInternalButNoUnderscore(): string { return 'hi'; }
 }
