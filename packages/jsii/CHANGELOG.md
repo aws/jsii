@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://github.com/awslabs/jsii/compare/v0.7.15...v0.8.0) (2019-03-20)
+
+
+### Bug Fixes
+
+* **jsii:** prohibit exported const enums ([#372](https://github.com/awslabs/jsii/issues/372)) ([5a94825](https://github.com/awslabs/jsii/commit/5a94825)), closes [awslabs/aws-cdk#1969](https://github.com/awslabs/aws-cdk/issues/1969)
+* **jsii:** show jsii diagnostics in watch mode and support $tsc problem matcher ([#383](https://github.com/awslabs/jsii/issues/383)) ([0275944](https://github.com/awslabs/jsii/commit/0275944)), closes [#382](https://github.com/awslabs/jsii/issues/382)
+* copy non-hidden bases when erasing hidden interfaces ([#392](https://github.com/awslabs/jsii/issues/392)) ([5af84b6](https://github.com/awslabs/jsii/commit/5af84b6)), closes [#390](https://github.com/awslabs/jsii/issues/390)
+
+
+### Features
+
+* internal accessibility ([#390](https://github.com/awslabs/jsii/issues/390)) ([e232cb5](https://github.com/awslabs/jsii/commit/e232cb5)), closes [#287](https://github.com/awslabs/jsii/issues/287) [#388](https://github.com/awslabs/jsii/issues/388)
+* pass data types (structs) by-value instead of by-ref ([#376](https://github.com/awslabs/jsii/issues/376)) ([db3ccdf](https://github.com/awslabs/jsii/commit/db3ccdf)), closes [awslabs/aws-cdk#965](https://github.com/awslabs/aws-cdk/issues/965) [#375](https://github.com/awslabs/jsii/issues/375)
+
+
+### BREAKING CHANGES
+
+* all properties in interfaces which represent data types must be marked as `readonly`. Otherwise, jsii compilation will fail.
+* member names that begin with underscore now must be marked as "@internal" in their jsdocs, which will cause them to disappear from type declaration files and jsii APIs.
+
+
+
+
+
 <a name="0.7.15"></a>
 ## [0.7.15](https://github.com/awslabs/jsii/compare/v0.7.14...v0.7.15) (2019-02-27)
 
