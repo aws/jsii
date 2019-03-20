@@ -11,11 +11,6 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
      */
     java.lang.Number getContainerPort();
     /**
-     * The container port of the application load balancer attached to your Fargate service. Corresponds to container port mapping.
-     * @default 80
-     */
-    void setContainerPort(final java.lang.Number value);
-    /**
      * The number of cpu units used by the task.
      * Valid values, which determines your range of valid values for the memory parameter:
      * 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB
@@ -28,19 +23,6 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
      * @default 256
      */
     java.lang.String getCpu();
-    /**
-     * The number of cpu units used by the task.
-     * Valid values, which determines your range of valid values for the memory parameter:
-     * 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB
-     * 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB
-     * 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB
-     * 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments
-     * 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments
-     * 
-     * This default is set in the underlying FargateTaskDefinition construct.
-     * @default 256
-     */
-    void setCpu(final java.lang.String value);
     /**
      * The amount (in MiB) of memory used by the task.
      * 
@@ -62,45 +44,15 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
      */
     java.lang.String getMemoryMiB();
     /**
-     * The amount (in MiB) of memory used by the task.
-     * 
-     * This field is required and you must use one of the following values, which determines your range of valid values
-     * for the cpu parameter:
-     * 
-     * 0.5GB, 1GB, 2GB - Available cpu values: 256 (.25 vCPU)
-     * 
-     * 1GB, 2GB, 3GB, 4GB - Available cpu values: 512 (.5 vCPU)
-     * 
-     * 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB - Available cpu values: 1024 (1 vCPU)
-     * 
-     * Between 4GB and 16GB in 1GB increments - Available cpu values: 2048 (2 vCPU)
-     * 
-     * Between 8GB and 30GB in 1GB increments - Available cpu values: 4096 (4 vCPU)
-     * 
-     * This default is set in the underlying FargateTaskDefinition construct.
-     * @default 512
-     */
-    void setMemoryMiB(final java.lang.String value);
-    /**
      * Determines whether the Application Load Balancer will be internet-facing
      * @default true
      */
     java.lang.Boolean getPublicLoadBalancer();
     /**
-     * Determines whether the Application Load Balancer will be internet-facing
-     * @default true
-     */
-    void setPublicLoadBalancer(final java.lang.Boolean value);
-    /**
      * Determines whether your Fargate Service will be assigned a public IP address.
      * @default false
      */
     java.lang.Boolean getPublicTasks();
-    /**
-     * Determines whether your Fargate Service will be assigned a public IP address.
-     * @default false
-     */
-    void setPublicTasks(final java.lang.Boolean value);
 
     /**
      * @return a {@link Builder} of {@link LoadBalancedFargateServiceProps}
@@ -201,24 +153,19 @@ This default is set in the underlying FargateTaskDefinition construct.
         public LoadBalancedFargateServiceProps build() {
             return new LoadBalancedFargateServiceProps() {
                 @javax.annotation.Nullable
-                private java.lang.Number $containerPort = _containerPort;
+                private final java.lang.Number $containerPort = _containerPort;
                 @javax.annotation.Nullable
-                private java.lang.String $cpu = _cpu;
+                private final java.lang.String $cpu = _cpu;
                 @javax.annotation.Nullable
-                private java.lang.String $memoryMiB = _memoryMiB;
+                private final java.lang.String $memoryMiB = _memoryMiB;
                 @javax.annotation.Nullable
-                private java.lang.Boolean $publicLoadBalancer = _publicLoadBalancer;
+                private final java.lang.Boolean $publicLoadBalancer = _publicLoadBalancer;
                 @javax.annotation.Nullable
-                private java.lang.Boolean $publicTasks = _publicTasks;
+                private final java.lang.Boolean $publicTasks = _publicTasks;
 
                 @Override
                 public java.lang.Number getContainerPort() {
                     return this.$containerPort;
-                }
-
-                @Override
-                public void setContainerPort(@javax.annotation.Nullable final java.lang.Number value) {
-                    this.$containerPort = value;
                 }
 
                 @Override
@@ -227,18 +174,8 @@ This default is set in the underlying FargateTaskDefinition construct.
                 }
 
                 @Override
-                public void setCpu(@javax.annotation.Nullable final java.lang.String value) {
-                    this.$cpu = value;
-                }
-
-                @Override
                 public java.lang.String getMemoryMiB() {
                     return this.$memoryMiB;
-                }
-
-                @Override
-                public void setMemoryMiB(@javax.annotation.Nullable final java.lang.String value) {
-                    this.$memoryMiB = value;
                 }
 
                 @Override
@@ -247,18 +184,19 @@ This default is set in the underlying FargateTaskDefinition construct.
                 }
 
                 @Override
-                public void setPublicLoadBalancer(@javax.annotation.Nullable final java.lang.Boolean value) {
-                    this.$publicLoadBalancer = value;
-                }
-
-                @Override
                 public java.lang.Boolean getPublicTasks() {
                     return this.$publicTasks;
                 }
 
-                @Override
-                public void setPublicTasks(@javax.annotation.Nullable final java.lang.Boolean value) {
-                    this.$publicTasks = value;
+                public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+                    software.amazon.jsii.JsiiObjectMapper om = software.amazon.jsii.JsiiObjectMapper.instance;
+                    com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+                    obj.set("containerPort", om.valueToTree(this.getContainerPort()));
+                    obj.set("cpu", om.valueToTree(this.getCpu()));
+                    obj.set("memoryMiB", om.valueToTree(this.getMemoryMiB()));
+                    obj.set("publicLoadBalancer", om.valueToTree(this.getPublicLoadBalancer()));
+                    obj.set("publicTasks", om.valueToTree(this.getPublicTasks()));
+                    return obj;
                 }
 
             };
@@ -284,15 +222,6 @@ This default is set in the underlying FargateTaskDefinition construct.
         }
 
         /**
-         * The container port of the application load balancer attached to your Fargate service. Corresponds to container port mapping.
-         * @default 80
-         */
-        @Override
-        public void setContainerPort(@javax.annotation.Nullable final java.lang.Number value) {
-            this.jsiiSet("containerPort", value);
-        }
-
-        /**
          * The number of cpu units used by the task.
          * Valid values, which determines your range of valid values for the memory parameter:
          * 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB
@@ -308,23 +237,6 @@ This default is set in the underlying FargateTaskDefinition construct.
         @javax.annotation.Nullable
         public java.lang.String getCpu() {
             return this.jsiiGet("cpu", java.lang.String.class);
-        }
-
-        /**
-         * The number of cpu units used by the task.
-         * Valid values, which determines your range of valid values for the memory parameter:
-         * 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB
-         * 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB
-         * 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB
-         * 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments
-         * 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments
-         * 
-         * This default is set in the underlying FargateTaskDefinition construct.
-         * @default 256
-         */
-        @Override
-        public void setCpu(@javax.annotation.Nullable final java.lang.String value) {
-            this.jsiiSet("cpu", value);
         }
 
         /**
@@ -353,30 +265,6 @@ This default is set in the underlying FargateTaskDefinition construct.
         }
 
         /**
-         * The amount (in MiB) of memory used by the task.
-         * 
-         * This field is required and you must use one of the following values, which determines your range of valid values
-         * for the cpu parameter:
-         * 
-         * 0.5GB, 1GB, 2GB - Available cpu values: 256 (.25 vCPU)
-         * 
-         * 1GB, 2GB, 3GB, 4GB - Available cpu values: 512 (.5 vCPU)
-         * 
-         * 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB - Available cpu values: 1024 (1 vCPU)
-         * 
-         * Between 4GB and 16GB in 1GB increments - Available cpu values: 2048 (2 vCPU)
-         * 
-         * Between 8GB and 30GB in 1GB increments - Available cpu values: 4096 (4 vCPU)
-         * 
-         * This default is set in the underlying FargateTaskDefinition construct.
-         * @default 512
-         */
-        @Override
-        public void setMemoryMiB(@javax.annotation.Nullable final java.lang.String value) {
-            this.jsiiSet("memoryMiB", value);
-        }
-
-        /**
          * Determines whether the Application Load Balancer will be internet-facing
          * @default true
          */
@@ -387,15 +275,6 @@ This default is set in the underlying FargateTaskDefinition construct.
         }
 
         /**
-         * Determines whether the Application Load Balancer will be internet-facing
-         * @default true
-         */
-        @Override
-        public void setPublicLoadBalancer(@javax.annotation.Nullable final java.lang.Boolean value) {
-            this.jsiiSet("publicLoadBalancer", value);
-        }
-
-        /**
          * Determines whether your Fargate Service will be assigned a public IP address.
          * @default false
          */
@@ -403,15 +282,6 @@ This default is set in the underlying FargateTaskDefinition construct.
         @javax.annotation.Nullable
         public java.lang.Boolean getPublicTasks() {
             return this.jsiiGet("publicTasks", java.lang.Boolean.class);
-        }
-
-        /**
-         * Determines whether your Fargate Service will be assigned a public IP address.
-         * @default false
-         */
-        @Override
-        public void setPublicTasks(@javax.annotation.Nullable final java.lang.Boolean value) {
-            this.jsiiSet("publicTasks", value);
         }
     }
 }

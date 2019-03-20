@@ -460,7 +460,7 @@ export class Kernel {
                 return this._findSymbol(fqn);
 
             case spec.TypeKind.Interface:
-                return Object;
+                throw new Error(`Cannot create an object with an FQN of an interface: ${fqn}`);
 
             default:
                 throw new Error(`Unexpected FQN kind: ${fqn}`);
@@ -930,7 +930,19 @@ export class Kernel {
         if (typeof v === 'object') {
             const out: any = { };
             for (const k of Object.keys(v)) {
-                out[k] = this._toSandbox(v[k]);
+                const value = this._toSandbox(v[k]);
+
+                // javascript has a fun behavior where
+                //     { ...{ x: 'hello' }, ...{ x: undefined } }
+                // will result in:
+                //     { x: undefined }
+                // so omit any keys that have an `undefined` values.
+                // see awslabs/aws-cdk#965 and compliance test "mergeObjects"
+                if (value === undefined) {
+                    continue;
+                }
+
+                out[k] = value;
             }
             return out;
         }
@@ -944,6 +956,10 @@ export class Kernel {
 
         // undefined is returned as null: true
         if (typeof(v) === 'undefined') {
+            return undefined;
+        }
+
+        if (v === null) {
             return undefined;
         }
 
@@ -1019,7 +1035,11 @@ export class Kernel {
             this._debug('map', v);
             const out: any = { };
             for (const k of Object.keys(v)) {
-                out[k] = this._fromSandbox(v[k]);
+                const value = this._fromSandbox(v[k]);
+                if (value === undefined) {
+                    continue;
+                }
+                out[k] = value;
             }
             return out;
         }

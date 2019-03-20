@@ -6,29 +6,17 @@ package software.amazon.jsii.tests.calculator;
 @javax.annotation.Generated(value = "jsii-pacmak")
 public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.lib.MyFirstStruct {
     java.time.Instant getAnotherRequired();
-    void setAnotherRequired(final java.time.Instant value);
     java.lang.Boolean getBool();
-    void setBool(final java.lang.Boolean value);
     /**
      * An example of a non primitive property.
      */
     software.amazon.jsii.tests.calculator.DoubleTrouble getNonPrimitive();
     /**
-     * An example of a non primitive property.
-     */
-    void setNonPrimitive(final software.amazon.jsii.tests.calculator.DoubleTrouble value);
-    /**
      * This is optional.
      */
     java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> getAnotherOptional();
-    /**
-     * This is optional.
-     */
-    void setAnotherOptional(final java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> value);
     java.lang.Object getOptionalAny();
-    void setOptionalAny(final java.lang.Object value);
     java.util.List<java.lang.String> getOptionalArray();
-    void setOptionalArray(final java.util.List<java.lang.String> value);
 
     /**
      * @return a {@link Builder} of {@link DerivedStruct}
@@ -144,28 +132,23 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
          */
         public DerivedStruct build() {
             return new DerivedStruct() {
-                private java.time.Instant $anotherRequired = java.util.Objects.requireNonNull(_anotherRequired, "anotherRequired is required");
-                private java.lang.Boolean $bool = java.util.Objects.requireNonNull(_bool, "bool is required");
-                private software.amazon.jsii.tests.calculator.DoubleTrouble $nonPrimitive = java.util.Objects.requireNonNull(_nonPrimitive, "nonPrimitive is required");
+                private final java.time.Instant $anotherRequired = java.util.Objects.requireNonNull(_anotherRequired, "anotherRequired is required");
+                private final java.lang.Boolean $bool = java.util.Objects.requireNonNull(_bool, "bool is required");
+                private final software.amazon.jsii.tests.calculator.DoubleTrouble $nonPrimitive = java.util.Objects.requireNonNull(_nonPrimitive, "nonPrimitive is required");
                 @javax.annotation.Nullable
-                private java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> $anotherOptional = _anotherOptional;
+                private final java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> $anotherOptional = _anotherOptional;
                 @javax.annotation.Nullable
-                private java.lang.Object $optionalAny = _optionalAny;
+                private final java.lang.Object $optionalAny = _optionalAny;
                 @javax.annotation.Nullable
-                private java.util.List<java.lang.String> $optionalArray = _optionalArray;
-                private java.lang.Number $anumber = java.util.Objects.requireNonNull(_anumber, "anumber is required");
-                private java.lang.String $astring = java.util.Objects.requireNonNull(_astring, "astring is required");
+                private final java.util.List<java.lang.String> $optionalArray = _optionalArray;
+                private final java.lang.Number $anumber = java.util.Objects.requireNonNull(_anumber, "anumber is required");
+                private final java.lang.String $astring = java.util.Objects.requireNonNull(_astring, "astring is required");
                 @javax.annotation.Nullable
-                private java.util.List<java.lang.String> $firstOptional = _firstOptional;
+                private final java.util.List<java.lang.String> $firstOptional = _firstOptional;
 
                 @Override
                 public java.time.Instant getAnotherRequired() {
                     return this.$anotherRequired;
-                }
-
-                @Override
-                public void setAnotherRequired(final java.time.Instant value) {
-                    this.$anotherRequired = java.util.Objects.requireNonNull(value, "anotherRequired is required");
                 }
 
                 @Override
@@ -174,18 +157,8 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
                 }
 
                 @Override
-                public void setBool(final java.lang.Boolean value) {
-                    this.$bool = java.util.Objects.requireNonNull(value, "bool is required");
-                }
-
-                @Override
                 public software.amazon.jsii.tests.calculator.DoubleTrouble getNonPrimitive() {
                     return this.$nonPrimitive;
-                }
-
-                @Override
-                public void setNonPrimitive(final software.amazon.jsii.tests.calculator.DoubleTrouble value) {
-                    this.$nonPrimitive = java.util.Objects.requireNonNull(value, "nonPrimitive is required");
                 }
 
                 @Override
@@ -194,18 +167,8 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
                 }
 
                 @Override
-                public void setAnotherOptional(@javax.annotation.Nullable final java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> value) {
-                    this.$anotherOptional = value;
-                }
-
-                @Override
                 public java.lang.Object getOptionalAny() {
                     return this.$optionalAny;
-                }
-
-                @Override
-                public void setOptionalAny(@javax.annotation.Nullable final java.lang.Object value) {
-                    this.$optionalAny = value;
                 }
 
                 @Override
@@ -214,18 +177,8 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
                 }
 
                 @Override
-                public void setOptionalArray(@javax.annotation.Nullable final java.util.List<java.lang.String> value) {
-                    this.$optionalArray = value;
-                }
-
-                @Override
                 public java.lang.Number getAnumber() {
                     return this.$anumber;
-                }
-
-                @Override
-                public void setAnumber(final java.lang.Number value) {
-                    this.$anumber = java.util.Objects.requireNonNull(value, "anumber is required");
                 }
 
                 @Override
@@ -234,18 +187,23 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
                 }
 
                 @Override
-                public void setAstring(final java.lang.String value) {
-                    this.$astring = java.util.Objects.requireNonNull(value, "astring is required");
-                }
-
-                @Override
                 public java.util.List<java.lang.String> getFirstOptional() {
                     return this.$firstOptional;
                 }
 
-                @Override
-                public void setFirstOptional(@javax.annotation.Nullable final java.util.List<java.lang.String> value) {
-                    this.$firstOptional = value;
+                public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+                    software.amazon.jsii.JsiiObjectMapper om = software.amazon.jsii.JsiiObjectMapper.instance;
+                    com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+                    obj.set("anotherRequired", om.valueToTree(this.getAnotherRequired()));
+                    obj.set("bool", om.valueToTree(this.getBool()));
+                    obj.set("nonPrimitive", om.valueToTree(this.getNonPrimitive()));
+                    obj.set("anotherOptional", om.valueToTree(this.getAnotherOptional()));
+                    obj.set("optionalAny", om.valueToTree(this.getOptionalAny()));
+                    obj.set("optionalArray", om.valueToTree(this.getOptionalArray()));
+                    obj.set("anumber", om.valueToTree(this.getAnumber()));
+                    obj.set("astring", om.valueToTree(this.getAstring()));
+                    obj.set("firstOptional", om.valueToTree(this.getFirstOptional()));
+                    return obj;
                 }
 
             };
@@ -266,18 +224,8 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         }
 
         @Override
-        public void setAnotherRequired(final java.time.Instant value) {
-            this.jsiiSet("anotherRequired", java.util.Objects.requireNonNull(value, "anotherRequired is required"));
-        }
-
-        @Override
         public java.lang.Boolean getBool() {
             return this.jsiiGet("bool", java.lang.Boolean.class);
-        }
-
-        @Override
-        public void setBool(final java.lang.Boolean value) {
-            this.jsiiSet("bool", java.util.Objects.requireNonNull(value, "bool is required"));
         }
 
         /**
@@ -289,28 +237,12 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         }
 
         /**
-         * An example of a non primitive property.
-         */
-        @Override
-        public void setNonPrimitive(final software.amazon.jsii.tests.calculator.DoubleTrouble value) {
-            this.jsiiSet("nonPrimitive", java.util.Objects.requireNonNull(value, "nonPrimitive is required"));
-        }
-
-        /**
          * This is optional.
          */
         @Override
         @javax.annotation.Nullable
         public java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> getAnotherOptional() {
             return this.jsiiGet("anotherOptional", java.util.Map.class);
-        }
-
-        /**
-         * This is optional.
-         */
-        @Override
-        public void setAnotherOptional(@javax.annotation.Nullable final java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> value) {
-            this.jsiiSet("anotherOptional", value);
         }
 
         @Override
@@ -320,19 +252,9 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         }
 
         @Override
-        public void setOptionalAny(@javax.annotation.Nullable final java.lang.Object value) {
-            this.jsiiSet("optionalAny", value);
-        }
-
-        @Override
         @javax.annotation.Nullable
         public java.util.List<java.lang.String> getOptionalArray() {
             return this.jsiiGet("optionalArray", java.util.List.class);
-        }
-
-        @Override
-        public void setOptionalArray(@javax.annotation.Nullable final java.util.List<java.lang.String> value) {
-            this.jsiiSet("optionalArray", value);
         }
 
         /**
@@ -344,14 +266,6 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         }
 
         /**
-         * An awesome number value
-         */
-        @Override
-        public void setAnumber(final java.lang.Number value) {
-            this.jsiiSet("anumber", java.util.Objects.requireNonNull(value, "anumber is required"));
-        }
-
-        /**
          * A string value
          */
         @Override
@@ -359,23 +273,10 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
             return this.jsiiGet("astring", java.lang.String.class);
         }
 
-        /**
-         * A string value
-         */
-        @Override
-        public void setAstring(final java.lang.String value) {
-            this.jsiiSet("astring", java.util.Objects.requireNonNull(value, "astring is required"));
-        }
-
         @Override
         @javax.annotation.Nullable
         public java.util.List<java.lang.String> getFirstOptional() {
             return this.jsiiGet("firstOptional", java.util.List.class);
-        }
-
-        @Override
-        public void setFirstOptional(@javax.annotation.Nullable final java.util.List<java.lang.String> value) {
-            this.jsiiSet("firstOptional", value);
         }
     }
 }

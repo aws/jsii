@@ -800,6 +800,22 @@ class JavaGenerator extends Generator {
                 }
             }
         }
+
+        // emit $jsii$toJson which will be called to serialize this object when sent to JS
+        this.code.line();
+        this.code.openBlock(`public com.fasterxml.jackson.databind.JsonNode $jsii$toJson()`);
+        this.code.line(`software.amazon.jsii.JsiiObjectMapper om = software.amazon.jsii.JsiiObjectMapper.instance;`);
+        // tslint:disable-next-line:max-line-length
+        this.code.line(`com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();`);
+
+        for (const prop of props) {
+            this.code.line(`obj.set(\"${prop.spec.name}\", om.valueToTree(this.get${prop.propName}()));`);
+        }
+
+        this.code.line(`return obj;`);
+
+        this.code.closeBlock();
+
         this.code.unindent();
         this.code.line(`};`); /* return new Foo() */
 

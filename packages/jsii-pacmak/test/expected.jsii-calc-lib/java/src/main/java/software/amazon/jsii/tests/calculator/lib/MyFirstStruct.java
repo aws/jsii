@@ -10,19 +10,10 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
      */
     java.lang.Number getAnumber();
     /**
-     * An awesome number value
-     */
-    void setAnumber(final java.lang.Number value);
-    /**
      * A string value
      */
     java.lang.String getAstring();
-    /**
-     * A string value
-     */
-    void setAstring(final java.lang.String value);
     java.util.List<java.lang.String> getFirstOptional();
-    void setFirstOptional(final java.util.List<java.lang.String> value);
 
     /**
      * @return a {@link Builder} of {@link MyFirstStruct}
@@ -75,19 +66,14 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
          */
         public MyFirstStruct build() {
             return new MyFirstStruct() {
-                private java.lang.Number $anumber = java.util.Objects.requireNonNull(_anumber, "anumber is required");
-                private java.lang.String $astring = java.util.Objects.requireNonNull(_astring, "astring is required");
+                private final java.lang.Number $anumber = java.util.Objects.requireNonNull(_anumber, "anumber is required");
+                private final java.lang.String $astring = java.util.Objects.requireNonNull(_astring, "astring is required");
                 @javax.annotation.Nullable
-                private java.util.List<java.lang.String> $firstOptional = _firstOptional;
+                private final java.util.List<java.lang.String> $firstOptional = _firstOptional;
 
                 @Override
                 public java.lang.Number getAnumber() {
                     return this.$anumber;
-                }
-
-                @Override
-                public void setAnumber(final java.lang.Number value) {
-                    this.$anumber = java.util.Objects.requireNonNull(value, "anumber is required");
                 }
 
                 @Override
@@ -96,18 +82,17 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
                 }
 
                 @Override
-                public void setAstring(final java.lang.String value) {
-                    this.$astring = java.util.Objects.requireNonNull(value, "astring is required");
-                }
-
-                @Override
                 public java.util.List<java.lang.String> getFirstOptional() {
                     return this.$firstOptional;
                 }
 
-                @Override
-                public void setFirstOptional(@javax.annotation.Nullable final java.util.List<java.lang.String> value) {
-                    this.$firstOptional = value;
+                public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+                    software.amazon.jsii.JsiiObjectMapper om = software.amazon.jsii.JsiiObjectMapper.instance;
+                    com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+                    obj.set("anumber", om.valueToTree(this.getAnumber()));
+                    obj.set("astring", om.valueToTree(this.getAstring()));
+                    obj.set("firstOptional", om.valueToTree(this.getFirstOptional()));
+                    return obj;
                 }
 
             };
@@ -131,14 +116,6 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * An awesome number value
-         */
-        @Override
-        public void setAnumber(final java.lang.Number value) {
-            this.jsiiSet("anumber", java.util.Objects.requireNonNull(value, "anumber is required"));
-        }
-
-        /**
          * A string value
          */
         @Override
@@ -146,23 +123,10 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
             return this.jsiiGet("astring", java.lang.String.class);
         }
 
-        /**
-         * A string value
-         */
-        @Override
-        public void setAstring(final java.lang.String value) {
-            this.jsiiSet("astring", java.util.Objects.requireNonNull(value, "astring is required"));
-        }
-
         @Override
         @javax.annotation.Nullable
         public java.util.List<java.lang.String> getFirstOptional() {
             return this.jsiiGet("firstOptional", java.util.List.class);
-        }
-
-        @Override
-        public void setFirstOptional(@javax.annotation.Nullable final java.util.List<java.lang.String> value) {
-            this.jsiiSet("firstOptional", value);
         }
     }
 }

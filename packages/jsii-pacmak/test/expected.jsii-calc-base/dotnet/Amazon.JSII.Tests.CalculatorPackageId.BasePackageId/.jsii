@@ -93,6 +93,7 @@
       "properties": [
         {
           "abstract": true,
+          "immutable": true,
           "name": "bar",
           "type": {
             "primitive": "string"
@@ -102,5 +103,5 @@
     }
   },
   "version": "0.7.15",
-  "fingerprint": "qblFEmU0xS08cZ3AnU39Gnl3FzRKi1YFhQSn+R6f36M="
+  "fingerprint": "gJKasRrev7AM7n4fCo/0b5oq6CnGVcBiAjHsT/658XA="
 }

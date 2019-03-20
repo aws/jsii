@@ -6,7 +6,8 @@ using System.Collections.Generic;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>A struct which derives from another struct.</summary>
-    public class DerivedStruct : DeputyBase, IDerivedStruct
+    [JsiiByValue]
+    public class DerivedStruct : IDerivedStruct
     {
         [JsiiProperty("anotherRequired", "{\"primitive\":\"date\"}", true)]
         public DateTime AnotherRequired

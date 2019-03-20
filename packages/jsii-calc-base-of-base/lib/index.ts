@@ -1,5 +1,5 @@
 export interface VeryBaseProps {
-    foo: Very;
+    readonly foo: Very;
 }
 
 export class Very {

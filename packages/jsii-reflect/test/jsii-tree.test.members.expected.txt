@@ -151,6 +151,12 @@ assemblies
  │   │   ├── <initializer>() method
  │   │   ├── hello() method
  │   │   └── next() method
+ │   ├─┬ class EraseUndefinedHashValues
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── doesKeyExist(opts,key) method
+ │   │   ├── prop1IsNull() method
+ │   │   └── prop2IsUndefined() method
  │   ├─┬ class ExportedBaseClass
  │   │ └─┬ members
  │   │   ├── <initializer>(success) method
@@ -474,6 +480,10 @@ assemblies
  │   │   ├── anotherOptional property
  │   │   ├── optionalAny property
  │   │   └── optionalArray property
+ │   ├─┬ interface EraseUndefinedHashValuesOptions
+ │   │ └─┬ members
+ │   │   ├── option1 property
+ │   │   └── option2 property
  │   ├─┬ interface ExtendsInternalInterface
  │   │ └─┬ members
  │   │   └── boom property
@@ -502,6 +512,16 @@ assemblies
  │   ├─┬ interface IInterfaceWithOptionalMethodArguments
  │   │ └─┬ members
  │   │   └── hello(arg1,arg2) method
+ │   ├─┬ interface IInterfaceWithProperties
+ │   │ └─┬ members
+ │   │   ├── readOnlyString property
+ │   │   └── readWriteString property
+ │   ├─┬ interface IInterfaceWithPropertiesExtension
+ │   │ └─┬ members
+ │   │   └── foo property
+ │   ├─┬ interface IMutableObjectLiteral
+ │   │ └─┬ members
+ │   │   └── value property
  │   ├─┬ interface INonInternalInterface
  │   │ └─┬ members
  │   │   └── c property
@@ -530,13 +550,6 @@ assemblies
  │   ├─┬ interface Hello
  │   │ └─┬ members
  │   │   └── foo property
- │   ├─┬ interface InterfaceWithProperties
- │   │ └─┬ members
- │   │   ├── readOnlyString property
- │   │   └── readWriteString property
- │   ├─┬ interface InterfaceWithPropertiesExtension
- │   │ └─┬ members
- │   │   └── foo property
  │   ├─┬ interface LoadBalancedFargateServiceProps
  │   │ └─┬ members
  │   │   ├── containerPort property
@@ -544,9 +557,6 @@ assemblies
  │   │   ├── memoryMiB property
  │   │   ├── publicLoadBalancer property
  │   │   └── publicTasks property
- │   ├─┬ interface MutableObjectLiteral
- │   │ └─┬ members
- │   │   └── value property
  │   ├─┬ interface NullShouldBeTreatedAsUndefinedData
  │   │ └─┬ members
  │   │   ├── arrayWithThreeElementsAndUndefinedAsSecondArgument property

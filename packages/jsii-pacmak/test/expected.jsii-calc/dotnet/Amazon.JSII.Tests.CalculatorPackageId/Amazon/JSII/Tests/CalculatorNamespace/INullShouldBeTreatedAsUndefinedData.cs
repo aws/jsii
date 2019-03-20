@@ -9,14 +9,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         object[] ArrayWithThreeElementsAndUndefinedAsSecondArgument
         {
             get;
-            set;
         }
 
         [JsiiProperty("thisShouldBeUndefined", "{\"primitive\":\"any\",\"optional\":true}")]
         object ThisShouldBeUndefined
         {
             get;
-            set;
         }
     }
 }

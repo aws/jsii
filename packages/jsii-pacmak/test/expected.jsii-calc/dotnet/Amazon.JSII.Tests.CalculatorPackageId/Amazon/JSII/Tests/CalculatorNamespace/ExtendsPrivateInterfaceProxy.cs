@@ -13,7 +13,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public string[] MoreThings
         {
             get => GetInstanceProperty<string[]>();
-            set => SetInstanceProperty(value);
         }
     }
 }

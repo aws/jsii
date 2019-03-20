@@ -23,7 +23,7 @@ assemblies
  │   │ └── interfaces: INonInternalInterface
  │   ├── class ClassWithMutableObjectLiteralProperty
  │   ├─┬ class ClassWithPrivateConstructorAndAutomaticProperties
- │   │ └── interfaces: InterfaceWithProperties
+ │   │ └── interfaces: IInterfaceWithProperties
  │   ├── class Constructors
  │   ├── class ConsumersOfThisCrazyTypeSystem
  │   ├── class DefaultedConstructorArgument
@@ -35,6 +35,7 @@ assemblies
  │   ├── class DontComplainAboutVariadicAfterOptional
  │   ├─┬ class DoubleTrouble
  │   │ └── interfaces: IFriendlyRandomGenerator
+ │   ├── class EraseUndefinedHashValues
  │   ├── class ExportedBaseClass
  │   ├── class GiveMeStructs
  │   ├── class GreetingAugmenter
@@ -91,6 +92,7 @@ assemblies
  │   ├─┬ interface DerivedStruct
  │   │ └─┬ interfaces
  │   │   └── MyFirstStruct
+ │   ├── interface EraseUndefinedHashValuesOptions
  │   ├── interface ExtendsInternalInterface
  │   ├── interface ExtendsPrivateInterface
  │   ├── interface IAnotherPublicInterface
@@ -107,6 +109,11 @@ assemblies
  │   ├── interface IInterfaceWithInternal
  │   ├── interface IInterfaceWithMethods
  │   ├── interface IInterfaceWithOptionalMethodArguments
+ │   ├── interface IInterfaceWithProperties
+ │   ├─┬ interface IInterfaceWithPropertiesExtension
+ │   │ └─┬ interfaces
+ │   │   └── IInterfaceWithProperties
+ │   ├── interface IMutableObjectLiteral
  │   ├─┬ interface INonInternalInterface
  │   │ └─┬ interfaces
  │   │   └── IAnotherPublicInterface
@@ -120,12 +127,7 @@ assemblies
  │   ├── interface InterfaceImplementedByAbstractClass
  │   ├── interface Hello
  │   ├── interface Hello
- │   ├── interface InterfaceWithProperties
- │   ├─┬ interface InterfaceWithPropertiesExtension
- │   │ └─┬ interfaces
- │   │   └── InterfaceWithProperties
  │   ├── interface LoadBalancedFargateServiceProps
- │   ├── interface MutableObjectLiteral
  │   ├── interface NullShouldBeTreatedAsUndefinedData
  │   ├── interface UnionProperties
  │   ├── enum AllTypesEnum
