@@ -24,6 +24,7 @@ assemblies
  │   ├── class ClassWithMutableObjectLiteralProperty
  │   ├─┬ class ClassWithPrivateConstructorAndAutomaticProperties
  │   │ └── interfaces: InterfaceWithProperties
+ │   ├── class ConstructorPassesThisOut
  │   ├── class Constructors
  │   ├── class ConsumersOfThisCrazyTypeSystem
  │   ├── class DefaultedConstructorArgument
@@ -64,6 +65,7 @@ assemblies
  │   ├── class ObjectRefsInCollections
  │   ├── class OptionalConstructorArgument
  │   ├── class OverrideReturnsObject
+ │   ├── class PartiallyInitializedThisConsumer
  │   ├── class Polymorphism
  │   ├─┬ class Power
  │   │ └── base: CompositeOperation

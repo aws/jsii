@@ -6,6 +6,10 @@ public abstract class AbstractClass extends software.amazon.jsii.tests.calculato
     protected AbstractClass(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
         super(mode);
     }
+    public AbstractClass() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
 
     public abstract java.lang.String abstractMethod(final java.lang.String name);
 

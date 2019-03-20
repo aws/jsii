@@ -15,6 +15,7 @@ ClassThatImplementsThePrivateInterface
 ClassWithMutableObjectLiteralProperty
 ClassWithPrivateConstructorAndAutomaticProperties
 CompositeOperation
+ConstructorPassesThisOut
 Constructors
 ConsumersOfThisCrazyTypeSystem
 DefaultedConstructorArgument
@@ -47,6 +48,7 @@ ObjectRefsInCollections
 Operation
 OptionalConstructorArgument
 OverrideReturnsObject
+PartiallyInitializedThisConsumer
 Polymorphism
 Power
 PublicClass

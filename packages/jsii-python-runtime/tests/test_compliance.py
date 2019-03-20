@@ -13,6 +13,7 @@ from jsii_calc import (
     AsyncVirtualMethods,
     Calculator,
     ClassWithPrivateConstructorAndAutomaticProperties,
+    ConstructorPassesThisOut,
     DoNotOverridePrivates,
     DoubleTrouble,
     GreetingAugmenter,
@@ -28,6 +29,7 @@ from jsii_calc import (
     NodeStandardLibrary,
     NullShouldBeTreatedAsUndefined,
     NumberGenerator,
+    PartiallyInitializedThisConsumer,
     Polymorphism,
     Power,
     PythonReservedWords,
@@ -870,3 +872,13 @@ def test_testJsiiAgent():
 
 def test_receiveInstanceOfPrivateClass():
     assert ReturnsPrivateImplementationOfInterface().private_implementation.success
+
+@pytest.mark.skip
+def test_objectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut():
+    class PartiallyInitializedThisConsumerImpl(PartiallyInitializedThisConsumer):
+        def consume_partially_initialized_this(self):
+            return "OK"
+
+    reflector = PartiallyInitializedThisConsumerImpl()
+    obj = ConstructorPassesThisOut(reflector)
+    assert obj is not None

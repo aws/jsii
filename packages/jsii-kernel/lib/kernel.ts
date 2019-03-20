@@ -476,7 +476,10 @@ export class Kernel {
 
         const ctor = this._findCtor(fqn, requestArgs);
         const obj = this._wrapSandboxCode(() => new ctor(...this._toSandboxValues(requestArgs)));
-        const objref = this._createObjref(obj, fqn);
+        // Obj might have been identified already if it passes "this" to a callback!
+        const objref: api.ObjRef = _isIdentifiedObject(obj)
+            ? { [api.TOKEN_REF]: obj[OBJID_PROP] }
+            : this._createObjref(obj, fqn);
 
         // overrides: for each one of the override method names, installs a
         // method on the newly created object which represents the remote "reverse proxy".
@@ -745,6 +748,10 @@ export class Kernel {
 
     private _createObjref(obj: any, fqn: string): api.ObjRef {
         const objid = this._mkobjid(fqn);
+        this._debug('assigning', OBJID_PROP, objid, 'to an instance of type', fqn);
+        if (obj[OBJID_PROP]) {
+            this._debug('... but instance has ', OBJID_PROP, obj[OBJID_PROP]);
+        }
         Object.defineProperty(obj, OBJID_PROP, {
             value: objid,
             configurable: false,
@@ -786,7 +793,7 @@ export class Kernel {
             throw new Error(`Module '${moduleName}' not found`);
         }
 
-        const types = assembly.metadata.types || {};
+        const types = assembly.metadata.types || {};
         const fqnInfo = types[fqn];
         if (!fqnInfo) {
             throw new Error(`Type '${fqn}' not found`);
@@ -1323,4 +1330,14 @@ type Proxies = { [fqn: string]: ProxyReference };
 interface ProxyReference {
     objRef: api.ObjRef;
     handler: KernelProxyHandler;
+}
+
+interface IdentifiedObject {
+    [OBJID_PROP]: string;
+}
+function _isIdentifiedObject<T>(obj: T): obj is T & IdentifiedObject {
+    if (obj == null || typeof obj !== 'object') {
+        return false;
+    }
+    return OBJID_PROP in obj;
 }

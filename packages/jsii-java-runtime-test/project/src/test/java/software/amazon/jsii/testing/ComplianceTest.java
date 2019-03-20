@@ -31,6 +31,7 @@ import software.amazon.jsii.tests.calculator.NodeStandardLibrary;
 import software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefined;
 import software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefinedData;
 import software.amazon.jsii.tests.calculator.NumberGenerator;
+import software.amazon.jsii.tests.calculator.PartiallyInitializedThisConsumer;
 import software.amazon.jsii.tests.calculator.Polymorphism;
 import software.amazon.jsii.tests.calculator.Power;
 import software.amazon.jsii.tests.calculator.PublicClass;
@@ -51,6 +52,7 @@ import software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals;
 import software.amazon.jsii.tests.calculator.lib.Value;
 import software.amazon.jsii.tests.calculator.JavaReservedWords;
 import software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties;
+import software.amazon.jsii.tests.calculator.ConstructorPassesThisOut;
 import software.amazon.jsii.tests.calculator.Constructors;
 
 import org.junit.Test;
@@ -980,6 +982,21 @@ public class ComplianceTest {
 
         assertTrue(classRef instanceof InbetweenClass);
         assertTrue(ifaceRef instanceof IPublicInterface);
+    }
+
+    @Test
+    public void objectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut() {
+        final PartiallyInitializedThisConsumer reflector = new PartiallyInitializedThisConsumerImpl();
+        final ConstructorPassesThisOut object = new ConstructorPassesThisOut(reflector);
+
+        assertTrue(object != null);
+    }
+
+    static class PartiallyInitializedThisConsumerImpl extends PartiallyInitializedThisConsumer {
+        @Override
+        public String consumePartiallyInitializedThis(final ConstructorPassesThisOut obj) {
+            return "OK";
+        }
     }
 
     static class MulTen extends Multiply {

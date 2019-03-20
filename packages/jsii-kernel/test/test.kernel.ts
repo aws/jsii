@@ -973,6 +973,24 @@ defineTest('ObjRefs are labeled with the "most correct" type', async (test, sand
             `${ifaceRef[api.TOKEN_REF]} starts with jsii-calc.IPublicInterface`);
 });
 
+defineTest('Object ID does not get re-allocated when the constructor passes "this" out', async (test, sandbox) => {
+    sandbox.callbackHandler = makeSyncCallbackHandler((callback) => {
+        test.equal(callback.invoke && callback.invoke.method, 'consumePartiallyInitializedThis');
+        test.deepEqual(callback.invoke && callback.invoke.args && callback.invoke.args, [{
+            [api.TOKEN_REF]: 'jsii-calc.ConstructorPassesThisOut@10002'
+        }]);
+        return 'OK';
+    });
+    const reflector = sandbox.create({
+        fqn: 'jsii-calc.PartiallyInitializedThisConsumer',
+        overrides: [{ method: 'consumePartiallyInitializedThis' }]
+    });
+    test.equal(reflector[api.TOKEN_REF], 'jsii-calc.PartiallyInitializedThisConsumer@10000');
+
+    const classRef = sandbox.create({ fqn: 'jsii-calc.ConstructorPassesThisOut', args: [reflector] });
+    test.equal(classRef[api.TOKEN_REF], 'jsii-calc.ConstructorPassesThisOut@10002');
+});
+
 // =================================================================================================
 
 const testNames: { [name: string]: boolean } = { };

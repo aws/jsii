@@ -34,6 +34,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.ClassThatImplementsThePrivateInterface": return software.amazon.jsii.tests.calculator.ClassThatImplementsThePrivateInterface.class;
             case "jsii-calc.ClassWithMutableObjectLiteralProperty": return software.amazon.jsii.tests.calculator.ClassWithMutableObjectLiteralProperty.class;
             case "jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties": return software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties.class;
+            case "jsii-calc.ConstructorPassesThisOut": return software.amazon.jsii.tests.calculator.ConstructorPassesThisOut.class;
             case "jsii-calc.Constructors": return software.amazon.jsii.tests.calculator.Constructors.class;
             case "jsii-calc.ConsumersOfThisCrazyTypeSystem": return software.amazon.jsii.tests.calculator.ConsumersOfThisCrazyTypeSystem.class;
             case "jsii-calc.DefaultedConstructorArgument": return software.amazon.jsii.tests.calculator.DefaultedConstructorArgument.class;
@@ -89,6 +90,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.ObjectRefsInCollections": return software.amazon.jsii.tests.calculator.ObjectRefsInCollections.class;
             case "jsii-calc.OptionalConstructorArgument": return software.amazon.jsii.tests.calculator.OptionalConstructorArgument.class;
             case "jsii-calc.OverrideReturnsObject": return software.amazon.jsii.tests.calculator.OverrideReturnsObject.class;
+            case "jsii-calc.PartiallyInitializedThisConsumer": return software.amazon.jsii.tests.calculator.PartiallyInitializedThisConsumer.class;
             case "jsii-calc.Polymorphism": return software.amazon.jsii.tests.calculator.Polymorphism.class;
             case "jsii-calc.Power": return software.amazon.jsii.tests.calculator.Power.class;
             case "jsii-calc.PublicClass": return software.amazon.jsii.tests.calculator.PublicClass.class;

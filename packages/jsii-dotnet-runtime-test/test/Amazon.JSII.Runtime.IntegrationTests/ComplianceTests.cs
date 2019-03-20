@@ -884,6 +884,23 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.NotEqual(typeof(InbetweenClass), ifaceRef.GetType());
         }
 
+        [Fact(DisplayName = Prefix + nameof(ObjectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut))]
+        public void ObjectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut()
+        {
+            var reflector = new PartiallyInitializedThisConsumerImpl();
+            var obj = new ConstructorPassesThisOut(reflector);
+
+            Assert.NotNull(obj);
+        }
+
+        class PartiallyInitializedThisConsumerImpl : PartiallyInitializedThisConsumer
+        {
+            public override String ConsumePartiallyInitializedThis(ConstructorPassesThisOut obj)
+            {
+                return "OK";
+            }
+        }
+
         class NumberReturner : DeputyBase, IIReturnsNumber
         {
             public NumberReturner(double number)

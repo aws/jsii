@@ -9,6 +9,10 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
     protected CompositeOperation(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
         super(mode);
     }
+    public CompositeOperation() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
 
     /**
      * String representation of the value.

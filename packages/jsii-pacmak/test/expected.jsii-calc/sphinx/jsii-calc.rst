@@ -1247,6 +1247,36 @@ ClassWithPrivateConstructorAndAutomaticProperties
       :type: string
 
 
+ConstructorPassesThisOut
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: ConstructorPassesThisOut(consumer)
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.ConstructorPassesThisOut;
+
+      .. code-tab:: javascript
+
+         const { ConstructorPassesThisOut } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { ConstructorPassesThisOut } from 'jsii-calc';
+
+
+
+   :param consumer: 
+   :type consumer: :py:class:`~jsii-calc.PartiallyInitializedThisConsumer`\ 
+
 Constructors
 ^^^^^^^^^^^^
 
@@ -4071,6 +4101,43 @@ OverrideReturnsObject
       :param obj: 
       :type obj: :py:class:`~jsii-calc.IReturnsNumber`\ 
       :rtype: number
+
+
+PartiallyInitializedThisConsumer
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: PartiallyInitializedThisConsumer()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.PartiallyInitializedThisConsumer;
+
+      .. code-tab:: javascript
+
+         const { PartiallyInitializedThisConsumer } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { PartiallyInitializedThisConsumer } from 'jsii-calc';
+
+
+
+   :abstract: Yes
+
+   .. py:method:: consumePartiallyInitializedThis(obj) -> string
+
+      :param obj: 
+      :type obj: :py:class:`~jsii-calc.ConstructorPassesThisOut`\ 
+      :rtype: string
+      :abstract: Yes
 
 
 Polymorphism

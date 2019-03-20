@@ -1207,6 +1207,23 @@
         }
       ]
     },
+    "jsii-calc.ConstructorPassesThisOut": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.ConstructorPassesThisOut",
+      "initializer": {
+        "initializer": true,
+        "parameters": [
+          {
+            "name": "consumer",
+            "type": {
+              "fqn": "jsii-calc.PartiallyInitializedThisConsumer"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "name": "ConstructorPassesThisOut"
+    },
     "jsii-calc.Constructors": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.Constructors",
@@ -3103,6 +3120,33 @@
       ],
       "name": "OverrideReturnsObject"
     },
+    "jsii-calc.PartiallyInitializedThisConsumer": {
+      "abstract": true,
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.PartiallyInitializedThisConsumer",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "abstract": true,
+          "name": "consumePartiallyInitializedThis",
+          "parameters": [
+            {
+              "name": "obj",
+              "type": {
+                "fqn": "jsii-calc.ConstructorPassesThisOut"
+              }
+            }
+          ],
+          "returns": {
+            "primitive": "string"
+          }
+        }
+      ],
+      "name": "PartiallyInitializedThisConsumer"
+    },
     "jsii-calc.Polymorphism": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.Polymorphism",
@@ -4249,5 +4293,5 @@
     }
   },
   "version": "0.7.15",
-  "fingerprint": "y7h6OQBzbQrvU43LHTizXl12OUAEOpXhqD02OJfmhWQ="
+  "fingerprint": "R1xDj9nkBHfChUdY5UBwN33gnpRmlVY2z00o3KvjHSQ="
 }

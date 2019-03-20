@@ -271,6 +271,13 @@ assemblies
  │   │   │ └── type: primitive:string
  │   │   └─┬ readWriteString property
  │   │     └── type: primitive:string
+ │   ├─┬ class ConstructorPassesThisOut
+ │   │ └─┬ members
+ │   │   └─┬ <initializer>(consumer) method
+ │   │     ├─┬ parameters
+ │   │     │ └─┬ consumer
+ │   │     │   └── type: class:jsii-calc.PartiallyInitializedThisConsumer
+ │   │     └── returns: void
  │   ├─┬ class Constructors
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -727,6 +734,16 @@ assemblies
  │   │     │ └─┬ obj
  │   │     │   └── type: interface:jsii-calc.IReturnsNumber
  │   │     └── returns: primitive:number
+ │   ├─┬ class PartiallyInitializedThisConsumer
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>() method
+ │   │   │ └── returns: void
+ │   │   └─┬ consumePartiallyInitializedThis(obj) method
+ │   │     ├── abstract
+ │   │     ├─┬ parameters
+ │   │     │ └─┬ obj
+ │   │     │   └── type: class:jsii-calc.ConstructorPassesThisOut
+ │   │     └── returns: primitive:string
  │   ├─┬ class Polymorphism
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
