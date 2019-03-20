@@ -10,10 +10,13 @@ Base
 Base
 BinaryOperation
 Calculator
+ClassThatImplementsTheInternalInterface
+ClassThatImplementsThePrivateInterface
 ClassWithMutableObjectLiteralProperty
 ClassWithPrivateConstructorAndAutomaticProperties
 CompositeOperation
 Constructors
+ConsumersOfThisCrazyTypeSystem
 DefaultedConstructorArgument
 Derived
 DoNotOverridePrivates

@@ -1461,3 +1461,55 @@ export class ImplementsPrivateInterface implements IPrivateInterface {
 export interface ExtendsPrivateInterface extends IPrivateInterface {
     readonly moreThings: string[];
 }
+
+//
+// hidden (private/internal) base interface erasure will copy non-hidden bases from
+// hidden to consuming type.
+//
+
+export interface IAnotherPublicInterface {
+    a: string;
+
+}
+
+/** @internal */
+export interface IAnotherInternalInterface extends IAnotherPublicInterface {
+    b: string;
+}
+
+export interface INonInternalInterface extends IAnotherInternalInterface {
+    c: string;
+}
+
+/** @internal */
+export interface IInternalInterfaceThatExtendsTheNonInternalOne extends INonInternalInterface {
+    d: string;
+}
+
+interface IPrivateInterfaceThatExtendsTheNonInternalOne extends INonInternalInterface {
+    e: string;
+}
+
+export class ClassThatImplementsTheInternalInterface implements IInternalInterfaceThatExtendsTheNonInternalOne, INonInternalInterface {
+    public a = 'a';
+    public b = 'b';
+    public c = 'c';
+    public d = 'd';
+}
+
+export class ClassThatImplementsThePrivateInterface implements IPrivateInterfaceThatExtendsTheNonInternalOne {
+    public a = 'a';
+    public b = 'b';
+    public c = 'c';
+    public e = 'e';
+}
+
+export class ConsumersOfThisCrazyTypeSystem {
+    public consumeAnotherPublicInterface(obj: IAnotherPublicInterface) {
+        return obj.a;
+    }
+
+    public consumeNonInternalInterface(obj: INonInternalInterface): any {
+        return { a: obj.a, b: obj.b, c: obj.c };
+    }
+}

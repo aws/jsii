@@ -86,6 +86,20 @@ assemblies
  │   │   ├── curr property
  │   │   ├── maxValue property
  │   │   └── unionProperty property
+ │   ├─┬ class ClassThatImplementsTheInternalInterface
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── a property
+ │   │   ├── b property
+ │   │   ├── c property
+ │   │   └── d property
+ │   ├─┬ class ClassThatImplementsThePrivateInterface
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── a property
+ │   │   ├── b property
+ │   │   ├── c property
+ │   │   └── e property
  │   ├─┬ class ClassWithMutableObjectLiteralProperty
  │   │ └─┬ members
  │   │   ├── <initializer>() method
@@ -100,6 +114,11 @@ assemblies
  │   │   ├── <initializer>() method
  │   │   ├── makeClass() method
  │   │   └── makeInterface() method
+ │   ├─┬ class ConsumersOfThisCrazyTypeSystem
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── consumeAnotherPublicInterface(obj) method
+ │   │   └── consumeNonInternalInterface(obj) method
  │   ├─┬ class DefaultedConstructorArgument
  │   │ └─┬ members
  │   │   ├── <initializer>(arg1,arg2,arg3) method
@@ -461,19 +480,19 @@ assemblies
  │   │   ├── anotherOptional property
  │   │   ├── optionalAny property
  │   │   └── optionalArray property
-<<<<<<< HEAD
  │   ├─┬ interface EraseUndefinedHashValuesOptions
  │   │ └─┬ members
  │   │   ├── option1 property
  │   │   └── option2 property
-=======
  │   ├─┬ interface ExtendsInternalInterface
  │   │ └─┬ members
  │   │   └── boom property
  │   ├─┬ interface ExtendsPrivateInterface
  │   │ └─┬ members
  │   │   └── moreThings property
->>>>>>> origin/master
+ │   ├─┬ interface IAnotherPublicInterface
+ │   │ └─┬ members
+ │   │   └── a property
  │   ├─┬ interface IFriendlier
  │   │ └─┬ members
  │   │   ├── farewell() method
@@ -503,6 +522,9 @@ assemblies
  │   ├─┬ interface IMutableObjectLiteral
  │   │ └─┬ members
  │   │   └── value property
+ │   ├─┬ interface INonInternalInterface
+ │   │ └─┬ members
+ │   │   └── c property
  │   ├─┬ interface IPrivatelyImplemented
  │   │ └─┬ members
  │   │   └── success property

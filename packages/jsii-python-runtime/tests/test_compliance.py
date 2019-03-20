@@ -50,8 +50,7 @@ from scope.jsii_calc_lib import IFriendly, EnumFromScopedModule, Number
 #       Tests as closely as possible to make keeping them in sync easier.
 
 # These map distinct reasons for failures, so we an easily find them.
-xfail_async = pytest.mark.xfail(reason="Implement async methods", strict=True)
-xfail_callbacks = pytest.mark.xfail(reason="Implement callback support", strict=True)
+xfail_callbacks = pytest.mark.skip(reason="Implement callback support")
 
 
 class DerivedFromAllTypes(AllTypes):
@@ -465,39 +464,33 @@ def test_creationOfNativeObjectsFromJavaScriptObjects():
     assert unmarshalled_native_obj.__class__ == MulTen
 
 
-@xfail_async
 def test_asyncOverrides_callAsyncMethod():
     obj = AsyncVirtualMethods()
     assert obj.call_me() == 128
     assert obj.override_me(44) == 528
 
 
-@xfail_async
 def test_asyncOverrides_overrideAsyncMethod():
     obj = OverrideAsyncMethods()
     obj.call_me() == 4452
 
 
-@xfail_async
 def test_asyncOverrides_overrideAsyncMethodByParentClass():
     obj = OverrideAsyncMethodsByBaseClass()
     obj.call_me() == 4452
 
 
-@xfail_async
 def test_asyncOverrides_overrideCallsSuper():
     obj = OverrideCallsSuper()
     assert obj.override_me(12) == 1441
     assert obj.call_me() == 1209
 
 
-@xfail_async
 def test_asyncOverrides_twoOverrides():
     obj = TwoOverrides()
     assert obj.call_me() == 684
 
 
-@xfail_async
 def test_asyncOverrides_overrideThrows():
     class ThrowingAsyncVirtualMethods(AsyncVirtualMethods):
         def override_me(self, mult):
@@ -801,15 +794,14 @@ def test_reservedKeywordsAreSlugifiedInMethodNames():
     obj.return_()
 
 
-@xfail_async
 def test_nodeStandardLibrary():
     obj = NodeStandardLibrary()
 
     assert obj.fs_read_file() == "Hello, resource!"
     assert obj.fs_read_file_sync() == "Hello, resource! SYNC!"
-    assert len(obj.get_os_platform()) > 0
+    assert len(obj.os_platform) > 0
     assert (
-        obj.crypto_sha_256()
+        obj.crypto_sha256()
         == "6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50"
     )
 

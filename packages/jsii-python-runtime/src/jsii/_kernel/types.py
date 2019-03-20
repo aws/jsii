@@ -164,10 +164,10 @@ class EndResponse:
 class Callback:
 
     cbid: str
-    cookie: Optional[str]
-    invoke: Optional[InvokeRequest]
-    get: Optional[GetRequest]
-    set: Optional[SetRequest]
+    cookie: Optional[str] = None
+    invoke: Optional[InvokeRequest] = None
+    get: Optional[GetRequest] = None
+    set: Optional[SetRequest] = None
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)

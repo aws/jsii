@@ -13,7 +13,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public bool Boom
         {
             get => GetInstanceProperty<bool>();
-            set => SetInstanceProperty(value);
         }
     }
 }

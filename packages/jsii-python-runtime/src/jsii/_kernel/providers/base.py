@@ -18,6 +18,14 @@ from jsii._kernel.types import (
     StaticGetRequest,
     StaticInvokeRequest,
     StaticSetRequest,
+    BeginRequest,
+    BeginResponse,
+    EndRequest,
+    EndResponse,
+    CallbacksRequest,
+    CallbacksResponse,
+    CompleteRequest,
+    CompleteResponse,
     StatsRequest,
     StatsResponse,
 )
@@ -64,6 +72,22 @@ class BaseProvider(metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
     def delete(self, request: DeleteRequest) -> DeleteResponse:
+        ...
+
+    @abc.abstractmethod
+    def begin(self, request: BeginRequest) -> BeginResponse:
+        ...
+
+    @abc.abstractmethod
+    def end(self, request: EndRequest) -> EndResponse:
+        ...
+
+    @abc.abstractmethod
+    def callbacks(self, request: CallbacksRequest) -> CallbacksResponse:
+        ...
+
+    @abc.abstractmethod
+    def complete(self, request: CompleteRequest) -> CompleteResponse:
         ...
 
     @abc.abstractmethod
