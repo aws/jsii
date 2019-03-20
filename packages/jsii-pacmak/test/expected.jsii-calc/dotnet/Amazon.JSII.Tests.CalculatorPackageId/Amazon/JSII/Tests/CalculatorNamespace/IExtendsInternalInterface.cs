@@ -9,7 +9,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         bool Boom
         {
             get;
-            set;
         }
     }
 }

@@ -59,6 +59,7 @@
       "properties": [
         {
           "abstract": true,
+          "immutable": true,
           "name": "foo",
           "type": {
             "fqn": "@scope/jsii-calc-base-of-base.Very"
@@ -67,6 +68,6 @@
       ]
     }
   },
-  "version": "0.7.15",
-  "fingerprint": "ymIN9XJp6NAoO43vlhQ43s5oa5QhCFk/Nf7cPCiSXBk="
+  "version": "0.8.0",
+  "fingerprint": "Zw8kQPB96ZhmOHG1mvSYux419pjx8yHpZLio+P31TIE="
 }

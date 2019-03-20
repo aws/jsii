@@ -24,6 +24,7 @@ DoNotOverridePrivates
 DoNotRecognizeAnyAsOptional
 DontComplainAboutVariadicAfterOptional
 DoubleTrouble
+EraseUndefinedHashValues
 ExportedBaseClass
 Foo
 GiveMeStructs

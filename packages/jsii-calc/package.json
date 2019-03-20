@@ -1,6 +1,6 @@
 {
   "name": "jsii-calc",
-  "version": "0.7.15",
+  "version": "0.8.0",
   "description": "A simple calcuator built on JSII.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -31,18 +31,18 @@
     "jsii-calc-bundled"
   ],
   "dependencies": {
-    "@scope/jsii-calc-base": "^0.7.15",
-    "@scope/jsii-calc-lib": "^0.7.15",
-    "jsii-calc-bundled": "^0.7.15"
+    "@scope/jsii-calc-base": "^0.8.0",
+    "@scope/jsii-calc-lib": "^0.8.0",
+    "jsii-calc-bundled": "^0.8.0"
   },
   "peerDependencies": {
-    "@scope/jsii-calc-base": "^0.7.15",
-    "@scope/jsii-calc-lib": "^0.7.15"
+    "@scope/jsii-calc-base": "^0.8.0",
+    "@scope/jsii-calc-lib": "^0.8.0"
   },
   "devDependencies": {
     "@types/node": "^8.10.43",
-    "jsii": "^0.7.15",
-    "jsii-build-tools": "^0.7.15"
+    "jsii": "^0.8.0",
+    "jsii-build-tools": "^0.8.0"
   },
   "author": {
     "name": "Amazon Web Services",

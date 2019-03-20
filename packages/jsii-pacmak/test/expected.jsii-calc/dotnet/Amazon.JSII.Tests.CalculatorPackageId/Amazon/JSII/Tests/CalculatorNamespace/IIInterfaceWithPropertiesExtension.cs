@@ -2,8 +2,8 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiInterface(typeof(IInterfaceWithPropertiesExtension), "jsii-calc.InterfaceWithPropertiesExtension")]
-    public interface IInterfaceWithPropertiesExtension : IInterfaceWithProperties
+    [JsiiInterface(typeof(IIInterfaceWithPropertiesExtension), "jsii-calc.IInterfaceWithPropertiesExtension")]
+    public interface IIInterfaceWithPropertiesExtension : IIInterfaceWithProperties
     {
         [JsiiProperty("foo", "{\"primitive\":\"number\"}")]
         double Foo

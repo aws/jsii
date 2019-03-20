@@ -10,7 +10,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace
         string Bar
         {
             get;
-            set;
         }
     }
 }

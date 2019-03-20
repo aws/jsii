@@ -2,7 +2,8 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    public class NullShouldBeTreatedAsUndefinedData : DeputyBase, INullShouldBeTreatedAsUndefinedData
+    [JsiiByValue]
+    public class NullShouldBeTreatedAsUndefinedData : INullShouldBeTreatedAsUndefinedData
     {
         [JsiiProperty("arrayWithThreeElementsAndUndefinedAsSecondArgument", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"any\"}}}", true)]
         public object[] ArrayWithThreeElementsAndUndefinedAsSecondArgument

@@ -11,7 +11,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         double Anumber
         {
             get;
-            set;
         }
 
         /// <summary>A string value</summary>
@@ -19,14 +18,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         string Astring
         {
             get;
-            set;
         }
 
         [JsiiProperty("firstOptional", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"optional\":true}")]
         string[] FirstOptional
         {
             get;
-            set;
         }
     }
 }

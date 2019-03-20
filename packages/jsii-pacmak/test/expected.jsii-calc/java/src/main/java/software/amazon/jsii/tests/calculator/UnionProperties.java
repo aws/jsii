@@ -4,8 +4,6 @@ package software.amazon.jsii.tests.calculator;
 public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
     java.lang.Object getBar();
     java.lang.Object getFoo();
-    void setFoo(final java.lang.String value);
-    void setFoo(final java.lang.Number value);
 
     /**
      * @return a {@link Builder} of {@link UnionProperties}
@@ -77,7 +75,7 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
             return new UnionProperties() {
                 private final java.lang.Object $bar = java.util.Objects.requireNonNull(_bar, "bar is required");
                 @javax.annotation.Nullable
-                private java.lang.Object $foo = _foo;
+                private final java.lang.Object $foo = _foo;
 
                 @Override
                 public java.lang.Object getBar() {
@@ -89,14 +87,12 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
                     return this.$foo;
                 }
 
-                @Override
-                public void setFoo(@javax.annotation.Nullable final java.lang.String value) {
-                    this.$foo = value;
-                }
-
-                @Override
-                public void setFoo(@javax.annotation.Nullable final java.lang.Number value) {
-                    this.$foo = value;
+                public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+                    software.amazon.jsii.JsiiObjectMapper om = software.amazon.jsii.JsiiObjectMapper.instance;
+                    com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+                    obj.set("bar", om.valueToTree(this.getBar()));
+                    obj.set("foo", om.valueToTree(this.getFoo()));
+                    return obj;
                 }
 
             };
@@ -120,16 +116,6 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
         @javax.annotation.Nullable
         public java.lang.Object getFoo() {
             return this.jsiiGet("foo", java.lang.Object.class);
-        }
-
-        @Override
-        public void setFoo(@javax.annotation.Nullable final java.lang.String value) {
-            this.jsiiSet("foo", value);
-        }
-
-        @Override
-        public void setFoo(@javax.annotation.Nullable final java.lang.Number value) {
-            this.jsiiSet("foo", value);
         }
     }
 }

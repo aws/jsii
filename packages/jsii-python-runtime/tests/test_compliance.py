@@ -20,7 +20,7 @@ from jsii_calc import (
     IFriendlier,
     IFriendlyRandomGenerator,
     IRandomNumberGenerator,
-    InterfaceWithProperties,
+    IInterfaceWithProperties,
     JsiiAgent,
     JSObjectLiteralForInterface,
     JSObjectLiteralToNative,
@@ -40,6 +40,7 @@ from jsii_calc import (
     SyncVirtualMethods,
     UsesInterfaceWithProperties,
     composition,
+    EraseUndefinedHashValues,
 )
 from scope.jsii_calc_lib import IFriendly, EnumFromScopedModule, Number
 
@@ -597,10 +598,10 @@ def test_propertyOverrides_set_throws():
 
 
 @pytest.mark.xfail(
-    reason="Test no longer makes sense with lifted properties.", strict=True
+    reason="Overrides are still not implemented.", strict=True
 )
 def test_propertyOverrides_interfaces():
-    class TInterfaceWithProperties(InterfaceWithProperties):
+    class TInterfaceWithProperties(IInterfaceWithProperties):
 
         x = None
 
@@ -623,13 +624,30 @@ def test_propertyOverrides_interfaces():
     assert interact.write_and_read("Hello") == "Hello!?"
 
 
+@pytest.mark.xfail(
+    reason="Overrides are still not implemented.", strict=True
+)
 def test_interfaceBuilder():
-    interact = UsesInterfaceWithProperties(
-        read_only_string="READ_ONLY", read_write_string="READ_WRITE"
-    )
+    class TInterfaceWithProperties(IInterfaceWithProperties):
+
+        x = "READ_WRITE"
+
+        @property
+        def read_only_string(self):
+            return "READ_ONLY"
+
+        @property
+        def read_write_string(self):
+            return self.x
+
+        @read_write_string.setter
+        def read_write_string(self, value):
+            self.x = value
+
+    obj = TInterfaceWithProperties()
+    interact = UsesInterfaceWithProperties(obj)
     assert interact.just_read() == "READ_ONLY"
     assert interact.write_and_read("Hello") == "Hello"
-
 
 @xfail_callbacks
 def test_syncOverrides_callsSuper():
@@ -872,6 +890,14 @@ def test_testJsiiAgent():
 
 def test_receiveInstanceOfPrivateClass():
     assert ReturnsPrivateImplementationOfInterface().private_implementation.success
+
+def test_eraseUnsetDataValues():
+    opts = {
+        "option1": "option1"
+    }
+    assert EraseUndefinedHashValues.does_key_exist(opts, "option1")
+    assert not EraseUndefinedHashValues.does_key_exist(opts, "option2")
+
 
 @pytest.mark.skip
 def test_objectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut():

@@ -3,7 +3,6 @@ package software.amazon.jsii.tests.calculator;
 @javax.annotation.Generated(value = "jsii-pacmak")
 public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.base.BaseProps {
     java.time.Instant getGoo();
-    void setGoo(final java.time.Instant value);
 
     /**
      * @return a {@link Builder} of {@link ImplictBaseOfBase}
@@ -55,18 +54,13 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
          */
         public ImplictBaseOfBase build() {
             return new ImplictBaseOfBase() {
-                private java.time.Instant $goo = java.util.Objects.requireNonNull(_goo, "goo is required");
-                private java.lang.String $bar = java.util.Objects.requireNonNull(_bar, "bar is required");
-                private software.amazon.jsii.tests.calculator.baseofbase.Very $foo = java.util.Objects.requireNonNull(_foo, "foo is required");
+                private final java.time.Instant $goo = java.util.Objects.requireNonNull(_goo, "goo is required");
+                private final java.lang.String $bar = java.util.Objects.requireNonNull(_bar, "bar is required");
+                private final software.amazon.jsii.tests.calculator.baseofbase.Very $foo = java.util.Objects.requireNonNull(_foo, "foo is required");
 
                 @Override
                 public java.time.Instant getGoo() {
                     return this.$goo;
-                }
-
-                @Override
-                public void setGoo(final java.time.Instant value) {
-                    this.$goo = java.util.Objects.requireNonNull(value, "goo is required");
                 }
 
                 @Override
@@ -75,18 +69,17 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
                 }
 
                 @Override
-                public void setBar(final java.lang.String value) {
-                    this.$bar = java.util.Objects.requireNonNull(value, "bar is required");
-                }
-
-                @Override
                 public software.amazon.jsii.tests.calculator.baseofbase.Very getFoo() {
                     return this.$foo;
                 }
 
-                @Override
-                public void setFoo(final software.amazon.jsii.tests.calculator.baseofbase.Very value) {
-                    this.$foo = java.util.Objects.requireNonNull(value, "foo is required");
+                public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+                    software.amazon.jsii.JsiiObjectMapper om = software.amazon.jsii.JsiiObjectMapper.instance;
+                    com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+                    obj.set("goo", om.valueToTree(this.getGoo()));
+                    obj.set("bar", om.valueToTree(this.getBar()));
+                    obj.set("foo", om.valueToTree(this.getFoo()));
+                    return obj;
                 }
 
             };
@@ -107,28 +100,13 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
         }
 
         @Override
-        public void setGoo(final java.time.Instant value) {
-            this.jsiiSet("goo", java.util.Objects.requireNonNull(value, "goo is required"));
-        }
-
-        @Override
         public java.lang.String getBar() {
             return this.jsiiGet("bar", java.lang.String.class);
         }
 
         @Override
-        public void setBar(final java.lang.String value) {
-            this.jsiiSet("bar", java.util.Objects.requireNonNull(value, "bar is required"));
-        }
-
-        @Override
         public software.amazon.jsii.tests.calculator.baseofbase.Very getFoo() {
             return this.jsiiGet("foo", software.amazon.jsii.tests.calculator.baseofbase.Very.class);
-        }
-
-        @Override
-        public void setFoo(final software.amazon.jsii.tests.calculator.baseofbase.Very value) {
-            this.jsiiSet("foo", java.util.Objects.requireNonNull(value, "foo is required"));
         }
     }
 }

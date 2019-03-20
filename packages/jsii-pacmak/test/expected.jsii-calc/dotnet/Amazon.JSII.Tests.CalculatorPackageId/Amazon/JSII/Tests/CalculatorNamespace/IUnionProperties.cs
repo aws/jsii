@@ -15,7 +15,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         object Foo
         {
             get;
-            set;
         }
     }
 }

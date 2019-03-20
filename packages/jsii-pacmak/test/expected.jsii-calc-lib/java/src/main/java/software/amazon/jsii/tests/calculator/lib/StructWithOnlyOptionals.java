@@ -9,14 +9,8 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
      * The first optional!
      */
     java.lang.String getOptional1();
-    /**
-     * The first optional!
-     */
-    void setOptional1(final java.lang.String value);
     java.lang.Number getOptional2();
-    void setOptional2(final java.lang.Number value);
     java.lang.Boolean getOptional3();
-    void setOptional3(final java.lang.Boolean value);
 
     /**
      * @return a {@link Builder} of {@link StructWithOnlyOptionals}
@@ -72,20 +66,15 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
         public StructWithOnlyOptionals build() {
             return new StructWithOnlyOptionals() {
                 @javax.annotation.Nullable
-                private java.lang.String $optional1 = _optional1;
+                private final java.lang.String $optional1 = _optional1;
                 @javax.annotation.Nullable
-                private java.lang.Number $optional2 = _optional2;
+                private final java.lang.Number $optional2 = _optional2;
                 @javax.annotation.Nullable
-                private java.lang.Boolean $optional3 = _optional3;
+                private final java.lang.Boolean $optional3 = _optional3;
 
                 @Override
                 public java.lang.String getOptional1() {
                     return this.$optional1;
-                }
-
-                @Override
-                public void setOptional1(@javax.annotation.Nullable final java.lang.String value) {
-                    this.$optional1 = value;
                 }
 
                 @Override
@@ -94,18 +83,17 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
                 }
 
                 @Override
-                public void setOptional2(@javax.annotation.Nullable final java.lang.Number value) {
-                    this.$optional2 = value;
-                }
-
-                @Override
                 public java.lang.Boolean getOptional3() {
                     return this.$optional3;
                 }
 
-                @Override
-                public void setOptional3(@javax.annotation.Nullable final java.lang.Boolean value) {
-                    this.$optional3 = value;
+                public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+                    software.amazon.jsii.JsiiObjectMapper om = software.amazon.jsii.JsiiObjectMapper.instance;
+                    com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+                    obj.set("optional1", om.valueToTree(this.getOptional1()));
+                    obj.set("optional2", om.valueToTree(this.getOptional2()));
+                    obj.set("optional3", om.valueToTree(this.getOptional3()));
+                    return obj;
                 }
 
             };
@@ -129,14 +117,6 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
             return this.jsiiGet("optional1", java.lang.String.class);
         }
 
-        /**
-         * The first optional!
-         */
-        @Override
-        public void setOptional1(@javax.annotation.Nullable final java.lang.String value) {
-            this.jsiiSet("optional1", value);
-        }
-
         @Override
         @javax.annotation.Nullable
         public java.lang.Number getOptional2() {
@@ -144,19 +124,9 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
         }
 
         @Override
-        public void setOptional2(@javax.annotation.Nullable final java.lang.Number value) {
-            this.jsiiSet("optional2", value);
-        }
-
-        @Override
         @javax.annotation.Nullable
         public java.lang.Boolean getOptional3() {
             return this.jsiiGet("optional3", java.lang.Boolean.class);
-        }
-
-        @Override
-        public void setOptional3(@javax.annotation.Nullable final java.lang.Boolean value) {
-            this.jsiiSet("optional3", value);
         }
     }
 }

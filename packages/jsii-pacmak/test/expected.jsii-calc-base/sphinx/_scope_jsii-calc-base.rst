@@ -8,42 +8,42 @@ Reference
 
    .. group-tab:: C#
 
-      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId.BasePackageId/0.7.15>`_
+      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId.BasePackageId/0.8.0>`_
 
       **csproj**:
 
       .. code-block:: xml
 
-         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" Version="0.7.15" />
+         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" Version="0.8.0" />
 
       **dotnet**:
 
       .. code-block:: console
 
-         dotnet add package Amazon.JSII.Tests.CalculatorPackageId.BasePackageId --version 0.7.15
+         dotnet add package Amazon.JSII.Tests.CalculatorPackageId.BasePackageId --version 0.8.0
 
       **packages.config**:
 
       .. code-block:: xml
 
-         <package id="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" version="0.7.15" />
+         <package id="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" version="0.8.0" />
 
 
    .. group-tab:: Java
 
-      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator-base/0.7.15/>`_
+      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator-base/0.8.0/>`_
 
       **Apache Buildr**:
 
       .. code-block:: none
 
-         'software.amazon.jsii.tests:calculator-base:jar:0.7.15'
+         'software.amazon.jsii.tests:calculator-base:jar:0.8.0'
 
       **Apache Ivy**:
 
       .. code-block:: xml
 
-         <dependency groupId="software.amazon.jsii.tests" name="calculator-base" rev="0.7.15"/>
+         <dependency groupId="software.amazon.jsii.tests" name="calculator-base" rev="0.8.0"/>
 
       **Apache Maven**:
 
@@ -52,72 +52,72 @@ Reference
          <dependency>
            <groupId>software.amazon.jsii.tests</groupId>
            <artifactId>calculator-base</artifactId>
-           <version>0.7.15</version>
+           <version>0.8.0</version>
          </dependency>
 
       **Gradle / Grails**:
 
       .. code-block:: none
 
-         compile 'software.amazon.jsii.tests:calculator-base:0.7.15'
+         compile 'software.amazon.jsii.tests:calculator-base:0.8.0'
 
       **Groovy Grape**:
 
       .. code-block:: none
 
          @Grapes(
-         @Grab(group='software.amazon.jsii.tests', module='calculator-base', version='0.7.15')
+         @Grab(group='software.amazon.jsii.tests', module='calculator-base', version='0.8.0')
          )
 
 
    .. group-tab:: JavaScript
 
-      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-base/v/0.7.15>`_
+      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-base/v/0.8.0>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i @scope/jsii-calc-base@0.7.15
+         $ npm i @scope/jsii-calc-base@0.8.0
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "@scope/jsii-calc-base": "^0.7.15"
+           "@scope/jsii-calc-base": "^0.8.0"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add @scope/jsii-calc-base@0.7.15
+         $ yarn add @scope/jsii-calc-base@0.8.0
 
 
    .. group-tab:: TypeScript
 
-      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-base/v/0.7.15>`_
+      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-base/v/0.8.0>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i @scope/jsii-calc-base@0.7.15
+         $ npm i @scope/jsii-calc-base@0.8.0
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "@scope/jsii-calc-base": "^0.7.15"
+           "@scope/jsii-calc-base": "^0.8.0"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add @scope/jsii-calc-base@0.7.15
+         $ yarn add @scope/jsii-calc-base@0.8.0
 
 
 
@@ -194,13 +194,13 @@ BaseProps (interface)
 
    .. py:attribute:: bar
 
-      :type: string
+      :type: string *(readonly)*
 
 
    .. py:attribute:: foo
 
       *Inherited from* :py:attr:`@scope/jsii-calc-base-of-base.VeryBaseProps <@scope/jsii-calc-base-of-base.VeryBaseProps.foo>`
 
-      :type: :py:class:`@scope/jsii-calc-base-of-base.Very`\ 
+      :type: :py:class:`@scope/jsii-calc-base-of-base.Very`\  *(readonly)*
 
 

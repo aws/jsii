@@ -3,7 +3,6 @@ package software.amazon.jsii.tests.calculator;
 @javax.annotation.Generated(value = "jsii-pacmak")
 public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSerializable {
     java.lang.Boolean getBoom();
-    void setBoom(final java.lang.Boolean value);
 
     /**
      * @return a {@link Builder} of {@link ExtendsInternalInterface}
@@ -35,16 +34,18 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
          */
         public ExtendsInternalInterface build() {
             return new ExtendsInternalInterface() {
-                private java.lang.Boolean $boom = java.util.Objects.requireNonNull(_boom, "boom is required");
+                private final java.lang.Boolean $boom = java.util.Objects.requireNonNull(_boom, "boom is required");
 
                 @Override
                 public java.lang.Boolean getBoom() {
                     return this.$boom;
                 }
 
-                @Override
-                public void setBoom(final java.lang.Boolean value) {
-                    this.$boom = java.util.Objects.requireNonNull(value, "boom is required");
+                public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+                    software.amazon.jsii.JsiiObjectMapper om = software.amazon.jsii.JsiiObjectMapper.instance;
+                    com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+                    obj.set("boom", om.valueToTree(this.getBoom()));
+                    return obj;
                 }
 
             };
@@ -62,11 +63,6 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
         @Override
         public java.lang.Boolean getBoom() {
             return this.jsiiGet("boom", java.lang.Boolean.class);
-        }
-
-        @Override
-        public void setBoom(final java.lang.Boolean value) {
-            this.jsiiSet("boom", java.util.Objects.requireNonNull(value, "boom is required"));
         }
     }
 }

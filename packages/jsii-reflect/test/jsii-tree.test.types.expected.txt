@@ -25,6 +25,7 @@ assemblies
  │   ├── class DoNotRecognizeAnyAsOptional
  │   ├── class DontComplainAboutVariadicAfterOptional
  │   ├── class DoubleTrouble
+ │   ├── class EraseUndefinedHashValues
  │   ├── class ExportedBaseClass
  │   ├── class GiveMeStructs
  │   ├── class GreetingAugmenter
@@ -69,6 +70,7 @@ assemblies
  │   ├── class CompositeOperation
  │   ├── interface CalculatorProps
  │   ├── interface DerivedStruct
+ │   ├── interface EraseUndefinedHashValuesOptions
  │   ├── interface ExtendsInternalInterface
  │   ├── interface ExtendsPrivateInterface
  │   ├── interface IAnotherPublicInterface
@@ -78,6 +80,9 @@ assemblies
  │   ├── interface IInterfaceWithInternal
  │   ├── interface IInterfaceWithMethods
  │   ├── interface IInterfaceWithOptionalMethodArguments
+ │   ├── interface IInterfaceWithProperties
+ │   ├── interface IInterfaceWithPropertiesExtension
+ │   ├── interface IMutableObjectLiteral
  │   ├── interface INonInternalInterface
  │   ├── interface IPrivatelyImplemented
  │   ├── interface IPublicInterface
@@ -87,10 +92,7 @@ assemblies
  │   ├── interface InterfaceImplementedByAbstractClass
  │   ├── interface Hello
  │   ├── interface Hello
- │   ├── interface InterfaceWithProperties
- │   ├── interface InterfaceWithPropertiesExtension
  │   ├── interface LoadBalancedFargateServiceProps
- │   ├── interface MutableObjectLiteral
  │   ├── interface NullShouldBeTreatedAsUndefinedData
  │   ├── interface UnionProperties
  │   ├── enum AllTypesEnum

@@ -3,7 +3,8 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Properties for Calculator.</summary>
-    public class CalculatorProps : DeputyBase, ICalculatorProps
+    [JsiiByValue]
+    public class CalculatorProps : ICalculatorProps
     {
         [JsiiProperty("initialValue", "{\"primitive\":\"number\",\"optional\":true}", true)]
         public double? InitialValue

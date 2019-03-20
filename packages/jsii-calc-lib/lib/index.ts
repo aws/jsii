@@ -69,13 +69,13 @@ export interface MyFirstStruct {
     /**
      * A string value
      */
-    astring: string
+    readonly astring: string
 
     /**
      * An awesome number value
      */
-    anumber: number
-    firstOptional?: string[]
+    readonly anumber: number
+    readonly firstOptional?: string[]
 }
 
 /**
@@ -85,9 +85,9 @@ export interface StructWithOnlyOptionals {
     /**
      * The first optional!
      */
-    optional1?: string
-    optional2?: number
-    optional3?: boolean
+    readonly optional1?: string
+    readonly optional2?: number
+    readonly optional3?: boolean
 }
 
 /**

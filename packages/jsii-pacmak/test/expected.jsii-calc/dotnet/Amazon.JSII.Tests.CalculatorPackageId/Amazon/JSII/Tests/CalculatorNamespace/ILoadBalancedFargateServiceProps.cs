@@ -12,7 +12,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         double? ContainerPort
         {
             get;
-            set;
         }
 
         /// <summary>
@@ -31,7 +30,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         string Cpu
         {
             get;
-            set;
         }
 
         /// <summary>
@@ -57,7 +55,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         string MemoryMiB
         {
             get;
-            set;
         }
 
         /// <summary>Determines whether the Application Load Balancer will be internet-facing</summary>
@@ -66,7 +63,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         bool? PublicLoadBalancer
         {
             get;
-            set;
         }
 
         /// <summary>Determines whether your Fargate Service will be assigned a public IP address.</summary>
@@ -75,7 +71,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         bool? PublicTasks
         {
             get;
-            set;
         }
     }
 }

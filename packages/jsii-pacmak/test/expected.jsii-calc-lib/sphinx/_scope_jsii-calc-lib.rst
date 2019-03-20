@@ -8,42 +8,42 @@ Reference
 
    .. group-tab:: C#
 
-      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/0.7.15>`_
+      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/0.8.0>`_
 
       **csproj**:
 
       .. code-block:: xml
 
-         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" Version="0.7.15" />
+         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" Version="0.8.0" />
 
       **dotnet**:
 
       .. code-block:: console
 
-         dotnet add package Amazon.JSII.Tests.CalculatorPackageId.LibPackageId --version 0.7.15
+         dotnet add package Amazon.JSII.Tests.CalculatorPackageId.LibPackageId --version 0.8.0
 
       **packages.config**:
 
       .. code-block:: xml
 
-         <package id="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" version="0.7.15" />
+         <package id="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" version="0.8.0" />
 
 
    .. group-tab:: Java
 
-      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator-lib/0.7.15/>`_
+      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator-lib/0.8.0/>`_
 
       **Apache Buildr**:
 
       .. code-block:: none
 
-         'software.amazon.jsii.tests:calculator-lib:jar:0.7.15'
+         'software.amazon.jsii.tests:calculator-lib:jar:0.8.0'
 
       **Apache Ivy**:
 
       .. code-block:: xml
 
-         <dependency groupId="software.amazon.jsii.tests" name="calculator-lib" rev="0.7.15"/>
+         <dependency groupId="software.amazon.jsii.tests" name="calculator-lib" rev="0.8.0"/>
 
       **Apache Maven**:
 
@@ -52,72 +52,72 @@ Reference
          <dependency>
            <groupId>software.amazon.jsii.tests</groupId>
            <artifactId>calculator-lib</artifactId>
-           <version>0.7.15</version>
+           <version>0.8.0</version>
          </dependency>
 
       **Gradle / Grails**:
 
       .. code-block:: none
 
-         compile 'software.amazon.jsii.tests:calculator-lib:0.7.15'
+         compile 'software.amazon.jsii.tests:calculator-lib:0.8.0'
 
       **Groovy Grape**:
 
       .. code-block:: none
 
          @Grapes(
-         @Grab(group='software.amazon.jsii.tests', module='calculator-lib', version='0.7.15')
+         @Grab(group='software.amazon.jsii.tests', module='calculator-lib', version='0.8.0')
          )
 
 
    .. group-tab:: JavaScript
 
-      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-lib/v/0.7.15>`_
+      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-lib/v/0.8.0>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i @scope/jsii-calc-lib@0.7.15
+         $ npm i @scope/jsii-calc-lib@0.8.0
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "@scope/jsii-calc-lib": "^0.7.15"
+           "@scope/jsii-calc-lib": "^0.8.0"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add @scope/jsii-calc-lib@0.7.15
+         $ yarn add @scope/jsii-calc-lib@0.8.0
 
 
    .. group-tab:: TypeScript
 
-      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-lib/v/0.7.15>`_
+      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-lib/v/0.8.0>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i @scope/jsii-calc-lib@0.7.15
+         $ npm i @scope/jsii-calc-lib@0.8.0
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "@scope/jsii-calc-lib": "^0.7.15"
+           "@scope/jsii-calc-lib": "^0.8.0"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add @scope/jsii-calc-lib@0.7.15
+         $ yarn add @scope/jsii-calc-lib@0.8.0
 
 
 
@@ -283,7 +283,7 @@ MyFirstStruct (interface)
 
 
 
-      :type: number
+      :type: number *(readonly)*
 
 
    .. py:attribute:: astring
@@ -292,12 +292,12 @@ MyFirstStruct (interface)
 
 
 
-      :type: string
+      :type: string *(readonly)*
 
 
    .. py:attribute:: firstOptional
 
-      :type: string[] *(optional)*
+      :type: string[] *(optional)* *(readonly)*
 
 
 Number
@@ -481,17 +481,17 @@ StructWithOnlyOptionals (interface)
 
 
 
-      :type: string *(optional)*
+      :type: string *(optional)* *(readonly)*
 
 
    .. py:attribute:: optional2
 
-      :type: number *(optional)*
+      :type: number *(optional)* *(readonly)*
 
 
    .. py:attribute:: optional3
 
-      :type: boolean *(optional)*
+      :type: boolean *(optional)* *(readonly)*
 
 
 Value

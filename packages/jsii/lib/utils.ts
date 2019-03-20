@@ -25,6 +25,7 @@ export function diagnosticsLogger(logger: log4js.Logger, diagnostic: ts.Diagnost
         return logger.debug.bind(logger);
     }
 }
+
 export function logDiagnostic(diagnostic: ts.Diagnostic, projectRoot: string) {
     const formatDiagnosticsHost = {
         getCurrentDirectory: () => projectRoot,
@@ -35,6 +36,7 @@ export function logDiagnostic(diagnostic: ts.Diagnostic, projectRoot: string) {
     const message = diagnostic.file
                 ? ts.formatDiagnosticsWithColorAndContext([diagnostic], formatDiagnosticsHost)
                 : ts.formatDiagnostics([diagnostic], formatDiagnosticsHost);
+
     const logFunc = diagnosticsLogger(log4js.getLogger(DIAGNOSTICS), diagnostic);
     if (!logFunc) { return; }
     logFunc(message.trim());

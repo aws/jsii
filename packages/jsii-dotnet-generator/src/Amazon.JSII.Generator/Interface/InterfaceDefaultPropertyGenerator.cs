@@ -55,17 +55,14 @@ namespace Amazon.JSII.Generator.Interface
                 SF.ParseToken(";")
             );
 
-            if (!Property.IsImmutable())
-            {
-                yield return SF.AccessorDeclaration(
-                   SyntaxKind.SetAccessorDeclaration,
-                   SF.List<AttributeListSyntax>(),
-                   SF.TokenList(),
-                   SF.ParseToken("set"),
-                   (BlockSyntax)null,
-                   SF.ParseToken(";")
-               );
-            }
+            yield return SF.AccessorDeclaration(
+                SyntaxKind.SetAccessorDeclaration,
+                SF.List<AttributeListSyntax>(),
+                SF.TokenList(),
+                SF.ParseToken("set"),
+                (BlockSyntax)null,
+                SF.ParseToken(";")
+            );
         }
     }
 }

@@ -1,5 +1,5 @@
 {
-  "lerna": "2.11.0",
+  "lerna": "3.13.1",
   "packages": [
     "packages/*"
   ],
@@ -8,5 +8,5 @@
       "rejectCycles": true
     }
   },
-  "version": "0.7.15"
+  "version": "0.8.0"
 }

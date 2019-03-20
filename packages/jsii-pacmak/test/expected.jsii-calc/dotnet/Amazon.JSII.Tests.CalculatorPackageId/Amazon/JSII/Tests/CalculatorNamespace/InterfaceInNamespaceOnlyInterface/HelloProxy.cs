@@ -13,7 +13,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceOnlyInterfac
         public double Foo
         {
             get => GetInstanceProperty<double>();
-            set => SetInstanceProperty(value);
         }
     }
 }

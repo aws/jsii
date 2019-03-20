@@ -49,7 +49,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
     /**
      * JSON object mapper.
      */
-    private static final JsiiObjectMapper OM = new JsiiObjectMapper();
+    private static final JsiiObjectMapper OM = JsiiObjectMapper.instance;
 
     /**
      * The set of modules we already loaded into the VM.
