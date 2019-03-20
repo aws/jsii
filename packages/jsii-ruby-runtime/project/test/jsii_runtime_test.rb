@@ -23,7 +23,7 @@ class JsiiRuntimeTest < Test::Unit::TestCase
     assert_equal({ 'value' => 84 }, @client.get(objref: objref, property: 'doubleValue'))
     assert_equal({ 'result' => 'Number' }, @client.invoke(objref: objref, method: 'typeName'))
 
-    calc_props = { 'initialValue' => 100 };
+    calc_props = { 'initialValue' => 100 }
 
     calc = @client.create(fqn: 'jsii-calc.Calculator', args: [calc_props])
     @client.invoke(objref: calc, method: 'add', args: [50])
