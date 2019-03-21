@@ -1,6 +1,6 @@
 import abc
 
-from typing import Optional, Union
+from typing import Optional, Union, Type
 
 from jsii._kernel.types import (
     LoadRequest,
@@ -30,6 +30,7 @@ from jsii._kernel.types import (
     StatsResponse,
     Callback,
     CompleteRequest,
+    KernelResponse
 )
 
 
@@ -74,6 +75,10 @@ class BaseProvider(metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
     def complete(self, request: CompleteRequest) -> Union[InvokeResponse, GetResponse]:
+        ...
+
+    @abc.abstractmethod
+    def sync_complete(self, request: CompleteRequest, response_type: Type[KernelResponse]) -> Union[InvokeResponse, GetResponse]:
         ...
 
     @abc.abstractmethod

@@ -471,12 +471,12 @@ def test_asyncOverrides_callAsyncMethod():
 
 def test_asyncOverrides_overrideAsyncMethod():
     obj = OverrideAsyncMethods()
-    obj.call_me() == 4452
+    assert obj.call_me() == 4452
 
 
 def test_asyncOverrides_overrideAsyncMethodByParentClass():
     obj = OverrideAsyncMethodsByBaseClass()
-    obj.call_me() == 4452
+    assert obj.call_me() == 4452
 
 
 def test_asyncOverrides_overrideCallsSuper():
@@ -514,7 +514,7 @@ def test_syncOverrides():
 
     # and from an async method
     obj.multiplier = 3
-    assert obj.caller_is_async == 10 * 5 * 3
+    assert obj.caller_is_async() == 10 * 5 * 3
 
 
 @xfail_callbacks

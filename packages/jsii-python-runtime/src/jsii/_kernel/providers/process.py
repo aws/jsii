@@ -376,9 +376,6 @@ class ProcessProvider(BaseProvider):
     def delete(self, request: DeleteRequest) -> DeleteResponse:
         return self._process.send(request, DeleteResponse)
 
-    # def complete(self, request: CompleteRequest) -> Union[InvokeResponse, GetResponse]:
-    #     return self._process.send(_CompleteRequest(complete=request), InvokeResponse)
-    
     def begin(self, request: BeginRequest) -> BeginResponse:
         return self._process.send(request, BeginResponse)
 
@@ -390,6 +387,10 @@ class ProcessProvider(BaseProvider):
 
     def complete(self, request: CompleteRequest) -> CompleteResponse:
         return self._process.send(request, CompleteResponse)
+
+    def sync_complete(self, request: CompleteRequest, response_type: Type[KernelResponse]) -> Union[InvokeResponse, GetResponse]:
+        resp = self._process.send(_CompleteRequest(complete=request), response_type)
+        return resp
 
     def stats(self, request: Optional[StatsRequest] = None) -> StatsResponse:
         if request is None:

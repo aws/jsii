@@ -35,7 +35,8 @@ from jsii._kernel.types import (
     CompleteResponse,
     GetResponse,
     SetResponse,
-    InvokeResponse
+    InvokeResponse,
+    KernelResponse,
 )
 
 
@@ -44,12 +45,6 @@ _nothing = object()
 
 class Object:
     __jsii_type__ = "Object"
-
-
-def _handle_callback(kernel, callback):
-    obj = _reference_map.resolve_id(callback.invoke.objref.ref)
-    method = getattr(obj, callback.cookie)
-    return method(*callback.invoke.args)
 
 
 def _get_overides(klass: JSClass, obj: Any) -> List[Override]:
@@ -132,14 +127,14 @@ def _handle_callback(kernel, callback):
     return method(*callback.invoke.args)
 
 
-def _callback_till_result(kernel, response: Union[GetResponse, SetResponse, InvokeResponse, Callback]) -> Any:
+def _callback_till_result(kernel, response: Callback, response_type: Type[KernelResponse]) -> Any:
     while isinstance(response, Callback):
         try:
             result = _handle_callback(kernel, response)
         except Exception as exc:
-            response = kernel.complete(response.cbid, str(exc), None)
+            response = kernel.sync_complete(response.cbid, str(exc), None, response_type)
         else:
-            response = kernel.complete(response.cbid, None, result)
+            response = kernel.sync_complete(response.cbid, None, result, response_type)
     
     if isinstance(response, InvokeResponse):
         return response.result
@@ -203,7 +198,7 @@ class Kernel(metaclass=Singleton):
             GetRequest(objref=obj.__jsii_ref__, property_=property)
         )
         if isinstance(response, Callback):
-            return _callback_till_result(self, response)
+            return _callback_till_result(self, response, GetResponse)
         else:
             return response.value
 
@@ -246,7 +241,7 @@ class Kernel(metaclass=Singleton):
             )
         )
         if isinstance(response, Callback):
-            return _callback_till_result(self, response)
+            return _callback_till_result(self, response, InvokeResponse)
         else:
             return response.result
 
@@ -275,6 +270,17 @@ class Kernel(metaclass=Singleton):
                 err=err,
                 result=result
             )
+        )
+
+    def sync_complete(
+        self, cbid: str, err: Optional[str], result: Any, response_type: Type[KernelResponse]
+    ) -> Any:
+        return self.provider.sync_complete(
+            CompleteRequest(
+                cbid=cbid,
+                err=err,
+                result=result),
+            response_type=response_type
         )
 
     def ainvoke(
