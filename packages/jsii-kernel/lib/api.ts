@@ -2,14 +2,48 @@ export const TOKEN_REF = '$jsii.byref';
 export const TOKEN_DATE = '$jsii.date';
 export const TOKEN_ENUM = '$jsii.enum';
 
-export class ObjRef {
-    [token: string]: string; // token = TOKEN_REF
+export interface ObjRef {
+    [TOKEN_REF]: string;
 }
 
-export interface Override {
-    method?: string;
-    property?: string;
+export function isObjRef(value: any): value is ObjRef {
+    return typeof value === 'object' && value !== null && TOKEN_REF in value;
+}
+
+export interface WireDate {
+    [TOKEN_DATE]: string;
+}
+
+export function isWireDate(value: any): value is WireDate {
+    return typeof value === 'object' && value !== null && TOKEN_DATE in value;
+}
+
+export interface WireEnum {
+    [TOKEN_ENUM]: string;
+}
+
+export function isWireEnum(value: any): value is WireEnum {
+    return typeof value === 'object' && value !== null && TOKEN_ENUM in value;
+}
+
+export type Override = MethodOverride | PropertyOverride;
+
+export interface MethodOverride {
+    method: string;
     cookie?: string;
+}
+
+export function isMethodOverride(value: Override): value is MethodOverride {
+    return (value as any).method != null;  // Python passes "null"
+}
+
+export interface PropertyOverride {
+    property: string;
+    cookie?: string;
+}
+
+export function isPropertyOverride(value: Override): value is PropertyOverride {
+    return (value as any).property != null;  // Python passes "null"
 }
 
 export interface Callback {

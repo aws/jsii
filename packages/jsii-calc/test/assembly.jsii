@@ -354,6 +354,23 @@
       "kind": "class",
       "methods": [
         {
+          "name": "anyIn",
+          "parameters": [
+            {
+              "name": "inp",
+              "type": {
+                "primitive": "any"
+              }
+            }
+          ]
+        },
+        {
+          "name": "anyOut",
+          "returns": {
+            "primitive": "any"
+          }
+        },
+        {
           "name": "enumMethod",
           "parameters": [
             {
@@ -474,7 +491,7 @@
                       "primitive": "number"
                     },
                     {
-                      "fqn": "jsii-calc.composition.CompositeOperation"
+                      "fqn": "@scope/jsii-calc-lib.Value"
                     }
                   ]
                 }
@@ -1218,6 +1235,37 @@
       "kind": "class",
       "methods": [
         {
+          "name": "hiddenInterface",
+          "returns": {
+            "fqn": "jsii-calc.IPublicInterface"
+          },
+          "static": true
+        },
+        {
+          "name": "hiddenInterfaces",
+          "returns": {
+            "collection": {
+              "elementtype": {
+                "fqn": "jsii-calc.IPublicInterface"
+              },
+              "kind": "array"
+            }
+          },
+          "static": true
+        },
+        {
+          "name": "hiddenSubInterfaces",
+          "returns": {
+            "collection": {
+              "elementtype": {
+                "fqn": "jsii-calc.IPublicInterface"
+              },
+              "kind": "array"
+            }
+          },
+          "static": true
+        },
+        {
           "name": "makeClass",
           "returns": {
             "fqn": "jsii-calc.PublicClass"
@@ -1228,6 +1276,25 @@
           "name": "makeInterface",
           "returns": {
             "fqn": "jsii-calc.IPublicInterface"
+          },
+          "static": true
+        },
+        {
+          "name": "makeInterface2",
+          "returns": {
+            "fqn": "jsii-calc.IPublicInterface2"
+          },
+          "static": true
+        },
+        {
+          "name": "makeInterfaces",
+          "returns": {
+            "collection": {
+              "elementtype": {
+                "fqn": "jsii-calc.IPublicInterface"
+              },
+              "kind": "array"
+            }
           },
           "static": true
         }
@@ -2089,10 +2156,28 @@
       "methods": [
         {
           "abstract": true,
-          "name": "bye"
+          "name": "bye",
+          "returns": {
+            "primitive": "string"
+          }
         }
       ],
       "name": "IPublicInterface"
+    },
+    "jsii-calc.IPublicInterface2": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.IPublicInterface2",
+      "kind": "interface",
+      "methods": [
+        {
+          "abstract": true,
+          "name": "ciao",
+          "returns": {
+            "primitive": "string"
+          }
+        }
+      ],
+      "name": "IPublicInterface2"
     },
     "jsii-calc.IRandomNumberGenerator": {
       "assembly": "jsii-calc",
@@ -2240,7 +2325,23 @@
       "initializer": {
         "initializer": true
       },
+      "interfaces": [
+        {
+          "fqn": "jsii-calc.IPublicInterface2"
+        }
+      ],
       "kind": "class",
+      "methods": [
+        {
+          "name": "ciao",
+          "overrides": {
+            "fqn": "jsii-calc.IPublicInterface2"
+          },
+          "returns": {
+            "primitive": "string"
+          }
+        }
+      ],
       "name": "InbetweenClass"
     },
     "jsii-calc.InterfaceImplementedByAbstractClass": {
@@ -3561,6 +3662,32 @@
       ],
       "name": "RuntimeTypeChecking"
     },
+    "jsii-calc.SingleInstanceTwoTypes": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "comment": "Test that a single instance can be returned under two different FQNs\n\nJSII clients can instantiate 2 different strongly-typed wrappers for the same\nobject. Unfortunately, this will break object equality, but if we didn't do\nthis it would break runtime type checks in the JVM or CLR."
+      },
+      "fqn": "jsii-calc.SingleInstanceTwoTypes",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "interface1",
+          "returns": {
+            "fqn": "jsii-calc.InbetweenClass"
+          }
+        },
+        {
+          "name": "interface2",
+          "returns": {
+            "fqn": "jsii-calc.IPublicInterface"
+          }
+        }
+      ],
+      "name": "SingleInstanceTwoTypes"
+    },
     "jsii-calc.Statics": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.Statics",
@@ -4349,5 +4476,5 @@
     }
   },
   "version": "0.8.0",
-  "fingerprint": "4LMgT0Rllw3CIJWiDiR/eUfSRPvCEeWyGWxJXMiDvcU="
+  "fingerprint": "7BN7XlOFufVEMTaAbMH5GDcE4zQmJj4iiDlYoXiRvCs="
 }
