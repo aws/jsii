@@ -37,6 +37,7 @@ from jsii._kernel.types import (
     SetResponse,
     InvokeResponse,
     KernelResponse,
+    BeginResponse
 )
 
 
@@ -296,6 +297,8 @@ class Kernel(metaclass=Singleton):
                 args=_make_reference_for_native(self, args),
             )
         )
+        if isinstance(promise, Callback):
+            promise = _callback_till_result(self, promise, BeginResponse)
 
         callbacks = self.provider.callbacks(CallbacksRequest()).callbacks
         while callbacks:
