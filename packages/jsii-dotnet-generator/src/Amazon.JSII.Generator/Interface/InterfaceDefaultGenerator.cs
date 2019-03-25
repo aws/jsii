@@ -17,7 +17,11 @@ namespace Amazon.JSII.Generator.Interface
         {
             return SF.ClassDeclaration
             (
-                SF.List<AttributeListSyntax>(),
+                SF.List<AttributeListSyntax>(new [] {
+                    SF.AttributeList(SF.SeparatedList(new [] {
+                        SF.Attribute(SF.ParseName("JsiiByValue"))
+                    }))
+                }),
                 SF.TokenList(SF.Token(SyntaxKind.PublicKeyword)),
                 Symbols.GetInterfaceDefaultNameSyntaxToken(Type),
                 null,
@@ -28,7 +32,6 @@ namespace Amazon.JSII.Generator.Interface
 
             IEnumerable<BaseTypeSyntax> CreateBaseTypes()
             {
-                yield return SF.SimpleBaseType(SF.ParseTypeName("DeputyBase"));
                 yield return SF.SimpleBaseType(Symbols.GetNameSyntax(Type, disambiguate: true));
             }
 

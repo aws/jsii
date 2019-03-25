@@ -15,21 +15,18 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         public string Optional1
         {
             get => GetInstanceProperty<string>();
-            set => SetInstanceProperty(value);
         }
 
         [JsiiProperty("optional2", "{\"primitive\":\"number\",\"optional\":true}")]
         public double? Optional2
         {
             get => GetInstanceProperty<double? >();
-            set => SetInstanceProperty(value);
         }
 
         [JsiiProperty("optional3", "{\"primitive\":\"boolean\",\"optional\":true}")]
         public bool? Optional3
         {
             get => GetInstanceProperty<bool? >();
-            set => SetInstanceProperty(value);
         }
     }
 }

@@ -2,6 +2,7 @@ package software.amazon.jsii.testing;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.junit.Test;
 import software.amazon.jsii.JsiiException;
 import software.amazon.jsii.tests.calculator.AbstractClass;
 import software.amazon.jsii.tests.calculator.AbstractClassReturner;
@@ -10,21 +11,27 @@ import software.amazon.jsii.tests.calculator.AllTypes;
 import software.amazon.jsii.tests.calculator.AsyncVirtualMethods;
 import software.amazon.jsii.tests.calculator.Calculator;
 import software.amazon.jsii.tests.calculator.CalculatorProps;
+import software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties;
+import software.amazon.jsii.tests.calculator.Constructors;
 import software.amazon.jsii.tests.calculator.DerivedStruct;
 import software.amazon.jsii.tests.calculator.DoNotOverridePrivates;
 import software.amazon.jsii.tests.calculator.DoubleTrouble;
+import software.amazon.jsii.tests.calculator.EraseUndefinedHashValues;
+import software.amazon.jsii.tests.calculator.EraseUndefinedHashValuesOptions;
 import software.amazon.jsii.tests.calculator.GiveMeStructs;
 import software.amazon.jsii.tests.calculator.GreetingAugmenter;
 import software.amazon.jsii.tests.calculator.IFriendlier;
 import software.amazon.jsii.tests.calculator.IFriendlyRandomGenerator;
+import software.amazon.jsii.tests.calculator.IInterfaceWithProperties;
 import software.amazon.jsii.tests.calculator.IPublicInterface;
-import software.amazon.jsii.tests.calculator.InterfaceWithProperties;
 import software.amazon.jsii.tests.calculator.IRandomNumberGenerator;
 import software.amazon.jsii.tests.calculator.InbetweenClass;
 import software.amazon.jsii.tests.calculator.InterfaceImplementedByAbstractClass;
 import software.amazon.jsii.tests.calculator.JSObjectLiteralForInterface;
 import software.amazon.jsii.tests.calculator.JSObjectLiteralToNative;
 import software.amazon.jsii.tests.calculator.JSObjectLiteralToNativeClass;
+import software.amazon.jsii.tests.calculator.JavaReservedWords;
+import software.amazon.jsii.tests.calculator.JsiiAgent;
 import software.amazon.jsii.tests.calculator.Multiply;
 import software.amazon.jsii.tests.calculator.Negate;
 import software.amazon.jsii.tests.calculator.NodeStandardLibrary;
@@ -41,7 +48,6 @@ import software.amazon.jsii.tests.calculator.Sum;
 import software.amazon.jsii.tests.calculator.SyncVirtualMethods;
 import software.amazon.jsii.tests.calculator.UnionProperties;
 import software.amazon.jsii.tests.calculator.UsesInterfaceWithProperties;
-import software.amazon.jsii.tests.calculator.JsiiAgent;
 import software.amazon.jsii.tests.calculator.composition.CompositeOperation;
 import software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule;
 import software.amazon.jsii.tests.calculator.lib.IFriendly;
@@ -49,11 +55,6 @@ import software.amazon.jsii.tests.calculator.lib.MyFirstStruct;
 import software.amazon.jsii.tests.calculator.lib.Number;
 import software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals;
 import software.amazon.jsii.tests.calculator.lib.Value;
-import software.amazon.jsii.tests.calculator.JavaReservedWords;
-import software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties;
-import software.amazon.jsii.tests.calculator.Constructors;
-
-import org.junit.Test;
 
 import java.io.IOException;
 import java.time.Instant;
@@ -63,6 +64,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
@@ -325,10 +327,6 @@ public class ComplianceTest {
         assertEquals(12, obj1.getBar());
         assertEquals("Hello", obj1.getFoo());
 
-        // verify we have a setXxx for each type
-        assertNotNull(obj1.getClass().getMethod("setFoo", String.class));
-        assertNotNull(obj1.getClass().getMethod("setFoo", java.lang.Number.class));
-
         UnionProperties obj2 = UnionProperties.builder()
             .withBar("BarIsString")
             .build();
@@ -565,7 +563,7 @@ public class ComplianceTest {
 
     @Test
     public void propertyOverrides_interfaces() {
-        InterfaceWithProperties obj = new InterfaceWithProperties() {
+        IInterfaceWithProperties obj = new IInterfaceWithProperties() {
             private String x;
 
             @Override
@@ -591,11 +589,24 @@ public class ComplianceTest {
 
     @Test
     public void interfaceBuilder() {
-        InterfaceWithProperties obj = InterfaceWithProperties.builder()
-                .withReadOnlyString("READ_ONLY")
-                .withReadWriteString("READ_WRITE")
-                .build();
+        IInterfaceWithProperties obj = new IInterfaceWithProperties() {
+            private String value = "READ_WRITE";
 
+            @Override
+            public String getReadOnlyString() {
+                return "READ_ONLY";
+            }
+
+            @Override
+            public String getReadWriteString() {
+                return value;
+            }
+
+            @Override
+            public void setReadWriteString(String value) {
+                this.value = value;
+            }
+        };
 
         UsesInterfaceWithProperties interact = new UsesInterfaceWithProperties(obj);
         assertEquals("READ_ONLY", interact.justRead());
@@ -980,6 +991,23 @@ public class ComplianceTest {
 
         assertTrue(classRef instanceof InbetweenClass);
         assertTrue(ifaceRef instanceof IPublicInterface);
+    }
+
+    /**
+     * Verifies that data values that are not set are recognized as unset keys
+     * in JavaScript-land. See https://github.com/awslabs/jsii/issues/375
+     */
+    @Test
+    public void eraseUnsetDataValues() {
+        EraseUndefinedHashValuesOptions opts = EraseUndefinedHashValuesOptions.builder()
+                .withOption1("option1")
+                .build();
+
+        assertTrue(EraseUndefinedHashValues.doesKeyExist(opts, "option1"));
+        assertFalse(EraseUndefinedHashValues.doesKeyExist(opts, "option2"));
+
+        assertEquals("{prop2=value2}", EraseUndefinedHashValues.prop1IsNull().toString());
+        assertEquals("{prop1=value1}", EraseUndefinedHashValues.prop2IsUndefined().toString());
     }
 
     static class MulTen extends Multiply {

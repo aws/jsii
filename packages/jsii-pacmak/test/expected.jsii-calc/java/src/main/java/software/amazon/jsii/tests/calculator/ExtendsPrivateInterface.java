@@ -3,7 +3,6 @@ package software.amazon.jsii.tests.calculator;
 @javax.annotation.Generated(value = "jsii-pacmak")
 public interface ExtendsPrivateInterface extends software.amazon.jsii.JsiiSerializable {
     java.util.List<java.lang.String> getMoreThings();
-    void setMoreThings(final java.util.List<java.lang.String> value);
 
     /**
      * @return a {@link Builder} of {@link ExtendsPrivateInterface}
@@ -35,16 +34,18 @@ public interface ExtendsPrivateInterface extends software.amazon.jsii.JsiiSerial
          */
         public ExtendsPrivateInterface build() {
             return new ExtendsPrivateInterface() {
-                private java.util.List<java.lang.String> $moreThings = java.util.Objects.requireNonNull(_moreThings, "moreThings is required");
+                private final java.util.List<java.lang.String> $moreThings = java.util.Objects.requireNonNull(_moreThings, "moreThings is required");
 
                 @Override
                 public java.util.List<java.lang.String> getMoreThings() {
                     return this.$moreThings;
                 }
 
-                @Override
-                public void setMoreThings(final java.util.List<java.lang.String> value) {
-                    this.$moreThings = java.util.Objects.requireNonNull(value, "moreThings is required");
+                public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+                    software.amazon.jsii.JsiiObjectMapper om = software.amazon.jsii.JsiiObjectMapper.instance;
+                    com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+                    obj.set("moreThings", om.valueToTree(this.getMoreThings()));
+                    return obj;
                 }
 
             };
@@ -62,11 +63,6 @@ public interface ExtendsPrivateInterface extends software.amazon.jsii.JsiiSerial
         @Override
         public java.util.List<java.lang.String> getMoreThings() {
             return this.jsiiGet("moreThings", java.util.List.class);
-        }
-
-        @Override
-        public void setMoreThings(final java.util.List<java.lang.String> value) {
-            this.jsiiSet("moreThings", java.util.Objects.requireNonNull(value, "moreThings is required"));
         }
     }
 }

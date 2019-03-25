@@ -204,17 +204,11 @@ defineTest('set for a readonly property', async (test, sandbox) => {
 
 defineTest('create object with ctor overloads', async (_test, sandbox) => {
     sandbox.create({ fqn: 'jsii-calc.Calculator' });
-
-    const calcprops = sandbox.create({ fqn: 'jsii-calc.CalculatorProps', args: [ ] });
-    sandbox.set({ objref: calcprops, property: 'initialValue', value: 100 });
-    sandbox.create({ fqn: 'jsii-calc.Calculator', args: [ calcprops ] });
+    sandbox.create({ fqn: 'jsii-calc.Calculator', args: [ { initialValue: 100 } ] });
 });
 
 defineTest('objects created inside the sandbox are returned with type info and new objid', async (test, sandbox) => {
-    const calcprops = sandbox.create({ fqn: 'jsii-calc.CalculatorProps' });
-    sandbox.set({ objref: calcprops, property: 'initialValue', value: 100 });
-
-    const calc = sandbox.create({ fqn: 'jsii-calc.Calculator', args: [ calcprops ] });
+    const calc = sandbox.create({ fqn: 'jsii-calc.Calculator', args: [ { initialValue: 100} ] });
     sandbox.invoke({ objref: calc, method: 'add', args: [ 50 ] });
 
     const add = sandbox.get({ objref: calc, property: 'curr' }).value;
@@ -971,6 +965,33 @@ defineTest('ObjRefs are labeled with the "most correct" type', async (test, sand
             `${classRef[api.TOKEN_REF]} starts with jsii-calc.InbetweenClass`);
     test.ok(ifaceRef[api.TOKEN_REF].startsWith('jsii-calc.IPublicInterface'),
             `${ifaceRef[api.TOKEN_REF]} starts with jsii-calc.IPublicInterface`);
+});
+
+defineTest('toSandbox: "null" in hash values send to JS should be treated as non-existing key', async (test, sandbox) => {
+    const input = { option1: null, option2: 'hello' };
+    const option1Exists = sandbox.sinvoke({ fqn: 'jsii-calc.EraseUndefinedHashValues', method: 'doesKeyExist', args: [ input, 'option1' ] });
+    test.equal(option1Exists.result, false);
+
+    const option2Exists = sandbox.sinvoke({ fqn: 'jsii-calc.EraseUndefinedHashValues', method: 'doesKeyExist', args: [ input, 'option2' ] });
+    test.equal(option2Exists.result, true);
+});
+
+defineTest('toSandbox: "undefined" in hash values sent to JS should be treated as non-existing key', async (test, sandbox) => {
+    const input = { option1: undefined, option2: 'hello' };
+    const option1Exists = sandbox.sinvoke({ fqn: 'jsii-calc.EraseUndefinedHashValues', method: 'doesKeyExist', args: [ input, 'option1' ] });
+    test.equal(option1Exists.result, false);
+    const option2Exists = sandbox.sinvoke({ fqn: 'jsii-calc.EraseUndefinedHashValues', method: 'doesKeyExist', args: [ input, 'option2' ] });
+    test.equal(option2Exists.result, true);
+});
+
+defineTest('fromSandbox: "undefined" in hash values returned from JS erases the key', async (test, sandbox) => {
+    const output = sandbox.sinvoke({ fqn: 'jsii-calc.EraseUndefinedHashValues', method: 'prop2IsUndefined' });
+    test.deepEqual(output, { result: { prop1: 'value1' } });
+});
+
+defineTest('fromSandbox: "null" in hash values returned from JS erases the key', async (test, sandbox) => {
+    const output = sandbox.sinvoke({ fqn: 'jsii-calc.EraseUndefinedHashValues', method: 'prop1IsNull' });
+    test.deepEqual(output, { result: { prop2: 'value2' } });
 });
 
 // =================================================================================================

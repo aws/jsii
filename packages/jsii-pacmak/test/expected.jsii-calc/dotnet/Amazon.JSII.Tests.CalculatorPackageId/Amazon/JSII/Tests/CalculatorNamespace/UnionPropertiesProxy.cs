@@ -19,7 +19,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public object Foo
         {
             get => GetInstanceProperty<object>();
-            set => SetInstanceProperty(value);
         }
     }
 }

@@ -3,7 +3,8 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
     /// <summary>This is the first struct we have created in jsii</summary>
-    public class MyFirstStruct : DeputyBase, IMyFirstStruct
+    [JsiiByValue]
+    public class MyFirstStruct : IMyFirstStruct
     {
         /// <summary>An awesome number value</summary>
         [JsiiProperty("anumber", "{\"primitive\":\"number\"}", true)]

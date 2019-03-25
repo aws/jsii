@@ -28,7 +28,7 @@
               "npm": "@scope/jsii-calc-base-of-base"
             }
           },
-          "version": "0.7.15"
+          "version": "0.8.0"
         }
       },
       "peer": true,
@@ -48,7 +48,7 @@
           "npm": "@scope/jsii-calc-base"
         }
       },
-      "version": "0.7.15"
+      "version": "0.8.0"
     }
   },
   "description": "A simple calcuator library built on JSII.",
@@ -149,6 +149,7 @@
           "docs": {
             "comment": "An awesome number value"
           },
+          "immutable": true,
           "name": "anumber",
           "type": {
             "primitive": "number"
@@ -159,6 +160,7 @@
           "docs": {
             "comment": "A string value"
           },
+          "immutable": true,
           "name": "astring",
           "type": {
             "primitive": "string"
@@ -166,6 +168,7 @@
         },
         {
           "abstract": true,
+          "immutable": true,
           "name": "firstOptional",
           "type": {
             "collection": {
@@ -287,6 +290,7 @@
           "docs": {
             "comment": "The first optional!"
           },
+          "immutable": true,
           "name": "optional1",
           "type": {
             "optional": true,
@@ -295,6 +299,7 @@
         },
         {
           "abstract": true,
+          "immutable": true,
           "name": "optional2",
           "type": {
             "optional": true,
@@ -303,6 +308,7 @@
         },
         {
           "abstract": true,
+          "immutable": true,
           "name": "optional3",
           "type": {
             "optional": true,
@@ -352,6 +358,6 @@
       ]
     }
   },
-  "version": "0.7.15",
-  "fingerprint": "EnCU/QTmMf/bWi02J7V0fRGn+poBMTFJPmh51q1e7M8="
+  "version": "0.8.0",
+  "fingerprint": "vznOIFTBYe3LZua18UpaAdesPkQ77en3ZhSjhtBh6RM="
 }

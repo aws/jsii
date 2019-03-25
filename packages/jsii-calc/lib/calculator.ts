@@ -233,8 +233,8 @@ export class Power extends composition.CompositeOperation {
  * Properties for Calculator.
  */
 export interface CalculatorProps {
-    initialValue?: number
-    maximumValue?: number
+    readonly initialValue?: number
+    readonly maximumValue?: number
 }
 
 /**

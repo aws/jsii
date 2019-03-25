@@ -1,6 +1,7 @@
 package software.amazon.jsii;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import javax.annotation.Nullable;
@@ -13,7 +14,7 @@ public class JsiiObject implements JsiiSerializable {
     /**
      * JSON object mapper.
      */
-    private static final JsiiObjectMapper OM = new JsiiObjectMapper();
+    private static final JsiiObjectMapper OM = JsiiObjectMapper.instance;
 
     /**
      * The jsii engine used by this object.

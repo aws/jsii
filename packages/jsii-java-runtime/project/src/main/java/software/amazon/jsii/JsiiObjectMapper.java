@@ -23,6 +23,10 @@ import static software.amazon.jsii.JsiiEngine.tryGetJsiiAnnotation;
  * Implements serialization/deserialization of jsii data.
  */
 public final class JsiiObjectMapper {
+    /**
+     * Singleton instance of the object mapper.
+     */
+    public static JsiiObjectMapper instance = new JsiiObjectMapper();
 
     /**
      * JSON token that represents an object reference.
@@ -52,7 +56,7 @@ public final class JsiiObjectMapper {
     /**
      * Creates an object mapper.
      */
-    public JsiiObjectMapper() {
+    private JsiiObjectMapper() {
         this.serializer = new ObjectMapper();
         this.serializer.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
@@ -175,9 +179,8 @@ public final class JsiiObjectMapper {
         public void serialize(final JsiiSerializable o,
                               final JsonGenerator jsonGenerator,
                               final SerializerProvider serializerProvider) throws IOException {
-            JsiiObjectRef objRef = JsiiEngine.getInstance().nativeToObjRef(o);
-            jsonGenerator.writeTree(objRef.toJson());
+
+            jsonGenerator.writeTree(o.$jsii$toJson());
         }
     }
-
 }

@@ -13,14 +13,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         DateTime AnotherRequired
         {
             get;
-            set;
         }
 
         [JsiiProperty("bool", "{\"primitive\":\"boolean\"}")]
         bool Bool
         {
             get;
-            set;
         }
 
         /// <summary>An example of a non primitive property.</summary>
@@ -28,7 +26,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         DoubleTrouble NonPrimitive
         {
             get;
-            set;
         }
 
         /// <summary>This is optional.</summary>
@@ -36,21 +33,18 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         IDictionary<string, Value_> AnotherOptional
         {
             get;
-            set;
         }
 
         [JsiiProperty("optionalAny", "{\"primitive\":\"any\",\"optional\":true}")]
         object OptionalAny
         {
             get;
-            set;
         }
 
         [JsiiProperty("optionalArray", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"optional\":true}")]
         string[] OptionalArray
         {
             get;
-            set;
         }
     }
 }

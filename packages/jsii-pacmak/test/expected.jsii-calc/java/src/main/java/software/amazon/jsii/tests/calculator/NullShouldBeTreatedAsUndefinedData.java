@@ -3,9 +3,7 @@ package software.amazon.jsii.tests.calculator;
 @javax.annotation.Generated(value = "jsii-pacmak")
 public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii.JsiiSerializable {
     java.util.List<java.lang.Object> getArrayWithThreeElementsAndUndefinedAsSecondArgument();
-    void setArrayWithThreeElementsAndUndefinedAsSecondArgument(final java.util.List<java.lang.Object> value);
     java.lang.Object getThisShouldBeUndefined();
-    void setThisShouldBeUndefined(final java.lang.Object value);
 
     /**
      * @return a {@link Builder} of {@link NullShouldBeTreatedAsUndefinedData}
@@ -48,9 +46,9 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
          */
         public NullShouldBeTreatedAsUndefinedData build() {
             return new NullShouldBeTreatedAsUndefinedData() {
-                private java.util.List<java.lang.Object> $arrayWithThreeElementsAndUndefinedAsSecondArgument = java.util.Objects.requireNonNull(_arrayWithThreeElementsAndUndefinedAsSecondArgument, "arrayWithThreeElementsAndUndefinedAsSecondArgument is required");
+                private final java.util.List<java.lang.Object> $arrayWithThreeElementsAndUndefinedAsSecondArgument = java.util.Objects.requireNonNull(_arrayWithThreeElementsAndUndefinedAsSecondArgument, "arrayWithThreeElementsAndUndefinedAsSecondArgument is required");
                 @javax.annotation.Nullable
-                private java.lang.Object $thisShouldBeUndefined = _thisShouldBeUndefined;
+                private final java.lang.Object $thisShouldBeUndefined = _thisShouldBeUndefined;
 
                 @Override
                 public java.util.List<java.lang.Object> getArrayWithThreeElementsAndUndefinedAsSecondArgument() {
@@ -58,18 +56,16 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
                 }
 
                 @Override
-                public void setArrayWithThreeElementsAndUndefinedAsSecondArgument(final java.util.List<java.lang.Object> value) {
-                    this.$arrayWithThreeElementsAndUndefinedAsSecondArgument = java.util.Objects.requireNonNull(value, "arrayWithThreeElementsAndUndefinedAsSecondArgument is required");
-                }
-
-                @Override
                 public java.lang.Object getThisShouldBeUndefined() {
                     return this.$thisShouldBeUndefined;
                 }
 
-                @Override
-                public void setThisShouldBeUndefined(@javax.annotation.Nullable final java.lang.Object value) {
-                    this.$thisShouldBeUndefined = value;
+                public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+                    software.amazon.jsii.JsiiObjectMapper om = software.amazon.jsii.JsiiObjectMapper.instance;
+                    com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+                    obj.set("arrayWithThreeElementsAndUndefinedAsSecondArgument", om.valueToTree(this.getArrayWithThreeElementsAndUndefinedAsSecondArgument()));
+                    obj.set("thisShouldBeUndefined", om.valueToTree(this.getThisShouldBeUndefined()));
+                    return obj;
                 }
 
             };
@@ -90,19 +86,9 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
         }
 
         @Override
-        public void setArrayWithThreeElementsAndUndefinedAsSecondArgument(final java.util.List<java.lang.Object> value) {
-            this.jsiiSet("arrayWithThreeElementsAndUndefinedAsSecondArgument", java.util.Objects.requireNonNull(value, "arrayWithThreeElementsAndUndefinedAsSecondArgument is required"));
-        }
-
-        @Override
         @javax.annotation.Nullable
         public java.lang.Object getThisShouldBeUndefined() {
             return this.jsiiGet("thisShouldBeUndefined", java.lang.Object.class);
-        }
-
-        @Override
-        public void setThisShouldBeUndefined(@javax.annotation.Nullable final java.lang.Object value) {
-            this.jsiiSet("thisShouldBeUndefined", value);
         }
     }
 }

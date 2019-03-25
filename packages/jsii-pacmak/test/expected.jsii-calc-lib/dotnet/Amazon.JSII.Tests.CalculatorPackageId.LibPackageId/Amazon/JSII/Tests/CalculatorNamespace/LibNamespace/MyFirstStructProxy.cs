@@ -15,7 +15,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         public double Anumber
         {
             get => GetInstanceProperty<double>();
-            set => SetInstanceProperty(value);
         }
 
         /// <summary>A string value</summary>
@@ -23,14 +22,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         public string Astring
         {
             get => GetInstanceProperty<string>();
-            set => SetInstanceProperty(value);
         }
 
         [JsiiProperty("firstOptional", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"optional\":true}")]
         public string[] FirstOptional
         {
             get => GetInstanceProperty<string[]>();
-            set => SetInstanceProperty(value);
         }
     }
 }

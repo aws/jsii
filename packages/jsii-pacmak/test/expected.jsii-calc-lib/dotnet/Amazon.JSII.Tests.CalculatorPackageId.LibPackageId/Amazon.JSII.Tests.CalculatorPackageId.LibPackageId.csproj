@@ -4,7 +4,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <IncludeSymbols>true</IncludeSymbols>
     <IncludeSource>true</IncludeSource>
-    <PackageVersion>0.7.15</PackageVersion>
+    <PackageVersion>0.8.0</PackageVersion>
     <PackageId>Amazon.JSII.Tests.CalculatorPackageId.LibPackageId</PackageId>
     <Description>A simple calcuator library built on JSII.</Description>
     <ProjectUrl>https://github.com/awslabs/jsii.git</ProjectUrl>
@@ -13,11 +13,11 @@
     <Language>en-US</Language>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="scope-jsii-calc-lib-0.7.15.tgz" />
+    <EmbeddedResource Include="scope-jsii-calc-lib-0.8.0.tgz" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Amazon.JSII.Runtime" Version="0.7.15" />
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" Version="0.7.15" />
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="0.7.15" />
+    <PackageReference Include="Amazon.JSII.Runtime" Version="0.8.0" />
+    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" Version="0.8.0" />
+    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="0.8.0" />
   </ItemGroup>
 </Project>

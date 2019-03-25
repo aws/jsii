@@ -1,6 +1,6 @@
 {
   "name": "jsii-calc-bundled",
-  "version": "0.7.15",
+  "version": "0.8.0",
   "main": "index.js",
   "private": true,
   "author": {

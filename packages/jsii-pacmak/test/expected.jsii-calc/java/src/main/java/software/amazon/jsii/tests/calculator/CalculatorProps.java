@@ -6,9 +6,7 @@ package software.amazon.jsii.tests.calculator;
 @javax.annotation.Generated(value = "jsii-pacmak")
 public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
     java.lang.Number getInitialValue();
-    void setInitialValue(final java.lang.Number value);
     java.lang.Number getMaximumValue();
-    void setMaximumValue(final java.lang.Number value);
 
     /**
      * @return a {@link Builder} of {@link CalculatorProps}
@@ -53,9 +51,9 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
         public CalculatorProps build() {
             return new CalculatorProps() {
                 @javax.annotation.Nullable
-                private java.lang.Number $initialValue = _initialValue;
+                private final java.lang.Number $initialValue = _initialValue;
                 @javax.annotation.Nullable
-                private java.lang.Number $maximumValue = _maximumValue;
+                private final java.lang.Number $maximumValue = _maximumValue;
 
                 @Override
                 public java.lang.Number getInitialValue() {
@@ -63,18 +61,16 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
                 }
 
                 @Override
-                public void setInitialValue(@javax.annotation.Nullable final java.lang.Number value) {
-                    this.$initialValue = value;
-                }
-
-                @Override
                 public java.lang.Number getMaximumValue() {
                     return this.$maximumValue;
                 }
 
-                @Override
-                public void setMaximumValue(@javax.annotation.Nullable final java.lang.Number value) {
-                    this.$maximumValue = value;
+                public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+                    software.amazon.jsii.JsiiObjectMapper om = software.amazon.jsii.JsiiObjectMapper.instance;
+                    com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+                    obj.set("initialValue", om.valueToTree(this.getInitialValue()));
+                    obj.set("maximumValue", om.valueToTree(this.getMaximumValue()));
+                    return obj;
                 }
 
             };
@@ -96,19 +92,9 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
         }
 
         @Override
-        public void setInitialValue(@javax.annotation.Nullable final java.lang.Number value) {
-            this.jsiiSet("initialValue", value);
-        }
-
-        @Override
         @javax.annotation.Nullable
         public java.lang.Number getMaximumValue() {
             return this.jsiiGet("maximumValue", java.lang.Number.class);
-        }
-
-        @Override
-        public void setMaximumValue(@javax.annotation.Nullable final java.lang.Number value) {
-            this.jsiiSet("maximumValue", value);
         }
     }
 }

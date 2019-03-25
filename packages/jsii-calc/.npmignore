@@ -5,3 +5,7 @@
 
 # Include .jsii
 !.jsii
+
+
+# Exclude jsii outdir
+dist

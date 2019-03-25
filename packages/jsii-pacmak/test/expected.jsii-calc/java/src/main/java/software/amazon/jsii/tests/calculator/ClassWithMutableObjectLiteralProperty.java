@@ -11,11 +11,11 @@ public class ClassWithMutableObjectLiteralProperty extends software.amazon.jsii.
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
-    public software.amazon.jsii.tests.calculator.MutableObjectLiteral getMutableObject() {
-        return this.jsiiGet("mutableObject", software.amazon.jsii.tests.calculator.MutableObjectLiteral.class);
+    public software.amazon.jsii.tests.calculator.IMutableObjectLiteral getMutableObject() {
+        return this.jsiiGet("mutableObject", software.amazon.jsii.tests.calculator.IMutableObjectLiteral.class);
     }
 
-    public void setMutableObject(final software.amazon.jsii.tests.calculator.MutableObjectLiteral value) {
+    public void setMutableObject(final software.amazon.jsii.tests.calculator.IMutableObjectLiteral value) {
         this.jsiiSet("mutableObject", java.util.Objects.requireNonNull(value, "mutableObject is required"));
     }
 }
