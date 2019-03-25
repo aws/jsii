@@ -77,7 +77,7 @@ def _get_overides(klass: JSClass, obj: Any) -> List[Override]:
                         getattr(original, "fget", None), "__jsii_name__"
                     ):
                         overrides.append(
-                            Override(property_=original.fget.__jsii_name__, cookie=name)
+                            Override(property=original.fget.__jsii_name__, cookie=name)
                         )
 
     return overrides
@@ -123,9 +123,19 @@ def _make_reference_for_native(kernel, d):
 
 
 def _handle_callback(kernel, callback):
-    obj = _reference_map.resolve_id(callback.invoke.objref.ref)
-    method = getattr(obj, callback.cookie)
-    return method(*callback.invoke.args)
+    # need to handle get, set requests here as well as invoke requests
+    if callback.invoke:
+        obj = _reference_map.resolve_id(callback.invoke.objref.ref)
+        method = getattr(obj, callback.cookie)
+        return method(*callback.invoke.args)
+    elif callback.get:
+        obj = _reference_map.resolve_id(callback.get.objref.ref)
+        return getattr(obj, callback.cookie)
+    elif callback.set:
+        obj = _reference_map.resolve_id(callback.set.objref.ref)
+        return setattr(obj, callback.cookie, callback.set.value)
+    else:
+        raise AttributeError
 
 
 def _callback_till_result(kernel, response: Callback, response_type: Type[KernelResponse]) -> Any:
@@ -196,7 +206,7 @@ class Kernel(metaclass=Singleton):
     @_dereferenced
     def get(self, obj: Referenceable, property: str) -> Any:
         response = self.provider.get(
-            GetRequest(objref=obj.__jsii_ref__, property_=property)
+            GetRequest(objref=obj.__jsii_ref__, property=property)
         )
         if isinstance(response, Callback):
             return _callback_till_result(self, response, GetResponse)
@@ -207,7 +217,7 @@ class Kernel(metaclass=Singleton):
         self.provider.set(
             SetRequest(
                 objref=obj.__jsii_ref__,
-                property_=property,
+                property=property,
                 value=_make_reference_for_native(self, value),
             )
         )
@@ -215,14 +225,14 @@ class Kernel(metaclass=Singleton):
     @_dereferenced
     def sget(self, klass: JSClass, property: str) -> Any:
         return self.provider.sget(
-            StaticGetRequest(fqn=klass.__jsii_type__, property_=property)
+            StaticGetRequest(fqn=klass.__jsii_type__, property=property)
         ).value
 
     def sset(self, klass: JSClass, property: str, value: Any) -> None:
         self.provider.sset(
             StaticSetRequest(
                 fqn=klass.__jsii_type__,
-                property_=property,
+                property=property,
                 value=_make_reference_for_native(self, value),
             )
         )

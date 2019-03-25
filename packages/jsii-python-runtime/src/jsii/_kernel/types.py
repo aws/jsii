@@ -28,7 +28,7 @@ class EnumRef:
 class Override:
 
     method: Optional[str] = None
-    property_: Optional[str] = None
+    property: Optional[str] = None
     cookie: Optional[str] = None
 
 
@@ -75,14 +75,14 @@ class DeleteResponse:
 class GetRequest:
 
     objref: ObjRef
-    property_: str
+    property: str
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class StaticGetRequest:
 
     fqn: str
-    property_: str
+    property: str
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
@@ -95,7 +95,7 @@ class GetResponse:
 class StaticSetRequest:
 
     fqn: str
-    property_: str
+    property: str
     value: str
 
 
@@ -103,7 +103,7 @@ class StaticSetRequest:
 class SetRequest:
 
     objref: ObjRef
-    property_: str
+    property: str
     value: Any
 
 
