@@ -27,6 +27,19 @@ setuptools.setup(
     classifiers=[
         "Development Status :: 4 - Beta",
 
+        "Intended Audience :: Developers",
+
         "License :: OSI Approved :: Apache Software License",
+
+        "Programming Language :: JavaScript",
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+
+        "Topic :: Software Development :: Code Generators",
+        "Topic :: Utilities",
+
+        "Typing :: Typed",
     ],
 )
