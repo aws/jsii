@@ -19,6 +19,10 @@
         "namespace": "Amazon.JSII.Tests.CalculatorNamespace",
         "packageId": "Amazon.JSII.Tests.CalculatorPackageId"
       },
+      "python": {
+        "distName": "jsii-calc",
+        "module": "jsii_calc"
+      },
       "sphinx": {}
     }
   },
