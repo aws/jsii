@@ -13,14 +13,20 @@ with open("README.md") as fp:
 setuptools.setup(
     name="jsii",
     version=metadata["version"],
+
+    description=metadata["description"],
     long_description=long_description,
     long_description_content_type="text/markdown",
+
+    author=metadata["author"]["name"],
+
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src"),
     package_data={
         "jsii": ["_metadata.json", "py.typed"],
         "jsii._embedded.jsii": ["*.js", "*.js.map", "*.wasm"],
     },
+
     install_requires=[
         "attrs>=18.2",
         "cattrs",
@@ -29,7 +35,9 @@ setuptools.setup(
         "typing_extensions>=3.6.4",
         "mypy_extensions>=0.4.0",
     ],
+
     python_requires=">=3.6",
+
     classifiers=[
         "Development Status :: 4 - Beta",
 
