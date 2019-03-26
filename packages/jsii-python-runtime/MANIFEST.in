@@ -1,2 +1,3 @@
 include pyproject.toml
+include LICENSE NOTICE
 include src/jsii/_metadata.json

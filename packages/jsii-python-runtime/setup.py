@@ -24,4 +24,7 @@ setuptools.setup(
         "mypy_extensions>=0.4.0",
     ],
     python_requires=">=3.6",
+    classifiers=[
+        "License :: OSI Approved :: Apache Software License",
+    ],
 )
