@@ -6,9 +6,15 @@ with open("src/jsii/_metadata.json") as fp:
     metadata = json.load(fp)
 
 
+with open("README.md") as fp:
+    long_description = fp.read()
+
+
 setuptools.setup(
     name="jsii",
     version=metadata["version"],
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src"),
     package_data={
