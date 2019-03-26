@@ -6,7 +6,7 @@
   "scripts": {
     "generate": "python3 bin/generate",
     "deps": "python -m venv .env && .env/bin/pip install pip==19.0.1 setuptools==40.7.0 wheel==0.32.3 && .env/bin/pip install -r requirements.txt",
-    "build": "npm run generate && npm run deps && .env/bin/python setup.py sdist -d . bdist_wheel -d . && rm -rf build",
+    "build": "cp ../../README.md . && npm run generate && npm run deps && .env/bin/python setup.py sdist -d . bdist_wheel -d . && rm -rf build",
     "package": "package-python",
     "test": ".env/bin/python bin/generate-calc && .env/bin/py.test -v --mypy"
   },
