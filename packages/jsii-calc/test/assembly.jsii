@@ -52,6 +52,10 @@
             },
             "js": {
               "npm": "@scope/jsii-calc-base-of-base"
+            },
+            "python": {
+              "distName": "scope.jsii-calc-base-of-base",
+              "module": "scope.jsii_calc_base_of_base"
             }
           },
           "version": "0.8.0"
@@ -72,6 +76,10 @@
         },
         "js": {
           "npm": "@scope/jsii-calc-base"
+        },
+        "python": {
+          "distName": "scope.jsii-calc-base",
+          "module": "scope.jsii_calc_base"
         }
       },
       "version": "0.8.0"
@@ -96,6 +104,10 @@
                 },
                 "js": {
                   "npm": "@scope/jsii-calc-base-of-base"
+                },
+                "python": {
+                  "distName": "scope.jsii-calc-base-of-base",
+                  "module": "scope.jsii_calc_base_of_base"
                 }
               },
               "version": "0.8.0"
@@ -116,6 +128,10 @@
             },
             "js": {
               "npm": "@scope/jsii-calc-base"
+            },
+            "python": {
+              "distName": "scope.jsii-calc-base",
+              "module": "scope.jsii_calc_base"
             }
           },
           "version": "0.8.0"
@@ -136,6 +152,10 @@
         },
         "js": {
           "npm": "@scope/jsii-calc-lib"
+        },
+        "python": {
+          "distName": "scope.jsii-calc-lib",
+          "module": "scope.jsii_calc_lib"
         }
       },
       "version": "0.8.0"
@@ -167,6 +187,10 @@
     },
     "js": {
       "npm": "jsii-calc"
+    },
+    "python": {
+      "distName": "jsii-calc",
+      "module": "jsii_calc"
     }
   },
   "types": {
@@ -4349,5 +4373,5 @@
     }
   },
   "version": "0.8.0",
-  "fingerprint": "4LMgT0Rllw3CIJWiDiR/eUfSRPvCEeWyGWxJXMiDvcU="
+  "fingerprint": "kxASQYx+RdQQFUSD4FNIHmKMdV4L37gNRKJx0DAohMQ="
 }

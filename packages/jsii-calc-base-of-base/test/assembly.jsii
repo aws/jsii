@@ -30,6 +30,10 @@
     },
     "js": {
       "npm": "@scope/jsii-calc-base-of-base"
+    },
+    "python": {
+      "distName": "scope.jsii-calc-base-of-base",
+      "module": "scope.jsii_calc_base_of_base"
     }
   },
   "types": {
@@ -69,5 +73,5 @@
     }
   },
   "version": "0.8.0",
-  "fingerprint": "Zw8kQPB96ZhmOHG1mvSYux419pjx8yHpZLio+P31TIE="
+  "fingerprint": "G6UuD4NHhtu7JqNYtGiL4uuy50JyphwtplUu5bC5ZG0="
 }
