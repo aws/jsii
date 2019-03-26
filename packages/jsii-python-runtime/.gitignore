@@ -10,3 +10,5 @@ dist/
 
 __pycache__
 .mypy_cache
+
+README.md
