@@ -75,7 +75,7 @@ def _get_overides(klass: JSClass, obj: Any) -> List[Override]:
                         getattr(original, "fget", None), "__jsii_name__"
                     ):
                         overrides.append(
-                            Override(property_=original.fget.__jsii_name__, cookie=name)
+                            Override(property=original.fget.__jsii_name__, cookie=name)
                         )
 
     return overrides
@@ -171,14 +171,14 @@ class Kernel(metaclass=Singleton):
     @_dereferenced
     def get(self, obj: Referenceable, property: str) -> Any:
         return self.provider.get(
-            GetRequest(objref=obj.__jsii_ref__, property_=property)
+            GetRequest(objref=obj.__jsii_ref__, property=property)
         ).value
 
     def set(self, obj: Referenceable, property: str, value: Any) -> None:
         self.provider.set(
             SetRequest(
                 objref=obj.__jsii_ref__,
-                property_=property,
+                property=property,
                 value=_make_reference_for_native(self, value),
             )
         )
@@ -186,14 +186,14 @@ class Kernel(metaclass=Singleton):
     @_dereferenced
     def sget(self, klass: JSClass, property: str) -> Any:
         return self.provider.sget(
-            StaticGetRequest(fqn=klass.__jsii_type__, property_=property)
+            StaticGetRequest(fqn=klass.__jsii_type__, property=property)
         ).value
 
     def sset(self, klass: JSClass, property: str, value: Any) -> None:
         self.provider.sset(
             StaticSetRequest(
                 fqn=klass.__jsii_type__,
-                property_=property,
+                property=property,
                 value=_make_reference_for_native(self, value),
             )
         )

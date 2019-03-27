@@ -225,7 +225,8 @@ defineTest('naming allows returns the module name for different languages', asyn
             namespace: 'Amazon.JSII.Tests.CalculatorNamespace',
             packageId: 'Amazon.JSII.Tests.CalculatorPackageId',
         },
-        js: { npm: 'jsii-calc' }
+        js: { npm: 'jsii-calc' },
+        python: { distName: 'jsii-calc', module: 'jsii_calc' },
     });
     test.deepEqual(sandbox.naming({ assembly: '@scope/jsii-calc-lib' }).naming, {
         java: {
@@ -236,7 +237,8 @@ defineTest('naming allows returns the module name for different languages', asyn
             namespace: 'Amazon.JSII.Tests.CalculatorNamespace.LibNamespace',
             packageId: 'Amazon.JSII.Tests.CalculatorPackageId.LibPackageId'
         },
-        js: { npm: '@scope/jsii-calc-lib' }
+        js: { npm: '@scope/jsii-calc-lib' },
+        python: { distName: 'scope.jsii-calc-lib', module: 'scope.jsii_calc_lib' },
     });
 });
 

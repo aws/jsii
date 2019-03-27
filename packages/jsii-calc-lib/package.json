@@ -19,6 +19,10 @@
         "namespace": "Amazon.JSII.Tests.CalculatorNamespace.LibNamespace",
         "packageId": "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId"
       },
+      "python": {
+        "distName": "scope.jsii-calc-lib",
+        "module": "scope.jsii_calc_lib"
+      },
       "sphinx": {}
     }
   },
