@@ -214,13 +214,15 @@ class Kernel(metaclass=Singleton):
             return response.value
 
     def set(self, obj: Referenceable, property: str, value: Any) -> None:
-        self.provider.set(
+        response = self.provider.set(
             SetRequest(
                 objref=obj.__jsii_ref__,
                 property=property,
                 value=_make_reference_for_native(self, value),
             )
         )
+        if isinstance(response, Callback):
+            _callback_till_result(self, response, SetResponse)
 
     @_dereferenced
     def sget(self, klass: JSClass, property: str) -> Any:

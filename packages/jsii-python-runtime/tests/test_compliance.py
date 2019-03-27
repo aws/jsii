@@ -538,7 +538,6 @@ def test_propertyOverrides_get_calls_super():
     assert so.retrieve_value_of_the_property() == "super:initial value"
     assert so.the_property == "super:initial value"
 
-@xfail_callbacks
 def test_propertyOverrides_set_calls_super():
     class SuperSyncVirtualMethods(SyncVirtualMethods):
         @property
@@ -547,7 +546,13 @@ def test_propertyOverrides_set_calls_super():
 
         @the_property.setter
         def the_property(self, value):
-            super().the_property = f"{value}:by override"
+            #
+            # This is the way this was originally coded:
+            #   super().the_property = f"{value}:by override"
+            # but this causes a problem because of:
+            #   https://bugs.python.org/issue14965
+            # so now we have this more convoluted form.
+            super(self.__class__, self.__class__).the_property.__set__(self, f"{value}:by override")
 
     so = SuperSyncVirtualMethods()
     so.modify_value_of_the_property("New Value")
