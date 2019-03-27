@@ -60,12 +60,12 @@
       <version>0.8.0</version>
     </dependency>
     <dependency>
-      <artifactId>calculator-lib</artifactId>
+      <artifactId>calculator-base-of-base</artifactId>
       <groupId>software.amazon.jsii.tests</groupId>
       <version>0.8.0</version>
     </dependency>
     <dependency>
-      <artifactId>calculator-base-of-base</artifactId>
+      <artifactId>calculator-lib</artifactId>
       <groupId>software.amazon.jsii.tests</groupId>
       <version>0.8.0</version>
     </dependency>

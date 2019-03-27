@@ -57,6 +57,7 @@ PythonReservedWords
 ReferenceEnumFromScopedPackage
 ReturnsPrivateImplementationOfInterface
 RuntimeTypeChecking
+SingleInstanceTwoTypes
 Statics
 StripInternal
 Sum

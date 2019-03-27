@@ -2,6 +2,7 @@ assemblies
  ├─┬ jsii-calc
  │ ├─┬ dependencies
  │ │ ├── @scope/jsii-calc-base
+ │ │ ├── @scope/jsii-calc-base-of-base
  │ │ └── @scope/jsii-calc-lib
  │ └─┬ types
  │   ├─┬ class AbstractClass
@@ -59,6 +60,13 @@ assemblies
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
+ │   │   ├─┬ anyIn(inp) method
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ inp
+ │   │   │ │   └── type: primitive:any
+ │   │   │ └── returns: void
+ │   │   ├─┬ anyOut() method
+ │   │   │ └── returns: primitive:any
  │   │   ├─┬ enumMethod(value) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ value
@@ -90,7 +98,7 @@ assemblies
  │   │   ├─┬ stringProperty property
  │   │   │ └── type: primitive:string
  │   │   ├─┬ unionArrayProperty property
- │   │   │ └── type: Array<primitive:number | class:jsii-calc.composition.CompositeOperation>
+ │   │   │ └── type: Array<primitive:number | class:@scope/jsii-calc-lib.Value>
  │   │   ├─┬ unionMapProperty property
  │   │   │ └── type: Map<string => primitive:string | primitive:number | class:@scope/jsii-calc-lib.Number>
  │   │   ├─┬ unionProperty property
@@ -282,12 +290,27 @@ assemblies
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
+ │   │   ├─┬ hiddenInterface() method
+ │   │   │ ├── static
+ │   │   │ └── returns: interface:jsii-calc.IPublicInterface
+ │   │   ├─┬ hiddenInterfaces() method
+ │   │   │ ├── static
+ │   │   │ └── returns: Array<interface:jsii-calc.IPublicInterface>
+ │   │   ├─┬ hiddenSubInterfaces() method
+ │   │   │ ├── static
+ │   │   │ └── returns: Array<interface:jsii-calc.IPublicInterface>
  │   │   ├─┬ makeClass() method
  │   │   │ ├── static
  │   │   │ └── returns: class:jsii-calc.PublicClass
- │   │   └─┬ makeInterface() method
+ │   │   ├─┬ makeInterface() method
+ │   │   │ ├── static
+ │   │   │ └── returns: interface:jsii-calc.IPublicInterface
+ │   │   ├─┬ makeInterface2() method
+ │   │   │ ├── static
+ │   │   │ └── returns: interface:jsii-calc.IPublicInterface2
+ │   │   └─┬ makeInterfaces() method
  │   │     ├── static
- │   │     └── returns: interface:jsii-calc.IPublicInterface
+ │   │     └── returns: Array<interface:jsii-calc.IPublicInterface>
  │   ├─┬ class ConsumersOfThisCrazyTypeSystem
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -466,9 +489,12 @@ assemblies
  │   │     └── type: primitive:string
  │   ├─┬ class InbetweenClass
  │   │ ├── base: PublicClass
+ │   │ ├── interfaces: IPublicInterface2
  │   │ └─┬ members
- │   │   └─┬ <initializer>() method
- │   │     └── returns: void
+ │   │   ├─┬ <initializer>() method
+ │   │   │ └── returns: void
+ │   │   └─┬ ciao() method
+ │   │     └── returns: primitive:string
  │   ├─┬ class Foo
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -756,11 +782,15 @@ assemblies
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
- │   │   └─┬ consumePartiallyInitializedThis(obj) method
+ │   │   └─┬ consumePartiallyInitializedThis(obj,dt,ev) method
  │   │     ├── abstract
  │   │     ├─┬ parameters
- │   │     │ └─┬ obj
- │   │     │   └── type: class:jsii-calc.ConstructorPassesThisOut
+ │   │     │ ├─┬ obj
+ │   │     │ │ └── type: class:jsii-calc.ConstructorPassesThisOut
+ │   │     │ ├─┬ dt
+ │   │     │ │ └── type: primitive:date
+ │   │     │ └─┬ ev
+ │   │     │   └── type: enum:jsii-calc.AllTypesEnum
  │   │     └── returns: primitive:string
  │   ├─┬ class Polymorphism
  │   │ └─┬ members
@@ -911,6 +941,14 @@ assemblies
  │   │     │ └─┬ arg3
  │   │     │   └── type: primitive:date (optional)
  │   │     └── returns: void
+ │   ├─┬ class SingleInstanceTwoTypes
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ interface1() method
+ │   │   │ └── returns: class:jsii-calc.InbetweenClass
+ │   │   └─┬ interface2() method
+ │   │     └── returns: interface:jsii-calc.IPublicInterface
  │   ├─┬ class Statics
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(value) method
@@ -1288,7 +1326,12 @@ assemblies
  │   │ └─┬ members
  │   │   └─┬ bye() method
  │   │     ├── abstract
- │   │     └── returns: void
+ │   │     └── returns: primitive:string
+ │   ├─┬ interface IPublicInterface2
+ │   │ └─┬ members
+ │   │   └─┬ ciao() method
+ │   │     ├── abstract
+ │   │     └── returns: primitive:string
  │   ├─┬ interface IRandomNumberGenerator
  │   │ └─┬ members
  │   │   └─┬ next() method

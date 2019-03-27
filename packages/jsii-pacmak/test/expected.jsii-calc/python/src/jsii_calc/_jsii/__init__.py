@@ -10,6 +10,7 @@ import publication
 from jsii.python import classproperty
 
 import scope.jsii_calc_base
+import scope.jsii_calc_base_of_base
 import scope.jsii_calc_lib
 __all__ = []
 

@@ -8,6 +8,7 @@ import software.amazon.jsii.tests.calculator.AbstractClass;
 import software.amazon.jsii.tests.calculator.AbstractClassReturner;
 import software.amazon.jsii.tests.calculator.Add;
 import software.amazon.jsii.tests.calculator.AllTypes;
+import software.amazon.jsii.tests.calculator.AllTypesEnum;
 import software.amazon.jsii.tests.calculator.AsyncVirtualMethods;
 import software.amazon.jsii.tests.calculator.Calculator;
 import software.amazon.jsii.tests.calculator.CalculatorProps;
@@ -198,12 +199,12 @@ public class ComplianceTest {
 
         // map
         Map<String, Object> map = new HashMap<>();
-        map.put("Foo", new Multiply(new Number(2), new Number(99)));
+        map.put("Foo", new Number(99));
         types.setUnionMapProperty(map);
 
         // array
-        types.setUnionArrayProperty(Arrays.asList("Hello", 123, new Number(33)));
-        assertEquals(33, ((Number)((List<?>)types.getUnionArrayProperty()).get(2)).getValue());
+        types.setUnionArrayProperty(Arrays.asList(123, new Number(33)));
+        assertEquals(33, ((Number)((List<?>)types.getUnionArrayProperty()).get(1)).getValue());
     }
 
 
@@ -1022,7 +1023,13 @@ public class ComplianceTest {
 
     static class PartiallyInitializedThisConsumerImpl extends PartiallyInitializedThisConsumer {
         @Override
-        public String consumePartiallyInitializedThis(final ConstructorPassesThisOut obj) {
+        public String consumePartiallyInitializedThis(final ConstructorPassesThisOut obj,
+                                                      final Instant dt,
+                                                      final AllTypesEnum en) {
+            assertNotNull(obj);
+            assertEquals(Instant.EPOCH, dt);
+            assertEquals(AllTypesEnum.ThisIsGreat, en);
+
             return "OK";
         }
     }

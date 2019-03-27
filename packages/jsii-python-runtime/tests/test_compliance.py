@@ -279,13 +279,13 @@ def test_unionTypes():
 
     # map
     map_ = {}
-    map_["Foo"] = Multiply(Number(2), Number(99))
+    map_["Foo"] = Number(99)
     types.union_map_property = map_
     # TODO: No Assertion?
 
     # array
-    types.union_array_property = ["Hello", 123, Number(33)]
-    assert types.union_array_property[2].value == 33
+    types.union_array_property = [123, Number(33)]
+    assert types.union_array_property[1].value == 33
 
 
 def test_createObjectAndCtorOverloads():

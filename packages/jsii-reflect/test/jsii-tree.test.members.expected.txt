@@ -25,6 +25,8 @@ assemblies
  │   ├─┬ class AllTypes
  │   │ └─┬ members
  │   │   ├── <initializer>() method
+ │   │   ├── anyIn(inp) method
+ │   │   ├── anyOut() method
  │   │   ├── enumMethod(value) method
  │   │   ├── enumPropertyValue property
  │   │   ├── anyArrayProperty property
@@ -115,8 +117,13 @@ assemblies
  │   ├─┬ class Constructors
  │   │ └─┬ members
  │   │   ├── <initializer>() method
+ │   │   ├── hiddenInterface() method
+ │   │   ├── hiddenInterfaces() method
+ │   │   ├── hiddenSubInterfaces() method
  │   │   ├── makeClass() method
- │   │   └── makeInterface() method
+ │   │   ├── makeInterface() method
+ │   │   ├── makeInterface2() method
+ │   │   └── makeInterfaces() method
  │   ├─┬ class ConsumersOfThisCrazyTypeSystem
  │   │ └─┬ members
  │   │   ├── <initializer>() method
@@ -192,7 +199,8 @@ assemblies
  │   │   └── private property
  │   ├─┬ class InbetweenClass
  │   │ └─┬ members
- │   │   └── <initializer>() method
+ │   │   ├── <initializer>() method
+ │   │   └── ciao() method
  │   ├─┬ class Foo
  │   │ └─┬ members
  │   │   ├── <initializer>() method
@@ -325,7 +333,7 @@ assemblies
  │   ├─┬ class PartiallyInitializedThisConsumer
  │   │ └─┬ members
  │   │   ├── <initializer>() method
- │   │   └── consumePartiallyInitializedThis(obj) method
+ │   │   └── consumePartiallyInitializedThis(obj,dt,ev) method
  │   ├─┬ class Polymorphism
  │   │ └─┬ members
  │   │   ├── <initializer>() method
@@ -391,6 +399,11 @@ assemblies
  │   │   ├── methodWithDefaultedArguments(arg1,arg2,arg3) method
  │   │   ├── methodWithOptionalAnyArgument(arg) method
  │   │   └── methodWithOptionalArguments(arg1,arg2,arg3) method
+ │   ├─┬ class SingleInstanceTwoTypes
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── interface1() method
+ │   │   └── interface2() method
  │   ├─┬ class Statics
  │   │ └─┬ members
  │   │   ├── <initializer>(value) method
@@ -538,6 +551,9 @@ assemblies
  │   ├─┬ interface IPublicInterface
  │   │ └─┬ members
  │   │   └── bye() method
+ │   ├─┬ interface IPublicInterface2
+ │   │ └─┬ members
+ │   │   └── ciao() method
  │   ├─┬ interface IRandomNumberGenerator
  │   │ └─┬ members
  │   │   └── next() method
