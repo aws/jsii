@@ -974,6 +974,10 @@ defineTest('Object ID does not get re-allocated when the constructor passes "thi
         test.equal(callback.invoke && callback.invoke.method, 'consumePartiallyInitializedThis');
         test.deepEqual(callback.invoke && callback.invoke.args && callback.invoke.args, [{
             [api.TOKEN_REF]: 'jsii-calc.ConstructorPassesThisOut@10002'
+        }, {
+            [api.TOKEN_DATE]: '1970-01-01T00:00:00.000Z'
+        }, {
+            [api.TOKEN_ENUM]: ''
         }]);
         return 'OK';
     });
