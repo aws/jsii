@@ -56,12 +56,7 @@ import software.amazon.jsii.tests.calculator.lib.MyFirstStruct;
 import software.amazon.jsii.tests.calculator.lib.Number;
 import software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals;
 import software.amazon.jsii.tests.calculator.lib.Value;
-import software.amazon.jsii.tests.calculator.JavaReservedWords;
-import software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties;
 import software.amazon.jsii.tests.calculator.ConstructorPassesThisOut;
-import software.amazon.jsii.tests.calculator.Constructors;
-
-import org.junit.Test;
 
 import java.io.IOException;
 import java.time.Instant;

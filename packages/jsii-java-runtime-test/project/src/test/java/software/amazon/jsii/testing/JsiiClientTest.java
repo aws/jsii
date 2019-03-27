@@ -116,7 +116,7 @@ public class JsiiClientTest {
         assertEquals("overrideMe", first.getInvoke().getMethod());
         assertEquals("myCookie", first.getCookie());
         assertEquals(1, first.getInvoke().getArgs().size());
-        assertEquals(10, first.getInvoke().getArgs().get(0));
+        assertEquals(JsiiObjectMapper.valueToTree(10), first.getInvoke().getArgs().get(0));
         assertEquals(obj.getObjId(), JsiiObjectRef.parse(first.getInvoke().getObjref()).getObjId());
 
         // now complete the callback with some override value
@@ -146,7 +146,7 @@ public class JsiiClientTest {
         assertEquals("overrideMe", first.getInvoke().getMethod());
         assertEquals("myCookie", first.getCookie());
         assertEquals(1, first.getInvoke().getArgs().size());
-        assertEquals(10, first.getInvoke().getArgs().get(0));
+        assertEquals(JsiiObjectMapper.valueToTree(10), first.getInvoke().getArgs().get(0));
         assertEquals(obj.getObjId(), JsiiObjectRef.parse(first.getInvoke().getObjref()).getObjId());
 
         // now complete the callback with an error
@@ -171,7 +171,7 @@ public class JsiiClientTest {
         jsiiRuntime.setCallbackHandler(callback -> {
             assertEquals(obj.getObjId(), JsiiObjectRef.parse(callback.getInvoke().getObjref()).getObjId());
             assertEquals("virtualMethod", callback.getInvoke().getMethod());
-            assertEquals(10, callback.getInvoke().getArgs().get(0));
+            assertEquals(JsiiObjectMapper.valueToTree(10), callback.getInvoke().getArgs().get(0));
             assertEquals("myCookie", callback.getCookie());
 
             // interact with jsii from inside the callback
@@ -226,8 +226,7 @@ public class JsiiClientTest {
      */
     @Test
     public void serializeViaJsiiToJsonIfExists() {
-        JsiiObjectMapper om = JsiiObjectMapper.instance;
-        JsonNode result = om.valueToTree(new JsiiSerializable() {
+        JsonNode result = JsiiObjectMapper.INSTANCE.valueToTree(new JsiiSerializable() {
             public JsonNode $jsii$toJson() {
                 ObjectNode node = JSON.objectNode();
                 node.set("foo", OM.valueToTree("bar"));

@@ -1,5 +1,6 @@
 package software.amazon.jsii.api;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class InvokeRequest {
     /**
      * Method arguments.
      */
-    private List<Object> args;
+    private List<JsonNode> args;
 
     /**
      * @return The object reference.
@@ -54,14 +55,14 @@ public class InvokeRequest {
     /**
      * @return Method arguments.
      */
-    public List<Object> getArgs() {
+    public List<JsonNode> getArgs() {
         return args;
     }
 
     /**
      * @param args Method arguments.
      */
-    public void setArgs(final List<Object> args) {
+    public void setArgs(final List<JsonNode> args) {
         this.args = args;
     }
 }

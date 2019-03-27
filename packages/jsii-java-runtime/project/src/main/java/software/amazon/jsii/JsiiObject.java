@@ -12,11 +12,6 @@ import javax.annotation.Nullable;
 public class JsiiObject implements JsiiSerializable {
 
     /**
-     * JSON object mapper.
-     */
-    private static final JsiiObjectMapper OM = JsiiObjectMapper.instance;
-
-    /**
      * The jsii engine used by this object.
      */
     private final static JsiiEngine engine = JsiiEngine.getInstance();
@@ -58,16 +53,11 @@ public class JsiiObject implements JsiiSerializable {
      */
     @Nullable
     protected final <T> T jsiiCall(final String method, final Class<T> returnType, @Nullable final Object... args) {
-        try {
-            return OM.treeToValue(JsiiObject.engine.getClient().callMethod(
-                    this.objRef,
-                    method,
-                    OM.valueToTree(args)),
-                    returnType);
-
-        } catch (JsonProcessingException e) {
-            throw new JsiiException(e);
-        }
+        return JsiiObjectMapper.treeToValue(JsiiObject.engine.getClient()
+                                                                .callMethod(this.objRef,
+                                                                            method,
+                                                                            JsiiObjectMapper.valueToTree(args)),
+                                            returnType);
     }
 
     /**
@@ -82,16 +72,9 @@ public class JsiiObject implements JsiiSerializable {
     @Nullable
     protected static <T> T jsiiStaticCall(final Class<?> nativeClass, final String method, final Class<T> returnType, @Nullable final Object... args) {
         String fqn = engine.loadModuleForClass(nativeClass);
-        try {
-            return OM.treeToValue(engine.getClient().callStaticMethod(
-                    fqn,
-                    method,
-                    OM.valueToTree(args)),
-                    returnType);
-
-        } catch (JsonProcessingException e) {
-            throw new JsiiException(e);
-        }
+        return JsiiObjectMapper.treeToValue(engine.getClient()
+                                                  .callStaticMethod(fqn, method, JsiiObjectMapper.valueToTree(args)),
+                                            returnType);
     }
 
     /**
@@ -104,17 +87,12 @@ public class JsiiObject implements JsiiSerializable {
      */
     @Nullable
     protected final <T> T jsiiAsyncCall(final String method, final Class<T> returnType, @Nullable final Object... args) {
-        try {
-            JsiiClient client = engine.getClient();
-            JsiiPromise promise = client.beginAsyncMethod(this.objRef, method, OM.valueToTree(args));
+        JsiiClient client = engine.getClient();
+        JsiiPromise promise = client.beginAsyncMethod(this.objRef, method, JsiiObjectMapper.valueToTree(args));
 
-            engine.processAllPendingCallbacks();
+        engine.processAllPendingCallbacks();
 
-            JsonNode ret = client.endAsyncMethod(promise);
-            return OM.treeToValue(ret, returnType);
-        } catch (JsonProcessingException e) {
-            throw new JsiiException(e);
-        }
+        return JsiiObjectMapper.treeToValue(client.endAsyncMethod(promise), returnType);
     }
 
     /**
@@ -126,11 +104,7 @@ public class JsiiObject implements JsiiSerializable {
      */
     @Nullable
     protected final <T> T jsiiGet(final String property, final Class<T> type) {
-        try {
-            return OM.treeToValue(engine.getClient().getPropertyValue(this.objRef, property), type);
-        } catch (JsonProcessingException e) {
-            throw new JsiiException(e);
-        }
+        return JsiiObjectMapper.treeToValue(engine.getClient().getPropertyValue(this.objRef, property), type);
     }
 
     /**
@@ -143,12 +117,8 @@ public class JsiiObject implements JsiiSerializable {
      */
     @Nullable
     protected static <T> T jsiiStaticGet(final Class<?> nativeClass, final String property, final Class<T> type) {
-        try {
-            String fqn = engine.loadModuleForClass(nativeClass);
-            return OM.treeToValue(engine.getClient().getStaticPropertyValue(fqn, property), type);
-        } catch (JsonProcessingException e) {
-            throw new JsiiException(e);
-        }
+        String fqn = engine.loadModuleForClass(nativeClass);
+        return JsiiObjectMapper.treeToValue(engine.getClient().getStaticPropertyValue(fqn, property), type);
     }
 
     /**
@@ -157,7 +127,7 @@ public class JsiiObject implements JsiiSerializable {
      * @param value The property value.
      */
     protected final void jsiiSet(final String property, @Nullable final Object value) {
-        engine.getClient().setPropertyValue(this.objRef, property, OM.valueToTree(value));
+        engine.getClient().setPropertyValue(this.objRef, property, JsiiObjectMapper.valueToTree(value));
     }
 
     /**
@@ -168,7 +138,7 @@ public class JsiiObject implements JsiiSerializable {
      */
     protected static void jsiiStaticSet(final Class<?> nativeClass, final String property, @Nullable final Object value) {
         String fqn = engine.loadModuleForClass(nativeClass);
-        engine.getClient().setStaticPropertyValue(fqn, property, OM.valueToTree(value));
+        engine.getClient().setStaticPropertyValue(fqn, property, JsiiObjectMapper.valueToTree(value));
     }
 
     /**

@@ -192,7 +192,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
                 }
 
                 public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-                    software.amazon.jsii.JsiiObjectMapper om = software.amazon.jsii.JsiiObjectMapper.instance;
+                    com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
                     com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
                     obj.set("anotherRequired", om.valueToTree(this.getAnotherRequired()));
                     obj.set("bool", om.valueToTree(this.getBool()));

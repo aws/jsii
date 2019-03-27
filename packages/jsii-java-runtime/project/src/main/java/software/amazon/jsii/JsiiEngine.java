@@ -5,6 +5,8 @@ import software.amazon.jsii.api.GetRequest;
 import software.amazon.jsii.api.InvokeRequest;
 import software.amazon.jsii.api.JsiiOverride;
 import software.amazon.jsii.api.SetRequest;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.base.Throwables;
 
@@ -45,11 +47,6 @@ public final class JsiiEngine implements JsiiCallbackHandler {
      * The jsii-server child process.
      */
     private final JsiiRuntime runtime = new JsiiRuntime();
-
-    /**
-     * JSON object mapper.
-     */
-    private static final JsiiObjectMapper OM = JsiiObjectMapper.instance;
 
     /**
      * The set of modules we already loaded into the VM.
@@ -324,7 +321,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
         String methodName = javaScriptPropertyToJavaPropertyName("get", req.getProperty());
         try {
             Method getter = obj.getClass().getMethod(methodName);
-            return OM.valueToTree(invokeMethod(obj, getter));
+            return JsiiObjectMapper.valueToTree(invokeMethod(obj, getter));
         } catch (NoSuchMethodException e) {
             throw new JsiiException(e);
         }
@@ -351,7 +348,8 @@ public final class JsiiEngine implements JsiiCallbackHandler {
             throw new JsiiException("Unable to find property setter " + setterMethodName);
         }
 
-        return OM.valueToTree(invokeMethod(obj, setter, this.fromKernel(req.getValue())));
+        final Object arg = JsiiObjectMapper.treeToValue(req.getValue(), setter.getParameterTypes()[0]);
+        return JsiiObjectMapper.valueToTree(invokeMethod(obj, setter, arg));
     }
 
     /**
@@ -363,28 +361,14 @@ public final class JsiiEngine implements JsiiCallbackHandler {
     private JsonNode invokeCallbackMethod(final InvokeRequest req, final String cookie) {
         Object obj = this.getObject(req.getObjref());
         Method method = this.findCallbackMethod(obj.getClass(), cookie);
-        return OM.valueToTree(invokeMethod(obj,
-                                           method,
-                                           req.getArgs()
-                                              .stream()
-                                              .map(this::fromKernel)
-                                              .toArray()));
-    }
 
-    private Object fromKernel(final Object object) {
-        if (object == null) {
-            return null;
+        final Class<?>[] argTypes = method.getParameterTypes();
+        final Object[] args = new Object[argTypes.length];
+        for (int i = 0; i < argTypes.length; i++) {
+            args[i] = JsiiObjectMapper.treeToValue(req.getArgs().get(i), argTypes[i]);
         }
-        if (object instanceof Map) {
-            final Map<?, ?> map = (Map<?, ?>) object;
-            if (map.containsKey(JsiiObjectRef.TOKEN_REF)) {
-                final JsiiObjectRef objRef = JsiiObjectRef.fromObjId(map.get(JsiiObjectRef.TOKEN_REF).toString());
-                final Object result = this.nativeFromObjRef(objRef);
-                this.log("Resolved to object of type %s", result.getClass().getCanonicalName());
-                return result;
-            }
-        }
-        return object;
+
+        return JsiiObjectMapper.valueToTree(invokeMethod(obj, method, args));
     }
 
     /**
