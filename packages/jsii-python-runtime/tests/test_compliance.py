@@ -591,11 +591,9 @@ def test_propertyOverrides_set_throws():
         so.modify_value_of_the_property("Hii")
 
 
-@pytest.mark.xfail(
-    reason="Overrides are still not implemented.", strict=True
-)
 def test_propertyOverrides_interfaces():
-    class TInterfaceWithProperties(IInterfaceWithProperties):
+    @jsii.implements(IInterfaceWithProperties)
+    class TInterfaceWithProperties:
 
         x = None
 
@@ -618,11 +616,9 @@ def test_propertyOverrides_interfaces():
     assert interact.write_and_read("Hello") == "Hello!?"
 
 
-@pytest.mark.xfail(
-    reason="Overrides are still not implemented.", strict=True
-)
 def test_interfaceBuilder():
-    class TInterfaceWithProperties(IInterfaceWithProperties):
+    @jsii.implements(IInterfaceWithProperties)
+    class TInterfaceWithProperties:
 
         x = "READ_WRITE"
 
