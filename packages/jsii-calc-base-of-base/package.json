@@ -19,6 +19,10 @@
         "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
         "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId"
       },
+      "python": {
+        "distName": "scope.jsii-calc-base-of-base",
+        "module": "scope.jsii_calc_base_of_base"
+      },
       "sphinx": {}
     }
   },

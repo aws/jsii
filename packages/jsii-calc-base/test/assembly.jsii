@@ -24,6 +24,10 @@
         },
         "js": {
           "npm": "@scope/jsii-calc-base-of-base"
+        },
+        "python": {
+          "distName": "scope.jsii-calc-base-of-base",
+          "module": "scope.jsii_calc_base_of_base"
         }
       },
       "version": "0.8.0"
@@ -52,6 +56,10 @@
     },
     "js": {
       "npm": "@scope/jsii-calc-base"
+    },
+    "python": {
+      "distName": "scope.jsii-calc-base",
+      "module": "scope.jsii_calc_base"
     }
   },
   "types": {
@@ -103,5 +111,5 @@
     }
   },
   "version": "0.8.0",
-  "fingerprint": "s85H74UGJp3NJ2gQ7jV6lNIwuydMd5KcbNYw94L/LsU="
+  "fingerprint": "G7uxcilYl8hV5yu6cUCJHPC3KBY2BVfNWUVRYOzukJc="
 }
