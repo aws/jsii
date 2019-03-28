@@ -256,9 +256,7 @@ class _NodeProcess:
         return paths[0]
 
     def _next_message(self) -> Mapping[Any, Any]:
-        # return json.loads(self._process.stdout.readline(), object_hook=ohook)
-        msg = json.loads(self._process.stdout.readline(), object_hook=ohook)
-        return msg
+        return json.loads(self._process.stdout.readline(), object_hook=ohook)
 
     def start(self):
         environ = os.environ.copy()
