@@ -889,6 +889,7 @@ def test_objectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut():
         def consume_partially_initialized_this(self, obj, dt, en):
             assert obj is not None
             assert isinstance(dt, datetime)
+            assert en.member == AllTypesEnum.ThisIsGreat.value
             return "OK"
 
     reflector = PartiallyInitializedThisConsumerImpl()
