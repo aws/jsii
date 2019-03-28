@@ -363,14 +363,15 @@ abstract class BaseMethod implements PythonBase {
         if (this.liftedProp !== undefined) {
             // Remove our last item.
             pythonParams.pop();
+            const liftedProperties = this.getLiftedProperties(resolver);
 
-            if (this.liftedProp.properties !== undefined && this.liftedProp.properties.length >= 1) {
+            if (liftedProperties.length >= 1) {
                 // All of these parameters are keyword only arguments, so we'll mark them
                 // as such.
                 pythonParams.push("*");
 
                 // Iterate over all of our props, and reflect them into our params.
-                for (const prop of this.liftedProp.properties) {
+                for (const prop of liftedProperties) {
                     const paramName = toPythonParameterName(prop.name);
                     const paramType = resolver.resolve(prop.type, { forwardReferences: false });
                     const paramDefault = prop.type.optional ? "=None" : "";
@@ -431,7 +432,7 @@ abstract class BaseMethod implements PythonBase {
         // We need to build up a list of properties, which are mandatory, these are the
         // ones we will specifiy to start with in our dictionary literal.
         const mandatoryPropMembers: string[] = [];
-        for (const prop of this.liftedProp!.properties || []) {
+        for (const prop of this.getLiftedProperties(resolver)) {
             if (prop.type.optional) {
                 continue;
             }
@@ -443,7 +444,7 @@ abstract class BaseMethod implements PythonBase {
 
         // Now we'll go through our optional properties, and if they haven't been set
         // we'll add them to our dictionary.
-        for (const prop of this.liftedProp!.properties || []) {
+        for (const prop of this.getLiftedProperties(resolver)) {
             if (!prop.type.optional) {
                 continue;
             }
@@ -475,6 +476,29 @@ abstract class BaseMethod implements PythonBase {
         }
 
         code.line(`${methodPrefix}jsii.${this.jsiiMethod}(${jsiiMethodParams.join(", ")}, [${paramNames.join(", ")}])`);
+    }
+
+    private getLiftedProperties(resolver: TypeResolver): spec.Property[] {
+        const liftedProperties: spec.Property[] = [];
+
+        const stack = [this.liftedProp];
+        let current = stack.shift();
+        while (current !== undefined) {
+            // Add any interfaces that this interface depends on, to the list.
+            if (current.interfaces !== undefined) {
+                stack.push(...current.interfaces.map(ifc => resolver.dereference(ifc) as spec.InterfaceType));
+            }
+
+            // Add all of the properties of this interface to our list of properties.
+            if (current.properties !== undefined) {
+                liftedProperties.push(...current.properties);
+            }
+
+            // Finally, grab our next item.
+            current = stack.shift();
+        }
+
+        return liftedProperties;
     }
 }
 
@@ -1139,6 +1163,7 @@ class Package {
 }
 
 type FindModuleCallback = (fqn: string) => spec.Assembly | spec.PackageVersion;
+type FindTypeCallback = (fqn: string) => spec.Type;
 
 interface TypeResolverOpts {
     forwardReferences?: boolean;
@@ -1154,10 +1179,16 @@ class TypeResolver {
     private readonly moduleName?: string;
     private readonly moduleRe: RegExp;
     private readonly findModule: FindModuleCallback;
+    private readonly findType: FindTypeCallback;
 
-    constructor(types: Map<string, PythonType>, findModule: FindModuleCallback, boundTo?: string, moduleName?: string) {
+    constructor(types: Map<string, PythonType>,
+                findModule: FindModuleCallback,
+                findType: FindTypeCallback,
+                boundTo?: string,
+                moduleName?: string) {
         this.types = types;
         this.findModule = findModule;
+        this.findType = findType;
         this.moduleName = moduleName;
         this.boundTo = boundTo !== undefined ? this.toPythonFQN(boundTo) : boundTo;
 
@@ -1174,6 +1205,7 @@ class TypeResolver {
         return new TypeResolver(
             this.types,
             this.findModule,
+            this.findType,
             fqn,
             moduleName !== undefined ? moduleName : this.moduleName,
         );
@@ -1209,6 +1241,10 @@ class TypeResolver {
         }
 
         return type;
+    }
+
+    public dereference(typeRef: spec.NamedTypeReference): spec.Type {
+        return this.findType(typeRef.fqn);
     }
 
     public resolve(
@@ -1381,7 +1417,11 @@ class PythonGenerator extends Generator {
     }
 
     protected onEndAssembly(_assm: spec.Assembly, _fingerprint: boolean) {
-        const resolver = new TypeResolver(this.types, (fqn: string) => this.findModule(fqn));
+        const resolver = new TypeResolver(
+            this.types,
+            (fqn: string) => this.findModule(fqn),
+            (fqn: string) => this.findType(fqn),
+        );
         this.package.write(this.code, resolver);
     }
 
