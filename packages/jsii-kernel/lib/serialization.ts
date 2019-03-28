@@ -174,7 +174,6 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
   // ----------------------------------------------------------------------
   [SerializationClass.Enum]: {
     serialize(value, type, host): WireEnum | undefined {
-      host.debug('hullo');
       if (nullAndOk(value, type)) { return undefined; }
 
       if (typeof value !== 'string' && typeof value !== 'number') {
