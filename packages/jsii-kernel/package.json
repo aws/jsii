@@ -1,6 +1,6 @@
 {
   "name": "jsii-kernel",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "description": "kernel for jsii execution environment",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -12,21 +12,21 @@
     "package": "package-js"
   },
   "devDependencies": {
-    "@scope/jsii-calc-base": "^0.8.1",
-    "@scope/jsii-calc-lib": "^0.8.1",
+    "@scope/jsii-calc-base": "^0.8.2",
+    "@scope/jsii-calc-lib": "^0.8.2",
     "@types/fs-extra": "^5.0.5",
     "@types/node": "^8.10.43",
     "@types/nodeunit": "^0.0.30",
     "@types/tar": "^4.0.0",
     "fs-extra": "^7.0.1",
-    "jsii-build-tools": "^0.8.1",
-    "jsii-calc": "^0.8.1",
+    "jsii-build-tools": "^0.8.2",
+    "jsii-calc": "^0.8.2",
     "nodeunit": "^0.11.3",
     "tslint": "^5.13.0",
     "typescript": "^3.3.3333"
   },
   "dependencies": {
-    "jsii-spec": "^0.8.1",
+    "jsii-spec": "^0.8.2",
     "source-map": "^0.7.3",
     "tar": "^4.4.8"
   },

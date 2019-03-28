@@ -1,6 +1,6 @@
 {
   "name": "@scope/jsii-calc-base",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "description": "An example direct dependency for jsii-calc.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -31,14 +31,14 @@
     "test": "diff-test test/assembly.jsii .jsii"
   },
   "devDependencies": {
-    "jsii": "^0.8.1",
-    "jsii-build-tools": "^0.8.1"
+    "jsii": "^0.8.2",
+    "jsii-build-tools": "^0.8.2"
   },
   "dependencies": {
-    "@scope/jsii-calc-base-of-base": "^0.8.1"
+    "@scope/jsii-calc-base-of-base": "^0.8.2"
   },
   "peerDependencies": {
-    "@scope/jsii-calc-base-of-base": "^0.8.1"
+    "@scope/jsii-calc-base-of-base": "^0.8.2"
   },
   "author": {
     "name": "Amazon Web Services",

@@ -1,6 +1,6 @@
 {
   "name": "jsii-java-runtime-test",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "description": "Tests for the Java client for jsii runtime",
   "private": true,
   "main": "lib/index.js",
@@ -11,9 +11,9 @@
   },
   "devDependencies": {
     "@types/node": "^8.10.43",
-    "jsii-calc": "^0.8.1",
-    "jsii-java-runtime": "^0.8.1",
-    "jsii-pacmak": "^0.8.1"
+    "jsii-calc": "^0.8.2",
+    "jsii-java-runtime": "^0.8.2",
+    "jsii-pacmak": "^0.8.2"
   },
   "author": {
     "name": "Amazon Web Services",

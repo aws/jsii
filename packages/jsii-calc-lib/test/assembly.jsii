@@ -32,7 +32,7 @@
               "module": "scope.jsii_calc_base_of_base"
             }
           },
-          "version": "0.8.1"
+          "version": "0.8.2"
         }
       },
       "peer": true,
@@ -56,7 +56,7 @@
           "module": "scope.jsii_calc_base"
         }
       },
-      "version": "0.8.1"
+      "version": "0.8.2"
     }
   },
   "description": "A simple calcuator library built on JSII.",
@@ -370,6 +370,6 @@
       ]
     }
   },
-  "version": "0.8.1",
-  "fingerprint": "r5CWy+7p0SN96r2HcOC02/pI9MGslAFU5eS6Y6MABjE="
+  "version": "0.8.2",
+  "fingerprint": "8L8bV6COHcJBBT5CbQ4Bzwu5ZlT6VBMCXxB1S1TPczw="
 }
