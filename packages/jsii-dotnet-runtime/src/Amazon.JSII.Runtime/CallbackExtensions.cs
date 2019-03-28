@@ -122,6 +122,10 @@ namespace Amazon.JSII.Runtime
             methodInfo.Invoke(deputy, new object[] { FromKernel(request.Value, referenceMap) });
         }
 
+        /*
+         * This is a temporary workaround / hack to solve an immediate problem, but does not completely solve the
+         * problem to it's full extent. See https://github.com/awslabs/jsii/issues/404 for more information.
+         */
         private static object FromKernel(object obj, IReferenceMap referenceMap)
         {
             if (obj is JObject)
