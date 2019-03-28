@@ -1,6 +1,6 @@
 {
   "name": "jsii-dotnet-jsonmodel",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": ".NET json model for jsii spec and api.",
   "main": "lib/index.js",
   "private": true,
@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@types/node": "^8.10.43",
-    "jsii-build-tools": "^0.8.0",
+    "jsii-build-tools": "^0.8.1",
     "typescript": "^3.3.3333"
   },
   "author": {
