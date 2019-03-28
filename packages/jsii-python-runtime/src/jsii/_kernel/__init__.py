@@ -2,22 +2,25 @@ import datetime
 import inspect
 import itertools
 
-from typing import Any, List, Optional, Type
+from typing import Any, List, Optional, Type, Union
 
 import functools
 
 import attr
 
+from jsii.errors import JSIIError
 from jsii import _reference_map
 from jsii._utils import Singleton
 from jsii._kernel.providers import BaseProvider, ProcessProvider
 from jsii._kernel.types import JSClass, Referenceable
+from jsii._kernel.types import Callback
 from jsii._kernel.types import (
     EnumRef,
     LoadRequest,
     BeginRequest,
     CallbacksRequest,
     CreateRequest,
+    CreateResponse,
     CompleteRequest,
     DeleteRequest,
     EndRequest,
@@ -30,6 +33,13 @@ from jsii._kernel.types import (
     StatsRequest,
     ObjRef,
     Override,
+    CompleteRequest,
+    CompleteResponse,
+    GetResponse,
+    SetResponse,
+    InvokeResponse,
+    KernelResponse,
+    BeginResponse
 )
 
 
@@ -38,12 +48,6 @@ _nothing = object()
 
 class Object:
     __jsii_type__ = "Object"
-
-
-def _handle_callback(kernel, callback):
-    obj = _reference_map.resolve_id(callback.invoke.objref.ref)
-    method = getattr(obj, callback.cookie)
-    return method(*callback.invoke.args)
 
 
 def _get_overides(klass: JSClass, obj: Any) -> List[Override]:
@@ -120,6 +124,39 @@ def _make_reference_for_native(kernel, d):
         return d
 
 
+def _handle_callback(kernel, callback):
+    # need to handle get, set requests here as well as invoke requests
+    if callback.invoke:
+        obj = _reference_map.resolve_id(callback.invoke.objref.ref)
+        method = getattr(obj, callback.cookie)
+        return method(*callback.invoke.args)
+    elif callback.get:
+        obj = _reference_map.resolve_id(callback.get.objref.ref)
+        return getattr(obj, callback.cookie)
+    elif callback.set:
+        obj = _reference_map.resolve_id(callback.set.objref.ref)
+        return setattr(obj, callback.cookie, callback.set.value)
+    else:
+        raise JSIIError("Callback does not contain invoke|get|set")
+
+
+def _callback_till_result(kernel, response: Callback, response_type: Type[KernelResponse]) -> Any:
+    while isinstance(response, Callback):
+        try:
+            result = _handle_callback(kernel, response)
+        except Exception as exc:
+            response = kernel.sync_complete(response.cbid, str(exc), None, response_type)
+        else:
+            response = kernel.sync_complete(response.cbid, None, result, response_type)
+    
+    if isinstance(response, InvokeResponse):
+        return response.result
+    elif isinstance(response, GetResponse):
+        return response.value
+    else:
+        return response
+
+
 @attr.s(auto_attribs=True, frozen=True, slots=True)
 class Statistics:
 
@@ -155,14 +192,17 @@ class Kernel(metaclass=Singleton):
 
         overrides = _get_overides(klass, obj)
 
-        obj.__jsii_ref__ = self.provider.create(
+        response = self.provider.create(
             CreateRequest(
                 fqn=klass.__jsii_type__,
                 args=_make_reference_for_native(self, args),
                 overrides=overrides,
             )
         )
-
+        if isinstance(response, Callback):
+            obj.__jsii_ref__ =  _callback_till_result(self, response, CreateResponse)
+        else:
+            obj.__jsii_ref__ = response
         return obj.__jsii_ref__
 
     def delete(self, ref: ObjRef) -> None:
@@ -170,18 +210,24 @@ class Kernel(metaclass=Singleton):
 
     @_dereferenced
     def get(self, obj: Referenceable, property: str) -> Any:
-        return self.provider.get(
+        response = self.provider.get(
             GetRequest(objref=obj.__jsii_ref__, property=property)
-        ).value
+        )
+        if isinstance(response, Callback):
+            return _callback_till_result(self, response, GetResponse)
+        else:
+            return response.value
 
     def set(self, obj: Referenceable, property: str, value: Any) -> None:
-        self.provider.set(
+        response = self.provider.set(
             SetRequest(
                 objref=obj.__jsii_ref__,
                 property=property,
                 value=_make_reference_for_native(self, value),
             )
         )
+        if isinstance(response, Callback):
+            _callback_till_result(self, response, SetResponse)
 
     @_dereferenced
     def sget(self, klass: JSClass, property: str) -> Any:
@@ -205,13 +251,17 @@ class Kernel(metaclass=Singleton):
         if args is None:
             args = []
 
-        return self.provider.invoke(
+        response = self.provider.invoke(
             InvokeRequest(
                 objref=obj.__jsii_ref__,
                 method=method,
                 args=_make_reference_for_native(self, args),
             )
-        ).result
+        )
+        if isinstance(response, Callback):
+            return _callback_till_result(self, response, InvokeResponse)
+        else:
+            return response.result
 
     @_dereferenced
     def sinvoke(
@@ -229,6 +279,28 @@ class Kernel(metaclass=Singleton):
         ).result
 
     @_dereferenced
+    def complete(
+        self, cbid: str, err: Optional[str], result: Any
+    ) -> Any:
+        return self.provider.complete(
+            CompleteRequest(
+                cbid=cbid,
+                err=err,
+                result=result
+            )
+        )
+
+    def sync_complete(
+        self, cbid: str, err: Optional[str], result: Any, response_type: Type[KernelResponse]
+    ) -> Any:
+        return self.provider.sync_complete(
+            CompleteRequest(
+                cbid=cbid,
+                err=err,
+                result=result),
+            response_type=response_type
+        )
+
     def ainvoke(
         self, obj: Referenceable, method: str, args: Optional[List[Any]] = None
     ) -> Any:
@@ -242,6 +314,8 @@ class Kernel(metaclass=Singleton):
                 args=_make_reference_for_native(self, args),
             )
         )
+        if isinstance(promise, Callback):
+            promise = _callback_till_result(self, promise, BeginResponse)
 
         callbacks = self.provider.callbacks(CallbacksRequest()).callbacks
         while callbacks:

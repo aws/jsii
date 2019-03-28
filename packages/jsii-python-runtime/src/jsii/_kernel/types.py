@@ -236,6 +236,7 @@ KernelResponse = Union[
     GetResponse,
     InvokeResponse,
     StatsResponse,
+    Callback,
 ]
 
 

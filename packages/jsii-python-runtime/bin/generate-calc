@@ -23,11 +23,10 @@ subprocess.run(
         "install",
         "--force-reinstall",
         "--upgrade",
-        "--find-links",
-        os.path.abspath("."),
-        "--find-links",
-        os.path.abspath(".env/jsii-calc/python"),
-        "jsii-calc",
-    ],
+    ]
+    +
+    [x for x in os.listdir(".") if x.endswith(".whl")]
+    +
+    [os.path.join('.env/jsii-calc/python', x) for x in os.listdir(".env/jsii-calc/python") if x.endswith(".whl")],
     check=True,
 )

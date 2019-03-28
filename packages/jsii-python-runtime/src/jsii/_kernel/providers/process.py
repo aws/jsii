@@ -52,6 +52,9 @@ from jsii._kernel.types import (
     CompleteResponse,
     StatsRequest,
     StatsResponse,
+    Callback,
+    CompleteRequest,
+    CompleteResponse,
 )
 from jsii.errors import JSIIError, JavaScriptError
 
@@ -79,8 +82,17 @@ class _ErrorRespose:
     error: str
     stack: str
 
+@attr.s(auto_attribs=True, frozen=True, slots=True)
+class _CallbackResponse:
 
-_ProcessResponse = Union[_OkayResponse, _ErrorRespose]
+    callback: Callback
+
+@attr.s(auto_attribs=True, frozen=True, slots=True)
+class _CompleteRequest:
+
+    complete: CompleteRequest
+
+_ProcessResponse = Union[_OkayResponse, _ErrorRespose, _CallbackResponse]
 # Workaround for mypy#5354
 _ProcessResponse_R: Type[Any]
 if not TYPE_CHECKING:
@@ -296,6 +308,8 @@ class _NodeProcess:
 
         if isinstance(resp, _OkayResponse):
             return self._serializer.structure(resp.ok, response_type)
+        elif isinstance(resp, _CallbackResponse):
+            return resp.callback
         else:
             raise JSIIError(resp.error) from JavaScriptError(resp.stack)
 
@@ -326,7 +340,7 @@ class ProcessProvider(BaseProvider):
     def sset(self, request: StaticSetRequest) -> SetResponse:
         return self._process.send(request, SetResponse)
 
-    def invoke(self, request: InvokeRequest) -> InvokeResponse:
+    def invoke(self, request: InvokeRequest) -> Union[InvokeResponse, Callback]:
         return self._process.send(request, InvokeResponse)
 
     def sinvoke(self, request: StaticInvokeRequest) -> InvokeResponse:
@@ -346,6 +360,10 @@ class ProcessProvider(BaseProvider):
 
     def complete(self, request: CompleteRequest) -> CompleteResponse:
         return self._process.send(request, CompleteResponse)
+
+    def sync_complete(self, request: CompleteRequest, response_type: Type[KernelResponse]) -> Union[InvokeResponse, GetResponse]:
+        resp = self._process.send(_CompleteRequest(complete=request), response_type)
+        return resp
 
     def stats(self, request: Optional[StatsRequest] = None) -> StatsResponse:
         if request is None:
