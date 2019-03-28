@@ -8,6 +8,7 @@ import functools
 
 import attr
 
+from jsii.errors import JSIIError
 from jsii import _reference_map
 from jsii._utils import Singleton
 from jsii._kernel.providers import BaseProvider, ProcessProvider
@@ -136,7 +137,7 @@ def _handle_callback(kernel, callback):
         obj = _reference_map.resolve_id(callback.set.objref.ref)
         return setattr(obj, callback.cookie, callback.set.value)
     else:
-        raise AttributeError
+        raise JSIIError("Callback does not contain invoke|get|set")
 
 
 def _callback_till_result(kernel, response: Callback, response_type: Type[KernelResponse]) -> Any:

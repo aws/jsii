@@ -301,11 +301,11 @@ class _NodeProcess:
         # Send our data, ensure that it is framed with a trailing \n
         self._process.stdin.write(b"%b\n" % (data,))
         self._process.stdin.flush()
-        
+
         resp: _ProcessResponse = self._serializer.structure(
             self._next_message(), _ProcessResponse_R
         )
-    
+
         if isinstance(resp, _OkayResponse):
             return self._serializer.structure(resp.ok, response_type)
         elif isinstance(resp, _CallbackResponse):

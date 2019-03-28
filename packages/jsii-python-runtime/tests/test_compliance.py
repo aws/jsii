@@ -10,6 +10,7 @@ from jsii_calc import (
     AbstractClassReturner,
     Add,
     AllTypes,
+    AllTypesEnum,
     AsyncVirtualMethods,
     Calculator,
     ClassWithPrivateConstructorAndAutomaticProperties,
@@ -50,9 +51,6 @@ from scope.jsii_calc_lib import IFriendly, EnumFromScopedModule, Number
 # Note: While we could write more expressive and better tests using the functionality
 #       provided to us by pytest, we are making these tests match the Java Compliance
 #       Tests as closely as possible to make keeping them in sync easier.
-
-# These map distinct reasons for failures, so we an easily find them.
-xfail_callbacks = pytest.mark.skip(reason="Implement callback support")
 
 
 class DerivedFromAllTypes(AllTypes):
@@ -889,6 +887,8 @@ def test_eraseUnsetDataValues():
 def test_objectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut():
     class PartiallyInitializedThisConsumerImpl(PartiallyInitializedThisConsumer):
         def consume_partially_initialized_this(self, obj, dt, en):
+            assert obj is not None
+            assert isinstance(dt, datetime)
             return "OK"
 
     reflector = PartiallyInitializedThisConsumerImpl()
