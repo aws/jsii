@@ -23,5 +23,8 @@ module.exports = {
             use: ['source-map-loader'],
             enforce: 'pre'
         }]
+    },
+    optimization: {
+        minimize: false
     }
 }

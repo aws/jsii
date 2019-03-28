@@ -289,7 +289,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       }
 
       const namedType = host.lookupType((type as spec.NamedTypeReference).fqn);
-      const props = propertiesOf(namedType);
+      const props = propertiesOf(namedType, host.lookupType);
 
       return mapValues(value, (v, key) => {
         if (!props[key]) { return undefined; } // Don't map if unknown property
@@ -540,13 +540,24 @@ function mapValues(value: unknown, fn: (value: any, field: string) => any) {
   return out;
 }
 
-function propertiesOf(t: spec.Type): {[name: string]: spec.Property} {
+function propertiesOf(t: spec.Type, lookup: TypeLookup): {[name: string]: spec.Property} {
   if (!spec.isClassOrInterfaceType(t)) { return {}; }
 
-  const ret: {[name: string]: spec.Property}  = {};
+  let ret: { [name: string]: spec.Property } = {};
+
+  if (t.interfaces) {
+    for (const iface of t.interfaces) {
+      ret = { ...ret, ...propertiesOf(lookup(iface.fqn), lookup) };
+    }
+  }
+  if (spec.isClassType(t) && t.base) {
+    ret = { ...ret, ...propertiesOf(lookup(t.base.fqn), lookup) };
+  }
+
   for (const prop of t.properties || []) {
     ret[prop.name] = prop;
   }
+
   return ret;
 }
 
