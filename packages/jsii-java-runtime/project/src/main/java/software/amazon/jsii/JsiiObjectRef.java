@@ -91,4 +91,21 @@ public final class JsiiObjectRef {
     public String toString() {
         return objId;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || !(obj instanceof JsiiObjectRef)) {
+            return false;
+        }
+        final JsiiObjectRef other = (JsiiObjectRef) obj;
+        return this.objId.equals(other.objId);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.objId.hashCode();
+    }
 }

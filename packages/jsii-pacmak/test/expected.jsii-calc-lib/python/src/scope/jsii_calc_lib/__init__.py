@@ -10,7 +10,7 @@ import publication
 from jsii.python import classproperty
 
 import scope.jsii_calc_base
-__jsii_assembly__ = jsii.JSIIAssembly.load("@scope/jsii-calc-lib", "0.8.0", __name__, "jsii-calc-lib@0.8.0.jsii.tgz")
+__jsii_assembly__ = jsii.JSIIAssembly.load("@scope/jsii-calc-lib", "0.8.1", __name__, "jsii-calc-lib@0.8.1.jsii.tgz")
 @jsii.enum(jsii_type="@scope/jsii-calc-lib.EnumFromScopedModule")
 class EnumFromScopedModule(enum.Enum):
     Value1 = "Value1"

@@ -6,21 +6,9 @@ import { SourceMapConsumer } from 'source-map';
 import * as tar from 'tar';
 import * as vm from 'vm';
 import * as api from './api';
-import { TOKEN_DATE, TOKEN_ENUM, TOKEN_REF } from './api';
-
-/**
- * Added to objects and contains the objid (the object reference).
- * Used to find the object id from an object.
- */
-const OBJID_PROP = '$__jsii__objid__$';
-const FQN_PROP = '$__jsii__fqn__$';
-const PROXIES_PROP = '$__jsii__proxies__$';
-const PROXY_REFERENT_PROP = '$__jsii__proxy_referent__$';
-
-/**
- * A special FQN that can be used to create empty javascript objects.
- */
-const EMPTY_OBJECT_FQN = 'Object';
+import { TOKEN_REF } from './api';
+import { ObjectTable, tagJsiiConstructor } from './objects';
+import { CompleteTypeReference, EMPTY_OBJECT_FQN, serializationType, SerializerHost, SERIALIZERS } from './serialization';
 
 export class Kernel {
     /**
@@ -29,11 +17,11 @@ export class Kernel {
     public traceEnabled = false;
 
     private assemblies: { [name: string]: Assembly } = { };
-    private objects: { [objid: string]: any } = { };
+    private objects = new ObjectTable();
     private cbs: { [cbid: string]: Callback } = { };
     private waiting: { [cbid: string]: Callback } = { };
     private promises: { [prid: string]: AsyncInvocation } = { };
-    private nextid = 10000; // incrementing counter for objid, cbid, promiseid
+    private nextid = 20000; // incrementing counter for objid, cbid, promiseid
     private syncInProgress?: string; // forbids async calls (begin) while processing sync calls (get/set/invoke)
     private installDir?: string;
 
@@ -151,13 +139,7 @@ export class Kernel {
         const { objref } = req;
 
         this._debug('del', objref);
-        const obj = this._findObject(objref); // make sure object exists
-        delete this.objects[objref[TOKEN_REF]];
-
-        if (obj[PROXY_REFERENT_PROP]) {
-            // De-register the proxy if this was a proxy...
-            delete obj[PROXY_REFERENT_PROP][PROXIES_PROP][obj[FQN_PROP]];
-        }
+        this.objects.deleteObject(objref);
 
         return { };
     }
@@ -200,7 +182,7 @@ export class Kernel {
         const prototype = this._findSymbol(fqn);
 
         this._ensureSync(`property ${property}`, () =>
-            this._wrapSandboxCode(() => prototype[property] = this._toSandbox(value)));
+            this._wrapSandboxCode(() => prototype[property] = this._toSandbox(value, ti.type)));
 
         return {};
     }
@@ -208,8 +190,7 @@ export class Kernel {
     public get(req: api.GetRequest): api.GetResponse {
         const { objref, property } = req;
         this._debug('get', objref, property);
-        const obj = this._findObject(objref);
-        const fqn = this._fqnForObject(obj);
+        const { instance, fqn } = this.objects.findObject(objref);
         const ti = this._typeInfoForProperty(fqn, property);
 
         // if the property is overridden by the native code and "get" is called on the object, it
@@ -217,12 +198,12 @@ export class Kernel {
         // that, we actually keep a copy of the original property descriptor when we override,
         // so `findPropertyTarget` will return either the original property name ("property") or
         // the "super" property name (somehing like "$jsii$super$<property>$").
-        const propertyToGet = this._findPropertyTarget(obj, property);
+        const propertyToGet = this._findPropertyTarget(instance, property);
 
         // make the actual "get", and block any async calls that might be performed
         // by jsii overrides.
         const value = this._ensureSync(`property '${objref[TOKEN_REF]}.${propertyToGet}'`,
-                                       () => this._wrapSandboxCode(() => obj[propertyToGet]));
+                                       () => this._wrapSandboxCode(() => instance[propertyToGet]));
         this._debug('value:', value);
         const ret = this._fromSandbox(value, ti.type);
         this._debug('ret:', ret);
@@ -232,19 +213,18 @@ export class Kernel {
     public set(req: api.SetRequest): api.SetResponse {
         const { objref, property, value } = req;
         this._debug('set', objref, property, value);
-        const obj = this._findObject(objref);
+        const { instance, fqn } = this.objects.findObject(objref);
 
-        const fqn = this._fqnForObject(obj);
         const propInfo = this._typeInfoForProperty(fqn, req.property);
 
         if (propInfo.immutable) {
             throw new Error(`Cannot set value of immutable property ${req.property} to ${req.value}`);
         }
 
-        const propertyToSet = this._findPropertyTarget(obj, property);
+        const propertyToSet = this._findPropertyTarget(instance, property);
 
         this._ensureSync(`property '${objref[TOKEN_REF]}.${propertyToSet}'`,
-                         () => this._wrapSandboxCode(() => obj[propertyToSet] = this._toSandbox(value)));
+                         () => this._wrapSandboxCode(() => instance[propertyToSet] = this._toSandbox(value, propInfo.type)));
 
         return { };
     }
@@ -262,10 +242,13 @@ export class Kernel {
         }
 
         const ret = this._ensureSync(`method '${objref[TOKEN_REF]}.${method}'`, () => {
-            return this._wrapSandboxCode(() => fn.apply(obj, this._toSandboxValues(args)));
+            return this._wrapSandboxCode(() => fn.apply(obj, this._toSandboxValues(args, ti.parameters)));
         });
 
-        return { result: this._fromSandbox(ret, ti.returns) };
+        const result = this._fromSandbox(ret, ti.returns || 'void');
+        this._debug('invoke result', result);
+
+        return { result };
     }
 
     public sinvoke(req: api.StaticInvokeRequest): api.InvokeResponse {
@@ -289,11 +272,11 @@ export class Kernel {
         const fn = prototype[method];
 
         const ret = this._ensureSync(`method '${fqn}.${method}'`, () => {
-            return this._wrapSandboxCode(() => fn.apply(null, this._toSandboxValues(args)));
+            return this._wrapSandboxCode(() => fn.apply(null, this._toSandboxValues(args, ti.parameters)));
         });
 
         this._debug('method returned:', ret);
-        return { result: this._fromSandbox(ret, ti.returns) };
+        return { result: this._fromSandbox(ret, ti.returns || 'void') };
     }
 
     public begin(req: api.BeginRequest): api.BeginResponse {
@@ -314,7 +297,7 @@ export class Kernel {
             throw new Error(`Method ${method} is expected to be an async method`);
         }
 
-        const promise = this._wrapSandboxCode(() => fn.apply(obj, this._toSandboxValues(args))) as Promise<any>;
+        const promise = this._wrapSandboxCode(() => fn.apply(obj, this._toSandboxValues(args, ti.parameters))) as Promise<any>;
 
         // since we are planning to resolve this promise in a different scope
         // we need to handle rejections here [1]
@@ -349,7 +332,7 @@ export class Kernel {
             throw mapSource(e, this.sourceMaps);
         }
 
-        return { result: this._fromSandbox(result, method.returns) };
+        return { result: this._fromSandbox(result, method.returns || 'void') };
     }
 
     public callbacks(_req?: api.CallbacksRequest): api.CallbacksResponse {
@@ -362,7 +345,7 @@ export class Kernel {
                 cookie: cb.override.cookie,
                 invoke: {
                     objref: cb.objref,
-                    method: cb.override.method!,
+                    method: cb.override.method,
                     args: cb.args
                 },
             };
@@ -388,7 +371,7 @@ export class Kernel {
             this._debug('completed with error:', err);
             cb.fail(new Error(err));
         } else {
-            const sandoxResult = this._toSandbox(result);
+            const sandoxResult = this._toSandbox(result, cb.expectedReturnType || 'void');
             this._debug('completed with result:', sandoxResult);
             cb.succeed(sandoxResult);
         }
@@ -418,7 +401,7 @@ export class Kernel {
 
     public stats(_req?: api.StatsRequest): api.StatsResponse {
         return {
-            objectCount: Object.keys(this.objects).length
+            objectCount: this.objects.count
         };
     }
 
@@ -435,20 +418,15 @@ export class Kernel {
                 case spec.TypeKind.Class:
                 case spec.TypeKind.Enum:
                     const constructor = this._findSymbol(fqn);
-                    Object.defineProperty(constructor, '__jsii__', {
-                        configurable: false,
-                        enumerable: false,
-                        writable: false,
-                        value: { fqn }
-                    });
+                    tagJsiiConstructor(constructor, fqn);
             }
         }
     }
 
     // find the javascript constructor function for a jsii FQN.
-    private _findCtor(fqn: string, args: any[]) {
+    private _findCtor(fqn: string, args: any[]): { ctor: any, parameters?: spec.Parameter[] } {
         if (fqn === EMPTY_OBJECT_FQN) {
-            return Object;
+            return { ctor: Object };
         }
 
         const typeinfo = this._typeInfoForFqn(fqn);
@@ -457,7 +435,7 @@ export class Kernel {
             case spec.TypeKind.Class:
                 const classType = typeinfo as spec.ClassType;
                 this._validateMethodArguments(classType.initializer, args);
-                return this._findSymbol(fqn);
+                return { ctor: this._findSymbol(fqn), parameters: classType.initializer && classType.initializer.parameters };
 
             case spec.TypeKind.Interface:
                 throw new Error(`Cannot create an object with an FQN of an interface: ${fqn}`);
@@ -470,13 +448,15 @@ export class Kernel {
     // prefixed with _ to allow calling this method internally without
     // getting it recorded for testing.
     private _create(req: api.CreateRequest): api.CreateResponse {
+        this._debug('create', req);
         const { fqn, overrides } = req;
 
         const requestArgs = req.args || [];
 
-        const ctor = this._findCtor(fqn, requestArgs);
-        const obj = this._wrapSandboxCode(() => new ctor(...this._toSandboxValues(requestArgs)));
-        const objref = this._createObjref(obj, fqn);
+        const ctorResult = this._findCtor(fqn, requestArgs);
+        const ctor = ctorResult.ctor;
+        const obj = this._wrapSandboxCode(() => new ctor(...this._toSandboxValues(requestArgs, ctorResult.parameters)));
+        const objref = this.objects.registerObject(obj, fqn);
 
         // overrides: for each one of the override method names, installs a
         // method on the newly created object which represents the remote "reverse proxy".
@@ -489,40 +469,18 @@ export class Kernel {
             const properties = new Set<string>();
 
             for (const override of overrides) {
-                if (override.method) {
-                    if (override.property) { throw new Error(overrideTypeErrorMessage); }
+                if (api.isMethodOverride(override)) {
+                    if (api.isPropertyOverride(override)) { throw new Error(overrideTypeErrorMessage); }
                     if (methods.has(override.method)) { throw new Error(`Duplicate override for method '${override.method}'`); }
-
                     methods.add(override.method);
 
-                    // check that the method being overridden actually exists
-                    let methodInfo;
-                    if (fqn !== EMPTY_OBJECT_FQN) {
-                        // error if we can find a property with this name
-                        if (this._tryTypeInfoForProperty(fqn, override.method)) {
-                            throw new Error(`Trying to override property '${override.method}' as a method`);
-                        }
-
-                        methodInfo = this._tryTypeInfoForMethod(fqn, override.method);
-                    }
-
-                    this._applyMethodOverride(obj, objref, override, methodInfo);
-                } else if (override.property) {
-                    if (override.method) { throw new Error(overrideTypeErrorMessage); }
+                    this._applyMethodOverride(obj, objref, fqn, override);
+                } else if (api.isPropertyOverride(override)) {
+                    if (api.isMethodOverride(override)) { throw new Error(overrideTypeErrorMessage); }
                     if (properties.has(override.property)) { throw Error(`Duplicate override for property '${override.property}'`); }
                     properties.add(override.property);
 
-                    let propInfo: spec.Property | undefined;
-                    if (fqn !== EMPTY_OBJECT_FQN) {
-                        // error if we can find a method with this name
-                        if (this._tryTypeInfoForMethod(fqn, override.property)) {
-                            throw new Error(`Trying to override method '${override.property}' as a property`);
-                        }
-
-                        propInfo = this._tryTypeInfoForProperty(fqn, override.property);
-                    }
-
-                    this._applyPropertyOverride(obj, objref, override, propInfo);
+                    this._applyPropertyOverride(obj, objref, fqn, override);
                 } else {
                     throw new Error(overrideTypeErrorMessage);
                 }
@@ -536,15 +494,42 @@ export class Kernel {
         return `$jsii$super$${name}$`;
     }
 
-    private _applyPropertyOverride(obj: any, objref: api.ObjRef, override: api.Override, propInfo?: spec.Property) {
-        const self = this;
-        const propertyName = override.property!;
+    private _applyPropertyOverride(obj: any, objref: api.ObjRef, typeFqn: string, override: api.PropertyOverride) {
+        let propInfo;
+        if (typeFqn !== EMPTY_OBJECT_FQN) {
+            // error if we can find a method with this name
+            if (this._tryTypeInfoForMethod(typeFqn, override.property)) {
+                throw new Error(`Trying to override method '${override.property}' as a property`);
+            }
+
+            propInfo = this._tryTypeInfoForProperty(typeFqn, override.property);
+        }
 
         // if this is a private property (i.e. doesn't have `propInfo` the object has a key)
-        if (!propInfo && propertyName in obj) {
-            this._debug(`Skipping override of private property ${propertyName}`);
+        if (!propInfo && override.property in obj) {
+            this._debug(`Skipping override of private property ${override.property}`);
             return;
         }
+
+        if (!propInfo) {
+            // We've overriding a property on an object we have NO type information on (probably
+            // because it's an anonymous object).
+            // Pretend it's 'prop: any';
+            //
+            // FIXME: We could do better type checking during the conversion if JSII clients
+            // would tell us the intended interface type.
+            propInfo = {
+                name: override.property,
+                type: ANY_TYPE,
+            };
+        }
+
+        this._defineOverridenProperty(obj, objref, override, propInfo);
+    }
+
+    private _defineOverridenProperty(obj: any, objref: api.ObjRef, override: api.PropertyOverride, propInfo: spec.Property) {
+        const self = this;
+        const propertyName = override.property!;
 
         this._debug('apply override', propertyName);
 
@@ -568,49 +553,75 @@ export class Kernel {
             enumerable: prevEnumerable,
             configurable: prev.configurable,
             get: () => {
+                self._debug('virtual get', objref, propertyName, { cookie: override.cookie });
                 const result = self.callbackHandler({
                     cookie: override.cookie,
                     cbid: self._makecbid(),
                     get: { objref, property: propertyName }
                 });
                 this._debug('callback returned', result);
-                return this._toSandbox(result);
+                return this._toSandbox(result, propInfo.type);
             },
             set: (value: any) => {
                 self._debug('virtual set', objref, propertyName, { cookie: override.cookie });
                 self.callbackHandler({
                     cookie: override.cookie,
                     cbid: self._makecbid(),
-                    set: { objref, property: propertyName, value: self._fromSandbox(value) }
+                    set: { objref, property: propertyName, value: self._fromSandbox(value, propInfo.type) }
                 });
             }
         });
     }
 
-    private _applyMethodOverride(obj: any, objref: api.ObjRef, override: api.Override, methodInfo?: spec.Method) {
-        const self = this;
-        const methodName = override.method!;
+    private _applyMethodOverride(obj: any, objref: api.ObjRef, typeFqn: string, override: api.MethodOverride) {
+        let methodInfo;
+        if (typeFqn !== EMPTY_OBJECT_FQN) {
+            // error if we can find a property with this name
+            if (this._tryTypeInfoForProperty(typeFqn, override.method)) {
+                throw new Error(`Trying to override property '${override.method}' as a method`);
+            }
+
+            methodInfo = this._tryTypeInfoForMethod(typeFqn, override.method);
+        }
 
         // If this is a private method (doesn't have methodInfo, key resolves on the object), we
         // are going to skip the override.
-        if (!methodInfo && obj[methodName]) {
-            this._debug(`Skipping override of private method ${methodName}`);
+        if (!methodInfo && obj[override.method]) {
+            this._debug(`Skipping override of private method ${override.method}`);
             return;
         }
 
-        // note that we are applying the override even if the method doesn't exist
-        // on the type spec in order to allow native code to override methods from
-        // interfaces.
+        if (!methodInfo) {
+            // We've overriding a method on an object we have NO type information on (probably
+            // because it's an anonymous object).
+            // Pretend it's an (...args: any[]) => any
+            //
+            // FIXME: We could do better type checking during the conversion if JSII clients
+            // would tell us the intended interface type.
+            methodInfo = {
+                name: override.method,
+                returns: ANY_TYPE,
+                parameters: [{ name: 'args', variadic: true, type: ANY_TYPE}],
+                variadic: true
+            };
+        }
 
-        if (methodInfo && methodInfo.returns && methodInfo.returns.promise) {
+        this._defineOverridenMethod(obj, objref, override, methodInfo);
+    }
+
+    private _defineOverridenMethod(obj: any, objref: api.ObjRef, override: api.MethodOverride, methodInfo: spec.Method) {
+        const self = this;
+        const methodName = override.method;
+
+        if (methodInfo.returns && methodInfo.returns.promise) {
             // async method override
             Object.defineProperty(obj, methodName, {
                 enumerable: false,
                 configurable: false,
                 writable: false,
                 value: (...methodArgs: any[]) => {
-                    self._debug('invoked async override', override);
-                    const args = self._toSandboxValues(methodArgs);
+                    self._debug('invoke async method override', override);
+                    const args = self._toSandboxValues(methodArgs, methodInfo.parameters);
                     return new Promise<any>((succeed, fail) => {
                         const cbid = self._makecbid();
                         self._debug('adding callback to queue', cbid);
@@ -618,6 +629,7 @@ export class Kernel {
                             objref,
                             override,
                             args,
+                            expectedReturnType: methodInfo.returns || 'void',
                             succeed,
                             fail
                         };
@@ -631,24 +643,28 @@ export class Kernel {
                 configurable: false,
                 writable: false,
                 value: (...methodArgs: any[]) => {
+                    self._debug('invoke sync method override', override, 'args', methodArgs);
+                    // We should be validating the actual arguments according to the
+                    // declared parameters here, but let's just assume the JSII runtime on the
+                    // other end has done its work.
                     const result = self.callbackHandler({
                         cookie: override.cookie,
                         cbid: self._makecbid(),
                         invoke: {
                             objref,
                             method: methodName,
-                            args: this._fromSandbox(methodArgs)
+                            args: this._fromSandboxValues(methodArgs, methodInfo.parameters),
                         }
                     });
-                    return this._toSandbox(result);
+                    self._debug('Result', result);
+                    return this._toSandbox(result, methodInfo.returns || 'void');
                 }
             });
         }
     }
 
     private _findInvokeTarget(objref: any, methodName: string, args: any[]) {
-        const obj = this._findObject(objref);
-        const fqn = this._fqnForObject(obj);
+        const { instance, fqn } = this.objects.findObject(objref);
         const ti = this._typeInfoForMethod(fqn, methodName);
         this._validateMethodArguments(ti, args);
 
@@ -659,14 +675,14 @@ export class Kernel {
         // if we didn't find the method on the prototype, it could be a literal object
         // that implements an interface, so we look if we have the method on the object
         // itself. if we do, we invoke it.
-        let fn = obj.constructor.prototype[methodName];
+        let fn = instance.constructor.prototype[methodName];
         if (!fn) {
-            fn = obj[methodName];
+            fn = instance[methodName];
             if (!fn) {
                 throw new Error(`Cannot find ${methodName} on object`);
             }
         }
-        return { ti, obj, fn };
+        return { ti, obj: instance, fn };
     }
 
     private _formatTypeRef(typeRef: spec.TypeReference): string {
@@ -743,40 +759,6 @@ export class Kernel {
         return curr;
     }
 
-    private _createObjref(obj: any, fqn: string): api.ObjRef {
-        const objid = this._mkobjid(fqn);
-        Object.defineProperty(obj, OBJID_PROP, {
-            value: objid,
-            configurable: false,
-            enumerable: false,
-            writable: false
-        });
-
-        Object.defineProperty(obj, FQN_PROP, {
-            value: fqn,
-            configurable: false,
-            enumerable: false,
-            writable: false
-        });
-
-        this.objects[objid] = obj;
-        return { [TOKEN_REF]: objid };
-    }
-
-    private _findObject(objref: api.ObjRef) {
-        if (typeof(objref) !== 'object' || !(TOKEN_REF in objref)) {
-            throw new Error(`Malformed object reference: ${JSON.stringify(objref)}`);
-        }
-
-        const objid = objref[TOKEN_REF];
-        this._debug('findObject', objid);
-        const obj = this.objects[objid];
-        if (!obj) {
-            throw new Error(`Object ${objid} not found`);
-        }
-        return obj;
-    }
-
     private _typeInfoForFqn(fqn: string): spec.Type {
         const components = fqn.split('.');
         const moduleName = components[0];
@@ -786,7 +768,7 @@ export class Kernel {
             throw new Error(`Module '${moduleName}' not found`);
         }
 
-        const types = assembly.metadata.types || {};
+        const types = assembly.metadata.types || {};
         const fqnInfo = types[fqn];
         if (!fqnInfo) {
             throw new Error(`Type '${fqn}' not found`);
@@ -876,206 +858,77 @@ export class Kernel {
         return typeInfo;
     }
 
-    private _toSandbox(v: any): any {
-        // undefined
-        if (typeof v === 'undefined') {
-            return undefined;
-        }
+    private _toSandbox(v: any, expectedType: CompleteTypeReference): any {
+        const serTypes = serializationType(expectedType, this._typeInfoForFqn.bind(this));
+        this._debug('toSandbox', v, JSON.stringify(serTypes));
 
-        // null is treated as "undefined" because most languages do not have this distinction
-        // see awslabs/aws-cdk#157 and awslabs/jsii#282
-        if (v === null) {
-            return undefined;
-        }
+        const host: SerializerHost = {
+            objects: this.objects,
+            debug: this._debug.bind(this),
+            findSymbol: this._findSymbol.bind(this),
+            lookupType: this._typeInfoForFqn.bind(this),
+            recurse: this._toSandbox.bind(this),
+        };
 
-        // pointer
-        if (typeof v === 'object' && TOKEN_REF in v) {
-            return this._findObject(v);
-        }
-
-        // date
-        if (typeof v === 'object' && TOKEN_DATE in v) {
-            this._debug('Found date:', v);
-            return new Date(v[TOKEN_DATE]);
-        }
-
-        // enums
-        if (typeof v === 'object' && TOKEN_ENUM in v) {
-            this._debug('Enum:', v);
-
-            const value = v[TOKEN_ENUM] as string;
-            const sep = value.lastIndexOf('/');
-            if (sep === -1) {
-                throw new Error(`Malformed enum value: ${v[TOKEN_ENUM]}`);
+        const errors = new Array<string>();
+        for (const { serializationClass, typeRef } of serTypes) {
+            try {
+                return SERIALIZERS[serializationClass].deserialize(v, typeRef, host);
+            } catch (e) {
+                // If no union (99% case), rethrow immediately to preserve stack trace
+                if (serTypes.length === 1) { throw e; }
+                errors.push(e.message);
             }
-
-            const typeName = value.substr(0, sep);
-            const valueName = value.substr(sep + 1);
-
-            const enumValue = this._findSymbol(typeName)[valueName];
-            if (enumValue === undefined) {
-                throw new Error(`No enum member named ${valueName} in ${typeName}`);
-            }
-
-            this._debug('resolved enum value:', enumValue);
-            return enumValue;
         }
 
-        // array
-        if (Array.isArray(v)) {
-            return v.map(x => this._toSandbox(x));
-        }
-
-        // map
-        if (typeof v === 'object') {
-            const out: any = { };
-            for (const k of Object.keys(v)) {
-                const value = this._toSandbox(v[k]);
-
-                // javascript has a fun behavior where
-                //     { ...{ x: 'hello' }, ...{ x: undefined } }
-                // will result in:
-                //     { x: undefined }
-                // so omit any keys that have an `undefined` values.
-                // see awslabs/aws-cdk#965 and compliance test "mergeObjects"
-                if (value === undefined) {
-                    continue;
-                }
-
-                out[k] = value;
-            }
-            return out;
-        }
-
-        // primitive
-        return v;
+        throw new Error(`Value did not match any type in union: ${errors}`);
     }
 
-    private _fromSandbox(v: any, targetType?: spec.TypeReference): any {
-        this._debug('fromSandbox', v, targetType);
+    private _fromSandbox(v: any, targetType: CompleteTypeReference): any {
+        const serTypes = serializationType(targetType, this._typeInfoForFqn.bind(this));
+        this._debug('fromSandbox', v, JSON.stringify(serTypes));
 
-        // undefined is returned as null: true
-        if (typeof(v) === 'undefined') {
-            return undefined;
-        }
+        const host: SerializerHost = {
+            objects: this.objects,
+            debug: this._debug.bind(this),
+            findSymbol: this._findSymbol.bind(this),
+            lookupType: this._typeInfoForFqn.bind(this),
+            recurse: this._fromSandbox.bind(this),
+        };
 
-        if (v === null) {
-            return undefined;
-        }
-
-        // existing object
-        const objid = v[OBJID_PROP];
-        if (objid) {
-            // object already has an objid, return it as a ref.
-            this._debug('objref exists', objid);
-            return { [TOKEN_REF]: objid };
-        }
-
-        // new object
-        if (typeof(v) === 'object' && v.constructor.__jsii__) {
-            // this is jsii object which was created inside the sandbox and still doesn't
-            // have an object id, so we need to allocate one for it.
-            this._debug('creating objref for', v);
-            const fqn = this._fqnForObject(v);
-            if (!targetType || !spec.isNamedTypeReference(targetType) || this._isAssignable(fqn, targetType)) {
-                return this._createObjref(v, fqn);
+        const errors = new Array<string>();
+        for (const { serializationClass, typeRef } of serTypes) {
+            try {
+                return SERIALIZERS[serializationClass].serialize(v, typeRef, host);
+            } catch (e) {
+                // If no union (99% case), rethrow immediately to preserve stack trace
+                if (serTypes.length === 1) { throw e; }
+                errors.push(e.message);
             }
         }
 
-        // if the method/property returns an object literal and the return type
-        // is a class, we create a new object based on the fqn and assign all keys.
-        // so the client receives a real object.
-        if (typeof(v) === 'object' && targetType && spec.isNamedTypeReference(targetType)) {
-            this._debug('coalescing to', targetType);
-            /*
-             * We "cache" proxy instances in [PROXIES_PROP] so we can return an
-             * identical object reference upon multiple accesses of the same
-             * object literal under the same exposed type. This results in a
-             * behavior that is more consistent with class instances.
-             */
-            const proxies: Proxies = v[PROXIES_PROP] = v[PROXIES_PROP] || {};
-            if (!proxies[targetType.fqn]) {
-                const handler = new KernelProxyHandler(v);
-                const proxy = new Proxy(v, handler);
-                // _createObjref will set the FQN_PROP & OBJID_PROP on the proxy.
-                proxies[targetType.fqn] = { objRef: this._createObjref(proxy, targetType.fqn), handler };
-            }
-            return proxies[targetType.fqn].objRef;
-        }
-
-        // date (https://stackoverflow.com/a/643827/737957)
-        if (typeof(v) === 'object' && Object.prototype.toString.call(v) === '[object Date]') {
-            this._debug('date', v);
-            return { [TOKEN_DATE]: v.toISOString() };
-        }
-
-        // array
-        if (Array.isArray(v)) {
-            this._debug('array', v);
-            return v.map(x => this._fromSandbox(x));
-        }
-
-        if (targetType && spec.isNamedTypeReference(targetType)) {
-            const propType = this._typeInfoForFqn(targetType.fqn);
-
-            // enum
-            if (propType.kind === spec.TypeKind.Enum) {
-                this._debug('enum', v);
-                const fqn = propType.fqn;
-
-                const valueName = this._findSymbol(fqn)[v];
-
-                return { [TOKEN_ENUM]: `${propType.fqn}/${valueName}` };
-            }
-
-        }
-
-        // map
-        if (typeof(v) === 'object') {
-            this._debug('map', v);
-            const out: any = { };
-            for (const k of Object.keys(v)) {
-                const value = this._fromSandbox(v[k]);
-                if (value === undefined) {
-                    continue;
-                }
-                out[k] = value;
-            }
-            return out;
-        }
-
-        // primitive
-        this._debug('primitive', v);
-        return v;
+        throw new Error(`Value did not match any type in union: ${errors}`);
     }
 
-    /**
-     * Tests whether a given type (by it's FQN) can be assigned to a named type reference.
-     *
-     * @param actualTypeFqn the FQN of the type that is being tested.
-     * @param requiredType  the required reference type.
-     *
-     * @returns true if ``requiredType`` is a super-type (base class or implemented interface) of the type designated by
-     *          ``actualTypeFqn``.
-     */
-    private _isAssignable(actualTypeFqn: string, requiredType: spec.NamedTypeReference): boolean {
-        if (requiredType.fqn === actualTypeFqn) {
-            return true;
-        }
-        const actualType = this._typeInfoForFqn(actualTypeFqn);
-        if (spec.isClassType(actualType) && actualType.base) {
-            if (this._isAssignable(actualType.base.fqn, requiredType)) {
-                return true;
-            }
-        }
-        if (spec.isClassOrInterfaceType(actualType) && actualType.interfaces) {
-            return actualType.interfaces.find(iface => this._isAssignable(iface.fqn, requiredType)) != null;
-        }
-        return false;
+    private _toSandboxValues(xs: any[], parameters?: spec.Parameter[]) {
+        return this._boxUnboxParameters(xs, parameters, this._toSandbox.bind(this));
     }
 
-    private _toSandboxValues(args: any[]) {
-        return args.map(v => this._toSandbox(v));
+    private _fromSandboxValues(xs: any[], parameters?: spec.Parameter[]) {
+        return this._boxUnboxParameters(xs, parameters, this._fromSandbox.bind(this));
+    }
+
+    private _boxUnboxParameters(xs: any[], parameters: spec.Parameter[] | undefined, boxUnbox: (x: any, t: CompleteTypeReference) => any) {
+        parameters = parameters || [];
+        const types = parameters.map(p => p.type);
+        // Repeat the last (variadic) type to match the number of actual arguments
+        while (types.length < xs.length && parameters.length > 0 && parameters[parameters.length - 1].variadic) {
+            types.push(types[types.length - 1]);
+        }
+        if (xs.length > types.length) {
+            throw new Error(`Argument list (${JSON.stringify(xs)}) not same size as expected argument list (length ${types.length})`);
+        }
+        return xs.map((x, i) => boxUnbox(x, types[i]));
     }
 
     private _debug(...args: any[]) {
@@ -1083,8 +936,7 @@ export class Kernel {
             // tslint:disable-next-line:no-console
             console.error.apply(console, [
                 '[jsii-kernel]',
-                args[0],
-                ...args.slice(1)
+                ...args
             ]);
         }
     }
@@ -1116,22 +968,6 @@ export class Kernel {
     //
     // type information
     //
-
-    private _fqnForObject(obj: any) {
-        if (FQN_PROP in obj) {
-            return obj[FQN_PROP];
-        }
-
-        if (!obj.constructor.__jsii__) {
-            throw new Error('No jsii type info for object');
-        }
-
-        return obj.constructor.__jsii__.fqn;
-    }
-
-    private _mkobjid(fqn: string) {
-        return `${fqn}@${this.nextid++}`;
-    }
 
     private _makecbid() {
         return `jsii::callback::${this.nextid++}`;
@@ -1171,8 +1007,9 @@ export class Kernel {
 
 interface Callback {
     objref: api.ObjRef;
-    override: api.Override;
+    override: api.MethodOverride;
     args: any[];
+    expectedReturnType: CompleteTypeReference;
 
     // completion callbacks
     succeed: (...args: any[]) => any;
@@ -1237,110 +1074,4 @@ function mapSource(err: Error, sourceMaps: { [assm: string]: SourceMapConsumer }
     }
 }
 
-type ObjectKey = string | number | symbol;
-/**
- * A Proxy handler class to support mutation of the returned object literals, as
- * they may "embody" several different interfaces. The handler is in particular
- * responsible to make sure the ``FQN_PROP`` and ``OBJID_PROP`` do not get set
- * on the ``referent`` object, for this would cause subsequent accesses to
- * possibly return incorrect object references.
- */
-class KernelProxyHandler implements ProxyHandler<any> {
-    private readonly ownProperties: { [key: string]: any } = {};
-
-    /**
-     * @param referent the "real" value that will be returned.
-     */
-    constructor(public readonly referent: any) {
-        /*
-         * Proxy-properties must exist as non-configurable & writable on the
-         * referent, otherwise the Proxy will not allow returning ``true`` in
-         * response to ``defineProperty``.
-         */
-        for (const prop of [FQN_PROP, OBJID_PROP]) {
-            Object.defineProperty(referent, prop, {
-                configurable: false,
-                enumerable: false,
-                writable: true,
-                value: undefined
-            });
-        }
-    }
-
-    public defineProperty(target: any, property: ObjectKey, attributes: PropertyDescriptor): boolean {
-        switch (property) {
-        case FQN_PROP:
-        case OBJID_PROP:
-            return Object.defineProperty(this.ownProperties, property, attributes);
-        default:
-            return Object.defineProperty(target, property, attributes);
-        }
-    }
-
-    public deleteProperty(target: any, property: ObjectKey): boolean {
-        switch (property) {
-        case FQN_PROP:
-        case OBJID_PROP:
-            delete this.ownProperties[property];
-            break;
-        default:
-            delete target[property];
-        }
-        return true;
-    }
-
-    public getOwnPropertyDescriptor(target: any, property: ObjectKey): PropertyDescriptor | undefined {
-        switch (property) {
-        case FQN_PROP:
-        case OBJID_PROP:
-            return Object.getOwnPropertyDescriptor(this.ownProperties, property);
-        default:
-            return Object.getOwnPropertyDescriptor(target, property);
-        }
-    }
-
-    public get(target: any, property: ObjectKey): any {
-        switch (property) {
-        // Magical property for the proxy, so we can tell it's one...
-        case PROXY_REFERENT_PROP:
-            return this.referent;
-        case FQN_PROP:
-        case OBJID_PROP:
-            return this.ownProperties[property];
-        default:
-            return target[property];
-        }
-    }
-
-    public set(target: any, property: ObjectKey, value: any): boolean {
-        switch (property) {
-        case FQN_PROP:
-        case OBJID_PROP:
-            this.ownProperties[property] = value;
-            break;
-        default:
-            target[property] = value;
-        }
-        return true;
-    }
-
-    public has(target: any, property: ObjectKey): boolean {
-        switch (property) {
-        case FQN_PROP:
-        case OBJID_PROP:
-            return property in this.ownProperties;
-        default:
-            return property in target;
-        }
-    }
-
-    public ownKeys(target: any): ObjectKey[] {
-        return Reflect.ownKeys(target).concat(Reflect.ownKeys(this.ownProperties));
-    }
-}
-
-type Proxies = { [fqn: string]: ProxyReference };
-interface ProxyReference {
-    objRef: api.ObjRef;
-    handler: KernelProxyHandler;
-}
+const ANY_TYPE: spec.PrimitiveTypeReference = { primitive: spec.PrimitiveType.Any };

@@ -5,7 +5,10 @@ import software.amazon.jsii.api.GetRequest;
 import software.amazon.jsii.api.InvokeRequest;
 import software.amazon.jsii.api.JsiiOverride;
 import software.amazon.jsii.api.SetRequest;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.google.common.base.Throwables;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -44,11 +47,6 @@ public final class JsiiEngine implements JsiiCallbackHandler {
      * The jsii-server child process.
      */
     private final JsiiRuntime runtime = new JsiiRuntime();
-
-    /**
-     * JSON object mapper.
-     */
-    private static final JsiiObjectMapper OM = JsiiObjectMapper.instance;
 
     /**
      * The set of modules we already loaded into the VM.
@@ -253,7 +251,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
                         + e.getMessage(), e);
             }
         } catch (ClassNotFoundException e) {
-            System.err.println("WARNING: Cannot find the class: " + fqn + ". Defaulting to JsiiObject");
+            this.log("WARNING: Cannot find the class: %s. Defaulting to JsiiObject", fqn);
             return new JsiiObject(JsiiObject.InitializationMode.Jsii);
         }
     }
@@ -323,7 +321,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
         String methodName = javaScriptPropertyToJavaPropertyName("get", req.getProperty());
         try {
             Method getter = obj.getClass().getMethod(methodName);
-            return OM.valueToTree(invokeMethod(obj, getter));
+            return JsiiObjectMapper.valueToTree(invokeMethod(obj, getter));
         } catch (NoSuchMethodException e) {
             throw new JsiiException(e);
         }
@@ -350,7 +348,8 @@ public final class JsiiEngine implements JsiiCallbackHandler {
             throw new JsiiException("Unable to find property setter " + setterMethodName);
         }
 
-        return OM.valueToTree(invokeMethod(obj, setter, req.getValue()));
+        final Object arg = JsiiObjectMapper.treeToValue(req.getValue(), setter.getParameterTypes()[0]);
+        return JsiiObjectMapper.valueToTree(invokeMethod(obj, setter, arg));
     }
 
     /**
@@ -362,7 +361,14 @@ public final class JsiiEngine implements JsiiCallbackHandler {
     private JsonNode invokeCallbackMethod(final InvokeRequest req, final String cookie) {
         Object obj = this.getObject(req.getObjref());
         Method method = this.findCallbackMethod(obj.getClass(), cookie);
-        return OM.valueToTree(invokeMethod(obj, method, req.getArgs().toArray()));
+
+        final Class<?>[] argTypes = method.getParameterTypes();
+        final Object[] args = new Object[argTypes.length];
+        for (int i = 0; i < argTypes.length; i++) {
+            args[i] = JsiiObjectMapper.treeToValue(req.getArgs().get(i), argTypes[i]);
+        }
+
+        return JsiiObjectMapper.valueToTree(invokeMethod(obj, method, args));
     }
 
     /**
@@ -379,7 +385,12 @@ public final class JsiiEngine implements JsiiCallbackHandler {
         method.setAccessible(true);
 
         try {
-            return method.invoke(obj, args);
+            try {
+                return method.invoke(obj, args);
+            } catch (Exception e) {
+                this.log("Error while invoking %s with %s: %s", method, Arrays.toString(args), Throwables.getStackTraceAsString(e));
+                throw e;
+            }
         } catch (InvocationTargetException e) {
             throw new JsiiException(e.getTargetException());
         } catch (IllegalAccessException e) {
@@ -506,6 +517,10 @@ public final class JsiiEngine implements JsiiCallbackHandler {
         }
 
         return overrides.values();
+    }
+
+    private void log(final String format, final Object... args) {
+        System.err.println(String.format(format, args));
     }
 
     /**

@@ -9,6 +9,10 @@ public abstract class UnaryOperation extends software.amazon.jsii.tests.calculat
     protected UnaryOperation(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
         super(mode);
     }
+    public UnaryOperation(final software.amazon.jsii.tests.calculator.lib.Value operand) {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.of(java.util.Objects.requireNonNull(operand, "operand is required")).toArray());
+    }
 
     public software.amazon.jsii.tests.calculator.lib.Value getOperand() {
         return this.jsiiGet("operand", software.amazon.jsii.tests.calculator.lib.Value.class);

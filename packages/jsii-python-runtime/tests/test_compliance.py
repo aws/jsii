@@ -13,6 +13,7 @@ from jsii_calc import (
     AsyncVirtualMethods,
     Calculator,
     ClassWithPrivateConstructorAndAutomaticProperties,
+    ConstructorPassesThisOut,
     DoNotOverridePrivates,
     DoubleTrouble,
     GreetingAugmenter,
@@ -28,6 +29,7 @@ from jsii_calc import (
     NodeStandardLibrary,
     NullShouldBeTreatedAsUndefined,
     NumberGenerator,
+    PartiallyInitializedThisConsumer,
     Polymorphism,
     Power,
     PythonReservedWords,
@@ -277,13 +279,13 @@ def test_unionTypes():
 
     # map
     map_ = {}
-    map_["Foo"] = Multiply(Number(2), Number(99))
+    map_["Foo"] = Number(99)
     types.union_map_property = map_
     # TODO: No Assertion?
 
     # array
-    types.union_array_property = ["Hello", 123, Number(33)]
-    assert types.union_array_property[2].value == 33
+    types.union_array_property = [123, Number(33)]
+    assert types.union_array_property[1].value == 33
 
 
 def test_createObjectAndCtorOverloads():
@@ -882,3 +884,14 @@ def test_eraseUnsetDataValues():
     }
     assert EraseUndefinedHashValues.does_key_exist(opts, "option1")
     assert not EraseUndefinedHashValues.does_key_exist(opts, "option2")
+
+
+@xfail_callbacks
+def test_objectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut():
+    class PartiallyInitializedThisConsumerImpl(PartiallyInitializedThisConsumer):
+        def consume_partially_initialized_this(self):
+            return "OK"
+
+    reflector = PartiallyInitializedThisConsumerImpl()
+    obj = ConstructorPassesThisOut(reflector)
+    assert obj is not None

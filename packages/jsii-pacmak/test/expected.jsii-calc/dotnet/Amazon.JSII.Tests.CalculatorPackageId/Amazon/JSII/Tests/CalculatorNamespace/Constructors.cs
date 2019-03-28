@@ -17,6 +17,24 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        [JsiiMethod("hiddenInterface", "{\"fqn\":\"jsii-calc.IPublicInterface\"}", "[]")]
+        public static IIPublicInterface HiddenInterface()
+        {
+            return InvokeStaticMethod<IIPublicInterface>(typeof(Constructors), new object[]{});
+        }
+
+        [JsiiMethod("hiddenInterfaces", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"fqn\":\"jsii-calc.IPublicInterface\"}}}", "[]")]
+        public static IIPublicInterface[] HiddenInterfaces()
+        {
+            return InvokeStaticMethod<IIPublicInterface[]>(typeof(Constructors), new object[]{});
+        }
+
+        [JsiiMethod("hiddenSubInterfaces", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"fqn\":\"jsii-calc.IPublicInterface\"}}}", "[]")]
+        public static IIPublicInterface[] HiddenSubInterfaces()
+        {
+            return InvokeStaticMethod<IIPublicInterface[]>(typeof(Constructors), new object[]{});
+        }
+
         [JsiiMethod("makeClass", "{\"fqn\":\"jsii-calc.PublicClass\"}", "[]")]
         public static PublicClass MakeClass()
         {
@@ -27,6 +45,18 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public static IIPublicInterface MakeInterface()
         {
             return InvokeStaticMethod<IIPublicInterface>(typeof(Constructors), new object[]{});
+        }
+
+        [JsiiMethod("makeInterface2", "{\"fqn\":\"jsii-calc.IPublicInterface2\"}", "[]")]
+        public static IIPublicInterface2 MakeInterface2()
+        {
+            return InvokeStaticMethod<IIPublicInterface2>(typeof(Constructors), new object[]{});
+        }
+
+        [JsiiMethod("makeInterfaces", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"fqn\":\"jsii-calc.IPublicInterface\"}}}", "[]")]
+        public static IIPublicInterface[] MakeInterfaces()
+        {
+            return InvokeStaticMethod<IIPublicInterface[]>(typeof(Constructors), new object[]{});
         }
     }
 }

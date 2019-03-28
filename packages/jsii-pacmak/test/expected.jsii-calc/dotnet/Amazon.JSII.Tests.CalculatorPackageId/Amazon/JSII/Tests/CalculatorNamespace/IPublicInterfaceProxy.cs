@@ -9,10 +9,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod("bye", null, "[]")]
-        public void Bye()
+        [JsiiMethod("bye", "{\"primitive\":\"string\"}", "[]")]
+        public string Bye()
         {
-            InvokeInstanceVoidMethod(new object[]{});
+            return InvokeInstanceMethod<string>(new object[]{});
         }
     }
 }

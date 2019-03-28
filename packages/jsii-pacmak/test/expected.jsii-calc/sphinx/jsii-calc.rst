@@ -10,42 +10,42 @@ Reference
 
    .. group-tab:: C#
 
-      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId/0.8.0>`_
+      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId/0.8.1>`_
 
       **csproj**:
 
       .. code-block:: xml
 
-         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId" Version="0.8.0" />
+         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId" Version="0.8.1" />
 
       **dotnet**:
 
       .. code-block:: console
 
-         dotnet add package Amazon.JSII.Tests.CalculatorPackageId --version 0.8.0
+         dotnet add package Amazon.JSII.Tests.CalculatorPackageId --version 0.8.1
 
       **packages.config**:
 
       .. code-block:: xml
 
-         <package id="Amazon.JSII.Tests.CalculatorPackageId" version="0.8.0" />
+         <package id="Amazon.JSII.Tests.CalculatorPackageId" version="0.8.1" />
 
 
    .. group-tab:: Java
 
-      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator/0.8.0/>`_
+      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator/0.8.1/>`_
 
       **Apache Buildr**:
 
       .. code-block:: none
 
-         'software.amazon.jsii.tests:calculator:jar:0.8.0'
+         'software.amazon.jsii.tests:calculator:jar:0.8.1'
 
       **Apache Ivy**:
 
       .. code-block:: xml
 
-         <dependency groupId="software.amazon.jsii.tests" name="calculator" rev="0.8.0"/>
+         <dependency groupId="software.amazon.jsii.tests" name="calculator" rev="0.8.1"/>
 
       **Apache Maven**:
 
@@ -54,72 +54,72 @@ Reference
          <dependency>
            <groupId>software.amazon.jsii.tests</groupId>
            <artifactId>calculator</artifactId>
-           <version>0.8.0</version>
+           <version>0.8.1</version>
          </dependency>
 
       **Gradle / Grails**:
 
       .. code-block:: none
 
-         compile 'software.amazon.jsii.tests:calculator:0.8.0'
+         compile 'software.amazon.jsii.tests:calculator:0.8.1'
 
       **Groovy Grape**:
 
       .. code-block:: none
 
          @Grapes(
-         @Grab(group='software.amazon.jsii.tests', module='calculator', version='0.8.0')
+         @Grab(group='software.amazon.jsii.tests', module='calculator', version='0.8.1')
          )
 
 
    .. group-tab:: JavaScript
 
-      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.8.0>`_
+      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.8.1>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i jsii-calc@0.8.0
+         $ npm i jsii-calc@0.8.1
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "jsii-calc": "^0.8.0"
+           "jsii-calc": "^0.8.1"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add jsii-calc@0.8.0
+         $ yarn add jsii-calc@0.8.1
 
 
    .. group-tab:: TypeScript
 
-      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.8.0>`_
+      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.8.1>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i jsii-calc@0.8.0
+         $ npm i jsii-calc@0.8.1
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "jsii-calc": "^0.8.0"
+           "jsii-calc": "^0.8.1"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add jsii-calc@0.8.0
+         $ yarn add jsii-calc@0.8.1
 
 
 
@@ -394,6 +394,17 @@ AllTypes
 
 
 
+   .. py:method:: anyIn(inp)
+
+      :param inp: 
+      :type inp: any
+
+
+   .. py:method:: anyOut() -> any
+
+      :rtype: any
+
+
    .. py:method:: enumMethod(value) -> jsii-calc.StringEnum
 
       :param value: 
@@ -463,7 +474,7 @@ AllTypes
 
    .. py:attribute:: unionArrayProperty
 
-      :type: (number or :py:class:`~jsii-calc.composition.CompositeOperation`\ )[]
+      :type: (number or :py:class:`@scope/jsii-calc-lib.Value`\ )[]
 
 
    .. py:attribute:: unionMapProperty
@@ -1247,6 +1258,36 @@ ClassWithPrivateConstructorAndAutomaticProperties
       :type: string
 
 
+ConstructorPassesThisOut
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: ConstructorPassesThisOut(consumer)
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.ConstructorPassesThisOut;
+
+      .. code-tab:: javascript
+
+         const { ConstructorPassesThisOut } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { ConstructorPassesThisOut } from 'jsii-calc';
+
+
+
+   :param consumer: 
+   :type consumer: :py:class:`~jsii-calc.PartiallyInitializedThisConsumer`\ 
+
 Constructors
 ^^^^^^^^^^^^
 
@@ -1275,6 +1316,21 @@ Constructors
 
 
 
+   .. py:staticmethod:: hiddenInterface() -> jsii-calc.IPublicInterface
+
+      :rtype: :py:class:`~jsii-calc.IPublicInterface`\ 
+
+
+   .. py:staticmethod:: hiddenInterfaces() -> jsii-calc.IPublicInterface[]
+
+      :rtype: :py:class:`~jsii-calc.IPublicInterface`\ []
+
+
+   .. py:staticmethod:: hiddenSubInterfaces() -> jsii-calc.IPublicInterface[]
+
+      :rtype: :py:class:`~jsii-calc.IPublicInterface`\ []
+
+
    .. py:staticmethod:: makeClass() -> jsii-calc.PublicClass
 
       :rtype: :py:class:`~jsii-calc.PublicClass`\ 
@@ -1283,6 +1339,16 @@ Constructors
    .. py:staticmethod:: makeInterface() -> jsii-calc.IPublicInterface
 
       :rtype: :py:class:`~jsii-calc.IPublicInterface`\ 
+
+
+   .. py:staticmethod:: makeInterface2() -> jsii-calc.IPublicInterface2
+
+      :rtype: :py:class:`~jsii-calc.IPublicInterface2`\ 
+
+
+   .. py:staticmethod:: makeInterfaces() -> jsii-calc.IPublicInterface[]
+
+      :rtype: :py:class:`~jsii-calc.IPublicInterface`\ []
 
 
 ConsumersOfThisCrazyTypeSystem
@@ -2588,8 +2654,44 @@ IPublicInterface (interface)
 
 
 
-   .. py:method:: bye()
+   .. py:method:: bye() -> string
 
+      :rtype: string
+      :abstract: Yes
+
+
+IPublicInterface2 (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: IPublicInterface2
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.IPublicInterface2;
+
+      .. code-tab:: javascript
+
+         // IPublicInterface2 is an interface
+
+      .. code-tab:: typescript
+
+         import { IPublicInterface2 } from 'jsii-calc';
+
+
+
+
+
+   .. py:method:: ciao() -> string
+
+      :rtype: string
       :abstract: Yes
 
 
@@ -2890,6 +2992,14 @@ InbetweenClass
 
 
    :extends: :py:class:`~jsii-calc.PublicClass`\ 
+   :implements: :py:class:`~jsii-calc.IPublicInterface2`\ 
+
+   .. py:method:: ciao() -> string
+
+      *Implements* :py:meth:`jsii-calc.IPublicInterface2.ciao`
+
+      :rtype: string
+
 
    .. py:method:: hello()
 
@@ -4173,6 +4283,47 @@ OverrideReturnsObject
       :rtype: number
 
 
+PartiallyInitializedThisConsumer
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: PartiallyInitializedThisConsumer()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.PartiallyInitializedThisConsumer;
+
+      .. code-tab:: javascript
+
+         const { PartiallyInitializedThisConsumer } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { PartiallyInitializedThisConsumer } from 'jsii-calc';
+
+
+
+   :abstract: Yes
+
+   .. py:method:: consumePartiallyInitializedThis(obj, dt, ev) -> string
+
+      :param obj: 
+      :type obj: :py:class:`~jsii-calc.ConstructorPassesThisOut`\ 
+      :param dt: 
+      :type dt: date
+      :param ev: 
+      :type ev: :py:class:`~jsii-calc.AllTypesEnum`\ 
+      :rtype: string
+      :abstract: Yes
+
+
 Polymorphism
 ^^^^^^^^^^^^
 
@@ -4670,6 +4821,56 @@ RuntimeTypeChecking
       :type arg2: string
       :param arg3: 
       :type arg3: date *(optional)*
+
+
+SingleInstanceTwoTypes
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: SingleInstanceTwoTypes()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.SingleInstanceTwoTypes;
+
+      .. code-tab:: javascript
+
+         const { SingleInstanceTwoTypes } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { SingleInstanceTwoTypes } from 'jsii-calc';
+
+
+
+   Test that a single instance can be returned under two different FQNs
+
+   
+
+   JSII clients can instantiate 2 different strongly-typed wrappers for the same
+
+   object. Unfortunately, this will break object equality, but if we didn't do
+
+   this it would break runtime type checks in the JVM or CLR.
+
+
+
+
+   .. py:method:: interface1() -> jsii-calc.InbetweenClass
+
+      :rtype: :py:class:`~jsii-calc.InbetweenClass`\ 
+
+
+   .. py:method:: interface2() -> jsii-calc.IPublicInterface
+
+      :rtype: :py:class:`~jsii-calc.IPublicInterface`\ 
 
 
 Statics

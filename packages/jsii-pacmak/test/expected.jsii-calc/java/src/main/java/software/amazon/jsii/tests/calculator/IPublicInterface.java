@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 @javax.annotation.Generated(value = "jsii-pacmak")
 public interface IPublicInterface extends software.amazon.jsii.JsiiSerializable {
-    void bye();
+    java.lang.String bye();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.
@@ -13,8 +13,8 @@ public interface IPublicInterface extends software.amazon.jsii.JsiiSerializable 
         }
 
         @Override
-        public void bye() {
-            this.jsiiCall("bye", Void.class);
+        public java.lang.String bye() {
+            return this.jsiiCall("bye", java.lang.String.class);
         }
     }
 }

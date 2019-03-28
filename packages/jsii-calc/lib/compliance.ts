@@ -13,7 +13,7 @@ import * as path from 'path';
 import * as os from 'os';
 import * as crypto from 'crypto';
 import { promisify } from 'util';
-import { composition, IFriendlyRandomGenerator, IRandomNumberGenerator, Multiply } from './calculator';
+import { IFriendlyRandomGenerator, IRandomNumberGenerator, Multiply } from './calculator';
 
 const bundled = require('jsii-calc-bundled');
 import base = require('@scope/jsii-calc-base');
@@ -163,7 +163,7 @@ export class AllTypes {
     // unions
 
     unionProperty: string | number | Number | Multiply = 'foo';
-    unionArrayProperty: (composition.CompositeOperation | number)[] = [];
+    unionArrayProperty: (Value | number)[] = [];
     unionMapProperty: { [key: string]: (Number | number | string) } = {};
 
     // enum
@@ -193,6 +193,21 @@ export class AllTypes {
 
     enumMethod(value: StringEnum) {
         return value;
+    }
+
+
+    public anyOut(): any {
+        const ret = new Number(42);
+        Object.defineProperty(ret, 'tag', {
+            value: "you're it"
+        });
+        return ret;
+    }
+
+    public anyIn(inp: any) {
+        if (inp.tag !== "you're it") {
+            throw new Error(`Not the same object that I gave you, got: ${JSON.stringify(inp)}`);
+        }
     }
 }
 
@@ -1321,18 +1336,73 @@ export class PublicClass {
     public hello(): void {}
 }
 export interface IPublicInterface {
-    bye(): void;
+    bye(): string;
 }
-export class InbetweenClass extends PublicClass {}
+
+export interface IPublicInterface2 {
+    ciao(): string;
+}
+export class InbetweenClass extends PublicClass implements IPublicInterface2 {
+    public ciao(): string { return 'ciao'; }
+}
 class PrivateClass extends InbetweenClass implements IPublicInterface {
-    public bye(): void {}
+    public bye(): string { return 'bye'; }
 }
+
+class HiddenClass implements IPublicInterface, IPublicInterface2 {
+    public bye(): string { return 'bye'; }
+    public ciao(): string { return 'ciao'; }
+}
+
+class HiddenSubclass extends HiddenClass {
+}
+
 export class Constructors {
     public static makeClass(): PublicClass {
-        return new PrivateClass();
+        return new PrivateClass();  // Wire type should be InbetweenClass
     }
+
     public static makeInterface(): IPublicInterface {
-        return new PrivateClass();
+        return new PrivateClass();  // Wire type should be IPublicInterface
+    }
+
+    public static makeInterface2(): IPublicInterface2 {
+        return new PrivateClass();  // Wire type should be InbetweenClass
+    }
+
+    public static makeInterfaces(): IPublicInterface[] {
+        return [new PrivateClass()];  // Wire type should be IPublicInterface[]
+    }
+
+    public static hiddenInterface(): IPublicInterface {
+        return new HiddenClass();  // Wire type should be IPublicInterface
+    }
+
+    public static hiddenInterfaces(): IPublicInterface[] {
+        return [new HiddenClass()];  // Wire type should be IPublicInterface[]
+    }
+
+    public static hiddenSubInterfaces(): IPublicInterface[] {
+        return [new HiddenSubclass()];  // Wire type should be IPublicInterface[]
+    }
+}
+
+/**
+ * Test that a single instance can be returned under two different FQNs
+ *
+ * JSII clients can instantiate 2 different strongly-typed wrappers for the same
+ * object. Unfortunately, this will break object equality, but if we didn't do
+ * this it would break runtime type checks in the JVM or CLR.
+ */
+export class SingleInstanceTwoTypes {
+    private instance = new PrivateClass();
+
+    public interface1(): InbetweenClass {
+        return this.instance;
+    }
+
+    public interface2(): IPublicInterface {
+        return this.instance;
     }
 }
 
@@ -1511,5 +1581,22 @@ export class ConsumersOfThisCrazyTypeSystem {
 
     public consumeNonInternalInterface(obj: INonInternalInterface): any {
         return { a: obj.a, b: obj.b, c: obj.c };
+    }
+}
+
+
+//
+// Ensure the JSII kernel can pass "this" out to JSII remotes from within the constructor (this is dirty, but possible)
+///
+export abstract class PartiallyInitializedThisConsumer {
+    public abstract consumePartiallyInitializedThis(obj: ConstructorPassesThisOut, dt: Date, ev: AllTypesEnum): string;
+}
+
+export class ConstructorPassesThisOut {
+    constructor(consumer: PartiallyInitializedThisConsumer) {
+        const result = consumer.consumePartiallyInitializedThis(this, new Date(0), AllTypesEnum.ThisIsGreat);
+        if (result !== 'OK') {
+            throw new Error(`Expected OK but received ${result}`);
+        }
     }
 }

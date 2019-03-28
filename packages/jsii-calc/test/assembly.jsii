@@ -8,7 +8,7 @@
     "url": "https://aws.amazon.com"
   },
   "bundled": {
-    "jsii-calc-bundled": "^0.8.0"
+    "jsii-calc-bundled": "^0.8.1"
   },
   "contributors": [
     {
@@ -58,7 +58,7 @@
               "module": "scope.jsii_calc_base_of_base"
             }
           },
-          "version": "0.8.0"
+          "version": "0.8.1"
         }
       },
       "peer": true,
@@ -82,7 +82,31 @@
           "module": "scope.jsii_calc_base"
         }
       },
-      "version": "0.8.0"
+      "version": "0.8.1"
+    },
+    "@scope/jsii-calc-base-of-base": {
+      "peer": true,
+      "targets": {
+        "dotnet": {
+          "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
+          "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId"
+        },
+        "java": {
+          "maven": {
+            "artifactId": "calculator-base-of-base",
+            "groupId": "software.amazon.jsii.tests"
+          },
+          "package": "software.amazon.jsii.tests.calculator.baseofbase"
+        },
+        "js": {
+          "npm": "@scope/jsii-calc-base-of-base"
+        },
+        "python": {
+          "distName": "scope.jsii-calc-base-of-base",
+          "module": "scope.jsii_calc_base_of_base"
+        }
+      },
+      "version": "0.8.1"
     },
     "@scope/jsii-calc-lib": {
       "dependencies": {
@@ -110,7 +134,7 @@
                   "module": "scope.jsii_calc_base_of_base"
                 }
               },
-              "version": "0.8.0"
+              "version": "0.8.1"
             }
           },
           "peer": true,
@@ -134,7 +158,7 @@
               "module": "scope.jsii_calc_base"
             }
           },
-          "version": "0.8.0"
+          "version": "0.8.1"
         }
       },
       "peer": true,
@@ -158,7 +182,7 @@
           "module": "scope.jsii_calc_lib"
         }
       },
-      "version": "0.8.0"
+      "version": "0.8.1"
     }
   },
   "description": "A simple calcuator built on JSII.",
@@ -378,6 +402,23 @@
       "kind": "class",
       "methods": [
         {
+          "name": "anyIn",
+          "parameters": [
+            {
+              "name": "inp",
+              "type": {
+                "primitive": "any"
+              }
+            }
+          ]
+        },
+        {
+          "name": "anyOut",
+          "returns": {
+            "primitive": "any"
+          }
+        },
+        {
           "name": "enumMethod",
           "parameters": [
             {
@@ -498,7 +539,7 @@
                       "primitive": "number"
                     },
                     {
-                      "fqn": "jsii-calc.composition.CompositeOperation"
+                      "fqn": "@scope/jsii-calc-lib.Value"
                     }
                   ]
                 }
@@ -1233,6 +1274,23 @@
         }
       ]
     },
+    "jsii-calc.ConstructorPassesThisOut": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.ConstructorPassesThisOut",
+      "initializer": {
+        "initializer": true,
+        "parameters": [
+          {
+            "name": "consumer",
+            "type": {
+              "fqn": "jsii-calc.PartiallyInitializedThisConsumer"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "name": "ConstructorPassesThisOut"
+    },
     "jsii-calc.Constructors": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.Constructors",
@@ -1241,6 +1299,37 @@
       },
       "kind": "class",
       "methods": [
+        {
+          "name": "hiddenInterface",
+          "returns": {
+            "fqn": "jsii-calc.IPublicInterface"
+          },
+          "static": true
+        },
+        {
+          "name": "hiddenInterfaces",
+          "returns": {
+            "collection": {
+              "elementtype": {
+                "fqn": "jsii-calc.IPublicInterface"
+              },
+              "kind": "array"
+            }
+          },
+          "static": true
+        },
+        {
+          "name": "hiddenSubInterfaces",
+          "returns": {
+            "collection": {
+              "elementtype": {
+                "fqn": "jsii-calc.IPublicInterface"
+              },
+              "kind": "array"
+            }
+          },
+          "static": true
+        },
         {
           "name": "makeClass",
           "returns": {
@@ -1252,6 +1341,25 @@
           "name": "makeInterface",
           "returns": {
             "fqn": "jsii-calc.IPublicInterface"
+          },
+          "static": true
+        },
+        {
+          "name": "makeInterface2",
+          "returns": {
+            "fqn": "jsii-calc.IPublicInterface2"
+          },
+          "static": true
+        },
+        {
+          "name": "makeInterfaces",
+          "returns": {
+            "collection": {
+              "elementtype": {
+                "fqn": "jsii-calc.IPublicInterface"
+              },
+              "kind": "array"
+            }
           },
           "static": true
         }
@@ -2113,10 +2221,28 @@
       "methods": [
         {
           "abstract": true,
-          "name": "bye"
+          "name": "bye",
+          "returns": {
+            "primitive": "string"
+          }
         }
       ],
       "name": "IPublicInterface"
+    },
+    "jsii-calc.IPublicInterface2": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.IPublicInterface2",
+      "kind": "interface",
+      "methods": [
+        {
+          "abstract": true,
+          "name": "ciao",
+          "returns": {
+            "primitive": "string"
+          }
+        }
+      ],
+      "name": "IPublicInterface2"
     },
     "jsii-calc.IRandomNumberGenerator": {
       "assembly": "jsii-calc",
@@ -2264,7 +2390,23 @@
       "initializer": {
         "initializer": true
       },
+      "interfaces": [
+        {
+          "fqn": "jsii-calc.IPublicInterface2"
+        }
+      ],
       "kind": "class",
+      "methods": [
+        {
+          "name": "ciao",
+          "overrides": {
+            "fqn": "jsii-calc.IPublicInterface2"
+          },
+          "returns": {
+            "primitive": "string"
+          }
+        }
+      ],
       "name": "InbetweenClass"
     },
     "jsii-calc.InterfaceImplementedByAbstractClass": {
@@ -3226,6 +3368,45 @@
       ],
       "name": "OverrideReturnsObject"
     },
+    "jsii-calc.PartiallyInitializedThisConsumer": {
+      "abstract": true,
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.PartiallyInitializedThisConsumer",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "abstract": true,
+          "name": "consumePartiallyInitializedThis",
+          "parameters": [
+            {
+              "name": "obj",
+              "type": {
+                "fqn": "jsii-calc.ConstructorPassesThisOut"
+              }
+            },
+            {
+              "name": "dt",
+              "type": {
+                "primitive": "date"
+              }
+            },
+            {
+              "name": "ev",
+              "type": {
+                "fqn": "jsii-calc.AllTypesEnum"
+              }
+            }
+          ],
+          "returns": {
+            "primitive": "string"
+          }
+        }
+      ],
+      "name": "PartiallyInitializedThisConsumer"
+    },
     "jsii-calc.Polymorphism": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.Polymorphism",
@@ -3584,6 +3765,32 @@
         }
       ],
       "name": "RuntimeTypeChecking"
+    },
+    "jsii-calc.SingleInstanceTwoTypes": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "comment": "Test that a single instance can be returned under two different FQNs\n\nJSII clients can instantiate 2 different strongly-typed wrappers for the same\nobject. Unfortunately, this will break object equality, but if we didn't do\nthis it would break runtime type checks in the JVM or CLR."
+      },
+      "fqn": "jsii-calc.SingleInstanceTwoTypes",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "interface1",
+          "returns": {
+            "fqn": "jsii-calc.InbetweenClass"
+          }
+        },
+        {
+          "name": "interface2",
+          "returns": {
+            "fqn": "jsii-calc.IPublicInterface"
+          }
+        }
+      ],
+      "name": "SingleInstanceTwoTypes"
     },
     "jsii-calc.Statics": {
       "assembly": "jsii-calc",
@@ -4372,6 +4579,6 @@
       "namespace": "composition.CompositeOperation"
     }
   },
-  "version": "0.8.0",
-  "fingerprint": "kxASQYx+RdQQFUSD4FNIHmKMdV4L37gNRKJx0DAohMQ="
+  "version": "0.8.1",
+  "fingerprint": "vFq8eaK1Y9ei3VKh4/QTCAxkZBNff//5xZm7x1LHrbk="
 }

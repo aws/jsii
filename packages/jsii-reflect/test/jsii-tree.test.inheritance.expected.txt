@@ -24,6 +24,7 @@ assemblies
  │   ├── class ClassWithMutableObjectLiteralProperty
  │   ├─┬ class ClassWithPrivateConstructorAndAutomaticProperties
  │   │ └── interfaces: IInterfaceWithProperties
+ │   ├── class ConstructorPassesThisOut
  │   ├── class Constructors
  │   ├── class ConsumersOfThisCrazyTypeSystem
  │   ├── class DefaultedConstructorArgument
@@ -46,7 +47,8 @@ assemblies
  │   │ └── base: ImplementsInterfaceWithInternal
  │   ├── class ImplementsPrivateInterface
  │   ├─┬ class InbetweenClass
- │   │ └── base: PublicClass
+ │   │ ├── base: PublicClass
+ │   │ └── interfaces: IPublicInterface2
  │   ├── class Foo
  │   ├── class JSObjectLiteralForInterface
  │   ├── class JSObjectLiteralToNative
@@ -65,6 +67,7 @@ assemblies
  │   ├── class ObjectRefsInCollections
  │   ├── class OptionalConstructorArgument
  │   ├── class OverrideReturnsObject
+ │   ├── class PartiallyInitializedThisConsumer
  │   ├── class Polymorphism
  │   ├─┬ class Power
  │   │ └── base: CompositeOperation
@@ -73,6 +76,7 @@ assemblies
  │   ├── class ReferenceEnumFromScopedPackage
  │   ├── class ReturnsPrivateImplementationOfInterface
  │   ├── class RuntimeTypeChecking
+ │   ├── class SingleInstanceTwoTypes
  │   ├── class Statics
  │   ├── class StripInternal
  │   ├─┬ class Sum
@@ -119,6 +123,7 @@ assemblies
  │   │   └── IAnotherPublicInterface
  │   ├── interface IPrivatelyImplemented
  │   ├── interface IPublicInterface
+ │   ├── interface IPublicInterface2
  │   ├── interface IRandomNumberGenerator
  │   ├── interface IReturnsNumber
  │   ├─┬ interface ImplictBaseOfBase

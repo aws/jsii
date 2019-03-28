@@ -6,6 +6,10 @@ public abstract class AbstractClassBase extends software.amazon.jsii.JsiiObject 
     protected AbstractClassBase(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
         super(mode);
     }
+    public AbstractClassBase() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
 
     public java.lang.String getAbstractProperty() {
         return this.jsiiGet("abstractProperty", java.lang.String.class);

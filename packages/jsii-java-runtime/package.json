@@ -1,6 +1,6 @@
 {
   "name": "jsii-java-runtime",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Java client for jsii runtime",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -8,13 +8,13 @@
   "scripts": {
     "gen": "/bin/bash ./generate.sh",
     "build": "tsc && npm run gen && cd project && mvn deploy -D altDeploymentRepository=local::default::file://${PWD}/../maven-repo",
-    "test": "echo 'Tests are performed by jsii-java-runtime-test'",
+    "test": "echo 'Tests are run as part of the build target'",
     "package": "package-java"
   },
   "devDependencies": {
     "@types/node": "^8.10.43",
-    "jsii-build-tools": "^0.8.0",
-    "jsii-runtime": "^0.8.0",
+    "jsii-build-tools": "^0.8.1",
+    "jsii-runtime": "^0.8.1",
     "typescript": "^3.2.4"
   },
   "author": {

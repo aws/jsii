@@ -5,7 +5,7 @@ import { join } from 'path';
 import path = require('path');
 import vm = require('vm');
 import { api, Kernel } from '../lib';
-import { Callback, TOKEN_REF } from '../lib/api';
+import { Callback, ObjRef, TOKEN_REF } from '../lib/api';
 import { closeRecording, recordInteraction } from './recording';
 
 // extract versions of fixtures
@@ -17,6 +17,9 @@ const calcVersion = require('jsii-calc/package.json').version.replace(/\+.+$/, '
 
 // tslint:disable:no-console
 // tslint:disable:max-line-length
+
+// Do this so that regexes stringify nicely in approximate tests
+(RegExp.prototype as any).toJSON = function() { return this.source; };
 
 process.setMaxListeners(9999); // since every kernel instance adds an `on('exit')` handler.
 
@@ -124,9 +127,14 @@ defineTest('in/out primitive types', async (test, sandbox) => {
     sandbox.set({ objref: alltypes, property: 'numberProperty', value: 123 });
     test.deepEqual(sandbox.get({ objref: alltypes, property: 'numberProperty' }).value, 123);
 
+    // in -> out for an ANY
     const num = sandbox.create({ fqn: '@scope/jsii-calc-lib.Number', args: [ 444 ] });
     sandbox.set({ objref: alltypes, property: 'anyProperty', value: num });
     test.deepEqual(sandbox.get({ objref: alltypes, property: 'anyProperty' }).value, num);
+
+    // out -> in for an ANY
+    const ret = sandbox.invoke({ objref: alltypes, method: 'anyOut' }).result;
+    sandbox.invoke({ objref: alltypes, method: 'anyIn', args: [ret] });
 });
 
 defineTest('in/out objects', async (test, sandbox) => {
@@ -140,11 +148,19 @@ defineTest('in/out objects', async (test, sandbox) => {
 defineTest('in/out collections', async (test, sandbox) => {
     const alltypes = sandbox.create({ fqn: 'jsii-calc.AllTypes', args: [ ] });
 
-    const array = [ 1, 2, 3, 4 ];
+    const array = [ '1', '2', '3', '4' ];
     sandbox.set({ objref: alltypes, property: 'arrayProperty', value: array });
     test.deepEqual(sandbox.get({ objref: alltypes, property: 'arrayProperty' }).value, array);
 
-    const map = { a: 12, b: 33, c: 33, d: { e: 123 }};
+    const num = create(sandbox, '@scope/jsii-calc-lib.Number');
+
+    const map = {
+        a: num(12),
+        b: num(33),
+        c: num(33),
+        d: num(123),
+    };
+
     sandbox.set({ objref: alltypes, property: 'mapProperty', value: map });
     test.deepEqual(sandbox.get({ objref: alltypes, property: 'mapProperty' }).value, map);
 });
@@ -294,7 +310,7 @@ defineTest('type-checking: try to create an object from a non-class type', async
 defineTest('type-checking: argument count in methods and initializers', async (test, sandbox) => {
     // ctor has one optional argument
     sandbox.create({ fqn: 'jsii-calc.Calculator' });
-    sandbox.create({ fqn: 'jsii-calc.Calculator', args: [ 11 ] });
+    sandbox.create({ fqn: 'jsii-calc.Calculator', args: [ {} ] });
 
     // but we expect an error if more arguments are passed
     test.throws(() => sandbox.create({ fqn: 'jsii-calc.Calculator', args: [ 1, 2, 3 ] }), /Too many arguments/);
@@ -307,8 +323,8 @@ defineTest('type-checking: argument count in methods and initializers', async (t
     test.throws(() => sandbox.invoke({ objref: obj, method: 'methodWithOptionalArguments', args: [] }), /Not enough arguments/);
     test.throws(() => sandbox.invoke({ objref: obj, method: 'methodWithOptionalArguments', args: [ 1 ]}), /Not enough arguments/);
     sandbox.invoke({ objref: obj, method: 'methodWithOptionalArguments', args: [ 1, 'hello' ] });
-    sandbox.invoke({ objref: obj, method: 'methodWithOptionalArguments', args: [ 1, 'hello', new Date() ] });
-    test.throws(() => sandbox.invoke({ objref: obj, method: 'methodWithOptionalArguments', args: [ 1, 'hello', new Date(), 'too much' ] }), /Too many arguments/);
+    sandbox.invoke({ objref: obj, method: 'methodWithOptionalArguments', args: [ 1, 'hello', { [api.TOKEN_DATE]: new Date().toISOString() } ]});
+    test.throws(() => sandbox.invoke({ objref: obj, method: 'methodWithOptionalArguments', args: [ 1, 'hello', { [api.TOKEN_DATE]: new Date().toISOString() }, 'too much' ] }), /Too many arguments/);
 });
 
 defineTest('verify object literals are converted to real classes', async (test, sandbox) => {
@@ -543,6 +559,7 @@ defineTest('sync overrides', async (test, sandbox) => {
     sandbox.callbackHandler = makeSyncCallbackHandler(callback => {
         test.equal(callback.invoke!.args![0], 999);
         called = true;
+        return callback.invoke!.args![0];
     });
 
     sandbox.set({ objref: obj, property: 'callerIsProperty', value: 999 });
@@ -591,7 +608,7 @@ defineTest('sync overrides: properties - readwrite', async (test, sandbox) => {
     test.deepEqual(value, { result: 'override applied' });
 
     // make sure we can still set the property
-    sandbox.invoke({ objref: obj, method: 'modifyValueOfTheProperty', args: [ 1234 ] });
+    sandbox.invoke({ objref: obj, method: 'modifyValueOfTheProperty', args: [ '1234' ] });
     test.deepEqual(setValue, 1234);
 });
 
@@ -620,8 +637,8 @@ defineTest('sync overrides: properties - readwrite (backed by functions)', async
     test.deepEqual(value, { result: 'override applied for otherProperty' });
 
     // make sure we can still set the property
-    sandbox.invoke({ objref: obj, method: 'modifyOtherProperty', args: [ 778877 ]});
-    test.deepEqual(setValue, 778877);
+    sandbox.invoke({ objref: obj, method: 'modifyOtherProperty', args: [ '778877' ]});
+    test.deepEqual(setValue, '778877');
 });
 
 defineTest('sync overrides: duplicate overrides for the same property', async (test, sandbox) => {
@@ -735,6 +752,8 @@ defineTest('fail to begin async from sync - method', async (test, sandbox) => {
         const innerObj = sandbox.create({ fqn: 'jsii-calc.AsyncVirtualMethods' });
         test.throws(() => sandbox.begin({ objref: innerObj, method: 'callMe' }));
         called++;
+
+        return 42; // Need a valid return value
     });
 
     sandbox.invoke({ objref: obj, method: 'callerIsMethod' });
@@ -960,14 +979,40 @@ defineTest('JSII_AGENT is undefined in node.js', async (test, sandbox) => {
 });
 
 defineTest('ObjRefs are labeled with the "most correct" type', async (test, sandbox) => {
-    const classRef = sandbox.sinvoke({ fqn: 'jsii-calc.Constructors', method: 'makeClass' }).result as api.ObjRef;
-    const ifaceRef = sandbox.sinvoke({ fqn: 'jsii-calc.Constructors', method: 'makeInterface' }).result as api.ObjRef;
+    typeMatches('makeClass', { '$jsii.byref': /^jsii-calc.InbetweenClass@/ });
+    typeMatches('makeInterface', { '$jsii.byref': /^jsii-calc.IPublicInterface@/ });
+    typeMatches('makeInterface2', { '$jsii.byref': /^jsii-calc.InbetweenClass@/ });
+    typeMatches('makeInterfaces', [ { '$jsii.byref': /^jsii-calc.IPublicInterface@/ } ]);
+    typeMatches('hiddenInterface', { '$jsii.byref': /^jsii-calc.IPublicInterface@/ });
+    typeMatches('hiddenInterfaces', [ { '$jsii.byref': /^jsii-calc.IPublicInterface@/ } ]);
+    typeMatches('hiddenSubInterfaces', [ { '$jsii.byref': /^jsii-calc.IPublicInterface@/ } ]);
 
-    test.ok(classRef[api.TOKEN_REF].startsWith('jsii-calc.InbetweenClass'),
-            `${classRef[api.TOKEN_REF]} starts with jsii-calc.InbetweenClass`);
-    test.ok(ifaceRef[api.TOKEN_REF].startsWith('jsii-calc.IPublicInterface'),
-            `${ifaceRef[api.TOKEN_REF]} starts with jsii-calc.IPublicInterface`);
+    function typeMatches(staticMethod: string, typeSpec: any) {
+        const ret = sandbox.sinvoke({ fqn: 'jsii-calc.Constructors', method: staticMethod }).result as api.ObjRef;
+
+        test.ok(deepEqualWithRegex(ret, typeSpec), `Constructors.${staticMethod}() => ${JSON.stringify(ret)}, does not match ${JSON.stringify(typeSpec)}`);
+    }
 });
+
+/*
+
+Test currently disabled because we don't have the infrastructure to make it pass.
+https://github.com/awslabs/jsii/issues/399
+
+defineTest('A single instance can be returned under two types', async (test, sandbox) => {
+    const singleInstanceTwoTypes = create(sandbox, 'jsii-calc.SingleInstanceTwoTypes')();
+
+    typeMatches('interface1', { '$jsii.byref': /^jsii-calc.InbetweenClass@/ });
+    typeMatches('interface2', { '$jsii.byref': /^jsii-calc.IPublicInterface@/ });
+
+    function typeMatches(method: string, typeSpec: any) {
+        const ret = sandbox.invoke({ objref: singleInstanceTwoTypes, method }).result as api.ObjRef;
+
+        test.ok(deepEqualWithRegex(ret, typeSpec), `Constructors.${method}() => ${JSON.stringify(ret)}, does not match ${JSON.stringify(typeSpec)}`);
+    }
+});
+
+*/
 
 defineTest('toSandbox: "null" in hash values send to JS should be treated as non-existing key', async (test, sandbox) => {
     const input = { option1: null, option2: 'hello' };
@@ -994,6 +1039,77 @@ defineTest('fromSandbox: "undefined" in hash values returned from JS erases the 
 defineTest('fromSandbox: "null" in hash values returned from JS erases the key', async (test, sandbox) => {
     const output = sandbox.sinvoke({ fqn: 'jsii-calc.EraseUndefinedHashValues', method: 'prop1IsNull' });
     test.deepEqual(output, { result: { prop2: 'value2' } });
+});
+
+defineTest('calculator can set and retrieve union properties', async (test, sandbox) => {
+    const calculator = create(sandbox, 'jsii-calc.Calculator')();
+
+    const mul = create(sandbox, 'jsii-calc.Multiply');
+    const num = create(sandbox, '@scope/jsii-calc-lib.Number');
+
+    sandbox.set({ objref: calculator, property: 'unionProperty', value: mul(num(9), num(3)) });
+
+    const value = sandbox.invoke({ objref: calculator, method: 'readUnionValue' }).result;
+    test.equal(27, value);
+
+    const expression = sandbox.get({ objref: calculator, property: 'unionProperty' }).value;
+
+    console.log(expression);
+
+    test.ok(deepEqualWithRegex(expression, { '$jsii.byref': /^jsii-calc.Multiply@/ }));
+});
+
+defineTest('can set and retrieve union properties', async (test, sandbox) => {
+    const types = create(sandbox, 'jsii-calc.AllTypes')();
+    const typesSet = set(sandbox, types);
+    const typesGet = get(sandbox, types);
+    const mul = create(sandbox, 'jsii-calc.Multiply');
+    const num = create(sandbox, '@scope/jsii-calc-lib.Number');
+
+    typesSet('unionProperty', 1234);
+    test.equal(typesGet('unionProperty'), 1234);
+
+    typesSet('unionProperty', 'Hello');
+    test.equal(typesGet('unionProperty'), 'Hello');
+
+    typesSet('unionProperty', mul(num(2), num(12)));
+    const mulObj = typesGet('unionProperty');
+    test.equal(get(sandbox, mulObj)('value'), 24);
+
+    // Collections
+
+    typesSet('unionMapProperty', {
+        Foo: num(99),
+    });
+
+    typesSet('unionArrayProperty', [
+        123,
+        num(33),
+    ]);
+    const unionArray = typesGet('unionArrayProperty');
+    test.equal(get(sandbox, unionArray[1])('value'), 33);
+});
+
+defineTest('Object ID does not get re-allocated when the constructor passes "this" out', async (test, sandbox) => {
+    sandbox.callbackHandler = makeSyncCallbackHandler((callback) => {
+        test.equal(callback.invoke && callback.invoke.method, 'consumePartiallyInitializedThis');
+        test.deepEqual(callback.invoke && callback.invoke.args && callback.invoke.args, [{
+            [api.TOKEN_REF]: 'jsii-calc.ConstructorPassesThisOut@10001'
+        }, {
+            [api.TOKEN_DATE]: '1970-01-01T00:00:00.000Z'
+        }, {
+            [api.TOKEN_ENUM]: 'jsii-calc.AllTypesEnum/ThisIsGreat'
+        }]);
+        return 'OK';
+    });
+    const reflector = sandbox.create({
+        fqn: 'jsii-calc.PartiallyInitializedThisConsumer',
+        overrides: [{ method: 'consumePartiallyInitializedThis' }]
+    });
+    test.equal(reflector[api.TOKEN_REF], 'jsii-calc.PartiallyInitializedThisConsumer@10000');
+
+    const classRef = sandbox.create({ fqn: 'jsii-calc.ConstructorPassesThisOut', args: [reflector] });
+    test.equal(classRef[api.TOKEN_REF], 'jsii-calc.ConstructorPassesThisOut@10001');
 });
 
 // =================================================================================================
@@ -1083,5 +1199,53 @@ function makeSyncCallbackHandler(logic: (callback: Callback) => any) {
         }
 
         return result;
+    };
+}
+
+export function deepEqualWithRegex(lvalue: any, rvalue: any): boolean {
+    if (lvalue === rvalue) { return true; }
+    if (typeof lvalue === 'string' && rvalue instanceof RegExp) { return rvalue.test(lvalue); }
+    if (typeof lvalue !== typeof rvalue) { return false; }
+    if (Array.isArray(lvalue) !== Array.isArray(rvalue)) { return false; }
+    if (Array.isArray(lvalue) /* && Array.isArray(rvalue) */) {
+      if (lvalue.length !== rvalue.length) { return false; }
+      for (let i = 0 ; i < lvalue.length ; i++) {
+        if (!deepEqualWithRegex(lvalue[i], rvalue[i])) { return false; }
+      }
+      return true;
+    }
+    if (typeof lvalue === 'object' /* && typeof rvalue === 'object' */) {
+      if (lvalue === null || rvalue === null) {
+        // If both were null, they'd have been ===
+        return false;
+      }
+      const keys = Object.keys(lvalue);
+      if (keys.length !== Object.keys(rvalue).length) { return false; }
+      for (const key of keys) {
+        if (!rvalue.hasOwnProperty(key)) { return false; }
+        if (!deepEqualWithRegex(lvalue[key], rvalue[key])) { return false; }
+      }
+      return true;
+    }
+    // Neither object, nor array: I deduce this is primitive type
+    // Primitive type and not ===, so I deduce not deepEqual
+    return false;
+}
+
+function create(kernel: Kernel, fqn: string) {
+    return (...args: any[]) => {
+        return kernel.create({ fqn, args });
+    };
+}
+
+function set(kernel: Kernel, objref: ObjRef) {
+    return (property: string, value: any) => {
+        return kernel.set({ objref, property, value });
+    };
+}
+
+function get(kernel: Kernel, objref: ObjRef) {
+    return (property: string) => {
+        return kernel.get({ objref, property }).value;
     };
 }

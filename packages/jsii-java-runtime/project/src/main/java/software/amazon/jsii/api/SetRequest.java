@@ -19,7 +19,7 @@ public class SetRequest {
     /**
      * The new value.
      */
-    private Object value;
+    private JsonNode value;
 
     /**
      * @return The jsii object reference.
@@ -52,14 +52,14 @@ public class SetRequest {
     /**
      * @return The new value.
      */
-    public Object getValue() {
+    public JsonNode getValue() {
         return value;
     }
 
     /**
      * @param value The new value.
      */
-    public void setValue(final Object value) {
+    public void setValue(final JsonNode value) {
         this.value = value;
     }
 }

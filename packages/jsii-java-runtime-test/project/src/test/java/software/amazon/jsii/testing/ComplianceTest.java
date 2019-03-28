@@ -8,6 +8,7 @@ import software.amazon.jsii.tests.calculator.AbstractClass;
 import software.amazon.jsii.tests.calculator.AbstractClassReturner;
 import software.amazon.jsii.tests.calculator.Add;
 import software.amazon.jsii.tests.calculator.AllTypes;
+import software.amazon.jsii.tests.calculator.AllTypesEnum;
 import software.amazon.jsii.tests.calculator.AsyncVirtualMethods;
 import software.amazon.jsii.tests.calculator.Calculator;
 import software.amazon.jsii.tests.calculator.CalculatorProps;
@@ -38,6 +39,7 @@ import software.amazon.jsii.tests.calculator.NodeStandardLibrary;
 import software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefined;
 import software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefinedData;
 import software.amazon.jsii.tests.calculator.NumberGenerator;
+import software.amazon.jsii.tests.calculator.PartiallyInitializedThisConsumer;
 import software.amazon.jsii.tests.calculator.Polymorphism;
 import software.amazon.jsii.tests.calculator.Power;
 import software.amazon.jsii.tests.calculator.PublicClass;
@@ -55,6 +57,7 @@ import software.amazon.jsii.tests.calculator.lib.MyFirstStruct;
 import software.amazon.jsii.tests.calculator.lib.Number;
 import software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals;
 import software.amazon.jsii.tests.calculator.lib.Value;
+import software.amazon.jsii.tests.calculator.ConstructorPassesThisOut;
 
 import java.io.IOException;
 import java.time.Instant;
@@ -196,12 +199,12 @@ public class ComplianceTest {
 
         // map
         Map<String, Object> map = new HashMap<>();
-        map.put("Foo", new Multiply(new Number(2), new Number(99)));
+        map.put("Foo", new Number(99));
         types.setUnionMapProperty(map);
 
         // array
-        types.setUnionArrayProperty(Arrays.asList("Hello", 123, new Number(33)));
-        assertEquals(33, ((Number)((List<?>)types.getUnionArrayProperty()).get(2)).getValue());
+        types.setUnionArrayProperty(Arrays.asList(123, new Number(33)));
+        assertEquals(33, ((Number)((List<?>)types.getUnionArrayProperty()).get(1)).getValue());
     }
 
 
@@ -1008,6 +1011,27 @@ public class ComplianceTest {
 
         assertEquals("{prop2=value2}", EraseUndefinedHashValues.prop1IsNull().toString());
         assertEquals("{prop1=value1}", EraseUndefinedHashValues.prop2IsUndefined().toString());
+    }
+
+    @Test
+    public void objectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut() {
+        final PartiallyInitializedThisConsumer reflector = new PartiallyInitializedThisConsumerImpl();
+        final ConstructorPassesThisOut object = new ConstructorPassesThisOut(reflector);
+
+        assertTrue(object != null);
+    }
+
+    static class PartiallyInitializedThisConsumerImpl extends PartiallyInitializedThisConsumer {
+        @Override
+        public String consumePartiallyInitializedThis(final ConstructorPassesThisOut obj,
+                                                      final Instant dt,
+                                                      final AllTypesEnum en) {
+            assertNotNull(obj);
+            assertEquals(Instant.EPOCH, dt);
+            assertEquals(AllTypesEnum.ThisIsGreat, en);
+
+            return "OK";
+        }
     }
 
     static class MulTen extends Multiply {

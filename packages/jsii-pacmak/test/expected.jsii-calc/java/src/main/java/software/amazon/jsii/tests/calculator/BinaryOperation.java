@@ -9,6 +9,15 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
     protected BinaryOperation(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
         super(mode);
     }
+    /**
+     * Creates a BinaryOperation
+     * @param lhs Left-hand side operand
+     * @param rhs Right-hand side operand
+     */
+    public BinaryOperation(final software.amazon.jsii.tests.calculator.lib.Value lhs, final software.amazon.jsii.tests.calculator.lib.Value rhs) {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.concat(java.util.stream.Stream.of(java.util.Objects.requireNonNull(lhs, "lhs is required")), java.util.stream.Stream.of(java.util.Objects.requireNonNull(rhs, "rhs is required"))).toArray());
+    }
 
     /**
      * Say hello!

@@ -1,0 +1,12 @@
+{
+  "cbid": "CallbackID",
+  "invoke": {
+    "method": "methodName",
+    "args": [
+      1337,
+      { "$jsii.byref": "module.Type@1" },
+      { "$jsii.date": "2019-03-26T18:27:43.569Z" },
+      { "$jsii.enum": "module.Enum#value" }
+    ]
+  }
+}
