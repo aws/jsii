@@ -1090,6 +1090,28 @@ defineTest('can set and retrieve union properties', async (test, sandbox) => {
     test.equal(get(sandbox, unionArray[1])('value'), 33);
 });
 
+defineTest('Object ID does not get re-allocated when the constructor passes "this" out', async (test, sandbox) => {
+    sandbox.callbackHandler = makeSyncCallbackHandler((callback) => {
+        test.equal(callback.invoke && callback.invoke.method, 'consumePartiallyInitializedThis');
+        test.deepEqual(callback.invoke && callback.invoke.args && callback.invoke.args, [{
+            [api.TOKEN_REF]: 'jsii-calc.ConstructorPassesThisOut@10001'
+        }, {
+            [api.TOKEN_DATE]: '1970-01-01T00:00:00.000Z'
+        }, {
+            [api.TOKEN_ENUM]: 'jsii-calc.AllTypesEnum/ThisIsGreat'
+        }]);
+        return 'OK';
+    });
+    const reflector = sandbox.create({
+        fqn: 'jsii-calc.PartiallyInitializedThisConsumer',
+        overrides: [{ method: 'consumePartiallyInitializedThis' }]
+    });
+    test.equal(reflector[api.TOKEN_REF], 'jsii-calc.PartiallyInitializedThisConsumer@10000');
+
+    const classRef = sandbox.create({ fqn: 'jsii-calc.ConstructorPassesThisOut', args: [reflector] });
+    test.equal(classRef[api.TOKEN_REF], 'jsii-calc.ConstructorPassesThisOut@10001');
+});
+
 // =================================================================================================
 
 const testNames: { [name: string]: boolean } = { };

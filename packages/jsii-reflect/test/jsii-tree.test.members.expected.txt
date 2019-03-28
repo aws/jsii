@@ -111,6 +111,9 @@ assemblies
  │   │   ├── create(readOnlyString,readWriteString) method
  │   │   ├── readOnlyString property
  │   │   └── readWriteString property
+ │   ├─┬ class ConstructorPassesThisOut
+ │   │ └─┬ members
+ │   │   └── <initializer>(consumer) method
  │   ├─┬ class Constructors
  │   │ └─┬ members
  │   │   ├── <initializer>() method
@@ -327,6 +330,10 @@ assemblies
  │   │ └─┬ members
  │   │   ├── <initializer>() method
  │   │   └── test(obj) method
+ │   ├─┬ class PartiallyInitializedThisConsumer
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── consumePartiallyInitializedThis(obj,dt,ev) method
  │   ├─┬ class Polymorphism
  │   │ └─┬ members
  │   │   ├── <initializer>() method

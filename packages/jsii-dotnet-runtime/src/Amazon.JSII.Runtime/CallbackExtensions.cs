@@ -4,7 +4,9 @@ using Amazon.JSII.JsonModel.Spec;
 using Amazon.JSII.Runtime.Deputy;
 using Amazon.JSII.Runtime.Services;
 using Amazon.JSII.Runtime.Services.Converters;
+using Newtonsoft.Json.Linq;
 using System;
+using System.Linq;
 using System.Reflection;
 
 namespace Amazon.JSII.Runtime
@@ -71,11 +73,11 @@ namespace Amazon.JSII.Runtime
 
             if (methodInfo == null)
             {
-                throw new InvalidOperationException($"Received callback for {deputy.GetType().Name}.{request.Method} getter, but this method does not exist");
+                throw new InvalidOperationException($"Received callback for {deputy.GetType().Name}.{request.Method} method, but this method does not exist");
             }
 
             JsiiMethodAttribute attribute = methodInfo.GetCustomAttribute<JsiiMethodAttribute>();
-            return new CallbackResult(attribute?.Returns, methodInfo.Invoke(deputy, request.Arguments));
+            return new CallbackResult(attribute?.Returns, methodInfo.Invoke(deputy, request.Arguments.Select(arg => FromKernel(arg, referenceMap)).ToArray()));
         }
 
         static CallbackResult InvokeGetter(GetRequest request, IReferenceMap referenceMap)
@@ -117,7 +119,24 @@ namespace Amazon.JSII.Runtime
                 throw new InvalidOperationException($"Received callback for {deputy.GetType().Name}.{request.Property} setter, but this property does not have a setter");
             }
 
-            methodInfo.Invoke(deputy, new object[] { request.Value });
+            methodInfo.Invoke(deputy, new object[] { FromKernel(request.Value, referenceMap) });
+        }
+
+        /*
+         * This is a temporary workaround / hack to solve an immediate problem, but does not completely solve the
+         * problem to it's full extent. See https://github.com/awslabs/jsii/issues/404 for more information.
+         */
+        private static object FromKernel(object obj, IReferenceMap referenceMap)
+        {
+            if (obj is JObject)
+            {
+                var prop = ((JObject)obj).Property("$jsii.byref");
+                if (prop != null)
+                {
+                    return referenceMap.GetOrCreateNativeReference(new ByRefValue(prop.Value.Value<String>()));
+                }
+            }
+            return obj;
         }
     }
 

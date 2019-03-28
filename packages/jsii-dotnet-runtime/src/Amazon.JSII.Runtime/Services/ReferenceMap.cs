@@ -16,9 +16,9 @@ namespace Amazon.JSII.Runtime.Services
             _types = types ?? throw new ArgumentNullException(nameof(types));
         }
 
-        public void AddNativeReference(ByRefValue reference, DeputyBase nativeReference)
+        public void AddNativeReference(ByRefValue reference, DeputyBase nativeReference, bool force)
         {
-            if (_references.ContainsKey(reference.Value))
+            if (_references.ContainsKey(reference.Value) && !force)
             {
                 throw new ArgumentException(
                     $"Cannot add reference for {reference.Value}: A reference with this name already exists",

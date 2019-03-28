@@ -892,9 +892,30 @@ namespace Amazon.JSII.Runtime.IntegrationTests
 
             Assert.True(EraseUndefinedHashValues.DoesKeyExist(opts, "option1"));
             Assert.False(EraseUndefinedHashValues.DoesKeyExist(opts, "option2"));
-            
+
             Assert.Equal(new Dictionary<string, object> { ["prop2"] = "value2" }, EraseUndefinedHashValues.Prop1IsNull());
             Assert.Equal(new Dictionary<string, object> { [ "prop1"] = "value1" }, EraseUndefinedHashValues.Prop2IsUndefined());
+        }
+
+        [Fact(DisplayName = Prefix + nameof(ObjectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut), Skip = "Currently broken")]
+        public void ObjectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut()
+        {
+            var reflector = new PartiallyInitializedThisConsumerImpl();
+            var obj = new ConstructorPassesThisOut(reflector);
+
+            Assert.NotNull(obj);
+        }
+
+        class PartiallyInitializedThisConsumerImpl : PartiallyInitializedThisConsumer
+        {
+            public override String ConsumePartiallyInitializedThis(ConstructorPassesThisOut obj, DateTime dt, AllTypesEnum ev)
+            {
+                Assert.NotNull(obj);
+                Assert.Equal(new DateTime(0), dt);
+                Assert.Equal(AllTypesEnum.ThisIsGreat, ev);
+
+                return "OK";
+            }
         }
         class NumberReturner : DeputyBase, IIReturnsNumber
         {

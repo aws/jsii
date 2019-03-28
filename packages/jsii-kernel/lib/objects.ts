@@ -89,6 +89,11 @@ export class ObjectTable {
             throw new Error('FQN cannot be undefined');
         }
 
+        const existingRef = objectReference(obj);
+        if (existingRef) {
+            return existingRef;
+        }
+
         const objid = this.makeId(fqn);
         this.objects[objid] = { instance: obj, fqn };
         tagObject(obj, objid);

@@ -252,7 +252,7 @@ export abstract class Generator implements IGenerator {
                             this.addAbstractPostfixToClassName(classSpec);
                         }
                         this.onBeginClass(classSpec, abstract);
-                        this.visitClass(classSpec, abstract);
+                        this.visitClass(classSpec);
                         visitChildren();
                         this.onEndClass(classSpec);
                         break;
@@ -360,9 +360,9 @@ export abstract class Generator implements IGenerator {
         }
     }
 
-    private visitClass(cls: spec.ClassType, abstract: boolean | undefined) {
+    private visitClass(cls: spec.ClassType) {
         let initializer = cls.initializer;
-        if (!abstract && initializer) {
+        if (initializer) {
 
             this.onInitializer(cls, initializer);
 

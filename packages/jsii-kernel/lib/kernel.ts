@@ -768,7 +768,7 @@ export class Kernel {
             throw new Error(`Module '${moduleName}' not found`);
         }
 
-        const types = assembly.metadata.types || {};
+        const types = assembly.metadata.types || {};
         const fqnInfo = types[fqn];
         if (!fqnInfo) {
             throw new Error(`Type '${fqn}' not found`);

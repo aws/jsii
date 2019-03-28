@@ -32,6 +32,7 @@ kwargs = json.loads("""
         "jsii",
         "publication>=0.0.3",
         "scope.jsii-calc-base~=0.8.0",
+        "scope.jsii-calc-base-of-base~=0.8.0",
         "scope.jsii-calc-lib~=0.8.0"
     ]
 }

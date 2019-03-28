@@ -42,7 +42,7 @@ public interface ExtendsPrivateInterface extends software.amazon.jsii.JsiiSerial
                 }
 
                 public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-                    software.amazon.jsii.JsiiObjectMapper om = software.amazon.jsii.JsiiObjectMapper.instance;
+                    com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
                     com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
                     obj.set("moreThings", om.valueToTree(this.getMoreThings()));
                     return obj;

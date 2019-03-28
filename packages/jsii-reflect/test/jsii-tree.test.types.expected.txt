@@ -15,6 +15,7 @@ assemblies
  │   ├── class ClassThatImplementsThePrivateInterface
  │   ├── class ClassWithMutableObjectLiteralProperty
  │   ├── class ClassWithPrivateConstructorAndAutomaticProperties
+ │   ├── class ConstructorPassesThisOut
  │   ├── class Constructors
  │   ├── class ConsumersOfThisCrazyTypeSystem
  │   ├── class DefaultedConstructorArgument
@@ -47,6 +48,7 @@ assemblies
  │   ├── class ObjectRefsInCollections
  │   ├── class OptionalConstructorArgument
  │   ├── class OverrideReturnsObject
+ │   ├── class PartiallyInitializedThisConsumer
  │   ├── class Polymorphism
  │   ├── class Power
  │   ├── class PublicClass

@@ -1583,3 +1583,20 @@ export class ConsumersOfThisCrazyTypeSystem {
         return { a: obj.a, b: obj.b, c: obj.c };
     }
 }
+
+
+//
+// Ensure the JSII kernel can pass "this" out to JSII remotes from within the constructor (this is dirty, but possible)
+///
+export abstract class PartiallyInitializedThisConsumer {
+    public abstract consumePartiallyInitializedThis(obj: ConstructorPassesThisOut, dt: Date, ev: AllTypesEnum): string;
+}
+
+export class ConstructorPassesThisOut {
+    constructor(consumer: PartiallyInitializedThisConsumer) {
+        const result = consumer.consumePartiallyInitializedThis(this, new Date(0), AllTypesEnum.ThisIsGreat);
+        if (result !== 'OK') {
+            throw new Error(`Expected OK but received ${result}`);
+        }
+    }
+}

@@ -2,6 +2,7 @@ assemblies
  ├─┬ jsii-calc
  │ ├─┬ dependencies
  │ │ ├── @scope/jsii-calc-base
+ │ │ ├── @scope/jsii-calc-base-of-base
  │ │ └── @scope/jsii-calc-lib
  │ └─┬ types
  │   ├─┬ class AbstractClass
@@ -278,6 +279,13 @@ assemblies
  │   │   │ └── type: primitive:string
  │   │   └─┬ readWriteString property
  │   │     └── type: primitive:string
+ │   ├─┬ class ConstructorPassesThisOut
+ │   │ └─┬ members
+ │   │   └─┬ <initializer>(consumer) method
+ │   │     ├─┬ parameters
+ │   │     │ └─┬ consumer
+ │   │     │   └── type: class:jsii-calc.PartiallyInitializedThisConsumer
+ │   │     └── returns: void
  │   ├─┬ class Constructors
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -770,6 +778,20 @@ assemblies
  │   │     │ └─┬ obj
  │   │     │   └── type: interface:jsii-calc.IReturnsNumber
  │   │     └── returns: primitive:number
+ │   ├─┬ class PartiallyInitializedThisConsumer
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>() method
+ │   │   │ └── returns: void
+ │   │   └─┬ consumePartiallyInitializedThis(obj,dt,ev) method
+ │   │     ├── abstract
+ │   │     ├─┬ parameters
+ │   │     │ ├─┬ obj
+ │   │     │ │ └── type: class:jsii-calc.ConstructorPassesThisOut
+ │   │     │ ├─┬ dt
+ │   │     │ │ └── type: primitive:date
+ │   │     │ └─┬ ev
+ │   │     │   └── type: enum:jsii-calc.AllTypesEnum
+ │   │     └── returns: primitive:string
  │   ├─┬ class Polymorphism
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method

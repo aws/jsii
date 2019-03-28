@@ -9,6 +9,10 @@ public abstract class Operation extends software.amazon.jsii.tests.calculator.li
     protected Operation(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
         super(mode);
     }
+    public Operation() {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+    }
 
     /**
      * String representation of the value.

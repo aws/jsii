@@ -5,7 +5,6 @@ import software.amazon.jsii.api.CreateRequest;
 import software.amazon.jsii.api.JsiiOverride;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -26,16 +25,6 @@ public final class JsiiClient {
      * JSON node factory.
      */
     private static final JsonNodeFactory JSON = JsonNodeFactory.instance;
-
-    /**
-     * JSON object mapper.
-     */
-    private static final ObjectMapper STD_OM = new ObjectMapper();
-
-    /**
-     * Jsii custom object mapper.
-     */
-    private static final JsiiObjectMapper JSII_OM = JsiiObjectMapper.instance;
 
     /**
      * TCP port to connect to (always "localhost").
@@ -95,7 +84,7 @@ public final class JsiiClient {
         request.setArgs(initializerArgs);
         request.setOverrides(overrides);
 
-        ObjectNode req = JSII_OM.valueToTree(request);
+        ObjectNode req = JsiiObjectMapper.valueToTree(request);
         req.put("api", "create");
 
         JsonNode resp = this.runtime.requestResponse(req);
@@ -245,11 +234,7 @@ public final class JsiiClient {
 
         List<Callback> result = new ArrayList<>();
         callbacksArray.forEach(node -> {
-            try {
-                result.add(STD_OM.treeToValue(node, Callback.class));
-            } catch (JsonProcessingException e) {
-                throw new JsiiException(e);
-            }
+            result.add(JsiiObjectMapper.treeToValue(node, Callback.class));
         });
 
         return result;

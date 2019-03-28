@@ -84,6 +84,30 @@
       },
       "version": "0.8.0"
     },
+    "@scope/jsii-calc-base-of-base": {
+      "peer": true,
+      "targets": {
+        "dotnet": {
+          "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
+          "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId"
+        },
+        "java": {
+          "maven": {
+            "artifactId": "calculator-base-of-base",
+            "groupId": "software.amazon.jsii.tests"
+          },
+          "package": "software.amazon.jsii.tests.calculator.baseofbase"
+        },
+        "js": {
+          "npm": "@scope/jsii-calc-base-of-base"
+        },
+        "python": {
+          "distName": "scope.jsii-calc-base-of-base",
+          "module": "scope.jsii_calc_base_of_base"
+        }
+      },
+      "version": "0.8.0"
+    },
     "@scope/jsii-calc-lib": {
       "dependencies": {
         "@scope/jsii-calc-base": {
@@ -1249,6 +1273,23 @@
           }
         }
       ]
+    },
+    "jsii-calc.ConstructorPassesThisOut": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.ConstructorPassesThisOut",
+      "initializer": {
+        "initializer": true,
+        "parameters": [
+          {
+            "name": "consumer",
+            "type": {
+              "fqn": "jsii-calc.PartiallyInitializedThisConsumer"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "name": "ConstructorPassesThisOut"
     },
     "jsii-calc.Constructors": {
       "assembly": "jsii-calc",
@@ -3327,6 +3368,45 @@
       ],
       "name": "OverrideReturnsObject"
     },
+    "jsii-calc.PartiallyInitializedThisConsumer": {
+      "abstract": true,
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.PartiallyInitializedThisConsumer",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "abstract": true,
+          "name": "consumePartiallyInitializedThis",
+          "parameters": [
+            {
+              "name": "obj",
+              "type": {
+                "fqn": "jsii-calc.ConstructorPassesThisOut"
+              }
+            },
+            {
+              "name": "dt",
+              "type": {
+                "primitive": "date"
+              }
+            },
+            {
+              "name": "ev",
+              "type": {
+                "fqn": "jsii-calc.AllTypesEnum"
+              }
+            }
+          ],
+          "returns": {
+            "primitive": "string"
+          }
+        }
+      ],
+      "name": "PartiallyInitializedThisConsumer"
+    },
     "jsii-calc.Polymorphism": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.Polymorphism",
@@ -4500,5 +4580,5 @@
     }
   },
   "version": "0.8.0",
-  "fingerprint": "WIFIhqgEwUDjCsDr7gliujhqcKZQSkDP+NstBfmdvZU="
+  "fingerprint": "J0bhm0cu1dlTAyMfBlAMWCVXZf6e8k2pHkmxye6P7Wk="
 }

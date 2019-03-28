@@ -54,7 +54,7 @@ namespace Amazon.JSII.Runtime.Deputy
 
             Reference = new ByRefValue(response["$jsii.byref"]);
             IReferenceMap referenceMap = serviceProvider.GetRequiredService<IReferenceMap>();
-            referenceMap.AddNativeReference(Reference, this);
+            referenceMap.AddNativeReference(Reference, this, true);
 
             Override[] GetOverrides()
             {

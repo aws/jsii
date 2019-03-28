@@ -3,7 +3,6 @@ package software.amazon.jsii;
 import software.amazon.jsii.api.Callback;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -27,11 +26,6 @@ public final class JsiiRuntime {
      * Extract the "+<sha>" postfix from a full version number.
      */
     private static final String VERSION_BUILD_PART_REGEX = "\\+[a-z0-9]+$";
-
-    /**
-     * JSON object mapper.
-     */
-    private static final ObjectMapper OM = new ObjectMapper();
 
     /**
      * True to print server traces to STDERR.
@@ -129,12 +123,7 @@ public final class JsiiRuntime {
             throw new JsiiException("Cannot process callback since callbackHandler was not set");
         }
 
-        Callback callback;
-        try {
-            callback = OM.treeToValue(resp.get("callback"), Callback.class);
-        } catch (JsonProcessingException e) {
-            throw new JsiiException(e);
-        }
+        Callback callback = JsiiObjectMapper.treeToValue(resp.get("callback"), Callback.class);
 
         JsonNode result = null;
         String error = null;
@@ -222,7 +211,7 @@ public final class JsiiRuntime {
         if (traceEnabled) {
             pb.environment().put("JSII_DEBUG", "1");
         }
-        
+
         pb.environment().put("JSII_AGENT", "Java/" + System.getProperty("java.version"));
 
         try {
@@ -282,7 +271,7 @@ public final class JsiiRuntime {
                 String error = this.stderr.lines().collect(Collectors.joining("\n\t"));
                 throw new JsiiException("Child process exited unexpectedly: " + error);
             }
-            return OM.readTree(responseLine);
+            return JsiiObjectMapper.INSTANCE.readTree(responseLine);
         } catch (IOException e) {
             throw new JsiiException("Unable to read reply from jsii-runtime: " + e.toString(), e);
         }

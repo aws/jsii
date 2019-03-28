@@ -3,4 +3,5 @@ node_modules/
 lerna-debug.log
 .DS_Store
 .idea
+.vs
 /dist
