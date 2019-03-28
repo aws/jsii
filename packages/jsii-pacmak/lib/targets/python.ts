@@ -40,23 +40,8 @@ const PYTHON_KEYWORDS = [
     "raise", "return", "try", "while", "with", "yield"
 ];
 
-const toPythonModuleName = (name: string): string => {
-    if (name.match(/^@[^/]+\/[^/]+$/)) {
-        name = name.replace(/^@/g, "");
-        name = name.replace(/\//g, ".");
-    }
-
-    name = toSnakeCase(name.replace(/-/g, "_"));
-
-    return name;
-};
-
 const pythonModuleNameToFilename = (name: string): string => {
     return name.replace(/\./g, "/");
-};
-
-const toPythonPackageName = (name: string): string => {
-    return toPythonModuleName(name).replace(/_/g, "-");
 };
 
 const toPythonIdentifier = (name: string): string => {
@@ -992,7 +977,9 @@ class Module implements PythonType {
     private emitDependencyImports(code: CodeMaker, _resolver: TypeResolver) {
         const deps = Array.from(
             new Set([
-                ...Object.keys(this.assembly.dependencies || {}).map(d => toPythonModuleName(d)),
+                ...Object.values(this.assembly.dependencies || {}).map(d => {
+                    return (d as spec.PackageVersion).targets!.python!.module;
+                }),
             ])
         );
 
@@ -1088,7 +1075,7 @@ class Package {
                     versionSpecifier = `~=${versionParts.slice(0, 2).join(".")},>=${versionParts.slice(0, 3).join(".")}`;
                 }
 
-                dependencies.push(`${toPythonPackageName(depName)}${versionSpecifier}`);
+                dependencies.push(`${depInfo.targets!.python!.distName}${versionSpecifier}`);
             }
         }
 
@@ -1151,6 +1138,8 @@ class Package {
     }
 }
 
+type FindModuleCallback = (fqn: string) => spec.Assembly | spec.PackageVersion;
+
 interface TypeResolverOpts {
     forwardReferences?: boolean;
     ignoreOptional?: boolean;
@@ -1164,9 +1153,11 @@ class TypeResolver {
     private readonly boundRe: RegExp;
     private readonly moduleName?: string;
     private readonly moduleRe: RegExp;
+    private readonly findModule: FindModuleCallback;
 
-    constructor(types: Map<string, PythonType>, boundTo?: string, moduleName?: string) {
+    constructor(types: Map<string, PythonType>, findModule: FindModuleCallback, boundTo?: string, moduleName?: string) {
         this.types = types;
+        this.findModule = findModule;
         this.moduleName = moduleName;
         this.boundTo = boundTo !== undefined ? this.toPythonFQN(boundTo) : boundTo;
 
@@ -1182,6 +1173,7 @@ class TypeResolver {
     public bind(fqn: string, moduleName?: string): TypeResolver {
         return new TypeResolver(
             this.types,
+            this.findModule,
             fqn,
             moduleName !== undefined ? moduleName : this.moduleName,
         );
@@ -1340,11 +1332,11 @@ class TypeResolver {
     }
 
     private toPythonFQN(fqn: string): string {
-        const [, modulePart, typePart] = fqn.match(/^((?:[^A-Z\.][^\.]+\.?)+)(?:\.([A-Z].+))?$/) as string[];
-        const fqnParts: string[] = [toPythonModuleName(modulePart)];
+        const [assemblyName, ...qualifiedIdentifiers] = fqn.split(".");
+        const fqnParts: string[] = [this.findModule(assemblyName).targets!.python!.module];
 
-        if (typePart) {
-            fqnParts.push(typePart.split(".").map(cur => toPythonIdentifier(cur)).join("."));
+        for (const part of qualifiedIdentifiers) {
+            fqnParts.push(toPythonIdentifier(part));
         }
 
         return fqnParts.join(".");
@@ -1371,7 +1363,7 @@ class PythonGenerator extends Generator {
 
     protected onBeginAssembly(assm: spec.Assembly, _fingerprint: boolean) {
         this.package = new Package(
-            toPythonPackageName(assm.name),
+            assm.targets!.python!.distName,
             assm.version,
             assm,
         );
@@ -1389,7 +1381,8 @@ class PythonGenerator extends Generator {
     }
 
     protected onEndAssembly(_assm: spec.Assembly, _fingerprint: boolean) {
-        this.package.write(this.code, new TypeResolver(this.types));
+        const resolver = new TypeResolver(this.types, (fqn: string) => this.findModule(fqn));
+        this.package.write(this.code, resolver);
     }
 
     protected onBeginNamespace(ns: string) {
@@ -1398,7 +1391,7 @@ class PythonGenerator extends Generator {
         // that module.
         if (ns === this.assembly.name) {
             const module = new Module(
-                toPythonModuleName(ns),
+                this.assembly.targets!.python!.module,
                 ns,
                 { assembly: this.assembly,
                   assemblyFilename: this.getAssemblyFileName(),
@@ -1598,7 +1591,7 @@ class PythonGenerator extends Generator {
     }
 
     private getAssemblyModuleName(assm: spec.Assembly): string {
-        return `${toPythonModuleName(assm.name)}._jsii`;
+        return `${assm.targets!.python!.module}._jsii`;
     }
 
     private getParentFQN(fqn: string): string {

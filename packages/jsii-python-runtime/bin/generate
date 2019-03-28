@@ -19,6 +19,8 @@ with open("src/jsii/_metadata.json", "w") as fp:
     json.dump(
         {
             "version": data["version"],
+            "description": data["description"],
+            "author": data["author"]["name"],
             "jsii-runtime": {"version": embedded_data["version"]},
         },
         fp,
