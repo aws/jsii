@@ -886,10 +886,9 @@ def test_eraseUnsetDataValues():
     assert not EraseUndefinedHashValues.does_key_exist(opts, "option2")
 
 
-@xfail_callbacks
 def test_objectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut():
     class PartiallyInitializedThisConsumerImpl(PartiallyInitializedThisConsumer):
-        def consume_partially_initialized_this(self):
+        def consume_partially_initialized_this(self, obj, dt, en):
             return "OK"
 
     reflector = PartiallyInitializedThisConsumerImpl()

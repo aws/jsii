@@ -19,6 +19,7 @@ from jsii._kernel.types import (
     BeginRequest,
     CallbacksRequest,
     CreateRequest,
+    CreateResponse,
     CompleteRequest,
     DeleteRequest,
     EndRequest,
@@ -190,14 +191,17 @@ class Kernel(metaclass=Singleton):
 
         overrides = _get_overides(klass, obj)
 
-        obj.__jsii_ref__ = self.provider.create(
+        response = self.provider.create(
             CreateRequest(
                 fqn=klass.__jsii_type__,
                 args=_make_reference_for_native(self, args),
                 overrides=overrides,
             )
         )
-
+        if isinstance(response, Callback):
+            obj.__jsii_ref__ =  _callback_till_result(self, response, CreateResponse)
+        else:
+            obj.__jsii_ref__ = response
         return obj.__jsii_ref__
 
     def delete(self, ref: ObjRef) -> None:
