@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.2](https://github.com/awslabs/jsii/compare/v0.8.1...v0.8.2) (2019-03-28)
+
+
+### Features
+
+* **python:** Add support for synchronous callbacks ([#407](https://github.com/awslabs/jsii/issues/407)) ([4cb91b3](https://github.com/awslabs/jsii/commit/4cb91b3))
+
+
+
+
+
 ## [0.8.1](https://github.com/awslabs/jsii/compare/v0.8.0...v0.8.1) (2019-03-28)
 
 
