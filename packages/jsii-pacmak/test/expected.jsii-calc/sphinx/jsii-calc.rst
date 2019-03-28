@@ -394,6 +394,17 @@ AllTypes
 
 
 
+   .. py:method:: anyIn(inp)
+
+      :param inp: 
+      :type inp: any
+
+
+   .. py:method:: anyOut() -> any
+
+      :rtype: any
+
+
    .. py:method:: enumMethod(value) -> jsii-calc.StringEnum
 
       :param value: 
@@ -463,7 +474,7 @@ AllTypes
 
    .. py:attribute:: unionArrayProperty
 
-      :type: (number or :py:class:`~jsii-calc.composition.CompositeOperation`\ )[]
+      :type: (number or :py:class:`@scope/jsii-calc-lib.Value`\ )[]
 
 
    .. py:attribute:: unionMapProperty
@@ -1275,6 +1286,21 @@ Constructors
 
 
 
+   .. py:staticmethod:: hiddenInterface() -> jsii-calc.IPublicInterface
+
+      :rtype: :py:class:`~jsii-calc.IPublicInterface`\ 
+
+
+   .. py:staticmethod:: hiddenInterfaces() -> jsii-calc.IPublicInterface[]
+
+      :rtype: :py:class:`~jsii-calc.IPublicInterface`\ []
+
+
+   .. py:staticmethod:: hiddenSubInterfaces() -> jsii-calc.IPublicInterface[]
+
+      :rtype: :py:class:`~jsii-calc.IPublicInterface`\ []
+
+
    .. py:staticmethod:: makeClass() -> jsii-calc.PublicClass
 
       :rtype: :py:class:`~jsii-calc.PublicClass`\ 
@@ -1283,6 +1309,16 @@ Constructors
    .. py:staticmethod:: makeInterface() -> jsii-calc.IPublicInterface
 
       :rtype: :py:class:`~jsii-calc.IPublicInterface`\ 
+
+
+   .. py:staticmethod:: makeInterface2() -> jsii-calc.IPublicInterface2
+
+      :rtype: :py:class:`~jsii-calc.IPublicInterface2`\ 
+
+
+   .. py:staticmethod:: makeInterfaces() -> jsii-calc.IPublicInterface[]
+
+      :rtype: :py:class:`~jsii-calc.IPublicInterface`\ []
 
 
 ConsumersOfThisCrazyTypeSystem
@@ -2588,8 +2624,44 @@ IPublicInterface (interface)
 
 
 
-   .. py:method:: bye()
+   .. py:method:: bye() -> string
 
+      :rtype: string
+      :abstract: Yes
+
+
+IPublicInterface2 (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: IPublicInterface2
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.IPublicInterface2;
+
+      .. code-tab:: javascript
+
+         // IPublicInterface2 is an interface
+
+      .. code-tab:: typescript
+
+         import { IPublicInterface2 } from 'jsii-calc';
+
+
+
+
+
+   .. py:method:: ciao() -> string
+
+      :rtype: string
       :abstract: Yes
 
 
@@ -2890,6 +2962,14 @@ InbetweenClass
 
 
    :extends: :py:class:`~jsii-calc.PublicClass`\ 
+   :implements: :py:class:`~jsii-calc.IPublicInterface2`\ 
+
+   .. py:method:: ciao() -> string
+
+      *Implements* :py:meth:`jsii-calc.IPublicInterface2.ciao`
+
+      :rtype: string
+
 
    .. py:method:: hello()
 
@@ -4670,6 +4750,56 @@ RuntimeTypeChecking
       :type arg2: string
       :param arg3: 
       :type arg3: date *(optional)*
+
+
+SingleInstanceTwoTypes
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: SingleInstanceTwoTypes()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.SingleInstanceTwoTypes;
+
+      .. code-tab:: javascript
+
+         const { SingleInstanceTwoTypes } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { SingleInstanceTwoTypes } from 'jsii-calc';
+
+
+
+   Test that a single instance can be returned under two different FQNs
+
+   
+
+   JSII clients can instantiate 2 different strongly-typed wrappers for the same
+
+   object. Unfortunately, this will break object equality, but if we didn't do
+
+   this it would break runtime type checks in the JVM or CLR.
+
+
+
+
+   .. py:method:: interface1() -> jsii-calc.InbetweenClass
+
+      :rtype: :py:class:`~jsii-calc.InbetweenClass`\ 
+
+
+   .. py:method:: interface2() -> jsii-calc.IPublicInterface
+
+      :rtype: :py:class:`~jsii-calc.IPublicInterface`\ 
 
 
 Statics

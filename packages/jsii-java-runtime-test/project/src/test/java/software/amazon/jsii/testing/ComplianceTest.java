@@ -196,12 +196,12 @@ public class ComplianceTest {
 
         // map
         Map<String, Object> map = new HashMap<>();
-        map.put("Foo", new Multiply(new Number(2), new Number(99)));
+        map.put("Foo", new Number(99));
         types.setUnionMapProperty(map);
 
         // array
-        types.setUnionArrayProperty(Arrays.asList("Hello", 123, new Number(33)));
-        assertEquals(33, ((Number)((List<?>)types.getUnionArrayProperty()).get(2)).getValue());
+        types.setUnionArrayProperty(Arrays.asList(123, new Number(33)));
+        assertEquals(33, ((Number)((List<?>)types.getUnionArrayProperty()).get(1)).getValue());
     }
 
 

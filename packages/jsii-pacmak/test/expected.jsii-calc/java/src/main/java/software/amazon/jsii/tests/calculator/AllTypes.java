@@ -15,6 +15,14 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
+    public void anyIn(final java.lang.Object inp) {
+        this.jsiiCall("anyIn", Void.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(inp, "inp is required")).toArray());
+    }
+
+    public java.lang.Object anyOut() {
+        return this.jsiiCall("anyOut", java.lang.Object.class);
+    }
+
     public software.amazon.jsii.tests.calculator.StringEnum enumMethod(final software.amazon.jsii.tests.calculator.StringEnum value) {
         return this.jsiiCall("enumMethod", software.amazon.jsii.tests.calculator.StringEnum.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(value, "value is required")).toArray());
     }

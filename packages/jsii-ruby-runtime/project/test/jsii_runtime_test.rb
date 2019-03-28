@@ -48,7 +48,7 @@ class JsiiRuntimeTest < Test::Unit::TestCase
     )
 
     promise = @client.begin(objref: objref, method: 'callMe')
-    assert_equal({ 'promiseid' => 'jsii::promise::10002' }, promise)
+    assert_equal({ 'promiseid' => 'jsii::promise::20001' }, promise)
 
     callbacks = @client.callbacks['callbacks']
     assert_equal(1, callbacks.length)

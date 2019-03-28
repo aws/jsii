@@ -46,7 +46,8 @@ assemblies
  │   │ └── base: ImplementsInterfaceWithInternal
  │   ├── class ImplementsPrivateInterface
  │   ├─┬ class InbetweenClass
- │   │ └── base: PublicClass
+ │   │ ├── base: PublicClass
+ │   │ └── interfaces: IPublicInterface2
  │   ├── class Foo
  │   ├── class JSObjectLiteralForInterface
  │   ├── class JSObjectLiteralToNative
@@ -73,6 +74,7 @@ assemblies
  │   ├── class ReferenceEnumFromScopedPackage
  │   ├── class ReturnsPrivateImplementationOfInterface
  │   ├── class RuntimeTypeChecking
+ │   ├── class SingleInstanceTwoTypes
  │   ├── class Statics
  │   ├── class StripInternal
  │   ├─┬ class Sum
@@ -119,6 +121,7 @@ assemblies
  │   │   └── IAnotherPublicInterface
  │   ├── interface IPrivatelyImplemented
  │   ├── interface IPublicInterface
+ │   ├── interface IPublicInterface2
  │   ├── interface IRandomNumberGenerator
  │   ├── interface IReturnsNumber
  │   ├─┬ interface ImplictBaseOfBase

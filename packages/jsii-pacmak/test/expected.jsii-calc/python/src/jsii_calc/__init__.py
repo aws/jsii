@@ -56,6 +56,14 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     def __init__(self) -> None:
         jsii.create(AllTypes, self, [])
 
+    @jsii.member(jsii_name="anyIn")
+    def any_in(self, inp: typing.Any) -> None:
+        return jsii.invoke(self, "anyIn", [inp])
+
+    @jsii.member(jsii_name="anyOut")
+    def any_out(self) -> typing.Any:
+        return jsii.invoke(self, "anyOut", [])
+
     @jsii.member(jsii_name="enumMethod")
     def enum_method(self, value: "StringEnum") -> "StringEnum":
         return jsii.invoke(self, "enumMethod", [value])
@@ -166,11 +174,11 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
 
     @property
     @jsii.member(jsii_name="unionArrayProperty")
-    def union_array_property(self) -> typing.List[typing.Union[jsii.Number, "composition.CompositeOperation"]]:
+    def union_array_property(self) -> typing.List[typing.Union[jsii.Number, scope.jsii_calc_lib.Value]]:
         return jsii.get(self, "unionArrayProperty")
 
     @union_array_property.setter
-    def union_array_property(self, value: typing.List[typing.Union[jsii.Number, "composition.CompositeOperation"]]):
+    def union_array_property(self, value: typing.List[typing.Union[jsii.Number, scope.jsii_calc_lib.Value]]):
         return jsii.set(self, "unionArrayProperty", value)
 
     @property
@@ -361,6 +369,21 @@ class Constructors(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Constructors"):
     def __init__(self) -> None:
         jsii.create(Constructors, self, [])
 
+    @jsii.member(jsii_name="hiddenInterface")
+    @classmethod
+    def hidden_interface(cls) -> "IPublicInterface":
+        return jsii.sinvoke(cls, "hiddenInterface", [])
+
+    @jsii.member(jsii_name="hiddenInterfaces")
+    @classmethod
+    def hidden_interfaces(cls) -> typing.List["IPublicInterface"]:
+        return jsii.sinvoke(cls, "hiddenInterfaces", [])
+
+    @jsii.member(jsii_name="hiddenSubInterfaces")
+    @classmethod
+    def hidden_sub_interfaces(cls) -> typing.List["IPublicInterface"]:
+        return jsii.sinvoke(cls, "hiddenSubInterfaces", [])
+
     @jsii.member(jsii_name="makeClass")
     @classmethod
     def make_class(cls) -> "PublicClass":
@@ -370,6 +393,16 @@ class Constructors(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Constructors"):
     @classmethod
     def make_interface(cls) -> "IPublicInterface":
         return jsii.sinvoke(cls, "makeInterface", [])
+
+    @jsii.member(jsii_name="makeInterface2")
+    @classmethod
+    def make_interface2(cls) -> "IPublicInterface2":
+        return jsii.sinvoke(cls, "makeInterface2", [])
+
+    @jsii.member(jsii_name="makeInterfaces")
+    @classmethod
+    def make_interfaces(cls) -> typing.List["IPublicInterface"]:
+        return jsii.sinvoke(cls, "makeInterfaces", [])
 
 
 class ConsumersOfThisCrazyTypeSystem(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ConsumersOfThisCrazyTypeSystem"):
@@ -966,15 +999,33 @@ class IPublicInterface(jsii.compat.Protocol):
         return _IPublicInterfaceProxy
 
     @jsii.member(jsii_name="bye")
-    def bye(self) -> None:
+    def bye(self) -> str:
         ...
 
 
 class _IPublicInterfaceProxy():
     __jsii_type__ = "jsii-calc.IPublicInterface"
     @jsii.member(jsii_name="bye")
-    def bye(self) -> None:
+    def bye(self) -> str:
         return jsii.invoke(self, "bye", [])
+
+
+@jsii.interface(jsii_type="jsii-calc.IPublicInterface2")
+class IPublicInterface2(jsii.compat.Protocol):
+    @staticmethod
+    def __jsii_proxy_class__():
+        return _IPublicInterface2Proxy
+
+    @jsii.member(jsii_name="ciao")
+    def ciao(self) -> str:
+        ...
+
+
+class _IPublicInterface2Proxy():
+    __jsii_type__ = "jsii-calc.IPublicInterface2"
+    @jsii.member(jsii_name="ciao")
+    def ciao(self) -> str:
+        return jsii.invoke(self, "ciao", [])
 
 
 @jsii.interface(jsii_type="jsii-calc.IRandomNumberGenerator")
@@ -1610,9 +1661,14 @@ class PublicClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.PublicClass"):
         return jsii.invoke(self, "hello", [])
 
 
+@jsii.implements(IPublicInterface2)
 class InbetweenClass(PublicClass, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.InbetweenClass"):
     def __init__(self) -> None:
         jsii.create(InbetweenClass, self, [])
+
+    @jsii.member(jsii_name="ciao")
+    def ciao(self) -> str:
+        return jsii.invoke(self, "ciao", [])
 
 
 class PythonReservedWords(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.PythonReservedWords"):
@@ -1795,6 +1851,19 @@ class RuntimeTypeChecking(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.RuntimeT
     @jsii.member(jsii_name="methodWithOptionalArguments")
     def method_with_optional_arguments(self, arg1: jsii.Number, arg2: str, arg3: typing.Optional[datetime.datetime]=None) -> None:
         return jsii.invoke(self, "methodWithOptionalArguments", [arg1, arg2, arg3])
+
+
+class SingleInstanceTwoTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SingleInstanceTwoTypes"):
+    def __init__(self) -> None:
+        jsii.create(SingleInstanceTwoTypes, self, [])
+
+    @jsii.member(jsii_name="interface1")
+    def interface1(self) -> "InbetweenClass":
+        return jsii.invoke(self, "interface1", [])
+
+    @jsii.member(jsii_name="interface2")
+    def interface2(self) -> "IPublicInterface":
+        return jsii.invoke(self, "interface2", [])
 
 
 class Statics(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Statics"):
@@ -2282,6 +2351,6 @@ class Sum(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_type="js
         return jsii.set(self, "parts", value)
 
 
-__all__ = ["AbstractClass", "AbstractClassBase", "AbstractClassReturner", "Add", "AllTypes", "AllTypesEnum", "AllowedMethodNames", "AsyncVirtualMethods", "AugmentableClass", "BinaryOperation", "Calculator", "CalculatorProps", "ClassThatImplementsTheInternalInterface", "ClassThatImplementsThePrivateInterface", "ClassWithMutableObjectLiteralProperty", "ClassWithPrivateConstructorAndAutomaticProperties", "Constructors", "ConsumersOfThisCrazyTypeSystem", "DefaultedConstructorArgument", "DerivedClassHasNoProperties", "DerivedStruct", "DoNotOverridePrivates", "DoNotRecognizeAnyAsOptional", "DontComplainAboutVariadicAfterOptional", "DoubleTrouble", "EraseUndefinedHashValues", "EraseUndefinedHashValuesOptions", "ExportedBaseClass", "ExtendsInternalInterface", "ExtendsPrivateInterface", "GiveMeStructs", "GreetingAugmenter", "IAnotherPublicInterface", "IFriendlier", "IFriendlyRandomGenerator", "IInterfaceThatShouldNotBeADataType", "IInterfaceWithInternal", "IInterfaceWithMethods", "IInterfaceWithOptionalMethodArguments", "IInterfaceWithProperties", "IInterfaceWithPropertiesExtension", "IMutableObjectLiteral", "INonInternalInterface", "IPrivatelyImplemented", "IPublicInterface", "IRandomNumberGenerator", "IReturnsNumber", "ImplementInternalInterface", "ImplementsInterfaceWithInternal", "ImplementsInterfaceWithInternalSubclass", "ImplementsPrivateInterface", "ImplictBaseOfBase", "InbetweenClass", "InterfaceImplementedByAbstractClass", "InterfaceInNamespaceIncludesClasses", "InterfaceInNamespaceOnlyInterface", "JSObjectLiteralForInterface", "JSObjectLiteralToNative", "JSObjectLiteralToNativeClass", "JavaReservedWords", "JsiiAgent", "LoadBalancedFargateServiceProps", "Multiply", "Negate", "NodeStandardLibrary", "NullShouldBeTreatedAsUndefined", "NullShouldBeTreatedAsUndefinedData", "NumberGenerator", "ObjectRefsInCollections", "OptionalConstructorArgument", "OverrideReturnsObject", "Polymorphism", "Power", "PublicClass", "PythonReservedWords", "ReferenceEnumFromScopedPackage", "ReturnsPrivateImplementationOfInterface", "RuntimeTypeChecking", "Statics", "StringEnum", "StripInternal", "Sum", "SyncVirtualMethods", "Thrower", "UnaryOperation", "UnionProperties", "UseBundledDependency", "UseCalcBase", "UsesInterfaceWithProperties", "VariadicMethod", "VirtualMethodPlayground", "__jsii_assembly__", "composition"]
+__all__ = ["AbstractClass", "AbstractClassBase", "AbstractClassReturner", "Add", "AllTypes", "AllTypesEnum", "AllowedMethodNames", "AsyncVirtualMethods", "AugmentableClass", "BinaryOperation", "Calculator", "CalculatorProps", "ClassThatImplementsTheInternalInterface", "ClassThatImplementsThePrivateInterface", "ClassWithMutableObjectLiteralProperty", "ClassWithPrivateConstructorAndAutomaticProperties", "Constructors", "ConsumersOfThisCrazyTypeSystem", "DefaultedConstructorArgument", "DerivedClassHasNoProperties", "DerivedStruct", "DoNotOverridePrivates", "DoNotRecognizeAnyAsOptional", "DontComplainAboutVariadicAfterOptional", "DoubleTrouble", "EraseUndefinedHashValues", "EraseUndefinedHashValuesOptions", "ExportedBaseClass", "ExtendsInternalInterface", "ExtendsPrivateInterface", "GiveMeStructs", "GreetingAugmenter", "IAnotherPublicInterface", "IFriendlier", "IFriendlyRandomGenerator", "IInterfaceThatShouldNotBeADataType", "IInterfaceWithInternal", "IInterfaceWithMethods", "IInterfaceWithOptionalMethodArguments", "IInterfaceWithProperties", "IInterfaceWithPropertiesExtension", "IMutableObjectLiteral", "INonInternalInterface", "IPrivatelyImplemented", "IPublicInterface", "IPublicInterface2", "IRandomNumberGenerator", "IReturnsNumber", "ImplementInternalInterface", "ImplementsInterfaceWithInternal", "ImplementsInterfaceWithInternalSubclass", "ImplementsPrivateInterface", "ImplictBaseOfBase", "InbetweenClass", "InterfaceImplementedByAbstractClass", "InterfaceInNamespaceIncludesClasses", "InterfaceInNamespaceOnlyInterface", "JSObjectLiteralForInterface", "JSObjectLiteralToNative", "JSObjectLiteralToNativeClass", "JavaReservedWords", "JsiiAgent", "LoadBalancedFargateServiceProps", "Multiply", "Negate", "NodeStandardLibrary", "NullShouldBeTreatedAsUndefined", "NullShouldBeTreatedAsUndefinedData", "NumberGenerator", "ObjectRefsInCollections", "OptionalConstructorArgument", "OverrideReturnsObject", "Polymorphism", "Power", "PublicClass", "PythonReservedWords", "ReferenceEnumFromScopedPackage", "ReturnsPrivateImplementationOfInterface", "RuntimeTypeChecking", "SingleInstanceTwoTypes", "Statics", "StringEnum", "StripInternal", "Sum", "SyncVirtualMethods", "Thrower", "UnaryOperation", "UnionProperties", "UseBundledDependency", "UseCalcBase", "UsesInterfaceWithProperties", "VariadicMethod", "VirtualMethodPlayground", "__jsii_assembly__", "composition"]
 
 publication.publish()
