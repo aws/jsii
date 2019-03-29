@@ -2,13 +2,12 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>
-    /// Test that a single instance can be returned under two different FQNs
-    /// 
-    /// JSII clients can instantiate 2 different strongly-typed wrappers for the same
+    /// <remarks>
+    /// remarks: JSII clients can instantiate 2 different strongly-typed wrappers for the same
     /// object. Unfortunately, this will break object equality, but if we didn't do
     /// this it would break runtime type checks in the JVM or CLR.
-    /// </summary>
+    /// summary: Test that a single instance can be returned under two different FQNs.
+    /// </remarks>
     [JsiiClass(typeof(SingleInstanceTwoTypes), "jsii-calc.SingleInstanceTwoTypes", "[]")]
     public class SingleInstanceTwoTypes : DeputyBase
     {

@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Generates random numbers.</summary>
+    /// <remarks>summary: Generates random numbers.</remarks>
     [JsiiTypeProxy(typeof(IIRandomNumberGenerator), "jsii-calc.IRandomNumberGenerator")]
     internal sealed class IRandomNumberGeneratorProxy : DeputyBase, IIRandomNumberGenerator
     {
@@ -10,8 +10,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>Returns another random number.</summary>
-        /// <returns>A random number.</returns>
+        /// <remarks>
+        /// returns: A random number.
+        /// summary: Returns another random number.
+        /// </remarks>
         [JsiiMethod("next", "{\"primitive\":\"number\"}", "[]")]
         public double Next()
         {

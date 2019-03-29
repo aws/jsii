@@ -758,8 +758,8 @@ class JavaGenerator extends Generator {
             for (const type of prop.javaTypes) {
                 this.code.line('/**');
                 this.code.line(` * Sets the value of ${prop.propName}`);
-                if (prop.docs && prop.docs.comment) {
-                    this.code.line(` * @param value ${prop.docs.comment}`);
+                if (prop.docs && prop.docs.summary) {
+                    this.code.line(` * @param value ${prop.docs.summary}`);
                 } else {
                     this.code.line(` * @param value the value to be set`);
                 }
@@ -863,36 +863,63 @@ class JavaGenerator extends Generator {
             return;
         }
 
-        doc.docs = doc.docs || { };
-
-        this.code.line('/**');
-
-        // If there are no docs
-        if (Object.keys(doc.docs).length === 0 && defaultText) {
-            this.code.line(` * ${defaultText}`);
+        const docs = doc.docs = doc.docs || { };
+        const lines = new Array<string>();
+        function emit(x: string) {
+            lines.push(...x.split('\n'));
         }
 
-        for (const key of Object.keys(doc.docs)) {
-            const value = doc.docs[key];
-            if (key === 'comment') {
-                value.split('\n').forEach(s => this.code.line(` * ${s}`));
-            } else {
-                this.code.line(` * @${key} ${value.replace(/\n/g, ' ')}`);
-            }
+        if (docs.summary) {
+            emit(docs.summary);
+        } else if (defaultText) {
+            emit(defaultText);
         }
 
-        // if this is a method, add docs for parameters
+        if (docs.remarks) {
+            emit('');
+            emit(docs.remarks);
+        }
+
+        if (docs.default) {
+            emit('');
+            emit(`Default: ${docs.default}`); // NOTE: there is no annotation in JavaDoc for this
+        }
+
+        if (docs.example) {
+            emit('');
+            emit('Example:');
+            emit('');
+            // FIXME: Have to parse the MarkDown and convert fenced code blocks to <pre>{@code\n....\n}</pre>.
+            emit(docs.example);
+        }
+
+        if (docs.stability === spec.Stability.Experimental) {
+            emit('');
+            emit('EXPERIMENTAL');
+        }
+
+        emit('');
+
+        if (docs.returns) { emit(`@return ${docs.returns}`); }
+        if (docs.seeLink) { emit(`@see ${docs.seeLink}`); }
+        if (docs.deprecated) { emit(`@deprecated ${docs.deprecated}`); }
+
+        // Params
         if ((doc as spec.Method).parameters) {
             const method = doc as spec.Method;
             if (method.parameters) {
                 for (const param of method.parameters) {
-                    if (param.docs && param.docs.comment) {
-                        this.code.line(` * @param ${param.name} ${param.docs.comment}`);
+                    if (param.docs && param.docs.summary) {
+                        emit(`@param ${param.name} ${param.docs.summary}`);
                     }
                 }
             }
         }
 
+        this.code.line('/**');
+        for (const line of lines) {
+            this.code.line(` * ${line}`);
+        }
         this.code.line(' */');
     }
 

@@ -1,16 +1,19 @@
 package software.amazon.jsii.tests.calculator.lib;
 
 /**
- * This is the first struct we have created in jsii
+ * This is the first struct we have created in jsii.
+ * 
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
     /**
-     * An awesome number value
+     * An awesome number value.
+     * 
      */
     java.lang.Number getAnumber();
     /**
-     * A string value
+     * A string value.
+     * 
      */
     java.lang.String getAstring();
     java.util.List<java.lang.String> getFirstOptional();
@@ -33,7 +36,7 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of Anumber
-         * @param value An awesome number value
+         * @param value An awesome number value.
          * @return {@code this}
          */
         public Builder withAnumber(final java.lang.Number value) {
@@ -42,7 +45,7 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
         }
         /**
          * Sets the value of Astring
-         * @param value A string value
+         * @param value A string value.
          * @return {@code this}
          */
         public Builder withAstring(final java.lang.String value) {
@@ -108,7 +111,8 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * An awesome number value
+         * An awesome number value.
+         * 
          */
         @Override
         public java.lang.Number getAnumber() {
@@ -116,7 +120,8 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * A string value
+         * A string value.
+         * 
          */
         @Override
         public java.lang.String getAstring() {

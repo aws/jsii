@@ -2,6 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * The "*" binary operation.
+ * 
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.Multiply")
@@ -10,9 +11,10 @@ public class Multiply extends software.amazon.jsii.tests.calculator.BinaryOperat
         super(mode);
     }
     /**
-     * Creates a BinaryOperation
-     * @param lhs Left-hand side operand
-     * @param rhs Right-hand side operand
+     * Creates a BinaryOperation.
+     * 
+     * @param lhs Left-hand side operand.
+     * @param rhs Right-hand side operand.
      */
     public Multiply(final software.amazon.jsii.tests.calculator.lib.Value lhs, final software.amazon.jsii.tests.calculator.lib.Value rhs) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
@@ -21,6 +23,7 @@ public class Multiply extends software.amazon.jsii.tests.calculator.BinaryOperat
 
     /**
      * Say farewell.
+     * 
      */
     @Override
     public java.lang.String farewell() {
@@ -29,6 +32,7 @@ public class Multiply extends software.amazon.jsii.tests.calculator.BinaryOperat
 
     /**
      * Say goodbye.
+     * 
      */
     @Override
     public java.lang.String goodbye() {
@@ -37,6 +41,7 @@ public class Multiply extends software.amazon.jsii.tests.calculator.BinaryOperat
 
     /**
      * Returns another random number.
+     * 
      */
     @Override
     public java.lang.Number next() {
@@ -45,6 +50,7 @@ public class Multiply extends software.amazon.jsii.tests.calculator.BinaryOperat
 
     /**
      * String representation of the value.
+     * 
      */
     @Override
     public java.lang.String toString() {
@@ -53,6 +59,7 @@ public class Multiply extends software.amazon.jsii.tests.calculator.BinaryOperat
 
     /**
      * The value.
+     * 
      */
     @Override
     public java.lang.Number getValue() {

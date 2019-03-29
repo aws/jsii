@@ -22,8 +22,10 @@ import { VERSION } from '../lib/version';
 
     const projectRoot = path.normalize(path.resolve(process.cwd(), argv._[0] || '.'));
 
+    const projectInfo = await loadProjectInfo(projectRoot);
+
     const compiler = new Compiler({
-        projectInfo: await loadProjectInfo(projectRoot),
+        projectInfo,
         watch: argv.watch,
         projectReferences: argv['project-references']
     });

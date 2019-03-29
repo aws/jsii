@@ -67,7 +67,7 @@
       "abstract": true,
       "assembly": "@scope/jsii-calc-base",
       "docs": {
-        "comment": "A base class."
+        "summary": "A base class."
       },
       "fqn": "@scope/jsii-calc-base.Base",
       "initializer": {
@@ -77,7 +77,7 @@
       "methods": [
         {
           "docs": {
-            "return": "the name of the class (to verify native type names are created for derived classes)."
+            "returns": "the name of the class (to verify native type names are created for derived classes)."
           },
           "name": "typeName",
           "returns": {
@@ -111,5 +111,5 @@
     }
   },
   "version": "0.8.2",
-  "fingerprint": "FrfcJZ64DB2APeRFjFb+EjYcfZxYEVji9GDpZ7KW1Ow="
+  "fingerprint": "4jX4FdJMQfD7LINHWTh3WuTMHvAPMd3fjOCybnpuqc8="
 }

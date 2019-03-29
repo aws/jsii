@@ -2,6 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * A struct which derives from another struct.
+ * 
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.lib.MyFirstStruct {
@@ -9,10 +10,12 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
     java.lang.Boolean getBool();
     /**
      * An example of a non primitive property.
+     * 
      */
     software.amazon.jsii.tests.calculator.DoubleTrouble getNonPrimitive();
     /**
      * This is optional.
+     * 
      */
     java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> getAnotherOptional();
     java.lang.Object getOptionalAny();
@@ -99,7 +102,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         }
         /**
          * Sets the value of Anumber
-         * @param value An awesome number value
+         * @param value An awesome number value.
          * @return {@code this}
          */
         public Builder withAnumber(final java.lang.Number value) {
@@ -108,7 +111,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         }
         /**
          * Sets the value of Astring
-         * @param value A string value
+         * @param value A string value.
          * @return {@code this}
          */
         public Builder withAstring(final java.lang.String value) {
@@ -230,6 +233,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
 
         /**
          * An example of a non primitive property.
+         * 
          */
         @Override
         public software.amazon.jsii.tests.calculator.DoubleTrouble getNonPrimitive() {
@@ -238,6 +242,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
 
         /**
          * This is optional.
+         * 
          */
         @Override
         @javax.annotation.Nullable
@@ -258,7 +263,8 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         }
 
         /**
-         * An awesome number value
+         * An awesome number value.
+         * 
          */
         @Override
         public java.lang.Number getAnumber() {
@@ -266,7 +272,8 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         }
 
         /**
-         * A string value
+         * A string value.
+         * 
          */
         @Override
         public java.lang.String getAstring() {

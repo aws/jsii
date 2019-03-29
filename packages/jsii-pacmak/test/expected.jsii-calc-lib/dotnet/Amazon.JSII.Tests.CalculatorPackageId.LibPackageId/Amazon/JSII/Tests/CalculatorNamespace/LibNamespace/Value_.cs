@@ -3,7 +3,7 @@ using Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>Abstract class which represents a numeric value.</summary>
+    /// <remarks>summary: Abstract class which represents a numeric value.</remarks>
     [JsiiClass(typeof(Value_), "@scope/jsii-calc-lib.Value", "[]")]
     public abstract class Value_ : Base
     {
@@ -19,14 +19,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
-        /// <summary>The value.</summary>
+        /// <remarks>summary: The value.</remarks>
         [JsiiProperty("value", "{\"primitive\":\"number\"}")]
         public virtual double Value
         {
             get => GetInstanceProperty<double>();
         }
 
-        /// <summary>String representation of the value.</summary>
+        /// <remarks>summary: String representation of the value.</remarks>
         [JsiiMethod("toString", "{\"primitive\":\"string\"}", "[]")]
         public override string ToString()
         {

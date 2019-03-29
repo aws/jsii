@@ -3,7 +3,7 @@ using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>The "*" binary operation.</summary>
+    /// <remarks>summary: The "*" binary operation.</remarks>
     [JsiiClass(typeof(Multiply), "jsii-calc.Multiply", "[{\"name\":\"lhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},{\"name\":\"rhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
     public class Multiply : BinaryOperation, IIFriendlier, IIRandomNumberGenerator
     {
@@ -19,35 +19,35 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>The value.</summary>
+        /// <remarks>summary: The value.</remarks>
         [JsiiProperty("value", "{\"primitive\":\"number\"}")]
         public override double Value
         {
             get => GetInstanceProperty<double>();
         }
 
-        /// <summary>Say farewell.</summary>
+        /// <remarks>summary: Say farewell.</remarks>
         [JsiiMethod("farewell", "{\"primitive\":\"string\"}", "[]")]
         public virtual string Farewell()
         {
             return InvokeInstanceMethod<string>(new object[]{});
         }
 
-        /// <summary>Say goodbye.</summary>
+        /// <remarks>summary: Say goodbye.</remarks>
         [JsiiMethod("goodbye", "{\"primitive\":\"string\"}", "[]")]
         public virtual string Goodbye()
         {
             return InvokeInstanceMethod<string>(new object[]{});
         }
 
-        /// <summary>Returns another random number.</summary>
+        /// <remarks>summary: Returns another random number.</remarks>
         [JsiiMethod("next", "{\"primitive\":\"number\"}", "[]")]
         public virtual double Next()
         {
             return InvokeInstanceMethod<double>(new object[]{});
         }
 
-        /// <summary>String representation of the value.</summary>
+        /// <remarks>summary: String representation of the value.</remarks>
         [JsiiMethod("toString", "{\"primitive\":\"string\"}", "[]")]
         public override string ToString()
         {

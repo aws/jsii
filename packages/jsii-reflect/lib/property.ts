@@ -5,8 +5,12 @@ import { Overridable } from './overridable';
 import { Type } from './type';
 import { TypeReference } from './type-ref';
 import { TypeSystem } from './type-system';
+// tslint:disable-next-line:ordered-imports
+import { TypeMember, MemberKind } from './type-member';
 
-export class Property implements Documentable, Overridable {
+export class Property implements Documentable, Overridable, TypeMember {
+  public readonly kind = MemberKind.Property;
+
   constructor(
     public readonly system: TypeSystem,
     public readonly assembly: Assembly,
@@ -77,6 +81,6 @@ export class Property implements Documentable, Overridable {
   }
 
   public get docs(): Docs {
-    return new Docs(this.system, this, this.spec.docs);
+    return new Docs(this.system, this, this.spec.docs || {}, this.parentType.docs);
   }
 }

@@ -2,12 +2,15 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>jsii#298: show default values in sphinx documentation, and respect newlines.</summary>
+    /// <remarks>summary: jsii#298: show default values in sphinx documentation, and respect newlines.</remarks>
     [JsiiByValue]
     public class LoadBalancedFargateServiceProps : ILoadBalancedFargateServiceProps
     {
-        /// <summary>The container port of the application load balancer attached to your Fargate service. Corresponds to container port mapping.</summary>
-        /// <remarks>default: 80</remarks>
+        /// <remarks>
+        /// default: 80
+        /// remarks: Corresponds to container port mapping.
+        /// summary: The container port of the application load balancer attached to your Fargate service.
+        /// </remarks>
         [JsiiProperty("containerPort", "{\"primitive\":\"number\",\"optional\":true}", true)]
         public double? ContainerPort
         {
@@ -15,9 +18,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
-        /// <summary>
-        /// The number of cpu units used by the task.
-        /// Valid values, which determines your range of valid values for the memory parameter:
+        /// <remarks>
+        /// default: 256
+        /// remarks: Valid values, which determines your range of valid values for the memory parameter:
         /// 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB
         /// 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB
         /// 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB
@@ -25,8 +28,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments
         /// 
         /// This default is set in the underlying FargateTaskDefinition construct.
-        /// </summary>
-        /// <remarks>default: 256</remarks>
+        /// summary: The number of cpu units used by the task.
+        /// </remarks>
         [JsiiProperty("cpu", "{\"primitive\":\"string\",\"optional\":true}", true)]
         public string Cpu
         {
@@ -34,10 +37,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
-        /// <summary>
-        /// The amount (in MiB) of memory used by the task.
-        /// 
-        /// This field is required and you must use one of the following values, which determines your range of valid values
+        /// <remarks>
+        /// default: 512
+        /// remarks: This field is required and you must use one of the following values, which determines your range of valid values
         /// for the cpu parameter:
         /// 
         /// 0.5GB, 1GB, 2GB - Available cpu values: 256 (.25 vCPU)
@@ -51,8 +53,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// Between 8GB and 30GB in 1GB increments - Available cpu values: 4096 (4 vCPU)
         /// 
         /// This default is set in the underlying FargateTaskDefinition construct.
-        /// </summary>
-        /// <remarks>default: 512</remarks>
+        /// summary: The amount (in MiB) of memory used by the task.
+        /// </remarks>
         [JsiiProperty("memoryMiB", "{\"primitive\":\"string\",\"optional\":true}", true)]
         public string MemoryMiB
         {
@@ -60,8 +62,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
-        /// <summary>Determines whether the Application Load Balancer will be internet-facing</summary>
-        /// <remarks>default: true</remarks>
+        /// <remarks>
+        /// default: true
+        /// summary: Determines whether the Application Load Balancer will be internet-facing.
+        /// </remarks>
         [JsiiProperty("publicLoadBalancer", "{\"primitive\":\"boolean\",\"optional\":true}", true)]
         public bool? PublicLoadBalancer
         {
@@ -69,8 +73,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
-        /// <summary>Determines whether your Fargate Service will be assigned a public IP address.</summary>
-        /// <remarks>default: false</remarks>
+        /// <remarks>
+        /// default: false
+        /// summary: Determines whether your Fargate Service will be assigned a public IP address.
+        /// </remarks>
         [JsiiProperty("publicTasks", "{\"primitive\":\"boolean\",\"optional\":true}", true)]
         public bool? PublicTasks
         {

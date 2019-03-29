@@ -12,3 +12,4 @@ export * from './tree';
 export * from './type-ref';
 export * from './type-system';
 export * from './type';
+export * from './type-member';

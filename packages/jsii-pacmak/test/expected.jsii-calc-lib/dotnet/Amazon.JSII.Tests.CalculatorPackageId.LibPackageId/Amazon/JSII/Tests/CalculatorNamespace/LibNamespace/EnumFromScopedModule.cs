@@ -2,10 +2,10 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>
-    /// Check that enums from @scoped packages can be references.
-    /// See awslabs/jsii#138
-    /// </summary>
+    /// <remarks>
+    /// remarks: See awslabs/jsii#138
+    /// summary: Check that enums from \@scoped packages can be references.
+    /// </remarks>
     [JsiiEnum(typeof(EnumFromScopedModule), "@scope/jsii-calc-lib.EnumFromScopedModule")]
     public enum EnumFromScopedModule
     {

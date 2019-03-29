@@ -2,6 +2,7 @@ package software.amazon.jsii.tests.calculator.lib;
 
 /**
  * Represents a concrete number.
+ * 
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.Number")
@@ -11,6 +12,7 @@ public class Number extends software.amazon.jsii.tests.calculator.lib.Value impl
     }
     /**
      * Creates a Number object.
+     * 
      * @param value The number.
      */
     public Number(final java.lang.Number value) {
@@ -20,6 +22,7 @@ public class Number extends software.amazon.jsii.tests.calculator.lib.Value impl
 
     /**
      * The number multiplied by 2.
+     * 
      */
     @Override
     public java.lang.Number getDoubleValue() {
@@ -28,6 +31,7 @@ public class Number extends software.amazon.jsii.tests.calculator.lib.Value impl
 
     /**
      * The number.
+     * 
      */
     @Override
     public java.lang.Number getValue() {

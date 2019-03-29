@@ -2,10 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>
-    /// awslabs/jsii#175
-    /// Interface proxies (and builders) do not respect optional arguments in methods
-    /// </summary>
+    /// <remarks>summary: awslabs/jsii#175 Interface proxies (and builders) do not respect optional arguments in methods.</remarks>
     [JsiiInterface(typeof(IIInterfaceWithOptionalMethodArguments), "jsii-calc.IInterfaceWithOptionalMethodArguments")]
     public interface IIInterfaceWithOptionalMethodArguments
     {

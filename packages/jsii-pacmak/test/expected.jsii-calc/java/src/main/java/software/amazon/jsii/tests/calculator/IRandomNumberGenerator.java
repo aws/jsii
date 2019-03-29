@@ -2,11 +2,13 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Generates random numbers.
+ * 
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 public interface IRandomNumberGenerator extends software.amazon.jsii.JsiiSerializable {
     /**
      * Returns another random number.
+     * 
      * @return A random number.
      */
     java.lang.Number next();
@@ -21,6 +23,7 @@ public interface IRandomNumberGenerator extends software.amazon.jsii.JsiiSeriali
 
         /**
          * Returns another random number.
+         * 
          * @return A random number.
          */
         @Override

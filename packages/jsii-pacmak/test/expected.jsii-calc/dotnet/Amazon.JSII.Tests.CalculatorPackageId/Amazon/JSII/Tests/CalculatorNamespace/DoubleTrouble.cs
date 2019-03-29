@@ -17,14 +17,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>Say hello!</summary>
+        /// <remarks>summary: Say hello!.</remarks>
         [JsiiMethod("hello", "{\"primitive\":\"string\"}", "[]")]
         public virtual string Hello()
         {
             return InvokeInstanceMethod<string>(new object[]{});
         }
 
-        /// <summary>Returns another random number.</summary>
+        /// <remarks>summary: Returns another random number.</remarks>
         [JsiiMethod("next", "{\"primitive\":\"number\"}", "[]")]
         public virtual double Next()
         {

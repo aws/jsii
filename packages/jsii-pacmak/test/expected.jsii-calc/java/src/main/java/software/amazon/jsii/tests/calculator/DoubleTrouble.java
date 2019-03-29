@@ -12,7 +12,8 @@ public class DoubleTrouble extends software.amazon.jsii.JsiiObject implements so
     }
 
     /**
-     * Say hello!
+     * Say hello!.
+     * 
      */
     @Override
     public java.lang.String hello() {
@@ -21,6 +22,7 @@ public class DoubleTrouble extends software.amazon.jsii.JsiiObject implements so
 
     /**
      * Returns another random number.
+     * 
      */
     @Override
     public java.lang.Number next() {

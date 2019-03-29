@@ -3,7 +3,7 @@ using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.composition
 {
-    /// <summary>Abstract operation composed from an expression of other operations.</summary>
+    /// <remarks>summary: Abstract operation composed from an expression of other operations.</remarks>
     [JsiiTypeProxy(typeof(CompositeOperation_), "jsii-calc.composition.CompositeOperation")]
     internal sealed class CompositeOperationProxy : CompositeOperation_
     {
@@ -11,10 +11,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
         {
         }
 
-        /// <summary>
-        /// The expression that this operation consists of.
-        /// Must be implemented by derived classes.
-        /// </summary>
+        /// <remarks>
+        /// remarks: Must be implemented by derived classes.
+        /// summary: The expression that this operation consists of.
+        /// </remarks>
         [JsiiProperty("expression", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public override Value_ Expression
         {

@@ -2,14 +2,17 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation
 {
-    /// <summary>Style of .toString() output for CompositeOperation.</summary>
+    /// <remarks>
+    /// remarks: toString() output for CompositeOperation.
+    /// summary: Style of .
+    /// </remarks>
     [JsiiEnum(typeof(CompositionStringStyle), "jsii-calc.composition.CompositeOperation.CompositionStringStyle")]
     public enum CompositionStringStyle
     {
-        /// <summary>Normal string expression</summary>
+        /// <remarks>summary: Normal string expression.</remarks>
         [JsiiEnumMember("Normal")]
         Normal,
-        /// <summary>Decorated string expression</summary>
+        /// <remarks>summary: Decorated string expression.</remarks>
         [JsiiEnumMember("Decorated")]
         Decorated
     }

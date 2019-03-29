@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace
 {
-    /// <summary>A base class.</summary>
+    /// <remarks>summary: A base class.</remarks>
     [JsiiTypeProxy(typeof(Base), "@scope/jsii-calc-base.Base")]
     internal sealed class BaseProxy : Base
     {

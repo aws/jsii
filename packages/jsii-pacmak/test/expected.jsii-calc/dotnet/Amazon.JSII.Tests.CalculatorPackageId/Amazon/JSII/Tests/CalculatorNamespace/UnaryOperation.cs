@@ -3,7 +3,7 @@ using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>An operation on a single operand.</summary>
+    /// <remarks>summary: An operation on a single operand.</remarks>
     [JsiiClass(typeof(UnaryOperation), "jsii-calc.UnaryOperation", "[{\"name\":\"operand\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
     public abstract class UnaryOperation : Operation
     {

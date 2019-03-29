@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>A calculator which maintains a current value and allows adding operations.</summary>
+    /// <remarks>summary: A calculator which maintains a current value and allows adding operations.</remarks>
     [JsiiClass(typeof(Calculator), "jsii-calc.Calculator", "[{\"name\":\"props\",\"type\":{\"fqn\":\"jsii-calc.CalculatorProps\",\"optional\":true}}]")]
     public class Calculator : CompositeOperation_
     {
@@ -21,28 +21,28 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>Returns the expression.</summary>
+        /// <remarks>summary: Returns the expression.</remarks>
         [JsiiProperty("expression", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public override Value_ Expression
         {
             get => GetInstanceProperty<Value_>();
         }
 
-        /// <summary>A log of all operations.</summary>
+        /// <remarks>summary: A log of all operations.</remarks>
         [JsiiProperty("operationsLog", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}")]
         public virtual Value_[] OperationsLog
         {
             get => GetInstanceProperty<Value_[]>();
         }
 
-        /// <summary>A map of per operation name of all operations performed.</summary>
+        /// <remarks>summary: A map of per operation name of all operations performed.</remarks>
         [JsiiProperty("operationsMap", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}}}")]
         public virtual IDictionary<string, Value_[]> OperationsMap
         {
             get => GetInstanceProperty<IDictionary<string, Value_[]>>();
         }
 
-        /// <summary>The current value.</summary>
+        /// <remarks>summary: The current value.</remarks>
         [JsiiProperty("curr", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public virtual Value_ Curr
         {
@@ -50,7 +50,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        /// <summary>The maximum value allows in this calculator.</summary>
+        /// <remarks>summary: The maximum value allows in this calculator.</remarks>
         [JsiiProperty("maxValue", "{\"primitive\":\"number\",\"optional\":true}")]
         public virtual double? MaxValue
         {
@@ -58,7 +58,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        /// <summary>Example of a property that accepts a union of types.</summary>
+        /// <remarks>summary: Example of a property that accepts a union of types.</remarks>
         [JsiiProperty("unionProperty", "{\"union\":{\"types\":[{\"fqn\":\"jsii-calc.Add\"},{\"fqn\":\"jsii-calc.Multiply\"},{\"fqn\":\"jsii-calc.Power\"}]},\"optional\":true}")]
         public virtual object UnionProperty
         {
@@ -66,35 +66,35 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        /// <summary>Adds a number to the current value.</summary>
+        /// <remarks>summary: Adds a number to the current value.</remarks>
         [JsiiMethod("add", null, "[{\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]
         public virtual void Add(double value)
         {
             InvokeInstanceVoidMethod(new object[]{value});
         }
 
-        /// <summary>Multiplies the current value by a number.</summary>
+        /// <remarks>summary: Multiplies the current value by a number.</remarks>
         [JsiiMethod("mul", null, "[{\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]
         public virtual void Mul(double value)
         {
             InvokeInstanceVoidMethod(new object[]{value});
         }
 
-        /// <summary>Negates the current value.</summary>
+        /// <remarks>summary: Negates the current value.</remarks>
         [JsiiMethod("neg", null, "[]")]
         public virtual void Neg()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        /// <summary>Raises the current value by a power.</summary>
+        /// <remarks>summary: Raises the current value by a power.</remarks>
         [JsiiMethod("pow", null, "[{\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]
         public virtual void Pow(double value)
         {
             InvokeInstanceVoidMethod(new object[]{value});
         }
 
-        /// <summary>Returns teh value of the union property (if defined).</summary>
+        /// <remarks>summary: Returns teh value of the union property (if defined).</remarks>
         [JsiiMethod("readUnionValue", "{\"primitive\":\"number\"}", "[]")]
         public virtual double ReadUnionValue()
         {

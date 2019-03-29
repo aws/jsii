@@ -9,15 +9,17 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>Returns another random number.</summary>
-        /// <returns>A random number.</returns>
+        /// <remarks>
+        /// returns: A random number.
+        /// summary: Returns another random number.
+        /// </remarks>
         [JsiiMethod("next", "{\"primitive\":\"number\"}", "[]")]
         public double Next()
         {
             return InvokeInstanceMethod<double>(new object[]{});
         }
 
-        /// <summary>Say hello!</summary>
+        /// <remarks>summary: Say hello!.</remarks>
         [JsiiMethod("hello", "{\"primitive\":\"string\"}", "[]")]
         public string Hello()
         {

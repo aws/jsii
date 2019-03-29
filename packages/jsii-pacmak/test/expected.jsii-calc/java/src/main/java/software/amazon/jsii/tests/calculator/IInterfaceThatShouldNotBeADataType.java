@@ -1,8 +1,8 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Even though this interface has only properties, it is disqualified from being a datatype
- * because it inherits from an interface that is not a datatype.
+ * Even though this interface has only properties, it is disqualified from being a datatype because it inherits from an interface that is not a datatype.
+ * 
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 public interface IInterfaceThatShouldNotBeADataType extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.IInterfaceWithMethods {

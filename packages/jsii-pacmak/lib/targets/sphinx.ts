@@ -525,8 +525,8 @@ class SphinxDocsGenerator extends Generator {
         this.renderMethodParameters(method);
 
         // @return doc
-        if (method.docs && method.docs.return) {
-            const [firstLine, ...rest] = method.docs.return.split('\n');
+        if (method.docs && method.docs.returns) {
+            const [firstLine, ...rest] = method.docs.returns.split('\n');
             this.code.line(`:return: ${firstLine}`);
             rest.forEach(line => this.code.line(`   ${line}`));
         }
@@ -551,8 +551,8 @@ class SphinxDocsGenerator extends Generator {
         this.code.line();
         doclines.split('\n').forEach(line => this.code.line(line + '\n'));
 
-        if (element.docs && element.docs.link) {
-            this.code.line(element.docs.link);
+        if (element.docs && element.docs.seeLink) {
+            this.code.line(element.docs.seeLink);
         }
 
         this.code.line();
@@ -564,8 +564,12 @@ class SphinxDocsGenerator extends Generator {
         }
 
         const lines = new Array<string>();
-        if (element.docs.comment) {
-            lines.push(element.docs.comment);
+        if (element.docs.summary) {
+            lines.push(element.docs.summary);
+        }
+        if (element.docs.remarks) {
+            lines.push('');
+            lines.push(element.docs.remarks);
         }
 
         if (newlines) {

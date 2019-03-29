@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Represents an operation with two operands.</summary>
+    /// <remarks>summary: Represents an operation with two operands.</remarks>
     [JsiiTypeProxy(typeof(BinaryOperation), "jsii-calc.BinaryOperation")]
     internal sealed class BinaryOperationProxy : BinaryOperation
     {
@@ -10,14 +10,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>The value.</summary>
+        /// <remarks>summary: The value.</remarks>
         [JsiiProperty("value", "{\"primitive\":\"number\"}")]
         public override double Value
         {
             get => GetInstanceProperty<double>();
         }
 
-        /// <summary>String representation of the value.</summary>
+        /// <remarks>summary: String representation of the value.</remarks>
         [JsiiMethod("toString", "{\"primitive\":\"string\"}", "[]")]
         public override string ToString()
         {

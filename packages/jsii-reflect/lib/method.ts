@@ -3,11 +3,20 @@ import { Assembly } from './assembly';
 import { Docs, Documentable } from './docs';
 import { Overridable } from './overridable';
 import { Parameter } from './parameter';
+import { Property } from './property';
 import { Type } from './type';
+import { MemberKind, TypeMember } from './type-member';
 import { TypeReference } from './type-ref';
 import { TypeSystem } from './type-system';
 
-export class Method implements Documentable, Overridable {
+/**
+ * Symbolic name for the constructor
+ */
+export const INITIALIZER_NAME = '<initializer>';
+
+export class Method implements Documentable, Overridable, TypeMember {
+  public readonly kind = MemberKind.Method;
+
   constructor(
     public readonly system: TypeSystem,
     public readonly assembly: Assembly,
@@ -26,7 +35,7 @@ export class Method implements Documentable, Overridable {
    */
   public get name(): string {
     if (this.initializer) {
-      return '<initializer>';
+      return INITIALIZER_NAME;
     }
 
     if (!this.spec.name) {
@@ -95,6 +104,9 @@ export class Method implements Documentable, Overridable {
   }
 
   public get docs(): Docs {
-    return new Docs(this.system, this, this.spec.docs);
+    return new Docs(this.system, this, this.spec.docs || {}, this.parentType.docs);
   }
+
+  public isMethod(): this is Method { return true; }
+  public isProperty(): this is Property { return false; }
 }

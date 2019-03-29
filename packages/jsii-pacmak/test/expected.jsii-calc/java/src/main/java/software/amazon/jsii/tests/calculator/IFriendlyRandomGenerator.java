@@ -13,6 +13,7 @@ public interface IFriendlyRandomGenerator extends software.amazon.jsii.JsiiSeria
 
         /**
          * Returns another random number.
+         * 
          * @return A random number.
          */
         @Override
@@ -21,7 +22,8 @@ public interface IFriendlyRandomGenerator extends software.amazon.jsii.JsiiSeria
         }
 
         /**
-         * Say hello!
+         * Say hello!.
+         * 
          */
         @Override
         public java.lang.String hello() {

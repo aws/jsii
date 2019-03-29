@@ -2,6 +2,7 @@ package software.amazon.jsii.tests.calculator.lib;
 
 /**
  * The general contract for a concrete number.
+ * 
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 public interface IDoublable extends software.amazon.jsii.JsiiSerializable {

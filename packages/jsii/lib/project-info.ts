@@ -39,7 +39,7 @@ export interface ProjectInfo {
 }
 
 export async function loadProjectInfo(projectRoot: string): Promise<ProjectInfo> {
-    const pkg = require(path.join(projectRoot, 'package.json'));
+    const pkg = require(path.resolve(projectRoot, 'package.json'));
 
     const bundleDependencies: { [name: string]: string } = {};
     (pkg.bundleDependencies || pkg.bundledDependencies || []).forEach((name: string) => {
