@@ -92,6 +92,8 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.NumberGenerator": return software.amazon.jsii.tests.calculator.NumberGenerator.class;
             case "jsii-calc.ObjectRefsInCollections": return software.amazon.jsii.tests.calculator.ObjectRefsInCollections.class;
             case "jsii-calc.OptionalConstructorArgument": return software.amazon.jsii.tests.calculator.OptionalConstructorArgument.class;
+            case "jsii-calc.OptionalStruct": return software.amazon.jsii.tests.calculator.OptionalStruct.class;
+            case "jsii-calc.OptionalStructConsumer": return software.amazon.jsii.tests.calculator.OptionalStructConsumer.class;
             case "jsii-calc.OverrideReturnsObject": return software.amazon.jsii.tests.calculator.OverrideReturnsObject.class;
             case "jsii-calc.PartiallyInitializedThisConsumer": return software.amazon.jsii.tests.calculator.PartiallyInitializedThisConsumer.class;
             case "jsii-calc.Polymorphism": return software.amazon.jsii.tests.calculator.Polymorphism.class;

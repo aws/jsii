@@ -3343,6 +3343,59 @@
         }
       ]
     },
+    "jsii-calc.OptionalStruct": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "fqn": "jsii-calc.OptionalStruct",
+      "kind": "interface",
+      "name": "OptionalStruct",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "name": "field",
+          "type": {
+            "optional": true,
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.OptionalStructConsumer": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.OptionalStructConsumer",
+      "initializer": {
+        "initializer": true,
+        "parameters": [
+          {
+            "name": "optionalStruct",
+            "type": {
+              "fqn": "jsii-calc.OptionalStruct",
+              "optional": true
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "name": "OptionalStructConsumer",
+      "properties": [
+        {
+          "immutable": true,
+          "name": "parameterWasUndefined",
+          "type": {
+            "primitive": "boolean"
+          }
+        },
+        {
+          "immutable": true,
+          "name": "fieldValue",
+          "type": {
+            "optional": true,
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.OverrideReturnsObject": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.OverrideReturnsObject",
@@ -4580,5 +4633,5 @@
     }
   },
   "version": "0.8.2",
-  "fingerprint": "72ya8nGgXRz4NmrkTbtbKD06Kk++josvz4i1aenPmvI="
+  "fingerprint": "QQVEfUkkaxXMbXiD6wDVqdim8HdLW5L8CElwn+WdzUA="
 }

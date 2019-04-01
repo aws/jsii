@@ -1587,7 +1587,7 @@ export class ConsumersOfThisCrazyTypeSystem {
 
 //
 // Ensure the JSII kernel can pass "this" out to JSII remotes from within the constructor (this is dirty, but possible)
-///
+//
 export abstract class PartiallyInitializedThisConsumer {
     public abstract consumePartiallyInitializedThis(obj: ConstructorPassesThisOut, dt: Date, ev: AllTypesEnum): string;
 }
@@ -1599,4 +1599,20 @@ export class ConstructorPassesThisOut {
             throw new Error(`Expected OK but received ${result}`);
         }
     }
+}
+
+//
+// Consumes a possibly empty struct and verifies it is turned to undefined when passed
+//
+export class OptionalStructConsumer {
+    public readonly parameterWasUndefined: boolean;
+    public readonly fieldValue?: string;
+
+    constructor(optionalStruct?: OptionalStruct) {
+        this.parameterWasUndefined = optionalStruct === undefined;
+        this.fieldValue = optionalStruct && optionalStruct.field;
+    }
+}
+export interface OptionalStruct {
+    readonly field?: string;
 }

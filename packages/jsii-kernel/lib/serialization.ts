@@ -274,6 +274,10 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       return host.objects.registerObject(value, wireFqn);
     },
     deserialize(value, type, host) {
+      if (typeof value === 'object' && Object.keys(value || {}).length === 0) {
+        // Treat empty structs as `undefined` (see https://github.com/awslabs/jsii/issues/411)
+        value = undefined;
+      }
       if (nullAndOk(value, type)) { return undefined; }
 
       if (typeof value !== 'object' || value == null) {
