@@ -165,7 +165,7 @@ export = {
       }
     `);
 
-    test.deepEqual(assembly.types!['testpkg.Foo'].docs!.seeLink,
+    test.deepEqual(assembly.types!['testpkg.Foo'].docs!.see,
       'http://lmgtfy.com/'
     );
 

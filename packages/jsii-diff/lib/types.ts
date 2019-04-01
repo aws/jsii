@@ -3,27 +3,11 @@ import spec = require('jsii-spec');
 
 export interface ComparisonContext {
   /**
-   * Whether to treat API elements as stable if unmarked.
+   * Whether to treat API elements as experimental if unmarked.
    *
-   * @default false
+   * @default Treat as stable
    */
-  defaultStable?: boolean;
-
-  /**
-   * Whether to assume the user has written code that will read structs
-   *
-   * Structs are normally analyzed according to their input/output position
-   * in the APIs (whether they appear as argument types or as return types),
-   * and we will assume that no user has written code to read a struct that
-   * otherwise only appears in input position in the API.
-   *
-   * Setting this to 'true' treats all input structs as output structs at the
-   * same type (meaning, for example, they cannot make previously required
-   * arguments optional).
-   *
-   * @default false
-   */
-  assumeStructReaders?: boolean;
+  defaultExperimental?: boolean;
 
   /**
    * Where to report errors
@@ -62,5 +46,5 @@ export function describeType(type: reflect.Type) {
 }
 
 export function shouldInspect(context: ComparisonContext): (x: reflect.Documentable) => boolean {
-  return x => x.docs.stability === spec.Stability.Stable || (x.docs.stability === undefined && !!context.defaultStable);
+  return x => x.docs.stability === spec.Stability.Stable || (x.docs.stability === undefined && !context.defaultExperimental);
 }

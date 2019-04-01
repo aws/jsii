@@ -221,7 +221,7 @@ export interface Docs {
     /**
      * A `@see` link with more information
      */
-    seeLink?: string;
+    see?: string;
 
     /**
      * Description of the default

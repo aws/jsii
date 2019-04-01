@@ -60,12 +60,17 @@ export function parseSymbolDocumentation(comments: string | undefined, tags: ts.
   docs.deprecated = eatTag('deprecated');
   docs.example = eatTag('example');
   docs.returns = eatTag('returns', 'return');
-  docs.seeLink = eatTag('see');
+  docs.see = eatTag('see');
 
   const experimental = eatTag('experimental') !== undefined;
   const stable = eatTag('stable') !== undefined;
 
   if (docs.example && docs.example.indexOf('```') >= 0) {
+    // This is currently what the JSDoc standard expects, and VSCode highlights it in
+    // this way as well. TSDoc disagrees and says that examples start in text mode
+    // which I tend to agree with, but that hasn't become a widely used standard yet.
+    //
+    // So we conform to existing reality.
     diagnostics.push('@example must be code only, no code block fences allowed.');
   }
 

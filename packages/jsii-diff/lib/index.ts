@@ -1,6 +1,6 @@
 import reflect = require('jsii-reflect');
 import log4js = require('log4js');
-import { compareClass, compareInterface } from './classes-ifaces';
+import { compareReferenceType, compareStruct } from './classes-ifaces';
 import { compareEnum } from './enums';
 import { ComparisonContext, describeType, shouldInspect } from './types';
 
@@ -22,13 +22,21 @@ export function compareAssemblies(original: reflect.Assembly, updated: reflect.A
 
 export function compareClasses(original: reflect.Assembly, updated: reflect.Assembly, context: ComparisonContext) {
   for (const [origClass, updatedClass] of typePairs(original.classes, updated, context)) {
-    compareClass(origClass, updatedClass, context);
+    compareReferenceType(origClass, updatedClass, context);
   }
 }
 
 export function compareInterfaces(original: reflect.Assembly, updated: reflect.Assembly, context: ComparisonContext) {
   for (const [origIface, updatedIface] of typePairs(original.interfaces, updated, context)) {
-    compareInterface(origIface, updatedIface, context);
+    if (origIface.datatype !== updatedIface.datatype) {
+      context.mismatches.report(origIface, `used to be a ${interfaceType(origIface.datatype)}, is now a ${interfaceType(updatedIface.datatype)}.`);
+      continue;
+    }
+    if (origIface.datatype) {
+      compareStruct(origIface, updatedIface, context);
+    } else {
+      compareReferenceType(origIface, updatedIface, context);
+    }
   }
 }
 
@@ -55,4 +63,8 @@ function* typePairs<T extends reflect.Type>(xs: T[], updatedAssembly: reflect.As
 
     yield [origType, updatedType as T]; // Trust me I know what I'm doing
   }
+}
+
+function interfaceType(dataType: boolean) {
+  return dataType ? 'struct' : 'behavioral interface';
 }

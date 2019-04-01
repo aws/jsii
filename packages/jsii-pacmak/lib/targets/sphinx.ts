@@ -551,8 +551,8 @@ class SphinxDocsGenerator extends Generator {
         this.code.line();
         doclines.split('\n').forEach(line => this.code.line(line + '\n'));
 
-        if (element.docs && element.docs.seeLink) {
-            this.code.line(element.docs.seeLink);
+        if (element.docs && element.docs.see) {
+            this.code.line(element.docs.see);
         }
 
         this.code.line();

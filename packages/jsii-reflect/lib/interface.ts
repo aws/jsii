@@ -2,38 +2,16 @@ import jsii = require('jsii-spec');
 import { Assembly } from './assembly';
 import { Method } from './method';
 import { Property } from './property';
-import { Type } from './type';
-import { TypeMember } from './type-member';
+import { ReferenceType } from './reference-type';
 import { TypeSystem } from './type-system';
 import { indexBy } from './util';
 
-export class InterfaceType extends Type {
+export class InterfaceType extends ReferenceType {
   constructor(
     public system: TypeSystem,
     public assembly: Assembly,
     private interfaceSpec: jsii.InterfaceType) {
     super(system, assembly, interfaceSpec);
-  }
-
-  /**
-   * All the base interfaces that this interface extends.
-   */
-  public get interfaces(): InterfaceType[] {
-    return this.getInterfaces();
-  }
-
-  /**
-   * List of methods.
-   */
-  public get methods(): Method[] {
-    return Object.values(this.getMethods());
-  }
-
-  /**
-   * List of properties.
-   */
-  public get properties(): Property[] {
-    return Object.values(this.getProperties());
   }
 
   /**
@@ -106,16 +84,4 @@ export class InterfaceType extends Type {
   public isInterfaceType() {
     return true;
   }
-
-  public getMembers(inherited = false): {[name: string]: TypeMember} {
-    return Object.assign(
-      this.getMethods(inherited),
-      this.getProperties(inherited)
-    );
-  }
-
-  public get members(): TypeMember[] {
-    return Object.values(this.getMembers(false));
-  }
-
 }

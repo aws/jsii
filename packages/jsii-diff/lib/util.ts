@@ -14,10 +14,12 @@ export async function inTempDir<T>(block: () => Promise<T>): Promise<T> {
   const origDir = process.cwd();
   const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'jsii'));
   process.chdir(tmpDir);
-  const ret = await block();
-  process.chdir(origDir);
-  await fs.remove(tmpDir);
-  return ret;
+  try {
+    return await block();
+  } finally {
+    process.chdir(origDir);
+    await fs.remove(tmpDir);
+  }
 }
 
 export async function downloadNpmPackage<T>(pkg: string, block: (dir: string) => Promise<T>): Promise<T> {

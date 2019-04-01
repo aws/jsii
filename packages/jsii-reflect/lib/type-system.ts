@@ -166,8 +166,8 @@ export class TypeSystem {
   public get methods() {
     const out = new Array<Method>();
     this.assemblies.forEach(a => {
-      a.interfaces.forEach(t => out.push(...t.methods));
-      a.classes.forEach(t => out.push(...t.methods));
+      a.interfaces.forEach(t => out.push(...t.ownMethods));
+      a.classes.forEach(t => out.push(...t.ownMethods));
     });
     return out;
   }
@@ -175,8 +175,8 @@ export class TypeSystem {
   public get properties() {
     const out = new Array<Property>();
     this.assemblies.forEach(a => {
-      a.interfaces.forEach(t => out.push(...t.properties));
-      a.classes.forEach(t => out.push(...t.properties));
+      a.interfaces.forEach(t => out.push(...t.ownProperties));
+      a.classes.forEach(t => out.push(...t.ownProperties));
     });
     return out;
   }

@@ -33,7 +33,6 @@ async function compare(original: string, updated: string): Promise<Mismatches> {
   const mismatches = new Mismatches();
   compareAssemblies(originalAssembly, updatedAssembly, {
     mismatches,
-    defaultStable: true // Default stable so tests are less noisy (don't need to write @stable everywhere)
    });
 
   return mismatches;

@@ -30,8 +30,10 @@ export = {
 
   // ----------------------------------------------------------------------
 
-  async 'okay to add an argument to a method'(test: Test) {
-    await expectNoError(test, `
+  async 'not okay to add a required argument to a method'(test: Test) {
+    await expectError(test,
+      /newly required argument/,
+      `
       export class Foo {
         public foo(arg1: string): void {
           Array.isArray(arg1);
@@ -73,6 +75,30 @@ export = {
 
   // ----------------------------------------------------------------------
 
+  async 'okay to turn required arguments into varargs'(test: Test) {
+    await expectNoError(test,
+      `
+      export class Foo {
+        public foo(arg1: string, arg2: number, arg3: number): void {
+          Array.isArray(arg1);
+          Array.isArray(arg2);
+          Array.isArray(arg3);
+        }
+      }
+    `, `
+      export class Foo {
+        public foo(arg1: string, ...args: number[]): void {
+          Array.isArray(arg1);
+          Array.isArray(args);
+        }
+      }
+    `);
+
+    test.done();
+  },
+
+  // ----------------------------------------------------------------------
+
   async 'not allowed to change argument type to a different scalar'(test: Test) {
     await expectError(test,
       /method foo argument arg1, takes number \(formerly string\): string is not assignable to number/,
@@ -85,183 +111,6 @@ export = {
     `, `
       export class Foo {
         public foo(arg1: number): void {
-          Array.isArray(arg1);
-        }
-      }
-    `);
-
-    test.done();
-  },
-
-  // ----------------------------------------------------------------------
-
-  async 'cannot add required fields to an input struct'(test: Test) {
-    await expectError(test,
-      /required property 'super' used to be missing/,
-      `
-      export interface Henk {
-        readonly henk: string;
-      }
-      export class Foo {
-        public foo(arg1: Henk): void {
-          Array.isArray(arg1);
-        }
-      }
-    `, `
-      export interface Henk {
-        readonly henk: string;
-        readonly super: string;
-      }
-      export class Foo {
-        public foo(arg1: Henk): void {
-          Array.isArray(arg1);
-        }
-      }
-    `);
-
-    test.done();
-  },
-
-  // ----------------------------------------------------------------------
-
-  async 'can add required fields to an output struct'(test: Test) {
-    await expectNoError(test,
-      `
-      export interface Henk {
-        readonly henk: string;
-      }
-      export class Foo {
-        public foo(): Henk {
-          return { henk: 'henk' };
-        }
-      }
-    `, `
-      export interface Henk {
-        readonly henk: string;
-        readonly super: string;
-      }
-      export class Foo {
-        public foo(): Henk {
-          return { henk: 'henk', super: 'super' };
-        }
-      }
-    `);
-
-    test.done();
-  },
-
-  // ----------------------------------------------------------------------
-
-  async 'can change argument type to a supertype if it adds only optional fields'(test: Test) {
-    await expectNoError(test,
-      `
-      export interface Henk {
-        readonly henk: string;
-      }
-      export class Foo {
-        public foo(arg1: Henk): void {
-          Array.isArray(arg1);
-        }
-      }
-    `, `
-      export interface Super {
-        readonly super?: string;
-      }
-      export interface Henk extends Super {
-        readonly henk: string;
-      }
-      export class Foo {
-        public foo(arg1: Super): void {
-          Array.isArray(arg1);
-        }
-      }
-    `);
-
-    test.done();
-  },
-
-  // ----------------------------------------------------------------------
-
-  async 'cannot take fields away from input struct'(test: Test) {
-    // Legal in TypeScript, but illegal in Java/C#
-    await expectError(test,
-      /member piet has been removed/,
-      `
-      export interface Henk {
-        readonly henk: string;
-        readonly piet: string;
-      }
-      export class Foo {
-        public foo(arg1: Henk): void {
-          Array.isArray(arg1);
-        }
-      }
-    `, `
-      export interface Henk {
-        readonly henk: string;
-      }
-      export class Foo {
-        public foo(arg1: Henk): void {
-          Array.isArray(arg1);
-        }
-      }
-    `);
-
-    test.done();
-  },
-
-  // ----------------------------------------------------------------------
-
-  async 'cannot take fields away from output struct'(test: Test) {
-    await expectError(test,
-      /formerly required property 'piet' is missing/,
-      `
-      export interface Henk {
-        readonly henk: string;
-        readonly piet: string;
-      }
-      export class Foo {
-        public foo(): Henk {
-          return { henk: 'henk', piet: 'piet' };
-        }
-      }
-    `, `
-      export interface Henk {
-        readonly henk: string;
-      }
-      export class Foo {
-        public foo(): Henk {
-          return { henk: 'henk' };
-        }
-      }
-    `);
-
-    test.done();
-  },
-
-  // ----------------------------------------------------------------------
-
-  async 'cannot change argument type to a supertype it adds required fields'(test: Test) {
-    await expectError(test,
-      /required property 'super' used to be missing/,
-      `
-      export interface Henk {
-        readonly henk: string;
-      }
-      export class Foo {
-        public foo(arg1: Henk): void {
-          Array.isArray(arg1);
-        }
-      }
-    `, `
-      export interface Super {
-        readonly super: string;
-      }
-      export interface Henk extends Super {
-        readonly henk: string;
-      }
-      export class Foo {
-        public foo(arg1: Super): void {
           Array.isArray(arg1);
         }
       }
@@ -358,21 +207,82 @@ export = {
 
   // ----------------------------------------------------------------------
 
-  async 'can make an input struct property optional'(test: Test) {
+  async 'consider inherited constructor'(test: Test) {
+    await expectError(test,
+      /number is not assignable to string/,
+      `
+      export class Super {
+        constructor(param: number) {
+          Array.isArray(param);
+        }
+      }
+      export class Sub extends Super {
+      }
+    `, `
+      export class Super {
+        constructor(param: number) {
+          Array.isArray(param);
+        }
+      }
+      export class Sub extends Super {
+        constructor(param: string) {
+          super(5);
+          Array.isArray(param);
+        }
+      }
+    `);
+
+    test.done();
+  },
+
+  // ----------------------------------------------------------------------
+
+  async 'consider inherited constructor, the other way'(test: Test) {
+    await expectError(test,
+      /newly required argument/,
+      `
+      export class Super {
+        constructor(param: number) {
+          Array.isArray(param);
+        }
+      }
+      export class Sub extends Super {
+        constructor() {
+          super(5);
+        }
+      }
+    `, `
+      export class Super {
+        constructor(param: number) {
+          Array.isArray(param);
+        }
+      }
+      export class Sub extends Super {
+      }
+    `);
+
+    test.done();
+  },
+
+  // ----------------------------------------------------------------------
+
+  async 'method can be moved to supertype'(test: Test) {
     await expectNoError(test,
       `
-      export interface Henk {
-        readonly henk: string;
+      export class Super {
       }
-      export class Actions {
-        useHenk(henk: Henk) { Array.isArray(henk); }
+      export class Sub extends Super {
+        public foo(param: number) {
+          Array.isArray(param);
+        }
       }
     `, `
-      export interface Henk {
-        readonly henk?: string;
+      export class Super {
+        public foo(param: number) {
+          Array.isArray(param);
+        }
       }
-      export class Actions {
-        useHenk(henk: Henk) { Array.isArray(henk); }
+      export class Sub extends Super {
       }
     `);
 
@@ -381,46 +291,19 @@ export = {
 
   // ----------------------------------------------------------------------
 
-  async 'cannot make an input struct property required'(test: Test) {
-    await expectError(test,
-      /newly required property 'henk' used to be optional in testpkg.Henk/,
+  async 'property can be moved to supertype'(test: Test) {
+    await expectNoError(test,
       `
-      export interface Henk {
-        readonly henk?: string;
+      export class Super {
       }
-      export class Actions {
-        useHenk(henk: Henk) { Array.isArray(henk); }
+      export class Sub extends Super {
+        public foo: string = 'foo';
       }
     `, `
-      export interface Henk {
-        readonly henk: string;
+      export class Super {
+        public foo: string = 'foo';
       }
-      export class Actions {
-        useHenk(henk: Henk) { Array.isArray(henk); }
-      }
-    `);
-
-    test.done();
-  },
-
-  // ----------------------------------------------------------------------
-
-  async 'cannot make an output struct property optional'(test: Test) {
-    await expectError(test,
-      /formerly required property 'henk' is optional in testpkg.Henk/,
-      `
-      export interface Henk {
-        readonly henk: string;
-      }
-      export class Actions {
-        returnHenk(): Henk { return { henk: 'henk' }; }
-      }
-    `, `
-      export interface Henk {
-        readonly henk?: string;
-      }
-      export class Actions {
-        returnHenk(): Henk { return {}; }
+      export class Sub extends Super {
       }
     `);
 

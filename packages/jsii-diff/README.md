@@ -7,19 +7,27 @@ now it will compare assemblies for API compatibility, and exit
 with a non-zero exit code if any **stable** APIs have had incompatible
 changes.
 
-API items that have no stability are treated as **experimental** (i.e.,
-do not affect API compatibility.
+API items that have no stability are treated as **stable**. To treat
+unmarked API items as experimental, pass the `--default-experimental` flag.
 
 ## Usage
 
 To compare two JSII packages:
 
-    jsii-diff <path/to/old> [path/to/new]
+    jsii-diff <old> [new]
+
+Packages can be identified by either:
+
+* **A path**, in which case it should be the path to a JSII package directory,
+  or to a `.jsii` file.
+* **An NPM package specifier** of the form `npm:[<package>[@version]]`, in
+  which case the indicated version is downloaded and used. If `@version` is
+  left out, the latest version will be used. If `package` is left out,
+  the assembly name of `.jsii` in the current directory will be used.
 
 To compare current package against latest published NPM release:
 
-    # Can leave out . for current directory
-    jsii-diff npm:package [.]
+    jsii-diff npm:
 
 ## Details
 
@@ -29,50 +37,71 @@ does this by verifying the following properties:
 
 - Any type (class/interface/enum) in **A** must also exist in **B**.
 - Enums have only added members.
-- Classes and behavioral interfaces have only added members, restricted
-  property types and method return types, and only widened argument types.
+- Classes and interfaces have only added members, or modified existing
+  members in an allowed way.
+- Property types are the same or have been strengthened (see below).
+- Methods have only added optional arguments, existing argument types have
+  only been weakened, and the return type has only been strengthened (see below).
 
-### Subclassing
+### Strengthening and weakening
 
-In principle, in order to stay API compatible no members can ever be added to
-interfaces, and no abstract members can ever be added to classes. This is
-because any user of the library could be implementing the interface or could
-be inheriting frmo the class. In those cases, the addition of an abstract
-member would break their code, since they wouldn't be implementing that
-member yet.
+- *Strengthening* a type refers to *excluding* more possible values. Changing
+  a field from `optional` to `required`, or changing a type from `any` to
+  `string` are examples of strengthening.
 
-Because this contract is a little too restrictive for evolution of libraries,
-we assume most interfaces will only be implemented by library classes, so we
-can disregard burden on implementors as part of API compatibility evaluation.
+- As the opposite of strengthening, *weakening* refers to *allowing* more
+  possible values. Changing a field from `required` to `optional`, or
+  changing a type to a superclass or interface are examples of weakening.
 
-If an interface or class is intended to be subclassed by library users,
-annotate it with the `@subclassable` annotation. In that case, we will make
-sure no (abstract) members are added to it.
+An API can change in the following way without breaking its consumer:
+
+- It can *weaken* its input (require *less* from the caller); and
+- It can *strengthen* its output (guarantee *more* to the caller).
 
 ### Struct types
 
-Structs (data types, interfaces consisting completely of `readonly`
-properties) are treated as bags of data. Their API compatibility will be
-evaluated depending on whether they appear in input or output position of
-operations. For example, a struct that is used as a method argument is in
-input position, and if the struct is the return type of the method it is
-in output position.
+Structs (interfaces consisting completely of `readonly` properties) are
+treated as bags of data. Their API compatibility will be evaluated depending
+on whether they appear in input or output position of operations.
 
-Input structs may be *weakened*: they may require *less* information in a
-newer version. For example, arguments that used to be required may be made
-optional.
-
-Similarly, output structs may be *strengthened*: they may provide *more*
-information. They may add new fields, or make optional fields required.
+- Structs are *weakened* if all types of all of its properties are weakened.
+  Normally removing properties would also be considered weakening, but
+  because that may cause references to the fields in existing code bases to
+  become undefined (which is not allowed in most programming languages) we
+  disallow removing properties.
+- Structs are *strengthened* if all types of all of its properties are
+  strengthened, or if fields are added.
 
 __jsii-diff__ will check the evolution of structs against their position
-in an operation.
+in an operation, similar to other types. Input structs may be weakened,
+and output structs may be strengthened.
 
-Not completely in-line with weakening is that fields may not be taken away
-from input structs: in most languages a consumer may not provide undeclared
-fields, so taking away a field may break the Java/C#/Python declaration that
-assigns a value to the field. Therefore, though technically removing fields
-would be weakening the contract and should be allowed, it is not.
+### Reference types
+
+Classes and non-struct interface types are considered "reference types". By
+default we treat them as being the result of a function call:
+
+* Class instances are the return values calling their constructors.
+* Interfaces are only ever implemented by objects returned from the framework,
+  or returned by factory functions.
+
+This means their evolution falls under the rules of "strengthening": they
+may only add fields, never take any away or make them optional.
+
+#### `@subclassable`
+
+Some classes or interfaces may be intended to be implemented by consumers.
+Those should be marked with the docstring tag `@subclassable`.
+
+This will effectively cause changes against those types to be checked against
+the rules for weakening as well (i.e., no new (abstract) fields or members
+added). This is necessary because otherwise any existing implementor of that
+interface would be broken, since they wouldn't be implementing the new
+abstract members yet.
+
+`@subclassable` is not the default since most interfaces are not intended
+for subclassing, but treating them as such would limit the evolvability of
+libraries too much.
 
 ## License
 

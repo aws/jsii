@@ -1,5 +1,6 @@
 import fs = require('fs-extra');
 import reflect = require('jsii-reflect');
+import spec = require('jsii-spec');
 import log4js = require('log4js');
 import yargs = require('yargs');
 import { compareAssemblies } from '../lib';
@@ -13,8 +14,7 @@ async function main(): Promise<number> {
   const argv = yargs
       .env('JSII_DIFF')
       .option('verbose', { alias: 'v', type: 'count', desc: 'Increase the verbosity of output', global: true })
-      .option('stable', { alias: 's', type: 'boolean', desc: 'Treat unmarked APIs as stable' })
-      .option('struct-readers', { alias: 'r', type: 'boolean', desc: 'Assume all structs are read by user code regardless of their I/O position.' })
+      .option('default-experimental', { alias: 'e', type: 'boolean', desc: 'Treat unmarked APIs as experimental', default: false })
       .usage('$0 <original> [updated]', 'Compare two JSII assemblies.', args => args
         .positional('original', {
           description: 'Original assembly (file, package or "npm:package@version")',
@@ -47,8 +47,7 @@ async function main(): Promise<number> {
   LOG.info(`Starting analysis`);
   compareAssemblies(original, updated, {
     mismatches,
-    defaultStable: argv.stable,
-    assumeStructReaders: argv["struct-readers"]
+    defaultExperimental: argv["default-experimental"],
   });
 
   LOG.info(`Found ${mismatches.count} issues`);
@@ -69,12 +68,23 @@ async function main(): Promise<number> {
 
 async function loadAssembly(name: string) {
   if (name.startsWith('npm:')) {
-    const pkg = name.substring(4);
-    if (!pkg) { throw new Error(`Missing NPM package name: ${name}`); }
+    let pkg = name.substring(4);
+    if (!pkg) { pkg = await loadPackageNameFromAssembly(); }
     return await downloadNpmPackage(pkg, loadFromFilesystem);
   } else {
     return await loadFromFilesystem(name);
   }
+}
+
+async function loadPackageNameFromAssembly(): Promise<string> {
+  const JSII_ASSEMBLY_FILE = '.jsii';
+  if (!await fs.pathExists(JSII_ASSEMBLY_FILE)) {
+    throw new Error(`No NPM package name given and no ${JSII_ASSEMBLY_FILE} file in the current directory. Please specify a package name.`);
+  }
+  const module = await fs.readJSON(JSII_ASSEMBLY_FILE, { encoding: 'utf-8' }) as spec.Assembly;
+  if (!module.name) { throw new Error(`Could not find package in ${JSII_ASSEMBLY_FILE}`); }
+
+  return module.name;
 }
 
 async function loadFromFilesystem(name: string) {

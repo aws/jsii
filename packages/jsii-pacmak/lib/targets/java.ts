@@ -901,7 +901,7 @@ class JavaGenerator extends Generator {
         emit('');
 
         if (docs.returns) { emit(`@return ${docs.returns}`); }
-        if (docs.seeLink) { emit(`@see ${docs.seeLink}`); }
+        if (docs.see) { emit(`@see ${docs.see}`); }
         if (docs.deprecated) { emit(`@deprecated ${docs.deprecated}`); }
 
         // Params
