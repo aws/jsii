@@ -1,4 +1,4 @@
-///!MATCH_ERROR: Attempted to implement a struct from class Illegal
+///!MATCH_ERROR: Attempted to implement struct jsii.Struct from class jsii.Illegal
 
 // Attempt to implement a Struct (aka data type) will fail.
 export interface Struct {
