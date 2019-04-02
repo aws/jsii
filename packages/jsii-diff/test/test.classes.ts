@@ -309,4 +309,23 @@ export = {
 
     test.done();
   },
+
+  // ----------------------------------------------------------------------
+
+  async 'subclassable is forever'(test: Test) {
+    await expectError(test,
+      /has gone from @subclassable to non-@subclassable/,
+      `
+      /**
+       * @subclassable
+       */
+      export class Super {
+      }
+    `, `
+      export class Super {
+      }
+    `);
+
+    test.done();
+  },
 };

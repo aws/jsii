@@ -26,6 +26,10 @@ export class Docs {
     return ret.join('\n');
   }
 
+  public get isSubclassable(): boolean {
+    return !!this.docs.subclassable;
+  }
+
   /**
    * Return the reason for deprecation of this type
    */

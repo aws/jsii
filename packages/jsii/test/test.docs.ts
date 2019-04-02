@@ -251,6 +251,24 @@ export = {
   },
 
   // ----------------------------------------------------------------------
+  async 'can mark subclassable'(test: Test) {
+    const assembly = await compile(`
+      /**
+       * Become this Foo
+       *
+       * @subclassable
+       */
+      export class Foo {
+      }
+    `);
+
+    const classType = assembly.types!['testpkg.Foo'] as spec.ClassType;
+
+    test.equal(classType.docs!.subclassable, true);
+    test.done();
+  },
+
+  // ----------------------------------------------------------------------
   async 'can add arbitrary tags'(test: Test) {
     const assembly = await compile(`
       /**

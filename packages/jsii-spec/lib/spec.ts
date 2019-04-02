@@ -224,6 +224,16 @@ export interface Docs {
     see?: string;
 
     /**
+     * Whether this class or interface was intended to be subclassed/implemented by library users.
+     *
+     * Classes intended for subclassing, and interfaces intended to be implemented
+     * by consumers, are held to stricter standards of API compatibility.
+     *
+     * @default false
+     */
+    subclassable?: boolean;
+
+    /**
      * Description of the default
      */
     default?: string;

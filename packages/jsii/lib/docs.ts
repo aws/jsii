@@ -61,6 +61,7 @@ export function parseSymbolDocumentation(comments: string | undefined, tags: ts.
   docs.example = eatTag('example');
   docs.returns = eatTag('returns', 'return');
   docs.see = eatTag('see');
+  docs.subclassable = eatTag('subclassable') !== undefined ? true : undefined;
 
   const experimental = eatTag('experimental') !== undefined;
   const stable = eatTag('stable') !== undefined;

@@ -23,6 +23,10 @@ export function compareReferenceType<T extends reflect.ReferenceType>(original: 
     }
   }
 
+  if (original.docs.isSubclassable && !updated.docs.isSubclassable) {
+    context.mismatches.report(original, 'has gone from @subclassable to non-@subclassable');
+  }
+
   for (const [origMethod, updatedMethod] of memberPairs(original, original.allMethods, updated, context)) {
     compareMethod(original, origMethod, updatedMethod, context);
   }
@@ -123,7 +127,7 @@ function compareMethod(origClass: reflect.Type, original: reflect.Method, update
  * Check if a class/interface has been marked as @subclassable
  */
 function subclassableType(x: reflect.Documentable) {
-  return x.docs.customTag('subclassable') !== undefined;
+  return x.docs.isSubclassable;
 }
 
 /**
