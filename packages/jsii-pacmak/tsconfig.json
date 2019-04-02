@@ -57,5 +57,7 @@
   ],
   "references": [{
     "path": "../jsii-spec"
+  }, {
+    "path": "../codemaker"
   }]
 }

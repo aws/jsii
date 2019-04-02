@@ -8,8 +8,8 @@
     "jsii-runtime": "bin/jsii-runtime"
   },
   "scripts": {
-    "build": "tsc && chmod +x bin/jsii-runtime && /bin/bash ./bundle.sh",
-    "watch": "tsc -w",
+    "build": "tsc --build && chmod +x bin/jsii-runtime && /bin/bash ./bundle.sh",
+    "watch": "tsc --build -w",
     "test": "/bin/bash test/playback-test.sh",
     "package": "package-js"
   },
