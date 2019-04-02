@@ -187,6 +187,7 @@
   },
   "description": "A simple calcuator built on JSII.",
   "homepage": "https://github.com/awslabs/jsii.git",
+  "jsiiVersion": "0.8.2",
   "license": "Apache-2.0",
   "name": "jsii-calc",
   "readme": {
@@ -4632,5 +4633,5 @@
     }
   },
   "version": "0.8.2",
-  "fingerprint": "CSV1TF9zK+8oZfXWIov5XOKrTmFIpov07DaTV3k1IfA="
+  "fingerprint": "GihU8+thuZ1W9TNwDba1Ux44Rac3+kUHUCrGH73N0tw="
 }

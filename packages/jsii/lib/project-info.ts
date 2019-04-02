@@ -31,6 +31,7 @@ export interface ProjectInfo {
     readonly transitiveDependencies: ReadonlyArray<spec.Assembly>;
     readonly bundleDependencies: { readonly [name: string]: string };
     readonly targets: spec.AssemblyTargets;
+    readonly jsiiVersionFormat: 'short' | 'full';
     readonly description?: string;
     readonly homepage?: string;
     readonly contributors?: ReadonlyArray<spec.Person>;
@@ -87,6 +88,7 @@ export async function loadProjectInfo(projectRoot: string): Promise<ProjectInfo>
             ..._required(pkg.jsii, 'The "package.json" file must specify the "jsii" attribute').targets,
             js: { npm: pkg.name }
         },
+        jsiiVersionFormat: _validateVersionFormat(pkg.jsii.versionFormat || 'full'),
 
         description: pkg.description,
         homepage: pkg.homepage,
@@ -181,4 +183,11 @@ function _validateLicense(id: string): string {
         throw new Error(`Invalid license identifier "${id}", see valid license identifiers at https://spdx.org/licenses/`);
     }
     return id;
+}
+
+function _validateVersionFormat(format: string): 'short' | 'full' {
+    if (format !== 'short' && format !== 'full') {
+        throw new Error(`Invalid jsii.versionFormat "${format}", it must be either "short" or "full" (the default)`);
+    }
+    return format;
 }

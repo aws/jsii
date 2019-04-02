@@ -6,12 +6,16 @@ commit=${CODEBUILD_RESOLVED_SOURCE_VERSION:-}
 # use the HEAD commit hash
 if [ -z "${commit}" ]; then
   commit="$(git rev-parse --verify HEAD)"
+  suffix="@dev"
 fi
 
 cat > lib/version.ts <<HERE
 // Generated at $(date -u +"%Y-%m-%dT%H:%M:%SZ") by generate.sh
+// tslint:disable:no-var-requires
 
-/** The qualified version number for this JSII compiler. */
-// tslint:disable-next-line:no-var-requires
-export const VERSION = \`\${require('../package.json').version.replace(/\\+[0-9a-f]+\$/, '')} (build ${commit:0:7})\`;
+/** The short version number for this JSII compiler (e.g: \`X.Y.Z\`) */
+export const SHORT_VERSION = require('../package.json').version.replace(/\\+[0-9a-f]+\$/, '');
+
+/** The qualified version number for this JSII compiler (e.g: \`X.Y.Z (build #######)\`) */
+export const VERSION = \`\${SHORT_VERSION} (build ${commit:0:7}${suffix:-})\`;
 HERE

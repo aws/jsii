@@ -67,7 +67,7 @@ Edit your `package.json`:
 ```js
 {
   // ...
-  
+
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
@@ -97,14 +97,14 @@ Edit your `package.json`:
 
 So, what's going on here?
 
-* The `jsii` section in your `package.json` is the [jsii configuration](#configuration) for your module. 
+* The `jsii` section in your `package.json` is the [jsii configuration](#configuration) for your module.
   It tells jsii which target languages to package, and includes additional required information for the
   jsii packager.
-* `npm run build` uses `jsii` to compile your code. It invokes the TypeScript compiler (`tsc`) and will compile 
+* `npm run build` uses `jsii` to compile your code. It invokes the TypeScript compiler (`tsc`) and will compile
   your .ts files into .js files.
-* `npm run watch` will invoke `tsc -w` which will monitor your filesystem for changes and recompile 
+* `npm run watch` will invoke `tsc -w` which will monitor your filesystem for changes and recompile
    your .ts files to .js (note that jsii errors will not be reported in this mode)
-* `npm run package` invokes `jsii-pacmak`, which is the __jsii packager__. It will generate _and compile_ your 
+* `npm run package` invokes `jsii-pacmak`, which is the __jsii packager__. It will generate _and compile_ your
    package to all target languages. The output packages will be emitted to `outdir` (in the above case `dist`).
 * Other required `package.json` fields: `license`, `main`, `types`.
 
@@ -198,30 +198,30 @@ Now, if you check out the contents of `dist`, you'll find:
 
 ```
 ├── dotnet
-│   └── Acme.Hello.nupkg
+│   └── Acme.Hello.nupkg
 ├── java
-│   └── com
-│       └── acme
-│           └── hello
-│               └── hello-jsii
-│                   ├── 1.0.0
-│                   │   ├── hello-jsii-1.0.0-javadoc.jar
-│                   │   ├── hello-jsii-1.0.0-javadoc.jar.md5
-│                   │   ├── hello-jsii-1.0.0-javadoc.jar.sha1
-│                   │   ├── hello-jsii-1.0.0-sources.jar
-│                   │   ├── hello-jsii-1.0.0-sources.jar.md5
-│                   │   ├── hello-jsii-1.0.0-sources.jar.sha1
-│                   │   ├── hello-jsii-1.0.0.jar
-│                   │   ├── hello-jsii-1.0.0.jar.md5
-│                   │   ├── hello-jsii-1.0.0.jar.sha1
-│                   │   ├── hello-jsii-1.0.0.pom
-│                   │   ├── hello-jsii-1.0.0.pom.md5
-│                   │   └── hello-jsii-1.0.0.pom.sha1
-│                   ├── maven-metadata.xml
-│                   ├── maven-metadata.xml.md5
-│                   └── maven-metadata.xml.sha1
+│   └── com
+│       └── acme
+│           └── hello
+│               └── hello-jsii
+│                   ├── 1.0.0
+│                   │   ├── hello-jsii-1.0.0-javadoc.jar
+│                   │   ├── hello-jsii-1.0.0-javadoc.jar.md5
+│                   │   ├── hello-jsii-1.0.0-javadoc.jar.sha1
+│                   │   ├── hello-jsii-1.0.0-sources.jar
+│                   │   ├── hello-jsii-1.0.0-sources.jar.md5
+│                   │   ├── hello-jsii-1.0.0-sources.jar.sha1
+│                   │   ├── hello-jsii-1.0.0.jar
+│                   │   ├── hello-jsii-1.0.0.jar.md5
+│                   │   ├── hello-jsii-1.0.0.jar.sha1
+│                   │   ├── hello-jsii-1.0.0.pom
+│                   │   ├── hello-jsii-1.0.0.pom.md5
+│                   │   └── hello-jsii-1.0.0.pom.sha1
+│                   ├── maven-metadata.xml
+│                   ├── maven-metadata.xml.md5
+│                   └── maven-metadata.xml.sha1
 ├── js
-│   └── hello-jsii@1.0.0.jsii.tgz
+│   └── hello-jsii@1.0.0.jsii.tgz
 └── sphinx
     └── hello-jsii.rst
 ```

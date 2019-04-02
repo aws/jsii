@@ -12,6 +12,7 @@ import literate = require('./literate');
 import { ProjectInfo } from './project-info';
 import utils = require('./utils');
 import { Validator } from './validator';
+import { VERSION, SHORT_VERSION } from './version';
 
 // tslint:disable:no-var-requires Modules without TypeScript definitions
 const sortJson = require('sort-json');
@@ -94,13 +95,15 @@ export class Assembler implements Emitter {
             }
         }
 
+        const jsiiVersion = this.projectInfo.jsiiVersionFormat === 'short' ? SHORT_VERSION : VERSION;
+
         const assembly = {
             schema: spec.SchemaVersion.V1_0,
             name: this.projectInfo.name,
             version: this.projectInfo.version,
             description: this.projectInfo.description || this.projectInfo.name,
             license: this.projectInfo.license,
-            homepage: this.projectInfo.homepage || this.projectInfo.repository.url,
+            homepage: this.projectInfo.homepage || this.projectInfo.repository.url,
             author: this.projectInfo.author,
             contributors: this.projectInfo.contributors && [...this.projectInfo.contributors],
             repository: this.projectInfo.repository,
@@ -109,6 +112,7 @@ export class Assembler implements Emitter {
             types: this._types,
             targets: this.projectInfo.targets,
             readme,
+            jsiiVersion,
             fingerprint: '<TBD>'
         };
 
@@ -615,7 +619,7 @@ export class Assembler implements Emitter {
      *
      * @returns ``documentable``
      */
-    private _visitDocumentation<T extends spec.Documentable>(symbol: ts.Symbol | ts.Signature, documentable: T): T {
+    private _visitDocumentation<T extends spec.Documentable>(symbol: ts.Symbol | ts.Signature, documentable: T): T {
         const comment = ts.displayPartsToString(symbol.getDocumentationComment(this._typeChecker)).trim();
         if (comment) {
             if (LOG.isTraceEnabled()) {

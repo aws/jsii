@@ -5,6 +5,7 @@ import nodeunit = require('nodeunit');
 import os = require('os');
 import path = require('path');
 import { loadProjectInfo } from '../lib/project-info';
+import { VERSION } from '../lib/version';
 
 const BASE_PROJECT = {
     name: 'jsii-test',
@@ -177,7 +178,8 @@ const TEST_DEP_ASSEMBLY: spec.Assembly = {
         'jsii-test-dep-dep': {
             version: '3.2.1'
         }
-    }
+    },
+    jsiiVersion: VERSION,
 };
 
 const TEST_DEP_DEP_ASSEMBLY: spec.Assembly = {
@@ -189,6 +191,7 @@ const TEST_DEP_DEP_ASSEMBLY: spec.Assembly = {
     homepage: 'https://github.com/awslabs/jsii',
     repository: { type: 'git', url: 'git://github.com/awslabs/jsii.git' },
     author: { name: 'Amazon Web Services', url: 'https://aws.amazon.com', organization: true, roles: ['author'] },
+    jsiiVersion: VERSION,
     fingerprint: 'F1NG3RPR1N7'
 };
 

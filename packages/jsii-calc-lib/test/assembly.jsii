@@ -61,6 +61,7 @@
   },
   "description": "A simple calcuator library built on JSII.",
   "homepage": "https://github.com/awslabs/jsii.git",
+  "jsiiVersion": "0.8.2",
   "license": "Apache-2.0",
   "name": "@scope/jsii-calc-lib",
   "repository": {
@@ -371,5 +372,5 @@
     }
   },
   "version": "0.8.2",
-  "fingerprint": "8L8bV6COHcJBBT5CbQ4Bzwu5ZlT6VBMCXxB1S1TPczw="
+  "fingerprint": "ydArnwt9qdOM1IiBaOFzS2A7t9/+na0q+OibmkwQrEg="
 }
