@@ -47,6 +47,7 @@ assemblies
  │   ├── class NumberGenerator
  │   ├── class ObjectRefsInCollections
  │   ├── class OptionalConstructorArgument
+ │   ├── class OptionalStructConsumer
  │   ├── class OverrideReturnsObject
  │   ├── class PartiallyInitializedThisConsumer
  │   ├── class Polymorphism
@@ -96,6 +97,7 @@ assemblies
  │   ├── interface Hello
  │   ├── interface LoadBalancedFargateServiceProps
  │   ├── interface NullShouldBeTreatedAsUndefinedData
+ │   ├── interface OptionalStruct
  │   ├── interface UnionProperties
  │   ├── enum AllTypesEnum
  │   ├── enum StringEnum
