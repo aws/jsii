@@ -9,8 +9,7 @@
         "organization": true
     },
     "bin": {
-        "jsii": "bin/jsii",
-        "jsii-fix-peers": "bin/jsii-fix-peers"
+        "jsii": "bin/jsii"
     },
     "scripts": {
         "build": "cp ../../README.md . && bash ./generate.sh && tsc --build",
