@@ -230,7 +230,7 @@
       },
       "interfaces": [
         {
-          "fqn": "jsii-calc.InterfaceImplementedByAbstractClass"
+          "fqn": "jsii-calc.IInterfaceImplementedByAbstractClass"
         }
       ],
       "kind": "class",
@@ -263,7 +263,7 @@
           "immutable": true,
           "name": "propFromInterface",
           "overrides": {
-            "fqn": "jsii-calc.InterfaceImplementedByAbstractClass"
+            "fqn": "jsii-calc.IInterfaceImplementedByAbstractClass"
           },
           "type": {
             "primitive": "string"
@@ -308,7 +308,7 @@
         {
           "name": "giveMeInterface",
           "returns": {
-            "fqn": "jsii-calc.InterfaceImplementedByAbstractClass"
+            "fqn": "jsii-calc.IInterfaceImplementedByAbstractClass"
           }
         }
       ],
@@ -2032,6 +2032,25 @@
       "kind": "interface",
       "name": "IFriendlyRandomGenerator"
     },
+    "jsii-calc.IInterfaceImplementedByAbstractClass": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "comment": "awslabs/jsii#220\nAbstract return type"
+      },
+      "fqn": "jsii-calc.IInterfaceImplementedByAbstractClass",
+      "kind": "interface",
+      "name": "IInterfaceImplementedByAbstractClass",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "name": "propFromInterface",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.IInterfaceThatShouldNotBeADataType": {
       "assembly": "jsii-calc",
       "docs": {
@@ -2408,26 +2427,6 @@
         }
       ],
       "name": "InbetweenClass"
-    },
-    "jsii-calc.InterfaceImplementedByAbstractClass": {
-      "assembly": "jsii-calc",
-      "datatype": true,
-      "docs": {
-        "comment": "awslabs/jsii#220\nAbstract return type"
-      },
-      "fqn": "jsii-calc.InterfaceImplementedByAbstractClass",
-      "kind": "interface",
-      "name": "InterfaceImplementedByAbstractClass",
-      "properties": [
-        {
-          "abstract": true,
-          "immutable": true,
-          "name": "propFromInterface",
-          "type": {
-            "primitive": "string"
-          }
-        }
-      ]
     },
     "jsii-calc.InterfaceInNamespaceIncludesClasses.Foo": {
       "assembly": "jsii-calc",
@@ -4633,5 +4632,5 @@
     }
   },
   "version": "0.8.2",
-  "fingerprint": "QQVEfUkkaxXMbXiD6wDVqdim8HdLW5L8CElwn+WdzUA="
+  "fingerprint": "CSV1TF9zK+8oZfXWIov5XOKrTmFIpov07DaTV3k1IfA="
 }

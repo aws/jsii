@@ -524,6 +524,9 @@ assemblies
  │   │   └── goodbye() method
  │   ├─┬ interface IFriendlyRandomGenerator
  │   │ └── members
+ │   ├─┬ interface IInterfaceImplementedByAbstractClass
+ │   │ └─┬ members
+ │   │   └── propFromInterface property
  │   ├─┬ interface IInterfaceThatShouldNotBeADataType
  │   │ └─┬ members
  │   │   └── otherValue property
@@ -569,9 +572,6 @@ assemblies
  │   ├─┬ interface ImplictBaseOfBase
  │   │ └─┬ members
  │   │   └── goo property
- │   ├─┬ interface InterfaceImplementedByAbstractClass
- │   │ └─┬ members
- │   │   └── propFromInterface property
  │   ├─┬ interface Hello
  │   │ └─┬ members
  │   │   └── foo property

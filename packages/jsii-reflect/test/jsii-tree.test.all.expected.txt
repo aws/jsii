@@ -7,7 +7,7 @@ assemblies
  │ └─┬ types
  │   ├─┬ class AbstractClass
  │   │ ├── base: AbstractClassBase
- │   │ ├── interfaces: InterfaceImplementedByAbstractClass
+ │   │ ├── interfaces: IInterfaceImplementedByAbstractClass
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
@@ -37,7 +37,7 @@ assemblies
  │   │   ├─┬ giveMeAbstract() method
  │   │   │ └── returns: class:jsii-calc.AbstractClass
  │   │   ├─┬ giveMeInterface() method
- │   │   │ └── returns: interface:jsii-calc.InterfaceImplementedByAbstractClass
+ │   │   │ └── returns: interface:jsii-calc.IInterfaceImplementedByAbstractClass
  │   │   └─┬ returnAbstractFromProperty property
  │   │     ├── immutable
  │   │     └── type: class:jsii-calc.AbstractClassBase
@@ -1269,6 +1269,12 @@ assemblies
  │   │ │ ├── IRandomNumberGenerator
  │   │ │ └── IFriendly
  │   │ └── members
+ │   ├─┬ interface IInterfaceImplementedByAbstractClass
+ │   │ └─┬ members
+ │   │   └─┬ propFromInterface property
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: primitive:string
  │   ├─┬ interface IInterfaceThatShouldNotBeADataType
  │   │ ├─┬ interfaces
  │   │ │ └── IInterfaceWithMethods
@@ -1367,12 +1373,6 @@ assemblies
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: primitive:date
- │   ├─┬ interface InterfaceImplementedByAbstractClass
- │   │ └─┬ members
- │   │   └─┬ propFromInterface property
- │   │     ├── abstract
- │   │     ├── immutable
- │   │     └── type: primitive:string
  │   ├─┬ interface Hello
  │   │ └─┬ members
  │   │   └─┬ foo property

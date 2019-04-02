@@ -1056,7 +1056,7 @@ export interface IInterfaceWithOptionalMethodArguments {
  * Abstract return type
  */
 
-export interface InterfaceImplementedByAbstractClass {
+export interface IInterfaceImplementedByAbstractClass {
     readonly propFromInterface: string;
 }
 
@@ -1064,7 +1064,7 @@ export abstract class AbstractClassBase {
     public abstract readonly abstractProperty: string;
 }
 
-export abstract class AbstractClass extends AbstractClassBase implements InterfaceImplementedByAbstractClass {
+export abstract class AbstractClass extends AbstractClassBase implements IInterfaceImplementedByAbstractClass {
     public nonAbstractMethod() {
         return 42;
     }
@@ -1091,7 +1091,7 @@ export class AbstractClassReturner {
         return new ConcreteClass();
     }
 
-    public giveMeInterface(): InterfaceImplementedByAbstractClass {
+    public giveMeInterface(): IInterfaceImplementedByAbstractClass {
         return new ConcreteClass();
     }
 

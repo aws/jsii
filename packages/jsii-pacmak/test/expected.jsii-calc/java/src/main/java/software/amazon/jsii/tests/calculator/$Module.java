@@ -55,6 +55,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.IAnotherPublicInterface": return software.amazon.jsii.tests.calculator.IAnotherPublicInterface.class;
             case "jsii-calc.IFriendlier": return software.amazon.jsii.tests.calculator.IFriendlier.class;
             case "jsii-calc.IFriendlyRandomGenerator": return software.amazon.jsii.tests.calculator.IFriendlyRandomGenerator.class;
+            case "jsii-calc.IInterfaceImplementedByAbstractClass": return software.amazon.jsii.tests.calculator.IInterfaceImplementedByAbstractClass.class;
             case "jsii-calc.IInterfaceThatShouldNotBeADataType": return software.amazon.jsii.tests.calculator.IInterfaceThatShouldNotBeADataType.class;
             case "jsii-calc.IInterfaceWithInternal": return software.amazon.jsii.tests.calculator.IInterfaceWithInternal.class;
             case "jsii-calc.IInterfaceWithMethods": return software.amazon.jsii.tests.calculator.IInterfaceWithMethods.class;
@@ -74,7 +75,6 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.ImplementsPrivateInterface": return software.amazon.jsii.tests.calculator.ImplementsPrivateInterface.class;
             case "jsii-calc.ImplictBaseOfBase": return software.amazon.jsii.tests.calculator.ImplictBaseOfBase.class;
             case "jsii-calc.InbetweenClass": return software.amazon.jsii.tests.calculator.InbetweenClass.class;
-            case "jsii-calc.InterfaceImplementedByAbstractClass": return software.amazon.jsii.tests.calculator.InterfaceImplementedByAbstractClass.class;
             case "jsii-calc.InterfaceInNamespaceIncludesClasses.Foo": return software.amazon.jsii.tests.calculator.InterfaceInNamespaceIncludesClasses.Foo.class;
             case "jsii-calc.InterfaceInNamespaceIncludesClasses.Hello": return software.amazon.jsii.tests.calculator.InterfaceInNamespaceIncludesClasses.Hello.class;
             case "jsii-calc.InterfaceInNamespaceOnlyInterface.Hello": return software.amazon.jsii.tests.calculator.InterfaceInNamespaceOnlyInterface.Hello.class;
