@@ -1603,6 +1603,7 @@ export class ConstructorPassesThisOut {
 
 //
 // Consumes a possibly empty struct and verifies it is turned to undefined when passed
+// See: https://github.com/awslabs/jsii/issues/411
 //
 export class OptionalStructConsumer {
     public readonly parameterWasUndefined: boolean;
