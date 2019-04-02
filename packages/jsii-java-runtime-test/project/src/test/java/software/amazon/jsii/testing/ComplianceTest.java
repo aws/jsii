@@ -27,7 +27,7 @@ import software.amazon.jsii.tests.calculator.IInterfaceWithProperties;
 import software.amazon.jsii.tests.calculator.IPublicInterface;
 import software.amazon.jsii.tests.calculator.IRandomNumberGenerator;
 import software.amazon.jsii.tests.calculator.InbetweenClass;
-import software.amazon.jsii.tests.calculator.InterfaceImplementedByAbstractClass;
+import software.amazon.jsii.tests.calculator.IInterfaceImplementedByAbstractClass;
 import software.amazon.jsii.tests.calculator.JSObjectLiteralForInterface;
 import software.amazon.jsii.tests.calculator.JSObjectLiteralToNative;
 import software.amazon.jsii.tests.calculator.JSObjectLiteralToNativeClass;
@@ -868,7 +868,7 @@ public class ComplianceTest {
         assertEquals("propFromInterfaceValue", obj2.getPropFromInterface());
         assertEquals(42, obj2.nonAbstractMethod());
 
-        InterfaceImplementedByAbstractClass iface = obj.giveMeInterface();
+        IInterfaceImplementedByAbstractClass iface = obj.giveMeInterface();
         assertEquals("propFromInterfaceValue", iface.getPropFromInterface());
 
         assertEquals("hello-abstract-property", obj.getReturnAbstractFromProperty().getAbstractProperty());
@@ -877,6 +877,7 @@ public class ComplianceTest {
     @Test
     public void doNotOverridePrivates_method_public() {
         DoNotOverridePrivates obj = new DoNotOverridePrivates() {
+            @SuppressWarnings("unused")
             public String privateMethod() {
                 return "privateMethod-Override";
             }
@@ -888,6 +889,7 @@ public class ComplianceTest {
     @Test
     public void doNotOverridePrivates_method_private() {
         DoNotOverridePrivates obj = new DoNotOverridePrivates() {
+            @SuppressWarnings("unused")
             private String privateMethod() {
                 return "privateMethod-Override";
             }
@@ -899,6 +901,7 @@ public class ComplianceTest {
     @Test
     public void doNotOverridePrivates_property_by_name_private() {
         DoNotOverridePrivates obj = new DoNotOverridePrivates() {
+            @SuppressWarnings("unused")
             private String privateProperty() {
                 return "privateProperty-Override";
             }
@@ -910,6 +913,7 @@ public class ComplianceTest {
     @Test
     public void doNotOverridePrivates_property_by_name_public() {
         DoNotOverridePrivates obj = new DoNotOverridePrivates() {
+            @SuppressWarnings("unused")
             public String privateProperty() {
                 return "privateProperty-Override";
             }
@@ -921,9 +925,11 @@ public class ComplianceTest {
     @Test
     public void doNotOverridePrivates_property_getter_public() {
         DoNotOverridePrivates obj = new DoNotOverridePrivates() {
+            @SuppressWarnings("unused")
             public String getPrivateProperty() {
                 return "privateProperty-Override";
             }
+            @SuppressWarnings("unused")
             public void setPrivateProperty(String value) {
                 throw new RuntimeException("Boom");
             }
@@ -939,9 +945,11 @@ public class ComplianceTest {
     @Test
     public void doNotOverridePrivates_property_getter_private() {
         DoNotOverridePrivates obj = new DoNotOverridePrivates() {
+            @SuppressWarnings("unused")
             private String getPrivateProperty() {
                 return "privateProperty-Override";
             }
+            @SuppressWarnings("unused")
             public void setPrivateProperty(String value) {
                 throw new RuntimeException("Boom");
             }

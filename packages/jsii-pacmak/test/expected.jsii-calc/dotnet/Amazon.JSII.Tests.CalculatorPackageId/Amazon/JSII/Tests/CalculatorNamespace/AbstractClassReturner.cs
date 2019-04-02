@@ -29,10 +29,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<AbstractClass>(new object[]{});
         }
 
-        [JsiiMethod("giveMeInterface", "{\"fqn\":\"jsii-calc.InterfaceImplementedByAbstractClass\"}", "[]")]
-        public virtual IInterfaceImplementedByAbstractClass GiveMeInterface()
+        [JsiiMethod("giveMeInterface", "{\"fqn\":\"jsii-calc.IInterfaceImplementedByAbstractClass\"}", "[]")]
+        public virtual IIInterfaceImplementedByAbstractClass GiveMeInterface()
         {
-            return InvokeInstanceMethod<IInterfaceImplementedByAbstractClass>(new object[]{});
+            return InvokeInstanceMethod<IIInterfaceImplementedByAbstractClass>(new object[]{});
         }
     }
 }

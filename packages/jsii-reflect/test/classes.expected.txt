@@ -50,6 +50,7 @@ ObjectRefsInCollections
 Old
 Operation
 OptionalConstructorArgument
+OptionalStructConsumer
 OverrideReturnsObject
 PartiallyInitializedThisConsumer
 Polymorphism

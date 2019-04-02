@@ -1056,7 +1056,7 @@ export interface IInterfaceWithOptionalMethodArguments {
  * Abstract return type
  */
 
-export interface InterfaceImplementedByAbstractClass {
+export interface IInterfaceImplementedByAbstractClass {
     readonly propFromInterface: string;
 }
 
@@ -1064,7 +1064,7 @@ export abstract class AbstractClassBase {
     public abstract readonly abstractProperty: string;
 }
 
-export abstract class AbstractClass extends AbstractClassBase implements InterfaceImplementedByAbstractClass {
+export abstract class AbstractClass extends AbstractClassBase implements IInterfaceImplementedByAbstractClass {
     public nonAbstractMethod() {
         return 42;
     }
@@ -1091,7 +1091,7 @@ export class AbstractClassReturner {
         return new ConcreteClass();
     }
 
-    public giveMeInterface(): InterfaceImplementedByAbstractClass {
+    public giveMeInterface(): IInterfaceImplementedByAbstractClass {
         return new ConcreteClass();
     }
 
@@ -1587,7 +1587,7 @@ export class ConsumersOfThisCrazyTypeSystem {
 
 //
 // Ensure the JSII kernel can pass "this" out to JSII remotes from within the constructor (this is dirty, but possible)
-///
+//
 export abstract class PartiallyInitializedThisConsumer {
     public abstract consumePartiallyInitializedThis(obj: ConstructorPassesThisOut, dt: Date, ev: AllTypesEnum): string;
 }
@@ -1599,4 +1599,21 @@ export class ConstructorPassesThisOut {
             throw new Error(`Expected OK but received ${result}`);
         }
     }
+}
+
+//
+// Consumes a possibly empty struct and verifies it is turned to undefined when passed
+// See: https://github.com/awslabs/jsii/issues/411
+//
+export class OptionalStructConsumer {
+    public readonly parameterWasUndefined: boolean;
+    public readonly fieldValue?: string;
+
+    constructor(optionalStruct?: OptionalStruct) {
+        this.parameterWasUndefined = optionalStruct === undefined;
+        this.fieldValue = optionalStruct && optionalStruct.field;
+    }
+}
+export interface OptionalStruct {
+    readonly field?: string;
 }

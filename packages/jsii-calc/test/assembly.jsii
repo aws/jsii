@@ -230,7 +230,7 @@
       },
       "interfaces": [
         {
-          "fqn": "jsii-calc.InterfaceImplementedByAbstractClass"
+          "fqn": "jsii-calc.IInterfaceImplementedByAbstractClass"
         }
       ],
       "kind": "class",
@@ -263,7 +263,7 @@
           "immutable": true,
           "name": "propFromInterface",
           "overrides": {
-            "fqn": "jsii-calc.InterfaceImplementedByAbstractClass"
+            "fqn": "jsii-calc.IInterfaceImplementedByAbstractClass"
           },
           "type": {
             "primitive": "string"
@@ -308,7 +308,7 @@
         {
           "name": "giveMeInterface",
           "returns": {
-            "fqn": "jsii-calc.InterfaceImplementedByAbstractClass"
+            "fqn": "jsii-calc.IInterfaceImplementedByAbstractClass"
           }
         }
       ],
@@ -2108,6 +2108,25 @@
       "kind": "interface",
       "name": "IFriendlyRandomGenerator"
     },
+    "jsii-calc.IInterfaceImplementedByAbstractClass": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "summary": "awslabs/jsii#220 Abstract return type."
+      },
+      "fqn": "jsii-calc.IInterfaceImplementedByAbstractClass",
+      "kind": "interface",
+      "name": "IInterfaceImplementedByAbstractClass",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "name": "propFromInterface",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.IInterfaceThatShouldNotBeADataType": {
       "assembly": "jsii-calc",
       "docs": {
@@ -2484,26 +2503,6 @@
         }
       ],
       "name": "InbetweenClass"
-    },
-    "jsii-calc.InterfaceImplementedByAbstractClass": {
-      "assembly": "jsii-calc",
-      "datatype": true,
-      "docs": {
-        "summary": "awslabs/jsii#220 Abstract return type."
-      },
-      "fqn": "jsii-calc.InterfaceImplementedByAbstractClass",
-      "kind": "interface",
-      "name": "InterfaceImplementedByAbstractClass",
-      "properties": [
-        {
-          "abstract": true,
-          "immutable": true,
-          "name": "propFromInterface",
-          "type": {
-            "primitive": "string"
-          }
-        }
-      ]
     },
     "jsii-calc.InterfaceInNamespaceIncludesClasses.Foo": {
       "assembly": "jsii-calc",
@@ -3442,6 +3441,59 @@
           "type": {
             "optional": true,
             "primitive": "date"
+          }
+        }
+      ]
+    },
+    "jsii-calc.OptionalStruct": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "fqn": "jsii-calc.OptionalStruct",
+      "kind": "interface",
+      "name": "OptionalStruct",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "name": "field",
+          "type": {
+            "optional": true,
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.OptionalStructConsumer": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.OptionalStructConsumer",
+      "initializer": {
+        "initializer": true,
+        "parameters": [
+          {
+            "name": "optionalStruct",
+            "type": {
+              "fqn": "jsii-calc.OptionalStruct",
+              "optional": true
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "name": "OptionalStructConsumer",
+      "properties": [
+        {
+          "immutable": true,
+          "name": "parameterWasUndefined",
+          "type": {
+            "primitive": "boolean"
+          }
+        },
+        {
+          "immutable": true,
+          "name": "fieldValue",
+          "type": {
+            "optional": true,
+            "primitive": "string"
           }
         }
       ]
@@ -4692,5 +4744,5 @@
     }
   },
   "version": "0.8.2",
-  "fingerprint": "f9e5nIBb09R7KQ4/oPT6MeQHjBRfFBUlTUGQ+C24TvE="
+  "fingerprint": "5UMBufIMlldzSxqgy9sSvVGc4QczbJ/LiecbY10pSzU="
 }

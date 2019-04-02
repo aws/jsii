@@ -1112,6 +1112,20 @@ defineTest('Object ID does not get re-allocated when the constructor passes "thi
     test.equal(classRef[api.TOKEN_REF], 'jsii-calc.ConstructorPassesThisOut@10001');
 });
 
+defineTest('struct: empty object is turned to undefined by deserialization', async (test, sandbox) => {
+    const object = sandbox.create({ fqn: 'jsii-calc.OptionalStructConsumer', args: [{}] });
+    const result = sandbox.get({ objref: object, property: 'parameterWasUndefined' });
+    test.ok(result.value, 'The parameter was undefined within the constructor');
+});
+
+defineTest('struct: non-empty object deserializes properly', async (test, sandbox) => {
+    const objref = sandbox.create({ fqn: 'jsii-calc.OptionalStructConsumer', args: [{ field: 'foo' }] });
+    const result = sandbox.get({ objref, property: 'parameterWasUndefined' });
+    test.ok(!result.value, 'The parameter was not undefined within the constructor');
+    const field = sandbox.get({ objref, property: 'fieldValue' });
+    test.equal('foo', field.value);
+});
+
 // =================================================================================================
 
 const testNames: { [name: string]: boolean } = { };

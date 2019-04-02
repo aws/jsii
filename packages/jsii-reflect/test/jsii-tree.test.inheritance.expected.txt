@@ -3,7 +3,7 @@ assemblies
  │ └─┬ types
  │   ├─┬ class AbstractClass
  │   │ ├── base: AbstractClassBase
- │   │ └── interfaces: InterfaceImplementedByAbstractClass
+ │   │ └── interfaces: IInterfaceImplementedByAbstractClass
  │   ├── class AbstractClassBase
  │   ├── class AbstractClassReturner
  │   ├─┬ class Add
@@ -68,6 +68,7 @@ assemblies
  │   ├── class ObjectRefsInCollections
  │   ├── class Old
  │   ├── class OptionalConstructorArgument
+ │   ├── class OptionalStructConsumer
  │   ├── class OverrideReturnsObject
  │   ├── class PartiallyInitializedThisConsumer
  │   ├── class Polymorphism
@@ -110,6 +111,7 @@ assemblies
  │   │ └─┬ interfaces
  │   │   ├── IRandomNumberGenerator
  │   │   └── IFriendly
+ │   ├── interface IInterfaceImplementedByAbstractClass
  │   ├─┬ interface IInterfaceThatShouldNotBeADataType
  │   │ └─┬ interfaces
  │   │   └── IInterfaceWithMethods
@@ -132,11 +134,11 @@ assemblies
  │   ├─┬ interface ImplictBaseOfBase
  │   │ └─┬ interfaces
  │   │   └── BaseProps
- │   ├── interface InterfaceImplementedByAbstractClass
  │   ├── interface Hello
  │   ├── interface Hello
  │   ├── interface LoadBalancedFargateServiceProps
  │   ├── interface NullShouldBeTreatedAsUndefinedData
+ │   ├── interface OptionalStruct
  │   ├── interface UnionProperties
  │   ├── enum AllTypesEnum
  │   ├── enum StringEnum

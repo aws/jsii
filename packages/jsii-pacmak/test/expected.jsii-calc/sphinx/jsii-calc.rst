@@ -153,7 +153,7 @@ AbstractClass
 
 
    :extends: :py:class:`~jsii-calc.AbstractClassBase`\ 
-   :implements: :py:class:`~jsii-calc.InterfaceImplementedByAbstractClass`\ 
+   :implements: :py:class:`~jsii-calc.IInterfaceImplementedByAbstractClass`\ 
    :abstract: Yes
 
    .. py:method:: abstractMethod(name) -> string
@@ -171,7 +171,7 @@ AbstractClass
 
    .. py:attribute:: propFromInterface
 
-      *Implements* :py:meth:`jsii-calc.InterfaceImplementedByAbstractClass.propFromInterface`
+      *Implements* :py:meth:`jsii-calc.IInterfaceImplementedByAbstractClass.propFromInterface`
 
       :type: string *(readonly)*
 
@@ -250,9 +250,9 @@ AbstractClassReturner
       :rtype: :py:class:`~jsii-calc.AbstractClass`\ 
 
 
-   .. py:method:: giveMeInterface() -> jsii-calc.InterfaceImplementedByAbstractClass
+   .. py:method:: giveMeInterface() -> jsii-calc.IInterfaceImplementedByAbstractClass
 
-      :rtype: :py:class:`~jsii-calc.InterfaceImplementedByAbstractClass`\ 
+      :rtype: :py:class:`~jsii-calc.IInterfaceImplementedByAbstractClass`\ 
 
 
    .. py:attribute:: returnAbstractFromProperty
@@ -2396,6 +2396,44 @@ IFriendlyRandomGenerator (interface)
       :abstract: Yes
 
 
+IInterfaceImplementedByAbstractClass (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: IInterfaceImplementedByAbstractClass
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.IInterfaceImplementedByAbstractClass;
+
+      .. code-tab:: javascript
+
+         // IInterfaceImplementedByAbstractClass is an interface
+
+      .. code-tab:: typescript
+
+         import { IInterfaceImplementedByAbstractClass } from 'jsii-calc';
+
+
+
+   awslabs/jsii#220 Abstract return type.
+
+
+
+
+
+   .. py:attribute:: propFromInterface
+
+      :type: string *(readonly)*
+
+
 IInterfaceThatShouldNotBeADataType (interface)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -3142,44 +3180,6 @@ InbetweenClass
 
       *Inherited from* :py:meth:`jsii-calc.PublicClass <jsii-calc.PublicClass.hello>`
 
-
-
-InterfaceImplementedByAbstractClass (interface)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. py:class:: InterfaceImplementedByAbstractClass
-
-   **Language-specific names:**
-
-   .. tabs::
-
-      .. code-tab:: c#
-
-         using Amazon.JSII.Tests.CalculatorNamespace;
-
-      .. code-tab:: java
-
-         import software.amazon.jsii.tests.calculator.InterfaceImplementedByAbstractClass;
-
-      .. code-tab:: javascript
-
-         // InterfaceImplementedByAbstractClass is an interface
-
-      .. code-tab:: typescript
-
-         import { InterfaceImplementedByAbstractClass } from 'jsii-calc';
-
-
-
-   awslabs/jsii#220 Abstract return type.
-
-
-
-
-
-   .. py:attribute:: propFromInterface
-
-      :type: string *(readonly)*
 
 
 
@@ -4437,6 +4437,80 @@ OptionalConstructorArgument
    .. py:attribute:: arg3
 
       :type: date *(optional)* *(readonly)*
+
+
+OptionalStruct (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: OptionalStruct
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.OptionalStruct;
+
+      .. code-tab:: javascript
+
+         // OptionalStruct is an interface
+
+      .. code-tab:: typescript
+
+         import { OptionalStruct } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: field
+
+      :type: string *(optional)* *(readonly)*
+
+
+OptionalStructConsumer
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: OptionalStructConsumer([optionalStruct])
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.OptionalStructConsumer;
+
+      .. code-tab:: javascript
+
+         const { OptionalStructConsumer } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { OptionalStructConsumer } from 'jsii-calc';
+
+
+
+   :param optionalStruct: 
+   :type optionalStruct: :py:class:`~jsii-calc.OptionalStruct`\  *(optional)*
+
+   .. py:attribute:: parameterWasUndefined
+
+      :type: boolean *(readonly)*
+
+
+   .. py:attribute:: fieldValue
+
+      :type: string *(optional)* *(readonly)*
 
 
 OverrideReturnsObject

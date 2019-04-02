@@ -44,7 +44,7 @@ class AbstractClassReturner(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Abstra
         return jsii.invoke(self, "giveMeAbstract", [])
 
     @jsii.member(jsii_name="giveMeInterface")
-    def give_me_interface(self) -> "InterfaceImplementedByAbstractClass":
+    def give_me_interface(self) -> "IInterfaceImplementedByAbstractClass":
         return jsii.invoke(self, "giveMeInterface", [])
 
     @property
@@ -694,6 +694,56 @@ class _IFriendlierProxy(jsii.proxy_for(scope.jsii_calc_lib.IFriendly)):
         return jsii.invoke(self, "goodbye", [])
 
 
+@jsii.interface(jsii_type="jsii-calc.IInterfaceImplementedByAbstractClass")
+class IInterfaceImplementedByAbstractClass(jsii.compat.Protocol):
+    @staticmethod
+    def __jsii_proxy_class__():
+        return _IInterfaceImplementedByAbstractClassProxy
+
+    @property
+    @jsii.member(jsii_name="propFromInterface")
+    def prop_from_interface(self) -> str:
+        ...
+
+
+class _IInterfaceImplementedByAbstractClassProxy():
+    __jsii_type__ = "jsii-calc.IInterfaceImplementedByAbstractClass"
+    @property
+    @jsii.member(jsii_name="propFromInterface")
+    def prop_from_interface(self) -> str:
+        return jsii.get(self, "propFromInterface")
+
+
+@jsii.implements(IInterfaceImplementedByAbstractClass)
+class AbstractClass(AbstractClassBase, metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.AbstractClass"):
+    @staticmethod
+    def __jsii_proxy_class__():
+        return _AbstractClassProxy
+
+    def __init__(self) -> None:
+        jsii.create(AbstractClass, self, [])
+
+    @jsii.member(jsii_name="abstractMethod")
+    @abc.abstractmethod
+    def abstract_method(self, name: str) -> str:
+        ...
+
+    @jsii.member(jsii_name="nonAbstractMethod")
+    def non_abstract_method(self) -> jsii.Number:
+        return jsii.invoke(self, "nonAbstractMethod", [])
+
+    @property
+    @jsii.member(jsii_name="propFromInterface")
+    def prop_from_interface(self) -> str:
+        return jsii.get(self, "propFromInterface")
+
+
+class _AbstractClassProxy(AbstractClass, jsii.proxy_for(AbstractClassBase)):
+    @jsii.member(jsii_name="abstractMethod")
+    def abstract_method(self, name: str) -> str:
+        return jsii.invoke(self, "abstractMethod", [name])
+
+
 @jsii.interface(jsii_type="jsii-calc.IInterfaceWithInternal")
 class IInterfaceWithInternal(jsii.compat.Protocol):
     @staticmethod
@@ -1181,40 +1231,6 @@ class ImplementsPrivateInterface(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.I
 class ImplictBaseOfBase(scope.jsii_calc_base.BaseProps, jsii.compat.TypedDict):
     goo: datetime.datetime
 
-@jsii.data_type(jsii_type="jsii-calc.InterfaceImplementedByAbstractClass")
-class InterfaceImplementedByAbstractClass(jsii.compat.TypedDict):
-    propFromInterface: str
-
-@jsii.implements(InterfaceImplementedByAbstractClass)
-class AbstractClass(AbstractClassBase, metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.AbstractClass"):
-    @staticmethod
-    def __jsii_proxy_class__():
-        return _AbstractClassProxy
-
-    def __init__(self) -> None:
-        jsii.create(AbstractClass, self, [])
-
-    @jsii.member(jsii_name="abstractMethod")
-    @abc.abstractmethod
-    def abstract_method(self, name: str) -> str:
-        ...
-
-    @jsii.member(jsii_name="nonAbstractMethod")
-    def non_abstract_method(self) -> jsii.Number:
-        return jsii.invoke(self, "nonAbstractMethod", [])
-
-    @property
-    @jsii.member(jsii_name="propFromInterface")
-    def prop_from_interface(self) -> str:
-        return jsii.get(self, "propFromInterface")
-
-
-class _AbstractClassProxy(AbstractClass, jsii.proxy_for(AbstractClassBase)):
-    @jsii.member(jsii_name="abstractMethod")
-    def abstract_method(self, name: str) -> str:
-        return jsii.invoke(self, "abstractMethod", [name])
-
-
 class InterfaceInNamespaceIncludesClasses:
     class Foo(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.InterfaceInNamespaceIncludesClasses.Foo"):
         def __init__(self) -> None:
@@ -1675,6 +1691,30 @@ class OptionalConstructorArgument(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.
     @jsii.member(jsii_name="arg3")
     def arg3(self) -> typing.Optional[datetime.datetime]:
         return jsii.get(self, "arg3")
+
+
+@jsii.data_type(jsii_type="jsii-calc.OptionalStruct")
+class OptionalStruct(jsii.compat.TypedDict, total=False):
+    field: str
+
+class OptionalStructConsumer(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.OptionalStructConsumer"):
+    def __init__(self, *, field: typing.Optional[str]=None) -> None:
+        optional_struct: OptionalStruct = {}
+
+        if field is not None:
+            optional_struct["field"] = field
+
+        jsii.create(OptionalStructConsumer, self, [optional_struct])
+
+    @property
+    @jsii.member(jsii_name="parameterWasUndefined")
+    def parameter_was_undefined(self) -> bool:
+        return jsii.get(self, "parameterWasUndefined")
+
+    @property
+    @jsii.member(jsii_name="fieldValue")
+    def field_value(self) -> typing.Optional[str]:
+        return jsii.get(self, "fieldValue")
 
 
 class OverrideReturnsObject(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.OverrideReturnsObject"):
@@ -2414,6 +2454,6 @@ class Sum(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_type="js
         return jsii.set(self, "parts", value)
 
 
-__all__ = ["AbstractClass", "AbstractClassBase", "AbstractClassReturner", "Add", "AllTypes", "AllTypesEnum", "AllowedMethodNames", "AsyncVirtualMethods", "AugmentableClass", "BinaryOperation", "Calculator", "CalculatorProps", "ClassThatImplementsTheInternalInterface", "ClassThatImplementsThePrivateInterface", "ClassWithMutableObjectLiteralProperty", "ClassWithPrivateConstructorAndAutomaticProperties", "ConstructorPassesThisOut", "Constructors", "ConsumersOfThisCrazyTypeSystem", "DefaultedConstructorArgument", "DerivedClassHasNoProperties", "DerivedStruct", "DoNotOverridePrivates", "DoNotRecognizeAnyAsOptional", "DocumentedClass", "DontComplainAboutVariadicAfterOptional", "DoubleTrouble", "EraseUndefinedHashValues", "EraseUndefinedHashValuesOptions", "ExportedBaseClass", "ExtendsInternalInterface", "ExtendsPrivateInterface", "GiveMeStructs", "Greetee", "GreetingAugmenter", "IAnotherPublicInterface", "IFriendlier", "IFriendlyRandomGenerator", "IInterfaceThatShouldNotBeADataType", "IInterfaceWithInternal", "IInterfaceWithMethods", "IInterfaceWithOptionalMethodArguments", "IInterfaceWithProperties", "IInterfaceWithPropertiesExtension", "IMutableObjectLiteral", "INonInternalInterface", "IPrivatelyImplemented", "IPublicInterface", "IPublicInterface2", "IRandomNumberGenerator", "IReturnsNumber", "ImplementInternalInterface", "ImplementsInterfaceWithInternal", "ImplementsInterfaceWithInternalSubclass", "ImplementsPrivateInterface", "ImplictBaseOfBase", "InbetweenClass", "InterfaceImplementedByAbstractClass", "InterfaceInNamespaceIncludesClasses", "InterfaceInNamespaceOnlyInterface", "JSObjectLiteralForInterface", "JSObjectLiteralToNative", "JSObjectLiteralToNativeClass", "JavaReservedWords", "JsiiAgent", "LoadBalancedFargateServiceProps", "Multiply", "Negate", "NodeStandardLibrary", "NullShouldBeTreatedAsUndefined", "NullShouldBeTreatedAsUndefinedData", "NumberGenerator", "ObjectRefsInCollections", "Old", "OptionalConstructorArgument", "OverrideReturnsObject", "PartiallyInitializedThisConsumer", "Polymorphism", "Power", "PublicClass", "PythonReservedWords", "ReferenceEnumFromScopedPackage", "ReturnsPrivateImplementationOfInterface", "RuntimeTypeChecking", "SingleInstanceTwoTypes", "Statics", "StringEnum", "StripInternal", "Sum", "SyncVirtualMethods", "Thrower", "UnaryOperation", "UnionProperties", "UseBundledDependency", "UseCalcBase", "UsesInterfaceWithProperties", "VariadicMethod", "VirtualMethodPlayground", "__jsii_assembly__", "composition"]
+__all__ = ["AbstractClass", "AbstractClassBase", "AbstractClassReturner", "Add", "AllTypes", "AllTypesEnum", "AllowedMethodNames", "AsyncVirtualMethods", "AugmentableClass", "BinaryOperation", "Calculator", "CalculatorProps", "ClassThatImplementsTheInternalInterface", "ClassThatImplementsThePrivateInterface", "ClassWithMutableObjectLiteralProperty", "ClassWithPrivateConstructorAndAutomaticProperties", "ConstructorPassesThisOut", "Constructors", "ConsumersOfThisCrazyTypeSystem", "DefaultedConstructorArgument", "DerivedClassHasNoProperties", "DerivedStruct", "DoNotOverridePrivates", "DoNotRecognizeAnyAsOptional", "DocumentedClass", "DontComplainAboutVariadicAfterOptional", "DoubleTrouble", "EraseUndefinedHashValues", "EraseUndefinedHashValuesOptions", "ExportedBaseClass", "ExtendsInternalInterface", "ExtendsPrivateInterface", "GiveMeStructs", "Greetee", "GreetingAugmenter", "IAnotherPublicInterface", "IFriendlier", "IFriendlyRandomGenerator", "IInterfaceImplementedByAbstractClass", "IInterfaceThatShouldNotBeADataType", "IInterfaceWithInternal", "IInterfaceWithMethods", "IInterfaceWithOptionalMethodArguments", "IInterfaceWithProperties", "IInterfaceWithPropertiesExtension", "IMutableObjectLiteral", "INonInternalInterface", "IPrivatelyImplemented", "IPublicInterface", "IPublicInterface2", "IRandomNumberGenerator", "IReturnsNumber", "ImplementInternalInterface", "ImplementsInterfaceWithInternal", "ImplementsInterfaceWithInternalSubclass", "ImplementsPrivateInterface", "ImplictBaseOfBase", "InbetweenClass", "InterfaceInNamespaceIncludesClasses", "InterfaceInNamespaceOnlyInterface", "JSObjectLiteralForInterface", "JSObjectLiteralToNative", "JSObjectLiteralToNativeClass", "JavaReservedWords", "JsiiAgent", "LoadBalancedFargateServiceProps", "Multiply", "Negate", "NodeStandardLibrary", "NullShouldBeTreatedAsUndefined", "NullShouldBeTreatedAsUndefinedData", "NumberGenerator", "ObjectRefsInCollections", "Old", "OptionalConstructorArgument", "OptionalStruct", "OptionalStructConsumer", "OverrideReturnsObject", "PartiallyInitializedThisConsumer", "Polymorphism", "Power", "PublicClass", "PythonReservedWords", "ReferenceEnumFromScopedPackage", "ReturnsPrivateImplementationOfInterface", "RuntimeTypeChecking", "SingleInstanceTwoTypes", "Statics", "StringEnum", "StripInternal", "Sum", "SyncVirtualMethods", "Thrower", "UnaryOperation", "UnionProperties", "UseBundledDependency", "UseCalcBase", "UsesInterfaceWithProperties", "VariadicMethod", "VirtualMethodPlayground", "__jsii_assembly__", "composition"]
 
 publication.publish()

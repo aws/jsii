@@ -7,7 +7,7 @@ assemblies
  │ └─┬ types
  │   ├─┬ class AbstractClass
  │   │ ├── base: AbstractClassBase
- │   │ ├── interfaces: InterfaceImplementedByAbstractClass
+ │   │ ├── interfaces: IInterfaceImplementedByAbstractClass
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
@@ -37,7 +37,7 @@ assemblies
  │   │   ├─┬ giveMeAbstract() method
  │   │   │ └── returns: jsii-calc.AbstractClass
  │   │   ├─┬ giveMeInterface() method
- │   │   │ └── returns: jsii-calc.InterfaceImplementedByAbstractClass
+ │   │   │ └── returns: jsii-calc.IInterfaceImplementedByAbstractClass
  │   │   └─┬ returnAbstractFromProperty property
  │   │     ├── immutable
  │   │     └── type: jsii-calc.AbstractClassBase
@@ -786,6 +786,19 @@ assemblies
  │   │   └─┬ arg3 property
  │   │     ├── immutable
  │   │     └── type: date?
+ │   ├─┬ class OptionalStructConsumer
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(optionalStruct) method
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ optionalStruct
+ │   │   │ │   └── type: jsii-calc.OptionalStruct?
+ │   │   │ └── returns: void
+ │   │   ├─┬ parameterWasUndefined property
+ │   │   │ ├── immutable
+ │   │   │ └── type: boolean
+ │   │   └─┬ fieldValue property
+ │   │     ├── immutable
+ │   │     └── type: string?
  │   ├─┬ class OverrideReturnsObject
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -1279,6 +1292,12 @@ assemblies
  │   │ │ ├── IRandomNumberGenerator
  │   │ │ └── IFriendly
  │   │ └── members
+ │   ├─┬ interface IInterfaceImplementedByAbstractClass
+ │   │ └─┬ members
+ │   │   └─┬ propFromInterface property
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: string
  │   ├─┬ interface IInterfaceThatShouldNotBeADataType
  │   │ ├─┬ interfaces
  │   │ │ └── IInterfaceWithMethods
@@ -1377,12 +1396,6 @@ assemblies
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: date
- │   ├─┬ interface InterfaceImplementedByAbstractClass
- │   │ └─┬ members
- │   │   └─┬ propFromInterface property
- │   │     ├── abstract
- │   │     ├── immutable
- │   │     └── type: string
  │   ├─┬ interface Hello
  │   │ └─┬ members
  │   │   └─┬ foo property
@@ -1427,6 +1440,12 @@ assemblies
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: any?
+ │   ├─┬ interface OptionalStruct
+ │   │ └─┬ members
+ │   │   └─┬ field property
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: string?
  │   ├─┬ interface UnionProperties
  │   │ └─┬ members
  │   │   ├─┬ bar property

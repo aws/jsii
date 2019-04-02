@@ -49,6 +49,7 @@ assemblies
  │   ├── class ObjectRefsInCollections
  │   ├── class Old
  │   ├── class OptionalConstructorArgument
+ │   ├── class OptionalStructConsumer
  │   ├── class OverrideReturnsObject
  │   ├── class PartiallyInitializedThisConsumer
  │   ├── class Polymorphism
@@ -80,6 +81,7 @@ assemblies
  │   ├── interface IAnotherPublicInterface
  │   ├── interface IFriendlier
  │   ├── interface IFriendlyRandomGenerator
+ │   ├── interface IInterfaceImplementedByAbstractClass
  │   ├── interface IInterfaceThatShouldNotBeADataType
  │   ├── interface IInterfaceWithInternal
  │   ├── interface IInterfaceWithMethods
@@ -94,11 +96,11 @@ assemblies
  │   ├── interface IRandomNumberGenerator
  │   ├── interface IReturnsNumber
  │   ├── interface ImplictBaseOfBase
- │   ├── interface InterfaceImplementedByAbstractClass
  │   ├── interface Hello
  │   ├── interface Hello
  │   ├── interface LoadBalancedFargateServiceProps
  │   ├── interface NullShouldBeTreatedAsUndefinedData
+ │   ├── interface OptionalStruct
  │   ├── interface UnionProperties
  │   ├── enum AllTypesEnum
  │   ├── enum StringEnum

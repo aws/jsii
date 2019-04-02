@@ -3,7 +3,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     [JsiiClass(typeof(AbstractClass), "jsii-calc.AbstractClass", "[]")]
-    public abstract class AbstractClass : AbstractClassBase, IInterfaceImplementedByAbstractClass
+    public abstract class AbstractClass : AbstractClassBase, IIInterfaceImplementedByAbstractClass
     {
         protected AbstractClass(): base(new DeputyProps(new object[]{}))
         {

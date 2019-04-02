@@ -335,6 +335,11 @@ assemblies
  │   │   ├── arg1 property
  │   │   ├── arg2 property
  │   │   └── arg3 property
+ │   ├─┬ class OptionalStructConsumer
+ │   │ └─┬ members
+ │   │   ├── <initializer>(optionalStruct) method
+ │   │   ├── parameterWasUndefined property
+ │   │   └── fieldValue property
  │   ├─┬ class OverrideReturnsObject
  │   │ └─┬ members
  │   │   ├── <initializer>() method
@@ -531,6 +536,9 @@ assemblies
  │   │   └── goodbye() method
  │   ├─┬ interface IFriendlyRandomGenerator
  │   │ └── members
+ │   ├─┬ interface IInterfaceImplementedByAbstractClass
+ │   │ └─┬ members
+ │   │   └── propFromInterface property
  │   ├─┬ interface IInterfaceThatShouldNotBeADataType
  │   │ └─┬ members
  │   │   └── otherValue property
@@ -576,9 +584,6 @@ assemblies
  │   ├─┬ interface ImplictBaseOfBase
  │   │ └─┬ members
  │   │   └── goo property
- │   ├─┬ interface InterfaceImplementedByAbstractClass
- │   │ └─┬ members
- │   │   └── propFromInterface property
  │   ├─┬ interface Hello
  │   │ └─┬ members
  │   │   └── foo property
@@ -596,6 +601,9 @@ assemblies
  │   │ └─┬ members
  │   │   ├── arrayWithThreeElementsAndUndefinedAsSecondArgument property
  │   │   └── thisShouldBeUndefined property
+ │   ├─┬ interface OptionalStruct
+ │   │ └─┬ members
+ │   │   └── field property
  │   ├─┬ interface UnionProperties
  │   │ └─┬ members
  │   │   ├── bar property

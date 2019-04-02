@@ -148,7 +148,7 @@ assemblies
  │   ├── IRandomNumberGenerator interface
  │   ├── IReturnsNumber interface
  │   ├── ImplictBaseOfBase interface
- │   ├── InterfaceImplementedByAbstractClass interface
+ │   ├── IInterfaceImplementedByAbstractClass interface
  │   ├── Hello interface
  │   ├── Hello interface
  │   ├── InterfaceWithProperties interface
