@@ -21,6 +21,7 @@ export = testCase({
                     url: 'https://github.com/bla/bla'
                 },
                 version: '0.0.1',
+                jsiiVersion: 'TEST',
                 license: 'NONE',
                 fingerprint: '<no-fingerprint>',
                 targets: {},

@@ -65,6 +65,12 @@ export interface Assembly extends Documentable {
     version: string;
 
     /**
+     * The version of the jsii compiler that was used to produce this Assembly.
+     * @minLength 1
+     */
+    jsiiVersion: string;
+
+    /**
      * The SPDX name of the license this assembly is distributed on.
      */
     license: string;
@@ -93,7 +99,7 @@ export interface Assembly extends Documentable {
     /**
      * The top-level readme document for this assembly (if any).
      */
-    readme?: { markdown: string };
+    readme?: { markdown: string };
 }
 
 /**

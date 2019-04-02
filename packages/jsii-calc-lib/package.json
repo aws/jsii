@@ -24,7 +24,8 @@
         "module": "scope.jsii_calc_lib"
       },
       "sphinx": {}
-    }
+    },
+    "versionFormat": "short"
   },
   "scripts": {
     "build": "jsii",

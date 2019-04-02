@@ -67,6 +67,7 @@ function _makeProjectInfo(types: string): ProjectInfo {
         main: types.replace(/(?:\.d)?\.ts(x?)/, '.js$1'),
         name: 'jsii', // That's what package.json would tell if we look up...
         version: '0.0.1',
+        jsiiVersionFormat: 'short',
         license: 'Apache-2.0',
         author: { name: 'John Doe', roles: ['author'] },
         repository: { type: 'git', url: 'https://github.com/awslabs/jsii.git' },
