@@ -62,11 +62,11 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <version>[2.9.8,)</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.google.guava/guava-io -->
+        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
         <dependency>
             <groupId>com.google.guava</groupId>
-            <artifactId>guava-io</artifactId>
-            <version>r03</version>
+            <artifactId>guava</artifactId>
+            <version>27.1-jre</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.google.code.findbugs/jsr305 -->

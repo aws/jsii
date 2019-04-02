@@ -4248,6 +4248,80 @@ OptionalConstructorArgument
       :type: date *(optional)* *(readonly)*
 
 
+OptionalStruct (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: OptionalStruct
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.OptionalStruct;
+
+      .. code-tab:: javascript
+
+         // OptionalStruct is an interface
+
+      .. code-tab:: typescript
+
+         import { OptionalStruct } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: field
+
+      :type: string *(optional)* *(readonly)*
+
+
+OptionalStructConsumer
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: OptionalStructConsumer([optionalStruct])
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.OptionalStructConsumer;
+
+      .. code-tab:: javascript
+
+         const { OptionalStructConsumer } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { OptionalStructConsumer } from 'jsii-calc';
+
+
+
+   :param optionalStruct: 
+   :type optionalStruct: :py:class:`~jsii-calc.OptionalStruct`\  *(optional)*
+
+   .. py:attribute:: parameterWasUndefined
+
+      :type: boolean *(readonly)*
+
+
+   .. py:attribute:: fieldValue
+
+      :type: string *(optional)* *(readonly)*
+
+
 OverrideReturnsObject
 ^^^^^^^^^^^^^^^^^^^^^
 

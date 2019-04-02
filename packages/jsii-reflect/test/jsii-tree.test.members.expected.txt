@@ -326,6 +326,11 @@ assemblies
  │   │   ├── arg1 property
  │   │   ├── arg2 property
  │   │   └── arg3 property
+ │   ├─┬ class OptionalStructConsumer
+ │   │ └─┬ members
+ │   │   ├── <initializer>(optionalStruct) method
+ │   │   ├── parameterWasUndefined property
+ │   │   └── fieldValue property
  │   ├─┬ class OverrideReturnsObject
  │   │ └─┬ members
  │   │   ├── <initializer>() method
@@ -584,6 +589,9 @@ assemblies
  │   │ └─┬ members
  │   │   ├── arrayWithThreeElementsAndUndefinedAsSecondArgument property
  │   │   └── thisShouldBeUndefined property
+ │   ├─┬ interface OptionalStruct
+ │   │ └─┬ members
+ │   │   └── field property
  │   ├─┬ interface UnionProperties
  │   │ └─┬ members
  │   │   ├── bar property

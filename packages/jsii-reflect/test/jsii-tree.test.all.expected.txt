@@ -769,6 +769,19 @@ assemblies
  │   │   └─┬ arg3 property
  │   │     ├── immutable
  │   │     └── type: primitive:date (optional)
+ │   ├─┬ class OptionalStructConsumer
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(optionalStruct) method
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ optionalStruct
+ │   │   │ │   └── type: interface:jsii-calc.OptionalStruct (optional)
+ │   │   │ └── returns: void
+ │   │   ├─┬ parameterWasUndefined property
+ │   │   │ ├── immutable
+ │   │   │ └── type: primitive:boolean
+ │   │   └─┬ fieldValue property
+ │   │     ├── immutable
+ │   │     └── type: primitive:string (optional)
  │   ├─┬ class OverrideReturnsObject
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -1404,6 +1417,12 @@ assemblies
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: primitive:any (optional)
+ │   ├─┬ interface OptionalStruct
+ │   │ └─┬ members
+ │   │   └─┬ field property
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: primitive:string (optional)
  │   ├─┬ interface UnionProperties
  │   │ └─┬ members
  │   │   ├─┬ bar property

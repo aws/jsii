@@ -48,6 +48,7 @@ NumberGenerator
 ObjectRefsInCollections
 Operation
 OptionalConstructorArgument
+OptionalStructConsumer
 OverrideReturnsObject
 PartiallyInitializedThisConsumer
 Polymorphism
