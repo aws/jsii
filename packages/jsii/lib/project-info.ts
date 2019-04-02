@@ -38,7 +38,7 @@ export interface ProjectInfo {
     readonly projectReferences?: boolean;
 }
 
-export async function loadProjectInfo(projectRoot: string, fixPeerDependencies: boolean): Promise<ProjectInfo> {
+export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies }: { fixPeerDependencies: boolean }): Promise<ProjectInfo> {
     const packageJsonPath = path.join(projectRoot, 'package.json');
     const pkg = require(packageJsonPath);
 

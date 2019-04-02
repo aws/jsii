@@ -16,9 +16,16 @@
     "noFallthroughCasesInSwitch": true,
     "inlineSourceMap": true,
     "inlineSources": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "composite": true
   },
+  "include": [
+    "**/*.ts"
+  ],
   "exclude": [
     "test/negatives/*"
-  ]
+  ],
+  "references": [{
+    "path": "../jsii-spec"
+  }]
 }

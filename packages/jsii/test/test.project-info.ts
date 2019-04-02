@@ -27,7 +27,7 @@ export = nodeunit.testCase({
         async 'loads valid project'(test: nodeunit.Test) {
             await _withTestProject(async projectRoot => {
                 try {
-                    const info = await loadProjectInfo(projectRoot, false);
+                    const info = await loadProjectInfo(projectRoot, { fixPeerDependencies: false });
                     test.equal(info.name, BASE_PROJECT.name);
                     test.equal(info.version, BASE_PROJECT.version);
                     test.equal(info.description, BASE_PROJECT.description);
@@ -52,7 +52,7 @@ export = nodeunit.testCase({
         async 'loads valid project (UNLICENSED)'(test: nodeunit.Test) {
             await _withTestProject(async projectRoot => {
                 try {
-                    const info = await loadProjectInfo(projectRoot, false);
+                    const info = await loadProjectInfo(projectRoot, { fixPeerDependencies: false });
                     test.equal(info && info.license, 'UNLICENSED');
                 } catch (e) {
                     test.ifError(e);
@@ -67,7 +67,7 @@ export = nodeunit.testCase({
         async 'loads valid project (using bundleDependencies)'(test: nodeunit.Test) {
             await _withTestProject(async projectRoot => {
                 try {
-                    const info = await loadProjectInfo(projectRoot, false);
+                    const info = await loadProjectInfo(projectRoot, { fixPeerDependencies: false });
                     test.deepEqual(info.bundleDependencies, { bundled: '^1.2.3' });
                 } catch (e) {
                     test.ifError(e);
@@ -83,7 +83,7 @@ export = nodeunit.testCase({
         async 'loads valid project (using bundledDependencies)'(test: nodeunit.Test) {
             await _withTestProject(async projectRoot => {
                 try {
-                    const info = await loadProjectInfo(projectRoot, false);
+                    const info = await loadProjectInfo(projectRoot, { fixPeerDependencies: false });
                     test.deepEqual(info.bundleDependencies, { bundled: '^1.2.3' });
                 } catch (e) {
                     test.ifError(e);
@@ -100,7 +100,7 @@ export = nodeunit.testCase({
             const contributors = [{ name: 'foo', email: 'nobody@amazon.com' }];
             await _withTestProject(async projectRoot => {
                 try {
-                    const info = await loadProjectInfo(projectRoot, false);
+                    const info = await loadProjectInfo(projectRoot, { fixPeerDependencies: false });
                     test.deepEqual(info && info.contributors && info.contributors.map(_stripUndefined),
                                    contributors.map(c => ({ ...c, roles: ['contributor'] })));
                 } catch (e) {
@@ -115,7 +115,7 @@ export = nodeunit.testCase({
             await _withTestProject(async projectRoot => {
                 let error: Error | undefined;
                 try {
-                    await loadProjectInfo(projectRoot, false);
+                    await loadProjectInfo(projectRoot, { fixPeerDependencies: false });
                 } catch (e) {
                     error = e;
                 } finally {
@@ -132,7 +132,7 @@ export = nodeunit.testCase({
             await _withTestProject(async projectRoot => {
                 let error: Error | undefined;
                 try {
-                    await loadProjectInfo(projectRoot, false);
+                    await loadProjectInfo(projectRoot, { fixPeerDependencies: false });
                 } catch (e) {
                     error = e;
                 } finally {
@@ -149,7 +149,7 @@ export = nodeunit.testCase({
             await _withTestProject(async projectRoot => {
                 let error: Error | undefined;
                 try {
-                    await loadProjectInfo(projectRoot, false);
+                    await loadProjectInfo(projectRoot, { fixPeerDependencies: false });
                 } catch (e) {
                     error = e;
                 } finally {
@@ -167,7 +167,7 @@ export = nodeunit.testCase({
             await _withTestProject(async projectRoot => {
                 let error: Error | undefined;
                 try {
-                    await loadProjectInfo(projectRoot, false);
+                    await loadProjectInfo(projectRoot, { fixPeerDependencies: false });
                 } catch (e) {
                     error = e;
                 } finally {
@@ -182,7 +182,7 @@ export = nodeunit.testCase({
 
         async 'loads with missing peerDependency (when auto-fixing)'(test: nodeunit.Test) {
             await _withTestProject(async projectRoot => {
-                await loadProjectInfo(projectRoot, true);
+                await loadProjectInfo(projectRoot, { fixPeerDependencies: true });
                 const info = require(path.join(projectRoot, 'package.json'));
                 test.equal(info.peerDependencies[TEST_DEP_ASSEMBLY.name], "^1.2.3");
                 test.done();
@@ -195,7 +195,7 @@ export = nodeunit.testCase({
             await _withTestProject(async projectRoot => {
                 let error: Error | undefined;
                 try {
-                    await loadProjectInfo(projectRoot, false);
+                    await loadProjectInfo(projectRoot, { fixPeerDependencies: false });
                 } catch (e) {
                     error = e;
                 } finally {
@@ -211,7 +211,7 @@ export = nodeunit.testCase({
 
         async 'loads with inconsistent peerDependency (when auto-fixing)'(test: nodeunit.Test) {
             await _withTestProject(async projectRoot => {
-                await loadProjectInfo(projectRoot, true);
+                await loadProjectInfo(projectRoot, { fixPeerDependencies: true });
                 const info = require(path.join(projectRoot, 'package.json'));
                 test.equal(info.peerDependencies[TEST_DEP_ASSEMBLY.name], "^1.2.3");
                 test.done();
