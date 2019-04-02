@@ -4,7 +4,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>
     /// returns: an instance of an un-exported class that extends `ExportedBaseClass`, declared as `IPrivatelyImplemented`.
-    /// seeLink: https://github.com/awslabs/jsii/issues/320
+    /// see: https://github.com/awslabs/jsii/issues/320
     /// summary: Helps ensure the JSII kernel &amp; runtime cooperate correctly when an un-exported instance of a class is returned with a declared type that is an exported interface, and the instance inherits from an exported class.
     /// </remarks>
     [JsiiClass(typeof(ReturnsPrivateImplementationOfInterface), "jsii-calc.ReturnsPrivateImplementationOfInterface", "[]")]

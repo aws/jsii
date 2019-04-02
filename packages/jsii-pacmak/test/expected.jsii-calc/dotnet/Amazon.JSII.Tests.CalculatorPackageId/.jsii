@@ -3775,7 +3775,7 @@
       "assembly": "jsii-calc",
       "docs": {
         "returns": "an instance of an un-exported class that extends `ExportedBaseClass`, declared as `IPrivatelyImplemented`.",
-        "seeLink": "https://github.com/awslabs/jsii/issues/320",
+        "see": "https://github.com/awslabs/jsii/issues/320",
         "summary": "Helps ensure the JSII kernel & runtime cooperate correctly when an un-exported instance of a class is returned with a declared type that is an exported interface, and the instance inherits from an exported class."
       },
       "fqn": "jsii-calc.ReturnsPrivateImplementationOfInterface",
@@ -4692,5 +4692,5 @@
     }
   },
   "version": "0.8.2",
-  "fingerprint": "sR9Mu3HU+WiejT9UFs1Mna9Djn8Jb0LXnJ0+I/ufEvo="
+  "fingerprint": "f9e5nIBb09R7KQ4/oPT6MeQHjBRfFBUlTUGQ+C24TvE="
 }
