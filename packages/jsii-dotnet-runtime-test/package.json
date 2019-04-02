@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "gen": "/bin/bash ./generate.sh",
-    "build": "npm run gen && tsc && /bin/bash ./build.sh",
+    "build": "npm run gen && tsc --build && /bin/bash ./build.sh",
     "test": "/bin/bash ./test.sh"
   },
   "devDependencies": {

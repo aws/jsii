@@ -7,7 +7,7 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "gen": "/bin/bash ./generate.sh",
-    "build": "tsc && /bin/bash ./build.sh",
+    "build": "tsc --build && /bin/bash ./build.sh",
     "test": "/bin/bash ./test.sh",
     "package": "package-dotnet"
   },

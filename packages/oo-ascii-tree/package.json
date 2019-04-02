@@ -5,8 +5,8 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
+    "build": "tsc --build",
+    "watch": "tsc --build -w",
     "test": "jest",
     "package": "package-js"
   },

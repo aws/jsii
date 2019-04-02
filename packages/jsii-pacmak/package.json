@@ -9,8 +9,8 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "gen": "/bin/bash generate.sh",
-    "build": "npm run gen && tsc && chmod +x bin/jsii-pacmak && tslint -p .",
-    "watch": "tsc -w",
+    "build": "npm run gen && tsc --build && chmod +x bin/jsii-pacmak && tslint -p .",
+    "watch": "tsc --build -w",
     "lint": "tslint -p . --force",
     "test": "/bin/bash test/diff-test.sh && /bin/bash test/build-test.sh",
     "package": "package-js"
