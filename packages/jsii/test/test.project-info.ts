@@ -18,7 +18,8 @@ const BASE_PROJECT = {
     jsii: {
         targets: { foo: { bar: 'baz' } }
     },
-    dependencies: { 'jsii-test-dep': '^1.2.3' }
+    dependencies: { 'jsii-test-dep': '^1.2.3' },
+    peerDependencies: { 'jsii-test-dep': '^1.2.3' }
 };
 
 export = nodeunit.testCase({
@@ -26,7 +27,7 @@ export = nodeunit.testCase({
         async 'loads valid project'(test: nodeunit.Test) {
             await _withTestProject(async projectRoot => {
                 try {
-                    const info = await loadProjectInfo(projectRoot);
+                    const info = await loadProjectInfo(projectRoot, false);
                     test.equal(info.name, BASE_PROJECT.name);
                     test.equal(info.version, BASE_PROJECT.version);
                     test.equal(info.description, BASE_PROJECT.description);
@@ -51,7 +52,7 @@ export = nodeunit.testCase({
         async 'loads valid project (UNLICENSED)'(test: nodeunit.Test) {
             await _withTestProject(async projectRoot => {
                 try {
-                    const info = await loadProjectInfo(projectRoot);
+                    const info = await loadProjectInfo(projectRoot, false);
                     test.equal(info && info.license, 'UNLICENSED');
                 } catch (e) {
                     test.ifError(e);
@@ -66,7 +67,7 @@ export = nodeunit.testCase({
         async 'loads valid project (using bundleDependencies)'(test: nodeunit.Test) {
             await _withTestProject(async projectRoot => {
                 try {
-                    const info = await loadProjectInfo(projectRoot);
+                    const info = await loadProjectInfo(projectRoot, false);
                     test.deepEqual(info.bundleDependencies, { bundled: '^1.2.3' });
                 } catch (e) {
                     test.ifError(e);
@@ -82,7 +83,7 @@ export = nodeunit.testCase({
         async 'loads valid project (using bundledDependencies)'(test: nodeunit.Test) {
             await _withTestProject(async projectRoot => {
                 try {
-                    const info = await loadProjectInfo(projectRoot);
+                    const info = await loadProjectInfo(projectRoot, false);
                     test.deepEqual(info.bundleDependencies, { bundled: '^1.2.3' });
                 } catch (e) {
                     test.ifError(e);
@@ -99,7 +100,7 @@ export = nodeunit.testCase({
             const contributors = [{ name: 'foo', email: 'nobody@amazon.com' }];
             await _withTestProject(async projectRoot => {
                 try {
-                    const info = await loadProjectInfo(projectRoot);
+                    const info = await loadProjectInfo(projectRoot, false);
                     test.deepEqual(info && info.contributors && info.contributors.map(_stripUndefined),
                                    contributors.map(c => ({ ...c, roles: ['contributor'] })));
                 } catch (e) {
@@ -114,7 +115,7 @@ export = nodeunit.testCase({
             await _withTestProject(async projectRoot => {
                 let error: Error | undefined;
                 try {
-                    await loadProjectInfo(projectRoot);
+                    await loadProjectInfo(projectRoot, false);
                 } catch (e) {
                     error = e;
                 } finally {
@@ -131,7 +132,7 @@ export = nodeunit.testCase({
             await _withTestProject(async projectRoot => {
                 let error: Error | undefined;
                 try {
-                    await loadProjectInfo(projectRoot);
+                    await loadProjectInfo(projectRoot, false);
                 } catch (e) {
                     error = e;
                 } finally {
@@ -148,7 +149,7 @@ export = nodeunit.testCase({
             await _withTestProject(async projectRoot => {
                 let error: Error | undefined;
                 try {
-                    await loadProjectInfo(projectRoot);
+                    await loadProjectInfo(projectRoot, false);
                 } catch (e) {
                     error = e;
                 } finally {
@@ -158,8 +159,66 @@ export = nodeunit.testCase({
                 }
             }, info => {
                 info.dependencies[TEST_DEP_ASSEMBLY.name] = '^1.2.5';
+                info.peerDependencies[TEST_DEP_ASSEMBLY.name] = '^1.2.5';
             });
-        }
+        },
+
+        async 'fails to load with missing peerDependency (refusing to auto-fix)'(test: nodeunit.Test) {
+            await _withTestProject(async projectRoot => {
+                let error: Error | undefined;
+                try {
+                    await loadProjectInfo(projectRoot, false);
+                } catch (e) {
+                    error = e;
+                } finally {
+                    test.throws(() => { if (error) { throw error; } },
+                                `The "package.json" file has "${TEST_DEP_ASSEMBLY.name}" in "dependencies", but not in "peerDependencies"`);
+                    test.done();
+                }
+            }, info => {
+                delete info.peerDependencies[TEST_DEP_ASSEMBLY.name];
+            });
+        },
+
+        async 'loads with missing peerDependency (when auto-fixing)'(test: nodeunit.Test) {
+            await _withTestProject(async projectRoot => {
+                await loadProjectInfo(projectRoot, true);
+                const info = require(path.join(projectRoot, 'package.json'));
+                test.equal(info.peerDependencies[TEST_DEP_ASSEMBLY.name], "^1.2.3");
+                test.done();
+            }, info => {
+                delete info.peerDependencies[TEST_DEP_ASSEMBLY.name];
+            });
+        },
+
+        async 'fails to load with inconsistent peerDependency (refusing to auto-fix)'(test: nodeunit.Test) {
+            await _withTestProject(async projectRoot => {
+                let error: Error | undefined;
+                try {
+                    await loadProjectInfo(projectRoot, false);
+                } catch (e) {
+                    error = e;
+                } finally {
+                    test.throws(() => { if (error) { throw error; } },
+                                // tslint:disable-next-line: max-line-length
+                                `The "package.json" file has different version requirements for "${TEST_DEP_ASSEMBLY.name}" in "dependencies" (^1.2.3) versus "peerDependencies" (^42.1337.0)`);
+                    test.done();
+                }
+            }, info => {
+                info.peerDependencies[TEST_DEP_ASSEMBLY.name] = '^42.1337.0';
+            });
+        },
+
+        async 'loads with inconsistent peerDependency (when auto-fixing)'(test: nodeunit.Test) {
+            await _withTestProject(async projectRoot => {
+                await loadProjectInfo(projectRoot, true);
+                const info = require(path.join(projectRoot, 'package.json'));
+                test.equal(info.peerDependencies[TEST_DEP_ASSEMBLY.name], "^1.2.3");
+                test.done();
+            }, info => {
+                info.peerDependencies[TEST_DEP_ASSEMBLY.name] = '^42.1337.0';
+            });
+        },
     }
 });
 
@@ -175,7 +234,8 @@ const TEST_DEP_ASSEMBLY: spec.Assembly = {
     fingerprint: 'F1NG3RPR1N7',
     dependencies: {
         'jsii-test-dep-dep': {
-            version: '3.2.1'
+            version: '3.2.1',
+            peer: true,
         }
     }
 };

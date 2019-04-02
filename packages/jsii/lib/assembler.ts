@@ -100,7 +100,7 @@ export class Assembler implements Emitter {
             version: this.projectInfo.version,
             description: this.projectInfo.description || this.projectInfo.name,
             license: this.projectInfo.license,
-            homepage: this.projectInfo.homepage || this.projectInfo.repository.url,
+            homepage: this.projectInfo.homepage || this.projectInfo.repository.url,
             author: this.projectInfo.author,
             contributors: this.projectInfo.contributors && [...this.projectInfo.contributors],
             repository: this.projectInfo.repository,
