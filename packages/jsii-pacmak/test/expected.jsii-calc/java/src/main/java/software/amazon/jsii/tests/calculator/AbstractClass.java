@@ -2,7 +2,7 @@ package software.amazon.jsii.tests.calculator;
 
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.AbstractClass")
-public abstract class AbstractClass extends software.amazon.jsii.tests.calculator.AbstractClassBase implements software.amazon.jsii.tests.calculator.InterfaceImplementedByAbstractClass {
+public abstract class AbstractClass extends software.amazon.jsii.tests.calculator.AbstractClassBase implements software.amazon.jsii.tests.calculator.IInterfaceImplementedByAbstractClass {
     protected AbstractClass(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
         super(mode);
     }

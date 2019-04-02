@@ -111,7 +111,7 @@ describe('Type', () => {
 
     test('with a class and an interface', () => {
       // GIVEN
-      const iface = typesys.findFqn('jsii-calc.InterfaceImplementedByAbstractClass');
+      const iface = typesys.findFqn('jsii-calc.IInterfaceImplementedByAbstractClass');
       const clazz = typesys.findFqn('jsii-calc.AbstractClass');
 
       // THEN
@@ -131,7 +131,7 @@ describe('Type', () => {
   describe('.allImplementations', () => {
     test('with an interface', () => {
       // GIVEN
-      const base = typesys.findFqn('jsii-calc.InterfaceImplementedByAbstractClass');
+      const base = typesys.findFqn('jsii-calc.IInterfaceImplementedByAbstractClass');
 
       // THEN
       expect(base.allImplementations).toEqual([typesys.findFqn('jsii-calc.AbstractClass'), base]);

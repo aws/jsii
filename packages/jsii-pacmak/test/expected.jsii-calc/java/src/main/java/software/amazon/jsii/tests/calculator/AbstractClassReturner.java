@@ -15,8 +15,8 @@ public class AbstractClassReturner extends software.amazon.jsii.JsiiObject {
         return this.jsiiCall("giveMeAbstract", software.amazon.jsii.tests.calculator.AbstractClass.class);
     }
 
-    public software.amazon.jsii.tests.calculator.InterfaceImplementedByAbstractClass giveMeInterface() {
-        return this.jsiiCall("giveMeInterface", software.amazon.jsii.tests.calculator.InterfaceImplementedByAbstractClass.class);
+    public software.amazon.jsii.tests.calculator.IInterfaceImplementedByAbstractClass giveMeInterface() {
+        return this.jsiiCall("giveMeInterface", software.amazon.jsii.tests.calculator.IInterfaceImplementedByAbstractClass.class);
     }
 
     public software.amazon.jsii.tests.calculator.AbstractClassBase getReturnAbstractFromProperty() {

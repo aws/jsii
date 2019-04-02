@@ -2,6 +2,8 @@ package software.amazon.jsii;
 
 import org.junit.Test;
 
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static software.amazon.jsii.JsiiVersion.JSII_RUNTIME_VERSION;
 
 public final class JsiiVersionTest {
@@ -26,5 +28,11 @@ public final class JsiiVersionTest {
     @Test(expected = JsiiException.class)
     public void incompatibleVersions_3() {
         JsiiRuntime.assertVersionCompatible("0.7.0+abcd", "1.2.0+abcd");
+    }
+
+    @Test
+    public void versionIsDefined() {
+        assertNotNull(JSII_RUNTIME_VERSION);
+        assertNotEquals("", JSII_RUNTIME_VERSION);
     }
 }

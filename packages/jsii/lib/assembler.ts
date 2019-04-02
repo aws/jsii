@@ -446,6 +446,17 @@ export class Assembler implements Emitter {
             }
 
             jsiiType.interfaces = await this._processBaseInterfaces(fqn, clause.types.map(t => this._typeChecker.getTypeFromTypeNode(t)));
+            if (jsiiType.interfaces) {
+                this._deferUntilTypesAvailable(jsiiType.fqn, jsiiType.interfaces, type.symbol.valueDeclaration, (...ifaces) => {
+                    for (const iface of ifaces) {
+                        if (spec.isInterfaceType(iface) && iface.datatype) {
+                            this._diagnostic(type.symbol.valueDeclaration,
+                                ts.DiagnosticCategory.Error,
+                                `Attempted to implement struct ${iface.fqn} from class ${jsiiType.fqn}`);
+                        }
+                    }
+                 });
+            }
         }
 
         if (!type.isClass()) {
@@ -721,6 +732,19 @@ export class Assembler implements Emitter {
 
                         // force property to be "readonly" since jsii languages will pass this by-value
                         prop.immutable = true;
+                    }
+                }
+            } else {
+                // This is *NOT* a data type, so it may not extend something that is one.
+                for (const base of bases) {
+                    if (!spec.isInterfaceType(base)) {
+                        // Invalid type we already warned about earlier, just ignoring it here...
+                        continue;
+                    }
+                    if (base.datatype) {
+                        this._diagnostic(type.symbol.valueDeclaration,
+                            ts.DiagnosticCategory.Error,
+                            `Attempted to extend struct ${base.fqn} from regular interface ${jsiiType.fqn}`);
                     }
                 }
             }
