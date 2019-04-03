@@ -430,7 +430,7 @@ export class Assembler implements Emitter {
        * erased, and identify the closest exported base class, should there be one.
        */
       // tslint:disable-next-line: no-bitwise
-      while (this._isPrivateOrInternal(base.symbol)) {
+      while (base && this._isPrivateOrInternal(base.symbol)) {
         LOG.debug(`Base class of ${colors.green(jsiiType.fqn)} named ${colors.green(base.symbol.name)} is not exported, erasing it...`);
         erasedBases.push(base);
         base = (base.getBaseTypes() || [])[0];
@@ -579,7 +579,7 @@ export class Assembler implements Emitter {
     const hasUnderscorePrefix = symbol.name !== '__constructor' && symbol.name.startsWith('_');
 
     if (_isPrivate(symbol)) {
-      LOG.trace(`${symbol.name} is marked "private"`);
+      LOG.trace(`${colors.cyan(symbol.name)} is marked "private", or is an unexported type declaration`);
       return true;
     }
 
@@ -591,12 +591,12 @@ export class Assembler implements Emitter {
     if (validateDeclaration) {
       if (!hasUnderscorePrefix) {
         this._diagnostic(validateDeclaration, ts.DiagnosticCategory.Error,
-          `${symbol.name}: the name of members marked as @internal must begin with an underscore`);
+          `${colors.cyan(symbol.name)}: the name of members marked as @internal must begin with an underscore`);
       }
 
       if (!hasInternalJsDocTag) {
         this._diagnostic(validateDeclaration, ts.DiagnosticCategory.Error,
-          `${symbol.name}: members with names that begin with an underscore must be marked as @internal via a JSDoc tag`);
+          `${colors.cyan(symbol.name)}: members with names that begin with an underscore must be marked as @internal via a JSDoc tag`);
       }
     }
 
@@ -1212,10 +1212,14 @@ function _isExported(node: ts.Declaration): boolean {
  * @return `true` if the symbol should be hidden
  */
 function _isPrivate(symbol: ts.Symbol): boolean {
-
+  const TYPE_DECLARATION_KINDS = new Set([
+    ts.SyntaxKind.ClassDeclaration,
+    ts.SyntaxKind.InterfaceDeclaration,
+    ts.SyntaxKind.EnumDeclaration,
+  ]);
   // if the symbol doesn't have a value declaration, we are assuming it's a type (enum/interface/class)
   // and check that it has an "export" modifier
-  if (!symbol.valueDeclaration) {
+  if (!symbol.valueDeclaration || TYPE_DECLARATION_KINDS.has(symbol.valueDeclaration.kind)) {
     let hasExport = false;
     for (const decl of symbol.declarations) {
       // tslint:disable-next-line:no-bitwise
