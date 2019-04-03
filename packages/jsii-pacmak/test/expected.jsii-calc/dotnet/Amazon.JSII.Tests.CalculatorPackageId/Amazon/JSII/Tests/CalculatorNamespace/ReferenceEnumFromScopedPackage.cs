@@ -3,7 +3,7 @@ using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>See awslabs/jsii#138</summary>
+    /// <summary>See awslabs/jsii#138.</summary>
     [JsiiClass(typeof(ReferenceEnumFromScopedPackage), "jsii-calc.ReferenceEnumFromScopedPackage", "[]")]
     public class ReferenceEnumFromScopedPackage : DeputyBase
     {

@@ -43,6 +43,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.DerivedStruct": return software.amazon.jsii.tests.calculator.DerivedStruct.class;
             case "jsii-calc.DoNotOverridePrivates": return software.amazon.jsii.tests.calculator.DoNotOverridePrivates.class;
             case "jsii-calc.DoNotRecognizeAnyAsOptional": return software.amazon.jsii.tests.calculator.DoNotRecognizeAnyAsOptional.class;
+            case "jsii-calc.DocumentedClass": return software.amazon.jsii.tests.calculator.DocumentedClass.class;
             case "jsii-calc.DontComplainAboutVariadicAfterOptional": return software.amazon.jsii.tests.calculator.DontComplainAboutVariadicAfterOptional.class;
             case "jsii-calc.DoubleTrouble": return software.amazon.jsii.tests.calculator.DoubleTrouble.class;
             case "jsii-calc.EraseUndefinedHashValues": return software.amazon.jsii.tests.calculator.EraseUndefinedHashValues.class;
@@ -51,6 +52,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.ExtendsInternalInterface": return software.amazon.jsii.tests.calculator.ExtendsInternalInterface.class;
             case "jsii-calc.ExtendsPrivateInterface": return software.amazon.jsii.tests.calculator.ExtendsPrivateInterface.class;
             case "jsii-calc.GiveMeStructs": return software.amazon.jsii.tests.calculator.GiveMeStructs.class;
+            case "jsii-calc.Greetee": return software.amazon.jsii.tests.calculator.Greetee.class;
             case "jsii-calc.GreetingAugmenter": return software.amazon.jsii.tests.calculator.GreetingAugmenter.class;
             case "jsii-calc.IAnotherPublicInterface": return software.amazon.jsii.tests.calculator.IAnotherPublicInterface.class;
             case "jsii-calc.IFriendlier": return software.amazon.jsii.tests.calculator.IFriendlier.class;
@@ -93,6 +95,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.NullShouldBeTreatedAsUndefinedData": return software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefinedData.class;
             case "jsii-calc.NumberGenerator": return software.amazon.jsii.tests.calculator.NumberGenerator.class;
             case "jsii-calc.ObjectRefsInCollections": return software.amazon.jsii.tests.calculator.ObjectRefsInCollections.class;
+            case "jsii-calc.Old": return software.amazon.jsii.tests.calculator.Old.class;
             case "jsii-calc.OptionalConstructorArgument": return software.amazon.jsii.tests.calculator.OptionalConstructorArgument.class;
             case "jsii-calc.OptionalStruct": return software.amazon.jsii.tests.calculator.OptionalStruct.class;
             case "jsii-calc.OptionalStructConsumer": return software.amazon.jsii.tests.calculator.OptionalStructConsumer.class;

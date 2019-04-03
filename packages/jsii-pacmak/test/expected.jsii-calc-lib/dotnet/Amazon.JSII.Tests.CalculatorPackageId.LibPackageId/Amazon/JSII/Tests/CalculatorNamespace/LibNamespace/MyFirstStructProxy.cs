@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <summary>This is the first struct we have created in jsii</summary>
+    /// <summary>This is the first struct we have created in jsii.</summary>
     [JsiiTypeProxy(typeof(IMyFirstStruct), "@scope/jsii-calc-lib.MyFirstStruct")]
     internal sealed class MyFirstStructProxy : DeputyBase, IMyFirstStruct
     {
@@ -10,14 +10,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
-        /// <summary>An awesome number value</summary>
+        /// <summary>An awesome number value.</summary>
         [JsiiProperty("anumber", "{\"primitive\":\"number\"}")]
         public double Anumber
         {
             get => GetInstanceProperty<double>();
         }
 
-        /// <summary>A string value</summary>
+        /// <summary>A string value.</summary>
         [JsiiProperty("astring", "{\"primitive\":\"string\"}")]
         public string Astring
         {

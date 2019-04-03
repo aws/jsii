@@ -10,9 +10,10 @@ public class Multiply extends software.amazon.jsii.tests.calculator.BinaryOperat
         super(mode);
     }
     /**
-     * Creates a BinaryOperation
-     * @param lhs Left-hand side operand
-     * @param rhs Right-hand side operand
+     * Creates a BinaryOperation.
+     * 
+     * @param lhs Left-hand side operand.
+     * @param rhs Right-hand side operand.
      */
     public Multiply(final software.amazon.jsii.tests.calculator.lib.Value lhs, final software.amazon.jsii.tests.calculator.lib.Value rhs) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);

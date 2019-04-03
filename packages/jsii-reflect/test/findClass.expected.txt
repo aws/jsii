@@ -1,6 +1,4 @@
 typeName from Base
-toString from Value
-toString from Operation
 toString from CompositeOperation
 add from Calculator
 mul from Calculator

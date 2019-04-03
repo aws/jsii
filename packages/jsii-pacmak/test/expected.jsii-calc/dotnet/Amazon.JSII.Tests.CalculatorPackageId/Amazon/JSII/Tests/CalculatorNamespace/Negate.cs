@@ -3,7 +3,7 @@ using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>The negation operation ("-value")</summary>
+    /// <summary>The negation operation ("-value").</summary>
     [JsiiClass(typeof(Negate), "jsii-calc.Negate", "[{\"name\":\"operand\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
     public class Negate : UnaryOperation, IIFriendlier
     {

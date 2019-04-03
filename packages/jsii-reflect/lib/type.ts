@@ -13,7 +13,7 @@ export abstract class Type implements Documentable {
     private readonly spec: jsii.Type) { }
 
   public toString(): string {
-    return `${this.kind}:${this.fqn}`;
+    return `${this.kind} ${this.fqn}`;
   }
 
   /**
@@ -47,7 +47,7 @@ export abstract class Type implements Documentable {
   }
 
   public get docs(): Docs {
-    return new Docs(this.system, this, this.spec.docs);
+    return new Docs(this.system, this, this.spec.docs || {});
   }
 
   /**

@@ -292,9 +292,9 @@ Add
 
 
    :extends: :py:class:`~jsii-calc.BinaryOperation`\ 
-   :param lhs: Left-hand side operand
+   :param lhs: Left-hand side operand.
    :type lhs: :py:class:`@scope/jsii-calc-lib.Value`\ 
-   :param rhs: Right-hand side operand
+   :param rhs: Right-hand side operand.
    :type rhs: :py:class:`@scope/jsii-calc-lib.Value`\ 
 
    .. py:method:: toString() -> string
@@ -342,7 +342,7 @@ Add
 
       *Inherited from* :py:attr:`jsii-calc.BinaryOperation <jsii-calc.BinaryOperation.lhs>`
 
-      Left-hand side operand
+      Left-hand side operand.
 
 
 
@@ -353,7 +353,7 @@ Add
 
       *Inherited from* :py:attr:`jsii-calc.BinaryOperation <jsii-calc.BinaryOperation.rhs>`
 
-      Right-hand side operand
+      Right-hand side operand.
 
 
 
@@ -387,7 +387,11 @@ AllTypes
 
 
 
-   This class includes property for all types supported by jsii. The setters will validate
+   This class includes property for all types supported by jsii.
+
+   
+
+   The setters will validate
 
    that the value set is of the expected type and throw otherwise.
 
@@ -645,7 +649,7 @@ AsyncVirtualMethods
 
    .. py:method:: callMe2() -> number
 
-      Just calls "overrideMeToo"
+      Just calls "overrideMeToo".
 
 
 
@@ -654,9 +658,11 @@ AsyncVirtualMethods
 
    .. py:method:: callMeDoublePromise() -> number
 
-      This method calls the "callMe" async method indirectly, which will then
+      This method calls the "callMe" async method indirectly, which will then invoke a virtual method.
 
-      invoke a virtual method. This is a "double promise" situation, which
+      
+
+      This is a "double promise" situation, which
 
       means that callbacks are not going to be available immediate, but only
 
@@ -754,9 +760,9 @@ BinaryOperation
    :extends: :py:class:`@scope/jsii-calc-lib.Operation`\ 
    :implements: :py:class:`@scope/jsii-calc-lib.IFriendly`\ 
    :abstract: Yes
-   :param lhs: Left-hand side operand
+   :param lhs: Left-hand side operand.
    :type lhs: :py:class:`@scope/jsii-calc-lib.Value`\ 
-   :param rhs: Right-hand side operand
+   :param rhs: Right-hand side operand.
    :type rhs: :py:class:`@scope/jsii-calc-lib.Value`\ 
 
    .. py:method:: hello() -> string
@@ -772,7 +778,7 @@ BinaryOperation
 
    .. py:attribute:: lhs
 
-      Left-hand side operand
+      Left-hand side operand.
 
 
 
@@ -781,7 +787,7 @@ BinaryOperation
 
    .. py:attribute:: rhs
 
-      Right-hand side operand
+      Right-hand side operand.
 
 
 
@@ -1229,7 +1235,7 @@ ClassWithPrivateConstructorAndAutomaticProperties
 
 
 
-   Class that implements interface properties automatically, but using a private constructor
+   Class that implements interface properties automatically, but using a private constructor.
 
 
 
@@ -1595,7 +1601,7 @@ DerivedStruct (interface)
 
       *Inherited from* :py:attr:`@scope/jsii-calc-lib.MyFirstStruct <@scope/jsii-calc-lib.MyFirstStruct.anumber>`
 
-      An awesome number value
+      An awesome number value.
 
 
 
@@ -1606,7 +1612,7 @@ DerivedStruct (interface)
 
       *Inherited from* :py:attr:`@scope/jsii-calc-lib.MyFirstStruct <@scope/jsii-calc-lib.MyFirstStruct.astring>`
 
-      A string value
+      A string value.
 
 
 
@@ -1691,7 +1697,7 @@ DoNotRecognizeAnyAsOptional
 
 
 
-   jsii#284: do not recognize "any" as an optional argument
+   jsii#284: do not recognize "any" as an optional argument.
 
 
 
@@ -1704,6 +1710,74 @@ DoNotRecognizeAnyAsOptional
       :type _optionalAny: any *(optional)*
       :param _optionalString: 
       :type _optionalString: string *(optional)*
+
+
+DocumentedClass
+^^^^^^^^^^^^^^^
+
+.. py:class:: DocumentedClass()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.DocumentedClass;
+
+      .. code-tab:: javascript
+
+         const { DocumentedClass } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { DocumentedClass } from 'jsii-calc';
+
+
+
+   Here's the first line of the TSDoc comment.
+
+   
+
+   This is the meat of the TSDoc comment. It may contain
+
+   multiple lines and multiple paragraphs.
+
+   
+
+   Multiple paragraphs are separated by an empty line.
+
+
+
+
+   .. py:method:: greet([greetee]) -> number
+
+      Greet the indicated person.
+
+      
+
+      This will print out a friendly greeting intended for
+
+      the indicated person.
+
+
+
+      :param greetee: The person to be greeted.
+      :type greetee: :py:class:`~jsii-calc.Greetee`\  *(optional)*
+      :return: A number that everyone knows very well
+      :rtype: number
+
+
+   .. py:method:: hola()
+
+      Say ¡Hola!
+
+
+
 
 
 DontComplainAboutVariadicAfterOptional
@@ -1824,7 +1898,11 @@ EraseUndefinedHashValues
 
    .. py:staticmethod:: doesKeyExist(opts, key) -> boolean
 
-      Returns `true` if `key` is defined in `opts`. Used to check that undefined/null hash values
+      Returns `true` if `key` is defined in `opts`.
+
+      
+
+      Used to check that undefined/null hash values
 
       are being erased when sending values from native code to JS.
 
@@ -1839,7 +1917,7 @@ EraseUndefinedHashValues
 
    .. py:staticmethod:: prop1IsNull() -> any
 
-      We expect "prop1" to be erased
+      We expect "prop1" to be erased.
 
 
 
@@ -1848,7 +1926,7 @@ EraseUndefinedHashValues
 
    .. py:staticmethod:: prop2IsUndefined() -> any
 
-      We expect "prop2" to be erased
+      We expect "prop2" to be erased.
 
 
 
@@ -2061,6 +2139,49 @@ GiveMeStructs
    .. py:attribute:: structLiteral
 
       :type: :py:class:`@scope/jsii-calc-lib.StructWithOnlyOptionals`\  *(readonly)*
+
+
+Greetee (interface)
+^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: Greetee
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.Greetee;
+
+      .. code-tab:: javascript
+
+         // Greetee is an interface
+
+      .. code-tab:: typescript
+
+         import { Greetee } from 'jsii-calc';
+
+
+
+   These are some arguments you can pass to a method.
+
+
+
+
+
+   .. py:attribute:: name
+
+      The name of the greetee.
+
+
+
+      :type: string *(optional)* *(readonly)*
+      :default: world
 
 
 GreetingAugmenter
@@ -2282,9 +2403,7 @@ IInterfaceImplementedByAbstractClass (interface)
 
 
 
-   awslabs/jsii#220
-
-   Abstract return type
+   awslabs/jsii#220 Abstract return type.
 
 
 
@@ -2322,9 +2441,7 @@ IInterfaceThatShouldNotBeADataType (interface)
 
 
 
-   Even though this interface has only properties, it is disqualified from being a datatype
-
-   because it inherits from an interface that is not a datatype.
+   Even though this interface has only properties, it is disqualified from being a datatype because it inherits from an interface that is not a datatype.
 
 
 
@@ -2450,9 +2567,7 @@ IInterfaceWithOptionalMethodArguments (interface)
 
 
 
-   awslabs/jsii#175
-
-   Interface proxies (and builders) do not respect optional arguments in methods
+   awslabs/jsii#175 Interface proxies (and builders) do not respect optional arguments in methods.
 
 
 
@@ -3642,7 +3757,7 @@ JsiiAgent
 
 
 
-   Host runtime version should be set via JSII_AGENT
+   Host runtime version should be set via JSII_AGENT.
 
 
 
@@ -3691,7 +3806,11 @@ LoadBalancedFargateServiceProps (interface)
 
    .. py:attribute:: containerPort
 
-      The container port of the application load balancer attached to your Fargate service. Corresponds to container port mapping.
+      The container port of the application load balancer attached to your Fargate service.
+
+      
+
+      Corresponds to container port mapping.
 
 
 
@@ -3701,19 +3820,7 @@ LoadBalancedFargateServiceProps (interface)
 
    .. py:attribute:: cpu
 
-      The number of cpu units used by the task.
-
-      Valid values, which determines your range of valid values for the memory parameter:
-
-      256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB
-
-      512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB
-
-      1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB
-
-      2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments
-
-      4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments
+      The number of cpu units used by the task. Valid values, which determines your range of valid values for the memory parameter: 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments.
 
       
 
@@ -3767,7 +3874,7 @@ LoadBalancedFargateServiceProps (interface)
 
    .. py:attribute:: publicLoadBalancer
 
-      Determines whether the Application Load Balancer will be internet-facing
+      Determines whether the Application Load Balancer will be internet-facing.
 
 
 
@@ -3819,9 +3926,9 @@ Multiply
    :extends: :py:class:`~jsii-calc.BinaryOperation`\ 
    :implements: :py:class:`~jsii-calc.IFriendlier`\ 
    :implements: :py:class:`~jsii-calc.IRandomNumberGenerator`\ 
-   :param lhs: Left-hand side operand
+   :param lhs: Left-hand side operand.
    :type lhs: :py:class:`@scope/jsii-calc-lib.Value`\ 
-   :param rhs: Right-hand side operand
+   :param rhs: Right-hand side operand.
    :type rhs: :py:class:`@scope/jsii-calc-lib.Value`\ 
 
    .. py:method:: farewell() -> string
@@ -3902,7 +4009,7 @@ Multiply
 
       *Inherited from* :py:attr:`jsii-calc.BinaryOperation <jsii-calc.BinaryOperation.lhs>`
 
-      Left-hand side operand
+      Left-hand side operand.
 
 
 
@@ -3913,7 +4020,7 @@ Multiply
 
       *Inherited from* :py:attr:`jsii-calc.BinaryOperation <jsii-calc.BinaryOperation.rhs>`
 
-      Right-hand side operand
+      Right-hand side operand.
 
 
 
@@ -3947,7 +4054,7 @@ Negate
 
 
 
-   The negation operation ("-value")
+   The negation operation ("-value").
 
 
 
@@ -4124,7 +4231,7 @@ NullShouldBeTreatedAsUndefined
 
 
 
-   jsii#282, aws-cdk#157: null should be treated as "undefined"
+   jsii#282, aws-cdk#157: null should be treated as "undefined".
 
 
 
@@ -4220,9 +4327,7 @@ NumberGenerator
 
 
 
-   This allows us to test that a reference can be stored for objects that
-
-   implement interfaces.
+   This allows us to test that a reference can be stored for objects that implement interfaces.
 
 
 
@@ -4280,7 +4385,7 @@ ObjectRefsInCollections
 
    .. py:method:: sumFromArray(values) -> number
 
-      Returns the sum of all values
+      Returns the sum of all values.
 
 
 
@@ -4291,13 +4396,53 @@ ObjectRefsInCollections
 
    .. py:method:: sumFromMap(values) -> number
 
-      Returns the sum of all values in a map
+      Returns the sum of all values in a map.
 
 
 
       :param values: 
       :type values: string => :py:class:`@scope/jsii-calc-lib.Value`\ 
       :rtype: number
+
+
+Old
+^^^
+
+.. py:class:: Old()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.Old;
+
+      .. code-tab:: javascript
+
+         const { Old } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { Old } from 'jsii-calc';
+
+
+
+   Old class.
+
+
+
+
+   .. py:method:: doAThing()
+
+      Doo wop that thing.
+
+
+
 
 
 OptionalConstructorArgument
@@ -4566,14 +4711,14 @@ Power
 
 
    :extends: :py:class:`~jsii-calc.composition.CompositeOperation`\ 
-   :param base: The base of the power
+   :param base: The base of the power.
    :type base: :py:class:`@scope/jsii-calc-lib.Value`\ 
-   :param pow: The number of times to multiply
+   :param pow: The number of times to multiply.
    :type pow: :py:class:`@scope/jsii-calc-lib.Value`\ 
 
    .. py:attribute:: base
 
-      The base of the power
+      The base of the power.
 
 
 
@@ -4584,9 +4729,7 @@ Power
 
       *Implements* :py:meth:`jsii-calc.composition.CompositeOperation.expression`
 
-      The expression that this operation consists of.
-
-      Must be implemented by derived classes.
+      The expression that this operation consists of. Must be implemented by derived classes.
 
 
 
@@ -4595,7 +4738,7 @@ Power
 
    .. py:attribute:: pow
 
-      The number of times to multiply
+      The number of times to multiply.
 
 
 
@@ -4880,7 +5023,7 @@ ReferenceEnumFromScopedPackage
 
 
 
-   See awslabs/jsii#138
+   See awslabs/jsii#138.
 
 
 
@@ -4928,10 +5071,9 @@ ReturnsPrivateImplementationOfInterface
 
 
 
-   Helps ensure the JSII kernel & runtime cooperate correctly when an un-exported instance of a class is returned with
+   Helps ensure the JSII kernel & runtime cooperate correctly when an un-exported instance of a class is returned with a declared type that is an exported interface, and the instance inherits from an exported class.
 
-   a declared type that is an exported interface, and the instance inherits from an exported class.
-
+   https://github.com/awslabs/jsii/issues/320
 
 
 
@@ -5025,7 +5167,7 @@ SingleInstanceTwoTypes
 
 
 
-   Test that a single instance can be returned under two different FQNs
+   Test that a single instance can be returned under two different FQNs.
 
    
 
@@ -5080,11 +5222,11 @@ Statics
 
    .. py:staticmethod:: staticMethod(name) -> string
 
-      Jsdocs for static method
+      Jsdocs for static method.
 
 
 
-      :param name: The name of the person to say hello to
+      :param name: The name of the person to say hello to.
       :type name: string
       :rtype: string
 
@@ -5128,9 +5270,7 @@ Statics
 
    .. py:attribute:: instance
 
-      Jsdocs for static getter.
-
-      Jsdocs for static setter.
+      Jsdocs for static getter. Jsdocs for static setter.
 
 
 
@@ -5251,9 +5391,7 @@ Sum
 
       *Implements* :py:meth:`jsii-calc.composition.CompositeOperation.expression`
 
-      The expression that this operation consists of.
-
-      Must be implemented by derived classes.
+      The expression that this operation consists of. Must be implemented by derived classes.
 
 
 
@@ -5648,7 +5786,7 @@ UseCalcBase
 
 
 
-   Depend on a type from jsii-calc-base as a test for awslabs/jsii#128
+   Depend on a type from jsii-calc-base as a test for awslabs/jsii#128.
 
 
 
@@ -5739,12 +5877,12 @@ VariadicMethod
 
 
 
-   :param \*prefix: a prefix that will be use for all values returned by ``#asArray``.
+   :param \*prefix: a prefix that will be use for all values returned by `#asArray`.
    :type \*prefix: number
 
    .. py:method:: asArray(first, *others) -> number[]
 
-      :param first: the first element of the array to be returned (after the ``prefix`` provided at construction time).
+      :param first: the first element of the array to be returned (after the `prefix` provided at construction time).
       :type first: number
       :param \*others: other elements to be included in the array.
       :type \*others: number
@@ -5866,9 +6004,7 @@ CompositeOperation
 
    .. py:attribute:: expression
 
-      The expression that this operation consists of.
-
-      Must be implemented by derived classes.
+      The expression that this operation consists of. Must be implemented by derived classes.
 
 
 
@@ -5942,13 +6078,13 @@ CompositeOperation
 
       .. py:data:: Normal
 
-      Normal string expression
+      Normal string expression.
 
 
 
       .. py:data:: Decorated
 
-      Decorated string expression
+      Decorated string expression.
 
 
 

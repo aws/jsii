@@ -18,8 +18,9 @@ public class Statics extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Jsdocs for static method
-     * @param name The name of the person to say hello to
+     * Jsdocs for static method.
+     * 
+     * @param name The name of the person to say hello to.
      */
     public static java.lang.String staticMethod(final java.lang.String name) {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Statics.class, "staticMethod", java.lang.String.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(name, "name is required")).toArray());
@@ -43,16 +44,14 @@ public class Statics extends software.amazon.jsii.JsiiObject {
     public final static java.util.Map<java.lang.String, java.lang.String> ZOO_BAR;
 
     /**
-     * Jsdocs for static getter.
-     * Jsdocs for static setter.
+     * Jsdocs for static getter. Jsdocs for static setter.
      */
     public static software.amazon.jsii.tests.calculator.Statics getInstance() {
         return software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.Statics.class, "instance", software.amazon.jsii.tests.calculator.Statics.class);
     }
 
     /**
-     * Jsdocs for static getter.
-     * Jsdocs for static setter.
+     * Jsdocs for static getter. Jsdocs for static setter.
      */
     public static void setInstance(final software.amazon.jsii.tests.calculator.Statics value) {
         software.amazon.jsii.JsiiObject.jsiiStaticSet(software.amazon.jsii.tests.calculator.Statics.class, "instance", java.util.Objects.requireNonNull(value, "instance is required"));

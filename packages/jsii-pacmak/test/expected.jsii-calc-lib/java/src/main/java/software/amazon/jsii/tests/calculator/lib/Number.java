@@ -11,6 +11,7 @@ public class Number extends software.amazon.jsii.tests.calculator.lib.Value impl
     }
     /**
      * Creates a Number object.
+     * 
      * @param value The number.
      */
     public Number(final java.lang.Number value) {

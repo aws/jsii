@@ -14,9 +14,10 @@ namespace Amazon.JSII.Generator.DocComment
     {
         static readonly ISet<string> _wellKnownKeys = new HashSet<string>(new[]
         {
-            "comment",
+            "summary",
             "param",
-            "return",
+            "returns",
+            "custom",
         });
 
         public DocCommentGeneratorBase(T documentable)
@@ -38,10 +39,10 @@ namespace Amazon.JSII.Generator.DocComment
 
         protected IEnumerable<XmlNodeSyntax> GetSummaryNodes()
         {
-            if (Documentable.Docs?.ContainsKey("comment") == true)
+            if (Documentable.Docs?.ContainsKey("summary") == true)
             {
                 yield return SF.XmlText(" ").WithLeadingTrivia(SF.DocumentationCommentExterior(" "));
-                yield return SF.XmlSummaryElement(GetXmlNodes(Documentable.Docs["comment"]).ToArray());
+                yield return SF.XmlSummaryElement(GetXmlNodes(Documentable.Docs["summary"]).ToArray());
             }
         }
 
@@ -56,7 +57,7 @@ namespace Amazon.JSII.Generator.DocComment
                 .Where(kvp => !_wellKnownKeys.Contains(kvp.Key))
                 // Visual Studio will include the closing </remarks> tag as part
                 // of the clickable link if there is no space separating it.
-                .Select(kvp => $"{kvp.Key}: {kvp.Value}{(kvp.Key == "link" ? " " : "")}"));
+                .Select(kvp => (kvp.Key != "remarks" ? kvp.Key + ": " : "") + $"{kvp.Value}{(kvp.Key == "link" ? " " : "")}"));
 
             if (remarks.Any())
             {
@@ -67,12 +68,12 @@ namespace Amazon.JSII.Generator.DocComment
 
         protected IEnumerable<XmlNodeSyntax> GetReturnsNodes()
         {
-            if (Documentable.Docs?.ContainsKey("return") != true)
+            if (Documentable.Docs?.ContainsKey("returns") != true)
             {
                 yield break;
             }
 
-            string text = Documentable.Docs["return"];
+            string text = Documentable.Docs["returns"];
 
             yield return SF.XmlText(" ").WithLeadingTrivia(SF.DocumentationCommentExterior(" "));
             yield return SF.XmlReturnsElement(GetXmlNodes(text).ToArray());

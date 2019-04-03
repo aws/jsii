@@ -10,9 +10,10 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
         super(mode);
     }
     /**
-     * Creates a BinaryOperation
-     * @param lhs Left-hand side operand
-     * @param rhs Right-hand side operand
+     * Creates a BinaryOperation.
+     * 
+     * @param lhs Left-hand side operand.
+     * @param rhs Right-hand side operand.
      */
     public BinaryOperation(final software.amazon.jsii.tests.calculator.lib.Value lhs, final software.amazon.jsii.tests.calculator.lib.Value rhs) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
@@ -28,14 +29,14 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
     }
 
     /**
-     * Left-hand side operand
+     * Left-hand side operand.
      */
     public software.amazon.jsii.tests.calculator.lib.Value getLhs() {
         return this.jsiiGet("lhs", software.amazon.jsii.tests.calculator.lib.Value.class);
     }
 
     /**
-     * Right-hand side operand
+     * Right-hand side operand.
      */
     public software.amazon.jsii.tests.calculator.lib.Value getRhs() {
         return this.jsiiGet("rhs", software.amazon.jsii.tests.calculator.lib.Value.class);

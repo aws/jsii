@@ -15,8 +15,7 @@ public class Sum extends software.amazon.jsii.tests.calculator.composition.Compo
     }
 
     /**
-     * The expression that this operation consists of.
-     * Must be implemented by derived classes.
+     * The expression that this operation consists of. Must be implemented by derived classes.
      */
     @Override
     public software.amazon.jsii.tests.calculator.lib.Value getExpression() {

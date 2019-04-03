@@ -15,14 +15,14 @@ public class ObjectRefsInCollections extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Returns the sum of all values
+     * Returns the sum of all values.
      */
     public java.lang.Number sumFromArray(final java.util.List<software.amazon.jsii.tests.calculator.lib.Value> values) {
         return this.jsiiCall("sumFromArray", java.lang.Number.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(values, "values is required")).toArray());
     }
 
     /**
-     * Returns the sum of all values in a map
+     * Returns the sum of all values in a map.
      */
     public java.lang.Number sumFromMap(final java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> values) {
         return this.jsiiCall("sumFromMap", java.lang.Number.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(values, "values is required")).toArray());

@@ -20,14 +20,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>Returns the sum of all values</summary>
+        /// <summary>Returns the sum of all values.</summary>
         [JsiiMethod("sumFromArray", "{\"primitive\":\"number\"}", "[{\"name\":\"values\",\"type\":{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}}]")]
         public virtual double SumFromArray(Value_[] values)
         {
             return InvokeInstanceMethod<double>(new object[]{values});
         }
 
-        /// <summary>Returns the sum of all values in a map</summary>
+        /// <summary>Returns the sum of all values in a map.</summary>
         [JsiiMethod("sumFromMap", "{\"primitive\":\"number\"}", "[{\"name\":\"values\",\"type\":{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}}]")]
         public virtual double SumFromMap(IDictionary<string, Value_> values)
         {
