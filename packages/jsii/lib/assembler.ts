@@ -417,9 +417,21 @@ export class Assembler implements Emitter {
     if (_isAbstract(type.symbol, jsiiType)) {
       jsiiType.abstract = true;
     }
-    for (const base of (type.getBaseTypes() || [])) {
+
+    const erasedBases = new Array<ts.BaseType>();
+    for (let base of (type.getBaseTypes() || [])) {
       if (jsiiType.base) {
         this._diagnostic(base.symbol.valueDeclaration, ts.DiagnosticCategory.Error, `Found multiple base types for ${jsiiType.fqn}`);
+        continue;
+      }
+
+      // tslint:disable-next-line: no-bitwise
+      while (base && (ts.getCombinedModifierFlags(base.symbol.valueDeclaration) & ts.ModifierFlags.Export) === 0) {
+        LOG.debug(`Base class of ${colors.green(jsiiType.fqn)} named ${colors.green(base.symbol.name)} is not exported, erasing it...`);
+        erasedBases.push(base);
+        base = (base.getBaseTypes() || [])[0];
+      }
+      if (!base) {
         continue;
       }
 
@@ -467,14 +479,18 @@ export class Assembler implements Emitter {
       throw new Error('Oh no');
     }
 
-    for (const decl of type.symbol.declarations) {
+    const allDeclarations: Array<{ decl: ts.Declaration, type: ts.InterfaceType | ts.BaseType }>
+      = type.symbol.declarations.map(decl => ({ decl, type }));
+    // Considering erased bases' declarations, too, so they are "blended in"
+    erasedBases.forEach(base => allDeclarations.push(...base.symbol.declarations.map(decl => ({ decl, type: base }))));
+    for (const { decl, type: declaringType }  of allDeclarations) {
       const classDecl = (decl as ts.ClassDeclaration | ts.InterfaceDeclaration);
       if (!classDecl.members) { continue; }
 
       for (const memberDecl of classDecl.members) {
         const member: ts.Symbol = (memberDecl as any).symbol;
 
-        if (!(type.symbol.getDeclarations() || []).find(d => d === memberDecl.parent)) {
+        if (!(declaringType.symbol.getDeclarations() || []).find(d => d === memberDecl.parent)) {
           continue;
         }
 
@@ -501,7 +517,9 @@ export class Assembler implements Emitter {
       }
     }
 
-    const constructor = type.symbol.members && type.symbol.members.get(ts.InternalSymbolName.Constructor);
+    const constructor = (type.symbol.members && type.symbol.members.get(ts.InternalSymbolName.Constructor))
+      // If no local constructor, look for one in the erased bases
+      || (erasedBases.map(base => base.symbol.members && base.symbol.members.get(ts.InternalSymbolName.Constructor)).find(ctor => ctor != null));
     const ctorDeclaration = constructor && (constructor.declarations[0] as ts.ConstructorDeclaration);
     if (constructor && ctorDeclaration) {
       const signature = this._typeChecker.getSignatureFromDeclaration(ctorDeclaration);
@@ -830,6 +848,10 @@ export class Assembler implements Emitter {
     }
 
     type.methods = type.methods || [];
+    if (type.methods.find(m => m.name === method.name && m.static === method.static) != null) {
+      LOG.trace(`Dropping re-declaration of ${colors.green(type.fqn)}#${colors.cyan(method.name!)}`);
+      return;
+    }
     type.methods.push(method);
   }
 
@@ -878,6 +900,10 @@ export class Assembler implements Emitter {
     this._visitDocumentation(symbol, property);
 
     type.properties = type.properties || [];
+    if (type.properties.find(prop => prop.name === property.name && prop.static === property.static) != null) {
+      LOG.trace(`Dropping re-declaration of ${colors.green(type.fqn)}#${colors.cyan(property.name)}`);
+      return;
+    }
     type.properties.push(property);
   }
 
