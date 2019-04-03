@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>summary: awslabs/jsii#220 Abstract return type.</remarks>
+    /// <summary>awslabs/jsii#220 Abstract return type.</summary>
     [JsiiInterface(typeof(IIInterfaceImplementedByAbstractClass), "jsii-calc.IInterfaceImplementedByAbstractClass")]
     public interface IIInterfaceImplementedByAbstractClass
     {

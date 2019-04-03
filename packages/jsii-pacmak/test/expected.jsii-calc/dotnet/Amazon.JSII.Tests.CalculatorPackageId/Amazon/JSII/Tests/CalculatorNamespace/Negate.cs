@@ -3,7 +3,7 @@ using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>summary: The negation operation ("-value").</remarks>
+    /// <summary>The negation operation ("-value").</summary>
     [JsiiClass(typeof(Negate), "jsii-calc.Negate", "[{\"name\":\"operand\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
     public class Negate : UnaryOperation, IIFriendlier
     {
@@ -19,35 +19,35 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <remarks>summary: The value.</remarks>
+        /// <summary>The value.</summary>
         [JsiiProperty("value", "{\"primitive\":\"number\"}")]
         public override double Value
         {
             get => GetInstanceProperty<double>();
         }
 
-        /// <remarks>summary: Say farewell.</remarks>
+        /// <summary>Say farewell.</summary>
         [JsiiMethod("farewell", "{\"primitive\":\"string\"}", "[]")]
         public virtual string Farewell()
         {
             return InvokeInstanceMethod<string>(new object[]{});
         }
 
-        /// <remarks>summary: Say goodbye.</remarks>
+        /// <summary>Say goodbye.</summary>
         [JsiiMethod("goodbye", "{\"primitive\":\"string\"}", "[]")]
         public virtual string Goodbye()
         {
             return InvokeInstanceMethod<string>(new object[]{});
         }
 
-        /// <remarks>summary: Say hello!</remarks>
+        /// <summary>Say hello!</summary>
         [JsiiMethod("hello", "{\"primitive\":\"string\"}", "[]")]
         public virtual string Hello()
         {
             return InvokeInstanceMethod<string>(new object[]{});
         }
 
-        /// <remarks>summary: String representation of the value.</remarks>
+        /// <summary>String representation of the value.</summary>
         [JsiiMethod("toString", "{\"primitive\":\"string\"}", "[]")]
         public override string ToString()
         {

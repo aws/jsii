@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>summary: A struct which derives from another struct.</remarks>
+    /// <summary>A struct which derives from another struct.</summary>
     [JsiiByValue]
     public class DerivedStruct : IDerivedStruct
     {
@@ -23,7 +23,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
-        /// <remarks>summary: An example of a non primitive property.</remarks>
+        /// <summary>An example of a non primitive property.</summary>
         [JsiiProperty("nonPrimitive", "{\"fqn\":\"jsii-calc.DoubleTrouble\"}", true)]
         public DoubleTrouble NonPrimitive
         {
@@ -31,7 +31,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
-        /// <remarks>summary: This is optional.</remarks>
+        /// <summary>This is optional.</summary>
         [JsiiProperty("anotherOptional", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},\"optional\":true}", true)]
         public IDictionary<string, Value_> AnotherOptional
         {
@@ -53,7 +53,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
-        /// <remarks>summary: An awesome number value.</remarks>
+        /// <summary>An awesome number value.</summary>
         [JsiiProperty("anumber", "{\"primitive\":\"number\"}", true)]
         public double Anumber
         {
@@ -61,7 +61,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
-        /// <remarks>summary: A string value.</remarks>
+        /// <summary>A string value.</summary>
         [JsiiProperty("astring", "{\"primitive\":\"string\"}", true)]
         public string Astring
         {

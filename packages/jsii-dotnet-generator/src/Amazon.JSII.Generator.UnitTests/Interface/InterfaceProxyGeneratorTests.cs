@@ -185,13 +185,13 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
             const string json =
                 @"    {
       ""docs"": {
-        ""comment"": ""Models an AWS execution environment, for use within the CDK toolkit.""
+        ""summary"": ""Models an AWS execution environment, for use within the CDK toolkit.""
       },
       ""kind"": ""interface"",
       ""properties"": [
         {
           ""docs"": {
-            ""comment"": ""The arbitrary name of this environment (user-set, or at least user-meaningful) ""
+            ""summary"": ""The arbitrary name of this environment (user-set, or at least user-meaningful) ""
           },
           ""abstract"": true,
           ""name"": ""name"",
@@ -201,7 +201,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
         },
         {
           ""docs"": {
-            ""comment"": ""The 12-digit AWS account ID for the account this environment deploys into ""
+            ""summary"": ""The 12-digit AWS account ID for the account this environment deploys into ""
           },
           ""abstract"": true,
           ""name"": ""account"",
@@ -211,7 +211,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
         },
         {
           ""docs"": {
-            ""comment"": ""The AWS region name where this environment deploys into ""
+            ""summary"": ""The AWS region name where this environment deploys into ""
           },
           ""abstract"": true,
           ""name"": ""region"",

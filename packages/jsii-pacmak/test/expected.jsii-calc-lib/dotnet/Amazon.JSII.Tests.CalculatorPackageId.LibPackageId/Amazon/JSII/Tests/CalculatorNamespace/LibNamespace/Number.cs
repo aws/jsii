@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <remarks>summary: Represents a concrete number.</remarks>
+    /// <summary>Represents a concrete number.</summary>
     [JsiiClass(typeof(Number), "@scope/jsii-calc-lib.Number", "[{\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]
     public class Number : Value_, IIDoublable
     {
@@ -18,14 +18,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
-        /// <remarks>summary: The number multiplied by 2.</remarks>
+        /// <summary>The number multiplied by 2.</summary>
         [JsiiProperty("doubleValue", "{\"primitive\":\"number\"}")]
         public virtual double DoubleValue
         {
             get => GetInstanceProperty<double>();
         }
 
-        /// <remarks>summary: The number.</remarks>
+        /// <summary>The number.</summary>
         [JsiiProperty("value", "{\"primitive\":\"number\"}")]
         public override double Value
         {

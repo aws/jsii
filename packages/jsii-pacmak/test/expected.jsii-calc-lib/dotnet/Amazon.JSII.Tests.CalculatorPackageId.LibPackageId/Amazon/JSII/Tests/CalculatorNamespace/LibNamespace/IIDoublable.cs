@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <remarks>summary: The general contract for a concrete number.</remarks>
+    /// <summary>The general contract for a concrete number.</summary>
     [JsiiInterface(typeof(IIDoublable), "@scope/jsii-calc-lib.IDoublable")]
     public interface IIDoublable
     {

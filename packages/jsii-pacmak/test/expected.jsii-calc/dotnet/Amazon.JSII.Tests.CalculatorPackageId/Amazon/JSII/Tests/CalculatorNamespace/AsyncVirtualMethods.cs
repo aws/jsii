@@ -23,18 +23,18 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<double>(new object[]{});
         }
 
-        /// <remarks>summary: Just calls "overrideMeToo".</remarks>
+        /// <summary>Just calls "overrideMeToo".</summary>
         [JsiiMethod("callMe2", "{\"primitive\":\"number\",\"promise\":true}", "[]")]
         public virtual double CallMe2()
         {
             return InvokeInstanceMethod<double>(new object[]{});
         }
 
+        /// <summary>This method calls the "callMe" async method indirectly, which will then invoke a virtual method.</summary>
         /// <remarks>
-        /// remarks: This is a "double promise" situation, which
+        /// This is a "double promise" situation, which
         /// means that callbacks are not going to be available immediate, but only
         /// after an "immediates" cycle.
-        /// summary: This method calls the "callMe" async method indirectly, which will then invoke a virtual method.
         /// </remarks>
         [JsiiMethod("callMeDoublePromise", "{\"primitive\":\"number\",\"promise\":true}", "[]")]
         public virtual double CallMeDoublePromise()

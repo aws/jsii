@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <remarks>summary: Abstract class which represents a numeric value.</remarks>
+    /// <summary>Abstract class which represents a numeric value.</summary>
     [JsiiTypeProxy(typeof(Value_), "@scope/jsii-calc-lib.Value")]
     internal sealed class ValueProxy : Value_
     {
@@ -10,7 +10,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
-        /// <remarks>summary: The value.</remarks>
+        /// <summary>The value.</summary>
         [JsiiProperty("value", "{\"primitive\":\"number\"}")]
         public override double Value
         {

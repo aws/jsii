@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>summary: A struct which derives from another struct.</remarks>
+    /// <summary>A struct which derives from another struct.</summary>
     [JsiiInterface(typeof(IDerivedStruct), "jsii-calc.DerivedStruct")]
     public interface IDerivedStruct : IMyFirstStruct
     {
@@ -21,14 +21,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get;
         }
 
-        /// <remarks>summary: An example of a non primitive property.</remarks>
+        /// <summary>An example of a non primitive property.</summary>
         [JsiiProperty("nonPrimitive", "{\"fqn\":\"jsii-calc.DoubleTrouble\"}")]
         DoubleTrouble NonPrimitive
         {
             get;
         }
 
-        /// <remarks>summary: This is optional.</remarks>
+        /// <summary>This is optional.</summary>
         [JsiiProperty("anotherOptional", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},\"optional\":true}")]
         IDictionary<string, Value_> AnotherOptional
         {

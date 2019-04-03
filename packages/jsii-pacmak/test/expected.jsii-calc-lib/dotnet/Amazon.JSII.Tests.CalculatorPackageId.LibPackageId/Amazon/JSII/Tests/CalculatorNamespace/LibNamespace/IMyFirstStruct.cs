@@ -2,18 +2,18 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <remarks>summary: This is the first struct we have created in jsii.</remarks>
+    /// <summary>This is the first struct we have created in jsii.</summary>
     [JsiiInterface(typeof(IMyFirstStruct), "@scope/jsii-calc-lib.MyFirstStruct")]
     public interface IMyFirstStruct
     {
-        /// <remarks>summary: An awesome number value.</remarks>
+        /// <summary>An awesome number value.</summary>
         [JsiiProperty("anumber", "{\"primitive\":\"number\"}")]
         double Anumber
         {
             get;
         }
 
-        /// <remarks>summary: A string value.</remarks>
+        /// <summary>A string value.</summary>
         [JsiiProperty("astring", "{\"primitive\":\"string\"}")]
         string Astring
         {

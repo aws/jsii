@@ -30,7 +30,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             InvokeInstanceVoidMethod(new object[]{arg});
         }
 
-        /// <remarks>summary: Used to verify verification of number of method arguments.</remarks>
+        /// <summary>Used to verify verification of number of method arguments.</summary>
         [JsiiMethod("methodWithOptionalArguments", null, "[{\"name\":\"arg1\",\"type\":{\"primitive\":\"number\"}},{\"name\":\"arg2\",\"type\":{\"primitive\":\"string\"}},{\"name\":\"arg3\",\"type\":{\"primitive\":\"date\",\"optional\":true}}]")]
         public virtual void MethodWithOptionalArguments(double arg1, string arg2, DateTime? arg3)
         {

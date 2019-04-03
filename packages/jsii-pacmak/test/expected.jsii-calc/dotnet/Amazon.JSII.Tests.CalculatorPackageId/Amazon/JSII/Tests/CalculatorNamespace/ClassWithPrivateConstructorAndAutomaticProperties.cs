@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>summary: Class that implements interface properties automatically, but using a private constructor.</remarks>
+    /// <summary>Class that implements interface properties automatically, but using a private constructor.</summary>
     [JsiiClass(typeof(ClassWithPrivateConstructorAndAutomaticProperties), "jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties", "[]")]
     public class ClassWithPrivateConstructorAndAutomaticProperties : DeputyBase, IIInterfaceWithProperties
     {

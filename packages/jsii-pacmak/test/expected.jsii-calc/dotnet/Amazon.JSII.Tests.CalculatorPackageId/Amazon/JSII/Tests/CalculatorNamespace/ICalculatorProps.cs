@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>summary: Properties for Calculator.</remarks>
+    /// <summary>Properties for Calculator.</summary>
     [JsiiInterface(typeof(ICalculatorProps), "jsii-calc.CalculatorProps")]
     public interface ICalculatorProps
     {

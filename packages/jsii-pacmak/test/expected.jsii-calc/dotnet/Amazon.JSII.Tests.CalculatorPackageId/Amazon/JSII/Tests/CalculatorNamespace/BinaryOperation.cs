@@ -3,7 +3,7 @@ using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>summary: Represents an operation with two operands.</remarks>
+    /// <summary>Represents an operation with two operands.</summary>
     [JsiiClass(typeof(BinaryOperation), "jsii-calc.BinaryOperation", "[{\"name\":\"lhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},{\"name\":\"rhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
     public abstract class BinaryOperation : Operation, IIFriendly
     {
@@ -19,21 +19,21 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <remarks>summary: Left-hand side operand.</remarks>
+        /// <summary>Left-hand side operand.</summary>
         [JsiiProperty("lhs", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public virtual Value_ Lhs
         {
             get => GetInstanceProperty<Value_>();
         }
 
-        /// <remarks>summary: Right-hand side operand.</remarks>
+        /// <summary>Right-hand side operand.</summary>
         [JsiiProperty("rhs", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public virtual Value_ Rhs
         {
             get => GetInstanceProperty<Value_>();
         }
 
-        /// <remarks>summary: Say hello!</remarks>
+        /// <summary>Say hello!</summary>
         [JsiiMethod("hello", "{\"primitive\":\"string\"}", "[]")]
         public virtual string Hello()
         {

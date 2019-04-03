@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <remarks>summary: This is a struct with only optional properties.</remarks>
+    /// <summary>This is a struct with only optional properties.</summary>
     [JsiiTypeProxy(typeof(IStructWithOnlyOptionals), "@scope/jsii-calc-lib.StructWithOnlyOptionals")]
     internal sealed class StructWithOnlyOptionalsProxy : DeputyBase, IStructWithOnlyOptionals
     {
@@ -10,7 +10,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
-        /// <remarks>summary: The first optional!</remarks>
+        /// <summary>The first optional!</summary>
         [JsiiProperty("optional1", "{\"primitive\":\"string\",\"optional\":true}")]
         public string Optional1
         {

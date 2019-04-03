@@ -2,11 +2,11 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <remarks>summary: This is a struct with only optional properties.</remarks>
+    /// <summary>This is a struct with only optional properties.</summary>
     [JsiiInterface(typeof(IStructWithOnlyOptionals), "@scope/jsii-calc-lib.StructWithOnlyOptionals")]
     public interface IStructWithOnlyOptionals
     {
-        /// <remarks>summary: The first optional!</remarks>
+        /// <summary>The first optional!</summary>
         [JsiiProperty("optional1", "{\"primitive\":\"string\",\"optional\":true}")]
         string Optional1
         {

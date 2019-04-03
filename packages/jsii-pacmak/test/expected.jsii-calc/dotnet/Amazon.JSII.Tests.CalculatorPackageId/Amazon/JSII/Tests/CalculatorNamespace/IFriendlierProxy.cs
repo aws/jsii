@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>summary: Even friendlier classes can implement this interface.</remarks>
+    /// <summary>Even friendlier classes can implement this interface.</summary>
     [JsiiTypeProxy(typeof(IIFriendlier), "jsii-calc.IFriendlier")]
     internal sealed class IFriendlierProxy : DeputyBase, IIFriendlier
     {
@@ -10,24 +10,22 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <remarks>summary: Say farewell.</remarks>
+        /// <summary>Say farewell.</summary>
         [JsiiMethod("farewell", "{\"primitive\":\"string\"}", "[]")]
         public string Farewell()
         {
             return InvokeInstanceMethod<string>(new object[]{});
         }
 
-        /// <remarks>
-        /// returns: A goodbye blessing.
-        /// summary: Say goodbye.
-        /// </remarks>
+        /// <summary>Say goodbye.</summary>
+        /// <returns>A goodbye blessing.</returns>
         [JsiiMethod("goodbye", "{\"primitive\":\"string\"}", "[]")]
         public string Goodbye()
         {
             return InvokeInstanceMethod<string>(new object[]{});
         }
 
-        /// <remarks>summary: Say hello!</remarks>
+        /// <summary>Say hello!</summary>
         [JsiiMethod("hello", "{\"primitive\":\"string\"}", "[]")]
         public string Hello()
         {

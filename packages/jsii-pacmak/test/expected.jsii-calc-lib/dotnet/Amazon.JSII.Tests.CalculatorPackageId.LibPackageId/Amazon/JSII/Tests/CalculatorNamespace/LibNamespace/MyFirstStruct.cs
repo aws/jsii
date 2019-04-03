@@ -2,11 +2,11 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
-    /// <remarks>summary: This is the first struct we have created in jsii.</remarks>
+    /// <summary>This is the first struct we have created in jsii.</summary>
     [JsiiByValue]
     public class MyFirstStruct : IMyFirstStruct
     {
-        /// <remarks>summary: An awesome number value.</remarks>
+        /// <summary>An awesome number value.</summary>
         [JsiiProperty("anumber", "{\"primitive\":\"number\"}", true)]
         public double Anumber
         {
@@ -14,7 +14,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
             set;
         }
 
-        /// <remarks>summary: A string value.</remarks>
+        /// <summary>A string value.</summary>
         [JsiiProperty("astring", "{\"primitive\":\"string\"}", true)]
         public string Astring
         {

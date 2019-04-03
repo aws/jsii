@@ -23,7 +23,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             InvokeInstanceVoidMethod(new object[]{_p1, _p2});
         }
 
-        /// <remarks>summary: getXxx() is not allowed (see negatives), but getXxx(a, ...) is okay.</remarks>
+        /// <summary>getXxx() is not allowed (see negatives), but getXxx(a, ...) is okay.</summary>
         [JsiiMethod("getFoo", "{\"primitive\":\"string\"}", "[{\"name\":\"withParam\",\"type\":{\"primitive\":\"string\"}}]")]
         public virtual string GetFoo(string withParam)
         {
@@ -36,7 +36,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             InvokeInstanceVoidMethod(new object[]{_x, _y, _z});
         }
 
-        /// <remarks>summary: setFoo(x) is not allowed (see negatives), but setXxx(a, b, ...) is okay.</remarks>
+        /// <summary>setFoo(x) is not allowed (see negatives), but setXxx(a, b, ...) is okay.</summary>
         [JsiiMethod("setFoo", null, "[{\"name\":\"_x\",\"type\":{\"primitive\":\"string\"}},{\"name\":\"_y\",\"type\":{\"primitive\":\"number\"}}]")]
         public virtual void SetFoo(string _x, double _y)
         {

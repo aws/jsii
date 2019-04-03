@@ -2,13 +2,13 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
+    /// <summary>Here's the first line of the TSDoc comment.</summary>
     /// <remarks>
-    /// remarks: This is the meat of the TSDoc comment. It may contain
+    /// This is the meat of the TSDoc comment. It may contain
     /// multiple lines and multiple paragraphs.
     /// 
     /// Multiple paragraphs are separated by an empty line.
     /// stability: stable
-    /// summary: Here's the first line of the TSDoc comment.
     /// </remarks>
     [JsiiClass(typeof(DocumentedClass), "jsii-calc.DocumentedClass", "[]")]
     public class DocumentedClass : DeputyBase
@@ -25,12 +25,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <param name = "greetee">summary: The person to be greeted.</param>
+        /// <summary>Greet the indicated person.</summary>
+        /// <param name = "greetee">The person to be greeted.</param>
+        /// <returns>A number that everyone knows very well</returns>
         /// <remarks>
-        /// remarks: This will print out a friendly greeting intended for
+        /// This will print out a friendly greeting intended for
         /// the indicated person.
-        /// returns: A number that everyone knows very well
-        /// summary: Greet the indicated person.
         /// </remarks>
         [JsiiMethod("greet", "{\"primitive\":\"number\"}", "[{\"name\":\"greetee\",\"type\":{\"fqn\":\"jsii-calc.Greetee\",\"optional\":true}}]")]
         public virtual double Greet(IGreetee greetee)
@@ -38,10 +38,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<double>(new object[]{greetee});
         }
 
-        /// <remarks>
-        /// stability: experimental
-        /// summary: Say ¡Hola!
-        /// </remarks>
+        /// <summary>Say ¡Hola!</summary>
+        /// <remarks>stability: experimental</remarks>
         [JsiiMethod("hola", null, "[]")]
         public virtual void Hola()
         {
