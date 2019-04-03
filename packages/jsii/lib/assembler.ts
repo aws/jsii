@@ -430,7 +430,7 @@ export class Assembler implements Emitter {
        * erased, and identify the closest exported base class, should there be one.
        */
       // tslint:disable-next-line: no-bitwise
-      while (base && (ts.getCombinedModifierFlags(base.symbol.valueDeclaration) & ts.ModifierFlags.Export) === 0) {
+      while (this._isPrivateOrInternal(base.symbol)) {
         LOG.debug(`Base class of ${colors.green(jsiiType.fqn)} named ${colors.green(base.symbol.name)} is not exported, erasing it...`);
         erasedBases.push(base);
         base = (base.getBaseTypes() || [])[0];
