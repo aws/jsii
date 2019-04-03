@@ -102,8 +102,8 @@ assemblies
  │   │   └── MyFirstStruct
  │   ├── interface EraseUndefinedHashValuesOptions
  │   ├── interface ExtendsInternalInterface
- │   ├── interface ExtendsPrivateInterface
  │   ├── interface IAnotherPublicInterface
+ │   ├── interface IExtendsPrivateInterface
  │   ├─┬ interface IFriendlier
  │   │ └─┬ interfaces
  │   │   └── IFriendly
@@ -122,6 +122,10 @@ assemblies
  │   ├─┬ interface IInterfaceWithPropertiesExtension
  │   │ └─┬ interfaces
  │   │   └── IInterfaceWithProperties
+ │   ├─┬ interface IJSII417Derived
+ │   │ └─┬ interfaces
+ │   │   └── IJSII417PublicBaseOfBase
+ │   ├── interface IJSII417PublicBaseOfBase
  │   ├── interface IMutableObjectLiteral
  │   ├─┬ interface INonInternalInterface
  │   │ └─┬ interfaces

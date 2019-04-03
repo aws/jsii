@@ -1101,6 +1101,8 @@ ClassThatImplementsTheInternalInterface
 
    .. py:attribute:: b
 
+      *Implements* :py:meth:`jsii-calc.INonInternalInterface.b`
+
       :type: string
 
 
@@ -1153,6 +1155,8 @@ ClassThatImplementsThePrivateInterface
 
 
    .. py:attribute:: b
+
+      *Implements* :py:meth:`jsii-calc.INonInternalInterface.b`
 
       :type: string
 
@@ -1963,38 +1967,9 @@ ExtendsInternalInterface (interface)
       :type: boolean *(readonly)*
 
 
-ExtendsPrivateInterface (interface)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   .. py:attribute:: prop
 
-.. py:class:: ExtendsPrivateInterface
-
-   **Language-specific names:**
-
-   .. tabs::
-
-      .. code-tab:: c#
-
-         using Amazon.JSII.Tests.CalculatorNamespace;
-
-      .. code-tab:: java
-
-         import software.amazon.jsii.tests.calculator.ExtendsPrivateInterface;
-
-      .. code-tab:: javascript
-
-         // ExtendsPrivateInterface is an interface
-
-      .. code-tab:: typescript
-
-         import { ExtendsPrivateInterface } from 'jsii-calc';
-
-
-
-
-
-   .. py:attribute:: moreThings
-
-      :type: string[] *(readonly)*
+      :type: string *(readonly)*
 
 
 GiveMeStructs
@@ -2128,6 +2103,45 @@ IAnotherPublicInterface (interface)
 
 
    .. py:attribute:: a
+
+      :type: string
+
+
+IExtendsPrivateInterface (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: IExtendsPrivateInterface
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.IExtendsPrivateInterface;
+
+      .. code-tab:: javascript
+
+         // IExtendsPrivateInterface is an interface
+
+      .. code-tab:: typescript
+
+         import { IExtendsPrivateInterface } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: moreThings
+
+      :type: string[] *(readonly)*
+
+
+   .. py:attribute:: private
 
       :type: string
 
@@ -2555,6 +2569,104 @@ IInterfaceWithPropertiesExtension (interface)
       :type: string
 
 
+IJSII417Derived (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: IJSII417Derived
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.IJSII417Derived;
+
+      .. code-tab:: javascript
+
+         // IJSII417Derived is an interface
+
+      .. code-tab:: typescript
+
+         import { IJSII417Derived } from 'jsii-calc';
+
+
+
+   :extends: :py:class:`~jsii-calc.IJSII417PublicBaseOfBase`\ 
+
+
+   .. py:attribute:: property
+
+      :type: string *(readonly)*
+
+
+   .. py:method:: bar()
+
+      :abstract: Yes
+
+
+   .. py:method:: baz()
+
+      :abstract: Yes
+
+
+   .. py:method:: foo()
+
+      *Inherited from* :py:meth:`jsii-calc.IJSII417PublicBaseOfBase <jsii-calc.IJSII417PublicBaseOfBase.foo>`
+
+      :abstract: Yes
+
+
+   .. py:attribute:: hasRoot
+
+      *Inherited from* :py:attr:`jsii-calc.IJSII417PublicBaseOfBase <jsii-calc.IJSII417PublicBaseOfBase.hasRoot>`
+
+      :type: boolean *(readonly)*
+
+
+IJSII417PublicBaseOfBase (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: IJSII417PublicBaseOfBase
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.IJSII417PublicBaseOfBase;
+
+      .. code-tab:: javascript
+
+         // IJSII417PublicBaseOfBase is an interface
+
+      .. code-tab:: typescript
+
+         import { IJSII417PublicBaseOfBase } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: hasRoot
+
+      :type: boolean *(readonly)*
+
+
+   .. py:method:: foo()
+
+      :abstract: Yes
+
+
 IMutableObjectLiteral (interface)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -2617,6 +2729,11 @@ INonInternalInterface (interface)
 
 
    :extends: :py:class:`~jsii-calc.IAnotherPublicInterface`\ 
+
+
+   .. py:attribute:: b
+
+      :type: string
 
 
    .. py:attribute:: c

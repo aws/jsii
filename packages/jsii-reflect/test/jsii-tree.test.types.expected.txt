@@ -76,8 +76,8 @@ assemblies
  │   ├── interface DerivedStruct
  │   ├── interface EraseUndefinedHashValuesOptions
  │   ├── interface ExtendsInternalInterface
- │   ├── interface ExtendsPrivateInterface
  │   ├── interface IAnotherPublicInterface
+ │   ├── interface IExtendsPrivateInterface
  │   ├── interface IFriendlier
  │   ├── interface IFriendlyRandomGenerator
  │   ├── interface IInterfaceImplementedByAbstractClass
@@ -87,6 +87,8 @@ assemblies
  │   ├── interface IInterfaceWithOptionalMethodArguments
  │   ├── interface IInterfaceWithProperties
  │   ├── interface IInterfaceWithPropertiesExtension
+ │   ├── interface IJSII417Derived
+ │   ├── interface IJSII417PublicBaseOfBase
  │   ├── interface IMutableObjectLiteral
  │   ├── interface INonInternalInterface
  │   ├── interface IPrivatelyImplemented

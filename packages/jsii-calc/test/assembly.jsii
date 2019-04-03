@@ -1133,6 +1133,9 @@
         },
         {
           "name": "b",
+          "overrides": {
+            "fqn": "jsii-calc.INonInternalInterface"
+          },
           "type": {
             "primitive": "string"
           }
@@ -1179,6 +1182,9 @@
         },
         {
           "name": "b",
+          "overrides": {
+            "fqn": "jsii-calc.INonInternalInterface"
+          },
           "type": {
             "primitive": "string"
           }
@@ -1846,27 +1852,13 @@
           "type": {
             "primitive": "boolean"
           }
-        }
-      ]
-    },
-    "jsii-calc.ExtendsPrivateInterface": {
-      "assembly": "jsii-calc",
-      "datatype": true,
-      "fqn": "jsii-calc.ExtendsPrivateInterface",
-      "kind": "interface",
-      "name": "ExtendsPrivateInterface",
-      "properties": [
+        },
         {
           "abstract": true,
           "immutable": true,
-          "name": "moreThings",
+          "name": "prop",
           "type": {
-            "collection": {
-              "elementtype": {
-                "primitive": "string"
-              },
-              "kind": "array"
-            }
+            "primitive": "string"
           }
         }
       ]
@@ -1976,6 +1968,34 @@
         {
           "abstract": true,
           "name": "a",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.IExtendsPrivateInterface": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.IExtendsPrivateInterface",
+      "kind": "interface",
+      "name": "IExtendsPrivateInterface",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "name": "moreThings",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "primitive": "string"
+              },
+              "kind": "array"
+            }
+          }
+        },
+        {
+          "abstract": true,
+          "name": "private",
           "type": {
             "primitive": "string"
           }
@@ -2183,6 +2203,59 @@
         }
       ]
     },
+    "jsii-calc.IJSII417Derived": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.IJSII417Derived",
+      "interfaces": [
+        {
+          "fqn": "jsii-calc.IJSII417PublicBaseOfBase"
+        }
+      ],
+      "kind": "interface",
+      "methods": [
+        {
+          "abstract": true,
+          "name": "bar"
+        },
+        {
+          "abstract": true,
+          "name": "baz"
+        }
+      ],
+      "name": "IJSII417Derived",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "name": "property",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.IJSII417PublicBaseOfBase": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.IJSII417PublicBaseOfBase",
+      "kind": "interface",
+      "methods": [
+        {
+          "abstract": true,
+          "name": "foo"
+        }
+      ],
+      "name": "IJSII417PublicBaseOfBase",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "name": "hasRoot",
+          "type": {
+            "primitive": "boolean"
+          }
+        }
+      ]
+    },
     "jsii-calc.IMutableObjectLiteral": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.IMutableObjectLiteral",
@@ -2209,6 +2282,13 @@
       "kind": "interface",
       "name": "INonInternalInterface",
       "properties": [
+        {
+          "abstract": true,
+          "name": "b",
+          "type": {
+            "primitive": "string"
+          }
+        },
         {
           "abstract": true,
           "name": "c",
@@ -4701,5 +4781,5 @@
     }
   },
   "version": "0.8.2",
-  "fingerprint": "upM77jvLtKXqaAYygq6yoGd2vc9Ae/Y7x70F/EiuKEY="
+  "fingerprint": "QykU9QyYdfH4KIwH5zf5Mf5E9iCrsAsxO5bVj4bpBrM="
 }

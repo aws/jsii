@@ -549,10 +549,7 @@ class ExportedBaseClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ExportedBa
 @jsii.data_type(jsii_type="jsii-calc.ExtendsInternalInterface")
 class ExtendsInternalInterface(jsii.compat.TypedDict):
     boom: bool
-
-@jsii.data_type(jsii_type="jsii-calc.ExtendsPrivateInterface")
-class ExtendsPrivateInterface(jsii.compat.TypedDict):
-    moreThings: typing.List[str]
+    prop: str
 
 class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"):
     def __init__(self) -> None:
@@ -644,6 +641,44 @@ class _IAnotherPublicInterfaceProxy():
     @a.setter
     def a(self, value: str):
         return jsii.set(self, "a", value)
+
+
+@jsii.interface(jsii_type="jsii-calc.IExtendsPrivateInterface")
+class IExtendsPrivateInterface(jsii.compat.Protocol):
+    @staticmethod
+    def __jsii_proxy_class__():
+        return _IExtendsPrivateInterfaceProxy
+
+    @property
+    @jsii.member(jsii_name="moreThings")
+    def more_things(self) -> typing.List[str]:
+        ...
+
+    @property
+    @jsii.member(jsii_name="private")
+    def private(self) -> str:
+        ...
+
+    @private.setter
+    def private(self, value: str):
+        ...
+
+
+class _IExtendsPrivateInterfaceProxy():
+    __jsii_type__ = "jsii-calc.IExtendsPrivateInterface"
+    @property
+    @jsii.member(jsii_name="moreThings")
+    def more_things(self) -> typing.List[str]:
+        return jsii.get(self, "moreThings")
+
+    @property
+    @jsii.member(jsii_name="private")
+    def private(self) -> str:
+        return jsii.get(self, "private")
+
+    @private.setter
+    def private(self, value: str):
+        return jsii.set(self, "private", value)
 
 
 @jsii.interface(jsii_type="jsii-calc.IFriendlier")
@@ -894,6 +929,70 @@ class _IInterfaceWithPropertiesExtensionProxy(jsii.proxy_for(IInterfaceWithPrope
         return jsii.set(self, "foo", value)
 
 
+@jsii.interface(jsii_type="jsii-calc.IJSII417PublicBaseOfBase")
+class IJSII417PublicBaseOfBase(jsii.compat.Protocol):
+    @staticmethod
+    def __jsii_proxy_class__():
+        return _IJSII417PublicBaseOfBaseProxy
+
+    @property
+    @jsii.member(jsii_name="hasRoot")
+    def has_root(self) -> bool:
+        ...
+
+    @jsii.member(jsii_name="foo")
+    def foo(self) -> None:
+        ...
+
+
+class _IJSII417PublicBaseOfBaseProxy():
+    __jsii_type__ = "jsii-calc.IJSII417PublicBaseOfBase"
+    @property
+    @jsii.member(jsii_name="hasRoot")
+    def has_root(self) -> bool:
+        return jsii.get(self, "hasRoot")
+
+    @jsii.member(jsii_name="foo")
+    def foo(self) -> None:
+        return jsii.invoke(self, "foo", [])
+
+
+@jsii.interface(jsii_type="jsii-calc.IJSII417Derived")
+class IJSII417Derived(IJSII417PublicBaseOfBase, jsii.compat.Protocol):
+    @staticmethod
+    def __jsii_proxy_class__():
+        return _IJSII417DerivedProxy
+
+    @property
+    @jsii.member(jsii_name="property")
+    def property(self) -> str:
+        ...
+
+    @jsii.member(jsii_name="bar")
+    def bar(self) -> None:
+        ...
+
+    @jsii.member(jsii_name="baz")
+    def baz(self) -> None:
+        ...
+
+
+class _IJSII417DerivedProxy(jsii.proxy_for(IJSII417PublicBaseOfBase)):
+    __jsii_type__ = "jsii-calc.IJSII417Derived"
+    @property
+    @jsii.member(jsii_name="property")
+    def property(self) -> str:
+        return jsii.get(self, "property")
+
+    @jsii.member(jsii_name="bar")
+    def bar(self) -> None:
+        return jsii.invoke(self, "bar", [])
+
+    @jsii.member(jsii_name="baz")
+    def baz(self) -> None:
+        return jsii.invoke(self, "baz", [])
+
+
 @jsii.interface(jsii_type="jsii-calc.IMutableObjectLiteral")
 class IMutableObjectLiteral(jsii.compat.Protocol):
     @staticmethod
@@ -929,6 +1028,15 @@ class INonInternalInterface(IAnotherPublicInterface, jsii.compat.Protocol):
         return _INonInternalInterfaceProxy
 
     @property
+    @jsii.member(jsii_name="b")
+    def b(self) -> str:
+        ...
+
+    @b.setter
+    def b(self, value: str):
+        ...
+
+    @property
     @jsii.member(jsii_name="c")
     def c(self) -> str:
         ...
@@ -940,6 +1048,15 @@ class INonInternalInterface(IAnotherPublicInterface, jsii.compat.Protocol):
 
 class _INonInternalInterfaceProxy(jsii.proxy_for(IAnotherPublicInterface)):
     __jsii_type__ = "jsii-calc.INonInternalInterface"
+    @property
+    @jsii.member(jsii_name="b")
+    def b(self) -> str:
+        return jsii.get(self, "b")
+
+    @b.setter
+    def b(self, value: str):
+        return jsii.set(self, "b", value)
+
     @property
     @jsii.member(jsii_name="c")
     def c(self) -> str:
@@ -2460,6 +2577,6 @@ class Sum(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_type="js
         return jsii.set(self, "parts", value)
 
 
-__all__ = ["AbstractClass", "AbstractClassBase", "AbstractClassReturner", "Add", "AllTypes", "AllTypesEnum", "AllowedMethodNames", "AsyncVirtualMethods", "AugmentableClass", "BinaryOperation", "Calculator", "CalculatorProps", "ClassThatImplementsTheInternalInterface", "ClassThatImplementsThePrivateInterface", "ClassWithMutableObjectLiteralProperty", "ClassWithPrivateConstructorAndAutomaticProperties", "ConstructorPassesThisOut", "Constructors", "ConsumersOfThisCrazyTypeSystem", "DefaultedConstructorArgument", "DerivedClassHasNoProperties", "DerivedStruct", "DoNotOverridePrivates", "DoNotRecognizeAnyAsOptional", "DontComplainAboutVariadicAfterOptional", "DoubleTrouble", "EraseUndefinedHashValues", "EraseUndefinedHashValuesOptions", "ExportedBaseClass", "ExtendsInternalInterface", "ExtendsPrivateInterface", "GiveMeStructs", "GreetingAugmenter", "IAnotherPublicInterface", "IFriendlier", "IFriendlyRandomGenerator", "IInterfaceImplementedByAbstractClass", "IInterfaceThatShouldNotBeADataType", "IInterfaceWithInternal", "IInterfaceWithMethods", "IInterfaceWithOptionalMethodArguments", "IInterfaceWithProperties", "IInterfaceWithPropertiesExtension", "IMutableObjectLiteral", "INonInternalInterface", "IPrivatelyImplemented", "IPublicInterface", "IPublicInterface2", "IRandomNumberGenerator", "IReturnsNumber", "ImplementInternalInterface", "ImplementsInterfaceWithInternal", "ImplementsInterfaceWithInternalSubclass", "ImplementsPrivateInterface", "ImplictBaseOfBase", "InbetweenClass", "InterfaceInNamespaceIncludesClasses", "InterfaceInNamespaceOnlyInterface", "JSII417Derived", "JSII417PublicBaseOfBase", "JSObjectLiteralForInterface", "JSObjectLiteralToNative", "JSObjectLiteralToNativeClass", "JavaReservedWords", "JsiiAgent", "LoadBalancedFargateServiceProps", "Multiply", "Negate", "NodeStandardLibrary", "NullShouldBeTreatedAsUndefined", "NullShouldBeTreatedAsUndefinedData", "NumberGenerator", "ObjectRefsInCollections", "OptionalConstructorArgument", "OptionalStruct", "OptionalStructConsumer", "OverrideReturnsObject", "PartiallyInitializedThisConsumer", "Polymorphism", "Power", "PublicClass", "PythonReservedWords", "ReferenceEnumFromScopedPackage", "ReturnsPrivateImplementationOfInterface", "RuntimeTypeChecking", "SingleInstanceTwoTypes", "Statics", "StringEnum", "StripInternal", "Sum", "SyncVirtualMethods", "Thrower", "UnaryOperation", "UnionProperties", "UseBundledDependency", "UseCalcBase", "UsesInterfaceWithProperties", "VariadicMethod", "VirtualMethodPlayground", "__jsii_assembly__", "composition"]
+__all__ = ["AbstractClass", "AbstractClassBase", "AbstractClassReturner", "Add", "AllTypes", "AllTypesEnum", "AllowedMethodNames", "AsyncVirtualMethods", "AugmentableClass", "BinaryOperation", "Calculator", "CalculatorProps", "ClassThatImplementsTheInternalInterface", "ClassThatImplementsThePrivateInterface", "ClassWithMutableObjectLiteralProperty", "ClassWithPrivateConstructorAndAutomaticProperties", "ConstructorPassesThisOut", "Constructors", "ConsumersOfThisCrazyTypeSystem", "DefaultedConstructorArgument", "DerivedClassHasNoProperties", "DerivedStruct", "DoNotOverridePrivates", "DoNotRecognizeAnyAsOptional", "DontComplainAboutVariadicAfterOptional", "DoubleTrouble", "EraseUndefinedHashValues", "EraseUndefinedHashValuesOptions", "ExportedBaseClass", "ExtendsInternalInterface", "GiveMeStructs", "GreetingAugmenter", "IAnotherPublicInterface", "IExtendsPrivateInterface", "IFriendlier", "IFriendlyRandomGenerator", "IInterfaceImplementedByAbstractClass", "IInterfaceThatShouldNotBeADataType", "IInterfaceWithInternal", "IInterfaceWithMethods", "IInterfaceWithOptionalMethodArguments", "IInterfaceWithProperties", "IInterfaceWithPropertiesExtension", "IJSII417Derived", "IJSII417PublicBaseOfBase", "IMutableObjectLiteral", "INonInternalInterface", "IPrivatelyImplemented", "IPublicInterface", "IPublicInterface2", "IRandomNumberGenerator", "IReturnsNumber", "ImplementInternalInterface", "ImplementsInterfaceWithInternal", "ImplementsInterfaceWithInternalSubclass", "ImplementsPrivateInterface", "ImplictBaseOfBase", "InbetweenClass", "InterfaceInNamespaceIncludesClasses", "InterfaceInNamespaceOnlyInterface", "JSII417Derived", "JSII417PublicBaseOfBase", "JSObjectLiteralForInterface", "JSObjectLiteralToNative", "JSObjectLiteralToNativeClass", "JavaReservedWords", "JsiiAgent", "LoadBalancedFargateServiceProps", "Multiply", "Negate", "NodeStandardLibrary", "NullShouldBeTreatedAsUndefined", "NullShouldBeTreatedAsUndefinedData", "NumberGenerator", "ObjectRefsInCollections", "OptionalConstructorArgument", "OptionalStruct", "OptionalStructConsumer", "OverrideReturnsObject", "PartiallyInitializedThisConsumer", "Polymorphism", "Power", "PublicClass", "PythonReservedWords", "ReferenceEnumFromScopedPackage", "ReturnsPrivateImplementationOfInterface", "RuntimeTypeChecking", "SingleInstanceTwoTypes", "Statics", "StringEnum", "StripInternal", "Sum", "SyncVirtualMethods", "Thrower", "UnaryOperation", "UnionProperties", "UseBundledDependency", "UseCalcBase", "UsesInterfaceWithProperties", "VariadicMethod", "VirtualMethodPlayground", "__jsii_assembly__", "composition"]
 
 publication.publish()

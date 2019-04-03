@@ -344,8 +344,9 @@ export class Assembler implements Emitter {
   }
 
   private async _processBaseInterfaces(fqn: string, baseTypes?: ts.Type[]) {
+    const erasedBases = new Array<ts.Type>();
     if (!baseTypes) {
-      return undefined;
+      return { erasedBases };
     }
 
     const result = new Array<spec.NamedTypeReference>();
@@ -356,11 +357,11 @@ export class Assembler implements Emitter {
 
         // base is private/internal, so we continue recursively with it's own bases
         if (this._isPrivateOrInternal(iface.symbol)) {
+          erasedBases.push(iface);
           const bases = iface.getBaseTypes();
           if (bases) {
             processBaseTypes(bases);
           }
-
           continue;
         }
 
@@ -392,7 +393,7 @@ export class Assembler implements Emitter {
       result.push(typeRef);
     }
 
-    return result.length === 0 ? undefined : result;
+    return { interfaces: result.length === 0 ? undefined : result, erasedBases };
   }
 
   private async _visitClass(type: ts.Type, namespace: string[]): Promise<spec.ClassType | undefined> {
@@ -466,7 +467,8 @@ export class Assembler implements Emitter {
         continue;
       }
 
-      jsiiType.interfaces = await this._processBaseInterfaces(fqn, clause.types.map(t => this._typeChecker.getTypeFromTypeNode(t)));
+      const { interfaces } = await this._processBaseInterfaces(fqn, clause.types.map(t => this._typeChecker.getTypeFromTypeNode(t)));
+      jsiiType.interfaces = interfaces;
       if (jsiiType.interfaces) {
         this._deferUntilTypesAvailable(jsiiType.fqn, jsiiType.interfaces, type.symbol.valueDeclaration, (...ifaces) => {
           for (const iface of ifaces) {
@@ -700,25 +702,28 @@ export class Assembler implements Emitter {
       namespace: namespace.join('.')
     };
 
-    jsiiType.interfaces = await this._processBaseInterfaces(fqn, type.getBaseTypes());
+    const { interfaces, erasedBases } = await this._processBaseInterfaces(fqn, type.getBaseTypes());
+    jsiiType.interfaces = interfaces;
 
-    for (const member of type.getProperties()) {
-      if (!(type.symbol.getDeclarations() || []).find(decl => decl === member.valueDeclaration.parent)) { continue; }
+    for (const declaringType of [type, ...erasedBases]) {
+      for (const member of declaringType.getProperties()) {
+        if (!(declaringType.symbol.getDeclarations() || []).find(decl => decl === member.valueDeclaration.parent)) { continue; }
 
-      if (this._isPrivateOrInternal(member, member.valueDeclaration)) {
-        continue;
-      }
+        if (this._isPrivateOrInternal(member, member.valueDeclaration)) {
+          continue;
+        }
 
-      if (ts.isMethodDeclaration(member.valueDeclaration) || ts.isMethodSignature(member.valueDeclaration)) {
-        await this._visitMethod(member, jsiiType);
-      } else if (ts.isPropertyDeclaration(member.valueDeclaration)
-        || ts.isPropertySignature(member.valueDeclaration)
-        || ts.isAccessor(member.valueDeclaration)) {
-        await this._visitProperty(member, jsiiType);
-      } else {
-        this._diagnostic(member.valueDeclaration,
-          ts.DiagnosticCategory.Warning,
-          `Ignoring un-handled ${ts.SyntaxKind[member.valueDeclaration.kind]} member`);
+        if (ts.isMethodDeclaration(member.valueDeclaration) || ts.isMethodSignature(member.valueDeclaration)) {
+          await this._visitMethod(member, jsiiType);
+        } else if (ts.isPropertyDeclaration(member.valueDeclaration)
+          || ts.isPropertySignature(member.valueDeclaration)
+          || ts.isAccessor(member.valueDeclaration)) {
+          await this._visitProperty(member, jsiiType);
+        } else {
+          this._diagnostic(member.valueDeclaration,
+            ts.DiagnosticCategory.Warning,
+            `Ignoring un-handled ${ts.SyntaxKind[member.valueDeclaration.kind]} member`);
+        }
       }
     }
 
