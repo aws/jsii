@@ -3164,6 +3164,107 @@ Hello (interface)
 
 .. py:currentmodule:: jsii-calc
 
+JSII417Derived
+^^^^^^^^^^^^^^
+
+.. py:class:: JSII417Derived(property)
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.JSII417Derived;
+
+      .. code-tab:: javascript
+
+         const { JSII417Derived } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { JSII417Derived } from 'jsii-calc';
+
+
+
+   :extends: :py:class:`~jsii-calc.JSII417PublicBaseOfBase`\ 
+   :param property: 
+   :type property: string
+
+   .. py:method:: bar()
+
+
+
+   .. py:method:: baz()
+
+
+
+   .. py:attribute:: property
+
+      *Protected property*
+
+      :type: string *(readonly)*
+
+
+   .. py:method:: foo()
+
+      *Inherited from* :py:meth:`jsii-calc.JSII417PublicBaseOfBase <jsii-calc.JSII417PublicBaseOfBase.foo>`
+
+
+
+   .. py:attribute:: hasRoot
+
+      *Inherited from* :py:attr:`jsii-calc.JSII417PublicBaseOfBase <jsii-calc.JSII417PublicBaseOfBase.hasRoot>`
+
+      :type: boolean *(readonly)*
+
+
+JSII417PublicBaseOfBase
+^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: JSII417PublicBaseOfBase()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.JSII417PublicBaseOfBase;
+
+      .. code-tab:: javascript
+
+         const { JSII417PublicBaseOfBase } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { JSII417PublicBaseOfBase } from 'jsii-calc';
+
+
+
+
+   .. py:staticmethod:: makeInstance() -> jsii-calc.JSII417PublicBaseOfBase
+
+      :rtype: :py:class:`~jsii-calc.JSII417PublicBaseOfBase`\ 
+
+
+   .. py:method:: foo()
+
+
+
+   .. py:attribute:: hasRoot
+
+      :type: boolean *(readonly)*
+
+
 JSObjectLiteralForInterface
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

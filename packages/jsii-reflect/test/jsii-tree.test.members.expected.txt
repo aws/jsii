@@ -205,6 +205,18 @@ assemblies
  │   │ └─┬ members
  │   │   ├── <initializer>() method
  │   │   └── bar property
+ │   ├─┬ class JSII417Derived
+ │   │ └─┬ members
+ │   │   ├── <initializer>(property) method
+ │   │   ├── bar() method
+ │   │   ├── baz() method
+ │   │   └── property property
+ │   ├─┬ class JSII417PublicBaseOfBase
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── makeInstance() method
+ │   │   ├── foo() method
+ │   │   └── hasRoot property
  │   ├─┬ class JSObjectLiteralForInterface
  │   │ └─┬ members
  │   │   ├── <initializer>() method

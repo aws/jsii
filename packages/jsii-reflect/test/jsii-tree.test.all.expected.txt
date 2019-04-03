@@ -501,6 +501,34 @@ assemblies
  │   │   │ └── returns: void
  │   │   └─┬ bar property
  │   │     └── type: primitive:string (optional)
+ │   ├─┬ class JSII417Derived
+ │   │ ├── base: JSII417PublicBaseOfBase
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(property) method
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ property
+ │   │   │ │   └── type: primitive:string
+ │   │   │ └── returns: void
+ │   │   ├─┬ bar() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ baz() method
+ │   │   │ └── returns: void
+ │   │   └─┬ property property
+ │   │     ├── immutable
+ │   │     ├── protected
+ │   │     └── type: primitive:string
+ │   ├─┬ class JSII417PublicBaseOfBase
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ makeInstance() method
+ │   │   │ ├── static
+ │   │   │ └── returns: class:jsii-calc.JSII417PublicBaseOfBase
+ │   │   ├─┬ foo() method
+ │   │   │ └── returns: void
+ │   │   └─┬ hasRoot property
+ │   │     ├── immutable
+ │   │     └── type: primitive:boolean
  │   ├─┬ class JSObjectLiteralForInterface
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method

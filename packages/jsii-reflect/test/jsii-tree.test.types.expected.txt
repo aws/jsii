@@ -35,6 +35,8 @@ assemblies
  │   ├── class ImplementsPrivateInterface
  │   ├── class InbetweenClass
  │   ├── class Foo
+ │   ├── class JSII417Derived
+ │   ├── class JSII417PublicBaseOfBase
  │   ├── class JSObjectLiteralForInterface
  │   ├── class JSObjectLiteralToNative
  │   ├── class JSObjectLiteralToNativeClass

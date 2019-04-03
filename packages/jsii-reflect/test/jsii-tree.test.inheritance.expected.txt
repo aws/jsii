@@ -50,6 +50,9 @@ assemblies
  │   │ ├── base: PublicClass
  │   │ └── interfaces: IPublicInterface2
  │   ├── class Foo
+ │   ├─┬ class JSII417Derived
+ │   │ └── base: JSII417PublicBaseOfBase
+ │   ├── class JSII417PublicBaseOfBase
  │   ├── class JSObjectLiteralForInterface
  │   ├── class JSObjectLiteralToNative
  │   ├── class JSObjectLiteralToNativeClass
