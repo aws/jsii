@@ -7,7 +7,6 @@ package software.amazon.jsii.tests.calculator;
  * multiple lines and multiple paragraphs.
  * 
  * Multiple paragraphs are separated by an empty line.
- * 
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.DocumentedClass")
@@ -49,7 +48,6 @@ public class DocumentedClass extends software.amazon.jsii.JsiiObject {
      * Say ¡Hola!
      * 
      * EXPERIMENTAL
-     * 
      */
     public void hola() {
         this.jsiiCall("hola", Void.class);

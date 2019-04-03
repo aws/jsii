@@ -2,7 +2,6 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * The negation operation ("-value").
- * 
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.Negate")
@@ -17,7 +16,6 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
 
     /**
      * Say farewell.
-     * 
      */
     @Override
     public java.lang.String farewell() {
@@ -26,7 +24,6 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
 
     /**
      * Say goodbye.
-     * 
      */
     @Override
     public java.lang.String goodbye() {
@@ -35,7 +32,6 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
 
     /**
      * Say hello!
-     * 
      */
     @Override
     public java.lang.String hello() {
@@ -44,7 +40,6 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
 
     /**
      * String representation of the value.
-     * 
      */
     @Override
     public java.lang.String toString() {
@@ -53,7 +48,6 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
 
     /**
      * The value.
-     * 
      */
     @Override
     public java.lang.Number getValue() {

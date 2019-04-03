@@ -7,7 +7,6 @@ public class VariadicMethod extends software.amazon.jsii.JsiiObject {
         super(mode);
     }
     /**
-     * 
      * @param prefix a prefix that will be use for all values returned by `#asArray`.
      */
     public VariadicMethod(final java.lang.Number... prefix) {
@@ -16,7 +15,6 @@ public class VariadicMethod extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * 
      * @param first the first element of the array to be returned (after the `prefix` provided at construction time).
      * @param others other elements to be included in the array.
      */

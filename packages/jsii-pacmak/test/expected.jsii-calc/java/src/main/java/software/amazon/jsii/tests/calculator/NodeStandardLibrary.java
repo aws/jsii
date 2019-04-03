@@ -2,7 +2,6 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Test fixture to verify that jsii modules can use the node standard library.
- * 
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.NodeStandardLibrary")
@@ -44,7 +43,6 @@ public class NodeStandardLibrary extends software.amazon.jsii.JsiiObject {
 
     /**
      * Returns the current os.platform() from the "os" node module.
-     * 
      */
     public java.lang.String getOsPlatform() {
         return this.jsiiGet("osPlatform", java.lang.String.class);

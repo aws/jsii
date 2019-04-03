@@ -2,7 +2,6 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Represents an operation with two operands.
- * 
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.BinaryOperation")
@@ -23,7 +22,6 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
 
     /**
      * Say hello!
-     * 
      */
     @Override
     public java.lang.String hello() {
@@ -32,7 +30,6 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
 
     /**
      * Left-hand side operand.
-     * 
      */
     public software.amazon.jsii.tests.calculator.lib.Value getLhs() {
         return this.jsiiGet("lhs", software.amazon.jsii.tests.calculator.lib.Value.class);
@@ -40,7 +37,6 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
 
     /**
      * Right-hand side operand.
-     * 
      */
     public software.amazon.jsii.tests.calculator.lib.Value getRhs() {
         return this.jsiiGet("rhs", software.amazon.jsii.tests.calculator.lib.Value.class);
@@ -56,7 +52,6 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
 
         /**
          * The value.
-         * 
          */
         @Override
         public java.lang.Number getValue() {
@@ -65,7 +60,6 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
 
         /**
          * Say hello!
-         * 
          */
         @Override
         public java.lang.String hello() {
@@ -74,7 +68,6 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
 
         /**
          * String representation of the value.
-         * 
          */
         @Override
         public java.lang.String toString() {

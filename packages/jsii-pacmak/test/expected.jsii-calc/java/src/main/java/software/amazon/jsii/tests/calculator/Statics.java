@@ -31,24 +31,20 @@ public class Statics extends software.amazon.jsii.JsiiObject {
     }
     /**
      * Constants may also use all-caps.
-     * 
      */
     public final static java.lang.Number BAR;
     public final static software.amazon.jsii.tests.calculator.DoubleTrouble CONST_OBJ;
     /**
      * Jsdocs for static property.
-     * 
      */
     public final static java.lang.String FOO;
     /**
      * Constants can also use camelCase.
-     * 
      */
     public final static java.util.Map<java.lang.String, java.lang.String> ZOO_BAR;
 
     /**
      * Jsdocs for static getter. Jsdocs for static setter.
-     * 
      */
     public static software.amazon.jsii.tests.calculator.Statics getInstance() {
         return software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.Statics.class, "instance", software.amazon.jsii.tests.calculator.Statics.class);
@@ -56,7 +52,6 @@ public class Statics extends software.amazon.jsii.JsiiObject {
 
     /**
      * Jsdocs for static getter. Jsdocs for static setter.
-     * 
      */
     public static void setInstance(final software.amazon.jsii.tests.calculator.Statics value) {
         software.amazon.jsii.JsiiObject.jsiiStaticSet(software.amazon.jsii.tests.calculator.Statics.class, "instance", java.util.Objects.requireNonNull(value, "instance is required"));

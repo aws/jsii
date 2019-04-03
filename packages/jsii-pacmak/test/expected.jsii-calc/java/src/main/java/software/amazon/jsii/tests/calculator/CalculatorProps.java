@@ -2,7 +2,6 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Properties for Calculator.
- * 
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {

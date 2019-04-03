@@ -2,7 +2,6 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Generates random numbers.
- * 
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 public interface IRandomNumberGenerator extends software.amazon.jsii.JsiiSerializable {

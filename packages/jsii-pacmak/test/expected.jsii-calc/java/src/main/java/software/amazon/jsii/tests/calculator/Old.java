@@ -18,7 +18,6 @@ public class Old extends software.amazon.jsii.JsiiObject {
 
     /**
      * Doo wop that thing.
-     * 
      */
     public void doAThing() {
         this.jsiiCall("doAThing", Void.class);

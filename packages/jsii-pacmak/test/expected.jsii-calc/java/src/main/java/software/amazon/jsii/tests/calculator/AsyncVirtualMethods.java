@@ -17,7 +17,6 @@ public class AsyncVirtualMethods extends software.amazon.jsii.JsiiObject {
 
     /**
      * Just calls "overrideMeToo".
-     * 
      */
     public java.lang.Number callMe2() {
         return this.jsiiAsyncCall("callMe2", java.lang.Number.class);
@@ -29,7 +28,6 @@ public class AsyncVirtualMethods extends software.amazon.jsii.JsiiObject {
      * This is a "double promise" situation, which
      * means that callbacks are not going to be available immediate, but only
      * after an "immediates" cycle.
-     * 
      */
     public java.lang.Number callMeDoublePromise() {
         return this.jsiiAsyncCall("callMeDoublePromise", java.lang.Number.class);

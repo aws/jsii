@@ -2,18 +2,15 @@ package software.amazon.jsii.tests.calculator.lib;
 
 /**
  * This is the first struct we have created in jsii.
- * 
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
     /**
      * An awesome number value.
-     * 
      */
     java.lang.Number getAnumber();
     /**
      * A string value.
-     * 
      */
     java.lang.String getAstring();
     java.util.List<java.lang.String> getFirstOptional();
@@ -112,7 +109,6 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * An awesome number value.
-         * 
          */
         @Override
         public java.lang.Number getAnumber() {
@@ -121,7 +117,6 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * A string value.
-         * 
          */
         @Override
         public java.lang.String getAstring() {

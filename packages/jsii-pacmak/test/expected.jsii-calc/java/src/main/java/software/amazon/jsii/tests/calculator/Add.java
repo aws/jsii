@@ -2,7 +2,6 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * The "+" binary operation.
- * 
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.Add")
@@ -23,7 +22,6 @@ public class Add extends software.amazon.jsii.tests.calculator.BinaryOperation {
 
     /**
      * String representation of the value.
-     * 
      */
     @Override
     public java.lang.String toString() {
@@ -32,7 +30,6 @@ public class Add extends software.amazon.jsii.tests.calculator.BinaryOperation {
 
     /**
      * The value.
-     * 
      */
     @Override
     public java.lang.Number getValue() {

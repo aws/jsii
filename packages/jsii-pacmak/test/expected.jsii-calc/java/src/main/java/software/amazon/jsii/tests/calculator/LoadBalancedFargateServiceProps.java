@@ -2,7 +2,6 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * jsii#298: show default values in sphinx documentation, and respect newlines.
- * 
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.JsiiSerializable {
@@ -12,7 +11,6 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
      * Corresponds to container port mapping.
      * 
      * Default: 80
-     * 
      */
     java.lang.Number getContainerPort();
     /**
@@ -21,7 +19,6 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
      * This default is set in the underlying FargateTaskDefinition construct.
      * 
      * Default: 256
-     * 
      */
     java.lang.String getCpu();
     /**
@@ -43,21 +40,18 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
      * This default is set in the underlying FargateTaskDefinition construct.
      * 
      * Default: 512
-     * 
      */
     java.lang.String getMemoryMiB();
     /**
      * Determines whether the Application Load Balancer will be internet-facing.
      * 
      * Default: true
-     * 
      */
     java.lang.Boolean getPublicLoadBalancer();
     /**
      * Determines whether your Fargate Service will be assigned a public IP address.
      * 
      * Default: false
-     * 
      */
     java.lang.Boolean getPublicTasks();
 
@@ -201,7 +195,6 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
          * Corresponds to container port mapping.
          * 
          * Default: 80
-         * 
          */
         @Override
         @javax.annotation.Nullable
@@ -215,7 +208,6 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
          * This default is set in the underlying FargateTaskDefinition construct.
          * 
          * Default: 256
-         * 
          */
         @Override
         @javax.annotation.Nullable
@@ -242,7 +234,6 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
          * This default is set in the underlying FargateTaskDefinition construct.
          * 
          * Default: 512
-         * 
          */
         @Override
         @javax.annotation.Nullable
@@ -254,7 +245,6 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
          * Determines whether the Application Load Balancer will be internet-facing.
          * 
          * Default: true
-         * 
          */
         @Override
         @javax.annotation.Nullable
@@ -266,7 +256,6 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
          * Determines whether your Fargate Service will be assigned a public IP address.
          * 
          * Default: false
-         * 
          */
         @Override
         @javax.annotation.Nullable

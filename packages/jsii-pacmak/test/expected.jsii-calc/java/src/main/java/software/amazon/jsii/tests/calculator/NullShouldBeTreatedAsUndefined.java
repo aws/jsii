@@ -2,7 +2,6 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * jsii#282, aws-cdk#157: null should be treated as "undefined".
- * 
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.NullShouldBeTreatedAsUndefined")

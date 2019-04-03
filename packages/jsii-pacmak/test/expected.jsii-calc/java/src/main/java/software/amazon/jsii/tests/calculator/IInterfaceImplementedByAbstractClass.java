@@ -2,7 +2,6 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * awslabs/jsii#220 Abstract return type.
- * 
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 public interface IInterfaceImplementedByAbstractClass extends software.amazon.jsii.JsiiSerializable {

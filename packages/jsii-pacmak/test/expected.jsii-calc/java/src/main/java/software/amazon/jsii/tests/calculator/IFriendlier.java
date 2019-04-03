@@ -2,13 +2,11 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Even friendlier classes can implement this interface.
- * 
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.lib.IFriendly {
     /**
      * Say farewell.
-     * 
      */
     java.lang.String farewell();
     /**
@@ -28,7 +26,6 @@ public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, soft
 
         /**
          * Say farewell.
-         * 
          */
         @Override
         public java.lang.String farewell() {
@@ -47,7 +44,6 @@ public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, soft
 
         /**
          * Say hello!
-         * 
          */
         @Override
         public java.lang.String hello() {

@@ -17,7 +17,6 @@ public class AllowedMethodNames extends software.amazon.jsii.JsiiObject {
 
     /**
      * getXxx() is not allowed (see negatives), but getXxx(a, ...) is okay.
-     * 
      */
     public java.lang.String getFoo(final java.lang.String withParam) {
         return this.jsiiCall("getFoo", java.lang.String.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(withParam, "withParam is required")).toArray());
@@ -29,7 +28,6 @@ public class AllowedMethodNames extends software.amazon.jsii.JsiiObject {
 
     /**
      * setFoo(x) is not allowed (see negatives), but setXxx(a, b, ...) is okay.
-     * 
      */
     public void setFoo(final java.lang.String _x, final java.lang.Number _y) {
         this.jsiiCall("setFoo", Void.class, java.util.stream.Stream.concat(java.util.stream.Stream.of(java.util.Objects.requireNonNull(_x, "_x is required")), java.util.stream.Stream.of(java.util.Objects.requireNonNull(_y, "_y is required"))).toArray());
