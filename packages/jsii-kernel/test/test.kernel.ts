@@ -1126,6 +1126,11 @@ defineTest('struct: non-empty object deserializes properly', async (test, sandbo
     test.equal('foo', field.value);
 });
 
+defineTest('erased base: can receive an instance of private type', async (test, sandbox) => {
+    const objref = sandbox.sinvoke({ fqn: 'jsii-calc.JSII417PublicBaseOfBase', method: 'makeInstance' });
+    test.deepEqual(objref.result, { [api.TOKEN_REF]: 'jsii-calc.JSII417PublicBaseOfBase@10000' });
+});
+
 // =================================================================================================
 
 const testNames: { [name: string]: boolean } = { };

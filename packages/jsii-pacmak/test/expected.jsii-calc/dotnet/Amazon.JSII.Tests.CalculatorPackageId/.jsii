@@ -2558,6 +2558,74 @@
         }
       ]
     },
+    "jsii-calc.JSII417Derived": {
+      "assembly": "jsii-calc",
+      "base": {
+        "fqn": "jsii-calc.JSII417PublicBaseOfBase"
+      },
+      "fqn": "jsii-calc.JSII417Derived",
+      "initializer": {
+        "initializer": true,
+        "parameters": [
+          {
+            "name": "property",
+            "type": {
+              "primitive": "string"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "bar"
+        },
+        {
+          "name": "baz"
+        }
+      ],
+      "name": "JSII417Derived",
+      "properties": [
+        {
+          "immutable": true,
+          "name": "property",
+          "protected": true,
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.JSII417PublicBaseOfBase": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.JSII417PublicBaseOfBase",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "name": "makeInstance",
+          "returns": {
+            "fqn": "jsii-calc.JSII417PublicBaseOfBase"
+          },
+          "static": true
+        },
+        {
+          "name": "foo"
+        }
+      ],
+      "name": "JSII417PublicBaseOfBase",
+      "properties": [
+        {
+          "immutable": true,
+          "name": "hasRoot",
+          "type": {
+            "primitive": "boolean"
+          }
+        }
+      ]
+    },
     "jsii-calc.JSObjectLiteralForInterface": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.JSObjectLiteralForInterface",
@@ -4732,5 +4800,5 @@
     }
   },
   "version": "0.8.2",
-  "fingerprint": "RIbNFrgvpaT1nTpWaVDxO0fWs/kZcVmMscsDGU/GXwE="
+  "fingerprint": "5kMI3UzT9N2sovIndhAmSefEqtrUStnpb0hmWwfLjOs="
 }
