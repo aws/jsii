@@ -425,6 +425,10 @@ export class Assembler implements Emitter {
         continue;
       }
 
+      /*
+       * Crawl up the inheritance tree if the current base type is not exported, so we identify the type(s) to be
+       * erased, and identify the closest exported base class, should there be one.
+       */
       // tslint:disable-next-line: no-bitwise
       while (base && (ts.getCombinedModifierFlags(base.symbol.valueDeclaration) & ts.ModifierFlags.Export) === 0) {
         LOG.debug(`Base class of ${colors.green(jsiiType.fqn)} named ${colors.green(base.symbol.name)} is not exported, erasing it...`);
@@ -432,6 +436,7 @@ export class Assembler implements Emitter {
         base = (base.getBaseTypes() || [])[0];
       }
       if (!base) {
+        // There is no exported base class to be found, pretend this class has no base class.
         continue;
       }
 
@@ -482,7 +487,10 @@ export class Assembler implements Emitter {
     const allDeclarations: Array<{ decl: ts.Declaration, type: ts.InterfaceType | ts.BaseType }>
       = type.symbol.declarations.map(decl => ({ decl, type }));
     // Considering erased bases' declarations, too, so they are "blended in"
-    erasedBases.forEach(base => allDeclarations.push(...base.symbol.declarations.map(decl => ({ decl, type: base }))));
+    for (const base of erasedBases) {
+      allDeclarations.push(...base.symbol.declarations.map(decl => ({ decl, type: base })));
+    }
+
     for (const { decl, type: declaringType }  of allDeclarations) {
       const classDecl = (decl as ts.ClassDeclaration | ts.InterfaceDeclaration);
       if (!classDecl.members) { continue; }
@@ -517,9 +525,8 @@ export class Assembler implements Emitter {
       }
     }
 
-    const constructor = (type.symbol.members && type.symbol.members.get(ts.InternalSymbolName.Constructor))
-      // If no local constructor, look for one in the erased bases
-      || (erasedBases.map(base => base.symbol.members && base.symbol.members.get(ts.InternalSymbolName.Constructor)).find(ctor => ctor != null));
+    // Find the first defined constructor in this class, or it's erased bases
+    const constructor = [type, ...erasedBases].map(getConstructor).find(ctor => ctor != null);
     const ctorDeclaration = constructor && (constructor.declarations[0] as ts.ConstructorDeclaration);
     if (constructor && ctorDeclaration) {
       const signature = this._typeChecker.getSignatureFromDeclaration(ctorDeclaration);
@@ -1383,4 +1390,9 @@ function interfaceMemberNames(jsiiType: spec.InterfaceType): string[] {
  */
 function isInterfaceName(name: string) {
   return name.length >= 2 && name.charAt(0) === 'I' && name.charAt(1).toUpperCase() === name.charAt(1);
+}
+
+function getConstructor(type: ts.Type): ts.Symbol | undefined {
+  return type.symbol.members
+      && type.symbol.members.get(ts.InternalSymbolName.Constructor);
 }
