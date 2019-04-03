@@ -15,13 +15,13 @@ assemblies
  │   │   │ ├── abstract
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ name
- │   │   │ │   └── type: primitive:string
- │   │   │ └── returns: primitive:string
+ │   │   │ │   └── type: string
+ │   │   │ └── returns: string
  │   │   ├─┬ nonAbstractMethod() method
- │   │   │ └── returns: primitive:number
+ │   │   │ └── returns: number
  │   │   └─┬ propFromInterface property
  │   │     ├── immutable
- │   │     └── type: primitive:string
+ │   │     └── type: string
  │   ├─┬ class AbstractClassBase
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -29,33 +29,33 @@ assemblies
  │   │   └─┬ abstractProperty property
  │   │     ├── abstract
  │   │     ├── immutable
- │   │     └── type: primitive:string
+ │   │     └── type: string
  │   ├─┬ class AbstractClassReturner
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
  │   │   ├─┬ giveMeAbstract() method
- │   │   │ └── returns: class:jsii-calc.AbstractClass
+ │   │   │ └── returns: jsii-calc.AbstractClass
  │   │   ├─┬ giveMeInterface() method
- │   │   │ └── returns: interface:jsii-calc.IInterfaceImplementedByAbstractClass
+ │   │   │ └── returns: jsii-calc.IInterfaceImplementedByAbstractClass
  │   │   └─┬ returnAbstractFromProperty property
  │   │     ├── immutable
- │   │     └── type: class:jsii-calc.AbstractClassBase
+ │   │     └── type: jsii-calc.AbstractClassBase
  │   ├─┬ class Add
  │   │ ├── base: BinaryOperation
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(lhs,rhs) method
  │   │   │ ├─┬ parameters
  │   │   │ │ ├─┬ lhs
- │   │   │ │ │ └── type: class:@scope/jsii-calc-lib.Value
+ │   │   │ │ │ └── type: @scope/jsii-calc-lib.Value
  │   │   │ │ └─┬ rhs
- │   │   │ │   └── type: class:@scope/jsii-calc-lib.Value
+ │   │   │ │   └── type: @scope/jsii-calc-lib.Value
  │   │   │ └── returns: void
  │   │   ├─┬ toString() method
- │   │   │ └── returns: primitive:string
+ │   │   │ └── returns: string
  │   │   └─┬ value property
  │   │     ├── immutable
- │   │     └── type: primitive:number
+ │   │     └── type: number
  │   ├─┬ class AllTypes
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -63,54 +63,54 @@ assemblies
  │   │   ├─┬ anyIn(inp) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ inp
- │   │   │ │   └── type: primitive:any
+ │   │   │ │   └── type: any
  │   │   │ └── returns: void
  │   │   ├─┬ anyOut() method
- │   │   │ └── returns: primitive:any
+ │   │   │ └── returns: any
  │   │   ├─┬ enumMethod(value) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ value
- │   │   │ │   └── type: enum:jsii-calc.StringEnum
- │   │   │ └── returns: enum:jsii-calc.StringEnum
+ │   │   │ │   └── type: jsii-calc.StringEnum
+ │   │   │ └── returns: jsii-calc.StringEnum
  │   │   ├─┬ enumPropertyValue property
  │   │   │ ├── immutable
- │   │   │ └── type: primitive:number
+ │   │   │ └── type: number
  │   │   ├─┬ anyArrayProperty property
- │   │   │ └── type: Array<primitive:any>
+ │   │   │ └── type: Array<any>
  │   │   ├─┬ anyMapProperty property
- │   │   │ └── type: Map<string => primitive:any>
+ │   │   │ └── type: Map<string => any>
  │   │   ├─┬ anyProperty property
- │   │   │ └── type: primitive:any
+ │   │   │ └── type: any
  │   │   ├─┬ arrayProperty property
- │   │   │ └── type: Array<primitive:string>
+ │   │   │ └── type: Array<string>
  │   │   ├─┬ booleanProperty property
- │   │   │ └── type: primitive:boolean
+ │   │   │ └── type: boolean
  │   │   ├─┬ dateProperty property
- │   │   │ └── type: primitive:date
+ │   │   │ └── type: date
  │   │   ├─┬ enumProperty property
- │   │   │ └── type: enum:jsii-calc.AllTypesEnum
+ │   │   │ └── type: jsii-calc.AllTypesEnum
  │   │   ├─┬ jsonProperty property
- │   │   │ └── type: primitive:json
+ │   │   │ └── type: json
  │   │   ├─┬ mapProperty property
- │   │   │ └── type: Map<string => class:@scope/jsii-calc-lib.Number>
+ │   │   │ └── type: Map<string => @scope/jsii-calc-lib.Number>
  │   │   ├─┬ numberProperty property
- │   │   │ └── type: primitive:number
+ │   │   │ └── type: number
  │   │   ├─┬ stringProperty property
- │   │   │ └── type: primitive:string
+ │   │   │ └── type: string
  │   │   ├─┬ unionArrayProperty property
- │   │   │ └── type: Array<primitive:number | class:@scope/jsii-calc-lib.Value>
+ │   │   │ └── type: Array<number | @scope/jsii-calc-lib.Value>
  │   │   ├─┬ unionMapProperty property
- │   │   │ └── type: Map<string => primitive:string | primitive:number | class:@scope/jsii-calc-lib.Number>
+ │   │   │ └── type: Map<string => string | number | @scope/jsii-calc-lib.Number>
  │   │   ├─┬ unionProperty property
- │   │   │ └── type: primitive:string | primitive:number | class:jsii-calc.Multiply | class:@scope/jsii-calc-lib.Number
+ │   │   │ └── type: string | number | jsii-calc.Multiply | @scope/jsii-calc-lib.Number
  │   │   ├─┬ unknownArrayProperty property
- │   │   │ └── type: Array<primitive:any>
+ │   │   │ └── type: Array<any>
  │   │   ├─┬ unknownMapProperty property
- │   │   │ └── type: Map<string => primitive:any>
+ │   │   │ └── type: Map<string => any>
  │   │   ├─┬ unknownProperty property
- │   │   │ └── type: primitive:any
+ │   │   │ └── type: any
  │   │   └─┬ optionalEnumValue property
- │   │     └── type: enum:jsii-calc.StringEnum (optional)
+ │   │     └── type: jsii-calc.StringEnum?
  │   ├─┬ class AllowedMethodNames
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -118,50 +118,50 @@ assemblies
  │   │   ├─┬ getBar(_p1,_p2) method
  │   │   │ ├─┬ parameters
  │   │   │ │ ├─┬ _p1
- │   │   │ │ │ └── type: primitive:string
+ │   │   │ │ │ └── type: string
  │   │   │ │ └─┬ _p2
- │   │   │ │   └── type: primitive:number
+ │   │   │ │   └── type: number
  │   │   │ └── returns: void
  │   │   ├─┬ getFoo(withParam) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ withParam
- │   │   │ │   └── type: primitive:string
- │   │   │ └── returns: primitive:string
+ │   │   │ │   └── type: string
+ │   │   │ └── returns: string
  │   │   ├─┬ setBar(_x,_y,_z) method
  │   │   │ ├─┬ parameters
  │   │   │ │ ├─┬ _x
- │   │   │ │ │ └── type: primitive:string
+ │   │   │ │ │ └── type: string
  │   │   │ │ ├─┬ _y
- │   │   │ │ │ └── type: primitive:number
+ │   │   │ │ │ └── type: number
  │   │   │ │ └─┬ _z
- │   │   │ │   └── type: primitive:boolean
+ │   │   │ │   └── type: boolean
  │   │   │ └── returns: void
  │   │   └─┬ setFoo(_x,_y) method
  │   │     ├─┬ parameters
  │   │     │ ├─┬ _x
- │   │     │ │ └── type: primitive:string
+ │   │     │ │ └── type: string
  │   │     │ └─┬ _y
- │   │     │   └── type: primitive:number
+ │   │     │   └── type: number
  │   │     └── returns: void
  │   ├─┬ class AsyncVirtualMethods
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
  │   │   ├─┬ callMe() method
- │   │   │ └── returns: primitive:number (promise)
+ │   │   │ └── returns: Promise<number>
  │   │   ├─┬ callMe2() method
- │   │   │ └── returns: primitive:number (promise)
+ │   │   │ └── returns: Promise<number>
  │   │   ├─┬ callMeDoublePromise() method
- │   │   │ └── returns: primitive:number (promise)
+ │   │   │ └── returns: Promise<number>
  │   │   ├─┬ dontOverrideMe() method
- │   │   │ └── returns: primitive:number
+ │   │   │ └── returns: number
  │   │   ├─┬ overrideMe(mult) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ mult
- │   │   │ │   └── type: primitive:number
- │   │   │ └── returns: primitive:number (promise)
+ │   │   │ │   └── type: number
+ │   │   │ └── returns: Promise<number>
  │   │   └─┬ overrideMeToo() method
- │   │     └── returns: primitive:number (promise)
+ │   │     └── returns: Promise<number>
  │   ├─┬ class AugmentableClass
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -177,92 +177,92 @@ assemblies
  │   │   ├─┬ <initializer>(lhs,rhs) method
  │   │   │ ├─┬ parameters
  │   │   │ │ ├─┬ lhs
- │   │   │ │ │ └── type: class:@scope/jsii-calc-lib.Value
+ │   │   │ │ │ └── type: @scope/jsii-calc-lib.Value
  │   │   │ │ └─┬ rhs
- │   │   │ │   └── type: class:@scope/jsii-calc-lib.Value
+ │   │   │ │   └── type: @scope/jsii-calc-lib.Value
  │   │   │ └── returns: void
  │   │   ├─┬ hello() method
- │   │   │ └── returns: primitive:string
+ │   │   │ └── returns: string
  │   │   ├─┬ lhs property
  │   │   │ ├── immutable
- │   │   │ └── type: class:@scope/jsii-calc-lib.Value
+ │   │   │ └── type: @scope/jsii-calc-lib.Value
  │   │   └─┬ rhs property
  │   │     ├── immutable
- │   │     └── type: class:@scope/jsii-calc-lib.Value
+ │   │     └── type: @scope/jsii-calc-lib.Value
  │   ├─┬ class Calculator
  │   │ ├── base: CompositeOperation
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(props) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ props
- │   │   │ │   └── type: interface:jsii-calc.CalculatorProps (optional)
+ │   │   │ │   └── type: jsii-calc.CalculatorProps?
  │   │   │ └── returns: void
  │   │   ├─┬ add(value) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ value
- │   │   │ │   └── type: primitive:number
+ │   │   │ │   └── type: number
  │   │   │ └── returns: void
  │   │   ├─┬ mul(value) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ value
- │   │   │ │   └── type: primitive:number
+ │   │   │ │   └── type: number
  │   │   │ └── returns: void
  │   │   ├─┬ neg() method
  │   │   │ └── returns: void
  │   │   ├─┬ pow(value) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ value
- │   │   │ │   └── type: primitive:number
+ │   │   │ │   └── type: number
  │   │   │ └── returns: void
  │   │   ├─┬ readUnionValue() method
- │   │   │ └── returns: primitive:number
+ │   │   │ └── returns: number
  │   │   ├─┬ expression property
  │   │   │ ├── immutable
- │   │   │ └── type: class:@scope/jsii-calc-lib.Value
+ │   │   │ └── type: @scope/jsii-calc-lib.Value
  │   │   ├─┬ operationsLog property
  │   │   │ ├── immutable
- │   │   │ └── type: Array<class:@scope/jsii-calc-lib.Value>
+ │   │   │ └── type: Array<@scope/jsii-calc-lib.Value>
  │   │   ├─┬ operationsMap property
  │   │   │ ├── immutable
- │   │   │ └── type: Map<string => Array<class:@scope/jsii-calc-lib.Value>>
+ │   │   │ └── type: Map<string => Array<@scope/jsii-calc-lib.Value>>
  │   │   ├─┬ curr property
- │   │   │ └── type: class:@scope/jsii-calc-lib.Value
+ │   │   │ └── type: @scope/jsii-calc-lib.Value
  │   │   ├─┬ maxValue property
- │   │   │ └── type: primitive:number (optional)
+ │   │   │ └── type: number?
  │   │   └─┬ unionProperty property
- │   │     └── type: class:jsii-calc.Add | class:jsii-calc.Multiply | class:jsii-calc.Power
+ │   │     └── type: jsii-calc.Add | jsii-calc.Multiply | jsii-calc.Power?
  │   ├─┬ class ClassThatImplementsTheInternalInterface
  │   │ ├── interfaces: INonInternalInterface
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
  │   │   ├─┬ a property
- │   │   │ └── type: primitive:string
+ │   │   │ └── type: string
  │   │   ├─┬ b property
- │   │   │ └── type: primitive:string
+ │   │   │ └── type: string
  │   │   ├─┬ c property
- │   │   │ └── type: primitive:string
+ │   │   │ └── type: string
  │   │   └─┬ d property
- │   │     └── type: primitive:string
+ │   │     └── type: string
  │   ├─┬ class ClassThatImplementsThePrivateInterface
  │   │ ├── interfaces: INonInternalInterface
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
  │   │   ├─┬ a property
- │   │   │ └── type: primitive:string
+ │   │   │ └── type: string
  │   │   ├─┬ b property
- │   │   │ └── type: primitive:string
+ │   │   │ └── type: string
  │   │   ├─┬ c property
- │   │   │ └── type: primitive:string
+ │   │   │ └── type: string
  │   │   └─┬ e property
- │   │     └── type: primitive:string
+ │   │     └── type: string
  │   ├─┬ class ClassWithMutableObjectLiteralProperty
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
  │   │   └─┬ mutableObject property
- │   │     └── type: interface:jsii-calc.IMutableObjectLiteral
+ │   │     └── type: jsii-calc.IMutableObjectLiteral
  │   ├─┬ class ClassWithPrivateConstructorAndAutomaticProperties
  │   │ ├── interfaces: IInterfaceWithProperties
  │   │ └─┬ members
@@ -270,21 +270,21 @@ assemblies
  │   │   │ ├── static
  │   │   │ ├─┬ parameters
  │   │   │ │ ├─┬ readOnlyString
- │   │   │ │ │ └── type: primitive:string
+ │   │   │ │ │ └── type: string
  │   │   │ │ └─┬ readWriteString
- │   │   │ │   └── type: primitive:string
- │   │   │ └── returns: class:jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties
+ │   │   │ │   └── type: string
+ │   │   │ └── returns: jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties
  │   │   ├─┬ readOnlyString property
  │   │   │ ├── immutable
- │   │   │ └── type: primitive:string
+ │   │   │ └── type: string
  │   │   └─┬ readWriteString property
- │   │     └── type: primitive:string
+ │   │     └── type: string
  │   ├─┬ class ConstructorPassesThisOut
  │   │ └─┬ members
  │   │   └─┬ <initializer>(consumer) method
  │   │     ├─┬ parameters
  │   │     │ └─┬ consumer
- │   │     │   └── type: class:jsii-calc.PartiallyInitializedThisConsumer
+ │   │     │   └── type: jsii-calc.PartiallyInitializedThisConsumer
  │   │     └── returns: void
  │   ├─┬ class Constructors
  │   │ └─┬ members
@@ -292,25 +292,25 @@ assemblies
  │   │   │ └── returns: void
  │   │   ├─┬ hiddenInterface() method
  │   │   │ ├── static
- │   │   │ └── returns: interface:jsii-calc.IPublicInterface
+ │   │   │ └── returns: jsii-calc.IPublicInterface
  │   │   ├─┬ hiddenInterfaces() method
  │   │   │ ├── static
- │   │   │ └── returns: Array<interface:jsii-calc.IPublicInterface>
+ │   │   │ └── returns: Array<jsii-calc.IPublicInterface>
  │   │   ├─┬ hiddenSubInterfaces() method
  │   │   │ ├── static
- │   │   │ └── returns: Array<interface:jsii-calc.IPublicInterface>
+ │   │   │ └── returns: Array<jsii-calc.IPublicInterface>
  │   │   ├─┬ makeClass() method
  │   │   │ ├── static
- │   │   │ └── returns: class:jsii-calc.PublicClass
+ │   │   │ └── returns: jsii-calc.PublicClass
  │   │   ├─┬ makeInterface() method
  │   │   │ ├── static
- │   │   │ └── returns: interface:jsii-calc.IPublicInterface
+ │   │   │ └── returns: jsii-calc.IPublicInterface
  │   │   ├─┬ makeInterface2() method
  │   │   │ ├── static
- │   │   │ └── returns: interface:jsii-calc.IPublicInterface2
+ │   │   │ └── returns: jsii-calc.IPublicInterface2
  │   │   └─┬ makeInterfaces() method
  │   │     ├── static
- │   │     └── returns: Array<interface:jsii-calc.IPublicInterface>
+ │   │     └── returns: Array<jsii-calc.IPublicInterface>
  │   ├─┬ class ConsumersOfThisCrazyTypeSystem
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -318,39 +318,39 @@ assemblies
  │   │   ├─┬ consumeAnotherPublicInterface(obj) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ obj
- │   │   │ │   └── type: interface:jsii-calc.IAnotherPublicInterface
- │   │   │ └── returns: primitive:string
+ │   │   │ │   └── type: jsii-calc.IAnotherPublicInterface
+ │   │   │ └── returns: string
  │   │   └─┬ consumeNonInternalInterface(obj) method
  │   │     ├─┬ parameters
  │   │     │ └─┬ obj
- │   │     │   └── type: interface:jsii-calc.INonInternalInterface
- │   │     └── returns: primitive:any
+ │   │     │   └── type: jsii-calc.INonInternalInterface
+ │   │     └── returns: any
  │   ├─┬ class DefaultedConstructorArgument
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(arg1,arg2,arg3) method
  │   │   │ ├─┬ parameters
  │   │   │ │ ├─┬ arg1
- │   │   │ │ │ └── type: primitive:number (optional)
+ │   │   │ │ │ └── type: number?
  │   │   │ │ ├─┬ arg2
- │   │   │ │ │ └── type: primitive:string (optional)
+ │   │   │ │ │ └── type: string?
  │   │   │ │ └─┬ arg3
- │   │   │ │   └── type: primitive:date (optional)
+ │   │   │ │   └── type: date?
  │   │   │ └── returns: void
  │   │   ├─┬ arg1 property
  │   │   │ ├── immutable
- │   │   │ └── type: primitive:number
+ │   │   │ └── type: number
  │   │   ├─┬ arg3 property
  │   │   │ ├── immutable
- │   │   │ └── type: primitive:date
+ │   │   │ └── type: date
  │   │   └─┬ arg2 property
  │   │     ├── immutable
- │   │     └── type: primitive:string (optional)
+ │   │     └── type: string?
  │   ├─┬ class Base
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
  │   │   └─┬ prop property
- │   │     └── type: primitive:string
+ │   │     └── type: string
  │   ├─┬ class Derived
  │   │ ├── base: Base
  │   │ └─┬ members
@@ -363,12 +363,12 @@ assemblies
  │   │   ├─┬ changePrivatePropertyValue(newValue) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ newValue
- │   │   │ │   └── type: primitive:string
+ │   │   │ │   └── type: string
  │   │   │ └── returns: void
  │   │   ├─┬ privateMethodValue() method
- │   │   │ └── returns: primitive:string
+ │   │   │ └── returns: string
  │   │   └─┬ privatePropertyValue() method
- │   │     └── returns: primitive:string
+ │   │     └── returns: string
  │   ├─┬ class DoNotRecognizeAnyAsOptional
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -376,11 +376,22 @@ assemblies
  │   │   └─┬ method(_requiredAny,_optionalAny,_optionalString) method
  │   │     ├─┬ parameters
  │   │     │ ├─┬ _requiredAny
- │   │     │ │ └── type: primitive:any
+ │   │     │ │ └── type: any
  │   │     │ ├─┬ _optionalAny
- │   │     │ │ └── type: primitive:any (optional)
+ │   │     │ │ └── type: any?
  │   │     │ └─┬ _optionalString
- │   │     │   └── type: primitive:string (optional)
+ │   │     │   └── type: string?
+ │   │     └── returns: void
+ │   ├─┬ class DocumentedClass
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ greet(greetee) method
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ greetee
+ │   │   │ │   └── type: jsii-calc.Greetee?
+ │   │   │ └── returns: number
+ │   │   └─┬ hola() method
  │   │     └── returns: void
  │   ├─┬ class DontComplainAboutVariadicAfterOptional
  │   │ └─┬ members
@@ -390,20 +401,20 @@ assemblies
  │   │     ├── variadic
  │   │     ├─┬ parameters
  │   │     │ ├─┬ optional
- │   │     │ │ └── type: primitive:string (optional)
+ │   │     │ │ └── type: string?
  │   │     │ └─┬ things
- │   │     │   ├── type: primitive:string
+ │   │     │   ├── type: string
  │   │     │   └── variadic
- │   │     └── returns: primitive:string
+ │   │     └── returns: string
  │   ├─┬ class DoubleTrouble
  │   │ ├── interfaces: IFriendlyRandomGenerator
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
  │   │   ├─┬ hello() method
- │   │   │ └── returns: primitive:string
+ │   │   │ └── returns: string
  │   │   └─┬ next() method
- │   │     └── returns: primitive:number
+ │   │     └── returns: number
  │   ├─┬ class EraseUndefinedHashValues
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -412,26 +423,26 @@ assemblies
  │   │   │ ├── static
  │   │   │ ├─┬ parameters
  │   │   │ │ ├─┬ opts
- │   │   │ │ │ └── type: interface:jsii-calc.EraseUndefinedHashValuesOptions
+ │   │   │ │ │ └── type: jsii-calc.EraseUndefinedHashValuesOptions
  │   │   │ │ └─┬ key
- │   │   │ │   └── type: primitive:string
- │   │   │ └── returns: primitive:boolean
+ │   │   │ │   └── type: string
+ │   │   │ └── returns: boolean
  │   │   ├─┬ prop1IsNull() method
  │   │   │ ├── static
- │   │   │ └── returns: primitive:any
+ │   │   │ └── returns: any
  │   │   └─┬ prop2IsUndefined() method
  │   │     ├── static
- │   │     └── returns: primitive:any
+ │   │     └── returns: any
  │   ├─┬ class ExportedBaseClass
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(success) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ success
- │   │   │ │   └── type: primitive:boolean
+ │   │   │ │   └── type: boolean
  │   │   │ └── returns: void
  │   │   └─┬ success property
  │   │     ├── immutable
- │   │     └── type: primitive:boolean
+ │   │     └── type: boolean
  │   ├─┬ class GiveMeStructs
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -439,21 +450,21 @@ assemblies
  │   │   ├─┬ derivedToFirst(derived) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ derived
- │   │   │ │   └── type: interface:jsii-calc.DerivedStruct
- │   │   │ └── returns: interface:@scope/jsii-calc-lib.MyFirstStruct
+ │   │   │ │   └── type: jsii-calc.DerivedStruct
+ │   │   │ └── returns: @scope/jsii-calc-lib.MyFirstStruct
  │   │   ├─┬ readDerivedNonPrimitive(derived) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ derived
- │   │   │ │   └── type: interface:jsii-calc.DerivedStruct
- │   │   │ └── returns: class:jsii-calc.DoubleTrouble
+ │   │   │ │   └── type: jsii-calc.DerivedStruct
+ │   │   │ └── returns: jsii-calc.DoubleTrouble
  │   │   ├─┬ readFirstNumber(first) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ first
- │   │   │ │   └── type: interface:@scope/jsii-calc-lib.MyFirstStruct
- │   │   │ └── returns: primitive:number
+ │   │   │ │   └── type: @scope/jsii-calc-lib.MyFirstStruct
+ │   │   │ └── returns: number
  │   │   └─┬ structLiteral property
  │   │     ├── immutable
- │   │     └── type: interface:@scope/jsii-calc-lib.StructWithOnlyOptionals
+ │   │     └── type: @scope/jsii-calc-lib.StructWithOnlyOptionals
  │   ├─┬ class GreetingAugmenter
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -461,14 +472,14 @@ assemblies
  │   │   └─┬ betterGreeting(friendly) method
  │   │     ├─┬ parameters
  │   │     │ └─┬ friendly
- │   │     │   └── type: interface:@scope/jsii-calc-lib.IFriendly
- │   │     └── returns: primitive:string
+ │   │     │   └── type: @scope/jsii-calc-lib.IFriendly
+ │   │     └── returns: string
  │   ├─┬ class ImplementInternalInterface
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
  │   │   └─┬ prop property
- │   │     └── type: primitive:string
+ │   │     └── type: string
  │   ├─┬ class ImplementsInterfaceWithInternal
  │   │ ├── interfaces: IInterfaceWithInternal
  │   │ └─┬ members
@@ -486,7 +497,7 @@ assemblies
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
  │   │   └─┬ private property
- │   │     └── type: primitive:string
+ │   │     └── type: string
  │   ├─┬ class InbetweenClass
  │   │ ├── base: PublicClass
  │   │ ├── interfaces: IPublicInterface2
@@ -494,35 +505,35 @@ assemblies
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
  │   │   └─┬ ciao() method
- │   │     └── returns: primitive:string
+ │   │     └── returns: string
  │   ├─┬ class Foo
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
  │   │   └─┬ bar property
- │   │     └── type: primitive:string (optional)
+ │   │     └── type: string?
  │   ├─┬ class JSObjectLiteralForInterface
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
  │   │   ├─┬ giveMeFriendly() method
- │   │   │ └── returns: interface:@scope/jsii-calc-lib.IFriendly
+ │   │   │ └── returns: @scope/jsii-calc-lib.IFriendly
  │   │   └─┬ giveMeFriendlyGenerator() method
- │   │     └── returns: interface:jsii-calc.IFriendlyRandomGenerator
+ │   │     └── returns: jsii-calc.IFriendlyRandomGenerator
  │   ├─┬ class JSObjectLiteralToNative
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
  │   │   └─┬ returnLiteral() method
- │   │     └── returns: class:jsii-calc.JSObjectLiteralToNativeClass
+ │   │     └── returns: jsii-calc.JSObjectLiteralToNativeClass
  │   ├─┬ class JSObjectLiteralToNativeClass
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
  │   │   ├─┬ propA property
- │   │   │ └── type: primitive:string
+ │   │   │ └── type: string
  │   │   └─┬ propB property
- │   │     └── type: primitive:number
+ │   │     └── type: number
  │   ├─┬ class JavaReservedWords
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -632,7 +643,7 @@ assemblies
  │   │   ├─┬ volatile() method
  │   │   │ └── returns: void
  │   │   └─┬ while property
- │   │     └── type: primitive:string
+ │   │     └── type: string
  │   ├─┬ class JsiiAgent
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -640,7 +651,7 @@ assemblies
  │   │   └─┬ jsiiAgent property
  │   │     ├── immutable
  │   │     ├── static
- │   │     └── type: primitive:string (optional)
+ │   │     └── type: string?
  │   ├─┬ class Multiply
  │   │ ├── base: BinaryOperation
  │   │ ├── interfaces: IFriendlier,IRandomNumberGenerator
@@ -648,21 +659,21 @@ assemblies
  │   │   ├─┬ <initializer>(lhs,rhs) method
  │   │   │ ├─┬ parameters
  │   │   │ │ ├─┬ lhs
- │   │   │ │ │ └── type: class:@scope/jsii-calc-lib.Value
+ │   │   │ │ │ └── type: @scope/jsii-calc-lib.Value
  │   │   │ │ └─┬ rhs
- │   │   │ │   └── type: class:@scope/jsii-calc-lib.Value
+ │   │   │ │   └── type: @scope/jsii-calc-lib.Value
  │   │   │ └── returns: void
  │   │   ├─┬ farewell() method
- │   │   │ └── returns: primitive:string
+ │   │   │ └── returns: string
  │   │   ├─┬ goodbye() method
- │   │   │ └── returns: primitive:string
+ │   │   │ └── returns: string
  │   │   ├─┬ next() method
- │   │   │ └── returns: primitive:number
+ │   │   │ └── returns: number
  │   │   ├─┬ toString() method
- │   │   │ └── returns: primitive:string
+ │   │   │ └── returns: string
  │   │   └─┬ value property
  │   │     ├── immutable
- │   │     └── type: primitive:number
+ │   │     └── type: number
  │   ├─┬ class Negate
  │   │ ├── base: UnaryOperation
  │   │ ├── interfaces: IFriendlier
@@ -670,71 +681,71 @@ assemblies
  │   │   ├─┬ <initializer>(operand) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ operand
- │   │   │ │   └── type: class:@scope/jsii-calc-lib.Value
+ │   │   │ │   └── type: @scope/jsii-calc-lib.Value
  │   │   │ └── returns: void
  │   │   ├─┬ farewell() method
- │   │   │ └── returns: primitive:string
+ │   │   │ └── returns: string
  │   │   ├─┬ goodbye() method
- │   │   │ └── returns: primitive:string
+ │   │   │ └── returns: string
  │   │   ├─┬ hello() method
- │   │   │ └── returns: primitive:string
+ │   │   │ └── returns: string
  │   │   ├─┬ toString() method
- │   │   │ └── returns: primitive:string
+ │   │   │ └── returns: string
  │   │   └─┬ value property
  │   │     ├── immutable
- │   │     └── type: primitive:number
+ │   │     └── type: number
  │   ├─┬ class NodeStandardLibrary
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
  │   │   ├─┬ cryptoSha256() method
- │   │   │ └── returns: primitive:string
+ │   │   │ └── returns: string
  │   │   ├─┬ fsReadFile() method
- │   │   │ └── returns: primitive:string (promise)
+ │   │   │ └── returns: Promise<string>
  │   │   ├─┬ fsReadFileSync() method
- │   │   │ └── returns: primitive:string
+ │   │   │ └── returns: string
  │   │   └─┬ osPlatform property
  │   │     ├── immutable
- │   │     └── type: primitive:string
+ │   │     └── type: string
  │   ├─┬ class NullShouldBeTreatedAsUndefined
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(_param1,optional) method
  │   │   │ ├─┬ parameters
  │   │   │ │ ├─┬ _param1
- │   │   │ │ │ └── type: primitive:string
+ │   │   │ │ │ └── type: string
  │   │   │ │ └─┬ optional
- │   │   │ │   └── type: primitive:any (optional)
+ │   │   │ │   └── type: any?
  │   │   │ └── returns: void
  │   │   ├─┬ giveMeUndefined(value) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ value
- │   │   │ │   └── type: primitive:any (optional)
+ │   │   │ │   └── type: any?
  │   │   │ └── returns: void
  │   │   ├─┬ giveMeUndefinedInsideAnObject(input) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ input
- │   │   │ │   └── type: interface:jsii-calc.NullShouldBeTreatedAsUndefinedData
+ │   │   │ │   └── type: jsii-calc.NullShouldBeTreatedAsUndefinedData
  │   │   │ └── returns: void
  │   │   ├─┬ verifyPropertyIsUndefined() method
  │   │   │ └── returns: void
  │   │   └─┬ changeMeToUndefined property
- │   │     └── type: primitive:string (optional)
+ │   │     └── type: string?
  │   ├─┬ class NumberGenerator
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(generator) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ generator
- │   │   │ │   └── type: interface:jsii-calc.IRandomNumberGenerator
+ │   │   │ │   └── type: jsii-calc.IRandomNumberGenerator
  │   │   │ └── returns: void
  │   │   ├─┬ isSameGenerator(gen) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ gen
- │   │   │ │   └── type: interface:jsii-calc.IRandomNumberGenerator
- │   │   │ └── returns: primitive:boolean
+ │   │   │ │   └── type: jsii-calc.IRandomNumberGenerator
+ │   │   │ └── returns: boolean
  │   │   ├─┬ nextTimes100() method
- │   │   │ └── returns: primitive:number
+ │   │   │ └── returns: number
  │   │   └─┬ generator property
- │   │     └── type: interface:jsii-calc.IRandomNumberGenerator
+ │   │     └── type: jsii-calc.IRandomNumberGenerator
  │   ├─┬ class ObjectRefsInCollections
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -742,46 +753,52 @@ assemblies
  │   │   ├─┬ sumFromArray(values) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ values
- │   │   │ │   └── type: Array<class:@scope/jsii-calc-lib.Value>
- │   │   │ └── returns: primitive:number
+ │   │   │ │   └── type: Array<@scope/jsii-calc-lib.Value>
+ │   │   │ └── returns: number
  │   │   └─┬ sumFromMap(values) method
  │   │     ├─┬ parameters
  │   │     │ └─┬ values
- │   │     │   └── type: Map<string => class:@scope/jsii-calc-lib.Value>
- │   │     └── returns: primitive:number
+ │   │     │   └── type: Map<string => @scope/jsii-calc-lib.Value>
+ │   │     └── returns: number
+ │   ├─┬ class Old
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>() method
+ │   │   │ └── returns: void
+ │   │   └─┬ doAThing() method
+ │   │     └── returns: void
  │   ├─┬ class OptionalConstructorArgument
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(arg1,arg2,arg3) method
  │   │   │ ├─┬ parameters
  │   │   │ │ ├─┬ arg1
- │   │   │ │ │ └── type: primitive:number
+ │   │   │ │ │ └── type: number
  │   │   │ │ ├─┬ arg2
- │   │   │ │ │ └── type: primitive:string
+ │   │   │ │ │ └── type: string
  │   │   │ │ └─┬ arg3
- │   │   │ │   └── type: primitive:date (optional)
+ │   │   │ │   └── type: date?
  │   │   │ └── returns: void
  │   │   ├─┬ arg1 property
  │   │   │ ├── immutable
- │   │   │ └── type: primitive:number
+ │   │   │ └── type: number
  │   │   ├─┬ arg2 property
  │   │   │ ├── immutable
- │   │   │ └── type: primitive:string
+ │   │   │ └── type: string
  │   │   └─┬ arg3 property
  │   │     ├── immutable
- │   │     └── type: primitive:date (optional)
+ │   │     └── type: date?
  │   ├─┬ class OptionalStructConsumer
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(optionalStruct) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ optionalStruct
- │   │   │ │   └── type: interface:jsii-calc.OptionalStruct (optional)
+ │   │   │ │   └── type: jsii-calc.OptionalStruct?
  │   │   │ └── returns: void
  │   │   ├─┬ parameterWasUndefined property
  │   │   │ ├── immutable
- │   │   │ └── type: primitive:boolean
+ │   │   │ └── type: boolean
  │   │   └─┬ fieldValue property
  │   │     ├── immutable
- │   │     └── type: primitive:string (optional)
+ │   │     └── type: string?
  │   ├─┬ class OverrideReturnsObject
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -789,8 +806,8 @@ assemblies
  │   │   └─┬ test(obj) method
  │   │     ├─┬ parameters
  │   │     │ └─┬ obj
- │   │     │   └── type: interface:jsii-calc.IReturnsNumber
- │   │     └── returns: primitive:number
+ │   │     │   └── type: jsii-calc.IReturnsNumber
+ │   │     └── returns: number
  │   ├─┬ class PartiallyInitializedThisConsumer
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -799,12 +816,12 @@ assemblies
  │   │     ├── abstract
  │   │     ├─┬ parameters
  │   │     │ ├─┬ obj
- │   │     │ │ └── type: class:jsii-calc.ConstructorPassesThisOut
+ │   │     │ │ └── type: jsii-calc.ConstructorPassesThisOut
  │   │     │ ├─┬ dt
- │   │     │ │ └── type: primitive:date
+ │   │     │ │ └── type: date
  │   │     │ └─┬ ev
- │   │     │   └── type: enum:jsii-calc.AllTypesEnum
- │   │     └── returns: primitive:string
+ │   │     │   └── type: jsii-calc.AllTypesEnum
+ │   │     └── returns: string
  │   ├─┬ class Polymorphism
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -812,27 +829,27 @@ assemblies
  │   │   └─┬ sayHello(friendly) method
  │   │     ├─┬ parameters
  │   │     │ └─┬ friendly
- │   │     │   └── type: interface:@scope/jsii-calc-lib.IFriendly
- │   │     └── returns: primitive:string
+ │   │     │   └── type: @scope/jsii-calc-lib.IFriendly
+ │   │     └── returns: string
  │   ├─┬ class Power
  │   │ ├── base: CompositeOperation
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(base,pow) method
  │   │   │ ├─┬ parameters
  │   │   │ │ ├─┬ base
- │   │   │ │ │ └── type: class:@scope/jsii-calc-lib.Value
+ │   │   │ │ │ └── type: @scope/jsii-calc-lib.Value
  │   │   │ │ └─┬ pow
- │   │   │ │   └── type: class:@scope/jsii-calc-lib.Value
+ │   │   │ │   └── type: @scope/jsii-calc-lib.Value
  │   │   │ └── returns: void
  │   │   ├─┬ base property
  │   │   │ ├── immutable
- │   │   │ └── type: class:@scope/jsii-calc-lib.Value
+ │   │   │ └── type: @scope/jsii-calc-lib.Value
  │   │   ├─┬ expression property
  │   │   │ ├── immutable
- │   │   │ └── type: class:@scope/jsii-calc-lib.Value
+ │   │   │ └── type: @scope/jsii-calc-lib.Value
  │   │   └─┬ pow property
  │   │     ├── immutable
- │   │     └── type: class:@scope/jsii-calc-lib.Value
+ │   │     └── type: @scope/jsii-calc-lib.Value
  │   ├─┬ class PublicClass
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -912,21 +929,21 @@ assemblies
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
  │   │   ├─┬ loadFoo() method
- │   │   │ └── returns: enum:@scope/jsii-calc-lib.EnumFromScopedModule (optional)
+ │   │   │ └── returns: @scope/jsii-calc-lib.EnumFromScopedModule?
  │   │   ├─┬ saveFoo(value) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ value
- │   │   │ │   └── type: enum:@scope/jsii-calc-lib.EnumFromScopedModule
+ │   │   │ │   └── type: @scope/jsii-calc-lib.EnumFromScopedModule
  │   │   │ └── returns: void
  │   │   └─┬ foo property
- │   │     └── type: enum:@scope/jsii-calc-lib.EnumFromScopedModule (optional)
+ │   │     └── type: @scope/jsii-calc-lib.EnumFromScopedModule?
  │   ├─┬ class ReturnsPrivateImplementationOfInterface
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
  │   │   └─┬ privateImplementation property
  │   │     ├── immutable
- │   │     └── type: interface:jsii-calc.IPrivatelyImplemented
+ │   │     └── type: jsii-calc.IPrivatelyImplemented
  │   ├─┬ class RuntimeTypeChecking
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -934,84 +951,84 @@ assemblies
  │   │   ├─┬ methodWithDefaultedArguments(arg1,arg2,arg3) method
  │   │   │ ├─┬ parameters
  │   │   │ │ ├─┬ arg1
- │   │   │ │ │ └── type: primitive:number (optional)
+ │   │   │ │ │ └── type: number?
  │   │   │ │ ├─┬ arg2
- │   │   │ │ │ └── type: primitive:string (optional)
+ │   │   │ │ │ └── type: string?
  │   │   │ │ └─┬ arg3
- │   │   │ │   └── type: primitive:date (optional)
+ │   │   │ │   └── type: date?
  │   │   │ └── returns: void
  │   │   ├─┬ methodWithOptionalAnyArgument(arg) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ arg
- │   │   │ │   └── type: primitive:any (optional)
+ │   │   │ │   └── type: any?
  │   │   │ └── returns: void
  │   │   └─┬ methodWithOptionalArguments(arg1,arg2,arg3) method
  │   │     ├─┬ parameters
  │   │     │ ├─┬ arg1
- │   │     │ │ └── type: primitive:number
+ │   │     │ │ └── type: number
  │   │     │ ├─┬ arg2
- │   │     │ │ └── type: primitive:string
+ │   │     │ │ └── type: string
  │   │     │ └─┬ arg3
- │   │     │   └── type: primitive:date (optional)
+ │   │     │   └── type: date?
  │   │     └── returns: void
  │   ├─┬ class SingleInstanceTwoTypes
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
  │   │   ├─┬ interface1() method
- │   │   │ └── returns: class:jsii-calc.InbetweenClass
+ │   │   │ └── returns: jsii-calc.InbetweenClass
  │   │   └─┬ interface2() method
- │   │     └── returns: interface:jsii-calc.IPublicInterface
+ │   │     └── returns: jsii-calc.IPublicInterface
  │   ├─┬ class Statics
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(value) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ value
- │   │   │ │   └── type: primitive:string
+ │   │   │ │   └── type: string
  │   │   │ └── returns: void
  │   │   ├─┬ staticMethod(name) method
  │   │   │ ├── static
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ name
- │   │   │ │   └── type: primitive:string
- │   │   │ └── returns: primitive:string
+ │   │   │ │   └── type: string
+ │   │   │ └── returns: string
  │   │   ├─┬ justMethod() method
- │   │   │ └── returns: primitive:string
+ │   │   │ └── returns: string
  │   │   ├─┬ BAR property
  │   │   │ ├── const
  │   │   │ ├── immutable
  │   │   │ ├── static
- │   │   │ └── type: primitive:number
+ │   │   │ └── type: number
  │   │   ├─┬ ConstObj property
  │   │   │ ├── const
  │   │   │ ├── immutable
  │   │   │ ├── static
- │   │   │ └── type: class:jsii-calc.DoubleTrouble
+ │   │   │ └── type: jsii-calc.DoubleTrouble
  │   │   ├─┬ Foo property
  │   │   │ ├── const
  │   │   │ ├── immutable
  │   │   │ ├── static
- │   │   │ └── type: primitive:string
+ │   │   │ └── type: string
  │   │   ├─┬ zooBar property
  │   │   │ ├── const
  │   │   │ ├── immutable
  │   │   │ ├── static
- │   │   │ └── type: Map<string => primitive:string>
+ │   │   │ └── type: Map<string => string>
  │   │   ├─┬ instance property
  │   │   │ ├── static
- │   │   │ └── type: class:jsii-calc.Statics
+ │   │   │ └── type: jsii-calc.Statics
  │   │   ├─┬ nonConstStatic property
  │   │   │ ├── static
- │   │   │ └── type: primitive:number
+ │   │   │ └── type: number
  │   │   └─┬ value property
  │   │     ├── immutable
- │   │     └── type: primitive:string
+ │   │     └── type: string
  │   ├─┬ class StripInternal
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
  │   │   └─┬ youSeeMe property
- │   │     └── type: primitive:string
+ │   │     └── type: string
  │   ├─┬ class Sum
  │   │ ├── base: CompositeOperation
  │   │ └─┬ members
@@ -1019,58 +1036,58 @@ assemblies
  │   │   │ └── returns: void
  │   │   ├─┬ expression property
  │   │   │ ├── immutable
- │   │   │ └── type: class:@scope/jsii-calc-lib.Value
+ │   │   │ └── type: @scope/jsii-calc-lib.Value
  │   │   └─┬ parts property
- │   │     └── type: Array<class:@scope/jsii-calc-lib.Value>
+ │   │     └── type: Array<@scope/jsii-calc-lib.Value>
  │   ├─┬ class SyncVirtualMethods
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
  │   │   ├─┬ callerIsAsync() method
- │   │   │ └── returns: primitive:number (promise)
+ │   │   │ └── returns: Promise<number>
  │   │   ├─┬ callerIsMethod() method
- │   │   │ └── returns: primitive:number
+ │   │   │ └── returns: number
  │   │   ├─┬ modifyOtherProperty(value) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ value
- │   │   │ │   └── type: primitive:string
+ │   │   │ │   └── type: string
  │   │   │ └── returns: void
  │   │   ├─┬ modifyValueOfTheProperty(value) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ value
- │   │   │ │   └── type: primitive:string
+ │   │   │ │   └── type: string
  │   │   │ └── returns: void
  │   │   ├─┬ readA() method
- │   │   │ └── returns: primitive:number
+ │   │   │ └── returns: number
  │   │   ├─┬ retrieveOtherProperty() method
- │   │   │ └── returns: primitive:string
+ │   │   │ └── returns: string
  │   │   ├─┬ retrieveReadOnlyProperty() method
- │   │   │ └── returns: primitive:string
+ │   │   │ └── returns: string
  │   │   ├─┬ retrieveValueOfTheProperty() method
- │   │   │ └── returns: primitive:string
+ │   │   │ └── returns: string
  │   │   ├─┬ virtualMethod(n) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ n
- │   │   │ │   └── type: primitive:number
- │   │   │ └── returns: primitive:number
+ │   │   │ │   └── type: number
+ │   │   │ └── returns: number
  │   │   ├─┬ writeA(value) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ value
- │   │   │ │   └── type: primitive:number
+ │   │   │ │   └── type: number
  │   │   │ └── returns: void
  │   │   ├─┬ readonlyProperty property
  │   │   │ ├── immutable
- │   │   │ └── type: primitive:string
+ │   │   │ └── type: string
  │   │   ├─┬ a property
- │   │   │ └── type: primitive:number
+ │   │   │ └── type: number
  │   │   ├─┬ callerIsProperty property
- │   │   │ └── type: primitive:number
+ │   │   │ └── type: number
  │   │   ├─┬ otherProperty property
- │   │   │ └── type: primitive:string
+ │   │   │ └── type: string
  │   │   ├─┬ theProperty property
- │   │   │ └── type: primitive:string
+ │   │   │ └── type: string
  │   │   └─┬ valueOfOtherProperty property
- │   │     └── type: primitive:string
+ │   │     └── type: string
  │   ├─┬ class Thrower
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -1083,63 +1100,63 @@ assemblies
  │   │   ├─┬ <initializer>(operand) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ operand
- │   │   │ │   └── type: class:@scope/jsii-calc-lib.Value
+ │   │   │ │   └── type: @scope/jsii-calc-lib.Value
  │   │   │ └── returns: void
  │   │   └─┬ operand property
  │   │     ├── immutable
- │   │     └── type: class:@scope/jsii-calc-lib.Value
+ │   │     └── type: @scope/jsii-calc-lib.Value
  │   ├─┬ class UseBundledDependency
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
  │   │   └─┬ value() method
- │   │     └── returns: primitive:any
+ │   │     └── returns: any
  │   ├─┬ class UseCalcBase
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
  │   │   └─┬ hello() method
- │   │     └── returns: class:@scope/jsii-calc-base.Base
+ │   │     └── returns: @scope/jsii-calc-base.Base
  │   ├─┬ class UsesInterfaceWithProperties
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(obj) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ obj
- │   │   │ │   └── type: interface:jsii-calc.IInterfaceWithProperties
+ │   │   │ │   └── type: jsii-calc.IInterfaceWithProperties
  │   │   │ └── returns: void
  │   │   ├─┬ justRead() method
- │   │   │ └── returns: primitive:string
+ │   │   │ └── returns: string
  │   │   ├─┬ readStringAndNumber(ext) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ ext
- │   │   │ │   └── type: interface:jsii-calc.IInterfaceWithPropertiesExtension
- │   │   │ └── returns: primitive:string
+ │   │   │ │   └── type: jsii-calc.IInterfaceWithPropertiesExtension
+ │   │   │ └── returns: string
  │   │   ├─┬ writeAndRead(value) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ value
- │   │   │ │   └── type: primitive:string
- │   │   │ └── returns: primitive:string
+ │   │   │ │   └── type: string
+ │   │   │ └── returns: string
  │   │   └─┬ obj property
  │   │     ├── immutable
- │   │     └── type: interface:jsii-calc.IInterfaceWithProperties
+ │   │     └── type: jsii-calc.IInterfaceWithProperties
  │   ├─┬ class VariadicMethod
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(prefix) method
  │   │   │ ├── variadic
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ prefix
- │   │   │ │   ├── type: primitive:number
+ │   │   │ │   ├── type: number
  │   │   │ │   └── variadic
  │   │   │ └── returns: void
  │   │   └─┬ asArray(first,others) method
  │   │     ├── variadic
  │   │     ├─┬ parameters
  │   │     │ ├─┬ first
- │   │     │ │ └── type: primitive:number
+ │   │     │ │ └── type: number
  │   │     │ └─┬ others
- │   │     │   ├── type: primitive:number
+ │   │     │   ├── type: number
  │   │     │   └── variadic
- │   │     └── returns: Array<primitive:number>
+ │   │     └── returns: Array<number>
  │   ├─┬ class VirtualMethodPlayground
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -1147,58 +1164,58 @@ assemblies
  │   │   ├─┬ overrideMeAsync(index) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ index
- │   │   │ │   └── type: primitive:number
- │   │   │ └── returns: primitive:number (promise)
+ │   │   │ │   └── type: number
+ │   │   │ └── returns: Promise<number>
  │   │   ├─┬ overrideMeSync(index) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ index
- │   │   │ │   └── type: primitive:number
- │   │   │ └── returns: primitive:number
+ │   │   │ │   └── type: number
+ │   │   │ └── returns: number
  │   │   ├─┬ parallelSumAsync(count) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ count
- │   │   │ │   └── type: primitive:number
- │   │   │ └── returns: primitive:number (promise)
+ │   │   │ │   └── type: number
+ │   │   │ └── returns: Promise<number>
  │   │   ├─┬ serialSumAsync(count) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ count
- │   │   │ │   └── type: primitive:number
- │   │   │ └── returns: primitive:number (promise)
+ │   │   │ │   └── type: number
+ │   │   │ └── returns: Promise<number>
  │   │   └─┬ sumSync(count) method
  │   │     ├─┬ parameters
  │   │     │ └─┬ count
- │   │     │   └── type: primitive:number
- │   │     └── returns: primitive:number
+ │   │     │   └── type: number
+ │   │     └── returns: number
  │   ├─┬ class CompositeOperation
  │   │ ├── base: Operation
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
  │   │   ├─┬ toString() method
- │   │   │ └── returns: primitive:string
+ │   │   │ └── returns: string
  │   │   ├─┬ expression property
  │   │   │ ├── abstract
  │   │   │ ├── immutable
- │   │   │ └── type: class:@scope/jsii-calc-lib.Value
+ │   │   │ └── type: @scope/jsii-calc-lib.Value
  │   │   ├─┬ value property
  │   │   │ ├── immutable
- │   │   │ └── type: primitive:number
+ │   │   │ └── type: number
  │   │   ├─┬ decorationPostfixes property
- │   │   │ └── type: Array<primitive:string>
+ │   │   │ └── type: Array<string>
  │   │   ├─┬ decorationPrefixes property
- │   │   │ └── type: Array<primitive:string>
+ │   │   │ └── type: Array<string>
  │   │   └─┬ stringStyle property
- │   │     └── type: enum:jsii-calc.composition.CompositeOperation.CompositionStringStyle
+ │   │     └── type: jsii-calc.composition.CompositeOperation.CompositionStringStyle
  │   ├─┬ interface CalculatorProps
  │   │ └─┬ members
  │   │   ├─┬ initialValue property
  │   │   │ ├── abstract
  │   │   │ ├── immutable
- │   │   │ └── type: primitive:number (optional)
+ │   │   │ └── type: number?
  │   │   └─┬ maximumValue property
  │   │     ├── abstract
  │   │     ├── immutable
- │   │     └── type: primitive:number (optional)
+ │   │     └── type: number?
  │   ├─┬ interface DerivedStruct
  │   │ ├─┬ interfaces
  │   │ │ └── MyFirstStruct
@@ -1206,64 +1223,70 @@ assemblies
  │   │   ├─┬ anotherRequired property
  │   │   │ ├── abstract
  │   │   │ ├── immutable
- │   │   │ └── type: primitive:date
+ │   │   │ └── type: date
  │   │   ├─┬ bool property
  │   │   │ ├── abstract
  │   │   │ ├── immutable
- │   │   │ └── type: primitive:boolean
+ │   │   │ └── type: boolean
  │   │   ├─┬ nonPrimitive property
  │   │   │ ├── abstract
  │   │   │ ├── immutable
- │   │   │ └── type: class:jsii-calc.DoubleTrouble
+ │   │   │ └── type: jsii-calc.DoubleTrouble
  │   │   ├─┬ anotherOptional property
  │   │   │ ├── abstract
  │   │   │ ├── immutable
- │   │   │ └── type: Map<string => class:@scope/jsii-calc-lib.Value>
+ │   │   │ └── type: Map<string => @scope/jsii-calc-lib.Value>?
  │   │   ├─┬ optionalAny property
  │   │   │ ├── abstract
  │   │   │ ├── immutable
- │   │   │ └── type: primitive:any (optional)
+ │   │   │ └── type: any?
  │   │   └─┬ optionalArray property
  │   │     ├── abstract
  │   │     ├── immutable
- │   │     └── type: Array<primitive:string>
+ │   │     └── type: Array<string>?
  │   ├─┬ interface EraseUndefinedHashValuesOptions
  │   │ └─┬ members
  │   │   ├─┬ option1 property
  │   │   │ ├── abstract
  │   │   │ ├── immutable
- │   │   │ └── type: primitive:string (optional)
+ │   │   │ └── type: string?
  │   │   └─┬ option2 property
  │   │     ├── abstract
  │   │     ├── immutable
- │   │     └── type: primitive:string (optional)
+ │   │     └── type: string?
  │   ├─┬ interface ExtendsInternalInterface
  │   │ └─┬ members
  │   │   └─┬ boom property
  │   │     ├── abstract
  │   │     ├── immutable
- │   │     └── type: primitive:boolean
+ │   │     └── type: boolean
  │   ├─┬ interface ExtendsPrivateInterface
  │   │ └─┬ members
  │   │   └─┬ moreThings property
  │   │     ├── abstract
  │   │     ├── immutable
- │   │     └── type: Array<primitive:string>
+ │   │     └── type: Array<string>
+ │   ├─┬ interface Greetee
+ │   │ └─┬ members
+ │   │   └─┬ name property
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: string?
  │   ├─┬ interface IAnotherPublicInterface
  │   │ └─┬ members
  │   │   └─┬ a property
  │   │     ├── abstract
- │   │     └── type: primitive:string
+ │   │     └── type: string
  │   ├─┬ interface IFriendlier
  │   │ ├─┬ interfaces
  │   │ │ └── IFriendly
  │   │ └─┬ members
  │   │   ├─┬ farewell() method
  │   │   │ ├── abstract
- │   │   │ └── returns: primitive:string
+ │   │   │ └── returns: string
  │   │   └─┬ goodbye() method
  │   │     ├── abstract
- │   │     └── returns: primitive:string
+ │   │     └── returns: string
  │   ├─┬ interface IFriendlyRandomGenerator
  │   │ ├─┬ interfaces
  │   │ │ ├── IRandomNumberGenerator
@@ -1274,7 +1297,7 @@ assemblies
  │   │   └─┬ propFromInterface property
  │   │     ├── abstract
  │   │     ├── immutable
- │   │     └── type: primitive:string
+ │   │     └── type: string
  │   ├─┬ interface IInterfaceThatShouldNotBeADataType
  │   │ ├─┬ interfaces
  │   │ │ └── IInterfaceWithMethods
@@ -1282,7 +1305,7 @@ assemblies
  │   │   └─┬ otherValue property
  │   │     ├── abstract
  │   │     ├── immutable
- │   │     └── type: primitive:string
+ │   │     └── type: string
  │   ├─┬ interface IInterfaceWithInternal
  │   │ └─┬ members
  │   │   └─┬ visible() method
@@ -1296,75 +1319,75 @@ assemblies
  │   │   └─┬ value property
  │   │     ├── abstract
  │   │     ├── immutable
- │   │     └── type: primitive:string
+ │   │     └── type: string
  │   ├─┬ interface IInterfaceWithOptionalMethodArguments
  │   │ └─┬ members
  │   │   └─┬ hello(arg1,arg2) method
  │   │     ├── abstract
  │   │     ├─┬ parameters
  │   │     │ ├─┬ arg1
- │   │     │ │ └── type: primitive:string
+ │   │     │ │ └── type: string
  │   │     │ └─┬ arg2
- │   │     │   └── type: primitive:number (optional)
+ │   │     │   └── type: number?
  │   │     └── returns: void
  │   ├─┬ interface IInterfaceWithProperties
  │   │ └─┬ members
  │   │   ├─┬ readOnlyString property
  │   │   │ ├── abstract
  │   │   │ ├── immutable
- │   │   │ └── type: primitive:string
+ │   │   │ └── type: string
  │   │   └─┬ readWriteString property
  │   │     ├── abstract
- │   │     └── type: primitive:string
+ │   │     └── type: string
  │   ├─┬ interface IInterfaceWithPropertiesExtension
  │   │ ├─┬ interfaces
  │   │ │ └── IInterfaceWithProperties
  │   │ └─┬ members
  │   │   └─┬ foo property
  │   │     ├── abstract
- │   │     └── type: primitive:number
+ │   │     └── type: number
  │   ├─┬ interface IMutableObjectLiteral
  │   │ └─┬ members
  │   │   └─┬ value property
  │   │     ├── abstract
- │   │     └── type: primitive:string
+ │   │     └── type: string
  │   ├─┬ interface INonInternalInterface
  │   │ ├─┬ interfaces
  │   │ │ └── IAnotherPublicInterface
  │   │ └─┬ members
  │   │   └─┬ c property
  │   │     ├── abstract
- │   │     └── type: primitive:string
+ │   │     └── type: string
  │   ├─┬ interface IPrivatelyImplemented
  │   │ └─┬ members
  │   │   └─┬ success property
  │   │     ├── abstract
  │   │     ├── immutable
- │   │     └── type: primitive:boolean
+ │   │     └── type: boolean
  │   ├─┬ interface IPublicInterface
  │   │ └─┬ members
  │   │   └─┬ bye() method
  │   │     ├── abstract
- │   │     └── returns: primitive:string
+ │   │     └── returns: string
  │   ├─┬ interface IPublicInterface2
  │   │ └─┬ members
  │   │   └─┬ ciao() method
  │   │     ├── abstract
- │   │     └── returns: primitive:string
+ │   │     └── returns: string
  │   ├─┬ interface IRandomNumberGenerator
  │   │ └─┬ members
  │   │   └─┬ next() method
  │   │     ├── abstract
- │   │     └── returns: primitive:number
+ │   │     └── returns: number
  │   ├─┬ interface IReturnsNumber
  │   │ └─┬ members
  │   │   ├─┬ obtainNumber() method
  │   │   │ ├── abstract
- │   │   │ └── returns: interface:@scope/jsii-calc-lib.IDoublable
+ │   │   │ └── returns: @scope/jsii-calc-lib.IDoublable
  │   │   └─┬ numberProp property
  │   │     ├── abstract
  │   │     ├── immutable
- │   │     └── type: class:@scope/jsii-calc-lib.Number
+ │   │     └── type: @scope/jsii-calc-lib.Number
  │   ├─┬ interface ImplictBaseOfBase
  │   │ ├─┬ interfaces
  │   │ │ └── BaseProps
@@ -1372,67 +1395,67 @@ assemblies
  │   │   └─┬ goo property
  │   │     ├── abstract
  │   │     ├── immutable
- │   │     └── type: primitive:date
+ │   │     └── type: date
  │   ├─┬ interface Hello
  │   │ └─┬ members
  │   │   └─┬ foo property
  │   │     ├── abstract
  │   │     ├── immutable
- │   │     └── type: primitive:number
+ │   │     └── type: number
  │   ├─┬ interface Hello
  │   │ └─┬ members
  │   │   └─┬ foo property
  │   │     ├── abstract
  │   │     ├── immutable
- │   │     └── type: primitive:number
+ │   │     └── type: number
  │   ├─┬ interface LoadBalancedFargateServiceProps
  │   │ └─┬ members
  │   │   ├─┬ containerPort property
  │   │   │ ├── abstract
  │   │   │ ├── immutable
- │   │   │ └── type: primitive:number (optional)
+ │   │   │ └── type: number?
  │   │   ├─┬ cpu property
  │   │   │ ├── abstract
  │   │   │ ├── immutable
- │   │   │ └── type: primitive:string (optional)
+ │   │   │ └── type: string?
  │   │   ├─┬ memoryMiB property
  │   │   │ ├── abstract
  │   │   │ ├── immutable
- │   │   │ └── type: primitive:string (optional)
+ │   │   │ └── type: string?
  │   │   ├─┬ publicLoadBalancer property
  │   │   │ ├── abstract
  │   │   │ ├── immutable
- │   │   │ └── type: primitive:boolean (optional)
+ │   │   │ └── type: boolean?
  │   │   └─┬ publicTasks property
  │   │     ├── abstract
  │   │     ├── immutable
- │   │     └── type: primitive:boolean (optional)
+ │   │     └── type: boolean?
  │   ├─┬ interface NullShouldBeTreatedAsUndefinedData
  │   │ └─┬ members
  │   │   ├─┬ arrayWithThreeElementsAndUndefinedAsSecondArgument property
  │   │   │ ├── abstract
  │   │   │ ├── immutable
- │   │   │ └── type: Array<primitive:any>
+ │   │   │ └── type: Array<any>
  │   │   └─┬ thisShouldBeUndefined property
  │   │     ├── abstract
  │   │     ├── immutable
- │   │     └── type: primitive:any (optional)
+ │   │     └── type: any?
  │   ├─┬ interface OptionalStruct
  │   │ └─┬ members
  │   │   └─┬ field property
  │   │     ├── abstract
  │   │     ├── immutable
- │   │     └── type: primitive:string (optional)
+ │   │     └── type: string?
  │   ├─┬ interface UnionProperties
  │   │ └─┬ members
  │   │   ├─┬ bar property
  │   │   │ ├── abstract
  │   │   │ ├── immutable
- │   │   │ └── type: primitive:string | primitive:number | class:jsii-calc.AllTypes
+ │   │   │ └── type: string | number | jsii-calc.AllTypes
  │   │   └─┬ foo property
  │   │     ├── abstract
  │   │     ├── immutable
- │   │     └── type: primitive:string | primitive:number
+ │   │     └── type: string | number?
  │   ├─┬ enum AllTypesEnum
  │   │ ├── MyEnumValue
  │   │ ├── YourEnumValue
@@ -1453,7 +1476,7 @@ assemblies
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
  │   │   └─┬ typeName() method
- │   │     └── returns: primitive:any
+ │   │     └── returns: any
  │   └─┬ interface BaseProps
  │     ├─┬ interfaces
  │     │ └── VeryBaseProps
@@ -1461,7 +1484,7 @@ assemblies
  │       └─┬ bar property
  │         ├── abstract
  │         ├── immutable
- │         └── type: primitive:string
+ │         └── type: string
  ├─┬ @scope/jsii-calc-base-of-base
  │ └─┬ types
  │   ├─┬ class Very
@@ -1469,13 +1492,13 @@ assemblies
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
  │   │   └─┬ hey() method
- │   │     └── returns: primitive:number
+ │   │     └── returns: number
  │   └─┬ interface VeryBaseProps
  │     └─┬ members
  │       └─┬ foo property
  │         ├── abstract
  │         ├── immutable
- │         └── type: class:@scope/jsii-calc-base-of-base.Very
+ │         └── type: @scope/jsii-calc-base-of-base.Very
  └─┬ @scope/jsii-calc-lib
    ├─┬ dependencies
    │ └── @scope/jsii-calc-base
@@ -1487,14 +1510,14 @@ assemblies
      │   ├─┬ <initializer>(value) method
      │   │ ├─┬ parameters
      │   │ │ └─┬ value
-     │   │ │   └── type: primitive:number
+     │   │ │   └── type: number
      │   │ └── returns: void
      │   ├─┬ doubleValue property
      │   │ ├── immutable
-     │   │ └── type: primitive:number
+     │   │ └── type: number
      │   └─┬ value property
      │     ├── immutable
-     │     └── type: primitive:number
+     │     └── type: number
      ├─┬ class Operation
      │ ├── base: Value
      │ └─┬ members
@@ -1502,57 +1525,57 @@ assemblies
      │   │ └── returns: void
      │   └─┬ toString() method
      │     ├── abstract
-     │     └── returns: primitive:string
+     │     └── returns: string
      ├─┬ class Value
      │ ├── base: Base
      │ └─┬ members
      │   ├─┬ <initializer>() method
      │   │ └── returns: void
      │   ├─┬ toString() method
-     │   │ └── returns: primitive:string
+     │   │ └── returns: string
      │   └─┬ value property
      │     ├── abstract
      │     ├── immutable
-     │     └── type: primitive:number
+     │     └── type: number
      ├─┬ interface IDoublable
      │ └─┬ members
      │   └─┬ doubleValue property
      │     ├── abstract
      │     ├── immutable
-     │     └── type: primitive:number
+     │     └── type: number
      ├─┬ interface IFriendly
      │ └─┬ members
      │   └─┬ hello() method
      │     ├── abstract
-     │     └── returns: primitive:string
+     │     └── returns: string
      ├─┬ interface MyFirstStruct
      │ └─┬ members
      │   ├─┬ anumber property
      │   │ ├── abstract
      │   │ ├── immutable
-     │   │ └── type: primitive:number
+     │   │ └── type: number
      │   ├─┬ astring property
      │   │ ├── abstract
      │   │ ├── immutable
-     │   │ └── type: primitive:string
+     │   │ └── type: string
      │   └─┬ firstOptional property
      │     ├── abstract
      │     ├── immutable
-     │     └── type: Array<primitive:string>
+     │     └── type: Array<string>?
      ├─┬ interface StructWithOnlyOptionals
      │ └─┬ members
      │   ├─┬ optional1 property
      │   │ ├── abstract
      │   │ ├── immutable
-     │   │ └── type: primitive:string (optional)
+     │   │ └── type: string?
      │   ├─┬ optional2 property
      │   │ ├── abstract
      │   │ ├── immutable
-     │   │ └── type: primitive:number (optional)
+     │   │ └── type: number?
      │   └─┬ optional3 property
      │     ├── abstract
      │     ├── immutable
-     │     └── type: primitive:boolean (optional)
+     │     └── type: boolean?
      └─┬ enum EnumFromScopedModule
        ├── Value1
        └── Value2

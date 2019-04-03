@@ -11,10 +11,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
         {
         }
 
-        /// <summary>
-        /// The expression that this operation consists of.
-        /// Must be implemented by derived classes.
-        /// </summary>
+        /// <summary>The expression that this operation consists of. Must be implemented by derived classes.</summary>
         [JsiiProperty("expression", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public override Value_ Expression
         {

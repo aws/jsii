@@ -10,9 +10,10 @@ public class Add extends software.amazon.jsii.tests.calculator.BinaryOperation {
         super(mode);
     }
     /**
-     * Creates a BinaryOperation
-     * @param lhs Left-hand side operand
-     * @param rhs Right-hand side operand
+     * Creates a BinaryOperation.
+     * 
+     * @param lhs Left-hand side operand.
+     * @param rhs Right-hand side operand.
      */
     public Add(final software.amazon.jsii.tests.calculator.lib.Value lhs, final software.amazon.jsii.tests.calculator.lib.Value rhs) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);

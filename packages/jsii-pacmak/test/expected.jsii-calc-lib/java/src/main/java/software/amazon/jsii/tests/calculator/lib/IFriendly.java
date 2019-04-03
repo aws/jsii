@@ -1,7 +1,9 @@
 package software.amazon.jsii.tests.calculator.lib;
 
 /**
- * Applies to classes that are considered friendly. These classes can be greeted with
+ * Applies to classes that are considered friendly.
+ * 
+ * These classes can be greeted with
  * a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")

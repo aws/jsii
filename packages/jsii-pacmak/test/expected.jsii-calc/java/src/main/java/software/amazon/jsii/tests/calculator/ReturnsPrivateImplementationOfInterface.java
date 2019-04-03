@@ -1,9 +1,9 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Helps ensure the JSII kernel & runtime cooperate correctly when an un-exported instance of a class is returned with
- * a declared type that is an exported interface, and the instance inherits from an exported class.
- * @return an instance of an un-exported class that extends ``ExportedBaseClass``, declared as ``IPrivatelyImplemented``.
+ * Helps ensure the JSII kernel & runtime cooperate correctly when an un-exported instance of a class is returned with a declared type that is an exported interface, and the instance inherits from an exported class.
+ * 
+ * @return an instance of an un-exported class that extends `ExportedBaseClass`, declared as `IPrivatelyImplemented`.
  * @see https://github.com/awslabs/jsii/issues/320
  */
 @javax.annotation.Generated(value = "jsii-pacmak")

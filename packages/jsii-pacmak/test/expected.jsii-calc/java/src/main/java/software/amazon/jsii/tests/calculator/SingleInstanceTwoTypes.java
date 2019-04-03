@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * Test that a single instance can be returned under two different FQNs
+ * Test that a single instance can be returned under two different FQNs.
  * 
  * JSII clients can instantiate 2 different strongly-typed wrappers for the same
  * object. Unfortunately, this will break object equality, but if we didn't do

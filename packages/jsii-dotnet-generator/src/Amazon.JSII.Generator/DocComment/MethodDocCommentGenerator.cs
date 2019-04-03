@@ -61,7 +61,7 @@ namespace Amazon.JSII.Generator.DocComment
                         continue;
                     }
 
-                    if (kvp.Key == "comment")
+                    if (kvp.Key == "summary")
                     {
                         yield return kvp.Value;
                     }

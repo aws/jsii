@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Host runtime version should be set via JSII_AGENT</summary>
+    /// <summary>Host runtime version should be set via JSII_AGENT.</summary>
     [JsiiClass(typeof(JsiiAgent_), "jsii-calc.JsiiAgent", "[]")]
     public class JsiiAgent_ : DeputyBase
     {

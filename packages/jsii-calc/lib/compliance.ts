@@ -641,14 +641,14 @@ export class VariadicMethod {
     private readonly prefix: number[];
 
     /**
-     * @param prefix a prefix that will be use for all values returned by ``#asArray``.
+     * @param prefix a prefix that will be use for all values returned by `#asArray`.
      */
     constructor(...prefix: number[]) {
         this.prefix = prefix;
     }
 
     /**
-     * @param first  the first element of the array to be returned (after the ``prefix`` provided at construction time).
+     * @param first  the first element of the array to be returned (after the `prefix` provided at construction time).
      * @param others other elements to be included in the array.
      */
     public asArray(first: number, ...others: number[]): number[] {
@@ -1283,7 +1283,7 @@ export interface LoadBalancedFargateServiceProps {
  * Helps ensure the JSII kernel & runtime cooperate correctly when an un-exported instance of a class is returned with
  * a declared type that is an exported interface, and the instance inherits from an exported class.
  *
- * @returns an instance of an un-exported class that extends ``ExportedBaseClass``, declared as ``IPrivatelyImplemented``.
+ * @returns an instance of an un-exported class that extends `ExportedBaseClass`, declared as `IPrivatelyImplemented`.
  *
  * @see https://github.com/awslabs/jsii/issues/320
  */

@@ -16,6 +16,7 @@ public class NodeStandardLibrary extends software.amazon.jsii.JsiiObject {
 
     /**
      * Uses node.js "crypto" module to calculate sha256 of a string.
+     * 
      * @return "6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50"
      */
     public java.lang.String cryptoSha256() {
@@ -24,6 +25,7 @@ public class NodeStandardLibrary extends software.amazon.jsii.JsiiObject {
 
     /**
      * Reads a local resource file (resource.txt) asynchronously.
+     * 
      * @return "Hello, resource!"
      */
     public java.lang.String fsReadFile() {
@@ -32,6 +34,7 @@ public class NodeStandardLibrary extends software.amazon.jsii.JsiiObject {
 
     /**
      * Sync version of fsReadFile.
+     * 
      * @return "Hello, resource! SYNC!"
      */
     public java.lang.String fsReadFileSync() {

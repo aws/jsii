@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>jsii#282, aws-cdk#157: null should be treated as "undefined"</summary>
+    /// <summary>jsii#282, aws-cdk#157: null should be treated as "undefined".</summary>
     [JsiiClass(typeof(NullShouldBeTreatedAsUndefined), "jsii-calc.NullShouldBeTreatedAsUndefined", "[{\"name\":\"_param1\",\"type\":{\"primitive\":\"string\"}},{\"name\":\"optional\",\"type\":{\"primitive\":\"any\",\"optional\":true}}]")]
     public class NullShouldBeTreatedAsUndefined : DeputyBase
     {

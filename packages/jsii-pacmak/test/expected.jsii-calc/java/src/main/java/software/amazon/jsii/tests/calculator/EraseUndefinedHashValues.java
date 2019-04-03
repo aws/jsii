@@ -12,7 +12,9 @@ public class EraseUndefinedHashValues extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Returns `true` if `key` is defined in `opts`. Used to check that undefined/null hash values
+     * Returns `true` if `key` is defined in `opts`.
+     * 
+     * Used to check that undefined/null hash values
      * are being erased when sending values from native code to JS.
      */
     public static java.lang.Boolean doesKeyExist(final software.amazon.jsii.tests.calculator.EraseUndefinedHashValuesOptions opts, final java.lang.String key) {
@@ -20,14 +22,14 @@ public class EraseUndefinedHashValues extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * We expect "prop1" to be erased
+     * We expect "prop1" to be erased.
      */
     public static java.lang.Object prop1IsNull() {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.EraseUndefinedHashValues.class, "prop1IsNull", java.lang.Object.class);
     }
 
     /**
-     * We expect "prop2" to be erased
+     * We expect "prop2" to be erased.
      */
     public static java.lang.Object prop2IsUndefined() {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.EraseUndefinedHashValues.class, "prop2IsUndefined", java.lang.Object.class);

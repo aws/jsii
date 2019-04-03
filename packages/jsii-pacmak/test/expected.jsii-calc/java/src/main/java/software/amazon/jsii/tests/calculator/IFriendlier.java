@@ -11,6 +11,7 @@ public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, soft
     java.lang.String farewell();
     /**
      * Say goodbye.
+     * 
      * @return A goodbye blessing.
      */
     java.lang.String goodbye();
@@ -33,6 +34,7 @@ public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, soft
 
         /**
          * Say goodbye.
+         * 
          * @return A goodbye blessing.
          */
         @Override

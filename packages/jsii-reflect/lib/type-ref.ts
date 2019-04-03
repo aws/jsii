@@ -8,40 +8,22 @@ export class TypeReference {
     private readonly spec?: jsii.TypeReference) { }
 
   public toString(): string {
-    const options = new Array<string>();
+    const self = this;
 
-    if (this.optional) {
-      options.push('optional');
+    function r(ret: string) {
+      if (self.optional) { ret += '?'; }
+      if (self.promise) { ret = `Promise<${ret}>`; }
+      return ret;
     }
 
-    if (this.promise) {
-      options.push('promise');
-    }
+    if (this.void) { return r('void'); }
+    if (this.primitive) { return r(this.primitive); }
+    if (this.fqn) { return r(this.fqn); }
 
-    const opts = options.length === 0 ? '' : ` (${options.join(',')})`;
-
-    if (this.void) {
-      return 'void';
-    }
-
-    if (this.primitive) {
-      return `primitive:${this.primitive}${opts}`;
-    }
-
-    if (this.fqn) {
-      return `${this.fqn}${opts}`;
-    }
-
-    if (this.arrayOfType) {
-      return `Array<${this.arrayOfType}>`;
-    }
-
-    if (this.mapOfType) {
-      return `Map<string => ${this.mapOfType}>`;
-    }
-
+    if (this.arrayOfType) { return r(`Array<${this.arrayOfType}>`); }
+    if (this.mapOfType) { return r(`Map<string => ${this.mapOfType}>`); }
     if (this.unionOfTypes) {
-      return this.unionOfTypes.map(x => x.toString()).join(' | ');
+      return r(this.unionOfTypes.map(x => x.toString()).join(' | '));
     }
 
     throw new Error(`Invalid type reference`);
@@ -49,6 +31,10 @@ export class TypeReference {
 
   public get void(): boolean {
     return (!this.spec);
+  }
+
+  public get isAny(): boolean {
+    return this.primitive === 'any';
   }
 
   public get primitive(): string | undefined {
@@ -59,7 +45,11 @@ export class TypeReference {
     return this.spec.primitive;
   }
 
-  public get fqn(): Type | undefined {
+  public get fqn(): string | undefined {
+    return jsii.isNamedTypeReference(this.spec) ? this.spec.fqn : undefined;
+  }
+
+  public get type(): Type | undefined {
     if (!jsii.isNamedTypeReference(this.spec)) {
       return undefined;
     }

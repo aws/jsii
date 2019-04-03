@@ -1,3 +1,4 @@
+import spec = require('jsii-spec');
 import path = require('path');
 import { TypeSystem } from '../lib';
 import { diffTest } from './util';
@@ -26,7 +27,7 @@ test('TypeSystem.classes lists all the classes in the typesystem', () => {
 test('findClass', async () => {
   const calc = typesys.findClass('jsii-calc.Calculator');
   const actual = new Array<string>();
-  calc.getMethods(/* inherited */ true).forEach(method => {
+  Object.values(calc.getMethods(/* inherited */ true)).forEach(method => {
     actual.push(`${method.name} from ${method.parentType.name}`);
   });
 
@@ -145,6 +146,38 @@ describe('Type', () => {
       expect(enumt.allImplementations).toEqual([]);
     });
    });
+});
+
+describe('@deprecated', () => {
+  test('can be read on an item', () => {
+    const klass = typesys.findClass('jsii-calc.Old');
+    expect(klass.docs.deprecated).toBeTruthy();
+  });
+
+  test('is inherited from class', () => {
+    const klass = typesys.findClass('jsii-calc.Old');
+    const method = klass.getMethods().doAThing;
+    expect(method.docs.deprecated).toBeTruthy();
+  });
+});
+
+describe('Stability', () => {
+  test('can be read on an item', () => {
+    const klass = typesys.findClass('jsii-calc.DocumentedClass');
+    expect(klass.docs.stability).toBe(spec.Stability.Stable);
+  });
+
+  test('is inherited from class', () => {
+    const klass = typesys.findClass('jsii-calc.DocumentedClass');
+    const method = klass.getMethods().greet;
+    expect(method.docs.stability).toBe(spec.Stability.Stable);
+  });
+
+  test('can be overridden from class', () => {
+    const klass = typesys.findClass('jsii-calc.DocumentedClass');
+    const method = klass.getMethods().hola;
+    expect(method.docs.stability).toBe(spec.Stability.Experimental);
+  });
 });
 
 function resolveModuleDir(name: string) {

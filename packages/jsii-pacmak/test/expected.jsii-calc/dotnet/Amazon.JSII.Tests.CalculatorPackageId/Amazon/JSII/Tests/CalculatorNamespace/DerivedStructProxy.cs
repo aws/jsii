@@ -51,14 +51,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<string[]>();
         }
 
-        /// <summary>An awesome number value</summary>
+        /// <summary>An awesome number value.</summary>
         [JsiiProperty("anumber", "{\"primitive\":\"number\"}")]
         public double Anumber
         {
             get => GetInstanceProperty<double>();
         }
 
-        /// <summary>A string value</summary>
+        /// <summary>A string value.</summary>
         [JsiiProperty("astring", "{\"primitive\":\"string\"}")]
         public string Astring
         {

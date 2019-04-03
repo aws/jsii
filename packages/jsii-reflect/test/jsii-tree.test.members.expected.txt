@@ -152,6 +152,11 @@ assemblies
  │   │ └─┬ members
  │   │   ├── <initializer>() method
  │   │   └── method(_requiredAny,_optionalAny,_optionalString) method
+ │   ├─┬ class DocumentedClass
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   ├── greet(greetee) method
+ │   │   └── hola() method
  │   ├─┬ class DontComplainAboutVariadicAfterOptional
  │   │ └─┬ members
  │   │   ├── <initializer>() method
@@ -320,6 +325,10 @@ assemblies
  │   │   ├── <initializer>() method
  │   │   ├── sumFromArray(values) method
  │   │   └── sumFromMap(values) method
+ │   ├─┬ class Old
+ │   │ └─┬ members
+ │   │   ├── <initializer>() method
+ │   │   └── doAThing() method
  │   ├─┬ class OptionalConstructorArgument
  │   │ └─┬ members
  │   │   ├── <initializer>(arg1,arg2,arg3) method
@@ -515,6 +524,9 @@ assemblies
  │   ├─┬ interface ExtendsPrivateInterface
  │   │ └─┬ members
  │   │   └── moreThings property
+ │   ├─┬ interface Greetee
+ │   │ └─┬ members
+ │   │   └── name property
  │   ├─┬ interface IAnotherPublicInterface
  │   │ └─┬ members
  │   │   └── a property

@@ -13,6 +13,7 @@ public interface IFriendlyRandomGenerator extends software.amazon.jsii.JsiiSeria
 
         /**
          * Returns another random number.
+         * 
          * @return A random number.
          */
         @Override

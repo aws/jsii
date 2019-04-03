@@ -49,10 +49,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         = GetStaticProperty<IDictionary<string, string>>(typeof(Statics));
-        /// <summary>
-        /// Jsdocs for static getter.
-        /// Jsdocs for static setter.
-        /// </summary>
+        /// <summary>Jsdocs for static getter. Jsdocs for static setter.</summary>
         [JsiiProperty("instance", "{\"fqn\":\"jsii-calc.Statics\"}")]
         public static Statics Instance
         {
@@ -73,8 +70,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<string>();
         }
 
-        /// <summary>Jsdocs for static method</summary>
-        /// <param name = "name">The name of the person to say hello to</param>
+        /// <summary>Jsdocs for static method.</summary>
+        /// <param name = "name">The name of the person to say hello to.</param>
         [JsiiMethod("staticMethod", "{\"primitive\":\"string\"}", "[{\"name\":\"name\",\"type\":{\"primitive\":\"string\"}}]")]
         public static string StaticMethod(string name)
         {

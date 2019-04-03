@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>jsii#284: do not recognize "any" as an optional argument</summary>
+    /// <summary>jsii#284: do not recognize "any" as an optional argument.</summary>
     [JsiiClass(typeof(DoNotRecognizeAnyAsOptional), "jsii-calc.DoNotRecognizeAnyAsOptional", "[]")]
     public class DoNotRecognizeAnyAsOptional : DeputyBase
     {

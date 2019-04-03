@@ -53,7 +53,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
-        /// <summary>An awesome number value</summary>
+        /// <summary>An awesome number value.</summary>
         [JsiiProperty("anumber", "{\"primitive\":\"number\"}", true)]
         public double Anumber
         {
@@ -61,7 +61,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
-        /// <summary>A string value</summary>
+        /// <summary>A string value.</summary>
         [JsiiProperty("astring", "{\"primitive\":\"string\"}", true)]
         public string Astring
         {

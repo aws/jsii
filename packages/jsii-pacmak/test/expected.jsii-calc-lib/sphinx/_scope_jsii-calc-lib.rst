@@ -150,9 +150,7 @@ EnumFromScopedModule (enum)
 
 
 
-   Check that enums from @scoped packages can be references.
-
-   See awslabs/jsii#138
+   Check that enums from \@scoped packages can be references. See awslabs/jsii#138.
 
 
 
@@ -226,7 +224,11 @@ IFriendly (interface)
 
 
 
-   Applies to classes that are considered friendly. These classes can be greeted with
+   Applies to classes that are considered friendly.
+
+   
+
+   These classes can be greeted with
 
    a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
 
@@ -271,7 +273,7 @@ MyFirstStruct (interface)
 
 
 
-   This is the first struct we have created in jsii
+   This is the first struct we have created in jsii.
 
 
 
@@ -279,7 +281,7 @@ MyFirstStruct (interface)
 
    .. py:attribute:: anumber
 
-      An awesome number value
+      An awesome number value.
 
 
 
@@ -288,7 +290,7 @@ MyFirstStruct (interface)
 
    .. py:attribute:: astring
 
-      A string value
+      A string value.
 
 
 

@@ -758,8 +758,8 @@ class JavaGenerator extends Generator {
             for (const type of prop.javaTypes) {
                 this.code.line('/**');
                 this.code.line(` * Sets the value of ${prop.propName}`);
-                if (prop.docs && prop.docs.comment) {
-                    this.code.line(` * @param value ${prop.docs.comment}`);
+                if (prop.docs && prop.docs.summary) {
+                    this.code.line(` * @param value ${prop.docs.summary}`);
                 } else {
                     this.code.line(` * @param value the value to be set`);
                 }
@@ -863,36 +863,65 @@ class JavaGenerator extends Generator {
             return;
         }
 
-        doc.docs = doc.docs || { };
+        const docs = doc.docs = doc.docs || { };
 
-        this.code.line('/**');
+        const paras = [];
 
-        // If there are no docs
-        if (Object.keys(doc.docs).length === 0 && defaultText) {
-            this.code.line(` * ${defaultText}`);
+        if (docs.summary) {
+            paras.push(docs.summary);
+        } else if (defaultText) {
+            paras.push(defaultText);
         }
 
-        for (const key of Object.keys(doc.docs)) {
-            const value = doc.docs[key];
-            if (key === 'comment') {
-                value.split('\n').forEach(s => this.code.line(` * ${s}`));
-            } else {
-                this.code.line(` * @${key} ${value.replace(/\n/g, ' ')}`);
-            }
+        if (docs.remarks) {
+            paras.push(docs.remarks);
         }
 
-        // if this is a method, add docs for parameters
+        if (docs.default) {
+            paras.push(`Default: ${docs.default}`); // NOTE: there is no annotation in JavaDoc for this
+        }
+
+        if (docs.example) {
+            paras.push('Example:');
+            // FIXME: Have to parse the MarkDown and convert fenced code blocks to <pre>{@code\n....\n}</pre>.
+            paras.push(docs.example);
+        }
+
+        if (docs.stability === spec.Stability.Experimental) {
+            paras.push('EXPERIMENTAL');
+        }
+
+        const tagLines = [];
+
+        if (docs.returns) { tagLines.push(`@return ${docs.returns}`); }
+        if (docs.see) { tagLines.push(`@see ${docs.see}`); }
+        if (docs.deprecated) { tagLines.push(`@deprecated ${docs.deprecated}`); }
+
+        // Params
         if ((doc as spec.Method).parameters) {
             const method = doc as spec.Method;
             if (method.parameters) {
                 for (const param of method.parameters) {
-                    if (param.docs && param.docs.comment) {
-                        this.code.line(` * @param ${param.name} ${param.docs.comment}`);
+                    if (param.docs && param.docs.summary) {
+                        tagLines.push(`@param ${param.name} ${param.docs.summary}`);
                     }
                 }
             }
         }
 
+        if (tagLines.length > 0) {
+            paras.push(tagLines.join('\n'));
+        }
+
+        const lines = new Array<string>();
+        for (const para of interleave('', paras)) {
+            lines.push(...para.split('\n'));
+        }
+
+        this.code.line('/**');
+        for (const line of lines) {
+            this.code.line(` * ${line}`);
+        }
         this.code.line(' */');
     }
 
@@ -1180,5 +1209,14 @@ async function findJavaRuntimeLocalRepository() {
         return javaRuntime.repository;
     } catch (e) {
         return undefined;
+    }
+}
+
+function* interleave<T>(sep: T, xs: Iterable<T>) {
+    let first = true;
+    for (const x of xs) {
+        if (!first) { yield sep; }
+        first = false;
+        yield x;
     }
 }

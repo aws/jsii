@@ -2,10 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>
-    /// Even though this interface has only properties, it is disqualified from being a datatype
-    /// because it inherits from an interface that is not a datatype.
-    /// </summary>
+    /// <summary>Even though this interface has only properties, it is disqualified from being a datatype because it inherits from an interface that is not a datatype.</summary>
     [JsiiTypeProxy(typeof(IIInterfaceThatShouldNotBeADataType), "jsii-calc.IInterfaceThatShouldNotBeADataType")]
     internal sealed class IInterfaceThatShouldNotBeADataTypeProxy : DeputyBase, IIInterfaceThatShouldNotBeADataType
     {
