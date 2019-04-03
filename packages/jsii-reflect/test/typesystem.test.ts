@@ -151,13 +151,13 @@ describe('Type', () => {
 describe('@deprecated', () => {
   test('can be read on an item', () => {
     const klass = typesys.findClass('jsii-calc.Old');
-    expect(klass.docs.isDeprecated).toBeTruthy();
+    expect(klass.docs.deprecated).toBeTruthy();
   });
 
   test('is inherited from class', () => {
     const klass = typesys.findClass('jsii-calc.Old');
     const method = klass.getMethods().doAThing;
-    expect(method.docs.isDeprecated).toBeTruthy();
+    expect(method.docs.deprecated).toBeTruthy();
   });
 });
 

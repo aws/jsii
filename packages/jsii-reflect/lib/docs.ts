@@ -26,7 +26,7 @@ export class Docs {
     return ret.join('\n');
   }
 
-  public get isSubclassable(): boolean {
+  public get subclassable(): boolean {
     return !!this.docs.subclassable;
   }
 
@@ -42,7 +42,7 @@ export class Docs {
   /**
    * Return whether this type is deprecated
    */
-  public get isDeprecated(): boolean {
+  public get deprecated(): boolean {
     return this.deprecationReason !== undefined;
   }
 

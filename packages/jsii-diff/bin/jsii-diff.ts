@@ -13,7 +13,8 @@ async function main(): Promise<number> {
   const argv = yargs
       .env('JSII_DIFF')
       .option('verbose', { alias: 'v', type: 'count', desc: 'Increase the verbosity of output', global: true })
-      .option('default-experimental', { alias: 'e', type: 'boolean', desc: 'Treat unmarked APIs as experimental', default: false })
+      // tslint:disable-next-line:max-line-length
+      .option('default-stability', { alias: 's', type: 'string', choices: ['experimental', 'stable'], desc: 'Treat unmarked APIs as', default: 'stable' })
       .usage('$0 <original> [updated]', 'Compare two JSII assemblies.', args => args
         .positional('original', {
           description: 'Original assembly (file, package or "npm:package@version")',
@@ -43,7 +44,7 @@ async function main(): Promise<number> {
 
   LOG.info(`Starting analysis`);
   const mismatches = compareAssemblies(original, updated, {
-    defaultExperimental: argv["default-experimental"],
+    defaultExperimental: argv["default-stability"] === 'experimental'
   });
 
   LOG.info(`Found ${mismatches.count} issues`);
