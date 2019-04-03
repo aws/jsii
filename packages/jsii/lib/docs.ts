@@ -119,7 +119,7 @@ function noNewlines(s: string) {
 }
 
 function endWithPeriod(s: string) {
-  return s.endsWith('.') ? s : s + '.';
+  return ENDS_WITH_PUNCTUATION_REGEX.test(s) ? s : s + '.';
 }
 
 /**
@@ -127,14 +127,18 @@ function endWithPeriod(s: string) {
  *
  * In principle we'll take the first paragraph, but if there are no paragraphs
  * (because people don't put in paragraph breaks) or the first paragraph is too
- * lang, we'll take the first sentence (terminated by a period).
+ * lang, we'll take the first sentence (terminated by a punctuation).
  */
 function summaryLine(str: string) {
   const paras = str.split('\n\n');
-  if (paras.length > 1 && paras[0].split(' ').length < 30) { return paras[0]; }
+  if (paras[0].split(' ').length < 30) { return paras[0]; }
 
-  const m = /^([^.]+\.)/.exec(str);
+  const m = FIRST_SENTENCE_REGEX.exec(str);
   if (m) { return m[1]; }
 
   return str;
 }
+
+const PUNCTUATION = ['!', '?', '.', ';'].map(s => '\\' + s).join('');
+const ENDS_WITH_PUNCTUATION_REGEX = new RegExp(`[${PUNCTUATION}]$`);
+const FIRST_SENTENCE_REGEX = new RegExp(`^([^${PUNCTUATION}]+${PUNCTUATION})`);

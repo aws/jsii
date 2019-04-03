@@ -66,5 +66,5 @@ function* typePairs<T extends reflect.Type>(xs: T[], updatedAssembly: reflect.As
 }
 
 function interfaceType(dataType: boolean) {
-  return dataType ? 'struct' : 'behavioral interface';
+  return dataType ? 'struct' : 'regular interface';
 }

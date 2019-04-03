@@ -103,7 +103,7 @@ main().then(n => {
 }).catch(e => {
   // tslint:disable-next-line:no-console
   console.error(e);
-  process.exit(1);
+  process.exit(100);
 });
 
 function configureLog4js(verbosity: number) {

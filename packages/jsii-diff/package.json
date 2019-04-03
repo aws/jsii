@@ -1,6 +1,6 @@
 {
     "name": "jsii-diff",
-    "version": "0.8.0",
+    "version": "0.8.2",
     "description": "Assembly comparison for jsii",
     "license": "Apache-2.0",
     "author": {
@@ -34,9 +34,7 @@
         "jsii-spec": "^0.8.0",
         "typescript": "^3.3.3333",
         "yargs": "^13.2.2",
-        "gunzip-maybe": "^1.4.1",
-        "log4js": "^4.1.0",
-        "tar-fs": "^2.0.0"
+        "log4js": "^4.1.0"
     },
     "nyc": {
         "reporter": [

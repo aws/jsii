@@ -87,7 +87,7 @@ function compareMethod(origClass: reflect.Type, original: reflect.Method, update
     context.mismatches.report(origClass, `method ${original.name} used to be variadic, not variadic anymore.`);
   }
 
-  const retAna = isStrengtheningOutput(original.returns, updated.returns);
+  const retAna = isCompatibleReturnType(original.returns, updated.returns);
   if (!retAna.success) {
     // tslint:disable-next-line:max-line-length
     context.mismatches.report(origClass, `method ${original.name}, returns ${describeTypeMatchingFailure(original.returns, updated.returns, retAna)}`);
@@ -101,7 +101,7 @@ function compareMethod(origClass: reflect.Type, original: reflect.Method, update
       return;
     }
 
-    const argAna = isWeakeningInput(param.type, updatedParam.type);
+    const argAna = isCompatibleArgumentType(param.type, updatedParam.type);
     if (!argAna.success) {
       // tslint:disable-next-line:max-line-length
       context.mismatches.report(origClass, `method ${original.name} argument ${param.name}, takes ${describeTypeMatchingFailure(param.type, updatedParam.type, argAna)}`);
@@ -148,7 +148,7 @@ function compareProperty(origClass: reflect.Type, original: reflect.Property, up
     context.mismatches.report(origClass, `property ${original.name}, used to be ${original.static ? 'static' : 'not static'}, is now ${updated.static ? 'static' : 'not static'}`);
   }
 
-  const ana = isStrengtheningOutput(original.type, updated.type);
+  const ana = isCompatibleReturnType(original.type, updated.type);
   if (!ana.success) {
     context.mismatches.report(origClass, `property ${original.name}, type ${describeTypeMatchingFailure(original.type, updated.type, ana)}`);
   }
@@ -186,7 +186,7 @@ function* memberPairs<T extends reflect.TypeMember, U extends reflect.ReferenceT
  *
  * Strengthening output values is allowed!
  */
-function isStrengtheningOutput(original: reflect.TypeReference, updated: reflect.TypeReference): Analysis {
+function isCompatibleReturnType(original: reflect.TypeReference, updated: reflect.TypeReference): Analysis {
   if (original.void) { return { success: true }; }  // If we didn't use to return anything, returning something now is fine
   if (updated.void) { return { success: false, reasons: [`now returning 'void'`] }; } // If we used to return something, we can't stop doing that
   return isSuperType(original, updated, updated.system);
@@ -197,7 +197,7 @@ function isStrengtheningOutput(original: reflect.TypeReference, updated: reflect
  *
  * Weakening preconditions is allowed!
  */
-function isWeakeningInput(original: reflect.TypeReference, updated: reflect.TypeReference): Analysis {
+function isCompatibleArgumentType(original: reflect.TypeReference, updated: reflect.TypeReference): Analysis {
   // Input can never be void, so no need to check
   return isSuperType(updated, original, updated.system);
 }

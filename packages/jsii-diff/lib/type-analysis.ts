@@ -20,6 +20,8 @@ export function isSuperType(a: reflect.TypeReference, b: reflect.TypeReference, 
     return failure(`${b} is optional, ${a} is not`);
   }
 
+  if (a.promise !== b.promise) { return failure(`Sync/async mismatch`); }
+
   if (a.primitive !== undefined) {
     if (a.primitive === b.primitive) { return { success: true }; }
     return failure(`${b} is not assignable to ${a}`);
@@ -39,8 +41,6 @@ export function isSuperType(a: reflect.TypeReference, b: reflect.TypeReference, 
       isSuperType(a.mapOfType, b.mapOfType, updatedSystem),
       `${b} is not assignable to ${a}`);
   }
-
-  if (a.promise !== b.promise) { return failure(`Sync/async mismatch`); }
 
   // Any element of A should accept all of B
   if (a.unionOfTypes !== undefined) {
@@ -99,7 +99,7 @@ function isNominalSuperType(a: reflect.TypeReference, b: reflect.TypeReference, 
 
   // We now need to do subtype analysis on the
   // Find A in B's typesystem, and see if B is a subtype of A'
-  const B = updatedSystem.tryFindFqn(b.fqn!);
+  const B = updatedSystem.tryFindFqn(b.fqn);
   const A = updatedSystem.tryFindFqn(a.fqn);
 
   if (!B) { return failure(`could not find type ${b}`); }
