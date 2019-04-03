@@ -115,7 +115,8 @@ export class Assembler implements Emitter {
       targets: this.projectInfo.targets,
       readme,
       jsiiVersion,
-      fingerprint: '<TBD>'
+      fingerprint: '<TBD>',
+      repositoryLocation: this.projectInfo.repositoryLocation
     };
 
     const validator = new Validator(this.projectInfo, assembly);
@@ -321,10 +322,12 @@ export class Assembler implements Emitter {
     }
 
     if (!jsiiType) { return []; }
+
     if (LOG.isInfoEnabled()) {
       LOG.info(`Registering JSII ${colors.magenta(jsiiType.kind)}: ${colors.green(jsiiType.fqn)}`);
     }
     this._types[jsiiType.fqn] = jsiiType;
+    jsiiType.moduleLocation = this.declarationLocation(node);
 
     const type = this._typeChecker.getTypeAtLocation(node);
     if (type.symbol.exports) {
@@ -343,6 +346,15 @@ export class Assembler implements Emitter {
     }
 
     return [jsiiType];
+  }
+
+  private declarationLocation(node: ts.Declaration): spec.SourceLocation {
+    const file = node.getSourceFile();
+    const line = ts.getLineAndCharacterOfPosition(file, node.getStart()).line;
+    return {
+      filename: path.relative(this.projectInfo.projectRoot, path.resolve(file.fileName)),
+      line: line + 1,
+    };
   }
 
   private async _processBaseInterfaces(fqn: string, baseTypes?: ts.Type[]) {
@@ -786,6 +798,7 @@ export class Assembler implements Emitter {
       protected: _isProtected(symbol),
       returns: _isVoid(returnType) ? undefined : await this._typeReference(returnType, declaration),
       static: _isStatic(symbol),
+      moduleLocation: this.declarationLocation(declaration),
     };
     method.variadic = method.parameters && method.parameters.find(p => !!p.variadic) != null;
 
@@ -844,6 +857,7 @@ export class Assembler implements Emitter {
       protected: _isProtected(symbol),
       static: _isStatic(symbol),
       type: await this._typeReference(this._typeChecker.getTypeOfSymbolAtLocation(symbol, signature), signature),
+      moduleLocation: this.declarationLocation(signature),
     };
 
     if (ts.isGetAccessor(signature)) {

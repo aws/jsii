@@ -100,6 +100,15 @@ export interface Assembly extends Documentable {
      * The top-level readme document for this assembly (if any).
      */
     readme?: { markdown: string };
+
+    /**
+     * Source directory of the module root, relative to the repository root.
+     *
+     * If undefined or the empty string, no source location information is
+     * available. If the module root is equal to the root of the repository,
+     * the value is '.'.
+     */
+    repositoryLocation?: string;
 }
 
 /**
@@ -176,6 +185,21 @@ export interface PackageVersion {
      * @see https://nodejs.org/en/blog/npm/peer-dependencies/
      */
     peer?: boolean;
+}
+
+/**
+ * Where in the module source the definition for this API item was found
+ */
+export interface SourceLocation {
+    /**
+     * Relative filename
+     */
+    filename: string;
+
+    /**
+     * 1-based line number in the indicated file
+     */
+    line: number;
 }
 
 /**
@@ -432,6 +456,11 @@ export interface Property extends Documentable, Overridable {
      * Implies `static` and `immutable`.
      */
     const?: boolean;
+
+    /**
+     * Where in the module this definition was found
+     */
+    moduleLocation?: SourceLocation;
 }
 
 /**
@@ -502,6 +531,11 @@ export interface Method extends Documentable, Overridable {
      * Indicates if this is a static method.
      */
     static?: boolean;
+
+    /**
+     * Where in the module this definition was found
+     */
+    moduleLocation?: SourceLocation;
 }
 
 /**
@@ -542,6 +576,11 @@ export interface TypeBase extends Documentable {
      * The kind of the type.
      */
     kind: TypeKind;
+
+    /**
+     * Where in the module this definition was found
+     */
+    moduleLocation?: SourceLocation;
 }
 
 /**

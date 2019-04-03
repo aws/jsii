@@ -142,6 +142,10 @@ export class Assembly {
     return this.types.filter(t => t instanceof EnumType).map(t => t as EnumType);
   }
 
+  public get repositoryLocation(): string | undefined {
+    return this.spec.repositoryLocation;
+  }
+
   public findType(fqn: string) {
     const type = this._types[fqn];
     if (!type) {

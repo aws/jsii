@@ -4,6 +4,7 @@ import { Docs, Documentable } from './docs';
 import { Overridable } from './overridable';
 import { Parameter } from './parameter';
 import { Property } from './property';
+import { repositoryLocation, SourceLocation } from './source';
 import { Type } from './type';
 import { MemberKind, TypeMember } from './type-member';
 import { TypeReference } from './type-ref';
@@ -109,4 +110,18 @@ export class Method implements Documentable, Overridable, TypeMember {
 
   public isMethod(): this is Method { return true; }
   public isProperty(): this is Property { return false; }
+
+  /**
+   * Return the location in the module
+   */
+  public get moduleLocation(): SourceLocation | undefined {
+    return this.spec.moduleLocation;
+  }
+
+  /**
+   * Return the location in the repository
+   */
+  public get repositoryLocation(): SourceLocation | undefined {
+    return repositoryLocation(this);
+  }
 }
