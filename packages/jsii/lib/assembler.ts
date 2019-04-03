@@ -34,7 +34,8 @@ export class Assembler implements Emitter {
    * @param program     the TypeScript program to be assembled from
    * @param stdlib      the directory where the TypeScript stdlib is rooted
    */
-  public constructor(public readonly projectInfo: ProjectInfo,
+  public constructor(
+    public readonly projectInfo: ProjectInfo,
     public readonly program: ts.Program,
     public readonly stdlib: string) { }
 
@@ -198,7 +199,7 @@ export class Assembler implements Emitter {
    * @returns the de-referenced type, if it was found, otherwise ``undefined``.
    */
   private _dereference(ref: spec.NamedTypeReference, referencingNode: ts.Node | null): spec.Type | undefined {
-    const [assm,] = ref.fqn.split('.');
+    const [assm, ] = ref.fqn.split('.');
     let type;
     if (assm === this.projectInfo.name) {
       type = this._types[ref.fqn];
@@ -258,7 +259,7 @@ export class Assembler implements Emitter {
       this._diagnostic(node, ts.DiagnosticCategory.Error, `Cannot use private type ${tsName} in exported declarations`);
       return tsName;
     }
-    const [, modulePath, typeName,] = groups;
+    const [, modulePath, typeName, ] = groups;
     const pkg = await _findPackageInfo(modulePath);
     if (!pkg) {
       this._diagnostic(node, ts.DiagnosticCategory.Error, `Could not find module for ${modulePath}`);
