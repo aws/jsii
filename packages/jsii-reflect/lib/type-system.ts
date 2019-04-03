@@ -65,7 +65,7 @@ export class TypeSystem {
       }
 
       const root = await self.loadFile(path.join(moduleDirectory, '.jsii'), isRoot);
-      const bundled: string[] = pkg.bundledDependencies || [];
+      const bundled: string[] = pkg.bundledDependencies || pkg.bundleDependencies || [];
 
       const loadDependencies = async (deps: { [name: string]: string }) => {
         for (const name of Object.keys(deps || {})) {
@@ -88,9 +88,15 @@ export class TypeSystem {
 
   public async loadFile(file: string, isRoot = true) {
     const spec = JSON.parse((await readFile(file)).toString());
-    let asm = this._assemblyLookup[spec.name];
-    if (!asm) {
-      asm = new Assembly(this, spec);
+    return this.addAssembly(new Assembly(this, spec), isRoot);
+  }
+
+  public addAssembly(asm: Assembly, isRoot = true) {
+    if (asm.system !== this) {
+      throw new Error('Assembly has been created for different typesystem');
+    }
+
+    if (!this._assemblyLookup[asm.name]) {
       this._assemblyLookup[asm.name] = asm;
       this.assemblies.push(asm);
     }
@@ -124,6 +130,12 @@ export class TypeSystem {
     return asm.findType(fqn);
   }
 
+  public tryFindFqn(fqn: string): Type | undefined {
+    const [ assembly ] = fqn.split('.');
+    const asm = this.findAssembly(assembly);
+    return asm.tryFindType(fqn);
+  }
+
   public findClass(fqn: string): ClassType {
     const type = this.findFqn(fqn);
     if (!(type instanceof ClassType)) {
@@ -154,8 +166,8 @@ export class TypeSystem {
   public get methods() {
     const out = new Array<Method>();
     this.assemblies.forEach(a => {
-      a.interfaces.forEach(t => out.push(...t.methods));
-      a.classes.forEach(t => out.push(...t.methods));
+      a.interfaces.forEach(t => out.push(...t.ownMethods));
+      a.classes.forEach(t => out.push(...t.ownMethods));
     });
     return out;
   }
@@ -163,8 +175,8 @@ export class TypeSystem {
   public get properties() {
     const out = new Array<Property>();
     this.assemblies.forEach(a => {
-      a.interfaces.forEach(t => out.push(...t.properties));
-      a.classes.forEach(t => out.push(...t.properties));
+      a.interfaces.forEach(t => out.push(...t.ownProperties));
+      a.classes.forEach(t => out.push(...t.ownProperties));
     });
     return out;
   }

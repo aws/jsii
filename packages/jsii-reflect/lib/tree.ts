@@ -199,8 +199,8 @@ export class ClassNode extends AsciiTree {
       if (type.initializer) {
         members.add(new MethodNode(type.initializer, options));
       }
-      members.add(...type.methods.map(m => new MethodNode(m, options)));
-      members.add(...type.properties.map(p => new PropertyNode(p, options)));
+      members.add(...type.ownMethods.map(m => new MethodNode(m, options)));
+      members.add(...type.ownProperties.map(p => new PropertyNode(p, options)));
     }
   }
 }
@@ -217,8 +217,8 @@ export class InterfaceNode extends AsciiTree {
 
     if (options.members) {
       const members = new TitleNode('members');
-      members.add(...type.methods.map(m => new MethodNode(m, options)));
-      members.add(...type.properties.map(p => new PropertyNode(p, options)));
+      members.add(...type.ownMethods.map(m => new MethodNode(m, options)));
+      members.add(...type.ownProperties.map(p => new PropertyNode(p, options)));
       this.add(members);
     }
   }

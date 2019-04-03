@@ -3,7 +3,7 @@ using Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Depend on a type from jsii-calc-base as a test for awslabs/jsii#128</summary>
+    /// <summary>Depend on a type from jsii-calc-base as a test for awslabs/jsii#128.</summary>
     [JsiiClass(typeof(UseCalcBase), "jsii-calc.UseCalcBase", "[]")]
     public class UseCalcBase : DeputyBase
     {

@@ -99,7 +99,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         }
         /**
          * Sets the value of Anumber
-         * @param value An awesome number value
+         * @param value An awesome number value.
          * @return {@code this}
          */
         public Builder withAnumber(final java.lang.Number value) {
@@ -108,7 +108,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         }
         /**
          * Sets the value of Astring
-         * @param value A string value
+         * @param value A string value.
          * @return {@code this}
          */
         public Builder withAstring(final java.lang.String value) {
@@ -258,7 +258,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         }
 
         /**
-         * An awesome number value
+         * An awesome number value.
          */
         @Override
         public java.lang.Number getAnumber() {
@@ -266,7 +266,7 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         }
 
         /**
-         * A string value
+         * A string value.
          */
         @Override
         public java.lang.String getAstring() {

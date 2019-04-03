@@ -30,8 +30,10 @@ import { VERSION } from '../lib/version';
 
     const projectRoot = path.normalize(path.resolve(process.cwd(), argv._[0] || '.'));
 
+    const projectInfo = await loadProjectInfo(projectRoot, { fixPeerDependencies: argv['fix-peer-dependencies'] });
+
     const compiler = new Compiler({
-        projectInfo: await loadProjectInfo(projectRoot, { fixPeerDependencies: argv['fix-peer-dependencies'] }),
+        projectInfo,
         watch: argv.watch,
         projectReferences: argv['project-references']
     });

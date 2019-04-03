@@ -19,14 +19,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>Left-hand side operand</summary>
+        /// <summary>Left-hand side operand.</summary>
         [JsiiProperty("lhs", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public virtual Value_ Lhs
         {
             get => GetInstanceProperty<Value_>();
         }
 
-        /// <summary>Right-hand side operand</summary>
+        /// <summary>Right-hand side operand.</summary>
         [JsiiProperty("rhs", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public virtual Value_ Rhs
         {

@@ -7,6 +7,7 @@ package software.amazon.jsii.tests.calculator;
 public interface IRandomNumberGenerator extends software.amazon.jsii.JsiiSerializable {
     /**
      * Returns another random number.
+     * 
      * @return A random number.
      */
     java.lang.Number next();
@@ -21,6 +22,7 @@ public interface IRandomNumberGenerator extends software.amazon.jsii.JsiiSeriali
 
         /**
          * Returns another random number.
+         * 
          * @return A random number.
          */
         @Override

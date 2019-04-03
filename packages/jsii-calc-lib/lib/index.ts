@@ -91,7 +91,7 @@ export interface StructWithOnlyOptionals {
 }
 
 /**
- * Check that enums from @scoped packages can be references.
+ * Check that enums from \@scoped packages can be references.
  * See awslabs/jsii#138
  */
 export enum EnumFromScopedModule {

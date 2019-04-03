@@ -33,6 +33,7 @@ assemblies
  │   │ └── base: Base
  │   ├── class DoNotOverridePrivates
  │   ├── class DoNotRecognizeAnyAsOptional
+ │   ├── class DocumentedClass
  │   ├── class DontComplainAboutVariadicAfterOptional
  │   ├─┬ class DoubleTrouble
  │   │ └── interfaces: IFriendlyRandomGenerator
@@ -68,6 +69,7 @@ assemblies
  │   ├── class NullShouldBeTreatedAsUndefined
  │   ├── class NumberGenerator
  │   ├── class ObjectRefsInCollections
+ │   ├── class Old
  │   ├── class OptionalConstructorArgument
  │   ├── class OptionalStructConsumer
  │   ├── class OverrideReturnsObject
@@ -102,6 +104,7 @@ assemblies
  │   │   └── MyFirstStruct
  │   ├── interface EraseUndefinedHashValuesOptions
  │   ├── interface ExtendsInternalInterface
+ │   ├── interface Greetee
  │   ├── interface IAnotherPublicInterface
  │   ├── interface IExtendsPrivateInterface
  │   ├─┬ interface IFriendlier

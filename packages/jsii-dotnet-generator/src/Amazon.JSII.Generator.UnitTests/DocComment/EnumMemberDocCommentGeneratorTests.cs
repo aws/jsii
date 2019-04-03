@@ -30,7 +30,7 @@ namespace Amazon.JSII.Generator.UnitTests.DocComment
         {
             Docs docs = new Docs
             {
-                { "comment", "my comment" }
+                { "summary", "my comment" }
             };
 
             string actual = Render(docs);
@@ -48,7 +48,7 @@ namespace Amazon.JSII.Generator.UnitTests.DocComment
         {
             Docs docs = new Docs
             {
-                { "comment", summary }
+                { "summary", summary }
             };
 
             string actual = Render(docs);
@@ -61,7 +61,7 @@ namespace Amazon.JSII.Generator.UnitTests.DocComment
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
-        
+
         [Fact(DisplayName = Prefix + nameof(IncludesSingleLineRemarks))]
         public void IncludesSingleLineRemarks()
         {
@@ -86,7 +86,7 @@ namespace Amazon.JSII.Generator.UnitTests.DocComment
                 { "myKey1", "my\ncomment" },
                 { "myKey2", "my\r\ncomment" }
             };
-            
+
             string actual = Render(docs);
             string expected =
 @"/// <remarks>
@@ -135,7 +135,7 @@ namespace Amazon.JSII.Generator.UnitTests.DocComment
         {
             Docs docs = new Docs
             {
-                { "return", "my comment" }
+                { "returns", "my comment" }
             };
 
             string actual = Render(docs);

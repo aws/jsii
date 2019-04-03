@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * The negation operation ("-value")
+ * The negation operation ("-value").
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.Negate")

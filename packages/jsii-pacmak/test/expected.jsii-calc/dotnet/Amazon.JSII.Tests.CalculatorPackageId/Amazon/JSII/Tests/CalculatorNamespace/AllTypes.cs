@@ -6,10 +6,11 @@ using System.Collections.Generic;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>
-    /// This class includes property for all types supported by jsii. The setters will validate
+    /// <summary>This class includes property for all types supported by jsii.</summary>
+    /// <remarks>
+    /// The setters will validate
     /// that the value set is of the expected type and throw otherwise.
-    /// </summary>
+    /// </remarks>
     [JsiiClass(typeof(AllTypes), "jsii-calc.AllTypes", "[]")]
     public class AllTypes : DeputyBase
     {

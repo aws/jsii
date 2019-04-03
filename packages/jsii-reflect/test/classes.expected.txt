@@ -22,6 +22,7 @@ DefaultedConstructorArgument
 Derived
 DoNotOverridePrivates
 DoNotRecognizeAnyAsOptional
+DocumentedClass
 DontComplainAboutVariadicAfterOptional
 DoubleTrouble
 EraseUndefinedHashValues
@@ -48,6 +49,7 @@ NullShouldBeTreatedAsUndefined
 Number
 NumberGenerator
 ObjectRefsInCollections
+Old
 Operation
 OptionalConstructorArgument
 OptionalStructConsumer

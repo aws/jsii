@@ -37,7 +37,7 @@ namespace Amazon.JSII.Generator.UnitTests.DocComment
         {
             Docs docs = new Docs
             {
-                { "comment", "my comment" }
+                { "summary", "my comment" }
             };
 
             string actual = Render(docs);
@@ -57,7 +57,7 @@ namespace Amazon.JSII.Generator.UnitTests.DocComment
         {
             Docs docs = new Docs
             {
-                { "comment", summary }
+                { "summary", summary }
             };
 
             string actual = Render(docs);
@@ -155,7 +155,7 @@ namespace Amazon.JSII.Generator.UnitTests.DocComment
         {
             Docs docs = new Docs
             {
-                { "return", "my comment" }
+                { "returns", "my comment" }
             };
 
             string actual = Render(docs);

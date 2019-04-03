@@ -23,6 +23,7 @@ assemblies
  │   ├── class Derived
  │   ├── class DoNotOverridePrivates
  │   ├── class DoNotRecognizeAnyAsOptional
+ │   ├── class DocumentedClass
  │   ├── class DontComplainAboutVariadicAfterOptional
  │   ├── class DoubleTrouble
  │   ├── class EraseUndefinedHashValues
@@ -48,6 +49,7 @@ assemblies
  │   ├── class NullShouldBeTreatedAsUndefined
  │   ├── class NumberGenerator
  │   ├── class ObjectRefsInCollections
+ │   ├── class Old
  │   ├── class OptionalConstructorArgument
  │   ├── class OptionalStructConsumer
  │   ├── class OverrideReturnsObject
@@ -76,6 +78,7 @@ assemblies
  │   ├── interface DerivedStruct
  │   ├── interface EraseUndefinedHashValuesOptions
  │   ├── interface ExtendsInternalInterface
+ │   ├── interface Greetee
  │   ├── interface IAnotherPublicInterface
  │   ├── interface IExtendsPrivateInterface
  │   ├── interface IFriendlier

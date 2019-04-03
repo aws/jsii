@@ -11,6 +11,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     }
     /**
      * Creates a Calculator object.
+     * 
      * @param props Initialization properties.
      */
     public Calculator(@javax.annotation.Nullable final software.amazon.jsii.tests.calculator.CalculatorProps props) {

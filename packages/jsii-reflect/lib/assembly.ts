@@ -150,6 +150,10 @@ export class Assembly {
     return type;
   }
 
+  public tryFindType(fqn: string): Type | undefined {
+    return this._types[fqn];
+  }
+
   private get _dependencies() {
     if (!this._dependencyCache) {
       this._dependencyCache = { };

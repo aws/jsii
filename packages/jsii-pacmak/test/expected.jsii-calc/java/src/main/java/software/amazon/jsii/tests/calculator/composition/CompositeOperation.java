@@ -23,8 +23,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
     }
 
     /**
-     * The expression that this operation consists of.
-     * Must be implemented by derived classes.
+     * The expression that this operation consists of. Must be implemented by derived classes.
      */
     public software.amazon.jsii.tests.calculator.lib.Value getExpression() {
         return this.jsiiGet("expression", software.amazon.jsii.tests.calculator.lib.Value.class);
@@ -85,11 +84,11 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
     @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.composition.CompositeOperation.CompositionStringStyle")
     public enum CompositionStringStyle {
         /**
-         * Normal string expression
+         * Normal string expression.
          */
         Normal,
         /**
-         * Decorated string expression
+         * Decorated string expression.
          */
         Decorated,
     }
@@ -103,8 +102,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
         }
 
         /**
-         * The expression that this operation consists of.
-         * Must be implemented by derived classes.
+         * The expression that this operation consists of. Must be implemented by derived classes.
          */
         @Override
         public software.amazon.jsii.tests.calculator.lib.Value getExpression() {
