@@ -46,7 +46,7 @@ public class DocumentedClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Say ¡Hola!.
+     * Say ¡Hola!
      * 
      * EXPERIMENTAL
      * 

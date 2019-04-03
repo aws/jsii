@@ -2,10 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation
 {
-    /// <remarks>
-    /// remarks: toString() output for CompositeOperation.
-    /// summary: Style of .
-    /// </remarks>
+    /// <remarks>summary: Style of .toString() output for CompositeOperation.</remarks>
     [JsiiEnum(typeof(CompositionStringStyle), "jsii-calc.composition.CompositeOperation.CompositionStringStyle")]
     public enum CompositionStringStyle
     {

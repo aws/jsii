@@ -187,6 +187,7 @@
   },
   "description": "A simple calcuator built on JSII.",
   "homepage": "https://github.com/awslabs/jsii.git",
+  "jsiiVersion": "0.8.2",
   "license": "Apache-2.0",
   "name": "jsii-calc",
   "readme": {
@@ -674,8 +675,7 @@
         },
         {
           "docs": {
-            "remarks": "..) is okay.",
-            "summary": "getXxx() is not allowed (see negatives), but getXxx(a, ."
+            "summary": "getXxx() is not allowed (see negatives), but getXxx(a, ...) is okay."
           },
           "name": "getFoo",
           "parameters": [
@@ -715,8 +715,7 @@
         },
         {
           "docs": {
-            "remarks": "..) is okay.",
-            "summary": "setFoo(x) is not allowed (see negatives), but setXxx(a, b, ."
+            "summary": "setFoo(x) is not allowed (see negatives), but setXxx(a, b, ...) is okay."
           },
           "name": "setFoo",
           "parameters": [
@@ -866,7 +865,7 @@
       "methods": [
         {
           "docs": {
-            "summary": "Say hello!."
+            "summary": "Say hello!"
           },
           "name": "hello",
           "overrides": {
@@ -1692,7 +1691,7 @@
         {
           "docs": {
             "stability": "experimental",
-            "summary": "Say ¡Hola!."
+            "summary": "Say ¡Hola!"
           },
           "name": "hola"
         }
@@ -1748,7 +1747,7 @@
       "methods": [
         {
           "docs": {
-            "summary": "Say hello!."
+            "summary": "Say hello!"
           },
           "name": "hello",
           "overrides": {
@@ -1965,7 +1964,7 @@
         },
         {
           "docs": {
-            "summary": "Returns the \"anumber\" from a MyFirstStruct struct;."
+            "summary": "Returns the \"anumber\" from a MyFirstStruct struct;"
           },
           "name": "readFirstNumber",
           "parameters": [
@@ -2851,8 +2850,8 @@
           "abstract": true,
           "docs": {
             "default": "256",
-            "remarks": "Valid values, which determines your range of valid values for the memory parameter:\n256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB\n512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB\n1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB\n2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments\n4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments\n\nThis default is set in the underlying FargateTaskDefinition construct.",
-            "summary": "The number of cpu units used by the task."
+            "remarks": "This default is set in the underlying FargateTaskDefinition construct.",
+            "summary": "The number of cpu units used by the task. Valid values, which determines your range of valid values for the memory parameter: 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments."
           },
           "immutable": true,
           "name": "cpu",
@@ -3067,7 +3066,7 @@
         },
         {
           "docs": {
-            "summary": "Say hello!."
+            "summary": "Say hello!"
           },
           "name": "hello",
           "overrides": {
@@ -3120,9 +3119,8 @@
       "methods": [
         {
           "docs": {
-            "remarks": "js \"crypto\" module to calculate sha256 of a string.",
             "returns": "\"6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50\"",
-            "summary": "Uses node."
+            "summary": "Uses node.js \"crypto\" module to calculate sha256 of a string."
           },
           "name": "cryptoSha256",
           "returns": {
@@ -3131,9 +3129,8 @@
         },
         {
           "docs": {
-            "remarks": "txt) asynchronously.",
             "returns": "\"Hello, resource!\"",
-            "summary": "Reads a local resource file (resource."
+            "summary": "Reads a local resource file (resource.txt) asynchronously."
           },
           "name": "fsReadFile",
           "returns": {
@@ -3156,8 +3153,7 @@
       "properties": [
         {
           "docs": {
-            "remarks": "platform() from the \"os\" node module.",
-            "summary": "Returns the current os."
+            "summary": "Returns the current os.platform() from the \"os\" node module."
           },
           "immutable": true,
           "name": "osPlatform",
@@ -3637,8 +3633,7 @@
         },
         {
           "docs": {
-            "remarks": "Must be implemented by derived classes.",
-            "summary": "The expression that this operation consists of."
+            "summary": "The expression that this operation consists of. Must be implemented by derived classes."
           },
           "immutable": true,
           "name": "expression",
@@ -4047,8 +4042,7 @@
         },
         {
           "docs": {
-            "remarks": "Jsdocs for static setter.",
-            "summary": "Jsdocs for static getter."
+            "summary": "Jsdocs for static getter. Jsdocs for static setter."
           },
           "name": "instance",
           "static": true,
@@ -4123,8 +4117,7 @@
       "properties": [
         {
           "docs": {
-            "remarks": "Must be implemented by derived classes.",
-            "summary": "The expression that this operation consists of."
+            "summary": "The expression that this operation consists of. Must be implemented by derived classes."
           },
           "immutable": true,
           "name": "expression",
@@ -4653,8 +4646,7 @@
         {
           "abstract": true,
           "docs": {
-            "remarks": "Must be implemented by derived classes.",
-            "summary": "The expression that this operation consists of."
+            "summary": "The expression that this operation consists of. Must be implemented by derived classes."
           },
           "immutable": true,
           "name": "expression",
@@ -4677,8 +4669,7 @@
         },
         {
           "docs": {
-            "remarks": "toString().",
-            "summary": "A set of postfixes to include in a decorated ."
+            "summary": "A set of postfixes to include in a decorated .toString()."
           },
           "name": "decorationPostfixes",
           "type": {
@@ -4692,8 +4683,7 @@
         },
         {
           "docs": {
-            "remarks": "toString().",
-            "summary": "A set of prefixes to include in a decorated ."
+            "summary": "A set of prefixes to include in a decorated .toString()."
           },
           "name": "decorationPrefixes",
           "type": {
@@ -4707,8 +4697,7 @@
         },
         {
           "docs": {
-            "remarks": "toString() style.",
-            "summary": "The ."
+            "summary": "The .toString() style."
           },
           "name": "stringStyle",
           "type": {
@@ -4720,8 +4709,7 @@
     "jsii-calc.composition.CompositeOperation.CompositionStringStyle": {
       "assembly": "jsii-calc",
       "docs": {
-        "remarks": "toString() output for CompositeOperation.",
-        "summary": "Style of ."
+        "summary": "Style of .toString() output for CompositeOperation."
       },
       "fqn": "jsii-calc.composition.CompositeOperation.CompositionStringStyle",
       "kind": "enum",
@@ -4744,5 +4732,5 @@
     }
   },
   "version": "0.8.2",
-  "fingerprint": "5UMBufIMlldzSxqgy9sSvVGc4QczbJ/LiecbY10pSzU="
+  "fingerprint": "RIbNFrgvpaT1nTpWaVDxO0fWs/kZcVmMscsDGU/GXwE="
 }

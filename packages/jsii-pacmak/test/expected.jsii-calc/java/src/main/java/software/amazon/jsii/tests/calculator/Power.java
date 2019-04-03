@@ -30,9 +30,7 @@ public class Power extends software.amazon.jsii.tests.calculator.composition.Com
     }
 
     /**
-     * The expression that this operation consists of.
-     * 
-     * Must be implemented by derived classes.
+     * The expression that this operation consists of. Must be implemented by derived classes.
      * 
      */
     @Override

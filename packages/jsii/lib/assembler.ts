@@ -13,6 +13,7 @@ import literate = require('./literate');
 import { ProjectInfo } from './project-info';
 import utils = require('./utils');
 import { Validator } from './validator';
+import { SHORT_VERSION, VERSION } from './version';
 
 // tslint:disable:no-var-requires Modules without TypeScript definitions
 const sortJson = require('sort-json');
@@ -95,13 +96,15 @@ export class Assembler implements Emitter {
             }
         }
 
+        const jsiiVersion = this.projectInfo.jsiiVersionFormat === 'short' ? SHORT_VERSION : VERSION;
+
         const assembly = {
             schema: spec.SchemaVersion.V1_0,
             name: this.projectInfo.name,
             version: this.projectInfo.version,
             description: this.projectInfo.description || this.projectInfo.name,
             license: this.projectInfo.license,
-            homepage: this.projectInfo.homepage || this.projectInfo.repository.url,
+            homepage: this.projectInfo.homepage || this.projectInfo.repository.url,
             author: this.projectInfo.author,
             contributors: this.projectInfo.contributors && [...this.projectInfo.contributors],
             repository: this.projectInfo.repository,
@@ -110,6 +113,7 @@ export class Assembler implements Emitter {
             types: this._types,
             targets: this.projectInfo.targets,
             readme,
+            jsiiVersion,
             fingerprint: '<TBD>'
         };
 

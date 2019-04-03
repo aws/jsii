@@ -122,6 +122,8 @@ function endWithPeriod(s: string) {
   return ENDS_WITH_PUNCTUATION_REGEX.test(s) ? s : s + '.';
 }
 
+const SUMMARY_MAX_WORDS = 20;
+
 /**
  * Find the summary line for a doc comment
  *
@@ -131,14 +133,14 @@ function endWithPeriod(s: string) {
  */
 function summaryLine(str: string) {
   const paras = str.split('\n\n');
-  if (paras[0].split(' ').length < 30) { return paras[0]; }
+  if (paras.length > 1 && paras[0].split(' ').length < SUMMARY_MAX_WORDS) { return paras[0]; }
 
   const m = FIRST_SENTENCE_REGEX.exec(str);
   if (m) { return m[1]; }
 
-  return str;
+  return paras[0];
 }
 
 const PUNCTUATION = ['!', '?', '.', ';'].map(s => '\\' + s).join('');
 const ENDS_WITH_PUNCTUATION_REGEX = new RegExp(`[${PUNCTUATION}]$`);
-const FIRST_SENTENCE_REGEX = new RegExp(`^([^${PUNCTUATION}]+${PUNCTUATION})`);
+const FIRST_SENTENCE_REGEX = new RegExp(`^([^${PUNCTUATION}]+[${PUNCTUATION}] )`); // literal space at the end

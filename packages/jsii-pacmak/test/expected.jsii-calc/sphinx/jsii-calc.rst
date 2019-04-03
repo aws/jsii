@@ -331,7 +331,7 @@ Add
 
       *Inherited from* :py:meth:`jsii-calc.BinaryOperation <jsii-calc.BinaryOperation.hello>`
 
-      Say hello!.
+      Say hello!
 
 
 
@@ -583,11 +583,7 @@ AllowedMethodNames
 
    .. py:method:: getFoo(withParam) -> string
 
-      getXxx() is not allowed (see negatives), but getXxx(a, .
-
-      
-
-      ..) is okay.
+      getXxx() is not allowed (see negatives), but getXxx(a, ...) is okay.
 
 
 
@@ -608,11 +604,7 @@ AllowedMethodNames
 
    .. py:method:: setFoo(_x, _y)
 
-      setFoo(x) is not allowed (see negatives), but setXxx(a, b, .
-
-      
-
-      ..) is okay.
+      setFoo(x) is not allowed (see negatives), but setXxx(a, b, ...) is okay.
 
 
 
@@ -777,7 +769,7 @@ BinaryOperation
 
       *Implements* :py:meth:`@scope/jsii-calc-lib.IFriendly.hello`
 
-      Say hello!.
+      Say hello!
 
 
 
@@ -1005,11 +997,7 @@ Calculator
 
       *Inherited from* :py:attr:`jsii-calc.composition.CompositeOperation <jsii-calc.composition.CompositeOperation.decorationPostfixes>`
 
-      A set of postfixes to include in a decorated .
-
-      
-
-      toString().
+      A set of postfixes to include in a decorated .toString().
 
 
 
@@ -1020,11 +1008,7 @@ Calculator
 
       *Inherited from* :py:attr:`jsii-calc.composition.CompositeOperation <jsii-calc.composition.CompositeOperation.decorationPrefixes>`
 
-      A set of prefixes to include in a decorated .
-
-      
-
-      toString().
+      A set of prefixes to include in a decorated .toString().
 
 
 
@@ -1035,11 +1019,7 @@ Calculator
 
       *Inherited from* :py:attr:`jsii-calc.composition.CompositeOperation <jsii-calc.composition.CompositeOperation.stringStyle>`
 
-      The .
-
-      
-
-      toString() style.
+      The .toString() style.
 
 
 
@@ -1794,7 +1774,7 @@ DocumentedClass
 
    .. py:method:: hola()
 
-      Say ¡Hola!.
+      Say ¡Hola!
 
 
 
@@ -1870,7 +1850,7 @@ DoubleTrouble
 
       *Implements* :py:meth:`@scope/jsii-calc-lib.IFriendly.hello`
 
-      Say hello!.
+      Say hello!
 
 
 
@@ -2147,7 +2127,7 @@ GiveMeStructs
 
    .. py:method:: readFirstNumber(first) -> number
 
-      Returns the "anumber" from a MyFirstStruct struct;.
+      Returns the "anumber" from a MyFirstStruct struct;
 
 
 
@@ -2332,7 +2312,7 @@ IFriendlier (interface)
 
       *Inherited from* :py:meth:`@scope/jsii-calc-lib.IFriendly <@scope/jsii-calc-lib.IFriendly.hello>`
 
-      Say hello!.
+      Say hello!
 
 
 
@@ -2375,7 +2355,7 @@ IFriendlyRandomGenerator (interface)
 
       *Inherited from* :py:meth:`@scope/jsii-calc-lib.IFriendly <@scope/jsii-calc-lib.IFriendly.hello>`
 
-      Say hello!.
+      Say hello!
 
 
 
@@ -3739,21 +3719,7 @@ LoadBalancedFargateServiceProps (interface)
 
    .. py:attribute:: cpu
 
-      The number of cpu units used by the task.
-
-      
-
-      Valid values, which determines your range of valid values for the memory parameter:
-
-      256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB
-
-      512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB
-
-      1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB
-
-      2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments
-
-      4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments
+      The number of cpu units used by the task. Valid values, which determines your range of valid values for the memory parameter: 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments.
 
       
 
@@ -3931,7 +3897,7 @@ Multiply
 
       *Inherited from* :py:meth:`jsii-calc.BinaryOperation <jsii-calc.BinaryOperation.hello>`
 
-      Say hello!.
+      Say hello!
 
 
 
@@ -4022,7 +3988,7 @@ Negate
 
       *Implements* :py:meth:`@scope/jsii-calc-lib.IFriendly.hello`
 
-      Say hello!.
+      Say hello!
 
 
 
@@ -4100,11 +4066,7 @@ NodeStandardLibrary
 
    .. py:method:: cryptoSha256() -> string
 
-      Uses node.
-
-      
-
-      js "crypto" module to calculate sha256 of a string.
+      Uses node.js "crypto" module to calculate sha256 of a string.
 
 
 
@@ -4114,11 +4076,7 @@ NodeStandardLibrary
 
    .. py:method:: fsReadFile() -> string
 
-      Reads a local resource file (resource.
-
-      
-
-      txt) asynchronously.
+      Reads a local resource file (resource.txt) asynchronously.
 
 
 
@@ -4138,11 +4096,7 @@ NodeStandardLibrary
 
    .. py:attribute:: osPlatform
 
-      Returns the current os.
-
-      
-
-      platform() from the "os" node module.
+      Returns the current os.platform() from the "os" node module.
 
 
 
@@ -4674,11 +4628,7 @@ Power
 
       *Implements* :py:meth:`jsii-calc.composition.CompositeOperation.expression`
 
-      The expression that this operation consists of.
-
-      
-
-      Must be implemented by derived classes.
+      The expression that this operation consists of. Must be implemented by derived classes.
 
 
 
@@ -4728,11 +4678,7 @@ Power
 
       *Inherited from* :py:attr:`jsii-calc.composition.CompositeOperation <jsii-calc.composition.CompositeOperation.decorationPostfixes>`
 
-      A set of postfixes to include in a decorated .
-
-      
-
-      toString().
+      A set of postfixes to include in a decorated .toString().
 
 
 
@@ -4743,11 +4689,7 @@ Power
 
       *Inherited from* :py:attr:`jsii-calc.composition.CompositeOperation <jsii-calc.composition.CompositeOperation.decorationPrefixes>`
 
-      A set of prefixes to include in a decorated .
-
-      
-
-      toString().
+      A set of prefixes to include in a decorated .toString().
 
 
 
@@ -4758,11 +4700,7 @@ Power
 
       *Inherited from* :py:attr:`jsii-calc.composition.CompositeOperation <jsii-calc.composition.CompositeOperation.stringStyle>`
 
-      The .
-
-      
-
-      toString() style.
+      The .toString() style.
 
 
 
@@ -5231,11 +5169,7 @@ Statics
 
    .. py:attribute:: instance
 
-      Jsdocs for static getter.
-
-      
-
-      Jsdocs for static setter.
+      Jsdocs for static getter. Jsdocs for static setter.
 
 
 
@@ -5356,11 +5290,7 @@ Sum
 
       *Implements* :py:meth:`jsii-calc.composition.CompositeOperation.expression`
 
-      The expression that this operation consists of.
-
-      
-
-      Must be implemented by derived classes.
+      The expression that this operation consists of. Must be implemented by derived classes.
 
 
 
@@ -5410,11 +5340,7 @@ Sum
 
       *Inherited from* :py:attr:`jsii-calc.composition.CompositeOperation <jsii-calc.composition.CompositeOperation.decorationPostfixes>`
 
-      A set of postfixes to include in a decorated .
-
-      
-
-      toString().
+      A set of postfixes to include in a decorated .toString().
 
 
 
@@ -5425,11 +5351,7 @@ Sum
 
       *Inherited from* :py:attr:`jsii-calc.composition.CompositeOperation <jsii-calc.composition.CompositeOperation.decorationPrefixes>`
 
-      A set of prefixes to include in a decorated .
-
-      
-
-      toString().
+      A set of prefixes to include in a decorated .toString().
 
 
 
@@ -5440,11 +5362,7 @@ Sum
 
       *Inherited from* :py:attr:`jsii-calc.composition.CompositeOperation <jsii-calc.composition.CompositeOperation.stringStyle>`
 
-      The .
-
-      
-
-      toString() style.
+      The .toString() style.
 
 
 
@@ -5985,11 +5903,7 @@ CompositeOperation
 
    .. py:attribute:: expression
 
-      The expression that this operation consists of.
-
-      
-
-      Must be implemented by derived classes.
+      The expression that this operation consists of. Must be implemented by derived classes.
 
 
 
@@ -6009,11 +5923,7 @@ CompositeOperation
 
    .. py:attribute:: decorationPostfixes
 
-      A set of postfixes to include in a decorated .
-
-      
-
-      toString().
+      A set of postfixes to include in a decorated .toString().
 
 
 
@@ -6022,11 +5932,7 @@ CompositeOperation
 
    .. py:attribute:: decorationPrefixes
 
-      A set of prefixes to include in a decorated .
-
-      
-
-      toString().
+      A set of prefixes to include in a decorated .toString().
 
 
 
@@ -6035,11 +5941,7 @@ CompositeOperation
 
    .. py:attribute:: stringStyle
 
-      The .
-
-      
-
-      toString() style.
+      The .toString() style.
 
 
 
@@ -6069,11 +5971,7 @@ CompositeOperation
 
 
 
-      Style of .
-
-      
-
-      toString() output for CompositeOperation.
+      Style of .toString() output for CompositeOperation.
 
 
 

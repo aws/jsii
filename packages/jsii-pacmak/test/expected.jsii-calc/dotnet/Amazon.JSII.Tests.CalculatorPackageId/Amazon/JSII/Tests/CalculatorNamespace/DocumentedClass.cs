@@ -40,7 +40,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <remarks>
         /// stability: experimental
-        /// summary: Say ¡Hola!.
+        /// summary: Say ¡Hola!
         /// </remarks>
         [JsiiMethod("hola", null, "[]")]
         public virtual void Hola()

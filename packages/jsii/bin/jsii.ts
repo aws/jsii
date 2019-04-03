@@ -12,8 +12,16 @@ import { VERSION } from '../lib/version';
         .env('JSII')
         .option('watch', { alias: 'w', type: 'boolean', desc: 'Watch for file changes and recompile automatically' })
         .option('verbose', { alias: 'v', type: 'count', desc: 'Increase the verbosity of output', global: true })
-        // tslint:disable-next-line:max-line-length
-        .option('project-references', { alias: 'r', type: 'boolean', desc: 'Generate TypeScript project references (also [package.json].jsii.projectReferences)' })
+        .option('project-references', {
+            alias: 'r',
+            type: 'boolean',
+            desc: 'Generate TypeScript project references (also [package.json].jsii.projectReferences)'
+        })
+        .option('fix-peer-dependencies', {
+            type: 'boolean',
+            default: true,
+            desc: 'Automatically add missing entries in the peerDependencies section of package.json'
+        })
         .help()
         .version(VERSION)
         .argv;
@@ -22,7 +30,7 @@ import { VERSION } from '../lib/version';
 
     const projectRoot = path.normalize(path.resolve(process.cwd(), argv._[0] || '.'));
 
-    const projectInfo = await loadProjectInfo(projectRoot);
+    const projectInfo = await loadProjectInfo(projectRoot, { fixPeerDependencies: argv['fix-peer-dependencies'] });
 
     const compiler = new Compiler({
         projectInfo,

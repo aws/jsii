@@ -18,10 +18,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <remarks>
-        /// remarks: platform() from the "os" node module.
-        /// summary: Returns the current os.
-        /// </remarks>
+        /// <remarks>summary: Returns the current os.platform() from the "os" node module.</remarks>
         [JsiiProperty("osPlatform", "{\"primitive\":\"string\"}")]
         public virtual string OsPlatform
         {
@@ -29,9 +26,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// remarks: js "crypto" module to calculate sha256 of a string.
         /// returns: "6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50"
-        /// summary: Uses node.
+        /// summary: Uses node.js "crypto" module to calculate sha256 of a string.
         /// </remarks>
         [JsiiMethod("cryptoSha256", "{\"primitive\":\"string\"}", "[]")]
         public virtual string CryptoSha256()
@@ -40,9 +36,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// remarks: txt) asynchronously.
         /// returns: "Hello, resource!"
-        /// summary: Reads a local resource file (resource.
+        /// summary: Reads a local resource file (resource.txt) asynchronously.
         /// </remarks>
         [JsiiMethod("fsReadFile", "{\"primitive\":\"string\",\"promise\":true}", "[]")]
         public virtual string FsReadFile()

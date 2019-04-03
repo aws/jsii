@@ -10,7 +10,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
-        /// <remarks>summary: The first optional!.</remarks>
+        /// <remarks>summary: The first optional!</remarks>
         [JsiiProperty("optional1", "{\"primitive\":\"string\",\"optional\":true}")]
         public string Optional1
         {

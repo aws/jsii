@@ -28,7 +28,7 @@ public class GiveMeStructs extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * Returns the "anumber" from a MyFirstStruct struct;.
+     * Returns the "anumber" from a MyFirstStruct struct;
      * 
      */
     public java.lang.Number readFirstNumber(final software.amazon.jsii.tests.calculator.lib.MyFirstStruct first) {

@@ -46,7 +46,7 @@ public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, soft
         }
 
         /**
-         * Say hello!.
+         * Say hello!
          * 
          */
         @Override

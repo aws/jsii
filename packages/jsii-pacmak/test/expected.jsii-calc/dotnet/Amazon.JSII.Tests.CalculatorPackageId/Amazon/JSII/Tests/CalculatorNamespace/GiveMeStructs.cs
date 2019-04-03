@@ -38,7 +38,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<DoubleTrouble>(new object[]{derived});
         }
 
-        /// <remarks>summary: Returns the "anumber" from a MyFirstStruct struct;.</remarks>
+        /// <remarks>summary: Returns the "anumber" from a MyFirstStruct struct;</remarks>
         [JsiiMethod("readFirstNumber", "{\"primitive\":\"number\"}", "[{\"name\":\"first\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.MyFirstStruct\"}}]")]
         public virtual double ReadFirstNumber(IMyFirstStruct first)
         {

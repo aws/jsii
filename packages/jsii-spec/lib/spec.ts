@@ -65,6 +65,12 @@ export interface Assembly extends Documentable {
     version: string;
 
     /**
+     * The version of the jsii compiler that was used to produce this Assembly.
+     * @minLength 1
+     */
+    jsiiVersion: string;
+
+    /**
      * The SPDX name of the license this assembly is distributed on.
      */
     license: string;
@@ -93,7 +99,7 @@ export interface Assembly extends Documentable {
     /**
      * The top-level readme document for this assembly (if any).
      */
-    readme?: { markdown: string };
+    readme?: { markdown: string };
 }
 
 /**
@@ -155,17 +161,18 @@ export interface PackageVersion {
     dependencies?: { [assembly: string]: PackageVersion };
 
     /**
-     * Indicates if this dependency is a peer dependency or a normal dependency.
+     * Indicates if this dependency is a direct (peer) dependency or a
+     * transitive dependency.
      *
      * Peer dependencies are expected to be explicitly defined by the user of
      * this library instead of brought in as transitive dependencies.
      *
-     * jsii enforces that if this module exports a type from a dependency, this
-     * dependency must be defined as a peer and not as a normal dependency.
-     * Otherwise, it would be impossible to safely use two versions of this
-     * dependency in a closure.
+     * jsii enforces that any direct dependency on another jsii module is also
+     * defined as a peerDependency. Otherwise, it would be impossible to safely
+     * use two versions of this dependency in a closure.
      *
      * @see https://github.com/awslabs/aws-cdk/issues/979
+     * @see https://github.com/awslabs/jsii/issues/361
      * @see https://nodejs.org/en/blog/npm/peer-dependencies/
      */
     peer?: boolean;

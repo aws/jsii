@@ -61,6 +61,7 @@
   },
   "description": "A simple calcuator library built on JSII.",
   "homepage": "https://github.com/awslabs/jsii.git",
+  "jsiiVersion": "0.8.2",
   "license": "Apache-2.0",
   "name": "@scope/jsii-calc-lib",
   "repository": {
@@ -92,8 +93,7 @@
     "@scope/jsii-calc-lib.EnumFromScopedModule": {
       "assembly": "@scope/jsii-calc-lib",
       "docs": {
-        "remarks": "See awslabs/jsii#138",
-        "summary": "Check that enums from \\@scoped packages can be references."
+        "summary": "Check that enums from \\@scoped packages can be references. See awslabs/jsii#138."
       },
       "fqn": "@scope/jsii-calc-lib.EnumFromScopedModule",
       "kind": "enum",
@@ -138,7 +138,7 @@
         {
           "abstract": true,
           "docs": {
-            "summary": "Say hello!."
+            "summary": "Say hello!"
           },
           "name": "hello",
           "returns": {
@@ -302,7 +302,7 @@
         {
           "abstract": true,
           "docs": {
-            "summary": "The first optional!."
+            "summary": "The first optional!"
           },
           "immutable": true,
           "name": "optional1",
@@ -373,5 +373,5 @@
     }
   },
   "version": "0.8.2",
-  "fingerprint": "ytbcB4Bd8LhgHU3H1vMt++B7CATemDjHURxELB2SDNs="
+  "fingerprint": "SDQQzBvYRO3SXfWWgpKwLDSy3EgMqP/e6rd75kblKA0="
 }

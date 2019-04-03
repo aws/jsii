@@ -35,6 +35,7 @@
   },
   "description": "An example direct dependency for jsii-calc.",
   "homepage": "https://github.com/awslabs/jsii.git",
+  "jsiiVersion": "0.8.2",
   "license": "Apache-2.0",
   "name": "@scope/jsii-calc-base",
   "repository": {
@@ -111,5 +112,5 @@
     }
   },
   "version": "0.8.2",
-  "fingerprint": "4jX4FdJMQfD7LINHWTh3WuTMHvAPMd3fjOCybnpuqc8="
+  "fingerprint": "lIcHicx5rBBxyy5vOvOqvbBGjk//8lFLX6oVx2xh5Fc="
 }

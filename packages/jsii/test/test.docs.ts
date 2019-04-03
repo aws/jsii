@@ -67,6 +67,24 @@ export = {
   },
 
   // ----------------------------------------------------------------------
+  async 'dont add period to summary that ends in exclamation mark'(test: Test) {
+    const assembly = await compile(`
+      /**
+       * I'm happy about this class!
+       */
+      export class Foo {
+        public foo() { }
+      }
+    `);
+
+    test.deepEqual(assembly.types!['testpkg.Foo'].docs , {
+      summary: 'I\'m happy about this class!'
+    });
+
+    test.done();
+  },
+
+  // ----------------------------------------------------------------------
   async 'parse method docs'(test: Test) {
     const assembly = await compile(`
       export class Foo {

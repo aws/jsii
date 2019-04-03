@@ -20,10 +20,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
         {
         }
 
-        /// <remarks>
-        /// remarks: Must be implemented by derived classes.
-        /// summary: The expression that this operation consists of.
-        /// </remarks>
+        /// <remarks>summary: The expression that this operation consists of. Must be implemented by derived classes.</remarks>
         [JsiiProperty("expression", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public virtual Value_ Expression
         {
@@ -37,10 +34,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
             get => GetInstanceProperty<double>();
         }
 
-        /// <remarks>
-        /// remarks: toString().
-        /// summary: A set of postfixes to include in a decorated .
-        /// </remarks>
+        /// <remarks>summary: A set of postfixes to include in a decorated .toString().</remarks>
         [JsiiProperty("decorationPostfixes", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}}}")]
         public virtual string[] DecorationPostfixes
         {
@@ -48,10 +42,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
             set => SetInstanceProperty(value);
         }
 
-        /// <remarks>
-        /// remarks: toString().
-        /// summary: A set of prefixes to include in a decorated .
-        /// </remarks>
+        /// <remarks>summary: A set of prefixes to include in a decorated .toString().</remarks>
         [JsiiProperty("decorationPrefixes", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}}}")]
         public virtual string[] DecorationPrefixes
         {
@@ -59,10 +50,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
             set => SetInstanceProperty(value);
         }
 
-        /// <remarks>
-        /// remarks: toString() style.
-        /// summary: The .
-        /// </remarks>
+        /// <remarks>summary: The .toString() style.</remarks>
         [JsiiProperty("stringStyle", "{\"fqn\":\"jsii-calc.composition.CompositeOperation.CompositionStringStyle\"}")]
         public virtual CompositionStringStyle StringStyle
         {

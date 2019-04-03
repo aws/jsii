@@ -16,14 +16,7 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
      */
     java.lang.Number getContainerPort();
     /**
-     * The number of cpu units used by the task.
-     * 
-     * Valid values, which determines your range of valid values for the memory parameter:
-     * 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB
-     * 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB
-     * 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB
-     * 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments
-     * 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments
+     * The number of cpu units used by the task. Valid values, which determines your range of valid values for the memory parameter: 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments.
      * 
      * This default is set in the underlying FargateTaskDefinition construct.
      * 
@@ -101,7 +94,7 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
         }
         /**
          * Sets the value of Cpu
-         * @param value The number of cpu units used by the task.
+         * @param value The number of cpu units used by the task. Valid values, which determines your range of valid values for the memory parameter: 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments.
          * @return {@code this}
          */
         public Builder withCpu(@javax.annotation.Nullable final java.lang.String value) {
@@ -217,14 +210,7 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
         }
 
         /**
-         * The number of cpu units used by the task.
-         * 
-         * Valid values, which determines your range of valid values for the memory parameter:
-         * 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB
-         * 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB
-         * 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB
-         * 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments
-         * 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments
+         * The number of cpu units used by the task. Valid values, which determines your range of valid values for the memory parameter: 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments.
          * 
          * This default is set in the underlying FargateTaskDefinition construct.
          * 

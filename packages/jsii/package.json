@@ -11,12 +11,11 @@
         "organization": true
     },
     "bin": {
-        "jsii": "bin/jsii",
-        "jsii-fix-peers": "bin/jsii-fix-peers"
+        "jsii": "bin/jsii"
     },
     "scripts": {
-        "build": "cp ../../README.md . && bash ./generate.sh && tsc",
-        "watch": "bash ./generate.sh && tsc -w",
+        "build": "cp ../../README.md . && bash ./generate.sh && tsc --build",
+        "watch": "bash ./generate.sh && tsc --build -w",
         "test": "nyc nodeunit test/test.*.js",
         "package": "package-js"
     },

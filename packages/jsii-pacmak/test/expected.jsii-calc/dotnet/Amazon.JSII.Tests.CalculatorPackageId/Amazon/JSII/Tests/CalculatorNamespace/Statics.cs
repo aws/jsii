@@ -49,10 +49,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         = GetStaticProperty<IDictionary<string, string>>(typeof(Statics));
-        /// <remarks>
-        /// remarks: Jsdocs for static setter.
-        /// summary: Jsdocs for static getter.
-        /// </remarks>
+        /// <remarks>summary: Jsdocs for static getter. Jsdocs for static setter.</remarks>
         [JsiiProperty("instance", "{\"fqn\":\"jsii-calc.Statics\"}")]
         public static Statics Instance
         {

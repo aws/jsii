@@ -5,8 +5,8 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "tsc && tslint -p .",
-    "watch": "tsc -w",
+    "build": "tsc --build && tslint -p .",
+    "watch": "tsc --build -w",
     "lint": "tslint -p . --force",
     "test": "nodeunit test/test.*.js",
     "package": "package-js"

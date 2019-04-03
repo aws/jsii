@@ -12,7 +12,7 @@ public class DoubleTrouble extends software.amazon.jsii.JsiiObject implements so
     }
 
     /**
-     * Say hello!.
+     * Say hello!
      * 
      */
     @Override

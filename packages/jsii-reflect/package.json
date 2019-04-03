@@ -8,8 +8,8 @@
     "jsii-tree": "bin/jsii-tree"
   },
   "scripts": {
-    "build": "tsc && chmod +x bin/jsii-tree",
-    "watch": "tsc -w",
+    "build": "tsc --build && chmod +x bin/jsii-tree",
+    "watch": "tsc --build -w",
     "test": "jest",
     "package": "package-js"
   },

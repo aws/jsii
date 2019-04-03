@@ -10,7 +10,7 @@ package software.amazon.jsii.tests.calculator.lib;
 @javax.annotation.Generated(value = "jsii-pacmak")
 public interface IFriendly extends software.amazon.jsii.JsiiSerializable {
     /**
-     * Say hello!.
+     * Say hello!
      * 
      */
     java.lang.String hello();
@@ -24,7 +24,7 @@ public interface IFriendly extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Say hello!.
+         * Say hello!
          * 
          */
         @Override

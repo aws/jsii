@@ -150,11 +150,7 @@ EnumFromScopedModule (enum)
 
 
 
-   Check that enums from \@scoped packages can be references.
-
-   
-
-   See awslabs/jsii#138
+   Check that enums from \@scoped packages can be references. See awslabs/jsii#138.
 
 
 
@@ -242,7 +238,7 @@ IFriendly (interface)
 
    .. py:method:: hello() -> string
 
-      Say hello!.
+      Say hello!
 
 
 
@@ -483,7 +479,7 @@ StructWithOnlyOptionals (interface)
 
    .. py:attribute:: optional1
 
-      The first optional!.
+      The first optional!
 
 
 

@@ -31,6 +31,7 @@ export interface ProjectInfo {
     readonly transitiveDependencies: ReadonlyArray<spec.Assembly>;
     readonly bundleDependencies: { readonly [name: string]: string };
     readonly targets: spec.AssemblyTargets;
+    readonly jsiiVersionFormat: 'short' | 'full';
     readonly description?: string;
     readonly homepage?: string;
     readonly contributors?: ReadonlyArray<spec.Person>;
@@ -38,22 +39,54 @@ export interface ProjectInfo {
     readonly projectReferences?: boolean;
 }
 
-export async function loadProjectInfo(projectRoot: string): Promise<ProjectInfo> {
-    const pkg = require(path.resolve(projectRoot, 'package.json'));
+export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies }: { fixPeerDependencies: boolean }): Promise<ProjectInfo> {
+    const packageJsonPath = path.join(projectRoot, 'package.json');
+    const pkg = require(packageJsonPath);
 
     const bundleDependencies: { [name: string]: string } = {};
     (pkg.bundleDependencies || pkg.bundledDependencies || []).forEach((name: string) => {
         const version = pkg.dependencies && pkg.dependencies[name];
         if (!version) {
-            throw new Error(`The "package.json" has "${name}" in "bundleDependencies", but it is not declared in "dependencies"`);
+            throw new Error(`The "package.json" file has "${name}" in "bundleDependencies", but it is not declared in "dependencies"`);
         }
 
         if (pkg.peerDependencies && name in pkg.peerDependencies) {
-            throw new Error(`The "package.json" has "${name}" in "bundleDependencies", and also in "peerDependencies"`);
+            throw new Error(`The "package.json" file has "${name}" in "bundleDependencies", and also in "peerDependencies"`);
         }
 
         bundleDependencies[name] = version;
     });
+
+    let addedPeerDependency = false;
+    Object.entries(pkg.dependencies || {}).forEach(([name, version]) => {
+        if (name in bundleDependencies) {
+            return;
+        }
+        pkg.peerDependencies = pkg.peerDependencies || {};
+        const peerVersion = pkg.peerDependencies[name];
+        if (peerVersion === version) {
+            return;
+        }
+        if (!fixPeerDependencies) {
+            if (peerVersion) {
+                // tslint:disable-next-line: max-line-length
+                throw new Error(`The "package.json" file has different version requirements for "${name}" in "dependencies" (${version}) versus "peerDependencies" (${peerVersion})`);
+            }
+            throw new Error(`The "package.json" file has "${name}" in "dependencies", but not in "peerDependencies"`);
+        }
+        if (peerVersion) {
+            LOG.warn(`Changing "peerDependency" on "${name}" from "${peerVersion}" to ${version}`);
+        } else {
+            LOG.warn(`Recording missing "peerDependency" on "${name}" at ${version}`);
+        }
+        pkg.peerDependencies[name] = version;
+        addedPeerDependency = true;
+    });
+    // Re-write "package.json" if we fixed up "peerDependencies" and were told to automatically fix.
+    // Yes, we should never have addedPeerDependencies if not fixPeerDependency, but I still check again.
+    if (addedPeerDependency && fixPeerDependencies) {
+        await fs.writeJson(packageJsonPath, pkg, { encoding: 'utf8', spaces: 2 });
+    }
 
     const transitiveAssemblies: { [name: string]: spec.Assembly } = {};
     const dependencies =
@@ -87,6 +120,7 @@ export async function loadProjectInfo(projectRoot: string): Promise<ProjectInfo>
             ..._required(pkg.jsii, 'The "package.json" file must specify the "jsii" attribute').targets,
             js: { npm: pkg.name }
         },
+        jsiiVersionFormat: _validateVersionFormat(pkg.jsii.versionFormat || 'full'),
 
         description: pkg.description,
         homepage: pkg.homepage,
@@ -107,7 +141,7 @@ function _guessRepositoryType(url: string): string {
     throw new Error(`The "package.json" file must specify the "repository.type" attribute (could not guess from ${url})`);
 }
 
-async function _loadDependencies(dependencies: { [name: string]: string | spec.PackageVersion } | undefined,
+async function _loadDependencies(dependencies: { [name: string]: string | spec.PackageVersion } | undefined,
                                  searchPath: string,
                                  transitiveAssemblies: { [name: string]: spec.Assembly },
                                  bundled = new Set<string>()): Promise<spec.Assembly[]> {
@@ -181,4 +215,11 @@ function _validateLicense(id: string): string {
         throw new Error(`Invalid license identifier "${id}", see valid license identifiers at https://spdx.org/licenses/`);
     }
     return id;
+}
+
+function _validateVersionFormat(format: string): 'short' | 'full' {
+    if (format !== 'short' && format !== 'full') {
+        throw new Error(`Invalid jsii.versionFormat "${format}", it must be either "short" or "full" (the default)`);
+    }
+    return format;
 }

@@ -22,7 +22,7 @@ public interface IFriendlyRandomGenerator extends software.amazon.jsii.JsiiSeria
         }
 
         /**
-         * Say hello!.
+         * Say hello!
          * 
          */
         @Override

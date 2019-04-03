@@ -34,7 +34,7 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
     }
 
     /**
-     * Say hello!.
+     * Say hello!
      * 
      */
     @Override

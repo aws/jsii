@@ -24,7 +24,8 @@
         "module": "jsii_calc"
       },
       "sphinx": {}
-    }
+    },
+    "versionFormat": "short"
   },
   "scripts": {
     "build": "jsii",

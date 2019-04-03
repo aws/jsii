@@ -22,7 +22,7 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
     }
 
     /**
-     * Say hello!.
+     * Say hello!
      * 
      */
     @Override
@@ -64,7 +64,7 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
         }
 
         /**
-         * Say hello!.
+         * Say hello!
          * 
          */
         @Override

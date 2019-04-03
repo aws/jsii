@@ -14,7 +14,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
-        /// <remarks>summary: Say hello!.</remarks>
+        /// <remarks>summary: Say hello!</remarks>
         [JsiiMethod("hello", "{\"primitive\":\"string\"}", "[]")]
         public string Hello()
         {

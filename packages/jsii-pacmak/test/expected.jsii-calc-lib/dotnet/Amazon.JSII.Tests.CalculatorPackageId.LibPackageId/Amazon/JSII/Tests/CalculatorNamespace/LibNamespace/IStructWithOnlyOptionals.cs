@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     [JsiiInterface(typeof(IStructWithOnlyOptionals), "@scope/jsii-calc-lib.StructWithOnlyOptionals")]
     public interface IStructWithOnlyOptionals
     {
-        /// <remarks>summary: The first optional!.</remarks>
+        /// <remarks>summary: The first optional!</remarks>
         [JsiiProperty("optional1", "{\"primitive\":\"string\",\"optional\":true}")]
         string Optional1
         {

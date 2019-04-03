@@ -10,7 +10,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     [JsiiInterface(typeof(IIFriendly), "@scope/jsii-calc-lib.IFriendly")]
     public interface IIFriendly
     {
-        /// <remarks>summary: Say hello!.</remarks>
+        /// <remarks>summary: Say hello!</remarks>
         [JsiiMethod("hello", "{\"primitive\":\"string\"}", "[]")]
         string Hello();
     }

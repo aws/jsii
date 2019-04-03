@@ -70,5 +70,5 @@ async function makeProjectInfo(types: string): Promise<ProjectInfo> {
     jsii: {},
   }, { encoding: 'utf-8', spaces: 2 });
 
-  return await loadProjectInfo(path.resolve(process.cwd(), '.'));
+  return await loadProjectInfo(path.resolve(process.cwd(), '.'), { fixPeerDependencies: true });
 }

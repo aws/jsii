@@ -27,10 +27,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<Value_>();
         }
 
-        /// <remarks>
-        /// remarks: Must be implemented by derived classes.
-        /// summary: The expression that this operation consists of.
-        /// </remarks>
+        /// <remarks>summary: The expression that this operation consists of. Must be implemented by derived classes.</remarks>
         [JsiiProperty("expression", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public override Value_ Expression
         {
