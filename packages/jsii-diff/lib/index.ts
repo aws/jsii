@@ -2,7 +2,7 @@ import reflect = require('jsii-reflect');
 import log4js = require('log4js');
 import { compareReferenceType, compareStruct } from './classes-ifaces';
 import { compareEnum } from './enums';
-import { ComparisonContext, describeType, shouldInspect } from './types';
+import { ComparisonContext, ComparisonOptions, describeType, Mismatches, shouldInspect } from './types';
 
 const LOG = log4js.getLogger('jsii-diff');
 
@@ -14,10 +14,16 @@ const LOG = log4js.getLogger('jsii-diff');
  * item whether it's still available and has the same shape (or
  * bigger) in the new API.
  */
-export function compareAssemblies(original: reflect.Assembly, updated: reflect.Assembly, context: ComparisonContext) {
+export function compareAssemblies(original: reflect.Assembly, updated: reflect.Assembly, options: ComparisonOptions = {}): Mismatches {
+  const mismatches = new Mismatches();
+
+  const context = { ...options, mismatches };
+
   compareClasses(original, updated, context);
   compareInterfaces(original, updated, context);
   compareEnums(original, updated, context);
+
+  return context.mismatches;
 }
 
 export function compareClasses(original: reflect.Assembly, updated: reflect.Assembly, context: ComparisonContext) {

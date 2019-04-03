@@ -30,10 +30,5 @@ async function compare(original: string, updated: string): Promise<Mismatches> {
   const ts2 = new reflect.TypeSystem();
   const updatedAssembly = ts2.addAssembly(new reflect.Assembly(ts2, ass2));
 
-  const mismatches = new Mismatches();
-  compareAssemblies(originalAssembly, updatedAssembly, {
-    mismatches,
-   });
-
-  return mismatches;
+  return compareAssemblies(originalAssembly, updatedAssembly);
 }

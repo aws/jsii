@@ -4,7 +4,6 @@ import spec = require('jsii-spec');
 import log4js = require('log4js');
 import yargs = require('yargs');
 import { compareAssemblies } from '../lib';
-import { Mismatches } from '../lib/types';
 import { downloadNpmPackage } from '../lib/util';
 import { VERSION } from '../lib/version';
 
@@ -42,11 +41,8 @@ async function main(): Promise<number> {
     process.stderr.write(`Look like different assemblies: '${original.name}' vs '${updated.name}'. Comparing is probably pointless...`);
   }
 
-  const mismatches = new Mismatches();
-
   LOG.info(`Starting analysis`);
-  compareAssemblies(original, updated, {
-    mismatches,
+  const mismatches = compareAssemblies(original, updated, {
     defaultExperimental: argv["default-experimental"],
   });
 
@@ -81,7 +77,7 @@ async function loadPackageNameFromAssembly(): Promise<string> {
   if (!await fs.pathExists(JSII_ASSEMBLY_FILE)) {
     throw new Error(`No NPM package name given and no ${JSII_ASSEMBLY_FILE} file in the current directory. Please specify a package name.`);
   }
-  const module = await fs.readJSON(JSII_ASSEMBLY_FILE, { encoding: 'utf-8' }) as spec.Assembly;
+  const module = spec.validateAssembly(await fs.readJSON(JSII_ASSEMBLY_FILE, { encoding: 'utf-8' }));
   if (!module.name) { throw new Error(`Could not find package in ${JSII_ASSEMBLY_FILE}`); }
 
   return module.name;

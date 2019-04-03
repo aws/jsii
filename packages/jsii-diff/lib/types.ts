@@ -1,14 +1,16 @@
 import reflect = require('jsii-reflect');
 import spec = require('jsii-spec');
 
-export interface ComparisonContext {
+export interface ComparisonOptions {
   /**
    * Whether to treat API elements as experimental if unmarked.
    *
    * @default Treat as stable
    */
   defaultExperimental?: boolean;
+}
 
+export interface ComparisonContext extends ComparisonOptions {
   /**
    * Where to report errors
    */
