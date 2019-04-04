@@ -584,15 +584,25 @@ export class Assembler implements Emitter {
   }
 
   /**
-   * Check that this class doesn't declare any members that are of different staticness in any of its bases
+   * Check that this class doesn't declare any members that are of different staticness in itself or any of its bases
    */
   private _verifyNoStaticMixing(klass: spec.ClassType, decl: ts.Declaration) {
-    const classMembers = typeMembers(klass);
-
     function stat(s?: boolean) {
       return s ? 'static' : 'non-static';
     }
 
+    // Check class itself--may have two methods/props with the same name, so check the arrays
+    const statics = new Set((klass.methods || []).concat(klass.properties || []).filter(x => x.static).map(x => x.name));
+    const nonStatics = new Set((klass.methods || []).concat(klass.properties || []).filter(x => !x.static).map(x => x.name));
+    // Intersect
+    for (const member of intersect(statics, nonStatics)) {
+      this._diagnostic(decl, ts.DiagnosticCategory.Error,
+        `member '${member}' of class '${klass.name}' cannot be declared both statically and non-statically`);
+    }
+
+    // Check against base classes. They will not contain duplicate member names so we can load
+    // the members into a map.
+    const classMembers = typeMembers(klass);
     this._withBaseClass(klass, decl, (base, recurse) => {
       for (const [name, baseMember] of Object.entries(typeMembers(base))) {
         const member = classMembers[name];
@@ -1449,4 +1459,12 @@ function isInterfaceName(name: string) {
 function getConstructor(type: ts.Type): ts.Symbol | undefined {
   return type.symbol.members
       && type.symbol.members.get(ts.InternalSymbolName.Constructor);
+}
+
+function* intersect<T>(xs: Set<T>, ys: Set<T>) {
+  for (const x of xs) {
+    if (ys.has(x)) {
+      yield x;
+    }
+  }
 }
