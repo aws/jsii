@@ -93,15 +93,6 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.set(self, "anyMapProperty", value)
 
     @property
-    @jsii.member(jsii_name="anyProperty")
-    def any_property(self) -> typing.Any:
-        return jsii.get(self, "anyProperty")
-
-    @any_property.setter
-    def any_property(self, value: typing.Any):
-        return jsii.set(self, "anyProperty", value)
-
-    @property
     @jsii.member(jsii_name="arrayProperty")
     def array_property(self) -> typing.List[str]:
         return jsii.get(self, "arrayProperty")
@@ -219,13 +210,13 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.set(self, "unknownMapProperty", value)
 
     @property
-    @jsii.member(jsii_name="unknownProperty")
-    def unknown_property(self) -> typing.Any:
-        return jsii.get(self, "unknownProperty")
+    @jsii.member(jsii_name="anyProperty")
+    def any_property(self) -> typing.Any:
+        return jsii.get(self, "anyProperty")
 
-    @unknown_property.setter
-    def unknown_property(self, value: typing.Any):
-        return jsii.set(self, "unknownProperty", value)
+    @any_property.setter
+    def any_property(self, value: typing.Any):
+        return jsii.set(self, "anyProperty", value)
 
     @property
     @jsii.member(jsii_name="optionalEnumValue")
@@ -235,6 +226,15 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @optional_enum_value.setter
     def optional_enum_value(self, value: typing.Optional["StringEnum"]):
         return jsii.set(self, "optionalEnumValue", value)
+
+    @property
+    @jsii.member(jsii_name="unknownProperty")
+    def unknown_property(self) -> typing.Any:
+        return jsii.get(self, "unknownProperty")
+
+    @unknown_property.setter
+    def unknown_property(self, value: typing.Any):
+        return jsii.set(self, "unknownProperty", value)
 
 
 @jsii.enum(jsii_type="jsii-calc.AllTypesEnum")
@@ -525,7 +525,7 @@ class DontComplainAboutVariadicAfterOptional(metaclass=jsii.JSIIMeta, jsii_type=
         jsii.create(DontComplainAboutVariadicAfterOptional, self, [])
 
     @jsii.member(jsii_name="optionalAndVariadic")
-    def optional_and_variadic(self, optional: typing.Optional[str], *things: str) -> str:
+    def optional_and_variadic(self, optional: typing.Optional[str]=None, *things: str) -> str:
         return jsii.invoke(self, "optionalAndVariadic", [optional, things])
 
 

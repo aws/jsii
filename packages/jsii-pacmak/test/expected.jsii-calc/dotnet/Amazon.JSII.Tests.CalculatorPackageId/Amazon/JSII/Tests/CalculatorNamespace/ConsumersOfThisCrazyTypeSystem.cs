@@ -23,7 +23,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<string>(new object[]{obj});
         }
 
-        [JsiiMethod("consumeNonInternalInterface", "{\"primitive\":\"any\"}", "[{\"name\":\"obj\",\"type\":{\"fqn\":\"jsii-calc.INonInternalInterface\"}}]")]
+        [JsiiMethod("consumeNonInternalInterface", "{\"primitive\":\"any\",\"nullable\":true}", "[{\"name\":\"obj\",\"type\":{\"fqn\":\"jsii-calc.INonInternalInterface\"}}]")]
         public virtual object ConsumeNonInternalInterface(IINonInternalInterface obj)
         {
             return InvokeInstanceMethod<object>(new object[]{obj});

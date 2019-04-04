@@ -28,8 +28,8 @@
     "jest": "^24.1.0",
     "jsii-build-tools": "^0.8.2",
     "jsii-calc": "^0.8.2",
-    "ts-jest": "^24.0.0",
-    "typescript": "^3.3.3333"
+    "ts-jest": "^24.0.1",
+    "typescript": "^3.4.1"
   },
   "jest": {
     "preset": "ts-jest",

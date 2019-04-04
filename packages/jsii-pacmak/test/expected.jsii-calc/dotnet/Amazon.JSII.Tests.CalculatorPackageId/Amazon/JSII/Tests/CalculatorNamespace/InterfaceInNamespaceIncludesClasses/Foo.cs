@@ -17,7 +17,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceIncludesClas
         {
         }
 
-        [JsiiProperty("bar", "{\"primitive\":\"string\",\"optional\":true}")]
+        [JsiiProperty("bar", "{\"primitive\":\"string\",\"nullable\":true}")]
         public virtual string Bar
         {
             get => GetInstanceProperty<string>();

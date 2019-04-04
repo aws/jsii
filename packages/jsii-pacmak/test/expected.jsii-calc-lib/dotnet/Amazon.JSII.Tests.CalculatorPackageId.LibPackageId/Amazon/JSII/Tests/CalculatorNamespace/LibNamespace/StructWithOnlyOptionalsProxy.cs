@@ -11,19 +11,19 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         }
 
         /// <summary>The first optional!</summary>
-        [JsiiProperty("optional1", "{\"primitive\":\"string\",\"optional\":true}")]
+        [JsiiProperty("optional1", "{\"primitive\":\"string\",\"nullable\":true}")]
         public string Optional1
         {
             get => GetInstanceProperty<string>();
         }
 
-        [JsiiProperty("optional2", "{\"primitive\":\"number\",\"optional\":true}")]
+        [JsiiProperty("optional2", "{\"primitive\":\"number\",\"nullable\":true}")]
         public double? Optional2
         {
             get => GetInstanceProperty<double? >();
         }
 
-        [JsiiProperty("optional3", "{\"primitive\":\"boolean\",\"optional\":true}")]
+        [JsiiProperty("optional3", "{\"primitive\":\"boolean\",\"nullable\":true}")]
         public bool? Optional3
         {
             get => GetInstanceProperty<bool? >();

@@ -6,13 +6,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(typeof(ICalculatorProps), "jsii-calc.CalculatorProps")]
     public interface ICalculatorProps
     {
-        [JsiiProperty("initialValue", "{\"primitive\":\"number\",\"optional\":true}")]
+        [JsiiProperty("initialValue", "{\"primitive\":\"number\",\"nullable\":true}")]
         double? InitialValue
         {
             get;
         }
 
-        [JsiiProperty("maximumValue", "{\"primitive\":\"number\",\"optional\":true}")]
+        [JsiiProperty("maximumValue", "{\"primitive\":\"number\",\"nullable\":true}")]
         double? MaximumValue
         {
             get;

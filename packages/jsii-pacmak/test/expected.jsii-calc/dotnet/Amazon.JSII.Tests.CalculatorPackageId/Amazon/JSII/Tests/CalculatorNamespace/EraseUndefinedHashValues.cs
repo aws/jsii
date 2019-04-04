@@ -29,14 +29,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>We expect "prop1" to be erased.</summary>
-        [JsiiMethod("prop1IsNull", "{\"primitive\":\"any\"}", "[]")]
+        [JsiiMethod("prop1IsNull", "{\"primitive\":\"any\",\"nullable\":true}", "[]")]
         public static object Prop1IsNull()
         {
             return InvokeStaticMethod<object>(typeof(EraseUndefinedHashValues), new object[]{});
         }
 
         /// <summary>We expect "prop2" to be erased.</summary>
-        [JsiiMethod("prop2IsUndefined", "{\"primitive\":\"any\"}", "[]")]
+        [JsiiMethod("prop2IsUndefined", "{\"primitive\":\"any\",\"nullable\":true}", "[]")]
         public static object Prop2IsUndefined()
         {
             return InvokeStaticMethod<object>(typeof(EraseUndefinedHashValues), new object[]{});

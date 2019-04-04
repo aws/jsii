@@ -20,26 +20,26 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 return TryConvertVoid(value, out result);
             }
 
-            bool isOptional = typeReference.IsOptional == true;
+            bool isNullable = typeReference.IsNullable == true;
 
             if (typeReference.FullyQualifiedName != null)
             {
-                return TryConvertCustomType(referenceMap, value, isOptional, typeReference.FullyQualifiedName, out result);
+                return TryConvertCustomType(referenceMap, value, isNullable, typeReference.FullyQualifiedName, out result);
             }
 
             if (typeReference.Primitive != null)
             {
-                return TryConvertPrimitive(referenceMap, value, isOptional, typeReference.Primitive.Value, out result);
+                return TryConvertPrimitive(referenceMap, value, isNullable, typeReference.Primitive.Value, out result);
             }
 
             if (typeReference.Collection != null)
             {
-                return TryConvertCollection(referenceMap, value, isOptional, typeReference.Collection, out result);
+                return TryConvertCollection(referenceMap, value, isNullable, typeReference.Collection, out result);
             }
 
             if (typeReference.Union != null)
             {
-                return TryConvertUnion(referenceMap, value, isOptional, typeReference.Union, out result);
+                return TryConvertUnion(referenceMap, value, isNullable, typeReference.Union, out result);
             }
 
             throw new ArgumentException("Invalid type reference", nameof(typeReference));

@@ -18,7 +18,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod("method", null, "[{\"name\":\"_requiredAny\",\"type\":{\"primitive\":\"any\"}},{\"name\":\"_optionalAny\",\"type\":{\"primitive\":\"any\",\"optional\":true}},{\"name\":\"_optionalString\",\"type\":{\"primitive\":\"string\",\"optional\":true}}]")]
+        [JsiiMethod("method", null, "[{\"name\":\"_requiredAny\",\"type\":{\"primitive\":\"any\",\"nullable\":true}},{\"name\":\"_optionalAny\",\"type\":{\"primitive\":\"any\",\"nullable\":true}},{\"name\":\"_optionalString\",\"type\":{\"primitive\":\"string\",\"nullable\":true}}]")]
         public virtual void Method(object _requiredAny, object _optionalAny, string _optionalString)
         {
             InvokeInstanceVoidMethod(new object[]{_requiredAny, _optionalAny, _optionalString});

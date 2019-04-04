@@ -460,11 +460,11 @@ class SphinxDocsGenerator extends Generator {
                 signature += ', ';
             }
 
-            if (p.type.optional && !params.slice(idx + 1).find(e => !e.type.optional)) {
+            if (spec.isOptional(p)) {
                 signature += '[';
                 signaturePosfix += ']';
             }
-            if (p.variadic) {
+            if (spec.isVariadic(p)) {
                 signature += '*';
             }
 
@@ -489,7 +489,7 @@ class SphinxDocsGenerator extends Generator {
 
         for (const p of params) {
             const ptype = this.renderTypeRef(p.type);
-            const paramName = `${p.variadic ? '\\*' : ''}${p.name}`;
+            const paramName = `${spec.isVariadic(p) ? '\\*' : ''}${p.name}`;
             this.code.line(`:param ${paramName}: ${this.renderDocs(p)}`);
             this.code.line(`:type ${paramName}: ${ptype.ref}`);
         }
@@ -622,7 +622,8 @@ class SphinxDocsGenerator extends Generator {
         } else {
             throw new Error('Unexpected type ref');
         }
-        if (type.optional) { result.ref = `${result.ref} *(optional)*`; }
+        const isAny = spec.isPrimitiveTypeReference(type) && type.primitive === spec.PrimitiveType.Any;
+        if (type.nullable && !isAny) { result.ref = `${result.ref} *(nullable)*`; }
         return result;
 
         // Wrap a string between parenthesis if it contains " or "

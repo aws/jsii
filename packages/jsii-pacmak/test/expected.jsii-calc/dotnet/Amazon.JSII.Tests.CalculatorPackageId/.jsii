@@ -409,6 +409,7 @@
             {
               "name": "inp",
               "type": {
+                "nullable": true,
                 "primitive": "any"
               }
             }
@@ -417,6 +418,7 @@
         {
           "name": "anyOut",
           "returns": {
+            "nullable": true,
             "primitive": "any"
           }
         },
@@ -449,6 +451,7 @@
           "type": {
             "collection": {
               "elementtype": {
+                "nullable": true,
                 "primitive": "any"
               },
               "kind": "array"
@@ -460,16 +463,11 @@
           "type": {
             "collection": {
               "elementtype": {
+                "nullable": true,
                 "primitive": "any"
               },
               "kind": "map"
             }
-          }
-        },
-        {
-          "name": "anyProperty",
-          "type": {
-            "primitive": "any"
           }
         },
         {
@@ -599,6 +597,7 @@
           "type": {
             "collection": {
               "elementtype": {
+                "nullable": true,
                 "primitive": "any"
               },
               "kind": "array"
@@ -610,6 +609,7 @@
           "type": {
             "collection": {
               "elementtype": {
+                "nullable": true,
                 "primitive": "any"
               },
               "kind": "map"
@@ -617,8 +617,9 @@
           }
         },
         {
-          "name": "unknownProperty",
+          "name": "anyProperty",
           "type": {
+            "nullable": true,
             "primitive": "any"
           }
         },
@@ -626,7 +627,14 @@
           "name": "optionalEnumValue",
           "type": {
             "fqn": "jsii-calc.StringEnum",
-            "optional": true
+            "nullable": true
+          }
+        },
+        {
+          "name": "unknownProperty",
+          "type": {
+            "nullable": true,
+            "primitive": "any"
           }
         }
       ]
@@ -919,10 +927,11 @@
             "docs": {
               "summary": "Initialization properties."
             },
+            "modifier": "optional",
             "name": "props",
             "type": {
               "fqn": "jsii-calc.CalculatorProps",
-              "optional": true
+              "nullable": true
             }
           }
         ]
@@ -1052,7 +1061,7 @@
           },
           "name": "maxValue",
           "type": {
-            "optional": true,
+            "nullable": true,
             "primitive": "number"
           }
         },
@@ -1062,7 +1071,7 @@
           },
           "name": "unionProperty",
           "type": {
-            "optional": true,
+            "nullable": true,
             "union": {
               "types": [
                 {
@@ -1095,7 +1104,7 @@
           "immutable": true,
           "name": "initialValue",
           "type": {
-            "optional": true,
+            "nullable": true,
             "primitive": "number"
           }
         },
@@ -1104,7 +1113,7 @@
           "immutable": true,
           "name": "maximumValue",
           "type": {
-            "optional": true,
+            "nullable": true,
             "primitive": "number"
           }
         }
@@ -1408,6 +1417,7 @@
             }
           ],
           "returns": {
+            "nullable": true,
             "primitive": "any"
           }
         }
@@ -1421,23 +1431,26 @@
         "initializer": true,
         "parameters": [
           {
+            "modifier": "optional",
             "name": "arg1",
             "type": {
-              "optional": true,
+              "nullable": true,
               "primitive": "number"
             }
           },
           {
+            "modifier": "optional",
             "name": "arg2",
             "type": {
-              "optional": true,
+              "nullable": true,
               "primitive": "string"
             }
           },
           {
+            "modifier": "optional",
             "name": "arg3",
             "type": {
-              "optional": true,
+              "nullable": true,
               "primitive": "date"
             }
           }
@@ -1464,7 +1477,7 @@
           "immutable": true,
           "name": "arg2",
           "type": {
-            "optional": true,
+            "nullable": true,
             "primitive": "string"
           }
         }
@@ -1557,7 +1570,7 @@
               },
               "kind": "map"
             },
-            "optional": true
+            "nullable": true
           }
         },
         {
@@ -1565,7 +1578,7 @@
           "immutable": true,
           "name": "optionalAny",
           "type": {
-            "optional": true,
+            "nullable": true,
             "primitive": "any"
           }
         },
@@ -1580,7 +1593,7 @@
               },
               "kind": "array"
             },
-            "optional": true
+            "nullable": true
           }
         }
       ]
@@ -1636,20 +1649,23 @@
             {
               "name": "_requiredAny",
               "type": {
+                "nullable": true,
                 "primitive": "any"
               }
             },
             {
+              "modifier": "optional",
               "name": "_optionalAny",
               "type": {
-                "optional": true,
+                "nullable": true,
                 "primitive": "any"
               }
             },
             {
+              "modifier": "optional",
               "name": "_optionalString",
               "type": {
-                "optional": true,
+                "nullable": true,
                 "primitive": "string"
               }
             }
@@ -1683,10 +1699,11 @@
               "docs": {
                 "summary": "The person to be greeted."
               },
+              "modifier": "optional",
               "name": "greetee",
               "type": {
                 "fqn": "jsii-calc.Greetee",
-                "optional": true
+                "nullable": true
               }
             }
           ],
@@ -1716,18 +1733,19 @@
           "name": "optionalAndVariadic",
           "parameters": [
             {
+              "modifier": "optional",
               "name": "optional",
               "type": {
-                "optional": true,
+                "nullable": true,
                 "primitive": "string"
               }
             },
             {
+              "modifier": "variadic",
               "name": "things",
               "type": {
                 "primitive": "string"
-              },
-              "variadic": true
+              }
             }
           ],
           "returns": {
@@ -1817,6 +1835,7 @@
           },
           "name": "prop1IsNull",
           "returns": {
+            "nullable": true,
             "primitive": "any"
           },
           "static": true
@@ -1827,6 +1846,7 @@
           },
           "name": "prop2IsUndefined",
           "returns": {
+            "nullable": true,
             "primitive": "any"
           },
           "static": true
@@ -1846,7 +1866,7 @@
           "immutable": true,
           "name": "option1",
           "type": {
-            "optional": true,
+            "nullable": true,
             "primitive": "string"
           }
         },
@@ -1855,7 +1875,7 @@
           "immutable": true,
           "name": "option2",
           "type": {
-            "optional": true,
+            "nullable": true,
             "primitive": "string"
           }
         }
@@ -2002,7 +2022,7 @@
           "immutable": true,
           "name": "name",
           "type": {
-            "optional": true,
+            "nullable": true,
             "primitive": "string"
           }
         }
@@ -2223,9 +2243,10 @@
               }
             },
             {
+              "modifier": "optional",
               "name": "arg2",
               "type": {
-                "optional": true,
+                "nullable": true,
                 "primitive": "number"
               }
             }
@@ -2596,7 +2617,7 @@
         {
           "name": "bar",
           "type": {
-            "optional": true,
+            "nullable": true,
             "primitive": "string"
           }
         }
@@ -2964,7 +2985,7 @@
           "name": "jsiiAgent",
           "static": true,
           "type": {
-            "optional": true,
+            "nullable": true,
             "primitive": "string"
           }
         }
@@ -2990,7 +3011,7 @@
           "immutable": true,
           "name": "containerPort",
           "type": {
-            "optional": true,
+            "nullable": true,
             "primitive": "number"
           }
         },
@@ -3004,7 +3025,7 @@
           "immutable": true,
           "name": "cpu",
           "type": {
-            "optional": true,
+            "nullable": true,
             "primitive": "string"
           }
         },
@@ -3018,7 +3039,7 @@
           "immutable": true,
           "name": "memoryMiB",
           "type": {
-            "optional": true,
+            "nullable": true,
             "primitive": "string"
           }
         },
@@ -3031,7 +3052,7 @@
           "immutable": true,
           "name": "publicLoadBalancer",
           "type": {
-            "optional": true,
+            "nullable": true,
             "primitive": "boolean"
           }
         },
@@ -3044,7 +3065,7 @@
           "immutable": true,
           "name": "publicTasks",
           "type": {
-            "optional": true,
+            "nullable": true,
             "primitive": "boolean"
           }
         }
@@ -3327,9 +3348,10 @@
             }
           },
           {
+            "modifier": "optional",
             "name": "optional",
             "type": {
-              "optional": true,
+              "nullable": true,
               "primitive": "any"
             }
           }
@@ -3341,9 +3363,10 @@
           "name": "giveMeUndefined",
           "parameters": [
             {
+              "modifier": "optional",
               "name": "value",
               "type": {
-                "optional": true,
+                "nullable": true,
                 "primitive": "any"
               }
             }
@@ -3369,7 +3392,7 @@
         {
           "name": "changeMeToUndefined",
           "type": {
-            "optional": true,
+            "nullable": true,
             "primitive": "string"
           }
         }
@@ -3389,6 +3412,7 @@
           "type": {
             "collection": {
               "elementtype": {
+                "nullable": true,
                 "primitive": "any"
               },
               "kind": "array"
@@ -3400,7 +3424,7 @@
           "immutable": true,
           "name": "thisShouldBeUndefined",
           "type": {
-            "optional": true,
+            "nullable": true,
             "primitive": "any"
           }
         }
@@ -3554,9 +3578,10 @@
             }
           },
           {
+            "modifier": "optional",
             "name": "arg3",
             "type": {
-              "optional": true,
+              "nullable": true,
               "primitive": "date"
             }
           }
@@ -3583,7 +3608,7 @@
           "immutable": true,
           "name": "arg3",
           "type": {
-            "optional": true,
+            "nullable": true,
             "primitive": "date"
           }
         }
@@ -3601,7 +3626,7 @@
           "immutable": true,
           "name": "field",
           "type": {
-            "optional": true,
+            "nullable": true,
             "primitive": "string"
           }
         }
@@ -3614,10 +3639,11 @@
         "initializer": true,
         "parameters": [
           {
+            "modifier": "optional",
             "name": "optionalStruct",
             "type": {
               "fqn": "jsii-calc.OptionalStruct",
-              "optional": true
+              "nullable": true
             }
           }
         ]
@@ -3636,7 +3662,7 @@
           "immutable": true,
           "name": "fieldValue",
           "type": {
-            "optional": true,
+            "nullable": true,
             "primitive": "string"
           }
         }
@@ -3940,7 +3966,7 @@
           "name": "loadFoo",
           "returns": {
             "fqn": "@scope/jsii-calc-lib.EnumFromScopedModule",
-            "optional": true
+            "nullable": true
           }
         },
         {
@@ -3961,7 +3987,7 @@
           "name": "foo",
           "type": {
             "fqn": "@scope/jsii-calc-lib.EnumFromScopedModule",
-            "optional": true
+            "nullable": true
           }
         }
       ]
@@ -4001,23 +4027,26 @@
           "name": "methodWithDefaultedArguments",
           "parameters": [
             {
+              "modifier": "optional",
               "name": "arg1",
               "type": {
-                "optional": true,
+                "nullable": true,
                 "primitive": "number"
               }
             },
             {
+              "modifier": "optional",
               "name": "arg2",
               "type": {
-                "optional": true,
+                "nullable": true,
                 "primitive": "string"
               }
             },
             {
+              "modifier": "optional",
               "name": "arg3",
               "type": {
-                "optional": true,
+                "nullable": true,
                 "primitive": "date"
               }
             }
@@ -4027,9 +4056,10 @@
           "name": "methodWithOptionalAnyArgument",
           "parameters": [
             {
+              "modifier": "optional",
               "name": "arg",
               "type": {
-                "optional": true,
+                "nullable": true,
                 "primitive": "any"
               }
             }
@@ -4054,9 +4084,10 @@
               }
             },
             {
+              "modifier": "optional",
               "name": "arg3",
               "type": {
-                "optional": true,
+                "nullable": true,
                 "primitive": "date"
               }
             }
@@ -4505,7 +4536,7 @@
           "immutable": true,
           "name": "foo",
           "type": {
-            "optional": true,
+            "nullable": true,
             "union": {
               "types": [
                 {
@@ -4531,6 +4562,7 @@
         {
           "name": "value",
           "returns": {
+            "nullable": true,
             "primitive": "any"
           }
         }
@@ -4629,11 +4661,11 @@
             "docs": {
               "summary": "a prefix that will be use for all values returned by `#asArray`."
             },
+            "modifier": "variadic",
             "name": "prefix",
             "type": {
               "primitive": "number"
-            },
-            "variadic": true
+            }
           }
         ],
         "variadic": true
@@ -4656,11 +4688,11 @@
               "docs": {
                 "summary": "other elements to be included in the array."
               },
+              "modifier": "variadic",
               "name": "others",
               "type": {
                 "primitive": "number"
-              },
-              "variadic": true
+              }
             }
           ],
           "returns": {
@@ -4880,5 +4912,5 @@
     }
   },
   "version": "0.8.2",
-  "fingerprint": "WJgwH2kAeJLVBMQx/Ek9JLty5tmfiy5sHAz0T8eMX7o="
+  "fingerprint": "JA5dz0EdryLM2GJbI0UO7Taavwo2Tq7bi9kO1pkPGa0="
 }

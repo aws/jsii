@@ -191,7 +191,7 @@
               },
               "kind": "array"
             },
-            "optional": true
+            "nullable": true
           }
         }
       ]
@@ -307,7 +307,7 @@
           "immutable": true,
           "name": "optional1",
           "type": {
-            "optional": true,
+            "nullable": true,
             "primitive": "string"
           }
         },
@@ -316,7 +316,7 @@
           "immutable": true,
           "name": "optional2",
           "type": {
-            "optional": true,
+            "nullable": true,
             "primitive": "number"
           }
         },
@@ -325,7 +325,7 @@
           "immutable": true,
           "name": "optional3",
           "type": {
-            "optional": true,
+            "nullable": true,
             "primitive": "boolean"
           }
         }
@@ -373,5 +373,5 @@
     }
   },
   "version": "0.8.2",
-  "fingerprint": "SDQQzBvYRO3SXfWWgpKwLDSy3EgMqP/e6rd75kblKA0="
+  "fingerprint": "Y9xi2LtDOP8ebtxdHcYvi9Bo9Gj/JbjNJ5GP22d3dJk="
 }

@@ -79,8 +79,6 @@ assemblies
  │   │   │ └── type: Array<any>
  │   │   ├─┬ anyMapProperty property
  │   │   │ └── type: Map<string => any>
- │   │   ├─┬ anyProperty property
- │   │   │ └── type: any
  │   │   ├─┬ arrayProperty property
  │   │   │ └── type: Array<string>
  │   │   ├─┬ booleanProperty property
@@ -107,10 +105,12 @@ assemblies
  │   │   │ └── type: Array<any>
  │   │   ├─┬ unknownMapProperty property
  │   │   │ └── type: Map<string => any>
- │   │   ├─┬ unknownProperty property
+ │   │   ├─┬ anyProperty property
  │   │   │ └── type: any
- │   │   └─┬ optionalEnumValue property
- │   │     └── type: jsii-calc.StringEnum?
+ │   │   ├─┬ optionalEnumValue property
+ │   │   │ └── type: jsii-calc.StringEnum?
+ │   │   └─┬ unknownProperty property
+ │   │     └── type: any
  │   ├─┬ class AllowedMethodNames
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -378,7 +378,7 @@ assemblies
  │   │     │ ├─┬ _requiredAny
  │   │     │ │ └── type: any
  │   │     │ ├─┬ _optionalAny
- │   │     │ │ └── type: any?
+ │   │     │ │ └── type: any
  │   │     │ └─┬ _optionalString
  │   │     │   └── type: string?
  │   │     └── returns: void
@@ -742,12 +742,12 @@ assemblies
  │   │   │ │ ├─┬ _param1
  │   │   │ │ │ └── type: string
  │   │   │ │ └─┬ optional
- │   │   │ │   └── type: any?
+ │   │   │ │   └── type: any
  │   │   │ └── returns: void
  │   │   ├─┬ giveMeUndefined(value) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ value
- │   │   │ │   └── type: any?
+ │   │   │ │   └── type: any
  │   │   │ └── returns: void
  │   │   ├─┬ giveMeUndefinedInsideAnObject(input) method
  │   │   │ ├─┬ parameters
@@ -988,7 +988,7 @@ assemblies
  │   │   ├─┬ methodWithOptionalAnyArgument(arg) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ arg
- │   │   │ │   └── type: any?
+ │   │   │ │   └── type: any
  │   │   │ └── returns: void
  │   │   └─┬ methodWithOptionalArguments(arg1,arg2,arg3) method
  │   │     ├─┬ parameters
@@ -1267,7 +1267,7 @@ assemblies
  │   │   ├─┬ optionalAny property
  │   │   │ ├── abstract
  │   │   │ ├── immutable
- │   │   │ └── type: any?
+ │   │   │ └── type: any
  │   │   └─┬ optionalArray property
  │   │     ├── abstract
  │   │     ├── immutable
@@ -1500,7 +1500,7 @@ assemblies
  │   │   └─┬ thisShouldBeUndefined property
  │   │     ├── abstract
  │   │     ├── immutable
- │   │     └── type: any?
+ │   │     └── type: any
  │   ├─┬ interface OptionalStruct
  │   │ └─┬ members
  │   │   └─┬ field property

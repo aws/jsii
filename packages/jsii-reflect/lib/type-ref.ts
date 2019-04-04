@@ -11,7 +11,7 @@ export class TypeReference {
     const self = this;
 
     function r(ret: string) {
-      if (self.optional) { ret += '?'; }
+      if (self.nullable && self.primitive !== jsii.PrimitiveType.Any) { ret += '?'; }
       if (self.promise) { ret = `Promise<${ret}>`; }
       return ret;
     }
@@ -90,11 +90,11 @@ export class TypeReference {
   }
 
   /**
-   * Indicates if this value is optional.
+   * Indicates if this value is nullable.
    */
-  public get optional(): boolean {
+  public get nullable(): boolean {
     if (!this.spec) { return false; }
-    return !!this.spec.optional;
+    return !!this.spec.nullable;
   }
 
   /**

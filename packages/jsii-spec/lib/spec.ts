@@ -301,9 +301,9 @@ export type TypeReference = TypeReferenceBase & (NamedTypeReference | PrimitiveT
  */
 export interface TypeReferenceBase {
     /**
-     * Indicates if this value is optional.
+     * Indicates if this value is nullable.
      */
-    optional?: boolean;
+    nullable?: boolean;
 
     /**
      * Indicates if this type refers to a promise.
@@ -451,10 +451,32 @@ export interface Parameter extends Documentable {
     type: TypeReference;
 
     /**
-     * Whather this argument is the "rest" of a variadic signature.
-     * The ``#type`` is that of every individual argument of the variadic list.
+     * Denotes the modifier for this parameter, if any.
+     *
+     * @default no modifier
      */
-    variadic?: boolean;
+    modifier?: ParameterModifier;
+}
+
+/**
+ * Modifiers for a parameter.
+ */
+export enum ParameterModifier {
+    /**
+     * Indicates that the parameter may be omitted. When a parameter has the
+     * `Optional` midufuer, the following must also be true:
+     * - The `#type` of the parameter is `#nullable`.
+     * - All subsequent parameters have the `Optional` or `Variadic` modifier
+     */
+    Optional = 'optional',
+    /**
+     * Indicates that the parameter is variadic (in other words, it is the
+     * "rest" parameter of a variadic function). When a parameter has the
+     * `Variadic` modifier, it must be the last parameter, and the `#type`
+     * specified for the parameter is that of every item in the variadic
+     * argument list.
+     */
+    Variadic = 'variadic'
 }
 
 /**
@@ -665,7 +687,8 @@ export function isClassOrInterfaceType(type: Type | undefined): type is (Interfa
 export function describeTypeReference(a?: TypeReference): string {
     if (a === undefined) { return '(none)'; }
 
-    const optionalMarker = a.optional ? '?' : '';
+    const isAny = isPrimitiveTypeReference(a) && a.primitive === PrimitiveType.Any;
+    const optionalMarker = a.nullable && !isAny ? '?' : '';
 
     if (isNamedTypeReference(a)) {
         return `${a.fqn}${optionalMarker}`;
@@ -680,7 +703,7 @@ export function describeTypeReference(a?: TypeReference): string {
     }
     if (isUnionTypeReference(a)) {
         const unionType = a.union.types.map(describeTypeReference).join(' | ');
-        if (a.optional) {
+        if (a.nullable) {
             return `(${unionType})${optionalMarker}`;
         } else {
             return unionType;
@@ -688,4 +711,24 @@ export function describeTypeReference(a?: TypeReference): string {
     }
 
     throw new Error('Unrecognized type reference');
+}
+
+/**
+ * Determines whether a parameter is variadic or not.
+ *
+ * @param param the parameter being checked.
+ */
+export function isVariadic(param: Parameter): boolean {
+    return param.modifier === ParameterModifier.Variadic;
+}
+
+/**
+ * Determines whether a parameter is optional or not.
+ *
+ * @param param the parameter being checked.
+ *
+ * @note Variadic parameters are not considered optional by this check.
+ */
+export function isOptional(param: Parameter): boolean {
+    return param.modifier === ParameterModifier.Optional;
 }

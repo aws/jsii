@@ -109,15 +109,12 @@ function compareMethod(origClass: reflect.Type, original: reflect.Method, update
     }
   });
 
-  // Check that no new required fields got added
-  // Until we implement https://github.com/awslabs/jsii/issues/296 and make the
-  // distinction, for now a required field means a field with a non-nullable
-  // type.
+  // Check that no new required parameters got added.
   updated.parameters.forEach((param, i) => {
-    if (param.type.optional) { return; }
+    if (param.optional) { return; }
 
     const origParam = findParam(original.parameters, i);
-    if (!origParam || origParam.type.optional) {
+    if (!origParam || origParam.optional) {
       context.mismatches.report(origClass, `method ${original.name} argument ${param.name}, newly required argument.`);
     }
   });

@@ -483,7 +483,7 @@ export function serializationType(typeRef: CompleteTypeReference, lookup: TypeLo
     // Propagate the top-level 'optional' field to each individual subtype
     for (const t of compoundTypes) {
       if (t.typeRef !== 'void') {
-        t.typeRef.optional = typeRef.optional;
+        t.typeRef.nullable = typeRef.nullable;
       }
     }
     return compoundTypes;
@@ -506,7 +506,7 @@ export function serializationType(typeRef: CompleteTypeReference, lookup: TypeLo
 function nullAndOk(x: unknown, type: CompleteTypeReference): boolean {
   if (x != null) { return false; }
 
-  if (type !== 'void' && !type.optional) {
+  if (type !== 'void' && !type.nullable) {
     throw new Error(`Got 'undefined' for non-nullable type ${JSON.stringify(type)}`);
   }
 

@@ -12,7 +12,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>The name of the greetee.</summary>
         /// <remarks>default: world</remarks>
-        [JsiiProperty("name", "{\"primitive\":\"string\",\"optional\":true}")]
+        [JsiiProperty("name", "{\"primitive\":\"string\",\"nullable\":true}")]
         public string Name
         {
             get => GetInstanceProperty<string>();

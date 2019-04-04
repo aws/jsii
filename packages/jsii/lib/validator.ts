@@ -248,10 +248,10 @@ function _defaultValidations(): ValidationFunction[] {
                                `${label} changes type of argument ${actParam.name} when ${action} (expected ${expType}, found ${actType}`);
                 }
                 // Not-ing those to force the values to a strictly boolean context (they're optional, undefined means false)
-                if (!expParam.variadic !== !actParam.variadic) {
+                if (expParam.modifier !== actParam.modifier) {
                     diagnostic(ts.DiagnosticCategory.Error,
                                // tslint:disable-next-line:max-line-length
-                               `${label} changes the variadicity of argument ${actParam.name} when ${action} (expected ${expParam.variadic}, found ${actParam.variadic})`);
+                               `${label} changes the modifier of parameter ${actParam.name} when ${action} (expected ${expParam.modifier}, found ${actParam.modifier})`);
                 }
             }
         }

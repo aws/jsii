@@ -7,19 +7,19 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     public interface IStructWithOnlyOptionals
     {
         /// <summary>The first optional!</summary>
-        [JsiiProperty("optional1", "{\"primitive\":\"string\",\"optional\":true}")]
+        [JsiiProperty("optional1", "{\"primitive\":\"string\",\"nullable\":true}")]
         string Optional1
         {
             get;
         }
 
-        [JsiiProperty("optional2", "{\"primitive\":\"number\",\"optional\":true}")]
+        [JsiiProperty("optional2", "{\"primitive\":\"number\",\"nullable\":true}")]
         double? Optional2
         {
             get;
         }
 
-        [JsiiProperty("optional3", "{\"primitive\":\"boolean\",\"optional\":true}")]
+        [JsiiProperty("optional3", "{\"primitive\":\"boolean\",\"nullable\":true}")]
         bool? Optional3
         {
             get;

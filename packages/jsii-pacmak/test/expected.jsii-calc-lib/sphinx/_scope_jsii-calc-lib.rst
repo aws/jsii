@@ -299,7 +299,7 @@ MyFirstStruct (interface)
 
    .. py:attribute:: firstOptional
 
-      :type: string[] *(optional)* *(readonly)*
+      :type: string[] *(nullable)* *(readonly)*
 
 
 Number
@@ -483,17 +483,17 @@ StructWithOnlyOptionals (interface)
 
 
 
-      :type: string *(optional)* *(readonly)*
+      :type: string *(nullable)* *(readonly)*
 
 
    .. py:attribute:: optional2
 
-      :type: number *(optional)* *(readonly)*
+      :type: number *(nullable)* *(readonly)*
 
 
    .. py:attribute:: optional3
 
-      :type: boolean *(optional)* *(readonly)*
+      :type: boolean *(nullable)* *(readonly)*
 
 
 Value

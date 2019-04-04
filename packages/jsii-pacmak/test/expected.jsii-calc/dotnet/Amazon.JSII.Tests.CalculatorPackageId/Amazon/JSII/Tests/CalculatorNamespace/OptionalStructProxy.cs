@@ -9,7 +9,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("field", "{\"primitive\":\"string\",\"optional\":true}")]
+        [JsiiProperty("field", "{\"primitive\":\"string\",\"nullable\":true}")]
         public string Field
         {
             get => GetInstanceProperty<string>();

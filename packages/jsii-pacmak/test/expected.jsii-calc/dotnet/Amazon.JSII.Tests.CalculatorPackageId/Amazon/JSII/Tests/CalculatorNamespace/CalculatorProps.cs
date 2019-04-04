@@ -6,14 +6,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue]
     public class CalculatorProps : ICalculatorProps
     {
-        [JsiiProperty("initialValue", "{\"primitive\":\"number\",\"optional\":true}", true)]
+        [JsiiProperty("initialValue", "{\"primitive\":\"number\",\"nullable\":true}", true)]
         public double? InitialValue
         {
             get;
             set;
         }
 
-        [JsiiProperty("maximumValue", "{\"primitive\":\"number\",\"optional\":true}", true)]
+        [JsiiProperty("maximumValue", "{\"primitive\":\"number\",\"nullable\":true}", true)]
         public double? MaximumValue
         {
             get;

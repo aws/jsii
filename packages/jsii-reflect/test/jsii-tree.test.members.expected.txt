@@ -31,7 +31,6 @@ assemblies
  │   │   ├── enumPropertyValue property
  │   │   ├── anyArrayProperty property
  │   │   ├── anyMapProperty property
- │   │   ├── anyProperty property
  │   │   ├── arrayProperty property
  │   │   ├── booleanProperty property
  │   │   ├── dateProperty property
@@ -45,8 +44,9 @@ assemblies
  │   │   ├── unionProperty property
  │   │   ├── unknownArrayProperty property
  │   │   ├── unknownMapProperty property
- │   │   ├── unknownProperty property
- │   │   └── optionalEnumValue property
+ │   │   ├── anyProperty property
+ │   │   ├── optionalEnumValue property
+ │   │   └── unknownProperty property
  │   ├─┬ class AllowedMethodNames
  │   │ └─┬ members
  │   │   ├── <initializer>() method

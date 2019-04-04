@@ -11,7 +11,7 @@ namespace Amazon.JSII.JsonModel.Spec
             PrimitiveType? primitive = null,
             CollectionTypeReference collection = null,
             UnionTypeReference union = null,
-            bool? isOptional = null,
+            bool? isNullable = null,
             bool? isPromise = null
         )
         {
@@ -19,7 +19,7 @@ namespace Amazon.JSII.JsonModel.Spec
             Primitive = primitive;
             Collection = collection;
             Union = union;
-            IsOptional = isOptional;
+            IsNullable = isNullable;
             IsPromise = isPromise;
         }
 
@@ -35,8 +35,8 @@ namespace Amazon.JSII.JsonModel.Spec
         [JsonProperty("union", NullValueHandling = NullValueHandling.Ignore)]
         public UnionTypeReference Union { get; }
 
-        [JsonProperty("optional", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? IsOptional { get; }
+        [JsonProperty("nullable", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? IsNullable { get; }
 
         [JsonProperty("promise", NullValueHandling = NullValueHandling.Ignore)]
         public bool? IsPromise { get; }

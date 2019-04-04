@@ -33,19 +33,19 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>This is optional.</summary>
-        [JsiiProperty("anotherOptional", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},\"optional\":true}")]
+        [JsiiProperty("anotherOptional", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},\"nullable\":true}")]
         public IDictionary<string, Value_> AnotherOptional
         {
             get => GetInstanceProperty<IDictionary<string, Value_>>();
         }
 
-        [JsiiProperty("optionalAny", "{\"primitive\":\"any\",\"optional\":true}")]
+        [JsiiProperty("optionalAny", "{\"primitive\":\"any\",\"nullable\":true}")]
         public object OptionalAny
         {
             get => GetInstanceProperty<object>();
         }
 
-        [JsiiProperty("optionalArray", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"optional\":true}")]
+        [JsiiProperty("optionalArray", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"nullable\":true}")]
         public string[] OptionalArray
         {
             get => GetInstanceProperty<string[]>();
@@ -65,7 +65,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<string>();
         }
 
-        [JsiiProperty("firstOptional", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"optional\":true}")]
+        [JsiiProperty("firstOptional", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"nullable\":true}")]
         public string[] FirstOptional
         {
             get => GetInstanceProperty<string[]>();

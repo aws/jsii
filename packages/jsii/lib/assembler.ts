@@ -544,11 +544,11 @@ export class Assembler implements Emitter {
             jsiiType.initializer.parameters = jsiiType.initializer.parameters || [];
             jsiiType.initializer.parameters.push(await this._toParameter(param));
             jsiiType.initializer.variadic = jsiiType.initializer.parameters
-              && jsiiType.initializer.parameters.find(p => !!p.variadic) != null;
+              && jsiiType.initializer.parameters.find(spec.isVariadic) != null;
           }
         }
         jsiiType.initializer.docs = this._visitDocumentation(constructor);
-        this._verifyConsecutiveOptionals(type.symbol.valueDeclaration, jsiiType.initializer.parameters);
+        _removeInvalidOptionalModifiers(jsiiType.initializer.parameters);
       }
 
       // Process constructor-based property declarations even if constructor is private
@@ -817,9 +817,9 @@ export class Assembler implements Emitter {
       returns: _isVoid(returnType) ? undefined : await this._typeReference(returnType, declaration),
       static: _isStatic(symbol),
     };
-    method.variadic = method.parameters && method.parameters.find(p => !!p.variadic) != null;
+    method.variadic = method.parameters && method.parameters.find(spec.isVariadic) != null;
 
-    this._verifyConsecutiveOptionals(declaration, method.parameters);
+    _removeInvalidOptionalModifiers(method.parameters);
 
     method.docs = this._visitDocumentation(symbol);
 
@@ -889,7 +889,7 @@ export class Assembler implements Emitter {
     }
 
     if (signature.questionToken) {
-      property.type.optional = true;
+      property.type.nullable = true;
     }
 
     if (property.static && property.immutable && ts.isPropertyDeclaration(signature) && signature.initializer) {
@@ -911,16 +911,25 @@ export class Assembler implements Emitter {
       LOG.trace(`Processing parameter: ${colors.cyan(paramSymbol.name)}`);
     }
     const paramDeclaration = paramSymbol.valueDeclaration as ts.ParameterDeclaration;
+
+    const modifier = paramDeclaration.dotDotDotToken
+      ? spec.ParameterModifier.Variadic
+      : paramDeclaration.initializer || paramDeclaration.questionToken
+        ? spec.ParameterModifier.Optional
+        : undefined;
+
     const parameter: spec.Parameter = {
       name: paramSymbol.name,
       type: await this._typeReference(this._typeChecker.getTypeAtLocation(paramSymbol.valueDeclaration), paramSymbol.valueDeclaration),
-      variadic: !!paramDeclaration.dotDotDotToken
+      modifier
     };
-    if (parameter.variadic) {
+
+    if (spec.isVariadic(parameter)) {
+      // TypeScript types variadic parameters as an array, but JSII uses the item-type instead.
       parameter.type = (parameter.type as spec.CollectionTypeReference).collection.elementtype;
-    }
-    if (paramDeclaration.initializer || paramDeclaration.questionToken) {
-      parameter.type.optional = true;
+    } else if (spec.isOptional(parameter)) {
+      // Optional parameters have an inherently null-able type.
+      parameter.type.nullable = true;
     }
 
     parameter.docs = this._visitDocumentation(paramSymbol); // No inheritance on purpose
@@ -944,7 +953,7 @@ export class Assembler implements Emitter {
 
     if (!type.symbol) {
       this._diagnostic(declaration, ts.DiagnosticCategory.Error, `Non-primitive types must have a symbol`);
-      return { primitive: spec.PrimitiveType.Any, optional: true };
+      return { primitive: spec.PrimitiveType.Any, nullable: true };
     }
 
     if (type.symbol.name === 'Array') {
@@ -961,7 +970,7 @@ export class Assembler implements Emitter {
         this._diagnostic(declaration,
           ts.DiagnosticCategory.Error,
           `Un-specified promise type (need to specify as Promise<T>)`);
-        return { primitive: spec.PrimitiveType.Any, optional: true, promise: true };
+        return { primitive: spec.PrimitiveType.Any, nullable: true, promise: true };
       } else {
         return {
           ...await this._typeReference(typeRef.typeArguments[0], declaration),
@@ -983,7 +992,7 @@ export class Assembler implements Emitter {
         this._diagnostic(declaration,
           ts.DiagnosticCategory.Error,
           `Array references must have exactly one type argument (found ${count})`);
-        elementtype = { primitive: spec.PrimitiveType.Any, optional: true };
+        elementtype = { primitive: spec.PrimitiveType.Any, nullable: true };
       }
 
       return {
@@ -1003,7 +1012,7 @@ export class Assembler implements Emitter {
         this._diagnostic(declaration,
           ts.DiagnosticCategory.Error,
           `Only string index maps are supported`);
-        elementtype = { primitive: spec.PrimitiveType.Any };
+        elementtype = { primitive: spec.PrimitiveType.Any, nullable: true };
       }
       return {
         collection: {
@@ -1021,7 +1030,7 @@ export class Assembler implements Emitter {
         }
         // tslint:disable-next-line:no-bitwise
         if (type.flags & (ts.TypeFlags.Any | ts.TypeFlags.Unknown)) {
-          return { primitive: spec.PrimitiveType.Any };
+          return { primitive: spec.PrimitiveType.Any, nullable: true };
         }
       } else if (type.symbol.valueDeclaration && isUnder(type.symbol.valueDeclaration.getSourceFile().fileName, this.stdlib)) {
         switch (type.symbol.name) {
@@ -1046,12 +1055,12 @@ export class Assembler implements Emitter {
 
     async function _unionType(this: Assembler): Promise<spec.TypeReference> {
       const types = new Array<spec.TypeReference>();
-      let optional: boolean = false;
+      let nullable: boolean = false;
 
       for (const subType of (type as ts.UnionType).types) {
         // tslint:disable-next-line:no-bitwise
         if (subType.flags & ts.TypeFlags.Undefined) {
-          optional = true;
+          nullable = true;
           continue;
         }
         const resolvedType = await this._typeReference(subType, declaration);
@@ -1062,8 +1071,8 @@ export class Assembler implements Emitter {
       }
 
       return types.length === 1
-        ? { ...types[0], optional }
-        : { union: { types }, optional };
+        ? { ...types[0], nullable }
+        : { union: { types }, nullable };
     }
   }
 
@@ -1126,28 +1135,6 @@ export class Assembler implements Emitter {
       }
     }
   }
-
-  /**
-   * Verifies that if a method has an optional parameter, all consecutive
-   * parameters are optionals as well.
-   */
-  private _verifyConsecutiveOptionals(node: ts.Node, parameters?: spec.Parameter[]) {
-    if (!parameters) {
-      return;
-    }
-
-    let optional = false;
-    for (const p of parameters) {
-      if (optional && !p.type.optional && !p.variadic) {
-        this._diagnostic(node, ts.DiagnosticCategory.Error,
-          `Parameter ${p.name} must be optional since it comes after an optional parameter`);
-      }
-
-      if (p.type.optional) {
-        optional = true;
-      }
-    }
-  }
 }
 
 /**
@@ -1173,6 +1160,28 @@ function _fingerprint(assembly: spec.Assembly): spec.Assembly {
     .update(JSON.stringify(assembly, utils.filterEmpty))
     .digest('base64');
   return { ...assembly, fingerprint };
+}
+
+/**
+ * Removes the `Optional` modifier from parameters that have it, but are not followed only with
+ * other `Optional` or `Variadic` parameters. This is done after parsing out all parameters as it
+ * is otherwise difficult to assert whether a parameter with a default value is `Optional` or it it
+ * merely has a `nullable` `#type`.
+ */
+function _removeInvalidOptionalModifiers(parameters?: spec.Parameter[]) {
+  if (!parameters) {
+    return;
+  }
+
+  for (const param of parameters.filter(_cannotBeOptional)) {
+    delete param.modifier;
+  }
+
+  function _cannotBeOptional(param: spec.Parameter, index: number, array: spec.Parameter[]): boolean {
+    return spec.isOptional(param)
+      // Checks whether there is one non-optional/variadic parameter after this one in the array
+      && array.find((p, i) => i > index && !spec.isOptional(p) && !spec.isVariadic(p)) != null;
+  }
 }
 
 function _isAbstract(symbol: ts.Symbol, declaringType: spec.ClassType | spec.InterfaceType): boolean {
@@ -1277,7 +1286,7 @@ function _sortMembers(type: spec.ClassType | spec.InterfaceType): spec.ClassType
         return [
           val.static ? '0' : '1',
           val.immutable ? '0' : '1',
-          !(val.type && val.type.optional) ? '0' : '1',
+          !(val.type && val.type.nullable) ? '0' : '1',
           val.name
         ].join('|');
       }
@@ -1287,7 +1296,7 @@ function _sortMembers(type: spec.ClassType | spec.InterfaceType): spec.ClassType
     name?: string;                      // Methods & Properties
     static?: boolean;                   // Methods & Properties
     immutable?: boolean;                //           Properties
-    type?: { optional?: boolean; };     //           Properties
+    type?: { nullable?: boolean; };     //           Properties
   };
 }
 

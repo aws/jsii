@@ -431,11 +431,6 @@ AllTypes
       :type: string => any
 
 
-   .. py:attribute:: anyProperty
-
-      :type: any
-
-
    .. py:attribute:: arrayProperty
 
       :type: string[]
@@ -501,14 +496,19 @@ AllTypes
       :type: string => any
 
 
-   .. py:attribute:: unknownProperty
+   .. py:attribute:: anyProperty
 
       :type: any
 
 
    .. py:attribute:: optionalEnumValue
 
-      :type: :py:class:`~jsii-calc.StringEnum`\  *(optional)*
+      :type: :py:class:`~jsii-calc.StringEnum`\  *(nullable)*
+
+
+   .. py:attribute:: unknownProperty
+
+      :type: any
 
 
 AllTypesEnum (enum)
@@ -858,7 +858,7 @@ Calculator
 
    :extends: :py:class:`~jsii-calc.composition.CompositeOperation`\ 
    :param props: Initialization properties.
-   :type props: :py:class:`~jsii-calc.CalculatorProps`\  *(optional)*
+   :type props: :py:class:`~jsii-calc.CalculatorProps`\  *(nullable)*
 
    .. py:method:: add(value)
 
@@ -951,7 +951,7 @@ Calculator
 
 
 
-      :type: number *(optional)*
+      :type: number *(nullable)*
 
 
    .. py:attribute:: unionProperty
@@ -960,7 +960,7 @@ Calculator
 
 
 
-      :type: :py:class:`~jsii-calc.Add`\  or :py:class:`~jsii-calc.Multiply`\  or :py:class:`~jsii-calc.Power`\  *(optional)*
+      :type: :py:class:`~jsii-calc.Add`\  or :py:class:`~jsii-calc.Multiply`\  or :py:class:`~jsii-calc.Power`\  *(nullable)*
 
 
    .. py:method:: typeName() -> any
@@ -1061,12 +1061,12 @@ CalculatorProps (interface)
 
    .. py:attribute:: initialValue
 
-      :type: number *(optional)* *(readonly)*
+      :type: number *(nullable)* *(readonly)*
 
 
    .. py:attribute:: maximumValue
 
-      :type: number *(optional)* *(readonly)*
+      :type: number *(nullable)* *(readonly)*
 
 
 ClassThatImplementsTheInternalInterface
@@ -1431,11 +1431,11 @@ DefaultedConstructorArgument
 
 
    :param arg1: 
-   :type arg1: number *(optional)*
+   :type arg1: number *(nullable)*
    :param arg2: 
-   :type arg2: string *(optional)*
+   :type arg2: string *(nullable)*
    :param arg3: 
-   :type arg3: date *(optional)*
+   :type arg3: date *(nullable)*
 
    .. py:attribute:: arg1
 
@@ -1449,7 +1449,7 @@ DefaultedConstructorArgument
 
    .. py:attribute:: arg2
 
-      :type: string *(optional)* *(readonly)*
+      :type: string *(nullable)* *(readonly)*
 
 
 
@@ -1588,17 +1588,17 @@ DerivedStruct (interface)
 
 
 
-      :type: string => :py:class:`@scope/jsii-calc-lib.Value`\  *(optional)* *(readonly)*
+      :type: string => :py:class:`@scope/jsii-calc-lib.Value`\  *(nullable)* *(readonly)*
 
 
    .. py:attribute:: optionalAny
 
-      :type: any *(optional)* *(readonly)*
+      :type: any *(readonly)*
 
 
    .. py:attribute:: optionalArray
 
-      :type: string[] *(optional)* *(readonly)*
+      :type: string[] *(nullable)* *(readonly)*
 
 
    .. py:attribute:: anumber
@@ -1627,7 +1627,7 @@ DerivedStruct (interface)
 
       *Inherited from* :py:attr:`@scope/jsii-calc-lib.MyFirstStruct <@scope/jsii-calc-lib.MyFirstStruct.firstOptional>`
 
-      :type: string[] *(optional)* *(readonly)*
+      :type: string[] *(nullable)* *(readonly)*
 
 
 DoNotOverridePrivates
@@ -1711,9 +1711,9 @@ DoNotRecognizeAnyAsOptional
       :param _requiredAny: 
       :type _requiredAny: any
       :param _optionalAny: 
-      :type _optionalAny: any *(optional)*
+      :type _optionalAny: any
       :param _optionalString: 
-      :type _optionalString: string *(optional)*
+      :type _optionalString: string *(nullable)*
 
 
 DocumentedClass
@@ -1771,7 +1771,7 @@ DocumentedClass
 
 
       :param greetee: The person to be greeted.
-      :type greetee: :py:class:`~jsii-calc.Greetee`\  *(optional)*
+      :type greetee: :py:class:`~jsii-calc.Greetee`\  *(nullable)*
       :return: A number that everyone knows very well
       :rtype: number
 
@@ -1812,10 +1812,10 @@ DontComplainAboutVariadicAfterOptional
 
 
 
-   .. py:method:: optionalAndVariadic(optional, *things) -> string
+   .. py:method:: optionalAndVariadic([optional, *things]) -> string
 
       :param optional: 
-      :type optional: string *(optional)*
+      :type optional: string *(nullable)*
       :param \*things: 
       :type \*things: string
       :rtype: string
@@ -1968,12 +1968,12 @@ EraseUndefinedHashValuesOptions (interface)
 
    .. py:attribute:: option1
 
-      :type: string *(optional)* *(readonly)*
+      :type: string *(nullable)* *(readonly)*
 
 
    .. py:attribute:: option2
 
-      :type: string *(optional)* *(readonly)*
+      :type: string *(nullable)* *(readonly)*
 
 
 ExportedBaseClass
@@ -2155,7 +2155,7 @@ Greetee (interface)
 
 
 
-      :type: string *(optional)* *(readonly)*
+      :type: string *(nullable)* *(readonly)*
       :default: world
 
 
@@ -2592,7 +2592,7 @@ IInterfaceWithOptionalMethodArguments (interface)
       :param arg1: 
       :type arg1: string
       :param arg2: 
-      :type arg2: number *(optional)*
+      :type arg2: number *(nullable)*
       :abstract: Yes
 
 
@@ -3314,7 +3314,7 @@ Foo
 
    .. py:attribute:: bar
 
-      :type: string *(optional)*
+      :type: string *(nullable)*
 
 
 Hello (interface)
@@ -3885,7 +3885,7 @@ JsiiAgent
 
 
 
-      :type: string *(optional)* *(readonly)* *(static)*
+      :type: string *(nullable)* *(readonly)* *(static)*
 
 
 LoadBalancedFargateServiceProps (interface)
@@ -3931,7 +3931,7 @@ LoadBalancedFargateServiceProps (interface)
 
 
 
-      :type: number *(optional)* *(readonly)*
+      :type: number *(nullable)* *(readonly)*
       :default: 80
 
 
@@ -3945,7 +3945,7 @@ LoadBalancedFargateServiceProps (interface)
 
 
 
-      :type: string *(optional)* *(readonly)*
+      :type: string *(nullable)* *(readonly)*
       :default: 256
 
 
@@ -3985,7 +3985,7 @@ LoadBalancedFargateServiceProps (interface)
 
 
 
-      :type: string *(optional)* *(readonly)*
+      :type: string *(nullable)* *(readonly)*
       :default: 512
 
 
@@ -3995,7 +3995,7 @@ LoadBalancedFargateServiceProps (interface)
 
 
 
-      :type: boolean *(optional)* *(readonly)*
+      :type: boolean *(nullable)* *(readonly)*
       :default: true
 
 
@@ -4005,7 +4005,7 @@ LoadBalancedFargateServiceProps (interface)
 
 
 
-      :type: boolean *(optional)* *(readonly)*
+      :type: boolean *(nullable)* *(readonly)*
       :default: false
 
 
@@ -4355,12 +4355,12 @@ NullShouldBeTreatedAsUndefined
    :param _param1: 
    :type _param1: string
    :param optional: 
-   :type optional: any *(optional)*
+   :type optional: any
 
    .. py:method:: giveMeUndefined([value])
 
       :param value: 
-      :type value: any *(optional)*
+      :type value: any
 
 
    .. py:method:: giveMeUndefinedInsideAnObject(input)
@@ -4375,7 +4375,7 @@ NullShouldBeTreatedAsUndefined
 
    .. py:attribute:: changeMeToUndefined
 
-      :type: string *(optional)*
+      :type: string *(nullable)*
 
 
 NullShouldBeTreatedAsUndefinedData (interface)
@@ -4414,7 +4414,7 @@ NullShouldBeTreatedAsUndefinedData (interface)
 
    .. py:attribute:: thisShouldBeUndefined
 
-      :type: any *(optional)* *(readonly)*
+      :type: any *(readonly)*
 
 
 NumberGenerator
@@ -4594,7 +4594,7 @@ OptionalConstructorArgument
    :param arg2: 
    :type arg2: string
    :param arg3: 
-   :type arg3: date *(optional)*
+   :type arg3: date *(nullable)*
 
    .. py:attribute:: arg1
 
@@ -4608,7 +4608,7 @@ OptionalConstructorArgument
 
    .. py:attribute:: arg3
 
-      :type: date *(optional)* *(readonly)*
+      :type: date *(nullable)* *(readonly)*
 
 
 OptionalStruct (interface)
@@ -4642,7 +4642,7 @@ OptionalStruct (interface)
 
    .. py:attribute:: field
 
-      :type: string *(optional)* *(readonly)*
+      :type: string *(nullable)* *(readonly)*
 
 
 OptionalStructConsumer
@@ -4673,7 +4673,7 @@ OptionalStructConsumer
 
 
    :param optionalStruct: 
-   :type optionalStruct: :py:class:`~jsii-calc.OptionalStruct`\  *(optional)*
+   :type optionalStruct: :py:class:`~jsii-calc.OptionalStruct`\  *(nullable)*
 
    .. py:attribute:: parameterWasUndefined
 
@@ -4682,7 +4682,7 @@ OptionalStructConsumer
 
    .. py:attribute:: fieldValue
 
-      :type: string *(optional)* *(readonly)*
+      :type: string *(nullable)* *(readonly)*
 
 
 OverrideReturnsObject
@@ -5147,7 +5147,7 @@ ReferenceEnumFromScopedPackage
 
    .. py:method:: loadFoo() -> @scope/jsii-calc-lib.EnumFromScopedModule
 
-      :rtype: :py:class:`@scope/jsii-calc-lib.EnumFromScopedModule`\  *(optional)*
+      :rtype: :py:class:`@scope/jsii-calc-lib.EnumFromScopedModule`\  *(nullable)*
 
 
    .. py:method:: saveFoo(value)
@@ -5158,7 +5158,7 @@ ReferenceEnumFromScopedPackage
 
    .. py:attribute:: foo
 
-      :type: :py:class:`@scope/jsii-calc-lib.EnumFromScopedModule`\  *(optional)*
+      :type: :py:class:`@scope/jsii-calc-lib.EnumFromScopedModule`\  *(nullable)*
 
 
 ReturnsPrivateImplementationOfInterface
@@ -5230,17 +5230,17 @@ RuntimeTypeChecking
    .. py:method:: methodWithDefaultedArguments([arg1, [arg2, [arg3]]])
 
       :param arg1: 
-      :type arg1: number *(optional)*
+      :type arg1: number *(nullable)*
       :param arg2: 
-      :type arg2: string *(optional)*
+      :type arg2: string *(nullable)*
       :param arg3: 
-      :type arg3: date *(optional)*
+      :type arg3: date *(nullable)*
 
 
    .. py:method:: methodWithOptionalAnyArgument([arg])
 
       :param arg: 
-      :type arg: any *(optional)*
+      :type arg: any
 
 
    .. py:method:: methodWithOptionalArguments(arg1, arg2, [arg3])
@@ -5254,7 +5254,7 @@ RuntimeTypeChecking
       :param arg2: 
       :type arg2: string
       :param arg3: 
-      :type arg3: date *(optional)*
+      :type arg3: date *(nullable)*
 
 
 SingleInstanceTwoTypes
@@ -5840,7 +5840,7 @@ UnionProperties (interface)
 
    .. py:attribute:: foo
 
-      :type: string or number *(optional)* *(readonly)*
+      :type: string or number *(nullable)* *(readonly)*
 
 
 UseBundledDependency

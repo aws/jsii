@@ -82,6 +82,7 @@
           },
           "name": "typeName",
           "returns": {
+            "nullable": true,
             "primitive": "any"
           }
         }
@@ -112,5 +113,5 @@
     }
   },
   "version": "0.8.2",
-  "fingerprint": "lIcHicx5rBBxyy5vOvOqvbBGjk//8lFLX6oVx2xh5Fc="
+  "fingerprint": "f/Vo5ezvqYp8jwokKJftL6t8IIXU2GGM17L/jKRF2oQ="
 }

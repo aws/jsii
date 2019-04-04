@@ -206,7 +206,7 @@ export = {
 
   async 'cannot make an input struct property required'(test: Test) {
     await expectError(test,
-      /newly required property 'henk' used to be optional in testpkg.Henk/,
+      /newly required property 'henk' used to be nullable in testpkg.Henk/,
       `
       export interface Henk {
         readonly henk?: string;
@@ -230,7 +230,7 @@ export = {
 
   async 'cannot make an output struct property optional'(test: Test) {
     await expectError(test,
-      /formerly required property 'henk' is optional in testpkg.Henk/,
+      /formerly required property 'henk' is nullable in testpkg.Henk/,
       `
       export interface Henk {
         readonly henk: string;

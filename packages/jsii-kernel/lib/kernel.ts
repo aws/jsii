@@ -601,7 +601,7 @@ export class Kernel {
             methodInfo = {
                 name: override.method,
                 returns: ANY_TYPE,
-                parameters: [{ name: 'args', variadic: true, type: ANY_TYPE}],
+                parameters: [{ name: 'args', modifier: spec.ParameterModifier.Variadic, type: ANY_TYPE}],
                 variadic: true
             };
         }
@@ -717,15 +717,15 @@ export class Kernel {
             const param = params[i];
             const arg = args[i];
 
-            if (param.variadic) {
+            if (spec.isVariadic(param)) {
                 if (params.length <= i) { return; } // No vararg was provided
                 for (let j = i ; j < params.length ; j++) {
-                    if (params[j] === undefined) {
+                    if (!param.type.nullable && params[j] === undefined) {
                         // tslint:disable-next-line:max-line-length
                         throw new Error(`Unexpected 'undefined' value at index ${j - i} of variadic argument '${param.name}' of type '${this._formatTypeRef(param.type)}'`);
                     }
                 }
-            } else if (!param.type.optional && arg === undefined) {
+            } else if (!param.type.nullable && arg === undefined) {
                 // tslint:disable-next-line:max-line-length
                 throw new Error(`Not enough arguments. Missing argument for the required parameter '${param.name}' of type '${this._formatTypeRef(param.type)}'`);
             }
@@ -921,8 +921,9 @@ export class Kernel {
     private _boxUnboxParameters(xs: any[], parameters: spec.Parameter[] | undefined, boxUnbox: (x: any, t: CompleteTypeReference) => any) {
         parameters = parameters || [];
         const types = parameters.map(p => p.type);
+        const variadic = parameters.length > 0 && spec.isVariadic(parameters[parameters.length - 1]);
         // Repeat the last (variadic) type to match the number of actual arguments
-        while (types.length < xs.length && parameters.length > 0 && parameters[parameters.length - 1].variadic) {
+        while (variadic && types.length < xs.length) {
             types.push(types[types.length - 1]);
         }
         if (xs.length > types.length) {

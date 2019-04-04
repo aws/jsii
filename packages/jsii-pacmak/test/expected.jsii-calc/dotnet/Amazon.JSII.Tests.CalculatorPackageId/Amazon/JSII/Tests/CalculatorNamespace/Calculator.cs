@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>A calculator which maintains a current value and allows adding operations.</summary>
-    [JsiiClass(typeof(Calculator), "jsii-calc.Calculator", "[{\"name\":\"props\",\"type\":{\"fqn\":\"jsii-calc.CalculatorProps\",\"optional\":true}}]")]
+    [JsiiClass(typeof(Calculator), "jsii-calc.Calculator", "[{\"name\":\"props\",\"type\":{\"fqn\":\"jsii-calc.CalculatorProps\",\"nullable\":true}}]")]
     public class Calculator : CompositeOperation_
     {
         public Calculator(ICalculatorProps props): base(new DeputyProps(new object[]{props}))
@@ -51,7 +51,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>The maximum value allows in this calculator.</summary>
-        [JsiiProperty("maxValue", "{\"primitive\":\"number\",\"optional\":true}")]
+        [JsiiProperty("maxValue", "{\"primitive\":\"number\",\"nullable\":true}")]
         public virtual double? MaxValue
         {
             get => GetInstanceProperty<double? >();
@@ -59,7 +59,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Example of a property that accepts a union of types.</summary>
-        [JsiiProperty("unionProperty", "{\"union\":{\"types\":[{\"fqn\":\"jsii-calc.Add\"},{\"fqn\":\"jsii-calc.Multiply\"},{\"fqn\":\"jsii-calc.Power\"}]},\"optional\":true}")]
+        [JsiiProperty("unionProperty", "{\"union\":{\"types\":[{\"fqn\":\"jsii-calc.Add\"},{\"fqn\":\"jsii-calc.Multiply\"},{\"fqn\":\"jsii-calc.Power\"}]},\"nullable\":true}")]
         public virtual object UnionProperty
         {
             get => GetInstanceProperty<object>();

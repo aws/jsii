@@ -51,7 +51,7 @@ namespace Amazon.JSII.Runtime.Services
 
         public Type GetFrameworkType(TypeReference reference)
         {
-            bool isOptional = reference.IsOptional == true;
+            bool isNullable = reference.IsNullable == true;
 
             if (reference.FullyQualifiedName != null)
             {
@@ -115,7 +115,7 @@ namespace Amazon.JSII.Runtime.Services
 
             Type MakeNullableIfOptional(Type type)
             {
-                return isOptional ? typeof(Nullable<>).MakeGenericType(type) : type;
+                return isNullable ? typeof(Nullable<>).MakeGenericType(type) : type;
             }
         }
 

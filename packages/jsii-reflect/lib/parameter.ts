@@ -27,11 +27,18 @@ export class Parameter implements Documentable {
   }
 
   /**
-   * Whather this argument is the "rest" of a variadic signature.
+   * Whether this argument is the "rest" of a variadic signature.
    * The ``#type`` is that of every individual argument of the variadic list.
    */
   public get variadic(): boolean {
-    return !!this.spec.variadic;
+    return jsii.isVariadic(this.spec);
+  }
+
+  /**
+   * Whether this argument is optional.
+   */
+  public get optional(): boolean {
+    return jsii.isOptional(this.spec);
   }
 
   public get docs(): Docs {

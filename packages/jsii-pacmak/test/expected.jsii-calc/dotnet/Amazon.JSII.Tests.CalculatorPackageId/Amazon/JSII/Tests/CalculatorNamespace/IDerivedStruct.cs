@@ -29,19 +29,19 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>This is optional.</summary>
-        [JsiiProperty("anotherOptional", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},\"optional\":true}")]
+        [JsiiProperty("anotherOptional", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},\"nullable\":true}")]
         IDictionary<string, Value_> AnotherOptional
         {
             get;
         }
 
-        [JsiiProperty("optionalAny", "{\"primitive\":\"any\",\"optional\":true}")]
+        [JsiiProperty("optionalAny", "{\"primitive\":\"any\",\"nullable\":true}")]
         object OptionalAny
         {
             get;
         }
 
-        [JsiiProperty("optionalArray", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"optional\":true}")]
+        [JsiiProperty("optionalArray", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"nullable\":true}")]
         string[] OptionalArray
         {
             get;

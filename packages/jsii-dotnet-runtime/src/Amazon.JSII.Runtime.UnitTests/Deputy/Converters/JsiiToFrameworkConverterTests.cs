@@ -95,9 +95,9 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [InlineData(PrimitiveType.String, "a", "a", true)]
             [InlineData(PrimitiveType.String, "abc", "abc", true)]
             [InlineData(PrimitiveType.String, null, null, true)]
-            public void ConvertsPrimitiveValues(PrimitiveType primitive, object value, object expected, bool isOptional)
+            public void ConvertsPrimitiveValues(PrimitiveType primitive, object value, object expected, bool isNullable)
             {
-                TypeReference reference = new TypeReference(primitive: primitive, isOptional: isOptional);
+                TypeReference reference = new TypeReference(primitive: primitive, isNullable: isNullable);
 
                 bool success = _converter.TryConvert(reference, _referenceMap, value, out object actual);
 
@@ -133,7 +133,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                 TypeReference reference = new TypeReference
                 (
                     primitive: PrimitiveType.Date,
-                    isOptional: true
+                    isNullable: true
                 );
 
                 DateTime now = DateTime.Now;
@@ -271,7 +271,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsNullOptionalEnumValue))]
             public void ConvertsNullOptionalEnumValue()
             {
-                TypeReference reference = new TypeReference("myEnumFqn", isOptional: true);
+                TypeReference reference = new TypeReference("myEnumFqn", isNullable: true);
 
                 bool success = _converter.TryConvert(reference, _referenceMap, null, out object actual);
 

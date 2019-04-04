@@ -5,7 +5,7 @@
 		"lerna": "^3.13.1",
 		"nodeunit": "^0.11.3",
 		"nyc": "^13.3.0",
-		"tslint": "^5.13.0",
-		"typescript": "^3.3.3333"
+		"tslint": "^5.15.0",
+		"typescript": "^3.4.1"
 	}
 }

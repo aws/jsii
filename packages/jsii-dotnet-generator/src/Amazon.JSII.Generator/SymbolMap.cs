@@ -366,7 +366,7 @@ namespace Amazon.JSII.Generator
 
         public TypeSyntax GetTypeSyntax(TypeReference typeReference)
         {
-            bool isOptional = (typeReference ?? throw new ArgumentNullException(nameof(typeReference))).IsOptional == true;
+            bool isNullable = (typeReference ?? throw new ArgumentNullException(nameof(typeReference))).IsNullable == true;
 
             if (typeReference.Primitive != null)
             {
@@ -375,13 +375,13 @@ namespace Amazon.JSII.Generator
                     case PrimitiveType.Any:
                         return SF.ParseTypeName("object");
                     case PrimitiveType.Boolean:
-                        return SF.ParseTypeName(isOptional ? "bool?" : "bool");
+                        return SF.ParseTypeName(isNullable ? "bool?" : "bool");
                     case PrimitiveType.Date:
-                        return SF.ParseTypeName(isOptional ? "DateTime?" : "DateTime");
+                        return SF.ParseTypeName(isNullable ? "DateTime?" : "DateTime");
                     case PrimitiveType.Json:
                         return SF.ParseTypeName("JObject");
                     case PrimitiveType.Number:
-                        return SF.ParseTypeName(isOptional ? "double?" : "double");
+                        return SF.ParseTypeName(isNullable ? "double?" : "double");
                     case PrimitiveType.String:
                         return SF.ParseTypeName("string");
                     default:
@@ -415,8 +415,12 @@ namespace Amazon.JSII.Generator
             if (typeReference.FullyQualifiedName != null)
             {
                 Type type = GetTypeFromFullyQualifiedName(typeReference.FullyQualifiedName);
-
-                return SF.ParseTypeName(GetName(type, true));
+                var typeName = GetName(type, true);
+                if (isNullable && type.Kind == TypeKind.Enum)
+                {
+                    typeName = $"{typeName }?";
+                }
+                return SF.ParseTypeName(typeName);
             }
 
             throw new ArgumentException("Invalid type reference", nameof(typeReference));

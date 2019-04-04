@@ -22,7 +22,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
             set;
         }
 
-        [JsiiProperty("firstOptional", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"optional\":true}", true)]
+        [JsiiProperty("firstOptional", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"nullable\":true}", true)]
         public string[] FirstOptional
         {
             get;

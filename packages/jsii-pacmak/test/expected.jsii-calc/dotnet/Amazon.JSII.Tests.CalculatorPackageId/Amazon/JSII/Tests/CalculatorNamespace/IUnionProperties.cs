@@ -11,7 +11,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get;
         }
 
-        [JsiiProperty("foo", "{\"union\":{\"types\":[{\"primitive\":\"string\"},{\"primitive\":\"number\"}]},\"optional\":true}")]
+        [JsiiProperty("foo", "{\"union\":{\"types\":[{\"primitive\":\"string\"},{\"primitive\":\"number\"}]},\"nullable\":true}")]
         object Foo
         {
             get;

@@ -309,20 +309,6 @@ abstract class BaseMethod implements PythonBase {
             returnType = "None";
         }
 
-        // We cannot (currently?) trust the JSII to accurately tell us whether a
-        // parameter is truly optional or not. Because of that, we have to selectively
-        // choose when we're going to respect the optional flag and emit a default value
-        // to only be at the tail end of the method signature.
-        // See: https://github.com/awslabs/jsii/issues/284
-        let optionalStartsAt: number | undefined;
-        for (const [idx, param] of this.parameters.entries()) {
-            if (param.type.optional && optionalStartsAt === undefined) {
-                optionalStartsAt = idx;
-            } else if (!param.type.optional) {
-                optionalStartsAt = undefined;
-            }
-        }
-
         // We cannot (currently?) blindly use the names given to us by the JSII for
         // initializers, because our keyword lifting will allow two names to clash.
         // This can hopefully be removed once we get https://github.com/awslabs/jsii/issues/288
@@ -341,7 +327,7 @@ abstract class BaseMethod implements PythonBase {
         // gradual typing, so we'll have to iterate over the list of parameters, and
         // build the list, converting as we go.
         const pythonParams: string[] = [this.implicitParameter];
-        for (const [idx, param] of this.parameters.entries()) {
+        for (const param of this.parameters) {
             // We cannot (currently?) blindly use the names given to us by the JSII for
             // initializers, because our keyword lifting will allow two names to clash.
             // This can hopefully be removed once we get https://github.com/awslabs/jsii/issues/288
@@ -352,7 +338,7 @@ abstract class BaseMethod implements PythonBase {
             }
 
             const paramType = resolver.resolve(param.type, { forwardReferences: false});
-            const paramDefault = optionalStartsAt !== undefined && idx >= optionalStartsAt ? "=None" : "";
+            const paramDefault = spec.isOptional(param) ? "=None" : "";
 
             pythonParams.push(`${paramName}: ${paramType}${paramDefault}`);
         }
@@ -374,12 +360,12 @@ abstract class BaseMethod implements PythonBase {
                 for (const prop of liftedProperties) {
                     const paramName = toPythonParameterName(prop.name);
                     const paramType = resolver.resolve(prop.type, { forwardReferences: false });
-                    const paramDefault = prop.type.optional ? "=None" : "";
+                    const paramDefault = prop.type.nullable ? "=None" : "";
 
                     pythonParams.push(`${paramName}: ${paramType}${paramDefault}`);
                 }
             }
-        } else if (this.parameters.length >= 1 && this.parameters.slice(-1)[0].variadic) {
+        } else if (this.parameters.length >= 1 && spec.isVariadic(this.parameters.slice(-1)[0])) {
             // Another situation we could be in, is that instead of having a plain parameter
             // we have a variadic parameter where we need to expand the last parameter as a
             // *args.
@@ -433,7 +419,7 @@ abstract class BaseMethod implements PythonBase {
         // ones we will specifiy to start with in our dictionary literal.
         const mandatoryPropMembers: string[] = [];
         for (const prop of this.getLiftedProperties(resolver)) {
-            if (prop.type.optional) {
+            if (prop.type.nullable) {
                 continue;
             }
 
@@ -445,7 +431,7 @@ abstract class BaseMethod implements PythonBase {
         // Now we'll go through our optional properties, and if they haven't been set
         // we'll add them to our dictionary.
         for (const prop of this.getLiftedProperties(resolver)) {
-            if (!prop.type.optional) {
+            if (!prop.type.nullable) {
                 continue;
             }
 
@@ -719,7 +705,7 @@ class TypedDictProperty implements PythonBase {
     }
 
     get optional(): boolean {
-        return this.type.optional !== undefined ? this.type.optional : false;
+        return !!this.type.nullable;
     }
 
     public emit(code: CodeMaker, resolver: TypeResolver) {
@@ -1337,7 +1323,7 @@ class TypeResolver {
         // We explicitly don't emit this when our type is typing.Any, because typing.Any
         // already implied that None is an accepted type.
         // See: https://github.com/awslabs/jsii/issues/284
-        if (!ignoreOptional && typeRef.optional && pythonType !== "typing.Any") {
+        if (!ignoreOptional && typeRef.nullable && pythonType !== "typing.Any") {
             pythonType = `typing.Optional[${pythonType}]`;
         }
 

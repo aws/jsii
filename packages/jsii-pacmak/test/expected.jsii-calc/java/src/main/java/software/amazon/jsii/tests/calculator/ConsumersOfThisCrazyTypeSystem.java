@@ -15,6 +15,7 @@ public class ConsumersOfThisCrazyTypeSystem extends software.amazon.jsii.JsiiObj
         return this.jsiiCall("consumeAnotherPublicInterface", java.lang.String.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(obj, "obj is required")).toArray());
     }
 
+    @javax.annotation.Nullable
     public java.lang.Object consumeNonInternalInterface(final software.amazon.jsii.tests.calculator.INonInternalInterface obj) {
         return this.jsiiCall("consumeNonInternalInterface", java.lang.Object.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(obj, "obj is required")).toArray());
     }

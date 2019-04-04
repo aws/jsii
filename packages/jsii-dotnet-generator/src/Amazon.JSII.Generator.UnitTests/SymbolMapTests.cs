@@ -1485,11 +1485,11 @@ namespace Amazon.JSII.Generator.UnitTests
             [InlineData(PrimitiveType.Number, true, "double?")]
             [InlineData(PrimitiveType.String, false, "string")]
             [InlineData(PrimitiveType.String, true, "string")]
-            public void GetsPrimitiveFrameworkType(PrimitiveType type, bool isOptional, string expected)
+            public void GetsPrimitiveFrameworkType(PrimitiveType type, bool isNullable, string expected)
             {
                 ISymbolMap symbolMap = new SymbolMap();
 
-                TypeReference reference = new TypeReference(primitive: type, isOptional: isOptional);
+                TypeReference reference = new TypeReference(primitive: type, isNullable: isNullable);
 
                 string actual = symbolMap.GetTypeSyntax(reference).ToString();
                 Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
@@ -1500,7 +1500,7 @@ namespace Amazon.JSII.Generator.UnitTests
             [InlineData(CollectionKind.Array, true, "double[][]")]
             [InlineData(CollectionKind.Map, false, "IDictionary<string, IDictionary<string, double>>")]
             [InlineData(CollectionKind.Map, true, "IDictionary<string, IDictionary<string, double>>")]
-            public void GetsRecursiveCollectionFrameworkType(CollectionKind kind, bool isOptional, string expected)
+            public void GetsRecursiveCollectionFrameworkType(CollectionKind kind, bool isNullable, string expected)
             {
                 ISymbolMap symbolMap = new SymbolMap();
 
@@ -1511,7 +1511,7 @@ namespace Amazon.JSII.Generator.UnitTests
                         kind: kind,
                         elementType: new TypeReference(collection: new CollectionTypeReference(kind, new TypeReference(primitive: PrimitiveType.Number)))
                     ),
-                    isOptional: isOptional
+                    isNullable: isNullable
                 );
 
                 string actual = symbolMap.GetTypeSyntax(reference).ToString();
@@ -1521,7 +1521,7 @@ namespace Amazon.JSII.Generator.UnitTests
             [Theory(DisplayName = _Prefix + nameof(GetsUnionFrameworkType))]
             [InlineData(false, "object")]
             [InlineData(true, "object")]
-            public void GetsUnionFrameworkType(bool isOptional, string expected)
+            public void GetsUnionFrameworkType(bool isNullable, string expected)
             {
                 ISymbolMap symbolMap = new SymbolMap();
 
@@ -1530,7 +1530,7 @@ namespace Amazon.JSII.Generator.UnitTests
                     union: new UnionTypeReference(new[] {
                         new TypeReference(primitive: PrimitiveType.Number)
                     }),
-                    isOptional: isOptional
+                    isNullable: isNullable
                 );
 
                 string actual = symbolMap.GetTypeSyntax(reference).ToString();

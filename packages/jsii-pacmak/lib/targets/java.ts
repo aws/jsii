@@ -553,7 +553,7 @@ class JavaGenerator extends Generator {
             this.code.line();
             this.addJavaDocs(prop);
             if (overrides) { this.code.line('@Override'); }
-            if (prop.type.optional) { this.code.line(JSR305_NULLABLE); }
+            if (prop.type.nullable) { this.code.line(JSR305_NULLABLE); }
             this.code.openBlock(`${access} ${statc}${getterType} get${propName}()`);
 
             let statement = 'return ';
@@ -574,7 +574,7 @@ class JavaGenerator extends Generator {
                 this.code.line();
                 this.addJavaDocs(prop);
                 if (overrides) { this.code.line('@Override'); }
-                const nullable = prop.type.optional ? `${JSR305_NULLABLE} ` : '';
+                const nullable = prop.type.nullable ? `${JSR305_NULLABLE} ` : '';
                 this.code.openBlock(`${access} ${statc}void set${propName}(${nullable}final ${type} value)`);
                 let statement = '';
 
@@ -583,7 +583,7 @@ class JavaGenerator extends Generator {
                 } else {
                     statement += 'this.jsiiSet(';
                 }
-                const value = prop.type.optional ? 'value' : `java.util.Objects.requireNonNull(value, "${prop.name} is required")`;
+                const value = prop.type.nullable ? 'value' : `java.util.Objects.requireNonNull(value, "${prop.name} is required")`;
                 statement += `"${prop.name}\", ${value});`;
                 this.code.line(statement);
                 this.code.closeBlock();
@@ -601,7 +601,7 @@ class JavaGenerator extends Generator {
         this.code.line();
         this.addJavaDocs(method);
         if (overrides) { this.code.line('@Override'); }
-        if (method.returns && method.returns.optional) { this.code.line(JSR305_NULLABLE); }
+        if (method.returns && method.returns.nullable) { this.code.line(JSR305_NULLABLE); }
         if (method.abstract) {
             this.code.line(`${access} abstract ${signature};`);
         } else {
@@ -704,7 +704,7 @@ class JavaGenerator extends Generator {
             fieldName: string
             fieldJavaType: string
             javaTypes: string[]
-            optional?: boolean
+            nullable: boolean
             inherited: boolean
             immutable: boolean
         }
@@ -717,12 +717,12 @@ class JavaGenerator extends Generator {
         function collectProps(currentIfc: spec.InterfaceType, isBaseClass = false) {
             for (const property of currentIfc.properties || []) {
                 const propName = self.code.toPascalCase(property.name);
-                const optional = property.type.optional;
 
                 const prop: Prop = {
                     docs: property.docs,
                     spec: property,
-                    propName, optional,
+                    propName,
+                    nullable: !!property.type.nullable,
                     fieldName: self.code.toCamelCase(property.name),
                     fieldJavaType: self.toJavaType(property.type),
                     javaTypes: self.toJavaTypes(property.type),
@@ -748,7 +748,7 @@ class JavaGenerator extends Generator {
         this.code.openBlock(`final class ${builderName}`);
 
         for (const prop of props) {
-            if (prop.optional) {
+            if (prop.nullable) {
                 this.code.line(JSR305_NULLABLE);
             }
             this.code.line(`private ${prop.fieldJavaType} _${prop.fieldName};`);
@@ -765,7 +765,7 @@ class JavaGenerator extends Generator {
                 }
                 this.code.line(` * @return {@code this}`);
                 this.code.line(' */');
-                this.code.openBlock(`public ${builderName} with${prop.propName}(${prop.optional ? `${JSR305_NULLABLE} ` : ''}final ${type} value)`);
+                this.code.openBlock(`public ${builderName} with${prop.propName}(${prop.nullable ? `${JSR305_NULLABLE} ` : ''}final ${type} value)`);
                 this.code.line(`this._${prop.fieldName} = ${_validateIfNonOptional('value', prop)};`);
                 this.code.line('return this;');
                 this.code.closeBlock();
@@ -780,7 +780,7 @@ class JavaGenerator extends Generator {
         this.code.openBlock(`public ${interfaceName} build()`);
         this.code.openBlock(`return new ${interfaceName}()`);
         for (const prop of props) {
-            if (prop.optional) { this.code.line(JSR305_NULLABLE); }
+            if (prop.nullable) { this.code.line(JSR305_NULLABLE); }
             // tslint:disable-next-line:max-line-length
             this.code.line(`private${prop.immutable ? ' final' : ''} ${prop.fieldJavaType} $${prop.fieldName} = ${_validateIfNonOptional(`_${prop.fieldName}`, prop)};`);
         }
@@ -794,7 +794,7 @@ class JavaGenerator extends Generator {
                 for (const type of prop.javaTypes) {
                     this.code.line();
                     this.code.line('@Override');
-                    this.code.openBlock(`public void set${prop.propName}(${prop.optional ? `${JSR305_NULLABLE} ` : ''}final ${type} value)`);
+                    this.code.openBlock(`public void set${prop.propName}(${prop.nullable ? `${JSR305_NULLABLE} ` : ''}final ${type} value)`);
                     this.code.line(`this.$${prop.fieldName} = ${_validateIfNonOptional('value', prop)};`);
                     this.code.closeBlock();
                 }
@@ -824,7 +824,7 @@ class JavaGenerator extends Generator {
         this.code.closeBlock(/* final class Builder */);
 
         function _validateIfNonOptional(variable: string, prop: Prop): string {
-            if (prop.optional) { return variable; }
+            if (prop.nullable) { return variable; }
             return `java.util.Objects.requireNonNull(${variable}, "${prop.fieldName} is required")`;
         }
     }
@@ -989,8 +989,8 @@ class JavaGenerator extends Generator {
         if (!method.parameters || method.parameters.length === 0) { return ''; }
         let paramStream: string = '';
         for (const param of method.parameters) {
-            const paramValue = param.type.optional ? param.name : `java.util.Objects.requireNonNull(${param.name}, "${param.name} is required")`;
-            const thisParam = `${param.variadic ? 'java.util.Arrays.stream' : 'java.util.stream.Stream.of'}(${paramValue})`;
+            const paramValue = param.type.nullable ? param.name : `java.util.Objects.requireNonNull(${param.name}, "${param.name} is required")`;
+            const thisParam = `${spec.isVariadic(param) ? 'java.util.Arrays.stream' : 'java.util.stream.Stream.of'}(${paramValue})`;
             if (paramStream === '') {
                 paramStream = thisParam;
             } else {
@@ -1035,8 +1035,8 @@ class JavaGenerator extends Generator {
         const params = [];
         if (method.parameters) {
             for (const p of method.parameters) {
-                const nullable = p.type.optional ? `${JSR305_NULLABLE} ` : '';
-                params.push(`${nullable}final ${this.toJavaType(p.type)}${p.variadic ? '...' : ''} ${p.name}`);
+                const nullable = p.type.nullable ? `${JSR305_NULLABLE} ` : '';
+                params.push(`${nullable}final ${this.toJavaType(p.type)}${spec.isVariadic(p) ? '...' : ''} ${p.name}`);
             }
         }
         return params.join(', ');
