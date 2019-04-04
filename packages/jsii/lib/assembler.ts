@@ -158,6 +158,11 @@ export class Assembler implements Emitter {
    *
    * Will not invoke the function with any 'undefined's; an error will already have been emitted in
    * that case anyway.
+   *
+   * @param fqn FQN of the current type (the type that has a dependency on baseTypes)
+   * @param baseTypes Array of type references to be looked up
+   * @param referencingNode Node to report a diagnostic on if we fail to look up a t ype
+   * @param cb Callback to be invoked with the Types corresponding to the TypeReferences in baseTypes
    */
   // tslint:disable-next-line:max-line-length
   private _deferUntilTypesAvailable(fqn: string, baseTypes: spec.NamedTypeReference[], referencingNode: ts.Node, cb: (...xs: spec.Type[]) => void) {
@@ -573,7 +578,52 @@ export class Assembler implements Emitter {
       jsiiType.initializer = { initializer: true };
     }
 
+    this._verifyNoStaticMixing(jsiiType, type.symbol.valueDeclaration);
+
     return _sortMembers(jsiiType);
+  }
+
+  /**
+   * Check that this class doesn't declare any members that are of different staticness in any of its bases
+   */
+  private _verifyNoStaticMixing(klass: spec.ClassType, decl: ts.Declaration) {
+    const classMembers = typeMembers(klass);
+
+    function stat(s?: boolean) {
+      return s ? 'static' : 'non-static';
+    }
+
+    this._withBaseClass(klass, decl, (base, recurse) => {
+      for (const [name, baseMember] of Object.entries(typeMembers(base))) {
+        const member = classMembers[name];
+        if (!member) { continue; }
+
+        if (!!baseMember.static !== !!member.static) {
+          this._diagnostic(decl, ts.DiagnosticCategory.Error,
+            // tslint:disable-next-line:max-line-length
+            `${stat(member.static)} member '${name}' of class '${klass.name}' conflicts with ${stat(baseMember.static)} member in ancestor '${base.name}'`);
+        }
+      }
+
+      recurse();
+    });
+  }
+
+  /**
+   * Wrapper around _deferUntilTypesAvailable, invoke the callback with the given classes' base type
+   *
+   * Does nothing if the given class doesn't have a base class.
+   *
+   * The second argument will be a `recurse` function for easy recursion up the inheritance tree
+   * (no messing around with binding 'self' and 'this' and doing multiple calls to _withBaseClass.)
+   */
+  private _withBaseClass(klass: spec.ClassType, decl: ts.Declaration, cb: (base: spec.ClassType, recurse: () => void) => void) {
+    if (klass.base) {
+      this._deferUntilTypesAvailable(klass.fqn, [klass.base], decl, (base) => {
+        if (!spec.isClassType(base)) { throw new Error('Oh no'); }
+        cb(base, () => this._withBaseClass(base, decl, cb));
+      });
+    }
   }
 
   /**
@@ -773,13 +823,13 @@ export class Assembler implements Emitter {
 
     // Check that no interface declares a member that's already declared
     // in a base type (not allowed in C#).
-    const memberNames = interfaceMemberNames(jsiiType);
+    const names = memberNames(jsiiType);
     const checkNoIntersection = (...bases: spec.Type[]) => {
       for (const base of bases) {
         if (!spec.isInterfaceType(base)) { continue; }
 
-        const baseMembers = interfaceMemberNames(base);
-        for (const memberName of memberNames) {
+        const baseMembers = memberNames(base);
+        for (const memberName of names) {
           if (baseMembers.includes(memberName)) {
             this._diagnostic(type.symbol.declarations[0],
               ts.DiagnosticCategory.Error,
@@ -1368,14 +1418,21 @@ function intersection<T>(xs: Set<T>, ys: Set<T>): Set<T> {
  *
  * Returns empty string for a non-interface type.
  */
-function interfaceMemberNames(jsiiType: spec.InterfaceType): string[] {
-  const ret = new Array<string>();
-  if (jsiiType.methods) {
-    ret.push(...jsiiType.methods.map(m => m.name).filter(x => x !== undefined) as string[]);
+function memberNames(jsiiType: spec.InterfaceType | spec.ClassType): string[] {
+  return Object.keys(typeMembers(jsiiType)).filter(n => n !== '');
+}
+
+function typeMembers(jsiiType: spec.InterfaceType | spec.ClassType): {[key: string]: spec.Property | spec.Method} {
+  const ret: {[key: string]: spec.Property | spec.Method}  = {};
+
+  for (const prop of jsiiType.properties || []) {
+    ret[prop.name] = prop;
   }
-  if (jsiiType.properties) {
-    ret.push(...jsiiType.properties.map(m => m.name));
+
+  for (const method of jsiiType.methods || []) {
+    ret[method.name || ''] = method;
   }
+
   return ret;
 }
 
