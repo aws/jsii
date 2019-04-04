@@ -1464,8 +1464,8 @@ export class InternalClass {
 /**
  * @internal
  */
-export interface IInternalInterface {
-    prop: string;
+export interface InternalInterface {
+    readonly prop: string;
 }
 
 /**
@@ -1516,11 +1516,11 @@ interface IPrivateInterface {
     private: string;
 }
 
-export interface ExtendsInternalInterface extends IInternalInterface {
+export interface ExtendsInternalInterface extends InternalInterface {
     readonly boom: boolean
 }
 
-export class ImplementInternalInterface implements IInternalInterface {
+export class ImplementInternalInterface implements InternalInterface {
     prop = 'implement me'
 }
 
@@ -1528,7 +1528,7 @@ export class ImplementsPrivateInterface implements IPrivateInterface {
     public private = 'i came from private into the light'
 }
 
-export interface ExtendsPrivateInterface extends IPrivateInterface {
+export interface IExtendsPrivateInterface extends IPrivateInterface {
     readonly moreThings: string[];
 }
 

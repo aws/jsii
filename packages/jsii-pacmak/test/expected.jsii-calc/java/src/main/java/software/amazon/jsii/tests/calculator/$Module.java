@@ -50,11 +50,11 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.EraseUndefinedHashValuesOptions": return software.amazon.jsii.tests.calculator.EraseUndefinedHashValuesOptions.class;
             case "jsii-calc.ExportedBaseClass": return software.amazon.jsii.tests.calculator.ExportedBaseClass.class;
             case "jsii-calc.ExtendsInternalInterface": return software.amazon.jsii.tests.calculator.ExtendsInternalInterface.class;
-            case "jsii-calc.ExtendsPrivateInterface": return software.amazon.jsii.tests.calculator.ExtendsPrivateInterface.class;
             case "jsii-calc.GiveMeStructs": return software.amazon.jsii.tests.calculator.GiveMeStructs.class;
             case "jsii-calc.Greetee": return software.amazon.jsii.tests.calculator.Greetee.class;
             case "jsii-calc.GreetingAugmenter": return software.amazon.jsii.tests.calculator.GreetingAugmenter.class;
             case "jsii-calc.IAnotherPublicInterface": return software.amazon.jsii.tests.calculator.IAnotherPublicInterface.class;
+            case "jsii-calc.IExtendsPrivateInterface": return software.amazon.jsii.tests.calculator.IExtendsPrivateInterface.class;
             case "jsii-calc.IFriendlier": return software.amazon.jsii.tests.calculator.IFriendlier.class;
             case "jsii-calc.IFriendlyRandomGenerator": return software.amazon.jsii.tests.calculator.IFriendlyRandomGenerator.class;
             case "jsii-calc.IInterfaceImplementedByAbstractClass": return software.amazon.jsii.tests.calculator.IInterfaceImplementedByAbstractClass.class;
@@ -64,6 +64,8 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.IInterfaceWithOptionalMethodArguments": return software.amazon.jsii.tests.calculator.IInterfaceWithOptionalMethodArguments.class;
             case "jsii-calc.IInterfaceWithProperties": return software.amazon.jsii.tests.calculator.IInterfaceWithProperties.class;
             case "jsii-calc.IInterfaceWithPropertiesExtension": return software.amazon.jsii.tests.calculator.IInterfaceWithPropertiesExtension.class;
+            case "jsii-calc.IJSII417Derived": return software.amazon.jsii.tests.calculator.IJSII417Derived.class;
+            case "jsii-calc.IJSII417PublicBaseOfBase": return software.amazon.jsii.tests.calculator.IJSII417PublicBaseOfBase.class;
             case "jsii-calc.IMutableObjectLiteral": return software.amazon.jsii.tests.calculator.IMutableObjectLiteral.class;
             case "jsii-calc.INonInternalInterface": return software.amazon.jsii.tests.calculator.INonInternalInterface.class;
             case "jsii-calc.IPrivatelyImplemented": return software.amazon.jsii.tests.calculator.IPrivatelyImplemented.class;

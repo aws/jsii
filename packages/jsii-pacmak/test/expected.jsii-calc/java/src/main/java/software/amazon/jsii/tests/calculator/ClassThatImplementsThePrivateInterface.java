@@ -21,10 +21,12 @@ public class ClassThatImplementsThePrivateInterface extends software.amazon.jsii
         this.jsiiSet("a", java.util.Objects.requireNonNull(value, "a is required"));
     }
 
+    @Override
     public java.lang.String getB() {
         return this.jsiiGet("b", java.lang.String.class);
     }
 
+    @Override
     public void setB(final java.lang.String value) {
         this.jsiiSet("b", java.util.Objects.requireNonNull(value, "b is required"));
     }

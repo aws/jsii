@@ -532,16 +532,18 @@ assemblies
  │   │   └── option2 property
  │   ├─┬ interface ExtendsInternalInterface
  │   │ └─┬ members
- │   │   └── boom property
- │   ├─┬ interface ExtendsPrivateInterface
- │   │ └─┬ members
- │   │   └── moreThings property
+ │   │   ├── boom property
+ │   │   └── prop property
  │   ├─┬ interface Greetee
  │   │ └─┬ members
  │   │   └── name property
  │   ├─┬ interface IAnotherPublicInterface
  │   │ └─┬ members
  │   │   └── a property
+ │   ├─┬ interface IExtendsPrivateInterface
+ │   │ └─┬ members
+ │   │   ├── moreThings property
+ │   │   └── private property
  │   ├─┬ interface IFriendlier
  │   │ └─┬ members
  │   │   ├── farewell() method
@@ -571,11 +573,21 @@ assemblies
  │   ├─┬ interface IInterfaceWithPropertiesExtension
  │   │ └─┬ members
  │   │   └── foo property
+ │   ├─┬ interface IJSII417Derived
+ │   │ └─┬ members
+ │   │   ├── bar() method
+ │   │   ├── baz() method
+ │   │   └── property property
+ │   ├─┬ interface IJSII417PublicBaseOfBase
+ │   │ └─┬ members
+ │   │   ├── foo() method
+ │   │   └── hasRoot property
  │   ├─┬ interface IMutableObjectLiteral
  │   │ └─┬ members
  │   │   └── value property
  │   ├─┬ interface INonInternalInterface
  │   │ └─┬ members
+ │   │   ├── b property
  │   │   └── c property
  │   ├─┬ interface IPrivatelyImplemented
  │   │ └─┬ members

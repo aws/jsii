@@ -10,5 +10,11 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
         }
+
+        [JsiiProperty("prop", "{\"primitive\":\"string\"}")]
+        string Prop
+        {
+            get;
+        }
     }
 }
