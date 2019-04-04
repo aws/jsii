@@ -33,7 +33,7 @@ export interface SourceLocatable {
 /**
  * Return the repository location for the given API item
  */
-export function repositoryLocation(item: SourceLocatable): SourceLocation | undefined {
+export function locationInRepository(item: SourceLocatable): SourceLocation | undefined {
   const assemblyLoc = item.assembly.locationInRepository;
   const moduleLoc = item.locationInModule;
 
@@ -55,7 +55,7 @@ export function repositoryLocation(item: SourceLocatable): SourceLocation | unde
  * (Currently only supports GitHub URLs)
  */
 export function repositoryUrl(item: SourceLocatable, ref: string = 'master'): string | undefined {
-  const loc = repositoryLocation(item);
+  const loc = locationInRepository(item);
   if (!loc) { return undefined; }
 
   const repo = item.assembly.repository;

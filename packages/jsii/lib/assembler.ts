@@ -352,7 +352,7 @@ export class Assembler implements Emitter {
     const file = node.getSourceFile();
     const line = ts.getLineAndCharacterOfPosition(file, node.getStart()).line;
     return {
-      filename: path.relative(this.projectInfo.projectRoot, path.resolve(file.fileName)),
+      filename: path.relative(this.projectInfo.projectRoot, file.fileName),
       line: line + 1,
     };
   }

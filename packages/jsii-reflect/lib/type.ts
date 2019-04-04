@@ -4,7 +4,7 @@ import { ClassType } from './class';
 import { Docs, Documentable } from './docs';
 import { EnumType } from './enum';
 import { InterfaceType } from './interface';
-import { repositoryLocation, SourceLocatable, SourceLocation } from './source';
+import { locationInRepository, SourceLocatable, SourceLocation } from './source';
 import { TypeSystem } from './type-system';
 
 export abstract class Type implements Documentable, SourceLocatable {
@@ -120,14 +120,14 @@ export abstract class Type implements Documentable, SourceLocatable {
   /**
    * Return the location in the module
    */
-  public get moduleLocation(): SourceLocation | undefined {
+  public get locationInModule(): SourceLocation | undefined {
     return this.spec.locationInModule;
   }
 
   /**
    * Return the location in the repository
    */
-  public get repositoryLocation(): SourceLocation | undefined {
-    return repositoryLocation(this);
+  public get locationInRepository(): SourceLocation | undefined {
+    return locationInRepository(this);
   }
 }

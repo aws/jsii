@@ -2,13 +2,13 @@ import jsii = require('jsii-spec');
 import { Assembly } from './assembly';
 import { Docs, Documentable } from './docs';
 import { Overridable } from './overridable';
-import { repositoryLocation, SourceLocation } from './source';
+import { locationInRepository, SourceLocatable, SourceLocation } from './source';
 import { Type } from './type';
 import { MemberKind, TypeMember } from './type-member';
 import { TypeReference } from './type-ref';
 import { TypeSystem } from './type-system';
 
-export class Property implements Documentable, Overridable, TypeMember {
+export class Property implements Documentable, Overridable, TypeMember, SourceLocatable {
   public readonly kind = MemberKind.Property;
 
   constructor(
@@ -87,14 +87,14 @@ export class Property implements Documentable, Overridable, TypeMember {
   /**
    * Return the location in the module
    */
-  public get moduleLocation(): SourceLocation | undefined {
+  public get locationInModule(): SourceLocation | undefined {
     return this.spec.locationInModule;
   }
 
   /**
    * Return the location in the repository
    */
-  public get repositoryLocation(): SourceLocation | undefined {
-    return repositoryLocation(this);
+  public get locationInRepository(): SourceLocation | undefined {
+    return locationInRepository(this);
   }
 }
