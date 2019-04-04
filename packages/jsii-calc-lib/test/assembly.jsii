@@ -97,6 +97,10 @@
       },
       "fqn": "@scope/jsii-calc-lib.EnumFromScopedModule",
       "kind": "enum",
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 97
+      },
       "members": [
         {
           "name": "Value1"
@@ -105,10 +109,6 @@
           "name": "Value2"
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/index.ts",
-        "line": 97
-      },
       "name": "EnumFromScopedModule"
     },
     "@scope/jsii-calc-lib.IDoublable": {
@@ -118,7 +118,7 @@
       },
       "fqn": "@scope/jsii-calc-lib.IDoublable",
       "kind": "interface",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/index.ts",
         "line": 23
       },
@@ -127,7 +127,7 @@
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/index.ts",
             "line": 24
           },
@@ -146,13 +146,17 @@
       },
       "fqn": "@scope/jsii-calc-lib.IFriendly",
       "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 58
+      },
       "methods": [
         {
           "abstract": true,
           "docs": {
             "summary": "Say hello!"
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/index.ts",
             "line": 62
           },
@@ -162,10 +166,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/index.ts",
-        "line": 58
-      },
       "name": "IFriendly"
     },
     "@scope/jsii-calc-lib.MyFirstStruct": {
@@ -176,7 +176,7 @@
       },
       "fqn": "@scope/jsii-calc-lib.MyFirstStruct",
       "kind": "interface",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/index.ts",
         "line": 68
       },
@@ -188,7 +188,7 @@
             "summary": "An awesome number value."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/index.ts",
             "line": 77
           },
@@ -203,7 +203,7 @@
             "summary": "A string value."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/index.ts",
             "line": 72
           },
@@ -215,7 +215,7 @@
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/index.ts",
             "line": 78
           },
@@ -264,7 +264,7 @@
         }
       ],
       "kind": "class",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/index.ts",
         "line": 30
       },
@@ -275,7 +275,7 @@
             "summary": "The number multiplied by 2."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/index.ts",
             "line": 42
           },
@@ -292,7 +292,7 @@
             "summary": "The number."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/index.ts",
             "line": 35
           },
@@ -320,13 +320,17 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 50
+      },
       "methods": [
         {
           "abstract": true,
           "docs": {
             "summary": "String representation of the value."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/index.ts",
             "line": 51
           },
@@ -339,10 +343,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/index.ts",
-        "line": 50
-      },
       "name": "Operation"
     },
     "@scope/jsii-calc-lib.StructWithOnlyOptionals": {
@@ -353,7 +353,7 @@
       },
       "fqn": "@scope/jsii-calc-lib.StructWithOnlyOptionals",
       "kind": "interface",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/index.ts",
         "line": 84
       },
@@ -365,7 +365,7 @@
             "summary": "The first optional!"
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/index.ts",
             "line": 88
           },
@@ -378,7 +378,7 @@
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/index.ts",
             "line": 89
           },
@@ -391,7 +391,7 @@
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/index.ts",
             "line": 90
           },
@@ -417,12 +417,16 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 6
+      },
       "methods": [
         {
           "docs": {
             "summary": "String representation of the value."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/index.ts",
             "line": 15
           },
@@ -432,10 +436,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/index.ts",
-        "line": 6
-      },
       "name": "Value",
       "properties": [
         {
@@ -444,7 +444,7 @@
             "summary": "The value."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/index.ts",
             "line": 10
           },
@@ -457,5 +457,5 @@
     }
   },
   "version": "0.8.2",
-  "fingerprint": "c/1unn4fiBe1mwhGWvCqeuG6d56DfwKFopFVpWj4CKE="
+  "fingerprint": "2SedGkpowEeJlL9PQ73/9LzRqzty2BGz+4bEsbOVlYU="
 }

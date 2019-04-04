@@ -23,3 +23,17 @@ export class JSII417Derived extends JSII417PrivateBase {
   }
   public baz() { return; }
 }
+// Same thing with interfaces
+interface IJSII417PrivateRoot {
+  readonly hasRoot: boolean;
+}
+export interface IJSII417PublicBaseOfBase extends IJSII417PrivateRoot {
+  foo(): void;
+}
+interface IJSII417PrivateBase extends IJSII417PublicBaseOfBase {
+  readonly property: string;
+  bar(): void;
+}
+export interface IJSII417Derived extends IJSII417PrivateBase {
+  baz(): void;
+}

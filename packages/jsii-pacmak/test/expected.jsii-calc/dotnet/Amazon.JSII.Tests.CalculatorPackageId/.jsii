@@ -235,10 +235,14 @@
         }
       ],
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1067
+      },
       "methods": [
         {
           "abstract": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1072
           },
@@ -256,7 +260,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1068
           },
@@ -266,15 +270,11 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 1067
-      },
       "name": "AbstractClass",
       "properties": [
         {
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1074
           },
@@ -296,7 +296,7 @@
         "initializer": true
       },
       "kind": "class",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1063
       },
@@ -305,7 +305,7 @@
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1064
           },
@@ -323,9 +323,13 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1089
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1090
           },
@@ -335,7 +339,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1094
           },
@@ -345,15 +349,11 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 1089
-      },
       "name": "AbstractClassReturner",
       "properties": [
         {
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1098
           },
@@ -400,12 +400,16 @@
         ]
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/calculator.ts",
+        "line": 56
+      },
       "methods": [
         {
           "docs": {
             "summary": "String representation of the value."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 61
           },
@@ -418,10 +422,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/calculator.ts",
-        "line": 56
-      },
       "name": "Add",
       "properties": [
         {
@@ -429,7 +429,7 @@
             "summary": "The value."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 57
           },
@@ -454,9 +454,13 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 39
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 207
           },
@@ -471,7 +475,7 @@
           ]
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 199
           },
@@ -481,7 +485,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 194
           },
@@ -499,15 +503,11 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 39
-      },
       "name": "AllTypes",
       "properties": [
         {
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 190
           },
@@ -517,7 +517,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 154
           },
@@ -532,7 +532,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 155
           },
@@ -547,7 +547,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 153
           },
@@ -557,7 +557,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 139
           },
@@ -572,7 +572,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 45
           },
@@ -582,7 +582,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 91
           },
@@ -592,7 +592,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 174
           },
@@ -602,7 +602,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 108
           },
@@ -612,7 +612,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 124
           },
@@ -627,7 +627,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 76
           },
@@ -637,7 +637,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 60
           },
@@ -647,7 +647,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 166
           },
@@ -671,7 +671,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 167
           },
@@ -698,7 +698,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 165
           },
@@ -723,7 +723,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 160
           },
@@ -738,7 +738,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 161
           },
@@ -753,7 +753,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 159
           },
@@ -763,7 +763,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 171
           },
@@ -779,6 +779,10 @@
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.AllTypesEnum",
       "kind": "enum",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 23
+      },
       "members": [
         {
           "name": "MyEnumValue"
@@ -790,10 +794,6 @@
           "name": "ThisIsGreat"
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 23
-      },
       "name": "AllTypesEnum"
     },
     "jsii-calc.AllowedMethodNames": {
@@ -803,9 +803,13 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 593
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 602
           },
@@ -829,7 +833,7 @@
           "docs": {
             "summary": "getXxx() is not allowed (see negatives), but getXxx(a, ...) is okay."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 598
           },
@@ -847,7 +851,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 613
           },
@@ -877,7 +881,7 @@
           "docs": {
             "summary": "setFoo(x) is not allowed (see negatives), but setXxx(a, b, ...) is okay."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 609
           },
@@ -898,10 +902,6 @@
           ]
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 593
-      },
       "name": "AllowedMethodNames"
     },
     "jsii-calc.AsyncVirtualMethods": {
@@ -911,9 +911,13 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 308
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 309
           },
@@ -927,7 +931,7 @@
           "docs": {
             "summary": "Just calls \"overrideMeToo\"."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 324
           },
@@ -942,7 +946,7 @@
             "remarks": "This is a \"double promise\" situation, which\nmeans that callbacks are not going to be available immediate, but only\nafter an \"immediates\" cycle.",
             "summary": "This method calls the \"callMe\" async method indirectly, which will then invoke a virtual method."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 334
           },
@@ -953,7 +957,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 342
           },
@@ -963,7 +967,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 313
           },
@@ -982,7 +986,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 317
           },
@@ -993,10 +997,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 308
-      },
       "name": "AsyncVirtualMethods"
     },
     "jsii-calc.AugmentableClass": {
@@ -1006,26 +1006,26 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1321
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1322
           },
           "name": "methodOne"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1328
           },
           "name": "methodTwo"
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 1321
-      },
       "name": "AugmentableClass"
     },
     "jsii-calc.BinaryOperation": {
@@ -1070,12 +1070,16 @@
         }
       ],
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/calculator.ts",
+        "line": 38
+      },
       "methods": [
         {
           "docs": {
             "summary": "Say hello!"
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 48
           },
@@ -1088,10 +1092,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/calculator.ts",
-        "line": 38
-      },
       "name": "BinaryOperation",
       "properties": [
         {
@@ -1099,7 +1099,7 @@
             "summary": "Left-hand side operand."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 44
           },
@@ -1113,7 +1113,7 @@
             "summary": "Right-hand side operand."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 44
           },
@@ -1152,12 +1152,16 @@
         ]
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/calculator.ts",
+        "line": 243
+      },
       "methods": [
         {
           "docs": {
             "summary": "Adds a number to the current value."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 282
           },
@@ -1175,7 +1179,7 @@
           "docs": {
             "summary": "Multiplies the current value by a number."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 289
           },
@@ -1193,7 +1197,7 @@
           "docs": {
             "summary": "Negates the current value."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 303
           },
@@ -1203,7 +1207,7 @@
           "docs": {
             "summary": "Raises the current value by a power."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 296
           },
@@ -1221,7 +1225,7 @@
           "docs": {
             "summary": "Returns teh value of the union property (if defined)."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 322
           },
@@ -1231,10 +1235,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/calculator.ts",
-        "line": 243
-      },
       "name": "Calculator",
       "properties": [
         {
@@ -1242,7 +1242,7 @@
             "summary": "Returns the expression."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 310
           },
@@ -1259,7 +1259,7 @@
             "summary": "A log of all operations."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 272
           },
@@ -1278,7 +1278,7 @@
             "summary": "A map of per operation name of all operations performed."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 267
           },
@@ -1301,7 +1301,7 @@
           "docs": {
             "summary": "The current value."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 262
           },
@@ -1314,7 +1314,7 @@
           "docs": {
             "summary": "The maximum value allows in this calculator."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 277
           },
@@ -1328,7 +1328,7 @@
           "docs": {
             "summary": "Example of a property that accepts a union of types."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 317
           },
@@ -1360,7 +1360,7 @@
       },
       "fqn": "jsii-calc.CalculatorProps",
       "kind": "interface",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/calculator.ts",
         "line": 235
       },
@@ -1369,7 +1369,7 @@
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 236
           },
@@ -1382,7 +1382,7 @@
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 237
           },
@@ -1406,14 +1406,14 @@
         }
       ],
       "kind": "class",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1563
       },
       "name": "ClassThatImplementsTheInternalInterface",
       "properties": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1564
           },
@@ -1426,17 +1426,20 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1565
           },
           "name": "b",
+          "overrides": {
+            "fqn": "jsii-calc.INonInternalInterface"
+          },
           "type": {
             "primitive": "string"
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1566
           },
@@ -1449,7 +1452,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1567
           },
@@ -1472,14 +1475,14 @@
         }
       ],
       "kind": "class",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1570
       },
       "name": "ClassThatImplementsThePrivateInterface",
       "properties": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1571
           },
@@ -1492,17 +1495,20 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1572
           },
           "name": "b",
+          "overrides": {
+            "fqn": "jsii-calc.INonInternalInterface"
+          },
           "type": {
             "primitive": "string"
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1573
           },
@@ -1515,7 +1521,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1574
           },
@@ -1533,14 +1539,14 @@
         "initializer": true
       },
       "kind": "class",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1109
       },
       "name": "ClassWithMutableObjectLiteralProperty",
       "properties": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1110
           },
@@ -1563,9 +1569,13 @@
         }
       ],
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1136
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1137
           },
@@ -1590,15 +1600,11 @@
           "static": true
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 1136
-      },
       "name": "ClassWithPrivateConstructorAndAutomaticProperties",
       "properties": [
         {
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1141
           },
@@ -1611,7 +1617,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1141
           },
@@ -1640,7 +1646,7 @@
         ]
       },
       "kind": "class",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1595
       },
@@ -1653,9 +1659,13 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1360
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1377
           },
@@ -1666,7 +1676,7 @@
           "static": true
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1381
           },
@@ -1682,7 +1692,7 @@
           "static": true
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1385
           },
@@ -1698,7 +1708,7 @@
           "static": true
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1361
           },
@@ -1709,7 +1719,7 @@
           "static": true
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1365
           },
@@ -1720,7 +1730,7 @@
           "static": true
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1369
           },
@@ -1731,7 +1741,7 @@
           "static": true
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1373
           },
@@ -1747,10 +1757,6 @@
           "static": true
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 1360
-      },
       "name": "Constructors"
     },
     "jsii-calc.ConsumersOfThisCrazyTypeSystem": {
@@ -1760,9 +1766,13 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1577
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1578
           },
@@ -1780,7 +1790,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1582
           },
@@ -1798,10 +1808,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 1577
-      },
       "name": "ConsumersOfThisCrazyTypeSystem"
     },
     "jsii-calc.DefaultedConstructorArgument": {
@@ -1834,7 +1840,7 @@
         ]
       },
       "kind": "class",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 289
       },
@@ -1842,7 +1848,7 @@
       "properties": [
         {
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 290
           },
@@ -1853,7 +1859,7 @@
         },
         {
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 292
           },
@@ -1864,7 +1870,7 @@
         },
         {
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 291
           },
@@ -1883,7 +1889,7 @@
         "initializer": true
       },
       "kind": "class",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 298
       },
@@ -1891,7 +1897,7 @@
       "namespace": "DerivedClassHasNoProperties",
       "properties": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 299
           },
@@ -1912,7 +1918,7 @@
         "initializer": true
       },
       "kind": "class",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 302
       },
@@ -1932,7 +1938,7 @@
         }
       ],
       "kind": "interface",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 520
       },
@@ -1941,7 +1947,7 @@
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 526
           },
@@ -1953,7 +1959,7 @@
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 525
           },
@@ -1968,7 +1974,7 @@
             "summary": "An example of a non primitive property."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 524
           },
@@ -1983,7 +1989,7 @@
             "summary": "This is optional."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 532
           },
@@ -2001,7 +2007,7 @@
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 528
           },
@@ -2014,7 +2020,7 @@
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 527
           },
@@ -2038,9 +2044,13 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1113
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1128
           },
@@ -2055,7 +2065,7 @@
           ]
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1120
           },
@@ -2065,7 +2075,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1124
           },
@@ -2075,10 +2085,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 1113
-      },
       "name": "DoNotOverridePrivates"
     },
     "jsii-calc.DoNotRecognizeAnyAsOptional": {
@@ -2091,9 +2097,13 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1162
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1163
           },
@@ -2122,10 +2132,6 @@
           ]
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 1162
-      },
       "name": "DoNotRecognizeAnyAsOptional"
     },
     "jsii-calc.DocumentedClass": {
@@ -2140,6 +2146,10 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/documented.ts",
+        "line": 11
+      },
       "methods": [
         {
           "docs": {
@@ -2147,7 +2157,7 @@
             "returns": "A number that everyone knows very well",
             "summary": "Greet the indicated person."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/documented.ts",
             "line": 22
           },
@@ -2173,17 +2183,13 @@
             "stability": "experimental",
             "summary": "Say ¡Hola!"
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/documented.ts",
             "line": 32
           },
           "name": "hola"
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/documented.ts",
-        "line": 11
-      },
       "name": "DocumentedClass"
     },
     "jsii-calc.DontComplainAboutVariadicAfterOptional": {
@@ -2193,9 +2199,13 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1213
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1214
           },
@@ -2222,10 +2232,6 @@
           "variadic": true
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 1213
-      },
       "name": "DontComplainAboutVariadicAfterOptional"
     },
     "jsii-calc.DoubleTrouble": {
@@ -2240,12 +2246,16 @@
         }
       ],
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 460
+      },
       "methods": [
         {
           "docs": {
             "summary": "Say hello!"
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 465
           },
@@ -2261,7 +2271,7 @@
           "docs": {
             "summary": "Returns another random number."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 461
           },
@@ -2274,10 +2284,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 460
-      },
       "name": "DoubleTrouble"
     },
     "jsii-calc.EraseUndefinedHashValues": {
@@ -2287,13 +2293,17 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1416
+      },
       "methods": [
         {
           "docs": {
             "remarks": "Used to check that undefined/null hash values\nare being erased when sending values from native code to JS.",
             "summary": "Returns `true` if `key` is defined in `opts`."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1421
           },
@@ -2321,7 +2331,7 @@
           "docs": {
             "summary": "We expect \"prop1\" to be erased."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1438
           },
@@ -2335,7 +2345,7 @@
           "docs": {
             "summary": "We expect \"prop2\" to be erased."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1428
           },
@@ -2346,10 +2356,6 @@
           "static": true
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 1416
-      },
       "name": "EraseUndefinedHashValues"
     },
     "jsii-calc.EraseUndefinedHashValuesOptions": {
@@ -2357,7 +2363,7 @@
       "datatype": true,
       "fqn": "jsii-calc.EraseUndefinedHashValuesOptions",
       "kind": "interface",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1411
       },
@@ -2366,7 +2372,7 @@
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1412
           },
@@ -2379,7 +2385,7 @@
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1413
           },
@@ -2406,7 +2412,7 @@
         ]
       },
       "kind": "class",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1298
       },
@@ -2414,7 +2420,7 @@
       "properties": [
         {
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1299
           },
@@ -2430,7 +2436,7 @@
       "datatype": true,
       "fqn": "jsii-calc.ExtendsInternalInterface",
       "kind": "interface",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1519
       },
@@ -2439,7 +2445,7 @@
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1520
           },
@@ -2447,35 +2453,17 @@
           "type": {
             "primitive": "boolean"
           }
-        }
-      ]
-    },
-    "jsii-calc.ExtendsPrivateInterface": {
-      "assembly": "jsii-calc",
-      "datatype": true,
-      "fqn": "jsii-calc.ExtendsPrivateInterface",
-      "kind": "interface",
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 1531
-      },
-      "name": "ExtendsPrivateInterface",
-      "properties": [
+        },
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1532
+            "line": 1468
           },
-          "name": "moreThings",
+          "name": "prop",
           "type": {
-            "collection": {
-              "elementtype": {
-                "primitive": "string"
-              },
-              "kind": "array"
-            }
+            "primitive": "string"
           }
         }
       ]
@@ -2487,12 +2475,16 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 535
+      },
       "methods": [
         {
           "docs": {
             "summary": "Accepts a struct of type DerivedStruct and returns a struct of type FirstStruct."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 553
           },
@@ -2513,7 +2505,7 @@
           "docs": {
             "summary": "Returns the boolean from a DerivedStruct struct."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 546
           },
@@ -2534,7 +2526,7 @@
           "docs": {
             "summary": "Returns the \"anumber\" from a MyFirstStruct struct;"
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 539
           },
@@ -2552,15 +2544,11 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 535
-      },
       "name": "GiveMeStructs",
       "properties": [
         {
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 557
           },
@@ -2579,7 +2567,7 @@
       },
       "fqn": "jsii-calc.Greetee",
       "kind": "interface",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/documented.ts",
         "line": 40
       },
@@ -2592,7 +2580,7 @@
             "summary": "The name of the greetee."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/documented.ts",
             "line": 46
           },
@@ -2611,9 +2599,13 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 511
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 512
           },
@@ -2631,17 +2623,13 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 511
-      },
       "name": "GreetingAugmenter"
     },
     "jsii-calc.IAnotherPublicInterface": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.IAnotherPublicInterface",
       "kind": "interface",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1540
       },
@@ -2649,11 +2637,51 @@
       "properties": [
         {
           "abstract": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1541
           },
           "name": "a",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.IExtendsPrivateInterface": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.IExtendsPrivateInterface",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1531
+      },
+      "name": "IExtendsPrivateInterface",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1532
+          },
+          "name": "moreThings",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "primitive": "string"
+              },
+              "kind": "array"
+            }
+          }
+        },
+        {
+          "abstract": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1516
+          },
+          "name": "private",
           "type": {
             "primitive": "string"
           }
@@ -2672,13 +2700,17 @@
         }
       ],
       "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/calculator.ts",
+        "line": 7
+      },
       "methods": [
         {
           "abstract": true,
           "docs": {
             "summary": "Say farewell."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 17
           },
@@ -2693,7 +2725,7 @@
             "returns": "A goodbye blessing.",
             "summary": "Say goodbye."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 12
           },
@@ -2703,10 +2735,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/calculator.ts",
-        "line": 7
-      },
       "name": "IFriendlier"
     },
     "jsii-calc.IFriendlyRandomGenerator": {
@@ -2721,7 +2749,7 @@
         }
       ],
       "kind": "interface",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/calculator.ts",
         "line": 31
       },
@@ -2734,7 +2762,7 @@
       },
       "fqn": "jsii-calc.IInterfaceImplementedByAbstractClass",
       "kind": "interface",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1059
       },
@@ -2743,7 +2771,7 @@
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1060
           },
@@ -2766,7 +2794,7 @@
         }
       ],
       "kind": "interface",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1155
       },
@@ -2775,7 +2803,7 @@
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1156
           },
@@ -2790,46 +2818,46 @@
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.IInterfaceWithInternal",
       "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1479
+      },
       "methods": [
         {
           "abstract": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1480
           },
           "name": "visible"
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 1479
-      },
       "name": "IInterfaceWithInternal"
     },
     "jsii-calc.IInterfaceWithMethods": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.IInterfaceWithMethods",
       "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1145
+      },
       "methods": [
         {
           "abstract": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1148
           },
           "name": "doThings"
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 1145
-      },
       "name": "IInterfaceWithMethods",
       "properties": [
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1146
           },
@@ -2847,10 +2875,14 @@
       },
       "fqn": "jsii-calc.IInterfaceWithOptionalMethodArguments",
       "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1050
+      },
       "methods": [
         {
           "abstract": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1051
           },
@@ -2872,17 +2904,13 @@
           ]
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 1050
-      },
       "name": "IInterfaceWithOptionalMethodArguments"
     },
     "jsii-calc.IInterfaceWithProperties": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.IInterfaceWithProperties",
       "kind": "interface",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 565
       },
@@ -2891,7 +2919,7 @@
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 566
           },
@@ -2902,7 +2930,7 @@
         },
         {
           "abstract": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 567
           },
@@ -2922,7 +2950,7 @@
         }
       ],
       "kind": "interface",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 570
       },
@@ -2930,7 +2958,7 @@
       "properties": [
         {
           "abstract": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 571
           },
@@ -2941,11 +2969,92 @@
         }
       ]
     },
+    "jsii-calc.IJSII417Derived": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.IJSII417Derived",
+      "interfaces": [
+        {
+          "fqn": "jsii-calc.IJSII417PublicBaseOfBase"
+        }
+      ],
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/erasures.ts",
+        "line": 37
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "locationInModule": {
+            "filename": "lib/erasures.ts",
+            "line": 35
+          },
+          "name": "bar"
+        },
+        {
+          "abstract": true,
+          "locationInModule": {
+            "filename": "lib/erasures.ts",
+            "line": 38
+          },
+          "name": "baz"
+        }
+      ],
+      "name": "IJSII417Derived",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/erasures.ts",
+            "line": 34
+          },
+          "name": "property",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.IJSII417PublicBaseOfBase": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.IJSII417PublicBaseOfBase",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/erasures.ts",
+        "line": 30
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "locationInModule": {
+            "filename": "lib/erasures.ts",
+            "line": 31
+          },
+          "name": "foo"
+        }
+      ],
+      "name": "IJSII417PublicBaseOfBase",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/erasures.ts",
+            "line": 28
+          },
+          "name": "hasRoot",
+          "type": {
+            "primitive": "boolean"
+          }
+        }
+      ]
+    },
     "jsii-calc.IMutableObjectLiteral": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.IMutableObjectLiteral",
       "kind": "interface",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1105
       },
@@ -2953,7 +3062,7 @@
       "properties": [
         {
           "abstract": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1106
           },
@@ -2973,7 +3082,7 @@
         }
       ],
       "kind": "interface",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1550
       },
@@ -2981,7 +3090,18 @@
       "properties": [
         {
           "abstract": true,
-          "moduleLocation": {
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1547
+          },
+          "name": "b",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1551
           },
@@ -2996,7 +3116,7 @@
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.IPrivatelyImplemented",
       "kind": "interface",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1295
       },
@@ -3005,7 +3125,7 @@
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1296
           },
@@ -3020,10 +3140,14 @@
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.IPublicInterface",
       "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1338
+      },
       "methods": [
         {
           "abstract": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1339
           },
@@ -3033,20 +3157,20 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 1338
-      },
       "name": "IPublicInterface"
     },
     "jsii-calc.IPublicInterface2": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.IPublicInterface2",
       "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1342
+      },
       "methods": [
         {
           "abstract": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1343
           },
@@ -3056,10 +3180,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 1342
-      },
       "name": "IPublicInterface2"
     },
     "jsii-calc.IRandomNumberGenerator": {
@@ -3069,6 +3189,10 @@
       },
       "fqn": "jsii-calc.IRandomNumberGenerator",
       "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/calculator.ts",
+        "line": 23
+      },
       "methods": [
         {
           "abstract": true,
@@ -3076,7 +3200,7 @@
             "returns": "A random number.",
             "summary": "Returns another random number."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 28
           },
@@ -3086,20 +3210,20 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/calculator.ts",
-        "line": 23
-      },
       "name": "IRandomNumberGenerator"
     },
     "jsii-calc.IReturnsNumber": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.IReturnsNumber",
       "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 618
+      },
       "methods": [
         {
           "abstract": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 619
           },
@@ -3109,16 +3233,12 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 618
-      },
       "name": "IReturnsNumber",
       "properties": [
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 621
           },
@@ -3136,14 +3256,14 @@
         "initializer": true
       },
       "kind": "class",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1523
       },
       "name": "ImplementInternalInterface",
       "properties": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1524
           },
@@ -3166,9 +3286,13 @@
         }
       ],
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1486
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1487
           },
@@ -3178,10 +3302,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 1486
-      },
       "name": "ImplementsInterfaceWithInternal"
     },
     "jsii-calc.ImplementsInterfaceWithInternalSubclass": {
@@ -3194,7 +3314,7 @@
         "initializer": true
       },
       "kind": "class",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1499
       },
@@ -3207,14 +3327,14 @@
         "initializer": true
       },
       "kind": "class",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1527
       },
       "name": "ImplementsPrivateInterface",
       "properties": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1528
           },
@@ -3235,7 +3355,7 @@
         }
       ],
       "kind": "interface",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1003
       },
@@ -3244,7 +3364,7 @@
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1004
           },
@@ -3270,9 +3390,13 @@
         }
       ],
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1345
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1346
           },
@@ -3285,10 +3409,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 1345
-      },
       "name": "InbetweenClass"
     },
     "jsii-calc.InterfaceInNamespaceIncludesClasses.Foo": {
@@ -3298,7 +3418,7 @@
         "initializer": true
       },
       "kind": "class",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1037
       },
@@ -3306,7 +3426,7 @@
       "namespace": "InterfaceInNamespaceIncludesClasses",
       "properties": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1038
           },
@@ -3323,7 +3443,7 @@
       "datatype": true,
       "fqn": "jsii-calc.InterfaceInNamespaceIncludesClasses.Hello",
       "kind": "interface",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1041
       },
@@ -3333,7 +3453,7 @@
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1042
           },
@@ -3349,7 +3469,7 @@
       "datatype": true,
       "fqn": "jsii-calc.InterfaceInNamespaceOnlyInterface.Hello",
       "kind": "interface",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1029
       },
@@ -3359,7 +3479,7 @@
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1030
           },
@@ -3388,31 +3508,31 @@
         ]
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/erasures.ts",
+        "line": 20
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/erasures.ts",
             "line": 21
           },
           "name": "bar"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/erasures.ts",
             "line": 24
           },
           "name": "baz"
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/erasures.ts",
-        "line": 20
-      },
       "name": "JSII417Derived",
       "properties": [
         {
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/erasures.ts",
             "line": 15
           },
@@ -3431,9 +3551,13 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/erasures.ts",
+        "line": 8
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/erasures.ts",
             "line": 9
           },
@@ -3444,22 +3568,18 @@
           "static": true
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/erasures.ts",
             "line": 12
           },
           "name": "foo"
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/erasures.ts",
-        "line": 8
-      },
       "name": "JSII417PublicBaseOfBase",
       "properties": [
         {
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/erasures.ts",
             "line": 6
           },
@@ -3477,9 +3597,13 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 494
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 496
           },
@@ -3489,7 +3613,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 502
           },
@@ -3499,10 +3623,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 494
-      },
       "name": "JSObjectLiteralForInterface"
     },
     "jsii-calc.JSObjectLiteralToNative": {
@@ -3512,9 +3632,13 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 220
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 221
           },
@@ -3524,10 +3648,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 220
-      },
       "name": "JSObjectLiteralToNative"
     },
     "jsii-calc.JSObjectLiteralToNativeClass": {
@@ -3537,14 +3657,14 @@
         "initializer": true
       },
       "kind": "class",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 229
       },
       "name": "JSObjectLiteralToNativeClass",
       "properties": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 230
           },
@@ -3554,7 +3674,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 231
           },
@@ -3572,380 +3692,380 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 714
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 715
           },
           "name": "abstract"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 718
           },
           "name": "assert"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 721
           },
           "name": "boolean"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 724
           },
           "name": "break"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 727
           },
           "name": "byte"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 730
           },
           "name": "case"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 733
           },
           "name": "catch"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 736
           },
           "name": "char"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 739
           },
           "name": "class"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 742
           },
           "name": "const"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 745
           },
           "name": "continue"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 748
           },
           "name": "default"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 754
           },
           "name": "do"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 751
           },
           "name": "double"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 757
           },
           "name": "else"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 760
           },
           "name": "enum"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 763
           },
           "name": "extends"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 766
           },
           "name": "false"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 769
           },
           "name": "final"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 772
           },
           "name": "finally"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 775
           },
           "name": "float"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 778
           },
           "name": "for"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 781
           },
           "name": "goto"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 784
           },
           "name": "if"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 787
           },
           "name": "implements"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 790
           },
           "name": "import"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 793
           },
           "name": "instanceof"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 796
           },
           "name": "int"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 799
           },
           "name": "interface"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 802
           },
           "name": "long"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 805
           },
           "name": "native"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 808
           },
           "name": "new"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 811
           },
           "name": "null"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 814
           },
           "name": "package"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 817
           },
           "name": "private"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 820
           },
           "name": "protected"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 823
           },
           "name": "public"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 826
           },
           "name": "return"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 829
           },
           "name": "short"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 832
           },
           "name": "static"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 835
           },
           "name": "strictfp"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 838
           },
           "name": "super"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 841
           },
           "name": "switch"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 844
           },
           "name": "synchronized"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 847
           },
           "name": "this"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 850
           },
           "name": "throw"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 853
           },
           "name": "throws"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 856
           },
           "name": "transient"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 859
           },
           "name": "true"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 862
           },
           "name": "try"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 865
           },
           "name": "void"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 868
           },
           "name": "volatile"
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 714
-      },
       "name": "JavaReservedWords",
       "properties": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 871
           },
@@ -3966,7 +4086,7 @@
         "initializer": true
       },
       "kind": "class",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1310
       },
@@ -3977,7 +4097,7 @@
             "summary": "Returns the value of the JSII_AGENT environment variable."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1314
           },
@@ -3998,7 +4118,7 @@
       },
       "fqn": "jsii-calc.LoadBalancedFargateServiceProps",
       "kind": "interface",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1222
       },
@@ -4012,7 +4132,7 @@
             "summary": "The container port of the application load balancer attached to your Fargate service."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1265
           },
@@ -4030,7 +4150,7 @@
             "summary": "The number of cpu units used by the task. Valid values, which determines your range of valid values for the memory parameter: 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1236
           },
@@ -4048,7 +4168,7 @@
             "summary": "The amount (in MiB) of memory used by the task."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1258
           },
@@ -4065,7 +4185,7 @@
             "summary": "Determines whether the Application Load Balancer will be internet-facing."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1272
           },
@@ -4082,7 +4202,7 @@
             "summary": "Determines whether your Fargate Service will be assigned a public IP address."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1279
           },
@@ -4138,12 +4258,16 @@
         }
       ],
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/calculator.ts",
+        "line": 69
+      },
       "methods": [
         {
           "docs": {
             "summary": "Say farewell."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 82
           },
@@ -4159,7 +4283,7 @@
           "docs": {
             "summary": "Say goodbye."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 78
           },
@@ -4175,7 +4299,7 @@
           "docs": {
             "summary": "Returns another random number."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 86
           },
@@ -4191,7 +4315,7 @@
           "docs": {
             "summary": "String representation of the value."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 74
           },
@@ -4204,10 +4328,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/calculator.ts",
-        "line": 69
-      },
       "name": "Multiply",
       "properties": [
         {
@@ -4215,7 +4335,7 @@
             "summary": "The value."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 70
           },
@@ -4255,12 +4375,16 @@
         }
       ],
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/calculator.ts",
+        "line": 103
+      },
       "methods": [
         {
           "docs": {
             "summary": "Say farewell."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 120
           },
@@ -4276,7 +4400,7 @@
           "docs": {
             "summary": "Say goodbye."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 116
           },
@@ -4292,7 +4416,7 @@
           "docs": {
             "summary": "Say hello!"
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 112
           },
@@ -4308,7 +4432,7 @@
           "docs": {
             "summary": "String representation of the value."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 108
           },
@@ -4321,10 +4445,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/calculator.ts",
-        "line": 103
-      },
       "name": "Negate",
       "properties": [
         {
@@ -4332,7 +4452,7 @@
             "summary": "The value."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 104
           },
@@ -4356,13 +4476,17 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 955
+      },
       "methods": [
         {
           "docs": {
             "returns": "\"6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50\"",
             "summary": "Uses node.js \"crypto\" module to calculate sha256 of a string."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 984
           },
@@ -4376,7 +4500,7 @@
             "returns": "\"Hello, resource!\"",
             "summary": "Reads a local resource file (resource.txt) asynchronously."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 960
           },
@@ -4391,7 +4515,7 @@
             "returns": "\"Hello, resource! SYNC!\"",
             "summary": "Sync version of fsReadFile."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 969
           },
@@ -4401,10 +4525,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 955
-      },
       "name": "NodeStandardLibrary",
       "properties": [
         {
@@ -4412,7 +4532,7 @@
             "summary": "Returns the current os.platform() from the \"os\" node module."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 976
           },
@@ -4448,9 +4568,13 @@
         ]
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1171
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1180
           },
@@ -4466,7 +4590,7 @@
           ]
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1186
           },
@@ -4481,21 +4605,17 @@
           ]
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1201
           },
           "name": "verifyPropertyIsUndefined"
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 1171
-      },
       "name": "NullShouldBeTreatedAsUndefined",
       "properties": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1172
           },
@@ -4512,7 +4632,7 @@
       "datatype": true,
       "fqn": "jsii-calc.NullShouldBeTreatedAsUndefinedData",
       "kind": "interface",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1208
       },
@@ -4521,7 +4641,7 @@
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1210
           },
@@ -4538,7 +4658,7 @@
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1209
           },
@@ -4568,9 +4688,13 @@
         ]
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 480
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 489
           },
@@ -4588,7 +4712,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 485
           },
@@ -4598,14 +4722,10 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 480
-      },
       "name": "NumberGenerator",
       "properties": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 481
           },
@@ -4626,12 +4746,16 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 237
+      },
       "methods": [
         {
           "docs": {
             "summary": "Returns the sum of all values."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 241
           },
@@ -4657,7 +4781,7 @@
           "docs": {
             "summary": "Returns the sum of all values in a map."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 252
           },
@@ -4680,10 +4804,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 237
-      },
       "name": "ObjectRefsInCollections"
     },
     "jsii-calc.Old": {
@@ -4697,22 +4817,22 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/documented.ts",
+        "line": 54
+      },
       "methods": [
         {
           "docs": {
             "summary": "Doo wop that thing."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/documented.ts",
             "line": 58
           },
           "name": "doAThing"
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/documented.ts",
-        "line": 54
-      },
       "name": "Old"
     },
     "jsii-calc.OptionalConstructorArgument": {
@@ -4743,7 +4863,7 @@
         ]
       },
       "kind": "class",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 282
       },
@@ -4751,7 +4871,7 @@
       "properties": [
         {
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 283
           },
@@ -4762,7 +4882,7 @@
         },
         {
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 284
           },
@@ -4773,7 +4893,7 @@
         },
         {
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 285
           },
@@ -4790,7 +4910,7 @@
       "datatype": true,
       "fqn": "jsii-calc.OptionalStruct",
       "kind": "interface",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1617
       },
@@ -4799,7 +4919,7 @@
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1618
           },
@@ -4827,7 +4947,7 @@
         ]
       },
       "kind": "class",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1608
       },
@@ -4835,7 +4955,7 @@
       "properties": [
         {
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1609
           },
@@ -4846,7 +4966,7 @@
         },
         {
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1610
           },
@@ -4865,9 +4985,13 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 624
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 625
           },
@@ -4885,10 +5009,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 624
-      },
       "name": "OverrideReturnsObject"
     },
     "jsii-calc.PartiallyInitializedThisConsumer": {
@@ -4899,10 +5019,14 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1591
+      },
       "methods": [
         {
           "abstract": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1592
           },
@@ -4932,10 +5056,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 1591
-      },
       "name": "PartiallyInitializedThisConsumer"
     },
     "jsii-calc.Polymorphism": {
@@ -4945,9 +5065,13 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 470
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 471
           },
@@ -4965,10 +5089,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 470
-      },
       "name": "Polymorphism"
     },
     "jsii-calc.Power": {
@@ -5007,7 +5127,7 @@
         ]
       },
       "kind": "class",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/calculator.ts",
         "line": 212
       },
@@ -5018,7 +5138,7 @@
             "summary": "The base of the power."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 219
           },
@@ -5032,7 +5152,7 @@
             "summary": "The expression that this operation consists of. Must be implemented by derived classes."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 223
           },
@@ -5049,7 +5169,7 @@
             "summary": "The number of times to multiply."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 219
           },
@@ -5067,19 +5187,19 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1335
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1336
           },
           "name": "hello"
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 1335
-      },
       "name": "PublicClass"
     },
     "jsii-calc.PythonReservedWords": {
@@ -5089,236 +5209,236 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 874
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 876
           },
           "name": "and"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 878
           },
           "name": "as"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 880
           },
           "name": "assert"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 882
           },
           "name": "async"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 884
           },
           "name": "await"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 886
           },
           "name": "break"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 888
           },
           "name": "class"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 890
           },
           "name": "continue"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 892
           },
           "name": "def"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 894
           },
           "name": "del"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 896
           },
           "name": "elif"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 898
           },
           "name": "else"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 900
           },
           "name": "except"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 902
           },
           "name": "finally"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 904
           },
           "name": "for"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 906
           },
           "name": "from"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 908
           },
           "name": "global"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 910
           },
           "name": "if"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 912
           },
           "name": "import"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 914
           },
           "name": "in"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 916
           },
           "name": "is"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 918
           },
           "name": "lambda"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 920
           },
           "name": "nonlocal"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 922
           },
           "name": "not"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 924
           },
           "name": "or"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 926
           },
           "name": "pass"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 928
           },
           "name": "raise"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 930
           },
           "name": "return"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 932
           },
           "name": "try"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 934
           },
           "name": "while"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 936
           },
           "name": "with"
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 938
           },
           "name": "yield"
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 874
-      },
       "name": "PythonReservedWords"
     },
     "jsii-calc.ReferenceEnumFromScopedPackage": {
@@ -5331,9 +5451,13 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1010
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1013
           },
@@ -5344,7 +5468,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1017
           },
@@ -5359,14 +5483,10 @@
           ]
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 1010
-      },
       "name": "ReferenceEnumFromScopedPackage",
       "properties": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1011
           },
@@ -5390,7 +5510,7 @@
         "initializer": true
       },
       "kind": "class",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1290
       },
@@ -5398,7 +5518,7 @@
       "properties": [
         {
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1291
           },
@@ -5416,9 +5536,13 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 261
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 271
           },
@@ -5448,7 +5572,7 @@
           ]
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 277
           },
@@ -5467,7 +5591,7 @@
           "docs": {
             "summary": "Used to verify verification of number of method arguments."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 265
           },
@@ -5495,10 +5619,6 @@
           ]
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 261
-      },
       "name": "RuntimeTypeChecking"
     },
     "jsii-calc.SingleInstanceTwoTypes": {
@@ -5512,9 +5632,13 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1397
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1400
           },
@@ -5524,7 +5648,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1404
           },
@@ -5534,10 +5658,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 1397
-      },
       "name": "SingleInstanceTwoTypes"
     },
     "jsii-calc.Statics": {
@@ -5555,12 +5675,16 @@
         ]
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 659
+      },
       "methods": [
         {
           "docs": {
             "summary": "Jsdocs for static method."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 667
           },
@@ -5582,7 +5706,7 @@
           "static": true
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 671
           },
@@ -5592,10 +5716,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 659
-      },
       "name": "Statics",
       "properties": [
         {
@@ -5604,7 +5724,7 @@
             "summary": "Constants may also use all-caps."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 683
           },
@@ -5617,7 +5737,7 @@
         {
           "const": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 710
           },
@@ -5633,7 +5753,7 @@
             "summary": "Jsdocs for static property."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 678
           },
@@ -5649,7 +5769,7 @@
             "summary": "Constants can also use camelCase."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 688
           },
@@ -5668,7 +5788,7 @@
           "docs": {
             "summary": "Jsdocs for static getter. Jsdocs for static setter."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 695
           },
@@ -5679,7 +5799,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 709
           },
@@ -5691,7 +5811,7 @@
         },
         {
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 660
           },
@@ -5706,6 +5826,10 @@
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.StringEnum",
       "kind": "enum",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 29
+      },
       "members": [
         {
           "name": "A"
@@ -5717,10 +5841,6 @@
           "name": "C"
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 29
-      },
       "name": "StringEnum"
     },
     "jsii-calc.StripInternal": {
@@ -5730,14 +5850,14 @@
         "initializer": true
       },
       "kind": "class",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 1447
       },
       "name": "StripInternal",
       "properties": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 1448
           },
@@ -5761,7 +5881,7 @@
         "initializer": true
       },
       "kind": "class",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/calculator.ts",
         "line": 187
       },
@@ -5772,7 +5892,7 @@
             "summary": "The expression that this operation consists of. Must be implemented by derived classes."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 200
           },
@@ -5788,7 +5908,7 @@
           "docs": {
             "summary": "The parts to sum."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 192
           },
@@ -5811,9 +5931,13 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 347
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 360
           },
@@ -5824,7 +5948,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 348
           },
@@ -5834,7 +5958,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 400
           },
@@ -5849,7 +5973,7 @@
           ]
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 372
           },
@@ -5864,7 +5988,7 @@
           ]
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 413
           },
@@ -5874,7 +5998,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 404
           },
@@ -5884,7 +6008,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 384
           },
@@ -5894,7 +6018,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 376
           },
@@ -5904,7 +6028,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 364
           },
@@ -5922,7 +6046,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 417
           },
@@ -5937,15 +6061,11 @@
           ]
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 347
-      },
       "name": "SyncVirtualMethods",
       "properties": [
         {
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 382
           },
@@ -5955,7 +6075,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 411
           },
@@ -5965,7 +6085,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 352
           },
@@ -5975,7 +6095,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 390
           },
@@ -5985,7 +6105,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 370
           },
@@ -5995,7 +6115,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 398
           },
@@ -6013,19 +6133,19 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 630
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 631
           },
           "name": "throwError"
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 630
-      },
       "name": "Thrower"
     },
     "jsii-calc.UnaryOperation": {
@@ -6050,7 +6170,7 @@
         ]
       },
       "kind": "class",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/calculator.ts",
         "line": 94
       },
@@ -6058,7 +6178,7 @@
       "properties": [
         {
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 95
           },
@@ -6074,7 +6194,7 @@
       "datatype": true,
       "fqn": "jsii-calc.UnionProperties",
       "kind": "interface",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/compliance.ts",
         "line": 941
       },
@@ -6083,7 +6203,7 @@
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 943
           },
@@ -6107,7 +6227,7 @@
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 942
           },
@@ -6135,9 +6255,13 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 946
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 947
           },
@@ -6147,10 +6271,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 946
-      },
       "name": "UseBundledDependency"
     },
     "jsii-calc.UseCalcBase": {
@@ -6163,9 +6283,13 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 995
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 996
           },
@@ -6175,10 +6299,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 995
-      },
       "name": "UseCalcBase"
     },
     "jsii-calc.UsesInterfaceWithProperties": {
@@ -6196,9 +6316,13 @@
         ]
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 574
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 579
           },
@@ -6208,7 +6332,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 588
           },
@@ -6226,7 +6350,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 583
           },
@@ -6244,15 +6368,11 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 574
-      },
       "name": "UsesInterfaceWithProperties",
       "properties": [
         {
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 575
           },
@@ -6283,9 +6403,13 @@
         "variadic": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 640
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 654
           },
@@ -6322,10 +6446,6 @@
           "variadic": true
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 640
-      },
       "name": "VariadicMethod"
     },
     "jsii-calc.VirtualMethodPlayground": {
@@ -6335,9 +6455,13 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 423
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 451
           },
@@ -6356,7 +6480,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 455
           },
@@ -6374,7 +6498,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 433
           },
@@ -6393,7 +6517,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 424
           },
@@ -6412,7 +6536,7 @@
           }
         },
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 443
           },
@@ -6430,10 +6554,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/compliance.ts",
-        "line": 423
-      },
       "name": "VirtualMethodPlayground"
     },
     "jsii-calc.composition.CompositeOperation": {
@@ -6450,12 +6570,16 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/calculator.ts",
+        "line": 132
+      },
       "methods": [
         {
           "docs": {
             "summary": "String representation of the value."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 158
           },
@@ -6468,10 +6592,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/calculator.ts",
-        "line": 132
-      },
       "name": "CompositeOperation",
       "namespace": "composition",
       "properties": [
@@ -6481,7 +6601,7 @@
             "summary": "The expression that this operation consists of. Must be implemented by derived classes."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 156
           },
@@ -6495,7 +6615,7 @@
             "summary": "The value."
           },
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 148
           },
@@ -6511,7 +6631,7 @@
           "docs": {
             "summary": "A set of postfixes to include in a decorated .toString()."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 146
           },
@@ -6529,7 +6649,7 @@
           "docs": {
             "summary": "A set of prefixes to include in a decorated .toString()."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 141
           },
@@ -6547,7 +6667,7 @@
           "docs": {
             "summary": "The .toString() style."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/calculator.ts",
             "line": 136
           },
@@ -6565,6 +6685,10 @@
       },
       "fqn": "jsii-calc.composition.CompositeOperation.CompositionStringStyle",
       "kind": "enum",
+      "locationInModule": {
+        "filename": "lib/calculator.ts",
+        "line": 174
+      },
       "members": [
         {
           "docs": {
@@ -6579,14 +6703,10 @@
           "name": "Decorated"
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/calculator.ts",
-        "line": 174
-      },
       "name": "CompositionStringStyle",
       "namespace": "composition.CompositeOperation"
     }
   },
   "version": "0.8.2",
-  "fingerprint": "WDXYo37Lrjrb9sVguROuTuu6nWZMNc2102SRw4wEvHw="
+  "fingerprint": "F1Q3+0Yg04da1wHs8L9pnwgjTr4zH7RMMWXX+TvJYUo="
 }

@@ -75,12 +75,16 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 6
+      },
       "methods": [
         {
           "docs": {
             "returns": "the name of the class (to verify native type names are created for derived classes)."
           },
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/index.ts",
             "line": 10
           },
@@ -90,10 +94,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/index.ts",
-        "line": 6
-      },
       "name": "Base"
     },
     "@scope/jsii-calc-base.BaseProps": {
@@ -106,7 +106,7 @@
         }
       ],
       "kind": "interface",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/index.ts",
         "line": 15
       },
@@ -115,7 +115,7 @@
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/index.ts",
             "line": 16
           },
@@ -128,5 +128,5 @@
     }
   },
   "version": "0.8.2",
-  "fingerprint": "NbR4BtNxFD0grH5WVobm2xvna+aZDB9T1BErc/HLOns="
+  "fingerprint": "ZlEGeLVGfz+JP26QXUzhkZu/rJWK5niWhhadMxfwA40="
 }

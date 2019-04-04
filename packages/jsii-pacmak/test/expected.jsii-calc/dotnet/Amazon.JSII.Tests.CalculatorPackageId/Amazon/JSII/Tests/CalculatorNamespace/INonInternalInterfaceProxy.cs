@@ -9,6 +9,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        [JsiiProperty("b", "{\"primitive\":\"string\"}")]
+        public string B
+        {
+            get => GetInstanceProperty<string>();
+            set => SetInstanceProperty(value);
+        }
+
         [JsiiProperty("c", "{\"primitive\":\"string\"}")]
         public string C
         {

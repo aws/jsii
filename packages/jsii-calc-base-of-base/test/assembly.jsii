@@ -45,9 +45,13 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 5
+      },
       "methods": [
         {
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/index.ts",
             "line": 6
           },
@@ -57,10 +61,6 @@
           }
         }
       ],
-      "moduleLocation": {
-        "filename": "lib/index.ts",
-        "line": 5
-      },
       "name": "Very"
     },
     "@scope/jsii-calc-base-of-base.VeryBaseProps": {
@@ -68,7 +68,7 @@
       "datatype": true,
       "fqn": "@scope/jsii-calc-base-of-base.VeryBaseProps",
       "kind": "interface",
-      "moduleLocation": {
+      "locationInModule": {
         "filename": "lib/index.ts",
         "line": 1
       },
@@ -77,7 +77,7 @@
         {
           "abstract": true,
           "immutable": true,
-          "moduleLocation": {
+          "locationInModule": {
             "filename": "lib/index.ts",
             "line": 2
           },
@@ -90,5 +90,5 @@
     }
   },
   "version": "0.8.2",
-  "fingerprint": "ChnT8cvAK89dnGo5tWtBzckGsL+XJdxcTWz5U9GaOis="
+  "fingerprint": "2FCIfxrvj5VhyzTpKaFKTg5dD0ix1DAx3o9DdB38894="
 }

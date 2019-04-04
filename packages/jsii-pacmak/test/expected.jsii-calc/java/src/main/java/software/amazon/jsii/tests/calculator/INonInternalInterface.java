@@ -2,6 +2,8 @@ package software.amazon.jsii.tests.calculator;
 
 @javax.annotation.Generated(value = "jsii-pacmak")
 public interface INonInternalInterface extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.IAnotherPublicInterface {
+    java.lang.String getB();
+    void setB(final java.lang.String value);
     java.lang.String getC();
     void setC(final java.lang.String value);
 
@@ -11,6 +13,16 @@ public interface INonInternalInterface extends software.amazon.jsii.JsiiSerializ
     final static class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.INonInternalInterface {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
             super(mode);
+        }
+
+        @Override
+        public java.lang.String getB() {
+            return this.jsiiGet("b", java.lang.String.class);
+        }
+
+        @Override
+        public void setB(final java.lang.String value) {
+            this.jsiiSet("b", java.util.Objects.requireNonNull(value, "b is required"));
         }
 
         @Override
