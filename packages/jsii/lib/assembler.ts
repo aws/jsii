@@ -669,7 +669,7 @@ export class Assembler implements Emitter {
     const actualNames = new Set((method.parameters || []).map(p => p.name));
     for (const param of params) {
       if (!actualNames.has(param)) {
-        this._diagnostic(methodSym.valueDeclaration, ts.DiagnosticCategory.Error,
+        this._diagnostic(methodSym.valueDeclaration, ts.DiagnosticCategory.Warning,
           `In doc block of '${method.name}', '@param ${param}' refers to a nonexistent parameter.`);
       }
     }
