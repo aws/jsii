@@ -88,7 +88,7 @@ export class Property implements Documentable, Overridable, TypeMember {
    * Return the location in the module
    */
   public get moduleLocation(): SourceLocation | undefined {
-    return this.spec.moduleLocation;
+    return this.spec.locationInModule;
   }
 
   /**

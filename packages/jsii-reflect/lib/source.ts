@@ -1,21 +1,41 @@
 import { Assembly } from "./assembly";
 
+/**
+ * Describes a source location in a file
+ */
 export interface SourceLocation {
+  /**
+   * The file name
+   */
   filename: string;
+
+  /**
+   * The 1-based line inside the file
+   */
   line: number;
 }
 
-interface Locatable {
+/**
+ * Interface for API items that can be queried for a source location
+ */
+export interface SourceLocatable {
+  /**
+   * The assembly the API item is defined in
+   */
   readonly assembly: Assembly;
-  readonly moduleLocation?: SourceLocation;
+
+  /**
+   * Source location relative to the assembly root
+   */
+  readonly locationInModule?: SourceLocation;
 }
 
 /**
  * Return the repository location for the given API item
  */
-export function repositoryLocation(item: Locatable): SourceLocation | undefined {
-  const assemblyLoc = item.assembly.repositoryLocation;
-  const moduleLoc = item.moduleLocation;
+export function repositoryLocation(item: SourceLocatable): SourceLocation | undefined {
+  const assemblyLoc = item.assembly.locationInRepository;
+  const moduleLoc = item.locationInModule;
 
   if (assemblyLoc && moduleLoc) {
     if (assemblyLoc === '.') { return moduleLoc; }
@@ -34,7 +54,7 @@ export function repositoryLocation(item: Locatable): SourceLocation | undefined 
  *
  * (Currently only supports GitHub URLs)
  */
-export function repositoryUrl(item: Locatable, ref: string = 'master'): string | undefined {
+export function repositoryUrl(item: SourceLocatable, ref: string = 'master'): string | undefined {
   const loc = repositoryLocation(item);
   if (!loc) { return undefined; }
 

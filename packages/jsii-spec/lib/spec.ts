@@ -108,7 +108,7 @@ export interface Assembly extends Documentable {
      * available. If the module root is equal to the root of the repository,
      * the value is '.'.
      */
-    repositoryLocation?: string;
+    locationInRepository?: string;
 }
 
 /**
@@ -288,6 +288,20 @@ export interface Documentable {
 }
 
 /**
+ * Indicates that an entity has a source location
+ */
+export interface SourceLocatable {
+    /**
+     * Where in the module this definition was found
+     *
+     * Why is this not `locationInAssembly`? Because the assembly is the JSII
+     * file combining compiled code and its manifest, whereas this is referring
+     * to the location of the source in the module the assembly was built from.
+     */
+    locationInModule?: SourceLocation;
+}
+
+/**
  * Kinds of collections.
  */
 export enum CollectionKind {
@@ -418,7 +432,7 @@ export interface Overridable {
 /**
  * A class property.
  */
-export interface Property extends Documentable, Overridable {
+export interface Property extends Documentable, Overridable, SourceLocatable {
     /**
      * The name of the property.
      * @minLength 1
@@ -456,11 +470,6 @@ export interface Property extends Documentable, Overridable {
      * Implies `static` and `immutable`.
      */
     const?: boolean;
-
-    /**
-     * Where in the module this definition was found
-     */
-    moduleLocation?: SourceLocation;
 }
 
 /**
@@ -489,7 +498,7 @@ export interface Parameter extends Documentable {
 /**
  * Represents a method.
  */
-export interface Method extends Documentable, Overridable {
+export interface Method extends Documentable, Overridable, SourceLocatable {
 
     /**
      * The name of the method. Undefined if this method is a initializer.
@@ -531,11 +540,6 @@ export interface Method extends Documentable, Overridable {
      * Indicates if this is a static method.
      */
     static?: boolean;
-
-    /**
-     * Where in the module this definition was found
-     */
-    moduleLocation?: SourceLocation;
 }
 
 /**
@@ -546,7 +550,7 @@ export type Type = TypeBase & (ClassType | EnumType | InterfaceType);
 /**
  * Common attributes of a type definition.
  */
-export interface TypeBase extends Documentable {
+export interface TypeBase extends Documentable, SourceLocatable {
     /**
      * The fully qualified name of the type (``<assembly>.<namespace>.<name>``)
      * @minLength 3
@@ -576,11 +580,6 @@ export interface TypeBase extends Documentable {
      * The kind of the type.
      */
     kind: TypeKind;
-
-    /**
-     * Where in the module this definition was found
-     */
-    moduleLocation?: SourceLocation;
 }
 
 /**

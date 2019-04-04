@@ -4,10 +4,10 @@ import { ClassType } from './class';
 import { Docs, Documentable } from './docs';
 import { EnumType } from './enum';
 import { InterfaceType } from './interface';
-import { repositoryLocation, SourceLocation } from './source';
+import { repositoryLocation, SourceLocatable, SourceLocation } from './source';
 import { TypeSystem } from './type-system';
 
-export abstract class Type implements Documentable {
+export abstract class Type implements Documentable, SourceLocatable {
   constructor(
     public readonly system: TypeSystem,
     public readonly assembly: Assembly,
@@ -121,7 +121,7 @@ export abstract class Type implements Documentable {
    * Return the location in the module
    */
   public get moduleLocation(): SourceLocation | undefined {
-    return this.spec.moduleLocation;
+    return this.spec.locationInModule;
   }
 
   /**
