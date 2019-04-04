@@ -27,7 +27,7 @@ const LOG = log4js.getLogger('jsii/assembler');
 export class Assembler implements Emitter {
   private _diagnostics = new Array<Diagnostic>();
   private _deferred = new Array<DeferredRecord>();
-  private _types: { [fqn: string]: spec.Type };
+  private _types: { [fqn: string]: spec.Type } = {};
 
   /**
    * @param projectInfo information about the package being assembled

@@ -47,12 +47,20 @@
       "kind": "class",
       "methods": [
         {
+          "moduleLocation": {
+            "filename": "lib/index.ts",
+            "line": 6
+          },
           "name": "hey",
           "returns": {
             "primitive": "number"
           }
         }
       ],
+      "moduleLocation": {
+        "filename": "lib/index.ts",
+        "line": 5
+      },
       "name": "Very"
     },
     "@scope/jsii-calc-base-of-base.VeryBaseProps": {
@@ -60,11 +68,19 @@
       "datatype": true,
       "fqn": "@scope/jsii-calc-base-of-base.VeryBaseProps",
       "kind": "interface",
+      "moduleLocation": {
+        "filename": "lib/index.ts",
+        "line": 1
+      },
       "name": "VeryBaseProps",
       "properties": [
         {
           "abstract": true,
           "immutable": true,
+          "moduleLocation": {
+            "filename": "lib/index.ts",
+            "line": 2
+          },
           "name": "foo",
           "type": {
             "fqn": "@scope/jsii-calc-base-of-base.Very"
@@ -74,5 +90,5 @@
     }
   },
   "version": "0.8.2",
-  "fingerprint": "II5j+yUrBn6dB/gWFSs9fbCeaOJTu2szjv0xtMpkn80="
+  "fingerprint": "ChnT8cvAK89dnGo5tWtBzckGsL+XJdxcTWz5U9GaOis="
 }

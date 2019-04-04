@@ -80,12 +80,20 @@
           "docs": {
             "returns": "the name of the class (to verify native type names are created for derived classes)."
           },
+          "moduleLocation": {
+            "filename": "lib/index.ts",
+            "line": 10
+          },
           "name": "typeName",
           "returns": {
             "primitive": "any"
           }
         }
       ],
+      "moduleLocation": {
+        "filename": "lib/index.ts",
+        "line": 6
+      },
       "name": "Base"
     },
     "@scope/jsii-calc-base.BaseProps": {
@@ -98,11 +106,19 @@
         }
       ],
       "kind": "interface",
+      "moduleLocation": {
+        "filename": "lib/index.ts",
+        "line": 15
+      },
       "name": "BaseProps",
       "properties": [
         {
           "abstract": true,
           "immutable": true,
+          "moduleLocation": {
+            "filename": "lib/index.ts",
+            "line": 16
+          },
           "name": "bar",
           "type": {
             "primitive": "string"
@@ -112,5 +128,5 @@
     }
   },
   "version": "0.8.2",
-  "fingerprint": "lIcHicx5rBBxyy5vOvOqvbBGjk//8lFLX6oVx2xh5Fc="
+  "fingerprint": "NbR4BtNxFD0grH5WVobm2xvna+aZDB9T1BErc/HLOns="
 }
