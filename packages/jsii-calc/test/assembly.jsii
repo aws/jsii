@@ -3370,6 +3370,106 @@
         }
       ]
     },
+    "jsii-calc.JSII417Derived": {
+      "assembly": "jsii-calc",
+      "base": {
+        "fqn": "jsii-calc.JSII417PublicBaseOfBase"
+      },
+      "fqn": "jsii-calc.JSII417Derived",
+      "initializer": {
+        "initializer": true,
+        "parameters": [
+          {
+            "name": "property",
+            "type": {
+              "primitive": "string"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "moduleLocation": {
+            "filename": "lib/erasures.ts",
+            "line": 21
+          },
+          "name": "bar"
+        },
+        {
+          "moduleLocation": {
+            "filename": "lib/erasures.ts",
+            "line": 24
+          },
+          "name": "baz"
+        }
+      ],
+      "moduleLocation": {
+        "filename": "lib/erasures.ts",
+        "line": 20
+      },
+      "name": "JSII417Derived",
+      "properties": [
+        {
+          "immutable": true,
+          "moduleLocation": {
+            "filename": "lib/erasures.ts",
+            "line": 15
+          },
+          "name": "property",
+          "protected": true,
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.JSII417PublicBaseOfBase": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.JSII417PublicBaseOfBase",
+      "initializer": {
+        "initializer": true
+      },
+      "kind": "class",
+      "methods": [
+        {
+          "moduleLocation": {
+            "filename": "lib/erasures.ts",
+            "line": 9
+          },
+          "name": "makeInstance",
+          "returns": {
+            "fqn": "jsii-calc.JSII417PublicBaseOfBase"
+          },
+          "static": true
+        },
+        {
+          "moduleLocation": {
+            "filename": "lib/erasures.ts",
+            "line": 12
+          },
+          "name": "foo"
+        }
+      ],
+      "moduleLocation": {
+        "filename": "lib/erasures.ts",
+        "line": 8
+      },
+      "name": "JSII417PublicBaseOfBase",
+      "properties": [
+        {
+          "immutable": true,
+          "moduleLocation": {
+            "filename": "lib/erasures.ts",
+            "line": 6
+          },
+          "name": "hasRoot",
+          "type": {
+            "primitive": "boolean"
+          }
+        }
+      ]
+    },
     "jsii-calc.JSObjectLiteralForInterface": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.JSObjectLiteralForInterface",
@@ -6488,5 +6588,5 @@
     }
   },
   "version": "0.8.2",
-  "fingerprint": "Z/m5QLImL3EMfLvot8SEhRkd6PFeI/obNVGso8xpvP4="
+  "fingerprint": "WDXYo37Lrjrb9sVguROuTuu6nWZMNc2102SRw4wEvHw="
 }
