@@ -30,12 +30,12 @@
           "module": "scope.jsii_calc_base_of_base"
         }
       },
-      "version": "0.8.2"
+      "version": "0.9.0"
     }
   },
   "description": "An example direct dependency for jsii-calc.",
   "homepage": "https://github.com/awslabs/jsii.git",
-  "jsiiVersion": "0.8.2",
+  "jsiiVersion": "0.9.0",
   "license": "Apache-2.0",
   "name": "@scope/jsii-calc-base",
   "repository": {
@@ -127,6 +127,6 @@
       ]
     }
   },
-  "version": "0.8.2",
-  "fingerprint": "ZlEGeLVGfz+JP26QXUzhkZu/rJWK5niWhhadMxfwA40="
+  "version": "0.9.0",
+  "fingerprint": "kY67AXY3VfrjDTcaGA947JNHQsShp1+YEr9p0JkgKW4="
 }
