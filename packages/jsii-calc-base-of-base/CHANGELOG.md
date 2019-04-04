@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://github.com/awslabs/jsii/compare/v0.8.2...v0.9.0) (2019-04-04)
+
+
+### Features
+
+* **jsii:** record source locations in assembly ([#429](https://github.com/awslabs/jsii/issues/429)) ([e601c0c](https://github.com/awslabs/jsii/commit/e601c0c))
+* **jsii:** Tag the jsii compiler version in the .jsii assemblies ([#420](https://github.com/awslabs/jsii/issues/420)) ([42dece1](https://github.com/awslabs/jsii/commit/42dece1)), closes [#412](https://github.com/awslabs/jsii/issues/412)
+
+
+
+
+
 ## [0.8.2](https://github.com/awslabs/jsii/compare/v0.8.1...v0.8.2) (2019-03-28)
 
 **Note:** Version bump only for package @scope/jsii-calc-base-of-base

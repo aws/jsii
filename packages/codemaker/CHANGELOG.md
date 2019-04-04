@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://github.com/awslabs/jsii/compare/v0.8.2...v0.9.0) (2019-04-04)
+
+
+### Features
+
+* **jsii:** Enforce use of peerDependencies ([#421](https://github.com/awslabs/jsii/issues/421)) ([e72fea5](https://github.com/awslabs/jsii/commit/e72fea5)), closes [#361](https://github.com/awslabs/jsii/issues/361)
+* **jsii-diff:** standardize doc comments, add API compatibility tool ([#415](https://github.com/awslabs/jsii/issues/415)) ([9cfd867](https://github.com/awslabs/jsii/commit/9cfd867))
+
+
+### BREAKING CHANGES
+
+* **jsii:** All direct dependencies must be duplicated in
+                 peerDependencies unless they are in bundledDependencies.
+
+
+
+
+
 ## [0.8.2](https://github.com/awslabs/jsii/compare/v0.8.1...v0.8.2) (2019-03-28)
 
 **Note:** Version bump only for package codemaker

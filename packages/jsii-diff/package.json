@@ -1,6 +1,6 @@
 {
     "name": "jsii-diff",
-    "version": "0.8.2",
+    "version": "0.9.0",
     "description": "Assembly comparison for jsii",
     "license": "Apache-2.0",
     "author": {
@@ -19,22 +19,22 @@
     },
     "devDependencies": {
         "@types/fs-extra": "^5.0.5",
+        "@types/log4js": "^2.3.5",
         "@types/node": "^8.10.43",
         "@types/nodeunit": "^0.0.30",
-        "@types/yargs": "^12.0.9",
         "@types/tar-fs": "^1.16.1",
-        "@types/log4js": "^2.3.5",
-        "jsii-build-tools": "^0.8.0",
-        "jsii": "^0.8.0",
+        "@types/yargs": "^12.0.9",
+        "jsii": "^0.9.0",
+        "jsii-build-tools": "^0.9.0",
         "nodeunit": "^0.11.3",
         "nyc": "^13.3.0"
     },
     "dependencies": {
-        "jsii-reflect": "^0.8.0",
-        "jsii-spec": "^0.8.0",
+        "jsii-reflect": "^0.9.0",
+        "jsii-spec": "^0.9.0",
+        "log4js": "^4.1.0",
         "typescript": "^3.3.3333",
-        "yargs": "^13.2.2",
-        "log4js": "^4.1.0"
+        "yargs": "^13.2.2"
     },
     "nyc": {
         "reporter": [
