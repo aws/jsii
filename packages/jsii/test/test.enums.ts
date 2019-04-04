@@ -18,6 +18,7 @@ export = {
       fqn: 'testpkg.Foo',
       kind: 'enum',
       members: [{ name: 'Bar' }, { name: 'Baz' }],
+      locationInModule: { filename: 'index.ts', line: 2 },
       name: 'Foo'
     });
 
@@ -38,6 +39,7 @@ export = {
       fqn: 'testpkg.Foo',
       kind: 'enum',
       members: [{ name: 'Bar' }, { name: 'Baz' }],
+      locationInModule: { filename: 'index.ts', line: 2 },
       name: 'Foo'
     });
 

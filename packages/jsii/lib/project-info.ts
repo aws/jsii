@@ -12,6 +12,7 @@ const LOG = log4js.getLogger('jsii/package-info');
 
 export interface ProjectInfo {
     readonly projectRoot: string;
+    readonly locationInRepository?: string;
     readonly packageJson: any;
 
     readonly name: string;
@@ -128,7 +129,8 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
             && (pkg.contributors as any[]).map((contrib, index) => _toPerson(contrib, `contributors[${index}]`, 'contributor')),
 
         excludeTypescript: (pkg.jsii && pkg.jsii.excludeTypescript) || [],
-        projectReferences: pkg.jsii && pkg.jsii.projectReferences
+        projectReferences: pkg.jsii && pkg.jsii.projectReferences,
+        locationInRepository: pkg.jsii && pkg.jsii.locationInRepository
     };
 }
 

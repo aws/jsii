@@ -75,10 +75,18 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 6
+      },
       "methods": [
         {
           "docs": {
             "returns": "the name of the class (to verify native type names are created for derived classes)."
+          },
+          "locationInModule": {
+            "filename": "lib/index.ts",
+            "line": 10
           },
           "name": "typeName",
           "returns": {
@@ -98,11 +106,19 @@
         }
       ],
       "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 15
+      },
       "name": "BaseProps",
       "properties": [
         {
           "abstract": true,
           "immutable": true,
+          "locationInModule": {
+            "filename": "lib/index.ts",
+            "line": 16
+          },
           "name": "bar",
           "type": {
             "primitive": "string"
@@ -112,5 +128,5 @@
     }
   },
   "version": "0.8.2",
-  "fingerprint": "lIcHicx5rBBxyy5vOvOqvbBGjk//8lFLX6oVx2xh5Fc="
+  "fingerprint": "ZlEGeLVGfz+JP26QXUzhkZu/rJWK5niWhhadMxfwA40="
 }

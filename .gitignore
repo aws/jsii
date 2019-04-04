@@ -6,3 +6,4 @@ tsconfig.tsbuildinfo
 .idea
 .vs
 /dist
+.vscode

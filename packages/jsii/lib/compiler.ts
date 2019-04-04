@@ -55,7 +55,7 @@ export interface TypescriptConfig {
 
 export class Compiler implements Emitter {
     private readonly compilerHost: ts.CompilerHost;
-    private typescriptConfig: TypescriptConfig;
+    private typescriptConfig?: TypescriptConfig;
     private rootFiles: string[] = [];
     private readonly configPath: string;
     private projectReferences: boolean;
@@ -97,11 +97,13 @@ export class Compiler implements Emitter {
             throw new Error('No default library location was found on the TypeScript compiler host!');
         }
 
+        const tsconf = this.typescriptConfig!;
+
         const prog = ts.createProgram({
             rootNames: this.rootFiles.concat(_pathOfLibraries(this.compilerHost)),
             options: COMPILER_OPTIONS,
             // Make the references absolute for the compiler
-            projectReferences: this.typescriptConfig.references && this.typescriptConfig.references.map(ref => ({ path: path.resolve(ref.path) })),
+            projectReferences: tsconf.references && tsconf.references.map(ref => ({ path: path.resolve(ref.path) })),
             host: this.compilerHost
         });
 

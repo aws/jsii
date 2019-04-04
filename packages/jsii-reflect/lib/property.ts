@@ -2,13 +2,13 @@ import jsii = require('jsii-spec');
 import { Assembly } from './assembly';
 import { Docs, Documentable } from './docs';
 import { Overridable } from './overridable';
+import { locationInRepository, SourceLocatable, SourceLocation } from './source';
 import { Type } from './type';
+import { MemberKind, TypeMember } from './type-member';
 import { TypeReference } from './type-ref';
 import { TypeSystem } from './type-system';
-// tslint:disable-next-line:ordered-imports
-import { TypeMember, MemberKind } from './type-member';
 
-export class Property implements Documentable, Overridable, TypeMember {
+export class Property implements Documentable, Overridable, TypeMember, SourceLocatable {
   public readonly kind = MemberKind.Property;
 
   constructor(
@@ -82,5 +82,19 @@ export class Property implements Documentable, Overridable, TypeMember {
 
   public get docs(): Docs {
     return new Docs(this.system, this, this.spec.docs || {}, this.parentType.docs);
+  }
+
+  /**
+   * Return the location in the module
+   */
+  public get locationInModule(): SourceLocation | undefined {
+    return this.spec.locationInModule;
+  }
+
+  /**
+   * Return the location in the repository
+   */
+  public get locationInRepository(): SourceLocation | undefined {
+    return locationInRepository(this);
   }
 }
