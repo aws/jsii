@@ -7,7 +7,7 @@ import log4js = require('log4js');
 import path = require('path');
 import ts = require('typescript');
 import { JSII_DIAGNOSTICS_CODE } from './compiler';
-import { parseSymbolDocumentation } from './docs';
+import { getReferencedDocParams, parseSymbolDocumentation } from './docs';
 import { Diagnostic, Emitter } from './emitter';
 import literate = require('./literate');
 import { ProjectInfo } from './project-info';
@@ -645,18 +645,10 @@ export class Assembler implements Emitter {
   }
 
   /**
-   * Register documentations on a ``spec.Documentable`` entry.
-   *
-   * @param sym       the symbol holding the JSDoc information
-   * @param documentable the entity being documented
-   *
-   * @returns ``documentable``
+   * Return docs for a symbol
    */
   private _visitDocumentation(sym: ts.Symbol): spec.Docs | undefined {
-    const comment = ts.displayPartsToString(sym.getDocumentationComment(this._typeChecker)).trim();
-
-    // Right here we'll just guess that the first declaration site is the most important one.
-    const result = parseSymbolDocumentation(comment, sym.getJsDocTags());
+    const result = parseSymbolDocumentation(sym, this._typeChecker);
 
     for (const diag of result.diagnostics || []) {
       this._diagnostic(sym.declarations[0],
@@ -667,6 +659,20 @@ export class Assembler implements Emitter {
 
     const allUndefined = Object.values(result.docs).every(v => v === undefined);
     return !allUndefined ? result.docs : undefined;
+  }
+
+  /**
+   * Check that all parameters the doc block refers to with a @param declaration actually exist
+   */
+  private _validateReferencedDocParams(method: spec.Method, methodSym: ts.Symbol) {
+    const params = getReferencedDocParams(methodSym);
+    const actualNames = new Set((method.parameters || []).map(p => p.name));
+    for (const param of params) {
+      if (!actualNames.has(param)) {
+        this._diagnostic(methodSym.valueDeclaration, ts.DiagnosticCategory.Warning,
+          `In doc block of '${method.name}', '@param ${param}' refers to a nonexistent parameter.`);
+      }
+    }
   }
 
   private async _visitInterface(type: ts.Type, namespace: string[]): Promise<spec.InterfaceType | undefined> {
@@ -845,6 +851,8 @@ export class Assembler implements Emitter {
         }
       });
     }
+
+    this._validateReferencedDocParams(method, symbol);
 
     type.methods = type.methods || [];
     if (type.methods.find(m => m.name === method.name && m.static === method.static) != null) {

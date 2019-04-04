@@ -33,7 +33,29 @@
 import spec = require('jsii-spec');
 import ts = require('typescript');
 
-export function parseSymbolDocumentation(comments: string | undefined, tags: ts.JSDocTagInfo[]): DocsParsingResult {
+export function parseSymbolDocumentation(sym: ts.Symbol, typeChecker: ts.TypeChecker): DocsParsingResult {
+    const comment = ts.displayPartsToString(sym.getDocumentationComment(typeChecker)).trim();
+    const tags = sym.getJsDocTags();
+
+    // Right here we'll just guess that the first declaration site is the most important one.
+    return parseDocParts(comment, tags);
+}
+
+/**
+ * Return the list of parameter names that are referenced in the docstring for this symbol
+ */
+export function getReferencedDocParams(sym: ts.Symbol): string[] {
+  const ret = new Array<string>();
+  for (const tag of sym.getJsDocTags()) {
+    if (tag.name === 'param') {
+      const parts = (tag.text || '').split(' ');
+      ret.push(parts[0]);
+    }
+  }
+  return ret;
+}
+
+function parseDocParts(comments: string | undefined, tags: ts.JSDocTagInfo[]): DocsParsingResult {
   const diagnostics = new Array<string>();
   const docs: spec.Docs = {};
 
