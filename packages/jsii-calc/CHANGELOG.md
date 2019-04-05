@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://github.com/awslabs/jsii/compare/v0.8.2...v0.9.0) (2019-04-04)
+
+
+### Bug Fixes
+
+* **jsii:** Prohibit illegal uses of structs (aka data types) ([#418](https://github.com/awslabs/jsii/issues/418)) ([8ff9137](https://github.com/awslabs/jsii/commit/8ff9137)), closes [#287](https://github.com/awslabs/jsii/issues/287)
+
+
+### Features
+
+* **jsii:** Erase un-exported base classes instead of prohibiting those ([#425](https://github.com/awslabs/jsii/issues/425)) ([d006f5c](https://github.com/awslabs/jsii/commit/d006f5c)), closes [#417](https://github.com/awslabs/jsii/issues/417)
+* **jsii:** Erase un-exported base interfaces instead of prohibiting those ([#426](https://github.com/awslabs/jsii/issues/426)) ([afbabff](https://github.com/awslabs/jsii/commit/afbabff)), closes [#417](https://github.com/awslabs/jsii/issues/417)
+* **jsii:** record source locations in assembly ([#429](https://github.com/awslabs/jsii/issues/429)) ([e601c0c](https://github.com/awslabs/jsii/commit/e601c0c))
+* **jsii:** Tag the jsii compiler version in the .jsii assemblies ([#420](https://github.com/awslabs/jsii/issues/420)) ([42dece1](https://github.com/awslabs/jsii/commit/42dece1)), closes [#412](https://github.com/awslabs/jsii/issues/412)
+* **jsii-diff:** standardize doc comments, add API compatibility tool ([#415](https://github.com/awslabs/jsii/issues/415)) ([9cfd867](https://github.com/awslabs/jsii/commit/9cfd867))
+* **kernel:** Normalize empty structs to undefined ([#416](https://github.com/awslabs/jsii/issues/416)) ([a8ee954](https://github.com/awslabs/jsii/commit/a8ee954)), closes [#411](https://github.com/awslabs/jsii/issues/411)
+
+
+
+
+
 ## [0.8.2](https://github.com/awslabs/jsii/compare/v0.8.1...v0.8.2) (2019-03-28)
 
 **Note:** Version bump only for package jsii-calc

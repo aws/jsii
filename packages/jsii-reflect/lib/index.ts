@@ -15,3 +15,4 @@ export * from './type-member';
 export * from './type-ref';
 export * from './type-system';
 export * from './reference-type';
+export * from './source';

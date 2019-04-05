@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://github.com/awslabs/jsii/compare/v0.8.2...v0.9.0) (2019-04-04)
+
+
+### Bug Fixes
+
+* **jsii:** Prohibit illegal uses of structs (aka data types) ([#418](https://github.com/awslabs/jsii/issues/418)) ([8ff9137](https://github.com/awslabs/jsii/commit/8ff9137)), closes [#287](https://github.com/awslabs/jsii/issues/287)
+
+
+### Features
+
+* **jsii-diff:** standardize doc comments, add API compatibility tool ([#415](https://github.com/awslabs/jsii/issues/415)) ([9cfd867](https://github.com/awslabs/jsii/commit/9cfd867))
+
+
+
+
+
 ## [0.8.2](https://github.com/awslabs/jsii/compare/v0.8.1...v0.8.2) (2019-03-28)
 
 **Note:** Version bump only for package jsii-java-runtime-test

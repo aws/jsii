@@ -30,12 +30,12 @@
           "module": "scope.jsii_calc_base_of_base"
         }
       },
-      "version": "0.8.2"
+      "version": "0.9.0"
     }
   },
   "description": "An example direct dependency for jsii-calc.",
   "homepage": "https://github.com/awslabs/jsii.git",
-  "jsiiVersion": "0.8.2",
+  "jsiiVersion": "0.9.0",
   "license": "Apache-2.0",
   "name": "@scope/jsii-calc-base",
   "repository": {
@@ -75,10 +75,18 @@
         "initializer": true
       },
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 6
+      },
       "methods": [
         {
           "docs": {
             "returns": "the name of the class (to verify native type names are created for derived classes)."
+          },
+          "locationInModule": {
+            "filename": "lib/index.ts",
+            "line": 10
           },
           "name": "typeName",
           "returns": {
@@ -101,11 +109,19 @@
         }
       ],
       "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 15
+      },
       "name": "BaseProps",
       "properties": [
         {
           "abstract": true,
           "immutable": true,
+          "locationInModule": {
+            "filename": "lib/index.ts",
+            "line": 16
+          },
           "name": "bar",
           "value": {
             "type": {
@@ -116,6 +132,6 @@
       ]
     }
   },
-  "version": "0.8.2",
-  "fingerprint": "6+1NS3qiQTk7rdZBGShGX+FqDnldoViA8+J0yQopA94="
+  "version": "0.9.0",
+  "fingerprint": "WfOk+muZma5/YlmUhypFauh/hDFDzfNRSUmRtfVTMcE="
 }

@@ -1,21 +1,21 @@
 {
   "name": "jsii-python-runtime",
   "private": true,
-  "version": "0.8.2",
+  "version": "0.9.0",
   "description": "Python client for jsii runtime",
   "main": "index.js",
   "scripts": {
     "generate": "python3 bin/generate",
-    "deps": "python -m venv .env && .env/bin/pip install pip==19.0.1 setuptools==40.7.0 wheel==0.32.3 && .env/bin/pip install -r requirements.txt",
+    "deps": "python3 -m venv .env && .env/bin/pip install pip==19.0.1 setuptools==40.7.0 wheel==0.32.3 && .env/bin/pip install -r requirements.txt",
     "build": "cp ../../README.md . && npm run generate && npm run deps && .env/bin/python setup.py sdist -d . bdist_wheel -d . && rm -rf build",
     "package": "package-python",
     "test": ".env/bin/python bin/generate-calc && .env/bin/py.test -v --mypy"
   },
   "dependencies": {
-    "jsii-build-tools": "^0.8.2",
-    "jsii-calc": "^0.8.2",
-    "jsii-pacmak": "^0.8.2",
-    "jsii-runtime": "^0.8.2"
+    "jsii-build-tools": "^0.9.0",
+    "jsii-calc": "^0.9.0",
+    "jsii-pacmak": "^0.9.0",
+    "jsii-runtime": "^0.9.0"
   },
   "repository": {
     "type": "git",

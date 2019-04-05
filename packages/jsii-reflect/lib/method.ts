@@ -4,6 +4,8 @@ import { Docs, Documentable } from './docs';
 import { Overridable } from './overridable';
 import { Parameter } from './parameter';
 import { Property } from './property';
+import { SourceLocatable } from './source';
+import { locationInRepository, SourceLocation } from './source';
 import { Type } from './type';
 import { TypeInstance } from './type-instance';
 import { MemberKind, TypeMember } from './type-member';
@@ -14,7 +16,7 @@ import { TypeSystem } from './type-system';
  */
 export const INITIALIZER_NAME = '<initializer>';
 
-export class Method implements Documentable, Overridable, TypeMember {
+export class Method implements Documentable, Overridable, TypeMember, SourceLocatable {
   public readonly kind = MemberKind.Method;
 
   constructor(
@@ -109,4 +111,18 @@ export class Method implements Documentable, Overridable, TypeMember {
 
   public isMethod(): this is Method { return true; }
   public isProperty(): this is Property { return false; }
+
+  /**
+   * Return the location in the module
+   */
+  public get locationInModule(): SourceLocation | undefined {
+    return this.spec.locationInModule;
+  }
+
+  /**
+   * Return the location in the repository
+   */
+  public get locationInRepository(): SourceLocation | undefined {
+    return locationInRepository(this);
+  }
 }

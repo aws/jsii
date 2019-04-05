@@ -100,6 +100,15 @@ export interface Assembly extends Documentable {
      * The top-level readme document for this assembly (if any).
      */
     readme?: { markdown: string };
+
+    /**
+     * Source directory of the module root, relative to the repository root.
+     *
+     * If undefined or the empty string, no source location information is
+     * available. If the module root is equal to the root of the repository,
+     * the value is '.'.
+     */
+    locationInRepository?: string;
 }
 
 /**
@@ -176,6 +185,21 @@ export interface PackageVersion {
      * @see https://nodejs.org/en/blog/npm/peer-dependencies/
      */
     peer?: boolean;
+}
+
+/**
+ * Where in the module source the definition for this API item was found
+ */
+export interface SourceLocation {
+    /**
+     * Relative filename
+     */
+    filename: string;
+
+    /**
+     * 1-based line number in the indicated file
+     */
+    line: number;
 }
 
 /**
@@ -261,6 +285,20 @@ export enum Stability {
  */
 export interface Documentable {
     docs?: Docs;
+}
+
+/**
+ * Indicates that an entity has a source location
+ */
+export interface SourceLocatable {
+    /**
+     * Where in the module this definition was found
+     *
+     * Why is this not `locationInAssembly`? Because the assembly is the JSII
+     * file combining compiled code and its manifest, whereas this is referring
+     * to the location of the source in the module the assembly was built from.
+     */
+    locationInModule?: SourceLocation;
 }
 
 /**
@@ -403,7 +441,7 @@ export interface Overridable {
 /**
  * A class property.
  */
-export interface Property extends Documentable, Overridable {
+export interface Property extends Documentable, Overridable, SourceLocatable {
     /**
      * The name of the property.
      * @minLength 1
@@ -473,7 +511,7 @@ export interface Parameter extends Documentable {
 /**
  * Represents a method.
  */
-export interface Method extends Documentable, Overridable {
+export interface Method extends Documentable, Overridable, SourceLocatable {
 
     /**
      * The name of the method. Undefined if this method is a initializer.
@@ -525,7 +563,7 @@ export type Type = TypeBase & (ClassType | EnumType | InterfaceType);
 /**
  * Common attributes of a type definition.
  */
-export interface TypeBase extends Documentable {
+export interface TypeBase extends Documentable, SourceLocatable {
     /**
      * The fully qualified name of the type (``<assembly>.<namespace>.<name>``)
      * @minLength 3
