@@ -9,7 +9,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("abstractProperty", "{\"primitive\":\"string\"}")]
+        [JsiiProperty("abstractProperty", "{\"type\":{\"primitive\":\"string\"}}")]
         public override string AbstractProperty
         {
             get => GetInstanceProperty<string>();

@@ -7,7 +7,7 @@ export interface Assembly extends Documentable {
     /**
      * The version of the spec schema
      */
-    schema: SchemaVersion.V1_0;
+    schema: SchemaVersion.LATEST;
 
     /**
      * The name of the assembly
@@ -106,7 +106,7 @@ export interface Assembly extends Documentable {
  * Versions of the JSII Assembly Specification.
  */
 export enum SchemaVersion {
-    V1_0 = 'jsii/1.0'
+    LATEST = 'jsii/0.9.0'
 }
 
 /**
@@ -292,29 +292,38 @@ export enum PrimitiveType {
 }
 
 /**
- * A reference to a type (primitive, collection or fqn).
+ * Represents some instance of a type, for example as the return value of a method, a parameter, or a property.
  */
-export type TypeReference = TypeReferenceBase & (NamedTypeReference | PrimitiveTypeReference | CollectionTypeReference | UnionTypeReference);
-
-/**
- * Common attributes of a TypeReference.
- */
-export interface TypeReferenceBase {
+export interface TypeInstance<T extends TypeReference> {
     /**
-     * Indicates if this value is nullable.
+     * The type of the instance that is denoted by this object.
      */
-    nullable?: boolean;
+    type: T;
 
     /**
-     * Indicates if this type refers to a promise.
+     * Whether this instance is optional (meaning it can be absent or null, ...) or not.
+     *
+     * @default false
+     */
+    optional?: boolean;
+
+    /**
+     * Whether this instance is a promise (meaning it may only become available at a later point) or immediate.
+     *
+     * @default false
      */
     promise?: boolean;
 }
 
 /**
+ * A reference to a type (primitive, collection or fqn).
+ */
+export type TypeReference = NamedTypeReference | PrimitiveTypeReference | CollectionTypeReference | UnionTypeReference;
+
+/**
  * Reference to a named type, defined by this assembly or one of it's dependencies.
  */
-export interface NamedTypeReference extends TypeReferenceBase {
+export interface NamedTypeReference {
     /**
      * The fully-qualified-name of the type (can be located in the
      * ``spec.types[fqn]``` of the assembly that defines the type).
@@ -328,7 +337,7 @@ export function isNamedTypeReference(ref: TypeReference | undefined): ref is Nam
 /**
  * Reference to a primitive type.
  */
-export interface PrimitiveTypeReference extends TypeReferenceBase {
+export interface PrimitiveTypeReference {
     /**
      * If this is a reference to a primitive type, this will include the
      * primitive type kind.
@@ -342,7 +351,7 @@ export function isPrimitiveTypeReference(ref: TypeReference | undefined): ref is
 /**
  * Reference to a collection type.
  */
-export interface CollectionTypeReference extends TypeReferenceBase {
+export interface CollectionTypeReference {
     collection: {
         /**
          * The kind of collection.
@@ -352,7 +361,7 @@ export interface CollectionTypeReference extends TypeReferenceBase {
         /**
          * The type of an element (map keys are always strings).
          */
-        elementtype: TypeReference;
+        elementtype: TypeInstance<TypeReference>;
     };
 }
 export function isCollectionTypeReference(ref: TypeReference | undefined): ref is CollectionTypeReference {
@@ -362,7 +371,7 @@ export function isCollectionTypeReference(ref: TypeReference | undefined): ref i
 /**
  * Reference to a union type.
  */
-export interface UnionTypeReference extends TypeReferenceBase {
+export interface UnionTypeReference {
     /**
      * Indicates that this is a union type, which means it can be one of a set of types.
      */
@@ -371,7 +380,7 @@ export interface UnionTypeReference extends TypeReferenceBase {
          * All the possible types (including the primary type).
          * @minItems 2
          */
-        types: TypeReference[];
+        types: Array<TypeInstance<TypeReference>>;
     }
 }
 export function isUnionTypeReference(ref: TypeReference | undefined): ref is UnionTypeReference {
@@ -402,9 +411,9 @@ export interface Property extends Documentable, Overridable {
     name: string;
 
     /**
-     * The type of the property.
+     * The specification for the property's value (including it's declared type and whether it is optional).
      */
-    type: TypeReference;
+    value: TypeInstance<TypeReference>;
 
     /**
      * Indicates if this property only has a getter (immutable).
@@ -446,37 +455,19 @@ export interface Parameter extends Documentable {
     name: string;
 
     /**
-     * The type of the parameter.
+     * The specification for the value of this parameter (includes it's declared type and whether it is optional).
      */
-    type: TypeReference;
+    value: TypeInstance<TypeReference>;
 
     /**
-     * Denotes the modifier for this parameter, if any.
+     * Whether this is the last parameter of a variadic method. In such cases,
+     * the `#type` attribute is the type of each individual item of the variadic
+     * arguments list (as opposed to some array type, as for example TypeScript
+     * would model it)
      *
-     * @default no modifier
+     * @default false
      */
-    modifier?: ParameterModifier;
-}
-
-/**
- * Modifiers for a parameter.
- */
-export enum ParameterModifier {
-    /**
-     * Indicates that the parameter may be omitted. When a parameter has the
-     * `Optional` midufuer, the following must also be true:
-     * - The `#type` of the parameter is `#nullable`.
-     * - All subsequent parameters have the `Optional` or `Variadic` modifier
-     */
-    Optional = 'optional',
-    /**
-     * Indicates that the parameter is variadic (in other words, it is the
-     * "rest" parameter of a variadic function). When a parameter has the
-     * `Variadic` modifier, it must be the last parameter, and the `#type`
-     * specified for the parameter is that of every item in the variadic
-     * argument list.
-     */
-    Variadic = 'variadic'
+    variadic?: boolean;
 }
 
 /**
@@ -492,7 +483,7 @@ export interface Method extends Documentable, Overridable {
     /**
      * The return type of the method (undefined if void or initializer)
      */
-    returns?: TypeReference;
+    returns?: TypeInstance<TypeReference>;
 
     /**
      * The parameters of the method/initializer
@@ -529,7 +520,7 @@ export interface Method extends Documentable, Overridable {
 /**
  * Represents a type definition (not a type reference).
  */
-export type Type = TypeBase & (ClassType | EnumType | InterfaceType);
+export type Type = TypeBase & (ClassType | EnumType | InterfaceType);
 
 /**
  * Common attributes of a type definition.
@@ -682,53 +673,42 @@ export function isClassOrInterfaceType(type: Type | undefined): type is (Interfa
 }
 
 /**
- * Return a string representation of the given type reference
+ * Return a string representation of the given type reference.
  */
-export function describeTypeReference(a?: TypeReference): string {
-    if (a === undefined) { return '(none)'; }
+export function describeTypeReference(type?: TypeReference): string {
+    if (type === undefined) { return '(none)'; }
 
-    const isAny = isPrimitiveTypeReference(a) && a.primitive === PrimitiveType.Any;
-    const optionalMarker = a.nullable && !isAny ? '?' : '';
-
-    if (isNamedTypeReference(a)) {
-        return `${a.fqn}${optionalMarker}`;
+    if (isNamedTypeReference(type)) {
+        return type.fqn;
     }
 
-    if (isPrimitiveTypeReference(a)) {
-        return `${a.primitive}${optionalMarker}`;
+    if (isPrimitiveTypeReference(type)) {
+        return type.primitive;
     }
 
-    if (isCollectionTypeReference(a)) {
-        return `${a.collection.kind}<${describeTypeReference(a.collection.elementtype)}>${optionalMarker}`;
+    if (isCollectionTypeReference(type)) {
+        return `${type.collection.kind}<${describeTypeInstance(type.collection.elementtype)}>`;
     }
-    if (isUnionTypeReference(a)) {
-        const unionType = a.union.types.map(describeTypeReference).join(' | ');
-        if (a.nullable) {
-            return `(${unionType})${optionalMarker}`;
-        } else {
-            return unionType;
-        }
+
+    if (isUnionTypeReference(type)) {
+        const unionType = type.union.types.map(describeTypeInstance).join(' | ');
+        return unionType;
     }
 
     throw new Error('Unrecognized type reference');
 }
 
 /**
- * Determines whether a parameter is variadic or not.
- *
- * @param param the parameter being checked.
+ * Returns a string representation of the given type instance.
  */
-export function isVariadic(param: Parameter): boolean {
-    return param.modifier === ParameterModifier.Variadic;
-}
-
-/**
- * Determines whether a parameter is optional or not.
- *
- * @param param the parameter being checked.
- *
- * @note Variadic parameters are not considered optional by this check.
- */
-export function isOptional(param: Parameter): boolean {
-    return param.modifier === ParameterModifier.Optional;
+export function describeTypeInstance(instance?: TypeInstance<TypeReference>): string {
+    const ref = instance && instance.type;
+    let description = describeTypeReference(ref);
+    if (instance && instance.optional) {
+        description = `Optional<${description}>`;
+    }
+    if (instance && instance.promise) {
+        description = `Promise<${description}>`;
+    }
+    return description;
 }

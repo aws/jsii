@@ -460,11 +460,12 @@ class SphinxDocsGenerator extends Generator {
                 signature += ', ';
             }
 
-            if (spec.isOptional(p)) {
+            // Mark parameter as "optional" if it's type is optional, and all subsequent parameters are optional/variadic
+            if (p.value.optional && params.find((op, oidx) => oidx > idx && !op.variadic && !op.value.optional) == null) {
                 signature += '[';
                 signaturePosfix += ']';
             }
-            if (spec.isVariadic(p)) {
+            if (p.variadic) {
                 signature += '*';
             }
 
@@ -476,7 +477,7 @@ class SphinxDocsGenerator extends Generator {
 
         let retType;
         if (method.returns) {
-            retType = this.renderTypeRef(method.returns!);
+            retType = this.renderTypeInstance(method.returns);
             const retSignature = method.returns ? ` -> ${retType.display}` : '';
             signature += retSignature;
         }
@@ -488,8 +489,8 @@ class SphinxDocsGenerator extends Generator {
         const params = method.parameters || [];
 
         for (const p of params) {
-            const ptype = this.renderTypeRef(p.type);
-            const paramName = `${spec.isVariadic(p) ? '\\*' : ''}${p.name}`;
+            const ptype = this.renderTypeInstance(p.value);
+            const paramName = `${p.variadic ? '\\*' : ''}${p.name}`;
             this.code.line(`:param ${paramName}: ${this.renderDocs(p)}`);
             this.code.line(`:type ${paramName}: ${ptype.ref}`);
         }
@@ -532,7 +533,7 @@ class SphinxDocsGenerator extends Generator {
         }
 
         if (method.returns) {
-            this.code.line(`:rtype: ${this.renderTypeRef(method.returns!).ref}`);
+            this.code.line(`:rtype: ${this.renderTypeInstance(method.returns).ref}`);
         }
 
         if (method.abstract) {
@@ -579,7 +580,12 @@ class SphinxDocsGenerator extends Generator {
         }
     }
 
-    private renderTypeRef(type: spec.TypeReference): { display: string, ref: string } {
+    private renderTypeRef(type: spec.TypeReference) {
+        return this.renderTypeInstance({ type });
+    }
+
+    private renderTypeInstance(instance: spec.TypeInstance<spec.TypeReference>): { display: string, ref: string } {
+        const type = instance.type;
         let result: { display: string, ref: string };
         if (spec.isNamedTypeReference(type)) {
             const fqn = this.toNativeFqn(type.fqn);
@@ -593,7 +599,7 @@ class SphinxDocsGenerator extends Generator {
                 display: type.primitive
             };
         } else if (spec.isCollectionTypeReference(type)) {
-            const elementType = this.renderTypeRef(type.collection.elementtype);
+            const elementType = this.renderTypeInstance(type.collection.elementtype);
             const ref = wrap(elementType.ref);
             const display = wrap(elementType.display);
 
@@ -614,7 +620,7 @@ class SphinxDocsGenerator extends Generator {
                     throw new Error(`Unexpected collection kind: ${type.collection.kind}`);
             }
         } else if (spec.isUnionTypeReference(type)) {
-            const mappedTypes = type.union.types.map(t => this.renderTypeRef(t));
+            const mappedTypes = type.union.types.map(t => this.renderTypeInstance(t));
             result = {
                 display: mappedTypes.map(t => t.display).join(' or '),
                 ref: mappedTypes.map(t => t.ref).join(' or '),
@@ -623,7 +629,7 @@ class SphinxDocsGenerator extends Generator {
             throw new Error('Unexpected type ref');
         }
         const isAny = spec.isPrimitiveTypeReference(type) && type.primitive === spec.PrimitiveType.Any;
-        if (type.nullable && !isAny) { result.ref = `${result.ref} *(nullable)*`; }
+        if (instance.optional && !isAny) { result.ref = `${result.ref} *(optional)*`; }
         return result;
 
         // Wrap a string between parenthesis if it contains " or "
@@ -635,7 +641,7 @@ class SphinxDocsGenerator extends Generator {
 
     private renderProperty(parent: spec.TypeBase, prop: spec.Property, inheritedFrom?: string) {
         this.code.line();
-        const type = this.renderTypeRef(prop.type);
+        const type = this.renderTypeInstance(prop.value);
         this.code.openBlock(`.. py:attribute:: ${prop.name}`);
         if (inheritedFrom) {
             this.code.line();

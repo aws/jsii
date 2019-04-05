@@ -42,7 +42,7 @@
     "type": "git",
     "url": "https://github.com/awslabs/jsii.git"
   },
-  "schema": "jsii/1.0",
+  "schema": "jsii/0.9.0",
   "targets": {
     "dotnet": {
       "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
@@ -82,8 +82,10 @@
           },
           "name": "typeName",
           "returns": {
-            "nullable": true,
-            "primitive": "any"
+            "optional": true,
+            "type": {
+              "primitive": "any"
+            }
           }
         }
       ],
@@ -105,13 +107,15 @@
           "abstract": true,
           "immutable": true,
           "name": "bar",
-          "type": {
-            "primitive": "string"
+          "value": {
+            "type": {
+              "primitive": "string"
+            }
           }
         }
       ]
     }
   },
   "version": "0.8.2",
-  "fingerprint": "f/Vo5ezvqYp8jwokKJftL6t8IIXU2GGM17L/jKRF2oQ="
+  "fingerprint": "6+1NS3qiQTk7rdZBGShGX+FqDnldoViA8+J0yQopA94="
 }

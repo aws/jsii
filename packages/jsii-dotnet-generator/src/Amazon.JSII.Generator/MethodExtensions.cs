@@ -28,12 +28,12 @@ namespace Amazon.JSII.Generator
 
                 foreach (Parameter parameter in method.Parameters)
                 {
-                    namespaces.Add(parameter.Type);
+                    namespaces.Add(parameter.Value.Type);
 
                     yield return SF.Parameter(
                         SF.List<AttributeListSyntax>(),
                         SF.TokenList(),
-                        symbols.GetTypeSyntax(parameter.Type),
+                        symbols.GetTypeSyntax(parameter.Value),
                         symbols.GetNameSyntaxToken(parameter),
                         null
                     );
@@ -45,7 +45,7 @@ namespace Amazon.JSII.Generator
         {
             // Strip docs before serializing.
             Parameter[] parameters = (method?.Parameters ?? Enumerable.Empty<Parameter>())
-                .Select(p => new Parameter(p.Name, p.Type))
+                .Select(p => new Parameter(p.Name, p.Value))
                 .ToArray();
 
             return SF.Literal(JsonConvert.SerializeObject(parameters));

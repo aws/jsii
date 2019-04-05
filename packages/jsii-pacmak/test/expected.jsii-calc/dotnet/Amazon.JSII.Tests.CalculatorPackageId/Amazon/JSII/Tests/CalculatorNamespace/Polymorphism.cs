@@ -18,7 +18,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod("sayHello", "{\"primitive\":\"string\"}", "[{\"name\":\"friendly\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.IFriendly\"}}]")]
+        [JsiiMethod("sayHello", "{\"type\":{\"primitive\":\"string\"}}", "[{\"name\":\"friendly\",\"value\":{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.IFriendly\"}}}]")]
         public virtual string SayHello(IIFriendly friendly)
         {
             return InvokeInstanceMethod<string>(new object[]{friendly});

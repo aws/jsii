@@ -17,7 +17,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("private", "{\"primitive\":\"string\"}")]
+        [JsiiProperty("private", "{\"type\":{\"primitive\":\"string\"}}")]
         public virtual string Private
         {
             get => GetInstanceProperty<string>();

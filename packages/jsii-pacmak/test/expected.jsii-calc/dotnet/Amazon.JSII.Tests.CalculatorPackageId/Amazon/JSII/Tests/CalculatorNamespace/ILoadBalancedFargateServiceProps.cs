@@ -11,7 +11,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// default: 80
         /// Corresponds to container port mapping.
         /// </remarks>
-        [JsiiProperty("containerPort", "{\"primitive\":\"number\",\"nullable\":true}")]
+        [JsiiProperty("containerPort", "{\"type\":{\"primitive\":\"number\"},\"optional\":true}")]
         double? ContainerPort
         {
             get;
@@ -22,7 +22,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// default: 256
         /// This default is set in the underlying FargateTaskDefinition construct.
         /// </remarks>
-        [JsiiProperty("cpu", "{\"primitive\":\"string\",\"nullable\":true}")]
+        [JsiiProperty("cpu", "{\"type\":{\"primitive\":\"string\"},\"optional\":true}")]
         string Cpu
         {
             get;
@@ -46,7 +46,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// 
         /// This default is set in the underlying FargateTaskDefinition construct.
         /// </remarks>
-        [JsiiProperty("memoryMiB", "{\"primitive\":\"string\",\"nullable\":true}")]
+        [JsiiProperty("memoryMiB", "{\"type\":{\"primitive\":\"string\"},\"optional\":true}")]
         string MemoryMiB
         {
             get;
@@ -54,7 +54,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Determines whether the Application Load Balancer will be internet-facing.</summary>
         /// <remarks>default: true</remarks>
-        [JsiiProperty("publicLoadBalancer", "{\"primitive\":\"boolean\",\"nullable\":true}")]
+        [JsiiProperty("publicLoadBalancer", "{\"type\":{\"primitive\":\"boolean\"},\"optional\":true}")]
         bool? PublicLoadBalancer
         {
             get;
@@ -62,7 +62,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Determines whether your Fargate Service will be assigned a public IP address.</summary>
         /// <remarks>default: false</remarks>
-        [JsiiProperty("publicTasks", "{\"primitive\":\"boolean\",\"nullable\":true}")]
+        [JsiiProperty("publicTasks", "{\"type\":{\"primitive\":\"boolean\"},\"optional\":true}")]
         bool? PublicTasks
         {
             get;

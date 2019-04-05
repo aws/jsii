@@ -13,10 +13,6 @@ public class NullShouldBeTreatedAsUndefined extends software.amazon.jsii.JsiiObj
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.concat(java.util.stream.Stream.of(java.util.Objects.requireNonNull(_param1, "_param1 is required")), java.util.stream.Stream.of(optional)).toArray());
     }
-    public NullShouldBeTreatedAsUndefined(final java.lang.String _param1) {
-        super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.of(java.util.Objects.requireNonNull(_param1, "_param1 is required")).toArray());
-    }
 
     public void giveMeUndefined(@javax.annotation.Nullable final java.lang.Object value) {
         this.jsiiCall("giveMeUndefined", Void.class, java.util.stream.Stream.of(value).toArray());

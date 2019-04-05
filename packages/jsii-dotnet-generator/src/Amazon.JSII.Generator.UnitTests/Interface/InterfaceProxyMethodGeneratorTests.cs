@@ -57,8 +57,8 @@ public void MyMethod()
                 false, false, true, name: "myMethod",
                 parameters: new[]
                 {
-                    new Parameter("myParam", new TypeReference("myParamTypeFqn")),
-                    new Parameter("event", new TypeReference(primitive: PrimitiveType.String))
+                    new Parameter(name: "myParam", value: new TypeInstance(type: new TypeReference("myParamTypeFqn"))),
+                    new Parameter(name: "event", value: new TypeInstance(type: new TypeReference(primitive: PrimitiveType.String)))
                 }
             );
 
@@ -69,7 +69,7 @@ public void MyMethod()
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", null, ""[{\""name\"":\""myParam\"",\""type\"":{\""fqn\"":\""myParamTypeFqn\""}},{\""name\"":\""event\"",\""type\"":{\""primitive\"":\""string\""}}]"")]
+@"[JsiiMethod(""myMethod"", null, ""[{\""name\"":\""myParam\"",\""value\"":{\""type\"":{\""fqn\"":\""myParamTypeFqn\""}}},{\""name\"":\""event\"",\""value\"":{\""type\"":{\""primitive\"":\""string\""}}}]"")]
 public void MyMethod(MyParamType myParam, string @event)
 {
     InvokeInstanceVoidMethod(new object[]{myParam, @event});
@@ -104,7 +104,7 @@ public void MyMethod()
             Method method = new Method
             (
                 false, false, true, name: "myMethod",
-                returns: new TypeReference("myReturnTypeFqn")
+                returns: new TypeInstance(type: new TypeReference("myReturnTypeFqn"))
             );
 
             Symbols.MapMethodName("myInterfaceFqn", "myMethod", "MyMethod");
@@ -112,7 +112,7 @@ public void MyMethod()
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", ""{\""fqn\"":\""myReturnTypeFqn\""}"", ""[]"")]
+@"[JsiiMethod(""myMethod"", ""{\""type\"":{\""fqn\"":\""myReturnTypeFqn\""}}"", ""[]"")]
 public MyReturnType MyMethod()
 {
     return InvokeInstanceMethod<MyReturnType>(new object[]{});

@@ -4,7 +4,7 @@ using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>The "*" binary operation.</summary>
-    [JsiiClass(typeof(Multiply), "jsii-calc.Multiply", "[{\"name\":\"lhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},{\"name\":\"rhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
+    [JsiiClass(typeof(Multiply), "jsii-calc.Multiply", "[{\"name\":\"lhs\",\"value\":{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}},{\"name\":\"rhs\",\"value\":{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}]")]
     public class Multiply : BinaryOperation, IIFriendlier, IIRandomNumberGenerator
     {
         public Multiply(Value_ lhs, Value_ rhs): base(new DeputyProps(new object[]{lhs, rhs}))
@@ -20,35 +20,35 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>The value.</summary>
-        [JsiiProperty("value", "{\"primitive\":\"number\"}")]
+        [JsiiProperty("value", "{\"type\":{\"primitive\":\"number\"}}")]
         public override double Value
         {
             get => GetInstanceProperty<double>();
         }
 
         /// <summary>Say farewell.</summary>
-        [JsiiMethod("farewell", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod("farewell", "{\"type\":{\"primitive\":\"string\"}}", "[]")]
         public virtual string Farewell()
         {
             return InvokeInstanceMethod<string>(new object[]{});
         }
 
         /// <summary>Say goodbye.</summary>
-        [JsiiMethod("goodbye", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod("goodbye", "{\"type\":{\"primitive\":\"string\"}}", "[]")]
         public virtual string Goodbye()
         {
             return InvokeInstanceMethod<string>(new object[]{});
         }
 
         /// <summary>Returns another random number.</summary>
-        [JsiiMethod("next", "{\"primitive\":\"number\"}", "[]")]
+        [JsiiMethod("next", "{\"type\":{\"primitive\":\"number\"}}", "[]")]
         public virtual double Next()
         {
             return InvokeInstanceMethod<double>(new object[]{});
         }
 
         /// <summary>String representation of the value.</summary>
-        [JsiiMethod("toString", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod("toString", "{\"type\":{\"primitive\":\"string\"}}", "[]")]
         public override string ToString()
         {
             return InvokeInstanceMethod<string>(new object[]{});

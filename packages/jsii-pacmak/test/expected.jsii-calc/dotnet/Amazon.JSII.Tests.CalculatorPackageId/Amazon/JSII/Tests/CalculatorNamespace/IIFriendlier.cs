@@ -8,11 +8,11 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     public interface IIFriendlier : IIFriendly
     {
         /// <summary>Say farewell.</summary>
-        [JsiiMethod("farewell", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod("farewell", "{\"type\":{\"primitive\":\"string\"}}", "[]")]
         string Farewell();
         /// <summary>Say goodbye.</summary>
         /// <returns>A goodbye blessing.</returns>
-        [JsiiMethod("goodbye", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod("goodbye", "{\"type\":{\"primitive\":\"string\"}}", "[]")]
         string Goodbye();
     }
 }

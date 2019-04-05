@@ -5,8 +5,8 @@ import { Overridable } from './overridable';
 import { Parameter } from './parameter';
 import { Property } from './property';
 import { Type } from './type';
+import { TypeInstance } from './type-instance';
 import { MemberKind, TypeMember } from './type-member';
-import { TypeReference } from './type-ref';
 import { TypeSystem } from './type-system';
 
 /**
@@ -48,15 +48,15 @@ export class Method implements Documentable, Overridable, TypeMember {
   /**
    * The return type of the method (undefined if void or initializer)
    */
-  public get returns(): TypeReference {
-    return new TypeReference(this.system, this.spec.returns);
+  public get returns(): TypeInstance {
+    return new TypeInstance(this.system, this.spec.returns);
   }
 
   /**
    * The parameters of the method/initializer
    */
   public get parameters(): Parameter[] {
-    return (this.spec.parameters || []).map(p => new Parameter(this.system, this.parentType, this, p));
+    return (this.spec.parameters || []).map((p, i) => new Parameter(this.system, this.parentType, this, p, i));
   }
 
   /**

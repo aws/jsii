@@ -364,36 +364,36 @@ namespace Amazon.JSII.Generator
 
         #endregion
 
-        public TypeSyntax GetTypeSyntax(TypeReference typeReference)
+        public TypeSyntax GetTypeSyntax(TypeInstance typeInstance)
         {
-            bool isNullable = (typeReference ?? throw new ArgumentNullException(nameof(typeReference))).IsNullable == true;
+            bool isOptional = (typeInstance ?? throw new ArgumentNullException(nameof(typeInstance))).IsOptional == true;
 
-            if (typeReference.Primitive != null)
+            if (typeInstance.Type.Primitive != null)
             {
-                switch (typeReference.Primitive.Value)
+                switch (typeInstance.Type.Primitive.Value)
                 {
                     case PrimitiveType.Any:
                         return SF.ParseTypeName("object");
                     case PrimitiveType.Boolean:
-                        return SF.ParseTypeName(isNullable ? "bool?" : "bool");
+                        return SF.ParseTypeName(isOptional ? "bool?" : "bool");
                     case PrimitiveType.Date:
-                        return SF.ParseTypeName(isNullable ? "DateTime?" : "DateTime");
+                        return SF.ParseTypeName(isOptional ? "DateTime?" : "DateTime");
                     case PrimitiveType.Json:
                         return SF.ParseTypeName("JObject");
                     case PrimitiveType.Number:
-                        return SF.ParseTypeName(isNullable ? "double?" : "double");
+                        return SF.ParseTypeName(isOptional ? "double?" : "double");
                     case PrimitiveType.String:
                         return SF.ParseTypeName("string");
                     default:
-                        throw new ArgumentException($"Unexpected primitive type {typeReference.Primitive.Value}", nameof(typeReference));
+                        throw new ArgumentException($"Unexpected primitive type {typeInstance.Type.Primitive.Value}", nameof(typeInstance));
                 }
             }
 
-            if (typeReference.Collection != null)
+            if (typeInstance.Type.Collection != null)
             {
-                TypeSyntax elementType = GetTypeSyntax(typeReference.Collection.ElementType);
+                TypeSyntax elementType = GetTypeSyntax(typeInstance.Type.Collection.ElementType);
 
-                switch (typeReference.Collection.Kind)
+                switch (typeInstance.Type.Collection.Kind)
                 {
                     case CollectionKind.Array:
                         return SF.ArrayType(
@@ -403,27 +403,32 @@ namespace Amazon.JSII.Generator
                     case CollectionKind.Map:
                         return SF.ParseTypeName($"IDictionary<string, {elementType}>");
                     default:
-                        throw new ArgumentException($"Unexpected collection type {typeReference.Collection.Kind}", nameof(typeReference));
+                        throw new ArgumentException($"Unexpected collection type {typeInstance.Type.Collection.Kind}", nameof(typeInstance));
                 }
             }
 
-            if (typeReference.Union != null)
+            if (typeInstance.Type.Union != null)
             {
                 return SF.ParseTypeName("object");
             }
 
-            if (typeReference.FullyQualifiedName != null)
+            if (typeInstance.Type.FullyQualifiedName != null)
             {
-                Type type = GetTypeFromFullyQualifiedName(typeReference.FullyQualifiedName);
+                Type type = GetTypeFromFullyQualifiedName(typeInstance.Type.FullyQualifiedName);
                 var typeName = GetName(type, true);
-                if (isNullable && type.Kind == TypeKind.Enum)
+                if (isOptional && type.Kind == TypeKind.Enum)
                 {
                     typeName = $"{typeName }?";
                 }
                 return SF.ParseTypeName(typeName);
             }
 
-            throw new ArgumentException("Invalid type reference", nameof(typeReference));
+            throw new ArgumentException("Invalid type reference", nameof(typeInstance));
+        }
+
+        public TypeSyntax GetTypeSyntax(TypeReference typeReference)
+        {
+            return GetTypeSyntax(new TypeInstance(type: typeReference));
         }
 
         public Type GetTypeFromFullyQualifiedName(string fullyQualifiedName)

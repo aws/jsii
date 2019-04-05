@@ -14,7 +14,7 @@ namespace Amazon.JSII.JsonModel.Spec
             Parameter[] parameters = null,
             Docs docs = null,
             string name = null,
-            TypeReference returns = null,
+            TypeInstance returns = null,
             bool? isVariadic = null,
             bool? isStatic = null,
             UserTypeReference overrides = null
@@ -52,7 +52,7 @@ namespace Amazon.JSII.JsonModel.Spec
         public string Name { get; }
 
         [JsonProperty("returns", NullValueHandling = NullValueHandling.Ignore)]
-        public TypeReference Returns { get; }
+        public TypeInstance Returns { get; }
 
         [JsonProperty("variadic", NullValueHandling = NullValueHandling.Ignore)]
         public bool? IsVariadic { get; }

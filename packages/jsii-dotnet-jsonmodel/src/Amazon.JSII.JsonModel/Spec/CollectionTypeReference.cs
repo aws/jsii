@@ -6,7 +6,7 @@ namespace Amazon.JSII.JsonModel.Spec
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class CollectionTypeReference
     {
-        public CollectionTypeReference(CollectionKind kind, TypeReference elementType)
+        public CollectionTypeReference(CollectionKind kind, TypeInstance elementType)
         {
             Kind = kind;
             ElementType = elementType ?? throw new ArgumentNullException(nameof(elementType));
@@ -16,6 +16,6 @@ namespace Amazon.JSII.JsonModel.Spec
         public CollectionKind Kind { get; }
 
         [JsonProperty("elementtype")]
-        public TypeReference ElementType { get; }
+        public TypeInstance ElementType { get; }
     }
 }

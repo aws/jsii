@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(typeof(JSII417Derived), "jsii-calc.JSII417Derived", "[{\"name\":\"property\",\"type\":{\"primitive\":\"string\"}}]")]
+    [JsiiClass(typeof(JSII417Derived), "jsii-calc.JSII417Derived", "[{\"name\":\"property\",\"value\":{\"type\":{\"primitive\":\"string\"}}}]")]
     public class JSII417Derived : JSII417PublicBaseOfBase
     {
         public JSII417Derived(string property): base(new DeputyProps(new object[]{property}))
@@ -17,7 +17,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("property", "{\"primitive\":\"string\"}")]
+        [JsiiProperty("property", "{\"type\":{\"primitive\":\"string\"}}")]
         protected virtual string Property
         {
             get => GetInstanceProperty<string>();

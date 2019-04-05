@@ -4,7 +4,7 @@ using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>The negation operation ("-value").</summary>
-    [JsiiClass(typeof(Negate), "jsii-calc.Negate", "[{\"name\":\"operand\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
+    [JsiiClass(typeof(Negate), "jsii-calc.Negate", "[{\"name\":\"operand\",\"value\":{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}]")]
     public class Negate : UnaryOperation, IIFriendlier
     {
         public Negate(Value_ operand): base(new DeputyProps(new object[]{operand}))
@@ -20,35 +20,35 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>The value.</summary>
-        [JsiiProperty("value", "{\"primitive\":\"number\"}")]
+        [JsiiProperty("value", "{\"type\":{\"primitive\":\"number\"}}")]
         public override double Value
         {
             get => GetInstanceProperty<double>();
         }
 
         /// <summary>Say farewell.</summary>
-        [JsiiMethod("farewell", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod("farewell", "{\"type\":{\"primitive\":\"string\"}}", "[]")]
         public virtual string Farewell()
         {
             return InvokeInstanceMethod<string>(new object[]{});
         }
 
         /// <summary>Say goodbye.</summary>
-        [JsiiMethod("goodbye", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod("goodbye", "{\"type\":{\"primitive\":\"string\"}}", "[]")]
         public virtual string Goodbye()
         {
             return InvokeInstanceMethod<string>(new object[]{});
         }
 
         /// <summary>Say hello!</summary>
-        [JsiiMethod("hello", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod("hello", "{\"type\":{\"primitive\":\"string\"}}", "[]")]
         public virtual string Hello()
         {
             return InvokeInstanceMethod<string>(new object[]{});
         }
 
         /// <summary>String representation of the value.</summary>
-        [JsiiMethod("toString", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod("toString", "{\"type\":{\"primitive\":\"string\"}}", "[]")]
         public override string ToString()
         {
             return InvokeInstanceMethod<string>(new object[]{});

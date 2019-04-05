@@ -92,7 +92,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                     new Property
                     (
                         name: "myProp",
-                        type: new TypeReference("myPropTypeFqn"),
+                        value: new TypeInstance(type: new TypeReference("myPropTypeFqn")),
                         isImmutable: false,
                         isAbstract: true,
                         isProtected: false
@@ -100,7 +100,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                     new Property
                     (
                         name: "notMyProp",
-                        type: new TypeReference("myPropTypeFqn"),
+                        value: new TypeInstance(type: new TypeReference("myPropTypeFqn")),
                         isImmutable: false,
                         isAbstract: false,
                         isProtected: false
@@ -122,7 +122,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
         {
         }
 
-        [JsiiProperty(""myProp"", ""{\""fqn\"":\""myPropTypeFqn\""}"")]
+        [JsiiProperty(""myProp"", ""{\""type\"":{\""fqn\"":\""myPropTypeFqn\""}}"")]
         public override MyPropType MyProp
         {
             get => GetInstanceProperty<MyPropType>();

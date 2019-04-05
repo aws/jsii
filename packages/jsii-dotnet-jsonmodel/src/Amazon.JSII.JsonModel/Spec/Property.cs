@@ -9,7 +9,7 @@ namespace Amazon.JSII.JsonModel.Spec
         public Property
         (
             string name,
-            TypeReference type,
+            TypeInstance value,
             bool? isImmutable = null,
             bool? isProtected = null,
             bool? isAbstract = null,
@@ -20,7 +20,7 @@ namespace Amazon.JSII.JsonModel.Spec
         )
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
-            Type = type ?? throw new ArgumentNullException(nameof(type));
+            Value = value ?? throw new ArgumentNullException(nameof(value));
             IsImmutable = isImmutable;
             IsProtected = isProtected;
             IsAbstract = isAbstract;
@@ -33,8 +33,8 @@ namespace Amazon.JSII.JsonModel.Spec
         [JsonProperty("name")]
         public string Name { get; }
 
-        [JsonProperty("type")]
-        public TypeReference Type { get; }
+        [JsonProperty("value")]
+        public TypeInstance Value { get; }
 
         [JsonProperty("immutable", NullValueHandling = NullValueHandling.Ignore)]
         public bool? IsImmutable { get; }

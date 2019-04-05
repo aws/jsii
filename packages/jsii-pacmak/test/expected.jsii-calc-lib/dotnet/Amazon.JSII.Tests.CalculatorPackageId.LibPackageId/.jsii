@@ -68,7 +68,7 @@
     "type": "git",
     "url": "https://github.com/awslabs/jsii.git"
   },
-  "schema": "jsii/1.0",
+  "schema": "jsii/0.9.0",
   "targets": {
     "dotnet": {
       "namespace": "Amazon.JSII.Tests.CalculatorNamespace.LibNamespace",
@@ -120,8 +120,10 @@
           "abstract": true,
           "immutable": true,
           "name": "doubleValue",
-          "type": {
-            "primitive": "number"
+          "value": {
+            "type": {
+              "primitive": "number"
+            }
           }
         }
       ]
@@ -142,7 +144,9 @@
           },
           "name": "hello",
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         }
       ],
@@ -165,8 +169,10 @@
           },
           "immutable": true,
           "name": "anumber",
-          "type": {
-            "primitive": "number"
+          "value": {
+            "type": {
+              "primitive": "number"
+            }
           }
         },
         {
@@ -176,22 +182,28 @@
           },
           "immutable": true,
           "name": "astring",
-          "type": {
-            "primitive": "string"
+          "value": {
+            "type": {
+              "primitive": "string"
+            }
           }
         },
         {
           "abstract": true,
           "immutable": true,
           "name": "firstOptional",
-          "type": {
-            "collection": {
-              "elementtype": {
-                "primitive": "string"
-              },
-              "kind": "array"
-            },
-            "nullable": true
+          "value": {
+            "optional": true,
+            "type": {
+              "collection": {
+                "elementtype": {
+                  "type": {
+                    "primitive": "string"
+                  }
+                },
+                "kind": "array"
+              }
+            }
           }
         }
       ]
@@ -216,8 +228,10 @@
               "summary": "The number."
             },
             "name": "value",
-            "type": {
-              "primitive": "number"
+            "value": {
+              "type": {
+                "primitive": "number"
+              }
             }
           }
         ]
@@ -239,8 +253,10 @@
           "overrides": {
             "fqn": "@scope/jsii-calc-lib.IDoublable"
           },
-          "type": {
-            "primitive": "number"
+          "value": {
+            "type": {
+              "primitive": "number"
+            }
           }
         },
         {
@@ -252,8 +268,10 @@
           "overrides": {
             "fqn": "@scope/jsii-calc-lib.Value"
           },
-          "type": {
-            "primitive": "number"
+          "value": {
+            "type": {
+              "primitive": "number"
+            }
           }
         }
       ]
@@ -283,7 +301,9 @@
             "fqn": "@scope/jsii-calc-lib.Value"
           },
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         }
       ],
@@ -306,27 +326,33 @@
           },
           "immutable": true,
           "name": "optional1",
-          "type": {
-            "nullable": true,
-            "primitive": "string"
+          "value": {
+            "optional": true,
+            "type": {
+              "primitive": "string"
+            }
           }
         },
         {
           "abstract": true,
           "immutable": true,
           "name": "optional2",
-          "type": {
-            "nullable": true,
-            "primitive": "number"
+          "value": {
+            "optional": true,
+            "type": {
+              "primitive": "number"
+            }
           }
         },
         {
           "abstract": true,
           "immutable": true,
           "name": "optional3",
-          "type": {
-            "nullable": true,
-            "primitive": "boolean"
+          "value": {
+            "optional": true,
+            "type": {
+              "primitive": "boolean"
+            }
           }
         }
       ]
@@ -352,7 +378,9 @@
           },
           "name": "toString",
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         }
       ],
@@ -365,13 +393,15 @@
           },
           "immutable": true,
           "name": "value",
-          "type": {
-            "primitive": "number"
+          "value": {
+            "type": {
+              "primitive": "number"
+            }
           }
         }
       ]
     }
   },
   "version": "0.8.2",
-  "fingerprint": "Y9xi2LtDOP8ebtxdHcYvi9Bo9Gj/JbjNJ5GP22d3dJk="
+  "fingerprint": "z6Ndm8UrX3Vasmhe2MPmFQIArOVaPAb8kSxKFWM0pIY="
 }

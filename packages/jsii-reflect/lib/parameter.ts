@@ -2,7 +2,7 @@ import jsii = require('jsii-spec');
 import { Docs, Documentable } from './docs';
 import { Method } from './method';
 import { Type } from './type';
-import { TypeReference } from './type-ref';
+import { TypeInstance } from './type-instance';
 import { TypeSystem } from './type-system';
 
 export class Parameter implements Documentable {
@@ -10,7 +10,8 @@ export class Parameter implements Documentable {
     public readonly system: TypeSystem,
     public readonly parentType: Type,
     public readonly method: Method,
-    private readonly spec: jsii.Parameter) { }
+    private readonly spec: jsii.Parameter,
+    private readonly index: number) { }
 
   /**
    * The name of the parameter.
@@ -22,8 +23,8 @@ export class Parameter implements Documentable {
   /**
    * The type of the parameter.
    */
-  public get type(): TypeReference {
-    return new TypeReference(this.system, this.spec.type);
+  public get value(): TypeInstance {
+    return new TypeInstance(this.system, this.spec.value);
   }
 
   /**
@@ -31,14 +32,16 @@ export class Parameter implements Documentable {
    * The ``#type`` is that of every individual argument of the variadic list.
    */
   public get variadic(): boolean {
-    return jsii.isVariadic(this.spec);
+    return !!this.spec.variadic;
   }
 
   /**
-   * Whether this argument is optional.
+   * Whether this argument is optional, meaning that it's value is optional, and
+   * all subsequent parameters are also optional or variadic.
    */
   public get optional(): boolean {
-    return jsii.isOptional(this.spec);
+    return this.value.optional
+      && this.method.parameters.find((p, i) => i > this.index && (p.optional || p.variadic)) == null;
   }
 
   public get docs(): Docs {

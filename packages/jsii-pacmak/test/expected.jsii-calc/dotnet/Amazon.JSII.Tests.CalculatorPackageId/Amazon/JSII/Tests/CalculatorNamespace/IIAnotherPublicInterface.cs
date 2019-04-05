@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(typeof(IIAnotherPublicInterface), "jsii-calc.IAnotherPublicInterface")]
     public interface IIAnotherPublicInterface
     {
-        [JsiiProperty("a", "{\"primitive\":\"string\"}")]
+        [JsiiProperty("a", "{\"type\":{\"primitive\":\"string\"}}")]
         string A
         {
             get;

@@ -25,4 +25,8 @@ public class DoNotRecognizeAnyAsOptional extends software.amazon.jsii.JsiiObject
     public void method(@javax.annotation.Nullable final java.lang.Object _requiredAny) {
         this.jsiiCall("method", Void.class, java.util.stream.Stream.of(_requiredAny).toArray());
     }
+
+    public void method() {
+        this.jsiiCall("method", Void.class);
+    }
 }

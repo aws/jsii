@@ -39,7 +39,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
             Property property = new Property
             (
                 name: "myProperty",
-                type: new TypeReference("myPropTypeFqn"),
+                value: new TypeInstance(type: new TypeReference("myPropTypeFqn")),
                 isImmutable: true,
                 isAbstract: false,
                 isProtected: false
@@ -50,7 +50,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
 
             string actual = Render(property);
             string expected =
-@"[JsiiProperty(""myProperty"", ""{\""fqn\"":\""myPropTypeFqn\""}"")]
+@"[JsiiProperty(""myProperty"", ""{\""type\"":{\""fqn\"":\""myPropTypeFqn\""}}"")]
 public virtual MyPropType MyProperty
 {
     get => GetInstanceProperty<MyPropType>();
@@ -64,7 +64,7 @@ public virtual MyPropType MyProperty
             Property property = new Property
             (
                 name: "myProperty",
-                type: new TypeReference("myPropTypeFqn"),
+                value: new TypeInstance(type: new TypeReference("myPropTypeFqn")),
                 isImmutable: true,
                 isAbstract: false,
                 isProtected: false
@@ -75,7 +75,7 @@ public virtual MyPropType MyProperty
 
             string actual = Render(property);
             string expected =
-@"[JsiiProperty(""myProperty"", ""{\""fqn\"":\""myPropTypeFqn\""}"")]
+@"[JsiiProperty(""myProperty"", ""{\""type\"":{\""fqn\"":\""myPropTypeFqn\""}}"")]
 public virtual MyPropType MyProperty
 {
     get => GetInstanceProperty<MyPropType>();
@@ -89,7 +89,7 @@ public virtual MyPropType MyProperty
             Property property = new Property
             (
                 name: "myProperty",
-                type: new TypeReference("myPropTypeFqn"),
+                value: new TypeInstance(type: new TypeReference("myPropTypeFqn")),
                 isImmutable: false,
                 isAbstract: false,
                 isProtected: false
@@ -100,7 +100,7 @@ public virtual MyPropType MyProperty
 
             string actual = Render(property);
             string expected =
-@"[JsiiProperty(""myProperty"", ""{\""fqn\"":\""myPropTypeFqn\""}"")]
+@"[JsiiProperty(""myProperty"", ""{\""type\"":{\""fqn\"":\""myPropTypeFqn\""}}"")]
 public virtual MyPropType MyProperty
 {
     get => GetInstanceProperty<MyPropType>();
@@ -115,7 +115,7 @@ public virtual MyPropType MyProperty
             Property property = new Property
             (
                 name: "myProperty",
-                type: new TypeReference("myPropTypeFqn"),
+                value: new TypeInstance(type: new TypeReference("myPropTypeFqn")),
                 isImmutable: true,
                 isAbstract: false,
                 isProtected: true
@@ -126,7 +126,7 @@ public virtual MyPropType MyProperty
 
             string actual = Render(property);
             string expected =
-@"[JsiiProperty(""myProperty"", ""{\""fqn\"":\""myPropTypeFqn\""}"")]
+@"[JsiiProperty(""myProperty"", ""{\""type\"":{\""fqn\"":\""myPropTypeFqn\""}}"")]
 protected virtual MyPropType MyProperty
 {
     get => GetInstanceProperty<MyPropType>();
@@ -140,7 +140,7 @@ protected virtual MyPropType MyProperty
             Property property = new Property
             (
                 name: "myProperty",
-                type: new TypeReference("myPropTypeFqn"),
+                value: new TypeInstance(type: new TypeReference("myPropTypeFqn")),
                 isImmutable: false,
                 isAbstract: false,
                 isProtected: false,
@@ -152,7 +152,7 @@ protected virtual MyPropType MyProperty
 
             string actual = Render(property);
             string expected =
-@"[JsiiProperty(""myProperty"", ""{\""fqn\"":\""myPropTypeFqn\""}"")]
+@"[JsiiProperty(""myProperty"", ""{\""type\"":{\""fqn\"":\""myPropTypeFqn\""}}"")]
 public static MyPropType MyProperty
 {
     get => GetStaticProperty<MyPropType>(typeof(MyClass));
@@ -167,7 +167,7 @@ public static MyPropType MyProperty
             Property property = new Property
             (
                 name: "myProperty",
-                type: new TypeReference("myPropTypeFqn"),
+                value: new TypeInstance(type: new TypeReference("myPropTypeFqn")),
                 isAbstract: false,
                 isProtected: false,
                 isConstant: true
@@ -178,7 +178,7 @@ public static MyPropType MyProperty
 
             string actual = Render(property);
             string expected =
-@"[JsiiProperty(""myProperty"", ""{\""fqn\"":\""myPropTypeFqn\""}"")]
+@"[JsiiProperty(""myProperty"", ""{\""type\"":{\""fqn\"":\""myPropTypeFqn\""}}"")]
 public static MyPropType MyProperty
 {
     get;
@@ -194,7 +194,7 @@ public static MyPropType MyProperty
             Property property = new Property
             (
                 name: "myProperty",
-                type: new TypeReference("myPropTypeFqn"),
+                value: new TypeInstance(type: new TypeReference("myPropTypeFqn")),
                 isImmutable: true,
                 isAbstract: false,
                 isProtected: false,
@@ -206,7 +206,7 @@ public static MyPropType MyProperty
 
             string actual = Render(property);
             string expected =
-@"[JsiiProperty(""myProperty"", ""{\""fqn\"":\""myPropTypeFqn\""}"")]
+@"[JsiiProperty(""myProperty"", ""{\""type\"":{\""fqn\"":\""myPropTypeFqn\""}}"")]
 public virtual MyPropType MyProperty
 {
     get => GetInstanceProperty<MyPropType>();

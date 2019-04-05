@@ -19,7 +19,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         }
 
         /// <summary>String representation of the value.</summary>
-        [JsiiMethod("toString", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod("toString", "{\"type\":{\"primitive\":\"string\"}}", "[]")]
         public override abstract string ToString();
     }
 }

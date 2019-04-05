@@ -8,7 +8,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     {
         /// <summary>Returns another random number.</summary>
         /// <returns>A random number.</returns>
-        [JsiiMethod("next", "{\"primitive\":\"number\"}", "[]")]
+        [JsiiMethod("next", "{\"type\":{\"primitive\":\"number\"}}", "[]")]
         double Next();
     }
 }

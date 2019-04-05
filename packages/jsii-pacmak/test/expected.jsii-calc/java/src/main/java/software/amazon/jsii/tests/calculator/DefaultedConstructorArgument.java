@@ -27,12 +27,12 @@ public class DefaultedConstructorArgument extends software.amazon.jsii.JsiiObjec
         return this.jsiiGet("arg1", java.lang.Number.class);
     }
 
-    public java.time.Instant getArg3() {
-        return this.jsiiGet("arg3", java.time.Instant.class);
-    }
-
     @javax.annotation.Nullable
     public java.lang.String getArg2() {
         return this.jsiiGet("arg2", java.lang.String.class);
+    }
+
+    public java.time.Instant getArg3() {
+        return this.jsiiGet("arg3", java.time.Instant.class);
     }
 }

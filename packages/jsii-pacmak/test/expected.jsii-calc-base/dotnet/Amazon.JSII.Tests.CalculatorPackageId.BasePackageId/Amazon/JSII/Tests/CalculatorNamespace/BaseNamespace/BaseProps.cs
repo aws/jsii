@@ -6,14 +6,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace
     [JsiiByValue]
     public class BaseProps : IBaseProps
     {
-        [JsiiProperty("bar", "{\"primitive\":\"string\"}", true)]
+        [JsiiProperty("bar", "{\"type\":{\"primitive\":\"string\"}}", true)]
         public string Bar
         {
             get;
             set;
         }
 
-        [JsiiProperty("foo", "{\"fqn\":\"@scope/jsii-calc-base-of-base.Very\"}", true)]
+        [JsiiProperty("foo", "{\"type\":{\"fqn\":\"@scope/jsii-calc-base-of-base.Very\"}}", true)]
         public Very Foo
         {
             get;

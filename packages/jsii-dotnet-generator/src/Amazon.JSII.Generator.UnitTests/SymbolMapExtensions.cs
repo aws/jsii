@@ -120,6 +120,9 @@ namespace Amazon.JSII.Generator.UnitTests
             symbols
                 .GetTypeSyntax(Arg.Is<TypeReference>(t => t.FullyQualifiedName == fullyQualifiedName))
                 .Returns(SF.ParseTypeName(frameworkName));
+            symbols
+                .GetTypeSyntax(Arg.Is<TypeInstance>(t => t.Type.FullyQualifiedName == fullyQualifiedName))
+                .Returns(SF.ParseTypeName(frameworkName));
         }
 
         public static void MapAssemblyName(this ISymbolMap symbols, string jsiiName, string frameworkName)

@@ -120,7 +120,7 @@ namespace Amazon.JSII.Generator.UnitTests
                     properties: new[] {
                         new Property(
                             name: "myName",
-                            type: new TypeReference(primitive: PrimitiveType.String)
+                            value: new TypeInstance(type: new TypeReference(primitive: PrimitiveType.String))
                         )
                     }
                 );
@@ -146,7 +146,7 @@ namespace Amazon.JSII.Generator.UnitTests
                             isProtected: false,
                             isAbstract: false,
                             name: "myName",
-                            returns: new TypeReference(primitive: PrimitiveType.String)
+                            returns: new TypeInstance(type: new TypeReference(primitive: PrimitiveType.String))
                         )
                     }
                 );
@@ -424,7 +424,7 @@ namespace Amazon.JSII.Generator.UnitTests
                     properties: new[] {
                         new Property(
                             name: "iMyName",
-                            type: new TypeReference(primitive: PrimitiveType.String)
+                            value: new TypeInstance(type: new TypeReference(primitive: PrimitiveType.String))
                         )
                     }
                 );
@@ -449,7 +449,7 @@ namespace Amazon.JSII.Generator.UnitTests
                             isProtected: false,
                             isAbstract: false,
                             name: "iMyName",
-                            returns: new TypeReference(primitive: PrimitiveType.String)
+                            returns: new TypeInstance(type: new TypeReference(primitive: PrimitiveType.String))
                         )
                     }
                 );

@@ -3,7 +3,7 @@ import { Assembly } from './assembly';
 import { Docs, Documentable } from './docs';
 import { Overridable } from './overridable';
 import { Type } from './type';
-import { TypeReference } from './type-ref';
+import { TypeInstance } from './type-instance';
 import { TypeSystem } from './type-system';
 // tslint:disable-next-line:ordered-imports
 import { TypeMember, MemberKind } from './type-member';
@@ -31,8 +31,8 @@ export class Property implements Documentable, Overridable, TypeMember {
   /**
    * The type of the property.
    */
-  public get type(): TypeReference {
-    return new TypeReference(this.system, this.spec.type);
+  public get value(): TypeInstance {
+    return new TypeInstance(this.system, this.spec.value);
   }
 
   /**

@@ -17,31 +17,31 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod("overrideMeAsync", "{\"primitive\":\"number\",\"promise\":true}", "[{\"name\":\"index\",\"type\":{\"primitive\":\"number\"}}]")]
+        [JsiiMethod("overrideMeAsync", "{\"type\":{\"primitive\":\"number\"},\"promise\":true}", "[{\"name\":\"index\",\"value\":{\"type\":{\"primitive\":\"number\"}}}]")]
         public virtual double OverrideMeAsync(double index)
         {
             return InvokeInstanceMethod<double>(new object[]{index});
         }
 
-        [JsiiMethod("overrideMeSync", "{\"primitive\":\"number\"}", "[{\"name\":\"index\",\"type\":{\"primitive\":\"number\"}}]")]
+        [JsiiMethod("overrideMeSync", "{\"type\":{\"primitive\":\"number\"}}", "[{\"name\":\"index\",\"value\":{\"type\":{\"primitive\":\"number\"}}}]")]
         public virtual double OverrideMeSync(double index)
         {
             return InvokeInstanceMethod<double>(new object[]{index});
         }
 
-        [JsiiMethod("parallelSumAsync", "{\"primitive\":\"number\",\"promise\":true}", "[{\"name\":\"count\",\"type\":{\"primitive\":\"number\"}}]")]
+        [JsiiMethod("parallelSumAsync", "{\"type\":{\"primitive\":\"number\"},\"promise\":true}", "[{\"name\":\"count\",\"value\":{\"type\":{\"primitive\":\"number\"}}}]")]
         public virtual double ParallelSumAsync(double count)
         {
             return InvokeInstanceMethod<double>(new object[]{count});
         }
 
-        [JsiiMethod("serialSumAsync", "{\"primitive\":\"number\",\"promise\":true}", "[{\"name\":\"count\",\"type\":{\"primitive\":\"number\"}}]")]
+        [JsiiMethod("serialSumAsync", "{\"type\":{\"primitive\":\"number\"},\"promise\":true}", "[{\"name\":\"count\",\"value\":{\"type\":{\"primitive\":\"number\"}}}]")]
         public virtual double SerialSumAsync(double count)
         {
             return InvokeInstanceMethod<double>(new object[]{count});
         }
 
-        [JsiiMethod("sumSync", "{\"primitive\":\"number\"}", "[{\"name\":\"count\",\"type\":{\"primitive\":\"number\"}}]")]
+        [JsiiMethod("sumSync", "{\"type\":{\"primitive\":\"number\"}}", "[{\"name\":\"count\",\"value\":{\"type\":{\"primitive\":\"number\"}}}]")]
         public virtual double SumSync(double count)
         {
             return InvokeInstanceMethod<double>(new object[]{count});

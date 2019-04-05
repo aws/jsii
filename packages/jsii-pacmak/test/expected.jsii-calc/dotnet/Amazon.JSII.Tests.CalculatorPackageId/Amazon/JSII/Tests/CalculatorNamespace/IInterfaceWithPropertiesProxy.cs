@@ -9,13 +9,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("readOnlyString", "{\"primitive\":\"string\"}")]
+        [JsiiProperty("readOnlyString", "{\"type\":{\"primitive\":\"string\"}}")]
         public string ReadOnlyString
         {
             get => GetInstanceProperty<string>();
         }
 
-        [JsiiProperty("readWriteString", "{\"primitive\":\"string\"}")]
+        [JsiiProperty("readWriteString", "{\"type\":{\"primitive\":\"string\"}}")]
         public string ReadWriteString
         {
             get => GetInstanceProperty<string>();

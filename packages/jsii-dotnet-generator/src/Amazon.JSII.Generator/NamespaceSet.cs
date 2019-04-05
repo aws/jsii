@@ -71,15 +71,15 @@ namespace Amazon.JSII.Generator
                         break;
                 }
 
-                Add(typeReference.Collection.ElementType);
+                Add(typeReference.Collection.ElementType.Type);
                 return;
             }
 
             if (typeReference.Union != null)
             {
-                foreach (TypeReference partialTypeReference in typeReference.Union.Types)
+                foreach (TypeInstance partialTypeReference in typeReference.Union.Types)
                 {
-                    Add(partialTypeReference);
+                    Add(partialTypeReference.Type);
                 }
             }
         }

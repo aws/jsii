@@ -8,7 +8,7 @@ import { InterfaceType } from './interface';
 import { Method } from './method';
 import { Parameter } from './parameter';
 import { Property } from './property';
-import { TypeReference } from './type-ref';
+import { TypeInstance } from './type-instance';
 import { TypeSystem } from './type-system';
 
 export interface TypeSystemTreeOptions {
@@ -81,7 +81,7 @@ export class TypeSystemTree extends AsciiTree {
   }
 }
 
-export class AssemblyNode extends AsciiTree {
+class AssemblyNode extends AsciiTree {
   constructor(assembly: Assembly, options: TypeSystemTreeOptions) {
     super(colors.green(assembly.name));
 
@@ -101,7 +101,7 @@ export class AssemblyNode extends AsciiTree {
   }
 }
 
-export class MethodNode extends AsciiTree {
+class MethodNode extends AsciiTree {
   constructor(method: Method, options: TypeSystemTreeOptions) {
     const args = method.parameters.map(p => p.name).join(',');
     super(`${method.name}(${args}) ${colors.gray('method')}`);
@@ -129,23 +129,23 @@ export class MethodNode extends AsciiTree {
         params.add(...method.parameters.map(p => new ParameterNode(p, options)));
       }
 
-      this.add(new TypeReferenceNode('returns', method.returns));
+      this.add(new TypeInstanceNode('returns', method.returns));
     }
   }
 }
 
-export class ParameterNode extends AsciiTree {
+class ParameterNode extends AsciiTree {
   constructor(param: Parameter, _options: TypeSystemTreeOptions) {
     super(param.name);
 
-    this.add(new TypeReferenceNode('type', param.type));
+    this.add(new TypeInstanceNode('type', param.value));
     if (param.variadic) {
       this.add(new FlagNode('variadic'));
     }
   }
 }
 
-export class PropertyNode extends AsciiTree {
+class PropertyNode extends AsciiTree {
   constructor(property: Property, options: TypeSystemTreeOptions) {
     super(`${property.name} ${colors.gray('property')}`);
 
@@ -170,18 +170,18 @@ export class PropertyNode extends AsciiTree {
         this.add(new FlagNode('static'));
       }
 
-      this.add(new TypeReferenceNode('type', property.type));
+      this.add(new TypeInstanceNode('type', property.value));
     }
   }
 }
 
-export class TypeReferenceNode extends AsciiTree {
-  constructor(name: string, typeref: TypeReference) {
-    super(`${colors.underline(name)}: ${typeref}`);
+class TypeInstanceNode extends AsciiTree {
+  constructor(name: string, typeinstance: TypeInstance) {
+    super(`${colors.underline(name)}: ${typeinstance}`);
   }
 }
 
-export class ClassNode extends AsciiTree {
+class ClassNode extends AsciiTree {
   constructor(type: ClassType, options: TypeSystemTreeOptions) {
     super(`${colors.gray('class')} ${colors.cyan(type.name)}`);
 
@@ -205,7 +205,7 @@ export class ClassNode extends AsciiTree {
   }
 }
 
-export class InterfaceNode extends AsciiTree {
+class InterfaceNode extends AsciiTree {
   constructor(type: InterfaceType, options: TypeSystemTreeOptions) {
     super(`${colors.gray('interface')} ${colors.cyan(type.name)}`);
 
@@ -224,7 +224,7 @@ export class InterfaceNode extends AsciiTree {
   }
 }
 
-export class EnumNode extends AsciiTree {
+class EnumNode extends AsciiTree {
   constructor(enumType: EnumType, options: TypeSystemTreeOptions) {
     super(`${colors.gray('enum')} ${colors.cyan(enumType.name)}`);
 
@@ -236,7 +236,7 @@ export class EnumNode extends AsciiTree {
   }
 }
 
-export class DependencyNode extends AsciiTree {
+class DependencyNode extends AsciiTree {
   constructor(dep: Dependency, _options: TypeSystemTreeOptions) {
     super(dep.assembly.name);
   }

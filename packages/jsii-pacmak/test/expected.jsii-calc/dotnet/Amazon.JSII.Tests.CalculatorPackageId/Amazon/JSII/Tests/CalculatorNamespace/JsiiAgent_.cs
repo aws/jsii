@@ -19,7 +19,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Returns the value of the JSII_AGENT environment variable.</summary>
-        [JsiiProperty("jsiiAgent", "{\"primitive\":\"string\",\"nullable\":true}")]
+        [JsiiProperty("jsiiAgent", "{\"type\":{\"primitive\":\"string\"},\"optional\":true}")]
         public static string JsiiAgent
         {
             get => GetStaticProperty<string>(typeof(JsiiAgent_));

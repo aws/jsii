@@ -110,7 +110,13 @@ namespace Amazon.JSII.Generator.UnitTests
                     isAbstract: false,
                     properties: new[]
                     {
-                        new Property("myType", new TypeReference("myFqn"), false, false, false)
+                        new Property(
+                            name: "myType",
+                            value: new TypeInstance(type: new TypeReference("myFqn")),
+                            isImmutable: false,
+                            isProtected: false,
+                            isStatic: false
+                        )
                     }
                 );
 
@@ -440,7 +446,7 @@ namespace Amazon.JSII.Generator.UnitTests
                 Property property = new Property
                 (
                     name: "myProp",
-                    type: new TypeReference("myFqn"),
+                    value: new TypeInstance(type: new TypeReference("myFqn")),
                     isImmutable: false,
                     isProtected: false,
                     isAbstract: false
@@ -481,7 +487,7 @@ namespace Amazon.JSII.Generator.UnitTests
             [Fact(DisplayName = Prefix + nameof(GetsFrameworkNameFromParameter))]
             public void GetsFrameworkNameFromParameter()
             {
-                Parameter parameter = new Parameter("myParam", new TypeReference("myFqn"));
+                Parameter parameter = new Parameter(name: "myParam", value: new TypeInstance(type: new TypeReference("myFqn")));
                 Method method = new Method
                 (
                     isInitializer: false,
@@ -804,7 +810,7 @@ namespace Amazon.JSII.Generator.UnitTests
                 Property property = new Property
                 (
                     name: "myProp",
-                    type: new TypeReference("myFqn"),
+                    value: new TypeInstance(type: new TypeReference("myFqn")),
                     isImmutable: false,
                     isProtected: false,
                     isAbstract: false
@@ -845,7 +851,7 @@ namespace Amazon.JSII.Generator.UnitTests
             [Fact(DisplayName = Prefix + nameof(GetsFrameworkNameFromParameter))]
             public void GetsFrameworkNameFromParameter()
             {
-                Parameter parameter = new Parameter("myParam", new TypeReference("myFqn"));
+                Parameter parameter = new Parameter(name: "myParam", value: new TypeInstance(type: new TypeReference("myFqn")));
                 Method method = new Method
                 (
                     isInitializer: false,
@@ -1168,7 +1174,7 @@ namespace Amazon.JSII.Generator.UnitTests
                 Property property = new Property
                 (
                     name: "myProp",
-                    type: new TypeReference("myFqn"),
+                    value: new TypeInstance(type: new TypeReference("myFqn")),
                     isImmutable: false,
                     isProtected: false,
                     isAbstract: false
@@ -1209,7 +1215,7 @@ namespace Amazon.JSII.Generator.UnitTests
             [Fact(DisplayName = Prefix + nameof(GetsFrameworkNameFromParameter))]
             public void GetsFrameworkNameFromParameter()
             {
-                Parameter parameter = new Parameter("myParam", new TypeReference("myFqn"));
+                Parameter parameter = new Parameter(name: "myParam", value: new TypeInstance(type: new TypeReference("myFqn")));
                 Method method = new Method
                 (
                     isInitializer: false,
@@ -1485,11 +1491,11 @@ namespace Amazon.JSII.Generator.UnitTests
             [InlineData(PrimitiveType.Number, true, "double?")]
             [InlineData(PrimitiveType.String, false, "string")]
             [InlineData(PrimitiveType.String, true, "string")]
-            public void GetsPrimitiveFrameworkType(PrimitiveType type, bool isNullable, string expected)
+            public void GetsPrimitiveFrameworkType(PrimitiveType type, bool isOptional, string expected)
             {
                 ISymbolMap symbolMap = new SymbolMap();
 
-                TypeReference reference = new TypeReference(primitive: type, isNullable: isNullable);
+                TypeInstance reference = new TypeInstance(type: new TypeReference(primitive: type), isOptional: isOptional);
 
                 string actual = symbolMap.GetTypeSyntax(reference).ToString();
                 Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
@@ -1500,18 +1506,25 @@ namespace Amazon.JSII.Generator.UnitTests
             [InlineData(CollectionKind.Array, true, "double[][]")]
             [InlineData(CollectionKind.Map, false, "IDictionary<string, IDictionary<string, double>>")]
             [InlineData(CollectionKind.Map, true, "IDictionary<string, IDictionary<string, double>>")]
-            public void GetsRecursiveCollectionFrameworkType(CollectionKind kind, bool isNullable, string expected)
+            public void GetsRecursiveCollectionFrameworkType(CollectionKind kind, bool isOptional, string expected)
             {
                 ISymbolMap symbolMap = new SymbolMap();
 
-                TypeReference reference = new TypeReference
+                TypeInstance reference = new TypeInstance
                 (
-                    collection: new CollectionTypeReference
+                    type: new TypeReference
                     (
-                        kind: kind,
-                        elementType: new TypeReference(collection: new CollectionTypeReference(kind, new TypeReference(primitive: PrimitiveType.Number)))
+                        collection: new CollectionTypeReference
+                        (
+                            kind: kind,
+                            elementType: new TypeInstance(
+                                type: new TypeReference(
+                                    collection: new CollectionTypeReference(kind, new TypeInstance(type: new TypeReference(primitive: PrimitiveType.Number)))
+                                )
+                            )
+                        )
                     ),
-                    isNullable: isNullable
+                    isOptional: isOptional
                 );
 
                 string actual = symbolMap.GetTypeSyntax(reference).ToString();
@@ -1521,16 +1534,19 @@ namespace Amazon.JSII.Generator.UnitTests
             [Theory(DisplayName = _Prefix + nameof(GetsUnionFrameworkType))]
             [InlineData(false, "object")]
             [InlineData(true, "object")]
-            public void GetsUnionFrameworkType(bool isNullable, string expected)
+            public void GetsUnionFrameworkType(bool isOptional, string expected)
             {
                 ISymbolMap symbolMap = new SymbolMap();
 
-                TypeReference reference = new TypeReference
+                TypeInstance reference = new TypeInstance
                 (
-                    union: new UnionTypeReference(new[] {
-                        new TypeReference(primitive: PrimitiveType.Number)
-                    }),
-                    isNullable: isNullable
+                    type: new TypeReference
+                    (
+                        union: new UnionTypeReference(new[] {
+                            new TypeInstance(type: new TypeReference(primitive: PrimitiveType.Number))
+                        })
+                    ),
+                    isOptional: isOptional
                 );
 
                 string actual = symbolMap.GetTypeSyntax(reference).ToString();

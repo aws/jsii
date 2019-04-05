@@ -31,6 +31,7 @@ assemblies
  │   │   ├── enumPropertyValue property
  │   │   ├── anyArrayProperty property
  │   │   ├── anyMapProperty property
+ │   │   ├── anyProperty property
  │   │   ├── arrayProperty property
  │   │   ├── booleanProperty property
  │   │   ├── dateProperty property
@@ -38,14 +39,13 @@ assemblies
  │   │   ├── jsonProperty property
  │   │   ├── mapProperty property
  │   │   ├── numberProperty property
+ │   │   ├── optionalEnumValue property
  │   │   ├── stringProperty property
  │   │   ├── unionArrayProperty property
  │   │   ├── unionMapProperty property
  │   │   ├── unionProperty property
  │   │   ├── unknownArrayProperty property
  │   │   ├── unknownMapProperty property
- │   │   ├── anyProperty property
- │   │   ├── optionalEnumValue property
  │   │   └── unknownProperty property
  │   ├─┬ class AllowedMethodNames
  │   │ └─┬ members
@@ -133,8 +133,8 @@ assemblies
  │   │ └─┬ members
  │   │   ├── <initializer>(arg1,arg2,arg3) method
  │   │   ├── arg1 property
- │   │   ├── arg3 property
- │   │   └── arg2 property
+ │   │   ├── arg2 property
+ │   │   └── arg3 property
  │   ├─┬ class Base
  │   │ └─┬ members
  │   │   ├── <initializer>() method
@@ -350,8 +350,8 @@ assemblies
  │   ├─┬ class OptionalStructConsumer
  │   │ └─┬ members
  │   │   ├── <initializer>(optionalStruct) method
- │   │   ├── parameterWasUndefined property
- │   │   └── fieldValue property
+ │   │   ├── fieldValue property
+ │   │   └── parameterWasUndefined property
  │   ├─┬ class OverrideReturnsObject
  │   │ └─┬ members
  │   │   ├── <initializer>() method
@@ -520,10 +520,10 @@ assemblies
  │   │   └── maximumValue property
  │   ├─┬ interface DerivedStruct
  │   │ └─┬ members
+ │   │   ├── anotherOptional property
  │   │   ├── anotherRequired property
  │   │   ├── bool property
  │   │   ├── nonPrimitive property
- │   │   ├── anotherOptional property
  │   │   ├── optionalAny property
  │   │   └── optionalArray property
  │   ├─┬ interface EraseUndefinedHashValuesOptions

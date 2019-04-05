@@ -10,13 +10,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("numberProp", "{\"fqn\":\"@scope/jsii-calc-lib.Number\"}")]
+        [JsiiProperty("numberProp", "{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Number\"}}")]
         public Number NumberProp
         {
             get => GetInstanceProperty<Number>();
         }
 
-        [JsiiMethod("obtainNumber", "{\"fqn\":\"@scope/jsii-calc-lib.IDoublable\"}", "[]")]
+        [JsiiMethod("obtainNumber", "{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.IDoublable\"}}", "[]")]
         public IIDoublable ObtainNumber()
         {
             return InvokeInstanceMethod<IIDoublable>(new object[]{});

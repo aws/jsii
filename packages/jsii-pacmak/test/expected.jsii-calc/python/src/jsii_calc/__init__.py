@@ -58,7 +58,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         jsii.create(AllTypes, self, [])
 
     @jsii.member(jsii_name="anyIn")
-    def any_in(self, inp: typing.Any) -> None:
+    def any_in(self, inp: typing.Any=None) -> None:
         return jsii.invoke(self, "anyIn", [inp])
 
     @jsii.member(jsii_name="anyOut")
@@ -91,6 +91,15 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @any_map_property.setter
     def any_map_property(self, value: typing.Mapping[str,typing.Any]):
         return jsii.set(self, "anyMapProperty", value)
+
+    @property
+    @jsii.member(jsii_name="anyProperty")
+    def any_property(self) -> typing.Any:
+        return jsii.get(self, "anyProperty")
+
+    @any_property.setter
+    def any_property(self, value: typing.Any):
+        return jsii.set(self, "anyProperty", value)
 
     @property
     @jsii.member(jsii_name="arrayProperty")
@@ -156,6 +165,15 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.set(self, "numberProperty", value)
 
     @property
+    @jsii.member(jsii_name="optionalEnumValue")
+    def optional_enum_value(self) -> typing.Optional["StringEnum"]:
+        return jsii.get(self, "optionalEnumValue")
+
+    @optional_enum_value.setter
+    def optional_enum_value(self, value: typing.Optional["StringEnum"]):
+        return jsii.set(self, "optionalEnumValue", value)
+
+    @property
     @jsii.member(jsii_name="stringProperty")
     def string_property(self) -> str:
         return jsii.get(self, "stringProperty")
@@ -208,24 +226,6 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @unknown_map_property.setter
     def unknown_map_property(self, value: typing.Mapping[str,typing.Any]):
         return jsii.set(self, "unknownMapProperty", value)
-
-    @property
-    @jsii.member(jsii_name="anyProperty")
-    def any_property(self) -> typing.Any:
-        return jsii.get(self, "anyProperty")
-
-    @any_property.setter
-    def any_property(self, value: typing.Any):
-        return jsii.set(self, "anyProperty", value)
-
-    @property
-    @jsii.member(jsii_name="optionalEnumValue")
-    def optional_enum_value(self) -> typing.Optional["StringEnum"]:
-        return jsii.get(self, "optionalEnumValue")
-
-    @optional_enum_value.setter
-    def optional_enum_value(self, value: typing.Optional["StringEnum"]):
-        return jsii.set(self, "optionalEnumValue", value)
 
     @property
     @jsii.member(jsii_name="unknownProperty")
@@ -434,14 +434,14 @@ class DefaultedConstructorArgument(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc
         return jsii.get(self, "arg1")
 
     @property
-    @jsii.member(jsii_name="arg3")
-    def arg3(self) -> datetime.datetime:
-        return jsii.get(self, "arg3")
-
-    @property
     @jsii.member(jsii_name="arg2")
     def arg2(self) -> typing.Optional[str]:
         return jsii.get(self, "arg2")
+
+    @property
+    @jsii.member(jsii_name="arg3")
+    def arg3(self) -> datetime.datetime:
+        return jsii.get(self, "arg3")
 
 
 class DerivedClassHasNoProperties:
@@ -498,7 +498,7 @@ class DoNotRecognizeAnyAsOptional(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.
         jsii.create(DoNotRecognizeAnyAsOptional, self, [])
 
     @jsii.member(jsii_name="method")
-    def method(self, _required_any: typing.Any, _optional_any: typing.Any=None, _optional_string: typing.Optional[str]=None) -> None:
+    def method(self, _required_any: typing.Any=None, _optional_any: typing.Any=None, _optional_string: typing.Optional[str]=None) -> None:
         return jsii.invoke(self, "method", [_required_any, _optional_any, _optional_string])
 
 
@@ -574,7 +574,7 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
         jsii.create(GiveMeStructs, self, [])
 
     @jsii.member(jsii_name="derivedToFirst")
-    def derived_to_first(self, *, another_required: datetime.datetime, bool: bool, non_primitive: "DoubleTrouble", another_optional: typing.Optional[typing.Mapping[str,scope.jsii_calc_lib.Value]]=None, optional_any: typing.Any=None, optional_array: typing.Optional[typing.List[str]]=None, anumber: jsii.Number, astring: str, first_optional: typing.Optional[typing.List[str]]=None) -> scope.jsii_calc_lib.MyFirstStruct:
+    def derived_to_first(self, *, another_optional: typing.Optional[typing.Mapping[str,scope.jsii_calc_lib.Value]]=None, another_required: datetime.datetime, bool: bool, non_primitive: "DoubleTrouble", optional_any: typing.Any=None, optional_array: typing.Optional[typing.List[str]]=None, anumber: jsii.Number, astring: str, first_optional: typing.Optional[typing.List[str]]=None) -> scope.jsii_calc_lib.MyFirstStruct:
         derived: DerivedStruct = {"anotherRequired": another_required, "bool": bool, "nonPrimitive": non_primitive, "anumber": anumber, "astring": astring}
 
         if another_optional is not None:
@@ -592,7 +592,7 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
         return jsii.invoke(self, "derivedToFirst", [derived])
 
     @jsii.member(jsii_name="readDerivedNonPrimitive")
-    def read_derived_non_primitive(self, *, another_required: datetime.datetime, bool: bool, non_primitive: "DoubleTrouble", another_optional: typing.Optional[typing.Mapping[str,scope.jsii_calc_lib.Value]]=None, optional_any: typing.Any=None, optional_array: typing.Optional[typing.List[str]]=None, anumber: jsii.Number, astring: str, first_optional: typing.Optional[typing.List[str]]=None) -> "DoubleTrouble":
+    def read_derived_non_primitive(self, *, another_optional: typing.Optional[typing.Mapping[str,scope.jsii_calc_lib.Value]]=None, another_required: datetime.datetime, bool: bool, non_primitive: "DoubleTrouble", optional_any: typing.Any=None, optional_array: typing.Optional[typing.List[str]]=None, anumber: jsii.Number, astring: str, first_optional: typing.Optional[typing.List[str]]=None) -> "DoubleTrouble":
         derived: DerivedStruct = {"anotherRequired": another_required, "bool": bool, "nonPrimitive": non_primitive, "anumber": anumber, "astring": astring}
 
         if another_optional is not None:
@@ -1861,14 +1861,14 @@ class OptionalStructConsumer(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Optio
         jsii.create(OptionalStructConsumer, self, [optional_struct])
 
     @property
-    @jsii.member(jsii_name="parameterWasUndefined")
-    def parameter_was_undefined(self) -> bool:
-        return jsii.get(self, "parameterWasUndefined")
-
-    @property
     @jsii.member(jsii_name="fieldValue")
     def field_value(self) -> typing.Optional[str]:
         return jsii.get(self, "fieldValue")
+
+    @property
+    @jsii.member(jsii_name="parameterWasUndefined")
+    def parameter_was_undefined(self) -> bool:
+        return jsii.get(self, "parameterWasUndefined")
 
 
 class OverrideReturnsObject(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.OverrideReturnsObject"):

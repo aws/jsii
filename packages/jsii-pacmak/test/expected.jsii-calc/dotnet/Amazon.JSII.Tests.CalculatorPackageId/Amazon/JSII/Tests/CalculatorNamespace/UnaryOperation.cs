@@ -4,7 +4,7 @@ using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>An operation on a single operand.</summary>
-    [JsiiClass(typeof(UnaryOperation), "jsii-calc.UnaryOperation", "[{\"name\":\"operand\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
+    [JsiiClass(typeof(UnaryOperation), "jsii-calc.UnaryOperation", "[{\"name\":\"operand\",\"value\":{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}]")]
     public abstract class UnaryOperation : Operation
     {
         protected UnaryOperation(Value_ operand): base(new DeputyProps(new object[]{operand}))
@@ -19,7 +19,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("operand", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
+        [JsiiProperty("operand", "{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}")]
         public virtual Value_ Operand
         {
             get => GetInstanceProperty<Value_>();

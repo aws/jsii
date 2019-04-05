@@ -195,8 +195,10 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
           },
           ""abstract"": true,
           ""name"": ""name"",
-          ""type"": {
-            ""primitive"": ""string""
+          ""value"": {
+            ""type"": {
+              ""primitive"": ""string""
+            }
           }
         },
         {
@@ -204,9 +206,11 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
             ""summary"": ""The 12-digit AWS account ID for the account this environment deploys into ""
           },
           ""abstract"": true,
-          ""name"": ""account"",
-          ""type"": {
-            ""primitive"": ""string""
+          ""name"": ""account"", 
+          ""value"": {
+            ""type"": {
+              ""primitive"": ""string""
+            }
           }
         },
         {
@@ -215,8 +219,10 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
           },
           ""abstract"": true,
           ""name"": ""region"",
-          ""type"": {
-            ""primitive"": ""string""
+          ""value"": {
+            ""type"": {
+              ""primitive"": ""string""
+            }
           }
         }
       ],
@@ -247,7 +253,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
         }
 
         /// <summary>The arbitrary name of this environment (user-set, or at least user-meaningful) </summary>
-        [JsiiProperty(""name"", ""{\""primitive\"":\""string\""}"")]
+        [JsiiProperty(""name"", ""{\""type\"":{\""primitive\"":\""string\""}}"")]
         public string Name
         {
             get => GetInstanceProperty<string>();
@@ -255,7 +261,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
         }
 
         /// <summary>The 12-digit AWS account ID for the account this environment deploys into </summary>
-        [JsiiProperty(""account"", ""{\""primitive\"":\""string\""}"")]
+        [JsiiProperty(""account"", ""{\""type\"":{\""primitive\"":\""string\""}}"")]
         public string Account
         {
             get => GetInstanceProperty<string>();
@@ -263,7 +269,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
         }
 
         /// <summary>The AWS region name where this environment deploys into </summary>
-        [JsiiProperty(""region"", ""{\""primitive\"":\""string\""}"")]
+        [JsiiProperty(""region"", ""{\""type\"":{\""primitive\"":\""string\""}}"")]
         public string Region
         {
             get => GetInstanceProperty<string>();

@@ -326,7 +326,7 @@ namespace Amazon.JSII.Runtime.Deputy
 
             return parameters.Zip(arguments, (parameter, frameworkArgument) =>
             {
-                if (!converter.TryConvert(parameter.Type, referenceMap, frameworkArgument, out object jsiiArgument))
+                if (!converter.TryConvert(parameter.Value, referenceMap, frameworkArgument, out object jsiiArgument))
                 {
                     throw new ArgumentException($"Could not convert argument '{frameworkArgument}' to Jsii", nameof(arguments));
                 }

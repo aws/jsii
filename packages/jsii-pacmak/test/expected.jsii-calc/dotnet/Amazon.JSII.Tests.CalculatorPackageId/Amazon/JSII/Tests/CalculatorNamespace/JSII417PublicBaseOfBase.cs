@@ -17,13 +17,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("hasRoot", "{\"primitive\":\"boolean\"}")]
+        [JsiiProperty("hasRoot", "{\"type\":{\"primitive\":\"boolean\"}}")]
         public virtual bool HasRoot
         {
             get => GetInstanceProperty<bool>();
         }
 
-        [JsiiMethod("makeInstance", "{\"fqn\":\"jsii-calc.JSII417PublicBaseOfBase\"}", "[]")]
+        [JsiiMethod("makeInstance", "{\"type\":{\"fqn\":\"jsii-calc.JSII417PublicBaseOfBase\"}}", "[]")]
         public static JSII417PublicBaseOfBase MakeInstance()
         {
             return InvokeStaticMethod<JSII417PublicBaseOfBase>(typeof(JSII417PublicBaseOfBase), new object[]{});

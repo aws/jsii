@@ -79,6 +79,8 @@ assemblies
  │   │   │ └── type: Array<any>
  │   │   ├─┬ anyMapProperty property
  │   │   │ └── type: Map<string => any>
+ │   │   ├─┬ anyProperty property
+ │   │   │ └── type: any
  │   │   ├─┬ arrayProperty property
  │   │   │ └── type: Array<string>
  │   │   ├─┬ booleanProperty property
@@ -93,6 +95,8 @@ assemblies
  │   │   │ └── type: Map<string => @scope/jsii-calc-lib.Number>
  │   │   ├─┬ numberProperty property
  │   │   │ └── type: number
+ │   │   ├─┬ optionalEnumValue property
+ │   │   │ └── type: Optional<jsii-calc.StringEnum>
  │   │   ├─┬ stringProperty property
  │   │   │ └── type: string
  │   │   ├─┬ unionArrayProperty property
@@ -105,10 +109,6 @@ assemblies
  │   │   │ └── type: Array<any>
  │   │   ├─┬ unknownMapProperty property
  │   │   │ └── type: Map<string => any>
- │   │   ├─┬ anyProperty property
- │   │   │ └── type: any
- │   │   ├─┬ optionalEnumValue property
- │   │   │ └── type: jsii-calc.StringEnum?
  │   │   └─┬ unknownProperty property
  │   │     └── type: any
  │   ├─┬ class AllowedMethodNames
@@ -195,7 +195,7 @@ assemblies
  │   │   ├─┬ <initializer>(props) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ props
- │   │   │ │   └── type: jsii-calc.CalculatorProps?
+ │   │   │ │   └── type: Optional<jsii-calc.CalculatorProps>
  │   │   │ └── returns: void
  │   │   ├─┬ add(value) method
  │   │   │ ├─┬ parameters
@@ -228,9 +228,9 @@ assemblies
  │   │   ├─┬ curr property
  │   │   │ └── type: @scope/jsii-calc-lib.Value
  │   │   ├─┬ maxValue property
- │   │   │ └── type: number?
+ │   │   │ └── type: Optional<number>
  │   │   └─┬ unionProperty property
- │   │     └── type: jsii-calc.Add | jsii-calc.Multiply | jsii-calc.Power?
+ │   │     └── type: Optional<jsii-calc.Add | jsii-calc.Multiply | jsii-calc.Power>
  │   ├─┬ class ClassThatImplementsTheInternalInterface
  │   │ ├── interfaces: INonInternalInterface
  │   │ └─┬ members
@@ -330,21 +330,21 @@ assemblies
  │   │   ├─┬ <initializer>(arg1,arg2,arg3) method
  │   │   │ ├─┬ parameters
  │   │   │ │ ├─┬ arg1
- │   │   │ │ │ └── type: number?
+ │   │   │ │ │ └── type: Optional<number>
  │   │   │ │ ├─┬ arg2
- │   │   │ │ │ └── type: string?
+ │   │   │ │ │ └── type: Optional<string>
  │   │   │ │ └─┬ arg3
- │   │   │ │   └── type: date?
+ │   │   │ │   └── type: Optional<date>
  │   │   │ └── returns: void
  │   │   ├─┬ arg1 property
  │   │   │ ├── immutable
  │   │   │ └── type: number
- │   │   ├─┬ arg3 property
+ │   │   ├─┬ arg2 property
  │   │   │ ├── immutable
- │   │   │ └── type: date
- │   │   └─┬ arg2 property
+ │   │   │ └── type: Optional<string>
+ │   │   └─┬ arg3 property
  │   │     ├── immutable
- │   │     └── type: string?
+ │   │     └── type: date
  │   ├─┬ class Base
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -380,7 +380,7 @@ assemblies
  │   │     │ ├─┬ _optionalAny
  │   │     │ │ └── type: any
  │   │     │ └─┬ _optionalString
- │   │     │   └── type: string?
+ │   │     │   └── type: Optional<string>
  │   │     └── returns: void
  │   ├─┬ class DocumentedClass
  │   │ └─┬ members
@@ -389,7 +389,7 @@ assemblies
  │   │   ├─┬ greet(greetee) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ greetee
- │   │   │ │   └── type: jsii-calc.Greetee?
+ │   │   │ │   └── type: Optional<jsii-calc.Greetee>
  │   │   │ └── returns: number
  │   │   └─┬ hola() method
  │   │     └── returns: void
@@ -401,7 +401,7 @@ assemblies
  │   │     ├── variadic
  │   │     ├─┬ parameters
  │   │     │ ├─┬ optional
- │   │     │ │ └── type: string?
+ │   │     │ │ └── type: Optional<string>
  │   │     │ └─┬ things
  │   │     │   ├── type: string
  │   │     │   └── variadic
@@ -511,7 +511,7 @@ assemblies
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
  │   │   └─┬ bar property
- │   │     └── type: string?
+ │   │     └── type: Optional<string>
  │   ├─┬ class JSII417Derived
  │   │ ├── base: JSII417PublicBaseOfBase
  │   │ └─┬ members
@@ -679,7 +679,7 @@ assemblies
  │   │   └─┬ jsiiAgent property
  │   │     ├── immutable
  │   │     ├── static
- │   │     └── type: string?
+ │   │     └── type: Optional<string>
  │   ├─┬ class Multiply
  │   │ ├── base: BinaryOperation
  │   │ ├── interfaces: IFriendlier,IRandomNumberGenerator
@@ -757,7 +757,7 @@ assemblies
  │   │   ├─┬ verifyPropertyIsUndefined() method
  │   │   │ └── returns: void
  │   │   └─┬ changeMeToUndefined property
- │   │     └── type: string?
+ │   │     └── type: Optional<string>
  │   ├─┬ class NumberGenerator
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(generator) method
@@ -803,7 +803,7 @@ assemblies
  │   │   │ │ ├─┬ arg2
  │   │   │ │ │ └── type: string
  │   │   │ │ └─┬ arg3
- │   │   │ │   └── type: date?
+ │   │   │ │   └── type: Optional<date>
  │   │   │ └── returns: void
  │   │   ├─┬ arg1 property
  │   │   │ ├── immutable
@@ -813,20 +813,20 @@ assemblies
  │   │   │ └── type: string
  │   │   └─┬ arg3 property
  │   │     ├── immutable
- │   │     └── type: date?
+ │   │     └── type: Optional<date>
  │   ├─┬ class OptionalStructConsumer
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(optionalStruct) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ optionalStruct
- │   │   │ │   └── type: jsii-calc.OptionalStruct?
+ │   │   │ │   └── type: Optional<jsii-calc.OptionalStruct>
  │   │   │ └── returns: void
- │   │   ├─┬ parameterWasUndefined property
+ │   │   ├─┬ fieldValue property
  │   │   │ ├── immutable
- │   │   │ └── type: boolean
- │   │   └─┬ fieldValue property
+ │   │   │ └── type: Optional<string>
+ │   │   └─┬ parameterWasUndefined property
  │   │     ├── immutable
- │   │     └── type: string?
+ │   │     └── type: boolean
  │   ├─┬ class OverrideReturnsObject
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -957,14 +957,14 @@ assemblies
  │   │   ├─┬ <initializer>() method
  │   │   │ └── returns: void
  │   │   ├─┬ loadFoo() method
- │   │   │ └── returns: @scope/jsii-calc-lib.EnumFromScopedModule?
+ │   │   │ └── returns: Optional<@scope/jsii-calc-lib.EnumFromScopedModule>
  │   │   ├─┬ saveFoo(value) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ value
  │   │   │ │   └── type: @scope/jsii-calc-lib.EnumFromScopedModule
  │   │   │ └── returns: void
  │   │   └─┬ foo property
- │   │     └── type: @scope/jsii-calc-lib.EnumFromScopedModule?
+ │   │     └── type: Optional<@scope/jsii-calc-lib.EnumFromScopedModule>
  │   ├─┬ class ReturnsPrivateImplementationOfInterface
  │   │ └─┬ members
  │   │   ├─┬ <initializer>() method
@@ -979,11 +979,11 @@ assemblies
  │   │   ├─┬ methodWithDefaultedArguments(arg1,arg2,arg3) method
  │   │   │ ├─┬ parameters
  │   │   │ │ ├─┬ arg1
- │   │   │ │ │ └── type: number?
+ │   │   │ │ │ └── type: Optional<number>
  │   │   │ │ ├─┬ arg2
- │   │   │ │ │ └── type: string?
+ │   │   │ │ │ └── type: Optional<string>
  │   │   │ │ └─┬ arg3
- │   │   │ │   └── type: date?
+ │   │   │ │   └── type: Optional<date>
  │   │   │ └── returns: void
  │   │   ├─┬ methodWithOptionalAnyArgument(arg) method
  │   │   │ ├─┬ parameters
@@ -997,7 +997,7 @@ assemblies
  │   │     │ ├─┬ arg2
  │   │     │ │ └── type: string
  │   │     │ └─┬ arg3
- │   │     │   └── type: date?
+ │   │     │   └── type: Optional<date>
  │   │     └── returns: void
  │   ├─┬ class SingleInstanceTwoTypes
  │   │ └─┬ members
@@ -1239,15 +1239,19 @@ assemblies
  │   │   ├─┬ initialValue property
  │   │   │ ├── abstract
  │   │   │ ├── immutable
- │   │   │ └── type: number?
+ │   │   │ └── type: Optional<number>
  │   │   └─┬ maximumValue property
  │   │     ├── abstract
  │   │     ├── immutable
- │   │     └── type: number?
+ │   │     └── type: Optional<number>
  │   ├─┬ interface DerivedStruct
  │   │ ├─┬ interfaces
  │   │ │ └── MyFirstStruct
  │   │ └─┬ members
+ │   │   ├─┬ anotherOptional property
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: Optional<Map<string => @scope/jsii-calc-lib.Value>>
  │   │   ├─┬ anotherRequired property
  │   │   │ ├── abstract
  │   │   │ ├── immutable
@@ -1260,10 +1264,6 @@ assemblies
  │   │   │ ├── abstract
  │   │   │ ├── immutable
  │   │   │ └── type: jsii-calc.DoubleTrouble
- │   │   ├─┬ anotherOptional property
- │   │   │ ├── abstract
- │   │   │ ├── immutable
- │   │   │ └── type: Map<string => @scope/jsii-calc-lib.Value>?
  │   │   ├─┬ optionalAny property
  │   │   │ ├── abstract
  │   │   │ ├── immutable
@@ -1271,17 +1271,17 @@ assemblies
  │   │   └─┬ optionalArray property
  │   │     ├── abstract
  │   │     ├── immutable
- │   │     └── type: Array<string>?
+ │   │     └── type: Optional<Array<string>>
  │   ├─┬ interface EraseUndefinedHashValuesOptions
  │   │ └─┬ members
  │   │   ├─┬ option1 property
  │   │   │ ├── abstract
  │   │   │ ├── immutable
- │   │   │ └── type: string?
+ │   │   │ └── type: Optional<string>
  │   │   └─┬ option2 property
  │   │     ├── abstract
  │   │     ├── immutable
- │   │     └── type: string?
+ │   │     └── type: Optional<string>
  │   ├─┬ interface ExtendsInternalInterface
  │   │ └─┬ members
  │   │   ├─┬ boom property
@@ -1297,7 +1297,7 @@ assemblies
  │   │   └─┬ name property
  │   │     ├── abstract
  │   │     ├── immutable
- │   │     └── type: string?
+ │   │     └── type: Optional<string>
  │   ├─┬ interface IAnotherPublicInterface
  │   │ └─┬ members
  │   │   └─┬ a property
@@ -1363,7 +1363,7 @@ assemblies
  │   │     │ ├─┬ arg1
  │   │     │ │ └── type: string
  │   │     │ └─┬ arg2
- │   │     │   └── type: number?
+ │   │     │   └── type: Optional<number>
  │   │     └── returns: void
  │   ├─┬ interface IInterfaceWithProperties
  │   │ └─┬ members
@@ -1474,23 +1474,23 @@ assemblies
  │   │   ├─┬ containerPort property
  │   │   │ ├── abstract
  │   │   │ ├── immutable
- │   │   │ └── type: number?
+ │   │   │ └── type: Optional<number>
  │   │   ├─┬ cpu property
  │   │   │ ├── abstract
  │   │   │ ├── immutable
- │   │   │ └── type: string?
+ │   │   │ └── type: Optional<string>
  │   │   ├─┬ memoryMiB property
  │   │   │ ├── abstract
  │   │   │ ├── immutable
- │   │   │ └── type: string?
+ │   │   │ └── type: Optional<string>
  │   │   ├─┬ publicLoadBalancer property
  │   │   │ ├── abstract
  │   │   │ ├── immutable
- │   │   │ └── type: boolean?
+ │   │   │ └── type: Optional<boolean>
  │   │   └─┬ publicTasks property
  │   │     ├── abstract
  │   │     ├── immutable
- │   │     └── type: boolean?
+ │   │     └── type: Optional<boolean>
  │   ├─┬ interface NullShouldBeTreatedAsUndefinedData
  │   │ └─┬ members
  │   │   ├─┬ arrayWithThreeElementsAndUndefinedAsSecondArgument property
@@ -1506,7 +1506,7 @@ assemblies
  │   │   └─┬ field property
  │   │     ├── abstract
  │   │     ├── immutable
- │   │     └── type: string?
+ │   │     └── type: Optional<string>
  │   ├─┬ interface UnionProperties
  │   │ └─┬ members
  │   │   ├─┬ bar property
@@ -1516,7 +1516,7 @@ assemblies
  │   │   └─┬ foo property
  │   │     ├── abstract
  │   │     ├── immutable
- │   │     └── type: string | number?
+ │   │     └── type: Optional<string | number>
  │   ├─┬ enum AllTypesEnum
  │   │ ├── MyEnumValue
  │   │ ├── YourEnumValue
@@ -1622,21 +1622,21 @@ assemblies
      │   └─┬ firstOptional property
      │     ├── abstract
      │     ├── immutable
-     │     └── type: Array<string>?
+     │     └── type: Optional<Array<string>>
      ├─┬ interface StructWithOnlyOptionals
      │ └─┬ members
      │   ├─┬ optional1 property
      │   │ ├── abstract
      │   │ ├── immutable
-     │   │ └── type: string?
+     │   │ └── type: Optional<string>
      │   ├─┬ optional2 property
      │   │ ├── abstract
      │   │ ├── immutable
-     │   │ └── type: number?
+     │   │ └── type: Optional<number>
      │   └─┬ optional3 property
      │     ├── abstract
      │     ├── immutable
-     │     └── type: boolean?
+     │     └── type: Optional<boolean>
      └─┬ enum EnumFromScopedModule
        ├── Value1
        └── Value2

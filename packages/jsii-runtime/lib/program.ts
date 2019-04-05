@@ -1,8 +1,9 @@
-import { KernelHost } from './host'
-import { InputOutput } from './in-out'
+import packageInfo = require('../package.json');
+import { KernelHost } from './host';
+import { InputOutput } from './in-out';
 
-const name    = require('../package.json').name;
-const version = require('../package.json').version;
+const name = packageInfo.name;
+const version = packageInfo.version;
 
 const noStack = !!process.env.JSII_NOSTACK;
 const debug = !!process.env.JSII_DEBUG;

@@ -203,7 +203,7 @@ namespace Amazon.JSII.Generator
                 return SF.ParseTypeName("void");
             }
 
-            Namespaces.Add(Method.Returns);
+            Namespaces.Add(Method.Returns.Type);
             return Symbols.GetTypeSyntax(Method.Returns);
         }
 

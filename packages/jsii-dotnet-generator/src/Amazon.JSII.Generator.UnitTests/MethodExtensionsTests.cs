@@ -25,8 +25,8 @@ namespace Amazon.JSII.Generator.UnitTests
                     name: "myMethod",
                     parameters: new[]
                     {
-                        new Parameter("myParam1", new TypeReference("myParamTypeFqn1")),
-                        new Parameter("myParam2", new TypeReference("myParamTypeFqn2")),
+                        new Parameter(name: "myParam1", value: new TypeInstance(type: new TypeReference("myParamTypeFqn1"))),
+                        new Parameter(name: "myParam2", value: new TypeInstance(type: new TypeReference("myParamTypeFqn2"))),
                     }
                 );
 
@@ -87,8 +87,8 @@ namespace Amazon.JSII.Generator.UnitTests
                     name: "myMethod",
                     parameters: new[]
                     {
-                        new Parameter("myParam1", new TypeReference("myParamTypeFqn1")),
-                        new Parameter("myParam2", new TypeReference("myParamTypeFqn2")),
+                        new Parameter(name: "myParam1", value: new TypeInstance(type: new TypeReference("myParamTypeFqn1"))),
+                        new Parameter(name: "myParam2", value: new TypeInstance(type: new TypeReference("myParamTypeFqn2"))),
                     }
                 );
 
@@ -117,23 +117,23 @@ namespace Amazon.JSII.Generator.UnitTests
             {
                 Method method = new Method
                 (
-                    false,
-                    false,
-                    false,
+                    isInitializer: false,
+                    isProtected: false,
+                    isAbstract: false,
                     name: "myMethod",
                     parameters: new[]
                     {
                         new Parameter
                         (
-                            "myParam1",
-                            new TypeReference("myParamTypeFqn1"),
-                            new Docs { { "foo", "bar" } }
+                            name: "myParam1",
+                            value: new TypeInstance(type: new TypeReference("myParamTypeFqn1")),
+                            docs: new Docs { { "foo", "bar" } }
                         ),
                         new Parameter
                         (
-                            "myParam2",
-                            new TypeReference("myParamTypeFqn2"),
-                            new Docs { { "foo", "bar" } }
+                            name: "myParam2",
+                            value: new TypeInstance(type: new TypeReference("myParamTypeFqn2")),
+                            docs: new Docs { { "foo", "bar" } }
                         )
                     }
                 );
@@ -141,7 +141,7 @@ namespace Amazon.JSII.Generator.UnitTests
                 SyntaxToken token = method.GetParametersJsonSyntaxToken();
 
                 string actual = token.ToString();
-                string expected = @"""[{\""name\"":\""myParam1\"",\""type\"":{\""fqn\"":\""myParamTypeFqn1\""}},{\""name\"":\""myParam2\"",\""type\"":{\""fqn\"":\""myParamTypeFqn2\""}}]""";
+                string expected = @"""[{\""name\"":\""myParam1\"",\""value\"":{\""type\"":{\""fqn\"":\""myParamTypeFqn1\""}}},{\""name\"":\""myParam2\"",\""value\"":{\""type\"":{\""fqn\"":\""myParamTypeFqn2\""}}}]""";
 
                 Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
             }

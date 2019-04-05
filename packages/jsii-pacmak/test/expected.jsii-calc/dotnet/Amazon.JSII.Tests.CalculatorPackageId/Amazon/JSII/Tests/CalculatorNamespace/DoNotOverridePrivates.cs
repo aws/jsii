@@ -17,19 +17,19 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod("changePrivatePropertyValue", null, "[{\"name\":\"newValue\",\"type\":{\"primitive\":\"string\"}}]")]
+        [JsiiMethod("changePrivatePropertyValue", null, "[{\"name\":\"newValue\",\"value\":{\"type\":{\"primitive\":\"string\"}}}]")]
         public virtual void ChangePrivatePropertyValue(string newValue)
         {
             InvokeInstanceVoidMethod(new object[]{newValue});
         }
 
-        [JsiiMethod("privateMethodValue", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod("privateMethodValue", "{\"type\":{\"primitive\":\"string\"}}", "[]")]
         public virtual string PrivateMethodValue()
         {
             return InvokeInstanceMethod<string>(new object[]{});
         }
 
-        [JsiiMethod("privatePropertyValue", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod("privatePropertyValue", "{\"type\":{\"primitive\":\"string\"}}", "[]")]
         public virtual string PrivatePropertyValue()
         {
             return InvokeInstanceMethod<string>(new object[]{});

@@ -226,8 +226,8 @@ function _defaultValidations(): ValidationFunction[] {
 
         function _assertSignaturesMatch(expected: spec.Method, actual: spec.Method, label: string, action: string) {
             if (!deepEqual(actual.returns, expected.returns)) {
-                const expType = spec.describeTypeReference(expected.returns);
-                const actType = spec.describeTypeReference(actual.returns);
+                const expType = spec.describeTypeInstance(expected.returns);
+                const actType = spec.describeTypeInstance(actual.returns);
                 diagnostic(ts.DiagnosticCategory.Error,
                            `${label} changes the return type when ${action} (expected ${expType}, found ${actType})`);
             }
@@ -241,25 +241,25 @@ function _defaultValidations(): ValidationFunction[] {
             for (let i = 0 ; i < expectedParams.length ; i++) {
                 const expParam = expectedParams[i];
                 const actParam = actualParams[i];
-                if (!deepEqual(expParam.type, actParam.type)) {
-                    const expType = spec.describeTypeReference(expParam.type);
-                    const actType = spec.describeTypeReference(actParam.type);
+                if (!deepEqual(expParam.value, actParam.value)) {
+                    const expType = spec.describeTypeInstance(expParam.value);
+                    const actType = spec.describeTypeInstance(actParam.value);
                     diagnostic(ts.DiagnosticCategory.Error,
                                `${label} changes type of argument ${actParam.name} when ${action} (expected ${expType}, found ${actType}`);
                 }
                 // Not-ing those to force the values to a strictly boolean context (they're optional, undefined means false)
-                if (expParam.modifier !== actParam.modifier) {
+                if (expParam.variadic !== actParam.variadic) {
                     diagnostic(ts.DiagnosticCategory.Error,
                                // tslint:disable-next-line:max-line-length
-                               `${label} changes the modifier of parameter ${actParam.name} when ${action} (expected ${expParam.modifier}, found ${actParam.modifier})`);
+                               `${label} changes the variadicity of parameter ${actParam.name} when ${action} (expected ${expParam.variadic}, found ${actParam.variadic})`);
                 }
             }
         }
 
         function _assertPropertiesMatch(expected: spec.Property, actual: spec.Property, label: string, action: string) {
-            if (!deepEqual(expected.type, actual.type)) {
-                const expType = spec.describeTypeReference(expected.type);
-                const actType = spec.describeTypeReference(actual.type);
+            if (!deepEqual(expected.value, actual.value)) {
+                const expType = spec.describeTypeInstance(expected.value);
+                const actType = spec.describeTypeInstance(actual.value);
                 diagnostic(ts.DiagnosticCategory.Error,
                            `${label} changes the type of property when ${action} (expected ${expType}, found ${actType})`);
             }
@@ -311,14 +311,14 @@ function _allTypeReferences(assm: spec.Assembly): spec.NamedTypeReference[] {
         }
     }
     for (const prop of _allProperties(assm)) {
-        _collectTypeReferences(prop.type);
+        _collectTypeReferences(prop.value.type);
     }
     for (const meth of _allMethods(assm)) {
         if (meth.returns) {
-            _collectTypeReferences(meth.returns);
+            _collectTypeReferences(meth.returns.type);
         }
         for (const param of meth.parameters || []) {
-            _collectTypeReferences(param.type);
+            _collectTypeReferences(param.value.type);
         }
     }
     return typeReferences;
@@ -327,9 +327,9 @@ function _allTypeReferences(assm: spec.Assembly): spec.NamedTypeReference[] {
         if (spec.isNamedTypeReference(type)) {
             typeReferences.push(type);
         } else if (spec.isCollectionTypeReference(type)) {
-            _collectTypeReferences(type.collection.elementtype);
+            _collectTypeReferences(type.collection.elementtype.type);
         } else if (spec.isUnionTypeReference(type)) {
-            type.union.types.forEach(t => _collectTypeReferences(t));
+            type.union.types.forEach(t => _collectTypeReferences(t.type));
         }
     }
 }

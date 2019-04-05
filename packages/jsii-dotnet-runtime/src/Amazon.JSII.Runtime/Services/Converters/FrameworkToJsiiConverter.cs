@@ -203,7 +203,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             return false;
         }
 
-        protected override bool TryConvertArray(IReferenceMap referenceMap, TypeReference elementType, object value,
+        protected override bool TryConvertArray(IReferenceMap referenceMap, TypeInstance elementType, object value,
             out object result)
         {
             if (value == null)
@@ -236,7 +236,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             return true;
         }
 
-        protected override bool TryConvertMap(IReferenceMap referenceMap, TypeReference elementType, object value,
+        protected override bool TryConvertMap(IReferenceMap referenceMap, TypeInstance elementType, object value,
             out object result)
         {
             if (value == null)
@@ -276,64 +276,64 @@ namespace Amazon.JSII.Runtime.Services.Converters
             return true;
         }
 
-        protected override TypeReference InferType(IReferenceMap referenceMap, object value)
+        protected override TypeInstance InferType(IReferenceMap referenceMap, object value)
         {
             value = value ?? throw new ArgumentNullException(nameof(value));
 
             return InferType(referenceMap, value.GetType());
         }
 
-        TypeReference InferType(IReferenceMap referenceMap, Type type)
+        TypeInstance InferType(IReferenceMap referenceMap, Type type)
         {
             type = type ?? throw new ArgumentNullException(nameof(type));
 
             JsiiClassAttribute classAttribute = ReflectionUtils.GetClassAttribute(type);
             if (classAttribute != null)
             {
-                return new TypeReference(classAttribute.FullyQualifiedName);
+                return new TypeInstance(type: new TypeReference(classAttribute.FullyQualifiedName));
             }
 
             JsiiEnumAttribute enumAttribute = type.GetCustomAttribute<JsiiEnumAttribute>();
             if (enumAttribute != null)
             {
-                return new TypeReference(enumAttribute.FullyQualifiedName);
+                return new TypeInstance(type: new TypeReference(enumAttribute.FullyQualifiedName));
             }
 
             if (type.IsAssignableFrom(typeof(string)))
             {
-                return new TypeReference(primitive: PrimitiveType.String);
+                return new TypeInstance(type: new TypeReference(primitive: PrimitiveType.String));
             }
 
             if (type.IsAssignableFrom(typeof(bool)))
             {
-                return new TypeReference(primitive: PrimitiveType.Boolean);
+                return new TypeInstance(type: new TypeReference(primitive: PrimitiveType.Boolean));
             }
 
             if (IsNumeric(type))
             {
-                return new TypeReference(primitive: PrimitiveType.Number);
+                return new TypeInstance(type: new TypeReference(primitive: PrimitiveType.Number));
             }
 
             if (type.IsAssignableFrom(typeof(DateTime)))
             {
-                return new TypeReference(primitive: PrimitiveType.Date);
+                return new TypeInstance(type: new TypeReference(primitive: PrimitiveType.Date));
             }
 
             if (type.IsAssignableFrom(typeof(JObject)))
             {
-                return new TypeReference(primitive: PrimitiveType.Json);
+                return new TypeInstance(type: new TypeReference(primitive: PrimitiveType.Json));
             }
 
             if (type.IsArray)
             {
-                return new TypeReference
+                return new TypeInstance(type: new TypeReference
                 (
                     collection: new CollectionTypeReference
                     (
-                        CollectionKind.Array,
-                        InferType(referenceMap, type.GetElementType())
+                        kind: CollectionKind.Array,
+                        elementType: InferType(referenceMap, type.GetElementType())
                     )
-                );
+                ));
             }
 
             Type dictionaryInterface = type.GetInterfaces()
@@ -346,14 +346,14 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 }
 
                 Type elementType = dictionaryInterface.GetGenericArguments()[1];
-                return new TypeReference
+                return new TypeInstance(type: new TypeReference
                 (
                     collection: new CollectionTypeReference
                     (
-                        CollectionKind.Map,
-                        InferType(referenceMap, elementType)
+                        kind: CollectionKind.Map,
+                        elementType: InferType(referenceMap, elementType)
                     )
-                );
+                ));
             }
 
             throw new ArgumentException($"Could not infer JSII type for .NET type '{type.Name}'", nameof(type));

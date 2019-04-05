@@ -48,9 +48,17 @@ import { hiddenMap, jsiiTypeFqn, objectReference, ObjectTable } from './objects'
 export type Void = 'void';
 
 /**
- * A type reference that includes the special type reference Void
+ * A type instance, or Void
  */
-export type CompleteTypeReference = spec.TypeReference | Void;
+export type TypeInstanceOrVoid = spec.TypeInstance<spec.TypeReference> | Void;
+
+/**
+ * An instance of any type.
+ */
+export const ANY_VALUE: spec.TypeInstance<spec.PrimitiveTypeReference> = {
+  type: { primitive: spec.PrimitiveType.Any },
+  optional: true
+};
 
 /**
  * A special FQN that can be used to create empty javascript objects.
@@ -80,13 +88,13 @@ export interface SerializerHost {
   readonly objects: ObjectTable;
   debug(...args: any[]): void;
   lookupType(fqn: string): spec.Type;
-  recurse(x: any, type: CompleteTypeReference): any;
+  recurse(x: any, type: TypeInstanceOrVoid): any;
   findSymbol(fqn: string): any;
 }
 
 interface Serializer {
-  serialize(value: unknown, type: CompleteTypeReference, host: SerializerHost): any;
-  deserialize(value: unknown, type: CompleteTypeReference, host: SerializerHost): any;
+  serialize(value: unknown, type: TypeInstanceOrVoid, host: SerializerHost): any;
+  deserialize(value: unknown, type: TypeInstanceOrVoid, host: SerializerHost): any;
 }
 
 export const SERIALIZERS: {[k: string]: Serializer} = {
@@ -133,7 +141,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
     serialize(value, type) {
       if (nullAndOk(value, type)) { return undefined; }
 
-      const primitiveType = type as spec.PrimitiveTypeReference;
+      const primitiveType = (type as spec.TypeInstance<spec.PrimitiveTypeReference>).type;
 
       if (!isScalar(value)) {
         throw new Error(`Expected Scalar, got ${JSON.stringify(value)}`);
@@ -147,7 +155,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
     deserialize(value, type) {
       if (nullAndOk(value, type)) { return undefined; }
 
-      const primitiveType = type as spec.PrimitiveTypeReference;
+      const primitiveType = (type as spec.TypeInstance<spec.PrimitiveTypeReference>).type;
 
       if (!isScalar(value)) {
         throw new Error(`Expected Scalar, got ${JSON.stringify(value)}`);
@@ -182,7 +190,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
 
       host.debug('Serializing enum');
 
-      const enumType = type as spec.EnumType;
+      const enumType = (type as spec.TypeInstance<spec.NamedTypeReference>).type;
       return { [TOKEN_ENUM]: `${enumType.fqn}/${host.findSymbol(enumType.fqn)[value]}` };
     },
     deserialize(value, type, host) {
@@ -205,7 +213,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
         throw new Error(`Expected array type, got ${JSON.stringify(value)}`);
       }
 
-      const arrayType = type as spec.CollectionTypeReference;
+      const arrayType = (type as spec.TypeInstance<spec.CollectionTypeReference>).type;
 
       return value.map(x => host.recurse(x, arrayType.collection.elementtype));
     },
@@ -216,7 +224,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
         throw new Error(`Expected array type, got ${JSON.stringify(value)}`);
       }
 
-      const arrayType = type as spec.CollectionTypeReference;
+      const arrayType = (type as spec.TypeInstance<spec.CollectionTypeReference>).type;
 
       return value.map(x => host.recurse(x, arrayType.collection.elementtype));
     },
@@ -227,13 +235,13 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
     serialize(value, type, host) {
       if (nullAndOk(value, type)) { return undefined; }
 
-      const mapType = type as spec.CollectionTypeReference;
+      const mapType = (type as spec.TypeInstance<spec.CollectionTypeReference>).type;
       return mapValues(value, v => host.recurse(v, mapType.collection.elementtype));
     },
     deserialize(value, type, host) {
       if (nullAndOk(value, type)) { return undefined; }
 
-      const mapType = type as spec.CollectionTypeReference;
+      const mapType = (type as spec.TypeInstance<spec.CollectionTypeReference>).type;
       return mapValues(value, v => host.recurse(v, mapType.collection.elementtype));
     },
   },
@@ -270,7 +278,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       */
 
       host.debug('Returning value type as reference type for now (awslabs/jsii#400)');
-      const wireFqn = selectWireType(value, type as spec.NamedTypeReference, host.lookupType);
+      const wireFqn = selectWireType(value, (type as spec.TypeInstance<spec.NamedTypeReference>).type, host.lookupType);
       return host.objects.registerObject(value, wireFqn);
     },
     deserialize(value, type, host) {
@@ -292,12 +300,12 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
         return prevRef;
       }
 
-      const namedType = host.lookupType((type as spec.NamedTypeReference).fqn);
+      const namedType = host.lookupType((type as spec.TypeInstance<spec.NamedTypeReference>).type.fqn);
       const props = propertiesOf(namedType, host.lookupType);
 
       return mapValues(value, (v, key) => {
         if (!props[key]) { return undefined; } // Don't map if unknown property
-        return host.recurse(v, props[key].type);
+        return host.recurse(v, props[key].value);
       });
     },
   },
@@ -314,7 +322,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       const prevRef = objectReference(value);
       if (prevRef) { return prevRef; }
 
-      const wireFqn = selectWireType(value, type as spec.NamedTypeReference, host.lookupType);
+      const wireFqn = selectWireType(value, (type as spec.TypeInstance<spec.NamedTypeReference>).type, host.lookupType);
       return host.objects.registerObject(value, wireFqn);
     },
     deserialize(value, type, host) {
@@ -329,7 +337,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
 
       const { instance, fqn } = host.objects.findObject(value);
 
-      const namedTypeRef = type as spec.NamedTypeReference;
+      const namedTypeRef = (type as spec.TypeInstance<spec.NamedTypeReference>).type;
       if (namedTypeRef.fqn !== EMPTY_OBJECT_FQN) {
         const namedType = host.lookupType(namedTypeRef.fqn);
 
@@ -337,8 +345,9 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
         // We only do this for classes, not interfaces, since Java might pass us objects that
         // privately implement some interface and we can't prove they don't.
         // https://github.com/awslabs/jsii/issues/399
-        if (spec.isClassType(namedType) && !isAssignable(fqn, type as spec.NamedTypeReference, host.lookupType)) {
-          throw new Error(`Object of type ${fqn} is not convertible to ${(type as spec.NamedTypeReference).fqn}`);
+        const declaredType = (type as spec.TypeInstance<spec.NamedTypeReference>).type;
+        if (spec.isClassType(namedType) && !isAssignable(fqn, declaredType, host.lookupType)) {
+          throw new Error(`Object of type ${fqn} is not convertible to ${declaredType.fqn}`);
         }
       }
 
@@ -354,7 +363,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       if (isDate(value)) { return serializeDate(value); }
       if (isScalar(value)) { return value; }
       if (Array.isArray(value)) {
-        return value.map(e => host.recurse(e, { primitive: spec.PrimitiveType.Any }));
+        return value.map(e => host.recurse(e, ANY_VALUE));
       }
 
       // Note: no case for "ENUM" here, without type declaration we can't tell the difference
@@ -386,7 +395,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       // We will serialize by-value, but recurse for serialization so that if
       // the object contains reference objects, they will be serialized appropriately.
       // (Basically, serialize anything else as a map of 'any').
-      return mapValues(value, (v) => host.recurse(v, { primitive: spec.PrimitiveType.Any }));
+      return mapValues(value, (v) => host.recurse(v, ANY_VALUE));
     },
 
     deserialize(value, _type, host) {
@@ -402,7 +411,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       }
       if (Array.isArray(value)) {
         host.debug('ANY is an Array');
-        return value.map(e => host.recurse(e, { primitive: spec.PrimitiveType.Any }));
+        return value.map(e => host.recurse(e, ANY_VALUE));
       }
 
       if (isWireEnum(value)) {
@@ -416,7 +425,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
 
       // At this point again, deserialize by-value.
       host.debug('ANY is a Map');
-      return mapValues(value, (v) => host.recurse(v, { primitive: spec.PrimitiveType.Any }));
+      return mapValues(value, (v) => host.recurse(v, ANY_VALUE));
     },
   },
 };
@@ -448,7 +457,7 @@ function deserializeEnum(value: WireEnum, lookup: SymbolLookup) {
 
 export interface TypeSerialization {
   serializationClass: SerializationClass;
-  typeRef: CompleteTypeReference;
+  typeRef: TypeInstanceOrVoid;
 }
 
 /**
@@ -456,58 +465,58 @@ export interface TypeSerialization {
  *
  * There can be multiple, because the type can be a type union.
  */
-export function serializationType(typeRef: CompleteTypeReference, lookup: TypeLookup): TypeSerialization[] {
-  if (typeRef == null) { throw new Error(`Kernel error: expected type information, got 'undefined'`); }
-  if (typeRef === 'void') { return [{ serializationClass: SerializationClass.Void, typeRef }]; }
-  if (spec.isPrimitiveTypeReference(typeRef)) {
-    switch (typeRef.primitive) {
-      case spec.PrimitiveType.Any: return [{ serializationClass: SerializationClass.Any, typeRef }];
-      case spec.PrimitiveType.Date: return [{ serializationClass: SerializationClass.Date, typeRef }];
-      case spec.PrimitiveType.Json: return [{ serializationClass: SerializationClass.Json, typeRef }];
+export function serializationType(typeInstance: TypeInstanceOrVoid, lookup: TypeLookup): TypeSerialization[] {
+  if (typeInstance == null) { throw new Error(`Kernel error: expected type information, got 'undefined'`); }
+  if (typeInstance === 'void') { return [{ serializationClass: SerializationClass.Void, typeRef: typeInstance }]; }
+  if (spec.isPrimitiveTypeReference(typeInstance.type)) {
+    switch (typeInstance.type.primitive) {
+      case spec.PrimitiveType.Any: return [{ serializationClass: SerializationClass.Any, typeRef: typeInstance }];
+      case spec.PrimitiveType.Date: return [{ serializationClass: SerializationClass.Date, typeRef: typeInstance }];
+      case spec.PrimitiveType.Json: return [{ serializationClass: SerializationClass.Json, typeRef: typeInstance }];
       case spec.PrimitiveType.Boolean:
       case spec.PrimitiveType.Number:
       case spec.PrimitiveType.String:
-        return [{ serializationClass: SerializationClass.Scalar, typeRef }];
+        return [{ serializationClass: SerializationClass.Scalar, typeRef: typeInstance }];
     }
 
     throw new Error('Unknown primitive type');
   }
-  if (spec.isCollectionTypeReference(typeRef)) {
+  if (spec.isCollectionTypeReference(typeInstance.type)) {
     return [{
-      serializationClass: typeRef.collection.kind === spec.CollectionKind.Array ? SerializationClass.Array : SerializationClass.Map,
-      typeRef
+      serializationClass: typeInstance.type.collection.kind === spec.CollectionKind.Array ? SerializationClass.Array : SerializationClass.Map,
+      typeRef: typeInstance
     }];
   }
-  if (spec.isUnionTypeReference(typeRef)) {
-    const compoundTypes = flatMap(typeRef.union.types, t => serializationType(t, lookup));
+  if (spec.isUnionTypeReference(typeInstance.type)) {
+    const compoundTypes = flatMap(typeInstance.type.union.types, t => serializationType(t, lookup));
     // Propagate the top-level 'optional' field to each individual subtype
     for (const t of compoundTypes) {
       if (t.typeRef !== 'void') {
-        t.typeRef.nullable = typeRef.nullable;
+        t.typeRef.optional = typeInstance.optional;
       }
     }
     return compoundTypes;
   }
 
   // The next part of the conversion is lookup-dependent
-  const type = lookup(typeRef.fqn);
+  const type = lookup(typeInstance.type.fqn);
 
   if (spec.isEnumType(type)) {
-    return [{ serializationClass: SerializationClass.Enum, typeRef }];
+    return [{ serializationClass: SerializationClass.Enum, typeRef: typeInstance }];
   }
 
   if (spec.isInterfaceType(type) && type.datatype) {
-    return [{ serializationClass: SerializationClass.Struct, typeRef }];
+    return [{ serializationClass: SerializationClass.Struct, typeRef: typeInstance }];
   }
 
-  return [{ serializationClass: SerializationClass.ReferenceType, typeRef }];
+  return [{ serializationClass: SerializationClass.ReferenceType, typeRef: typeInstance }];
 }
 
-function nullAndOk(x: unknown, type: CompleteTypeReference): boolean {
+function nullAndOk(x: unknown, type: TypeInstanceOrVoid): boolean {
   if (x != null) { return false; }
 
-  if (type !== 'void' && !type.nullable) {
-    throw new Error(`Got 'undefined' for non-nullable type ${JSON.stringify(type)}`);
+  if (type !== 'void' && !type.optional) {
+    throw new Error(`Got 'undefined' for non-optional instance of ${JSON.stringify(type)}`);
   }
 
   return true;

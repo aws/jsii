@@ -224,7 +224,7 @@ export = nodeunit.testCase({
 });
 
 const TEST_DEP_ASSEMBLY: spec.Assembly = {
-    schema: spec.SchemaVersion.V1_0,
+    schema: spec.SchemaVersion.LATEST,
     name: 'jsii-test-dep',
     version: '1.2.4',
     license: 'Apache-2.0',
@@ -243,7 +243,7 @@ const TEST_DEP_ASSEMBLY: spec.Assembly = {
 };
 
 const TEST_DEP_DEP_ASSEMBLY: spec.Assembly = {
-    schema: spec.SchemaVersion.V1_0,
+    schema: spec.SchemaVersion.LATEST,
     name: 'jsii-test-dep-dep',
     version: '3.2.1',
     license: 'Apache-2.0',

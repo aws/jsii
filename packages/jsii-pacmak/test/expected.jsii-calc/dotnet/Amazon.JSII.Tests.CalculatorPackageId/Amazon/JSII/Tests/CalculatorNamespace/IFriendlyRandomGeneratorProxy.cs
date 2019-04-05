@@ -11,14 +11,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Returns another random number.</summary>
         /// <returns>A random number.</returns>
-        [JsiiMethod("next", "{\"primitive\":\"number\"}", "[]")]
+        [JsiiMethod("next", "{\"type\":{\"primitive\":\"number\"}}", "[]")]
         public double Next()
         {
             return InvokeInstanceMethod<double>(new object[]{});
         }
 
         /// <summary>Say hello!</summary>
-        [JsiiMethod("hello", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod("hello", "{\"type\":{\"primitive\":\"string\"}}", "[]")]
         public string Hello()
         {
             return InvokeInstanceMethod<string>(new object[]{});

@@ -5,13 +5,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(typeof(IExtendsInternalInterface), "jsii-calc.ExtendsInternalInterface")]
     public interface IExtendsInternalInterface
     {
-        [JsiiProperty("boom", "{\"primitive\":\"boolean\"}")]
+        [JsiiProperty("boom", "{\"type\":{\"primitive\":\"boolean\"}}")]
         bool Boom
         {
             get;
         }
 
-        [JsiiProperty("prop", "{\"primitive\":\"string\"}")]
+        [JsiiProperty("prop", "{\"type\":{\"primitive\":\"string\"}}")]
         string Prop
         {
             get;

@@ -68,7 +68,7 @@ function noNewAbstractMembers<T extends reflect.ReferenceType>(original: T, upda
     }
 }
 
-function describeTypeMatchingFailure(origType: reflect.TypeReference, updatedType: reflect.TypeReference, analysis: FailedAnalysis) {
+function describeTypeMatchingFailure(origType: reflect.TypeInstance, updatedType: reflect.TypeInstance, analysis: FailedAnalysis) {
   if (origType.toString() !== updatedType.toString()) {
     return `${updatedType} (formerly ${origType}): ${analysis.reasons.join(', ')}`;
   } else {
@@ -101,10 +101,10 @@ function compareMethod(origClass: reflect.Type, original: reflect.Method, update
       return;
     }
 
-    const argAna = isCompatibleArgumentType(param.type, updatedParam.type);
+    const argAna = isCompatibleArgumentType(param.value, updatedParam.value);
     if (!argAna.success) {
       // tslint:disable-next-line:max-line-length
-      context.mismatches.report(origClass, `method ${original.name} argument ${param.name}, takes ${describeTypeMatchingFailure(param.type, updatedParam.type, argAna)}`);
+      context.mismatches.report(origClass, `method ${original.name} argument ${param.name}, takes ${describeTypeMatchingFailure(param.value, updatedParam.value, argAna)}`);
       return;
     }
   });
@@ -145,9 +145,9 @@ function compareProperty(origClass: reflect.Type, original: reflect.Property, up
     context.mismatches.report(origClass, `property ${original.name}, used to be ${original.static ? 'static' : 'not static'}, is now ${updated.static ? 'static' : 'not static'}`);
   }
 
-  const ana = isCompatibleReturnType(original.type, updated.type);
+  const ana = isCompatibleReturnType(original.value, updated.value);
   if (!ana.success) {
-    context.mismatches.report(origClass, `property ${original.name}, type ${describeTypeMatchingFailure(original.type, updated.type, ana)}`);
+    context.mismatches.report(origClass, `property ${original.name}, type ${describeTypeMatchingFailure(original.value, updated.value, ana)}`);
   }
 
   if (updated.immutable && !original.immutable) {
@@ -183,9 +183,9 @@ function* memberPairs<T extends reflect.TypeMember, U extends reflect.ReferenceT
  *
  * Strengthening output values is allowed!
  */
-function isCompatibleReturnType(original: reflect.TypeReference, updated: reflect.TypeReference): Analysis {
-  if (original.void) { return { success: true }; }  // If we didn't use to return anything, returning something now is fine
-  if (updated.void) { return { success: false, reasons: [`now returning 'void'`] }; } // If we used to return something, we can't stop doing that
+function isCompatibleReturnType(original: reflect.TypeInstance, updated: reflect.TypeInstance): Analysis {
+  if (original.type.void) { return { success: true }; }  // If we didn't use to return anything, returning something now is fine
+  if (updated.type.void) { return { success: false, reasons: [`now returning 'void'`] }; } // If we used to return something, we can't stop doing that
   return isSuperType(original, updated, updated.system);
 }
 
@@ -194,7 +194,7 @@ function isCompatibleReturnType(original: reflect.TypeReference, updated: reflec
  *
  * Weakening preconditions is allowed!
  */
-function isCompatibleArgumentType(original: reflect.TypeReference, updated: reflect.TypeReference): Analysis {
+function isCompatibleArgumentType(original: reflect.TypeInstance, updated: reflect.TypeInstance): Analysis {
   // Input can never be void, so no need to check
   return isSuperType(updated, original, updated.system);
 }

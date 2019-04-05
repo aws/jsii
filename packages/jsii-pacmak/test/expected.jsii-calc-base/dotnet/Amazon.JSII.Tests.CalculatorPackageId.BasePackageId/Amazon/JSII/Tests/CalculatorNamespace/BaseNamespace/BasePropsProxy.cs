@@ -10,13 +10,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace
         {
         }
 
-        [JsiiProperty("bar", "{\"primitive\":\"string\"}")]
+        [JsiiProperty("bar", "{\"type\":{\"primitive\":\"string\"}}")]
         public string Bar
         {
             get => GetInstanceProperty<string>();
         }
 
-        [JsiiProperty("foo", "{\"fqn\":\"@scope/jsii-calc-base-of-base.Very\"}")]
+        [JsiiProperty("foo", "{\"type\":{\"fqn\":\"@scope/jsii-calc-base-of-base.Very\"}}")]
         public Very Foo
         {
             get => GetInstanceProperty<Very>();

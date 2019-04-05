@@ -73,8 +73,8 @@ export abstract class Generator implements IGenerator {
     public async load(packageDir: string) {
         this.assembly = await util.loadAssembly(packageDir);
 
-        if (this.assembly.schema !== spec.SchemaVersion.V1_0) {
-            throw new Error(`Invalid schema version "${this.assembly.schema}". Expecting "${spec.SchemaVersion.V1_0}"`);
+        if (this.assembly.schema !== spec.SchemaVersion.LATEST) {
+            throw new Error(`Invalid schema version "${this.assembly.schema}". Expecting "${spec.SchemaVersion.LATEST}"`);
         }
 
         // Including the version of jsii-pacmak in the fingerprint, as a new version may imply different code generation.
@@ -329,7 +329,8 @@ export abstract class Generator implements IGenerator {
         let next: spec.Parameter | undefined
 
         next = remaining.pop();
-        while (next && spec.isOptional(next)) {
+        // Parameter is optional if it's type is optional, and all subsequent parameters are optional/variadic
+        while (next && next.value.optional && remaining.find(p => !p.value.optional && !p.variadic) == null) {
             // clone the method but set the parameter list based on the remaining set of parameters
             let cloned: spec.Method = clone(method);
             cloned.parameters = clone(remaining);
@@ -398,12 +399,12 @@ export abstract class Generator implements IGenerator {
             this.onBeginProperties(cls);
             cls.properties.forEach(prop => {
                 if (this.hasField(cls, prop)) {
-                    this.onField(cls, prop, spec.isUnionTypeReference(prop.type) ? prop.type : undefined);
+                    this.onField(cls, prop, spec.isUnionTypeReference(prop.value.type) ? prop.value.type : undefined);
                 }
             })
 
             cls.properties.forEach(prop => {
-                if (!spec.isUnionTypeReference(prop.type)) {
+                if (!spec.isUnionTypeReference(prop.value.type)) {
                     if (!prop.static) {
                         this.onProperty(cls, prop);
                     } else {
@@ -415,20 +416,20 @@ export abstract class Generator implements IGenerator {
                     // and postfix their name with the type name (i.e. FooAsToken).
 
                     // first, emit a property for the union, for languages that support unions.
-                    this.onUnionProperty(cls, prop, prop.type);
+                    this.onUnionProperty(cls, prop, prop.value.type);
 
                     // if require, we also "expand" the union for languages that don't support unions.
                     if (this.options.expandUnionProperties) {
-                        prop.type.union.types.forEach((type, index) => {
+                        for (const [index, type] of prop.value.type.union.types.entries()) {
                             // create a clone of this property
                             let propClone = clone(prop) as spec.Property;
-                            let primary = this.isPrimaryExpandedUnionProperty(prop.type as spec.UnionTypeReference, index);
-                            let propertyName = primary ? prop.name : `${prop.name}As${this.displayNameForType(type)}`;
-                            propClone.type = type;
-                            propClone.type.nullable = prop.type.nullable;
+                            let primary = this.isPrimaryExpandedUnionProperty(prop.value.type, index);
+                            let propertyName = primary ? prop.name : `${prop.name}As${this.displayNameForType(type.type)}`;
+                            propClone.value = type;
+                            propClone.value.optional = prop.value.optional;
                             propClone.name = propertyName;
                             this.onExpandedUnionProperty(cls, propClone, prop.name);
-                        });
+                        }
                     }
                 }
             });
@@ -451,7 +452,7 @@ export abstract class Generator implements IGenerator {
         }
 
         return index === ref.union.types.findIndex(t => {
-            if (spec.isPrimitiveTypeReference(t)) {
+            if (spec.isPrimitiveTypeReference(t.type)) {
                 return true;
             }
 
@@ -485,12 +486,12 @@ export abstract class Generator implements IGenerator {
         // ListOfX or MapOfX
         let coll = spec.isCollectionTypeReference(type) && type.collection;
         if (coll) {
-            return `${this.code.toPascalCase(coll.kind)}Of${this.displayNameForType(coll.elementtype)}`;
+            return `${this.code.toPascalCase(coll.kind)}Of${this.displayNameForType(coll.elementtype.type)}`;
         }
 
         let union = spec.isUnionTypeReference(type) && type.union;
         if (union) {
-            return union.types.map(t => this.displayNameForType(t)).join('Or');
+            return union.types.map(t => this.displayNameForType(t.type)).join('Or');
         }
 
         throw new Error(`Cannot determine display name for type: ${JSON.stringify(type)}`);

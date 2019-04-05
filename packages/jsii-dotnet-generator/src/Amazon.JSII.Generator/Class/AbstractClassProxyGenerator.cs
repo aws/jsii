@@ -103,7 +103,7 @@ namespace Amazon.JSII.Generator.Class
             return GetAllMethodsRecurse(type, Enumerable.Empty<Method>())
                 .GroupBy(m => (m.Name,
                     string.Join("",
-                        m.Parameters?.Select(p => p.Name + p.Type.FullyQualifiedName) ?? Enumerable.Empty<string>())))
+                        m.Parameters?.Select(p => p.Name + p.Value.Type.FullyQualifiedName) ?? Enumerable.Empty<string>())))
                 .Select(g => g.First())
                 .Where(m => m.IsAbstract ?? false);
         }

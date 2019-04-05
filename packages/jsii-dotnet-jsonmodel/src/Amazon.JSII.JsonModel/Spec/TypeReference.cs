@@ -10,17 +10,13 @@ namespace Amazon.JSII.JsonModel.Spec
             string fullyQualifiedName = null,
             PrimitiveType? primitive = null,
             CollectionTypeReference collection = null,
-            UnionTypeReference union = null,
-            bool? isNullable = null,
-            bool? isPromise = null
+            UnionTypeReference union = null
         )
         {
             FullyQualifiedName = fullyQualifiedName;
             Primitive = primitive;
             Collection = collection;
             Union = union;
-            IsNullable = isNullable;
-            IsPromise = isPromise;
         }
 
         [JsonProperty("fqn", NullValueHandling = NullValueHandling.Ignore)]
@@ -34,11 +30,5 @@ namespace Amazon.JSII.JsonModel.Spec
 
         [JsonProperty("union", NullValueHandling = NullValueHandling.Ignore)]
         public UnionTypeReference Union { get; }
-
-        [JsonProperty("nullable", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? IsNullable { get; }
-
-        [JsonProperty("promise", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? IsPromise { get; }
     }
 }

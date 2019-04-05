@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(typeof(IIPublicInterface2), "jsii-calc.IPublicInterface2")]
     public interface IIPublicInterface2
     {
-        [JsiiMethod("ciao", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod("ciao", "{\"type\":{\"primitive\":\"string\"}}", "[]")]
         string Ciao();
     }
 }

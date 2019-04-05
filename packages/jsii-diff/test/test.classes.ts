@@ -191,7 +191,7 @@ export = {
 
   async 'cannot make a class property optional'(test: Test) {
     await expectError(test,
-      /property henk, type string\? \(formerly string\): string\? is nullable, string is not/,
+      /property henk, type Optional<string> \(formerly string\): Optional<string> is optional, string is not/,
       `
       export class Henk {
         public henk: string = 'henk';

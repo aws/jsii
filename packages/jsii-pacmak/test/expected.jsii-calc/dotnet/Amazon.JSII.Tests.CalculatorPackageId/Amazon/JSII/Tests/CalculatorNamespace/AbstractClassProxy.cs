@@ -9,13 +9,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("abstractProperty", "{\"primitive\":\"string\"}")]
+        [JsiiProperty("abstractProperty", "{\"type\":{\"primitive\":\"string\"}}")]
         public override string AbstractProperty
         {
             get => GetInstanceProperty<string>();
         }
 
-        [JsiiMethod("abstractMethod", "{\"primitive\":\"string\"}", "[{\"name\":\"name\",\"type\":{\"primitive\":\"string\"}}]")]
+        [JsiiMethod("abstractMethod", "{\"type\":{\"primitive\":\"string\"}}", "[{\"name\":\"name\",\"value\":{\"type\":{\"primitive\":\"string\"}}}]")]
         public override string AbstractMethod(string name)
         {
             return InvokeInstanceMethod<string>(new object[]{name});

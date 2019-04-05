@@ -9,13 +9,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("boom", "{\"primitive\":\"boolean\"}")]
+        [JsiiProperty("boom", "{\"type\":{\"primitive\":\"boolean\"}}")]
         public bool Boom
         {
             get => GetInstanceProperty<bool>();
         }
 
-        [JsiiProperty("prop", "{\"primitive\":\"string\"}")]
+        [JsiiProperty("prop", "{\"type\":{\"primitive\":\"string\"}}")]
         public string Prop
         {
             get => GetInstanceProperty<string>();

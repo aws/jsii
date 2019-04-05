@@ -9,27 +9,27 @@ namespace Amazon.JSII.JsonModel.Spec
         public Parameter
         (
             string name,
-            TypeReference type,
+            TypeInstance value,
             Docs docs = null,
-            ParameterModifier? modifier = null
+            bool? isVariadic = null
         )
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
-            Type = type ?? throw new ArgumentNullException(nameof(type));
+            Value = value ?? throw new ArgumentNullException(nameof(value));
             Docs = docs;
-            Modifier = modifier;
+            IsVariadic = isVariadic;
         }
 
         [JsonProperty("name")]
         public string Name { get; }
 
-        [JsonProperty("type")]
-        public TypeReference Type { get; }
+        [JsonProperty("value")]
+        public TypeInstance Value { get; }
 
         [JsonProperty("docs", NullValueHandling = NullValueHandling.Ignore)]
         public Docs Docs { get; }
 
-        [JsonProperty("modifier", NullValueHandling = NullValueHandling.Ignore)]
-        public ParameterModifier? Modifier{ get; }
+        [JsonProperty("variadic", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? IsVariadic{ get; }
     }
 }

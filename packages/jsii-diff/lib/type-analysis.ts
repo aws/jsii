@@ -9,42 +9,42 @@ import { flatMap } from './util';
  *
  * We always check the relationship in the NEW (latest, updated) typesystem.
  */
-export function isSuperType(a: reflect.TypeReference, b: reflect.TypeReference, updatedSystem: reflect.TypeSystem): Analysis {
-  if (a.void || b.void) { throw new Error('isSuperType() does not handle voids'); }
-  if (a.isAny) { return { success: true }; }
+export function isSuperType(a: reflect.TypeInstance, b: reflect.TypeInstance, updatedSystem: reflect.TypeSystem): Analysis {
+  if (a.type.void || b.type.void) { throw new Error('isSuperType() does not handle voids'); }
+  if (a.type.isAny) { return { success: true }; }
 
   // Nullable is in principle the same as a union '| undefined', but we
   // special-case it here because that's easier :). If B is nullable, A must be
   // nullable as well.
-  if (b.nullable && !a.nullable) {
-    return failure(`${b} is nullable, ${a} is not`);
+  if (b.optional && !a.optional) {
+    return failure(`${b} is optional, ${a} is not`);
   }
 
   if (a.promise !== b.promise) { return failure(`Sync/async mismatch`); }
 
-  if (a.primitive !== undefined) {
-    if (a.primitive === b.primitive) { return { success: true }; }
+  if (a.type.primitive !== undefined) {
+    if (a.type.primitive === b.type.primitive) { return { success: true }; }
     return failure(`${b} is not assignable to ${a}`);
   }
 
-  if (a.arrayOfType !== undefined) {   // Arrays are covariant
-    if (b.arrayOfType === undefined) { return failure(`${b} is not an array type`); }
+  if (a.type.arrayOfType !== undefined) {   // Arrays are covariant
+    if (b.type.arrayOfType === undefined) { return failure(`${b} is not an array type`); }
     return prependReason(
-      isSuperType(a.arrayOfType, b.arrayOfType, updatedSystem),
+      isSuperType(a.type.arrayOfType, b.type.arrayOfType, updatedSystem),
       `${b} is not assignable to ${a}`
     );
   }
 
-  if (a.mapOfType !== undefined) {  // Maps are covariant (are they?)
-    if (b.mapOfType === undefined) { return failure(`${b} is not a map type`); }
+  if (a.type.mapOfType !== undefined) {  // Maps are covariant (are they?)
+    if (b.type.mapOfType === undefined) { return failure(`${b} is not a map type`); }
     return prependReason(
-      isSuperType(a.mapOfType, b.mapOfType, updatedSystem),
+      isSuperType(a.type.mapOfType, b.type.mapOfType, updatedSystem),
       `${b} is not assignable to ${a}`);
   }
 
   // Any element of A should accept all of B
-  if (a.unionOfTypes !== undefined) {
-    const analyses = a.unionOfTypes.map(aaa => isSuperType(aaa, b, updatedSystem));
+  if (a.type.unionOfTypes !== undefined) {
+    const analyses = a.type.unionOfTypes.map(aaa => isSuperType(aaa, b, updatedSystem));
     if (analyses.some(x => x.success)) { return { success: true }; }
     return failure(
       `none of ${b} are assignable to ${a}`,
@@ -52,8 +52,8 @@ export function isSuperType(a: reflect.TypeReference, b: reflect.TypeReference, 
     );
   }
   // All potential elements of B should go into A
-  if (b.unionOfTypes !== undefined) {
-    const analyses = b.unionOfTypes.map(bbb => isSuperType(a, bbb, updatedSystem));
+  if (b.type.unionOfTypes !== undefined) {
+    const analyses = b.type.unionOfTypes.map(bbb => isSuperType(a, bbb, updatedSystem));
     if (analyses.every(x => x.success)) { return { success: true }; }
     return failure(
       `some of ${b} are not assignable to ${a}`,
@@ -65,7 +65,7 @@ export function isSuperType(a: reflect.TypeReference, b: reflect.TypeReference, 
   // That is, if in the updated typesystem someone were to use the type name
   // from the old assembly, do they have a typing relationship that's accepted
   // by a nominal type system. (That check also rules out enums)
-  const nominalCheck = isNominalSuperType(a, b, updatedSystem);
+  const nominalCheck = isNominalSuperType(a.type, b.type, updatedSystem);
   if (nominalCheck.success === false) { return nominalCheck; }
 
   // At this point, the types are legal in the updated assembly's type system.
@@ -73,8 +73,8 @@ export function isSuperType(a: reflect.TypeReference, b: reflect.TypeReference, 
   // and the NEW type system.
   // We could do more complex analysis on typing of methods, but it doesn't seem
   // worth it.
-  const A = a.type!; // Note: lookup in old type system!
-  const B = b.type!;
+  const A = a.type.type!; // Note: lookup in old type system!
+  const B = b.type.type!;
   if (A.isInterfaceType() && A.isDataType() && B.isInterfaceType() && B.datatype) {
     return isStructuralSuperType(A, B, updatedSystem);
   }
@@ -141,15 +141,15 @@ function isStructuralSuperType(a: reflect.InterfaceType, b: reflect.InterfaceTyp
   for (const [name, aProp] of Object.entries(a.getProperties(true))) {
     const bProp = bProps[name];
 
-    if (aProp.type.nullable) {
-      // Nullable field, only requirement is that IF it exists, the type must match.
+    if (aProp.value.optional) {
+      // Optional field, only requirement is that IF it exists, the type must match.
       if (!bProp) { continue; }
     } else {
       if (!bProp) { return failure(`${formerly} required property '${name}' ${is} missing in ${b.fqn}`); }
-      if (bProp.type.nullable) { return failure(`${formerly} required property '${name}' ${is} nullable in ${b.fqn}`); }
+      if (bProp.value.optional) { return failure(`${formerly} required property '${name}' ${is} optional in ${b.fqn}`); }
     }
 
-    const ana = isSuperType(aProp.type, bProp.type, updatedSystem);
+    const ana = isSuperType(aProp.value, bProp.value, updatedSystem);
     if (!ana.success) { return ana; }
   }
 

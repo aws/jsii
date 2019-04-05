@@ -183,7 +183,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             return false;
         }
 
-        protected override bool TryConvertArray(IReferenceMap referenceMap, TypeReference elementTypeReference, object value, out object result)
+        protected override bool TryConvertArray(IReferenceMap referenceMap, TypeInstance elementTypeInstance, object value, out object result)
         {
             if (value == null || (value as JToken)?.Type == JTokenType.Null)
             {
@@ -193,12 +193,12 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
             if (value is JArray array)
             {
-                System.Type elementType = _types.GetFrameworkType(elementTypeReference);
+                System.Type elementType = _types.GetFrameworkType(elementTypeInstance);
                 Array resultArray = Array.CreateInstance(elementType, array.Count);
 
                 for (int i = 0; i < array.Count; i++)
                 {
-                    if (!TryConvert(elementTypeReference, referenceMap, array[i], out object convertedElement))
+                    if (!TryConvert(elementTypeInstance, referenceMap, array[i], out object convertedElement))
                     {
                         throw new ArgumentException("Could not convert all elements of array", nameof(value));
                     }
@@ -214,7 +214,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             return false;
         }
 
-        protected override bool TryConvertMap(IReferenceMap referenceMap, TypeReference elementTypeReference, object value, out object result)
+        protected override bool TryConvertMap(IReferenceMap referenceMap, TypeInstance elementTypeInstance, object value, out object result)
         {
             if (value == null || (value as JToken)?.Type == JTokenType.Null)
             {
@@ -224,7 +224,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
             if (value is JObject jsonObject)
             {
-                System.Type elementType = _types.GetFrameworkType(elementTypeReference);
+                System.Type elementType = _types.GetFrameworkType(elementTypeInstance);
                 System.Type dictionaryType = typeof(Dictionary<,>).MakeGenericType(typeof(string), elementType);
 
                 ConstructorInfo dictionaryConstructor = dictionaryType.GetConstructor(new System.Type[] { });
@@ -233,7 +233,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
                 foreach (JProperty property in jsonObject.Properties())
                 {
-                    if (!TryConvert(elementTypeReference, referenceMap, property.Value, out object convertedElement))
+                    if (!TryConvert(elementTypeInstance, referenceMap, property.Value, out object convertedElement))
                     {
                         throw new ArgumentException("Could not convert all elements of map", nameof(value));
                     }
@@ -249,7 +249,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             return false;
         }
 
-        protected override TypeReference InferType(IReferenceMap referenceMap, object value)
+        protected override TypeInstance InferType(IReferenceMap referenceMap, object value)
         {
             value = value ?? throw new ArgumentNullException(nameof(value));
 
@@ -261,43 +261,43 @@ namespace Amazon.JSII.Runtime.Services.Converters
                         JObject jObject = (JObject)token;
                         if (jObject.ContainsKey("$jsii.date"))
                         {
-                            return new TypeReference(primitive: PrimitiveType.Date);
+                            return new TypeInstance(type: new TypeReference(primitive: PrimitiveType.Date));
                         }
                         if (jObject.ContainsKey("$jsii.enum"))
                         {
-                            return new TypeReference(jObject.ToObject<EnumValue>().FullyQualifiedName);
+                            return new TypeInstance(type: new TypeReference(jObject.ToObject<EnumValue>().FullyQualifiedName));
                         }
                         if (jObject.ContainsKey("$jsii.byref"))
                         {
-                            return new TypeReference(jObject.ToObject<ByRefValue>().FullyQualifiedName);
+                            return new TypeInstance(type: new TypeReference(jObject.ToObject<ByRefValue>().FullyQualifiedName));
                         }
 
                         // At this point, we can't distinguish between a PrimitiveType.Json and a CollectionKind.Map,
                         // so we default to CollectionKind.Map.
-                        return new TypeReference(
+                        return new TypeInstance(type: new TypeReference(
                             collection: new CollectionTypeReference(
                                 kind: CollectionKind.Map,
-                                elementType: new TypeReference(primitive: PrimitiveType.Any)
+                                elementType: new TypeInstance(type: new TypeReference(primitive: PrimitiveType.Any), isOptional: true)
                             )
-                        );
+                        ));
 
                     case JTokenType.Array:
-                        return new TypeReference
+                        return new TypeInstance(type: new TypeReference
                         (
                             collection: new CollectionTypeReference
                             (
-                                CollectionKind.Array,
-                                new TypeReference(primitive: PrimitiveType.Any)
+                                kind: CollectionKind.Array,
+                                elementType: new TypeInstance(type: new TypeReference(primitive: PrimitiveType.Any), isOptional: true)
                             )
-                        );
+                        ));
 
                     case JTokenType.Boolean:
-                        return new TypeReference(primitive: PrimitiveType.Boolean);
+                        return new TypeInstance(type: new TypeReference(primitive: PrimitiveType.Boolean));
                     case JTokenType.String:
-                        return new TypeReference(primitive: PrimitiveType.String);
+                        return new TypeInstance(type: new TypeReference(primitive: PrimitiveType.String));
                     case JTokenType.Float:
                     case JTokenType.Integer:
-                        return new TypeReference(primitive: PrimitiveType.Number);
+                        return new TypeInstance(type: new TypeReference(primitive: PrimitiveType.Number));
                     default:
                         throw new ArgumentException($"Value has unexpected token type {token.Type}", nameof(value));
                 }
@@ -307,17 +307,17 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
             if (type.IsAssignableFrom(typeof(string)))
             {
-                return new TypeReference(primitive: PrimitiveType.String);
+                return new TypeInstance(type: new TypeReference(primitive: PrimitiveType.String));
             }
 
             if (type.IsAssignableFrom(typeof(bool)))
             {
-                return new TypeReference(primitive: PrimitiveType.Boolean);
+                return new TypeInstance(type: new TypeReference(primitive: PrimitiveType.Boolean));
             }
 
             if (IsNumeric(type))
             {
-                return new TypeReference(primitive: PrimitiveType.Number);
+                return new TypeInstance(type: new TypeReference(primitive: PrimitiveType.Number));
             }
 
             throw new ArgumentException($"Value has unexpected type {type.Name}", nameof(value));

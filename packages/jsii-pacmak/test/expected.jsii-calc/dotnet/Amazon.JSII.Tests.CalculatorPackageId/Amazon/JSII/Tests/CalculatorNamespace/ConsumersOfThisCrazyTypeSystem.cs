@@ -17,13 +17,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod("consumeAnotherPublicInterface", "{\"primitive\":\"string\"}", "[{\"name\":\"obj\",\"type\":{\"fqn\":\"jsii-calc.IAnotherPublicInterface\"}}]")]
+        [JsiiMethod("consumeAnotherPublicInterface", "{\"type\":{\"primitive\":\"string\"}}", "[{\"name\":\"obj\",\"value\":{\"type\":{\"fqn\":\"jsii-calc.IAnotherPublicInterface\"}}}]")]
         public virtual string ConsumeAnotherPublicInterface(IIAnotherPublicInterface obj)
         {
             return InvokeInstanceMethod<string>(new object[]{obj});
         }
 
-        [JsiiMethod("consumeNonInternalInterface", "{\"primitive\":\"any\",\"nullable\":true}", "[{\"name\":\"obj\",\"type\":{\"fqn\":\"jsii-calc.INonInternalInterface\"}}]")]
+        [JsiiMethod("consumeNonInternalInterface", "{\"type\":{\"primitive\":\"any\"},\"optional\":true}", "[{\"name\":\"obj\",\"value\":{\"type\":{\"fqn\":\"jsii-calc.INonInternalInterface\"}}}]")]
         public virtual object ConsumeNonInternalInterface(IINonInternalInterface obj)
         {
             return InvokeInstanceMethod<object>(new object[]{obj});

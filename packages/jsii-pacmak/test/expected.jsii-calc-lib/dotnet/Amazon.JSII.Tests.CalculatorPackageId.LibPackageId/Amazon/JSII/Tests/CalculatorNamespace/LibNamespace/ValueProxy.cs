@@ -11,7 +11,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         }
 
         /// <summary>The value.</summary>
-        [JsiiProperty("value", "{\"primitive\":\"number\"}")]
+        [JsiiProperty("value", "{\"type\":{\"primitive\":\"number\"}}")]
         public override double Value
         {
             get => GetInstanceProperty<double>();

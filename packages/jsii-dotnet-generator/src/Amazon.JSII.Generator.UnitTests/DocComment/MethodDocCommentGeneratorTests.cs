@@ -158,9 +158,9 @@ namespace Amazon.JSII.Generator.UnitTests.DocComment
         public void IgnoresParameterParam()
         {
             Parameter parameter = new Parameter(
-                "myParam",
-                new TypeReference(primitive: PrimitiveType.String),
-                new Docs
+                name: "myParam",
+                value: new TypeInstance(type: new TypeReference(primitive: PrimitiveType.String)),
+                docs: new Docs
                 {
                     { "param", "my comment" }
                 }
@@ -178,9 +178,9 @@ namespace Amazon.JSII.Generator.UnitTests.DocComment
         public void TrimsParameterSummary()
         {
             Parameter parameter = new Parameter(
-                "myParam",
-                new TypeReference(primitive: PrimitiveType.String),
-                new Docs
+                name: "myParam",
+                value: new TypeInstance(type: new TypeReference(primitive: PrimitiveType.String)),
+                docs: new Docs
                 {
                     { "summary", "my comment" }
                 }
@@ -200,9 +200,9 @@ namespace Amazon.JSII.Generator.UnitTests.DocComment
         public void IncludesParameterRemarks()
         {
             Parameter parameter = new Parameter(
-                "myParam",
-                new TypeReference(primitive: PrimitiveType.String),
-                new Docs
+                name: "myParam",
+                value: new TypeInstance(type: new TypeReference(primitive: PrimitiveType.String)),
+                docs: new Docs
                 {
                     { "myKey1", "my comment" },
                     { "myKey2", "my comment" }

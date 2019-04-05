@@ -21,21 +21,21 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
         }
 
         /// <summary>The expression that this operation consists of. Must be implemented by derived classes.</summary>
-        [JsiiProperty("expression", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
+        [JsiiProperty("expression", "{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}")]
         public virtual Value_ Expression
         {
             get => GetInstanceProperty<Value_>();
         }
 
         /// <summary>The value.</summary>
-        [JsiiProperty("value", "{\"primitive\":\"number\"}")]
+        [JsiiProperty("value", "{\"type\":{\"primitive\":\"number\"}}")]
         public override double Value
         {
             get => GetInstanceProperty<double>();
         }
 
         /// <summary>A set of postfixes to include in a decorated .toString().</summary>
-        [JsiiProperty("decorationPostfixes", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}}}")]
+        [JsiiProperty("decorationPostfixes", "{\"type\":{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"type\":{\"primitive\":\"string\"}}}}}")]
         public virtual string[] DecorationPostfixes
         {
             get => GetInstanceProperty<string[]>();
@@ -43,7 +43,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
         }
 
         /// <summary>A set of prefixes to include in a decorated .toString().</summary>
-        [JsiiProperty("decorationPrefixes", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}}}")]
+        [JsiiProperty("decorationPrefixes", "{\"type\":{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"type\":{\"primitive\":\"string\"}}}}}")]
         public virtual string[] DecorationPrefixes
         {
             get => GetInstanceProperty<string[]>();
@@ -51,7 +51,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
         }
 
         /// <summary>The .toString() style.</summary>
-        [JsiiProperty("stringStyle", "{\"fqn\":\"jsii-calc.composition.CompositeOperation.CompositionStringStyle\"}")]
+        [JsiiProperty("stringStyle", "{\"type\":{\"fqn\":\"jsii-calc.composition.CompositeOperation.CompositionStringStyle\"}}")]
         public virtual CompositionStringStyle StringStyle
         {
             get => GetInstanceProperty<CompositionStringStyle>();
@@ -59,7 +59,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
         }
 
         /// <summary>String representation of the value.</summary>
-        [JsiiMethod("toString", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod("toString", "{\"type\":{\"primitive\":\"string\"}}", "[]")]
         public override string ToString()
         {
             return InvokeInstanceMethod<string>(new object[]{});

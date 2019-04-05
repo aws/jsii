@@ -21,6 +21,10 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
         this.jsiiCall("anyIn", Void.class, java.util.stream.Stream.of(inp).toArray());
     }
 
+    public void anyIn() {
+        this.jsiiCall("anyIn", Void.class);
+    }
+
     @javax.annotation.Nullable
     public java.lang.Object anyOut() {
         return this.jsiiCall("anyOut", java.lang.Object.class);
@@ -48,6 +52,15 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
 
     public void setAnyMapProperty(final java.util.Map<java.lang.String, java.lang.Object> value) {
         this.jsiiSet("anyMapProperty", java.util.Objects.requireNonNull(value, "anyMapProperty is required"));
+    }
+
+    @javax.annotation.Nullable
+    public java.lang.Object getAnyProperty() {
+        return this.jsiiGet("anyProperty", java.lang.Object.class);
+    }
+
+    public void setAnyProperty(@javax.annotation.Nullable final java.lang.Object value) {
+        this.jsiiSet("anyProperty", value);
     }
 
     public java.util.List<java.lang.String> getArrayProperty() {
@@ -104,6 +117,15 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
 
     public void setNumberProperty(final java.lang.Number value) {
         this.jsiiSet("numberProperty", java.util.Objects.requireNonNull(value, "numberProperty is required"));
+    }
+
+    @javax.annotation.Nullable
+    public software.amazon.jsii.tests.calculator.StringEnum getOptionalEnumValue() {
+        return this.jsiiGet("optionalEnumValue", software.amazon.jsii.tests.calculator.StringEnum.class);
+    }
+
+    public void setOptionalEnumValue(@javax.annotation.Nullable final software.amazon.jsii.tests.calculator.StringEnum value) {
+        this.jsiiSet("optionalEnumValue", value);
     }
 
     public java.lang.String getStringProperty() {
@@ -164,24 +186,6 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
 
     public void setUnknownMapProperty(final java.util.Map<java.lang.String, java.lang.Object> value) {
         this.jsiiSet("unknownMapProperty", java.util.Objects.requireNonNull(value, "unknownMapProperty is required"));
-    }
-
-    @javax.annotation.Nullable
-    public java.lang.Object getAnyProperty() {
-        return this.jsiiGet("anyProperty", java.lang.Object.class);
-    }
-
-    public void setAnyProperty(@javax.annotation.Nullable final java.lang.Object value) {
-        this.jsiiSet("anyProperty", value);
-    }
-
-    @javax.annotation.Nullable
-    public software.amazon.jsii.tests.calculator.StringEnum getOptionalEnumValue() {
-        return this.jsiiGet("optionalEnumValue", software.amazon.jsii.tests.calculator.StringEnum.class);
-    }
-
-    public void setOptionalEnumValue(@javax.annotation.Nullable final software.amazon.jsii.tests.calculator.StringEnum value) {
-        this.jsiiSet("optionalEnumValue", value);
     }
 
     @javax.annotation.Nullable

@@ -10,7 +10,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod("consumePartiallyInitializedThis", "{\"primitive\":\"string\"}", "[{\"name\":\"obj\",\"type\":{\"fqn\":\"jsii-calc.ConstructorPassesThisOut\"}},{\"name\":\"dt\",\"type\":{\"primitive\":\"date\"}},{\"name\":\"ev\",\"type\":{\"fqn\":\"jsii-calc.AllTypesEnum\"}}]")]
+        [JsiiMethod("consumePartiallyInitializedThis", "{\"type\":{\"primitive\":\"string\"}}", "[{\"name\":\"obj\",\"value\":{\"type\":{\"fqn\":\"jsii-calc.ConstructorPassesThisOut\"}}},{\"name\":\"dt\",\"value\":{\"type\":{\"primitive\":\"date\"}}},{\"name\":\"ev\",\"value\":{\"type\":{\"fqn\":\"jsii-calc.AllTypesEnum\"}}}]")]
         public override string ConsumePartiallyInitializedThis(ConstructorPassesThisOut obj, DateTime dt, AllTypesEnum ev)
         {
             return InvokeInstanceMethod<string>(new object[]{obj, dt, ev});
