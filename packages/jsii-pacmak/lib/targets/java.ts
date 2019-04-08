@@ -859,7 +859,7 @@ class JavaGenerator extends Generator {
 
     private addJavaDocs(doc: spec.Documentable, defaultText?: string) {
         if (!defaultText && Object.keys(doc.docs || {}).length === 0
-                         && !((doc as spec.Method).parameters || []).find(p => Object.keys(p.docs || {}).length !== 0)) {
+                         && !((doc as spec.Method).parameters || []).some(p => Object.keys(p.docs || {}).length !== 0)) {
             return;
         }
 

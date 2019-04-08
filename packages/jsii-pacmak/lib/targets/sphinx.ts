@@ -461,7 +461,7 @@ class SphinxDocsGenerator extends Generator {
             }
 
             // Mark parameter as "optional" if it's type is optional, and all subsequent parameters are optional/variadic
-            if (p.value.optional && params.find((op, oidx) => oidx > idx && !op.variadic && !op.value.optional) == null) {
+            if (p.value.optional && params.some((op, oidx) => oidx > idx && !op.variadic && !op.value.optional)) {
                 signature += '[';
                 signaturePosfix += ']';
             }
@@ -510,7 +510,7 @@ class SphinxDocsGenerator extends Generator {
         } else if (method.overrides) {
             this.code.line();
             const superType = this.findType(method.overrides.fqn) as spec.ClassType | spec.InterfaceType;
-            if (spec.isInterfaceType(superType) || superType.methods!.find(m => m.name === method.name && !!m.abstract)) {
+            if (spec.isInterfaceType(superType) || superType.methods!.some(m => m.name === method.name && !!m.abstract)) {
                 this.code.line(`*Implements* :py:meth:\`${method.overrides.fqn}.${method.name}\``);
             } else {
                 this.code.line(`*Overrides* :py:meth:\`${method.overrides.fqn}.${method.name}\``);
@@ -649,7 +649,7 @@ class SphinxDocsGenerator extends Generator {
         } else if (prop.overrides) {
             this.code.line();
             const superType = this.findType(prop.overrides.fqn) as spec.ClassType | spec.InterfaceType;
-            if (spec.isInterfaceType(superType) || superType.properties!.find(p => p.name === prop.name && !!p.abstract)) {
+            if (spec.isInterfaceType(superType) || superType.properties!.some(p => p.name === prop.name && !!p.abstract)) {
                 this.code.line(`*Implements* :py:meth:\`${prop.overrides.fqn}.${prop.name}\``);
             } else {
                 this.code.line(`*Overrides* :py:attr:\`${prop.overrides.fqn}.${prop.name}\``);

@@ -330,8 +330,8 @@ export abstract class Generator implements IGenerator {
 
         next = remaining.pop();
         // Parameter is optional if it's type is optional, and all subsequent parameters are optional/variadic
-        while (next && next.value.optional && remaining.find(p => !p.value.optional && !p.variadic) == null) {
-            // clone the method but set the parameter list based on the remaining set of parameters
+        while (next && next.value.optional && remaining.some(p => !p.value.optional && !p.variadic)) {
+        // clone the method but set the parameter list based on the remaining set of parameters
             let cloned: spec.Method = clone(method);
             cloned.parameters = clone(remaining);
             methods.push(cloned);
