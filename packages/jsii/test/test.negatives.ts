@@ -17,7 +17,7 @@ for (const source of fs.readdirSync(SOURCE_DIR)) {
         test.ok(expectations.length > 0, `Expected error messages should be specified using ${MATCH_ERROR_MARKER}`);
         const compiler = new Compiler({ projectInfo: _makeProjectInfo(source), watch: false });
         const emitResult = await compiler.emit(path.join(SOURCE_DIR, source));
-        test.equal(emitResult.emitSkipped, true, `emitSkipped should be true`);
+        test.equal(emitResult.hasErrors, true, `hasErrors should be true`);
         const errors = emitResult.diagnostics.filter(diag => diag.category === ts.DiagnosticCategory.Error);
         for (const expectation of expectations) {
             test.notEqual(errors.find(e => _messageText(e).indexOf(expectation) !== -1),

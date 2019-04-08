@@ -43,7 +43,7 @@ import { VERSION } from '../lib/version';
     for (const diagnostic of emitResult.diagnostics) {
         utils.logDiagnostic(diagnostic, projectRoot);
     }
-    if (emitResult.emitSkipped) {
+    if (emitResult.hasErrors) {
         process.exit(1);
     }
 }).catch(e => {

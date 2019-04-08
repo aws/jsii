@@ -149,12 +149,12 @@ export class Compiler implements Emitter {
         // jsii warnings will appear.
         const assembler = new Assembler(this.options.projectInfo, program, stdlib);
         const assmEmit = await assembler.emit();
-        if (assmEmit.emitSkipped) {
+        if (assmEmit.hasErrors) {
             LOG.error('Type model errors prevented the JSII assembly from being created');
         }
 
         return {
-            emitSkipped: assmEmit.emitSkipped,
+            hasErrors: emit.emitSkipped || assmEmit.hasErrors,
             diagnostics: [...emit.diagnostics, ...assmEmit.diagnostics]
         };
     }
