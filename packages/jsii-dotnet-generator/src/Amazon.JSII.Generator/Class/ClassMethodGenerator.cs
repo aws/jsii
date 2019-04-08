@@ -36,7 +36,7 @@ namespace Amazon.JSII.Generator.Class
 
         protected override IEnumerable<SyntaxKind> GetModifierKeywords()
         {
-            yield return Method.IsProtected ? SyntaxKind.ProtectedKeyword : SyntaxKind.PublicKeyword;
+            yield return Method.IsProtected == true ? SyntaxKind.ProtectedKeyword : SyntaxKind.PublicKeyword;
 
             if (Method.IsStatic == true)
             {

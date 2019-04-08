@@ -1,14 +1,12 @@
 import jsii = require('jsii-spec');
 import { Assembly } from './assembly';
-import { Docs, Documentable } from './docs';
+import { Callable } from './callable';
+import { Documentable } from './docs';
 import { Overridable } from './overridable';
-import { Parameter } from './parameter';
-import { Property } from './property';
 import { SourceLocatable } from './source';
-import { locationInRepository, SourceLocation } from './source';
 import { Type } from './type';
-import { TypeInstance } from './type-instance';
 import { MemberKind, TypeMember } from './type-member';
+import { TypeReference } from './type-ref';
 import { TypeSystem } from './type-system';
 
 /**
@@ -16,113 +14,42 @@ import { TypeSystem } from './type-system';
  */
 export const INITIALIZER_NAME = '<initializer>';
 
-export class Method implements Documentable, Overridable, TypeMember, SourceLocatable {
+export class Method extends Callable implements Documentable, Overridable, TypeMember, SourceLocatable {
   public readonly kind = MemberKind.Method;
 
   constructor(
-    public readonly system: TypeSystem,
-    public readonly assembly: Assembly,
-    public readonly parentType: Type,
-    private readonly spec: jsii.Method) { }
-
-  public toString() {
-    return `method:${this.parentType.fqn}.${this.name}`;
+    system: TypeSystem,
+    assembly: Assembly,
+    parentType: Type,
+    private readonly methodSpec: jsii.Method) {
+    super(system, assembly, parentType, methodSpec);
   }
 
   /**
    * The name of the method.
-   *
-   * If this method is an initializer (`method.initializer` is `true`), the name
-   * will be "<initializer>".
    */
   public get name(): string {
-    if (this.initializer) {
-      return INITIALIZER_NAME;
-    }
-
-    if (!this.spec.name) {
-      throw new Error(`Method does not have a name and is not an initializer`);
-    }
-
-    return this.spec.name;
+    return this.methodSpec.name;
   }
 
   /**
    * The return type of the method (undefined if void or initializer)
    */
-  public get returns(): TypeInstance {
-    return new TypeInstance(this.system, this.spec.returns);
-  }
-
-  /**
-   * The parameters of the method/initializer
-   */
-  public get parameters(): Parameter[] {
-    return (this.spec.parameters || []).map((p, i) => new Parameter(this.system, this.parentType, this, p, i));
-  }
-
-  /**
-   * True if this method is an initializer, in which case it won't have a return type
-   */
-  public get initializer(): boolean {
-    return !!this.spec.initializer;
-  }
-
-  /**
-   * Indicates if this method is protected (otherwise it is public)
-   */
-  public get protected(): boolean {
-    return !!this.spec.protected;
+  public get returns(): TypeReference {
+    return new TypeReference(this.system, this.methodSpec.returns);
   }
 
   /**
    * Is this method an abstract method (this means the class will also be an abstract class)
    */
   public get abstract(): boolean {
-    return !!this.spec.abstract;
-  }
-
-  /**
-   * Indicates whether this method is variadic or not. When ``true``, the last
-   * element of ``#parameters`` will also be flagged ``#variadic``.
-   */
-  public get variadic(): boolean {
-    return !!this.spec.variadic;
+    return !!this.methodSpec.abstract;
   }
 
   /**
    * Indicates if this is a static method.
    */
   public get static(): boolean {
-    return !!this.spec.static;
-  }
-
-  public get overrides(): Type | undefined {
-    if (!this.spec.overrides) {
-      return undefined;
-    }
-
-    return this.system.findFqn(this.spec.overrides.fqn);
-  }
-
-  public get docs(): Docs {
-    return new Docs(this.system, this, this.spec.docs || {}, this.parentType.docs);
-  }
-
-  public isMethod(): this is Method { return true; }
-  public isProperty(): this is Property { return false; }
-
-  /**
-   * Return the location in the module
-   */
-  public get locationInModule(): SourceLocation | undefined {
-    return this.spec.locationInModule;
-  }
-
-  /**
-   * Return the location in the repository
-   */
-  public get locationInRepository(): SourceLocation | undefined {
-    return locationInRepository(this);
+    return !!this.methodSpec.static;
   }
 }

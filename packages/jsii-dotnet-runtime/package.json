@@ -15,7 +15,7 @@
     "@types/node": "^8.10.43",
     "jsii-build-tools": "^0.9.0",
     "jsii-runtime": "^0.9.0",
-    "typescript": "^3.4.1"
+    "typescript": "^3.4.2"
   },
   "dependencies": {
     "jsii-dotnet-jsonmodel": "^0.9.0"

@@ -18,7 +18,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                 assembly: "myModule",
                 name: "myClass",
                 isAbstract: true,
-                initializer: new Method(true, false, false),
+                initializer: new Initializer(),
                 methods: new[] { method }
             );
 
@@ -35,7 +35,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
         [Fact(DisplayName = Prefix + nameof(IncludesProtectedKeyword))]
         public void IncludesAttribute()
         {
-            Method method = new Method(false, false, false, name: "myMethod");
+            Method method = new Method(name: "myMethod");
 
             Symbols.MapMethodName("myClassFqn", "myMethod", "MyMethod");
 
@@ -52,7 +52,7 @@ public virtual void MyMethod()
         [Fact(DisplayName = Prefix + nameof(IncludesProtectedKeyword))]
         public void IncludesProtectedKeyword()
         {
-            Method method = new Method(false, true, false, name: "myMethod");
+            Method method = new Method(isProtected: true, name: "myMethod");
 
             Symbols.MapMethodName("myClassFqn", "myMethod", "MyMethod");
 
@@ -69,7 +69,7 @@ protected virtual void MyMethod()
         [Fact(DisplayName = Prefix + nameof(IncludesAbstractKeyword))]
         public void IncludesAbstractKeyword()
         {
-            Method method = new Method(false, false, true, name: "myMethod");
+            Method method = new Method(isAbstract: true, name: "myMethod");
 
             Symbols.MapMethodName("myClassFqn", "myMethod", "MyMethod");
 
@@ -85,11 +85,11 @@ public abstract void MyMethod();";
         {
             Method method = new Method
             (
-                false, false, false, name: "myMethod",
+                name: "myMethod",
                 parameters: new[]
                 {
-                    new Parameter(name: "myParam", value: new TypeInstance(type: new TypeReference("myParamTypeFqn"))),
-                    new Parameter(name: "event", value: new TypeInstance(type: new TypeReference(primitive: PrimitiveType.String)))
+                    new Parameter(name: "myParam", type: new TypeReference("myParamTypeFqn")),
+                    new Parameter(name: "event", type: new TypeReference(primitive: PrimitiveType.String))
                 }
             );
 
@@ -100,7 +100,7 @@ public abstract void MyMethod();";
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", null, ""[{\""name\"":\""myParam\"",\""value\"":{\""type\"":{\""fqn\"":\""myParamTypeFqn\""}}},{\""name\"":\""event\"",\""value\"":{\""type\"":{\""primitive\"":\""string\""}}}]"")]
+@"[JsiiMethod(""myMethod"", null, ""[{\""name\"":\""myParam\"",\""type\"":{\""fqn\"":\""myParamTypeFqn\""}},{\""name\"":\""event\"",\""type\"":{\""primitive\"":\""string\""}}]"")]
 public virtual void MyMethod(MyParamType myParam, string @event)
 {
     InvokeInstanceVoidMethod(new object[]{myParam, @event});
@@ -113,7 +113,7 @@ public virtual void MyMethod(MyParamType myParam, string @event)
         {
             Method method = new Method
             (
-                false, false, false, name: "myMethod",
+                name: "myMethod",
                 docs: new Docs { { "foo", "bar" } }
             );
 
@@ -134,11 +134,10 @@ public virtual void MyMethod()
         {
             Method method = new Method
             (
-                isInitializer: false,
                 isProtected: false,
                 isAbstract: false,
                 name: "myMethod",
-                returns: new TypeInstance(type: new TypeReference("myReturnTypeFqn"))
+                returns: new TypeReference("myReturnTypeFqn")
             );
 
             Symbols.MapMethodName("myClassFqn", "myMethod", "MyMethod");
@@ -146,7 +145,7 @@ public virtual void MyMethod()
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", ""{\""type\"":{\""fqn\"":\""myReturnTypeFqn\""}}"", ""[]"")]
+@"[JsiiMethod(""myMethod"", ""{\""fqn\"":\""myReturnTypeFqn\""}"", ""[]"")]
 public virtual MyReturnType MyMethod()
 {
     return InvokeInstanceMethod<MyReturnType>(new object[]{});
@@ -159,11 +158,10 @@ public virtual MyReturnType MyMethod()
         {
             Method method = new Method
             (
-                isInitializer: false,
                 isProtected: false,
                 isAbstract: false,
                 name: "myMethod",
-                returns: new TypeInstance(type: new TypeReference("myReturnTypeFqn")),
+                returns: new TypeReference("myReturnTypeFqn"),
                 isStatic: true
             );
 
@@ -172,7 +170,7 @@ public virtual MyReturnType MyMethod()
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", ""{\""type\"":{\""fqn\"":\""myReturnTypeFqn\""}}"", ""[]"")]
+@"[JsiiMethod(""myMethod"", ""{\""fqn\"":\""myReturnTypeFqn\""}"", ""[]"")]
 public static MyReturnType MyMethod()
 {
     return InvokeStaticMethod<MyReturnType>(typeof(MyClass), new object[]{});

@@ -15,12 +15,12 @@ public class OptionalStructConsumer extends software.amazon.jsii.JsiiObject {
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
+    public java.lang.Boolean getParameterWasUndefined() {
+        return this.jsiiGet("parameterWasUndefined", java.lang.Boolean.class);
+    }
+
     @javax.annotation.Nullable
     public java.lang.String getFieldValue() {
         return this.jsiiGet("fieldValue", java.lang.String.class);
-    }
-
-    public java.lang.Boolean getParameterWasUndefined() {
-        return this.jsiiGet("parameterWasUndefined", java.lang.Boolean.class);
     }
 }

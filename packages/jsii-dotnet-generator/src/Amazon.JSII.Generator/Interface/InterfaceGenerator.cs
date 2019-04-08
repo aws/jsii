@@ -52,10 +52,10 @@ namespace Amazon.JSII.Generator.Interface
 
                 IEnumerable<BaseTypeSyntax> GetBaseTypes()
                 {
-                    foreach (TypeReference interfaceReference in Type.Interfaces ?? Enumerable.Empty<TypeReference>())
+                    foreach (string interfaceReference in Type.Interfaces ?? Enumerable.Empty<string>())
                     {
-                        Namespaces.Add(interfaceReference);
-                        yield return SF.SimpleBaseType(Symbols.GetTypeSyntax(interfaceReference));
+                        Namespaces.Add(Symbols.GetTypeFromFullyQualifiedName(interfaceReference));
+                        yield return SF.SimpleBaseType(Symbols.GetNameSyntax(interfaceReference, disambiguate: true));
                     }
                 }
             }

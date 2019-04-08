@@ -120,7 +120,7 @@ namespace Amazon.JSII.Generator.UnitTests
                     properties: new[] {
                         new Property(
                             name: "myName",
-                            value: new TypeInstance(type: new TypeReference(primitive: PrimitiveType.String))
+                            type: new TypeReference(primitive: PrimitiveType.String)
                         )
                     }
                 );
@@ -142,11 +142,10 @@ namespace Amazon.JSII.Generator.UnitTests
                     isAbstract: false,
                     methods: new[] {
                         new Method(
-                            isInitializer: false,
                             isProtected: false,
                             isAbstract: false,
                             name: "myName",
-                            returns: new TypeInstance(type: new TypeReference(primitive: PrimitiveType.String))
+                            returns: new TypeReference(primitive: PrimitiveType.String)
                         )
                     }
                 );
@@ -424,7 +423,7 @@ namespace Amazon.JSII.Generator.UnitTests
                     properties: new[] {
                         new Property(
                             name: "iMyName",
-                            value: new TypeInstance(type: new TypeReference(primitive: PrimitiveType.String))
+                            type: new TypeReference(primitive: PrimitiveType.String)
                         )
                     }
                 );
@@ -445,11 +444,10 @@ namespace Amazon.JSII.Generator.UnitTests
                     @namespace: "myNamespace",
                     methods: new[] {
                         new Method(
-                            isInitializer: false,
                             isProtected: false,
                             isAbstract: false,
                             name: "iMyName",
-                            returns: new TypeInstance(type: new TypeReference(primitive: PrimitiveType.String))
+                            returns: new TypeReference(primitive: PrimitiveType.String)
                         )
                     }
                 );

@@ -4,8 +4,8 @@ import { Docs, Documentable } from './docs';
 import { Overridable } from './overridable';
 import { locationInRepository, SourceLocatable, SourceLocation } from './source';
 import { Type } from './type';
-import { TypeInstance } from './type-instance';
 import { MemberKind, TypeMember } from './type-member';
+import { TypeReference } from './type-ref';
 import { TypeSystem } from './type-system';
 
 export class Property implements Documentable, Overridable, TypeMember, SourceLocatable {
@@ -31,8 +31,8 @@ export class Property implements Documentable, Overridable, TypeMember, SourceLo
   /**
    * The type of the property.
    */
-  public get value(): TypeInstance {
-    return new TypeInstance(this.system, this.spec.value);
+  public get type(): TypeReference {
+    return new TypeReference(this.system, this.spec.type);
   }
 
   /**
@@ -77,7 +77,7 @@ export class Property implements Documentable, Overridable, TypeMember, SourceLo
       return undefined;
     }
 
-    return this.system.findFqn(this.spec.overrides.fqn);
+    return this.system.findFqn(this.spec.overrides);
   }
 
   public get docs(): Docs {

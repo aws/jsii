@@ -31,7 +31,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                 assembly: "myPackage",
                 name: "myClass",
                 isAbstract: false,
-                initializer: new Method(true, false, false)
+                initializer: new Initializer()
             );
 
             string actual = Render(classType);
@@ -96,7 +96,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                 assembly: "myPackage",
                 name: "myClass",
                 isAbstract: true,
-                initializer: new Method(true, false, false)
+                initializer: new Initializer()
             );
 
             string actual = Render(classType);
@@ -132,7 +132,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                 assembly: "myPackage",
                 name: "myClass",
                 isAbstract: false,
-                initializer: new Method(true, false, false),
+                initializer: new Initializer(),
                 docs: new Docs {{"foo", "bar"}}
             );
 
@@ -169,13 +169,13 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                 assembly: "myPackage",
                 name: "myClass",
                 isAbstract: false,
-                initializer: new Method(true, false, false),
+                initializer: new Initializer(),
                 properties: new[]
                 {
                     new Property
                     (
                         name: "myProp",
-                        value: new TypeInstance(type: new TypeReference("myPropTypeFqn")),
+                        type: new TypeReference("myPropTypeFqn"),
                         isImmutable: false,
                         isAbstract: false,
                         isProtected: false
@@ -205,7 +205,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
         {
         }
 
-        [JsiiProperty(""myProp"", ""{\""type\"":{\""fqn\"":\""myPropTypeFqn\""}}"")]
+        [JsiiProperty(""myProp"", ""{\""fqn\"":\""myPropTypeFqn\""}"")]
         public virtual MyPropType MyProp
         {
             get => GetInstanceProperty<MyPropType>();
@@ -225,14 +225,11 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                 assembly: "myPackage",
                 name: "myClass",
                 isAbstract: false,
-                initializer: new Method(true, false, false),
+                initializer: new Initializer(),
                 methods: new[]
                 {
                     new Method
                     (
-                        false,
-                        false,
-                        false,
                         name: "myMethod"
                     )
                 }
@@ -278,8 +275,8 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                 assembly: "myPackage",
                 name: "myClass",
                 isAbstract: false,
-                initializer: new Method(true, false, false),
-                @base: new TypeReference("myBaseTypeFqn")
+                initializer: new Initializer(),
+                @base: "myBaseTypeFqn"
             );
 
             Symbols.MapTypeName("myBaseTypeFqn", "MyBaseType", TypeKind.Class);
@@ -316,11 +313,11 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                 assembly: "myPackage",
                 name: "myClass",
                 isAbstract: false,
-                initializer: new Method(true, false, false),
+                initializer: new Initializer(),
                 interfaces: new[]
                 {
-                    new TypeReference("myInterfaceFqn1"),
-                    new TypeReference("myInterfaceFqn2"),
+                    "myInterfaceFqn1",
+                    "myInterfaceFqn2",
                 }
             );
 

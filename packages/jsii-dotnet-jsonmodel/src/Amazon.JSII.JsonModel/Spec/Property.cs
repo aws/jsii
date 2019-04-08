@@ -9,18 +9,18 @@ namespace Amazon.JSII.JsonModel.Spec
         public Property
         (
             string name,
-            TypeInstance value,
+            TypeReference type,
             bool? isImmutable = null,
             bool? isProtected = null,
             bool? isAbstract = null,
             Docs docs = null,
             bool? isStatic = null,
             bool? isConstant = null,
-            UserTypeReference overrides = null
+            string overrides = null
         )
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
-            Value = value ?? throw new ArgumentNullException(nameof(value));
+            Type = type ?? throw new ArgumentNullException(nameof(type));
             IsImmutable = isImmutable;
             IsProtected = isProtected;
             IsAbstract = isAbstract;
@@ -33,8 +33,8 @@ namespace Amazon.JSII.JsonModel.Spec
         [JsonProperty("name")]
         public string Name { get; }
 
-        [JsonProperty("value")]
-        public TypeInstance Value { get; }
+        [JsonProperty("type")]
+        public TypeReference Type { get; }
 
         [JsonProperty("immutable", NullValueHandling = NullValueHandling.Ignore)]
         public bool? IsImmutable { get; }
@@ -55,6 +55,6 @@ namespace Amazon.JSII.JsonModel.Spec
         public bool? IsConstant { get; }
 
         [JsonProperty("overrides", NullValueHandling = NullValueHandling.Ignore)]
-        public UserTypeReference Overrides { get; }
+        public string Overrides { get; }
     }
 }

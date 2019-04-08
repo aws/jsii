@@ -11,7 +11,6 @@
     "@scope/jsii-calc-base": {
       "dependencies": {
         "@scope/jsii-calc-base-of-base": {
-          "peer": true,
           "targets": {
             "dotnet": {
               "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
@@ -30,12 +29,12 @@
             "python": {
               "distName": "scope.jsii-calc-base-of-base",
               "module": "scope.jsii_calc_base_of_base"
-            }
+            },
+            "sphinx": {}
           },
           "version": "0.9.0"
         }
       },
-      "peer": true,
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
@@ -54,7 +53,8 @@
         "python": {
           "distName": "scope.jsii-calc-base",
           "module": "scope.jsii_calc_base"
-        }
+        },
+        "sphinx": {}
       },
       "version": "0.9.0"
     }
@@ -68,7 +68,7 @@
     "type": "git",
     "url": "https://github.com/awslabs/jsii.git"
   },
-  "schema": "jsii/0.9.0",
+  "schema": "jsii/0.10.0",
   "targets": {
     "dotnet": {
       "namespace": "Amazon.JSII.Tests.CalculatorNamespace.LibNamespace",
@@ -87,7 +87,8 @@
     "python": {
       "distName": "scope.jsii-calc-lib",
       "module": "scope.jsii_calc_lib"
-    }
+    },
+    "sphinx": {}
   },
   "types": {
     "@scope/jsii-calc-lib.EnumFromScopedModule": {
@@ -132,10 +133,8 @@
             "line": 24
           },
           "name": "doubleValue",
-          "value": {
-            "type": {
-              "primitive": "number"
-            }
+          "type": {
+            "primitive": "number"
           }
         }
       ]
@@ -164,9 +163,7 @@
           },
           "name": "hello",
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         }
       ],
@@ -197,10 +194,8 @@
             "line": 77
           },
           "name": "anumber",
-          "value": {
-            "type": {
-              "primitive": "number"
-            }
+          "type": {
+            "primitive": "number"
           }
         },
         {
@@ -214,10 +209,8 @@
             "line": 72
           },
           "name": "astring",
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         },
         {
@@ -228,27 +221,21 @@
             "line": 78
           },
           "name": "firstOptional",
-          "value": {
-            "optional": true,
-            "type": {
-              "collection": {
-                "elementtype": {
-                  "type": {
-                    "primitive": "string"
-                  }
-                },
-                "kind": "array"
-              }
-            }
+          "type": {
+            "collection": {
+              "elementtype": {
+                "primitive": "string"
+              },
+              "kind": "array"
+            },
+            "optional": true
           }
         }
       ]
     },
     "@scope/jsii-calc-lib.Number": {
       "assembly": "@scope/jsii-calc-lib",
-      "base": {
-        "fqn": "@scope/jsii-calc-lib.Value"
-      },
+      "base": "@scope/jsii-calc-lib.Value",
       "docs": {
         "summary": "Represents a concrete number."
       },
@@ -257,25 +244,20 @@
         "docs": {
           "summary": "Creates a Number object."
         },
-        "initializer": true,
         "parameters": [
           {
             "docs": {
               "summary": "The number."
             },
             "name": "value",
-            "value": {
-              "type": {
-                "primitive": "number"
-              }
+            "type": {
+              "primitive": "number"
             }
           }
         ]
       },
       "interfaces": [
-        {
-          "fqn": "@scope/jsii-calc-lib.IDoublable"
-        }
+        "@scope/jsii-calc-lib.IDoublable"
       ],
       "kind": "class",
       "locationInModule": {
@@ -294,13 +276,9 @@
             "line": 42
           },
           "name": "doubleValue",
-          "overrides": {
-            "fqn": "@scope/jsii-calc-lib.IDoublable"
-          },
-          "value": {
-            "type": {
-              "primitive": "number"
-            }
+          "overrides": "@scope/jsii-calc-lib.IDoublable",
+          "type": {
+            "primitive": "number"
           }
         },
         {
@@ -313,13 +291,9 @@
             "line": 35
           },
           "name": "value",
-          "overrides": {
-            "fqn": "@scope/jsii-calc-lib.Value"
-          },
-          "value": {
-            "type": {
-              "primitive": "number"
-            }
+          "overrides": "@scope/jsii-calc-lib.Value",
+          "type": {
+            "primitive": "number"
           }
         }
       ]
@@ -327,16 +301,12 @@
     "@scope/jsii-calc-lib.Operation": {
       "abstract": true,
       "assembly": "@scope/jsii-calc-lib",
-      "base": {
-        "fqn": "@scope/jsii-calc-lib.Value"
-      },
+      "base": "@scope/jsii-calc-lib.Value",
       "docs": {
         "summary": "Represents an operation on values."
       },
       "fqn": "@scope/jsii-calc-lib.Operation",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/index.ts",
@@ -353,13 +323,9 @@
             "line": 51
           },
           "name": "toString",
-          "overrides": {
-            "fqn": "@scope/jsii-calc-lib.Value"
-          },
+          "overrides": "@scope/jsii-calc-lib.Value",
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         }
       ],
@@ -390,11 +356,9 @@
             "line": 88
           },
           "name": "optional1",
-          "value": {
+          "type": {
             "optional": true,
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         },
         {
@@ -405,11 +369,9 @@
             "line": 89
           },
           "name": "optional2",
-          "value": {
+          "type": {
             "optional": true,
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number"
           }
         },
         {
@@ -420,11 +382,9 @@
             "line": 90
           },
           "name": "optional3",
-          "value": {
+          "type": {
             "optional": true,
-            "type": {
-              "primitive": "boolean"
-            }
+            "primitive": "boolean"
           }
         }
       ]
@@ -432,16 +392,12 @@
     "@scope/jsii-calc-lib.Value": {
       "abstract": true,
       "assembly": "@scope/jsii-calc-lib",
-      "base": {
-        "fqn": "@scope/jsii-calc-base.Base"
-      },
+      "base": "@scope/jsii-calc-base.Base",
       "docs": {
         "summary": "Abstract class which represents a numeric value."
       },
       "fqn": "@scope/jsii-calc-lib.Value",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/index.ts",
@@ -458,9 +414,7 @@
           },
           "name": "toString",
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         }
       ],
@@ -477,15 +431,13 @@
             "line": 10
           },
           "name": "value",
-          "value": {
-            "type": {
-              "primitive": "number"
-            }
+          "type": {
+            "primitive": "number"
           }
         }
       ]
     }
   },
   "version": "0.9.0",
-  "fingerprint": "Pb6GUIxMB5/TVXJJy/1JR2PnWIrRPPtu3ukQFIn3GDo="
+  "fingerprint": "jGThlfYkFD3Y9J5xK5iJiBXepZ4yj58u8OUrCVM4TAA="
 }

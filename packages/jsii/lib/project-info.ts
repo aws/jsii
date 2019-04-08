@@ -12,7 +12,6 @@ const LOG = log4js.getLogger('jsii/package-info');
 
 export interface ProjectInfo {
     readonly projectRoot: string;
-    readonly locationInRepository?: string;
     readonly packageJson: any;
 
     readonly name: string;
@@ -22,6 +21,7 @@ export interface ProjectInfo {
     readonly repository: {
         readonly type: string;
         readonly url: string;
+        readonly directory?: string;
     };
 
     readonly main: string;
@@ -30,7 +30,7 @@ export interface ProjectInfo {
     readonly dependencies: ReadonlyArray<spec.Assembly>;
     readonly peerDependencies: ReadonlyArray<spec.Assembly>;
     readonly transitiveDependencies: ReadonlyArray<spec.Assembly>;
-    readonly bundleDependencies: { readonly [name: string]: string };
+    readonly bundleDependencies?: { readonly [name: string]: string };
     readonly targets: spec.AssemblyTargets;
     readonly jsiiVersionFormat: 'short' | 'full';
     readonly description?: string;
@@ -44,8 +44,8 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
     const packageJsonPath = path.join(projectRoot, 'package.json');
     const pkg = require(packageJsonPath);
 
-    const bundleDependencies: { [name: string]: string } = {};
-    (pkg.bundleDependencies || pkg.bundledDependencies || []).forEach((name: string) => {
+    let bundleDependencies: { [name: string]: string } | undefined;
+    for (const name of (pkg.bundleDependencies || pkg.bundledDependencies || [])) {
         const version = pkg.dependencies && pkg.dependencies[name];
         if (!version) {
             throw new Error(`The "package.json" file has "${name}" in "bundleDependencies", but it is not declared in "dependencies"`);
@@ -55,12 +55,13 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
             throw new Error(`The "package.json" file has "${name}" in "bundleDependencies", and also in "peerDependencies"`);
         }
 
+        bundleDependencies = bundleDependencies || {};
         bundleDependencies[name] = version;
-    });
+    }
 
     let addedPeerDependency = false;
     Object.entries(pkg.dependencies || {}).forEach(([name, version]) => {
-        if (name in bundleDependencies) {
+        if (name in (bundleDependencies || {})) {
             return;
         }
         pkg.peerDependencies = pkg.peerDependencies || {};
@@ -91,7 +92,7 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
 
     const transitiveAssemblies: { [name: string]: spec.Assembly } = {};
     const dependencies =
-        await _loadDependencies(pkg.dependencies, projectRoot, transitiveAssemblies, new Set<string>(Object.keys(bundleDependencies)));
+        await _loadDependencies(pkg.dependencies, projectRoot, transitiveAssemblies, new Set<string>(Object.keys(bundleDependencies || {})));
     const peerDependencies =
         await _loadDependencies(pkg.peerDependencies, projectRoot, transitiveAssemblies);
 
@@ -106,7 +107,8 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
         author: _toPerson(_required(pkg.author, 'The "package.json" file must specify the "author" attribute'), 'author'),
         repository: {
             url: _required(pkg.repository.url, 'The "package.json" file must specify the "repository.url" attribute'),
-            type: pkg.repository.type || _guessRepositoryType(pkg.repository.url)
+            type: pkg.repository.type || _guessRepositoryType(pkg.repository.url),
+            directory: pkg.repository.directory,
         },
         license: _validateLicense(pkg.license),
 
@@ -130,7 +132,6 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
 
         excludeTypescript: (pkg.jsii && pkg.jsii.excludeTypescript) || [],
         projectReferences: pkg.jsii && pkg.jsii.projectReferences,
-        locationInRepository: pkg.jsii && pkg.jsii.locationInRepository
     };
 }
 

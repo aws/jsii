@@ -9,13 +9,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("arrayWithThreeElementsAndUndefinedAsSecondArgument", "{\"type\":{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"type\":{\"primitive\":\"any\"},\"optional\":true}}}}")]
+        [JsiiProperty("arrayWithThreeElementsAndUndefinedAsSecondArgument", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"any\",\"optional\":true}}}")]
         public object[] ArrayWithThreeElementsAndUndefinedAsSecondArgument
         {
             get => GetInstanceProperty<object[]>();
         }
 
-        [JsiiProperty("thisShouldBeUndefined", "{\"type\":{\"primitive\":\"any\"},\"optional\":true}")]
+        [JsiiProperty("thisShouldBeUndefined", "{\"primitive\":\"any\",\"optional\":true}")]
         public object ThisShouldBeUndefined
         {
             get => GetInstanceProperty<object>();

@@ -5,14 +5,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue]
     public class NullShouldBeTreatedAsUndefinedData : INullShouldBeTreatedAsUndefinedData
     {
-        [JsiiProperty("arrayWithThreeElementsAndUndefinedAsSecondArgument", "{\"type\":{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"type\":{\"primitive\":\"any\"},\"optional\":true}}}}", true)]
+        [JsiiProperty("arrayWithThreeElementsAndUndefinedAsSecondArgument", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"any\",\"optional\":true}}}", true)]
         public object[] ArrayWithThreeElementsAndUndefinedAsSecondArgument
         {
             get;
             set;
         }
 
-        [JsiiProperty("thisShouldBeUndefined", "{\"type\":{\"primitive\":\"any\"},\"optional\":true}", true)]
+        [JsiiProperty("thisShouldBeUndefined", "{\"primitive\":\"any\",\"optional\":true}", true)]
         public object ThisShouldBeUndefined
         {
             get;

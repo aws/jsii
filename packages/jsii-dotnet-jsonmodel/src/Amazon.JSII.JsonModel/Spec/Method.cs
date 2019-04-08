@@ -4,63 +4,44 @@ using System;
 namespace Amazon.JSII.JsonModel.Spec
 {
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public class Method : IDocumentable, IOverridable
+    public class Method : Callable
     {
         public Method
         (
-            bool isInitializer,
-            bool isProtected,
+            string name,
+            bool? isProtected = null,
             bool? isAbstract = null,
             Parameter[] parameters = null,
             Docs docs = null,
-            string name = null,
-            TypeInstance returns = null,
+            TypeReference returns = null,
             bool? isVariadic = null,
             bool? isStatic = null,
-            UserTypeReference overrides = null
+            string overrides = null
+        ): base
+        (
+            isProtected: isProtected,
+            parameters: parameters,
+            docs: docs,
+            isVariadic: isVariadic,
+            overrides: overrides
         )
         {
-            IsInitializer = isInitializer;
-            IsProtected = isProtected;
-            IsAbstract = isAbstract;
-            Parameters = parameters;
-            Docs = docs;
             Name = name;
+            IsAbstract = isAbstract;
             Returns = returns;
-            IsVariadic = isVariadic;
             IsStatic = isStatic;
-            Overrides = overrides;
         }
-
-
-        [JsonProperty("initializer")]
-        public bool IsInitializer { get; }
-
-        [JsonProperty("protected")]
-        public bool IsProtected { get; }
 
         [JsonProperty("abstract", NullValueHandling = NullValueHandling.Ignore)]
         public bool? IsAbstract { get; }
 
-        [JsonProperty("parameters", NullValueHandling = NullValueHandling.Ignore)]
-        public Parameter[] Parameters { get; }
-
-        [JsonProperty("docs", NullValueHandling = NullValueHandling.Ignore)]
-        public Docs Docs { get; }
-
-        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("name")]
         public string Name { get; }
 
         [JsonProperty("returns", NullValueHandling = NullValueHandling.Ignore)]
-        public TypeInstance Returns { get; }
-
-        [JsonProperty("variadic", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? IsVariadic { get; }
+        public TypeReference Returns { get; }
 
         [JsonProperty("static", NullValueHandling = NullValueHandling.Ignore)]
         public bool? IsStatic { get; }
-
-        [JsonProperty("overrides", NullValueHandling = NullValueHandling.Ignore)]
-        public UserTypeReference Overrides { get; }
     }
 }

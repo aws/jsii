@@ -180,7 +180,7 @@ class JavaGenerator extends Generator {
 
         let implementsExpr = '';
         if (cls.interfaces && cls.interfaces.length > 0) {
-            implementsExpr = ' implements ' + cls.interfaces.map(x => this.toNativeFqn(x.fqn!));
+            implementsExpr = ' implements ' + cls.interfaces.map(x => this.toNativeFqn(x));
         }
 
         const nested = this.isNested(cls);
@@ -292,7 +292,7 @@ class JavaGenerator extends Generator {
 
         // all interfaces always extend JsiiInterface so we can identify that it is a jsii interface.
         const interfaces = ifc.interfaces || [];
-        const bases = [ 'software.amazon.jsii.JsiiSerializable', ...interfaces.map(x => this.toNativeFqn(x.fqn!)) ].join(', ');
+        const bases = [ 'software.amazon.jsii.JsiiSerializable', ...interfaces.map(x => this.toNativeFqn(x)) ].join(', ');
 
         const nested = this.isNested(ifc);
         const inner = nested ? ' static' : '';
@@ -313,7 +313,7 @@ class JavaGenerator extends Generator {
     }
 
     protected onInterfaceMethod(_ifc: spec.InterfaceType, method: spec.Method) {
-        const returnType = method.returns ? this.toJavaType(method.returns.type) : 'void';
+        const returnType = method.returns ? this.toJavaType(method.returns) : 'void';
         this.addJavaDocs(method);
         this.code.line(`${returnType} ${method.name}(${this.renderMethodParameters(method)});`);
     }
@@ -323,8 +323,8 @@ class JavaGenerator extends Generator {
     }
 
     protected onInterfaceProperty(_ifc: spec.InterfaceType, prop: spec.Property) {
-        const getterType = this.toJavaType(prop.value.type);
-        const setterTypes = this.toJavaTypes(prop.value.type);
+        const getterType = this.toJavaType(prop.type);
+        const setterTypes = this.toJavaTypes(prop.type);
         const propName = this.code.toPascalCase(prop.name);
 
         // for unions we only generate overloads for setters, not getters.
@@ -519,7 +519,7 @@ class JavaGenerator extends Generator {
 
         for (const prop of consts) {
             const constName = this.renderConstName(prop);
-            const propClass = this.toJavaType(prop.value.type, true);
+            const propClass = this.toJavaType(prop.type, true);
             this.code.line(`${constName} = software.amazon.jsii.JsiiObject.jsiiStaticGet(${javaClass}.class, "${prop.name}", ${propClass}.class);`);
         }
 
@@ -531,7 +531,7 @@ class JavaGenerator extends Generator {
     }
 
     private emitConstProperty(prop: spec.Property) {
-        const propType = this.toJavaType(prop.value.type);
+        const propType = this.toJavaType(prop.type);
         const propName = this.renderConstName(prop);
         const access = this.renderAccessLevel(prop);
 
@@ -540,9 +540,9 @@ class JavaGenerator extends Generator {
     }
 
     private emitProperty(cls: spec.Type, prop: spec.Property, includeGetter = true, overrides: boolean = !!prop.overrides) {
-        const getterType = this.toJavaType(prop.value.type);
-        const setterTypes = this.toJavaTypes(prop.value.type);
-        const propClass = this.toJavaType(prop.value.type, true);
+        const getterType = this.toJavaType(prop.type);
+        const setterTypes = this.toJavaTypes(prop.type);
+        const propClass = this.toJavaType(prop.type, true);
         const propName = this.code.toPascalCase(prop.name);
         const access = this.renderAccessLevel(prop);
         const statc = prop.static ? 'static ' : '';
@@ -553,7 +553,7 @@ class JavaGenerator extends Generator {
             this.code.line();
             this.addJavaDocs(prop);
             if (overrides) { this.code.line('@Override'); }
-            if (prop.value.optional) { this.code.line(JSR305_NULLABLE); }
+            if (prop.type.optional) { this.code.line(JSR305_NULLABLE); }
             this.code.openBlock(`${access} ${statc}${getterType} get${propName}()`);
 
             let statement = 'return ';
@@ -574,7 +574,7 @@ class JavaGenerator extends Generator {
                 this.code.line();
                 this.addJavaDocs(prop);
                 if (overrides) { this.code.line('@Override'); }
-                const nullable = prop.value.optional ? `${JSR305_NULLABLE} ` : '';
+                const nullable = prop.type.optional ? `${JSR305_NULLABLE} ` : '';
                 this.code.openBlock(`${access} ${statc}void set${propName}(${nullable}final ${type} value)`);
                 let statement = '';
 
@@ -583,7 +583,7 @@ class JavaGenerator extends Generator {
                 } else {
                     statement += 'this.jsiiSet(';
                 }
-                const value = prop.value.optional ? 'value' : `java.util.Objects.requireNonNull(value, "${prop.name} is required")`;
+                const value = prop.type.optional ? 'value' : `java.util.Objects.requireNonNull(value, "${prop.name} is required")`;
                 statement += `"${prop.name}\", ${value});`;
                 this.code.line(statement);
                 this.code.closeBlock();
@@ -592,7 +592,7 @@ class JavaGenerator extends Generator {
     }
 
     private emitMethod(cls: spec.Type, method: spec.Method, overrides: boolean = !!method.overrides) {
-        const returnType = method.returns ? this.toJavaType(method.returns.type) : 'void';
+        const returnType = method.returns ? this.toJavaType(method.returns) : 'void';
         const statc = method.static ? 'static ' : '';
         const access = this.renderAccessLevel(method);
         const async = !!(method.returns && method.returns.promise);
@@ -649,9 +649,9 @@ class JavaGenerator extends Generator {
             }
 
             const bases = new Array<spec.NamedTypeReference>();
-            bases.push(...currentType.interfaces || []);
+            bases.push(...(currentType.interfaces || []).map(iface => this.findType(iface)));
             if (currentType.kind === spec.TypeKind.Class && currentType.base) {
-                bases.push(currentType.base);
+                bases.push(this.findType(currentType.base));
             }
             for (const base of bases) {
                 const type = this.findType(base.fqn!);
@@ -722,10 +722,10 @@ class JavaGenerator extends Generator {
                     docs: property.docs,
                     spec: property,
                     propName,
-                    nullable: !!property.value.optional,
+                    nullable: !!property.type.optional,
                     fieldName: self.code.toCamelCase(property.name),
-                    fieldJavaType: self.toJavaType(property.value.type),
-                    javaTypes: self.toJavaTypes(property.value.type),
+                    fieldJavaType: self.toJavaType(property.type),
+                    javaTypes: self.toJavaTypes(property.type),
                     immutable: property.immutable || false,
                     inherited: isBaseClass,
                 };
@@ -735,7 +735,7 @@ class JavaGenerator extends Generator {
 
             // add props of base struct
             for (const base of currentIfc.interfaces || []) {
-                collectProps(self.findType(base.fqn) as spec.InterfaceType, true);
+                collectProps(self.findType(base) as spec.InterfaceType, true);
             }
         }
 
@@ -930,11 +930,11 @@ class JavaGenerator extends Generator {
             return 'software.amazon.jsii.JsiiObject';
         }
 
-        return this.toJavaType(cls.base);
+        return this.toJavaType({ fqn: cls.base });
     }
 
-    private toJavaType(instance: spec.TypeReference, forMarshalling = false): string {
-        const types = this.toJavaTypes(instance, forMarshalling);
+    private toJavaType(type: spec.TypeReference, forMarshalling = false): string {
+        const types = this.toJavaTypes(type, forMarshalling);
         if (types.length > 1) {
             return 'java.lang.Object';
         } else {
@@ -952,7 +952,7 @@ class JavaGenerator extends Generator {
         } else if (typeref.union) {
             const types = new Array<string>();
             for (const subtype of typeref.union.types) {
-                for (const t of this.toJavaTypes(subtype.type, forMarshalling)) {
+                for (const t of this.toJavaTypes(subtype, forMarshalling)) {
                     types.push(t);
                 }
             }
@@ -963,7 +963,7 @@ class JavaGenerator extends Generator {
     }
 
     private toJavaCollection(ref: spec.CollectionTypeReference, forMarshalling: boolean) {
-        const elementJavaType = this.toJavaType(ref.collection.elementtype.type);
+        const elementJavaType = this.toJavaType(ref.collection.elementtype);
         switch (ref.collection.kind) {
             case spec.CollectionKind.Array: return forMarshalling ? 'java.util.List' : `java.util.List<${elementJavaType}>`;
             case spec.CollectionKind.Map: return forMarshalling ? 'java.util.Map' : `java.util.Map<java.lang.String, ${elementJavaType}>`;
@@ -989,7 +989,7 @@ class JavaGenerator extends Generator {
         if (!method.parameters || method.parameters.length === 0) { return ''; }
         let paramStream: string = '';
         for (const param of method.parameters) {
-            const paramValue = param.value.optional ? param.name : `java.util.Objects.requireNonNull(${param.name}, "${param.name} is required")`;
+            const paramValue = param.type.optional ? param.name : `java.util.Objects.requireNonNull(${param.name}, "${param.name} is required")`;
             const thisParam = `${param.variadic ? 'java.util.Arrays.stream' : 'java.util.stream.Stream.of'}(${paramValue})`;
             if (paramStream === '') {
                 paramStream = thisParam;
@@ -1021,7 +1021,7 @@ class JavaGenerator extends Generator {
         statement += `"${method.name}"`;
 
         if (method.returns) {
-            statement += `, ${this.toJavaType(method.returns.type, true)}.class`;
+            statement += `, ${this.toJavaType(method.returns, true)}.class`;
         } else {
             statement += ', Void.class';
         }
@@ -1035,8 +1035,8 @@ class JavaGenerator extends Generator {
         const params = [];
         if (method.parameters) {
             for (const p of method.parameters) {
-                const nullable = p.value.optional ? `${JSR305_NULLABLE} ` : '';
-                params.push(`${nullable}final ${this.toJavaType(p.value.type)}${p.variadic ? '...' : ''} ${p.name}`);
+                const nullable = p.type.optional ? `${JSR305_NULLABLE} ` : '';
+                params.push(`${nullable}final ${this.toJavaType(p.type)}${p.variadic ? '...' : ''} ${p.name}`);
             }
         }
         return params.join(', ');

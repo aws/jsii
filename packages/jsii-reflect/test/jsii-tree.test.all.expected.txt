@@ -9,8 +9,7 @@ assemblies
  │   │ ├── base: AbstractClassBase
  │   │ ├── interfaces: IInterfaceImplementedByAbstractClass
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   ├─┬ abstractMethod(name) method
  │   │   │ ├── abstract
  │   │   │ ├─┬ parameters
@@ -24,16 +23,14 @@ assemblies
  │   │     └── type: string
  │   ├─┬ class AbstractClassBase
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   └─┬ abstractProperty property
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: string
  │   ├─┬ class AbstractClassReturner
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   ├─┬ giveMeAbstract() method
  │   │   │ └── returns: jsii-calc.AbstractClass
  │   │   ├─┬ giveMeInterface() method
@@ -44,13 +41,12 @@ assemblies
  │   ├─┬ class Add
  │   │ ├── base: BinaryOperation
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(lhs,rhs) method
- │   │   │ ├─┬ parameters
- │   │   │ │ ├─┬ lhs
- │   │   │ │ │ └── type: @scope/jsii-calc-lib.Value
- │   │   │ │ └─┬ rhs
- │   │   │ │   └── type: @scope/jsii-calc-lib.Value
- │   │   │ └── returns: void
+ │   │   ├─┬ <initializer>(lhs,rhs) initializer
+ │   │   │ └─┬ parameters
+ │   │   │   ├─┬ lhs
+ │   │   │   │ └── type: @scope/jsii-calc-lib.Value
+ │   │   │   └─┬ rhs
+ │   │   │     └── type: @scope/jsii-calc-lib.Value
  │   │   ├─┬ toString() method
  │   │   │ └── returns: string
  │   │   └─┬ value property
@@ -58,8 +54,7 @@ assemblies
  │   │     └── type: number
  │   ├─┬ class AllTypes
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   ├─┬ anyIn(inp) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ inp
@@ -79,8 +74,6 @@ assemblies
  │   │   │ └── type: Array<any>
  │   │   ├─┬ anyMapProperty property
  │   │   │ └── type: Map<string => any>
- │   │   ├─┬ anyProperty property
- │   │   │ └── type: any
  │   │   ├─┬ arrayProperty property
  │   │   │ └── type: Array<string>
  │   │   ├─┬ booleanProperty property
@@ -95,8 +88,6 @@ assemblies
  │   │   │ └── type: Map<string => @scope/jsii-calc-lib.Number>
  │   │   ├─┬ numberProperty property
  │   │   │ └── type: number
- │   │   ├─┬ optionalEnumValue property
- │   │   │ └── type: Optional<jsii-calc.StringEnum>
  │   │   ├─┬ stringProperty property
  │   │   │ └── type: string
  │   │   ├─┬ unionArrayProperty property
@@ -109,12 +100,15 @@ assemblies
  │   │   │ └── type: Array<any>
  │   │   ├─┬ unknownMapProperty property
  │   │   │ └── type: Map<string => any>
+ │   │   ├─┬ anyProperty property
+ │   │   │ └── type: any
+ │   │   ├─┬ optionalEnumValue property
+ │   │   │ └── type: Optional<jsii-calc.StringEnum>
  │   │   └─┬ unknownProperty property
  │   │     └── type: any
  │   ├─┬ class AllowedMethodNames
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   ├─┬ getBar(_p1,_p2) method
  │   │   │ ├─┬ parameters
  │   │   │ │ ├─┬ _p1
@@ -145,8 +139,7 @@ assemblies
  │   │     └── returns: void
  │   ├─┬ class AsyncVirtualMethods
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   ├─┬ callMe() method
  │   │   │ └── returns: Promise<number>
  │   │   ├─┬ callMe2() method
@@ -164,8 +157,7 @@ assemblies
  │   │     └── returns: Promise<number>
  │   ├─┬ class AugmentableClass
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   ├─┬ methodOne() method
  │   │   │ └── returns: void
  │   │   └─┬ methodTwo() method
@@ -174,13 +166,12 @@ assemblies
  │   │ ├── base: Operation
  │   │ ├── interfaces: IFriendly
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(lhs,rhs) method
- │   │   │ ├─┬ parameters
- │   │   │ │ ├─┬ lhs
- │   │   │ │ │ └── type: @scope/jsii-calc-lib.Value
- │   │   │ │ └─┬ rhs
- │   │   │ │   └── type: @scope/jsii-calc-lib.Value
- │   │   │ └── returns: void
+ │   │   ├─┬ <initializer>(lhs,rhs) initializer
+ │   │   │ └─┬ parameters
+ │   │   │   ├─┬ lhs
+ │   │   │   │ └── type: @scope/jsii-calc-lib.Value
+ │   │   │   └─┬ rhs
+ │   │   │     └── type: @scope/jsii-calc-lib.Value
  │   │   ├─┬ hello() method
  │   │   │ └── returns: string
  │   │   ├─┬ lhs property
@@ -192,11 +183,10 @@ assemblies
  │   ├─┬ class Calculator
  │   │ ├── base: CompositeOperation
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(props) method
- │   │   │ ├─┬ parameters
- │   │   │ │ └─┬ props
- │   │   │ │   └── type: Optional<jsii-calc.CalculatorProps>
- │   │   │ └── returns: void
+ │   │   ├─┬ <initializer>(props) initializer
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ props
+ │   │   │     └── type: Optional<jsii-calc.CalculatorProps>
  │   │   ├─┬ add(value) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ value
@@ -234,8 +224,7 @@ assemblies
  │   ├─┬ class ClassThatImplementsTheInternalInterface
  │   │ ├── interfaces: INonInternalInterface
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   ├─┬ a property
  │   │   │ └── type: string
  │   │   ├─┬ b property
@@ -247,8 +236,7 @@ assemblies
  │   ├─┬ class ClassThatImplementsThePrivateInterface
  │   │ ├── interfaces: INonInternalInterface
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   ├─┬ a property
  │   │   │ └── type: string
  │   │   ├─┬ b property
@@ -259,8 +247,7 @@ assemblies
  │   │     └── type: string
  │   ├─┬ class ClassWithMutableObjectLiteralProperty
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   └─┬ mutableObject property
  │   │     └── type: jsii-calc.IMutableObjectLiteral
  │   ├─┬ class ClassWithPrivateConstructorAndAutomaticProperties
@@ -281,15 +268,13 @@ assemblies
  │   │     └── type: string
  │   ├─┬ class ConstructorPassesThisOut
  │   │ └─┬ members
- │   │   └─┬ <initializer>(consumer) method
- │   │     ├─┬ parameters
- │   │     │ └─┬ consumer
- │   │     │   └── type: jsii-calc.PartiallyInitializedThisConsumer
- │   │     └── returns: void
+ │   │   └─┬ <initializer>(consumer) initializer
+ │   │     └─┬ parameters
+ │   │       └─┬ consumer
+ │   │         └── type: jsii-calc.PartiallyInitializedThisConsumer
  │   ├─┬ class Constructors
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   ├─┬ hiddenInterface() method
  │   │   │ ├── static
  │   │   │ └── returns: jsii-calc.IPublicInterface
@@ -313,8 +298,7 @@ assemblies
  │   │     └── returns: Array<jsii-calc.IPublicInterface>
  │   ├─┬ class ConsumersOfThisCrazyTypeSystem
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   ├─┬ consumeAnotherPublicInterface(obj) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ obj
@@ -327,39 +311,35 @@ assemblies
  │   │     └── returns: any
  │   ├─┬ class DefaultedConstructorArgument
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(arg1,arg2,arg3) method
- │   │   │ ├─┬ parameters
- │   │   │ │ ├─┬ arg1
- │   │   │ │ │ └── type: Optional<number>
- │   │   │ │ ├─┬ arg2
- │   │   │ │ │ └── type: Optional<string>
- │   │   │ │ └─┬ arg3
- │   │   │ │   └── type: Optional<date>
- │   │   │ └── returns: void
+ │   │   ├─┬ <initializer>(arg1,arg2,arg3) initializer
+ │   │   │ └─┬ parameters
+ │   │   │   ├─┬ arg1
+ │   │   │   │ └── type: Optional<number>
+ │   │   │   ├─┬ arg2
+ │   │   │   │ └── type: Optional<string>
+ │   │   │   └─┬ arg3
+ │   │   │     └── type: Optional<date>
  │   │   ├─┬ arg1 property
  │   │   │ ├── immutable
  │   │   │ └── type: number
- │   │   ├─┬ arg2 property
+ │   │   ├─┬ arg3 property
  │   │   │ ├── immutable
- │   │   │ └── type: Optional<string>
- │   │   └─┬ arg3 property
+ │   │   │ └── type: date
+ │   │   └─┬ arg2 property
  │   │     ├── immutable
- │   │     └── type: date
+ │   │     └── type: Optional<string>
  │   ├─┬ class Base
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   └─┬ prop property
  │   │     └── type: string
  │   ├─┬ class Derived
  │   │ ├── base: Base
  │   │ └─┬ members
- │   │   └─┬ <initializer>() method
- │   │     └── returns: void
+ │   │   └── <initializer>() initializer
  │   ├─┬ class DoNotOverridePrivates
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   ├─┬ changePrivatePropertyValue(newValue) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ newValue
@@ -371,8 +351,7 @@ assemblies
  │   │     └── returns: string
  │   ├─┬ class DoNotRecognizeAnyAsOptional
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   └─┬ method(_requiredAny,_optionalAny,_optionalString) method
  │   │     ├─┬ parameters
  │   │     │ ├─┬ _requiredAny
@@ -384,8 +363,7 @@ assemblies
  │   │     └── returns: void
  │   ├─┬ class DocumentedClass
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   ├─┬ greet(greetee) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ greetee
@@ -395,8 +373,7 @@ assemblies
  │   │     └── returns: void
  │   ├─┬ class DontComplainAboutVariadicAfterOptional
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   └─┬ optionalAndVariadic(optional,things) method
  │   │     ├── variadic
  │   │     ├─┬ parameters
@@ -409,16 +386,14 @@ assemblies
  │   ├─┬ class DoubleTrouble
  │   │ ├── interfaces: IFriendlyRandomGenerator
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   ├─┬ hello() method
  │   │   │ └── returns: string
  │   │   └─┬ next() method
  │   │     └── returns: number
  │   ├─┬ class EraseUndefinedHashValues
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   ├─┬ doesKeyExist(opts,key) method
  │   │   │ ├── static
  │   │   │ ├─┬ parameters
@@ -435,18 +410,16 @@ assemblies
  │   │     └── returns: any
  │   ├─┬ class ExportedBaseClass
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(success) method
- │   │   │ ├─┬ parameters
- │   │   │ │ └─┬ success
- │   │   │ │   └── type: boolean
- │   │   │ └── returns: void
+ │   │   ├─┬ <initializer>(success) initializer
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ success
+ │   │   │     └── type: boolean
  │   │   └─┬ success property
  │   │     ├── immutable
  │   │     └── type: boolean
  │   ├─┬ class GiveMeStructs
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   ├─┬ derivedToFirst(derived) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ derived
@@ -467,8 +440,7 @@ assemblies
  │   │     └── type: @scope/jsii-calc-lib.StructWithOnlyOptionals
  │   ├─┬ class GreetingAugmenter
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   └─┬ betterGreeting(friendly) method
  │   │     ├─┬ parameters
  │   │     │ └─┬ friendly
@@ -476,50 +448,43 @@ assemblies
  │   │     └── returns: string
  │   ├─┬ class ImplementInternalInterface
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   └─┬ prop property
  │   │     └── type: string
  │   ├─┬ class ImplementsInterfaceWithInternal
  │   │ ├── interfaces: IInterfaceWithInternal
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   └─┬ visible() method
  │   │     └── returns: void
  │   ├─┬ class ImplementsInterfaceWithInternalSubclass
  │   │ ├── base: ImplementsInterfaceWithInternal
  │   │ └─┬ members
- │   │   └─┬ <initializer>() method
- │   │     └── returns: void
+ │   │   └── <initializer>() initializer
  │   ├─┬ class ImplementsPrivateInterface
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   └─┬ private property
  │   │     └── type: string
  │   ├─┬ class InbetweenClass
  │   │ ├── base: PublicClass
  │   │ ├── interfaces: IPublicInterface2
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   └─┬ ciao() method
  │   │     └── returns: string
  │   ├─┬ class Foo
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   └─┬ bar property
  │   │     └── type: Optional<string>
  │   ├─┬ class JSII417Derived
  │   │ ├── base: JSII417PublicBaseOfBase
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(property) method
- │   │   │ ├─┬ parameters
- │   │   │ │ └─┬ property
- │   │   │ │   └── type: string
- │   │   │ └── returns: void
+ │   │   ├─┬ <initializer>(property) initializer
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ property
+ │   │   │     └── type: string
  │   │   ├─┬ bar() method
  │   │   │ └── returns: void
  │   │   ├─┬ baz() method
@@ -530,8 +495,7 @@ assemblies
  │   │     └── type: string
  │   ├─┬ class JSII417PublicBaseOfBase
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   ├─┬ makeInstance() method
  │   │   │ ├── static
  │   │   │ └── returns: jsii-calc.JSII417PublicBaseOfBase
@@ -542,30 +506,26 @@ assemblies
  │   │     └── type: boolean
  │   ├─┬ class JSObjectLiteralForInterface
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   ├─┬ giveMeFriendly() method
  │   │   │ └── returns: @scope/jsii-calc-lib.IFriendly
  │   │   └─┬ giveMeFriendlyGenerator() method
  │   │     └── returns: jsii-calc.IFriendlyRandomGenerator
  │   ├─┬ class JSObjectLiteralToNative
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   └─┬ returnLiteral() method
  │   │     └── returns: jsii-calc.JSObjectLiteralToNativeClass
  │   ├─┬ class JSObjectLiteralToNativeClass
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   ├─┬ propA property
  │   │   │ └── type: string
  │   │   └─┬ propB property
  │   │     └── type: number
  │   ├─┬ class JavaReservedWords
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   ├─┬ abstract() method
  │   │   │ └── returns: void
  │   │   ├─┬ assert() method
@@ -674,8 +634,7 @@ assemblies
  │   │     └── type: string
  │   ├─┬ class JsiiAgent
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   └─┬ jsiiAgent property
  │   │     ├── immutable
  │   │     ├── static
@@ -684,13 +643,12 @@ assemblies
  │   │ ├── base: BinaryOperation
  │   │ ├── interfaces: IFriendlier,IRandomNumberGenerator
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(lhs,rhs) method
- │   │   │ ├─┬ parameters
- │   │   │ │ ├─┬ lhs
- │   │   │ │ │ └── type: @scope/jsii-calc-lib.Value
- │   │   │ │ └─┬ rhs
- │   │   │ │   └── type: @scope/jsii-calc-lib.Value
- │   │   │ └── returns: void
+ │   │   ├─┬ <initializer>(lhs,rhs) initializer
+ │   │   │ └─┬ parameters
+ │   │   │   ├─┬ lhs
+ │   │   │   │ └── type: @scope/jsii-calc-lib.Value
+ │   │   │   └─┬ rhs
+ │   │   │     └── type: @scope/jsii-calc-lib.Value
  │   │   ├─┬ farewell() method
  │   │   │ └── returns: string
  │   │   ├─┬ goodbye() method
@@ -706,11 +664,10 @@ assemblies
  │   │ ├── base: UnaryOperation
  │   │ ├── interfaces: IFriendlier
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(operand) method
- │   │   │ ├─┬ parameters
- │   │   │ │ └─┬ operand
- │   │   │ │   └── type: @scope/jsii-calc-lib.Value
- │   │   │ └── returns: void
+ │   │   ├─┬ <initializer>(operand) initializer
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ operand
+ │   │   │     └── type: @scope/jsii-calc-lib.Value
  │   │   ├─┬ farewell() method
  │   │   │ └── returns: string
  │   │   ├─┬ goodbye() method
@@ -724,8 +681,7 @@ assemblies
  │   │     └── type: number
  │   ├─┬ class NodeStandardLibrary
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   ├─┬ cryptoSha256() method
  │   │   │ └── returns: string
  │   │   ├─┬ fsReadFile() method
@@ -737,13 +693,12 @@ assemblies
  │   │     └── type: string
  │   ├─┬ class NullShouldBeTreatedAsUndefined
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(_param1,optional) method
- │   │   │ ├─┬ parameters
- │   │   │ │ ├─┬ _param1
- │   │   │ │ │ └── type: string
- │   │   │ │ └─┬ optional
- │   │   │ │   └── type: any
- │   │   │ └── returns: void
+ │   │   ├─┬ <initializer>(_param1,optional) initializer
+ │   │   │ └─┬ parameters
+ │   │   │   ├─┬ _param1
+ │   │   │   │ └── type: string
+ │   │   │   └─┬ optional
+ │   │   │     └── type: any
  │   │   ├─┬ giveMeUndefined(value) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ value
@@ -760,11 +715,10 @@ assemblies
  │   │     └── type: Optional<string>
  │   ├─┬ class NumberGenerator
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(generator) method
- │   │   │ ├─┬ parameters
- │   │   │ │ └─┬ generator
- │   │   │ │   └── type: jsii-calc.IRandomNumberGenerator
- │   │   │ └── returns: void
+ │   │   ├─┬ <initializer>(generator) initializer
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ generator
+ │   │   │     └── type: jsii-calc.IRandomNumberGenerator
  │   │   ├─┬ isSameGenerator(gen) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ gen
@@ -776,8 +730,7 @@ assemblies
  │   │     └── type: jsii-calc.IRandomNumberGenerator
  │   ├─┬ class ObjectRefsInCollections
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   ├─┬ sumFromArray(values) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ values
@@ -790,21 +743,19 @@ assemblies
  │   │     └── returns: number
  │   ├─┬ class Old
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   └─┬ doAThing() method
  │   │     └── returns: void
  │   ├─┬ class OptionalConstructorArgument
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(arg1,arg2,arg3) method
- │   │   │ ├─┬ parameters
- │   │   │ │ ├─┬ arg1
- │   │   │ │ │ └── type: number
- │   │   │ │ ├─┬ arg2
- │   │   │ │ │ └── type: string
- │   │   │ │ └─┬ arg3
- │   │   │ │   └── type: Optional<date>
- │   │   │ └── returns: void
+ │   │   ├─┬ <initializer>(arg1,arg2,arg3) initializer
+ │   │   │ └─┬ parameters
+ │   │   │   ├─┬ arg1
+ │   │   │   │ └── type: number
+ │   │   │   ├─┬ arg2
+ │   │   │   │ └── type: string
+ │   │   │   └─┬ arg3
+ │   │   │     └── type: Optional<date>
  │   │   ├─┬ arg1 property
  │   │   │ ├── immutable
  │   │   │ └── type: number
@@ -816,21 +767,19 @@ assemblies
  │   │     └── type: Optional<date>
  │   ├─┬ class OptionalStructConsumer
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(optionalStruct) method
- │   │   │ ├─┬ parameters
- │   │   │ │ └─┬ optionalStruct
- │   │   │ │   └── type: Optional<jsii-calc.OptionalStruct>
- │   │   │ └── returns: void
- │   │   ├─┬ fieldValue property
+ │   │   ├─┬ <initializer>(optionalStruct) initializer
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ optionalStruct
+ │   │   │     └── type: Optional<jsii-calc.OptionalStruct>
+ │   │   ├─┬ parameterWasUndefined property
  │   │   │ ├── immutable
- │   │   │ └── type: Optional<string>
- │   │   └─┬ parameterWasUndefined property
+ │   │   │ └── type: boolean
+ │   │   └─┬ fieldValue property
  │   │     ├── immutable
- │   │     └── type: boolean
+ │   │     └── type: Optional<string>
  │   ├─┬ class OverrideReturnsObject
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   └─┬ test(obj) method
  │   │     ├─┬ parameters
  │   │     │ └─┬ obj
@@ -838,8 +787,7 @@ assemblies
  │   │     └── returns: number
  │   ├─┬ class PartiallyInitializedThisConsumer
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   └─┬ consumePartiallyInitializedThis(obj,dt,ev) method
  │   │     ├── abstract
  │   │     ├─┬ parameters
@@ -852,8 +800,7 @@ assemblies
  │   │     └── returns: string
  │   ├─┬ class Polymorphism
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   └─┬ sayHello(friendly) method
  │   │     ├─┬ parameters
  │   │     │ └─┬ friendly
@@ -862,13 +809,12 @@ assemblies
  │   ├─┬ class Power
  │   │ ├── base: CompositeOperation
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(base,pow) method
- │   │   │ ├─┬ parameters
- │   │   │ │ ├─┬ base
- │   │   │ │ │ └── type: @scope/jsii-calc-lib.Value
- │   │   │ │ └─┬ pow
- │   │   │ │   └── type: @scope/jsii-calc-lib.Value
- │   │   │ └── returns: void
+ │   │   ├─┬ <initializer>(base,pow) initializer
+ │   │   │ └─┬ parameters
+ │   │   │   ├─┬ base
+ │   │   │   │ └── type: @scope/jsii-calc-lib.Value
+ │   │   │   └─┬ pow
+ │   │   │     └── type: @scope/jsii-calc-lib.Value
  │   │   ├─┬ base property
  │   │   │ ├── immutable
  │   │   │ └── type: @scope/jsii-calc-lib.Value
@@ -880,14 +826,12 @@ assemblies
  │   │     └── type: @scope/jsii-calc-lib.Value
  │   ├─┬ class PublicClass
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   └─┬ hello() method
  │   │     └── returns: void
  │   ├─┬ class PythonReservedWords
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   ├─┬ and() method
  │   │   │ └── returns: void
  │   │   ├─┬ as() method
@@ -954,8 +898,7 @@ assemblies
  │   │     └── returns: void
  │   ├─┬ class ReferenceEnumFromScopedPackage
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   ├─┬ loadFoo() method
  │   │   │ └── returns: Optional<@scope/jsii-calc-lib.EnumFromScopedModule>
  │   │   ├─┬ saveFoo(value) method
@@ -967,15 +910,13 @@ assemblies
  │   │     └── type: Optional<@scope/jsii-calc-lib.EnumFromScopedModule>
  │   ├─┬ class ReturnsPrivateImplementationOfInterface
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   └─┬ privateImplementation property
  │   │     ├── immutable
  │   │     └── type: jsii-calc.IPrivatelyImplemented
  │   ├─┬ class RuntimeTypeChecking
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   ├─┬ methodWithDefaultedArguments(arg1,arg2,arg3) method
  │   │   │ ├─┬ parameters
  │   │   │ │ ├─┬ arg1
@@ -1001,19 +942,17 @@ assemblies
  │   │     └── returns: void
  │   ├─┬ class SingleInstanceTwoTypes
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   ├─┬ interface1() method
  │   │   │ └── returns: jsii-calc.InbetweenClass
  │   │   └─┬ interface2() method
  │   │     └── returns: jsii-calc.IPublicInterface
  │   ├─┬ class Statics
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(value) method
- │   │   │ ├─┬ parameters
- │   │   │ │ └─┬ value
- │   │   │ │   └── type: string
- │   │   │ └── returns: void
+ │   │   ├─┬ <initializer>(value) initializer
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ value
+ │   │   │     └── type: string
  │   │   ├─┬ staticMethod(name) method
  │   │   │ ├── static
  │   │   │ ├─┬ parameters
@@ -1053,15 +992,13 @@ assemblies
  │   │     └── type: string
  │   ├─┬ class StripInternal
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   └─┬ youSeeMe property
  │   │     └── type: string
  │   ├─┬ class Sum
  │   │ ├── base: CompositeOperation
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   ├─┬ expression property
  │   │   │ ├── immutable
  │   │   │ └── type: @scope/jsii-calc-lib.Value
@@ -1069,8 +1006,7 @@ assemblies
  │   │     └── type: Array<@scope/jsii-calc-lib.Value>
  │   ├─┬ class SyncVirtualMethods
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   ├─┬ callerIsAsync() method
  │   │   │ └── returns: Promise<number>
  │   │   ├─┬ callerIsMethod() method
@@ -1118,40 +1054,35 @@ assemblies
  │   │     └── type: string
  │   ├─┬ class Thrower
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   └─┬ throwError() method
  │   │     └── returns: void
  │   ├─┬ class UnaryOperation
  │   │ ├── base: Operation
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(operand) method
- │   │   │ ├─┬ parameters
- │   │   │ │ └─┬ operand
- │   │   │ │   └── type: @scope/jsii-calc-lib.Value
- │   │   │ └── returns: void
+ │   │   ├─┬ <initializer>(operand) initializer
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ operand
+ │   │   │     └── type: @scope/jsii-calc-lib.Value
  │   │   └─┬ operand property
  │   │     ├── immutable
  │   │     └── type: @scope/jsii-calc-lib.Value
  │   ├─┬ class UseBundledDependency
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   └─┬ value() method
  │   │     └── returns: any
  │   ├─┬ class UseCalcBase
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   └─┬ hello() method
  │   │     └── returns: @scope/jsii-calc-base.Base
  │   ├─┬ class UsesInterfaceWithProperties
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(obj) method
- │   │   │ ├─┬ parameters
- │   │   │ │ └─┬ obj
- │   │   │ │   └── type: jsii-calc.IInterfaceWithProperties
- │   │   │ └── returns: void
+ │   │   ├─┬ <initializer>(obj) initializer
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ obj
+ │   │   │     └── type: jsii-calc.IInterfaceWithProperties
  │   │   ├─┬ justRead() method
  │   │   │ └── returns: string
  │   │   ├─┬ readStringAndNumber(ext) method
@@ -1169,13 +1100,12 @@ assemblies
  │   │     └── type: jsii-calc.IInterfaceWithProperties
  │   ├─┬ class VariadicMethod
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(prefix) method
+ │   │   ├─┬ <initializer>(prefix) initializer
  │   │   │ ├── variadic
- │   │   │ ├─┬ parameters
- │   │   │ │ └─┬ prefix
- │   │   │ │   ├── type: number
- │   │   │ │   └── variadic
- │   │   │ └── returns: void
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ prefix
+ │   │   │     ├── type: number
+ │   │   │     └── variadic
  │   │   └─┬ asArray(first,others) method
  │   │     ├── variadic
  │   │     ├─┬ parameters
@@ -1187,8 +1117,7 @@ assemblies
  │   │     └── returns: Array<number>
  │   ├─┬ class VirtualMethodPlayground
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   ├─┬ overrideMeAsync(index) method
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ index
@@ -1217,8 +1146,7 @@ assemblies
  │   ├─┬ class CompositeOperation
  │   │ ├── base: Operation
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   ├─┬ toString() method
  │   │   │ └── returns: string
  │   │   ├─┬ expression property
@@ -1248,10 +1176,6 @@ assemblies
  │   │ ├─┬ interfaces
  │   │ │ └── MyFirstStruct
  │   │ └─┬ members
- │   │   ├─┬ anotherOptional property
- │   │   │ ├── abstract
- │   │   │ ├── immutable
- │   │   │ └── type: Optional<Map<string => @scope/jsii-calc-lib.Value>>
  │   │   ├─┬ anotherRequired property
  │   │   │ ├── abstract
  │   │   │ ├── immutable
@@ -1264,6 +1188,10 @@ assemblies
  │   │   │ ├── abstract
  │   │   │ ├── immutable
  │   │   │ └── type: jsii-calc.DoubleTrouble
+ │   │   ├─┬ anotherOptional property
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: Optional<Map<string => @scope/jsii-calc-lib.Value>>
  │   │   ├─┬ optionalAny property
  │   │   │ ├── abstract
  │   │   │ ├── immutable
@@ -1534,8 +1462,7 @@ assemblies
  │ └─┬ types
  │   ├─┬ class Base
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   └─┬ typeName() method
  │   │     └── returns: any
  │   └─┬ interface BaseProps
@@ -1550,8 +1477,7 @@ assemblies
  │ └─┬ types
  │   ├─┬ class Very
  │   │ └─┬ members
- │   │   ├─┬ <initializer>() method
- │   │   │ └── returns: void
+ │   │   ├── <initializer>() initializer
  │   │   └─┬ hey() method
  │   │     └── returns: number
  │   └─┬ interface VeryBaseProps
@@ -1568,11 +1494,10 @@ assemblies
      │ ├── base: Value
      │ ├── interfaces: IDoublable
      │ └─┬ members
-     │   ├─┬ <initializer>(value) method
-     │   │ ├─┬ parameters
-     │   │ │ └─┬ value
-     │   │ │   └── type: number
-     │   │ └── returns: void
+     │   ├─┬ <initializer>(value) initializer
+     │   │ └─┬ parameters
+     │   │   └─┬ value
+     │   │     └── type: number
      │   ├─┬ doubleValue property
      │   │ ├── immutable
      │   │ └── type: number
@@ -1582,16 +1507,14 @@ assemblies
      ├─┬ class Operation
      │ ├── base: Value
      │ └─┬ members
-     │   ├─┬ <initializer>() method
-     │   │ └── returns: void
+     │   ├── <initializer>() initializer
      │   └─┬ toString() method
      │     ├── abstract
      │     └── returns: string
      ├─┬ class Value
      │ ├── base: Base
      │ └─┬ members
-     │   ├─┬ <initializer>() method
-     │   │ └── returns: void
+     │   ├── <initializer>() initializer
      │   ├─┬ toString() method
      │   │ └── returns: string
      │   └─┬ value property

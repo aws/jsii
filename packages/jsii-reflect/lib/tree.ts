@@ -8,8 +8,9 @@ import { InterfaceType } from './interface';
 import { Method } from './method';
 import { Parameter } from './parameter';
 import { Property } from './property';
-import { TypeInstance } from './type-instance';
+import { TypeReference } from './type-ref';
 import { TypeSystem } from './type-system';
+import { Initializer } from './initializer';
 
 export interface TypeSystemTreeOptions {
   /**
@@ -129,7 +130,30 @@ class MethodNode extends AsciiTree {
         params.add(...method.parameters.map(p => new ParameterNode(p, options)));
       }
 
-      this.add(new TypeInstanceNode('returns', method.returns));
+      this.add(new TypeReferenceNode('returns', method.returns));
+    }
+  }
+}
+
+class InitializerNode extends AsciiTree {
+  constructor(initializer: Initializer, options: TypeSystemTreeOptions) {
+    const args = initializer.parameters.map(p => p.name).join(',');
+    super(`${initializer.name}(${args}) ${colors.gray('initializer')}`);
+
+    if (options.signatures) {
+      if (initializer.protected) {
+        this.add(new FlagNode('protected'));
+      }
+
+      if (initializer.variadic) {
+        this.add(new FlagNode('variadic'));
+      }
+
+      if (initializer.parameters.length > 0) {
+        const params = new TitleNode('parameters');
+        this.add(params);
+        params.add(...initializer.parameters.map(p => new ParameterNode(p, options)));
+      }
     }
   }
 }
@@ -138,7 +162,7 @@ class ParameterNode extends AsciiTree {
   constructor(param: Parameter, _options: TypeSystemTreeOptions) {
     super(param.name);
 
-    this.add(new TypeInstanceNode('type', param.value));
+    this.add(new TypeReferenceNode('type', param.type));
     if (param.variadic) {
       this.add(new FlagNode('variadic'));
     }
@@ -170,14 +194,14 @@ class PropertyNode extends AsciiTree {
         this.add(new FlagNode('static'));
       }
 
-      this.add(new TypeInstanceNode('type', property.value));
+      this.add(new TypeReferenceNode('type', property.type));
     }
   }
 }
 
-class TypeInstanceNode extends AsciiTree {
-  constructor(name: string, typeinstance: TypeInstance) {
-    super(`${colors.underline(name)}: ${typeinstance}`);
+class TypeReferenceNode extends AsciiTree {
+  constructor(name: string, typeReference: TypeReference) {
+    super(`${colors.underline(name)}: ${typeReference}`);
   }
 }
 
@@ -197,7 +221,7 @@ class ClassNode extends AsciiTree {
       const members = new TitleNode('members');
       this.add(members);
       if (type.initializer) {
-        members.add(new MethodNode(type.initializer, options));
+        members.add(new InitializerNode(type.initializer, options));
       }
       members.add(...type.ownMethods.map(m => new MethodNode(m, options)));
       members.add(...type.ownProperties.map(p => new PropertyNode(p, options)));

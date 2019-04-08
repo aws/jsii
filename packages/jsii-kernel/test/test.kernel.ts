@@ -233,28 +233,30 @@ defineTest('objects created inside the sandbox are returned with type info and n
 
 defineTest('naming allows returns the module name for different languages', async (test, sandbox) => {
     test.deepEqual(sandbox.naming({ assembly: 'jsii-calc' }).naming, {
-        java: {
-            package: 'software.amazon.jsii.tests.calculator',
-            maven: { groupId: 'software.amazon.jsii.tests', artifactId: 'calculator' }
-        },
         dotnet: {
             namespace: 'Amazon.JSII.Tests.CalculatorNamespace',
             packageId: 'Amazon.JSII.Tests.CalculatorPackageId',
         },
+        java: {
+            package: 'software.amazon.jsii.tests.calculator',
+            maven: { groupId: 'software.amazon.jsii.tests', artifactId: 'calculator' }
+        },
         js: { npm: 'jsii-calc' },
         python: { distName: 'jsii-calc', module: 'jsii_calc' },
+        sphinx: {},
     });
     test.deepEqual(sandbox.naming({ assembly: '@scope/jsii-calc-lib' }).naming, {
-        java: {
-            package: 'software.amazon.jsii.tests.calculator.lib',
-            maven: { groupId: 'software.amazon.jsii.tests', artifactId: 'calculator-lib' }
-        },
         dotnet: {
             namespace: 'Amazon.JSII.Tests.CalculatorNamespace.LibNamespace',
             packageId: 'Amazon.JSII.Tests.CalculatorPackageId.LibPackageId'
         },
+        java: {
+            package: 'software.amazon.jsii.tests.calculator.lib',
+            maven: { groupId: 'software.amazon.jsii.tests', artifactId: 'calculator-lib' }
+        },
         js: { npm: '@scope/jsii-calc-lib' },
         python: { distName: 'scope.jsii-calc-lib', module: 'scope.jsii_calc_lib' },
+        sphinx: {},
     });
 });
 

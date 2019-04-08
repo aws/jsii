@@ -21,14 +21,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Returns the sum of all values.</summary>
-        [JsiiMethod("sumFromArray", "{\"type\":{\"primitive\":\"number\"}}", "[{\"name\":\"values\",\"value\":{\"type\":{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}}}}]")]
+        [JsiiMethod("sumFromArray", "{\"primitive\":\"number\"}", "[{\"name\":\"values\",\"type\":{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}}]")]
         public virtual double SumFromArray(Value_[] values)
         {
             return InvokeInstanceMethod<double>(new object[]{values});
         }
 
         /// <summary>Returns the sum of all values in a map.</summary>
-        [JsiiMethod("sumFromMap", "{\"type\":{\"primitive\":\"number\"}}", "[{\"name\":\"values\",\"value\":{\"type\":{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}}}}]")]
+        [JsiiMethod("sumFromMap", "{\"primitive\":\"number\"}", "[{\"name\":\"values\",\"type\":{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}}]")]
         public virtual double SumFromMap(IDictionary<string, Value_> values)
         {
             return InvokeInstanceMethod<double>(new object[]{values});

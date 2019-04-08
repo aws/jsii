@@ -12,7 +12,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
         }
 
         /// <summary>The expression that this operation consists of. Must be implemented by derived classes.</summary>
-        [JsiiProperty("expression", "{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}")]
+        [JsiiProperty("expression", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public override Value_ Expression
         {
             get => GetInstanceProperty<Value_>();

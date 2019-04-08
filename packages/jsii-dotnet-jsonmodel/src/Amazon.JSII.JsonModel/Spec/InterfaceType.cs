@@ -18,7 +18,7 @@ namespace Amazon.JSII.JsonModel.Spec
             Docs docs = null,
 
             // InterfaceType properties
-            TypeReference[] interfaces = null,
+            string[] interfaces = null,
             Method[] methods = null,
             Property[] properties = null,
             bool? isDataType = null
@@ -39,7 +39,7 @@ namespace Amazon.JSII.JsonModel.Spec
         }
 
         [JsonProperty("interfaces", NullValueHandling = NullValueHandling.Ignore)]
-        public TypeReference[] Interfaces { get; }
+        public string[] Interfaces { get; }
 
         [JsonProperty("methods", NullValueHandling = NullValueHandling.Ignore)]
         public Method[] Methods { get; }

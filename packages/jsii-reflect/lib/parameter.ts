@@ -1,15 +1,15 @@
 import jsii = require('jsii-spec');
+import { Callable } from './callable';
 import { Docs, Documentable } from './docs';
-import { Method } from './method';
 import { Type } from './type';
-import { TypeInstance } from './type-instance';
+import { TypeReference } from './type-ref';
 import { TypeSystem } from './type-system';
 
 export class Parameter implements Documentable {
   constructor(
     public readonly system: TypeSystem,
     public readonly parentType: Type,
-    public readonly method: Method,
+    public readonly method: Callable,
     private readonly spec: jsii.Parameter,
     private readonly index: number) { }
 
@@ -23,8 +23,8 @@ export class Parameter implements Documentable {
   /**
    * The type of the parameter.
    */
-  public get value(): TypeInstance {
-    return new TypeInstance(this.system, this.spec.value);
+  public get type(): TypeReference {
+    return new TypeReference(this.system, this.spec.type);
   }
 
   /**
@@ -40,7 +40,7 @@ export class Parameter implements Documentable {
    * all subsequent parameters are also optional or variadic.
    */
   public get optional(): boolean {
-    return this.value.optional
+    return this.type.optional
       && this.method.parameters.find((p, i) => i > this.index && (p.optional || p.variadic)) == null;
   }
 

@@ -48,7 +48,7 @@ namespace Amazon.JSII.Generator.Class
             {
                 SyntaxTokenList modifierList = SF.TokenList(SF.Token(SyntaxKind.PublicKeyword));
 
-                if (Type.IsAbstract)
+                if (Type.IsAbstract == true)
                 {
                     modifierList = modifierList.Add(SF.Token(SyntaxKind.AbstractKeyword));
                 }
@@ -68,8 +68,8 @@ namespace Amazon.JSII.Generator.Class
                     }
                     else
                     {
-                        Namespaces.Add(Type.Base);
-                        yield return SF.SimpleBaseType(Symbols.GetNameSyntax(Type.Base.FullyQualifiedName, disambiguate: true));
+                        Namespaces.Add(Symbols.GetTypeFromFullyQualifiedName(Type.Base));
+                        yield return SF.SimpleBaseType(Symbols.GetNameSyntax(Type.Base, disambiguate: true));
                     }
 
                     if (Type.Interfaces == null)
@@ -77,10 +77,10 @@ namespace Amazon.JSII.Generator.Class
                         yield break;
                     }
 
-                    foreach (TypeReference interfaceReference in Type.Interfaces)
+                    foreach (var interfaceReference in Type.Interfaces)
                     {
-                        Namespaces.Add(interfaceReference);
-                        yield return SF.SimpleBaseType(Symbols.GetNameSyntax(interfaceReference.FullyQualifiedName, disambiguate: true));
+                        Namespaces.Add(Symbols.GetTypeFromFullyQualifiedName(interfaceReference));
+                        yield return SF.SimpleBaseType(Symbols.GetNameSyntax(interfaceReference, disambiguate: true));
                     }
                 }
             }
@@ -103,7 +103,7 @@ namespace Amazon.JSII.Generator.Class
                 (
                     SF.List<AttributeListSyntax>(),
                     SF.TokenList(SF.Token(
-                        Type.IsAbstract || Type.Initializer.IsProtected
+                        Type.IsAbstract == true || Type.Initializer.IsProtected == true
                             ? SyntaxKind.ProtectedKeyword
                             : SyntaxKind.PublicKeyword
                     )),

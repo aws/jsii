@@ -22,21 +22,21 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// Used to check that undefined/null hash values
         /// are being erased when sending values from native code to JS.
         /// </remarks>
-        [JsiiMethod("doesKeyExist", "{\"type\":{\"primitive\":\"boolean\"}}", "[{\"name\":\"opts\",\"value\":{\"type\":{\"fqn\":\"jsii-calc.EraseUndefinedHashValuesOptions\"}}},{\"name\":\"key\",\"value\":{\"type\":{\"primitive\":\"string\"}}}]")]
+        [JsiiMethod("doesKeyExist", "{\"primitive\":\"boolean\"}", "[{\"name\":\"opts\",\"type\":{\"fqn\":\"jsii-calc.EraseUndefinedHashValuesOptions\"}},{\"name\":\"key\",\"type\":{\"primitive\":\"string\"}}]")]
         public static bool DoesKeyExist(IEraseUndefinedHashValuesOptions opts, string key)
         {
             return InvokeStaticMethod<bool>(typeof(EraseUndefinedHashValues), new object[]{opts, key});
         }
 
         /// <summary>We expect "prop1" to be erased.</summary>
-        [JsiiMethod("prop1IsNull", "{\"type\":{\"primitive\":\"any\"},\"optional\":true}", "[]")]
+        [JsiiMethod("prop1IsNull", "{\"primitive\":\"any\",\"optional\":true}", "[]")]
         public static object Prop1IsNull()
         {
             return InvokeStaticMethod<object>(typeof(EraseUndefinedHashValues), new object[]{});
         }
 
         /// <summary>We expect "prop2" to be erased.</summary>
-        [JsiiMethod("prop2IsUndefined", "{\"type\":{\"primitive\":\"any\"},\"optional\":true}", "[]")]
+        [JsiiMethod("prop2IsUndefined", "{\"primitive\":\"any\",\"optional\":true}", "[]")]
         public static object Prop2IsUndefined()
         {
             return InvokeStaticMethod<object>(typeof(EraseUndefinedHashValues), new object[]{});

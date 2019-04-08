@@ -15,7 +15,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// default: 80
         /// Corresponds to container port mapping.
         /// </remarks>
-        [JsiiProperty("containerPort", "{\"type\":{\"primitive\":\"number\"},\"optional\":true}")]
+        [JsiiProperty("containerPort", "{\"primitive\":\"number\",\"optional\":true}")]
         public double? ContainerPort
         {
             get => GetInstanceProperty<double? >();
@@ -26,7 +26,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// default: 256
         /// This default is set in the underlying FargateTaskDefinition construct.
         /// </remarks>
-        [JsiiProperty("cpu", "{\"type\":{\"primitive\":\"string\"},\"optional\":true}")]
+        [JsiiProperty("cpu", "{\"primitive\":\"string\",\"optional\":true}")]
         public string Cpu
         {
             get => GetInstanceProperty<string>();
@@ -50,7 +50,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// 
         /// This default is set in the underlying FargateTaskDefinition construct.
         /// </remarks>
-        [JsiiProperty("memoryMiB", "{\"type\":{\"primitive\":\"string\"},\"optional\":true}")]
+        [JsiiProperty("memoryMiB", "{\"primitive\":\"string\",\"optional\":true}")]
         public string MemoryMiB
         {
             get => GetInstanceProperty<string>();
@@ -58,7 +58,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Determines whether the Application Load Balancer will be internet-facing.</summary>
         /// <remarks>default: true</remarks>
-        [JsiiProperty("publicLoadBalancer", "{\"type\":{\"primitive\":\"boolean\"},\"optional\":true}")]
+        [JsiiProperty("publicLoadBalancer", "{\"primitive\":\"boolean\",\"optional\":true}")]
         public bool? PublicLoadBalancer
         {
             get => GetInstanceProperty<bool? >();
@@ -66,7 +66,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Determines whether your Fargate Service will be assigned a public IP address.</summary>
         /// <remarks>default: false</remarks>
-        [JsiiProperty("publicTasks", "{\"type\":{\"primitive\":\"boolean\"},\"optional\":true}")]
+        [JsiiProperty("publicTasks", "{\"primitive\":\"boolean\",\"optional\":true}")]
         public bool? PublicTasks
         {
             get => GetInstanceProperty<bool? >();

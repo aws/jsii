@@ -5,13 +5,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(typeof(IIExtendsPrivateInterface), "jsii-calc.IExtendsPrivateInterface")]
     public interface IIExtendsPrivateInterface
     {
-        [JsiiProperty("moreThings", "{\"type\":{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"type\":{\"primitive\":\"string\"}}}}}")]
+        [JsiiProperty("moreThings", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}}}")]
         string[] MoreThings
         {
             get;
         }
 
-        [JsiiProperty("private", "{\"type\":{\"primitive\":\"string\"}}")]
+        [JsiiProperty("private", "{\"primitive\":\"string\"}")]
         string Private
         {
             get;

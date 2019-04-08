@@ -9,39 +9,39 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(typeof(IDerivedStruct), "jsii-calc.DerivedStruct")]
     public interface IDerivedStruct : IMyFirstStruct
     {
-        /// <summary>This is optional.</summary>
-        [JsiiProperty("anotherOptional", "{\"type\":{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}},\"optional\":true}")]
-        IDictionary<string, Value_> AnotherOptional
-        {
-            get;
-        }
-
-        [JsiiProperty("anotherRequired", "{\"type\":{\"primitive\":\"date\"}}")]
+        [JsiiProperty("anotherRequired", "{\"primitive\":\"date\"}")]
         DateTime AnotherRequired
         {
             get;
         }
 
-        [JsiiProperty("bool", "{\"type\":{\"primitive\":\"boolean\"}}")]
+        [JsiiProperty("bool", "{\"primitive\":\"boolean\"}")]
         bool Bool
         {
             get;
         }
 
         /// <summary>An example of a non primitive property.</summary>
-        [JsiiProperty("nonPrimitive", "{\"type\":{\"fqn\":\"jsii-calc.DoubleTrouble\"}}")]
+        [JsiiProperty("nonPrimitive", "{\"fqn\":\"jsii-calc.DoubleTrouble\"}")]
         DoubleTrouble NonPrimitive
         {
             get;
         }
 
-        [JsiiProperty("optionalAny", "{\"type\":{\"primitive\":\"any\"},\"optional\":true}")]
+        /// <summary>This is optional.</summary>
+        [JsiiProperty("anotherOptional", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},\"optional\":true}")]
+        IDictionary<string, Value_> AnotherOptional
+        {
+            get;
+        }
+
+        [JsiiProperty("optionalAny", "{\"primitive\":\"any\",\"optional\":true}")]
         object OptionalAny
         {
             get;
         }
 
-        [JsiiProperty("optionalArray", "{\"type\":{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"type\":{\"primitive\":\"string\"}}}},\"optional\":true}")]
+        [JsiiProperty("optionalArray", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"optional\":true}")]
         string[] OptionalArray
         {
             get;

@@ -37,7 +37,6 @@
     "@scope/jsii-calc-base": {
       "dependencies": {
         "@scope/jsii-calc-base-of-base": {
-          "peer": true,
           "targets": {
             "dotnet": {
               "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
@@ -56,12 +55,12 @@
             "python": {
               "distName": "scope.jsii-calc-base-of-base",
               "module": "scope.jsii_calc_base_of_base"
-            }
+            },
+            "sphinx": {}
           },
           "version": "0.9.0"
         }
       },
-      "peer": true,
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
@@ -80,12 +79,12 @@
         "python": {
           "distName": "scope.jsii-calc-base",
           "module": "scope.jsii_calc_base"
-        }
+        },
+        "sphinx": {}
       },
       "version": "0.9.0"
     },
     "@scope/jsii-calc-base-of-base": {
-      "peer": true,
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
@@ -104,7 +103,8 @@
         "python": {
           "distName": "scope.jsii-calc-base-of-base",
           "module": "scope.jsii_calc_base_of_base"
-        }
+        },
+        "sphinx": {}
       },
       "version": "0.9.0"
     },
@@ -113,7 +113,6 @@
         "@scope/jsii-calc-base": {
           "dependencies": {
             "@scope/jsii-calc-base-of-base": {
-              "peer": true,
               "targets": {
                 "dotnet": {
                   "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
@@ -132,12 +131,12 @@
                 "python": {
                   "distName": "scope.jsii-calc-base-of-base",
                   "module": "scope.jsii_calc_base_of_base"
-                }
+                },
+                "sphinx": {}
               },
               "version": "0.9.0"
             }
           },
-          "peer": true,
           "targets": {
             "dotnet": {
               "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
@@ -156,12 +155,12 @@
             "python": {
               "distName": "scope.jsii-calc-base",
               "module": "scope.jsii_calc_base"
-            }
+            },
+            "sphinx": {}
           },
           "version": "0.9.0"
         }
       },
-      "peer": true,
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.LibNamespace",
@@ -180,7 +179,8 @@
         "python": {
           "distName": "scope.jsii-calc-lib",
           "module": "scope.jsii_calc_lib"
-        }
+        },
+        "sphinx": {}
       },
       "version": "0.9.0"
     }
@@ -197,7 +197,7 @@
     "type": "git",
     "url": "https://github.com/awslabs/jsii.git"
   },
-  "schema": "jsii/0.9.0",
+  "schema": "jsii/0.10.0",
   "targets": {
     "dotnet": {
       "namespace": "Amazon.JSII.Tests.CalculatorNamespace",
@@ -216,23 +216,18 @@
     "python": {
       "distName": "jsii-calc",
       "module": "jsii_calc"
-    }
+    },
+    "sphinx": {}
   },
   "types": {
     "jsii-calc.AbstractClass": {
       "abstract": true,
       "assembly": "jsii-calc",
-      "base": {
-        "fqn": "jsii-calc.AbstractClassBase"
-      },
+      "base": "jsii-calc.AbstractClassBase",
       "fqn": "jsii-calc.AbstractClass",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "interfaces": [
-        {
-          "fqn": "jsii-calc.IInterfaceImplementedByAbstractClass"
-        }
+        "jsii-calc.IInterfaceImplementedByAbstractClass"
       ],
       "kind": "class",
       "locationInModule": {
@@ -250,17 +245,13 @@
           "parameters": [
             {
               "name": "name",
-              "value": {
-                "type": {
-                  "primitive": "string"
-                }
+              "type": {
+                "primitive": "string"
               }
             }
           ],
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         },
         {
@@ -270,9 +261,7 @@
           },
           "name": "nonAbstractMethod",
           "returns": {
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number"
           }
         }
       ],
@@ -285,13 +274,9 @@
             "line": 1074
           },
           "name": "propFromInterface",
-          "overrides": {
-            "fqn": "jsii-calc.IInterfaceImplementedByAbstractClass"
-          },
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "overrides": "jsii-calc.IInterfaceImplementedByAbstractClass",
+          "type": {
+            "primitive": "string"
           }
         }
       ]
@@ -300,9 +285,7 @@
       "abstract": true,
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.AbstractClassBase",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -318,10 +301,8 @@
             "line": 1064
           },
           "name": "abstractProperty",
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         }
       ]
@@ -329,9 +310,7 @@
     "jsii-calc.AbstractClassReturner": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.AbstractClassReturner",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -345,9 +324,7 @@
           },
           "name": "giveMeAbstract",
           "returns": {
-            "type": {
-              "fqn": "jsii-calc.AbstractClass"
-            }
+            "fqn": "jsii-calc.AbstractClass"
           }
         },
         {
@@ -357,9 +334,7 @@
           },
           "name": "giveMeInterface",
           "returns": {
-            "type": {
-              "fqn": "jsii-calc.IInterfaceImplementedByAbstractClass"
-            }
+            "fqn": "jsii-calc.IInterfaceImplementedByAbstractClass"
           }
         }
       ],
@@ -372,19 +347,15 @@
             "line": 1098
           },
           "name": "returnAbstractFromProperty",
-          "value": {
-            "type": {
-              "fqn": "jsii-calc.AbstractClassBase"
-            }
+          "type": {
+            "fqn": "jsii-calc.AbstractClassBase"
           }
         }
       ]
     },
     "jsii-calc.Add": {
       "assembly": "jsii-calc",
-      "base": {
-        "fqn": "jsii-calc.BinaryOperation"
-      },
+      "base": "jsii-calc.BinaryOperation",
       "docs": {
         "summary": "The \"+\" binary operation."
       },
@@ -393,17 +364,14 @@
         "docs": {
           "summary": "Creates a BinaryOperation."
         },
-        "initializer": true,
         "parameters": [
           {
             "docs": {
               "summary": "Left-hand side operand."
             },
             "name": "lhs",
-            "value": {
-              "type": {
-                "fqn": "@scope/jsii-calc-lib.Value"
-              }
+            "type": {
+              "fqn": "@scope/jsii-calc-lib.Value"
             }
           },
           {
@@ -411,10 +379,8 @@
               "summary": "Right-hand side operand."
             },
             "name": "rhs",
-            "value": {
-              "type": {
-                "fqn": "@scope/jsii-calc-lib.Value"
-              }
+            "type": {
+              "fqn": "@scope/jsii-calc-lib.Value"
             }
           }
         ]
@@ -434,13 +400,9 @@
             "line": 61
           },
           "name": "toString",
-          "overrides": {
-            "fqn": "@scope/jsii-calc-lib.Operation"
-          },
+          "overrides": "@scope/jsii-calc-lib.Operation",
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         }
       ],
@@ -456,13 +418,9 @@
             "line": 57
           },
           "name": "value",
-          "overrides": {
-            "fqn": "@scope/jsii-calc-lib.Value"
-          },
-          "value": {
-            "type": {
-              "primitive": "number"
-            }
+          "overrides": "@scope/jsii-calc-lib.Value",
+          "type": {
+            "primitive": "number"
           }
         }
       ]
@@ -474,9 +432,7 @@
         "summary": "This class includes property for all types supported by jsii."
       },
       "fqn": "jsii-calc.AllTypes",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -492,11 +448,9 @@
           "parameters": [
             {
               "name": "inp",
-              "value": {
+              "type": {
                 "optional": true,
-                "type": {
-                  "primitive": "any"
-                }
+                "primitive": "any"
               }
             }
           ]
@@ -509,9 +463,7 @@
           "name": "anyOut",
           "returns": {
             "optional": true,
-            "type": {
-              "primitive": "any"
-            }
+            "primitive": "any"
           }
         },
         {
@@ -523,17 +475,13 @@
           "parameters": [
             {
               "name": "value",
-              "value": {
-                "type": {
-                  "fqn": "jsii-calc.StringEnum"
-                }
+              "type": {
+                "fqn": "jsii-calc.StringEnum"
               }
             }
           ],
           "returns": {
-            "type": {
-              "fqn": "jsii-calc.StringEnum"
-            }
+            "fqn": "jsii-calc.StringEnum"
           }
         }
       ],
@@ -546,10 +494,8 @@
             "line": 190
           },
           "name": "enumPropertyValue",
-          "value": {
-            "type": {
-              "primitive": "number"
-            }
+          "type": {
+            "primitive": "number"
           }
         },
         {
@@ -558,17 +504,13 @@
             "line": 154
           },
           "name": "anyArrayProperty",
-          "value": {
-            "type": {
-              "collection": {
-                "elementtype": {
-                  "optional": true,
-                  "type": {
-                    "primitive": "any"
-                  }
-                },
-                "kind": "array"
-              }
+          "type": {
+            "collection": {
+              "elementtype": {
+                "optional": true,
+                "primitive": "any"
+              },
+              "kind": "array"
             }
           }
         },
@@ -578,30 +520,13 @@
             "line": 155
           },
           "name": "anyMapProperty",
-          "value": {
-            "type": {
-              "collection": {
-                "elementtype": {
-                  "optional": true,
-                  "type": {
-                    "primitive": "any"
-                  }
-                },
-                "kind": "map"
-              }
-            }
-          }
-        },
-        {
-          "locationInModule": {
-            "filename": "lib/compliance.ts",
-            "line": 153
-          },
-          "name": "anyProperty",
-          "value": {
-            "optional": true,
-            "type": {
-              "primitive": "any"
+          "type": {
+            "collection": {
+              "elementtype": {
+                "optional": true,
+                "primitive": "any"
+              },
+              "kind": "map"
             }
           }
         },
@@ -611,16 +536,12 @@
             "line": 139
           },
           "name": "arrayProperty",
-          "value": {
-            "type": {
-              "collection": {
-                "elementtype": {
-                  "type": {
-                    "primitive": "string"
-                  }
-                },
-                "kind": "array"
-              }
+          "type": {
+            "collection": {
+              "elementtype": {
+                "primitive": "string"
+              },
+              "kind": "array"
             }
           }
         },
@@ -630,10 +551,8 @@
             "line": 45
           },
           "name": "booleanProperty",
-          "value": {
-            "type": {
-              "primitive": "boolean"
-            }
+          "type": {
+            "primitive": "boolean"
           }
         },
         {
@@ -642,10 +561,8 @@
             "line": 91
           },
           "name": "dateProperty",
-          "value": {
-            "type": {
-              "primitive": "date"
-            }
+          "type": {
+            "primitive": "date"
           }
         },
         {
@@ -654,10 +571,8 @@
             "line": 174
           },
           "name": "enumProperty",
-          "value": {
-            "type": {
-              "fqn": "jsii-calc.AllTypesEnum"
-            }
+          "type": {
+            "fqn": "jsii-calc.AllTypesEnum"
           }
         },
         {
@@ -666,10 +581,8 @@
             "line": 108
           },
           "name": "jsonProperty",
-          "value": {
-            "type": {
-              "primitive": "json"
-            }
+          "type": {
+            "primitive": "json"
           }
         },
         {
@@ -678,16 +591,12 @@
             "line": 124
           },
           "name": "mapProperty",
-          "value": {
-            "type": {
-              "collection": {
-                "elementtype": {
-                  "type": {
-                    "fqn": "@scope/jsii-calc-lib.Number"
-                  }
-                },
-                "kind": "map"
-              }
+          "type": {
+            "collection": {
+              "elementtype": {
+                "fqn": "@scope/jsii-calc-lib.Number"
+              },
+              "kind": "map"
             }
           }
         },
@@ -697,23 +606,8 @@
             "line": 76
           },
           "name": "numberProperty",
-          "value": {
-            "type": {
-              "primitive": "number"
-            }
-          }
-        },
-        {
-          "locationInModule": {
-            "filename": "lib/compliance.ts",
-            "line": 171
-          },
-          "name": "optionalEnumValue",
-          "value": {
-            "optional": true,
-            "type": {
-              "fqn": "jsii-calc.StringEnum"
-            }
+          "type": {
+            "primitive": "number"
           }
         },
         {
@@ -722,10 +616,8 @@
             "line": 60
           },
           "name": "stringProperty",
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         },
         {
@@ -734,29 +626,21 @@
             "line": 166
           },
           "name": "unionArrayProperty",
-          "value": {
-            "type": {
-              "collection": {
-                "elementtype": {
-                  "type": {
-                    "union": {
-                      "types": [
-                        {
-                          "type": {
-                            "primitive": "number"
-                          }
-                        },
-                        {
-                          "type": {
-                            "fqn": "@scope/jsii-calc-lib.Value"
-                          }
-                        }
-                      ]
+          "type": {
+            "collection": {
+              "elementtype": {
+                "union": {
+                  "types": [
+                    {
+                      "primitive": "number"
+                    },
+                    {
+                      "fqn": "@scope/jsii-calc-lib.Value"
                     }
-                  }
-                },
-                "kind": "array"
-              }
+                  ]
+                }
+              },
+              "kind": "array"
             }
           }
         },
@@ -766,34 +650,24 @@
             "line": 167
           },
           "name": "unionMapProperty",
-          "value": {
-            "type": {
-              "collection": {
-                "elementtype": {
-                  "type": {
-                    "union": {
-                      "types": [
-                        {
-                          "type": {
-                            "primitive": "string"
-                          }
-                        },
-                        {
-                          "type": {
-                            "primitive": "number"
-                          }
-                        },
-                        {
-                          "type": {
-                            "fqn": "@scope/jsii-calc-lib.Number"
-                          }
-                        }
-                      ]
+          "type": {
+            "collection": {
+              "elementtype": {
+                "union": {
+                  "types": [
+                    {
+                      "primitive": "string"
+                    },
+                    {
+                      "primitive": "number"
+                    },
+                    {
+                      "fqn": "@scope/jsii-calc-lib.Number"
                     }
-                  }
-                },
-                "kind": "map"
-              }
+                  ]
+                }
+              },
+              "kind": "map"
             }
           }
         },
@@ -803,32 +677,22 @@
             "line": 165
           },
           "name": "unionProperty",
-          "value": {
-            "type": {
-              "union": {
-                "types": [
-                  {
-                    "type": {
-                      "primitive": "string"
-                    }
-                  },
-                  {
-                    "type": {
-                      "primitive": "number"
-                    }
-                  },
-                  {
-                    "type": {
-                      "fqn": "jsii-calc.Multiply"
-                    }
-                  },
-                  {
-                    "type": {
-                      "fqn": "@scope/jsii-calc-lib.Number"
-                    }
-                  }
-                ]
-              }
+          "type": {
+            "union": {
+              "types": [
+                {
+                  "primitive": "string"
+                },
+                {
+                  "primitive": "number"
+                },
+                {
+                  "fqn": "jsii-calc.Multiply"
+                },
+                {
+                  "fqn": "@scope/jsii-calc-lib.Number"
+                }
+              ]
             }
           }
         },
@@ -838,17 +702,13 @@
             "line": 160
           },
           "name": "unknownArrayProperty",
-          "value": {
-            "type": {
-              "collection": {
-                "elementtype": {
-                  "optional": true,
-                  "type": {
-                    "primitive": "any"
-                  }
-                },
-                "kind": "array"
-              }
+          "type": {
+            "collection": {
+              "elementtype": {
+                "optional": true,
+                "primitive": "any"
+              },
+              "kind": "array"
             }
           }
         },
@@ -858,18 +718,36 @@
             "line": 161
           },
           "name": "unknownMapProperty",
-          "value": {
-            "type": {
-              "collection": {
-                "elementtype": {
-                  "optional": true,
-                  "type": {
-                    "primitive": "any"
-                  }
-                },
-                "kind": "map"
-              }
+          "type": {
+            "collection": {
+              "elementtype": {
+                "optional": true,
+                "primitive": "any"
+              },
+              "kind": "map"
             }
+          }
+        },
+        {
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 153
+          },
+          "name": "anyProperty",
+          "type": {
+            "optional": true,
+            "primitive": "any"
+          }
+        },
+        {
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 171
+          },
+          "name": "optionalEnumValue",
+          "type": {
+            "fqn": "jsii-calc.StringEnum",
+            "optional": true
           }
         },
         {
@@ -878,11 +756,9 @@
             "line": 159
           },
           "name": "unknownProperty",
-          "value": {
+          "type": {
             "optional": true,
-            "type": {
-              "primitive": "any"
-            }
+            "primitive": "any"
           }
         }
       ]
@@ -911,9 +787,7 @@
     "jsii-calc.AllowedMethodNames": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.AllowedMethodNames",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -929,18 +803,14 @@
           "parameters": [
             {
               "name": "_p1",
-              "value": {
-                "type": {
-                  "primitive": "string"
-                }
+              "type": {
+                "primitive": "string"
               }
             },
             {
               "name": "_p2",
-              "value": {
-                "type": {
-                  "primitive": "number"
-                }
+              "type": {
+                "primitive": "number"
               }
             }
           ]
@@ -957,17 +827,13 @@
           "parameters": [
             {
               "name": "withParam",
-              "value": {
-                "type": {
-                  "primitive": "string"
-                }
+              "type": {
+                "primitive": "string"
               }
             }
           ],
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         },
         {
@@ -979,26 +845,20 @@
           "parameters": [
             {
               "name": "_x",
-              "value": {
-                "type": {
-                  "primitive": "string"
-                }
+              "type": {
+                "primitive": "string"
               }
             },
             {
               "name": "_y",
-              "value": {
-                "type": {
-                  "primitive": "number"
-                }
+              "type": {
+                "primitive": "number"
               }
             },
             {
               "name": "_z",
-              "value": {
-                "type": {
-                  "primitive": "boolean"
-                }
+              "type": {
+                "primitive": "boolean"
               }
             }
           ]
@@ -1015,18 +875,14 @@
           "parameters": [
             {
               "name": "_x",
-              "value": {
-                "type": {
-                  "primitive": "string"
-                }
+              "type": {
+                "primitive": "string"
               }
             },
             {
               "name": "_y",
-              "value": {
-                "type": {
-                  "primitive": "number"
-                }
+              "type": {
+                "primitive": "number"
               }
             }
           ]
@@ -1037,9 +893,7 @@
     "jsii-calc.AsyncVirtualMethods": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.AsyncVirtualMethods",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -1053,10 +907,8 @@
           },
           "name": "callMe",
           "returns": {
-            "promise": true,
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number",
+            "promise": true
           }
         },
         {
@@ -1069,10 +921,8 @@
           },
           "name": "callMe2",
           "returns": {
-            "promise": true,
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number",
+            "promise": true
           }
         },
         {
@@ -1086,10 +936,8 @@
           },
           "name": "callMeDoublePromise",
           "returns": {
-            "promise": true,
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number",
+            "promise": true
           }
         },
         {
@@ -1099,9 +947,7 @@
           },
           "name": "dontOverrideMe",
           "returns": {
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number"
           }
         },
         {
@@ -1113,18 +959,14 @@
           "parameters": [
             {
               "name": "mult",
-              "value": {
-                "type": {
-                  "primitive": "number"
-                }
+              "type": {
+                "primitive": "number"
               }
             }
           ],
           "returns": {
-            "promise": true,
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number",
+            "promise": true
           }
         },
         {
@@ -1134,10 +976,8 @@
           },
           "name": "overrideMeToo",
           "returns": {
-            "promise": true,
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number",
+            "promise": true
           }
         }
       ],
@@ -1146,9 +986,7 @@
     "jsii-calc.AugmentableClass": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.AugmentableClass",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -1175,9 +1013,7 @@
     "jsii-calc.BinaryOperation": {
       "abstract": true,
       "assembly": "jsii-calc",
-      "base": {
-        "fqn": "@scope/jsii-calc-lib.Operation"
-      },
+      "base": "@scope/jsii-calc-lib.Operation",
       "docs": {
         "summary": "Represents an operation with two operands."
       },
@@ -1186,17 +1022,14 @@
         "docs": {
           "summary": "Creates a BinaryOperation."
         },
-        "initializer": true,
         "parameters": [
           {
             "docs": {
               "summary": "Left-hand side operand."
             },
             "name": "lhs",
-            "value": {
-              "type": {
-                "fqn": "@scope/jsii-calc-lib.Value"
-              }
+            "type": {
+              "fqn": "@scope/jsii-calc-lib.Value"
             }
           },
           {
@@ -1204,18 +1037,14 @@
               "summary": "Right-hand side operand."
             },
             "name": "rhs",
-            "value": {
-              "type": {
-                "fqn": "@scope/jsii-calc-lib.Value"
-              }
+            "type": {
+              "fqn": "@scope/jsii-calc-lib.Value"
             }
           }
         ]
       },
       "interfaces": [
-        {
-          "fqn": "@scope/jsii-calc-lib.IFriendly"
-        }
+        "@scope/jsii-calc-lib.IFriendly"
       ],
       "kind": "class",
       "locationInModule": {
@@ -1232,13 +1061,9 @@
             "line": 48
           },
           "name": "hello",
-          "overrides": {
-            "fqn": "@scope/jsii-calc-lib.IFriendly"
-          },
+          "overrides": "@scope/jsii-calc-lib.IFriendly",
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         }
       ],
@@ -1254,10 +1079,8 @@
             "line": 44
           },
           "name": "lhs",
-          "value": {
-            "type": {
-              "fqn": "@scope/jsii-calc-lib.Value"
-            }
+          "type": {
+            "fqn": "@scope/jsii-calc-lib.Value"
           }
         },
         {
@@ -1270,19 +1093,15 @@
             "line": 44
           },
           "name": "rhs",
-          "value": {
-            "type": {
-              "fqn": "@scope/jsii-calc-lib.Value"
-            }
+          "type": {
+            "fqn": "@scope/jsii-calc-lib.Value"
           }
         }
       ]
     },
     "jsii-calc.Calculator": {
       "assembly": "jsii-calc",
-      "base": {
-        "fqn": "jsii-calc.composition.CompositeOperation"
-      },
+      "base": "jsii-calc.composition.CompositeOperation",
       "docs": {
         "summary": "A calculator which maintains a current value and allows adding operations."
       },
@@ -1291,18 +1110,15 @@
         "docs": {
           "summary": "Creates a Calculator object."
         },
-        "initializer": true,
         "parameters": [
           {
             "docs": {
               "summary": "Initialization properties."
             },
             "name": "props",
-            "value": {
-              "optional": true,
-              "type": {
-                "fqn": "jsii-calc.CalculatorProps"
-              }
+            "type": {
+              "fqn": "jsii-calc.CalculatorProps",
+              "optional": true
             }
           }
         ]
@@ -1325,10 +1141,8 @@
           "parameters": [
             {
               "name": "value",
-              "value": {
-                "type": {
-                  "primitive": "number"
-                }
+              "type": {
+                "primitive": "number"
               }
             }
           ]
@@ -1345,10 +1159,8 @@
           "parameters": [
             {
               "name": "value",
-              "value": {
-                "type": {
-                  "primitive": "number"
-                }
+              "type": {
+                "primitive": "number"
               }
             }
           ]
@@ -1375,10 +1187,8 @@
           "parameters": [
             {
               "name": "value",
-              "value": {
-                "type": {
-                  "primitive": "number"
-                }
+              "type": {
+                "primitive": "number"
               }
             }
           ]
@@ -1393,9 +1203,7 @@
           },
           "name": "readUnionValue",
           "returns": {
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number"
           }
         }
       ],
@@ -1411,13 +1219,9 @@
             "line": 310
           },
           "name": "expression",
-          "overrides": {
-            "fqn": "jsii-calc.composition.CompositeOperation"
-          },
-          "value": {
-            "type": {
-              "fqn": "@scope/jsii-calc-lib.Value"
-            }
+          "overrides": "jsii-calc.composition.CompositeOperation",
+          "type": {
+            "fqn": "@scope/jsii-calc-lib.Value"
           }
         },
         {
@@ -1430,16 +1234,12 @@
             "line": 272
           },
           "name": "operationsLog",
-          "value": {
-            "type": {
-              "collection": {
-                "elementtype": {
-                  "type": {
-                    "fqn": "@scope/jsii-calc-lib.Value"
-                  }
-                },
-                "kind": "array"
-              }
+          "type": {
+            "collection": {
+              "elementtype": {
+                "fqn": "@scope/jsii-calc-lib.Value"
+              },
+              "kind": "array"
             }
           }
         },
@@ -1453,23 +1253,17 @@
             "line": 267
           },
           "name": "operationsMap",
-          "value": {
-            "type": {
-              "collection": {
-                "elementtype": {
-                  "type": {
-                    "collection": {
-                      "elementtype": {
-                        "type": {
-                          "fqn": "@scope/jsii-calc-lib.Value"
-                        }
-                      },
-                      "kind": "array"
-                    }
-                  }
-                },
-                "kind": "map"
-              }
+          "type": {
+            "collection": {
+              "elementtype": {
+                "collection": {
+                  "elementtype": {
+                    "fqn": "@scope/jsii-calc-lib.Value"
+                  },
+                  "kind": "array"
+                }
+              },
+              "kind": "map"
             }
           }
         },
@@ -1482,10 +1276,8 @@
             "line": 262
           },
           "name": "curr",
-          "value": {
-            "type": {
-              "fqn": "@scope/jsii-calc-lib.Value"
-            }
+          "type": {
+            "fqn": "@scope/jsii-calc-lib.Value"
           }
         },
         {
@@ -1497,11 +1289,9 @@
             "line": 277
           },
           "name": "maxValue",
-          "value": {
+          "type": {
             "optional": true,
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number"
           }
         },
         {
@@ -1513,28 +1303,20 @@
             "line": 317
           },
           "name": "unionProperty",
-          "value": {
+          "type": {
             "optional": true,
-            "type": {
-              "union": {
-                "types": [
-                  {
-                    "type": {
-                      "fqn": "jsii-calc.Add"
-                    }
-                  },
-                  {
-                    "type": {
-                      "fqn": "jsii-calc.Multiply"
-                    }
-                  },
-                  {
-                    "type": {
-                      "fqn": "jsii-calc.Power"
-                    }
-                  }
-                ]
-              }
+            "union": {
+              "types": [
+                {
+                  "fqn": "jsii-calc.Add"
+                },
+                {
+                  "fqn": "jsii-calc.Multiply"
+                },
+                {
+                  "fqn": "jsii-calc.Power"
+                }
+              ]
             }
           }
         }
@@ -1562,11 +1344,9 @@
             "line": 236
           },
           "name": "initialValue",
-          "value": {
+          "type": {
             "optional": true,
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number"
           }
         },
         {
@@ -1577,11 +1357,9 @@
             "line": 237
           },
           "name": "maximumValue",
-          "value": {
+          "type": {
             "optional": true,
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number"
           }
         }
       ]
@@ -1589,13 +1367,9 @@
     "jsii-calc.ClassThatImplementsTheInternalInterface": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.ClassThatImplementsTheInternalInterface",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "interfaces": [
-        {
-          "fqn": "jsii-calc.INonInternalInterface"
-        }
+        "jsii-calc.INonInternalInterface"
       ],
       "kind": "class",
       "locationInModule": {
@@ -1610,13 +1384,9 @@
             "line": 1564
           },
           "name": "a",
-          "overrides": {
-            "fqn": "jsii-calc.IAnotherPublicInterface"
-          },
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "overrides": "jsii-calc.IAnotherPublicInterface",
+          "type": {
+            "primitive": "string"
           }
         },
         {
@@ -1625,13 +1395,9 @@
             "line": 1565
           },
           "name": "b",
-          "overrides": {
-            "fqn": "jsii-calc.INonInternalInterface"
-          },
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "overrides": "jsii-calc.INonInternalInterface",
+          "type": {
+            "primitive": "string"
           }
         },
         {
@@ -1640,13 +1406,9 @@
             "line": 1566
           },
           "name": "c",
-          "overrides": {
-            "fqn": "jsii-calc.INonInternalInterface"
-          },
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "overrides": "jsii-calc.INonInternalInterface",
+          "type": {
+            "primitive": "string"
           }
         },
         {
@@ -1655,10 +1417,8 @@
             "line": 1567
           },
           "name": "d",
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         }
       ]
@@ -1666,13 +1426,9 @@
     "jsii-calc.ClassThatImplementsThePrivateInterface": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.ClassThatImplementsThePrivateInterface",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "interfaces": [
-        {
-          "fqn": "jsii-calc.INonInternalInterface"
-        }
+        "jsii-calc.INonInternalInterface"
       ],
       "kind": "class",
       "locationInModule": {
@@ -1687,13 +1443,9 @@
             "line": 1571
           },
           "name": "a",
-          "overrides": {
-            "fqn": "jsii-calc.IAnotherPublicInterface"
-          },
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "overrides": "jsii-calc.IAnotherPublicInterface",
+          "type": {
+            "primitive": "string"
           }
         },
         {
@@ -1702,13 +1454,9 @@
             "line": 1572
           },
           "name": "b",
-          "overrides": {
-            "fqn": "jsii-calc.INonInternalInterface"
-          },
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "overrides": "jsii-calc.INonInternalInterface",
+          "type": {
+            "primitive": "string"
           }
         },
         {
@@ -1717,13 +1465,9 @@
             "line": 1573
           },
           "name": "c",
-          "overrides": {
-            "fqn": "jsii-calc.INonInternalInterface"
-          },
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "overrides": "jsii-calc.INonInternalInterface",
+          "type": {
+            "primitive": "string"
           }
         },
         {
@@ -1732,10 +1476,8 @@
             "line": 1574
           },
           "name": "e",
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         }
       ]
@@ -1743,9 +1485,7 @@
     "jsii-calc.ClassWithMutableObjectLiteralProperty": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.ClassWithMutableObjectLiteralProperty",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -1759,10 +1499,8 @@
             "line": 1110
           },
           "name": "mutableObject",
-          "value": {
-            "type": {
-              "fqn": "jsii-calc.IMutableObjectLiteral"
-            }
+          "type": {
+            "fqn": "jsii-calc.IMutableObjectLiteral"
           }
         }
       ]
@@ -1774,9 +1512,7 @@
       },
       "fqn": "jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties",
       "interfaces": [
-        {
-          "fqn": "jsii-calc.IInterfaceWithProperties"
-        }
+        "jsii-calc.IInterfaceWithProperties"
       ],
       "kind": "class",
       "locationInModule": {
@@ -1793,25 +1529,19 @@
           "parameters": [
             {
               "name": "readOnlyString",
-              "value": {
-                "type": {
-                  "primitive": "string"
-                }
+              "type": {
+                "primitive": "string"
               }
             },
             {
               "name": "readWriteString",
-              "value": {
-                "type": {
-                  "primitive": "string"
-                }
+              "type": {
+                "primitive": "string"
               }
             }
           ],
           "returns": {
-            "type": {
-              "fqn": "jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties"
-            }
+            "fqn": "jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties"
           },
           "static": true
         }
@@ -1825,13 +1555,9 @@
             "line": 1141
           },
           "name": "readOnlyString",
-          "overrides": {
-            "fqn": "jsii-calc.IInterfaceWithProperties"
-          },
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "overrides": "jsii-calc.IInterfaceWithProperties",
+          "type": {
+            "primitive": "string"
           }
         },
         {
@@ -1840,13 +1566,9 @@
             "line": 1141
           },
           "name": "readWriteString",
-          "overrides": {
-            "fqn": "jsii-calc.IInterfaceWithProperties"
-          },
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "overrides": "jsii-calc.IInterfaceWithProperties",
+          "type": {
+            "primitive": "string"
           }
         }
       ]
@@ -1855,14 +1577,11 @@
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.ConstructorPassesThisOut",
       "initializer": {
-        "initializer": true,
         "parameters": [
           {
             "name": "consumer",
-            "value": {
-              "type": {
-                "fqn": "jsii-calc.PartiallyInitializedThisConsumer"
-              }
+            "type": {
+              "fqn": "jsii-calc.PartiallyInitializedThisConsumer"
             }
           }
         ]
@@ -1877,9 +1596,7 @@
     "jsii-calc.Constructors": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.Constructors",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -1893,9 +1610,7 @@
           },
           "name": "hiddenInterface",
           "returns": {
-            "type": {
-              "fqn": "jsii-calc.IPublicInterface"
-            }
+            "fqn": "jsii-calc.IPublicInterface"
           },
           "static": true
         },
@@ -1906,15 +1621,11 @@
           },
           "name": "hiddenInterfaces",
           "returns": {
-            "type": {
-              "collection": {
-                "elementtype": {
-                  "type": {
-                    "fqn": "jsii-calc.IPublicInterface"
-                  }
-                },
-                "kind": "array"
-              }
+            "collection": {
+              "elementtype": {
+                "fqn": "jsii-calc.IPublicInterface"
+              },
+              "kind": "array"
             }
           },
           "static": true
@@ -1926,15 +1637,11 @@
           },
           "name": "hiddenSubInterfaces",
           "returns": {
-            "type": {
-              "collection": {
-                "elementtype": {
-                  "type": {
-                    "fqn": "jsii-calc.IPublicInterface"
-                  }
-                },
-                "kind": "array"
-              }
+            "collection": {
+              "elementtype": {
+                "fqn": "jsii-calc.IPublicInterface"
+              },
+              "kind": "array"
             }
           },
           "static": true
@@ -1946,9 +1653,7 @@
           },
           "name": "makeClass",
           "returns": {
-            "type": {
-              "fqn": "jsii-calc.PublicClass"
-            }
+            "fqn": "jsii-calc.PublicClass"
           },
           "static": true
         },
@@ -1959,9 +1664,7 @@
           },
           "name": "makeInterface",
           "returns": {
-            "type": {
-              "fqn": "jsii-calc.IPublicInterface"
-            }
+            "fqn": "jsii-calc.IPublicInterface"
           },
           "static": true
         },
@@ -1972,9 +1675,7 @@
           },
           "name": "makeInterface2",
           "returns": {
-            "type": {
-              "fqn": "jsii-calc.IPublicInterface2"
-            }
+            "fqn": "jsii-calc.IPublicInterface2"
           },
           "static": true
         },
@@ -1985,15 +1686,11 @@
           },
           "name": "makeInterfaces",
           "returns": {
-            "type": {
-              "collection": {
-                "elementtype": {
-                  "type": {
-                    "fqn": "jsii-calc.IPublicInterface"
-                  }
-                },
-                "kind": "array"
-              }
+            "collection": {
+              "elementtype": {
+                "fqn": "jsii-calc.IPublicInterface"
+              },
+              "kind": "array"
             }
           },
           "static": true
@@ -2004,9 +1701,7 @@
     "jsii-calc.ConsumersOfThisCrazyTypeSystem": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.ConsumersOfThisCrazyTypeSystem",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -2022,17 +1717,13 @@
           "parameters": [
             {
               "name": "obj",
-              "value": {
-                "type": {
-                  "fqn": "jsii-calc.IAnotherPublicInterface"
-                }
+              "type": {
+                "fqn": "jsii-calc.IAnotherPublicInterface"
               }
             }
           ],
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         },
         {
@@ -2044,18 +1735,14 @@
           "parameters": [
             {
               "name": "obj",
-              "value": {
-                "type": {
-                  "fqn": "jsii-calc.INonInternalInterface"
-                }
+              "type": {
+                "fqn": "jsii-calc.INonInternalInterface"
               }
             }
           ],
           "returns": {
             "optional": true,
-            "type": {
-              "primitive": "any"
-            }
+            "primitive": "any"
           }
         }
       ],
@@ -2065,33 +1752,26 @@
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.DefaultedConstructorArgument",
       "initializer": {
-        "initializer": true,
         "parameters": [
           {
             "name": "arg1",
-            "value": {
+            "type": {
               "optional": true,
-              "type": {
-                "primitive": "number"
-              }
+              "primitive": "number"
             }
           },
           {
             "name": "arg2",
-            "value": {
+            "type": {
               "optional": true,
-              "type": {
-                "primitive": "string"
-              }
+              "primitive": "string"
             }
           },
           {
             "name": "arg3",
-            "value": {
+            "type": {
               "optional": true,
-              "type": {
-                "primitive": "date"
-              }
+              "primitive": "date"
             }
           }
         ]
@@ -2110,24 +1790,8 @@
             "line": 290
           },
           "name": "arg1",
-          "value": {
-            "type": {
-              "primitive": "number"
-            }
-          }
-        },
-        {
-          "immutable": true,
-          "locationInModule": {
-            "filename": "lib/compliance.ts",
-            "line": 291
-          },
-          "name": "arg2",
-          "value": {
-            "optional": true,
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "number"
           }
         },
         {
@@ -2137,10 +1801,20 @@
             "line": 292
           },
           "name": "arg3",
-          "value": {
-            "type": {
-              "primitive": "date"
-            }
+          "type": {
+            "primitive": "date"
+          }
+        },
+        {
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 291
+          },
+          "name": "arg2",
+          "type": {
+            "optional": true,
+            "primitive": "string"
           }
         }
       ]
@@ -2148,9 +1822,7 @@
     "jsii-calc.DerivedClassHasNoProperties.Base": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.DerivedClassHasNoProperties.Base",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -2165,23 +1837,17 @@
             "line": 299
           },
           "name": "prop",
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         }
       ]
     },
     "jsii-calc.DerivedClassHasNoProperties.Derived": {
       "assembly": "jsii-calc",
-      "base": {
-        "fqn": "jsii-calc.DerivedClassHasNoProperties.Base"
-      },
+      "base": "jsii-calc.DerivedClassHasNoProperties.Base",
       "fqn": "jsii-calc.DerivedClassHasNoProperties.Derived",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -2198,9 +1864,7 @@
       },
       "fqn": "jsii-calc.DerivedStruct",
       "interfaces": [
-        {
-          "fqn": "@scope/jsii-calc-lib.MyFirstStruct"
-        }
+        "@scope/jsii-calc-lib.MyFirstStruct"
       ],
       "kind": "interface",
       "locationInModule": {
@@ -2211,41 +1875,14 @@
       "properties": [
         {
           "abstract": true,
-          "docs": {
-            "summary": "This is optional."
-          },
-          "immutable": true,
-          "locationInModule": {
-            "filename": "lib/compliance.ts",
-            "line": 532
-          },
-          "name": "anotherOptional",
-          "value": {
-            "optional": true,
-            "type": {
-              "collection": {
-                "elementtype": {
-                  "type": {
-                    "fqn": "@scope/jsii-calc-lib.Value"
-                  }
-                },
-                "kind": "map"
-              }
-            }
-          }
-        },
-        {
-          "abstract": true,
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 526
           },
           "name": "anotherRequired",
-          "value": {
-            "type": {
-              "primitive": "date"
-            }
+          "type": {
+            "primitive": "date"
           }
         },
         {
@@ -2256,10 +1893,8 @@
             "line": 525
           },
           "name": "bool",
-          "value": {
-            "type": {
-              "primitive": "boolean"
-            }
+          "type": {
+            "primitive": "boolean"
           }
         },
         {
@@ -2273,10 +1908,29 @@
             "line": 524
           },
           "name": "nonPrimitive",
-          "value": {
-            "type": {
-              "fqn": "jsii-calc.DoubleTrouble"
-            }
+          "type": {
+            "fqn": "jsii-calc.DoubleTrouble"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "summary": "This is optional."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 532
+          },
+          "name": "anotherOptional",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "fqn": "@scope/jsii-calc-lib.Value"
+              },
+              "kind": "map"
+            },
+            "optional": true
           }
         },
         {
@@ -2287,11 +1941,9 @@
             "line": 528
           },
           "name": "optionalAny",
-          "value": {
+          "type": {
             "optional": true,
-            "type": {
-              "primitive": "any"
-            }
+            "primitive": "any"
           }
         },
         {
@@ -2302,18 +1954,14 @@
             "line": 527
           },
           "name": "optionalArray",
-          "value": {
-            "optional": true,
-            "type": {
-              "collection": {
-                "elementtype": {
-                  "type": {
-                    "primitive": "string"
-                  }
-                },
-                "kind": "array"
-              }
-            }
+          "type": {
+            "collection": {
+              "elementtype": {
+                "primitive": "string"
+              },
+              "kind": "array"
+            },
+            "optional": true
           }
         }
       ]
@@ -2321,9 +1969,7 @@
     "jsii-calc.DoNotOverridePrivates": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.DoNotOverridePrivates",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -2339,10 +1985,8 @@
           "parameters": [
             {
               "name": "newValue",
-              "value": {
-                "type": {
-                  "primitive": "string"
-                }
+              "type": {
+                "primitive": "string"
               }
             }
           ]
@@ -2354,9 +1998,7 @@
           },
           "name": "privateMethodValue",
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         },
         {
@@ -2366,9 +2008,7 @@
           },
           "name": "privatePropertyValue",
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         }
       ],
@@ -2380,9 +2020,7 @@
         "summary": "jsii#284: do not recognize \"any\" as an optional argument."
       },
       "fqn": "jsii-calc.DoNotRecognizeAnyAsOptional",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -2398,29 +2036,23 @@
           "parameters": [
             {
               "name": "_requiredAny",
-              "value": {
+              "type": {
                 "optional": true,
-                "type": {
-                  "primitive": "any"
-                }
+                "primitive": "any"
               }
             },
             {
               "name": "_optionalAny",
-              "value": {
+              "type": {
                 "optional": true,
-                "type": {
-                  "primitive": "any"
-                }
+                "primitive": "any"
               }
             },
             {
               "name": "_optionalString",
-              "value": {
+              "type": {
                 "optional": true,
-                "type": {
-                  "primitive": "string"
-                }
+                "primitive": "string"
               }
             }
           ]
@@ -2436,9 +2068,7 @@
         "summary": "Here's the first line of the TSDoc comment."
       },
       "fqn": "jsii-calc.DocumentedClass",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/documented.ts",
@@ -2462,18 +2092,14 @@
                 "summary": "The person to be greeted."
               },
               "name": "greetee",
-              "value": {
-                "optional": true,
-                "type": {
-                  "fqn": "jsii-calc.Greetee"
-                }
+              "type": {
+                "fqn": "jsii-calc.Greetee",
+                "optional": true
               }
             }
           ],
           "returns": {
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number"
           }
         },
         {
@@ -2493,9 +2119,7 @@
     "jsii-calc.DontComplainAboutVariadicAfterOptional": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.DontComplainAboutVariadicAfterOptional",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -2511,27 +2135,21 @@
           "parameters": [
             {
               "name": "optional",
-              "value": {
+              "type": {
                 "optional": true,
-                "type": {
-                  "primitive": "string"
-                }
+                "primitive": "string"
               }
             },
             {
               "name": "things",
-              "value": {
-                "type": {
-                  "primitive": "string"
-                }
+              "type": {
+                "primitive": "string"
               },
               "variadic": true
             }
           ],
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           },
           "variadic": true
         }
@@ -2541,13 +2159,9 @@
     "jsii-calc.DoubleTrouble": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.DoubleTrouble",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "interfaces": [
-        {
-          "fqn": "jsii-calc.IFriendlyRandomGenerator"
-        }
+        "jsii-calc.IFriendlyRandomGenerator"
       ],
       "kind": "class",
       "locationInModule": {
@@ -2564,13 +2178,9 @@
             "line": 465
           },
           "name": "hello",
-          "overrides": {
-            "fqn": "@scope/jsii-calc-lib.IFriendly"
-          },
+          "overrides": "@scope/jsii-calc-lib.IFriendly",
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         },
         {
@@ -2582,13 +2192,9 @@
             "line": 461
           },
           "name": "next",
-          "overrides": {
-            "fqn": "jsii-calc.IRandomNumberGenerator"
-          },
+          "overrides": "jsii-calc.IRandomNumberGenerator",
           "returns": {
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number"
           }
         }
       ],
@@ -2597,9 +2203,7 @@
     "jsii-calc.EraseUndefinedHashValues": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.EraseUndefinedHashValues",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -2619,25 +2223,19 @@
           "parameters": [
             {
               "name": "opts",
-              "value": {
-                "type": {
-                  "fqn": "jsii-calc.EraseUndefinedHashValuesOptions"
-                }
+              "type": {
+                "fqn": "jsii-calc.EraseUndefinedHashValuesOptions"
               }
             },
             {
               "name": "key",
-              "value": {
-                "type": {
-                  "primitive": "string"
-                }
+              "type": {
+                "primitive": "string"
               }
             }
           ],
           "returns": {
-            "type": {
-              "primitive": "boolean"
-            }
+            "primitive": "boolean"
           },
           "static": true
         },
@@ -2652,9 +2250,7 @@
           "name": "prop1IsNull",
           "returns": {
             "optional": true,
-            "type": {
-              "primitive": "any"
-            }
+            "primitive": "any"
           },
           "static": true
         },
@@ -2669,9 +2265,7 @@
           "name": "prop2IsUndefined",
           "returns": {
             "optional": true,
-            "type": {
-              "primitive": "any"
-            }
+            "primitive": "any"
           },
           "static": true
         }
@@ -2697,11 +2291,9 @@
             "line": 1412
           },
           "name": "option1",
-          "value": {
+          "type": {
             "optional": true,
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         },
         {
@@ -2712,11 +2304,9 @@
             "line": 1413
           },
           "name": "option2",
-          "value": {
+          "type": {
             "optional": true,
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         }
       ]
@@ -2725,14 +2315,11 @@
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.ExportedBaseClass",
       "initializer": {
-        "initializer": true,
         "parameters": [
           {
             "name": "success",
-            "value": {
-              "type": {
-                "primitive": "boolean"
-              }
+            "type": {
+              "primitive": "boolean"
             }
           }
         ]
@@ -2751,10 +2338,8 @@
             "line": 1299
           },
           "name": "success",
-          "value": {
-            "type": {
-              "primitive": "boolean"
-            }
+          "type": {
+            "primitive": "boolean"
           }
         }
       ]
@@ -2778,10 +2363,8 @@
             "line": 1520
           },
           "name": "boom",
-          "value": {
-            "type": {
-              "primitive": "boolean"
-            }
+          "type": {
+            "primitive": "boolean"
           }
         },
         {
@@ -2792,10 +2375,8 @@
             "line": 1468
           },
           "name": "prop",
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         }
       ]
@@ -2803,9 +2384,7 @@
     "jsii-calc.GiveMeStructs": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.GiveMeStructs",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -2824,17 +2403,13 @@
           "parameters": [
             {
               "name": "derived",
-              "value": {
-                "type": {
-                  "fqn": "jsii-calc.DerivedStruct"
-                }
+              "type": {
+                "fqn": "jsii-calc.DerivedStruct"
               }
             }
           ],
           "returns": {
-            "type": {
-              "fqn": "@scope/jsii-calc-lib.MyFirstStruct"
-            }
+            "fqn": "@scope/jsii-calc-lib.MyFirstStruct"
           }
         },
         {
@@ -2849,17 +2424,13 @@
           "parameters": [
             {
               "name": "derived",
-              "value": {
-                "type": {
-                  "fqn": "jsii-calc.DerivedStruct"
-                }
+              "type": {
+                "fqn": "jsii-calc.DerivedStruct"
               }
             }
           ],
           "returns": {
-            "type": {
-              "fqn": "jsii-calc.DoubleTrouble"
-            }
+            "fqn": "jsii-calc.DoubleTrouble"
           }
         },
         {
@@ -2874,17 +2445,13 @@
           "parameters": [
             {
               "name": "first",
-              "value": {
-                "type": {
-                  "fqn": "@scope/jsii-calc-lib.MyFirstStruct"
-                }
+              "type": {
+                "fqn": "@scope/jsii-calc-lib.MyFirstStruct"
               }
             }
           ],
           "returns": {
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number"
           }
         }
       ],
@@ -2897,10 +2464,8 @@
             "line": 557
           },
           "name": "structLiteral",
-          "value": {
-            "type": {
-              "fqn": "@scope/jsii-calc-lib.StructWithOnlyOptionals"
-            }
+          "type": {
+            "fqn": "@scope/jsii-calc-lib.StructWithOnlyOptionals"
           }
         }
       ]
@@ -2931,11 +2496,9 @@
             "line": 46
           },
           "name": "name",
-          "value": {
+          "type": {
             "optional": true,
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         }
       ]
@@ -2943,9 +2506,7 @@
     "jsii-calc.GreetingAugmenter": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.GreetingAugmenter",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -2961,17 +2522,13 @@
           "parameters": [
             {
               "name": "friendly",
-              "value": {
-                "type": {
-                  "fqn": "@scope/jsii-calc-lib.IFriendly"
-                }
+              "type": {
+                "fqn": "@scope/jsii-calc-lib.IFriendly"
               }
             }
           ],
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         }
       ],
@@ -2994,10 +2551,8 @@
             "line": 1541
           },
           "name": "a",
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         }
       ]
@@ -3020,16 +2575,12 @@
             "line": 1532
           },
           "name": "moreThings",
-          "value": {
-            "type": {
-              "collection": {
-                "elementtype": {
-                  "type": {
-                    "primitive": "string"
-                  }
-                },
-                "kind": "array"
-              }
+          "type": {
+            "collection": {
+              "elementtype": {
+                "primitive": "string"
+              },
+              "kind": "array"
             }
           }
         },
@@ -3040,10 +2591,8 @@
             "line": 1516
           },
           "name": "private",
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         }
       ]
@@ -3055,9 +2604,7 @@
       },
       "fqn": "jsii-calc.IFriendlier",
       "interfaces": [
-        {
-          "fqn": "@scope/jsii-calc-lib.IFriendly"
-        }
+        "@scope/jsii-calc-lib.IFriendly"
       ],
       "kind": "interface",
       "locationInModule": {
@@ -3076,9 +2623,7 @@
           },
           "name": "farewell",
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         },
         {
@@ -3093,9 +2638,7 @@
           },
           "name": "goodbye",
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         }
       ],
@@ -3105,12 +2648,8 @@
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.IFriendlyRandomGenerator",
       "interfaces": [
-        {
-          "fqn": "jsii-calc.IRandomNumberGenerator"
-        },
-        {
-          "fqn": "@scope/jsii-calc-lib.IFriendly"
-        }
+        "jsii-calc.IRandomNumberGenerator",
+        "@scope/jsii-calc-lib.IFriendly"
       ],
       "kind": "interface",
       "locationInModule": {
@@ -3140,10 +2679,8 @@
             "line": 1060
           },
           "name": "propFromInterface",
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         }
       ]
@@ -3155,9 +2692,7 @@
       },
       "fqn": "jsii-calc.IInterfaceThatShouldNotBeADataType",
       "interfaces": [
-        {
-          "fqn": "jsii-calc.IInterfaceWithMethods"
-        }
+        "jsii-calc.IInterfaceWithMethods"
       ],
       "kind": "interface",
       "locationInModule": {
@@ -3174,10 +2709,8 @@
             "line": 1156
           },
           "name": "otherValue",
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         }
       ]
@@ -3230,10 +2763,8 @@
             "line": 1146
           },
           "name": "value",
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         }
       ]
@@ -3260,19 +2791,15 @@
           "parameters": [
             {
               "name": "arg1",
-              "value": {
-                "type": {
-                  "primitive": "string"
-                }
+              "type": {
+                "primitive": "string"
               }
             },
             {
               "name": "arg2",
-              "value": {
+              "type": {
                 "optional": true,
-                "type": {
-                  "primitive": "number"
-                }
+                "primitive": "number"
               }
             }
           ]
@@ -3298,10 +2825,8 @@
             "line": 566
           },
           "name": "readOnlyString",
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         },
         {
@@ -3311,10 +2836,8 @@
             "line": 567
           },
           "name": "readWriteString",
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         }
       ]
@@ -3323,9 +2846,7 @@
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.IInterfaceWithPropertiesExtension",
       "interfaces": [
-        {
-          "fqn": "jsii-calc.IInterfaceWithProperties"
-        }
+        "jsii-calc.IInterfaceWithProperties"
       ],
       "kind": "interface",
       "locationInModule": {
@@ -3341,10 +2862,8 @@
             "line": 571
           },
           "name": "foo",
-          "value": {
-            "type": {
-              "primitive": "number"
-            }
+          "type": {
+            "primitive": "number"
           }
         }
       ]
@@ -3353,9 +2872,7 @@
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.IJSII417Derived",
       "interfaces": [
-        {
-          "fqn": "jsii-calc.IJSII417PublicBaseOfBase"
-        }
+        "jsii-calc.IJSII417PublicBaseOfBase"
       ],
       "kind": "interface",
       "locationInModule": {
@@ -3390,10 +2907,8 @@
             "line": 34
           },
           "name": "property",
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         }
       ]
@@ -3426,10 +2941,8 @@
             "line": 28
           },
           "name": "hasRoot",
-          "value": {
-            "type": {
-              "primitive": "boolean"
-            }
+          "type": {
+            "primitive": "boolean"
           }
         }
       ]
@@ -3451,10 +2964,8 @@
             "line": 1106
           },
           "name": "value",
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         }
       ]
@@ -3463,9 +2974,7 @@
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.INonInternalInterface",
       "interfaces": [
-        {
-          "fqn": "jsii-calc.IAnotherPublicInterface"
-        }
+        "jsii-calc.IAnotherPublicInterface"
       ],
       "kind": "interface",
       "locationInModule": {
@@ -3481,10 +2990,8 @@
             "line": 1547
           },
           "name": "b",
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         },
         {
@@ -3494,10 +3001,8 @@
             "line": 1551
           },
           "name": "c",
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         }
       ]
@@ -3520,10 +3025,8 @@
             "line": 1296
           },
           "name": "success",
-          "value": {
-            "type": {
-              "primitive": "boolean"
-            }
+          "type": {
+            "primitive": "boolean"
           }
         }
       ]
@@ -3545,9 +3048,7 @@
           },
           "name": "bye",
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         }
       ],
@@ -3570,9 +3071,7 @@
           },
           "name": "ciao",
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         }
       ],
@@ -3602,9 +3101,7 @@
           },
           "name": "next",
           "returns": {
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number"
           }
         }
       ],
@@ -3627,9 +3124,7 @@
           },
           "name": "obtainNumber",
           "returns": {
-            "type": {
-              "fqn": "@scope/jsii-calc-lib.IDoublable"
-            }
+            "fqn": "@scope/jsii-calc-lib.IDoublable"
           }
         }
       ],
@@ -3643,10 +3138,8 @@
             "line": 621
           },
           "name": "numberProp",
-          "value": {
-            "type": {
-              "fqn": "@scope/jsii-calc-lib.Number"
-            }
+          "type": {
+            "fqn": "@scope/jsii-calc-lib.Number"
           }
         }
       ]
@@ -3654,9 +3147,7 @@
     "jsii-calc.ImplementInternalInterface": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.ImplementInternalInterface",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -3670,10 +3161,8 @@
             "line": 1524
           },
           "name": "prop",
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         }
       ]
@@ -3681,13 +3170,9 @@
     "jsii-calc.ImplementsInterfaceWithInternal": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.ImplementsInterfaceWithInternal",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "interfaces": [
-        {
-          "fqn": "jsii-calc.IInterfaceWithInternal"
-        }
+        "jsii-calc.IInterfaceWithInternal"
       ],
       "kind": "class",
       "locationInModule": {
@@ -3701,22 +3186,16 @@
             "line": 1487
           },
           "name": "visible",
-          "overrides": {
-            "fqn": "jsii-calc.IInterfaceWithInternal"
-          }
+          "overrides": "jsii-calc.IInterfaceWithInternal"
         }
       ],
       "name": "ImplementsInterfaceWithInternal"
     },
     "jsii-calc.ImplementsInterfaceWithInternalSubclass": {
       "assembly": "jsii-calc",
-      "base": {
-        "fqn": "jsii-calc.ImplementsInterfaceWithInternal"
-      },
+      "base": "jsii-calc.ImplementsInterfaceWithInternal",
       "fqn": "jsii-calc.ImplementsInterfaceWithInternalSubclass",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -3727,9 +3206,7 @@
     "jsii-calc.ImplementsPrivateInterface": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.ImplementsPrivateInterface",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -3743,10 +3220,8 @@
             "line": 1528
           },
           "name": "private",
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         }
       ]
@@ -3756,9 +3231,7 @@
       "datatype": true,
       "fqn": "jsii-calc.ImplictBaseOfBase",
       "interfaces": [
-        {
-          "fqn": "@scope/jsii-calc-base.BaseProps"
-        }
+        "@scope/jsii-calc-base.BaseProps"
       ],
       "kind": "interface",
       "locationInModule": {
@@ -3775,27 +3248,19 @@
             "line": 1004
           },
           "name": "goo",
-          "value": {
-            "type": {
-              "primitive": "date"
-            }
+          "type": {
+            "primitive": "date"
           }
         }
       ]
     },
     "jsii-calc.InbetweenClass": {
       "assembly": "jsii-calc",
-      "base": {
-        "fqn": "jsii-calc.PublicClass"
-      },
+      "base": "jsii-calc.PublicClass",
       "fqn": "jsii-calc.InbetweenClass",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "interfaces": [
-        {
-          "fqn": "jsii-calc.IPublicInterface2"
-        }
+        "jsii-calc.IPublicInterface2"
       ],
       "kind": "class",
       "locationInModule": {
@@ -3809,13 +3274,9 @@
             "line": 1346
           },
           "name": "ciao",
-          "overrides": {
-            "fqn": "jsii-calc.IPublicInterface2"
-          },
+          "overrides": "jsii-calc.IPublicInterface2",
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         }
       ],
@@ -3824,9 +3285,7 @@
     "jsii-calc.InterfaceInNamespaceIncludesClasses.Foo": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.InterfaceInNamespaceIncludesClasses.Foo",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -3841,11 +3300,9 @@
             "line": 1038
           },
           "name": "bar",
-          "value": {
+          "type": {
             "optional": true,
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         }
       ]
@@ -3870,10 +3327,8 @@
             "line": 1042
           },
           "name": "foo",
-          "value": {
-            "type": {
-              "primitive": "number"
-            }
+          "type": {
+            "primitive": "number"
           }
         }
       ]
@@ -3898,29 +3353,22 @@
             "line": 1030
           },
           "name": "foo",
-          "value": {
-            "type": {
-              "primitive": "number"
-            }
+          "type": {
+            "primitive": "number"
           }
         }
       ]
     },
     "jsii-calc.JSII417Derived": {
       "assembly": "jsii-calc",
-      "base": {
-        "fqn": "jsii-calc.JSII417PublicBaseOfBase"
-      },
+      "base": "jsii-calc.JSII417PublicBaseOfBase",
       "fqn": "jsii-calc.JSII417Derived",
       "initializer": {
-        "initializer": true,
         "parameters": [
           {
             "name": "property",
-            "value": {
-              "type": {
-                "primitive": "string"
-              }
+            "type": {
+              "primitive": "string"
             }
           }
         ]
@@ -3956,10 +3404,8 @@
           },
           "name": "property",
           "protected": true,
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         }
       ]
@@ -3967,9 +3413,7 @@
     "jsii-calc.JSII417PublicBaseOfBase": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.JSII417PublicBaseOfBase",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/erasures.ts",
@@ -3983,9 +3427,7 @@
           },
           "name": "makeInstance",
           "returns": {
-            "type": {
-              "fqn": "jsii-calc.JSII417PublicBaseOfBase"
-            }
+            "fqn": "jsii-calc.JSII417PublicBaseOfBase"
           },
           "static": true
         },
@@ -4006,10 +3448,8 @@
             "line": 6
           },
           "name": "hasRoot",
-          "value": {
-            "type": {
-              "primitive": "boolean"
-            }
+          "type": {
+            "primitive": "boolean"
           }
         }
       ]
@@ -4017,9 +3457,7 @@
     "jsii-calc.JSObjectLiteralForInterface": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.JSObjectLiteralForInterface",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -4033,9 +3471,7 @@
           },
           "name": "giveMeFriendly",
           "returns": {
-            "type": {
-              "fqn": "@scope/jsii-calc-lib.IFriendly"
-            }
+            "fqn": "@scope/jsii-calc-lib.IFriendly"
           }
         },
         {
@@ -4045,9 +3481,7 @@
           },
           "name": "giveMeFriendlyGenerator",
           "returns": {
-            "type": {
-              "fqn": "jsii-calc.IFriendlyRandomGenerator"
-            }
+            "fqn": "jsii-calc.IFriendlyRandomGenerator"
           }
         }
       ],
@@ -4056,9 +3490,7 @@
     "jsii-calc.JSObjectLiteralToNative": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.JSObjectLiteralToNative",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -4072,9 +3504,7 @@
           },
           "name": "returnLiteral",
           "returns": {
-            "type": {
-              "fqn": "jsii-calc.JSObjectLiteralToNativeClass"
-            }
+            "fqn": "jsii-calc.JSObjectLiteralToNativeClass"
           }
         }
       ],
@@ -4083,9 +3513,7 @@
     "jsii-calc.JSObjectLiteralToNativeClass": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.JSObjectLiteralToNativeClass",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -4099,10 +3527,8 @@
             "line": 230
           },
           "name": "propA",
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         },
         {
@@ -4111,10 +3537,8 @@
             "line": 231
           },
           "name": "propB",
-          "value": {
-            "type": {
-              "primitive": "number"
-            }
+          "type": {
+            "primitive": "number"
           }
         }
       ]
@@ -4122,9 +3546,7 @@
     "jsii-calc.JavaReservedWords": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.JavaReservedWords",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -4504,10 +3926,8 @@
             "line": 871
           },
           "name": "while",
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         }
       ]
@@ -4518,9 +3938,7 @@
         "summary": "Host runtime version should be set via JSII_AGENT."
       },
       "fqn": "jsii-calc.JsiiAgent",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -4539,11 +3957,9 @@
           },
           "name": "jsiiAgent",
           "static": true,
-          "value": {
+          "type": {
             "optional": true,
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         }
       ]
@@ -4575,11 +3991,9 @@
             "line": 1265
           },
           "name": "containerPort",
-          "value": {
+          "type": {
             "optional": true,
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number"
           }
         },
         {
@@ -4595,11 +4009,9 @@
             "line": 1236
           },
           "name": "cpu",
-          "value": {
+          "type": {
             "optional": true,
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         },
         {
@@ -4615,11 +4027,9 @@
             "line": 1258
           },
           "name": "memoryMiB",
-          "value": {
+          "type": {
             "optional": true,
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         },
         {
@@ -4634,11 +4044,9 @@
             "line": 1272
           },
           "name": "publicLoadBalancer",
-          "value": {
+          "type": {
             "optional": true,
-            "type": {
-              "primitive": "boolean"
-            }
+            "primitive": "boolean"
           }
         },
         {
@@ -4653,20 +4061,16 @@
             "line": 1279
           },
           "name": "publicTasks",
-          "value": {
+          "type": {
             "optional": true,
-            "type": {
-              "primitive": "boolean"
-            }
+            "primitive": "boolean"
           }
         }
       ]
     },
     "jsii-calc.Multiply": {
       "assembly": "jsii-calc",
-      "base": {
-        "fqn": "jsii-calc.BinaryOperation"
-      },
+      "base": "jsii-calc.BinaryOperation",
       "docs": {
         "summary": "The \"*\" binary operation."
       },
@@ -4675,17 +4079,14 @@
         "docs": {
           "summary": "Creates a BinaryOperation."
         },
-        "initializer": true,
         "parameters": [
           {
             "docs": {
               "summary": "Left-hand side operand."
             },
             "name": "lhs",
-            "value": {
-              "type": {
-                "fqn": "@scope/jsii-calc-lib.Value"
-              }
+            "type": {
+              "fqn": "@scope/jsii-calc-lib.Value"
             }
           },
           {
@@ -4693,21 +4094,15 @@
               "summary": "Right-hand side operand."
             },
             "name": "rhs",
-            "value": {
-              "type": {
-                "fqn": "@scope/jsii-calc-lib.Value"
-              }
+            "type": {
+              "fqn": "@scope/jsii-calc-lib.Value"
             }
           }
         ]
       },
       "interfaces": [
-        {
-          "fqn": "jsii-calc.IFriendlier"
-        },
-        {
-          "fqn": "jsii-calc.IRandomNumberGenerator"
-        }
+        "jsii-calc.IFriendlier",
+        "jsii-calc.IRandomNumberGenerator"
       ],
       "kind": "class",
       "locationInModule": {
@@ -4724,13 +4119,9 @@
             "line": 82
           },
           "name": "farewell",
-          "overrides": {
-            "fqn": "jsii-calc.IFriendlier"
-          },
+          "overrides": "jsii-calc.IFriendlier",
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         },
         {
@@ -4742,13 +4133,9 @@
             "line": 78
           },
           "name": "goodbye",
-          "overrides": {
-            "fqn": "jsii-calc.IFriendlier"
-          },
+          "overrides": "jsii-calc.IFriendlier",
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         },
         {
@@ -4760,13 +4147,9 @@
             "line": 86
           },
           "name": "next",
-          "overrides": {
-            "fqn": "jsii-calc.IRandomNumberGenerator"
-          },
+          "overrides": "jsii-calc.IRandomNumberGenerator",
           "returns": {
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number"
           }
         },
         {
@@ -4778,13 +4161,9 @@
             "line": 74
           },
           "name": "toString",
-          "overrides": {
-            "fqn": "@scope/jsii-calc-lib.Operation"
-          },
+          "overrides": "@scope/jsii-calc-lib.Operation",
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         }
       ],
@@ -4800,43 +4179,32 @@
             "line": 70
           },
           "name": "value",
-          "overrides": {
-            "fqn": "@scope/jsii-calc-lib.Value"
-          },
-          "value": {
-            "type": {
-              "primitive": "number"
-            }
+          "overrides": "@scope/jsii-calc-lib.Value",
+          "type": {
+            "primitive": "number"
           }
         }
       ]
     },
     "jsii-calc.Negate": {
       "assembly": "jsii-calc",
-      "base": {
-        "fqn": "jsii-calc.UnaryOperation"
-      },
+      "base": "jsii-calc.UnaryOperation",
       "docs": {
         "summary": "The negation operation (\"-value\")."
       },
       "fqn": "jsii-calc.Negate",
       "initializer": {
-        "initializer": true,
         "parameters": [
           {
             "name": "operand",
-            "value": {
-              "type": {
-                "fqn": "@scope/jsii-calc-lib.Value"
-              }
+            "type": {
+              "fqn": "@scope/jsii-calc-lib.Value"
             }
           }
         ]
       },
       "interfaces": [
-        {
-          "fqn": "jsii-calc.IFriendlier"
-        }
+        "jsii-calc.IFriendlier"
       ],
       "kind": "class",
       "locationInModule": {
@@ -4853,13 +4221,9 @@
             "line": 120
           },
           "name": "farewell",
-          "overrides": {
-            "fqn": "jsii-calc.IFriendlier"
-          },
+          "overrides": "jsii-calc.IFriendlier",
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         },
         {
@@ -4871,13 +4235,9 @@
             "line": 116
           },
           "name": "goodbye",
-          "overrides": {
-            "fqn": "jsii-calc.IFriendlier"
-          },
+          "overrides": "jsii-calc.IFriendlier",
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         },
         {
@@ -4889,13 +4249,9 @@
             "line": 112
           },
           "name": "hello",
-          "overrides": {
-            "fqn": "@scope/jsii-calc-lib.IFriendly"
-          },
+          "overrides": "@scope/jsii-calc-lib.IFriendly",
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         },
         {
@@ -4907,13 +4263,9 @@
             "line": 108
           },
           "name": "toString",
-          "overrides": {
-            "fqn": "@scope/jsii-calc-lib.Operation"
-          },
+          "overrides": "@scope/jsii-calc-lib.Operation",
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         }
       ],
@@ -4929,13 +4281,9 @@
             "line": 104
           },
           "name": "value",
-          "overrides": {
-            "fqn": "@scope/jsii-calc-lib.Value"
-          },
-          "value": {
-            "type": {
-              "primitive": "number"
-            }
+          "overrides": "@scope/jsii-calc-lib.Value",
+          "type": {
+            "primitive": "number"
           }
         }
       ]
@@ -4946,9 +4294,7 @@
         "summary": "Test fixture to verify that jsii modules can use the node standard library."
       },
       "fqn": "jsii-calc.NodeStandardLibrary",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -4966,9 +4312,7 @@
           },
           "name": "cryptoSha256",
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         },
         {
@@ -4982,10 +4326,8 @@
           },
           "name": "fsReadFile",
           "returns": {
-            "promise": true,
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string",
+            "promise": true
           }
         },
         {
@@ -4999,9 +4341,7 @@
           },
           "name": "fsReadFileSync",
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         }
       ],
@@ -5017,10 +4357,8 @@
             "line": 976
           },
           "name": "osPlatform",
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         }
       ]
@@ -5032,23 +4370,18 @@
       },
       "fqn": "jsii-calc.NullShouldBeTreatedAsUndefined",
       "initializer": {
-        "initializer": true,
         "parameters": [
           {
             "name": "_param1",
-            "value": {
-              "type": {
-                "primitive": "string"
-              }
+            "type": {
+              "primitive": "string"
             }
           },
           {
             "name": "optional",
-            "value": {
+            "type": {
               "optional": true,
-              "type": {
-                "primitive": "any"
-              }
+              "primitive": "any"
             }
           }
         ]
@@ -5068,11 +4401,9 @@
           "parameters": [
             {
               "name": "value",
-              "value": {
+              "type": {
                 "optional": true,
-                "type": {
-                  "primitive": "any"
-                }
+                "primitive": "any"
               }
             }
           ]
@@ -5086,10 +4417,8 @@
           "parameters": [
             {
               "name": "input",
-              "value": {
-                "type": {
-                  "fqn": "jsii-calc.NullShouldBeTreatedAsUndefinedData"
-                }
+              "type": {
+                "fqn": "jsii-calc.NullShouldBeTreatedAsUndefinedData"
               }
             }
           ]
@@ -5110,11 +4439,9 @@
             "line": 1172
           },
           "name": "changeMeToUndefined",
-          "value": {
+          "type": {
             "optional": true,
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         }
       ]
@@ -5138,17 +4465,13 @@
             "line": 1210
           },
           "name": "arrayWithThreeElementsAndUndefinedAsSecondArgument",
-          "value": {
-            "type": {
-              "collection": {
-                "elementtype": {
-                  "optional": true,
-                  "type": {
-                    "primitive": "any"
-                  }
-                },
-                "kind": "array"
-              }
+          "type": {
+            "collection": {
+              "elementtype": {
+                "optional": true,
+                "primitive": "any"
+              },
+              "kind": "array"
             }
           }
         },
@@ -5160,11 +4483,9 @@
             "line": 1209
           },
           "name": "thisShouldBeUndefined",
-          "value": {
+          "type": {
             "optional": true,
-            "type": {
-              "primitive": "any"
-            }
+            "primitive": "any"
           }
         }
       ]
@@ -5176,14 +4497,11 @@
       },
       "fqn": "jsii-calc.NumberGenerator",
       "initializer": {
-        "initializer": true,
         "parameters": [
           {
             "name": "generator",
-            "value": {
-              "type": {
-                "fqn": "jsii-calc.IRandomNumberGenerator"
-              }
+            "type": {
+              "fqn": "jsii-calc.IRandomNumberGenerator"
             }
           }
         ]
@@ -5203,17 +4521,13 @@
           "parameters": [
             {
               "name": "gen",
-              "value": {
-                "type": {
-                  "fqn": "jsii-calc.IRandomNumberGenerator"
-                }
+              "type": {
+                "fqn": "jsii-calc.IRandomNumberGenerator"
               }
             }
           ],
           "returns": {
-            "type": {
-              "primitive": "boolean"
-            }
+            "primitive": "boolean"
           }
         },
         {
@@ -5223,9 +4537,7 @@
           },
           "name": "nextTimes100",
           "returns": {
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number"
           }
         }
       ],
@@ -5237,10 +4549,8 @@
             "line": 481
           },
           "name": "generator",
-          "value": {
-            "type": {
-              "fqn": "jsii-calc.IRandomNumberGenerator"
-            }
+          "type": {
+            "fqn": "jsii-calc.IRandomNumberGenerator"
           }
         }
       ]
@@ -5251,9 +4561,7 @@
         "summary": "Verify that object references can be passed inside collections."
       },
       "fqn": "jsii-calc.ObjectRefsInCollections",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -5272,24 +4580,18 @@
           "parameters": [
             {
               "name": "values",
-              "value": {
-                "type": {
-                  "collection": {
-                    "elementtype": {
-                      "type": {
-                        "fqn": "@scope/jsii-calc-lib.Value"
-                      }
-                    },
-                    "kind": "array"
-                  }
+              "type": {
+                "collection": {
+                  "elementtype": {
+                    "fqn": "@scope/jsii-calc-lib.Value"
+                  },
+                  "kind": "array"
                 }
               }
             }
           ],
           "returns": {
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number"
           }
         },
         {
@@ -5304,24 +4606,18 @@
           "parameters": [
             {
               "name": "values",
-              "value": {
-                "type": {
-                  "collection": {
-                    "elementtype": {
-                      "type": {
-                        "fqn": "@scope/jsii-calc-lib.Value"
-                      }
-                    },
-                    "kind": "map"
-                  }
+              "type": {
+                "collection": {
+                  "elementtype": {
+                    "fqn": "@scope/jsii-calc-lib.Value"
+                  },
+                  "kind": "map"
                 }
               }
             }
           ],
           "returns": {
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number"
           }
         }
       ],
@@ -5334,9 +4630,7 @@
         "summary": "Old class."
       },
       "fqn": "jsii-calc.Old",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/documented.ts",
@@ -5360,31 +4654,24 @@
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.OptionalConstructorArgument",
       "initializer": {
-        "initializer": true,
         "parameters": [
           {
             "name": "arg1",
-            "value": {
-              "type": {
-                "primitive": "number"
-              }
+            "type": {
+              "primitive": "number"
             }
           },
           {
             "name": "arg2",
-            "value": {
-              "type": {
-                "primitive": "string"
-              }
+            "type": {
+              "primitive": "string"
             }
           },
           {
             "name": "arg3",
-            "value": {
+            "type": {
               "optional": true,
-              "type": {
-                "primitive": "date"
-              }
+              "primitive": "date"
             }
           }
         ]
@@ -5403,10 +4690,8 @@
             "line": 283
           },
           "name": "arg1",
-          "value": {
-            "type": {
-              "primitive": "number"
-            }
+          "type": {
+            "primitive": "number"
           }
         },
         {
@@ -5416,10 +4701,8 @@
             "line": 284
           },
           "name": "arg2",
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         },
         {
@@ -5429,11 +4712,9 @@
             "line": 285
           },
           "name": "arg3",
-          "value": {
+          "type": {
             "optional": true,
-            "type": {
-              "primitive": "date"
-            }
+            "primitive": "date"
           }
         }
       ]
@@ -5457,11 +4738,9 @@
             "line": 1618
           },
           "name": "field",
-          "value": {
+          "type": {
             "optional": true,
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         }
       ]
@@ -5470,15 +4749,12 @@
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.OptionalStructConsumer",
       "initializer": {
-        "initializer": true,
         "parameters": [
           {
             "name": "optionalStruct",
-            "value": {
-              "optional": true,
-              "type": {
-                "fqn": "jsii-calc.OptionalStruct"
-              }
+            "type": {
+              "fqn": "jsii-calc.OptionalStruct",
+              "optional": true
             }
           }
         ]
@@ -5494,27 +4770,23 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1610
+            "line": 1609
           },
-          "name": "fieldValue",
-          "value": {
-            "optional": true,
-            "type": {
-              "primitive": "string"
-            }
+          "name": "parameterWasUndefined",
+          "type": {
+            "primitive": "boolean"
           }
         },
         {
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1609
+            "line": 1610
           },
-          "name": "parameterWasUndefined",
-          "value": {
-            "type": {
-              "primitive": "boolean"
-            }
+          "name": "fieldValue",
+          "type": {
+            "optional": true,
+            "primitive": "string"
           }
         }
       ]
@@ -5522,9 +4794,7 @@
     "jsii-calc.OverrideReturnsObject": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.OverrideReturnsObject",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -5540,17 +4810,13 @@
           "parameters": [
             {
               "name": "obj",
-              "value": {
-                "type": {
-                  "fqn": "jsii-calc.IReturnsNumber"
-                }
+              "type": {
+                "fqn": "jsii-calc.IReturnsNumber"
               }
             }
           ],
           "returns": {
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number"
           }
         }
       ],
@@ -5560,9 +4826,7 @@
       "abstract": true,
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.PartiallyInitializedThisConsumer",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -5579,33 +4843,25 @@
           "parameters": [
             {
               "name": "obj",
-              "value": {
-                "type": {
-                  "fqn": "jsii-calc.ConstructorPassesThisOut"
-                }
+              "type": {
+                "fqn": "jsii-calc.ConstructorPassesThisOut"
               }
             },
             {
               "name": "dt",
-              "value": {
-                "type": {
-                  "primitive": "date"
-                }
+              "type": {
+                "primitive": "date"
               }
             },
             {
               "name": "ev",
-              "value": {
-                "type": {
-                  "fqn": "jsii-calc.AllTypesEnum"
-                }
+              "type": {
+                "fqn": "jsii-calc.AllTypesEnum"
               }
             }
           ],
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         }
       ],
@@ -5614,9 +4870,7 @@
     "jsii-calc.Polymorphism": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.Polymorphism",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -5632,17 +4886,13 @@
           "parameters": [
             {
               "name": "friendly",
-              "value": {
-                "type": {
-                  "fqn": "@scope/jsii-calc-lib.IFriendly"
-                }
+              "type": {
+                "fqn": "@scope/jsii-calc-lib.IFriendly"
               }
             }
           ],
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         }
       ],
@@ -5650,9 +4900,7 @@
     },
     "jsii-calc.Power": {
       "assembly": "jsii-calc",
-      "base": {
-        "fqn": "jsii-calc.composition.CompositeOperation"
-      },
+      "base": "jsii-calc.composition.CompositeOperation",
       "docs": {
         "summary": "The power operation."
       },
@@ -5661,17 +4909,14 @@
         "docs": {
           "summary": "Creates a Power operation."
         },
-        "initializer": true,
         "parameters": [
           {
             "docs": {
               "summary": "The base of the power."
             },
             "name": "base",
-            "value": {
-              "type": {
-                "fqn": "@scope/jsii-calc-lib.Value"
-              }
+            "type": {
+              "fqn": "@scope/jsii-calc-lib.Value"
             }
           },
           {
@@ -5679,10 +4924,8 @@
               "summary": "The number of times to multiply."
             },
             "name": "pow",
-            "value": {
-              "type": {
-                "fqn": "@scope/jsii-calc-lib.Value"
-              }
+            "type": {
+              "fqn": "@scope/jsii-calc-lib.Value"
             }
           }
         ]
@@ -5704,10 +4947,8 @@
             "line": 219
           },
           "name": "base",
-          "value": {
-            "type": {
-              "fqn": "@scope/jsii-calc-lib.Value"
-            }
+          "type": {
+            "fqn": "@scope/jsii-calc-lib.Value"
           }
         },
         {
@@ -5720,13 +4961,9 @@
             "line": 223
           },
           "name": "expression",
-          "overrides": {
-            "fqn": "jsii-calc.composition.CompositeOperation"
-          },
-          "value": {
-            "type": {
-              "fqn": "@scope/jsii-calc-lib.Value"
-            }
+          "overrides": "jsii-calc.composition.CompositeOperation",
+          "type": {
+            "fqn": "@scope/jsii-calc-lib.Value"
           }
         },
         {
@@ -5739,10 +4976,8 @@
             "line": 219
           },
           "name": "pow",
-          "value": {
-            "type": {
-              "fqn": "@scope/jsii-calc-lib.Value"
-            }
+          "type": {
+            "fqn": "@scope/jsii-calc-lib.Value"
           }
         }
       ]
@@ -5750,9 +4985,7 @@
     "jsii-calc.PublicClass": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.PublicClass",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -5772,9 +5005,7 @@
     "jsii-calc.PythonReservedWords": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.PythonReservedWords",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -6014,9 +5245,7 @@
         "summary": "See awslabs/jsii#138."
       },
       "fqn": "jsii-calc.ReferenceEnumFromScopedPackage",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -6030,10 +5259,8 @@
           },
           "name": "loadFoo",
           "returns": {
-            "optional": true,
-            "type": {
-              "fqn": "@scope/jsii-calc-lib.EnumFromScopedModule"
-            }
+            "fqn": "@scope/jsii-calc-lib.EnumFromScopedModule",
+            "optional": true
           }
         },
         {
@@ -6045,10 +5272,8 @@
           "parameters": [
             {
               "name": "value",
-              "value": {
-                "type": {
-                  "fqn": "@scope/jsii-calc-lib.EnumFromScopedModule"
-                }
+              "type": {
+                "fqn": "@scope/jsii-calc-lib.EnumFromScopedModule"
               }
             }
           ]
@@ -6062,11 +5287,9 @@
             "line": 1011
           },
           "name": "foo",
-          "value": {
-            "optional": true,
-            "type": {
-              "fqn": "@scope/jsii-calc-lib.EnumFromScopedModule"
-            }
+          "type": {
+            "fqn": "@scope/jsii-calc-lib.EnumFromScopedModule",
+            "optional": true
           }
         }
       ]
@@ -6079,9 +5302,7 @@
         "summary": "Helps ensure the JSII kernel & runtime cooperate correctly when an un-exported instance of a class is returned with a declared type that is an exported interface, and the instance inherits from an exported class."
       },
       "fqn": "jsii-calc.ReturnsPrivateImplementationOfInterface",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -6096,10 +5317,8 @@
             "line": 1291
           },
           "name": "privateImplementation",
-          "value": {
-            "type": {
-              "fqn": "jsii-calc.IPrivatelyImplemented"
-            }
+          "type": {
+            "fqn": "jsii-calc.IPrivatelyImplemented"
           }
         }
       ]
@@ -6107,9 +5326,7 @@
     "jsii-calc.RuntimeTypeChecking": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.RuntimeTypeChecking",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -6125,29 +5342,23 @@
           "parameters": [
             {
               "name": "arg1",
-              "value": {
+              "type": {
                 "optional": true,
-                "type": {
-                  "primitive": "number"
-                }
+                "primitive": "number"
               }
             },
             {
               "name": "arg2",
-              "value": {
+              "type": {
                 "optional": true,
-                "type": {
-                  "primitive": "string"
-                }
+                "primitive": "string"
               }
             },
             {
               "name": "arg3",
-              "value": {
+              "type": {
                 "optional": true,
-                "type": {
-                  "primitive": "date"
-                }
+                "primitive": "date"
               }
             }
           ]
@@ -6161,11 +5372,9 @@
           "parameters": [
             {
               "name": "arg",
-              "value": {
+              "type": {
                 "optional": true,
-                "type": {
-                  "primitive": "any"
-                }
+                "primitive": "any"
               }
             }
           ]
@@ -6182,27 +5391,21 @@
           "parameters": [
             {
               "name": "arg1",
-              "value": {
-                "type": {
-                  "primitive": "number"
-                }
+              "type": {
+                "primitive": "number"
               }
             },
             {
               "name": "arg2",
-              "value": {
-                "type": {
-                  "primitive": "string"
-                }
+              "type": {
+                "primitive": "string"
               }
             },
             {
               "name": "arg3",
-              "value": {
+              "type": {
                 "optional": true,
-                "type": {
-                  "primitive": "date"
-                }
+                "primitive": "date"
               }
             }
           ]
@@ -6217,9 +5420,7 @@
         "summary": "Test that a single instance can be returned under two different FQNs."
       },
       "fqn": "jsii-calc.SingleInstanceTwoTypes",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -6233,9 +5434,7 @@
           },
           "name": "interface1",
           "returns": {
-            "type": {
-              "fqn": "jsii-calc.InbetweenClass"
-            }
+            "fqn": "jsii-calc.InbetweenClass"
           }
         },
         {
@@ -6245,9 +5444,7 @@
           },
           "name": "interface2",
           "returns": {
-            "type": {
-              "fqn": "jsii-calc.IPublicInterface"
-            }
+            "fqn": "jsii-calc.IPublicInterface"
           }
         }
       ],
@@ -6257,14 +5454,11 @@
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.Statics",
       "initializer": {
-        "initializer": true,
         "parameters": [
           {
             "name": "value",
-            "value": {
-              "type": {
-                "primitive": "string"
-              }
+            "type": {
+              "primitive": "string"
             }
           }
         ]
@@ -6290,17 +5484,13 @@
                 "summary": "The name of the person to say hello to."
               },
               "name": "name",
-              "value": {
-                "type": {
-                  "primitive": "string"
-                }
+              "type": {
+                "primitive": "string"
               }
             }
           ],
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           },
           "static": true
         },
@@ -6311,9 +5501,7 @@
           },
           "name": "justMethod",
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         }
       ],
@@ -6331,10 +5519,8 @@
           },
           "name": "BAR",
           "static": true,
-          "value": {
-            "type": {
-              "primitive": "number"
-            }
+          "type": {
+            "primitive": "number"
           }
         },
         {
@@ -6346,10 +5532,8 @@
           },
           "name": "ConstObj",
           "static": true,
-          "value": {
-            "type": {
-              "fqn": "jsii-calc.DoubleTrouble"
-            }
+          "type": {
+            "fqn": "jsii-calc.DoubleTrouble"
           }
         },
         {
@@ -6364,10 +5548,8 @@
           },
           "name": "Foo",
           "static": true,
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         },
         {
@@ -6382,16 +5564,12 @@
           },
           "name": "zooBar",
           "static": true,
-          "value": {
-            "type": {
-              "collection": {
-                "elementtype": {
-                  "type": {
-                    "primitive": "string"
-                  }
-                },
-                "kind": "map"
-              }
+          "type": {
+            "collection": {
+              "elementtype": {
+                "primitive": "string"
+              },
+              "kind": "map"
             }
           }
         },
@@ -6405,10 +5583,8 @@
           },
           "name": "instance",
           "static": true,
-          "value": {
-            "type": {
-              "fqn": "jsii-calc.Statics"
-            }
+          "type": {
+            "fqn": "jsii-calc.Statics"
           }
         },
         {
@@ -6418,10 +5594,8 @@
           },
           "name": "nonConstStatic",
           "static": true,
-          "value": {
-            "type": {
-              "primitive": "number"
-            }
+          "type": {
+            "primitive": "number"
           }
         },
         {
@@ -6431,10 +5605,8 @@
             "line": 660
           },
           "name": "value",
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         }
       ]
@@ -6463,9 +5635,7 @@
     "jsii-calc.StripInternal": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.StripInternal",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -6479,26 +5649,20 @@
             "line": 1448
           },
           "name": "youSeeMe",
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         }
       ]
     },
     "jsii-calc.Sum": {
       "assembly": "jsii-calc",
-      "base": {
-        "fqn": "jsii-calc.composition.CompositeOperation"
-      },
+      "base": "jsii-calc.composition.CompositeOperation",
       "docs": {
         "summary": "An operation that sums multiple values."
       },
       "fqn": "jsii-calc.Sum",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/calculator.ts",
@@ -6516,13 +5680,9 @@
             "line": 200
           },
           "name": "expression",
-          "overrides": {
-            "fqn": "jsii-calc.composition.CompositeOperation"
-          },
-          "value": {
-            "type": {
-              "fqn": "@scope/jsii-calc-lib.Value"
-            }
+          "overrides": "jsii-calc.composition.CompositeOperation",
+          "type": {
+            "fqn": "@scope/jsii-calc-lib.Value"
           }
         },
         {
@@ -6534,16 +5694,12 @@
             "line": 192
           },
           "name": "parts",
-          "value": {
-            "type": {
-              "collection": {
-                "elementtype": {
-                  "type": {
-                    "fqn": "@scope/jsii-calc-lib.Value"
-                  }
-                },
-                "kind": "array"
-              }
+          "type": {
+            "collection": {
+              "elementtype": {
+                "fqn": "@scope/jsii-calc-lib.Value"
+              },
+              "kind": "array"
             }
           }
         }
@@ -6552,9 +5708,7 @@
     "jsii-calc.SyncVirtualMethods": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.SyncVirtualMethods",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -6568,10 +5722,8 @@
           },
           "name": "callerIsAsync",
           "returns": {
-            "promise": true,
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number",
+            "promise": true
           }
         },
         {
@@ -6581,9 +5733,7 @@
           },
           "name": "callerIsMethod",
           "returns": {
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number"
           }
         },
         {
@@ -6595,10 +5745,8 @@
           "parameters": [
             {
               "name": "value",
-              "value": {
-                "type": {
-                  "primitive": "string"
-                }
+              "type": {
+                "primitive": "string"
               }
             }
           ]
@@ -6612,10 +5760,8 @@
           "parameters": [
             {
               "name": "value",
-              "value": {
-                "type": {
-                  "primitive": "string"
-                }
+              "type": {
+                "primitive": "string"
               }
             }
           ]
@@ -6627,9 +5773,7 @@
           },
           "name": "readA",
           "returns": {
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number"
           }
         },
         {
@@ -6639,9 +5783,7 @@
           },
           "name": "retrieveOtherProperty",
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         },
         {
@@ -6651,9 +5793,7 @@
           },
           "name": "retrieveReadOnlyProperty",
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         },
         {
@@ -6663,9 +5803,7 @@
           },
           "name": "retrieveValueOfTheProperty",
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         },
         {
@@ -6677,17 +5815,13 @@
           "parameters": [
             {
               "name": "n",
-              "value": {
-                "type": {
-                  "primitive": "number"
-                }
+              "type": {
+                "primitive": "number"
               }
             }
           ],
           "returns": {
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number"
           }
         },
         {
@@ -6699,10 +5833,8 @@
           "parameters": [
             {
               "name": "value",
-              "value": {
-                "type": {
-                  "primitive": "number"
-                }
+              "type": {
+                "primitive": "number"
               }
             }
           ]
@@ -6717,10 +5849,8 @@
             "line": 382
           },
           "name": "readonlyProperty",
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         },
         {
@@ -6729,10 +5859,8 @@
             "line": 411
           },
           "name": "a",
-          "value": {
-            "type": {
-              "primitive": "number"
-            }
+          "type": {
+            "primitive": "number"
           }
         },
         {
@@ -6741,10 +5869,8 @@
             "line": 352
           },
           "name": "callerIsProperty",
-          "value": {
-            "type": {
-              "primitive": "number"
-            }
+          "type": {
+            "primitive": "number"
           }
         },
         {
@@ -6753,10 +5879,8 @@
             "line": 390
           },
           "name": "otherProperty",
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         },
         {
@@ -6765,10 +5889,8 @@
             "line": 370
           },
           "name": "theProperty",
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         },
         {
@@ -6777,10 +5899,8 @@
             "line": 398
           },
           "name": "valueOfOtherProperty",
-          "value": {
-            "type": {
-              "primitive": "string"
-            }
+          "type": {
+            "primitive": "string"
           }
         }
       ]
@@ -6788,9 +5908,7 @@
     "jsii-calc.Thrower": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.Thrower",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -6810,22 +5928,17 @@
     "jsii-calc.UnaryOperation": {
       "abstract": true,
       "assembly": "jsii-calc",
-      "base": {
-        "fqn": "@scope/jsii-calc-lib.Operation"
-      },
+      "base": "@scope/jsii-calc-lib.Operation",
       "docs": {
         "summary": "An operation on a single operand."
       },
       "fqn": "jsii-calc.UnaryOperation",
       "initializer": {
-        "initializer": true,
         "parameters": [
           {
             "name": "operand",
-            "value": {
-              "type": {
-                "fqn": "@scope/jsii-calc-lib.Value"
-              }
+            "type": {
+              "fqn": "@scope/jsii-calc-lib.Value"
             }
           }
         ]
@@ -6844,10 +5957,8 @@
             "line": 95
           },
           "name": "operand",
-          "value": {
-            "type": {
-              "fqn": "@scope/jsii-calc-lib.Value"
-            }
+          "type": {
+            "fqn": "@scope/jsii-calc-lib.Value"
           }
         }
       ]
@@ -6871,27 +5982,19 @@
             "line": 943
           },
           "name": "bar",
-          "value": {
-            "type": {
-              "union": {
-                "types": [
-                  {
-                    "type": {
-                      "primitive": "string"
-                    }
-                  },
-                  {
-                    "type": {
-                      "primitive": "number"
-                    }
-                  },
-                  {
-                    "type": {
-                      "fqn": "jsii-calc.AllTypes"
-                    }
-                  }
-                ]
-              }
+          "type": {
+            "union": {
+              "types": [
+                {
+                  "primitive": "string"
+                },
+                {
+                  "primitive": "number"
+                },
+                {
+                  "fqn": "jsii-calc.AllTypes"
+                }
+              ]
             }
           }
         },
@@ -6903,23 +6006,17 @@
             "line": 942
           },
           "name": "foo",
-          "value": {
+          "type": {
             "optional": true,
-            "type": {
-              "union": {
-                "types": [
-                  {
-                    "type": {
-                      "primitive": "string"
-                    }
-                  },
-                  {
-                    "type": {
-                      "primitive": "number"
-                    }
-                  }
-                ]
-              }
+            "union": {
+              "types": [
+                {
+                  "primitive": "string"
+                },
+                {
+                  "primitive": "number"
+                }
+              ]
             }
           }
         }
@@ -6928,9 +6025,7 @@
     "jsii-calc.UseBundledDependency": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.UseBundledDependency",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -6945,9 +6040,7 @@
           "name": "value",
           "returns": {
             "optional": true,
-            "type": {
-              "primitive": "any"
-            }
+            "primitive": "any"
           }
         }
       ],
@@ -6959,9 +6052,7 @@
         "summary": "Depend on a type from jsii-calc-base as a test for awslabs/jsii#128."
       },
       "fqn": "jsii-calc.UseCalcBase",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -6975,9 +6066,7 @@
           },
           "name": "hello",
           "returns": {
-            "type": {
-              "fqn": "@scope/jsii-calc-base.Base"
-            }
+            "fqn": "@scope/jsii-calc-base.Base"
           }
         }
       ],
@@ -6987,14 +6076,11 @@
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.UsesInterfaceWithProperties",
       "initializer": {
-        "initializer": true,
         "parameters": [
           {
             "name": "obj",
-            "value": {
-              "type": {
-                "fqn": "jsii-calc.IInterfaceWithProperties"
-              }
+            "type": {
+              "fqn": "jsii-calc.IInterfaceWithProperties"
             }
           }
         ]
@@ -7012,9 +6098,7 @@
           },
           "name": "justRead",
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         },
         {
@@ -7026,17 +6110,13 @@
           "parameters": [
             {
               "name": "ext",
-              "value": {
-                "type": {
-                  "fqn": "jsii-calc.IInterfaceWithPropertiesExtension"
-                }
+              "type": {
+                "fqn": "jsii-calc.IInterfaceWithPropertiesExtension"
               }
             }
           ],
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         },
         {
@@ -7048,17 +6128,13 @@
           "parameters": [
             {
               "name": "value",
-              "value": {
-                "type": {
-                  "primitive": "string"
-                }
+              "type": {
+                "primitive": "string"
               }
             }
           ],
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         }
       ],
@@ -7071,10 +6147,8 @@
             "line": 575
           },
           "name": "obj",
-          "value": {
-            "type": {
-              "fqn": "jsii-calc.IInterfaceWithProperties"
-            }
+          "type": {
+            "fqn": "jsii-calc.IInterfaceWithProperties"
           }
         }
       ]
@@ -7083,17 +6157,14 @@
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.VariadicMethod",
       "initializer": {
-        "initializer": true,
         "parameters": [
           {
             "docs": {
               "summary": "a prefix that will be use for all values returned by `#asArray`."
             },
             "name": "prefix",
-            "value": {
-              "type": {
-                "primitive": "number"
-              }
+            "type": {
+              "primitive": "number"
             },
             "variadic": true
           }
@@ -7118,10 +6189,8 @@
                 "summary": "the first element of the array to be returned (after the `prefix` provided at construction time)."
               },
               "name": "first",
-              "value": {
-                "type": {
-                  "primitive": "number"
-                }
+              "type": {
+                "primitive": "number"
               }
             },
             {
@@ -7129,24 +6198,18 @@
                 "summary": "other elements to be included in the array."
               },
               "name": "others",
-              "value": {
-                "type": {
-                  "primitive": "number"
-                }
+              "type": {
+                "primitive": "number"
               },
               "variadic": true
             }
           ],
           "returns": {
-            "type": {
-              "collection": {
-                "elementtype": {
-                  "type": {
-                    "primitive": "number"
-                  }
-                },
-                "kind": "array"
-              }
+            "collection": {
+              "elementtype": {
+                "primitive": "number"
+              },
+              "kind": "array"
             }
           },
           "variadic": true
@@ -7157,9 +6220,7 @@
     "jsii-calc.VirtualMethodPlayground": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.VirtualMethodPlayground",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -7175,18 +6236,14 @@
           "parameters": [
             {
               "name": "index",
-              "value": {
-                "type": {
-                  "primitive": "number"
-                }
+              "type": {
+                "primitive": "number"
               }
             }
           ],
           "returns": {
-            "promise": true,
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number",
+            "promise": true
           }
         },
         {
@@ -7198,17 +6255,13 @@
           "parameters": [
             {
               "name": "index",
-              "value": {
-                "type": {
-                  "primitive": "number"
-                }
+              "type": {
+                "primitive": "number"
               }
             }
           ],
           "returns": {
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number"
           }
         },
         {
@@ -7220,18 +6273,14 @@
           "parameters": [
             {
               "name": "count",
-              "value": {
-                "type": {
-                  "primitive": "number"
-                }
+              "type": {
+                "primitive": "number"
               }
             }
           ],
           "returns": {
-            "promise": true,
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number",
+            "promise": true
           }
         },
         {
@@ -7243,18 +6292,14 @@
           "parameters": [
             {
               "name": "count",
-              "value": {
-                "type": {
-                  "primitive": "number"
-                }
+              "type": {
+                "primitive": "number"
               }
             }
           ],
           "returns": {
-            "promise": true,
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number",
+            "promise": true
           }
         },
         {
@@ -7266,17 +6311,13 @@
           "parameters": [
             {
               "name": "count",
-              "value": {
-                "type": {
-                  "primitive": "number"
-                }
+              "type": {
+                "primitive": "number"
               }
             }
           ],
           "returns": {
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number"
           }
         }
       ],
@@ -7285,16 +6326,12 @@
     "jsii-calc.composition.CompositeOperation": {
       "abstract": true,
       "assembly": "jsii-calc",
-      "base": {
-        "fqn": "@scope/jsii-calc-lib.Operation"
-      },
+      "base": "@scope/jsii-calc-lib.Operation",
       "docs": {
         "summary": "Abstract operation composed from an expression of other operations."
       },
       "fqn": "jsii-calc.composition.CompositeOperation",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/calculator.ts",
@@ -7310,13 +6347,9 @@
             "line": 158
           },
           "name": "toString",
-          "overrides": {
-            "fqn": "@scope/jsii-calc-lib.Operation"
-          },
+          "overrides": "@scope/jsii-calc-lib.Operation",
           "returns": {
-            "type": {
-              "primitive": "string"
-            }
+            "primitive": "string"
           }
         }
       ],
@@ -7334,10 +6367,8 @@
             "line": 156
           },
           "name": "expression",
-          "value": {
-            "type": {
-              "fqn": "@scope/jsii-calc-lib.Value"
-            }
+          "type": {
+            "fqn": "@scope/jsii-calc-lib.Value"
           }
         },
         {
@@ -7350,13 +6381,9 @@
             "line": 148
           },
           "name": "value",
-          "overrides": {
-            "fqn": "@scope/jsii-calc-lib.Value"
-          },
-          "value": {
-            "type": {
-              "primitive": "number"
-            }
+          "overrides": "@scope/jsii-calc-lib.Value",
+          "type": {
+            "primitive": "number"
           }
         },
         {
@@ -7368,16 +6395,12 @@
             "line": 146
           },
           "name": "decorationPostfixes",
-          "value": {
-            "type": {
-              "collection": {
-                "elementtype": {
-                  "type": {
-                    "primitive": "string"
-                  }
-                },
-                "kind": "array"
-              }
+          "type": {
+            "collection": {
+              "elementtype": {
+                "primitive": "string"
+              },
+              "kind": "array"
             }
           }
         },
@@ -7390,16 +6413,12 @@
             "line": 141
           },
           "name": "decorationPrefixes",
-          "value": {
-            "type": {
-              "collection": {
-                "elementtype": {
-                  "type": {
-                    "primitive": "string"
-                  }
-                },
-                "kind": "array"
-              }
+          "type": {
+            "collection": {
+              "elementtype": {
+                "primitive": "string"
+              },
+              "kind": "array"
             }
           }
         },
@@ -7412,10 +6431,8 @@
             "line": 136
           },
           "name": "stringStyle",
-          "value": {
-            "type": {
-              "fqn": "jsii-calc.composition.CompositeOperation.CompositionStringStyle"
-            }
+          "type": {
+            "fqn": "jsii-calc.composition.CompositeOperation.CompositionStringStyle"
           }
         }
       ]
@@ -7450,5 +6467,5 @@
     }
   },
   "version": "0.9.0",
-  "fingerprint": "e8iaxzYcyYW5azDsCmeL2J2sIdziXt3lZCWGAzLojBk="
+  "fingerprint": "tF2OW++CYK85JdpFZaapGbqpi1NaNEz9Dibyhn/O670="
 }

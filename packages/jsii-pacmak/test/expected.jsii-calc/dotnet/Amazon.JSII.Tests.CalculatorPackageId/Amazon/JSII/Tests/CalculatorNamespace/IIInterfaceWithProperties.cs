@@ -5,13 +5,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(typeof(IIInterfaceWithProperties), "jsii-calc.IInterfaceWithProperties")]
     public interface IIInterfaceWithProperties
     {
-        [JsiiProperty("readOnlyString", "{\"type\":{\"primitive\":\"string\"}}")]
+        [JsiiProperty("readOnlyString", "{\"primitive\":\"string\"}")]
         string ReadOnlyString
         {
             get;
         }
 
-        [JsiiProperty("readWriteString", "{\"type\":{\"primitive\":\"string\"}}")]
+        [JsiiProperty("readWriteString", "{\"primitive\":\"string\"}")]
         string ReadWriteString
         {
             get;

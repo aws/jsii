@@ -498,10 +498,10 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         {
             string _x;
 
-            [JsiiProperty("readOnlyString", "{\"type\":{\"primitive\":\"string\"}}", true)]
+            [JsiiProperty("readOnlyString", "{\"primitive\":\"string\"}", true)]
             public string ReadOnlyString => "READ_ONLY_STRING";
 
-            [JsiiProperty("readWriteString", "{\"type\":{\"primitive\":\"string\"}}", true)]
+            [JsiiProperty("readWriteString", "{\"primitive\":\"string\"}", true)]
             public string ReadWriteString
             {
                 get => $"{_x}?";
@@ -924,10 +924,10 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                 NumberProp = new Number(number);
             }
 
-            [JsiiProperty("numberProp", "{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Number\"}}", true)]
+            [JsiiProperty("numberProp", "{\"fqn\":\"@scope/jsii-calc-lib.Number\"}", true)]
             public Number NumberProp { get; }
 
-            [JsiiMethod("obtainNumber", "{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.IDoublable\"}}", "[]", true)]
+            [JsiiMethod("obtainNumber", "{\"fqn\":\"@scope/jsii-calc-lib.IDoublable\"}", "[]", true)]
             public IIDoublable ObtainNumber()
             {
                 return new Doublable(this.NumberProp);
@@ -940,7 +940,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                     this.DoubleValue = number.DoubleValue;
                 }
 
-                [JsiiProperty("doubleValue", "{\"type\":{\"primitive\":\"number\"}}", true)]
+                [JsiiProperty("doubleValue", "{\"primitive\":\"number\"}", true)]
                 public Double DoubleValue { get; }
             }
         }
@@ -1041,7 +1041,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         {
             int _nextNumber = 1000;
 
-            [JsiiMethod("next", "{\"type\":{\"primitive\":\"number\"}}", "[]", true)]
+            [JsiiMethod("next", "{\"primitive\":\"number\"}", "[]", true)]
             public double Next()
             {
                 int n = _nextNumber;
@@ -1049,7 +1049,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                 return n;
             }
 
-            [JsiiMethod("hello", "{\"type\":{\"primitive\":\"string\"}}", "[]", true)]
+            [JsiiMethod("hello", "{\"primitive\":\"string\"}", "[]", true)]
             public string Hello()
             {
                 return "I am a native!";
@@ -1066,13 +1066,13 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                 _nextNumber = 100;
             }
 
-            [JsiiMethod("hello", "{\"type\":{\"primitive\":\"string\"}}", "[]", true)]
+            [JsiiMethod("hello", "{\"primitive\":\"string\"}", "[]", true)]
             public string Hello()
             {
                 return "SubclassNativeFriendlyRandom";
             }
 
-            [JsiiMethod("next", "{\"type\":{\"primitive\":\"number\"}}", "[]", true)]
+            [JsiiMethod("next", "{\"primitive\":\"number\"}", "[]", true)]
             public double Next()
             {
                 int next = _nextNumber;

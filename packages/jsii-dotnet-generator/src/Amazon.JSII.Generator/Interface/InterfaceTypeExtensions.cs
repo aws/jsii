@@ -33,7 +33,7 @@ namespace Amazon.JSII.Generator.Interface
             if (@interface.Interfaces != null)
             {
                 var baseMembers = @interface.Interfaces
-                    .Select(r => symbols.GetTypeFromFullyQualifiedName(r.FullyQualifiedName) as InterfaceType)
+                    .Select(r => symbols.GetTypeFromFullyQualifiedName(r) as InterfaceType)
                     .SelectMany(i => GetAllCore(i, symbols, selector));
 
                 foreach (T member in baseMembers)

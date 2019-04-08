@@ -11,7 +11,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     public interface IIFriendly
     {
         /// <summary>Say hello!</summary>
-        [JsiiMethod("hello", "{\"type\":{\"primitive\":\"string\"}}", "[]")]
+        [JsiiMethod("hello", "{\"primitive\":\"string\"}", "[]")]
         string Hello();
     }
 }

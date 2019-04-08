@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(typeof(IIJSII417Derived), "jsii-calc.IJSII417Derived")]
     public interface IIJSII417Derived : IIJSII417PublicBaseOfBase
     {
-        [JsiiProperty("property", "{\"type\":{\"primitive\":\"string\"}}")]
+        [JsiiProperty("property", "{\"primitive\":\"string\"}")]
         string Property
         {
             get;

@@ -284,7 +284,7 @@ namespace Amazon.JSII.Generator
                     {
                         var classType = (ClassType) type;
                         
-                        if (classType.IsAbstract)
+                        if (classType.IsAbstract == true)
                         {
                             SaveTypeFile($"{symbols.GetAbstractClassProxyName(classType)}.cs",
                                 new AbstractClassProxyGenerator(assembly.Name, classType, symbols).CreateSyntaxTree());

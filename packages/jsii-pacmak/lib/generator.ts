@@ -176,8 +176,8 @@ export abstract class Generator implements IGenerator {
     //
     // Initializers (constructos)
 
-    protected onInitializer(cls: spec.ClassType, method: spec.Method) { cls; method; }
-    protected onInitializerOverload(cls: spec.ClassType, overload: spec.Method, originalInitializer: spec.Method) { cls; overload; originalInitializer; }
+    protected onInitializer(_cls: spec.ClassType, _initializer: spec.Initializer) { }
+    protected onInitializerOverload(_cls: spec.ClassType, _overload: spec.Initializer, _originalInitializer: spec.Initializer) { }
 
     //
     // Properties
@@ -311,12 +311,12 @@ export abstract class Generator implements IGenerator {
      *
      * Notice that the method that contains all the arguments will not be returned.
      */
-    protected createOverloadsForOptionals(method: spec.Method) {
-        const methods = new Array<spec.Method>();
+    protected createOverloadsForOptionals<T extends (spec.Method | spec.Initializer)>(method: T) {
+        const overloads = new Array<T>();
 
         // if option disabled, just return the empty array.
         if (!this.options.generateOverloadsForMethodWithOptionals || !method.parameters) {
-            return methods;
+            return overloads;
         }
 
         //
@@ -330,17 +330,17 @@ export abstract class Generator implements IGenerator {
 
         next = remaining.pop();
         // Parameter is optional if it's type is optional, and all subsequent parameters are optional/variadic
-        while (next && next.value.optional && remaining.some(p => !p.value.optional && !p.variadic)) {
+        while (next && next.type.optional && !remaining.some(p => !p.type.optional && !p.variadic)) {
         // clone the method but set the parameter list based on the remaining set of parameters
-            let cloned: spec.Method = clone(method);
+            let cloned: T = clone(method);
             cloned.parameters = clone(remaining);
-            methods.push(cloned);
+            overloads.push(cloned);
 
             // pop the next parameter
             next = remaining.pop();
         }
 
-        return methods;
+        return overloads;
     }
 
     private visitInterface(ifc: spec.InterfaceType) {
@@ -399,12 +399,12 @@ export abstract class Generator implements IGenerator {
             this.onBeginProperties(cls);
             cls.properties.forEach(prop => {
                 if (this.hasField(cls, prop)) {
-                    this.onField(cls, prop, spec.isUnionTypeReference(prop.value.type) ? prop.value.type : undefined);
+                    this.onField(cls, prop, spec.isUnionTypeReference(prop.type) ? prop.type : undefined);
                 }
             })
 
             cls.properties.forEach(prop => {
-                if (!spec.isUnionTypeReference(prop.value.type)) {
+                if (!spec.isUnionTypeReference(prop.type)) {
                     if (!prop.static) {
                         this.onProperty(cls, prop);
                     } else {
@@ -416,17 +416,17 @@ export abstract class Generator implements IGenerator {
                     // and postfix their name with the type name (i.e. FooAsToken).
 
                     // first, emit a property for the union, for languages that support unions.
-                    this.onUnionProperty(cls, prop, prop.value.type);
+                    this.onUnionProperty(cls, prop, prop.type);
 
                     // if require, we also "expand" the union for languages that don't support unions.
                     if (this.options.expandUnionProperties) {
-                        for (const [index, type] of prop.value.type.union.types.entries()) {
+                        for (const [index, type] of prop.type.union.types.entries()) {
                             // create a clone of this property
                             let propClone = clone(prop) as spec.Property;
-                            let primary = this.isPrimaryExpandedUnionProperty(prop.value.type, index);
-                            let propertyName = primary ? prop.name : `${prop.name}As${this.displayNameForType(type.type)}`;
-                            propClone.value = type;
-                            propClone.value.optional = prop.value.optional;
+                            let primary = this.isPrimaryExpandedUnionProperty(prop.type, index);
+                            let propertyName = primary ? prop.name : `${prop.name}As${this.displayNameForType(type)}`;
+                            propClone.type = type;
+                            propClone.type.optional = prop.type.optional;
                             propClone.name = propertyName;
                             this.onExpandedUnionProperty(cls, propClone, prop.name);
                         }
@@ -452,7 +452,7 @@ export abstract class Generator implements IGenerator {
         }
 
         return index === ref.union.types.findIndex(t => {
-            if (spec.isPrimitiveTypeReference(t.type)) {
+            if (spec.isPrimitiveTypeReference(t)) {
                 return true;
             }
 
@@ -486,12 +486,12 @@ export abstract class Generator implements IGenerator {
         // ListOfX or MapOfX
         let coll = spec.isCollectionTypeReference(type) && type.collection;
         if (coll) {
-            return `${this.code.toPascalCase(coll.kind)}Of${this.displayNameForType(coll.elementtype.type)}`;
+            return `${this.code.toPascalCase(coll.kind)}Of${this.displayNameForType(coll.elementtype)}`;
         }
 
         let union = spec.isUnionTypeReference(type) && type.union;
         if (union) {
-            return union.types.map(t => this.displayNameForType(t.type)).join('Or');
+            return union.types.map(t => this.displayNameForType(t)).join('Or');
         }
 
         throw new Error(`Cannot determine display name for type: ${JSON.stringify(type)}`);

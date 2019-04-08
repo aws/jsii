@@ -17,15 +17,15 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("propFromInterface", "{\"type\":{\"primitive\":\"string\"}}")]
+        [JsiiProperty("propFromInterface", "{\"primitive\":\"string\"}")]
         public virtual string PropFromInterface
         {
             get => GetInstanceProperty<string>();
         }
 
-        [JsiiMethod("abstractMethod", "{\"type\":{\"primitive\":\"string\"}}", "[{\"name\":\"name\",\"value\":{\"type\":{\"primitive\":\"string\"}}}]")]
+        [JsiiMethod("abstractMethod", "{\"primitive\":\"string\"}", "[{\"name\":\"name\",\"type\":{\"primitive\":\"string\"}}]")]
         public abstract string AbstractMethod(string name);
-        [JsiiMethod("nonAbstractMethod", "{\"type\":{\"primitive\":\"number\"}}", "[]")]
+        [JsiiMethod("nonAbstractMethod", "{\"primitive\":\"number\"}", "[]")]
         public virtual double NonAbstractMethod()
         {
             return InvokeInstanceMethod<double>(new object[]{});

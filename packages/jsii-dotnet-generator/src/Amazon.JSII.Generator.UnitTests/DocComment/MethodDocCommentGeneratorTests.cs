@@ -13,11 +13,8 @@ namespace Amazon.JSII.Generator.UnitTests.DocComment
         string Render(Docs docs, params Parameter[] parameters)
         {
             Method method = new Method(
-                false,
-                false,
-                false,
-                parameters,
-                docs,
+                parameters: parameters,
+                docs: docs,
                 name: "method"
             );
 
@@ -159,7 +156,7 @@ namespace Amazon.JSII.Generator.UnitTests.DocComment
         {
             Parameter parameter = new Parameter(
                 name: "myParam",
-                value: new TypeInstance(type: new TypeReference(primitive: PrimitiveType.String)),
+                type: new TypeReference(primitive: PrimitiveType.String),
                 docs: new Docs
                 {
                     { "param", "my comment" }
@@ -179,7 +176,7 @@ namespace Amazon.JSII.Generator.UnitTests.DocComment
         {
             Parameter parameter = new Parameter(
                 name: "myParam",
-                value: new TypeInstance(type: new TypeReference(primitive: PrimitiveType.String)),
+                type: new TypeReference(primitive: PrimitiveType.String),
                 docs: new Docs
                 {
                     { "summary", "my comment" }
@@ -201,7 +198,7 @@ namespace Amazon.JSII.Generator.UnitTests.DocComment
         {
             Parameter parameter = new Parameter(
                 name: "myParam",
-                value: new TypeInstance(type: new TypeReference(primitive: PrimitiveType.String)),
+                type: new TypeReference(primitive: PrimitiveType.String),
                 docs: new Docs
                 {
                     { "myKey1", "my comment" },

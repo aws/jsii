@@ -23,13 +23,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod("interface1", "{\"type\":{\"fqn\":\"jsii-calc.InbetweenClass\"}}", "[]")]
+        [JsiiMethod("interface1", "{\"fqn\":\"jsii-calc.InbetweenClass\"}", "[]")]
         public virtual InbetweenClass Interface1()
         {
             return InvokeInstanceMethod<InbetweenClass>(new object[]{});
         }
 
-        [JsiiMethod("interface2", "{\"type\":{\"fqn\":\"jsii-calc.IPublicInterface\"}}", "[]")]
+        [JsiiMethod("interface2", "{\"fqn\":\"jsii-calc.IPublicInterface\"}", "[]")]
         public virtual IIPublicInterface Interface2()
         {
             return InvokeInstanceMethod<IIPublicInterface>(new object[]{});

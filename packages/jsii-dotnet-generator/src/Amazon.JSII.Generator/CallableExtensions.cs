@@ -9,11 +9,11 @@ using SF = Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Amazon.JSII.Generator
 {
-    public static class MethodExtensions
+    public static class CallableExtensions
     {
-        public static ParameterListSyntax GetParameterListSyntax(this Method method, INamespaceSet namespaces, ISymbolMap symbols)
+        public static ParameterListSyntax GetParameterListSyntax(this Callable callable, INamespaceSet namespaces, ISymbolMap symbols)
         {
-            method = method ?? throw new ArgumentNullException(nameof(method));
+            callable = callable ?? throw new ArgumentNullException(nameof(callable));
             namespaces = namespaces ?? throw new ArgumentNullException(nameof(namespaces));
             symbols = symbols ?? throw new ArgumentNullException(nameof(symbols));
 
@@ -21,19 +21,19 @@ namespace Amazon.JSII.Generator
 
             IEnumerable<ParameterSyntax> GetParameters()
             {
-                if (method.Parameters == null)
+                if (callable.Parameters == null)
                 {
                     yield break;
                 }
 
-                foreach (Parameter parameter in method.Parameters)
+                foreach (Parameter parameter in callable.Parameters)
                 {
-                    namespaces.Add(parameter.Value.Type);
+                    namespaces.Add(parameter.Type);
 
                     yield return SF.Parameter(
                         SF.List<AttributeListSyntax>(),
                         SF.TokenList(),
-                        symbols.GetTypeSyntax(parameter.Value),
+                        symbols.GetTypeSyntax(parameter.Type),
                         symbols.GetNameSyntaxToken(parameter),
                         null
                     );
@@ -41,11 +41,11 @@ namespace Amazon.JSII.Generator
             }
         }
 
-        public static SyntaxToken GetParametersJsonSyntaxToken(this Method method)
+        public static SyntaxToken GetParametersJsonSyntaxToken(this Callable callable)
         {
             // Strip docs before serializing.
-            Parameter[] parameters = (method?.Parameters ?? Enumerable.Empty<Parameter>())
-                .Select(p => new Parameter(p.Name, p.Value))
+            Parameter[] parameters = (callable?.Parameters ?? Enumerable.Empty<Parameter>())
+                .Select(p => new Parameter(p.Name, p.Type))
                 .ToArray();
 
             return SF.Literal(JsonConvert.SerializeObject(parameters));

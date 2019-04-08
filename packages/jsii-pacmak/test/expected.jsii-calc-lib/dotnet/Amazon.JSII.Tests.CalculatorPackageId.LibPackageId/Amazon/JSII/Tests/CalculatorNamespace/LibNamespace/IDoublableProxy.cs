@@ -10,7 +10,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
-        [JsiiProperty("doubleValue", "{\"type\":{\"primitive\":\"number\"}}")]
+        [JsiiProperty("doubleValue", "{\"primitive\":\"number\"}")]
         public double DoubleValue
         {
             get => GetInstanceProperty<double>();

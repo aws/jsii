@@ -15,7 +15,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         }
 
         /// <summary>Say hello!</summary>
-        [JsiiMethod("hello", "{\"type\":{\"primitive\":\"string\"}}", "[]")]
+        [JsiiMethod("hello", "{\"primitive\":\"string\"}", "[]")]
         public string Hello()
         {
             return InvokeInstanceMethod<string>(new object[]{});

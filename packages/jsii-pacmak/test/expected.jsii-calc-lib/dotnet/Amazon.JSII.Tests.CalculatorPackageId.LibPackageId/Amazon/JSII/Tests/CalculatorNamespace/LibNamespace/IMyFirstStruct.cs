@@ -7,20 +7,20 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     public interface IMyFirstStruct
     {
         /// <summary>An awesome number value.</summary>
-        [JsiiProperty("anumber", "{\"type\":{\"primitive\":\"number\"}}")]
+        [JsiiProperty("anumber", "{\"primitive\":\"number\"}")]
         double Anumber
         {
             get;
         }
 
         /// <summary>A string value.</summary>
-        [JsiiProperty("astring", "{\"type\":{\"primitive\":\"string\"}}")]
+        [JsiiProperty("astring", "{\"primitive\":\"string\"}")]
         string Astring
         {
             get;
         }
 
-        [JsiiProperty("firstOptional", "{\"type\":{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"type\":{\"primitive\":\"string\"}}}},\"optional\":true}")]
+        [JsiiProperty("firstOptional", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"optional\":true}")]
         string[] FirstOptional
         {
             get;

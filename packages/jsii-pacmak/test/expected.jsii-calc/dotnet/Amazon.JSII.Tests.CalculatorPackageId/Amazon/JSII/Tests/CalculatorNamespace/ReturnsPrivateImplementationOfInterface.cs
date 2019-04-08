@@ -19,7 +19,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("privateImplementation", "{\"type\":{\"fqn\":\"jsii-calc.IPrivatelyImplemented\"}}")]
+        [JsiiProperty("privateImplementation", "{\"fqn\":\"jsii-calc.IPrivatelyImplemented\"}")]
         public virtual IIPrivatelyImplemented PrivateImplementation
         {
             get => GetInstanceProperty<IIPrivatelyImplemented>();

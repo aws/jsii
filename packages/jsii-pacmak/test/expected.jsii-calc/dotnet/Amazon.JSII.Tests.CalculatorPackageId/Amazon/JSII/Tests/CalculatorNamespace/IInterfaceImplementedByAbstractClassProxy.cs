@@ -10,7 +10,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("propFromInterface", "{\"type\":{\"primitive\":\"string\"}}")]
+        [JsiiProperty("propFromInterface", "{\"primitive\":\"string\"}")]
         public string PropFromInterface
         {
             get => GetInstanceProperty<string>();

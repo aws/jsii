@@ -11,19 +11,19 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("goo", "{\"type\":{\"primitive\":\"date\"}}")]
+        [JsiiProperty("goo", "{\"primitive\":\"date\"}")]
         public DateTime Goo
         {
             get => GetInstanceProperty<DateTime>();
         }
 
-        [JsiiProperty("bar", "{\"type\":{\"primitive\":\"string\"}}")]
+        [JsiiProperty("bar", "{\"primitive\":\"string\"}")]
         public string Bar
         {
             get => GetInstanceProperty<string>();
         }
 
-        [JsiiProperty("foo", "{\"type\":{\"fqn\":\"@scope/jsii-calc-base-of-base.Very\"}}")]
+        [JsiiProperty("foo", "{\"fqn\":\"@scope/jsii-calc-base-of-base.Very\"}")]
         public Very Foo
         {
             get => GetInstanceProperty<Very>();

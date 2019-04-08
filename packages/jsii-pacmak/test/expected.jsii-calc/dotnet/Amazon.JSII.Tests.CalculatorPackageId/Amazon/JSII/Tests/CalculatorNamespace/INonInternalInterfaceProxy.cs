@@ -9,21 +9,21 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("b", "{\"type\":{\"primitive\":\"string\"}}")]
+        [JsiiProperty("b", "{\"primitive\":\"string\"}")]
         public string B
         {
             get => GetInstanceProperty<string>();
             set => SetInstanceProperty(value);
         }
 
-        [JsiiProperty("c", "{\"type\":{\"primitive\":\"string\"}}")]
+        [JsiiProperty("c", "{\"primitive\":\"string\"}")]
         public string C
         {
             get => GetInstanceProperty<string>();
             set => SetInstanceProperty(value);
         }
 
-        [JsiiProperty("a", "{\"type\":{\"primitive\":\"string\"}}")]
+        [JsiiProperty("a", "{\"primitive\":\"string\"}")]
         public string A
         {
             get => GetInstanceProperty<string>();

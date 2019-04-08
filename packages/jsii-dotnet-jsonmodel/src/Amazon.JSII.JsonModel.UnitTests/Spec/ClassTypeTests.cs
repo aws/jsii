@@ -26,22 +26,16 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                     docs: new Docs(),
                     properties: new Property[] { },
                     methods: new Method[] { },
-                    @base: new TypeReference("myBaseFqn"),
-                    initializer: new Method(true, false, false),
-                    interfaces: new TypeReference[] { }
+                    @base: "myBaseFqn",
+                    initializer: new Initializer(),
+                    interfaces: new string[] { }
                 );
 
                 string actual = JsonConvert.SerializeObject(classType, Formatting.Indented);
                 const string expected = @"{
   ""abstract"": true,
-  ""base"": {
-    ""fqn"": ""myBaseFqn""
-  },
-  ""initializer"": {
-    ""initializer"": true,
-    ""protected"": false,
-    ""abstract"": false
-  },
+  ""base"": ""myBaseFqn"",
+  ""initializer"": {},
   ""properties"": [],
   ""methods"": [],
   ""interfaces"": [],
@@ -69,9 +63,9 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                     docs: new Docs(),
                     properties: new Property[] { },
                     methods: new Method[] { },
-                    @base: new TypeReference("myBaseFqn"),
-                    initializer: new Method(true, false, false),
-                    interfaces: new TypeReference[] { }
+                    @base: "myBaseFqn",
+                    initializer: new Initializer(),
+                    interfaces: new string[] { }
                 ));
             }
 
@@ -88,9 +82,9 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                     docs: new Docs(),
                     properties: new Property[] { },
                     methods: new Method[] { },
-                    @base: new TypeReference("myBaseFqn"),
-                    initializer: new Method(true, false, false),
-                    interfaces: new TypeReference[] { }
+                    @base: "myBaseFqn",
+                    initializer: new Initializer(),
+                    interfaces: new string[] { }
                 ));
             }
 
@@ -107,9 +101,9 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                     docs: new Docs(),
                     properties: new Property[] { },
                     methods: new Method[] { },
-                    @base: new TypeReference("myBaseFqn"),
-                    initializer: new Method(true, false, false),
-                    interfaces: new TypeReference[] { }
+                    @base: "myBaseFqn",
+                    initializer: new Initializer(),
+                    interfaces: new string[] { }
                 ));
             }
 
@@ -126,21 +120,15 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                     docs: new Docs(),
                     properties: new Property[] { },
                     methods: new Method[] { },
-                    @base: new TypeReference("myBaseFqn"),
-                    initializer: new Method(true, false, false),
-                    interfaces: new TypeReference[] { }
+                    @base: "myBaseFqn",
+                    initializer: new Initializer(),
+                    interfaces: new string[] { }
                 );
                 string actual = JsonConvert.SerializeObject(classType, Formatting.Indented);
                 const string expected = @"{
   ""abstract"": true,
-  ""base"": {
-    ""fqn"": ""myBaseFqn""
-  },
-  ""initializer"": {
-    ""initializer"": true,
-    ""protected"": false,
-    ""abstract"": false
-  },
+  ""base"": ""myBaseFqn"",
+  ""initializer"": {},
   ""properties"": [],
   ""methods"": [],
   ""interfaces"": [],
@@ -165,22 +153,16 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                     isAbstract: true,
                     properties: new Property[] { },
                     methods: new Method[] { },
-                    @base: new TypeReference("myBaseFqn"),
-                    initializer: new Method(true, false, false),
-                    interfaces: new TypeReference[] { }
+                    @base: "myBaseFqn",
+                    initializer: new Initializer(),
+                    interfaces: new string[] { }
                 );
 
                 string actual = JsonConvert.SerializeObject(classType, Formatting.Indented);
                 const string expected = @"{
   ""abstract"": true,
-  ""base"": {
-    ""fqn"": ""myBaseFqn""
-  },
-  ""initializer"": {
-    ""initializer"": true,
-    ""protected"": false,
-    ""abstract"": false
-  },
+  ""base"": ""myBaseFqn"",
+  ""initializer"": {},
   ""properties"": [],
   ""methods"": [],
   ""interfaces"": [],
@@ -206,22 +188,16 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                     isAbstract: true,
                     docs: new Docs(),
                     methods: new Method[] { },
-                    @base: new TypeReference("myBaseFqn"),
-                    initializer: new Method(true, false, false),
-                    interfaces: new TypeReference[] { }
+                    @base: "myBaseFqn",
+                    initializer: new Initializer(),
+                    interfaces: new string[] { }
                 );
 
                 string actual = JsonConvert.SerializeObject(classType, Formatting.Indented);
                 const string expected = @"{
   ""abstract"": true,
-  ""base"": {
-    ""fqn"": ""myBaseFqn""
-  },
-  ""initializer"": {
-    ""initializer"": true,
-    ""protected"": false,
-    ""abstract"": false
-  },
+  ""base"": ""myBaseFqn"",
+  ""initializer"": {},
   ""methods"": [],
   ""interfaces"": [],
   ""fqn"": ""myFqn"",
@@ -247,22 +223,16 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                     isAbstract: true,
                     docs: new Docs(),
                     properties: new Property[] { },
-                    @base: new TypeReference("myBaseFqn"),
-                    initializer: new Method(true, false, false),
-                    interfaces: new TypeReference[] { }
+                    @base: "myBaseFqn",
+                    initializer: new Initializer(),
+                    interfaces: new string[] { }
                 );
 
                 string actual = JsonConvert.SerializeObject(classType, Formatting.Indented);
                 const string expected = @"{
   ""abstract"": true,
-  ""base"": {
-    ""fqn"": ""myBaseFqn""
-  },
-  ""initializer"": {
-    ""initializer"": true,
-    ""protected"": false,
-    ""abstract"": false
-  },
+  ""base"": ""myBaseFqn"",
+  ""initializer"": {},
   ""properties"": [],
   ""interfaces"": [],
   ""fqn"": ""myFqn"",
@@ -289,18 +259,14 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                     docs: new Docs(),
                     properties: new Property[] { },
                     methods: new Method[] { },
-                    initializer: new Method(true, false, false),
-                    interfaces: new TypeReference[] { }
+                    initializer: new Initializer(),
+                    interfaces: new string[] { }
                 );
 
                 string actual = JsonConvert.SerializeObject(classType, Formatting.Indented);
                 const string expected = @"{
   ""abstract"": true,
-  ""initializer"": {
-    ""initializer"": true,
-    ""protected"": false,
-    ""abstract"": false
-  },
+  ""initializer"": {},
   ""properties"": [],
   ""methods"": [],
   ""interfaces"": [],
@@ -328,16 +294,14 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                     docs: new Docs(),
                     properties: new Property[] { },
                     methods: new Method[] { },
-                    @base: new TypeReference("myBaseFqn"),
-                    interfaces: new TypeReference[] { }
+                    @base: "myBaseFqn",
+                    interfaces: new string[] { }
                 );
 
                 string actual = JsonConvert.SerializeObject(classType, Formatting.Indented);
                 const string expected = @"{
   ""abstract"": true,
-  ""base"": {
-    ""fqn"": ""myBaseFqn""
-  },
+  ""base"": ""myBaseFqn"",
   ""properties"": [],
   ""methods"": [],
   ""interfaces"": [],
@@ -365,21 +329,15 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                     docs: new Docs(),
                     properties: new Property[] { },
                     methods: new Method[] { },
-                    @base: new TypeReference("myBaseFqn"),
-                    initializer: new Method(true, false, false)
+                    @base: "myBaseFqn",
+                    initializer: new Initializer()
                 );
 
                 string actual = JsonConvert.SerializeObject(classType, Formatting.Indented);
                 const string expected = @"{
   ""abstract"": true,
-  ""base"": {
-    ""fqn"": ""myBaseFqn""
-  },
-  ""initializer"": {
-    ""initializer"": true,
-    ""protected"": false,
-    ""abstract"": false
-  },
+  ""base"": ""myBaseFqn"",
+  ""initializer"": {},
   ""properties"": [],
   ""methods"": [],
   ""fqn"": ""myFqn"",
@@ -403,14 +361,8 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
             {
                 const string json = @"{
   ""abstract"": true,
-  ""base"": {
-    ""fqn"": ""myBaseFqn""
-  },
-  ""initializer"": {
-    ""initializer"": true,
-    ""protected"": false,
-    ""abstract"": false
-  },
+  ""base"": ""myBaseFqn"",
+  ""initializer"": {},
   ""properties"": [],
   ""methods"": [],
   ""interfaces"": [],
@@ -443,16 +395,10 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
             {
                 const string json = @"{
   ""abstract"": true,
-  ""initializer"": {
-    ""initializer"": true,
-    ""protected"": false,
-    ""abstract"": false
-  },
+  ""initializer"": {},
   ""properties"": [],
   ""methods"": [],
-  ""base"": {
-    ""fqn"": ""myBaseFqn""
-  },
+  ""base"": ""myBaseFqn"",
   ""interfaces"": [],
   ""assembly"": ""myModule"",
   ""name"": ""myName"",
@@ -469,16 +415,10 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
             {
                 const string json = @"{
   ""abstract"": true,
-  ""initializer"": {
-    ""initializer"": true,
-    ""protected"": false,
-    ""abstract"": false
-  },
+  ""initializer"": {},
   ""properties"": [],
   ""methods"": [],
-  ""base"": {
-    ""fqn"": ""myBaseFqn""
-  },
+  ""base"": ""myBaseFqn"",
   ""interfaces"": [],
   ""fqn"": ""myFqn"",
   ""name"": ""myName"",
@@ -495,16 +435,10 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
             {
                 const string json = @"{
   ""abstract"": true,
-  ""initializer"": {
-    ""initializer"": true,
-    ""protected"": false,
-    ""abstract"": false
-  },
+  ""initializer"": {},
   ""properties"": [],
   ""methods"": [],
-  ""base"": {
-    ""fqn"": ""myBaseFqn""
-  },
+  ""base"": ""myBaseFqn"",
   ""interfaces"": [],
   ""fqn"": ""myFqn"",
   ""assembly"": ""myModule"",
@@ -521,16 +455,10 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
             {
                 const string json = @"{
   ""abstract"": true,
-  ""initializer"": {
-    ""initializer"": true,
-    ""protected"": false,
-    ""abstract"": false
-  },
+  ""initializer"": {},
   ""properties"": [],
   ""methods"": [],
-  ""base"": {
-    ""fqn"": ""myBaseFqn""
-  },
+  ""base"": ""myBaseFqn"",
   ""interfaces"": [],
   ""fqn"": ""myFqn"",
   ""assembly"": ""myModule"",
@@ -548,16 +476,10 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
             {
                 const string json = @"{
   ""abstract"": true,
-  ""initializer"": {
-    ""initializer"": true,
-    ""protected"": false,
-    ""abstract"": false
-  },
+  ""initializer"": {},
   ""properties"": [],
   ""methods"": [],
-  ""base"": {
-    ""fqn"": ""myBaseFqn""
-  },
+  ""base"": ""myBaseFqn"",
   ""interfaces"": [],
   ""fqn"": ""myFqn"",
   ""assembly"": ""myModule"",
@@ -576,15 +498,9 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
             {
                 const string json = @"{
   ""abstract"": true,
-  ""initializer"": {
-    ""initializer"": true,
-    ""protected"": false,
-    ""abstract"": false
-  },
+  ""initializer"": {},
   ""methods"": [],
-  ""base"": {
-    ""fqn"": ""myBaseFqn""
-  },
+  ""base"": ""myBaseFqn"",
   ""interfaces"": [],
   ""fqn"": ""myFqn"",
   ""assembly"": ""myModule"",
@@ -604,15 +520,9 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
             {
                 const string json = @"{
   ""abstract"": true,
-  ""initializer"": {
-    ""initializer"": true,
-    ""protected"": false,
-    ""abstract"": false
-  },
+  ""initializer"": {},
   ""properties"": [],
-  ""base"": {
-    ""fqn"": ""myBaseFqn""
-  },
+  ""base"": ""myBaseFqn"",
   ""interfaces"": [],
   ""fqn"": ""myFqn"",
   ""assembly"": ""myModule"",
@@ -632,11 +542,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
             {
                 const string json = @"{
   ""abstract"": true,
-  ""initializer"": {
-    ""initializer"": true,
-    ""protected"": false,
-    ""abstract"": false
-  },
+  ""initializer"": {},
   ""properties"": [],
   ""methods"": [],
   ""interfaces"": [],
@@ -660,9 +566,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
   ""abstract"": true,
   ""properties"": [],
   ""methods"": [],
-  ""base"": {
-    ""fqn"": ""myBaseFqn""
-  },
+  ""base"": ""myBaseFqn"",
   ""interfaces"": [],
   ""fqn"": ""myFqn"",
   ""assembly"": ""myModule"",
@@ -682,16 +586,10 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
             {
                 const string json = @"{
   ""abstract"": true,
-  ""initializer"": {
-    ""initializer"": true,
-    ""protected"": false,
-    ""abstract"": false
-  },
+  ""initializer"": {},
   ""properties"": [],
   ""methods"": [],
-  ""base"": {
-    ""fqn"": ""myBaseFqn""
-  },
+  ""base"": ""myBaseFqn"",
   ""fqn"": ""myFqn"",
   ""assembly"": ""myModule"",
   ""name"": ""myName"",

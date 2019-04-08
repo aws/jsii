@@ -17,7 +17,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("while", "{\"type\":{\"primitive\":\"string\"}}")]
+        [JsiiProperty("while", "{\"primitive\":\"string\"}")]
         public virtual string While
         {
             get => GetInstanceProperty<string>();

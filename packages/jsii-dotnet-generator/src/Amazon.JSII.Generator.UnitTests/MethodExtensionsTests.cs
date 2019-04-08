@@ -8,25 +8,22 @@ namespace Amazon.JSII.Generator.UnitTests
 {
     public class MethodExtensionsTests
     {
-        const string Prefix = nameof(Generator) + "." + nameof(MethodExtensions) + ".";
+        const string Prefix = nameof(Generator) + "." + nameof(CallableExtensions) + ".";
 
         public class GetParameterListSyntax : GeneratorTestBase
         {
-            const string _Prefix = Prefix + nameof(MethodExtensions.GetParameterListSyntax) + ".";
+            const string _Prefix = Prefix + nameof(CallableExtensions.GetParameterListSyntax) + ".";
 
             [Fact(DisplayName = _Prefix + nameof(IncludesAllParameters))]
             public void IncludesAllParameters()
             {
                 Method method = new Method
                 (
-                    false,
-                    false,
-                    false,
                     name: "myMethod",
                     parameters: new[]
                     {
-                        new Parameter(name: "myParam1", value: new TypeInstance(type: new TypeReference("myParamTypeFqn1"))),
-                        new Parameter(name: "myParam2", value: new TypeInstance(type: new TypeReference("myParamTypeFqn2"))),
+                        new Parameter(name: "myParam1", type: new TypeReference("myParamTypeFqn1")),
+                        new Parameter(name: "myParam2", type: new TypeReference("myParamTypeFqn2")),
                     }
                 );
 
@@ -48,9 +45,6 @@ namespace Amazon.JSII.Generator.UnitTests
             {
                 Method method = new Method
                 (
-                    false,
-                    false,
-                    false,
                     name: "myMethod"
                 );
 
@@ -81,14 +75,11 @@ namespace Amazon.JSII.Generator.UnitTests
                 );
                 Method method = new Method
                 (
-                    false,
-                    false,
-                    false,
                     name: "myMethod",
                     parameters: new[]
                     {
-                        new Parameter(name: "myParam1", value: new TypeInstance(type: new TypeReference("myParamTypeFqn1"))),
-                        new Parameter(name: "myParam2", value: new TypeInstance(type: new TypeReference("myParamTypeFqn2"))),
+                        new Parameter(name: "myParam1", type: new TypeReference("myParamTypeFqn1")),
+                        new Parameter(name: "myParam2", type: new TypeReference("myParamTypeFqn2")),
                     }
                 );
 
@@ -110,14 +101,13 @@ namespace Amazon.JSII.Generator.UnitTests
 
         public class GetParametersJsonSyntaxToken : GeneratorTestBase
         {
-            const string _Prefix = Prefix + nameof(MethodExtensions.GetParametersJsonSyntaxToken) + ".";
+            const string _Prefix = Prefix + nameof(CallableExtensions.GetParametersJsonSyntaxToken) + ".";
 
             [Fact(DisplayName = _Prefix + nameof(StripsDocs))]
             public void StripsDocs()
             {
                 Method method = new Method
                 (
-                    isInitializer: false,
                     isProtected: false,
                     isAbstract: false,
                     name: "myMethod",
@@ -126,13 +116,13 @@ namespace Amazon.JSII.Generator.UnitTests
                         new Parameter
                         (
                             name: "myParam1",
-                            value: new TypeInstance(type: new TypeReference("myParamTypeFqn1")),
+                            type: new TypeReference("myParamTypeFqn1"),
                             docs: new Docs { { "foo", "bar" } }
                         ),
                         new Parameter
                         (
                             name: "myParam2",
-                            value: new TypeInstance(type: new TypeReference("myParamTypeFqn2")),
+                            type: new TypeReference("myParamTypeFqn2"),
                             docs: new Docs { { "foo", "bar" } }
                         )
                     }
@@ -141,7 +131,7 @@ namespace Amazon.JSII.Generator.UnitTests
                 SyntaxToken token = method.GetParametersJsonSyntaxToken();
 
                 string actual = token.ToString();
-                string expected = @"""[{\""name\"":\""myParam1\"",\""value\"":{\""type\"":{\""fqn\"":\""myParamTypeFqn1\""}}},{\""name\"":\""myParam2\"",\""value\"":{\""type\"":{\""fqn\"":\""myParamTypeFqn2\""}}}]""";
+                string expected = @"""[{\""name\"":\""myParam1\"",\""type\"":{\""fqn\"":\""myParamTypeFqn1\""}},{\""name\"":\""myParam2\"",\""type\"":{\""fqn\"":\""myParamTypeFqn2\""}}]""";
 
                 Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
             }

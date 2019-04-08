@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceIncludesClas
     [JsiiInterface(typeof(IHello), "jsii-calc.InterfaceInNamespaceIncludesClasses.Hello")]
     public interface IHello
     {
-        [JsiiProperty("foo", "{\"type\":{\"primitive\":\"number\"}}")]
+        [JsiiProperty("foo", "{\"primitive\":\"number\"}")]
         double Foo
         {
             get;

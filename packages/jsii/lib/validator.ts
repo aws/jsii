@@ -161,7 +161,7 @@ function _defaultValidations(): ValidationFunction[] {
                 return _validateMethodOverride(method, baseType);
             }
             _assertSignaturesMatch(overridden, method, `${type.fqn}#${method.name}`, `overriding ${baseType.fqn}`);
-            method.overrides = { fqn: baseType.fqn };
+            method.overrides = baseType.fqn;
             return true;
         }
 
@@ -174,7 +174,7 @@ function _defaultValidations(): ValidationFunction[] {
                 return _validatePropertyOverride(property, baseType);
             }
             _assertPropertiesMatch(overridden, property, `${type.fqn}#${property.name}`, `overriding ${baseType.fqn}`);
-            property.overrides = { fqn: baseType.fqn };
+            property.overrides = baseType.fqn;
             return true;
         }
 
@@ -191,7 +191,7 @@ function _defaultValidations(): ValidationFunction[] {
                 const implemented = (ifaceType.methods || []).find(m => m.name === method.name);
                 if (implemented) {
                     _assertSignaturesMatch(implemented, method, `${type.fqn}#${method.name}`, `implementing ${ifaceType.fqn}`);
-                    method.overrides = { fqn: iface.fqn };
+                    method.overrides = iface;
                     return true;
                 }
                 if (_validateMethodImplementation(method, ifaceType)) {
@@ -214,7 +214,7 @@ function _defaultValidations(): ValidationFunction[] {
                 const implemented = (ifaceType.properties || []).find(p => p.name === property.name);
                 if (implemented) {
                     _assertPropertiesMatch(implemented, property, `${type.fqn}#${property.name}`, `implementing ${ifaceType.fqn}`);
-                    property.overrides = { fqn: iface.fqn };
+                    property.overrides = ifaceType.fqn;
                     return true;
                 }
                 if (_validatePropertyImplementation(property, ifaceType)) {
@@ -226,8 +226,8 @@ function _defaultValidations(): ValidationFunction[] {
 
         function _assertSignaturesMatch(expected: spec.Method, actual: spec.Method, label: string, action: string) {
             if (!deepEqual(actual.returns, expected.returns)) {
-                const expType = spec.describeTypeInstance(expected.returns);
-                const actType = spec.describeTypeInstance(actual.returns);
+                const expType = spec.describeTypeReference(expected.returns);
+                const actType = spec.describeTypeReference(actual.returns);
                 diagnostic(ts.DiagnosticCategory.Error,
                            `${label} changes the return type when ${action} (expected ${expType}, found ${actType})`);
             }
@@ -241,9 +241,9 @@ function _defaultValidations(): ValidationFunction[] {
             for (let i = 0 ; i < expectedParams.length ; i++) {
                 const expParam = expectedParams[i];
                 const actParam = actualParams[i];
-                if (!deepEqual(expParam.value, actParam.value)) {
-                    const expType = spec.describeTypeInstance(expParam.value);
-                    const actType = spec.describeTypeInstance(actParam.value);
+                if (!deepEqual(expParam.type, actParam.type)) {
+                    const expType = spec.describeTypeReference(expParam.type);
+                    const actType = spec.describeTypeReference(actParam.type);
                     diagnostic(ts.DiagnosticCategory.Error,
                                `${label} changes type of argument ${actParam.name} when ${action} (expected ${expType}, found ${actType}`);
                 }
@@ -257,9 +257,9 @@ function _defaultValidations(): ValidationFunction[] {
         }
 
         function _assertPropertiesMatch(expected: spec.Property, actual: spec.Property, label: string, action: string) {
-            if (!deepEqual(expected.value, actual.value)) {
-                const expType = spec.describeTypeInstance(expected.value);
-                const actType = spec.describeTypeInstance(actual.value);
+            if (!deepEqual(expected.type, actual.type)) {
+                const expType = spec.describeTypeReference(expected.type);
+                const actType = spec.describeTypeReference(actual.type);
                 diagnostic(ts.DiagnosticCategory.Error,
                            `${label} changes the type of property when ${action} (expected ${expType}, found ${actType})`);
             }
@@ -304,21 +304,21 @@ function _allTypeReferences(assm: spec.Assembly): spec.NamedTypeReference[] {
     for (const type of _allTypes(assm)) {
         if (!spec.isClassOrInterfaceType(type)) { continue; }
         if (spec.isClassType(type) && type.base) {
-            typeReferences.push(type.base);
+            typeReferences.push({ fqn: type.base });
         }
         if (type.interfaces) {
-            type.interfaces.forEach(iface => typeReferences.push(iface));
+            type.interfaces.forEach(iface => typeReferences.push({ fqn: iface }));
         }
     }
     for (const prop of _allProperties(assm)) {
-        _collectTypeReferences(prop.value.type);
+        _collectTypeReferences(prop.type);
     }
     for (const meth of _allMethods(assm)) {
         if (meth.returns) {
-            _collectTypeReferences(meth.returns.type);
+            _collectTypeReferences(meth.returns);
         }
         for (const param of meth.parameters || []) {
-            _collectTypeReferences(param.value.type);
+            _collectTypeReferences(param.type);
         }
     }
     return typeReferences;
@@ -327,20 +327,23 @@ function _allTypeReferences(assm: spec.Assembly): spec.NamedTypeReference[] {
         if (spec.isNamedTypeReference(type)) {
             typeReferences.push(type);
         } else if (spec.isCollectionTypeReference(type)) {
-            _collectTypeReferences(type.collection.elementtype.type);
+            _collectTypeReferences(type.collection.elementtype);
         } else if (spec.isUnionTypeReference(type)) {
-            type.union.types.forEach(t => _collectTypeReferences(t.type));
+            type.union.types.forEach(_collectTypeReferences);
         }
     }
 }
 
-function _dereference(typeRef: spec.NamedTypeReference, assembly: spec.Assembly, validator: Validator): spec.Type | undefined {
-    const [assm, ] = typeRef.fqn.split('.');
+function _dereference(typeRef: string | spec.NamedTypeReference, assembly: spec.Assembly, validator: Validator): spec.Type | undefined {
+    if (typeof typeRef !== 'string') {
+        typeRef = typeRef.fqn;
+    }
+    const [assm, ] = typeRef.split('.');
     if (assembly.name === assm) {
-        return assembly.types && assembly.types[typeRef.fqn];
+        return assembly.types && assembly.types[typeRef];
     }
     const foreignAssm = validator.projectInfo.transitiveDependencies.find(dep => dep.name === assm);
-    return foreignAssm && foreignAssm.types && foreignAssm.types[typeRef.fqn];
+    return foreignAssm && foreignAssm.types && foreignAssm.types[typeRef];
 }
 
 function _isEmpty(array: undefined | any[]): array is undefined {

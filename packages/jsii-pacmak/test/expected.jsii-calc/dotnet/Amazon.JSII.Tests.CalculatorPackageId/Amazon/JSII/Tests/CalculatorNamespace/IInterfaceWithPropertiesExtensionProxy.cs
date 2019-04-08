@@ -9,20 +9,20 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("foo", "{\"type\":{\"primitive\":\"number\"}}")]
+        [JsiiProperty("foo", "{\"primitive\":\"number\"}")]
         public double Foo
         {
             get => GetInstanceProperty<double>();
             set => SetInstanceProperty(value);
         }
 
-        [JsiiProperty("readOnlyString", "{\"type\":{\"primitive\":\"string\"}}")]
+        [JsiiProperty("readOnlyString", "{\"primitive\":\"string\"}")]
         public string ReadOnlyString
         {
             get => GetInstanceProperty<string>();
         }
 
-        [JsiiProperty("readWriteString", "{\"type\":{\"primitive\":\"string\"}}")]
+        [JsiiProperty("readWriteString", "{\"primitive\":\"string\"}")]
         public string ReadWriteString
         {
             get => GetInstanceProperty<string>();

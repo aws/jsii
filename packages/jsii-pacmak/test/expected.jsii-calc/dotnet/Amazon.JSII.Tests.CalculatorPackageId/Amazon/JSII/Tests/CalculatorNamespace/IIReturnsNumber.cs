@@ -6,13 +6,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(typeof(IIReturnsNumber), "jsii-calc.IReturnsNumber")]
     public interface IIReturnsNumber
     {
-        [JsiiProperty("numberProp", "{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Number\"}}")]
+        [JsiiProperty("numberProp", "{\"fqn\":\"@scope/jsii-calc-lib.Number\"}")]
         Number NumberProp
         {
             get;
         }
 
-        [JsiiMethod("obtainNumber", "{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.IDoublable\"}}", "[]")]
+        [JsiiMethod("obtainNumber", "{\"fqn\":\"@scope/jsii-calc-lib.IDoublable\"}", "[]")]
         IIDoublable ObtainNumber();
     }
 }

@@ -3,35 +3,34 @@ assemblies
  │ └─┬ types
  │   ├─┬ class AbstractClass
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   ├── abstractMethod(name) method
  │   │   ├── nonAbstractMethod() method
  │   │   └── propFromInterface property
  │   ├─┬ class AbstractClassBase
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   └── abstractProperty property
  │   ├─┬ class AbstractClassReturner
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   ├── giveMeAbstract() method
  │   │   ├── giveMeInterface() method
  │   │   └── returnAbstractFromProperty property
  │   ├─┬ class Add
  │   │ └─┬ members
- │   │   ├── <initializer>(lhs,rhs) method
+ │   │   ├── <initializer>(lhs,rhs) initializer
  │   │   ├── toString() method
  │   │   └── value property
  │   ├─┬ class AllTypes
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   ├── anyIn(inp) method
  │   │   ├── anyOut() method
  │   │   ├── enumMethod(value) method
  │   │   ├── enumPropertyValue property
  │   │   ├── anyArrayProperty property
  │   │   ├── anyMapProperty property
- │   │   ├── anyProperty property
  │   │   ├── arrayProperty property
  │   │   ├── booleanProperty property
  │   │   ├── dateProperty property
@@ -39,24 +38,25 @@ assemblies
  │   │   ├── jsonProperty property
  │   │   ├── mapProperty property
  │   │   ├── numberProperty property
- │   │   ├── optionalEnumValue property
  │   │   ├── stringProperty property
  │   │   ├── unionArrayProperty property
  │   │   ├── unionMapProperty property
  │   │   ├── unionProperty property
  │   │   ├── unknownArrayProperty property
  │   │   ├── unknownMapProperty property
+ │   │   ├── anyProperty property
+ │   │   ├── optionalEnumValue property
  │   │   └── unknownProperty property
  │   ├─┬ class AllowedMethodNames
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   ├── getBar(_p1,_p2) method
  │   │   ├── getFoo(withParam) method
  │   │   ├── setBar(_x,_y,_z) method
  │   │   └── setFoo(_x,_y) method
  │   ├─┬ class AsyncVirtualMethods
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   ├── callMe() method
  │   │   ├── callMe2() method
  │   │   ├── callMeDoublePromise() method
@@ -65,18 +65,18 @@ assemblies
  │   │   └── overrideMeToo() method
  │   ├─┬ class AugmentableClass
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   ├── methodOne() method
  │   │   └── methodTwo() method
  │   ├─┬ class BinaryOperation
  │   │ └─┬ members
- │   │   ├── <initializer>(lhs,rhs) method
+ │   │   ├── <initializer>(lhs,rhs) initializer
  │   │   ├── hello() method
  │   │   ├── lhs property
  │   │   └── rhs property
  │   ├─┬ class Calculator
  │   │ └─┬ members
- │   │   ├── <initializer>(props) method
+ │   │   ├── <initializer>(props) initializer
  │   │   ├── add(value) method
  │   │   ├── mul(value) method
  │   │   ├── neg() method
@@ -90,21 +90,21 @@ assemblies
  │   │   └── unionProperty property
  │   ├─┬ class ClassThatImplementsTheInternalInterface
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   ├── a property
  │   │   ├── b property
  │   │   ├── c property
  │   │   └── d property
  │   ├─┬ class ClassThatImplementsThePrivateInterface
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   ├── a property
  │   │   ├── b property
  │   │   ├── c property
  │   │   └── e property
  │   ├─┬ class ClassWithMutableObjectLiteralProperty
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   └── mutableObject property
  │   ├─┬ class ClassWithPrivateConstructorAndAutomaticProperties
  │   │ └─┬ members
@@ -113,10 +113,10 @@ assemblies
  │   │   └── readWriteString property
  │   ├─┬ class ConstructorPassesThisOut
  │   │ └─┬ members
- │   │   └── <initializer>(consumer) method
+ │   │   └── <initializer>(consumer) initializer
  │   ├─┬ class Constructors
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   ├── hiddenInterface() method
  │   │   ├── hiddenInterfaces() method
  │   │   ├── hiddenSubInterfaces() method
@@ -126,119 +126,119 @@ assemblies
  │   │   └── makeInterfaces() method
  │   ├─┬ class ConsumersOfThisCrazyTypeSystem
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   ├── consumeAnotherPublicInterface(obj) method
  │   │   └── consumeNonInternalInterface(obj) method
  │   ├─┬ class DefaultedConstructorArgument
  │   │ └─┬ members
- │   │   ├── <initializer>(arg1,arg2,arg3) method
+ │   │   ├── <initializer>(arg1,arg2,arg3) initializer
  │   │   ├── arg1 property
- │   │   ├── arg2 property
- │   │   └── arg3 property
+ │   │   ├── arg3 property
+ │   │   └── arg2 property
  │   ├─┬ class Base
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   └── prop property
  │   ├─┬ class Derived
  │   │ └─┬ members
- │   │   └── <initializer>() method
+ │   │   └── <initializer>() initializer
  │   ├─┬ class DoNotOverridePrivates
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   ├── changePrivatePropertyValue(newValue) method
  │   │   ├── privateMethodValue() method
  │   │   └── privatePropertyValue() method
  │   ├─┬ class DoNotRecognizeAnyAsOptional
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   └── method(_requiredAny,_optionalAny,_optionalString) method
  │   ├─┬ class DocumentedClass
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   ├── greet(greetee) method
  │   │   └── hola() method
  │   ├─┬ class DontComplainAboutVariadicAfterOptional
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   └── optionalAndVariadic(optional,things) method
  │   ├─┬ class DoubleTrouble
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   ├── hello() method
  │   │   └── next() method
  │   ├─┬ class EraseUndefinedHashValues
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   ├── doesKeyExist(opts,key) method
  │   │   ├── prop1IsNull() method
  │   │   └── prop2IsUndefined() method
  │   ├─┬ class ExportedBaseClass
  │   │ └─┬ members
- │   │   ├── <initializer>(success) method
+ │   │   ├── <initializer>(success) initializer
  │   │   └── success property
  │   ├─┬ class GiveMeStructs
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   ├── derivedToFirst(derived) method
  │   │   ├── readDerivedNonPrimitive(derived) method
  │   │   ├── readFirstNumber(first) method
  │   │   └── structLiteral property
  │   ├─┬ class GreetingAugmenter
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   └── betterGreeting(friendly) method
  │   ├─┬ class ImplementInternalInterface
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   └── prop property
  │   ├─┬ class ImplementsInterfaceWithInternal
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   └── visible() method
  │   ├─┬ class ImplementsInterfaceWithInternalSubclass
  │   │ └─┬ members
- │   │   └── <initializer>() method
+ │   │   └── <initializer>() initializer
  │   ├─┬ class ImplementsPrivateInterface
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   └── private property
  │   ├─┬ class InbetweenClass
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   └── ciao() method
  │   ├─┬ class Foo
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   └── bar property
  │   ├─┬ class JSII417Derived
  │   │ └─┬ members
- │   │   ├── <initializer>(property) method
+ │   │   ├── <initializer>(property) initializer
  │   │   ├── bar() method
  │   │   ├── baz() method
  │   │   └── property property
  │   ├─┬ class JSII417PublicBaseOfBase
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   ├── makeInstance() method
  │   │   ├── foo() method
  │   │   └── hasRoot property
  │   ├─┬ class JSObjectLiteralForInterface
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   ├── giveMeFriendly() method
  │   │   └── giveMeFriendlyGenerator() method
  │   ├─┬ class JSObjectLiteralToNative
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   └── returnLiteral() method
  │   ├─┬ class JSObjectLiteralToNativeClass
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   ├── propA property
  │   │   └── propB property
  │   ├─┬ class JavaReservedWords
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   ├── abstract() method
  │   │   ├── assert() method
  │   │   ├── boolean() method
@@ -294,11 +294,11 @@ assemblies
  │   │   └── while property
  │   ├─┬ class JsiiAgent
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   └── jsiiAgent property
  │   ├─┬ class Multiply
  │   │ └─┬ members
- │   │   ├── <initializer>(lhs,rhs) method
+ │   │   ├── <initializer>(lhs,rhs) initializer
  │   │   ├── farewell() method
  │   │   ├── goodbye() method
  │   │   ├── next() method
@@ -306,7 +306,7 @@ assemblies
  │   │   └── value property
  │   ├─┬ class Negate
  │   │ └─┬ members
- │   │   ├── <initializer>(operand) method
+ │   │   ├── <initializer>(operand) initializer
  │   │   ├── farewell() method
  │   │   ├── goodbye() method
  │   │   ├── hello() method
@@ -314,69 +314,69 @@ assemblies
  │   │   └── value property
  │   ├─┬ class NodeStandardLibrary
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   ├── cryptoSha256() method
  │   │   ├── fsReadFile() method
  │   │   ├── fsReadFileSync() method
  │   │   └── osPlatform property
  │   ├─┬ class NullShouldBeTreatedAsUndefined
  │   │ └─┬ members
- │   │   ├── <initializer>(_param1,optional) method
+ │   │   ├── <initializer>(_param1,optional) initializer
  │   │   ├── giveMeUndefined(value) method
  │   │   ├── giveMeUndefinedInsideAnObject(input) method
  │   │   ├── verifyPropertyIsUndefined() method
  │   │   └── changeMeToUndefined property
  │   ├─┬ class NumberGenerator
  │   │ └─┬ members
- │   │   ├── <initializer>(generator) method
+ │   │   ├── <initializer>(generator) initializer
  │   │   ├── isSameGenerator(gen) method
  │   │   ├── nextTimes100() method
  │   │   └── generator property
  │   ├─┬ class ObjectRefsInCollections
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   ├── sumFromArray(values) method
  │   │   └── sumFromMap(values) method
  │   ├─┬ class Old
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   └── doAThing() method
  │   ├─┬ class OptionalConstructorArgument
  │   │ └─┬ members
- │   │   ├── <initializer>(arg1,arg2,arg3) method
+ │   │   ├── <initializer>(arg1,arg2,arg3) initializer
  │   │   ├── arg1 property
  │   │   ├── arg2 property
  │   │   └── arg3 property
  │   ├─┬ class OptionalStructConsumer
  │   │ └─┬ members
- │   │   ├── <initializer>(optionalStruct) method
- │   │   ├── fieldValue property
- │   │   └── parameterWasUndefined property
+ │   │   ├── <initializer>(optionalStruct) initializer
+ │   │   ├── parameterWasUndefined property
+ │   │   └── fieldValue property
  │   ├─┬ class OverrideReturnsObject
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   └── test(obj) method
  │   ├─┬ class PartiallyInitializedThisConsumer
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   └── consumePartiallyInitializedThis(obj,dt,ev) method
  │   ├─┬ class Polymorphism
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   └── sayHello(friendly) method
  │   ├─┬ class Power
  │   │ └─┬ members
- │   │   ├── <initializer>(base,pow) method
+ │   │   ├── <initializer>(base,pow) initializer
  │   │   ├── base property
  │   │   ├── expression property
  │   │   └── pow property
  │   ├─┬ class PublicClass
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   └── hello() method
  │   ├─┬ class PythonReservedWords
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   ├── and() method
  │   │   ├── as() method
  │   │   ├── assert() method
@@ -411,28 +411,28 @@ assemblies
  │   │   └── yield() method
  │   ├─┬ class ReferenceEnumFromScopedPackage
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   ├── loadFoo() method
  │   │   ├── saveFoo(value) method
  │   │   └── foo property
  │   ├─┬ class ReturnsPrivateImplementationOfInterface
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   └── privateImplementation property
  │   ├─┬ class RuntimeTypeChecking
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   ├── methodWithDefaultedArguments(arg1,arg2,arg3) method
  │   │   ├── methodWithOptionalAnyArgument(arg) method
  │   │   └── methodWithOptionalArguments(arg1,arg2,arg3) method
  │   ├─┬ class SingleInstanceTwoTypes
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   ├── interface1() method
  │   │   └── interface2() method
  │   ├─┬ class Statics
  │   │ └─┬ members
- │   │   ├── <initializer>(value) method
+ │   │   ├── <initializer>(value) initializer
  │   │   ├── staticMethod(name) method
  │   │   ├── justMethod() method
  │   │   ├── BAR property
@@ -444,16 +444,16 @@ assemblies
  │   │   └── value property
  │   ├─┬ class StripInternal
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   └── youSeeMe property
  │   ├─┬ class Sum
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   ├── expression property
  │   │   └── parts property
  │   ├─┬ class SyncVirtualMethods
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   ├── callerIsAsync() method
  │   │   ├── callerIsMethod() method
  │   │   ├── modifyOtherProperty(value) method
@@ -472,34 +472,34 @@ assemblies
  │   │   └── valueOfOtherProperty property
  │   ├─┬ class Thrower
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   └── throwError() method
  │   ├─┬ class UnaryOperation
  │   │ └─┬ members
- │   │   ├── <initializer>(operand) method
+ │   │   ├── <initializer>(operand) initializer
  │   │   └── operand property
  │   ├─┬ class UseBundledDependency
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   └── value() method
  │   ├─┬ class UseCalcBase
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   └── hello() method
  │   ├─┬ class UsesInterfaceWithProperties
  │   │ └─┬ members
- │   │   ├── <initializer>(obj) method
+ │   │   ├── <initializer>(obj) initializer
  │   │   ├── justRead() method
  │   │   ├── readStringAndNumber(ext) method
  │   │   ├── writeAndRead(value) method
  │   │   └── obj property
  │   ├─┬ class VariadicMethod
  │   │ └─┬ members
- │   │   ├── <initializer>(prefix) method
+ │   │   ├── <initializer>(prefix) initializer
  │   │   └── asArray(first,others) method
  │   ├─┬ class VirtualMethodPlayground
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   ├── overrideMeAsync(index) method
  │   │   ├── overrideMeSync(index) method
  │   │   ├── parallelSumAsync(count) method
@@ -507,7 +507,7 @@ assemblies
  │   │   └── sumSync(count) method
  │   ├─┬ class CompositeOperation
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   ├── toString() method
  │   │   ├── expression property
  │   │   ├── value property
@@ -520,10 +520,10 @@ assemblies
  │   │   └── maximumValue property
  │   ├─┬ interface DerivedStruct
  │   │ └─┬ members
- │   │   ├── anotherOptional property
  │   │   ├── anotherRequired property
  │   │   ├── bool property
  │   │   ├── nonPrimitive property
+ │   │   ├── anotherOptional property
  │   │   ├── optionalAny property
  │   │   └── optionalArray property
  │   ├─┬ interface EraseUndefinedHashValuesOptions
@@ -647,7 +647,7 @@ assemblies
  │ └─┬ types
  │   ├─┬ class Base
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   └── typeName() method
  │   └─┬ interface BaseProps
  │     └─┬ members
@@ -656,7 +656,7 @@ assemblies
  │ └─┬ types
  │   ├─┬ class Very
  │   │ └─┬ members
- │   │   ├── <initializer>() method
+ │   │   ├── <initializer>() initializer
  │   │   └── hey() method
  │   └─┬ interface VeryBaseProps
  │     └─┬ members
@@ -665,16 +665,16 @@ assemblies
    └─┬ types
      ├─┬ class Number
      │ └─┬ members
-     │   ├── <initializer>(value) method
+     │   ├── <initializer>(value) initializer
      │   ├── doubleValue property
      │   └── value property
      ├─┬ class Operation
      │ └─┬ members
-     │   ├── <initializer>() method
+     │   ├── <initializer>() initializer
      │   └── toString() method
      ├─┬ class Value
      │ └─┬ members
-     │   ├── <initializer>() method
+     │   ├── <initializer>() initializer
      │   ├── toString() method
      │   └── value property
      ├─┬ interface IDoublable

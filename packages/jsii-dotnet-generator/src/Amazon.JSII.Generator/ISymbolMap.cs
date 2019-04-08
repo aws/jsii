@@ -90,8 +90,6 @@ namespace Amazon.JSII.Generator
 
         NameSyntax GetPackageSyntax(string fullyQualifiedName);
 
-        TypeSyntax GetTypeSyntax(TypeInstance typeInstance);
-
         TypeSyntax GetTypeSyntax(TypeReference typeReference);
 
         Type GetTypeFromFullyQualifiedName(string fullyQualifiedName);

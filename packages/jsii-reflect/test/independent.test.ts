@@ -1,4 +1,4 @@
-import { sourceToAssemblyHelper  } from 'jsii';
+import { PackageInfo, sourceToAssemblyHelper  } from 'jsii';
 import reflect = require('../lib');
 
 test('get full github source location for a class or method', async () => {
@@ -9,9 +9,9 @@ test('get full github source location for a class or method', async () => {
         // Nothing to do
       }
     }
-  `.trim(), {
-    locationInRepository: 'some/sub/dir',
-  });
+  `.trim(),
+    (obj) => obj.repository.directory = 'some/sub/dir'
+  );
 
   // THEN
   const klass = assembly.findType('testpkg.Foo');
@@ -20,8 +20,8 @@ test('get full github source location for a class or method', async () => {
   expect(reflect.repositoryUrl(klass)).toBe('https://github.com/awslabs/jsii/blob/master/some/sub/dir/index.ts#L1');
 });
 
-async function loadSource(source: string, jsiiConfig = {}): Promise<reflect.Assembly> {
-  const ass = await sourceToAssemblyHelper(source, jsiiConfig);
+async function loadSource(source: string, cb: (obj: PackageInfo) => void): Promise<reflect.Assembly> {
+  const ass = await sourceToAssemblyHelper(source, cb);
   const ts = new reflect.TypeSystem();
   return ts.addAssembly(new reflect.Assembly(ts, ass));
 }

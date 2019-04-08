@@ -36,7 +36,7 @@ export class InterfaceType extends ReferenceType {
 
     const result = new Set<InterfaceType>();
     for (const iface of this.interfaceSpec.interfaces) {
-      const ifaceType = this.system.findInterface(iface.fqn);
+      const ifaceType = this.system.findInterface(iface);
       if (!result.has(ifaceType) && inherited) {
         ifaceType.getInterfaces(inherited).forEach(i => result.add(i));
       }

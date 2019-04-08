@@ -16,7 +16,7 @@ namespace Amazon.JSII.Generator.Interface
                 throw new ArgumentException("Interface methods must be abstract", nameof(method));
             }
 
-            if (method.IsProtected)
+            if (method.IsProtected == true)
             {
                 throw new ArgumentException("Protected methods are not allowed on interfaces", nameof(method));
             }

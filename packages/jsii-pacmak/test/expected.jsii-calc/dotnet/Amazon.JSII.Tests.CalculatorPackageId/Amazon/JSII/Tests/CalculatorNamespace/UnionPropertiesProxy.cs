@@ -9,13 +9,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("bar", "{\"type\":{\"union\":{\"types\":[{\"type\":{\"primitive\":\"string\"}},{\"type\":{\"primitive\":\"number\"}},{\"type\":{\"fqn\":\"jsii-calc.AllTypes\"}}]}}}")]
+        [JsiiProperty("bar", "{\"union\":{\"types\":[{\"primitive\":\"string\"},{\"primitive\":\"number\"},{\"fqn\":\"jsii-calc.AllTypes\"}]}}")]
         public object Bar
         {
             get => GetInstanceProperty<object>();
         }
 
-        [JsiiProperty("foo", "{\"type\":{\"union\":{\"types\":[{\"type\":{\"primitive\":\"string\"}},{\"type\":{\"primitive\":\"number\"}}]}},\"optional\":true}")]
+        [JsiiProperty("foo", "{\"union\":{\"types\":[{\"primitive\":\"string\"},{\"primitive\":\"number\"}]},\"optional\":true}")]
         public object Foo
         {
             get => GetInstanceProperty<object>();

@@ -398,7 +398,7 @@ AllTypes
 
 
 
-   .. py:method:: anyIn([inp])
+   .. py:method:: anyIn(inp)
 
       :param inp: 
       :type inp: any
@@ -429,11 +429,6 @@ AllTypes
    .. py:attribute:: anyMapProperty
 
       :type: string => any
-
-
-   .. py:attribute:: anyProperty
-
-      :type: any
 
 
    .. py:attribute:: arrayProperty
@@ -471,11 +466,6 @@ AllTypes
       :type: number
 
 
-   .. py:attribute:: optionalEnumValue
-
-      :type: :py:class:`~jsii-calc.StringEnum`\  *(optional)*
-
-
    .. py:attribute:: stringProperty
 
       :type: string
@@ -504,6 +494,16 @@ AllTypes
    .. py:attribute:: unknownMapProperty
 
       :type: string => any
+
+
+   .. py:attribute:: anyProperty
+
+      :type: any
+
+
+   .. py:attribute:: optionalEnumValue
+
+      :type: :py:class:`~jsii-calc.StringEnum`\  *(optional)*
 
 
    .. py:attribute:: unknownProperty
@@ -828,7 +828,7 @@ BinaryOperation
 Calculator
 ^^^^^^^^^^
 
-.. py:class:: Calculator([props])
+.. py:class:: Calculator(props)
 
    **Language-specific names:**
 
@@ -1406,7 +1406,7 @@ ConsumersOfThisCrazyTypeSystem
 DefaultedConstructorArgument
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. py:class:: DefaultedConstructorArgument([arg1, [arg2, [arg3]]])
+.. py:class:: DefaultedConstructorArgument(arg1, arg2, arg3)
 
    **Language-specific names:**
 
@@ -1442,14 +1442,14 @@ DefaultedConstructorArgument
       :type: number *(readonly)*
 
 
-   .. py:attribute:: arg2
-
-      :type: string *(optional)* *(readonly)*
-
-
    .. py:attribute:: arg3
 
       :type: date *(readonly)*
+
+
+   .. py:attribute:: arg2
+
+      :type: string *(optional)* *(readonly)*
 
 
 
@@ -1563,15 +1563,6 @@ DerivedStruct (interface)
    :extends: :py:class:`@scope/jsii-calc-lib.MyFirstStruct`\ 
 
 
-   .. py:attribute:: anotherOptional
-
-      This is optional.
-
-
-
-      :type: string => :py:class:`@scope/jsii-calc-lib.Value`\  *(optional)* *(readonly)*
-
-
    .. py:attribute:: anotherRequired
 
       :type: date *(readonly)*
@@ -1589,6 +1580,15 @@ DerivedStruct (interface)
 
 
       :type: :py:class:`~jsii-calc.DoubleTrouble`\  *(readonly)*
+
+
+   .. py:attribute:: anotherOptional
+
+      This is optional.
+
+
+
+      :type: string => :py:class:`@scope/jsii-calc-lib.Value`\  *(optional)* *(readonly)*
 
 
    .. py:attribute:: optionalAny
@@ -1706,7 +1706,7 @@ DoNotRecognizeAnyAsOptional
 
 
 
-   .. py:method:: method([_requiredAny, [_optionalAny, [_optionalString]]])
+   .. py:method:: method(_requiredAny, _optionalAny, _optionalString)
 
       :param _requiredAny: 
       :type _requiredAny: any
@@ -1758,7 +1758,7 @@ DocumentedClass
 
 
 
-   .. py:method:: greet([greetee]) -> number
+   .. py:method:: greet(greetee) -> number
 
       Greet the indicated person.
 
@@ -1812,7 +1812,7 @@ DontComplainAboutVariadicAfterOptional
 
 
 
-   .. py:method:: optionalAndVariadic([optional, *things]) -> string
+   .. py:method:: optionalAndVariadic(optional, *things) -> string
 
       :param optional: 
       :type optional: string *(optional)*
@@ -2587,7 +2587,7 @@ IInterfaceWithOptionalMethodArguments (interface)
 
 
 
-   .. py:method:: hello(arg1, [arg2])
+   .. py:method:: hello(arg1, arg2)
 
       :param arg1: 
       :type arg1: string
@@ -4324,7 +4324,7 @@ NodeStandardLibrary
 NullShouldBeTreatedAsUndefined
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. py:class:: NullShouldBeTreatedAsUndefined(_param1, [optional])
+.. py:class:: NullShouldBeTreatedAsUndefined(_param1, optional)
 
    **Language-specific names:**
 
@@ -4357,7 +4357,7 @@ NullShouldBeTreatedAsUndefined
    :param optional: 
    :type optional: any
 
-   .. py:method:: giveMeUndefined([value])
+   .. py:method:: giveMeUndefined(value)
 
       :param value: 
       :type value: any
@@ -4565,7 +4565,7 @@ Old
 OptionalConstructorArgument
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. py:class:: OptionalConstructorArgument(arg1, arg2, [arg3])
+.. py:class:: OptionalConstructorArgument(arg1, arg2, arg3)
 
    **Language-specific names:**
 
@@ -4648,7 +4648,7 @@ OptionalStruct (interface)
 OptionalStructConsumer
 ^^^^^^^^^^^^^^^^^^^^^^
 
-.. py:class:: OptionalStructConsumer([optionalStruct])
+.. py:class:: OptionalStructConsumer(optionalStruct)
 
    **Language-specific names:**
 
@@ -4675,14 +4675,14 @@ OptionalStructConsumer
    :param optionalStruct: 
    :type optionalStruct: :py:class:`~jsii-calc.OptionalStruct`\  *(optional)*
 
-   .. py:attribute:: fieldValue
-
-      :type: string *(optional)* *(readonly)*
-
-
    .. py:attribute:: parameterWasUndefined
 
       :type: boolean *(readonly)*
+
+
+   .. py:attribute:: fieldValue
+
+      :type: string *(optional)* *(readonly)*
 
 
 OverrideReturnsObject
@@ -5227,7 +5227,7 @@ RuntimeTypeChecking
 
 
 
-   .. py:method:: methodWithDefaultedArguments([arg1, [arg2, [arg3]]])
+   .. py:method:: methodWithDefaultedArguments(arg1, arg2, arg3)
 
       :param arg1: 
       :type arg1: number *(optional)*
@@ -5237,13 +5237,13 @@ RuntimeTypeChecking
       :type arg3: date *(optional)*
 
 
-   .. py:method:: methodWithOptionalAnyArgument([arg])
+   .. py:method:: methodWithOptionalAnyArgument(arg)
 
       :param arg: 
       :type arg: any
 
 
-   .. py:method:: methodWithOptionalArguments(arg1, arg2, [arg3])
+   .. py:method:: methodWithOptionalArguments(arg1, arg2, arg3)
 
       Used to verify verification of number of method arguments.
 

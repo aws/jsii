@@ -16,7 +16,7 @@
     "type": "git",
     "url": "https://github.com/awslabs/jsii.git"
   },
-  "schema": "jsii/0.9.0",
+  "schema": "jsii/0.10.0",
   "targets": {
     "dotnet": {
       "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
@@ -35,15 +35,14 @@
     "python": {
       "distName": "scope.jsii-calc-base-of-base",
       "module": "scope.jsii_calc_base_of_base"
-    }
+    },
+    "sphinx": {}
   },
   "types": {
     "@scope/jsii-calc-base-of-base.Very": {
       "assembly": "@scope/jsii-calc-base-of-base",
       "fqn": "@scope/jsii-calc-base-of-base.Very",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/index.ts",
@@ -57,9 +56,7 @@
           },
           "name": "hey",
           "returns": {
-            "type": {
-              "primitive": "number"
-            }
+            "primitive": "number"
           }
         }
       ],
@@ -84,15 +81,13 @@
             "line": 2
           },
           "name": "foo",
-          "value": {
-            "type": {
-              "fqn": "@scope/jsii-calc-base-of-base.Very"
-            }
+          "type": {
+            "fqn": "@scope/jsii-calc-base-of-base.Very"
           }
         }
       ]
     }
   },
   "version": "0.9.0",
-  "fingerprint": "XseEpPuOI5iVW/qmIg+RZnV5JNRO0Nwz4u3CZoaaoH4="
+  "fingerprint": "sl2hqhzRKwlZZPWc+Coyt0tYtAJBcuWdFbJyN/MLHHo="
 }

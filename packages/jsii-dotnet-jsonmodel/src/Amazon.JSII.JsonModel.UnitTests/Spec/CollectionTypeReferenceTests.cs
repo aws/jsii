@@ -19,16 +19,14 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 CollectionTypeReference classType = new CollectionTypeReference
                 (
                     kind: CollectionKind.Array,
-                    elementType: new TypeInstance(type: new TypeReference("myElementFqn"))
+                    elementType: new TypeReference("myElementFqn")
                 );
 
                 string actual = JsonConvert.SerializeObject(classType, Formatting.Indented);
                 const string expected = @"{
   ""kind"": ""array"",
   ""elementtype"": {
-    ""type"": {
-      ""fqn"": ""myElementFqn""
-    }
+    ""fqn"": ""myElementFqn""
   }
 }";
 

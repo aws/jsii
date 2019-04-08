@@ -15,7 +15,7 @@ namespace Amazon.JSII.Generator.Class
             INamespaceSet namespaces = null)
             : base(package, type, symbols, namespaces)
         {
-            if (!type.IsAbstract)
+            if (type.IsAbstract != true)
             {
                 throw new ArgumentException("Class type must be abstract.", nameof(type));
             }
@@ -57,7 +57,7 @@ namespace Amazon.JSII.Generator.Class
                     if (interfaceType.Interfaces != null)
                     {
                         var superinterfaceMethods = interfaceType.Interfaces.Select(r =>
-                                Symbols.GetTypeFromFullyQualifiedName(r.FullyQualifiedName) as
+                                Symbols.GetTypeFromFullyQualifiedName(r) as
                                     InterfaceType)
                             .SelectMany(i => GetAllMethodsRecurse(i, methods))
                             .ToList();
@@ -74,7 +74,7 @@ namespace Amazon.JSII.Generator.Class
                     {
                         // Run through all the interfaces.
                         var superinterfaceMethods = classType.Interfaces.Select(r =>
-                                Symbols.GetTypeFromFullyQualifiedName(r.FullyQualifiedName) as
+                                Symbols.GetTypeFromFullyQualifiedName(r) as
                                     InterfaceType)
                             .SelectMany(i => GetAllMethodsRecurse(i, methods))
                             .ToList();
@@ -86,7 +86,7 @@ namespace Amazon.JSII.Generator.Class
                     if (classType.Base != null)
                     {
                         methods = methods.Concat(GetAllMethodsRecurse(
-                            Symbols.GetTypeFromFullyQualifiedName(classType.Base.FullyQualifiedName) as ClassType,
+                            Symbols.GetTypeFromFullyQualifiedName(classType.Base) as ClassType,
                             methods));
                     }
                 }
@@ -103,7 +103,7 @@ namespace Amazon.JSII.Generator.Class
             return GetAllMethodsRecurse(type, Enumerable.Empty<Method>())
                 .GroupBy(m => (m.Name,
                     string.Join("",
-                        m.Parameters?.Select(p => p.Name + p.Value.Type.FullyQualifiedName) ?? Enumerable.Empty<string>())))
+                        m.Parameters?.Select(p => p.Name + p.Type.FullyQualifiedName) ?? Enumerable.Empty<string>())))
                 .Select(g => g.First())
                 .Where(m => m.IsAbstract ?? false);
         }
@@ -121,7 +121,7 @@ namespace Amazon.JSII.Generator.Class
                     if (interfaceType.Interfaces != null)
                     {
                         var superinterfaceMethods = interfaceType.Interfaces.Select(r =>
-                                Symbols.GetTypeFromFullyQualifiedName(r.FullyQualifiedName) as
+                                Symbols.GetTypeFromFullyQualifiedName(r) as
                                     InterfaceType)
                             .SelectMany(i => GetAllPropertiesRecurse(i, properties))
                             .ToList();
@@ -139,7 +139,7 @@ namespace Amazon.JSII.Generator.Class
                     if (classType.Interfaces != null)
                     {
                         var superinterfaceMethods = classType.Interfaces.Select(r =>
-                                Symbols.GetTypeFromFullyQualifiedName(r.FullyQualifiedName) as
+                                Symbols.GetTypeFromFullyQualifiedName(r) as
                                     InterfaceType)
                             .SelectMany(i => GetAllPropertiesRecurse(i, properties))
                             .ToList();
@@ -151,7 +151,7 @@ namespace Amazon.JSII.Generator.Class
                     if (classType.Base != null)
                     {
                         properties = properties.Concat(GetAllPropertiesRecurse(
-                            Symbols.GetTypeFromFullyQualifiedName(classType.Base.FullyQualifiedName) as ClassType,
+                            Symbols.GetTypeFromFullyQualifiedName(classType.Base) as ClassType,
                             properties));
                     }
                 }

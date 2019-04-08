@@ -7,7 +7,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     public class MyFirstStruct : IMyFirstStruct
     {
         /// <summary>An awesome number value.</summary>
-        [JsiiProperty("anumber", "{\"type\":{\"primitive\":\"number\"}}", true)]
+        [JsiiProperty("anumber", "{\"primitive\":\"number\"}", true)]
         public double Anumber
         {
             get;
@@ -15,14 +15,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         }
 
         /// <summary>A string value.</summary>
-        [JsiiProperty("astring", "{\"type\":{\"primitive\":\"string\"}}", true)]
+        [JsiiProperty("astring", "{\"primitive\":\"string\"}", true)]
         public string Astring
         {
             get;
             set;
         }
 
-        [JsiiProperty("firstOptional", "{\"type\":{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"type\":{\"primitive\":\"string\"}}}},\"optional\":true}", true)]
+        [JsiiProperty("firstOptional", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"optional\":true}", true)]
         public string[] FirstOptional
         {
             get;

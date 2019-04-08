@@ -49,19 +49,19 @@ namespace Amazon.JSII.Runtime.Services
             return GetType<JsiiTypeProxyAttribute>(fullyQualifiedName + ProxySuffix);
         }
 
-        public Type GetFrameworkType(TypeInstance instance)
+        public Type GetFrameworkType(TypeReference instance)
         {
             bool isOptional = instance.IsOptional == true;
 
-            if (instance.Type.FullyQualifiedName != null)
+            if (instance.FullyQualifiedName != null)
             {
-                Type classType = GetClassType(instance.Type.FullyQualifiedName);
+                Type classType = GetClassType(instance.FullyQualifiedName);
                 if (classType != null)
                 {
                     return classType;
                 }
 
-                Type enumType = GetEnumType(instance.Type.FullyQualifiedName);
+                Type enumType = GetEnumType(instance.FullyQualifiedName);
                 if (enumType != null)
                 {
                     return MakeNullableIfOptional(enumType);
@@ -70,9 +70,9 @@ namespace Amazon.JSII.Runtime.Services
                 throw new ArgumentException("Type reference has a fully qualified name, but is neither a class nor an enum", nameof(instance));
             }
 
-            if (instance.Type.Primitive != null)
+            if (instance.Primitive != null)
             {
-                switch (instance.Type.Primitive)
+                switch (instance.Primitive)
                 {
                     case PrimitiveType.Any:
                         return typeof(object);
@@ -87,26 +87,26 @@ namespace Amazon.JSII.Runtime.Services
                     case PrimitiveType.String:
                         return typeof(string);
                     default:
-                        throw new ArgumentException($"Unknown primitive type {instance.Type.Primitive}", nameof(instance));
+                        throw new ArgumentException($"Unknown primitive type {instance.Primitive}", nameof(instance));
 
                 }
             }
 
-            if (instance.Type.Collection != null)
+            if (instance.Collection != null)
             {
-                Type elementType = GetFrameworkType(instance.Type.Collection.ElementType);
-                switch (instance.Type.Collection.Kind)
+                Type elementType = GetFrameworkType(instance.Collection.ElementType);
+                switch (instance.Collection.Kind)
                 {
                     case CollectionKind.Array:
                         return elementType.MakeArrayType();
                     case CollectionKind.Map:
                         return typeof(IDictionary<,>).MakeGenericType(typeof(string), elementType);
                     default:
-                        throw new ArgumentException($"Unknown collection kind {instance.Type.Collection.Kind}", nameof(instance));
+                        throw new ArgumentException($"Unknown collection kind {instance.Collection.Kind}", nameof(instance));
                 }
             }
 
-            if (instance.Type.Union != null)
+            if (instance.Union != null)
             {
                 return typeof(object);
             }

@@ -18,7 +18,7 @@ test('jsii-tree', async () => {
 `);
 });
 
-test(`jsii-tree -all`, async () => {
+test(`jsii-tree --all`, async () => {
   await jsiiTreeTest('jsii-tree.test.all.expected.txt', '--all');
 });
 

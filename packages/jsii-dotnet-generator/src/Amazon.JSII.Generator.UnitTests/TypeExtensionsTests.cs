@@ -39,7 +39,7 @@ namespace Amazon.JSII.Generator.UnitTests
                         assembly: "myPackage",
                         name: "myParentType",
                         isAbstract: false,
-                        @base: includeGrandparent ? new TypeReference("myGrandParentTypeFqn") : null
+                        @base: includeGrandparent ? "myGrandParentTypeFqn" : null
                     );
                     Symbols.MapFullyQualifiedNameToType("myParentTypeFqn", parentType);
                 }
@@ -50,7 +50,7 @@ namespace Amazon.JSII.Generator.UnitTests
                     assembly: "myPackage",
                     name: "myClass",
                     isAbstract: false,
-                    @base: includeParent ? new TypeReference("myParentTypeFqn") : null
+                    @base: includeParent ? "myParentTypeFqn" : null
                 );
                 Symbols.MapFullyQualifiedNameToType("myClassFqn", classType);
 
@@ -119,7 +119,7 @@ namespace Amazon.JSII.Generator.UnitTests
                     assembly: "myPackage",
                     name: "myClass",
                     isAbstract: false,
-                    interfaces: new[] { new TypeReference("myInterfaceFqn") }
+                    interfaces: new[] { "myInterfaceFqn" }
                 );
                 Symbols.MapFullyQualifiedNameToType("myClassFqn", classType);
 

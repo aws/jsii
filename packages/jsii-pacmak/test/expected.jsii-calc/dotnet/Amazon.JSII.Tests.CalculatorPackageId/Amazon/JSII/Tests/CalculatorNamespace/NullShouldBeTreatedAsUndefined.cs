@@ -3,7 +3,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>jsii#282, aws-cdk#157: null should be treated as "undefined".</summary>
-    [JsiiClass(typeof(NullShouldBeTreatedAsUndefined), "jsii-calc.NullShouldBeTreatedAsUndefined", "[{\"name\":\"_param1\",\"value\":{\"type\":{\"primitive\":\"string\"}}},{\"name\":\"optional\",\"value\":{\"type\":{\"primitive\":\"any\"},\"optional\":true}}]")]
+    [JsiiClass(typeof(NullShouldBeTreatedAsUndefined), "jsii-calc.NullShouldBeTreatedAsUndefined", "[{\"name\":\"_param1\",\"type\":{\"primitive\":\"string\"}},{\"name\":\"optional\",\"type\":{\"primitive\":\"any\",\"optional\":true}}]")]
     public class NullShouldBeTreatedAsUndefined : DeputyBase
     {
         public NullShouldBeTreatedAsUndefined(string _param1, object optional): base(new DeputyProps(new object[]{_param1, optional}))
@@ -18,20 +18,20 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("changeMeToUndefined", "{\"type\":{\"primitive\":\"string\"},\"optional\":true}")]
+        [JsiiProperty("changeMeToUndefined", "{\"primitive\":\"string\",\"optional\":true}")]
         public virtual string ChangeMeToUndefined
         {
             get => GetInstanceProperty<string>();
             set => SetInstanceProperty(value);
         }
 
-        [JsiiMethod("giveMeUndefined", null, "[{\"name\":\"value\",\"value\":{\"type\":{\"primitive\":\"any\"},\"optional\":true}}]")]
+        [JsiiMethod("giveMeUndefined", null, "[{\"name\":\"value\",\"type\":{\"primitive\":\"any\",\"optional\":true}}]")]
         public virtual void GiveMeUndefined(object value)
         {
             InvokeInstanceVoidMethod(new object[]{value});
         }
 
-        [JsiiMethod("giveMeUndefinedInsideAnObject", null, "[{\"name\":\"input\",\"value\":{\"type\":{\"fqn\":\"jsii-calc.NullShouldBeTreatedAsUndefinedData\"}}}]")]
+        [JsiiMethod("giveMeUndefinedInsideAnObject", null, "[{\"name\":\"input\",\"type\":{\"fqn\":\"jsii-calc.NullShouldBeTreatedAsUndefinedData\"}}]")]
         public virtual void GiveMeUndefinedInsideAnObject(INullShouldBeTreatedAsUndefinedData input)
         {
             InvokeInstanceVoidMethod(new object[]{input});

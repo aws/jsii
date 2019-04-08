@@ -29,7 +29,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                 "myPackage",
                 "myClass",
                 true,
-                initializer: new Method(true, false, false)
+                initializer: new Initializer()
             );
 
             var actual = Render(classType);
@@ -57,7 +57,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                 assembly: "myPackage",
                 name: "myClass",
                 isAbstract: true,
-                initializer: new Method(true, false, false),
+                initializer: new Initializer(),
                 docs: new Docs {{"foo", "bar"}}
             );
 
@@ -86,13 +86,13 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                 assembly: "myPackage",
                 name: "myClass",
                 isAbstract: true,
-                initializer: new Method(true, false, false),
+                initializer: new Initializer(),
                 properties: new[]
                 {
                     new Property
                     (
                         name: "myProp",
-                        value: new TypeInstance(type: new TypeReference("myPropTypeFqn")),
+                        type: new TypeReference("myPropTypeFqn"),
                         isImmutable: false,
                         isAbstract: true,
                         isProtected: false
@@ -100,7 +100,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                     new Property
                     (
                         name: "notMyProp",
-                        value: new TypeInstance(type: new TypeReference("myPropTypeFqn")),
+                        type: new TypeReference("myPropTypeFqn"),
                         isImmutable: false,
                         isAbstract: false,
                         isProtected: false
@@ -122,7 +122,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
         {
         }
 
-        [JsiiProperty(""myProp"", ""{\""type\"":{\""fqn\"":\""myPropTypeFqn\""}}"")]
+        [JsiiProperty(""myProp"", ""{\""fqn\"":\""myPropTypeFqn\""}"")]
         public override MyPropType MyProp
         {
             get => GetInstanceProperty<MyPropType>();
@@ -142,21 +142,16 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                 assembly: "myPackage",
                 name: "myClass",
                 isAbstract: true,
-                initializer: new Method(true, false, false),
+                initializer: new Initializer(),
                 methods: new[]
                 {
                     new Method
                     (
-                        false,
-                        false,
-                        true,
+                        isAbstract: true,
                         name: "myMethod"
                     ),
                     new Method
                     (
-                        false,
-                        false,
-                        false,
                         name: "notMyMethod"
                     )
                 }

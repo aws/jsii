@@ -1,6 +1,5 @@
 import jsii = require('jsii-spec');
 import { Type } from './type';
-import { TypeInstance } from './type-instance';
 import { TypeSystem } from './type-system';
 
 export class TypeReference {
@@ -9,14 +8,24 @@ export class TypeReference {
     private readonly spec?: jsii.TypeReference) { }
 
   public toString(): string {
-    if (this.void) { return 'void'; }
-    if (this.primitive) { return this.primitive; }
-    if (this.fqn) { return this.fqn; }
+    const decorate = ((desc: string) => {
+      if (this.optional && !this.isAny) {
+        desc = `Optional<${desc}>`;
+      }
+      if (this.promise) {
+        desc = `Promise<${desc}>`;
+      }
+      return desc;
+    });
 
-    if (this.arrayOfType) { return `Array<${this.arrayOfType}>`; }
-    if (this.mapOfType) { return `Map<string => ${this.mapOfType}>`; }
+    if (this.void) { return decorate('void'); }
+    if (this.primitive) { return decorate(this.primitive); }
+    if (this.fqn) { return decorate(this.fqn); }
+
+    if (this.arrayOfType) { return decorate(`Array<${this.arrayOfType}>`); }
+    if (this.mapOfType) { return decorate(`Map<string => ${this.mapOfType}>`); }
     if (this.unionOfTypes) {
-      return this.unionOfTypes.map(x => x.toString()).join(' | ');
+      return decorate(this.unionOfTypes.map(x => x.toString()).join(' | '));
     }
 
     throw new Error(`Invalid type reference`);
@@ -50,7 +59,7 @@ export class TypeReference {
     return this.system.findFqn(this.spec.fqn);
   }
 
-  public get arrayOfType(): TypeInstance | undefined {
+  public get arrayOfType(): TypeReference | undefined {
     if (!jsii.isCollectionTypeReference(this.spec)) {
       return undefined;
     }
@@ -59,10 +68,10 @@ export class TypeReference {
       return undefined;
     }
 
-    return new TypeInstance(this.system, this.spec.collection.elementtype);
+    return new TypeReference(this.system, this.spec.collection.elementtype);
   }
 
-  public get mapOfType(): TypeInstance | undefined {
+  public get mapOfType(): TypeReference | undefined {
     if (!jsii.isCollectionTypeReference(this.spec)) {
       return undefined;
     }
@@ -71,14 +80,28 @@ export class TypeReference {
       return undefined;
     }
 
-    return new TypeInstance(this.system, this.spec.collection.elementtype);
+    return new TypeReference(this.system, this.spec.collection.elementtype);
   }
 
-  public get unionOfTypes(): TypeInstance[] | undefined {
+  public get unionOfTypes(): TypeReference[] | undefined {
     if (!jsii.isUnionTypeReference(this.spec)) {
       return undefined;
     }
 
-    return this.spec.union.types.map(t => new TypeInstance(this.system, t));
+    return this.spec.union.types.map(t => new TypeReference(this.system, t));
+  }
+
+  /**
+   * Indicates if this value is optional.
+   */
+  public get optional(): boolean {
+    return this.spec != null && !!this.spec.optional;
+  }
+
+  /**
+   * Indicates if this type refers to a promise.
+   */
+  public get promise(): boolean {
+    return this.spec != null && !!this.spec.promise;
   }
 }

@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(typeof(IIInterfaceWithMethods), "jsii-calc.IInterfaceWithMethods")]
     public interface IIInterfaceWithMethods
     {
-        [JsiiProperty("value", "{\"type\":{\"primitive\":\"string\"}}")]
+        [JsiiProperty("value", "{\"primitive\":\"string\"}")]
         string Value
         {
             get;

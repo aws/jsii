@@ -21,14 +21,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>The expression that this operation consists of. Must be implemented by derived classes.</summary>
-        [JsiiProperty("expression", "{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}")]
+        [JsiiProperty("expression", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public override Value_ Expression
         {
             get => GetInstanceProperty<Value_>();
         }
 
         /// <summary>The parts to sum.</summary>
-        [JsiiProperty("parts", "{\"type\":{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}}}")]
+        [JsiiProperty("parts", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}")]
         public virtual Value_[] Parts
         {
             get => GetInstanceProperty<Value_[]>();

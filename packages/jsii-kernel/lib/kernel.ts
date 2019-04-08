@@ -160,7 +160,7 @@ export class Kernel {
             this._wrapSandboxCode(() => prototype[property]));
 
         this._debug('value:', value);
-        const ret = this._fromSandbox(value, ti.value);
+        const ret = this._fromSandbox(value, ti.type);
         this._debug('ret', ret);
         return { value: ret };
     }
@@ -182,7 +182,7 @@ export class Kernel {
         const prototype = this._findSymbol(fqn);
 
         this._ensureSync(`property ${property}`, () =>
-            this._wrapSandboxCode(() => prototype[property] = this._toSandbox(value, ti.value)));
+            this._wrapSandboxCode(() => prototype[property] = this._toSandbox(value, ti.type)));
 
         return {};
     }
@@ -205,7 +205,7 @@ export class Kernel {
         const value = this._ensureSync(`property '${objref[TOKEN_REF]}.${propertyToGet}'`,
                                        () => this._wrapSandboxCode(() => instance[propertyToGet]));
         this._debug('value:', value);
-        const ret = this._fromSandbox(value, ti.value);
+        const ret = this._fromSandbox(value, ti.type);
         this._debug('ret:', ret);
         return { value:  ret };
     }
@@ -224,7 +224,7 @@ export class Kernel {
         const propertyToSet = this._findPropertyTarget(instance, property);
 
         this._ensureSync(`property '${objref[TOKEN_REF]}.${propertyToSet}'`,
-                         () => this._wrapSandboxCode(() => instance[propertyToSet] = this._toSandbox(value, propInfo.value)));
+                         () => this._wrapSandboxCode(() => instance[propertyToSet] = this._toSandbox(value, propInfo.type)));
 
         return { };
     }
@@ -520,7 +520,7 @@ export class Kernel {
             // would tell us the intended interface type.
             propInfo = {
                 name: override.property,
-                value: wire.ANY_VALUE,
+                type: spec.CANONICAL_ANY,
             };
         }
 
@@ -560,14 +560,14 @@ export class Kernel {
                     get: { objref, property: propertyName }
                 });
                 this._debug('callback returned', result);
-                return this._toSandbox(result, propInfo.value);
+                return this._toSandbox(result, propInfo.type);
             },
             set: (value: any) => {
                 self._debug('virtual set', objref, propertyName, { cookie: override.cookie });
                 self.callbackHandler({
                     cookie: override.cookie,
                     cbid: self._makecbid(),
-                    set: { objref, property: propertyName, value: self._fromSandbox(value, propInfo.value) }
+                    set: { objref, property: propertyName, value: self._fromSandbox(value, propInfo.type) }
                 });
             }
         });
@@ -600,10 +600,10 @@ export class Kernel {
             // would tell us the intended interface type.
             methodInfo = {
                 name: override.method,
-                returns: wire.ANY_VALUE,
+                returns: spec.CANONICAL_ANY,
                 parameters: [{
                     name: 'args',
-                    value: wire.ANY_VALUE,
+                    type: spec.CANONICAL_ANY,
                     variadic: true
                 }],
                 variadic: true
@@ -689,7 +689,7 @@ export class Kernel {
         return { ti, obj: instance, fn };
     }
 
-    private _validateMethodArguments(method: spec.Method | undefined, args: any[]) {
+    private _validateMethodArguments(method: spec.Callable | undefined, args: any[]) {
         const params: spec.Parameter[] = (method && method.parameters) || [];
 
         // error if args > params
@@ -704,14 +704,14 @@ export class Kernel {
             if (param.variadic) {
                 if (params.length <= i) { return; } // No vararg was provided
                 for (let j = i ; j < params.length ; j++) {
-                    if (!param.value.optional && params[j] === undefined) {
+                    if (!param.type.optional && params[j] === undefined) {
                         // tslint:disable-next-line:max-line-length
-                        throw new Error(`Unexpected 'undefined' value at index ${j - i} of variadic argument '${param.name}' of type '${spec.describeTypeInstance(param.value)}'`);
+                        throw new Error(`Unexpected 'undefined' value at index ${j - i} of variadic argument '${param.name}' of type '${spec.describeTypeReference(param.type)}'`);
                     }
                 }
-            } else if (!param.value.optional && arg === undefined) {
+            } else if (!param.type.optional && arg === undefined) {
                 // tslint:disable-next-line:max-line-length
-                throw new Error(`Not enough arguments. Missing argument for the required parameter '${param.name}' of type '${spec.describeTypeInstance(param.value)}'`);
+                throw new Error(`Not enough arguments. Missing argument for the required parameter '${param.name}' of type '${spec.describeTypeReference(param.type)}'`);
             }
         }
     }
@@ -787,7 +787,7 @@ export class Kernel {
         for (const base of bases) {
             if (!base) { continue; }
 
-            const found = this._tryTypeInfoForMethod(base.fqn!, methodName);
+            const found = this._tryTypeInfoForMethod(base, methodName);
             if (found) {
                 return found;
             }
@@ -808,11 +808,11 @@ export class Kernel {
         if (spec.isClassType(typeInfo)) {
             const classTypeInfo = typeInfo as spec.ClassType;
             properties = classTypeInfo.properties;
-            bases = classTypeInfo.base ? [ classTypeInfo.base.fqn ] : [];
+            bases = classTypeInfo.base ? [ classTypeInfo.base ] : [];
         } else if (spec.isInterfaceType(typeInfo)) {
             const interfaceTypeInfo = typeInfo as spec.InterfaceType;
             properties = interfaceTypeInfo.properties;
-            bases = (interfaceTypeInfo.interfaces || []).map(x => x.fqn);
+            bases = interfaceTypeInfo.interfaces || [];
         } else {
             throw new Error(`Type of kind ${typeInfo.kind} does not have properties`);
         }
@@ -842,7 +842,7 @@ export class Kernel {
         return typeInfo;
     }
 
-    private _toSandbox(v: any, expectedType: wire.TypeInstanceOrVoid): any {
+    private _toSandbox(v: any, expectedType: wire.TypeReferenceOrVoid): any {
         const serTypes = wire.serializationType(expectedType, this._typeInfoForFqn.bind(this));
         this._debug('toSandbox', v, JSON.stringify(serTypes));
 
@@ -868,7 +868,7 @@ export class Kernel {
         throw new Error(`Value did not match any type in union: ${errors}`);
     }
 
-    private _fromSandbox(v: any, targetType: wire.TypeInstanceOrVoid): any {
+    private _fromSandbox(v: any, targetType: wire.TypeReferenceOrVoid): any {
         const serTypes = wire.serializationType(targetType, this._typeInfoForFqn.bind(this));
         this._debug('fromSandbox', v, JSON.stringify(serTypes));
 
@@ -902,9 +902,9 @@ export class Kernel {
         return this._boxUnboxParameters(xs, parameters, this._fromSandbox.bind(this));
     }
 
-    private _boxUnboxParameters(xs: any[], parameters: spec.Parameter[] | undefined, boxUnbox: (x: any, t: wire.TypeInstanceOrVoid) => any) {
+    private _boxUnboxParameters(xs: any[], parameters: spec.Parameter[] | undefined, boxUnbox: (x: any, t: wire.TypeReferenceOrVoid) => any) {
         parameters = parameters || [];
-        const types = parameters.map(p => p.value);
+        const types = parameters.map(p => p.type);
         const variadic = parameters.length > 0 && !!parameters[parameters.length - 1].variadic;
         // Repeat the last (variadic) type to match the number of actual arguments
         while (variadic && types.length < xs.length) {
@@ -994,7 +994,7 @@ interface Callback {
     objref: api.ObjRef;
     override: api.MethodOverride;
     args: any[];
-    expectedReturnType: wire.TypeInstanceOrVoid;
+    expectedReturnType: wire.TypeReferenceOrVoid;
 
     // completion callbacks
     succeed: (...args: any[]) => any;

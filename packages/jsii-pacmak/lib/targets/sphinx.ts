@@ -215,11 +215,11 @@ class SphinxDocsGenerator extends Generator {
         this.code.line();
 
         if (cls.base) {
-            this.code.line(`:extends: ${this.renderTypeRef(cls.base).ref}`);
+            this.code.line(`:extends: ${this.renderTypeRef(this.findType(cls.base)).ref}`);
         }
 
         for (const ifc of cls.interfaces || []) {
-            this.code.line(`:implements: ${this.renderTypeRef(ifc).ref}`);
+            this.code.line(`:implements: ${this.renderTypeRef(this.findType(ifc)).ref}`);
         }
 
         if (abstract) {
@@ -230,7 +230,7 @@ class SphinxDocsGenerator extends Generator {
             this.renderMethodParameters(cls.initializer);
         }
 
-        this.namespaceStack.push({ name: className, underClass: true });
+        this.namespaceStack.push({ name: className, underClass: true });
     }
 
     protected onEndClass(cls: spec.ClassType) {
@@ -337,7 +337,7 @@ class SphinxDocsGenerator extends Generator {
         this.code.line();
 
         for (const base of ifc.interfaces || []) {
-            this.code.line(`:extends: ${this.renderTypeRef(base).ref}`);
+            this.code.line(`:extends: ${this.renderTypeRef(this.findType(base)).ref}`);
         }
 
         this.code.line();
@@ -361,7 +361,7 @@ class SphinxDocsGenerator extends Generator {
         this.renderProperty(ifc, property);
     }
 
-    private renderInheritedMembers(entity: spec.ClassType | spec.InterfaceType) {
+    private renderInheritedMembers(entity: spec.ClassType | spec.InterfaceType) {
         const inherited = this.getInheritedMembers(entity);
         if (Object.keys(inherited).length === 0) { return; }
         for (const source of Object.keys(inherited).sort()) {
@@ -379,39 +379,39 @@ class SphinxDocsGenerator extends Generator {
     }
 
     private getInheritedMembers(entity: spec.ClassType | spec.InterfaceType): InheritedMembers {
-        const parents = parentTypes(entity);
+        const parents = parentTypes.call(this, entity);
         const knownMembers = new Set<string>([
-            ...(entity.methods || []).map(m => m.name!),
-            ...(entity.properties || []).map(p => p.name)
+            ...(entity.methods || []).map(m => m.name!),
+            ...(entity.properties || []).map(p => p.name)
         ]);
         const result: InheritedMembers = {};
         for (const parent of parents) {
-            const parentType = this.findType(parent.fqn) as spec.ClassType | spec.InterfaceType;
+            const parentType = this.findType(parent.fqn) as spec.ClassType | spec.InterfaceType;
             for (const method of parentType.methods || []) {
                 if (method.static || knownMembers.has(method.name!)) { continue; }
-                result[parentType.fqn] = result[parentType.fqn] || { methods: [], properties: [] };
+                result[parentType.fqn] = result[parentType.fqn] || { methods: [], properties: [] };
                 result[parentType.fqn].methods.push(method);
                 knownMembers.add(method.name!);
             }
             for (const property of parentType.properties || []) {
                 if (property.static || knownMembers.has(property.name!)) { continue; }
-                result[parentType.fqn] = result[parentType.fqn] || { methods: [], properties: [] };
+                result[parentType.fqn] = result[parentType.fqn] || { methods: [], properties: [] };
                 result[parentType.fqn].properties.push(property);
                 knownMembers.add(property.name);
             }
-            for (const superType of parentTypes(parentType)) {
+            for (const superType of parentTypes.call(this, parentType)) {
                 parents.push(superType);
             }
         }
         return result;
 
-        function parentTypes(type: spec.ClassType | spec.InterfaceType) {
+        function parentTypes(this: SphinxDocsGenerator, type: spec.ClassType | spec.InterfaceType) {
             const types = new Array<spec.NamedTypeReference>();
             if (spec.isClassType(type) && type.base) {
-                types.push(type.base);
+                types.push(this.findType(type.base));
             }
             if (type.interfaces) {
-                types.push(...type.interfaces);
+                types.push(...type.interfaces.map(fqn => this.findType(fqn)));
             }
             return types;
         }
@@ -450,7 +450,7 @@ class SphinxDocsGenerator extends Generator {
         this.tocPath.pop();
     }
 
-    private renderMethodSignature(method: spec.Method) {
+    private renderMethodSignature(method: spec.Method | spec.Initializer) {
         const params = method.parameters || [];
         let signature = '(';
         let signaturePosfix = '';
@@ -461,7 +461,7 @@ class SphinxDocsGenerator extends Generator {
             }
 
             // Mark parameter as "optional" if it's type is optional, and all subsequent parameters are optional/variadic
-            if (p.value.optional && params.some((op, oidx) => oidx > idx && !op.variadic && !op.value.optional)) {
+            if (p.type.optional && params.some((op, oidx) => oidx > idx && !op.variadic && !op.type.optional)) {
                 signature += '[';
                 signaturePosfix += ']';
             }
@@ -475,9 +475,8 @@ class SphinxDocsGenerator extends Generator {
         signature += signaturePosfix;
         signature += ')';
 
-        let retType;
-        if (method.returns) {
-            retType = this.renderTypeInstance(method.returns);
+        if (spec.isMethod(method) && method.returns) {
+            const retType = this.renderTypeRef(method.returns);
             const retSignature = method.returns ? ` -> ${retType.display}` : '';
             signature += retSignature;
         }
@@ -485,11 +484,11 @@ class SphinxDocsGenerator extends Generator {
         return signature;
     }
 
-    private renderMethodParameters(method: spec.Method) {
+    private renderMethodParameters(method: spec.Method | spec.Initializer) {
         const params = method.parameters || [];
 
         for (const p of params) {
-            const ptype = this.renderTypeInstance(p.value);
+            const ptype = this.renderTypeRef(p.type);
             const paramName = `${p.variadic ? '\\*' : ''}${p.name}`;
             this.code.line(`:param ${paramName}: ${this.renderDocs(p)}`);
             this.code.line(`:type ${paramName}: ${ptype.ref}`);
@@ -509,11 +508,11 @@ class SphinxDocsGenerator extends Generator {
             this.code.line(`*Inherited from* :py:meth:\`${inheritedFrom} <${inheritedFrom}.${method.name}>\``);
         } else if (method.overrides) {
             this.code.line();
-            const superType = this.findType(method.overrides.fqn) as spec.ClassType | spec.InterfaceType;
+            const superType = this.findType(method.overrides) as spec.ClassType | spec.InterfaceType;
             if (spec.isInterfaceType(superType) || superType.methods!.some(m => m.name === method.name && !!m.abstract)) {
-                this.code.line(`*Implements* :py:meth:\`${method.overrides.fqn}.${method.name}\``);
+                this.code.line(`*Implements* :py:meth:\`${method.overrides}.${method.name}\``);
             } else {
-                this.code.line(`*Overrides* :py:meth:\`${method.overrides.fqn}.${method.name}\``);
+                this.code.line(`*Overrides* :py:meth:\`${method.overrides}.${method.name}\``);
             }
         }
         this.renderDocsLine(method);
@@ -533,7 +532,7 @@ class SphinxDocsGenerator extends Generator {
         }
 
         if (method.returns) {
-            this.code.line(`:rtype: ${this.renderTypeInstance(method.returns).ref}`);
+            this.code.line(`:rtype: ${this.renderTypeRef(method.returns).ref}`);
         }
 
         if (method.abstract) {
@@ -580,12 +579,7 @@ class SphinxDocsGenerator extends Generator {
         }
     }
 
-    private renderTypeRef(type: spec.TypeReference) {
-        return this.renderTypeInstance({ type });
-    }
-
-    private renderTypeInstance(instance: spec.TypeInstance<spec.TypeReference>): { display: string, ref: string } {
-        const type = instance.type;
+    private renderTypeRef(type: spec.TypeReference): { display: string, ref: string } {
         let result: { display: string, ref: string };
         if (spec.isNamedTypeReference(type)) {
             const fqn = this.toNativeFqn(type.fqn);
@@ -599,7 +593,7 @@ class SphinxDocsGenerator extends Generator {
                 display: type.primitive
             };
         } else if (spec.isCollectionTypeReference(type)) {
-            const elementType = this.renderTypeInstance(type.collection.elementtype);
+            const elementType = this.renderTypeRef(type.collection.elementtype);
             const ref = wrap(elementType.ref);
             const display = wrap(elementType.display);
 
@@ -620,7 +614,7 @@ class SphinxDocsGenerator extends Generator {
                     throw new Error(`Unexpected collection kind: ${type.collection.kind}`);
             }
         } else if (spec.isUnionTypeReference(type)) {
-            const mappedTypes = type.union.types.map(t => this.renderTypeInstance(t));
+            const mappedTypes = type.union.types.map(t => this.renderTypeRef(t));
             result = {
                 display: mappedTypes.map(t => t.display).join(' or '),
                 ref: mappedTypes.map(t => t.ref).join(' or '),
@@ -629,7 +623,7 @@ class SphinxDocsGenerator extends Generator {
             throw new Error('Unexpected type ref');
         }
         const isAny = spec.isPrimitiveTypeReference(type) && type.primitive === spec.PrimitiveType.Any;
-        if (instance.optional && !isAny) { result.ref = `${result.ref} *(optional)*`; }
+        if (type.optional && !isAny) { result.ref = `${result.ref} *(optional)*`; }
         return result;
 
         // Wrap a string between parenthesis if it contains " or "
@@ -641,18 +635,18 @@ class SphinxDocsGenerator extends Generator {
 
     private renderProperty(parent: spec.TypeBase, prop: spec.Property, inheritedFrom?: string) {
         this.code.line();
-        const type = this.renderTypeInstance(prop.value);
+        const type = this.renderTypeRef(prop.type);
         this.code.openBlock(`.. py:attribute:: ${prop.name}`);
         if (inheritedFrom) {
             this.code.line();
             this.code.line(`*Inherited from* :py:attr:\`${inheritedFrom} <${inheritedFrom}.${prop.name}>\``);
         } else if (prop.overrides) {
             this.code.line();
-            const superType = this.findType(prop.overrides.fqn) as spec.ClassType | spec.InterfaceType;
+            const superType = this.findType(prop.overrides) as spec.ClassType | spec.InterfaceType;
             if (spec.isInterfaceType(superType) || superType.properties!.some(p => p.name === prop.name && !!p.abstract)) {
-                this.code.line(`*Implements* :py:meth:\`${prop.overrides.fqn}.${prop.name}\``);
+                this.code.line(`*Implements* :py:meth:\`${prop.overrides}.${prop.name}\``);
             } else {
-                this.code.line(`*Overrides* :py:attr:\`${prop.overrides.fqn}.${prop.name}\``);
+                this.code.line(`*Overrides* :py:attr:\`${prop.overrides}.${prop.name}\``);
             }
         }
         this.renderDocsLine(prop);
@@ -774,4 +768,4 @@ function formatLanguage(language: string): string {
     }
 }
 
-type InheritedMembers = { [typeFqn: string]: { methods: spec.Method[], properties: spec.Property[] } };
+type InheritedMembers = { [typeFqn: string]: { methods: spec.Method[], properties: spec.Property[] } };

@@ -35,8 +35,8 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                 IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
                 ServiceContainer.ServiceProviderOverride = serviceProvider;
 
-                _typeCache.GetFrameworkType(Arg.Is<TypeInstance>(r => r.Type.Primitive == PrimitiveType.Any)).Returns(typeof(object));
-                _typeCache.GetFrameworkType(Arg.Is<TypeInstance>(r => r.Type.Primitive == PrimitiveType.String)).Returns(typeof(string));
+                _typeCache.GetFrameworkType(Arg.Is<TypeReference>(r => r.Primitive == PrimitiveType.Any)).Returns(typeof(object));
+                _typeCache.GetFrameworkType(Arg.Is<TypeReference>(r => r.Primitive == PrimitiveType.String)).Returns(typeof(string));
             }
         }
 
@@ -97,7 +97,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [InlineData(PrimitiveType.String, null, null, true)]
             public void ConvertsPrimitiveValues(PrimitiveType primitive, object value, object expected, bool isOptional)
             {
-                var instance = new TypeInstance(type: new TypeReference(primitive: primitive), isOptional: isOptional);
+                var instance = new TypeReference(primitive: primitive, isOptional: isOptional);
 
                 bool success = _converter.TryConvert(instance, _referenceMap, value, out object actual);
 
@@ -113,7 +113,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsDateValues))]
             public void ConvertsDateValues()
             {
-                var instance = new TypeInstance(type: new TypeReference(primitive: PrimitiveType.Date));
+                var instance = new TypeReference(primitive: PrimitiveType.Date);
 
                 DateTime now = DateTime.Now;
                 JObject value = new JObject(new JProperty("$jsii.date", now));
@@ -130,7 +130,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsOptionalDateValues))]
             public void ConvertsOptionalDateValues()
             {
-                var instance = new TypeInstance(type: new TypeReference(primitive: PrimitiveType.Date), isOptional: true);
+                var instance = new TypeReference(primitive: PrimitiveType.Date, isOptional: true);
 
                 DateTime now = DateTime.Now;
                 JObject value = new JObject(new JProperty("$jsii.date", now));
@@ -147,7 +147,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsJsonValues))]
             public void ConvertsJsonValues()
             {
-                var instance = new TypeInstance(type: new TypeReference(primitive: PrimitiveType.Json));
+                var instance = new TypeReference(primitive: PrimitiveType.Json);
 
                 JObject jObject = new JObject(
                     new JProperty("myArray", new JArray(
@@ -172,7 +172,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(FailsOnNullBoolean))]
             public void FailsOnNullBoolean()
             {
-                var instance = new TypeInstance(type: new TypeReference(primitive: PrimitiveType.Boolean));
+                var instance = new TypeReference(primitive: PrimitiveType.Boolean);
 
                 bool success = _converter.TryConvert(instance, _referenceMap, null, out object actual);
 
@@ -182,7 +182,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(FailsOnNullNumber))]
             public void FailsOnNullNumber()
             {
-                var instance = new TypeInstance(type: new TypeReference(primitive: PrimitiveType.Number));
+                var instance = new TypeReference(primitive: PrimitiveType.Number);
 
                 bool success = _converter.TryConvert(instance, _referenceMap, null, out object actual);
 
@@ -192,7 +192,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsNullJson))]
             public void ConvertsNullJson()
             {
-                var instance = new TypeInstance(type: new TypeReference(primitive: PrimitiveType.Json));
+                var instance = new TypeReference(primitive: PrimitiveType.Json);
 
                 bool success = _converter.TryConvert(instance, _referenceMap, null, out object actual);
 
@@ -214,7 +214,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsClassReference))]
             public void ConvertsClassReference()
             {
-                var instance = new TypeInstance(type: new TypeReference("myClassFqn"));
+                var instance = new TypeReference("myClassFqn");
 
                 JObject byRef = new JObject(new JProperty("$jsii.byref", "myClassFqn@0001"));
                 TestClass testClass = new TestClass(new ByRefValue("myClassFqn", "0001"));
@@ -233,7 +233,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsEnumValue))]
             public void ConvertsEnumValue()
             {
-                var instance = new TypeInstance(type: new TypeReference("myEnumFqn"));
+                var instance = new TypeReference("myEnumFqn");
                 JObject enumValue = new JObject(new JProperty("$jsii.enum", "myEnumFqn/MyMember1"));
 
                 bool success = _converter.TryConvert(instance, _referenceMap, enumValue, out object actual);
@@ -245,7 +245,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsNullClassReference))]
             public void ConvertsNullClassReference()
             {
-                var instance = new TypeInstance(type: new TypeReference("myClassFqn"));
+                var instance = new TypeReference("myClassFqn");
 
                 bool success = _converter.TryConvert(instance, _referenceMap, null, out object actual);
 
@@ -256,7 +256,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(DoesNotConvertNullNonOptionalEnumValue))]
             public void DoesNotConvertNullNonOptionalEnumValue()
             {
-                var instance = new TypeInstance(type: new TypeReference("myEnumFqn"));
+                var instance = new TypeReference("myEnumFqn");
 
                 bool success = _converter.TryConvert(instance, _referenceMap, null, out object actual);
 
@@ -267,7 +267,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsNullOptionalEnumValue))]
             public void ConvertsNullOptionalEnumValue()
             {
-                var instance = new TypeInstance(type: new TypeReference("myEnumFqn"), isOptional: true);
+                var instance = new TypeReference("myEnumFqn", isOptional: true);
 
                 bool success = _converter.TryConvert(instance, _referenceMap, null, out object actual);
 
@@ -282,17 +282,17 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
 
             public Collection()
             {
-                _typeCache.GetFrameworkType(Arg.Is<TypeInstance>(r =>
-                    r.Type.Collection != null &&
-                    r.Type.Collection.Kind == CollectionKind.Array &&
-                    r.Type.Collection.ElementType.Type.Primitive == PrimitiveType.String
+                _typeCache.GetFrameworkType(Arg.Is<TypeReference>(r =>
+                    r.Collection != null &&
+                    r.Collection.Kind == CollectionKind.Array &&
+                    r.Collection.ElementType.Primitive == PrimitiveType.String
                 ))
                     .Returns(typeof(string[]));
 
-                _typeCache.GetFrameworkType(Arg.Is<TypeInstance>(r =>
-                    r.Type.Collection != null &&
-                    r.Type.Collection.Kind == CollectionKind.Map &&
-                    r.Type.Collection.ElementType.Type.Primitive == PrimitiveType.String
+                _typeCache.GetFrameworkType(Arg.Is<TypeReference>(r =>
+                    r.Collection != null &&
+                    r.Collection.Kind == CollectionKind.Map &&
+                    r.Collection.ElementType.Primitive == PrimitiveType.String
                 ))
                     .Returns(typeof(IDictionary<string, string>));
             }
@@ -300,11 +300,11 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsMap))]
             public void ConvertsMap()
             {
-                var instance = new TypeInstance(type: new TypeReference(
+                var instance = new TypeReference(
                     collection: new CollectionTypeReference(CollectionKind.Map,
-                        new TypeInstance(type: new TypeReference(primitive: PrimitiveType.String))
+                        new TypeReference(primitive: PrimitiveType.String)
                     )
-                ));
+                );
 
                 JObject value = new JObject(
                     new JProperty("myKey1", "myValue1"),
@@ -332,15 +332,15 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(RecursivelyConvertsMapElements))]
             public void RecursivelyConvertsMapElements()
             {
-                var instance = new TypeInstance(type: new TypeReference(
+                var instance = new TypeReference(
                     collection: new CollectionTypeReference(CollectionKind.Map,
-                        new TypeInstance(type: new TypeReference(
+                        new TypeReference(
                             collection: new CollectionTypeReference(CollectionKind.Map,
-                                new TypeInstance(type: new TypeReference(primitive: PrimitiveType.String))
+                                new TypeReference(primitive: PrimitiveType.String)
                             )
-                        ))
+                        )
                     )
-                ));
+                );
 
                 JObject value = new JObject(
                     new JProperty("myKey1", new JObject(
@@ -384,11 +384,11 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsArray))]
             public void ConvertsArray()
             {
-                var instance = new TypeInstance(type: new TypeReference(
+                var instance = new TypeReference(
                     collection: new CollectionTypeReference(CollectionKind.Array,
-                        new TypeInstance(type: new TypeReference(primitive: PrimitiveType.String))
+                        new TypeReference(primitive: PrimitiveType.String)
                     )
-                ));
+                );
 
                 JArray value = new JArray(
                     new JValue("myValue1"),
@@ -408,15 +408,15 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(RecursivelyConvertsArrayElements))]
             public void RecursivelyConvertsArrayElements()
             {
-                var instance = new TypeInstance(type: new TypeReference(
+                var instance = new TypeReference(
                     collection: new CollectionTypeReference(CollectionKind.Array,
-                        new TypeInstance(type: new TypeReference(
+                        new TypeReference(
                             collection: new CollectionTypeReference(CollectionKind.Array,
-                                new TypeInstance(type: new TypeReference(primitive: PrimitiveType.String))
+                                new TypeReference(primitive: PrimitiveType.String)
                             )
-                        ))
+                        )
                     )
-                ));
+                );
 
                 JArray value = new JArray(
                     new JArray(new JValue("myValue1")),
@@ -440,11 +440,11 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsNullMap))]
             public void ConvertsNullMap()
             {
-                var instance = new TypeInstance(type: new TypeReference(
+                var instance = new TypeReference(
                     collection: new CollectionTypeReference(CollectionKind.Map,
-                        new TypeInstance(type: new TypeReference(primitive: PrimitiveType.String))
+                        new TypeReference(primitive: PrimitiveType.String)
                     )
-                ));
+                );
 
                 bool success = _converter.TryConvert(instance, _referenceMap, null, out object actual);
 
@@ -455,11 +455,11 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsNullArray))]
             public void ConvertsNullArray()
             {
-                var instance = new TypeInstance(type: new TypeReference(
+                var instance = new TypeReference(
                     collection: new CollectionTypeReference(CollectionKind.Array,
-                        new TypeInstance(type: new TypeReference(primitive: PrimitiveType.String))
+                        new TypeReference(primitive: PrimitiveType.String)
                     )
-                ));
+                );
 
                 bool success = _converter.TryConvert(instance, _referenceMap, null, out object actual);
 
@@ -475,12 +475,12 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(FailsIfNoTypeMatches))]
             public void FailsIfNoTypeMatches()
             {
-                var instance = new TypeInstance(type: new TypeReference(
+                var instance = new TypeReference(
                     union: new UnionTypeReference(new[] {
-                        new TypeInstance(type: new TypeReference(primitive: PrimitiveType.String)),
-                        new TypeInstance(type: new TypeReference(primitive: PrimitiveType.Number))
+                        new TypeReference(primitive: PrimitiveType.String),
+                        new TypeReference(primitive: PrimitiveType.Number)
                     })
-                ));
+                );
 
                 JValue value = new JValue(true);
                 bool success = _converter.TryConvert(instance, _referenceMap, value, out object actual);
@@ -492,11 +492,11 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsSimpleUnion))]
             public void ConvertsSimpleUnion()
             {
-                var instance = new TypeInstance(type: new TypeReference(
+                var instance = new TypeReference(
                     union: new UnionTypeReference(new[] {
-                        new TypeInstance(type: new TypeReference(primitive: PrimitiveType.String))
+                        new TypeReference(primitive: PrimitiveType.String)
                     })
-                ));
+                );
 
                 JValue value = new JValue("abc");
                 bool success = _converter.TryConvert(instance, _referenceMap, value, out object actual);
@@ -508,12 +508,12 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsAsFirstMatchingType))]
             public void ConvertsAsFirstMatchingType()
             {
-                var instance = new TypeInstance(type: new TypeReference(
+                var instance = new TypeReference(
                     union: new UnionTypeReference(new[] {
-                        new TypeInstance(type: new TypeReference(primitive: PrimitiveType.String)),
-                        new TypeInstance(type: new TypeReference(primitive: PrimitiveType.Number))
+                        new TypeReference(primitive: PrimitiveType.String),
+                        new TypeReference(primitive: PrimitiveType.Number)
                     })
-                ));
+                );
 
                 JValue value = new JValue((ushort)7);
                 bool success = _converter.TryConvert(instance, _referenceMap, value, out object actual);
@@ -526,11 +526,11 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsNull))]
             public void ConvertsNull()
             {
-                var instance = new TypeInstance(type: new TypeReference(
+                var instance = new TypeReference(
                     union: new UnionTypeReference(new[] {
-                        new TypeInstance(type: new TypeReference(primitive: PrimitiveType.String))
+                        new TypeReference(primitive: PrimitiveType.String)
                     })
-                ));
+                );
 
                 bool success = _converter.TryConvert(instance, _referenceMap, null, out object actual);
 
@@ -546,7 +546,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsNull))]
             public void ConvertsNull()
             {
-                var instance = new TypeInstance(type: new TypeReference(primitive: PrimitiveType.Any));
+                var instance = new TypeReference(primitive: PrimitiveType.Any);
 
                 bool success = _converter.TryConvert(instance, _referenceMap, null, out object actual);
 
@@ -560,7 +560,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [InlineData(true, true)]
             public void ConvertsPrimitive(object value, object expected)
             {
-                var instance = new TypeInstance(type: new TypeReference(primitive: PrimitiveType.Any));
+                var instance = new TypeReference(primitive: PrimitiveType.Any);
 
                 bool success = _converter.TryConvert(instance, _referenceMap, new JValue(value), out object actual);
 
@@ -571,7 +571,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsDate))]
             public void ConvertsDate()
             {
-                var instance = new TypeInstance(type: new TypeReference(primitive: PrimitiveType.Any));
+                var instance = new TypeReference(primitive: PrimitiveType.Any);
 
                 DateTime now = DateTime.Now;
                 JObject value = new JObject(
@@ -589,7 +589,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             {
                 // We can't distinguish between generic JSON and JSII maps, so we treat
                 // all unrecognized JObjects as maps.
-                var instance = new TypeInstance(type: new TypeReference(primitive: PrimitiveType.Any));
+                var instance = new TypeReference(primitive: PrimitiveType.Any);
 
                 JObject value = new JObject(new JProperty("myKey", "myValue"));
                 bool success = _converter.TryConvert(instance, _referenceMap, value, out object actual);
@@ -610,7 +610,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             {
                 // We can't distinguish between generic JSON and JSII maps, so we treat
                 // all unrecognized JObjects as maps.
-                var instance = new TypeInstance(type: new TypeReference(primitive: PrimitiveType.Any));
+                var instance = new TypeReference(primitive: PrimitiveType.Any);
 
                 JObject value = new JObject(new JProperty("myKey", "myValue"));
                 bool success = _converter.TryConvert(instance, _referenceMap, value, out object actual);
@@ -629,7 +629,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsArray))]
             public void ConvertsArray()
             {
-                var instance = new TypeInstance(type: new TypeReference(primitive: PrimitiveType.Any));
+                var instance = new TypeReference(primitive: PrimitiveType.Any);
 
                 JArray value = new JArray(new JValue("myValue"));
                 bool success = _converter.TryConvert(instance, _referenceMap, value, out object actual);

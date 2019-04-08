@@ -14,7 +14,7 @@ namespace Amazon.JSII.Generator.UnitTests.DocComment
         {
             Property property = new Property(
                 name: "myProp",
-                value: new TypeInstance(type: new TypeReference(primitive: PrimitiveType.String)),
+                type: new TypeReference(primitive: PrimitiveType.String),
                 isImmutable: false,
                 isAbstract: false,
                 isStatic: false,

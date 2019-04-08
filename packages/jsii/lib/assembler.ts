@@ -11,7 +11,6 @@ import { getReferencedDocParams, parseSymbolDocumentation } from './docs';
 import { Diagnostic, Emitter } from './emitter';
 import literate = require('./literate');
 import { ProjectInfo } from './project-info';
-import utils = require('./utils');
 import { Validator } from './validator';
 import { SHORT_VERSION, VERSION } from './version';
 
@@ -20,8 +19,6 @@ const sortJson = require('sort-json');
 // tslint:enable:no-var-requires
 
 const LOG = log4js.getLogger('jsii/assembler');
-
-const ANY_TYPE: spec.TypeInstance<spec.PrimitiveTypeReference> = { type: { primitive: spec.PrimitiveType.Any }, optional: true };
 
 /**
  * The JSII Assembler consumes a ``ts.Program`` instance and emits a JSII assembly.
@@ -111,14 +108,13 @@ export class Assembler implements Emitter {
       author: this.projectInfo.author,
       contributors: this.projectInfo.contributors && [...this.projectInfo.contributors],
       repository: this.projectInfo.repository,
-      dependencies: _toDependencies(this.projectInfo.dependencies, this.projectInfo.peerDependencies),
+      dependencies: _toDependencies(this.projectInfo.dependencies),
       bundled: this.projectInfo.bundleDependencies,
       types: this._types,
       targets: this.projectInfo.targets,
       readme,
       jsiiVersion,
       fingerprint: '<TBD>',
-      locationInRepository: this.projectInfo.locationInRepository
     };
 
     const validator = new Validator(this.projectInfo, assembly);
@@ -126,7 +122,7 @@ export class Assembler implements Emitter {
     if (!validationResult.emitSkipped) {
       const assemblyPath = path.join(this.projectInfo.projectRoot, '.jsii');
       LOG.trace(`Emitting assembly: ${colors.blue(assemblyPath)}`);
-      await fs.writeJson(assemblyPath, _fingerprint(assembly), { replacer: utils.filterEmpty, spaces: 2 });
+      await fs.writeJson(assemblyPath, _fingerprint(assembly), { encoding: 'utf8', spaces: 2 });
     }
 
     try {
@@ -168,15 +164,16 @@ export class Assembler implements Emitter {
    * @param cb Callback to be invoked with the Types corresponding to the TypeReferences in baseTypes
    */
   // tslint:disable-next-line:max-line-length
-  private _deferUntilTypesAvailable(fqn: string, baseTypes: spec.NamedTypeReference[], referencingNode: ts.Node, cb: (...xs: spec.Type[]) => void) {
+  private _deferUntilTypesAvailable(fqn: string, baseTypes: Array<string | spec.NamedTypeReference>, referencingNode: ts.Node, cb: (...xs: spec.Type[]) => void) {
     // We can do this one eagerly
     if (baseTypes.length === 0) {
       cb();
       return;
     }
+    const baseFqns = baseTypes.map(bt => typeof bt === 'string' ? bt : bt.fqn);
 
-    this._defer(fqn, baseTypes.map(x => x.fqn), () => {
-      const resolved = baseTypes.map(x => this._dereference(x, referencingNode)).filter(x => x !== undefined);
+    this._defer(fqn, baseFqns, () => {
+      const resolved = baseFqns.map(x => this._dereference(x, referencingNode)).filter(x => x !== undefined);
       if (resolved.length > 0) {
         return cb(...resolved as spec.Type[]);
       }
@@ -206,14 +203,18 @@ export class Assembler implements Emitter {
    *
    * @returns the de-referenced type, if it was found, otherwise ``undefined``.
    */
-  private _dereference(ref: spec.NamedTypeReference, referencingNode: ts.Node | null): spec.Type | undefined {
-    const [assm, ] = ref.fqn.split('.');
+  private _dereference(ref: string | spec.NamedTypeReference, referencingNode: ts.Node | null): spec.Type | undefined {
+    if (typeof ref !== 'string') {
+      ref = ref.fqn;
+    }
+
+    const [assm, ] = ref.split('.');
     let type;
     if (assm === this.projectInfo.name) {
-      type = this._types[ref.fqn];
+      type = this._types[ref];
     } else {
       const assembly = this.projectInfo.transitiveDependencies.find(dep => dep.name === assm);
-      type = assembly && assembly.types && assembly.types[ref.fqn];
+      type = assembly && assembly.types && assembly.types[ref];
 
       // since we are exposing a type of this assembly in this module's public API,
       // we expect it to appear as a peer dependency instead of a normal dependency.
@@ -221,7 +222,7 @@ export class Assembler implements Emitter {
         const asPeerDependency = this.projectInfo.peerDependencies.find(d => d.name === assembly.name);
         if (!asPeerDependency) {
           this._diagnostic(referencingNode, ts.DiagnosticCategory.Warning,
-            `The type '${ref.fqn}' is exposed in the public API of this module. ` +
+            `The type '${ref}' is exposed in the public API of this module. ` +
             `Therefore, the module '${assembly.name}' must also be defined under "peerDependencies". ` +
             `You can use the "jsii-fix-peers" utility to fix.`);
         }
@@ -230,8 +231,7 @@ export class Assembler implements Emitter {
 
     if (!type) {
       this._diagnostic(referencingNode, ts.DiagnosticCategory.Error,
-        `Unable to resolve referenced type '${ref.fqn}'. ` +
-        `Type may be @internal or unexported`);
+        `Unable to resolve referenced type '${ref}'. Type may be @internal or unexported`);
     }
 
     return type;
@@ -433,7 +433,7 @@ export class Assembler implements Emitter {
       fqn,
       kind: spec.TypeKind.Class,
       name: type.symbol.name,
-      namespace: namespace.join('.'),
+      namespace: namespace.length > 0 ? namespace.join('.') : undefined,
       docs: this._visitDocumentation(type.symbol),
     };
 
@@ -478,7 +478,7 @@ export class Assembler implements Emitter {
             `Base type of ${jsiiType.fqn} is not a class (${spec.describeTypeReference(ref)})`);
         }
       });
-      jsiiType.base = ref;
+      jsiiType.base = ref.fqn;
     }
     for (const clause of (type.symbol.valueDeclaration as ts.ClassDeclaration).heritageClauses || []) {
       if (clause.token === ts.SyntaxKind.ExtendsKeyword) {
@@ -490,9 +490,9 @@ export class Assembler implements Emitter {
       }
 
       const { interfaces } = await this._processBaseInterfaces(fqn, clause.types.map(t => this._typeChecker.getTypeFromTypeNode(t)));
-      jsiiType.interfaces = interfaces;
-      if (jsiiType.interfaces) {
-        this._deferUntilTypesAvailable(jsiiType.fqn, jsiiType.interfaces, type.symbol.valueDeclaration, (...ifaces) => {
+      jsiiType.interfaces = apply(interfaces, arr => arr.map(i => i.fqn));
+      if (interfaces) {
+        this._deferUntilTypesAvailable(jsiiType.fqn, interfaces, type.symbol.valueDeclaration, (...ifaces) => {
           for (const iface of ifaces) {
             if (spec.isInterfaceType(iface) && iface.datatype) {
               this._diagnostic(type.symbol.valueDeclaration,
@@ -557,13 +557,14 @@ export class Assembler implements Emitter {
 
       // tslint:disable-next-line:no-bitwise
       if ((ts.getCombinedModifierFlags(ctorDeclaration) & ts.ModifierFlags.Private) === 0) {
-        jsiiType.initializer = { initializer: true };
+        jsiiType.initializer = {};
         if (signature) {
           for (const param of signature.getParameters()) {
             jsiiType.initializer.parameters = jsiiType.initializer.parameters || [];
             jsiiType.initializer.parameters.push(await this._toParameter(param));
-            jsiiType.initializer.variadic = jsiiType.initializer.parameters
-              && jsiiType.initializer.parameters.find(p => !!p.variadic) != null;
+            jsiiType.initializer.variadic =
+              (jsiiType.initializer.parameters && jsiiType.initializer.parameters.some(p => !!p.variadic))
+              || undefined;
           }
         }
         jsiiType.initializer.docs = this._visitDocumentation(constructor);
@@ -584,11 +585,11 @@ export class Assembler implements Emitter {
         } else {
           this._diagnostic(type.symbol.valueDeclaration,
             ts.DiagnosticCategory.Error,
-            `Base type of ${jsiiType.fqn} (${jsiiType.base!.fqn}) is not a class`);
+            `Base type of ${jsiiType.fqn} (${jsiiType.base}) is not a class`);
         }
       });
     } else {
-      jsiiType.initializer = { initializer: true };
+      jsiiType.initializer = {};
     }
 
     this._verifyNoStaticMixing(jsiiType, type.symbol.valueDeclaration);
@@ -710,7 +711,7 @@ export class Assembler implements Emitter {
         docs: this._visitDocumentation(m.symbol),
       })),
       name: type.symbol.name,
-      namespace: namespace.join('.'),
+      namespace: namespace.length > 0 ? namespace.join('.') : undefined,
       docs
     };
 
@@ -764,12 +765,12 @@ export class Assembler implements Emitter {
       fqn,
       kind: spec.TypeKind.Interface,
       name: type.symbol.name,
-      namespace: namespace.join('.'),
+      namespace: namespace.length > 0 ? namespace.join('.') : undefined,
       docs: this._visitDocumentation(type.symbol),
     };
 
     const { interfaces, erasedBases } = await this._processBaseInterfaces(fqn, type.getBaseTypes());
-    jsiiType.interfaces = interfaces;
+    jsiiType.interfaces = apply(interfaces, arr => arr.map(i => i.fqn));
 
     for (const declaringType of [type, ...erasedBases]) {
       for (const member of declaringType.getProperties()) {
@@ -889,22 +890,22 @@ export class Assembler implements Emitter {
 
     const returnType = signature.getReturnType();
     const method: spec.Method = {
-      abstract: _isAbstract(symbol, type),
+      abstract: _isAbstract(symbol, type) || undefined,
       name: symbol.name,
-      parameters,
-      protected: _isProtected(symbol),
-      returns: _isVoid(returnType) ? undefined : await this._typeInstance(returnType, declaration),
-      static: _isStatic(symbol),
+      parameters: parameters.length > 0 ? parameters : undefined,
+      protected: _isProtected(symbol) || undefined,
+      returns: _isVoid(returnType) ? undefined : await this._typeReference(returnType, declaration),
+      static: _isStatic(symbol) || undefined,
       locationInModule: this.declarationLocation(declaration),
     };
-    method.variadic = method.parameters && method.parameters.find(p => !!p.variadic) != null;
+    method.variadic = (method.parameters && method.parameters.some(p => !!p.variadic)) || undefined;
 
     method.docs = this._visitDocumentation(symbol);
 
     // If the last parameter is a datatype, verify that it does not share any field names with
     // other function arguments, so that it can be turned into keyword arguments by jsii frontends
     // that support such.
-    const lastParamTypeRef = apply(last(parameters), x => x.value.type);
+    const lastParamTypeRef = apply(last(parameters), x => x.type);
     const lastParamSymbol = last(signature.getParameters());
     if (lastParamTypeRef && spec.isNamedTypeReference(lastParamTypeRef)) {
       this._deferUntilTypesAvailable(symbol.name, [lastParamTypeRef], lastParamSymbol!.declarations[0], (lastParamType) => {
@@ -953,24 +954,24 @@ export class Assembler implements Emitter {
       | ts.AccessorDeclaration
       | ts.ParameterPropertyDeclaration);
     const property: spec.Property = {
-      abstract: _isAbstract(symbol, type),
+      abstract: _isAbstract(symbol, type) || undefined,
       name: symbol.name,
-      protected: _isProtected(symbol),
-      static: _isStatic(symbol),
-      value: await this._typeInstance(this._typeChecker.getTypeOfSymbolAtLocation(symbol, signature), signature),
+      protected: _isProtected(symbol) || undefined,
+      static: _isStatic(symbol) || undefined,
+      type: await this._typeReference(this._typeChecker.getTypeOfSymbolAtLocation(symbol, signature), signature),
       locationInModule: this.declarationLocation(signature),
     };
 
     if (ts.isGetAccessor(signature)) {
       const decls = symbol.getDeclarations() || [];
-      property.immutable = decls.find(decl => ts.isSetAccessor(decl)) == null;
+      property.immutable = !decls.some(decl => ts.isSetAccessor(decl)) || undefined;
     } else {
       // tslint:disable-next-line:no-bitwise
-      property.immutable = (ts.getCombinedModifierFlags(signature) & ts.ModifierFlags.Readonly) !== 0;
+      property.immutable = ((ts.getCombinedModifierFlags(signature) & ts.ModifierFlags.Readonly) !== 0) || undefined;
     }
 
     if (signature.questionToken) {
-      property.value.optional = true;
+      property.type = { ...property.type, optional: true };
     }
 
     if (property.static && property.immutable && ts.isPropertyDeclaration(signature) && signature.initializer) {
@@ -995,16 +996,16 @@ export class Assembler implements Emitter {
 
     const parameter: spec.Parameter = {
       name: paramSymbol.name,
-      value: await this._typeInstance(this._typeChecker.getTypeAtLocation(paramSymbol.valueDeclaration), paramSymbol.valueDeclaration),
+      type: await this._typeReference(this._typeChecker.getTypeAtLocation(paramSymbol.valueDeclaration), paramSymbol.valueDeclaration),
       variadic: paramDeclaration.dotDotDotToken && true,
     };
 
-    if (parameter.variadic && spec.isCollectionTypeReference(parameter.value.type)) {
+    if (parameter.variadic && spec.isCollectionTypeReference(parameter.type)) {
       // TypeScript types variadic parameters as an array, but JSII uses the item-type instead.
-      parameter.value = parameter.value.type.collection.elementtype;
+      parameter.type = parameter.type.collection.elementtype;
     } else if (paramDeclaration.initializer || paramDeclaration.questionToken) {
       // Optional parameters have an inherently null-able type.
-      parameter.value.optional = true;
+      parameter.type = { ...parameter.type, optional: true };
     }
 
     parameter.docs = this._visitDocumentation(paramSymbol); // No inheritance on purpose
@@ -1013,11 +1014,6 @@ export class Assembler implements Emitter {
   }
 
   private async _typeReference(type: ts.Type, declaration: ts.Declaration): Promise<spec.TypeReference> {
-    const instance = await this._typeInstance(type, declaration);
-    return instance.type;
-  }
-
-  private async _typeInstance(type: ts.Type, declaration: ts.Declaration): Promise<spec.TypeInstance<spec.TypeReference>> {
     if (type.isLiteral() && _isEnumLike(type)) {
       type = this._typeChecker.getBaseTypeOfLiteralType(type);
     } else {
@@ -1033,7 +1029,7 @@ export class Assembler implements Emitter {
 
     if (!type.symbol) {
       this._diagnostic(declaration, ts.DiagnosticCategory.Error, `Non-primitive types must have a symbol`);
-      return ANY_TYPE;
+      return spec.CANONICAL_ANY;
     }
 
     if (type.symbol.name === 'Array') {
@@ -1050,79 +1046,75 @@ export class Assembler implements Emitter {
         this._diagnostic(declaration,
           ts.DiagnosticCategory.Error,
           `Un-specified promise type (need to specify as Promise<T>)`);
-        return { ...ANY_TYPE, promise: true };
+        return { ...spec.CANONICAL_ANY, promise: true };
       } else {
-        return { ...await this._typeInstance(typeRef.typeArguments[0], declaration), promise: true };
+        return { ...await this._typeReference(typeRef.typeArguments[0], declaration), promise: true };
       }
     }
 
-    return { type: { fqn: await this._getFQN(type) } };
+    return { fqn: await this._getFQN(type) };
 
-    async function _arrayType(this: Assembler): Promise<spec.TypeInstance<spec.CollectionTypeReference>> {
+    async function _arrayType(this: Assembler): Promise<spec.CollectionTypeReference> {
       const typeRef = type as ts.TypeReference;
-      let elementtype: spec.TypeInstance<spec.TypeReference>;
+      let elementtype: spec.TypeReference;
 
       if (typeRef.typeArguments && typeRef.typeArguments.length === 1) {
-        elementtype = await this._typeInstance(typeRef.typeArguments[0], declaration);
+        elementtype = await this._typeReference(typeRef.typeArguments[0], declaration);
       } else {
         const count = typeRef.typeArguments ? typeRef.typeArguments.length : 'none';
         this._diagnostic(declaration,
           ts.DiagnosticCategory.Error,
           `Array references must have exactly one type argument (found ${count})`);
-        elementtype = ANY_TYPE;
+        elementtype = spec.CANONICAL_ANY;
       }
 
       return {
-        type: {
-          collection: {
-            elementtype,
-            kind: spec.CollectionKind.Array
-          }
+        collection: {
+          elementtype,
+          kind: spec.CollectionKind.Array
         }
       };
     }
 
-    async function _mapType(this: Assembler): Promise<spec.TypeInstance<spec.CollectionTypeReference>> {
-      let elementtype: spec.TypeInstance<spec.TypeReference>;
+    async function _mapType(this: Assembler): Promise<spec.CollectionTypeReference> {
+      let elementtype: spec.TypeReference;
       const objectType = type.getStringIndexType();
       if (objectType) {
-        elementtype = await this._typeInstance(objectType, declaration);
+        elementtype = await this._typeReference(objectType, declaration);
       } else {
         this._diagnostic(declaration,
           ts.DiagnosticCategory.Error,
           `Only string index maps are supported`);
-        elementtype = ANY_TYPE;
+        elementtype = spec.CANONICAL_ANY;
       }
       return {
-        type: {
-          collection: {
-            elementtype,
-            kind: spec.CollectionKind.Map
-          }
+        collection: {
+          elementtype,
+          kind: spec.CollectionKind.Map
         }
       };
     }
 
-    function _tryMakePrimitiveType(this: Assembler): spec.TypeInstance<spec.PrimitiveTypeReference> | undefined {
+    function _tryMakePrimitiveType(this: Assembler): spec.PrimitiveTypeReference | undefined {
       if (!type.symbol) {
         // tslint:disable-next-line:no-bitwise
         if (type.flags & ts.TypeFlags.Object) {
-          return { type: { primitive: spec.PrimitiveType.Json } };
+          return { primitive: spec.PrimitiveType.Json };
         }
         // tslint:disable-next-line:no-bitwise
         if (type.flags & (ts.TypeFlags.Any | ts.TypeFlags.Unknown)) {
-          return ANY_TYPE;
+          return spec.CANONICAL_ANY;
         }
       } else if (type.symbol.valueDeclaration && isUnder(type.symbol.valueDeclaration.getSourceFile().fileName, this.stdlib)) {
         switch (type.symbol.name) {
           case 'Boolean':
-            return { type: { primitive: spec.PrimitiveType.Boolean } };
+            return { primitive: spec.PrimitiveType.Boolean };
           case 'Date':
-            return { type: { primitive: spec.PrimitiveType.Date } };
+            return { primitive: spec.PrimitiveType.Date };
           case 'Number':
-            return { type: { primitive: spec.PrimitiveType.Number } };
+            return { primitive: spec.PrimitiveType.Number };
           case 'String':
-            return { type: { primitive: spec.PrimitiveType.String } };
+            return { primitive: spec.PrimitiveType.String };
         }
       }
       // Not a primitive type!
@@ -1134,8 +1126,8 @@ export class Assembler implements Emitter {
       }
     }
 
-    async function _unionType(this: Assembler): Promise<spec.TypeInstance<spec.TypeReference>> {
-      const types = new Array<spec.TypeInstance<spec.TypeReference>>();
+    async function _unionType(this: Assembler): Promise<spec.TypeReference> {
+      const types = new Array<spec.TypeReference>();
       let optional: boolean | undefined;
 
       for (const subType of (type as ts.UnionType).types) {
@@ -1144,7 +1136,7 @@ export class Assembler implements Emitter {
           optional = true;
           continue;
         }
-        const resolvedType = await this._typeInstance(subType, declaration);
+        const resolvedType = await this._typeReference(subType, declaration);
         if (types.find(ref => deepEqual(ref, resolvedType)) != null) {
           continue;
         }
@@ -1152,8 +1144,8 @@ export class Assembler implements Emitter {
       }
 
       return types.length === 1
-        ? { ...types[0], optional }
-        : { type: { union: { types } }, optional };
+        ? { optional, ...types[0] }
+        : { optional, union: { types } };
     }
   }
 
@@ -1238,7 +1230,7 @@ function _fingerprint(assembly: spec.Assembly): spec.Assembly {
   delete assembly.fingerprint;
   assembly = sortJson(assembly);
   const fingerprint = crypto.createHash('sha256')
-    .update(JSON.stringify(assembly, utils.filterEmpty))
+    .update(JSON.stringify(assembly))
     .digest('base64');
   return { ...assembly, fingerprint };
 }
@@ -1359,7 +1351,11 @@ function _sortMembers(type: spec.ClassType | spec.InterfaceType): spec.ClassType
   };
 }
 
-function _toDependencies(assemblies: ReadonlyArray<spec.Assembly>, peers: ReadonlyArray<spec.Assembly>): { [name: string]: spec.PackageVersion } {
+function _toDependencies(assemblies: ReadonlyArray<spec.Assembly>): { [name: string]: spec.PackageVersion } | undefined {
+  if (assemblies.length === 0) {
+    return undefined;
+  }
+
   const result: { [name: string]: spec.PackageVersion } = {};
 
   for (const assembly of assemblies) {
@@ -1370,14 +1366,6 @@ function _toDependencies(assemblies: ReadonlyArray<spec.Assembly>, peers: Readon
     };
   }
 
-  for (const peer of peers) {
-    result[peer.name] = {
-      version: peer.version,
-      targets: peer.targets,
-      dependencies: peer.dependencies,
-      peer: true
-    };
-  }
   return result;
 }
 

@@ -53,8 +53,8 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
                 name: "MyInterface",
                 interfaces: new[]
                 {
-                    new TypeReference(fullyQualifiedName: "myBaseFqn1"),
-                    new TypeReference(fullyQualifiedName: "myBaseFqn2"),
+                    "myBaseFqn1",
+                    "myBaseFqn2",
                 }
             );
 
@@ -81,7 +81,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
                 fullyQualifiedName: "myInterfaceFqn",
                 assembly: "",
                 name: "MyInterface",
-                methods: new Method[] { new Method(false, false, true, name: "myMethod") }
+                methods: new Method[] { new Method(name: "myMethod", isAbstract: true) }
             );
 
             Symbols.MapMethodName("myInterfaceFqn", "myMethod", "MyMethod");

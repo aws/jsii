@@ -13,36 +13,36 @@ namespace Amazon.JSII.Runtime.Services.Converters
             _types = types ?? throw new ArgumentNullException(nameof(types));
         }
 
-        public bool TryConvert(TypeInstance typeInstance, IReferenceMap referenceMap, object value, out object result)
+        public bool TryConvert(TypeReference typeReference, IReferenceMap referenceMap, object value, out object result)
         {
-            if (typeInstance == null)
+            if (typeReference == null)
             {
                 return TryConvertVoid(value, out result);
             }
 
-            bool isNullable = typeInstance.IsOptional == true;
+            bool isNullable = typeReference.IsOptional == true;
 
-            if (typeInstance.Type.FullyQualifiedName != null)
+            if (typeReference.FullyQualifiedName != null)
             {
-                return TryConvertCustomType(referenceMap, value, isNullable, typeInstance.Type.FullyQualifiedName, out result);
+                return TryConvertCustomType(referenceMap, value, isNullable, typeReference.FullyQualifiedName, out result);
             }
 
-            if (typeInstance.Type.Primitive != null)
+            if (typeReference.Primitive != null)
             {
-                return TryConvertPrimitive(referenceMap, value, isNullable, typeInstance.Type.Primitive.Value, out result);
+                return TryConvertPrimitive(referenceMap, value, isNullable, typeReference.Primitive.Value, out result);
             }
 
-            if (typeInstance.Type.Collection != null)
+            if (typeReference.Collection != null)
             {
-                return TryConvertCollection(referenceMap, value, isNullable, typeInstance.Type.Collection, out result);
+                return TryConvertCollection(referenceMap, value, isNullable, typeReference.Collection, out result);
             }
 
-            if (typeInstance.Type.Union != null)
+            if (typeReference.Union != null)
             {
-                return TryConvertUnion(referenceMap, value, isNullable, typeInstance.Type.Union, out result);
+                return TryConvertUnion(referenceMap, value, isNullable, typeReference.Union, out result);
             }
 
-            throw new ArgumentException("Invalid type reference", nameof(typeInstance));
+            throw new ArgumentException("Invalid type reference", nameof(typeReference));
         }
 
         protected bool IsNumeric(System.Type type)
@@ -74,11 +74,11 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
         protected abstract bool TryConvertString(object value, out object result);
 
-        protected abstract bool TryConvertArray(IReferenceMap referenceMap, TypeInstance elementType, object value, out object result);
+        protected abstract bool TryConvertArray(IReferenceMap referenceMap, TypeReference elementType, object value, out object result);
 
-        protected abstract bool TryConvertMap(IReferenceMap referenceMap, TypeInstance elementType, object value, out object result);
+        protected abstract bool TryConvertMap(IReferenceMap referenceMap, TypeReference elementType, object value, out object result);
 
-        protected abstract TypeInstance InferType(IReferenceMap referenceMap, object value);
+        protected abstract TypeReference InferType(IReferenceMap referenceMap, object value);
 
         object ConvertAny(IReferenceMap referenceMap, object value)
         {
@@ -87,7 +87,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 return null;
             }
 
-            TypeInstance reference = InferType(referenceMap, value);
+            TypeReference reference = InferType(referenceMap, value);
             if (TryConvert(reference, referenceMap, value, out object result))
             {
                 return result;

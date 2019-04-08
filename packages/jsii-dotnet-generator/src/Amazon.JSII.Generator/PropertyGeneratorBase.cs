@@ -157,7 +157,7 @@ namespace Amazon.JSII.Generator
             IEnumerable<AttributeSyntax> GetAttributes()
             {
                 SyntaxToken nameLiteral = SF.Literal(Property.Name);
-                SyntaxToken typeJsonLiteral = SF.Literal(JsonConvert.SerializeObject(Property.Value));
+                SyntaxToken typeJsonLiteral = SF.Literal(JsonConvert.SerializeObject(Property.Type));
                 SyntaxToken trueLiteral = SF.Token(SyntaxKind.TrueKeyword);
 
                 string argumentList = IsOverride ?
@@ -173,8 +173,8 @@ namespace Amazon.JSII.Generator
 
         TypeSyntax GetReturnType()
         {
-            Namespaces.Add(Property.Value.Type);
-            return Symbols.GetTypeSyntax(Property.Value);
+            Namespaces.Add(Property.Type);
+            return Symbols.GetTypeSyntax(Property.Type);
         }
 
         ExplicitInterfaceSpecifierSyntax GetExplicitInterfaceSpecifier()

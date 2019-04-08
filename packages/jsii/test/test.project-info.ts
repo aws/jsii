@@ -236,7 +236,6 @@ const TEST_DEP_ASSEMBLY: spec.Assembly = {
     dependencies: {
         'jsii-test-dep-dep': {
             version: '3.2.1',
-            peer: true,
         }
     },
     jsiiVersion: VERSION,

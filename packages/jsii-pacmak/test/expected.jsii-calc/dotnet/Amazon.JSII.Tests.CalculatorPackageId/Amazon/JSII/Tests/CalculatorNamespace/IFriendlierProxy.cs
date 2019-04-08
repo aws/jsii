@@ -11,7 +11,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Say farewell.</summary>
-        [JsiiMethod("farewell", "{\"type\":{\"primitive\":\"string\"}}", "[]")]
+        [JsiiMethod("farewell", "{\"primitive\":\"string\"}", "[]")]
         public string Farewell()
         {
             return InvokeInstanceMethod<string>(new object[]{});
@@ -19,14 +19,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Say goodbye.</summary>
         /// <returns>A goodbye blessing.</returns>
-        [JsiiMethod("goodbye", "{\"type\":{\"primitive\":\"string\"}}", "[]")]
+        [JsiiMethod("goodbye", "{\"primitive\":\"string\"}", "[]")]
         public string Goodbye()
         {
             return InvokeInstanceMethod<string>(new object[]{});
         }
 
         /// <summary>Say hello!</summary>
-        [JsiiMethod("hello", "{\"type\":{\"primitive\":\"string\"}}", "[]")]
+        [JsiiMethod("hello", "{\"primitive\":\"string\"}", "[]")]
         public string Hello()
         {
             return InvokeInstanceMethod<string>(new object[]{});

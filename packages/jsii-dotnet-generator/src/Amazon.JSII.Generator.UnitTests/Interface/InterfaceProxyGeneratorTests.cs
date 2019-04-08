@@ -61,7 +61,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
                 "myPackage",
                 "myInterface",
                 "myNamespace",
-                methods: new Method[] {new Method(false, false, true, name: "myMethod")}
+                methods: new Method[] {new Method(isAbstract: true, name: "myMethod")}
             );
 
             Symbols.MapMethodName("myInterfaceFqn", "myMethod", "MyMethod");
@@ -96,7 +96,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
                 "myPackage",
                 "myAncestorInterface",
                 "myNamespace",
-                methods: new[] {new Method(false, false, true, name: "myAncestorMethod")}
+                methods: new[] {new Method(isAbstract: true, name: "myAncestorMethod")}
             );
             InterfaceType baseInterface = new InterfaceType
             (
@@ -104,8 +104,8 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
                 "myPackage",
                 "myBaseInterface",
                 "myNamespace",
-                methods: new[] {new Method(false, false, true, name: "myBaseMethod")},
-                interfaces: new[] {new TypeReference("myAncestorInterfaceFqn")}
+                methods: new[] {new Method(isAbstract: true, name: "myBaseMethod")},
+                interfaces: new[] {"myAncestorInterfaceFqn"}
             );
             InterfaceType interfaceType = new InterfaceType
             (
@@ -113,7 +113,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
                 "myPackage",
                 "myInterface",
                 "myNamespace",
-                interfaces: new[] {new TypeReference("myBaseInterfaceFqn")}
+                interfaces: new[] {"myBaseInterfaceFqn"}
             );
 
             Symbols.MapTypeName("myAncestorInterfaceFqn", "MyAncestorInterface", TypeKind.Interface);
@@ -195,10 +195,8 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
           },
           ""abstract"": true,
           ""name"": ""name"",
-          ""value"": {
-            ""type"": {
-              ""primitive"": ""string""
-            }
+          ""type"": {
+            ""primitive"": ""string""
           }
         },
         {
@@ -207,10 +205,8 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
           },
           ""abstract"": true,
           ""name"": ""account"", 
-          ""value"": {
-            ""type"": {
-              ""primitive"": ""string""
-            }
+          ""type"": {
+            ""primitive"": ""string""
           }
         },
         {
@@ -219,10 +215,8 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
           },
           ""abstract"": true,
           ""name"": ""region"",
-          ""value"": {
-            ""type"": {
-              ""primitive"": ""string""
-            }
+          ""type"": {
+            ""primitive"": ""string""
           }
         }
       ],
@@ -253,7 +247,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
         }
 
         /// <summary>The arbitrary name of this environment (user-set, or at least user-meaningful) </summary>
-        [JsiiProperty(""name"", ""{\""type\"":{\""primitive\"":\""string\""}}"")]
+        [JsiiProperty(""name"", ""{\""primitive\"":\""string\""}"")]
         public string Name
         {
             get => GetInstanceProperty<string>();
@@ -261,7 +255,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
         }
 
         /// <summary>The 12-digit AWS account ID for the account this environment deploys into </summary>
-        [JsiiProperty(""account"", ""{\""type\"":{\""primitive\"":\""string\""}}"")]
+        [JsiiProperty(""account"", ""{\""primitive\"":\""string\""}"")]
         public string Account
         {
             get => GetInstanceProperty<string>();
@@ -269,7 +263,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
         }
 
         /// <summary>The AWS region name where this environment deploys into </summary>
-        [JsiiProperty(""region"", ""{\""type\"":{\""primitive\"":\""string\""}}"")]
+        [JsiiProperty(""region"", ""{\""primitive\"":\""string\""}"")]
         public string Region
         {
             get => GetInstanceProperty<string>();

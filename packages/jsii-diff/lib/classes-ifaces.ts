@@ -68,7 +68,7 @@ function noNewAbstractMembers<T extends reflect.ReferenceType>(original: T, upda
     }
 }
 
-function describeTypeMatchingFailure(origType: reflect.TypeInstance, updatedType: reflect.TypeInstance, analysis: FailedAnalysis) {
+function describeTypeMatchingFailure(origType: reflect.TypeReference, updatedType: reflect.TypeReference, analysis: FailedAnalysis) {
   if (origType.toString() !== updatedType.toString()) {
     return `${updatedType} (formerly ${origType}): ${analysis.reasons.join(', ')}`;
   } else {
@@ -76,35 +76,44 @@ function describeTypeMatchingFailure(origType: reflect.TypeInstance, updatedType
   }
 }
 
-function compareMethod(origClass: reflect.Type, original: reflect.Method, updated: reflect.Method, context: ComparisonContext) {
-  if (original.static !== updated.static) {
-    // tslint:disable-next-line:max-line-length
-    context.mismatches.report(origClass, `method ${original.name} was ${original.static ? 'static' : 'not static'}, is now ${updated.static ? 'static' : 'not static'}.`);
+function compareMethod<T extends (reflect.Method | reflect.Initializer)>(
+                                  origClass: reflect.Type,
+                                  original: T,
+                                  updated: T,
+                                  context: ComparisonContext) {
+  // Type guards on original are duplicated on updated to help tsc... They are required to be the same type by the declaration.
+  if (reflect.isMethod(original) && reflect.isMethod(updated)) {
+    if (original.static !== updated.static) {
+      // tslint:disable-next-line:max-line-length
+      context.mismatches.report(origClass, `${original.kind} ${original.name} was ${original.static ? 'static' : 'not static'}, is now ${updated.static ? 'static' : 'not static'}.`);
+    }
   }
 
   if (original.variadic && !updated.variadic) {
     // Once variadic, can never be made non-variadic anymore (because I could always have been passing N+1 arguments)
-    context.mismatches.report(origClass, `method ${original.name} used to be variadic, not variadic anymore.`);
+    context.mismatches.report(origClass, `${original.kind} ${original.name} used to be variadic, not variadic anymore.`);
   }
 
-  const retAna = isCompatibleReturnType(original.returns, updated.returns);
-  if (!retAna.success) {
-    // tslint:disable-next-line:max-line-length
-    context.mismatches.report(origClass, `method ${original.name}, returns ${describeTypeMatchingFailure(original.returns, updated.returns, retAna)}`);
+  if (reflect.isMethod(original) && reflect.isMethod(updated)) {
+    const retAna = isCompatibleReturnType(original.returns, updated.returns);
+    if (!retAna.success) {
+      // tslint:disable-next-line:max-line-length
+      context.mismatches.report(origClass, `${original.kind} ${original.name}, returns ${describeTypeMatchingFailure(original.returns, updated.returns, retAna)}`);
+    }
   }
 
   // Check that every original parameter can still be mapped to a parameter in the updated method
   original.parameters.forEach((param, i) => {
     const updatedParam = findParam(updated.parameters, i);
     if (updatedParam === undefined) {
-      context.mismatches.report(origClass, `method ${original.name} argument ${param.name}, not accepted anymore.`);
+      context.mismatches.report(origClass, `${original.kind} ${original.name} argument ${param.name}, not accepted anymore.`);
       return;
     }
 
-    const argAna = isCompatibleArgumentType(param.value, updatedParam.value);
+    const argAna = isCompatibleArgumentType(param.type, updatedParam.type);
     if (!argAna.success) {
       // tslint:disable-next-line:max-line-length
-      context.mismatches.report(origClass, `method ${original.name} argument ${param.name}, takes ${describeTypeMatchingFailure(param.value, updatedParam.value, argAna)}`);
+      context.mismatches.report(origClass, `${original.kind} ${original.name} argument ${param.name}, takes ${describeTypeMatchingFailure(param.type, updatedParam.type, argAna)}`);
       return;
     }
   });
@@ -115,7 +124,7 @@ function compareMethod(origClass: reflect.Type, original: reflect.Method, update
 
     const origParam = findParam(original.parameters, i);
     if (!origParam || origParam.optional) {
-      context.mismatches.report(origClass, `method ${original.name} argument ${param.name}, newly required argument.`);
+      context.mismatches.report(origClass, `${original.kind} ${original.name} argument ${param.name}, newly required argument.`);
     }
   });
 }
@@ -145,9 +154,9 @@ function compareProperty(origClass: reflect.Type, original: reflect.Property, up
     context.mismatches.report(origClass, `property ${original.name}, used to be ${original.static ? 'static' : 'not static'}, is now ${updated.static ? 'static' : 'not static'}`);
   }
 
-  const ana = isCompatibleReturnType(original.value, updated.value);
+  const ana = isCompatibleReturnType(original.type, updated.type);
   if (!ana.success) {
-    context.mismatches.report(origClass, `property ${original.name}, type ${describeTypeMatchingFailure(original.value, updated.value, ana)}`);
+    context.mismatches.report(origClass, `property ${original.name}, type ${describeTypeMatchingFailure(original.type, updated.type, ana)}`);
   }
 
   if (updated.immutable && !original.immutable) {
@@ -183,9 +192,9 @@ function* memberPairs<T extends reflect.TypeMember, U extends reflect.ReferenceT
  *
  * Strengthening output values is allowed!
  */
-function isCompatibleReturnType(original: reflect.TypeInstance, updated: reflect.TypeInstance): Analysis {
-  if (original.type.void) { return { success: true }; }  // If we didn't use to return anything, returning something now is fine
-  if (updated.type.void) { return { success: false, reasons: [`now returning 'void'`] }; } // If we used to return something, we can't stop doing that
+function isCompatibleReturnType(original: reflect.TypeReference, updated: reflect.TypeReference): Analysis {
+  if (original.void) { return { success: true }; }  // If we didn't use to return anything, returning something now is fine
+  if (updated.void) { return { success: false, reasons: [`now returning 'void'`] }; } // If we used to return something, we can't stop doing that
   return isSuperType(original, updated, updated.system);
 }
 
@@ -194,7 +203,7 @@ function isCompatibleReturnType(original: reflect.TypeInstance, updated: reflect
  *
  * Weakening preconditions is allowed!
  */
-function isCompatibleArgumentType(original: reflect.TypeInstance, updated: reflect.TypeInstance): Analysis {
+function isCompatibleArgumentType(original: reflect.TypeReference, updated: reflect.TypeReference): Analysis {
   // Input can never be void, so no need to check
   return isSuperType(updated, original, updated.system);
 }

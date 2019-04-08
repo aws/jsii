@@ -20,7 +20,7 @@ namespace Amazon.JSII.Runtime
                 CallbackResult frameworkResult = callback.InvokeCallbackCore(referenceMap);
 
                 converter.TryConvert(
-                    frameworkResult?.Type ?? new TypeInstance(type: new TypeReference(primitive: PrimitiveType.Any), isOptional: true),
+                    frameworkResult?.Type ?? new TypeReference(primitive: PrimitiveType.Any, isOptional: true),
                     referenceMap,
                     frameworkResult?.Value,
                     out object result
@@ -142,13 +142,13 @@ namespace Amazon.JSII.Runtime
 
     internal class CallbackResult
     {
-        public CallbackResult(TypeInstance type, object value)
+        public CallbackResult(TypeReference type, object value)
         {
             Type = type;
             Value = value;
         }
 
-        public TypeInstance Type { get; }
+        public TypeReference Type { get; }
         public object Value { get; }
     }
 }

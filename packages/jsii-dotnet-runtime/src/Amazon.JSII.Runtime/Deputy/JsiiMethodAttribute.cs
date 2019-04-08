@@ -12,14 +12,14 @@ namespace Amazon.JSII.Runtime.Deputy
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Returns = returnsJson == null
                 ? null
-                : JsonConvert.DeserializeObject<TypeInstance>(returnsJson);
+                : JsonConvert.DeserializeObject<TypeReference>(returnsJson);
             Parameters = JsonConvert.DeserializeObject<Parameter[]>(parametersJson ?? throw new ArgumentNullException(nameof(parametersJson)));
             IsOverride = isOverride;
         }
 
         public string Name { get; }
 
-        public TypeInstance Returns { get; }
+        public TypeReference Returns { get; }
 
         public Parameter[] Parameters { get; }
 
