@@ -8,7 +8,7 @@ import path = require('path');
 import ts = require('typescript');
 import { JSII_DIAGNOSTICS_CODE } from './compiler';
 import { getReferencedDocParams, parseSymbolDocumentation } from './docs';
-import { Diagnostic, Emitter } from './emitter';
+import { Diagnostic, Emitter, EmitResult } from './emitter';
 import literate = require('./literate');
 import { ProjectInfo } from './project-info';
 import utils = require('./utils');
@@ -90,7 +90,7 @@ export class Assembler implements Emitter {
       // Clearing ``this._types`` to allow contents to be garbage-collected.
       delete this._types;
       try {
-        return { diagnostics: this._diagnostics, emitSkipped: true };
+        return { diagnostics: this._diagnostics, hasErrors: true };
       } finally {
         // Clearing ``this._diagnostics`` to allow contents to be garbage-collected.
         delete this._diagnostics;
@@ -121,7 +121,7 @@ export class Assembler implements Emitter {
 
     const validator = new Validator(this.projectInfo, assembly);
     const validationResult = await validator.emit();
-    if (!validationResult.emitSkipped) {
+    if (!validationResult.hasErrors) {
       const assemblyPath = path.join(this.projectInfo.projectRoot, '.jsii');
       LOG.trace(`Emitting assembly: ${colors.blue(assemblyPath)}`);
       await fs.writeJson(assemblyPath, _fingerprint(assembly), { replacer: utils.filterEmpty, spaces: 2 });
@@ -130,7 +130,7 @@ export class Assembler implements Emitter {
     try {
       return {
         diagnostics: [...this._diagnostics, ...validationResult.diagnostics],
-        emitSkipped: validationResult.emitSkipped
+        hasErrors: validationResult.hasErrors
       };
     } finally {
       // Clearing ``this._types`` to allow contents to be garbage-collected.
@@ -1230,22 +1230,6 @@ export class Assembler implements Emitter {
       }
     }
   }
-}
-
-/**
- * The result of ``Assembler#emit()``.
- */
-export interface EmitResult {
-  /**
-   * @return all diagnostic information produced by the assembler's emit process
-   */
-  readonly diagnostics: ts.Diagnostic[];
-
-  /**
-   * @return true if the assembly was not written to disk (as the consequence
-   *         of errors, which are visible in ``#diagnostics``)
-   */
-  readonly emitSkipped: boolean;
 }
 
 function _fingerprint(assembly: spec.Assembly): spec.Assembly {

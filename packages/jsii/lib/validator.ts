@@ -26,7 +26,7 @@ export class Validator implements Emitter {
         try {
             return {
                 diagnostics: this._diagnostics,
-                emitSkipped: this._diagnostics.find(diag => diag.category === ts.DiagnosticCategory.Error) != null
+                hasErrors: this._diagnostics.find(diag => diag.category === ts.DiagnosticCategory.Error) != null
             };
         } finally {
             // Clearing ``this._diagnostics`` to allow contents to be garbage-collected.
