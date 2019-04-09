@@ -253,7 +253,7 @@ class _NodeProcess:
         assert os.path.commonpath(paths) == os.path.dirname(paths[0])
 
         # Return our first path, which should be the path for jsii-runtime.js
-        return paths[0]
+        return str(paths[0])
 
     def _next_message(self) -> Mapping[Any, Any]:
         return json.loads(self._process.stdout.readline(), object_hook=ohook)
