@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceOnlyInterfac
     [JsiiByValue]
     public class Hello : Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceOnlyInterface.IHello
     {
-        [JsiiProperty("foo", "{\"primitive\":\"number\"}", true)]
+        [JsiiProperty(name: "foo", typeJson: "{\"primitive\":\"number\"}", isOverride: true)]
         public double Foo
         {
             get;

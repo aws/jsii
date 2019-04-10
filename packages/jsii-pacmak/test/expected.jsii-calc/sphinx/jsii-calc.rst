@@ -858,7 +858,7 @@ Calculator
 
    :extends: :py:class:`~jsii-calc.composition.CompositeOperation`\ 
    :param props: Initialization properties.
-   :type props: :py:class:`~jsii-calc.CalculatorProps`\  *(optional)*
+   :type props: :py:class:`~jsii-calc.CalculatorProps`\ 
 
    .. py:method:: add(value)
 
@@ -1431,11 +1431,11 @@ DefaultedConstructorArgument
 
 
    :param arg1: 
-   :type arg1: number *(optional)*
+   :type arg1: number
    :param arg2: 
-   :type arg2: string *(optional)*
+   :type arg2: string
    :param arg3: 
-   :type arg3: date *(optional)*
+   :type arg3: date
 
    .. py:attribute:: arg1
 
@@ -1593,7 +1593,7 @@ DerivedStruct (interface)
 
    .. py:attribute:: optionalAny
 
-      :type: any *(optional)* *(readonly)*
+      :type: any *(readonly)*
 
 
    .. py:attribute:: optionalArray
@@ -1711,9 +1711,9 @@ DoNotRecognizeAnyAsOptional
       :param _requiredAny: 
       :type _requiredAny: any
       :param _optionalAny: 
-      :type _optionalAny: any *(optional)*
+      :type _optionalAny: any
       :param _optionalString: 
-      :type _optionalString: string *(optional)*
+      :type _optionalString: string
 
 
 DocumentedClass
@@ -1771,7 +1771,7 @@ DocumentedClass
 
 
       :param greetee: The person to be greeted.
-      :type greetee: :py:class:`~jsii-calc.Greetee`\  *(optional)*
+      :type greetee: :py:class:`~jsii-calc.Greetee`\ 
       :return: A number that everyone knows very well
       :rtype: number
 
@@ -1812,10 +1812,10 @@ DontComplainAboutVariadicAfterOptional
 
 
 
-   .. py:method:: optionalAndVariadic(optional, *things) -> string
+   .. py:method:: optionalAndVariadic([optional, *things]) -> string
 
       :param optional: 
-      :type optional: string *(optional)*
+      :type optional: string
       :param \*things: 
       :type \*things: string
       :rtype: string
@@ -2592,7 +2592,7 @@ IInterfaceWithOptionalMethodArguments (interface)
       :param arg1: 
       :type arg1: string
       :param arg2: 
-      :type arg2: number *(optional)*
+      :type arg2: number
       :abstract: Yes
 
 
@@ -4355,12 +4355,12 @@ NullShouldBeTreatedAsUndefined
    :param _param1: 
    :type _param1: string
    :param optional: 
-   :type optional: any *(optional)*
+   :type optional: any
 
    .. py:method:: giveMeUndefined([value])
 
       :param value: 
-      :type value: any *(optional)*
+      :type value: any
 
 
    .. py:method:: giveMeUndefinedInsideAnObject(input)
@@ -4414,7 +4414,7 @@ NullShouldBeTreatedAsUndefinedData (interface)
 
    .. py:attribute:: thisShouldBeUndefined
 
-      :type: any *(optional)* *(readonly)*
+      :type: any *(readonly)*
 
 
 NumberGenerator
@@ -4594,7 +4594,7 @@ OptionalConstructorArgument
    :param arg2: 
    :type arg2: string
    :param arg3: 
-   :type arg3: date *(optional)*
+   :type arg3: date
 
    .. py:attribute:: arg1
 
@@ -4673,7 +4673,7 @@ OptionalStructConsumer
 
 
    :param optionalStruct: 
-   :type optionalStruct: :py:class:`~jsii-calc.OptionalStruct`\  *(optional)*
+   :type optionalStruct: :py:class:`~jsii-calc.OptionalStruct`\ 
 
    .. py:attribute:: parameterWasUndefined
 
@@ -5230,17 +5230,17 @@ RuntimeTypeChecking
    .. py:method:: methodWithDefaultedArguments([arg1, [arg2, [arg3]]])
 
       :param arg1: 
-      :type arg1: number *(optional)*
+      :type arg1: number
       :param arg2: 
-      :type arg2: string *(optional)*
+      :type arg2: string
       :param arg3: 
-      :type arg3: date *(optional)*
+      :type arg3: date
 
 
    .. py:method:: methodWithOptionalAnyArgument([arg])
 
       :param arg: 
-      :type arg: any *(optional)*
+      :type arg: any
 
 
    .. py:method:: methodWithOptionalArguments(arg1, arg2, [arg3])
@@ -5254,7 +5254,7 @@ RuntimeTypeChecking
       :param arg2: 
       :type arg2: string
       :param arg3: 
-      :type arg3: date *(optional)*
+      :type arg3: date
 
 
 SingleInstanceTwoTypes

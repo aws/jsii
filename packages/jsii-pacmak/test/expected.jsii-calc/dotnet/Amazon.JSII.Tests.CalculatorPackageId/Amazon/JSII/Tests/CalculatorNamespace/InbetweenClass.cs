@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(typeof(InbetweenClass), "jsii-calc.InbetweenClass", "[]")]
+    [JsiiClass(nativeType: typeof(InbetweenClass), fullyQualifiedName: "jsii-calc.InbetweenClass")]
     public class InbetweenClass : PublicClass, IIPublicInterface2
     {
         public InbetweenClass(): base(new DeputyProps(new object[]{}))
@@ -17,7 +17,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod("ciao", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod(name: "ciao", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
         public virtual string Ciao()
         {
             return InvokeInstanceMethod<string>(new object[]{});

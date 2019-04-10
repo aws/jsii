@@ -35,13 +35,13 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
         [Fact(DisplayName = Prefix + nameof(IncludesAttribute))]
         public void IncludesAttribute()
         {
-            Method method = new Method(false, false, true, name: "myMethod");
+            Method method = new Method(isAbstract: true, name: "myMethod");
 
             Symbols.MapMethodName("myInterfaceFqn", "myMethod", "MyMethod");
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", null, ""[]"")]
+@"[JsiiMethod(name: ""myMethod"")]
 public void MyMethod()
 {
     InvokeInstanceVoidMethod(new object[]{});
@@ -54,11 +54,11 @@ public void MyMethod()
         {
             Method method = new Method
             (
-                false, false, true, name: "myMethod",
+                isAbstract: true, name: "myMethod",
                 parameters: new[]
                 {
-                    new Parameter("myParam", new TypeReference("myParamTypeFqn")),
-                    new Parameter("event", new TypeReference(primitive: PrimitiveType.String))
+                    new Parameter(name: "myParam", type: new TypeReference("myParamTypeFqn")),
+                    new Parameter(name: "event", type: new TypeReference(primitive: PrimitiveType.String))
                 }
             );
 
@@ -69,7 +69,7 @@ public void MyMethod()
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", null, ""[{\""name\"":\""myParam\"",\""type\"":{\""fqn\"":\""myParamTypeFqn\""}},{\""name\"":\""event\"",\""type\"":{\""primitive\"":\""string\""}}]"")]
+@"[JsiiMethod(name: ""myMethod"", parametersJson: ""[{\""name\"":\""myParam\"",\""type\"":{\""fqn\"":\""myParamTypeFqn\""}},{\""name\"":\""event\"",\""type\"":{\""primitive\"":\""string\""}}]"")]
 public void MyMethod(MyParamType myParam, string @event)
 {
     InvokeInstanceVoidMethod(new object[]{myParam, @event});
@@ -82,7 +82,7 @@ public void MyMethod(MyParamType myParam, string @event)
         {
             Method method = new Method
             (
-                false, false, true, name: "myMethod",
+                isAbstract: true, name: "myMethod",
                 docs: new Docs { { "foo", "bar" } }
             );
 
@@ -90,7 +90,7 @@ public void MyMethod(MyParamType myParam, string @event)
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", null, ""[]"")]
+@"[JsiiMethod(name: ""myMethod"")]
 public void MyMethod()
 {
     InvokeInstanceVoidMethod(new object[]{});
@@ -103,8 +103,8 @@ public void MyMethod()
         {
             Method method = new Method
             (
-                false, false, true, name: "myMethod",
-                returns: new TypeReference("myReturnTypeFqn")
+                isAbstract: true, name: "myMethod",
+                returns: new OptionalValue(type: new TypeReference("myReturnTypeFqn"))
             );
 
             Symbols.MapMethodName("myInterfaceFqn", "myMethod", "MyMethod");
@@ -112,7 +112,7 @@ public void MyMethod()
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", ""{\""fqn\"":\""myReturnTypeFqn\""}"", ""[]"")]
+@"[JsiiMethod(name: ""myMethod"", returnsJson: ""{\""type\"":{\""fqn\"":\""myReturnTypeFqn\""}}"")]
 public MyReturnType MyMethod()
 {
     return InvokeInstanceMethod<MyReturnType>(new object[]{});

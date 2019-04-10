@@ -34,19 +34,18 @@ export interface SourceLocatable {
  * Return the repository location for the given API item
  */
 export function locationInRepository(item: SourceLocatable): SourceLocation | undefined {
-  const assemblyLoc = item.assembly.locationInRepository;
   const moduleLoc = item.locationInModule;
-
-  if (assemblyLoc && moduleLoc) {
-    if (assemblyLoc === '.') { return moduleLoc; }
-
-    return {
-      filename: `${assemblyLoc}/${moduleLoc.filename}`,
-      line: moduleLoc.line,
-    };
+  if (!moduleLoc) {
+    return undefined;
   }
 
-  return undefined;
+  const moduleDir = item.assembly.repository.directory;
+  if (!moduleDir) { return moduleLoc; }
+
+  return {
+    filename: `${moduleDir}/${moduleLoc.filename}`,
+    line: moduleLoc.line,
+  };
 }
 
 /**

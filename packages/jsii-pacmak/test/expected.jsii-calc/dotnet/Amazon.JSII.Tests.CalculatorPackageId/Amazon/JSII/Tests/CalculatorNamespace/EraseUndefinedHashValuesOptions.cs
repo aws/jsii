@@ -5,14 +5,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue]
     public class EraseUndefinedHashValuesOptions : IEraseUndefinedHashValuesOptions
     {
-        [JsiiProperty("option1", "{\"primitive\":\"string\",\"optional\":true}", true)]
+        [JsiiProperty(name: "option1", typeJson: "{\"primitive\":\"string\"}", isOptional: true, isOverride: true)]
         public string Option1
         {
             get;
             set;
         }
 
-        [JsiiProperty("option2", "{\"primitive\":\"string\",\"optional\":true}", true)]
+        [JsiiProperty(name: "option2", typeJson: "{\"primitive\":\"string\"}", isOptional: true, isOverride: true)]
         public string Option2
         {
             get;

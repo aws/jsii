@@ -3,7 +3,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
     /// <summary>This is a struct with only optional properties.</summary>
-    [JsiiTypeProxy(typeof(IStructWithOnlyOptionals), "@scope/jsii-calc-lib.StructWithOnlyOptionals")]
+    [JsiiTypeProxy(nativeType: typeof(IStructWithOnlyOptionals), fullyQualifiedName: "@scope/jsii-calc-lib.StructWithOnlyOptionals")]
     internal sealed class StructWithOnlyOptionalsProxy : DeputyBase, IStructWithOnlyOptionals
     {
         private StructWithOnlyOptionalsProxy(ByRefValue reference): base(reference)
@@ -11,19 +11,19 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         }
 
         /// <summary>The first optional!</summary>
-        [JsiiProperty("optional1", "{\"primitive\":\"string\",\"optional\":true}")]
+        [JsiiProperty(name: "optional1", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         public string Optional1
         {
             get => GetInstanceProperty<string>();
         }
 
-        [JsiiProperty("optional2", "{\"primitive\":\"number\",\"optional\":true}")]
+        [JsiiProperty(name: "optional2", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
         public double? Optional2
         {
             get => GetInstanceProperty<double? >();
         }
 
-        [JsiiProperty("optional3", "{\"primitive\":\"boolean\",\"optional\":true}")]
+        [JsiiProperty(name: "optional3", typeJson: "{\"primitive\":\"boolean\"}", isOptional: true)]
         public bool? Optional3
         {
             get => GetInstanceProperty<bool? >();

@@ -32,13 +32,19 @@ namespace Amazon.JSII.Generator.Class
             {
                 TypeOfExpressionSyntax typeOfExpression = SF.TypeOfExpression(Symbols.GetNameSyntax(Type));
                 SyntaxToken fullyQualifiedNameLiteral = SF.Literal(Type.FullyQualifiedName);
-                SyntaxToken parametersJsonLiteral = Type.Initializer.GetParametersJsonSyntaxToken();
 
+                var argumentList = $"nativeType: {typeOfExpression}, fullyQualifiedName: {fullyQualifiedNameLiteral}";
+                if ((Type.Initializer?.Parameters?.Length ?? 0) > 0)
+                {
+                    SyntaxToken parametersJsonLiteral = Type.Initializer.GetParametersJsonSyntaxToken();
+                    argumentList += $", parametersJson: {parametersJsonLiteral}";
+                }
+                
                 return SF.List(new[] {
                     SF.AttributeList(SF.SeparatedList(new[] {
                         SF.Attribute(
                             SF.ParseName("JsiiClass"),
-                            SF.ParseAttributeArgumentList($"({typeOfExpression}, {fullyQualifiedNameLiteral}, {parametersJsonLiteral})")
+                            SF.ParseAttributeArgumentList($"({argumentList})")
                         )
                     }))
                 });
@@ -68,8 +74,8 @@ namespace Amazon.JSII.Generator.Class
                     }
                     else
                     {
-                        Namespaces.Add(Type.Base);
-                        yield return SF.SimpleBaseType(Symbols.GetNameSyntax(Type.Base.FullyQualifiedName, disambiguate: true));
+                        Namespaces.Add(Symbols.GetTypeFromFullyQualifiedName(Type.Base));
+                        yield return SF.SimpleBaseType(Symbols.GetNameSyntax(Type.Base, disambiguate: true));
                     }
 
                     if (Type.Interfaces == null)
@@ -77,10 +83,10 @@ namespace Amazon.JSII.Generator.Class
                         yield break;
                     }
 
-                    foreach (TypeReference interfaceReference in Type.Interfaces)
+                    foreach (var interfaceReference in Type.Interfaces)
                     {
-                        Namespaces.Add(interfaceReference);
-                        yield return SF.SimpleBaseType(Symbols.GetNameSyntax(interfaceReference.FullyQualifiedName, disambiguate: true));
+                        Namespaces.Add(Symbols.GetTypeFromFullyQualifiedName(interfaceReference));
+                        yield return SF.SimpleBaseType(Symbols.GetNameSyntax(interfaceReference, disambiguate: true));
                     }
                 }
             }

@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(typeof(PythonReservedWords), "jsii-calc.PythonReservedWords", "[]")]
+    [JsiiClass(nativeType: typeof(PythonReservedWords), fullyQualifiedName: "jsii-calc.PythonReservedWords")]
     public class PythonReservedWords : DeputyBase
     {
         public PythonReservedWords(): base(new DeputyProps(new object[]{}))
@@ -17,193 +17,193 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod("and", null, "[]")]
+        [JsiiMethod(name: "and")]
         public virtual void And()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("as", null, "[]")]
+        [JsiiMethod(name: "as")]
         public virtual void As()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("assert", null, "[]")]
+        [JsiiMethod(name: "assert")]
         public virtual void Assert()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("async", null, "[]")]
+        [JsiiMethod(name: "async")]
         public virtual void Async()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("await", null, "[]")]
+        [JsiiMethod(name: "await")]
         public virtual void Await()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("break", null, "[]")]
+        [JsiiMethod(name: "break")]
         public virtual void Break()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("class", null, "[]")]
+        [JsiiMethod(name: "class")]
         public virtual void Class()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("continue", null, "[]")]
+        [JsiiMethod(name: "continue")]
         public virtual void Continue()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("def", null, "[]")]
+        [JsiiMethod(name: "def")]
         public virtual void Def()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("del", null, "[]")]
+        [JsiiMethod(name: "del")]
         public virtual void Del()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("elif", null, "[]")]
+        [JsiiMethod(name: "elif")]
         public virtual void Elif()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("else", null, "[]")]
+        [JsiiMethod(name: "else")]
         public virtual void Else()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("except", null, "[]")]
+        [JsiiMethod(name: "except")]
         public virtual void Except()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("finally", null, "[]")]
+        [JsiiMethod(name: "finally")]
         public virtual void Finally()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("for", null, "[]")]
+        [JsiiMethod(name: "for")]
         public virtual void For()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("from", null, "[]")]
+        [JsiiMethod(name: "from")]
         public virtual void From()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("global", null, "[]")]
+        [JsiiMethod(name: "global")]
         public virtual void Global()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("if", null, "[]")]
+        [JsiiMethod(name: "if")]
         public virtual void If()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("import", null, "[]")]
+        [JsiiMethod(name: "import")]
         public virtual void Import()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("in", null, "[]")]
+        [JsiiMethod(name: "in")]
         public virtual void In()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("is", null, "[]")]
+        [JsiiMethod(name: "is")]
         public virtual void Is()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("lambda", null, "[]")]
+        [JsiiMethod(name: "lambda")]
         public virtual void Lambda()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("nonlocal", null, "[]")]
+        [JsiiMethod(name: "nonlocal")]
         public virtual void Nonlocal()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("not", null, "[]")]
+        [JsiiMethod(name: "not")]
         public virtual void Not()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("or", null, "[]")]
+        [JsiiMethod(name: "or")]
         public virtual void Or()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("pass", null, "[]")]
+        [JsiiMethod(name: "pass")]
         public virtual void Pass()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("raise", null, "[]")]
+        [JsiiMethod(name: "raise")]
         public virtual void Raise()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("return", null, "[]")]
+        [JsiiMethod(name: "return")]
         public virtual void Return()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("try", null, "[]")]
+        [JsiiMethod(name: "try")]
         public virtual void Try()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("while", null, "[]")]
+        [JsiiMethod(name: "while")]
         public virtual void While()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("with", null, "[]")]
+        [JsiiMethod(name: "with")]
         public virtual void With()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("yield", null, "[]")]
+        [JsiiMethod(name: "yield")]
         public virtual void Yield()
         {
             InvokeInstanceVoidMethod(new object[]{});

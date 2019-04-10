@@ -39,7 +39,7 @@ namespace Amazon.JSII.Generator.DocComment
 
         protected IEnumerable<XmlNodeSyntax> GetSummaryNodes()
         {
-            if (Documentable.Docs?.ContainsKey("summary") == true)
+            if (Documentable.Docs?.ContainsKey("summary") ?? false)
             {
                 yield return SF.XmlText(" ").WithLeadingTrivia(SF.DocumentationCommentExterior(" "));
                 yield return SF.XmlSummaryElement(GetXmlNodes(Documentable.Docs["summary"]).ToArray());

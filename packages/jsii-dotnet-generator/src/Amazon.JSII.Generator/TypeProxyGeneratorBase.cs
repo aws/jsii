@@ -41,7 +41,7 @@ namespace Amazon.JSII.Generator
                     {
                         SF.Attribute(
                             SF.ParseName("JsiiTypeProxy"),
-                            SF.ParseAttributeArgumentList($"({typeOfExpression}, {fullyQualifiedNameLiteral})")
+                            SF.ParseAttributeArgumentList($"(nativeType: {typeOfExpression}, fullyQualifiedName: {fullyQualifiedNameLiteral})")
                         )
                     }))
                 });

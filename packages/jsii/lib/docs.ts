@@ -129,8 +129,8 @@ export interface DocsParsingResult {
 export function splitSummary(docBlock: string | undefined): [string | undefined, string | undefined] {
   if (!docBlock) { return [undefined, undefined]; }
   const summary = summaryLine(docBlock);
-  const remarks = docBlock.substr(summary.length);
-  return [endWithPeriod(noNewlines(summary.trim())), remarks.trim()];
+  const remarks = uberTrim(docBlock.substr(summary.length));
+  return [endWithPeriod(noNewlines(summary.trim())), remarks];
 }
 
 /**
@@ -142,6 +142,15 @@ function noNewlines(s: string) {
 
 function endWithPeriod(s: string) {
   return ENDS_WITH_PUNCTUATION_REGEX.test(s) ? s : s + '.';
+}
+
+/**
+ * Trims a string and turns it into `undefined` if the result would have been an
+ * empty string.
+ */
+function uberTrim(str: string): string | undefined {
+  str = str.trim();
+  return str === '' ? undefined : str;
 }
 
 const SUMMARY_MAX_WORDS = 20;

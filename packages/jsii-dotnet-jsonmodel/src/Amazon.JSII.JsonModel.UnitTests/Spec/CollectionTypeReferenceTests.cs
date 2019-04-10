@@ -50,7 +50,9 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 const string json = @"{
   ""kind"": ""array"",
   ""elementtype"": {
-    ""fqn"": ""myElementFqn""
+    ""type"": {
+      ""fqn"": ""myElementFqn""
+    }
   }
 }";
 

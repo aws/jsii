@@ -13,15 +13,6 @@ export function isSuperType(a: reflect.TypeReference, b: reflect.TypeReference, 
   if (a.void || b.void) { throw new Error('isSuperType() does not handle voids'); }
   if (a.isAny) { return { success: true }; }
 
-  // Optional is in principle the same as a union '| undefined', but we
-  // special-case it here because that's easier :). If B is optional, A must be
-  // optional as well.
-  if (b.optional && !a.optional) {
-    return failure(`${b} is optional, ${a} is not`);
-  }
-
-  if (a.promise !== b.promise) { return failure(`Sync/async mismatch`); }
-
   if (a.primitive !== undefined) {
     if (a.primitive === b.primitive) { return { success: true }; }
     return failure(`${b} is not assignable to ${a}`);
@@ -127,7 +118,7 @@ function isNominalSuperType(a: reflect.TypeReference, b: reflect.TypeReference, 
  * A is a structural supertype of B if all required members of A are also
  * required in B, and of a compatible type.
  *
- * Optional members of A must either not exist in B, or be of a compatible
+ * Nullable members of A must either not exist in B, or be of a compatible
  * type.
  */
 function isStructuralSuperType(a: reflect.InterfaceType, b: reflect.InterfaceType, updatedSystem: reflect.TypeSystem): Analysis {
@@ -141,12 +132,12 @@ function isStructuralSuperType(a: reflect.InterfaceType, b: reflect.InterfaceTyp
   for (const [name, aProp] of Object.entries(a.getProperties(true))) {
     const bProp = bProps[name];
 
-    if (aProp.type.optional) {
+    if (aProp.optional) {
       // Optional field, only requirement is that IF it exists, the type must match.
       if (!bProp) { continue; }
     } else {
       if (!bProp) { return failure(`${formerly} required property '${name}' ${is} missing in ${b.fqn}`); }
-      if (bProp.type.optional) { return failure(`${formerly} required property '${name}' ${is} optional in ${b.fqn}`); }
+      if (bProp.optional) { return failure(`${formerly} required property '${name}' ${is} optional in ${b.fqn}`); }
     }
 
     const ana = isSuperType(aProp.type, bProp.type, updatedSystem);

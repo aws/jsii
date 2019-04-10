@@ -12,7 +12,7 @@ namespace Amazon.JSII.JsonModel.Spec
             ElementType = elementType ?? throw new ArgumentNullException(nameof(elementType));
         }
 
-        [JsonProperty("kind")]
+        [JsonProperty("kind", DefaultValueHandling = DefaultValueHandling.Include)]
         public CollectionKind Kind { get; }
 
         [JsonProperty("elementtype")]

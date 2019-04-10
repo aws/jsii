@@ -1,6 +1,7 @@
-import { Documentable } from "./docs";
-import { Method } from "./method";
-import { Property } from "./property";
+import { Documentable } from './docs';
+import { Initializer } from './initializer';
+import { Method } from './method';
+import { Property } from './property';
 
 export interface TypeMember extends Documentable {
   name: string;
@@ -11,8 +12,13 @@ export interface TypeMember extends Documentable {
 }
 
 export enum MemberKind {
+  Initializer = 'initializer',
   Method = 'method',
-  Property = 'property'
+  Property = 'property',
+}
+
+export function isInitializer(x: TypeMember): x is Initializer {
+  return x.kind === MemberKind.Initializer;
 }
 
 export function isMethod(x: TypeMember): x is Method {

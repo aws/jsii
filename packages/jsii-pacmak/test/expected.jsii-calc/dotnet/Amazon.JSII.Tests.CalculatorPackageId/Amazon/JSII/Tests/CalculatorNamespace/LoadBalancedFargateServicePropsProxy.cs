@@ -3,7 +3,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>jsii#298: show default values in sphinx documentation, and respect newlines.</summary>
-    [JsiiTypeProxy(typeof(ILoadBalancedFargateServiceProps), "jsii-calc.LoadBalancedFargateServiceProps")]
+    [JsiiTypeProxy(nativeType: typeof(ILoadBalancedFargateServiceProps), fullyQualifiedName: "jsii-calc.LoadBalancedFargateServiceProps")]
     internal sealed class LoadBalancedFargateServicePropsProxy : DeputyBase, ILoadBalancedFargateServiceProps
     {
         private LoadBalancedFargateServicePropsProxy(ByRefValue reference): base(reference)
@@ -15,7 +15,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// default: 80
         /// Corresponds to container port mapping.
         /// </remarks>
-        [JsiiProperty("containerPort", "{\"primitive\":\"number\",\"optional\":true}")]
+        [JsiiProperty(name: "containerPort", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
         public double? ContainerPort
         {
             get => GetInstanceProperty<double? >();
@@ -26,7 +26,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// default: 256
         /// This default is set in the underlying FargateTaskDefinition construct.
         /// </remarks>
-        [JsiiProperty("cpu", "{\"primitive\":\"string\",\"optional\":true}")]
+        [JsiiProperty(name: "cpu", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         public string Cpu
         {
             get => GetInstanceProperty<string>();
@@ -50,7 +50,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// 
         /// This default is set in the underlying FargateTaskDefinition construct.
         /// </remarks>
-        [JsiiProperty("memoryMiB", "{\"primitive\":\"string\",\"optional\":true}")]
+        [JsiiProperty(name: "memoryMiB", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         public string MemoryMiB
         {
             get => GetInstanceProperty<string>();
@@ -58,7 +58,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Determines whether the Application Load Balancer will be internet-facing.</summary>
         /// <remarks>default: true</remarks>
-        [JsiiProperty("publicLoadBalancer", "{\"primitive\":\"boolean\",\"optional\":true}")]
+        [JsiiProperty(name: "publicLoadBalancer", typeJson: "{\"primitive\":\"boolean\"}", isOptional: true)]
         public bool? PublicLoadBalancer
         {
             get => GetInstanceProperty<bool? >();
@@ -66,7 +66,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Determines whether your Fargate Service will be assigned a public IP address.</summary>
         /// <remarks>default: false</remarks>
-        [JsiiProperty("publicTasks", "{\"primitive\":\"boolean\",\"optional\":true}")]
+        [JsiiProperty(name: "publicTasks", typeJson: "{\"primitive\":\"boolean\"}", isOptional: true)]
         public bool? PublicTasks
         {
             get => GetInstanceProperty<bool? >();

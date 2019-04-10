@@ -19,13 +19,13 @@ import { loadProjectInfo, ProjectInfo } from './project-info';
  *
  * Only usable for trivial cases and tests.
  */
-export async function sourceToAssemblyHelper(source: string, jsiiConfig = {}): Promise<spec.Assembly> {
+export async function sourceToAssemblyHelper(source: string, cb?: (obj: PackageInfo) => void): Promise<spec.Assembly> {
   // Easiest way to get the source into the compiler is to write it to disk somewhere.
   // I guess we could make an in-memory compiler host but that seems like work...
   return await inTempDir(async () => {
     const fileName = 'index.ts';
     await fs.writeFile(fileName, source, { encoding: 'utf-8' });
-    const compiler = new Compiler({ projectInfo: await makeProjectInfo(fileName, jsiiConfig), watch: false });
+    const compiler = new Compiler({ projectInfo: await makeProjectInfo(fileName, cb), watch: false });
     const emitResult = await compiler.emit();
 
     const errors = emitResult.diagnostics.filter(d => d.category === DiagnosticCategory.Error);
@@ -58,8 +58,8 @@ async function inTempDir<T>(block: () => Promise<T>): Promise<T> {
  * Most consistent behavior seems to be to write a package.json to disk and
  * then calling the same functions as the CLI would.
  */
-async function makeProjectInfo(types: string, jsiiConfig = {}): Promise<ProjectInfo> {
-  await fs.writeJson('package.json', {
+async function makeProjectInfo(types: string, cb?: (obj: PackageInfo) => void): Promise<ProjectInfo> {
+  const packageInfo: PackageInfo = {
     types,
     main: types.replace(/(?:\.d)?\.ts(x?)/, '.js$1'),
     name: 'testpkg', // That's what package.json would tell if we look up...
@@ -67,8 +67,35 @@ async function makeProjectInfo(types: string, jsiiConfig = {}): Promise<ProjectI
     license: 'Apache-2.0',
     author: { name: 'John Doe', roles: ['author'] },
     repository: { type: 'git', url: 'https://github.com/awslabs/jsii.git' },
-    jsii: jsiiConfig,
-  }, { encoding: 'utf-8', spaces: 2 });
+    jsii: {},
+  };
+  if (cb) {
+    await cb(packageInfo);
+  }
+
+  await fs.writeJson('package.json', packageInfo, { encoding: 'utf-8', replacer: (_: string, v: any) => v, spaces: 2 });
 
   return await loadProjectInfo(path.resolve(process.cwd(), '.'), { fixPeerDependencies: true });
 }
+
+export type PackageInfo = {
+  name: string;
+  version: string;
+  license: string;
+  types: string;
+  author: {
+    name: string;
+    roles: string[];
+    [key: string]: any;
+  };
+  repository: {
+    type?: string;
+    url: string;
+    directory?: string;
+    [key: string]: any;
+  };
+  jsii: {
+    [key: string]: any;
+  };
+  [key: string]: any;
+};

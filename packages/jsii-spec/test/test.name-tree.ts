@@ -11,7 +11,7 @@ export = testCase({
         'correctly represents sample assembly'(test: Test) {
             // GIVEN
             const assm: spec.Assembly = {
-                schema: spec.SchemaVersion.V1_0,
+                schema: spec.SchemaVersion.LATEST,
                 name: assemblyName,
                 description: 'bla',
                 homepage: 'https://github.com/bla/bla',

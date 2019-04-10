@@ -119,8 +119,8 @@ namespace Amazon.JSII.Generator.UnitTests
         {
             NamespaceSet namespaces = new NamespaceSet(Symbols, SF.ParseName("MyCurrentNamespace"));
             namespaces.Add(new TypeReference(collection: new CollectionTypeReference(
-                CollectionKind.Map,
-                new TypeReference(primitive: PrimitiveType.String)
+                kind: CollectionKind.Map,
+                elementType: new TypeReference(primitive: PrimitiveType.String)
             )));
 
             SyntaxList<UsingDirectiveSyntax> usings = namespaces.GetUsings();
@@ -139,10 +139,10 @@ namespace Amazon.JSII.Generator.UnitTests
             namespaces.Add(new TypeReference(collection: new CollectionTypeReference(
                 CollectionKind.Map,
                 new TypeReference(collection: new CollectionTypeReference(
-                    CollectionKind.Map,
-                    new TypeReference(primitive: PrimitiveType.Json)
-                ))
-            )));
+                    kind: CollectionKind.Map,
+                    elementType: new TypeReference(primitive: PrimitiveType.Json)
+                )
+            ))));
 
             SyntaxList<UsingDirectiveSyntax> usings = namespaces.GetUsings();
             AssertUsings
@@ -159,8 +159,8 @@ namespace Amazon.JSII.Generator.UnitTests
         {
             NamespaceSet namespaces = new NamespaceSet(Symbols, SF.ParseName("MyCurrentNamespace"));
             namespaces.Add(new TypeReference(collection: new CollectionTypeReference(
-                CollectionKind.Array,
-                new TypeReference(primitive: PrimitiveType.String)
+                kind: CollectionKind.Array,
+                elementType: new TypeReference(primitive: PrimitiveType.String)
             )));
 
             SyntaxList<UsingDirectiveSyntax> usings = namespaces.GetUsings();
@@ -176,12 +176,12 @@ namespace Amazon.JSII.Generator.UnitTests
         {
             NamespaceSet namespaces = new NamespaceSet(Symbols, SF.ParseName("MyCurrentNamespace"));
             namespaces.Add(new TypeReference(collection: new CollectionTypeReference(
-                CollectionKind.Array,
-                new TypeReference(collection: new CollectionTypeReference(
-                    CollectionKind.Array,
-                    new TypeReference(primitive: PrimitiveType.Json)
-                ))
-            )));
+                kind: CollectionKind.Array,
+                elementType: new TypeReference(collection: new CollectionTypeReference(
+                    kind: CollectionKind.Array,
+                    elementType: new TypeReference(primitive: PrimitiveType.Json)
+                )
+            ))));
 
             SyntaxList<UsingDirectiveSyntax> usings = namespaces.GetUsings();
             AssertUsings
@@ -196,15 +196,15 @@ namespace Amazon.JSII.Generator.UnitTests
         public void RecursivelyCreatesUsingStatementForEachTypeInUnionReference()
         {
             NamespaceSet namespaces = new NamespaceSet(Symbols, SF.ParseName("MyCurrentNamespace"));
-            namespaces.Add(new TypeReference(union: new UnionTypeReference(new TypeReference[] {
+            namespaces.Add(new TypeReference(union: new UnionTypeReference(new[] {
                 new TypeReference(collection: new CollectionTypeReference(
-                    CollectionKind.Array,
-                    new TypeReference(collection: new CollectionTypeReference(
-                        CollectionKind.Array,
-                        new TypeReference(primitive: PrimitiveType.Json)
-                    ))
-                )),
-                new TypeReference(primitive: PrimitiveType.Date),
+                    kind: CollectionKind.Array,
+                    elementType: new TypeReference(collection: new CollectionTypeReference(
+                        kind: CollectionKind.Array,
+                        elementType: new TypeReference(primitive: PrimitiveType.Json)
+                    )
+                ))),
+                new TypeReference(primitive: PrimitiveType.Date)
             })));
 
             SyntaxList<UsingDirectiveSyntax> usings = namespaces.GetUsings();

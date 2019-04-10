@@ -18,10 +18,10 @@ namespace Amazon.JSII.JsonModel.Spec
             Docs docs = null,
 
             // InterfaceType properties
-            TypeReference[] interfaces = null,
+            string[] interfaces = null,
             Method[] methods = null,
             Property[] properties = null,
-            bool? isDataType = null
+            bool isDataType = false
         ) : base
             (
                 fullyQualifiedName,
@@ -39,7 +39,7 @@ namespace Amazon.JSII.JsonModel.Spec
         }
 
         [JsonProperty("interfaces", NullValueHandling = NullValueHandling.Ignore)]
-        public TypeReference[] Interfaces { get; }
+        public string[] Interfaces { get; }
 
         [JsonProperty("methods", NullValueHandling = NullValueHandling.Ignore)]
         public Method[] Methods { get; }
@@ -48,6 +48,6 @@ namespace Amazon.JSII.JsonModel.Spec
         public Property[] Properties { get; }
 
         [JsonProperty("datatype", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? IsDataType { get; }
+        public bool IsDataType { get; }
     }
 }

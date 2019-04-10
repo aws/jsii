@@ -110,7 +110,13 @@ namespace Amazon.JSII.Generator.UnitTests
                     isAbstract: false,
                     properties: new[]
                     {
-                        new Property("myType", new TypeReference("myFqn"), false, false, false)
+                        new Property(
+                            name: "myType",
+                            type: new TypeReference("myFqn"),
+                            isImmutable: false,
+                            isProtected: false,
+                            isStatic: false
+                        )
                     }
                 );
 
@@ -414,7 +420,6 @@ namespace Amazon.JSII.Generator.UnitTests
             {
                 Method method = new Method
                 (
-                    isInitializer: false,
                     isProtected: false,
                     isAbstract: false,
                     name: "myMethod"
@@ -481,10 +486,9 @@ namespace Amazon.JSII.Generator.UnitTests
             [Fact(DisplayName = Prefix + nameof(GetsFrameworkNameFromParameter))]
             public void GetsFrameworkNameFromParameter()
             {
-                Parameter parameter = new Parameter("myParam", new TypeReference("myFqn"));
+                Parameter parameter = new Parameter(name: "myParam", type: new TypeReference("myFqn"));
                 Method method = new Method
                 (
-                    isInitializer: false,
                     isProtected: false,
                     isAbstract: false,
                     parameters: new[] { parameter },
@@ -778,7 +782,6 @@ namespace Amazon.JSII.Generator.UnitTests
             {
                 Method method = new Method
                 (
-                    isInitializer: false,
                     isProtected: false,
                     isAbstract: false,
                     name: "myMethod"
@@ -845,10 +848,9 @@ namespace Amazon.JSII.Generator.UnitTests
             [Fact(DisplayName = Prefix + nameof(GetsFrameworkNameFromParameter))]
             public void GetsFrameworkNameFromParameter()
             {
-                Parameter parameter = new Parameter("myParam", new TypeReference("myFqn"));
+                Parameter parameter = new Parameter(name: "myParam", type: new TypeReference("myFqn"));
                 Method method = new Method
                 (
-                    isInitializer: false,
                     isProtected: false,
                     isAbstract: false,
                     parameters: new[] { parameter },
@@ -1142,7 +1144,6 @@ namespace Amazon.JSII.Generator.UnitTests
             {
                 Method method = new Method
                 (
-                    isInitializer: false,
                     isProtected: false,
                     isAbstract: false,
                     name: "myMethod"
@@ -1209,10 +1210,9 @@ namespace Amazon.JSII.Generator.UnitTests
             [Fact(DisplayName = Prefix + nameof(GetsFrameworkNameFromParameter))]
             public void GetsFrameworkNameFromParameter()
             {
-                Parameter parameter = new Parameter("myParam", new TypeReference("myFqn"));
+                Parameter parameter = new Parameter(name: "myParam", type: new TypeReference("myFqn"));
                 Method method = new Method
                 (
-                    isInitializer: false,
                     isProtected: false,
                     isAbstract: false,
                     parameters: new[] { parameter },
@@ -1489,9 +1489,9 @@ namespace Amazon.JSII.Generator.UnitTests
             {
                 ISymbolMap symbolMap = new SymbolMap();
 
-                TypeReference reference = new TypeReference(primitive: type, isOptional: isOptional);
+                var reference = new TypeReference(primitive: type);
 
-                string actual = symbolMap.GetTypeSyntax(reference).ToString();
+                var actual = symbolMap.GetTypeSyntax(reference, isOptional).ToString();
                 Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
             }
 
@@ -1504,17 +1504,18 @@ namespace Amazon.JSII.Generator.UnitTests
             {
                 ISymbolMap symbolMap = new SymbolMap();
 
-                TypeReference reference = new TypeReference
-                (
-                    collection: new CollectionTypeReference
+                var reference = new TypeReference
                     (
-                        kind: kind,
-                        elementType: new TypeReference(collection: new CollectionTypeReference(kind, new TypeReference(primitive: PrimitiveType.Number)))
-                    ),
-                    isOptional: isOptional
-                );
+                        collection: new CollectionTypeReference
+                        (
+                            kind: kind,
+                            elementType: new TypeReference(
+                                collection: new CollectionTypeReference(kind, new TypeReference(primitive: PrimitiveType.Number))
+                            )
+                        )
+                    );
 
-                string actual = symbolMap.GetTypeSyntax(reference).ToString();
+                string actual = symbolMap.GetTypeSyntax(reference, isOptional).ToString();
                 Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
             }
 
@@ -1525,15 +1526,14 @@ namespace Amazon.JSII.Generator.UnitTests
             {
                 ISymbolMap symbolMap = new SymbolMap();
 
-                TypeReference reference = new TypeReference
-                (
-                    union: new UnionTypeReference(new[] {
-                        new TypeReference(primitive: PrimitiveType.Number)
-                    }),
-                    isOptional: isOptional
-                );
+                var reference = new TypeReference
+                    (
+                        union: new UnionTypeReference(new[] {
+                            new TypeReference(primitive: PrimitiveType.Number)
+                        })
+                    );
 
-                string actual = symbolMap.GetTypeSyntax(reference).ToString();
+                string actual = symbolMap.GetTypeSyntax(reference, isOptional).ToString();
                 Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
             }
 
@@ -1551,7 +1551,7 @@ namespace Amazon.JSII.Generator.UnitTests
                 ISymbolMap symbolMap = GetSymbolMap(type);
                 TypeReference reference = new TypeReference("myFqn");
 
-                string actual = symbolMap.GetTypeSyntax(reference).ToString();
+                string actual = symbolMap.GetTypeSyntax(reference, false).ToString();
                 Assert.Equal("MyName", actual, ignoreLineEndingDifferences: true);
 
             }

@@ -525,7 +525,7 @@ class DontComplainAboutVariadicAfterOptional(metaclass=jsii.JSIIMeta, jsii_type=
         jsii.create(DontComplainAboutVariadicAfterOptional, self, [])
 
     @jsii.member(jsii_name="optionalAndVariadic")
-    def optional_and_variadic(self, optional: typing.Optional[str], *things: str) -> str:
+    def optional_and_variadic(self, optional: typing.Optional[str]=None, *things: str) -> str:
         return jsii.invoke(self, "optionalAndVariadic", [optional, things])
 
 
@@ -2561,11 +2561,11 @@ class Calculator(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_t
 
     @property
     @jsii.member(jsii_name="unionProperty")
-    def union_property(self) -> typing.Optional[typing.Union["Add", "Multiply", "Power"]]:
+    def union_property(self) -> typing.Optional[typing.Union[typing.Optional["Add"], typing.Optional["Multiply"], typing.Optional["Power"]]]:
         return jsii.get(self, "unionProperty")
 
     @union_property.setter
-    def union_property(self, value: typing.Optional[typing.Union["Add", "Multiply", "Power"]]):
+    def union_property(self, value: typing.Optional[typing.Union[typing.Optional["Add"], typing.Optional["Multiply"], typing.Optional["Power"]]]):
         return jsii.set(self, "unionProperty", value)
 
 

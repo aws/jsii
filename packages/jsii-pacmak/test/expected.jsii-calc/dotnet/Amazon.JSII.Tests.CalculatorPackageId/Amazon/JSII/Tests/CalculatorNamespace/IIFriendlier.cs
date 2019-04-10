@@ -4,15 +4,15 @@ using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Even friendlier classes can implement this interface.</summary>
-    [JsiiInterface(typeof(IIFriendlier), "jsii-calc.IFriendlier")]
+    [JsiiInterface(nativeType: typeof(IIFriendlier), fullyQualifiedName: "jsii-calc.IFriendlier")]
     public interface IIFriendlier : IIFriendly
     {
         /// <summary>Say farewell.</summary>
-        [JsiiMethod("farewell", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod(name: "farewell", returnsJson: "{\"type\":{\"primitive\":\"string\"}}")]
         string Farewell();
         /// <summary>Say goodbye.</summary>
         /// <returns>A goodbye blessing.</returns>
-        [JsiiMethod("goodbye", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod(name: "goodbye", returnsJson: "{\"type\":{\"primitive\":\"string\"}}")]
         string Goodbye();
     }
 }

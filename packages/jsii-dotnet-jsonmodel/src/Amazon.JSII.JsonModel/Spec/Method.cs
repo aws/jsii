@@ -4,63 +4,49 @@ using System;
 namespace Amazon.JSII.JsonModel.Spec
 {
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public class Method : IDocumentable, IOverridable
+    public class Method : Callable
     {
         public Method
         (
-            bool isInitializer,
-            bool isProtected,
-            bool? isAbstract = null,
+            string name,
+            OptionalValue returns = null,
             Parameter[] parameters = null,
-            Docs docs = null,
-            string name = null,
-            TypeReference returns = null,
-            bool? isVariadic = null,
-            bool? isStatic = null,
-            UserTypeReference overrides = null
+            bool isAbstract = false,
+            bool isAsync = false,
+            bool isProtected = false,
+            bool isVariadic = false,
+            bool isStatic = false,
+            string overrides = null,
+            Docs docs = null
+        ): base
+        (
+            parameters: parameters,
+            isProtected: isProtected,
+            isVariadic: isVariadic,
+            overrides: overrides,
+            docs: docs
         )
         {
-            IsInitializer = isInitializer;
-            IsProtected = isProtected;
-            IsAbstract = isAbstract;
-            Parameters = parameters;
-            Docs = docs;
             Name = name;
             Returns = returns;
-            IsVariadic = isVariadic;
+            IsAbstract = isAbstract;
+            IsAsync = isAsync;
             IsStatic = isStatic;
-            Overrides = overrides;
         }
 
-
-        [JsonProperty("initializer")]
-        public bool IsInitializer { get; }
-
-        [JsonProperty("protected")]
-        public bool IsProtected { get; }
-
-        [JsonProperty("abstract", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? IsAbstract { get; }
-
-        [JsonProperty("parameters", NullValueHandling = NullValueHandling.Ignore)]
-        public Parameter[] Parameters { get; }
-
-        [JsonProperty("docs", NullValueHandling = NullValueHandling.Ignore)]
-        public Docs Docs { get; }
-
-        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("name")]
         public string Name { get; }
 
         [JsonProperty("returns", NullValueHandling = NullValueHandling.Ignore)]
-        public TypeReference Returns { get; }
+        public OptionalValue Returns { get; }
 
-        [JsonProperty("variadic", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? IsVariadic { get; }
+        [JsonProperty("abstract", NullValueHandling = NullValueHandling.Ignore)]
+        public bool IsAbstract { get; }
 
+        [JsonProperty("async", NullValueHandling = NullValueHandling.Ignore)]
+        public bool IsAsync { get;  }
+        
         [JsonProperty("static", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? IsStatic { get; }
-
-        [JsonProperty("overrides", NullValueHandling = NullValueHandling.Ignore)]
-        public UserTypeReference Overrides { get; }
+        public bool IsStatic { get; }
     }
 }

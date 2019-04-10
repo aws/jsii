@@ -63,40 +63,38 @@ namespace Amazon.JSII.Generator.UnitTests
 
         public static void MapTypeName(this ISymbolMap symbols, string fullyQualifiedName, string frameworkName, TypeKind kind)
         {
-            if (kind == TypeKind.Interface)
+            var proxyName = $"{frameworkName}Proxy";
+            switch (kind)
             {
-                string proxyName = $"{frameworkName}Proxy";
-                string defaultName = frameworkName;
-
-                symbols
-                    .GetInterfaceProxyName(Arg.Is<InterfaceType>(t => t.FullyQualifiedName == fullyQualifiedName), disambiguate: Arg.Any<bool>())
-                    .Returns(proxyName);
-                symbols
-                    .GetInterfaceDefaultName(Arg.Is<InterfaceType>(t => t.FullyQualifiedName == fullyQualifiedName), disambiguate: Arg.Any<bool>())
-                    .Returns(defaultName);
-                symbols
-                    .GetInterfaceProxyNameSyntaxToken(Arg.Is<InterfaceType>(t => t.FullyQualifiedName == fullyQualifiedName), disambiguate: Arg.Any<bool>())
-                    .Returns(SF.ParseToken(proxyName));
-                symbols
-                    .GetInterfaceDefaultNameSyntaxToken(Arg.Is<InterfaceType>(t => t.FullyQualifiedName == fullyQualifiedName), disambiguate: Arg.Any<bool>())
-                    .Returns(SF.ParseToken(defaultName));
-                symbols
-                    .GetInterfaceProxyNameSyntax(Arg.Is<InterfaceType>(t => t.FullyQualifiedName == fullyQualifiedName), disambiguate: Arg.Any<bool>())
-                    .Returns(SF.ParseName(proxyName));
-                symbols
-                    .GetInterfaceDefaultNameSyntax(Arg.Is<InterfaceType>(t => t.FullyQualifiedName == fullyQualifiedName), disambiguate: Arg.Any<bool>())
-                    .Returns(SF.ParseName(defaultName));
-
-                frameworkName = $"I{frameworkName}";
-            }
-            
-            if (kind == TypeKind.Class)
-            {
-                string proxyName = $"{frameworkName}Proxy";
-
+                case TypeKind.Interface:
+                    var defaultName = frameworkName;
+    
+                    symbols
+                        .GetInterfaceProxyName(Arg.Is<InterfaceType>(t => t.FullyQualifiedName == fullyQualifiedName), disambiguate: Arg.Any<bool>())
+                        .Returns(proxyName);
+                    symbols
+                        .GetInterfaceDefaultName(Arg.Is<InterfaceType>(t => t.FullyQualifiedName == fullyQualifiedName), disambiguate: Arg.Any<bool>())
+                        .Returns(defaultName);
+                    symbols
+                        .GetInterfaceProxyNameSyntaxToken(Arg.Is<InterfaceType>(t => t.FullyQualifiedName == fullyQualifiedName), disambiguate: Arg.Any<bool>())
+                        .Returns(SF.ParseToken(proxyName));
+                    symbols
+                        .GetInterfaceDefaultNameSyntaxToken(Arg.Is<InterfaceType>(t => t.FullyQualifiedName == fullyQualifiedName), disambiguate: Arg.Any<bool>())
+                        .Returns(SF.ParseToken(defaultName));
+                    symbols
+                        .GetInterfaceProxyNameSyntax(Arg.Is<InterfaceType>(t => t.FullyQualifiedName == fullyQualifiedName), disambiguate: Arg.Any<bool>())
+                        .Returns(SF.ParseName(proxyName));
+                    symbols
+                        .GetInterfaceDefaultNameSyntax(Arg.Is<InterfaceType>(t => t.FullyQualifiedName == fullyQualifiedName), disambiguate: Arg.Any<bool>())
+                        .Returns(SF.ParseName(defaultName));
+    
+                    frameworkName = $"I{frameworkName}";
+                    break;
+            case TypeKind.Class:
                 symbols
                     .GetAbstractClassProxyName(Arg.Is<ClassType>(t => t.FullyQualifiedName == fullyQualifiedName), disambiguate: Arg.Any<bool>())
                     .Returns(proxyName);
+                break;
             }
             
             symbols
@@ -118,7 +116,7 @@ namespace Amazon.JSII.Generator.UnitTests
                 .GetNameSyntax(Arg.Is<string>(fqn => fqn == fullyQualifiedName), disambiguate: Arg.Any<bool>())
                 .Returns(SF.ParseName(frameworkName));
             symbols
-                .GetTypeSyntax(Arg.Is<TypeReference>(t => t.FullyQualifiedName == fullyQualifiedName))
+                .GetTypeSyntax(Arg.Is<TypeReference>(t => t.FullyQualifiedName == fullyQualifiedName), false)
                 .Returns(SF.ParseTypeName(frameworkName));
         }
 

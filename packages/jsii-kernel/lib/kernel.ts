@@ -8,7 +8,7 @@ import * as vm from 'vm';
 import * as api from './api';
 import { TOKEN_REF } from './api';
 import { ObjectTable, tagJsiiConstructor } from './objects';
-import { CompleteTypeReference, EMPTY_OBJECT_FQN, serializationType, SerializerHost, SERIALIZERS } from './serialization';
+import wire = require('./serialization');
 
 export class Kernel {
     /**
@@ -160,7 +160,7 @@ export class Kernel {
             this._wrapSandboxCode(() => prototype[property]));
 
         this._debug('value:', value);
-        const ret = this._fromSandbox(value, ti.type);
+        const ret = this._fromSandbox(value, ti);
         this._debug('ret', ret);
         return { value: ret };
     }
@@ -182,7 +182,7 @@ export class Kernel {
         const prototype = this._findSymbol(fqn);
 
         this._ensureSync(`property ${property}`, () =>
-            this._wrapSandboxCode(() => prototype[property] = this._toSandbox(value, ti.type)));
+            this._wrapSandboxCode(() => prototype[property] = this._toSandbox(value, ti)));
 
         return {};
     }
@@ -205,7 +205,7 @@ export class Kernel {
         const value = this._ensureSync(`property '${objref[TOKEN_REF]}.${propertyToGet}'`,
                                        () => this._wrapSandboxCode(() => instance[propertyToGet]));
         this._debug('value:', value);
-        const ret = this._fromSandbox(value, ti.type);
+        const ret = this._fromSandbox(value, ti);
         this._debug('ret:', ret);
         return { value:  ret };
     }
@@ -224,7 +224,7 @@ export class Kernel {
         const propertyToSet = this._findPropertyTarget(instance, property);
 
         this._ensureSync(`property '${objref[TOKEN_REF]}.${propertyToSet}'`,
-                         () => this._wrapSandboxCode(() => instance[propertyToSet] = this._toSandbox(value, propInfo.type)));
+                         () => this._wrapSandboxCode(() => instance[propertyToSet] = this._toSandbox(value, propInfo)));
 
         return { };
     }
@@ -237,7 +237,7 @@ export class Kernel {
         const { ti, obj, fn } = this._findInvokeTarget(objref, method, args);
 
         // verify this is not an async method
-        if (ti.returns && ti.returns.promise) {
+        if (ti.async) {
             throw new Error(`${method} is an async method, use "begin" instead`);
         }
 
@@ -264,7 +264,7 @@ export class Kernel {
         }
 
         // verify this is not an async method
-        if (ti.returns && ti.returns.promise) {
+        if (ti.async) {
             throw new Error(`${method} is an async method, use "begin" instead`);
         }
 
@@ -293,7 +293,7 @@ export class Kernel {
         const { ti, obj, fn } = this._findInvokeTarget(objref, method, args);
 
         // verify this is indeed an async method
-        if (!ti.returns || !ti.returns.promise) {
+        if (!ti.async) {
             throw new Error(`Method ${method} is expected to be an async method`);
         }
 
@@ -425,7 +425,7 @@ export class Kernel {
 
     // find the javascript constructor function for a jsii FQN.
     private _findCtor(fqn: string, args: any[]): { ctor: any, parameters?: spec.Parameter[] } {
-        if (fqn === EMPTY_OBJECT_FQN) {
+        if (fqn === wire.EMPTY_OBJECT_FQN) {
             return { ctor: Object };
         }
 
@@ -496,7 +496,7 @@ export class Kernel {
 
     private _applyPropertyOverride(obj: any, objref: api.ObjRef, typeFqn: string, override: api.PropertyOverride) {
         let propInfo;
-        if (typeFqn !== EMPTY_OBJECT_FQN) {
+        if (typeFqn !== wire.EMPTY_OBJECT_FQN) {
             // error if we can find a method with this name
             if (this._tryTypeInfoForMethod(typeFqn, override.property)) {
                 throw new Error(`Trying to override method '${override.property}' as a property`);
@@ -520,7 +520,7 @@ export class Kernel {
             // would tell us the intended interface type.
             propInfo = {
                 name: override.property,
-                type: ANY_TYPE,
+                type: spec.CANONICAL_ANY,
             };
         }
 
@@ -560,14 +560,14 @@ export class Kernel {
                     get: { objref, property: propertyName }
                 });
                 this._debug('callback returned', result);
-                return this._toSandbox(result, propInfo.type);
+                return this._toSandbox(result, propInfo);
             },
             set: (value: any) => {
                 self._debug('virtual set', objref, propertyName, { cookie: override.cookie });
                 self.callbackHandler({
                     cookie: override.cookie,
                     cbid: self._makecbid(),
-                    set: { objref, property: propertyName, value: self._fromSandbox(value, propInfo.type) }
+                    set: { objref, property: propertyName, value: self._fromSandbox(value, propInfo) }
                 });
             }
         });
@@ -575,7 +575,7 @@ export class Kernel {
 
     private _applyMethodOverride(obj: any, objref: api.ObjRef, typeFqn: string, override: api.MethodOverride) {
         let methodInfo;
-        if (typeFqn !== EMPTY_OBJECT_FQN) {
+        if (typeFqn !== wire.EMPTY_OBJECT_FQN) {
             // error if we can find a property with this name
             if (this._tryTypeInfoForProperty(typeFqn, override.method)) {
                 throw new Error(`Trying to override property '${override.method}' as a method`);
@@ -600,8 +600,12 @@ export class Kernel {
             // would tell us the intended interface type.
             methodInfo = {
                 name: override.method,
-                returns: ANY_TYPE,
-                parameters: [{ name: 'args', variadic: true, type: ANY_TYPE}],
+                returns: { type: spec.CANONICAL_ANY },
+                parameters: [{
+                    name: 'args',
+                    type: spec.CANONICAL_ANY,
+                    variadic: true
+                }],
                 variadic: true
             };
         }
@@ -613,7 +617,7 @@ export class Kernel {
         const self = this;
         const methodName = override.method;
 
-        if (methodInfo.returns && methodInfo.returns.promise) {
+        if (methodInfo.async) {
             // async method override
             Object.defineProperty(obj, methodName, {
                 enumerable: false,
@@ -685,27 +689,7 @@ export class Kernel {
         return { ti, obj: instance, fn };
     }
 
-    private _formatTypeRef(typeRef: spec.TypeReference): string {
-        if (spec.isCollectionTypeReference(typeRef)) {
-            return `${typeRef.collection.kind}<${this._formatTypeRef(typeRef.collection.elementtype)}>`;
-        }
-
-        if (spec.isNamedTypeReference(typeRef)) {
-            return typeRef.fqn;
-        }
-
-        if (spec.isPrimitiveTypeReference(typeRef)) {
-            return typeRef.primitive;
-        }
-
-        if (spec.isUnionTypeReference(typeRef)) {
-            return typeRef.union.types.map(t => this._formatTypeRef(t)).join(' | ');
-        }
-
-        throw new Error(`Invalid type reference: ${JSON.stringify(typeRef)}`);
-    }
-
-    private _validateMethodArguments(method: spec.Method | undefined, args: any[]) {
+    private _validateMethodArguments(method: spec.Callable | undefined, args: any[]) {
         const params: spec.Parameter[] = (method && method.parameters) || [];
 
         // error if args > params
@@ -720,14 +704,14 @@ export class Kernel {
             if (param.variadic) {
                 if (params.length <= i) { return; } // No vararg was provided
                 for (let j = i ; j < params.length ; j++) {
-                    if (params[j] === undefined) {
+                    if (!param.optional && params[j] === undefined) {
                         // tslint:disable-next-line:max-line-length
-                        throw new Error(`Unexpected 'undefined' value at index ${j - i} of variadic argument '${param.name}' of type '${this._formatTypeRef(param.type)}'`);
+                        throw new Error(`Unexpected 'undefined' value at index ${j - i} of variadic argument '${param.name}' of type '${spec.describeTypeReference(param.type)}'`);
                     }
                 }
-            } else if (!param.type.optional && arg === undefined) {
+            } else if (!param.optional && arg === undefined) {
                 // tslint:disable-next-line:max-line-length
-                throw new Error(`Not enough arguments. Missing argument for the required parameter '${param.name}' of type '${this._formatTypeRef(param.type)}'`);
+                throw new Error(`Not enough arguments. Missing argument for the required parameter '${param.name}' of type '${spec.describeTypeReference(param.type)}'`);
             }
         }
     }
@@ -803,7 +787,7 @@ export class Kernel {
         for (const base of bases) {
             if (!base) { continue; }
 
-            const found = this._tryTypeInfoForMethod(base.fqn!, methodName);
+            const found = this._tryTypeInfoForMethod(base, methodName);
             if (found) {
                 return found;
             }
@@ -824,11 +808,11 @@ export class Kernel {
         if (spec.isClassType(typeInfo)) {
             const classTypeInfo = typeInfo as spec.ClassType;
             properties = classTypeInfo.properties;
-            bases = classTypeInfo.base ? [ classTypeInfo.base.fqn ] : [];
+            bases = classTypeInfo.base ? [ classTypeInfo.base ] : [];
         } else if (spec.isInterfaceType(typeInfo)) {
             const interfaceTypeInfo = typeInfo as spec.InterfaceType;
             properties = interfaceTypeInfo.properties;
-            bases = (interfaceTypeInfo.interfaces || []).map(x => x.fqn);
+            bases = interfaceTypeInfo.interfaces || [];
         } else {
             throw new Error(`Type of kind ${typeInfo.kind} does not have properties`);
         }
@@ -858,11 +842,11 @@ export class Kernel {
         return typeInfo;
     }
 
-    private _toSandbox(v: any, expectedType: CompleteTypeReference): any {
-        const serTypes = serializationType(expectedType, this._typeInfoForFqn.bind(this));
+    private _toSandbox(v: any, expectedType: wire.OptionalValueOrVoid): any {
+        const serTypes = wire.serializationType(expectedType, this._typeInfoForFqn.bind(this));
         this._debug('toSandbox', v, JSON.stringify(serTypes));
 
-        const host: SerializerHost = {
+        const host: wire.SerializerHost = {
             objects: this.objects,
             debug: this._debug.bind(this),
             findSymbol: this._findSymbol.bind(this),
@@ -873,7 +857,7 @@ export class Kernel {
         const errors = new Array<string>();
         for (const { serializationClass, typeRef } of serTypes) {
             try {
-                return SERIALIZERS[serializationClass].deserialize(v, typeRef, host);
+                return wire.SERIALIZERS[serializationClass].deserialize(v, typeRef, host);
             } catch (e) {
                 // If no union (99% case), rethrow immediately to preserve stack trace
                 if (serTypes.length === 1) { throw e; }
@@ -884,11 +868,11 @@ export class Kernel {
         throw new Error(`Value did not match any type in union: ${errors}`);
     }
 
-    private _fromSandbox(v: any, targetType: CompleteTypeReference): any {
-        const serTypes = serializationType(targetType, this._typeInfoForFqn.bind(this));
+    private _fromSandbox(v: any, targetType: wire.OptionalValueOrVoid): any {
+        const serTypes = wire.serializationType(targetType, this._typeInfoForFqn.bind(this));
         this._debug('fromSandbox', v, JSON.stringify(serTypes));
 
-        const host: SerializerHost = {
+        const host: wire.SerializerHost = {
             objects: this.objects,
             debug: this._debug.bind(this),
             findSymbol: this._findSymbol.bind(this),
@@ -899,7 +883,7 @@ export class Kernel {
         const errors = new Array<string>();
         for (const { serializationClass, typeRef } of serTypes) {
             try {
-                return SERIALIZERS[serializationClass].serialize(v, typeRef, host);
+                return wire.SERIALIZERS[serializationClass].serialize(v, typeRef, host);
             } catch (e) {
                 // If no union (99% case), rethrow immediately to preserve stack trace
                 if (serTypes.length === 1) { throw e; }
@@ -918,17 +902,17 @@ export class Kernel {
         return this._boxUnboxParameters(xs, parameters, this._fromSandbox.bind(this));
     }
 
-    private _boxUnboxParameters(xs: any[], parameters: spec.Parameter[] | undefined, boxUnbox: (x: any, t: CompleteTypeReference) => any) {
-        parameters = parameters || [];
-        const types = parameters.map(p => p.type);
+    private _boxUnboxParameters(xs: any[], parameters: spec.Parameter[] | undefined, boxUnbox: (x: any, t: wire.OptionalValueOrVoid) => any) {
+        parameters = [...(parameters || [])];
+        const variadic = parameters.length > 0 && !!parameters[parameters.length - 1].variadic;
         // Repeat the last (variadic) type to match the number of actual arguments
-        while (types.length < xs.length && parameters.length > 0 && parameters[parameters.length - 1].variadic) {
-            types.push(types[types.length - 1]);
+        while (variadic && parameters.length < xs.length) {
+            parameters.push(parameters[parameters.length - 1]);
         }
-        if (xs.length > types.length) {
-            throw new Error(`Argument list (${JSON.stringify(xs)}) not same size as expected argument list (length ${types.length})`);
+        if (xs.length > parameters.length) {
+            throw new Error(`Argument list (${JSON.stringify(xs)}) not same size as expected argument list (length ${parameters.length})`);
         }
-        return xs.map((x, i) => boxUnbox(x, types[i]));
+        return xs.map((x, i) => boxUnbox(x, parameters![i]));
     }
 
     private _debug(...args: any[]) {
@@ -1009,7 +993,7 @@ interface Callback {
     objref: api.ObjRef;
     override: api.MethodOverride;
     args: any[];
-    expectedReturnType: CompleteTypeReference;
+    expectedReturnType: wire.OptionalValueOrVoid;
 
     // completion callbacks
     succeed: (...args: any[]) => any;
@@ -1073,5 +1057,3 @@ function mapSource(err: Error, sourceMaps: { [assm: string]: SourceMapConsumer }
         return frame;
     }
 }
-
-const ANY_TYPE: spec.PrimitiveTypeReference = { primitive: spec.PrimitiveType.Any };

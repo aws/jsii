@@ -13,7 +13,7 @@ namespace Amazon.JSII.Generator.UnitTests
             Namespaces = Substitute.For<INamespaceSet>();
 
             Symbols
-                .GetTypeSyntax(Arg.Is<TypeReference>(t => t.Primitive == PrimitiveType.String && t.IsOptional != true))
+                .GetTypeSyntax(Arg.Is<TypeReference>(t => t.Primitive == PrimitiveType.String), false)
                 .Returns(SF.ParseTypeName("string"));
         }
 

@@ -2,18 +2,18 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiInterface(typeof(IIJSII417Derived), "jsii-calc.IJSII417Derived")]
+    [JsiiInterface(nativeType: typeof(IIJSII417Derived), fullyQualifiedName: "jsii-calc.IJSII417Derived")]
     public interface IIJSII417Derived : IIJSII417PublicBaseOfBase
     {
-        [JsiiProperty("property", "{\"primitive\":\"string\"}")]
+        [JsiiProperty(name: "property", typeJson: "{\"primitive\":\"string\"}")]
         string Property
         {
             get;
         }
 
-        [JsiiMethod("bar", null, "[]")]
+        [JsiiMethod(name: "bar")]
         void Bar();
-        [JsiiMethod("baz", null, "[]")]
+        [JsiiMethod(name: "baz")]
         void Baz();
     }
 }

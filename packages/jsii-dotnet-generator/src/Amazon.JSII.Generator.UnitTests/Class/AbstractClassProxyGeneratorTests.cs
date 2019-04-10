@@ -29,14 +29,14 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                 "myPackage",
                 "myClass",
                 true,
-                initializer: new Method(true, false, false)
+                initializer: new Initializer()
             );
 
             var actual = Render(classType);
             var expected =
                 @"namespace MyNamespace
 {
-    [JsiiTypeProxy(typeof(MyClass), ""myFqn"")]
+    [JsiiTypeProxy(nativeType: typeof(MyClass), fullyQualifiedName: ""myFqn"")]
     internal sealed class MyClassProxy : MyClass
     {
         private MyClassProxy(ByRefValue reference): base(reference)
@@ -57,7 +57,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                 assembly: "myPackage",
                 name: "myClass",
                 isAbstract: true,
-                initializer: new Method(true, false, false),
+                initializer: new Initializer(),
                 docs: new Docs {{"foo", "bar"}}
             );
 
@@ -66,7 +66,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                 @"namespace MyNamespace
 {
     /// <remarks>foo: bar</remarks>
-    [JsiiTypeProxy(typeof(MyClass), ""myFqn"")]
+    [JsiiTypeProxy(nativeType: typeof(MyClass), fullyQualifiedName: ""myFqn"")]
     internal sealed class MyClassProxy : MyClass
     {
         private MyClassProxy(ByRefValue reference): base(reference)
@@ -86,7 +86,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                 assembly: "myPackage",
                 name: "myClass",
                 isAbstract: true,
-                initializer: new Method(true, false, false),
+                initializer: new Initializer(),
                 properties: new[]
                 {
                     new Property
@@ -115,14 +115,14 @@ namespace Amazon.JSII.Generator.UnitTests.Class
             string expected =
                 @"namespace MyNamespace
 {
-    [JsiiTypeProxy(typeof(MyClass), ""myFqn"")]
+    [JsiiTypeProxy(nativeType: typeof(MyClass), fullyQualifiedName: ""myFqn"")]
     internal sealed class MyClassProxy : MyClass
     {
         private MyClassProxy(ByRefValue reference): base(reference)
         {
         }
 
-        [JsiiProperty(""myProp"", ""{\""fqn\"":\""myPropTypeFqn\""}"")]
+        [JsiiProperty(name: ""myProp"", typeJson: ""{\""fqn\"":\""myPropTypeFqn\""}"")]
         public override MyPropType MyProp
         {
             get => GetInstanceProperty<MyPropType>();
@@ -142,21 +142,16 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                 assembly: "myPackage",
                 name: "myClass",
                 isAbstract: true,
-                initializer: new Method(true, false, false),
+                initializer: new Initializer(),
                 methods: new[]
                 {
                     new Method
                     (
-                        false,
-                        false,
-                        true,
+                        isAbstract: true,
                         name: "myMethod"
                     ),
                     new Method
                     (
-                        false,
-                        false,
-                        false,
                         name: "notMyMethod"
                     )
                 }
@@ -168,14 +163,14 @@ namespace Amazon.JSII.Generator.UnitTests.Class
             string expected =
                 @"namespace MyNamespace
 {
-    [JsiiTypeProxy(typeof(MyClass), ""myFqn"")]
+    [JsiiTypeProxy(nativeType: typeof(MyClass), fullyQualifiedName: ""myFqn"")]
     internal sealed class MyClassProxy : MyClass
     {
         private MyClassProxy(ByRefValue reference): base(reference)
         {
         }
 
-        [JsiiMethod(""myMethod"", null, ""[]"")]
+        [JsiiMethod(name: ""myMethod"")]
         public override void MyMethod()
         {
             InvokeInstanceVoidMethod(new object[]{});

@@ -2,38 +2,38 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiTypeProxy(typeof(IIJSII417Derived), "jsii-calc.IJSII417Derived")]
+    [JsiiTypeProxy(nativeType: typeof(IIJSII417Derived), fullyQualifiedName: "jsii-calc.IJSII417Derived")]
     internal sealed class IJSII417DerivedProxy : DeputyBase, IIJSII417Derived
     {
         private IJSII417DerivedProxy(ByRefValue reference): base(reference)
         {
         }
 
-        [JsiiProperty("property", "{\"primitive\":\"string\"}")]
+        [JsiiProperty(name: "property", typeJson: "{\"primitive\":\"string\"}")]
         public string Property
         {
             get => GetInstanceProperty<string>();
         }
 
-        [JsiiProperty("hasRoot", "{\"primitive\":\"boolean\"}")]
+        [JsiiProperty(name: "hasRoot", typeJson: "{\"primitive\":\"boolean\"}")]
         public bool HasRoot
         {
             get => GetInstanceProperty<bool>();
         }
 
-        [JsiiMethod("bar", null, "[]")]
+        [JsiiMethod(name: "bar")]
         public void Bar()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("baz", null, "[]")]
+        [JsiiMethod(name: "baz")]
         public void Baz()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("foo", null, "[]")]
+        [JsiiMethod(name: "foo")]
         public void Foo()
         {
             InvokeInstanceVoidMethod(new object[]{});

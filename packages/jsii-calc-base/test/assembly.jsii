@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "@scope/jsii-calc-base-of-base": {
-      "peer": true,
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
@@ -28,7 +27,8 @@
         "python": {
           "distName": "scope.jsii-calc-base-of-base",
           "module": "scope.jsii_calc_base_of_base"
-        }
+        },
+        "sphinx": {}
       },
       "version": "0.9.0"
     }
@@ -42,7 +42,7 @@
     "type": "git",
     "url": "https://github.com/awslabs/jsii.git"
   },
-  "schema": "jsii/1.0",
+  "schema": "jsii/0.10.0",
   "targets": {
     "dotnet": {
       "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
@@ -61,7 +61,8 @@
     "python": {
       "distName": "scope.jsii-calc-base",
       "module": "scope.jsii_calc_base"
-    }
+    },
+    "sphinx": {}
   },
   "types": {
     "@scope/jsii-calc-base.Base": {
@@ -71,9 +72,7 @@
         "summary": "A base class."
       },
       "fqn": "@scope/jsii-calc-base.Base",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/index.ts",
@@ -90,7 +89,9 @@
           },
           "name": "typeName",
           "returns": {
-            "primitive": "any"
+            "type": {
+              "primitive": "any"
+            }
           }
         }
       ],
@@ -101,9 +102,7 @@
       "datatype": true,
       "fqn": "@scope/jsii-calc-base.BaseProps",
       "interfaces": [
-        {
-          "fqn": "@scope/jsii-calc-base-of-base.VeryBaseProps"
-        }
+        "@scope/jsii-calc-base-of-base.VeryBaseProps"
       ],
       "kind": "interface",
       "locationInModule": {
@@ -128,5 +127,5 @@
     }
   },
   "version": "0.9.0",
-  "fingerprint": "kY67AXY3VfrjDTcaGA947JNHQsShp1+YEr9p0JkgKW4="
+  "fingerprint": "iWT7GmFaVPERM/zg8WXtKv7ydudD28ixjJDVfms7DJ4="
 }

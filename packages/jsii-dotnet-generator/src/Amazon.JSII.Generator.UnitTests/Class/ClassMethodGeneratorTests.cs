@@ -18,7 +18,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                 assembly: "myModule",
                 name: "myClass",
                 isAbstract: true,
-                initializer: new Method(true, false, false),
+                initializer: new Initializer(),
                 methods: new[] { method }
             );
 
@@ -35,13 +35,13 @@ namespace Amazon.JSII.Generator.UnitTests.Class
         [Fact(DisplayName = Prefix + nameof(IncludesProtectedKeyword))]
         public void IncludesAttribute()
         {
-            Method method = new Method(false, false, false, name: "myMethod");
+            Method method = new Method(name: "myMethod");
 
             Symbols.MapMethodName("myClassFqn", "myMethod", "MyMethod");
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", null, ""[]"")]
+@"[JsiiMethod(name: ""myMethod"")]
 public virtual void MyMethod()
 {
     InvokeInstanceVoidMethod(new object[]{});
@@ -52,13 +52,13 @@ public virtual void MyMethod()
         [Fact(DisplayName = Prefix + nameof(IncludesProtectedKeyword))]
         public void IncludesProtectedKeyword()
         {
-            Method method = new Method(false, true, false, name: "myMethod");
+            Method method = new Method(isProtected: true, name: "myMethod");
 
             Symbols.MapMethodName("myClassFqn", "myMethod", "MyMethod");
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", null, ""[]"")]
+@"[JsiiMethod(name: ""myMethod"")]
 protected virtual void MyMethod()
 {
     InvokeInstanceVoidMethod(new object[]{});
@@ -69,13 +69,13 @@ protected virtual void MyMethod()
         [Fact(DisplayName = Prefix + nameof(IncludesAbstractKeyword))]
         public void IncludesAbstractKeyword()
         {
-            Method method = new Method(false, false, true, name: "myMethod");
+            Method method = new Method(isAbstract: true, name: "myMethod");
 
             Symbols.MapMethodName("myClassFqn", "myMethod", "MyMethod");
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", null, ""[]"")]
+@"[JsiiMethod(name: ""myMethod"")]
 public abstract void MyMethod();";
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
@@ -85,11 +85,11 @@ public abstract void MyMethod();";
         {
             Method method = new Method
             (
-                false, false, false, name: "myMethod",
+                name: "myMethod",
                 parameters: new[]
                 {
-                    new Parameter("myParam", new TypeReference("myParamTypeFqn")),
-                    new Parameter("event", new TypeReference(primitive: PrimitiveType.String))
+                    new Parameter(name: "myParam", type: new TypeReference("myParamTypeFqn")),
+                    new Parameter(name: "event", type: new TypeReference(primitive: PrimitiveType.String))
                 }
             );
 
@@ -100,7 +100,7 @@ public abstract void MyMethod();";
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", null, ""[{\""name\"":\""myParam\"",\""type\"":{\""fqn\"":\""myParamTypeFqn\""}},{\""name\"":\""event\"",\""type\"":{\""primitive\"":\""string\""}}]"")]
+@"[JsiiMethod(name: ""myMethod"", parametersJson: ""[{\""name\"":\""myParam\"",\""type\"":{\""fqn\"":\""myParamTypeFqn\""}},{\""name\"":\""event\"",\""type\"":{\""primitive\"":\""string\""}}]"")]
 public virtual void MyMethod(MyParamType myParam, string @event)
 {
     InvokeInstanceVoidMethod(new object[]{myParam, @event});
@@ -113,7 +113,7 @@ public virtual void MyMethod(MyParamType myParam, string @event)
         {
             Method method = new Method
             (
-                false, false, false, name: "myMethod",
+                name: "myMethod",
                 docs: new Docs { { "foo", "bar" } }
             );
 
@@ -121,7 +121,7 @@ public virtual void MyMethod(MyParamType myParam, string @event)
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", null, ""[]"")]
+@"[JsiiMethod(name: ""myMethod"")]
 public virtual void MyMethod()
 {
     InvokeInstanceVoidMethod(new object[]{});
@@ -134,11 +134,10 @@ public virtual void MyMethod()
         {
             Method method = new Method
             (
-                isInitializer: false,
                 isProtected: false,
                 isAbstract: false,
                 name: "myMethod",
-                returns: new TypeReference("myReturnTypeFqn")
+                returns: new OptionalValue(type: new TypeReference("myReturnTypeFqn"))
             );
 
             Symbols.MapMethodName("myClassFqn", "myMethod", "MyMethod");
@@ -146,7 +145,7 @@ public virtual void MyMethod()
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", ""{\""fqn\"":\""myReturnTypeFqn\""}"", ""[]"")]
+@"[JsiiMethod(name: ""myMethod"", returnsJson: ""{\""type\"":{\""fqn\"":\""myReturnTypeFqn\""}}"")]
 public virtual MyReturnType MyMethod()
 {
     return InvokeInstanceMethod<MyReturnType>(new object[]{});
@@ -159,11 +158,10 @@ public virtual MyReturnType MyMethod()
         {
             Method method = new Method
             (
-                isInitializer: false,
                 isProtected: false,
                 isAbstract: false,
                 name: "myMethod",
-                returns: new TypeReference("myReturnTypeFqn"),
+                returns: new OptionalValue(type: new TypeReference("myReturnTypeFqn")),
                 isStatic: true
             );
 
@@ -172,7 +170,7 @@ public virtual MyReturnType MyMethod()
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", ""{\""fqn\"":\""myReturnTypeFqn\""}"", ""[]"")]
+@"[JsiiMethod(name: ""myMethod"", returnsJson: ""{\""type\"":{\""fqn\"":\""myReturnTypeFqn\""}}"")]
 public static MyReturnType MyMethod()
 {
     return InvokeStaticMethod<MyReturnType>(typeof(MyClass), new object[]{});

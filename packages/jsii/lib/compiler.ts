@@ -212,7 +212,7 @@ export class Compiler implements Emitter {
             }
         }
         LOG.debug(`Creating or updating ${colors.blue(this.configPath)}`);
-        await fs.writeJson(this.configPath, this.typescriptConfig, {  replacer: utils.filterEmpty, spaces: 4 });
+        await fs.writeJson(this.configPath, this.typescriptConfig, { encoding: 'utf8', spaces: 2 });
     }
 
     /**

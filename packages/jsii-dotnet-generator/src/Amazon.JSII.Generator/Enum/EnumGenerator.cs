@@ -36,7 +36,7 @@ namespace Amazon.JSII.Generator.Enum
                 SF.AttributeList(SF.SeparatedList(new[] {
                     SF.Attribute(
                         SF.ParseName("JsiiEnum"),
-                        SF.ParseAttributeArgumentList($"({typeOfExpression}, {fullyQualifiedNameLiteral})")
+                        SF.ParseAttributeArgumentList($"(nativeType: {typeOfExpression}, fullyQualifiedName: {fullyQualifiedNameLiteral})")
                     )
                 }))
             });
@@ -54,7 +54,7 @@ namespace Amazon.JSII.Generator.Enum
                         SF.AttributeList(SF.SeparatedList(new[] {
                             SF.Attribute(
                                 SF.ParseName("JsiiEnumMember"),
-                                SF.ParseAttributeArgumentList($"(\"{member.Name}\")")
+                                SF.ParseAttributeArgumentList($"(name: \"{member.Name}\")")
                             )
                         }))
                     }),

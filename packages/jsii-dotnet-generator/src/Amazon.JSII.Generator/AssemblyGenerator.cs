@@ -309,7 +309,7 @@ namespace Amazon.JSII.Generator
                         SaveTypeFile($"{symbols.GetInterfaceProxyName(interfaceType)}.cs",
                             new InterfaceProxyGenerator(assembly.Name, interfaceType, symbols).CreateSyntaxTree());
 
-                        if (interfaceType.IsDataType == true)
+                        if (interfaceType.IsDataType)
                         {
                             SaveTypeFile($"{symbols.GetInterfaceDefaultName(interfaceType)}.cs",
                                 new InterfaceDefaultGenerator(assembly.Name, interfaceType, symbols)

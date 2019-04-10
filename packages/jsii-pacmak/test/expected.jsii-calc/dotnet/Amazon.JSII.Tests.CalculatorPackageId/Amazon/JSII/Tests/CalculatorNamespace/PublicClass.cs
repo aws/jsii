@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(typeof(PublicClass), "jsii-calc.PublicClass", "[]")]
+    [JsiiClass(nativeType: typeof(PublicClass), fullyQualifiedName: "jsii-calc.PublicClass")]
     public class PublicClass : DeputyBase
     {
         public PublicClass(): base(new DeputyProps(new object[]{}))
@@ -17,7 +17,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod("hello", null, "[]")]
+        [JsiiMethod(name: "hello")]
         public virtual void Hello()
         {
             InvokeInstanceVoidMethod(new object[]{});

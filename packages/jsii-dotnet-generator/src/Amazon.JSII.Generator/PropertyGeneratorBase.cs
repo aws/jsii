@@ -32,7 +32,7 @@ namespace Amazon.JSII.Generator
 
         public PropertyDeclarationSyntax CreateProperty()
         {
-            PropertyDeclarationSyntax declaration = Property.IsConstant == true ?
+            PropertyDeclarationSyntax declaration = Property.IsConstant ?
                 SF.PropertyDeclaration
                 (
                     GetAttributeLists(),
@@ -150,6 +150,11 @@ namespace Amazon.JSII.Generator
             return SF.TokenList(GetModifierKeywords().Select(k => SF.Token(k)));
         }
 
+        private static readonly JsonSerializerSettings SerializerSettings = new JsonSerializerSettings
+        {
+            DefaultValueHandling = DefaultValueHandling.Ignore
+        };
+        
         SyntaxList<AttributeListSyntax> GetAttributeLists()
         {
             return SF.List(new[] { SF.AttributeList(SF.SeparatedList(GetAttributes())) });
@@ -157,16 +162,22 @@ namespace Amazon.JSII.Generator
             IEnumerable<AttributeSyntax> GetAttributes()
             {
                 SyntaxToken nameLiteral = SF.Literal(Property.Name);
-                SyntaxToken typeJsonLiteral = SF.Literal(JsonConvert.SerializeObject(Property.Type));
+                SyntaxToken typeJsonLiteral = SF.Literal(JsonConvert.SerializeObject(Property.Type, SerializerSettings));
                 SyntaxToken trueLiteral = SF.Token(SyntaxKind.TrueKeyword);
 
-                string argumentList = IsOverride ?
-                    $"({nameLiteral}, {typeJsonLiteral}, {trueLiteral})" :
-                    $"({nameLiteral}, {typeJsonLiteral})";
+                string argumentList = $"name: {nameLiteral}, typeJson: {typeJsonLiteral}";
+                if (Property.IsOptional)
+                {
+                    argumentList += $", isOptional: {trueLiteral}";
+                }
+                if (IsOverride)
+                {
+                    argumentList += $", isOverride: {trueLiteral}";
+                }
 
                 yield return SF.Attribute(
                     SF.ParseName("JsiiProperty"),
-                    SF.ParseAttributeArgumentList(argumentList)
+                    SF.ParseAttributeArgumentList($"({argumentList})")
                 );
             }
         }
@@ -174,7 +185,7 @@ namespace Amazon.JSII.Generator
         TypeSyntax GetReturnType()
         {
             Namespaces.Add(Property.Type);
-            return Symbols.GetTypeSyntax(Property.Type);
+            return Symbols.GetTypeSyntax(Property.Type, Property.IsOptional);
         }
 
         ExplicitInterfaceSpecifierSyntax GetExplicitInterfaceSpecifier()

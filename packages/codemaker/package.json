@@ -16,10 +16,10 @@
     "@types/node": "^8.10.43",
     "@types/nodeunit": "^0.0.30",
     "nodeunit": "^0.11.3",
-    "typescript": "^3.3.3333"
+    "typescript": "^3.4.2"
   },
   "dependencies": {
-    "camelcase": "^5.2.0",
+    "camelcase": "^5.3.1",
     "decamelize": "^1.2.0",
     "fs-extra": "^7.0.1"
   },

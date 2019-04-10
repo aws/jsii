@@ -13,12 +13,12 @@ namespace Amazon.JSII.Generator.Interface
         public InterfaceDefaultPropertyGenerator(InterfaceType type, Property property, ISymbolMap symbols, INamespaceSet namespaces)
             : base(type, property, symbols, namespaces)
         {
-            if (property.IsAbstract != true)
+            if (!property.IsAbstract)
             {
                 throw new ArgumentException("Interface properties must be abstract", nameof(property));
             }
 
-            if (property.IsProtected == true)
+            if (property.IsProtected)
             {
                 throw new ArgumentException("Protected properties are not allowed on interfaces", nameof(property));
             }
@@ -34,7 +34,7 @@ namespace Amazon.JSII.Generator.Interface
 
         protected override IEnumerable<SyntaxKind> GetModifierKeywords()
         {
-            yield return Property.IsProtected == true ? SyntaxKind.ProtectedKeyword : SyntaxKind.PublicKeyword;
+            yield return Property.IsProtected? SyntaxKind.ProtectedKeyword : SyntaxKind.PublicKeyword;
         }
 
         protected override SyntaxToken GetIdentifier()

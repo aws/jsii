@@ -47,7 +47,7 @@ export class Assembly {
    * The module repository, maps to "repository" from package.json
    * This is required since some package managers (like Maven) require it.
    */
-  public get repository(): { type: string, url: string } {
+  public get repository(): { type: string, url: string, directory?: string } {
     return this.spec.repository;
   }
 
@@ -140,10 +140,6 @@ export class Assembly {
 
   public get enums(): EnumType[] {
     return this.types.filter(t => t instanceof EnumType).map(t => t as EnumType);
-  }
-
-  public get locationInRepository(): string | undefined {
-    return this.spec.locationInRepository;
   }
 
   public findType(fqn: string) {

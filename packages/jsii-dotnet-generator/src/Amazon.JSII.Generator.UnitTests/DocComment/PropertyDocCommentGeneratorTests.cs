@@ -13,12 +13,12 @@ namespace Amazon.JSII.Generator.UnitTests.DocComment
         string Render(Docs docs)
         {
             Property property = new Property(
-                "myProp",
-                new TypeReference(primitive: PrimitiveType.String),
-                false,
-                false,
-                false,
-                docs
+                name: "myProp",
+                type: new TypeReference(primitive: PrimitiveType.String),
+                isImmutable: false,
+                isAbstract: false,
+                isStatic: false,
+                docs: docs
             );
 
             PropertyDocCommentGenerator generator = new PropertyDocCommentGenerator(property);

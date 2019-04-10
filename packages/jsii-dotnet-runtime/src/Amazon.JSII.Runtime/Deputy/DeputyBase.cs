@@ -138,7 +138,7 @@ namespace Amazon.JSII.Runtime.Deputy
 
             IJsiiToFrameworkConverter converter = serviceProvider.GetRequiredService<IJsiiToFrameworkConverter>();
             IReferenceMap referenceMap = serviceProvider.GetRequiredService<IReferenceMap>();
-            if (!converter.TryConvert(propertyAttribute.Type, referenceMap, response.Value, out object frameworkValue))
+            if (!converter.TryConvert(propertyAttribute, referenceMap, response.Value, out object frameworkValue))
             {
                 throw new ArgumentException($"Could not convert value '{response.Value}' for property '{propertyAttribute.Name}'", nameof(getFunc));
             }
@@ -183,7 +183,7 @@ namespace Amazon.JSII.Runtime.Deputy
             IServiceProvider serviceProvider = ServiceContainer.ServiceProvider;
             IFrameworkToJsiiConverter converter = serviceProvider.GetRequiredService<IFrameworkToJsiiConverter>();
             IReferenceMap referenceMap = serviceProvider.GetRequiredService<IReferenceMap>();
-            if (!converter.TryConvert(propertyAttribute.Type, referenceMap, value, out object jsiiValue))
+            if (!converter.TryConvert(propertyAttribute, referenceMap, value, out object jsiiValue))
             {
                 throw new ArgumentException($"Could not set property '{propertyAttribute.Name}' to '{value}'", nameof(value));
             }
@@ -267,7 +267,7 @@ namespace Amazon.JSII.Runtime.Deputy
             {
                 object[] args = ConvertArguments(methodAttribute.Parameters, arguments);
 
-                if (methodAttribute.Returns?.IsPromise == true)
+                if (methodAttribute.IsAsync)
                 {
                     BeginResponse beginResponse = beginFunc(client, args);
 
@@ -326,7 +326,7 @@ namespace Amazon.JSII.Runtime.Deputy
 
             return parameters.Zip(arguments, (parameter, frameworkArgument) =>
             {
-                if (!converter.TryConvert(parameter.Type, referenceMap, frameworkArgument, out object jsiiArgument))
+                if (!converter.TryConvert(parameter, referenceMap, frameworkArgument, out object jsiiArgument))
                 {
                     throw new ArgumentException($"Could not convert argument '{frameworkArgument}' to Jsii", nameof(arguments));
                 }

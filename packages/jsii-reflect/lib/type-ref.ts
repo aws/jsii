@@ -8,22 +8,14 @@ export class TypeReference {
     private readonly spec?: jsii.TypeReference) { }
 
   public toString(): string {
-    const self = this;
+    if (this.void) { return 'void'; }
+    if (this.primitive) { return this.primitive; }
+    if (this.fqn) { return this.fqn; }
 
-    function r(ret: string) {
-      if (self.optional) { ret += '?'; }
-      if (self.promise) { ret = `Promise<${ret}>`; }
-      return ret;
-    }
-
-    if (this.void) { return r('void'); }
-    if (this.primitive) { return r(this.primitive); }
-    if (this.fqn) { return r(this.fqn); }
-
-    if (this.arrayOfType) { return r(`Array<${this.arrayOfType}>`); }
-    if (this.mapOfType) { return r(`Map<string => ${this.mapOfType}>`); }
+    if (this.arrayOfType) { return `Array<${this.arrayOfType}>`; }
+    if (this.mapOfType) { return `Map<string => ${this.mapOfType}>`; }
     if (this.unionOfTypes) {
-      return r(this.unionOfTypes.map(x => x.toString()).join(' | '));
+      return this.unionOfTypes.map(x => x.toString()).join(' | ');
     }
 
     throw new Error(`Invalid type reference`);
@@ -87,21 +79,5 @@ export class TypeReference {
     }
 
     return this.spec.union.types.map(t => new TypeReference(this.system, t));
-  }
-
-  /**
-   * Indicates if this value is optional.
-   */
-  public get optional(): boolean {
-    if (!this.spec) { return false; }
-    return !!this.spec.optional;
-  }
-
-  /**
-   * Indicates if this type refers to a promise.
-   */
-  public get promise(): boolean {
-    if (!this.spec) { return false; }
-    return !!this.spec.promise;
   }
 }

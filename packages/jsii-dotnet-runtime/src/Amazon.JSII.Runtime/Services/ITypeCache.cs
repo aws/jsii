@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Amazon.JSII.JsonModel.Spec;
+using Type = System.Type;
 
 namespace Amazon.JSII.Runtime.Services
 {
@@ -12,6 +13,6 @@ namespace Amazon.JSII.Runtime.Services
 
         Type GetProxyType(string fullyQualifiedName);
 
-        Type GetFrameworkType(JsonModel.Spec.TypeReference reference);
+        Type GetFrameworkType(TypeReference reference, bool isOptional);
     }
 }

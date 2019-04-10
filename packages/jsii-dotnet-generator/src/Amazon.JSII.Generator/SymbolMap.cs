@@ -363,11 +363,11 @@ namespace Amazon.JSII.Generator
         }
 
         #endregion
-
-        public TypeSyntax GetTypeSyntax(TypeReference typeReference)
+        
+        public TypeSyntax GetTypeSyntax(TypeReference typeReference, bool isOptional)
         {
-            bool isOptional = (typeReference ?? throw new ArgumentNullException(nameof(typeReference))).IsOptional == true;
-
+            typeReference = typeReference ?? throw new ArgumentNullException(nameof(typeReference));
+            
             if (typeReference.Primitive != null)
             {
                 switch (typeReference.Primitive.Value)
@@ -375,13 +375,13 @@ namespace Amazon.JSII.Generator
                     case PrimitiveType.Any:
                         return SF.ParseTypeName("object");
                     case PrimitiveType.Boolean:
-                        return SF.ParseTypeName(isOptional ? "bool?" : "bool");
+                        return NullableIfOptional(SF.ParseTypeName("bool"));
                     case PrimitiveType.Date:
-                        return SF.ParseTypeName(isOptional ? "DateTime?" : "DateTime");
+                        return NullableIfOptional(SF.ParseTypeName("DateTime"));
                     case PrimitiveType.Json:
                         return SF.ParseTypeName("JObject");
                     case PrimitiveType.Number:
-                        return SF.ParseTypeName(isOptional ? "double?" : "double");
+                        return NullableIfOptional(SF.ParseTypeName("double"));
                     case PrimitiveType.String:
                         return SF.ParseTypeName("string");
                     default:
@@ -391,7 +391,7 @@ namespace Amazon.JSII.Generator
 
             if (typeReference.Collection != null)
             {
-                TypeSyntax elementType = GetTypeSyntax(typeReference.Collection.ElementType);
+                TypeSyntax elementType = GetTypeSyntax(typeReference.Collection.ElementType, false);
 
                 switch (typeReference.Collection.Kind)
                 {
@@ -414,12 +414,17 @@ namespace Amazon.JSII.Generator
 
             if (typeReference.FullyQualifiedName != null)
             {
-                Type type = GetTypeFromFullyQualifiedName(typeReference.FullyQualifiedName);
-
-                return SF.ParseTypeName(GetName(type, true));
+                var type = GetTypeFromFullyQualifiedName(typeReference.FullyQualifiedName);
+                var typeSyntax = SF.ParseTypeName(GetName(type, true));
+                return type.Kind == TypeKind.Enum ? NullableIfOptional(typeSyntax) : typeSyntax;
             }
 
             throw new ArgumentException("Invalid type reference", nameof(typeReference));
+            
+            TypeSyntax NullableIfOptional(TypeSyntax type)
+            {
+                return isOptional ? SF.NullableType(type) : type;
+            }
         }
 
         public Type GetTypeFromFullyQualifiedName(string fullyQualifiedName)

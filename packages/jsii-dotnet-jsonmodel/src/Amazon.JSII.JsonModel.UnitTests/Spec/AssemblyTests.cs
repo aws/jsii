@@ -11,7 +11,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
     {
         const string RootPrefix = nameof(Spec) + "." + nameof(Assembly) + ".";
 
-        public class Serialization
+        public class Serialization : TestUtils
         {
             const string Prefix = RootPrefix + "Serialization.";
 
@@ -54,9 +54,9 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                     readme: new Readme("myReadme")
                 );
 
-                string actual = JsonConvert.SerializeObject(assembly, Formatting.Indented);
+                string actual = ToJson(assembly);
                 const string expected = @"{
-  ""schema"": ""jsii/1.0"",
+  ""schema"": ""jsii/0.9.0"",
   ""name"": ""myName"",
   ""description"": ""My description"",
   ""homepage"": ""http://www.example.com/"",
@@ -182,9 +182,9 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                     docs: new Docs()
                 );
 
-                string actual = JsonConvert.SerializeObject(assembly, Formatting.Indented);
+                string actual = ToJson(assembly);
                 const string expected = @"{
-  ""schema"": ""jsii/1.0"",
+  ""schema"": ""jsii/0.9.0"",
   ""name"": ""myName"",
   ""description"": """",
   ""homepage"": """",
@@ -242,9 +242,9 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                     docs: new Docs()
                 );
 
-                string actual = JsonConvert.SerializeObject(assembly, Formatting.Indented);
+                string actual = ToJson(assembly);
                 const string expected = @"{
-  ""schema"": ""jsii/1.0"",
+  ""schema"": ""jsii/0.9.0"",
   ""name"": ""myName"",
   ""description"": """",
   ""homepage"": """",
@@ -302,9 +302,9 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                     docs: null
                 );
 
-                string actual = JsonConvert.SerializeObject(assembly, Formatting.Indented);
+                string actual = ToJson(assembly);
                 const string expected = @"{
-  ""schema"": ""jsii/1.0"",
+  ""schema"": ""jsii/0.9.0"",
   ""name"": ""myName"",
   ""description"": """",
   ""homepage"": """",
@@ -345,7 +345,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
             public void ShouldDeserializeAllMembers()
             {
                 const string json = @"{
-  ""schema"": ""jsii/1.0"",
+  ""schema"": ""jsii/0.9.0"",
   ""name"": ""myName"",
   ""description"": """",
   ""homepage"": """",
@@ -368,7 +368,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
 
                 Assembly actual = JsonConvert.DeserializeObject<Assembly>(json);
 
-                Assert.Equal("jsii/1.0", actual.Schema, ignoreLineEndingDifferences: true);
+                Assert.Equal("jsii/0.9.0", actual.Schema, ignoreLineEndingDifferences: true);
                 Assert.Equal("myName", actual.Name, ignoreLineEndingDifferences: true);
                 Assert.Null(actual.Targets);
                 Assert.Equal("myVersion", actual.Version, ignoreLineEndingDifferences: true);
@@ -382,7 +382,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
             public void ShouldDeserializeAllMembersWithNoTypes()
             {
                 const string json = @"{
-  ""schema"": ""jsii/1.0"",
+  ""schema"": ""jsii/0.9.0"",
   ""name"": ""myName"",
   ""description"": """",
   ""homepage"": """",
@@ -404,7 +404,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
 
                 Assembly actual = JsonConvert.DeserializeObject<Assembly>(json);
 
-                Assert.Equal("jsii/1.0", actual.Schema, ignoreLineEndingDifferences: true);
+                Assert.Equal("jsii/0.9.0", actual.Schema, ignoreLineEndingDifferences: true);
                 Assert.Equal("myName", actual.Name, ignoreLineEndingDifferences: true);
                 Assert.Null(actual.Targets);
                 Assert.Equal("myVersion", actual.Version, ignoreLineEndingDifferences: true);
@@ -419,7 +419,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
             public void ShouldDeserializeAllMembersWithDotNetTarget()
             {
                 const string json = @"{
-  ""schema"": ""jsii/1.0"",
+  ""schema"": ""jsii/0.9.0"",
   ""name"": ""myName"",
   ""targets"": {
     ""dotnet"": {
@@ -452,7 +452,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
 
                 Assembly actual = JsonConvert.DeserializeObject<Assembly>(json);
 
-                Assert.Equal("jsii/1.0", actual.Schema, ignoreLineEndingDifferences: true);
+                Assert.Equal("jsii/0.9.0", actual.Schema, ignoreLineEndingDifferences: true);
                 Assert.Equal("myName", actual.Name, ignoreLineEndingDifferences: true);
 
                 AssemblyTargets.DotNetTarget dotNetTarget = actual.Targets.DotNet;
@@ -474,7 +474,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
             public void ShouldThrowOnMissingName()
             {
                 const string json = @"{
-  ""schema"": ""jsii/1.0"",
+  ""schema"": ""jsii/0.9.0"",
   ""targets"": {
     ""dotnet"": {
       ""namespace"": ""AWS.Cdk.Test"",
@@ -507,7 +507,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
             public void ShouldThrowOnMissingDotNetTarget()
             {
                 const string json = @"{
-  ""schema"": ""jsii/1.0"",
+  ""schema"": ""jsii/0.9.0"",
   ""name"": ""myName"",
   ""description"": """",
   ""homepage"": """",
@@ -536,7 +536,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
             public void ShouldThrowOnMissingVersion()
             {
                 const string json = @"{
-  ""schema"": ""jsii/1.0"",
+  ""schema"": ""jsii/0.9.0"",
   ""name"": ""myName"",
   ""targets"": {
     ""dotnet"": {
@@ -569,7 +569,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
             public void ShouldNotDeserializeMissingDependencies()
             {
                 const string json = @"{
-  ""schema"": ""jsii/1.0"",
+  ""schema"": ""jsii/0.9.0"",
   ""name"": ""myName"",
   ""targets"": {
     ""dotnet"": {
@@ -603,7 +603,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
             public void ShouldNotDeserializeMissingBundled()
             {
                 const string json = @"{
-  ""schema"": ""jsii/1.0"",
+  ""schema"": ""jsii/0.9.0"",
   ""name"": ""myName"",
   ""targets"": {
     ""dotnet"": {
@@ -637,7 +637,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
             public void ShouldNotDeserializeMissingDocs()
             {
                 const string json = @"{
-  ""schema"": ""jsii/1.0"",
+  ""schema"": ""jsii/0.9.0"",
   ""name"": ""myName"",
   ""targets"": {
     ""dotnet"": {

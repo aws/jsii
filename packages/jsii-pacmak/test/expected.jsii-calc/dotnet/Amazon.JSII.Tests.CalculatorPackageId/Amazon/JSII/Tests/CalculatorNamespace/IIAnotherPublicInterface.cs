@@ -2,10 +2,10 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiInterface(typeof(IIAnotherPublicInterface), "jsii-calc.IAnotherPublicInterface")]
+    [JsiiInterface(nativeType: typeof(IIAnotherPublicInterface), fullyQualifiedName: "jsii-calc.IAnotherPublicInterface")]
     public interface IIAnotherPublicInterface
     {
-        [JsiiProperty("a", "{\"primitive\":\"string\"}")]
+        [JsiiProperty(name: "a", typeJson: "{\"primitive\":\"string\"}")]
         string A
         {
             get;

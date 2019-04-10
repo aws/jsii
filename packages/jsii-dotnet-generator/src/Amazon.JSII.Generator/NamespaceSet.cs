@@ -77,7 +77,7 @@ namespace Amazon.JSII.Generator
 
             if (typeReference.Union != null)
             {
-                foreach (TypeReference partialTypeReference in typeReference.Union.Types)
+                foreach (var partialTypeReference in typeReference.Union.Types)
                 {
                     Add(partialTypeReference);
                 }

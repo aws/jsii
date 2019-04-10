@@ -7,11 +7,11 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     /// These classes can be greeted with
     /// a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
     /// </remarks>
-    [JsiiInterface(typeof(IIFriendly), "@scope/jsii-calc-lib.IFriendly")]
+    [JsiiInterface(nativeType: typeof(IIFriendly), fullyQualifiedName: "@scope/jsii-calc-lib.IFriendly")]
     public interface IIFriendly
     {
         /// <summary>Say hello!</summary>
-        [JsiiMethod("hello", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod(name: "hello", returnsJson: "{\"type\":{\"primitive\":\"string\"}}")]
         string Hello();
     }
 }

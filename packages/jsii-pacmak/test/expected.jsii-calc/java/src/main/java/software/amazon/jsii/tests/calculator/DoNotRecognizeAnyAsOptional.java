@@ -14,15 +14,15 @@ public class DoNotRecognizeAnyAsOptional extends software.amazon.jsii.JsiiObject
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
-    public void method(final java.lang.Object _requiredAny, @javax.annotation.Nullable final java.lang.Object _optionalAny, @javax.annotation.Nullable final java.lang.String _optionalString) {
-        this.jsiiCall("method", Void.class, java.util.stream.Stream.concat(java.util.stream.Stream.concat(java.util.stream.Stream.of(java.util.Objects.requireNonNull(_requiredAny, "_requiredAny is required")), java.util.stream.Stream.of(_optionalAny)), java.util.stream.Stream.of(_optionalString)).toArray());
+    public void method(@javax.annotation.Nullable final java.lang.Object _requiredAny, @javax.annotation.Nullable final java.lang.Object _optionalAny, @javax.annotation.Nullable final java.lang.String _optionalString) {
+        this.jsiiCall("method", Void.class, java.util.stream.Stream.concat(java.util.stream.Stream.concat(java.util.stream.Stream.of(_requiredAny), java.util.stream.Stream.of(_optionalAny)), java.util.stream.Stream.of(_optionalString)).toArray());
     }
 
-    public void method(final java.lang.Object _requiredAny, @javax.annotation.Nullable final java.lang.Object _optionalAny) {
-        this.jsiiCall("method", Void.class, java.util.stream.Stream.concat(java.util.stream.Stream.of(java.util.Objects.requireNonNull(_requiredAny, "_requiredAny is required")), java.util.stream.Stream.of(_optionalAny)).toArray());
+    public void method(@javax.annotation.Nullable final java.lang.Object _requiredAny, @javax.annotation.Nullable final java.lang.Object _optionalAny) {
+        this.jsiiCall("method", Void.class, java.util.stream.Stream.concat(java.util.stream.Stream.of(_requiredAny), java.util.stream.Stream.of(_optionalAny)).toArray());
     }
 
-    public void method(final java.lang.Object _requiredAny) {
-        this.jsiiCall("method", Void.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(_requiredAny, "_requiredAny is required")).toArray());
+    public void method(@javax.annotation.Nullable final java.lang.Object _requiredAny) {
+        this.jsiiCall("method", Void.class, java.util.stream.Stream.of(_requiredAny).toArray());
     }
 }

@@ -7,7 +7,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     /// These classes can be greeted with
     /// a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
     /// </remarks>
-    [JsiiTypeProxy(typeof(IIFriendly), "@scope/jsii-calc-lib.IFriendly")]
+    [JsiiTypeProxy(nativeType: typeof(IIFriendly), fullyQualifiedName: "@scope/jsii-calc-lib.IFriendly")]
     internal sealed class IFriendlyProxy : DeputyBase, IIFriendly
     {
         private IFriendlyProxy(ByRefValue reference): base(reference)
@@ -15,7 +15,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         }
 
         /// <summary>Say hello!</summary>
-        [JsiiMethod("hello", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod(name: "hello", returnsJson: "{\"type\":{\"primitive\":\"string\"}}")]
         public string Hello()
         {
             return InvokeInstanceMethod<string>(new object[]{});

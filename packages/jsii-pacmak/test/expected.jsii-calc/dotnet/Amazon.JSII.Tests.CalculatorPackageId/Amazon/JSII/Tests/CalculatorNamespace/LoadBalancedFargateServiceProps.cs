@@ -11,7 +11,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// default: 80
         /// Corresponds to container port mapping.
         /// </remarks>
-        [JsiiProperty("containerPort", "{\"primitive\":\"number\",\"optional\":true}", true)]
+        [JsiiProperty(name: "containerPort", typeJson: "{\"primitive\":\"number\"}", isOptional: true, isOverride: true)]
         public double? ContainerPort
         {
             get;
@@ -23,7 +23,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// default: 256
         /// This default is set in the underlying FargateTaskDefinition construct.
         /// </remarks>
-        [JsiiProperty("cpu", "{\"primitive\":\"string\",\"optional\":true}", true)]
+        [JsiiProperty(name: "cpu", typeJson: "{\"primitive\":\"string\"}", isOptional: true, isOverride: true)]
         public string Cpu
         {
             get;
@@ -48,7 +48,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// 
         /// This default is set in the underlying FargateTaskDefinition construct.
         /// </remarks>
-        [JsiiProperty("memoryMiB", "{\"primitive\":\"string\",\"optional\":true}", true)]
+        [JsiiProperty(name: "memoryMiB", typeJson: "{\"primitive\":\"string\"}", isOptional: true, isOverride: true)]
         public string MemoryMiB
         {
             get;
@@ -57,7 +57,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Determines whether the Application Load Balancer will be internet-facing.</summary>
         /// <remarks>default: true</remarks>
-        [JsiiProperty("publicLoadBalancer", "{\"primitive\":\"boolean\",\"optional\":true}", true)]
+        [JsiiProperty(name: "publicLoadBalancer", typeJson: "{\"primitive\":\"boolean\"}", isOptional: true, isOverride: true)]
         public bool? PublicLoadBalancer
         {
             get;
@@ -66,7 +66,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Determines whether your Fargate Service will be assigned a public IP address.</summary>
         /// <remarks>default: false</remarks>
-        [JsiiProperty("publicTasks", "{\"primitive\":\"boolean\",\"optional\":true}", true)]
+        [JsiiProperty(name: "publicTasks", typeJson: "{\"primitive\":\"boolean\"}", isOptional: true, isOverride: true)]
         public bool? PublicTasks
         {
             get;

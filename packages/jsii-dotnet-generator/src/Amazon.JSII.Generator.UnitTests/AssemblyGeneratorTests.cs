@@ -609,7 +609,7 @@ namespace Amazon.JSII.Generator.UnitTests
 
 namespace Aws.Cdk.CxApiNamespace
 {
-    [JsiiClass(typeof(MissingContext), ""jsii$aws_cdk_cx_api$.MissingContext"", ""[]"")]
+    [JsiiClass(nativeType: typeof(MissingContext), fullyQualifiedName: ""jsii$aws_cdk_cx_api$.MissingContext"")]
     public class MissingContext : DeputyBase
     {
         public MissingContext(): base(new DeputyProps(new object[]{}))

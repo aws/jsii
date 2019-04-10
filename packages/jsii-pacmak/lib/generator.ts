@@ -73,8 +73,8 @@ export abstract class Generator implements IGenerator {
     public async load(packageDir: string) {
         this.assembly = await util.loadAssembly(packageDir);
 
-        if (this.assembly.schema !== spec.SchemaVersion.V1_0) {
-            throw new Error(`Invalid schema version "${this.assembly.schema}". Expecting "${spec.SchemaVersion.V1_0}"`);
+        if (this.assembly.schema !== spec.SchemaVersion.LATEST) {
+            throw new Error(`Invalid schema version "${this.assembly.schema}". Expecting "${spec.SchemaVersion.LATEST}"`);
         }
 
         // Including the version of jsii-pacmak in the fingerprint, as a new version may imply different code generation.
@@ -176,8 +176,8 @@ export abstract class Generator implements IGenerator {
     //
     // Initializers (constructos)
 
-    protected onInitializer(cls: spec.ClassType, method: spec.Method) { cls; method; }
-    protected onInitializerOverload(cls: spec.ClassType, overload: spec.Method, originalInitializer: spec.Method) { cls; overload; originalInitializer; }
+    protected onInitializer(_cls: spec.ClassType, _initializer: spec.Initializer) { }
+    protected onInitializerOverload(_cls: spec.ClassType, _overload: spec.Initializer, _originalInitializer: spec.Initializer) { }
 
     //
     // Properties
@@ -311,12 +311,12 @@ export abstract class Generator implements IGenerator {
      *
      * Notice that the method that contains all the arguments will not be returned.
      */
-    protected createOverloadsForOptionals(method: spec.Method) {
-        const methods = new Array<spec.Method>();
+    protected createOverloadsForOptionals<T extends (spec.Method | spec.Initializer)>(method: T) {
+        const overloads = new Array<T>();
 
         // if option disabled, just return the empty array.
         if (!this.options.generateOverloadsForMethodWithOptionals || !method.parameters) {
-            return methods;
+            return overloads;
         }
 
         //
@@ -329,17 +329,18 @@ export abstract class Generator implements IGenerator {
         let next: spec.Parameter | undefined
 
         next = remaining.pop();
-        while (next && next.type.optional) {
-            // clone the method but set the parameter list based on the remaining set of parameters
-            let cloned: spec.Method = clone(method);
+        // Parameter is optional if it's type is optional, and all subsequent parameters are optional/variadic
+        while (next && next.optional) {
+        // clone the method but set the parameter list based on the remaining set of parameters
+            let cloned: T = clone(method);
             cloned.parameters = clone(remaining);
-            methods.push(cloned);
+            overloads.push(cloned);
 
             // pop the next parameter
             next = remaining.pop();
         }
 
-        return methods;
+        return overloads;
     }
 
     private visitInterface(ifc: spec.InterfaceType) {
@@ -419,16 +420,16 @@ export abstract class Generator implements IGenerator {
 
                     // if require, we also "expand" the union for languages that don't support unions.
                     if (this.options.expandUnionProperties) {
-                        prop.type.union.types.forEach((type, index) => {
+                        for (const [index, type] of prop.type.union.types.entries()) {
                             // create a clone of this property
                             let propClone = clone(prop) as spec.Property;
-                            let primary = this.isPrimaryExpandedUnionProperty(prop.type as spec.UnionTypeReference, index);
+                            let primary = this.isPrimaryExpandedUnionProperty(prop.type, index);
                             let propertyName = primary ? prop.name : `${prop.name}As${this.displayNameForType(type)}`;
                             propClone.type = type;
-                            propClone.type.optional = prop.type.optional;
+                            propClone.optional = prop.optional;
                             propClone.name = propertyName;
                             this.onExpandedUnionProperty(cls, propClone, prop.name);
-                        });
+                        }
                     }
                 }
             });

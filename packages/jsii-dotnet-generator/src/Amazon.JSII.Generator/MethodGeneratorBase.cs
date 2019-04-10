@@ -62,8 +62,6 @@ namespace Amazon.JSII.Generator
 
         protected abstract bool HasSemicolon { get; }
 
-        protected virtual bool IsOverride => false;
-
         protected SyntaxToken GetIdentifier()
         {
             return Symbols.GetNameSyntaxToken(Type, Method);
@@ -107,7 +105,7 @@ namespace Amazon.JSII.Generator
                 string GetInvokeMethodName()
                 {
                     StringBuilder builder = new StringBuilder("Invoke");
-                    builder.Append(Method.IsStatic == true ? "Static" : "Instance");
+                    builder.Append(Method.IsStatic ? "Static" : "Instance");
                     if (Method.Returns == null)
                     {
                         builder.Append("Void");
@@ -126,7 +124,7 @@ namespace Amazon.JSII.Generator
 
             IEnumerable<ExpressionSyntax> GetArgumentExpressions()
             {
-                if (Method.IsStatic == true)
+                if (Method.IsStatic)
                 {
                     yield return SF.TypeOfExpression(Symbols.GetNameSyntax(Type));
                 }
@@ -161,6 +159,11 @@ namespace Amazon.JSII.Generator
                 }
             }
         }
+        
+        private static readonly JsonSerializerSettings SerializerSettings = new JsonSerializerSettings
+        {
+            DefaultValueHandling = DefaultValueHandling.Ignore
+        };
 
         SyntaxList<AttributeListSyntax> GetAttributeLists()
         {
@@ -169,19 +172,34 @@ namespace Amazon.JSII.Generator
             IEnumerable<AttributeSyntax> GetAttributes()
             {
                 SyntaxToken nameLiteral = SF.Literal(Method.Name);
-                SyntaxToken returnsJsonLiteral = Method.Returns == null ?
-                    SF.Token(SyntaxKind.NullKeyword) :
-                    SF.Literal(JsonConvert.SerializeObject(Method.Returns));
-                SyntaxToken parametersJsonLiteral = Method.GetParametersJsonSyntaxToken();
                 SyntaxToken trueLiteral = SF.Token(SyntaxKind.TrueKeyword);
 
-                string argumentList = IsOverride ?
-                    $"({nameLiteral}, {returnsJsonLiteral}, {parametersJsonLiteral}, {trueLiteral})" :
-                    $"({nameLiteral}, {returnsJsonLiteral}, {parametersJsonLiteral})";
+                string argumentList = $"name: {nameLiteral}";
+                if (Method.Returns != null)
+                {
+                    SyntaxToken returnsJsonLiteral = Method.Returns == null ?
+                        SF.Token(SyntaxKind.NullKeyword) :
+                        SF.Literal(JsonConvert.SerializeObject(Method.Returns, SerializerSettings));
+                    argumentList += $", returnsJson: {returnsJsonLiteral}";
+                }
+
+                if (Method.Parameters != null && Method.Parameters.Length > 0)
+                {
+                    SyntaxToken parametersJsonLiteral = Method.GetParametersJsonSyntaxToken();
+                    argumentList += $", parametersJson: {parametersJsonLiteral}";
+                }
+                if (Method.IsAsync)
+                {
+                    argumentList += $", isAsync: {trueLiteral}";
+                }
+                if (Method.Overrides != null)
+                {
+                    argumentList += $", isOverride: {trueLiteral}";
+                }
 
                 yield return SF.Attribute(
                     SF.ParseName("JsiiMethod"),
-                    SF.ParseAttributeArgumentList(argumentList)
+                    SF.ParseAttributeArgumentList($"({argumentList})")
                 );
             }
         }
@@ -203,8 +221,8 @@ namespace Amazon.JSII.Generator
                 return SF.ParseTypeName("void");
             }
 
-            Namespaces.Add(Method.Returns);
-            return Symbols.GetTypeSyntax(Method.Returns);
+            Namespaces.Add(Method.Returns.Type);
+            return Symbols.GetTypeSyntax(Method.Returns.Type, Method.Returns.IsOptional);
         }
 
         TypeParameterListSyntax GetTypeParameterList()

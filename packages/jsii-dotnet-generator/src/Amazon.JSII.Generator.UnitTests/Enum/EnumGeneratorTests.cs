@@ -37,7 +37,7 @@ namespace Amazon.JSII.Generator.UnitTests.Enum
             string expected =
 @"namespace MyNamespace
 {
-    [JsiiEnum(typeof(MyEnum), ""myEnumFqn"")]
+    [JsiiEnum(nativeType: typeof(MyEnum), fullyQualifiedName: ""myEnumFqn"")]
     public enum MyEnum
     {
     }
@@ -67,12 +67,12 @@ namespace Amazon.JSII.Generator.UnitTests.Enum
             string expected =
 @"namespace MyNamespace
 {
-    [JsiiEnum(typeof(MyEnum), ""myEnumFqn"")]
+    [JsiiEnum(nativeType: typeof(MyEnum), fullyQualifiedName: ""myEnumFqn"")]
     public enum MyEnum
     {
-        [JsiiEnumMember(""member1"")]
+        [JsiiEnumMember(name: ""member1"")]
         Member1,
-        [JsiiEnumMember(""member2"")]
+        [JsiiEnumMember(name: ""member2"")]
         Member2
     }
 }";
@@ -99,7 +99,7 @@ namespace Amazon.JSII.Generator.UnitTests.Enum
 @"namespace MyNamespace
 {
     /// <remarks>foo: bar</remarks>
-    [JsiiEnum(typeof(MyEnum), ""myEnumFqn"")]
+    [JsiiEnum(nativeType: typeof(MyEnum), fullyQualifiedName: ""myEnumFqn"")]
     public enum MyEnum
     {
     }
@@ -129,14 +129,14 @@ namespace Amazon.JSII.Generator.UnitTests.Enum
             string expected =
 @"namespace MyNamespace
 {
-    [JsiiEnum(typeof(MyEnum), ""myEnumFqn"")]
+    [JsiiEnum(nativeType: typeof(MyEnum), fullyQualifiedName: ""myEnumFqn"")]
     public enum MyEnum
     {
         /// <remarks>foo: bar</remarks>
-        [JsiiEnumMember(""member1"")]
+        [JsiiEnumMember(name: ""member1"")]
         Member1,
         /// <remarks>foo: bar</remarks>
-        [JsiiEnumMember(""member2"")]
+        [JsiiEnumMember(name: ""member2"")]
         Member2
     }
 }";

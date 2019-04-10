@@ -19,7 +19,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                 name: "myClass",
                 @namespace: "myNamespace",
                 isAbstract: true,
-                initializer: new Method(true, false, false),
+                initializer: new Initializer(),
                 properties: new[] { property }
             );
 
@@ -50,7 +50,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
 
             string actual = Render(property);
             string expected =
-@"[JsiiProperty(""myProperty"", ""{\""fqn\"":\""myPropTypeFqn\""}"")]
+@"[JsiiProperty(name: ""myProperty"", typeJson: ""{\""fqn\"":\""myPropTypeFqn\""}"")]
 public virtual MyPropType MyProperty
 {
     get => GetInstanceProperty<MyPropType>();
@@ -75,7 +75,7 @@ public virtual MyPropType MyProperty
 
             string actual = Render(property);
             string expected =
-@"[JsiiProperty(""myProperty"", ""{\""fqn\"":\""myPropTypeFqn\""}"")]
+@"[JsiiProperty(name: ""myProperty"", typeJson: ""{\""fqn\"":\""myPropTypeFqn\""}"")]
 public virtual MyPropType MyProperty
 {
     get => GetInstanceProperty<MyPropType>();
@@ -100,7 +100,7 @@ public virtual MyPropType MyProperty
 
             string actual = Render(property);
             string expected =
-@"[JsiiProperty(""myProperty"", ""{\""fqn\"":\""myPropTypeFqn\""}"")]
+@"[JsiiProperty(name: ""myProperty"", typeJson: ""{\""fqn\"":\""myPropTypeFqn\""}"")]
 public virtual MyPropType MyProperty
 {
     get => GetInstanceProperty<MyPropType>();
@@ -126,7 +126,7 @@ public virtual MyPropType MyProperty
 
             string actual = Render(property);
             string expected =
-@"[JsiiProperty(""myProperty"", ""{\""fqn\"":\""myPropTypeFqn\""}"")]
+@"[JsiiProperty(name: ""myProperty"", typeJson: ""{\""fqn\"":\""myPropTypeFqn\""}"")]
 protected virtual MyPropType MyProperty
 {
     get => GetInstanceProperty<MyPropType>();
@@ -152,7 +152,7 @@ protected virtual MyPropType MyProperty
 
             string actual = Render(property);
             string expected =
-@"[JsiiProperty(""myProperty"", ""{\""fqn\"":\""myPropTypeFqn\""}"")]
+@"[JsiiProperty(name: ""myProperty"", typeJson: ""{\""fqn\"":\""myPropTypeFqn\""}"")]
 public static MyPropType MyProperty
 {
     get => GetStaticProperty<MyPropType>(typeof(MyClass));
@@ -178,7 +178,7 @@ public static MyPropType MyProperty
 
             string actual = Render(property);
             string expected =
-@"[JsiiProperty(""myProperty"", ""{\""fqn\"":\""myPropTypeFqn\""}"")]
+@"[JsiiProperty(name: ""myProperty"", typeJson: ""{\""fqn\"":\""myPropTypeFqn\""}"")]
 public static MyPropType MyProperty
 {
     get;
@@ -206,7 +206,7 @@ public static MyPropType MyProperty
 
             string actual = Render(property);
             string expected =
-@"[JsiiProperty(""myProperty"", ""{\""fqn\"":\""myPropTypeFqn\""}"")]
+@"[JsiiProperty(name: ""myProperty"", typeJson: ""{\""fqn\"":\""myPropTypeFqn\""}"")]
 public virtual MyPropType MyProperty
 {
     get => GetInstanceProperty<MyPropType>();

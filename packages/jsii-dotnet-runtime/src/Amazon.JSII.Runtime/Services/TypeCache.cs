@@ -49,30 +49,33 @@ namespace Amazon.JSII.Runtime.Services
             return GetType<JsiiTypeProxyAttribute>(fullyQualifiedName + ProxySuffix);
         }
 
-        public Type GetFrameworkType(TypeReference reference)
+        public Type GetFrameworkType(IOptionalValue instance)
         {
-            bool isOptional = reference.IsOptional == true;
-
-            if (reference.FullyQualifiedName != null)
+            return GetFrameworkType(instance?.Type, instance?.IsOptional ?? false);
+        }
+        
+        public Type GetFrameworkType(TypeReference typeReference, bool isOptional)
+        {
+            if (typeReference.FullyQualifiedName != null)
             {
-                Type classType = GetClassType(reference.FullyQualifiedName);
+                Type classType = GetClassType(typeReference.FullyQualifiedName);
                 if (classType != null)
                 {
                     return classType;
                 }
 
-                Type enumType = GetEnumType(reference.FullyQualifiedName);
+                Type enumType = GetEnumType(typeReference.FullyQualifiedName);
                 if (enumType != null)
                 {
                     return MakeNullableIfOptional(enumType);
                 }
 
-                throw new ArgumentException("Type reference has a fully qualified name, but is neither a class nor an enum", nameof(reference));
+                throw new ArgumentException("Type reference has a fully qualified name, but is neither a class nor an enum", nameof(typeReference));
             }
 
-            if (reference.Primitive != null)
+            if (typeReference.Primitive != null)
             {
-                switch (reference.Primitive)
+                switch (typeReference.Primitive)
                 {
                     case PrimitiveType.Any:
                         return typeof(object);
@@ -87,31 +90,31 @@ namespace Amazon.JSII.Runtime.Services
                     case PrimitiveType.String:
                         return typeof(string);
                     default:
-                        throw new ArgumentException($"Unknown primitive type {reference.Primitive}", nameof(reference));
+                        throw new ArgumentException($"Unknown primitive type {typeReference.Primitive}", nameof(typeReference));
 
                 }
             }
 
-            if (reference.Collection != null)
+            if (typeReference.Collection != null)
             {
-                Type elementType = GetFrameworkType(reference.Collection.ElementType);
-                switch (reference.Collection.Kind)
+                Type elementType = GetFrameworkType(typeReference.Collection.ElementType, false);
+                switch (typeReference.Collection.Kind)
                 {
                     case CollectionKind.Array:
                         return elementType.MakeArrayType();
                     case CollectionKind.Map:
                         return typeof(IDictionary<,>).MakeGenericType(typeof(string), elementType);
                     default:
-                        throw new ArgumentException($"Unknown collection kind {reference.Collection.Kind}", nameof(reference));
+                        throw new ArgumentException($"Unknown collection kind {typeReference.Collection.Kind}", nameof(typeReference));
                 }
             }
 
-            if (reference.Union != null)
+            if (typeReference.Union != null)
             {
                 return typeof(object);
             }
 
-            throw new ArgumentException("Invalid type reference", nameof(reference));
+            throw new ArgumentException("Invalid type reference", nameof(typeReference));
 
             Type MakeNullableIfOptional(Type type)
             {

@@ -13,11 +13,8 @@ namespace Amazon.JSII.Generator.UnitTests.DocComment
         string Render(Docs docs, params Parameter[] parameters)
         {
             Method method = new Method(
-                false,
-                false,
-                false,
-                parameters,
-                docs,
+                parameters: parameters,
+                docs: docs,
                 name: "method"
             );
 
@@ -158,9 +155,9 @@ namespace Amazon.JSII.Generator.UnitTests.DocComment
         public void IgnoresParameterParam()
         {
             Parameter parameter = new Parameter(
-                "myParam",
-                new TypeReference(primitive: PrimitiveType.String),
-                new Docs
+                name: "myParam",
+                type: new TypeReference(primitive: PrimitiveType.String),
+                docs: new Docs
                 {
                     { "param", "my comment" }
                 }
@@ -178,9 +175,9 @@ namespace Amazon.JSII.Generator.UnitTests.DocComment
         public void TrimsParameterSummary()
         {
             Parameter parameter = new Parameter(
-                "myParam",
-                new TypeReference(primitive: PrimitiveType.String),
-                new Docs
+                name: "myParam",
+                type: new TypeReference(primitive: PrimitiveType.String),
+                docs: new Docs
                 {
                     { "summary", "my comment" }
                 }
@@ -200,9 +197,9 @@ namespace Amazon.JSII.Generator.UnitTests.DocComment
         public void IncludesParameterRemarks()
         {
             Parameter parameter = new Parameter(
-                "myParam",
-                new TypeReference(primitive: PrimitiveType.String),
-                new Docs
+                name: "myParam",
+                type: new TypeReference(primitive: PrimitiveType.String),
+                docs: new Docs
                 {
                     { "myKey1", "my comment" },
                     { "myKey2", "my comment" }

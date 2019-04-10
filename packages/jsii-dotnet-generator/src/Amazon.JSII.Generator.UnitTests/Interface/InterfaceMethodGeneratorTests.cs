@@ -37,11 +37,10 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
         {
             Method method = new Method
             (
-                false,
-                false,
-                true,
+                isProtected: false,
+                isAbstract: true,
                 name: "myMethod",
-                returns: new TypeReference(fullyQualifiedName: "myReturnTypeFqn")
+                returns: new OptionalValue(type: new TypeReference(fullyQualifiedName: "myReturnTypeFqn"))
             );
 
             Render(method);
@@ -53,16 +52,15 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
         {
             Method method = new Method
             (
-                false,
-                false,
-                true,
+                isProtected: false,
+                isAbstract: true,
                 name: "myMethod",
                 parameters: new[]
                 {
                     new Parameter
                     (
-                        "myParameter",
-                        new TypeReference(fullyQualifiedName: "myParameterTypeFqn")
+                        name: "myParameter",
+                        type: new TypeReference(fullyQualifiedName: "myParameterTypeFqn")
                     )
                 }
             );
@@ -79,15 +77,14 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
         {
             Method method = new Method
             (
-                false,
-                false,
-                true,
+                isProtected: false,
+                isAbstract: true,
                 name: "myMethod"
             );
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", null, ""[]"")]
+@"[JsiiMethod(name: ""myMethod"")]
 void MyMethod();";
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
@@ -98,21 +95,20 @@ void MyMethod();";
         {
             Method method = new Method
             (
-                false,
-                false,
-                true,
+                isProtected: false,
+                isAbstract: true,
                 name: "myMethod",
                 parameters: new[]
                 {
                     new Parameter
                     (
-                        "myParameter1",
-                        new TypeReference(primitive: PrimitiveType.String)
+                        name: "myParameter1",
+                        type: new TypeReference(primitive: PrimitiveType.String)
                     ),
                     new Parameter
                     (
-                        "event",
-                        new TypeReference(primitive: PrimitiveType.String)
+                        name: "event",
+                        type: new TypeReference(primitive: PrimitiveType.String)
                     ),
                 }
             );
@@ -122,7 +118,7 @@ void MyMethod();";
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", null, ""[{\""name\"":\""myParameter1\"",\""type\"":{\""primitive\"":\""string\""}},{\""name\"":\""event\"",\""type\"":{\""primitive\"":\""string\""}}]"")]
+@"[JsiiMethod(name: ""myMethod"", parametersJson: ""[{\""name\"":\""myParameter1\"",\""type\"":{\""primitive\"":\""string\""}},{\""name\"":\""event\"",\""type\"":{\""primitive\"":\""string\""}}]"")]
 void MyMethod(string myParameter1, string @event);";
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
@@ -133,16 +129,15 @@ void MyMethod(string myParameter1, string @event);";
         {
             Method method = new Method
             (
-                false,
-                false,
-                true,
+                isProtected: false,
+                isAbstract: true,
                 name: "myMethod",
-                returns: new TypeReference(primitive: PrimitiveType.String)
+                returns: new OptionalValue(type: new TypeReference(primitive: PrimitiveType.String))
             );
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", ""{\""primitive\"":\""string\""}"", ""[]"")]
+@"[JsiiMethod(name: ""myMethod"", returnsJson: ""{\""type\"":{\""primitive\"":\""string\""}}"")]
 string MyMethod();";
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);

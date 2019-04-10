@@ -1,11 +1,20 @@
-import { Kernel, api } from 'jsii-kernel'
-import { InputOutput, Input } from './in-out';
+import { api, Kernel } from 'jsii-kernel';
+import { Input, InputOutput } from './in-out';
 
 export class KernelHost {
     private kernel = new Kernel(cb => this.callbackHandler(cb));
 
     constructor(readonly inout: InputOutput, readonly opts: { debug?: boolean, noStack?: boolean } = { }) {
         this.kernel.traceEnabled = opts.debug ? true : false;
+    }
+
+    public run() {
+        const req = this.inout.read();
+        if (!req) {
+            return; // done
+        }
+
+        this.processRequest(req, () => this.run());
     }
 
     private callbackHandler(callback: api.Callback) {
@@ -38,19 +47,10 @@ export class KernelHost {
 
             // otherwise, process the request normally, but continue to wait for
             // our callback to be completed. sync=true to enforce that `completeCallback`
-            // will be called synchronously and return value will be chained back so we can 
+            // will be called synchronously and return value will be chained back so we can
             // return it to the callback handler.
             return self.processRequest(req, completeCallback, /* sync */ true);
         }
-    }
-
-    run() {
-        const req = this.inout.read();
-        if (!req) {
-            return; // done
-        }
-
-        this.processRequest(req, () => this.run());
     }
 
     /**
@@ -59,7 +59,7 @@ export class KernelHost {
      * This either happens synchronously or asynchronously depending on the api
      * (e.g. the "end" api will wait for an async promise to be fulfilled before
      * it writes the response)
-     * 
+     *
      * @param req The input request
      * @param next A callback to invoke to continue
      * @param sync If this is 'true', "next" must be called synchronously. This means
@@ -67,7 +67,7 @@ export class KernelHost {
      *             doesn't allow any async operations during a sync callback, so this shouldn't
      *             happen, so we assert in this case to find bugs.
      */
-    private processRequest(req: Input, next: Function, sync = false) {
+    private processRequest(req: Input, next: () => void, sync = false) {
         if ('callback' in req) {
             throw new Error('Unexpected `callback` result. This request should have been processed by a callback handler');
         }
@@ -109,11 +109,11 @@ export class KernelHost {
 
                 this.debug('waiting for promise to be fulfilled');
 
-                const promise = ret as Promise<any>;
+                const promise = ret;
                 promise
-                    .then(ret => {
-                        this.debug('promise succeeded:', ret);
-                        this.writeOkay(ret);
+                    .then(val => {
+                        this.debug('promise succeeded:', val);
+                        this.writeOkay(val);
                         next();
                     })
                     .catch(e => {
@@ -126,8 +126,7 @@ export class KernelHost {
             }
 
             this.writeOkay(ret);
-        }
-        catch (e) {
+        } catch (e) {
             this.writeError(e);
         }
 
@@ -163,23 +162,26 @@ export class KernelHost {
     /**
      * Returns true if the value is a promise.
      */
-    private isPromise(v: any) {
+    private isPromise(v: any): v is Promise<any> {
         return v && v.then && typeof(v.then) === 'function';
     }
 
     /**
      * Given a kernel api name, returns the function to invoke.
      */
-    private findApi(api: string): Function {
-        const fn = (this.kernel as any)[api];
+    private findApi(apiName: string): (this: Kernel, arg: Input) => any {
+        const fn = (this.kernel as any)[apiName];
         if (typeof fn !== 'function') {
-            throw new Error('Invalid kernel api call: ' + api);
+            throw new Error('Invalid kernel api call: ' + apiName);
         }
         return fn;
     }
 
     private debug(...args: any[]) {
-        if (!this.opts.debug) return;
+        if (!this.opts.debug) {
+            return;
+        }
+        // tslint:disable-next-line: no-console
         console.error(...args);
     }
 }

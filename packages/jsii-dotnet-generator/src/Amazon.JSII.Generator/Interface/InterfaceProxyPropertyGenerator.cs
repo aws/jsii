@@ -13,12 +13,12 @@ namespace Amazon.JSII.Generator.Interface
         public InterfaceProxyPropertyGenerator(InterfaceType type, Property property, ISymbolMap symbols, INamespaceSet namespaces)
             : base(type, property, symbols, namespaces)
         {
-            if (property.IsAbstract != true)
+            if (!property.IsAbstract)
             {
                 throw new ArgumentException("Interface properties must be abstract", nameof(property));
             }
 
-            if (property.IsProtected == true)
+            if (property.IsProtected)
             {
                 throw new ArgumentException("Protected properties are not allowed on interfaces", nameof(property));
             }

@@ -1,5 +1,6 @@
 import jsii = require('jsii-spec');
 import { Assembly } from './assembly';
+import { Initializer } from './initializer';
 import { InterfaceType } from './interface';
 import { Method } from './method';
 import { Property } from './property';
@@ -23,9 +24,9 @@ export class ClassType extends ReferenceType {
       return undefined;
     }
 
-    const type = this.system.findFqn(this.classSpec.base.fqn);
+    const type = this.system.findFqn(this.classSpec.base);
     if (!(type instanceof ClassType)) {
-      throw new Error(`FQN for base class points to a non-class type: ${this.classSpec.base.fqn}`);
+      throw new Error(`FQN for base class points to a non-class type: ${this.classSpec.base}`);
     }
 
     return type;
@@ -34,12 +35,12 @@ export class ClassType extends ReferenceType {
   /**
    * Initializer (constructor) method.
    */
-  public get initializer(): Method | undefined {
+  public get initializer(): Initializer | undefined {
     if (!this.classSpec.initializer) {
       return undefined;
     }
 
-    return new Method(this.system, this.assembly, this, this.classSpec.initializer);
+    return new Initializer(this.system, this.assembly, this, this.classSpec.initializer);
   }
 
   /**
@@ -93,7 +94,7 @@ export class ClassType extends ReferenceType {
       out.push(...this.base.getInterfaces(inherited));
     }
     if (this.classSpec.interfaces) {
-      out.push(...this.classSpec.interfaces.map(i => this.system.findInterface(i.fqn)));
+      out.push(...this.classSpec.interfaces.map(iface => this.system.findInterface(iface)));
     }
     return out;
   }

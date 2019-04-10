@@ -2,14 +2,14 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiEnum(typeof(StringEnum), "jsii-calc.StringEnum")]
+    [JsiiEnum(nativeType: typeof(StringEnum), fullyQualifiedName: "jsii-calc.StringEnum")]
     public enum StringEnum
     {
-        [JsiiEnumMember("A")]
+        [JsiiEnumMember(name: "A")]
         A,
-        [JsiiEnumMember("B")]
+        [JsiiEnumMember(name: "B")]
         B,
-        [JsiiEnumMember("C")]
+        [JsiiEnumMember(name: "C")]
         C
     }
 }

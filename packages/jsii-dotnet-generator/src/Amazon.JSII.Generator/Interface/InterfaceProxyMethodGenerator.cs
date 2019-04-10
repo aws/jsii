@@ -12,7 +12,7 @@ namespace Amazon.JSII.Generator.Interface
         public InterfaceProxyMethodGenerator(InterfaceType type, Method method, ISymbolMap symbols, INamespaceSet namespaces)
             : base(type, method, symbols, namespaces)
         {
-            if (method.IsAbstract != true)
+            if (!method.IsAbstract)
             {
                 throw new ArgumentException("Interface methods must be abstract", nameof(method));
             }
@@ -22,7 +22,7 @@ namespace Amazon.JSII.Generator.Interface
                 throw new ArgumentException("Protected methods are not allowed on interfaces", nameof(method));
             }
 
-            if (method.IsStatic == true)
+            if (method.IsStatic)
             {
                 throw new ArgumentException(
                     $"Method {type.Name}.{method.Name} is marked as static, but interfaces must not contain static members.",

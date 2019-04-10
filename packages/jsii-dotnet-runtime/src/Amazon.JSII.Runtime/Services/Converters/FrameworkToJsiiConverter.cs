@@ -59,7 +59,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
                         continue;
                     }
 
-                    if (!TryConvert(jsiiProperty.Type, referenceMap, propValue, out var convertedPropValue) || convertedPropValue == null)
+                    if (!TryConvert(jsiiProperty, referenceMap, propValue, out var convertedPropValue) || convertedPropValue == null)
                     {
                         continue;
                     }
@@ -330,8 +330,8 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 (
                     collection: new CollectionTypeReference
                     (
-                        CollectionKind.Array,
-                        InferType(referenceMap, type.GetElementType())
+                        kind: CollectionKind.Array,
+                        elementType: InferType(referenceMap, type.GetElementType())
                     )
                 );
             }
@@ -350,8 +350,8 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 (
                     collection: new CollectionTypeReference
                     (
-                        CollectionKind.Map,
-                        InferType(referenceMap, elementType)
+                        kind: CollectionKind.Map,
+                        elementType: InferType(referenceMap, elementType)
                     )
                 );
             }

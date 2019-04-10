@@ -142,11 +142,10 @@ namespace Amazon.JSII.Generator.UnitTests
                     isAbstract: false,
                     methods: new[] {
                         new Method(
-                            isInitializer: false,
                             isProtected: false,
                             isAbstract: false,
                             name: "myName",
-                            returns: new TypeReference(primitive: PrimitiveType.String)
+                            returns: new OptionalValue(type: new TypeReference(primitive: PrimitiveType.String))
                         )
                     }
                 );
@@ -445,11 +444,10 @@ namespace Amazon.JSII.Generator.UnitTests
                     @namespace: "myNamespace",
                     methods: new[] {
                         new Method(
-                            isInitializer: false,
                             isProtected: false,
                             isAbstract: false,
                             name: "iMyName",
-                            returns: new TypeReference(primitive: PrimitiveType.String)
+                            returns: new OptionalValue(type: new TypeReference(primitive: PrimitiveType.String))
                         )
                     }
                 );

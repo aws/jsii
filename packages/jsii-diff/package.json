@@ -12,8 +12,8 @@
         "jsii-diff": "bin/jsii-diff"
     },
     "scripts": {
-        "build": "bash ./generate.sh && tsc",
-        "watch": "bash ./generate.sh && tsc -w",
+        "build": "bash ./generate.sh && tsc --build",
+        "watch": "bash ./generate.sh && tsc --build -w",
         "test": "nyc nodeunit test/test.*.js",
         "package": "package-js"
     },
@@ -33,7 +33,7 @@
         "jsii-reflect": "^0.9.0",
         "jsii-spec": "^0.9.0",
         "log4js": "^4.1.0",
-        "typescript": "^3.3.3333",
+        "typescript": "^3.4.2",
         "yargs": "^13.2.2"
     },
     "nyc": {

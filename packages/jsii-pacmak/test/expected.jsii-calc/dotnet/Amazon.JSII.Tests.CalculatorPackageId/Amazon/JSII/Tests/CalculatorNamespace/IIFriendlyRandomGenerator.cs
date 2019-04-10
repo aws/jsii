@@ -3,7 +3,7 @@ using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiInterface(typeof(IIFriendlyRandomGenerator), "jsii-calc.IFriendlyRandomGenerator")]
+    [JsiiInterface(nativeType: typeof(IIFriendlyRandomGenerator), fullyQualifiedName: "jsii-calc.IFriendlyRandomGenerator")]
     public interface IIFriendlyRandomGenerator : IIRandomNumberGenerator, IIFriendly
     {
     }

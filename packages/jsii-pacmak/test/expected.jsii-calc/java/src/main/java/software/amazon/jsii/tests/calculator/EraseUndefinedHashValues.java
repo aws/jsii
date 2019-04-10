@@ -24,6 +24,7 @@ public class EraseUndefinedHashValues extends software.amazon.jsii.JsiiObject {
     /**
      * We expect "prop1" to be erased.
      */
+    @javax.annotation.Nullable
     public static java.lang.Object prop1IsNull() {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.EraseUndefinedHashValues.class, "prop1IsNull", java.lang.Object.class);
     }
@@ -31,6 +32,7 @@ public class EraseUndefinedHashValues extends software.amazon.jsii.JsiiObject {
     /**
      * We expect "prop2" to be erased.
      */
+    @javax.annotation.Nullable
     public static java.lang.Object prop2IsUndefined() {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.EraseUndefinedHashValues.class, "prop2IsUndefined", java.lang.Object.class);
     }
