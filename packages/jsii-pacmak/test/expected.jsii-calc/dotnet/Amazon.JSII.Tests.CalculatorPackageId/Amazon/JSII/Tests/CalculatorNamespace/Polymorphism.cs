@@ -3,7 +3,7 @@ using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(typeof(Polymorphism), "jsii-calc.Polymorphism", "[]")]
+    [JsiiClass(nativeType: typeof(Polymorphism), fullyQualifiedName: "jsii-calc.Polymorphism")]
     public class Polymorphism : DeputyBase
     {
         public Polymorphism(): base(new DeputyProps(new object[]{}))

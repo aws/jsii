@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(typeof(AbstractClass), "jsii-calc.AbstractClass", "[]")]
+    [JsiiClass(nativeType: typeof(AbstractClass), fullyQualifiedName: "jsii-calc.AbstractClass")]
     public abstract class AbstractClass : AbstractClassBase, IIInterfaceImplementedByAbstractClass
     {
         protected AbstractClass(): base(new DeputyProps(new object[]{}))
@@ -25,7 +25,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         [JsiiMethod(name: "abstractMethod", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[{\"name\":\"name\",\"type\":{\"primitive\":\"string\"}}]")]
         public abstract string AbstractMethod(string name);
-        [JsiiMethod(name: "nonAbstractMethod", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[]")]
+        [JsiiMethod(name: "nonAbstractMethod", returnsJson: "{\"type\":{\"primitive\":\"number\"}}")]
         public virtual double NonAbstractMethod()
         {
             return InvokeInstanceMethod<double>(new object[]{});

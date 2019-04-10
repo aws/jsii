@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(typeof(VariadicMethod), "jsii-calc.VariadicMethod", "[{\"name\":\"prefix\",\"type\":{\"primitive\":\"number\"}}]")]
+    [JsiiClass(nativeType: typeof(VariadicMethod), fullyQualifiedName: "jsii-calc.VariadicMethod", parametersJson: "[{\"name\":\"prefix\",\"type\":{\"primitive\":\"number\"}}]")]
     public class VariadicMethod : DeputyBase
     {
         public VariadicMethod(double prefix): base(new DeputyProps(new object[]{prefix}))

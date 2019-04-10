@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(typeof(ConsumersOfThisCrazyTypeSystem), "jsii-calc.ConsumersOfThisCrazyTypeSystem", "[]")]
+    [JsiiClass(nativeType: typeof(ConsumersOfThisCrazyTypeSystem), fullyQualifiedName: "jsii-calc.ConsumersOfThisCrazyTypeSystem")]
     public class ConsumersOfThisCrazyTypeSystem : DeputyBase
     {
         public ConsumersOfThisCrazyTypeSystem(): base(new DeputyProps(new object[]{}))

@@ -36,7 +36,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
             var expected =
                 @"namespace MyNamespace
 {
-    [JsiiTypeProxy(typeof(MyClass), ""myFqn"")]
+    [JsiiTypeProxy(nativeType: typeof(MyClass), fullyQualifiedName: ""myFqn"")]
     internal sealed class MyClassProxy : MyClass
     {
         private MyClassProxy(ByRefValue reference): base(reference)
@@ -66,7 +66,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                 @"namespace MyNamespace
 {
     /// <remarks>foo: bar</remarks>
-    [JsiiTypeProxy(typeof(MyClass), ""myFqn"")]
+    [JsiiTypeProxy(nativeType: typeof(MyClass), fullyQualifiedName: ""myFqn"")]
     internal sealed class MyClassProxy : MyClass
     {
         private MyClassProxy(ByRefValue reference): base(reference)
@@ -115,14 +115,14 @@ namespace Amazon.JSII.Generator.UnitTests.Class
             string expected =
                 @"namespace MyNamespace
 {
-    [JsiiTypeProxy(typeof(MyClass), ""myFqn"")]
+    [JsiiTypeProxy(nativeType: typeof(MyClass), fullyQualifiedName: ""myFqn"")]
     internal sealed class MyClassProxy : MyClass
     {
         private MyClassProxy(ByRefValue reference): base(reference)
         {
         }
 
-        [JsiiProperty(""myProp"", ""{\""fqn\"":\""myPropTypeFqn\""}"")]
+        [JsiiProperty(name: ""myProp"", typeJson: ""{\""fqn\"":\""myPropTypeFqn\""}"")]
         public override MyPropType MyProp
         {
             get => GetInstanceProperty<MyPropType>();
@@ -163,14 +163,14 @@ namespace Amazon.JSII.Generator.UnitTests.Class
             string expected =
                 @"namespace MyNamespace
 {
-    [JsiiTypeProxy(typeof(MyClass), ""myFqn"")]
+    [JsiiTypeProxy(nativeType: typeof(MyClass), fullyQualifiedName: ""myFqn"")]
     internal sealed class MyClassProxy : MyClass
     {
         private MyClassProxy(ByRefValue reference): base(reference)
         {
         }
 
-        [JsiiMethod(name: ""myMethod"", returnsJson: null, parametersJson: ""[]"")]
+        [JsiiMethod(name: ""myMethod"")]
         public override void MyMethod()
         {
             InvokeInstanceVoidMethod(new object[]{});

@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiTypeProxy(typeof(IUnionProperties), "jsii-calc.UnionProperties")]
+    [JsiiTypeProxy(nativeType: typeof(IUnionProperties), fullyQualifiedName: "jsii-calc.UnionProperties")]
     internal sealed class UnionPropertiesProxy : DeputyBase, IUnionProperties
     {
         private UnionPropertiesProxy(ByRefValue reference): base(reference)

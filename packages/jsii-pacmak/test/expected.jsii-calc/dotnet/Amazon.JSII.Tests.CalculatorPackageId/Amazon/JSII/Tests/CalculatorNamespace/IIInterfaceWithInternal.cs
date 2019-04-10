@@ -2,10 +2,10 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiInterface(typeof(IIInterfaceWithInternal), "jsii-calc.IInterfaceWithInternal")]
+    [JsiiInterface(nativeType: typeof(IIInterfaceWithInternal), fullyQualifiedName: "jsii-calc.IInterfaceWithInternal")]
     public interface IIInterfaceWithInternal
     {
-        [JsiiMethod(name: "visible", returnsJson: null, parametersJson: "[]")]
+        [JsiiMethod(name: "visible")]
         void Visible();
     }
 }

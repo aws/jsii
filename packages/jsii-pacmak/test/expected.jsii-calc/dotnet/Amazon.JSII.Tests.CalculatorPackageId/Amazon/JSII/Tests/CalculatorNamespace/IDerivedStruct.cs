@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>A struct which derives from another struct.</summary>
-    [JsiiInterface(typeof(IDerivedStruct), "jsii-calc.DerivedStruct")]
+    [JsiiInterface(nativeType: typeof(IDerivedStruct), fullyQualifiedName: "jsii-calc.DerivedStruct")]
     public interface IDerivedStruct : IMyFirstStruct
     {
         [JsiiProperty(name: "anotherRequired", typeJson: "{\"primitive\":\"date\"}")]

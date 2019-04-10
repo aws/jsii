@@ -3,7 +3,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Even though this interface has only properties, it is disqualified from being a datatype because it inherits from an interface that is not a datatype.</summary>
-    [JsiiTypeProxy(typeof(IIInterfaceThatShouldNotBeADataType), "jsii-calc.IInterfaceThatShouldNotBeADataType")]
+    [JsiiTypeProxy(nativeType: typeof(IIInterfaceThatShouldNotBeADataType), fullyQualifiedName: "jsii-calc.IInterfaceThatShouldNotBeADataType")]
     internal sealed class IInterfaceThatShouldNotBeADataTypeProxy : DeputyBase, IIInterfaceThatShouldNotBeADataType
     {
         private IInterfaceThatShouldNotBeADataTypeProxy(ByRefValue reference): base(reference)
@@ -22,7 +22,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<string>();
         }
 
-        [JsiiMethod(name: "doThings", returnsJson: null, parametersJson: "[]")]
+        [JsiiMethod(name: "doThings")]
         public void DoThings()
         {
             InvokeInstanceVoidMethod(new object[]{});

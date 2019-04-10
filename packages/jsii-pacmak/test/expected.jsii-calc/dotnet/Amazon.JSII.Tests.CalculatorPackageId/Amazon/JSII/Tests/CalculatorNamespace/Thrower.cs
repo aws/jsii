@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(typeof(Thrower), "jsii-calc.Thrower", "[]")]
+    [JsiiClass(nativeType: typeof(Thrower), fullyQualifiedName: "jsii-calc.Thrower")]
     public class Thrower : DeputyBase
     {
         public Thrower(): base(new DeputyProps(new object[]{}))
@@ -17,7 +17,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "throwError", returnsJson: null, parametersJson: "[]")]
+        [JsiiMethod(name: "throwError")]
         public virtual void ThrowError()
         {
             InvokeInstanceVoidMethod(new object[]{});

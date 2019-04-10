@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(typeof(OverrideReturnsObject), "jsii-calc.OverrideReturnsObject", "[]")]
+    [JsiiClass(nativeType: typeof(OverrideReturnsObject), fullyQualifiedName: "jsii-calc.OverrideReturnsObject")]
     public class OverrideReturnsObject : DeputyBase
     {
         public OverrideReturnsObject(): base(new DeputyProps(new object[]{}))

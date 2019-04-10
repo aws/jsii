@@ -84,7 +84,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", null, ""[]"")]
+@"[JsiiMethod(name: ""myMethod"")]
 void MyMethod();";
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
@@ -118,7 +118,7 @@ void MyMethod();";
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", null, ""[{\""name\"":\""myParameter1\"",\""type\"":{\""primitive\"":\""string\""}},{\""name\"":\""event\"",\""type\"":{\""primitive\"":\""string\""}}]"")]
+@"[JsiiMethod(name: ""myMethod"", parametersJson: ""[{\""name\"":\""myParameter1\"",\""type\"":{\""primitive\"":\""string\""}},{\""name\"":\""event\"",\""type\"":{\""primitive\"":\""string\""}}]"")]
 void MyMethod(string myParameter1, string @event);";
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
@@ -137,7 +137,7 @@ void MyMethod(string myParameter1, string @event);";
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", ""{\""type\"":{\""primitive\"":\""string\""}}"", ""[]"")]
+@"[JsiiMethod(name: ""myMethod"", returnsJson: ""{\""type\"":{\""primitive\"":\""string\""}}"")]
 string MyMethod();";
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);

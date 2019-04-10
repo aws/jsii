@@ -3,7 +3,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
     /// <summary>Represents an operation on values.</summary>
-    [JsiiTypeProxy(typeof(Operation), "@scope/jsii-calc-lib.Operation")]
+    [JsiiTypeProxy(nativeType: typeof(Operation), fullyQualifiedName: "@scope/jsii-calc-lib.Operation")]
     internal sealed class OperationProxy : Operation
     {
         private OperationProxy(ByRefValue reference): base(reference)
@@ -18,7 +18,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         }
 
         /// <summary>String representation of the value.</summary>
-        [JsiiMethod(name: "toString", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[]", isOverride: true)]
+        [JsiiMethod(name: "toString", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
         public override string ToString()
         {
             return InvokeInstanceMethod<string>(new object[]{});

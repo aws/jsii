@@ -10,7 +10,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// Multiple paragraphs are separated by an empty line.
     /// stability: stable
     /// </remarks>
-    [JsiiClass(typeof(DocumentedClass), "jsii-calc.DocumentedClass", "[]")]
+    [JsiiClass(nativeType: typeof(DocumentedClass), fullyQualifiedName: "jsii-calc.DocumentedClass")]
     public class DocumentedClass : DeputyBase
     {
         public DocumentedClass(): base(new DeputyProps(new object[]{}))
@@ -40,7 +40,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Say ¡Hola!</summary>
         /// <remarks>stability: experimental</remarks>
-        [JsiiMethod(name: "hola", returnsJson: null, parametersJson: "[]")]
+        [JsiiMethod(name: "hola")]
         public virtual void Hola()
         {
             InvokeInstanceVoidMethod(new object[]{});

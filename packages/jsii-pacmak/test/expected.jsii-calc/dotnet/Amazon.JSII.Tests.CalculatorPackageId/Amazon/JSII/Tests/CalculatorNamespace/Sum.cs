@@ -5,7 +5,7 @@ using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>An operation that sums multiple values.</summary>
-    [JsiiClass(typeof(Sum), "jsii-calc.Sum", "[]")]
+    [JsiiClass(nativeType: typeof(Sum), fullyQualifiedName: "jsii-calc.Sum")]
     public class Sum : CompositeOperation_
     {
         public Sum(): base(new DeputyProps(new object[]{}))

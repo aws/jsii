@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(typeof(ImplementsPrivateInterface), "jsii-calc.ImplementsPrivateInterface", "[]")]
+    [JsiiClass(nativeType: typeof(ImplementsPrivateInterface), fullyQualifiedName: "jsii-calc.ImplementsPrivateInterface")]
     public class ImplementsPrivateInterface : DeputyBase
     {
         public ImplementsPrivateInterface(): base(new DeputyProps(new object[]{}))

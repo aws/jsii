@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiTypeProxy(typeof(IIInterfaceWithMethods), "jsii-calc.IInterfaceWithMethods")]
+    [JsiiTypeProxy(nativeType: typeof(IIInterfaceWithMethods), fullyQualifiedName: "jsii-calc.IInterfaceWithMethods")]
     internal sealed class IInterfaceWithMethodsProxy : DeputyBase, IIInterfaceWithMethods
     {
         private IInterfaceWithMethodsProxy(ByRefValue reference): base(reference)
@@ -15,7 +15,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<string>();
         }
 
-        [JsiiMethod(name: "doThings", returnsJson: null, parametersJson: "[]")]
+        [JsiiMethod(name: "doThings")]
         public void DoThings()
         {
             InvokeInstanceVoidMethod(new object[]{});

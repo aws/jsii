@@ -11,7 +11,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// The setters will validate
     /// that the value set is of the expected type and throw otherwise.
     /// </remarks>
-    [JsiiClass(typeof(AllTypes), "jsii-calc.AllTypes", "[]")]
+    [JsiiClass(nativeType: typeof(AllTypes), fullyQualifiedName: "jsii-calc.AllTypes")]
     public class AllTypes : DeputyBase
     {
         public AllTypes(): base(new DeputyProps(new object[]{}))
@@ -158,13 +158,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        [JsiiMethod(name: "anyIn", returnsJson: null, parametersJson: "[{\"name\":\"inp\",\"type\":{\"primitive\":\"any\"}}]")]
+        [JsiiMethod(name: "anyIn", parametersJson: "[{\"name\":\"inp\",\"type\":{\"primitive\":\"any\"}}]")]
         public virtual void AnyIn(object inp)
         {
             InvokeInstanceVoidMethod(new object[]{inp});
         }
 
-        [JsiiMethod(name: "anyOut", returnsJson: "{\"type\":{\"primitive\":\"any\"}}", parametersJson: "[]")]
+        [JsiiMethod(name: "anyOut", returnsJson: "{\"type\":{\"primitive\":\"any\"}}")]
         public virtual object AnyOut()
         {
             return InvokeInstanceMethod<object>(new object[]{});

@@ -3,7 +3,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
     /// <summary>Represents a concrete number.</summary>
-    [JsiiClass(typeof(Number), "@scope/jsii-calc-lib.Number", "[{\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]
+    [JsiiClass(nativeType: typeof(Number), fullyQualifiedName: "@scope/jsii-calc-lib.Number", parametersJson: "[{\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]
     public class Number : Value_, IIDoublable
     {
         public Number(double value): base(new DeputyProps(new object[]{value}))

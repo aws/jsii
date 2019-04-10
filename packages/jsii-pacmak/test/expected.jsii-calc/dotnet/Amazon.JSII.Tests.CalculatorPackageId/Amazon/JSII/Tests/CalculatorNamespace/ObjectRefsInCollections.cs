@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Verify that object references can be passed inside collections.</summary>
-    [JsiiClass(typeof(ObjectRefsInCollections), "jsii-calc.ObjectRefsInCollections", "[]")]
+    [JsiiClass(nativeType: typeof(ObjectRefsInCollections), fullyQualifiedName: "jsii-calc.ObjectRefsInCollections")]
     public class ObjectRefsInCollections : DeputyBase
     {
         public ObjectRefsInCollections(): base(new DeputyProps(new object[]{}))

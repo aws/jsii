@@ -3,7 +3,7 @@ using Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace
 {
-    [JsiiInterface(typeof(IBaseProps), "@scope/jsii-calc-base.BaseProps")]
+    [JsiiInterface(nativeType: typeof(IBaseProps), fullyQualifiedName: "@scope/jsii-calc-base.BaseProps")]
     public interface IBaseProps : IVeryBaseProps
     {
         [JsiiProperty(name: "bar", typeJson: "{\"primitive\":\"string\"}")]

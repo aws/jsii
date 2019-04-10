@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.DerivedClassHasNoProperties
 {
-    [JsiiClass(typeof(Base), "jsii-calc.DerivedClassHasNoProperties.Base", "[]")]
+    [JsiiClass(nativeType: typeof(Base), fullyQualifiedName: "jsii-calc.DerivedClassHasNoProperties.Base")]
     public class Base : DeputyBase
     {
         public Base(): base(new DeputyProps(new object[]{}))

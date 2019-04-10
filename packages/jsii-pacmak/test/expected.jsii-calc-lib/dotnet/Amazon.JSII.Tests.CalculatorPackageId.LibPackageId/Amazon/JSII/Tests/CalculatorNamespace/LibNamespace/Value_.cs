@@ -4,7 +4,7 @@ using Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace;
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
     /// <summary>Abstract class which represents a numeric value.</summary>
-    [JsiiClass(typeof(Value_), "@scope/jsii-calc-lib.Value", "[]")]
+    [JsiiClass(nativeType: typeof(Value_), fullyQualifiedName: "@scope/jsii-calc-lib.Value")]
     public abstract class Value_ : Base
     {
         protected Value_(): base(new DeputyProps(new object[]{}))
@@ -27,7 +27,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         }
 
         /// <summary>String representation of the value.</summary>
-        [JsiiMethod(name: "toString", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[]")]
+        [JsiiMethod(name: "toString", returnsJson: "{\"type\":{\"primitive\":\"string\"}}")]
         public override string ToString()
         {
             return InvokeInstanceMethod<string>(new object[]{});

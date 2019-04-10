@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceIncludesClasses
 {
-    [JsiiClass(typeof(Foo), "jsii-calc.InterfaceInNamespaceIncludesClasses.Foo", "[]")]
+    [JsiiClass(nativeType: typeof(Foo), fullyQualifiedName: "jsii-calc.InterfaceInNamespaceIncludesClasses.Foo")]
     public class Foo : DeputyBase
     {
         public Foo(): base(new DeputyProps(new object[]{}))

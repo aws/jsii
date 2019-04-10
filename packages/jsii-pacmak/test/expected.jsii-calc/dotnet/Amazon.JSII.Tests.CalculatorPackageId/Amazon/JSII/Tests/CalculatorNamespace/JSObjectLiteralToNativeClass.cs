@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(typeof(JSObjectLiteralToNativeClass), "jsii-calc.JSObjectLiteralToNativeClass", "[]")]
+    [JsiiClass(nativeType: typeof(JSObjectLiteralToNativeClass), fullyQualifiedName: "jsii-calc.JSObjectLiteralToNativeClass")]
     public class JSObjectLiteralToNativeClass : DeputyBase
     {
         public JSObjectLiteralToNativeClass(): base(new DeputyProps(new object[]{}))

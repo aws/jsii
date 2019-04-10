@@ -3,7 +3,7 @@ using Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace
 {
-    [JsiiTypeProxy(typeof(IBaseProps), "@scope/jsii-calc-base.BaseProps")]
+    [JsiiTypeProxy(nativeType: typeof(IBaseProps), fullyQualifiedName: "@scope/jsii-calc-base.BaseProps")]
     internal sealed class BasePropsProxy : DeputyBase, IBaseProps
     {
         private BasePropsProxy(ByRefValue reference): base(reference)

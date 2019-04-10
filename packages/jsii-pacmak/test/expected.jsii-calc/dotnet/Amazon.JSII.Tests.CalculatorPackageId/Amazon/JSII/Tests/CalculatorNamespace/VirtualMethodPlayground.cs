@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(typeof(VirtualMethodPlayground), "jsii-calc.VirtualMethodPlayground", "[]")]
+    [JsiiClass(nativeType: typeof(VirtualMethodPlayground), fullyQualifiedName: "jsii-calc.VirtualMethodPlayground")]
     public class VirtualMethodPlayground : DeputyBase
     {
         public VirtualMethodPlayground(): base(new DeputyProps(new object[]{}))

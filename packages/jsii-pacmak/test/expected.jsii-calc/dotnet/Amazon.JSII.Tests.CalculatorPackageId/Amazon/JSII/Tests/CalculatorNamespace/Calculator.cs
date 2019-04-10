@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>A calculator which maintains a current value and allows adding operations.</summary>
-    [JsiiClass(typeof(Calculator), "jsii-calc.Calculator", "[{\"name\":\"props\",\"type\":{\"fqn\":\"jsii-calc.CalculatorProps\"}}]")]
+    [JsiiClass(nativeType: typeof(Calculator), fullyQualifiedName: "jsii-calc.Calculator", parametersJson: "[{\"name\":\"props\",\"type\":{\"fqn\":\"jsii-calc.CalculatorProps\"}}]")]
     public class Calculator : CompositeOperation_
     {
         public Calculator(ICalculatorProps props): base(new DeputyProps(new object[]{props}))
@@ -67,35 +67,35 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Adds a number to the current value.</summary>
-        [JsiiMethod(name: "add", returnsJson: null, parametersJson: "[{\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]
+        [JsiiMethod(name: "add", parametersJson: "[{\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]
         public virtual void Add(double value)
         {
             InvokeInstanceVoidMethod(new object[]{value});
         }
 
         /// <summary>Multiplies the current value by a number.</summary>
-        [JsiiMethod(name: "mul", returnsJson: null, parametersJson: "[{\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]
+        [JsiiMethod(name: "mul", parametersJson: "[{\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]
         public virtual void Mul(double value)
         {
             InvokeInstanceVoidMethod(new object[]{value});
         }
 
         /// <summary>Negates the current value.</summary>
-        [JsiiMethod(name: "neg", returnsJson: null, parametersJson: "[]")]
+        [JsiiMethod(name: "neg")]
         public virtual void Neg()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
         /// <summary>Raises the current value by a power.</summary>
-        [JsiiMethod(name: "pow", returnsJson: null, parametersJson: "[{\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]
+        [JsiiMethod(name: "pow", parametersJson: "[{\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]
         public virtual void Pow(double value)
         {
             InvokeInstanceVoidMethod(new object[]{value});
         }
 
         /// <summary>Returns teh value of the union property (if defined).</summary>
-        [JsiiMethod(name: "readUnionValue", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[]")]
+        [JsiiMethod(name: "readUnionValue", returnsJson: "{\"type\":{\"primitive\":\"number\"}}")]
         public virtual double ReadUnionValue()
         {
             return InvokeInstanceMethod<double>(new object[]{});

@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiTypeProxy(typeof(IExtendsInternalInterface), "jsii-calc.ExtendsInternalInterface")]
+    [JsiiTypeProxy(nativeType: typeof(IExtendsInternalInterface), fullyQualifiedName: "jsii-calc.ExtendsInternalInterface")]
     internal sealed class ExtendsInternalInterfaceProxy : DeputyBase, IExtendsInternalInterface
     {
         private ExtendsInternalInterfaceProxy(ByRefValue reference): base(reference)

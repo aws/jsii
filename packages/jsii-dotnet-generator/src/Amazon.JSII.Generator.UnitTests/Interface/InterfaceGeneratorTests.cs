@@ -35,7 +35,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
             string expected =
 @"namespace MyNamespace
 {
-    [JsiiInterface(typeof(IMyInterface), ""myInterfaceFqn"")]
+    [JsiiInterface(nativeType: typeof(IMyInterface), fullyQualifiedName: ""myInterfaceFqn"")]
     public interface IMyInterface
     {
     }
@@ -65,7 +65,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
             string expected =
 @"namespace MyNamespace
 {
-    [JsiiInterface(typeof(IMyInterface), ""myInterfaceFqn"")]
+    [JsiiInterface(nativeType: typeof(IMyInterface), fullyQualifiedName: ""myInterfaceFqn"")]
     public interface IMyInterface : IMyBaseInterface1, IMyBaseInterface2
     {
     }
@@ -90,10 +90,10 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
             string expected =
 @"namespace MyNamespace
 {
-    [JsiiInterface(typeof(IMyInterface), ""myInterfaceFqn"")]
+    [JsiiInterface(nativeType: typeof(IMyInterface), fullyQualifiedName: ""myInterfaceFqn"")]
     public interface IMyInterface
     {
-        [JsiiMethod(name: ""myMethod"", returnsJson: null, parametersJson: ""[]"")]
+        [JsiiMethod(name: ""myMethod"")]
         void MyMethod();
     }
 }";

@@ -3,7 +3,7 @@ using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(typeof(GiveMeStructs), "jsii-calc.GiveMeStructs", "[]")]
+    [JsiiClass(nativeType: typeof(GiveMeStructs), fullyQualifiedName: "jsii-calc.GiveMeStructs")]
     public class GiveMeStructs : DeputyBase
     {
         public GiveMeStructs(): base(new DeputyProps(new object[]{}))

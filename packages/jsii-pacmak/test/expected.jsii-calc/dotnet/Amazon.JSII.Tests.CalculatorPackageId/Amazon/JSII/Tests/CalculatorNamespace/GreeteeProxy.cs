@@ -3,7 +3,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>These are some arguments you can pass to a method.</summary>
-    [JsiiTypeProxy(typeof(IGreetee), "jsii-calc.Greetee")]
+    [JsiiTypeProxy(nativeType: typeof(IGreetee), fullyQualifiedName: "jsii-calc.Greetee")]
     internal sealed class GreeteeProxy : DeputyBase, IGreetee
     {
         private GreeteeProxy(ByRefValue reference): base(reference)

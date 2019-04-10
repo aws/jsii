@@ -41,7 +41,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", null, ""[]"")]
+@"[JsiiMethod(name: ""myMethod"")]
 public virtual void MyMethod()
 {
     InvokeInstanceVoidMethod(new object[]{});
@@ -58,7 +58,7 @@ public virtual void MyMethod()
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", null, ""[]"")]
+@"[JsiiMethod(name: ""myMethod"")]
 protected virtual void MyMethod()
 {
     InvokeInstanceVoidMethod(new object[]{});
@@ -75,7 +75,7 @@ protected virtual void MyMethod()
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", null, ""[]"")]
+@"[JsiiMethod(name: ""myMethod"")]
 public abstract void MyMethod();";
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
@@ -100,7 +100,7 @@ public abstract void MyMethod();";
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", null, ""[{\""name\"":\""myParam\"",\""type\"":{\""fqn\"":\""myParamTypeFqn\""}},{\""name\"":\""event\"",\""type\"":{\""primitive\"":\""string\""}}]"")]
+@"[JsiiMethod(name: ""myMethod"", parametersJson: ""[{\""name\"":\""myParam\"",\""type\"":{\""fqn\"":\""myParamTypeFqn\""}},{\""name\"":\""event\"",\""type\"":{\""primitive\"":\""string\""}}]"")]
 public virtual void MyMethod(MyParamType myParam, string @event)
 {
     InvokeInstanceVoidMethod(new object[]{myParam, @event});
@@ -121,7 +121,7 @@ public virtual void MyMethod(MyParamType myParam, string @event)
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", null, ""[]"")]
+@"[JsiiMethod(name: ""myMethod"")]
 public virtual void MyMethod()
 {
     InvokeInstanceVoidMethod(new object[]{});
@@ -145,7 +145,7 @@ public virtual void MyMethod()
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", ""{\""type\"":{\""fqn\"":\""myReturnTypeFqn\""}}"", ""[]"")]
+@"[JsiiMethod(name: ""myMethod"", returnsJson: ""{\""type\"":{\""fqn\"":\""myReturnTypeFqn\""}}"")]
 public virtual MyReturnType MyMethod()
 {
     return InvokeInstanceMethod<MyReturnType>(new object[]{});
@@ -170,7 +170,7 @@ public virtual MyReturnType MyMethod()
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", ""{\""type\"":{\""fqn\"":\""myReturnTypeFqn\""}}"", ""[]"")]
+@"[JsiiMethod(name: ""myMethod"", returnsJson: ""{\""type\"":{\""fqn\"":\""myReturnTypeFqn\""}}"")]
 public static MyReturnType MyMethod()
 {
     return InvokeStaticMethod<MyReturnType>(typeof(MyClass), new object[]{});

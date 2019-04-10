@@ -498,10 +498,10 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         {
             string _x;
 
-            [JsiiProperty("readOnlyString", "{\"primitive\":\"string\"}", true)]
+            [JsiiProperty(name: "readOnlyString", typeJson: "{\"primitive\":\"string\"}", isOverride: true)]
             public string ReadOnlyString => "READ_ONLY_STRING";
 
-            [JsiiProperty("readWriteString", "{\"primitive\":\"string\"}", true)]
+            [JsiiProperty(name: "readWriteString", typeJson: "{\"primitive\":\"string\"}", isOverride: true)]
             public string ReadWriteString
             {
                 get => $"{_x}?";
@@ -924,10 +924,10 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                 NumberProp = new Number(number);
             }
 
-            [JsiiProperty("numberProp", "{\"fqn\":\"@scope/jsii-calc-lib.Number\"}", true)]
+            [JsiiProperty(name: "numberProp", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Number\"}", isOverride: true)]
             public Number NumberProp { get; }
 
-            [JsiiMethod("obtainNumber", "{\"fqn\":\"@scope/jsii-calc-lib.IDoublable\"}", "[]", true)]
+            [JsiiMethod(name: "obtainNumber", returnsJson: "{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.IDoublable\"}}", isOverride: true)]
             public IIDoublable ObtainNumber()
             {
                 return new Doublable(this.NumberProp);
@@ -940,7 +940,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                     this.DoubleValue = number.DoubleValue;
                 }
 
-                [JsiiProperty("doubleValue", "{\"primitive\":\"number\"}", true)]
+                [JsiiProperty(name: "doubleValue", typeJson: "{\"primitive\":\"number\"}", isOverride: true)]
                 public Double DoubleValue { get; }
             }
         }
@@ -1041,7 +1041,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         {
             int _nextNumber = 1000;
 
-            [JsiiMethod("next", "{\"primitive\":\"number\"}", "[]", true)]
+            [JsiiMethod(name: "next", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", isOverride: true)]
             public double Next()
             {
                 int n = _nextNumber;
@@ -1049,7 +1049,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                 return n;
             }
 
-            [JsiiMethod("hello", "{\"primitive\":\"string\"}", "[]", true)]
+            [JsiiMethod(name: "hello", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
             public string Hello()
             {
                 return "I am a native!";
@@ -1066,13 +1066,13 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                 _nextNumber = 100;
             }
 
-            [JsiiMethod("hello", "{\"primitive\":\"string\"}", "[]", true)]
+            [JsiiMethod(name: "hello", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
             public string Hello()
             {
                 return "SubclassNativeFriendlyRandom";
             }
 
-            [JsiiMethod("next", "{\"primitive\":\"number\"}", "[]", true)]
+            [JsiiMethod(name: "next", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", isOverride: true)]
             public double Next()
             {
                 int next = _nextNumber;

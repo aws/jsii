@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(typeof(EraseUndefinedHashValues), "jsii-calc.EraseUndefinedHashValues", "[]")]
+    [JsiiClass(nativeType: typeof(EraseUndefinedHashValues), fullyQualifiedName: "jsii-calc.EraseUndefinedHashValues")]
     public class EraseUndefinedHashValues : DeputyBase
     {
         public EraseUndefinedHashValues(): base(new DeputyProps(new object[]{}))
@@ -29,14 +29,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>We expect "prop1" to be erased.</summary>
-        [JsiiMethod(name: "prop1IsNull", returnsJson: "{\"type\":{\"primitive\":\"any\"}}", parametersJson: "[]")]
+        [JsiiMethod(name: "prop1IsNull", returnsJson: "{\"type\":{\"primitive\":\"any\"}}")]
         public static object Prop1IsNull()
         {
             return InvokeStaticMethod<object>(typeof(EraseUndefinedHashValues), new object[]{});
         }
 
         /// <summary>We expect "prop2" to be erased.</summary>
-        [JsiiMethod(name: "prop2IsUndefined", returnsJson: "{\"type\":{\"primitive\":\"any\"}}", parametersJson: "[]")]
+        [JsiiMethod(name: "prop2IsUndefined", returnsJson: "{\"type\":{\"primitive\":\"any\"}}")]
         public static object Prop2IsUndefined()
         {
             return InvokeStaticMethod<object>(typeof(EraseUndefinedHashValues), new object[]{});

@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(typeof(ImplementsInterfaceWithInternal), "jsii-calc.ImplementsInterfaceWithInternal", "[]")]
+    [JsiiClass(nativeType: typeof(ImplementsInterfaceWithInternal), fullyQualifiedName: "jsii-calc.ImplementsInterfaceWithInternal")]
     public class ImplementsInterfaceWithInternal : DeputyBase, IIInterfaceWithInternal
     {
         public ImplementsInterfaceWithInternal(): base(new DeputyProps(new object[]{}))
@@ -17,7 +17,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "visible", returnsJson: null, parametersJson: "[]", isOverride: true)]
+        [JsiiMethod(name: "visible", isOverride: true)]
         public virtual void Visible()
         {
             InvokeInstanceVoidMethod(new object[]{});

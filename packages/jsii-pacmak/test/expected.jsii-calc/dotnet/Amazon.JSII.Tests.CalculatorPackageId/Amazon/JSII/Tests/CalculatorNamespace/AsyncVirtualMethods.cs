@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(typeof(AsyncVirtualMethods), "jsii-calc.AsyncVirtualMethods", "[]")]
+    [JsiiClass(nativeType: typeof(AsyncVirtualMethods), fullyQualifiedName: "jsii-calc.AsyncVirtualMethods")]
     public class AsyncVirtualMethods : DeputyBase
     {
         public AsyncVirtualMethods(): base(new DeputyProps(new object[]{}))
@@ -17,14 +17,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "callMe", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[]", isAsync: true)]
+        [JsiiMethod(name: "callMe", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", isAsync: true)]
         public virtual double CallMe()
         {
             return InvokeInstanceMethod<double>(new object[]{});
         }
 
         /// <summary>Just calls "overrideMeToo".</summary>
-        [JsiiMethod(name: "callMe2", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[]", isAsync: true)]
+        [JsiiMethod(name: "callMe2", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", isAsync: true)]
         public virtual double CallMe2()
         {
             return InvokeInstanceMethod<double>(new object[]{});
@@ -36,13 +36,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// means that callbacks are not going to be available immediate, but only
         /// after an "immediates" cycle.
         /// </remarks>
-        [JsiiMethod(name: "callMeDoublePromise", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[]", isAsync: true)]
+        [JsiiMethod(name: "callMeDoublePromise", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", isAsync: true)]
         public virtual double CallMeDoublePromise()
         {
             return InvokeInstanceMethod<double>(new object[]{});
         }
 
-        [JsiiMethod(name: "dontOverrideMe", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[]")]
+        [JsiiMethod(name: "dontOverrideMe", returnsJson: "{\"type\":{\"primitive\":\"number\"}}")]
         public virtual double DontOverrideMe()
         {
             return InvokeInstanceMethod<double>(new object[]{});
@@ -54,7 +54,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeInstanceMethod<double>(new object[]{mult});
         }
 
-        [JsiiMethod(name: "overrideMeToo", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[]", isAsync: true)]
+        [JsiiMethod(name: "overrideMeToo", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", isAsync: true)]
         public virtual double OverrideMeToo()
         {
             return InvokeInstanceMethod<double>(new object[]{});

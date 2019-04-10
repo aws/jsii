@@ -3,7 +3,7 @@ using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiTypeProxy(typeof(IIReturnsNumber), "jsii-calc.IReturnsNumber")]
+    [JsiiTypeProxy(nativeType: typeof(IIReturnsNumber), fullyQualifiedName: "jsii-calc.IReturnsNumber")]
     internal sealed class IReturnsNumberProxy : DeputyBase, IIReturnsNumber
     {
         private IReturnsNumberProxy(ByRefValue reference): base(reference)
@@ -16,7 +16,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<Number>();
         }
 
-        [JsiiMethod(name: "obtainNumber", returnsJson: "{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.IDoublable\"}}", parametersJson: "[]")]
+        [JsiiMethod(name: "obtainNumber", returnsJson: "{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.IDoublable\"}}")]
         public IIDoublable ObtainNumber()
         {
             return InvokeInstanceMethod<IIDoublable>(new object[]{});

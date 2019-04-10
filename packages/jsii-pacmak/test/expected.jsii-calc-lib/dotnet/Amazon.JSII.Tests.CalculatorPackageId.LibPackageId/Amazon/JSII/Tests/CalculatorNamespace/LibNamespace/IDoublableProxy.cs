@@ -3,7 +3,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
     /// <summary>The general contract for a concrete number.</summary>
-    [JsiiTypeProxy(typeof(IIDoublable), "@scope/jsii-calc-lib.IDoublable")]
+    [JsiiTypeProxy(nativeType: typeof(IIDoublable), fullyQualifiedName: "@scope/jsii-calc-lib.IDoublable")]
     internal sealed class IDoublableProxy : DeputyBase, IIDoublable
     {
         private IDoublableProxy(ByRefValue reference): base(reference)

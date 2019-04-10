@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(typeof(Statics), "jsii-calc.Statics", "[{\"name\":\"value\",\"type\":{\"primitive\":\"string\"}}]")]
+    [JsiiClass(nativeType: typeof(Statics), fullyQualifiedName: "jsii-calc.Statics", parametersJson: "[{\"name\":\"value\",\"type\":{\"primitive\":\"string\"}}]")]
     public class Statics : DeputyBase
     {
         public Statics(string value): base(new DeputyProps(new object[]{value}))
@@ -78,7 +78,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             return InvokeStaticMethod<string>(typeof(Statics), new object[]{name});
         }
 
-        [JsiiMethod(name: "justMethod", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[]")]
+        [JsiiMethod(name: "justMethod", returnsJson: "{\"type\":{\"primitive\":\"string\"}}")]
         public virtual string JustMethod()
         {
             return InvokeInstanceMethod<string>(new object[]{});

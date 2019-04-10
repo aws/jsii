@@ -2,10 +2,10 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiInterface(typeof(IIPublicInterface), "jsii-calc.IPublicInterface")]
+    [JsiiInterface(nativeType: typeof(IIPublicInterface), fullyQualifiedName: "jsii-calc.IPublicInterface")]
     public interface IIPublicInterface
     {
-        [JsiiMethod(name: "bye", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[]")]
+        [JsiiMethod(name: "bye", returnsJson: "{\"type\":{\"primitive\":\"string\"}}")]
         string Bye();
     }
 }

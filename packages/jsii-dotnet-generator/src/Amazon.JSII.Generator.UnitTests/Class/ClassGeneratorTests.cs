@@ -38,7 +38,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
             string expected =
                 @"namespace MyNamespace
 {
-    [JsiiClass(typeof(MyClass), ""myFqn"", ""[]"")]
+    [JsiiClass(nativeType: typeof(MyClass), fullyQualifiedName: ""myFqn"")]
     public class MyClass : DeputyBase
     {
         public MyClass(): base(new DeputyProps(new object[]{}))
@@ -72,7 +72,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
             string expected =
                 @"namespace MyNamespace
 {
-    [JsiiClass(typeof(MyClass), ""myFqn"", ""[]"")]
+    [JsiiClass(nativeType: typeof(MyClass), fullyQualifiedName: ""myFqn"")]
     public class MyClass : DeputyBase
     {
         protected MyClass(ByRefValue reference): base(reference)
@@ -103,7 +103,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
             string expected =
                 @"namespace MyNamespace
 {
-    [JsiiClass(typeof(MyClass), ""myFqn"", ""[]"")]
+    [JsiiClass(nativeType: typeof(MyClass), fullyQualifiedName: ""myFqn"")]
     public abstract class MyClass : DeputyBase
     {
         protected MyClass(): base(new DeputyProps(new object[]{}))
@@ -141,7 +141,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                 @"namespace MyNamespace
 {
     /// <remarks>foo: bar</remarks>
-    [JsiiClass(typeof(MyClass), ""myFqn"", ""[]"")]
+    [JsiiClass(nativeType: typeof(MyClass), fullyQualifiedName: ""myFqn"")]
     public class MyClass : DeputyBase
     {
         public MyClass(): base(new DeputyProps(new object[]{}))
@@ -190,7 +190,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
             string expected =
                 @"namespace MyNamespace
 {
-    [JsiiClass(typeof(MyClass), ""myFqn"", ""[]"")]
+    [JsiiClass(nativeType: typeof(MyClass), fullyQualifiedName: ""myFqn"")]
     public class MyClass : DeputyBase
     {
         public MyClass(): base(new DeputyProps(new object[]{}))
@@ -205,7 +205,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
         {
         }
 
-        [JsiiProperty(""myProp"", ""{\""fqn\"":\""myPropTypeFqn\""}"")]
+        [JsiiProperty(name: ""myProp"", typeJson: ""{\""fqn\"":\""myPropTypeFqn\""}"")]
         public virtual MyPropType MyProp
         {
             get => GetInstanceProperty<MyPropType>();
@@ -241,7 +241,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
             string expected =
                 @"namespace MyNamespace
 {
-    [JsiiClass(typeof(MyClass), ""myFqn"", ""[]"")]
+    [JsiiClass(nativeType: typeof(MyClass), fullyQualifiedName: ""myFqn"")]
     public class MyClass : DeputyBase
     {
         public MyClass(): base(new DeputyProps(new object[]{}))
@@ -256,7 +256,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
         {
         }
 
-        [JsiiMethod(""myMethod"", null, ""[]"")]
+        [JsiiMethod(name: ""myMethod"")]
         public virtual void MyMethod()
         {
             InvokeInstanceVoidMethod(new object[]{});
@@ -285,7 +285,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
             string expected =
                 @"namespace MyNamespace
 {
-    [JsiiClass(typeof(MyClass), ""myFqn"", ""[]"")]
+    [JsiiClass(nativeType: typeof(MyClass), fullyQualifiedName: ""myFqn"")]
     public class MyClass : MyBaseType
     {
         public MyClass(): base(new DeputyProps(new object[]{}))
@@ -328,7 +328,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
             string expected =
                 @"namespace MyNamespace
 {
-    [JsiiClass(typeof(MyClass), ""myFqn"", ""[]"")]
+    [JsiiClass(nativeType: typeof(MyClass), fullyQualifiedName: ""myFqn"")]
     public class MyClass : DeputyBase, IMyInterface1, IMyInterface2
     {
         public MyClass(): base(new DeputyProps(new object[]{}))

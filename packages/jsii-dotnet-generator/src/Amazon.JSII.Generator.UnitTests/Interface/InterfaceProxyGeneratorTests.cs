@@ -41,7 +41,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
             string expected =
                 @"namespace MyNamespace
 {
-    [JsiiTypeProxy(typeof(IMyInterface), ""myInterfaceFqn"")]
+    [JsiiTypeProxy(nativeType: typeof(IMyInterface), fullyQualifiedName: ""myInterfaceFqn"")]
     internal sealed class MyInterfaceProxy : DeputyBase, IMyInterface
     {
         private MyInterfaceProxy(ByRefValue reference): base(reference)
@@ -70,14 +70,14 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
             string expected =
                 @"namespace MyNamespace
 {
-    [JsiiTypeProxy(typeof(IMyInterface), ""myInterfaceFqn"")]
+    [JsiiTypeProxy(nativeType: typeof(IMyInterface), fullyQualifiedName: ""myInterfaceFqn"")]
     internal sealed class MyInterfaceProxy : DeputyBase, IMyInterface
     {
         private MyInterfaceProxy(ByRefValue reference): base(reference)
         {
         }
 
-        [JsiiMethod(""myMethod"", null, ""[]"")]
+        [JsiiMethod(name: ""myMethod"")]
         public void MyMethod()
         {
             InvokeInstanceVoidMethod(new object[]{});
@@ -128,20 +128,20 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
             string expected =
                 @"namespace MyNamespace
 {
-    [JsiiTypeProxy(typeof(IMyInterface), ""myInterfaceFqn"")]
+    [JsiiTypeProxy(nativeType: typeof(IMyInterface), fullyQualifiedName: ""myInterfaceFqn"")]
     internal sealed class MyInterfaceProxy : DeputyBase, IMyInterface
     {
         private MyInterfaceProxy(ByRefValue reference): base(reference)
         {
         }
 
-        [JsiiMethod(""myBaseMethod"", null, ""[]"")]
+        [JsiiMethod(name: ""myBaseMethod"")]
         public void MyBaseMethod()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod(""myAncestorMethod"", null, ""[]"")]
+        [JsiiMethod(name: ""myAncestorMethod"")]
         public void MyAncestorMethod()
         {
             InvokeInstanceVoidMethod(new object[]{});
@@ -168,7 +168,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
                 @"namespace MyNamespace
 {
     /// <remarks>foo: bar</remarks>
-    [JsiiTypeProxy(typeof(IMyInterface), ""myInterfaceFqn"")]
+    [JsiiTypeProxy(nativeType: typeof(IMyInterface), fullyQualifiedName: ""myInterfaceFqn"")]
     internal sealed class MyInterfaceProxy : DeputyBase, IMyInterface
     {
         private MyInterfaceProxy(ByRefValue reference): base(reference)
@@ -239,7 +239,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
                 @"namespace Aws.Cdk.CxApi
 {
     /// <summary>Models an AWS execution environment, for use within the CDK toolkit.</summary>
-    [JsiiTypeProxy(typeof(IEnvironment), ""jsii$aws_cdk_cx_api$.Environment"")]
+    [JsiiTypeProxy(nativeType: typeof(IEnvironment), fullyQualifiedName: ""jsii$aws_cdk_cx_api$.Environment"")]
     internal sealed class EnvironmentProxy : DeputyBase, IEnvironment
     {
         private EnvironmentProxy(ByRefValue reference): base(reference)
@@ -247,7 +247,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
         }
 
         /// <summary>The arbitrary name of this environment (user-set, or at least user-meaningful) </summary>
-        [JsiiProperty(""name"", ""{\""primitive\"":\""string\""}"")]
+        [JsiiProperty(name: ""name"", typeJson: ""{\""primitive\"":\""string\""}"")]
         public string Name
         {
             get => GetInstanceProperty<string>();
@@ -255,7 +255,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
         }
 
         /// <summary>The 12-digit AWS account ID for the account this environment deploys into </summary>
-        [JsiiProperty(""account"", ""{\""primitive\"":\""string\""}"")]
+        [JsiiProperty(name: ""account"", typeJson: ""{\""primitive\"":\""string\""}"")]
         public string Account
         {
             get => GetInstanceProperty<string>();
@@ -263,7 +263,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
         }
 
         /// <summary>The AWS region name where this environment deploys into </summary>
-        [JsiiProperty(""region"", ""{\""primitive\"":\""string\""}"")]
+        [JsiiProperty(name: ""region"", typeJson: ""{\""primitive\"":\""string\""}"")]
         public string Region
         {
             get => GetInstanceProperty<string>();

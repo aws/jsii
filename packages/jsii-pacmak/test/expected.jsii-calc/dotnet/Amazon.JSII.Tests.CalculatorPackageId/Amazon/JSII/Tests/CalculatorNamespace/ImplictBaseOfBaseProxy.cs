@@ -4,7 +4,7 @@ using System;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiTypeProxy(typeof(IImplictBaseOfBase), "jsii-calc.ImplictBaseOfBase")]
+    [JsiiTypeProxy(nativeType: typeof(IImplictBaseOfBase), fullyQualifiedName: "jsii-calc.ImplictBaseOfBase")]
     internal sealed class ImplictBaseOfBaseProxy : DeputyBase, IImplictBaseOfBase
     {
         private ImplictBaseOfBaseProxy(ByRefValue reference): base(reference)

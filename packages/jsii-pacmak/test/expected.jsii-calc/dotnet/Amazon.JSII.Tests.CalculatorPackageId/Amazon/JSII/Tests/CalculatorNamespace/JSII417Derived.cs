@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(typeof(JSII417Derived), "jsii-calc.JSII417Derived", "[{\"name\":\"property\",\"type\":{\"primitive\":\"string\"}}]")]
+    [JsiiClass(nativeType: typeof(JSII417Derived), fullyQualifiedName: "jsii-calc.JSII417Derived", parametersJson: "[{\"name\":\"property\",\"type\":{\"primitive\":\"string\"}}]")]
     public class JSII417Derived : JSII417PublicBaseOfBase
     {
         public JSII417Derived(string property): base(new DeputyProps(new object[]{property}))
@@ -23,13 +23,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<string>();
         }
 
-        [JsiiMethod(name: "bar", returnsJson: null, parametersJson: "[]")]
+        [JsiiMethod(name: "bar")]
         public virtual void Bar()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod(name: "baz", returnsJson: null, parametersJson: "[]")]
+        [JsiiMethod(name: "baz")]
         public virtual void Baz()
         {
             InvokeInstanceVoidMethod(new object[]{});

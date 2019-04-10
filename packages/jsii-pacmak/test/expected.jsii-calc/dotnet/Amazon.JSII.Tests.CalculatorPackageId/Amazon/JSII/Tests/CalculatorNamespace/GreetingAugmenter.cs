@@ -3,7 +3,7 @@ using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(typeof(GreetingAugmenter), "jsii-calc.GreetingAugmenter", "[]")]
+    [JsiiClass(nativeType: typeof(GreetingAugmenter), fullyQualifiedName: "jsii-calc.GreetingAugmenter")]
     public class GreetingAugmenter : DeputyBase
     {
         public GreetingAugmenter(): base(new DeputyProps(new object[]{}))

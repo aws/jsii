@@ -34,7 +34,7 @@ namespace Amazon.JSII.Generator.Class
                 SyntaxToken fullyQualifiedNameLiteral = SF.Literal(Type.FullyQualifiedName);
 
                 var argumentList = $"nativeType: {typeOfExpression}, fullyQualifiedName: {fullyQualifiedNameLiteral}";
-                if (Type.Initializer.Parameters != null && Type.Initializer.Parameters.Length > 0)
+                if ((Type.Initializer?.Parameters?.Length ?? 0) > 0)
                 {
                     SyntaxToken parametersJsonLiteral = Type.Initializer.GetParametersJsonSyntaxToken();
                     argumentList += $", parametersJson: {parametersJsonLiteral}";

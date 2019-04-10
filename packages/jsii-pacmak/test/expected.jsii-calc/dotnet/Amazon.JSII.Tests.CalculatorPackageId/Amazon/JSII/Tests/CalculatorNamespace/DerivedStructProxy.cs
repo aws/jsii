@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>A struct which derives from another struct.</summary>
-    [JsiiTypeProxy(typeof(IDerivedStruct), "jsii-calc.DerivedStruct")]
+    [JsiiTypeProxy(nativeType: typeof(IDerivedStruct), fullyQualifiedName: "jsii-calc.DerivedStruct")]
     internal sealed class DerivedStructProxy : DeputyBase, IDerivedStruct
     {
         private DerivedStructProxy(ByRefValue reference): base(reference)

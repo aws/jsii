@@ -3,7 +3,7 @@ using System;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    [JsiiClass(typeof(PartiallyInitializedThisConsumer), "jsii-calc.PartiallyInitializedThisConsumer", "[]")]
+    [JsiiClass(nativeType: typeof(PartiallyInitializedThisConsumer), fullyQualifiedName: "jsii-calc.PartiallyInitializedThisConsumer")]
     public abstract class PartiallyInitializedThisConsumer : DeputyBase
     {
         protected PartiallyInitializedThisConsumer(): base(new DeputyProps(new object[]{}))
