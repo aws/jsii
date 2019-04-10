@@ -277,8 +277,6 @@ export interface Docs {
 
     /**
      * Whether the API item is beta/experimental quality
-     *
-     * @default Stability.Experimental
      */
     stability?: Stability;
 
