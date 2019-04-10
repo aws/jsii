@@ -21,7 +21,7 @@ namespace Amazon.JSII.JsonModel.Spec
             string[] interfaces = null,
             Method[] methods = null,
             Property[] properties = null,
-            bool? isDataType = null
+            bool isDataType = false
         ) : base
             (
                 fullyQualifiedName,
@@ -48,6 +48,6 @@ namespace Amazon.JSII.JsonModel.Spec
         public Property[] Properties { get; }
 
         [JsonProperty("datatype", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? IsDataType { get; }
+        public bool IsDataType { get; }
     }
 }

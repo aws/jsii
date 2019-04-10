@@ -281,7 +281,7 @@ abstract class BaseMethod implements PythonBase {
     constructor(public readonly name: string,
                 private readonly jsName: string | undefined,
                 private readonly parameters: spec.Parameter[],
-                private readonly returns?: spec.TypeReference,
+                private readonly returns?: spec.OptionalValue,
                 opts: BaseMethodOpts = {}) {
         this.abstract = !!opts.abstract;
         this.liftedProp = opts.liftedProp;
@@ -326,8 +326,8 @@ abstract class BaseMethod implements PythonBase {
                 paramName = `${paramName}_`;
             }
 
-            const paramType = resolver.resolve(param.type, { forwardReferences: false});
-            const paramDefault = param.type.optional ? "=None" : "";
+            const paramType = resolver.resolve(param, { forwardReferences: false});
+            const paramDefault = param.optional ? "=None" : "";
 
             pythonParams.push(`${paramName}: ${paramType}${paramDefault}`);
         }
@@ -348,8 +348,8 @@ abstract class BaseMethod implements PythonBase {
                 // Iterate over all of our props, and reflect them into our params.
                 for (const prop of liftedProperties) {
                     const paramName = toPythonParameterName(prop.name);
-                    const paramType = resolver.resolve(prop.type, { forwardReferences: false });
-                    const paramDefault = prop.type.optional ? "=None" : "";
+                    const paramType = resolver.resolve(prop, { forwardReferences: false });
+                    const paramDefault = prop.optional ? "=None" : "";
 
                     pythonParams.push(`${paramName}: ${paramType}${paramDefault}`);
                 }
@@ -363,7 +363,7 @@ abstract class BaseMethod implements PythonBase {
             const lastParameter = this.parameters.slice(-1)[0];
             const paramName = toPythonParameterName(lastParameter.name);
             const paramType = resolver.resolve(
-                lastParameter.type,
+                lastParameter,
                 { forwardReferences: false, ignoreOptional: true },
             );
 
@@ -402,13 +402,13 @@ abstract class BaseMethod implements PythonBase {
     private emitAutoProps(code: CodeMaker, resolver: TypeResolver) {
         const lastParameter = this.parameters.slice(-1)[0];
         const argName = toPythonParameterName(lastParameter.name);
-        const typeName = resolver.resolve(lastParameter.type, {ignoreOptional: true });
+        const typeName = resolver.resolve(lastParameter, {ignoreOptional: true });
 
         // We need to build up a list of properties, which are mandatory, these are the
         // ones we will specifiy to start with in our dictionary literal.
         const mandatoryPropMembers: string[] = [];
         for (const prop of this.getLiftedProperties(resolver)) {
-            if (prop.type.optional) {
+            if (prop.optional) {
                 continue;
             }
 
@@ -420,7 +420,7 @@ abstract class BaseMethod implements PythonBase {
         // Now we'll go through our optional properties, and if they haven't been set
         // we'll add them to our dictionary.
         for (const prop of this.getLiftedProperties(resolver)) {
-            if (!prop.type.optional) {
+            if (!prop.optional) {
                 continue;
             }
 
@@ -438,7 +438,7 @@ abstract class BaseMethod implements PythonBase {
             if (this.parent === undefined) {
                 throw new Error("Parent not known.");
             }
-            jsiiMethodParams.push(resolver.resolve(this.parent));
+            jsiiMethodParams.push(resolver.resolve({ type: this.parent }));
         }
         jsiiMethodParams.push(this.implicitParameter);
         if (this.jsName !== undefined) {
@@ -500,7 +500,7 @@ abstract class BaseProperty implements PythonBase {
 
     constructor(public readonly name: string,
                 private readonly jsName: string,
-                private readonly type: spec.TypeReference,
+                private readonly type: spec.OptionalValue,
                 opts: BasePropertyOpts = {}) {
         const {
             abstract = false,
@@ -554,7 +554,7 @@ class Interface extends BasePythonClassType {
 
         // Then, we have to emit a Proxy class which implements our proxy interface.
         resolver = this.fqn ? resolver.bind(this.fqn) : resolver;
-        const proxyBases: string[] = this.bases.map(b => `jsii.proxy_for(${resolver.resolve(b)})`);
+        const proxyBases: string[] = this.bases.map(b => `jsii.proxy_for(${resolver.resolve({ type: b })})`);
         code.openBlock(`class ${this.getProxyClassName()}(${proxyBases.join(", ")})`);
         code.line(`__jsii_type__ = "${this.fqn}"`);
 
@@ -570,7 +570,7 @@ class Interface extends BasePythonClassType {
     }
 
     protected getClassParams(resolver: TypeResolver): string[] {
-        const params: string[] = this.bases.map(b => resolver.resolve(b));
+        const params: string[] = this.bases.map(b => resolver.resolve({ type: b }));
 
         params.push("jsii.compat.Protocol");
 
@@ -669,7 +669,7 @@ class TypedDict extends BasePythonClassType {
     }
 
     protected getClassParams(resolver: TypeResolver): string[] {
-        const params: string[] = this.bases.map(b => resolver.resolve(b));
+        const params: string[] = this.bases.map(b => resolver.resolve({ type: b }));
 
         params.push("jsii.compat.TypedDict");
 
@@ -681,9 +681,9 @@ class TypedDict extends BasePythonClassType {
 class TypedDictProperty implements PythonBase {
 
     constructor(public readonly name: string,
-                private readonly type: spec.TypeReference) {}
+                private readonly type: spec.OptionalValue) {}
 
-    get optional(): boolean {
+    public get optional(): boolean {
         return !!this.type.optional;
     }
 
@@ -752,7 +752,7 @@ class Class extends BasePythonClassType {
     public emit(code: CodeMaker, resolver: TypeResolver) {
         // First we emit our implments decorator
         if (this.interfaces.length > 0) {
-            const interfaces: string[] = this.interfaces.map(b => resolver.resolve(b));
+            const interfaces: string[] = this.interfaces.map(b => resolver.resolve({ type: b }));
             code.line(`@jsii.implements(${interfaces.join(", ")})`);
         }
 
@@ -767,7 +767,7 @@ class Class extends BasePythonClassType {
 
             const proxyBases: string[] = [this.name];
             for (const base of this.abstractBases) {
-                proxyBases.push(`jsii.proxy_for(${resolver.resolve(base)})`);
+                proxyBases.push(`jsii.proxy_for(${resolver.resolve({ type: base })})`);
             }
 
             code.openBlock(`class ${this.getProxyClassName()}(${proxyBases.join(', ')})`);
@@ -799,7 +799,7 @@ class Class extends BasePythonClassType {
     }
 
     protected getClassParams(resolver: TypeResolver): string[] {
-        const params: string[] = this.bases.map(b => resolver.resolve(b));
+        const params: string[] = this.bases.map(b => resolver.resolve({ type: b }));
         const metaclass: string = this.abstract ? "JSIIAbstractClass" : "JSIIMeta";
 
         params.push(`metaclass=jsii.${metaclass}`);
@@ -1214,14 +1214,15 @@ class TypeResolver {
     }
 
     public resolve(
-            typeInstance: spec.TypeReference,
+            typeInstance: spec.OptionalValue,
             opts: TypeResolverOpts = { forwardReferences: true, ignoreOptional: false }): string {
         const {
             forwardReferences = true,
         } = opts;
 
+        const optional = opts.ignoreOptional ? false : !!typeInstance.optional;
         // First, we need to resolve our given type reference into the Python type.
-        let pythonType = this.toPythonType(typeInstance, opts.ignoreOptional);
+        let pythonType = this.toPythonType(typeInstance.type, { optional });
 
         // If we split our types by any of the "special" characters that can't appear in
         // identifiers (like "[],") then we will get a list of all of the identifiers,
@@ -1278,7 +1279,7 @@ class TypeResolver {
         return pythonType;
     }
 
-    private toPythonType(typeRef: spec.TypeReference, ignoreOptional?: boolean): string {
+    private toPythonType(typeRef: spec.TypeReference, opts: { optional: boolean }): string {
         let pythonType: string;
 
         // Get the underlying python type.
@@ -1291,7 +1292,7 @@ class TypeResolver {
         } else if (typeRef.union) {
             const types = new Array<string>();
             for (const subtype of typeRef.union.types) {
-                types.push(this.toPythonType(subtype));
+                types.push(this.toPythonType(subtype, opts));
             }
             pythonType = `typing.Union[${types.join(", ")}]`;
         } else {
@@ -1303,7 +1304,7 @@ class TypeResolver {
         // We explicitly don't emit this when our type is typing.Any, because typing.Any
         // already implied that None is an accepted type.
         // See: https://github.com/awslabs/jsii/issues/284
-        if (!ignoreOptional && typeRef.optional && pythonType !== "typing.Any") {
+        if (opts.optional && pythonType !== "typing.Any") {
             pythonType = `typing.Optional[${pythonType}]`;
         }
 
@@ -1324,7 +1325,7 @@ class TypeResolver {
     }
 
     private toPythonCollection(ref: spec.CollectionTypeReference): string {
-        const elementPythonType = this.toPythonType(ref.collection.elementtype);
+        const elementPythonType = this.toPythonType(ref.collection.elementtype, { optional: false });
         switch (ref.collection.kind) {
             case spec.CollectionKind.Array: return `typing.List[${elementPythonType}]`;
             case spec.CollectionKind.Map: return `typing.Mapping[str,${elementPythonType}]`;
@@ -1472,7 +1473,7 @@ class PythonGenerator extends Generator {
             new StaticProperty(
                 toPythonPropertyName(prop.name, prop.const),
                 prop.name,
-                prop.type,
+                prop,
                 { abstract: prop.abstract, immutable: prop.immutable },
             )
         );
@@ -1481,7 +1482,7 @@ class PythonGenerator extends Generator {
     protected onMethod(cls: spec.ClassType, method: spec.Method) {
         const { parameters = [] } = method;
 
-        if (this.isAsyncMethod(method)) {
+        if (method.async) {
             this.getPythonType(cls.fqn).addMember(
                 new AsyncMethod(
                     toPythonMethodName(method.name!, method.protected),
@@ -1509,7 +1510,7 @@ class PythonGenerator extends Generator {
             new Property(
                 toPythonPropertyName(prop.name, prop.const, prop.protected),
                 prop.name,
-                prop.type,
+                prop,
                 { abstract: prop.abstract, immutable: prop.immutable },
             )
         );
@@ -1561,13 +1562,13 @@ class PythonGenerator extends Generator {
         if (ifc.datatype) {
             ifaceProperty = new TypedDictProperty(
                 toPythonIdentifier(prop.name),
-                prop.type,
+                prop,
             );
         } else {
             ifaceProperty = new InterfaceProperty(
                 toPythonPropertyName(prop.name, prop.const, prop.protected),
                 prop.name,
-                prop.type,
+                prop,
                 { immutable: prop.immutable },
             );
         }
@@ -1670,9 +1671,5 @@ class PythonGenerator extends Generator {
         }
 
         return abstractBases;
-    }
-
-    private isAsyncMethod(method: spec.Method): boolean {
-        return method.returns !== undefined && method.returns.promise !== undefined && method.returns.promise;
     }
 }

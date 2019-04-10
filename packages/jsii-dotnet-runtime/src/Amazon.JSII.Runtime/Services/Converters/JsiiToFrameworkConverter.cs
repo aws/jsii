@@ -193,7 +193,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
             if (value is JArray array)
             {
-                System.Type elementType = _types.GetFrameworkType(elementTypeInstance);
+                System.Type elementType = _types.GetFrameworkType(elementTypeInstance, false);
                 Array resultArray = Array.CreateInstance(elementType, array.Count);
 
                 for (int i = 0; i < array.Count; i++)
@@ -224,7 +224,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
             if (value is JObject jsonObject)
             {
-                System.Type elementType = _types.GetFrameworkType(elementTypeInstance);
+                System.Type elementType = _types.GetFrameworkType(elementTypeInstance, false);
                 System.Type dictionaryType = typeof(Dictionary<,>).MakeGenericType(typeof(string), elementType);
 
                 ConstructorInfo dictionaryConstructor = dictionaryType.GetConstructor(new System.Type[] { });
@@ -277,7 +277,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
                         return new TypeReference(
                             collection: new CollectionTypeReference(
                                 kind: CollectionKind.Map,
-                                elementType: new TypeReference(primitive: PrimitiveType.Any, isOptional: true)
+                                elementType: new TypeReference(primitive: PrimitiveType.Any)
                             )
                         );
 
@@ -287,7 +287,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
                             collection: new CollectionTypeReference
                             (
                                 kind: CollectionKind.Array,
-                                elementType: new TypeReference(primitive: PrimitiveType.Any, isOptional: true)
+                                elementType: new TypeReference(primitive: PrimitiveType.Any)
                             )
                         );
 

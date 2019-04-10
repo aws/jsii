@@ -32,13 +32,19 @@ namespace Amazon.JSII.Generator.Class
             {
                 TypeOfExpressionSyntax typeOfExpression = SF.TypeOfExpression(Symbols.GetNameSyntax(Type));
                 SyntaxToken fullyQualifiedNameLiteral = SF.Literal(Type.FullyQualifiedName);
-                SyntaxToken parametersJsonLiteral = Type.Initializer.GetParametersJsonSyntaxToken();
 
+                var argumentList = $"nativeType: {typeOfExpression}, fullyQualifiedName: {fullyQualifiedNameLiteral}";
+                if (Type.Initializer.Parameters != null && Type.Initializer.Parameters.Length > 0)
+                {
+                    SyntaxToken parametersJsonLiteral = Type.Initializer.GetParametersJsonSyntaxToken();
+                    argumentList += $", parametersJson: {parametersJsonLiteral}";
+                }
+                
                 return SF.List(new[] {
                     SF.AttributeList(SF.SeparatedList(new[] {
                         SF.Attribute(
                             SF.ParseName("JsiiClass"),
-                            SF.ParseAttributeArgumentList($"({typeOfExpression}, {fullyQualifiedNameLiteral}, {parametersJsonLiteral})")
+                            SF.ParseAttributeArgumentList($"({argumentList})")
                         )
                     }))
                 });
@@ -48,7 +54,7 @@ namespace Amazon.JSII.Generator.Class
             {
                 SyntaxTokenList modifierList = SF.TokenList(SF.Token(SyntaxKind.PublicKeyword));
 
-                if (Type.IsAbstract == true)
+                if (Type.IsAbstract)
                 {
                     modifierList = modifierList.Add(SF.Token(SyntaxKind.AbstractKeyword));
                 }
@@ -103,7 +109,7 @@ namespace Amazon.JSII.Generator.Class
                 (
                     SF.List<AttributeListSyntax>(),
                     SF.TokenList(SF.Token(
-                        Type.IsAbstract == true || Type.Initializer.IsProtected == true
+                        Type.IsAbstract || Type.Initializer.IsProtected
                             ? SyntaxKind.ProtectedKeyword
                             : SyntaxKind.PublicKeyword
                     )),

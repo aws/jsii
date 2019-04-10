@@ -17,7 +17,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod("returnLiteral", "{\"fqn\":\"jsii-calc.JSObjectLiteralToNativeClass\"}", "[]")]
+        [JsiiMethod(name: "returnLiteral", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.JSObjectLiteralToNativeClass\"}}", parametersJson: "[]")]
         public virtual JSObjectLiteralToNativeClass ReturnLiteral()
         {
             return InvokeInstanceMethod<JSObjectLiteralToNativeClass>(new object[]{});

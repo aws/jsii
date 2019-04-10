@@ -19,14 +19,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         }
 
         /// <summary>The number multiplied by 2.</summary>
-        [JsiiProperty("doubleValue", "{\"primitive\":\"number\"}")]
+        [JsiiProperty(name: "doubleValue", typeJson: "{\"primitive\":\"number\"}")]
         public virtual double DoubleValue
         {
             get => GetInstanceProperty<double>();
         }
 
         /// <summary>The number.</summary>
-        [JsiiProperty("value", "{\"primitive\":\"number\"}")]
+        [JsiiProperty(name: "value", typeJson: "{\"primitive\":\"number\"}")]
         public override double Value
         {
             get => GetInstanceProperty<double>();

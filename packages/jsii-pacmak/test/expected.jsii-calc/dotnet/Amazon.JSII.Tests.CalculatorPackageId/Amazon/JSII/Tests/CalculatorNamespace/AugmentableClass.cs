@@ -17,13 +17,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod("methodOne", null, "[]")]
+        [JsiiMethod(name: "methodOne", returnsJson: null, parametersJson: "[]")]
         public virtual void MethodOne()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("methodTwo", null, "[]")]
+        [JsiiMethod(name: "methodTwo", returnsJson: null, parametersJson: "[]")]
         public virtual void MethodTwo()
         {
             InvokeInstanceVoidMethod(new object[]{});

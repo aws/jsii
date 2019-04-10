@@ -12,14 +12,14 @@ namespace Amazon.JSII.JsonModel.Spec
             string[] roles,
             string email = null,
             string url = null,
-            bool? organization = null
+            bool isOrganization = false
         )
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Roles = roles ?? throw new ArgumentNullException(nameof(roles));
             Email = email;
             Url = url;
-            Organization = organization;
+            IsOrganization = isOrganization;
         }
 
         [JsonProperty("name")]
@@ -35,6 +35,6 @@ namespace Amazon.JSII.JsonModel.Spec
         public string Url { get; }
 
         [JsonProperty("organization", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? Organization { get; }
+        public bool IsOrganization { get; }
     }
 }

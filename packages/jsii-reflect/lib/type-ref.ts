@@ -8,24 +8,14 @@ export class TypeReference {
     private readonly spec?: jsii.TypeReference) { }
 
   public toString(): string {
-    const decorate = ((desc: string) => {
-      if (this.optional && !this.isAny) {
-        desc = `Optional<${desc}>`;
-      }
-      if (this.promise) {
-        desc = `Promise<${desc}>`;
-      }
-      return desc;
-    });
+    if (this.void) { return 'void'; }
+    if (this.primitive) { return this.primitive; }
+    if (this.fqn) { return this.fqn; }
 
-    if (this.void) { return decorate('void'); }
-    if (this.primitive) { return decorate(this.primitive); }
-    if (this.fqn) { return decorate(this.fqn); }
-
-    if (this.arrayOfType) { return decorate(`Array<${this.arrayOfType}>`); }
-    if (this.mapOfType) { return decorate(`Map<string => ${this.mapOfType}>`); }
+    if (this.arrayOfType) { return `Array<${this.arrayOfType}>`; }
+    if (this.mapOfType) { return `Map<string => ${this.mapOfType}>`; }
     if (this.unionOfTypes) {
-      return decorate(this.unionOfTypes.map(x => x.toString()).join(' | '));
+      return this.unionOfTypes.map(x => x.toString()).join(' | ');
     }
 
     throw new Error(`Invalid type reference`);
@@ -89,19 +79,5 @@ export class TypeReference {
     }
 
     return this.spec.union.types.map(t => new TypeReference(this.system, t));
-  }
-
-  /**
-   * Indicates if this value is optional.
-   */
-  public get optional(): boolean {
-    return this.spec != null && !!this.spec.optional;
-  }
-
-  /**
-   * Indicates if this type refers to a promise.
-   */
-  public get promise(): boolean {
-    return this.spec != null && !!this.spec.promise;
   }
 }

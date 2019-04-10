@@ -1,6 +1,7 @@
 ﻿using Amazon.JSII.JsonModel.Spec;
 using Newtonsoft.Json;
 using System;
+using System.Linq;
 using Xunit;
 
 namespace Amazon.JSII.JsonModel.UnitTests.Spec
@@ -9,7 +10,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
     {
         const string RootPrefix = nameof(Spec) + "." + nameof(ClassType) + ".";
 
-        public class Serialization
+        public class Serialization : TestUtils
         {
             const string Prefix = RootPrefix + "Serialization.";
 
@@ -31,7 +32,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                     interfaces: new string[] { }
                 );
 
-                string actual = JsonConvert.SerializeObject(classType, Formatting.Indented);
+                string actual = ToJson(classType);
                 const string expected = @"{
   ""abstract"": true,
   ""base"": ""myBaseFqn"",
@@ -124,7 +125,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                     initializer: new Initializer(),
                     interfaces: new string[] { }
                 );
-                string actual = JsonConvert.SerializeObject(classType, Formatting.Indented);
+                string actual = ToJson(classType);
                 const string expected = @"{
   ""abstract"": true,
   ""base"": ""myBaseFqn"",
@@ -158,7 +159,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                     interfaces: new string[] { }
                 );
 
-                string actual = JsonConvert.SerializeObject(classType, Formatting.Indented);
+                string actual = ToJson(classType);
                 const string expected = @"{
   ""abstract"": true,
   ""base"": ""myBaseFqn"",
@@ -193,7 +194,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                     interfaces: new string[] { }
                 );
 
-                string actual = JsonConvert.SerializeObject(classType, Formatting.Indented);
+                string actual = ToJson(classType);
                 const string expected = @"{
   ""abstract"": true,
   ""base"": ""myBaseFqn"",
@@ -228,7 +229,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                     interfaces: new string[] { }
                 );
 
-                string actual = JsonConvert.SerializeObject(classType, Formatting.Indented);
+                string actual = ToJson(classType);
                 const string expected = @"{
   ""abstract"": true,
   ""base"": ""myBaseFqn"",
@@ -263,7 +264,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                     interfaces: new string[] { }
                 );
 
-                string actual = JsonConvert.SerializeObject(classType, Formatting.Indented);
+                string actual = ToJson(classType);
                 const string expected = @"{
   ""abstract"": true,
   ""initializer"": {},
@@ -298,7 +299,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                     interfaces: new string[] { }
                 );
 
-                string actual = JsonConvert.SerializeObject(classType, Formatting.Indented);
+                string actual = ToJson(classType);
                 const string expected = @"{
   ""abstract"": true,
   ""base"": ""myBaseFqn"",
@@ -333,7 +334,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                     initializer: new Initializer()
                 );
 
-                string actual = JsonConvert.SerializeObject(classType, Formatting.Indented);
+                string actual = ToJson(classType);
                 const string expected = @"{
   ""abstract"": true,
   ""base"": ""myBaseFqn"",
@@ -601,6 +602,29 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 ClassType actual = JsonConvert.DeserializeObject<ClassType>(json);
 
                 Assert.Null(actual.Interfaces);
+            }
+            
+            [Fact(DisplayName = Prefix + nameof(DeserializesAsyncMethod))]
+            public void DeserializesAsyncMethod()
+            {
+                const string json = @"{
+  ""abstract"": true,
+  ""initializer"": {},
+  ""properties"": [],
+  ""methods"": [{ ""async"": true, ""name"": ""testMethod"" }],
+  ""base"": ""myBaseFqn"",
+  ""fqn"": ""myFqn"",
+  ""assembly"": ""myModule"",
+  ""name"": ""myName"",
+  ""namespace"": ""myNamespace"",
+  ""kind"": ""class"",
+  ""docs"": {}
+}";
+
+                ClassType actual = JsonConvert.DeserializeObject<ClassType>(json);
+
+                Assert.True(actual.Methods.Length == 1);
+                Assert.True(actual.Methods[0]?.IsAsync);
             }
         }
     }

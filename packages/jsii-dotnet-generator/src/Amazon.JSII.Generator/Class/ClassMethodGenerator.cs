@@ -30,21 +30,21 @@ namespace Amazon.JSII.Generator.Class
                     return true;
                 }
 
-                return Type.AnyAncestor(Symbols, t => t.Methods?.Any(m => m.Name == Method.Name) == true);
+                return Type.AnyAncestor(Symbols, t => t.Methods?.Any(m => m.Name == Method.Name) ?? false);
             }
         }
 
         protected override IEnumerable<SyntaxKind> GetModifierKeywords()
         {
-            yield return Method.IsProtected == true ? SyntaxKind.ProtectedKeyword : SyntaxKind.PublicKeyword;
+            yield return Method.IsProtected ? SyntaxKind.ProtectedKeyword : SyntaxKind.PublicKeyword;
 
-            if (Method.IsStatic == true)
+            if (Method.IsStatic)
             {
                 yield return SyntaxKind.StaticKeyword;
                 yield break;
             }
 
-            if (Method.IsAbstract == true)
+            if (Method.IsAbstract)
             {
                 if (IsDefinedOnAncestor)
                 {
@@ -62,7 +62,7 @@ namespace Amazon.JSII.Generator.Class
 
         protected override BlockSyntax GetBody()
         {
-            if (Method.IsAbstract == true)
+            if (Method.IsAbstract)
             {
                 return null;
             }
@@ -75,6 +75,6 @@ namespace Amazon.JSII.Generator.Class
             return SF.Block(SF.ReturnStatement(CreateInvocationExpression()));
         }
 
-        protected override bool HasSemicolon => Method.IsAbstract == true;
+        protected override bool HasSemicolon => Method.IsAbstract;
     }
 }

@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(typeof(IOptionalStruct), "jsii-calc.OptionalStruct")]
     public interface IOptionalStruct
     {
-        [JsiiProperty("field", "{\"primitive\":\"string\",\"optional\":true}")]
+        [JsiiProperty(name: "field", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         string Field
         {
             get;

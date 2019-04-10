@@ -20,14 +20,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         }
 
         /// <summary>The value.</summary>
-        [JsiiProperty("value", "{\"primitive\":\"number\"}")]
+        [JsiiProperty(name: "value", typeJson: "{\"primitive\":\"number\"}")]
         public virtual double Value
         {
             get => GetInstanceProperty<double>();
         }
 
         /// <summary>String representation of the value.</summary>
-        [JsiiMethod("toString", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod(name: "toString", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[]")]
         public override string ToString()
         {
             return InvokeInstanceMethod<string>(new object[]{});

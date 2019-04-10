@@ -5,14 +5,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(typeof(IINonInternalInterface), "jsii-calc.INonInternalInterface")]
     public interface IINonInternalInterface : IIAnotherPublicInterface
     {
-        [JsiiProperty("b", "{\"primitive\":\"string\"}")]
+        [JsiiProperty(name: "b", typeJson: "{\"primitive\":\"string\"}")]
         string B
         {
             get;
             set;
         }
 
-        [JsiiProperty("c", "{\"primitive\":\"string\"}")]
+        [JsiiProperty(name: "c", typeJson: "{\"primitive\":\"string\"}")]
         string C
         {
             get;

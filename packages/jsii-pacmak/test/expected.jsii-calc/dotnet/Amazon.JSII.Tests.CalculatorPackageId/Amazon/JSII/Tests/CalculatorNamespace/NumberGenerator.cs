@@ -18,20 +18,20 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("generator", "{\"fqn\":\"jsii-calc.IRandomNumberGenerator\"}")]
+        [JsiiProperty(name: "generator", typeJson: "{\"fqn\":\"jsii-calc.IRandomNumberGenerator\"}")]
         public virtual IIRandomNumberGenerator Generator
         {
             get => GetInstanceProperty<IIRandomNumberGenerator>();
             set => SetInstanceProperty(value);
         }
 
-        [JsiiMethod("isSameGenerator", "{\"primitive\":\"boolean\"}", "[{\"name\":\"gen\",\"type\":{\"fqn\":\"jsii-calc.IRandomNumberGenerator\"}}]")]
+        [JsiiMethod(name: "isSameGenerator", returnsJson: "{\"type\":{\"primitive\":\"boolean\"}}", parametersJson: "[{\"name\":\"gen\",\"type\":{\"fqn\":\"jsii-calc.IRandomNumberGenerator\"}}]")]
         public virtual bool IsSameGenerator(IIRandomNumberGenerator gen)
         {
             return InvokeInstanceMethod<bool>(new object[]{gen});
         }
 
-        [JsiiMethod("nextTimes100", "{\"primitive\":\"number\"}", "[]")]
+        [JsiiMethod(name: "nextTimes100", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[]")]
         public virtual double NextTimes100()
         {
             return InvokeInstanceMethod<double>(new object[]{});

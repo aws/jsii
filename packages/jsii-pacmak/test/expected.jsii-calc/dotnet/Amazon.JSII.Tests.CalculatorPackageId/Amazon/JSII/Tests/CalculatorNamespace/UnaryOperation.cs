@@ -19,7 +19,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("operand", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
+        [JsiiProperty(name: "operand", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public virtual Value_ Operand
         {
             get => GetInstanceProperty<Value_>();

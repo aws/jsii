@@ -7,21 +7,21 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue]
     public class ImplictBaseOfBase : IImplictBaseOfBase
     {
-        [JsiiProperty("goo", "{\"primitive\":\"date\"}", true)]
+        [JsiiProperty(name: "goo", typeJson: "{\"primitive\":\"date\"}", isOverride: true)]
         public DateTime Goo
         {
             get;
             set;
         }
 
-        [JsiiProperty("bar", "{\"primitive\":\"string\"}", true)]
+        [JsiiProperty(name: "bar", typeJson: "{\"primitive\":\"string\"}", isOverride: true)]
         public string Bar
         {
             get;
             set;
         }
 
-        [JsiiProperty("foo", "{\"fqn\":\"@scope/jsii-calc-base-of-base.Very\"}", true)]
+        [JsiiProperty(name: "foo", typeJson: "{\"fqn\":\"@scope/jsii-calc-base-of-base.Very\"}", isOverride: true)]
         public Very Foo
         {
             get;

@@ -461,7 +461,7 @@ class SphinxDocsGenerator extends Generator {
             }
 
             // Mark parameter as "optional" if it's type is optional, and all subsequent parameters are optional/variadic
-            if (p.type.optional && params.some((op, oidx) => oidx > idx && !op.variadic && !op.type.optional)) {
+            if (p.optional) {
                 signature += '[';
                 signaturePosfix += ']';
             }
@@ -476,7 +476,7 @@ class SphinxDocsGenerator extends Generator {
         signature += ')';
 
         if (spec.isMethod(method) && method.returns) {
-            const retType = this.renderTypeRef(method.returns);
+            const retType = this.renderOptionalValue(method.returns);
             const retSignature = method.returns ? ` -> ${retType.display}` : '';
             signature += retSignature;
         }
@@ -532,7 +532,7 @@ class SphinxDocsGenerator extends Generator {
         }
 
         if (method.returns) {
-            this.code.line(`:rtype: ${this.renderTypeRef(method.returns).ref}`);
+            this.code.line(`:rtype: ${this.renderOptionalValue(method.returns).ref}`);
         }
 
         if (method.abstract) {
@@ -579,6 +579,19 @@ class SphinxDocsGenerator extends Generator {
         }
     }
 
+    private renderOptionalValue(optionalValue: spec.OptionalValue): { display: string, ref: string } {
+        const result = this.renderTypeRef(optionalValue.type);
+        if (optionalValue.optional && !isAny(optionalValue.type)) {
+            result.ref = `${result.ref} *(optional)*`;
+        }
+        return result;
+
+        function isAny(type: spec.TypeReference): boolean {
+            return spec.isPrimitiveTypeReference(type)
+                && type.primitive === spec.PrimitiveType.Any;
+        }
+    }
+
     private renderTypeRef(type: spec.TypeReference): { display: string, ref: string } {
         let result: { display: string, ref: string };
         if (spec.isNamedTypeReference(type)) {
@@ -622,8 +635,6 @@ class SphinxDocsGenerator extends Generator {
         } else {
             throw new Error('Unexpected type ref');
         }
-        const isAny = spec.isPrimitiveTypeReference(type) && type.primitive === spec.PrimitiveType.Any;
-        if (type.optional && !isAny) { result.ref = `${result.ref} *(optional)*`; }
         return result;
 
         // Wrap a string between parenthesis if it contains " or "
@@ -635,7 +646,7 @@ class SphinxDocsGenerator extends Generator {
 
     private renderProperty(parent: spec.TypeBase, prop: spec.Property, inheritedFrom?: string) {
         this.code.line();
-        const type = this.renderTypeRef(prop.type);
+        const type = this.renderOptionalValue(prop);
         this.code.openBlock(`.. py:attribute:: ${prop.name}`);
         if (inheritedFrom) {
             this.code.line();

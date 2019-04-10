@@ -9,13 +9,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("value", "{\"primitive\":\"string\"}")]
+        [JsiiProperty(name: "value", typeJson: "{\"primitive\":\"string\"}")]
         public string Value
         {
             get => GetInstanceProperty<string>();
         }
 
-        [JsiiMethod("doThings", null, "[]")]
+        [JsiiMethod(name: "doThings", returnsJson: null, parametersJson: "[]")]
         public void DoThings()
         {
             InvokeInstanceVoidMethod(new object[]{});

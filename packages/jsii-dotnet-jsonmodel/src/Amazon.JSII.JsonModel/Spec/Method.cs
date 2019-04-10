@@ -9,39 +9,44 @@ namespace Amazon.JSII.JsonModel.Spec
         public Method
         (
             string name,
-            bool? isProtected = null,
-            bool? isAbstract = null,
+            OptionalValue returns = null,
             Parameter[] parameters = null,
-            Docs docs = null,
-            TypeReference returns = null,
-            bool? isVariadic = null,
-            bool? isStatic = null,
-            string overrides = null
+            bool isAbstract = false,
+            bool isAsync = false,
+            bool isProtected = false,
+            bool isVariadic = false,
+            bool isStatic = false,
+            string overrides = null,
+            Docs docs = null
         ): base
         (
-            isProtected: isProtected,
             parameters: parameters,
-            docs: docs,
+            isProtected: isProtected,
             isVariadic: isVariadic,
-            overrides: overrides
+            overrides: overrides,
+            docs: docs
         )
         {
             Name = name;
-            IsAbstract = isAbstract;
             Returns = returns;
+            IsAbstract = isAbstract;
+            IsAsync = isAsync;
             IsStatic = isStatic;
         }
-
-        [JsonProperty("abstract", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? IsAbstract { get; }
 
         [JsonProperty("name")]
         public string Name { get; }
 
         [JsonProperty("returns", NullValueHandling = NullValueHandling.Ignore)]
-        public TypeReference Returns { get; }
+        public OptionalValue Returns { get; }
 
+        [JsonProperty("abstract", NullValueHandling = NullValueHandling.Ignore)]
+        public bool IsAbstract { get; }
+
+        [JsonProperty("async", NullValueHandling = NullValueHandling.Ignore)]
+        public bool IsAsync { get;  }
+        
         [JsonProperty("static", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? IsStatic { get; }
+        public bool IsStatic { get; }
     }
 }

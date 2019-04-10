@@ -100,7 +100,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [InlineData(PrimitiveType.String, null, null, true)]
             public void ConvertsPrimitiveValues(PrimitiveType primitive, object value, object expected, bool isOptional)
             {
-                var instance = new TypeReference(primitive: primitive, isOptional: isOptional);
+                var instance = new OptionalValue(new TypeReference(primitive: primitive), isOptional: isOptional);
 
                 bool success = _converter.TryConvert(instance, _referenceMap, value, out object actual);
 
@@ -111,7 +111,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsDateValues))]
             public void ConvertsDateValues()
             {
-                var instance = new TypeReference(primitive: PrimitiveType.Date);
+                var instance = new OptionalValue(new TypeReference(primitive: PrimitiveType.Date));
 
                 DateTime now = DateTime.Now;
                 bool success = _converter.TryConvert(instance, _referenceMap, now, out object actual);
@@ -135,7 +135,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsOptionalDateValues))]
             public void ConvertsOptionalDateValues()
             {
-                var instance = new TypeReference(primitive: PrimitiveType.Date, isOptional: true);
+                var instance = new OptionalValue(new TypeReference(primitive: PrimitiveType.Date), isOptional: true);
 
                 DateTime now = DateTime.Now;
                 bool success = _converter.TryConvert(instance, _referenceMap, now, out object actual);
@@ -155,7 +155,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsJsonValues))]
             public void ConvertsJsonValues()
             {
-                var instance = new TypeReference(primitive: PrimitiveType.Json);
+                var instance = new OptionalValue(new TypeReference(primitive: PrimitiveType.Json));
 
                 JObject jObject = new JObject(
                     new JProperty("myArray", new JArray(
@@ -180,7 +180,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(FailsOnNullBoolean))]
             public void FailsOnNullBoolean()
             {
-                var instance = new TypeReference(primitive: PrimitiveType.Boolean);
+                var instance = new OptionalValue(new TypeReference(primitive: PrimitiveType.Boolean));
 
                 bool success = _converter.TryConvert(instance, _referenceMap, null, out object actual);
 
@@ -190,7 +190,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(FailsOnNullNumber))]
             public void FailsOnNullNumber()
             {
-                var instance = new TypeReference(primitive: PrimitiveType.Number);
+                var instance = new OptionalValue(new TypeReference(primitive: PrimitiveType.Number));
 
                 bool success = _converter.TryConvert(instance, _referenceMap, null, out object actual);
 
@@ -200,7 +200,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsNullJson))]
             public void ConvertsNullJson()
             {
-                var instance = new TypeReference(primitive: PrimitiveType.Json);
+                var instance = new OptionalValue(new TypeReference(primitive: PrimitiveType.Json));
 
                 bool success = _converter.TryConvert(instance, _referenceMap, null, out object actual);
 
@@ -216,7 +216,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsClassReference))]
             public void ConvertsClassReference()
             {
-                var instance = new TypeReference("myClassFqn");
+                var instance = new OptionalValue(new TypeReference("myClassFqn"));
 
                 ByRefValue byRef = new ByRefValue("myClassFqn", "0001");
                 TestClass myClass = new TestClass(byRef);
@@ -231,7 +231,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsEnumValue))]
             public void ConvertsEnumValue()
             {
-                var instance = new TypeReference("myEnumFqn");
+                var instance = new OptionalValue(new TypeReference("myEnumFqn"));
 
                 TestEnum myEnum = TestEnum.MyMember2;
 
@@ -249,7 +249,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsNullClassReference))]
             public void ConvertsNullClassReference()
             {
-                var instance = new TypeReference("myClassFqn");
+                var instance = new OptionalValue(new TypeReference("myClassFqn"));
 
                 bool success = _converter.TryConvert(instance, _referenceMap, null, out object actual);
 
@@ -260,7 +260,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(DoesNotConvertNullNonOptionalEnumValue))]
             public void DoesNotConvertNullNonOptionalEnumValue()
             {
-                var instance = new TypeReference("myEnumFqn");
+                var instance = new OptionalValue(new TypeReference("myEnumFqn"));
 
                 bool success =_converter.TryConvert(instance, _referenceMap, null, out object actual);
 
@@ -271,7 +271,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsNullOptionalEnumValue))]
             public void ConvertsNullOptionalEnumValue()
             {
-                var instance = new TypeReference("myEnumFqn", isOptional: true);
+                var instance = new OptionalValue(new TypeReference("myEnumFqn"), isOptional: true);
 
                 bool success = _converter.TryConvert(instance, _referenceMap, null, out object actual);
 
@@ -287,11 +287,11 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsMap))]
             public void ConvertsMap()
             {
-                var instance = new TypeReference(
+                var instance = new OptionalValue(new TypeReference(
                     collection: new CollectionTypeReference(CollectionKind.Map,
                         new TypeReference(primitive: PrimitiveType.String)
                     )
-                );
+                ));
 
                 IDictionary<string, string> frameworkMap = new Dictionary<string, string>
                 {
@@ -322,7 +322,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(RecursivelyConvertsMapElements))]
             public void RecursivelyConvertsMapElements()
             {
-                var instance = new TypeReference(
+                var instance = new OptionalValue(new TypeReference(
                     collection: new CollectionTypeReference(CollectionKind.Map,
                         new TypeReference(
                             collection: new CollectionTypeReference(CollectionKind.Map,
@@ -330,7 +330,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                             )
                         )
                     )
-                );
+                ));
 
                 var frameworkMap = new Dictionary<string, IDictionary<string, string>>
                 {
@@ -379,12 +379,12 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsArray))]
             public void ConvertsArray()
             {
-                var instance = new TypeReference
+                var instance = new OptionalValue(new TypeReference
                 (
                     collection: new CollectionTypeReference(CollectionKind.Array,
                         new TypeReference(primitive: PrimitiveType.String)
                     )
-                );
+                ));
 
                 string[] frameworkArray = new string[]
                 {
@@ -407,7 +407,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(RecursivelyConvertsArrayElements))]
             public void RecursivelyConvertsArrayElements()
             {
-                var instance = new TypeReference
+                var instance = new OptionalValue(new TypeReference
                 (
                     collection: new CollectionTypeReference(CollectionKind.Array,
                         new TypeReference
@@ -417,7 +417,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                             )
                         )
                     )
-                );
+                ));
 
                 var frameworkArray = new string[][]
                 {
@@ -454,12 +454,12 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsNullMap))]
             public void ConvertsNullMap()
             {
-                var instance = new TypeReference
+                var instance = new OptionalValue(new TypeReference
                 (
                     collection: new CollectionTypeReference(CollectionKind.Map,
                         new TypeReference(primitive: PrimitiveType.String)
                     )
-                );
+                ));
 
                 bool success = _converter.TryConvert(instance, _referenceMap, null, out object actual);
 
@@ -470,12 +470,12 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsNullArray))]
             public void ConvertsNullArray()
             {
-                var instance = new TypeReference
+                var instance = new OptionalValue(new TypeReference
                 (
                     collection: new CollectionTypeReference(CollectionKind.Array,
                         new TypeReference(primitive: PrimitiveType.String)
                     )
-                );
+                ));
 
                 bool success = _converter.TryConvert(instance, _referenceMap, null, out object actual);
 
@@ -491,12 +491,12 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(FailsIfNoTypeMatches))]
             public void FailsIfNoTypeMatches()
             {
-                var instance = new TypeReference(
+                var instance = new OptionalValue(new TypeReference(
                     union: new UnionTypeReference(new[] {
                         new TypeReference(primitive: PrimitiveType.String),
                         new TypeReference(primitive: PrimitiveType.Number)
                     })
-                );
+                ));
 
                 bool success = _converter.TryConvert(instance, _referenceMap, true, out object actual);
 
@@ -507,11 +507,11 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsSimpleUnion))]
             public void ConvertsSimpleUnion()
             {
-                var instance = new TypeReference(
+                var instance = new OptionalValue(new TypeReference(
                     union: new UnionTypeReference(new[] {
                         new TypeReference(primitive: PrimitiveType.String)
                     })
-                );
+                ));
 
                 bool success = _converter.TryConvert(instance, _referenceMap, "abc", out object actual);
 
@@ -523,12 +523,12 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsAsFirstMatchingType))]
             public void ConvertsAsFirstMatchingType()
             {
-                var instance = new TypeReference(
+                var instance = new OptionalValue(new TypeReference(
                     union: new UnionTypeReference(new[] {
                         new TypeReference(primitive: PrimitiveType.String),
                         new TypeReference(primitive: PrimitiveType.Number)
                     })
-                );
+                ));
 
                 bool success = _converter.TryConvert(instance, _referenceMap, (ushort)7, out object actual);
 
@@ -540,11 +540,11 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsNull))]
             public void ConvertsNull()
             {
-                var instance = new TypeReference(
+                var instance = new OptionalValue(new TypeReference(
                     union: new UnionTypeReference(new[] {
                         new TypeReference(primitive: PrimitiveType.String)
                     })
-                );
+                ));
 
                 bool success = _converter.TryConvert(instance, _referenceMap, null, out object actual);
 
@@ -560,7 +560,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsNull))]
             public void ConvertsNull()
             {
-                var instance = new TypeReference(primitive: PrimitiveType.Any);
+                var instance = new OptionalValue(new TypeReference(primitive: PrimitiveType.Any));
 
                 bool success = _converter.TryConvert(instance, _referenceMap, null, out object actual);
 
@@ -574,7 +574,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [InlineData(true, true)]
             public void ConvertsPrimitive(object value, object expected)
             {
-                var instance = new TypeReference(primitive: PrimitiveType.Any);
+                var instance = new OptionalValue(new TypeReference(primitive: PrimitiveType.Any));
 
                 bool success = _converter.TryConvert(instance, _referenceMap, value, out object actual);
 
@@ -585,7 +585,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsDate))]
             public void ConvertsDate()
             {
-                var instance = new TypeReference(primitive: PrimitiveType.Any);
+                var instance = new OptionalValue(new TypeReference(primitive: PrimitiveType.Any));
 
                 DateTime now = DateTime.Now;
                 bool success = _converter.TryConvert(instance, _referenceMap, now, out object actual);
@@ -603,7 +603,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsJson))]
             public void ConvertsJson()
             {
-                var instance = new TypeReference(primitive: PrimitiveType.Any);
+                var instance = new OptionalValue(new TypeReference(primitive: PrimitiveType.Any));
 
                 JObject value = new JObject(new JProperty("myKey", "myValue"));
                 bool success = _converter.TryConvert(instance, _referenceMap, value, out object actual);
@@ -615,7 +615,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsMap))]
             public void ConvertsMap()
             {
-                var instance = new TypeReference(primitive: PrimitiveType.Any);
+                var instance = new OptionalValue(new TypeReference(primitive: PrimitiveType.Any));
 
                 IDictionary<string, string> value = new Dictionary<string, string>
                 {
@@ -638,7 +638,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             [Fact(DisplayName = _Prefix + nameof(ConvertsArray))]
             public void ConvertsArray()
             {
-                var instance = new TypeReference(primitive: PrimitiveType.Any);
+                var instance = new OptionalValue(new TypeReference(primitive: PrimitiveType.Any));
 
                 string[] value = new[] { "myValue" };
                 bool success = _converter.TryConvert(instance, _referenceMap, value, out object actual);

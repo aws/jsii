@@ -163,7 +163,9 @@
           },
           "name": "hello",
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         }
       ],
@@ -221,14 +223,14 @@
             "line": 78
           },
           "name": "firstOptional",
+          "optional": true,
           "type": {
             "collection": {
               "elementtype": {
                 "primitive": "string"
               },
               "kind": "array"
-            },
-            "optional": true
+            }
           }
         }
       ]
@@ -325,7 +327,9 @@
           "name": "toString",
           "overrides": "@scope/jsii-calc-lib.Value",
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         }
       ],
@@ -356,8 +360,8 @@
             "line": 88
           },
           "name": "optional1",
+          "optional": true,
           "type": {
-            "optional": true,
             "primitive": "string"
           }
         },
@@ -369,8 +373,8 @@
             "line": 89
           },
           "name": "optional2",
+          "optional": true,
           "type": {
-            "optional": true,
             "primitive": "number"
           }
         },
@@ -382,8 +386,8 @@
             "line": 90
           },
           "name": "optional3",
+          "optional": true,
           "type": {
-            "optional": true,
             "primitive": "boolean"
           }
         }
@@ -414,7 +418,9 @@
           },
           "name": "toString",
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         }
       ],
@@ -439,5 +445,5 @@
     }
   },
   "version": "0.9.0",
-  "fingerprint": "jGThlfYkFD3Y9J5xK5iJiBXepZ4yj58u8OUrCVM4TAA="
+  "fingerprint": "/aA8aq2OBJL26oZOAhZj4Gi1QaKDqfEKQj3ONPxmbBM="
 }

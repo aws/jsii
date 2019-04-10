@@ -9,7 +9,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod("bye", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod(name: "bye", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[]")]
         public string Bye()
         {
             return InvokeInstanceMethod<string>(new object[]{});

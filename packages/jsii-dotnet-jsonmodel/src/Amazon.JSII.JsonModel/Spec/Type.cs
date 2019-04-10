@@ -6,7 +6,7 @@ namespace Amazon.JSII.JsonModel.Spec
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public abstract class Type : IDocumentable
     {
-        public Type
+        protected Type
         (
             string fullyQualifiedName,
             string assembly,
@@ -36,7 +36,7 @@ namespace Amazon.JSII.JsonModel.Spec
         [JsonProperty("namespace", NullValueHandling = NullValueHandling.Ignore)]
         public string Namespace { get; }
 
-        [JsonProperty("kind")]
+        [JsonProperty("kind", DefaultValueHandling = DefaultValueHandling.Include)]
         public TypeKind Kind { get; }
 
         [JsonProperty("docs", NullValueHandling = NullValueHandling.Ignore)]

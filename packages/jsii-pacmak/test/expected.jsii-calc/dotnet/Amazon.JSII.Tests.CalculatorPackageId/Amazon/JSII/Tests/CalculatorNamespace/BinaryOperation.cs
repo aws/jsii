@@ -20,21 +20,21 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Left-hand side operand.</summary>
-        [JsiiProperty("lhs", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
+        [JsiiProperty(name: "lhs", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public virtual Value_ Lhs
         {
             get => GetInstanceProperty<Value_>();
         }
 
         /// <summary>Right-hand side operand.</summary>
-        [JsiiProperty("rhs", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
+        [JsiiProperty(name: "rhs", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public virtual Value_ Rhs
         {
             get => GetInstanceProperty<Value_>();
         }
 
         /// <summary>Say hello!</summary>
-        [JsiiMethod("hello", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod(name: "hello", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[]", isOverride: true)]
         public virtual string Hello()
         {
             return InvokeInstanceMethod<string>(new object[]{});

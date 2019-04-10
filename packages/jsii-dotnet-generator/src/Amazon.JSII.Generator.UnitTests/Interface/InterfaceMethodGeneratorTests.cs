@@ -40,7 +40,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
                 isProtected: false,
                 isAbstract: true,
                 name: "myMethod",
-                returns: new TypeReference(fullyQualifiedName: "myReturnTypeFqn")
+                returns: new OptionalValue(type: new TypeReference(fullyQualifiedName: "myReturnTypeFqn"))
             );
 
             Render(method);
@@ -132,12 +132,12 @@ void MyMethod(string myParameter1, string @event);";
                 isProtected: false,
                 isAbstract: true,
                 name: "myMethod",
-                returns: new TypeReference(primitive: PrimitiveType.String)
+                returns: new OptionalValue(type: new TypeReference(primitive: PrimitiveType.String))
             );
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", ""{\""primitive\"":\""string\""}"", ""[]"")]
+@"[JsiiMethod(""myMethod"", ""{\""type\"":{\""primitive\"":\""string\""}}"", ""[]"")]
 string MyMethod();";
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);

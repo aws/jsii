@@ -59,7 +59,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
                         continue;
                     }
 
-                    if (!TryConvert(jsiiProperty.Type, referenceMap, propValue, out var convertedPropValue) || convertedPropValue == null)
+                    if (!TryConvert(jsiiProperty, referenceMap, propValue, out var convertedPropValue) || convertedPropValue == null)
                     {
                         continue;
                     }

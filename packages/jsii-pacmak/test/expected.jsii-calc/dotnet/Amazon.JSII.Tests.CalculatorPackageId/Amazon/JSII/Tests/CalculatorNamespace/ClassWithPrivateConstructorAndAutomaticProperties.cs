@@ -14,20 +14,20 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("readOnlyString", "{\"primitive\":\"string\"}")]
+        [JsiiProperty(name: "readOnlyString", typeJson: "{\"primitive\":\"string\"}")]
         public virtual string ReadOnlyString
         {
             get => GetInstanceProperty<string>();
         }
 
-        [JsiiProperty("readWriteString", "{\"primitive\":\"string\"}")]
+        [JsiiProperty(name: "readWriteString", typeJson: "{\"primitive\":\"string\"}")]
         public virtual string ReadWriteString
         {
             get => GetInstanceProperty<string>();
             set => SetInstanceProperty(value);
         }
 
-        [JsiiMethod("create", "{\"fqn\":\"jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties\"}", "[{\"name\":\"readOnlyString\",\"type\":{\"primitive\":\"string\"}},{\"name\":\"readWriteString\",\"type\":{\"primitive\":\"string\"}}]")]
+        [JsiiMethod(name: "create", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties\"}}", parametersJson: "[{\"name\":\"readOnlyString\",\"type\":{\"primitive\":\"string\"}},{\"name\":\"readWriteString\",\"type\":{\"primitive\":\"string\"}}]")]
         public static ClassWithPrivateConstructorAndAutomaticProperties Create(string readOnlyString, string readWriteString)
         {
             return InvokeStaticMethod<ClassWithPrivateConstructorAndAutomaticProperties>(typeof(ClassWithPrivateConstructorAndAutomaticProperties), new object[]{readOnlyString, readWriteString});

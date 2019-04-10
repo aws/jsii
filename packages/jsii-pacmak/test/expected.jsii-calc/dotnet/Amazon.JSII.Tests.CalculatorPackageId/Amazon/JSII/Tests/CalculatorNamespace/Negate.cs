@@ -20,35 +20,35 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>The value.</summary>
-        [JsiiProperty("value", "{\"primitive\":\"number\"}")]
+        [JsiiProperty(name: "value", typeJson: "{\"primitive\":\"number\"}")]
         public override double Value
         {
             get => GetInstanceProperty<double>();
         }
 
         /// <summary>Say farewell.</summary>
-        [JsiiMethod("farewell", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod(name: "farewell", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[]", isOverride: true)]
         public virtual string Farewell()
         {
             return InvokeInstanceMethod<string>(new object[]{});
         }
 
         /// <summary>Say goodbye.</summary>
-        [JsiiMethod("goodbye", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod(name: "goodbye", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[]", isOverride: true)]
         public virtual string Goodbye()
         {
             return InvokeInstanceMethod<string>(new object[]{});
         }
 
         /// <summary>Say hello!</summary>
-        [JsiiMethod("hello", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod(name: "hello", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[]", isOverride: true)]
         public virtual string Hello()
         {
             return InvokeInstanceMethod<string>(new object[]{});
         }
 
         /// <summary>String representation of the value.</summary>
-        [JsiiMethod("toString", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod(name: "toString", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[]", isOverride: true)]
         public override string ToString()
         {
             return InvokeInstanceMethod<string>(new object[]{});

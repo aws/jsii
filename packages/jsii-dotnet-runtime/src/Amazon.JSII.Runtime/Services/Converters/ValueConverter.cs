@@ -13,36 +13,39 @@ namespace Amazon.JSII.Runtime.Services.Converters
             _types = types ?? throw new ArgumentNullException(nameof(types));
         }
 
-        public bool TryConvert(TypeReference typeReference, IReferenceMap referenceMap, object value, out object result)
+        protected bool TryConvert(TypeReference typeReference, IReferenceMap referenceMap, object value, out object result)
         {
-            if (typeReference == null)
+            return TryConvert(new OptionalValue(typeReference), referenceMap, value, out result);
+        }
+
+        public bool TryConvert(IOptionalValue optionalValue, IReferenceMap referenceMap, object value, out object result)
+        {
+            if (optionalValue == null)
             {
                 return TryConvertVoid(value, out result);
             }
 
-            bool isNullable = typeReference.IsOptional == true;
-
-            if (typeReference.FullyQualifiedName != null)
+            if (optionalValue.Type.FullyQualifiedName != null)
             {
-                return TryConvertCustomType(referenceMap, value, isNullable, typeReference.FullyQualifiedName, out result);
+                return TryConvertCustomType(referenceMap, value, optionalValue.IsOptional, optionalValue.Type.FullyQualifiedName, out result);
             }
 
-            if (typeReference.Primitive != null)
+            if (optionalValue.Type.Primitive != null)
             {
-                return TryConvertPrimitive(referenceMap, value, isNullable, typeReference.Primitive.Value, out result);
+                return TryConvertPrimitive(referenceMap, value, optionalValue.IsOptional, optionalValue.Type.Primitive.Value, out result);
             }
 
-            if (typeReference.Collection != null)
+            if (optionalValue.Type.Collection != null)
             {
-                return TryConvertCollection(referenceMap, value, isNullable, typeReference.Collection, out result);
+                return TryConvertCollection(referenceMap, value, optionalValue.IsOptional, optionalValue.Type.Collection, out result);
             }
 
-            if (typeReference.Union != null)
+            if (optionalValue.Type.Union != null)
             {
-                return TryConvertUnion(referenceMap, value, isNullable, typeReference.Union, out result);
+                return TryConvertUnion(referenceMap, value, optionalValue.IsOptional, optionalValue.Type.Union, out result);
             }
 
-            throw new ArgumentException("Invalid type reference", nameof(typeReference));
+            throw new ArgumentException("Invalid type reference", nameof(optionalValue));
         }
 
         protected bool IsNumeric(System.Type type)

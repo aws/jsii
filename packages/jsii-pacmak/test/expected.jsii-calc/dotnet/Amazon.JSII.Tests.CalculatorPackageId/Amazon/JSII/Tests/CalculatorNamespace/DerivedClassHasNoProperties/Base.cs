@@ -17,7 +17,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.DerivedClassHasNoProperties
         {
         }
 
-        [JsiiProperty("prop", "{\"primitive\":\"string\"}")]
+        [JsiiProperty(name: "prop", typeJson: "{\"primitive\":\"string\"}")]
         public virtual string Prop
         {
             get => GetInstanceProperty<string>();

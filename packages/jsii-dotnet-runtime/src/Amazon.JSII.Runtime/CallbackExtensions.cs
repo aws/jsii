@@ -20,7 +20,7 @@ namespace Amazon.JSII.Runtime
                 CallbackResult frameworkResult = callback.InvokeCallbackCore(referenceMap);
 
                 converter.TryConvert(
-                    frameworkResult?.Type ?? new TypeReference(primitive: PrimitiveType.Any, isOptional: true),
+                    frameworkResult,
                     referenceMap,
                     frameworkResult?.Value,
                     out object result
@@ -77,7 +77,10 @@ namespace Amazon.JSII.Runtime
             }
 
             JsiiMethodAttribute attribute = methodInfo.GetCustomAttribute<JsiiMethodAttribute>();
-            return new CallbackResult(attribute?.Returns, methodInfo.Invoke(deputy, request.Arguments.Select(arg => FromKernel(arg, referenceMap)).ToArray()));
+            return new CallbackResult(
+                attribute?.Returns,
+                methodInfo.Invoke(deputy, request.Arguments.Select(arg => FromKernel(arg, referenceMap)).ToArray())
+            );
         }
 
         static CallbackResult InvokeGetter(GetRequest request, IReferenceMap referenceMap)
@@ -99,7 +102,7 @@ namespace Amazon.JSII.Runtime
                 throw new InvalidOperationException($"Received callback for {deputy.GetType().Name}.{request.Property} getter, but this property does not have a getter");
             }
 
-            return new CallbackResult(attribute?.Type, methodInfo.Invoke(deputy, new object[] { }));
+            return new CallbackResult(attribute, methodInfo.Invoke(deputy, new object[] { }));
         }
 
         static void InvokeSetter(SetRequest request, IReferenceMap referenceMap)
@@ -140,15 +143,16 @@ namespace Amazon.JSII.Runtime
         }
     }
 
-    internal class CallbackResult
+    internal class CallbackResult : OptionalValue
     {
-        public CallbackResult(TypeReference type, object value)
+        public CallbackResult(IOptionalValue optionalValue, object value)
+            : this(optionalValue?.Type, optionalValue?.IsOptional ?? false, value) {}
+        
+        private CallbackResult(TypeReference type, bool isOptional, object value): base(type, isOptional)
         {
-            Type = type;
             Value = value;
         }
 
-        public TypeReference Type { get; }
         public object Value { get; }
     }
 }

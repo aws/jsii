@@ -19,7 +19,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Returns the current os.platform() from the "os" node module.</summary>
-        [JsiiProperty("osPlatform", "{\"primitive\":\"string\"}")]
+        [JsiiProperty(name: "osPlatform", typeJson: "{\"primitive\":\"string\"}")]
         public virtual string OsPlatform
         {
             get => GetInstanceProperty<string>();
@@ -27,7 +27,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Uses node.js "crypto" module to calculate sha256 of a string.</summary>
         /// <returns>"6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50"</returns>
-        [JsiiMethod("cryptoSha256", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod(name: "cryptoSha256", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[]")]
         public virtual string CryptoSha256()
         {
             return InvokeInstanceMethod<string>(new object[]{});
@@ -35,7 +35,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Reads a local resource file (resource.txt) asynchronously.</summary>
         /// <returns>"Hello, resource!"</returns>
-        [JsiiMethod("fsReadFile", "{\"primitive\":\"string\",\"promise\":true}", "[]")]
+        [JsiiMethod(name: "fsReadFile", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[]", isAsync: true)]
         public virtual string FsReadFile()
         {
             return InvokeInstanceMethod<string>(new object[]{});
@@ -43,7 +43,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Sync version of fsReadFile.</summary>
         /// <returns>"Hello, resource! SYNC!"</returns>
-        [JsiiMethod("fsReadFileSync", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod(name: "fsReadFileSync", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[]")]
         public virtual string FsReadFileSync()
         {
             return InvokeInstanceMethod<string>(new object[]{});

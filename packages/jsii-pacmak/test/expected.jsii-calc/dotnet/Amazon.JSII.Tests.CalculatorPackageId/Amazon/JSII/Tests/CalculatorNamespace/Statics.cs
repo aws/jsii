@@ -19,14 +19,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Constants may also use all-caps.</summary>
-        [JsiiProperty("BAR", "{\"primitive\":\"number\"}")]
+        [JsiiProperty(name: "BAR", typeJson: "{\"primitive\":\"number\"}")]
         public static double BAR
         {
             get;
         }
 
         = GetStaticProperty<double>(typeof(Statics));
-        [JsiiProperty("ConstObj", "{\"fqn\":\"jsii-calc.DoubleTrouble\"}")]
+        [JsiiProperty(name: "ConstObj", typeJson: "{\"fqn\":\"jsii-calc.DoubleTrouble\"}")]
         public static DoubleTrouble ConstObj
         {
             get;
@@ -34,7 +34,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         = GetStaticProperty<DoubleTrouble>(typeof(Statics));
         /// <summary>Jsdocs for static property.</summary>
-        [JsiiProperty("Foo", "{\"primitive\":\"string\"}")]
+        [JsiiProperty(name: "Foo", typeJson: "{\"primitive\":\"string\"}")]
         public static string Foo
         {
             get;
@@ -42,7 +42,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         = GetStaticProperty<string>(typeof(Statics));
         /// <summary>Constants can also use camelCase.</summary>
-        [JsiiProperty("zooBar", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"primitive\":\"string\"}}}")]
+        [JsiiProperty(name: "zooBar", typeJson: "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"primitive\":\"string\"}}}")]
         public static IDictionary<string, string> ZooBar
         {
             get;
@@ -50,21 +50,21 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         = GetStaticProperty<IDictionary<string, string>>(typeof(Statics));
         /// <summary>Jsdocs for static getter. Jsdocs for static setter.</summary>
-        [JsiiProperty("instance", "{\"fqn\":\"jsii-calc.Statics\"}")]
+        [JsiiProperty(name: "instance", typeJson: "{\"fqn\":\"jsii-calc.Statics\"}")]
         public static Statics Instance
         {
             get => GetStaticProperty<Statics>(typeof(Statics));
             set => SetStaticProperty(typeof(Statics), value);
         }
 
-        [JsiiProperty("nonConstStatic", "{\"primitive\":\"number\"}")]
+        [JsiiProperty(name: "nonConstStatic", typeJson: "{\"primitive\":\"number\"}")]
         public static double NonConstStatic
         {
             get => GetStaticProperty<double>(typeof(Statics));
             set => SetStaticProperty(typeof(Statics), value);
         }
 
-        [JsiiProperty("value", "{\"primitive\":\"string\"}")]
+        [JsiiProperty(name: "value", typeJson: "{\"primitive\":\"string\"}")]
         public virtual string Value
         {
             get => GetInstanceProperty<string>();
@@ -72,13 +72,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Jsdocs for static method.</summary>
         /// <param name = "name">The name of the person to say hello to.</param>
-        [JsiiMethod("staticMethod", "{\"primitive\":\"string\"}", "[{\"name\":\"name\",\"type\":{\"primitive\":\"string\"}}]")]
+        [JsiiMethod(name: "staticMethod", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[{\"name\":\"name\",\"type\":{\"primitive\":\"string\"}}]")]
         public static string StaticMethod(string name)
         {
             return InvokeStaticMethod<string>(typeof(Statics), new object[]{name});
         }
 
-        [JsiiMethod("justMethod", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod(name: "justMethod", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[]")]
         public virtual string JustMethod()
         {
             return InvokeInstanceMethod<string>(new object[]{});

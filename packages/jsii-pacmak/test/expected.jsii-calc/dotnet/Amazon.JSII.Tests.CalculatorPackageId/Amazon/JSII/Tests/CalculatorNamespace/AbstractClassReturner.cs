@@ -17,19 +17,19 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("returnAbstractFromProperty", "{\"fqn\":\"jsii-calc.AbstractClassBase\"}")]
+        [JsiiProperty(name: "returnAbstractFromProperty", typeJson: "{\"fqn\":\"jsii-calc.AbstractClassBase\"}")]
         public virtual AbstractClassBase ReturnAbstractFromProperty
         {
             get => GetInstanceProperty<AbstractClassBase>();
         }
 
-        [JsiiMethod("giveMeAbstract", "{\"fqn\":\"jsii-calc.AbstractClass\"}", "[]")]
+        [JsiiMethod(name: "giveMeAbstract", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.AbstractClass\"}}", parametersJson: "[]")]
         public virtual AbstractClass GiveMeAbstract()
         {
             return InvokeInstanceMethod<AbstractClass>(new object[]{});
         }
 
-        [JsiiMethod("giveMeInterface", "{\"fqn\":\"jsii-calc.IInterfaceImplementedByAbstractClass\"}", "[]")]
+        [JsiiMethod(name: "giveMeInterface", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.IInterfaceImplementedByAbstractClass\"}}", parametersJson: "[]")]
         public virtual IIInterfaceImplementedByAbstractClass GiveMeInterface()
         {
             return InvokeInstanceMethod<IIInterfaceImplementedByAbstractClass>(new object[]{});

@@ -137,7 +137,7 @@ public virtual void MyMethod()
                 isProtected: false,
                 isAbstract: false,
                 name: "myMethod",
-                returns: new TypeReference("myReturnTypeFqn")
+                returns: new OptionalValue(type: new TypeReference("myReturnTypeFqn"))
             );
 
             Symbols.MapMethodName("myClassFqn", "myMethod", "MyMethod");
@@ -145,7 +145,7 @@ public virtual void MyMethod()
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", ""{\""fqn\"":\""myReturnTypeFqn\""}"", ""[]"")]
+@"[JsiiMethod(""myMethod"", ""{\""type\"":{\""fqn\"":\""myReturnTypeFqn\""}}"", ""[]"")]
 public virtual MyReturnType MyMethod()
 {
     return InvokeInstanceMethod<MyReturnType>(new object[]{});
@@ -161,7 +161,7 @@ public virtual MyReturnType MyMethod()
                 isProtected: false,
                 isAbstract: false,
                 name: "myMethod",
-                returns: new TypeReference("myReturnTypeFqn"),
+                returns: new OptionalValue(type: new TypeReference("myReturnTypeFqn")),
                 isStatic: true
             );
 
@@ -170,7 +170,7 @@ public virtual MyReturnType MyMethod()
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", ""{\""fqn\"":\""myReturnTypeFqn\""}"", ""[]"")]
+@"[JsiiMethod(""myMethod"", ""{\""type\"":{\""fqn\"":\""myReturnTypeFqn\""}}"", ""[]"")]
 public static MyReturnType MyMethod()
 {
     return InvokeStaticMethod<MyReturnType>(typeof(MyClass), new object[]{});

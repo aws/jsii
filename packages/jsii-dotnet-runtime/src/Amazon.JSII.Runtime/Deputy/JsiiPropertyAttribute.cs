@@ -5,12 +5,13 @@ using System;
 namespace Amazon.JSII.Runtime.Deputy
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public class JsiiPropertyAttribute : Attribute
+    public class JsiiPropertyAttribute : Attribute, IOptionalValue
     {
-        public JsiiPropertyAttribute(string name, string typeJson, bool isOverride = false)
+        public JsiiPropertyAttribute(string name, string typeJson, bool isOptional = false, bool isOverride = false)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Type = JsonConvert.DeserializeObject<TypeReference>(typeJson ?? throw new ArgumentNullException(nameof(typeJson)));
+            IsOptional = isOptional;
             IsOverride = isOverride;
         }
 
@@ -18,6 +19,8 @@ namespace Amazon.JSII.Runtime.Deputy
 
         public TypeReference Type { get; }
 
+        public bool IsOptional { get; }
+        
         public bool IsOverride { get; }
     }
 }

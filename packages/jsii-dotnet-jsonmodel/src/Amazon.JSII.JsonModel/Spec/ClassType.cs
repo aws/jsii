@@ -14,7 +14,7 @@ namespace Amazon.JSII.JsonModel.Spec
             string name,
 
             // ClassType properties
-            bool? isAbstract = null,
+            bool isAbstract = false,
 
             string @namespace = null,
             // Type properties
@@ -47,7 +47,7 @@ namespace Amazon.JSII.JsonModel.Spec
         }
 
         [JsonProperty("abstract", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? IsAbstract { get; }
+        public bool IsAbstract { get; }
 
         [JsonProperty("base", NullValueHandling = NullValueHandling.Ignore)]
         public string Base { get; }

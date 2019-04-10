@@ -160,7 +160,7 @@ export class Kernel {
             this._wrapSandboxCode(() => prototype[property]));
 
         this._debug('value:', value);
-        const ret = this._fromSandbox(value, ti.type);
+        const ret = this._fromSandbox(value, ti);
         this._debug('ret', ret);
         return { value: ret };
     }
@@ -182,7 +182,7 @@ export class Kernel {
         const prototype = this._findSymbol(fqn);
 
         this._ensureSync(`property ${property}`, () =>
-            this._wrapSandboxCode(() => prototype[property] = this._toSandbox(value, ti.type)));
+            this._wrapSandboxCode(() => prototype[property] = this._toSandbox(value, ti)));
 
         return {};
     }
@@ -205,7 +205,7 @@ export class Kernel {
         const value = this._ensureSync(`property '${objref[TOKEN_REF]}.${propertyToGet}'`,
                                        () => this._wrapSandboxCode(() => instance[propertyToGet]));
         this._debug('value:', value);
-        const ret = this._fromSandbox(value, ti.type);
+        const ret = this._fromSandbox(value, ti);
         this._debug('ret:', ret);
         return { value:  ret };
     }
@@ -224,7 +224,7 @@ export class Kernel {
         const propertyToSet = this._findPropertyTarget(instance, property);
 
         this._ensureSync(`property '${objref[TOKEN_REF]}.${propertyToSet}'`,
-                         () => this._wrapSandboxCode(() => instance[propertyToSet] = this._toSandbox(value, propInfo.type)));
+                         () => this._wrapSandboxCode(() => instance[propertyToSet] = this._toSandbox(value, propInfo)));
 
         return { };
     }
@@ -237,7 +237,7 @@ export class Kernel {
         const { ti, obj, fn } = this._findInvokeTarget(objref, method, args);
 
         // verify this is not an async method
-        if (ti.returns && ti.returns.promise) {
+        if (ti.async) {
             throw new Error(`${method} is an async method, use "begin" instead`);
         }
 
@@ -264,7 +264,7 @@ export class Kernel {
         }
 
         // verify this is not an async method
-        if (ti.returns && ti.returns.promise) {
+        if (ti.async) {
             throw new Error(`${method} is an async method, use "begin" instead`);
         }
 
@@ -293,7 +293,7 @@ export class Kernel {
         const { ti, obj, fn } = this._findInvokeTarget(objref, method, args);
 
         // verify this is indeed an async method
-        if (!ti.returns || !ti.returns.promise) {
+        if (!ti.async) {
             throw new Error(`Method ${method} is expected to be an async method`);
         }
 
@@ -560,14 +560,14 @@ export class Kernel {
                     get: { objref, property: propertyName }
                 });
                 this._debug('callback returned', result);
-                return this._toSandbox(result, propInfo.type);
+                return this._toSandbox(result, propInfo);
             },
             set: (value: any) => {
                 self._debug('virtual set', objref, propertyName, { cookie: override.cookie });
                 self.callbackHandler({
                     cookie: override.cookie,
                     cbid: self._makecbid(),
-                    set: { objref, property: propertyName, value: self._fromSandbox(value, propInfo.type) }
+                    set: { objref, property: propertyName, value: self._fromSandbox(value, propInfo) }
                 });
             }
         });
@@ -600,7 +600,7 @@ export class Kernel {
             // would tell us the intended interface type.
             methodInfo = {
                 name: override.method,
-                returns: spec.CANONICAL_ANY,
+                returns: { type: spec.CANONICAL_ANY },
                 parameters: [{
                     name: 'args',
                     type: spec.CANONICAL_ANY,
@@ -617,7 +617,7 @@ export class Kernel {
         const self = this;
         const methodName = override.method;
 
-        if (methodInfo.returns && methodInfo.returns.promise) {
+        if (methodInfo.async) {
             // async method override
             Object.defineProperty(obj, methodName, {
                 enumerable: false,
@@ -704,12 +704,12 @@ export class Kernel {
             if (param.variadic) {
                 if (params.length <= i) { return; } // No vararg was provided
                 for (let j = i ; j < params.length ; j++) {
-                    if (!param.type.optional && params[j] === undefined) {
+                    if (!param.optional && params[j] === undefined) {
                         // tslint:disable-next-line:max-line-length
                         throw new Error(`Unexpected 'undefined' value at index ${j - i} of variadic argument '${param.name}' of type '${spec.describeTypeReference(param.type)}'`);
                     }
                 }
-            } else if (!param.type.optional && arg === undefined) {
+            } else if (!param.optional && arg === undefined) {
                 // tslint:disable-next-line:max-line-length
                 throw new Error(`Not enough arguments. Missing argument for the required parameter '${param.name}' of type '${spec.describeTypeReference(param.type)}'`);
             }
@@ -842,7 +842,7 @@ export class Kernel {
         return typeInfo;
     }
 
-    private _toSandbox(v: any, expectedType: wire.TypeReferenceOrVoid): any {
+    private _toSandbox(v: any, expectedType: wire.OptionalValueOrVoid): any {
         const serTypes = wire.serializationType(expectedType, this._typeInfoForFqn.bind(this));
         this._debug('toSandbox', v, JSON.stringify(serTypes));
 
@@ -868,7 +868,7 @@ export class Kernel {
         throw new Error(`Value did not match any type in union: ${errors}`);
     }
 
-    private _fromSandbox(v: any, targetType: wire.TypeReferenceOrVoid): any {
+    private _fromSandbox(v: any, targetType: wire.OptionalValueOrVoid): any {
         const serTypes = wire.serializationType(targetType, this._typeInfoForFqn.bind(this));
         this._debug('fromSandbox', v, JSON.stringify(serTypes));
 
@@ -902,18 +902,17 @@ export class Kernel {
         return this._boxUnboxParameters(xs, parameters, this._fromSandbox.bind(this));
     }
 
-    private _boxUnboxParameters(xs: any[], parameters: spec.Parameter[] | undefined, boxUnbox: (x: any, t: wire.TypeReferenceOrVoid) => any) {
-        parameters = parameters || [];
-        const types = parameters.map(p => p.type);
+    private _boxUnboxParameters(xs: any[], parameters: spec.Parameter[] | undefined, boxUnbox: (x: any, t: wire.OptionalValueOrVoid) => any) {
+        parameters = [...(parameters || [])];
         const variadic = parameters.length > 0 && !!parameters[parameters.length - 1].variadic;
         // Repeat the last (variadic) type to match the number of actual arguments
-        while (variadic && types.length < xs.length) {
-            types.push(types[types.length - 1]);
+        while (variadic && parameters.length < xs.length) {
+            parameters.push(parameters[parameters.length - 1]);
         }
-        if (xs.length > types.length) {
-            throw new Error(`Argument list (${JSON.stringify(xs)}) not same size as expected argument list (length ${types.length})`);
+        if (xs.length > parameters.length) {
+            throw new Error(`Argument list (${JSON.stringify(xs)}) not same size as expected argument list (length ${parameters.length})`);
         }
-        return xs.map((x, i) => boxUnbox(x, types[i]));
+        return xs.map((x, i) => boxUnbox(x, parameters![i]));
     }
 
     private _debug(...args: any[]) {
@@ -994,7 +993,7 @@ interface Callback {
     objref: api.ObjRef;
     override: api.MethodOverride;
     args: any[];
-    expectedReturnType: wire.TypeReferenceOrVoid;
+    expectedReturnType: wire.OptionalValueOrVoid;
 
     // completion callbacks
     succeed: (...args: any[]) => any;

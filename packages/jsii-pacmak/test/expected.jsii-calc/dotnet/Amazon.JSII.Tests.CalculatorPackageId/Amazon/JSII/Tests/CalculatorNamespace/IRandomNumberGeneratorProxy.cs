@@ -12,7 +12,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Returns another random number.</summary>
         /// <returns>A random number.</returns>
-        [JsiiMethod("next", "{\"primitive\":\"number\"}", "[]")]
+        [JsiiMethod(name: "next", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[]")]
         public double Next()
         {
             return InvokeInstanceMethod<double>(new object[]{});

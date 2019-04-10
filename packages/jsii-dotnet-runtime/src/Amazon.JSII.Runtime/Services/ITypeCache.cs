@@ -13,6 +13,6 @@ namespace Amazon.JSII.Runtime.Services
 
         Type GetProxyType(string fullyQualifiedName);
 
-        Type GetFrameworkType(TypeReference reference);
+        Type GetFrameworkType(TypeReference reference, bool isOptional);
     }
 }

@@ -9,39 +9,39 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(typeof(IDerivedStruct), "jsii-calc.DerivedStruct")]
     public interface IDerivedStruct : IMyFirstStruct
     {
-        [JsiiProperty("anotherRequired", "{\"primitive\":\"date\"}")]
+        [JsiiProperty(name: "anotherRequired", typeJson: "{\"primitive\":\"date\"}")]
         DateTime AnotherRequired
         {
             get;
         }
 
-        [JsiiProperty("bool", "{\"primitive\":\"boolean\"}")]
+        [JsiiProperty(name: "bool", typeJson: "{\"primitive\":\"boolean\"}")]
         bool Bool
         {
             get;
         }
 
         /// <summary>An example of a non primitive property.</summary>
-        [JsiiProperty("nonPrimitive", "{\"fqn\":\"jsii-calc.DoubleTrouble\"}")]
+        [JsiiProperty(name: "nonPrimitive", typeJson: "{\"fqn\":\"jsii-calc.DoubleTrouble\"}")]
         DoubleTrouble NonPrimitive
         {
             get;
         }
 
         /// <summary>This is optional.</summary>
-        [JsiiProperty("anotherOptional", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},\"optional\":true}")]
+        [JsiiProperty(name: "anotherOptional", typeJson: "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}", isOptional: true)]
         IDictionary<string, Value_> AnotherOptional
         {
             get;
         }
 
-        [JsiiProperty("optionalAny", "{\"primitive\":\"any\",\"optional\":true}")]
+        [JsiiProperty(name: "optionalAny", typeJson: "{\"primitive\":\"any\"}", isOptional: true)]
         object OptionalAny
         {
             get;
         }
 
-        [JsiiProperty("optionalArray", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"optional\":true}")]
+        [JsiiProperty(name: "optionalArray", typeJson: "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}}}", isOptional: true)]
         string[] OptionalArray
         {
             get;

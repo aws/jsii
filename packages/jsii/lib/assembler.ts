@@ -567,6 +567,7 @@ export class Assembler implements Emitter {
               || undefined;
           }
         }
+        this._verifyConsecutiveOptionals(ctorDeclaration, jsiiType.initializer.parameters);
         jsiiType.initializer.docs = this._visitDocumentation(constructor);
       }
 
@@ -894,11 +895,14 @@ export class Assembler implements Emitter {
       name: symbol.name,
       parameters: parameters.length > 0 ? parameters : undefined,
       protected: _isProtected(symbol) || undefined,
-      returns: _isVoid(returnType) ? undefined : await this._typeReference(returnType, declaration),
+      returns: _isVoid(returnType) ? undefined : await this._optionalValue(returnType, declaration),
+      async: _isPromise(returnType) || undefined,
       static: _isStatic(symbol) || undefined,
       locationInModule: this.declarationLocation(declaration),
     };
     method.variadic = (method.parameters && method.parameters.some(p => !!p.variadic)) || undefined;
+
+    this._verifyConsecutiveOptionals(declaration, method.parameters);
 
     method.docs = this._visitDocumentation(symbol);
 
@@ -954,11 +958,11 @@ export class Assembler implements Emitter {
       | ts.AccessorDeclaration
       | ts.ParameterPropertyDeclaration);
     const property: spec.Property = {
+      ...await this._optionalValue(this._typeChecker.getTypeOfSymbolAtLocation(symbol, signature), signature),
       abstract: _isAbstract(symbol, type) || undefined,
       name: symbol.name,
       protected: _isProtected(symbol) || undefined,
       static: _isStatic(symbol) || undefined,
-      type: await this._typeReference(this._typeChecker.getTypeOfSymbolAtLocation(symbol, signature), signature),
       locationInModule: this.declarationLocation(signature),
     };
 
@@ -971,7 +975,7 @@ export class Assembler implements Emitter {
     }
 
     if (signature.questionToken) {
-      property.type = { ...property.type, optional: true };
+      property.optional = true;
     }
 
     if (property.static && property.immutable && ts.isPropertyDeclaration(signature) && signature.initializer) {
@@ -995,8 +999,8 @@ export class Assembler implements Emitter {
     const paramDeclaration = paramSymbol.valueDeclaration as ts.ParameterDeclaration;
 
     const parameter: spec.Parameter = {
+      ...await this._optionalValue(this._typeChecker.getTypeAtLocation(paramSymbol.valueDeclaration), paramSymbol.valueDeclaration),
       name: paramSymbol.name,
-      type: await this._typeReference(this._typeChecker.getTypeAtLocation(paramSymbol.valueDeclaration), paramSymbol.valueDeclaration),
       variadic: paramDeclaration.dotDotDotToken && true,
     };
 
@@ -1005,7 +1009,7 @@ export class Assembler implements Emitter {
       parameter.type = parameter.type.collection.elementtype;
     } else if (paramDeclaration.initializer || paramDeclaration.questionToken) {
       // Optional parameters have an inherently null-able type.
-      parameter.type = { ...parameter.type, optional: true };
+      parameter.optional = true;
     }
 
     parameter.docs = this._visitDocumentation(paramSymbol); // No inheritance on purpose
@@ -1014,6 +1018,16 @@ export class Assembler implements Emitter {
   }
 
   private async _typeReference(type: ts.Type, declaration: ts.Declaration): Promise<spec.TypeReference> {
+    const optionalValue = await this._optionalValue(type, declaration);
+    if (optionalValue.optional) {
+      this._diagnostic(declaration,
+        ts.DiagnosticCategory.Error,
+        `Encountered optional value in location where a plan type reference is expected`);
+    }
+    return optionalValue.type;
+  }
+
+  private async _optionalValue(type: ts.Type, declaration: ts.Declaration): Promise<spec.OptionalValue> {
     if (type.isLiteral() && _isEnumLike(type)) {
       type = this._typeChecker.getBaseTypeOfLiteralType(type);
     } else {
@@ -1021,7 +1035,7 @@ export class Assembler implements Emitter {
     }
 
     const primitiveType = _tryMakePrimitiveType.call(this);
-    if (primitiveType) { return primitiveType; }
+    if (primitiveType) { return { type: primitiveType }; }
 
     if (type.isUnion() && !_isEnumLike(type)) {
       return _unionType.call(this);
@@ -1029,15 +1043,15 @@ export class Assembler implements Emitter {
 
     if (!type.symbol) {
       this._diagnostic(declaration, ts.DiagnosticCategory.Error, `Non-primitive types must have a symbol`);
-      return spec.CANONICAL_ANY;
+      return { type: spec.CANONICAL_ANY };
     }
 
     if (type.symbol.name === 'Array') {
-      return await _arrayType.call(this);
+      return { type: await _arrayType.call(this) };
     }
 
     if (type.symbol.name === '__type' && type.symbol.members) {
-      return await _mapType.call(this);
+      return { type: await _mapType.call(this) };
     }
 
     if (type.symbol.escapedName === 'Promise') {
@@ -1046,13 +1060,13 @@ export class Assembler implements Emitter {
         this._diagnostic(declaration,
           ts.DiagnosticCategory.Error,
           `Un-specified promise type (need to specify as Promise<T>)`);
-        return { ...spec.CANONICAL_ANY, promise: true };
+        return { type: spec.CANONICAL_ANY };
       } else {
-        return { ...await this._typeReference(typeRef.typeArguments[0], declaration), promise: true };
+        return { type: await this._typeReference(typeRef.typeArguments[0], declaration) };
       }
     }
 
-    return { fqn: await this._getFQN(type) };
+    return { type: { fqn: await this._getFQN(type) } };
 
     async function _arrayType(this: Assembler): Promise<spec.CollectionTypeReference> {
       const typeRef = type as ts.TypeReference;
@@ -1126,7 +1140,7 @@ export class Assembler implements Emitter {
       }
     }
 
-    async function _unionType(this: Assembler): Promise<spec.TypeReference> {
+    async function _unionType(this: Assembler): Promise<spec.OptionalValue> {
       const types = new Array<spec.TypeReference>();
       let optional: boolean | undefined;
 
@@ -1144,8 +1158,8 @@ export class Assembler implements Emitter {
       }
 
       return types.length === 1
-        ? { optional, ...types[0] }
-        : { optional, union: { types } };
+        ? { optional, type: types[0] }
+        : { optional, type: { union: { types } } };
     }
   }
 
@@ -1205,6 +1219,23 @@ export class Assembler implements Emitter {
         if (!spec.isInterfaceType(base)) { throw new Error('Impossible to have non-interface base in allProperties()'); }
 
         recurse(base);
+      }
+    }
+  }
+
+  private _verifyConsecutiveOptionals(node: ts.Node, parameters?: spec.Parameter[]) {
+    if (!parameters) { return; }
+
+    const remaining = [...parameters].reverse();
+    while (remaining.length > 0) {
+      const current = remaining.pop()!;
+      if (current.optional) {
+        const offender = remaining.find(p => !p.optional && !p.variadic);
+        if (offender == null) { continue; }
+        this._diagnostic(node,
+          ts.DiagnosticCategory.Error,
+          `Parameter ${current.name} cannot be optional, as it precedes non-optional parameter ${offender.name}`);
+        delete current.optional;
       }
     }
   }
@@ -1308,6 +1339,10 @@ function _isVoid(type: ts.Type): boolean {
   return ((type.flags & ts.TypeFlags.Void) !== 0);
 }
 
+function _isPromise(type: ts.Type): boolean {
+  return type.symbol && type.symbol.escapedName === 'Promise';
+}
+
 function _sortMembers(type: spec.ClassType): spec.ClassType;
 function _sortMembers(type: spec.InterfaceType): spec.InterfaceType;
 function _sortMembers(type: spec.ClassType | spec.InterfaceType): spec.ClassType | spec.InterfaceType {
@@ -1337,7 +1372,7 @@ function _sortMembers(type: spec.ClassType | spec.InterfaceType): spec.ClassType
         return [
           val.static ? '0' : '1',
           val.immutable ? '0' : '1',
-          !(val.type && val.type.optional) ? '0' : '1',
+          !(val.optional) ? '0' : '1',
           val.name
         ].join('|');
       }
@@ -1347,7 +1382,7 @@ function _sortMembers(type: spec.ClassType | spec.InterfaceType): spec.ClassType
     name?: string;                      // Methods & Properties
     static?: boolean;                   // Methods & Properties
     immutable?: boolean;                //           Properties
-    type?: { optional?: boolean; };     //           Properties
+    optional?: boolean;                 //           Properties
   };
 }
 

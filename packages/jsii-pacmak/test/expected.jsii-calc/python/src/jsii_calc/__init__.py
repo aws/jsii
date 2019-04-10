@@ -58,7 +58,7 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         jsii.create(AllTypes, self, [])
 
     @jsii.member(jsii_name="anyIn")
-    def any_in(self, inp: typing.Any=None) -> None:
+    def any_in(self, inp: typing.Any) -> None:
         return jsii.invoke(self, "anyIn", [inp])
 
     @jsii.member(jsii_name="anyOut")
@@ -91,6 +91,15 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @any_map_property.setter
     def any_map_property(self, value: typing.Mapping[str,typing.Any]):
         return jsii.set(self, "anyMapProperty", value)
+
+    @property
+    @jsii.member(jsii_name="anyProperty")
+    def any_property(self) -> typing.Any:
+        return jsii.get(self, "anyProperty")
+
+    @any_property.setter
+    def any_property(self, value: typing.Any):
+        return jsii.set(self, "anyProperty", value)
 
     @property
     @jsii.member(jsii_name="arrayProperty")
@@ -210,13 +219,13 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
         return jsii.set(self, "unknownMapProperty", value)
 
     @property
-    @jsii.member(jsii_name="anyProperty")
-    def any_property(self) -> typing.Any:
-        return jsii.get(self, "anyProperty")
+    @jsii.member(jsii_name="unknownProperty")
+    def unknown_property(self) -> typing.Any:
+        return jsii.get(self, "unknownProperty")
 
-    @any_property.setter
-    def any_property(self, value: typing.Any):
-        return jsii.set(self, "anyProperty", value)
+    @unknown_property.setter
+    def unknown_property(self, value: typing.Any):
+        return jsii.set(self, "unknownProperty", value)
 
     @property
     @jsii.member(jsii_name="optionalEnumValue")
@@ -226,15 +235,6 @@ class AllTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllTypes"):
     @optional_enum_value.setter
     def optional_enum_value(self, value: typing.Optional["StringEnum"]):
         return jsii.set(self, "optionalEnumValue", value)
-
-    @property
-    @jsii.member(jsii_name="unknownProperty")
-    def unknown_property(self) -> typing.Any:
-        return jsii.get(self, "unknownProperty")
-
-    @unknown_property.setter
-    def unknown_property(self, value: typing.Any):
-        return jsii.set(self, "unknownProperty", value)
 
 
 @jsii.enum(jsii_type="jsii-calc.AllTypesEnum")
@@ -498,7 +498,7 @@ class DoNotRecognizeAnyAsOptional(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.
         jsii.create(DoNotRecognizeAnyAsOptional, self, [])
 
     @jsii.member(jsii_name="method")
-    def method(self, _required_any: typing.Any=None, _optional_any: typing.Any=None, _optional_string: typing.Optional[str]=None) -> None:
+    def method(self, _required_any: typing.Any, _optional_any: typing.Any=None, _optional_string: typing.Optional[str]=None) -> None:
         return jsii.invoke(self, "method", [_required_any, _optional_any, _optional_string])
 
 
@@ -2561,11 +2561,11 @@ class Calculator(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_t
 
     @property
     @jsii.member(jsii_name="unionProperty")
-    def union_property(self) -> typing.Optional[typing.Union["Add", "Multiply", "Power"]]:
+    def union_property(self) -> typing.Optional[typing.Union[typing.Optional["Add"], typing.Optional["Multiply"], typing.Optional["Power"]]]:
         return jsii.get(self, "unionProperty")
 
     @union_property.setter
-    def union_property(self, value: typing.Optional[typing.Union["Add", "Multiply", "Power"]]):
+    def union_property(self, value: typing.Optional[typing.Union[typing.Optional["Add"], typing.Optional["Multiply"], typing.Optional["Power"]]]):
         return jsii.set(self, "unionProperty", value)
 
 

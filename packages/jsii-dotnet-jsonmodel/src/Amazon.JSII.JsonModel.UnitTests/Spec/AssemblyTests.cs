@@ -11,7 +11,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
     {
         const string RootPrefix = nameof(Spec) + "." + nameof(Assembly) + ".";
 
-        public class Serialization
+        public class Serialization : TestUtils
         {
             const string Prefix = RootPrefix + "Serialization.";
 
@@ -54,7 +54,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                     readme: new Readme("myReadme")
                 );
 
-                string actual = JsonConvert.SerializeObject(assembly, Formatting.Indented);
+                string actual = ToJson(assembly);
                 const string expected = @"{
   ""schema"": ""jsii/0.9.0"",
   ""name"": ""myName"",
@@ -182,7 +182,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                     docs: new Docs()
                 );
 
-                string actual = JsonConvert.SerializeObject(assembly, Formatting.Indented);
+                string actual = ToJson(assembly);
                 const string expected = @"{
   ""schema"": ""jsii/0.9.0"",
   ""name"": ""myName"",
@@ -242,7 +242,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                     docs: new Docs()
                 );
 
-                string actual = JsonConvert.SerializeObject(assembly, Formatting.Indented);
+                string actual = ToJson(assembly);
                 const string expected = @"{
   ""schema"": ""jsii/0.9.0"",
   ""name"": ""myName"",
@@ -302,7 +302,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                     docs: null
                 );
 
-                string actual = JsonConvert.SerializeObject(assembly, Formatting.Indented);
+                string actual = ToJson(assembly);
                 const string expected = @"{
   ""schema"": ""jsii/0.9.0"",
   ""name"": ""myName"",

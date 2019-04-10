@@ -17,19 +17,19 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("property", "{\"primitive\":\"string\"}")]
+        [JsiiProperty(name: "property", typeJson: "{\"primitive\":\"string\"}")]
         protected virtual string Property
         {
             get => GetInstanceProperty<string>();
         }
 
-        [JsiiMethod("bar", null, "[]")]
+        [JsiiMethod(name: "bar", returnsJson: null, parametersJson: "[]")]
         public virtual void Bar()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("baz", null, "[]")]
+        [JsiiMethod(name: "baz", returnsJson: null, parametersJson: "[]")]
         public virtual void Baz()
         {
             InvokeInstanceVoidMethod(new object[]{});

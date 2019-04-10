@@ -21,21 +21,21 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>The base of the power.</summary>
-        [JsiiProperty("base", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
+        [JsiiProperty(name: "base", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public virtual Value_ Base
         {
             get => GetInstanceProperty<Value_>();
         }
 
         /// <summary>The expression that this operation consists of. Must be implemented by derived classes.</summary>
-        [JsiiProperty("expression", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
+        [JsiiProperty(name: "expression", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public override Value_ Expression
         {
             get => GetInstanceProperty<Value_>();
         }
 
         /// <summary>The number of times to multiply.</summary>
-        [JsiiProperty("pow", "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
+        [JsiiProperty(name: "pow", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public virtual Value_ Pow
         {
             get => GetInstanceProperty<Value_>();

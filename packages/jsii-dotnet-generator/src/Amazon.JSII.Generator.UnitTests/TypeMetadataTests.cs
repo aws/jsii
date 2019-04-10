@@ -145,7 +145,7 @@ namespace Amazon.JSII.Generator.UnitTests
                             isProtected: false,
                             isAbstract: false,
                             name: "myName",
-                            returns: new TypeReference(primitive: PrimitiveType.String)
+                            returns: new OptionalValue(type: new TypeReference(primitive: PrimitiveType.String))
                         )
                     }
                 );
@@ -447,7 +447,7 @@ namespace Amazon.JSII.Generator.UnitTests
                             isProtected: false,
                             isAbstract: false,
                             name: "iMyName",
-                            returns: new TypeReference(primitive: PrimitiveType.String)
+                            returns: new OptionalValue(type: new TypeReference(primitive: PrimitiveType.String))
                         )
                     }
                 );

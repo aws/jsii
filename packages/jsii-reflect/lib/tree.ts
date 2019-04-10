@@ -4,13 +4,13 @@ import { Assembly } from './assembly';
 import { ClassType } from './class';
 import { Dependency } from './dependency';
 import { EnumType } from './enum';
+import { Initializer } from './initializer';
 import { InterfaceType } from './interface';
 import { Method } from './method';
+import { OptionalValue } from './optional-value';
 import { Parameter } from './parameter';
 import { Property } from './property';
-import { TypeReference } from './type-ref';
 import { TypeSystem } from './type-system';
-import { Initializer } from './initializer';
 
 export interface TypeSystemTreeOptions {
   /**
@@ -130,7 +130,7 @@ class MethodNode extends AsciiTree {
         params.add(...method.parameters.map(p => new ParameterNode(p, options)));
       }
 
-      this.add(new TypeReferenceNode('returns', method.returns));
+      this.add(new OptionalValueNode('returns', method.returns, { asPromise: method.async }));
     }
   }
 }
@@ -162,7 +162,7 @@ class ParameterNode extends AsciiTree {
   constructor(param: Parameter, _options: TypeSystemTreeOptions) {
     super(param.name);
 
-    this.add(new TypeReferenceNode('type', param.type));
+    this.add(new OptionalValueNode('type', param));
     if (param.variadic) {
       this.add(new FlagNode('variadic'));
     }
@@ -194,14 +194,18 @@ class PropertyNode extends AsciiTree {
         this.add(new FlagNode('static'));
       }
 
-      this.add(new TypeReferenceNode('type', property.type));
+      this.add(new OptionalValueNode('type', property));
     }
   }
 }
 
-class TypeReferenceNode extends AsciiTree {
-  constructor(name: string, typeReference: TypeReference) {
-    super(`${colors.underline(name)}: ${typeReference}`);
+class OptionalValueNode extends AsciiTree {
+  constructor(name: string, optionalValue: OptionalValue, { asPromise } = { asPromise: false }) {
+    let type = OptionalValue.describe(optionalValue);
+    if (asPromise) {
+      type = `Promise<${type}>`;
+    }
+    super(`${colors.underline(name)}: ${type}`);
   }
 }
 

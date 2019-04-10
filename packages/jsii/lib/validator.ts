@@ -226,8 +226,8 @@ function _defaultValidations(): ValidationFunction[] {
 
         function _assertSignaturesMatch(expected: spec.Method, actual: spec.Method, label: string, action: string) {
             if (!deepEqual(actual.returns, expected.returns)) {
-                const expType = spec.describeTypeReference(expected.returns);
-                const actType = spec.describeTypeReference(actual.returns);
+                const expType = spec.describeTypeReference(expected.returns && expected.returns.type);
+                const actType = spec.describeTypeReference(actual.returns && actual.returns.type);
                 diagnostic(ts.DiagnosticCategory.Error,
                            `${label} changes the return type when ${action} (expected ${expType}, found ${actType})`);
             }
@@ -315,7 +315,7 @@ function _allTypeReferences(assm: spec.Assembly): spec.NamedTypeReference[] {
     }
     for (const meth of _allMethods(assm)) {
         if (meth.returns) {
-            _collectTypeReferences(meth.returns);
+            _collectTypeReferences(meth.returns.type);
         }
         for (const param of meth.parameters || []) {
             _collectTypeReferences(param.type);

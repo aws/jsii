@@ -19,7 +19,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace
         }
 
         /// <returns>the name of the class (to verify native type names are created for derived classes).</returns>
-        [JsiiMethod("typeName", "{\"primitive\":\"any\",\"optional\":true}", "[]")]
+        [JsiiMethod(name: "typeName", returnsJson: "{\"type\":{\"primitive\":\"any\"}}", parametersJson: "[]")]
         public virtual object TypeName()
         {
             return InvokeInstanceMethod<object>(new object[]{});

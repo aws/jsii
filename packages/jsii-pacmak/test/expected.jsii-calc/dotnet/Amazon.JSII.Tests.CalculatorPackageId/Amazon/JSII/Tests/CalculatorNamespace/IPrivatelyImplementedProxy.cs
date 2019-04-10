@@ -9,7 +9,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("success", "{\"primitive\":\"boolean\"}")]
+        [JsiiProperty(name: "success", typeJson: "{\"primitive\":\"boolean\"}")]
         public bool Success
         {
             get => GetInstanceProperty<bool>();

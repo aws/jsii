@@ -15,7 +15,7 @@ namespace Amazon.JSII.Generator.Class
             INamespaceSet namespaces = null)
             : base(package, type, symbols, namespaces)
         {
-            if (type.IsAbstract != true)
+            if (!type.IsAbstract)
             {
                 throw new ArgumentException("Class type must be abstract.", nameof(type));
             }
@@ -105,7 +105,7 @@ namespace Amazon.JSII.Generator.Class
                     string.Join("",
                         m.Parameters?.Select(p => p.Name + p.Type.FullyQualifiedName) ?? Enumerable.Empty<string>())))
                 .Select(g => g.First())
-                .Where(m => m.IsAbstract ?? false);
+                .Where(m => m.IsAbstract);
         }
 
         private IEnumerable<Property> GetAllProperties(Type type)
@@ -168,7 +168,7 @@ namespace Amazon.JSII.Generator.Class
             return GetAllPropertiesRecurse(type, Enumerable.Empty<Property>())
                 .GroupBy(p => p.Name)
                 .Select(g => g.First())
-                .Where(p => p.IsAbstract ?? false);
+                .Where(p => p.IsAbstract);
         }
     }
 }

@@ -6,6 +6,7 @@ package software.amazon.jsii.tests.calculator;
 @javax.annotation.Generated(value = "jsii-pacmak")
 public interface IInterfaceWithOptionalMethodArguments extends software.amazon.jsii.JsiiSerializable {
     void hello(final java.lang.String arg1, @javax.annotation.Nullable final java.lang.Number arg2);
+    void hello(final java.lang.String arg1);
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.
@@ -18,6 +19,11 @@ public interface IInterfaceWithOptionalMethodArguments extends software.amazon.j
         @Override
         public void hello(final java.lang.String arg1, @javax.annotation.Nullable final java.lang.Number arg2) {
             this.jsiiCall("hello", Void.class, java.util.stream.Stream.concat(java.util.stream.Stream.of(java.util.Objects.requireNonNull(arg1, "arg1 is required")), java.util.stream.Stream.of(arg2)).toArray());
+        }
+
+        @Override
+        public void hello(final java.lang.String arg1) {
+            this.jsiiCall("hello", Void.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(arg1, "arg1 is required")).toArray());
         }
     }
 }

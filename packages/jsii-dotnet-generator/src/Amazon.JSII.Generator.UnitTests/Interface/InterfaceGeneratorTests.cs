@@ -93,7 +93,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
     [JsiiInterface(typeof(IMyInterface), ""myInterfaceFqn"")]
     public interface IMyInterface
     {
-        [JsiiMethod(""myMethod"", null, ""[]"")]
+        [JsiiMethod(name: ""myMethod"", returnsJson: null, parametersJson: ""[]"")]
         void MyMethod();
     }
 }";

@@ -170,7 +170,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
         {
         }
 
-        [JsiiMethod(""myMethod"", null, ""[]"")]
+        [JsiiMethod(name: ""myMethod"", returnsJson: null, parametersJson: ""[]"")]
         public override void MyMethod()
         {
             InvokeInstanceVoidMethod(new object[]{});

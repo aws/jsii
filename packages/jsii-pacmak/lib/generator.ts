@@ -330,7 +330,7 @@ export abstract class Generator implements IGenerator {
 
         next = remaining.pop();
         // Parameter is optional if it's type is optional, and all subsequent parameters are optional/variadic
-        while (next && next.type.optional && !remaining.some(p => !p.type.optional && !p.variadic)) {
+        while (next && next.optional) {
         // clone the method but set the parameter list based on the remaining set of parameters
             let cloned: T = clone(method);
             cloned.parameters = clone(remaining);
@@ -426,7 +426,7 @@ export abstract class Generator implements IGenerator {
                             let primary = this.isPrimaryExpandedUnionProperty(prop.type, index);
                             let propertyName = primary ? prop.name : `${prop.name}As${this.displayNameForType(type)}`;
                             propClone.type = type;
-                            propClone.type.optional = prop.type.optional;
+                            propClone.optional = prop.optional;
                             propClone.name = propertyName;
                             this.onExpandedUnionProperty(cls, propClone, prop.name);
                         }

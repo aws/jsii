@@ -17,7 +17,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod("value", "{\"primitive\":\"any\",\"optional\":true}", "[]")]
+        [JsiiMethod(name: "value", returnsJson: "{\"type\":{\"primitive\":\"any\"}}", parametersJson: "[]")]
         public virtual object Value()
         {
             return InvokeInstanceMethod<object>(new object[]{});

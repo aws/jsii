@@ -13,59 +13,59 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("anotherRequired", "{\"primitive\":\"date\"}")]
+        [JsiiProperty(name: "anotherRequired", typeJson: "{\"primitive\":\"date\"}")]
         public DateTime AnotherRequired
         {
             get => GetInstanceProperty<DateTime>();
         }
 
-        [JsiiProperty("bool", "{\"primitive\":\"boolean\"}")]
+        [JsiiProperty(name: "bool", typeJson: "{\"primitive\":\"boolean\"}")]
         public bool Bool
         {
             get => GetInstanceProperty<bool>();
         }
 
         /// <summary>An example of a non primitive property.</summary>
-        [JsiiProperty("nonPrimitive", "{\"fqn\":\"jsii-calc.DoubleTrouble\"}")]
+        [JsiiProperty(name: "nonPrimitive", typeJson: "{\"fqn\":\"jsii-calc.DoubleTrouble\"}")]
         public DoubleTrouble NonPrimitive
         {
             get => GetInstanceProperty<DoubleTrouble>();
         }
 
         /// <summary>This is optional.</summary>
-        [JsiiProperty("anotherOptional", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},\"optional\":true}")]
+        [JsiiProperty(name: "anotherOptional", typeJson: "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}", isOptional: true)]
         public IDictionary<string, Value_> AnotherOptional
         {
             get => GetInstanceProperty<IDictionary<string, Value_>>();
         }
 
-        [JsiiProperty("optionalAny", "{\"primitive\":\"any\",\"optional\":true}")]
+        [JsiiProperty(name: "optionalAny", typeJson: "{\"primitive\":\"any\"}", isOptional: true)]
         public object OptionalAny
         {
             get => GetInstanceProperty<object>();
         }
 
-        [JsiiProperty("optionalArray", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"optional\":true}")]
+        [JsiiProperty(name: "optionalArray", typeJson: "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}}}", isOptional: true)]
         public string[] OptionalArray
         {
             get => GetInstanceProperty<string[]>();
         }
 
         /// <summary>An awesome number value.</summary>
-        [JsiiProperty("anumber", "{\"primitive\":\"number\"}")]
+        [JsiiProperty(name: "anumber", typeJson: "{\"primitive\":\"number\"}")]
         public double Anumber
         {
             get => GetInstanceProperty<double>();
         }
 
         /// <summary>A string value.</summary>
-        [JsiiProperty("astring", "{\"primitive\":\"string\"}")]
+        [JsiiProperty(name: "astring", typeJson: "{\"primitive\":\"string\"}")]
         public string Astring
         {
             get => GetInstanceProperty<string>();
         }
 
-        [JsiiProperty("firstOptional", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"optional\":true}")]
+        [JsiiProperty(name: "firstOptional", typeJson: "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}}}", isOptional: true)]
         public string[] FirstOptional
         {
             get => GetInstanceProperty<string[]>();

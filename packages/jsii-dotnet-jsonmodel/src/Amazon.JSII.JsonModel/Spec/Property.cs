@@ -4,23 +4,23 @@ using System;
 namespace Amazon.JSII.JsonModel.Spec
 {
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public class Property : IDocumentable, IOverridable
+    public class Property : OptionalValue, IDocumentable, IOverridable
     {
         public Property
         (
             string name,
             TypeReference type,
-            bool? isImmutable = null,
-            bool? isProtected = null,
-            bool? isAbstract = null,
-            Docs docs = null,
-            bool? isStatic = null,
-            bool? isConstant = null,
-            string overrides = null
-        )
+            bool isImmutable = false,
+            bool isOptional = false,
+            bool isProtected = false,
+            bool isAbstract = false,
+            bool isStatic = false,
+            bool isConstant = false,
+            string overrides = null,
+            Docs docs = null
+        ): base(type: type, isOptional: isOptional)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
-            Type = type ?? throw new ArgumentNullException(nameof(type));
             IsImmutable = isImmutable;
             IsProtected = isProtected;
             IsAbstract = isAbstract;
@@ -33,28 +33,25 @@ namespace Amazon.JSII.JsonModel.Spec
         [JsonProperty("name")]
         public string Name { get; }
 
-        [JsonProperty("type")]
-        public TypeReference Type { get; }
-
-        [JsonProperty("immutable", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? IsImmutable { get; }
-
-        [JsonProperty("protected", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? IsProtected { get; }
-
         [JsonProperty("abstract", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? IsAbstract{ get; }
-
-        [JsonProperty("docs", NullValueHandling = NullValueHandling.Ignore)]
-        public Docs Docs { get; }
-
-        [JsonProperty("static", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? IsStatic { get; }
+        public bool IsAbstract{ get; }
 
         [JsonProperty("const", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? IsConstant { get; }
+        public bool IsConstant { get; }
+        
+        [JsonProperty("immutable", NullValueHandling = NullValueHandling.Ignore)]
+        public bool IsImmutable { get; }
+
+        [JsonProperty("protected", NullValueHandling = NullValueHandling.Ignore)]
+        public bool IsProtected { get; }
+
+        [JsonProperty("static", NullValueHandling = NullValueHandling.Ignore)]
+        public bool IsStatic { get; }
 
         [JsonProperty("overrides", NullValueHandling = NullValueHandling.Ignore)]
         public string Overrides { get; }
+        
+        [JsonProperty("docs", NullValueHandling = NullValueHandling.Ignore)]
+        public Docs Docs { get; }
     }
 }

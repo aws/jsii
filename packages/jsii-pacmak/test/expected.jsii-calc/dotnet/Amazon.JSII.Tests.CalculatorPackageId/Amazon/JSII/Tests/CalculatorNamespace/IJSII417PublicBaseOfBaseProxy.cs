@@ -9,13 +9,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("hasRoot", "{\"primitive\":\"boolean\"}")]
+        [JsiiProperty(name: "hasRoot", typeJson: "{\"primitive\":\"boolean\"}")]
         public bool HasRoot
         {
             get => GetInstanceProperty<bool>();
         }
 
-        [JsiiMethod("foo", null, "[]")]
+        [JsiiMethod(name: "foo", returnsJson: null, parametersJson: "[]")]
         public void Foo()
         {
             InvokeInstanceVoidMethod(new object[]{});

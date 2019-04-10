@@ -17,7 +17,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod("ciao", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod(name: "ciao", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[]", isOverride: true)]
         public virtual string Ciao()
         {
             return InvokeInstanceMethod<string>(new object[]{});

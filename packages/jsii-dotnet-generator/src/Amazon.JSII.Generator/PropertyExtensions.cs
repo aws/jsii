@@ -9,12 +9,12 @@ namespace Amazon.JSII.Generator
     {
         public static bool IsStatic(this Property property)
         {
-            return property.IsStatic == true || property.IsConstant == true;
+            return property.IsStatic || property.IsConstant;
         }
 
         public static bool IsImmutable(this Property property)
         {
-            return property.IsImmutable == true || property.IsConstant == true;
+            return property.IsImmutable || property.IsConstant;
         }
     }
 }

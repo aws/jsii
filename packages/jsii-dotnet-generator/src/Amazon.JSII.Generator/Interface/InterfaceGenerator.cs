@@ -38,7 +38,7 @@ namespace Amazon.JSII.Generator.Interface
                     SF.AttributeList(SF.SeparatedList(new[] {
                         SF.Attribute(
                             SF.ParseName("JsiiInterface"),
-                            SF.ParseAttributeArgumentList($"({typeOfExpression}, {fullyQualifiedNameLiteral})")
+                            SF.ParseAttributeArgumentList($"(nativeType: {typeOfExpression}, fullyQualifiedName: {fullyQualifiedNameLiteral})")
                         )
                     }))
                 });
@@ -48,7 +48,7 @@ namespace Amazon.JSII.Generator.Interface
             {
                 IEnumerable<BaseTypeSyntax> baseTypes = GetBaseTypes();
 
-                return baseTypes?.Any() == true ? SF.BaseList(SF.SeparatedList(baseTypes)) : null;
+                return baseTypes?.Any() ?? false ? SF.BaseList(SF.SeparatedList(baseTypes)) : null;
 
                 IEnumerable<BaseTypeSyntax> GetBaseTypes()
                 {
@@ -75,7 +75,7 @@ namespace Amazon.JSII.Generator.Interface
 
             foreach (Method method in Type.Methods)
             {
-                if (method.Returns?.IsPromise == true)
+                if (method.IsAsync)
                 {
                     throw new NotImplementedException();
                 }

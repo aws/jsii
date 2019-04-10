@@ -17,7 +17,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod("hello", null, "[]")]
+        [JsiiMethod(name: "hello", returnsJson: null, parametersJson: "[]")]
         public virtual void Hello()
         {
             InvokeInstanceVoidMethod(new object[]{});

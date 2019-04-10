@@ -17,7 +17,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod("visible", null, "[]")]
+        [JsiiMethod(name: "visible", returnsJson: null, parametersJson: "[]", isOverride: true)]
         public virtual void Visible()
         {
             InvokeInstanceVoidMethod(new object[]{});

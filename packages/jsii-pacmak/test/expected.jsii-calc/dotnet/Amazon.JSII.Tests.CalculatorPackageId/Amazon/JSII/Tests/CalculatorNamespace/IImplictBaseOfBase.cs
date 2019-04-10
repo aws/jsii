@@ -7,7 +7,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(typeof(IImplictBaseOfBase), "jsii-calc.ImplictBaseOfBase")]
     public interface IImplictBaseOfBase : IBaseProps
     {
-        [JsiiProperty("goo", "{\"primitive\":\"date\"}")]
+        [JsiiProperty(name: "goo", typeJson: "{\"primitive\":\"date\"}")]
         DateTime Goo
         {
             get;

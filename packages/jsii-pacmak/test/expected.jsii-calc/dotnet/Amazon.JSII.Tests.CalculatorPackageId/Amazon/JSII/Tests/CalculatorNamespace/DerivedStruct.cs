@@ -9,14 +9,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue]
     public class DerivedStruct : IDerivedStruct
     {
-        [JsiiProperty("anotherRequired", "{\"primitive\":\"date\"}", true)]
+        [JsiiProperty(name: "anotherRequired", typeJson: "{\"primitive\":\"date\"}", isOverride: true)]
         public DateTime AnotherRequired
         {
             get;
             set;
         }
 
-        [JsiiProperty("bool", "{\"primitive\":\"boolean\"}", true)]
+        [JsiiProperty(name: "bool", typeJson: "{\"primitive\":\"boolean\"}", isOverride: true)]
         public bool Bool
         {
             get;
@@ -24,7 +24,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>An example of a non primitive property.</summary>
-        [JsiiProperty("nonPrimitive", "{\"fqn\":\"jsii-calc.DoubleTrouble\"}", true)]
+        [JsiiProperty(name: "nonPrimitive", typeJson: "{\"fqn\":\"jsii-calc.DoubleTrouble\"}", isOverride: true)]
         public DoubleTrouble NonPrimitive
         {
             get;
@@ -32,21 +32,21 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>This is optional.</summary>
-        [JsiiProperty("anotherOptional", "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},\"optional\":true}", true)]
+        [JsiiProperty(name: "anotherOptional", typeJson: "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}", isOptional: true, isOverride: true)]
         public IDictionary<string, Value_> AnotherOptional
         {
             get;
             set;
         }
 
-        [JsiiProperty("optionalAny", "{\"primitive\":\"any\",\"optional\":true}", true)]
+        [JsiiProperty(name: "optionalAny", typeJson: "{\"primitive\":\"any\"}", isOptional: true, isOverride: true)]
         public object OptionalAny
         {
             get;
             set;
         }
 
-        [JsiiProperty("optionalArray", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"optional\":true}", true)]
+        [JsiiProperty(name: "optionalArray", typeJson: "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}}}", isOptional: true, isOverride: true)]
         public string[] OptionalArray
         {
             get;
@@ -54,7 +54,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>An awesome number value.</summary>
-        [JsiiProperty("anumber", "{\"primitive\":\"number\"}", true)]
+        [JsiiProperty(name: "anumber", typeJson: "{\"primitive\":\"number\"}", isOverride: true)]
         public double Anumber
         {
             get;
@@ -62,14 +62,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>A string value.</summary>
-        [JsiiProperty("astring", "{\"primitive\":\"string\"}", true)]
+        [JsiiProperty(name: "astring", typeJson: "{\"primitive\":\"string\"}", isOverride: true)]
         public string Astring
         {
             get;
             set;
         }
 
-        [JsiiProperty("firstOptional", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"optional\":true}", true)]
+        [JsiiProperty(name: "firstOptional", typeJson: "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}}}", isOptional: true, isOverride: true)]
         public string[] FirstOptional
         {
             get;

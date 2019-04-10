@@ -17,7 +17,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod("throwError", null, "[]")]
+        [JsiiMethod(name: "throwError", returnsJson: null, parametersJson: "[]")]
         public virtual void ThrowError()
         {
             InvokeInstanceVoidMethod(new object[]{});

@@ -7,17 +7,17 @@ namespace Amazon.JSII.JsonModel.Spec
     {
         public Initializer
         (
-            bool? isProtected = null,
             Parameter[] parameters = null,
-            Docs docs = null,
-            bool? isVariadic = null,
-            string overrides = null
+            bool isProtected = false,
+            bool isVariadic = false,
+            string overrides = null,
+            Docs docs = null
         ): base(
-            isProtected,
-            parameters,
-            docs,
-            isVariadic,
-            overrides
+            parameters: parameters,
+            isProtected: isProtected,
+            isVariadic: isVariadic,
+            overrides: overrides,
+            docs: docs
         )
         {}
     }

@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(typeof(IIInterfaceWithPropertiesExtension), "jsii-calc.IInterfaceWithPropertiesExtension")]
     public interface IIInterfaceWithPropertiesExtension : IIInterfaceWithProperties
     {
-        [JsiiProperty("foo", "{\"primitive\":\"number\"}")]
+        [JsiiProperty(name: "foo", typeJson: "{\"primitive\":\"number\"}")]
         double Foo
         {
             get;

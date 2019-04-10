@@ -5,15 +5,15 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(typeof(IIJSII417Derived), "jsii-calc.IJSII417Derived")]
     public interface IIJSII417Derived : IIJSII417PublicBaseOfBase
     {
-        [JsiiProperty("property", "{\"primitive\":\"string\"}")]
+        [JsiiProperty(name: "property", typeJson: "{\"primitive\":\"string\"}")]
         string Property
         {
             get;
         }
 
-        [JsiiMethod("bar", null, "[]")]
+        [JsiiMethod(name: "bar", returnsJson: null, parametersJson: "[]")]
         void Bar();
-        [JsiiMethod("baz", null, "[]")]
+        [JsiiMethod(name: "baz", returnsJson: null, parametersJson: "[]")]
         void Baz();
     }
 }

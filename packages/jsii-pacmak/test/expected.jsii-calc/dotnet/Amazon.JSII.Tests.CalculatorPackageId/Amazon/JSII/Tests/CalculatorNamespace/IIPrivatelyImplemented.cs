@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(typeof(IIPrivatelyImplemented), "jsii-calc.IPrivatelyImplemented")]
     public interface IIPrivatelyImplemented
     {
-        [JsiiProperty("success", "{\"primitive\":\"boolean\"}")]
+        [JsiiProperty(name: "success", typeJson: "{\"primitive\":\"boolean\"}")]
         bool Success
         {
             get;

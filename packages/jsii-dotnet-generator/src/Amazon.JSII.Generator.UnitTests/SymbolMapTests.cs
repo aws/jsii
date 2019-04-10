@@ -1489,9 +1489,9 @@ namespace Amazon.JSII.Generator.UnitTests
             {
                 ISymbolMap symbolMap = new SymbolMap();
 
-                TypeReference reference = new TypeReference(primitive: type, isOptional: isOptional);
+                var reference = new TypeReference(primitive: type);
 
-                string actual = symbolMap.GetTypeSyntax(reference).ToString();
+                var actual = symbolMap.GetTypeSyntax(reference, isOptional).ToString();
                 Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
             }
 
@@ -1504,7 +1504,7 @@ namespace Amazon.JSII.Generator.UnitTests
             {
                 ISymbolMap symbolMap = new SymbolMap();
 
-                TypeReference reference = new TypeReference
+                var reference = new TypeReference
                     (
                         collection: new CollectionTypeReference
                         (
@@ -1512,11 +1512,10 @@ namespace Amazon.JSII.Generator.UnitTests
                             elementType: new TypeReference(
                                 collection: new CollectionTypeReference(kind, new TypeReference(primitive: PrimitiveType.Number))
                             )
-                        ),
-                        isOptional: isOptional
+                        )
                     );
 
-                string actual = symbolMap.GetTypeSyntax(reference).ToString();
+                string actual = symbolMap.GetTypeSyntax(reference, isOptional).ToString();
                 Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
             }
 
@@ -1527,15 +1526,14 @@ namespace Amazon.JSII.Generator.UnitTests
             {
                 ISymbolMap symbolMap = new SymbolMap();
 
-                TypeReference reference = new TypeReference
+                var reference = new TypeReference
                     (
                         union: new UnionTypeReference(new[] {
                             new TypeReference(primitive: PrimitiveType.Number)
-                        }),
-                        isOptional: isOptional
+                        })
                     );
 
-                string actual = symbolMap.GetTypeSyntax(reference).ToString();
+                string actual = symbolMap.GetTypeSyntax(reference, isOptional).ToString();
                 Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
             }
 
@@ -1553,7 +1551,7 @@ namespace Amazon.JSII.Generator.UnitTests
                 ISymbolMap symbolMap = GetSymbolMap(type);
                 TypeReference reference = new TypeReference("myFqn");
 
-                string actual = symbolMap.GetTypeSyntax(reference).ToString();
+                string actual = symbolMap.GetTypeSyntax(reference, false).ToString();
                 Assert.Equal("MyName", actual, ignoreLineEndingDifferences: true);
 
             }

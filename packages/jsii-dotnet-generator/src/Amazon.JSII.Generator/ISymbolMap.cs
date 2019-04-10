@@ -90,7 +90,7 @@ namespace Amazon.JSII.Generator
 
         NameSyntax GetPackageSyntax(string fullyQualifiedName);
 
-        TypeSyntax GetTypeSyntax(TypeReference typeReference);
+        TypeSyntax GetTypeSyntax(TypeReference typeReference, bool isOptional);
 
         Type GetTypeFromFullyQualifiedName(string fullyQualifiedName);
 

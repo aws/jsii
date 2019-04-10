@@ -56,7 +56,9 @@
           },
           "name": "hey",
           "returns": {
-            "primitive": "number"
+            "type": {
+              "primitive": "number"
+            }
           }
         }
       ],
@@ -89,5 +91,5 @@
     }
   },
   "version": "0.9.0",
-  "fingerprint": "sl2hqhzRKwlZZPWc+Coyt0tYtAJBcuWdFbJyN/MLHHo="
+  "fingerprint": "1O+di7RZanglLmeCs57JLdO5m98kRnkL4uLPnDbm/z4="
 }

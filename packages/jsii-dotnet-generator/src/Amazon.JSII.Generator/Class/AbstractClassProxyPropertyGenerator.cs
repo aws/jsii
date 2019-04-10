@@ -14,7 +14,7 @@ namespace Amazon.JSII.Generator.Class
 
         protected override IEnumerable<SyntaxKind> GetModifierKeywords()
         {
-            yield return Property.IsProtected == true ? SyntaxKind.ProtectedKeyword : SyntaxKind.PublicKeyword;
+            yield return Property.IsProtected ? SyntaxKind.ProtectedKeyword : SyntaxKind.PublicKeyword;
 
             // Type is the abstract class, so we need to check it as well as ancestors.
             if (IsDefinedOnAncestor || Type.Properties.Any(p => p.Name == Property.Name))

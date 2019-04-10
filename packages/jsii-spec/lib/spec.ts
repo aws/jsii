@@ -419,6 +419,23 @@ export enum PrimitiveType {
 }
 
 /**
+ * A value that can possibly be optional.
+ */
+export interface OptionalValue {
+    /**
+     * Determines whether the value is, indeed, optional.
+     *
+     * @default false
+     */
+    optional?: boolean;
+
+    /**
+     * The declared type of the value, when it's present.
+     */
+    type: TypeReference;
+}
+
+/**
  * A reference to a type (primitive, collection or fqn).
  */
 export type TypeReference = NamedTypeReference | PrimitiveTypeReference | CollectionTypeReference | UnionTypeReference;
@@ -426,34 +443,13 @@ export type TypeReference = NamedTypeReference | PrimitiveTypeReference | Collec
 /**
  * The standard representation of the `any` type (includes optionality marker).
  */
-export const CANONICAL_ANY: Readonly<PrimitiveTypeReference> = { optional: true, primitive: PrimitiveType.Any };
-
-/**
- * Qualifiers for a type reference.
- */
-interface QualifiedTypeReference {
-    /**
-     * Whether this type is optional (meaning it can be absent or null, ...) or
-     * not.
-     *
-     * @default false
-     */
-    optional?: boolean;
-
-    /**
-     * Whether this type is a promise (meaning it may only become available at a
-     * later point) or immediate.
-     *
-     * @default false
-     */
-    promise?: boolean;
-}
+export const CANONICAL_ANY: Readonly<PrimitiveTypeReference> = { primitive: PrimitiveType.Any };
 
 /**
  * Reference to a named type, defined by this assembly or one of its
  * dependencies.
  */
-export interface NamedTypeReference extends QualifiedTypeReference {
+export interface NamedTypeReference {
     /**
      * The fully-qualified-name of the type (can be located in the
      * ``spec.types[fqn]``` of the assembly that defines the type).
@@ -467,7 +463,7 @@ export function isNamedTypeReference(ref: TypeReference | undefined): ref is Nam
 /**
  * Reference to a primitive type.
  */
-export interface PrimitiveTypeReference extends QualifiedTypeReference {
+export interface PrimitiveTypeReference {
     /**
      * If this is a reference to a primitive type, this will include the
      * primitive type kind.
@@ -481,7 +477,7 @@ export function isPrimitiveTypeReference(ref: TypeReference | undefined): ref is
 /**
  * Reference to a collection type.
  */
-export interface CollectionTypeReference extends QualifiedTypeReference {
+export interface CollectionTypeReference {
     collection: {
         /**
          * The kind of collection.
@@ -501,7 +497,7 @@ export function isCollectionTypeReference(ref: TypeReference | undefined): ref i
 /**
  * Reference to a union type.
  */
-export interface UnionTypeReference extends QualifiedTypeReference {
+export interface UnionTypeReference {
     /**
      * Indicates that this is a union type, which means it can be one of a set
      * of types.
@@ -537,18 +533,13 @@ export interface Overridable {
 /**
  * A class property.
  */
-export interface Property extends Documentable, Overridable, SourceLocatable {
+export interface Property extends Documentable, OptionalValue, Overridable, SourceLocatable {
     /**
      * The name of the property.
      *
      * @minLength 1
      */
     name: string;
-
-    /**
-     * The specification for the property's type.
-     */
-    type: TypeReference;
 
     /**
      * Indicates if this property only has a getter (immutable).
@@ -591,7 +582,7 @@ export interface Property extends Documentable, Overridable, SourceLocatable {
 /**
  * Represents a method parameter.
  */
-export interface Parameter extends Documentable {
+export interface Parameter extends Documentable, OptionalValue {
 
     /**
      * The name of the parameter.
@@ -599,11 +590,6 @@ export interface Parameter extends Documentable {
      * @minLength 1
      */
     name: string;
-
-    /**
-     * The specification for the type of this parameter.
-     */
-    type: TypeReference;
 
     /**
      * Whether this is the last parameter of a variadic method. In such cases,
@@ -664,7 +650,7 @@ export interface Method extends Callable {
      *
      * @default void
      */
-    returns?: TypeReference;
+    returns?: OptionalValue;
 
     /**
      * Is this method an abstract method (this means the class will also be an abstract class)
@@ -672,6 +658,13 @@ export interface Method extends Callable {
      * @default false
      */
     abstract?: boolean;
+
+    /**
+     * Indicates if this is an asynchronous method (it will return a promise).
+     *
+     * @default false
+     */
+    async?: boolean;
 
     /**
      * Indicates if this is a static method.
@@ -877,31 +870,21 @@ export function isClassOrInterfaceType(type: Type | undefined): type is (Interfa
 export function describeTypeReference(type?: TypeReference): string {
     if (type === undefined) { return 'void'; }
 
-    function decorate(desc: string) {
-        if (type && type.optional) {
-            desc = `Optional<${desc}>`;
-        }
-        if (type && type.promise) {
-            desc = `Promise<${desc}>`;
-        }
-        return desc;
-    }
-
     if (isNamedTypeReference(type)) {
-        return decorate(type.fqn);
+        return type.fqn;
     }
 
     if (isPrimitiveTypeReference(type)) {
-        return decorate(type.primitive);
+        return type.primitive;
     }
 
     if (isCollectionTypeReference(type)) {
-        return decorate(`${type.collection.kind}<${describeTypeReference(type.collection.elementtype)}>`);
+        return `${type.collection.kind}<${describeTypeReference(type.collection.elementtype)}>`;
     }
 
     if (isUnionTypeReference(type)) {
         const unionType = type.union.types.map(describeTypeReference).join(' | ');
-        return decorate(unionType);
+        return unionType;
     }
 
     throw new Error('Unrecognized type reference');

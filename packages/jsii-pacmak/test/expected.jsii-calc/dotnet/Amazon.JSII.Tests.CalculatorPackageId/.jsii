@@ -251,7 +251,9 @@
             }
           ],
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         },
         {
@@ -261,7 +263,9 @@
           },
           "name": "nonAbstractMethod",
           "returns": {
-            "primitive": "number"
+            "type": {
+              "primitive": "number"
+            }
           }
         }
       ],
@@ -324,7 +328,9 @@
           },
           "name": "giveMeAbstract",
           "returns": {
-            "fqn": "jsii-calc.AbstractClass"
+            "type": {
+              "fqn": "jsii-calc.AbstractClass"
+            }
           }
         },
         {
@@ -334,7 +340,9 @@
           },
           "name": "giveMeInterface",
           "returns": {
-            "fqn": "jsii-calc.IInterfaceImplementedByAbstractClass"
+            "type": {
+              "fqn": "jsii-calc.IInterfaceImplementedByAbstractClass"
+            }
           }
         }
       ],
@@ -402,7 +410,9 @@
           "name": "toString",
           "overrides": "@scope/jsii-calc-lib.Operation",
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         }
       ],
@@ -449,7 +459,6 @@
             {
               "name": "inp",
               "type": {
-                "optional": true,
                 "primitive": "any"
               }
             }
@@ -462,8 +471,9 @@
           },
           "name": "anyOut",
           "returns": {
-            "optional": true,
-            "primitive": "any"
+            "type": {
+              "primitive": "any"
+            }
           }
         },
         {
@@ -481,7 +491,9 @@
             }
           ],
           "returns": {
-            "fqn": "jsii-calc.StringEnum"
+            "type": {
+              "fqn": "jsii-calc.StringEnum"
+            }
           }
         }
       ],
@@ -507,7 +519,6 @@
           "type": {
             "collection": {
               "elementtype": {
-                "optional": true,
                 "primitive": "any"
               },
               "kind": "array"
@@ -523,11 +534,20 @@
           "type": {
             "collection": {
               "elementtype": {
-                "optional": true,
                 "primitive": "any"
               },
               "kind": "map"
             }
+          }
+        },
+        {
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 153
+          },
+          "name": "anyProperty",
+          "type": {
+            "primitive": "any"
           }
         },
         {
@@ -705,7 +725,6 @@
           "type": {
             "collection": {
               "elementtype": {
-                "optional": true,
                 "primitive": "any"
               },
               "kind": "array"
@@ -721,7 +740,6 @@
           "type": {
             "collection": {
               "elementtype": {
-                "optional": true,
                 "primitive": "any"
               },
               "kind": "map"
@@ -731,11 +749,10 @@
         {
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 153
+            "line": 159
           },
-          "name": "anyProperty",
+          "name": "unknownProperty",
           "type": {
-            "optional": true,
             "primitive": "any"
           }
         },
@@ -745,20 +762,9 @@
             "line": 171
           },
           "name": "optionalEnumValue",
+          "optional": true,
           "type": {
-            "fqn": "jsii-calc.StringEnum",
-            "optional": true
-          }
-        },
-        {
-          "locationInModule": {
-            "filename": "lib/compliance.ts",
-            "line": 159
-          },
-          "name": "unknownProperty",
-          "type": {
-            "optional": true,
-            "primitive": "any"
+            "fqn": "jsii-calc.StringEnum"
           }
         }
       ]
@@ -833,7 +839,9 @@
             }
           ],
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         },
         {
@@ -901,17 +909,20 @@
       },
       "methods": [
         {
+          "async": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 309
           },
           "name": "callMe",
           "returns": {
-            "primitive": "number",
-            "promise": true
+            "type": {
+              "primitive": "number"
+            }
           }
         },
         {
+          "async": true,
           "docs": {
             "summary": "Just calls \"overrideMeToo\"."
           },
@@ -921,11 +932,13 @@
           },
           "name": "callMe2",
           "returns": {
-            "primitive": "number",
-            "promise": true
+            "type": {
+              "primitive": "number"
+            }
           }
         },
         {
+          "async": true,
           "docs": {
             "remarks": "This is a \"double promise\" situation, which\nmeans that callbacks are not going to be available immediate, but only\nafter an \"immediates\" cycle.",
             "summary": "This method calls the \"callMe\" async method indirectly, which will then invoke a virtual method."
@@ -936,8 +949,9 @@
           },
           "name": "callMeDoublePromise",
           "returns": {
-            "primitive": "number",
-            "promise": true
+            "type": {
+              "primitive": "number"
+            }
           }
         },
         {
@@ -947,10 +961,13 @@
           },
           "name": "dontOverrideMe",
           "returns": {
-            "primitive": "number"
+            "type": {
+              "primitive": "number"
+            }
           }
         },
         {
+          "async": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 313
@@ -965,19 +982,22 @@
             }
           ],
           "returns": {
-            "primitive": "number",
-            "promise": true
+            "type": {
+              "primitive": "number"
+            }
           }
         },
         {
+          "async": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 317
           },
           "name": "overrideMeToo",
           "returns": {
-            "primitive": "number",
-            "promise": true
+            "type": {
+              "primitive": "number"
+            }
           }
         }
       ],
@@ -1063,7 +1083,9 @@
           "name": "hello",
           "overrides": "@scope/jsii-calc-lib.IFriendly",
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         }
       ],
@@ -1116,9 +1138,9 @@
               "summary": "Initialization properties."
             },
             "name": "props",
+            "optional": true,
             "type": {
-              "fqn": "jsii-calc.CalculatorProps",
-              "optional": true
+              "fqn": "jsii-calc.CalculatorProps"
             }
           }
         ]
@@ -1203,7 +1225,9 @@
           },
           "name": "readUnionValue",
           "returns": {
-            "primitive": "number"
+            "type": {
+              "primitive": "number"
+            }
           }
         }
       ],
@@ -1289,8 +1313,8 @@
             "line": 277
           },
           "name": "maxValue",
+          "optional": true,
           "type": {
-            "optional": true,
             "primitive": "number"
           }
         },
@@ -1303,8 +1327,8 @@
             "line": 317
           },
           "name": "unionProperty",
+          "optional": true,
           "type": {
-            "optional": true,
             "union": {
               "types": [
                 {
@@ -1344,8 +1368,8 @@
             "line": 236
           },
           "name": "initialValue",
+          "optional": true,
           "type": {
-            "optional": true,
             "primitive": "number"
           }
         },
@@ -1357,8 +1381,8 @@
             "line": 237
           },
           "name": "maximumValue",
+          "optional": true,
           "type": {
-            "optional": true,
             "primitive": "number"
           }
         }
@@ -1541,7 +1565,9 @@
             }
           ],
           "returns": {
-            "fqn": "jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties"
+            "type": {
+              "fqn": "jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties"
+            }
           },
           "static": true
         }
@@ -1610,7 +1636,9 @@
           },
           "name": "hiddenInterface",
           "returns": {
-            "fqn": "jsii-calc.IPublicInterface"
+            "type": {
+              "fqn": "jsii-calc.IPublicInterface"
+            }
           },
           "static": true
         },
@@ -1621,11 +1649,13 @@
           },
           "name": "hiddenInterfaces",
           "returns": {
-            "collection": {
-              "elementtype": {
-                "fqn": "jsii-calc.IPublicInterface"
-              },
-              "kind": "array"
+            "type": {
+              "collection": {
+                "elementtype": {
+                  "fqn": "jsii-calc.IPublicInterface"
+                },
+                "kind": "array"
+              }
             }
           },
           "static": true
@@ -1637,11 +1667,13 @@
           },
           "name": "hiddenSubInterfaces",
           "returns": {
-            "collection": {
-              "elementtype": {
-                "fqn": "jsii-calc.IPublicInterface"
-              },
-              "kind": "array"
+            "type": {
+              "collection": {
+                "elementtype": {
+                  "fqn": "jsii-calc.IPublicInterface"
+                },
+                "kind": "array"
+              }
             }
           },
           "static": true
@@ -1653,7 +1685,9 @@
           },
           "name": "makeClass",
           "returns": {
-            "fqn": "jsii-calc.PublicClass"
+            "type": {
+              "fqn": "jsii-calc.PublicClass"
+            }
           },
           "static": true
         },
@@ -1664,7 +1698,9 @@
           },
           "name": "makeInterface",
           "returns": {
-            "fqn": "jsii-calc.IPublicInterface"
+            "type": {
+              "fqn": "jsii-calc.IPublicInterface"
+            }
           },
           "static": true
         },
@@ -1675,7 +1711,9 @@
           },
           "name": "makeInterface2",
           "returns": {
-            "fqn": "jsii-calc.IPublicInterface2"
+            "type": {
+              "fqn": "jsii-calc.IPublicInterface2"
+            }
           },
           "static": true
         },
@@ -1686,11 +1724,13 @@
           },
           "name": "makeInterfaces",
           "returns": {
-            "collection": {
-              "elementtype": {
-                "fqn": "jsii-calc.IPublicInterface"
-              },
-              "kind": "array"
+            "type": {
+              "collection": {
+                "elementtype": {
+                  "fqn": "jsii-calc.IPublicInterface"
+                },
+                "kind": "array"
+              }
             }
           },
           "static": true
@@ -1723,7 +1763,9 @@
             }
           ],
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         },
         {
@@ -1741,8 +1783,9 @@
             }
           ],
           "returns": {
-            "optional": true,
-            "primitive": "any"
+            "type": {
+              "primitive": "any"
+            }
           }
         }
       ],
@@ -1755,22 +1798,22 @@
         "parameters": [
           {
             "name": "arg1",
+            "optional": true,
             "type": {
-              "optional": true,
               "primitive": "number"
             }
           },
           {
             "name": "arg2",
+            "optional": true,
             "type": {
-              "optional": true,
               "primitive": "string"
             }
           },
           {
             "name": "arg3",
+            "optional": true,
             "type": {
-              "optional": true,
               "primitive": "date"
             }
           }
@@ -1812,8 +1855,8 @@
             "line": 291
           },
           "name": "arg2",
+          "optional": true,
           "type": {
-            "optional": true,
             "primitive": "string"
           }
         }
@@ -1923,14 +1966,14 @@
             "line": 532
           },
           "name": "anotherOptional",
+          "optional": true,
           "type": {
             "collection": {
               "elementtype": {
                 "fqn": "@scope/jsii-calc-lib.Value"
               },
               "kind": "map"
-            },
-            "optional": true
+            }
           }
         },
         {
@@ -1941,8 +1984,8 @@
             "line": 528
           },
           "name": "optionalAny",
+          "optional": true,
           "type": {
-            "optional": true,
             "primitive": "any"
           }
         },
@@ -1954,14 +1997,14 @@
             "line": 527
           },
           "name": "optionalArray",
+          "optional": true,
           "type": {
             "collection": {
               "elementtype": {
                 "primitive": "string"
               },
               "kind": "array"
-            },
-            "optional": true
+            }
           }
         }
       ]
@@ -1998,7 +2041,9 @@
           },
           "name": "privateMethodValue",
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         },
         {
@@ -2008,7 +2053,9 @@
           },
           "name": "privatePropertyValue",
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         }
       ],
@@ -2037,21 +2084,20 @@
             {
               "name": "_requiredAny",
               "type": {
-                "optional": true,
                 "primitive": "any"
               }
             },
             {
               "name": "_optionalAny",
+              "optional": true,
               "type": {
-                "optional": true,
                 "primitive": "any"
               }
             },
             {
               "name": "_optionalString",
+              "optional": true,
               "type": {
-                "optional": true,
                 "primitive": "string"
               }
             }
@@ -2092,14 +2138,16 @@
                 "summary": "The person to be greeted."
               },
               "name": "greetee",
+              "optional": true,
               "type": {
-                "fqn": "jsii-calc.Greetee",
-                "optional": true
+                "fqn": "jsii-calc.Greetee"
               }
             }
           ],
           "returns": {
-            "primitive": "number"
+            "type": {
+              "primitive": "number"
+            }
           }
         },
         {
@@ -2135,8 +2183,8 @@
           "parameters": [
             {
               "name": "optional",
+              "optional": true,
               "type": {
-                "optional": true,
                 "primitive": "string"
               }
             },
@@ -2149,7 +2197,9 @@
             }
           ],
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           },
           "variadic": true
         }
@@ -2180,7 +2230,9 @@
           "name": "hello",
           "overrides": "@scope/jsii-calc-lib.IFriendly",
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         },
         {
@@ -2194,7 +2246,9 @@
           "name": "next",
           "overrides": "jsii-calc.IRandomNumberGenerator",
           "returns": {
-            "primitive": "number"
+            "type": {
+              "primitive": "number"
+            }
           }
         }
       ],
@@ -2235,7 +2289,9 @@
             }
           ],
           "returns": {
-            "primitive": "boolean"
+            "type": {
+              "primitive": "boolean"
+            }
           },
           "static": true
         },
@@ -2249,8 +2305,9 @@
           },
           "name": "prop1IsNull",
           "returns": {
-            "optional": true,
-            "primitive": "any"
+            "type": {
+              "primitive": "any"
+            }
           },
           "static": true
         },
@@ -2264,8 +2321,9 @@
           },
           "name": "prop2IsUndefined",
           "returns": {
-            "optional": true,
-            "primitive": "any"
+            "type": {
+              "primitive": "any"
+            }
           },
           "static": true
         }
@@ -2291,8 +2349,8 @@
             "line": 1412
           },
           "name": "option1",
+          "optional": true,
           "type": {
-            "optional": true,
             "primitive": "string"
           }
         },
@@ -2304,8 +2362,8 @@
             "line": 1413
           },
           "name": "option2",
+          "optional": true,
           "type": {
-            "optional": true,
             "primitive": "string"
           }
         }
@@ -2409,7 +2467,9 @@
             }
           ],
           "returns": {
-            "fqn": "@scope/jsii-calc-lib.MyFirstStruct"
+            "type": {
+              "fqn": "@scope/jsii-calc-lib.MyFirstStruct"
+            }
           }
         },
         {
@@ -2430,7 +2490,9 @@
             }
           ],
           "returns": {
-            "fqn": "jsii-calc.DoubleTrouble"
+            "type": {
+              "fqn": "jsii-calc.DoubleTrouble"
+            }
           }
         },
         {
@@ -2451,7 +2513,9 @@
             }
           ],
           "returns": {
-            "primitive": "number"
+            "type": {
+              "primitive": "number"
+            }
           }
         }
       ],
@@ -2496,8 +2560,8 @@
             "line": 46
           },
           "name": "name",
+          "optional": true,
           "type": {
-            "optional": true,
             "primitive": "string"
           }
         }
@@ -2528,7 +2592,9 @@
             }
           ],
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         }
       ],
@@ -2623,7 +2689,9 @@
           },
           "name": "farewell",
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         },
         {
@@ -2638,7 +2706,9 @@
           },
           "name": "goodbye",
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         }
       ],
@@ -2797,8 +2867,8 @@
             },
             {
               "name": "arg2",
+              "optional": true,
               "type": {
-                "optional": true,
                 "primitive": "number"
               }
             }
@@ -3048,7 +3118,9 @@
           },
           "name": "bye",
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         }
       ],
@@ -3071,7 +3143,9 @@
           },
           "name": "ciao",
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         }
       ],
@@ -3101,7 +3175,9 @@
           },
           "name": "next",
           "returns": {
-            "primitive": "number"
+            "type": {
+              "primitive": "number"
+            }
           }
         }
       ],
@@ -3124,7 +3200,9 @@
           },
           "name": "obtainNumber",
           "returns": {
-            "fqn": "@scope/jsii-calc-lib.IDoublable"
+            "type": {
+              "fqn": "@scope/jsii-calc-lib.IDoublable"
+            }
           }
         }
       ],
@@ -3276,7 +3354,9 @@
           "name": "ciao",
           "overrides": "jsii-calc.IPublicInterface2",
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         }
       ],
@@ -3300,8 +3380,8 @@
             "line": 1038
           },
           "name": "bar",
+          "optional": true,
           "type": {
-            "optional": true,
             "primitive": "string"
           }
         }
@@ -3427,7 +3507,9 @@
           },
           "name": "makeInstance",
           "returns": {
-            "fqn": "jsii-calc.JSII417PublicBaseOfBase"
+            "type": {
+              "fqn": "jsii-calc.JSII417PublicBaseOfBase"
+            }
           },
           "static": true
         },
@@ -3471,7 +3553,9 @@
           },
           "name": "giveMeFriendly",
           "returns": {
-            "fqn": "@scope/jsii-calc-lib.IFriendly"
+            "type": {
+              "fqn": "@scope/jsii-calc-lib.IFriendly"
+            }
           }
         },
         {
@@ -3481,7 +3565,9 @@
           },
           "name": "giveMeFriendlyGenerator",
           "returns": {
-            "fqn": "jsii-calc.IFriendlyRandomGenerator"
+            "type": {
+              "fqn": "jsii-calc.IFriendlyRandomGenerator"
+            }
           }
         }
       ],
@@ -3504,7 +3590,9 @@
           },
           "name": "returnLiteral",
           "returns": {
-            "fqn": "jsii-calc.JSObjectLiteralToNativeClass"
+            "type": {
+              "fqn": "jsii-calc.JSObjectLiteralToNativeClass"
+            }
           }
         }
       ],
@@ -3956,9 +4044,9 @@
             "line": 1314
           },
           "name": "jsiiAgent",
+          "optional": true,
           "static": true,
           "type": {
-            "optional": true,
             "primitive": "string"
           }
         }
@@ -3991,8 +4079,8 @@
             "line": 1265
           },
           "name": "containerPort",
+          "optional": true,
           "type": {
-            "optional": true,
             "primitive": "number"
           }
         },
@@ -4009,8 +4097,8 @@
             "line": 1236
           },
           "name": "cpu",
+          "optional": true,
           "type": {
-            "optional": true,
             "primitive": "string"
           }
         },
@@ -4027,8 +4115,8 @@
             "line": 1258
           },
           "name": "memoryMiB",
+          "optional": true,
           "type": {
-            "optional": true,
             "primitive": "string"
           }
         },
@@ -4044,8 +4132,8 @@
             "line": 1272
           },
           "name": "publicLoadBalancer",
+          "optional": true,
           "type": {
-            "optional": true,
             "primitive": "boolean"
           }
         },
@@ -4061,8 +4149,8 @@
             "line": 1279
           },
           "name": "publicTasks",
+          "optional": true,
           "type": {
-            "optional": true,
             "primitive": "boolean"
           }
         }
@@ -4121,7 +4209,9 @@
           "name": "farewell",
           "overrides": "jsii-calc.IFriendlier",
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         },
         {
@@ -4135,7 +4225,9 @@
           "name": "goodbye",
           "overrides": "jsii-calc.IFriendlier",
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         },
         {
@@ -4149,7 +4241,9 @@
           "name": "next",
           "overrides": "jsii-calc.IRandomNumberGenerator",
           "returns": {
-            "primitive": "number"
+            "type": {
+              "primitive": "number"
+            }
           }
         },
         {
@@ -4163,7 +4257,9 @@
           "name": "toString",
           "overrides": "@scope/jsii-calc-lib.Operation",
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         }
       ],
@@ -4223,7 +4319,9 @@
           "name": "farewell",
           "overrides": "jsii-calc.IFriendlier",
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         },
         {
@@ -4237,7 +4335,9 @@
           "name": "goodbye",
           "overrides": "jsii-calc.IFriendlier",
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         },
         {
@@ -4251,7 +4351,9 @@
           "name": "hello",
           "overrides": "@scope/jsii-calc-lib.IFriendly",
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         },
         {
@@ -4265,7 +4367,9 @@
           "name": "toString",
           "overrides": "@scope/jsii-calc-lib.Operation",
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         }
       ],
@@ -4312,10 +4416,13 @@
           },
           "name": "cryptoSha256",
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         },
         {
+          "async": true,
           "docs": {
             "returns": "\"Hello, resource!\"",
             "summary": "Reads a local resource file (resource.txt) asynchronously."
@@ -4326,8 +4433,9 @@
           },
           "name": "fsReadFile",
           "returns": {
-            "primitive": "string",
-            "promise": true
+            "type": {
+              "primitive": "string"
+            }
           }
         },
         {
@@ -4341,7 +4449,9 @@
           },
           "name": "fsReadFileSync",
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         }
       ],
@@ -4379,8 +4489,8 @@
           },
           {
             "name": "optional",
+            "optional": true,
             "type": {
-              "optional": true,
               "primitive": "any"
             }
           }
@@ -4401,8 +4511,8 @@
           "parameters": [
             {
               "name": "value",
+              "optional": true,
               "type": {
-                "optional": true,
                 "primitive": "any"
               }
             }
@@ -4439,8 +4549,8 @@
             "line": 1172
           },
           "name": "changeMeToUndefined",
+          "optional": true,
           "type": {
-            "optional": true,
             "primitive": "string"
           }
         }
@@ -4468,7 +4578,6 @@
           "type": {
             "collection": {
               "elementtype": {
-                "optional": true,
                 "primitive": "any"
               },
               "kind": "array"
@@ -4483,8 +4592,8 @@
             "line": 1209
           },
           "name": "thisShouldBeUndefined",
+          "optional": true,
           "type": {
-            "optional": true,
             "primitive": "any"
           }
         }
@@ -4527,7 +4636,9 @@
             }
           ],
           "returns": {
-            "primitive": "boolean"
+            "type": {
+              "primitive": "boolean"
+            }
           }
         },
         {
@@ -4537,7 +4648,9 @@
           },
           "name": "nextTimes100",
           "returns": {
-            "primitive": "number"
+            "type": {
+              "primitive": "number"
+            }
           }
         }
       ],
@@ -4591,7 +4704,9 @@
             }
           ],
           "returns": {
-            "primitive": "number"
+            "type": {
+              "primitive": "number"
+            }
           }
         },
         {
@@ -4617,7 +4732,9 @@
             }
           ],
           "returns": {
-            "primitive": "number"
+            "type": {
+              "primitive": "number"
+            }
           }
         }
       ],
@@ -4669,8 +4786,8 @@
           },
           {
             "name": "arg3",
+            "optional": true,
             "type": {
-              "optional": true,
               "primitive": "date"
             }
           }
@@ -4712,8 +4829,8 @@
             "line": 285
           },
           "name": "arg3",
+          "optional": true,
           "type": {
-            "optional": true,
             "primitive": "date"
           }
         }
@@ -4738,8 +4855,8 @@
             "line": 1618
           },
           "name": "field",
+          "optional": true,
           "type": {
-            "optional": true,
             "primitive": "string"
           }
         }
@@ -4752,9 +4869,9 @@
         "parameters": [
           {
             "name": "optionalStruct",
+            "optional": true,
             "type": {
-              "fqn": "jsii-calc.OptionalStruct",
-              "optional": true
+              "fqn": "jsii-calc.OptionalStruct"
             }
           }
         ]
@@ -4784,8 +4901,8 @@
             "line": 1610
           },
           "name": "fieldValue",
+          "optional": true,
           "type": {
-            "optional": true,
             "primitive": "string"
           }
         }
@@ -4816,7 +4933,9 @@
             }
           ],
           "returns": {
-            "primitive": "number"
+            "type": {
+              "primitive": "number"
+            }
           }
         }
       ],
@@ -4861,7 +4980,9 @@
             }
           ],
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         }
       ],
@@ -4892,7 +5013,9 @@
             }
           ],
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         }
       ],
@@ -5259,8 +5382,10 @@
           },
           "name": "loadFoo",
           "returns": {
-            "fqn": "@scope/jsii-calc-lib.EnumFromScopedModule",
-            "optional": true
+            "optional": true,
+            "type": {
+              "fqn": "@scope/jsii-calc-lib.EnumFromScopedModule"
+            }
           }
         },
         {
@@ -5287,9 +5412,9 @@
             "line": 1011
           },
           "name": "foo",
+          "optional": true,
           "type": {
-            "fqn": "@scope/jsii-calc-lib.EnumFromScopedModule",
-            "optional": true
+            "fqn": "@scope/jsii-calc-lib.EnumFromScopedModule"
           }
         }
       ]
@@ -5342,22 +5467,22 @@
           "parameters": [
             {
               "name": "arg1",
+              "optional": true,
               "type": {
-                "optional": true,
                 "primitive": "number"
               }
             },
             {
               "name": "arg2",
+              "optional": true,
               "type": {
-                "optional": true,
                 "primitive": "string"
               }
             },
             {
               "name": "arg3",
+              "optional": true,
               "type": {
-                "optional": true,
                 "primitive": "date"
               }
             }
@@ -5372,8 +5497,8 @@
           "parameters": [
             {
               "name": "arg",
+              "optional": true,
               "type": {
-                "optional": true,
                 "primitive": "any"
               }
             }
@@ -5403,8 +5528,8 @@
             },
             {
               "name": "arg3",
+              "optional": true,
               "type": {
-                "optional": true,
                 "primitive": "date"
               }
             }
@@ -5434,7 +5559,9 @@
           },
           "name": "interface1",
           "returns": {
-            "fqn": "jsii-calc.InbetweenClass"
+            "type": {
+              "fqn": "jsii-calc.InbetweenClass"
+            }
           }
         },
         {
@@ -5444,7 +5571,9 @@
           },
           "name": "interface2",
           "returns": {
-            "fqn": "jsii-calc.IPublicInterface"
+            "type": {
+              "fqn": "jsii-calc.IPublicInterface"
+            }
           }
         }
       ],
@@ -5490,7 +5619,9 @@
             }
           ],
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           },
           "static": true
         },
@@ -5501,7 +5632,9 @@
           },
           "name": "justMethod",
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         }
       ],
@@ -5716,14 +5849,16 @@
       },
       "methods": [
         {
+          "async": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 360
           },
           "name": "callerIsAsync",
           "returns": {
-            "primitive": "number",
-            "promise": true
+            "type": {
+              "primitive": "number"
+            }
           }
         },
         {
@@ -5733,7 +5868,9 @@
           },
           "name": "callerIsMethod",
           "returns": {
-            "primitive": "number"
+            "type": {
+              "primitive": "number"
+            }
           }
         },
         {
@@ -5773,7 +5910,9 @@
           },
           "name": "readA",
           "returns": {
-            "primitive": "number"
+            "type": {
+              "primitive": "number"
+            }
           }
         },
         {
@@ -5783,7 +5922,9 @@
           },
           "name": "retrieveOtherProperty",
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         },
         {
@@ -5793,7 +5934,9 @@
           },
           "name": "retrieveReadOnlyProperty",
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         },
         {
@@ -5803,7 +5946,9 @@
           },
           "name": "retrieveValueOfTheProperty",
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         },
         {
@@ -5821,7 +5966,9 @@
             }
           ],
           "returns": {
-            "primitive": "number"
+            "type": {
+              "primitive": "number"
+            }
           }
         },
         {
@@ -6006,8 +6153,8 @@
             "line": 942
           },
           "name": "foo",
+          "optional": true,
           "type": {
-            "optional": true,
             "union": {
               "types": [
                 {
@@ -6039,8 +6186,9 @@
           },
           "name": "value",
           "returns": {
-            "optional": true,
-            "primitive": "any"
+            "type": {
+              "primitive": "any"
+            }
           }
         }
       ],
@@ -6066,7 +6214,9 @@
           },
           "name": "hello",
           "returns": {
-            "fqn": "@scope/jsii-calc-base.Base"
+            "type": {
+              "fqn": "@scope/jsii-calc-base.Base"
+            }
           }
         }
       ],
@@ -6098,7 +6248,9 @@
           },
           "name": "justRead",
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         },
         {
@@ -6116,7 +6268,9 @@
             }
           ],
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         },
         {
@@ -6134,7 +6288,9 @@
             }
           ],
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         }
       ],
@@ -6205,11 +6361,13 @@
             }
           ],
           "returns": {
-            "collection": {
-              "elementtype": {
-                "primitive": "number"
-              },
-              "kind": "array"
+            "type": {
+              "collection": {
+                "elementtype": {
+                  "primitive": "number"
+                },
+                "kind": "array"
+              }
             }
           },
           "variadic": true
@@ -6228,6 +6386,7 @@
       },
       "methods": [
         {
+          "async": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 451
@@ -6242,8 +6401,9 @@
             }
           ],
           "returns": {
-            "primitive": "number",
-            "promise": true
+            "type": {
+              "primitive": "number"
+            }
           }
         },
         {
@@ -6261,10 +6421,13 @@
             }
           ],
           "returns": {
-            "primitive": "number"
+            "type": {
+              "primitive": "number"
+            }
           }
         },
         {
+          "async": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 433
@@ -6279,11 +6442,13 @@
             }
           ],
           "returns": {
-            "primitive": "number",
-            "promise": true
+            "type": {
+              "primitive": "number"
+            }
           }
         },
         {
+          "async": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
             "line": 424
@@ -6298,8 +6463,9 @@
             }
           ],
           "returns": {
-            "primitive": "number",
-            "promise": true
+            "type": {
+              "primitive": "number"
+            }
           }
         },
         {
@@ -6317,7 +6483,9 @@
             }
           ],
           "returns": {
-            "primitive": "number"
+            "type": {
+              "primitive": "number"
+            }
           }
         }
       ],
@@ -6349,7 +6517,9 @@
           "name": "toString",
           "overrides": "@scope/jsii-calc-lib.Operation",
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         }
       ],
@@ -6467,5 +6637,5 @@
     }
   },
   "version": "0.9.0",
-  "fingerprint": "tF2OW++CYK85JdpFZaapGbqpi1NaNEz9Dibyhn/O670="
+  "fingerprint": "Lg8wDjQSsRLa2sk8EriArt/u5aibYilCuYFRZHh02Eg="
 }

@@ -18,13 +18,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod("giveMeFriendly", "{\"fqn\":\"@scope/jsii-calc-lib.IFriendly\"}", "[]")]
+        [JsiiMethod(name: "giveMeFriendly", returnsJson: "{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.IFriendly\"}}", parametersJson: "[]")]
         public virtual IIFriendly GiveMeFriendly()
         {
             return InvokeInstanceMethod<IIFriendly>(new object[]{});
         }
 
-        [JsiiMethod("giveMeFriendlyGenerator", "{\"fqn\":\"jsii-calc.IFriendlyRandomGenerator\"}", "[]")]
+        [JsiiMethod(name: "giveMeFriendlyGenerator", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.IFriendlyRandomGenerator\"}}", parametersJson: "[]")]
         public virtual IIFriendlyRandomGenerator GiveMeFriendlyGenerator()
         {
             return InvokeInstanceMethod<IIFriendlyRandomGenerator>(new object[]{});

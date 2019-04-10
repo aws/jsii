@@ -10,7 +10,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod("hello", null, "[{\"name\":\"arg1\",\"type\":{\"primitive\":\"string\"}},{\"name\":\"arg2\",\"type\":{\"primitive\":\"number\",\"optional\":true}}]")]
+        [JsiiMethod(name: "hello", returnsJson: null, parametersJson: "[{\"name\":\"arg1\",\"type\":{\"primitive\":\"string\"}},{\"name\":\"arg2\",\"type\":{\"primitive\":\"number\"}}]")]
         public void Hello(string arg1, double? arg2)
         {
             InvokeInstanceVoidMethod(new object[]{arg1, arg2});

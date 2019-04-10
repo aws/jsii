@@ -17,28 +17,28 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("a", "{\"primitive\":\"string\"}")]
+        [JsiiProperty(name: "a", typeJson: "{\"primitive\":\"string\"}")]
         public virtual string A
         {
             get => GetInstanceProperty<string>();
             set => SetInstanceProperty(value);
         }
 
-        [JsiiProperty("b", "{\"primitive\":\"string\"}")]
+        [JsiiProperty(name: "b", typeJson: "{\"primitive\":\"string\"}")]
         public virtual string B
         {
             get => GetInstanceProperty<string>();
             set => SetInstanceProperty(value);
         }
 
-        [JsiiProperty("c", "{\"primitive\":\"string\"}")]
+        [JsiiProperty(name: "c", typeJson: "{\"primitive\":\"string\"}")]
         public virtual string C
         {
             get => GetInstanceProperty<string>();
             set => SetInstanceProperty(value);
         }
 
-        [JsiiProperty("d", "{\"primitive\":\"string\"}")]
+        [JsiiProperty(name: "d", typeJson: "{\"primitive\":\"string\"}")]
         public virtual string D
         {
             get => GetInstanceProperty<string>();

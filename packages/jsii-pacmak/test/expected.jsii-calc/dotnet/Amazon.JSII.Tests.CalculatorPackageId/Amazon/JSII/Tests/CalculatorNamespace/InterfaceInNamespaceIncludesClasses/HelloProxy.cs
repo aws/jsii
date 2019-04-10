@@ -9,7 +9,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceIncludesClas
         {
         }
 
-        [JsiiProperty("foo", "{\"primitive\":\"number\"}")]
+        [JsiiProperty(name: "foo", typeJson: "{\"primitive\":\"number\"}")]
         public double Foo
         {
             get => GetInstanceProperty<double>();

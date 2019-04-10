@@ -11,20 +11,20 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         }
 
         /// <summary>An awesome number value.</summary>
-        [JsiiProperty("anumber", "{\"primitive\":\"number\"}")]
+        [JsiiProperty(name: "anumber", typeJson: "{\"primitive\":\"number\"}")]
         public double Anumber
         {
             get => GetInstanceProperty<double>();
         }
 
         /// <summary>A string value.</summary>
-        [JsiiProperty("astring", "{\"primitive\":\"string\"}")]
+        [JsiiProperty(name: "astring", typeJson: "{\"primitive\":\"string\"}")]
         public string Astring
         {
             get => GetInstanceProperty<string>();
         }
 
-        [JsiiProperty("firstOptional", "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}},\"optional\":true}")]
+        [JsiiProperty(name: "firstOptional", typeJson: "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}}}", isOptional: true)]
         public string[] FirstOptional
         {
             get => GetInstanceProperty<string[]>();

@@ -18,14 +18,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Say hello!</summary>
-        [JsiiMethod("hello", "{\"primitive\":\"string\"}", "[]")]
+        [JsiiMethod(name: "hello", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[]", isOverride: true)]
         public virtual string Hello()
         {
             return InvokeInstanceMethod<string>(new object[]{});
         }
 
         /// <summary>Returns another random number.</summary>
-        [JsiiMethod("next", "{\"primitive\":\"number\"}", "[]")]
+        [JsiiMethod(name: "next", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[]", isOverride: true)]
         public virtual double Next()
         {
             return InvokeInstanceMethod<double>(new object[]{});

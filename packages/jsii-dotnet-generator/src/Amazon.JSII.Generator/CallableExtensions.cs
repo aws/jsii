@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Amazon.JSII.JsonModel.Spec;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Newtonsoft.Json;
 using SF = Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
@@ -33,7 +34,7 @@ namespace Amazon.JSII.Generator
                     yield return SF.Parameter(
                         SF.List<AttributeListSyntax>(),
                         SF.TokenList(),
-                        symbols.GetTypeSyntax(parameter.Type),
+                        symbols.GetTypeSyntax(parameter.Type, parameter.IsOptional),
                         symbols.GetNameSyntaxToken(parameter),
                         null
                     );
@@ -41,6 +42,11 @@ namespace Amazon.JSII.Generator
             }
         }
 
+        private static readonly JsonSerializerSettings SerializerSettings = new JsonSerializerSettings
+        {
+            DefaultValueHandling = DefaultValueHandling.Ignore
+        };
+        
         public static SyntaxToken GetParametersJsonSyntaxToken(this Callable callable)
         {
             // Strip docs before serializing.
@@ -48,7 +54,7 @@ namespace Amazon.JSII.Generator
                 .Select(p => new Parameter(p.Name, p.Type))
                 .ToArray();
 
-            return SF.Literal(JsonConvert.SerializeObject(parameters));
+            return SF.Literal(JsonConvert.SerializeObject(parameters, SerializerSettings));
         }
     }
 }

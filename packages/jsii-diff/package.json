@@ -12,8 +12,8 @@
         "jsii-diff": "bin/jsii-diff"
     },
     "scripts": {
-        "build": "bash ./generate.sh && tsc",
-        "watch": "bash ./generate.sh && tsc -w",
+        "build": "bash ./generate.sh && tsc --build",
+        "watch": "bash ./generate.sh && tsc --build -w",
         "test": "nyc nodeunit test/test.*.js",
         "package": "package-js"
     },

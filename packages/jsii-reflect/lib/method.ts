@@ -2,11 +2,11 @@ import jsii = require('jsii-spec');
 import { Assembly } from './assembly';
 import { Callable } from './callable';
 import { Documentable } from './docs';
+import { OptionalValue } from './optional-value';
 import { Overridable } from './overridable';
 import { SourceLocatable } from './source';
 import { Type } from './type';
 import { MemberKind, TypeMember } from './type-member';
-import { TypeReference } from './type-ref';
 import { TypeSystem } from './type-system';
 
 /**
@@ -35,8 +35,8 @@ export class Method extends Callable implements Documentable, Overridable, TypeM
   /**
    * The return type of the method (undefined if void or initializer)
    */
-  public get returns(): TypeReference {
-    return new TypeReference(this.system, this.methodSpec.returns);
+  public get returns(): OptionalValue {
+    return new OptionalValue(this.system, this.methodSpec.returns);
   }
 
   /**
@@ -44,6 +44,13 @@ export class Method extends Callable implements Documentable, Overridable, TypeM
    */
   public get abstract(): boolean {
     return !!this.methodSpec.abstract;
+  }
+
+  /**
+   * Is this method asyncrhonous (this means the return value is a promise)
+   */
+  public get async(): boolean {
+    return !!this.methodSpec.async;
   }
 
   /**

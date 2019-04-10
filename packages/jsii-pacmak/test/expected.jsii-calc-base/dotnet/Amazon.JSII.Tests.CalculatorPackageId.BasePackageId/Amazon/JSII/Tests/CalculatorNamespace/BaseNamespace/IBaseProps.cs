@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace
     [JsiiInterface(typeof(IBaseProps), "@scope/jsii-calc-base.BaseProps")]
     public interface IBaseProps : IVeryBaseProps
     {
-        [JsiiProperty("bar", "{\"primitive\":\"string\"}")]
+        [JsiiProperty(name: "bar", typeJson: "{\"primitive\":\"string\"}")]
         string Bar
         {
             get;

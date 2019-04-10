@@ -7,32 +7,31 @@ namespace Amazon.JSII.JsonModel.Spec
     {
         protected Callable
         (
-            bool? isProtected = null,
             Parameter[] parameters = null,
-            Docs docs = null,
-            bool? isVariadic = null,
-            string overrides = null
+            bool isProtected = false,
+            bool isVariadic = false,
+            string overrides = null,
+            Docs docs = null
         )
         {
-            IsProtected = isProtected;
             Parameters = parameters;
-            Docs = docs;
+            IsProtected = isProtected;
             IsVariadic = isVariadic;
             Overrides = overrides;
+            Docs = docs;
         }
-
-
-        [JsonProperty("protected", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? IsProtected { get; }
 
         [JsonProperty("parameters", NullValueHandling = NullValueHandling.Ignore)]
         public Parameter[] Parameters { get; }
 
-        [JsonProperty("docs", NullValueHandling = NullValueHandling.Ignore)]
-        public Docs Docs { get; }
+        [JsonProperty("protected", NullValueHandling = NullValueHandling.Ignore)]
+        public bool IsProtected { get; }
 
         [JsonProperty("variadic", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? IsVariadic { get; }
+        public bool IsVariadic { get; }
+
+        [JsonProperty("docs", NullValueHandling = NullValueHandling.Ignore)]
+        public Docs Docs { get; }
 
         [JsonProperty("overrides", NullValueHandling = NullValueHandling.Ignore)]
         public string Overrides { get; }

@@ -74,6 +74,8 @@ assemblies
  │   │   │ └── type: Array<any>
  │   │   ├─┬ anyMapProperty property
  │   │   │ └── type: Map<string => any>
+ │   │   ├─┬ anyProperty property
+ │   │   │ └── type: any
  │   │   ├─┬ arrayProperty property
  │   │   │ └── type: Array<string>
  │   │   ├─┬ booleanProperty property
@@ -100,12 +102,10 @@ assemblies
  │   │   │ └── type: Array<any>
  │   │   ├─┬ unknownMapProperty property
  │   │   │ └── type: Map<string => any>
- │   │   ├─┬ anyProperty property
+ │   │   ├─┬ unknownProperty property
  │   │   │ └── type: any
- │   │   ├─┬ optionalEnumValue property
- │   │   │ └── type: Optional<jsii-calc.StringEnum>
- │   │   └─┬ unknownProperty property
- │   │     └── type: any
+ │   │   └─┬ optionalEnumValue property
+ │   │     └── type: Optional<jsii-calc.StringEnum>
  │   ├─┬ class AllowedMethodNames
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer

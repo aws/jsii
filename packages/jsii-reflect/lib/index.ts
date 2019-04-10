@@ -6,6 +6,7 @@ export * from './enum';
 export * from './initializer';
 export * from './interface';
 export * from './method';
+export * from './optional-value';
 export * from './overridable';
 export * from './parameter';
 export * from './property';

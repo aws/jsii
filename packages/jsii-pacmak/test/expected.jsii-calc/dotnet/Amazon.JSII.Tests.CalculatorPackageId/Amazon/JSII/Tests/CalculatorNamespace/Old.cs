@@ -20,7 +20,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Doo wop that thing.</summary>
-        [JsiiMethod("doAThing", null, "[]")]
+        [JsiiMethod(name: "doAThing", returnsJson: null, parametersJson: "[]")]
         public virtual void DoAThing()
         {
             InvokeInstanceVoidMethod(new object[]{});

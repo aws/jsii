@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(typeof(IIInterfaceThatShouldNotBeADataType), "jsii-calc.IInterfaceThatShouldNotBeADataType")]
     public interface IIInterfaceThatShouldNotBeADataType : IIInterfaceWithMethods
     {
-        [JsiiProperty("otherValue", "{\"primitive\":\"string\"}")]
+        [JsiiProperty(name: "otherValue", typeJson: "{\"primitive\":\"string\"}")]
         string OtherValue
         {
             get;

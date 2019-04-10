@@ -28,7 +28,7 @@ export abstract class Callable implements Documentable, Overridable, TypeMember,
    * The parameters of the method/initializer
    */
   public get parameters(): Parameter[] {
-    return (this.spec.parameters || []).map((p, i) => new Parameter(this.system, this.parentType, this, p, i));
+    return (this.spec.parameters || []).map(p => new Parameter(this.system, this.parentType, this, p));
   }
 
   /**

@@ -11,6 +11,11 @@ namespace Amazon.JSII.JsonModel.Converters
 
         public override bool CanWrite => true;
 
+        private static readonly JsonSerializerSettings SerializerSettings = new JsonSerializerSettings
+        {
+            DefaultValueHandling = DefaultValueHandling.Ignore
+        };
+
         public override bool CanConvert(System.Type objectType)
         {
             return objectType.IsAssignableFrom(typeof(EnumType)) || objectType.IsAssignableFrom(typeof(ClassType));
@@ -30,21 +35,21 @@ namespace Amazon.JSII.JsonModel.Converters
                 case TypeKind.Enum:
                 {
                     EnumType derivedType = value as EnumType ?? throw new ArgumentException($"Value has type kind '{type.Kind}', but is not an instance of {nameof(EnumType)}", nameof(value));
-                    string json = JsonConvert.SerializeObject(derivedType);
+                    string json = JsonConvert.SerializeObject(derivedType, SerializerSettings);
                     writer.WriteRawValue(json);
                     break;
                 }
                 case TypeKind.Class:
                 {
                     ClassType derivedType = value as ClassType ?? throw new ArgumentException($"Value has type kind '{type.Kind}', but is not an instance of {nameof(ClassType)}", nameof(value));
-                    string json = JsonConvert.SerializeObject(derivedType);
+                    string json = JsonConvert.SerializeObject(derivedType, SerializerSettings);
                     writer.WriteRawValue(json);
                     break;
                 }
                 case TypeKind.Interface:
                 {
                     InterfaceType derivedType = value as InterfaceType ?? throw new ArgumentException($"Value has type kind '{type.Kind}', but is not an instance of {nameof(InterfaceType)}", nameof(value));
-                    string json = JsonConvert.SerializeObject(derivedType);
+                    string json = JsonConvert.SerializeObject(derivedType, SerializerSettings);
                     writer.WriteRawValue(json);
                     break;
                 }

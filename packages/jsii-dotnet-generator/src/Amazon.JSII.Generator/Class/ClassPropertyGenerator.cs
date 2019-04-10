@@ -15,11 +15,11 @@ namespace Amazon.JSII.Generator.Class
         {
         }
 
-        protected bool IsDefinedOnAncestor => Type.AnyAncestor(Symbols, t => t.Properties?.Any(p => p.Name == Property.Name) == true);
+        protected bool IsDefinedOnAncestor => Type.AnyAncestor(Symbols, t => t.Properties?.Any(p => p.Name == Property.Name) ?? false);
 
         protected override IEnumerable<SyntaxKind> GetModifierKeywords()
         {
-            yield return Property.IsProtected == true ? SyntaxKind.ProtectedKeyword : SyntaxKind.PublicKeyword;
+            yield return Property.IsProtected ? SyntaxKind.ProtectedKeyword : SyntaxKind.PublicKeyword;
 
             if (Property.IsStatic())
             {
@@ -37,7 +37,7 @@ namespace Amazon.JSII.Generator.Class
 
         protected override IEnumerable<AccessorDeclarationSyntax> GetAccessors()
         {
-            if (Property.IsConstant == true)
+            if (Property.IsConstant)
             {
                 yield return SF.AccessorDeclaration(
                     SyntaxKind.GetAccessorDeclaration,

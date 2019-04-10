@@ -17,320 +17,320 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty("while", "{\"primitive\":\"string\"}")]
+        [JsiiProperty(name: "while", typeJson: "{\"primitive\":\"string\"}")]
         public virtual string While
         {
             get => GetInstanceProperty<string>();
             set => SetInstanceProperty(value);
         }
 
-        [JsiiMethod("abstract", null, "[]")]
+        [JsiiMethod(name: "abstract", returnsJson: null, parametersJson: "[]")]
         public virtual void Abstract()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("assert", null, "[]")]
+        [JsiiMethod(name: "assert", returnsJson: null, parametersJson: "[]")]
         public virtual void Assert()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("boolean", null, "[]")]
+        [JsiiMethod(name: "boolean", returnsJson: null, parametersJson: "[]")]
         public virtual void Boolean()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("break", null, "[]")]
+        [JsiiMethod(name: "break", returnsJson: null, parametersJson: "[]")]
         public virtual void Break()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("byte", null, "[]")]
+        [JsiiMethod(name: "byte", returnsJson: null, parametersJson: "[]")]
         public virtual void Byte()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("case", null, "[]")]
+        [JsiiMethod(name: "case", returnsJson: null, parametersJson: "[]")]
         public virtual void Case()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("catch", null, "[]")]
+        [JsiiMethod(name: "catch", returnsJson: null, parametersJson: "[]")]
         public virtual void Catch()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("char", null, "[]")]
+        [JsiiMethod(name: "char", returnsJson: null, parametersJson: "[]")]
         public virtual void Char()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("class", null, "[]")]
+        [JsiiMethod(name: "class", returnsJson: null, parametersJson: "[]")]
         public virtual void Class()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("const", null, "[]")]
+        [JsiiMethod(name: "const", returnsJson: null, parametersJson: "[]")]
         public virtual void Const()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("continue", null, "[]")]
+        [JsiiMethod(name: "continue", returnsJson: null, parametersJson: "[]")]
         public virtual void Continue()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("default", null, "[]")]
+        [JsiiMethod(name: "default", returnsJson: null, parametersJson: "[]")]
         public virtual void Default()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("do", null, "[]")]
+        [JsiiMethod(name: "do", returnsJson: null, parametersJson: "[]")]
         public virtual void Do()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("double", null, "[]")]
+        [JsiiMethod(name: "double", returnsJson: null, parametersJson: "[]")]
         public virtual void Double()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("else", null, "[]")]
+        [JsiiMethod(name: "else", returnsJson: null, parametersJson: "[]")]
         public virtual void Else()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("enum", null, "[]")]
+        [JsiiMethod(name: "enum", returnsJson: null, parametersJson: "[]")]
         public virtual void Enum()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("extends", null, "[]")]
+        [JsiiMethod(name: "extends", returnsJson: null, parametersJson: "[]")]
         public virtual void Extends()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("false", null, "[]")]
+        [JsiiMethod(name: "false", returnsJson: null, parametersJson: "[]")]
         public virtual void False()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("final", null, "[]")]
+        [JsiiMethod(name: "final", returnsJson: null, parametersJson: "[]")]
         public virtual void Final()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("finally", null, "[]")]
+        [JsiiMethod(name: "finally", returnsJson: null, parametersJson: "[]")]
         public virtual void Finally()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("float", null, "[]")]
+        [JsiiMethod(name: "float", returnsJson: null, parametersJson: "[]")]
         public virtual void Float()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("for", null, "[]")]
+        [JsiiMethod(name: "for", returnsJson: null, parametersJson: "[]")]
         public virtual void For()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("goto", null, "[]")]
+        [JsiiMethod(name: "goto", returnsJson: null, parametersJson: "[]")]
         public virtual void Goto()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("if", null, "[]")]
+        [JsiiMethod(name: "if", returnsJson: null, parametersJson: "[]")]
         public virtual void If()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("implements", null, "[]")]
+        [JsiiMethod(name: "implements", returnsJson: null, parametersJson: "[]")]
         public virtual void Implements()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("import", null, "[]")]
+        [JsiiMethod(name: "import", returnsJson: null, parametersJson: "[]")]
         public virtual void Import()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("instanceof", null, "[]")]
+        [JsiiMethod(name: "instanceof", returnsJson: null, parametersJson: "[]")]
         public virtual void Instanceof()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("int", null, "[]")]
+        [JsiiMethod(name: "int", returnsJson: null, parametersJson: "[]")]
         public virtual void Int()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("interface", null, "[]")]
+        [JsiiMethod(name: "interface", returnsJson: null, parametersJson: "[]")]
         public virtual void Interface()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("long", null, "[]")]
+        [JsiiMethod(name: "long", returnsJson: null, parametersJson: "[]")]
         public virtual void Long()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("native", null, "[]")]
+        [JsiiMethod(name: "native", returnsJson: null, parametersJson: "[]")]
         public virtual void Native()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("new", null, "[]")]
+        [JsiiMethod(name: "new", returnsJson: null, parametersJson: "[]")]
         public virtual void New()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("null", null, "[]")]
+        [JsiiMethod(name: "null", returnsJson: null, parametersJson: "[]")]
         public virtual void Null()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("package", null, "[]")]
+        [JsiiMethod(name: "package", returnsJson: null, parametersJson: "[]")]
         public virtual void Package()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("private", null, "[]")]
+        [JsiiMethod(name: "private", returnsJson: null, parametersJson: "[]")]
         public virtual void Private()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("protected", null, "[]")]
+        [JsiiMethod(name: "protected", returnsJson: null, parametersJson: "[]")]
         public virtual void Protected()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("public", null, "[]")]
+        [JsiiMethod(name: "public", returnsJson: null, parametersJson: "[]")]
         public virtual void Public()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("return", null, "[]")]
+        [JsiiMethod(name: "return", returnsJson: null, parametersJson: "[]")]
         public virtual void Return()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("short", null, "[]")]
+        [JsiiMethod(name: "short", returnsJson: null, parametersJson: "[]")]
         public virtual void Short()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("static", null, "[]")]
+        [JsiiMethod(name: "static", returnsJson: null, parametersJson: "[]")]
         public virtual void Static()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("strictfp", null, "[]")]
+        [JsiiMethod(name: "strictfp", returnsJson: null, parametersJson: "[]")]
         public virtual void Strictfp()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("super", null, "[]")]
+        [JsiiMethod(name: "super", returnsJson: null, parametersJson: "[]")]
         public virtual void Super()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("switch", null, "[]")]
+        [JsiiMethod(name: "switch", returnsJson: null, parametersJson: "[]")]
         public virtual void Switch()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("synchronized", null, "[]")]
+        [JsiiMethod(name: "synchronized", returnsJson: null, parametersJson: "[]")]
         public virtual void Synchronized()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("this", null, "[]")]
+        [JsiiMethod(name: "this", returnsJson: null, parametersJson: "[]")]
         public virtual void This()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("throw", null, "[]")]
+        [JsiiMethod(name: "throw", returnsJson: null, parametersJson: "[]")]
         public virtual void Throw()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("throws", null, "[]")]
+        [JsiiMethod(name: "throws", returnsJson: null, parametersJson: "[]")]
         public virtual void Throws()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("transient", null, "[]")]
+        [JsiiMethod(name: "transient", returnsJson: null, parametersJson: "[]")]
         public virtual void Transient()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("true", null, "[]")]
+        [JsiiMethod(name: "true", returnsJson: null, parametersJson: "[]")]
         public virtual void True()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("try", null, "[]")]
+        [JsiiMethod(name: "try", returnsJson: null, parametersJson: "[]")]
         public virtual void Try()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("void", null, "[]")]
+        [JsiiMethod(name: "void", returnsJson: null, parametersJson: "[]")]
         public virtual void Void()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        [JsiiMethod("volatile", null, "[]")]
+        [JsiiMethod(name: "volatile", returnsJson: null, parametersJson: "[]")]
         public virtual void Volatile()
         {
             InvokeInstanceVoidMethod(new object[]{});

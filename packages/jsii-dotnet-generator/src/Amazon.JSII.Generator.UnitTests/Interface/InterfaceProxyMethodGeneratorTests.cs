@@ -104,7 +104,7 @@ public void MyMethod()
             Method method = new Method
             (
                 isAbstract: true, name: "myMethod",
-                returns: new TypeReference("myReturnTypeFqn")
+                returns: new OptionalValue(type: new TypeReference("myReturnTypeFqn"))
             );
 
             Symbols.MapMethodName("myInterfaceFqn", "myMethod", "MyMethod");
@@ -112,7 +112,7 @@ public void MyMethod()
 
             string actual = Render(method);
             string expected =
-@"[JsiiMethod(""myMethod"", ""{\""fqn\"":\""myReturnTypeFqn\""}"", ""[]"")]
+@"[JsiiMethod(""myMethod"", ""{\""type\"":{\""fqn\"":\""myReturnTypeFqn\""}}"", ""[]"")]
 public MyReturnType MyMethod()
 {
     return InvokeInstanceMethod<MyReturnType>(new object[]{});

@@ -5,13 +5,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiInterface(typeof(IEraseUndefinedHashValuesOptions), "jsii-calc.EraseUndefinedHashValuesOptions")]
     public interface IEraseUndefinedHashValuesOptions
     {
-        [JsiiProperty("option1", "{\"primitive\":\"string\",\"optional\":true}")]
+        [JsiiProperty(name: "option1", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         string Option1
         {
             get;
         }
 
-        [JsiiProperty("option2", "{\"primitive\":\"string\",\"optional\":true}")]
+        [JsiiProperty(name: "option2", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         string Option2
         {
             get;
