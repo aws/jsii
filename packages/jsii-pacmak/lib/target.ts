@@ -79,32 +79,37 @@ export abstract class Target {
      *
      * @param packageDir The directory of the package to resolve from.
      */
-    protected async findLocalDepsOutput(packageDir: string, isRoot = true) {
-        const results = new Array<string>();
-        const pkg = await fs.readJson(path.join(packageDir, 'package.json'));
+    protected async findLocalDepsOutput(rootPackageDir: string) {
+        const results = new Set<string>();
 
-        // no jsii or jsii.outdir - either a misconfigured jsii package or a non-jsii dependency. either way, we are done here.
-        if (!pkg.jsii || !pkg.jsii.outdir) {
-            return [];
-        }
+        const self = this;
+        async function recurse(packageDir: string, isRoot: boolean) {
+            const pkg = await fs.readJson(path.join(packageDir, 'package.json'));
 
-        // if an output directory exists for this module, then we add it to our
-        // list of results (unless it's the root package, which we are currently building)
-        const outdir = path.join(packageDir, pkg.jsii.outdir, this.targetName);
-        if (!isRoot && await fs.pathExists(outdir)) {
-            logging.debug(`Found ${outdir} as a local dependency output`);
-            results.push(outdir);
-        }
+            // no jsii or jsii.outdir - either a misconfigured jsii package or a non-jsii dependency. either way, we are done here.
+            if (!pkg.jsii || !pkg.jsii.outdir) {
+                return;
+            }
 
-        // now descend to dependencies
-        for (const dependencyName of Object.keys(pkg.dependencies || {})) {
-            const dependencyDir =  resolveDependencyDirectory(packageDir, dependencyName);
-            for (const dir of await this.findLocalDepsOutput(dependencyDir, /* isRoot */ false)) {
-                results.push(dir);
+            // if an output directory exists for this module, then we add it to our
+            // list of results (unless it's the root package, which we are currently building)
+            const outdir = path.join(packageDir, pkg.jsii.outdir, self.targetName);
+            if (results.has(outdir)) { return; } // Already visited, don't recurse again
+
+            if (!isRoot && await fs.pathExists(outdir)) {
+                logging.debug(`Found ${outdir} as a local dependency output`);
+                results.add(outdir);
+            }
+
+            // now descend to dependencies
+            for (const dependencyName of Object.keys(pkg.dependencies || {})) {
+                const dependencyDir =  resolveDependencyDirectory(packageDir, dependencyName);
+                await recurse(dependencyDir, false);
             }
         }
 
-        return results;
+        await recurse(rootPackageDir, true);
+        return Array.from(results);
     }
 }
 
