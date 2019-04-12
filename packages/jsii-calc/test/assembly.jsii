@@ -35,32 +35,6 @@
   ],
   "dependencies": {
     "@scope/jsii-calc-base": {
-      "dependencies": {
-        "@scope/jsii-calc-base-of-base": {
-          "targets": {
-            "dotnet": {
-              "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
-              "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId"
-            },
-            "java": {
-              "maven": {
-                "artifactId": "calculator-base-of-base",
-                "groupId": "software.amazon.jsii.tests"
-              },
-              "package": "software.amazon.jsii.tests.calculator.baseofbase"
-            },
-            "js": {
-              "npm": "@scope/jsii-calc-base-of-base"
-            },
-            "python": {
-              "distName": "scope.jsii-calc-base-of-base",
-              "module": "scope.jsii_calc_base_of_base"
-            },
-            "sphinx": {}
-          },
-          "version": "0.9.0"
-        }
-      },
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
@@ -109,58 +83,6 @@
       "version": "0.9.0"
     },
     "@scope/jsii-calc-lib": {
-      "dependencies": {
-        "@scope/jsii-calc-base": {
-          "dependencies": {
-            "@scope/jsii-calc-base-of-base": {
-              "targets": {
-                "dotnet": {
-                  "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace",
-                  "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId"
-                },
-                "java": {
-                  "maven": {
-                    "artifactId": "calculator-base-of-base",
-                    "groupId": "software.amazon.jsii.tests"
-                  },
-                  "package": "software.amazon.jsii.tests.calculator.baseofbase"
-                },
-                "js": {
-                  "npm": "@scope/jsii-calc-base-of-base"
-                },
-                "python": {
-                  "distName": "scope.jsii-calc-base-of-base",
-                  "module": "scope.jsii_calc_base_of_base"
-                },
-                "sphinx": {}
-              },
-              "version": "0.9.0"
-            }
-          },
-          "targets": {
-            "dotnet": {
-              "namespace": "Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace",
-              "packageId": "Amazon.JSII.Tests.CalculatorPackageId.BasePackageId"
-            },
-            "java": {
-              "maven": {
-                "artifactId": "calculator-base",
-                "groupId": "software.amazon.jsii.tests"
-              },
-              "package": "software.amazon.jsii.tests.calculator.base"
-            },
-            "js": {
-              "npm": "@scope/jsii-calc-base"
-            },
-            "python": {
-              "distName": "scope.jsii-calc-base",
-              "module": "scope.jsii_calc_base"
-            },
-            "sphinx": {}
-          },
-          "version": "0.9.0"
-        }
-      },
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.LibNamespace",
@@ -6637,5 +6559,5 @@
     }
   },
   "version": "0.9.0",
-  "fingerprint": "Lg8wDjQSsRLa2sk8EriArt/u5aibYilCuYFRZHh02Eg="
+  "fingerprint": "Q+lLDSCuPcE7WXeuEPk1X81ttdU4onoyT1N8iSMXDa8="
 }

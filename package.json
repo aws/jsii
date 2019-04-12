@@ -7,5 +7,9 @@
 		"nyc": "^13.3.0",
 		"tslint": "^5.15.0",
 		"typescript": "^3.4.2"
-	}
+	},
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/awslabs/jsii.git"
+    }
 }

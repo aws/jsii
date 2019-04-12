@@ -207,13 +207,6 @@ export interface PackageVersion {
      * @default none
      */
     targets?: AssemblyTargets;
-
-    /**
-     * Dependencies of this dependency
-     *
-     * @default none
-     */
-    dependencies?: { [assembly: string]: PackageVersion };
 }
 
 /**

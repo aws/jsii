@@ -58,4 +58,12 @@ export class Docs {
   public customTag(tag: string): string | undefined {
     return this.docs.custom && this.docs.custom[tag];
   }
+
+  public get summary(): string {
+    return this.docs.summary || '';
+  }
+
+  public get remarks(): string {
+    return this.docs.remarks || '';
+  }
 }

@@ -19,9 +19,6 @@
     <PackageReference Include="Amazon.JSII.Runtime" Version="0.9.0" />
     <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" Version="0.9.0" />
     <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="0.9.0" />
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="0.9.0" />
     <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" Version="0.9.0" />
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" Version="0.9.0" />
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="0.9.0" />
   </ItemGroup>
 </Project>
