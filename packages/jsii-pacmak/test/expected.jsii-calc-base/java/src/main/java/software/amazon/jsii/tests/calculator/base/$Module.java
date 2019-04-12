@@ -20,6 +20,7 @@ public final class $Module extends JsiiModule {
         switch (fqn) {
             case "@scope/jsii-calc-base.Base": return software.amazon.jsii.tests.calculator.base.Base.class;
             case "@scope/jsii-calc-base.BaseProps": return software.amazon.jsii.tests.calculator.base.BaseProps.class;
+            case "@scope/jsii-calc-base.IBaseInterface": return software.amazon.jsii.tests.calculator.base.IBaseInterface.class;
             default: throw new ClassNotFoundException("Unknown JSII type: " + fqn);
         }
     }

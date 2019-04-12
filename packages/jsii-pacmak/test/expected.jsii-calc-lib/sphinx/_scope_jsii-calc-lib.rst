@@ -246,6 +246,65 @@ IFriendly (interface)
       :abstract: Yes
 
 
+IThreeLevelsInterface (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: IThreeLevelsInterface
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.lib.IThreeLevelsInterface;
+
+      .. code-tab:: javascript
+
+         // IThreeLevelsInterface is an interface
+
+      .. code-tab:: typescript
+
+         import { IThreeLevelsInterface } from '@scope/jsii-calc-lib';
+
+
+
+   Interface that inherits from packages 2 levels up the tree.
+
+   
+
+   Their presence validates that .NET/Java/jsii-reflect can track all fields
+
+   far enough up the tree.
+
+
+
+   :extends: :py:class:`@scope/jsii-calc-base.IBaseInterface`\ 
+
+
+   .. py:method:: baz()
+
+      :abstract: Yes
+
+
+   .. py:method:: foo()
+
+      *Inherited from* :py:meth:`@scope/jsii-calc-base-of-base.IVeryBaseInterface <@scope/jsii-calc-base-of-base.IVeryBaseInterface.foo>`
+
+      :abstract: Yes
+
+
+   .. py:method:: bar()
+
+      *Inherited from* :py:meth:`@scope/jsii-calc-base.IBaseInterface <@scope/jsii-calc-base.IBaseInterface.bar>`
+
+      :abstract: Yes
+
+
 MyFirstStruct (interface)
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 

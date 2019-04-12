@@ -39,6 +39,26 @@
     "sphinx": {}
   },
   "types": {
+    "@scope/jsii-calc-base-of-base.IVeryBaseInterface": {
+      "assembly": "@scope/jsii-calc-base-of-base",
+      "fqn": "@scope/jsii-calc-base-of-base.IVeryBaseInterface",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 1
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "locationInModule": {
+            "filename": "lib/index.ts",
+            "line": 2
+          },
+          "name": "foo"
+        }
+      ],
+      "name": "IVeryBaseInterface"
+    },
     "@scope/jsii-calc-base-of-base.Very": {
       "assembly": "@scope/jsii-calc-base-of-base",
       "fqn": "@scope/jsii-calc-base-of-base.Very",
@@ -46,13 +66,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 5
+        "line": 9
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 6
+            "line": 10
           },
           "name": "hey",
           "returns": {
@@ -71,7 +91,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/index.ts",
-        "line": 1
+        "line": 5
       },
       "name": "VeryBaseProps",
       "properties": [
@@ -80,7 +100,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
-            "line": 2
+            "line": 6
           },
           "name": "foo",
           "type": {
@@ -91,5 +111,5 @@
     }
   },
   "version": "0.9.0",
-  "fingerprint": "1O+di7RZanglLmeCs57JLdO5m98kRnkL4uLPnDbm/z4="
+  "fingerprint": "ENFUcMchPwpuq+F97Ft6h/qSsOv03zzW/rOn+EpnPkM="
 }

@@ -21,6 +21,7 @@ public final class $Module extends JsiiModule {
             case "@scope/jsii-calc-lib.EnumFromScopedModule": return software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule.class;
             case "@scope/jsii-calc-lib.IDoublable": return software.amazon.jsii.tests.calculator.lib.IDoublable.class;
             case "@scope/jsii-calc-lib.IFriendly": return software.amazon.jsii.tests.calculator.lib.IFriendly.class;
+            case "@scope/jsii-calc-lib.IThreeLevelsInterface": return software.amazon.jsii.tests.calculator.lib.IThreeLevelsInterface.class;
             case "@scope/jsii-calc-lib.MyFirstStruct": return software.amazon.jsii.tests.calculator.lib.MyFirstStruct.class;
             case "@scope/jsii-calc-lib.Number": return software.amazon.jsii.tests.calculator.lib.Number.class;
             case "@scope/jsii-calc-lib.Operation": return software.amazon.jsii.tests.calculator.lib.Operation.class;

@@ -3,9 +3,9 @@ import crypto = require('crypto');
 import deepEqual = require('deep-equal');
 import fs = require('fs-extra');
 import spec = require('jsii-spec');
+import { Assembly, PackageVersion } from 'jsii-spec';
 import log4js = require('log4js');
 import path = require('path');
-import semver = require('semver');
 import ts = require('typescript');
 import { JSII_DIAGNOSTICS_CODE } from './compiler';
 import { getReferencedDocParams, parseSymbolDocumentation } from './docs';
@@ -1241,54 +1241,24 @@ export class Assembler implements Emitter {
     }
   }
 
-  private _toDependencies(rootAssemblies: ReadonlyArray<spec.Assembly>): { [name: string]: spec.PackageVersion } | undefined {
-    // Generate a flat list of all dependencies and transitive dependencies
-    // (that requires non-conflicting version requirements, but we impose that restriction anyway right now).
-    // Version conflicts shouldn't be able to happen by construction, but let's guard against it
-    // anyway because I'm not 100% sure.
-    const result: { [name: string]: spec.PackageVersion } = {};
-    const warned = new Set<string>();
-    const self = this;
+  private _toDependencies(assemblies: ReadonlyArray<spec.Assembly>): { [name: string]: spec.PackageVersion } | undefined {
+    const ret: { [name: string]: spec.PackageVersion }  = {};
 
-    function recurse(assembly: spec.Assembly) {
-      let recordThisDependency = true;
-
-      if (assembly.name in result) {
-        // Two dependencies on the same package, find the right version to use
-        const highestVersion = mostConstrainedVersion(result[assembly.name].version, assembly.version);
-
-        if (highestVersion === undefined) {
-          warnAboutVersionConflict(assembly.name, result[assembly.name].version, assembly.version);
-        }
-
-        recordThisDependency = assembly.version === highestVersion;
-      }
-
-      if (recordThisDependency) {
-        result[assembly.name] = {
-          version: assembly.version,
-          targets: assembly.targets,
-        };
-      }
+    for (const assembly of assemblies) {
+      Object.assign(ret, assemblyToPackageVersion(assembly));
     }
 
-    function recurseAll(assemblies: ReadonlyArray<spec.Assembly>) {
-      for (const assembly of assemblies) {
-        recurse(assembly);
-      }
-    }
-
-    function warnAboutVersionConflict(name: string, v1: string, v2: string) {
-      if (warned.has(name)) { return; }
-      self._diagnostic(null, ts.DiagnosticCategory.Error, `Conflicting dependencies on incompatible versions for package '${name}': ${v1} and ${v2}`);
-      warned.add(name);
-    }
-
-    recurseAll(rootAssemblies);
-
-    return Object.keys(result).length > 0 ? result : undefined;
+    return Object.keys(ret).length > 0 ? ret : undefined;
   }
+}
 
+function assemblyToPackageVersion(a: Assembly): {[key: string]: PackageVersion} {
+  return {
+    [a.name]: {
+      version: a.version,
+      targets: a.targets
+    }
+  };
 }
 
 function _fingerprint(assembly: spec.Assembly): spec.Assembly {
@@ -1514,24 +1484,4 @@ function* intersect<T>(xs: Set<T>, ys: Set<T>) {
       yield x;
     }
   }
-}
-
-/**
- * Return the most constrained version given two versions
- *
- * Returns the highest version. Return undefined if the values are not pairwise
- * comparable.
- */
-function mostConstrainedVersion(version1: string, version2: string): string | undefined {
-  if (semver.satisfies(version1, `^${version2}`)) {
-    // If v1 satisifies v2, then either:
-    // - v2 also satisfies v1, in which case it doesn't matter which we return
-    // - v2 does not satisfy v1, in which it must be the case that v1 is higher
-    return version1;
-  }
-
-  // Reverse logic
-  if (semver.satisfies(version2, `^${version1}`)) { return version2; }
-
-  return undefined;
 }

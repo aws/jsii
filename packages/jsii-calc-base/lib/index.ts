@@ -1,4 +1,4 @@
-import { VeryBaseProps } from '@scope/jsii-calc-base-of-base';
+import { IVeryBaseInterface, VeryBaseProps } from '@scope/jsii-calc-base-of-base';
 
 /**
  * A base class.
@@ -14,4 +14,8 @@ export abstract class Base {
 
 export interface BaseProps extends VeryBaseProps {
     readonly bar: string;
+}
+
+export interface IBaseInterface extends IVeryBaseInterface {
+    bar(): void;
 }

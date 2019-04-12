@@ -54,6 +54,24 @@ class _IFriendlyProxy():
         return jsii.invoke(self, "hello", [])
 
 
+@jsii.interface(jsii_type="@scope/jsii-calc-lib.IThreeLevelsInterface")
+class IThreeLevelsInterface(scope.jsii_calc_base.IBaseInterface, jsii.compat.Protocol):
+    @staticmethod
+    def __jsii_proxy_class__():
+        return _IThreeLevelsInterfaceProxy
+
+    @jsii.member(jsii_name="baz")
+    def baz(self) -> None:
+        ...
+
+
+class _IThreeLevelsInterfaceProxy(jsii.proxy_for(scope.jsii_calc_base.IBaseInterface)):
+    __jsii_type__ = "@scope/jsii-calc-lib.IThreeLevelsInterface"
+    @jsii.member(jsii_name="baz")
+    def baz(self) -> None:
+        return jsii.invoke(self, "baz", [])
+
+
 class _MyFirstStruct(jsii.compat.TypedDict, total=False):
     firstOptional: typing.List[str]
 
@@ -130,6 +148,6 @@ class _OperationProxy(Operation, jsii.proxy_for(Value)):
         return jsii.invoke(self, "toString", [])
 
 
-__all__ = ["EnumFromScopedModule", "IDoublable", "IFriendly", "MyFirstStruct", "Number", "Operation", "StructWithOnlyOptionals", "Value", "__jsii_assembly__"]
+__all__ = ["EnumFromScopedModule", "IDoublable", "IFriendly", "IThreeLevelsInterface", "MyFirstStruct", "Number", "Operation", "StructWithOnlyOptionals", "Value", "__jsii_assembly__"]
 
 publication.publish()

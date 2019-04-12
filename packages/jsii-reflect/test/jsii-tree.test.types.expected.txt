@@ -112,10 +112,12 @@ assemblies
  ├─┬ @scope/jsii-calc-base
  │ └─┬ types
  │   ├── class Base
- │   └── interface BaseProps
+ │   ├── interface BaseProps
+ │   └── interface IBaseInterface
  ├─┬ @scope/jsii-calc-base-of-base
  │ └─┬ types
  │   ├── class Very
+ │   ├── interface IVeryBaseInterface
  │   └── interface VeryBaseProps
  └─┬ @scope/jsii-calc-lib
    └─┬ types
@@ -124,6 +126,7 @@ assemblies
      ├── class Value
      ├── interface IDoublable
      ├── interface IFriendly
+     ├── interface IThreeLevelsInterface
      ├── interface MyFirstStruct
      ├── interface StructWithOnlyOptionals
      └── enum EnumFromScopedModule

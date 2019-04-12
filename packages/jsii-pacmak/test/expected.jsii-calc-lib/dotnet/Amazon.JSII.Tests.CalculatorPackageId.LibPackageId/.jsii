@@ -145,6 +145,33 @@
       ],
       "name": "IFriendly"
     },
+    "@scope/jsii-calc-lib.IThreeLevelsInterface": {
+      "assembly": "@scope/jsii-calc-lib",
+      "docs": {
+        "remarks": "Their presence validates that .NET/Java/jsii-reflect can track all fields\nfar enough up the tree.",
+        "summary": "Interface that inherits from packages 2 levels up the tree."
+      },
+      "fqn": "@scope/jsii-calc-lib.IThreeLevelsInterface",
+      "interfaces": [
+        "@scope/jsii-calc-base.IBaseInterface"
+      ],
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 108
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "locationInModule": {
+            "filename": "lib/index.ts",
+            "line": 109
+          },
+          "name": "baz"
+        }
+      ],
+      "name": "IThreeLevelsInterface"
+    },
     "@scope/jsii-calc-lib.MyFirstStruct": {
       "assembly": "@scope/jsii-calc-lib",
       "datatype": true,
@@ -419,5 +446,5 @@
     }
   },
   "version": "0.9.0",
-  "fingerprint": "lbLVOFF3zX2TYp80Fc/NbWKjNagwBHdZw0+LdK5r+co="
+  "fingerprint": "G+nAgUOCEq/zWtm7ln7XBsWXaH8PYIwnX3Wb0wXOi7s="
 }

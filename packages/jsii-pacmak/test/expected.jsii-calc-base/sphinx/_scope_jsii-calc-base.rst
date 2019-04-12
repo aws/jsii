@@ -204,3 +204,45 @@ BaseProps (interface)
       :type: :py:class:`@scope/jsii-calc-base-of-base.Very`\  *(readonly)*
 
 
+IBaseInterface (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: IBaseInterface
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.base.IBaseInterface;
+
+      .. code-tab:: javascript
+
+         // IBaseInterface is an interface
+
+      .. code-tab:: typescript
+
+         import { IBaseInterface } from '@scope/jsii-calc-base';
+
+
+
+   :extends: :py:class:`@scope/jsii-calc-base-of-base.IVeryBaseInterface`\ 
+
+
+   .. py:method:: bar()
+
+      :abstract: Yes
+
+
+   .. py:method:: foo()
+
+      *Inherited from* :py:meth:`@scope/jsii-calc-base-of-base.IVeryBaseInterface <@scope/jsii-calc-base-of-base.IVeryBaseInterface.foo>`
+
+      :abstract: Yes
+
+

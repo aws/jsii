@@ -124,8 +124,31 @@
           }
         }
       ]
+    },
+    "@scope/jsii-calc-base.IBaseInterface": {
+      "assembly": "@scope/jsii-calc-base",
+      "fqn": "@scope/jsii-calc-base.IBaseInterface",
+      "interfaces": [
+        "@scope/jsii-calc-base-of-base.IVeryBaseInterface"
+      ],
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 19
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "locationInModule": {
+            "filename": "lib/index.ts",
+            "line": 20
+          },
+          "name": "bar"
+        }
+      ],
+      "name": "IBaseInterface"
     }
   },
   "version": "0.9.0",
-  "fingerprint": "iWT7GmFaVPERM/zg8WXtKv7ydudD28ixjJDVfms7DJ4="
+  "fingerprint": "hKgGmoOGm3jH3UhX4XxpFYAHHSPubsh9TCLtyGA0v7Y="
 }

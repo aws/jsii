@@ -98,3 +98,13 @@ export enum EnumFromScopedModule {
     Value1,
     Value2
 }
+
+/**
+ * Interface that inherits from packages 2 levels up the tree
+ *
+ * Their presence validates that .NET/Java/jsii-reflect can track all fields
+ * far enough up the tree.
+ */
+export interface IThreeLevelsInterface extends base.IBaseInterface {
+    baz(): void;
+}

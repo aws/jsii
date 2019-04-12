@@ -31,6 +31,24 @@ class _BaseProxy(Base):
 class BaseProps(scope.jsii_calc_base_of_base.VeryBaseProps, jsii.compat.TypedDict):
     bar: str
 
-__all__ = ["Base", "BaseProps", "__jsii_assembly__"]
+@jsii.interface(jsii_type="@scope/jsii-calc-base.IBaseInterface")
+class IBaseInterface(scope.jsii_calc_base_of_base.IVeryBaseInterface, jsii.compat.Protocol):
+    @staticmethod
+    def __jsii_proxy_class__():
+        return _IBaseInterfaceProxy
+
+    @jsii.member(jsii_name="bar")
+    def bar(self) -> None:
+        ...
+
+
+class _IBaseInterfaceProxy(jsii.proxy_for(scope.jsii_calc_base_of_base.IVeryBaseInterface)):
+    __jsii_type__ = "@scope/jsii-calc-base.IBaseInterface"
+    @jsii.member(jsii_name="bar")
+    def bar(self) -> None:
+        return jsii.invoke(self, "bar", [])
+
+
+__all__ = ["Base", "BaseProps", "IBaseInterface", "__jsii_assembly__"]
 
 publication.publish()
