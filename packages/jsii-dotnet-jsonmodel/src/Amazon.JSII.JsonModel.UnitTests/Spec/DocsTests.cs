@@ -1,6 +1,7 @@
 ﻿using Amazon.JSII.JsonModel.Spec;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Amazon.JSII.JsonModel.UnitTests.Spec
@@ -16,14 +17,19 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
             [Fact(DisplayName = Prefix + nameof(ShouldSerializeAllMembers))]
             public void ShouldSerializeAllMembers()
             {
-                Docs docs = new Docs
-                {
-                    { "myKey", "myValue" }
-                };
+                Docs docs = new Docs(
+                    "summary",
+                    "remarks",
+                    custom: new Dictionary<string, string>{ { "custtag",  "custval" } }
+                );
 
                 string actual = JsonConvert.SerializeObject(docs, Formatting.Indented);
                 const string expected = @"{
-  ""myKey"": ""myValue""
+  ""custom"": {
+    ""custtag"": ""custval""
+  },
+  ""summary"": ""summary"",
+  ""remarks"": ""remarks""
 }";
 
                 Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
@@ -38,12 +44,16 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
             public void ShouldDeserializeAllMembers()
             {
                 const string json = @"{
-  ""myKey"": ""myValue""
+  ""summary"": ""summary"",
+  ""remarks"": ""remarks"",
+  ""custom"": { ""custtag"": ""custval"" }
 }";
 
                 Docs actual = JsonConvert.DeserializeObject<Docs>(json);
 
-                Assert.Equal("myValue", actual["myKey"], ignoreLineEndingDifferences: true);
+                Assert.Equal("summary", actual.Summary);
+                Assert.Equal("remarks", actual.Remarks);
+                Assert.Equal("custval", actual.Custom["custtag"]);
             }
         }
     }

@@ -11,7 +11,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>The name of the greetee.</summary>
-        /// <remarks>default: world</remarks>
         [JsiiProperty(name: "name", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         public string Name
         {

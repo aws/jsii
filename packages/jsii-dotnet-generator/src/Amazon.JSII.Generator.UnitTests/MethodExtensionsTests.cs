@@ -1,6 +1,7 @@
 ﻿using Amazon.JSII.JsonModel.Spec;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System.Collections.Generic;
 using NSubstitute;
 using Xunit;
 
@@ -117,13 +118,13 @@ namespace Amazon.JSII.Generator.UnitTests
                         (
                             name: "myParam1",
                             type: new TypeReference("myParamTypeFqn1"),
-                            docs: new Docs { { "foo", "bar" } }
+                            docs: new Docs(custom: new Dictionary<string, string>{{"foo", "bar"}})
                         ),
                         new Parameter
                         (
                             name: "myParam2",
                             type: new TypeReference("myParamTypeFqn2"),
-                            docs: new Docs { { "foo", "bar" } }
+                            docs: new Docs(custom: new Dictionary<string, string>{{"foo", "bar"}})
                         )
                     }
                 );

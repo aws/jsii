@@ -8,7 +8,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// multiple lines and multiple paragraphs.
     /// 
     /// Multiple paragraphs are separated by an empty line.
-    /// stability: stable
+    /// stability: Stable
     /// </remarks>
     [JsiiClass(nativeType: typeof(DocumentedClass), fullyQualifiedName: "jsii-calc.DocumentedClass")]
     public class DocumentedClass : DeputyBase
@@ -39,7 +39,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Say ¡Hola!</summary>
-        /// <remarks>stability: experimental</remarks>
+        /// <remarks>stability: Experimental</remarks>
         [JsiiMethod(name: "hola")]
         public virtual void Hola()
         {

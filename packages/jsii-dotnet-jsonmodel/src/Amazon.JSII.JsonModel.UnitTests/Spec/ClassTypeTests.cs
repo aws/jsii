@@ -372,7 +372,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
   ""name"": ""myName"",
   ""namespace"": ""myNamespace"",
   ""kind"": ""class"",
-  ""docs"": {}
+  ""docs"": { ""summary"": ""hello"" }
 }";
 
                 ClassType actual = JsonConvert.DeserializeObject<ClassType>(json);
@@ -388,7 +388,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 Assert.Equal("myName", actual.Name, ignoreLineEndingDifferences: true);
                 Assert.Equal("myNamespace", actual.Namespace, ignoreLineEndingDifferences: true);
                 Assert.Equal(TypeKind.Class, actual.Kind);
-                Assert.Empty(actual.Docs);
+                Assert.Equal("hello", actual.Docs.Summary);
             }
 
             [Fact(DisplayName = Prefix + nameof(ShouldThrowOnMissingFullyQualifiedName))]
@@ -603,7 +603,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
 
                 Assert.Null(actual.Interfaces);
             }
-            
+
             [Fact(DisplayName = Prefix + nameof(DeserializesAsyncMethod))]
             public void DeserializesAsyncMethod()
             {

@@ -21,6 +21,7 @@ assemblies
  │   │ └── interfaces: INonInternalInterface
  │   ├─┬ class ClassThatImplementsThePrivateInterface
  │   │ └── interfaces: INonInternalInterface
+ │   ├── class ClassWithDocs
  │   ├── class ClassWithMutableObjectLiteralProperty
  │   ├─┬ class ClassWithPrivateConstructorAndAutomaticProperties
  │   │ └── interfaces: IInterfaceWithProperties

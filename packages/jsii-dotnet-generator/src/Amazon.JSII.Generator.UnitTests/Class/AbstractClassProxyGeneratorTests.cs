@@ -1,6 +1,7 @@
 using Amazon.JSII.Generator.Class;
 using Amazon.JSII.JsonModel.Spec;
 using Xunit;
+using System.Collections.Generic;
 
 namespace Amazon.JSII.Generator.UnitTests.Class
 {
@@ -58,7 +59,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                 name: "myClass",
                 isAbstract: true,
                 initializer: new Initializer(),
-                docs: new Docs {{"foo", "bar"}}
+                docs: new Docs(custom: new Dictionary<string, string>{{"foo", "bar"}})
             );
 
             string actual = Render(classType);

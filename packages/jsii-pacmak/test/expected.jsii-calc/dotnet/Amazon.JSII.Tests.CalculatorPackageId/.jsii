@@ -1506,6 +1506,28 @@
         }
       ]
     },
+    "jsii-calc.ClassWithDocs": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "custom": {
+          "customAttribute": "hasAValue"
+        },
+        "deprecated": "Use something else please",
+        "example": "function anExample() {\n}",
+        "remarks": "The docs are great. They're a bunch of tags.",
+        "see": "https://aws.amazon.com/",
+        "stability": "stable",
+        "summary": "This class has docs."
+      },
+      "fqn": "jsii-calc.ClassWithDocs",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1637
+      },
+      "name": "ClassWithDocs"
+    },
     "jsii-calc.ClassWithMutableObjectLiteralProperty": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.ClassWithMutableObjectLiteralProperty",
@@ -6637,5 +6659,5 @@
     }
   },
   "version": "0.9.0",
-  "fingerprint": "Lg8wDjQSsRLa2sk8EriArt/u5aibYilCuYFRZHh02Eg="
+  "fingerprint": "F319lrdZvWrVwdgKTX3nSjnYs1YghHSnYqGopWs2N+0="
 }

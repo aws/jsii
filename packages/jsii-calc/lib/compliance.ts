@@ -1617,3 +1617,22 @@ export class OptionalStructConsumer {
 export interface OptionalStruct {
     readonly field?: string;
 }
+
+
+/**
+ * This class has docs.
+ *
+ * The docs are great. They're a bunch of tags.
+ *
+ * @example
+ *
+ * function anExample() {
+ * }
+ *
+ * @see https://aws.amazon.com/
+ * @customAttribute hasAValue
+ * @deprecated Use something else please
+ * @stable
+ */
+export class ClassWithDocs {
+}

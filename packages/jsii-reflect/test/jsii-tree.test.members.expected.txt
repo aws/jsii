@@ -102,6 +102,9 @@ assemblies
  │   │   ├── b property
  │   │   ├── c property
  │   │   └── e property
+ │   ├─┬ class ClassWithDocs
+ │   │ └─┬ members
+ │   │   └── <initializer>() initializer
  │   ├─┬ class ClassWithMutableObjectLiteralProperty
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer

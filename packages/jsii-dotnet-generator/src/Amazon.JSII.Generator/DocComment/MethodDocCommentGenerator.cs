@@ -54,21 +54,9 @@ namespace Amazon.JSII.Generator.DocComment
 
             IEnumerable<string> GetParamTextLines(Parameter parameter)
             {
-                foreach (KeyValuePair<string, string> kvp in parameter.Docs)
+                if (!String.IsNullOrEmpty(parameter.Docs.Summary))
                 {
-                    if (kvp.Key == "param")
-                    {
-                        continue;
-                    }
-
-                    if (kvp.Key == "summary")
-                    {
-                        yield return kvp.Value;
-                    }
-                    else
-                    {
-                        yield return $"{kvp.Key}: {kvp.Value}";
-                    }
+                    yield return parameter.Docs.Summary;
                 }
             }
         }
