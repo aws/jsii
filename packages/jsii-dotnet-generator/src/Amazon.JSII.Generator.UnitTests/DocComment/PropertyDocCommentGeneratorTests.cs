@@ -164,7 +164,7 @@ namespace Amazon.JSII.Generator.UnitTests.DocComment
             (
                 summary: "A property",
                 remarks: "Some remarks.",
-                default_: "Tis a default"
+                @default: "Tis a default"
             );
 
             string actual = Render(docs);
