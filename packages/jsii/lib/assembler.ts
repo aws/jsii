@@ -1249,7 +1249,7 @@ export class Assembler implements Emitter {
       Object.assign(ret, assemblyToPackageVersionMap(a));
     }
 
-    return ret;
+    return noEmptyDict(ret);
   }
 
   private _buildDependencyClosure(assemblies: ReadonlyArray<spec.Assembly>): { [name: string]: spec.PackageVersion } | undefined {
@@ -1268,7 +1268,7 @@ export class Assembler implements Emitter {
       }
     }
 
-    return Object.keys(result).length > 0 ? result : undefined;
+    return noEmptyDict(result);
 
     function maybeRecord(name: string, pack: spec.PackageVersion) {
       let recordThisDependency = true;
@@ -1556,4 +1556,9 @@ function mostConstrainedVersion(version1: string, version2: string): string | un
 
 function flatten<T>(xs: T[][]): T[] {
   return Array.prototype.concat.call([], ...xs);
+}
+
+function noEmptyDict<T>(xs: {[key: string]: T}): {[key: string]: T} | undefined {
+  if (Object.keys(xs).length === 0) { return undefined; }
+  return xs;
 }
