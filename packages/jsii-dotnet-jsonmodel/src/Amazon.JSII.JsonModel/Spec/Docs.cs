@@ -16,7 +16,7 @@ namespace Amazon.JSII.JsonModel.Spec
             string example = null,
             string see = null,
             bool? subclassable = null,
-            string default_ = null,
+            string @default = null,
             IDictionary<string, string> custom = null
         )
         {
@@ -28,7 +28,7 @@ namespace Amazon.JSII.JsonModel.Spec
             Example = example;
             See = see;
             Subclassable = subclassable;
-            Default = default_;
+            Default = @default;
             Custom = custom ?? new Dictionary<string, string>();
         }
 

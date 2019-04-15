@@ -156,5 +156,27 @@ namespace Amazon.JSII.Generator.UnitTests.DocComment
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
         }
+
+        [Fact(DisplayName = Prefix + nameof(ShowsDefault))]
+        public void ShowsDefault()
+        {
+            Docs docs = new Docs
+            (
+                summary: "A property",
+                remarks: "Some remarks.",
+                default_: "Tis a default"
+            );
+
+            string actual = Render(docs);
+            string expected =
+@"/// <summary>A property</summary>
+/// <remarks>
+/// Some remarks.
+/// default: Tis a default
+/// </remarks>
+        string MyProp";
+
+            Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
+        }
     }
 }

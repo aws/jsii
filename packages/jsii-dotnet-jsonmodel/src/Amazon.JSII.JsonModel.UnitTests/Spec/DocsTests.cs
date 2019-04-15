@@ -46,6 +46,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 const string json = @"{
   ""summary"": ""summary"",
   ""remarks"": ""remarks"",
+  ""default"": ""some default"",
   ""custom"": { ""custtag"": ""custval"" }
 }";
 
@@ -53,6 +54,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
 
                 Assert.Equal("summary", actual.Summary);
                 Assert.Equal("remarks", actual.Remarks);
+                Assert.Equal("some default", actual.Default);
                 Assert.Equal("custval", actual.Custom["custtag"]);
             }
         }
