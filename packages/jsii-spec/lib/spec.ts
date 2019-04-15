@@ -97,12 +97,19 @@ export interface Assembly extends Documentable {
     targets?: AssemblyTargets;
 
     /**
-     * Dependencies on other assemblies (with semver), the key is the JSII
+     * Direct dependencies on other assemblies (with semver), the key is the JSII
      * assembly name.
      *
      * @default none
      */
     dependencies?: { [assembly: string]: PackageVersion };
+
+    /**
+     * Closure of all dependency assemblies, direct and transitive.
+     *
+     * @default none
+     */
+    dependencyClosure?: { [assembly: string]: PackageVersion };
 
     /**
      * List if bundled dependencies (these are not expected to be jsii
@@ -207,13 +214,6 @@ export interface PackageVersion {
      * @default none
      */
     targets?: AssemblyTargets;
-
-    /**
-     * Dependencies of this dependency
-     *
-     * @default none
-     */
-    dependencies?: { [assembly: string]: PackageVersion };
 }
 
 /**

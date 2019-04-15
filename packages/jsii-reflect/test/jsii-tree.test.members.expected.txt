@@ -652,15 +652,21 @@ assemblies
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── typeName() method
- │   └─┬ interface BaseProps
+ │   ├─┬ interface BaseProps
+ │   │ └─┬ members
+ │   │   └── bar property
+ │   └─┬ interface IBaseInterface
  │     └─┬ members
- │       └── bar property
+ │       └── bar() method
  ├─┬ @scope/jsii-calc-base-of-base
  │ └─┬ types
  │   ├─┬ class Very
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── hey() method
+ │   ├─┬ interface IVeryBaseInterface
+ │   │ └─┬ members
+ │   │   └── foo() method
  │   └─┬ interface VeryBaseProps
  │     └─┬ members
  │       └── foo property
@@ -686,6 +692,9 @@ assemblies
      ├─┬ interface IFriendly
      │ └─┬ members
      │   └── hello() method
+     ├─┬ interface IThreeLevelsInterface
+     │ └─┬ members
+     │   └── baz() method
      ├─┬ interface MyFirstStruct
      │ └─┬ members
      │   ├── anumber property

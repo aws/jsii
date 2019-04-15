@@ -1,4 +1,5 @@
 import fs = require('fs');
+import jsii = require('jsii-spec');
 import path = require('path');
 import { promisify } from 'util';
 import { Assembly } from './assembly';
@@ -88,7 +89,7 @@ export class TypeSystem {
 
   public async loadFile(file: string, isRoot = true) {
     const spec = JSON.parse((await readFile(file)).toString());
-    return this.addAssembly(new Assembly(this, spec), isRoot);
+    return this.addAssembly(new Assembly(this, jsii.validateAssembly(spec)), isRoot);
   }
 
   public addAssembly(asm: Assembly, isRoot = true) {

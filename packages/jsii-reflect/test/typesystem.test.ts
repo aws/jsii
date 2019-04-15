@@ -148,6 +148,13 @@ describe('Type', () => {
    });
 });
 
+test('Three Inheritance Levels', () => {
+  const iface = typesys.findInterface('@scope/jsii-calc-lib.IThreeLevelsInterface');
+  const methodnames = iface.allMethods.map(m => m.name);
+  methodnames.sort();
+  expect(methodnames).toEqual(['bar', 'baz', 'foo']);
+});
+
 describe('@deprecated', () => {
   test('can be read on an item', () => {
     const klass = typesys.findClass('jsii-calc.Old');

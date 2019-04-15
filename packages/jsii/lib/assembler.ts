@@ -5,10 +5,11 @@ import fs = require('fs-extra');
 import spec = require('jsii-spec');
 import log4js = require('log4js');
 import path = require('path');
+import semver = require('semver');
 import ts = require('typescript');
 import { JSII_DIAGNOSTICS_CODE } from './compiler';
 import { getReferencedDocParams, parseSymbolDocumentation } from './docs';
-import { Diagnostic, Emitter, EmitResult } from './emitter';
+import { Diagnostic, EmitResult, Emitter } from './emitter';
 import literate = require('./literate');
 import { ProjectInfo } from './project-info';
 import { Validator } from './validator';
@@ -108,7 +109,8 @@ export class Assembler implements Emitter {
       author: this.projectInfo.author,
       contributors: this.projectInfo.contributors && [...this.projectInfo.contributors],
       repository: this.projectInfo.repository,
-      dependencies: _toDependencies(this.projectInfo.dependencies),
+      dependencies: this._toDependencies(this.projectInfo.dependencies),
+      dependencyClosure: this._buildDependencyClosure(this.projectInfo.dependencies),
       bundled: this.projectInfo.bundleDependencies,
       types: this._types,
       targets: this.projectInfo.targets,
@@ -1239,6 +1241,72 @@ export class Assembler implements Emitter {
       }
     }
   }
+
+  private _toDependencies(assemblies: ReadonlyArray<spec.Assembly>): { [name: string]: spec.PackageVersion } | undefined {
+    const ret: { [name: string]: spec.PackageVersion } = {};
+
+    for (const a of assemblies) {
+      Object.assign(ret, assemblyToPackageVersionMap(a));
+    }
+
+    return noEmptyDict(ret);
+  }
+
+  private _buildDependencyClosure(assemblies: ReadonlyArray<spec.Assembly>): { [name: string]: spec.PackageVersion } | undefined {
+    // Merge the dependency closures of all dependencies and add the direct dependencies.
+    // There should not be version conflicts between them but we guard against it anyway.
+
+    // Get an array of dependency maps
+    const dependencyBags = flatten(assemblies.map(a => [assemblyToPackageVersionMap(a), a.dependencies || {}]));
+
+    const warned = new Set<string>();
+    const self = this;
+    const result: { [name: string]: spec.PackageVersion } = {};
+    for (const bag of dependencyBags) {
+      for (const [name, packV] of Object.entries(bag)) {
+        maybeRecord(name, packV);
+      }
+    }
+
+    return noEmptyDict(result);
+
+    function maybeRecord(name: string, pack: spec.PackageVersion) {
+      let recordThisDependency = true;
+
+      if (name in result) {
+        // Two dependencies on the same package, find the right version to use
+        const highestVersion = mostConstrainedVersion(result[name].version, pack.version);
+
+        if (highestVersion === undefined) {
+          warnAboutVersionConflict(name, result[name].version, pack.version);
+        }
+
+        recordThisDependency = pack.version === highestVersion;
+      }
+
+      if (recordThisDependency) {
+        result[name] = {
+          version: pack.version,
+          targets: pack.targets,
+        };
+      }
+    }
+
+    function warnAboutVersionConflict(name: string, v1: string, v2: string) {
+      if (warned.has(name)) { return; }
+      self._diagnostic(null, ts.DiagnosticCategory.Error, `Conflicting dependencies on incompatible versions for package '${name}': ${v1} and ${v2}`);
+      warned.add(name);
+    }
+  }
+}
+
+function assemblyToPackageVersionMap(a: spec.Assembly): {[key: string]: spec.PackageVersion} {
+  return {
+    [a.name]: {
+      version: a.version,
+      targets: a.targets
+    }
+  };
 }
 
 function _fingerprint(assembly: spec.Assembly): spec.Assembly {
@@ -1370,24 +1438,6 @@ function _sortMembers(type: spec.ClassType | spec.InterfaceType): spec.ClassType
   };
 }
 
-function _toDependencies(assemblies: ReadonlyArray<spec.Assembly>): { [name: string]: spec.PackageVersion } | undefined {
-  if (assemblies.length === 0) {
-    return undefined;
-  }
-
-  const result: { [name: string]: spec.PackageVersion } = {};
-
-  for (const assembly of assemblies) {
-    result[assembly.name] = {
-      version: assembly.version,
-      targets: assembly.targets,
-      dependencies: assembly.dependencies
-    };
-  }
-
-  return result;
-}
-
 /**
  * Deferred processing that needs to happen in a second, ordered pass
  */
@@ -1482,4 +1532,33 @@ function* intersect<T>(xs: Set<T>, ys: Set<T>) {
       yield x;
     }
   }
+}
+
+/**
+ * Return the most constrained version given two versions
+ *
+ * Returns the highest version. Return undefined if the values are not pairwise
+ * comparable.
+ */
+function mostConstrainedVersion(version1: string, version2: string): string | undefined {
+  if (semver.satisfies(version1, `^${version2}`)) {
+    // If v1 satisifies v2, then either:
+    // - v2 also satisfies v1, in which case it doesn't matter which we return
+    // - v2 does not satisfy v1, in which it must be the case that v1 is higher
+    return version1;
+  }
+
+  // Reverse logic
+  if (semver.satisfies(version2, `^${version1}`)) { return version2; }
+
+  return undefined;
+}
+
+function flatten<T>(xs: T[][]): T[] {
+  return Array.prototype.concat.call([], ...xs);
+}
+
+function noEmptyDict<T>(xs: {[key: string]: T}): {[key: string]: T} | undefined {
+  if (Object.keys(xs).length === 0) { return undefined; }
+  return xs;
 }

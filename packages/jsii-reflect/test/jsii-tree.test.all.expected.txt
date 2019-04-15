@@ -1468,14 +1468,21 @@ assemblies
  │   │   ├── <initializer>() initializer
  │   │   └─┬ typeName() method
  │   │     └── returns: any
- │   └─┬ interface BaseProps
+ │   ├─┬ interface BaseProps
+ │   │ ├─┬ interfaces
+ │   │ │ └── VeryBaseProps
+ │   │ └─┬ members
+ │   │   └─┬ bar property
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: string
+ │   └─┬ interface IBaseInterface
  │     ├─┬ interfaces
- │     │ └── VeryBaseProps
+ │     │ └── IVeryBaseInterface
  │     └─┬ members
- │       └─┬ bar property
+ │       └─┬ bar() method
  │         ├── abstract
- │         ├── immutable
- │         └── type: string
+ │         └── returns: void
  ├─┬ @scope/jsii-calc-base-of-base
  │ └─┬ types
  │   ├─┬ class Very
@@ -1483,6 +1490,11 @@ assemblies
  │   │   ├── <initializer>() initializer
  │   │   └─┬ hey() method
  │   │     └── returns: number
+ │   ├─┬ interface IVeryBaseInterface
+ │   │ └─┬ members
+ │   │   └─┬ foo() method
+ │   │     ├── abstract
+ │   │     └── returns: void
  │   └─┬ interface VeryBaseProps
  │     └─┬ members
  │       └─┬ foo property
@@ -1535,6 +1547,13 @@ assemblies
      │   └─┬ hello() method
      │     ├── abstract
      │     └── returns: string
+     ├─┬ interface IThreeLevelsInterface
+     │ ├─┬ interfaces
+     │ │ └── IBaseInterface
+     │ └─┬ members
+     │   └─┬ baz() method
+     │     ├── abstract
+     │     └── returns: void
      ├─┬ interface MyFirstStruct
      │ └─┬ members
      │   ├─┬ anumber property
