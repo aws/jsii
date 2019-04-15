@@ -3,9 +3,9 @@ import crypto = require('crypto');
 import deepEqual = require('deep-equal');
 import fs = require('fs-extra');
 import spec = require('jsii-spec');
-import { Assembly, PackageVersion } from 'jsii-spec';
 import log4js = require('log4js');
 import path = require('path');
+import semver = require('semver');
 import ts = require('typescript');
 import { JSII_DIAGNOSTICS_CODE } from './compiler';
 import { getReferencedDocParams, parseSymbolDocumentation } from './docs';
@@ -1242,17 +1242,54 @@ export class Assembler implements Emitter {
   }
 
   private _toDependencies(assemblies: ReadonlyArray<spec.Assembly>): { [name: string]: spec.PackageVersion } | undefined {
-    const ret: { [name: string]: spec.PackageVersion }  = {};
+    // Merge the dependency closures of all dependencies and add the direct dependencies.
+    // There should not be version conflicts between them but we guard against it anyway.
 
-    for (const assembly of assemblies) {
-      Object.assign(ret, assemblyToPackageVersion(assembly));
+    // Get an array of dependency maps
+    const dependencyBags = flatten(assemblies.map(a => [assemblyToPackageVersion(a), a.dependencies || {}]));
+
+    const warned = new Set<string>();
+    const self = this;
+    const result: { [name: string]: spec.PackageVersion } = {};
+    for (const bag of dependencyBags) {
+      for (const [name, packV] of Object.entries(bag)) {
+        maybeRecord(name, packV);
+      }
     }
 
-    return Object.keys(ret).length > 0 ? ret : undefined;
+    return Object.keys(result).length > 0 ? result : undefined;
+
+    function maybeRecord(name: string, pack: spec.PackageVersion) {
+      let recordThisDependency = true;
+
+      if (name in result) {
+        // Two dependencies on the same package, find the right version to use
+        const highestVersion = mostConstrainedVersion(result[name].version, pack.version);
+
+        if (highestVersion === undefined) {
+          warnAboutVersionConflict(name, result[name].version, pack.version);
+        }
+
+        recordThisDependency = pack.version === highestVersion;
+      }
+
+      if (recordThisDependency) {
+        result[name] = {
+          version: pack.version,
+          targets: pack.targets,
+        };
+      }
+    }
+
+    function warnAboutVersionConflict(name: string, v1: string, v2: string) {
+      if (warned.has(name)) { return; }
+      self._diagnostic(null, ts.DiagnosticCategory.Error, `Conflicting dependencies on incompatible versions for package '${name}': ${v1} and ${v2}`);
+      warned.add(name);
+    }
   }
 }
 
-function assemblyToPackageVersion(a: Assembly): {[key: string]: PackageVersion} {
+function assemblyToPackageVersion(a: spec.Assembly): {[key: string]: spec.PackageVersion} {
   return {
     [a.name]: {
       version: a.version,
@@ -1484,4 +1521,28 @@ function* intersect<T>(xs: Set<T>, ys: Set<T>) {
       yield x;
     }
   }
+}
+
+/**
+ * Return the most constrained version given two versions
+ *
+ * Returns the highest version. Return undefined if the values are not pairwise
+ * comparable.
+ */
+function mostConstrainedVersion(version1: string, version2: string): string | undefined {
+  if (semver.satisfies(version1, `^${version2}`)) {
+    // If v1 satisifies v2, then either:
+    // - v2 also satisfies v1, in which case it doesn't matter which we return
+    // - v2 does not satisfy v1, in which it must be the case that v1 is higher
+    return version1;
+  }
+
+  // Reverse logic
+  if (semver.satisfies(version2, `^${version1}`)) { return version2; }
+
+  return undefined;
+}
+
+function flatten<T>(xs: T[][]): T[] {
+  return Array.prototype.concat.call([], ...xs);
 }

@@ -501,12 +501,14 @@ export abstract class Generator implements IGenerator {
      * Looks up a jsii module in the dependency tree.
      * @param name The name of the jsii module to look up
      */
-    protected findModule(name: string) {
+    protected findModule(name: string): spec.PackageVersion {
 
         // if this is the current module, return it
         if (this.assembly.name === name) {
             return this.assembly;
         }
+
+        if (name in this.assembly.dependencies
 
         // look up in all deps, recursively
         const found = lookupModule(this.assembly);
