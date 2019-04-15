@@ -8,8 +8,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// deprecated: Use something else please
     /// stability: Stable
     /// example:
+    /// &lt;code&gt;
     /// function anExample() {
     /// }
+    /// &lt;/code&gt;
     /// https://aws.amazon.com/ 
     /// customAttribute: hasAValue
     /// </remarks>
