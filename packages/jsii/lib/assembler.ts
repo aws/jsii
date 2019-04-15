@@ -110,6 +110,7 @@ export class Assembler implements Emitter {
       contributors: this.projectInfo.contributors && [...this.projectInfo.contributors],
       repository: this.projectInfo.repository,
       dependencies: this._toDependencies(this.projectInfo.dependencies),
+      dependencyClosure: this._buildDependencyClosure(this.projectInfo.dependencies),
       bundled: this.projectInfo.bundleDependencies,
       types: this._types,
       targets: this.projectInfo.targets,
@@ -1242,11 +1243,21 @@ export class Assembler implements Emitter {
   }
 
   private _toDependencies(assemblies: ReadonlyArray<spec.Assembly>): { [name: string]: spec.PackageVersion } | undefined {
+    const ret: { [name: string]: spec.PackageVersion } = {};
+
+    for (const a of assemblies) {
+      Object.assign(ret, assemblyToPackageVersionMap(a));
+    }
+
+    return ret;
+  }
+
+  private _buildDependencyClosure(assemblies: ReadonlyArray<spec.Assembly>): { [name: string]: spec.PackageVersion } | undefined {
     // Merge the dependency closures of all dependencies and add the direct dependencies.
     // There should not be version conflicts between them but we guard against it anyway.
 
     // Get an array of dependency maps
-    const dependencyBags = flatten(assemblies.map(a => [assemblyToPackageVersion(a), a.dependencies || {}]));
+    const dependencyBags = flatten(assemblies.map(a => [assemblyToPackageVersionMap(a), a.dependencies || {}]));
 
     const warned = new Set<string>();
     const self = this;
@@ -1289,7 +1300,7 @@ export class Assembler implements Emitter {
   }
 }
 
-function assemblyToPackageVersion(a: spec.Assembly): {[key: string]: spec.PackageVersion} {
+function assemblyToPackageVersionMap(a: spec.Assembly): {[key: string]: spec.PackageVersion} {
   return {
     [a.name]: {
       version: a.version,

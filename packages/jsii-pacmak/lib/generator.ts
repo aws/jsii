@@ -508,38 +508,13 @@ export abstract class Generator implements IGenerator {
             return this.assembly;
         }
 
-        if (name in this.assembly.dependencies
+        const found = (this.assembly.dependencyClosure || {})[name];
 
-        // look up in all deps, recursively
-        const found = lookupModule(this.assembly);
-        if (!found) {
-            throw new Error(`Unable to find module ${name} as a direct or indirect dependency of ${this.assembly.name}`);
+        if (found) {
+            return found;
         }
 
-        return found;
-
-        function lookupModule(parent: spec.PackageVersion): spec.PackageVersion | undefined {
-            const indirect = parent.dependencies && parent.dependencies[name];
-            if (indirect) {
-                return indirect;
-            }
-
-            for (const depName of Object.keys(parent.dependencies || { })) {
-                const dep = parent.dependencies![depName];
-
-                if (depName === name) {
-                    return dep;
-                }
-
-                const transitive = lookupModule(dep);
-                if (transitive) {
-                    return transitive;
-                }
-            }
-
-            return undefined;
-        }
-
+        throw new Error(`Unable to find module ${name} as a direct or indirect dependency of ${this.assembly.name}`);
     }
 
     protected findType(fqn: string) {
