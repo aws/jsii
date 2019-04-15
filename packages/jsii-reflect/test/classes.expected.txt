@@ -12,6 +12,7 @@ BinaryOperation
 Calculator
 ClassThatImplementsTheInternalInterface
 ClassThatImplementsThePrivateInterface
+ClassWithDocs
 ClassWithMutableObjectLiteralProperty
 ClassWithPrivateConstructorAndAutomaticProperties
 CompositeOperation

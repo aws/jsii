@@ -3,6 +3,7 @@ using Amazon.JSII.JsonModel.Spec;
 using Microsoft.CodeAnalysis;
 using Xunit;
 using SF = Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+using System.Collections.Generic;
 
 namespace Amazon.JSII.Generator.UnitTests.DocComment
 {
@@ -37,9 +38,9 @@ namespace Amazon.JSII.Generator.UnitTests.DocComment
         public void IncludesSingleLineSummary()
         {
             Docs docs = new Docs
-            {
-                { "summary", "my comment" }
-            };
+            (
+                summary: "my comment"
+            );
 
             string actual = Render(docs);
             string expected =
@@ -55,9 +56,9 @@ namespace Amazon.JSII.Generator.UnitTests.DocComment
         public void IncludesMultiLineSummary(string summary)
         {
             Docs docs = new Docs
-            {
-                { "summary", summary }
-            };
+            (
+                summary: summary
+            );
 
             string actual = Render(docs);
             string expected =
@@ -74,9 +75,9 @@ namespace Amazon.JSII.Generator.UnitTests.DocComment
         public void IncludesSingleLineRemarks()
         {
             Docs docs = new Docs
-            {
-                { "myKey", "my comment" }
-            };
+            (
+                custom: new Dictionary<string,  string>{{ "myKey", "my comment" }}
+            );
 
             string actual = Render(docs);
             string expected =
@@ -90,10 +91,12 @@ namespace Amazon.JSII.Generator.UnitTests.DocComment
         public void IncludesMultiLineRemarks()
         {
             Docs docs = new Docs
-            {
-                { "myKey1", "my\ncomment" },
-                { "myKey2", "my\r\ncomment" }
-            };
+            (
+                custom: new Dictionary<string, string>{
+                    { "myKey1", "my\ncomment" },
+                    { "myKey2", "my\r\ncomment" }
+                }
+            );
 
             string actual = Render(docs);
             string expected =
@@ -112,9 +115,9 @@ namespace Amazon.JSII.Generator.UnitTests.DocComment
         public void SeparatesSingleLineLink()
         {
             Docs docs = new Docs
-            {
-                { "link", "www.example.com" }
-            };
+            (
+                custom: new Dictionary<string, string>{{"link", "www.example.com" }}
+            );
 
             string actual = Render(docs);
             string expected =
@@ -128,9 +131,9 @@ namespace Amazon.JSII.Generator.UnitTests.DocComment
         public void IgnoresParam()
         {
             Docs docs = new Docs
-            {
-                { "param", "my comment" }
-            };
+            (
+                custom: new Dictionary<string, string>{{"param", "my comment" }}
+            );
 
             string actual = Render(docs);
             string expected = @"string MyProp";
@@ -142,13 +145,35 @@ namespace Amazon.JSII.Generator.UnitTests.DocComment
         public void IncludesReturns()
         {
             Docs docs = new Docs
-            {
-                { "returns", "my comment" }
-            };
+            (
+                returns: "my comment"
+            );
 
             string actual = Render(docs);
             string expected =
 @"/// <returns>my comment</returns>
+        string MyProp";
+
+            Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
+        }
+
+        [Fact(DisplayName = Prefix + nameof(ShowsDefault))]
+        public void ShowsDefault()
+        {
+            Docs docs = new Docs
+            (
+                summary: "A property",
+                remarks: "Some remarks.",
+                @default: "Tis a default"
+            );
+
+            string actual = Render(docs);
+            string expected =
+@"/// <summary>A property</summary>
+/// <remarks>
+/// Some remarks.
+/// default: Tis a default
+/// </remarks>
         string MyProp";
 
             Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);

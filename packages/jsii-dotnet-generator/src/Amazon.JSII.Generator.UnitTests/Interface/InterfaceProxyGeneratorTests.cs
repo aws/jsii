@@ -4,6 +4,7 @@ using Microsoft.CodeAnalysis;
 using Newtonsoft.Json;
 using Xunit;
 using TypeKind = Amazon.JSII.JsonModel.Spec.TypeKind;
+using System.Collections.Generic;
 
 namespace Amazon.JSII.Generator.UnitTests.Interface
 {
@@ -160,7 +161,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
                 "myPackage",
                 "myInterface",
                 "myNamespace",
-                docs: new Docs {{"foo", "bar"}}
+                docs: new Docs(custom: new Dictionary<string, string>{{"foo", "bar"}})
             );
 
             string actual = Render(interfaceType);
@@ -204,7 +205,7 @@ namespace Amazon.JSII.Generator.UnitTests.Interface
             ""summary"": ""The 12-digit AWS account ID for the account this environment deploys into ""
           },
           ""abstract"": true,
-          ""name"": ""account"", 
+          ""name"": ""account"",
           ""type"": {
             ""primitive"": ""string""
           }

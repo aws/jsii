@@ -3,6 +3,7 @@ using Amazon.JSII.JsonModel.Spec;
 using Microsoft.CodeAnalysis;
 using Xunit;
 using TypeKind = Amazon.JSII.JsonModel.Spec.TypeKind;
+using System.Collections.Generic;
 
 namespace Amazon.JSII.Generator.UnitTests.Class
 {
@@ -133,7 +134,7 @@ namespace Amazon.JSII.Generator.UnitTests.Class
                 name: "myClass",
                 isAbstract: false,
                 initializer: new Initializer(),
-                docs: new Docs {{"foo", "bar"}}
+                docs: new Docs(custom: new Dictionary<string, string>{{"foo", "bar"}})
             );
 
             string actual = Render(classType);

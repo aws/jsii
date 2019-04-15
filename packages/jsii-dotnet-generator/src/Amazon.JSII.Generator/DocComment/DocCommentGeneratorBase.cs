@@ -14,10 +14,7 @@ namespace Amazon.JSII.Generator.DocComment
     {
         static readonly ISet<string> _wellKnownKeys = new HashSet<string>(new[]
         {
-            "summary",
             "param",
-            "returns",
-            "custom",
         });
 
         public DocCommentGeneratorBase(T documentable)
@@ -39,10 +36,10 @@ namespace Amazon.JSII.Generator.DocComment
 
         protected IEnumerable<XmlNodeSyntax> GetSummaryNodes()
         {
-            if (Documentable.Docs?.ContainsKey("summary") ?? false)
+            if (!String.IsNullOrEmpty(Documentable.Docs?.Summary))
             {
                 yield return SF.XmlText(" ").WithLeadingTrivia(SF.DocumentationCommentExterior(" "));
-                yield return SF.XmlSummaryElement(GetXmlNodes(Documentable.Docs["summary"]).ToArray());
+                yield return SF.XmlSummaryElement(GetXmlNodes(Documentable.Docs.Summary).ToArray());
             }
         }
 
@@ -53,30 +50,37 @@ namespace Amazon.JSII.Generator.DocComment
                 yield break;
             }
 
-            string remarks = string.Join(Environment.NewLine, Documentable.Docs
+            List<string> remarks = new List<string>();
+            if (!String.IsNullOrEmpty(Documentable.Docs.Remarks)) { remarks.Add(Documentable.Docs.Remarks); }
+            if (!String.IsNullOrEmpty(Documentable.Docs.Default)) { remarks.Add($"default: {Documentable.Docs.Default}"); }
+            if (!String.IsNullOrEmpty(Documentable.Docs.Deprecated)) { remarks.Add($"deprecated: {Documentable.Docs.Deprecated}"); }
+            if (Documentable.Docs.Stability.HasValue) { remarks.Add($"stability: {Documentable.Docs.Stability}"); }
+            if (!String.IsNullOrEmpty(Documentable.Docs.Example)) { remarks.Add($"example:\n<code>\n{Documentable.Docs.Example}\n</code>"); }
+            if (!String.IsNullOrEmpty(Documentable.Docs.See)) { remarks.Add($"{Documentable.Docs.See} "); } // Extra space here to keep links clickable
+            if (Documentable.Docs.Subclassable.GetValueOrDefault(false)) { remarks.Add($"subclassable"); }
+
+            remarks.AddRange(Documentable.Docs.Custom
                 .Where(kvp => !_wellKnownKeys.Contains(kvp.Key))
-                // Visual Studio will include the closing </remarks> tag as part
-                // of the clickable link if there is no space separating it.
-                .Select(kvp => (kvp.Key != "remarks" ? kvp.Key + ": " : "") + $"{kvp.Value}{(kvp.Key == "link" ? " " : "")}"));
+                .Select(kvp => kvp.Key == "link"
+                    ? $"{kvp.Key}: {kvp.Value} "  // Extra space for '@link' to keep unit tests happy
+                    : $"{kvp.Key}: {kvp.Value}"
+                    ));
 
             if (remarks.Any())
             {
                 yield return SF.XmlText(" ").WithLeadingTrivia(SF.DocumentationCommentExterior(" "));
-                yield return SF.XmlRemarksElement(GetXmlNodes(remarks).ToArray());
+                yield return SF.XmlRemarksElement(GetXmlNodes(string.Join(Environment.NewLine, remarks)).ToArray());
             }
         }
 
         protected IEnumerable<XmlNodeSyntax> GetReturnsNodes()
         {
-            if (Documentable.Docs?.ContainsKey("returns") != true)
-            {
-                yield break;
+            var text = Documentable.Docs?.Returns;
+
+            if (!String.IsNullOrEmpty(text)) {
+                yield return SF.XmlText(" ").WithLeadingTrivia(SF.DocumentationCommentExterior(" "));
+                yield return SF.XmlReturnsElement(GetXmlNodes(text).ToArray());
             }
-
-            string text = Documentable.Docs["returns"];
-
-            yield return SF.XmlText(" ").WithLeadingTrivia(SF.DocumentationCommentExterior(" "));
-            yield return SF.XmlReturnsElement(GetXmlNodes(text).ToArray());
         }
 
         protected IEnumerable<XmlNodeSyntax> GetXmlNodes(string text)

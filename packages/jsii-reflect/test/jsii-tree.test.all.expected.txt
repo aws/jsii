@@ -245,6 +245,9 @@ assemblies
  │   │   │ └── type: string
  │   │   └─┬ e property
  │   │     └── type: string
+ │   ├─┬ class ClassWithDocs
+ │   │ └─┬ members
+ │   │   └── <initializer>() initializer
  │   ├─┬ class ClassWithMutableObjectLiteralProperty
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer

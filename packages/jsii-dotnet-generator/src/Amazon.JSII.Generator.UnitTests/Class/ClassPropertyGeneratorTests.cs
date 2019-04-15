@@ -3,6 +3,7 @@ using Amazon.JSII.JsonModel.Spec;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Xunit;
+using System.Collections.Generic;
 
 namespace Amazon.JSII.Generator.UnitTests.Class
 {
@@ -198,7 +199,7 @@ public static MyPropType MyProperty
                 isImmutable: true,
                 isAbstract: false,
                 isProtected: false,
-                docs: new Docs { { "foo", "bar" } }
+                docs: new Docs(custom: new Dictionary<string, string>{{"foo", "bar"}})
             );
 
             Symbols.MapPropertyName("myClassFqn", "myProperty", "MyProperty");
