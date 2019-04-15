@@ -3,6 +3,7 @@ using Amazon.JSII.JsonModel.Spec;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Xunit;
+using System.Collections.Generic;
 
 namespace Amazon.JSII.Generator.UnitTests.Class
 {
@@ -114,7 +115,7 @@ public virtual void MyMethod(MyParamType myParam, string @event)
             Method method = new Method
             (
                 name: "myMethod",
-                docs: new Docs { { "foo", "bar" } }
+                docs: new Docs(custom: new Dictionary<string, string>{{"foo", "bar"}})
             );
 
             Symbols.MapMethodName("myClassFqn", "myMethod", "MyMethod");

@@ -1179,6 +1179,43 @@ ClassThatImplementsThePrivateInterface
       :type: string
 
 
+ClassWithDocs
+^^^^^^^^^^^^^
+
+.. py:class:: ClassWithDocs()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.ClassWithDocs;
+
+      .. code-tab:: javascript
+
+         const { ClassWithDocs } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { ClassWithDocs } from 'jsii-calc';
+
+
+
+   This class has docs.
+
+   
+
+   The docs are great. They're a bunch of tags.
+
+   https://aws.amazon.com/
+
+
+
 ClassWithMutableObjectLiteralProperty
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

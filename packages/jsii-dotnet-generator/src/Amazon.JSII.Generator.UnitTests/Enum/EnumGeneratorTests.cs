@@ -3,6 +3,7 @@ using Amazon.JSII.Generator.Interface;
 using Amazon.JSII.JsonModel.Spec;
 using Microsoft.CodeAnalysis;
 using Xunit;
+using System.Collections.Generic;
 
 namespace Amazon.JSII.Generator.UnitTests.Enum
 {
@@ -27,8 +28,8 @@ namespace Amazon.JSII.Generator.UnitTests.Enum
         {
             EnumType enumType = new EnumType
             (
-                fullyQualifiedName: "myEnumFqn", 
-                assembly: "myPackage", 
+                fullyQualifiedName: "myEnumFqn",
+                assembly: "myPackage",
                 name: "myEnum",
                 members: new EnumMember[] { }
             );
@@ -50,8 +51,8 @@ namespace Amazon.JSII.Generator.UnitTests.Enum
         {
             EnumType enumType = new EnumType
             (
-                fullyQualifiedName: "myEnumFqn", 
-                assembly: "myPackage", 
+                fullyQualifiedName: "myEnumFqn",
+                assembly: "myPackage",
                 name: "myEnum",
                 members: new EnumMember[]
                 {
@@ -88,10 +89,7 @@ namespace Amazon.JSII.Generator.UnitTests.Enum
                 assembly: "myPackage",
                 name: "myEnum",
                 members: new EnumMember[] { },
-                docs: new Docs
-                {
-                    { "foo", "bar" }
-                }
+                docs: new Docs(custom: new Dictionary<string, string>{{"foo", "bar"}})
             );
 
             string actual = Render(enumType);
@@ -117,8 +115,8 @@ namespace Amazon.JSII.Generator.UnitTests.Enum
                 name: "myEnum",
                 members: new EnumMember[]
                 {
-                    new EnumMember("member1", new Docs { { "foo", "bar" } }),
-                    new EnumMember("member2", new Docs { { "foo", "bar" } }),
+                    new EnumMember("member1", docs: new Docs(custom: new Dictionary<string, string>{{"foo", "bar"}})),
+                    new EnumMember("member2", docs: new Docs(custom: new Dictionary<string, string>{{"foo", "bar"}}))
                 }
             );
 

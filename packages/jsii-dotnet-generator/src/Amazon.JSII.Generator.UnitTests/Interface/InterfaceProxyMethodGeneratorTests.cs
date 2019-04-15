@@ -4,6 +4,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Xunit;
 using TypeKind = Amazon.JSII.JsonModel.Spec.TypeKind;
+using System.Collections.Generic;
 
 namespace Amazon.JSII.Generator.UnitTests.Interface
 {
@@ -83,7 +84,7 @@ public void MyMethod(MyParamType myParam, string @event)
             Method method = new Method
             (
                 isAbstract: true, name: "myMethod",
-                docs: new Docs { { "foo", "bar" } }
+                docs: new Docs(custom: new Dictionary<string, string>{{"foo", "bar"}})
             );
 
             Symbols.MapMethodName("myInterfaceFqn", "myMethod", "MyMethod");

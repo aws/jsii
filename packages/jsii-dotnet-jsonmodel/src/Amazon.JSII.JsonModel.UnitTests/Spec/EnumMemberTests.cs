@@ -56,13 +56,13 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
             {
                 const string json = @"{
   ""name"": ""myName"",
-  ""docs"": {}
+  ""docs"": { ""summary"": ""hello"" }
 }";
 
                 EnumMember actual = JsonConvert.DeserializeObject<EnumMember>(json);
 
                 Assert.Equal("myName", actual.Name, ignoreLineEndingDifferences: true);
-                Assert.Empty(actual.Docs);
+                Assert.Equal("hello", actual.Docs.Summary);
             }
 
             [Fact(DisplayName = Prefix + nameof(ShouldThrowOnMissingName))]

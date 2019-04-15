@@ -363,7 +363,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
   ""types"": {},
   ""dependencies"": {},
   ""bundled"": {},
-  ""docs"": {}
+  ""docs"": { ""summary"": ""hello"" }
 }";
 
                 Assembly actual = JsonConvert.DeserializeObject<Assembly>(json);
@@ -375,7 +375,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 Assert.Empty(actual.Types);
                 Assert.Empty(actual.Dependencies);
                 Assert.Empty(actual.Bundled);
-                Assert.Empty(actual.Docs);
+                Assert.Equal("hello", actual.Docs.Summary);
             }
 
             [Fact(DisplayName = Prefix + nameof(ShouldDeserializeAllMembersWithNoTypes))]
@@ -399,7 +399,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
   ""license"": """",
   ""dependencies"": {},
   ""bundled"": {},
-  ""docs"": {}
+  ""docs"": {""summary"": ""hello""}
 }";
 
                 Assembly actual = JsonConvert.DeserializeObject<Assembly>(json);
@@ -411,7 +411,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 Assert.Null(actual.Types);
                 Assert.Empty(actual.Dependencies);
                 Assert.Empty(actual.Bundled);
-                Assert.Empty(actual.Docs);
+                Assert.Equal("hello", actual.Docs.Summary);
             }
 
 
@@ -447,7 +447,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
   ""types"": {},
   ""dependencies"": {},
   ""bundled"": {},
-  ""docs"": {}
+  ""docs"": {""summary"": ""hello""}
 }";
 
                 Assembly actual = JsonConvert.DeserializeObject<Assembly>(json);
@@ -467,7 +467,7 @@ namespace Amazon.JSII.JsonModel.UnitTests.Spec
                 Assert.Empty(actual.Types);
                 Assert.Empty(actual.Dependencies);
                 Assert.Empty(actual.Bundled);
-                Assert.Empty(actual.Docs);
+                Assert.Equal("hello", actual.Docs.Summary);
             }
 
             [Fact(DisplayName = Prefix + nameof(ShouldThrowOnMissingName))]
