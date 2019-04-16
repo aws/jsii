@@ -1636,3 +1636,30 @@ export interface OptionalStruct {
  */
 export class ClassWithDocs {
 }
+
+/**
+ * This is used to validate the ability to use `this` from within a static context.
+ *
+ * https://github.com/awslabs/aws-cdk/issues/2304
+ */
+export class StaticContext {
+    private static _staticVariable = true;
+
+    public static canAccessStaticContext(): boolean {
+        return this.staticContextAvailable();
+    }
+
+    private static staticContextAvailable() {
+        return true;
+    }
+
+    public static get staticVariable() {
+        return this._staticVariable;
+    }
+
+    public static set staticVariable(value: boolean) {
+        this._staticVariable = value;
+    }
+
+    private constructor() { }
+}

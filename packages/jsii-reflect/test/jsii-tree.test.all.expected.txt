@@ -950,6 +950,14 @@ assemblies
  │   │   │ └── returns: jsii-calc.InbetweenClass
  │   │   └─┬ interface2() method
  │   │     └── returns: jsii-calc.IPublicInterface
+ │   ├─┬ class StaticContext
+ │   │ └─┬ members
+ │   │   ├─┬ canAccessStaticContext() method
+ │   │   │ ├── static
+ │   │   │ └── returns: boolean
+ │   │   └─┬ staticVariable property
+ │   │     ├── static
+ │   │     └── type: boolean
  │   ├─┬ class Statics
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(value) initializer

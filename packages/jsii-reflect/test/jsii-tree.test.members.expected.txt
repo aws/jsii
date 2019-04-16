@@ -433,6 +433,10 @@ assemblies
  │   │   ├── <initializer>() initializer
  │   │   ├── interface1() method
  │   │   └── interface2() method
+ │   ├─┬ class StaticContext
+ │   │ └─┬ members
+ │   │   ├── canAccessStaticContext() method
+ │   │   └── staticVariable property
  │   ├─┬ class Statics
  │   │ └─┬ members
  │   │   ├── <initializer>(value) initializer

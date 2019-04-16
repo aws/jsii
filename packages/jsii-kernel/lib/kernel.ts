@@ -269,10 +269,10 @@ export class Kernel {
         }
 
         const prototype = this._findSymbol(fqn);
-        const fn = prototype[method];
+        const fn = prototype[method] as (...params: any[]) => any;
 
         const ret = this._ensureSync(`method '${fqn}.${method}'`, () => {
-            return this._wrapSandboxCode(() => fn.apply(null, this._toSandboxValues(args, ti.parameters)));
+            return this._wrapSandboxCode(() => fn.apply(prototype, this._toSandboxValues(args, ti.parameters)));
         });
 
         this._debug('method returned:', ret);

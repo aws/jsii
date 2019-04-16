@@ -64,6 +64,7 @@ ReferenceEnumFromScopedPackage
 ReturnsPrivateImplementationOfInterface
 RuntimeTypeChecking
 SingleInstanceTwoTypes
+StaticContext
 Statics
 StripInternal
 Sum

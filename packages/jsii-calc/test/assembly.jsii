@@ -5597,6 +5597,48 @@
       ],
       "name": "SingleInstanceTwoTypes"
     },
+    "jsii-calc.StaticContext": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "remarks": "https://github.com/awslabs/aws-cdk/issues/2304",
+        "summary": "This is used to validate the ability to use `this` from within a static context."
+      },
+      "fqn": "jsii-calc.StaticContext",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1645
+      },
+      "methods": [
+        {
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1648
+          },
+          "name": "canAccessStaticContext",
+          "returns": {
+            "type": {
+              "primitive": "boolean"
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "StaticContext",
+      "properties": [
+        {
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1656
+          },
+          "name": "staticVariable",
+          "static": true,
+          "type": {
+            "primitive": "boolean"
+          }
+        }
+      ]
+    },
     "jsii-calc.Statics": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.Statics",
@@ -6655,5 +6697,5 @@
     }
   },
   "version": "0.9.0",
-  "fingerprint": "rheLw7bhMAmuMfbnzQ4tXZyQTSYIydCp59wiBfA8Gpo="
+  "fingerprint": "7Kv5qQOHJ4CtCTKoLfaavS4jHjk/HJvT6aWOIZAHTvw="
 }

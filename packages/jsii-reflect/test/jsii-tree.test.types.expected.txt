@@ -63,6 +63,7 @@ assemblies
  │   ├── class ReturnsPrivateImplementationOfInterface
  │   ├── class RuntimeTypeChecking
  │   ├── class SingleInstanceTwoTypes
+ │   ├── class StaticContext
  │   ├── class Statics
  │   ├── class StripInternal
  │   ├── class Sum

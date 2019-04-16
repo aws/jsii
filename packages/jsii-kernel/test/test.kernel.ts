@@ -996,6 +996,31 @@ defineTest('ObjRefs are labeled with the "most correct" type', async (test, sand
     }
 });
 
+/**
+ * This is used to validate the ability to use `this` from within a static context.
+ *
+ * https://github.com/awslabs/aws-cdk/issues/2304
+ */
+defineTest('sinvoke allows access to the static context', async (test, sandbox) => {
+    test.doesNotThrow(() => {
+        const response = sandbox.sinvoke({ fqn: 'jsii-calc.StaticContext', method: 'canAccessStaticContext' });
+        test.ok(response.result, 'The result should be true');
+    });
+});
+defineTest('sget allows access to the static context', async (test, sandbox) => {
+    test.doesNotThrow(() => {
+        const response = sandbox.sget({ fqn: 'jsii-calc.StaticContext', property: 'staticVariable' });
+        test.ok(response.value, 'The result should be true');
+    });
+});
+defineTest('sset allows access to the static context', async (test, sandbox) => {
+    test.doesNotThrow(() => {
+        sandbox.sset({ fqn: 'jsii-calc.StaticContext', property: 'staticVariable', value: false });
+        const response = sandbox.sget({ fqn: 'jsii-calc.StaticContext', property: 'staticVariable' });
+        test.ok(!response.value, 'The result should be true');
+    });
+});
+
 /*
 
 Test currently disabled because we don't have the infrastructure to make it pass.

@@ -5344,6 +5344,52 @@ SingleInstanceTwoTypes
       :rtype: :py:class:`~jsii-calc.IPublicInterface`\ 
 
 
+StaticContext
+^^^^^^^^^^^^^
+
+.. py:class:: StaticContext()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.StaticContext;
+
+      .. code-tab:: javascript
+
+         const { StaticContext } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { StaticContext } from 'jsii-calc';
+
+
+
+   This is used to validate the ability to use `this` from within a static context.
+
+   
+
+   https://github.com/awslabs/aws-cdk/issues/2304
+
+
+
+
+   .. py:staticmethod:: canAccessStaticContext() -> boolean
+
+      :rtype: boolean
+
+
+   .. py:attribute:: staticVariable
+
+      :type: boolean *(static)*
+
+
 Statics
 ^^^^^^^
 
