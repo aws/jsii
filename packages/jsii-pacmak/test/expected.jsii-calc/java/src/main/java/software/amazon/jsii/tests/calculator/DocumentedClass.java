@@ -29,7 +29,7 @@ public class DocumentedClass extends software.amazon.jsii.JsiiObject {
      * @param greetee The person to be greeted.
      */
     public java.lang.Number greet(@javax.annotation.Nullable final software.amazon.jsii.tests.calculator.Greetee greetee) {
-        return this.jsiiCall("greet", java.lang.Number.class, java.util.stream.Stream.of(greetee).toArray());
+        return this.jsiiCall("greet", java.lang.Number.class, new Object[] { greetee });
     }
 
     /**

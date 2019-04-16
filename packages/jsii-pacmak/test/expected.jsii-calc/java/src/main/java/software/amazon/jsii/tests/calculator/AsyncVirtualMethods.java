@@ -38,7 +38,7 @@ public class AsyncVirtualMethods extends software.amazon.jsii.JsiiObject {
     }
 
     public java.lang.Number overrideMe(final java.lang.Number mult) {
-        return this.jsiiAsyncCall("overrideMe", java.lang.Number.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(mult, "mult is required")).toArray());
+        return this.jsiiAsyncCall("overrideMe", java.lang.Number.class, new Object[] { java.util.Objects.requireNonNull(mult, "mult is required") });
     }
 
     public java.lang.Number overrideMeToo() {

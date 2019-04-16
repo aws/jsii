@@ -8,7 +8,7 @@ public class OptionalStructConsumer extends software.amazon.jsii.JsiiObject {
     }
     public OptionalStructConsumer(@javax.annotation.Nullable final software.amazon.jsii.tests.calculator.OptionalStruct optionalStruct) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.of(optionalStruct).toArray());
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { optionalStruct });
     }
     public OptionalStructConsumer() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);

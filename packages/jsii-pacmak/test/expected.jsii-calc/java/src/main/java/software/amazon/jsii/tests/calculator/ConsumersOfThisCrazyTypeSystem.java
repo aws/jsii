@@ -12,11 +12,11 @@ public class ConsumersOfThisCrazyTypeSystem extends software.amazon.jsii.JsiiObj
     }
 
     public java.lang.String consumeAnotherPublicInterface(final software.amazon.jsii.tests.calculator.IAnotherPublicInterface obj) {
-        return this.jsiiCall("consumeAnotherPublicInterface", java.lang.String.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(obj, "obj is required")).toArray());
+        return this.jsiiCall("consumeAnotherPublicInterface", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(obj, "obj is required") });
     }
 
     @javax.annotation.Nullable
     public java.lang.Object consumeNonInternalInterface(final software.amazon.jsii.tests.calculator.INonInternalInterface obj) {
-        return this.jsiiCall("consumeNonInternalInterface", java.lang.Object.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(obj, "obj is required")).toArray());
+        return this.jsiiCall("consumeNonInternalInterface", java.lang.Object.class, new Object[] { java.util.Objects.requireNonNull(obj, "obj is required") });
     }
 }

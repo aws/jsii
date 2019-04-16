@@ -8,7 +8,7 @@ public class JSII417Derived extends software.amazon.jsii.tests.calculator.JSII41
     }
     public JSII417Derived(final java.lang.String property) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.of(java.util.Objects.requireNonNull(property, "property is required")).toArray());
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(property, "property is required") });
     }
 
     public void bar() {

@@ -16,7 +16,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      */
     public Calculator(@javax.annotation.Nullable final software.amazon.jsii.tests.calculator.CalculatorProps props) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.of(props).toArray());
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { props });
     }
     /**
      * Creates a Calculator object.
@@ -30,14 +30,14 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      * Adds a number to the current value.
      */
     public void add(final java.lang.Number value) {
-        this.jsiiCall("add", Void.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(value, "value is required")).toArray());
+        this.jsiiCall("add", Void.class, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
 
     /**
      * Multiplies the current value by a number.
      */
     public void mul(final java.lang.Number value) {
-        this.jsiiCall("mul", Void.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(value, "value is required")).toArray());
+        this.jsiiCall("mul", Void.class, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
 
     /**
@@ -51,7 +51,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      * Raises the current value by a power.
      */
     public void pow(final java.lang.Number value) {
-        this.jsiiCall("pow", Void.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(value, "value is required")).toArray());
+        this.jsiiCall("pow", Void.class, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
 
     /**

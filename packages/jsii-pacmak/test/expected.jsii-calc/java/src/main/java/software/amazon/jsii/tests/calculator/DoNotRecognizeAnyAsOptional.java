@@ -15,14 +15,14 @@ public class DoNotRecognizeAnyAsOptional extends software.amazon.jsii.JsiiObject
     }
 
     public void method(@javax.annotation.Nullable final java.lang.Object _requiredAny, @javax.annotation.Nullable final java.lang.Object _optionalAny, @javax.annotation.Nullable final java.lang.String _optionalString) {
-        this.jsiiCall("method", Void.class, java.util.stream.Stream.concat(java.util.stream.Stream.concat(java.util.stream.Stream.of(_requiredAny), java.util.stream.Stream.of(_optionalAny)), java.util.stream.Stream.of(_optionalString)).toArray());
+        this.jsiiCall("method", Void.class, new Object[] { _requiredAny, _optionalAny, _optionalString });
     }
 
     public void method(@javax.annotation.Nullable final java.lang.Object _requiredAny, @javax.annotation.Nullable final java.lang.Object _optionalAny) {
-        this.jsiiCall("method", Void.class, java.util.stream.Stream.concat(java.util.stream.Stream.of(_requiredAny), java.util.stream.Stream.of(_optionalAny)).toArray());
+        this.jsiiCall("method", Void.class, new Object[] { _requiredAny, _optionalAny });
     }
 
     public void method(@javax.annotation.Nullable final java.lang.Object _requiredAny) {
-        this.jsiiCall("method", Void.class, java.util.stream.Stream.of(_requiredAny).toArray());
+        this.jsiiCall("method", Void.class, new Object[] { _requiredAny });
     }
 }

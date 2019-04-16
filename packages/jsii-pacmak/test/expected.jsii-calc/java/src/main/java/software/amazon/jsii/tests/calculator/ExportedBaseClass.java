@@ -8,7 +8,7 @@ public class ExportedBaseClass extends software.amazon.jsii.JsiiObject {
     }
     public ExportedBaseClass(final java.lang.Boolean success) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.of(java.util.Objects.requireNonNull(success, "success is required")).toArray());
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(success, "success is required") });
     }
 
     public java.lang.Boolean getSuccess() {

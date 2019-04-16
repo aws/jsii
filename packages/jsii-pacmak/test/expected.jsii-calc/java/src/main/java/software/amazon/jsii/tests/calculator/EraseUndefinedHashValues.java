@@ -18,7 +18,7 @@ public class EraseUndefinedHashValues extends software.amazon.jsii.JsiiObject {
      * are being erased when sending values from native code to JS.
      */
     public static java.lang.Boolean doesKeyExist(final software.amazon.jsii.tests.calculator.EraseUndefinedHashValuesOptions opts, final java.lang.String key) {
-        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.EraseUndefinedHashValues.class, "doesKeyExist", java.lang.Boolean.class, java.util.stream.Stream.concat(java.util.stream.Stream.of(java.util.Objects.requireNonNull(opts, "opts is required")), java.util.stream.Stream.of(java.util.Objects.requireNonNull(key, "key is required"))).toArray());
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.EraseUndefinedHashValues.class, "doesKeyExist", java.lang.Boolean.class, new Object[] { java.util.Objects.requireNonNull(opts, "opts is required"), java.util.Objects.requireNonNull(key, "key is required") });
     }
 
     /**

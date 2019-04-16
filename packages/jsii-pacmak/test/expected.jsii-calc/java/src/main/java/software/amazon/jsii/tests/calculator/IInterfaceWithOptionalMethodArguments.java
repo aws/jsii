@@ -18,12 +18,12 @@ public interface IInterfaceWithOptionalMethodArguments extends software.amazon.j
 
         @Override
         public void hello(final java.lang.String arg1, @javax.annotation.Nullable final java.lang.Number arg2) {
-            this.jsiiCall("hello", Void.class, java.util.stream.Stream.concat(java.util.stream.Stream.of(java.util.Objects.requireNonNull(arg1, "arg1 is required")), java.util.stream.Stream.of(arg2)).toArray());
+            this.jsiiCall("hello", Void.class, new Object[] { java.util.Objects.requireNonNull(arg1, "arg1 is required"), arg2 });
         }
 
         @Override
         public void hello(final java.lang.String arg1) {
-            this.jsiiCall("hello", Void.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(arg1, "arg1 is required")).toArray());
+            this.jsiiCall("hello", Void.class, new Object[] { java.util.Objects.requireNonNull(arg1, "arg1 is required") });
         }
     }
 }

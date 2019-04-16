@@ -11,7 +11,7 @@ public class ClassWithPrivateConstructorAndAutomaticProperties extends software.
     }
 
     public static software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties create(final java.lang.String readOnlyString, final java.lang.String readWriteString) {
-        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties.class, "create", software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties.class, java.util.stream.Stream.concat(java.util.stream.Stream.of(java.util.Objects.requireNonNull(readOnlyString, "readOnlyString is required")), java.util.stream.Stream.of(java.util.Objects.requireNonNull(readWriteString, "readWriteString is required"))).toArray());
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties.class, "create", software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties.class, new Object[] { java.util.Objects.requireNonNull(readOnlyString, "readOnlyString is required"), java.util.Objects.requireNonNull(readWriteString, "readWriteString is required") });
     }
 
     @Override
