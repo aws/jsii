@@ -17,7 +17,8 @@ export function resolveDependencyDirectory(packageDir: string, dependencyName: s
 
 export function shell(cmd: string, args: string[], options: SpawnOptions): Promise<string> {
     return new Promise<string>((resolve, reject) => {
-        const child = spawn(cmd, args, { ...options, shell: true, stdio: ['ignore', 'pipe', 'pipe'] });
+        logging.debug(cmd, args.join(' '), JSON.stringify(options));
+        const child = spawn(cmd, args, { ...options, shell: true, env: { ...process.env, ...options.env || {} }, stdio: ['ignore', 'pipe', 'pipe'] });
         const stdout = new Array<Buffer>();
         const stderr = new Array<Buffer>();
         child.stdout.on('data', chunk => {

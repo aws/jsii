@@ -65,7 +65,14 @@ export default class Java extends Target {
         await shell(
             'mvn',
             [...mvnArguments, 'deploy', `-D=altDeploymentRepository=local::default::${url}`, `--settings=${userXml}`],
-            { cwd: sourceDir }
+            {
+                cwd: sourceDir,
+                env: {
+                    // Twiddle the JVM settings a little for Maven. Delaying JIT compilation
+                    // brings down Maven execution time by about 1/3rd (15->10s, 30->20s)
+                    MAVEN_OPTS: `${process.env.MAVEN_OPTS || ''} -XX:+TieredCompilation -XX:TieredStopAtLevel=1`
+                }
+             }
         );
     }
 
@@ -433,7 +440,10 @@ class JavaGenerator extends Generator {
                                 },
                                 configuration: {
                                     failOnError: false,
-                                    show: 'protected'
+                                    show: 'protected',
+                                    // Adding these makes JavaDoc generation about a 3rd faster (which is far and away the most
+                                    // expensive part of the build)
+                                    additionalJOption: ['-J-XX:+TieredCompilation</additionalJOption', '-J-XX:TieredStopAtLevel=1</additionalJOption']
                                 }
                             }]
                         }
