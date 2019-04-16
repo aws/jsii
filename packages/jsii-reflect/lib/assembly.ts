@@ -154,6 +154,16 @@ export class Assembly {
     return this._types[fqn];
   }
 
+  /**
+   * Validate an assembly after loading
+   *
+   * If the assembly was loaded without validation, call this to validate
+   * it after all. Throws an exception if validation fails.
+   */
+  public validate() {
+    jsii.validateAssembly(this.spec);
+  }
+
   private get _dependencies() {
     if (!this._dependencyCache) {
       this._dependencyCache = { };

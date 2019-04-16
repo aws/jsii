@@ -7,6 +7,7 @@ import process = require('process');
 import yargs = require('yargs');
 import logging = require('../lib/logging');
 import { Target } from '../lib/target';
+import { Timers } from '../lib/timer';
 import { resolveDependencyDirectory, shell } from '../lib/util';
 import { VERSION_DESC } from '../lib/version';
 
@@ -128,22 +129,34 @@ import { VERSION_DESC } from '../lib/version';
             await updateNpmIgnore(packageDir, npmIgnoreExclude);
         }
 
+        const timers = new Timers();
+
         const tmpdir = await fs.mkdtemp(path.join(os.tmpdir(), 'npm-pack'));
         try {
-            const tarball = await npmPack(packageDir, tmpdir);
+            const tarball = await timers.recordAsync('npm pack', () => {
+                return npmPack(packageDir, tmpdir);
+            });
             for (const targetName of targets) {
                 // if we are targeting a single language, output to outdir, otherwise outdir/<target>
                 const targetOutputDir = (targets.length > 1 || forceSubdirectory)
                                       ? path.join(outDir, targetName.toString())
                                       : outDir;
                 logging.debug(`Building ${pkg.name}/${targetName}: ${targetOutputDir}`);
-                await generateTarget(packageDir, targetName.toString(), targetOutputDir, tarball);
+
+                await timers.recordAsync(targetName.toString(), () =>
+                    generateTarget(packageDir, targetName.toString(), targetOutputDir, tarball)
+                );
             }
         } finally {
-            logging.debug(`Removing ${tmpdir}`);
+            if (argv.clean) {
+                logging.debug(`Removing ${tmpdir}`);
+            } else {
+                logging.debug(`Temporary directory retained (--no-clean): ${tmpdir}`);
+            }
             await fs.remove(tmpdir);
         }
 
+        logging.info(`Packaged. ${timers.display()}`);
     }
 
     async function generateTarget(packageDir: string, targetName: string, targetOutputDir: string, tarball: string) {
@@ -221,7 +234,7 @@ async function updateNpmIgnore(packageDir: string, excludeOutdir: string | undef
 
     if (modified) {
         await fs.writeFile(npmIgnorePath, lines.join('\n') + '\n');
-        logging.info('Updated .npmignre');
+        logging.info('Updated .npmignore');
     }
 
     function includePattern(comment: string, ...patterns: string[]) {
