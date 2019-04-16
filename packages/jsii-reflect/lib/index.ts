@@ -1,5 +1,6 @@
 export * from './assembly';
 export * from './class';
+export * from './callable';
 export * from './dependency';
 export * from './docs';
 export * from './enum';

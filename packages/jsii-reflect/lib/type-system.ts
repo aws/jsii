@@ -32,18 +32,21 @@ export class TypeSystem {
    * If `fileOrDirectory` is a file, it will be treated as a single .jsii file.
    * If `fileOrDirectory` is a directory, it will be treated as a jsii npm module.
    *
+   * Not validating makes the difference between loading assemblies with lots
+   * of dependencies (such as app-delivery) in 90ms vs 3500ms.
+   *
    * @param fileOrDirectory A .jsii file path or a module directory
+   * @param validate Whether or not to validate the assembly while loading it.
    */
-  public async load(fileOrDirectory: string) {
+  public async load(fileOrDirectory: string, validate = true) {
     if ((await stat(fileOrDirectory)).isDirectory()) {
-      return await this.loadModule(fileOrDirectory);
+      return await this.loadModule(fileOrDirectory, validate);
     } else {
-      return await this.loadFile(fileOrDirectory);
+      return await this.loadFile(fileOrDirectory, true, validate);
     }
   }
 
-  public async loadModule(dir: string): Promise<Assembly> {
-    const visited = new Set<string>();
+  public async loadModule(dir: string, validate = true): Promise<Assembly> {
     const self = this;
 
     const out = await _loadModule(dir, true);
@@ -54,18 +57,29 @@ export class TypeSystem {
     return out;
 
     async function _loadModule(moduleDirectory: string, isRoot = false) {
-      if (visited.has(moduleDirectory)) {
-        return;
-      }
-      visited.add(moduleDirectory);
-
       const filePath = path.join(moduleDirectory, 'package.json');
       const pkg = JSON.parse((await readFile(filePath)).toString());
       if (!pkg.jsii) {
         throw new Error(`No "jsii" section in ${filePath}`);
       }
 
-      const root = await self.loadFile(path.join(moduleDirectory, '.jsii'), isRoot);
+      // Load the assembly, but don't recurse if we already have an assembly with the same name.
+      // Validation is not an insignificant time sink, and loading IS insignificant, so do a
+      // load without validation first. This saves about 2/3rds of processing time.
+      const ass = await self.loadAssembly(path.join(moduleDirectory, '.jsii'), false);
+      if (self.includesAssembly(ass.name)) {
+        const existing = self.findAssembly(ass.name);
+        if (existing.version !== ass.version) {
+          throw new Error(`Conflicting versions of ${ass.name} in type system: previously loaded ${existing.version}, trying to load ${ass.version}`);
+        }
+        return existing;
+      }
+
+      if (validate) {
+        ass.validate();
+      }
+
+      const root = await self.addAssembly(ass, isRoot);
       const bundled: string[] = pkg.bundledDependencies || pkg.bundleDependencies || [];
 
       const loadDependencies = async (deps: { [name: string]: string }) => {
@@ -87,9 +101,9 @@ export class TypeSystem {
     }
   }
 
-  public async loadFile(file: string, isRoot = true) {
-    const spec = JSON.parse((await readFile(file)).toString());
-    return this.addAssembly(new Assembly(this, jsii.validateAssembly(spec)), isRoot);
+  public async loadFile(file: string, isRoot = true, validate = true) {
+    const assembly = await this.loadAssembly(file, validate);
+    return this.addAssembly(assembly, isRoot);
   }
 
   public addAssembly(asm: Assembly, isRoot = true) {
@@ -205,4 +219,16 @@ export class TypeSystem {
     });
     return out;
   }
+
+  /**
+   * Load an assembly without adding it to the typesystem
+   * @param file Assembly file to load
+   * @param validate Whether to validate the assembly or just assume it matches the schema
+   */
+  private async loadAssembly(file: string, validate = true) {
+    const spec = JSON.parse((await readFile(file)).toString());
+    const ass = validate ? jsii.validateAssembly(spec) : spec as jsii.Assembly;
+    return new Assembly(this, ass);
+  }
+
 }
