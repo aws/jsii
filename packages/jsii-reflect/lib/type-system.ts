@@ -38,15 +38,15 @@ export class TypeSystem {
    * @param fileOrDirectory A .jsii file path or a module directory
    * @param validate Whether or not to validate the assembly while loading it.
    */
-  public async load(fileOrDirectory: string, validate = true) {
+  public async load(fileOrDirectory: string, options: { validate?: boolean } = {}) {
     if ((await stat(fileOrDirectory)).isDirectory()) {
-      return await this.loadModule(fileOrDirectory, validate);
+      return await this.loadModule(fileOrDirectory, options);
     } else {
-      return await this.loadFile(fileOrDirectory, true, validate);
+      return await this.loadFile(fileOrDirectory, { ...options, isRoot: true });
     }
   }
 
-  public async loadModule(dir: string, validate = true): Promise<Assembly> {
+  public async loadModule(dir: string, options: { validate?: boolean } = {}): Promise<Assembly> {
     const self = this;
 
     const out = await _loadModule(dir, true);
@@ -66,20 +66,25 @@ export class TypeSystem {
       // Load the assembly, but don't recurse if we already have an assembly with the same name.
       // Validation is not an insignificant time sink, and loading IS insignificant, so do a
       // load without validation first. This saves about 2/3rds of processing time.
-      const ass = await self.loadAssembly(path.join(moduleDirectory, '.jsii'), false);
-      if (self.includesAssembly(ass.name)) {
-        const existing = self.findAssembly(ass.name);
-        if (existing.version !== ass.version) {
-          throw new Error(`Conflicting versions of ${ass.name} in type system: previously loaded ${existing.version}, trying to load ${ass.version}`);
+      const asm = await self.loadAssembly(path.join(moduleDirectory, '.jsii'), false);
+      if (self.includesAssembly(asm.name)) {
+        const existing = self.findAssembly(asm.name);
+        if (existing.version !== asm.version) {
+          throw new Error(`Conflicting versions of ${asm.name} in type system: previously loaded ${existing.version}, trying to load ${asm.version}`);
         }
+        // Make sure that we mark this thing as root after all if it wasn't yet.
+        if (isRoot) {
+          self.addRoot(asm);
+        }
+
         return existing;
       }
 
-      if (validate) {
-        ass.validate();
+      if (options.validate !== false) {
+        asm.validate();
       }
 
-      const root = await self.addAssembly(ass, isRoot);
+      const root = await self.addAssembly(asm, { isRoot });
       const bundled: string[] = pkg.bundledDependencies || pkg.bundleDependencies || [];
 
       const loadDependencies = async (deps: { [name: string]: string }) => {
@@ -101,12 +106,12 @@ export class TypeSystem {
     }
   }
 
-  public async loadFile(file: string, isRoot = true, validate = true) {
-    const assembly = await this.loadAssembly(file, validate);
-    return this.addAssembly(assembly, isRoot);
+  public async loadFile(file: string, options: { isRoot?: boolean, validate?: boolean } = {}) {
+    const assembly = await this.loadAssembly(file, options.validate !== false);
+    return this.addAssembly(assembly, options);
   }
 
-  public addAssembly(asm: Assembly, isRoot = true) {
+  public addAssembly(asm: Assembly, options: { isRoot?: boolean } = {}) {
     if (asm.system !== this) {
       throw new Error('Assembly has been created for different typesystem');
     }
@@ -116,8 +121,8 @@ export class TypeSystem {
       this.assemblies.push(asm);
     }
 
-    if (isRoot && !this.roots.includes(asm)) {
-      this.roots.push(asm);
+    if (options.isRoot !== false) {
+      this.addRoot(asm);
     }
 
     return asm;
@@ -130,6 +135,10 @@ export class TypeSystem {
    */
   public includesAssembly(name: string): boolean {
     return name in this._assemblyLookup;
+  }
+
+  public isRoot(name: string) {
+    return this.roots.map(r => r.name).includes(name);
   }
 
   public findAssembly(name: string) {
@@ -231,4 +240,9 @@ export class TypeSystem {
     return new Assembly(this, ass);
   }
 
+  private addRoot(asm: Assembly) {
+    if (!this.roots.map(r => r.name).includes(asm.name)) {
+      this.roots.push(asm);
+    }
+  }
 }
