@@ -91,7 +91,7 @@ async function loadFromFilesystem(name: string) {
   if (stat.isDirectory()) {
     return await ts.loadModule(name);
   } else {
-    return await ts.loadFile(name, true);
+    return await ts.loadFile(name);
   }
 }
 
