@@ -5347,7 +5347,7 @@ SingleInstanceTwoTypes
 StaticContext
 ^^^^^^^^^^^^^
 
-.. py:class:: StaticContext()
+.. py:class:: StaticContext
 
    **Language-specific names:**
 

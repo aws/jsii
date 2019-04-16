@@ -2129,9 +2129,6 @@ class SingleInstanceTwoTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Singl
 
 
 class StaticContext(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StaticContext"):
-    def __init__(self) -> None:
-        jsii.create(StaticContext, self, [])
-
     @jsii.member(jsii_name="canAccessStaticContext")
     @classmethod
     def can_access_static_context(cls) -> bool:

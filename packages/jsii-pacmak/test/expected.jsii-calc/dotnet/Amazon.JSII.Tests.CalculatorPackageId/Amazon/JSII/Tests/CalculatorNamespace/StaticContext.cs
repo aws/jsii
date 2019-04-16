@@ -7,10 +7,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(StaticContext), fullyQualifiedName: "jsii-calc.StaticContext")]
     public class StaticContext : DeputyBase
     {
-        public StaticContext(): base(new DeputyProps(new object[]{}))
-        {
-        }
-
         protected StaticContext(ByRefValue reference): base(reference)
         {
         }

@@ -5604,7 +5604,6 @@
         "summary": "This is used to validate the ability to use `this` from within a static context."
       },
       "fqn": "jsii-calc.StaticContext",
-      "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
@@ -6698,5 +6697,5 @@
     }
   },
   "version": "0.9.0",
-  "fingerprint": "C0y3p66CUOJDewBR5RE3y7wgqyhxOFdQoqHg0HgSM1w="
+  "fingerprint": "7Kv5qQOHJ4CtCTKoLfaavS4jHjk/HJvT6aWOIZAHTvw="
 }

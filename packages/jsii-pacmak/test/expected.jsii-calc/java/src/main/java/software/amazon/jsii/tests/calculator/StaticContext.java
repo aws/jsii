@@ -11,10 +11,6 @@ public class StaticContext extends software.amazon.jsii.JsiiObject {
     protected StaticContext(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
         super(mode);
     }
-    public StaticContext() {
-        super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
-    }
 
     public static java.lang.Boolean canAccessStaticContext() {
         return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.StaticContext.class, "canAccessStaticContext", java.lang.Boolean.class);
