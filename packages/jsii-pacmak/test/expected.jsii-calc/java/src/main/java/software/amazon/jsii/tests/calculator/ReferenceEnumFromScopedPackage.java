@@ -20,7 +20,7 @@ public class ReferenceEnumFromScopedPackage extends software.amazon.jsii.JsiiObj
     }
 
     public void saveFoo(final software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule value) {
-        this.jsiiCall("saveFoo", Void.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(value, "value is required")).toArray());
+        this.jsiiCall("saveFoo", Void.class, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
 
     @javax.annotation.Nullable

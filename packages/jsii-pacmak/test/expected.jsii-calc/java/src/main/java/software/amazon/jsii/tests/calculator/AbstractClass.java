@@ -42,7 +42,7 @@ public abstract class AbstractClass extends software.amazon.jsii.tests.calculato
 
         @Override
         public java.lang.String abstractMethod(final java.lang.String name) {
-            return this.jsiiCall("abstractMethod", java.lang.String.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(name, "name is required")).toArray());
+            return this.jsiiCall("abstractMethod", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(name, "name is required") });
         }
     }
 }

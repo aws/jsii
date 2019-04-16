@@ -11,7 +11,7 @@ public class Negate extends software.amazon.jsii.tests.calculator.UnaryOperation
     }
     public Negate(final software.amazon.jsii.tests.calculator.lib.Value operand) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.of(java.util.Objects.requireNonNull(operand, "operand is required")).toArray());
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(operand, "operand is required") });
     }
 
     /**

@@ -8,7 +8,7 @@ public class UsesInterfaceWithProperties extends software.amazon.jsii.JsiiObject
     }
     public UsesInterfaceWithProperties(final software.amazon.jsii.tests.calculator.IInterfaceWithProperties obj) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.of(java.util.Objects.requireNonNull(obj, "obj is required")).toArray());
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(obj, "obj is required") });
     }
 
     public java.lang.String justRead() {
@@ -16,11 +16,11 @@ public class UsesInterfaceWithProperties extends software.amazon.jsii.JsiiObject
     }
 
     public java.lang.String readStringAndNumber(final software.amazon.jsii.tests.calculator.IInterfaceWithPropertiesExtension ext) {
-        return this.jsiiCall("readStringAndNumber", java.lang.String.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(ext, "ext is required")).toArray());
+        return this.jsiiCall("readStringAndNumber", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(ext, "ext is required") });
     }
 
     public java.lang.String writeAndRead(final java.lang.String value) {
-        return this.jsiiCall("writeAndRead", java.lang.String.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(value, "value is required")).toArray());
+        return this.jsiiCall("writeAndRead", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
 
     public software.amazon.jsii.tests.calculator.IInterfaceWithProperties getObj() {

@@ -15,21 +15,21 @@ public class GiveMeStructs extends software.amazon.jsii.JsiiObject {
      * Accepts a struct of type DerivedStruct and returns a struct of type FirstStruct.
      */
     public software.amazon.jsii.tests.calculator.lib.MyFirstStruct derivedToFirst(final software.amazon.jsii.tests.calculator.DerivedStruct derived) {
-        return this.jsiiCall("derivedToFirst", software.amazon.jsii.tests.calculator.lib.MyFirstStruct.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(derived, "derived is required")).toArray());
+        return this.jsiiCall("derivedToFirst", software.amazon.jsii.tests.calculator.lib.MyFirstStruct.class, new Object[] { java.util.Objects.requireNonNull(derived, "derived is required") });
     }
 
     /**
      * Returns the boolean from a DerivedStruct struct.
      */
     public software.amazon.jsii.tests.calculator.DoubleTrouble readDerivedNonPrimitive(final software.amazon.jsii.tests.calculator.DerivedStruct derived) {
-        return this.jsiiCall("readDerivedNonPrimitive", software.amazon.jsii.tests.calculator.DoubleTrouble.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(derived, "derived is required")).toArray());
+        return this.jsiiCall("readDerivedNonPrimitive", software.amazon.jsii.tests.calculator.DoubleTrouble.class, new Object[] { java.util.Objects.requireNonNull(derived, "derived is required") });
     }
 
     /**
      * Returns the "anumber" from a MyFirstStruct struct;
      */
     public java.lang.Number readFirstNumber(final software.amazon.jsii.tests.calculator.lib.MyFirstStruct first) {
-        return this.jsiiCall("readFirstNumber", java.lang.Number.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(first, "first is required")).toArray());
+        return this.jsiiCall("readFirstNumber", java.lang.Number.class, new Object[] { java.util.Objects.requireNonNull(first, "first is required") });
     }
 
     public software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals getStructLiteral() {

@@ -11,15 +11,15 @@ public class NullShouldBeTreatedAsUndefined extends software.amazon.jsii.JsiiObj
     }
     public NullShouldBeTreatedAsUndefined(final java.lang.String _param1, @javax.annotation.Nullable final java.lang.Object optional) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.concat(java.util.stream.Stream.of(java.util.Objects.requireNonNull(_param1, "_param1 is required")), java.util.stream.Stream.of(optional)).toArray());
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(_param1, "_param1 is required"), optional });
     }
     public NullShouldBeTreatedAsUndefined(final java.lang.String _param1) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.of(java.util.Objects.requireNonNull(_param1, "_param1 is required")).toArray());
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(_param1, "_param1 is required") });
     }
 
     public void giveMeUndefined(@javax.annotation.Nullable final java.lang.Object value) {
-        this.jsiiCall("giveMeUndefined", Void.class, java.util.stream.Stream.of(value).toArray());
+        this.jsiiCall("giveMeUndefined", Void.class, new Object[] { value });
     }
 
     public void giveMeUndefined() {
@@ -27,7 +27,7 @@ public class NullShouldBeTreatedAsUndefined extends software.amazon.jsii.JsiiObj
     }
 
     public void giveMeUndefinedInsideAnObject(final software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefinedData input) {
-        this.jsiiCall("giveMeUndefinedInsideAnObject", Void.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(input, "input is required")).toArray());
+        this.jsiiCall("giveMeUndefinedInsideAnObject", Void.class, new Object[] { java.util.Objects.requireNonNull(input, "input is required") });
     }
 
     public void verifyPropertyIsUndefined() {

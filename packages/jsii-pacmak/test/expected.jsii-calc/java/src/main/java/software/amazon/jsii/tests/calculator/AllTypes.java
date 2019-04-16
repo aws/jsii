@@ -18,7 +18,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
     }
 
     public void anyIn(@javax.annotation.Nullable final java.lang.Object inp) {
-        this.jsiiCall("anyIn", Void.class, java.util.stream.Stream.of(inp).toArray());
+        this.jsiiCall("anyIn", Void.class, new Object[] { inp });
     }
 
     @javax.annotation.Nullable
@@ -27,7 +27,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
     }
 
     public software.amazon.jsii.tests.calculator.StringEnum enumMethod(final software.amazon.jsii.tests.calculator.StringEnum value) {
-        return this.jsiiCall("enumMethod", software.amazon.jsii.tests.calculator.StringEnum.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(value, "value is required")).toArray());
+        return this.jsiiCall("enumMethod", software.amazon.jsii.tests.calculator.StringEnum.class, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
 
     public java.lang.Number getEnumPropertyValue() {

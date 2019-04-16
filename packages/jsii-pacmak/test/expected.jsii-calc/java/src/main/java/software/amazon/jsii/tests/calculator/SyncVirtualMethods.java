@@ -20,11 +20,11 @@ public class SyncVirtualMethods extends software.amazon.jsii.JsiiObject {
     }
 
     public void modifyOtherProperty(final java.lang.String value) {
-        this.jsiiCall("modifyOtherProperty", Void.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(value, "value is required")).toArray());
+        this.jsiiCall("modifyOtherProperty", Void.class, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
 
     public void modifyValueOfTheProperty(final java.lang.String value) {
-        this.jsiiCall("modifyValueOfTheProperty", Void.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(value, "value is required")).toArray());
+        this.jsiiCall("modifyValueOfTheProperty", Void.class, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
 
     public java.lang.Number readA() {
@@ -44,11 +44,11 @@ public class SyncVirtualMethods extends software.amazon.jsii.JsiiObject {
     }
 
     public java.lang.Number virtualMethod(final java.lang.Number n) {
-        return this.jsiiCall("virtualMethod", java.lang.Number.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(n, "n is required")).toArray());
+        return this.jsiiCall("virtualMethod", java.lang.Number.class, new Object[] { java.util.Objects.requireNonNull(n, "n is required") });
     }
 
     public void writeA(final java.lang.Number value) {
-        this.jsiiCall("writeA", Void.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(value, "value is required")).toArray());
+        this.jsiiCall("writeA", Void.class, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
 
     public java.lang.String getReadonlyProperty() {

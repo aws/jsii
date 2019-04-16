@@ -14,7 +14,7 @@ public class Statics extends software.amazon.jsii.JsiiObject {
     }
     public Statics(final java.lang.String value) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.of(java.util.Objects.requireNonNull(value, "value is required")).toArray());
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
     }
 
     /**
@@ -23,7 +23,7 @@ public class Statics extends software.amazon.jsii.JsiiObject {
      * @param name The name of the person to say hello to.
      */
     public static java.lang.String staticMethod(final java.lang.String name) {
-        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Statics.class, "staticMethod", java.lang.String.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(name, "name is required")).toArray());
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Statics.class, "staticMethod", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(name, "name is required") });
     }
 
     public java.lang.String justMethod() {

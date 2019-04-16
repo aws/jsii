@@ -987,17 +987,9 @@ class JavaGenerator extends Generator {
 
     private renderMethodCallArguments(method: spec.Method) {
         if (!method.parameters || method.parameters.length === 0) { return ''; }
-        let paramStream: string = '';
-        for (const param of method.parameters) {
-            const paramValue = isNullable(param) ? param.name : `java.util.Objects.requireNonNull(${param.name}, "${param.name} is required")`;
-            const thisParam = `${param.variadic ? 'java.util.Arrays.stream' : 'java.util.stream.Stream.of'}(${paramValue})`;
-            if (paramStream === '') {
-                paramStream = thisParam;
-            } else {
-                paramStream = `java.util.stream.Stream.concat(${paramStream}, ${thisParam})`;
-            }
-        }
-        return `, ${paramStream}.toArray()`;
+        const values = method.parameters.map(param =>
+            isNullable(param) ? param.name : `java.util.Objects.requireNonNull(${param.name}, "${param.name} is required")`);
+        return `, new Object[] { ${values.join(', ')} }`;
     }
 
     private renderMethodCall(cls: spec.TypeReference, method: spec.Method, async: boolean) {

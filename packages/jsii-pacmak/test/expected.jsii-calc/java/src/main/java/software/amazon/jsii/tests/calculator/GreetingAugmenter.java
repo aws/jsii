@@ -12,6 +12,6 @@ public class GreetingAugmenter extends software.amazon.jsii.JsiiObject {
     }
 
     public java.lang.String betterGreeting(final software.amazon.jsii.tests.calculator.lib.IFriendly friendly) {
-        return this.jsiiCall("betterGreeting", java.lang.String.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(friendly, "friendly is required")).toArray());
+        return this.jsiiCall("betterGreeting", java.lang.String.class, new Object[] { java.util.Objects.requireNonNull(friendly, "friendly is required") });
     }
 }

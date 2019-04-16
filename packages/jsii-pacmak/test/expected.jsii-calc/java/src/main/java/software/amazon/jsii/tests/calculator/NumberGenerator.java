@@ -11,11 +11,11 @@ public class NumberGenerator extends software.amazon.jsii.JsiiObject {
     }
     public NumberGenerator(final software.amazon.jsii.tests.calculator.IRandomNumberGenerator generator) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.of(java.util.Objects.requireNonNull(generator, "generator is required")).toArray());
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(generator, "generator is required") });
     }
 
     public java.lang.Boolean isSameGenerator(final software.amazon.jsii.tests.calculator.IRandomNumberGenerator gen) {
-        return this.jsiiCall("isSameGenerator", java.lang.Boolean.class, java.util.stream.Stream.of(java.util.Objects.requireNonNull(gen, "gen is required")).toArray());
+        return this.jsiiCall("isSameGenerator", java.lang.Boolean.class, new Object[] { java.util.Objects.requireNonNull(gen, "gen is required") });
     }
 
     public java.lang.Number nextTimes100() {
