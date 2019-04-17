@@ -51,7 +51,7 @@ namespace Amazon.JSII.Generator
         {
             // Strip docs before serializing.
             Parameter[] parameters = (callable?.Parameters ?? Enumerable.Empty<Parameter>())
-                .Select(p => new Parameter(p.Name, p.Type))
+                .Select(p => new Parameter(name: p.Name, type: p.Type, isOptional: p.IsOptional, isVariadic: p.IsVariadic))
                 .ToArray();
 
             return SF.Literal(JsonConvert.SerializeObject(parameters, SerializerSettings));

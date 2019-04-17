@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>A calculator which maintains a current value and allows adding operations.</summary>
-    [JsiiClass(nativeType: typeof(Calculator), fullyQualifiedName: "jsii-calc.Calculator", parametersJson: "[{\"name\":\"props\",\"type\":{\"fqn\":\"jsii-calc.CalculatorProps\"}}]")]
+    [JsiiClass(nativeType: typeof(Calculator), fullyQualifiedName: "jsii-calc.Calculator", parametersJson: "[{\"name\":\"props\",\"type\":{\"fqn\":\"jsii-calc.CalculatorProps\"},\"optional\":true}]")]
     public class Calculator : CompositeOperation_
     {
         public Calculator(ICalculatorProps props): base(new DeputyProps(new object[]{props}))

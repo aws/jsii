@@ -1,6 +1,6 @@
 {
   "name": "codemaker",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "A tiny utility for generating source code",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -13,10 +13,9 @@
   "devDependencies": {
     "@types/decamelize": "^1.2.0",
     "@types/fs-extra": "^5.0.5",
-    "@types/node": "^8.10.43",
     "@types/nodeunit": "^0.0.30",
     "nodeunit": "^0.11.3",
-    "typescript": "^3.4.2"
+    "typescript": "^3.4.3"
   },
   "dependencies": {
     "camelcase": "^5.3.1",
@@ -30,6 +29,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/awslabs/jsii.git"
+    "url": "https://github.com/awslabs/jsii.git",
+    "directory": "packages/codemaker"
   }
 }

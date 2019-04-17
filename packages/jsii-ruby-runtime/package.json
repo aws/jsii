@@ -1,6 +1,6 @@
 {
   "name": "jsii-ruby-runtime",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "Ruby client for jsii runtime",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -14,12 +14,11 @@
     "package": "package-ruby"
   },
   "devDependencies": {
-    "@types/node": "^8.10.43",
-    "jsii-build-tools": "^0.10.0",
-    "jsii-calc": "^0.10.0",
-    "jsii-pacmak": "^0.10.0",
-    "jsii-runtime": "^0.10.0",
-    "typescript": "^3.4.2"
+    "jsii-build-tools": "^0.10.1",
+    "jsii-calc": "^0.10.1",
+    "jsii-pacmak": "^0.10.1",
+    "jsii-runtime": "^0.10.1",
+    "typescript": "^3.4.3"
   },
   "author": {
     "name": "Amazon Web Services",
