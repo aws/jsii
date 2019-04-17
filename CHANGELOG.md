@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.1](https://github.com/awslabs/jsii/compare/v0.10.0...v0.10.1) (2019-04-17)
+
+
+### Bug Fixes
+
+* **dotnet:** Correctly generate "optional" markers ([#466](https://github.com/awslabs/jsii/issues/466)) ([17403dc](https://github.com/awslabs/jsii/commit/17403dc))
+
+
+
+
+
 ## [0.10.0](https://github.com/awslabs/jsii/compare/v0.9.0...v0.10.0) (2019-04-16)
 
 
