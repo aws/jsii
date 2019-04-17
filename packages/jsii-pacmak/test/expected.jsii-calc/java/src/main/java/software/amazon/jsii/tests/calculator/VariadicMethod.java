@@ -11,7 +11,7 @@ public class VariadicMethod extends software.amazon.jsii.JsiiObject {
      */
     public VariadicMethod(final java.lang.Number... prefix) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(prefix, "prefix is required") });
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.Arrays.<Object>stream(prefix).toArray(Object[]::new));
     }
 
     /**
@@ -19,6 +19,6 @@ public class VariadicMethod extends software.amazon.jsii.JsiiObject {
      * @param others other elements to be included in the array.
      */
     public java.util.List<java.lang.Number> asArray(final java.lang.Number first, final java.lang.Number... others) {
-        return this.jsiiCall("asArray", java.util.List.class, new Object[] { java.util.Objects.requireNonNull(first, "first is required"), java.util.Objects.requireNonNull(others, "others is required") });
+        return this.jsiiCall("asArray", java.util.List.class, java.util.stream.Stream.concat(java.util.Arrays.<Object>stream(new Object[] { java.util.Objects.requireNonNull(first, "first is required") }), java.util.Arrays.<Object>stream(others)).toArray(Object[]::new));
     }
 }

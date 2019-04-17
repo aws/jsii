@@ -12,6 +12,6 @@ public class DontComplainAboutVariadicAfterOptional extends software.amazon.jsii
     }
 
     public java.lang.String optionalAndVariadic(@javax.annotation.Nullable final java.lang.String optional, final java.lang.String... things) {
-        return this.jsiiCall("optionalAndVariadic", java.lang.String.class, new Object[] { optional, java.util.Objects.requireNonNull(things, "things is required") });
+        return this.jsiiCall("optionalAndVariadic", java.lang.String.class, java.util.stream.Stream.concat(java.util.Arrays.<Object>stream(new Object[] { optional }), java.util.Arrays.<Object>stream(things)).toArray(Object[]::new));
     }
 }
