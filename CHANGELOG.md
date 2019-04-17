@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [0.10.0](https://github.com/awslabs/jsii/compare/v0.9.0...v0.10.0) (2019-04-16)
+## [0.10.0](https://github.com/awslabs/jsii/compare/v0.9.0...v0.10.0) (2019-04-16)
 
 
 ### Bug Fixes
