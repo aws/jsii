@@ -10,7 +10,6 @@
     "test": "cd project && mvn test --settings=user.xml"
   },
   "devDependencies": {
-    "@types/node": "^8.10.43",
     "jsii-calc": "^0.10.0",
     "jsii-java-runtime": "^0.10.0",
     "jsii-pacmak": "^0.10.0"

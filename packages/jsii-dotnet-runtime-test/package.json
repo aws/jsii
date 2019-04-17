@@ -11,11 +11,10 @@
     "test": "/bin/bash ./test.sh"
   },
   "devDependencies": {
-    "@types/node": "^8.10.43",
     "jsii-calc": "^0.10.0",
     "jsii-dotnet-runtime": "^0.10.0",
     "jsii-pacmak": "^0.10.0",
-    "typescript": "^3.4.2"
+    "typescript": "^3.4.3"
   },
   "author": {
     "name": "Amazon Web Services",

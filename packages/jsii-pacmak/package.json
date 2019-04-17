@@ -22,11 +22,11 @@
   "dependencies": {
     "clone": "^2.1.2",
     "codemaker": "^0.10.0",
-    "escape-string-regexp": "^1.0.5",
+    "escape-string-regexp": "^2.0.0",
     "fs-extra": "^7.0.1",
     "jsii-spec": "^0.10.0",
-    "spdx-license-list": "^5.0.0",
-    "xmlbuilder": "^11.0.0",
+    "spdx-license-list": "^6.0.0",
+    "xmlbuilder": "^12.0.0",
     "yargs": "^13.2.2"
   },
   "devDependencies": {
@@ -34,10 +34,9 @@
     "@types/clone": "^0.1.30",
     "@types/escape-string-regexp": "^1.0.0",
     "@types/fs-extra": "^5.0.5",
-    "@types/node": "^8.10.43",
     "@types/nodeunit": "^0.0.30",
-    "@types/xmlbuilder": "^0.0.34",
-    "@types/yargs": "^12.0.9",
+    "@types/xmlbuilder": "^11.0.1",
+    "@types/yargs": "^13.0.0",
     "jsii-build-tools": "^0.10.0",
     "jsii-calc": "^0.10.0",
     "jsii-dotnet-generator": "^0.10.0",
@@ -45,8 +44,8 @@
     "jsii-dotnet-runtime": "^0.10.0",
     "jsii-java-runtime": "^0.10.0",
     "nodeunit": "^0.11.3",
-    "tslint": "^5.13.1",
-    "typescript": "^3.4.2"
+    "tslint": "^5.16.0",
+    "typescript": "^3.4.3"
   },
   "author": {
     "name": "Amazon Web Services",
@@ -55,6 +54,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/awslabs/jsii.git"
+    "url": "https://github.com/awslabs/jsii.git",
+    "directory": "packages/jsii-pacmak"
   }
 }

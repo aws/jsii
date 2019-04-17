@@ -12,9 +12,8 @@
     "package": "package-dotnet"
   },
   "devDependencies": {
-    "@types/node": "^8.10.43",
     "jsii-build-tools": "^0.10.0",
-    "typescript": "^3.4.2"
+    "typescript": "^3.4.3"
   },
   "author": {
     "name": "Amazon Web Services",
