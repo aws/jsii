@@ -4,6 +4,7 @@ import { CodeMaker, toSnakeCase } from 'codemaker';
 import * as escapeStringRegexp from 'escape-string-regexp';
 import * as spec from 'jsii-spec';
 import { Generator, GeneratorOptions } from '../generator';
+import { md2rst } from '../markdown';
 import { Target, TargetOptions } from '../target';
 import { shell } from '../util';
 
@@ -181,7 +182,7 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     protected bases: spec.TypeReference[];
     protected members: PythonBase[];
 
-    constructor(name: string, fqn: string, opts: PythonTypeOpts) {
+    constructor(name: string, fqn: string, opts: PythonTypeOpts, private readonly docs: spec.Docs | undefined) {
         const {
             bases = [],
         } = opts;
@@ -234,6 +235,7 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
         const bases = classParams.length > 0 ? `(${classParams.join(", ")})` : "";
 
         code.openBlock(`class ${this.name}${bases}`);
+        emitDocString(code, this.docs);
 
         this.emitPreamble(code, resolver);
 
@@ -282,6 +284,7 @@ abstract class BaseMethod implements PythonBase {
                 private readonly jsName: string | undefined,
                 private readonly parameters: spec.Parameter[],
                 private readonly returns?: spec.OptionalValue,
+                private readonly docs?: spec.Docs,
                 opts: BaseMethodOpts = {}) {
         this.abstract = !!opts.abstract;
         this.liftedProp = opts.liftedProp;
@@ -383,6 +386,7 @@ abstract class BaseMethod implements PythonBase {
         }
 
         code.openBlock(`def ${this.name}(${pythonParams.join(", ")}) -> ${returnType}`);
+        emitDocString(code, this.docs, this.parameters);
         this.emitBody(code, resolver, renderAbstract, forceEmitBody);
         code.closeBlock();
     }
@@ -708,8 +712,8 @@ class Class extends BasePythonClassType {
     private abstractBases: spec.ClassType[];
     private interfaces: spec.NamedTypeReference[];
 
-    constructor(name: string, fqn: string, opts: ClassOpts) {
-        super(name, fqn, opts);
+    constructor(name: string, fqn: string, opts: ClassOpts, docs: spec.Docs | undefined) {
+        super(name, fqn, opts, docs);
 
         const { abstract = false, interfaces = [], abstractBases = [] } = opts;
 
@@ -1420,6 +1424,7 @@ class PythonGenerator extends Generator {
                     toPythonIdentifier(ns.replace(/^.+\.([^\.]+)$/, "$1")),
                     ns,
                     {},
+                    undefined,
                 ),
             );
         }
@@ -1433,8 +1438,9 @@ class PythonGenerator extends Generator {
                 abstract,
                 bases: (cls.base && [this.findType(cls.base)]) || [],
                 interfaces: cls.interfaces && cls.interfaces.map(base => this.findType(base)),
-                abstractBases: abstract ? this.getAbstractBases(cls) : []
-            }
+                abstractBases: abstract ? this.getAbstractBases(cls) : [],
+            },
+            cls.docs,
         );
 
         if (cls.initializer !== undefined) {
@@ -1446,6 +1452,7 @@ class PythonGenerator extends Generator {
                     undefined,
                     parameters,
                     undefined,
+                    cls.initializer.docs,
                     { liftedProp: this.getliftedProp(cls.initializer), parent: cls },
                 )
             );
@@ -1463,6 +1470,7 @@ class PythonGenerator extends Generator {
                 method.name,
                 parameters,
                 method.returns,
+                method.docs,
                 { abstract: method.abstract, liftedProp: this.getliftedProp(method) },
             )
         );
@@ -1489,6 +1497,7 @@ class PythonGenerator extends Generator {
                     method.name,
                     parameters,
                     method.returns,
+                    method.docs,
                     { abstract: method.abstract, liftedProp: this.getliftedProp(method) },
                 )
             );
@@ -1499,6 +1508,7 @@ class PythonGenerator extends Generator {
                     method.name,
                     parameters,
                     method.returns,
+                    method.docs,
                     { abstract: method.abstract, liftedProp: this.getliftedProp(method) },
                 )
             );
@@ -1528,12 +1538,14 @@ class PythonGenerator extends Generator {
                 toPythonIdentifier(ifc.name),
                 ifc.fqn,
                 { bases: ifc.interfaces && ifc.interfaces.map(base => this.findType(base)) },
+                ifc.docs,
             );
         } else {
             iface = new Interface(
                 toPythonIdentifier(ifc.name),
                 ifc.fqn,
                 { bases: ifc.interfaces && ifc.interfaces.map(base => this.findType(base)) },
+                ifc.docs,
             );
         }
 
@@ -1551,6 +1563,7 @@ class PythonGenerator extends Generator {
                 method.name,
                 parameters,
                 method.returns,
+                method.docs,
                 { liftedProp: this.getliftedProp(method) },
             )
         );
@@ -1577,7 +1590,7 @@ class PythonGenerator extends Generator {
     }
 
     protected onBeginEnum(enm: spec.EnumType) {
-        this.addPythonType(new Enum(toPythonIdentifier(enm.name), enm.fqn, {}));
+        this.addPythonType(new Enum(toPythonIdentifier(enm.name), enm.fqn, {}, enm.docs));
     }
 
     protected onEnumMember(enm: spec.EnumType, member: spec.EnumMember) {
@@ -1672,4 +1685,81 @@ class PythonGenerator extends Generator {
 
         return abstractBases;
     }
+}
+
+function emitDocString(code: CodeMaker, docs: spec.Docs | undefined, params?: spec.Parameter[]) {
+    if (!docs) { return; }
+    if (Object.keys(docs).length === 0) { return; }
+
+    const lines = new Array<string>();
+
+    lines.push(md2rst(docs.summary || ''));
+
+    function brk() {
+        if (lines.length > 0 && lines[lines.length - 1].trim() !== '') { lines.push(''); }
+    }
+
+    function block(heading: string, content: string, doBrk = true) {
+        if (doBrk) { brk(); }
+        lines.push(heading);
+        for (const line of md2rst(content).split('\n')) {
+            lines.push(`    ${line}`);
+        }
+        if (doBrk) { brk(); }
+    }
+
+    if (docs.remarks) {
+        brk();
+        lines.push(...md2rst(docs.remarks || '').split('\n'));
+        brk();
+    }
+
+    if (params && params.some(p => p.docs && p.docs.summary ? true : false)) {
+        brk();
+        lines.push('Arguments:');
+        for (const param of params) {
+            if (param.docs && param.docs.summary) {
+                lines.push(`    ${param.name}: ${param.docs.summary}`);
+            }
+        }
+        brk();
+    }
+
+    if (docs.default) { block('Default:', docs.default); }
+    if (docs.returns) { block('Returns:', docs.returns); }
+    if (docs.deprecated) { block('Deprecated:', docs.deprecated); }
+    if (docs.see) { block('See:', docs.see, false); }
+    if (docs.stability) { block('Stability:', docs.stability, false); }
+    if (docs.subclassable) { block('Subclassable:', 'Yes'); }
+
+    for (const [k, v] of Object.entries(docs.custom || {})) {
+        block(k + ':', v, false);
+    }
+
+    if (docs.example) {
+        brk();
+        lines.push('Example::');
+        for (const line of docs.example.split('\n')) {
+            lines.push(`    ${line}`);
+        }
+        brk();
+    }
+
+    while (lines.length > 0 && lines[lines.length - 1] === '') { lines.pop(); }
+
+    if (lines.length === 0) { return; }
+
+    if (lines.length === 1) {
+        code.line(`"""${lines[0]}"""`);
+        return;
+    }
+
+    code.line(`"""${lines[0]}`);
+    lines.splice(0, 1);
+
+    for (const line of lines) {
+        code.line(line);
+    }
+
+    code.line(`"""`);
 }
