@@ -32,7 +32,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// This will print out a friendly greeting intended for
         /// the indicated person.
         /// </remarks>
-        [JsiiMethod(name: "greet", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[{\"name\":\"greetee\",\"type\":{\"fqn\":\"jsii-calc.Greetee\"}}]")]
+        [JsiiMethod(name: "greet", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[{\"name\":\"greetee\",\"type\":{\"fqn\":\"jsii-calc.Greetee\"},\"optional\":true}]")]
         public virtual double Greet(IGreetee greetee)
         {
             return InvokeInstanceMethod<double>(new object[]{greetee});

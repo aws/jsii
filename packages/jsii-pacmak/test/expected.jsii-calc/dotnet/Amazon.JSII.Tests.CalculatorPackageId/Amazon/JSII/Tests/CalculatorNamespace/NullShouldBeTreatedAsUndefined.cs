@@ -3,7 +3,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>jsii#282, aws-cdk#157: null should be treated as "undefined".</summary>
-    [JsiiClass(nativeType: typeof(NullShouldBeTreatedAsUndefined), fullyQualifiedName: "jsii-calc.NullShouldBeTreatedAsUndefined", parametersJson: "[{\"name\":\"_param1\",\"type\":{\"primitive\":\"string\"}},{\"name\":\"optional\",\"type\":{\"primitive\":\"any\"}}]")]
+    [JsiiClass(nativeType: typeof(NullShouldBeTreatedAsUndefined), fullyQualifiedName: "jsii-calc.NullShouldBeTreatedAsUndefined", parametersJson: "[{\"name\":\"_param1\",\"type\":{\"primitive\":\"string\"}},{\"name\":\"optional\",\"type\":{\"primitive\":\"any\"},\"optional\":true}]")]
     public class NullShouldBeTreatedAsUndefined : DeputyBase
     {
         public NullShouldBeTreatedAsUndefined(string _param1, object optional): base(new DeputyProps(new object[]{_param1, optional}))
@@ -25,7 +25,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        [JsiiMethod(name: "giveMeUndefined", parametersJson: "[{\"name\":\"value\",\"type\":{\"primitive\":\"any\"}}]")]
+        [JsiiMethod(name: "giveMeUndefined", parametersJson: "[{\"name\":\"value\",\"type\":{\"primitive\":\"any\"},\"optional\":true}]")]
         public virtual void GiveMeUndefined(object value)
         {
             InvokeInstanceVoidMethod(new object[]{value});
