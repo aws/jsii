@@ -136,6 +136,38 @@ namespace Amazon.JSII.Generator.UnitTests
 
                 Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
             }
+
+            [Fact(DisplayName = _Prefix + nameof(PreservesOptionality))]
+            public void PreservesOptionality()
+            {
+                Method method = new Method
+                (
+                    isProtected: false,
+                    isAbstract: false,
+                    name: "myMethod",
+                    parameters: new[]
+                    {
+                        new Parameter
+                        (
+                            name: "myParam1",
+                            type: new TypeReference("myParamTypeFqn1")
+                        ),
+                        new Parameter
+                        (
+                            name: "myParam2",
+                            type: new TypeReference("myParamTypeFqn2"),
+                            isOptional: true
+                        )
+                    }
+                );
+
+                SyntaxToken token = method.GetParametersJsonSyntaxToken();
+
+                string actual = token.ToString();
+                string expected = @"""[{\""name\"":\""myParam1\"",\""type\"":{\""fqn\"":\""myParamTypeFqn1\""}},{\""name\"":\""myParam2\"",\""type\"":{\""fqn\"":\""myParamTypeFqn2\""},\""optional\"":true}]""";
+
+                Assert.Equal(expected, actual, ignoreLineEndingDifferences: true);
+            }
         }
     }
 }
