@@ -50,6 +50,7 @@ import software.amazon.jsii.tests.calculator.Sum;
 import software.amazon.jsii.tests.calculator.SyncVirtualMethods;
 import software.amazon.jsii.tests.calculator.UnionProperties;
 import software.amazon.jsii.tests.calculator.UsesInterfaceWithProperties;
+import software.amazon.jsii.tests.calculator.VariadicMethod;
 import software.amazon.jsii.tests.calculator.composition.CompositeOperation;
 import software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule;
 import software.amazon.jsii.tests.calculator.lib.IFriendly;
@@ -1027,6 +1028,13 @@ public class ComplianceTest {
         final ConstructorPassesThisOut object = new ConstructorPassesThisOut(reflector);
 
         assertTrue(object != null);
+    }
+
+    @Test
+    public void variadicMethodCanBeInvoked() {
+        final VariadicMethod variadicMethod = new VariadicMethod(1);
+        final List<java.lang.Number> result = variadicMethod.asArray(3, 4, 5, 6);
+        assertEquals(Arrays.asList(1, 3, 4, 5, 6), result);
     }
 
     static class PartiallyInitializedThisConsumerImpl extends PartiallyInitializedThisConsumer {

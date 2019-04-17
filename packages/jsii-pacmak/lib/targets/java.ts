@@ -997,9 +997,28 @@ class JavaGenerator extends Generator {
 
     private renderMethodCallArguments(method: spec.Method) {
         if (!method.parameters || method.parameters.length === 0) { return ''; }
-        const values = method.parameters.map(param =>
-            isNullable(param) ? param.name : `java.util.Objects.requireNonNull(${param.name}, "${param.name} is required")`);
-        return `, new Object[] { ${values.join(', ')} }`;
+        const regularParams = method.parameters.filter(p => !p.variadic);
+        const values = regularParams.map(_renderParameter);
+        const valueStr = `new Object[] { ${values.join(', ')} }`;
+        if (method.variadic) {
+            const valuesStream = `java.util.Arrays.<Object>stream(${valueStr})`;
+
+            const lastParam = method.parameters[method.parameters.length - 1];
+            const restStream = `java.util.Arrays.<Object>stream(${lastParam.name})`;
+
+            const fullStream = regularParams.length > 0
+                ? `java.util.stream.Stream.concat(${valuesStream}, ${restStream})`
+                : restStream;
+            return `, ${fullStream}.toArray(Object[]::new)`;
+        } else {
+            return `, ${valueStr}`;
+        }
+
+        function _renderParameter(param: spec.Parameter) {
+            return isNullable(param)
+                ? param.name
+                : `java.util.Objects.requireNonNull(${param.name}, "${param.name} is required")`;
+        }
     }
 
     private renderMethodCall(cls: spec.TypeReference, method: spec.Method, async: boolean) {
