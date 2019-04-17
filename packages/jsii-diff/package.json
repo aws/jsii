@@ -20,20 +20,19 @@
     "devDependencies": {
         "@types/fs-extra": "^5.0.5",
         "@types/log4js": "^2.3.5",
-        "@types/node": "^8.10.43",
         "@types/nodeunit": "^0.0.30",
         "@types/tar-fs": "^1.16.1",
-        "@types/yargs": "^12.0.9",
+        "@types/yargs": "^13.0.0",
         "jsii": "^0.10.0",
         "jsii-build-tools": "^0.10.0",
         "nodeunit": "^0.11.3",
-        "nyc": "^13.3.0"
+        "nyc": "^14.0.0"
     },
     "dependencies": {
         "jsii-reflect": "^0.10.0",
         "jsii-spec": "^0.10.0",
         "log4js": "^4.1.0",
-        "typescript": "^3.4.2",
+        "typescript": "^3.4.3",
         "yargs": "^13.2.2"
     },
     "nyc": {
