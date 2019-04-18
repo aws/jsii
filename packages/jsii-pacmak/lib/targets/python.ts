@@ -1113,7 +1113,7 @@ class Package {
             packages: modules.map(m => m.name),
             package_data: packageData,
             python_requires: ">=3.6",
-            install_requires: ["jsii", "publication>=0.0.3"].concat(dependencies),
+            install_requires: [`jsii~=${this.metadata.jsiiVersion}`, "publication>=0.0.3"].concat(dependencies),
         };
 
         // We Need a setup.py to make this Package, actually a Package.
