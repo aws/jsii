@@ -1154,6 +1154,18 @@ assemblies
  │   │     │ └─┬ count
  │   │     │   └── type: number
  │   │     └── returns: number
+ │   ├─┬ class VoidCallback
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├─┬ callMe() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ overrideMe() method
+ │   │   │ ├── abstract
+ │   │   │ ├── protected
+ │   │   │ └── returns: void
+ │   │   └─┬ methodWasCalled property
+ │   │     ├── immutable
+ │   │     └── type: boolean
  │   ├─┬ class CompositeOperation
  │   │ ├── base: Operation
  │   │ └─┬ members
