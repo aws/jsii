@@ -1761,13 +1761,13 @@ function emitDocString(code: CodeMaker, docs: spec.Docs | undefined, options: {
         brk();
     }
 
-    if (options.arguments && options.arguments.some(p => p.docs && p.docs.summary ? true : false)) {
+    if (options.arguments && options.arguments.length > 0) {
         brk();
         lines.push('Arguments:');
         for (const param of options.arguments) {
-            if (param.docs && param.docs.summary) {
-                lines.push(`    ${param.name}: ${onelineDescription(param.docs)}`);
-            }
+            // Add a line for every argument. Even if there is no description, we need
+            // the docstring so that the Sphinx extension can add the type annotations.
+            lines.push(`    ${param.name}: ${onelineDescription(param.docs)}`);
         }
         brk();
     }
@@ -1814,8 +1814,10 @@ function emitDocString(code: CodeMaker, docs: spec.Docs | undefined, options: {
 /**
  * Render a one-line description of the given docs, used for method arguments and inlined properties
  */
-function onelineDescription(docs: spec.Docs) {
+function onelineDescription(docs: spec.Docs | undefined) {
     // Only consider a subset of fields here, we don't have a lot of formatting space
+    if (!docs) { return '-'; }
+
     const parts = [];
     if (docs.summary) { parts.push(md2rst(docs.summary)); }
     if (docs.remarks) { parts.push(md2rst(docs.remarks)); }
