@@ -348,6 +348,8 @@ abstract class BaseMethod implements PythonBase {
             pythonParams.push(`${paramName}: ${paramType}${paramDefault}`);
         }
 
+        const documentableArgs = [...this.parameters];
+
         // If we have a lifted parameter, then we'll drop the last argument to our params
         // and then we'll lift all of the params of the lifted type as keyword arguments
         // to the function.
@@ -370,6 +372,9 @@ abstract class BaseMethod implements PythonBase {
                     pythonParams.push(`${paramName}: ${paramType}${paramDefault}`);
                 }
             }
+
+            // Document them as keyword arguments
+            documentableArgs.push(...liftedProperties);
         } else if (this.parameters.length >= 1 && this.parameters[this.parameters.length - 1].variadic) {
             // Another situation we could be in, is that instead of having a plain parameter
             // we have a variadic parameter where we need to expand the last parameter as a
@@ -399,7 +404,7 @@ abstract class BaseMethod implements PythonBase {
         }
 
         code.openBlock(`def ${this.name}(${pythonParams.join(", ")}) -> ${returnType}`);
-        emitDocString(code, this.docs, { methodParameters: this.parameters });
+        emitDocString(code, this.docs, { arguments: documentableArgs });
         this.emitBody(code, resolver, renderAbstract, forceEmitBody);
         code.closeBlock();
     }
@@ -891,18 +896,14 @@ class Enum extends BasePythonClassType {
 }
 
 class EnumMember implements PythonBase {
-
-    public readonly name: string;
-
-    private readonly value: string;
-
-    constructor(name: string, value: string) {
+    constructor(public readonly name: string, private readonly value: string, private readonly docs: spec.Docs | undefined) {
         this.name = name;
         this.value = value;
     }
 
     public emit(code: CodeMaker, _resolver: TypeResolver) {
         code.line(`${this.name} = "${this.value}"`);
+        emitDocString(code, this.docs);
     }
 }
 
@@ -1628,6 +1629,7 @@ class PythonGenerator extends Generator {
             new EnumMember(
                 toPythonIdentifier(member.name),
                 member.name,
+                member.docs,
             )
         );
     }
@@ -1717,11 +1719,19 @@ class PythonGenerator extends Generator {
     }
 }
 
+/**
+ * Positional argument or keyword parameter
+ */
+interface DocumentableArgument {
+    name: string;
+    docs?: spec.Docs;
+}
+
 function emitDocString(code: CodeMaker, docs: spec.Docs | undefined, options: {
-        methodParameters?: spec.Parameter[]
+        arguments?: DocumentableArgument[]
         } = {}) {
-    if (!docs) { return; }
-    if (Object.keys(docs).length === 0) { return; }
+    if ((!docs || Object.keys(docs).length === 0) && !options.arguments) { return; }
+    if (!docs) { docs = {}; }
 
     const lines = new Array<string>();
 
@@ -1751,12 +1761,12 @@ function emitDocString(code: CodeMaker, docs: spec.Docs | undefined, options: {
         brk();
     }
 
-    if (options.methodParameters && options.methodParameters.some(p => p.docs && p.docs.summary ? true : false)) {
+    if (options.arguments && options.arguments.some(p => p.docs && p.docs.summary ? true : false)) {
         brk();
         lines.push('Arguments:');
-        for (const param of options.methodParameters) {
+        for (const param of options.arguments) {
             if (param.docs && param.docs.summary) {
-                lines.push(`    ${param.name}: ${param.docs.summary}`);
+                lines.push(`    ${param.name}: ${onelineDescription(param.docs)}`);
             }
         }
         brk();
@@ -1766,7 +1776,7 @@ function emitDocString(code: CodeMaker, docs: spec.Docs | undefined, options: {
     if (docs.returns) { block('Returns:', docs.returns); }
     if (docs.deprecated) { block('Deprecated:', docs.deprecated); }
     if (docs.see) { block('See:', docs.see, false); }
-    if (docs.stability) { block('Stability:', docs.stability, false); }
+    if (docs.stability === spec.Stability.Experimental) { block('Stability:', docs.stability, false); }
     if (docs.subclassable) { block('Subclassable:', 'Yes'); }
 
     for (const [k, v] of Object.entries(docs.custom || {})) {
@@ -1799,4 +1809,16 @@ function emitDocString(code: CodeMaker, docs: spec.Docs | undefined, options: {
     }
 
     code.line(`"""`);
+}
+
+/**
+ * Render a one-line description of the given docs, used for method arguments and inlined properties
+ */
+function onelineDescription(docs: spec.Docs) {
+    // Only consider a subset of fields here, we don't have a lot of formatting space
+    const parts = [];
+    if (docs.summary) { parts.push(md2rst(docs.summary)); }
+    if (docs.remarks) { parts.push(md2rst(docs.remarks)); }
+    if (docs.default) { parts.push(`Default: ${md2rst(docs.default)}`); }
+    return parts.join(' ').replace(/\s+/g, ' ');
 }
