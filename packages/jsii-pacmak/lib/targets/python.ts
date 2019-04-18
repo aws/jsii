@@ -1097,6 +1097,9 @@ class Package {
         code.line(this.metadata.readme !== undefined ? this.metadata.readme.markdown : "");
         code.closeFile("README.md");
 
+        // Strip " (build abcdef)" from the jsii version
+        const jsiiVersionSimple = this.metadata.jsiiVersion.replace(/ .*$/, '');
+
         const setupKwargs = {
             name: this.name,
             version: this.version,
@@ -1113,7 +1116,7 @@ class Package {
             packages: modules.map(m => m.name),
             package_data: packageData,
             python_requires: ">=3.6",
-            install_requires: [`jsii~=${this.metadata.jsiiVersion}`, "publication>=0.0.3"].concat(dependencies),
+            install_requires: [`jsii~=${jsiiVersionSimple}`, "publication>=0.0.3"].concat(dependencies),
         };
 
         // We Need a setup.py to make this Package, actually a Package.
