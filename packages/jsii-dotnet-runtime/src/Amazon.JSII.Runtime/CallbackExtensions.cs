@@ -77,10 +77,8 @@ namespace Amazon.JSII.Runtime
             }
 
             JsiiMethodAttribute attribute = methodInfo.GetCustomAttribute<JsiiMethodAttribute>();
-            return new CallbackResult(
-                attribute?.Returns,
-                methodInfo.Invoke(deputy, request.Arguments.Select(arg => FromKernel(arg, referenceMap)).ToArray())
-            );
+            var returnValue = methodInfo.Invoke(deputy, request.Arguments.Select(arg => FromKernel(arg, referenceMap)).ToArray());
+            return attribute?.Returns != null ? new CallbackResult(attribute?.Returns, returnValue) : null;
         }
 
         static CallbackResult InvokeGetter(GetRequest request, IReferenceMap referenceMap)

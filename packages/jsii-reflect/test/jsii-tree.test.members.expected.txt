@@ -512,6 +512,12 @@ assemblies
  │   │   ├── parallelSumAsync(count) method
  │   │   ├── serialSumAsync(count) method
  │   │   └── sumSync(count) method
+ │   ├─┬ class VoidCallback
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── callMe() method
+ │   │   ├── overrideMe() method
+ │   │   └── methodWasCalled property
  │   ├─┬ class CompositeOperation
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer

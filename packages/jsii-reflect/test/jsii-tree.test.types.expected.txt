@@ -75,6 +75,7 @@ assemblies
  │   ├── class UsesInterfaceWithProperties
  │   ├── class VariadicMethod
  │   ├── class VirtualMethodPlayground
+ │   ├── class VoidCallback
  │   ├── class CompositeOperation
  │   ├── interface CalculatorProps
  │   ├── interface DerivedStruct

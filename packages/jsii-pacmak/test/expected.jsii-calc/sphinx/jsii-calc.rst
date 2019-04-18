@@ -6152,6 +6152,63 @@ VirtualMethodPlayground
       :rtype: number
 
 
+VoidCallback
+^^^^^^^^^^^^
+
+.. py:class:: VoidCallback()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.VoidCallback;
+
+      .. code-tab:: javascript
+
+         const { VoidCallback } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { VoidCallback } from 'jsii-calc';
+
+
+
+   This test is used to validate the runtimes can return correctly from a void callback.
+
+   
+
+   - Implement `overrideMe` (method does not have to do anything).
+
+   - Invoke `callMe`
+
+   - Verify that `methodWasCalled` is `true`.
+
+
+
+   :abstract: Yes
+
+   .. py:method:: callMe()
+
+
+
+   .. py:method:: overrideMe()
+
+      *Protected method*
+
+      :abstract: Yes
+
+
+   .. py:attribute:: methodWasCalled
+
+      :type: boolean *(readonly)*
+
+
 
 composition
 ^^^^^^^^^^^

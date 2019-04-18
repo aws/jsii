@@ -1663,3 +1663,22 @@ export class StaticContext {
 
     private constructor() { }
 }
+
+/**
+ * This test is used to validate the runtimes can return correctly from a void callback.
+ *
+ * - Implement `overrideMe` (method does not have to do anything).
+ * - Invoke `callMe`
+ * - Verify that `methodWasCalled` is `true`.
+ */
+export abstract class VoidCallback {
+    private _methodWasCalled = false;
+    public get methodWasCalled(): boolean {
+        return this._methodWasCalled;
+    }
+    public callMe(): void {
+        this.overrideMe();
+        this._methodWasCalled = true;
+    }
+    protected abstract overrideMe(): void;
+}

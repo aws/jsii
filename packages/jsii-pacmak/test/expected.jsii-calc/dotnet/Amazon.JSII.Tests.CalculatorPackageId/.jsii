@@ -6551,6 +6551,53 @@
       ],
       "name": "VirtualMethodPlayground"
     },
+    "jsii-calc.VoidCallback": {
+      "abstract": true,
+      "assembly": "jsii-calc",
+      "docs": {
+        "remarks": "- Implement `overrideMe` (method does not have to do anything).\n- Invoke `callMe`\n- Verify that `methodWasCalled` is `true`.",
+        "summary": "This test is used to validate the runtimes can return correctly from a void callback."
+      },
+      "fqn": "jsii-calc.VoidCallback",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1674
+      },
+      "methods": [
+        {
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1679
+          },
+          "name": "callMe"
+        },
+        {
+          "abstract": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1683
+          },
+          "name": "overrideMe",
+          "protected": true
+        }
+      ],
+      "name": "VoidCallback",
+      "properties": [
+        {
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1676
+          },
+          "name": "methodWasCalled",
+          "type": {
+            "primitive": "boolean"
+          }
+        }
+      ]
+    },
     "jsii-calc.composition.CompositeOperation": {
       "abstract": true,
       "assembly": "jsii-calc",
@@ -6697,5 +6744,5 @@
     }
   },
   "version": "0.10.1",
-  "fingerprint": "xAP41ArR/7KF9tmWHGtBlronNIVBQ/oDKKrhPoZ8otA="
+  "fingerprint": "975zFxt3ZCRvNKhp/Yh0HUwj9Gqz6I7YcagcGWY7UIY="
 }
