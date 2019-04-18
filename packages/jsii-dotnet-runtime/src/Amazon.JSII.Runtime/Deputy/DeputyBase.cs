@@ -63,7 +63,7 @@ namespace Amazon.JSII.Runtime.Deputy
 
             IEnumerable<Override> GetMethodOverrides()
             {
-                foreach (MethodInfo method in type.GetMethods())
+                foreach (MethodInfo method in type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
                 {
                     JsiiMethodAttribute inheritedAttribute = method.GetCustomAttribute<JsiiMethodAttribute>(true);
                     JsiiMethodAttribute uninheritedAttribute = method.GetCustomAttribute<JsiiMethodAttribute>(false);
@@ -77,7 +77,7 @@ namespace Amazon.JSII.Runtime.Deputy
 
             IEnumerable<Override> GetPropertyOverrides()
             {
-                foreach (PropertyInfo property in type.GetProperties())
+                foreach (PropertyInfo property in type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
                 {
                     JsiiPropertyAttribute inheritedAttribute = property.GetCustomAttribute<JsiiPropertyAttribute>(true);
                     JsiiPropertyAttribute uninheritedAttribute = property.GetCustomAttribute<JsiiPropertyAttribute>(false);

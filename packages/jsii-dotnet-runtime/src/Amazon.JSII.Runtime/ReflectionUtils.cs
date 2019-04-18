@@ -26,7 +26,7 @@ namespace Amazon.JSII.Runtime
 
         public static MethodInfo GetNativeMethod(Type classType, string name)
         {
-            MethodInfo methodInfo = classType.GetMethods().FirstOrDefault(method =>
+            MethodInfo methodInfo = classType.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).FirstOrDefault(method =>
             {
                 JsiiMethodAttribute attribute = method.GetCustomAttribute<JsiiMethodAttribute>();
 
@@ -44,7 +44,7 @@ namespace Amazon.JSII.Runtime
 
         public static PropertyInfo GetNativeProperty(Type classType, string name)
         {
-            PropertyInfo propertyInfo = classType.GetProperties().FirstOrDefault(property =>
+            PropertyInfo propertyInfo = classType.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).FirstOrDefault(property =>
             {
                 JsiiPropertyAttribute attribute = property.GetCustomAttribute<JsiiPropertyAttribute>();
 

@@ -905,7 +905,24 @@ namespace Amazon.JSII.Runtime.IntegrationTests
 
             Assert.NotNull(obj);
         }
+        
+        [Fact(DisplayName = Prefix + nameof(CorrectlyReturnsFromVoidCallback))]
+        public void CorrectlyReturnsFromVoidCallback()
+        {
+            var voidCallback = new VoidCallbackImpl();
+            voidCallback.CallMe();
+            
+            Assert.True(voidCallback.MethodWasCalled);
+        }
 
+        class VoidCallbackImpl : VoidCallback
+        {
+            protected override void OverrideMe()
+            {
+                // Do nothing!
+            }
+        }
+        
         class PartiallyInitializedThisConsumerImpl : PartiallyInitializedThisConsumer
         {
             public override String ConsumePartiallyInitializedThis(ConstructorPassesThisOut obj, DateTime dt, AllTypesEnum ev)
@@ -959,10 +976,6 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                 : base(new Number(value), new Number(10))
             {
             }
-        }
-
-        class DerivedFromAllTypes : AllTypes
-        {
         }
 
         class OverrideAsyncMethods : AsyncVirtualMethods

@@ -126,6 +126,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.UsesInterfaceWithProperties": return software.amazon.jsii.tests.calculator.UsesInterfaceWithProperties.class;
             case "jsii-calc.VariadicMethod": return software.amazon.jsii.tests.calculator.VariadicMethod.class;
             case "jsii-calc.VirtualMethodPlayground": return software.amazon.jsii.tests.calculator.VirtualMethodPlayground.class;
+            case "jsii-calc.VoidCallback": return software.amazon.jsii.tests.calculator.VoidCallback.class;
             case "jsii-calc.composition.CompositeOperation": return software.amazon.jsii.tests.calculator.composition.CompositeOperation.class;
             case "jsii-calc.composition.CompositeOperation.CompositionStringStyle": return software.amazon.jsii.tests.calculator.composition.CompositeOperation.CompositionStringStyle.class;
             default: throw new ClassNotFoundException("Unknown JSII type: " + fqn);
