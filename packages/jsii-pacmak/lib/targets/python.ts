@@ -130,6 +130,19 @@ const sortMembers = (sortable: PythonBase[], resolver: TypeResolver): PythonBase
     return sorted;
 };
 
+/**
+ * Iterates over an iterable, yielding true for every element after the first
+ *
+ * Useful for separating item lists.
+ */
+function* separate<T>(xs: Iterable<T>): IterableIterator<[T, boolean]> {
+    let sep = false;
+    for (const x of xs) {
+        yield [x, sep];
+        sep = true;
+    }
+}
+
 const recurseForNamedTypeReferences = (typeRef: spec.TypeReference): spec.NamedTypeReference[] => {
     if (spec.isPrimitiveTypeReference(typeRef)) {
         return [];
@@ -182,7 +195,7 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     protected bases: spec.TypeReference[];
     protected members: PythonBase[];
 
-    constructor(name: string, fqn: string, opts: PythonTypeOpts, private readonly docs: spec.Docs | undefined) {
+    constructor(name: string, fqn: string, opts: PythonTypeOpts, protected readonly docs: spec.Docs | undefined) {
         const {
             bases = [],
         } = opts;
@@ -386,7 +399,7 @@ abstract class BaseMethod implements PythonBase {
         }
 
         code.openBlock(`def ${this.name}(${pythonParams.join(", ")}) -> ${returnType}`);
-        emitDocString(code, this.docs, this.parameters);
+        emitDocString(code, this.docs, { methodParameters: this.parameters });
         this.emitBody(code, resolver, renderAbstract, forceEmitBody);
         code.closeBlock();
     }
@@ -505,6 +518,7 @@ abstract class BaseProperty implements PythonBase {
     constructor(public readonly name: string,
                 private readonly jsName: string,
                 private readonly type: spec.OptionalValue,
+                private readonly docs: spec.Docs | undefined,
                 opts: BasePropertyOpts = {}) {
         const {
             abstract = false,
@@ -525,6 +539,7 @@ abstract class BaseProperty implements PythonBase {
             code.line("@abc.abstractmethod");
         }
         code.openBlock(`def ${this.name}(${this.implicitParameter}) -> ${pythonType}`);
+        emitDocString(code, this.docs);
         if ((this.shouldEmitBody || forceEmitBody) && (!renderAbstract || !this.abstract)) {
             code.line(`return jsii.${this.jsiiGetMethod}(${this.implicitParameter}, "${this.jsName}")`);
         } else {
@@ -560,6 +575,7 @@ class Interface extends BasePythonClassType {
         resolver = this.fqn ? resolver.bind(this.fqn) : resolver;
         const proxyBases: string[] = this.bases.map(b => `jsii.proxy_for(${resolver.resolve({ type: b })})`);
         code.openBlock(`class ${this.getProxyClassName()}(${proxyBases.join(", ")})`);
+        emitDocString(code, this.docs);
         code.line(`__jsii_type__ = "${this.fqn}"`);
 
         if (this.members.length > 0) {
@@ -643,7 +659,9 @@ class TypedDict extends BasePythonClassType {
             // Now we'll emit the mandatory members.
             code.line(`@jsii.data_type(jsii_type="${this.fqn}")`);
             code.openBlock(`class ${this.name}(_${this.name})`);
-            for (const member of sortMembers(mandatoryMembers, resolver)) {
+            emitDocString(code, this.docs);
+            for (const [member, sep] of separate(sortMembers(mandatoryMembers, resolver))) {
+                if (sep) { code.line(''); }
                 member.emit(code, resolver);
             }
             code.closeBlock();
@@ -658,10 +676,12 @@ class TypedDict extends BasePythonClassType {
             } else {
                 code.openBlock(`class ${this.name}(${classParams.join(", ")})`);
             }
+            emitDocString(code, this.docs);
 
             // Finally we'll just iterate over and emit all of our members.
             if (this.members.length > 0) {
-                for (const member of sortMembers(this.members, resolver)) {
+                for (const [member, sep] of separate(sortMembers(this.members, resolver))) {
+                    if (sep) { code.line(''); }
                     member.emit(code, resolver);
                 }
             } else {
@@ -685,7 +705,9 @@ class TypedDict extends BasePythonClassType {
 class TypedDictProperty implements PythonBase {
 
     constructor(public readonly name: string,
-                private readonly type: spec.OptionalValue) {}
+                private readonly type: spec.OptionalValue,
+                private readonly docs: spec.Docs | undefined,
+                ) {}
 
     public get optional(): boolean {
         return !!this.type.optional;
@@ -697,6 +719,7 @@ class TypedDictProperty implements PythonBase {
             { forwardReferences: false, ignoreOptional: true }
         );
         code.line(`${this.name}: ${resolvedType}`);
+        emitDocString(code, this.docs);
     }
 }
 
@@ -1482,6 +1505,7 @@ class PythonGenerator extends Generator {
                 toPythonPropertyName(prop.name, prop.const),
                 prop.name,
                 prop,
+                prop.docs,
                 { abstract: prop.abstract, immutable: prop.immutable },
             )
         );
@@ -1521,6 +1545,7 @@ class PythonGenerator extends Generator {
                 toPythonPropertyName(prop.name, prop.const, prop.protected),
                 prop.name,
                 prop,
+                prop.docs,
                 { abstract: prop.abstract, immutable: prop.immutable },
             )
         );
@@ -1576,12 +1601,14 @@ class PythonGenerator extends Generator {
             ifaceProperty = new TypedDictProperty(
                 toPythonIdentifier(prop.name),
                 prop,
+                prop.docs,
             );
         } else {
             ifaceProperty = new InterfaceProperty(
                 toPythonPropertyName(prop.name, prop.const, prop.protected),
                 prop.name,
                 prop,
+                prop.docs,
                 { immutable: prop.immutable },
             );
         }
@@ -1687,13 +1714,20 @@ class PythonGenerator extends Generator {
     }
 }
 
-function emitDocString(code: CodeMaker, docs: spec.Docs | undefined, params?: spec.Parameter[]) {
+function emitDocString(code: CodeMaker, docs: spec.Docs | undefined, options: {
+        methodParameters?: spec.Parameter[]
+        } = {}) {
     if (!docs) { return; }
     if (Object.keys(docs).length === 0) { return; }
 
     const lines = new Array<string>();
 
-    lines.push(md2rst(docs.summary || ''));
+    if (docs.summary) {
+        lines.push(md2rst(docs.summary));
+        brk();
+    } else {
+        lines.push('');
+    }
 
     function brk() {
         if (lines.length > 0 && lines[lines.length - 1].trim() !== '') { lines.push(''); }
@@ -1714,10 +1748,10 @@ function emitDocString(code: CodeMaker, docs: spec.Docs | undefined, params?: sp
         brk();
     }
 
-    if (params && params.some(p => p.docs && p.docs.summary ? true : false)) {
+    if (options.methodParameters && options.methodParameters.some(p => p.docs && p.docs.summary ? true : false)) {
         brk();
         lines.push('Arguments:');
-        for (const param of params) {
+        for (const param of options.methodParameters) {
             if (param.docs && param.docs.summary) {
                 lines.push(`    ${param.name}: ${param.docs.summary}`);
             }
