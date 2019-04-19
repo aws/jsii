@@ -31,6 +31,7 @@ class IDoublable(jsii.compat.Protocol):
 
 
 class _IDoublableProxy():
+    """The general contract for a concrete number."""
     __jsii_type__ = "@scope/jsii-calc-lib.IDoublable"
     @property
     @jsii.member(jsii_name="doubleValue")
@@ -56,6 +57,11 @@ class IFriendly(jsii.compat.Protocol):
 
 
 class _IFriendlyProxy():
+    """Applies to classes that are considered friendly.
+
+    These classes can be greeted with
+    a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
+    """
     __jsii_type__ = "@scope/jsii-calc-lib.IFriendly"
     @jsii.member(jsii_name="hello")
     def hello(self) -> str:
@@ -80,6 +86,11 @@ class IThreeLevelsInterface(scope.jsii_calc_base.IBaseInterface, jsii.compat.Pro
 
 
 class _IThreeLevelsInterfaceProxy(jsii.proxy_for(scope.jsii_calc_base.IBaseInterface)):
+    """Interface that inherits from packages 2 levels up the tree.
+
+    Their presence validates that .NET/Java/jsii-reflect can track all fields
+    far enough up the tree.
+    """
     __jsii_type__ = "@scope/jsii-calc-lib.IThreeLevelsInterface"
     @jsii.member(jsii_name="baz")
     def baz(self) -> None:
@@ -91,13 +102,21 @@ class _MyFirstStruct(jsii.compat.TypedDict, total=False):
 
 @jsii.data_type(jsii_type="@scope/jsii-calc-lib.MyFirstStruct")
 class MyFirstStruct(_MyFirstStruct):
+    """This is the first struct we have created in jsii."""
     anumber: jsii.Number
+    """An awesome number value."""
+
     astring: str
+    """A string value."""
 
 @jsii.data_type(jsii_type="@scope/jsii-calc-lib.StructWithOnlyOptionals")
 class StructWithOnlyOptionals(jsii.compat.TypedDict, total=False):
+    """This is a struct with only optional properties."""
     optional1: str
+    """The first optional!"""
+
     optional2: jsii.Number
+
     optional3: bool
 
 class Value(scope.jsii_calc_base.Base, metaclass=jsii.JSIIAbstractClass, jsii_type="@scope/jsii-calc-lib.Value"):
@@ -118,6 +137,7 @@ class Value(scope.jsii_calc_base.Base, metaclass=jsii.JSIIAbstractClass, jsii_ty
     @jsii.member(jsii_name="value")
     @abc.abstractmethod
     def value(self) -> jsii.Number:
+        """The value."""
         ...
 
 
@@ -125,6 +145,7 @@ class _ValueProxy(Value, jsii.proxy_for(scope.jsii_calc_base.Base)):
     @property
     @jsii.member(jsii_name="value")
     def value(self) -> jsii.Number:
+        """The value."""
         return jsii.get(self, "value")
 
 
@@ -142,11 +163,13 @@ class Number(Value, metaclass=jsii.JSIIMeta, jsii_type="@scope/jsii-calc-lib.Num
     @property
     @jsii.member(jsii_name="doubleValue")
     def double_value(self) -> jsii.Number:
+        """The number multiplied by 2."""
         return jsii.get(self, "doubleValue")
 
     @property
     @jsii.member(jsii_name="value")
     def value(self) -> jsii.Number:
+        """The number."""
         return jsii.get(self, "value")
 
 
