@@ -12,7 +12,7 @@
     "build": "npm run gen && tsc --build && chmod +x bin/jsii-pacmak && tslint -p .",
     "watch": "tsc --build -w",
     "lint": "tslint -p . --force",
-    "test": "/bin/bash test/diff-test.sh && /bin/bash test/build-test.sh",
+    "test": "/bin/bash test/diff-test.sh && /bin/bash test/build-test.sh && nodeunit test/test.*.js",
     "package": "package-js"
   },
   "keywords": [
@@ -27,6 +27,7 @@
     "jsii-spec": "^0.10.2",
     "spdx-license-list": "^6.0.0",
     "xmlbuilder": "^12.0.0",
+    "commonmark": "^0.29.0",
     "yargs": "^13.2.2"
   },
   "devDependencies": {
@@ -34,6 +35,8 @@
     "@types/clone": "^0.1.30",
     "@types/escape-string-regexp": "^1.0.0",
     "@types/fs-extra": "^5.0.5",
+    "@types/node": "^8.10.43",
+    "@types/commonmark": "^0.27.3",
     "@types/nodeunit": "^0.0.30",
     "@types/xmlbuilder": "^11.0.1",
     "@types/yargs": "^13.0.0",

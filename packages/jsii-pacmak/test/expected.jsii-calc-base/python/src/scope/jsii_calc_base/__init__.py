@@ -12,6 +12,7 @@ from jsii.python import classproperty
 import scope.jsii_calc_base_of_base
 __jsii_assembly__ = jsii.JSIIAssembly.load("@scope/jsii-calc-base", "0.10.2", __name__, "jsii-calc-base@0.10.2.jsii.tgz")
 class Base(metaclass=jsii.JSIIAbstractClass, jsii_type="@scope/jsii-calc-base.Base"):
+    """A base class."""
     @staticmethod
     def __jsii_proxy_class__():
         return _BaseProxy
@@ -21,6 +22,10 @@ class Base(metaclass=jsii.JSIIAbstractClass, jsii_type="@scope/jsii-calc-base.Ba
 
     @jsii.member(jsii_name="typeName")
     def type_name(self) -> typing.Any:
+        """
+        Returns:
+            the name of the class (to verify native type names are created for derived classes).
+        """
         return jsii.invoke(self, "typeName", [])
 
 
