@@ -3001,6 +3001,12 @@ class VirtualMethodPlayground(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Virt
 
 
 class VoidCallback(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.VoidCallback"):
+    """This test is used to validate the runtimes can return correctly from a void callback.
+
+    - Implement ``overrideMe`` (method does not have to do anything).
+    - Invoke ``callMe``
+    - Verify that ``methodWasCalled`` is ``true``.
+    """
     @staticmethod
     def __jsii_proxy_class__():
         return _VoidCallbackProxy
