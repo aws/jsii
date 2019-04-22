@@ -443,7 +443,7 @@ class JavaGenerator extends Generator {
                                     show: 'protected',
                                     // Adding these makes JavaDoc generation about a 3rd faster (which is far and away the most
                                     // expensive part of the build)
-                                    additionalJOption: ['-J-XX:+TieredCompilation</additionalJOption', '-J-XX:TieredStopAtLevel=1</additionalJOption']
+                                    additionalJOption: ['-J-XX:+TieredCompilation', '-J-XX:TieredStopAtLevel=1']
                                 }
                             }]
                         }

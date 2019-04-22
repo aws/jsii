@@ -134,8 +134,8 @@
         <configuration>
           <failOnError>false</failOnError>
           <show>protected</show>
-          <additionalJOption>-J-XX:+TieredCompilation&lt;/additionalJOption</additionalJOption>
-          <additionalJOption>-J-XX:TieredStopAtLevel=1&lt;/additionalJOption</additionalJOption>
+          <additionalJOption>-J-XX:+TieredCompilation</additionalJOption>
+          <additionalJOption>-J-XX:TieredStopAtLevel=1</additionalJOption>
         </configuration>
       </plugin>
     </plugins>
