@@ -2,46 +2,28 @@ import commonmark = require('commonmark');
 
 /**
  * Convert MarkDown to RST
- *
- * This is hard, and I'm doing it very hackily to get something out quickly.
- *
- * Preferably, the next person to look at this should a little more OO
- * instead of procedural.
  */
 export function md2rst(text: string) {
     const parser = new commonmark.Parser({ smart: false });
     const ast = parser.parse(text);
 
-    const ret = new Array<string>();
-
-    let indent = 0;
-    function line(...xs: string[]) {
-      for (const x of xs) {
-        ret.push((' '.repeat(indent) + x).trimRight());
-      }
-    }
+    const doc = new DocumentBuilder();
 
     function directive(name: string, opening: boolean) {
       if (opening)  {
-        line(`.. ${name}::`);
-        brk();
-        indent += 3;
+        doc.appendLine(`.. ${name}::`);
+        doc.paraBreak();
+        doc.pushPrefix('   ');
       } else {
-        indent -= 3;
+        doc.popPrefix();
       }
-    }
-
-    function brk() {
-      if (ret.length > 0 && ret[ret.length - 1].trim() !== '') { ret.push(''); }
     }
 
     function textOf(node: commonmark.Node) {
       return node.literal || '';
     }
 
-    let para = new Paragraph(); // Where to accumulate text fragments
-    let lastParaLine: number; // Where the last paragraph ended, in order to add ::
-    let nextParaPrefix: string | undefined;
+    // let lastParaLine: number; // Where the last paragraph ended, in order to add ::
 
     pump(ast, {
       block_quote(_node, entering) {
@@ -49,102 +31,169 @@ export function md2rst(text: string) {
       },
 
       heading(node, _entering) {
-        line(node.literal || '');
-        line(headings[node.level - 1].repeat(textOf(node).length));
+        doc.appendLine(node.literal || '');
+        doc.appendLine(headings[node.level - 1].repeat(textOf(node).length));
       },
 
       paragraph(node, entering) {
-        if (entering) {
-          para = new Paragraph(nextParaPrefix);
-          nextParaPrefix = undefined;
-        } else {
-          // Don't break inside list item
-          if (node.parent == null || node.parent.type !== 'item') {
-            brk();
-          }
-          line(...para.lines());
-          lastParaLine = ret.length - 1;
+        // If we're going to a paragraph that's not in a list, open a block.
+        if (entering && node.parent && node.parent.type !== 'item') {
+          doc.paraBreak();
+        }
+
+        // If we're coming out of a paragraph that's being followed by
+        // a code block, make sure the current line ends in '::':
+        if (!entering && node.next && node.next.type === 'code_block') {
+          doc.transformLastLine(lastLine => {
+            const appended = lastLine.replace(/[\W]$/, '::');
+            if (appended !== lastLine) { return appended; }
+
+            return lastLine + ' Example::';
+          });
+        }
+
+        // End of paragraph at least implies line break.
+        if (!entering) {
+          doc.newline();
         }
       },
 
-      text(node) { para.add(textOf(node)); },
-      softbreak() { para.newline(); },
-      linebreak() { para.newline(); },
-      thematic_break() { line('------'); },
-      code(node) { para.add('``' + textOf(node) + '``'); },
-      strong() { para.add('**'); },
-      emph() { para.add('*'); },
+      text(node) { doc.append(textOf(node)); },
+      softbreak() { doc.newline(); },
+      linebreak() { doc.newline(); },
+      thematic_break() { doc.appendLine('------'); },
+      code(node) { doc.append('``' + textOf(node) + '``'); },
+      strong() { doc.append('**'); },
+      emph() { doc.append('*'); },
 
       list() {
-        brk();
+        doc.paraBreak();
       },
 
       link(node, entering) {
         if (entering) {
-          para.add('`');
+          doc.append('`');
         } else {
-          para.add(' <' + (node.destination || '') + '>`_');
+          doc.append(' <' + (node.destination || '') + '>`_');
         }
       },
 
-      item(node, _entering) {
+      item(node, entering) {
         // AST hierarchy looks like list -> item -> paragraph -> text
-        if (node.listType === 'bullet') {
-          nextParaPrefix = '- ';
+        if (entering) {
+          if (node.listType === 'bullet') {
+            doc.pushBulletPrefix('- ');
+          } else {
+            doc.pushBulletPrefix(`${node.listStart}. `);
+          }
         } else {
-          nextParaPrefix = `${node.listStart}. `;
+          doc.popPrefix();
         }
-
       },
 
       code_block(node) {
-        // Poke a double :: at the end of the previous line as per ReST "literal block" syntax.
-        if (lastParaLine !== undefined) {
-          const lastLine = ret[lastParaLine];
-          ret[lastParaLine] = lastLine.replace(/[\W]$/, '::');
-          if (ret[lastParaLine] === lastLine) { ret[lastParaLine] = lastLine + '::'; }
-        } else {
-          line('Example::');
+        doc.paraBreak();
+
+        // If there's no paragraph just before me, add the word "Example::".
+        if (!node.prev || node.prev.type !== 'paragraph') {
+          doc.appendLine('Example::');
+          doc.paraBreak();
         }
 
-        brk();
+        doc.pushBulletPrefix('   ');
 
-        indent += 3;
-
-        for (const l of textOf(node).split('\n')) {
-          line(l);
+        for (const l of textOf(node).replace(/\n+$/, '').split('\n')) {
+          doc.appendLine(l);
         }
 
-        indent -= 3;
+        doc.popPrefix();
       }
 
     });
 
-    return ret.join('\n').trimRight();
+    return doc.toString();
 }
 
-class Paragraph {
-  private readonly parts = new Array<string>();
+/**
+ * Build a document incrementally
+ */
+class DocumentBuilder {
+  private readonly prefix = new Array<string>();
+  private readonly lines = new Array<string[]>();
+  private queuedNewline = false;
 
-  constructor(text?: string) {
-    if (text !== undefined) { this.parts.push(text); }
+  constructor() {
+    this.lines.push([]);
   }
 
-  public add(text: string) {
-    this.parts.push(text);
+  public pushPrefix(prefix: string) {
+    this.prefix.push(prefix);
+  }
+
+  public popPrefix() {
+    this.prefix.pop();
+  }
+
+  public paraBreak() {
+    if (this.lines.length > 0 && partsToString(this.lastLine) !== '') { this.newline(); }
+  }
+
+  public get length() {
+    return this.lines.length;
+  }
+
+  public get lastLine() {
+    return this.lines[this.length - 1];
+  }
+
+  public append(text: string) {
+    this.flushQueuedNewline();
+    this.lastLine.push(text);
+  }
+
+  public appendLine(...lines: string[]) {
+    for (const line of lines) {
+      this.append(line);
+      this.newline();
+    }
+  }
+
+  public pushBulletPrefix(prefix: string) {
+    this.append(prefix);
+    this.pushPrefix(' '.repeat(prefix.length));
+  }
+
+  public transformLastLine(block: (x: string) => string) {
+    if (this.length >= 0) {
+      this.lines[this.length - 1].splice(0, this.lastLine.length, block(partsToString(this.lastLine)));
+    } else {
+      this.lines.push([block('')]);
+    }
   }
 
   public newline() {
-    this.parts.push('\n');
-  }
-
-  public lines(): string[] {
-    return this.parts.length > 0 ? this.toString().split('\n') : [];
+    this.flushQueuedNewline();
+    // Don't do the newline here, wait to apply the correct indentation when and if we add more text.
+    this.queuedNewline = true;
   }
 
   public toString() {
-    return this.parts.join('').trimRight();
+    return this.lines.map(partsToString).join('\n').replace(/\n+$/, '');
   }
+
+  private flushQueuedNewline() {
+    if (this.queuedNewline) {
+      this.lines.push([...this.prefix]);
+      this.queuedNewline = false;
+    }
+  }
+}
+
+/**
+ * Turn a list of string fragments into a string
+ */
+function partsToString(parts: string[]) {
+  return parts.join('').trimRight();
 }
 
 const headings = ['=', '-', '^', '"'];
@@ -152,6 +201,9 @@ const headings = ['=', '-', '^', '"'];
 type Handler = (node: commonmark.Node, entering: boolean) => void;
 type Handlers = {[key in commonmark.NodeType]?: Handler };
 
+/**
+ * Pump a CommonMark AST tree through a set of handlers
+ */
 function pump(ast: commonmark.Node, handlers: Handlers) {
   const walker = ast.walker();
   let event = walker.next();
@@ -164,3 +216,24 @@ function pump(ast: commonmark.Node, handlers: Handlers) {
     event = walker.next();
   }
 }
+
+/*
+  A typical AST looks like this:
+
+  document
+   ├─┬ paragraph
+   │ └── text
+   └─┬ list
+     ├─┬ item
+     │ └─┬ paragraph
+     │   ├── text
+     │   ├── softbreak
+     │   └── text
+     └─┬ item
+       └─┬ paragraph
+         ├── text
+         ├─┬ emph
+         │ └── text
+         └── text
+
+ */
