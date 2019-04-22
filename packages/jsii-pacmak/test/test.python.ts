@@ -162,6 +162,23 @@ export = {
 
     test.done();
   },
+
+  'list with multiline text'(test: Test) {
+    converts(test, [
+      'This is a bulleted list:',
+      '* this bullet has multiple lines.',
+      '  I hope these are indendented properly.',
+      '* two',
+    ], [
+      'This is a bulleted list:',
+      '',
+      '- this bullet has multiple lines.',
+      '  I hope these are indendented properly.',
+      '- two',
+    ]);
+
+    test.done();
+  },
 };
 
 function converts(test: Test, input: string[], output: string[]) {
