@@ -63,13 +63,36 @@ async function main(): Promise<number> {
   return 0;
 }
 
+// Allow both npm:<package> (legacy) and npm://<package> (looks better)
+const NPM_REGEX = /^npm:(\/\/)?/;
+
 async function loadAssembly(name: string) {
-  if (name.startsWith('npm:')) {
-    let pkg = name.substring(4);
-    if (!pkg) { pkg = await loadPackageNameFromAssembly(); }
-    return await downloadNpmPackage(pkg, loadFromFilesystem);
-  } else {
-    return await loadFromFilesystem(name);
+  try {
+    if (name.match(NPM_REGEX)) {
+      let pkg = name.replace(NPM_REGEX, '');
+      if (!pkg) { pkg = await loadPackageNameFromAssembly(); }
+
+      // Put 'pkg' back into 'name' so any errors loading the assembly get a good source description
+      name = `npm://${pkg}`;
+      if (pkg.indexOf('@', 1) === -1) { name += '@latest'; }
+
+      return await downloadNpmPackage(pkg, loadFromFilesystem);
+    } else {
+      return await loadFromFilesystem(name);
+    }
+  } catch (e) {
+    // Prepend information about which assembly we've failed to load
+    //
+    // Look at the type of error. If it has a lot of lines (like validation errors
+    // tend to do) log everything to the debug log and only show a couple
+    const maxLines = 3;
+    const messageWithContext = `Error loading assembly '${name}': ${e.message}`;
+    const errorLines = messageWithContext.split('\n');
+    if (errorLines.length < maxLines) { throw new Error(messageWithContext); }
+    for (const line of errorLines) {
+      LOG.info(line);
+    }
+    throw new Error([...errorLines.slice(0, maxLines), '...'].join('\n'));
   }
 }
 
