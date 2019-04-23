@@ -97,10 +97,11 @@ class _IThreeLevelsInterfaceProxy(jsii.proxy_for(scope.jsii_calc_base.IBaseInter
         return jsii.invoke(self, "baz", [])
 
 
+@jsii.data_type_optionals(jsii_struct_bases=[])
 class _MyFirstStruct(jsii.compat.TypedDict, total=False):
     firstOptional: typing.List[str]
 
-@jsii.data_type(jsii_type="@scope/jsii-calc-lib.MyFirstStruct")
+@jsii.data_type(jsii_type="@scope/jsii-calc-lib.MyFirstStruct", jsii_struct_bases=[_MyFirstStruct])
 class MyFirstStruct(_MyFirstStruct):
     """This is the first struct we have created in jsii."""
     anumber: jsii.Number
@@ -109,7 +110,7 @@ class MyFirstStruct(_MyFirstStruct):
     astring: str
     """A string value."""
 
-@jsii.data_type(jsii_type="@scope/jsii-calc-lib.StructWithOnlyOptionals")
+@jsii.data_type(jsii_type="@scope/jsii-calc-lib.StructWithOnlyOptionals", jsii_struct_bases=[])
 class StructWithOnlyOptionals(jsii.compat.TypedDict, total=False):
     """This is a struct with only optional properties."""
     optional1: str

@@ -412,7 +412,7 @@ class Add(BinaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Add"):
         return jsii.get(self, "value")
 
 
-@jsii.data_type(jsii_type="jsii-calc.CalculatorProps")
+@jsii.data_type(jsii_type="jsii-calc.CalculatorProps", jsii_struct_bases=[])
 class CalculatorProps(jsii.compat.TypedDict, total=False):
     """Properties for Calculator."""
     initialValue: jsii.Number
@@ -571,13 +571,14 @@ class DerivedClassHasNoProperties:
 
 
 
+@jsii.data_type_optionals(jsii_struct_bases=[scope.jsii_calc_lib.MyFirstStruct])
 class _DerivedStruct(scope.jsii_calc_lib.MyFirstStruct, jsii.compat.TypedDict, total=False):
     anotherOptional: typing.Mapping[str,scope.jsii_calc_lib.Value]
     """This is optional."""
     optionalAny: typing.Any
     optionalArray: typing.List[str]
 
-@jsii.data_type(jsii_type="jsii-calc.DerivedStruct")
+@jsii.data_type(jsii_type="jsii-calc.DerivedStruct", jsii_struct_bases=[_DerivedStruct])
 class DerivedStruct(_DerivedStruct):
     """A struct which derives from another struct."""
     anotherRequired: datetime.datetime
@@ -711,7 +712,7 @@ class EraseUndefinedHashValues(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Era
         return jsii.sinvoke(cls, "prop2IsUndefined", [])
 
 
-@jsii.data_type(jsii_type="jsii-calc.EraseUndefinedHashValuesOptions")
+@jsii.data_type(jsii_type="jsii-calc.EraseUndefinedHashValuesOptions", jsii_struct_bases=[])
 class EraseUndefinedHashValuesOptions(jsii.compat.TypedDict, total=False):
     option1: str
 
@@ -731,7 +732,7 @@ class ExportedBaseClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ExportedBa
         return jsii.get(self, "success")
 
 
-@jsii.data_type(jsii_type="jsii-calc.ExtendsInternalInterface")
+@jsii.data_type(jsii_type="jsii-calc.ExtendsInternalInterface", jsii_struct_bases=[])
 class ExtendsInternalInterface(jsii.compat.TypedDict):
     boom: bool
 
@@ -828,7 +829,7 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
         return jsii.get(self, "structLiteral")
 
 
-@jsii.data_type(jsii_type="jsii-calc.Greetee")
+@jsii.data_type(jsii_type="jsii-calc.Greetee", jsii_struct_bases=[])
 class Greetee(jsii.compat.TypedDict, total=False):
     """These are some arguments you can pass to a method."""
     name: str
@@ -1616,7 +1617,7 @@ class ImplementsPrivateInterface(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.I
         return jsii.set(self, "private", value)
 
 
-@jsii.data_type(jsii_type="jsii-calc.ImplictBaseOfBase")
+@jsii.data_type(jsii_type="jsii-calc.ImplictBaseOfBase", jsii_struct_bases=[scope.jsii_calc_base.BaseProps])
 class ImplictBaseOfBase(scope.jsii_calc_base.BaseProps, jsii.compat.TypedDict):
     goo: datetime.datetime
 
@@ -1635,13 +1636,13 @@ class InterfaceInNamespaceIncludesClasses:
             return jsii.set(self, "bar", value)
 
 
-    @jsii.data_type(jsii_type="jsii-calc.InterfaceInNamespaceIncludesClasses.Hello")
+    @jsii.data_type(jsii_type="jsii-calc.InterfaceInNamespaceIncludesClasses.Hello", jsii_struct_bases=[])
     class Hello(jsii.compat.TypedDict):
         foo: jsii.Number
 
 
 class InterfaceInNamespaceOnlyInterface:
-    @jsii.data_type(jsii_type="jsii-calc.InterfaceInNamespaceOnlyInterface.Hello")
+    @jsii.data_type(jsii_type="jsii-calc.InterfaceInNamespaceOnlyInterface.Hello", jsii_struct_bases=[])
     class Hello(jsii.compat.TypedDict):
         foo: jsii.Number
 
@@ -1966,7 +1967,7 @@ class JsiiAgent(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JsiiAgent"):
         return jsii.sget(cls, "jsiiAgent")
 
 
-@jsii.data_type(jsii_type="jsii-calc.LoadBalancedFargateServiceProps")
+@jsii.data_type(jsii_type="jsii-calc.LoadBalancedFargateServiceProps", jsii_struct_bases=[])
 class LoadBalancedFargateServiceProps(jsii.compat.TypedDict, total=False):
     """jsii#298: show default values in sphinx documentation, and respect newlines."""
     containerPort: jsii.Number
@@ -2148,10 +2149,11 @@ class NullShouldBeTreatedAsUndefined(metaclass=jsii.JSIIMeta, jsii_type="jsii-ca
         return jsii.set(self, "changeMeToUndefined", value)
 
 
+@jsii.data_type_optionals(jsii_struct_bases=[])
 class _NullShouldBeTreatedAsUndefinedData(jsii.compat.TypedDict, total=False):
     thisShouldBeUndefined: typing.Any
 
-@jsii.data_type(jsii_type="jsii-calc.NullShouldBeTreatedAsUndefinedData")
+@jsii.data_type(jsii_type="jsii-calc.NullShouldBeTreatedAsUndefinedData", jsii_struct_bases=[_NullShouldBeTreatedAsUndefinedData])
 class NullShouldBeTreatedAsUndefinedData(_NullShouldBeTreatedAsUndefinedData):
     arrayWithThreeElementsAndUndefinedAsSecondArgument: typing.List[typing.Any]
 
@@ -2251,7 +2253,7 @@ class OptionalConstructorArgument(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.
         return jsii.get(self, "arg3")
 
 
-@jsii.data_type(jsii_type="jsii-calc.OptionalStruct")
+@jsii.data_type(jsii_type="jsii-calc.OptionalStruct", jsii_struct_bases=[])
 class OptionalStruct(jsii.compat.TypedDict, total=False):
     field: str
 
@@ -2877,10 +2879,11 @@ class Negate(UnaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Negat
         return jsii.get(self, "value")
 
 
+@jsii.data_type_optionals(jsii_struct_bases=[])
 class _UnionProperties(jsii.compat.TypedDict, total=False):
     foo: typing.Union[str, jsii.Number]
 
-@jsii.data_type(jsii_type="jsii-calc.UnionProperties")
+@jsii.data_type(jsii_type="jsii-calc.UnionProperties", jsii_struct_bases=[_UnionProperties])
 class UnionProperties(_UnionProperties):
     bar: typing.Union[str, jsii.Number, "AllTypes"]
 
