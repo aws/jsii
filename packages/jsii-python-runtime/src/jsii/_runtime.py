@@ -84,10 +84,19 @@ def enum(*, jsii_type):
     return deco
 
 
-def data_type(*, jsii_type):
+def data_type(*, jsii_type, jsii_struct_bases):
     def deco(cls):
         cls.__jsii_type__ = jsii_type
+        cls.__jsii_struct_bases__ = jsii_struct_bases
         _reference_map.register_data_type(cls)
+        return cls
+
+    return deco
+
+
+def data_type_optionals(*, jsii_struct_bases):
+    def deco(cls):
+        cls.__jsii_struct_bases__ = jsii_struct_bases
         return cls
 
     return deco

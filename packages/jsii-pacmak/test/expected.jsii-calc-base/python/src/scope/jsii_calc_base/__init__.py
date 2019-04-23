@@ -32,7 +32,7 @@ class Base(metaclass=jsii.JSIIAbstractClass, jsii_type="@scope/jsii-calc-base.Ba
 class _BaseProxy(Base):
     pass
 
-@jsii.data_type(jsii_type="@scope/jsii-calc-base.BaseProps")
+@jsii.data_type(jsii_type="@scope/jsii-calc-base.BaseProps", jsii_struct_bases=[scope.jsii_calc_base_of_base.VeryBaseProps])
 class BaseProps(scope.jsii_calc_base_of_base.VeryBaseProps, jsii.compat.TypedDict):
     bar: str
 

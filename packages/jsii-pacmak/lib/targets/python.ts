@@ -641,6 +641,7 @@ class TypedDict extends BasePythonClassType {
         // and implement this "split" class logic.
 
         const classParams = this.getClassParams(resolver);
+        const baseInterfaces = classParams.slice(0, classParams.length - 1);
 
         const mandatoryMembers = this.members.filter(
             item => item instanceof TypedDictProperty ? !item.optional : true
@@ -655,6 +656,7 @@ class TypedDict extends BasePythonClassType {
 
             // We'll emit the optional members first, just because it's a little nicer
             // for the final class in the chain to have the mandatory members.
+            code.line(`@jsii.data_type_optionals(jsii_struct_bases=[${baseInterfaces.join(', ')}])`);
             code.openBlock(`class _${this.name}(${classParams.concat(["total=False"]).join(", ")})`);
             for (const member of optionalMembers) {
                 member.emit(code, resolver);
@@ -662,7 +664,7 @@ class TypedDict extends BasePythonClassType {
             code.closeBlock();
 
             // Now we'll emit the mandatory members.
-            code.line(`@jsii.data_type(jsii_type="${this.fqn}")`);
+            code.line(`@jsii.data_type(jsii_type="${this.fqn}", jsii_struct_bases=[_${this.name}])`);
             code.openBlock(`class ${this.name}(_${this.name})`);
             emitDocString(code, this.docs);
             for (const [member, sep] of separate(sortMembers(mandatoryMembers, resolver))) {
@@ -671,7 +673,7 @@ class TypedDict extends BasePythonClassType {
             }
             code.closeBlock();
         } else {
-            code.line(`@jsii.data_type(jsii_type="${this.fqn}")`);
+            code.line(`@jsii.data_type(jsii_type="${this.fqn}", jsii_struct_bases=[${baseInterfaces.join(', ')}])`);
 
             // In this case we either have no members, or we have all of one type, so
             // we'll see if we have any optional members, if we don't then we'll use
