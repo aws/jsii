@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.3](https://github.com/awslabs/jsii/compare/v0.10.2...v0.10.3) (2019-04-24)
+
+
+### Bug Fixes
+
+* **java:** fix illegal arguments passed to JavaDoc generator ([#475](https://github.com/awslabs/jsii/issues/475)) ([4456138](https://github.com/awslabs/jsii/commit/4456138))
+* **jsii-diff:** be nicer about validation errors ([#481](https://github.com/awslabs/jsii/issues/481)) ([fa4d000](https://github.com/awslabs/jsii/commit/fa4d000))
+
+
+
+
+
 ## [0.10.2](https://github.com/awslabs/jsii/compare/v0.10.1...v0.10.2) (2019-04-18)
 
 **Note:** Version bump only for package jsii-diff
