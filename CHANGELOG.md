@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.3](https://github.com/awslabs/jsii/compare/v0.10.2...v0.10.3) (2019-04-24)
+
+
+### Bug Fixes
+
+* **java:** fix illegal arguments passed to JavaDoc generator ([#475](https://github.com/awslabs/jsii/issues/475)) ([4456138](https://github.com/awslabs/jsii/commit/4456138))
+* **jsii-diff:** be nicer about validation errors ([#481](https://github.com/awslabs/jsii/issues/481)) ([fa4d000](https://github.com/awslabs/jsii/commit/fa4d000))
+* **python:** fix indentation for multiline bullets in RST generator ([#479](https://github.com/awslabs/jsii/issues/479)) ([3a79142](https://github.com/awslabs/jsii/commit/3a79142)), closes [#478](https://github.com/awslabs/jsii/issues/478)
+* **python:** maintain inheritance chain for structs ([#482](https://github.com/awslabs/jsii/issues/482)) ([607f151](https://github.com/awslabs/jsii/commit/607f151)), closes [#473](https://github.com/awslabs/jsii/issues/473)
+
+
+### Features
+
+* **jsii-pacmak:** add Python docstrings ([#470](https://github.com/awslabs/jsii/issues/470)) ([6cd4903](https://github.com/awslabs/jsii/commit/6cd4903))
+
+
+
+
+
 ## [0.10.2](https://github.com/awslabs/jsii/compare/v0.10.1...v0.10.2) (2019-04-18)
 
 
