@@ -2,9 +2,11 @@
 set -euo pipefail
 
 # embed the dotnet code generator program as a resource
-dng="lib/targets/dotnet-generator"
-mkdir -p ${dng}
-rsync -av node_modules/jsii-dotnet-generator/cli/publish/ ${dng}/
+if ! ${NO_DOTNET:-false}; then
+    dng="lib/targets/dotnet-generator"
+    mkdir -p ${dng}
+    rsync -av node_modules/jsii-dotnet-generator/cli/publish/ ${dng}/
+fi
 
 commit=${CODEBUILD_RESOLVED_SOURCE_VERSION:-}
 # CODEBUILD_RESOLVED_SOURCE_VERSION is not defined (i.e. local build or CodePipeline build),
