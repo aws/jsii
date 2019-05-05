@@ -42,6 +42,7 @@ JSObjectLiteralForInterface
 JSObjectLiteralToNative
 JSObjectLiteralToNativeClass
 JavaReservedWords
+Jsii487Derived
 JsiiAgent
 Multiply
 Negate

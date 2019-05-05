@@ -37,3 +37,12 @@ interface IJSII417PrivateBase extends IJSII417PublicBaseOfBase {
 export interface IJSII417Derived extends IJSII417PrivateBase {
   baz(): void;
 }
+
+//
+// Interfaces should be copied from erased classes to public classes
+// https://github.com/awslabs/jsii/issues/487
+//
+// tslint:disable-next-line:no-empty-interface
+export interface IJsii487External { }
+class Jsii487Internal implements IJsii487External { }
+export class Jsii487Derived extends Jsii487Internal { }

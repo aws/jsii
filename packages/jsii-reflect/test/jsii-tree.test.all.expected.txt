@@ -635,6 +635,10 @@ assemblies
  │   │   │ └── returns: void
  │   │   └─┬ while property
  │   │     └── type: string
+ │   ├─┬ class Jsii487Derived
+ │   │ ├── interfaces: IJsii487External
+ │   │ └─┬ members
+ │   │   └── <initializer>() initializer
  │   ├─┬ class JsiiAgent
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -1355,6 +1359,8 @@ assemblies
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: boolean
+ │   ├─┬ interface IJsii487External
+ │   │ └── members
  │   ├─┬ interface IMutableObjectLiteral
  │   │ └─┬ members
  │   │   └─┬ value property

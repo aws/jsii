@@ -59,6 +59,8 @@ assemblies
  │   ├── class JSObjectLiteralToNative
  │   ├── class JSObjectLiteralToNativeClass
  │   ├── class JavaReservedWords
+ │   ├─┬ class Jsii487Derived
+ │   │ └── interfaces: IJsii487External
  │   ├── class JsiiAgent
  │   ├─┬ class Multiply
  │   │ ├── base: BinaryOperation
@@ -132,6 +134,7 @@ assemblies
  │   │ └─┬ interfaces
  │   │   └── IJSII417PublicBaseOfBase
  │   ├── interface IJSII417PublicBaseOfBase
+ │   ├── interface IJsii487External
  │   ├── interface IMutableObjectLiteral
  │   ├─┬ interface INonInternalInterface
  │   │ └─┬ interfaces

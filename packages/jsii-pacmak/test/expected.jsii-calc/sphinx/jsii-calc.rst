@@ -2819,6 +2819,35 @@ IJSII417PublicBaseOfBase (interface)
       :abstract: Yes
 
 
+IJsii487External (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: IJsii487External
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.IJsii487External;
+
+      .. code-tab:: javascript
+
+         // IJsii487External is an interface
+
+      .. code-tab:: typescript
+
+         import { IJsii487External } from 'jsii-calc';
+
+
+
+
+
 IMutableObjectLiteral (interface)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -3883,6 +3912,35 @@ JavaReservedWords
 
       :type: string
 
+
+Jsii487Derived
+^^^^^^^^^^^^^^
+
+.. py:class:: Jsii487Derived()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.Jsii487Derived;
+
+      .. code-tab:: javascript
+
+         const { Jsii487Derived } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { Jsii487Derived } from 'jsii-calc';
+
+
+
+   :implements: :py:class:`~jsii-calc.IJsii487External`\ 
 
 JsiiAgent
 ^^^^^^^^^

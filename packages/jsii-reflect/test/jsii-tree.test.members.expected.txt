@@ -295,6 +295,9 @@ assemblies
  │   │   ├── void() method
  │   │   ├── volatile() method
  │   │   └── while property
+ │   ├─┬ class Jsii487Derived
+ │   │ └─┬ members
+ │   │   └── <initializer>() initializer
  │   ├─┬ class JsiiAgent
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -595,6 +598,8 @@ assemblies
  │   │ └─┬ members
  │   │   ├── foo() method
  │   │   └── hasRoot property
+ │   ├─┬ interface IJsii487External
+ │   │ └── members
  │   ├─┬ interface IMutableObjectLiteral
  │   │ └─┬ members
  │   │   └── value property
