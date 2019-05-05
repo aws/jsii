@@ -42,6 +42,11 @@ public final class JsiiObjectMapper {
   /**
    * Similar to calling JsiiObjectMapper.INSTANCE.treeToValue, but handles a null JsonNode argument
    * well, and throws JsiiException instead of JsonProcessingException.
+   *
+   * @param tree the JSON object to parse
+   * @param valueType the expected type value type
+   * @param <T> expected type
+   * @return the deserialized value
    */
   public static <T> T treeToValue(final JsonNode tree, final Class<T> valueType) {
     if (tree == null) {
@@ -57,6 +62,10 @@ public final class JsiiObjectMapper {
   /**
    * Similar to calling JsiiObjectMapper.INSTANCE.valueToTree, but handles a null argument well by
    * returning null.
+   *
+   * @param value the value to serialize
+   * @param <T> expected JSON type
+   * @return the JSON object
    */
   public static <T extends JsonNode> T valueToTree(final Object value) {
     if (value == null) {

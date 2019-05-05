@@ -13,6 +13,7 @@ public interface JsiiSerializable {
     /**
      * Serializes this object to JSON. The default behavior is to return an object reference.
      * However, builders implement this method by emitting an actual JSON object of the key/values.
+     * @return the jsii/JSON representation of this object
      */
     default TreeNode $jsii$toJson() {
         JsiiObjectRef objRef = JsiiEngine.getInstance().nativeToObjRef(this);

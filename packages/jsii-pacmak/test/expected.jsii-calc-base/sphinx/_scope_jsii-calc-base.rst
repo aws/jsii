@@ -8,42 +8,42 @@ Reference
 
    .. group-tab:: C#
 
-      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId.BasePackageId/0.10.3>`_
+      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId.BasePackageId/0.10.4>`_
 
       **csproj**:
 
       .. code-block:: xml
 
-         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" Version="0.10.3" />
+         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" Version="0.10.4" />
 
       **dotnet**:
 
       .. code-block:: console
 
-         dotnet add package Amazon.JSII.Tests.CalculatorPackageId.BasePackageId --version 0.10.3
+         dotnet add package Amazon.JSII.Tests.CalculatorPackageId.BasePackageId --version 0.10.4
 
       **packages.config**:
 
       .. code-block:: xml
 
-         <package id="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" version="0.10.3" />
+         <package id="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" version="0.10.4" />
 
 
    .. group-tab:: Java
 
-      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator-base/0.10.3/>`_
+      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator-base/0.10.4/>`_
 
       **Apache Buildr**:
 
       .. code-block:: none
 
-         'software.amazon.jsii.tests:calculator-base:jar:0.10.3'
+         'software.amazon.jsii.tests:calculator-base:jar:0.10.4'
 
       **Apache Ivy**:
 
       .. code-block:: xml
 
-         <dependency groupId="software.amazon.jsii.tests" name="calculator-base" rev="0.10.3"/>
+         <dependency groupId="software.amazon.jsii.tests" name="calculator-base" rev="0.10.4"/>
 
       **Apache Maven**:
 
@@ -52,72 +52,72 @@ Reference
          <dependency>
            <groupId>software.amazon.jsii.tests</groupId>
            <artifactId>calculator-base</artifactId>
-           <version>0.10.3</version>
+           <version>0.10.4</version>
          </dependency>
 
       **Gradle / Grails**:
 
       .. code-block:: none
 
-         compile 'software.amazon.jsii.tests:calculator-base:0.10.3'
+         compile 'software.amazon.jsii.tests:calculator-base:0.10.4'
 
       **Groovy Grape**:
 
       .. code-block:: none
 
          @Grapes(
-         @Grab(group='software.amazon.jsii.tests', module='calculator-base', version='0.10.3')
+         @Grab(group='software.amazon.jsii.tests', module='calculator-base', version='0.10.4')
          )
 
 
    .. group-tab:: JavaScript
 
-      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-base/v/0.10.3>`_
+      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-base/v/0.10.4>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i @scope/jsii-calc-base@0.10.3
+         $ npm i @scope/jsii-calc-base@0.10.4
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "@scope/jsii-calc-base": "^0.10.3"
+           "@scope/jsii-calc-base": "^0.10.4"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add @scope/jsii-calc-base@0.10.3
+         $ yarn add @scope/jsii-calc-base@0.10.4
 
 
    .. group-tab:: TypeScript
 
-      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-base/v/0.10.3>`_
+      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-base/v/0.10.4>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i @scope/jsii-calc-base@0.10.3
+         $ npm i @scope/jsii-calc-base@0.10.4
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "@scope/jsii-calc-base": "^0.10.3"
+           "@scope/jsii-calc-base": "^0.10.4"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add @scope/jsii-calc-base@0.10.3
+         $ yarn add @scope/jsii-calc-base@0.10.4
 
 
 
