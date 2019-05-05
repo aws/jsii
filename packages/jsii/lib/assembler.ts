@@ -450,10 +450,11 @@ export class Assembler implements Emitter {
         continue;
       }
 
-      /*
-       * Crawl up the inheritance tree if the current base type is not exported, so we identify the type(s) to be
-       * erased, and identify the closest exported base class, should there be one.
-       */
+      //
+      // base classes ("extends foo")
+
+      // Crawl up the inheritance tree if the current base type is not exported, so we identify the type(s) to be
+      // erased, and identify the closest exported base class, should there be one.
       // tslint:disable-next-line: no-bitwise
       while (base && this._isPrivateOrInternal(base.symbol)) {
         LOG.debug(`Base class of ${colors.green(jsiiType.fqn)} named ${colors.green(base.symbol.name)} is not exported, erasing it...`);
@@ -482,15 +483,29 @@ export class Assembler implements Emitter {
       });
       jsiiType.base = ref.fqn;
     }
-    for (const clause of (type.symbol.valueDeclaration as ts.ClassDeclaration).heritageClauses || []) {
-      if (clause.token === ts.SyntaxKind.ExtendsKeyword) {
-        // Handled by `getBaseTypes`
-        continue;
-      } else if (clause.token !== ts.SyntaxKind.ImplementsKeyword) {
-        this._diagnostic(clause, ts.DiagnosticCategory.Error, `Ignoring ${ts.SyntaxKind[clause.token]} heritage clause`);
-        continue;
-      }
 
+    //
+    // base interfaces ("implements foo")
+
+    // collect all "implements" declarations from the current type and all
+    // erased base types (because otherwise we lose them, see jsii#487)
+    const implementsClauses = new Array<ts.HeritageClause>();
+    for (const heritage of [ type, ...erasedBases ].map(t => (t.symbol.valueDeclaration as ts.ClassDeclaration).heritageClauses || [])) {
+      for (const clause of heritage) {
+        if (clause.token === ts.SyntaxKind.ExtendsKeyword) {
+          // Handled by `getBaseTypes`
+          continue;
+        } else if (clause.token !== ts.SyntaxKind.ImplementsKeyword) {
+          this._diagnostic(clause, ts.DiagnosticCategory.Error, `Ignoring ${ts.SyntaxKind[clause.token]} heritage clause`);
+          continue;
+        }
+
+        implementsClauses.push(clause);
+      }
+    }
+
+    // process all "implements" clauses
+    for (const clause of implementsClauses) {
       const { interfaces } = await this._processBaseInterfaces(fqn, clause.types.map(t => this._typeChecker.getTypeFromTypeNode(t)));
       jsiiType.interfaces = apply(interfaces, arr => arr.map(i => i.fqn));
       if (interfaces) {
@@ -512,7 +527,8 @@ export class Assembler implements Emitter {
 
     const allDeclarations: Array<{ decl: ts.Declaration, type: ts.InterfaceType | ts.BaseType }>
       = type.symbol.declarations.map(decl => ({ decl, type }));
-    // Considering erased bases' declarations, too, so they are "blended in"
+
+      // Considering erased bases' declarations, too, so they are "blended in"
     for (const base of erasedBases) {
       allDeclarations.push(...base.symbol.declarations.map(decl => ({ decl, type: base })));
     }
