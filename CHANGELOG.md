@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.5](https://github.com/awslabs/jsii/compare/v0.10.4...v0.10.5) (2019-05-06)
+
+
+### Bug Fixes
+
+* **jsii:** merge all "implements" declarations ([#494](https://github.com/awslabs/jsii/issues/494)) ([5e069aa](https://github.com/awslabs/jsii/commit/5e069aa)), closes [#493](https://github.com/awslabs/jsii/issues/493)
+
+
+
+
+
 ## [0.10.4](https://github.com/awslabs/jsii/compare/v0.10.3...v0.10.4) (2019-05-05)
 
 

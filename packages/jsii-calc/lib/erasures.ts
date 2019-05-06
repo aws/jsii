@@ -1,3 +1,5 @@
+// tslint:disable:no-empty-interface
+
 //
 // Un-exported base classes are erased
 // https://github.com/awslabs/jsii/issues/417
@@ -42,7 +44,6 @@ export interface IJSII417Derived extends IJSII417PrivateBase {
 // Interfaces should be copied from erased classes to public classes
 // https://github.com/awslabs/jsii/issues/487
 //
-// tslint:disable-next-line:no-empty-interface
 export interface IJsii487External { }
 export interface IJsii487External2 { }
 class Jsii487Internal implements IJsii487External { }
