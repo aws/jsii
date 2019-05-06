@@ -505,10 +505,12 @@ export class Assembler implements Emitter {
     }
 
     // process all "implements" clauses
-    jsiiType.interfaces = jsiiType.interfaces || [];
+    const allInterfaces = new Set<string>();
     for (const clause of implementsClauses) {
       const { interfaces } = await this._processBaseInterfaces(fqn, clause.types.map(t => this._typeChecker.getTypeFromTypeNode(t)));
-      jsiiType.interfaces.push(...(interfaces || []).map(i => i.fqn));
+      for (const ifc of (interfaces || [])) {
+        allInterfaces.add(ifc.fqn);
+      }
       if (interfaces) {
         this._deferUntilTypesAvailable(jsiiType.fqn, interfaces, type.symbol.valueDeclaration, (...ifaces) => {
           for (const iface of ifaces) {
@@ -522,8 +524,8 @@ export class Assembler implements Emitter {
       }
     }
 
-    if (jsiiType.interfaces.length === 0) {
-      delete jsiiType.interfaces;
+    if (allInterfaces.size > 0) {
+      jsiiType.interfaces = Array.from(allInterfaces);
     }
 
     if (!type.isClass()) {
