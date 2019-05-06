@@ -639,6 +639,10 @@ assemblies
  │   │ ├── interfaces: IJsii487External2,IJsii487External
  │   │ └─┬ members
  │   │   └── <initializer>() initializer
+ │   ├─┬ class Jsii496Derived
+ │   │ ├── interfaces: IJsii496
+ │   │ └─┬ members
+ │   │   └── <initializer>() initializer
  │   ├─┬ class JsiiAgent
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -1362,6 +1366,8 @@ assemblies
  │   ├─┬ interface IJsii487External
  │   │ └── members
  │   ├─┬ interface IJsii487External2
+ │   │ └── members
+ │   ├─┬ interface IJsii496
  │   │ └── members
  │   ├─┬ interface IMutableObjectLiteral
  │   │ └─┬ members
