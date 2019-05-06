@@ -636,7 +636,7 @@ assemblies
  │   │   └─┬ while property
  │   │     └── type: string
  │   ├─┬ class Jsii487Derived
- │   │ ├── interfaces: IJsii487External
+ │   │ ├── interfaces: IJsii487External2,IJsii487External
  │   │ └─┬ members
  │   │   └── <initializer>() initializer
  │   ├─┬ class JsiiAgent
@@ -1360,6 +1360,8 @@ assemblies
  │   │     ├── immutable
  │   │     └── type: boolean
  │   ├─┬ interface IJsii487External
+ │   │ └── members
+ │   ├─┬ interface IJsii487External2
  │   │ └── members
  │   ├─┬ interface IMutableObjectLiteral
  │   │ └─┬ members

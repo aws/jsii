@@ -600,6 +600,8 @@ assemblies
  │   │   └── hasRoot property
  │   ├─┬ interface IJsii487External
  │   │ └── members
+ │   ├─┬ interface IJsii487External2
+ │   │ └── members
  │   ├─┬ interface IMutableObjectLiteral
  │   │ └─┬ members
  │   │   └── value property

@@ -2848,6 +2848,35 @@ IJsii487External (interface)
 
 
 
+IJsii487External2 (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: IJsii487External2
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.IJsii487External2;
+
+      .. code-tab:: javascript
+
+         // IJsii487External2 is an interface
+
+      .. code-tab:: typescript
+
+         import { IJsii487External2 } from 'jsii-calc';
+
+
+
+
+
 IMutableObjectLiteral (interface)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -3940,6 +3969,7 @@ Jsii487Derived
 
 
 
+   :implements: :py:class:`~jsii-calc.IJsii487External2`\ 
    :implements: :py:class:`~jsii-calc.IJsii487External`\ 
 
 JsiiAgent

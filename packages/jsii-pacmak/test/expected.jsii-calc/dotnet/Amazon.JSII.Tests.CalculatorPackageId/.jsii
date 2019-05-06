@@ -3045,6 +3045,16 @@
       },
       "name": "IJsii487External"
     },
+    "jsii-calc.IJsii487External2": {
+      "assembly": "jsii-calc",
+      "fqn": "jsii-calc.IJsii487External2",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/erasures.ts",
+        "line": 47
+      },
+      "name": "IJsii487External2"
+    },
     "jsii-calc.IMutableObjectLiteral": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.IMutableObjectLiteral",
@@ -4053,12 +4063,13 @@
       "fqn": "jsii-calc.Jsii487Derived",
       "initializer": {},
       "interfaces": [
+        "jsii-calc.IJsii487External2",
         "jsii-calc.IJsii487External"
       ],
       "kind": "class",
       "locationInModule": {
         "filename": "lib/erasures.ts",
-        "line": 48
+        "line": 49
       },
       "name": "Jsii487Derived"
     },
@@ -6768,5 +6779,5 @@
     }
   },
   "version": "0.10.4",
-  "fingerprint": "JCVRuScD6uk2V+RQ+YfHSg6DG1z9qNmSY+Aug5NeTLY="
+  "fingerprint": "BTA5ERZWebBpBrjU3gv4/cr//8oiD3VyWbzqcJTNz7c="
 }

@@ -44,5 +44,6 @@ export interface IJSII417Derived extends IJSII417PrivateBase {
 //
 // tslint:disable-next-line:no-empty-interface
 export interface IJsii487External { }
+export interface IJsii487External2 { }
 class Jsii487Internal implements IJsii487External { }
-export class Jsii487Derived extends Jsii487Internal { }
+export class Jsii487Derived extends Jsii487Internal implements IJsii487External2 { }
