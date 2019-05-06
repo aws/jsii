@@ -2877,6 +2877,35 @@ IJsii487External2 (interface)
 
 
 
+IJsii496 (interface)
+^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: IJsii496
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.IJsii496;
+
+      .. code-tab:: javascript
+
+         // IJsii496 is an interface
+
+      .. code-tab:: typescript
+
+         import { IJsii496 } from 'jsii-calc';
+
+
+
+
+
 IMutableObjectLiteral (interface)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -3971,6 +4000,35 @@ Jsii487Derived
 
    :implements: :py:class:`~jsii-calc.IJsii487External2`\ 
    :implements: :py:class:`~jsii-calc.IJsii487External`\ 
+
+Jsii496Derived
+^^^^^^^^^^^^^^
+
+.. py:class:: Jsii496Derived()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.Jsii496Derived;
+
+      .. code-tab:: javascript
+
+         const { Jsii496Derived } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { Jsii496Derived } from 'jsii-calc';
+
+
+
+   :implements: :py:class:`~jsii-calc.IJsii496`\ 
 
 JsiiAgent
 ^^^^^^^^^

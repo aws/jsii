@@ -44,6 +44,7 @@ assemblies
  │   ├── class JSObjectLiteralToNativeClass
  │   ├── class JavaReservedWords
  │   ├── class Jsii487Derived
+ │   ├── class Jsii496Derived
  │   ├── class JsiiAgent
  │   ├── class Multiply
  │   ├── class Negate
@@ -98,6 +99,7 @@ assemblies
  │   ├── interface IJSII417PublicBaseOfBase
  │   ├── interface IJsii487External
  │   ├── interface IJsii487External2
+ │   ├── interface IJsii496
  │   ├── interface IMutableObjectLiteral
  │   ├── interface INonInternalInterface
  │   ├── interface IPrivatelyImplemented

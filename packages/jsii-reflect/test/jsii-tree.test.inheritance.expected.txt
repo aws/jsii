@@ -61,6 +61,8 @@ assemblies
  │   ├── class JavaReservedWords
  │   ├─┬ class Jsii487Derived
  │   │ └── interfaces: IJsii487External2,IJsii487External
+ │   ├─┬ class Jsii496Derived
+ │   │ └── interfaces: IJsii496
  │   ├── class JsiiAgent
  │   ├─┬ class Multiply
  │   │ ├── base: BinaryOperation
@@ -136,6 +138,7 @@ assemblies
  │   ├── interface IJSII417PublicBaseOfBase
  │   ├── interface IJsii487External
  │   ├── interface IJsii487External2
+ │   ├── interface IJsii496
  │   ├── interface IMutableObjectLiteral
  │   ├─┬ interface INonInternalInterface
  │   │ └─┬ interfaces

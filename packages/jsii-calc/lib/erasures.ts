@@ -48,3 +48,11 @@ export interface IJsii487External { }
 export interface IJsii487External2 { }
 class Jsii487Internal implements IJsii487External { }
 export class Jsii487Derived extends Jsii487Internal implements IJsii487External2 { }
+
+//
+// Deduplicate interfaces that come from different declaration sites
+// https://github.com/awslabs/jsii/issues/496
+//
+export interface IJsii496 { }
+class Jsii496Base implements IJsii496 { }
+export class Jsii496Derived extends Jsii496Base implements IJsii496 { }

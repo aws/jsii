@@ -69,6 +69,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.IJSII417PublicBaseOfBase": return software.amazon.jsii.tests.calculator.IJSII417PublicBaseOfBase.class;
             case "jsii-calc.IJsii487External": return software.amazon.jsii.tests.calculator.IJsii487External.class;
             case "jsii-calc.IJsii487External2": return software.amazon.jsii.tests.calculator.IJsii487External2.class;
+            case "jsii-calc.IJsii496": return software.amazon.jsii.tests.calculator.IJsii496.class;
             case "jsii-calc.IMutableObjectLiteral": return software.amazon.jsii.tests.calculator.IMutableObjectLiteral.class;
             case "jsii-calc.INonInternalInterface": return software.amazon.jsii.tests.calculator.INonInternalInterface.class;
             case "jsii-calc.IPrivatelyImplemented": return software.amazon.jsii.tests.calculator.IPrivatelyImplemented.class;
@@ -92,6 +93,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.JSObjectLiteralToNativeClass": return software.amazon.jsii.tests.calculator.JSObjectLiteralToNativeClass.class;
             case "jsii-calc.JavaReservedWords": return software.amazon.jsii.tests.calculator.JavaReservedWords.class;
             case "jsii-calc.Jsii487Derived": return software.amazon.jsii.tests.calculator.Jsii487Derived.class;
+            case "jsii-calc.Jsii496Derived": return software.amazon.jsii.tests.calculator.Jsii496Derived.class;
             case "jsii-calc.JsiiAgent": return software.amazon.jsii.tests.calculator.JsiiAgent.class;
             case "jsii-calc.LoadBalancedFargateServiceProps": return software.amazon.jsii.tests.calculator.LoadBalancedFargateServiceProps.class;
             case "jsii-calc.Multiply": return software.amazon.jsii.tests.calculator.Multiply.class;
