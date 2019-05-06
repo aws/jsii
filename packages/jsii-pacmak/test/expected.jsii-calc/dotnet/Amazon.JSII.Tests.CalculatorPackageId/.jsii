@@ -2965,14 +2965,14 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/erasures.ts",
-        "line": 37
+        "line": 39
       },
       "methods": [
         {
           "abstract": true,
           "locationInModule": {
             "filename": "lib/erasures.ts",
-            "line": 35
+            "line": 37
           },
           "name": "bar"
         },
@@ -2980,7 +2980,7 @@
           "abstract": true,
           "locationInModule": {
             "filename": "lib/erasures.ts",
-            "line": 38
+            "line": 40
           },
           "name": "baz"
         }
@@ -2992,7 +2992,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/erasures.ts",
-            "line": 34
+            "line": 36
           },
           "name": "property",
           "type": {
@@ -3007,14 +3007,14 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/erasures.ts",
-        "line": 30
+        "line": 32
       },
       "methods": [
         {
           "abstract": true,
           "locationInModule": {
             "filename": "lib/erasures.ts",
-            "line": 31
+            "line": 33
           },
           "name": "foo"
         }
@@ -3026,7 +3026,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/erasures.ts",
-            "line": 28
+            "line": 30
           },
           "name": "hasRoot",
           "type": {
@@ -3041,7 +3041,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/erasures.ts",
-        "line": 46
+        "line": 47
       },
       "name": "IJsii487External"
     },
@@ -3051,7 +3051,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/erasures.ts",
-        "line": 47
+        "line": 48
       },
       "name": "IJsii487External2"
     },
@@ -3494,20 +3494,20 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/erasures.ts",
-        "line": 20
+        "line": 22
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/erasures.ts",
-            "line": 21
+            "line": 23
           },
           "name": "bar"
         },
         {
           "locationInModule": {
             "filename": "lib/erasures.ts",
-            "line": 24
+            "line": 26
           },
           "name": "baz"
         }
@@ -3518,7 +3518,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/erasures.ts",
-            "line": 15
+            "line": 17
           },
           "name": "property",
           "protected": true,
@@ -3535,13 +3535,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/erasures.ts",
-        "line": 8
+        "line": 10
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/erasures.ts",
-            "line": 9
+            "line": 11
           },
           "name": "makeInstance",
           "returns": {
@@ -3554,7 +3554,7 @@
         {
           "locationInModule": {
             "filename": "lib/erasures.ts",
-            "line": 12
+            "line": 14
           },
           "name": "foo"
         }
@@ -3565,7 +3565,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/erasures.ts",
-            "line": 6
+            "line": 8
           },
           "name": "hasRoot",
           "type": {
@@ -4069,7 +4069,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/erasures.ts",
-        "line": 49
+        "line": 50
       },
       "name": "Jsii487Derived"
     },
@@ -6779,5 +6779,5 @@
     }
   },
   "version": "0.10.5",
-  "fingerprint": "zJNBfY5TFIAB15vOZoVZ1+ao2WEmBpI4rgrxt3jC11I="
+  "fingerprint": "yLgYMXLhffrmN5U4ftTmlWijmxvKaKHA4QXx9+adYe0="
 }
