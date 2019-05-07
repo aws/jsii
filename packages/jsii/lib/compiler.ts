@@ -141,22 +141,30 @@ export class Compiler implements Emitter {
 
     private async _consumeProgram(program: ts.Program, stdlib: string): Promise<EmitResult> {
         const emit = program.emit();
-        if (emit.emitSkipped) {
+        let hasErrors = emitHasErrors(emit);
+        const diagnostics = [...emit.diagnostics];
+
+        if (hasErrors) {
             LOG.error('Compilation errors prevented the JSII assembly from being created');
         }
 
         // we continue to do jsii checker even if there are compilation errors so that
-        // jsii warnings will appear.
-        const assembler = new Assembler(this.options.projectInfo, program, stdlib);
-        const assmEmit = await assembler.emit();
-        if (assmEmit.hasErrors) {
-            LOG.error('Type model errors prevented the JSII assembly from being created');
+        // jsii warnings will appear. However, the Assembler might throw an exception
+        // because broken/missing type information might lead it to fail completely.
+        try {
+            const assembler = new Assembler(this.options.projectInfo, program, stdlib);
+            const assmEmit = await assembler.emit();
+            if (assmEmit.hasErrors) {
+                LOG.error('Type model errors prevented the JSII assembly from being created');
+            }
+
+            hasErrors = hasErrors || assmEmit.hasErrors;
+            diagnostics.push(...assmEmit.diagnostics);
+        } catch (e) {
+            LOG.error(`Error during type model analysis: ${e}`);
         }
 
-        return {
-            hasErrors: emit.emitSkipped || assmEmit.hasErrors,
-            diagnostics: [...emit.diagnostics, ...assmEmit.diagnostics]
-        };
+        return { hasErrors, diagnostics };
     }
 
     /**
@@ -352,4 +360,8 @@ function parseConfigHostFromCompilerHost(host: ts.CompilerHost): ts.ParseConfigH
         useCaseSensitiveFileNames: host.useCaseSensitiveFileNames(),
         trace: host.trace ? (s) => host.trace!(s) : undefined
     };
+}
+
+function emitHasErrors(result: ts.EmitResult) {
+    return result.diagnostics.some(d => d.category === ts.DiagnosticCategory.Error) || result.emitSkipped;
 }
