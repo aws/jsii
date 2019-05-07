@@ -377,7 +377,6 @@ export class Assembler implements Emitter {
 
     const processBaseTypes = (types: ts.Type[]) => {
       for (const iface of types) {
-
         // base is private/internal, so we continue recursively with it's own bases
         if (this._isPrivateOrInternal(iface.symbol)) {
           erasedBases.push(iface);
@@ -507,7 +506,7 @@ export class Assembler implements Emitter {
     // process all "implements" clauses
     const allInterfaces = new Set<string>();
     for (const clause of implementsClauses) {
-      const { interfaces } = await this._processBaseInterfaces(fqn, clause.types.map(t => this._typeChecker.getTypeFromTypeNode(t)));
+      const { interfaces } = await this._processBaseInterfaces(fqn, clause.types.map(t => this._getTypeFromTypeNode(t)));
       for (const ifc of (interfaces || [])) {
         allInterfaces.add(ifc.fqn);
       }
@@ -621,6 +620,17 @@ export class Assembler implements Emitter {
     this._verifyNoStaticMixing(jsiiType, type.symbol.valueDeclaration);
 
     return _sortMembers(jsiiType);
+  }
+
+  /**
+   * Use the TypeChecker's getTypeFromTypeNode, but throw a descriptive error if it fails
+   */
+  private _getTypeFromTypeNode(t: ts.TypeNode) {
+    const type = this._typeChecker.getTypeFromTypeNode(t);
+    if (isErrorType(type)) {
+      throw new Error(`Unable to resolve type: ${t.getFullText()}. This typically happens if something is wrong with your dependency closure.`);
+    }
+    return type;
   }
 
   /**
@@ -1584,4 +1594,14 @@ function flatten<T>(xs: T[][]): T[] {
 function noEmptyDict<T>(xs: {[key: string]: T}): {[key: string]: T} | undefined {
   if (Object.keys(xs).length === 0) { return undefined; }
   return xs;
+}
+
+/**
+ * Check whether this type is the intrinsic TypeScript "error type"
+ *
+ * This type is returned if type lookup fails. Unfortunately no public
+ * accessors for it are exposed.
+ */
+function isErrorType(t: ts.Type) {
+  return (t as any).intrinsicName === 'error';
 }
