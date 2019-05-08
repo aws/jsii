@@ -4,7 +4,7 @@ import spec = require('jsii-spec');
 import log4js = require('log4js');
 import yargs = require('yargs');
 import { compareAssemblies } from '../lib';
-import { downloadNpmPackage } from '../lib/util';
+import { DownloadFailure, downloadNpmPackage, showDownloadFailure } from '../lib/util';
 import { VERSION } from '../lib/version';
 
 const LOG = log4js.getLogger('jsii-diff');
@@ -33,13 +33,24 @@ async function main(): Promise<number> {
   configureLog4js(argv.verbose);
 
   LOG.debug(`Loading original assembly from ${(argv as any).original}`);
-  const original = await loadAssembly((argv as any).original);
+  const loadOriginal = await loadAssembly((argv as any).original);
+  if (!loadOriginal.success) {
+    process.stderr.write(`Could not load '${loadOriginal.resolved}': ${showDownloadFailure(loadOriginal.reason)}. Skipping analysis\n`);
+    return 0;
+  }
 
   LOG.debug(`Loading updated assembly from ${(argv as any).updated}`);
-  const updated = await loadAssembly((argv as any).updated);
+  const loadUpdated = await loadAssembly((argv as any).updated);
+  if (!loadUpdated.success) {
+    process.stderr.write(`Could not load '${loadUpdated.resolved}': ${showDownloadFailure(loadUpdated.reason)}. Skipping analysis\n`);
+    return 0;
+  }
+
+  const original = loadOriginal.assembly;
+  const updated = loadUpdated.assembly;
 
   if (original.name !== updated.name) {
-    process.stderr.write(`Look like different assemblies: '${original.name}' vs '${updated.name}'. Comparing is probably pointless...`);
+    process.stderr.write(`Look like different assemblies: '${original.name}' vs '${updated.name}'. Comparing is probably pointless...\n`);
   }
 
   LOG.info(`Starting analysis`);
@@ -66,19 +77,29 @@ async function main(): Promise<number> {
 // Allow both npm:<package> (legacy) and npm://<package> (looks better)
 const NPM_REGEX = /^npm:(\/\/)?/;
 
-async function loadAssembly(name: string) {
+/**
+ * Load the indicated assembly from the given name
+ *
+ * Supports downloading from NPM as well as from file or directory.
+ */
+async function loadAssembly(requested: string): Promise<LoadAssemblyResult> {
+  let resolved = requested;
   try {
-    if (name.match(NPM_REGEX)) {
-      let pkg = name.replace(NPM_REGEX, '');
+    if (requested.match(NPM_REGEX)) {
+      let pkg = requested.replace(NPM_REGEX, '');
       if (!pkg) { pkg = await loadPackageNameFromAssembly(); }
 
-      // Put 'pkg' back into 'name' so any errors loading the assembly get a good source description
-      name = `npm://${pkg}`;
-      if (pkg.indexOf('@', 1) === -1) { name += '@latest'; }
+      resolved = `npm://${pkg}`;
+      if (pkg.indexOf('@', 1) === -1) { resolved += '@latest'; }
 
-      return await downloadNpmPackage(pkg, loadFromFilesystem);
+      const download = await downloadNpmPackage(pkg, loadFromFilesystem);
+      if (download.success) {
+        return { requested, resolved, success: true, assembly: download.result };
+      }
+      return { requested, resolved, success: false, reason: download.reason };
     } else {
-      return await loadFromFilesystem(name);
+      // We don't accept failure loading from the filesystem
+      return { requested, resolved, success: true, assembly: await loadFromFilesystem(requested) };
     }
   } catch (e) {
     // Prepend information about which assembly we've failed to load
@@ -86,7 +107,7 @@ async function loadAssembly(name: string) {
     // Look at the type of error. If it has a lot of lines (like validation errors
     // tend to do) log everything to the debug log and only show a couple
     const maxLines = 3;
-    const messageWithContext = `Error loading assembly '${name}': ${e.message}`;
+    const messageWithContext = `Error loading assembly '${resolved}': ${e.message}`;
     const errorLines = messageWithContext.split('\n');
     if (errorLines.length < maxLines) { throw new Error(messageWithContext); }
     for (const line of errorLines) {
@@ -95,6 +116,9 @@ async function loadAssembly(name: string) {
     throw new Error([...errorLines.slice(0, maxLines), '...'].join('\n'));
   }
 }
+
+type LoadAssemblyResult = { requested: string; resolved: string }
+    & ({ success: true; assembly: reflect.Assembly } | { success: false; reason: DownloadFailure });
 
 async function loadPackageNameFromAssembly(): Promise<string> {
   const JSII_ASSEMBLY_FILE = '.jsii';
