@@ -21,17 +21,55 @@ export async function inTempDir<T>(block: () => T | Promise<T>): Promise<T> {
   }
 }
 
-export async function downloadNpmPackage<T>(pkg: string, block: (dir: string) => Promise<T>): Promise<T> {
+export type DownloadFailure = 'no_such_package';
+
+export type NpmDownloadResult<T> = { success: true; result: T  } | { success: false; reason: DownloadFailure };
+
+export function showDownloadFailure(f: DownloadFailure) {
+  switch (f) {
+    case 'no_such_package': return 'NPM package does not exist';
+  }
+}
+
+export async function downloadNpmPackage<T>(pkg: string, block: (dir: string) => Promise<T>): Promise<NpmDownloadResult<T>> {
   return await inTempDir(async () => {
     LOG.info(`Fetching NPM package ${pkg}`);
 
-    // Need to install package and dependencies in order for jsii-reflect
-    // to not bork when it can find the dependencies.
-    await exec(`npm install --silent --prefix . ${pkg}`);
+    try {
+      // Need to install package and dependencies in order for jsii-reflect
+      // to not bork when it can find the dependencies.
+      await exec(`npm install --silent --prefix . ${pkg}`);
+    } catch (e) {
+      // If this fails, might be because the package doesn't exist
+      if (!isSubprocesFailedError(e)) { throw e; }
+      if (await npmPackageExists(pkg)) {
+        throw new Error(`NPM fetch failed: ${e}. Please try again.`);
+      }
+      LOG.warn(`NPM package ${pkg} does not exist.`);
+      return { success: false, reason: 'no_such_package' } as NpmDownloadResult<T>;
+    }
 
     const pkgDir = trimVersionString(pkg);
-    return await block(path.join(process.cwd(), 'node_modules', pkgDir));
+    return {
+      success: true,
+      result: await block(path.join(process.cwd(), 'node_modules', pkgDir))
+    } as NpmDownloadResult<T>;
  });
+}
+
+function isSubprocesFailedError(e: any) {
+  return e.code !== undefined && e.cmd !== undefined;
+}
+
+async function npmPackageExists(pkg: string): Promise<boolean> {
+  try {
+    LOG.info(`Checking existence of ${pkg}`);
+    await exec(`npm show --silent ${pkg}`);
+    return true;
+  } catch (e) {
+    if (!isSubprocesFailedError(e)) { throw e; }
+    return false;
+  }
 }
 
 /**
