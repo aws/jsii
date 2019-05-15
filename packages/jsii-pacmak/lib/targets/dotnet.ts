@@ -764,7 +764,7 @@ class DotNetGenerator extends Generator {
         if (!dotnetPackageId) { throw new Error(`The module ${this.assembly.name} does not have a dotnet.packageId setting`); }
         const filePath = namespace.replace(/[.]/g, '/');
         this.createDirectoryPaths(filePath);
-        this.code.openFile(dotnetPackageId + '/' + filePath + '/' + this.toCSharpFilePath(typeName));
+        this.code.openFile(path.join(dotnetPackageId, filePath, this.toCSharpFilePath(typeName)));
         if (namespaces) {
             if (usingDeputy) {
                 namespaces.push("Amazon.JSII.Runtime.Deputy");
