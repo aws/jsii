@@ -1,6 +1,3 @@
-import logging = require('../../logging');
-// TODO: see if we can use the codemaker.ts convertsStringToCamelCase() directly
-
 export function convertPropertyName(original: string) {
     if (isValidName(original)) {
         throw new Error(`Invalid property name: ${original}`);
@@ -63,7 +60,6 @@ export function convertPackageName(original: string) {
         throw new Error(`Invalid package name: ${original}`);
     }
     const name = original.split("-").map((s: string) => capitalizeWord(s)).join(".");
-    logging.debug(`hamzaad name: ${name}`);
     return name;
 }
 
