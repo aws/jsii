@@ -382,6 +382,9 @@ class DotNetGenerator extends Generator {
 
         const className = nameutils.convertClassName(cls.name);
 
+        if (cls.docs!) {
+            this.code.line(`/// <summary>${cls.docs!.summary}</summary>`);
+        }
         // Emit Jsii Attribute
         const jsiiAttribute = `[JsiiClass(nativeType: typeof(${className}), fullyQualifiedName: "${cls.fqn}")]`;
         this.code.line(jsiiAttribute);
@@ -471,8 +474,12 @@ class DotNetGenerator extends Generator {
         if (method.abstract) {
             // TODO: add Jsii attribute for abstract methods when impl calc-base and calc
             this.code.line(`${access} abstract ${signature};`);
+            this.code.line();
         } else {
             if (method.returns) {
+                if (method.docs!) {
+                    this.code.line(`/// <returns>${method.docs!.returns}</returns>`);
+                }
                 const isPrimitive = spec.isPrimitiveTypeReference(method.returns.type);
                 if (isPrimitive) {
                     // Emit Jsii Attribute
@@ -491,6 +498,7 @@ class DotNetGenerator extends Generator {
                 this.code.line('InvokeInstanceVoidMethod(new object[]{});');
             }
             this.code.closeBlock();
+            this.code.line();
         }
     }
 
@@ -526,6 +534,9 @@ class DotNetGenerator extends Generator {
             suffix = `: DeputyBase, ${nameutils.convertInterfaceName(ifc.name)}`;
             jsiiAttribute = `[JsiiTypeProxy(nativeType: typeof(${nameutils.convertInterfaceName(ifc.name)}), fullyQualifiedName: \"${ifc.fqn}\")]`;
         } else {
+            if (ifc.docs!) {
+                this.code.line(`/// <summary>${ifc.docs!.summary}</summary>`);
+            }
             suffix = `: ${nameutils.convertClassName(ifc.name)}`;
             jsiiAttribute = `[JsiiTypeProxy(nativeType: typeof(${nameutils.convertClassName(ifc.name)}), fullyQualifiedName: \"${ifc.fqn}\")]`;
         }
@@ -563,7 +574,6 @@ class DotNetGenerator extends Generator {
         const emitInstanceGetter = false;
         const datatype = true;
         this.emitInterfaceMembersForProxyOrDatatype(ifc, emitInstanceGetter, datatype);
-
         this.code.closeBlock();
         this.closeFileIfNeeded(name, this.isNested(ifc));
     }
