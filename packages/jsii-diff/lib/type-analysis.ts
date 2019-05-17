@@ -64,10 +64,16 @@ export function isSuperType(a: reflect.TypeReference, b: reflect.TypeReference, 
   // and the NEW type system.
   // We could do more complex analysis on typing of methods, but it doesn't seem
   // worth it.
-  const A = a.type!; // Note: lookup in old type system!
-  const B = b.type!;
-  if (A.isInterfaceType() && A.isDataType() && B.isInterfaceType() && B.datatype) {
-    return isStructuralSuperType(A, B, updatedSystem);
+  try {
+    const A = a.type!; // Note: lookup in old type system!
+    const B = b.type!;
+    if (A.isInterfaceType() && A.isDataType() && B.isInterfaceType() && B.datatype) {
+      return isStructuralSuperType(A, B, updatedSystem);
+    }
+  } catch (e) {
+    // We might get an exception if the type is supposed to come from a different
+    // assembly and the lookup fails.
+    return { success: false, reasons: [e.message] };
   }
 
   // All seems good
