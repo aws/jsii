@@ -1,40 +1,40 @@
 export function convertPropertyName(original: string) {
-    if (isValidName(original)) {
+    if (isInvalidName(original)) {
         throw new Error(`Invalid property name: ${original}`);
     }
     return capitalizeWord(original);
 }
 
 export function convertTypeName(original: string) {
-    if (isValidName(original)) {
+    if (isInvalidName(original)) {
         throw new Error(`Invalid type name: ${original}`);
     }
     return capitalizeWord(original);
 }
 
 export function convertMethodName(original: string) {
-    if (isValidName(original)) {
+    if (isInvalidName(original)) {
         throw new Error(`Invalid method name: ${original}`);
     }
     return capitalizeWord(original);
 }
 
 export function convertEnumMemberName(original: string) {
-    if (isValidName(original)) {
+    if (isInvalidName(original)) {
         throw new Error(`Invalid enum member name: ${original}`);
     }
     return capitalizeWord(original);
 }
 
 export function convertParameterName(original: string) {
-    if (isValidName(original)) {
+    if (isInvalidName(original)) {
         throw new Error(`Invalid parameter name: ${original}`);
     }
     return escapeKeyWord(original);
 }
 
 export function convertInterfaceName(original: string) {
-    if (isValidName(original)) {
+    if (isInvalidName(original)) {
         throw new Error(`Invalid interface name: ${original}`);
     }
     // TODO: see what's the best way to handle the I
@@ -49,14 +49,14 @@ export function convertInterfaceName(original: string) {
 }
 
 export function convertClassName(original: string) {
-    if (isValidName(original)) {
+    if (isInvalidName(original)) {
         throw new Error(`Invalid class name: ${original}`);
     }
     return capitalizeWord(original);
 }
 
 export function convertPackageName(original: string) {
-    if (isValidName(original)) {
+    if (isInvalidName(original)) {
         throw new Error(`Invalid package name: ${original}`);
     }
     const name = original.split("-").map((s: string) => capitalizeWord(s)).join(".");
@@ -78,6 +78,8 @@ export function escapeKeyWord(original: string) {
 }
 
 /* We only want valid names for members */
-function isValidName(str: string) {
-    return str === null || str.match(/^\s*$/) !== null || str.indexOf('$') >= 0;
+function isInvalidName(str: string) {
+    // Can not be empty, or contains $
+    // Can only start with a letter or an underscore
+    return str === null || str.match(/^\s*$/) !== null || str.indexOf('$') >= 0 || !str.match(/^[A-Za-z_]/);
 }

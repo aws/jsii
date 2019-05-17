@@ -1,15 +1,15 @@
-import clone = require('clone');
-import fs = require('fs-extra');
-import spec = require('jsii-spec');
+import * as clone from 'clone';
+import * as fs from 'fs-extra';
+import * as spec from 'jsii-spec';
 import {PrimitiveTypeReference} from "jsii-spec";
-import path = require('path');
-import xmlbuilder = require('xmlbuilder');
+import * as path from 'path';
+import * as xmlbuilder from 'xmlbuilder';
 import {Generator, GeneratorOptions} from '../generator';
-import logging = require('../logging');
+import * as logging from '../logging';
 import { PackageInfo, Target, TargetOptions } from '../target';
 import { shell } from '../util';
 import {DotNetDependency, FileGenerator} from './dotnet/filegenerator';
-import nameutils = require('./dotnet/nameutils');
+import * as nameutils from './dotnet/nameutils';
 
 export default class Dotnet extends Target {
     public static toPackageInfos(assm: spec.Assembly): { [language: string]: PackageInfo } {
@@ -132,7 +132,6 @@ export default class Dotnet extends Target {
 // # CODE GENERATOR V2 #
 // #####################
 class DotNetGenerator extends Generator {
-
     // The path of the original jsii input model.
     private jsiiFilePath: string;
 
@@ -140,12 +139,15 @@ class DotNetGenerator extends Generator {
     // This is later used to output the csproj
     private dependencies: Map<string, DotNetDependency> = new Map<string, DotNetDependency>();
 
+    // Flags that tracks if we have already wrote the first member of the class
+    private firstMemberWritten: boolean = false;
+
     constructor(options = new GeneratorOptions()) {
         super(options);
 
         // Override the openBlock to get a correct C# looking code block with the curly brace after the line
-        this.code.openBlock = function(s) {
-            this.line(s);
+        this.code.openBlock = function(text) {
+            this.line(text);
             this.open('{');
         };
     }
@@ -164,7 +166,7 @@ class DotNetGenerator extends Generator {
         super.generate(fingerprint);
     }
 
-    public async save(outdir: string, tarball: string): Promise<any> {
+    public async save(outdir: string, tarball: string) {
         // Generating the csproj and AssemblyInfo.cs files
         const tarballFileName = tarball.substr(tarball.lastIndexOf('/') + 1);
         const filegen = new FileGenerator(this.assembly, tarballFileName, this.code);
@@ -175,17 +177,18 @@ class DotNetGenerator extends Generator {
         // Hence we are saving the files ourselves here:
         const assm = this.assembly;
         const packageId: string = assm.targets!.dotnet!.packageId;
+        if (!packageId) { throw new Error(`The module ${assm.name} does not have a dotnet.packageId setting`); }
         await fs.mkdirs(path.join(outdir, packageId));
         await fs.copyFile(tarball, path.join(outdir, packageId, tarballFileName));
 
         // Create an anchor file for the current model
         this.generateDependencyAnchorFile();
 
-        // Saving the generated code.
-        await this.code.save(outdir);
-
         // Copying the .jsii file
         await fs.copyFile(this.jsiiFilePath, path.join(outdir, packageId, spec.SPEC_FILE_NAME));
+
+        // Saving the generated code.
+        return await this.code.save(outdir);
     }
 
     // Generates the Anchor file
@@ -224,16 +227,19 @@ class DotNetGenerator extends Generator {
         for (const depName of Object.keys(assmDependencies)) {
             const depInfo = assmDependencies[depName];
             if (!this.dependencies.has(depName)) {
-                const namespace = depInfo.targets!.dotnet!.namespace;
-                const packageId = depInfo.targets!.dotnet!.packageId;
+                const dotnetInfo = depInfo.targets!.dotnet;
+                const namespace = dotnetInfo!.namespace;
+                const packageId = dotnetInfo!.packageId;
                 const version = depInfo.version;
                 this.dependencies.set(depName, new DotNetDependency(namespace, packageId, depName, version));
             }
         }
     }
 
-    protected onBeginInterface(ifc: spec.InterfaceType) {
-        // all interfaces always extend JsiiInterface so we can identify that it is a jsii interface.
+    // Loops through the implemented interfaces and saves the type and namespace
+    // [0] The type names will be added to the class/ifc declaration
+    // [1] The namespace names will be added to the using statement
+    protected resolveImplementedInterfaces(ifc: spec.InterfaceType | spec.ClassType): [string[], string[]] {
         const interfaces = ifc.interfaces || [];
         const baseNamespaces: string[] = [];
         const baseTypeNames: string[] = [];
@@ -241,8 +247,9 @@ class DotNetGenerator extends Generator {
         // For all base members
         for (const base of interfaces) {
             // Retrieve the interface name from the fqn
-            const baseFqn = base.substr(0, base.lastIndexOf('.'));
-            const baseName = base.substr(base.lastIndexOf('.') + 1);
+            const lastIndexOfDot = base.lastIndexOf('.');
+            const baseFqn = base.substr(0, lastIndexOfDot);
+            const baseName = base.substr(lastIndexOfDot + 1);
             // Adding the base type
             baseTypeNames.push(nameutils.convertInterfaceName(baseName));
             if (baseFqn === this.assembly.name) {
@@ -257,6 +264,13 @@ class DotNetGenerator extends Generator {
                 }
             }
         }
+        return [baseTypeNames, baseNamespaces];
+    }
+
+    protected onBeginInterface(ifc: spec.InterfaceType) {
+        const implemented: [string[], string[]] = this.resolveImplementedInterfaces(ifc);
+        const baseTypeNames: string[] = implemented[0];
+        const baseNamespaces: string[] = implemented[1];
 
         const interfaceName = nameutils.convertInterfaceName(ifc.name);
         this.openFileIfNeeded(interfaceName, this.assembly.targets!.dotnet!.namespace, this.isNested(ifc), baseNamespaces);
@@ -269,6 +283,7 @@ class DotNetGenerator extends Generator {
         } else {
             this.code.openBlock(`public interface ${interfaceName}`);
         }
+        this.flagFirstMemberWritten(false);
     }
 
     protected onEndInterface(ifc: spec.InterfaceType) {
@@ -312,6 +327,8 @@ class DotNetGenerator extends Generator {
             throw new Error(`Property ${_ifc.name}.${prop.name} is marked as static, but interfaces must not contain static members.`);
         }
 
+        this.emitLineIfNecessary();
+
         const fullPropTypes = this.toDotNetType(prop.type);
         const propName = nameutils.convertPropertyName(prop.name);
 
@@ -338,38 +355,20 @@ class DotNetGenerator extends Generator {
             this.code.line('set;');
         }
         this.code.closeBlock();
-        this.code.line();
     }
 
     protected onBeginClass(cls: spec.ClassType, abstract: boolean) {
         let implementsExpr = '';
-        const baseNamespaces: string[] = [];
-        const baseTypeNames: string[] = [];
+        let baseNamespaces: string[] = [];
+        let baseTypeNames: string[] = [];
 
         const classBase = this.getClassBase(cls);
         const extendsExpression = classBase ? ` : ${classBase}` : '';
 
         if (cls.interfaces && cls.interfaces.length > 0) {
-
-            // For all base members
-            for (const base of cls.interfaces) {
-                // Retrieve the interface name from the fqn
-                const baseFqn = base.substr(0, base.lastIndexOf('.'));
-                const baseName = base.substr(base.lastIndexOf('.') + 1);
-                // Adding the base type
-                baseTypeNames.push(nameutils.convertInterfaceName(baseName));
-                if (baseFqn === this.assembly.name) {
-                    // If the base interface is in the current assembly
-                    // Nothing to do, we just added it to the list of implemented ifc
-                } else {
-                    // We need to add a reference to the interface assembly in the using statement and the csproj.
-                    const namespaceName = this.dependencies.get(baseFqn)!.namespace;
-                    // Adding the namespaceName to the base namespaces for the using statement
-                    if (!baseNamespaces.includes(namespaceName)) {
-                        baseNamespaces.push(namespaceName);
-                    }
-                }
-            }
+            const implemented: [string[], string[]] = this.resolveImplementedInterfaces(cls);
+            baseTypeNames = implemented[0];
+            baseNamespaces = implemented[1];
             implementsExpr = classBase ? ', ' + baseTypeNames.join(', ') : ' : ' + baseTypeNames.join(', ');
         }
 
@@ -382,7 +381,7 @@ class DotNetGenerator extends Generator {
 
         const className = nameutils.convertClassName(cls.name);
 
-        if (cls.docs!) {
+        if (cls.docs) {
             this.code.line(`/// <summary>${cls.docs!.summary}</summary>`);
         }
         // Emit Jsii Attribute
@@ -406,7 +405,9 @@ class DotNetGenerator extends Generator {
         this.code.line();
         this.code.openBlock(`protected ${className}(DeputyProps props): base(props)`);
         this.code.closeBlock();
-        this.code.line();
+
+        // We have already outputted members (constructors), setting the flag to true
+        this.flagFirstMemberWritten(true);
     }
 
     protected onEndClass(cls: spec.ClassType) {
@@ -459,8 +460,10 @@ class DotNetGenerator extends Generator {
         // overrides will be used later when implementing calc-base and calc
         /* tslint:disable-next-line no-unused-expression */
         overrides;
+
+        this.emitLineIfNecessary();
         const returnType = method.returns ? this.toDotNetType(method.returns.type) : 'void';
-        const statc = method.static ? 'static ' : '';
+        const staticKeyWord = method.static ? 'static ' : '';
         // If we are emiting a method for a class (and not a proxy), the method should be virtual.
         const virtual = cls.kind === spec.TypeKind.Class ? 'virtual ' : '';
 
@@ -488,17 +491,16 @@ class DotNetGenerator extends Generator {
                         `[JsiiMethod(name: "${method.name}", returnsJson: "{\\"type\\":{\\"primitive\\":\\"${prim.primitive}\\"}}")]`;
                     this.code.line(jsiiAttribute);
                 }
-                this.code.openBlock(`${access} ${statc}${virtual}${signature}`);
+                this.code.openBlock(`${access} ${staticKeyWord}${virtual}${signature}`);
                 this.code.line('return InvokeInstanceMethod<' + returnType + '>(new object[]{});');
             } else {
                 // Emit Jsii attribute
                 const jsiiAttribute = `[JsiiMethod(name: "${method.name}")]`;
                 this.code.line(jsiiAttribute);
-                this.code.openBlock(`${access} ${statc}${virtual}${signature}`);
+                this.code.openBlock(`${access} ${staticKeyWord}${virtual}${signature}`);
                 this.code.line('InvokeInstanceVoidMethod(new object[]{});');
             }
             this.code.closeBlock();
-            this.code.line();
         }
     }
 
@@ -548,7 +550,9 @@ class DotNetGenerator extends Generator {
         // Create the private constructor
         this.code.openBlock(`private ${name}(ByRefValue reference): base(reference)`);
         this.code.closeBlock();
-        this.code.line();
+
+        // We have already output a member (constructor), setting the first member flag to true
+        this.flagFirstMemberWritten(true);
 
         const emitInstanceGetter = true;
         const datatype = false;
@@ -571,6 +575,7 @@ class DotNetGenerator extends Generator {
         this.code.line(jsiiAttribute);
         this.code.openBlock(`public class ${name} ${suffix}`);
 
+        this.flagFirstMemberWritten(false);
         const emitInstanceGetter = false;
         const datatype = true;
         this.emitInterfaceMembersForProxyOrDatatype(ifc, emitInstanceGetter, datatype);
@@ -636,8 +641,11 @@ class DotNetGenerator extends Generator {
 
     private emitProperty(cls: spec.Type, prop: spec.Property, overrides: boolean = !!prop.overrides,
                          emitInstanceGetter: boolean = false, datatype: boolean = false) {
+
+        this.emitLineIfNecessary();
+
         const access = this.renderAccessLevel(prop);
-        const statc = prop.static ? 'static ' : '';
+        const staticKeyWord = prop.static ? 'static ' : '';
         const propName = nameutils.convertPropertyName(prop.name);
 
         // If we are on a datatype then we want the property to override in Jsii
@@ -657,7 +665,7 @@ class DotNetGenerator extends Generator {
         if (fullPropTypes.length > 1) {// Union type
             this.code.openBlock(`object ${propName}`);
         } else {
-            const statement = `${access} ${statc}${fullPropTypes} ${propName}`;
+            const statement = `${access} ${staticKeyWord}${fullPropTypes} ${propName}`;
             this.code.openBlock(statement);
             if (emitInstanceGetter) {
                 const getter = `get => GetInstanceProperty<${fullPropTypes}>();`;
@@ -672,7 +680,6 @@ class DotNetGenerator extends Generator {
             this.code.line('set;');
         }
         this.code.closeBlock();
-        this.code.line();
 
         // TODO: handle cls and overrides when impl calc?
         /* tslint:disable-next-line no-unused-expression */
@@ -800,5 +807,22 @@ class DotNetGenerator extends Generator {
         }
         this.code.closeBlock();
         this.code.closeFile(this.toCSharpFilePath(typeName));
+    }
+
+    // Resets the firstMember boolean flag to keep track of the first member of a new file
+    // This avoids unnecessary white lines
+    private flagFirstMemberWritten(first: boolean) {
+        this.firstMemberWritten = first;
+    }
+
+    // Emits a line prior to writing a new property, method, if the property is not the first one in the class
+    // This avoids unnecessary white lines.
+    private emitLineIfNecessary() {
+        // If the first member has already been written, it is safe to write a new line
+        if (this.firstMemberWritten) {
+            this.code.line();
+        } else {
+            this.firstMemberWritten = false;
+        }
     }
 }

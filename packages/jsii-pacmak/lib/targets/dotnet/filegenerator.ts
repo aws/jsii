@@ -38,7 +38,8 @@ export class FileGenerator {
 
     // Generates the .csproj file
     public generateProjectFile(dependencies: Map<string, DotNetDependency>) {
-        const packageId: string = this.assm.targets!.dotnet!.packageId;
+        const assembly = this.assm;
+        const packageId: string = assembly.targets!.dotnet!.packageId;
 
         const projectFilePath: string = path.join(packageId, `${packageId}.csproj`);
 
@@ -51,29 +52,30 @@ export class FileGenerator {
         propertyGroup.ele("GeneratePackageOnBuild", "true");
         propertyGroup.ele("IncludeSymbols", "true");
         propertyGroup.ele("IncludeSource", "true");
-        propertyGroup.ele("PackageVersion", this.assm.version);
+        propertyGroup.ele("PackageVersion", assembly.version);
         propertyGroup.ele("PackageId", packageId);
-        propertyGroup.ele("Description", this.assm.description);
-        propertyGroup.ele("ProjectUrl", this.assm.homepage);
-        propertyGroup.ele("LicenseUrl", `https://spdx.org/licenses/${this.assm.license}.html`);
-        propertyGroup.ele("Authors", this.assm.author.name);
+        propertyGroup.ele("Description", assembly.description);
+        propertyGroup.ele("ProjectUrl", assembly.homepage);
+        propertyGroup.ele("LicenseUrl", `https://spdx.org/licenses/${assembly.license}.html`);
+        propertyGroup.ele("Authors", assembly.author.name);
         propertyGroup.ele("Language", "en-US");
 
-        if (this.assm.targets!.dotnet!.title != null) {
-            propertyGroup.ele("Title", this.assm.targets!.dotnet!.title);
+        const dotnetInfo = assembly.targets!.dotnet;
+        if (dotnetInfo!.title != null) {
+            propertyGroup.ele("Title", dotnetInfo!.title);
         }
 
-        if (this.assm.targets!.dotnet!.signAssembly != null) {
+        if (dotnetInfo!.signAssembly != null) {
             const signAssembly = propertyGroup.ele("SignAssembly");
-            signAssembly.att("Condition", `Exists('${this.assm.targets!.dotnet!.assemblyOriginatorKeyFile}')`);
+            signAssembly.att("Condition", `Exists('${dotnetInfo!.assemblyOriginatorKeyFile}')`);
         }
 
-        if (this.assm.targets!.dotnet!.assemblyOriginatorKeyFile != null) {
-            propertyGroup.ele("AssemblyOriginatorKeyFile", this.assm.targets!.dotnet!.assemblyOriginatorKeyFile);
+        if (dotnetInfo!.assemblyOriginatorKeyFile != null) {
+            propertyGroup.ele("AssemblyOriginatorKeyFile", dotnetInfo!.assemblyOriginatorKeyFile);
         }
 
-        if (this.assm.targets!.dotnet!.iconUrl != null) {
-            propertyGroup.ele("IconUrl", this.assm.targets!.dotnet!.iconUrl);
+        if (dotnetInfo!.iconUrl != null) {
+            propertyGroup.ele("IconUrl", dotnetInfo!.iconUrl);
         }
 
         const itemGroup1 = rootNode.ele("ItemGroup");
@@ -84,7 +86,7 @@ export class FileGenerator {
         const packageReference = itemGroup2.ele("PackageReference");
         packageReference.att("Include", "Amazon.JSII.Runtime");
 
-        packageReference.att("Version", this.assm.version);
+        packageReference.att("Version", assembly.version);
 
         dependencies.forEach((value: DotNetDependency) => {
             const dependencyReference = itemGroup2.ele("PackageReference");
