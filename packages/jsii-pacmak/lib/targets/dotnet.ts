@@ -275,6 +275,11 @@ class DotNetGenerator extends Generator {
         const interfaceName = nameutils.convertInterfaceName(ifc.name);
         this.openFileIfNeeded(interfaceName, this.assembly.targets!.dotnet!.namespace, this.isNested(ifc), baseNamespaces);
 
+        if (ifc.docs) {
+            if (ifc.docs!.summary) {
+                this.code.line(`/// <summary>${ifc.docs!.summary}</summary>`);
+            }
+        }
         const jsiiAttribute = `[JsiiInterface(nativeType: typeof(${nameutils.convertInterfaceName(ifc.name)}), fullyQualifiedName: "${ifc.fqn}")]`;
         this.code.line(jsiiAttribute);
 
@@ -481,7 +486,10 @@ class DotNetGenerator extends Generator {
         } else {
             if (method.returns) {
                 if (method.docs!) {
-                    this.code.line(`/// <returns>${method.docs!.returns}</returns>`);
+                    this.code.line(`/// <summary>${method.docs!.summary}</summary>`);
+                    if (method.docs!.returns) {
+                        this.code.line(`/// <returns>${method.docs!.returns}</returns>`);
+                    }
                 }
                 const isPrimitive = spec.isPrimitiveTypeReference(method.returns.type);
                 if (isPrimitive) {
@@ -530,15 +538,18 @@ class DotNetGenerator extends Generator {
         const name = nameutils.convertClassName(ifc.name) + 'Proxy';
         this.openFileIfNeeded(name, this.assembly.targets!.dotnet!.namespace, false);
 
+        if (ifc.docs!) {
+            this.code.line(`/// <summary>${ifc.docs!.summary}</summary>`);
+            if (ifc.docs!.remarks) {
+                // TODO: see how to properly display remarks on multiple lines
+            }
+        }
         let suffix = "";
         let jsiiAttribute: string;
         if (ifc.kind === spec.TypeKind.Interface) {
             suffix = `: DeputyBase, ${nameutils.convertInterfaceName(ifc.name)}`;
             jsiiAttribute = `[JsiiTypeProxy(nativeType: typeof(${nameutils.convertInterfaceName(ifc.name)}), fullyQualifiedName: \"${ifc.fqn}\")]`;
         } else {
-            if (ifc.docs!) {
-                this.code.line(`/// <summary>${ifc.docs!.summary}</summary>`);
-            }
             suffix = `: ${nameutils.convertClassName(ifc.name)}`;
             jsiiAttribute = `[JsiiTypeProxy(nativeType: typeof(${nameutils.convertClassName(ifc.name)}), fullyQualifiedName: \"${ifc.fqn}\")]`;
         }
