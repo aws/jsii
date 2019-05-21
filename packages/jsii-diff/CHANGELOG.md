@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/awslabs/jsii/compare/v0.10.5...v0.11.0) (2019-05-21)
+
+
+### Bug Fixes
+
+* **jsii-diff:** catch exception if type disappeared from other assembly ([#504](https://github.com/awslabs/jsii/issues/504)) ([8d11900](https://github.com/awslabs/jsii/commit/8d11900))
+* **jsii-diff:** correctly handle assignability of type unions ([#500](https://github.com/awslabs/jsii/issues/500)) ([04c061e](https://github.com/awslabs/jsii/commit/04c061e))
+* **jsii-diff:** don't fail on new packages ([#502](https://github.com/awslabs/jsii/issues/502)) ([d1d0633](https://github.com/awslabs/jsii/commit/d1d0633))
+
+
+
+
+
 ## [0.10.5](https://github.com/awslabs/jsii/compare/v0.10.4...v0.10.5) (2019-05-06)
 
 **Note:** Version bump only for package jsii-diff
