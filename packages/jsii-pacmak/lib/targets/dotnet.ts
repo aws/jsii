@@ -53,10 +53,11 @@ export default class Dotnet extends Target {
         const packageId: string = pkg.jsii.targets.dotnet.packageId;
         const project: string = path.join(packageId, `${packageId}.csproj`);
 
+        // Add retry as NuGet on Ubuntu is prone to failing due to race conditions
         await shell(
             'dotnet',
             [ 'build', project, '-c', 'Release' ],
-            { cwd: sourceDir }
+            { cwd: sourceDir, retry: true }
         );
 
         await this.copyFiles(

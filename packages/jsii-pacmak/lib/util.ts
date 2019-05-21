@@ -4,6 +4,15 @@ import spec = require('jsii-spec');
 import path = require('path');
 import logging = require('./logging');
 
+export interface ShellOptions extends SpawnOptions {
+    /**
+     * Retry execution up to 3 times if it fails
+     *
+     * @default false
+     */
+    retry?: boolean;
+}
+
 /**
  * Given an npm package directory and a dependency name, returns the package directory of the dep.
  * @param packageDir     the root of the package declaring the dependency.
@@ -15,33 +24,51 @@ export function resolveDependencyDirectory(packageDir: string, dependencyName: s
     return path.dirname(require.resolve(`${dependencyName}/package.json`, { paths: lookupPaths }));
 }
 
-export function shell(cmd: string, args: string[], options: SpawnOptions): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
-        logging.debug(cmd, args.join(' '), JSON.stringify(options));
-        const child = spawn(cmd, args, { ...options, shell: true, env: { ...process.env, ...options.env || {} }, stdio: ['ignore', 'pipe', 'pipe'] });
-        const stdout = new Array<Buffer>();
-        const stderr = new Array<Buffer>();
-        child.stdout.on('data', chunk => {
-            if (logging.level >= logging.LEVEL_VERBOSE) {
-                process.stderr.write(chunk); // notice - we emit all build output to stderr
-            }
-            stdout.push(Buffer.from(chunk));
+export async function shell(cmd: string, args: string[], options: ShellOptions): Promise<string> {
+    function spawn1() {
+        return new Promise<string>((resolve, reject) => {
+            logging.debug(cmd, args.join(' '), JSON.stringify(options));
+            const child = spawn(cmd, args, {
+                ...options,
+                shell: true,
+                env: { ...process.env, ...options.env || {} },
+                stdio: ['ignore', 'pipe', 'pipe']
+            });
+            const stdout = new Array<Buffer>();
+            const stderr = new Array<Buffer>();
+            child.stdout.on('data', chunk => {
+                if (logging.level >= logging.LEVEL_VERBOSE) {
+                    process.stderr.write(chunk); // notice - we emit all build output to stderr
+                }
+                stdout.push(Buffer.from(chunk));
+            });
+            child.stderr.on('data', chunk => {
+                if (logging.level >= logging.LEVEL_VERBOSE) {
+                    process.stderr.write(chunk);
+                }
+                stderr.push(Buffer.from(chunk));
+            });
+            child.once('error', reject);
+            child.once('exit', (code, signal) => {
+                const out = Buffer.concat(stdout).toString('utf-8');
+                if (code === 0) { return resolve(out); }
+                const err = Buffer.concat(stderr).toString('utf-8');
+                if (code != null) { return reject(new Error(`Process exited with status ${code}\n${out}\n${err}`)); }
+                reject(new Error(`Process terminated by signal ${signal}\n${out}\n${err}`));
+            });
         });
-        child.stderr.on('data', chunk => {
-            if (logging.level >= logging.LEVEL_VERBOSE) {
-                process.stderr.write(chunk);
-            }
-            stderr.push(Buffer.from(chunk));
-        });
-        child.once('error', reject);
-        child.once('exit', (code, signal) => {
-            const out = Buffer.concat(stdout).toString('utf-8');
-            if (code === 0) { return resolve(out); }
-            const err = Buffer.concat(stderr).toString('utf-8');
-            if (code != null) { return reject(new Error(`Process exited with status ${code}\n${out}\n${err}`)); }
-            reject(new Error(`Process terminated by signal ${signal}\n${out}\n${err}`));
-        });
-    });
+    }
+
+    let attempts = options.retry ? 3 : 1;
+    while (true) {
+        attempts--;
+        try {
+            return spawn1();
+        } catch (e) {
+            if (attempts === 0) { throw e; }
+            logging.info(`${e.message} (retrying)`);
+        }
+    }
 }
 
 /**
