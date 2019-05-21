@@ -152,7 +152,7 @@ class DotNetGenerator extends Generator {
         };
     }
 
-    public async load(packageRoot: string) {
+    public async load(packageRoot: string): Promise<void> {
         await super.load(packageRoot);
         this.jsiiFilePath = path.join(packageRoot, spec.SPEC_FILE_NAME);
     }
@@ -192,7 +192,7 @@ class DotNetGenerator extends Generator {
     }
 
     // Generates the Anchor file
-    protected generateDependencyAnchorFile() {
+    protected generateDependencyAnchorFile(): void {
         const namespace: string = this.assembly.targets!.dotnet!.namespace + ".Internal.DependencyResolution";
         this.openFileIfNeeded("Anchor", namespace, false, undefined, false);
         this.code.openBlock("public class Anchor");
@@ -206,7 +206,7 @@ class DotNetGenerator extends Generator {
     }
 
     // Not used as we override the save() method
-    protected getAssemblyOutputDir(mod: spec.Assembly) {
+    protected getAssemblyOutputDir(mod: spec.Assembly): string {
         return nameutils.convertPackageName((mod.name));
     }
 
@@ -222,7 +222,7 @@ class DotNetGenerator extends Generator {
     }
 
     // This resolves the needed dependencies by looking at the .jsii model
-    protected resolveDependencies() {
+    protected resolveDependencies(): void {
         const assmDependencies = this.assembly.dependencies || {};
         for (const depName of Object.keys(assmDependencies)) {
             const depInfo = assmDependencies[depName];
@@ -268,9 +268,7 @@ class DotNetGenerator extends Generator {
     }
 
     protected onBeginInterface(ifc: spec.InterfaceType) {
-        const implemented: [string[], string[]] = this.resolveImplementedInterfaces(ifc);
-        const baseTypeNames: string[] = implemented[0];
-        const baseNamespaces: string[] = implemented[1];
+        const [baseTypeNames, baseNamespaces] = this.resolveImplementedInterfaces(ifc);
 
         const interfaceName = nameutils.convertInterfaceName(ifc.name);
         this.openFileIfNeeded(interfaceName, this.assembly.targets!.dotnet!.namespace, this.isNested(ifc), baseNamespaces);
@@ -359,20 +357,17 @@ class DotNetGenerator extends Generator {
 
     protected onBeginClass(cls: spec.ClassType, abstract: boolean) {
         let implementsExpr = '';
-        let baseNamespaces: string[] = [];
-        let baseTypeNames: string[] = [];
 
         const classBase = this.getClassBase(cls);
         const extendsExpression = classBase ? ` : ${classBase}` : '';
 
         if (cls.interfaces && cls.interfaces.length > 0) {
-            const implemented: [string[], string[]] = this.resolveImplementedInterfaces(cls);
-            baseTypeNames = implemented[0];
-            baseNamespaces = implemented[1];
+            const [baseTypeNames, baseNamespaces] = this.resolveImplementedInterfaces(cls);
             implementsExpr = classBase ? ', ' + baseTypeNames.join(', ') : ' : ' + baseTypeNames.join(', ');
+            this.openFileIfNeeded(cls.name, this.assembly.targets!.dotnet!.namespace, this.isNested(cls), baseNamespaces);
+        } else {
+            this.openFileIfNeeded(cls.name, this.assembly.targets!.dotnet!.namespace, this.isNested(cls));
         }
-
-        this.openFileIfNeeded(cls.name, this.assembly.targets!.dotnet!.namespace, this.isNested(cls), baseNamespaces);
 
         // Nested classes will be dealt with during calc code generation
         const nested = this.isNested(cls);
@@ -456,7 +451,7 @@ class DotNetGenerator extends Generator {
         this.emitProperty(cls, prop);
     }
 
-    private emitMethod(cls: spec.Type, method: spec.Method, overrides: boolean = !!method.overrides) {
+    private emitMethod(cls: spec.Type, method: spec.Method, overrides: boolean = !!method.overrides): void {
         // overrides will be used later when implementing calc-base and calc
         /* tslint:disable-next-line no-unused-expression */
         overrides;
@@ -504,7 +499,7 @@ class DotNetGenerator extends Generator {
         }
     }
 
-    private renderMethodParameters(method: spec.Method) {
+    private renderMethodParameters(method: spec.Method): string {
         // TODO: handle variadic parameters when impl calc-base and calc
         const params = [];
         if (method.parameters) {
@@ -526,7 +521,7 @@ class DotNetGenerator extends Generator {
     }
 
     // Emitting an interface proxy for an interface or an abstract class.
-    private emitInterfaceProxy(ifc: spec.InterfaceType | spec.ClassType) {
+    private emitInterfaceProxy(ifc: spec.InterfaceType | spec.ClassType): void {
         const name = nameutils.convertClassName(ifc.name) + 'Proxy';
         this.openFileIfNeeded(name, this.assembly.targets!.dotnet!.namespace, false);
 
@@ -564,7 +559,7 @@ class DotNetGenerator extends Generator {
 
     // This is used to emit a class implementing an interface when the datatype property is true in the jsii model
     // The generation of the interface proxy may not be needed if the interface is also set as a datatype
-    private emitInterfaceDataType(ifc: spec.InterfaceType | spec.ClassType) {
+    private emitInterfaceDataType(ifc: spec.InterfaceType | spec.ClassType): void {
         const name = nameutils.convertClassName(ifc.name);
 
         this.openFileIfNeeded(name, this.assembly.targets!.dotnet!.namespace, this.isNested((ifc)));
@@ -585,7 +580,7 @@ class DotNetGenerator extends Generator {
 
     // This generates the body of the interface proxy or data type class
     // This loops through all the member and generates them
-    private emitInterfaceMembersForProxyOrDatatype(ifc: spec.InterfaceType | spec.ClassType, emitInstanceGetter: boolean, datatype: boolean) {
+    private emitInterfaceMembersForProxyOrDatatype(ifc: spec.InterfaceType | spec.ClassType, emitInstanceGetter: boolean, datatype: boolean): void {
         // This code was pulled from the java generator
         // compile a list of all unique methods from the current interface and all
         // base interfaces (and their bases).
@@ -640,7 +635,7 @@ class DotNetGenerator extends Generator {
     }
 
     private emitProperty(cls: spec.Type, prop: spec.Property, overrides: boolean = !!prop.overrides,
-                         emitInstanceGetter: boolean = false, datatype: boolean = false) {
+                         emitInstanceGetter: boolean = false, datatype: boolean = false): void {
 
         this.emitLineIfNecessary();
 
@@ -687,7 +682,7 @@ class DotNetGenerator extends Generator {
     }
 
     // This is not use by base-of-base, will be checked when impl calc-base and calc
-    private emitConstProperty(prop: spec.Property) {
+    private emitConstProperty(prop: spec.Property): void {
         const propType = this.toDotNetType(prop.type);
         const propName = this.code.toPascalCase(prop.name);
         const access = this.renderAccessLevel(prop);
@@ -695,7 +690,7 @@ class DotNetGenerator extends Generator {
         this.code.line(`${access} const ${propType} ${propName};`);
     }
 
-    private renderAccessLevel(method: spec.Method | spec.Property) {
+    private renderAccessLevel(method: spec.Method | spec.Property): string {
         return method.protected ? 'protected' : 'public';
     }
 
@@ -707,7 +702,7 @@ class DotNetGenerator extends Generator {
         }
     }
 
-    private isNested(type: spec.Type) {
+    private isNested(type: spec.Type): boolean {
         if (!this.assembly.types || !type.namespace) { return false; }
         const parent = `${type.assembly}.${type.namespace}`;
         return parent in this.assembly.types;
@@ -733,7 +728,7 @@ class DotNetGenerator extends Generator {
         }
     }
 
-    private toDotNetPrimitive(primitive: spec.PrimitiveType) {
+    private toDotNetPrimitive(primitive: spec.PrimitiveType): string {
         switch (primitive) {
             case spec.PrimitiveType.Boolean: return 'bool';
             case spec.PrimitiveType.Date: return 'System.Datetime';
@@ -746,7 +741,7 @@ class DotNetGenerator extends Generator {
         }
     }
 
-    private toDotNetCollection(ref: spec.CollectionTypeReference, forMarshalling: boolean) {
+    private toDotNetCollection(ref: spec.CollectionTypeReference, forMarshalling: boolean): string {
         const elementDotNetType = this.toDotNetType(ref.collection.elementtype);
         switch (ref.collection.kind) {
             // TODO: add using statement to System.Collections.Generic
@@ -768,11 +763,11 @@ class DotNetGenerator extends Generator {
         return nativeFqn;
     }
 
-    private toCSharpFilePath(type: string) {
+    private toCSharpFilePath(type: string): string {
         return type + ".cs";
     }
 
-    private openFileIfNeeded(typeName: string, namespace: string, isNested: boolean, namespaces?: string[], usingDeputy: boolean = true) {
+    private openFileIfNeeded(typeName: string, namespace: string, isNested: boolean, namespaces?: string[], usingDeputy: boolean = true): void {
         // If Nested type, we shouldn't open/close a file
         if (isNested) {
             return;
@@ -797,11 +792,11 @@ class DotNetGenerator extends Generator {
         this.code.openBlock(`namespace ${namespace}`);
     }
 
-    private createDirectoryPaths(fullPath: string) {
+    private createDirectoryPaths(fullPath: string): void {
         fs.mkdirsSync(path.dirname(fullPath));
     }
 
-    private closeFileIfNeeded(typeName: string, isNested: boolean) {
+    private closeFileIfNeeded(typeName: string, isNested: boolean): void {
         if (isNested) {
             return;
         }
@@ -811,13 +806,13 @@ class DotNetGenerator extends Generator {
 
     // Resets the firstMember boolean flag to keep track of the first member of a new file
     // This avoids unnecessary white lines
-    private flagFirstMemberWritten(first: boolean) {
+    private flagFirstMemberWritten(first: boolean): void {
         this.firstMemberWritten = first;
     }
 
     // Emits a line prior to writing a new property, method, if the property is not the first one in the class
     // This avoids unnecessary white lines.
-    private emitLineIfNecessary() {
+    private emitLineIfNecessary(): void {
         // If the first member has already been written, it is safe to write a new line
         if (this.firstMemberWritten) {
             this.code.line();
