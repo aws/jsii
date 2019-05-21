@@ -922,6 +922,10 @@ export class Assembler implements Emitter {
       this._diagnostic(declaration, ts.DiagnosticCategory.Error, `Unable to compute signature for ${type.fqn}#${symbol.name}`);
       return;
     }
+    if (isProhibitedMemberName(symbol.name)) {
+      this._diagnostic(declaration, ts.DiagnosticCategory.Error, `Prohibited member name: ${symbol.name}`);
+      return;
+    }
     const parameters = await Promise.all(signature.getParameters().map(p => this._toParameter(p)));
 
     const returnType = signature.getReturnType();
@@ -986,6 +990,10 @@ export class Assembler implements Emitter {
 
     if (LOG.isTraceEnabled()) {
       LOG.trace(`Processing property: ${colors.green(type.fqn)}#${colors.cyan(symbol.name)}`);
+    }
+    if (isProhibitedMemberName(symbol.name)) {
+      this._diagnostic(symbol.valueDeclaration, ts.DiagnosticCategory.Error, `Prohibited member name: ${symbol.name}`);
+      return;
     }
 
     const signature = symbol.valueDeclaration as (ts.PropertySignature
@@ -1604,4 +1612,19 @@ function noEmptyDict<T>(xs: {[key: string]: T}): {[key: string]: T} | undefined 
  */
 function isErrorType(t: ts.Type) {
   return (t as any).intrinsicName === 'error';
+}
+
+/**
+ * These specifially cause trouble in C#, where we have to specificially annotate them as 'new' but our generator isn't doing that
+ *
+ * In C#, 'GetHashCode' is also problematic, but jsii already prevents you from naming a
+ * method that starts with 'get' so we don't need to do anything special for that.
+ */
+const PROHIBITED_MEMBER_NAMES = ['equals', 'hashcode'];
+
+/**
+ * Whether the given name is prohibited
+ */
+function isProhibitedMemberName(name: string) {
+  return PROHIBITED_MEMBER_NAMES.includes(name.toLowerCase());
 }
