@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/awslabs/jsii/compare/v0.10.5...v0.11.0) (2019-05-21)
+
+
+### Bug Fixes
+
+* **jsii:** deduplicate interfaces ([#497](https://github.com/awslabs/jsii/issues/497)) ([05f5189](https://github.com/awslabs/jsii/commit/05f5189)), closes [#496](https://github.com/awslabs/jsii/issues/496)
+
+
+
+
+
 ## [0.10.5](https://github.com/awslabs/jsii/compare/v0.10.4...v0.10.5) (2019-05-06)
 
 
