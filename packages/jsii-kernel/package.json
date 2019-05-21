@@ -14,15 +14,15 @@
   "devDependencies": {
     "@scope/jsii-calc-base": "^0.10.5",
     "@scope/jsii-calc-lib": "^0.10.5",
-    "@types/fs-extra": "^5.0.5",
+    "@types/fs-extra": "^7.0.0",
     "@types/nodeunit": "^0.0.30",
     "@types/tar": "^4.0.0",
-    "fs-extra": "^7.0.1",
+    "fs-extra": "^8.0.1",
     "jsii-build-tools": "^0.10.5",
     "jsii-calc": "^0.10.5",
     "nodeunit": "^0.11.3",
     "tslint": "^5.16.0",
-    "typescript": "^3.4.3"
+    "typescript": "^3.4.5"
   },
   "dependencies": {
     "jsii-spec": "^0.10.5",
