@@ -638,6 +638,10 @@ class DotNetGenerator extends Generator {
         }
 
         if (remarks.length > 0) {
+            if (!remarksOpen) {
+                this.code.line(`/// <remarks>`);
+                remarksOpen = true;
+            }
             remarks.forEach( line => this.code.line(`/// ${line}`));
         }
 
