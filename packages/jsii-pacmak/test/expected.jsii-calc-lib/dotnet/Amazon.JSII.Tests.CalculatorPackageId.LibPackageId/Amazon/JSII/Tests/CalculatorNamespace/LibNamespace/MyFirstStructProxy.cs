@@ -24,7 +24,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
             get => GetInstanceProperty<string>();
         }
 
-        [JsiiProperty(name: "firstOptional", typeJson: "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}}}", isOptional: true)]
+        [JsiiProperty(name: "firstOptional", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"string\"},\"kind\":\"array\"}}", isOptional: true)]
         public string[] FirstOptional
         {
             get => GetInstanceProperty<string[]>();
