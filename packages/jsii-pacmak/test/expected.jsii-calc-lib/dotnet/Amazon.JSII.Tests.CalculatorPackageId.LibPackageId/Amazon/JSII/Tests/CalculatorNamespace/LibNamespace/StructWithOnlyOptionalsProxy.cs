@@ -20,13 +20,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         [JsiiProperty(name: "optional2", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
         public double? Optional2
         {
-            get => GetInstanceProperty<double? >();
+            get => GetInstanceProperty<double?>();
         }
 
         [JsiiProperty(name: "optional3", typeJson: "{\"primitive\":\"boolean\"}", isOptional: true)]
         public bool? Optional3
         {
-            get => GetInstanceProperty<bool? >();
+            get => GetInstanceProperty<bool?>();
         }
     }
 }
