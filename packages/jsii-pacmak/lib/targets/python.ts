@@ -1097,7 +1097,10 @@ class Package {
         }
 
         code.openFile("README.md");
-        code.line(this.metadata.readme !== undefined ? this.metadata.readme.markdown : "");
+        const readme = this.metadata.docs && this.metadata.docs.summary
+            ? `${this.metadata.docs.summary}\n${this.metadata.docs.remarks || ''}`
+            : '';
+        code.line(readme);
         code.closeFile("README.md");
 
         // Strip " (build abcdef)" from the jsii version

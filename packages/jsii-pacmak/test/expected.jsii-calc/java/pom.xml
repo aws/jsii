@@ -134,6 +134,9 @@
         <configuration>
           <failOnError>false</failOnError>
           <show>protected</show>
+          <sourceFileExcludes>
+            <exclude>**/$Module.java</exclude>
+          </sourceFileExcludes>
           <additionalJOption>-J-XX:+TieredCompilation</additionalJOption>
           <additionalJOption>-J-XX:TieredStopAtLevel=1</additionalJOption>
         </configuration>

@@ -182,6 +182,11 @@
     }
   },
   "description": "A simple calcuator built on JSII.",
+  "docs": {
+    "remarks": "![API Stability: experimental](https://img.shields.io/badge/API%20Stability-experimental-important.svg)\n\nThis library is used to demonstrate and test the features of JSII\n\n## Sphinx\n\nThis file will be incorporated into the sphinx documentation.\n\nIf this file starts with an \"H1\" line (in our case `# jsii Calculator`), this\nheading will be used as the Sphinx topic name. Otherwise, the name of the module\n(`jsii-calc`) will be used instead.\n\n\n\n\n",
+    "stability": "experimental",
+    "summary": "# jsii Calculator"
+  },
   "homepage": "https://github.com/awslabs/jsii.git",
   "jsiiVersion": "0.11.0",
   "license": "Apache-2.0",
@@ -193,9 +198,6 @@
     }
   },
   "name": "jsii-calc",
-  "readme": {
-    "markdown": "# jsii Calculator\n\nThis library is used to demonstrate and test the features of JSII\n\n## Sphinx\n\nThis file will be incorporated into the sphinx documentation.\n\nIf this file starts with an \"H1\" line (in our case `# jsii Calculator`), this\nheading will be used as the Sphinx topic name. Otherwise, the name of the module\n(`jsii-calc`) will be used instead.\n\n\n\n\n"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/awslabs/jsii.git"
@@ -6810,5 +6812,5 @@
     }
   },
   "version": "0.11.0",
-  "fingerprint": "i8GdLx7YlhttP5/pB0dKItig1wFkp/DwDdUtbYsIdfc="
+  "fingerprint": "5ejpZLVHjfmn1dghKkB/85hdGJuSRGZtxSIH+SF+b6Y="
 }

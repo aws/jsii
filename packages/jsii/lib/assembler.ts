@@ -60,11 +60,20 @@ export class Assembler implements Emitter {
         ts.DiagnosticCategory.Suggestion,
         'A "homepage" field should be specified in "package.json"');
     }
-    const readme = await _loadReadme.call(this);
-    if (!readme) {
+    const docs = await _loadReadme.call(this);
+    if (!docs || !docs.summary) {
       this._diagnostic(null,
         ts.DiagnosticCategory.Suggestion,
-        'There is not "README.md" file. It is recommended to have one.');
+        'There is no "README.md" file. It is recommended to have one.');
+    }
+
+    if (docs && docs.stability) {
+      const badge = _stabilityBadge(docs.stability);
+      if (!docs || !docs.remarks || docs.remarks.indexOf(badge) < 0) {
+        this._diagnostic(null,
+          ts.DiagnosticCategory.Error,
+          `The "README.md" file does not document the API stability (${docs.stability}). The following markdown badge is required:\n\t${badge}`);
+      }
     }
 
     this._types = {};
@@ -99,7 +108,7 @@ export class Assembler implements Emitter {
 
     const jsiiVersion = this.projectInfo.jsiiVersionFormat === 'short' ? SHORT_VERSION : VERSION;
 
-    const assembly = {
+    const assembly: spec.Assembly = {
       schema: spec.SchemaVersion.LATEST,
       name: this.projectInfo.name,
       version: this.projectInfo.version,
@@ -115,7 +124,7 @@ export class Assembler implements Emitter {
       types: this._types,
       targets: this.projectInfo.targets,
       metadata: this.projectInfo.metadata,
-      readme,
+      docs,
       jsiiVersion,
       fingerprint: '<TBD>',
     };
@@ -141,14 +150,26 @@ export class Assembler implements Emitter {
       delete this._diagnostics;
     }
 
-    async function _loadReadme(this: Assembler) {
+    async function _loadReadme(this: Assembler): Promise<spec.Docs | undefined> {
       const readmePath = path.join(this.projectInfo.projectRoot, 'README.md');
-      if (!await fs.pathExists(readmePath)) { return undefined; }
-      const renderedLines = await literate.includeAndRenderExamples(
+      if (!await fs.pathExists(readmePath)) {
+        return this.projectInfo.deprecated || this.projectInfo.stability
+          ? {
+              deprecated: this.projectInfo.deprecated,
+              stability: this.projectInfo.stability
+            }
+          : undefined;
+      }
+      const [summary, ...remarks] = await literate.includeAndRenderExamples(
         await literate.loadFromFile(readmePath),
         literate.fileSystemLoader(this.projectInfo.projectRoot)
       );
-      return { markdown: renderedLines.join('\n') };
+      return {
+        deprecated: this.projectInfo.deprecated,
+        stability: this.projectInfo.stability,
+        summary,
+        remarks: remarks.join('\n')
+      };
     }
   }
 
@@ -1628,4 +1649,19 @@ const PROHIBITED_MEMBER_NAMES = ['equals', 'hashcode'];
  */
 function isProhibitedMemberName(name: string) {
   return PROHIBITED_MEMBER_NAMES.includes(name.toLowerCase());
+}
+
+function _stabilityBadge(stability: spec.Stability) {
+  return `![API Stability: ${stability}](https://img.shields.io/badge/API%20Stability-${stability}-${_stabilityColor()}.svg)`;
+
+  function _stabilityColor() {
+    switch (stability) {
+      case spec.Stability.Stable:
+        return 'success';
+      case spec.Stability.Experimental:
+        return 'important';
+      default:
+        return 'critical';
+    }
+  }
 }

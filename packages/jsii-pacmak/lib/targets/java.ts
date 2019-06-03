@@ -5,6 +5,7 @@ import path = require('path');
 import xmlbuilder = require('xmlbuilder');
 import { Generator } from '../generator';
 import logging = require('../logging');
+import { md2html } from '../markdown';
 import { PackageInfo, Target, TargetOptions } from '../target';
 import { shell } from '../util';
 import { VERSION, VERSION_DESC } from '../version';
@@ -166,6 +167,8 @@ class JavaGenerator extends Generator {
     protected onBeginAssembly(assm: spec.Assembly, fingerprint: boolean) {
         this.emitFullGeneratorInfo = fingerprint;
         this.moduleClass = this.emitModuleFile(assm);
+
+        this.emitPackageInfo(assm);
     }
 
     protected onEndAssembly(assm: spec.Assembly, fingerprint: boolean) {
@@ -346,6 +349,39 @@ class JavaGenerator extends Generator {
         }
     }
 
+    private emitPackageInfo(mod: spec.Assembly) {
+        if (!mod.docs) { return; }
+
+        const packageName = this.getNativeName(mod, undefined);
+        const packageInfoFile = this.toJavaFilePath(mod.name + '.package-info');
+        this.code.openFile(packageInfoFile);
+        this.code.line('/**');
+        if (mod.docs.summary || mod.docs.remarks) {
+            const mdown = new Array<string>();
+            if (mod.docs.summary) {
+                mdown.push(mod.docs.summary);
+            }
+            if (mod.docs.remarks) {
+                mdown.push(mod.docs.remarks);
+            }
+            for (const line of md2html(mdown.join('\n')).split('\n')) {
+                this.code.line(` * ${line}`);
+            }
+            this.code.line(' *');
+        }
+        if (mod.docs.deprecated) {
+            this.code.line(` * @deprecated ${mod.docs.deprecated}`);
+        } else if (mod.docs.stability) {
+            this.code.line(` * @stability ${mod.docs.stability}`);
+        }
+        this.code.line(' */');
+        if (mod.docs.deprecated) {
+            this.code.line('@Deprecated');
+        }
+        this.code.line(`package ${packageName};`);
+        this.code.closeFile(packageInfoFile);
+    }
+
     private emitMavenPom(assm: spec.Assembly, fingerprint: boolean) {
         const self = this;
 
@@ -441,6 +477,9 @@ class JavaGenerator extends Generator {
                                 configuration: {
                                     failOnError: false,
                                     show: 'protected',
+                                    sourceFileExcludes: {
+                                        exclude: ['**/$Module.java']
+                                    },
                                     // Adding these makes JavaDoc generation about a 3rd faster (which is far and away the most
                                     // expensive part of the build)
                                     additionalJOption: ['-J-XX:+TieredCompilation', '-J-XX:TieredStopAtLevel=1']
@@ -1161,11 +1200,11 @@ class JavaGenerator extends Generator {
 
     private getNativeName(assm: spec.Assembly, name: string | undefined): string;
     private getNativeName(assm: spec.PackageVersion, name: string | undefined, assmName: string): string;
-    private getNativeName(assm: spec.Assembly | spec.PackageVersion,
+    private getNativeName(assm: spec.Assembly | spec.PackageVersion,
                           name: string | undefined,
                           assmName: string = (assm as spec.Assembly).name): string {
         const javaPackage = assm.targets && assm.targets.java && assm.targets.java.package;
-        if (!javaPackage) { throw new Error(`The module ${assmName} does not have a java.package setting`); }
+        if (!javaPackage) { throw new Error(`The module ${assmName} does not have a java.package setting`); }
         return `${javaPackage}${name ? `.${name}` : ''}`;
     }
 

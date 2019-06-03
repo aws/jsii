@@ -134,13 +134,6 @@ export interface Assembly extends Documentable {
      * @default none
      */
     types?: { [fqn: string]: Type };
-
-    /**
-     * The top-level readme document for this assembly (if any).
-     *
-     * @default none
-     */
-    readme?: { markdown: string };
 }
 
 /**
