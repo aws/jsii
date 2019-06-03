@@ -479,8 +479,6 @@ abstract class BaseMethod implements PythonBase {
         }
 
         code.line(`${methodPrefix}jsii.${this.jsiiMethod}(${jsiiMethodParams.join(", ")}, [${modifiedParamNames.join(", ")}])`);
-
-        // code.line(`${methodPrefix}jsii.${this.jsiiMethod}(${jsiiMethodParams.join(", ")}, [${paramNames.join(", ")}])`);
     }
 
     private getLiftedProperties(resolver: TypeResolver): spec.Property[] {
