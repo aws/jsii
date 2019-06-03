@@ -25,6 +25,13 @@
       },
       "sphinx": {}
     },
+    "metadata": {
+      "jsii:boolean": true,
+      "jsii:number": 1337,
+      "jsii:object": {
+        "string": "yes!"
+      }
+    },
     "versionFormat": "short"
   },
   "scripts": {

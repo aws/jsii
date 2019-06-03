@@ -185,6 +185,13 @@
   "homepage": "https://github.com/awslabs/jsii.git",
   "jsiiVersion": "0.11.0",
   "license": "Apache-2.0",
+  "metadata": {
+    "jsii:boolean": true,
+    "jsii:number": 1337,
+    "jsii:object": {
+      "string": "yes!"
+    }
+  },
   "name": "jsii-calc",
   "readme": {
     "markdown": "# jsii Calculator\n\nThis library is used to demonstrate and test the features of JSII\n\n## Sphinx\n\nThis file will be incorporated into the sphinx documentation.\n\nIf this file starts with an \"H1\" line (in our case `# jsii Calculator`), this\nheading will be used as the Sphinx topic name. Otherwise, the name of the module\n(`jsii-calc`) will be used instead.\n\n\n\n\n"
@@ -6803,5 +6810,5 @@
     }
   },
   "version": "0.11.0",
-  "fingerprint": "bKi31JLqJ4B9MMHdwaDdxTQlL4VG06izio0DqYMQnt4="
+  "fingerprint": "i8GdLx7YlhttP5/pB0dKItig1wFkp/DwDdUtbYsIdfc="
 }
