@@ -678,7 +678,7 @@ class DontComplainAboutVariadicAfterOptional(metaclass=jsii.JSIIMeta, jsii_type=
             optional: -
             things: -
         """
-        return jsii.invoke(self, "optionalAndVariadic", [optional, things])
+        return jsii.invoke(self, "optionalAndVariadic", [optional, *things])
 
 
 class EraseUndefinedHashValues(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.EraseUndefinedHashValues"):
@@ -2994,7 +2994,7 @@ class VariadicMethod(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.VariadicMetho
         Arguments:
             prefix: a prefix that will be use for all values returned by ``#asArray``.
         """
-        jsii.create(VariadicMethod, self, [prefix])
+        jsii.create(VariadicMethod, self, [*prefix])
 
     @jsii.member(jsii_name="asArray")
     def as_array(self, first: jsii.Number, *others: jsii.Number) -> typing.List[jsii.Number]:
@@ -3003,7 +3003,7 @@ class VariadicMethod(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.VariadicMetho
             first: the first element of the array to be returned (after the ``prefix`` provided at construction time).
             others: other elements to be included in the array.
         """
-        return jsii.invoke(self, "asArray", [first, others])
+        return jsii.invoke(self, "asArray", [first, *others])
 
 
 class VirtualMethodPlayground(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.VirtualMethodPlayground"):
