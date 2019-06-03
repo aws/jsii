@@ -472,7 +472,15 @@ abstract class BaseMethod implements PythonBase {
             paramNames.push(toPythonParameterName(param.name));
         }
 
-        code.line(`${methodPrefix}jsii.${this.jsiiMethod}(${jsiiMethodParams.join(", ")}, [${paramNames.join(", ")}])`);
+        // If the args are variadic, expand the last one
+        const modifiedParamNames: string[] = paramNames.slice();
+        if (this.parameters.length >= 1 && this.parameters[this.parameters.length - 1].variadic) {
+            modifiedParamNames.push("*" + modifiedParamNames.pop());
+        }
+
+        code.line(`${methodPrefix}jsii.${this.jsiiMethod}(${jsiiMethodParams.join(", ")}, [${modifiedParamNames.join(", ")}])`);
+
+        // code.line(`${methodPrefix}jsii.${this.jsiiMethod}(${jsiiMethodParams.join(", ")}, [${paramNames.join(", ")}])`);
     }
 
     private getLiftedProperties(resolver: TypeResolver): spec.Property[] {
