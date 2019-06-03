@@ -163,7 +163,9 @@ import { VERSION_DESC } from '../lib/version';
         // ``argv.target`` is guaranteed valid by ``yargs`` through the ``choices`` directive.
         const targetConstructor = targetConstructors[targetName];
         if (!targetConstructor) {
-            throw new Error(`Unsupported target ${targetName}`);
+            // tslint:disable-next-line: no-console
+            console.log(`Warning: Skipping unsupported target '${targetName}'`);
+            return;
         }
 
         const target = new targetConstructor({
