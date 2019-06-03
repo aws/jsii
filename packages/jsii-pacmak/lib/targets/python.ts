@@ -467,14 +467,10 @@ abstract class BaseMethod implements PythonBase {
             jsiiMethodParams.push(`"${this.jsName}"`);
         }
 
+        // If the last arg is variadic, expand the tuple
         const paramNames: string[] = [];
         for (const param of this.parameters) {
-            paramNames.push(toPythonParameterName(param.name));
-        }
-
-        // If the args are variadic, expand the last one
-        if (this.parameters.length >= 1 && this.parameters[this.parameters.length - 1].variadic) {
-            paramNames.push("*" + paramNames.pop());
+            paramNames.push((param.variadic ? '*' : '') + toPythonParameterName(param.name));
         }
 
         code.line(`${methodPrefix}jsii.${this.jsiiMethod}(${jsiiMethodParams.join(", ")}, [${paramNames.join(", ")}])`);
