@@ -32,6 +32,7 @@ export interface ProjectInfo {
     readonly transitiveDependencies: ReadonlyArray<spec.Assembly>;
     readonly bundleDependencies?: { readonly [name: string]: string };
     readonly targets: spec.AssemblyTargets;
+    readonly metadata?: { [key: string]: any };
     readonly jsiiVersionFormat: 'short' | 'full';
     readonly description?: string;
     readonly homepage?: string;
@@ -123,6 +124,7 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
             ..._required(pkg.jsii, 'The "package.json" file must specify the "jsii" attribute').targets,
             js: { npm: pkg.name }
         },
+        metadata: pkg.jsii && pkg.jsii.metadata,
         jsiiVersionFormat: _validateVersionFormat(pkg.jsii.versionFormat || 'full'),
 
         description: pkg.description,

@@ -114,6 +114,7 @@ export class Assembler implements Emitter {
       bundled: this.projectInfo.bundleDependencies,
       types: this._types,
       targets: this.projectInfo.targets,
+      metadata: this.projectInfo.metadata,
       readme,
       jsiiVersion,
       fingerprint: '<TBD>',

@@ -97,6 +97,15 @@ export interface Assembly extends Documentable {
     targets?: AssemblyTargets;
 
     /**
+     * Arbitrary key-value pairs of metadata, which the maintainer chose to
+     * document with the assembly. These entries do not carry normative
+     * semantics and their interpretation is up to the assembly maintainer.
+     *
+     * @default none
+     */
+    metadata?: { [key: string]: any };
+
+    /**
      * Direct dependencies on other assemblies (with semver), the key is the JSII
      * assembly name.
      *
