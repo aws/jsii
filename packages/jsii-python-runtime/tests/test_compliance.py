@@ -42,6 +42,7 @@ from jsii_calc import (
     UsesInterfaceWithProperties,
     composition,
     EraseUndefinedHashValues,
+    VariadicMethod,
 )
 from scope.jsii_calc_lib import IFriendly, EnumFromScopedModule, Number
 
@@ -895,3 +896,8 @@ def test_objectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut():
     reflector = PartiallyInitializedThisConsumerImpl()
     obj = ConstructorPassesThisOut(reflector)
     assert obj is not None
+
+
+def test_variadicMethodCanBeInvoked():
+    variadic = VariadicMethod(1)
+    assert variadic.as_array(3, 4, 5, 6) == [1, 3, 4, 5, 6]
