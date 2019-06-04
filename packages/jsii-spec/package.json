@@ -14,8 +14,8 @@
     "@types/nodeunit": "^0.0.30",
     "jsii-build-tools": "^0.11.0",
     "nodeunit": "^0.11.3",
-    "typescript": "^3.4.5",
-    "typescript-json-schema": "^0.37.0"
+    "typescript": "^3.5.1",
+    "typescript-json-schema": "^0.38.3"
   },
   "dependencies": {
     "jsonschema": "^1.2.4"
