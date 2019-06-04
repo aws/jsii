@@ -356,15 +356,8 @@ class JavaGenerator extends Generator {
         const packageInfoFile = this.toJavaFilePath(mod.name + '.package-info');
         this.code.openFile(packageInfoFile);
         this.code.line('/**');
-        if (mod.docs.summary || mod.docs.remarks) {
-            const mdown = new Array<string>();
-            if (mod.docs.summary) {
-                mdown.push(mod.docs.summary);
-            }
-            if (mod.docs.remarks) {
-                mdown.push(mod.docs.remarks);
-            }
-            for (const line of md2html(mdown.join('\n')).split('\n')) {
+        if (mod.readme) {
+            for (const line of md2html(mod.readme.markdown).split('\n')) {
                 this.code.line(` * ${line}`);
             }
             this.code.line(' *');

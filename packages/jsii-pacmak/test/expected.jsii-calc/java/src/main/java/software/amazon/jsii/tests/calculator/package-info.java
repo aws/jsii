@@ -1,6 +1,5 @@
 /**
  * <h1>jsii Calculator</h1>
- * <p><img src="https://img.shields.io/badge/API%20Stability-experimental-important.svg" alt="API Stability: experimental" /></p>
  * <p>This library is used to demonstrate and test the features of JSII</p>
  * <h2>Sphinx</h2>
  * <p>This file will be incorporated into the sphinx documentation.</p>

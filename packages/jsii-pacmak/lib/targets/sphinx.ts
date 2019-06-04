@@ -714,14 +714,14 @@ class SphinxDocsGenerator extends Generator {
      * @returns header: the contents of the header (or undefined)
      */
     private emitReadme(assm: spec.Assembly): { readmeFile?: string, readmeHeader?: string } {
-        if (!assm.docs || !assm.docs.summary) {
+        if (!assm.readme) {
             return {
                 readmeFile: undefined,
                 readmeHeader: undefined
             };
         }
 
-        let lines = [assm.docs.summary, ...(assm.docs.remarks && assm.docs.remarks.split('\n') || [])];
+        let lines = assm.readme.markdown.split('\n');
         let readmeHeader;
 
         if (lines[0].startsWith('# ')) {

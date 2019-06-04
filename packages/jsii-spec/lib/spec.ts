@@ -134,6 +134,13 @@ export interface Assembly extends Documentable {
      * @default none
      */
     types?: { [fqn: string]: Type };
+
+    /**
+     * The top-level readme document for this assembly (if any).
+     *
+     * @default none
+     */
+    readme?: { markdown: string };
 }
 
 /**
@@ -327,15 +334,27 @@ export interface Docs {
 }
 
 /**
- * API Stability levels.
+ * API Stability levels. These are modeled after the `node` stability index.
+ *
+ * @see https://nodejs.org/api/documentation.html#documentation_stability_index.
  */
 export enum Stability {
     /**
-     * Experimental APIs may change in breaking ways in a minor version update.
+     * The API may emit warnings. Backward compatibility is not guaranteed.
+     */
+    Deprecated = 'deprecated',
+
+    /**
+     * This API is still under active development and subject to non-backward
+     * compatible changes or removal in any future version. Use of the API is
+     * not recommended in production environments. Experimental APIs are not
+     * subject to the Semantic Versioning model.
      */
     Experimental = 'experimental',
+
     /**
-     * Stable APIs may not change in breaking ways without a major version bump.
+     * This API is subject to the Semantic Versioning model and may not change
+     * in breaking ways in a subsequent minor or patch version.
      */
     Stable = 'stable',
 }
