@@ -145,14 +145,12 @@ export class Assembler implements Emitter {
 
     async function _loadReadme(this: Assembler) {
       const readmePath = path.join(this.projectInfo.projectRoot, 'README.md');
-      if (!await fs.pathExists(readmePath)) {
-        return undefined;
-      }
-      const markdown = await literate.includeAndRenderExamples(
+      if (!await fs.pathExists(readmePath)) { return undefined; }
+      const renderedLines = await literate.includeAndRenderExamples(
         await literate.loadFromFile(readmePath),
         literate.fileSystemLoader(this.projectInfo.projectRoot)
       );
-      return { markdown: markdown.join('\n') };
+      return { markdown: renderedLines.join('\n') };
     }
 
     function _loadDocs(this: Assembler): spec.Docs | undefined {

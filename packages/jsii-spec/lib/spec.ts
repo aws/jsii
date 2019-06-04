@@ -341,6 +341,9 @@ export interface Docs {
 export enum Stability {
     /**
      * The API may emit warnings. Backward compatibility is not guaranteed.
+     *
+     * More information about the deprecation can usually be found in the
+     * `deprecated` field.
      */
     Deprecated = 'deprecated',
 

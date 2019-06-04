@@ -471,6 +471,9 @@ class JavaGenerator extends Generator {
                                     failOnError: false,
                                     show: 'protected',
                                     sourceFileExcludes: {
+                                        // Excluding the $Module classes so they won't pollute the docsite. They otherwise
+                                        // are all collected at the top of the classlist, burrying useful information under
+                                        // a lot of dry scrolling.
                                         exclude: ['**/$Module.java']
                                     },
                                     // Adding these makes JavaDoc generation about a 3rd faster (which is far and away the most
