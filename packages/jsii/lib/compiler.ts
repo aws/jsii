@@ -238,7 +238,7 @@ export class Compiler implements Emitter {
 
         const ret = new Array<string>();
 
-        const dependencyNames = new Set();
+        const dependencyNames = new Set<string>();
         for (const dependencyMap of [pkg.dependencies, pkg.devDependencies, pkg.peerDependencies]) {
             if (dependencyMap === undefined) { continue; }
             Object.keys(dependencyMap).forEach(dependencyNames.add.bind(dependencyNames));

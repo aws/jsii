@@ -27,7 +27,7 @@
     "fs-extra": "^8.0.1",
     "jsii-spec": "^0.11.0",
     "spdx-license-list": "^6.0.0",
-    "xmlbuilder": "^13.0.1",
+    "xmlbuilder": "^13.0.2",
     "yargs": "^13.2.4"
   },
   "devDependencies": {
@@ -47,8 +47,8 @@
     "jsii-dotnet-runtime": "^0.11.0",
     "jsii-java-runtime": "^0.11.0",
     "nodeunit": "^0.11.3",
-    "tslint": "^5.16.0",
-    "typescript": "^3.4.5"
+    "tslint": "^5.17.0",
+    "typescript": "^3.5.1"
   },
   "author": {
     "name": "Amazon Web Services",
