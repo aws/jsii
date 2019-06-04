@@ -331,6 +331,20 @@ assemblies
  │   │   └─┬ arg2 property
  │   │     ├── immutable
  │   │     └── type: Optional<string>
+ │   ├─┬ class DeprecatedClass
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(argument) initializer
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ argument
+ │   │   │     └── type: Optional<string>
+ │   │   ├─┬ deprecatedMethod() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ deprecatedAttribute property
+ │   │   │ ├── immutable
+ │   │   │ └── type: string
+ │   │   └─┬ deprecatedProtected property
+ │   │     ├── protected
+ │   │     └── type: Optional<string>
  │   ├─┬ class Base
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer

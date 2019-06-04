@@ -20,6 +20,7 @@ ConstructorPassesThisOut
 Constructors
 ConsumersOfThisCrazyTypeSystem
 DefaultedConstructorArgument
+DeprecatedClass
 Derived
 DoNotOverridePrivates
 DoNotRecognizeAnyAsOptional

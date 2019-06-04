@@ -138,6 +138,12 @@ assemblies
  │   │   ├── arg1 property
  │   │   ├── arg3 property
  │   │   └── arg2 property
+ │   ├─┬ class DeprecatedClass
+ │   │ └─┬ members
+ │   │   ├── <initializer>(argument) initializer
+ │   │   ├── deprecatedMethod() method
+ │   │   ├── deprecatedAttribute property
+ │   │   └── deprecatedProtected property
  │   ├─┬ class Base
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer

@@ -20,6 +20,7 @@ assemblies
  │   ├── class Constructors
  │   ├── class ConsumersOfThisCrazyTypeSystem
  │   ├── class DefaultedConstructorArgument
+ │   ├── class DeprecatedClass
  │   ├── class Base
  │   ├── class Derived
  │   ├── class DoNotOverridePrivates
