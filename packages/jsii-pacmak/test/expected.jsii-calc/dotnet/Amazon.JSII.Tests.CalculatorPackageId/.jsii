@@ -1518,7 +1518,6 @@
         "custom": {
           "customAttribute": "hasAValue"
         },
-        "deprecated": "Use something else please",
         "example": "function anExample() {\n}",
         "remarks": "The docs are great. They're a bunch of tags.",
         "see": "https://aws.amazon.com/",
@@ -1530,7 +1529,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 1637
+        "line": 1636
       },
       "name": "ClassWithDocs"
     },
@@ -1884,6 +1883,85 @@
           },
           "name": "arg2",
           "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.DeprecatedClass": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "deprecated": "without replacement",
+        "stability": "deprecated",
+        "summary": "This tests code generation of deprecation markers."
+      },
+      "fqn": "jsii-calc.DeprecatedClass",
+      "initializer": {
+        "docs": {
+          "deprecated": "this is unsafe",
+          "stability": "deprecated"
+        },
+        "parameters": [
+          {
+            "docs": {
+              "summary": "some string."
+            },
+            "name": "argument",
+            "optional": true,
+            "type": {
+              "primitive": "string"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1690
+      },
+      "methods": [
+        {
+          "docs": {
+            "deprecated": "throws unexpected errors",
+            "stability": "deprecated"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1712
+          },
+          "name": "deprecatedMethod"
+        }
+      ],
+      "name": "DeprecatedClass",
+      "properties": [
+        {
+          "docs": {
+            "deprecated": "intentionally",
+            "stability": "deprecated"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1694
+          },
+          "name": "deprecatedAttribute",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "docs": {
+            "deprecated": "can be unexpectedly non-null!",
+            "stability": "deprecated"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1699
+          },
+          "name": "deprecatedProtected",
+          "optional": true,
+          "protected": true,
           "type": {
             "primitive": "string"
           }
@@ -4831,6 +4909,7 @@
       "assembly": "jsii-calc",
       "docs": {
         "deprecated": "Use the new class",
+        "stability": "deprecated",
         "summary": "Old class."
       },
       "fqn": "jsii-calc.Old",
@@ -5676,13 +5755,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 1645
+        "line": 1644
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1648
+            "line": 1647
           },
           "name": "canAccessStaticContext",
           "returns": {
@@ -5698,7 +5777,7 @@
         {
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1656
+            "line": 1655
           },
           "name": "staticVariable",
           "static": true,
@@ -6632,13 +6711,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 1674
+        "line": 1673
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1679
+            "line": 1678
           },
           "name": "callMe"
         },
@@ -6646,7 +6725,7 @@
           "abstract": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1683
+            "line": 1682
           },
           "name": "overrideMe",
           "protected": true
@@ -6658,7 +6737,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1676
+            "line": 1675
           },
           "name": "methodWasCalled",
           "type": {
@@ -6813,5 +6892,5 @@
     }
   },
   "version": "0.11.0",
-  "fingerprint": "KKOrdvjcsF9ItTXwTs/c4WE7VmYP0adJh/N9hx3+USo="
+  "fingerprint": "5R2rpEqEYZnuiNa8EnVDEierWuf4xkcuVJDj4a7hNPk="
 }

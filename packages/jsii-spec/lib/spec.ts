@@ -911,3 +911,14 @@ export function describeTypeReference(type?: TypeReference): string {
 
     throw new Error('Unrecognized type reference');
 }
+
+/**
+ * Determines whether an entity is deprecated.
+ *
+ * @param entity the entity to be checked.
+ *
+ * @returns true if the entity is marked as deprecated.
+ */
+export function isDeprecated(entity: Documentable): boolean {
+    return entity.docs != null && entity.docs.stability === Stability.Deprecated;
+}

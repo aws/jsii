@@ -39,6 +39,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.Constructors": return software.amazon.jsii.tests.calculator.Constructors.class;
             case "jsii-calc.ConsumersOfThisCrazyTypeSystem": return software.amazon.jsii.tests.calculator.ConsumersOfThisCrazyTypeSystem.class;
             case "jsii-calc.DefaultedConstructorArgument": return software.amazon.jsii.tests.calculator.DefaultedConstructorArgument.class;
+            case "jsii-calc.DeprecatedClass": return software.amazon.jsii.tests.calculator.DeprecatedClass.class;
             case "jsii-calc.DerivedClassHasNoProperties.Base": return software.amazon.jsii.tests.calculator.DerivedClassHasNoProperties.Base.class;
             case "jsii-calc.DerivedClassHasNoProperties.Derived": return software.amazon.jsii.tests.calculator.DerivedClassHasNoProperties.Derived.class;
             case "jsii-calc.DerivedStruct": return software.amazon.jsii.tests.calculator.DerivedStruct.class;

@@ -1631,7 +1631,6 @@ export interface OptionalStruct {
  *
  * @see https://aws.amazon.com/
  * @customAttribute hasAValue
- * @deprecated Use something else please
  * @stable
  */
 export class ClassWithDocs {
@@ -1681,4 +1680,36 @@ export abstract class VoidCallback {
         this._methodWasCalled = true;
     }
     protected abstract overrideMe(): void;
+}
+
+/**
+ * This tests code generation of deprecation markers
+ *
+ * @deprecated without replacement
+ */
+export class DeprecatedClass {
+    /**
+     * @deprecated intentionally
+     */
+    public readonly deprecatedAttribute: string;
+
+    /**
+     * @deprecated can be unexpectedly non-null!
+     */
+    protected deprecatedProtected?: string;
+
+    /**
+     * @param argument some string
+     * @deprecated this is unsafe
+     */
+    constructor(argument = 'tombstone!') {
+        this.deprecatedAttribute = argument;
+    }
+
+    /**
+     * @deprecated throws unexpected errors
+     */
+    public deprecatedMethod() {
+        throw new Error();
+    }
 }

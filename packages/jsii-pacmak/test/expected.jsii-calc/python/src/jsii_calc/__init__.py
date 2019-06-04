@@ -424,9 +424,6 @@ class ClassWithDocs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ClassWithDocs"
 
     The docs are great. They're a bunch of tags.
 
-    Deprecated:
-        Use something else please
-
     See:
         https://aws.amazon.com/
     customAttribute:
@@ -548,6 +545,53 @@ class DefaultedConstructorArgument(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc
     @jsii.member(jsii_name="arg2")
     def arg2(self) -> typing.Optional[str]:
         return jsii.get(self, "arg2")
+
+
+class DeprecatedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DeprecatedClass"):
+    """This tests code generation of deprecation markers.
+
+    Deprecated:
+        without replacement
+    """
+    def __init__(self, argument: typing.Optional[str]=None) -> None:
+        """
+        Arguments:
+            argument: some string.
+
+        Deprecated:
+            this is unsafe
+        """
+        jsii.create(DeprecatedClass, self, [argument])
+
+    @jsii.member(jsii_name="deprecatedMethod")
+    def deprecated_method(self) -> None:
+        """
+        Deprecated:
+            throws unexpected errors
+        """
+        return jsii.invoke(self, "deprecatedMethod", [])
+
+    @property
+    @jsii.member(jsii_name="deprecatedAttribute")
+    def deprecated_attribute(self) -> str:
+        """
+        Deprecated:
+            intentionally
+        """
+        return jsii.get(self, "deprecatedAttribute")
+
+    @property
+    @jsii.member(jsii_name="deprecatedProtected")
+    def _deprecated_protected(self) -> typing.Optional[str]:
+        """
+        Deprecated:
+            can be unexpectedly non-null!
+        """
+        return jsii.get(self, "deprecatedProtected")
+
+    @_deprecated_protected.setter
+    def _deprecated_protected(self, value: typing.Optional[str]):
+        return jsii.set(self, "deprecatedProtected", value)
 
 
 class DerivedClassHasNoProperties:
@@ -3320,6 +3364,6 @@ class Sum(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_type="js
         return jsii.set(self, "parts", value)
 
 
-__all__ = ["AbstractClass", "AbstractClassBase", "AbstractClassReturner", "Add", "AllTypes", "AllTypesEnum", "AllowedMethodNames", "AsyncVirtualMethods", "AugmentableClass", "BinaryOperation", "Calculator", "CalculatorProps", "ClassThatImplementsTheInternalInterface", "ClassThatImplementsThePrivateInterface", "ClassWithDocs", "ClassWithMutableObjectLiteralProperty", "ClassWithPrivateConstructorAndAutomaticProperties", "ConstructorPassesThisOut", "Constructors", "ConsumersOfThisCrazyTypeSystem", "DefaultedConstructorArgument", "DerivedClassHasNoProperties", "DerivedStruct", "DoNotOverridePrivates", "DoNotRecognizeAnyAsOptional", "DocumentedClass", "DontComplainAboutVariadicAfterOptional", "DoubleTrouble", "EraseUndefinedHashValues", "EraseUndefinedHashValuesOptions", "ExportedBaseClass", "ExtendsInternalInterface", "GiveMeStructs", "Greetee", "GreetingAugmenter", "IAnotherPublicInterface", "IExtendsPrivateInterface", "IFriendlier", "IFriendlyRandomGenerator", "IInterfaceImplementedByAbstractClass", "IInterfaceThatShouldNotBeADataType", "IInterfaceWithInternal", "IInterfaceWithMethods", "IInterfaceWithOptionalMethodArguments", "IInterfaceWithProperties", "IInterfaceWithPropertiesExtension", "IJSII417Derived", "IJSII417PublicBaseOfBase", "IJsii487External", "IJsii487External2", "IJsii496", "IMutableObjectLiteral", "INonInternalInterface", "IPrivatelyImplemented", "IPublicInterface", "IPublicInterface2", "IRandomNumberGenerator", "IReturnsNumber", "ImplementInternalInterface", "ImplementsInterfaceWithInternal", "ImplementsInterfaceWithInternalSubclass", "ImplementsPrivateInterface", "ImplictBaseOfBase", "InbetweenClass", "InterfaceInNamespaceIncludesClasses", "InterfaceInNamespaceOnlyInterface", "JSII417Derived", "JSII417PublicBaseOfBase", "JSObjectLiteralForInterface", "JSObjectLiteralToNative", "JSObjectLiteralToNativeClass", "JavaReservedWords", "Jsii487Derived", "Jsii496Derived", "JsiiAgent", "LoadBalancedFargateServiceProps", "Multiply", "Negate", "NodeStandardLibrary", "NullShouldBeTreatedAsUndefined", "NullShouldBeTreatedAsUndefinedData", "NumberGenerator", "ObjectRefsInCollections", "Old", "OptionalConstructorArgument", "OptionalStruct", "OptionalStructConsumer", "OverrideReturnsObject", "PartiallyInitializedThisConsumer", "Polymorphism", "Power", "PublicClass", "PythonReservedWords", "ReferenceEnumFromScopedPackage", "ReturnsPrivateImplementationOfInterface", "RuntimeTypeChecking", "SingleInstanceTwoTypes", "StaticContext", "Statics", "StringEnum", "StripInternal", "Sum", "SyncVirtualMethods", "Thrower", "UnaryOperation", "UnionProperties", "UseBundledDependency", "UseCalcBase", "UsesInterfaceWithProperties", "VariadicMethod", "VirtualMethodPlayground", "VoidCallback", "__jsii_assembly__", "composition"]
+__all__ = ["AbstractClass", "AbstractClassBase", "AbstractClassReturner", "Add", "AllTypes", "AllTypesEnum", "AllowedMethodNames", "AsyncVirtualMethods", "AugmentableClass", "BinaryOperation", "Calculator", "CalculatorProps", "ClassThatImplementsTheInternalInterface", "ClassThatImplementsThePrivateInterface", "ClassWithDocs", "ClassWithMutableObjectLiteralProperty", "ClassWithPrivateConstructorAndAutomaticProperties", "ConstructorPassesThisOut", "Constructors", "ConsumersOfThisCrazyTypeSystem", "DefaultedConstructorArgument", "DeprecatedClass", "DerivedClassHasNoProperties", "DerivedStruct", "DoNotOverridePrivates", "DoNotRecognizeAnyAsOptional", "DocumentedClass", "DontComplainAboutVariadicAfterOptional", "DoubleTrouble", "EraseUndefinedHashValues", "EraseUndefinedHashValuesOptions", "ExportedBaseClass", "ExtendsInternalInterface", "GiveMeStructs", "Greetee", "GreetingAugmenter", "IAnotherPublicInterface", "IExtendsPrivateInterface", "IFriendlier", "IFriendlyRandomGenerator", "IInterfaceImplementedByAbstractClass", "IInterfaceThatShouldNotBeADataType", "IInterfaceWithInternal", "IInterfaceWithMethods", "IInterfaceWithOptionalMethodArguments", "IInterfaceWithProperties", "IInterfaceWithPropertiesExtension", "IJSII417Derived", "IJSII417PublicBaseOfBase", "IJsii487External", "IJsii487External2", "IJsii496", "IMutableObjectLiteral", "INonInternalInterface", "IPrivatelyImplemented", "IPublicInterface", "IPublicInterface2", "IRandomNumberGenerator", "IReturnsNumber", "ImplementInternalInterface", "ImplementsInterfaceWithInternal", "ImplementsInterfaceWithInternalSubclass", "ImplementsPrivateInterface", "ImplictBaseOfBase", "InbetweenClass", "InterfaceInNamespaceIncludesClasses", "InterfaceInNamespaceOnlyInterface", "JSII417Derived", "JSII417PublicBaseOfBase", "JSObjectLiteralForInterface", "JSObjectLiteralToNative", "JSObjectLiteralToNativeClass", "JavaReservedWords", "Jsii487Derived", "Jsii496Derived", "JsiiAgent", "LoadBalancedFargateServiceProps", "Multiply", "Negate", "NodeStandardLibrary", "NullShouldBeTreatedAsUndefined", "NullShouldBeTreatedAsUndefinedData", "NumberGenerator", "ObjectRefsInCollections", "Old", "OptionalConstructorArgument", "OptionalStruct", "OptionalStructConsumer", "OverrideReturnsObject", "PartiallyInitializedThisConsumer", "Polymorphism", "Power", "PublicClass", "PythonReservedWords", "ReferenceEnumFromScopedPackage", "ReturnsPrivateImplementationOfInterface", "RuntimeTypeChecking", "SingleInstanceTwoTypes", "StaticContext", "Statics", "StringEnum", "StripInternal", "Sum", "SyncVirtualMethods", "Thrower", "UnaryOperation", "UnionProperties", "UseBundledDependency", "UseCalcBase", "UsesInterfaceWithProperties", "VariadicMethod", "VirtualMethodPlayground", "VoidCallback", "__jsii_assembly__", "composition"]
 
 publication.publish()

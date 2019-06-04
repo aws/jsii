@@ -197,6 +197,7 @@ class JavaGenerator extends Generator {
         const inner = nested ? ' static' : '';
         const absPrefix = abstract ? ' abstract' : '';
 
+        if (spec.isDeprecated(cls)) { this.code.line('@Deprecated'); }
         if (!nested) { this.emitGeneratedAnnotation(); }
         this.code.line(`@software.amazon.jsii.Jsii(module = ${this.moduleClass}.class, fqn = "${cls.fqn}")`);
         this.code.openBlock(`public${inner}${absPrefix} class ${cls.name}${extendsExpression}${implementsExpr}`);
@@ -216,6 +217,7 @@ class JavaGenerator extends Generator {
 
     protected onInitializer(cls: spec.ClassType, method: spec.Method) {
         this.addJavaDocs(method);
+        if (spec.isDeprecated(method)) { this.code.line('@Deprecated'); }
         this.code.openBlock(`${this.renderAccessLevel(method)} ${cls.name}(${this.renderMethodParameters(method)})`);
         this.code.line('super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);');
         this.code.line(`software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this${this.renderMethodCallArguments(method)});`);
@@ -581,6 +583,7 @@ class JavaGenerator extends Generator {
         const access = this.renderAccessLevel(prop);
 
         this.addJavaDocs(prop);
+        if (spec.isDeprecated(prop)) { this.code.line('@Deprecated'); }
         this.code.line(`${access} final static ${propType} ${propName};`);
     }
 
@@ -598,6 +601,7 @@ class JavaGenerator extends Generator {
             this.code.line();
             this.addJavaDocs(prop);
             if (overrides) { this.code.line('@Override'); }
+            if (spec.isDeprecated(prop)) { this.code.line('@Deprecated'); }
             if (isNullable(prop)) { this.code.line(JSR305_NULLABLE); }
             this.code.openBlock(`${access} ${statc}${getterType} get${propName}()`);
 
@@ -619,6 +623,7 @@ class JavaGenerator extends Generator {
                 this.code.line();
                 this.addJavaDocs(prop);
                 if (overrides) { this.code.line('@Override'); }
+                if (spec.isDeprecated(prop)) { this.code.line('@Deprecated'); }
                 const nullable = isNullable(prop) ? `${JSR305_NULLABLE} ` : '';
                 this.code.openBlock(`${access} ${statc}void set${propName}(${nullable}final ${type} value)`);
                 let statement = '';
@@ -645,6 +650,7 @@ class JavaGenerator extends Generator {
         const signature = `${returnType} ${methodName}(${this.renderMethodParameters(method)})`;
         this.code.line();
         this.addJavaDocs(method);
+        if (spec.isDeprecated(method)) { this.code.line('@Deprecated'); }
         if (overrides) { this.code.line('@Override'); }
         if (isNullable(method.returns)) { this.code.line(JSR305_NULLABLE); }
         if (method.abstract) {

@@ -101,12 +101,21 @@ function parseDocParts(comments: string | undefined, tags: ts.JSDocTagInfo[]): D
     diagnostics.push('Element is marked both @experimental and @stable.');
   }
 
-  if (docs.deprecated !== undefined && docs.deprecated.trim() === '') {
-    diagnostics.push('@deprecated tag needs a reason and/or suggested alternatives.');
+  if (docs.deprecated !== undefined) {
+    if (docs.deprecated.trim() === '') {
+      diagnostics.push('@deprecated tag needs a reason and/or suggested alternatives.');
+    }
+    if (stable) {
+      diagnostics.push('Element is marked both @deprecated and @stable.');
+    }
+    if (experimental) {
+      diagnostics.push('Element is marked both @deprecated and @experimental.');
+    }
   }
 
   if (experimental) { docs.stability = spec.Stability.Experimental; }
   if (stable) { docs.stability = spec.Stability.Stable; }
+  if (docs.deprecated) { docs.stability = spec.Stability.Deprecated; }
 
   if (tagNames.size > 0) {
     docs.custom = {};

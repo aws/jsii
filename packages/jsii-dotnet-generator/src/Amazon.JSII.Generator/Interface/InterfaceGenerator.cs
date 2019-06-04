@@ -34,14 +34,31 @@ namespace Amazon.JSII.Generator.Interface
                 TypeOfExpressionSyntax typeOfExpression = SF.TypeOfExpression(Symbols.GetNameSyntax(Type));
                 SyntaxToken fullyQualifiedNameLiteral = SF.Literal(Type.FullyQualifiedName);
 
-                return SF.List(new[] {
-                    SF.AttributeList(SF.SeparatedList(new[] {
+                return SF.List(GetAttributeLists());
+
+                IEnumerable<AttributeListSyntax> GetAttributeLists()
+                {
+                    yield return SF.AttributeList(SF.SeparatedList(new[] {
                         SF.Attribute(
                             SF.ParseName("JsiiInterface"),
                             SF.ParseAttributeArgumentList($"(nativeType: {typeOfExpression}, fullyQualifiedName: {fullyQualifiedNameLiteral})")
                         )
-                    }))
-                });
+                    }));
+
+                    if (Type.Docs?.Deprecated != null)
+                    {
+                        yield return SF.AttributeList(SF.SeparatedList(new[] {
+                            SF.Attribute(
+                                SF.ParseName("System.Obsolete"),
+                                SF.AttributeArgumentList(
+                                    SF.SingletonSeparatedList(
+                                        SF.AttributeArgument(SF.LiteralExpression(SyntaxKind.StringLiteralExpression, SF.Literal(Type.Docs.Deprecated)))
+                                    )
+                                )
+                            )
+                        }));
+                    }
+                }
             }
 
             BaseListSyntax CreateBaseList()

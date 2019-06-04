@@ -1489,6 +1489,56 @@ DefaultedConstructorArgument
       :type: string *(optional)* *(readonly)*
 
 
+DeprecatedClass
+^^^^^^^^^^^^^^^
+
+.. py:class:: DeprecatedClass([argument])
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.DeprecatedClass;
+
+      .. code-tab:: javascript
+
+         const { DeprecatedClass } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { DeprecatedClass } from 'jsii-calc';
+
+
+
+   This tests code generation of deprecation markers.
+
+
+
+   :param argument: some string.
+   :type argument: string
+
+   .. py:method:: deprecatedMethod()
+
+
+
+   .. py:attribute:: deprecatedAttribute
+
+      :type: string *(readonly)*
+
+
+   .. py:attribute:: deprecatedProtected
+
+      *Protected property*
+
+      :type: string *(optional)*
+
+
 
 DerivedClassHasNoProperties
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
