@@ -8,7 +8,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     {
         /// <remarks>stability: Deprecated</remarks>
         [JsiiProperty(name: "readonlyProperty", typeJson: "{\"primitive\":\"string\"}", isOverride: true)]
-        [System.Obsolete("for the show")]
+        [System.Obsolete("well, yeah")]
         public string ReadonlyProperty
         {
             get;

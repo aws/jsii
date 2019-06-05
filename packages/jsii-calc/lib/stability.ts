@@ -69,36 +69,36 @@ export enum StableEnum {
   OptionB
 }
 
-/** @deprecated for the show */
+/** @deprecated it just wraps a string */
 export interface DeprecatedStruct {
-  /** @deprecated for the show */
+  /** @deprecated well, yeah */
   readonly readonlyProperty: string;
 }
-/** @deprecated for the show */
+/** @deprecated useless interface */
 export interface IDeprecatedInterface {
-  /** @deprecated for the show */
+  /** @deprecated could be better */
   mutableProperty?: number;
-  /** @deprecated for the show */
+  /** @deprecated services no purpose */
   method(): void;
 }
-/** @deprecated for the show */
+/** @deprecated a pretty boring class */
 export class DeprecatedClass {
-  /** @deprecated for the show */
-  public readonly readonlyProperty: string = 'wazoo';
-  /** @deprecated for the show */
+  /** @deprecated this is not always "wazoo", be ready to be disappointed */
+  public readonly readonlyProperty: string;
+  /** @deprecated shouldn't have been mutable */
   public mutableProperty?: number;
-  /** @deprecated for the show */
+  /** @deprecated this constructor is "just" okay */
   constructor(readonlyString: string, mutableNumber?: number) {
     this.readonlyProperty = readonlyString;
     this.mutableProperty = mutableNumber;
   }
-  /** @deprecated for the show */
+  /** @deprecated it was a bad idea */
   public method(): void { return; }
 }
-/** @deprecated for the show */
+/** @deprecated your deprecated selection of bad options */
 export enum DeprecatedEnum {
-  /** @deprecated for the show */
+  /** @deprecated option A is not great */
   OptionA,
-  /** @deprecated for the show */
+  /** @deprecated option B is kinda bad, too */
   OptionB
 }

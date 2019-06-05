@@ -1,24 +1,24 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * @deprecated for the show
+ * @deprecated useless interface
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @Deprecated
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
 public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializable {
     /**
-     * @deprecated for the show
+     * @deprecated could be better
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     java.lang.Number getMutableProperty();
     /**
-     * @deprecated for the show
+     * @deprecated could be better
      */
     void setMutableProperty(final java.lang.Number value);
     /**
-     * @deprecated for the show
+     * @deprecated services no purpose
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -33,7 +33,7 @@ public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializa
         }
 
         /**
-         * @deprecated for the show
+         * @deprecated could be better
          */
         @Override
         @Deprecated
@@ -44,7 +44,7 @@ public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializa
         }
 
         /**
-         * @deprecated for the show
+         * @deprecated could be better
          */
         @Override
         @Deprecated
@@ -54,7 +54,7 @@ public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializa
         }
 
         /**
-         * @deprecated for the show
+         * @deprecated services no purpose
          */
         @Deprecated
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)

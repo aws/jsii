@@ -4,12 +4,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>stability: Deprecated</remarks>
     [JsiiInterface(nativeType: typeof(IIDeprecatedInterface), fullyQualifiedName: "jsii-calc.IDeprecatedInterface")]
-    [System.Obsolete("for the show")]
+    [System.Obsolete("useless interface")]
     public interface IIDeprecatedInterface
     {
         /// <remarks>stability: Deprecated</remarks>
         [JsiiProperty(name: "mutableProperty", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
-        [System.Obsolete("for the show")]
+        [System.Obsolete("could be better")]
         double? MutableProperty
         {
             get;
@@ -18,7 +18,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <remarks>stability: Deprecated</remarks>
         [JsiiMethod(name: "method")]
-        [System.Obsolete("for the show")]
+        [System.Obsolete("services no purpose")]
         void Method();
     }
 }

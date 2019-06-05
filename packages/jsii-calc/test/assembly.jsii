@@ -1892,13 +1892,13 @@
     "jsii-calc.DeprecatedClass": {
       "assembly": "jsii-calc",
       "docs": {
-        "deprecated": "for the show",
+        "deprecated": "a pretty boring class",
         "stability": "deprecated"
       },
       "fqn": "jsii-calc.DeprecatedClass",
       "initializer": {
         "docs": {
-          "deprecated": "for the show",
+          "deprecated": "this constructor is \"just\" okay",
           "stability": "deprecated"
         },
         "parameters": [
@@ -1925,7 +1925,7 @@
       "methods": [
         {
           "docs": {
-            "deprecated": "for the show",
+            "deprecated": "it was a bad idea",
             "stability": "deprecated"
           },
           "locationInModule": {
@@ -1939,7 +1939,7 @@
       "properties": [
         {
           "docs": {
-            "deprecated": "for the show",
+            "deprecated": "this is not always \"wazoo\", be ready to be disappointed",
             "stability": "deprecated"
           },
           "immutable": true,
@@ -1954,7 +1954,7 @@
         },
         {
           "docs": {
-            "deprecated": "for the show",
+            "deprecated": "shouldn't have been mutable",
             "stability": "deprecated"
           },
           "locationInModule": {
@@ -1972,7 +1972,7 @@
     "jsii-calc.DeprecatedEnum": {
       "assembly": "jsii-calc",
       "docs": {
-        "deprecated": "for the show",
+        "deprecated": "your deprecated selection of bad options",
         "stability": "deprecated"
       },
       "fqn": "jsii-calc.DeprecatedEnum",
@@ -1984,14 +1984,14 @@
       "members": [
         {
           "docs": {
-            "deprecated": "for the show",
+            "deprecated": "option A is not great",
             "stability": "deprecated"
           },
           "name": "OptionA"
         },
         {
           "docs": {
-            "deprecated": "for the show",
+            "deprecated": "option B is kinda bad, too",
             "stability": "deprecated"
           },
           "name": "OptionB"
@@ -2003,7 +2003,7 @@
       "assembly": "jsii-calc",
       "datatype": true,
       "docs": {
-        "deprecated": "for the show",
+        "deprecated": "it just wraps a string",
         "stability": "deprecated"
       },
       "fqn": "jsii-calc.DeprecatedStruct",
@@ -2017,7 +2017,7 @@
         {
           "abstract": true,
           "docs": {
-            "deprecated": "for the show",
+            "deprecated": "well, yeah",
             "stability": "deprecated"
           },
           "immutable": true,
@@ -2929,7 +2929,7 @@
     "jsii-calc.IDeprecatedInterface": {
       "assembly": "jsii-calc",
       "docs": {
-        "deprecated": "for the show",
+        "deprecated": "useless interface",
         "stability": "deprecated"
       },
       "fqn": "jsii-calc.IDeprecatedInterface",
@@ -2942,7 +2942,7 @@
         {
           "abstract": true,
           "docs": {
-            "deprecated": "for the show",
+            "deprecated": "services no purpose",
             "stability": "deprecated"
           },
           "locationInModule": {
@@ -2957,7 +2957,7 @@
         {
           "abstract": true,
           "docs": {
-            "deprecated": "for the show",
+            "deprecated": "could be better",
             "stability": "deprecated"
           },
           "locationInModule": {
@@ -7354,5 +7354,5 @@
     }
   },
   "version": "0.11.0",
-  "fingerprint": "7WPX4JJX9K3lSIehbMBcjNATyKWXOa3SXA/ct2gisGc="
+  "fingerprint": "aNWCih3NfgXU4mll5c+zKXj3ekSyaT9S+67MAugCfNo="
 }

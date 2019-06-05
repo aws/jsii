@@ -552,7 +552,7 @@ class DefaultedConstructorArgument(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc
 class DeprecatedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DeprecatedClass"):
     """
     Deprecated:
-        for the show
+        a pretty boring class
 
     Stability:
         deprecated
@@ -564,7 +564,7 @@ class DeprecatedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DeprecatedCl
             mutableNumber: -
 
         Deprecated:
-            for the show
+            this constructor is "just" okay
 
         Stability:
             deprecated
@@ -575,7 +575,7 @@ class DeprecatedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DeprecatedCl
     def method(self) -> None:
         """
         Deprecated:
-            for the show
+            it was a bad idea
 
         Stability:
             deprecated
@@ -587,7 +587,7 @@ class DeprecatedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DeprecatedCl
     def readonly_property(self) -> str:
         """
         Deprecated:
-            for the show
+            this is not always "wazoo", be ready to be disappointed
 
         Stability:
             deprecated
@@ -599,7 +599,7 @@ class DeprecatedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DeprecatedCl
     def mutable_property(self) -> typing.Optional[jsii.Number]:
         """
         Deprecated:
-            for the show
+            shouldn't have been mutable
 
         Stability:
             deprecated
@@ -615,7 +615,7 @@ class DeprecatedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DeprecatedCl
 class DeprecatedEnum(enum.Enum):
     """
     Deprecated:
-        for the show
+        your deprecated selection of bad options
 
     Stability:
         deprecated
@@ -623,7 +623,7 @@ class DeprecatedEnum(enum.Enum):
     OptionA = "OptionA"
     """
     Deprecated:
-        for the show
+        option A is not great
 
     Stability:
         deprecated
@@ -631,7 +631,7 @@ class DeprecatedEnum(enum.Enum):
     OptionB = "OptionB"
     """
     Deprecated:
-        for the show
+        option B is kinda bad, too
 
     Stability:
         deprecated
@@ -641,7 +641,7 @@ class DeprecatedEnum(enum.Enum):
 class DeprecatedStruct(jsii.compat.TypedDict):
     """
     Deprecated:
-        for the show
+        it just wraps a string
 
     Stability:
         deprecated
@@ -649,7 +649,7 @@ class DeprecatedStruct(jsii.compat.TypedDict):
     readonlyProperty: str
     """
     Deprecated:
-        for the show
+        well, yeah
 
     Stability:
         deprecated
@@ -1068,7 +1068,7 @@ class _IAnotherPublicInterfaceProxy():
 class IDeprecatedInterface(jsii.compat.Protocol):
     """
     Deprecated:
-        for the show
+        useless interface
 
     Stability:
         deprecated
@@ -1082,7 +1082,7 @@ class IDeprecatedInterface(jsii.compat.Protocol):
     def mutable_property(self) -> typing.Optional[jsii.Number]:
         """
         Deprecated:
-            for the show
+            could be better
 
         Stability:
             deprecated
@@ -1097,7 +1097,7 @@ class IDeprecatedInterface(jsii.compat.Protocol):
     def method(self) -> None:
         """
         Deprecated:
-            for the show
+            services no purpose
 
         Stability:
             deprecated
@@ -1108,7 +1108,7 @@ class IDeprecatedInterface(jsii.compat.Protocol):
 class _IDeprecatedInterfaceProxy():
     """
     Deprecated:
-        for the show
+        useless interface
 
     Stability:
         deprecated
@@ -1119,7 +1119,7 @@ class _IDeprecatedInterfaceProxy():
     def mutable_property(self) -> typing.Optional[jsii.Number]:
         """
         Deprecated:
-            for the show
+            could be better
 
         Stability:
             deprecated
@@ -1134,7 +1134,7 @@ class _IDeprecatedInterfaceProxy():
     def method(self) -> None:
         """
         Deprecated:
-            for the show
+            services no purpose
 
         Stability:
             deprecated

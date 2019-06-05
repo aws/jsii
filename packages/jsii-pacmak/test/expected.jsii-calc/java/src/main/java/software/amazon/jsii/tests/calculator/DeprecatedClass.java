@@ -1,7 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * @deprecated for the show
+ * @deprecated a pretty boring class
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @Deprecated
@@ -12,7 +12,7 @@ public class DeprecatedClass extends software.amazon.jsii.JsiiObject {
         super(mode);
     }
     /**
-     * @deprecated for the show
+     * @deprecated this constructor is "just" okay
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -21,7 +21,7 @@ public class DeprecatedClass extends software.amazon.jsii.JsiiObject {
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(readonlyString, "readonlyString is required"), mutableNumber });
     }
     /**
-     * @deprecated for the show
+     * @deprecated this constructor is "just" okay
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -31,7 +31,7 @@ public class DeprecatedClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * @deprecated for the show
+     * @deprecated it was a bad idea
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -40,7 +40,7 @@ public class DeprecatedClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * @deprecated for the show
+     * @deprecated this is not always "wazoo", be ready to be disappointed
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -49,7 +49,7 @@ public class DeprecatedClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * @deprecated for the show
+     * @deprecated shouldn't have been mutable
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
@@ -59,7 +59,7 @@ public class DeprecatedClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * @deprecated for the show
+     * @deprecated shouldn't have been mutable
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
