@@ -157,9 +157,9 @@ namespace Amazon.JSII.Generator
         
         SyntaxList<AttributeListSyntax> GetAttributeLists()
         {
-            return SF.List(new[] { SF.AttributeList(SF.SeparatedList(GetAttributes())) });
+            return SF.List(GetAttributesLists());
 
-            IEnumerable<AttributeSyntax> GetAttributes()
+            IEnumerable<AttributeListSyntax> GetAttributesLists()
             {
                 SyntaxToken nameLiteral = SF.Literal(Property.Name);
                 SyntaxToken typeJsonLiteral = SF.Literal(JsonConvert.SerializeObject(Property.Type, SerializerSettings));
@@ -175,10 +175,22 @@ namespace Amazon.JSII.Generator
                     argumentList += $", isOverride: {trueLiteral}";
                 }
 
-                yield return SF.Attribute(
+                yield return SF.AttributeList(SF.SingletonSeparatedList(SF.Attribute(
                     SF.ParseName("JsiiProperty"),
                     SF.ParseAttributeArgumentList($"({argumentList})")
-                );
+                )));
+
+                if (Property.Docs?.Deprecated != null)
+                {
+                    yield return SF.AttributeList(SF.SingletonSeparatedList(SF.Attribute(
+                        SF.ParseName("System.Obsolete"),
+                        SF.AttributeArgumentList(
+                            SF.SingletonSeparatedList(
+                                SF.AttributeArgument(SF.LiteralExpression(SyntaxKind.StringLiteralExpression, SF.Literal(Property.Docs.Deprecated)))
+                            )
+                        )
+                    )));
+                }
             }
         }
 

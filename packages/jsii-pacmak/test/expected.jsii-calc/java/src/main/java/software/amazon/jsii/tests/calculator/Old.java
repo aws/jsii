@@ -6,6 +6,8 @@ package software.amazon.jsii.tests.calculator;
  * @deprecated Use the new class
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@Deprecated
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.Old")
 public class Old extends software.amazon.jsii.JsiiObject {
     protected Old(final software.amazon.jsii.JsiiObject.InitializationMode mode) {

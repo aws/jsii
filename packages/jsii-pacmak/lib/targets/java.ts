@@ -5,6 +5,7 @@ import path = require('path');
 import xmlbuilder = require('xmlbuilder');
 import { Generator } from '../generator';
 import logging = require('../logging');
+import { md2html } from '../markdown';
 import { PackageInfo, Target, TargetOptions } from '../target';
 import { shell } from '../util';
 import { VERSION, VERSION_DESC } from '../version';
@@ -166,6 +167,8 @@ class JavaGenerator extends Generator {
     protected onBeginAssembly(assm: spec.Assembly, fingerprint: boolean) {
         this.emitFullGeneratorInfo = fingerprint;
         this.moduleClass = this.emitModuleFile(assm);
+
+        this.emitPackageInfo(assm);
     }
 
     protected onEndAssembly(assm: spec.Assembly, fingerprint: boolean) {
@@ -195,6 +198,7 @@ class JavaGenerator extends Generator {
         const absPrefix = abstract ? ' abstract' : '';
 
         if (!nested) { this.emitGeneratedAnnotation(); }
+        this.emitStabilityAnnotations(cls);
         this.code.line(`@software.amazon.jsii.Jsii(module = ${this.moduleClass}.class, fqn = "${cls.fqn}")`);
         this.code.openBlock(`public${inner}${absPrefix} class ${cls.name}${extendsExpression}${implementsExpr}`);
 
@@ -213,6 +217,7 @@ class JavaGenerator extends Generator {
 
     protected onInitializer(cls: spec.ClassType, method: spec.Method) {
         this.addJavaDocs(method);
+        this.emitStabilityAnnotations(method);
         this.code.openBlock(`${this.renderAccessLevel(method)} ${cls.name}(${this.renderMethodParameters(method)})`);
         this.code.line('super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);');
         this.code.line(`software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this${this.renderMethodCallArguments(method)});`);
@@ -270,6 +275,7 @@ class JavaGenerator extends Generator {
         this.openFileIfNeeded(enm);
         this.addJavaDocs(enm);
         if (!this.isNested(enm)) { this.emitGeneratedAnnotation(); }
+        this.emitStabilityAnnotations(enm);
         this.code.line(`@software.amazon.jsii.Jsii(module = ${this.moduleClass}.class, fqn = "${enm.fqn}")`);
         this.code.openBlock(`public enum ${enm.name}`);
     }
@@ -279,6 +285,7 @@ class JavaGenerator extends Generator {
     }
     protected onEnumMember(_: spec.EnumType, member: spec.EnumMember) {
         this.addJavaDocs(member);
+        this.emitStabilityAnnotations(member);
         this.code.line(`${member.name},`);
     }
 
@@ -304,6 +311,7 @@ class JavaGenerator extends Generator {
         const nested = this.isNested(ifc);
         const inner = nested ? ' static' : '';
         if (!nested) { this.emitGeneratedAnnotation(); }
+        this.emitStabilityAnnotations(ifc);
         this.code.openBlock(`public${inner} interface ${ifc.name} extends ${bases}`);
     }
 
@@ -322,6 +330,7 @@ class JavaGenerator extends Generator {
     protected onInterfaceMethod(_ifc: spec.InterfaceType, method: spec.Method) {
         const returnType = method.returns ? this.toJavaType(method.returns.type) : 'void';
         this.addJavaDocs(method);
+        this.emitStabilityAnnotations(method);
         this.code.line(`${returnType} ${method.name}(${this.renderMethodParameters(method)});`);
     }
 
@@ -336,6 +345,7 @@ class JavaGenerator extends Generator {
 
         // for unions we only generate overloads for setters, not getters.
         this.addJavaDocs(prop);
+        this.emitStabilityAnnotations(prop);
         this.code.line(`${getterType} get${propName}();`);
 
         if (!prop.immutable) {
@@ -344,6 +354,29 @@ class JavaGenerator extends Generator {
                 this.code.line(`void set${propName}(final ${type} value);`);
             }
         }
+    }
+
+    private emitPackageInfo(mod: spec.Assembly) {
+        if (!mod.docs) { return; }
+
+        const packageName = this.getNativeName(mod, undefined);
+        const packageInfoFile = this.toJavaFilePath(mod.name + '.package-info');
+        this.code.openFile(packageInfoFile);
+        this.code.line('/**');
+        if (mod.readme) {
+            for (const line of md2html(mod.readme.markdown).split('\n')) {
+                this.code.line(` * ${line}`);
+            }
+        }
+        if (mod.docs.deprecated) {
+            this.code.line(' *');
+            // Javac won't allow @deprecated on packages, while @Deprecated is aaaabsolutely fine. Duh.
+            this.code.line(` * Deprecated: ${mod.docs.deprecated}`);
+        }
+        this.code.line(' */');
+        this.emitStabilityAnnotations(mod);
+        this.code.line(`package ${packageName};`);
+        this.code.closeFile(packageInfoFile);
     }
 
     private emitMavenPom(assm: spec.Assembly, fingerprint: boolean) {
@@ -441,6 +474,12 @@ class JavaGenerator extends Generator {
                                 configuration: {
                                     failOnError: false,
                                     show: 'protected',
+                                    sourceFileExcludes: {
+                                        // Excluding the $Module classes so they won't pollute the docsite. They otherwise
+                                        // are all collected at the top of the classlist, burrying useful information under
+                                        // a lot of dry scrolling.
+                                        exclude: ['**/$Module.java']
+                                    },
                                     // Adding these makes JavaDoc generation about a 3rd faster (which is far and away the most
                                     // expensive part of the build)
                                     additionalJOption: ['-J-XX:+TieredCompilation', '-J-XX:TieredStopAtLevel=1']
@@ -546,6 +585,7 @@ class JavaGenerator extends Generator {
         const access = this.renderAccessLevel(prop);
 
         this.addJavaDocs(prop);
+        this.emitStabilityAnnotations(prop);
         this.code.line(`${access} final static ${propType} ${propName};`);
     }
 
@@ -563,6 +603,7 @@ class JavaGenerator extends Generator {
             this.code.line();
             this.addJavaDocs(prop);
             if (overrides) { this.code.line('@Override'); }
+            this.emitStabilityAnnotations(prop);
             if (isNullable(prop)) { this.code.line(JSR305_NULLABLE); }
             this.code.openBlock(`${access} ${statc}${getterType} get${propName}()`);
 
@@ -584,6 +625,7 @@ class JavaGenerator extends Generator {
                 this.code.line();
                 this.addJavaDocs(prop);
                 if (overrides) { this.code.line('@Override'); }
+                this.emitStabilityAnnotations(prop);
                 const nullable = isNullable(prop) ? `${JSR305_NULLABLE} ` : '';
                 this.code.openBlock(`${access} ${statc}void set${propName}(${nullable}final ${type} value)`);
                 let statement = '';
@@ -610,6 +652,7 @@ class JavaGenerator extends Generator {
         const signature = `${returnType} ${methodName}(${this.renderMethodParameters(method)})`;
         this.code.line();
         this.addJavaDocs(method);
+        this.emitStabilityAnnotations(method);
         if (overrides) { this.code.line('@Override'); }
         if (isNullable(method.returns)) { this.code.line(JSR305_NULLABLE); }
         if (method.abstract) {
@@ -695,6 +738,27 @@ class JavaGenerator extends Generator {
         this.code.closeBlock();
     }
 
+    private emitStabilityAnnotations(entity: spec.Documentable) {
+        if (!entity.docs) { return; }
+        if (entity.docs.stability === spec.Stability.Deprecated || entity.docs.deprecated) {
+            this.code.line('@Deprecated');
+        }
+        if (entity.docs.stability) {
+            this.code.line(`@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.${_level(entity.docs.stability)})`);
+        }
+
+        function _level(stability: spec.Stability): string {
+            switch (stability) {
+                case spec.Stability.Deprecated:
+                    return 'Deprecated';
+                case spec.Stability.Experimental:
+                    return 'Experimental';
+                case spec.Stability.Stable:
+                    return 'Stable';
+            }
+        }
+    }
+
     private emitInterfaceBuilder(ifc: spec.InterfaceType) {
         const interfaceName = ifc.name;
         const builderName = 'Builder';
@@ -703,6 +767,7 @@ class JavaGenerator extends Generator {
         this.code.line('/**');
         this.code.line(` * @return a {@link Builder} of {@link ${interfaceName}}`);
         this.code.line(' */');
+        this.emitStabilityAnnotations(ifc);
         this.code.openBlock(`static ${builderName} builder()`);
         this.code.line(`return new ${builderName}();`);
         this.code.closeBlock();
@@ -755,6 +820,7 @@ class JavaGenerator extends Generator {
         this.code.line('/**');
         this.code.line(` * A builder for {@link ${interfaceName}}`);
         this.code.line(' */');
+        this.emitStabilityAnnotations(ifc);
         this.code.openBlock(`final class ${builderName}`);
 
         for (const prop of props) {
@@ -774,7 +840,11 @@ class JavaGenerator extends Generator {
                     this.code.line(` * @param value the value to be set`);
                 }
                 this.code.line(` * @return {@code this}`);
+                if (prop.docs && prop.docs.deprecated) {
+                    this.code.line(` * @deprecated ${prop.docs.deprecated}`);
+                }
                 this.code.line(' */');
+                this.emitStabilityAnnotations(prop.spec);
                 this.code.openBlock(`public ${builderName} with${prop.propName}(${prop.nullable ? `${JSR305_NULLABLE} ` : ''}final ${type} value)`);
                 this.code.line(`this._${prop.fieldName} = ${_validateIfNonOptional('value', prop)};`);
                 this.code.line('return this;');
@@ -787,6 +857,7 @@ class JavaGenerator extends Generator {
         this.code.line(` * @return a new instance of {@link ${interfaceName}}`);
         this.code.line(' * @throws NullPointerException if any required attribute was not provided');
         this.code.line(' */');
+        this.emitStabilityAnnotations(ifc);
         this.code.openBlock(`public ${interfaceName} build()`);
         this.code.openBlock(`return new ${interfaceName}()`);
         for (const prop of props) {
@@ -1161,11 +1232,11 @@ class JavaGenerator extends Generator {
 
     private getNativeName(assm: spec.Assembly, name: string | undefined): string;
     private getNativeName(assm: spec.PackageVersion, name: string | undefined, assmName: string): string;
-    private getNativeName(assm: spec.Assembly | spec.PackageVersion,
+    private getNativeName(assm: spec.Assembly | spec.PackageVersion,
                           name: string | undefined,
                           assmName: string = (assm as spec.Assembly).name): string {
         const javaPackage = assm.targets && assm.targets.java && assm.targets.java.package;
-        if (!javaPackage) { throw new Error(`The module ${assmName} does not have a java.package setting`); }
+        if (!javaPackage) { throw new Error(`The module ${assmName} does not have a java.package setting`); }
         return `${javaPackage}${name ? `.${name}` : ''}`;
     }
 

@@ -61,11 +61,12 @@ export class Assembler implements Emitter {
         'A "homepage" field should be specified in "package.json"');
     }
     const readme = await _loadReadme.call(this);
-    if (!readme) {
+    if (readme == null) {
       this._diagnostic(null,
         ts.DiagnosticCategory.Suggestion,
-        'There is not "README.md" file. It is recommended to have one.');
+        'There is no "README.md" file. It is recommended to have one.');
     }
+    const docs = _loadDocs.call(this);
 
     this._types = {};
     this._deferred = [];
@@ -99,7 +100,7 @@ export class Assembler implements Emitter {
 
     const jsiiVersion = this.projectInfo.jsiiVersionFormat === 'short' ? SHORT_VERSION : VERSION;
 
-    const assembly = {
+    const assembly: spec.Assembly = {
       schema: spec.SchemaVersion.LATEST,
       name: this.projectInfo.name,
       version: this.projectInfo.version,
@@ -115,6 +116,7 @@ export class Assembler implements Emitter {
       types: this._types,
       targets: this.projectInfo.targets,
       metadata: this.projectInfo.metadata,
+      docs,
       readme,
       jsiiVersion,
       fingerprint: '<TBD>',
@@ -149,6 +151,15 @@ export class Assembler implements Emitter {
         literate.fileSystemLoader(this.projectInfo.projectRoot)
       );
       return { markdown: renderedLines.join('\n') };
+    }
+
+    function _loadDocs(this: Assembler): spec.Docs | undefined {
+      if (!this.projectInfo.stability && !this.projectInfo.deprecated) {
+        return undefined;
+      }
+      const deprecated = this.projectInfo.deprecated;
+      const stability = this.projectInfo.stability;
+      return { deprecated, stability };
     }
   }
 

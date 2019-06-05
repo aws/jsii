@@ -3,6 +3,7 @@ using Amazon.JSII.JsonModel.Spec;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System.Collections.Generic;
 using System.Linq;
 using SF = Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
@@ -32,14 +33,31 @@ namespace Amazon.JSII.Generator.Enum
             TypeOfExpressionSyntax typeOfExpression = SF.TypeOfExpression(Symbols.GetNameSyntax(Type));
             SyntaxToken fullyQualifiedNameLiteral = SF.Literal(Type.FullyQualifiedName);
 
-            return SF.List(new[] {
-                SF.AttributeList(SF.SeparatedList(new[] {
+            return SF.List(GetAttributeLists());
+
+            IEnumerable<AttributeListSyntax> GetAttributeLists()
+            {
+                yield return SF.AttributeList(SF.SeparatedList(new[] {
                     SF.Attribute(
                         SF.ParseName("JsiiEnum"),
                         SF.ParseAttributeArgumentList($"(nativeType: {typeOfExpression}, fullyQualifiedName: {fullyQualifiedNameLiteral})")
                     )
-                }))
-            });
+                }));
+
+                if (Type.Docs?.Deprecated != null)
+                {
+                    yield return SF.AttributeList(SF.SeparatedList(new[] {
+                            SF.Attribute(
+                                SF.ParseName("System.Obsolete"),
+                                SF.AttributeArgumentList(
+                                    SF.SingletonSeparatedList(
+                                        SF.AttributeArgument(SF.LiteralExpression(SyntaxKind.StringLiteralExpression, SF.Literal(Type.Docs.Deprecated)))
+                                    )
+                                )
+                            )
+                        }));
+                }
+            }
         }
 
         SeparatedSyntaxList<EnumMemberDeclarationSyntax> CreateValues()
@@ -50,14 +68,7 @@ namespace Amazon.JSII.Generator.Enum
             {
                 EnumMemberDeclarationSyntax declaration = SF.EnumMemberDeclaration
                 (
-                    SF.List(new[] {
-                        SF.AttributeList(SF.SeparatedList(new[] {
-                            SF.Attribute(
-                                SF.ParseName("JsiiEnumMember"),
-                                SF.ParseAttributeArgumentList($"(name: \"{member.Name}\")")
-                            )
-                        }))
-                    }),
+                    SF.List(GetAttributeLists()),
                     Symbols.GetNameSyntaxToken(Type, member),
                     null
                 );
@@ -71,6 +82,26 @@ namespace Amazon.JSII.Generator.Enum
                 }
 
                 return declaration;
+
+                IEnumerable<AttributeListSyntax> GetAttributeLists()
+                {
+                    yield return SF.AttributeList(SF.SingletonSeparatedList(
+                        SF.Attribute(
+                            SF.ParseName("JsiiEnumMember"),
+                            SF.ParseAttributeArgumentList($"(name: \"{member.Name}\")")
+                        )
+                    ));
+
+                    if (member.Docs?.Stability == Stability.Deprecated)
+                    {
+                        yield return SF.AttributeList(SF.SingletonSeparatedList(
+                            SF.Attribute(
+                                SF.ParseName("System.Obsolete"),
+                                SF.ParseAttributeArgumentList($"({SF.Literal(member.Docs?.Deprecated ?? "")})")
+                            )
+                        ));
+                    }
+                }
             }
         }
     }

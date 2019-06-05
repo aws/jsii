@@ -138,6 +138,12 @@ assemblies
  │   │   ├── arg1 property
  │   │   ├── arg3 property
  │   │   └── arg2 property
+ │   ├─┬ class DeprecatedClass
+ │   │ └─┬ members
+ │   │   ├── <initializer>(readonlyString,mutableNumber) initializer
+ │   │   ├── method() method
+ │   │   ├── readonlyProperty property
+ │   │   └── mutableProperty property
  │   ├─┬ class Base
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -175,6 +181,12 @@ assemblies
  │   │   ├── doesKeyExist(opts,key) method
  │   │   ├── prop1IsNull() method
  │   │   └── prop2IsUndefined() method
+ │   ├─┬ class ExperimentalClass
+ │   │ └─┬ members
+ │   │   ├── <initializer>(readonlyString,mutableNumber) initializer
+ │   │   ├── method() method
+ │   │   ├── readonlyProperty property
+ │   │   └── mutableProperty property
  │   ├─┬ class ExportedBaseClass
  │   │ └─┬ members
  │   │   ├── <initializer>(success) initializer
@@ -439,6 +451,12 @@ assemblies
  │   │   ├── <initializer>() initializer
  │   │   ├── interface1() method
  │   │   └── interface2() method
+ │   ├─┬ class StableClass
+ │   │ └─┬ members
+ │   │   ├── <initializer>(readonlyString,mutableNumber) initializer
+ │   │   ├── method() method
+ │   │   ├── readonlyProperty property
+ │   │   └── mutableProperty property
  │   ├─┬ class StaticContext
  │   │ └─┬ members
  │   │   ├── canAccessStaticContext() method
@@ -537,6 +555,9 @@ assemblies
  │   │ └─┬ members
  │   │   ├── initialValue property
  │   │   └── maximumValue property
+ │   ├─┬ interface DeprecatedStruct
+ │   │ └─┬ members
+ │   │   └── readonlyProperty property
  │   ├─┬ interface DerivedStruct
  │   │ └─┬ members
  │   │   ├── anotherRequired property
@@ -549,6 +570,9 @@ assemblies
  │   │ └─┬ members
  │   │   ├── option1 property
  │   │   └── option2 property
+ │   ├─┬ interface ExperimentalStruct
+ │   │ └─┬ members
+ │   │   └── readonlyProperty property
  │   ├─┬ interface ExtendsInternalInterface
  │   │ └─┬ members
  │   │   ├── boom property
@@ -559,6 +583,14 @@ assemblies
  │   ├─┬ interface IAnotherPublicInterface
  │   │ └─┬ members
  │   │   └── a property
+ │   ├─┬ interface IDeprecatedInterface
+ │   │ └─┬ members
+ │   │   ├── method() method
+ │   │   └── mutableProperty property
+ │   ├─┬ interface IExperimentalInterface
+ │   │ └─┬ members
+ │   │   ├── method() method
+ │   │   └── mutableProperty property
  │   ├─┬ interface IExtendsPrivateInterface
  │   │ └─┬ members
  │   │   ├── moreThings property
@@ -630,6 +662,10 @@ assemblies
  │   │ └─┬ members
  │   │   ├── obtainNumber() method
  │   │   └── numberProp property
+ │   ├─┬ interface IStableInterface
+ │   │ └─┬ members
+ │   │   ├── method() method
+ │   │   └── mutableProperty property
  │   ├─┬ interface ImplictBaseOfBase
  │   │ └─┬ members
  │   │   └── goo property
@@ -653,6 +689,9 @@ assemblies
  │   ├─┬ interface OptionalStruct
  │   │ └─┬ members
  │   │   └── field property
+ │   ├─┬ interface StableStruct
+ │   │ └─┬ members
+ │   │   └── readonlyProperty property
  │   ├─┬ interface UnionProperties
  │   │ └─┬ members
  │   │   ├── bar property
@@ -661,6 +700,15 @@ assemblies
  │   │ ├── MyEnumValue
  │   │ ├── YourEnumValue
  │   │ └── ThisIsGreat
+ │   ├─┬ enum DeprecatedEnum
+ │   │ ├── OptionA
+ │   │ └── OptionB
+ │   ├─┬ enum ExperimentalEnum
+ │   │ ├── OptionA
+ │   │ └── OptionB
+ │   ├─┬ enum StableEnum
+ │   │ ├── OptionA
+ │   │ └── OptionB
  │   ├─┬ enum StringEnum
  │   │ ├── A
  │   │ ├── B

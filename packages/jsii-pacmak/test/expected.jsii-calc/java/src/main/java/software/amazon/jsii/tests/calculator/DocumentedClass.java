@@ -9,6 +9,7 @@ package software.amazon.jsii.tests.calculator;
  * Multiple paragraphs are separated by an empty line.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.DocumentedClass")
 public class DocumentedClass extends software.amazon.jsii.JsiiObject {
     protected DocumentedClass(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
@@ -49,6 +50,7 @@ public class DocumentedClass extends software.amazon.jsii.JsiiObject {
      * 
      * EXPERIMENTAL
      */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void hola() {
         this.jsiiCall("hola", Void.class);
     }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Amazon.JSII.Generator.DocComment;
 using Amazon.JSII.JsonModel.Spec;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -40,14 +41,31 @@ namespace Amazon.JSII.Generator.Class
                     argumentList += $", parametersJson: {parametersJsonLiteral}";
                 }
                 
-                return SF.List(new[] {
-                    SF.AttributeList(SF.SeparatedList(new[] {
+                return SF.List(GetAttributeLists());
+
+                IEnumerable<AttributeListSyntax> GetAttributeLists()
+                {
+                    yield return SF.AttributeList(SF.SeparatedList(new[] {
                         SF.Attribute(
                             SF.ParseName("JsiiClass"),
                             SF.ParseAttributeArgumentList($"({argumentList})")
                         )
-                    }))
-                });
+                    }));
+
+                    if (Type.Docs?.Deprecated != null)
+                    {
+                        yield return SF.AttributeList(SF.SeparatedList(new[] {
+                            SF.Attribute(
+                                SF.ParseName("System.Obsolete"),
+                                SF.AttributeArgumentList(
+                                    SF.SingletonSeparatedList(
+                                        SF.AttributeArgument(SF.LiteralExpression(SyntaxKind.StringLiteralExpression, SF.Literal(Type.Docs.Deprecated)))
+                                    )
+                                )
+                            )
+                        }));
+                    }
+                }
             }
 
             SyntaxTokenList CreateModifiers()
@@ -102,12 +120,14 @@ namespace Amazon.JSII.Generator.Class
         IEnumerable<MemberDeclarationSyntax> CreateConstructors()
         {
             SyntaxToken typeName = Symbols.GetNameSyntaxToken(Type);
+            var attributes = GetAttributeLists();
 
             if (Type.Initializer != null)
             {
+                var docComment = new MethodDocCommentGenerator(Type.Initializer, Symbols).CreateDocComment();
                 yield return SF.ConstructorDeclaration
                 (
-                    SF.List<AttributeListSyntax>(),
+                    attributes,
                     SF.TokenList(SF.Token(
                         Type.IsAbstract || Type.Initializer.IsProtected
                             ? SyntaxKind.ProtectedKeyword
@@ -136,12 +156,12 @@ namespace Amazon.JSII.Generator.Class
                     ),
                     SF.Block(),
                     null
-                );
+                ).WithLeadingTrivia(docComment);
             }
 
             yield return SF.ConstructorDeclaration
             (
-                SF.List<AttributeListSyntax>(),
+                attributes,
                 SF.TokenList(SF.Token(SyntaxKind.ProtectedKeyword)),
                 typeName,
                 SF.ParseParameterList("(ByRefValue reference)"),
@@ -157,7 +177,7 @@ namespace Amazon.JSII.Generator.Class
             // This constructor allows child classes to supply their own parameter lists. It is always protected.
             yield return SF.ConstructorDeclaration
             (
-                SF.List<AttributeListSyntax>(),
+                attributes,
                 SF.TokenList(SF.Token(SyntaxKind.ProtectedKeyword)),
                 typeName,
                 SF.ParseParameterList("(DeputyProps props)"),
@@ -191,6 +211,25 @@ namespace Amazon.JSII.Generator.Class
                         )
                     )
                 );
+            }
+
+            SyntaxList<AttributeListSyntax> GetAttributeLists()
+            {
+                var deprecated = Type.Initializer?.Docs?.Deprecated;
+                if (deprecated == null)
+                {
+                    return SF.List<AttributeListSyntax>();
+                }
+                return SF.List(new[] { SF.AttributeList(SF.SingletonSeparatedList(
+                    SF.Attribute(
+                        SF.ParseName("System.Obsolete"),
+                        SF.AttributeArgumentList(
+                            SF.SingletonSeparatedList(
+                                SF.AttributeArgument(SF.LiteralExpression(SyntaxKind.StringLiteralExpression, SF.Literal(deprecated)))
+                            )
+                        )
+                    )
+                )) });
             }
         }
 

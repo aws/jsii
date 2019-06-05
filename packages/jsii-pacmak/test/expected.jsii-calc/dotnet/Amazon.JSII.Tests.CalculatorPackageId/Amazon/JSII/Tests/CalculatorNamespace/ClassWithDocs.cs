@@ -5,7 +5,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <summary>This class has docs.</summary>
     /// <remarks>
     /// The docs are great. They're a bunch of tags.
-    /// deprecated: Use something else please
     /// stability: Stable
     /// example:
     /// &lt;code&gt;

@@ -61,7 +61,7 @@ namespace Amazon.JSII.Generator
             yield return new XElement("IncludeSource", true);
             yield return new XElement("PackageVersion", assembly.Version);
             yield return new XElement("PackageId", assembly.Targets.DotNet.PackageId);
-            yield return new XElement("Description", assembly.Description);
+            yield return new XElement("Description", GetDescription());
             yield return new XElement("ProjectUrl", assembly.Homepage);
             yield return new XElement("LicenseUrl", $"https://spdx.org/licenses/{assembly.License}.html");
             yield return new XElement("Authors", $"{assembly.Author.Name}");
@@ -90,6 +90,16 @@ namespace Amazon.JSII.Generator
             if (assembly.Targets.DotNet.IconUrl != null)
             {
                 yield return new XElement("IconUrl", assembly.Targets.DotNet.IconUrl);
+            }
+
+            string GetDescription()
+            {
+                Stability? stability = assembly.Docs?.Stability;
+                if (!stability.HasValue)
+                {
+                    return assembly.Description;
+                }
+                return $"{assembly.Description} (Stability: {stability})";
             }
         }
     }

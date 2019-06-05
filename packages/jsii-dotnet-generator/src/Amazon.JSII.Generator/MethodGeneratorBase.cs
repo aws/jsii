@@ -167,9 +167,9 @@ namespace Amazon.JSII.Generator
 
         SyntaxList<AttributeListSyntax> GetAttributeLists()
         {
-            return SF.List(new[] { SF.AttributeList(SF.SeparatedList(GetAttributes())) });
+            return SF.List(GetAttributeLists());
 
-            IEnumerable<AttributeSyntax> GetAttributes()
+            IEnumerable<AttributeListSyntax> GetAttributeLists()
             {
                 SyntaxToken nameLiteral = SF.Literal(Method.Name);
                 SyntaxToken trueLiteral = SF.Token(SyntaxKind.TrueKeyword);
@@ -197,10 +197,22 @@ namespace Amazon.JSII.Generator
                     argumentList += $", isOverride: {trueLiteral}";
                 }
 
-                yield return SF.Attribute(
+                yield return SF.AttributeList(SF.SingletonSeparatedList(SF.Attribute(
                     SF.ParseName("JsiiMethod"),
                     SF.ParseAttributeArgumentList($"({argumentList})")
-                );
+                )));
+
+                if (Method.Docs?.Deprecated != null)
+                {
+                    yield return SF.AttributeList(SF.SingletonSeparatedList(SF.Attribute(
+                        SF.ParseName("System.Obsolete"),
+                        SF.AttributeArgumentList(
+                            SF.SingletonSeparatedList(
+                                SF.AttributeArgument(SF.LiteralExpression(SyntaxKind.StringLiteralExpression, SF.Literal(Method.Docs.Deprecated)))
+                            )
+                        )
+                    )));
+                }
             }
         }
 

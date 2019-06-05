@@ -334,15 +334,30 @@ export interface Docs {
 }
 
 /**
- * API Stability levels.
+ * API Stability levels. These are modeled after the `node` stability index.
+ *
+ * @see https://nodejs.org/api/documentation.html#documentation_stability_index.
  */
 export enum Stability {
     /**
-     * Experimental APIs may change in breaking ways in a minor version update.
+     * The API may emit warnings. Backward compatibility is not guaranteed.
+     *
+     * More information about the deprecation can usually be found in the
+     * `deprecated` field.
+     */
+    Deprecated = 'deprecated',
+
+    /**
+     * This API is still under active development and subject to non-backward
+     * compatible changes or removal in any future version. Use of the API is
+     * not recommended in production environments. Experimental APIs are not
+     * subject to the Semantic Versioning model.
      */
     Experimental = 'experimental',
+
     /**
-     * Stable APIs may not change in breaking ways without a major version bump.
+     * This API is subject to the Semantic Versioning model and may not change
+     * in breaking ways in a subsequent minor or patch version.
      */
     Stable = 'stable',
 }
@@ -895,4 +910,15 @@ export function describeTypeReference(type?: TypeReference): string {
     }
 
     throw new Error('Unrecognized type reference');
+}
+
+/**
+ * Determines whether an entity is deprecated.
+ *
+ * @param entity the entity to be checked.
+ *
+ * @returns true if the entity is marked as deprecated.
+ */
+export function isDeprecated(entity: Documentable): boolean {
+    return entity.docs != null && entity.docs.stability === Stability.Deprecated;
 }

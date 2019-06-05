@@ -1,0 +1,104 @@
+// The following tests validate emission of stability markers
+
+/** @experimental */
+export interface ExperimentalStruct {
+  /** @experimental */
+  readonly readonlyProperty: string;
+}
+/** @experimental */
+export interface IExperimentalInterface {
+  /** @experimental */
+  mutableProperty?: number;
+  /** @experimental */
+  method(): void;
+}
+/** @experimental */
+export class ExperimentalClass {
+  /** @experimental */
+  public readonly readonlyProperty: string;
+  /** @experimental */
+  public mutableProperty?: number;
+  /** @experimental */
+  constructor(readonlyString: string, mutableNumber?: number) {
+    this.readonlyProperty = readonlyString;
+    this.mutableProperty = mutableNumber;
+  }
+
+  /** @experimental */
+  public method(): void { return; }
+}
+/** @experimental */
+export enum ExperimentalEnum {
+  /** @experimental */
+  OptionA,
+  /** @experimental */
+  OptionB
+}
+
+/** @stable */
+export interface StableStruct {
+  /** @stable */
+  readonly readonlyProperty: string;
+}
+/** @stable */
+export interface IStableInterface {
+  /** @stable */
+  mutableProperty?: number;
+  /** @stable */
+  method(): void;
+}
+/** @stable */
+export class StableClass {
+  /** @stable */
+  public readonly readonlyProperty: string = 'wazoo';
+  /** @stable */
+  public mutableProperty?: number;
+  /** @stable */
+  constructor(readonlyString: string, mutableNumber?: number) {
+    this.readonlyProperty = readonlyString;
+    this.mutableProperty = mutableNumber;
+  }
+  /** @stable */
+  public method(): void { return; }
+}
+/** @stable */
+export enum StableEnum {
+  /** @stable */
+  OptionA,
+  /** @stable */
+  OptionB
+}
+
+/** @deprecated it just wraps a string */
+export interface DeprecatedStruct {
+  /** @deprecated well, yeah */
+  readonly readonlyProperty: string;
+}
+/** @deprecated useless interface */
+export interface IDeprecatedInterface {
+  /** @deprecated could be better */
+  mutableProperty?: number;
+  /** @deprecated services no purpose */
+  method(): void;
+}
+/** @deprecated a pretty boring class */
+export class DeprecatedClass {
+  /** @deprecated this is not always "wazoo", be ready to be disappointed */
+  public readonly readonlyProperty: string;
+  /** @deprecated shouldn't have been mutable */
+  public mutableProperty?: number;
+  /** @deprecated this constructor is "just" okay */
+  constructor(readonlyString: string, mutableNumber?: number) {
+    this.readonlyProperty = readonlyString;
+    this.mutableProperty = mutableNumber;
+  }
+  /** @deprecated it was a bad idea */
+  public method(): void { return; }
+}
+/** @deprecated your deprecated selection of bad options */
+export enum DeprecatedEnum {
+  /** @deprecated option A is not great */
+  OptionA,
+  /** @deprecated option B is kinda bad, too */
+  OptionB
+}

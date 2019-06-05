@@ -53,7 +53,6 @@ namespace Amazon.JSII.Generator.DocComment
             List<string> remarks = new List<string>();
             if (!String.IsNullOrEmpty(Documentable.Docs.Remarks)) { remarks.Add(Documentable.Docs.Remarks); }
             if (!String.IsNullOrEmpty(Documentable.Docs.Default)) { remarks.Add($"default: {Documentable.Docs.Default}"); }
-            if (!String.IsNullOrEmpty(Documentable.Docs.Deprecated)) { remarks.Add($"deprecated: {Documentable.Docs.Deprecated}"); }
             if (Documentable.Docs.Stability.HasValue) { remarks.Add($"stability: {Documentable.Docs.Stability}"); }
             if (!String.IsNullOrEmpty(Documentable.Docs.Example)) { remarks.Add($"example:\n<code>\n{Documentable.Docs.Example}\n</code>"); }
             if (!String.IsNullOrEmpty(Documentable.Docs.See)) { remarks.Add($"{Documentable.Docs.See} "); } // Extra space here to keep links clickable

@@ -1631,7 +1631,6 @@ export interface OptionalStruct {
  *
  * @see https://aws.amazon.com/
  * @customAttribute hasAValue
- * @deprecated Use something else please
  * @stable
  */
 export class ClassWithDocs {

@@ -331,6 +331,21 @@ assemblies
  │   │   └─┬ arg2 property
  │   │     ├── immutable
  │   │     └── type: Optional<string>
+ │   ├─┬ class DeprecatedClass
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(readonlyString,mutableNumber) initializer
+ │   │   │ └─┬ parameters
+ │   │   │   ├─┬ readonlyString
+ │   │   │   │ └── type: string
+ │   │   │   └─┬ mutableNumber
+ │   │   │     └── type: Optional<number>
+ │   │   ├─┬ method() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ readonlyProperty property
+ │   │   │ ├── immutable
+ │   │   │ └── type: string
+ │   │   └─┬ mutableProperty property
+ │   │     └── type: Optional<number>
  │   ├─┬ class Base
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -411,6 +426,21 @@ assemblies
  │   │   └─┬ prop2IsUndefined() method
  │   │     ├── static
  │   │     └── returns: any
+ │   ├─┬ class ExperimentalClass
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(readonlyString,mutableNumber) initializer
+ │   │   │ └─┬ parameters
+ │   │   │   ├─┬ readonlyString
+ │   │   │   │ └── type: string
+ │   │   │   └─┬ mutableNumber
+ │   │   │     └── type: Optional<number>
+ │   │   ├─┬ method() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ readonlyProperty property
+ │   │   │ ├── immutable
+ │   │   │ └── type: string
+ │   │   └─┬ mutableProperty property
+ │   │     └── type: Optional<number>
  │   ├─┬ class ExportedBaseClass
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(success) initializer
@@ -958,6 +988,21 @@ assemblies
  │   │   │ └── returns: jsii-calc.InbetweenClass
  │   │   └─┬ interface2() method
  │   │     └── returns: jsii-calc.IPublicInterface
+ │   ├─┬ class StableClass
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(readonlyString,mutableNumber) initializer
+ │   │   │ └─┬ parameters
+ │   │   │   ├─┬ readonlyString
+ │   │   │   │ └── type: string
+ │   │   │   └─┬ mutableNumber
+ │   │   │     └── type: Optional<number>
+ │   │   ├─┬ method() method
+ │   │   │ └── returns: void
+ │   │   ├─┬ readonlyProperty property
+ │   │   │ ├── immutable
+ │   │   │ └── type: string
+ │   │   └─┬ mutableProperty property
+ │   │     └── type: Optional<number>
  │   ├─┬ class StaticContext
  │   │ └─┬ members
  │   │   ├─┬ canAccessStaticContext() method
@@ -1203,6 +1248,12 @@ assemblies
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<number>
+ │   ├─┬ interface DeprecatedStruct
+ │   │ └─┬ members
+ │   │   └─┬ readonlyProperty property
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: string
  │   ├─┬ interface DerivedStruct
  │   │ ├─┬ interfaces
  │   │ │ └── MyFirstStruct
@@ -1241,6 +1292,12 @@ assemblies
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<string>
+ │   ├─┬ interface ExperimentalStruct
+ │   │ └─┬ members
+ │   │   └─┬ readonlyProperty property
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: string
  │   ├─┬ interface ExtendsInternalInterface
  │   │ └─┬ members
  │   │   ├─┬ boom property
@@ -1262,6 +1319,22 @@ assemblies
  │   │   └─┬ a property
  │   │     ├── abstract
  │   │     └── type: string
+ │   ├─┬ interface IDeprecatedInterface
+ │   │ └─┬ members
+ │   │   ├─┬ method() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   └─┬ mutableProperty property
+ │   │     ├── abstract
+ │   │     └── type: Optional<number>
+ │   ├─┬ interface IExperimentalInterface
+ │   │ └─┬ members
+ │   │   ├─┬ method() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   └─┬ mutableProperty property
+ │   │     ├── abstract
+ │   │     └── type: Optional<number>
  │   ├─┬ interface IExtendsPrivateInterface
  │   │ └─┬ members
  │   │   ├─┬ moreThings property
@@ -1414,6 +1487,14 @@ assemblies
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: @scope/jsii-calc-lib.Number
+ │   ├─┬ interface IStableInterface
+ │   │ └─┬ members
+ │   │   ├─┬ method() method
+ │   │   │ ├── abstract
+ │   │   │ └── returns: void
+ │   │   └─┬ mutableProperty property
+ │   │     ├── abstract
+ │   │     └── type: Optional<number>
  │   ├─┬ interface ImplictBaseOfBase
  │   │ ├─┬ interfaces
  │   │ │ └── BaseProps
@@ -1472,6 +1553,12 @@ assemblies
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<string>
+ │   ├─┬ interface StableStruct
+ │   │ └─┬ members
+ │   │   └─┬ readonlyProperty property
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: string
  │   ├─┬ interface UnionProperties
  │   │ └─┬ members
  │   │   ├─┬ bar property
@@ -1486,6 +1573,15 @@ assemblies
  │   │ ├── MyEnumValue
  │   │ ├── YourEnumValue
  │   │ └── ThisIsGreat
+ │   ├─┬ enum DeprecatedEnum
+ │   │ ├── OptionA
+ │   │ └── OptionB
+ │   ├─┬ enum ExperimentalEnum
+ │   │ ├── OptionA
+ │   │ └── OptionB
+ │   ├─┬ enum StableEnum
+ │   │ ├── OptionA
+ │   │ └── OptionB
  │   ├─┬ enum StringEnum
  │   │ ├── A
  │   │ ├── B

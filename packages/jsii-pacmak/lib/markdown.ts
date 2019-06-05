@@ -114,6 +114,12 @@ export function md2rst(text: string) {
     return doc.toString();
 }
 
+export function md2html(text: string): string {
+  const parser = new commonmark.Parser({ smart: false });
+  const renderer = new commonmark.HtmlRenderer({ smart: false, safe: true });
+  return renderer.render(parser.parse(text));
+}
+
 /**
  * Build a document incrementally
  */

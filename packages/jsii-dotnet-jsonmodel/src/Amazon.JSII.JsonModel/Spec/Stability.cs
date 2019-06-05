@@ -7,6 +7,7 @@ namespace Amazon.JSII.JsonModel.Spec
     public enum Stability
     {
         Stable,
-        Experimental
+        Experimental,
+        Deprecated
     }
 }

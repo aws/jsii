@@ -11,9 +11,9 @@ package software.amazon.jsii.tests.calculator;
  * }
  * 
  * @see https://aws.amazon.com/
- * @deprecated Use something else please
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.ClassWithDocs")
 public class ClassWithDocs extends software.amazon.jsii.JsiiObject {
     protected ClassWithDocs(final software.amazon.jsii.JsiiObject.InitializationMode mode) {

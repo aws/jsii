@@ -17,6 +17,8 @@ export interface ProjectInfo {
     readonly name: string;
     readonly version: string;
     readonly author: spec.Person;
+    readonly deprecated?: string;
+    readonly stability?: spec.Stability;
     readonly license: string;
     readonly repository: {
         readonly type: string;
@@ -105,6 +107,8 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
 
         name: _required(pkg.name, 'The "package.json" file must specify the "name" attribute'),
         version: _required(pkg.version, 'The "package.json" file must specify the "version" attribute'),
+        deprecated: pkg.deprecated,
+        stability: _validateStability(pkg.stability, pkg.deprecated),
         author: _toPerson(_required(pkg.author, 'The "package.json" file must specify the "author" attribute'), 'author'),
         repository: {
             url: _required(pkg.repository.url, 'The "package.json" file must specify the "repository.url" attribute'),
@@ -227,4 +231,19 @@ function _validateVersionFormat(format: string): 'short' | 'full' {
         throw new Error(`Invalid jsii.versionFormat "${format}", it must be either "short" or "full" (the default)`);
     }
     return format;
+}
+
+function _validateStability(stability: string | undefined, deprecated: string | undefined): spec.Stability | undefined {
+    if (!stability && deprecated) {
+        stability = spec.Stability.Deprecated;
+    } else if (deprecated && stability !== spec.Stability.Deprecated) {
+        throw new Error(`Package is deprecated (${deprecated}), but it's stability is ${stability} and not ${spec.Stability.Deprecated}`);
+    }
+    if (!stability) {
+        return undefined;
+    }
+    if (Object.values(spec.Stability).indexOf(stability) === -1) {
+        throw new Error(`Invalid stability "${stability}", it must be one of ${Object.values(spec.Stability).join(', ')}`);
+    }
+    return stability as spec.Stability;
 }
