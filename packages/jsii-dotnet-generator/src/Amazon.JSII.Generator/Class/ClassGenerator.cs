@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Amazon.JSII.Generator.DocComment;
 using Amazon.JSII.JsonModel.Spec;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -123,6 +124,7 @@ namespace Amazon.JSII.Generator.Class
 
             if (Type.Initializer != null)
             {
+                var docComment = new MethodDocCommentGenerator(Type.Initializer, Symbols).CreateDocComment();
                 yield return SF.ConstructorDeclaration
                 (
                     attributes,
@@ -154,7 +156,7 @@ namespace Amazon.JSII.Generator.Class
                     ),
                     SF.Block(),
                     null
-                );
+                ).WithLeadingTrivia(docComment);
             }
 
             yield return SF.ConstructorDeclaration

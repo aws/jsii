@@ -7,6 +7,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(BinaryOperation), fullyQualifiedName: "jsii-calc.BinaryOperation", parametersJson: "[{\"name\":\"lhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},{\"name\":\"rhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
     public abstract class BinaryOperation : Operation, IIFriendly
     {
+        /// <summary>Creates a BinaryOperation.</summary>
+        /// <param name = "lhs">Left-hand side operand.</param>
+        /// <param name = "rhs">Right-hand side operand.</param>
         protected BinaryOperation(Value_ lhs, Value_ rhs): base(new DeputyProps(new object[]{lhs, rhs}))
         {
         }

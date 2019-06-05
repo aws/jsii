@@ -311,6 +311,7 @@ class JavaGenerator extends Generator {
         const nested = this.isNested(ifc);
         const inner = nested ? ' static' : '';
         if (!nested) { this.emitGeneratedAnnotation(); }
+        this.emitStabilityAnnotations(ifc);
         this.code.openBlock(`public${inner} interface ${ifc.name} extends ${bases}`);
     }
 
@@ -329,6 +330,7 @@ class JavaGenerator extends Generator {
     protected onInterfaceMethod(_ifc: spec.InterfaceType, method: spec.Method) {
         const returnType = method.returns ? this.toJavaType(method.returns.type) : 'void';
         this.addJavaDocs(method);
+        this.emitStabilityAnnotations(method);
         this.code.line(`${returnType} ${method.name}(${this.renderMethodParameters(method)});`);
     }
 
@@ -343,6 +345,7 @@ class JavaGenerator extends Generator {
 
         // for unions we only generate overloads for setters, not getters.
         this.addJavaDocs(prop);
+        this.emitStabilityAnnotations(prop);
         this.code.line(`${getterType} get${propName}();`);
 
         if (!prop.immutable) {
@@ -764,6 +767,7 @@ class JavaGenerator extends Generator {
         this.code.line('/**');
         this.code.line(` * @return a {@link Builder} of {@link ${interfaceName}}`);
         this.code.line(' */');
+        this.emitStabilityAnnotations(ifc);
         this.code.openBlock(`static ${builderName} builder()`);
         this.code.line(`return new ${builderName}();`);
         this.code.closeBlock();
@@ -816,6 +820,7 @@ class JavaGenerator extends Generator {
         this.code.line('/**');
         this.code.line(` * A builder for {@link ${interfaceName}}`);
         this.code.line(' */');
+        this.emitStabilityAnnotations(ifc);
         this.code.openBlock(`final class ${builderName}`);
 
         for (const prop of props) {
@@ -835,7 +840,11 @@ class JavaGenerator extends Generator {
                     this.code.line(` * @param value the value to be set`);
                 }
                 this.code.line(` * @return {@code this}`);
+                if (prop.docs && prop.docs.deprecated) {
+                    this.code.line(` * @deprecated ${prop.docs.deprecated}`);
+                }
                 this.code.line(' */');
+                this.emitStabilityAnnotations(prop.spec);
                 this.code.openBlock(`public ${builderName} with${prop.propName}(${prop.nullable ? `${JSR305_NULLABLE} ` : ''}final ${type} value)`);
                 this.code.line(`this._${prop.fieldName} = ${_validateIfNonOptional('value', prop)};`);
                 this.code.line('return this;');
@@ -848,6 +857,7 @@ class JavaGenerator extends Generator {
         this.code.line(` * @return a new instance of {@link ${interfaceName}}`);
         this.code.line(' * @throws NullPointerException if any required attribute was not provided');
         this.code.line(' */');
+        this.emitStabilityAnnotations(ifc);
         this.code.openBlock(`public ${interfaceName} build()`);
         this.code.openBlock(`return new ${interfaceName}()`);
         for (const prop of props) {

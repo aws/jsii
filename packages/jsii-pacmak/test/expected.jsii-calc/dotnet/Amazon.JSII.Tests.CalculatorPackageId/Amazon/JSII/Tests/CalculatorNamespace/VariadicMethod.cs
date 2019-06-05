@@ -5,6 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(VariadicMethod), fullyQualifiedName: "jsii-calc.VariadicMethod", parametersJson: "[{\"name\":\"prefix\",\"variadic\":true,\"type\":{\"primitive\":\"number\"}}]")]
     public class VariadicMethod : DeputyBase
     {
+        /// <param name = "prefix">a prefix that will be use for all values returned by `#asArray`.</param>
         public VariadicMethod(double prefix): base(new DeputyProps(new object[]{prefix}))
         {
         }

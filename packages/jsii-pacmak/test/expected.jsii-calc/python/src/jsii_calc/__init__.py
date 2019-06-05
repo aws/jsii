@@ -550,66 +550,110 @@ class DefaultedConstructorArgument(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc
 
 
 class DeprecatedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DeprecatedClass"):
-    """This tests code generation of deprecation markers.
-
+    """
     Deprecated:
-        without replacement
+        for the show
 
     Stability:
         deprecated
     """
-    def __init__(self, argument: typing.Optional[str]=None) -> None:
+    def __init__(self, readonly_string: str, mutable_number: typing.Optional[jsii.Number]=None) -> None:
         """
         Arguments:
-            argument: some string.
+            readonlyString: -
+            mutableNumber: -
 
         Deprecated:
-            this is unsafe
+            for the show
 
         Stability:
             deprecated
         """
-        jsii.create(DeprecatedClass, self, [argument])
+        jsii.create(DeprecatedClass, self, [readonly_string, mutable_number])
 
-    @jsii.member(jsii_name="deprecatedMethod")
-    def deprecated_method(self) -> None:
+    @jsii.member(jsii_name="method")
+    def method(self) -> None:
         """
         Deprecated:
-            throws unexpected errors
+            for the show
 
         Stability:
             deprecated
         """
-        return jsii.invoke(self, "deprecatedMethod", [])
+        return jsii.invoke(self, "method", [])
 
     @property
-    @jsii.member(jsii_name="deprecatedAttribute")
-    def deprecated_attribute(self) -> str:
+    @jsii.member(jsii_name="readonlyProperty")
+    def readonly_property(self) -> str:
         """
         Deprecated:
-            intentionally
+            for the show
 
         Stability:
             deprecated
         """
-        return jsii.get(self, "deprecatedAttribute")
+        return jsii.get(self, "readonlyProperty")
 
     @property
-    @jsii.member(jsii_name="deprecatedProtected")
-    def _deprecated_protected(self) -> typing.Optional[str]:
+    @jsii.member(jsii_name="mutableProperty")
+    def mutable_property(self) -> typing.Optional[jsii.Number]:
         """
         Deprecated:
-            can be unexpectedly non-null!
+            for the show
 
         Stability:
             deprecated
         """
-        return jsii.get(self, "deprecatedProtected")
+        return jsii.get(self, "mutableProperty")
 
-    @_deprecated_protected.setter
-    def _deprecated_protected(self, value: typing.Optional[str]):
-        return jsii.set(self, "deprecatedProtected", value)
+    @mutable_property.setter
+    def mutable_property(self, value: typing.Optional[jsii.Number]):
+        return jsii.set(self, "mutableProperty", value)
 
+
+@jsii.enum(jsii_type="jsii-calc.DeprecatedEnum")
+class DeprecatedEnum(enum.Enum):
+    """
+    Deprecated:
+        for the show
+
+    Stability:
+        deprecated
+    """
+    OptionA = "OptionA"
+    """
+    Deprecated:
+        for the show
+
+    Stability:
+        deprecated
+    """
+    OptionB = "OptionB"
+    """
+    Deprecated:
+        for the show
+
+    Stability:
+        deprecated
+    """
+
+@jsii.data_type(jsii_type="jsii-calc.DeprecatedStruct", jsii_struct_bases=[])
+class DeprecatedStruct(jsii.compat.TypedDict):
+    """
+    Deprecated:
+        for the show
+
+    Stability:
+        deprecated
+    """
+    readonlyProperty: str
+    """
+    Deprecated:
+        for the show
+
+    Stability:
+        deprecated
+    """
 
 class DerivedClassHasNoProperties:
     class Base(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DerivedClassHasNoProperties.Base"):
@@ -782,6 +826,82 @@ class EraseUndefinedHashValuesOptions(jsii.compat.TypedDict, total=False):
 
     option2: str
 
+class ExperimentalClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ExperimentalClass"):
+    """
+    Stability:
+        experimental
+    """
+    def __init__(self, readonly_string: str, mutable_number: typing.Optional[jsii.Number]=None) -> None:
+        """
+        Arguments:
+            readonlyString: -
+            mutableNumber: -
+
+        Stability:
+            experimental
+        """
+        jsii.create(ExperimentalClass, self, [readonly_string, mutable_number])
+
+    @jsii.member(jsii_name="method")
+    def method(self) -> None:
+        """
+        Stability:
+            experimental
+        """
+        return jsii.invoke(self, "method", [])
+
+    @property
+    @jsii.member(jsii_name="readonlyProperty")
+    def readonly_property(self) -> str:
+        """
+        Stability:
+            experimental
+        """
+        return jsii.get(self, "readonlyProperty")
+
+    @property
+    @jsii.member(jsii_name="mutableProperty")
+    def mutable_property(self) -> typing.Optional[jsii.Number]:
+        """
+        Stability:
+            experimental
+        """
+        return jsii.get(self, "mutableProperty")
+
+    @mutable_property.setter
+    def mutable_property(self, value: typing.Optional[jsii.Number]):
+        return jsii.set(self, "mutableProperty", value)
+
+
+@jsii.enum(jsii_type="jsii-calc.ExperimentalEnum")
+class ExperimentalEnum(enum.Enum):
+    """
+    Stability:
+        experimental
+    """
+    OptionA = "OptionA"
+    """
+    Stability:
+        experimental
+    """
+    OptionB = "OptionB"
+    """
+    Stability:
+        experimental
+    """
+
+@jsii.data_type(jsii_type="jsii-calc.ExperimentalStruct", jsii_struct_bases=[])
+class ExperimentalStruct(jsii.compat.TypedDict):
+    """
+    Stability:
+        experimental
+    """
+    readonlyProperty: str
+    """
+    Stability:
+        experimental
+    """
+
 class ExportedBaseClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ExportedBaseClass"):
     def __init__(self, success: bool) -> None:
         """
@@ -942,6 +1062,144 @@ class _IAnotherPublicInterfaceProxy():
     @a.setter
     def a(self, value: str):
         return jsii.set(self, "a", value)
+
+
+@jsii.interface(jsii_type="jsii-calc.IDeprecatedInterface")
+class IDeprecatedInterface(jsii.compat.Protocol):
+    """
+    Deprecated:
+        for the show
+
+    Stability:
+        deprecated
+    """
+    @staticmethod
+    def __jsii_proxy_class__():
+        return _IDeprecatedInterfaceProxy
+
+    @property
+    @jsii.member(jsii_name="mutableProperty")
+    def mutable_property(self) -> typing.Optional[jsii.Number]:
+        """
+        Deprecated:
+            for the show
+
+        Stability:
+            deprecated
+        """
+        ...
+
+    @mutable_property.setter
+    def mutable_property(self, value: typing.Optional[jsii.Number]):
+        ...
+
+    @jsii.member(jsii_name="method")
+    def method(self) -> None:
+        """
+        Deprecated:
+            for the show
+
+        Stability:
+            deprecated
+        """
+        ...
+
+
+class _IDeprecatedInterfaceProxy():
+    """
+    Deprecated:
+        for the show
+
+    Stability:
+        deprecated
+    """
+    __jsii_type__ = "jsii-calc.IDeprecatedInterface"
+    @property
+    @jsii.member(jsii_name="mutableProperty")
+    def mutable_property(self) -> typing.Optional[jsii.Number]:
+        """
+        Deprecated:
+            for the show
+
+        Stability:
+            deprecated
+        """
+        return jsii.get(self, "mutableProperty")
+
+    @mutable_property.setter
+    def mutable_property(self, value: typing.Optional[jsii.Number]):
+        return jsii.set(self, "mutableProperty", value)
+
+    @jsii.member(jsii_name="method")
+    def method(self) -> None:
+        """
+        Deprecated:
+            for the show
+
+        Stability:
+            deprecated
+        """
+        return jsii.invoke(self, "method", [])
+
+
+@jsii.interface(jsii_type="jsii-calc.IExperimentalInterface")
+class IExperimentalInterface(jsii.compat.Protocol):
+    """
+    Stability:
+        experimental
+    """
+    @staticmethod
+    def __jsii_proxy_class__():
+        return _IExperimentalInterfaceProxy
+
+    @property
+    @jsii.member(jsii_name="mutableProperty")
+    def mutable_property(self) -> typing.Optional[jsii.Number]:
+        """
+        Stability:
+            experimental
+        """
+        ...
+
+    @mutable_property.setter
+    def mutable_property(self, value: typing.Optional[jsii.Number]):
+        ...
+
+    @jsii.member(jsii_name="method")
+    def method(self) -> None:
+        """
+        Stability:
+            experimental
+        """
+        ...
+
+
+class _IExperimentalInterfaceProxy():
+    """
+    Stability:
+        experimental
+    """
+    __jsii_type__ = "jsii-calc.IExperimentalInterface"
+    @property
+    @jsii.member(jsii_name="mutableProperty")
+    def mutable_property(self) -> typing.Optional[jsii.Number]:
+        """
+        Stability:
+            experimental
+        """
+        return jsii.get(self, "mutableProperty")
+
+    @mutable_property.setter
+    def mutable_property(self, value: typing.Optional[jsii.Number]):
+        return jsii.set(self, "mutableProperty", value)
+
+    @jsii.member(jsii_name="method")
+    def method(self) -> None:
+        """
+        Stability:
+            experimental
+        """
+        return jsii.invoke(self, "method", [])
 
 
 @jsii.interface(jsii_type="jsii-calc.IExtendsPrivateInterface")
@@ -1672,6 +1930,66 @@ class _IReturnsNumberProxy():
     @jsii.member(jsii_name="obtainNumber")
     def obtain_number(self) -> scope.jsii_calc_lib.IDoublable:
         return jsii.invoke(self, "obtainNumber", [])
+
+
+@jsii.interface(jsii_type="jsii-calc.IStableInterface")
+class IStableInterface(jsii.compat.Protocol):
+    """
+    Stability:
+        stable
+    """
+    @staticmethod
+    def __jsii_proxy_class__():
+        return _IStableInterfaceProxy
+
+    @property
+    @jsii.member(jsii_name="mutableProperty")
+    def mutable_property(self) -> typing.Optional[jsii.Number]:
+        """
+        Stability:
+            stable
+        """
+        ...
+
+    @mutable_property.setter
+    def mutable_property(self, value: typing.Optional[jsii.Number]):
+        ...
+
+    @jsii.member(jsii_name="method")
+    def method(self) -> None:
+        """
+        Stability:
+            stable
+        """
+        ...
+
+
+class _IStableInterfaceProxy():
+    """
+    Stability:
+        stable
+    """
+    __jsii_type__ = "jsii-calc.IStableInterface"
+    @property
+    @jsii.member(jsii_name="mutableProperty")
+    def mutable_property(self) -> typing.Optional[jsii.Number]:
+        """
+        Stability:
+            stable
+        """
+        return jsii.get(self, "mutableProperty")
+
+    @mutable_property.setter
+    def mutable_property(self, value: typing.Optional[jsii.Number]):
+        return jsii.set(self, "mutableProperty", value)
+
+    @jsii.member(jsii_name="method")
+    def method(self) -> None:
+        """
+        Stability:
+            stable
+        """
+        return jsii.invoke(self, "method", [])
 
 
 class ImplementInternalInterface(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ImplementInternalInterface"):
@@ -2705,27 +3023,77 @@ class SingleInstanceTwoTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Singl
         return jsii.invoke(self, "interface2", [])
 
 
-@jsii.enum(jsii_type="jsii-calc.StabilityTest")
-class StabilityTest(enum.Enum):
-    """This enum is there to test various stability levels are correctly emitted.
-
+class StableClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StableClass"):
+    """
     Stability:
         stable
     """
-    DeprecatedMember = "DeprecatedMember"
-    """
-    Deprecated:
-        yeah this one's no good
+    def __init__(self, readonly_string: str, mutable_number: typing.Optional[jsii.Number]=None) -> None:
+        """
+        Arguments:
+            readonlyString: -
+            mutableNumber: -
 
+        Stability:
+            stable
+        """
+        jsii.create(StableClass, self, [readonly_string, mutable_number])
+
+    @jsii.member(jsii_name="method")
+    def method(self) -> None:
+        """
+        Stability:
+            stable
+        """
+        return jsii.invoke(self, "method", [])
+
+    @property
+    @jsii.member(jsii_name="readonlyProperty")
+    def readonly_property(self) -> str:
+        """
+        Stability:
+            stable
+        """
+        return jsii.get(self, "readonlyProperty")
+
+    @property
+    @jsii.member(jsii_name="mutableProperty")
+    def mutable_property(self) -> typing.Optional[jsii.Number]:
+        """
+        Stability:
+            stable
+        """
+        return jsii.get(self, "mutableProperty")
+
+    @mutable_property.setter
+    def mutable_property(self, value: typing.Optional[jsii.Number]):
+        return jsii.set(self, "mutableProperty", value)
+
+
+@jsii.enum(jsii_type="jsii-calc.StableEnum")
+class StableEnum(enum.Enum):
+    """
     Stability:
-        deprecated
+        stable
     """
-    ExperimentalMember = "ExperimentalMember"
+    OptionA = "OptionA"
     """
     Stability:
-        experimental
+        stable
     """
-    StableMember = "StableMember"
+    OptionB = "OptionB"
+    """
+    Stability:
+        stable
+    """
+
+@jsii.data_type(jsii_type="jsii-calc.StableStruct", jsii_struct_bases=[])
+class StableStruct(jsii.compat.TypedDict):
+    """
+    Stability:
+        stable
+    """
+    readonlyProperty: str
     """
     Stability:
         stable
@@ -3413,6 +3781,6 @@ class Sum(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_type="js
         return jsii.set(self, "parts", value)
 
 
-__all__ = ["AbstractClass", "AbstractClassBase", "AbstractClassReturner", "Add", "AllTypes", "AllTypesEnum", "AllowedMethodNames", "AsyncVirtualMethods", "AugmentableClass", "BinaryOperation", "Calculator", "CalculatorProps", "ClassThatImplementsTheInternalInterface", "ClassThatImplementsThePrivateInterface", "ClassWithDocs", "ClassWithMutableObjectLiteralProperty", "ClassWithPrivateConstructorAndAutomaticProperties", "ConstructorPassesThisOut", "Constructors", "ConsumersOfThisCrazyTypeSystem", "DefaultedConstructorArgument", "DeprecatedClass", "DerivedClassHasNoProperties", "DerivedStruct", "DoNotOverridePrivates", "DoNotRecognizeAnyAsOptional", "DocumentedClass", "DontComplainAboutVariadicAfterOptional", "DoubleTrouble", "EraseUndefinedHashValues", "EraseUndefinedHashValuesOptions", "ExportedBaseClass", "ExtendsInternalInterface", "GiveMeStructs", "Greetee", "GreetingAugmenter", "IAnotherPublicInterface", "IExtendsPrivateInterface", "IFriendlier", "IFriendlyRandomGenerator", "IInterfaceImplementedByAbstractClass", "IInterfaceThatShouldNotBeADataType", "IInterfaceWithInternal", "IInterfaceWithMethods", "IInterfaceWithOptionalMethodArguments", "IInterfaceWithProperties", "IInterfaceWithPropertiesExtension", "IJSII417Derived", "IJSII417PublicBaseOfBase", "IJsii487External", "IJsii487External2", "IJsii496", "IMutableObjectLiteral", "INonInternalInterface", "IPrivatelyImplemented", "IPublicInterface", "IPublicInterface2", "IRandomNumberGenerator", "IReturnsNumber", "ImplementInternalInterface", "ImplementsInterfaceWithInternal", "ImplementsInterfaceWithInternalSubclass", "ImplementsPrivateInterface", "ImplictBaseOfBase", "InbetweenClass", "InterfaceInNamespaceIncludesClasses", "InterfaceInNamespaceOnlyInterface", "JSII417Derived", "JSII417PublicBaseOfBase", "JSObjectLiteralForInterface", "JSObjectLiteralToNative", "JSObjectLiteralToNativeClass", "JavaReservedWords", "Jsii487Derived", "Jsii496Derived", "JsiiAgent", "LoadBalancedFargateServiceProps", "Multiply", "Negate", "NodeStandardLibrary", "NullShouldBeTreatedAsUndefined", "NullShouldBeTreatedAsUndefinedData", "NumberGenerator", "ObjectRefsInCollections", "Old", "OptionalConstructorArgument", "OptionalStruct", "OptionalStructConsumer", "OverrideReturnsObject", "PartiallyInitializedThisConsumer", "Polymorphism", "Power", "PublicClass", "PythonReservedWords", "ReferenceEnumFromScopedPackage", "ReturnsPrivateImplementationOfInterface", "RuntimeTypeChecking", "SingleInstanceTwoTypes", "StabilityTest", "StaticContext", "Statics", "StringEnum", "StripInternal", "Sum", "SyncVirtualMethods", "Thrower", "UnaryOperation", "UnionProperties", "UseBundledDependency", "UseCalcBase", "UsesInterfaceWithProperties", "VariadicMethod", "VirtualMethodPlayground", "VoidCallback", "__jsii_assembly__", "composition"]
+__all__ = ["AbstractClass", "AbstractClassBase", "AbstractClassReturner", "Add", "AllTypes", "AllTypesEnum", "AllowedMethodNames", "AsyncVirtualMethods", "AugmentableClass", "BinaryOperation", "Calculator", "CalculatorProps", "ClassThatImplementsTheInternalInterface", "ClassThatImplementsThePrivateInterface", "ClassWithDocs", "ClassWithMutableObjectLiteralProperty", "ClassWithPrivateConstructorAndAutomaticProperties", "ConstructorPassesThisOut", "Constructors", "ConsumersOfThisCrazyTypeSystem", "DefaultedConstructorArgument", "DeprecatedClass", "DeprecatedEnum", "DeprecatedStruct", "DerivedClassHasNoProperties", "DerivedStruct", "DoNotOverridePrivates", "DoNotRecognizeAnyAsOptional", "DocumentedClass", "DontComplainAboutVariadicAfterOptional", "DoubleTrouble", "EraseUndefinedHashValues", "EraseUndefinedHashValuesOptions", "ExperimentalClass", "ExperimentalEnum", "ExperimentalStruct", "ExportedBaseClass", "ExtendsInternalInterface", "GiveMeStructs", "Greetee", "GreetingAugmenter", "IAnotherPublicInterface", "IDeprecatedInterface", "IExperimentalInterface", "IExtendsPrivateInterface", "IFriendlier", "IFriendlyRandomGenerator", "IInterfaceImplementedByAbstractClass", "IInterfaceThatShouldNotBeADataType", "IInterfaceWithInternal", "IInterfaceWithMethods", "IInterfaceWithOptionalMethodArguments", "IInterfaceWithProperties", "IInterfaceWithPropertiesExtension", "IJSII417Derived", "IJSII417PublicBaseOfBase", "IJsii487External", "IJsii487External2", "IJsii496", "IMutableObjectLiteral", "INonInternalInterface", "IPrivatelyImplemented", "IPublicInterface", "IPublicInterface2", "IRandomNumberGenerator", "IReturnsNumber", "IStableInterface", "ImplementInternalInterface", "ImplementsInterfaceWithInternal", "ImplementsInterfaceWithInternalSubclass", "ImplementsPrivateInterface", "ImplictBaseOfBase", "InbetweenClass", "InterfaceInNamespaceIncludesClasses", "InterfaceInNamespaceOnlyInterface", "JSII417Derived", "JSII417PublicBaseOfBase", "JSObjectLiteralForInterface", "JSObjectLiteralToNative", "JSObjectLiteralToNativeClass", "JavaReservedWords", "Jsii487Derived", "Jsii496Derived", "JsiiAgent", "LoadBalancedFargateServiceProps", "Multiply", "Negate", "NodeStandardLibrary", "NullShouldBeTreatedAsUndefined", "NullShouldBeTreatedAsUndefinedData", "NumberGenerator", "ObjectRefsInCollections", "Old", "OptionalConstructorArgument", "OptionalStruct", "OptionalStructConsumer", "OverrideReturnsObject", "PartiallyInitializedThisConsumer", "Polymorphism", "Power", "PublicClass", "PythonReservedWords", "ReferenceEnumFromScopedPackage", "ReturnsPrivateImplementationOfInterface", "RuntimeTypeChecking", "SingleInstanceTwoTypes", "StableClass", "StableEnum", "StableStruct", "StaticContext", "Statics", "StringEnum", "StripInternal", "Sum", "SyncVirtualMethods", "Thrower", "UnaryOperation", "UnionProperties", "UseBundledDependency", "UseCalcBase", "UsesInterfaceWithProperties", "VariadicMethod", "VirtualMethodPlayground", "VoidCallback", "__jsii_assembly__", "composition"]
 
 publication.publish()

@@ -8,11 +8,11 @@ using SF = Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Amazon.JSII.Generator.DocComment
 {
-    public class MethodDocCommentGenerator : DocCommentGeneratorBase<Method>
+    public class MethodDocCommentGenerator : DocCommentGeneratorBase<Callable>
     {
         readonly ISymbolMap _symbols;
 
-        public MethodDocCommentGenerator(Method documentable, ISymbolMap symbols) : base(documentable)
+        public MethodDocCommentGenerator(Callable documentable, ISymbolMap symbols) : base(documentable)
         {
             _symbols = symbols ?? throw new ArgumentNullException(nameof(symbols));
         }

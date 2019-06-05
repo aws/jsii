@@ -1492,7 +1492,7 @@ DefaultedConstructorArgument
 DeprecatedClass
 ^^^^^^^^^^^^^^^
 
-.. py:class:: DeprecatedClass([argument])
+.. py:class:: DeprecatedClass(readonlyString, [mutableNumber])
 
    **Language-specific names:**
 
@@ -1516,27 +1516,89 @@ DeprecatedClass
 
 
 
-   This tests code generation of deprecation markers.
+   :param readonlyString: 
+   :type readonlyString: string
+   :param mutableNumber: 
+   :type mutableNumber: number
+
+   .. py:method:: method()
 
 
 
-   :param argument: some string.
-   :type argument: string
-
-   .. py:method:: deprecatedMethod()
-
-
-
-   .. py:attribute:: deprecatedAttribute
+   .. py:attribute:: readonlyProperty
 
       :type: string *(readonly)*
 
 
-   .. py:attribute:: deprecatedProtected
+   .. py:attribute:: mutableProperty
 
-      *Protected property*
+      :type: number *(optional)*
 
-      :type: string *(optional)*
+
+DeprecatedEnum (enum)
+^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: DeprecatedEnum
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.DeprecatedEnum;
+
+      .. code-tab:: javascript
+
+         const { DeprecatedEnum } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { DeprecatedEnum } from 'jsii-calc';
+
+
+
+   .. py:data:: OptionA
+
+   .. py:data:: OptionB
+
+
+DeprecatedStruct (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: DeprecatedStruct
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.DeprecatedStruct;
+
+      .. code-tab:: javascript
+
+         // DeprecatedStruct is an interface
+
+      .. code-tab:: typescript
+
+         import { DeprecatedStruct } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: readonlyProperty
+
+      :type: string *(readonly)*
 
 
 
@@ -2063,6 +2125,118 @@ EraseUndefinedHashValuesOptions (interface)
       :type: string *(optional)* *(readonly)*
 
 
+ExperimentalClass
+^^^^^^^^^^^^^^^^^
+
+.. py:class:: ExperimentalClass(readonlyString, [mutableNumber])
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.ExperimentalClass;
+
+      .. code-tab:: javascript
+
+         const { ExperimentalClass } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { ExperimentalClass } from 'jsii-calc';
+
+
+
+   :param readonlyString: 
+   :type readonlyString: string
+   :param mutableNumber: 
+   :type mutableNumber: number
+
+   .. py:method:: method()
+
+
+
+   .. py:attribute:: readonlyProperty
+
+      :type: string *(readonly)*
+
+
+   .. py:attribute:: mutableProperty
+
+      :type: number *(optional)*
+
+
+ExperimentalEnum (enum)
+^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: ExperimentalEnum
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.ExperimentalEnum;
+
+      .. code-tab:: javascript
+
+         const { ExperimentalEnum } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { ExperimentalEnum } from 'jsii-calc';
+
+
+
+   .. py:data:: OptionA
+
+   .. py:data:: OptionB
+
+
+ExperimentalStruct (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: ExperimentalStruct
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.ExperimentalStruct;
+
+      .. code-tab:: javascript
+
+         // ExperimentalStruct is an interface
+
+      .. code-tab:: typescript
+
+         import { ExperimentalStruct } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: readonlyProperty
+
+      :type: string *(readonly)*
+
+
 ExportedBaseClass
 ^^^^^^^^^^^^^^^^^
 
@@ -2313,6 +2487,84 @@ IAnotherPublicInterface (interface)
    .. py:attribute:: a
 
       :type: string
+
+
+IDeprecatedInterface (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: IDeprecatedInterface
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.IDeprecatedInterface;
+
+      .. code-tab:: javascript
+
+         // IDeprecatedInterface is an interface
+
+      .. code-tab:: typescript
+
+         import { IDeprecatedInterface } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: mutableProperty
+
+      :type: number *(optional)*
+
+
+   .. py:method:: method()
+
+      :abstract: Yes
+
+
+IExperimentalInterface (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: IExperimentalInterface
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.IExperimentalInterface;
+
+      .. code-tab:: javascript
+
+         // IExperimentalInterface is an interface
+
+      .. code-tab:: typescript
+
+         import { IExperimentalInterface } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: mutableProperty
+
+      :type: number *(optional)*
+
+
+   .. py:method:: method()
+
+      :abstract: Yes
 
 
 IExtendsPrivateInterface (interface)
@@ -3222,6 +3474,45 @@ IReturnsNumber (interface)
    .. py:method:: obtainNumber() -> @scope/jsii-calc-lib.IDoublable
 
       :rtype: :py:class:`@scope/jsii-calc-lib.IDoublable`\ 
+      :abstract: Yes
+
+
+IStableInterface (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: IStableInterface
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.IStableInterface;
+
+      .. code-tab:: javascript
+
+         // IStableInterface is an interface
+
+      .. code-tab:: typescript
+
+         import { IStableInterface } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: mutableProperty
+
+      :type: number *(optional)*
+
+
+   .. py:method:: method()
+
       :abstract: Yes
 
 
@@ -5540,10 +5831,10 @@ SingleInstanceTwoTypes
       :rtype: :py:class:`~jsii-calc.IPublicInterface`\ 
 
 
-StabilityTest (enum)
-^^^^^^^^^^^^^^^^^^^^
+StableClass
+^^^^^^^^^^^
 
-.. py:class:: StabilityTest
+.. py:class:: StableClass(readonlyString, [mutableNumber])
 
    **Language-specific names:**
 
@@ -5555,27 +5846,101 @@ StabilityTest (enum)
 
       .. code-tab:: java
 
-         import software.amazon.jsii.tests.calculator.StabilityTest;
+         import software.amazon.jsii.tests.calculator.StableClass;
 
       .. code-tab:: javascript
 
-         const { StabilityTest } = require('jsii-calc');
+         const { StableClass } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { StabilityTest } from 'jsii-calc';
+         import { StableClass } from 'jsii-calc';
 
 
 
-   This enum is there to test various stability levels are correctly emitted.
+   :param readonlyString: 
+   :type readonlyString: string
+   :param mutableNumber: 
+   :type mutableNumber: number
+
+   .. py:method:: method()
 
 
 
-   .. py:data:: DeprecatedMember
+   .. py:attribute:: readonlyProperty
 
-   .. py:data:: ExperimentalMember
+      :type: string *(readonly)*
 
-   .. py:data:: StableMember
+
+   .. py:attribute:: mutableProperty
+
+      :type: number *(optional)*
+
+
+StableEnum (enum)
+^^^^^^^^^^^^^^^^^
+
+.. py:class:: StableEnum
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.StableEnum;
+
+      .. code-tab:: javascript
+
+         const { StableEnum } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { StableEnum } from 'jsii-calc';
+
+
+
+   .. py:data:: OptionA
+
+   .. py:data:: OptionB
+
+
+StableStruct (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: StableStruct
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.StableStruct;
+
+      .. code-tab:: javascript
+
+         // StableStruct is an interface
+
+      .. code-tab:: typescript
+
+         import { StableStruct } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: readonlyProperty
+
+      :type: string *(readonly)*
 
 
 StaticContext

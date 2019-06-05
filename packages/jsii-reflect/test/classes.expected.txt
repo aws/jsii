@@ -28,6 +28,7 @@ DocumentedClass
 DontComplainAboutVariadicAfterOptional
 DoubleTrouble
 EraseUndefinedHashValues
+ExperimentalClass
 ExportedBaseClass
 Foo
 GiveMeStructs
@@ -67,6 +68,7 @@ ReferenceEnumFromScopedPackage
 ReturnsPrivateImplementationOfInterface
 RuntimeTypeChecking
 SingleInstanceTwoTypes
+StableClass
 StaticContext
 Statics
 StripInternal

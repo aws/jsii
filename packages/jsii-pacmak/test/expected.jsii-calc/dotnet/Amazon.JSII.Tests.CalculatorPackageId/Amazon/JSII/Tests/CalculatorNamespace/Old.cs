@@ -3,10 +3,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Old class.</summary>
-    /// <remarks>
-    /// deprecated: Use the new class
-    /// stability: Deprecated
-    /// </remarks>
+    /// <remarks>stability: Deprecated</remarks>
     [JsiiClass(nativeType: typeof(Old), fullyQualifiedName: "jsii-calc.Old")]
     [System.Obsolete("Use the new class")]
     public class Old : DeputyBase

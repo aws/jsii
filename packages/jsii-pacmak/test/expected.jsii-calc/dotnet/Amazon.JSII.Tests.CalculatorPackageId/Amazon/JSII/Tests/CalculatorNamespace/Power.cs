@@ -8,6 +8,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Power), fullyQualifiedName: "jsii-calc.Power", parametersJson: "[{\"name\":\"base\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},{\"name\":\"pow\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
     public class Power : CompositeOperation_
     {
+        /// <summary>Creates a Power operation.</summary>
+        /// <param name = "@base">The base of the power.</param>
+        /// <param name = "pow">The number of times to multiply.</param>
         public Power(Value_ @base, Value_ pow): base(new DeputyProps(new object[]{@base, pow}))
         {
         }

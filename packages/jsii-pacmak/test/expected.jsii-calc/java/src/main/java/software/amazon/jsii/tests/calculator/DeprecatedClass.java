@@ -1,9 +1,7 @@
 package software.amazon.jsii.tests.calculator;
 
 /**
- * This tests code generation of deprecation markers.
- * 
- * @deprecated without replacement
+ * @deprecated for the show
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @Deprecated
@@ -14,59 +12,58 @@ public class DeprecatedClass extends software.amazon.jsii.JsiiObject {
         super(mode);
     }
     /**
-     * @deprecated this is unsafe
-     * @param argument some string.
+     * @deprecated for the show
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-    public DeprecatedClass(@javax.annotation.Nullable final java.lang.String argument) {
+    public DeprecatedClass(final java.lang.String readonlyString, @javax.annotation.Nullable final java.lang.Number mutableNumber) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { argument });
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(readonlyString, "readonlyString is required"), mutableNumber });
     }
     /**
-     * @deprecated this is unsafe
+     * @deprecated for the show
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-    public DeprecatedClass() {
+    public DeprecatedClass(final java.lang.String readonlyString) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(readonlyString, "readonlyString is required") });
     }
 
     /**
-     * @deprecated throws unexpected errors
+     * @deprecated for the show
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-    public void deprecatedMethod() {
-        this.jsiiCall("deprecatedMethod", Void.class);
+    public void method() {
+        this.jsiiCall("method", Void.class);
     }
 
     /**
-     * @deprecated intentionally
+     * @deprecated for the show
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-    public java.lang.String getDeprecatedAttribute() {
-        return this.jsiiGet("deprecatedAttribute", java.lang.String.class);
+    public java.lang.String getReadonlyProperty() {
+        return this.jsiiGet("readonlyProperty", java.lang.String.class);
     }
 
     /**
-     * @deprecated can be unexpectedly non-null!
+     * @deprecated for the show
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @javax.annotation.Nullable
-    protected java.lang.String getDeprecatedProtected() {
-        return this.jsiiGet("deprecatedProtected", java.lang.String.class);
+    public java.lang.Number getMutableProperty() {
+        return this.jsiiGet("mutableProperty", java.lang.Number.class);
     }
 
     /**
-     * @deprecated can be unexpectedly non-null!
+     * @deprecated for the show
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-    protected void setDeprecatedProtected(@javax.annotation.Nullable final java.lang.String value) {
-        this.jsiiSet("deprecatedProtected", value);
+    public void setMutableProperty(@javax.annotation.Nullable final java.lang.Number value) {
+        this.jsiiSet("mutableProperty", value);
     }
 }

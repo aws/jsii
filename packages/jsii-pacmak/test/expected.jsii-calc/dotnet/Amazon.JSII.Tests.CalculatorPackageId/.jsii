@@ -1892,76 +1892,140 @@
     "jsii-calc.DeprecatedClass": {
       "assembly": "jsii-calc",
       "docs": {
-        "deprecated": "without replacement",
-        "stability": "deprecated",
-        "summary": "This tests code generation of deprecation markers."
+        "deprecated": "for the show",
+        "stability": "deprecated"
       },
       "fqn": "jsii-calc.DeprecatedClass",
       "initializer": {
         "docs": {
-          "deprecated": "this is unsafe",
+          "deprecated": "for the show",
           "stability": "deprecated"
         },
         "parameters": [
           {
-            "docs": {
-              "summary": "some string."
-            },
-            "name": "argument",
-            "optional": true,
+            "name": "readonlyString",
             "type": {
               "primitive": "string"
+            }
+          },
+          {
+            "name": "mutableNumber",
+            "optional": true,
+            "type": {
+              "primitive": "number"
             }
           }
         ]
       },
       "kind": "class",
       "locationInModule": {
-        "filename": "lib/compliance.ts",
-        "line": 1690
+        "filename": "lib/stability.ts",
+        "line": 85
       },
       "methods": [
         {
           "docs": {
-            "deprecated": "throws unexpected errors",
+            "deprecated": "for the show",
             "stability": "deprecated"
           },
           "locationInModule": {
-            "filename": "lib/compliance.ts",
-            "line": 1712
+            "filename": "lib/stability.ts",
+            "line": 96
           },
-          "name": "deprecatedMethod"
+          "name": "method"
         }
       ],
       "name": "DeprecatedClass",
       "properties": [
         {
           "docs": {
-            "deprecated": "intentionally",
+            "deprecated": "for the show",
             "stability": "deprecated"
           },
           "immutable": true,
           "locationInModule": {
-            "filename": "lib/compliance.ts",
-            "line": 1694
+            "filename": "lib/stability.ts",
+            "line": 87
           },
-          "name": "deprecatedAttribute",
+          "name": "readonlyProperty",
           "type": {
             "primitive": "string"
           }
         },
         {
           "docs": {
-            "deprecated": "can be unexpectedly non-null!",
+            "deprecated": "for the show",
             "stability": "deprecated"
           },
           "locationInModule": {
-            "filename": "lib/compliance.ts",
-            "line": 1699
+            "filename": "lib/stability.ts",
+            "line": 89
           },
-          "name": "deprecatedProtected",
+          "name": "mutableProperty",
           "optional": true,
-          "protected": true,
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
+    },
+    "jsii-calc.DeprecatedEnum": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "deprecated": "for the show",
+        "stability": "deprecated"
+      },
+      "fqn": "jsii-calc.DeprecatedEnum",
+      "kind": "enum",
+      "locationInModule": {
+        "filename": "lib/stability.ts",
+        "line": 99
+      },
+      "members": [
+        {
+          "docs": {
+            "deprecated": "for the show",
+            "stability": "deprecated"
+          },
+          "name": "OptionA"
+        },
+        {
+          "docs": {
+            "deprecated": "for the show",
+            "stability": "deprecated"
+          },
+          "name": "OptionB"
+        }
+      ],
+      "name": "DeprecatedEnum"
+    },
+    "jsii-calc.DeprecatedStruct": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "deprecated": "for the show",
+        "stability": "deprecated"
+      },
+      "fqn": "jsii-calc.DeprecatedStruct",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/stability.ts",
+        "line": 73
+      },
+      "name": "DeprecatedStruct",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "deprecated": "for the show",
+            "stability": "deprecated"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/stability.ts",
+            "line": 75
+          },
+          "name": "readonlyProperty",
           "type": {
             "primitive": "string"
           }
@@ -2475,6 +2539,139 @@
         }
       ]
     },
+    "jsii-calc.ExperimentalClass": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.ExperimentalClass",
+      "initializer": {
+        "docs": {
+          "stability": "experimental"
+        },
+        "parameters": [
+          {
+            "name": "readonlyString",
+            "type": {
+              "primitive": "string"
+            }
+          },
+          {
+            "name": "mutableNumber",
+            "optional": true,
+            "type": {
+              "primitive": "number"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/stability.ts",
+        "line": 16
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/stability.ts",
+            "line": 28
+          },
+          "name": "method"
+        }
+      ],
+      "name": "ExperimentalClass",
+      "properties": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/stability.ts",
+            "line": 18
+          },
+          "name": "readonlyProperty",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/stability.ts",
+            "line": 20
+          },
+          "name": "mutableProperty",
+          "optional": true,
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
+    },
+    "jsii-calc.ExperimentalEnum": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.ExperimentalEnum",
+      "kind": "enum",
+      "locationInModule": {
+        "filename": "lib/stability.ts",
+        "line": 31
+      },
+      "members": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "name": "OptionA"
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "name": "OptionB"
+        }
+      ],
+      "name": "ExperimentalEnum"
+    },
+    "jsii-calc.ExperimentalStruct": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.ExperimentalStruct",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/stability.ts",
+        "line": 4
+      },
+      "name": "ExperimentalStruct",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/stability.ts",
+            "line": 6
+          },
+          "name": "readonlyProperty",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.ExportedBaseClass": {
       "assembly": "jsii-calc",
       "fqn": "jsii-calc.ExportedBaseClass",
@@ -2725,6 +2922,95 @@
           "name": "a",
           "type": {
             "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.IDeprecatedInterface": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "deprecated": "for the show",
+        "stability": "deprecated"
+      },
+      "fqn": "jsii-calc.IDeprecatedInterface",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/stability.ts",
+        "line": 78
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "deprecated": "for the show",
+            "stability": "deprecated"
+          },
+          "locationInModule": {
+            "filename": "lib/stability.ts",
+            "line": 82
+          },
+          "name": "method"
+        }
+      ],
+      "name": "IDeprecatedInterface",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "deprecated": "for the show",
+            "stability": "deprecated"
+          },
+          "locationInModule": {
+            "filename": "lib/stability.ts",
+            "line": 80
+          },
+          "name": "mutableProperty",
+          "optional": true,
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
+    },
+    "jsii-calc.IExperimentalInterface": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.IExperimentalInterface",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/stability.ts",
+        "line": 9
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/stability.ts",
+            "line": 13
+          },
+          "name": "method"
+        }
+      ],
+      "name": "IExperimentalInterface",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/stability.ts",
+            "line": 11
+          },
+          "name": "mutableProperty",
+          "optional": true,
+          "type": {
+            "primitive": "number"
           }
         }
       ]
@@ -3354,6 +3640,49 @@
           "name": "numberProp",
           "type": {
             "fqn": "@scope/jsii-calc-lib.Number"
+          }
+        }
+      ]
+    },
+    "jsii-calc.IStableInterface": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.IStableInterface",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/stability.ts",
+        "line": 44
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/stability.ts",
+            "line": 48
+          },
+          "name": "method"
+        }
+      ],
+      "name": "IStableInterface",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "locationInModule": {
+            "filename": "lib/stability.ts",
+            "line": 46
+          },
+          "name": "mutableProperty",
+          "optional": true,
+          "type": {
+            "primitive": "number"
           }
         }
       ]
@@ -5745,40 +6074,138 @@
       ],
       "name": "SingleInstanceTwoTypes"
     },
-    "jsii-calc.StabilityTest": {
+    "jsii-calc.StableClass": {
       "assembly": "jsii-calc",
       "docs": {
-        "stability": "stable",
-        "summary": "This enum is there to test various stability levels are correctly emitted."
+        "stability": "stable"
       },
-      "fqn": "jsii-calc.StabilityTest",
-      "kind": "enum",
-      "locationInModule": {
-        "filename": "lib/compliance.ts",
-        "line": 1721
-      },
-      "members": [
-        {
-          "docs": {
-            "deprecated": "yeah this one's no good",
-            "stability": "deprecated"
-          },
-          "name": "DeprecatedMember"
+      "fqn": "jsii-calc.StableClass",
+      "initializer": {
+        "docs": {
+          "stability": "stable"
         },
+        "parameters": [
+          {
+            "name": "readonlyString",
+            "type": {
+              "primitive": "string"
+            }
+          },
+          {
+            "name": "mutableNumber",
+            "optional": true,
+            "type": {
+              "primitive": "number"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/stability.ts",
+        "line": 51
+      },
+      "methods": [
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "stable"
           },
-          "name": "ExperimentalMember"
+          "locationInModule": {
+            "filename": "lib/stability.ts",
+            "line": 62
+          },
+          "name": "method"
+        }
+      ],
+      "name": "StableClass",
+      "properties": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/stability.ts",
+            "line": 53
+          },
+          "name": "readonlyProperty",
+          "type": {
+            "primitive": "string"
+          }
         },
         {
           "docs": {
             "stability": "stable"
           },
-          "name": "StableMember"
+          "locationInModule": {
+            "filename": "lib/stability.ts",
+            "line": 55
+          },
+          "name": "mutableProperty",
+          "optional": true,
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
+    },
+    "jsii-calc.StableEnum": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.StableEnum",
+      "kind": "enum",
+      "locationInModule": {
+        "filename": "lib/stability.ts",
+        "line": 65
+      },
+      "members": [
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "name": "OptionA"
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "name": "OptionB"
         }
       ],
-      "name": "StabilityTest"
+      "name": "StableEnum"
+    },
+    "jsii-calc.StableStruct": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "jsii-calc.StableStruct",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/stability.ts",
+        "line": 39
+      },
+      "name": "StableStruct",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/stability.ts",
+            "line": 41
+          },
+          "name": "readonlyProperty",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
     },
     "jsii-calc.StaticContext": {
       "assembly": "jsii-calc",
@@ -6927,5 +7354,5 @@
     }
   },
   "version": "0.11.0",
-  "fingerprint": "UHwu7qd5MqRQCz8lxX6GriJru8ZUKZRu1Oi7QZ3zDnM="
+  "fingerprint": "7WPX4JJX9K3lSIehbMBcjNATyKWXOa3SXA/ct2gisGc="
 }

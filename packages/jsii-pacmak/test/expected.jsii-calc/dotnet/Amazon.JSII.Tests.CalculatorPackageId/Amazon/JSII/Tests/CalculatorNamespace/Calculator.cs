@@ -9,6 +9,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(Calculator), fullyQualifiedName: "jsii-calc.Calculator", parametersJson: "[{\"name\":\"props\",\"type\":{\"fqn\":\"jsii-calc.CalculatorProps\"},\"optional\":true}]")]
     public class Calculator : CompositeOperation_
     {
+        /// <summary>Creates a Calculator object.</summary>
+        /// <param name = "props">Initialization properties.</param>
         public Calculator(ICalculatorProps props): base(new DeputyProps(new object[]{props}))
         {
         }

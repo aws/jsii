@@ -29,6 +29,7 @@ assemblies
  │   ├── class DontComplainAboutVariadicAfterOptional
  │   ├── class DoubleTrouble
  │   ├── class EraseUndefinedHashValues
+ │   ├── class ExperimentalClass
  │   ├── class ExportedBaseClass
  │   ├── class GiveMeStructs
  │   ├── class GreetingAugmenter
@@ -66,6 +67,7 @@ assemblies
  │   ├── class ReturnsPrivateImplementationOfInterface
  │   ├── class RuntimeTypeChecking
  │   ├── class SingleInstanceTwoTypes
+ │   ├── class StableClass
  │   ├── class StaticContext
  │   ├── class Statics
  │   ├── class StripInternal
@@ -81,11 +83,15 @@ assemblies
  │   ├── class VoidCallback
  │   ├── class CompositeOperation
  │   ├── interface CalculatorProps
+ │   ├── interface DeprecatedStruct
  │   ├── interface DerivedStruct
  │   ├── interface EraseUndefinedHashValuesOptions
+ │   ├── interface ExperimentalStruct
  │   ├── interface ExtendsInternalInterface
  │   ├── interface Greetee
  │   ├── interface IAnotherPublicInterface
+ │   ├── interface IDeprecatedInterface
+ │   ├── interface IExperimentalInterface
  │   ├── interface IExtendsPrivateInterface
  │   ├── interface IFriendlier
  │   ├── interface IFriendlyRandomGenerator
@@ -108,15 +114,19 @@ assemblies
  │   ├── interface IPublicInterface2
  │   ├── interface IRandomNumberGenerator
  │   ├── interface IReturnsNumber
+ │   ├── interface IStableInterface
  │   ├── interface ImplictBaseOfBase
  │   ├── interface Hello
  │   ├── interface Hello
  │   ├── interface LoadBalancedFargateServiceProps
  │   ├── interface NullShouldBeTreatedAsUndefinedData
  │   ├── interface OptionalStruct
+ │   ├── interface StableStruct
  │   ├── interface UnionProperties
  │   ├── enum AllTypesEnum
- │   ├── enum StabilityTest
+ │   ├── enum DeprecatedEnum
+ │   ├── enum ExperimentalEnum
+ │   ├── enum StableEnum
  │   ├── enum StringEnum
  │   └── enum CompositionStringStyle
  ├─┬ @scope/jsii-calc-base

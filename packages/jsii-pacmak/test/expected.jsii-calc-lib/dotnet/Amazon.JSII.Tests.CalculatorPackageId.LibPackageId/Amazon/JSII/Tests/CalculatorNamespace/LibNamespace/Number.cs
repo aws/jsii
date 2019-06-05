@@ -6,6 +6,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     [JsiiClass(nativeType: typeof(Number), fullyQualifiedName: "@scope/jsii-calc-lib.Number", parametersJson: "[{\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]
     public class Number : Value_, IIDoublable
     {
+        /// <summary>Creates a Number object.</summary>
+        /// <param name = "value">The number.</param>
         public Number(double value): base(new DeputyProps(new object[]{value}))
         {
         }
