@@ -6,7 +6,7 @@
     <IncludeSource>true</IncludeSource>
     <PackageVersion>0.11.0</PackageVersion>
     <PackageId>Amazon.JSII.Tests.CalculatorPackageId</PackageId>
-    <Description>A simple calcuator built on JSII.</Description>
+    <Description>A simple calcuator built on JSII. (Stability: Experimental)</Description>
     <ProjectUrl>https://github.com/awslabs/jsii.git</ProjectUrl>
     <LicenseUrl>https://spdx.org/licenses/Apache-2.0.html</LicenseUrl>
     <Authors>Amazon Web Services</Authors>
