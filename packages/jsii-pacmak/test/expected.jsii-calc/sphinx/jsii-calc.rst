@@ -5540,6 +5540,44 @@ SingleInstanceTwoTypes
       :rtype: :py:class:`~jsii-calc.IPublicInterface`\ 
 
 
+StabilityTest (enum)
+^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: StabilityTest
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.StabilityTest;
+
+      .. code-tab:: javascript
+
+         const { StabilityTest } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { StabilityTest } from 'jsii-calc';
+
+
+
+   This enum is there to test various stability levels are correctly emitted.
+
+
+
+   .. py:data:: DeprecatedMember
+
+   .. py:data:: ExperimentalMember
+
+   .. py:data:: StableMember
+
+
 StaticContext
 ^^^^^^^^^^^^^
 

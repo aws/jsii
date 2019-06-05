@@ -1778,7 +1778,7 @@ function emitDocString(code: CodeMaker, docs: spec.Docs | undefined, options: {
     if (docs.returns) { block('Returns:', docs.returns); }
     if (docs.deprecated) { block('Deprecated:', docs.deprecated); }
     if (docs.see) { block('See:', docs.see, false); }
-    if (docs.stability === spec.Stability.Experimental) { block('Stability:', docs.stability, false); }
+    if (docs.stability) { block('Stability:', docs.stability, false); }
     if (docs.subclassable) { block('Subclassable:', 'Yes'); }
 
     for (const [k, v] of Object.entries(docs.custom || {})) {

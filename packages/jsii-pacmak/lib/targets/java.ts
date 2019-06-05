@@ -197,8 +197,8 @@ class JavaGenerator extends Generator {
         const inner = nested ? ' static' : '';
         const absPrefix = abstract ? ' abstract' : '';
 
-        if (spec.isDeprecated(cls)) { this.code.line('@Deprecated'); }
         if (!nested) { this.emitGeneratedAnnotation(); }
+        this.emitStabilityAnnotations(cls);
         this.code.line(`@software.amazon.jsii.Jsii(module = ${this.moduleClass}.class, fqn = "${cls.fqn}")`);
         this.code.openBlock(`public${inner}${absPrefix} class ${cls.name}${extendsExpression}${implementsExpr}`);
 
@@ -217,7 +217,7 @@ class JavaGenerator extends Generator {
 
     protected onInitializer(cls: spec.ClassType, method: spec.Method) {
         this.addJavaDocs(method);
-        if (spec.isDeprecated(method)) { this.code.line('@Deprecated'); }
+        this.emitStabilityAnnotations(method);
         this.code.openBlock(`${this.renderAccessLevel(method)} ${cls.name}(${this.renderMethodParameters(method)})`);
         this.code.line('super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);');
         this.code.line(`software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this${this.renderMethodCallArguments(method)});`);
@@ -275,6 +275,7 @@ class JavaGenerator extends Generator {
         this.openFileIfNeeded(enm);
         this.addJavaDocs(enm);
         if (!this.isNested(enm)) { this.emitGeneratedAnnotation(); }
+        this.emitStabilityAnnotations(enm);
         this.code.line(`@software.amazon.jsii.Jsii(module = ${this.moduleClass}.class, fqn = "${enm.fqn}")`);
         this.code.openBlock(`public enum ${enm.name}`);
     }
@@ -284,6 +285,7 @@ class JavaGenerator extends Generator {
     }
     protected onEnumMember(_: spec.EnumType, member: spec.EnumMember) {
         this.addJavaDocs(member);
+        this.emitStabilityAnnotations(member);
         this.code.line(`${member.name},`);
     }
 
@@ -362,17 +364,14 @@ class JavaGenerator extends Generator {
             for (const line of md2html(mod.readme.markdown).split('\n')) {
                 this.code.line(` * ${line}`);
             }
-            this.code.line(' *');
         }
         if (mod.docs.deprecated) {
-            this.code.line(` * @deprecated ${mod.docs.deprecated}`);
-        } else if (mod.docs.stability) {
-            this.code.line(` * @stability ${mod.docs.stability}`);
+            this.code.line(' *');
+            // Javac won't allow @deprecated on packages, while @Deprecated is aaaabsolutely fine. Duh.
+            this.code.line(` * Deprecated: ${mod.docs.deprecated}`);
         }
         this.code.line(' */');
-        if (mod.docs.deprecated) {
-            this.code.line('@Deprecated');
-        }
+        this.emitStabilityAnnotations(mod);
         this.code.line(`package ${packageName};`);
         this.code.closeFile(packageInfoFile);
     }
@@ -583,7 +582,7 @@ class JavaGenerator extends Generator {
         const access = this.renderAccessLevel(prop);
 
         this.addJavaDocs(prop);
-        if (spec.isDeprecated(prop)) { this.code.line('@Deprecated'); }
+        this.emitStabilityAnnotations(prop);
         this.code.line(`${access} final static ${propType} ${propName};`);
     }
 
@@ -601,7 +600,7 @@ class JavaGenerator extends Generator {
             this.code.line();
             this.addJavaDocs(prop);
             if (overrides) { this.code.line('@Override'); }
-            if (spec.isDeprecated(prop)) { this.code.line('@Deprecated'); }
+            this.emitStabilityAnnotations(prop);
             if (isNullable(prop)) { this.code.line(JSR305_NULLABLE); }
             this.code.openBlock(`${access} ${statc}${getterType} get${propName}()`);
 
@@ -623,7 +622,7 @@ class JavaGenerator extends Generator {
                 this.code.line();
                 this.addJavaDocs(prop);
                 if (overrides) { this.code.line('@Override'); }
-                if (spec.isDeprecated(prop)) { this.code.line('@Deprecated'); }
+                this.emitStabilityAnnotations(prop);
                 const nullable = isNullable(prop) ? `${JSR305_NULLABLE} ` : '';
                 this.code.openBlock(`${access} ${statc}void set${propName}(${nullable}final ${type} value)`);
                 let statement = '';
@@ -650,7 +649,7 @@ class JavaGenerator extends Generator {
         const signature = `${returnType} ${methodName}(${this.renderMethodParameters(method)})`;
         this.code.line();
         this.addJavaDocs(method);
-        if (spec.isDeprecated(method)) { this.code.line('@Deprecated'); }
+        this.emitStabilityAnnotations(method);
         if (overrides) { this.code.line('@Override'); }
         if (isNullable(method.returns)) { this.code.line(JSR305_NULLABLE); }
         if (method.abstract) {
@@ -734,6 +733,27 @@ class JavaGenerator extends Generator {
         }
 
         this.code.closeBlock();
+    }
+
+    private emitStabilityAnnotations(entity: spec.Documentable) {
+        if (!entity.docs) { return; }
+        if (entity.docs.stability === spec.Stability.Deprecated || entity.docs.deprecated) {
+            this.code.line('@Deprecated');
+        }
+        if (entity.docs.stability) {
+            this.code.line(`@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.${_level(entity.docs.stability)})`);
+        }
+
+        function _level(stability: spec.Stability): string {
+            switch (stability) {
+                case spec.Stability.Deprecated:
+                    return 'Deprecated';
+                case spec.Stability.Experimental:
+                    return 'Experimental';
+                case spec.Stability.Stable:
+                    return 'Stable';
+            }
+        }
     }
 
     private emitInterfaceBuilder(ifc: spec.InterfaceType) {

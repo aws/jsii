@@ -1713,3 +1713,16 @@ export class DeprecatedClass {
         throw new Error();
     }
 }
+/**
+ * This enum is there to test various stability levels are correctly emitted.
+ *
+ * @stable
+ */
+export enum StabilityTest {
+    /** @deprecated yeah this one's no good */
+    DeprecatedMember,
+    /** @experimental */
+    ExperimentalMember,
+    /** @stable */
+    StableMember
+}

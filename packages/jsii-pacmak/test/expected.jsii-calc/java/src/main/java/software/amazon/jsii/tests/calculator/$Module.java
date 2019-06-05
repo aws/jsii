@@ -118,6 +118,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.ReturnsPrivateImplementationOfInterface": return software.amazon.jsii.tests.calculator.ReturnsPrivateImplementationOfInterface.class;
             case "jsii-calc.RuntimeTypeChecking": return software.amazon.jsii.tests.calculator.RuntimeTypeChecking.class;
             case "jsii-calc.SingleInstanceTwoTypes": return software.amazon.jsii.tests.calculator.SingleInstanceTwoTypes.class;
+            case "jsii-calc.StabilityTest": return software.amazon.jsii.tests.calculator.StabilityTest.class;
             case "jsii-calc.StaticContext": return software.amazon.jsii.tests.calculator.StaticContext.class;
             case "jsii-calc.Statics": return software.amazon.jsii.tests.calculator.Statics.class;
             case "jsii-calc.StringEnum": return software.amazon.jsii.tests.calculator.StringEnum.class;

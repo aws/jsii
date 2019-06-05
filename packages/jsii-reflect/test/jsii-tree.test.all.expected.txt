@@ -1500,6 +1500,10 @@ assemblies
  │   │ ├── MyEnumValue
  │   │ ├── YourEnumValue
  │   │ └── ThisIsGreat
+ │   ├─┬ enum StabilityTest
+ │   │ ├── DeprecatedMember
+ │   │ ├── ExperimentalMember
+ │   │ └── StableMember
  │   ├─┬ enum StringEnum
  │   │ ├── A
  │   │ ├── B

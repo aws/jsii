@@ -7,7 +7,6 @@
  * heading will be used as the Sphinx topic name. Otherwise, the name of the module
  * (<code>jsii-calc</code>) will be used instead.</p>
  * 
- *
- * @stability experimental
  */
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 package software.amazon.jsii.tests.calculator;

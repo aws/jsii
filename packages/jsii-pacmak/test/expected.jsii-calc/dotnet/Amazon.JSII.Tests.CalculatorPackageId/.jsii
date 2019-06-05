@@ -5745,6 +5745,41 @@
       ],
       "name": "SingleInstanceTwoTypes"
     },
+    "jsii-calc.StabilityTest": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "stable",
+        "summary": "This enum is there to test various stability levels are correctly emitted."
+      },
+      "fqn": "jsii-calc.StabilityTest",
+      "kind": "enum",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1721
+      },
+      "members": [
+        {
+          "docs": {
+            "deprecated": "yeah this one's no good",
+            "stability": "deprecated"
+          },
+          "name": "DeprecatedMember"
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "name": "ExperimentalMember"
+        },
+        {
+          "docs": {
+            "stability": "stable"
+          },
+          "name": "StableMember"
+        }
+      ],
+      "name": "StabilityTest"
+    },
     "jsii-calc.StaticContext": {
       "assembly": "jsii-calc",
       "docs": {
@@ -6892,5 +6927,5 @@
     }
   },
   "version": "0.11.0",
-  "fingerprint": "5R2rpEqEYZnuiNa8EnVDEierWuf4xkcuVJDj4a7hNPk="
+  "fingerprint": "UHwu7qd5MqRQCz8lxX6GriJru8ZUKZRu1Oi7QZ3zDnM="
 }
