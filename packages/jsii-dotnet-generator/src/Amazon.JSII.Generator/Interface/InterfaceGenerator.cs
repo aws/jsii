@@ -45,16 +45,13 @@ namespace Amazon.JSII.Generator.Interface
                         )
                     }));
 
-                    if (Type.Docs?.Deprecated != null)
+                    if (Type.Docs?.Stability == Stability.Deprecated)
                     {
+                        var argument = Type.Docs?.Deprecated != null ? SF.Literal(Type.Docs?.Deprecated).ToString() : "";
                         yield return SF.AttributeList(SF.SeparatedList(new[] {
                             SF.Attribute(
                                 SF.ParseName("System.Obsolete"),
-                                SF.AttributeArgumentList(
-                                    SF.SingletonSeparatedList(
-                                        SF.AttributeArgument(SF.LiteralExpression(SyntaxKind.StringLiteralExpression, SF.Literal(Type.Docs.Deprecated)))
-                                    )
-                                )
+                                SF.ParseAttributeArgumentList($"({argument})")
                             )
                         }));
                     }

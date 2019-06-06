@@ -122,6 +122,7 @@
     "@scope/jsii-calc-lib.EnumFromScopedModule": {
       "assembly": "@scope/jsii-calc-lib",
       "docs": {
+        "stability": "deprecated",
         "summary": "Check that enums from \\@scoped packages can be references. See awslabs/jsii#138."
       },
       "fqn": "@scope/jsii-calc-lib.EnumFromScopedModule",
@@ -132,9 +133,15 @@
       },
       "members": [
         {
+          "docs": {
+            "stability": "deprecated"
+          },
           "name": "Value1"
         },
         {
+          "docs": {
+            "stability": "deprecated"
+          },
           "name": "Value2"
         }
       ],
@@ -143,6 +150,7 @@
     "@scope/jsii-calc-lib.IDoublable": {
       "assembly": "@scope/jsii-calc-lib",
       "docs": {
+        "stability": "deprecated",
         "summary": "The general contract for a concrete number."
       },
       "fqn": "@scope/jsii-calc-lib.IDoublable",
@@ -155,6 +163,9 @@
       "properties": [
         {
           "abstract": true,
+          "docs": {
+            "stability": "deprecated"
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
@@ -171,6 +182,7 @@
       "assembly": "@scope/jsii-calc-lib",
       "docs": {
         "remarks": "These classes can be greeted with\na \"hello\" or \"goodbye\" blessing and they will respond back in a fun and friendly manner.",
+        "stability": "deprecated",
         "summary": "Applies to classes that are considered friendly."
       },
       "fqn": "@scope/jsii-calc-lib.IFriendly",
@@ -183,6 +195,7 @@
         {
           "abstract": true,
           "docs": {
+            "stability": "deprecated",
             "summary": "Say hello!"
           },
           "locationInModule": {
@@ -203,6 +216,7 @@
       "assembly": "@scope/jsii-calc-lib",
       "docs": {
         "remarks": "Their presence validates that .NET/Java/jsii-reflect can track all fields\nfar enough up the tree.",
+        "stability": "deprecated",
         "summary": "Interface that inherits from packages 2 levels up the tree."
       },
       "fqn": "@scope/jsii-calc-lib.IThreeLevelsInterface",
@@ -217,6 +231,9 @@
       "methods": [
         {
           "abstract": true,
+          "docs": {
+            "stability": "deprecated"
+          },
           "locationInModule": {
             "filename": "lib/index.ts",
             "line": 109
@@ -230,6 +247,7 @@
       "assembly": "@scope/jsii-calc-lib",
       "datatype": true,
       "docs": {
+        "stability": "deprecated",
         "summary": "This is the first struct we have created in jsii."
       },
       "fqn": "@scope/jsii-calc-lib.MyFirstStruct",
@@ -243,6 +261,7 @@
         {
           "abstract": true,
           "docs": {
+            "stability": "deprecated",
             "summary": "An awesome number value."
           },
           "immutable": true,
@@ -258,6 +277,7 @@
         {
           "abstract": true,
           "docs": {
+            "stability": "deprecated",
             "summary": "A string value."
           },
           "immutable": true,
@@ -272,6 +292,9 @@
         },
         {
           "abstract": true,
+          "docs": {
+            "stability": "deprecated"
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
@@ -294,11 +317,13 @@
       "assembly": "@scope/jsii-calc-lib",
       "base": "@scope/jsii-calc-lib.Value",
       "docs": {
+        "stability": "deprecated",
         "summary": "Represents a concrete number."
       },
       "fqn": "@scope/jsii-calc-lib.Number",
       "initializer": {
         "docs": {
+          "stability": "deprecated",
           "summary": "Creates a Number object."
         },
         "parameters": [
@@ -325,6 +350,7 @@
       "properties": [
         {
           "docs": {
+            "stability": "deprecated",
             "summary": "The number multiplied by 2."
           },
           "immutable": true,
@@ -340,6 +366,7 @@
         },
         {
           "docs": {
+            "stability": "deprecated",
             "summary": "The number."
           },
           "immutable": true,
@@ -360,6 +387,7 @@
       "assembly": "@scope/jsii-calc-lib",
       "base": "@scope/jsii-calc-lib.Value",
       "docs": {
+        "stability": "deprecated",
         "summary": "Represents an operation on values."
       },
       "fqn": "@scope/jsii-calc-lib.Operation",
@@ -373,6 +401,7 @@
         {
           "abstract": true,
           "docs": {
+            "stability": "deprecated",
             "summary": "String representation of the value."
           },
           "locationInModule": {
@@ -394,6 +423,7 @@
       "assembly": "@scope/jsii-calc-lib",
       "datatype": true,
       "docs": {
+        "stability": "deprecated",
         "summary": "This is a struct with only optional properties."
       },
       "fqn": "@scope/jsii-calc-lib.StructWithOnlyOptionals",
@@ -407,6 +437,7 @@
         {
           "abstract": true,
           "docs": {
+            "stability": "deprecated",
             "summary": "The first optional!"
           },
           "immutable": true,
@@ -422,6 +453,9 @@
         },
         {
           "abstract": true,
+          "docs": {
+            "stability": "deprecated"
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
@@ -435,6 +469,9 @@
         },
         {
           "abstract": true,
+          "docs": {
+            "stability": "deprecated"
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/index.ts",
@@ -453,6 +490,7 @@
       "assembly": "@scope/jsii-calc-lib",
       "base": "@scope/jsii-calc-base.Base",
       "docs": {
+        "stability": "deprecated",
         "summary": "Abstract class which represents a numeric value."
       },
       "fqn": "@scope/jsii-calc-lib.Value",
@@ -465,6 +503,7 @@
       "methods": [
         {
           "docs": {
+            "stability": "deprecated",
             "summary": "String representation of the value."
           },
           "locationInModule": {
@@ -484,6 +523,7 @@
         {
           "abstract": true,
           "docs": {
+            "stability": "deprecated",
             "summary": "The value."
           },
           "immutable": true,
@@ -500,5 +540,5 @@
     }
   },
   "version": "0.11.0",
-  "fingerprint": "x/BbPdAJTYB6QY83ucqo0CNLa2NoLebqPMbMY7BsyR4="
+  "fingerprint": "ysbOu5OVvyznNc3J8nCmLW9NRtZwUTw4YgeMb8c+OPA="
 }

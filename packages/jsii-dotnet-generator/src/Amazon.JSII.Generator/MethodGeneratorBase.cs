@@ -202,15 +202,12 @@ namespace Amazon.JSII.Generator
                     SF.ParseAttributeArgumentList($"({argumentList})")
                 )));
 
-                if (Method.Docs?.Deprecated != null)
+                if (Method.Docs?.Stability == Stability.Deprecated)
                 {
+                    var argument = Method.Docs?.Deprecated != null ? SF.Literal(Method.Docs?.Deprecated).ToString() : "";
                     yield return SF.AttributeList(SF.SingletonSeparatedList(SF.Attribute(
                         SF.ParseName("System.Obsolete"),
-                        SF.AttributeArgumentList(
-                            SF.SingletonSeparatedList(
-                                SF.AttributeArgument(SF.LiteralExpression(SyntaxKind.StringLiteralExpression, SF.Literal(Method.Docs.Deprecated)))
-                            )
-                        )
+                        SF.ParseAttributeArgumentList($"({argument})")
                     )));
                 }
             }

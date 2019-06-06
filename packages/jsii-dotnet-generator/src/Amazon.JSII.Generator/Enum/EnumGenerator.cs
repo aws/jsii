@@ -44,16 +44,13 @@ namespace Amazon.JSII.Generator.Enum
                     )
                 }));
 
-                if (Type.Docs?.Deprecated != null)
+                if (Type.Docs?.Stability == Stability.Deprecated)
                 {
+                    var argument = Type.Docs?.Deprecated != null ? SF.Literal(Type.Docs?.Deprecated).ToString() : "";
                     yield return SF.AttributeList(SF.SeparatedList(new[] {
                             SF.Attribute(
                                 SF.ParseName("System.Obsolete"),
-                                SF.AttributeArgumentList(
-                                    SF.SingletonSeparatedList(
-                                        SF.AttributeArgument(SF.LiteralExpression(SyntaxKind.StringLiteralExpression, SF.Literal(Type.Docs.Deprecated)))
-                                    )
-                                )
+                                SF.ParseAttributeArgumentList($"({argument})")
                             )
                         }));
                 }
@@ -94,10 +91,11 @@ namespace Amazon.JSII.Generator.Enum
 
                     if (member.Docs?.Stability == Stability.Deprecated)
                     {
+                        var argument = member.Docs?.Deprecated != null ? SF.Literal(member.Docs?.Deprecated).ToString() : "";
                         yield return SF.AttributeList(SF.SingletonSeparatedList(
                             SF.Attribute(
                                 SF.ParseName("System.Obsolete"),
-                                SF.ParseAttributeArgumentList($"({SF.Literal(member.Docs?.Deprecated ?? "")})")
+                                SF.ParseAttributeArgumentList($"({argument})")
                             )
                         ));
                     }

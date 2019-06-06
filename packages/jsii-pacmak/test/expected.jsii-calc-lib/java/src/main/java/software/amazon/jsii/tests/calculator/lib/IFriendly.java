@@ -7,10 +7,14 @@ package software.amazon.jsii.tests.calculator.lib;
  * a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@Deprecated
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
 public interface IFriendly extends software.amazon.jsii.JsiiSerializable {
     /**
      * Say hello!
      */
+    @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     java.lang.String hello();
 
     /**
@@ -24,6 +28,8 @@ public interface IFriendly extends software.amazon.jsii.JsiiSerializable {
         /**
          * Say hello!
          */
+        @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Override
         public java.lang.String hello() {
             return this.jsiiCall("hello", java.lang.String.class);

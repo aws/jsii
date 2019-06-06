@@ -4,17 +4,31 @@ package software.amazon.jsii.tests.calculator.lib;
  * This is a struct with only optional properties.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@Deprecated
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
 public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerializable {
     /**
      * The first optional!
      */
+    @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     java.lang.String getOptional1();
+    /**
+     */
+    @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     java.lang.Number getOptional2();
+    /**
+     */
+    @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     java.lang.Boolean getOptional3();
 
     /**
      * @return a {@link Builder} of {@link StructWithOnlyOptionals}
      */
+    @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     static Builder builder() {
         return new Builder();
     }
@@ -22,6 +36,8 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
     /**
      * A builder for {@link StructWithOnlyOptionals}
      */
+    @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     final class Builder {
         @javax.annotation.Nullable
         private java.lang.String _optional1;
@@ -35,6 +51,8 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
          * @param value The first optional!
          * @return {@code this}
          */
+        @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public Builder withOptional1(@javax.annotation.Nullable final java.lang.String value) {
             this._optional1 = value;
             return this;
@@ -44,6 +62,8 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
          * @param value the value to be set
          * @return {@code this}
          */
+        @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public Builder withOptional2(@javax.annotation.Nullable final java.lang.Number value) {
             this._optional2 = value;
             return this;
@@ -53,6 +73,8 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
          * @param value the value to be set
          * @return {@code this}
          */
+        @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public Builder withOptional3(@javax.annotation.Nullable final java.lang.Boolean value) {
             this._optional3 = value;
             return this;
@@ -63,6 +85,8 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
          * @return a new instance of {@link StructWithOnlyOptionals}
          * @throws NullPointerException if any required attribute was not provided
          */
+        @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public StructWithOnlyOptionals build() {
             return new StructWithOnlyOptionals() {
                 @javax.annotation.Nullable
@@ -112,18 +136,28 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
          * The first optional!
          */
         @Override
+        @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @javax.annotation.Nullable
         public java.lang.String getOptional1() {
             return this.jsiiGet("optional1", java.lang.String.class);
         }
 
+        /**
+         */
         @Override
+        @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @javax.annotation.Nullable
         public java.lang.Number getOptional2() {
             return this.jsiiGet("optional2", java.lang.Number.class);
         }
 
+        /**
+         */
         @Override
+        @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @javax.annotation.Nullable
         public java.lang.Boolean getOptional3() {
             return this.jsiiGet("optional3", java.lang.Boolean.class);

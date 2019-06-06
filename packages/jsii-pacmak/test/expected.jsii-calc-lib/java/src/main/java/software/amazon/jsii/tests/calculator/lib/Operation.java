@@ -4,6 +4,8 @@ package software.amazon.jsii.tests.calculator.lib;
  * Represents an operation on values.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@Deprecated
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.Operation")
 public abstract class Operation extends software.amazon.jsii.tests.calculator.lib.Value {
     protected Operation(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
@@ -17,6 +19,8 @@ public abstract class Operation extends software.amazon.jsii.tests.calculator.li
     /**
      * String representation of the value.
      */
+    @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Override
     public abstract java.lang.String toString();
 
@@ -32,6 +36,8 @@ public abstract class Operation extends software.amazon.jsii.tests.calculator.li
          * The value.
          */
         @Override
+        @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public java.lang.Number getValue() {
             return this.jsiiGet("value", java.lang.Number.class);
         }
@@ -39,6 +45,8 @@ public abstract class Operation extends software.amazon.jsii.tests.calculator.li
         /**
          * String representation of the value.
          */
+        @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Override
         public java.lang.String toString() {
             return this.jsiiCall("toString", java.lang.String.class);

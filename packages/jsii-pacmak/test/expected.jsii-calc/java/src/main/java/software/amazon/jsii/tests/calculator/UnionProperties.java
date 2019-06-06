@@ -1,13 +1,26 @@
 package software.amazon.jsii.tests.calculator;
 
+/**
+ * EXPERIMENTAL
+ */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.lang.Object getBar();
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.lang.Object getFoo();
 
     /**
      * @return a {@link Builder} of {@link UnionProperties}
      */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     static Builder builder() {
         return new Builder();
     }
@@ -15,6 +28,7 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
     /**
      * A builder for {@link UnionProperties}
      */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     final class Builder {
         private java.lang.Object _bar;
         @javax.annotation.Nullable
@@ -25,6 +39,7 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
          * @param value the value to be set
          * @return {@code this}
          */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder withBar(final java.lang.String value) {
             this._bar = java.util.Objects.requireNonNull(value, "bar is required");
             return this;
@@ -34,6 +49,7 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
          * @param value the value to be set
          * @return {@code this}
          */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder withBar(final java.lang.Number value) {
             this._bar = java.util.Objects.requireNonNull(value, "bar is required");
             return this;
@@ -43,6 +59,7 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
          * @param value the value to be set
          * @return {@code this}
          */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder withBar(final software.amazon.jsii.tests.calculator.AllTypes value) {
             this._bar = java.util.Objects.requireNonNull(value, "bar is required");
             return this;
@@ -52,6 +69,7 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
          * @param value the value to be set
          * @return {@code this}
          */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder withFoo(@javax.annotation.Nullable final java.lang.String value) {
             this._foo = value;
             return this;
@@ -61,6 +79,7 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
          * @param value the value to be set
          * @return {@code this}
          */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder withFoo(@javax.annotation.Nullable final java.lang.Number value) {
             this._foo = value;
             return this;
@@ -71,6 +90,7 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
          * @return a new instance of {@link UnionProperties}
          * @throws NullPointerException if any required attribute was not provided
          */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public UnionProperties build() {
             return new UnionProperties() {
                 private final java.lang.Object $bar = java.util.Objects.requireNonNull(_bar, "bar is required");
@@ -107,12 +127,20 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
             super(mode);
         }
 
+        /**
+         * EXPERIMENTAL
+         */
         @Override
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public java.lang.Object getBar() {
             return this.jsiiGet("bar", java.lang.Object.class);
         }
 
+        /**
+         * EXPERIMENTAL
+         */
         @Override
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @javax.annotation.Nullable
         public java.lang.Object getFoo() {
             return this.jsiiGet("foo", java.lang.Object.class);

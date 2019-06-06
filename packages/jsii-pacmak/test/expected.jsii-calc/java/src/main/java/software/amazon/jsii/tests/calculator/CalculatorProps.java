@@ -2,15 +2,27 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Properties for Calculator.
+ * 
+ * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.lang.Number getInitialValue();
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.lang.Number getMaximumValue();
 
     /**
      * @return a {@link Builder} of {@link CalculatorProps}
      */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     static Builder builder() {
         return new Builder();
     }
@@ -18,6 +30,7 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
     /**
      * A builder for {@link CalculatorProps}
      */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     final class Builder {
         @javax.annotation.Nullable
         private java.lang.Number _initialValue;
@@ -29,6 +42,7 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
          * @param value the value to be set
          * @return {@code this}
          */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder withInitialValue(@javax.annotation.Nullable final java.lang.Number value) {
             this._initialValue = value;
             return this;
@@ -38,6 +52,7 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
          * @param value the value to be set
          * @return {@code this}
          */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder withMaximumValue(@javax.annotation.Nullable final java.lang.Number value) {
             this._maximumValue = value;
             return this;
@@ -48,6 +63,7 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
          * @return a new instance of {@link CalculatorProps}
          * @throws NullPointerException if any required attribute was not provided
          */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public CalculatorProps build() {
             return new CalculatorProps() {
                 @javax.annotation.Nullable
@@ -85,13 +101,21 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
             super(mode);
         }
 
+        /**
+         * EXPERIMENTAL
+         */
         @Override
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @javax.annotation.Nullable
         public java.lang.Number getInitialValue() {
             return this.jsiiGet("initialValue", java.lang.Number.class);
         }
 
+        /**
+         * EXPERIMENTAL
+         */
         @Override
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @javax.annotation.Nullable
         public java.lang.Number getMaximumValue() {
             return this.jsiiGet("maximumValue", java.lang.Number.class);

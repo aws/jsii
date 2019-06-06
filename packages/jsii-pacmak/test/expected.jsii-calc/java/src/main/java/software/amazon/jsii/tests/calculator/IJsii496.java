@@ -1,6 +1,10 @@
 package software.amazon.jsii.tests.calculator;
 
+/**
+ * EXPERIMENTAL
+ */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface IJsii496 extends software.amazon.jsii.JsiiSerializable {
 
     /**

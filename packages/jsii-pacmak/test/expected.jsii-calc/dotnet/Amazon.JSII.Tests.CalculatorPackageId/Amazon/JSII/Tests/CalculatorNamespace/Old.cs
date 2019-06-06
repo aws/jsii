@@ -21,7 +21,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Doo wop that thing.</summary>
+        /// <remarks>stability: Deprecated</remarks>
         [JsiiMethod(name: "doAThing")]
+        [System.Obsolete()]
         public virtual void DoAThing()
         {
             InvokeInstanceVoidMethod(new object[]{});

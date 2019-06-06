@@ -4,9 +4,11 @@ using System;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
+    /// <remarks>stability: Experimental</remarks>
     [JsiiByValue]
     public class ImplictBaseOfBase : IImplictBaseOfBase
     {
+        /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "goo", typeJson: "{\"primitive\":\"date\"}", isOverride: true)]
         public DateTime Goo
         {

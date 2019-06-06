@@ -1,13 +1,26 @@
 package software.amazon.jsii.tests.calculator;
 
+/**
+ * EXPERIMENTAL
+ */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii.JsiiSerializable {
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.util.List<java.lang.Object> getArrayWithThreeElementsAndUndefinedAsSecondArgument();
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.lang.Object getThisShouldBeUndefined();
 
     /**
      * @return a {@link Builder} of {@link NullShouldBeTreatedAsUndefinedData}
      */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     static Builder builder() {
         return new Builder();
     }
@@ -15,6 +28,7 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
     /**
      * A builder for {@link NullShouldBeTreatedAsUndefinedData}
      */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     final class Builder {
         private java.util.List<java.lang.Object> _arrayWithThreeElementsAndUndefinedAsSecondArgument;
         @javax.annotation.Nullable
@@ -25,6 +39,7 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
          * @param value the value to be set
          * @return {@code this}
          */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder withArrayWithThreeElementsAndUndefinedAsSecondArgument(final java.util.List<java.lang.Object> value) {
             this._arrayWithThreeElementsAndUndefinedAsSecondArgument = java.util.Objects.requireNonNull(value, "arrayWithThreeElementsAndUndefinedAsSecondArgument is required");
             return this;
@@ -34,6 +49,7 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
          * @param value the value to be set
          * @return {@code this}
          */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder withThisShouldBeUndefined(@javax.annotation.Nullable final java.lang.Object value) {
             this._thisShouldBeUndefined = value;
             return this;
@@ -44,6 +60,7 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
          * @return a new instance of {@link NullShouldBeTreatedAsUndefinedData}
          * @throws NullPointerException if any required attribute was not provided
          */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public NullShouldBeTreatedAsUndefinedData build() {
             return new NullShouldBeTreatedAsUndefinedData() {
                 private final java.util.List<java.lang.Object> $arrayWithThreeElementsAndUndefinedAsSecondArgument = java.util.Objects.requireNonNull(_arrayWithThreeElementsAndUndefinedAsSecondArgument, "arrayWithThreeElementsAndUndefinedAsSecondArgument is required");
@@ -80,12 +97,20 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
             super(mode);
         }
 
+        /**
+         * EXPERIMENTAL
+         */
         @Override
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public java.util.List<java.lang.Object> getArrayWithThreeElementsAndUndefinedAsSecondArgument() {
             return this.jsiiGet("arrayWithThreeElementsAndUndefinedAsSecondArgument", java.util.List.class);
         }
 
+        /**
+         * EXPERIMENTAL
+         */
         @Override
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @javax.annotation.Nullable
         public java.lang.Object getThisShouldBeUndefined() {
             return this.jsiiGet("thisShouldBeUndefined", java.lang.Object.class);

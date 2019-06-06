@@ -1,8 +1,20 @@
 package software.amazon.jsii.tests.calculator;
 
+/**
+ * EXPERIMENTAL
+ */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface IReturnsNumber extends software.amazon.jsii.JsiiSerializable {
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     software.amazon.jsii.tests.calculator.lib.Number getNumberProp();
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     software.amazon.jsii.tests.calculator.lib.IDoublable obtainNumber();
 
     /**
@@ -13,11 +25,19 @@ public interface IReturnsNumber extends software.amazon.jsii.JsiiSerializable {
             super(mode);
         }
 
+        /**
+         * EXPERIMENTAL
+         */
         @Override
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public software.amazon.jsii.tests.calculator.lib.Number getNumberProp() {
             return this.jsiiGet("numberProp", software.amazon.jsii.tests.calculator.lib.Number.class);
         }
 
+        /**
+         * EXPERIMENTAL
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public software.amazon.jsii.tests.calculator.lib.IDoublable obtainNumber() {
             return this.jsiiCall("obtainNumber", software.amazon.jsii.tests.calculator.lib.IDoublable.class);

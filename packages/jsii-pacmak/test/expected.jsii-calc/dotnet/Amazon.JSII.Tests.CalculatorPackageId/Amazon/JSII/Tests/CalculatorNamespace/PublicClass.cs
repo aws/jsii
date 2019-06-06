@@ -2,6 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
+    /// <remarks>stability: Experimental</remarks>
     [JsiiClass(nativeType: typeof(PublicClass), fullyQualifiedName: "jsii-calc.PublicClass")]
     public class PublicClass : DeputyBase
     {
@@ -17,6 +18,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <remarks>stability: Experimental</remarks>
         [JsiiMethod(name: "hello")]
         public virtual void Hello()
         {

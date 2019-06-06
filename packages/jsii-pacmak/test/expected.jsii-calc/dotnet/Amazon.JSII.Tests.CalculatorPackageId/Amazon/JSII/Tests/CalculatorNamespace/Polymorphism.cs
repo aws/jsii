@@ -3,6 +3,7 @@ using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
+    /// <remarks>stability: Experimental</remarks>
     [JsiiClass(nativeType: typeof(Polymorphism), fullyQualifiedName: "jsii-calc.Polymorphism")]
     public class Polymorphism : DeputyBase
     {
@@ -18,6 +19,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <remarks>stability: Experimental</remarks>
         [JsiiMethod(name: "sayHello", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[{\"name\":\"friendly\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.IFriendly\"}}]")]
         public virtual string SayHello(IIFriendly friendly)
         {

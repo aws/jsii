@@ -4,6 +4,7 @@ using System;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
+    /// <remarks>stability: Experimental</remarks>
     [JsiiTypeProxy(nativeType: typeof(IImplictBaseOfBase), fullyQualifiedName: "jsii-calc.ImplictBaseOfBase")]
     internal sealed class ImplictBaseOfBaseProxy : DeputyBase, IImplictBaseOfBase
     {
@@ -11,6 +12,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "goo", typeJson: "{\"primitive\":\"date\"}")]
         public DateTime Goo
         {
