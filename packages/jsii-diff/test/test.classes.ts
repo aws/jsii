@@ -328,4 +328,60 @@ export = {
 
     test.done();
   },
+
+  // ----------------------------------------------------------------------
+
+  async 'change from method to property'(test: Test) {
+    await expectError(test,
+      /CLASS testpkg.Boom member foo changed from method to property/,
+      `
+      export class Boom {
+        foo() { return 12; }
+      }
+      `,
+      `
+      export class Boom {
+        get foo() { return 12; }
+      }
+      `
+    );
+
+    test.done();
+  },
+
+  async 'change from method with arguments to property'(test: Test) {
+    await expectError(test,
+      /CLASS testpkg.Boom member foo changed from method to property/,
+      `
+      export class Boom {
+        foo(arg: number) { return 12 * arg; }
+      }
+      `,
+      `
+      export class Boom {
+        get foo() { return 12; }
+      }
+      `
+    );
+
+    test.done();
+  },
+
+  async 'change from property to method'(test: Test) {
+    await expectError(test,
+      /CLASS testpkg.Boom member foo changed from property to method/,
+      `
+      export class Boom {
+        get foo() { return 12; }
+      }
+      `,
+      `
+      export class Boom {
+        foo() { return 12; }
+      }
+      `
+    );
+
+    test.done();
+  }
 };

@@ -27,12 +27,16 @@ export function compareReferenceType<T extends reflect.ReferenceType>(original: 
     context.mismatches.report(original, 'has gone from @subclassable to non-@subclassable');
   }
 
-  for (const [origMethod, updatedMethod] of memberPairs(original, original.allMethods, updated, context)) {
-    compareMethod(original, origMethod, updatedMethod, context);
+  for (const [origMethod, updatedElement] of memberPairs(original, original.allMethods, updated, context)) {
+    if (reflect.isMethod(origMethod) && reflect.isMethod(updatedElement)) {
+      compareMethod(original, origMethod, updatedElement, context);
+    }
   }
 
-  for (const [origProp, updatedProp] of memberPairs(original, original.allProperties, updated, context)) {
-    compareProperty(original, origProp, updatedProp, context);
+  for (const [origProp, updatedElement] of memberPairs(original, original.allProperties, updated, context)) {
+    if (reflect.isProperty(origProp) && reflect.isProperty(updatedElement)) {
+      compareProperty(original, origProp, updatedElement, context);
+    }
   }
 
   // You cannot have added abstract members to the class/interface, as they are
@@ -174,7 +178,7 @@ function compareProperty(origClass: reflect.Type, original: reflect.Property, up
 }
 
 // tslint:disable-next-line:max-line-length
-function* memberPairs<T extends reflect.TypeMember, U extends reflect.ReferenceType>(origClass: U, xs: T[], updatedClass: U, context: ComparisonContext): IterableIterator<[T, T]> {
+function* memberPairs<T extends reflect.TypeMember, U extends reflect.ReferenceType>(origClass: U, xs: T[], updatedClass: U, context: ComparisonContext): IterableIterator<[T, reflect.TypeMember]> {
   for (const origMember of xs.filter(shouldInspect(context))) {
     LOG.trace(`${origClass.fqn}#${origMember.name}`);
 
@@ -192,7 +196,7 @@ function* memberPairs<T extends reflect.TypeMember, U extends reflect.ReferenceT
       context.mismatches.report(origClass, `member ${origMember.name} changed from 'public' to 'protected'`);
     }
 
-    yield [origMember, updatedMember as T]; // Trust me I know what I'm doing
+    yield [origMember, updatedMember];
   }
 }
 
