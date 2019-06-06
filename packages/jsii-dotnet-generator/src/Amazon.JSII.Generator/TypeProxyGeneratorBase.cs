@@ -48,10 +48,11 @@ namespace Amazon.JSII.Generator
 
                     if (Type.Docs?.Stability == Stability.Deprecated)
                     {
+                        var argument = Type.Docs?.Deprecated != null ? SF.Literal(Type.Docs?.Deprecated).ToString() : "";
                         yield return SF.AttributeList(SF.SingletonSeparatedList(
                             SF.Attribute(
                                 SF.ParseName("System.Obsolete"),
-                                SF.ParseAttributeArgumentList($"({SF.Literal(Type.Docs?.Deprecated ?? "")})")
+                                SF.ParseAttributeArgumentList($"({argument})")
                             )
                         ));
                     }

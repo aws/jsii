@@ -3,9 +3,11 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>jsii#282, aws-cdk#157: null should be treated as "undefined".</summary>
+    /// <remarks>stability: Experimental</remarks>
     [JsiiClass(nativeType: typeof(NullShouldBeTreatedAsUndefined), fullyQualifiedName: "jsii-calc.NullShouldBeTreatedAsUndefined", parametersJson: "[{\"name\":\"_param1\",\"type\":{\"primitive\":\"string\"}},{\"name\":\"optional\",\"type\":{\"primitive\":\"any\"},\"optional\":true}]")]
     public class NullShouldBeTreatedAsUndefined : DeputyBase
     {
+        /// <remarks>stability: Experimental</remarks>
         public NullShouldBeTreatedAsUndefined(string _param1, object optional): base(new DeputyProps(new object[]{_param1, optional}))
         {
         }
@@ -18,6 +20,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "changeMeToUndefined", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         public virtual string ChangeMeToUndefined
         {
@@ -25,18 +28,21 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
+        /// <remarks>stability: Experimental</remarks>
         [JsiiMethod(name: "giveMeUndefined", parametersJson: "[{\"name\":\"value\",\"type\":{\"primitive\":\"any\"},\"optional\":true}]")]
         public virtual void GiveMeUndefined(object value)
         {
             InvokeInstanceVoidMethod(new object[]{value});
         }
 
+        /// <remarks>stability: Experimental</remarks>
         [JsiiMethod(name: "giveMeUndefinedInsideAnObject", parametersJson: "[{\"name\":\"input\",\"type\":{\"fqn\":\"jsii-calc.NullShouldBeTreatedAsUndefinedData\"}}]")]
         public virtual void GiveMeUndefinedInsideAnObject(INullShouldBeTreatedAsUndefinedData input)
         {
             InvokeInstanceVoidMethod(new object[]{input});
         }
 
+        /// <remarks>stability: Experimental</remarks>
         [JsiiMethod(name: "verifyPropertyIsUndefined")]
         public virtual void VerifyPropertyIsUndefined()
         {

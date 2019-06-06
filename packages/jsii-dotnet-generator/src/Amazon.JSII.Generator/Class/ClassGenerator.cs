@@ -52,16 +52,13 @@ namespace Amazon.JSII.Generator.Class
                         )
                     }));
 
-                    if (Type.Docs?.Deprecated != null)
+                    if (Type.Docs?.Stability == Stability.Deprecated)
                     {
+                        var argument = Type.Docs?.Deprecated != null ? SF.Literal(Type.Docs?.Deprecated).ToString() : "";
                         yield return SF.AttributeList(SF.SeparatedList(new[] {
                             SF.Attribute(
                                 SF.ParseName("System.Obsolete"),
-                                SF.AttributeArgumentList(
-                                    SF.SingletonSeparatedList(
-                                        SF.AttributeArgument(SF.LiteralExpression(SyntaxKind.StringLiteralExpression, SF.Literal(Type.Docs.Deprecated)))
-                                    )
-                                )
+                                SF.ParseAttributeArgumentList($"({argument})")
                             )
                         }));
                     }
@@ -215,19 +212,15 @@ namespace Amazon.JSII.Generator.Class
 
             SyntaxList<AttributeListSyntax> GetAttributeLists()
             {
-                var deprecated = Type.Initializer?.Docs?.Deprecated;
-                if (deprecated == null)
+                if (Type.Initializer?.Docs?.Stability != Stability.Deprecated)
                 {
                     return SF.List<AttributeListSyntax>();
                 }
+                var argument = Type.Initializer?.Docs?.Deprecated != null ? SF.Literal(Type.Initializer?.Docs?.Deprecated).ToString() : "";
                 return SF.List(new[] { SF.AttributeList(SF.SingletonSeparatedList(
                     SF.Attribute(
                         SF.ParseName("System.Obsolete"),
-                        SF.AttributeArgumentList(
-                            SF.SingletonSeparatedList(
-                                SF.AttributeArgument(SF.LiteralExpression(SyntaxKind.StringLiteralExpression, SF.Literal(deprecated)))
-                            )
-                        )
+                        SF.ParseAttributeArgumentList($"({argument})")
                     )
                 )) });
             }

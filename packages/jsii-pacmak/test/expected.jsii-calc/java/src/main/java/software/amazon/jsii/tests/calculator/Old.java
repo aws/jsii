@@ -21,6 +21,8 @@ public class Old extends software.amazon.jsii.JsiiObject {
     /**
      * Doo wop that thing.
      */
+    @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     public void doAThing() {
         this.jsiiCall("doAThing", Void.class);
     }

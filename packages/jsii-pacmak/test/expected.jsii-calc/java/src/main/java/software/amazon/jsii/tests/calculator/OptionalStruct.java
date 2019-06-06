@@ -1,12 +1,21 @@
 package software.amazon.jsii.tests.calculator;
 
+/**
+ * EXPERIMENTAL
+ */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface OptionalStruct extends software.amazon.jsii.JsiiSerializable {
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.lang.String getField();
 
     /**
      * @return a {@link Builder} of {@link OptionalStruct}
      */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     static Builder builder() {
         return new Builder();
     }
@@ -14,6 +23,7 @@ public interface OptionalStruct extends software.amazon.jsii.JsiiSerializable {
     /**
      * A builder for {@link OptionalStruct}
      */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     final class Builder {
         @javax.annotation.Nullable
         private java.lang.String _field;
@@ -23,6 +33,7 @@ public interface OptionalStruct extends software.amazon.jsii.JsiiSerializable {
          * @param value the value to be set
          * @return {@code this}
          */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder withField(@javax.annotation.Nullable final java.lang.String value) {
             this._field = value;
             return this;
@@ -33,6 +44,7 @@ public interface OptionalStruct extends software.amazon.jsii.JsiiSerializable {
          * @return a new instance of {@link OptionalStruct}
          * @throws NullPointerException if any required attribute was not provided
          */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public OptionalStruct build() {
             return new OptionalStruct() {
                 @javax.annotation.Nullable
@@ -62,7 +74,11 @@ public interface OptionalStruct extends software.amazon.jsii.JsiiSerializable {
             super(mode);
         }
 
+        /**
+         * EXPERIMENTAL
+         */
         @Override
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @javax.annotation.Nullable
         public java.lang.String getField() {
             return this.jsiiGet("field", java.lang.String.class);

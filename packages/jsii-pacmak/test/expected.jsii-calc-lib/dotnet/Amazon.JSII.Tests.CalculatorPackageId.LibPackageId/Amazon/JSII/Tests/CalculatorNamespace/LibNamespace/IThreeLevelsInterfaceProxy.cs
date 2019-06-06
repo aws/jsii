@@ -6,15 +6,19 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     /// <remarks>
     /// Their presence validates that .NET/Java/jsii-reflect can track all fields
     /// far enough up the tree.
+    /// stability: Deprecated
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IIThreeLevelsInterface), fullyQualifiedName: "@scope/jsii-calc-lib.IThreeLevelsInterface")]
+    [System.Obsolete()]
     internal sealed class IThreeLevelsInterfaceProxy : DeputyBase, IIThreeLevelsInterface
     {
         private IThreeLevelsInterfaceProxy(ByRefValue reference): base(reference)
         {
         }
 
+        /// <remarks>stability: Deprecated</remarks>
         [JsiiMethod(name: "baz")]
+        [System.Obsolete()]
         public void Baz()
         {
             InvokeInstanceVoidMethod(new object[]{});

@@ -1,13 +1,26 @@
 package software.amazon.jsii.tests.calculator;
 
+/**
+ * EXPERIMENTAL
+ */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.JsiiSerializable {
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.lang.String getOption1();
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.lang.String getOption2();
 
     /**
      * @return a {@link Builder} of {@link EraseUndefinedHashValuesOptions}
      */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     static Builder builder() {
         return new Builder();
     }
@@ -15,6 +28,7 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
     /**
      * A builder for {@link EraseUndefinedHashValuesOptions}
      */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     final class Builder {
         @javax.annotation.Nullable
         private java.lang.String _option1;
@@ -26,6 +40,7 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
          * @param value the value to be set
          * @return {@code this}
          */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder withOption1(@javax.annotation.Nullable final java.lang.String value) {
             this._option1 = value;
             return this;
@@ -35,6 +50,7 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
          * @param value the value to be set
          * @return {@code this}
          */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder withOption2(@javax.annotation.Nullable final java.lang.String value) {
             this._option2 = value;
             return this;
@@ -45,6 +61,7 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
          * @return a new instance of {@link EraseUndefinedHashValuesOptions}
          * @throws NullPointerException if any required attribute was not provided
          */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public EraseUndefinedHashValuesOptions build() {
             return new EraseUndefinedHashValuesOptions() {
                 @javax.annotation.Nullable
@@ -82,13 +99,21 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
             super(mode);
         }
 
+        /**
+         * EXPERIMENTAL
+         */
         @Override
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @javax.annotation.Nullable
         public java.lang.String getOption1() {
             return this.jsiiGet("option1", java.lang.String.class);
         }
 
+        /**
+         * EXPERIMENTAL
+         */
         @Override
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @javax.annotation.Nullable
         public java.lang.String getOption2() {
             return this.jsiiGet("option2", java.lang.String.class);

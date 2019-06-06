@@ -4,20 +4,32 @@ package software.amazon.jsii.tests.calculator.lib;
  * This is the first struct we have created in jsii.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@Deprecated
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
 public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
     /**
      * An awesome number value.
      */
+    @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     java.lang.Number getAnumber();
     /**
      * A string value.
      */
+    @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     java.lang.String getAstring();
+    /**
+     */
+    @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     java.util.List<java.lang.String> getFirstOptional();
 
     /**
      * @return a {@link Builder} of {@link MyFirstStruct}
      */
+    @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     static Builder builder() {
         return new Builder();
     }
@@ -25,6 +37,8 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
     /**
      * A builder for {@link MyFirstStruct}
      */
+    @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     final class Builder {
         private java.lang.Number _anumber;
         private java.lang.String _astring;
@@ -36,6 +50,8 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
          * @param value An awesome number value.
          * @return {@code this}
          */
+        @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public Builder withAnumber(final java.lang.Number value) {
             this._anumber = java.util.Objects.requireNonNull(value, "anumber is required");
             return this;
@@ -45,6 +61,8 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
          * @param value A string value.
          * @return {@code this}
          */
+        @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public Builder withAstring(final java.lang.String value) {
             this._astring = java.util.Objects.requireNonNull(value, "astring is required");
             return this;
@@ -54,6 +72,8 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
          * @param value the value to be set
          * @return {@code this}
          */
+        @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public Builder withFirstOptional(@javax.annotation.Nullable final java.util.List<java.lang.String> value) {
             this._firstOptional = value;
             return this;
@@ -64,6 +84,8 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
          * @return a new instance of {@link MyFirstStruct}
          * @throws NullPointerException if any required attribute was not provided
          */
+        @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public MyFirstStruct build() {
             return new MyFirstStruct() {
                 private final java.lang.Number $anumber = java.util.Objects.requireNonNull(_anumber, "anumber is required");
@@ -111,6 +133,8 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
          * An awesome number value.
          */
         @Override
+        @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public java.lang.Number getAnumber() {
             return this.jsiiGet("anumber", java.lang.Number.class);
         }
@@ -119,11 +143,17 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
          * A string value.
          */
         @Override
+        @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public java.lang.String getAstring() {
             return this.jsiiGet("astring", java.lang.String.class);
         }
 
+        /**
+         */
         @Override
+        @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @javax.annotation.Nullable
         public java.util.List<java.lang.String> getFirstOptional() {
             return this.jsiiGet("firstOptional", java.util.List.class);

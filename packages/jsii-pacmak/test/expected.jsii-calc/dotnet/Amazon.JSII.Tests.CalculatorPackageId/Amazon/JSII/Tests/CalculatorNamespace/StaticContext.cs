@@ -3,7 +3,10 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>This is used to validate the ability to use `this` from within a static context.</summary>
-    /// <remarks>https://github.com/awslabs/aws-cdk/issues/2304</remarks>
+    /// <remarks>
+    /// https://github.com/awslabs/aws-cdk/issues/2304
+    /// stability: Experimental
+    /// </remarks>
     [JsiiClass(nativeType: typeof(StaticContext), fullyQualifiedName: "jsii-calc.StaticContext")]
     public class StaticContext : DeputyBase
     {
@@ -15,6 +18,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "staticVariable", typeJson: "{\"primitive\":\"boolean\"}")]
         public static bool StaticVariable
         {
@@ -22,6 +26,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetStaticProperty(typeof(StaticContext), value);
         }
 
+        /// <remarks>stability: Experimental</remarks>
         [JsiiMethod(name: "canAccessStaticContext", returnsJson: "{\"type\":{\"primitive\":\"boolean\"}}")]
         public static bool CanAccessStaticContext()
         {

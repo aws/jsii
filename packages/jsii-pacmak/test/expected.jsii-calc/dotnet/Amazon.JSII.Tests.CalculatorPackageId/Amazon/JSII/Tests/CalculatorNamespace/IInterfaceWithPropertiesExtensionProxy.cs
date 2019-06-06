@@ -2,6 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
+    /// <remarks>stability: Experimental</remarks>
     [JsiiTypeProxy(nativeType: typeof(IIInterfaceWithPropertiesExtension), fullyQualifiedName: "jsii-calc.IInterfaceWithPropertiesExtension")]
     internal sealed class IInterfaceWithPropertiesExtensionProxy : DeputyBase, IIInterfaceWithPropertiesExtension
     {
@@ -9,6 +10,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "foo", typeJson: "{\"primitive\":\"number\"}")]
         public double Foo
         {
@@ -16,12 +18,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
+        /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "readOnlyString", typeJson: "{\"primitive\":\"string\"}")]
         public string ReadOnlyString
         {
             get => GetInstanceProperty<string>();
         }
 
+        /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "readWriteString", typeJson: "{\"primitive\":\"string\"}")]
         public string ReadWriteString
         {

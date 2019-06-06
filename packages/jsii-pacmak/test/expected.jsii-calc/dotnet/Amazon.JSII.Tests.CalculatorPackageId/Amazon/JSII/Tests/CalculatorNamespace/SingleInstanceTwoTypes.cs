@@ -7,6 +7,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// JSII clients can instantiate 2 different strongly-typed wrappers for the same
     /// object. Unfortunately, this will break object equality, but if we didn't do
     /// this it would break runtime type checks in the JVM or CLR.
+    /// stability: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(SingleInstanceTwoTypes), fullyQualifiedName: "jsii-calc.SingleInstanceTwoTypes")]
     public class SingleInstanceTwoTypes : DeputyBase
@@ -23,12 +24,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <remarks>stability: Experimental</remarks>
         [JsiiMethod(name: "interface1", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.InbetweenClass\"}}")]
         public virtual InbetweenClass Interface1()
         {
             return InvokeInstanceMethod<InbetweenClass>(new object[]{});
         }
 
+        /// <remarks>stability: Experimental</remarks>
         [JsiiMethod(name: "interface2", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.IPublicInterface\"}}")]
         public virtual IIPublicInterface Interface2()
         {

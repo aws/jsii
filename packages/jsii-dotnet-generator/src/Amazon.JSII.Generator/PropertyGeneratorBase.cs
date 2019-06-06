@@ -180,15 +180,12 @@ namespace Amazon.JSII.Generator
                     SF.ParseAttributeArgumentList($"({argumentList})")
                 )));
 
-                if (Property.Docs?.Deprecated != null)
+                if (Property.Docs?.Stability == Stability.Deprecated)
                 {
+                    var argument = Property.Docs?.Deprecated != null ? SF.Literal(Property.Docs?.Deprecated).ToString() : "";
                     yield return SF.AttributeList(SF.SingletonSeparatedList(SF.Attribute(
                         SF.ParseName("System.Obsolete"),
-                        SF.AttributeArgumentList(
-                            SF.SingletonSeparatedList(
-                                SF.AttributeArgument(SF.LiteralExpression(SyntaxKind.StringLiteralExpression, SF.Literal(Property.Docs.Deprecated)))
-                            )
-                        )
+                        SF.ParseAttributeArgumentList($"({argument})")
                     )));
                 }
             }

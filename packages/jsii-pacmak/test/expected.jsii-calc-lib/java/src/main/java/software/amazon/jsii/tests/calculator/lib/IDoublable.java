@@ -4,7 +4,13 @@ package software.amazon.jsii.tests.calculator.lib;
  * The general contract for a concrete number.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@Deprecated
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
 public interface IDoublable extends software.amazon.jsii.JsiiSerializable {
+    /**
+     */
+    @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     java.lang.Number getDoubleValue();
 
     /**
@@ -15,7 +21,11 @@ public interface IDoublable extends software.amazon.jsii.JsiiSerializable {
             super(mode);
         }
 
+        /**
+         */
         @Override
+        @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public java.lang.Number getDoubleValue() {
             return this.jsiiGet("doubleValue", java.lang.Number.class);
         }

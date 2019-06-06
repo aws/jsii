@@ -6,8 +6,11 @@ package software.amazon.jsii.tests.calculator;
  * - Implement `overrideMe` (method does not have to do anything).
  * - Invoke `callMe`
  * - Verify that `methodWasCalled` is `true`.
+ * 
+ * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.VoidCallback")
 public abstract class VoidCallback extends software.amazon.jsii.JsiiObject {
     protected VoidCallback(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
@@ -18,12 +21,24 @@ public abstract class VoidCallback extends software.amazon.jsii.JsiiObject {
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void callMe() {
         this.jsiiCall("callMe", Void.class);
     }
 
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     protected abstract void overrideMe();
 
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Boolean getMethodWasCalled() {
         return this.jsiiGet("methodWasCalled", java.lang.Boolean.class);
     }
@@ -36,6 +51,10 @@ public abstract class VoidCallback extends software.amazon.jsii.JsiiObject {
             super(mode);
         }
 
+        /**
+         * EXPERIMENTAL
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         protected void overrideMe() {
             this.jsiiCall("overrideMe", Void.class);

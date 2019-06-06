@@ -1,6 +1,10 @@
 package software.amazon.jsii.tests.calculator;
 
+/**
+ * EXPERIMENTAL
+ */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.AbstractClassBase")
 public abstract class AbstractClassBase extends software.amazon.jsii.JsiiObject {
     protected AbstractClassBase(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
@@ -11,6 +15,10 @@ public abstract class AbstractClassBase extends software.amazon.jsii.JsiiObject 
         software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String getAbstractProperty() {
         return this.jsiiGet("abstractProperty", java.lang.String.class);
     }
@@ -23,7 +31,11 @@ public abstract class AbstractClassBase extends software.amazon.jsii.JsiiObject 
             super(mode);
         }
 
+        /**
+         * EXPERIMENTAL
+         */
         @Override
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public java.lang.String getAbstractProperty() {
             return this.jsiiGet("abstractProperty", java.lang.String.class);
         }

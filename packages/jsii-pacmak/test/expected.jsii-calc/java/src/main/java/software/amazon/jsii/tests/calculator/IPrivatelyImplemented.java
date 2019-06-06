@@ -1,7 +1,15 @@
 package software.amazon.jsii.tests.calculator;
 
+/**
+ * EXPERIMENTAL
+ */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface IPrivatelyImplemented extends software.amazon.jsii.JsiiSerializable {
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.lang.Boolean getSuccess();
 
     /**
@@ -12,7 +20,11 @@ public interface IPrivatelyImplemented extends software.amazon.jsii.JsiiSerializ
             super(mode);
         }
 
+        /**
+         * EXPERIMENTAL
+         */
         @Override
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public java.lang.Boolean getSuccess() {
             return this.jsiiGet("success", java.lang.Boolean.class);
         }

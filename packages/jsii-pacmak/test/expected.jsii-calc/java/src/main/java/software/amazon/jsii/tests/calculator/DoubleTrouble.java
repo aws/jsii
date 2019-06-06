@@ -1,6 +1,10 @@
 package software.amazon.jsii.tests.calculator;
 
+/**
+ * EXPERIMENTAL
+ */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.DoubleTrouble")
 public class DoubleTrouble extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IFriendlyRandomGenerator {
     protected DoubleTrouble(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
@@ -13,7 +17,10 @@ public class DoubleTrouble extends software.amazon.jsii.JsiiObject implements so
 
     /**
      * Say hello!
+     * 
+     * EXPERIMENTAL
      */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @Override
     public java.lang.String hello() {
         return this.jsiiCall("hello", java.lang.String.class);
@@ -21,7 +28,10 @@ public class DoubleTrouble extends software.amazon.jsii.JsiiObject implements so
 
     /**
      * Returns another random number.
+     * 
+     * EXPERIMENTAL
      */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @Override
     public java.lang.Number next() {
         return this.jsiiCall("next", java.lang.Number.class);

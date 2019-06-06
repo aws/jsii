@@ -2,18 +2,27 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Even friendlier classes can implement this interface.
+ * 
+ * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.lib.IFriendly {
     /**
      * Say farewell.
+     * 
+     * EXPERIMENTAL
      */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.lang.String farewell();
     /**
      * Say goodbye.
      * 
+     * EXPERIMENTAL
+     * 
      * @return A goodbye blessing.
      */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.lang.String goodbye();
 
     /**
@@ -26,7 +35,10 @@ public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, soft
 
         /**
          * Say farewell.
+         * 
+         * EXPERIMENTAL
          */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public java.lang.String farewell() {
             return this.jsiiCall("farewell", java.lang.String.class);
@@ -35,8 +47,11 @@ public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, soft
         /**
          * Say goodbye.
          * 
+         * EXPERIMENTAL
+         * 
          * @return A goodbye blessing.
          */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public java.lang.String goodbye() {
             return this.jsiiCall("goodbye", java.lang.String.class);
@@ -45,6 +60,8 @@ public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, soft
         /**
          * Say hello!
          */
+        @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Override
         public java.lang.String hello() {
             return this.jsiiCall("hello", java.lang.String.class);

@@ -1,7 +1,15 @@
 package software.amazon.jsii.tests.calculator;
 
+/**
+ * EXPERIMENTAL
+ */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface IPublicInterface2 extends software.amazon.jsii.JsiiSerializable {
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.lang.String ciao();
 
     /**
@@ -12,6 +20,10 @@ public interface IPublicInterface2 extends software.amazon.jsii.JsiiSerializable
             super(mode);
         }
 
+        /**
+         * EXPERIMENTAL
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public java.lang.String ciao() {
             return this.jsiiCall("ciao", java.lang.String.class);

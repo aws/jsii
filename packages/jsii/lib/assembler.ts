@@ -79,7 +79,7 @@ export class Assembler implements Emitter {
       const symbol = this._typeChecker.getSymbolAtLocation(sourceFile);
       if (!symbol) { continue; }
       for (const node of this._typeChecker.getExportsOfModule(symbol)) {
-        await this._visitNode(node.declarations[0]);
+        await this._visitNode(node.declarations[0], new EmitContext([], this.projectInfo.stability));
       }
     }
 
@@ -312,31 +312,31 @@ export class Assembler implements Emitter {
    * @param node       a node found in a module
    * @param namePrefix the prefix for the types' namespaces
    */
-  private async _visitNode(node: ts.Declaration, namePrefix: string[] = []): Promise<spec.Type[]> {
+  private async _visitNode(node: ts.Declaration, context: EmitContext): Promise<spec.Type[]> {
     // tslint:disable-next-line:no-bitwise Ignore nodes that are not export declarations
     if ((ts.getCombinedModifierFlags(node) & ts.ModifierFlags.Export) === 0) { return []; }
 
     let jsiiType: spec.Type | undefined;
 
     if (ts.isClassDeclaration(node) && _isExported(node)) {
-      jsiiType = await this._visitClass(this._typeChecker.getTypeAtLocation(node), namePrefix);
+      jsiiType = await this._visitClass(this._typeChecker.getTypeAtLocation(node), context);
     } else if (ts.isInterfaceDeclaration(node) && _isExported(node)) {
-      jsiiType = await this._visitInterface(this._typeChecker.getTypeAtLocation(node), namePrefix);
+      jsiiType = await this._visitInterface(this._typeChecker.getTypeAtLocation(node), context);
     } else if (ts.isEnumDeclaration(node) && _isExported(node)) {
-      jsiiType = await this._visitEnum(this._typeChecker.getTypeAtLocation(node), namePrefix);
+      jsiiType = await this._visitEnum(this._typeChecker.getTypeAtLocation(node), context);
     } else if (ts.isModuleDeclaration(node)) {
       const moduleDecl = node as ts.ModuleDeclaration;
       const name = node.name.getText();
       const symbol = (moduleDecl as any).symbol;
 
-      if (LOG.isTraceEnabled()) { LOG.trace(`Entering namespace: ${colors.cyan([...namePrefix, name].join('.'))}`); }
+      if (LOG.isTraceEnabled()) { LOG.trace(`Entering namespace: ${colors.cyan([...context.namespace, name].join('.'))}`); }
 
       const allTypes = new Array<spec.Type>();
       for (const prop of this._typeChecker.getExportsOfModule(symbol)) {
-        allTypes.push(...await this._visitNode(prop.declarations[0], namePrefix.concat(node.name.getText())));
+        allTypes.push(...await this._visitNode(prop.declarations[0], context.appendNamespace(node.name.getText())));
       }
 
-      if (LOG.isTraceEnabled()) { LOG.trace(`Leaving namespace:  ${colors.cyan([...namePrefix, name].join('.'))}`); }
+      if (LOG.isTraceEnabled()) { LOG.trace(`Leaving namespace:  ${colors.cyan([...context.namespace, name].join('.'))}`); }
       return allTypes;
     } else {
       this._diagnostic(node, ts.DiagnosticCategory.Message, `Skipping ${ts.SyntaxKind[node.kind]} node`);
@@ -352,11 +352,11 @@ export class Assembler implements Emitter {
 
     const type = this._typeChecker.getTypeAtLocation(node);
     if (type.symbol.exports) {
-      const nestedPrefix = [...namePrefix, type.symbol.name];
+      const nestedContext = context.appendNamespace(type.symbol.name);
       for (const exportedNode of this._typeChecker.getExportsOfModule(type.symbol).filter(s => s.declarations)) {
-        const nestedTypes = await this._visitNode(exportedNode.declarations[0], nestedPrefix);
+        const nestedTypes = await this._visitNode(exportedNode.declarations[0], nestedContext);
         for (const nestedType of nestedTypes) {
-          if (nestedType.namespace !== nestedPrefix.join('.')) {
+          if (nestedType.namespace !== nestedContext.namespace.join('.')) {
             this._diagnostic(node,
               ts.DiagnosticCategory.Error,
               // tslint:disable-next-line:max-line-length
@@ -430,24 +430,24 @@ export class Assembler implements Emitter {
     return { interfaces: result.length === 0 ? undefined : result, erasedBases };
   }
 
-  private async _visitClass(type: ts.Type, namespace: string[]): Promise<spec.ClassType | undefined> {
+  private async _visitClass(type: ts.Type, ctx: EmitContext): Promise<spec.ClassType | undefined> {
     if (LOG.isTraceEnabled()) {
-      LOG.trace(`Processing class: ${colors.gray(namespace.join('.'))}.${colors.cyan(type.symbol.name)}`);
+      LOG.trace(`Processing class: ${colors.gray(ctx.namespace.join('.'))}.${colors.cyan(type.symbol.name)}`);
     }
 
     if (_hasInternalJsDocTag(type.symbol)) {
       return undefined;
     }
 
-    const fqn = `${[this.projectInfo.name, ...namespace].join('.')}.${type.symbol.name}`;
+    const fqn = `${[this.projectInfo.name, ...ctx.namespace].join('.')}.${type.symbol.name}`;
 
     const jsiiType: spec.ClassType = {
       assembly: this.projectInfo.name,
       fqn,
       kind: spec.TypeKind.Class,
       name: type.symbol.name,
-      namespace: namespace.length > 0 ? namespace.join('.') : undefined,
-      docs: this._visitDocumentation(type.symbol),
+      namespace: ctx.namespace.length > 0 ? ctx.namespace.join('.') : undefined,
+      docs: this._visitDocumentation(type.symbol, ctx),
     };
 
     if (_isAbstract(type.symbol, jsiiType)) {
@@ -572,11 +572,11 @@ export class Assembler implements Emitter {
         }
 
         if (ts.isMethodDeclaration(memberDecl) || ts.isMethodSignature(memberDecl)) {
-          await this._visitMethod(member, jsiiType);
+          await this._visitMethod(member, jsiiType, ctx.replaceStability(jsiiType.docs && jsiiType.docs.stability));
         } else if (ts.isPropertyDeclaration(memberDecl)
           || ts.isPropertySignature(memberDecl)
           || ts.isAccessor(memberDecl)) {
-          await this._visitProperty(member, jsiiType);
+          await this._visitProperty(member, jsiiType, ctx.replaceStability(jsiiType.docs && jsiiType.docs.stability));
         } else {
           this._diagnostic(memberDecl,
             ts.DiagnosticCategory.Warning,
@@ -597,21 +597,21 @@ export class Assembler implements Emitter {
         if (signature) {
           for (const param of signature.getParameters()) {
             jsiiType.initializer.parameters = jsiiType.initializer.parameters || [];
-            jsiiType.initializer.parameters.push(await this._toParameter(param));
+            jsiiType.initializer.parameters.push(await this._toParameter(param, ctx.replaceStability(jsiiType.docs && jsiiType.docs.stability)));
             jsiiType.initializer.variadic =
               (jsiiType.initializer.parameters && jsiiType.initializer.parameters.some(p => !!p.variadic))
               || undefined;
           }
         }
         this._verifyConsecutiveOptionals(ctorDeclaration, jsiiType.initializer.parameters);
-        jsiiType.initializer.docs = this._visitDocumentation(constructor);
+        jsiiType.initializer.docs = this._visitDocumentation(constructor, ctx);
       }
 
       // Process constructor-based property declarations even if constructor is private
       if (signature) {
         for (const param of signature.getParameters()) {
           if (ts.isParameterPropertyDeclaration(param.valueDeclaration)) {
-            await this._visitProperty(param, jsiiType);
+            await this._visitProperty(param, jsiiType, ctx.replaceStability(jsiiType.docs && jsiiType.docs.stability));
           }
         }
       }
@@ -730,9 +730,9 @@ export class Assembler implements Emitter {
     return true;
   }
 
-  private async _visitEnum(type: ts.Type, namespace: string[]): Promise<spec.EnumType | undefined> {
+  private async _visitEnum(type: ts.Type, ctx: EmitContext): Promise<spec.EnumType | undefined> {
     if (LOG.isTraceEnabled()) {
-      LOG.trace(`Processing enum: ${colors.gray(namespace.join('.'))}.${colors.cyan(type.symbol.name)}`);
+      LOG.trace(`Processing enum: ${colors.gray(ctx.namespace.join('.'))}.${colors.cyan(type.symbol.name)}`);
     }
 
     if (_hasInternalJsDocTag(type.symbol)) {
@@ -748,18 +748,20 @@ export class Assembler implements Emitter {
         `Exported enum cannot be declared 'const'`);
     }
 
-    const docs = this._visitDocumentation(type.symbol);
+    const docs = this._visitDocumentation(type.symbol, ctx);
+
+    const typeContext = ctx.replaceStability(docs && docs.stability);
 
     const jsiiType: spec.EnumType = {
       assembly: this.projectInfo.name,
-      fqn: `${[this.projectInfo.name, ...namespace].join('.')}.${type.symbol.name}`,
+      fqn: `${[this.projectInfo.name, ...ctx.namespace].join('.')}.${type.symbol.name}`,
       kind: spec.TypeKind.Enum,
       members: ((type as ts.UnionType).types || []).map(m => ({
         name: m.symbol.name,
-        docs: this._visitDocumentation(m.symbol),
+        docs: this._visitDocumentation(m.symbol, typeContext),
       })),
       name: type.symbol.name,
-      namespace: namespace.length > 0 ? namespace.join('.') : undefined,
+      namespace: ctx.namespace.length > 0 ? ctx.namespace.join('.') : undefined,
       docs
     };
 
@@ -769,7 +771,7 @@ export class Assembler implements Emitter {
   /**
    * Return docs for a symbol
    */
-  private _visitDocumentation(sym: ts.Symbol): spec.Docs | undefined {
+  private _visitDocumentation(sym: ts.Symbol, context: EmitContext): spec.Docs | undefined {
     const result = parseSymbolDocumentation(sym, this._typeChecker);
 
     for (const diag of result.diagnostics || []) {
@@ -777,6 +779,11 @@ export class Assembler implements Emitter {
         ts.DiagnosticCategory.Error,
         diag
       );
+    }
+
+    // Apply the current context's stability if none was specified locally.
+    if (result.docs.stability == null) {
+      result.docs.stability = context.stability;
     }
 
     const allUndefined = Object.values(result.docs).every(v => v === undefined);
@@ -797,24 +804,24 @@ export class Assembler implements Emitter {
     }
   }
 
-  private async _visitInterface(type: ts.Type, namespace: string[]): Promise<spec.InterfaceType | undefined> {
+  private async _visitInterface(type: ts.Type, ctx: EmitContext): Promise<spec.InterfaceType | undefined> {
     if (LOG.isTraceEnabled()) {
-      LOG.trace(`Processing interface: ${colors.gray(namespace.join('.'))}.${colors.cyan(type.symbol.name)}`);
+      LOG.trace(`Processing interface: ${colors.gray(ctx.namespace.join('.'))}.${colors.cyan(type.symbol.name)}`);
     }
 
     if (_hasInternalJsDocTag(type.symbol)) {
       return undefined;
     }
 
-    const fqn = `${[this.projectInfo.name, ...namespace].join('.')}.${type.symbol.name}`;
+    const fqn = `${[this.projectInfo.name, ...ctx.namespace].join('.')}.${type.symbol.name}`;
 
     const jsiiType: spec.InterfaceType = {
       assembly: this.projectInfo.name,
       fqn,
       kind: spec.TypeKind.Interface,
       name: type.symbol.name,
-      namespace: namespace.length > 0 ? namespace.join('.') : undefined,
-      docs: this._visitDocumentation(type.symbol),
+      namespace: ctx.namespace.length > 0 ? ctx.namespace.join('.') : undefined,
+      docs: this._visitDocumentation(type.symbol, ctx),
     };
 
     const { interfaces, erasedBases } = await this._processBaseInterfaces(fqn, type.getBaseTypes());
@@ -829,11 +836,11 @@ export class Assembler implements Emitter {
         }
 
         if (ts.isMethodDeclaration(member.valueDeclaration) || ts.isMethodSignature(member.valueDeclaration)) {
-          await this._visitMethod(member, jsiiType);
+          await this._visitMethod(member, jsiiType, ctx.replaceStability(jsiiType.docs && jsiiType.docs.stability));
         } else if (ts.isPropertyDeclaration(member.valueDeclaration)
           || ts.isPropertySignature(member.valueDeclaration)
           || ts.isAccessor(member.valueDeclaration)) {
-          await this._visitProperty(member, jsiiType);
+          await this._visitProperty(member, jsiiType, ctx.replaceStability(jsiiType.docs && jsiiType.docs.stability));
         } else {
           this._diagnostic(member.valueDeclaration,
             ts.DiagnosticCategory.Warning,
@@ -923,7 +930,7 @@ export class Assembler implements Emitter {
     return _sortMembers(jsiiType);
   }
 
-  private async _visitMethod(symbol: ts.Symbol, type: spec.ClassType | spec.InterfaceType) {
+  private async _visitMethod(symbol: ts.Symbol, type: spec.ClassType | spec.InterfaceType, ctx: EmitContext) {
     if (LOG.isTraceEnabled()) {
       LOG.trace(`Processing method: ${colors.green(type.fqn)}#${colors.cyan(symbol.name)}`);
     }
@@ -938,7 +945,7 @@ export class Assembler implements Emitter {
       this._diagnostic(declaration, ts.DiagnosticCategory.Error, `Prohibited member name: ${symbol.name}`);
       return;
     }
-    const parameters = await Promise.all(signature.getParameters().map(p => this._toParameter(p)));
+    const parameters = await Promise.all(signature.getParameters().map(p => this._toParameter(p, ctx)));
 
     const returnType = signature.getReturnType();
     const method: spec.Method = {
@@ -955,7 +962,7 @@ export class Assembler implements Emitter {
 
     this._verifyConsecutiveOptionals(declaration, method.parameters);
 
-    method.docs = this._visitDocumentation(symbol);
+    method.docs = this._visitDocumentation(symbol, ctx);
 
     // If the last parameter is a datatype, verify that it does not share any field names with
     // other function arguments, so that it can be turned into keyword arguments by jsii frontends
@@ -990,7 +997,7 @@ export class Assembler implements Emitter {
     type.methods.push(method);
   }
 
-  private async _visitProperty(symbol: ts.Symbol, type: spec.ClassType | spec.InterfaceType) {
+  private async _visitProperty(symbol: ts.Symbol, type: spec.ClassType | spec.InterfaceType, ctx: EmitContext) {
     if (type.properties && type.properties.find(p => p.name === symbol.name)) {
       /*
        * Second declaration of the same property. For example, if code specifies a getter & setter signature,
@@ -1037,7 +1044,7 @@ export class Assembler implements Emitter {
       property.const = true;
     }
 
-    property.docs = this._visitDocumentation(symbol);
+    property.docs = this._visitDocumentation(symbol, ctx);
 
     type.properties = type.properties || [];
     if (type.properties.find(prop => prop.name === property.name && prop.static === property.static) != null) {
@@ -1047,7 +1054,7 @@ export class Assembler implements Emitter {
     type.properties.push(property);
   }
 
-  private async _toParameter(paramSymbol: ts.Symbol): Promise<spec.Parameter> {
+  private async _toParameter(paramSymbol: ts.Symbol, ctx: EmitContext): Promise<spec.Parameter> {
     if (LOG.isTraceEnabled()) {
       LOG.trace(`Processing parameter: ${colors.cyan(paramSymbol.name)}`);
     }
@@ -1067,7 +1074,7 @@ export class Assembler implements Emitter {
       parameter.optional = true;
     }
 
-    parameter.docs = this._visitDocumentation(paramSymbol); // No inheritance on purpose
+    parameter.docs = this._visitDocumentation(paramSymbol, ctx.removeStability()); // No inheritance on purpose
 
     return parameter;
   }
@@ -1639,4 +1646,38 @@ const PROHIBITED_MEMBER_NAMES = ['equals', 'hashcode'];
  */
 function isProhibitedMemberName(name: string) {
   return PROHIBITED_MEMBER_NAMES.includes(name.toLowerCase());
+}
+
+/**
+ * Information about the context in which a declaration is emitted.
+ */
+class EmitContext {
+  constructor(public readonly namespace: ReadonlyArray<string>, public readonly stability?: spec.Stability) {
+  }
+
+  /**
+   * Create a new EmitContext by appending a namespace entry at the end.
+   * @param element the new namespace entry.
+   */
+  public appendNamespace(element: string) {
+    return new EmitContext([...this.namespace, element], this.stability);
+  }
+
+  /**
+   * Create a new EmitContext by replacing the stability.
+   * @param stability the new stability, if available.
+   */
+  public replaceStability(stability?: spec.Stability) {
+    if (!stability) {
+      return this;
+    }
+    return new EmitContext(this.namespace, stability);
+  }
+
+  /**
+   * Create a new EmitContext without stability.
+   */
+  public removeStability() {
+    return new EmitContext(this.namespace, undefined);
+  }
 }

@@ -1,12 +1,21 @@
 package software.amazon.jsii.tests.calculator;
 
+/**
+ * EXPERIMENTAL
+ */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.base.BaseProps {
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.time.Instant getGoo();
 
     /**
      * @return a {@link Builder} of {@link ImplictBaseOfBase}
      */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     static Builder builder() {
         return new Builder();
     }
@@ -14,6 +23,7 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
     /**
      * A builder for {@link ImplictBaseOfBase}
      */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     final class Builder {
         private java.time.Instant _goo;
         private java.lang.String _bar;
@@ -24,6 +34,7 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
          * @param value the value to be set
          * @return {@code this}
          */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder withGoo(final java.time.Instant value) {
             this._goo = java.util.Objects.requireNonNull(value, "goo is required");
             return this;
@@ -52,6 +63,7 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
          * @return a new instance of {@link ImplictBaseOfBase}
          * @throws NullPointerException if any required attribute was not provided
          */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public ImplictBaseOfBase build() {
             return new ImplictBaseOfBase() {
                 private final java.time.Instant $goo = java.util.Objects.requireNonNull(_goo, "goo is required");
@@ -94,7 +106,11 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
             super(mode);
         }
 
+        /**
+         * EXPERIMENTAL
+         */
         @Override
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public java.time.Instant getGoo() {
             return this.jsiiGet("goo", java.time.Instant.class);
         }

@@ -2,14 +2,20 @@ package software.amazon.jsii.tests.calculator;
 
 /**
  * Generates random numbers.
+ * 
+ * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface IRandomNumberGenerator extends software.amazon.jsii.JsiiSerializable {
     /**
      * Returns another random number.
      * 
+     * EXPERIMENTAL
+     * 
      * @return A random number.
      */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.lang.Number next();
 
     /**
@@ -23,8 +29,11 @@ public interface IRandomNumberGenerator extends software.amazon.jsii.JsiiSeriali
         /**
          * Returns another random number.
          * 
+         * EXPERIMENTAL
+         * 
          * @return A random number.
          */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
         public java.lang.Number next() {
             return this.jsiiCall("next", java.lang.Number.class);

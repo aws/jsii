@@ -7,7 +7,13 @@ package software.amazon.jsii.tests.calculator.lib;
  * far enough up the tree.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@Deprecated
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
 public interface IThreeLevelsInterface extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.base.IBaseInterface {
+    /**
+     */
+    @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     void baz();
 
     /**
@@ -18,6 +24,10 @@ public interface IThreeLevelsInterface extends software.amazon.jsii.JsiiSerializ
             super(mode);
         }
 
+        /**
+         */
+        @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Override
         public void baz() {
             this.jsiiCall("baz", Void.class);

@@ -2,6 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
+    /// <remarks>stability: Experimental</remarks>
     [JsiiClass(nativeType: typeof(Jsii487Derived), fullyQualifiedName: "jsii-calc.Jsii487Derived")]
     public class Jsii487Derived : DeputyBase, IIJsii487External2, IIJsii487External
     {
