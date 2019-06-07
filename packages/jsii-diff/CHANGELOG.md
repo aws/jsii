@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.1](https://github.com/awslabs/jsii/compare/v0.11.0...v0.11.1) (2019-06-07)
+
+
+### Bug Fixes
+
+* **jsii-diff:** crash when changing method to a property ([#521](https://github.com/awslabs/jsii/issues/521)) ([28241cd](https://github.com/awslabs/jsii/commit/28241cd)), closes [#520](https://github.com/awslabs/jsii/issues/520)
+
+
+
+
+
 # [0.11.0](https://github.com/awslabs/jsii/compare/v0.10.5...v0.11.0) (2019-05-21)
 
 
