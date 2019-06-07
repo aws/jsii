@@ -81,7 +81,9 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
                     com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
                     com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
                     obj.set("arrayWithThreeElementsAndUndefinedAsSecondArgument", om.valueToTree(this.getArrayWithThreeElementsAndUndefinedAsSecondArgument()));
-                    obj.set("thisShouldBeUndefined", om.valueToTree(this.getThisShouldBeUndefined()));
+                    if (this.getThisShouldBeUndefined() != null) {
+                        obj.set("thisShouldBeUndefined", om.valueToTree(this.getThisShouldBeUndefined()));
+                    }
                     return obj;
                 }
 

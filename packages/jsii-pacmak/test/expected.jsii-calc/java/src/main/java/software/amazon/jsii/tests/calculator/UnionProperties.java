@@ -111,7 +111,9 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
                     com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
                     com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
                     obj.set("bar", om.valueToTree(this.getBar()));
-                    obj.set("foo", om.valueToTree(this.getFoo()));
+                    if (this.getFoo() != null) {
+                        obj.set("foo", om.valueToTree(this.getFoo()));
+                    }
                     return obj;
                 }
 

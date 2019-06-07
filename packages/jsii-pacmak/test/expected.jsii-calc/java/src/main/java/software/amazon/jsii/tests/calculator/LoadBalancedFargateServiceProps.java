@@ -195,11 +195,21 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
                 public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
                     com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
                     com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-                    obj.set("containerPort", om.valueToTree(this.getContainerPort()));
-                    obj.set("cpu", om.valueToTree(this.getCpu()));
-                    obj.set("memoryMiB", om.valueToTree(this.getMemoryMiB()));
-                    obj.set("publicLoadBalancer", om.valueToTree(this.getPublicLoadBalancer()));
-                    obj.set("publicTasks", om.valueToTree(this.getPublicTasks()));
+                    if (this.getContainerPort() != null) {
+                        obj.set("containerPort", om.valueToTree(this.getContainerPort()));
+                    }
+                    if (this.getCpu() != null) {
+                        obj.set("cpu", om.valueToTree(this.getCpu()));
+                    }
+                    if (this.getMemoryMiB() != null) {
+                        obj.set("memoryMiB", om.valueToTree(this.getMemoryMiB()));
+                    }
+                    if (this.getPublicLoadBalancer() != null) {
+                        obj.set("publicLoadBalancer", om.valueToTree(this.getPublicLoadBalancer()));
+                    }
+                    if (this.getPublicTasks() != null) {
+                        obj.set("publicTasks", om.valueToTree(this.getPublicTasks()));
+                    }
                     return obj;
                 }
 

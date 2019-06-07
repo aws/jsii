@@ -113,7 +113,9 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
                     com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
                     obj.set("anumber", om.valueToTree(this.getAnumber()));
                     obj.set("astring", om.valueToTree(this.getAstring()));
-                    obj.set("firstOptional", om.valueToTree(this.getFirstOptional()));
+                    if (this.getFirstOptional() != null) {
+                        obj.set("firstOptional", om.valueToTree(this.getFirstOptional()));
+                    }
                     return obj;
                 }
 

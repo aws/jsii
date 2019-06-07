@@ -64,7 +64,9 @@ public interface Greetee extends software.amazon.jsii.JsiiSerializable {
                 public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
                     com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
                     com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-                    obj.set("name", om.valueToTree(this.getName()));
+                    if (this.getName() != null) {
+                        obj.set("name", om.valueToTree(this.getName()));
+                    }
                     return obj;
                 }
 
