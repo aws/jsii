@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.1](https://github.com/awslabs/jsii/compare/v0.11.0...v0.11.1) (2019-06-07)
+
+
+### Bug Fixes
+
+* **jsii-pacmak:** retry .NET build a couple of times ([#509](https://github.com/awslabs/jsii/issues/509)) ([d1ef618](https://github.com/awslabs/jsii/commit/d1ef618))
+* **python:** support variadic arguments ([#513](https://github.com/awslabs/jsii/issues/513)) ([695ca6b](https://github.com/awslabs/jsii/commit/695ca6b))
+
+
+### Features
+
+* Register module-level stability ([#515](https://github.com/awslabs/jsii/issues/515)) ([efae447](https://github.com/awslabs/jsii/commit/efae447)), closes [awslabs/cdk-ops#367](https://github.com/awslabs/cdk-ops/issues/367)
+* **jsii:** Propagate stability to members ([#522](https://github.com/awslabs/jsii/issues/522)) ([20507e6](https://github.com/awslabs/jsii/commit/20507e6))
+* **jsii-spec:** Add optional metadata field ([#512](https://github.com/awslabs/jsii/issues/512)) ([10e2bfe](https://github.com/awslabs/jsii/commit/10e2bfe))
+
+
+
+
+
 # [0.11.0](https://github.com/awslabs/jsii/compare/v0.10.5...v0.11.0) (2019-05-21)
 
 

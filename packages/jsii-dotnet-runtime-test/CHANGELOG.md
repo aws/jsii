@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.1](https://github.com/awslabs/jsii/compare/v0.11.0...v0.11.1) (2019-06-07)
+
+
+### Features
+
+* **jsii-spec:** Add optional metadata field ([#512](https://github.com/awslabs/jsii/issues/512)) ([10e2bfe](https://github.com/awslabs/jsii/commit/10e2bfe))
+
+
+
+
+
 # [0.11.0](https://github.com/awslabs/jsii/compare/v0.10.5...v0.11.0) (2019-05-21)
 
 **Note:** Version bump only for package jsii-dotnet-runtime-test
