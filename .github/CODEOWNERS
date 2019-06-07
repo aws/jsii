@@ -10,4 +10,3 @@
 *                               @awslabs/aws-cdk-team
 /docs/                          @awslabs/aws-cdk-team @Doug-AWS
 /packages/*-dotnet-*/           @awslabs/aws-cdk-team @costleya
-/packages/*-python-*/           @awslabs/aws-cdk-team @dstufft
