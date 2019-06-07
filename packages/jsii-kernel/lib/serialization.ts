@@ -169,7 +169,8 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       // Just whatever. Dates will automatically serialize themselves to strings.
       return value;
     },
-    deserialize(value) {
+    deserialize(value, optionalValue) {
+      if (nullAndOk(value, optionalValue)) { return undefined; }
       return value;
     },
   },
