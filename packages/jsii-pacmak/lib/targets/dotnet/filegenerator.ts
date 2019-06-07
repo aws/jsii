@@ -96,8 +96,6 @@ export class FileGenerator {
 
         const xml = rootNode.end({pretty: true});
 
-        logging.debug(`XML: ${xml}`);
-
         // Sending the xml content to the codemaker to ensure the file is written
         // and added to the file list for tracking
         this.code.openFile(projectFilePath);
