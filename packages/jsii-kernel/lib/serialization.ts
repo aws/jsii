@@ -170,6 +170,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       return value;
     },
     deserialize(value, optionalValue) {
+      // /!\ Top-level "null" will turn to underfined, but any null nested in the value is valid JSON, so it'll stay!
       if (nullAndOk(value, optionalValue)) { return undefined; }
       return value;
     },
