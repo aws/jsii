@@ -10,6 +10,9 @@ If this file starts with an "H1" line (in our case `# jsii Calculator`), this
 heading will be used as the Sphinx topic name. Otherwise, the name of the module
 (`jsii-calc`) will be used instead.
 
+## Code Samples
 
-
-
+```ts
+/* This is totes a magic comment in here, just you wait! */
+const foo = 'bar';
+```
