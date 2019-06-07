@@ -237,12 +237,20 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
                     obj.set("anotherRequired", om.valueToTree(this.getAnotherRequired()));
                     obj.set("bool", om.valueToTree(this.getBool()));
                     obj.set("nonPrimitive", om.valueToTree(this.getNonPrimitive()));
-                    obj.set("anotherOptional", om.valueToTree(this.getAnotherOptional()));
-                    obj.set("optionalAny", om.valueToTree(this.getOptionalAny()));
-                    obj.set("optionalArray", om.valueToTree(this.getOptionalArray()));
+                    if (this.getAnotherOptional() != null) {
+                        obj.set("anotherOptional", om.valueToTree(this.getAnotherOptional()));
+                    }
+                    if (this.getOptionalAny() != null) {
+                        obj.set("optionalAny", om.valueToTree(this.getOptionalAny()));
+                    }
+                    if (this.getOptionalArray() != null) {
+                        obj.set("optionalArray", om.valueToTree(this.getOptionalArray()));
+                    }
                     obj.set("anumber", om.valueToTree(this.getAnumber()));
                     obj.set("astring", om.valueToTree(this.getAstring()));
-                    obj.set("firstOptional", om.valueToTree(this.getFirstOptional()));
+                    if (this.getFirstOptional() != null) {
+                        obj.set("firstOptional", om.valueToTree(this.getFirstOptional()));
+                    }
                     return obj;
                 }
 

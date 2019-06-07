@@ -82,8 +82,12 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
                 public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
                     com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
                     com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-                    obj.set("option1", om.valueToTree(this.getOption1()));
-                    obj.set("option2", om.valueToTree(this.getOption2()));
+                    if (this.getOption1() != null) {
+                        obj.set("option1", om.valueToTree(this.getOption1()));
+                    }
+                    if (this.getOption2() != null) {
+                        obj.set("option2", om.valueToTree(this.getOption2()));
+                    }
                     return obj;
                 }
 

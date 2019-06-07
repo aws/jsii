@@ -84,8 +84,12 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
                 public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
                     com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
                     com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-                    obj.set("initialValue", om.valueToTree(this.getInitialValue()));
-                    obj.set("maximumValue", om.valueToTree(this.getMaximumValue()));
+                    if (this.getInitialValue() != null) {
+                        obj.set("initialValue", om.valueToTree(this.getInitialValue()));
+                    }
+                    if (this.getMaximumValue() != null) {
+                        obj.set("maximumValue", om.valueToTree(this.getMaximumValue()));
+                    }
                     return obj;
                 }
 

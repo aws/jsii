@@ -890,7 +890,9 @@ class JavaGenerator extends Generator {
         this.code.line(`com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();`);
 
         for (const prop of props) {
+            if (prop.nullable) { this.code.openBlock(`if (this.get${prop.propName}() != null)`); }
             this.code.line(`obj.set(\"${prop.spec.name}\", om.valueToTree(this.get${prop.propName}()));`);
+            if (prop.nullable) { this.code.closeBlock(); }
         }
 
         this.code.line(`return obj;`);
