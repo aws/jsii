@@ -365,7 +365,7 @@ class JavaGenerator extends Generator {
         this.code.line('/**');
         if (mod.readme) {
             for (const line of md2html(mod.readme.markdown).split('\n')) {
-                this.code.line(` * ${line}`);
+                this.code.line(` * ${line.replace(/\*\//g, '*{@literal /}')}`);
             }
         }
         if (mod.docs.deprecated) {

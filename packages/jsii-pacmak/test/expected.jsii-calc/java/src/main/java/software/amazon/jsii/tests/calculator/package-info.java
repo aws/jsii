@@ -6,6 +6,10 @@
  * <p>If this file starts with an &quot;H1&quot; line (in our case <code># jsii Calculator</code>), this
  * heading will be used as the Sphinx topic name. Otherwise, the name of the module
  * (<code>jsii-calc</code>) will be used instead.</p>
+ * <h2>Code Samples</h2>
+ * <pre><code class="language-ts">/* This is totes a magic comment in here, just you wait! *{@literal /}
+ * const foo = 'bar';
+ * </code></pre>
  * 
  */
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
