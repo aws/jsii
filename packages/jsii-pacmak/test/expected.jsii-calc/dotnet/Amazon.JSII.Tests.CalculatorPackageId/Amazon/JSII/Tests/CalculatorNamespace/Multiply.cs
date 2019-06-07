@@ -1,13 +1,13 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
+using Amazon.JSII.Tests.CalculatorNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>The "*" binary operation.</summary>
-    [JsiiClass(nativeType: typeof(Multiply), fullyQualifiedName: "jsii-calc.Multiply", parametersJson: "[{\"name\":\"lhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},{\"name\":\"rhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
+    [JsiiClass(nativeType: typeof(Multiply), fullyQualifiedName: "jsii-calc.Multiply", parametersJson: "[{\"docs\":{\"summary\":\"Left-hand side operand.\"},\"name\":\"lhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},{\"docs\":{\"summary\":\"Right-hand side operand.\"},\"name\":\"rhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
     public class Multiply : BinaryOperation, IIFriendlier, IIRandomNumberGenerator
     {
-        public Multiply(Value_ lhs, Value_ rhs): base(new DeputyProps(new object[]{lhs, rhs}))
+        public Multiply(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ lhs, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ rhs): base(new DeputyProps(new object[]{lhs, rhs}))
         {
         }
 
@@ -17,13 +17,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         protected Multiply(DeputyProps props): base(props)
         {
-        }
-
-        /// <summary>The value.</summary>
-        [JsiiProperty(name: "value", typeJson: "{\"primitive\":\"number\"}")]
-        public override double Value
-        {
-            get => GetInstanceProperty<double>();
         }
 
         /// <summary>Say farewell.</summary>
@@ -52,6 +45,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public override string ToString()
         {
             return InvokeInstanceMethod<string>(new object[]{});
+        }
+
+        /// <summary>The value.</summary>
+        [JsiiProperty(name: "value", typeJson: "{\"primitive\":\"number\"}")]
+        public override double Value
+        {
+            get => GetInstanceProperty<double>();
         }
     }
 }

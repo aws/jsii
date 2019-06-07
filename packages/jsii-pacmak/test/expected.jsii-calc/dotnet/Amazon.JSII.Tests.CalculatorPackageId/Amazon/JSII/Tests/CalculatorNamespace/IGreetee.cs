@@ -7,7 +7,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     public interface IGreetee
     {
         /// <summary>The name of the greetee.</summary>
-        /// <remarks>default: world</remarks>
+        /// <remarks>
+        /// default: world
+        /// </remarks>
         [JsiiProperty(name: "name", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         string Name
         {

@@ -14,6 +14,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        [JsiiMethod(name: "create", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties\"}}", parametersJson: "[{\"name\":\"readOnlyString\",\"type\":{\"primitive\":\"string\"}},{\"name\":\"readWriteString\",\"type\":{\"primitive\":\"string\"}}]")]
+        public static Amazon.JSII.Tests.CalculatorNamespace.ClassWithPrivateConstructorAndAutomaticProperties Create(string readOnlyString, string readWriteString)
+        {
+            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.ClassWithPrivateConstructorAndAutomaticProperties>(typeof(ClassWithPrivateConstructorAndAutomaticProperties), new object[]{readOnlyString, readWriteString});
+        }
+
         [JsiiProperty(name: "readOnlyString", typeJson: "{\"primitive\":\"string\"}")]
         public virtual string ReadOnlyString
         {
@@ -25,12 +31,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get => GetInstanceProperty<string>();
             set => SetInstanceProperty(value);
-        }
-
-        [JsiiMethod(name: "create", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties\"}}", parametersJson: "[{\"name\":\"readOnlyString\",\"type\":{\"primitive\":\"string\"}},{\"name\":\"readWriteString\",\"type\":{\"primitive\":\"string\"}}]")]
-        public static ClassWithPrivateConstructorAndAutomaticProperties Create(string readOnlyString, string readWriteString)
-        {
-            return InvokeStaticMethod<ClassWithPrivateConstructorAndAutomaticProperties>(typeof(ClassWithPrivateConstructorAndAutomaticProperties), new object[]{readOnlyString, readWriteString});
         }
     }
 }

@@ -18,13 +18,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>Returns the current os.platform() from the "os" node module.</summary>
-        [JsiiProperty(name: "osPlatform", typeJson: "{\"primitive\":\"string\"}")]
-        public virtual string OsPlatform
-        {
-            get => GetInstanceProperty<string>();
-        }
-
         /// <summary>Uses node.js "crypto" module to calculate sha256 of a string.</summary>
         /// <returns>"6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50"</returns>
         [JsiiMethod(name: "cryptoSha256", returnsJson: "{\"type\":{\"primitive\":\"string\"}}")]
@@ -47,6 +40,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public virtual string FsReadFileSync()
         {
             return InvokeInstanceMethod<string>(new object[]{});
+        }
+
+        /// <summary>Returns the current os.platform() from the "os" node module.</summary>
+        [JsiiProperty(name: "osPlatform", typeJson: "{\"primitive\":\"string\"}")]
+        public virtual string OsPlatform
+        {
+            get => GetInstanceProperty<string>();
         }
     }
 }

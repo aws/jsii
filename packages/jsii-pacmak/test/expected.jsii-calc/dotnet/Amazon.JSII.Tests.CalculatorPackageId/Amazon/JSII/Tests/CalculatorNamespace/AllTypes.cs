@@ -1,8 +1,4 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
@@ -26,23 +22,41 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        [JsiiMethod(name: "anyIn", parametersJson: "[{\"name\":\"inp\",\"type\":{\"primitive\":\"any\"}}]")]
+        public virtual void AnyIn(object inp)
+        {
+            InvokeInstanceVoidMethod(new object[]{inp});
+        }
+
+        [JsiiMethod(name: "anyOut", returnsJson: "{\"type\":{\"primitive\":\"any\"}}")]
+        public virtual object AnyOut()
+        {
+            return InvokeInstanceMethod<object>(new object[]{});
+        }
+
+        [JsiiMethod(name: "enumMethod", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.StringEnum\"}}", parametersJson: "[{\"name\":\"value\",\"type\":{\"fqn\":\"jsii-calc.StringEnum\"}}]")]
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.StringEnum EnumMethod(Amazon.JSII.Tests.CalculatorNamespace.StringEnum @value)
+        {
+            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.StringEnum>(new object[]{@value});
+        }
+
         [JsiiProperty(name: "enumPropertyValue", typeJson: "{\"primitive\":\"number\"}")]
         public virtual double EnumPropertyValue
         {
             get => GetInstanceProperty<double>();
         }
 
-        [JsiiProperty(name: "anyArrayProperty", typeJson: "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"any\"}}}")]
+        [JsiiProperty(name: "anyArrayProperty", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"any\"},\"kind\":\"array\"}}")]
         public virtual object[] AnyArrayProperty
         {
             get => GetInstanceProperty<object[]>();
             set => SetInstanceProperty(value);
         }
 
-        [JsiiProperty(name: "anyMapProperty", typeJson: "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"primitive\":\"any\"}}}")]
-        public virtual IDictionary<string, object> AnyMapProperty
+        [JsiiProperty(name: "anyMapProperty", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"any\"},\"kind\":\"map\"}}")]
+        public virtual System.Collections.Generic.IDictionary<string, object> AnyMapProperty
         {
-            get => GetInstanceProperty<IDictionary<string, object>>();
+            get => GetInstanceProperty<System.Collections.Generic.IDictionary<string, object>>();
             set => SetInstanceProperty(value);
         }
 
@@ -53,7 +67,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        [JsiiProperty(name: "arrayProperty", typeJson: "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}}}")]
+        [JsiiProperty(name: "arrayProperty", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"string\"},\"kind\":\"array\"}}")]
         public virtual string[] ArrayProperty
         {
             get => GetInstanceProperty<string[]>();
@@ -68,30 +82,30 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         [JsiiProperty(name: "dateProperty", typeJson: "{\"primitive\":\"date\"}")]
-        public virtual DateTime DateProperty
+        public virtual System.DateTime DateProperty
         {
-            get => GetInstanceProperty<DateTime>();
+            get => GetInstanceProperty<System.DateTime>();
             set => SetInstanceProperty(value);
         }
 
         [JsiiProperty(name: "enumProperty", typeJson: "{\"fqn\":\"jsii-calc.AllTypesEnum\"}")]
-        public virtual AllTypesEnum EnumProperty
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.AllTypesEnum EnumProperty
         {
-            get => GetInstanceProperty<AllTypesEnum>();
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.AllTypesEnum>();
             set => SetInstanceProperty(value);
         }
 
         [JsiiProperty(name: "jsonProperty", typeJson: "{\"primitive\":\"json\"}")]
-        public virtual JObject JsonProperty
+        public virtual Newtonsoft.Json.Linq.JObject JsonProperty
         {
-            get => GetInstanceProperty<JObject>();
+            get => GetInstanceProperty<Newtonsoft.Json.Linq.JObject>();
             set => SetInstanceProperty(value);
         }
 
-        [JsiiProperty(name: "mapProperty", typeJson: "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Number\"}}}")]
-        public virtual IDictionary<string, Number> MapProperty
+        [JsiiProperty(name: "mapProperty", typeJson: "{\"collection\":{\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Number\"},\"kind\":\"map\"}}")]
+        public virtual System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number> MapProperty
         {
-            get => GetInstanceProperty<IDictionary<string, Number>>();
+            get => GetInstanceProperty<System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number>>();
             set => SetInstanceProperty(value);
         }
 
@@ -109,17 +123,17 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        [JsiiProperty(name: "unionArrayProperty", typeJson: "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"union\":{\"types\":[{\"primitive\":\"number\"},{\"fqn\":\"@scope/jsii-calc-lib.Value\"}]}}}}")]
+        [JsiiProperty(name: "unionArrayProperty", typeJson: "{\"collection\":{\"elementtype\":{\"union\":{\"types\":[{\"primitive\":\"number\"},{\"fqn\":\"@scope/jsii-calc-lib.Value\"}]}},\"kind\":\"array\"}}")]
         public virtual object[] UnionArrayProperty
         {
             get => GetInstanceProperty<object[]>();
             set => SetInstanceProperty(value);
         }
 
-        [JsiiProperty(name: "unionMapProperty", typeJson: "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"union\":{\"types\":[{\"primitive\":\"string\"},{\"primitive\":\"number\"},{\"fqn\":\"@scope/jsii-calc-lib.Number\"}]}}}}")]
-        public virtual IDictionary<string, object> UnionMapProperty
+        [JsiiProperty(name: "unionMapProperty", typeJson: "{\"collection\":{\"elementtype\":{\"union\":{\"types\":[{\"primitive\":\"string\"},{\"primitive\":\"number\"},{\"fqn\":\"@scope/jsii-calc-lib.Number\"}]}},\"kind\":\"map\"}}")]
+        public virtual System.Collections.Generic.IDictionary<string, object> UnionMapProperty
         {
-            get => GetInstanceProperty<IDictionary<string, object>>();
+            get => GetInstanceProperty<System.Collections.Generic.IDictionary<string, object>>();
             set => SetInstanceProperty(value);
         }
 
@@ -130,17 +144,17 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        [JsiiProperty(name: "unknownArrayProperty", typeJson: "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"any\"}}}")]
+        [JsiiProperty(name: "unknownArrayProperty", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"any\"},\"kind\":\"array\"}}")]
         public virtual object[] UnknownArrayProperty
         {
             get => GetInstanceProperty<object[]>();
             set => SetInstanceProperty(value);
         }
 
-        [JsiiProperty(name: "unknownMapProperty", typeJson: "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"primitive\":\"any\"}}}")]
-        public virtual IDictionary<string, object> UnknownMapProperty
+        [JsiiProperty(name: "unknownMapProperty", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"any\"},\"kind\":\"map\"}}")]
+        public virtual System.Collections.Generic.IDictionary<string, object> UnknownMapProperty
         {
-            get => GetInstanceProperty<IDictionary<string, object>>();
+            get => GetInstanceProperty<System.Collections.Generic.IDictionary<string, object>>();
             set => SetInstanceProperty(value);
         }
 
@@ -152,28 +166,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         [JsiiProperty(name: "optionalEnumValue", typeJson: "{\"fqn\":\"jsii-calc.StringEnum\"}", isOptional: true)]
-        public virtual StringEnum? OptionalEnumValue
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.StringEnum OptionalEnumValue
         {
-            get => GetInstanceProperty<StringEnum? >();
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.StringEnum>();
             set => SetInstanceProperty(value);
-        }
-
-        [JsiiMethod(name: "anyIn", parametersJson: "[{\"name\":\"inp\",\"type\":{\"primitive\":\"any\"}}]")]
-        public virtual void AnyIn(object inp)
-        {
-            InvokeInstanceVoidMethod(new object[]{inp});
-        }
-
-        [JsiiMethod(name: "anyOut", returnsJson: "{\"type\":{\"primitive\":\"any\"}}")]
-        public virtual object AnyOut()
-        {
-            return InvokeInstanceMethod<object>(new object[]{});
-        }
-
-        [JsiiMethod(name: "enumMethod", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.StringEnum\"}}", parametersJson: "[{\"name\":\"value\",\"type\":{\"fqn\":\"jsii-calc.StringEnum\"}}]")]
-        public virtual StringEnum EnumMethod(StringEnum value)
-        {
-            return InvokeInstanceMethod<StringEnum>(new object[]{value});
         }
     }
 }

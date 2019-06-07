@@ -1,12 +1,13 @@
 using Amazon.JSII.Runtime.Deputy;
+using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
     /// <summary>Represents a concrete number.</summary>
     [JsiiClass(nativeType: typeof(Number), fullyQualifiedName: "@scope/jsii-calc-lib.Number", parametersJson: "[{\"docs\":{\"summary\":\"The number.\"},\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]
-    public class Number : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_, IIDoublable
+    public class Number : Value_, IIDoublable
     {
-        public Number(double value): base(new DeputyProps(new object[]{value}))
+        public Number(double @value): base(new DeputyProps(new object[]{@value}))
         {
         }
 

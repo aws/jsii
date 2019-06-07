@@ -1,5 +1,4 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {

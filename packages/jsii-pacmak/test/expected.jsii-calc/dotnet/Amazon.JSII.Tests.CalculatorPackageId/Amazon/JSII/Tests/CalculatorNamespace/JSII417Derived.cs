@@ -1,4 +1,5 @@
 using Amazon.JSII.Runtime.Deputy;
+using Amazon.JSII.Tests.CalculatorNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
@@ -17,12 +18,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty(name: "property", typeJson: "{\"primitive\":\"string\"}")]
-        protected virtual string Property
-        {
-            get => GetInstanceProperty<string>();
-        }
-
         [JsiiMethod(name: "bar")]
         public virtual void Bar()
         {
@@ -33,6 +28,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public virtual void Baz()
         {
             InvokeInstanceVoidMethod(new object[]{});
+        }
+
+        [JsiiProperty(name: "property", typeJson: "{\"primitive\":\"string\"}")]
+        protected virtual string Property
+        {
+            get => GetInstanceProperty<string>();
         }
     }
 }

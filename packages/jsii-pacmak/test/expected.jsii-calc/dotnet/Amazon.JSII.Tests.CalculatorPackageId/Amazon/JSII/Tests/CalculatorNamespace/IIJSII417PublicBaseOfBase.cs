@@ -10,7 +10,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
         }
-
         [JsiiMethod(name: "foo")]
         void Foo();
     }

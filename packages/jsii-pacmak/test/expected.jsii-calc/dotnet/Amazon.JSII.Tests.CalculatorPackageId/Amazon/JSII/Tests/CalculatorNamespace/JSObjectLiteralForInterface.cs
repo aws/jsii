@@ -1,5 +1,4 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
@@ -19,15 +18,15 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         [JsiiMethod(name: "giveMeFriendly", returnsJson: "{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.IFriendly\"}}")]
-        public virtual IIFriendly GiveMeFriendly()
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IIFriendly GiveMeFriendly()
         {
-            return InvokeInstanceMethod<IIFriendly>(new object[]{});
+            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IIFriendly>(new object[]{});
         }
 
         [JsiiMethod(name: "giveMeFriendlyGenerator", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.IFriendlyRandomGenerator\"}}")]
-        public virtual IIFriendlyRandomGenerator GiveMeFriendlyGenerator()
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.IIFriendlyRandomGenerator GiveMeFriendlyGenerator()
         {
-            return InvokeInstanceMethod<IIFriendlyRandomGenerator>(new object[]{});
+            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.IIFriendlyRandomGenerator>(new object[]{});
         }
     }
 }

@@ -1,6 +1,5 @@
 using Amazon.JSII.Runtime.Deputy;
 using Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace;
-using System;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
@@ -8,7 +7,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     public interface IImplictBaseOfBase : IBaseProps
     {
         [JsiiProperty(name: "goo", typeJson: "{\"primitive\":\"date\"}")]
-        DateTime Goo
+        System.DateTime Goo
         {
             get;
         }

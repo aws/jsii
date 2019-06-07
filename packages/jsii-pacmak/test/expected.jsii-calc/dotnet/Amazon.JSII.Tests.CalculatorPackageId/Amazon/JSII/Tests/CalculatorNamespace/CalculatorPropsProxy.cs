@@ -13,13 +13,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiProperty(name: "initialValue", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
         public double? InitialValue
         {
-            get => GetInstanceProperty<double? >();
+            get => GetInstanceProperty<double?>();
         }
 
         [JsiiProperty(name: "maximumValue", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
         public double? MaximumValue
         {
-            get => GetInstanceProperty<double? >();
+            get => GetInstanceProperty<double?>();
         }
     }
 }

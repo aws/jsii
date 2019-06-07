@@ -23,12 +23,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty(name: "methodWasCalled", typeJson: "{\"primitive\":\"boolean\"}")]
-        public virtual bool MethodWasCalled
-        {
-            get => GetInstanceProperty<bool>();
-        }
-
         [JsiiMethod(name: "callMe")]
         public virtual void CallMe()
         {
@@ -37,5 +31,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         [JsiiMethod(name: "overrideMe")]
         protected abstract void OverrideMe();
+
+
+        [JsiiProperty(name: "methodWasCalled", typeJson: "{\"primitive\":\"boolean\"}")]
+        public virtual bool MethodWasCalled
+        {
+            get => GetInstanceProperty<bool>();
+        }
     }
 }

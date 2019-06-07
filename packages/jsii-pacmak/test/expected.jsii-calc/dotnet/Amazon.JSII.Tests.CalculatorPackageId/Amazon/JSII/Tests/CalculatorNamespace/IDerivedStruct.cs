@@ -1,7 +1,5 @@
 using Amazon.JSII.Runtime.Deputy;
 using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
-using System;
-using System.Collections.Generic;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
@@ -10,7 +8,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     public interface IDerivedStruct : IMyFirstStruct
     {
         [JsiiProperty(name: "anotherRequired", typeJson: "{\"primitive\":\"date\"}")]
-        DateTime AnotherRequired
+        System.DateTime AnotherRequired
         {
             get;
         }
@@ -23,14 +21,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>An example of a non primitive property.</summary>
         [JsiiProperty(name: "nonPrimitive", typeJson: "{\"fqn\":\"jsii-calc.DoubleTrouble\"}")]
-        DoubleTrouble NonPrimitive
+        Amazon.JSII.Tests.CalculatorNamespace.DoubleTrouble NonPrimitive
         {
             get;
         }
 
         /// <summary>This is optional.</summary>
-        [JsiiProperty(name: "anotherOptional", typeJson: "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}", isOptional: true)]
-        IDictionary<string, Value_> AnotherOptional
+        [JsiiProperty(name: "anotherOptional", typeJson: "{\"collection\":{\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"},\"kind\":\"map\"}}", isOptional: true)]
+        System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_> AnotherOptional
         {
             get;
         }
@@ -41,7 +39,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get;
         }
 
-        [JsiiProperty(name: "optionalArray", typeJson: "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}}}", isOptional: true)]
+        [JsiiProperty(name: "optionalArray", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"string\"},\"kind\":\"array\"}}", isOptional: true)]
         string[] OptionalArray
         {
             get;

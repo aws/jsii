@@ -1,10 +1,11 @@
 using Amazon.JSII.Runtime.Deputy;
+using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
     /// <summary>Represents an operation on values.</summary>
     [JsiiClass(nativeType: typeof(Operation), fullyQualifiedName: "@scope/jsii-calc-lib.Operation")]
-    public abstract class Operation : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_
+    public abstract class Operation : Value_
     {
         protected Operation(): base(new DeputyProps(new object[]{}))
         {

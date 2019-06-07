@@ -1,5 +1,4 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
@@ -19,7 +18,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         [JsiiMethod(name: "sayHello", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[{\"name\":\"friendly\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.IFriendly\"}}]")]
-        public virtual string SayHello(IIFriendly friendly)
+        public virtual string SayHello(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IIFriendly friendly)
         {
             return InvokeInstanceMethod<string>(new object[]{friendly});
         }

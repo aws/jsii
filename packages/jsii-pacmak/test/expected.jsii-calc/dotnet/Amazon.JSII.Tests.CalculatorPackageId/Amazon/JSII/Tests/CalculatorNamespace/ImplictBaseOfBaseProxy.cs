@@ -1,6 +1,4 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace;
-using System;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
@@ -12,9 +10,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         [JsiiProperty(name: "goo", typeJson: "{\"primitive\":\"date\"}")]
-        public DateTime Goo
+        public System.DateTime Goo
         {
-            get => GetInstanceProperty<DateTime>();
+            get => GetInstanceProperty<System.DateTime>();
         }
 
         [JsiiProperty(name: "bar", typeJson: "{\"primitive\":\"string\"}")]
@@ -24,9 +22,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         [JsiiProperty(name: "foo", typeJson: "{\"fqn\":\"@scope/jsii-calc-base-of-base.Very\"}")]
-        public Very Foo
+        public Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Very Foo
         {
-            get => GetInstanceProperty<Very>();
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Very>();
         }
     }
 }

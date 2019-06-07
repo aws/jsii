@@ -18,7 +18,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         [JsiiMethod(name: "test", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[{\"name\":\"obj\",\"type\":{\"fqn\":\"jsii-calc.IReturnsNumber\"}}]")]
-        public virtual double Test(IIReturnsNumber obj)
+        public virtual double Test(Amazon.JSII.Tests.CalculatorNamespace.IIReturnsNumber obj)
         {
             return InvokeInstanceMethod<double>(new object[]{obj});
         }

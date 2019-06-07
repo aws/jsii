@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue]
     public class NullShouldBeTreatedAsUndefinedData : INullShouldBeTreatedAsUndefinedData
     {
-        [JsiiProperty(name: "arrayWithThreeElementsAndUndefinedAsSecondArgument", typeJson: "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"any\"}}}", isOverride: true)]
+        [JsiiProperty(name: "arrayWithThreeElementsAndUndefinedAsSecondArgument", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"any\"},\"kind\":\"array\"}}", isOverride: true)]
         public object[] ArrayWithThreeElementsAndUndefinedAsSecondArgument
         {
             get;

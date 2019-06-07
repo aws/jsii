@@ -56,7 +56,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Determines whether the Application Load Balancer will be internet-facing.</summary>
-        /// <remarks>default: true</remarks>
+        /// <remarks>
+        /// default: true
+        /// </remarks>
         [JsiiProperty(name: "publicLoadBalancer", typeJson: "{\"primitive\":\"boolean\"}", isOptional: true, isOverride: true)]
         public bool? PublicLoadBalancer
         {
@@ -65,7 +67,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Determines whether your Fargate Service will be assigned a public IP address.</summary>
-        /// <remarks>default: false</remarks>
+        /// <remarks>
+        /// default: false
+        /// </remarks>
         [JsiiProperty(name: "publicTasks", typeJson: "{\"primitive\":\"boolean\"}", isOptional: true, isOverride: true)]
         public bool? PublicTasks
         {

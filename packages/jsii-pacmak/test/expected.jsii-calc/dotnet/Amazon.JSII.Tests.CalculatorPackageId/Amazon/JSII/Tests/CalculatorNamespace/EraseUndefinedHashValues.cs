@@ -23,7 +23,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// are being erased when sending values from native code to JS.
         /// </remarks>
         [JsiiMethod(name: "doesKeyExist", returnsJson: "{\"type\":{\"primitive\":\"boolean\"}}", parametersJson: "[{\"name\":\"opts\",\"type\":{\"fqn\":\"jsii-calc.EraseUndefinedHashValuesOptions\"}},{\"name\":\"key\",\"type\":{\"primitive\":\"string\"}}]")]
-        public static bool DoesKeyExist(IEraseUndefinedHashValuesOptions opts, string key)
+        public static bool DoesKeyExist(Amazon.JSII.Tests.CalculatorNamespace.IEraseUndefinedHashValuesOptions opts, string key)
         {
             return InvokeStaticMethod<bool>(typeof(EraseUndefinedHashValues), new object[]{opts, key});
         }

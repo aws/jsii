@@ -1,10 +1,11 @@
 using Amazon.JSII.Runtime.Deputy;
+using Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
     /// <summary>Abstract class which represents a numeric value.</summary>
     [JsiiClass(nativeType: typeof(Value_), fullyQualifiedName: "@scope/jsii-calc-lib.Value")]
-    public abstract class Value_ : Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.Base
+    public abstract class Value_ : Base
     {
         protected Value_(): base(new DeputyProps(new object[]{}))
         {

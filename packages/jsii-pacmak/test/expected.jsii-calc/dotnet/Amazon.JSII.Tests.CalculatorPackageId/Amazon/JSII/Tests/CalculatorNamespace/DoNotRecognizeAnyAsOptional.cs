@@ -18,10 +18,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiMethod(name: "method", parametersJson: "[{\"name\":\"_requiredAny\",\"type\":{\"primitive\":\"any\"}},{\"name\":\"_optionalAny\",\"type\":{\"primitive\":\"any\"},\"optional\":true},{\"name\":\"_optionalString\",\"type\":{\"primitive\":\"string\"},\"optional\":true}]")]
-        public virtual void Method(object _requiredAny, object _optionalAny, string _optionalString)
+        [JsiiMethod(name: "method", parametersJson: "[{\"name\":\"_requiredAny\",\"type\":{\"primitive\":\"any\"}},{\"name\":\"_optionalAny\",\"optional\":true,\"type\":{\"primitive\":\"any\"}},{\"name\":\"_optionalString\",\"optional\":true,\"type\":{\"primitive\":\"string\"}}]")]
+        public virtual void Method(object requiredAny, object optionalAny, string optionalString)
         {
-            InvokeInstanceVoidMethod(new object[]{_requiredAny, _optionalAny, _optionalString});
+            InvokeInstanceVoidMethod(new object[]{requiredAny, optionalAny, optionalString});
         }
     }
 }

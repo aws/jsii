@@ -17,13 +17,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty(name: "while", typeJson: "{\"primitive\":\"string\"}")]
-        public virtual string While
-        {
-            get => GetInstanceProperty<string>();
-            set => SetInstanceProperty(value);
-        }
-
         [JsiiMethod(name: "abstract")]
         public virtual void Abstract()
         {
@@ -334,6 +327,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public virtual void Volatile()
         {
             InvokeInstanceVoidMethod(new object[]{});
+        }
+
+        [JsiiProperty(name: "while", typeJson: "{\"primitive\":\"string\"}")]
+        public virtual string While
+        {
+            get => GetInstanceProperty<string>();
+            set => SetInstanceProperty(value);
         }
     }
 }

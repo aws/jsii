@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiClass(nativeType: typeof(NumberGenerator), fullyQualifiedName: "jsii-calc.NumberGenerator", parametersJson: "[{\"name\":\"generator\",\"type\":{\"fqn\":\"jsii-calc.IRandomNumberGenerator\"}}]")]
     public class NumberGenerator : DeputyBase
     {
-        public NumberGenerator(IIRandomNumberGenerator generator): base(new DeputyProps(new object[]{generator}))
+        public NumberGenerator(Amazon.JSII.Tests.CalculatorNamespace.IIRandomNumberGenerator generator): base(new DeputyProps(new object[]{generator}))
         {
         }
 
@@ -18,15 +18,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        [JsiiProperty(name: "generator", typeJson: "{\"fqn\":\"jsii-calc.IRandomNumberGenerator\"}")]
-        public virtual IIRandomNumberGenerator Generator
-        {
-            get => GetInstanceProperty<IIRandomNumberGenerator>();
-            set => SetInstanceProperty(value);
-        }
-
         [JsiiMethod(name: "isSameGenerator", returnsJson: "{\"type\":{\"primitive\":\"boolean\"}}", parametersJson: "[{\"name\":\"gen\",\"type\":{\"fqn\":\"jsii-calc.IRandomNumberGenerator\"}}]")]
-        public virtual bool IsSameGenerator(IIRandomNumberGenerator gen)
+        public virtual bool IsSameGenerator(Amazon.JSII.Tests.CalculatorNamespace.IIRandomNumberGenerator gen)
         {
             return InvokeInstanceMethod<bool>(new object[]{gen});
         }
@@ -35,6 +28,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public virtual double NextTimes100()
         {
             return InvokeInstanceMethod<double>(new object[]{});
+        }
+
+        [JsiiProperty(name: "generator", typeJson: "{\"fqn\":\"jsii-calc.IRandomNumberGenerator\"}")]
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.IIRandomNumberGenerator Generator
+        {
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.IIRandomNumberGenerator>();
+            set => SetInstanceProperty(value);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// multiple lines and multiple paragraphs.
     /// 
     /// Multiple paragraphs are separated by an empty line.
-    /// stability: Stable
+    /// stability: stable
     /// </remarks>
     [JsiiClass(nativeType: typeof(DocumentedClass), fullyQualifiedName: "jsii-calc.DocumentedClass")]
     public class DocumentedClass : DeputyBase
@@ -32,14 +32,16 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// This will print out a friendly greeting intended for
         /// the indicated person.
         /// </remarks>
-        [JsiiMethod(name: "greet", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[{\"name\":\"greetee\",\"type\":{\"fqn\":\"jsii-calc.Greetee\"},\"optional\":true}]")]
-        public virtual double Greet(IGreetee greetee)
+        [JsiiMethod(name: "greet", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[{\"docs\":{\"summary\":\"The person to be greeted.\"},\"name\":\"greetee\",\"optional\":true,\"type\":{\"fqn\":\"jsii-calc.Greetee\"}}]")]
+        public virtual double Greet(Amazon.JSII.Tests.CalculatorNamespace.IGreetee greetee)
         {
             return InvokeInstanceMethod<double>(new object[]{greetee});
         }
 
         /// <summary>Say ¡Hola!</summary>
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
         [JsiiMethod(name: "hola")]
         public virtual void Hola()
         {

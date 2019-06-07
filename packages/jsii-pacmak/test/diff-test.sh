@@ -65,8 +65,7 @@ function assert-generator() {
 
 assert-generator jsii-calc-base
 assert-generator jsii-calc-lib
-# TODO: uncomment this for building jsii-calc
-# assert-generator jsii-calc
+assert-generator jsii-calc
 
 if ${success}; then
     # only remove working directory if tests pass. Otherwise, user might want to
