@@ -8,7 +8,7 @@
     "url": "https://aws.amazon.com"
   },
   "bundled": {
-    "jsii-calc-bundled": "^0.11.1"
+    "jsii-calc-bundled": "^0.11.2"
   },
   "contributors": [
     {
@@ -56,7 +56,7 @@
         },
         "sphinx": {}
       },
-      "version": "0.11.1"
+      "version": "0.11.2"
     },
     "@scope/jsii-calc-base-of-base": {
       "targets": {
@@ -80,7 +80,7 @@
         },
         "sphinx": {}
       },
-      "version": "0.11.1"
+      "version": "0.11.2"
     },
     "@scope/jsii-calc-lib": {
       "targets": {
@@ -104,7 +104,7 @@
         },
         "sphinx": {}
       },
-      "version": "0.11.1"
+      "version": "0.11.2"
     }
   },
   "dependencyClosure": {
@@ -130,7 +130,7 @@
         },
         "sphinx": {}
       },
-      "version": "0.11.1"
+      "version": "0.11.2"
     },
     "@scope/jsii-calc-base-of-base": {
       "targets": {
@@ -154,7 +154,7 @@
         },
         "sphinx": {}
       },
-      "version": "0.11.1"
+      "version": "0.11.2"
     },
     "@scope/jsii-calc-lib": {
       "targets": {
@@ -178,7 +178,7 @@
         },
         "sphinx": {}
       },
-      "version": "0.11.1"
+      "version": "0.11.2"
     }
   },
   "description": "A simple calcuator built on JSII.",
@@ -186,7 +186,7 @@
     "stability": "experimental"
   },
   "homepage": "https://github.com/awslabs/jsii.git",
-  "jsiiVersion": "0.11.1",
+  "jsiiVersion": "0.11.2",
   "license": "Apache-2.0",
   "metadata": {
     "jsii:boolean": true,
@@ -8603,6 +8603,6 @@
       "namespace": "composition.CompositeOperation"
     }
   },
-  "version": "0.11.1",
-  "fingerprint": "9L8/rsLS+UYbDYN+YX0Wb3gybgQNUCyFdD52GKTWEs0="
+  "version": "0.11.2",
+  "fingerprint": "5vdOZenAtu9InhNSB0CQ4IjyHtR1CAttxJ+dpDOSCBE="
 }

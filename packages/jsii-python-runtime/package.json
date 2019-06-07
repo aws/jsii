@@ -1,7 +1,7 @@
 {
   "name": "jsii-python-runtime",
   "private": true,
-  "version": "0.11.1",
+  "version": "0.11.2",
   "description": "Python client for jsii runtime",
   "main": "index.js",
   "scripts": {
@@ -12,10 +12,10 @@
     "test": ".env/bin/python bin/generate-calc && .env/bin/py.test -v --mypy"
   },
   "dependencies": {
-    "jsii-build-tools": "^0.11.1",
-    "jsii-calc": "^0.11.1",
-    "jsii-pacmak": "^0.11.1",
-    "jsii-runtime": "^0.11.1"
+    "jsii-build-tools": "^0.11.2",
+    "jsii-calc": "^0.11.2",
+    "jsii-pacmak": "^0.11.2",
+    "jsii-runtime": "^0.11.2"
   },
   "repository": {
     "type": "git",
