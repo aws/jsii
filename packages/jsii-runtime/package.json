@@ -1,6 +1,6 @@
 {
   "name": "jsii-runtime",
-  "version": "0.11.1",
+  "version": "0.11.2",
   "description": "jsii runtime kernel process",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -14,10 +14,10 @@
     "package": "package-js"
   },
   "devDependencies": {
-    "@scope/jsii-calc-base": "^0.11.1",
-    "@scope/jsii-calc-lib": "^0.11.1",
-    "jsii-build-tools": "^0.11.1",
-    "jsii-calc": "^0.11.1",
+    "@scope/jsii-calc-base": "^0.11.2",
+    "@scope/jsii-calc-lib": "^0.11.2",
+    "jsii-build-tools": "^0.11.2",
+    "jsii-calc": "^0.11.2",
     "nodeunit": "^0.11.3",
     "source-map-loader": "^0.2.4",
     "typescript": "^3.5.1",
@@ -26,8 +26,8 @@
     "webpack-cli": "^3.3.2"
   },
   "dependencies": {
-    "jsii-kernel": "^0.11.1",
-    "jsii-spec": "^0.11.1"
+    "jsii-kernel": "^0.11.2",
+    "jsii-spec": "^0.11.2"
   },
   "author": {
     "name": "Amazon Web Services",

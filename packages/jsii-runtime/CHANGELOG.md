@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.2](https://github.com/awslabs/jsii/compare/v0.11.1...v0.11.2) (2019-06-07)
+
+
+### Bug Fixes
+
+* **java:** Escape `*/` in package-info.java ([#526](https://github.com/awslabs/jsii/issues/526)) ([4e7ea98](https://github.com/awslabs/jsii/commit/4e7ea98))
+
+
+
+
+
 ## [0.11.1](https://github.com/awslabs/jsii/compare/v0.11.0...v0.11.1) (2019-06-07)
 
 **Note:** Version bump only for package jsii-runtime
