@@ -542,6 +542,10 @@ assemblies
  │   │   ├── callMe() method
  │   │   ├── overrideMe() method
  │   │   └── methodWasCalled property
+ │   ├─┬ class WithPrivatePropertyInConstructor
+ │   │ └─┬ members
+ │   │   ├── <initializer>(privateField) initializer
+ │   │   └── success property
  │   ├─┬ class CompositeOperation
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer

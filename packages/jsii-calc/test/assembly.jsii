@@ -8448,6 +8448,50 @@
         }
       ]
     },
+    "jsii-calc.WithPrivatePropertyInConstructor": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Verifies that private property declarations in constructor arguments are hidden."
+      },
+      "fqn": "jsii-calc.WithPrivatePropertyInConstructor",
+      "initializer": {
+        "docs": {
+          "stability": "experimental"
+        },
+        "parameters": [
+          {
+            "name": "privateField",
+            "optional": true,
+            "type": {
+              "primitive": "string"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1688
+      },
+      "name": "WithPrivatePropertyInConstructor",
+      "properties": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1691
+          },
+          "name": "success",
+          "type": {
+            "primitive": "boolean"
+          }
+        }
+      ]
+    },
     "jsii-calc.composition.CompositeOperation": {
       "abstract": true,
       "assembly": "jsii-calc",
@@ -8604,5 +8648,5 @@
     }
   },
   "version": "0.11.2",
-  "fingerprint": "5vdOZenAtu9InhNSB0CQ4IjyHtR1CAttxJ+dpDOSCBE="
+  "fingerprint": "eQpFH3EHC2GlCSnThymTxnuO9HyZBFvsvddZqu1Fy+8="
 }

@@ -1219,6 +1219,15 @@ assemblies
  │   │   └─┬ methodWasCalled property
  │   │     ├── immutable
  │   │     └── type: boolean
+ │   ├─┬ class WithPrivatePropertyInConstructor
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(privateField) initializer
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ privateField
+ │   │   │     └── type: Optional<string>
+ │   │   └─┬ success property
+ │   │     ├── immutable
+ │   │     └── type: boolean
  │   ├─┬ class CompositeOperation
  │   │ ├── base: Operation
  │   │ └─┬ members
