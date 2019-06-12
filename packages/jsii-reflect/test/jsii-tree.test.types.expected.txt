@@ -81,6 +81,7 @@ assemblies
  │   ├── class VariadicMethod
  │   ├── class VirtualMethodPlayground
  │   ├── class VoidCallback
+ │   ├── class WithPrivatePropertyInConstructor
  │   ├── class CompositeOperation
  │   ├── interface CalculatorProps
  │   ├── interface DeprecatedStruct

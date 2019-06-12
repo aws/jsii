@@ -6808,6 +6808,45 @@ VoidCallback
       :type: boolean *(readonly)*
 
 
+WithPrivatePropertyInConstructor
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: WithPrivatePropertyInConstructor([privateField])
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.WithPrivatePropertyInConstructor;
+
+      .. code-tab:: javascript
+
+         const { WithPrivatePropertyInConstructor } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { WithPrivatePropertyInConstructor } from 'jsii-calc';
+
+
+
+   Verifies that private property declarations in constructor arguments are hidden.
+
+
+
+   :param privateField: 
+   :type privateField: string
+
+   .. py:attribute:: success
+
+      :type: boolean *(readonly)*
+
+
 
 composition
 ^^^^^^^^^^^

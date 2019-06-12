@@ -1681,3 +1681,14 @@ export abstract class VoidCallback {
     }
     protected abstract overrideMe(): void;
 }
+
+/**
+ * Verifies that private property declarations in constructor arguments are hidden.
+ */
+export class WithPrivatePropertyInConstructor {
+    constructor(private readonly privateField: string = 'Success!') { }
+
+    public get success() {
+        return this.privateField === 'Success!';
+    }
+}
