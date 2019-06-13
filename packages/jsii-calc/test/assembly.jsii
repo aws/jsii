@@ -7121,6 +7121,132 @@
       ],
       "name": "SingleInstanceTwoTypes"
     },
+    "jsii-calc.SingletonInt": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "remarks": "https://github.com/awslabs/jsii/issues/231",
+        "stability": "experimental",
+        "summary": "Verifies that singleton enums are handled correctly."
+      },
+      "fqn": "jsii-calc.SingletonInt",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1718
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1720
+          },
+          "name": "isSingletonInt",
+          "parameters": [
+            {
+              "name": "value",
+              "type": {
+                "primitive": "number"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "boolean"
+            }
+          }
+        }
+      ],
+      "name": "SingletonInt"
+    },
+    "jsii-calc.SingletonIntEnum": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "A singleton integer."
+      },
+      "fqn": "jsii-calc.SingletonIntEnum",
+      "kind": "enum",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1725
+      },
+      "members": [
+        {
+          "docs": {
+            "stability": "experimental",
+            "summary": "Elite!"
+          },
+          "name": "SingletonInt"
+        }
+      ],
+      "name": "SingletonIntEnum"
+    },
+    "jsii-calc.SingletonString": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "remarks": "https://github.com/awslabs/jsii/issues/231",
+        "stability": "experimental",
+        "summary": "Verifies that singleton enums are handled correctly."
+      },
+      "fqn": "jsii-calc.SingletonString",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1701
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1704
+          },
+          "name": "isSingletonString",
+          "parameters": [
+            {
+              "name": "value",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "boolean"
+            }
+          }
+        }
+      ],
+      "name": "SingletonString"
+    },
+    "jsii-calc.SingletonStringEnum": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "A singleton string."
+      },
+      "fqn": "jsii-calc.SingletonStringEnum",
+      "kind": "enum",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1709
+      },
+      "members": [
+        {
+          "docs": {
+            "stability": "experimental",
+            "summary": "1337."
+          },
+          "name": "SingletonString"
+        }
+      ],
+      "name": "SingletonStringEnum"
+    },
     "jsii-calc.StableClass": {
       "assembly": "jsii-calc",
       "docs": {
@@ -8648,5 +8774,5 @@
     }
   },
   "version": "0.11.2",
-  "fingerprint": "eQpFH3EHC2GlCSnThymTxnuO9HyZBFvsvddZqu1Fy+8="
+  "fingerprint": "5TwMNffhxUueZQEAGZG6+JIfS6jcTwCJWc9vixH5aLc="
 }
