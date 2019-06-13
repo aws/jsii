@@ -451,6 +451,12 @@ assemblies
  │   │   ├── <initializer>() initializer
  │   │   ├── interface1() method
  │   │   └── interface2() method
+ │   ├─┬ class SingletonInt
+ │   │ └─┬ members
+ │   │   └── isSingletonInt(value) method
+ │   ├─┬ class SingletonString
+ │   │ └─┬ members
+ │   │   └── isSingletonString(value) method
  │   ├─┬ class StableClass
  │   │ └─┬ members
  │   │   ├── <initializer>(readonlyString,mutableNumber) initializer
@@ -710,6 +716,10 @@ assemblies
  │   ├─┬ enum ExperimentalEnum
  │   │ ├── OptionA
  │   │ └── OptionB
+ │   ├─┬ enum SingletonIntEnum
+ │   │ └── SingletonInt
+ │   ├─┬ enum SingletonStringEnum
+ │   │ └── SingletonString
  │   ├─┬ enum StableEnum
  │   │ ├── OptionA
  │   │ └── OptionB

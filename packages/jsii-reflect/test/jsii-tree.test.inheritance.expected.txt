@@ -90,6 +90,8 @@ assemblies
  │   ├── class ReturnsPrivateImplementationOfInterface
  │   ├── class RuntimeTypeChecking
  │   ├── class SingleInstanceTwoTypes
+ │   ├── class SingletonInt
+ │   ├── class SingletonString
  │   ├── class StableClass
  │   ├── class StaticContext
  │   ├── class Statics
@@ -170,6 +172,8 @@ assemblies
  │   ├── enum AllTypesEnum
  │   ├── enum DeprecatedEnum
  │   ├── enum ExperimentalEnum
+ │   ├── enum SingletonIntEnum
+ │   ├── enum SingletonStringEnum
  │   ├── enum StableEnum
  │   ├── enum StringEnum
  │   └── enum CompositionStringStyle
