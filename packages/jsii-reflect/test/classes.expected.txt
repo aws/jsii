@@ -68,6 +68,8 @@ ReferenceEnumFromScopedPackage
 ReturnsPrivateImplementationOfInterface
 RuntimeTypeChecking
 SingleInstanceTwoTypes
+SingletonInt
+SingletonString
 StableClass
 StaticContext
 Statics

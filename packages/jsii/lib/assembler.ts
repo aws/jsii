@@ -735,11 +735,17 @@ export class Assembler implements Emitter {
       LOG.trace(`Processing enum: ${colors.gray(ctx.namespace.join('.'))}.${colors.cyan(type.symbol.name)}`);
     }
 
-    if (_hasInternalJsDocTag(type.symbol)) {
+    // Forcefully resolving to the EnumDeclaration symbol for single-valued enums
+    const symbol: ts.Symbol = type.isLiteral() ? (type.symbol as any).parent : type.symbol;
+    if (!symbol) {
+      throw new Error(`Unable to resolve enum declaration for ${type.symbol.name}!`);
+    }
+
+    if (_hasInternalJsDocTag(symbol)) {
       return undefined;
     }
 
-    const decl = type.symbol.valueDeclaration;
+    const decl = symbol.valueDeclaration;
     const flags = ts.getCombinedModifierFlags(decl);
     // tslint:disable-next-line:no-bitwise
     if (flags & ts.ModifierFlags.Const) {
@@ -748,19 +754,20 @@ export class Assembler implements Emitter {
         `Exported enum cannot be declared 'const'`);
     }
 
-    const docs = this._visitDocumentation(type.symbol, ctx);
+    const docs = this._visitDocumentation(symbol, ctx);
 
     const typeContext = ctx.replaceStability(docs && docs.stability);
+    const members = type.isUnion() ? type.types : [type];
 
     const jsiiType: spec.EnumType = {
       assembly: this.projectInfo.name,
-      fqn: `${[this.projectInfo.name, ...ctx.namespace].join('.')}.${type.symbol.name}`,
+      fqn: `${[this.projectInfo.name, ...ctx.namespace].join('.')}.${symbol.name}`,
       kind: spec.TypeKind.Enum,
-      members: ((type as ts.UnionType).types || []).map(m => ({
+      members: members.map(m => ({
         name: m.symbol.name,
         docs: this._visitDocumentation(m.symbol, typeContext),
       })),
-      name: type.symbol.name,
+      name: symbol.name,
       namespace: ctx.namespace.length > 0 ? ctx.namespace.join('.') : undefined,
       docs
     };

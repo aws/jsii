@@ -5831,6 +5831,168 @@ SingleInstanceTwoTypes
       :rtype: :py:class:`~jsii-calc.IPublicInterface`\ 
 
 
+SingletonInt
+^^^^^^^^^^^^
+
+.. py:class:: SingletonInt
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.SingletonInt;
+
+      .. code-tab:: javascript
+
+         const { SingletonInt } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { SingletonInt } from 'jsii-calc';
+
+
+
+   Verifies that singleton enums are handled correctly.
+
+   
+
+   https://github.com/awslabs/jsii/issues/231
+
+
+
+
+   .. py:method:: isSingletonInt(value) -> boolean
+
+      :param value: 
+      :type value: number
+      :rtype: boolean
+
+
+SingletonIntEnum (enum)
+^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: SingletonIntEnum
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.SingletonIntEnum;
+
+      .. code-tab:: javascript
+
+         const { SingletonIntEnum } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { SingletonIntEnum } from 'jsii-calc';
+
+
+
+   A singleton integer.
+
+
+
+   .. py:data:: SingletonInt
+
+   Elite!
+
+
+
+
+SingletonString
+^^^^^^^^^^^^^^^
+
+.. py:class:: SingletonString
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.SingletonString;
+
+      .. code-tab:: javascript
+
+         const { SingletonString } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { SingletonString } from 'jsii-calc';
+
+
+
+   Verifies that singleton enums are handled correctly.
+
+   
+
+   https://github.com/awslabs/jsii/issues/231
+
+
+
+
+   .. py:method:: isSingletonString(value) -> boolean
+
+      :param value: 
+      :type value: string
+      :rtype: boolean
+
+
+SingletonStringEnum (enum)
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: SingletonStringEnum
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.SingletonStringEnum;
+
+      .. code-tab:: javascript
+
+         const { SingletonStringEnum } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { SingletonStringEnum } from 'jsii-calc';
+
+
+
+   A singleton string.
+
+
+
+   .. py:data:: SingletonString
+
+   1337.
+
+
+
+
 StableClass
 ^^^^^^^^^^^
 

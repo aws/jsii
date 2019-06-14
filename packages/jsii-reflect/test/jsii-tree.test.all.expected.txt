@@ -988,6 +988,20 @@ assemblies
  │   │   │ └── returns: jsii-calc.InbetweenClass
  │   │   └─┬ interface2() method
  │   │     └── returns: jsii-calc.IPublicInterface
+ │   ├─┬ class SingletonInt
+ │   │ └─┬ members
+ │   │   └─┬ isSingletonInt(value) method
+ │   │     ├─┬ parameters
+ │   │     │ └─┬ value
+ │   │     │   └── type: number
+ │   │     └── returns: boolean
+ │   ├─┬ class SingletonString
+ │   │ └─┬ members
+ │   │   └─┬ isSingletonString(value) method
+ │   │     ├─┬ parameters
+ │   │     │ └─┬ value
+ │   │     │   └── type: string
+ │   │     └── returns: boolean
  │   ├─┬ class StableClass
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(readonlyString,mutableNumber) initializer
@@ -1588,6 +1602,10 @@ assemblies
  │   ├─┬ enum ExperimentalEnum
  │   │ ├── OptionA
  │   │ └── OptionB
+ │   ├─┬ enum SingletonIntEnum
+ │   │ └── SingletonInt
+ │   ├─┬ enum SingletonStringEnum
+ │   │ └── SingletonString
  │   ├─┬ enum StableEnum
  │   │ ├── OptionA
  │   │ └── OptionB

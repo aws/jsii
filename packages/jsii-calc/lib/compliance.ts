@@ -1692,3 +1692,37 @@ export class WithPrivatePropertyInConstructor {
         return this.privateField === 'Success!';
     }
 }
+
+/**
+ * Verifies that singleton enums are handled correctly
+ *
+ * https://github.com/awslabs/jsii/issues/231
+ */
+export class SingletonString {
+    private constructor() { }
+
+    public isSingletonString(value: string): boolean {
+        return value === SingletonStringEnum.SingletonString;
+    }
+}
+/** A singleton string */
+export enum SingletonStringEnum {
+    /** 1337 */
+    SingletonString = '3L1T3!'
+}
+/**
+ * Verifies that singleton enums are handled correctly
+ *
+ * https://github.com/awslabs/jsii/issues/231
+ */
+export class SingletonInt {
+    private constructor() { }
+    public isSingletonInt(value: number): boolean {
+        return value === SingletonIntEnum.SingletonInt;
+    }
+}
+/** A singleton integer. */
+export enum SingletonIntEnum {
+    /** Elite! */
+    SingletonInt = 1337
+}
