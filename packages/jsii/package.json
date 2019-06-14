@@ -43,7 +43,7 @@
         "semver": "^6.1.1",
         "sort-json": "^2.0.0",
         "spdx-license-list": "^6.0.0",
-        "typescript": "^3.5.1",
+        "typescript": "^3.5.2",
         "yargs": "^13.2.4"
     },
     "nyc": {

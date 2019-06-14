@@ -23,14 +23,14 @@
   "devDependencies": {
     "@scope/jsii-calc-lib": "^0.11.2",
     "@types/fs-extra": "^7.0.0",
-    "@types/jest": "^24.0.13",
+    "@types/jest": "^24.0.14",
     "@types/yargs": "^13.0.0",
     "jest": "^24.8.0",
     "jsii": "^0.11.2",
     "jsii-build-tools": "^0.11.2",
     "jsii-calc": "^0.11.2",
     "ts-jest": "^24.0.2",
-    "typescript": "^3.5.1"
+    "typescript": "^3.5.2"
   },
   "jest": {
     "preset": "ts-jest",

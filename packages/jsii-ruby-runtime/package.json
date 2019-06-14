@@ -18,7 +18,7 @@
     "jsii-calc": "^0.11.2",
     "jsii-pacmak": "^0.11.2",
     "jsii-runtime": "^0.11.2",
-    "typescript": "^3.5.1"
+    "typescript": "^3.5.2"
   },
   "author": {
     "name": "Amazon Web Services",
