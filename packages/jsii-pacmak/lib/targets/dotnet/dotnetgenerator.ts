@@ -272,9 +272,16 @@ export class DotNetGenerator extends Generator {
             this.code.line();
         }
 
+        if (initializer) {
+            this.dotnetRuntimeGenerator.emitDeprecatedAttributeIfNecessary(initializer);
+        }
         this.code.openBlock(`protected ${className}(ByRefValue reference): base(reference)`);
         this.code.closeBlock();
         this.code.line();
+
+        if (initializer) {
+            this.dotnetRuntimeGenerator.emitDeprecatedAttributeIfNecessary(initializer);
+        }
         this.code.openBlock(`protected ${className}(DeputyProps props): base(props)`);
         this.code.closeBlock();
 

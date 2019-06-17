@@ -70,10 +70,6 @@ export class DotNetDocGenerator {
             remarks.push(`default: ${docs.default}`);
         }
 
-        if (docs.deprecated) {
-            remarks.push(`deprecated: ${docs.deprecated}`);
-        }
-
         if (docs.stability) {
             remarks.push(`stability: ${docs.stability}`);
         }

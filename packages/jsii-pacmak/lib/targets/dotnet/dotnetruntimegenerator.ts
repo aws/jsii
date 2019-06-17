@@ -150,9 +150,8 @@ export class DotNetRuntimeGenerator {
 
         const docs = obj.docs;
         if (docs) {
-
             if (docs.stability! === 'deprecated') {
-                const attribute = `[System.Obsolete()]`;
+                const attribute = docs.deprecated ? `[System.Obsolete("${docs.deprecated.replace(/"/g, '\\"')}")]`  : `[System.Obsolete()]`;
                 this.code.line(attribute);
             }
         }
