@@ -1107,16 +1107,16 @@ assemblies
  │   │     ├── abstract
  │   │     └── type: primitive:string | primitive:number
  │   ├─┬ AllTypesEnum enum
- │   │ ├── MyEnumValue
- │   │ ├── YourEnumValue
- │   │ └── ThisIsGreat
+ │   │ ├── MY_ENUM_VALUE
+ │   │ ├── YOUR_ENUM_VALUE
+ │   │ └── THIS_IS_GREAT
  │   ├─┬ StringEnum enum
  │   │ ├── A
  │   │ ├── B
  │   │ └── C
  │   └─┬ CompositionStringStyle enum
- │     ├── Normal
- │     └── Decorated
+ │     ├── NORMAL
+ │     └── DECORATED
  ├─┬ @scope/jsii-calc-base
  │ ├─┬ dependencies
  │ │ └── @scope/jsii-calc-base-of-base
@@ -1219,5 +1219,5 @@ assemblies
      │     ├── abstract
      │     └── type: primitive:boolean (optional)
      └─┬ EnumFromScopedModule enum
-       ├── Value1
-       └── Value2
+       ├── VALUE1
+       └── VALUE2
