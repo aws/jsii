@@ -7,19 +7,19 @@ export = {
   // ----------------------------------------------------------------------
   async 'test parsing enum with two members and no values'(test: Test) {
     const assembly = await sourceToAssemblyHelper(`
-      export enum Foo {
+      export enum FOO {
         Bar,
         Baz
       }
     `);
 
-    test.deepEqual(assembly.types!['testpkg.Foo'] , {
+    test.deepEqual(assembly.types!['testpkg.FOO'] , {
       assembly: 'testpkg',
-      fqn: 'testpkg.Foo',
+      fqn: 'testpkg.FOO',
       kind: 'enum',
       members: [{ name: 'Bar' }, { name: 'Baz' }],
       locationInModule: { filename: 'index.ts', line: 2 },
-      name: 'Foo'
+      name: 'FOO'
     });
 
     test.done();
@@ -28,19 +28,19 @@ export = {
   // ----------------------------------------------------------------------
   async 'test parsing enum with two members and assigned values'(test: Test) {
     const assembly = await sourceToAssemblyHelper(`
-      export enum Foo {
+      export enum FOO {
         Bar = 'Bar',
         Baz = 'Baz'
       }
     `);
 
-    test.deepEqual(assembly.types!['testpkg.Foo'] , {
+    test.deepEqual(assembly.types!['testpkg.FOO'] , {
       assembly: 'testpkg',
-      fqn: 'testpkg.Foo',
+      fqn: 'testpkg.FOO',
       kind: 'enum',
       members: [{ name: 'Bar' }, { name: 'Baz' }],
       locationInModule: { filename: 'index.ts', line: 2 },
-      name: 'Foo'
+      name: 'FOO'
     });
 
     test.done();

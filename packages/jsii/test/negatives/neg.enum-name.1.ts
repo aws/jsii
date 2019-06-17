@@ -1,4 +1,4 @@
-///!MATCH_ERROR: Type names must use PascalCase: myEnum
+///!MATCH_ERROR: Enum names must use TRUMP_CASE: myEnum
 
 export enum myEnum {
     Foo,

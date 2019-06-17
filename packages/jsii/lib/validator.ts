@@ -54,6 +54,7 @@ export type ValidationFunction = (validator: Validator,
 function _defaultValidations(): ValidationFunction[] {
     return [
         _typeNamesMustUsePascalCase,
+        _enumNamesMustUserUpperSnakeCase,
         _memberNamesMustUseCamelCase,
         _staticConstantNamesMustUseUpperSnakeCase,
         _memberNamesMustNotLookLikeJavaGettersOrSetters,
@@ -63,9 +64,22 @@ function _defaultValidations(): ValidationFunction[] {
 
     function _typeNamesMustUsePascalCase(_: Validator, assembly: spec.Assembly, diagnostic: DiagnosticEmitter) {
         for (const type of _allTypes(assembly)) {
+            if (spec.isEnumType(type)) { continue; }
+
             if (type.name !== Case.pascal(type.name)) {
                 diagnostic(ts.DiagnosticCategory.Error,
                            `Type names must use PascalCase: ${type.name}`);
+            }
+        }
+    }
+
+    function _enumNamesMustUserUpperSnakeCase(_: Validator, assembly: spec.Assembly, diagnostic: DiagnosticEmitter) {
+        for (const type of _allTypes(assembly)) {
+            if (!spec.isEnumType(type)) { continue; }
+
+            if (type.name && type.name !== Case.constant(type.name)) {
+                diagnostic(ts.DiagnosticCategory.Error,
+                           `Enum names must use TRUMP_CASE: ${type.name}`);
             }
         }
     }
