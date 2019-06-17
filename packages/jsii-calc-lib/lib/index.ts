@@ -95,8 +95,8 @@ export interface StructWithOnlyOptionals {
  * See awslabs/jsii#138
  */
 export enum EnumFromScopedModule {
-    Value1,
-    Value2
+    VALUE1,
+    VALUE2
 }
 
 /**
