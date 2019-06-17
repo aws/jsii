@@ -21,10 +21,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
+        [System.Obsolete()]
         protected Number(ByRefValue reference): base(reference)
         {
         }
 
+        [System.Obsolete()]
         protected Number(DeputyProps props): base(props)
         {
         }

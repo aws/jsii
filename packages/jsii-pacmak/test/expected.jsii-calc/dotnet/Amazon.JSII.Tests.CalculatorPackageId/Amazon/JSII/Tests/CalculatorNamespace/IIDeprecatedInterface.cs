@@ -3,30 +3,27 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>
-    /// deprecated: useless interface
     /// stability: deprecated
     /// </remarks>
     [JsiiInterface(nativeType: typeof(IIDeprecatedInterface), fullyQualifiedName: "jsii-calc.IDeprecatedInterface")]
-    [System.Obsolete()]
+    [System.Obsolete("useless interface")]
     public interface IIDeprecatedInterface
     {
         /// <remarks>
-        /// deprecated: could be better
         /// stability: deprecated
         /// </remarks>
         [JsiiProperty(name: "mutableProperty", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
-        [System.Obsolete()]
+        [System.Obsolete("could be better")]
         double? MutableProperty
         {
             get;
             set;
         }
         /// <remarks>
-        /// deprecated: services no purpose
         /// stability: deprecated
         /// </remarks>
         [JsiiMethod(name: "method")]
-        [System.Obsolete()]
+        [System.Obsolete("services no purpose")]
         void Method();
     }
 }

@@ -4,11 +4,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Old class.</summary>
     /// <remarks>
-    /// deprecated: Use the new class
     /// stability: deprecated
     /// </remarks>
     [JsiiClass(nativeType: typeof(Old), fullyQualifiedName: "jsii-calc.Old")]
-    [System.Obsolete()]
+    [System.Obsolete("Use the new class")]
     public class Old : DeputyBase
     {
         public Old(): base(new DeputyProps(new object[]{}))
