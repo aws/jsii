@@ -7,19 +7,19 @@ export = {
   // ----------------------------------------------------------------------
   async 'test parsing enum with two members and no values'(test: Test) {
     const assembly = await sourceToAssemblyHelper(`
-      export enum FOO {
-        Bar,
-        Baz
+      export enum Foo {
+        BAR,
+        BAZ
       }
     `);
 
-    test.deepEqual(assembly.types!['testpkg.FOO'] , {
+    test.deepEqual(assembly.types!['testpkg.Foo'] , {
       assembly: 'testpkg',
-      fqn: 'testpkg.FOO',
+      fqn: 'testpkg.Foo',
       kind: 'enum',
-      members: [{ name: 'Bar' }, { name: 'Baz' }],
+      members: [{ name: 'BAR' }, { name: 'BAZ' }],
       locationInModule: { filename: 'index.ts', line: 2 },
-      name: 'FOO'
+      name: 'Foo'
     });
 
     test.done();
@@ -28,19 +28,19 @@ export = {
   // ----------------------------------------------------------------------
   async 'test parsing enum with two members and assigned values'(test: Test) {
     const assembly = await sourceToAssemblyHelper(`
-      export enum FOO {
-        Bar = 'Bar',
-        Baz = 'Baz'
+      export enum Foo {
+        BAR = 'Bar',
+        BAZ = 'Baz'
       }
     `);
 
-    test.deepEqual(assembly.types!['testpkg.FOO'] , {
+    test.deepEqual(assembly.types!['testpkg.Foo'] , {
       assembly: 'testpkg',
-      fqn: 'testpkg.FOO',
+      fqn: 'testpkg.Foo',
       kind: 'enum',
-      members: [{ name: 'Bar' }, { name: 'Baz' }],
+      members: [{ name: 'BAR' }, { name: 'BAZ' }],
       locationInModule: { filename: 'index.ts', line: 2 },
-      name: 'FOO'
+      name: 'Foo'
     });
 
     test.done();
