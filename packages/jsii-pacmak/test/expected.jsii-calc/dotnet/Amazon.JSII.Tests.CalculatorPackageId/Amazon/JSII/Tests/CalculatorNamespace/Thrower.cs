@@ -2,7 +2,9 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>stability: Experimental</remarks>
+    /// <remarks>
+    /// stability: experimental
+    /// </remarks>
     [JsiiClass(nativeType: typeof(Thrower), fullyQualifiedName: "jsii-calc.Thrower")]
     public class Thrower : DeputyBase
     {
@@ -18,7 +20,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
         [JsiiMethod(name: "throwError")]
         public virtual void ThrowError()
         {

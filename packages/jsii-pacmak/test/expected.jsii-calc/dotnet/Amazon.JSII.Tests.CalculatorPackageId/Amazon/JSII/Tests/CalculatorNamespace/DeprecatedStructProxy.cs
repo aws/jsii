@@ -2,18 +2,24 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>stability: Deprecated</remarks>
+    /// <remarks>
+    /// deprecated: it just wraps a string
+    /// stability: deprecated
+    /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IDeprecatedStruct), fullyQualifiedName: "jsii-calc.DeprecatedStruct")]
-    [System.Obsolete("it just wraps a string")]
+    [System.Obsolete()]
     internal sealed class DeprecatedStructProxy : DeputyBase, IDeprecatedStruct
     {
         private DeprecatedStructProxy(ByRefValue reference): base(reference)
         {
         }
 
-        /// <remarks>stability: Deprecated</remarks>
+        /// <remarks>
+        /// deprecated: well, yeah
+        /// stability: deprecated
+        /// </remarks>
         [JsiiProperty(name: "readonlyProperty", typeJson: "{\"primitive\":\"string\"}")]
-        [System.Obsolete("well, yeah")]
+        [System.Obsolete()]
         public string ReadonlyProperty
         {
             get => GetInstanceProperty<string>();

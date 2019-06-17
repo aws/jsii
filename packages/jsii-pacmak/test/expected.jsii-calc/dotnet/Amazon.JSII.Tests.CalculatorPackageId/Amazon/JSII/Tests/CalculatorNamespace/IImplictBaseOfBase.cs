@@ -1,16 +1,19 @@
 using Amazon.JSII.Runtime.Deputy;
 using Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace;
-using System;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>stability: Experimental</remarks>
+    /// <remarks>
+    /// stability: experimental
+    /// </remarks>
     [JsiiInterface(nativeType: typeof(IImplictBaseOfBase), fullyQualifiedName: "jsii-calc.ImplictBaseOfBase")]
     public interface IImplictBaseOfBase : IBaseProps
     {
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
         [JsiiProperty(name: "goo", typeJson: "{\"primitive\":\"date\"}")]
-        DateTime Goo
+        System.DateTime Goo
         {
             get;
         }

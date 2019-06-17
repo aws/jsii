@@ -2,7 +2,9 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>stability: Experimental</remarks>
+    /// <remarks>
+    /// stability: experimental
+    /// </remarks>
     [JsiiClass(nativeType: typeof(UseBundledDependency), fullyQualifiedName: "jsii-calc.UseBundledDependency")]
     public class UseBundledDependency : DeputyBase
     {
@@ -18,7 +20,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
         [JsiiMethod(name: "value", returnsJson: "{\"type\":{\"primitive\":\"any\"}}")]
         public virtual object Value()
         {

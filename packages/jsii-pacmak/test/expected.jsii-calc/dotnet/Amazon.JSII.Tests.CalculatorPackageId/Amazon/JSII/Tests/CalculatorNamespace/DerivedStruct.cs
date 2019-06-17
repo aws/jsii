@@ -1,24 +1,27 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
-using System;
-using System.Collections.Generic;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>A struct which derives from another struct.</summary>
-    /// <remarks>stability: Experimental</remarks>
+    /// <remarks>
+    /// stability: experimental
+    /// </remarks>
     [JsiiByValue]
     public class DerivedStruct : IDerivedStruct
     {
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
         [JsiiProperty(name: "anotherRequired", typeJson: "{\"primitive\":\"date\"}", isOverride: true)]
-        public DateTime AnotherRequired
+        public System.DateTime AnotherRequired
         {
             get;
             set;
         }
 
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
         [JsiiProperty(name: "bool", typeJson: "{\"primitive\":\"boolean\"}", isOverride: true)]
         public bool Bool
         {
@@ -27,24 +30,30 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>An example of a non primitive property.</summary>
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
         [JsiiProperty(name: "nonPrimitive", typeJson: "{\"fqn\":\"jsii-calc.DoubleTrouble\"}", isOverride: true)]
-        public DoubleTrouble NonPrimitive
+        public Amazon.JSII.Tests.CalculatorNamespace.DoubleTrouble NonPrimitive
         {
             get;
             set;
         }
 
         /// <summary>This is optional.</summary>
-        /// <remarks>stability: Experimental</remarks>
-        [JsiiProperty(name: "anotherOptional", typeJson: "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}", isOptional: true, isOverride: true)]
-        public IDictionary<string, Value_> AnotherOptional
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
+        [JsiiProperty(name: "anotherOptional", typeJson: "{\"collection\":{\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"},\"kind\":\"map\"}}", isOptional: true, isOverride: true)]
+        public System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_> AnotherOptional
         {
             get;
             set;
         }
 
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
         [JsiiProperty(name: "optionalAny", typeJson: "{\"primitive\":\"any\"}", isOptional: true, isOverride: true)]
         public object OptionalAny
         {
@@ -52,8 +61,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
-        /// <remarks>stability: Experimental</remarks>
-        [JsiiProperty(name: "optionalArray", typeJson: "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}}}", isOptional: true, isOverride: true)]
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
+        [JsiiProperty(name: "optionalArray", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"string\"},\"kind\":\"array\"}}", isOptional: true, isOverride: true)]
         public string[] OptionalArray
         {
             get;
@@ -61,7 +72,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>An awesome number value.</summary>
-        /// <remarks>stability: Deprecated</remarks>
+        /// <remarks>
+        /// stability: deprecated
+        /// </remarks>
         [JsiiProperty(name: "anumber", typeJson: "{\"primitive\":\"number\"}", isOverride: true)]
         [System.Obsolete()]
         public double Anumber
@@ -71,7 +84,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>A string value.</summary>
-        /// <remarks>stability: Deprecated</remarks>
+        /// <remarks>
+        /// stability: deprecated
+        /// </remarks>
         [JsiiProperty(name: "astring", typeJson: "{\"primitive\":\"string\"}", isOverride: true)]
         [System.Obsolete()]
         public string Astring
@@ -80,8 +95,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
-        /// <remarks>stability: Deprecated</remarks>
-        [JsiiProperty(name: "firstOptional", typeJson: "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}}}", isOptional: true, isOverride: true)]
+        /// <remarks>
+        /// stability: deprecated
+        /// </remarks>
+        [JsiiProperty(name: "firstOptional", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"string\"},\"kind\":\"array\"}}", isOptional: true, isOverride: true)]
         [System.Obsolete()]
         public string[] FirstOptional
         {

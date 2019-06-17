@@ -2,13 +2,19 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>stability: Deprecated</remarks>
+    /// <remarks>
+    /// deprecated: it just wraps a string
+    /// stability: deprecated
+    /// </remarks>
     [JsiiByValue]
     public class DeprecatedStruct : IDeprecatedStruct
     {
-        /// <remarks>stability: Deprecated</remarks>
+        /// <remarks>
+        /// deprecated: well, yeah
+        /// stability: deprecated
+        /// </remarks>
         [JsiiProperty(name: "readonlyProperty", typeJson: "{\"primitive\":\"string\"}", isOverride: true)]
-        [System.Obsolete("well, yeah")]
+        [System.Obsolete()]
         public string ReadonlyProperty
         {
             get;

@@ -2,7 +2,9 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>stability: Experimental</remarks>
+    /// <remarks>
+    /// stability: experimental
+    /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IIInterfaceWithInternal), fullyQualifiedName: "jsii-calc.IInterfaceWithInternal")]
     internal sealed class IInterfaceWithInternalProxy : DeputyBase, IIInterfaceWithInternal
     {
@@ -10,7 +12,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
         [JsiiMethod(name: "visible")]
         public void Visible()
         {

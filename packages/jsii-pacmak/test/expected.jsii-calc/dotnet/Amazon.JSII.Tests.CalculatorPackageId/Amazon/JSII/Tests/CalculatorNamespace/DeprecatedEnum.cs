@@ -2,18 +2,28 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>stability: Deprecated</remarks>
+
+    /// <remarks>
+    /// deprecated: your deprecated selection of bad options
+    /// stability: deprecated
+    /// </remarks>
     [JsiiEnum(nativeType: typeof(DeprecatedEnum), fullyQualifiedName: "jsii-calc.DeprecatedEnum")]
-    [System.Obsolete("your deprecated selection of bad options")]
+    [System.Obsolete()]
     public enum DeprecatedEnum
     {
-        /// <remarks>stability: Deprecated</remarks>
+        /// <remarks>
+        /// deprecated: option A is not great
+        /// stability: deprecated
+        /// </remarks>
         [JsiiEnumMember(name: "OptionA")]
-        [System.Obsolete("option A is not great")]
+        [System.Obsolete()]
         OptionA,
-        /// <remarks>stability: Deprecated</remarks>
+        /// <remarks>
+        /// deprecated: option B is kinda bad, too
+        /// stability: deprecated
+        /// </remarks>
         [JsiiEnumMember(name: "OptionB")]
-        [System.Obsolete("option B is kinda bad, too")]
+        [System.Obsolete()]
         OptionB
     }
 }

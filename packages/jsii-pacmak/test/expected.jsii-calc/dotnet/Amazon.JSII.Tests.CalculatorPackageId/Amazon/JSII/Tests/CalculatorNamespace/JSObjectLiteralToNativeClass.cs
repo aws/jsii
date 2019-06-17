@@ -2,7 +2,9 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>stability: Experimental</remarks>
+    /// <remarks>
+    /// stability: experimental
+    /// </remarks>
     [JsiiClass(nativeType: typeof(JSObjectLiteralToNativeClass), fullyQualifiedName: "jsii-calc.JSObjectLiteralToNativeClass")]
     public class JSObjectLiteralToNativeClass : DeputyBase
     {
@@ -18,7 +20,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
         [JsiiProperty(name: "propA", typeJson: "{\"primitive\":\"string\"}")]
         public virtual string PropA
         {
@@ -26,7 +30,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
         [JsiiProperty(name: "propB", typeJson: "{\"primitive\":\"number\"}")]
         public virtual double PropB
         {

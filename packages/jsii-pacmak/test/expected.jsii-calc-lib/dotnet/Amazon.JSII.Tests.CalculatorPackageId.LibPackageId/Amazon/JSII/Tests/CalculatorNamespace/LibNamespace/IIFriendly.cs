@@ -6,14 +6,16 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     /// <remarks>
     /// These classes can be greeted with
     /// a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
-    /// stability: Deprecated
+    /// stability: deprecated
     /// </remarks>
     [JsiiInterface(nativeType: typeof(IIFriendly), fullyQualifiedName: "@scope/jsii-calc-lib.IFriendly")]
     [System.Obsolete()]
     public interface IIFriendly
     {
         /// <summary>Say hello!</summary>
-        /// <remarks>stability: Deprecated</remarks>
+        /// <remarks>
+        /// stability: deprecated
+        /// </remarks>
         [JsiiMethod(name: "hello", returnsJson: "{\"type\":{\"primitive\":\"string\"}}")]
         [System.Obsolete()]
         string Hello();

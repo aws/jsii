@@ -2,7 +2,9 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>stability: Experimental</remarks>
+    /// <remarks>
+    /// stability: experimental
+    /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IIJsii487External), fullyQualifiedName: "jsii-calc.IJsii487External")]
     internal sealed class IJsii487ExternalProxy : DeputyBase, IIJsii487External
     {

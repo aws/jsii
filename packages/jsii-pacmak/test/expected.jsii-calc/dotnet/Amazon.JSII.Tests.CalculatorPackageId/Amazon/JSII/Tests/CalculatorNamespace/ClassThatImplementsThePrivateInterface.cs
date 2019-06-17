@@ -2,7 +2,9 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>stability: Experimental</remarks>
+    /// <remarks>
+    /// stability: experimental
+    /// </remarks>
     [JsiiClass(nativeType: typeof(ClassThatImplementsThePrivateInterface), fullyQualifiedName: "jsii-calc.ClassThatImplementsThePrivateInterface")]
     public class ClassThatImplementsThePrivateInterface : DeputyBase, IINonInternalInterface
     {
@@ -18,7 +20,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
         [JsiiProperty(name: "a", typeJson: "{\"primitive\":\"string\"}")]
         public virtual string A
         {
@@ -26,7 +30,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
         [JsiiProperty(name: "b", typeJson: "{\"primitive\":\"string\"}")]
         public virtual string B
         {
@@ -34,7 +40,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
         [JsiiProperty(name: "c", typeJson: "{\"primitive\":\"string\"}")]
         public virtual string C
         {
@@ -42,7 +50,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set => SetInstanceProperty(value);
         }
 
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
         [JsiiProperty(name: "e", typeJson: "{\"primitive\":\"string\"}")]
         public virtual string E
         {

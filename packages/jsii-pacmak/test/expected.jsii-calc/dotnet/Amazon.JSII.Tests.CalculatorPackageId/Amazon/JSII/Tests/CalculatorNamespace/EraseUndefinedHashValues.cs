@@ -2,7 +2,9 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>stability: Experimental</remarks>
+    /// <remarks>
+    /// stability: experimental
+    /// </remarks>
     [JsiiClass(nativeType: typeof(EraseUndefinedHashValues), fullyQualifiedName: "jsii-calc.EraseUndefinedHashValues")]
     public class EraseUndefinedHashValues : DeputyBase
     {
@@ -22,16 +24,18 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// Used to check that undefined/null hash values
         /// are being erased when sending values from native code to JS.
-        /// stability: Experimental
+        /// stability: experimental
         /// </remarks>
         [JsiiMethod(name: "doesKeyExist", returnsJson: "{\"type\":{\"primitive\":\"boolean\"}}", parametersJson: "[{\"name\":\"opts\",\"type\":{\"fqn\":\"jsii-calc.EraseUndefinedHashValuesOptions\"}},{\"name\":\"key\",\"type\":{\"primitive\":\"string\"}}]")]
-        public static bool DoesKeyExist(IEraseUndefinedHashValuesOptions opts, string key)
+        public static bool DoesKeyExist(Amazon.JSII.Tests.CalculatorNamespace.IEraseUndefinedHashValuesOptions opts, string key)
         {
             return InvokeStaticMethod<bool>(typeof(EraseUndefinedHashValues), new object[]{opts, key});
         }
 
         /// <summary>We expect "prop1" to be erased.</summary>
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
         [JsiiMethod(name: "prop1IsNull", returnsJson: "{\"type\":{\"primitive\":\"any\"}}")]
         public static object Prop1IsNull()
         {
@@ -39,7 +43,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>We expect "prop2" to be erased.</summary>
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
         [JsiiMethod(name: "prop2IsUndefined", returnsJson: "{\"type\":{\"primitive\":\"any\"}}")]
         public static object Prop2IsUndefined()
         {

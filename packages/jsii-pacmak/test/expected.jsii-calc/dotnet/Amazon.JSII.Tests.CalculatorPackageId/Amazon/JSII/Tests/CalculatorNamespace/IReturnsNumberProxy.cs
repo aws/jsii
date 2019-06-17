@@ -1,9 +1,10 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>stability: Experimental</remarks>
+    /// <remarks>
+    /// stability: experimental
+    /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IIReturnsNumber), fullyQualifiedName: "jsii-calc.IReturnsNumber")]
     internal sealed class IReturnsNumberProxy : DeputyBase, IIReturnsNumber
     {
@@ -11,18 +12,22 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
         [JsiiProperty(name: "numberProp", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Number\"}")]
-        public Number NumberProp
+        public Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number NumberProp
         {
-            get => GetInstanceProperty<Number>();
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number>();
         }
 
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
         [JsiiMethod(name: "obtainNumber", returnsJson: "{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.IDoublable\"}}")]
-        public IIDoublable ObtainNumber()
+        public Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IIDoublable ObtainNumber()
         {
-            return InvokeInstanceMethod<IIDoublable>(new object[]{});
+            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IIDoublable>(new object[]{});
         }
     }
 }

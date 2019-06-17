@@ -2,11 +2,15 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>stability: Stable</remarks>
+    /// <remarks>
+    /// stability: stable
+    /// </remarks>
     [JsiiByValue]
     public class StableStruct : IStableStruct
     {
-        /// <remarks>stability: Stable</remarks>
+        /// <remarks>
+        /// stability: stable
+        /// </remarks>
         [JsiiProperty(name: "readonlyProperty", typeJson: "{\"primitive\":\"string\"}", isOverride: true)]
         public string ReadonlyProperty
         {

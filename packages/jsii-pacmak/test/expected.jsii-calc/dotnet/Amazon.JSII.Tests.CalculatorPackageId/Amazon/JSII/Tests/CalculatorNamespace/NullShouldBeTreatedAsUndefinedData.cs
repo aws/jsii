@@ -2,19 +2,25 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>stability: Experimental</remarks>
+    /// <remarks>
+    /// stability: experimental
+    /// </remarks>
     [JsiiByValue]
     public class NullShouldBeTreatedAsUndefinedData : INullShouldBeTreatedAsUndefinedData
     {
-        /// <remarks>stability: Experimental</remarks>
-        [JsiiProperty(name: "arrayWithThreeElementsAndUndefinedAsSecondArgument", typeJson: "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"any\"}}}", isOverride: true)]
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
+        [JsiiProperty(name: "arrayWithThreeElementsAndUndefinedAsSecondArgument", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"any\"},\"kind\":\"array\"}}", isOverride: true)]
         public object[] ArrayWithThreeElementsAndUndefinedAsSecondArgument
         {
             get;
             set;
         }
 
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
         [JsiiProperty(name: "thisShouldBeUndefined", typeJson: "{\"primitive\":\"any\"}", isOptional: true, isOverride: true)]
         public object ThisShouldBeUndefined
         {

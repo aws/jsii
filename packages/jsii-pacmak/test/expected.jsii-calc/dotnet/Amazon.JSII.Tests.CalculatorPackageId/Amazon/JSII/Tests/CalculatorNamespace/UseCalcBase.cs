@@ -1,10 +1,11 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Depend on a type from jsii-calc-base as a test for awslabs/jsii#128.</summary>
-    /// <remarks>stability: Experimental</remarks>
+    /// <remarks>
+    /// stability: experimental
+    /// </remarks>
     [JsiiClass(nativeType: typeof(UseCalcBase), fullyQualifiedName: "jsii-calc.UseCalcBase")]
     public class UseCalcBase : DeputyBase
     {
@@ -20,7 +21,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
         [JsiiMethod(name: "hello", returnsJson: "{\"type\":{\"fqn\":\"@scope/jsii-calc-base.Base\"}}")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.Base Hello()
         {

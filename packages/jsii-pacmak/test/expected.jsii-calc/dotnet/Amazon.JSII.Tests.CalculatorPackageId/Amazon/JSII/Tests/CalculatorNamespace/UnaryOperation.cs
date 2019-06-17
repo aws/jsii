@@ -4,12 +4,16 @@ using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>An operation on a single operand.</summary>
-    /// <remarks>stability: Experimental</remarks>
+    /// <remarks>
+    /// stability: experimental
+    /// </remarks>
     [JsiiClass(nativeType: typeof(UnaryOperation), fullyQualifiedName: "jsii-calc.UnaryOperation", parametersJson: "[{\"name\":\"operand\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
     public abstract class UnaryOperation : Operation
     {
-        /// <remarks>stability: Experimental</remarks>
-        protected UnaryOperation(Value_ operand): base(new DeputyProps(new object[]{operand}))
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
+        protected UnaryOperation(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ operand): base(new DeputyProps(new object[]{operand}))
         {
         }
 
@@ -21,11 +25,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
         [JsiiProperty(name: "operand", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
-        public virtual Value_ Operand
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ Operand
         {
-            get => GetInstanceProperty<Value_>();
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_>();
         }
     }
 }

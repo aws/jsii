@@ -1,15 +1,19 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
+using Amazon.JSII.Tests.CalculatorNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>The negation operation ("-value").</summary>
-    /// <remarks>stability: Experimental</remarks>
+    /// <remarks>
+    /// stability: experimental
+    /// </remarks>
     [JsiiClass(nativeType: typeof(Negate), fullyQualifiedName: "jsii-calc.Negate", parametersJson: "[{\"name\":\"operand\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
     public class Negate : UnaryOperation, IIFriendlier
     {
-        /// <remarks>stability: Experimental</remarks>
-        public Negate(Value_ operand): base(new DeputyProps(new object[]{operand}))
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
+        public Negate(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ operand): base(new DeputyProps(new object[]{operand}))
         {
         }
 
@@ -21,16 +25,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <summary>The value.</summary>
-        /// <remarks>stability: Experimental</remarks>
-        [JsiiProperty(name: "value", typeJson: "{\"primitive\":\"number\"}")]
-        public override double Value
-        {
-            get => GetInstanceProperty<double>();
-        }
-
         /// <summary>Say farewell.</summary>
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
         [JsiiMethod(name: "farewell", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
         public virtual string Farewell()
         {
@@ -38,7 +36,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Say goodbye.</summary>
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
         [JsiiMethod(name: "goodbye", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
         public virtual string Goodbye()
         {
@@ -46,7 +46,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Say hello!</summary>
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
         [JsiiMethod(name: "hello", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
         public virtual string Hello()
         {
@@ -54,11 +56,23 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>String representation of the value.</summary>
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
         [JsiiMethod(name: "toString", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
         public override string ToString()
         {
             return InvokeInstanceMethod<string>(new object[]{});
+        }
+
+        /// <summary>The value.</summary>
+        /// <remarks>
+        /// stability: experimental
+        /// </remarks>
+        [JsiiProperty(name: "value", typeJson: "{\"primitive\":\"number\"}")]
+        public override double Value
+        {
+            get => GetInstanceProperty<double>();
         }
     }
 }

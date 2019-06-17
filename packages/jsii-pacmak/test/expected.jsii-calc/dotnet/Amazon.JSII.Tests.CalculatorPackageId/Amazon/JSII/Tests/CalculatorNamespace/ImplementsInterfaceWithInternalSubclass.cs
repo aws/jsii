@@ -1,8 +1,11 @@
 using Amazon.JSII.Runtime.Deputy;
+using Amazon.JSII.Tests.CalculatorNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>stability: Experimental</remarks>
+    /// <remarks>
+    /// stability: experimental
+    /// </remarks>
     [JsiiClass(nativeType: typeof(ImplementsInterfaceWithInternalSubclass), fullyQualifiedName: "jsii-calc.ImplementsInterfaceWithInternalSubclass")]
     public class ImplementsInterfaceWithInternalSubclass : ImplementsInterfaceWithInternal
     {

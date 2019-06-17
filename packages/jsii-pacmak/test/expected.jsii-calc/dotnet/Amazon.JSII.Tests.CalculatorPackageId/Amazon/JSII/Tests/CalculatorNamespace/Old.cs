@@ -3,9 +3,12 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Old class.</summary>
-    /// <remarks>stability: Deprecated</remarks>
+    /// <remarks>
+    /// deprecated: Use the new class
+    /// stability: deprecated
+    /// </remarks>
     [JsiiClass(nativeType: typeof(Old), fullyQualifiedName: "jsii-calc.Old")]
-    [System.Obsolete("Use the new class")]
+    [System.Obsolete()]
     public class Old : DeputyBase
     {
         public Old(): base(new DeputyProps(new object[]{}))
@@ -21,7 +24,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Doo wop that thing.</summary>
-        /// <remarks>stability: Deprecated</remarks>
+        /// <remarks>
+        /// stability: deprecated
+        /// </remarks>
         [JsiiMethod(name: "doAThing")]
         [System.Obsolete()]
         public virtual void DoAThing()
