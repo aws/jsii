@@ -32,7 +32,7 @@
         "jsii-reflect": "^0.11.2",
         "jsii-spec": "^0.11.2",
         "log4js": "^4.3.1",
-        "typescript": "^3.5.1",
+        "typescript": "^3.5.2",
         "yargs": "^13.2.4"
     },
     "repository": {

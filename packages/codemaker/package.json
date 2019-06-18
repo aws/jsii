@@ -15,7 +15,7 @@
     "@types/fs-extra": "^7.0.0",
     "@types/nodeunit": "^0.0.30",
     "nodeunit": "^0.11.3",
-    "typescript": "^3.5.1"
+    "typescript": "^3.5.2"
   },
   "dependencies": {
     "camelcase": "^5.3.1",
