@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.3](https://github.com/awslabs/jsii/compare/v0.11.2...v0.11.3) (2019-06-18)
+
+
+### Bug Fixes
+
+* **jsii:** Correctly handle singleton enums ([#535](https://github.com/awslabs/jsii/issues/535)) ([01aed03](https://github.com/awslabs/jsii/commit/01aed03)), closes [#231](https://github.com/awslabs/jsii/issues/231)
+* **jsii:** Correctly ignore private properties from ctor ([#531](https://github.com/awslabs/jsii/issues/531)) ([e804cab](https://github.com/awslabs/jsii/commit/e804cab))
+
+
+
+
+
 ## [0.11.2](https://github.com/awslabs/jsii/compare/v0.11.1...v0.11.2) (2019-06-07)
 
 

@@ -10,7 +10,7 @@ import publication
 from jsii.python import classproperty
 
 import scope.jsii_calc_base_of_base
-__jsii_assembly__ = jsii.JSIIAssembly.load("@scope/jsii-calc-base", "0.11.2", __name__, "jsii-calc-base@0.11.2.jsii.tgz")
+__jsii_assembly__ = jsii.JSIIAssembly.load("@scope/jsii-calc-base", "0.11.3", __name__, "jsii-calc-base@0.11.3.jsii.tgz")
 class Base(metaclass=jsii.JSIIAbstractClass, jsii_type="@scope/jsii-calc-base.Base"):
     """A base class."""
     @staticmethod
