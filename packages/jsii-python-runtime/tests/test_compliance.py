@@ -353,11 +353,11 @@ def test_getAndSetEnumValues():
 
 def test_useEnumFromScopedModule():
     obj = ReferenceEnumFromScopedPackage()
-    assert obj.foo == EnumFromScopedModule.Value2
-    obj.foo = EnumFromScopedModule.Value1
-    assert obj.load_foo() == EnumFromScopedModule.Value1
-    obj.save_foo(EnumFromScopedModule.Value2)
-    assert obj.foo == EnumFromScopedModule.Value2
+    assert obj.foo == EnumFromScopedModule.VALUE2
+    obj.foo = EnumFromScopedModule.VALUE1
+    assert obj.load_foo() == EnumFromScopedModule.VALUE1
+    obj.save_foo(EnumFromScopedModule.VALUE2)
+    assert obj.foo == EnumFromScopedModule.VALUE2
 
 
 def test_undefinedAndNull():
@@ -890,7 +890,7 @@ def test_objectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut():
         def consume_partially_initialized_this(self, obj, dt, en):
             assert obj is not None
             assert isinstance(dt, datetime)
-            assert en.member == AllTypesEnum.ThisIsGreat.value
+            assert en.member == AllTypesEnum.THIS_IS_GREAT.value
             return "OK"
 
     reflector = PartiallyInitializedThisConsumerImpl()
