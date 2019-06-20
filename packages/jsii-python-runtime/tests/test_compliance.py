@@ -343,11 +343,11 @@ def test_getAndSetEnumValues():
 
     CompositeOperation = composition.CompositeOperation
 
-    assert calc.string_style == CompositeOperation.CompositionStringStyle.Normal
+    assert calc.string_style == CompositeOperation.CompositionStringStyle.NORMAL
 
-    calc.string_style = CompositeOperation.CompositionStringStyle.Decorated
+    calc.string_style = CompositeOperation.CompositionStringStyle.DECORATED
 
-    assert calc.string_style == CompositeOperation.CompositionStringStyle.Decorated
+    assert calc.string_style == CompositeOperation.CompositionStringStyle.DECORATED
     assert calc.to_string() == "<<[[{{(((1 * (0 + 9)) * (0 + 9)) * (0 + 9))}}]]>>"
 
 
