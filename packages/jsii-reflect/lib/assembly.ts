@@ -37,6 +37,13 @@ export class Assembly {
   }
 
   /**
+   * The metadata associated with the assembly, if any.
+   */
+  public get metadata(): { readonly [key: string]: any } | undefined {
+    return this.spec.metadata;
+  }
+
+  /**
    * The url to the project homepage. Maps to "homepage" from package.json.
    */
   public get homepage(): string {
