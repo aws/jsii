@@ -343,21 +343,21 @@ def test_getAndSetEnumValues():
 
     CompositeOperation = composition.CompositeOperation
 
-    assert calc.string_style == CompositeOperation.CompositionStringStyle.Normal
+    assert calc.string_style == CompositeOperation.CompositionStringStyle.NORMAL
 
-    calc.string_style = CompositeOperation.CompositionStringStyle.Decorated
+    calc.string_style = CompositeOperation.CompositionStringStyle.DECORATED
 
-    assert calc.string_style == CompositeOperation.CompositionStringStyle.Decorated
+    assert calc.string_style == CompositeOperation.CompositionStringStyle.DECORATED
     assert calc.to_string() == "<<[[{{(((1 * (0 + 9)) * (0 + 9)) * (0 + 9))}}]]>>"
 
 
 def test_useEnumFromScopedModule():
     obj = ReferenceEnumFromScopedPackage()
-    assert obj.foo == EnumFromScopedModule.Value2
-    obj.foo = EnumFromScopedModule.Value1
-    assert obj.load_foo() == EnumFromScopedModule.Value1
-    obj.save_foo(EnumFromScopedModule.Value2)
-    assert obj.foo == EnumFromScopedModule.Value2
+    assert obj.foo == EnumFromScopedModule.VALUE2
+    obj.foo = EnumFromScopedModule.VALUE1
+    assert obj.load_foo() == EnumFromScopedModule.VALUE1
+    obj.save_foo(EnumFromScopedModule.VALUE2)
+    assert obj.foo == EnumFromScopedModule.VALUE2
 
 
 def test_undefinedAndNull():
@@ -890,7 +890,7 @@ def test_objectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut():
         def consume_partially_initialized_this(self, obj, dt, en):
             assert obj is not None
             assert isinstance(dt, datetime)
-            assert en.member == AllTypesEnum.ThisIsGreat.value
+            assert en.member == AllTypesEnum.THIS_IS_GREAT.value
             return "OK"
 
     reflector = PartiallyInitializedThisConsumerImpl()

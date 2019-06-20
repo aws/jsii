@@ -9,9 +9,9 @@ public enum StableEnum {
     /**
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    OptionA,
+    OPTION_A,
     /**
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    OptionB,
+    OPTION_B,
 }

@@ -133,7 +133,7 @@ export namespace composition {
         /**
          * The .toString() style.
          */
-        public stringStyle = CompositeOperation.CompositionStringStyle.Normal
+        public stringStyle = CompositeOperation.CompositionStringStyle.NORMAL
 
         /**
          * A set of prefixes to include in a decorated .toString().
@@ -157,9 +157,9 @@ export namespace composition {
 
         toString() {
             switch (this.stringStyle) {
-                case CompositeOperation.CompositionStringStyle.Normal:
+                case CompositeOperation.CompositionStringStyle.NORMAL:
                     return this.expression.toString();
-                case CompositeOperation.CompositionStringStyle.Decorated:
+                case CompositeOperation.CompositionStringStyle.DECORATED:
                     return this.decorationPrefixes.join('') + this.expression.toString() + this.decorationPostfixes.join('');
                 default:
                     throw new Error(`Unknown string style: ${this.stringStyle}`);
@@ -173,10 +173,10 @@ export namespace composition {
          */
         export enum CompositionStringStyle {
             /** Normal string expression */
-            Normal,
+            NORMAL,
 
             /** Decorated string expression */
-            Decorated
+            DECORATED
         }
     }
 }

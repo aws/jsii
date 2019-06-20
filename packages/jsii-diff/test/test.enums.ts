@@ -9,14 +9,14 @@ export = {
   async 'okay to add a member to an enum'(test: Test) {
     await expectNoError(test, `
       export enum Foo {
-        Bar,
-        Baz,
+        BAR,
+        BAZ,
       }
     `, `
       export enum Foo {
-        Bar,
-        Baz,
-        Quux
+        BAR,
+        BAZ,
+        QUUX
       }
     `);
     test.done();
@@ -26,17 +26,17 @@ export = {
 
   async 'not okay to remove a member from an enum'(test: Test) {
     await expectError(test,
-      /member Quux has been removed/,
+      /member QUUX has been removed/,
       `
       export enum Foo {
-        Bar,
-        Baz,
-        Quux
+        BAR,
+        BAZ,
+        QUUX
       }
     `, `
       export enum Foo {
-        Bar,
-        Baz
+        BAR,
+        BAZ
       }
     `);
     test.done();

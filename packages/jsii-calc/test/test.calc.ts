@@ -30,7 +30,7 @@ calc.neg();   assert.equal(-3200000, calc.value);
 
 calc.curr = new Multiply(new calcLib.Number(2), calc.curr);
 assert.equal(-6400000, calc.value);
-calc.stringStyle = composition.CompositeOperation.CompositionStringStyle.Decorated;
+calc.stringStyle = composition.CompositeOperation.CompositionStringStyle.DECORATED;
 assert.equal(calc.toString(),
     '<<[[{{(2 * -(((((1 * ((0 + 10) * 2)) * ((0 + 10) * 2)) * ((0 + 10) * 2)) * ((0 + 10) * 2)) * ((0 + 10) * 2)))}}]]>>');
 

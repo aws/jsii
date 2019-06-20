@@ -892,19 +892,19 @@
           "docs": {
             "stability": "experimental"
           },
-          "name": "MyEnumValue"
+          "name": "MY_ENUM_VALUE"
         },
         {
           "docs": {
             "stability": "experimental"
           },
-          "name": "YourEnumValue"
+          "name": "YOUR_ENUM_VALUE"
         },
         {
           "docs": {
             "stability": "experimental"
           },
-          "name": "ThisIsGreat"
+          "name": "THIS_IS_GREAT"
         }
       ],
       "name": "AllTypesEnum"
@@ -2262,14 +2262,14 @@
             "deprecated": "option A is not great",
             "stability": "deprecated"
           },
-          "name": "OptionA"
+          "name": "OPTION_A"
         },
         {
           "docs": {
             "deprecated": "option B is kinda bad, too",
             "stability": "deprecated"
           },
-          "name": "OptionB"
+          "name": "OPTION_B"
         }
       ],
       "name": "DeprecatedEnum"
@@ -2972,13 +2972,13 @@
           "docs": {
             "stability": "experimental"
           },
-          "name": "OptionA"
+          "name": "OPTION_A"
         },
         {
           "docs": {
             "stability": "experimental"
           },
-          "name": "OptionB"
+          "name": "OPTION_B"
         }
       ],
       "name": "ExperimentalEnum"
@@ -7179,7 +7179,7 @@
             "stability": "experimental",
             "summary": "Elite!"
           },
-          "name": "SingletonInt"
+          "name": "SINGLETON_INT"
         }
       ],
       "name": "SingletonIntEnum"
@@ -7242,7 +7242,7 @@
             "stability": "experimental",
             "summary": "1337."
           },
-          "name": "SingletonString"
+          "name": "SINGLETON_STRING"
         }
       ],
       "name": "SingletonStringEnum"
@@ -7338,13 +7338,13 @@
           "docs": {
             "stability": "stable"
           },
-          "name": "OptionA"
+          "name": "OPTION_A"
         },
         {
           "docs": {
             "stability": "stable"
           },
-          "name": "OptionB"
+          "name": "OPTION_B"
         }
       ],
       "name": "StableEnum"
@@ -8759,14 +8759,14 @@
             "stability": "experimental",
             "summary": "Normal string expression."
           },
-          "name": "Normal"
+          "name": "NORMAL"
         },
         {
           "docs": {
             "stability": "experimental",
             "summary": "Decorated string expression."
           },
-          "name": "Decorated"
+          "name": "DECORATED"
         }
       ],
       "name": "CompositionStringStyle",
@@ -8774,5 +8774,5 @@
     }
   },
   "version": "0.11.3",
-  "fingerprint": "PRTiHZmA0R0OqG2aleNqw5twteIgxeOUgjhzIkQMaxg="
+  "fingerprint": "ap5kT9z2b1y6ofObpCic6pDWcRTWCr0ivtq83hsi6ds="
 }

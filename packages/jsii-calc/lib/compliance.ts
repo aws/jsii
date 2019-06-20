@@ -21,9 +21,9 @@ import base = require('@scope/jsii-calc-base');
 const readFile = promisify(fs.readFile);
 
 export enum AllTypesEnum {
-    MyEnumValue,
-    YourEnumValue = 100,
-    ThisIsGreat
+    MY_ENUM_VALUE,
+    YOUR_ENUM_VALUE = 100,
+    THIS_IS_GREAT
 }
 
 export enum StringEnum {
@@ -169,7 +169,7 @@ export class AllTypes {
     // enum
 
     public optionalEnumValue?: StringEnum;
-    private enumValue: AllTypesEnum = AllTypesEnum.ThisIsGreat;
+    private enumValue: AllTypesEnum = AllTypesEnum.THIS_IS_GREAT;
 
     get enumProperty() {
         return this.enumValue;
@@ -178,9 +178,9 @@ export class AllTypes {
     set enumProperty(value: AllTypesEnum) {
         this.enumValue = value;
         switch (value) {
-            case AllTypesEnum.MyEnumValue:
-            case AllTypesEnum.YourEnumValue:
-            case AllTypesEnum.ThisIsGreat:
+            case AllTypesEnum.MY_ENUM_VALUE:
+            case AllTypesEnum.YOUR_ENUM_VALUE:
+            case AllTypesEnum.THIS_IS_GREAT:
                 return;
             default:
                 throw new Error('Invalid enum: ' + value);
@@ -1008,7 +1008,7 @@ export interface ImplictBaseOfBase extends base.BaseProps {
  * See awslabs/jsii#138
  */
 export class ReferenceEnumFromScopedPackage {
-    public foo?: EnumFromScopedModule = EnumFromScopedModule.Value2;
+    public foo?: EnumFromScopedModule = EnumFromScopedModule.VALUE2;
 
     public loadFoo(): EnumFromScopedModule | undefined {
         return this.foo;
@@ -1594,7 +1594,7 @@ export abstract class PartiallyInitializedThisConsumer {
 
 export class ConstructorPassesThisOut {
     constructor(consumer: PartiallyInitializedThisConsumer) {
-        const result = consumer.consumePartiallyInitializedThis(this, new Date(0), AllTypesEnum.ThisIsGreat);
+        const result = consumer.consumePartiallyInitializedThis(this, new Date(0), AllTypesEnum.THIS_IS_GREAT);
         if (result !== 'OK') {
             throw new Error(`Expected OK but received ${result}`);
         }
@@ -1702,13 +1702,13 @@ export class SingletonString {
     private constructor() { }
 
     public isSingletonString(value: string): boolean {
-        return value === SingletonStringEnum.SingletonString;
+        return value === SingletonStringEnum.SINGLETON_STRING;
     }
 }
 /** A singleton string */
 export enum SingletonStringEnum {
     /** 1337 */
-    SingletonString = '3L1T3!'
+    SINGLETON_STRING = '3L1T3!'
 }
 /**
  * Verifies that singleton enums are handled correctly
@@ -1718,11 +1718,11 @@ export enum SingletonStringEnum {
 export class SingletonInt {
     private constructor() { }
     public isSingletonInt(value: number): boolean {
-        return value === SingletonIntEnum.SingletonInt;
+        return value === SingletonIntEnum.SINGLETON_INT;
     }
 }
 /** A singleton integer. */
 export enum SingletonIntEnum {
     /** Elite! */
-    SingletonInt = 1337
+    SINGLETON_INT = 1337
 }

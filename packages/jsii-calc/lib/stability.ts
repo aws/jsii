@@ -30,9 +30,9 @@ export class ExperimentalClass {
 /** @experimental */
 export enum ExperimentalEnum {
   /** @experimental */
-  OptionA,
+  OPTION_A,
   /** @experimental */
-  OptionB
+  OPTION_B
 }
 
 /** @stable */
@@ -64,9 +64,9 @@ export class StableClass {
 /** @stable */
 export enum StableEnum {
   /** @stable */
-  OptionA,
+  OPTION_A,
   /** @stable */
-  OptionB
+  OPTION_B
 }
 
 /** @deprecated it just wraps a string */
@@ -98,7 +98,7 @@ export class DeprecatedClass {
 /** @deprecated your deprecated selection of bad options */
 export enum DeprecatedEnum {
   /** @deprecated option A is not great */
-  OptionA,
+  OPTION_A,
   /** @deprecated option B is kinda bad, too */
-  OptionB
+  OPTION_B
 }

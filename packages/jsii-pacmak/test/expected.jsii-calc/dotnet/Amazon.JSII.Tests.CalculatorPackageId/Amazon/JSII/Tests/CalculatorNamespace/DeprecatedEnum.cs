@@ -8,12 +8,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     public enum DeprecatedEnum
     {
         /// <remarks>stability: Deprecated</remarks>
-        [JsiiEnumMember(name: "OptionA")]
+        [JsiiEnumMember(name: "OPTION_A")]
         [System.Obsolete("option A is not great")]
-        OptionA,
+        OPTION_A,
         /// <remarks>stability: Deprecated</remarks>
-        [JsiiEnumMember(name: "OptionB")]
+        [JsiiEnumMember(name: "OPTION_B")]
         [System.Obsolete("option B is kinda bad, too")]
-        OptionB
+        OPTION_B
     }
 }

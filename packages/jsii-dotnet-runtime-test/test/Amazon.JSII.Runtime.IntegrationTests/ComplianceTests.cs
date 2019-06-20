@@ -260,9 +260,9 @@ namespace Amazon.JSII.Runtime.IntegrationTests
 
             calc.Add(9);
             calc.Pow(3);
-            Assert.Equal(CompositionStringStyle.Normal, calc.StringStyle);
-            calc.StringStyle = CompositionStringStyle.Decorated;
-            Assert.Equal(CompositionStringStyle.Decorated, calc.StringStyle);
+            Assert.Equal(CompositionStringStyle.NORMAL, calc.StringStyle);
+            calc.StringStyle = CompositionStringStyle.DECORATED;
+            Assert.Equal(CompositionStringStyle.DECORATED, calc.StringStyle);
             Assert.Equal("<<[[{{(((1 * (0 + 9)) * (0 + 9)) * (0 + 9))}}]]>>", calc.ToString());
         }
 
@@ -270,11 +270,11 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         public void UseEnumFromScopedModule()
         {
             ReferenceEnumFromScopedPackage obj = new ReferenceEnumFromScopedPackage();
-            Assert.Equal(EnumFromScopedModule.Value2, obj.Foo);
-            obj.Foo = EnumFromScopedModule.Value1;
-            Assert.Equal(EnumFromScopedModule.Value1, obj.LoadFoo());
-            obj.SaveFoo(EnumFromScopedModule.Value2);
-            Assert.Equal(EnumFromScopedModule.Value2, obj.Foo);
+            Assert.Equal(EnumFromScopedModule.VALUE2, obj.Foo);
+            obj.Foo = EnumFromScopedModule.VALUE1;
+            Assert.Equal(EnumFromScopedModule.VALUE1, obj.LoadFoo());
+            obj.SaveFoo(EnumFromScopedModule.VALUE2);
+            Assert.Equal(EnumFromScopedModule.VALUE2, obj.Foo);
         }
 
         [Fact(DisplayName = Prefix + nameof(UndefinedAndNull))]
@@ -929,7 +929,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             {
                 Assert.NotNull(obj);
                 Assert.Equal(new DateTime(0), dt);
-                Assert.Equal(AllTypesEnum.ThisIsGreat, ev);
+                Assert.Equal(AllTypesEnum.THIS_IS_GREAT, ev);
 
                 return "OK";
             }

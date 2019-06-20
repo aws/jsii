@@ -9,12 +9,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     public enum EnumFromScopedModule
     {
         /// <remarks>stability: Deprecated</remarks>
-        [JsiiEnumMember(name: "Value1")]
+        [JsiiEnumMember(name: "VALUE1")]
         [System.Obsolete()]
-        Value1,
+        VALUE1,
         /// <remarks>stability: Deprecated</remarks>
-        [JsiiEnumMember(name: "Value2")]
+        [JsiiEnumMember(name: "VALUE2")]
         [System.Obsolete()]
-        Value2
+        VALUE2
     }
 }

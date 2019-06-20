@@ -9,7 +9,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     {
         /// <summary>Elite!</summary>
         /// <remarks>stability: Experimental</remarks>
-        [JsiiEnumMember(name: "SingletonInt")]
-        SingletonInt
+        [JsiiEnumMember(name: "SINGLETON_INT")]
+        SINGLETON_INT
     }
 }

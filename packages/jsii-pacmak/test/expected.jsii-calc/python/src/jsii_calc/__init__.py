@@ -373,17 +373,17 @@ class AllTypesEnum(enum.Enum):
     Stability:
         experimental
     """
-    MyEnumValue = "MyEnumValue"
+    MY_ENUM_VALUE = "MY_ENUM_VALUE"
     """
     Stability:
         experimental
     """
-    YourEnumValue = "YourEnumValue"
+    YOUR_ENUM_VALUE = "YOUR_ENUM_VALUE"
     """
     Stability:
         experimental
     """
-    ThisIsGreat = "ThisIsGreat"
+    THIS_IS_GREAT = "THIS_IS_GREAT"
     """
     Stability:
         experimental
@@ -929,7 +929,7 @@ class DeprecatedEnum(enum.Enum):
     Stability:
         deprecated
     """
-    OptionA = "OptionA"
+    OPTION_A = "OPTION_A"
     """
     Deprecated:
         option A is not great
@@ -937,7 +937,7 @@ class DeprecatedEnum(enum.Enum):
     Stability:
         deprecated
     """
-    OptionB = "OptionB"
+    OPTION_B = "OPTION_B"
     """
     Deprecated:
         option B is kinda bad, too
@@ -1287,12 +1287,12 @@ class ExperimentalEnum(enum.Enum):
     Stability:
         experimental
     """
-    OptionA = "OptionA"
+    OPTION_A = "OPTION_A"
     """
     Stability:
         experimental
     """
-    OptionB = "OptionB"
+    OPTION_B = "OPTION_B"
     """
     Stability:
         experimental
@@ -4745,7 +4745,7 @@ class SingletonIntEnum(enum.Enum):
     Stability:
         experimental
     """
-    SingletonInt = "SingletonInt"
+    SINGLETON_INT = "SINGLETON_INT"
     """Elite!
 
     Stability:
@@ -4779,7 +4779,7 @@ class SingletonStringEnum(enum.Enum):
     Stability:
         experimental
     """
-    SingletonString = "SingletonString"
+    SINGLETON_STRING = "SINGLETON_STRING"
     """1337.
 
     Stability:
@@ -4839,12 +4839,12 @@ class StableEnum(enum.Enum):
     Stability:
         stable
     """
-    OptionA = "OptionA"
+    OPTION_A = "OPTION_A"
     """
     Stability:
         stable
     """
-    OptionB = "OptionB"
+    OPTION_B = "OPTION_B"
     """
     Stability:
         stable
@@ -5713,13 +5713,13 @@ class composition:
             Stability:
                 experimental
             """
-            Normal = "Normal"
+            NORMAL = "NORMAL"
             """Normal string expression.
 
             Stability:
                 experimental
             """
-            Decorated = "Decorated"
+            DECORATED = "DECORATED"
             """Decorated string expression.
 
             Stability:
