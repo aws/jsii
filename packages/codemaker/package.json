@@ -1,6 +1,6 @@
 {
   "name": "codemaker",
-  "version": "0.11.2",
+  "version": "0.11.3",
   "description": "A tiny utility for generating source code",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -15,7 +15,7 @@
     "@types/fs-extra": "^7.0.0",
     "@types/nodeunit": "^0.0.30",
     "nodeunit": "^0.11.3",
-    "typescript": "^3.5.1"
+    "typescript": "^3.5.2"
   },
   "dependencies": {
     "camelcase": "^5.3.1",

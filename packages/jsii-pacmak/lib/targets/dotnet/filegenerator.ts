@@ -54,7 +54,7 @@ export class FileGenerator {
         propertyGroup.ele("IncludeSource", "true");
         propertyGroup.ele("PackageVersion", assembly.version);
         propertyGroup.ele("PackageId", packageId);
-        propertyGroup.ele("Description", assembly.description);
+        propertyGroup.ele("Description", this.getDescription());
         propertyGroup.ele("ProjectUrl", assembly.homepage);
         propertyGroup.ele("LicenseUrl", `https://spdx.org/licenses/${assembly.license}.html`);
         propertyGroup.ele("Authors", assembly.author.name);
@@ -117,5 +117,17 @@ export class FileGenerator {
         const assembly = `[assembly: JsiiAssembly("${this.assm.name}", "${this.assm.version}", "${this.tarballFileName}")]`;
         this.code.line(assembly);
         this.code.closeFile(filePath);
+    }
+
+    // Generates the description
+    private getDescription(): string {
+        const docs = this.assm.docs;
+        if (docs) {
+            const stability = docs.stability;
+            if (stability) {
+                return `${this.assm.description} (Stability: ${stability})`;
+            }
+        }
+        return this.assm.description;
     }
 }

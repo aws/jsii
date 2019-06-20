@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.3](https://github.com/awslabs/jsii/compare/v0.11.2...v0.11.3) (2019-06-18)
+
+**Note:** Version bump only for package jsii-build-tools
+
+
+
+
+
 ## [0.11.2](https://github.com/awslabs/jsii/compare/v0.11.1...v0.11.2) (2019-06-07)
 
 **Note:** Version bump only for package jsii-build-tools
