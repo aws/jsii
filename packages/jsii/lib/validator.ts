@@ -78,7 +78,7 @@ function _defaultValidations(): ValidationFunction[] {
             for (const member of type.members) {
                 if (member.name && member.name !== Case.constant(member.name)) {
                     diagnostic(ts.DiagnosticCategory.Error,
-                               `Enum members must use TRUMP_CASE: ${member.name}`);
+                               `Enum members must use ALL_CAPS: ${member.name}`);
                 }
             }
         }
