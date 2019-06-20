@@ -259,20 +259,20 @@ public class ComplianceTest {
         Calculator calc = new Calculator();
         calc.add(9);
         calc.pow(3);
-        assertEquals(CompositeOperation.CompositionStringStyle.Normal, calc.getStringStyle());
-        calc.setStringStyle(CompositeOperation.CompositionStringStyle.Decorated);
-        assertEquals(CompositeOperation.CompositionStringStyle.Decorated, calc.getStringStyle());
+        assertEquals(CompositeOperation.CompositionStringStyle.NORMAL, calc.getStringStyle());
+        calc.setStringStyle(CompositeOperation.CompositionStringStyle.DECORATED);
+        assertEquals(CompositeOperation.CompositionStringStyle.DECORATED, calc.getStringStyle());
         assertEquals("<<[[{{(((1 * (0 + 9)) * (0 + 9)) * (0 + 9))}}]]>>", calc.toString());
     }
 
     @Test
     public void useEnumFromScopedModule() {
         ReferenceEnumFromScopedPackage obj = new ReferenceEnumFromScopedPackage();
-        assertEquals(EnumFromScopedModule.Value2, obj.getFoo());
-        obj.setFoo(EnumFromScopedModule.Value1);
-        assertEquals(EnumFromScopedModule.Value1, obj.loadFoo());
-        obj.saveFoo(EnumFromScopedModule.Value2);
-        assertEquals(EnumFromScopedModule.Value2, obj.getFoo());
+        assertEquals(EnumFromScopedModule.VALUE2, obj.getFoo());
+        obj.setFoo(EnumFromScopedModule.VALUE1);
+        assertEquals(EnumFromScopedModule.VALUE1, obj.loadFoo());
+        obj.saveFoo(EnumFromScopedModule.VALUE2);
+        assertEquals(EnumFromScopedModule.VALUE2, obj.getFoo());
     }
 
     @Test
@@ -1044,7 +1044,7 @@ public class ComplianceTest {
                                                       final AllTypesEnum en) {
             assertNotNull(obj);
             assertEquals(Instant.EPOCH, dt);
-            assertEquals(AllTypesEnum.ThisIsGreat, en);
+            assertEquals(AllTypesEnum.THIS_IS_GREAT, en);
 
             return "OK";
         }
