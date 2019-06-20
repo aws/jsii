@@ -13,11 +13,11 @@ public enum DeprecatedEnum {
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-    OptionA,
+    OPTION_A,
     /**
      * @deprecated option B is kinda bad, too
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-    OptionB,
+    OPTION_B,
 }

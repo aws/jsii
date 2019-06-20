@@ -15,5 +15,5 @@ public enum SingletonStringEnum {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    SingletonString,
+    SINGLETON_STRING,
 }

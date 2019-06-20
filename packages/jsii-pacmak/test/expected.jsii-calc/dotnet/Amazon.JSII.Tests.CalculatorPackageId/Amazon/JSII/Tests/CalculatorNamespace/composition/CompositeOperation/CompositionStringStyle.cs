@@ -9,11 +9,11 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation
     {
         /// <summary>Normal string expression.</summary>
         /// <remarks>stability: Experimental</remarks>
-        [JsiiEnumMember(name: "Normal")]
-        Normal,
+        [JsiiEnumMember(name: "NORMAL")]
+        NORMAL,
         /// <summary>Decorated string expression.</summary>
         /// <remarks>stability: Experimental</remarks>
-        [JsiiEnumMember(name: "Decorated")]
-        Decorated
+        [JsiiEnumMember(name: "DECORATED")]
+        DECORATED
     }
 }

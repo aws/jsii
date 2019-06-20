@@ -7,13 +7,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     public enum AllTypesEnum
     {
         /// <remarks>stability: Experimental</remarks>
-        [JsiiEnumMember(name: "MyEnumValue")]
-        MyEnumValue,
+        [JsiiEnumMember(name: "MY_ENUM_VALUE")]
+        MY_ENUM_VALUE,
         /// <remarks>stability: Experimental</remarks>
-        [JsiiEnumMember(name: "YourEnumValue")]
-        YourEnumValue,
+        [JsiiEnumMember(name: "YOUR_ENUM_VALUE")]
+        YOUR_ENUM_VALUE,
         /// <remarks>stability: Experimental</remarks>
-        [JsiiEnumMember(name: "ThisIsGreat")]
-        ThisIsGreat
+        [JsiiEnumMember(name: "THIS_IS_GREAT")]
+        THIS_IS_GREAT
     }
 }

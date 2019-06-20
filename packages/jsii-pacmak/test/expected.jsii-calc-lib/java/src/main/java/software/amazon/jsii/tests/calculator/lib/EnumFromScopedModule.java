@@ -12,10 +12,10 @@ public enum EnumFromScopedModule {
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-    Value1,
+    VALUE1,
     /**
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-    Value2,
+    VALUE2,
 }

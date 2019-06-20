@@ -9,7 +9,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     {
         /// <summary>1337.</summary>
         /// <remarks>stability: Experimental</remarks>
-        [JsiiEnumMember(name: "SingletonString")]
-        SingletonString
+        [JsiiEnumMember(name: "SINGLETON_STRING")]
+        SINGLETON_STRING
     }
 }

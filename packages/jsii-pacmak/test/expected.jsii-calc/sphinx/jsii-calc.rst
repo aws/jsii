@@ -538,11 +538,11 @@ AllTypesEnum (enum)
 
 
 
-   .. py:data:: MyEnumValue
+   .. py:data:: MY_ENUM_VALUE
 
-   .. py:data:: YourEnumValue
+   .. py:data:: YOUR_ENUM_VALUE
 
-   .. py:data:: ThisIsGreat
+   .. py:data:: THIS_IS_GREAT
 
 
 AllowedMethodNames
@@ -1562,9 +1562,9 @@ DeprecatedEnum (enum)
 
 
 
-   .. py:data:: OptionA
+   .. py:data:: OPTION_A
 
-   .. py:data:: OptionB
+   .. py:data:: OPTION_B
 
 
 DeprecatedStruct (interface)
@@ -2198,9 +2198,9 @@ ExperimentalEnum (enum)
 
 
 
-   .. py:data:: OptionA
+   .. py:data:: OPTION_A
 
-   .. py:data:: OptionB
+   .. py:data:: OPTION_B
 
 
 ExperimentalStruct (interface)
@@ -5905,7 +5905,7 @@ SingletonIntEnum (enum)
 
 
 
-   .. py:data:: SingletonInt
+   .. py:data:: SINGLETON_INT
 
    Elite!
 
@@ -5986,7 +5986,7 @@ SingletonStringEnum (enum)
 
 
 
-   .. py:data:: SingletonString
+   .. py:data:: SINGLETON_STRING
 
    1337.
 
@@ -6066,9 +6066,9 @@ StableEnum (enum)
 
 
 
-   .. py:data:: OptionA
+   .. py:data:: OPTION_A
 
-   .. py:data:: OptionB
+   .. py:data:: OPTION_B
 
 
 StableStruct (interface)
@@ -7133,13 +7133,13 @@ CompositeOperation
 
 
 
-      .. py:data:: Normal
+      .. py:data:: NORMAL
 
       Normal string expression.
 
 
 
-      .. py:data:: Decorated
+      .. py:data:: DECORATED
 
       Decorated string expression.
 
