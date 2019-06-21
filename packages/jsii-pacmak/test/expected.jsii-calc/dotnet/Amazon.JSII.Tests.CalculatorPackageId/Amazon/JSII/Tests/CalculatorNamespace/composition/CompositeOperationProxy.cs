@@ -4,7 +4,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
 {
     /// <summary>Abstract operation composed from an expression of other operations.</summary>
     /// <remarks>
-    /// stability: experimental
+    /// stability: Experimental
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(CompositeOperation), fullyQualifiedName: "jsii-calc.composition.CompositeOperation")]
     internal sealed class CompositeOperationProxy : CompositeOperation
@@ -15,7 +15,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
 
         /// <summary>The expression that this operation consists of. Must be implemented by derived classes.</summary>
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "expression", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public override Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ Expression

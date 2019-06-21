@@ -4,7 +4,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Host runtime version should be set via JSII_AGENT.</summary>
     /// <remarks>
-    /// stability: experimental
+    /// stability: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(JsiiAgent_), fullyQualifiedName: "jsii-calc.JsiiAgent")]
     public class JsiiAgent_ : DeputyBase
@@ -23,7 +23,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Returns the value of the JSII_AGENT environment variable.</summary>
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "jsiiAgent", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         public static string JsiiAgent

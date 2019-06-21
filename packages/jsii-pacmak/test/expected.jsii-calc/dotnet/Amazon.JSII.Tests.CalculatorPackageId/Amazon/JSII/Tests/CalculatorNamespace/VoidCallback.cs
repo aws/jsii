@@ -7,7 +7,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// - Implement `overrideMe` (method does not have to do anything).
     /// - Invoke `callMe`
     /// - Verify that `methodWasCalled` is `true`.
-    /// stability: experimental
+    /// stability: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(VoidCallback), fullyQualifiedName: "jsii-calc.VoidCallback")]
     public abstract class VoidCallback : DeputyBase
@@ -25,7 +25,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "callMe")]
         public virtual void CallMe()
@@ -34,14 +34,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "overrideMe")]
         protected abstract void OverrideMe();
 
 
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "methodWasCalled", typeJson: "{\"primitive\":\"boolean\"}")]
         public virtual bool MethodWasCalled

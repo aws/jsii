@@ -11,10 +11,10 @@ public enum ExperimentalEnum {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    OptionA,
+    OPTION_A,
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    OptionB,
+    OPTION_B,
 }

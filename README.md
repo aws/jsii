@@ -21,7 +21,7 @@ like any other class.
 
 > NOTE: Due to performance of the hosted JavaScript engine and marshaling costs,
 __jsii__ modules are likely to be used for development and build tools, as
-oppose to performance-sensitive runtime behavior.
+opposed to performance-sensitive runtime behavior.
 
 From Java:
 

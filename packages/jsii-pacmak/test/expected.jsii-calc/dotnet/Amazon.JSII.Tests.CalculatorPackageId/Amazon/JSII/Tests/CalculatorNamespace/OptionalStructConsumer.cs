@@ -3,13 +3,13 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>
-    /// stability: experimental
+    /// stability: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(OptionalStructConsumer), fullyQualifiedName: "jsii-calc.OptionalStructConsumer", parametersJson: "[{\"name\":\"optionalStruct\",\"optional\":true,\"type\":{\"fqn\":\"jsii-calc.OptionalStruct\"}}]")]
     public class OptionalStructConsumer : DeputyBase
     {
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         public OptionalStructConsumer(Amazon.JSII.Tests.CalculatorNamespace.IOptionalStruct optionalStruct): base(new DeputyProps(new object[]{optionalStruct}))
         {
@@ -24,7 +24,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "parameterWasUndefined", typeJson: "{\"primitive\":\"boolean\"}")]
         public virtual bool ParameterWasUndefined
@@ -33,7 +33,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "fieldValue", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         public virtual string FieldValue

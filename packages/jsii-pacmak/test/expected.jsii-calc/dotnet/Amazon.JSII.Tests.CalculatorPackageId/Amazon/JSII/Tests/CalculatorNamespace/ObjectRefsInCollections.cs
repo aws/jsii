@@ -4,7 +4,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Verify that object references can be passed inside collections.</summary>
     /// <remarks>
-    /// stability: experimental
+    /// stability: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(ObjectRefsInCollections), fullyQualifiedName: "jsii-calc.ObjectRefsInCollections")]
     public class ObjectRefsInCollections : DeputyBase
@@ -23,7 +23,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Returns the sum of all values.</summary>
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "sumFromArray", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[{\"name\":\"values\",\"type\":{\"collection\":{\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"},\"kind\":\"array\"}}}]")]
         public virtual double SumFromArray(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_[] values)
@@ -33,7 +33,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Returns the sum of all values in a map.</summary>
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "sumFromMap", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[{\"name\":\"values\",\"type\":{\"collection\":{\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"},\"kind\":\"map\"}}}]")]
         public virtual double SumFromMap(System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_> values)

@@ -3,13 +3,13 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>
-    /// stability: experimental
+    /// stability: Experimental
     /// </remarks>
     [JsiiInterface(nativeType: typeof(IIInterfaceWithInternal), fullyQualifiedName: "jsii-calc.IInterfaceWithInternal")]
     public interface IIInterfaceWithInternal
     {
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "visible")]
         void Visible();

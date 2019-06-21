@@ -4,13 +4,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>awslabs/jsii#220 Abstract return type.</summary>
     /// <remarks>
-    /// stability: experimental
+    /// stability: Experimental
     /// </remarks>
     [JsiiInterface(nativeType: typeof(IIInterfaceImplementedByAbstractClass), fullyQualifiedName: "jsii-calc.IInterfaceImplementedByAbstractClass")]
     public interface IIInterfaceImplementedByAbstractClass
     {
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "propFromInterface", typeJson: "{\"primitive\":\"string\"}")]
         string PropFromInterface

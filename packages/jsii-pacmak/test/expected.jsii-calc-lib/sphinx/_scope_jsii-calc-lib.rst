@@ -154,9 +154,9 @@ EnumFromScopedModule (enum)
 
 
 
-   .. py:data:: Value1
+   .. py:data:: VALUE1
 
-   .. py:data:: Value2
+   .. py:data:: VALUE2
 
 
 IDoublable (interface)

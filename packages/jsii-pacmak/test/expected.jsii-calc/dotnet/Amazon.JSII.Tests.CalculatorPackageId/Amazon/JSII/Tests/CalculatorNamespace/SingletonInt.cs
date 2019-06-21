@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <summary>Verifies that singleton enums are handled correctly.</summary>
     /// <remarks>
     /// https://github.com/awslabs/jsii/issues/231
-    /// stability: experimental
+    /// stability: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(SingletonInt), fullyQualifiedName: "jsii-calc.SingletonInt")]
     public class SingletonInt : DeputyBase
@@ -19,7 +19,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "isSingletonInt", returnsJson: "{\"type\":{\"primitive\":\"boolean\"}}", parametersJson: "[{\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]
         public virtual bool IsSingletonInt(double @value)

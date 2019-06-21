@@ -4,7 +4,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Even friendlier classes can implement this interface.</summary>
     /// <remarks>
-    /// stability: experimental
+    /// stability: Experimental
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IIFriendlier), fullyQualifiedName: "jsii-calc.IFriendlier")]
     internal sealed class IFriendlierProxy : DeputyBase, IIFriendlier
@@ -15,7 +15,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Say farewell.</summary>
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "farewell", returnsJson: "{\"type\":{\"primitive\":\"string\"}}")]
         public string Farewell()
@@ -26,7 +26,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>Say goodbye.</summary>
         /// <returns>A goodbye blessing.</returns>
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "goodbye", returnsJson: "{\"type\":{\"primitive\":\"string\"}}")]
         public string Goodbye()
@@ -36,7 +36,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Say hello!</summary>
         /// <remarks>
-        /// stability: deprecated
+        /// stability: Deprecated
         /// </remarks>
         [JsiiMethod(name: "hello", returnsJson: "{\"type\":{\"primitive\":\"string\"}}")]
         [System.Obsolete()]

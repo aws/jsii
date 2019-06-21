@@ -18,12 +18,12 @@ class EnumFromScopedModule(enum.Enum):
     Stability:
         deprecated
     """
-    Value1 = "Value1"
+    VALUE1 = "VALUE1"
     """
     Stability:
         deprecated
     """
-    Value2 = "Value2"
+    VALUE2 = "VALUE2"
     """
     Stability:
         deprecated

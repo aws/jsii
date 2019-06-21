@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Represents an operation with two operands.</summary>
     /// <remarks>
-    /// stability: experimental
+    /// stability: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(BinaryOperation), fullyQualifiedName: "jsii-calc.BinaryOperation", parametersJson: "[{\"docs\":{\"summary\":\"Left-hand side operand.\"},\"name\":\"lhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},{\"docs\":{\"summary\":\"Right-hand side operand.\"},\"name\":\"rhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
     public abstract class BinaryOperation : Operation, IIFriendly
@@ -14,7 +14,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <param name = "lhs">Left-hand side operand.</param>
         /// <param name = "rhs">Right-hand side operand.</param>
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         protected BinaryOperation(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ lhs, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ rhs): base(new DeputyProps(new object[]{lhs, rhs}))
         {
@@ -30,7 +30,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Say hello!</summary>
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "hello", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
         public virtual string Hello()
@@ -40,7 +40,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Left-hand side operand.</summary>
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "lhs", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ Lhs
@@ -50,7 +50,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Right-hand side operand.</summary>
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "rhs", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ Rhs

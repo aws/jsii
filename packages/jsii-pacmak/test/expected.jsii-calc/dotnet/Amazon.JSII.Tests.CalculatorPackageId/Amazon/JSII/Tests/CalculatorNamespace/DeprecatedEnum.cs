@@ -4,23 +4,23 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
 
     /// <remarks>
-    /// stability: deprecated
+    /// stability: Deprecated
     /// </remarks>
     [JsiiEnum(nativeType: typeof(DeprecatedEnum), fullyQualifiedName: "jsii-calc.DeprecatedEnum")]
     [System.Obsolete("your deprecated selection of bad options")]
     public enum DeprecatedEnum
     {
         /// <remarks>
-        /// stability: deprecated
+        /// stability: Deprecated
         /// </remarks>
-        [JsiiEnumMember(name: "OptionA")]
+        [JsiiEnumMember(name: "OPTION_A")]
         [System.Obsolete("option A is not great")]
-        OptionA,
+        OPTION_A,
         /// <remarks>
-        /// stability: deprecated
+        /// stability: Deprecated
         /// </remarks>
-        [JsiiEnumMember(name: "OptionB")]
+        [JsiiEnumMember(name: "OPTION_B")]
         [System.Obsolete("option B is kinda bad, too")]
-        OptionB
+        OPTION_B
     }
 }

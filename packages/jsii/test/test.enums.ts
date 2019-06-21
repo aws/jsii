@@ -8,8 +8,8 @@ export = {
   async 'test parsing enum with two members and no values'(test: Test) {
     const assembly = await sourceToAssemblyHelper(`
       export enum Foo {
-        Bar,
-        Baz
+        BAR,
+        BAZ
       }
     `);
 
@@ -17,7 +17,7 @@ export = {
       assembly: 'testpkg',
       fqn: 'testpkg.Foo',
       kind: 'enum',
-      members: [{ name: 'Bar' }, { name: 'Baz' }],
+      members: [{ name: 'BAR' }, { name: 'BAZ' }],
       locationInModule: { filename: 'index.ts', line: 2 },
       name: 'Foo'
     });
@@ -29,8 +29,8 @@ export = {
   async 'test parsing enum with two members and assigned values'(test: Test) {
     const assembly = await sourceToAssemblyHelper(`
       export enum Foo {
-        Bar = 'Bar',
-        Baz = 'Baz'
+        BAR = 'Bar',
+        BAZ = 'Baz'
       }
     `);
 
@@ -38,7 +38,7 @@ export = {
       assembly: 'testpkg',
       fqn: 'testpkg.Foo',
       kind: 'enum',
-      members: [{ name: 'Bar' }, { name: 'Baz' }],
+      members: [{ name: 'BAR' }, { name: 'BAZ' }],
       locationInModule: { filename: 'index.ts', line: 2 },
       name: 'Foo'
     });

@@ -3,13 +3,13 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>
-    /// stability: experimental
+    /// stability: Experimental
     /// </remarks>
     [JsiiInterface(nativeType: typeof(IIJSII417Derived), fullyQualifiedName: "jsii-calc.IJSII417Derived")]
     public interface IIJSII417Derived : IIJSII417PublicBaseOfBase
     {
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "property", typeJson: "{\"primitive\":\"string\"}")]
         string Property
@@ -17,12 +17,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get;
         }
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "bar")]
         void Bar();
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "baz")]
         void Baz();

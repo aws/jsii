@@ -4,7 +4,7 @@ using Amazon.JSII.Tests.CalculatorNamespace.DerivedClassHasNoProperties;
 namespace Amazon.JSII.Tests.CalculatorNamespace.DerivedClassHasNoProperties
 {
     /// <remarks>
-    /// stability: experimental
+    /// stability: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Derived), fullyQualifiedName: "jsii-calc.DerivedClassHasNoProperties.Derived")]
     public class Derived : Base

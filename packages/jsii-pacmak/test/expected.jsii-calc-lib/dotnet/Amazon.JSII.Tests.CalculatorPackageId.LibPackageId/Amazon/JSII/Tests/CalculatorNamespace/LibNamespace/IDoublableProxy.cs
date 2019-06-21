@@ -4,7 +4,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
     /// <summary>The general contract for a concrete number.</summary>
     /// <remarks>
-    /// stability: deprecated
+    /// stability: Deprecated
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IIDoublable), fullyQualifiedName: "@scope/jsii-calc-lib.IDoublable")]
     [System.Obsolete()]
@@ -15,7 +15,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         }
 
         /// <remarks>
-        /// stability: deprecated
+        /// stability: Deprecated
         /// </remarks>
         [JsiiProperty(name: "doubleValue", typeJson: "{\"primitive\":\"number\"}")]
         [System.Obsolete()]

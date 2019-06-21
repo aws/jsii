@@ -4,7 +4,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>An operation on a single operand.</summary>
     /// <remarks>
-    /// stability: experimental
+    /// stability: Experimental
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(UnaryOperation), fullyQualifiedName: "jsii-calc.UnaryOperation")]
     internal sealed class UnaryOperationProxy : UnaryOperation
@@ -15,7 +15,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>The value.</summary>
         /// <remarks>
-        /// stability: deprecated
+        /// stability: Deprecated
         /// </remarks>
         [JsiiProperty(name: "value", typeJson: "{\"primitive\":\"number\"}")]
         [System.Obsolete()]
@@ -26,7 +26,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>String representation of the value.</summary>
         /// <remarks>
-        /// stability: deprecated
+        /// stability: Deprecated
         /// </remarks>
         [JsiiMethod(name: "toString", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
         [System.Obsolete()]

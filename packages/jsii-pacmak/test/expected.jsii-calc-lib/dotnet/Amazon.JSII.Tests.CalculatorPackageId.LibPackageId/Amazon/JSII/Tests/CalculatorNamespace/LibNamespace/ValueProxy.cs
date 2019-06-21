@@ -4,7 +4,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
     /// <summary>Abstract class which represents a numeric value.</summary>
     /// <remarks>
-    /// stability: deprecated
+    /// stability: Deprecated
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(Value_), fullyQualifiedName: "@scope/jsii-calc-lib.Value")]
     [System.Obsolete()]
@@ -16,7 +16,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 
         /// <summary>The value.</summary>
         /// <remarks>
-        /// stability: deprecated
+        /// stability: Deprecated
         /// </remarks>
         [JsiiProperty(name: "value", typeJson: "{\"primitive\":\"number\"}")]
         [System.Obsolete()]

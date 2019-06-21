@@ -707,29 +707,29 @@ assemblies
  │   │   ├── bar property
  │   │   └── foo property
  │   ├─┬ enum AllTypesEnum
- │   │ ├── MyEnumValue
- │   │ ├── YourEnumValue
- │   │ └── ThisIsGreat
+ │   │ ├── MY_ENUM_VALUE
+ │   │ ├── YOUR_ENUM_VALUE
+ │   │ └── THIS_IS_GREAT
  │   ├─┬ enum DeprecatedEnum
- │   │ ├── OptionA
- │   │ └── OptionB
+ │   │ ├── OPTION_A
+ │   │ └── OPTION_B
  │   ├─┬ enum ExperimentalEnum
- │   │ ├── OptionA
- │   │ └── OptionB
+ │   │ ├── OPTION_A
+ │   │ └── OPTION_B
  │   ├─┬ enum SingletonIntEnum
- │   │ └── SingletonInt
+ │   │ └── SINGLETON_INT
  │   ├─┬ enum SingletonStringEnum
- │   │ └── SingletonString
+ │   │ └── SINGLETON_STRING
  │   ├─┬ enum StableEnum
- │   │ ├── OptionA
- │   │ └── OptionB
+ │   │ ├── OPTION_A
+ │   │ └── OPTION_B
  │   ├─┬ enum StringEnum
  │   │ ├── A
  │   │ ├── B
  │   │ └── C
  │   └─┬ enum CompositionStringStyle
- │     ├── Normal
- │     └── Decorated
+ │     ├── NORMAL
+ │     └── DECORATED
  ├─┬ @scope/jsii-calc-base
  │ └─┬ types
  │   ├─┬ class Base
@@ -790,5 +790,5 @@ assemblies
      │   ├── optional2 property
      │   └── optional3 property
      └─┬ enum EnumFromScopedModule
-       ├── Value1
-       └── Value2
+       ├── VALUE1
+       └── VALUE2

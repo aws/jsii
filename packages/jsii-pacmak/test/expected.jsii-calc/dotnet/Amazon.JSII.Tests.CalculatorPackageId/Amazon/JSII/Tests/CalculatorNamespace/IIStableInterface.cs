@@ -3,13 +3,13 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>
-    /// stability: stable
+    /// stability: Stable
     /// </remarks>
     [JsiiInterface(nativeType: typeof(IIStableInterface), fullyQualifiedName: "jsii-calc.IStableInterface")]
     public interface IIStableInterface
     {
         /// <remarks>
-        /// stability: stable
+        /// stability: Stable
         /// </remarks>
         [JsiiProperty(name: "mutableProperty", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
         double? MutableProperty
@@ -18,7 +18,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
         /// <remarks>
-        /// stability: stable
+        /// stability: Stable
         /// </remarks>
         [JsiiMethod(name: "method")]
         void Method();

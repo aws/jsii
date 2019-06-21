@@ -3,6 +3,7 @@ import {Assembly} from "jsii-spec";
 import path = require('path');
 import xmlbuilder = require('xmlbuilder');
 import logging = require('../../logging');
+import {DotNetNameUtils} from "./nameutils";
 
 // Represents a dependency in the dependency tree.
 export class DotNetDependency  {
@@ -27,6 +28,7 @@ export class FileGenerator {
     private tarballFileName: string;
     private code: CodeMaker;
     private assemblyInfoNamespaces: string[] = ["Amazon.JSII.Runtime.Deputy"];
+    private nameutils: DotNetNameUtils = new DotNetNameUtils();
 
     // We pass in an instance of CodeMaker so that the files get later saved
     // when calling the save() method on the .NET Generator.
@@ -125,7 +127,7 @@ export class FileGenerator {
         if (docs) {
             const stability = docs.stability;
             if (stability) {
-                return `${this.assm.description} (Stability: ${stability})`;
+                return `${this.assm.description} (Stability: ${this.nameutils.capitalizeWord(stability)})`;
             }
         }
         return this.assm.description;

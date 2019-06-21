@@ -71,7 +71,7 @@ export class DotNetDocGenerator {
         }
 
         if (docs.stability) {
-            remarks.push(`stability: ${docs.stability}`);
+            remarks.push(`stability: ${this.nameutils.capitalizeWord(docs.stability)}`);
         }
 
         if (docs.example) {

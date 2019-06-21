@@ -122,14 +122,14 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
          * EXPERIMENTAL
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        Normal,
+        NORMAL,
         /**
          * Decorated string expression.
          * 
          * EXPERIMENTAL
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        Decorated,
+        DECORATED,
     }
 
     /**

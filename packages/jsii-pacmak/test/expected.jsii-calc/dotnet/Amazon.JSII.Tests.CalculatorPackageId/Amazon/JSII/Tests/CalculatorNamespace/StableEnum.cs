@@ -4,20 +4,20 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
 
     /// <remarks>
-    /// stability: stable
+    /// stability: Stable
     /// </remarks>
     [JsiiEnum(nativeType: typeof(StableEnum), fullyQualifiedName: "jsii-calc.StableEnum")]
     public enum StableEnum
     {
         /// <remarks>
-        /// stability: stable
+        /// stability: Stable
         /// </remarks>
-        [JsiiEnumMember(name: "OptionA")]
-        OptionA,
+        [JsiiEnumMember(name: "OPTION_A")]
+        OPTION_A,
         /// <remarks>
-        /// stability: stable
+        /// stability: Stable
         /// </remarks>
-        [JsiiEnumMember(name: "OptionB")]
-        OptionB
+        [JsiiEnumMember(name: "OPTION_B")]
+        OPTION_B
     }
 }

@@ -3,13 +3,13 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>
-    /// stability: stable
+    /// stability: Stable
     /// </remarks>
     [JsiiClass(nativeType: typeof(StableClass), fullyQualifiedName: "jsii-calc.StableClass", parametersJson: "[{\"name\":\"readonlyString\",\"type\":{\"primitive\":\"string\"}},{\"name\":\"mutableNumber\",\"optional\":true,\"type\":{\"primitive\":\"number\"}}]")]
     public class StableClass : DeputyBase
     {
         /// <remarks>
-        /// stability: stable
+        /// stability: Stable
         /// </remarks>
         public StableClass(string readonlyString, double? mutableNumber): base(new DeputyProps(new object[]{readonlyString, mutableNumber}))
         {
@@ -24,7 +24,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: stable
+        /// stability: Stable
         /// </remarks>
         [JsiiMethod(name: "method")]
         public virtual void Method()
@@ -33,7 +33,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: stable
+        /// stability: Stable
         /// </remarks>
         [JsiiProperty(name: "readonlyProperty", typeJson: "{\"primitive\":\"string\"}")]
         public virtual string ReadonlyProperty
@@ -42,7 +42,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: stable
+        /// stability: Stable
         /// </remarks>
         [JsiiProperty(name: "mutableProperty", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
         public virtual double? MutableProperty

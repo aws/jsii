@@ -4,7 +4,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Old class.</summary>
     /// <remarks>
-    /// stability: deprecated
+    /// stability: Deprecated
     /// </remarks>
     [JsiiClass(nativeType: typeof(Old), fullyQualifiedName: "jsii-calc.Old")]
     [System.Obsolete("Use the new class")]
@@ -24,7 +24,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Doo wop that thing.</summary>
         /// <remarks>
-        /// stability: deprecated
+        /// stability: Deprecated
         /// </remarks>
         [JsiiMethod(name: "doAThing")]
         [System.Obsolete()]

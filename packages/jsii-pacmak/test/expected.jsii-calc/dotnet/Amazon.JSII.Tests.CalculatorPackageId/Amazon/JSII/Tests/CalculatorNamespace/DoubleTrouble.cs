@@ -3,7 +3,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>
-    /// stability: experimental
+    /// stability: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(DoubleTrouble), fullyQualifiedName: "jsii-calc.DoubleTrouble")]
     public class DoubleTrouble : DeputyBase, IIFriendlyRandomGenerator
@@ -22,7 +22,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Say hello!</summary>
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "hello", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
         public virtual string Hello()
@@ -32,7 +32,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Returns another random number.</summary>
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "next", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", isOverride: true)]
         public virtual double Next()

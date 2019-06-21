@@ -3,7 +3,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>
-    /// stability: experimental
+    /// stability: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(StripInternal), fullyQualifiedName: "jsii-calc.StripInternal")]
     public class StripInternal : DeputyBase
@@ -21,7 +21,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "youSeeMe", typeJson: "{\"primitive\":\"string\"}")]
         public virtual string YouSeeMe

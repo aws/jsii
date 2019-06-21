@@ -136,13 +136,13 @@
           "docs": {
             "stability": "deprecated"
           },
-          "name": "Value1"
+          "name": "VALUE1"
         },
         {
           "docs": {
             "stability": "deprecated"
           },
-          "name": "Value2"
+          "name": "VALUE2"
         }
       ],
       "name": "EnumFromScopedModule"
@@ -540,5 +540,5 @@
     }
   },
   "version": "0.11.3",
-  "fingerprint": "jAkwT5aChzSZi3hTeylIFDPL1J8qUy++0B75C5vIA6Y="
+  "fingerprint": "iggTfEXzBxodU2TEDzkmrmsuEakOvA/UXmOA/8nQboU="
 }

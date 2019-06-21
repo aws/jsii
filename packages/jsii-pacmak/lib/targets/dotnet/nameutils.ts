@@ -80,7 +80,7 @@ export class DotNetNameUtils {
         return this.escapeParameterName(name);
     }
 
-    private capitalizeWord(original: string) {
+    public capitalizeWord(original: string) {
         return original.charAt(0).toUpperCase() + original.slice(1);
     }
 

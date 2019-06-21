@@ -4,7 +4,7 @@ using Amazon.JSII.Tests.CalculatorNamespace;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>
-    /// stability: experimental
+    /// stability: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(InbetweenClass), fullyQualifiedName: "jsii-calc.InbetweenClass")]
     public class InbetweenClass : PublicClass, IIPublicInterface2
@@ -22,7 +22,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "ciao", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
         public virtual string Ciao()

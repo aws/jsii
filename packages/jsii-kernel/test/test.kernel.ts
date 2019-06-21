@@ -176,28 +176,28 @@ defineTest('in/out date values', async (test, sandbox) => {
 defineTest('in/out enum values', async (test, sandbox) => {
     const alltypes = sandbox.create({ fqn: 'jsii-calc.AllTypes' });
 
-    sandbox.set({ objref: alltypes, property: 'enumProperty', value: { [api.TOKEN_ENUM]: 'jsii-calc.AllTypesEnum/MyEnumValue' } });
+    sandbox.set({ objref: alltypes, property: 'enumProperty', value: { [api.TOKEN_ENUM]: 'jsii-calc.AllTypesEnum/MY_ENUM_VALUE' } });
     test.equal(sandbox.get({ objref: alltypes, property: 'enumPropertyValue' }).value, 0);
-    sandbox.set({ objref: alltypes, property: 'enumProperty', value: { [api.TOKEN_ENUM]: 'jsii-calc.AllTypesEnum/YourEnumValue' } });
+    sandbox.set({ objref: alltypes, property: 'enumProperty', value: { [api.TOKEN_ENUM]: 'jsii-calc.AllTypesEnum/YOUR_ENUM_VALUE' } });
     test.equal(sandbox.get({ objref: alltypes, property: 'enumPropertyValue' }).value, 100);
-    sandbox.set({ objref: alltypes, property: 'enumProperty', value: { [api.TOKEN_ENUM]: 'jsii-calc.AllTypesEnum/ThisIsGreat' } });
+    sandbox.set({ objref: alltypes, property: 'enumProperty', value: { [api.TOKEN_ENUM]: 'jsii-calc.AllTypesEnum/THIS_IS_GREAT' } });
     test.equal(sandbox.get({ objref: alltypes, property: 'enumPropertyValue' }).value, 101);
-    test.deepEqual(sandbox.get({ objref: alltypes, property: 'enumProperty' }).value, { '$jsii.enum': 'jsii-calc.AllTypesEnum/ThisIsGreat' });
+    test.deepEqual(sandbox.get({ objref: alltypes, property: 'enumProperty' }).value, { '$jsii.enum': 'jsii-calc.AllTypesEnum/THIS_IS_GREAT' });
 });
 
 defineTest('enum values from @scoped packages awslabs/jsii#138', async (test, sandbox) => {
     const objref = sandbox.create({ fqn: 'jsii-calc.ReferenceEnumFromScopedPackage' });
 
     const value = sandbox.get({ objref, property: 'foo' });
-    test.deepEqual(value, { value: { '$jsii.enum': '@scope/jsii-calc-lib.EnumFromScopedModule/Value2' } });
+    test.deepEqual(value, { value: { '$jsii.enum': '@scope/jsii-calc-lib.EnumFromScopedModule/VALUE2' } });
 
-    sandbox.set({ objref, property: 'foo', value: { '$jsii.enum': '@scope/jsii-calc-lib.EnumFromScopedModule/Value1' }});
+    sandbox.set({ objref, property: 'foo', value: { '$jsii.enum': '@scope/jsii-calc-lib.EnumFromScopedModule/VALUE1' }});
     const ret = sandbox.invoke({ objref, method: 'loadFoo' });
-    test.deepEqual(ret, { result: { '$jsii.enum': '@scope/jsii-calc-lib.EnumFromScopedModule/Value1' } });
+    test.deepEqual(ret, { result: { '$jsii.enum': '@scope/jsii-calc-lib.EnumFromScopedModule/VALUE1' } });
 
-    sandbox.invoke({ objref, method: 'saveFoo', args: [ { '$jsii.enum': '@scope/jsii-calc-lib.EnumFromScopedModule/Value2' } ] });
+    sandbox.invoke({ objref, method: 'saveFoo', args: [ { '$jsii.enum': '@scope/jsii-calc-lib.EnumFromScopedModule/VALUE2' } ] });
     const value2 = sandbox.get({ objref, property: 'foo' });
-    test.deepEqual(value2, { value: { '$jsii.enum': '@scope/jsii-calc-lib.EnumFromScopedModule/Value2' } });
+    test.deepEqual(value2, { value: { '$jsii.enum': '@scope/jsii-calc-lib.EnumFromScopedModule/VALUE2' } });
 });
 
 defineTest('fails for invalid enum member name', async (test, sandbox) => {
@@ -1125,7 +1125,7 @@ defineTest('Object ID does not get re-allocated when the constructor passes "thi
         }, {
             [api.TOKEN_DATE]: '1970-01-01T00:00:00.000Z'
         }, {
-            [api.TOKEN_ENUM]: 'jsii-calc.AllTypesEnum/ThisIsGreat'
+            [api.TOKEN_ENUM]: 'jsii-calc.AllTypesEnum/THIS_IS_GREAT'
         }]);
         return 'OK';
     });

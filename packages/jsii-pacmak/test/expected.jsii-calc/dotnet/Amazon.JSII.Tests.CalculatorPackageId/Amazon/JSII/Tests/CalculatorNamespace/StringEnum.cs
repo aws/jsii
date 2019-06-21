@@ -4,23 +4,23 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
 
     /// <remarks>
-    /// stability: experimental
+    /// stability: Experimental
     /// </remarks>
     [JsiiEnum(nativeType: typeof(StringEnum), fullyQualifiedName: "jsii-calc.StringEnum")]
     public enum StringEnum
     {
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiEnumMember(name: "A")]
         A,
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiEnumMember(name: "B")]
         B,
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiEnumMember(name: "C")]
         C

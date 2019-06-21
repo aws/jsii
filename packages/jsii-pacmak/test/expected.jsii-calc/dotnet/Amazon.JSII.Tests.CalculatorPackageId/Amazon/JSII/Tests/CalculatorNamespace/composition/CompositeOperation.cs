@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
 {
     /// <summary>Abstract operation composed from an expression of other operations.</summary>
     /// <remarks>
-    /// stability: experimental
+    /// stability: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(CompositeOperation), fullyQualifiedName: "jsii-calc.composition.CompositeOperation")]
     public abstract class CompositeOperation : Operation
@@ -24,7 +24,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
 
         /// <summary>String representation of the value.</summary>
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "toString", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
         public override string ToString()
@@ -34,7 +34,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
 
         /// <summary>The expression that this operation consists of. Must be implemented by derived classes.</summary>
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "expression", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ Expression
@@ -44,7 +44,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
 
         /// <summary>The value.</summary>
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "value", typeJson: "{\"primitive\":\"number\"}")]
         public override double Value
@@ -54,7 +54,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
 
         /// <summary>A set of postfixes to include in a decorated .toString().</summary>
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "decorationPostfixes", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"string\"},\"kind\":\"array\"}}")]
         public virtual string[] DecorationPostfixes
@@ -65,7 +65,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
 
         /// <summary>A set of prefixes to include in a decorated .toString().</summary>
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "decorationPrefixes", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"string\"},\"kind\":\"array\"}}")]
         public virtual string[] DecorationPrefixes
@@ -76,7 +76,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
 
         /// <summary>The .toString() style.</summary>
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "stringStyle", typeJson: "{\"fqn\":\"jsii-calc.composition.CompositeOperation.CompositionStringStyle\"}")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation.CompositionStringStyle StringStyle
@@ -87,23 +87,23 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
 
         /// <summary>Style of .toString() output for CompositeOperation.</summary>
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiEnum(nativeType: typeof(CompositionStringStyle), fullyQualifiedName: "jsii-calc.composition.CompositeOperation.CompositionStringStyle")]
         public enum CompositionStringStyle
         {
             /// <summary>Normal string expression.</summary>
             /// <remarks>
-            /// stability: experimental
+            /// stability: Experimental
             /// </remarks>
-            [JsiiEnumMember(name: "Normal")]
-            Normal,
+            [JsiiEnumMember(name: "NORMAL")]
+            NORMAL,
             /// <summary>Decorated string expression.</summary>
             /// <remarks>
-            /// stability: experimental
+            /// stability: Experimental
             /// </remarks>
-            [JsiiEnumMember(name: "Decorated")]
-            Decorated
+            [JsiiEnumMember(name: "DECORATED")]
+            DECORATED
         }
     }
 }

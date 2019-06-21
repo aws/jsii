@@ -4,7 +4,7 @@ using Amazon.JSII.Tests.CalculatorNamespace;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>
-    /// stability: experimental
+    /// stability: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(ImplementsInterfaceWithInternalSubclass), fullyQualifiedName: "jsii-calc.ImplementsInterfaceWithInternalSubclass")]
     public class ImplementsInterfaceWithInternalSubclass : ImplementsInterfaceWithInternal

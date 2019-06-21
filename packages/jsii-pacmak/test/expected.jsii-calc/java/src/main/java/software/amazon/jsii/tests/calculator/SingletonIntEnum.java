@@ -15,5 +15,5 @@ public enum SingletonIntEnum {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    SingletonInt,
+    SINGLETON_INT,
 }

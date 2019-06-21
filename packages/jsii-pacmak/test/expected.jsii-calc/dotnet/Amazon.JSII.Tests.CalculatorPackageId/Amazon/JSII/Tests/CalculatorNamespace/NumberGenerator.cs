@@ -4,13 +4,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>This allows us to test that a reference can be stored for objects that implement interfaces.</summary>
     /// <remarks>
-    /// stability: experimental
+    /// stability: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(NumberGenerator), fullyQualifiedName: "jsii-calc.NumberGenerator", parametersJson: "[{\"name\":\"generator\",\"type\":{\"fqn\":\"jsii-calc.IRandomNumberGenerator\"}}]")]
     public class NumberGenerator : DeputyBase
     {
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         public NumberGenerator(Amazon.JSII.Tests.CalculatorNamespace.IIRandomNumberGenerator generator): base(new DeputyProps(new object[]{generator}))
         {
@@ -25,7 +25,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "isSameGenerator", returnsJson: "{\"type\":{\"primitive\":\"boolean\"}}", parametersJson: "[{\"name\":\"gen\",\"type\":{\"fqn\":\"jsii-calc.IRandomNumberGenerator\"}}]")]
         public virtual bool IsSameGenerator(Amazon.JSII.Tests.CalculatorNamespace.IIRandomNumberGenerator gen)
@@ -34,7 +34,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "nextTimes100", returnsJson: "{\"type\":{\"primitive\":\"number\"}}")]
         public virtual double NextTimes100()
@@ -43,7 +43,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "generator", typeJson: "{\"fqn\":\"jsii-calc.IRandomNumberGenerator\"}")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.IIRandomNumberGenerator Generator

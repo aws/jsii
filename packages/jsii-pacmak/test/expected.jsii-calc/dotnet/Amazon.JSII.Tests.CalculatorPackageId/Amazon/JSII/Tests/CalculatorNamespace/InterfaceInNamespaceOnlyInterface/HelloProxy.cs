@@ -3,7 +3,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceOnlyInterface
 {
     /// <remarks>
-    /// stability: experimental
+    /// stability: Experimental
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IHello), fullyQualifiedName: "jsii-calc.InterfaceInNamespaceOnlyInterface.Hello")]
     internal sealed class HelloProxy : DeputyBase, IHello
@@ -13,7 +13,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceOnlyInterfac
         }
 
         /// <remarks>
-        /// stability: experimental
+        /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "foo", typeJson: "{\"primitive\":\"number\"}")]
         public double Foo

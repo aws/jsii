@@ -11,15 +11,15 @@ public enum AllTypesEnum {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    MyEnumValue,
+    MY_ENUM_VALUE,
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    YourEnumValue,
+    YOUR_ENUM_VALUE,
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    ThisIsGreat,
+    THIS_IS_GREAT,
 }
