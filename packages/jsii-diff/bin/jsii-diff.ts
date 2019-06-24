@@ -4,6 +4,7 @@ import spec = require('jsii-spec');
 import log4js = require('log4js');
 import yargs = require('yargs');
 import { compareAssemblies } from '../lib';
+import { classifyDiagnostics, formatDiagnostic, hasErrors } from '../lib/diagnostics';
 import { DownloadFailure, downloadNpmPackage, showDownloadFailure } from '../lib/util';
 import { VERSION } from '../lib/version';
 
@@ -15,6 +16,9 @@ async function main(): Promise<number> {
       .option('verbose', { alias: 'v', type: 'count', desc: 'Increase the verbosity of output', global: true })
       // tslint:disable-next-line:max-line-length
       .option('default-stability', { alias: 's', type: 'string', choices: ['experimental', 'stable'], desc: 'Treat unmarked APIs as', default: 'stable' })
+      .option('experimental-errors', { alias: 'e', type: 'boolean', default: false, desc: 'Error on experimental API changes' })
+      .option('ignore-file', { alias: 'i', type: 'string', desc: 'Ignore API changes with keys from file (file may be missing)' })
+      .option('keys', { alias: 'k', type: 'boolean', default: false, desc: 'Show diagnostic suppression keys' })
       .usage('$0 <original> [updated]', 'Compare two JSII assemblies.', args => args
         .positional('original', {
           description: 'Original assembly (file, package or "npm:package@version")',
@@ -61,14 +65,16 @@ async function main(): Promise<number> {
   LOG.info(`Found ${mismatches.count} issues`);
 
   if (mismatches.count > 0) {
+    const diags = classifyDiagnostics(mismatches, argv["experimental-errors"], await loadFilter(argv["ignore-file"]));
+
     process.stderr.write(`Original assembly: ${original.name}@${original.version}\n`);
     process.stderr.write(`Updated assembly:  ${updated.name}@${updated.version}\n`);
     process.stderr.write(`API elements with incompatible changes:\n`);
-    for (const msg of mismatches.messages()) {
-      process.stderr.write(`- ${msg}\n`);
+    for (const diag of diags) {
+      process.stderr.write(`${formatDiagnostic(diag, argv.keys)}\n`);
     }
 
-    return 1;
+    return hasErrors(diags) ? 1 : 0;
   }
 
   return 0;
@@ -172,4 +178,16 @@ function configureLog4js(verbosity: number) {
         default: return 'ALL';
         }
     }
+}
+
+async function loadFilter(filterFilename?: string): Promise<Set<string>> {
+  if (!filterFilename) { return new Set(); }
+
+  try {
+    return new Set((await fs.readFile(filterFilename, { encoding: 'utf-8' })).split('\n').map(x => x.trim()).filter(x => !x.startsWith('#')));
+  } catch (e) {
+    if (e.code !== 'ENOENT') { throw e; }
+    LOG.debug(`No such file: ${filterFilename}`);
+    return new Set();
+  }
 }
