@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.12.0](https://github.com/awslabs/jsii/compare/v0.11.3...v0.12.0) (2019-06-24)
+
+
+### Features
+
+* **jsii:** enforce enum member names to be ALL_CAPS ([#541](https://github.com/awslabs/jsii/issues/541)) ([c88080d](https://github.com/awslabs/jsii/commit/c88080d)), closes [awslabs/aws-cdk#2287](https://github.com/awslabs/aws-cdk/issues/2287)
+* **jsii-diff:** extend reporting options ([#547](https://github.com/awslabs/jsii/issues/547)) ([719be24](https://github.com/awslabs/jsii/commit/719be24))
+
+
+### BREAKING CHANGES
+
+* **jsii:** Enum members are now expected to be `ALL_CAPS`
+
+
+
+
+
 ## [0.11.3](https://github.com/awslabs/jsii/compare/v0.11.2...v0.11.3) (2019-06-18)
 
 **Note:** Version bump only for package jsii-diff
