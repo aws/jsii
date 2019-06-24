@@ -265,7 +265,12 @@ function _defaultValidations(): ValidationFunction[] {
                 if (expParam.variadic !== actParam.variadic) {
                     diagnostic(ts.DiagnosticCategory.Error,
                                // tslint:disable-next-line:max-line-length
-                               `${label} changes the variadicity of parameter ${actParam.name} when ${action} (expected ${expParam.variadic}, found ${actParam.variadic})`);
+                               `${label} changes the variadicity of parameter ${actParam.name} when ${action} (expected ${!!expParam.variadic}, found ${!!actParam.variadic})`);
+                }
+                if (expParam.optional !== actParam.optional) {
+                    diagnostic(ts.DiagnosticCategory.Error,
+                               // tslint:disable-next-line: max-line-length
+                               `${label} changes the optionality of paramerter ${actParam.name} when ${action} (expected ${!!expParam.optional}, found ${!!actParam.optional})`);
                 }
             }
         }
@@ -280,6 +285,10 @@ function _defaultValidations(): ValidationFunction[] {
             if (expected.immutable !== actual.immutable) {
                 diagnostic(ts.DiagnosticCategory.Error,
                            `${label} changes immutability of property when ${action}`);
+            }
+            if (expected.optional !== actual.optional) {
+                diagnostic(ts.DiagnosticCategory.Error,
+                           `${label} changes optionality of property when ${action}`);
             }
         }
     }
