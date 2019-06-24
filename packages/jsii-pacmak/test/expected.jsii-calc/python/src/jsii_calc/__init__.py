@@ -414,7 +414,7 @@ class AllowedMethodNames(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.AllowedMe
         """getXxx() is not allowed (see negatives), but getXxx(a, ...) is okay.
 
         Arguments:
-            withParam: -
+            with_param: -
 
         Stability:
             experimental
@@ -869,8 +869,8 @@ class DeprecatedClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DeprecatedCl
     def __init__(self, readonly_string: str, mutable_number: typing.Optional[jsii.Number]=None) -> None:
         """
         Arguments:
-            readonlyString: -
-            mutableNumber: -
+            readonly_string: -
+            mutable_number: -
 
         Deprecated:
             this constructor is "just" okay
@@ -1054,7 +1054,7 @@ class DoNotOverridePrivates(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DoNotO
     def change_private_property_value(self, new_value: str) -> None:
         """
         Arguments:
-            newValue: -
+            new_value: -
 
         Stability:
             experimental
@@ -1091,9 +1091,9 @@ class DoNotRecognizeAnyAsOptional(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.
     def method(self, _required_any: typing.Any, _optional_any: typing.Any=None, _optional_string: typing.Optional[str]=None) -> None:
         """
         Arguments:
-            _requiredAny: -
-            _optionalAny: -
-            _optionalString: -
+            _required_any: -
+            _optional_any: -
+            _optional_string: -
 
         Stability:
             experimental
@@ -1242,8 +1242,8 @@ class ExperimentalClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Experiment
     def __init__(self, readonly_string: str, mutable_number: typing.Optional[jsii.Number]=None) -> None:
         """
         Arguments:
-            readonlyString: -
-            mutableNumber: -
+            readonly_string: -
+            mutable_number: -
 
         Stability:
             experimental
@@ -1367,15 +1367,15 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
 
         Arguments:
             derived: -
-            anotherRequired: 
+            another_required: 
             bool: 
-            nonPrimitive: An example of a non primitive property.
-            anotherOptional: This is optional.
-            optionalAny: 
-            optionalArray: 
+            non_primitive: An example of a non primitive property.
+            another_optional: This is optional.
+            optional_any: 
+            optional_array: 
             anumber: An awesome number value.
             astring: A string value.
-            firstOptional: 
+            first_optional: 
 
         Stability:
             experimental
@@ -1402,15 +1402,15 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
 
         Arguments:
             derived: -
-            anotherRequired: 
+            another_required: 
             bool: 
-            nonPrimitive: An example of a non primitive property.
-            anotherOptional: This is optional.
-            optionalAny: 
-            optionalArray: 
+            non_primitive: An example of a non primitive property.
+            another_optional: This is optional.
+            optional_any: 
+            optional_array: 
             anumber: An awesome number value.
             astring: A string value.
-            firstOptional: 
+            first_optional: 
 
         Stability:
             experimental
@@ -1439,7 +1439,7 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
             first: -
             anumber: An awesome number value.
             astring: A string value.
-            firstOptional: 
+            first_optional: 
 
         Stability:
             experimental
@@ -2140,8 +2140,8 @@ class ClassWithPrivateConstructorAndAutomaticProperties(metaclass=jsii.JSIIMeta,
     def create(cls, read_only_string: str, read_write_string: str) -> "ClassWithPrivateConstructorAndAutomaticProperties":
         """
         Arguments:
-            readOnlyString: -
-            readWriteString: -
+            read_only_string: -
+            read_write_string: -
 
         Stability:
             experimental
@@ -3936,8 +3936,8 @@ class NullShouldBeTreatedAsUndefined(metaclass=jsii.JSIIMeta, jsii_type="jsii-ca
         """
         Arguments:
             input: -
-            arrayWithThreeElementsAndUndefinedAsSecondArgument: 
-            thisShouldBeUndefined: 
+            array_with_three_elements_and_undefined_as_second_argument: 
+            this_should_be_undefined: 
 
         Stability:
             experimental
@@ -4161,7 +4161,7 @@ class OptionalStructConsumer(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Optio
     def __init__(self, *, field: typing.Optional[str]=None) -> None:
         """
         Arguments:
-            optionalStruct: -
+            optional_struct: -
             field: 
 
         Stability:
@@ -4794,8 +4794,8 @@ class StableClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StableClass"):
     def __init__(self, readonly_string: str, mutable_number: typing.Optional[jsii.Number]=None) -> None:
         """
         Arguments:
-            readonlyString: -
-            mutableNumber: -
+            readonly_string: -
+            mutable_number: -
 
         Stability:
             stable
@@ -5603,7 +5603,7 @@ class WithPrivatePropertyInConstructor(metaclass=jsii.JSIIMeta, jsii_type="jsii-
     def __init__(self, private_field: typing.Optional[str]=None) -> None:
         """
         Arguments:
-            privateField: -
+            private_field: -
 
         Stability:
             experimental
@@ -5751,8 +5751,8 @@ class Calculator(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_t
 
         Arguments:
             props: Initialization properties.
-            initialValue: 
-            maximumValue: 
+            initial_value: 
+            maximum_value: 
 
         Stability:
             experimental

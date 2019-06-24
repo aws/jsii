@@ -1770,7 +1770,7 @@ function emitDocString(code: CodeMaker, docs: spec.Docs | undefined, options: {
         for (const param of options.arguments) {
             // Add a line for every argument. Even if there is no description, we need
             // the docstring so that the Sphinx extension can add the type annotations.
-            lines.push(`    ${param.name}: ${onelineDescription(param.docs)}`);
+            lines.push(`    ${toPythonParameterName(param.name)}: ${onelineDescription(param.docs)}`);
         }
         brk();
     }
