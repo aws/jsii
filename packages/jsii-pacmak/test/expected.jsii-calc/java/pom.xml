@@ -46,33 +46,33 @@
     <connection>scm:git:https://github.com/awslabs/jsii.git</connection>
     <url>https://github.com/awslabs/jsii.git</url>
   </scm>
-  <artifactId>calculator</artifactId>
   <groupId>software.amazon.jsii.tests</groupId>
-  <version>0.12.0</version>
+  <artifactId>calculator</artifactId>
+  <version>0.12.1</version>
   <packaging>jar</packaging>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencies>
     <dependency>
+      <groupId>software.amazon.jsii.tests</groupId>
       <artifactId>calculator-base</artifactId>
-      <groupId>software.amazon.jsii.tests</groupId>
-      <version>0.12.0</version>
+      <version>0.12.1</version>
     </dependency>
     <dependency>
+      <groupId>software.amazon.jsii.tests</groupId>
       <artifactId>calculator-base-of-base</artifactId>
-      <groupId>software.amazon.jsii.tests</groupId>
-      <version>0.12.0</version>
+      <version>0.12.1</version>
     </dependency>
     <dependency>
-      <artifactId>calculator-lib</artifactId>
       <groupId>software.amazon.jsii.tests</groupId>
-      <version>0.12.0</version>
+      <artifactId>calculator-lib</artifactId>
+      <version>0.12.1-devpreview</version>
     </dependency>
     <dependency>
       <groupId>software.amazon.jsii</groupId>
       <artifactId>jsii-runtime</artifactId>
-      <version>0.12.0</version>
+      <version>0.12.1</version>
     </dependency>
     <dependency>
       <groupId>javax.annotation</groupId>

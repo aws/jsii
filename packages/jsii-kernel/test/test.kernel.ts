@@ -253,7 +253,7 @@ defineTest('naming allows returns the module name for different languages', asyn
         },
         java: {
             package: 'software.amazon.jsii.tests.calculator.lib',
-            maven: { groupId: 'software.amazon.jsii.tests', artifactId: 'calculator-lib' }
+            maven: { groupId: 'software.amazon.jsii.tests', artifactId: 'calculator-lib', versionSuffix: 'devpreview' },
         },
         js: { npm: '@scope/jsii-calc-lib' },
         python: { distName: 'scope.jsii-calc-lib', module: 'scope.jsii_calc_lib' },
@@ -1157,6 +1157,14 @@ defineTest('struct: non-empty object deserializes properly', async (test, sandbo
 defineTest('erased base: can receive an instance of private type', async (test, sandbox) => {
     const objref = sandbox.sinvoke({ fqn: 'jsii-calc.JSII417PublicBaseOfBase', method: 'makeInstance' });
     test.deepEqual(objref.result, { [api.TOKEN_REF]: 'jsii-calc.JSII417PublicBaseOfBase@10000' });
+});
+
+defineTest('deserialize a struct by reference', async (test, sandbox) => {
+    sandbox.callbackHandler = makeSyncCallbackHandler(() => 'xoxoxox');
+    const objref = sandbox.create({ fqn: 'Object', overrides: [ { property: 'field' } ] });
+    const consumer = sandbox.create({ fqn: 'jsii-calc.OptionalStructConsumer', args: [ objref ] });
+    const value = sandbox.get({ objref: consumer, property: 'fieldValue' });
+    test.deepEqual(value, { value: 'xoxoxox' });
 });
 
 // =================================================================================================
