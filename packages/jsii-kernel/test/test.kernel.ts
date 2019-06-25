@@ -1158,6 +1158,14 @@ defineTest('erased base: can receive an instance of private type', async (test, 
     test.deepEqual(objref.result, { [api.TOKEN_REF]: 'jsii-calc.JSII417PublicBaseOfBase@10000' });
 });
 
+defineTest('deserialize a struct by reference', async (test, sandbox) => {
+    sandbox.callbackHandler = makeSyncCallbackHandler(() => 'xoxoxox');
+    const objref = sandbox.create({ fqn: 'Object', overrides: [ { property: 'field' } ] });
+    const consumer = sandbox.create({ fqn: 'jsii-calc.OptionalStructConsumer', args: [ objref ] });
+    const value = sandbox.get({ objref: consumer, property: 'fieldValue' });
+    test.deepEqual(value, { value: 'xoxoxox' });
+});
+
 // =================================================================================================
 
 const testNames: { [name: string]: boolean } = { };
