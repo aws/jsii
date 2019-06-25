@@ -20,7 +20,8 @@ namespace Amazon.JSII.Generator
             {
                 return version;
             }
-            return $"{version}-{suffix}";
+            // suffix is guaranteed to start with a leading `-`
+            return $"{version}{suffix}";
         }
     }
 }

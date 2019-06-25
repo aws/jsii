@@ -504,7 +504,7 @@ class JavaGenerator extends Generator {
         function makeVersion(version: string, suffix?: string): string {
             if (!suffix) { return version; }
             if (!suffix.startsWith('-') && !suffix.startsWith('.')) {
-                return `${version}-${suffix}`;
+                throw new Error(`versionSuffix must start with '-' or '.', but received ${suffix}`);
             }
             return `${version}${suffix}`;
         }

@@ -37,6 +37,11 @@ namespace Amazon.JSII.JsonModel.Spec
                 AssemblyOriginatorKeyFile = assemblyOriginatorKeyFile;
                 IconUrl = iconUrl;
                 VersionSuffix = versionSuffix;
+
+                if (!VersionSuffix.StartsWith("-"))
+                {
+                    throw new ArgumentException($"{nameof(versionSuffix)} must start with a '-' (received {versionSuffix})");
+                }
             }
 
             [JsonProperty("namespace")]
