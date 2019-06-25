@@ -21,7 +21,7 @@ export async function expectError(test: Test, error: RegExp, original: string, u
     test.ok(msgs.some(m => error.test(m)), `Expected error like ${error}, got ${msgs}`);
 }
 
-async function compare(original: string, updated: string): Promise<Mismatches> {
+export async function compare(original: string, updated: string): Promise<Mismatches> {
   const ass1 = await sourceToAssemblyHelper(original);
   const ts1 = new reflect.TypeSystem();
   const originalAssembly = ts1.addAssembly(new reflect.Assembly(ts1, ass1));

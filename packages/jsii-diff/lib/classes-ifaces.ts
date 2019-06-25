@@ -1,7 +1,7 @@
 import reflect = require('jsii-reflect');
 import log4js = require('log4js');
 import { Analysis, FailedAnalysis, isSuperType } from './type-analysis';
-import { ComparisonContext, shouldInspect } from './types';
+import { ComparisonContext } from './types';
 
 const LOG = log4js.getLogger('jsii-diff');
 
@@ -14,28 +14,36 @@ const LOG = log4js.getLogger('jsii-diff');
 export function compareReferenceType<T extends reflect.ReferenceType>(original: T, updated: T, context: ComparisonContext) {
   if (original.isClassType() && updated.isClassType()) {
     if (updated.abstract && !original.abstract) {
-      context.mismatches.report(original, 'has gone from non-abstract to abstract');
+      context.mismatches.report({
+        ruleKey: 'made-abstract',
+        message: 'has gone from non-abstract to abstract',
+        violator: original,
+      });
     }
 
     // JSII assembler has already taken care of inheritance here
     if (original.initializer && updated.initializer) {
-      compareMethod(original, original.initializer, updated.initializer, context);
+      compareMethod(original.initializer, updated.initializer, context);
     }
   }
 
   if (original.docs.subclassable && !updated.docs.subclassable) {
-    context.mismatches.report(original, 'has gone from @subclassable to non-@subclassable');
+    context.mismatches.report({
+      ruleKey: `remove-subclassable`,
+      message: 'has gone from @subclassable to non-@subclassable',
+      violator: original,
+    });
   }
 
   for (const [origMethod, updatedElement] of memberPairs(original, original.allMethods, updated, context)) {
     if (reflect.isMethod(origMethod) && reflect.isMethod(updatedElement)) {
-      compareMethod(original, origMethod, updatedElement, context);
+      compareMethod(origMethod, updatedElement, context);
     }
   }
 
   for (const [origProp, updatedElement] of memberPairs(original, original.allProperties, updated, context)) {
     if (reflect.isProperty(origProp) && reflect.isProperty(updatedElement)) {
-      compareProperty(original, origProp, updatedElement, context);
+      compareProperty(origProp, updatedElement, context);
     }
   }
 
@@ -67,7 +75,11 @@ function noNewAbstractMembers<T extends reflect.ReferenceType>(original: T, upda
     const originalMemberNames = new Set(original.allMembers.map(m => m.name));
     for (const name of absMemberNames) {
       if (!originalMemberNames.has(name)) {
-        context.mismatches.report(original, `adds requirement for subclasses to implement '${name}'.`);
+        context.mismatches.report({
+          ruleKey: 'new-abstract-member',
+          message: `adds requirement for subclasses to implement '${name}'.`,
+          violator: updated.getMembers(true)[name]
+        });
       }
     }
 }
@@ -83,7 +95,6 @@ function describeOptionalValueMatchingFailure(origType: reflect.OptionalValue, u
 }
 
 function compareMethod<T extends (reflect.Method | reflect.Initializer)>(
-                                  origClass: reflect.Type,
                                   original: T,
                                   updated: T,
                                   context: ComparisonContext) {
@@ -92,26 +103,42 @@ function compareMethod<T extends (reflect.Method | reflect.Initializer)>(
     if (original.static !== updated.static) {
       const origQual = original.static ? 'static' : 'not static';
       const updQual = updated.static ? 'static' : 'not static';
-      context.mismatches.report(origClass, `${original.kind} ${original.name} was ${origQual}, is now ${updQual}.`);
+      context.mismatches.report({
+        ruleKey: 'changed-static',
+        violator: original,
+        message: `was ${origQual}, is now ${updQual}.`
+      });
     }
 
     if (original.async !== updated.async) {
       const origQual = original.async ? 'asynchronous' : 'synchronous';
       const updQual = updated.async ? 'asynchronous' : 'synchronous';
-      context.mismatches.report(origClass, `${original.kind} ${original.name} was ${origQual}, is now ${updQual}`);
+      context.mismatches.report({
+        ruleKey: 'changed-async',
+        violator: original,
+        message: `was ${origQual}, is now ${updQual}`
+      });
     }
   }
 
   if (original.variadic && !updated.variadic) {
     // Once variadic, can never be made non-variadic anymore (because I could always have been passing N+1 arguments)
-    context.mismatches.report(origClass, `${original.kind} ${original.name} used to be variadic, not variadic anymore.`);
+    context.mismatches.report({
+      ruleKey: 'changed-variadic',
+      violator: original,
+      message: `used to be variadic, not variadic anymore.`
+    });
   }
 
   if (reflect.isMethod(original) && reflect.isMethod(updated)) {
     const retAna = isCompatibleReturnType(original.returns, updated.returns);
     if (!retAna.success) {
       // tslint:disable-next-line:max-line-length
-      context.mismatches.report(origClass, `${original.kind} ${original.name}, returns ${describeOptionalValueMatchingFailure(original.returns, updated.returns, retAna)}`);
+      context.mismatches.report({
+        ruleKey: 'change-return-type',
+        violator: original,
+        message: `returns ${describeOptionalValueMatchingFailure(original.returns, updated.returns, retAna)}`
+      });
     }
   }
 
@@ -119,14 +146,22 @@ function compareMethod<T extends (reflect.Method | reflect.Initializer)>(
   original.parameters.forEach((param, i) => {
     const updatedParam = findParam(updated.parameters, i);
     if (updatedParam === undefined) {
-      context.mismatches.report(origClass, `${original.kind} ${original.name} argument ${param.name}, not accepted anymore.`);
+      context.mismatches.report({
+        ruleKey: 'removed-argument',
+        violator: original,
+        message: `argument ${param.name}, not accepted anymore.`
+      });
       return;
     }
 
     const argAna = isCompatibleArgumentType(param.type, updatedParam.type);
     if (!argAna.success) {
-      // tslint:disable-next-line:max-line-length
-      context.mismatches.report(origClass, `${original.kind} ${original.name} argument ${param.name}, takes ${describeOptionalValueMatchingFailure(param, updatedParam, argAna)}`);
+      context.mismatches.report({
+        ruleKey: 'incompatible-argument',
+        violator: original,
+        // tslint:disable-next-line:max-line-length
+        message: `argument ${param.name}, takes ${describeOptionalValueMatchingFailure(param, updatedParam, argAna)}`
+      });
       return;
     }
   });
@@ -137,7 +172,11 @@ function compareMethod<T extends (reflect.Method | reflect.Initializer)>(
 
     const origParam = findParam(original.parameters, i);
     if (!origParam || origParam.optional) {
-      context.mismatches.report(origClass, `${original.kind} ${original.name} argument ${param.name}, newly required argument.`);
+      context.mismatches.report({
+        ruleKey: 'new-argument',
+        violator: original,
+        message: `argument ${param.name}, newly required argument.`
+      });
     }
   });
 }
@@ -161,39 +200,63 @@ function findParam(parameters: reflect.Parameter[], i: number): reflect.Paramete
   return undefined;
 }
 
-function compareProperty(origClass: reflect.Type, original: reflect.Property, updated: reflect.Property, context: ComparisonContext) {
+function compareProperty(original: reflect.Property, updated: reflect.Property, context: ComparisonContext) {
   if (original.static !== updated.static) {
     // tslint:disable-next-line:max-line-length
-    context.mismatches.report(origClass, `property ${original.name}, used to be ${original.static ? 'static' : 'not static'}, is now ${updated.static ? 'static' : 'not static'}`);
+    context.mismatches.report({
+      ruleKey: 'changed-static',
+      violator: original,
+      message: `used to be ${original.static ? 'static' : 'not static'}, is now ${updated.static ? 'static' : 'not static'}`
+    });
   }
 
   const ana = isCompatibleReturnType(original, updated);
   if (!ana.success) {
-    context.mismatches.report(origClass, `property ${original.name}, type ${describeOptionalValueMatchingFailure(original, updated, ana)}`);
+    context.mismatches.report({
+      ruleKey: 'changed-type',
+      violator: original,
+      message: `type ${describeOptionalValueMatchingFailure(original, updated, ana)}`
+    });
   }
 
   if (updated.immutable && !original.immutable) {
-    context.mismatches.report(origClass, `property ${original.name}, used to be mutable, is now immutable`);
+    context.mismatches.report({
+      ruleKey: 'removed-mutability',
+      violator: original,
+      message: `used to be mutable, is now immutable`
+    });
   }
 }
 
 // tslint:disable-next-line:max-line-length
 function* memberPairs<T extends reflect.TypeMember, U extends reflect.ReferenceType>(origClass: U, xs: T[], updatedClass: U, context: ComparisonContext): IterableIterator<[T, reflect.TypeMember]> {
-  for (const origMember of xs.filter(shouldInspect(context))) {
+  for (const origMember of xs) {
     LOG.trace(`${origClass.fqn}#${origMember.name}`);
 
     const updatedMember = updatedClass.allMembers.find(m => m.name === origMember.name);
     if (!updatedMember) {
-      context.mismatches.report(origClass, `member ${origMember.name} has been removed`);
+      context.mismatches.report({
+        ruleKey: 'removed',
+        violator: origMember,
+        message: `has been removed`
+      });
       continue;
     }
 
     if (origMember.kind !== updatedMember.kind) {
-      context.mismatches.report(origClass, `member ${origMember.name} changed from ${origMember.kind} to ${updatedMember.kind}`);
+      context.mismatches.report({
+        ruleKey: 'changed-kind',
+        violator: origMember,
+        message: `changed from ${origMember.kind} to ${updatedMember.kind}`
+      });
     }
 
     if (!origMember.protected && updatedMember.protected) {
-      context.mismatches.report(origClass, `member ${origMember.name} changed from 'public' to 'protected'`);
+      context.mismatches.report({
+        ruleKey: 'hidden',
+        violator: origMember,
+        message: `changed from 'public' to 'protected'`
+      });
     }
 
     yield [origMember, updatedMember];

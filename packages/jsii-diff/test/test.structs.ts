@@ -94,7 +94,7 @@ export = {
   async 'cannot take fields away from input struct'(test: Test) {
     // Legal in TypeScript, but illegal in Java/C#
     await expectError(test,
-      /member piet has been removed/,
+      /has been removed/,
       `
       export interface Henk {
         readonly henk: string;

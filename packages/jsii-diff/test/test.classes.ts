@@ -101,7 +101,7 @@ export = {
 
   async 'not allowed to change argument type to a different scalar'(test: Test) {
     await expectError(test,
-      /method foo argument arg1, takes number \(formerly string\): string is not assignable to number/,
+      /method.*foo.*argument arg1, takes number \(formerly string\): string is not assignable to number/i,
       `
       export class Foo {
         public foo(arg1: string): void {
@@ -191,7 +191,7 @@ export = {
 
   async 'cannot make a class property optional'(test: Test) {
     await expectError(test,
-      /property henk, type Optional<string> \(formerly string\): output type is now optional/,
+      /prop.*henk.*type Optional<string> \(formerly string\): output type is now optional/i,
       `
       export class Henk {
         public henk: string = 'henk';
@@ -333,7 +333,7 @@ export = {
 
   async 'change from method to property'(test: Test) {
     await expectError(test,
-      /CLASS testpkg.Boom member foo changed from method to property/,
+      /changed from method to property/,
       `
       export class Boom {
         foo() { return 12; }
@@ -351,7 +351,7 @@ export = {
 
   async 'change from method with arguments to property'(test: Test) {
     await expectError(test,
-      /CLASS testpkg.Boom member foo changed from method to property/,
+      /changed from method to property/,
       `
       export class Boom {
         foo(arg: number) { return 12 * arg; }
@@ -369,7 +369,7 @@ export = {
 
   async 'change from property to method'(test: Test) {
     await expectError(test,
-      /CLASS testpkg.Boom member foo changed from property to method/,
+      /changed from property to method/,
       `
       export class Boom {
         get foo() { return 12; }
