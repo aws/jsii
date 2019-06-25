@@ -14,7 +14,8 @@
         "package": "software.amazon.jsii.tests.calculator.lib",
         "maven": {
           "groupId": "software.amazon.jsii.tests",
-          "artifactId": "calculator-lib"
+          "artifactId": "calculator-lib",
+          "versionSuffix": "devpreview"
         }
       },
       "dotnet": {
