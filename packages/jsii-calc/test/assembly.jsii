@@ -91,7 +91,8 @@
         "java": {
           "maven": {
             "artifactId": "calculator-lib",
-            "groupId": "software.amazon.jsii.tests"
+            "groupId": "software.amazon.jsii.tests",
+            "versionSuffix": "devpreview"
           },
           "package": "software.amazon.jsii.tests.calculator.lib"
         },
@@ -165,7 +166,8 @@
         "java": {
           "maven": {
             "artifactId": "calculator-lib",
-            "groupId": "software.amazon.jsii.tests"
+            "groupId": "software.amazon.jsii.tests",
+            "versionSuffix": "devpreview"
           },
           "package": "software.amazon.jsii.tests.calculator.lib"
         },
@@ -8774,5 +8776,5 @@
     }
   },
   "version": "0.12.1",
-  "fingerprint": "zqNgOADt1geKGnlmywyqSBDc4sGLkoK3kxoWdDOf6ro="
+  "fingerprint": "AlSn00Q27h2jLbVq5Xtz97KdHszOYlZOq+al2FOvsWM="
 }

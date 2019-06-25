@@ -252,7 +252,7 @@ defineTest('naming allows returns the module name for different languages', asyn
         },
         java: {
             package: 'software.amazon.jsii.tests.calculator.lib',
-            maven: { groupId: 'software.amazon.jsii.tests', artifactId: 'calculator-lib' }
+            maven: { groupId: 'software.amazon.jsii.tests', artifactId: 'calculator-lib', versionSuffix: 'devpreview' },
         },
         js: { npm: '@scope/jsii-calc-lib' },
         python: { distName: 'scope.jsii-calc-lib', module: 'scope.jsii_calc_lib' },
