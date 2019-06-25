@@ -38,7 +38,7 @@ namespace Amazon.JSII.JsonModel.Spec
                 IconUrl = iconUrl;
                 VersionSuffix = versionSuffix;
 
-                if (!VersionSuffix.StartsWith("-"))
+                if (VersionSuffix != null && !VersionSuffix.StartsWith("-"))
                 {
                     throw new ArgumentException($"{nameof(versionSuffix)} must start with a '-' (received {versionSuffix})");
                 }
