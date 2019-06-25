@@ -59,7 +59,7 @@ namespace Amazon.JSII.Generator
             yield return new XElement("GeneratePackageOnBuild", true);
             yield return new XElement("IncludeSymbols", true);
             yield return new XElement("IncludeSource", true);
-            yield return new XElement("PackageVersion", assembly.Version);
+            yield return new XElement("PackageVersion", assembly.GetDecoratedVersion());
             yield return new XElement("PackageId", assembly.Targets.DotNet.PackageId);
             yield return new XElement("Description", GetDescription());
             yield return new XElement("ProjectUrl", assembly.Homepage);

@@ -86,13 +86,14 @@
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.LibNamespace",
-          "packageId": "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId"
+          "packageId": "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId",
+          "versionSuffix": "-devpreview"
         },
         "java": {
           "maven": {
             "artifactId": "calculator-lib",
             "groupId": "software.amazon.jsii.tests",
-            "versionSuffix": "devpreview"
+            "versionSuffix": ".DEVPREVIEW"
           },
           "package": "software.amazon.jsii.tests.calculator.lib"
         },
@@ -161,13 +162,14 @@
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.LibNamespace",
-          "packageId": "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId"
+          "packageId": "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId",
+          "versionSuffix": "-devpreview"
         },
         "java": {
           "maven": {
             "artifactId": "calculator-lib",
             "groupId": "software.amazon.jsii.tests",
-            "versionSuffix": "devpreview"
+            "versionSuffix": ".DEVPREVIEW"
           },
           "package": "software.amazon.jsii.tests.calculator.lib"
         },
@@ -8776,5 +8778,5 @@
     }
   },
   "version": "0.12.1",
-  "fingerprint": "AlSn00Q27h2jLbVq5Xtz97KdHszOYlZOq+al2FOvsWM="
+  "fingerprint": "eJFB3vFCc9pOmBGqLCLopXjumM3fvGhVp9zhFfty6xM="
 }

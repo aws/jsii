@@ -248,11 +248,12 @@ defineTest('naming allows returns the module name for different languages', asyn
     test.deepEqual(sandbox.naming({ assembly: '@scope/jsii-calc-lib' }).naming, {
         dotnet: {
             namespace: 'Amazon.JSII.Tests.CalculatorNamespace.LibNamespace',
-            packageId: 'Amazon.JSII.Tests.CalculatorPackageId.LibPackageId'
+            packageId: 'Amazon.JSII.Tests.CalculatorPackageId.LibPackageId',
+            versionSuffix: '-devpreview'
         },
         java: {
             package: 'software.amazon.jsii.tests.calculator.lib',
-            maven: { groupId: 'software.amazon.jsii.tests', artifactId: 'calculator-lib', versionSuffix: 'devpreview' },
+            maven: { groupId: 'software.amazon.jsii.tests', artifactId: 'calculator-lib', versionSuffix: '.DEVPREVIEW' },
         },
         js: { npm: '@scope/jsii-calc-lib' },
         python: { distName: 'scope.jsii-calc-lib', module: 'scope.jsii_calc_lib' },

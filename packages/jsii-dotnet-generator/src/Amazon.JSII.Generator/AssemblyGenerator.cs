@@ -126,7 +126,7 @@ namespace Amazon.JSII.Generator
                             ),
                             GetDependencies()
                                 .Distinct()
-                                .Select(d => new { Package = symbols.GetAssemblyName(d.Key), d.Value.Version})
+                                .Select(d => new { Package = symbols.GetAssemblyName(d.Key), Version = d.Value.GetDecoratedVersion() })
                                 .Select(d =>
                                     new XElement("PackageReference",
                                         new XAttribute("Include", d.Package),
@@ -283,7 +283,7 @@ namespace Amazon.JSII.Generator
                     case TypeKind.Class:
                     {
                         var classType = (ClassType) type;
-                        
+
                         if (classType.IsAbstract)
                         {
                             SaveTypeFile($"{symbols.GetAbstractClassProxyName(classType)}.cs",

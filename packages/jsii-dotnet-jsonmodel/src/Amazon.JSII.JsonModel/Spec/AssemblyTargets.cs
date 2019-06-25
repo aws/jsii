@@ -14,7 +14,7 @@ namespace Amazon.JSII.JsonModel.Spec
 
         [JsonProperty("dotnet", NullValueHandling = NullValueHandling.Ignore)]
         public DotNetTarget DotNet { get; }
-        
+
         [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
         public class DotNetTarget
         {
@@ -25,7 +25,8 @@ namespace Amazon.JSII.JsonModel.Spec
                 string title = null,
                 bool signAssembly = false,
                 string assemblyOriginatorKeyFile = null,
-                string iconUrl = null
+                string iconUrl = null,
+                string versionSuffix = null
             )
             {
                 Namespace = @namespace ?? throw new ArgumentNullException(nameof(@namespace));
@@ -35,8 +36,14 @@ namespace Amazon.JSII.JsonModel.Spec
                 SignAssembly = signAssembly;
                 AssemblyOriginatorKeyFile = assemblyOriginatorKeyFile;
                 IconUrl = iconUrl;
+                VersionSuffix = versionSuffix;
+
+                if (VersionSuffix != null && !VersionSuffix.StartsWith("-"))
+                {
+                    throw new ArgumentException($"{nameof(versionSuffix)} must start with a '-' (received {versionSuffix})");
+                }
             }
-            
+
             [JsonProperty("namespace")]
             public string Namespace { get; }
 
@@ -54,6 +61,9 @@ namespace Amazon.JSII.JsonModel.Spec
 
             [JsonProperty("iconUrl", NullValueHandling = NullValueHandling.Ignore)]
             public string IconUrl { get; }
-        }
+
+            [JsonProperty("versionSuffix", NullValueHandling = NullValueHandling.Ignore)]
+            public string VersionSuffix { get; }
+    }
     }
 }

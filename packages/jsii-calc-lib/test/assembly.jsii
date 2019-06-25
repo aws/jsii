@@ -100,13 +100,14 @@
   "targets": {
     "dotnet": {
       "namespace": "Amazon.JSII.Tests.CalculatorNamespace.LibNamespace",
-      "packageId": "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId"
+      "packageId": "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId",
+      "versionSuffix": "-devpreview"
     },
     "java": {
       "maven": {
         "artifactId": "calculator-lib",
         "groupId": "software.amazon.jsii.tests",
-        "versionSuffix": "devpreview"
+        "versionSuffix": ".DEVPREVIEW"
       },
       "package": "software.amazon.jsii.tests.calculator.lib"
     },
@@ -541,5 +542,5 @@
     }
   },
   "version": "0.12.1",
-  "fingerprint": "MXSaKBVwpFalIulxHb3PUOMH4eKJJHPxI2u+zfEsbmA="
+  "fingerprint": "aQ66EJSs69SuXip1lDEBj6a1qwzN8+ThWgYp6Lq1Q8Y="
 }

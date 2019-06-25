@@ -67,7 +67,7 @@
     <dependency>
       <groupId>software.amazon.jsii.tests</groupId>
       <artifactId>calculator-lib</artifactId>
-      <version>0.12.1-devpreview</version>
+      <version>0.12.1.DEVPREVIEW</version>
     </dependency>
     <dependency>
       <groupId>software.amazon.jsii</groupId>
