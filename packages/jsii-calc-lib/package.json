@@ -19,7 +19,8 @@
       },
       "dotnet": {
         "namespace": "Amazon.JSII.Tests.CalculatorNamespace.LibNamespace",
-        "packageId": "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId"
+        "packageId": "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId",
+        "versionSuffix": "devpreview"
       },
       "python": {
         "distName": "scope.jsii-calc-lib",

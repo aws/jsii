@@ -100,7 +100,8 @@
   "targets": {
     "dotnet": {
       "namespace": "Amazon.JSII.Tests.CalculatorNamespace.LibNamespace",
-      "packageId": "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId"
+      "packageId": "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId",
+      "versionSuffix": "devpreview"
     },
     "java": {
       "maven": {
@@ -540,5 +541,5 @@
     }
   },
   "version": "0.12.0",
-  "fingerprint": "OXfz8QTGxBclm7yhCx56BuA0xu+78H6iPv9VNwKkJrc="
+  "fingerprint": "obtlOHSnzT/R/4gtWpi+6604hqo1zy8L4RugjGzIrkg="
 }

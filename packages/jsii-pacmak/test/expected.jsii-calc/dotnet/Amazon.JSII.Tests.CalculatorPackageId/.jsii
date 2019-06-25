@@ -86,7 +86,8 @@
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.LibNamespace",
-          "packageId": "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId"
+          "packageId": "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId",
+          "versionSuffix": "devpreview"
         },
         "java": {
           "maven": {
@@ -160,7 +161,8 @@
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.LibNamespace",
-          "packageId": "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId"
+          "packageId": "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId",
+          "versionSuffix": "devpreview"
         },
         "java": {
           "maven": {
@@ -8774,5 +8776,5 @@
     }
   },
   "version": "0.12.0",
-  "fingerprint": "8nFIj9vNDHToLkleGPDYw7ATP0n//yO9jHcp0ZhibQg="
+  "fingerprint": "0TbfA7jklgWHCcWobd9uW6HEuFR7fVGsyS2TAlPQbSs="
 }
