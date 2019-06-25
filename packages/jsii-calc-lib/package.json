@@ -1,6 +1,6 @@
 {
   "name": "@scope/jsii-calc-lib",
-  "version": "0.12.0",
+  "version": "0.12.1",
   "description": "A simple calcuator library built on JSII.",
   "stability": "deprecated",
   "deprecated": "Really just deprecated for shows...",
@@ -34,14 +34,14 @@
     "test": "diff-test test/assembly.jsii .jsii"
   },
   "devDependencies": {
-    "jsii": "^0.12.0",
-    "jsii-build-tools": "^0.12.0"
+    "jsii": "^0.12.1",
+    "jsii-build-tools": "^0.12.1"
   },
   "dependencies": {
-    "@scope/jsii-calc-base": "^0.12.0"
+    "@scope/jsii-calc-base": "^0.12.1"
   },
   "peerDependencies": {
-    "@scope/jsii-calc-base": "^0.12.0"
+    "@scope/jsii-calc-base": "^0.12.1"
   },
   "author": {
     "name": "Amazon Web Services",
