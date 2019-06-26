@@ -142,9 +142,14 @@ export class TypeSystem {
   }
 
   public findAssembly(name: string) {
-    if (!(name in this._assemblyLookup)) {
+    const ret = this.tryFindAssembly(name);
+    if (!ret) {
       throw new Error(`Assembly "${name}" not found`);
     }
+    return ret;
+  }
+
+  public tryFindAssembly(name: string): Assembly | undefined {
     return this._assemblyLookup[name];
   }
 
@@ -156,8 +161,8 @@ export class TypeSystem {
 
   public tryFindFqn(fqn: string): Type | undefined {
     const [ assembly ] = fqn.split('.');
-    const asm = this.findAssembly(assembly);
-    return asm.tryFindType(fqn);
+    const asm = this.tryFindAssembly(assembly);
+    return asm && asm.tryFindType(fqn);
   }
 
   public findClass(fqn: string): ClassType {
