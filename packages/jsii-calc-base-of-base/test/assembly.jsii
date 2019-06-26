@@ -9,7 +9,7 @@
   },
   "description": "An example transitive dependency for jsii-calc.",
   "homepage": "https://github.com/awslabs/jsii.git",
-  "jsiiVersion": "0.12.0",
+  "jsiiVersion": "0.12.1",
   "license": "Apache-2.0",
   "name": "@scope/jsii-calc-base-of-base",
   "repository": {
@@ -110,6 +110,6 @@
       ]
     }
   },
-  "version": "0.12.0",
-  "fingerprint": "anOsVKDShQvv2/dUXfyJ3nbwSsssbhu5OO0Or2o+95Q="
+  "version": "0.12.1",
+  "fingerprint": "um2UtCSaP1ZVF280jtcG941F3tk9ao7iB0jA+6kSHV0="
 }

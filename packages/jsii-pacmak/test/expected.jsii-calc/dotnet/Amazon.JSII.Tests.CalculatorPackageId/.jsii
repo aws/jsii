@@ -8,7 +8,7 @@
     "url": "https://aws.amazon.com"
   },
   "bundled": {
-    "jsii-calc-bundled": "^0.12.0"
+    "jsii-calc-bundled": "^0.12.1"
   },
   "contributors": [
     {
@@ -56,7 +56,7 @@
         },
         "sphinx": {}
       },
-      "version": "0.12.0"
+      "version": "0.12.1"
     },
     "@scope/jsii-calc-base-of-base": {
       "targets": {
@@ -80,18 +80,20 @@
         },
         "sphinx": {}
       },
-      "version": "0.12.0"
+      "version": "0.12.1"
     },
     "@scope/jsii-calc-lib": {
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.LibNamespace",
-          "packageId": "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId"
+          "packageId": "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId",
+          "versionSuffix": "-devpreview"
         },
         "java": {
           "maven": {
             "artifactId": "calculator-lib",
-            "groupId": "software.amazon.jsii.tests"
+            "groupId": "software.amazon.jsii.tests",
+            "versionSuffix": ".DEVPREVIEW"
           },
           "package": "software.amazon.jsii.tests.calculator.lib"
         },
@@ -104,7 +106,7 @@
         },
         "sphinx": {}
       },
-      "version": "0.12.0"
+      "version": "0.12.1"
     }
   },
   "dependencyClosure": {
@@ -130,7 +132,7 @@
         },
         "sphinx": {}
       },
-      "version": "0.12.0"
+      "version": "0.12.1"
     },
     "@scope/jsii-calc-base-of-base": {
       "targets": {
@@ -154,18 +156,20 @@
         },
         "sphinx": {}
       },
-      "version": "0.12.0"
+      "version": "0.12.1"
     },
     "@scope/jsii-calc-lib": {
       "targets": {
         "dotnet": {
           "namespace": "Amazon.JSII.Tests.CalculatorNamespace.LibNamespace",
-          "packageId": "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId"
+          "packageId": "Amazon.JSII.Tests.CalculatorPackageId.LibPackageId",
+          "versionSuffix": "-devpreview"
         },
         "java": {
           "maven": {
             "artifactId": "calculator-lib",
-            "groupId": "software.amazon.jsii.tests"
+            "groupId": "software.amazon.jsii.tests",
+            "versionSuffix": ".DEVPREVIEW"
           },
           "package": "software.amazon.jsii.tests.calculator.lib"
         },
@@ -178,7 +182,7 @@
         },
         "sphinx": {}
       },
-      "version": "0.12.0"
+      "version": "0.12.1"
     }
   },
   "description": "A simple calcuator built on JSII.",
@@ -186,7 +190,7 @@
     "stability": "experimental"
   },
   "homepage": "https://github.com/awslabs/jsii.git",
-  "jsiiVersion": "0.12.0",
+  "jsiiVersion": "0.12.1",
   "license": "Apache-2.0",
   "metadata": {
     "jsii:boolean": true,
@@ -8773,6 +8777,6 @@
       "namespace": "composition.CompositeOperation"
     }
   },
-  "version": "0.12.0",
-  "fingerprint": "8nFIj9vNDHToLkleGPDYw7ATP0n//yO9jHcp0ZhibQg="
+  "version": "0.12.1",
+  "fingerprint": "eJFB3vFCc9pOmBGqLCLopXjumM3fvGhVp9zhFfty6xM="
 }

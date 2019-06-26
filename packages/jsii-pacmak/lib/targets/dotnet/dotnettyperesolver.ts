@@ -90,7 +90,12 @@ export class DotNetTypeResolver {
                 const dotnetInfo = depInfo.targets!.dotnet;
                 const namespace = dotnetInfo!.namespace;
                 const packageId = dotnetInfo!.packageId;
-                const version = depInfo.version;
+                let version = depInfo.version;
+                const suffix = depInfo.targets!.dotnet!.versionSuffix;
+                if (suffix) {
+                    // suffix is guaranteed to start with a leading `-`
+                    version = `${depInfo.version}${suffix}`;
+                }
                 this.namespaceDependencies.set(depName, new DotNetDependency(namespace, packageId, depName, version));
             }
         }

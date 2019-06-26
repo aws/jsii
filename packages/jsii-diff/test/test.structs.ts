@@ -249,4 +249,76 @@ export = {
 
     test.done();
   },
+
+  // ----------------------------------------------------------------------
+
+  async 'can handle recursive type references'(test: Test) {
+    await expectNoError(test,
+      `
+      export interface LinkedList {
+        readonly name: string;
+        readonly next?: LinkedList;
+      }
+
+      export class UseIt {
+        public main(list: LinkedList) {
+          Array.isArray(list);
+        }
+      }
+    `, `
+      export interface LinkedList {
+        readonly name: string;
+        readonly next?: LinkedList;
+      }
+
+      export class UseIt {
+        public main(list: LinkedList) {
+          Array.isArray(list);
+        }
+      }
+    `);
+
+    test.done();
+  },
+
+  // ----------------------------------------------------------------------
+
+  async 'can handle mutually recursive type references'(test: Test) {
+    await expectNoError(test,
+      `
+      export interface A {
+        readonly name: string;
+        readonly next?: B;
+      }
+
+      export interface B {
+        readonly name: string;
+        readonly next?: A;
+      }
+
+      export class UseIt {
+        public main(list: A) {
+          Array.isArray(list);
+        }
+      }
+    `, `
+      export interface A {
+        readonly name: string;
+        readonly next?: B;
+      }
+
+      export interface B {
+        readonly name: string;
+        readonly next?: A;
+      }
+
+      export class UseIt {
+        public main(list: A) {
+          Array.isArray(list);
+        }
+      }
+    `);
+
+    test.done();
+  },
 };

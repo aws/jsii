@@ -298,10 +298,9 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
 
       // Similarly to other end, we might be getting a reference type where we're
       // expecting a value type. Accept this for now.
-      const prevRef = objectReference(value);
-      if (prevRef) {
+      if (isObjRef(value)) {
         host.debug('Expected value type but got reference type, accepting for now (awslabs/jsii#400)');
-        return prevRef;
+        return host.objects.findObject(value).instance;
       }
 
       const namedType = host.lookupType((optionalValue.type as spec.NamedTypeReference).fqn);

@@ -54,7 +54,7 @@ export class FileGenerator {
         propertyGroup.ele("GeneratePackageOnBuild", "true");
         propertyGroup.ele("IncludeSymbols", "true");
         propertyGroup.ele("IncludeSource", "true");
-        propertyGroup.ele("PackageVersion", assembly.version);
+        propertyGroup.ele("PackageVersion", this.getDecoratedVersion(assembly));
         propertyGroup.ele("PackageId", packageId);
         propertyGroup.ele("Description", this.getDescription());
         propertyGroup.ele("ProjectUrl", assembly.homepage);
@@ -131,5 +131,15 @@ export class FileGenerator {
             }
         }
         return this.assm.description;
+    }
+
+    // Generates the decorated version
+    private getDecoratedVersion(assembly: Assembly): string {
+        const suffix = assembly.targets!.dotnet!.versionSuffix;
+        if (suffix) {
+            // suffix is guaranteed to start with a leading `-`
+            return `${assembly.version}${suffix}`;
+        }
+        return assembly.version;
     }
 }

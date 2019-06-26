@@ -423,8 +423,9 @@ class JavaGenerator extends Generator {
                         url: assm.repository.url
                     },
 
-                    ...assm.targets.java.maven,
-                    'version': assm.version,
+                    'groupId': assm.targets.java.maven.groupId,
+                    'artifactId': assm.targets.java.maven.artifactId,
+                    'version': makeVersion(assm.version, assm.targets.java.maven.versionSuffix),
                     'packaging': 'jar',
 
                     'properties': { 'project.build.sourceEncoding': 'UTF-8' },
@@ -492,6 +493,22 @@ class JavaGenerator extends Generator {
         );
         this.code.closeFile('pom.xml');
 
+        /**
+         * Combines a version number with an optional suffix. If the suffix starts with '-' or '.', it will be
+         * concatenated as-is to the semantic version number. Otherwise, it'll be appended to the version number with an
+         * intercalar '-'.
+         *
+         * @param version the semantic version number
+         * @param suffix  the suffix, if any.
+         */
+        function makeVersion(version: string, suffix?: string): string {
+            if (!suffix) { return version; }
+            if (!suffix.startsWith('-') && !suffix.startsWith('.')) {
+                throw new Error(`versionSuffix must start with '-' or '.', but received ${suffix}`);
+            }
+            return `${version}${suffix}`;
+        }
+
         function mavenDependencies() {
             const dependencies = new Array<MavenDependency>();
             const allDeps = { ...(assm.dependencies || {}), ...self.referencedModules };
@@ -501,8 +518,9 @@ class JavaGenerator extends Generator {
                     throw new Error(`Assembly ${assm.name} depends on ${depName}, which does not declare a java target`);
                 }
                 dependencies.push({
-                    ...dep.targets.java.maven,
-                    version: dep.version
+                    groupId: dep.targets.java.maven.groupId,
+                    artifactId: dep.targets.java.maven.artifactId,
+                    version: makeVersion(dep.version, dep.targets.java.maven.versionSuffix),
                 });
             }
             // The JSII java runtime base classes
