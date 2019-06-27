@@ -146,8 +146,10 @@ export class DotNetRuntimeGenerator {
      * Ex: [System.Obsolete()]
      */
     public emitDeprecatedAttributeIfNecessary(obj: spec.Method | spec.ClassType | spec.InterfaceType
-        | spec.Property | spec.EnumType | spec.EnumMember | spec.Initializer): void {
-
+        | spec.Property | spec.EnumType | spec.EnumMember | spec.Initializer | undefined): void {
+        if (!obj) {
+            return;
+        }
         const docs = obj.docs;
         if (docs) {
             if (docs.stability! === 'deprecated') {
