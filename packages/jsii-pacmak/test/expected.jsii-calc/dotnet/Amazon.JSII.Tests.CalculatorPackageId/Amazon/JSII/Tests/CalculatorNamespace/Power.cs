@@ -1,19 +1,22 @@
 using Amazon.JSII.Runtime.Deputy;
 using Amazon.JSII.Tests.CalculatorNamespace.composition;
-using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>The power operation.</summary>
-    /// <remarks>stability: Experimental</remarks>
-    [JsiiClass(nativeType: typeof(Power), fullyQualifiedName: "jsii-calc.Power", parametersJson: "[{\"name\":\"base\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},{\"name\":\"pow\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
-    public class Power : CompositeOperation_
+    /// <remarks>
+    /// stability: Experimental
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Power), fullyQualifiedName: "jsii-calc.Power", parametersJson: "[{\"docs\":{\"summary\":\"The base of the power.\"},\"name\":\"base\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},{\"docs\":{\"summary\":\"The number of times to multiply.\"},\"name\":\"pow\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
+    public class Power : CompositeOperation
     {
         /// <summary>Creates a Power operation.</summary>
         /// <param name = "@base">The base of the power.</param>
         /// <param name = "pow">The number of times to multiply.</param>
-        /// <remarks>stability: Experimental</remarks>
-        public Power(Value_ @base, Value_ pow): base(new DeputyProps(new object[]{@base, pow}))
+        /// <remarks>
+        /// stability: Experimental
+        /// </remarks>
+        public Power(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ @base, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ pow): base(new DeputyProps(new object[]{@base, pow}))
         {
         }
 
@@ -26,27 +29,33 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>The base of the power.</summary>
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: Experimental
+        /// </remarks>
         [JsiiProperty(name: "base", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
-        public virtual Value_ Base
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ Base
         {
-            get => GetInstanceProperty<Value_>();
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_>();
         }
 
         /// <summary>The expression that this operation consists of. Must be implemented by derived classes.</summary>
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: Experimental
+        /// </remarks>
         [JsiiProperty(name: "expression", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
-        public override Value_ Expression
+        public override Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ Expression
         {
-            get => GetInstanceProperty<Value_>();
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_>();
         }
 
         /// <summary>The number of times to multiply.</summary>
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: Experimental
+        /// </remarks>
         [JsiiProperty(name: "pow", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
-        public virtual Value_ Pow
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ Pow
         {
-            get => GetInstanceProperty<Value_>();
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_>();
         }
     }
 }

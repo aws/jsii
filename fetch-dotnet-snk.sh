@@ -50,7 +50,6 @@ TMP_KEY="$TMP_DIR/key.snk"
 echo $SNK_SECRET | jq -r .SecretBinary | base64 --decode > $TMP_KEY
 
 cp $TMP_KEY packages/jsii-dotnet-jsonmodel/src/Amazon.JSII.JsonModel/
-cp $TMP_KEY packages/jsii-dotnet-generator/src/Amazon.JSII.Generator/
 cp $TMP_KEY packages/jsii-dotnet-runtime/src/Amazon.JSII.Runtime/
 
 rm -rf $TMP_DIR

@@ -1,10 +1,13 @@
 using Amazon.JSII.Runtime.Deputy;
+using Amazon.JSII.Tests.CalculatorNamespace.DerivedClassHasNoProperties;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.DerivedClassHasNoProperties
 {
-    /// <remarks>stability: Experimental</remarks>
+    /// <remarks>
+    /// stability: Experimental
+    /// </remarks>
     [JsiiClass(nativeType: typeof(Derived), fullyQualifiedName: "jsii-calc.DerivedClassHasNoProperties.Derived")]
-    public class Derived : Amazon.JSII.Tests.CalculatorNamespace.DerivedClassHasNoProperties.Base
+    public class Derived : Base
     {
         public Derived(): base(new DeputyProps(new object[]{}))
         {

@@ -18,19 +18,23 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: Experimental
+        /// </remarks>
+        [JsiiMethod(name: "canAccessStaticContext", returnsJson: "{\"type\":{\"primitive\":\"boolean\"}}")]
+        public static bool CanAccessStaticContext()
+        {
+            return InvokeStaticMethod<bool>(typeof(StaticContext), new object[]{});
+        }
+
+        /// <remarks>
+        /// stability: Experimental
+        /// </remarks>
         [JsiiProperty(name: "staticVariable", typeJson: "{\"primitive\":\"boolean\"}")]
         public static bool StaticVariable
         {
             get => GetStaticProperty<bool>(typeof(StaticContext));
             set => SetStaticProperty(typeof(StaticContext), value);
-        }
-
-        /// <remarks>stability: Experimental</remarks>
-        [JsiiMethod(name: "canAccessStaticContext", returnsJson: "{\"type\":{\"primitive\":\"boolean\"}}")]
-        public static bool CanAccessStaticContext()
-        {
-            return InvokeStaticMethod<bool>(typeof(StaticContext), new object[]{});
         }
     }
 }

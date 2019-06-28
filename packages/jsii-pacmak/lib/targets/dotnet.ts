@@ -1,12 +1,11 @@
-import childProcess = require('child_process');
-import fs = require('fs-extra');
-import spec = require('jsii-spec');
-import path = require('path');
-import xmlbuilder = require('xmlbuilder');
-import { IGenerator } from '../generator';
-import logging = require('../logging');
+import * as fs from 'fs-extra';
+import * as spec from 'jsii-spec';
+import * as path from 'path';
+import * as xmlbuilder from 'xmlbuilder';
+import * as logging from '../logging';
 import { PackageInfo, Target, TargetOptions } from '../target';
 import { shell } from '../util';
+import {DotNetGenerator} from "./dotnet/dotnetgenerator";
 
 export default class Dotnet extends Target {
     public static toPackageInfos(assm: spec.Assembly): { [language: string]: PackageInfo } {
@@ -48,16 +47,14 @@ export default class Dotnet extends Target {
 
     public async build(sourceDir: string, outDir: string): Promise<void> {
         await this.generateNuGetConfigForLocalDeps(sourceDir, outDir);
-
         const pkg = await fs.readJson(path.join(this.packageDir, 'package.json'));
         const packageId: string = pkg.jsii.targets.dotnet.packageId;
         const project: string = path.join(packageId, `${packageId}.csproj`);
 
-        // Add retry as NuGet on Ubuntu is prone to failing due to race conditions
         await shell(
             'dotnet',
             [ 'build', project, '-c', 'Release' ],
-            { cwd: sourceDir, retry: true }
+            { cwd: sourceDir }
         );
 
         await this.copyFiles(
@@ -124,47 +121,5 @@ export default class Dotnet extends Target {
         const filePath = path.join(sourceDirectory, 'NuGet.config');
         logging.debug(`Generated ${filePath}`);
         await fs.writeFile(filePath, xml);
-    }
-}
-
-// ##################
-// # CODE GENERATOR #
-// ##################
-
-class DotNetGenerator implements IGenerator {
-    private jsiiFile: string;
-
-    public generate(): void {
-        // The DotNet generator does not currently support in-memory generation.
-        // Support can be added relatively easily if necessary.
-    }
-
-    public async load(packageRoot: string) {
-        this.jsiiFile = path.join(packageRoot, spec.SPEC_FILE_NAME);
-    }
-
-    public upToDate(_: string): Promise<boolean> {
-        return Promise.resolve(false);
-    }
-
-    public save(outdir: string, tarball: string): Promise<any> {
-        return new Promise<number>((resolve, reject) => {
-            const cliPath = path.join(__dirname, 'dotnet-generator', 'Amazon.JSII.Generator.CLI.dll');
-            const cli = childProcess.spawn(
-                'dotnet',
-                [cliPath, '--jsii', this.jsiiFile, '--tarball', tarball, '--output', outdir],
-                { stdio: 'inherit' }
-            );
-
-            cli.once('exit', code => {
-                if (code === 0) {
-                    return resolve();
-                } else {
-                    return reject(new Error(`jsii-dotnet-generator exited with code ${code}`));
-                }
-            });
-
-            cli.once('error', err => reject(err));
-        });
     }
 }

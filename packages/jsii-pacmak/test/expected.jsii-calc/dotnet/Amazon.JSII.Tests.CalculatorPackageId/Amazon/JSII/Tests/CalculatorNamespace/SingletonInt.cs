@@ -18,11 +18,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: Experimental
+        /// </remarks>
         [JsiiMethod(name: "isSingletonInt", returnsJson: "{\"type\":{\"primitive\":\"boolean\"}}", parametersJson: "[{\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]
-        public virtual bool IsSingletonInt(double value)
+        public virtual bool IsSingletonInt(double @value)
         {
-            return InvokeInstanceMethod<bool>(new object[]{value});
+            return InvokeInstanceMethod<bool>(new object[]{@value});
         }
     }
 }

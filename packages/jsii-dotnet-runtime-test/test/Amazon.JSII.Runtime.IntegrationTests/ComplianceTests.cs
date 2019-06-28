@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Amazon.JSII.Runtime.Deputy;
 using Amazon.JSII.Tests.CalculatorNamespace;
-using Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation;
+using Amazon.JSII.Tests.CalculatorNamespace.composition;
 using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 using Newtonsoft.Json.Linq;
 using Xunit;
@@ -260,9 +260,9 @@ namespace Amazon.JSII.Runtime.IntegrationTests
 
             calc.Add(9);
             calc.Pow(3);
-            Assert.Equal(CompositionStringStyle.NORMAL, calc.StringStyle);
-            calc.StringStyle = CompositionStringStyle.DECORATED;
-            Assert.Equal(CompositionStringStyle.DECORATED, calc.StringStyle);
+            Assert.Equal(CompositeOperation.CompositionStringStyle.NORMAL, calc.StringStyle);
+            calc.StringStyle = CompositeOperation.CompositionStringStyle.DECORATED;
+            Assert.Equal(CompositeOperation.CompositionStringStyle.DECORATED, calc.StringStyle);
             Assert.Equal("<<[[{{(((1 * (0 + 9)) * (0 + 9)) * (0 + 9))}}]]>>", calc.ToString());
         }
 

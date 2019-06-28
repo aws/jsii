@@ -2,7 +2,9 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>stability: Stable</remarks>
+    /// <remarks>
+    /// stability: Stable
+    /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IStableStruct), fullyQualifiedName: "jsii-calc.StableStruct")]
     internal sealed class StableStructProxy : DeputyBase, IStableStruct
     {
@@ -10,7 +12,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <remarks>stability: Stable</remarks>
+        /// <remarks>
+        /// stability: Stable
+        /// </remarks>
         [JsiiProperty(name: "readonlyProperty", typeJson: "{\"primitive\":\"string\"}")]
         public string ReadonlyProperty
         {
