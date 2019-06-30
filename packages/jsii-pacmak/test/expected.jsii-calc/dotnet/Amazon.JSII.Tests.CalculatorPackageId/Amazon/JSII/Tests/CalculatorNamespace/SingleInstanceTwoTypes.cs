@@ -24,22 +24,18 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <remarks>
-        /// stability: Experimental
-        /// </remarks>
+        /// <remarks>stability: Experimental</remarks>
         [JsiiMethod(name: "interface1", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.InbetweenClass\"}}")]
-        public virtual Amazon.JSII.Tests.CalculatorNamespace.InbetweenClass Interface1()
+        public virtual InbetweenClass Interface1()
         {
-            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.InbetweenClass>(new object[]{});
+            return InvokeInstanceMethod<InbetweenClass>(new object[]{});
         }
 
-        /// <remarks>
-        /// stability: Experimental
-        /// </remarks>
+        /// <remarks>stability: Experimental</remarks>
         [JsiiMethod(name: "interface2", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.IPublicInterface\"}}")]
-        public virtual Amazon.JSII.Tests.CalculatorNamespace.IIPublicInterface Interface2()
+        public virtual IIPublicInterface Interface2()
         {
-            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.IIPublicInterface>(new object[]{});
+            return InvokeInstanceMethod<IIPublicInterface>(new object[]{});
         }
     }
 }

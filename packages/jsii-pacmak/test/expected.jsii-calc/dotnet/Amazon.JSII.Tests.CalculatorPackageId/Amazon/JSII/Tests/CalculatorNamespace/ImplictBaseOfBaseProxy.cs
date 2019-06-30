@@ -1,10 +1,10 @@
 using Amazon.JSII.Runtime.Deputy;
+using Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace;
+using System;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>
-    /// stability: Experimental
-    /// </remarks>
+    /// <remarks>stability: Experimental</remarks>
     [JsiiTypeProxy(nativeType: typeof(IImplictBaseOfBase), fullyQualifiedName: "jsii-calc.ImplictBaseOfBase")]
     internal sealed class ImplictBaseOfBaseProxy : DeputyBase, IImplictBaseOfBase
     {
@@ -12,13 +12,11 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <remarks>
-        /// stability: Experimental
-        /// </remarks>
+        /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "goo", typeJson: "{\"primitive\":\"date\"}")]
-        public System.DateTime Goo
+        public DateTime Goo
         {
-            get => GetInstanceProperty<System.DateTime>();
+            get => GetInstanceProperty<DateTime>();
         }
 
         [JsiiProperty(name: "bar", typeJson: "{\"primitive\":\"string\"}")]
@@ -28,9 +26,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         [JsiiProperty(name: "foo", typeJson: "{\"fqn\":\"@scope/jsii-calc-base-of-base.Very\"}")]
-        public Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Very Foo
+        public Very Foo
         {
-            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Very>();
+            get => GetInstanceProperty<Very>();
         }
     }
 }

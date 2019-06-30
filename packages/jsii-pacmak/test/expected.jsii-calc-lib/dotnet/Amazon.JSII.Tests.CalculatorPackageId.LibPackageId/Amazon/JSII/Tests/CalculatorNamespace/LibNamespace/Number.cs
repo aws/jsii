@@ -1,23 +1,18 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
     /// <summary>Represents a concrete number.</summary>
-    /// <remarks>
-    /// stability: Deprecated
-    /// </remarks>
-    [JsiiClass(nativeType: typeof(Number), fullyQualifiedName: "@scope/jsii-calc-lib.Number", parametersJson: "[{\"docs\":{\"summary\":\"The number.\"},\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]
+    /// <remarks>stability: Deprecated</remarks>
+    [JsiiClass(nativeType: typeof(Number), fullyQualifiedName: "@scope/jsii-calc-lib.Number", parametersJson: "[{\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]
     [System.Obsolete()]
     public class Number : Value_, IIDoublable
     {
         /// <summary>Creates a Number object.</summary>
-        /// <param name = "@value">The number.</param>
-        /// <remarks>
-        /// stability: Deprecated
-        /// </remarks>
+        /// <param name = "value">The number.</param>
+        /// <remarks>stability: Deprecated</remarks>
         [System.Obsolete()]
-        public Number(double @value): base(new DeputyProps(new object[]{@value}))
+        public Number(double value): base(new DeputyProps(new object[]{value}))
         {
         }
 
@@ -32,9 +27,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         }
 
         /// <summary>The number multiplied by 2.</summary>
-        /// <remarks>
-        /// stability: Deprecated
-        /// </remarks>
+        /// <remarks>stability: Deprecated</remarks>
         [JsiiProperty(name: "doubleValue", typeJson: "{\"primitive\":\"number\"}")]
         [System.Obsolete()]
         public virtual double DoubleValue
@@ -43,9 +36,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         }
 
         /// <summary>The number.</summary>
-        /// <remarks>
-        /// stability: Deprecated
-        /// </remarks>
+        /// <remarks>stability: Deprecated</remarks>
         [JsiiProperty(name: "value", typeJson: "{\"primitive\":\"number\"}")]
         [System.Obsolete()]
         public override double Value

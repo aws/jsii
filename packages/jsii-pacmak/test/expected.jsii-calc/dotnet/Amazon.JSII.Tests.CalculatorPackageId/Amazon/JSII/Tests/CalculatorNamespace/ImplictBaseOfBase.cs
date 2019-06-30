@@ -1,18 +1,16 @@
 using Amazon.JSII.Runtime.Deputy;
+using Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace;
+using System;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>
-    /// stability: Experimental
-    /// </remarks>
+    /// <remarks>stability: Experimental</remarks>
     [JsiiByValue]
     public class ImplictBaseOfBase : IImplictBaseOfBase
     {
-        /// <remarks>
-        /// stability: Experimental
-        /// </remarks>
+        /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "goo", typeJson: "{\"primitive\":\"date\"}", isOverride: true)]
-        public System.DateTime Goo
+        public DateTime Goo
         {
             get;
             set;
@@ -26,7 +24,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         [JsiiProperty(name: "foo", typeJson: "{\"fqn\":\"@scope/jsii-calc-base-of-base.Very\"}", isOverride: true)]
-        public Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Very Foo
+        public Very Foo
         {
             get;
             set;

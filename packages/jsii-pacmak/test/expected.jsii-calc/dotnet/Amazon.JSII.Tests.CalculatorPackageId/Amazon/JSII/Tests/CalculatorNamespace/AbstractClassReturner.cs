@@ -2,9 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>
-    /// stability: Experimental
-    /// </remarks>
+    /// <remarks>stability: Experimental</remarks>
     [JsiiClass(nativeType: typeof(AbstractClassReturner), fullyQualifiedName: "jsii-calc.AbstractClassReturner")]
     public class AbstractClassReturner : DeputyBase
     {
@@ -20,31 +18,25 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <remarks>
-        /// stability: Experimental
-        /// </remarks>
-        [JsiiMethod(name: "giveMeAbstract", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.AbstractClass\"}}")]
-        public virtual Amazon.JSII.Tests.CalculatorNamespace.AbstractClass GiveMeAbstract()
-        {
-            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.AbstractClass>(new object[]{});
-        }
-
-        /// <remarks>
-        /// stability: Experimental
-        /// </remarks>
-        [JsiiMethod(name: "giveMeInterface", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.IInterfaceImplementedByAbstractClass\"}}")]
-        public virtual Amazon.JSII.Tests.CalculatorNamespace.IIInterfaceImplementedByAbstractClass GiveMeInterface()
-        {
-            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.IIInterfaceImplementedByAbstractClass>(new object[]{});
-        }
-
-        /// <remarks>
-        /// stability: Experimental
-        /// </remarks>
+        /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "returnAbstractFromProperty", typeJson: "{\"fqn\":\"jsii-calc.AbstractClassBase\"}")]
-        public virtual Amazon.JSII.Tests.CalculatorNamespace.AbstractClassBase ReturnAbstractFromProperty
+        public virtual AbstractClassBase ReturnAbstractFromProperty
         {
-            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.AbstractClassBase>();
+            get => GetInstanceProperty<AbstractClassBase>();
+        }
+
+        /// <remarks>stability: Experimental</remarks>
+        [JsiiMethod(name: "giveMeAbstract", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.AbstractClass\"}}")]
+        public virtual AbstractClass GiveMeAbstract()
+        {
+            return InvokeInstanceMethod<AbstractClass>(new object[]{});
+        }
+
+        /// <remarks>stability: Experimental</remarks>
+        [JsiiMethod(name: "giveMeInterface", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.IInterfaceImplementedByAbstractClass\"}}")]
+        public virtual IIInterfaceImplementedByAbstractClass GiveMeInterface()
+        {
+            return InvokeInstanceMethod<IIInterfaceImplementedByAbstractClass>(new object[]{});
         }
     }
 }

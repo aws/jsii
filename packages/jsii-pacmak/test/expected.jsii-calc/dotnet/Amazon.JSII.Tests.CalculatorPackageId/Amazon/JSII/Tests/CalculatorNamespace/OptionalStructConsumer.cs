@@ -2,16 +2,12 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>
-    /// stability: Experimental
-    /// </remarks>
-    [JsiiClass(nativeType: typeof(OptionalStructConsumer), fullyQualifiedName: "jsii-calc.OptionalStructConsumer", parametersJson: "[{\"name\":\"optionalStruct\",\"optional\":true,\"type\":{\"fqn\":\"jsii-calc.OptionalStruct\"}}]")]
+    /// <remarks>stability: Experimental</remarks>
+    [JsiiClass(nativeType: typeof(OptionalStructConsumer), fullyQualifiedName: "jsii-calc.OptionalStructConsumer", parametersJson: "[{\"name\":\"optionalStruct\",\"type\":{\"fqn\":\"jsii-calc.OptionalStruct\"},\"optional\":true}]")]
     public class OptionalStructConsumer : DeputyBase
     {
-        /// <remarks>
-        /// stability: Experimental
-        /// </remarks>
-        public OptionalStructConsumer(Amazon.JSII.Tests.CalculatorNamespace.IOptionalStruct optionalStruct): base(new DeputyProps(new object[]{optionalStruct}))
+        /// <remarks>stability: Experimental</remarks>
+        public OptionalStructConsumer(IOptionalStruct optionalStruct): base(new DeputyProps(new object[]{optionalStruct}))
         {
         }
 
@@ -23,18 +19,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <remarks>
-        /// stability: Experimental
-        /// </remarks>
+        /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "parameterWasUndefined", typeJson: "{\"primitive\":\"boolean\"}")]
         public virtual bool ParameterWasUndefined
         {
             get => GetInstanceProperty<bool>();
         }
 
-        /// <remarks>
-        /// stability: Experimental
-        /// </remarks>
+        /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "fieldValue", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         public virtual string FieldValue
         {

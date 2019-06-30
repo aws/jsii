@@ -1,4 +1,5 @@
 lib/version.ts
+lib/targets/dotnet-generator/
 .classpath
 .project
 .settings

@@ -3,9 +3,7 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>jsii#298: show default values in sphinx documentation, and respect newlines.</summary>
-    /// <remarks>
-    /// stability: Experimental
-    /// </remarks>
+    /// <remarks>stability: Experimental</remarks>
     [JsiiByValue]
     public class LoadBalancedFargateServiceProps : ILoadBalancedFargateServiceProps
     {

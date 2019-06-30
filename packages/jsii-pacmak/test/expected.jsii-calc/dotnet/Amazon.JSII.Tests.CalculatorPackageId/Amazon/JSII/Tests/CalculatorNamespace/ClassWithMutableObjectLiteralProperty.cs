@@ -2,9 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>
-    /// stability: Experimental
-    /// </remarks>
+    /// <remarks>stability: Experimental</remarks>
     [JsiiClass(nativeType: typeof(ClassWithMutableObjectLiteralProperty), fullyQualifiedName: "jsii-calc.ClassWithMutableObjectLiteralProperty")]
     public class ClassWithMutableObjectLiteralProperty : DeputyBase
     {
@@ -20,13 +18,11 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <remarks>
-        /// stability: Experimental
-        /// </remarks>
+        /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "mutableObject", typeJson: "{\"fqn\":\"jsii-calc.IMutableObjectLiteral\"}")]
-        public virtual Amazon.JSII.Tests.CalculatorNamespace.IIMutableObjectLiteral MutableObject
+        public virtual IIMutableObjectLiteral MutableObject
         {
-            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.IIMutableObjectLiteral>();
+            get => GetInstanceProperty<IIMutableObjectLiteral>();
             set => SetInstanceProperty(value);
         }
     }

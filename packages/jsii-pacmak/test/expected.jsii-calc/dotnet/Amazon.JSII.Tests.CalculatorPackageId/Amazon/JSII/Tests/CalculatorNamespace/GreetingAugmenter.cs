@@ -1,10 +1,9 @@
 using Amazon.JSII.Runtime.Deputy;
+using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>
-    /// stability: Experimental
-    /// </remarks>
+    /// <remarks>stability: Experimental</remarks>
     [JsiiClass(nativeType: typeof(GreetingAugmenter), fullyQualifiedName: "jsii-calc.GreetingAugmenter")]
     public class GreetingAugmenter : DeputyBase
     {
@@ -20,11 +19,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <remarks>
-        /// stability: Experimental
-        /// </remarks>
+        /// <remarks>stability: Experimental</remarks>
         [JsiiMethod(name: "betterGreeting", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[{\"name\":\"friendly\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.IFriendly\"}}]")]
-        public virtual string BetterGreeting(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IIFriendly friendly)
+        public virtual string BetterGreeting(IIFriendly friendly)
         {
             return InvokeInstanceMethod<string>(new object[]{friendly});
         }

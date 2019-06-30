@@ -1,0 +1,30 @@
+{
+  "name": "jsii-dotnet-generator",
+  "version": "0.12.1",
+  "description": ".NET code generator for jsii assemblies",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "gen": "/bin/bash ./generate.sh",
+    "build": "/bin/bash ./build.sh",
+    "test": "/bin/bash ./test.sh",
+    "package": "package-dotnet"
+  },
+  "dependencies": {
+    "jsii-dotnet-jsonmodel": "^0.12.1"
+  },
+  "devDependencies": {
+    "jsii-build-tools": "^0.12.1"
+  },
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com",
+    "email": "aws-jsii@amazon.com"
+  },
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/awslabs/jsii.git"
+  },
+  "homepage": "https://github.com/awslabs/jsii"
+}

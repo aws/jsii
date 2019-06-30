@@ -22,4 +22,3 @@
     <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" Version="0.13.1-devpreview"/>
   </ItemGroup>
 </Project>
-

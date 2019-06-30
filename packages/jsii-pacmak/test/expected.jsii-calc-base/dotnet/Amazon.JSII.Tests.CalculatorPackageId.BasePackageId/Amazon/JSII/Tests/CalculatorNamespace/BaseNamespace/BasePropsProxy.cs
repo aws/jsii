@@ -1,4 +1,5 @@
 using Amazon.JSII.Runtime.Deputy;
+using Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace
 {
@@ -16,9 +17,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace
         }
 
         [JsiiProperty(name: "foo", typeJson: "{\"fqn\":\"@scope/jsii-calc-base-of-base.Very\"}")]
-        public Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Very Foo
+        public Very Foo
         {
-            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Very>();
+            get => GetInstanceProperty<Very>();
         }
     }
 }

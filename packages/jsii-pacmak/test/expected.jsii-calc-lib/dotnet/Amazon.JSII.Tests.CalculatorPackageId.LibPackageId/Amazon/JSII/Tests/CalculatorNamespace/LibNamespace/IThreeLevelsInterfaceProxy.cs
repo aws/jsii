@@ -16,9 +16,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         {
         }
 
-        /// <remarks>
-        /// stability: Deprecated
-        /// </remarks>
+        /// <remarks>stability: Deprecated</remarks>
         [JsiiMethod(name: "baz")]
         [System.Obsolete()]
         public void Baz()

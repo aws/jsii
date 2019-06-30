@@ -20,4 +20,3 @@
     <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" Version="0.13.1"/>
   </ItemGroup>
 </Project>
-
