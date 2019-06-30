@@ -88,9 +88,7 @@ export class FileGenerator {
         const packageReference = itemGroup2.ele("PackageReference");
         packageReference.att("Include", "Amazon.JSII.Runtime");
 
-        // Strip " (build abcdef)" from the jsii version
-        const jsiiVersionSimple = assembly.jsiiVersion.replace(/ .*$/, '');
-        packageReference.att("Version", jsiiVersionSimple);
+        packageReference.att("Version", assembly.version);
 
         dependencies.forEach((value: DotNetDependency) => {
             const dependencyReference = itemGroup2.ele("PackageReference");
