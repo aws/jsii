@@ -42,6 +42,7 @@
     "@types/yargs": "^13.0.0",
     "jsii-build-tools": "^0.13.1",
     "jsii-calc": "^0.13.1",
+    "jsii-dotnet-generator": "^0.13.1",
     "jsii-dotnet-jsonmodel": "^0.13.1",
     "jsii-dotnet-runtime": "^0.13.1",
     "jsii-java-runtime": "^0.13.1",
