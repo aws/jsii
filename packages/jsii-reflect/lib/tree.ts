@@ -114,7 +114,7 @@ class AssemblyNode extends AsciiTree {
 class MethodNode extends AsciiTree {
   constructor(method: Method, options: TypeSystemTreeOptions) {
     const args = method.parameters.map(p => p.name).join(',');
-    super(`${method.name}(${args}) ${colors.gray('method')}` + describeStability(method, options));
+    super(`${maybeStatic(method)}${method.name}(${args}) ${colors.gray('method')}` + describeStability(method, options));
 
     if (options.signatures) {
       if (method.abstract) {
@@ -180,7 +180,7 @@ class ParameterNode extends AsciiTree {
 
 class PropertyNode extends AsciiTree {
   constructor(property: Property, options: TypeSystemTreeOptions) {
-    super(`${property.name} ${colors.gray('property')}` + describeStability(property, options));
+    super(`${maybeStatic(property)}${property.name} ${colors.gray('property')}` + describeStability(property, options));
 
     if (options.signatures) {
       if (property.abstract) {
@@ -333,4 +333,12 @@ function describeStability(thing: Documentable, options: TypeSystemTreeOptions) 
   }
 
   return '';
+}
+
+function maybeStatic(mem: Property | Method) {
+  let isStatic;
+  if (mem instanceof Property) { isStatic = !!mem.static; }
+  if (mem instanceof Method) { isStatic = !!mem.static; }
+
+  return isStatic ? (colors.grey('static') + ' ') : '';
 }
