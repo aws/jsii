@@ -14,6 +14,7 @@ import software.amazon.jsii.tests.calculator.Calculator;
 import software.amazon.jsii.tests.calculator.CalculatorProps;
 import software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties;
 import software.amazon.jsii.tests.calculator.Constructors;
+import software.amazon.jsii.tests.calculator.DataRenderer;
 import software.amazon.jsii.tests.calculator.DerivedStruct;
 import software.amazon.jsii.tests.calculator.DoNotOverridePrivates;
 import software.amazon.jsii.tests.calculator.DoubleTrouble;
@@ -1035,6 +1036,16 @@ public class ComplianceTest {
         final VariadicMethod variadicMethod = new VariadicMethod(1);
         final List<java.lang.Number> result = variadicMethod.asArray(3, 4, 5, 6);
         assertEquals(Arrays.asList(1, 3, 4, 5, 6), result);
+    }
+
+    @Test
+    public void callbacsCorrectlyDeserializeArguments() {
+        final DataRenderer renderer = new DataRenderer() {
+            public final String renderMap(final Map<String, Object> map) {
+                return super.renderMap(map);
+            }
+        };
+        assertEquals("{\n  \"anumber\": 42,\n  \"astring\": \"bazinga!\"\n}", renderer.render());
     }
 
     static class PartiallyInitializedThisConsumerImpl extends PartiallyInitializedThisConsumer {

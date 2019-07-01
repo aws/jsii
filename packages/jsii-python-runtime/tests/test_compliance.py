@@ -15,6 +15,7 @@ from jsii_calc import (
     Calculator,
     ClassWithPrivateConstructorAndAutomaticProperties,
     ConstructorPassesThisOut,
+    DataRenderer,
     DoNotOverridePrivates,
     DoubleTrouble,
     GreetingAugmenter,
@@ -901,3 +902,11 @@ def test_objectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut():
 def test_variadicMethodCanBeInvoked():
     variadic = VariadicMethod(1)
     assert variadic.as_array(3, 4, 5, 6) == [1, 3, 4, 5, 6]
+
+@pytest.mark.skip # I don't know how to make the .render() call work - it crashes saying it requires 2 named arguments.
+def test_callbacksCorrectlyDeserializeArguments():
+    class DataRendererSubclass(DataRenderer):
+        def render_map(map):
+            return super.render_map(map)
+    renderer = DataRendererSubclass()
+    assert renderer.render() == "{\n  \"anumber\": 42,\n  \"astring\": \"bazinga!\"\n}"
