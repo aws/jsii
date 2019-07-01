@@ -138,6 +138,11 @@ namespace Amazon.JSII.Runtime
                     return referenceMap.GetOrCreateNativeReference(new ByRefValue(prop.Value.Value<String>()));
                 }
 
+                /*
+                 * Turning all outstanding JObjects to IDictionary<string, object> (recursively), as the code generator
+                 * will have emitted IDictionary<string, object> for  maps of string to <anything>. Not doing so would
+                 * result in an ArgumentError for not being able to convert JObject to IDictionary.
+                 */
                 var dict = ((JObject)obj).ToObject<Dictionary<string, object>>();
                 foreach (var key in dict.Keys)
                 {
