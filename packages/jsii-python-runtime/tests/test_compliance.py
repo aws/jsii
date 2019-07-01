@@ -903,10 +903,9 @@ def test_variadicMethodCanBeInvoked():
     variadic = VariadicMethod(1)
     assert variadic.as_array(3, 4, 5, 6) == [1, 3, 4, 5, 6]
 
-@pytest.mark.skip # I don't know how to make the .render() call work - it crashes saying it requires 2 named arguments.
 def test_callbacksCorrectlyDeserializeArguments():
     class DataRendererSubclass(DataRenderer):
-        def render_map(map):
-            return super.render_map(map)
+        def render_map(self, map):
+            return super().render_map(map)
     renderer = DataRendererSubclass()
-    assert renderer.render() == "{\n  \"anumber\": 42,\n  \"astring\": \"bazinga!\"\n}"
+    assert renderer.render(anumber = 42, astring = "bazinga!") == "{\n  \"anumber\": 42,\n  \"astring\": \"bazinga!\"\n}"
