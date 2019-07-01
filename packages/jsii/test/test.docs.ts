@@ -1,6 +1,7 @@
 import spec = require('jsii-spec');
 import { Test } from 'nodeunit';
 import { sourceToAssemblyHelper as compile } from '../lib';
+import { Stability } from 'jsii-spec';
 
 export = {
 
@@ -299,6 +300,41 @@ export = {
     const classType = assembly.types!['testpkg.Foo'] as spec.ClassType;
 
     test.deepEqual(classType.docs!.custom, { boop: 'true' });
+    test.done();
+  },
+
+  // ----------------------------------------------------------------------
+  async 'stability is inherited from parent'(test: Test) {
+    const stabilities =  [
+      ['@deprecated Not good no more', Stability.Deprecated],
+      ['@experimental', Stability.Experimental],
+      ['@stable', Stability.Stable]
+    ];
+
+    for (const [tag, stability] of stabilities) {
+      const assembly = await compile(`
+        /**
+         * ${tag}
+         */
+        export class Foo {
+          constructor() {
+            Array.isArray(3);
+          }
+
+          public foo() {
+            Array.isArray(3);
+          }
+        }
+      `);
+
+      const classType = assembly.types!['testpkg.Foo'] as spec.ClassType;
+      const initializer = classType.initializer!;
+      const method = classType.methods!.find(m => m.name === 'foo')!;
+
+      test.deepEqual(classType.docs!.stability, stability);
+      test.deepEqual(initializer.docs!.stability, stability);
+      test.deepEqual(method.docs!.stability, stability);
+    }
     test.done();
   },
 };

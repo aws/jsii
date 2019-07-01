@@ -12,6 +12,7 @@ import { Type } from './type';
 
 const readFile = promisify(fs.readFile);
 const stat = promisify(fs.stat);
+const readdir = promisify(fs.readdir);
 
 export class TypeSystem {
   /**
@@ -25,6 +26,31 @@ export class TypeSystem {
   public readonly roots = new Array<Assembly>();
 
   private readonly _assemblyLookup: { [name: string]: Assembly } = { };
+
+  /**
+   * Load all JSII dependencies of the given NPM package directory.
+   *
+   * The NPM package itself does *not* have to be a jsii package, and does
+   * NOT have to declare a JSII dependency on any of the packages.
+   */
+  public async loadAllNodeModules(packageRoot: string, options: { validate?: boolean } = {}) {
+    const npmRoot = path.join(packageRoot, 'node_modules');
+
+    const dirs = await readdir(npmRoot, { encoding: 'utf-8' }) as string[];
+    // Expand scoped package directories (starting with @) to a second level
+    const packages = await flatMap(dirs, async (dir) => {
+      if (dir === '.bin') { return []; }
+
+      const fullPath = path.join(npmRoot, dir);
+      return dir.startsWith('@') ? secondLevelList(fullPath) : [fullPath];
+    });
+
+    for (const packageDir of packages) {
+      const packageJson = require(path.join(path.resolve(packageDir), 'package.json'));
+      if (packageJson.jsii === undefined) { continue; }
+      await this.loadModule(packageDir, options);
+    }
+  }
 
   /**
    * Loads a jsii module or a single .jsii file into the type system.
@@ -250,4 +276,23 @@ export class TypeSystem {
       this.roots.push(asm);
     }
   }
+}
+
+async function flatMap<T, U>(xs: T[], fn: (value: T) => U[] | Promise<U[]>): Promise<U[]> {
+  const ret: U[] = [];
+  for (const x of xs) {
+    ret.push(...await fn(x));
+  }
+  return ret;
+}
+
+/**
+ * List files in a directory while appending the parent name
+ */
+async function secondLevelList(dir: string): Promise<string[]> {
+  const ret: string[] = [];
+  for (const sub of await readdir(dir, { encoding: 'utf-8' }) as string[]) {
+    ret.push(path.join(dir, sub));
+  }
+  return ret;
 }
