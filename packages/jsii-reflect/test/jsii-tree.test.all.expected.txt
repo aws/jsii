@@ -312,6 +312,19 @@ assemblies
  │   │     │ └─┬ obj
  │   │     │   └── type: jsii-calc.INonInternalInterface
  │   │     └── returns: any
+ │   ├─┬ class DataRenderer
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├─┬ render(data) method
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ data
+ │   │   │ │   └── type: Optional<@scope/jsii-calc-lib.MyFirstStruct>
+ │   │   │ └── returns: string
+ │   │   └─┬ renderMap(map) method
+ │   │     ├─┬ parameters
+ │   │     │ └─┬ map
+ │   │     │   └── type: Map<string => any>
+ │   │     └── returns: string
  │   ├─┬ class DefaultedConstructorArgument
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(arg1,arg2,arg3) initializer

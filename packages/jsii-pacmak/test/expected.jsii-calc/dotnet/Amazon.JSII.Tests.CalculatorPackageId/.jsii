@@ -2082,6 +2082,79 @@
       ],
       "name": "ConsumersOfThisCrazyTypeSystem"
     },
+    "jsii-calc.DataRenderer": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Verifies proper type handling through dynamic overrides."
+      },
+      "fqn": "jsii-calc.DataRenderer",
+      "initializer": {
+        "docs": {
+          "stability": "experimental"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1733
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1736
+          },
+          "name": "render",
+          "parameters": [
+            {
+              "name": "data",
+              "optional": true,
+              "type": {
+                "fqn": "@scope/jsii-calc-lib.MyFirstStruct"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1740
+          },
+          "name": "renderMap",
+          "parameters": [
+            {
+              "name": "map",
+              "type": {
+                "collection": {
+                  "elementtype": {
+                    "primitive": "any"
+                  },
+                  "kind": "map"
+                }
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "DataRenderer"
+    },
     "jsii-calc.DefaultedConstructorArgument": {
       "assembly": "jsii-calc",
       "docs": {
@@ -8778,5 +8851,5 @@
     }
   },
   "version": "0.13.2",
-  "fingerprint": "IzBpmwowWT7JOt7LEK9v3wIGmNWcpmqf9O1C927cs8o="
+  "fingerprint": "iCTmGcYc3DTgEt3Y8PBPaiJNOI7O9tRRGI49RI6rAwk="
 }

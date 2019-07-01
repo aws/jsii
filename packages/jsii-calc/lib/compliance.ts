@@ -1726,3 +1726,18 @@ export enum SingletonIntEnum {
     /** Elite! */
     SINGLETON_INT = 1337
 }
+
+/**
+ * Verifies proper type handling through dynamic overrides.
+ */
+export class DataRenderer {
+    constructor() { }
+
+    public render(data: MyFirstStruct = { anumber: 42, astring: 'bazinga!' }): string {
+        return this.renderMap(data);
+    }
+
+    public renderMap(map: { [key: string]: any }): string {
+        return JSON.stringify(map, null, 2);
+    }
+}

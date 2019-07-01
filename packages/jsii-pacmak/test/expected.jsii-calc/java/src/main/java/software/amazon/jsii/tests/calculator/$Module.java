@@ -38,6 +38,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.ConstructorPassesThisOut": return software.amazon.jsii.tests.calculator.ConstructorPassesThisOut.class;
             case "jsii-calc.Constructors": return software.amazon.jsii.tests.calculator.Constructors.class;
             case "jsii-calc.ConsumersOfThisCrazyTypeSystem": return software.amazon.jsii.tests.calculator.ConsumersOfThisCrazyTypeSystem.class;
+            case "jsii-calc.DataRenderer": return software.amazon.jsii.tests.calculator.DataRenderer.class;
             case "jsii-calc.DefaultedConstructorArgument": return software.amazon.jsii.tests.calculator.DefaultedConstructorArgument.class;
             case "jsii-calc.DeprecatedClass": return software.amazon.jsii.tests.calculator.DeprecatedClass.class;
             case "jsii-calc.DeprecatedEnum": return software.amazon.jsii.tests.calculator.DeprecatedEnum.class;

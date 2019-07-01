@@ -132,6 +132,11 @@ assemblies
  │   │   ├── <initializer>() initializer
  │   │   ├── consumeAnotherPublicInterface(obj) method
  │   │   └── consumeNonInternalInterface(obj) method
+ │   ├─┬ class DataRenderer
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── render(data) method
+ │   │   └── renderMap(map) method
  │   ├─┬ class DefaultedConstructorArgument
  │   │ └─┬ members
  │   │   ├── <initializer>(arg1,arg2,arg3) initializer

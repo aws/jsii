@@ -19,6 +19,7 @@ assemblies
  │   ├── class ConstructorPassesThisOut
  │   ├── class Constructors
  │   ├── class ConsumersOfThisCrazyTypeSystem
+ │   ├── class DataRenderer
  │   ├── class DefaultedConstructorArgument
  │   ├── class DeprecatedClass
  │   ├── class Base

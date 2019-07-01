@@ -6,6 +6,7 @@ using Amazon.JSII.Runtime.Services;
 using Amazon.JSII.Runtime.Services.Converters;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -136,6 +137,17 @@ namespace Amazon.JSII.Runtime
                 {
                     return referenceMap.GetOrCreateNativeReference(new ByRefValue(prop.Value.Value<String>()));
                 }
+
+                var dict = ((JObject)obj).ToObject<Dictionary<string, object>>();
+                foreach (var key in dict.Keys)
+                {
+                    var value = dict[key];
+                    if (value != null && value.GetType() == typeof(JObject))
+                    {
+                        dict[key] = FromKernel(value, referenceMap);
+                    }
+                }
+                return dict;
             }
             return obj;
         }
@@ -145,7 +157,7 @@ namespace Amazon.JSII.Runtime
     {
         public CallbackResult(IOptionalValue optionalValue, object value)
             : this(optionalValue?.Type, optionalValue?.IsOptional ?? false, value) {}
-        
+
         private CallbackResult(TypeReference type, bool isOptional, object value): base(type, isOptional)
         {
             Value = value;
