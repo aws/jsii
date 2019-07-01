@@ -1440,6 +1440,52 @@ ConsumersOfThisCrazyTypeSystem
       :rtype: any
 
 
+DataRenderer
+^^^^^^^^^^^^
+
+.. py:class:: DataRenderer()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.DataRenderer;
+
+      .. code-tab:: javascript
+
+         const { DataRenderer } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { DataRenderer } from 'jsii-calc';
+
+
+
+   Verifies proper type handling through dynamic overrides.
+
+
+
+
+   .. py:method:: render([data]) -> string
+
+      :param data: 
+      :type data: :py:class:`@scope/jsii-calc-lib.MyFirstStruct`\ 
+      :rtype: string
+
+
+   .. py:method:: renderMap(map) -> string
+
+      :param map: 
+      :type map: string => any
+      :rtype: string
+
+
 DefaultedConstructorArgument
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

@@ -15,6 +15,7 @@ from jsii_calc import (
     Calculator,
     ClassWithPrivateConstructorAndAutomaticProperties,
     ConstructorPassesThisOut,
+    DataRenderer,
     DoNotOverridePrivates,
     DoubleTrouble,
     GreetingAugmenter,
@@ -901,3 +902,10 @@ def test_objectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut():
 def test_variadicMethodCanBeInvoked():
     variadic = VariadicMethod(1)
     assert variadic.as_array(3, 4, 5, 6) == [1, 3, 4, 5, 6]
+
+def test_callbacksCorrectlyDeserializeArguments():
+    class DataRendererSubclass(DataRenderer):
+        def render_map(self, map):
+            return super().render_map(map)
+    renderer = DataRendererSubclass()
+    assert renderer.render(anumber = 42, astring = "bazinga!") == "{\n  \"anumber\": 42,\n  \"astring\": \"bazinga!\"\n}"

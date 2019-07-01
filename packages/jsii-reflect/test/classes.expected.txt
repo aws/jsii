@@ -19,6 +19,7 @@ CompositeOperation
 ConstructorPassesThisOut
 Constructors
 ConsumersOfThisCrazyTypeSystem
+DataRenderer
 DefaultedConstructorArgument
 DeprecatedClass
 Derived
