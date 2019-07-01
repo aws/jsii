@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.3](https://github.com/awslabs/jsii/compare/v0.13.2...v0.13.3) (2019-07-01)
+
+
+### Bug Fixes
+
+* **.net:** occasional incorrect param type cast ([#568](https://github.com/awslabs/jsii/issues/568)) ([c89d0fa](https://github.com/awslabs/jsii/commit/c89d0fa)), closes [awslabs/aws-cdk#3093](https://github.com/awslabs/aws-cdk/issues/3093)
+
+
+
+
+
 ## [0.13.2](https://github.com/awslabs/jsii/compare/v0.12.1...v0.13.2) (2019-07-01)
 
 **Note:** Version bump only for package jsii-dotnet-runtime-test

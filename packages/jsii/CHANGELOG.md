@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.3](https://github.com/awslabs/jsii/compare/v0.13.2...v0.13.3) (2019-07-01)
+
+
+### Bug Fixes
+
+* **jsii:** correctly inherit initializer stability ([#569](https://github.com/awslabs/jsii/issues/569)) ([a4de2d8](https://github.com/awslabs/jsii/commit/a4de2d8))
+
+
+
+
+
 ## [0.13.2](https://github.com/awslabs/jsii/compare/v0.12.1...v0.13.2) (2019-07-01)
 
 **Note:** Version bump only for package jsii
