@@ -15,6 +15,7 @@ export class Property extends OptionalValue implements Documentable, Overridable
     system: TypeSystem,
     public readonly assembly: Assembly,
     public readonly parentType: Type,
+    public readonly definingType: Type,
     private readonly propSpec: jsii.Property) {
     super(system, propSpec);
   }

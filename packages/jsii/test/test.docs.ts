@@ -1,7 +1,7 @@
 import spec = require('jsii-spec');
+import { Stability } from 'jsii-spec';
 import { Test } from 'nodeunit';
 import { sourceToAssemblyHelper as compile } from '../lib';
-import { Stability } from 'jsii-spec';
 
 export = {
 
@@ -338,74 +338,4 @@ export = {
     test.done();
   },
 
-  // ----------------------------------------------------------------------
-  'method inheritance, use lowest guarantee': {
-    async 'subclass is experimental'(test: Test) {
-      const assembly = await compile(`
-        /**
-         * @stable
-         */
-        export class Foo {
-          constructor() {
-            Array.isArray(3);
-          }
-
-          public foo() {
-            Array.isArray(3);
-          }
-        }
-
-        /**
-         * @experimental
-         */
-        export class SubFoo extend Foo {
-        }
-      `);
-      const classType = assembly.types!['testpkg.SubFoo'] as spec.ClassType;
-      const initializer = classType.initializer!;
-      const method = classType.methods!.find(m => m.name === 'foo')!;
-
-      test.deepEqual(initializer.docs!.stability, Stability.Experimental);
-      test.deepEqual(method.docs!.stability, Stability.Experimental);
-      test.done();
-    },
-
-    // ----------------------------------------------------------------------
-
-    async 'member is experimental'(test: Test) {
-      const assembly = await compile(`
-        /**
-         * @stable
-         */
-        export class Foo {
-          /**
-           * @experimental
-           */
-          constructor() {
-            Array.isArray(3);
-          }
-
-          /**
-           * @experimental
-           */
-          public foo() {
-            Array.isArray(3);
-          }
-        }
-
-        /**
-         * @stable
-         */
-        export class SubFoo extend Foo {
-        }
-      `);
-      const classType = assembly.types!['testpkg.SubFoo'] as spec.ClassType;
-      const initializer = classType.initializer!;
-      const method = classType.methods!.find(m => m.name === 'foo')!;
-
-      test.deepEqual(initializer.docs!.stability, Stability.Experimental);
-      test.deepEqual(method.docs!.stability, Stability.Experimental);
-      test.done();
-    },
-  }
 };

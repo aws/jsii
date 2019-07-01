@@ -1,7 +1,9 @@
 import fs = require('fs');
+import { sourceToAssemblyHelper } from 'jsii/lib/helpers';
 import os = require('os');
 import path = require('path');
 import { promisify } from 'util';
+import { Assembly, TypeSystem } from '../lib';
 
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
@@ -39,4 +41,11 @@ export async function diffTest(actual: string, expectedFile: string) {
   }
 
   expect(actual).toEqual(expected);
+}
+
+export async function typeSystemFromSource(source: string) {
+  const assembly = await sourceToAssemblyHelper(source);
+  const ts = new TypeSystem();
+  ts.addAssembly(new Assembly(ts, assembly));
+  return ts;
 }
