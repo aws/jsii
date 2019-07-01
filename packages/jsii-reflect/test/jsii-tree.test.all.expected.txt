@@ -5,123 +5,123 @@ assemblies
  │ │ ├── @scope/jsii-calc-base-of-base
  │ │ └── @scope/jsii-calc-lib
  │ └─┬ types
- │   ├─┬ class AbstractClass
+ │   ├─┬ class AbstractClass (experimental)
  │   │ ├── base: AbstractClassBase
  │   │ ├── interfaces: IInterfaceImplementedByAbstractClass
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ abstractMethod(name) method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ abstractMethod(name) method (experimental)
  │   │   │ ├── abstract
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ name
  │   │   │ │   └── type: string
  │   │   │ └── returns: string
- │   │   ├─┬ nonAbstractMethod() method
+ │   │   ├─┬ nonAbstractMethod() method (experimental)
  │   │   │ └── returns: number
- │   │   └─┬ propFromInterface property
+ │   │   └─┬ propFromInterface property (experimental)
  │   │     ├── immutable
  │   │     └── type: string
- │   ├─┬ class AbstractClassBase
+ │   ├─┬ class AbstractClassBase (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └─┬ abstractProperty property
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   └─┬ abstractProperty property (experimental)
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: string
- │   ├─┬ class AbstractClassReturner
+ │   ├─┬ class AbstractClassReturner (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ giveMeAbstract() method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ giveMeAbstract() method (experimental)
  │   │   │ └── returns: jsii-calc.AbstractClass
- │   │   ├─┬ giveMeInterface() method
+ │   │   ├─┬ giveMeInterface() method (experimental)
  │   │   │ └── returns: jsii-calc.IInterfaceImplementedByAbstractClass
- │   │   └─┬ returnAbstractFromProperty property
+ │   │   └─┬ returnAbstractFromProperty property (experimental)
  │   │     ├── immutable
  │   │     └── type: jsii-calc.AbstractClassBase
- │   ├─┬ class Add
+ │   ├─┬ class Add (experimental)
  │   │ ├── base: BinaryOperation
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(lhs,rhs) initializer
+ │   │   ├─┬ <initializer>(lhs,rhs) initializer (experimental)
  │   │   │ └─┬ parameters
  │   │   │   ├─┬ lhs
  │   │   │   │ └── type: @scope/jsii-calc-lib.Value
  │   │   │   └─┬ rhs
  │   │   │     └── type: @scope/jsii-calc-lib.Value
- │   │   ├─┬ toString() method
+ │   │   ├─┬ toString() method (experimental)
  │   │   │ └── returns: string
- │   │   └─┬ value property
+ │   │   └─┬ value property (experimental)
  │   │     ├── immutable
  │   │     └── type: number
- │   ├─┬ class AllTypes
+ │   ├─┬ class AllTypes (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ anyIn(inp) method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ anyIn(inp) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ inp
  │   │   │ │   └── type: any
  │   │   │ └── returns: void
- │   │   ├─┬ anyOut() method
+ │   │   ├─┬ anyOut() method (experimental)
  │   │   │ └── returns: any
- │   │   ├─┬ enumMethod(value) method
+ │   │   ├─┬ enumMethod(value) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ value
  │   │   │ │   └── type: jsii-calc.StringEnum
  │   │   │ └── returns: jsii-calc.StringEnum
- │   │   ├─┬ enumPropertyValue property
+ │   │   ├─┬ enumPropertyValue property (experimental)
  │   │   │ ├── immutable
  │   │   │ └── type: number
- │   │   ├─┬ anyArrayProperty property
+ │   │   ├─┬ anyArrayProperty property (experimental)
  │   │   │ └── type: Array<any>
- │   │   ├─┬ anyMapProperty property
+ │   │   ├─┬ anyMapProperty property (experimental)
  │   │   │ └── type: Map<string => any>
- │   │   ├─┬ anyProperty property
+ │   │   ├─┬ anyProperty property (experimental)
  │   │   │ └── type: any
- │   │   ├─┬ arrayProperty property
+ │   │   ├─┬ arrayProperty property (experimental)
  │   │   │ └── type: Array<string>
- │   │   ├─┬ booleanProperty property
+ │   │   ├─┬ booleanProperty property (experimental)
  │   │   │ └── type: boolean
- │   │   ├─┬ dateProperty property
+ │   │   ├─┬ dateProperty property (experimental)
  │   │   │ └── type: date
- │   │   ├─┬ enumProperty property
+ │   │   ├─┬ enumProperty property (experimental)
  │   │   │ └── type: jsii-calc.AllTypesEnum
- │   │   ├─┬ jsonProperty property
+ │   │   ├─┬ jsonProperty property (experimental)
  │   │   │ └── type: json
- │   │   ├─┬ mapProperty property
+ │   │   ├─┬ mapProperty property (experimental)
  │   │   │ └── type: Map<string => @scope/jsii-calc-lib.Number>
- │   │   ├─┬ numberProperty property
+ │   │   ├─┬ numberProperty property (experimental)
  │   │   │ └── type: number
- │   │   ├─┬ stringProperty property
+ │   │   ├─┬ stringProperty property (experimental)
  │   │   │ └── type: string
- │   │   ├─┬ unionArrayProperty property
+ │   │   ├─┬ unionArrayProperty property (experimental)
  │   │   │ └── type: Array<number | @scope/jsii-calc-lib.Value>
- │   │   ├─┬ unionMapProperty property
+ │   │   ├─┬ unionMapProperty property (experimental)
  │   │   │ └── type: Map<string => string | number | @scope/jsii-calc-lib.Number>
- │   │   ├─┬ unionProperty property
+ │   │   ├─┬ unionProperty property (experimental)
  │   │   │ └── type: string | number | jsii-calc.Multiply | @scope/jsii-calc-lib.Number
- │   │   ├─┬ unknownArrayProperty property
+ │   │   ├─┬ unknownArrayProperty property (experimental)
  │   │   │ └── type: Array<any>
- │   │   ├─┬ unknownMapProperty property
+ │   │   ├─┬ unknownMapProperty property (experimental)
  │   │   │ └── type: Map<string => any>
- │   │   ├─┬ unknownProperty property
+ │   │   ├─┬ unknownProperty property (experimental)
  │   │   │ └── type: any
- │   │   └─┬ optionalEnumValue property
+ │   │   └─┬ optionalEnumValue property (experimental)
  │   │     └── type: Optional<jsii-calc.StringEnum>
- │   ├─┬ class AllowedMethodNames
+ │   ├─┬ class AllowedMethodNames (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ getBar(_p1,_p2) method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ getBar(_p1,_p2) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ ├─┬ _p1
  │   │   │ │ │ └── type: string
  │   │   │ │ └─┬ _p2
  │   │   │ │   └── type: number
  │   │   │ └── returns: void
- │   │   ├─┬ getFoo(withParam) method
+ │   │   ├─┬ getFoo(withParam) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ withParam
  │   │   │ │   └── type: string
  │   │   │ └── returns: string
- │   │   ├─┬ setBar(_x,_y,_z) method
+ │   │   ├─┬ setBar(_x,_y,_z) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ ├─┬ _x
  │   │   │ │ │ └── type: string
@@ -130,133 +130,133 @@ assemblies
  │   │   │ │ └─┬ _z
  │   │   │ │   └── type: boolean
  │   │   │ └── returns: void
- │   │   └─┬ setFoo(_x,_y) method
+ │   │   └─┬ setFoo(_x,_y) method (experimental)
  │   │     ├─┬ parameters
  │   │     │ ├─┬ _x
  │   │     │ │ └── type: string
  │   │     │ └─┬ _y
  │   │     │   └── type: number
  │   │     └── returns: void
- │   ├─┬ class AsyncVirtualMethods
+ │   ├─┬ class AsyncVirtualMethods (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ callMe() method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ callMe() method (experimental)
  │   │   │ └── returns: Promise<number>
- │   │   ├─┬ callMe2() method
+ │   │   ├─┬ callMe2() method (experimental)
  │   │   │ └── returns: Promise<number>
- │   │   ├─┬ callMeDoublePromise() method
+ │   │   ├─┬ callMeDoublePromise() method (experimental)
  │   │   │ └── returns: Promise<number>
- │   │   ├─┬ dontOverrideMe() method
+ │   │   ├─┬ dontOverrideMe() method (experimental)
  │   │   │ └── returns: number
- │   │   ├─┬ overrideMe(mult) method
+ │   │   ├─┬ overrideMe(mult) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ mult
  │   │   │ │   └── type: number
  │   │   │ └── returns: Promise<number>
- │   │   └─┬ overrideMeToo() method
+ │   │   └─┬ overrideMeToo() method (experimental)
  │   │     └── returns: Promise<number>
- │   ├─┬ class AugmentableClass
+ │   ├─┬ class AugmentableClass (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ methodOne() method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ methodOne() method (experimental)
  │   │   │ └── returns: void
- │   │   └─┬ methodTwo() method
+ │   │   └─┬ methodTwo() method (experimental)
  │   │     └── returns: void
- │   ├─┬ class BinaryOperation
+ │   ├─┬ class BinaryOperation (experimental)
  │   │ ├── base: Operation
  │   │ ├── interfaces: IFriendly
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(lhs,rhs) initializer
+ │   │   ├─┬ <initializer>(lhs,rhs) initializer (experimental)
  │   │   │ └─┬ parameters
  │   │   │   ├─┬ lhs
  │   │   │   │ └── type: @scope/jsii-calc-lib.Value
  │   │   │   └─┬ rhs
  │   │   │     └── type: @scope/jsii-calc-lib.Value
- │   │   ├─┬ hello() method
+ │   │   ├─┬ hello() method (experimental)
  │   │   │ └── returns: string
- │   │   ├─┬ lhs property
+ │   │   ├─┬ lhs property (experimental)
  │   │   │ ├── immutable
  │   │   │ └── type: @scope/jsii-calc-lib.Value
- │   │   └─┬ rhs property
+ │   │   └─┬ rhs property (experimental)
  │   │     ├── immutable
  │   │     └── type: @scope/jsii-calc-lib.Value
- │   ├─┬ class Calculator
+ │   ├─┬ class Calculator (experimental)
  │   │ ├── base: CompositeOperation
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(props) initializer
+ │   │   ├─┬ <initializer>(props) initializer (experimental)
  │   │   │ └─┬ parameters
  │   │   │   └─┬ props
  │   │   │     └── type: Optional<jsii-calc.CalculatorProps>
- │   │   ├─┬ add(value) method
+ │   │   ├─┬ add(value) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ value
  │   │   │ │   └── type: number
  │   │   │ └── returns: void
- │   │   ├─┬ mul(value) method
+ │   │   ├─┬ mul(value) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ value
  │   │   │ │   └── type: number
  │   │   │ └── returns: void
- │   │   ├─┬ neg() method
+ │   │   ├─┬ neg() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ pow(value) method
+ │   │   ├─┬ pow(value) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ value
  │   │   │ │   └── type: number
  │   │   │ └── returns: void
- │   │   ├─┬ readUnionValue() method
+ │   │   ├─┬ readUnionValue() method (experimental)
  │   │   │ └── returns: number
- │   │   ├─┬ expression property
+ │   │   ├─┬ expression property (experimental)
  │   │   │ ├── immutable
  │   │   │ └── type: @scope/jsii-calc-lib.Value
- │   │   ├─┬ operationsLog property
+ │   │   ├─┬ operationsLog property (experimental)
  │   │   │ ├── immutable
  │   │   │ └── type: Array<@scope/jsii-calc-lib.Value>
- │   │   ├─┬ operationsMap property
+ │   │   ├─┬ operationsMap property (experimental)
  │   │   │ ├── immutable
  │   │   │ └── type: Map<string => Array<@scope/jsii-calc-lib.Value>>
- │   │   ├─┬ curr property
+ │   │   ├─┬ curr property (experimental)
  │   │   │ └── type: @scope/jsii-calc-lib.Value
- │   │   ├─┬ maxValue property
+ │   │   ├─┬ maxValue property (experimental)
  │   │   │ └── type: Optional<number>
- │   │   └─┬ unionProperty property
+ │   │   └─┬ unionProperty property (experimental)
  │   │     └── type: Optional<jsii-calc.Add | jsii-calc.Multiply | jsii-calc.Power>
- │   ├─┬ class ClassThatImplementsTheInternalInterface
+ │   ├─┬ class ClassThatImplementsTheInternalInterface (experimental)
  │   │ ├── interfaces: INonInternalInterface
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ a property
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ a property (experimental)
  │   │   │ └── type: string
- │   │   ├─┬ b property
+ │   │   ├─┬ b property (experimental)
  │   │   │ └── type: string
- │   │   ├─┬ c property
+ │   │   ├─┬ c property (experimental)
  │   │   │ └── type: string
- │   │   └─┬ d property
+ │   │   └─┬ d property (experimental)
  │   │     └── type: string
- │   ├─┬ class ClassThatImplementsThePrivateInterface
+ │   ├─┬ class ClassThatImplementsThePrivateInterface (experimental)
  │   │ ├── interfaces: INonInternalInterface
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ a property
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ a property (experimental)
  │   │   │ └── type: string
- │   │   ├─┬ b property
+ │   │   ├─┬ b property (experimental)
  │   │   │ └── type: string
- │   │   ├─┬ c property
+ │   │   ├─┬ c property (experimental)
  │   │   │ └── type: string
- │   │   └─┬ e property
+ │   │   └─┬ e property (experimental)
  │   │     └── type: string
- │   ├─┬ class ClassWithDocs
+ │   ├─┬ class ClassWithDocs (stable)
  │   │ └─┬ members
- │   │   └── <initializer>() initializer
- │   ├─┬ class ClassWithMutableObjectLiteralProperty
+ │   │   └── <initializer>() initializer (stable)
+ │   ├─┬ class ClassWithMutableObjectLiteralProperty (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └─┬ mutableObject property
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   └─┬ mutableObject property (experimental)
  │   │     └── type: jsii-calc.IMutableObjectLiteral
- │   ├─┬ class ClassWithPrivateConstructorAndAutomaticProperties
+ │   ├─┬ class ClassWithPrivateConstructorAndAutomaticProperties (experimental)
  │   │ ├── interfaces: IInterfaceWithProperties
  │   │ └─┬ members
- │   │   ├─┬ create(readOnlyString,readWriteString) method
+ │   │   ├─┬ static create(readOnlyString,readWriteString) method (experimental)
  │   │   │ ├── static
  │   │   │ ├─┬ parameters
  │   │   │ │ ├─┬ readOnlyString
@@ -264,57 +264,57 @@ assemblies
  │   │   │ │ └─┬ readWriteString
  │   │   │ │   └── type: string
  │   │   │ └── returns: jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties
- │   │   ├─┬ readOnlyString property
+ │   │   ├─┬ readOnlyString property (experimental)
  │   │   │ ├── immutable
  │   │   │ └── type: string
- │   │   └─┬ readWriteString property
+ │   │   └─┬ readWriteString property (experimental)
  │   │     └── type: string
- │   ├─┬ class ConstructorPassesThisOut
+ │   ├─┬ class ConstructorPassesThisOut (experimental)
  │   │ └─┬ members
- │   │   └─┬ <initializer>(consumer) initializer
+ │   │   └─┬ <initializer>(consumer) initializer (experimental)
  │   │     └─┬ parameters
  │   │       └─┬ consumer
  │   │         └── type: jsii-calc.PartiallyInitializedThisConsumer
- │   ├─┬ class Constructors
+ │   ├─┬ class Constructors (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ hiddenInterface() method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ static hiddenInterface() method (experimental)
  │   │   │ ├── static
  │   │   │ └── returns: jsii-calc.IPublicInterface
- │   │   ├─┬ hiddenInterfaces() method
+ │   │   ├─┬ static hiddenInterfaces() method (experimental)
  │   │   │ ├── static
  │   │   │ └── returns: Array<jsii-calc.IPublicInterface>
- │   │   ├─┬ hiddenSubInterfaces() method
+ │   │   ├─┬ static hiddenSubInterfaces() method (experimental)
  │   │   │ ├── static
  │   │   │ └── returns: Array<jsii-calc.IPublicInterface>
- │   │   ├─┬ makeClass() method
+ │   │   ├─┬ static makeClass() method (experimental)
  │   │   │ ├── static
  │   │   │ └── returns: jsii-calc.PublicClass
- │   │   ├─┬ makeInterface() method
+ │   │   ├─┬ static makeInterface() method (experimental)
  │   │   │ ├── static
  │   │   │ └── returns: jsii-calc.IPublicInterface
- │   │   ├─┬ makeInterface2() method
+ │   │   ├─┬ static makeInterface2() method (experimental)
  │   │   │ ├── static
  │   │   │ └── returns: jsii-calc.IPublicInterface2
- │   │   └─┬ makeInterfaces() method
+ │   │   └─┬ static makeInterfaces() method (experimental)
  │   │     ├── static
  │   │     └── returns: Array<jsii-calc.IPublicInterface>
- │   ├─┬ class ConsumersOfThisCrazyTypeSystem
+ │   ├─┬ class ConsumersOfThisCrazyTypeSystem (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ consumeAnotherPublicInterface(obj) method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ consumeAnotherPublicInterface(obj) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ obj
  │   │   │ │   └── type: jsii-calc.IAnotherPublicInterface
  │   │   │ └── returns: string
- │   │   └─┬ consumeNonInternalInterface(obj) method
+ │   │   └─┬ consumeNonInternalInterface(obj) method (experimental)
  │   │     ├─┬ parameters
  │   │     │ └─┬ obj
  │   │     │   └── type: jsii-calc.INonInternalInterface
  │   │     └── returns: any
- │   ├─┬ class DefaultedConstructorArgument
+ │   ├─┬ class DefaultedConstructorArgument (experimental)
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(arg1,arg2,arg3) initializer
+ │   │   ├─┬ <initializer>(arg1,arg2,arg3) initializer (experimental)
  │   │   │ └─┬ parameters
  │   │   │   ├─┬ arg1
  │   │   │   │ └── type: Optional<number>
@@ -322,55 +322,55 @@ assemblies
  │   │   │   │ └── type: Optional<string>
  │   │   │   └─┬ arg3
  │   │   │     └── type: Optional<date>
- │   │   ├─┬ arg1 property
+ │   │   ├─┬ arg1 property (experimental)
  │   │   │ ├── immutable
  │   │   │ └── type: number
- │   │   ├─┬ arg3 property
+ │   │   ├─┬ arg3 property (experimental)
  │   │   │ ├── immutable
  │   │   │ └── type: date
- │   │   └─┬ arg2 property
+ │   │   └─┬ arg2 property (experimental)
  │   │     ├── immutable
  │   │     └── type: Optional<string>
- │   ├─┬ class DeprecatedClass
+ │   ├─┬ class DeprecatedClass (deprecated)
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(readonlyString,mutableNumber) initializer
+ │   │   ├─┬ <initializer>(readonlyString,mutableNumber) initializer (deprecated)
  │   │   │ └─┬ parameters
  │   │   │   ├─┬ readonlyString
  │   │   │   │ └── type: string
  │   │   │   └─┬ mutableNumber
  │   │   │     └── type: Optional<number>
- │   │   ├─┬ method() method
+ │   │   ├─┬ method() method (deprecated)
  │   │   │ └── returns: void
- │   │   ├─┬ readonlyProperty property
+ │   │   ├─┬ readonlyProperty property (deprecated)
  │   │   │ ├── immutable
  │   │   │ └── type: string
- │   │   └─┬ mutableProperty property
+ │   │   └─┬ mutableProperty property (deprecated)
  │   │     └── type: Optional<number>
- │   ├─┬ class Base
+ │   ├─┬ class Base (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └─┬ prop property
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   └─┬ prop property (experimental)
  │   │     └── type: string
- │   ├─┬ class Derived
+ │   ├─┬ class Derived (experimental)
  │   │ ├── base: Base
  │   │ └─┬ members
- │   │   └── <initializer>() initializer
- │   ├─┬ class DoNotOverridePrivates
+ │   │   └── <initializer>() initializer (experimental)
+ │   ├─┬ class DoNotOverridePrivates (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ changePrivatePropertyValue(newValue) method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ changePrivatePropertyValue(newValue) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ newValue
  │   │   │ │   └── type: string
  │   │   │ └── returns: void
- │   │   ├─┬ privateMethodValue() method
+ │   │   ├─┬ privateMethodValue() method (experimental)
  │   │   │ └── returns: string
- │   │   └─┬ privatePropertyValue() method
+ │   │   └─┬ privatePropertyValue() method (experimental)
  │   │     └── returns: string
- │   ├─┬ class DoNotRecognizeAnyAsOptional
+ │   ├─┬ class DoNotRecognizeAnyAsOptional (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └─┬ method(_requiredAny,_optionalAny,_optionalString) method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   └─┬ method(_requiredAny,_optionalAny,_optionalString) method (experimental)
  │   │     ├─┬ parameters
  │   │     │ ├─┬ _requiredAny
  │   │     │ │ └── type: any
@@ -379,20 +379,20 @@ assemblies
  │   │     │ └─┬ _optionalString
  │   │     │   └── type: Optional<string>
  │   │     └── returns: void
- │   ├─┬ class DocumentedClass
+ │   ├─┬ class DocumentedClass (stable)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ greet(greetee) method
+ │   │   ├── <initializer>() initializer (stable)
+ │   │   ├─┬ greet(greetee) method (stable)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ greetee
  │   │   │ │   └── type: Optional<jsii-calc.Greetee>
  │   │   │ └── returns: number
- │   │   └─┬ hola() method
+ │   │   └─┬ hola() method (experimental)
  │   │     └── returns: void
- │   ├─┬ class DontComplainAboutVariadicAfterOptional
+ │   ├─┬ class DontComplainAboutVariadicAfterOptional (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └─┬ optionalAndVariadic(optional,things) method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   └─┬ optionalAndVariadic(optional,things) method (experimental)
  │   │     ├── variadic
  │   │     ├─┬ parameters
  │   │     │ ├─┬ optional
@@ -401,18 +401,18 @@ assemblies
  │   │     │   ├── type: string
  │   │     │   └── variadic
  │   │     └── returns: string
- │   ├─┬ class DoubleTrouble
+ │   ├─┬ class DoubleTrouble (experimental)
  │   │ ├── interfaces: IFriendlyRandomGenerator
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ hello() method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ hello() method (experimental)
  │   │   │ └── returns: string
- │   │   └─┬ next() method
+ │   │   └─┬ next() method (experimental)
  │   │     └── returns: number
- │   ├─┬ class EraseUndefinedHashValues
+ │   ├─┬ class EraseUndefinedHashValues (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ doesKeyExist(opts,key) method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ static doesKeyExist(opts,key) method (experimental)
  │   │   │ ├── static
  │   │   │ ├─┬ parameters
  │   │   │ │ ├─┬ opts
@@ -420,376 +420,376 @@ assemblies
  │   │   │ │ └─┬ key
  │   │   │ │   └── type: string
  │   │   │ └── returns: boolean
- │   │   ├─┬ prop1IsNull() method
+ │   │   ├─┬ static prop1IsNull() method (experimental)
  │   │   │ ├── static
  │   │   │ └── returns: any
- │   │   └─┬ prop2IsUndefined() method
+ │   │   └─┬ static prop2IsUndefined() method (experimental)
  │   │     ├── static
  │   │     └── returns: any
- │   ├─┬ class ExperimentalClass
+ │   ├─┬ class ExperimentalClass (experimental)
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(readonlyString,mutableNumber) initializer
+ │   │   ├─┬ <initializer>(readonlyString,mutableNumber) initializer (experimental)
  │   │   │ └─┬ parameters
  │   │   │   ├─┬ readonlyString
  │   │   │   │ └── type: string
  │   │   │   └─┬ mutableNumber
  │   │   │     └── type: Optional<number>
- │   │   ├─┬ method() method
+ │   │   ├─┬ method() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ readonlyProperty property
+ │   │   ├─┬ readonlyProperty property (experimental)
  │   │   │ ├── immutable
  │   │   │ └── type: string
- │   │   └─┬ mutableProperty property
+ │   │   └─┬ mutableProperty property (experimental)
  │   │     └── type: Optional<number>
- │   ├─┬ class ExportedBaseClass
+ │   ├─┬ class ExportedBaseClass (experimental)
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(success) initializer
+ │   │   ├─┬ <initializer>(success) initializer (experimental)
  │   │   │ └─┬ parameters
  │   │   │   └─┬ success
  │   │   │     └── type: boolean
- │   │   └─┬ success property
+ │   │   └─┬ success property (experimental)
  │   │     ├── immutable
  │   │     └── type: boolean
- │   ├─┬ class GiveMeStructs
+ │   ├─┬ class GiveMeStructs (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ derivedToFirst(derived) method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ derivedToFirst(derived) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ derived
  │   │   │ │   └── type: jsii-calc.DerivedStruct
  │   │   │ └── returns: @scope/jsii-calc-lib.MyFirstStruct
- │   │   ├─┬ readDerivedNonPrimitive(derived) method
+ │   │   ├─┬ readDerivedNonPrimitive(derived) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ derived
  │   │   │ │   └── type: jsii-calc.DerivedStruct
  │   │   │ └── returns: jsii-calc.DoubleTrouble
- │   │   ├─┬ readFirstNumber(first) method
+ │   │   ├─┬ readFirstNumber(first) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ first
  │   │   │ │   └── type: @scope/jsii-calc-lib.MyFirstStruct
  │   │   │ └── returns: number
- │   │   └─┬ structLiteral property
+ │   │   └─┬ structLiteral property (experimental)
  │   │     ├── immutable
  │   │     └── type: @scope/jsii-calc-lib.StructWithOnlyOptionals
- │   ├─┬ class GreetingAugmenter
+ │   ├─┬ class GreetingAugmenter (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └─┬ betterGreeting(friendly) method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   └─┬ betterGreeting(friendly) method (experimental)
  │   │     ├─┬ parameters
  │   │     │ └─┬ friendly
  │   │     │   └── type: @scope/jsii-calc-lib.IFriendly
  │   │     └── returns: string
- │   ├─┬ class ImplementInternalInterface
+ │   ├─┬ class ImplementInternalInterface (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └─┬ prop property
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   └─┬ prop property (experimental)
  │   │     └── type: string
- │   ├─┬ class ImplementsInterfaceWithInternal
+ │   ├─┬ class ImplementsInterfaceWithInternal (experimental)
  │   │ ├── interfaces: IInterfaceWithInternal
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └─┬ visible() method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   └─┬ visible() method (experimental)
  │   │     └── returns: void
- │   ├─┬ class ImplementsInterfaceWithInternalSubclass
+ │   ├─┬ class ImplementsInterfaceWithInternalSubclass (experimental)
  │   │ ├── base: ImplementsInterfaceWithInternal
  │   │ └─┬ members
- │   │   └── <initializer>() initializer
- │   ├─┬ class ImplementsPrivateInterface
+ │   │   └── <initializer>() initializer (experimental)
+ │   ├─┬ class ImplementsPrivateInterface (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └─┬ private property
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   └─┬ private property (experimental)
  │   │     └── type: string
- │   ├─┬ class InbetweenClass
+ │   ├─┬ class InbetweenClass (experimental)
  │   │ ├── base: PublicClass
  │   │ ├── interfaces: IPublicInterface2
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └─┬ ciao() method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   └─┬ ciao() method (experimental)
  │   │     └── returns: string
- │   ├─┬ class Foo
+ │   ├─┬ class Foo (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └─┬ bar property
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   └─┬ bar property (experimental)
  │   │     └── type: Optional<string>
- │   ├─┬ class JSII417Derived
+ │   ├─┬ class JSII417Derived (experimental)
  │   │ ├── base: JSII417PublicBaseOfBase
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(property) initializer
+ │   │   ├─┬ <initializer>(property) initializer (experimental)
  │   │   │ └─┬ parameters
  │   │   │   └─┬ property
  │   │   │     └── type: string
- │   │   ├─┬ bar() method
+ │   │   ├─┬ bar() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ baz() method
+ │   │   ├─┬ baz() method (experimental)
  │   │   │ └── returns: void
- │   │   └─┬ property property
+ │   │   └─┬ property property (experimental)
  │   │     ├── immutable
  │   │     ├── protected
  │   │     └── type: string
- │   ├─┬ class JSII417PublicBaseOfBase
+ │   ├─┬ class JSII417PublicBaseOfBase (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ makeInstance() method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ static makeInstance() method (experimental)
  │   │   │ ├── static
  │   │   │ └── returns: jsii-calc.JSII417PublicBaseOfBase
- │   │   ├─┬ foo() method
+ │   │   ├─┬ foo() method (experimental)
  │   │   │ └── returns: void
- │   │   └─┬ hasRoot property
+ │   │   └─┬ hasRoot property (experimental)
  │   │     ├── immutable
  │   │     └── type: boolean
- │   ├─┬ class JSObjectLiteralForInterface
+ │   ├─┬ class JSObjectLiteralForInterface (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ giveMeFriendly() method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ giveMeFriendly() method (experimental)
  │   │   │ └── returns: @scope/jsii-calc-lib.IFriendly
- │   │   └─┬ giveMeFriendlyGenerator() method
+ │   │   └─┬ giveMeFriendlyGenerator() method (experimental)
  │   │     └── returns: jsii-calc.IFriendlyRandomGenerator
- │   ├─┬ class JSObjectLiteralToNative
+ │   ├─┬ class JSObjectLiteralToNative (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └─┬ returnLiteral() method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   └─┬ returnLiteral() method (experimental)
  │   │     └── returns: jsii-calc.JSObjectLiteralToNativeClass
- │   ├─┬ class JSObjectLiteralToNativeClass
+ │   ├─┬ class JSObjectLiteralToNativeClass (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ propA property
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ propA property (experimental)
  │   │   │ └── type: string
- │   │   └─┬ propB property
+ │   │   └─┬ propB property (experimental)
  │   │     └── type: number
- │   ├─┬ class JavaReservedWords
+ │   ├─┬ class JavaReservedWords (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ abstract() method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ abstract() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ assert() method
+ │   │   ├─┬ assert() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ boolean() method
+ │   │   ├─┬ boolean() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ break() method
+ │   │   ├─┬ break() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ byte() method
+ │   │   ├─┬ byte() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ case() method
+ │   │   ├─┬ case() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ catch() method
+ │   │   ├─┬ catch() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ char() method
+ │   │   ├─┬ char() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ class() method
+ │   │   ├─┬ class() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ const() method
+ │   │   ├─┬ const() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ continue() method
+ │   │   ├─┬ continue() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ default() method
+ │   │   ├─┬ default() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ do() method
+ │   │   ├─┬ do() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ double() method
+ │   │   ├─┬ double() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ else() method
+ │   │   ├─┬ else() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ enum() method
+ │   │   ├─┬ enum() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ extends() method
+ │   │   ├─┬ extends() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ false() method
+ │   │   ├─┬ false() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ final() method
+ │   │   ├─┬ final() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ finally() method
+ │   │   ├─┬ finally() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ float() method
+ │   │   ├─┬ float() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ for() method
+ │   │   ├─┬ for() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ goto() method
+ │   │   ├─┬ goto() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ if() method
+ │   │   ├─┬ if() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ implements() method
+ │   │   ├─┬ implements() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ import() method
+ │   │   ├─┬ import() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ instanceof() method
+ │   │   ├─┬ instanceof() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ int() method
+ │   │   ├─┬ int() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ interface() method
+ │   │   ├─┬ interface() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ long() method
+ │   │   ├─┬ long() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ native() method
+ │   │   ├─┬ native() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ new() method
+ │   │   ├─┬ new() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ null() method
+ │   │   ├─┬ null() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ package() method
+ │   │   ├─┬ package() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ private() method
+ │   │   ├─┬ private() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ protected() method
+ │   │   ├─┬ protected() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ public() method
+ │   │   ├─┬ public() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ return() method
+ │   │   ├─┬ return() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ short() method
+ │   │   ├─┬ short() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ static() method
+ │   │   ├─┬ static() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ strictfp() method
+ │   │   ├─┬ strictfp() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ super() method
+ │   │   ├─┬ super() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ switch() method
+ │   │   ├─┬ switch() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ synchronized() method
+ │   │   ├─┬ synchronized() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ this() method
+ │   │   ├─┬ this() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ throw() method
+ │   │   ├─┬ throw() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ throws() method
+ │   │   ├─┬ throws() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ transient() method
+ │   │   ├─┬ transient() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ true() method
+ │   │   ├─┬ true() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ try() method
+ │   │   ├─┬ try() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ void() method
+ │   │   ├─┬ void() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ volatile() method
+ │   │   ├─┬ volatile() method (experimental)
  │   │   │ └── returns: void
- │   │   └─┬ while property
+ │   │   └─┬ while property (experimental)
  │   │     └── type: string
- │   ├─┬ class Jsii487Derived
+ │   ├─┬ class Jsii487Derived (experimental)
  │   │ ├── interfaces: IJsii487External2,IJsii487External
  │   │ └─┬ members
- │   │   └── <initializer>() initializer
- │   ├─┬ class Jsii496Derived
+ │   │   └── <initializer>() initializer (experimental)
+ │   ├─┬ class Jsii496Derived (experimental)
  │   │ ├── interfaces: IJsii496
  │   │ └─┬ members
- │   │   └── <initializer>() initializer
- │   ├─┬ class JsiiAgent
+ │   │   └── <initializer>() initializer (experimental)
+ │   ├─┬ class JsiiAgent (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └─┬ jsiiAgent property
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   └─┬ static jsiiAgent property (experimental)
  │   │     ├── immutable
  │   │     ├── static
  │   │     └── type: Optional<string>
- │   ├─┬ class Multiply
+ │   ├─┬ class Multiply (experimental)
  │   │ ├── base: BinaryOperation
  │   │ ├── interfaces: IFriendlier,IRandomNumberGenerator
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(lhs,rhs) initializer
+ │   │   ├─┬ <initializer>(lhs,rhs) initializer (experimental)
  │   │   │ └─┬ parameters
  │   │   │   ├─┬ lhs
  │   │   │   │ └── type: @scope/jsii-calc-lib.Value
  │   │   │   └─┬ rhs
  │   │   │     └── type: @scope/jsii-calc-lib.Value
- │   │   ├─┬ farewell() method
+ │   │   ├─┬ farewell() method (experimental)
  │   │   │ └── returns: string
- │   │   ├─┬ goodbye() method
+ │   │   ├─┬ goodbye() method (experimental)
  │   │   │ └── returns: string
- │   │   ├─┬ next() method
+ │   │   ├─┬ next() method (experimental)
  │   │   │ └── returns: number
- │   │   ├─┬ toString() method
+ │   │   ├─┬ toString() method (experimental)
  │   │   │ └── returns: string
- │   │   └─┬ value property
+ │   │   └─┬ value property (experimental)
  │   │     ├── immutable
  │   │     └── type: number
- │   ├─┬ class Negate
+ │   ├─┬ class Negate (experimental)
  │   │ ├── base: UnaryOperation
  │   │ ├── interfaces: IFriendlier
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(operand) initializer
+ │   │   ├─┬ <initializer>(operand) initializer (experimental)
  │   │   │ └─┬ parameters
  │   │   │   └─┬ operand
  │   │   │     └── type: @scope/jsii-calc-lib.Value
- │   │   ├─┬ farewell() method
+ │   │   ├─┬ farewell() method (experimental)
  │   │   │ └── returns: string
- │   │   ├─┬ goodbye() method
+ │   │   ├─┬ goodbye() method (experimental)
  │   │   │ └── returns: string
- │   │   ├─┬ hello() method
+ │   │   ├─┬ hello() method (experimental)
  │   │   │ └── returns: string
- │   │   ├─┬ toString() method
+ │   │   ├─┬ toString() method (experimental)
  │   │   │ └── returns: string
- │   │   └─┬ value property
+ │   │   └─┬ value property (experimental)
  │   │     ├── immutable
  │   │     └── type: number
- │   ├─┬ class NodeStandardLibrary
+ │   ├─┬ class NodeStandardLibrary (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ cryptoSha256() method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ cryptoSha256() method (experimental)
  │   │   │ └── returns: string
- │   │   ├─┬ fsReadFile() method
+ │   │   ├─┬ fsReadFile() method (experimental)
  │   │   │ └── returns: Promise<string>
- │   │   ├─┬ fsReadFileSync() method
+ │   │   ├─┬ fsReadFileSync() method (experimental)
  │   │   │ └── returns: string
- │   │   └─┬ osPlatform property
+ │   │   └─┬ osPlatform property (experimental)
  │   │     ├── immutable
  │   │     └── type: string
- │   ├─┬ class NullShouldBeTreatedAsUndefined
+ │   ├─┬ class NullShouldBeTreatedAsUndefined (experimental)
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(_param1,optional) initializer
+ │   │   ├─┬ <initializer>(_param1,optional) initializer (experimental)
  │   │   │ └─┬ parameters
  │   │   │   ├─┬ _param1
  │   │   │   │ └── type: string
  │   │   │   └─┬ optional
  │   │   │     └── type: any
- │   │   ├─┬ giveMeUndefined(value) method
+ │   │   ├─┬ giveMeUndefined(value) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ value
  │   │   │ │   └── type: any
  │   │   │ └── returns: void
- │   │   ├─┬ giveMeUndefinedInsideAnObject(input) method
+ │   │   ├─┬ giveMeUndefinedInsideAnObject(input) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ input
  │   │   │ │   └── type: jsii-calc.NullShouldBeTreatedAsUndefinedData
  │   │   │ └── returns: void
- │   │   ├─┬ verifyPropertyIsUndefined() method
+ │   │   ├─┬ verifyPropertyIsUndefined() method (experimental)
  │   │   │ └── returns: void
- │   │   └─┬ changeMeToUndefined property
+ │   │   └─┬ changeMeToUndefined property (experimental)
  │   │     └── type: Optional<string>
- │   ├─┬ class NumberGenerator
+ │   ├─┬ class NumberGenerator (experimental)
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(generator) initializer
+ │   │   ├─┬ <initializer>(generator) initializer (experimental)
  │   │   │ └─┬ parameters
  │   │   │   └─┬ generator
  │   │   │     └── type: jsii-calc.IRandomNumberGenerator
- │   │   ├─┬ isSameGenerator(gen) method
+ │   │   ├─┬ isSameGenerator(gen) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ gen
  │   │   │ │   └── type: jsii-calc.IRandomNumberGenerator
  │   │   │ └── returns: boolean
- │   │   ├─┬ nextTimes100() method
+ │   │   ├─┬ nextTimes100() method (experimental)
  │   │   │ └── returns: number
- │   │   └─┬ generator property
+ │   │   └─┬ generator property (experimental)
  │   │     └── type: jsii-calc.IRandomNumberGenerator
- │   ├─┬ class ObjectRefsInCollections
+ │   ├─┬ class ObjectRefsInCollections (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ sumFromArray(values) method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ sumFromArray(values) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ values
  │   │   │ │   └── type: Array<@scope/jsii-calc-lib.Value>
  │   │   │ └── returns: number
- │   │   └─┬ sumFromMap(values) method
+ │   │   └─┬ sumFromMap(values) method (experimental)
  │   │     ├─┬ parameters
  │   │     │ └─┬ values
  │   │     │   └── type: Map<string => @scope/jsii-calc-lib.Value>
  │   │     └── returns: number
- │   ├─┬ class Old
+ │   ├─┬ class Old (deprecated)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └─┬ doAThing() method
+ │   │   ├── <initializer>() initializer (deprecated)
+ │   │   └─┬ doAThing() method (deprecated)
  │   │     └── returns: void
- │   ├─┬ class OptionalConstructorArgument
+ │   ├─┬ class OptionalConstructorArgument (experimental)
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(arg1,arg2,arg3) initializer
+ │   │   ├─┬ <initializer>(arg1,arg2,arg3) initializer (experimental)
  │   │   │ └─┬ parameters
  │   │   │   ├─┬ arg1
  │   │   │   │ └── type: number
@@ -797,39 +797,39 @@ assemblies
  │   │   │   │ └── type: string
  │   │   │   └─┬ arg3
  │   │   │     └── type: Optional<date>
- │   │   ├─┬ arg1 property
+ │   │   ├─┬ arg1 property (experimental)
  │   │   │ ├── immutable
  │   │   │ └── type: number
- │   │   ├─┬ arg2 property
+ │   │   ├─┬ arg2 property (experimental)
  │   │   │ ├── immutable
  │   │   │ └── type: string
- │   │   └─┬ arg3 property
+ │   │   └─┬ arg3 property (experimental)
  │   │     ├── immutable
  │   │     └── type: Optional<date>
- │   ├─┬ class OptionalStructConsumer
+ │   ├─┬ class OptionalStructConsumer (experimental)
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(optionalStruct) initializer
+ │   │   ├─┬ <initializer>(optionalStruct) initializer (experimental)
  │   │   │ └─┬ parameters
  │   │   │   └─┬ optionalStruct
  │   │   │     └── type: Optional<jsii-calc.OptionalStruct>
- │   │   ├─┬ parameterWasUndefined property
+ │   │   ├─┬ parameterWasUndefined property (experimental)
  │   │   │ ├── immutable
  │   │   │ └── type: boolean
- │   │   └─┬ fieldValue property
+ │   │   └─┬ fieldValue property (experimental)
  │   │     ├── immutable
  │   │     └── type: Optional<string>
- │   ├─┬ class OverrideReturnsObject
+ │   ├─┬ class OverrideReturnsObject (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └─┬ test(obj) method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   └─┬ test(obj) method (experimental)
  │   │     ├─┬ parameters
  │   │     │ └─┬ obj
  │   │     │   └── type: jsii-calc.IReturnsNumber
  │   │     └── returns: number
- │   ├─┬ class PartiallyInitializedThisConsumer
+ │   ├─┬ class PartiallyInitializedThisConsumer (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └─┬ consumePartiallyInitializedThis(obj,dt,ev) method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   └─┬ consumePartiallyInitializedThis(obj,dt,ev) method (experimental)
  │   │     ├── abstract
  │   │     ├─┬ parameters
  │   │     │ ├─┬ obj
@@ -839,126 +839,126 @@ assemblies
  │   │     │ └─┬ ev
  │   │     │   └── type: jsii-calc.AllTypesEnum
  │   │     └── returns: string
- │   ├─┬ class Polymorphism
+ │   ├─┬ class Polymorphism (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └─┬ sayHello(friendly) method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   └─┬ sayHello(friendly) method (experimental)
  │   │     ├─┬ parameters
  │   │     │ └─┬ friendly
  │   │     │   └── type: @scope/jsii-calc-lib.IFriendly
  │   │     └── returns: string
- │   ├─┬ class Power
+ │   ├─┬ class Power (experimental)
  │   │ ├── base: CompositeOperation
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(base,pow) initializer
+ │   │   ├─┬ <initializer>(base,pow) initializer (experimental)
  │   │   │ └─┬ parameters
  │   │   │   ├─┬ base
  │   │   │   │ └── type: @scope/jsii-calc-lib.Value
  │   │   │   └─┬ pow
  │   │   │     └── type: @scope/jsii-calc-lib.Value
- │   │   ├─┬ base property
+ │   │   ├─┬ base property (experimental)
  │   │   │ ├── immutable
  │   │   │ └── type: @scope/jsii-calc-lib.Value
- │   │   ├─┬ expression property
+ │   │   ├─┬ expression property (experimental)
  │   │   │ ├── immutable
  │   │   │ └── type: @scope/jsii-calc-lib.Value
- │   │   └─┬ pow property
+ │   │   └─┬ pow property (experimental)
  │   │     ├── immutable
  │   │     └── type: @scope/jsii-calc-lib.Value
- │   ├─┬ class PublicClass
+ │   ├─┬ class PublicClass (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └─┬ hello() method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   └─┬ hello() method (experimental)
  │   │     └── returns: void
- │   ├─┬ class PythonReservedWords
+ │   ├─┬ class PythonReservedWords (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ and() method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ and() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ as() method
+ │   │   ├─┬ as() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ assert() method
+ │   │   ├─┬ assert() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ async() method
+ │   │   ├─┬ async() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ await() method
+ │   │   ├─┬ await() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ break() method
+ │   │   ├─┬ break() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ class() method
+ │   │   ├─┬ class() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ continue() method
+ │   │   ├─┬ continue() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ def() method
+ │   │   ├─┬ def() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ del() method
+ │   │   ├─┬ del() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ elif() method
+ │   │   ├─┬ elif() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ else() method
+ │   │   ├─┬ else() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ except() method
+ │   │   ├─┬ except() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ finally() method
+ │   │   ├─┬ finally() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ for() method
+ │   │   ├─┬ for() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ from() method
+ │   │   ├─┬ from() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ global() method
+ │   │   ├─┬ global() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ if() method
+ │   │   ├─┬ if() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ import() method
+ │   │   ├─┬ import() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ in() method
+ │   │   ├─┬ in() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ is() method
+ │   │   ├─┬ is() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ lambda() method
+ │   │   ├─┬ lambda() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ nonlocal() method
+ │   │   ├─┬ nonlocal() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ not() method
+ │   │   ├─┬ not() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ or() method
+ │   │   ├─┬ or() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ pass() method
+ │   │   ├─┬ pass() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ raise() method
+ │   │   ├─┬ raise() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ return() method
+ │   │   ├─┬ return() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ try() method
+ │   │   ├─┬ try() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ while() method
+ │   │   ├─┬ while() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ with() method
+ │   │   ├─┬ with() method (experimental)
  │   │   │ └── returns: void
- │   │   └─┬ yield() method
+ │   │   └─┬ yield() method (experimental)
  │   │     └── returns: void
- │   ├─┬ class ReferenceEnumFromScopedPackage
+ │   ├─┬ class ReferenceEnumFromScopedPackage (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ loadFoo() method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ loadFoo() method (experimental)
  │   │   │ └── returns: Optional<@scope/jsii-calc-lib.EnumFromScopedModule>
- │   │   ├─┬ saveFoo(value) method
+ │   │   ├─┬ saveFoo(value) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ value
  │   │   │ │   └── type: @scope/jsii-calc-lib.EnumFromScopedModule
  │   │   │ └── returns: void
- │   │   └─┬ foo property
+ │   │   └─┬ foo property (experimental)
  │   │     └── type: Optional<@scope/jsii-calc-lib.EnumFromScopedModule>
- │   ├─┬ class ReturnsPrivateImplementationOfInterface
+ │   ├─┬ class ReturnsPrivateImplementationOfInterface (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └─┬ privateImplementation property
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   └─┬ privateImplementation property (experimental)
  │   │     ├── immutable
  │   │     └── type: jsii-calc.IPrivatelyImplemented
- │   ├─┬ class RuntimeTypeChecking
+ │   ├─┬ class RuntimeTypeChecking (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ methodWithDefaultedArguments(arg1,arg2,arg3) method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ methodWithDefaultedArguments(arg1,arg2,arg3) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ ├─┬ arg1
  │   │   │ │ │ └── type: Optional<number>
@@ -967,12 +967,12 @@ assemblies
  │   │   │ │ └─┬ arg3
  │   │   │ │   └── type: Optional<date>
  │   │   │ └── returns: void
- │   │   ├─┬ methodWithOptionalAnyArgument(arg) method
+ │   │   ├─┬ methodWithOptionalAnyArgument(arg) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ arg
  │   │   │ │   └── type: any
  │   │   │ └── returns: void
- │   │   └─┬ methodWithOptionalArguments(arg1,arg2,arg3) method
+ │   │   └─┬ methodWithOptionalArguments(arg1,arg2,arg3) method (experimental)
  │   │     ├─┬ parameters
  │   │     │ ├─┬ arg1
  │   │     │ │ └── type: number
@@ -981,210 +981,210 @@ assemblies
  │   │     │ └─┬ arg3
  │   │     │   └── type: Optional<date>
  │   │     └── returns: void
- │   ├─┬ class SingleInstanceTwoTypes
+ │   ├─┬ class SingleInstanceTwoTypes (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ interface1() method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ interface1() method (experimental)
  │   │   │ └── returns: jsii-calc.InbetweenClass
- │   │   └─┬ interface2() method
+ │   │   └─┬ interface2() method (experimental)
  │   │     └── returns: jsii-calc.IPublicInterface
- │   ├─┬ class SingletonInt
+ │   ├─┬ class SingletonInt (experimental)
  │   │ └─┬ members
- │   │   └─┬ isSingletonInt(value) method
+ │   │   └─┬ isSingletonInt(value) method (experimental)
  │   │     ├─┬ parameters
  │   │     │ └─┬ value
  │   │     │   └── type: number
  │   │     └── returns: boolean
- │   ├─┬ class SingletonString
+ │   ├─┬ class SingletonString (experimental)
  │   │ └─┬ members
- │   │   └─┬ isSingletonString(value) method
+ │   │   └─┬ isSingletonString(value) method (experimental)
  │   │     ├─┬ parameters
  │   │     │ └─┬ value
  │   │     │   └── type: string
  │   │     └── returns: boolean
- │   ├─┬ class StableClass
+ │   ├─┬ class StableClass (stable)
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(readonlyString,mutableNumber) initializer
+ │   │   ├─┬ <initializer>(readonlyString,mutableNumber) initializer (stable)
  │   │   │ └─┬ parameters
  │   │   │   ├─┬ readonlyString
  │   │   │   │ └── type: string
  │   │   │   └─┬ mutableNumber
  │   │   │     └── type: Optional<number>
- │   │   ├─┬ method() method
+ │   │   ├─┬ method() method (stable)
  │   │   │ └── returns: void
- │   │   ├─┬ readonlyProperty property
+ │   │   ├─┬ readonlyProperty property (stable)
  │   │   │ ├── immutable
  │   │   │ └── type: string
- │   │   └─┬ mutableProperty property
+ │   │   └─┬ mutableProperty property (stable)
  │   │     └── type: Optional<number>
- │   ├─┬ class StaticContext
+ │   ├─┬ class StaticContext (experimental)
  │   │ └─┬ members
- │   │   ├─┬ canAccessStaticContext() method
+ │   │   ├─┬ static canAccessStaticContext() method (experimental)
  │   │   │ ├── static
  │   │   │ └── returns: boolean
- │   │   └─┬ staticVariable property
+ │   │   └─┬ static staticVariable property (experimental)
  │   │     ├── static
  │   │     └── type: boolean
- │   ├─┬ class Statics
+ │   ├─┬ class Statics (experimental)
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(value) initializer
+ │   │   ├─┬ <initializer>(value) initializer (experimental)
  │   │   │ └─┬ parameters
  │   │   │   └─┬ value
  │   │   │     └── type: string
- │   │   ├─┬ staticMethod(name) method
+ │   │   ├─┬ static staticMethod(name) method (experimental)
  │   │   │ ├── static
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ name
  │   │   │ │   └── type: string
  │   │   │ └── returns: string
- │   │   ├─┬ justMethod() method
+ │   │   ├─┬ justMethod() method (experimental)
  │   │   │ └── returns: string
- │   │   ├─┬ BAR property
+ │   │   ├─┬ static BAR property (experimental)
  │   │   │ ├── const
  │   │   │ ├── immutable
  │   │   │ ├── static
  │   │   │ └── type: number
- │   │   ├─┬ ConstObj property
+ │   │   ├─┬ static ConstObj property (experimental)
  │   │   │ ├── const
  │   │   │ ├── immutable
  │   │   │ ├── static
  │   │   │ └── type: jsii-calc.DoubleTrouble
- │   │   ├─┬ Foo property
+ │   │   ├─┬ static Foo property (experimental)
  │   │   │ ├── const
  │   │   │ ├── immutable
  │   │   │ ├── static
  │   │   │ └── type: string
- │   │   ├─┬ zooBar property
+ │   │   ├─┬ static zooBar property (experimental)
  │   │   │ ├── const
  │   │   │ ├── immutable
  │   │   │ ├── static
  │   │   │ └── type: Map<string => string>
- │   │   ├─┬ instance property
+ │   │   ├─┬ static instance property (experimental)
  │   │   │ ├── static
  │   │   │ └── type: jsii-calc.Statics
- │   │   ├─┬ nonConstStatic property
+ │   │   ├─┬ static nonConstStatic property (experimental)
  │   │   │ ├── static
  │   │   │ └── type: number
- │   │   └─┬ value property
+ │   │   └─┬ value property (experimental)
  │   │     ├── immutable
  │   │     └── type: string
- │   ├─┬ class StripInternal
+ │   ├─┬ class StripInternal (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └─┬ youSeeMe property
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   └─┬ youSeeMe property (experimental)
  │   │     └── type: string
- │   ├─┬ class Sum
+ │   ├─┬ class Sum (experimental)
  │   │ ├── base: CompositeOperation
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ expression property
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ expression property (experimental)
  │   │   │ ├── immutable
  │   │   │ └── type: @scope/jsii-calc-lib.Value
- │   │   └─┬ parts property
+ │   │   └─┬ parts property (experimental)
  │   │     └── type: Array<@scope/jsii-calc-lib.Value>
- │   ├─┬ class SyncVirtualMethods
+ │   ├─┬ class SyncVirtualMethods (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ callerIsAsync() method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ callerIsAsync() method (experimental)
  │   │   │ └── returns: Promise<number>
- │   │   ├─┬ callerIsMethod() method
+ │   │   ├─┬ callerIsMethod() method (experimental)
  │   │   │ └── returns: number
- │   │   ├─┬ modifyOtherProperty(value) method
+ │   │   ├─┬ modifyOtherProperty(value) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ value
  │   │   │ │   └── type: string
  │   │   │ └── returns: void
- │   │   ├─┬ modifyValueOfTheProperty(value) method
+ │   │   ├─┬ modifyValueOfTheProperty(value) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ value
  │   │   │ │   └── type: string
  │   │   │ └── returns: void
- │   │   ├─┬ readA() method
+ │   │   ├─┬ readA() method (experimental)
  │   │   │ └── returns: number
- │   │   ├─┬ retrieveOtherProperty() method
+ │   │   ├─┬ retrieveOtherProperty() method (experimental)
  │   │   │ └── returns: string
- │   │   ├─┬ retrieveReadOnlyProperty() method
+ │   │   ├─┬ retrieveReadOnlyProperty() method (experimental)
  │   │   │ └── returns: string
- │   │   ├─┬ retrieveValueOfTheProperty() method
+ │   │   ├─┬ retrieveValueOfTheProperty() method (experimental)
  │   │   │ └── returns: string
- │   │   ├─┬ virtualMethod(n) method
+ │   │   ├─┬ virtualMethod(n) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ n
  │   │   │ │   └── type: number
  │   │   │ └── returns: number
- │   │   ├─┬ writeA(value) method
+ │   │   ├─┬ writeA(value) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ value
  │   │   │ │   └── type: number
  │   │   │ └── returns: void
- │   │   ├─┬ readonlyProperty property
+ │   │   ├─┬ readonlyProperty property (experimental)
  │   │   │ ├── immutable
  │   │   │ └── type: string
- │   │   ├─┬ a property
+ │   │   ├─┬ a property (experimental)
  │   │   │ └── type: number
- │   │   ├─┬ callerIsProperty property
+ │   │   ├─┬ callerIsProperty property (experimental)
  │   │   │ └── type: number
- │   │   ├─┬ otherProperty property
+ │   │   ├─┬ otherProperty property (experimental)
  │   │   │ └── type: string
- │   │   ├─┬ theProperty property
+ │   │   ├─┬ theProperty property (experimental)
  │   │   │ └── type: string
- │   │   └─┬ valueOfOtherProperty property
+ │   │   └─┬ valueOfOtherProperty property (experimental)
  │   │     └── type: string
- │   ├─┬ class Thrower
+ │   ├─┬ class Thrower (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └─┬ throwError() method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   └─┬ throwError() method (experimental)
  │   │     └── returns: void
- │   ├─┬ class UnaryOperation
+ │   ├─┬ class UnaryOperation (experimental)
  │   │ ├── base: Operation
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(operand) initializer
+ │   │   ├─┬ <initializer>(operand) initializer (experimental)
  │   │   │ └─┬ parameters
  │   │   │   └─┬ operand
  │   │   │     └── type: @scope/jsii-calc-lib.Value
- │   │   └─┬ operand property
+ │   │   └─┬ operand property (experimental)
  │   │     ├── immutable
  │   │     └── type: @scope/jsii-calc-lib.Value
- │   ├─┬ class UseBundledDependency
+ │   ├─┬ class UseBundledDependency (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └─┬ value() method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   └─┬ value() method (experimental)
  │   │     └── returns: any
- │   ├─┬ class UseCalcBase
+ │   ├─┬ class UseCalcBase (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   └─┬ hello() method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   └─┬ hello() method (experimental)
  │   │     └── returns: @scope/jsii-calc-base.Base
- │   ├─┬ class UsesInterfaceWithProperties
+ │   ├─┬ class UsesInterfaceWithProperties (experimental)
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(obj) initializer
+ │   │   ├─┬ <initializer>(obj) initializer (experimental)
  │   │   │ └─┬ parameters
  │   │   │   └─┬ obj
  │   │   │     └── type: jsii-calc.IInterfaceWithProperties
- │   │   ├─┬ justRead() method
+ │   │   ├─┬ justRead() method (experimental)
  │   │   │ └── returns: string
- │   │   ├─┬ readStringAndNumber(ext) method
+ │   │   ├─┬ readStringAndNumber(ext) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ ext
  │   │   │ │   └── type: jsii-calc.IInterfaceWithPropertiesExtension
  │   │   │ └── returns: string
- │   │   ├─┬ writeAndRead(value) method
+ │   │   ├─┬ writeAndRead(value) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ value
  │   │   │ │   └── type: string
  │   │   │ └── returns: string
- │   │   └─┬ obj property
+ │   │   └─┬ obj property (experimental)
  │   │     ├── immutable
  │   │     └── type: jsii-calc.IInterfaceWithProperties
- │   ├─┬ class VariadicMethod
+ │   ├─┬ class VariadicMethod (experimental)
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(prefix) initializer
+ │   │   ├─┬ <initializer>(prefix) initializer (experimental)
  │   │   │ ├── variadic
  │   │   │ └─┬ parameters
  │   │   │   └─┬ prefix
  │   │   │     ├── type: number
  │   │   │     └── variadic
- │   │   └─┬ asArray(first,others) method
+ │   │   └─┬ asArray(first,others) method (experimental)
  │   │     ├── variadic
  │   │     ├─┬ parameters
  │   │     │ ├─┬ first
@@ -1193,226 +1193,226 @@ assemblies
  │   │     │   ├── type: number
  │   │     │   └── variadic
  │   │     └── returns: Array<number>
- │   ├─┬ class VirtualMethodPlayground
+ │   ├─┬ class VirtualMethodPlayground (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ overrideMeAsync(index) method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ overrideMeAsync(index) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ index
  │   │   │ │   └── type: number
  │   │   │ └── returns: Promise<number>
- │   │   ├─┬ overrideMeSync(index) method
+ │   │   ├─┬ overrideMeSync(index) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ index
  │   │   │ │   └── type: number
  │   │   │ └── returns: number
- │   │   ├─┬ parallelSumAsync(count) method
+ │   │   ├─┬ parallelSumAsync(count) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ count
  │   │   │ │   └── type: number
  │   │   │ └── returns: Promise<number>
- │   │   ├─┬ serialSumAsync(count) method
+ │   │   ├─┬ serialSumAsync(count) method (experimental)
  │   │   │ ├─┬ parameters
  │   │   │ │ └─┬ count
  │   │   │ │   └── type: number
  │   │   │ └── returns: Promise<number>
- │   │   └─┬ sumSync(count) method
+ │   │   └─┬ sumSync(count) method (experimental)
  │   │     ├─┬ parameters
  │   │     │ └─┬ count
  │   │     │   └── type: number
  │   │     └── returns: number
- │   ├─┬ class VoidCallback
+ │   ├─┬ class VoidCallback (experimental)
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ callMe() method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ callMe() method (experimental)
  │   │   │ └── returns: void
- │   │   ├─┬ overrideMe() method
+ │   │   ├─┬ overrideMe() method (experimental)
  │   │   │ ├── abstract
  │   │   │ ├── protected
  │   │   │ └── returns: void
- │   │   └─┬ methodWasCalled property
+ │   │   └─┬ methodWasCalled property (experimental)
  │   │     ├── immutable
  │   │     └── type: boolean
- │   ├─┬ class WithPrivatePropertyInConstructor
+ │   ├─┬ class WithPrivatePropertyInConstructor (experimental)
  │   │ └─┬ members
- │   │   ├─┬ <initializer>(privateField) initializer
+ │   │   ├─┬ <initializer>(privateField) initializer (experimental)
  │   │   │ └─┬ parameters
  │   │   │   └─┬ privateField
  │   │   │     └── type: Optional<string>
- │   │   └─┬ success property
+ │   │   └─┬ success property (experimental)
  │   │     ├── immutable
  │   │     └── type: boolean
- │   ├─┬ class CompositeOperation
+ │   ├─┬ class CompositeOperation (experimental)
  │   │ ├── base: Operation
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer
- │   │   ├─┬ toString() method
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ toString() method (experimental)
  │   │   │ └── returns: string
- │   │   ├─┬ expression property
+ │   │   ├─┬ expression property (experimental)
  │   │   │ ├── abstract
  │   │   │ ├── immutable
  │   │   │ └── type: @scope/jsii-calc-lib.Value
- │   │   ├─┬ value property
+ │   │   ├─┬ value property (experimental)
  │   │   │ ├── immutable
  │   │   │ └── type: number
- │   │   ├─┬ decorationPostfixes property
+ │   │   ├─┬ decorationPostfixes property (experimental)
  │   │   │ └── type: Array<string>
- │   │   ├─┬ decorationPrefixes property
+ │   │   ├─┬ decorationPrefixes property (experimental)
  │   │   │ └── type: Array<string>
- │   │   └─┬ stringStyle property
+ │   │   └─┬ stringStyle property (experimental)
  │   │     └── type: jsii-calc.composition.CompositeOperation.CompositionStringStyle
- │   ├─┬ interface CalculatorProps
+ │   ├─┬ interface CalculatorProps (experimental)
  │   │ └─┬ members
- │   │   ├─┬ initialValue property
+ │   │   ├─┬ initialValue property (experimental)
  │   │   │ ├── abstract
  │   │   │ ├── immutable
  │   │   │ └── type: Optional<number>
- │   │   └─┬ maximumValue property
+ │   │   └─┬ maximumValue property (experimental)
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<number>
- │   ├─┬ interface DeprecatedStruct
+ │   ├─┬ interface DeprecatedStruct (deprecated)
  │   │ └─┬ members
- │   │   └─┬ readonlyProperty property
+ │   │   └─┬ readonlyProperty property (deprecated)
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: string
- │   ├─┬ interface DerivedStruct
+ │   ├─┬ interface DerivedStruct (experimental)
  │   │ ├─┬ interfaces
  │   │ │ └── MyFirstStruct
  │   │ └─┬ members
- │   │   ├─┬ anotherRequired property
+ │   │   ├─┬ anotherRequired property (experimental)
  │   │   │ ├── abstract
  │   │   │ ├── immutable
  │   │   │ └── type: date
- │   │   ├─┬ bool property
+ │   │   ├─┬ bool property (experimental)
  │   │   │ ├── abstract
  │   │   │ ├── immutable
  │   │   │ └── type: boolean
- │   │   ├─┬ nonPrimitive property
+ │   │   ├─┬ nonPrimitive property (experimental)
  │   │   │ ├── abstract
  │   │   │ ├── immutable
  │   │   │ └── type: jsii-calc.DoubleTrouble
- │   │   ├─┬ anotherOptional property
+ │   │   ├─┬ anotherOptional property (experimental)
  │   │   │ ├── abstract
  │   │   │ ├── immutable
  │   │   │ └── type: Optional<Map<string => @scope/jsii-calc-lib.Value>>
- │   │   ├─┬ optionalAny property
+ │   │   ├─┬ optionalAny property (experimental)
  │   │   │ ├── abstract
  │   │   │ ├── immutable
  │   │   │ └── type: any
- │   │   └─┬ optionalArray property
+ │   │   └─┬ optionalArray property (experimental)
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<Array<string>>
- │   ├─┬ interface EraseUndefinedHashValuesOptions
+ │   ├─┬ interface EraseUndefinedHashValuesOptions (experimental)
  │   │ └─┬ members
- │   │   ├─┬ option1 property
+ │   │   ├─┬ option1 property (experimental)
  │   │   │ ├── abstract
  │   │   │ ├── immutable
  │   │   │ └── type: Optional<string>
- │   │   └─┬ option2 property
+ │   │   └─┬ option2 property (experimental)
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<string>
- │   ├─┬ interface ExperimentalStruct
+ │   ├─┬ interface ExperimentalStruct (experimental)
  │   │ └─┬ members
- │   │   └─┬ readonlyProperty property
+ │   │   └─┬ readonlyProperty property (experimental)
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: string
- │   ├─┬ interface ExtendsInternalInterface
+ │   ├─┬ interface ExtendsInternalInterface (experimental)
  │   │ └─┬ members
- │   │   ├─┬ boom property
+ │   │   ├─┬ boom property (experimental)
  │   │   │ ├── abstract
  │   │   │ ├── immutable
  │   │   │ └── type: boolean
- │   │   └─┬ prop property
+ │   │   └─┬ prop property (experimental)
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: string
- │   ├─┬ interface Greetee
+ │   ├─┬ interface Greetee (experimental)
  │   │ └─┬ members
- │   │   └─┬ name property
+ │   │   └─┬ name property (experimental)
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<string>
- │   ├─┬ interface IAnotherPublicInterface
+ │   ├─┬ interface IAnotherPublicInterface (experimental)
  │   │ └─┬ members
- │   │   └─┬ a property
+ │   │   └─┬ a property (experimental)
  │   │     ├── abstract
  │   │     └── type: string
- │   ├─┬ interface IDeprecatedInterface
+ │   ├─┬ interface IDeprecatedInterface (deprecated)
  │   │ └─┬ members
- │   │   ├─┬ method() method
+ │   │   ├─┬ method() method (deprecated)
  │   │   │ ├── abstract
  │   │   │ └── returns: void
- │   │   └─┬ mutableProperty property
+ │   │   └─┬ mutableProperty property (deprecated)
  │   │     ├── abstract
  │   │     └── type: Optional<number>
- │   ├─┬ interface IExperimentalInterface
+ │   ├─┬ interface IExperimentalInterface (experimental)
  │   │ └─┬ members
- │   │   ├─┬ method() method
+ │   │   ├─┬ method() method (experimental)
  │   │   │ ├── abstract
  │   │   │ └── returns: void
- │   │   └─┬ mutableProperty property
+ │   │   └─┬ mutableProperty property (experimental)
  │   │     ├── abstract
  │   │     └── type: Optional<number>
- │   ├─┬ interface IExtendsPrivateInterface
+ │   ├─┬ interface IExtendsPrivateInterface (experimental)
  │   │ └─┬ members
- │   │   ├─┬ moreThings property
+ │   │   ├─┬ moreThings property (experimental)
  │   │   │ ├── abstract
  │   │   │ ├── immutable
  │   │   │ └── type: Array<string>
- │   │   └─┬ private property
+ │   │   └─┬ private property (experimental)
  │   │     ├── abstract
  │   │     └── type: string
- │   ├─┬ interface IFriendlier
+ │   ├─┬ interface IFriendlier (experimental)
  │   │ ├─┬ interfaces
  │   │ │ └── IFriendly
  │   │ └─┬ members
- │   │   ├─┬ farewell() method
+ │   │   ├─┬ farewell() method (experimental)
  │   │   │ ├── abstract
  │   │   │ └── returns: string
- │   │   └─┬ goodbye() method
+ │   │   └─┬ goodbye() method (experimental)
  │   │     ├── abstract
  │   │     └── returns: string
- │   ├─┬ interface IFriendlyRandomGenerator
+ │   ├─┬ interface IFriendlyRandomGenerator (experimental)
  │   │ ├─┬ interfaces
  │   │ │ ├── IRandomNumberGenerator
  │   │ │ └── IFriendly
  │   │ └── members
- │   ├─┬ interface IInterfaceImplementedByAbstractClass
+ │   ├─┬ interface IInterfaceImplementedByAbstractClass (experimental)
  │   │ └─┬ members
- │   │   └─┬ propFromInterface property
+ │   │   └─┬ propFromInterface property (experimental)
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: string
- │   ├─┬ interface IInterfaceThatShouldNotBeADataType
+ │   ├─┬ interface IInterfaceThatShouldNotBeADataType (experimental)
  │   │ ├─┬ interfaces
  │   │ │ └── IInterfaceWithMethods
  │   │ └─┬ members
- │   │   └─┬ otherValue property
+ │   │   └─┬ otherValue property (experimental)
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: string
- │   ├─┬ interface IInterfaceWithInternal
+ │   ├─┬ interface IInterfaceWithInternal (experimental)
  │   │ └─┬ members
- │   │   └─┬ visible() method
+ │   │   └─┬ visible() method (experimental)
  │   │     ├── abstract
  │   │     └── returns: void
- │   ├─┬ interface IInterfaceWithMethods
+ │   ├─┬ interface IInterfaceWithMethods (experimental)
  │   │ └─┬ members
- │   │   ├─┬ doThings() method
+ │   │   ├─┬ doThings() method (experimental)
  │   │   │ ├── abstract
  │   │   │ └── returns: void
- │   │   └─┬ value property
+ │   │   └─┬ value property (experimental)
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: string
- │   ├─┬ interface IInterfaceWithOptionalMethodArguments
+ │   ├─┬ interface IInterfaceWithOptionalMethodArguments (experimental)
  │   │ └─┬ members
- │   │   └─┬ hello(arg1,arg2) method
+ │   │   └─┬ hello(arg1,arg2) method (experimental)
  │   │     ├── abstract
  │   │     ├─┬ parameters
  │   │     │ ├─┬ arg1
@@ -1420,202 +1420,202 @@ assemblies
  │   │     │ └─┬ arg2
  │   │     │   └── type: Optional<number>
  │   │     └── returns: void
- │   ├─┬ interface IInterfaceWithProperties
+ │   ├─┬ interface IInterfaceWithProperties (experimental)
  │   │ └─┬ members
- │   │   ├─┬ readOnlyString property
+ │   │   ├─┬ readOnlyString property (experimental)
  │   │   │ ├── abstract
  │   │   │ ├── immutable
  │   │   │ └── type: string
- │   │   └─┬ readWriteString property
+ │   │   └─┬ readWriteString property (experimental)
  │   │     ├── abstract
  │   │     └── type: string
- │   ├─┬ interface IInterfaceWithPropertiesExtension
+ │   ├─┬ interface IInterfaceWithPropertiesExtension (experimental)
  │   │ ├─┬ interfaces
  │   │ │ └── IInterfaceWithProperties
  │   │ └─┬ members
- │   │   └─┬ foo property
+ │   │   └─┬ foo property (experimental)
  │   │     ├── abstract
  │   │     └── type: number
- │   ├─┬ interface IJSII417Derived
+ │   ├─┬ interface IJSII417Derived (experimental)
  │   │ ├─┬ interfaces
  │   │ │ └── IJSII417PublicBaseOfBase
  │   │ └─┬ members
- │   │   ├─┬ bar() method
+ │   │   ├─┬ bar() method (experimental)
  │   │   │ ├── abstract
  │   │   │ └── returns: void
- │   │   ├─┬ baz() method
+ │   │   ├─┬ baz() method (experimental)
  │   │   │ ├── abstract
  │   │   │ └── returns: void
- │   │   └─┬ property property
+ │   │   └─┬ property property (experimental)
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: string
- │   ├─┬ interface IJSII417PublicBaseOfBase
+ │   ├─┬ interface IJSII417PublicBaseOfBase (experimental)
  │   │ └─┬ members
- │   │   ├─┬ foo() method
+ │   │   ├─┬ foo() method (experimental)
  │   │   │ ├── abstract
  │   │   │ └── returns: void
- │   │   └─┬ hasRoot property
+ │   │   └─┬ hasRoot property (experimental)
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: boolean
- │   ├─┬ interface IJsii487External
+ │   ├─┬ interface IJsii487External (experimental)
  │   │ └── members
- │   ├─┬ interface IJsii487External2
+ │   ├─┬ interface IJsii487External2 (experimental)
  │   │ └── members
- │   ├─┬ interface IJsii496
+ │   ├─┬ interface IJsii496 (experimental)
  │   │ └── members
- │   ├─┬ interface IMutableObjectLiteral
+ │   ├─┬ interface IMutableObjectLiteral (experimental)
  │   │ └─┬ members
- │   │   └─┬ value property
+ │   │   └─┬ value property (experimental)
  │   │     ├── abstract
  │   │     └── type: string
- │   ├─┬ interface INonInternalInterface
+ │   ├─┬ interface INonInternalInterface (experimental)
  │   │ ├─┬ interfaces
  │   │ │ └── IAnotherPublicInterface
  │   │ └─┬ members
- │   │   ├─┬ b property
+ │   │   ├─┬ b property (experimental)
  │   │   │ ├── abstract
  │   │   │ └── type: string
- │   │   └─┬ c property
+ │   │   └─┬ c property (experimental)
  │   │     ├── abstract
  │   │     └── type: string
- │   ├─┬ interface IPrivatelyImplemented
+ │   ├─┬ interface IPrivatelyImplemented (experimental)
  │   │ └─┬ members
- │   │   └─┬ success property
+ │   │   └─┬ success property (experimental)
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: boolean
- │   ├─┬ interface IPublicInterface
+ │   ├─┬ interface IPublicInterface (experimental)
  │   │ └─┬ members
- │   │   └─┬ bye() method
+ │   │   └─┬ bye() method (experimental)
  │   │     ├── abstract
  │   │     └── returns: string
- │   ├─┬ interface IPublicInterface2
+ │   ├─┬ interface IPublicInterface2 (experimental)
  │   │ └─┬ members
- │   │   └─┬ ciao() method
+ │   │   └─┬ ciao() method (experimental)
  │   │     ├── abstract
  │   │     └── returns: string
- │   ├─┬ interface IRandomNumberGenerator
+ │   ├─┬ interface IRandomNumberGenerator (experimental)
  │   │ └─┬ members
- │   │   └─┬ next() method
+ │   │   └─┬ next() method (experimental)
  │   │     ├── abstract
  │   │     └── returns: number
- │   ├─┬ interface IReturnsNumber
+ │   ├─┬ interface IReturnsNumber (experimental)
  │   │ └─┬ members
- │   │   ├─┬ obtainNumber() method
+ │   │   ├─┬ obtainNumber() method (experimental)
  │   │   │ ├── abstract
  │   │   │ └── returns: @scope/jsii-calc-lib.IDoublable
- │   │   └─┬ numberProp property
+ │   │   └─┬ numberProp property (experimental)
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: @scope/jsii-calc-lib.Number
- │   ├─┬ interface IStableInterface
+ │   ├─┬ interface IStableInterface (stable)
  │   │ └─┬ members
- │   │   ├─┬ method() method
+ │   │   ├─┬ method() method (stable)
  │   │   │ ├── abstract
  │   │   │ └── returns: void
- │   │   └─┬ mutableProperty property
+ │   │   └─┬ mutableProperty property (stable)
  │   │     ├── abstract
  │   │     └── type: Optional<number>
- │   ├─┬ interface ImplictBaseOfBase
+ │   ├─┬ interface ImplictBaseOfBase (experimental)
  │   │ ├─┬ interfaces
  │   │ │ └── BaseProps
  │   │ └─┬ members
- │   │   └─┬ goo property
+ │   │   └─┬ goo property (experimental)
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: date
- │   ├─┬ interface Hello
+ │   ├─┬ interface Hello (experimental)
  │   │ └─┬ members
- │   │   └─┬ foo property
+ │   │   └─┬ foo property (experimental)
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: number
- │   ├─┬ interface Hello
+ │   ├─┬ interface Hello (experimental)
  │   │ └─┬ members
- │   │   └─┬ foo property
+ │   │   └─┬ foo property (experimental)
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: number
- │   ├─┬ interface LoadBalancedFargateServiceProps
+ │   ├─┬ interface LoadBalancedFargateServiceProps (experimental)
  │   │ └─┬ members
- │   │   ├─┬ containerPort property
+ │   │   ├─┬ containerPort property (experimental)
  │   │   │ ├── abstract
  │   │   │ ├── immutable
  │   │   │ └── type: Optional<number>
- │   │   ├─┬ cpu property
+ │   │   ├─┬ cpu property (experimental)
  │   │   │ ├── abstract
  │   │   │ ├── immutable
  │   │   │ └── type: Optional<string>
- │   │   ├─┬ memoryMiB property
+ │   │   ├─┬ memoryMiB property (experimental)
  │   │   │ ├── abstract
  │   │   │ ├── immutable
  │   │   │ └── type: Optional<string>
- │   │   ├─┬ publicLoadBalancer property
+ │   │   ├─┬ publicLoadBalancer property (experimental)
  │   │   │ ├── abstract
  │   │   │ ├── immutable
  │   │   │ └── type: Optional<boolean>
- │   │   └─┬ publicTasks property
+ │   │   └─┬ publicTasks property (experimental)
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<boolean>
- │   ├─┬ interface NullShouldBeTreatedAsUndefinedData
+ │   ├─┬ interface NullShouldBeTreatedAsUndefinedData (experimental)
  │   │ └─┬ members
- │   │   ├─┬ arrayWithThreeElementsAndUndefinedAsSecondArgument property
+ │   │   ├─┬ arrayWithThreeElementsAndUndefinedAsSecondArgument property (experimental)
  │   │   │ ├── abstract
  │   │   │ ├── immutable
  │   │   │ └── type: Array<any>
- │   │   └─┬ thisShouldBeUndefined property
+ │   │   └─┬ thisShouldBeUndefined property (experimental)
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: any
- │   ├─┬ interface OptionalStruct
+ │   ├─┬ interface OptionalStruct (experimental)
  │   │ └─┬ members
- │   │   └─┬ field property
+ │   │   └─┬ field property (experimental)
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<string>
- │   ├─┬ interface StableStruct
+ │   ├─┬ interface StableStruct (stable)
  │   │ └─┬ members
- │   │   └─┬ readonlyProperty property
+ │   │   └─┬ readonlyProperty property (stable)
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: string
- │   ├─┬ interface UnionProperties
+ │   ├─┬ interface UnionProperties (experimental)
  │   │ └─┬ members
- │   │   ├─┬ bar property
+ │   │   ├─┬ bar property (experimental)
  │   │   │ ├── abstract
  │   │   │ ├── immutable
  │   │   │ └── type: string | number | jsii-calc.AllTypes
- │   │   └─┬ foo property
+ │   │   └─┬ foo property (experimental)
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<string | number>
- │   ├─┬ enum AllTypesEnum
- │   │ ├── MY_ENUM_VALUE
- │   │ ├── YOUR_ENUM_VALUE
- │   │ └── THIS_IS_GREAT
- │   ├─┬ enum DeprecatedEnum
- │   │ ├── OPTION_A
- │   │ └── OPTION_B
- │   ├─┬ enum ExperimentalEnum
- │   │ ├── OPTION_A
- │   │ └── OPTION_B
- │   ├─┬ enum SingletonIntEnum
- │   │ └── SINGLETON_INT
- │   ├─┬ enum SingletonStringEnum
- │   │ └── SINGLETON_STRING
- │   ├─┬ enum StableEnum
- │   │ ├── OPTION_A
- │   │ └── OPTION_B
- │   ├─┬ enum StringEnum
- │   │ ├── A
- │   │ ├── B
- │   │ └── C
- │   └─┬ enum CompositionStringStyle
- │     ├── NORMAL
- │     └── DECORATED
+ │   ├─┬ enum AllTypesEnum (experimental)
+ │   │ ├── MY_ENUM_VALUE (experimental)
+ │   │ ├── YOUR_ENUM_VALUE (experimental)
+ │   │ └── THIS_IS_GREAT (experimental)
+ │   ├─┬ enum DeprecatedEnum (deprecated)
+ │   │ ├── OPTION_A (deprecated)
+ │   │ └── OPTION_B (deprecated)
+ │   ├─┬ enum ExperimentalEnum (experimental)
+ │   │ ├── OPTION_A (experimental)
+ │   │ └── OPTION_B (experimental)
+ │   ├─┬ enum SingletonIntEnum (experimental)
+ │   │ └── SINGLETON_INT (experimental)
+ │   ├─┬ enum SingletonStringEnum (experimental)
+ │   │ └── SINGLETON_STRING (experimental)
+ │   ├─┬ enum StableEnum (stable)
+ │   │ ├── OPTION_A (stable)
+ │   │ └── OPTION_B (stable)
+ │   ├─┬ enum StringEnum (experimental)
+ │   │ ├── A (experimental)
+ │   │ ├── B (experimental)
+ │   │ └── C (experimental)
+ │   └─┬ enum CompositionStringStyle (experimental)
+ │     ├── NORMAL (experimental)
+ │     └── DECORATED (experimental)
  ├─┬ @scope/jsii-calc-base
  │ ├─┬ dependencies
  │ │ └── @scope/jsii-calc-base-of-base
@@ -1662,83 +1662,83 @@ assemblies
    ├─┬ dependencies
    │ └── @scope/jsii-calc-base
    └─┬ types
-     ├─┬ class Number
+     ├─┬ class Number (deprecated)
      │ ├── base: Value
      │ ├── interfaces: IDoublable
      │ └─┬ members
-     │   ├─┬ <initializer>(value) initializer
+     │   ├─┬ <initializer>(value) initializer (deprecated)
      │   │ └─┬ parameters
      │   │   └─┬ value
      │   │     └── type: number
-     │   ├─┬ doubleValue property
+     │   ├─┬ doubleValue property (deprecated)
      │   │ ├── immutable
      │   │ └── type: number
-     │   └─┬ value property
+     │   └─┬ value property (deprecated)
      │     ├── immutable
      │     └── type: number
-     ├─┬ class Operation
+     ├─┬ class Operation (deprecated)
      │ ├── base: Value
      │ └─┬ members
-     │   ├── <initializer>() initializer
-     │   └─┬ toString() method
+     │   ├── <initializer>() initializer (deprecated)
+     │   └─┬ toString() method (deprecated)
      │     ├── abstract
      │     └── returns: string
-     ├─┬ class Value
+     ├─┬ class Value (deprecated)
      │ ├── base: Base
      │ └─┬ members
-     │   ├── <initializer>() initializer
-     │   ├─┬ toString() method
+     │   ├── <initializer>() initializer (deprecated)
+     │   ├─┬ toString() method (deprecated)
      │   │ └── returns: string
-     │   └─┬ value property
+     │   └─┬ value property (deprecated)
      │     ├── abstract
      │     ├── immutable
      │     └── type: number
-     ├─┬ interface IDoublable
+     ├─┬ interface IDoublable (deprecated)
      │ └─┬ members
-     │   └─┬ doubleValue property
+     │   └─┬ doubleValue property (deprecated)
      │     ├── abstract
      │     ├── immutable
      │     └── type: number
-     ├─┬ interface IFriendly
+     ├─┬ interface IFriendly (deprecated)
      │ └─┬ members
-     │   └─┬ hello() method
+     │   └─┬ hello() method (deprecated)
      │     ├── abstract
      │     └── returns: string
-     ├─┬ interface IThreeLevelsInterface
+     ├─┬ interface IThreeLevelsInterface (deprecated)
      │ ├─┬ interfaces
      │ │ └── IBaseInterface
      │ └─┬ members
-     │   └─┬ baz() method
+     │   └─┬ baz() method (deprecated)
      │     ├── abstract
      │     └── returns: void
-     ├─┬ interface MyFirstStruct
+     ├─┬ interface MyFirstStruct (deprecated)
      │ └─┬ members
-     │   ├─┬ anumber property
+     │   ├─┬ anumber property (deprecated)
      │   │ ├── abstract
      │   │ ├── immutable
      │   │ └── type: number
-     │   ├─┬ astring property
+     │   ├─┬ astring property (deprecated)
      │   │ ├── abstract
      │   │ ├── immutable
      │   │ └── type: string
-     │   └─┬ firstOptional property
+     │   └─┬ firstOptional property (deprecated)
      │     ├── abstract
      │     ├── immutable
      │     └── type: Optional<Array<string>>
-     ├─┬ interface StructWithOnlyOptionals
+     ├─┬ interface StructWithOnlyOptionals (deprecated)
      │ └─┬ members
-     │   ├─┬ optional1 property
+     │   ├─┬ optional1 property (deprecated)
      │   │ ├── abstract
      │   │ ├── immutable
      │   │ └── type: Optional<string>
-     │   ├─┬ optional2 property
+     │   ├─┬ optional2 property (deprecated)
      │   │ ├── abstract
      │   │ ├── immutable
      │   │ └── type: Optional<number>
-     │   └─┬ optional3 property
+     │   └─┬ optional3 property (deprecated)
      │     ├── abstract
      │     ├── immutable
      │     └── type: Optional<boolean>
-     └─┬ enum EnumFromScopedModule
-       ├── VALUE1
-       └── VALUE2
+     └─┬ enum EnumFromScopedModule (deprecated)
+       ├── VALUE1 (deprecated)
+       └── VALUE2 (deprecated)
