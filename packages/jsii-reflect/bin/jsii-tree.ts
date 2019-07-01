@@ -17,14 +17,14 @@ async function main() {
     .option('members', { type: 'boolean', alias: 'm', desc: 'show type members', default: false })
     .option('signatures', { type: 'boolean', alias: 's', desc: 'show method and property signatures', default: false })
     .option('types', { type: 'boolean', alias: 't', desc: 'show types', default: false })
-    .option('validate', { type: 'boolean', alias: 'V', desc: 'Validate assemblies while loading', default: true })
+    .option('validate', { type: 'boolean', alias: 'V', desc: 'Validate that assemblies match schema while loading', default: true })
     .option('stabilities', { type: 'boolean', alias: 'S', desc: 'Show stabilities', default: false })
     .argv;
 
   const typesys = new TypeSystem();
 
   if (options.closure) {
-    await typesys.loadAllNodeModules(options.closure, { validate: options.validate });
+    await typesys.loadNpmDependencies(options.closure, { validate: options.validate });
   }
 
   for (const fileOrDirectory of (options.jsiiFile as string[] || [])) {

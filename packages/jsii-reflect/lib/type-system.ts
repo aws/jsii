@@ -12,7 +12,6 @@ import { Type } from './type';
 
 const readFile = promisify(fs.readFile);
 const stat = promisify(fs.stat);
-const readdir = promisify(fs.readdir);
 
 export class TypeSystem {
   /**
@@ -33,22 +32,16 @@ export class TypeSystem {
    * The NPM package itself does *not* have to be a jsii package, and does
    * NOT have to declare a JSII dependency on any of the packages.
    */
-  public async loadAllNodeModules(packageRoot: string, options: { validate?: boolean } = {}) {
-    const npmRoot = path.join(packageRoot, 'node_modules');
+  public async loadNpmDependencies(packageRoot: string, options: { validate?: boolean } = {}): Promise<void> {
+    const pkg = require(path.resolve(packageRoot, 'package.json'));
 
-    const dirs = await readdir(npmRoot, { encoding: 'utf-8' }) as string[];
-    // Expand scoped package directories (starting with @) to a second level
-    const packages = await flatMap(dirs, async (dir) => {
-      if (dir === '.bin') { return []; }
+    for (const dep of dependenciesOf(pkg)) {
+      // Filter jsii dependencies
+      const depPkgJsonPath = require.resolve(`${dep}/package.json`, { paths: [ packageRoot ] });
+      const depPkgJson = require(depPkgJsonPath);
+      if (!depPkgJson.jsii) { continue; }
 
-      const fullPath = path.join(npmRoot, dir);
-      return dir.startsWith('@') ? secondLevelList(fullPath) : [fullPath];
-    });
-
-    for (const packageDir of packages) {
-      const packageJson = require(path.join(path.resolve(packageDir), 'package.json'));
-      if (packageJson.jsii === undefined) { continue; }
-      await this.loadModule(packageDir, options);
+      await this.loadModule(path.dirname(depPkgJsonPath), options);
     }
   }
 
@@ -113,20 +106,14 @@ export class TypeSystem {
       const root = await self.addAssembly(asm, { isRoot });
       const bundled: string[] = pkg.bundledDependencies || pkg.bundleDependencies || [];
 
-      const loadDependencies = async (deps: { [name: string]: string }) => {
-        for (const name of Object.keys(deps || {})) {
-          if (bundled.includes(name)) {
-            continue;
-          }
-          const depDir = require.resolve(`${name}/package.json`, {
-            paths: [ moduleDirectory ]
-          });
-          await _loadModule(path.dirname(depDir));
-        }
-      };
+      for (const name of dependenciesOf(pkg)) {
+        if (bundled.includes(name)) { continue; }
 
-      await loadDependencies(pkg.dependencies);
-      await loadDependencies(pkg.peerDependencies);
+        const depDir = require.resolve(`${name}/package.json`, {
+          paths: [ moduleDirectory ]
+        });
+        await _loadModule(path.dirname(depDir));
+      }
 
       return root;
     }
@@ -278,21 +265,9 @@ export class TypeSystem {
   }
 }
 
-async function flatMap<T, U>(xs: T[], fn: (value: T) => U[] | Promise<U[]>): Promise<U[]> {
-  const ret: U[] = [];
-  for (const x of xs) {
-    ret.push(...await fn(x));
-  }
-  return ret;
-}
-
-/**
- * List files in a directory while appending the parent name
- */
-async function secondLevelList(dir: string): Promise<string[]> {
-  const ret: string[] = [];
-  for (const sub of await readdir(dir, { encoding: 'utf-8' }) as string[]) {
-    ret.push(path.join(dir, sub));
-  }
-  return ret;
+function dependenciesOf(packageJson: any) {
+  const deps = new Set<string>();
+  Object.keys(packageJson.dependencies || {}).forEach(deps.add.bind(deps));
+  Object.keys(packageJson.peerDependencies || {}).forEach(deps.add.bind(deps));
+  return Array.from(deps);
 }
