@@ -50,15 +50,7 @@ export class InterfaceType extends ReferenceType {
    * @param inherited include all properties inherited from base classes (default: false)
    */
   public getProperties(inherited = false): {[name: string]: Property} {
-    const base: {[name: string]: Property}  = {};
-    if (inherited) {
-      for (const parent of this.getInterfaces()) {
-        Object.assign(base, parent.getProperties(inherited));
-      }
-    }
-    return Object.assign(base, indexBy(
-      (this.interfaceSpec.properties || []).map(p => new Property(this.system, this.assembly, this, p)),
-      p => p.name));
+    return this._getProperties(inherited, this);
   }
 
   /**
@@ -66,15 +58,7 @@ export class InterfaceType extends ReferenceType {
    * @param inherited include all methods inherited from base classes (default: false)
    */
   public getMethods(inherited = false): {[name: string]: Method} {
-    const base: {[name: string]: Property}  = {};
-    if (inherited) {
-      for (const parent of this.getInterfaces()) {
-        Object.assign(base, parent.getMethods(inherited));
-      }
-    }
-    return Object.assign(base, indexBy(
-      (this.interfaceSpec.methods || []).map(m => new Method(this.system, this.assembly, this, m)),
-      m => m.name));
+    return this._getMethods(inherited, this);
   }
 
   public isDataType() {
@@ -83,5 +67,29 @@ export class InterfaceType extends ReferenceType {
 
   public isInterfaceType() {
     return true;
+  }
+
+  private _getProperties(inherited: boolean, parentType: ReferenceType): {[name: string]: Property}  {
+    const base: {[name: string]: Property}  = {};
+    if (inherited) {
+      for (const parent of this.getInterfaces()) {
+        Object.assign(base, parent._getProperties(inherited, parentType));
+      }
+    }
+    return Object.assign(base, indexBy(
+      (this.interfaceSpec.properties || []).map(p => new Property(this.system, this.assembly, parentType, this, p)),
+      p => p.name));
+  }
+
+  private _getMethods(inherited: boolean, parentType: ReferenceType): {[name: string]: Method}  {
+    const base: {[name: string]: Property}  = {};
+    if (inherited) {
+      for (const parent of this.getInterfaces()) {
+        Object.assign(base, parent._getMethods(inherited, parentType));
+      }
+    }
+    return Object.assign(base, indexBy(
+      (this.interfaceSpec.methods || []).map(m => new Method(this.system, this.assembly, parentType, this, m)),
+      m => m.name));
   }
 }

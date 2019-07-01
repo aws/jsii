@@ -585,6 +585,8 @@ export class Assembler implements Emitter {
       }
     }
 
+    const memberEmitContext = ctx.replaceStability(jsiiType.docs && jsiiType.docs.stability);
+
     // Find the first defined constructor in this class, or it's erased bases
     const constructor = [type, ...erasedBases].map(getConstructor).find(ctor => ctor != null);
     const ctorDeclaration = constructor && (constructor.declarations[0] as ts.ConstructorDeclaration);
@@ -604,14 +606,14 @@ export class Assembler implements Emitter {
           }
         }
         this._verifyConsecutiveOptionals(ctorDeclaration, jsiiType.initializer.parameters);
-        jsiiType.initializer.docs = this._visitDocumentation(constructor, ctx);
+        jsiiType.initializer.docs = this._visitDocumentation(constructor, memberEmitContext);
       }
 
       // Process constructor-based property declarations even if constructor is private
       if (signature) {
         for (const param of signature.getParameters()) {
           if (ts.isParameterPropertyDeclaration(param.valueDeclaration) && !this._isPrivateOrInternal(param)) {
-            await this._visitProperty(param, jsiiType, ctx.replaceStability(jsiiType.docs && jsiiType.docs.stability));
+            await this._visitProperty(param, jsiiType, memberEmitContext);
           }
         }
       }

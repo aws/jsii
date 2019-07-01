@@ -67,10 +67,7 @@ export class ClassType extends ReferenceType {
    * @param inherited include all properties inherited from base classes (default: false)
    */
   public getProperties(inherited = false): {[name: string]: Property} {
-    const base = inherited && this.base ? this.base.getProperties(inherited) : {};
-    return Object.assign(base, indexBy(
-      (this.classSpec.properties || []).map(p => new Property(this.system, this.assembly, this, p)),
-      p => p.name));
+    return this._getProperties(inherited, this);
   }
 
   /**
@@ -78,10 +75,7 @@ export class ClassType extends ReferenceType {
    * @param inherited include all methods inherited from base classes (default: false)
    */
   public getMethods(inherited = false): {[name: string]: Method} {
-    const base = inherited && this.base ? this.base.getMethods(inherited) : {};
-    return Object.assign(base, indexBy(
-      (this.classSpec.methods || []).map(m => new Method(this.system, this.assembly, this, m)),
-      m => m.name));
+    return this._getMethods(inherited, this);
   }
 
   /**
@@ -102,4 +96,18 @@ export class ClassType extends ReferenceType {
   public isClassType() {
     return true;
   }
+
+  private _getProperties(inherited: boolean, parentType: ReferenceType): {[name: string]: Property}  {
+    const base = inherited && this.base ? this.base._getProperties(inherited, parentType) : {};
+    return Object.assign(base, indexBy(
+      (this.classSpec.properties || []).map(p => new Property(this.system, this.assembly, parentType, this, p)),
+      p => p.name));
+  }
+
+  private _getMethods(inherited: boolean, parentType: ReferenceType): {[name: string]: Method}  {
+    const base = inherited && this.base ? this.base._getMethods(inherited, parentType) : {};
+    return Object.assign(base, indexBy(
+      (this.classSpec.methods || []).map(m => new Method(this.system, this.assembly, parentType, this, m)),
+      m => m.name));
+    }
 }
