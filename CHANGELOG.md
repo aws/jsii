@@ -8,9 +8,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 **Note:** Version bump only for package jsii
 
 
-
-
-
 ## [0.13.3](https://github.com/awslabs/jsii/compare/v0.13.2...v0.13.3) (2019-07-01)
 
 
