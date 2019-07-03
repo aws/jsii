@@ -1,6 +1,6 @@
 {
   "name": "codemaker",
-  "version": "0.13.3",
+  "version": "0.13.4",
   "description": "A tiny utility for generating source code",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
