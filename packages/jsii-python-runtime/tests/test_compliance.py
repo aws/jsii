@@ -44,6 +44,9 @@ from jsii_calc import (
     composition,
     EraseUndefinedHashValues,
     VariadicMethod,
+    StructPassing,
+    TopLevelStruct,
+    SecondLevelStruct,
 )
 from scope.jsii_calc_lib import IFriendly, EnumFromScopedModule, Number
 
@@ -909,3 +912,32 @@ def test_callbacksCorrectlyDeserializeArguments():
             return super().render_map(map)
     renderer = DataRendererSubclass()
     assert renderer.render(anumber = 42, astring = "bazinga!") == "{\n  \"anumber\": 42,\n  \"astring\": \"bazinga!\"\n}"
+
+def test_passNestedStruct():
+    output = StructPassing.round_trip(123,
+            required='hello',
+            second_level=SecondLevelStruct(deeper_required_prop='exists'))
+
+    assert output.required == 'hello'
+    assert output.optional is None
+    assert output.second_level.deeper_required_prop == 'exists'
+
+    # Test stringification
+    # Dicts are ordered in Python 3.7+, so this is fine: https://mail.python.org/pipermail/python-dev/2017-December/151283.html
+    assert str(output) == "TopLevelStruct(required='hello', second_level=SecondLevelStruct(deeper_required_prop='exists'))"
+
+def test_passNestedScalar():
+    output = StructPassing.round_trip(123,
+            required='hello',
+            second_level=5)
+
+    assert output.required == 'hello'
+    assert output.optional is None
+    assert output.second_level == 5
+
+def test_passStructsInVariadic():
+    output = StructPassing.how_many_var_args_did_i_pass(123, [
+        TopLevelStruct(required='hello', second_level=1),
+        TopLevelStruct(required='bye', second_level=SecondLevelStruct(deeper_required_prop='ciao'))
+    ])
+    assert output == 2

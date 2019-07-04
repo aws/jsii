@@ -101,7 +101,9 @@ def _recursize_dereference(kernel, d):
 def _dereferenced(fn):
     @functools.wraps(fn)
     def wrapped(kernel, *args, **kwargs):
-        return _recursize_dereference(kernel, fn(kernel, *args, **kwargs))
+        output = fn(kernel, *args, **kwargs)
+        print(output)
+        return _recursize_dereference(kernel, output)
 
     return wrapped
 
@@ -148,7 +150,7 @@ def _callback_till_result(kernel, response: Callback, response_type: Type[Kernel
             response = kernel.sync_complete(response.cbid, str(exc), None, response_type)
         else:
             response = kernel.sync_complete(response.cbid, None, result, response_type)
-    
+
     if isinstance(response, InvokeResponse):
         return response.result
     elif isinstance(response, GetResponse):

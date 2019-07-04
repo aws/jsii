@@ -70,17 +70,21 @@ class _ReferenceMap:
             inst = klass.__new__(klass)
             inst.__jsii_ref__ = ref
         elif class_fqn in _data_types:
+            # Data types have been serialized by-reference (see aws/jsii#400).
+            # We retrieve all of its properties right now and then construct a value
+            # object from it. This will be slow :(.
+
+            # Ugly delayed import here because I can't solve the cyclic
+            # package dependency right now :(.
+            from ._runtime import jsii_to_python_mapping
+
             data_type = _data_types[class_fqn]
+            remote_struct = _FakeReference(ref)
 
-            # A Data type is nothing more than a dictionary, however we need to iterate
-            # over all of it's properties, and ask the kernel for the values of each of
-            # then in order to constitute our dict
-            inst = {}
+            python_props = {python_name: kernel.get(remote_struct, jsii_name)
+                    for jsii_name, python_name in jsii_to_python_mapping(data_type).items()}
 
-            for name in data_type.__annotations__.keys():
-                # This is a hack, because our kernel expects an object that has a
-                # __jsii_ref__ attached to it, and we don't have one of those.
-                inst[name] = kernel.get(_FakeReference(ref), name)
+            return data_type(**python_props)
         elif class_fqn in _enums:
             inst = _enums[class_fqn]
         elif class_fqn in _interfaces:

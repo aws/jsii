@@ -22,6 +22,7 @@ subprocess.run(
         "pip",
         "install",
         "--force-reinstall",
+        "--no-deps",
         "--upgrade",
     ]
     +

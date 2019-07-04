@@ -1,5 +1,5 @@
 import { default as camelcase } from 'camelcase';
-import * as decamelize from 'decamelize';
+import decamelize = require('decamelize');
 
 export function toCamelCase(...args: string[]) {
     return camelcase(args);

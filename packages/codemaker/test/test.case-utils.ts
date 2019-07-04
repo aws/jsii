@@ -12,5 +12,14 @@ export = nodeunit.testCase({
     test.equal(caseUtils.toPascalCase('EXAMPLE_VALUE'), 'ExampleValue');
     test.equal(caseUtils.toPascalCase('example', 'value'), 'ExampleValue');
     test.done();
+  },
+
+  toSnakeCase(test: nodeunit.Test) {
+    test.equal(caseUtils.toSnakeCase('EXAMPLE_VALUE'), 'example_value');
+    test.equal(caseUtils.toSnakeCase('exampleValue'), 'example_value');
+    test.equal(caseUtils.toSnakeCase('ExampleValue'), 'example_value');
+    test.equal(caseUtils.toSnakeCase('EPSConduit'), 'eps_conduit');
+    test.equal(caseUtils.toSnakeCase('SomeEBSVolume'), 'some_ebs_volume');
+    test.done();
   }
 });

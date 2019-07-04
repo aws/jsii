@@ -26,6 +26,7 @@
     "escape-string-regexp": "^2.0.0",
     "fs-extra": "^8.0.1",
     "jsii-spec": "^0.13.4",
+    "jsii-reflect": "^0.13.4",
     "spdx-license-list": "^6.0.0",
     "xmlbuilder": "^13.0.2",
     "yargs": "^13.2.4"

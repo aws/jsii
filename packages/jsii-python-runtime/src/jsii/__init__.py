@@ -7,12 +7,12 @@ from ._runtime import (
     JSIIAbstractClass,
     enum,
     data_type,
-    data_type_optionals,
     implements,
     interface,
     member,
     kernel,
     proxy_for,
+    structs_to_jsii
 )
 
 
@@ -45,7 +45,7 @@ __all__ = [
     "Number",
     "enum",
     "data_type",
-    "data_type_optionals",
+    "structs_to_jsii",
     "implements",
     "interface",
     "member",
