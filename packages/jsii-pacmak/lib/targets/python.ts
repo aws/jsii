@@ -632,7 +632,6 @@ class Struct extends BasePythonClassType {
             this.emitGetter(member, code, resolver);
         }
 
-        this.emitSerializer(code);
         this.emitMagicMethods(code);
 
         code.closeBlock();
@@ -690,22 +689,6 @@ class Struct extends BasePythonClassType {
         code.openBlock(`def ${member.pythonName}(self) -> ${member.typeAnnotation(resolver)}`);
         member.emitDocString(code);
         code.line(`return self._values.get('${member.pythonName}')`);
-        code.closeBlock();
-    }
-
-    private emitSerializer(code: CodeMaker) {
-        code.openBlock(`def _to_jsii(self) -> dict`);
-        code.line('return {');
-
-        for (const member of this.allMembers) {
-            if (member.isStruct(this.generator)) {
-                code.line(`  '${member.jsiiName}': self.${member.pythonName} and self.${member.pythonName}._to_jsii(),`);
-            } else {
-                code.line(`  '${member.jsiiName}': self.${member.pythonName},`);
-            }
-        }
-
-        code.line('}');
         code.closeBlock();
     }
 
