@@ -101,9 +101,7 @@ def _recursize_dereference(kernel, d):
 def _dereferenced(fn):
     @functools.wraps(fn)
     def wrapped(kernel, *args, **kwargs):
-        output = fn(kernel, *args, **kwargs)
-        print(output)
-        return _recursize_dereference(kernel, output)
+        return _recursize_dereference(kernel, fn(kernel, *args, **kwargs))
 
     return wrapped
 
