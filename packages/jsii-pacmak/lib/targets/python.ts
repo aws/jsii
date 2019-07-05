@@ -1804,8 +1804,15 @@ function emitDocString(code: CodeMaker, docs: spec.Docs | undefined, options: {
     function block(heading: string, content: string, doBrk = true) {
         if (doBrk) { brk(); }
         lines.push(heading);
-        for (const line of md2rst(content).split('\n')) {
-            lines.push(`    ${line}`);
+        const contentLines = md2rst(content).split('\n');
+        if (contentLines.length <= 1) {
+            lines.push(`:${heading}: ${contentLines.join('')}`);
+        } else {
+            lines.push(`:${heading}:`);
+            brk();
+            for (const line of contentLines) {
+                lines.push(`${line}`);
+            }
         }
         if (doBrk) { brk(); }
     }
@@ -1818,21 +1825,20 @@ function emitDocString(code: CodeMaker, docs: spec.Docs | undefined, options: {
 
     if (options.arguments && options.arguments.length > 0) {
         brk();
-        lines.push('Arguments:');
         for (const param of options.arguments) {
             // Add a line for every argument. Even if there is no description, we need
             // the docstring so that the Sphinx extension can add the type annotations.
-            lines.push(`    ${toPythonParameterName(param.name)}: ${onelineDescription(param.docs)}`);
+            lines.push(`:param ${toPythonParameterName(param.name)}: ${onelineDescription(param.docs)}`);
         }
         brk();
     }
 
-    if (docs.default) { block('Default:', docs.default); }
-    if (docs.returns) { block('Returns:', docs.returns); }
-    if (docs.deprecated) { block('Deprecated:', docs.deprecated); }
-    if (docs.see) { block('See:', docs.see, false); }
-    if (docs.stability && shouldMentionStability(docs.stability)) { block('Stability:', docs.stability, false); }
-    if (docs.subclassable) { block('Subclassable:', 'Yes'); }
+    if (docs.default) { block('default', docs.default); }
+    if (docs.returns) { block('return', docs.returns); }
+    if (docs.deprecated) { block('deprecated', docs.deprecated); }
+    if (docs.see) { block('see', docs.see, false); }
+    if (docs.stability && shouldMentionStability(docs.stability)) { block('stability', docs.stability, false); }
+    if (docs.subclassable) { block('subclassable', 'Yes'); }
 
     for (const [k, v] of Object.entries(docs.custom || {})) {
         block(k + ':', v, false);
