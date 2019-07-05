@@ -12,7 +12,6 @@ from ._runtime import (
     member,
     kernel,
     proxy_for,
-    structs_to_jsii
 )
 
 
@@ -45,7 +44,6 @@ __all__ = [
     "Number",
     "enum",
     "data_type",
-    "structs_to_jsii",
     "implements",
     "interface",
     "member",

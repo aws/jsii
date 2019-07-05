@@ -76,13 +76,13 @@ class _ReferenceMap:
 
             # Ugly delayed import here because I can't solve the cyclic
             # package dependency right now :(.
-            from ._runtime import jsii_to_python_mapping
+            from ._runtime import python_jsii_mapping
 
             data_type = _data_types[class_fqn]
             remote_struct = _FakeReference(ref)
 
             python_props = {python_name: kernel.get(remote_struct, jsii_name)
-                    for jsii_name, python_name in jsii_to_python_mapping(data_type).items()}
+                    for python_name, jsii_name in python_jsii_mapping(data_type).items()}
 
             return data_type(**python_props)
         elif class_fqn in _enums:

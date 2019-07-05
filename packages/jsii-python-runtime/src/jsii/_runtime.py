@@ -127,19 +127,5 @@ def proxy_for(abstract_class):
     return abstract_class.__jsii_proxy_class__()
 
 
-def structs_to_jsii(x):
-    """Recursively convert all objects with a _to_jsii() method."""
-    if isinstance(x, dict):
-        return {k: structs_to_jsii(v) for k, v in x.items()}
-    elif isinstance(x, list):
-        return [structs_to_jsii(e) for e in x]
-
-    serializer = getattr(x, '_to_jsii', None)
-    if serializer:
-        return structs_to_jsii(serializer())
-
-    return x
-
-
-def jsii_to_python_mapping(cls):
-    return {j: p for p, j in cls.__jsii_name_mapping__.items()}
+def python_jsii_mapping(cls):
+    return getattr(cls, '__jsii_name_mapping__', None)
