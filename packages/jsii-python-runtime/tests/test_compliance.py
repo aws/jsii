@@ -941,3 +941,14 @@ def test_passStructsInVariadic():
         TopLevelStruct(required='bye', second_level=SecondLevelStruct(deeper_required_prop='ciao'))
     ])
     assert output == 2
+
+def test_structEquality():
+    a = TopLevelStruct(required='bye', second_level=SecondLevelStruct(deeper_required_prop='ciao'))
+    b = TopLevelStruct(required='hello', second_level=1),
+    c = TopLevelStruct(required='hello', second_level=1),
+    d = SecondLevelStruct(deeper_required_prop='exists')
+
+    assert a != b
+    assert b == c
+    assert a != 5
+    assert a != d
