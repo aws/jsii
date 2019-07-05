@@ -75,6 +75,7 @@ StableClass
 StaticContext
 Statics
 StripInternal
+StructPassing
 Sum
 SyncVirtualMethods
 Thrower

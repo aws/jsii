@@ -153,60 +153,128 @@ class _IThreeLevelsInterfaceProxy(jsii.proxy_for(scope.jsii_calc_base.IBaseInter
         return jsii.invoke(self, "baz", [])
 
 
-@jsii.data_type_optionals(jsii_struct_bases=[])
-class _MyFirstStruct(jsii.compat.TypedDict, total=False):
-    firstOptional: typing.List[str]
-    """
-    Stability:
-        deprecated
-    """
+@jsii.data_type(jsii_type="@scope/jsii-calc-lib.MyFirstStruct", jsii_struct_bases=[], name_mapping={'anumber': 'anumber', 'astring': 'astring', 'first_optional': 'firstOptional'})
+class MyFirstStruct:
+    def __init__(self, *, anumber: jsii.Number, astring: str, first_optional: typing.Optional[typing.List[str]]=None):
+        """This is the first struct we have created in jsii.
 
-@jsii.data_type(jsii_type="@scope/jsii-calc-lib.MyFirstStruct", jsii_struct_bases=[_MyFirstStruct])
-class MyFirstStruct(_MyFirstStruct):
-    """This is the first struct we have created in jsii.
+        Arguments:
+            anumber: An awesome number value.
+            astring: A string value.
+            first_optional: 
 
-    Stability:
-        deprecated
-    """
-    anumber: jsii.Number
-    """An awesome number value.
+        Stability:
+            deprecated
+        """
+        self._values = {
+            'anumber': anumber,
+            'astring': astring,
+        }
+        if first_optional is not None: self._values["first_optional"] = first_optional
 
-    Stability:
-        deprecated
-    """
+    @property
+    def anumber(self) -> jsii.Number:
+        """An awesome number value.
 
-    astring: str
-    """A string value.
+        Stability:
+            deprecated
+        """
+        return self._values.get('anumber')
 
-    Stability:
-        deprecated
-    """
+    @property
+    def astring(self) -> str:
+        """A string value.
 
-@jsii.data_type(jsii_type="@scope/jsii-calc-lib.StructWithOnlyOptionals", jsii_struct_bases=[])
-class StructWithOnlyOptionals(jsii.compat.TypedDict, total=False):
-    """This is a struct with only optional properties.
+        Stability:
+            deprecated
+        """
+        return self._values.get('astring')
 
-    Stability:
-        deprecated
-    """
-    optional1: str
-    """The first optional!
+    @property
+    def first_optional(self) -> typing.Optional[typing.List[str]]:
+        """
+        Stability:
+            deprecated
+        """
+        return self._values.get('first_optional')
 
-    Stability:
-        deprecated
-    """
+    def _to_jsii(self) -> dict:
+        return {
+          'anumber': self.anumber,
+          'astring': self.astring,
+          'firstOptional': self.first_optional,
+        }
 
-    optional2: jsii.Number
-    """
-    Stability:
-        deprecated
-    """
+    def __eq__(self, rhs) -> bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
 
-    optional3: bool
-    """
-    Stability:
-        deprecated
-    """
+    def __ne__(self, rhs) -> bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return 'MyFirstStruct(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
+
+
+@jsii.data_type(jsii_type="@scope/jsii-calc-lib.StructWithOnlyOptionals", jsii_struct_bases=[], name_mapping={'optional1': 'optional1', 'optional2': 'optional2', 'optional3': 'optional3'})
+class StructWithOnlyOptionals:
+    def __init__(self, *, optional1: typing.Optional[str]=None, optional2: typing.Optional[jsii.Number]=None, optional3: typing.Optional[bool]=None):
+        """This is a struct with only optional properties.
+
+        Arguments:
+            optional1: The first optional!
+            optional2: 
+            optional3: 
+
+        Stability:
+            deprecated
+        """
+        self._values = {
+        }
+        if optional1 is not None: self._values["optional1"] = optional1
+        if optional2 is not None: self._values["optional2"] = optional2
+        if optional3 is not None: self._values["optional3"] = optional3
+
+    @property
+    def optional1(self) -> typing.Optional[str]:
+        """The first optional!
+
+        Stability:
+            deprecated
+        """
+        return self._values.get('optional1')
+
+    @property
+    def optional2(self) -> typing.Optional[jsii.Number]:
+        """
+        Stability:
+            deprecated
+        """
+        return self._values.get('optional2')
+
+    @property
+    def optional3(self) -> typing.Optional[bool]:
+        """
+        Stability:
+            deprecated
+        """
+        return self._values.get('optional3')
+
+    def _to_jsii(self) -> dict:
+        return {
+          'optional1': self.optional1,
+          'optional2': self.optional2,
+          'optional3': self.optional3,
+        }
+
+    def __eq__(self, rhs) -> bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs) -> bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return 'StructWithOnlyOptionals(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
+
 
 class Value(scope.jsii_calc_base.Base, metaclass=jsii.JSIIAbstractClass, jsii_type="@scope/jsii-calc-lib.Value"):
     """Abstract class which represents a numeric value.

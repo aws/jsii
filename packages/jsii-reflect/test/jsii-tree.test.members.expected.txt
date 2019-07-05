@@ -488,6 +488,11 @@ assemblies
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── youSeeMe property
+ │   ├─┬ class StructPassing
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── static howManyVarArgsDidIPass(_positional,inputs) method
+ │   │   └── static roundTrip(_positional,input) method
  │   ├─┬ class Sum
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -704,9 +709,18 @@ assemblies
  │   ├─┬ interface OptionalStruct
  │   │ └─┬ members
  │   │   └── field property
+ │   ├─┬ interface SecondLevelStruct
+ │   │ └─┬ members
+ │   │   ├── deeperRequiredProp property
+ │   │   └── deeperOptionalProp property
  │   ├─┬ interface StableStruct
  │   │ └─┬ members
  │   │   └── readonlyProperty property
+ │   ├─┬ interface TopLevelStruct
+ │   │ └─┬ members
+ │   │   ├── required property
+ │   │   ├── secondLevel property
+ │   │   └── optional property
  │   ├─┬ interface UnionProperties
  │   │ └─┬ members
  │   │   ├── bar property

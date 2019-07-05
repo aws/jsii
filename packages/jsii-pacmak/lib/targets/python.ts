@@ -443,17 +443,14 @@ abstract class BaseMethod implements PythonBase {
         }
 
         // If the last arg is variadic, expand the tuple
-        // Call ._to_jsii() on all structs.
         const params: string[] = [];
         for (const param of this.parameters) {
             let expr = toPythonParameterName(param.name);
-            if (param.variadic) {
-                expr = `*${expr}`;
-            }
+            if (param.variadic) { expr = `*${expr}`; }
             params.push(expr);
         }
 
-        code.line(`${methodPrefix}jsii.${this.jsiiMethod}(${jsiiMethodParams.join(", ")}, jsii.structs_to_jsii([${params.join(", ")}]))`);
+        code.line(`${methodPrefix}jsii.${this.jsiiMethod}(${jsiiMethodParams.join(", ")}, [${params.join(", ")}])`);
     }
 
     private getLiftedProperties(resolver: TypeResolver): spec.Property[] {
