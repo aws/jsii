@@ -656,7 +656,9 @@ class Struct extends BasePythonClassType {
     private emitConstructor(code: CodeMaker, resolver: TypeResolver) {
         const members = this.allMembers;
 
-        const constructorArguments = ['self', '*', ...members.map(m => m.constructorDecl(resolver))];
+        const kwargs = members.map(m => m.constructorDecl(resolver));
+
+        const constructorArguments = kwargs.length > 0  ? ['self', '*', ...kwargs] : ['self'];
 
         code.openBlock(`def __init__(${constructorArguments.join(', ')})`);
         this.emitConstructorDocstring(code);
