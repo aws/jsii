@@ -1086,6 +1086,25 @@ assemblies
  │   │   ├── <initializer>() initializer (experimental)
  │   │   └─┬ youSeeMe property (experimental)
  │   │     └── type: string
+ │   ├─┬ class StructPassing (experimental)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ static howManyVarArgsDidIPass(_positional,inputs) method (experimental)
+ │   │   │ ├── static
+ │   │   │ ├─┬ parameters
+ │   │   │ │ ├─┬ _positional
+ │   │   │ │ │ └── type: number
+ │   │   │ │ └─┬ inputs
+ │   │   │ │   └── type: Array<jsii-calc.TopLevelStruct>
+ │   │   │ └── returns: number
+ │   │   └─┬ static roundTrip(_positional,input) method (experimental)
+ │   │     ├── static
+ │   │     ├─┬ parameters
+ │   │     │ ├─┬ _positional
+ │   │     │ │ └── type: number
+ │   │     │ └─┬ input
+ │   │     │   └── type: jsii-calc.TopLevelStruct
+ │   │     └── returns: jsii-calc.TopLevelStruct
  │   ├─┬ class Sum (experimental)
  │   │ ├── base: CompositeOperation
  │   │ └─┬ members
@@ -1589,12 +1608,36 @@ assemblies
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<string>
+ │   ├─┬ interface SecondLevelStruct (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ deeperRequiredProp property (experimental)
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: string
+ │   │   └─┬ deeperOptionalProp property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: Optional<string>
  │   ├─┬ interface StableStruct (stable)
  │   │ └─┬ members
  │   │   └─┬ readonlyProperty property (stable)
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: string
+ │   ├─┬ interface TopLevelStruct (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ required property (experimental)
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: string
+ │   │   ├─┬ secondLevel property (experimental)
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: number | jsii-calc.SecondLevelStruct
+ │   │   └─┬ optional property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: Optional<string>
  │   ├─┬ interface UnionProperties (experimental)
  │   │ └─┬ members
  │   │   ├─┬ bar property (experimental)

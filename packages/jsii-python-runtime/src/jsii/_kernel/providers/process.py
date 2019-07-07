@@ -141,7 +141,7 @@ def jdefault(obj):
         return {"$jsii.date": obj.isoformat()}
     elif isinstance(obj, datetime.datetime):
         raise TypeError("Naive datetimes are not supported, please add a timzone.")
-    raise TypeError
+    raise TypeError("Don't know how to convert object to JSON: %r" % obj)
 
 
 class _NodeProcess:

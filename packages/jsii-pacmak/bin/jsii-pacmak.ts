@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import fs = require('fs-extra');
+import reflect = require('jsii-reflect');
 import spec = require('jsii-spec');
 import os = require('os');
 import path = require('path');
@@ -136,6 +137,10 @@ import { VERSION_DESC } from '../lib/version';
             const tarball = await timers.recordAsync('npm pack', () => {
                 return npmPack(packageDir, tmpdir);
             });
+
+            const ts = new reflect.TypeSystem();
+            const assembly = await ts.loadModule(packageDir);
+
             for (const targetName of targets) {
                 // if we are targeting a single language, output to outdir, otherwise outdir/<target>
                 const targetOutputDir = (targets.length > 1 || forceSubdirectory)
@@ -144,7 +149,7 @@ import { VERSION_DESC } from '../lib/version';
                 logging.debug(`Building ${pkg.name}/${targetName}: ${targetOutputDir}`);
 
                 await timers.recordAsync(targetName.toString(), () =>
-                    generateTarget(packageDir, targetName.toString(), targetOutputDir, tarball)
+                    generateTarget(assembly, packageDir, targetName.toString(), targetOutputDir, tarball)
                 );
             }
         } finally {
@@ -159,7 +164,7 @@ import { VERSION_DESC } from '../lib/version';
         logging.info(`Packaged. ${timers.display()}`);
     }
 
-    async function generateTarget(packageDir: string, targetName: string, targetOutputDir: string, tarball: string) {
+    async function generateTarget(assembly: reflect.Assembly, packageDir: string, targetName: string, targetOutputDir: string, tarball: string) {
         // ``argv.target`` is guaranteed valid by ``yargs`` through the ``choices`` directive.
         const targetConstructor = targetConstructors[targetName];
         if (!targetConstructor) {
@@ -169,6 +174,7 @@ import { VERSION_DESC } from '../lib/version';
         const target = new targetConstructor({
             targetName,
             packageDir,
+            assembly,
             fingerprint: argv.fingerprint,
             force: argv.force,
             arguments: argv

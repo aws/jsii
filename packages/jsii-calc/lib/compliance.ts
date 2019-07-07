@@ -1741,3 +1741,46 @@ export class DataRenderer {
         return JSON.stringify(map, null, 2);
     }
 }
+
+export interface TopLevelStruct {
+    /**
+     * This is a required field
+     */
+    readonly required: string;
+
+    /**
+     * You don't have to pass this
+     */
+    readonly optional?: string;
+
+    /**
+     * A union to really stress test our serialization
+     */
+    readonly secondLevel: SecondLevelStruct | number;
+}
+
+export interface SecondLevelStruct {
+    /**
+     * It's long and required
+     */
+    readonly deeperRequiredProp: string;
+
+    /**
+     * It's long, but you'll almost never pass it.
+     */
+    readonly deeperOptionalProp?: string;
+}
+
+export class StructPassing {
+    public static roundTrip(_positional: number, input: TopLevelStruct): TopLevelStruct {
+        return {
+            required: input.required,
+            optional: input.optional,
+            secondLevel: input.secondLevel,
+        };
+    }
+
+    public static howManyVarArgsDidIPass(_positional: number, inputs: TopLevelStruct[]): number {
+        return inputs.length;
+    }
+}

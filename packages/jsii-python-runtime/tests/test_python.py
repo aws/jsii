@@ -21,7 +21,7 @@ class TestErrorHandling:
 
         base_names = [b.__name__ for b  in bases]
 
-        assert base_names == ['DerivedStruct', '_DerivedStruct', 'MyFirstStruct', '_MyFirstStruct']
+        assert base_names == ['DerivedStruct', 'MyFirstStruct']
 
 
 

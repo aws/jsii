@@ -1,4 +1,5 @@
 import fs = require('fs-extra');
+import reflect = require('jsii-reflect');
 import spec = require('jsii-spec');
 import path = require('path');
 import { Generator } from '../generator';
@@ -46,8 +47,8 @@ class SphinxDocsGenerator extends Generator {
         this.code.indentation = 3;
     }
 
-    public async load(packageRoot: string) {
-        await super.load(packageRoot);
+    public async load(packageRoot: string, assembly: reflect.Assembly) {
+        await super.load(packageRoot, assembly);
         this.targets = await Target.findAll();
     }
 

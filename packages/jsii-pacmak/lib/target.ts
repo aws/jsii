@@ -1,4 +1,5 @@
 import fs = require('fs-extra');
+import reflect = require('jsii-reflect');
 import spec = require('jsii-spec');
 import path = require('path');
 
@@ -28,11 +29,13 @@ export abstract class Target {
     protected readonly force: boolean;
     protected readonly arguments: { [name: string]: any };
     protected readonly targetName: string;
+    protected readonly assembly: reflect.Assembly;
 
     protected abstract get generator(): IGenerator;
 
     constructor(options: TargetOptions) {
         this.packageDir = options.packageDir;
+        this.assembly = options.assembly;
         this.fingerprint = options.fingerprint != null ? options.fingerprint : true;
         this.force = options.force != null ? options.force : false;
         this.arguments = options.arguments;
@@ -45,7 +48,8 @@ export abstract class Target {
      * @param outDir the directory where the generated source will be placed.
      */
     public async generateCode(outDir: string, tarball: string): Promise<void> {
-        await this.generator.load(this.packageDir);
+        await this.generator.load(this.packageDir, this.assembly);
+
         if (this.force || !await this.generator.upToDate(outDir)) {
             await this.generator.generate(this.fingerprint);
             await this.generator.save(outDir, tarball);
@@ -181,6 +185,10 @@ export interface TargetOptions {
 
     /** The directory where the JSII package is located */
     packageDir: string;
+
+    /** The JSII-reflect assembly for this JSII assembly */
+    assembly: reflect.Assembly;
+
     /**
      * Whether to fingerprint the produced artifacts.
      * @default true

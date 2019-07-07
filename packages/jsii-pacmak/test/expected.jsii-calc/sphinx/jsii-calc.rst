@@ -5827,6 +5827,53 @@ RuntimeTypeChecking
       :type arg3: date
 
 
+SecondLevelStruct (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: SecondLevelStruct
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.SecondLevelStruct;
+
+      .. code-tab:: javascript
+
+         // SecondLevelStruct is an interface
+
+      .. code-tab:: typescript
+
+         import { SecondLevelStruct } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: deeperRequiredProp
+
+      It's long and required.
+
+
+
+      :type: string *(readonly)*
+
+
+   .. py:attribute:: deeperOptionalProp
+
+      It's long, but you'll almost never pass it.
+
+
+
+      :type: string *(optional)* *(readonly)*
+
+
 SingleInstanceTwoTypes
 ^^^^^^^^^^^^^^^^^^^^^^
 
@@ -6361,6 +6408,52 @@ StripInternal
       :type: string
 
 
+StructPassing
+^^^^^^^^^^^^^
+
+.. py:class:: StructPassing()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.StructPassing;
+
+      .. code-tab:: javascript
+
+         const { StructPassing } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { StructPassing } from 'jsii-calc';
+
+
+
+
+   .. py:staticmethod:: howManyVarArgsDidIPass(_positional, inputs) -> number
+
+      :param _positional: 
+      :type _positional: number
+      :param inputs: 
+      :type inputs: :py:class:`~jsii-calc.TopLevelStruct`\ []
+      :rtype: number
+
+
+   .. py:staticmethod:: roundTrip(_positional, input) -> jsii-calc.TopLevelStruct
+
+      :param _positional: 
+      :type _positional: number
+      :param input: 
+      :type input: :py:class:`~jsii-calc.TopLevelStruct`\ 
+      :rtype: :py:class:`~jsii-calc.TopLevelStruct`\ 
+
+
 Sum
 ^^^
 
@@ -6620,6 +6713,62 @@ Thrower
 
    .. py:method:: throwError()
 
+
+
+TopLevelStruct (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: TopLevelStruct
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.TopLevelStruct;
+
+      .. code-tab:: javascript
+
+         // TopLevelStruct is an interface
+
+      .. code-tab:: typescript
+
+         import { TopLevelStruct } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: required
+
+      This is a required field.
+
+
+
+      :type: string *(readonly)*
+
+
+   .. py:attribute:: secondLevel
+
+      A union to really stress test our serialization.
+
+
+
+      :type: number or :py:class:`~jsii-calc.SecondLevelStruct`\  *(readonly)*
+
+
+   .. py:attribute:: optional
+
+      You don't have to pass this.
+
+
+
+      :type: string *(optional)* *(readonly)*
 
 
 UnaryOperation

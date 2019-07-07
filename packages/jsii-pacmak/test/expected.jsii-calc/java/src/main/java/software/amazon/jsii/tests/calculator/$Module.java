@@ -126,6 +126,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.ReferenceEnumFromScopedPackage": return software.amazon.jsii.tests.calculator.ReferenceEnumFromScopedPackage.class;
             case "jsii-calc.ReturnsPrivateImplementationOfInterface": return software.amazon.jsii.tests.calculator.ReturnsPrivateImplementationOfInterface.class;
             case "jsii-calc.RuntimeTypeChecking": return software.amazon.jsii.tests.calculator.RuntimeTypeChecking.class;
+            case "jsii-calc.SecondLevelStruct": return software.amazon.jsii.tests.calculator.SecondLevelStruct.class;
             case "jsii-calc.SingleInstanceTwoTypes": return software.amazon.jsii.tests.calculator.SingleInstanceTwoTypes.class;
             case "jsii-calc.SingletonInt": return software.amazon.jsii.tests.calculator.SingletonInt.class;
             case "jsii-calc.SingletonIntEnum": return software.amazon.jsii.tests.calculator.SingletonIntEnum.class;
@@ -138,9 +139,11 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.Statics": return software.amazon.jsii.tests.calculator.Statics.class;
             case "jsii-calc.StringEnum": return software.amazon.jsii.tests.calculator.StringEnum.class;
             case "jsii-calc.StripInternal": return software.amazon.jsii.tests.calculator.StripInternal.class;
+            case "jsii-calc.StructPassing": return software.amazon.jsii.tests.calculator.StructPassing.class;
             case "jsii-calc.Sum": return software.amazon.jsii.tests.calculator.Sum.class;
             case "jsii-calc.SyncVirtualMethods": return software.amazon.jsii.tests.calculator.SyncVirtualMethods.class;
             case "jsii-calc.Thrower": return software.amazon.jsii.tests.calculator.Thrower.class;
+            case "jsii-calc.TopLevelStruct": return software.amazon.jsii.tests.calculator.TopLevelStruct.class;
             case "jsii-calc.UnaryOperation": return software.amazon.jsii.tests.calculator.UnaryOperation.class;
             case "jsii-calc.UnionProperties": return software.amazon.jsii.tests.calculator.UnionProperties.class;
             case "jsii-calc.UseBundledDependency": return software.amazon.jsii.tests.calculator.UseBundledDependency.class;

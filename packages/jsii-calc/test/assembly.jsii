@@ -7150,6 +7150,55 @@
       ],
       "name": "RuntimeTypeChecking"
     },
+    "jsii-calc.SecondLevelStruct": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.SecondLevelStruct",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1762
+      },
+      "name": "SecondLevelStruct",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental",
+            "summary": "It's long and required."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1766
+          },
+          "name": "deeperRequiredProp",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental",
+            "summary": "It's long, but you'll almost never pass it."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1771
+          },
+          "name": "deeperOptionalProp",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.SingleInstanceTwoTypes": {
       "assembly": "jsii-calc",
       "docs": {
@@ -7756,6 +7805,87 @@
         }
       ]
     },
+    "jsii-calc.StructPassing": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.StructPassing",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1774
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1783
+          },
+          "name": "howManyVarArgsDidIPass",
+          "parameters": [
+            {
+              "name": "_positional",
+              "type": {
+                "primitive": "number"
+              }
+            },
+            {
+              "name": "inputs",
+              "type": {
+                "collection": {
+                  "elementtype": {
+                    "fqn": "jsii-calc.TopLevelStruct"
+                  },
+                  "kind": "array"
+                }
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "number"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1775
+          },
+          "name": "roundTrip",
+          "parameters": [
+            {
+              "name": "_positional",
+              "type": {
+                "primitive": "number"
+              }
+            },
+            {
+              "name": "input",
+              "type": {
+                "fqn": "jsii-calc.TopLevelStruct"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.TopLevelStruct"
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "StructPassing"
+    },
     "jsii-calc.Sum": {
       "assembly": "jsii-calc",
       "base": "jsii-calc.composition.CompositeOperation",
@@ -8103,6 +8233,80 @@
         }
       ],
       "name": "Thrower"
+    },
+    "jsii-calc.TopLevelStruct": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.TopLevelStruct",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1745
+      },
+      "name": "TopLevelStruct",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental",
+            "summary": "This is a required field."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1749
+          },
+          "name": "required",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental",
+            "summary": "A union to really stress test our serialization."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1759
+          },
+          "name": "secondLevel",
+          "type": {
+            "union": {
+              "types": [
+                {
+                  "primitive": "number"
+                },
+                {
+                  "fqn": "jsii-calc.SecondLevelStruct"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental",
+            "summary": "You don't have to pass this."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1754
+          },
+          "name": "optional",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
     },
     "jsii-calc.UnaryOperation": {
       "abstract": true,
@@ -8851,5 +9055,5 @@
     }
   },
   "version": "0.13.4",
-  "fingerprint": "T+Xf0Qtu6HVsykkz6vGH8OhMtRQbt7Jzq4O7Rsv5SeM="
+  "fingerprint": "7VlL0zBte+Qeew8qdhvaeS0ZtQtbbT8m3wjT7mDtAoE="
 }

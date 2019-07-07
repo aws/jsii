@@ -109,10 +109,19 @@ def _dereferenced(fn):
 # We need to recurse through our data structure and look for anything that the JSII
 # doesn't natively handle. These items will be created as "Object" types in the JSII.
 def _make_reference_for_native(kernel, d):
+    # Ugly delayed import here because I can't solve the cyclic
+    # package dependency right now :(.
+    from jsii._runtime import python_jsii_mapping
+
     if isinstance(d, dict):
         return {k: _make_reference_for_native(kernel, v) for k, v in d.items()}
     elif isinstance(d, list):
         return [_make_reference_for_native(kernel, i) for i in d]
+
+    mapping = python_jsii_mapping(d)
+    if mapping:
+        struct_data = {jsii_name: getattr(d, python_name) for python_name, jsii_name in mapping.items()}
+        return _make_reference_for_native(kernel, struct_data)
     elif hasattr(d, "__jsii_type__"):
         return d
     elif isinstance(d, (int, type(None), str, float, bool, datetime.datetime)):
@@ -148,7 +157,7 @@ def _callback_till_result(kernel, response: Callback, response_type: Type[Kernel
             response = kernel.sync_complete(response.cbid, str(exc), None, response_type)
         else:
             response = kernel.sync_complete(response.cbid, None, result, response_type)
-    
+
     if isinstance(response, InvokeResponse):
         return response.result
     elif isinstance(response, GetResponse):
