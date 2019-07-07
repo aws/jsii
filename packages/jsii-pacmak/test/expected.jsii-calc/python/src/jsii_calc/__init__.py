@@ -3917,14 +3917,14 @@ class JsiiAgent(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JsiiAgent"):
         return jsii.sget(cls, "jsiiAgent")
 
 
-@jsii.data_type(jsii_type="jsii-calc.LoadBalancedFargateServiceProps", jsii_struct_bases=[], name_mapping={'container_port': 'containerPort', 'cpu': 'cpu', 'memory_mi_b': 'memoryMiB', 'public_load_balancer': 'publicLoadBalancer', 'public_tasks': 'publicTasks'})
+@jsii.data_type(jsii_type="jsii-calc.LoadBalancedFargateServiceProps", jsii_struct_bases=[], name_mapping={'container_port': 'containerPort', 'cpu': 'cpu', 'memory_mib': 'memoryMiB', 'public_load_balancer': 'publicLoadBalancer', 'public_tasks': 'publicTasks'})
 class LoadBalancedFargateServiceProps:
-    def __init__(self, *, container_port: typing.Optional[jsii.Number]=None, cpu: typing.Optional[str]=None, memory_mi_b: typing.Optional[str]=None, public_load_balancer: typing.Optional[bool]=None, public_tasks: typing.Optional[bool]=None):
+    def __init__(self, *, container_port: typing.Optional[jsii.Number]=None, cpu: typing.Optional[str]=None, memory_mib: typing.Optional[str]=None, public_load_balancer: typing.Optional[bool]=None, public_tasks: typing.Optional[bool]=None):
         """jsii#298: show default values in sphinx documentation, and respect newlines.
 
         :param container_port: The container port of the application load balancer attached to your Fargate service. Corresponds to container port mapping. Default: 80
         :param cpu: The number of cpu units used by the task. Valid values, which determines your range of valid values for the memory parameter: 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments. This default is set in the underlying FargateTaskDefinition construct. Default: 256
-        :param memory_mi_b: The amount (in MiB) of memory used by the task. This field is required and you must use one of the following values, which determines your range of valid values for the cpu parameter: 0.5GB, 1GB, 2GB - Available cpu values: 256 (.25 vCPU) 1GB, 2GB, 3GB, 4GB - Available cpu values: 512 (.5 vCPU) 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB - Available cpu values: 1024 (1 vCPU) Between 4GB and 16GB in 1GB increments - Available cpu values: 2048 (2 vCPU) Between 8GB and 30GB in 1GB increments - Available cpu values: 4096 (4 vCPU) This default is set in the underlying FargateTaskDefinition construct. Default: 512
+        :param memory_mib: The amount (in MiB) of memory used by the task. This field is required and you must use one of the following values, which determines your range of valid values for the cpu parameter: 0.5GB, 1GB, 2GB - Available cpu values: 256 (.25 vCPU) 1GB, 2GB, 3GB, 4GB - Available cpu values: 512 (.5 vCPU) 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB - Available cpu values: 1024 (1 vCPU) Between 4GB and 16GB in 1GB increments - Available cpu values: 2048 (2 vCPU) Between 8GB and 30GB in 1GB increments - Available cpu values: 4096 (4 vCPU) This default is set in the underlying FargateTaskDefinition construct. Default: 512
         :param public_load_balancer: Determines whether the Application Load Balancer will be internet-facing. Default: true
         :param public_tasks: Determines whether your Fargate Service will be assigned a public IP address. Default: false
 
@@ -3935,7 +3935,7 @@ class LoadBalancedFargateServiceProps:
         }
         if container_port is not None: self._values["container_port"] = container_port
         if cpu is not None: self._values["cpu"] = cpu
-        if memory_mi_b is not None: self._values["memory_mi_b"] = memory_mi_b
+        if memory_mib is not None: self._values["memory_mib"] = memory_mib
         if public_load_balancer is not None: self._values["public_load_balancer"] = public_load_balancer
         if public_tasks is not None: self._values["public_tasks"] = public_tasks
 
@@ -3968,7 +3968,7 @@ class LoadBalancedFargateServiceProps:
         return self._values.get('cpu')
 
     @property
-    def memory_mi_b(self) -> typing.Optional[str]:
+    def memory_mib(self) -> typing.Optional[str]:
         """The amount (in MiB) of memory used by the task.
 
         This field is required and you must use one of the following values, which determines your range of valid values
@@ -3992,7 +3992,7 @@ class LoadBalancedFargateServiceProps:
         stability
         :stability: experimental
         """
-        return self._values.get('memory_mi_b')
+        return self._values.get('memory_mib')
 
     @property
     def public_load_balancer(self) -> typing.Optional[bool]:
