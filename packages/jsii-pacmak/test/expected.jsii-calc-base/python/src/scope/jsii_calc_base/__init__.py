@@ -23,8 +23,8 @@ class Base(metaclass=jsii.JSIIAbstractClass, jsii_type="@scope/jsii-calc-base.Ba
     @jsii.member(jsii_name="typeName")
     def type_name(self) -> typing.Any:
         """
-        Returns:
-            the name of the class (to verify native type names are created for derived classes).
+        return
+        :return: the name of the class (to verify native type names are created for derived classes).
         """
         return jsii.invoke(self, "typeName", [])
 
@@ -36,9 +36,8 @@ class _BaseProxy(Base):
 class BaseProps:
     def __init__(self, *, foo: scope.jsii_calc_base_of_base.Very, bar: str):
         """
-        Arguments:
-            foo: -
-            bar: -
+        :param foo: -
+        :param bar: -
         """
         self._values = {
             'foo': foo,
@@ -52,12 +51,6 @@ class BaseProps:
     @property
     def bar(self) -> str:
         return self._values.get('bar')
-
-    def _to_jsii(self) -> dict:
-        return {
-          'foo': self.foo,
-          'bar': self.bar,
-        }
 
     def __eq__(self, rhs) -> bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
