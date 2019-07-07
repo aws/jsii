@@ -612,7 +612,7 @@ class Struct extends BasePythonClassType {
 
     public addMember(member: PythonBase): void {
         if (!(member instanceof StructField)) {
-            throw new Error('Must add TypedDictProperties to ValueType');
+            throw new Error('Must add StructField to Struct');
         }
         this.directMembers.push(member);
     }
@@ -620,12 +620,10 @@ class Struct extends BasePythonClassType {
     public emit(code: CodeMaker, resolver: TypeResolver) {
         resolver = this.fqn ? resolver.bind(this.fqn) : resolver;
 
-        // Not actually rendering these as class params,
-        // we splat the entire
         const baseInterfaces = this.getClassParams(resolver);
 
         code.line(`@jsii.data_type(jsii_type="${this.fqn}", jsii_struct_bases=[${baseInterfaces.join(', ')}], name_mapping=${this.propertyMap()})`);
-        code.openBlock(`class ${this.pythonName}`);
+        code.openBlock(`class ${this.pythonName}(${baseInterfaces.join(', ')})`);
         this.emitConstructor(code, resolver);
 
         for (const member of this.allMembers) {

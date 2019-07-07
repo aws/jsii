@@ -625,7 +625,7 @@ class Add(BinaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Add"):
 
 
 @jsii.data_type(jsii_type="jsii-calc.CalculatorProps", jsii_struct_bases=[], name_mapping={'initial_value': 'initialValue', 'maximum_value': 'maximumValue'})
-class CalculatorProps:
+class CalculatorProps():
     def __init__(self, *, initial_value: typing.Optional[jsii.Number]=None, maximum_value: typing.Optional[jsii.Number]=None):
         """Properties for Calculator.
 
@@ -993,7 +993,7 @@ class DeprecatedEnum(enum.Enum):
     """
 
 @jsii.data_type(jsii_type="jsii-calc.DeprecatedStruct", jsii_struct_bases=[], name_mapping={'readonly_property': 'readonlyProperty'})
-class DeprecatedStruct:
+class DeprecatedStruct():
     def __init__(self, *, readonly_property: str):
         """
         :param readonly_property: 
@@ -1063,7 +1063,7 @@ class DerivedClassHasNoProperties:
 
 
 @jsii.data_type(jsii_type="jsii-calc.DerivedStruct", jsii_struct_bases=[scope.jsii_calc_lib.MyFirstStruct], name_mapping={'anumber': 'anumber', 'astring': 'astring', 'first_optional': 'firstOptional', 'another_required': 'anotherRequired', 'bool': 'bool', 'non_primitive': 'nonPrimitive', 'another_optional': 'anotherOptional', 'optional_any': 'optionalAny', 'optional_array': 'optionalArray'})
-class DerivedStruct:
+class DerivedStruct(scope.jsii_calc_lib.MyFirstStruct):
     def __init__(self, *, anumber: jsii.Number, astring: str, first_optional: typing.Optional[typing.List[str]]=None, another_required: datetime.datetime, bool: bool, non_primitive: "DoubleTrouble", another_optional: typing.Optional[typing.Mapping[str,scope.jsii_calc_lib.Value]]=None, optional_any: typing.Any=None, optional_array: typing.Optional[typing.List[str]]=None):
         """A struct which derives from another struct.
 
@@ -1339,7 +1339,7 @@ class EraseUndefinedHashValues(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Era
 
 
 @jsii.data_type(jsii_type="jsii-calc.EraseUndefinedHashValuesOptions", jsii_struct_bases=[], name_mapping={'option1': 'option1', 'option2': 'option2'})
-class EraseUndefinedHashValuesOptions:
+class EraseUndefinedHashValuesOptions():
     def __init__(self, *, option1: typing.Optional[str]=None, option2: typing.Optional[str]=None):
         """
         :param option1: 
@@ -1443,7 +1443,7 @@ class ExperimentalEnum(enum.Enum):
     """
 
 @jsii.data_type(jsii_type="jsii-calc.ExperimentalStruct", jsii_struct_bases=[], name_mapping={'readonly_property': 'readonlyProperty'})
-class ExperimentalStruct:
+class ExperimentalStruct():
     def __init__(self, *, readonly_property: str):
         """
         :param readonly_property: 
@@ -1498,7 +1498,7 @@ class ExportedBaseClass(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ExportedBa
 
 
 @jsii.data_type(jsii_type="jsii-calc.ExtendsInternalInterface", jsii_struct_bases=[], name_mapping={'boom': 'boom', 'prop': 'prop'})
-class ExtendsInternalInterface:
+class ExtendsInternalInterface():
     def __init__(self, *, boom: bool, prop: str):
         """
         :param boom: 
@@ -1617,7 +1617,7 @@ class GiveMeStructs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.GiveMeStructs"
 
 
 @jsii.data_type(jsii_type="jsii-calc.Greetee", jsii_struct_bases=[], name_mapping={'name': 'name'})
-class Greetee:
+class Greetee():
     def __init__(self, *, name: typing.Optional[str]=None):
         """These are some arguments you can pass to a method.
 
@@ -3157,7 +3157,7 @@ class ImplementsPrivateInterface(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.I
 
 
 @jsii.data_type(jsii_type="jsii-calc.ImplictBaseOfBase", jsii_struct_bases=[scope.jsii_calc_base.BaseProps], name_mapping={'foo': 'foo', 'bar': 'bar', 'goo': 'goo'})
-class ImplictBaseOfBase:
+class ImplictBaseOfBase(scope.jsii_calc_base.BaseProps):
     def __init__(self, *, foo: scope.jsii_calc_base_of_base.Very, bar: str, goo: datetime.datetime):
         """
         :param foo: -
@@ -3223,7 +3223,7 @@ class InterfaceInNamespaceIncludesClasses:
 
 
     @jsii.data_type(jsii_type="jsii-calc.InterfaceInNamespaceIncludesClasses.Hello", jsii_struct_bases=[], name_mapping={'foo': 'foo'})
-    class Hello:
+    class Hello():
         def __init__(self, *, foo: jsii.Number):
             """
             :param foo: 
@@ -3256,7 +3256,7 @@ class InterfaceInNamespaceIncludesClasses:
 
 class InterfaceInNamespaceOnlyInterface:
     @jsii.data_type(jsii_type="jsii-calc.InterfaceInNamespaceOnlyInterface.Hello", jsii_struct_bases=[], name_mapping={'foo': 'foo'})
-    class Hello:
+    class Hello():
         def __init__(self, *, foo: jsii.Number):
             """
             :param foo: 
@@ -3918,7 +3918,7 @@ class JsiiAgent(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.JsiiAgent"):
 
 
 @jsii.data_type(jsii_type="jsii-calc.LoadBalancedFargateServiceProps", jsii_struct_bases=[], name_mapping={'container_port': 'containerPort', 'cpu': 'cpu', 'memory_mib': 'memoryMiB', 'public_load_balancer': 'publicLoadBalancer', 'public_tasks': 'publicTasks'})
-class LoadBalancedFargateServiceProps:
+class LoadBalancedFargateServiceProps():
     def __init__(self, *, container_port: typing.Optional[jsii.Number]=None, cpu: typing.Optional[str]=None, memory_mib: typing.Optional[str]=None, public_load_balancer: typing.Optional[bool]=None, public_tasks: typing.Optional[bool]=None):
         """jsii#298: show default values in sphinx documentation, and respect newlines.
 
@@ -4212,7 +4212,7 @@ class NullShouldBeTreatedAsUndefined(metaclass=jsii.JSIIMeta, jsii_type="jsii-ca
 
 
 @jsii.data_type(jsii_type="jsii-calc.NullShouldBeTreatedAsUndefinedData", jsii_struct_bases=[], name_mapping={'array_with_three_elements_and_undefined_as_second_argument': 'arrayWithThreeElementsAndUndefinedAsSecondArgument', 'this_should_be_undefined': 'thisShouldBeUndefined'})
-class NullShouldBeTreatedAsUndefinedData:
+class NullShouldBeTreatedAsUndefinedData():
     def __init__(self, *, array_with_three_elements_and_undefined_as_second_argument: typing.List[typing.Any], this_should_be_undefined: typing.Any=None):
         """
         :param array_with_three_elements_and_undefined_as_second_argument: 
@@ -4398,7 +4398,7 @@ class OptionalConstructorArgument(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.
 
 
 @jsii.data_type(jsii_type="jsii-calc.OptionalStruct", jsii_struct_bases=[], name_mapping={'field': 'field'})
-class OptionalStruct:
+class OptionalStruct():
     def __init__(self, *, field: typing.Optional[str]=None):
         """
         :param field: 
@@ -4952,7 +4952,7 @@ class RuntimeTypeChecking(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.RuntimeT
 
 
 @jsii.data_type(jsii_type="jsii-calc.SecondLevelStruct", jsii_struct_bases=[], name_mapping={'deeper_required_prop': 'deeperRequiredProp', 'deeper_optional_prop': 'deeperOptionalProp'})
-class SecondLevelStruct:
+class SecondLevelStruct():
     def __init__(self, *, deeper_required_prop: str, deeper_optional_prop: typing.Optional[str]=None):
         """
         :param deeper_required_prop: It's long and required.
@@ -5123,7 +5123,7 @@ class StableEnum(enum.Enum):
     OPTION_B = "OPTION_B"
 
 @jsii.data_type(jsii_type="jsii-calc.StableStruct", jsii_struct_bases=[], name_mapping={'readonly_property': 'readonlyProperty'})
-class StableStruct:
+class StableStruct():
     def __init__(self, *, readonly_property: str):
         """
         :param readonly_property: 
@@ -5558,7 +5558,7 @@ class Thrower(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Thrower"):
 
 
 @jsii.data_type(jsii_type="jsii-calc.TopLevelStruct", jsii_struct_bases=[], name_mapping={'required': 'required', 'second_level': 'secondLevel', 'optional': 'optional'})
-class TopLevelStruct:
+class TopLevelStruct():
     def __init__(self, *, required: str, second_level: typing.Union[jsii.Number, "SecondLevelStruct"], optional: typing.Optional[str]=None):
         """
         :param required: This is a required field.
@@ -5707,7 +5707,7 @@ class Negate(UnaryOperation, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Negat
 
 
 @jsii.data_type(jsii_type="jsii-calc.UnionProperties", jsii_struct_bases=[], name_mapping={'bar': 'bar', 'foo': 'foo'})
-class UnionProperties:
+class UnionProperties():
     def __init__(self, *, bar: typing.Union[str, jsii.Number, "AllTypes"], foo: typing.Optional[typing.Union[typing.Optional[str], typing.Optional[jsii.Number]]]=None):
         """
         :param bar: 

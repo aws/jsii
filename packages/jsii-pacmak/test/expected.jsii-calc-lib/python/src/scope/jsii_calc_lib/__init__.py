@@ -154,7 +154,7 @@ class _IThreeLevelsInterfaceProxy(jsii.proxy_for(scope.jsii_calc_base.IBaseInter
 
 
 @jsii.data_type(jsii_type="@scope/jsii-calc-lib.MyFirstStruct", jsii_struct_bases=[], name_mapping={'anumber': 'anumber', 'astring': 'astring', 'first_optional': 'firstOptional'})
-class MyFirstStruct:
+class MyFirstStruct():
     def __init__(self, *, anumber: jsii.Number, astring: str, first_optional: typing.Optional[typing.List[str]]=None):
         """This is the first struct we have created in jsii.
 
@@ -208,7 +208,7 @@ class MyFirstStruct:
 
 
 @jsii.data_type(jsii_type="@scope/jsii-calc-lib.StructWithOnlyOptionals", jsii_struct_bases=[], name_mapping={'optional1': 'optional1', 'optional2': 'optional2', 'optional3': 'optional3'})
-class StructWithOnlyOptionals:
+class StructWithOnlyOptionals():
     def __init__(self, *, optional1: typing.Optional[str]=None, optional2: typing.Optional[jsii.Number]=None, optional3: typing.Optional[bool]=None):
         """This is a struct with only optional properties.
 

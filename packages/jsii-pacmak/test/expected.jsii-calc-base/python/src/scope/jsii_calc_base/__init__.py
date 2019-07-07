@@ -33,7 +33,7 @@ class _BaseProxy(Base):
     pass
 
 @jsii.data_type(jsii_type="@scope/jsii-calc-base.BaseProps", jsii_struct_bases=[scope.jsii_calc_base_of_base.VeryBaseProps], name_mapping={'foo': 'foo', 'bar': 'bar'})
-class BaseProps:
+class BaseProps(scope.jsii_calc_base_of_base.VeryBaseProps):
     def __init__(self, *, foo: scope.jsii_calc_base_of_base.Very, bar: str):
         """
         :param foo: -
