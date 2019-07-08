@@ -1,6 +1,6 @@
 {
   "name": "oo-ascii-tree",
-  "version": "0.13.4",
+  "version": "0.14.0",
   "description": "object-oriented ascii tree renderer",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -13,7 +13,7 @@
   "devDependencies": {
     "@types/jest": "^24.0.14",
     "jest": "^24.8.0",
-    "jsii-build-tools": "^0.13.4",
+    "jsii-build-tools": "^0.14.0",
     "ts-jest": "^24.0.2",
     "typescript": "^3.5.2"
   },
