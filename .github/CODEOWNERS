@@ -7,6 +7,6 @@
 #
 # @See https://help.github.com/articles/about-codeowners/
 
-*                               @awslabs/aws-cdk-team
-/docs/                          @awslabs/aws-cdk-team @Doug-AWS
-/packages/*-dotnet-*/           @awslabs/aws-cdk-team @costleya
+*                               @aws/aws-cdk-team
+/docs/                          @aws/aws-cdk-team @Doug-AWS
+/packages/*-dotnet-*/           @aws/aws-cdk-team @costleya
