@@ -1,6 +1,6 @@
 {
   "name": "jsii-dotnet-runtime",
-  "version": "0.13.4",
+  "version": "0.14.0",
   "description": ".NET client for jsii runtime",
   "main": "lib/index.js",
   "private": true,
@@ -12,12 +12,12 @@
     "package": "package-dotnet"
   },
   "devDependencies": {
-    "jsii-build-tools": "^0.13.4",
-    "jsii-runtime": "^0.13.4",
+    "jsii-build-tools": "^0.14.0",
+    "jsii-runtime": "^0.14.0",
     "typescript": "^3.5.2"
   },
   "dependencies": {
-    "jsii-dotnet-jsonmodel": "^0.13.4"
+    "jsii-dotnet-jsonmodel": "^0.14.0"
   },
   "author": {
     "name": "Amazon Web Services",
