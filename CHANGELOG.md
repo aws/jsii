@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.0](https://github.com/awslabs/jsii/compare/v0.13.4...v0.14.0) (2019-07-08)
+
+
+### Features
+
+* **python:** idiomatic capitalization for structs ([#586](https://github.com/awslabs/jsii/issues/586)) ([51211a0](https://github.com/awslabs/jsii/commit/51211a0)), closes [#537](https://github.com/awslabs/jsii/issues/537) [#577](https://github.com/awslabs/jsii/issues/577) [#578](https://github.com/awslabs/jsii/issues/578) [#588](https://github.com/awslabs/jsii/issues/588)
+
+
+
+
+
 ## [0.13.4](https://github.com/awslabs/jsii/compare/v0.13.3...v0.13.4) (2019-07-03)
 
 **Note:** Version bump only for package jsii
