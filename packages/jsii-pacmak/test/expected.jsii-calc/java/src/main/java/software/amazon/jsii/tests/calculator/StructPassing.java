@@ -19,8 +19,8 @@ public class StructPassing extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static java.lang.Number howManyVarArgsDidIPass(final java.lang.Number _positional, final java.util.List<software.amazon.jsii.tests.calculator.TopLevelStruct> inputs) {
-        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.StructPassing.class, "howManyVarArgsDidIPass", java.lang.Number.class, new Object[] { java.util.Objects.requireNonNull(_positional, "_positional is required"), java.util.Objects.requireNonNull(inputs, "inputs is required") });
+    public static java.lang.Number howManyVarArgsDidIPass(final java.lang.Number _positional, final software.amazon.jsii.tests.calculator.TopLevelStruct... inputs) {
+        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.StructPassing.class, "howManyVarArgsDidIPass", java.lang.Number.class, java.util.stream.Stream.concat(java.util.Arrays.<Object>stream(new Object[] { java.util.Objects.requireNonNull(_positional, "_positional is required") }), java.util.Arrays.<Object>stream(inputs)).toArray(Object[]::new));
     }
 
     /**

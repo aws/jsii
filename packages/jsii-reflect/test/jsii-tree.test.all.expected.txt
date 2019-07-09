@@ -1091,11 +1091,13 @@ assemblies
  │   │   ├── <initializer>() initializer (experimental)
  │   │   ├─┬ static howManyVarArgsDidIPass(_positional,inputs) method (experimental)
  │   │   │ ├── static
+ │   │   │ ├── variadic
  │   │   │ ├─┬ parameters
  │   │   │ │ ├─┬ _positional
  │   │   │ │ │ └── type: number
  │   │   │ │ └─┬ inputs
- │   │   │ │   └── type: Array<jsii-calc.TopLevelStruct>
+ │   │   │ │   ├── type: jsii-calc.TopLevelStruct
+ │   │   │ │   └── variadic
  │   │   │ └── returns: number
  │   │   └─┬ static roundTrip(_positional,input) method (experimental)
  │   │     ├── static
