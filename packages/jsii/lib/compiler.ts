@@ -198,7 +198,7 @@ export class Compiler implements Emitter {
                 target: COMPILER_OPTIONS.target && ts.ScriptTarget[COMPILER_OPTIONS.target],
                 jsx: COMPILER_OPTIONS.jsx && Case.snake(ts.JsxEmit[COMPILER_OPTIONS.jsx]),
             },
-            include: [this.options.projectInfo.tscRootDir + "**/*.ts"],
+            include: [this.options.projectInfo.tscRootDir ? `${this.options.projectInfo.tscRootDir}/**/*.ts` : "**/*.ts"],
             exclude: ["node_modules"].concat(this.options.projectInfo.excludeTypescript),
             // Change the references a little. We write 'originalpath' to the
             // file under the 'path' key, which is the same as what the
