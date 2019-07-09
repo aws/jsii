@@ -41,6 +41,8 @@ export interface ProjectInfo {
     readonly contributors?: ReadonlyArray<spec.Person>;
     readonly excludeTypescript: string[];
     readonly projectReferences?: boolean;
+    readonly tscOutDir?: string;
+    readonly tscRootDir?: string;
 }
 
 export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies }: { fixPeerDependencies: boolean }): Promise<ProjectInfo> {
@@ -138,6 +140,8 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
 
         excludeTypescript: (pkg.jsii && pkg.jsii.excludeTypescript) || [],
         projectReferences: pkg.jsii && pkg.jsii.projectReferences,
+        tscOutDir: pkg.jsii && pkg.jsii.tscoutdir,
+        tscRootDir: pkg.jsii && pkg.jsii.tscrootdir,
     };
 }
 

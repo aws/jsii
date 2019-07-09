@@ -101,7 +101,7 @@ export class Compiler implements Emitter {
 
         const prog = ts.createProgram({
             rootNames: this.rootFiles.concat(_pathOfLibraries(this.compilerHost)),
-            options: COMPILER_OPTIONS,
+            options: {...COMPILER_OPTIONS, outDir: this.options.projectInfo.tscOutDir, rootDir: this.options.projectInfo.tscRootDir},
             // Make the references absolute for the compiler
             projectReferences: tsconf.references && tsconf.references.map(ref => ({ path: path.resolve(ref.path) })),
             host: this.compilerHost
@@ -118,7 +118,12 @@ export class Compiler implements Emitter {
             const projectRoot = this.options.projectInfo.projectRoot;
             const host = ts.createWatchCompilerHost(
                 this.configPath,
-                { ...COMPILER_OPTIONS, noEmitOnError: false },
+                {
+                    ...COMPILER_OPTIONS,
+                    noEmitOnError: false,
+                    outDir: this.options.projectInfo.tscOutDir,
+                    rootDir: this.options.projectInfo.tscRootDir,
+                },
                 { ...ts.sys, getCurrentDirectory() { return projectRoot; } }
             );
             if (!host.getDefaultLibLocation) {
@@ -188,10 +193,12 @@ export class Compiler implements Emitter {
                 lib: COMPILER_OPTIONS.lib && COMPILER_OPTIONS.lib.map(name => name.slice(4, name.length - 5)),
                 // Those int-enums, we need to output the names instead
                 module: COMPILER_OPTIONS.module && ts.ModuleKind[COMPILER_OPTIONS.module],
+                outDir: this.options.projectInfo.tscOutDir,
+                rootDir: this.options.projectInfo.tscRootDir,
                 target: COMPILER_OPTIONS.target && ts.ScriptTarget[COMPILER_OPTIONS.target],
                 jsx: COMPILER_OPTIONS.jsx && Case.snake(ts.JsxEmit[COMPILER_OPTIONS.jsx]),
             },
-            include: ["**/*.ts"],
+            include: [this.options.projectInfo.tscRootDir + "**/*.ts"],
             exclude: ["node_modules"].concat(this.options.projectInfo.excludeTypescript),
             // Change the references a little. We write 'originalpath' to the
             // file under the 'path' key, which is the same as what the
