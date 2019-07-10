@@ -77,7 +77,5 @@ function _makeProjectInfo(types: string): ProjectInfo {
         bundleDependencies: {},
         targets: {},
         excludeTypescript: [],
-        tscOutDir: undefined,
-        tscRootDir: undefined,
     };
 }
