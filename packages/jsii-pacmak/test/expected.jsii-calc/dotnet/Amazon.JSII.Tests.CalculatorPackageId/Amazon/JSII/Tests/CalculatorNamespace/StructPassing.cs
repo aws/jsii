@@ -19,8 +19,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <remarks>stability: Experimental</remarks>
-        [JsiiMethod(name: "howManyVarArgsDidIPass", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[{\"name\":\"_positional\",\"type\":{\"primitive\":\"number\"}},{\"name\":\"inputs\",\"type\":{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"fqn\":\"jsii-calc.TopLevelStruct\"}}}}]")]
-        public static double HowManyVarArgsDidIPass(double _positional, ITopLevelStruct[] inputs)
+        [JsiiMethod(name: "howManyVarArgsDidIPass", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[{\"name\":\"_positional\",\"type\":{\"primitive\":\"number\"}},{\"name\":\"inputs\",\"variadic\":true,\"type\":{\"fqn\":\"jsii-calc.TopLevelStruct\"}}]")]
+        public static double HowManyVarArgsDidIPass(double _positional, ITopLevelStruct inputs)
         {
             return InvokeStaticMethod<double>(typeof(StructPassing), new object[]{_positional, inputs});
         }

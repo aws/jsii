@@ -5341,7 +5341,7 @@ class StructPassing(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StructPassing"
 
     @jsii.member(jsii_name="howManyVarArgsDidIPass")
     @classmethod
-    def how_many_var_args_did_i_pass(cls, _positional: jsii.Number, inputs: typing.List["TopLevelStruct"]) -> jsii.Number:
+    def how_many_var_args_did_i_pass(cls, _positional: jsii.Number, *inputs: "TopLevelStruct") -> jsii.Number:
         """
         :param _positional: -
         :param inputs: -
@@ -5349,7 +5349,7 @@ class StructPassing(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StructPassing"
         stability
         :stability: experimental
         """
-        return jsii.sinvoke(cls, "howManyVarArgsDidIPass", [_positional, inputs])
+        return jsii.sinvoke(cls, "howManyVarArgsDidIPass", [_positional, *inputs])
 
     @jsii.member(jsii_name="roundTrip")
     @classmethod

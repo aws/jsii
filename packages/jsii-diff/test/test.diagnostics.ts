@@ -56,4 +56,24 @@ export = {
     test.done();
   },
 
+  // ----------------------------------------------------------------------
+  async 'changing stable to experimental is breaking'(test: Test) {
+    const mms = await compare(`
+      /** @stable */
+      export class Foo1 { }
+    `, `
+      /** @experimental */
+      export class Foo1 { }
+    `);
+
+    const experimentalErrors = false;
+    const diags = classifyDiagnostics(mms, experimentalErrors, new Set());
+
+    test.ok(diags.length > 0);
+    test.ok(diags.some(d => d.message.match(/stability not allowed to go from 'stable' to 'experimental'/)));
+    test.equals(true, hasErrors(diags));
+
+    test.done();
+  },
+
 };

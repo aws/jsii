@@ -7837,13 +7837,9 @@
             {
               "name": "inputs",
               "type": {
-                "collection": {
-                  "elementtype": {
-                    "fqn": "jsii-calc.TopLevelStruct"
-                  },
-                  "kind": "array"
-                }
-              }
+                "fqn": "jsii-calc.TopLevelStruct"
+              },
+              "variadic": true
             }
           ],
           "returns": {
@@ -7851,7 +7847,8 @@
               "primitive": "number"
             }
           },
-          "static": true
+          "static": true,
+          "variadic": true
         },
         {
           "docs": {
@@ -9055,5 +9052,5 @@
     }
   },
   "version": "0.14.0",
-  "fingerprint": "FCuQcrhxNzRu5psy8XKe+fkbvJhTtFAEc2eiULxQP8w="
+  "fingerprint": "3KJr12zCrNOW5f2XkO6HxM761PQoUBbT9VLR5+foBOo="
 }

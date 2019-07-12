@@ -936,10 +936,10 @@ def test_passNestedScalar():
     assert output.second_level == 5
 
 def test_passStructsInVariadic():
-    output = StructPassing.how_many_var_args_did_i_pass(123, [
+    output = StructPassing.how_many_var_args_did_i_pass(123,
         TopLevelStruct(required='hello', second_level=1),
         TopLevelStruct(required='bye', second_level=SecondLevelStruct(deeper_required_prop='ciao'))
-    ])
+    )
     assert output == 2
 
 def test_structEquality():

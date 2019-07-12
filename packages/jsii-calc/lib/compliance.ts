@@ -1780,7 +1780,7 @@ export class StructPassing {
         };
     }
 
-    public static howManyVarArgsDidIPass(_positional: number, inputs: TopLevelStruct[]): number {
+    public static howManyVarArgsDidIPass(_positional: number, ...inputs: TopLevelStruct[]): number {
         return inputs.length;
     }
 }
