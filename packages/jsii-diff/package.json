@@ -18,7 +18,7 @@
         "package": "package-js"
     },
     "devDependencies": {
-        "@types/fs-extra": "^7.0.0",
+        "@types/fs-extra": "^8.0.0",
         "@types/log4js": "^2.3.5",
         "@types/nodeunit": "^0.0.30",
         "@types/tar-fs": "^1.16.1",
@@ -31,13 +31,13 @@
     "dependencies": {
         "jsii-reflect": "^0.14.0",
         "jsii-spec": "^0.14.0",
-        "log4js": "^4.3.1",
-        "typescript": "^3.5.2",
+        "log4js": "^4.5.1",
+        "typescript": "^3.5.3",
         "yargs": "^13.2.4"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/awslabs/jsii.git",
+        "url": "https://github.com/aws/jsii.git",
         "directory": "packages/jsii-diff"
     },
     "nyc": {

@@ -18,7 +18,7 @@
     "jsii-calc": "^0.14.0",
     "jsii-pacmak": "^0.14.0",
     "jsii-runtime": "^0.14.0",
-    "typescript": "^3.5.2"
+    "typescript": "^3.5.3"
   },
   "author": {
     "name": "Amazon Web Services",
@@ -28,7 +28,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/awslabs/jsii.git"
+    "url": "https://github.com/aws/jsii.git"
   },
-  "homepage": "https://github.com/awslabs/jsii"
+  "homepage": "https://github.com/aws/jsii"
 }

@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [0.14.0](https://github.com/awslabs/jsii/compare/v0.13.4...v0.14.0) (2019-07-08)
+# [0.14.0](https://github.com/aws/jsii/compare/v0.13.4...v0.14.0) (2019-07-08)
 
 **Note:** Version bump only for package jsii-diff
 
@@ -11,7 +11,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [0.13.4](https://github.com/awslabs/jsii/compare/v0.13.3...v0.13.4) (2019-07-03)
+## [0.13.4](https://github.com/aws/jsii/compare/v0.13.3...v0.13.4) (2019-07-03)
 
 **Note:** Version bump only for package jsii-diff
 
@@ -19,7 +19,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [0.13.3](https://github.com/awslabs/jsii/compare/v0.13.2...v0.13.3) (2019-07-01)
+## [0.13.3](https://github.com/aws/jsii/compare/v0.13.2...v0.13.3) (2019-07-01)
 
 **Note:** Version bump only for package jsii-diff
 
@@ -27,18 +27,18 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [0.13.2](https://github.com/awslabs/jsii/compare/v0.12.1...v0.13.2) (2019-07-01)
+## [0.13.2](https://github.com/aws/jsii/compare/v0.12.1...v0.13.2) (2019-07-01)
 
 
 ### Bug Fixes
 
-* **jsii-diff:** handle recursive types ([#558](https://github.com/awslabs/jsii/issues/558)) ([3c43be1](https://github.com/awslabs/jsii/commit/3c43be1))
+* **jsii-diff:** handle recursive types ([#558](https://github.com/aws/jsii/issues/558)) ([3c43be1](https://github.com/aws/jsii/commit/3c43be1))
 
 
 
 
 
-## [0.12.1](https://github.com/awslabs/jsii/compare/v0.12.0...v0.12.1) (2019-06-25)
+## [0.12.1](https://github.com/aws/jsii/compare/v0.12.0...v0.12.1) (2019-06-25)
 
 **Note:** Version bump only for package jsii-diff
 
@@ -46,13 +46,13 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-# [0.12.0](https://github.com/awslabs/jsii/compare/v0.11.3...v0.12.0) (2019-06-24)
+# [0.12.0](https://github.com/aws/jsii/compare/v0.11.3...v0.12.0) (2019-06-24)
 
 
 ### Features
 
-* **jsii:** enforce enum member names to be ALL_CAPS ([#541](https://github.com/awslabs/jsii/issues/541)) ([c88080d](https://github.com/awslabs/jsii/commit/c88080d)), closes [awslabs/aws-cdk#2287](https://github.com/awslabs/aws-cdk/issues/2287)
-* **jsii-diff:** extend reporting options ([#547](https://github.com/awslabs/jsii/issues/547)) ([719be24](https://github.com/awslabs/jsii/commit/719be24))
+* **jsii:** enforce enum member names to be ALL_CAPS ([#541](https://github.com/aws/jsii/issues/541)) ([c88080d](https://github.com/aws/jsii/commit/c88080d)), closes [awslabs/aws-cdk#2287](https://github.com/awslabs/aws-cdk/issues/2287)
+* **jsii-diff:** extend reporting options ([#547](https://github.com/aws/jsii/issues/547)) ([719be24](https://github.com/aws/jsii/commit/719be24))
 
 
 ### BREAKING CHANGES
@@ -63,7 +63,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [0.11.3](https://github.com/awslabs/jsii/compare/v0.11.2...v0.11.3) (2019-06-18)
+## [0.11.3](https://github.com/aws/jsii/compare/v0.11.2...v0.11.3) (2019-06-18)
 
 **Note:** Version bump only for package jsii-diff
 
@@ -71,42 +71,42 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [0.11.2](https://github.com/awslabs/jsii/compare/v0.11.1...v0.11.2) (2019-06-07)
+## [0.11.2](https://github.com/aws/jsii/compare/v0.11.1...v0.11.2) (2019-06-07)
 
 
 ### Bug Fixes
 
-* **java:** Escape `*/` in package-info.java ([#526](https://github.com/awslabs/jsii/issues/526)) ([4e7ea98](https://github.com/awslabs/jsii/commit/4e7ea98))
+* **java:** Escape `*/` in package-info.java ([#526](https://github.com/aws/jsii/issues/526)) ([4e7ea98](https://github.com/aws/jsii/commit/4e7ea98))
 
 
 
 
 
-## [0.11.1](https://github.com/awslabs/jsii/compare/v0.11.0...v0.11.1) (2019-06-07)
-
-
-### Bug Fixes
-
-* **jsii-diff:** crash when changing method to a property ([#521](https://github.com/awslabs/jsii/issues/521)) ([28241cd](https://github.com/awslabs/jsii/commit/28241cd)), closes [#520](https://github.com/awslabs/jsii/issues/520)
-
-
-
-
-
-# [0.11.0](https://github.com/awslabs/jsii/compare/v0.10.5...v0.11.0) (2019-05-21)
+## [0.11.1](https://github.com/aws/jsii/compare/v0.11.0...v0.11.1) (2019-06-07)
 
 
 ### Bug Fixes
 
-* **jsii-diff:** catch exception if type disappeared from other assembly ([#504](https://github.com/awslabs/jsii/issues/504)) ([8d11900](https://github.com/awslabs/jsii/commit/8d11900))
-* **jsii-diff:** correctly handle assignability of type unions ([#500](https://github.com/awslabs/jsii/issues/500)) ([04c061e](https://github.com/awslabs/jsii/commit/04c061e))
-* **jsii-diff:** don't fail on new packages ([#502](https://github.com/awslabs/jsii/issues/502)) ([d1d0633](https://github.com/awslabs/jsii/commit/d1d0633))
+* **jsii-diff:** crash when changing method to a property ([#521](https://github.com/aws/jsii/issues/521)) ([28241cd](https://github.com/aws/jsii/commit/28241cd)), closes [#520](https://github.com/aws/jsii/issues/520)
 
 
 
 
 
-## [0.10.5](https://github.com/awslabs/jsii/compare/v0.10.4...v0.10.5) (2019-05-06)
+# [0.11.0](https://github.com/aws/jsii/compare/v0.10.5...v0.11.0) (2019-05-21)
+
+
+### Bug Fixes
+
+* **jsii-diff:** catch exception if type disappeared from other assembly ([#504](https://github.com/aws/jsii/issues/504)) ([8d11900](https://github.com/aws/jsii/commit/8d11900))
+* **jsii-diff:** correctly handle assignability of type unions ([#500](https://github.com/aws/jsii/issues/500)) ([04c061e](https://github.com/aws/jsii/commit/04c061e))
+* **jsii-diff:** don't fail on new packages ([#502](https://github.com/aws/jsii/issues/502)) ([d1d0633](https://github.com/aws/jsii/commit/d1d0633))
+
+
+
+
+
+## [0.10.5](https://github.com/aws/jsii/compare/v0.10.4...v0.10.5) (2019-05-06)
 
 **Note:** Version bump only for package jsii-diff
 
@@ -114,7 +114,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [0.10.4](https://github.com/awslabs/jsii/compare/v0.10.3...v0.10.4) (2019-05-05)
+## [0.10.4](https://github.com/aws/jsii/compare/v0.10.3...v0.10.4) (2019-05-05)
 
 **Note:** Version bump only for package jsii-diff
 
@@ -122,27 +122,19 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [0.10.3](https://github.com/awslabs/jsii/compare/v0.10.2...v0.10.3) (2019-04-24)
+## [0.10.3](https://github.com/aws/jsii/compare/v0.10.2...v0.10.3) (2019-04-24)
 
 
 ### Bug Fixes
 
-* **java:** fix illegal arguments passed to JavaDoc generator ([#475](https://github.com/awslabs/jsii/issues/475)) ([4456138](https://github.com/awslabs/jsii/commit/4456138))
-* **jsii-diff:** be nicer about validation errors ([#481](https://github.com/awslabs/jsii/issues/481)) ([fa4d000](https://github.com/awslabs/jsii/commit/fa4d000))
+* **java:** fix illegal arguments passed to JavaDoc generator ([#475](https://github.com/aws/jsii/issues/475)) ([4456138](https://github.com/aws/jsii/commit/4456138))
+* **jsii-diff:** be nicer about validation errors ([#481](https://github.com/aws/jsii/issues/481)) ([fa4d000](https://github.com/aws/jsii/commit/fa4d000))
 
 
 
 
 
-## [0.10.2](https://github.com/awslabs/jsii/compare/v0.10.1...v0.10.2) (2019-04-18)
-
-**Note:** Version bump only for package jsii-diff
-
-
-
-
-
-## [0.10.1](https://github.com/awslabs/jsii/compare/v0.10.0...v0.10.1) (2019-04-17)
+## [0.10.2](https://github.com/aws/jsii/compare/v0.10.1...v0.10.2) (2019-04-18)
 
 **Note:** Version bump only for package jsii-diff
 
@@ -150,17 +142,25 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-# [0.10.0](https://github.com/awslabs/jsii/compare/v0.9.0...v0.10.0) (2019-04-16)
+## [0.10.1](https://github.com/aws/jsii/compare/v0.10.0...v0.10.1) (2019-04-17)
+
+**Note:** Version bump only for package jsii-diff
+
+
+
+
+
+# [0.10.0](https://github.com/aws/jsii/compare/v0.9.0...v0.10.0) (2019-04-16)
 
 
 ### Bug Fixes
 
-* **jsii-reflect:** don't load same assembly multiple times ([#461](https://github.com/awslabs/jsii/issues/461)) ([3a6b21c](https://github.com/awslabs/jsii/commit/3a6b21c))
+* **jsii-reflect:** don't load same assembly multiple times ([#461](https://github.com/aws/jsii/issues/461)) ([3a6b21c](https://github.com/aws/jsii/commit/3a6b21c))
 
 
 ### Features
 
-* **jsii-spec:** Model parameter optionality ([#432](https://github.com/awslabs/jsii/issues/432)) ([21e485a](https://github.com/awslabs/jsii/commit/21e485a)), closes [#296](https://github.com/awslabs/jsii/issues/296) [#414](https://github.com/awslabs/jsii/issues/414)
+* **jsii-spec:** Model parameter optionality ([#432](https://github.com/aws/jsii/issues/432)) ([21e485a](https://github.com/aws/jsii/commit/21e485a)), closes [#296](https://github.com/aws/jsii/issues/296) [#414](https://github.com/aws/jsii/issues/414)
 
 
 ### BREAKING CHANGES
@@ -173,9 +173,9 @@ projects in order to fix this.
 
 
 
-# [0.9.0](https://github.com/awslabs/jsii/compare/v0.8.2...v0.9.0) (2019-04-04)
+# [0.9.0](https://github.com/aws/jsii/compare/v0.8.2...v0.9.0) (2019-04-04)
 
 
 ### Features
 
-* **jsii-diff:** standardize doc comments, add API compatibility tool ([#415](https://github.com/awslabs/jsii/issues/415)) ([9cfd867](https://github.com/awslabs/jsii/commit/9cfd867))
+* **jsii-diff:** standardize doc comments, add API compatibility tool ([#415](https://github.com/aws/jsii/issues/415)) ([9cfd867](https://github.com/aws/jsii/commit/9cfd867))

@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <summary>Helps ensure the JSII kernel &amp; runtime cooperate correctly when an un-exported instance of a class is returned with a declared type that is an exported interface, and the instance inherits from an exported class.</summary>
     /// <remarks>
     /// stability: Experimental
-    /// https://github.com/awslabs/jsii/issues/320 
+    /// https://github.com/aws/jsii/issues/320 
     /// </remarks>
     [JsiiClass(nativeType: typeof(ReturnsPrivateImplementationOfInterface), fullyQualifiedName: "jsii-calc.ReturnsPrivateImplementationOfInterface")]
     public class ReturnsPrivateImplementationOfInterface : DeputyBase

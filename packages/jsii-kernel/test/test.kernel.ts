@@ -1025,7 +1025,7 @@ defineTest('sset allows access to the static context', async (test, sandbox) => 
 /*
 
 Test currently disabled because we don't have the infrastructure to make it pass.
-https://github.com/awslabs/jsii/issues/399
+https://github.com/aws/jsii/issues/399
 
 defineTest('A single instance can be returned under two types', async (test, sandbox) => {
     const singleInstanceTwoTypes = create(sandbox, 'jsii-calc.SingleInstanceTwoTypes')();
