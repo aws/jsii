@@ -170,7 +170,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       return value;
     },
     deserialize(value, optionalValue) {
-      // /!\ Top-level "null" will turn to underfined, but any null nested in the value is valid JSON, so it'll stay!
+      // /!\ Top-level "null" will turn to undefined, but any null nested in the value is valid JSON, so it'll stay!
       if (nullAndOk(value, optionalValue)) { return undefined; }
       return value;
     },
@@ -258,7 +258,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
         throw new Error(`Expected object, got ${JSON.stringify(value)}`);
       }
 
-      // This looks odd, but if an object was originally passed in as a by-ref
+      // This looks odd, but if an object was originally passed in/out as a by-ref
       // class, and it happens to conform to a datatype interface we say we're
       // returning, return the actual object instead of the serialized value.
       // NOTE: Not entirely sure yet whether this is a bug masquerading as a
@@ -296,16 +296,29 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
         throw new Error(`Expected object reference, got ${JSON.stringify(value)}`);
       }
 
-      // Similarly to other end, we might be getting a reference type where we're
-      // expecting a value type. Accept this for now.
-      if (isObjRef(value)) {
-        host.debug('Expected value type but got reference type, accepting for now (awslabs/jsii#400)');
-        return host.objects.findObject(value).instance;
-      }
-
       const namedType = host.lookupType((optionalValue.type as spec.NamedTypeReference).fqn);
       const props = propertiesOf(namedType, host.lookupType);
 
+      if (Array.isArray(value)) {
+        throw new Error(`Got an array where a ${namedType.fqn} was expected. Did you mean to pass a variable number of arguments?`);
+      }
+
+      // Similarly to serialization, we might be getting a reference type where we're
+      // expecting a value type. Accept this for now (but also validate that object
+      // for presence of the right properties).
+      if (isObjRef(value)) {
+        host.debug('Expected value type but got reference type, accepting for now (awslabs/jsii#400)');
+
+        // Return same INSTANCE (shouldn't matter but we don't know for sure that it doesn't)
+        return validateRequiredProps(
+          host.objects.findObject(value).instance,
+          namedType.fqn,
+          props);
+      }
+
+      value = validateRequiredProps(value, namedType.fqn, props);
+
+      // Return a dict COPY, we have by-value semantics anyway.
       return mapValues(value, (v, key) => {
         if (!props[key]) { return undefined; } // Don't map if unknown property
         return host.recurse(v, props[key]);
@@ -647,4 +660,17 @@ function isAssignable(actualTypeFqn: string, requiredType: spec.NamedTypeReferen
     return actualType.interfaces.find(iface => isAssignable(iface, requiredType, lookup)) != null;
   }
   return false;
+}
+
+function validateRequiredProps(actualProps: {[key: string]: any}, typeName: string, specProps: {[key: string]: spec.Property}) {
+  // Check for required properties
+  const missingRequiredProps = Object.keys(specProps)
+      .filter(name => !specProps[name].optional)
+      .filter(name => !(name in actualProps));
+
+  if (missingRequiredProps.length > 0) {
+    throw new Error(`Missing required properties for ${typeName}: ${missingRequiredProps}`);
+  }
+
+  return actualProps;
 }

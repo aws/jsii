@@ -6436,12 +6436,12 @@ StructPassing
 
 
 
-   .. py:staticmethod:: howManyVarArgsDidIPass(_positional, inputs) -> number
+   .. py:staticmethod:: howManyVarArgsDidIPass(_positional, *inputs) -> number
 
       :param _positional: 
       :type _positional: number
-      :param inputs: 
-      :type inputs: :py:class:`~jsii-calc.TopLevelStruct`\ []
+      :param \*inputs: 
+      :type \*inputs: :py:class:`~jsii-calc.TopLevelStruct`\ 
       :rtype: number
 
 
