@@ -98,10 +98,11 @@ export class Compiler implements Emitter {
         }
 
         const tsconf = this.typescriptConfig!;
+        const pi = this.options.projectInfo;
 
         const prog = ts.createProgram({
             rootNames: this.rootFiles.concat(_pathOfLibraries(this.compilerHost)),
-            options: COMPILER_OPTIONS,
+            options: {...pi.tsc, ...COMPILER_OPTIONS},
             // Make the references absolute for the compiler
             projectReferences: tsconf.references && tsconf.references.map(ref => ({ path: path.resolve(ref.path) })),
             host: this.compilerHost
@@ -115,10 +116,15 @@ export class Compiler implements Emitter {
      */
     private async _startWatch(): Promise<never> {
         return new Promise<never>(async () => {
-            const projectRoot = this.options.projectInfo.projectRoot;
+            const pi = this.options.projectInfo;
+            const projectRoot = pi.projectRoot;
             const host = ts.createWatchCompilerHost(
                 this.configPath,
-                { ...COMPILER_OPTIONS, noEmitOnError: false },
+                {
+                    ...pi.tsc,
+                    ...COMPILER_OPTIONS,
+                    noEmitOnError: false,
+                },
                 { ...ts.sys, getCurrentDirectory() { return projectRoot; } }
             );
             if (!host.getDefaultLibLocation) {
@@ -180,8 +186,11 @@ export class Compiler implements Emitter {
             composite = true;
         }
 
+        const pi = this.options.projectInfo;
+
         this.typescriptConfig = {
             compilerOptions: {
+                ...pi.tsc,
                 ...COMPILER_OPTIONS,
                 composite,
                 // Need to stip the `lib.` prefix and `.d.ts` suffix
@@ -191,8 +200,8 @@ export class Compiler implements Emitter {
                 target: COMPILER_OPTIONS.target && ts.ScriptTarget[COMPILER_OPTIONS.target],
                 jsx: COMPILER_OPTIONS.jsx && Case.snake(ts.JsxEmit[COMPILER_OPTIONS.jsx]),
             },
-            include: ["**/*.ts"],
-            exclude: ["node_modules"].concat(this.options.projectInfo.excludeTypescript),
+            include: [pi.tsc && pi.tsc.rootDir ? `${pi.tsc.rootDir}/**/*.ts` : "**/*.ts"],
+            exclude: ["node_modules"].concat(pi.excludeTypescript),
             // Change the references a little. We write 'originalpath' to the
             // file under the 'path' key, which is the same as what the
             // TypeScript compiler does. Make it relative so that the files are

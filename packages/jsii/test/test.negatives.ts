@@ -76,6 +76,6 @@ function _makeProjectInfo(types: string): ProjectInfo {
         transitiveDependencies: [],
         bundleDependencies: {},
         targets: {},
-        excludeTypescript: []
+        excludeTypescript: [],
     };
 }

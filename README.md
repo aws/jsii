@@ -281,6 +281,8 @@ jsii configuration is read from the `jsii` section in the module's
    __jsii-pacmak__. This is where target artifacts are emitted during packaging.
    Each artifact will be emitted under `<outdir>/<target>` (e.g. `dist/java`,
    `dist/js`, etc). Conventionally we use `"dist"` for outdir.
+ * `tsc` - this section allows to adjust the compiler options of the generated `tsconfig.json`. 
+    Currently you can set `outDir` and `rootDir`. Setting `rootDir` automatically adjusts the `include` config.
 
 ### Java
 
