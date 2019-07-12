@@ -10,6 +10,11 @@ const spdx: Set<string> = require('spdx-license-list/simple');
 
 const LOG = log4js.getLogger('jsii/package-info');
 
+export interface TSCompilerOptions {
+    readonly outDir?: string;
+    readonly rootDir?: string;
+}
+
 export interface ProjectInfo {
     readonly projectRoot: string;
     readonly packageJson: any;
@@ -41,6 +46,7 @@ export interface ProjectInfo {
     readonly contributors?: ReadonlyArray<spec.Person>;
     readonly excludeTypescript: string[];
     readonly projectReferences?: boolean;
+    readonly tsc?: TSCompilerOptions;
 }
 
 export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies }: { fixPeerDependencies: boolean }): Promise<ProjectInfo> {
@@ -138,6 +144,10 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
 
         excludeTypescript: (pkg.jsii && pkg.jsii.excludeTypescript) || [],
         projectReferences: pkg.jsii && pkg.jsii.projectReferences,
+        tsc: {
+            outDir: pkg.jsii && pkg.jsii.tsc && pkg.jsii.tsc.outDir,
+            rootDir: pkg.jsii && pkg.jsii.tsc && pkg.jsii.tsc.rootDir,
+        }
     };
 }
 
