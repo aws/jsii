@@ -1,7 +1,10 @@
 import reflect = require('jsii-reflect');
+import { compareStabilities } from './stability';
 import { ComparisonContext } from './types';
 
 export function compareEnum(original: reflect.EnumType, updated: reflect.EnumType, context: ComparisonContext) {
+  compareStabilities(original, updated, context);
+
   for (const origMember of original.members) {
     const updatedMember = updated.members.find(m => m.name === origMember.name);
     if (!updatedMember) {
@@ -12,5 +15,7 @@ export function compareEnum(original: reflect.EnumType, updated: reflect.EnumTyp
       });
       continue;
     }
+
+    compareStabilities(origMember, updatedMember, context);
   }
 }

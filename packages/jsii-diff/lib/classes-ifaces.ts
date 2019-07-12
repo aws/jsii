@@ -1,5 +1,6 @@
 import reflect = require('jsii-reflect');
 import log4js = require('log4js');
+import { compareStabilities } from './stability';
 import { Analysis, FailedAnalysis, isSuperType } from './type-analysis';
 import { ComparisonContext } from './types';
 
@@ -12,6 +13,8 @@ const LOG = log4js.getLogger('jsii-diff');
  * present on the new type, and that they match in turn.
  */
 export function compareReferenceType<T extends reflect.ReferenceType>(original: T, updated: T, context: ComparisonContext) {
+  compareStabilities(original, updated, context);
+
   if (original.isClassType() && updated.isClassType()) {
     if (updated.abstract && !original.abstract) {
       context.mismatches.report({
@@ -57,6 +60,8 @@ export function compareReferenceType<T extends reflect.ReferenceType>(original: 
 }
 
 export function compareStruct(original: reflect.InterfaceType, updated: reflect.InterfaceType, context: ComparisonContext) {
+  compareStabilities(original, updated, context);
+
   // We don't compare structs here; they will be evaluated for compatibility
   // based on input and output positions.
   //
@@ -98,6 +103,8 @@ function compareMethod<T extends (reflect.Method | reflect.Initializer)>(
                                   original: T,
                                   updated: T,
                                   context: ComparisonContext) {
+  compareStabilities(original, updated, context);
+
   // Type guards on original are duplicated on updated to help tsc... They are required to be the same type by the declaration.
   if (reflect.isMethod(original) && reflect.isMethod(updated)) {
     if (original.static !== updated.static) {
@@ -201,6 +208,8 @@ function findParam(parameters: reflect.Parameter[], i: number): reflect.Paramete
 }
 
 function compareProperty(original: reflect.Property, updated: reflect.Property, context: ComparisonContext) {
+  compareStabilities(original, updated, context);
+
   if (original.static !== updated.static) {
     // tslint:disable-next-line:max-line-length
     context.mismatches.report({
