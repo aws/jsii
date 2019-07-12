@@ -102,7 +102,7 @@ export class Compiler implements Emitter {
 
         const prog = ts.createProgram({
             rootNames: this.rootFiles.concat(_pathOfLibraries(this.compilerHost)),
-            options: {...COMPILER_OPTIONS, outDir: pi.tsc && pi.tsc.outDir, rootDir: pi.tsc && pi.tsc.rootDir},
+            options: {...pi.tsc, ...COMPILER_OPTIONS},
             // Make the references absolute for the compiler
             projectReferences: tsconf.references && tsconf.references.map(ref => ({ path: path.resolve(ref.path) })),
             host: this.compilerHost
@@ -121,10 +121,9 @@ export class Compiler implements Emitter {
             const host = ts.createWatchCompilerHost(
                 this.configPath,
                 {
+                    ...pi.tsc,
                     ...COMPILER_OPTIONS,
                     noEmitOnError: false,
-                    outDir: pi.tsc && pi.tsc.outDir,
-                    rootDir: pi.tsc && pi.tsc.rootDir,
                 },
                 { ...ts.sys, getCurrentDirectory() { return projectRoot; } }
             );
@@ -191,14 +190,13 @@ export class Compiler implements Emitter {
 
         this.typescriptConfig = {
             compilerOptions: {
+                ...pi.tsc,
                 ...COMPILER_OPTIONS,
                 composite,
                 // Need to stip the `lib.` prefix and `.d.ts` suffix
                 lib: COMPILER_OPTIONS.lib && COMPILER_OPTIONS.lib.map(name => name.slice(4, name.length - 5)),
                 // Those int-enums, we need to output the names instead
                 module: COMPILER_OPTIONS.module && ts.ModuleKind[COMPILER_OPTIONS.module],
-                outDir: pi.tsc && pi.tsc.outDir,
-                rootDir: pi.tsc && pi.tsc.rootDir,
                 target: COMPILER_OPTIONS.target && ts.ScriptTarget[COMPILER_OPTIONS.target],
                 jsx: COMPILER_OPTIONS.jsx && Case.snake(ts.JsxEmit[COMPILER_OPTIONS.jsx]),
             },
