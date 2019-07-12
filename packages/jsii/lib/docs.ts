@@ -87,6 +87,8 @@ function parseDocParts(comments: string | undefined, tags: ts.JSDocTagInfo[]): D
 
   const experimental = eatTag('experimental') !== undefined;
   const stable = eatTag('stable') !== undefined;
+  const imported = eatTag('imported') !== undefined;
+  const deprecated = docs.deprecated !== undefined;
 
   if (docs.example && docs.example.indexOf('```') >= 0) {
     // This is currently what the JSDoc standard expects, and VSCode highlights it in
@@ -97,25 +99,18 @@ function parseDocParts(comments: string | undefined, tags: ts.JSDocTagInfo[]): D
     diagnostics.push('@example must be code only, no code block fences allowed.');
   }
 
-  if (experimental && stable) {
-    diagnostics.push('Element is marked both @experimental and @stable.');
+  if (countBools(experimental, stable, imported, deprecated) > 1) {
+    diagnostics.push('Element is marked more than one of @stable, @experimental, @imported, @deprecated.');
   }
 
-  if (docs.deprecated !== undefined) {
-    if (docs.deprecated.trim() === '') {
-      diagnostics.push('@deprecated tag needs a reason and/or suggested alternatives.');
-    }
-    if (stable) {
-      diagnostics.push('Element is marked both @deprecated and @stable.');
-    }
-    if (experimental) {
-      diagnostics.push('Element is marked both @deprecated and @experimental.');
-    }
+  if (docs.deprecated !== undefined && docs.deprecated.trim() === '') {
+    diagnostics.push('@deprecated tag needs a reason and/or suggested alternatives.');
   }
 
   if (experimental) { docs.stability = spec.Stability.Experimental; }
   if (stable) { docs.stability = spec.Stability.Stable; }
-  if (docs.deprecated) { docs.stability = spec.Stability.Deprecated; }
+  if (deprecated) { docs.stability = spec.Stability.Deprecated; }
+  if (imported) { docs.stability = spec.Stability.Imported; }
 
   if (tagNames.size > 0) {
     docs.custom = {};
@@ -184,3 +179,11 @@ function summaryLine(str: string) {
 const PUNCTUATION = ['!', '?', '.', ';'].map(s => '\\' + s).join('');
 const ENDS_WITH_PUNCTUATION_REGEX = new RegExp(`[${PUNCTUATION}]$`);
 const FIRST_SENTENCE_REGEX = new RegExp(`^([^${PUNCTUATION}]+[${PUNCTUATION}] )`); // literal space at the end
+
+function intBool(x: boolean): number {
+  return x ? 1 : 0;
+}
+
+function countBools(...x: boolean[]) {
+  return x.map(intBool).reduce((a, b) => a + b, 0);
+}

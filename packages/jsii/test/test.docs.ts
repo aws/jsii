@@ -270,6 +270,28 @@ export = {
   },
 
   // ----------------------------------------------------------------------
+
+  async 'can mark @imported'(test: Test) {
+    const assembly = await compile(`
+      /**
+       * @imported
+       */
+      export class Foo {
+        public floop() {
+          Array.isArray(3);
+        }
+      }
+    `);
+
+    const classType = assembly.types!['testpkg.Foo'] as spec.ClassType;
+    const method = classType.methods!.find(m => m.name === 'floop');
+
+    test.deepEqual(classType.docs!.stability, spec.Stability.Imported);
+    test.deepEqual(method!.docs!.stability, spec.Stability.Imported);
+    test.done();
+  },
+
+  // ----------------------------------------------------------------------
   async 'can mark subclassable'(test: Test) {
     const assembly = await compile(`
       /**

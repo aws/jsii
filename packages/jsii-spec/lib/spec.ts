@@ -360,6 +360,12 @@ export enum Stability {
      * in breaking ways in a subsequent minor or patch version.
      */
     Stable = 'stable',
+
+    /**
+     * This API is an imported representation of an API managed elsewhere and follows
+     * the other API's versioning model.
+     */
+    Imported = 'imported',
 }
 
 /**
