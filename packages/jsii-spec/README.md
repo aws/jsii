@@ -2,7 +2,7 @@
 
 Defines the [JSON specification](./lib/spec.ts) for .jsii metadata files, part of the [jsii] project.
 
-[jsii]: https://github.com/awslabs/jsii
+[jsii]: https://github.com/aws/jsii
 
 ## License
 

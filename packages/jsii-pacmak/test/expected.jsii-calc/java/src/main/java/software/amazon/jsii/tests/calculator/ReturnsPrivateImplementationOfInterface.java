@@ -6,7 +6,7 @@ package software.amazon.jsii.tests.calculator;
  * EXPERIMENTAL
  * 
  * @return an instance of an un-exported class that extends `ExportedBaseClass`, declared as `IPrivatelyImplemented`.
- * @see https://github.com/awslabs/jsii/issues/320
+ * @see https://github.com/aws/jsii/issues/320
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

@@ -13,7 +13,7 @@ const BASE_PROJECT = {
     description: 'A test project for jsii ProjectInfo loading',
     license: 'Apache-2.0',
     author: { name: 'Amazon Web Services', url: 'https://aws.amazon.com', organization: true },
-    repository: { url: 'git://github.com/awslabs/jsii.git' },
+    repository: { url: 'git://github.com/aws/jsii.git' },
     main: 'index.js',
     types: 'index.d.ts',
     jsii: {
@@ -229,8 +229,8 @@ const TEST_DEP_ASSEMBLY: spec.Assembly = {
     version: '1.2.4',
     license: 'Apache-2.0',
     description: 'A jsii dependency of jsii-test',
-    homepage: 'https://github.com/awslabs/jsii',
-    repository: { type: 'git', url: 'git://github.com/awslabs/jsii.git' },
+    homepage: 'https://github.com/aws/jsii',
+    repository: { type: 'git', url: 'git://github.com/aws/jsii.git' },
     author: { name: 'Amazon Web Services', url: 'https://aws.amazon.com', organization: true, roles: ['author'] },
     fingerprint: 'F1NG3RPR1N7',
     dependencies: {
@@ -247,8 +247,8 @@ const TEST_DEP_DEP_ASSEMBLY: spec.Assembly = {
     version: '3.2.1',
     license: 'Apache-2.0',
     description: 'A jsii dependency of jsii-test-dep',
-    homepage: 'https://github.com/awslabs/jsii',
-    repository: { type: 'git', url: 'git://github.com/awslabs/jsii.git' },
+    homepage: 'https://github.com/aws/jsii',
+    repository: { type: 'git', url: 'git://github.com/aws/jsii.git' },
     author: { name: 'Amazon Web Services', url: 'https://aws.amazon.com', organization: true, roles: ['author'] },
     jsiiVersion: VERSION,
     fingerprint: 'F1NG3RPR1N7'

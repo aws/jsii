@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/awslabs/jsii"
+    "url": "git://github.com/aws/jsii"
   },
   "author": {
     "name": "Amazon Web Services",

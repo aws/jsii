@@ -126,7 +126,7 @@ namespace Amazon.JSII.Runtime
 
         /*
          * This is a temporary workaround / hack to solve an immediate problem, but does not completely solve the
-         * problem to it's full extent. See https://github.com/awslabs/jsii/issues/404 for more information.
+         * problem to it's full extent. See https://github.com/aws/jsii/issues/404 for more information.
          */
         private static object FromKernel(object obj, IReferenceMap referenceMap)
         {

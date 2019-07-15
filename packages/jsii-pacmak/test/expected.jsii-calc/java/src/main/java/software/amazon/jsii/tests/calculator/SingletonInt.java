@@ -3,7 +3,7 @@ package software.amazon.jsii.tests.calculator;
 /**
  * Verifies that singleton enums are handled correctly.
  * 
- * https://github.com/awslabs/jsii/issues/231
+ * https://github.com/aws/jsii/issues/231
  * 
  * EXPERIMENTAL
  */

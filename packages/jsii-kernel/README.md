@@ -7,8 +7,8 @@ The __jsii-kernel__ is a library, normally hosted within a [jsii-runtime]
 process. It provides the basic interaction API that allows language-specific
 proxy object to interact with javascript objects they represent.
 
-[jsii]: https://github.com/awslabs/jsii
-[jsii-runtime]: https://github.com/awslabs/jsii/tree/master/packages/jsii-runtime
+[jsii]: https://github.com/aws/jsii
+[jsii-runtime]: https://github.com/aws/jsii/tree/master/packages/jsii-runtime
 
 See [`api.ts`](./lib/api.ts) for request/response API.
 

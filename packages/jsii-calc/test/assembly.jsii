@@ -189,7 +189,7 @@
   "docs": {
     "stability": "experimental"
   },
-  "homepage": "https://github.com/awslabs/jsii.git",
+  "homepage": "https://github.com/aws/jsii.git",
   "jsiiVersion": "0.14.0",
   "license": "Apache-2.0",
   "metadata": {
@@ -205,7 +205,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/awslabs/jsii.git"
+    "url": "https://github.com/aws/jsii.git"
   },
   "schema": "jsii/0.10.0",
   "targets": {
@@ -7021,7 +7021,7 @@
       "assembly": "jsii-calc",
       "docs": {
         "returns": "an instance of an un-exported class that extends `ExportedBaseClass`, declared as `IPrivatelyImplemented`.",
-        "see": "https://github.com/awslabs/jsii/issues/320",
+        "see": "https://github.com/aws/jsii/issues/320",
         "stability": "experimental",
         "summary": "Helps ensure the JSII kernel & runtime cooperate correctly when an un-exported instance of a class is returned with a declared type that is an exported interface, and the instance inherits from an exported class."
       },
@@ -7250,7 +7250,7 @@
     "jsii-calc.SingletonInt": {
       "assembly": "jsii-calc",
       "docs": {
-        "remarks": "https://github.com/awslabs/jsii/issues/231",
+        "remarks": "https://github.com/aws/jsii/issues/231",
         "stability": "experimental",
         "summary": "Verifies that singleton enums are handled correctly."
       },
@@ -7313,7 +7313,7 @@
     "jsii-calc.SingletonString": {
       "assembly": "jsii-calc",
       "docs": {
-        "remarks": "https://github.com/awslabs/jsii/issues/231",
+        "remarks": "https://github.com/aws/jsii/issues/231",
         "stability": "experimental",
         "summary": "Verifies that singleton enums are handled correctly."
       },
@@ -9052,5 +9052,5 @@
     }
   },
   "version": "0.14.0",
-  "fingerprint": "3KJr12zCrNOW5f2XkO6HxM761PQoUBbT9VLR5+foBOo="
+  "fingerprint": "U948mg6gvtZWYIKiVTI3gkHGFIHgrDXXIUms7R9ZpWQ="
 }

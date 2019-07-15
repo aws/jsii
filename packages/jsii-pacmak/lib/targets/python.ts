@@ -306,7 +306,7 @@ abstract class BaseMethod implements PythonBase {
 
         // We cannot (currently?) blindly use the names given to us by the JSII for
         // initializers, because our keyword lifting will allow two names to clash.
-        // This can hopefully be removed once we get https://github.com/awslabs/jsii/issues/288
+        // This can hopefully be removed once we get https://github.com/aws/jsii/issues/288
         // resolved, so build up a list of all of the prop names so we can check against
         // them later.
         const liftedPropNames: Set<string> = new Set();
@@ -325,7 +325,7 @@ abstract class BaseMethod implements PythonBase {
         for (const param of this.parameters) {
             // We cannot (currently?) blindly use the names given to us by the JSII for
             // initializers, because our keyword lifting will allow two names to clash.
-            // This can hopefully be removed once we get https://github.com/awslabs/jsii/issues/288
+            // This can hopefully be removed once we get https://github.com/aws/jsii/issues/288
             // resolved.
             let paramName: string = toPythonParameterName(param.name);
             while (liftedPropNames.has(paramName)) {
@@ -1368,7 +1368,7 @@ class TypeResolver {
         // However, if we're not respecting optionals, then we'll just skip over this.
         // We explicitly don't emit this when our type is typing.Any, because typing.Any
         // already implied that None is an accepted type.
-        // See: https://github.com/awslabs/jsii/issues/284
+        // See: https://github.com/aws/jsii/issues/284
         if (opts.optional && pythonType !== "typing.Any") {
             pythonType = `typing.Optional[${pythonType}]`;
         }
@@ -1487,8 +1487,8 @@ class PythonGenerator extends Generator {
             this.types.set(ns, module);
         } else {
             // This should be temporary code, which can be removed and turned into an
-            // error case once https://github.com/awslabs/jsii/issues/270 and
-            // https://github.com/awslabs/jsii/issues/283 are solved.
+            // error case once https://github.com/aws/jsii/issues/270 and
+            // https://github.com/aws/jsii/issues/283 are solved.
             this.addPythonType(
                 new Namespace(
                     this,

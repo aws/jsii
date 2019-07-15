@@ -8,11 +8,11 @@ the javascript module into a node.js VM. Then, any interaction with proxy
 classes, such as getting/setting properties or invoking methods is transmitted
 via a simple STDIN/STDOUT protocol to the actual object hosted within the VM.
 
-[jsii]: https://github.com/awslabs/jsii
-[jsii-kernel]: https://github.com/awslabs/jsii/tree/master/packages/jsii-kernel
+[jsii]: https://github.com/aws/jsii
+[jsii-kernel]: https://github.com/aws/jsii/tree/master/packages/jsii-kernel
 
 See [STDIN/STDOUT protocol](./lib/in-out.ts) and [jsii-kernel
-API](https://github.com/awslabs/jsii/blob/master/packages/jsii-kernel/lib/api.ts)
+API](https://github.com/aws/jsii/blob/master/packages/jsii-kernel/lib/api.ts)
 for details.
 
 ## License
