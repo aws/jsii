@@ -24,7 +24,7 @@
         "@types/tar-fs": "^1.16.1",
         "@types/yargs": "^13.0.0",
         "jsii": "^0.14.0",
-        "jsii-build-tools": "^0.14.0",
+        "jsii-build-tools": "file:../jsii-build-tools",
         "nodeunit": "^0.11.3",
         "nyc": "^14.1.1"
     },
