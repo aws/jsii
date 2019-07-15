@@ -271,10 +271,10 @@ export = {
 
   // ----------------------------------------------------------------------
 
-  async 'can mark @imported'(test: Test) {
+  async 'can mark external'(test: Test) {
     const assembly = await compile(`
       /**
-       * @imported
+       * @stability external
        */
       export class Foo {
         public floop() {
@@ -286,8 +286,8 @@ export = {
     const classType = assembly.types!['testpkg.Foo'] as spec.ClassType;
     const method = classType.methods!.find(m => m.name === 'floop');
 
-    test.deepEqual(classType.docs!.stability, spec.Stability.Imported);
-    test.deepEqual(method!.docs!.stability, spec.Stability.Imported);
+    test.deepEqual(classType.docs!.stability, spec.Stability.External);
+    test.deepEqual(method!.docs!.stability, spec.Stability.External);
     test.done();
   },
 

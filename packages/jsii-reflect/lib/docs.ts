@@ -70,7 +70,7 @@ export class Docs {
 const stabilityPrecedence = {
   [Stability.Deprecated]: 0,
   [Stability.Experimental]: 1,
-  [Stability.Imported]: 2,
+  [Stability.External]: 2,
   [Stability.Stable]: 3,
 };
 

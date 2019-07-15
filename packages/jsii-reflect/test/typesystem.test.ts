@@ -323,10 +323,10 @@ describe('Stability', () => {
       expect(method.docs.stability).toEqual(Stability.Experimental);
     });
 
-    test('@imported stability', async () => {
+    test('external stability', async () => {
       const ts = await typeSystemFromSource(`
         /**
-         * @imported
+         * @stability external
          */
         export class Foo {
           public foo() {
@@ -344,7 +344,7 @@ describe('Stability', () => {
       const classType = ts.findClass('testpkg.SubFoo');
       const method = classType.allMethods.find(m => m.name === 'foo')!;
 
-      expect(method.docs.stability).toEqual(Stability.Imported);
+      expect(method.docs.stability).toEqual(Stability.External);
     });
   });
 });

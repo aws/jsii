@@ -22,9 +22,9 @@ export = {
   },
 
   // ----------------------------------------------------------------------
-  async 'imported stability violations are reported as warnings'(test: Test) {
+  async 'external stability violations are reported as warnings'(test: Test) {
     const mms = await compare(`
-      /** @imported */
+      /** @stability external */
       export class Foo1 { }
     `, `
       export class Foo2 { }
@@ -58,9 +58,9 @@ export = {
   },
 
   // ----------------------------------------------------------------------
-  async 'imported stability violations are never turned into errors'(test: Test) {
+  async 'external stability violations are never turned into errors'(test: Test) {
     const mms = await compare(`
-      /** @imported */
+      /** @stability external */
       export class Foo1 { }
     `, `
       export class Foo2 { }

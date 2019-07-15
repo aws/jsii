@@ -362,10 +362,10 @@ export enum Stability {
     Stable = 'stable',
 
     /**
-     * This API is an imported representation of an API managed elsewhere and follows
+     * This API is an representation of an API managed elsewhere and follows
      * the other API's versioning model.
      */
-    Imported = 'imported',
+    External = 'external',
 }
 
 /**

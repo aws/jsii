@@ -28,20 +28,20 @@ export function compareStabilities(original: reflect.Documentable & ApiElement, 
 
 function allowedTransitions(start: spec.Stability): spec.Stability[] {
   switch (start) {
-    // Experimental can go to stable, imported, or be deprecated
+    // Experimental can go to stable, external, or be deprecated
     case spec.Stability.Experimental:
-      return [spec.Stability.Stable, spec.Stability.Deprecated, spec.Stability.Imported];
+      return [spec.Stability.Stable, spec.Stability.Deprecated, spec.Stability.External];
 
-    // Stable can be deprecated, or switched to imported
+    // Stable can be deprecated, or switched to external
     case spec.Stability.Stable:
-      return [spec.Stability.Deprecated, spec.Stability.Imported];
+      return [spec.Stability.Deprecated, spec.Stability.External];
 
     // Deprecated can be reinstated
     case spec.Stability.Deprecated:
-      return [spec.Stability.Stable, spec.Stability.Imported];
+      return [spec.Stability.Stable, spec.Stability.External];
 
-    // Imported can be stableified, or deprecated
-    case spec.Stability.Imported:
+    // external can be stableified, or deprecated
+    case spec.Stability.External:
       return [spec.Stability.Stable, spec.Stability.Deprecated];
   }
 
