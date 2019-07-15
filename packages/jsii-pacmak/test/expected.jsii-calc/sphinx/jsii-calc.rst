@@ -5760,7 +5760,7 @@ ReturnsPrivateImplementationOfInterface
 
    Helps ensure the JSII kernel & runtime cooperate correctly when an un-exported instance of a class is returned with a declared type that is an exported interface, and the instance inherits from an exported class.
 
-   https://github.com/awslabs/jsii/issues/320
+   https://github.com/aws/jsii/issues/320
 
 
 
@@ -5955,7 +5955,7 @@ SingletonInt
 
    
 
-   https://github.com/awslabs/jsii/issues/231
+   https://github.com/aws/jsii/issues/231
 
 
 
@@ -6036,7 +6036,7 @@ SingletonString
 
    
 
-   https://github.com/awslabs/jsii/issues/231
+   https://github.com/aws/jsii/issues/231
 
 
 

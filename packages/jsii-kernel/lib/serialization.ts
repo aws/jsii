@@ -270,7 +270,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
         This is what we'd like to do, but we can't because at least the Java client
         does not understand by-value serialized interface types, so we'll have to
         serialize by-reference for now:
-        https://github.com/awslabs/jsii/issues/400
+        https://github.com/aws/jsii/issues/400
 
       const props = propertiesOf(namedType);
 
@@ -286,7 +286,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
     },
     deserialize(value, optionalValue, host) {
       if (typeof value === 'object' && Object.keys(value || {}).length === 0) {
-        // Treat empty structs as `undefined` (see https://github.com/awslabs/jsii/issues/411)
+        // Treat empty structs as `undefined` (see https://github.com/aws/jsii/issues/411)
         value = undefined;
       }
       if (nullAndOk(value, optionalValue)) { return undefined; }
@@ -362,7 +362,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
         // Check that the object we got is of the right type
         // We only do this for classes, not interfaces, since Java might pass us objects that
         // privately implement some interface and we can't prove they don't.
-        // https://github.com/awslabs/jsii/issues/399
+        // https://github.com/aws/jsii/issues/399
         const declaredType = optionalValue.type as spec.NamedTypeReference;
         if (spec.isClassType(namedType) && !isAssignable(fqn, declaredType, host.lookupType)) {
           throw new Error(`Object of type ${fqn} is not convertible to ${declaredType.fqn}`);
@@ -398,7 +398,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
 
       // Use a previous reference to maintain object identity. NOTE: this may cause us to return
       // a different type than requested! This is just how it is right now.
-      // https://github.com/awslabs/jsii/issues/399
+      // https://github.com/aws/jsii/issues/399
       const prevRef = objectReference(value);
       if (prevRef) { return prevRef; }
 

@@ -990,7 +990,7 @@ public class ComplianceTest {
     }
 
     /**
-     * @see https://github.com/awslabs/jsii/issues/320
+     * @see https://github.com/aws/jsii/issues/320
      */
     @Test
     public void receiveInstanceOfPrivateClass() {
@@ -1008,7 +1008,7 @@ public class ComplianceTest {
 
     /**
      * Verifies that data values that are not set are recognized as unset keys
-     * in JavaScript-land. See https://github.com/awslabs/jsii/issues/375
+     * in JavaScript-land. See https://github.com/aws/jsii/issues/375
      */
     @Test
     public void eraseUnsetDataValues() {

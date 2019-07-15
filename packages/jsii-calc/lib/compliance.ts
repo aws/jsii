@@ -1285,7 +1285,7 @@ export interface LoadBalancedFargateServiceProps {
  *
  * @returns an instance of an un-exported class that extends `ExportedBaseClass`, declared as `IPrivatelyImplemented`.
  *
- * @see https://github.com/awslabs/jsii/issues/320
+ * @see https://github.com/aws/jsii/issues/320
  */
 export class ReturnsPrivateImplementationOfInterface {
     public get privateImplementation(): IPrivatelyImplemented {
@@ -1331,7 +1331,7 @@ export interface AugmentableClass {
 // Ensure the JSII kernel tags instances with the "most appropriate" FQN type label, so that runtimes are able to
 // correctly choose the implementation proxy that should be used. Failure to do so could cause situations where userland
 // needs to up-cast an instance to an incompatible type, which certain runtimes (such as Java) will prevent.
-// @See https://github.com/awslabs/jsii/issues/345
+// @See https://github.com/aws/jsii/issues/345
 export class PublicClass {
     public hello(): void {}
 }
@@ -1603,7 +1603,7 @@ export class ConstructorPassesThisOut {
 
 //
 // Consumes a possibly empty struct and verifies it is turned to undefined when passed
-// See: https://github.com/awslabs/jsii/issues/411
+// See: https://github.com/aws/jsii/issues/411
 //
 export class OptionalStructConsumer {
     public readonly parameterWasUndefined: boolean;
@@ -1696,7 +1696,7 @@ export class WithPrivatePropertyInConstructor {
 /**
  * Verifies that singleton enums are handled correctly
  *
- * https://github.com/awslabs/jsii/issues/231
+ * https://github.com/aws/jsii/issues/231
  */
 export class SingletonString {
     private constructor() { }
@@ -1713,7 +1713,7 @@ export enum SingletonStringEnum {
 /**
  * Verifies that singleton enums are handled correctly
  *
- * https://github.com/awslabs/jsii/issues/231
+ * https://github.com/aws/jsii/issues/231
  */
 export class SingletonInt {
     private constructor() { }

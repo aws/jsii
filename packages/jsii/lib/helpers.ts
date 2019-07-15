@@ -66,7 +66,7 @@ async function makeProjectInfo(types: string, cb?: (obj: PackageInfo) => void): 
     version: '0.0.1',
     license: 'Apache-2.0',
     author: { name: 'John Doe', roles: ['author'] },
-    repository: { type: 'git', url: 'https://github.com/awslabs/jsii.git' },
+    repository: { type: 'git', url: 'https://github.com/aws/jsii.git' },
     jsii: {},
   };
   if (cb) {

@@ -4890,7 +4890,7 @@ class ReturnsPrivateImplementationOfInterface(metaclass=jsii.JSIIMeta, jsii_type
     :return: an instance of an un-exported class that extends ``ExportedBaseClass``, declared as ``IPrivatelyImplemented``.
 
     see
-    :see: https://github.com/awslabs/jsii/issues/320
+    :see: https://github.com/aws/jsii/issues/320
     stability
     :stability: experimental
     """
@@ -5027,7 +5027,7 @@ class SingleInstanceTwoTypes(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Singl
 class SingletonInt(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SingletonInt"):
     """Verifies that singleton enums are handled correctly.
 
-    https://github.com/awslabs/jsii/issues/231
+    https://github.com/aws/jsii/issues/231
 
     stability
     :stability: experimental
@@ -5060,7 +5060,7 @@ class SingletonIntEnum(enum.Enum):
 class SingletonString(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SingletonString"):
     """Verifies that singleton enums are handled correctly.
 
-    https://github.com/awslabs/jsii/issues/231
+    https://github.com/aws/jsii/issues/231
 
     stability
     :stability: experimental
