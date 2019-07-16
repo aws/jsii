@@ -114,7 +114,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>[3.6.1,4)</version>
+                <version>3.6.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -155,12 +155,12 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
 
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>[2.22.0,3)</version>
+                <version>2.22.0</version>
             </plugin>
 
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>[2.22.0,3)</version>
+                <version>2.22.0</version>
             </plugin>
         </plugins>
     </build>
