@@ -44,7 +44,7 @@
         "sort-json": "^2.0.0",
         "spdx-license-list": "^6.0.0",
         "typescript": "^3.5.3",
-        "yargs": "^13.2.4"
+        "yargs": "^13.3.0"
     },
     "nyc": {
         "reporter": [
