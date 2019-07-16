@@ -10,4 +10,4 @@ node ./user.xml.t.js > ./project/user.xml
 node ./pom.xml.t.js > ./project/pom.xml
 
 # build jsii-calc and all dep and output to MAVEN_REPO
-jsii-pacmak node_modules/jsii-calc --outdir ${staging} -t java --recurse --verbose $@
+jsii-pacmak ../jsii-calc --outdir ${staging} -t java --recurse --verbose $@

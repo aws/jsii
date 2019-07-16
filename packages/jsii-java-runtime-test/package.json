@@ -10,8 +10,8 @@
     "test": "cd project && mvn test --settings=user.xml"
   },
   "devDependencies": {
-    "jsii-calc": "^0.14.0",
-    "jsii-java-runtime": "^0.14.0",
+    "jsii-calc": "file:../jsii-calc",
+    "jsii-java-runtime": "file:../jsii-java-runtime",
     "jsii-pacmak": "^0.14.0"
   },
   "author": {

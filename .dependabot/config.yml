@@ -1,0 +1,57 @@
+---
+# See: https://dependabot.com/docs/config-file/
+version: 1
+update_configs:
+  # Dependabot will detect the lerna mono-repo and discover packages in there
+  - directory: /
+    package_manager: javascript
+    update_schedule: live
+    ignored_updates:
+      - match:
+          # Don't suggest upgrading @types/node to versions >= 9
+          dependency_name: '@types/node'
+          version_requirements: '>= 9'
+      - match:
+          # Don't suggest upgrading decamelize to version >= 2
+          dependency_name: decamelize
+          version_requirement: '>= 2'
+      - match:
+          # Don't suggest upgrading @types/decamelize to version >= 2
+          dependency_name: '@types/decamelize'
+          version_requirement: '>= 2'
+    version_requirement_updates: increase_versions
+
+  - directory: /packages/jsii-dotnet-jsonmodel/src/Amazon.JSII.JsonModel
+    package_manager: dotnet:nuget
+    update_schedule: daily
+    version_requirement_updates: increase_versions
+
+  - directory: /packages/jsii-dotnet-jsonmodel/src/Amazon.JSII.JsonModel.UnitTests
+    package_manager: dotnet:nuget
+    update_schedule: daily
+    version_requirement_updates: increase_versions
+
+  - directory: /packages/jsii-dotnet-runtime/src/Amazon.JSII.Runtime
+    package_manager: dotnet:nuget
+    update_schedule: daily
+    version_requirement_updates: increase_versions
+
+  - directory: /packages/jsii-dotnet-runtime/src/Amazon.JSII.Runtime.UnitTests
+    package_manager: dotnet:nuget
+    update_schedule: daily
+    version_requirement_updates: increase_versions
+
+  - directory: /packages/jsii-dotnet-runtime-test/src/Amazon.JSII.Runtime.IngterationTests
+    package_manager: dotnet:nuget
+    update_schedule: daily
+    version_requirement_updates: increase_versions
+
+  - directory: /packages/jsii-python-runtime
+    package_manager: python
+    update_schedule: live
+    version_requirement_updates: increase_versions
+
+  - directory: /packages/jsii-ruby-runtime/project
+    package_manager: ruby:bundler
+    update_schedule: live
+    version_requirement_updates: increase_versions

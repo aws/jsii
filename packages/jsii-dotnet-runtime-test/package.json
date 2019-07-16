@@ -11,8 +11,8 @@
     "test": "/bin/bash ./test.sh"
   },
   "devDependencies": {
-    "jsii-calc": "^0.14.0",
-    "jsii-dotnet-runtime": "^0.14.0",
+    "jsii-calc": "file:../jsii-calc",
+    "jsii-dotnet-runtime": "file:../jsii-dotnet-runtime",
     "jsii-pacmak": "^0.14.0",
     "typescript": "^3.5.3"
   },

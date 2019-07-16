@@ -12,7 +12,7 @@
   },
   "devDependencies": {
     "@types/nodeunit": "^0.0.30",
-    "jsii-build-tools": "^0.14.0",
+    "jsii-build-tools": "file:../jsii-build-tools",
     "nodeunit": "^0.11.3",
     "typescript": "^3.5.3",
     "typescript-json-schema": "^0.38.3"

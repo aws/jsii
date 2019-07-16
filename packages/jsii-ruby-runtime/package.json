@@ -14,8 +14,8 @@
     "package": "package-ruby"
   },
   "devDependencies": {
-    "jsii-build-tools": "^0.14.0",
-    "jsii-calc": "^0.14.0",
+    "jsii-build-tools": "file:../jsii-build-tools",
+    "jsii-calc": "file:../jsii-calc",
     "jsii-pacmak": "^0.14.0",
     "jsii-runtime": "^0.14.0",
     "typescript": "^3.5.3"

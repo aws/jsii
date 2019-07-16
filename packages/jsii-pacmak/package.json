@@ -32,7 +32,7 @@
     "yargs": "^13.2.4"
   },
   "devDependencies": {
-    "@scope/jsii-calc-lib": "^0.14.0",
+    "@scope/jsii-calc-lib": "file:../jsii-calc-lib",
     "@types/clone": "^0.1.30",
     "@types/commonmark": "^0.27.4",
     "@types/escape-string-regexp": "^2.0.1",
@@ -41,12 +41,12 @@
     "@types/nodeunit": "^0.0.30",
     "@types/xmlbuilder": "^11.0.1",
     "@types/yargs": "^13.0.0",
-    "jsii-build-tools": "^0.14.0",
-    "jsii-calc": "^0.14.0",
-    "jsii-dotnet-generator": "^0.14.0",
-    "jsii-dotnet-jsonmodel": "^0.14.0",
-    "jsii-dotnet-runtime": "^0.14.0",
-    "jsii-java-runtime": "^0.14.0",
+    "jsii-build-tools": "file:../jsii-build-tools",
+    "jsii-calc": "file:../jsii-calc",
+    "jsii-dotnet-generator": "file:../jsii-dotnet-generator",
+    "jsii-dotnet-jsonmodel": "file:../jsii-dotnet-jsonmodel",
+    "jsii-dotnet-runtime": "file:../jsii-dotnet-runtime",
+    "jsii-java-runtime": "file:../jsii-java-runtime",
     "nodeunit": "^0.11.3",
     "tslint": "^5.18.0",
     "typescript": "^3.5.3"
