@@ -11,10 +11,10 @@
     "package": "package-dotnet"
   },
   "dependencies": {
-    "jsii-dotnet-jsonmodel": "^0.14.0"
+    "jsii-dotnet-jsonmodel": "file:../jsii-dotnet-jsonmodel"
   },
   "devDependencies": {
-    "jsii-build-tools": "^0.14.0"
+    "jsii-build-tools": "file:../jsii-build-tools"
   },
   "author": {
     "name": "Amazon Web Services",

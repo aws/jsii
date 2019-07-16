@@ -12,7 +12,7 @@
     "package": "package-java"
   },
   "devDependencies": {
-    "jsii-build-tools": "^0.14.0",
+    "jsii-build-tools": "file:../jsii-build-tools",
     "jsii-runtime": "^0.14.0",
     "typescript": "^3.5.3"
   },

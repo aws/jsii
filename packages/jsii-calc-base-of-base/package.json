@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "jsii": "^0.14.0",
-    "jsii-build-tools": "^0.14.0"
+    "jsii-build-tools": "file:../jsii-build-tools"
   },
   "author": {
     "name": "Amazon Web Services",

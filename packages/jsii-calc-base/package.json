@@ -33,13 +33,13 @@
   },
   "devDependencies": {
     "jsii": "^0.14.0",
-    "jsii-build-tools": "^0.14.0"
+    "jsii-build-tools": "file:../jsii-build-tools"
   },
   "dependencies": {
-    "@scope/jsii-calc-base-of-base": "^0.14.0"
+    "@scope/jsii-calc-base-of-base": "file:../jsii-calc-base-of-base"
   },
   "peerDependencies": {
-    "@scope/jsii-calc-base-of-base": "^0.14.0"
+    "@scope/jsii-calc-base-of-base": "file:../jsii-calc-base-of-base"
   },
   "author": {
     "name": "Amazon Web Services",
