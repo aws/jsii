@@ -322,6 +322,30 @@ describe('Stability', () => {
       expect(initializer.docs.stability).toEqual(Stability.Experimental);
       expect(method.docs.stability).toEqual(Stability.Experimental);
     });
+
+    test('external stability', async () => {
+      const ts = await typeSystemFromSource(`
+        /**
+         * @stability external
+         */
+        export class Foo {
+          public foo() {
+            Array.isArray(3);
+          }
+        }
+
+        /**
+         * @stable
+         */
+        export class SubFoo extends Foo {
+        }
+      `);
+
+      const classType = ts.findClass('testpkg.SubFoo');
+      const method = classType.allMethods.find(m => m.name === 'foo')!;
+
+      expect(method.docs.stability).toEqual(Stability.External);
+    });
   });
 });
 

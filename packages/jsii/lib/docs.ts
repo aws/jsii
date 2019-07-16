@@ -85,8 +85,24 @@ function parseDocParts(comments: string | undefined, tags: ts.JSDocTagInfo[]): D
   docs.see = eatTag('see');
   docs.subclassable = eatTag('subclassable') !== undefined ? true : undefined;
 
+  docs.stability = parseStability(eatTag('stability'), diagnostics);
+  //  @experimental is a shorthand for '@stability experimental', same for '@stable'
   const experimental = eatTag('experimental') !== undefined;
   const stable = eatTag('stable') !== undefined;
+  // Can't combine them
+  if (countBools(docs.stability !== undefined, experimental, stable) > 1) {
+    diagnostics.push(`Use only one of @stability, @experimental or @stable`);
+  }
+  if (experimental) { docs.stability = spec.Stability.Experimental; }
+  if (stable) { docs.stability = spec.Stability.Stable; }
+
+  // Can combine '@stability deprecated' with '@deprecated <reason>'
+  if (docs.deprecated !== undefined) {
+     if (docs.stability !== undefined && docs.stability !== spec.Stability.Deprecated) {
+       diagnostics.push(`@deprecated tag requires '@stability deprecated' or no @stability at all.`);
+     }
+     docs.stability = spec.Stability.Deprecated;
+  }
 
   if (docs.example && docs.example.indexOf('```') >= 0) {
     // This is currently what the JSDoc standard expects, and VSCode highlights it in
@@ -97,25 +113,9 @@ function parseDocParts(comments: string | undefined, tags: ts.JSDocTagInfo[]): D
     diagnostics.push('@example must be code only, no code block fences allowed.');
   }
 
-  if (experimental && stable) {
-    diagnostics.push('Element is marked both @experimental and @stable.');
+  if (docs.deprecated !== undefined && docs.deprecated.trim() === '') {
+    diagnostics.push('@deprecated tag needs a reason and/or suggested alternatives.');
   }
-
-  if (docs.deprecated !== undefined) {
-    if (docs.deprecated.trim() === '') {
-      diagnostics.push('@deprecated tag needs a reason and/or suggested alternatives.');
-    }
-    if (stable) {
-      diagnostics.push('Element is marked both @deprecated and @stable.');
-    }
-    if (experimental) {
-      diagnostics.push('Element is marked both @deprecated and @experimental.');
-    }
-  }
-
-  if (experimental) { docs.stability = spec.Stability.Experimental; }
-  if (stable) { docs.stability = spec.Stability.Stable; }
-  if (docs.deprecated) { docs.stability = spec.Stability.Deprecated; }
 
   if (tagNames.size > 0) {
     docs.custom = {};
@@ -184,3 +184,24 @@ function summaryLine(str: string) {
 const PUNCTUATION = ['!', '?', '.', ';'].map(s => '\\' + s).join('');
 const ENDS_WITH_PUNCTUATION_REGEX = new RegExp(`[${PUNCTUATION}]$`);
 const FIRST_SENTENCE_REGEX = new RegExp(`^([^${PUNCTUATION}]+[${PUNCTUATION}] )`); // literal space at the end
+
+function intBool(x: boolean): number {
+  return x ? 1 : 0;
+}
+
+function countBools(...x: boolean[]) {
+  return x.map(intBool).reduce((a, b) => a + b, 0);
+}
+
+function parseStability(s: string | undefined, diagnostics: string[]): spec.Stability | undefined {
+  if (s === undefined) { return undefined; }
+
+  switch (s)  {
+    case 'stable': return spec.Stability.Stable;
+    case 'experimental': return spec.Stability.Experimental;
+    case 'external': return spec.Stability.External;
+    case 'deprecated': return spec.Stability.Deprecated;
+  }
+  diagnostics.push(`Unrecognized @stability: '${s}'`);
+  return undefined;
+}

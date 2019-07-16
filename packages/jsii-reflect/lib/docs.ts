@@ -70,7 +70,8 @@ export class Docs {
 const stabilityPrecedence = {
   [Stability.Deprecated]: 0,
   [Stability.Experimental]: 1,
-  [Stability.Stable]: 2,
+  [Stability.External]: 2,
+  [Stability.Stable]: 3,
 };
 
 function lowestStability(a?: Stability, b?: Stability): Stability | undefined {
