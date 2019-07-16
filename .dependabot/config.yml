@@ -9,7 +9,7 @@ update_configs:
     ignored_updates:
       - match:
           # Don't suggest upgrading @types/node to versions >= 9
-          dependency_name: @types/node
+          dependency_name: '@types/node'
           version_requirements: '>= 9'
       - match:
           # Don't suggest upgrading decamelize to version >= 2
@@ -17,7 +17,7 @@ update_configs:
           version_requirement: '>= 2'
       - match:
           # Don't suggest upgrading @types/decamelize to version >= 2
-          dependency_name: @types/decamelize
+          dependency_name: '@types/decamelize'
           version_requirement: '>= 2'
     version_requirement_updates: increase_versions
 
