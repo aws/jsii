@@ -17,3 +17,7 @@ export PATH=node_modules/.bin:$PATH
 echo "============================================================================================="
 echo "boostrapping..."
 lerna bootstrap --reject-cycles --ci
+
+echo "============================================================================================="
+echo "installing local links..."
+node scripts/install-local-deps.js

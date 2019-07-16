@@ -12,12 +12,12 @@
     "package": "package-dotnet"
   },
   "devDependencies": {
-    "jsii-build-tools": "^0.14.0",
+    "jsii-build-tools": "file:../jsii-build-tools",
     "jsii-runtime": "^0.14.0",
     "typescript": "^3.5.3"
   },
   "dependencies": {
-    "jsii-dotnet-jsonmodel": "^0.14.0"
+    "jsii-dotnet-jsonmodel": "file:../jsii-dotnet-jsonmodel"
   },
   "author": {
     "name": "Amazon Web Services",
