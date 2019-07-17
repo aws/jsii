@@ -4,7 +4,7 @@ Metrics/LineLength:
 Metrics/MethodLength:
   Max: 1000
 
-Layout/IndentHash:
+Layout/IndentFirstHashElement:
   EnforcedStyle: consistent
 
 Style/GuardClause:
