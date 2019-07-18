@@ -17,4 +17,5 @@ Metrics/AbcSize:
   Enabled: false
 
 AllCops:
-  TargetRubyVersion: 2.2
+  # Ruby 2.4 - EOL 2020-03-31 - https://www.ruby-lang.org/en/downloads/branches/
+  TargetRubyVersion: 2.4
