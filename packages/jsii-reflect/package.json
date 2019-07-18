@@ -1,6 +1,6 @@
 {
   "name": "jsii-reflect",
-  "version": "0.14.0",
+  "version": "0.14.1",
   "description": "strongly-typed reflection library and tools for jsii",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -16,8 +16,8 @@
   "dependencies": {
     "colors": "^1.3.3",
     "fs-extra": "^8.1.0",
-    "jsii-spec": "^0.14.0",
-    "oo-ascii-tree": "^0.14.0",
+    "jsii-spec": "^0.14.1",
+    "oo-ascii-tree": "^0.14.1",
     "yargs": "^13.3.0"
   },
   "devDependencies": {
@@ -26,7 +26,7 @@
     "@types/jest": "^24.0.15",
     "@types/yargs": "^13.0.0",
     "jest": "^24.8.0",
-    "jsii": "^0.14.0",
+    "jsii": "^0.14.1",
     "jsii-build-tools": "file:../jsii-build-tools",
     "jsii-calc": "file:../jsii-calc",
     "ts-jest": "^24.0.2",

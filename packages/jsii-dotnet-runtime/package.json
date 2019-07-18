@@ -1,6 +1,6 @@
 {
   "name": "jsii-dotnet-runtime",
-  "version": "0.14.0",
+  "version": "0.14.1",
   "description": ".NET client for jsii runtime",
   "main": "lib/index.js",
   "private": true,
@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "jsii-build-tools": "file:../jsii-build-tools",
-    "jsii-runtime": "^0.14.0",
+    "jsii-runtime": "^0.14.1",
     "typescript": "^3.5.3"
   },
   "dependencies": {
