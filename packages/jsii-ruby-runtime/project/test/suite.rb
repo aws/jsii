@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test/unit/testsuite'
 require_relative 'jsii_runtime_test'
 
