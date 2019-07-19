@@ -6435,6 +6435,10 @@ StructPassing
 
 
 
+   Just because we can.
+
+
+
 
    .. py:staticmethod:: howManyVarArgsDidIPass(_positional, *inputs) -> number
 

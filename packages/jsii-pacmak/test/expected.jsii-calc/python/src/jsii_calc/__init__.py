@@ -5332,10 +5332,7 @@ class StripInternal(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StripInternal"
 
 
 class StructPassing(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StructPassing"):
-    """
-    stability
-    :stability: experimental
-    """
+    """Just because we can."""
     def __init__(self) -> None:
         jsii.create(StructPassing, self, [])
 
@@ -5345,9 +5342,6 @@ class StructPassing(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StructPassing"
         """
         :param _positional: -
         :param inputs: -
-
-        stability
-        :stability: experimental
         """
         return jsii.sinvoke(cls, "howManyVarArgsDidIPass", [_positional, *inputs])
 
@@ -5360,9 +5354,6 @@ class StructPassing(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StructPassing"
         :param required: This is a required field.
         :param second_level: A union to really stress test our serialization.
         :param optional: You don't have to pass this.
-
-        stability
-        :stability: experimental
         """
         input = TopLevelStruct(required=required, second_level=second_level, optional=optional)
 

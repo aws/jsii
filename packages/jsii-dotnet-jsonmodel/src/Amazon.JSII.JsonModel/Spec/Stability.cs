@@ -8,6 +8,7 @@ namespace Amazon.JSII.JsonModel.Spec
     {
         Stable,
         Experimental,
-        Deprecated
+        Deprecated,
+        External
     }
 }

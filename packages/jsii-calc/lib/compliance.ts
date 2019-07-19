@@ -1771,6 +1771,11 @@ export interface SecondLevelStruct {
     readonly deeperOptionalProp?: string;
 }
 
+/**
+ * Just because we can.
+ *
+ * @stability external
+ */
 export class StructPassing {
     public static roundTrip(_positional: number, input: TopLevelStruct): TopLevelStruct {
         return {

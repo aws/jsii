@@ -7808,23 +7808,24 @@
     "jsii-calc.StructPassing": {
       "assembly": "jsii-calc",
       "docs": {
-        "stability": "experimental"
+        "stability": "external",
+        "summary": "Just because we can."
       },
       "fqn": "jsii-calc.StructPassing",
       "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 1774
+        "line": 1779
       },
       "methods": [
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "external"
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1783
+            "line": 1788
           },
           "name": "howManyVarArgsDidIPass",
           "parameters": [
@@ -7852,11 +7853,11 @@
         },
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "external"
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1775
+            "line": 1780
           },
           "name": "roundTrip",
           "parameters": [
@@ -9052,5 +9053,5 @@
     }
   },
   "version": "0.14.1",
-  "fingerprint": "+yGMmfs+WJP2iATk7OXRXw8oP6Ov+VOkOf8BaxaCbN4="
+  "fingerprint": "31WUucZoc5uXBpVM+LdQz2noSFtdRXgTdT58JECw1ow="
 }
