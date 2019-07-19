@@ -1086,10 +1086,10 @@ assemblies
  │   │   ├── <initializer>() initializer (experimental)
  │   │   └─┬ youSeeMe property (experimental)
  │   │     └── type: string
- │   ├─┬ class StructPassing (experimental)
+ │   ├─┬ class StructPassing
  │   │ └─┬ members
- │   │   ├── <initializer>() initializer (experimental)
- │   │   ├─┬ static howManyVarArgsDidIPass(_positional,inputs) method (experimental)
+ │   │   ├── <initializer>() initializer
+ │   │   ├─┬ static howManyVarArgsDidIPass(_positional,inputs) method
  │   │   │ ├── static
  │   │   │ ├── variadic
  │   │   │ ├─┬ parameters
@@ -1099,7 +1099,7 @@ assemblies
  │   │   │ │   ├── type: jsii-calc.TopLevelStruct
  │   │   │ │   └── variadic
  │   │   │ └── returns: number
- │   │   └─┬ static roundTrip(_positional,input) method (experimental)
+ │   │   └─┬ static roundTrip(_positional,input) method
  │   │     ├── static
  │   │     ├─┬ parameters
  │   │     │ ├─┬ _positional
