@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(StripInternal), fullyQualifiedName: "jsii-calc.StripInternal")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.StripInternal), fullyQualifiedName: "jsii-calc.StripInternal")]
     public class StripInternal : DeputyBase
     {
         public StripInternal(): base(new DeputyProps(new object[]{}))

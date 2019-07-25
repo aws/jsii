@@ -8,7 +8,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IStructWithOnlyOptionals), fullyQualifiedName: "@scope/jsii-calc-lib.StructWithOnlyOptionals")]
     [System.Obsolete()]
-    internal sealed class StructWithOnlyOptionalsProxy : DeputyBase, IStructWithOnlyOptionals
+    internal sealed class StructWithOnlyOptionalsProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IStructWithOnlyOptionals
     {
         private StructWithOnlyOptionalsProxy(ByRefValue reference): base(reference)
         {

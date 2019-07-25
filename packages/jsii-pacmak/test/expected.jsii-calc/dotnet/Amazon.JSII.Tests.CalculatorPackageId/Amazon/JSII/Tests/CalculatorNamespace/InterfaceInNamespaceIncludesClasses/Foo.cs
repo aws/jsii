@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceIncludesClas
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(Foo), fullyQualifiedName: "jsii-calc.InterfaceInNamespaceIncludesClasses.Foo")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceIncludesClasses.Foo), fullyQualifiedName: "jsii-calc.InterfaceInNamespaceIncludesClasses.Foo")]
     public class Foo : DeputyBase
     {
         public Foo(): base(new DeputyProps(new object[]{}))

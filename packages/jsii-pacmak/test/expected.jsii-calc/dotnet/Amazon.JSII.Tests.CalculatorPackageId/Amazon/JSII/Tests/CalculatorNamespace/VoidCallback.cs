@@ -9,7 +9,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// - Verify that `methodWasCalled` is `true`.
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(VoidCallback), fullyQualifiedName: "jsii-calc.VoidCallback")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.VoidCallback), fullyQualifiedName: "jsii-calc.VoidCallback")]
     public abstract class VoidCallback : DeputyBase
     {
         protected VoidCallback(): base(new DeputyProps(new object[]{}))

@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(WithPrivatePropertyInConstructor), fullyQualifiedName: "jsii-calc.WithPrivatePropertyInConstructor", parametersJson: "[{\"name\":\"privateField\",\"optional\":true,\"type\":{\"primitive\":\"string\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.WithPrivatePropertyInConstructor), fullyQualifiedName: "jsii-calc.WithPrivatePropertyInConstructor", parametersJson: "[{\"name\":\"privateField\",\"optional\":true,\"type\":{\"primitive\":\"string\"}}]")]
     public class WithPrivatePropertyInConstructor : DeputyBase
     {
         /// <remarks>

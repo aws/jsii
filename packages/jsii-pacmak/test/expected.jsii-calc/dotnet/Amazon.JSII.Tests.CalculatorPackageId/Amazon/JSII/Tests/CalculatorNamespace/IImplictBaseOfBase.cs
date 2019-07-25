@@ -1,5 +1,4 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
@@ -7,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// stability: Experimental
     /// </remarks>
     [JsiiInterface(nativeType: typeof(IImplictBaseOfBase), fullyQualifiedName: "jsii-calc.ImplictBaseOfBase")]
-    public interface IImplictBaseOfBase : IBaseProps
+    public interface IImplictBaseOfBase : Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.IBaseProps
     {
         /// <remarks>
         /// stability: Experimental

@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// stability: Experimental
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IUnionProperties), fullyQualifiedName: "jsii-calc.UnionProperties")]
-    internal sealed class UnionPropertiesProxy : DeputyBase, IUnionProperties
+    internal sealed class UnionPropertiesProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IUnionProperties
     {
         private UnionPropertiesProxy(ByRefValue reference): base(reference)
         {

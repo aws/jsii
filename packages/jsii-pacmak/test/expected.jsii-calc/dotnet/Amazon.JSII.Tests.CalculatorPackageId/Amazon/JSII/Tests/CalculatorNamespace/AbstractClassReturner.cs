@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(AbstractClassReturner), fullyQualifiedName: "jsii-calc.AbstractClassReturner")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.AbstractClassReturner), fullyQualifiedName: "jsii-calc.AbstractClassReturner")]
     public class AbstractClassReturner : DeputyBase
     {
         public AbstractClassReturner(): base(new DeputyProps(new object[]{}))

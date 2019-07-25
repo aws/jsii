@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(AugmentableClass), fullyQualifiedName: "jsii-calc.AugmentableClass")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.AugmentableClass), fullyQualifiedName: "jsii-calc.AugmentableClass")]
     public class AugmentableClass : DeputyBase
     {
         public AugmentableClass(): base(new DeputyProps(new object[]{}))

@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(Thrower), fullyQualifiedName: "jsii-calc.Thrower")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Thrower), fullyQualifiedName: "jsii-calc.Thrower")]
     public class Thrower : DeputyBase
     {
         public Thrower(): base(new DeputyProps(new object[]{}))

@@ -10,7 +10,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IIFriendly), fullyQualifiedName: "@scope/jsii-calc-lib.IFriendly")]
     [System.Obsolete()]
-    internal sealed class IFriendlyProxy : DeputyBase, IIFriendly
+    internal sealed class IFriendlyProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IIFriendly
     {
         private IFriendlyProxy(ByRefValue reference): base(reference)
         {

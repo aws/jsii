@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(PublicClass), fullyQualifiedName: "jsii-calc.PublicClass")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.PublicClass), fullyQualifiedName: "jsii-calc.PublicClass")]
     public class PublicClass : DeputyBase
     {
         public PublicClass(): base(new DeputyProps(new object[]{}))

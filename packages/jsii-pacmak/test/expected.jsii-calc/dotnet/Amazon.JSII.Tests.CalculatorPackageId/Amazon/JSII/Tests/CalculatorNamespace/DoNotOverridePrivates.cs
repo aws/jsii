@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(DoNotOverridePrivates), fullyQualifiedName: "jsii-calc.DoNotOverridePrivates")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DoNotOverridePrivates), fullyQualifiedName: "jsii-calc.DoNotOverridePrivates")]
     public class DoNotOverridePrivates : DeputyBase
     {
         public DoNotOverridePrivates(): base(new DeputyProps(new object[]{}))

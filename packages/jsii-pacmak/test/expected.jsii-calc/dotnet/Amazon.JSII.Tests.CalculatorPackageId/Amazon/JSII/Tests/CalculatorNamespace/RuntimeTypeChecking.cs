@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(RuntimeTypeChecking), fullyQualifiedName: "jsii-calc.RuntimeTypeChecking")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.RuntimeTypeChecking), fullyQualifiedName: "jsii-calc.RuntimeTypeChecking")]
     public class RuntimeTypeChecking : DeputyBase
     {
         public RuntimeTypeChecking(): base(new DeputyProps(new object[]{}))

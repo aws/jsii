@@ -1,5 +1,4 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.composition;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
@@ -7,8 +6,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(Power), fullyQualifiedName: "jsii-calc.Power", parametersJson: "[{\"docs\":{\"summary\":\"The base of the power.\"},\"name\":\"base\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},{\"docs\":{\"summary\":\"The number of times to multiply.\"},\"name\":\"pow\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
-    public class Power : CompositeOperation
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Power), fullyQualifiedName: "jsii-calc.Power", parametersJson: "[{\"docs\":{\"summary\":\"The base of the power.\"},\"name\":\"base\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},{\"docs\":{\"summary\":\"The number of times to multiply.\"},\"name\":\"pow\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
+    public class Power : Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation
     {
         /// <summary>Creates a Power operation.</summary>
         /// <param name = "@base">The base of the power.</param>

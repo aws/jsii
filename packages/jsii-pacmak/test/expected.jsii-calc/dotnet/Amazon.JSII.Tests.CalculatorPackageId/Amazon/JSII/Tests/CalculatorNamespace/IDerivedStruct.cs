@@ -1,5 +1,4 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
@@ -8,7 +7,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// stability: Experimental
     /// </remarks>
     [JsiiInterface(nativeType: typeof(IDerivedStruct), fullyQualifiedName: "jsii-calc.DerivedStruct")]
-    public interface IDerivedStruct : IMyFirstStruct
+    public interface IDerivedStruct : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IMyFirstStruct
     {
         /// <remarks>
         /// stability: Experimental

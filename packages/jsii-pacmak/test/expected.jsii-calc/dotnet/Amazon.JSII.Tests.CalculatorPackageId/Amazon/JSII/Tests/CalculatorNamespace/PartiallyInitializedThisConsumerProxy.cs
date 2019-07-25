@@ -5,8 +5,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiTypeProxy(nativeType: typeof(PartiallyInitializedThisConsumer), fullyQualifiedName: "jsii-calc.PartiallyInitializedThisConsumer")]
-    internal sealed class PartiallyInitializedThisConsumerProxy : PartiallyInitializedThisConsumer
+    [JsiiTypeProxy(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.PartiallyInitializedThisConsumer), fullyQualifiedName: "jsii-calc.PartiallyInitializedThisConsumer")]
+    internal sealed class PartiallyInitializedThisConsumerProxy : Amazon.JSII.Tests.CalculatorNamespace.PartiallyInitializedThisConsumer
     {
         private PartiallyInitializedThisConsumerProxy(ByRefValue reference): base(reference)
         {

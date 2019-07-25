@@ -11,10 +11,11 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// function anExample() {
     /// }
     /// </code>
+    /// see:
     /// https://aws.amazon.com/
     /// customAttribute: hasAValue
     /// </remarks>
-    [JsiiClass(nativeType: typeof(ClassWithDocs), fullyQualifiedName: "jsii-calc.ClassWithDocs")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithDocs), fullyQualifiedName: "jsii-calc.ClassWithDocs")]
     public class ClassWithDocs : DeputyBase
     {
         public ClassWithDocs(): base(new DeputyProps(new object[]{}))

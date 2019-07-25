@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(JavaReservedWords), fullyQualifiedName: "jsii-calc.JavaReservedWords")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.JavaReservedWords), fullyQualifiedName: "jsii-calc.JavaReservedWords")]
     public class JavaReservedWords : DeputyBase
     {
         public JavaReservedWords(): base(new DeputyProps(new object[]{}))

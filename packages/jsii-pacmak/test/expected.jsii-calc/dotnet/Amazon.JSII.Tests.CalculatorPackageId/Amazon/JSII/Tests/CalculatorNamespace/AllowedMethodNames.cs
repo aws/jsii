@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(AllowedMethodNames), fullyQualifiedName: "jsii-calc.AllowedMethodNames")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.AllowedMethodNames), fullyQualifiedName: "jsii-calc.AllowedMethodNames")]
     public class AllowedMethodNames : DeputyBase
     {
         public AllowedMethodNames(): base(new DeputyProps(new object[]{}))

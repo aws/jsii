@@ -7,7 +7,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// stability: Experimental
     /// </remarks>
     [JsiiInterface(nativeType: typeof(IIInterfaceThatShouldNotBeADataType), fullyQualifiedName: "jsii-calc.IInterfaceThatShouldNotBeADataType")]
-    public interface IIInterfaceThatShouldNotBeADataType : IIInterfaceWithMethods
+    public interface IIInterfaceThatShouldNotBeADataType : Amazon.JSII.Tests.CalculatorNamespace.IIInterfaceWithMethods
     {
         /// <remarks>
         /// stability: Experimental

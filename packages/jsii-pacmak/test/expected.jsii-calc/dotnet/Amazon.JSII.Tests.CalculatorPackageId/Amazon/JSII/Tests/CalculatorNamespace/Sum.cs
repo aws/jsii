@@ -1,5 +1,4 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.composition;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
@@ -7,8 +6,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(Sum), fullyQualifiedName: "jsii-calc.Sum")]
-    public class Sum : CompositeOperation
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Sum), fullyQualifiedName: "jsii-calc.Sum")]
+    public class Sum : Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation
     {
         /// <remarks>
         /// stability: Experimental

@@ -10,7 +10,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     public interface IIRandomNumberGenerator
     {
         /// <summary>Returns another random number.</summary>
-        /// <returns>A random number.</returns>
+        /// <returns>
+        /// A random number.
+        /// </returns>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>

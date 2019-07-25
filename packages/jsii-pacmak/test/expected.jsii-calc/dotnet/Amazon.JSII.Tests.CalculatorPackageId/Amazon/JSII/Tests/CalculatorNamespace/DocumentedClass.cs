@@ -10,7 +10,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// Multiple paragraphs are separated by an empty line.
     /// stability: Stable
     /// </remarks>
-    [JsiiClass(nativeType: typeof(DocumentedClass), fullyQualifiedName: "jsii-calc.DocumentedClass")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DocumentedClass), fullyQualifiedName: "jsii-calc.DocumentedClass")]
     public class DocumentedClass : DeputyBase
     {
         public DocumentedClass(): base(new DeputyProps(new object[]{}))
@@ -27,7 +27,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <summary>Greet the indicated person.</summary>
         /// <param name = "greetee">The person to be greeted.</param>
-        /// <returns>A number that everyone knows very well</returns>
+        /// <returns>
+        /// A number that everyone knows very well
+        /// </returns>
         /// <remarks>
         /// This will print out a friendly greeting intended for
         /// the indicated person.

@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// stability: Experimental
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IIExperimentalInterface), fullyQualifiedName: "jsii-calc.IExperimentalInterface")]
-    internal sealed class IExperimentalInterfaceProxy : DeputyBase, IIExperimentalInterface
+    internal sealed class IExperimentalInterfaceProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IIExperimentalInterface
     {
         private IExperimentalInterfaceProxy(ByRefValue reference): base(reference)
         {

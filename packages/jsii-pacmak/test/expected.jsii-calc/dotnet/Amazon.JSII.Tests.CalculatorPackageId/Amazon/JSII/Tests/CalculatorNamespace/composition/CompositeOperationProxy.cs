@@ -6,8 +6,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiTypeProxy(nativeType: typeof(CompositeOperation), fullyQualifiedName: "jsii-calc.composition.CompositeOperation")]
-    internal sealed class CompositeOperationProxy : CompositeOperation
+    [JsiiTypeProxy(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation), fullyQualifiedName: "jsii-calc.composition.CompositeOperation")]
+    internal sealed class CompositeOperationProxy : Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation
     {
         private CompositeOperationProxy(ByRefValue reference): base(reference)
         {

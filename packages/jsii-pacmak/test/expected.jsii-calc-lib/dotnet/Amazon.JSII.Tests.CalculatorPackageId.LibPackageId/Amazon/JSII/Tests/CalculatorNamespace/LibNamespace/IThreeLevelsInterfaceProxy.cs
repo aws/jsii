@@ -10,7 +10,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IIThreeLevelsInterface), fullyQualifiedName: "@scope/jsii-calc-lib.IThreeLevelsInterface")]
     [System.Obsolete()]
-    internal sealed class IThreeLevelsInterfaceProxy : DeputyBase, IIThreeLevelsInterface
+    internal sealed class IThreeLevelsInterfaceProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IIThreeLevelsInterface
     {
         private IThreeLevelsInterfaceProxy(ByRefValue reference): base(reference)
         {

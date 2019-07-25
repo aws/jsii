@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(Polymorphism), fullyQualifiedName: "jsii-calc.Polymorphism")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Polymorphism), fullyQualifiedName: "jsii-calc.Polymorphism")]
     public class Polymorphism : DeputyBase
     {
         public Polymorphism(): base(new DeputyProps(new object[]{}))

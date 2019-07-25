@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// stability: Experimental
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IIReturnsNumber), fullyQualifiedName: "jsii-calc.IReturnsNumber")]
-    internal sealed class IReturnsNumberProxy : DeputyBase, IIReturnsNumber
+    internal sealed class IReturnsNumberProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IIReturnsNumber
     {
         private IReturnsNumberProxy(ByRefValue reference): base(reference)
         {

@@ -7,7 +7,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// stability: Experimental
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IIFriendlier), fullyQualifiedName: "jsii-calc.IFriendlier")]
-    internal sealed class IFriendlierProxy : DeputyBase, IIFriendlier
+    internal sealed class IFriendlierProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IIFriendlier
     {
         private IFriendlierProxy(ByRefValue reference): base(reference)
         {
@@ -24,7 +24,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Say goodbye.</summary>
-        /// <returns>A goodbye blessing.</returns>
+        /// <returns>
+        /// A goodbye blessing.
+        /// </returns>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>

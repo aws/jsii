@@ -1,5 +1,4 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.composition
 {
@@ -7,8 +6,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(CompositeOperation), fullyQualifiedName: "jsii-calc.composition.CompositeOperation")]
-    public abstract class CompositeOperation : Operation
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation), fullyQualifiedName: "jsii-calc.composition.CompositeOperation")]
+    public abstract class CompositeOperation : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Operation
     {
         protected CompositeOperation(): base(new DeputyProps(new object[]{}))
         {

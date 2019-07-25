@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// stability: Experimental
     /// </remarks>
     [JsiiInterface(nativeType: typeof(IIJSII417Derived), fullyQualifiedName: "jsii-calc.IJSII417Derived")]
-    public interface IIJSII417Derived : IIJSII417PublicBaseOfBase
+    public interface IIJSII417Derived : Amazon.JSII.Tests.CalculatorNamespace.IIJSII417PublicBaseOfBase
     {
         /// <remarks>
         /// stability: Experimental

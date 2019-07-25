@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(GreetingAugmenter), fullyQualifiedName: "jsii-calc.GreetingAugmenter")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.GreetingAugmenter), fullyQualifiedName: "jsii-calc.GreetingAugmenter")]
     public class GreetingAugmenter : DeputyBase
     {
         public GreetingAugmenter(): base(new DeputyProps(new object[]{}))

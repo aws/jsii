@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(Statics), fullyQualifiedName: "jsii-calc.Statics", parametersJson: "[{\"name\":\"value\",\"type\":{\"primitive\":\"string\"}}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Statics), fullyQualifiedName: "jsii-calc.Statics", parametersJson: "[{\"name\":\"value\",\"type\":{\"primitive\":\"string\"}}]")]
     public class Statics : DeputyBase
     {
         /// <remarks>
@@ -31,7 +31,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "staticMethod", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[{\"docs\":{\"summary\":\"The name of the person to say hello to.\"},\"name\":\"name\",\"type\":{\"primitive\":\"string\"}}]")]
         public static string StaticMethod(string name)
         {
-            return InvokeStaticMethod<string>(typeof(Statics), new object[]{name});
+            return InvokeStaticMethod<string>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Statics), new object[]{name});
         }
 
         /// <remarks>
@@ -52,7 +52,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
         }
-        = GetStaticProperty<double>(typeof(Statics));
+        = GetStaticProperty<double>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Statics));
 
         /// <remarks>
         /// stability: Experimental
@@ -62,7 +62,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
         }
-        = GetStaticProperty<Amazon.JSII.Tests.CalculatorNamespace.DoubleTrouble>(typeof(Statics));
+        = GetStaticProperty<Amazon.JSII.Tests.CalculatorNamespace.DoubleTrouble>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Statics));
 
         /// <summary>Jsdocs for static property.</summary>
         /// <remarks>
@@ -73,7 +73,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
         }
-        = GetStaticProperty<string>(typeof(Statics));
+        = GetStaticProperty<string>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Statics));
 
         /// <summary>Constants can also use camelCase.</summary>
         /// <remarks>
@@ -84,7 +84,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
         }
-        = GetStaticProperty<System.Collections.Generic.IDictionary<string, string>>(typeof(Statics));
+        = GetStaticProperty<System.Collections.Generic.IDictionary<string, string>>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Statics));
 
         /// <summary>Jsdocs for static getter. Jsdocs for static setter.</summary>
         /// <remarks>
@@ -93,8 +93,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiProperty(name: "instance", typeJson: "{\"fqn\":\"jsii-calc.Statics\"}")]
         public static Amazon.JSII.Tests.CalculatorNamespace.Statics Instance
         {
-            get => GetStaticProperty<Amazon.JSII.Tests.CalculatorNamespace.Statics>(typeof(Statics));
-            set => SetStaticProperty(typeof(Statics), value);
+            get => GetStaticProperty<Amazon.JSII.Tests.CalculatorNamespace.Statics>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Statics));
+            set => SetStaticProperty(typeof(Amazon.JSII.Tests.CalculatorNamespace.Statics), value);
         }
 
         /// <remarks>
@@ -103,8 +103,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiProperty(name: "nonConstStatic", typeJson: "{\"primitive\":\"number\"}")]
         public static double NonConstStatic
         {
-            get => GetStaticProperty<double>(typeof(Statics));
-            set => SetStaticProperty(typeof(Statics), value);
+            get => GetStaticProperty<double>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Statics));
+            set => SetStaticProperty(typeof(Amazon.JSII.Tests.CalculatorNamespace.Statics), value);
         }
 
         /// <remarks>

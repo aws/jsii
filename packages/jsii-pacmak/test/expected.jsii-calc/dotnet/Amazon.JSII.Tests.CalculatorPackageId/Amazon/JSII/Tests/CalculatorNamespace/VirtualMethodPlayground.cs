@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(VirtualMethodPlayground), fullyQualifiedName: "jsii-calc.VirtualMethodPlayground")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.VirtualMethodPlayground), fullyQualifiedName: "jsii-calc.VirtualMethodPlayground")]
     public class VirtualMethodPlayground : DeputyBase
     {
         public VirtualMethodPlayground(): base(new DeputyProps(new object[]{}))

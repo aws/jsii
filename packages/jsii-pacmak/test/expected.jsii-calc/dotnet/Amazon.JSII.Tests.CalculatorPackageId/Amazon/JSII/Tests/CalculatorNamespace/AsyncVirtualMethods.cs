@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(AsyncVirtualMethods), fullyQualifiedName: "jsii-calc.AsyncVirtualMethods")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.AsyncVirtualMethods), fullyQualifiedName: "jsii-calc.AsyncVirtualMethods")]
     public class AsyncVirtualMethods : DeputyBase
     {
         public AsyncVirtualMethods(): base(new DeputyProps(new object[]{}))

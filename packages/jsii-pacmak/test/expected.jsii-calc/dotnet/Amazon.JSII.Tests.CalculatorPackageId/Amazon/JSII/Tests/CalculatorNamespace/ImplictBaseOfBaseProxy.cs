@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// stability: Experimental
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IImplictBaseOfBase), fullyQualifiedName: "jsii-calc.ImplictBaseOfBase")]
-    internal sealed class ImplictBaseOfBaseProxy : DeputyBase, IImplictBaseOfBase
+    internal sealed class ImplictBaseOfBaseProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IImplictBaseOfBase
     {
         private ImplictBaseOfBaseProxy(ByRefValue reference): base(reference)
         {

@@ -7,7 +7,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// https://github.com/aws/jsii/issues/231
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(SingletonString), fullyQualifiedName: "jsii-calc.SingletonString")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.SingletonString), fullyQualifiedName: "jsii-calc.SingletonString")]
     public class SingletonString : DeputyBase
     {
         protected SingletonString(ByRefValue reference): base(reference)

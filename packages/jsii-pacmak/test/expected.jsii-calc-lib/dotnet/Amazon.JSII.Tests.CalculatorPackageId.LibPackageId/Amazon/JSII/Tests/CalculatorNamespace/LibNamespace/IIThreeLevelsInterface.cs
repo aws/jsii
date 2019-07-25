@@ -1,5 +1,4 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
@@ -11,7 +10,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     /// </remarks>
     [JsiiInterface(nativeType: typeof(IIThreeLevelsInterface), fullyQualifiedName: "@scope/jsii-calc-lib.IThreeLevelsInterface")]
     [System.Obsolete()]
-    public interface IIThreeLevelsInterface : IIBaseInterface
+    public interface IIThreeLevelsInterface : Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.IIBaseInterface
     {
         /// <remarks>
         /// stability: Deprecated

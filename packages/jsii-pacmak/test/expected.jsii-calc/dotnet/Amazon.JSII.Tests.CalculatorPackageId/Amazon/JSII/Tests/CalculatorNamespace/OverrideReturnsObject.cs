@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(OverrideReturnsObject), fullyQualifiedName: "jsii-calc.OverrideReturnsObject")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.OverrideReturnsObject), fullyQualifiedName: "jsii-calc.OverrideReturnsObject")]
     public class OverrideReturnsObject : DeputyBase
     {
         public OverrideReturnsObject(): base(new DeputyProps(new object[]{}))

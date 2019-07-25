@@ -1,5 +1,4 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.composition;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
@@ -7,8 +6,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(Calculator), fullyQualifiedName: "jsii-calc.Calculator", parametersJson: "[{\"docs\":{\"summary\":\"Initialization properties.\"},\"name\":\"props\",\"optional\":true,\"type\":{\"fqn\":\"jsii-calc.CalculatorProps\"}}]")]
-    public class Calculator : CompositeOperation
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Calculator), fullyQualifiedName: "jsii-calc.Calculator", parametersJson: "[{\"docs\":{\"summary\":\"Initialization properties.\"},\"name\":\"props\",\"optional\":true,\"type\":{\"fqn\":\"jsii-calc.CalculatorProps\"}}]")]
+    public class Calculator : Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation
     {
         /// <summary>Creates a Calculator object.</summary>
         /// <param name = "props">Initialization properties.</param>

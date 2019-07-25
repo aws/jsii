@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// stability: Experimental
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IEraseUndefinedHashValuesOptions), fullyQualifiedName: "jsii-calc.EraseUndefinedHashValuesOptions")]
-    internal sealed class EraseUndefinedHashValuesOptionsProxy : DeputyBase, IEraseUndefinedHashValuesOptions
+    internal sealed class EraseUndefinedHashValuesOptionsProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IEraseUndefinedHashValuesOptions
     {
         private EraseUndefinedHashValuesOptionsProxy(ByRefValue reference): base(reference)
         {

@@ -1,5 +1,4 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
@@ -7,8 +6,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(Multiply), fullyQualifiedName: "jsii-calc.Multiply", parametersJson: "[{\"docs\":{\"summary\":\"Left-hand side operand.\"},\"name\":\"lhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},{\"docs\":{\"summary\":\"Right-hand side operand.\"},\"name\":\"rhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
-    public class Multiply : BinaryOperation, IIFriendlier, IIRandomNumberGenerator
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Multiply), fullyQualifiedName: "jsii-calc.Multiply", parametersJson: "[{\"docs\":{\"summary\":\"Left-hand side operand.\"},\"name\":\"lhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},{\"docs\":{\"summary\":\"Right-hand side operand.\"},\"name\":\"rhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
+    public class Multiply : Amazon.JSII.Tests.CalculatorNamespace.BinaryOperation, Amazon.JSII.Tests.CalculatorNamespace.IIFriendlier, Amazon.JSII.Tests.CalculatorNamespace.IIRandomNumberGenerator
     {
         /// <summary>Creates a BinaryOperation.</summary>
         /// <param name = "lhs">Left-hand side operand.</param>

@@ -9,7 +9,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// this it would break runtime type checks in the JVM or CLR.
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(SingleInstanceTwoTypes), fullyQualifiedName: "jsii-calc.SingleInstanceTwoTypes")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.SingleInstanceTwoTypes), fullyQualifiedName: "jsii-calc.SingleInstanceTwoTypes")]
     public class SingleInstanceTwoTypes : DeputyBase
     {
         public SingleInstanceTwoTypes(): base(new DeputyProps(new object[]{}))

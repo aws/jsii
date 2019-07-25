@@ -6,14 +6,16 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// stability: Experimental
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IIFriendlyRandomGenerator), fullyQualifiedName: "jsii-calc.IFriendlyRandomGenerator")]
-    internal sealed class IFriendlyRandomGeneratorProxy : DeputyBase, IIFriendlyRandomGenerator
+    internal sealed class IFriendlyRandomGeneratorProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IIFriendlyRandomGenerator
     {
         private IFriendlyRandomGeneratorProxy(ByRefValue reference): base(reference)
         {
         }
 
         /// <summary>Returns another random number.</summary>
-        /// <returns>A random number.</returns>
+        /// <returns>
+        /// A random number.
+        /// </returns>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>

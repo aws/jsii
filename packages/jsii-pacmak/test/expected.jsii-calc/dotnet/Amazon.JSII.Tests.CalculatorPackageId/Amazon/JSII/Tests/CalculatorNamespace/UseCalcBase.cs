@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(UseCalcBase), fullyQualifiedName: "jsii-calc.UseCalcBase")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.UseCalcBase), fullyQualifiedName: "jsii-calc.UseCalcBase")]
     public class UseCalcBase : DeputyBase
     {
         public UseCalcBase(): base(new DeputyProps(new object[]{}))

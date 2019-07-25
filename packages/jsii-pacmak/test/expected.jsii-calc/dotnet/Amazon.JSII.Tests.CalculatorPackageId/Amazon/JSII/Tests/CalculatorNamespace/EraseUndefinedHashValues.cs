@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(EraseUndefinedHashValues), fullyQualifiedName: "jsii-calc.EraseUndefinedHashValues")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.EraseUndefinedHashValues), fullyQualifiedName: "jsii-calc.EraseUndefinedHashValues")]
     public class EraseUndefinedHashValues : DeputyBase
     {
         public EraseUndefinedHashValues(): base(new DeputyProps(new object[]{}))
@@ -29,7 +29,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "doesKeyExist", returnsJson: "{\"type\":{\"primitive\":\"boolean\"}}", parametersJson: "[{\"name\":\"opts\",\"type\":{\"fqn\":\"jsii-calc.EraseUndefinedHashValuesOptions\"}},{\"name\":\"key\",\"type\":{\"primitive\":\"string\"}}]")]
         public static bool DoesKeyExist(Amazon.JSII.Tests.CalculatorNamespace.IEraseUndefinedHashValuesOptions opts, string key)
         {
-            return InvokeStaticMethod<bool>(typeof(EraseUndefinedHashValues), new object[]{opts, key});
+            return InvokeStaticMethod<bool>(typeof(Amazon.JSII.Tests.CalculatorNamespace.EraseUndefinedHashValues), new object[]{opts, key});
         }
 
         /// <summary>We expect "prop1" to be erased.</summary>
@@ -39,7 +39,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "prop1IsNull", returnsJson: "{\"type\":{\"primitive\":\"any\"}}")]
         public static object Prop1IsNull()
         {
-            return InvokeStaticMethod<object>(typeof(EraseUndefinedHashValues), new object[]{});
+            return InvokeStaticMethod<object>(typeof(Amazon.JSII.Tests.CalculatorNamespace.EraseUndefinedHashValues), new object[]{});
         }
 
         /// <summary>We expect "prop2" to be erased.</summary>
@@ -49,7 +49,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "prop2IsUndefined", returnsJson: "{\"type\":{\"primitive\":\"any\"}}")]
         public static object Prop2IsUndefined()
         {
-            return InvokeStaticMethod<object>(typeof(EraseUndefinedHashValues), new object[]{});
+            return InvokeStaticMethod<object>(typeof(Amazon.JSII.Tests.CalculatorNamespace.EraseUndefinedHashValues), new object[]{});
         }
     }
 }

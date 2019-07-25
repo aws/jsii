@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(JsiiAgent_), fullyQualifiedName: "jsii-calc.JsiiAgent")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.JsiiAgent_), fullyQualifiedName: "jsii-calc.JsiiAgent")]
     public class JsiiAgent_ : DeputyBase
     {
         public JsiiAgent_(): base(new DeputyProps(new object[]{}))
@@ -28,7 +28,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiProperty(name: "jsiiAgent", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         public static string JsiiAgent
         {
-            get => GetStaticProperty<string>(typeof(JsiiAgent_));
+            get => GetStaticProperty<string>(typeof(Amazon.JSII.Tests.CalculatorNamespace.JsiiAgent_));
         }
     }
 }

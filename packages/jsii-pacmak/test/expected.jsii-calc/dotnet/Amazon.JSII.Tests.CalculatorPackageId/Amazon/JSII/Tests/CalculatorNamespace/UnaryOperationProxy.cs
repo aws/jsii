@@ -6,8 +6,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiTypeProxy(nativeType: typeof(UnaryOperation), fullyQualifiedName: "jsii-calc.UnaryOperation")]
-    internal sealed class UnaryOperationProxy : UnaryOperation
+    [JsiiTypeProxy(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.UnaryOperation), fullyQualifiedName: "jsii-calc.UnaryOperation")]
+    internal sealed class UnaryOperationProxy : Amazon.JSII.Tests.CalculatorNamespace.UnaryOperation
     {
         private UnaryOperationProxy(ByRefValue reference): base(reference)
         {

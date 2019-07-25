@@ -7,7 +7,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// stability: Experimental
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IDerivedStruct), fullyQualifiedName: "jsii-calc.DerivedStruct")]
-    internal sealed class DerivedStructProxy : DeputyBase, IDerivedStruct
+    internal sealed class DerivedStructProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IDerivedStruct
     {
         private DerivedStructProxy(ByRefValue reference): base(reference)
         {

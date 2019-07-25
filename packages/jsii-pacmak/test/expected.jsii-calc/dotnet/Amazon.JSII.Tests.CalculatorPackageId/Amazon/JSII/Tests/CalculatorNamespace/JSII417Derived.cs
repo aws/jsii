@@ -1,13 +1,12 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(JSII417Derived), fullyQualifiedName: "jsii-calc.JSII417Derived", parametersJson: "[{\"name\":\"property\",\"type\":{\"primitive\":\"string\"}}]")]
-    public class JSII417Derived : JSII417PublicBaseOfBase
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.JSII417Derived), fullyQualifiedName: "jsii-calc.JSII417Derived", parametersJson: "[{\"name\":\"property\",\"type\":{\"primitive\":\"string\"}}]")]
+    public class JSII417Derived : Amazon.JSII.Tests.CalculatorNamespace.JSII417PublicBaseOfBase
     {
         /// <remarks>
         /// stability: Experimental

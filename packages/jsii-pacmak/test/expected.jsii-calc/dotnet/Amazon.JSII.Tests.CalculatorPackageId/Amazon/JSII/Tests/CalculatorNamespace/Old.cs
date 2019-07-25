@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Deprecated
     /// </remarks>
-    [JsiiClass(nativeType: typeof(Old), fullyQualifiedName: "jsii-calc.Old")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Old), fullyQualifiedName: "jsii-calc.Old")]
     [System.Obsolete("Use the new class")]
     public class Old : DeputyBase
     {

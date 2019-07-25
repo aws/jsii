@@ -7,7 +7,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// https://github.com/awslabs/aws-cdk/issues/2304
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(StaticContext), fullyQualifiedName: "jsii-calc.StaticContext")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.StaticContext), fullyQualifiedName: "jsii-calc.StaticContext")]
     public class StaticContext : DeputyBase
     {
         protected StaticContext(ByRefValue reference): base(reference)
@@ -24,7 +24,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "canAccessStaticContext", returnsJson: "{\"type\":{\"primitive\":\"boolean\"}}")]
         public static bool CanAccessStaticContext()
         {
-            return InvokeStaticMethod<bool>(typeof(StaticContext), new object[]{});
+            return InvokeStaticMethod<bool>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StaticContext), new object[]{});
         }
 
         /// <remarks>
@@ -33,8 +33,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiProperty(name: "staticVariable", typeJson: "{\"primitive\":\"boolean\"}")]
         public static bool StaticVariable
         {
-            get => GetStaticProperty<bool>(typeof(StaticContext));
-            set => SetStaticProperty(typeof(StaticContext), value);
+            get => GetStaticProperty<bool>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StaticContext));
+            set => SetStaticProperty(typeof(Amazon.JSII.Tests.CalculatorNamespace.StaticContext), value);
         }
     }
 }

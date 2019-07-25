@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(VariadicMethod), fullyQualifiedName: "jsii-calc.VariadicMethod", parametersJson: "[{\"docs\":{\"summary\":\"a prefix that will be use for all values returned by `#asArray`.\"},\"name\":\"prefix\",\"type\":{\"primitive\":\"number\"},\"variadic\":true}]")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.VariadicMethod), fullyQualifiedName: "jsii-calc.VariadicMethod", parametersJson: "[{\"docs\":{\"summary\":\"a prefix that will be use for all values returned by `#asArray`.\"},\"name\":\"prefix\",\"type\":{\"primitive\":\"number\"},\"variadic\":true}]")]
     public class VariadicMethod : DeputyBase
     {
         /// <param name = "prefix">a prefix that will be use for all values returned by `#asArray`.</param>

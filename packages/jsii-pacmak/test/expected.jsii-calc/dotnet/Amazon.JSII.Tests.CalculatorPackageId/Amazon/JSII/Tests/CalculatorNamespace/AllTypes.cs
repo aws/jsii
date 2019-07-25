@@ -8,7 +8,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// that the value set is of the expected type and throw otherwise.
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(AllTypes), fullyQualifiedName: "jsii-calc.AllTypes")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.AllTypes), fullyQualifiedName: "jsii-calc.AllTypes")]
     public class AllTypes : DeputyBase
     {
         public AllTypes(): base(new DeputyProps(new object[]{}))
@@ -233,9 +233,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "optionalEnumValue", typeJson: "{\"fqn\":\"jsii-calc.StringEnum\"}", isOptional: true)]
-        public virtual Amazon.JSII.Tests.CalculatorNamespace.StringEnum OptionalEnumValue
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.StringEnum? OptionalEnumValue
         {
-            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.StringEnum>();
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.StringEnum?>();
             set => SetInstanceProperty(value);
         }
     }

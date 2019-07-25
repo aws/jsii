@@ -1,13 +1,12 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(InbetweenClass), fullyQualifiedName: "jsii-calc.InbetweenClass")]
-    public class InbetweenClass : PublicClass, IIPublicInterface2
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.InbetweenClass), fullyQualifiedName: "jsii-calc.InbetweenClass")]
+    public class InbetweenClass : Amazon.JSII.Tests.CalculatorNamespace.PublicClass, Amazon.JSII.Tests.CalculatorNamespace.IIPublicInterface2
     {
         public InbetweenClass(): base(new DeputyProps(new object[]{}))
         {

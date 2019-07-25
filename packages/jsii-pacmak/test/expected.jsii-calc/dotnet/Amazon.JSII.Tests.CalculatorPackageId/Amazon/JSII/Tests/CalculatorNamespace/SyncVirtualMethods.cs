@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(SyncVirtualMethods), fullyQualifiedName: "jsii-calc.SyncVirtualMethods")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.SyncVirtualMethods), fullyQualifiedName: "jsii-calc.SyncVirtualMethods")]
     public class SyncVirtualMethods : DeputyBase
     {
         public SyncVirtualMethods(): base(new DeputyProps(new object[]{}))

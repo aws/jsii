@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// stability: Experimental
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IIMutableObjectLiteral), fullyQualifiedName: "jsii-calc.IMutableObjectLiteral")]
-    internal sealed class IMutableObjectLiteralProxy : DeputyBase, IIMutableObjectLiteral
+    internal sealed class IMutableObjectLiteralProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IIMutableObjectLiteral
     {
         private IMutableObjectLiteralProxy(ByRefValue reference): base(reference)
         {

@@ -1,5 +1,4 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
@@ -8,7 +7,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// stability: Experimental
     /// </remarks>
     [JsiiInterface(nativeType: typeof(IIFriendlier), fullyQualifiedName: "jsii-calc.IFriendlier")]
-    public interface IIFriendlier : IIFriendly
+    public interface IIFriendlier : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IIFriendly
     {
         /// <summary>Say farewell.</summary>
         /// <remarks>
@@ -17,7 +16,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "farewell", returnsJson: "{\"type\":{\"primitive\":\"string\"}}")]
         string Farewell();
         /// <summary>Say goodbye.</summary>
-        /// <returns>A goodbye blessing.</returns>
+        /// <returns>
+        /// A goodbye blessing.
+        /// </returns>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>

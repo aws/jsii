@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceOnlyInterfac
     /// stability: Experimental
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IHello), fullyQualifiedName: "jsii-calc.InterfaceInNamespaceOnlyInterface.Hello")]
-    internal sealed class HelloProxy : DeputyBase, IHello
+    internal sealed class HelloProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceOnlyInterface.IHello
     {
         private HelloProxy(ByRefValue reference): base(reference)
         {

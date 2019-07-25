@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// stability: Experimental
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(INullShouldBeTreatedAsUndefinedData), fullyQualifiedName: "jsii-calc.NullShouldBeTreatedAsUndefinedData")]
-    internal sealed class NullShouldBeTreatedAsUndefinedDataProxy : DeputyBase, INullShouldBeTreatedAsUndefinedData
+    internal sealed class NullShouldBeTreatedAsUndefinedDataProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.INullShouldBeTreatedAsUndefinedData
     {
         private NullShouldBeTreatedAsUndefinedDataProxy(ByRefValue reference): base(reference)
         {

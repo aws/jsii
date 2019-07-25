@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(JSII417PublicBaseOfBase), fullyQualifiedName: "jsii-calc.JSII417PublicBaseOfBase")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.JSII417PublicBaseOfBase), fullyQualifiedName: "jsii-calc.JSII417PublicBaseOfBase")]
     public class JSII417PublicBaseOfBase : DeputyBase
     {
         public JSII417PublicBaseOfBase(): base(new DeputyProps(new object[]{}))
@@ -26,7 +26,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "makeInstance", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.JSII417PublicBaseOfBase\"}}")]
         public static Amazon.JSII.Tests.CalculatorNamespace.JSII417PublicBaseOfBase MakeInstance()
         {
-            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.JSII417PublicBaseOfBase>(typeof(JSII417PublicBaseOfBase), new object[]{});
+            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.JSII417PublicBaseOfBase>(typeof(Amazon.JSII.Tests.CalculatorNamespace.JSII417PublicBaseOfBase), new object[]{});
         }
 
         /// <remarks>

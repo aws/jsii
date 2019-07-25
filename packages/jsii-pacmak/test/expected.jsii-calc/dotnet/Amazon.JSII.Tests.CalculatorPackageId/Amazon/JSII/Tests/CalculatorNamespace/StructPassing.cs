@@ -3,8 +3,10 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Just because we can.</summary>
-    /// <remarks>stability: External</remarks>
-    [JsiiClass(nativeType: typeof(StructPassing), fullyQualifiedName: "jsii-calc.StructPassing")]
+    /// <remarks>
+    /// stability: External
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.StructPassing), fullyQualifiedName: "jsii-calc.StructPassing")]
     public class StructPassing : DeputyBase
     {
         public StructPassing(): base(new DeputyProps(new object[]{}))
@@ -19,18 +21,22 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <remarks>stability: External</remarks>
-        [JsiiMethod(name: "howManyVarArgsDidIPass", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[{\"name\":\"_positional\",\"type\":{\"primitive\":\"number\"}},{\"name\":\"inputs\",\"variadic\":true,\"type\":{\"fqn\":\"jsii-calc.TopLevelStruct\"}}]")]
-        public static double HowManyVarArgsDidIPass(double _positional, ITopLevelStruct inputs)
+        /// <remarks>
+        /// stability: External
+        /// </remarks>
+        [JsiiMethod(name: "howManyVarArgsDidIPass", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[{\"name\":\"_positional\",\"type\":{\"primitive\":\"number\"}},{\"name\":\"inputs\",\"type\":{\"fqn\":\"jsii-calc.TopLevelStruct\"},\"variadic\":true}]")]
+        public static double HowManyVarArgsDidIPass(double positional, Amazon.JSII.Tests.CalculatorNamespace.ITopLevelStruct inputs)
         {
-            return InvokeStaticMethod<double>(typeof(StructPassing), new object[]{_positional, inputs});
+            return InvokeStaticMethod<double>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StructPassing), new object[]{positional, inputs});
         }
 
-        /// <remarks>stability: External</remarks>
+        /// <remarks>
+        /// stability: External
+        /// </remarks>
         [JsiiMethod(name: "roundTrip", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.TopLevelStruct\"}}", parametersJson: "[{\"name\":\"_positional\",\"type\":{\"primitive\":\"number\"}},{\"name\":\"input\",\"type\":{\"fqn\":\"jsii-calc.TopLevelStruct\"}}]")]
-        public static ITopLevelStruct RoundTrip(double _positional, ITopLevelStruct input)
+        public static Amazon.JSII.Tests.CalculatorNamespace.ITopLevelStruct RoundTrip(double positional, Amazon.JSII.Tests.CalculatorNamespace.ITopLevelStruct input)
         {
-            return InvokeStaticMethod<ITopLevelStruct>(typeof(StructPassing), new object[]{_positional, input});
+            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.ITopLevelStruct>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StructPassing), new object[]{positional, input});
         }
     }
 }
