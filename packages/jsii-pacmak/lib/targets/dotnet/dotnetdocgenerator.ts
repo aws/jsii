@@ -54,7 +54,10 @@ export class DotNetDocGenerator {
         }
 
         if (docs.returns) {
-            this.code.line(`/// <returns>${docs.returns}</returns>`);
+            this.code.line(`/// <returns>`);
+            const returnsLines = docs.returns.split('\n');
+            returnsLines.forEach( line => this.code.line(`/// ${line}`));
+            this.code.line(`/// </returns>`);
         }
 
         const remarks: string[] = [];
@@ -67,7 +70,9 @@ export class DotNetDocGenerator {
         }
 
         if (docs.default) {
-            remarks.push(`default: ${docs.default}`);
+            const defaultLines = docs.default.split('\n');
+            remarks.push(`default:`);
+            defaultLines.forEach( line => remarks.push(`${line}`));
         }
 
         if (docs.stability) {
@@ -83,7 +88,9 @@ export class DotNetDocGenerator {
         }
 
         if (docs.see) {
-            remarks.push(docs.see);
+            const seeLines = docs.see.split('\n');
+            remarks.push(`see:`);
+            seeLines.forEach( line => remarks.push(`${line}`));
         }
 
         if (docs.subclassable) {
@@ -93,7 +100,8 @@ export class DotNetDocGenerator {
         if (docs.custom) {
             for (const [k, v] of Object.entries(docs.custom || {})) {
                 const custom = (k === "link") ? `${k}: ${v} ` : `${k}: ${v}`; // Extra space for '@link' to keep unit tests happy
-                remarks.push(custom);
+                const customLines = custom.split('\n');
+                customLines.forEach( line => remarks.push(`${line}`));
             }
         }
 

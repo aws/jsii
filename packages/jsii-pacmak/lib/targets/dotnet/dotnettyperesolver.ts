@@ -7,11 +7,9 @@ import {DotNetNameUtils} from "./nameutils";
  * And the name of the types it derives/implements
  */
 class Implementation  {
-    public namespaces: string[];
     public typeNames: string[];
 
-    constructor(typeNames: string[], namespaces: string[]) {
-        this.namespaces = namespaces;
+    constructor(typeNames: string[]) {
         this.typeNames = typeNames;
     }
 }
@@ -23,9 +21,6 @@ export class DotNetTypeResolver {
     // The dependency tree for the current jsii input model.
     // This is later used to output the csproj
     public namespaceDependencies: Map<string, DotNetDependency> = new Map<string, DotNetDependency>();
-
-    // jsii fqn : dotnet short type
-    public registeredShortTypes: Map<string, string> = new Map<string, string>();
 
     private readonly findModule: FindModuleCallback;
     private readonly findType: FindTypeCallback;
@@ -51,12 +46,7 @@ export class DotNetTypeResolver {
                 typeName = this.nameutils.convertInterfaceName(type.name);
                 break;
             case spec.TypeKind.Class:
-                if (this.registeredShortTypes.has(type.fqn)) {
-                    // Already a known type, might be slugified, retrieving it
-                    typeName = this.registeredShortTypes.get(type.fqn) as string;
-                } else {
-                    typeName = this.nameutils.convertClassName(type as spec.ClassType);
-                }
+                typeName = this.nameutils.convertClassName(type as spec.ClassType);
                 break;
             case spec.TypeKind.Enum:
                 typeName = this.nameutils.convertTypeName(type.name);
@@ -72,8 +62,16 @@ export class DotNetTypeResolver {
         }
         if (type.namespace) {
             // If the type is declared in an additional namespace.
+            const namespaceFqn = `${this.assembly.name}.${type.namespace}`;
+            const associatedNamespace = this.assembly.types && this.assembly.types[namespaceFqn];
+            if (associatedNamespace) {
+                // Checking if there is a C# type associated with this namespace, in case we need to slugify it
+                const actualNamespace = this.toDotNetType(this.findType(namespaceFqn));
+                return `${actualNamespace}.${typeName}`;
+            }
             return `${dotnetNamespace}.${type.namespace}.${typeName}`;
         } else {
+            // When undefined, the type is located at the root of the assembly
             return `${dotnetNamespace}.${typeName}`;
         }
 
@@ -109,7 +107,6 @@ export class DotNetTypeResolver {
      */
     public resolveImplementedInterfaces(ifc: spec.InterfaceType | spec.ClassType): Implementation {
         const interfaces = ifc.interfaces || [];
-        const baseNamespaces: string[] = [];
         const baseTypeNames: string[] = [];
 
         // For all base members
@@ -118,21 +115,17 @@ export class DotNetTypeResolver {
             const lastIndexOfDot = base.lastIndexOf('.');
             const baseFqn = base.substr(0, lastIndexOfDot);
             const baseName = base.substr(lastIndexOfDot + 1);
-            // Adding the base type
-            baseTypeNames.push(this.nameutils.convertInterfaceName(baseName));
             if (baseFqn === this.assembly.name) {
                 // If the base interface is in the current assembly
-                // Nothing to do, we just added it to the list of implemented ifc
+                // Adding the base type
+                baseTypeNames.push(this.assembly.targets!.dotnet!.namespace + '.' + this.nameutils.convertInterfaceName(baseName));
             } else {
                 // We need to add a reference to the interface assembly in the using statement and the csproj.
                 const namespaceName = this.namespaceDependencies.get(baseFqn)!.namespace;
-                // Adding the namespaceName to the base namespaces for the using statement
-                if (!baseNamespaces.includes(namespaceName)) {
-                    baseNamespaces.push(namespaceName);
-                }
+                baseTypeNames.push(namespaceName + '.' + this.nameutils.convertInterfaceName(baseName));
             }
         }
-        return new Implementation(baseTypeNames, baseNamespaces);
+        return new Implementation(baseTypeNames);
     }
 
     /**

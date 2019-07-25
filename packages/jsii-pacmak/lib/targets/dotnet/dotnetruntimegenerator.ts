@@ -46,13 +46,16 @@ export class DotNetRuntimeGenerator {
      * Ex: [JsiiClass(nativeType: typeof(Very), fullyQualifiedName: "@scope/jsii-calc-base-of-base.Very")]
      */
     public emitAttributesForClass(cls: spec.ClassType) {
-        const className = this.nameutils.convertClassName(cls);
+        // const className = this.nameutils.convertClassName(cls);
+        const className = this.typeresolver.toNativeFqn(cls.fqn);
         let jsiiAttribute = `[JsiiClass(nativeType: typeof(${className}), fullyQualifiedName: "${cls.fqn}")]`;
         const initializer = cls.initializer;
         if (initializer) {
             if (initializer.parameters) {
                 jsiiAttribute = `[JsiiClass(nativeType: typeof(${className}), fullyQualifiedName: `
-                    + `"${cls.fqn}", parametersJson: "${JSON.stringify(initializer.parameters).replace(/"/g, '\\"')}")]`;
+                    + `"${cls.fqn}", parametersJson: "${JSON.stringify(initializer.parameters)
+                        .replace(/"/g, '\\"')
+                        .replace(/\\{2}"/g, 'test')}")]`;
             }
         }
         this.code.line(jsiiAttribute);
@@ -67,8 +70,12 @@ export class DotNetRuntimeGenerator {
     public emitAttributesForMethod(cls: spec.ClassType | spec.InterfaceType, method: spec.Method/*, emitForProxyOrDatatype: boolean = false*/): void {
         const isOverride = (cls.kind === spec.TypeKind.Class) && (method.overrides) ? ', isOverride: true' : '';
         const isAsync = (cls.kind === spec.TypeKind.Class) && (method.async) ? ', isAsync: true' : '';
-        const parametersJson = method.parameters ? `, parametersJson: "${JSON.stringify(method.parameters).replace(/"/g, '\\"')}"` : '';
-        const returnsJson = method.returns ? `, returnsJson: "${JSON.stringify(method.returns).replace(/"/g, '\\"')}"` : '';
+        const parametersJson = method.parameters ? `, parametersJson: "${JSON.stringify(method.parameters)
+            .replace(/"/g, '\\"')
+            .replace(/\\{2}"/g, 'test')}"` : '';
+        const returnsJson = method.returns ? `, returnsJson: "${JSON.stringify(method.returns)
+            .replace(/"/g, '\\"')
+            .replace(/\\{2}"/g, 'test')}"` : '';
         const jsiiAttribute = `[JsiiMethod(name: "${method.name}"${returnsJson}${parametersJson}${isAsync}${isOverride})]`;
         this.code.line(jsiiAttribute);
         this.emitDeprecatedAttributeIfNecessary(method);
@@ -84,7 +91,9 @@ export class DotNetRuntimeGenerator {
         const isJsiiOverride = datatype ? ', isOverride: true' : '';
         const isOptionalJsii = prop.optional ? ', isOptional: true' : '';
         const jsiiAttribute = `[JsiiProperty(name: "${prop.name}", `
-            + `typeJson: "${JSON.stringify(prop.type).replace(/"/g, '\\"')}"${isOptionalJsii}${isJsiiOverride})]`;
+            + `typeJson: "${JSON.stringify(prop.type)
+                .replace(/"/g, '\\"')
+                .replace(/\\{2}"/g, 'test')}"${isOptionalJsii}${isJsiiOverride})]`;
         this.code.line(jsiiAttribute);
         this.emitDeprecatedAttributeIfNecessary(prop);
     }
@@ -96,7 +105,7 @@ export class DotNetRuntimeGenerator {
      */
     public emitAttributesForInterfaceProxy(ifc: spec.ClassType | spec.InterfaceType): void {
         const name = ifc.kind === spec.TypeKind.Interface ? this.nameutils.convertInterfaceName(ifc.name)
-            : this.typeresolver.registeredShortTypes.get(ifc.fqn);
+            : this.typeresolver.toNativeFqn(ifc.fqn);
         this.code.line(`[JsiiTypeProxy(nativeType: typeof(${name}), fullyQualifiedName: \"${ifc.fqn}\")]`);
         this.emitDeprecatedAttributeIfNecessary(ifc);
     }
@@ -127,7 +136,7 @@ export class DotNetRuntimeGenerator {
      * Returns the jsii .NET method identifier
      */
     public createInvokeMethodIdentifier(method: spec.Method, cls: spec.ClassType): string {
-        const className = this.typeresolver.registeredShortTypes.get(cls.fqn);
+        const className = this.typeresolver.toNativeFqn(cls.fqn);
         const isStatic = method.static ? 'Static' : 'Instance';
         const returns = method.returns ? '' : 'Void';
         const invokeMethodName = method.returns ? `return Invoke${isStatic}${returns}Method` : `Invoke${isStatic}${returns}Method`;
@@ -152,8 +161,11 @@ export class DotNetRuntimeGenerator {
         }
         const docs = obj.docs;
         if (docs) {
-            if (docs.stability! === 'deprecated') {
-                const attribute = docs.deprecated ? `[System.Obsolete("${docs.deprecated.replace(/"/g, '\\"')}")]`  : `[System.Obsolete()]`;
+            if (docs.stability! === spec.Stability.Deprecated) {
+                const attribute = docs.deprecated ?
+                    `[System.Obsolete("${docs.deprecated
+                        .replace(/\n/g, ' ') // Replacing new lines in Obsolete
+                        .replace(/"/g, '\\"')}")]`  : `[System.Obsolete()]`;
                 this.code.line(attribute);
             }
         }
