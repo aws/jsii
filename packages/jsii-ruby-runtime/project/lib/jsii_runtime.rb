@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'open3'
 require 'logger'
 require 'json'
@@ -104,6 +106,7 @@ module Aws
 
       def process_callback(resp)
         raise JsiiError, 'no callback handler registered with on_callback' unless @callback_handler
+
         callback = resp['callback']
 
         result = nil

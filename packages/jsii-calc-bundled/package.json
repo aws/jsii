@@ -1,6 +1,6 @@
 {
   "name": "jsii-calc-bundled",
-  "version": "0.12.1",
+  "version": "0.14.2",
   "main": "index.js",
   "private": true,
   "author": {
@@ -10,6 +10,6 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/awslabs/jsii.git"
+    "url": "https://github.com/aws/jsii.git"
   }
 }

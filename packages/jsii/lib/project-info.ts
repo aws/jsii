@@ -10,6 +10,11 @@ const spdx: Set<string> = require('spdx-license-list/simple');
 
 const LOG = log4js.getLogger('jsii/package-info');
 
+export interface TSCompilerOptions {
+    readonly outDir?: string;
+    readonly rootDir?: string;
+}
+
 export interface ProjectInfo {
     readonly projectRoot: string;
     readonly packageJson: any;
@@ -41,6 +46,7 @@ export interface ProjectInfo {
     readonly contributors?: ReadonlyArray<spec.Person>;
     readonly excludeTypescript: string[];
     readonly projectReferences?: boolean;
+    readonly tsc?: TSCompilerOptions;
 }
 
 export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies }: { fixPeerDependencies: boolean }): Promise<ProjectInfo> {
@@ -59,7 +65,7 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
         }
 
         bundleDependencies = bundleDependencies || {};
-        bundleDependencies[name] = version;
+        bundleDependencies[name] = _resolveVersion(version, projectRoot).version!;
     }
 
     let addedPeerDependency = false;
@@ -67,8 +73,9 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
         if (name in (bundleDependencies || {})) {
             return;
         }
+        version = _resolveVersion(version as any, projectRoot).version;
         pkg.peerDependencies = pkg.peerDependencies || {};
-        const peerVersion = pkg.peerDependencies[name];
+        const peerVersion = _resolveVersion(pkg.peerDependencies[name], projectRoot).version;
         if (peerVersion === version) {
             return;
         }
@@ -138,6 +145,10 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
 
         excludeTypescript: (pkg.jsii && pkg.jsii.excludeTypescript) || [],
         projectReferences: pkg.jsii && pkg.jsii.projectReferences,
+        tsc: {
+            outDir: pkg.jsii && pkg.jsii.tsc && pkg.jsii.tsc.outDir,
+            rootDir: pkg.jsii && pkg.jsii.tsc && pkg.jsii.tsc.rootDir,
+        }
     };
 }
 
@@ -158,13 +169,12 @@ async function _loadDependencies(dependencies: { [name: string]: string | spec.P
     const assemblies = new Array<spec.Assembly>();
     for (const name of Object.keys(dependencies)) {
         if (bundled.has(name)) { continue; }
-        const dep = dependencies[name];
-        const versionString = typeof dep === 'string' ? dep : dep.version;
-        const version = new semver.Range(versionString);
+        const { version: versionString, localPackage } = _resolveVersion(dependencies[name], searchPath);
+        const version = new semver.Range(versionString!);
         if (!version) {
             throw new Error(`Invalid semver expression for ${name}: ${versionString}`);
         }
-        const pkg = _tryResolve(path.join(name, '.jsii'), searchPath);
+        const pkg = _tryResolveAssembly(name, localPackage, searchPath);
         LOG.debug(`Resolved dependency ${name} to ${pkg}`);
         const assm = await loadAndValidateAssembly(pkg);
         if (!version.intersects(new semver.Range(assm.version))) {
@@ -209,10 +219,17 @@ function _toPerson(value: any, field: string, defaultRole: string = field): spec
     };
 }
 
-function _tryResolve(mod: string, searchPath: string): string {
+function _tryResolveAssembly(mod: string, localPackage: string | undefined, searchPath: string): string {
+    if (localPackage) {
+        const result = path.join(localPackage, '.jsii');
+        if (!fs.existsSync(result)) {
+            throw new Error(`Assembly does not exist: ${result}`);
+        }
+        return result;
+    }
     try {
         const paths = [ searchPath, path.join(searchPath, 'node_modules') ];
-        return require.resolve(mod, { paths });
+        return require.resolve(path.join(mod, '.jsii'), { paths });
     } catch (e) {
         throw new Error(`Unable to locate module: ${mod}`);
     }
@@ -246,4 +263,21 @@ function _validateStability(stability: string | undefined, deprecated: string | 
         throw new Error(`Invalid stability "${stability}", it must be one of ${Object.values(spec.Stability).join(', ')}`);
     }
     return stability as spec.Stability;
+}
+
+function _resolveVersion(dep: spec.PackageVersion | string | undefined, searchPath: string): { version: string | undefined, localPackage?: string } {
+    if (typeof dep !== 'string') {
+        return { version: dep && dep.version };
+    }
+
+    const matches = dep.match(/^file:(.+)$/);
+    if (!matches) {
+        return { version: dep };
+    }
+    const localPackage = path.resolve(searchPath, matches[1]);
+    return {
+        // Rendering as a caret version to maintain uniformity against the "standard".
+        version: `^${require(path.join(localPackage, 'package.json')).version}`,
+        localPackage,
+    };
 }

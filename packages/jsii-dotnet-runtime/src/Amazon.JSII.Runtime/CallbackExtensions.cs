@@ -6,6 +6,7 @@ using Amazon.JSII.Runtime.Services;
 using Amazon.JSII.Runtime.Services.Converters;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -125,7 +126,7 @@ namespace Amazon.JSII.Runtime
 
         /*
          * This is a temporary workaround / hack to solve an immediate problem, but does not completely solve the
-         * problem to it's full extent. See https://github.com/awslabs/jsii/issues/404 for more information.
+         * problem to it's full extent. See https://github.com/aws/jsii/issues/404 for more information.
          */
         private static object FromKernel(object obj, IReferenceMap referenceMap)
         {
@@ -136,6 +137,22 @@ namespace Amazon.JSII.Runtime
                 {
                     return referenceMap.GetOrCreateNativeReference(new ByRefValue(prop.Value.Value<String>()));
                 }
+
+                /*
+                 * Turning all outstanding JObjects to IDictionary<string, object> (recursively), as the code generator
+                 * will have emitted IDictionary<string, object> for  maps of string to <anything>. Not doing so would
+                 * result in an ArgumentError for not being able to convert JObject to IDictionary.
+                 */
+                var dict = ((JObject)obj).ToObject<Dictionary<string, object>>();
+                foreach (var key in dict.Keys)
+                {
+                    var value = dict[key];
+                    if (value != null && value.GetType() == typeof(JObject))
+                    {
+                        dict[key] = FromKernel(value, referenceMap);
+                    }
+                }
+                return dict;
             }
             return obj;
         }
@@ -145,7 +162,7 @@ namespace Amazon.JSII.Runtime
     {
         public CallbackResult(IOptionalValue optionalValue, object value)
             : this(optionalValue?.Type, optionalValue?.IsOptional ?? false, value) {}
-        
+
         private CallbackResult(TypeReference type, bool isOptional, object value): base(type, isOptional)
         {
             Value = value;

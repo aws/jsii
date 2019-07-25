@@ -10,7 +10,7 @@ import publication
 from jsii.python import classproperty
 
 import scope.jsii_calc_base_of_base
-__jsii_assembly__ = jsii.JSIIAssembly.load("@scope/jsii-calc-base", "0.12.1", __name__, "jsii-calc-base@0.12.1.jsii.tgz")
+__jsii_assembly__ = jsii.JSIIAssembly.load("@scope/jsii-calc-base", "0.14.2", __name__, "jsii-calc-base@0.14.2.jsii.tgz")
 class Base(metaclass=jsii.JSIIAbstractClass, jsii_type="@scope/jsii-calc-base.Base"):
     """A base class."""
     @staticmethod
@@ -23,8 +23,8 @@ class Base(metaclass=jsii.JSIIAbstractClass, jsii_type="@scope/jsii-calc-base.Ba
     @jsii.member(jsii_name="typeName")
     def type_name(self) -> typing.Any:
         """
-        Returns:
-            the name of the class (to verify native type names are created for derived classes).
+        return
+        :return: the name of the class (to verify native type names are created for derived classes).
         """
         return jsii.invoke(self, "typeName", [])
 
@@ -32,9 +32,35 @@ class Base(metaclass=jsii.JSIIAbstractClass, jsii_type="@scope/jsii-calc-base.Ba
 class _BaseProxy(Base):
     pass
 
-@jsii.data_type(jsii_type="@scope/jsii-calc-base.BaseProps", jsii_struct_bases=[scope.jsii_calc_base_of_base.VeryBaseProps])
-class BaseProps(scope.jsii_calc_base_of_base.VeryBaseProps, jsii.compat.TypedDict):
-    bar: str
+@jsii.data_type(jsii_type="@scope/jsii-calc-base.BaseProps", jsii_struct_bases=[scope.jsii_calc_base_of_base.VeryBaseProps], name_mapping={'foo': 'foo', 'bar': 'bar'})
+class BaseProps(scope.jsii_calc_base_of_base.VeryBaseProps):
+    def __init__(self, *, foo: scope.jsii_calc_base_of_base.Very, bar: str):
+        """
+        :param foo: -
+        :param bar: -
+        """
+        self._values = {
+            'foo': foo,
+            'bar': bar,
+        }
+
+    @property
+    def foo(self) -> scope.jsii_calc_base_of_base.Very:
+        return self._values.get('foo')
+
+    @property
+    def bar(self) -> str:
+        return self._values.get('bar')
+
+    def __eq__(self, rhs) -> bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs) -> bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return 'BaseProps(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
+
 
 @jsii.interface(jsii_type="@scope/jsii-calc-base.IBaseInterface")
 class IBaseInterface(scope.jsii_calc_base_of_base.IVeryBaseInterface, jsii.compat.Protocol):

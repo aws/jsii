@@ -1,6 +1,6 @@
 {
   "name": "jsii-dotnet-runtime-test",
-  "version": "0.12.1",
+  "version": "0.14.2",
   "description": "Tests for the .NET client for jsii runtime",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -11,10 +11,10 @@
     "test": "/bin/bash ./test.sh"
   },
   "devDependencies": {
-    "jsii-calc": "^0.12.1",
-    "jsii-dotnet-runtime": "^0.12.1",
-    "jsii-pacmak": "^0.12.1",
-    "typescript": "^3.5.2"
+    "jsii-calc": "file:../jsii-calc",
+    "jsii-dotnet-runtime": "file:../jsii-dotnet-runtime",
+    "jsii-pacmak": "^0.14.2",
+    "typescript": "^3.5.3"
   },
   "author": {
     "name": "Amazon Web Services",
@@ -24,6 +24,6 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/awslabs/jsii.git"
+    "url": "https://github.com/aws/jsii.git"
   }
 }

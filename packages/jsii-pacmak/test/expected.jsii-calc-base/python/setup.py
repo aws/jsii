@@ -4,13 +4,13 @@ import setuptools
 kwargs = json.loads("""
 {
     "name": "scope.jsii-calc-base",
-    "version": "0.12.1",
+    "version": "0.14.2",
     "description": "An example direct dependency for jsii-calc.",
-    "url": "https://github.com/awslabs/jsii.git",
+    "url": "https://github.com/aws/jsii.git",
     "long_description_content_type": "text/markdown",
     "author": "Amazon Web Services",
     "project_urls": {
-        "Source": "https://github.com/awslabs/jsii.git"
+        "Source": "https://github.com/aws/jsii.git"
     },
     "package_dir": {
         "": "src"
@@ -21,7 +21,7 @@ kwargs = json.loads("""
     ],
     "package_data": {
         "scope.jsii_calc_base._jsii": [
-            "jsii-calc-base@0.12.1.jsii.tgz"
+            "jsii-calc-base@0.14.2.jsii.tgz"
         ],
         "scope.jsii_calc_base": [
             "py.typed"
@@ -29,9 +29,9 @@ kwargs = json.loads("""
     },
     "python_requires": ">=3.6",
     "install_requires": [
-        "jsii~=0.12.1",
+        "jsii~=0.14.2",
         "publication>=0.0.3",
-        "scope.jsii-calc-base-of-base~=0.12.1"
+        "scope.jsii-calc-base-of-base~=0.14.2"
     ]
 }
 """)

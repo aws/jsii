@@ -1285,7 +1285,7 @@ export interface LoadBalancedFargateServiceProps {
  *
  * @returns an instance of an un-exported class that extends `ExportedBaseClass`, declared as `IPrivatelyImplemented`.
  *
- * @see https://github.com/awslabs/jsii/issues/320
+ * @see https://github.com/aws/jsii/issues/320
  */
 export class ReturnsPrivateImplementationOfInterface {
     public get privateImplementation(): IPrivatelyImplemented {
@@ -1331,7 +1331,7 @@ export interface AugmentableClass {
 // Ensure the JSII kernel tags instances with the "most appropriate" FQN type label, so that runtimes are able to
 // correctly choose the implementation proxy that should be used. Failure to do so could cause situations where userland
 // needs to up-cast an instance to an incompatible type, which certain runtimes (such as Java) will prevent.
-// @See https://github.com/awslabs/jsii/issues/345
+// @See https://github.com/aws/jsii/issues/345
 export class PublicClass {
     public hello(): void {}
 }
@@ -1603,7 +1603,7 @@ export class ConstructorPassesThisOut {
 
 //
 // Consumes a possibly empty struct and verifies it is turned to undefined when passed
-// See: https://github.com/awslabs/jsii/issues/411
+// See: https://github.com/aws/jsii/issues/411
 //
 export class OptionalStructConsumer {
     public readonly parameterWasUndefined: boolean;
@@ -1696,7 +1696,7 @@ export class WithPrivatePropertyInConstructor {
 /**
  * Verifies that singleton enums are handled correctly
  *
- * https://github.com/awslabs/jsii/issues/231
+ * https://github.com/aws/jsii/issues/231
  */
 export class SingletonString {
     private constructor() { }
@@ -1713,7 +1713,7 @@ export enum SingletonStringEnum {
 /**
  * Verifies that singleton enums are handled correctly
  *
- * https://github.com/awslabs/jsii/issues/231
+ * https://github.com/aws/jsii/issues/231
  */
 export class SingletonInt {
     private constructor() { }
@@ -1725,4 +1725,67 @@ export class SingletonInt {
 export enum SingletonIntEnum {
     /** Elite! */
     SINGLETON_INT = 1337
+}
+
+/**
+ * Verifies proper type handling through dynamic overrides.
+ */
+export class DataRenderer {
+    constructor() { }
+
+    public render(data: MyFirstStruct = { anumber: 42, astring: 'bazinga!' }): string {
+        return this.renderMap(data);
+    }
+
+    public renderMap(map: { [key: string]: any }): string {
+        return JSON.stringify(map, null, 2);
+    }
+}
+
+export interface TopLevelStruct {
+    /**
+     * This is a required field
+     */
+    readonly required: string;
+
+    /**
+     * You don't have to pass this
+     */
+    readonly optional?: string;
+
+    /**
+     * A union to really stress test our serialization
+     */
+    readonly secondLevel: SecondLevelStruct | number;
+}
+
+export interface SecondLevelStruct {
+    /**
+     * It's long and required
+     */
+    readonly deeperRequiredProp: string;
+
+    /**
+     * It's long, but you'll almost never pass it.
+     */
+    readonly deeperOptionalProp?: string;
+}
+
+/**
+ * Just because we can.
+ *
+ * @stability external
+ */
+export class StructPassing {
+    public static roundTrip(_positional: number, input: TopLevelStruct): TopLevelStruct {
+        return {
+            required: input.required,
+            optional: input.optional,
+            secondLevel: input.secondLevel,
+        };
+    }
+
+    public static howManyVarArgsDidIPass(_positional: number, ...inputs: TopLevelStruct[]): number {
+        return inputs.length;
+    }
 }

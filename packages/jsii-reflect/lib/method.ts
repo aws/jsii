@@ -25,6 +25,7 @@ export class Method extends Callable implements Documentable, Overridable, TypeM
     system: TypeSystem,
     assembly: Assembly,
     parentType: Type,
+    public readonly definingType: Type,
     private readonly methodSpec: jsii.Method) {
     super(system, assembly, parentType, methodSpec);
   }
@@ -34,6 +35,14 @@ export class Method extends Callable implements Documentable, Overridable, TypeM
    */
   public get name(): string {
     return this.methodSpec.name;
+  }
+
+  public get overrides(): Type | undefined {
+    if (!this.methodSpec.overrides) {
+      return undefined;
+    }
+
+    return this.system.findFqn(this.methodSpec.overrides);
   }
 
   /**

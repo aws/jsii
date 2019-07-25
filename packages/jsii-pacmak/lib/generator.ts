@@ -2,9 +2,10 @@ import * as clone from 'clone';
 import { CodeMaker } from 'codemaker';
 import * as crypto from 'crypto';
 import * as fs from 'fs-extra';
+import reflect = require('jsii-reflect');
 import * as spec from 'jsii-spec';
 import * as path from 'path';
-import util = require('./util');
+import { assemblySpec, typeSpec } from './reflect-hacks';
 import { VERSION_DESC } from './version';
 
 // tslint:disable
@@ -12,24 +13,24 @@ import { VERSION_DESC } from './version';
 /**
  * Options for the code generator framework.
  */
-export class GeneratorOptions {
+export interface GeneratorOptions {
     /**
      * If this property is set to 'true', union properties are "expanded" into multiple
      * properties, each with a different type and a postfix based on the type name. This
      * can be used by languages that don't have support for union types (e.g. Java).
      */
-    expandUnionProperties? = false
+    expandUnionProperties?: boolean;
 
     /**
      * If this property is set to 'true', methods that have optional arguments are duplicated
      * and overloads are created with all parameters.
      */
-    generateOverloadsForMethodWithOptionals? = false
+    generateOverloadsForMethodWithOptionals?: boolean;
 
     /**
      * If this property is set, the generator will add "Base" to abstract class names
      */
-    addBasePostfixToAbstractClassNames? = false
+    addBasePostfixToAbstractClassNames?: boolean;
 }
 
 export interface IGenerator {
@@ -39,7 +40,7 @@ export interface IGenerator {
      * Load a module into the generator.
      * @param packageDir is the root directory of the module.
      */
-    load(packageDir: string): Promise<void>;
+    load(packageDir: string, assembly: reflect.Assembly): Promise<void>;
 
     /**
      * Determine if the generated artifacts for this generator are already up-to-date.
@@ -55,27 +56,29 @@ export interface IGenerator {
  * Given a jsii module, it will invoke "events" to emit various elements.
  */
 export abstract class Generator implements IGenerator {
-    private readonly options: GeneratorOptions;
     private readonly excludeTypes = new Array<string>();
     protected readonly code = new CodeMaker();
     protected assembly: spec.Assembly;
-    private externals: { [name: string]: spec.Type | undefined } = {};
+    protected _reflectAssembly?: reflect.Assembly;
     private fingerprint: string;
 
-    constructor(options = new GeneratorOptions()) {
-        this.options = options;
+    constructor(private readonly options: GeneratorOptions = {}) {
+    }
+
+    public get reflectAssembly(): reflect.Assembly {
+        if (!this._reflectAssembly) {
+            throw new Error('Call load() first');
+        }
+        return this._reflectAssembly;
     }
 
     public get metadata() {
         return { fingerprint: this.fingerprint };
     }
 
-    public async load(packageDir: string) {
-        this.assembly = await util.loadAssembly(packageDir);
-
-        if (this.assembly.schema !== spec.SchemaVersion.LATEST) {
-            throw new Error(`Invalid schema version "${this.assembly.schema}". Expecting "${spec.SchemaVersion.LATEST}"`);
-        }
+    public async load(_packageRoot: string, assembly: reflect.Assembly) {
+        this._reflectAssembly = assembly;
+        this.assembly = assemblySpec(assembly);
 
         // Including the version of jsii-pacmak in the fingerprint, as a new version may imply different code generation.
         this.fingerprint = crypto.createHash('sha256')
@@ -83,12 +86,6 @@ export abstract class Generator implements IGenerator {
                                  .update('\0')
                                  .update(this.assembly.fingerprint)
                                  .digest('base64');
-
-        this.externals = {};
-        const loaded = new Set<string>();
-        for (const name of Object.keys(this.assembly.dependencies || {})) {
-            await this.loadDependency(name, this.assembly.dependencies![name].version, packageDir, loaded);
-        }
     }
 
     /**
@@ -518,57 +515,11 @@ export abstract class Generator implements IGenerator {
     }
 
     protected findType(fqn: string) {
-
-        const lookupType = (asm: spec.Assembly): spec.Type | undefined => {
-
-            const type = asm.types && asm.types[fqn];
-            if (type) {
-                return type;
-            }
-
-            const externalType = this.externals[fqn];
-            if (externalType) {
-                return externalType;
-            }
-
-            return undefined;
-        }
-
-        const ret = lookupType(this.assembly);
+        const ret = this.reflectAssembly.system.tryFindFqn(fqn);
         if (!ret) {
             throw new Error(`Cannot find type '${fqn}' either as internal or external type`);
         }
 
-        return ret;
-    }
-
-    /**
-     * Loads a dependency assembly and makes the types it defines available in ``this.externals``. The modules are
-     * loaded transitively (dependencies of the assembly will be loaded using this function, too).
-     *
-     * @param name       the name of the dependency to be loaded.
-     * @param version    the expected (aka declared) version of the dependency.
-     * @param packageDir the root directory of the package that declares the dependency.
-     * @param loaded     a cache of already-loaded modules (helps avoid multi-loading dependencies that appear multiple
-     *                   times in the full dependency closure).
-     *
-     * @throws if no module with the requested name can be resolved (using npm resolution mechanisms), if the resolved
-     *         module lacks a ``.jsii`` file, or if the version does not match the requested one (TODO: Semver?).
-     */
-    private async loadDependency(name: string, version: string, packageDir: string, loaded: Set<string>) {
-        if (loaded.has(name)) { return; }
-        const moduleRoot = util.resolveDependencyDirectory(packageDir, name);
-        const assm = await util.loadAssembly(moduleRoot);
-        if (assm.version !== version) {
-            throw new Error(`Module ${name} found with version ${assm.version}, but version ${version} was expected`);
-        }
-        for (const type of Object.values(assm.types || {})) {
-            this.externals[type.fqn] = type;
-        }
-        loaded.add(name);
-        for (const depName of Object.keys(assm.dependencies || {})) {
-            const dep = assm.dependencies![depName];
-            await this.loadDependency(depName, dep.version, moduleRoot, loaded);
-        }
+        return typeSpec(ret);
     }
 }

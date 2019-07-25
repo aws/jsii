@@ -2,7 +2,7 @@
 
 //
 // Un-exported base classes are erased
-// https://github.com/awslabs/jsii/issues/417
+// https://github.com/aws/jsii/issues/417
 //
 class JSII417PrivateRoot {
   public readonly hasRoot = true;
@@ -42,7 +42,7 @@ export interface IJSII417Derived extends IJSII417PrivateBase {
 
 //
 // Interfaces should be copied from erased classes to public classes
-// https://github.com/awslabs/jsii/issues/487
+// https://github.com/aws/jsii/issues/487
 //
 export interface IJsii487External { }
 export interface IJsii487External2 { }
@@ -51,7 +51,7 @@ export class Jsii487Derived extends Jsii487Internal implements IJsii487External2
 
 //
 // Deduplicate interfaces that come from different declaration sites
-// https://github.com/awslabs/jsii/issues/496
+// https://github.com/aws/jsii/issues/496
 //
 export interface IJsii496 { }
 class Jsii496Base implements IJsii496 { }

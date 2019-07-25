@@ -4,7 +4,7 @@ Metrics/LineLength:
 Metrics/MethodLength:
   Max: 1000
 
-Layout/IndentHash:
+Layout/IndentFirstHashElement:
   EnforcedStyle: consistent
 
 Style/GuardClause:
@@ -17,4 +17,5 @@ Metrics/AbcSize:
   Enabled: false
 
 AllCops:
-  TargetRubyVersion: 2.2
+  # Ruby 2.4 - EOL 2020-03-31 - https://www.ruby-lang.org/en/downloads/branches/
+  TargetRubyVersion: 2.4

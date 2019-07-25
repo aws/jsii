@@ -8,7 +8,7 @@
     "url": "https://aws.amazon.com"
   },
   "bundled": {
-    "jsii-calc-bundled": "^0.12.1"
+    "jsii-calc-bundled": "^0.14.2"
   },
   "contributors": [
     {
@@ -56,7 +56,7 @@
         },
         "sphinx": {}
       },
-      "version": "0.12.1"
+      "version": "0.14.2"
     },
     "@scope/jsii-calc-base-of-base": {
       "targets": {
@@ -80,7 +80,7 @@
         },
         "sphinx": {}
       },
-      "version": "0.12.1"
+      "version": "0.14.2"
     },
     "@scope/jsii-calc-lib": {
       "targets": {
@@ -106,7 +106,7 @@
         },
         "sphinx": {}
       },
-      "version": "0.12.1"
+      "version": "0.14.2"
     }
   },
   "dependencyClosure": {
@@ -132,7 +132,7 @@
         },
         "sphinx": {}
       },
-      "version": "0.12.1"
+      "version": "0.14.2"
     },
     "@scope/jsii-calc-base-of-base": {
       "targets": {
@@ -156,7 +156,7 @@
         },
         "sphinx": {}
       },
-      "version": "0.12.1"
+      "version": "0.14.2"
     },
     "@scope/jsii-calc-lib": {
       "targets": {
@@ -182,15 +182,15 @@
         },
         "sphinx": {}
       },
-      "version": "0.12.1"
+      "version": "0.14.2"
     }
   },
   "description": "A simple calcuator built on JSII.",
   "docs": {
     "stability": "experimental"
   },
-  "homepage": "https://github.com/awslabs/jsii.git",
-  "jsiiVersion": "0.12.1",
+  "homepage": "https://github.com/aws/jsii.git",
+  "jsiiVersion": "0.14.2",
   "license": "Apache-2.0",
   "metadata": {
     "jsii:boolean": true,
@@ -205,7 +205,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/awslabs/jsii.git"
+    "url": "https://github.com/aws/jsii.git"
   },
   "schema": "jsii/0.10.0",
   "targets": {
@@ -2081,6 +2081,79 @@
         }
       ],
       "name": "ConsumersOfThisCrazyTypeSystem"
+    },
+    "jsii-calc.DataRenderer": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Verifies proper type handling through dynamic overrides."
+      },
+      "fqn": "jsii-calc.DataRenderer",
+      "initializer": {
+        "docs": {
+          "stability": "experimental"
+        }
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1733
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1736
+          },
+          "name": "render",
+          "parameters": [
+            {
+              "name": "data",
+              "optional": true,
+              "type": {
+                "fqn": "@scope/jsii-calc-lib.MyFirstStruct"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1740
+          },
+          "name": "renderMap",
+          "parameters": [
+            {
+              "name": "map",
+              "type": {
+                "collection": {
+                  "elementtype": {
+                    "primitive": "any"
+                  },
+                  "kind": "map"
+                }
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "DataRenderer"
     },
     "jsii-calc.DefaultedConstructorArgument": {
       "assembly": "jsii-calc",
@@ -6948,7 +7021,7 @@
       "assembly": "jsii-calc",
       "docs": {
         "returns": "an instance of an un-exported class that extends `ExportedBaseClass`, declared as `IPrivatelyImplemented`.",
-        "see": "https://github.com/awslabs/jsii/issues/320",
+        "see": "https://github.com/aws/jsii/issues/320",
         "stability": "experimental",
         "summary": "Helps ensure the JSII kernel & runtime cooperate correctly when an un-exported instance of a class is returned with a declared type that is an exported interface, and the instance inherits from an exported class."
       },
@@ -7077,6 +7150,55 @@
       ],
       "name": "RuntimeTypeChecking"
     },
+    "jsii-calc.SecondLevelStruct": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.SecondLevelStruct",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1762
+      },
+      "name": "SecondLevelStruct",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental",
+            "summary": "It's long and required."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1766
+          },
+          "name": "deeperRequiredProp",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental",
+            "summary": "It's long, but you'll almost never pass it."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1771
+          },
+          "name": "deeperOptionalProp",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.SingleInstanceTwoTypes": {
       "assembly": "jsii-calc",
       "docs": {
@@ -7128,7 +7250,7 @@
     "jsii-calc.SingletonInt": {
       "assembly": "jsii-calc",
       "docs": {
-        "remarks": "https://github.com/awslabs/jsii/issues/231",
+        "remarks": "https://github.com/aws/jsii/issues/231",
         "stability": "experimental",
         "summary": "Verifies that singleton enums are handled correctly."
       },
@@ -7191,7 +7313,7 @@
     "jsii-calc.SingletonString": {
       "assembly": "jsii-calc",
       "docs": {
-        "remarks": "https://github.com/awslabs/jsii/issues/231",
+        "remarks": "https://github.com/aws/jsii/issues/231",
         "stability": "experimental",
         "summary": "Verifies that singleton enums are handled correctly."
       },
@@ -7683,6 +7805,85 @@
         }
       ]
     },
+    "jsii-calc.StructPassing": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "external",
+        "summary": "Just because we can."
+      },
+      "fqn": "jsii-calc.StructPassing",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1779
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "external"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1788
+          },
+          "name": "howManyVarArgsDidIPass",
+          "parameters": [
+            {
+              "name": "_positional",
+              "type": {
+                "primitive": "number"
+              }
+            },
+            {
+              "name": "inputs",
+              "type": {
+                "fqn": "jsii-calc.TopLevelStruct"
+              },
+              "variadic": true
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "number"
+            }
+          },
+          "static": true,
+          "variadic": true
+        },
+        {
+          "docs": {
+            "stability": "external"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1780
+          },
+          "name": "roundTrip",
+          "parameters": [
+            {
+              "name": "_positional",
+              "type": {
+                "primitive": "number"
+              }
+            },
+            {
+              "name": "input",
+              "type": {
+                "fqn": "jsii-calc.TopLevelStruct"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.TopLevelStruct"
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "StructPassing"
+    },
     "jsii-calc.Sum": {
       "assembly": "jsii-calc",
       "base": "jsii-calc.composition.CompositeOperation",
@@ -8030,6 +8231,80 @@
         }
       ],
       "name": "Thrower"
+    },
+    "jsii-calc.TopLevelStruct": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.TopLevelStruct",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1745
+      },
+      "name": "TopLevelStruct",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental",
+            "summary": "This is a required field."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1749
+          },
+          "name": "required",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental",
+            "summary": "A union to really stress test our serialization."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1759
+          },
+          "name": "secondLevel",
+          "type": {
+            "union": {
+              "types": [
+                {
+                  "primitive": "number"
+                },
+                {
+                  "fqn": "jsii-calc.SecondLevelStruct"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental",
+            "summary": "You don't have to pass this."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1754
+          },
+          "name": "optional",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
     },
     "jsii-calc.UnaryOperation": {
       "abstract": true,
@@ -8777,6 +9052,6 @@
       "namespace": "composition.CompositeOperation"
     }
   },
-  "version": "0.12.1",
-  "fingerprint": "eJFB3vFCc9pOmBGqLCLopXjumM3fvGhVp9zhFfty6xM="
+  "version": "0.14.2",
+  "fingerprint": "k8ydIFQ0rJti3q/dPTpJsq3jTqSqe760JT+Q8mZUnOs="
 }

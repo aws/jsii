@@ -10,6 +10,8 @@ if [ -z "${ver}" ]; then
   exit 1
 fi
 
+git clean -fqdx packages/jsii-python-runtime
+
 /bin/bash ./install.sh
 
 node_modules/.bin/lerna publish --force-publish=* --skip-npm --skip-git --conventional-commits --repo-version ${ver}

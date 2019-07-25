@@ -1,4 +1,5 @@
 import jsii = require('jsii-spec');
+import { Stability } from 'jsii-spec';
 import { TypeSystem } from './type-system';
 
 export interface Documentable {
@@ -50,9 +51,7 @@ export class Docs {
    * Return the stability of this type
    */
   public get stability(): jsii.Stability | undefined {
-    if (this.docs.stability !== undefined) { return this.docs.stability; }
-    if (this.parentDocs) { return this.parentDocs.stability; }
-    return undefined;
+    return lowestStability(this.docs.stability, this.parentDocs && this.parentDocs.stability);
   }
 
   public customTag(tag: string): string | undefined {
@@ -66,4 +65,17 @@ export class Docs {
   public get remarks(): string {
     return this.docs.remarks || '';
   }
+}
+
+const stabilityPrecedence = {
+  [Stability.Deprecated]: 0,
+  [Stability.Experimental]: 1,
+  [Stability.External]: 2,
+  [Stability.Stable]: 3,
+};
+
+function lowestStability(a?: Stability, b?: Stability): Stability | undefined {
+  if (a === undefined) { return b; }
+  if (b === undefined) { return a; }
+  return stabilityPrecedence[a] < stabilityPrecedence[b] ? a : b;
 }

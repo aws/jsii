@@ -111,7 +111,7 @@ assemblies
  │   │   └── mutableObject property
  │   ├─┬ class ClassWithPrivateConstructorAndAutomaticProperties
  │   │ └─┬ members
- │   │   ├── create(readOnlyString,readWriteString) method
+ │   │   ├── static create(readOnlyString,readWriteString) method
  │   │   ├── readOnlyString property
  │   │   └── readWriteString property
  │   ├─┬ class ConstructorPassesThisOut
@@ -120,18 +120,23 @@ assemblies
  │   ├─┬ class Constructors
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
- │   │   ├── hiddenInterface() method
- │   │   ├── hiddenInterfaces() method
- │   │   ├── hiddenSubInterfaces() method
- │   │   ├── makeClass() method
- │   │   ├── makeInterface() method
- │   │   ├── makeInterface2() method
- │   │   └── makeInterfaces() method
+ │   │   ├── static hiddenInterface() method
+ │   │   ├── static hiddenInterfaces() method
+ │   │   ├── static hiddenSubInterfaces() method
+ │   │   ├── static makeClass() method
+ │   │   ├── static makeInterface() method
+ │   │   ├── static makeInterface2() method
+ │   │   └── static makeInterfaces() method
  │   ├─┬ class ConsumersOfThisCrazyTypeSystem
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   ├── consumeAnotherPublicInterface(obj) method
  │   │   └── consumeNonInternalInterface(obj) method
+ │   ├─┬ class DataRenderer
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── render(data) method
+ │   │   └── renderMap(map) method
  │   ├─┬ class DefaultedConstructorArgument
  │   │ └─┬ members
  │   │   ├── <initializer>(arg1,arg2,arg3) initializer
@@ -178,9 +183,9 @@ assemblies
  │   ├─┬ class EraseUndefinedHashValues
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
- │   │   ├── doesKeyExist(opts,key) method
- │   │   ├── prop1IsNull() method
- │   │   └── prop2IsUndefined() method
+ │   │   ├── static doesKeyExist(opts,key) method
+ │   │   ├── static prop1IsNull() method
+ │   │   └── static prop2IsUndefined() method
  │   ├─┬ class ExperimentalClass
  │   │ └─┬ members
  │   │   ├── <initializer>(readonlyString,mutableNumber) initializer
@@ -234,7 +239,7 @@ assemblies
  │   ├─┬ class JSII417PublicBaseOfBase
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
- │   │   ├── makeInstance() method
+ │   │   ├── static makeInstance() method
  │   │   ├── foo() method
  │   │   └── hasRoot property
  │   ├─┬ class JSObjectLiteralForInterface
@@ -316,7 +321,7 @@ assemblies
  │   ├─┬ class JsiiAgent
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
- │   │   └── jsiiAgent property
+ │   │   └── static jsiiAgent property
  │   ├─┬ class Multiply
  │   │ └─┬ members
  │   │   ├── <initializer>(lhs,rhs) initializer
@@ -465,24 +470,29 @@ assemblies
  │   │   └── mutableProperty property
  │   ├─┬ class StaticContext
  │   │ └─┬ members
- │   │   ├── canAccessStaticContext() method
- │   │   └── staticVariable property
+ │   │   ├── static canAccessStaticContext() method
+ │   │   └── static staticVariable property
  │   ├─┬ class Statics
  │   │ └─┬ members
  │   │   ├── <initializer>(value) initializer
- │   │   ├── staticMethod(name) method
+ │   │   ├── static staticMethod(name) method
  │   │   ├── justMethod() method
- │   │   ├── BAR property
- │   │   ├── ConstObj property
- │   │   ├── Foo property
- │   │   ├── zooBar property
- │   │   ├── instance property
- │   │   ├── nonConstStatic property
+ │   │   ├── static BAR property
+ │   │   ├── static ConstObj property
+ │   │   ├── static Foo property
+ │   │   ├── static zooBar property
+ │   │   ├── static instance property
+ │   │   ├── static nonConstStatic property
  │   │   └── value property
  │   ├─┬ class StripInternal
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── youSeeMe property
+ │   ├─┬ class StructPassing
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── static howManyVarArgsDidIPass(_positional,inputs) method
+ │   │   └── static roundTrip(_positional,input) method
  │   ├─┬ class Sum
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -699,9 +709,18 @@ assemblies
  │   ├─┬ interface OptionalStruct
  │   │ └─┬ members
  │   │   └── field property
+ │   ├─┬ interface SecondLevelStruct
+ │   │ └─┬ members
+ │   │   ├── deeperRequiredProp property
+ │   │   └── deeperOptionalProp property
  │   ├─┬ interface StableStruct
  │   │ └─┬ members
  │   │   └── readonlyProperty property
+ │   ├─┬ interface TopLevelStruct
+ │   │ └─┬ members
+ │   │   ├── required property
+ │   │   ├── secondLevel property
+ │   │   └── optional property
  │   ├─┬ interface UnionProperties
  │   │ └─┬ members
  │   │   ├── bar property

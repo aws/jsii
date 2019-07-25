@@ -74,7 +74,7 @@ class BaseProvider(metaclass=abc.ABCMeta):
         ...
 
     @abc.abstractmethod
-    def complete(self, request: CompleteRequest) -> Union[InvokeResponse, GetResponse]:
+    def complete(self, request: CompleteRequest) -> CompleteResponse:
         ...
 
     @abc.abstractmethod
@@ -95,10 +95,6 @@ class BaseProvider(metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
     def callbacks(self, request: CallbacksRequest) -> CallbacksResponse:
-        ...
-
-    @abc.abstractmethod
-    def complete(self, request: CompleteRequest) -> CompleteResponse:
         ...
 
     @abc.abstractmethod

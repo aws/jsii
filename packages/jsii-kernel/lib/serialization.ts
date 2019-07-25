@@ -170,7 +170,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       return value;
     },
     deserialize(value, optionalValue) {
-      // /!\ Top-level "null" will turn to underfined, but any null nested in the value is valid JSON, so it'll stay!
+      // /!\ Top-level "null" will turn to undefined, but any null nested in the value is valid JSON, so it'll stay!
       if (nullAndOk(value, optionalValue)) { return undefined; }
       return value;
     },
@@ -258,7 +258,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
         throw new Error(`Expected object, got ${JSON.stringify(value)}`);
       }
 
-      // This looks odd, but if an object was originally passed in as a by-ref
+      // This looks odd, but if an object was originally passed in/out as a by-ref
       // class, and it happens to conform to a datatype interface we say we're
       // returning, return the actual object instead of the serialized value.
       // NOTE: Not entirely sure yet whether this is a bug masquerading as a
@@ -270,7 +270,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
         This is what we'd like to do, but we can't because at least the Java client
         does not understand by-value serialized interface types, so we'll have to
         serialize by-reference for now:
-        https://github.com/awslabs/jsii/issues/400
+        https://github.com/aws/jsii/issues/400
 
       const props = propertiesOf(namedType);
 
@@ -286,7 +286,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
     },
     deserialize(value, optionalValue, host) {
       if (typeof value === 'object' && Object.keys(value || {}).length === 0) {
-        // Treat empty structs as `undefined` (see https://github.com/awslabs/jsii/issues/411)
+        // Treat empty structs as `undefined` (see https://github.com/aws/jsii/issues/411)
         value = undefined;
       }
       if (nullAndOk(value, optionalValue)) { return undefined; }
@@ -296,16 +296,29 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
         throw new Error(`Expected object reference, got ${JSON.stringify(value)}`);
       }
 
-      // Similarly to other end, we might be getting a reference type where we're
-      // expecting a value type. Accept this for now.
-      if (isObjRef(value)) {
-        host.debug('Expected value type but got reference type, accepting for now (awslabs/jsii#400)');
-        return host.objects.findObject(value).instance;
-      }
-
       const namedType = host.lookupType((optionalValue.type as spec.NamedTypeReference).fqn);
       const props = propertiesOf(namedType, host.lookupType);
 
+      if (Array.isArray(value)) {
+        throw new Error(`Got an array where a ${namedType.fqn} was expected. Did you mean to pass a variable number of arguments?`);
+      }
+
+      // Similarly to serialization, we might be getting a reference type where we're
+      // expecting a value type. Accept this for now (but also validate that object
+      // for presence of the right properties).
+      if (isObjRef(value)) {
+        host.debug('Expected value type but got reference type, accepting for now (awslabs/jsii#400)');
+
+        // Return same INSTANCE (shouldn't matter but we don't know for sure that it doesn't)
+        return validateRequiredProps(
+          host.objects.findObject(value).instance,
+          namedType.fqn,
+          props);
+      }
+
+      value = validateRequiredProps(value, namedType.fqn, props);
+
+      // Return a dict COPY, we have by-value semantics anyway.
       return mapValues(value, (v, key) => {
         if (!props[key]) { return undefined; } // Don't map if unknown property
         return host.recurse(v, props[key]);
@@ -349,7 +362,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
         // Check that the object we got is of the right type
         // We only do this for classes, not interfaces, since Java might pass us objects that
         // privately implement some interface and we can't prove they don't.
-        // https://github.com/awslabs/jsii/issues/399
+        // https://github.com/aws/jsii/issues/399
         const declaredType = optionalValue.type as spec.NamedTypeReference;
         if (spec.isClassType(namedType) && !isAssignable(fqn, declaredType, host.lookupType)) {
           throw new Error(`Object of type ${fqn} is not convertible to ${declaredType.fqn}`);
@@ -385,7 +398,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
 
       // Use a previous reference to maintain object identity. NOTE: this may cause us to return
       // a different type than requested! This is just how it is right now.
-      // https://github.com/awslabs/jsii/issues/399
+      // https://github.com/aws/jsii/issues/399
       const prevRef = objectReference(value);
       if (prevRef) { return prevRef; }
 
@@ -647,4 +660,17 @@ function isAssignable(actualTypeFqn: string, requiredType: spec.NamedTypeReferen
     return actualType.interfaces.find(iface => isAssignable(iface, requiredType, lookup)) != null;
   }
   return false;
+}
+
+function validateRequiredProps(actualProps: {[key: string]: any}, typeName: string, specProps: {[key: string]: spec.Property}) {
+  // Check for required properties
+  const missingRequiredProps = Object.keys(specProps)
+      .filter(name => !specProps[name].optional)
+      .filter(name => !(name in actualProps));
+
+  if (missingRequiredProps.length > 0) {
+    throw new Error(`Missing required properties for ${typeName}: ${missingRequiredProps}`);
+  }
+
+  return actualProps;
 }

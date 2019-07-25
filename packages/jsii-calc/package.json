@@ -1,6 +1,6 @@
 {
   "name": "jsii-calc",
-  "version": "0.12.1",
+  "version": "0.14.2",
   "description": "A simple calcuator built on JSII.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -45,19 +45,19 @@
     "jsii-calc-bundled"
   ],
   "dependencies": {
-    "@scope/jsii-calc-base": "^0.12.1",
-    "@scope/jsii-calc-base-of-base": "^0.12.1",
-    "@scope/jsii-calc-lib": "^0.12.1",
-    "jsii-calc-bundled": "^0.12.1"
+    "@scope/jsii-calc-base": "file:../jsii-calc-base",
+    "@scope/jsii-calc-base-of-base": "file:../jsii-calc-base-of-base",
+    "@scope/jsii-calc-lib": "file:../jsii-calc-lib",
+    "jsii-calc-bundled": "file:../jsii-calc-bundled"
   },
   "peerDependencies": {
-    "@scope/jsii-calc-base": "^0.12.1",
-    "@scope/jsii-calc-base-of-base": "^0.12.1",
-    "@scope/jsii-calc-lib": "^0.12.1"
+    "@scope/jsii-calc-base": "file:../jsii-calc-base",
+    "@scope/jsii-calc-base-of-base": "file:../jsii-calc-base-of-base",
+    "@scope/jsii-calc-lib": "file:../jsii-calc-lib"
   },
   "devDependencies": {
-    "jsii": "^0.12.1",
-    "jsii-build-tools": "^0.12.1"
+    "jsii": "^0.14.2",
+    "jsii-build-tools": "file:../jsii-build-tools"
   },
   "author": {
     "name": "Amazon Web Services",
@@ -90,6 +90,6 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/awslabs/jsii.git"
+    "url": "https://github.com/aws/jsii.git"
   }
 }

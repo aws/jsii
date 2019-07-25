@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test/unit'
 require 'test/unit/ui/console/testrunner'
 require_relative '../lib/jsii_runtime'

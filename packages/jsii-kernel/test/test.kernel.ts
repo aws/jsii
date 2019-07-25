@@ -1025,7 +1025,7 @@ defineTest('sset allows access to the static context', async (test, sandbox) => 
 /*
 
 Test currently disabled because we don't have the infrastructure to make it pass.
-https://github.com/awslabs/jsii/issues/399
+https://github.com/aws/jsii/issues/399
 
 defineTest('A single instance can be returned under two types', async (test, sandbox) => {
     const singleInstanceTwoTypes = create(sandbox, 'jsii-calc.SingleInstanceTwoTypes')();
@@ -1116,6 +1116,36 @@ defineTest('can set and retrieve union properties', async (test, sandbox) => {
     ]);
     const unionArray = typesGet('unionArrayProperty');
     test.equal(get(sandbox, unionArray[1])('value'), 33);
+});
+
+defineTest('require presence of required properties -- top level', async (test, sandbox) => {
+    test.throws(() => {
+        sandbox.sinvoke({ fqn: 'jsii-calc.StructPassing', method: 'roundTrip', args: [
+            123,
+            { incomplete: true }
+        ]});
+    }, /Missing required properties for jsii-calc.TopLevelStruct: required,secondLevel/);
+});
+
+defineTest('require presence of required properties -- deeper level', async (test, sandbox) => {
+    test.throws(() => {
+        sandbox.sinvoke({ fqn: 'jsii-calc.StructPassing', method: 'roundTrip', args: [
+            123,
+            {
+                required: 'abc',
+                secondLevel: { alsoIncomplete: true, }
+            }
+        ]});
+    }, /Missing required properties for jsii-calc.SecondLevelStruct: deeperRequiredProp/);
+});
+
+defineTest('notice when an array is passed instead of varargs', async (test, sandbox) => {
+    test.throws(() => {
+        sandbox.sinvoke({ fqn: 'jsii-calc.StructPassing', method: 'howManyVarArgsDidIPass', args: [
+            123,
+            [ { required: 'abc', secondLevel: 6 } ]
+        ]});
+    }, /Got an array where a jsii-calc.TopLevelStruct was expected/);
 });
 
 defineTest('Object ID does not get re-allocated when the constructor passes "this" out', async (test, sandbox) => {

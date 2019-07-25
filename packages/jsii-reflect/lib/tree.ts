@@ -1,8 +1,10 @@
 import colors = require('colors/safe');
+import { Stability } from 'jsii-spec';
 import { AsciiTree } from 'oo-ascii-tree';
 import { Assembly } from './assembly';
 import { ClassType } from './class';
 import { Dependency } from './dependency';
+import { Documentable } from './docs';
 import { EnumType } from './enum';
 import { Initializer } from './initializer';
 import { InterfaceType } from './interface';
@@ -54,6 +56,13 @@ export interface TypeSystemTreeOptions {
    * @default true
    */
   colors?: boolean;
+
+  /**
+   * Show stabilities
+   *
+   * @default false
+   */
+  stabilities?: boolean;
 }
 
 /**
@@ -105,7 +114,7 @@ class AssemblyNode extends AsciiTree {
 class MethodNode extends AsciiTree {
   constructor(method: Method, options: TypeSystemTreeOptions) {
     const args = method.parameters.map(p => p.name).join(',');
-    super(`${method.name}(${args}) ${colors.gray('method')}`);
+    super(`${maybeStatic(method)}${method.name}(${args}) ${colors.gray('method')}` + describeStability(method, options));
 
     if (options.signatures) {
       if (method.abstract) {
@@ -138,7 +147,7 @@ class MethodNode extends AsciiTree {
 class InitializerNode extends AsciiTree {
   constructor(initializer: Initializer, options: TypeSystemTreeOptions) {
     const args = initializer.parameters.map(p => p.name).join(',');
-    super(`${initializer.name}(${args}) ${colors.gray('initializer')}`);
+    super(`${initializer.name}(${args}) ${colors.gray('initializer')}` + describeStability(initializer, options));
 
     if (options.signatures) {
       if (initializer.protected) {
@@ -171,7 +180,7 @@ class ParameterNode extends AsciiTree {
 
 class PropertyNode extends AsciiTree {
   constructor(property: Property, options: TypeSystemTreeOptions) {
-    super(`${property.name} ${colors.gray('property')}`);
+    super(`${maybeStatic(property)}${property.name} ${colors.gray('property')}` + describeStability(property, options));
 
     if (options.signatures) {
       if (property.abstract) {
@@ -211,7 +220,7 @@ class OptionalValueNode extends AsciiTree {
 
 class ClassNode extends AsciiTree {
   constructor(type: ClassType, options: TypeSystemTreeOptions) {
-    super(`${colors.gray('class')} ${colors.cyan(type.name)}`);
+    super(`${colors.gray('class')} ${colors.cyan(type.name)}` + describeStability(type, options));
 
     if (options.inheritance && type.base) {
       this.add(new KeyValueNode('base', type.base.name));
@@ -235,7 +244,7 @@ class ClassNode extends AsciiTree {
 
 class InterfaceNode extends AsciiTree {
   constructor(type: InterfaceType, options: TypeSystemTreeOptions) {
-    super(`${colors.gray('interface')} ${colors.cyan(type.name)}`);
+    super(`${colors.gray('interface')} ${colors.cyan(type.name)}` + describeStability(type, options));
 
     if (options.inheritance && type.interfaces.length > 0) {
       const interfaces = new TitleNode('interfaces');
@@ -254,11 +263,11 @@ class InterfaceNode extends AsciiTree {
 
 class EnumNode extends AsciiTree {
   constructor(enumType: EnumType, options: TypeSystemTreeOptions) {
-    super(`${colors.gray('enum')} ${colors.cyan(enumType.name)}`);
+    super(`${colors.gray('enum')} ${colors.cyan(enumType.name)}` + describeStability(enumType, options));
 
     if (options.members) {
       enumType.members.forEach(mem => {
-        this.add(new AsciiTree(mem.name));
+        this.add(new AsciiTree(mem.name + describeStability(mem, options)));
       });
     }
   }
@@ -312,4 +321,24 @@ function withColors(enabled: boolean, block: () => void) {
       colors.disable();
     }
   }
+}
+
+function describeStability(thing: Documentable, options: TypeSystemTreeOptions) {
+  if (!options.stabilities) { return ''; }
+
+  switch (thing.docs.stability) {
+    case Stability.Stable: return ' (' + colors.green('stable') + ')';
+    case Stability.Experimental: return ' (' + colors.yellow('experimental') + ')';
+    case Stability.Deprecated: return ' (' + colors.red('deprecated') + ')';
+  }
+
+  return '';
+}
+
+function maybeStatic(mem: Property | Method) {
+  let isStatic;
+  if (mem instanceof Property) { isStatic = !!mem.static; }
+  if (mem instanceof Method) { isStatic = !!mem.static; }
+
+  return isStatic ? (colors.grey('static') + ' ') : '';
 }

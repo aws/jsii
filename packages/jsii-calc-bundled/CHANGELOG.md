@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [0.12.1](https://github.com/awslabs/jsii/compare/v0.12.0...v0.12.1) (2019-06-25)
+## [0.14.2](https://github.com/aws/jsii/compare/v0.14.1...v0.14.2) (2019-07-19)
 
 **Note:** Version bump only for package jsii-calc-bundled
 
@@ -11,7 +11,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-# [0.12.0](https://github.com/awslabs/jsii/compare/v0.11.3...v0.12.0) (2019-06-24)
+## [0.14.1](https://github.com/aws/jsii/compare/v0.14.0...v0.14.1) (2019-07-17)
 
 **Note:** Version bump only for package jsii-calc-bundled
 
@@ -19,7 +19,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [0.11.3](https://github.com/awslabs/jsii/compare/v0.11.2...v0.11.3) (2019-06-18)
+# [0.14.0](https://github.com/aws/jsii/compare/v0.13.4...v0.14.0) (2019-07-08)
 
 **Note:** Version bump only for package jsii-calc-bundled
 
@@ -27,7 +27,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [0.11.2](https://github.com/awslabs/jsii/compare/v0.11.1...v0.11.2) (2019-06-07)
+## [0.13.4](https://github.com/aws/jsii/compare/v0.13.3...v0.13.4) (2019-07-03)
 
 **Note:** Version bump only for package jsii-calc-bundled
 
@@ -35,7 +35,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [0.11.1](https://github.com/awslabs/jsii/compare/v0.11.0...v0.11.1) (2019-06-07)
+## [0.13.3](https://github.com/aws/jsii/compare/v0.13.2...v0.13.3) (2019-07-01)
 
 **Note:** Version bump only for package jsii-calc-bundled
 
@@ -43,7 +43,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-# [0.11.0](https://github.com/awslabs/jsii/compare/v0.10.5...v0.11.0) (2019-05-21)
+## [0.13.2](https://github.com/aws/jsii/compare/v0.12.1...v0.13.2) (2019-07-01)
 
 **Note:** Version bump only for package jsii-calc-bundled
 
@@ -51,7 +51,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [0.10.5](https://github.com/awslabs/jsii/compare/v0.10.4...v0.10.5) (2019-05-06)
+## [0.12.1](https://github.com/aws/jsii/compare/v0.12.0...v0.12.1) (2019-06-25)
 
 **Note:** Version bump only for package jsii-calc-bundled
 
@@ -59,7 +59,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [0.10.4](https://github.com/awslabs/jsii/compare/v0.10.3...v0.10.4) (2019-05-05)
+# [0.12.0](https://github.com/aws/jsii/compare/v0.11.3...v0.12.0) (2019-06-24)
 
 **Note:** Version bump only for package jsii-calc-bundled
 
@@ -67,7 +67,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [0.10.3](https://github.com/awslabs/jsii/compare/v0.10.2...v0.10.3) (2019-04-24)
+## [0.11.3](https://github.com/aws/jsii/compare/v0.11.2...v0.11.3) (2019-06-18)
 
 **Note:** Version bump only for package jsii-calc-bundled
 
@@ -75,7 +75,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [0.10.2](https://github.com/awslabs/jsii/compare/v0.10.1...v0.10.2) (2019-04-18)
+## [0.11.2](https://github.com/aws/jsii/compare/v0.11.1...v0.11.2) (2019-06-07)
 
 **Note:** Version bump only for package jsii-calc-bundled
 
@@ -83,7 +83,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [0.10.1](https://github.com/awslabs/jsii/compare/v0.10.0...v0.10.1) (2019-04-17)
+## [0.11.1](https://github.com/aws/jsii/compare/v0.11.0...v0.11.1) (2019-06-07)
 
 **Note:** Version bump only for package jsii-calc-bundled
 
@@ -91,12 +91,60 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-# [0.10.0](https://github.com/awslabs/jsii/compare/v0.9.0...v0.10.0) (2019-04-16)
+# [0.11.0](https://github.com/aws/jsii/compare/v0.10.5...v0.11.0) (2019-05-21)
+
+**Note:** Version bump only for package jsii-calc-bundled
+
+
+
+
+
+## [0.10.5](https://github.com/aws/jsii/compare/v0.10.4...v0.10.5) (2019-05-06)
+
+**Note:** Version bump only for package jsii-calc-bundled
+
+
+
+
+
+## [0.10.4](https://github.com/aws/jsii/compare/v0.10.3...v0.10.4) (2019-05-05)
+
+**Note:** Version bump only for package jsii-calc-bundled
+
+
+
+
+
+## [0.10.3](https://github.com/aws/jsii/compare/v0.10.2...v0.10.3) (2019-04-24)
+
+**Note:** Version bump only for package jsii-calc-bundled
+
+
+
+
+
+## [0.10.2](https://github.com/aws/jsii/compare/v0.10.1...v0.10.2) (2019-04-18)
+
+**Note:** Version bump only for package jsii-calc-bundled
+
+
+
+
+
+## [0.10.1](https://github.com/aws/jsii/compare/v0.10.0...v0.10.1) (2019-04-17)
+
+**Note:** Version bump only for package jsii-calc-bundled
+
+
+
+
+
+# [0.10.0](https://github.com/aws/jsii/compare/v0.9.0...v0.10.0) (2019-04-16)
 
 
 ### Features
 
-* **jsii-spec:** Model parameter optionality ([#432](https://github.com/awslabs/jsii/issues/432)) ([21e485a](https://github.com/awslabs/jsii/commit/21e485a)), closes [#296](https://github.com/awslabs/jsii/issues/296) [#414](https://github.com/awslabs/jsii/issues/414)
+* **jsii-spec:** Model parameter optionality ([#432](https://github.com/aws/jsii/issues/432)) ([21e485a](https://github.com/aws/jsii/commit/21e485a)), closes [#296](https://github.com/aws/jsii/issues/296) [#414](https://github.com/aws/jsii/issues/414)
 
 
 ### BREAKING CHANGES
@@ -109,7 +157,7 @@ projects in order to fix this.
 
 
 
-# [0.9.0](https://github.com/awslabs/jsii/compare/v0.8.2...v0.9.0) (2019-04-04)
+# [0.9.0](https://github.com/aws/jsii/compare/v0.8.2...v0.9.0) (2019-04-04)
 
 **Note:** Version bump only for package jsii-calc-bundled
 
@@ -117,7 +165,7 @@ projects in order to fix this.
 
 
 
-## [0.8.2](https://github.com/awslabs/jsii/compare/v0.8.1...v0.8.2) (2019-03-28)
+## [0.8.2](https://github.com/aws/jsii/compare/v0.8.1...v0.8.2) (2019-03-28)
 
 **Note:** Version bump only for package jsii-calc-bundled
 
@@ -125,7 +173,7 @@ projects in order to fix this.
 
 
 
-## [0.8.1](https://github.com/awslabs/jsii/compare/v0.8.0...v0.8.1) (2019-03-28)
+## [0.8.1](https://github.com/aws/jsii/compare/v0.8.0...v0.8.1) (2019-03-28)
 
 **Note:** Version bump only for package jsii-calc-bundled
 
@@ -133,7 +181,7 @@ projects in order to fix this.
 
 
 
-# [0.8.0](https://github.com/awslabs/jsii/compare/v0.7.15...v0.8.0) (2019-03-20)
+# [0.8.0](https://github.com/aws/jsii/compare/v0.7.15...v0.8.0) (2019-03-20)
 
 **Note:** Version bump only for package jsii-calc-bundled
 
@@ -142,7 +190,7 @@ projects in order to fix this.
 
 
 <a name="0.7.15"></a>
-## [0.7.15](https://github.com/awslabs/jsii/compare/v0.7.14...v0.7.15) (2019-02-27)
+## [0.7.15](https://github.com/aws/jsii/compare/v0.7.14...v0.7.15) (2019-02-27)
 
 
 
@@ -150,7 +198,7 @@ projects in order to fix this.
 **Note:** Version bump only for package jsii-calc-bundled
 
 <a name="0.7.14"></a>
-## [0.7.14](https://github.com/awslabs/jsii/compare/v0.7.13...v0.7.14) (2019-02-04)
+## [0.7.14](https://github.com/aws/jsii/compare/v0.7.13...v0.7.14) (2019-02-04)
 
 
 
@@ -158,7 +206,7 @@ projects in order to fix this.
 **Note:** Version bump only for package jsii-calc-bundled
 
 <a name="0.7.13"></a>
-## [0.7.13](https://github.com/awslabs/jsii/compare/v0.7.12...v0.7.13) (2019-01-03)
+## [0.7.13](https://github.com/aws/jsii/compare/v0.7.12...v0.7.13) (2019-01-03)
 
 
 
@@ -166,7 +214,7 @@ projects in order to fix this.
 **Note:** Version bump only for package jsii-calc-bundled
 
 <a name="0.7.12"></a>
-## [0.7.12](https://github.com/awslabs/jsii/compare/v0.7.11...v0.7.12) (2018-12-11)
+## [0.7.12](https://github.com/aws/jsii/compare/v0.7.11...v0.7.12) (2018-12-11)
 
 
 
@@ -174,7 +222,7 @@ projects in order to fix this.
 **Note:** Version bump only for package jsii-calc-bundled
 
 <a name="0.7.11"></a>
-## [0.7.11](https://github.com/awslabs/jsii/compare/v0.7.10...v0.7.11) (2018-11-18)
+## [0.7.11](https://github.com/aws/jsii/compare/v0.7.10...v0.7.11) (2018-11-18)
 
 
 
@@ -182,7 +230,7 @@ projects in order to fix this.
 **Note:** Version bump only for package jsii-calc-bundled
 
 <a name="0.7.10"></a>
-## [0.7.10](https://github.com/awslabs/jsii/compare/v0.7.9...v0.7.10) (2018-11-12)
+## [0.7.10](https://github.com/aws/jsii/compare/v0.7.9...v0.7.10) (2018-11-12)
 
 
 
@@ -190,7 +238,7 @@ projects in order to fix this.
 **Note:** Version bump only for package jsii-calc-bundled
 
 <a name="0.7.9"></a>
-## [0.7.9](https://github.com/awslabs/jsii/compare/v0.7.8...v0.7.9) (2018-11-12)
+## [0.7.9](https://github.com/aws/jsii/compare/v0.7.8...v0.7.9) (2018-11-12)
 
 
 
@@ -198,7 +246,7 @@ projects in order to fix this.
 **Note:** Version bump only for package jsii-calc-bundled
 
 <a name="0.7.8"></a>
-## [0.7.8](https://github.com/awslabs/jsii/compare/v0.7.7...v0.7.8) (2018-10-23)
+## [0.7.8](https://github.com/aws/jsii/compare/v0.7.7...v0.7.8) (2018-10-23)
 
 
 
@@ -206,7 +254,7 @@ projects in order to fix this.
 **Note:** Version bump only for package jsii-calc-bundled
 
 <a name="0.7.7"></a>
-## [0.7.7](https://github.com/awslabs/jsii/compare/v0.7.6...v0.7.7) (2018-10-10)
+## [0.7.7](https://github.com/aws/jsii/compare/v0.7.6...v0.7.7) (2018-10-10)
 
 
 
@@ -214,7 +262,7 @@ projects in order to fix this.
 **Note:** Version bump only for package jsii-calc-bundled
 
 <a name="0.7.6"></a>
-## [0.7.6](https://github.com/awslabs/jsii/compare/v0.7.5...v0.7.6) (2018-09-20)
+## [0.7.6](https://github.com/aws/jsii/compare/v0.7.5...v0.7.6) (2018-09-20)
 
 
 
@@ -222,7 +270,7 @@ projects in order to fix this.
 **Note:** Version bump only for package jsii-calc-bundled
 
 <a name="0.7.5"></a>
-## [0.7.5](https://github.com/awslabs/jsii/compare/v0.7.4...v0.7.5) (2018-09-13)
+## [0.7.5](https://github.com/aws/jsii/compare/v0.7.4...v0.7.5) (2018-09-13)
 
 
 
@@ -230,7 +278,7 @@ projects in order to fix this.
 **Note:** Version bump only for package jsii-calc-bundled
 
 <a name="0.7.4"></a>
-## [0.7.4](https://github.com/awslabs/jsii/compare/v0.7.3...v0.7.4) (2018-09-10)
+## [0.7.4](https://github.com/aws/jsii/compare/v0.7.3...v0.7.4) (2018-09-10)
 
 
 
@@ -238,7 +286,7 @@ projects in order to fix this.
 **Note:** Version bump only for package jsii-calc-bundled
 
 <a name="0.7.3"></a>
-## [0.7.3](https://github.com/awslabs/jsii/compare/v0.7.2...v0.7.3) (2018-09-06)
+## [0.7.3](https://github.com/aws/jsii/compare/v0.7.2...v0.7.3) (2018-09-06)
 
 
 
@@ -246,7 +294,7 @@ projects in order to fix this.
 **Note:** Version bump only for package jsii-calc-bundled
 
 <a name="0.7.2"></a>
-## [0.7.2](https://github.com/awslabs/jsii/compare/v0.7.1...v0.7.2) (2018-09-06)
+## [0.7.2](https://github.com/aws/jsii/compare/v0.7.1...v0.7.2) (2018-09-06)
 
 
 
@@ -254,7 +302,7 @@ projects in order to fix this.
 **Note:** Version bump only for package jsii-calc-bundled
 
 <a name="0.7.1"></a>
-## [0.7.1](https://github.com/awslabs/jsii/compare/v0.7.0...v0.7.1) (2018-08-28)
+## [0.7.1](https://github.com/aws/jsii/compare/v0.7.0...v0.7.1) (2018-08-28)
 
 
 
@@ -262,7 +310,7 @@ projects in order to fix this.
 **Note:** Version bump only for package jsii-calc-bundled
 
 <a name="0.7.0"></a>
-# [0.7.0](https://github.com/awslabs/jsii/compare/v0.6.4...v0.7.0) (2018-08-21)
+# [0.7.0](https://github.com/aws/jsii/compare/v0.6.4...v0.7.0) (2018-08-21)
 
 
 
@@ -270,7 +318,7 @@ projects in order to fix this.
 **Note:** Version bump only for package jsii-calc-bundled
 
 <a name="0.7.0"></a>
-# [0.7.0](https://github.com/awslabs/jsii/compare/v0.6.4...v0.7.0) (2018-08-21)
+# [0.7.0](https://github.com/aws/jsii/compare/v0.6.4...v0.7.0) (2018-08-21)
 
 
 
@@ -278,7 +326,7 @@ projects in order to fix this.
 **Note:** Version bump only for package jsii-calc-bundled
 
 <a name="0.6.4"></a>
-## [0.6.4](https://github.com/awslabs/jsii/compare/v0.6.3...v0.6.4) (2018-08-08)
+## [0.6.4](https://github.com/aws/jsii/compare/v0.6.3...v0.6.4) (2018-08-08)
 
 
 

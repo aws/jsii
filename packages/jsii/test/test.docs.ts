@@ -1,4 +1,5 @@
 import spec = require('jsii-spec');
+import { Stability } from 'jsii-spec';
 import { Test } from 'nodeunit';
 import { sourceToAssemblyHelper as compile } from '../lib';
 
@@ -269,6 +270,28 @@ export = {
   },
 
   // ----------------------------------------------------------------------
+
+  async 'can mark external'(test: Test) {
+    const assembly = await compile(`
+      /**
+       * @stability external
+       */
+      export class Foo {
+        public floop() {
+          Array.isArray(3);
+        }
+      }
+    `);
+
+    const classType = assembly.types!['testpkg.Foo'] as spec.ClassType;
+    const method = classType.methods!.find(m => m.name === 'floop');
+
+    test.deepEqual(classType.docs!.stability, spec.Stability.External);
+    test.deepEqual(method!.docs!.stability, spec.Stability.External);
+    test.done();
+  },
+
+  // ----------------------------------------------------------------------
   async 'can mark subclassable'(test: Test) {
     const assembly = await compile(`
       /**
@@ -301,4 +324,40 @@ export = {
     test.deepEqual(classType.docs!.custom, { boop: 'true' });
     test.done();
   },
+
+  // ----------------------------------------------------------------------
+  async 'stability is inherited from parent type'(test: Test) {
+    const stabilities =  [
+      ['@deprecated Not good no more', Stability.Deprecated],
+      ['@experimental', Stability.Experimental],
+      ['@stable', Stability.Stable]
+    ];
+
+    for (const [tag, stability] of stabilities) {
+      const assembly = await compile(`
+        /**
+         * ${tag}
+         */
+        export class Foo {
+          constructor() {
+            Array.isArray(3);
+          }
+
+          public foo() {
+            Array.isArray(3);
+          }
+        }
+      `);
+
+      const classType = assembly.types!['testpkg.Foo'] as spec.ClassType;
+      const initializer = classType.initializer!;
+      const method = classType.methods!.find(m => m.name === 'foo')!;
+
+      test.deepEqual(classType.docs!.stability, stability);
+      test.deepEqual(initializer.docs!.stability, stability);
+      test.deepEqual(method.docs!.stability, stability);
+    }
+    test.done();
+  },
+
 };

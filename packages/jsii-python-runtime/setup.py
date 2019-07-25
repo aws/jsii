@@ -33,7 +33,6 @@ setuptools.setup(
         "importlib_resources ; python_version < '3.7'",
         "python-dateutil",
         "typing_extensions>=3.6.4",
-        "mypy_extensions>=0.4.0",
     ],
 
     python_requires=">=3.6",

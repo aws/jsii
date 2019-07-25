@@ -84,19 +84,12 @@ def enum(*, jsii_type):
     return deco
 
 
-def data_type(*, jsii_type, jsii_struct_bases):
+def data_type(*, jsii_type, jsii_struct_bases, name_mapping):
     def deco(cls):
         cls.__jsii_type__ = jsii_type
         cls.__jsii_struct_bases__ = jsii_struct_bases
+        cls.__jsii_name_mapping__ = name_mapping
         _reference_map.register_data_type(cls)
-        return cls
-
-    return deco
-
-
-def data_type_optionals(*, jsii_struct_bases):
-    def deco(cls):
-        cls.__jsii_struct_bases__ = jsii_struct_bases
         return cls
 
     return deco
@@ -132,3 +125,7 @@ def proxy_for(abstract_class):
         raise TypeError(f"{abstract_class} is not a JSII Abstract class.")
 
     return abstract_class.__jsii_proxy_class__()
+
+
+def python_jsii_mapping(cls):
+    return getattr(cls, '__jsii_name_mapping__', None)

@@ -1,6 +1,6 @@
 {
   "name": "jsii-spec",
-  "version": "0.12.1",
+  "version": "0.14.2",
   "description": "Specification for jsii assemblies",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -12,9 +12,9 @@
   },
   "devDependencies": {
     "@types/nodeunit": "^0.0.30",
-    "jsii-build-tools": "^0.12.1",
+    "jsii-build-tools": "file:../jsii-build-tools",
     "nodeunit": "^0.11.3",
-    "typescript": "^3.5.2",
+    "typescript": "^3.5.3",
     "typescript-json-schema": "^0.38.3"
   },
   "dependencies": {
@@ -27,7 +27,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/awslabs/jsii.git",
+    "url": "https://github.com/aws/jsii.git",
     "directory": "packages/jsii-spec"
   }
 }

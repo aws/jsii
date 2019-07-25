@@ -915,6 +915,22 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.True(voidCallback.MethodWasCalled);
         }
 
+        [Fact(DisplayName = Prefix + nameof(CallbacksCorrectlyDeserializeArguments))]
+        public void CallbacksCorrectlyDeserializeArguments()
+        {
+            var obj = new DataRendererSubclass();
+            Assert.Equal("{\n  \"anumber\": 42,\n  \"astring\": \"bazinga!\"\n}", obj.Render(null));
+        }
+
+        class DataRendererSubclass : DataRenderer
+        {
+            [JsiiMethod("renderMap", returnsJson:  "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[{\"name\":\"map\",\"type\":{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"primitive\":\"any\"}}}}]", isOverride: true)]
+            public override string RenderMap(IDictionary<string, object> map)
+            {
+                return base.RenderMap(map);
+            }
+        }
+
         class VoidCallbackImpl : VoidCallback
         {
             protected override void OverrideMe()

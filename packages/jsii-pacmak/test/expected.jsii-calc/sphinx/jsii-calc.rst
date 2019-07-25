@@ -10,42 +10,42 @@ Reference
 
    .. group-tab:: C#
 
-      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId/0.12.1>`_
+      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId/0.14.2>`_
 
       **csproj**:
 
       .. code-block:: xml
 
-         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId" Version="0.12.1" />
+         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId" Version="0.14.2" />
 
       **dotnet**:
 
       .. code-block:: console
 
-         dotnet add package Amazon.JSII.Tests.CalculatorPackageId --version 0.12.1
+         dotnet add package Amazon.JSII.Tests.CalculatorPackageId --version 0.14.2
 
       **packages.config**:
 
       .. code-block:: xml
 
-         <package id="Amazon.JSII.Tests.CalculatorPackageId" version="0.12.1" />
+         <package id="Amazon.JSII.Tests.CalculatorPackageId" version="0.14.2" />
 
 
    .. group-tab:: Java
 
-      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator/0.12.1/>`_
+      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator/0.14.2/>`_
 
       **Apache Buildr**:
 
       .. code-block:: none
 
-         'software.amazon.jsii.tests:calculator:jar:0.12.1'
+         'software.amazon.jsii.tests:calculator:jar:0.14.2'
 
       **Apache Ivy**:
 
       .. code-block:: xml
 
-         <dependency groupId="software.amazon.jsii.tests" name="calculator" rev="0.12.1"/>
+         <dependency groupId="software.amazon.jsii.tests" name="calculator" rev="0.14.2"/>
 
       **Apache Maven**:
 
@@ -54,72 +54,72 @@ Reference
          <dependency>
            <groupId>software.amazon.jsii.tests</groupId>
            <artifactId>calculator</artifactId>
-           <version>0.12.1</version>
+           <version>0.14.2</version>
          </dependency>
 
       **Gradle / Grails**:
 
       .. code-block:: none
 
-         compile 'software.amazon.jsii.tests:calculator:0.12.1'
+         compile 'software.amazon.jsii.tests:calculator:0.14.2'
 
       **Groovy Grape**:
 
       .. code-block:: none
 
          @Grapes(
-         @Grab(group='software.amazon.jsii.tests', module='calculator', version='0.12.1')
+         @Grab(group='software.amazon.jsii.tests', module='calculator', version='0.14.2')
          )
 
 
    .. group-tab:: JavaScript
 
-      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.12.1>`_
+      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.14.2>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i jsii-calc@0.12.1
+         $ npm i jsii-calc@0.14.2
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "jsii-calc": "^0.12.1"
+           "jsii-calc": "^0.14.2"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add jsii-calc@0.12.1
+         $ yarn add jsii-calc@0.14.2
 
 
    .. group-tab:: TypeScript
 
-      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.12.1>`_
+      View in `NPM <https://www.npmjs.com/package/jsii-calc/v/0.14.2>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i jsii-calc@0.12.1
+         $ npm i jsii-calc@0.14.2
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "jsii-calc": "^0.12.1"
+           "jsii-calc": "^0.14.2"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add jsii-calc@0.12.1
+         $ yarn add jsii-calc@0.14.2
 
 
 
@@ -1438,6 +1438,52 @@ ConsumersOfThisCrazyTypeSystem
       :param obj: 
       :type obj: :py:class:`~jsii-calc.INonInternalInterface`\ 
       :rtype: any
+
+
+DataRenderer
+^^^^^^^^^^^^
+
+.. py:class:: DataRenderer()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.DataRenderer;
+
+      .. code-tab:: javascript
+
+         const { DataRenderer } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { DataRenderer } from 'jsii-calc';
+
+
+
+   Verifies proper type handling through dynamic overrides.
+
+
+
+
+   .. py:method:: render([data]) -> string
+
+      :param data: 
+      :type data: :py:class:`@scope/jsii-calc-lib.MyFirstStruct`\ 
+      :rtype: string
+
+
+   .. py:method:: renderMap(map) -> string
+
+      :param map: 
+      :type map: string => any
+      :rtype: string
 
 
 DefaultedConstructorArgument
@@ -5714,7 +5760,7 @@ ReturnsPrivateImplementationOfInterface
 
    Helps ensure the JSII kernel & runtime cooperate correctly when an un-exported instance of a class is returned with a declared type that is an exported interface, and the instance inherits from an exported class.
 
-   https://github.com/awslabs/jsii/issues/320
+   https://github.com/aws/jsii/issues/320
 
 
 
@@ -5779,6 +5825,53 @@ RuntimeTypeChecking
       :type arg2: string
       :param arg3: 
       :type arg3: date
+
+
+SecondLevelStruct (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: SecondLevelStruct
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.SecondLevelStruct;
+
+      .. code-tab:: javascript
+
+         // SecondLevelStruct is an interface
+
+      .. code-tab:: typescript
+
+         import { SecondLevelStruct } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: deeperRequiredProp
+
+      It's long and required.
+
+
+
+      :type: string *(readonly)*
+
+
+   .. py:attribute:: deeperOptionalProp
+
+      It's long, but you'll almost never pass it.
+
+
+
+      :type: string *(optional)* *(readonly)*
 
 
 SingleInstanceTwoTypes
@@ -5862,7 +5955,7 @@ SingletonInt
 
    
 
-   https://github.com/awslabs/jsii/issues/231
+   https://github.com/aws/jsii/issues/231
 
 
 
@@ -5943,7 +6036,7 @@ SingletonString
 
    
 
-   https://github.com/awslabs/jsii/issues/231
+   https://github.com/aws/jsii/issues/231
 
 
 
@@ -6315,6 +6408,56 @@ StripInternal
       :type: string
 
 
+StructPassing
+^^^^^^^^^^^^^
+
+.. py:class:: StructPassing()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.StructPassing;
+
+      .. code-tab:: javascript
+
+         const { StructPassing } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { StructPassing } from 'jsii-calc';
+
+
+
+   Just because we can.
+
+
+
+
+   .. py:staticmethod:: howManyVarArgsDidIPass(_positional, *inputs) -> number
+
+      :param _positional: 
+      :type _positional: number
+      :param \*inputs: 
+      :type \*inputs: :py:class:`~jsii-calc.TopLevelStruct`\ 
+      :rtype: number
+
+
+   .. py:staticmethod:: roundTrip(_positional, input) -> jsii-calc.TopLevelStruct
+
+      :param _positional: 
+      :type _positional: number
+      :param input: 
+      :type input: :py:class:`~jsii-calc.TopLevelStruct`\ 
+      :rtype: :py:class:`~jsii-calc.TopLevelStruct`\ 
+
+
 Sum
 ^^^
 
@@ -6574,6 +6717,62 @@ Thrower
 
    .. py:method:: throwError()
 
+
+
+TopLevelStruct (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: TopLevelStruct
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.TopLevelStruct;
+
+      .. code-tab:: javascript
+
+         // TopLevelStruct is an interface
+
+      .. code-tab:: typescript
+
+         import { TopLevelStruct } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: required
+
+      This is a required field.
+
+
+
+      :type: string *(readonly)*
+
+
+   .. py:attribute:: secondLevel
+
+      A union to really stress test our serialization.
+
+
+
+      :type: number or :py:class:`~jsii-calc.SecondLevelStruct`\  *(readonly)*
+
+
+   .. py:attribute:: optional
+
+      You don't have to pass this.
+
+
+
+      :type: string *(optional)* *(readonly)*
 
 
 UnaryOperation

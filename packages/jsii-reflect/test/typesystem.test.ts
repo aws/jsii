@@ -1,11 +1,12 @@
 import spec = require('jsii-spec');
+import { Stability } from 'jsii-spec';
 import path = require('path');
 import { TypeSystem } from '../lib';
-import { diffTest } from './util';
+import { diffTest, typeSystemFromSource } from './util';
 
 let typesys: TypeSystem;
 
-beforeEach(async () => {
+beforeAll(async () => {
   typesys = new TypeSystem();
   await typesys.loadModule(resolveModuleDir('jsii-calc'));
 });
@@ -168,6 +169,38 @@ describe('@deprecated', () => {
   });
 });
 
+test('overridden member knows about both parent types', async () => {
+  const ts = await typeSystemFromSource(`
+    export class Foo {
+      public foo() {
+        Array.isArray(3);
+      }
+
+      public boo(): boolean {
+        return true;
+      }
+    }
+
+    export class SubFoo extends Foo {
+      public boo(): boolean {
+        return false;
+      }
+    }
+  `);
+
+  const superType = ts.findClass('testpkg.Foo');
+  const subType = ts.findClass('testpkg.SubFoo');
+  const fooMethod = subType.allMethods.find(m => m.name === 'foo')!;
+  const booMethod = subType.allMethods.find(m => m.name === 'boo')!;
+
+  expect(fooMethod.parentType).toBe(subType);
+  expect(fooMethod.definingType).toBe(superType);
+
+  expect(booMethod.parentType).toBe(subType);
+  expect(booMethod.definingType).toBe(subType);
+  expect(booMethod.overrides).toBe(superType);
+});
+
 describe('Stability', () => {
   test('can be read on an item', () => {
     const klass = typesys.findClass('jsii-calc.DocumentedClass');
@@ -184,6 +217,135 @@ describe('Stability', () => {
     const klass = typesys.findClass('jsii-calc.DocumentedClass');
     const method = klass.getMethods().hola;
     expect(method.docs.stability).toBe(spec.Stability.Experimental);
+  });
+
+  // ----------------------------------------------------------------------
+
+  describe('lowest stability guarantee is advertised', () => {
+    test('when subclass is experimental', async () => {
+      const ts = await typeSystemFromSource(`
+        /**
+         * @stable
+         */
+        export class Foo {
+          constructor() {
+            Array.isArray(3);
+          }
+
+          public foo() {
+            Array.isArray(3);
+          }
+        }
+
+        /**
+         * @experimental
+         */
+        export class SubFoo extends Foo {
+        }
+      `);
+      const classType = ts.findClass('testpkg.SubFoo');
+      const initializer = classType.initializer!;
+      const method = classType.allMethods.find(m => m.name === 'foo')!;
+
+      expect(initializer.docs.stability).toEqual(Stability.Experimental);
+      expect(method.docs.stability).toEqual(Stability.Experimental);
+    });
+
+    test('when method is experimental', async () => {
+      const ts = await typeSystemFromSource(`
+        /**
+         * @stable
+         */
+        export class Foo {
+          /**
+           * @experimental
+           */
+          constructor() {
+            Array.isArray(3);
+          }
+
+          /**
+           * @experimental
+           */
+          public foo() {
+            Array.isArray(3);
+          }
+        }
+
+        /**
+         * @stable
+         */
+        export class SubFoo extends Foo {
+        }
+      `);
+
+      const classType = ts.findClass('testpkg.SubFoo');
+      const initializer = classType.initializer!;
+      const method = classType.allMethods.find(m => m.name === 'foo')!;
+
+      expect(initializer.docs.stability).toEqual(Stability.Experimental);
+      expect(method.docs.stability).toEqual(Stability.Experimental);
+    });
+
+    test('when method is explicitly marked stable', async () => {
+      const ts = await typeSystemFromSource(`
+        /**
+         * @stable
+         */
+        export class Foo {
+          /**
+           * @stable
+           */
+          constructor() {
+            Array.isArray(3);
+          }
+
+          /**
+           * @stable
+           */
+          public foo() {
+            Array.isArray(3);
+          }
+        }
+
+        /**
+         * @experimental
+         */
+        export class SubFoo extends Foo {
+        }
+      `);
+
+      const classType = ts.findClass('testpkg.SubFoo');
+      const initializer = classType.initializer!;
+      const method = classType.allMethods.find(m => m.name === 'foo')!;
+
+      expect(initializer.docs.stability).toEqual(Stability.Experimental);
+      expect(method.docs.stability).toEqual(Stability.Experimental);
+    });
+
+    test('external stability', async () => {
+      const ts = await typeSystemFromSource(`
+        /**
+         * @stability external
+         */
+        export class Foo {
+          public foo() {
+            Array.isArray(3);
+          }
+        }
+
+        /**
+         * @stable
+         */
+        export class SubFoo extends Foo {
+        }
+      `);
+
+      const classType = ts.findClass('testpkg.SubFoo');
+      const method = classType.allMethods.find(m => m.name === 'foo')!;
+
+      expect(method.docs.stability).toEqual(Stability.External);
+    });
   });
 });
 

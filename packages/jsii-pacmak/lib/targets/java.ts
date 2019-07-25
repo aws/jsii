@@ -771,6 +771,8 @@ class JavaGenerator extends Generator {
                     return 'Deprecated';
                 case spec.Stability.Experimental:
                     return 'Experimental';
+                case spec.Stability.External:
+                    return 'External';
                 case spec.Stability.Stable:
                     return 'Stable';
             }

@@ -40,6 +40,12 @@ public @interface Stability {
      * The API may emit warnings. Backward compatibility is not guaranteed. APIs annotated with the {@code Deprecated}
      * level should also be annotated with the standard {@link Deprecated} annotation.
      */
-    Deprecated
+    Deprecated,
+
+    /**
+     * This API is an representation of an API managed elsewhere and follows
+     * the other API's versioning model.
+     */
+    External
   }
 }

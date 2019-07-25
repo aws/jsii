@@ -27,6 +27,25 @@ export class TypeSystem {
   private readonly _assemblyLookup: { [name: string]: Assembly } = { };
 
   /**
+   * Load all JSII dependencies of the given NPM package directory.
+   *
+   * The NPM package itself does *not* have to be a jsii package, and does
+   * NOT have to declare a JSII dependency on any of the packages.
+   */
+  public async loadNpmDependencies(packageRoot: string, options: { validate?: boolean } = {}): Promise<void> {
+    const pkg = require(path.resolve(packageRoot, 'package.json'));
+
+    for (const dep of dependenciesOf(pkg)) {
+      // Filter jsii dependencies
+      const depPkgJsonPath = require.resolve(`${dep}/package.json`, { paths: [ packageRoot ] });
+      const depPkgJson = require(depPkgJsonPath);
+      if (!depPkgJson.jsii) { continue; }
+
+      await this.loadModule(path.dirname(depPkgJsonPath), options);
+    }
+  }
+
+  /**
    * Loads a jsii module or a single .jsii file into the type system.
    *
    * If `fileOrDirectory` is a file, it will be treated as a single .jsii file.
@@ -87,20 +106,14 @@ export class TypeSystem {
       const root = await self.addAssembly(asm, { isRoot });
       const bundled: string[] = pkg.bundledDependencies || pkg.bundleDependencies || [];
 
-      const loadDependencies = async (deps: { [name: string]: string }) => {
-        for (const name of Object.keys(deps || {})) {
-          if (bundled.includes(name)) {
-            continue;
-          }
-          const depDir = require.resolve(`${name}/package.json`, {
-            paths: [ moduleDirectory ]
-          });
-          await _loadModule(path.dirname(depDir));
-        }
-      };
+      for (const name of dependenciesOf(pkg)) {
+        if (bundled.includes(name)) { continue; }
 
-      await loadDependencies(pkg.dependencies);
-      await loadDependencies(pkg.peerDependencies);
+        const depDir = require.resolve(`${name}/package.json`, {
+          paths: [ moduleDirectory ]
+        });
+        await _loadModule(path.dirname(depDir));
+      }
 
       return root;
     }
@@ -250,4 +263,11 @@ export class TypeSystem {
       this.roots.push(asm);
     }
   }
+}
+
+function dependenciesOf(packageJson: any) {
+  const deps = new Set<string>();
+  Object.keys(packageJson.dependencies || {}).forEach(deps.add.bind(deps));
+  Object.keys(packageJson.peerDependencies || {}).forEach(deps.add.bind(deps));
+  return Array.from(deps);
 }

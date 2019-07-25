@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <name>${project.groupId}:${project.artifactId}</name>
   <description>An example direct dependency for jsii-calc.</description>
-  <url>https://github.com/awslabs/jsii.git</url>
+  <url>https://github.com/aws/jsii.git</url>
   <licenses>
     <license>
       <name>Apache License 2.0</name>
@@ -22,12 +22,12 @@
     </developer>
   </developers>
   <scm>
-    <connection>scm:git:https://github.com/awslabs/jsii.git</connection>
-    <url>https://github.com/awslabs/jsii.git</url>
+    <connection>scm:git:https://github.com/aws/jsii.git</connection>
+    <url>https://github.com/aws/jsii.git</url>
   </scm>
   <groupId>software.amazon.jsii.tests</groupId>
   <artifactId>calculator-base</artifactId>
-  <version>0.12.1</version>
+  <version>0.14.2</version>
   <packaging>jar</packaging>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -36,12 +36,12 @@
     <dependency>
       <groupId>software.amazon.jsii.tests</groupId>
       <artifactId>calculator-base-of-base</artifactId>
-      <version>0.12.1</version>
+      <version>0.14.2</version>
     </dependency>
     <dependency>
       <groupId>software.amazon.jsii</groupId>
       <artifactId>jsii-runtime</artifactId>
-      <version>0.12.1</version>
+      <version>0.14.2</version>
     </dependency>
     <dependency>
       <groupId>javax.annotation</groupId>

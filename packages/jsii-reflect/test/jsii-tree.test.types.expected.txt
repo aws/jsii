@@ -19,6 +19,7 @@ assemblies
  │   ├── class ConstructorPassesThisOut
  │   ├── class Constructors
  │   ├── class ConsumersOfThisCrazyTypeSystem
+ │   ├── class DataRenderer
  │   ├── class DefaultedConstructorArgument
  │   ├── class DeprecatedClass
  │   ├── class Base
@@ -73,6 +74,7 @@ assemblies
  │   ├── class StaticContext
  │   ├── class Statics
  │   ├── class StripInternal
+ │   ├── class StructPassing
  │   ├── class Sum
  │   ├── class SyncVirtualMethods
  │   ├── class Thrower
@@ -124,7 +126,9 @@ assemblies
  │   ├── interface LoadBalancedFargateServiceProps
  │   ├── interface NullShouldBeTreatedAsUndefinedData
  │   ├── interface OptionalStruct
+ │   ├── interface SecondLevelStruct
  │   ├── interface StableStruct
+ │   ├── interface TopLevelStruct
  │   ├── interface UnionProperties
  │   ├── enum AllTypesEnum
  │   ├── enum DeprecatedEnum

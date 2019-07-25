@@ -43,8 +43,19 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
         <url>${packageInfo.repository.url}</url>
     </scm>
 
+    <issueManagement>
+        <url>${packageInfo.bugs.url}</url>
+    </issueManagement>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Versions of the dependencies -->
+        <findbugs.version>[3.0.2,3.1.0)</findbugs.version>
+        <guava.version>[27.0.1-jre,27.1)</guava.version>
+        <jackson.version>[2.9.8,2.10.0)</jackson.version>
+        <javax.annotations.version>[1.3.2,1.4.0)</javax.annotations.version>
+        <junit.version>[5.4.1,5.5.0)</junit.version>
+        <mockito.version>[2.25.1,2.26.0)</mockito.version>
     </properties>
 
     <dependencies>
@@ -52,35 +63,35 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>[2.9.8,)</version>
+            <version>\${jackson.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>[2.9.8,)</version>
+            <version>\${jackson.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>27.1-jre</version>
+            <version>\${guava.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.google.code.findbugs/jsr305 -->
         <dependency>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
-            <version>[3.0.2,)</version>
+            <version>\${findbugs.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api -->
         <dependency>
             <groupId>javax.annotation</groupId>
             <artifactId>javax.annotation-api</artifactId>
-            <version>[1.3.2,)</version>
+            <version>\${javax.annotations.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -88,7 +99,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.4.1</version>
+            <version>\${junit.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -96,7 +107,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.4.1</version>
+            <version>\${junit.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -104,7 +115,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>2.25.1</version>
+            <version>\${mockito.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
