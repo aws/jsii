@@ -1,8 +1,9 @@
 import * as clone from "clone";
 import * as fs from "fs-extra";
+import * as reflect from 'jsii-reflect';
 import * as spec from 'jsii-spec';
 import * as path from "path";
-import {Generator, GeneratorOptions} from "../../generator";
+import {Generator} from "../../generator";
 import {DotNetDocGenerator} from "./dotnetdocgenerator";
 import {DotNetRuntimeGenerator} from "./dotnetruntimegenerator";
 import {DotNetTypeResolver} from "./dotnettyperesolver";
@@ -27,8 +28,8 @@ export class DotNetGenerator extends Generator {
 
     private dotnetDocGenerator: DotNetDocGenerator;
 
-    constructor(options = new GeneratorOptions()) {
-        super(options);
+    constructor() {
+        super();
 
         // Override the openBlock to get a correct C# looking code block with the curly brace after the line
         this.code.openBlock = function(text) {
@@ -37,8 +38,8 @@ export class DotNetGenerator extends Generator {
         };
     }
 
-    public async load(packageRoot: string): Promise<void> {
-        await super.load(packageRoot);
+    public async load(packageRoot: string, assembly: reflect.Assembly): Promise<void> {
+        await super.load(packageRoot, assembly);
         this.jsiiFilePath = path.join(packageRoot, spec.SPEC_FILE_NAME);
     }
 
