@@ -714,7 +714,6 @@ export class DotNetGenerator extends Generator {
     }
 
     private toCSharpFilePath(type: string): string {
-        // Slugify the file name
         return type + ".cs";
     }
 
@@ -727,17 +726,12 @@ export class DotNetGenerator extends Generator {
         const dotnetPackageId = this.assembly.targets && this.assembly.targets.dotnet && this.assembly.targets.dotnet.packageId;
         if (!dotnetPackageId) { throw new Error(`The module ${this.assembly.name} does not have a dotnet.packageId setting`); }
         const filePath = namespace.replace(/[.]/g, '/');
-        this.createDirectoryPaths(filePath);
         this.code.openFile(path.join(dotnetPackageId, filePath, this.toCSharpFilePath(typeName)));
         if (usingDeputy) {
             this.code.line("using Amazon.JSII.Runtime.Deputy;");
             this.code.line();
         }
         this.code.openBlock(`namespace ${namespace}`);
-    }
-
-    private createDirectoryPaths(fullPath: string): void {
-        fs.mkdirsSync(path.dirname(fullPath));
     }
 
     private closeFileIfNeeded(typeName: string, isNested: boolean): void {
