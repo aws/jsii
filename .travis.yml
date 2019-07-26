@@ -26,7 +26,7 @@ before_install:
   - sudo apt-get install dotnet-sdk-2.2 python3-venv python3-setuptools python3-venv python3-wheel
   - sudo update-java-alternatives --set java-1.8.0-openjdk-amd64
   - gem install bundler
-  - pyenv install $(pyenv install --list | grep -E '^\s*3.6.\d+$' | tail -n 1)
+  - pyenv install 3.6.7
 
 jobs:
   include:
@@ -37,9 +37,9 @@ jobs:
       name: Docker Image
       # If a tag build, update jsii/superchain:latest, otherwise, update jsii/superchain:<branch-name>
       script: >-
-        docker build --build-arg BUILD_TIMESTAMP=$(date -u +'%Y-%m-%dT%H:%M:%SZ')     \
-                    --build-arg COMMIT_ID="${TRAVIS_COMMIT}"                         \
-                    -t "jsii/superchain:latest"                        \
+        docker build --build-arg BUILD_TIMESTAMP=$(date -u +'%Y-%m-%dT%H:%M:%SZ')                   \
+                    --build-arg COMMIT_ID="${TRAVIS_COMMIT}"                                        \
+                    -t "jsii/superchain:latest"                                                     \
                     ./superchain
         echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
         && if [ ! -z "${TRAVIS_TAG+SET}" ]; then
