@@ -8,6 +8,7 @@ env:
   global:
     DOTNET_CLI_TELEMETRY_OPTOUT: 1
     DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+    JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
 
 branches:
   only:
@@ -23,7 +24,7 @@ before_install:
   - sudo apt-get install apt-transport-https
   - sudo apt-get update
   - sudo apt-get install dotnet-sdk-2.2 jdk_switcher
-  - jdk_switcher use openjdk8
+  - update-java-alternatives --set java-1.8.0-openjdk-amd64
 
 jobs:
   include:
