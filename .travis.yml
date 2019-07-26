@@ -26,7 +26,7 @@ before_install:
   - sudo apt-get install dotnet-sdk-2.2 python3-venv python3-setuptools python3-venv python3-wheel
   - sudo update-java-alternatives --set java-1.8.0-openjdk-amd64
   - gem install bundler
-  - pyenv install 3.6.9
+  - pyenv install $(pyenv install --list | grep -E '^\s*3.6.\d+$' | tail -n 1)
 
 jobs:
   include:
