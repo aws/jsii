@@ -1,12 +1,20 @@
+PATH
+  remote: .
+  specs:
+    jsii_runtime (0.14.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.0)
+    hoe (3.18.0)
+      rake (>= 0.8, < 13.0)
     jaro_winkler (1.5.3)
     parallel (1.17.0)
     parser (2.6.3.0)
       ast (~> 2.4.0)
     rainbow (3.0.0)
+    rake (12.3.3)
     rubocop (0.73.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
@@ -15,13 +23,17 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.7)
     ruby-progressbar (1.10.1)
+    test-unit (1.2.3)
+      hoe (>= 1.5.1)
     unicode-display_width (1.6.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  rubocop (= 0.73.0)
+  jsii_runtime!
+  rubocop (~> 0.73.0)
+  test-unit (~> 1.2.3)
 
 BUNDLED WITH
-   1.16.1
+   2.0.2

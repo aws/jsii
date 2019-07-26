@@ -13,4 +13,7 @@ Gem::Specification.new do |s|
   s.files = Dir['lib/**']
   s.require_paths = ['lib']
   s.required_ruby_version = '>= 2.4'
+
+  s.add_development_dependency 'rubocop', '~> 0.73.0'
+  s.add_development_dependency 'test-unit', '~> 1.2.3'
 end
