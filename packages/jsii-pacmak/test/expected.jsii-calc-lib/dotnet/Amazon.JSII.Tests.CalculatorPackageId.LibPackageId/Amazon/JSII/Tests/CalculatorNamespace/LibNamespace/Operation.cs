@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     /// <remarks>stability: Deprecated</remarks>
     [JsiiClass(nativeType: typeof(Operation), fullyQualifiedName: "@scope/jsii-calc-lib.Operation")]
     [System.Obsolete()]
-    public abstract class Operation : Value_
+    public abstract class Operation : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_
     {
         protected Operation(): base(new DeputyProps(new object[]{}))
         {

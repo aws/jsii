@@ -1,12 +1,11 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace;
 using System;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>stability: Experimental</remarks>
     [JsiiTypeProxy(nativeType: typeof(IImplictBaseOfBase), fullyQualifiedName: "jsii-calc.ImplictBaseOfBase")]
-    internal sealed class ImplictBaseOfBaseProxy : DeputyBase, IImplictBaseOfBase
+    internal sealed class ImplictBaseOfBaseProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IImplictBaseOfBase
     {
         private ImplictBaseOfBaseProxy(ByRefValue reference): base(reference)
         {
@@ -26,9 +25,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         [JsiiProperty(name: "foo", typeJson: "{\"fqn\":\"@scope/jsii-calc-base-of-base.Very\"}")]
-        public Very Foo
+        public Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Very Foo
         {
-            get => GetInstanceProperty<Very>();
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Very>();
         }
     }
 }

@@ -1,5 +1,4 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 using System;
 using System.Collections.Generic;
 
@@ -8,7 +7,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <summary>A struct which derives from another struct.</summary>
     /// <remarks>stability: Experimental</remarks>
     [JsiiByValue]
-    public class DerivedStruct : IDerivedStruct
+    public class DerivedStruct : Amazon.JSII.Tests.CalculatorNamespace.IDerivedStruct
     {
         /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "anotherRequired", typeJson: "{\"primitive\":\"date\"}", isOverride: true)]
@@ -29,7 +28,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>An example of a non primitive property.</summary>
         /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "nonPrimitive", typeJson: "{\"fqn\":\"jsii-calc.DoubleTrouble\"}", isOverride: true)]
-        public DoubleTrouble NonPrimitive
+        public Amazon.JSII.Tests.CalculatorNamespace.DoubleTrouble NonPrimitive
         {
             get;
             set;
@@ -38,7 +37,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>This is optional.</summary>
         /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "anotherOptional", typeJson: "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}", isOptional: true, isOverride: true)]
-        public IDictionary<string, Value_> AnotherOptional
+        public IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_> AnotherOptional
         {
             get;
             set;

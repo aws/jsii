@@ -8,7 +8,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     public class NumberGenerator : DeputyBase
     {
         /// <remarks>stability: Experimental</remarks>
-        public NumberGenerator(IIRandomNumberGenerator generator): base(new DeputyProps(new object[]{generator}))
+        public NumberGenerator(Amazon.JSII.Tests.CalculatorNamespace.IIRandomNumberGenerator generator): base(new DeputyProps(new object[]{generator}))
         {
         }
 
@@ -22,15 +22,15 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "generator", typeJson: "{\"fqn\":\"jsii-calc.IRandomNumberGenerator\"}")]
-        public virtual IIRandomNumberGenerator Generator
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.IIRandomNumberGenerator Generator
         {
-            get => GetInstanceProperty<IIRandomNumberGenerator>();
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.IIRandomNumberGenerator>();
             set => SetInstanceProperty(value);
         }
 
         /// <remarks>stability: Experimental</remarks>
         [JsiiMethod(name: "isSameGenerator", returnsJson: "{\"type\":{\"primitive\":\"boolean\"}}", parametersJson: "[{\"name\":\"gen\",\"type\":{\"fqn\":\"jsii-calc.IRandomNumberGenerator\"}}]")]
-        public virtual bool IsSameGenerator(IIRandomNumberGenerator gen)
+        public virtual bool IsSameGenerator(Amazon.JSII.Tests.CalculatorNamespace.IIRandomNumberGenerator gen)
         {
             return InvokeInstanceMethod<bool>(new object[]{gen});
         }

@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <summary>Generates random numbers.</summary>
     /// <remarks>stability: Experimental</remarks>
     [JsiiTypeProxy(nativeType: typeof(IIRandomNumberGenerator), fullyQualifiedName: "jsii-calc.IRandomNumberGenerator")]
-    internal sealed class IRandomNumberGeneratorProxy : DeputyBase, IIRandomNumberGenerator
+    internal sealed class IRandomNumberGeneratorProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IIRandomNumberGenerator
     {
         private IRandomNumberGeneratorProxy(ByRefValue reference): base(reference)
         {

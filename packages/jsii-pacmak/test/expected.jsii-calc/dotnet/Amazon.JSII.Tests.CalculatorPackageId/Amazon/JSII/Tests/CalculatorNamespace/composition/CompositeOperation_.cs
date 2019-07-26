@@ -1,13 +1,11 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation;
-using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.composition
 {
     /// <summary>Abstract operation composed from an expression of other operations.</summary>
     /// <remarks>stability: Experimental</remarks>
     [JsiiClass(nativeType: typeof(CompositeOperation_), fullyQualifiedName: "jsii-calc.composition.CompositeOperation")]
-    public abstract class CompositeOperation_ : Operation
+    public abstract class CompositeOperation_ : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Operation
     {
         protected CompositeOperation_(): base(new DeputyProps(new object[]{}))
         {
@@ -24,9 +22,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
         /// <summary>The expression that this operation consists of. Must be implemented by derived classes.</summary>
         /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "expression", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
-        public virtual Value_ Expression
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ Expression
         {
-            get => GetInstanceProperty<Value_>();
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_>();
         }
 
         /// <summary>The value.</summary>
@@ -58,9 +56,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
         /// <summary>The .toString() style.</summary>
         /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "stringStyle", typeJson: "{\"fqn\":\"jsii-calc.composition.CompositeOperation.CompositionStringStyle\"}")]
-        public virtual CompositionStringStyle StringStyle
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation.CompositionStringStyle StringStyle
         {
-            get => GetInstanceProperty<CompositionStringStyle>();
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation.CompositionStringStyle>();
             set => SetInstanceProperty(value);
         }
 

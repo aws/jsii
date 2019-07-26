@@ -27,9 +27,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <remarks>stability: Experimental</remarks>
         [JsiiMethod(name: "makeInstance", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.JSII417PublicBaseOfBase\"}}")]
-        public static JSII417PublicBaseOfBase MakeInstance()
+        public static Amazon.JSII.Tests.CalculatorNamespace.JSII417PublicBaseOfBase MakeInstance()
         {
-            return InvokeStaticMethod<JSII417PublicBaseOfBase>(typeof(JSII417PublicBaseOfBase), new object[]{});
+            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.JSII417PublicBaseOfBase>(typeof(JSII417PublicBaseOfBase), new object[]{});
         }
 
         /// <remarks>stability: Experimental</remarks>

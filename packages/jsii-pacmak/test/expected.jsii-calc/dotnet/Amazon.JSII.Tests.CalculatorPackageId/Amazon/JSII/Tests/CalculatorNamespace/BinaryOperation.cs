@@ -1,18 +1,17 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Represents an operation with two operands.</summary>
     /// <remarks>stability: Experimental</remarks>
     [JsiiClass(nativeType: typeof(BinaryOperation), fullyQualifiedName: "jsii-calc.BinaryOperation", parametersJson: "[{\"name\":\"lhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},{\"name\":\"rhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
-    public abstract class BinaryOperation : Operation, IIFriendly
+    public abstract class BinaryOperation : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Operation, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IIFriendly
     {
         /// <summary>Creates a BinaryOperation.</summary>
         /// <param name = "lhs">Left-hand side operand.</param>
         /// <param name = "rhs">Right-hand side operand.</param>
         /// <remarks>stability: Experimental</remarks>
-        protected BinaryOperation(Value_ lhs, Value_ rhs): base(new DeputyProps(new object[]{lhs, rhs}))
+        protected BinaryOperation(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ lhs, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ rhs): base(new DeputyProps(new object[]{lhs, rhs}))
         {
         }
 
@@ -27,17 +26,17 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>Left-hand side operand.</summary>
         /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "lhs", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
-        public virtual Value_ Lhs
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ Lhs
         {
-            get => GetInstanceProperty<Value_>();
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_>();
         }
 
         /// <summary>Right-hand side operand.</summary>
         /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "rhs", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
-        public virtual Value_ Rhs
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ Rhs
         {
-            get => GetInstanceProperty<Value_>();
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_>();
         }
 
         /// <summary>Say hello!</summary>

@@ -1,5 +1,4 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 using System;
 using System.Collections.Generic;
 
@@ -8,7 +7,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <summary>A struct which derives from another struct.</summary>
     /// <remarks>stability: Experimental</remarks>
     [JsiiTypeProxy(nativeType: typeof(IDerivedStruct), fullyQualifiedName: "jsii-calc.DerivedStruct")]
-    internal sealed class DerivedStructProxy : DeputyBase, IDerivedStruct
+    internal sealed class DerivedStructProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IDerivedStruct
     {
         private DerivedStructProxy(ByRefValue reference): base(reference)
         {
@@ -31,17 +30,17 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>An example of a non primitive property.</summary>
         /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "nonPrimitive", typeJson: "{\"fqn\":\"jsii-calc.DoubleTrouble\"}")]
-        public DoubleTrouble NonPrimitive
+        public Amazon.JSII.Tests.CalculatorNamespace.DoubleTrouble NonPrimitive
         {
-            get => GetInstanceProperty<DoubleTrouble>();
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.DoubleTrouble>();
         }
 
         /// <summary>This is optional.</summary>
         /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "anotherOptional", typeJson: "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}", isOptional: true)]
-        public IDictionary<string, Value_> AnotherOptional
+        public IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_> AnotherOptional
         {
-            get => GetInstanceProperty<IDictionary<string, Value_>>();
+            get => GetInstanceProperty<IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_>>();
         }
 
         /// <remarks>stability: Experimental</remarks>

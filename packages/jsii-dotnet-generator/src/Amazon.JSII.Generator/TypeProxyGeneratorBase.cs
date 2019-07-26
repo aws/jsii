@@ -70,7 +70,6 @@ namespace Amazon.JSII.Generator
                         yield return SF.SimpleBaseType(SF.ParseTypeName("DeputyBase"));
                     }
 
-                    Namespaces.Add(Type);
                     yield return SF.SimpleBaseType(Symbols.GetNameSyntax(Type, disambiguate: true));
                 }
             }

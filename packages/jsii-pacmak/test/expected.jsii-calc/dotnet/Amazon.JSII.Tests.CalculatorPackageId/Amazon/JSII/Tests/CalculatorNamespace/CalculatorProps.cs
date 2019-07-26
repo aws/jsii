@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <summary>Properties for Calculator.</summary>
     /// <remarks>stability: Experimental</remarks>
     [JsiiByValue]
-    public class CalculatorProps : ICalculatorProps
+    public class CalculatorProps : Amazon.JSII.Tests.CalculatorNamespace.ICalculatorProps
     {
         /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "initialValue", typeJson: "{\"primitive\":\"number\"}", isOptional: true, isOverride: true)]

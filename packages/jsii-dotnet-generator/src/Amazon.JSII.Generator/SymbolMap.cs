@@ -95,24 +95,21 @@ namespace Amazon.JSII.Generator
             return GetAssemblyName(assembly.Name);
         }
 
-        public string GetName(Type type, bool disambiguate = false)
+        public string GetName(Type type, bool qualified = false)
         {
             type = type ?? throw new ArgumentNullException(nameof(type));
 
             TypeMetadata metadata = _types[type.FullyQualifiedName];
 
-            disambiguate = disambiguate && _types.Values
-                .Any(m => m.Type.FullyQualifiedName != metadata.Type.FullyQualifiedName && m.Name == metadata.Name);
-
-            return disambiguate ? metadata.FrameworkFullyQualifiedName : metadata.Name;
+            return qualified ? metadata.FrameworkFullyQualifiedName : metadata.Name;
         }
 
-        public string GetName(string fullyQualifiedName, bool disambiguate = false)
+        public string GetName(string fullyQualifiedName, bool qualified = false)
         {
-            return GetName(GetTypeFromFullyQualifiedName(fullyQualifiedName), disambiguate);
+            return GetName(GetTypeFromFullyQualifiedName(fullyQualifiedName), qualified);
         }
 
-        public string GetAbstractClassProxyName(ClassType type, bool disambiguate = false)
+        public string GetAbstractClassProxyName(ClassType type, bool qualified = false)
         {
             type = type ?? throw new ArgumentNullException(nameof(type));
             
@@ -124,7 +121,7 @@ namespace Amazon.JSII.Generator
             throw new ArgumentException($"Cannot get proxy name for '{type.FullyQualifiedName}' because it is not an abstract class.");
         }
 
-        public string GetInterfaceProxyName(InterfaceType type, bool disambiguate = false)
+        public string GetInterfaceProxyName(InterfaceType type, bool qualified = false)
         {
             type = type ?? throw new ArgumentNullException(nameof(type));
 
@@ -136,7 +133,7 @@ namespace Amazon.JSII.Generator
             throw new ArgumentException($"Cannot get proxy name for '{type.FullyQualifiedName}' because it is not an interface.");
         }
 
-        public string GetInterfaceDefaultName(InterfaceType type, bool disambiguate = false)
+        public string GetInterfaceDefaultName(InterfaceType type, bool qualified = false)
         {
             type = type ?? throw new ArgumentNullException(nameof(type));
 
@@ -185,24 +182,24 @@ namespace Amazon.JSII.Generator
             return SF.Identifier(GetName(assembly ?? throw new ArgumentNullException(nameof(assembly))));
         }
 
-        public SyntaxToken GetNameSyntaxToken(Type type, bool disambiguate = false)
+        public SyntaxToken GetNameSyntaxToken(Type type, bool qualified = false)
         {
-            return SF.Identifier(GetName(type ?? throw new ArgumentNullException(nameof(type)), disambiguate));
+            return SF.Identifier(GetName(type ?? throw new ArgumentNullException(nameof(type)), qualified));
         }
 
-        public SyntaxToken GetNameSyntaxToken(string fullyQualifiedName, bool disambiguate = false)
+        public SyntaxToken GetNameSyntaxToken(string fullyQualifiedName, bool qualified = false)
         {
-            return GetNameSyntaxToken(GetTypeFromFullyQualifiedName(fullyQualifiedName), disambiguate);
+            return GetNameSyntaxToken(GetTypeFromFullyQualifiedName(fullyQualifiedName), qualified);
         }
 
-        public SyntaxToken GetInterfaceProxyNameSyntaxToken(InterfaceType type, bool disambiguate = false)
+        public SyntaxToken GetInterfaceProxyNameSyntaxToken(InterfaceType type, bool qualified = false)
         {
-            return SF.Identifier(GetInterfaceProxyName(type ?? throw new ArgumentNullException(nameof(type)), disambiguate));
+            return SF.Identifier(GetInterfaceProxyName(type ?? throw new ArgumentNullException(nameof(type)), qualified));
         }
 
-        public SyntaxToken GetInterfaceDefaultNameSyntaxToken(InterfaceType type, bool disambiguate = false)
+        public SyntaxToken GetInterfaceDefaultNameSyntaxToken(InterfaceType type, bool qualified = false)
         {
-            return SF.Identifier(GetInterfaceDefaultName(type ?? throw new ArgumentNullException(nameof(type)), disambiguate));
+            return SF.Identifier(GetInterfaceDefaultName(type ?? throw new ArgumentNullException(nameof(type)), qualified));
         }
 
         public SyntaxToken GetNameSyntaxToken(Type type, Method method)

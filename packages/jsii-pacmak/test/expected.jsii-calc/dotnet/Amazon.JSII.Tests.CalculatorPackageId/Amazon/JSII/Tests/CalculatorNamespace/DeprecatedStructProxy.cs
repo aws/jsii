@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>stability: Deprecated</remarks>
     [JsiiTypeProxy(nativeType: typeof(IDeprecatedStruct), fullyQualifiedName: "jsii-calc.DeprecatedStruct")]
     [System.Obsolete("it just wraps a string")]
-    internal sealed class DeprecatedStructProxy : DeputyBase, IDeprecatedStruct
+    internal sealed class DeprecatedStructProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IDeprecatedStruct
     {
         private DeprecatedStructProxy(ByRefValue reference): base(reference)
         {

@@ -1,10 +1,9 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace
 {
     [JsiiTypeProxy(nativeType: typeof(IBaseProps), fullyQualifiedName: "@scope/jsii-calc-base.BaseProps")]
-    internal sealed class BasePropsProxy : DeputyBase, IBaseProps
+    internal sealed class BasePropsProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.IBaseProps
     {
         private BasePropsProxy(ByRefValue reference): base(reference)
         {
@@ -17,9 +16,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace
         }
 
         [JsiiProperty(name: "foo", typeJson: "{\"fqn\":\"@scope/jsii-calc-base-of-base.Very\"}")]
-        public Very Foo
+        public Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Very Foo
         {
-            get => GetInstanceProperty<Very>();
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.BaseOfBaseNamespace.Very>();
         }
     }
 }

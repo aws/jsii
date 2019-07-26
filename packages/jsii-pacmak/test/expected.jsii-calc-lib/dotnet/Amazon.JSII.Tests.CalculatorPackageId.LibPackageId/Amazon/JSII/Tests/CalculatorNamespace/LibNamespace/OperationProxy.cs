@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     /// <remarks>stability: Deprecated</remarks>
     [JsiiTypeProxy(nativeType: typeof(Operation), fullyQualifiedName: "@scope/jsii-calc-lib.Operation")]
     [System.Obsolete()]
-    internal sealed class OperationProxy : Operation
+    internal sealed class OperationProxy : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Operation
     {
         private OperationProxy(ByRefValue reference): base(reference)
         {

@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <summary>Even friendlier classes can implement this interface.</summary>
     /// <remarks>stability: Experimental</remarks>
     [JsiiTypeProxy(nativeType: typeof(IIFriendlier), fullyQualifiedName: "jsii-calc.IFriendlier")]
-    internal sealed class IFriendlierProxy : DeputyBase, IIFriendlier
+    internal sealed class IFriendlierProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IIFriendlier
     {
         private IFriendlierProxy(ByRefValue reference): base(reference)
         {
