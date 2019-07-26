@@ -2,6 +2,7 @@ dist: xenial
 language: generic
 jdk: openjdk8
 node_js: 8
+python: '3.6.7'
 rvm: 2.4
 
 env:
@@ -26,7 +27,7 @@ before_install:
   - sudo apt-get install dotnet-sdk-2.2 python3-venv python3-setuptools python3-venv python3-wheel
   - sudo update-java-alternatives --set java-1.8.0-openjdk-amd64
   - gem install bundler
-  - pyenv install 3.6.7
+  - pyenv global 3.6.7
 
 jobs:
   include:
