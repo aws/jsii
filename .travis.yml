@@ -13,7 +13,6 @@ services:
   - docker
 
 before_install:
-  - pyenv install 3.6
   - wget -q https://packages.microsoft.com/config/ubuntu/16.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
   - sudo dpkg -i packages-microsoft-prod.deb
   - sudo apt-get install apt-transport-https
