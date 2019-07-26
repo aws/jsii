@@ -23,25 +23,23 @@ before_install:
   - sudo dpkg -i packages-microsoft-prod.deb
   - sudo apt-get install apt-transport-https
   - sudo apt-get update
-  - sudo apt-get install dotnet-sdk-2.2 python3-venv
+  - sudo apt-get install dotnet-sdk-2.2 python3-venv python3-wheel
   - sudo update-java-alternatives --set java-1.8.0-openjdk-amd64
+  - gem install bundler
 
 jobs:
   include:
     - stage: build
       name: NPM Packages
       script: ./install.sh && ./build.sh
-    - stage: build
+    - stage: publish
       name: Docker Image
+      # If a tag build, update jsii/superchain:latest, otherwise, update jsii/superchain:<branch-name>
       script: >-
         docker build --build-arg BUILD_TIMESTAMP=$(date -u +'%Y-%m-%dT%H:%M:%SZ')     \
                     --build-arg COMMIT_ID="${TRAVIS_COMMIT}"                         \
                     -t "jsii/superchain:latest"                        \
                     ./superchain
-    - stage: publish
-      name: Docker Image
-      # If a tag build, update jsii/superchain:latest, otherwise, update jsii/superchain:<branch-name>
-      script: >-
         echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
         && if [ ! -z "${TRAVIS_TAG+SET}" ]; then
             docker push "jsii/superchain:latest"
