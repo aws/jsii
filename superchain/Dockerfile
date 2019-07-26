@@ -24,7 +24,8 @@ RUN curl -sSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh -o
 RUN rpm -Uvh https://packages.microsoft.com/config/rhel/7/packages-microsoft-prod.rpm                                   \
   && yum -y install dotnet-sdk-2.2                                                                                      \
   && yum clean all && rm -rf /var/cache/yum                                                                             \
-  && echo 'DOTNET_CLI_TELEMETRY_OPTOUT=1' >> ~/.bashrc
+  && echo 'DOTNET_CLI_TELEMETRY_OPTOUT=1' >> ~/.bashrc                                                                  \
+  && echo 'DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1' >> ~/.bashrc
 
 # Install Powershell
 RUN yum install -y powershell                                                                                           \
