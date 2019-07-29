@@ -11,6 +11,7 @@ fi
 echo "============================================================================================="
 echo "installing repo-global dependencies..."
 npm ci --global-style
+gem install bundler -v '>= 2.0.0'
 
 export PATH=node_modules/.bin:$PATH
 

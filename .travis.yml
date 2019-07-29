@@ -28,6 +28,7 @@ before_install:
   - sudo update-java-alternatives --set java-1.8.0-openjdk-amd64
   - gem install bundler
   - pyenv global 3.6.7
+  - pip install --upgrade  pip setuptools wheel virtualenv
 
 jobs:
   include:
