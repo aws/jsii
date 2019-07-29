@@ -15,13 +15,14 @@ __jsii__, it relies on the following toolchains:
  - [Python 3.6.5](https://www.python.org/downloads/release/python-365/)
  - [Ruby 2.5.1](https://www.ruby-lang.org/en/news/2018/03/28/ruby-2-5-1-released/)
 
-Our CI/CD uses the "superchain" image from [aws-delivlib](https://github.com/awslabs/aws-delivlib). 
+A `jsii/superchain` Docker image is available and includes all the required
+tools, including those necessary to build `jsii` itself.
 
-This image can also be used locally like this (note that initial build may take quite some time):
+This image can also be built and used locally:
 
 ```console
-$ git clone git@github.com:awslabs/aws-delivlib.git
-$ cd aws-delivlib/superchain
+$ git clone git@github.com:aws/jsii.git
+$ cd jsii/superchain
 $ docker build -t superchain .
 $ IMAGE=superchain
 ```
@@ -29,8 +30,8 @@ $ IMAGE=superchain
 This will get you into an interactive docker shell:
 
 ```console
-$ cd jsii # go to the root of the jsii repo
-$ docker run --net=host -it -v $PWD:$PWD -w $PWD ${IMAGE}
+$ cd jsii # Go to where your JSII package source is located
+$ docker run --rm -it --net=host -v $PWD:$PWD -w $PWD ${IMAGE}
 ```
 
 You can then run `./build.sh` as described below.
