@@ -253,87 +253,6 @@ namespace Amazon.JSII.Generator.UnitTests
                 Assert.Equal("My.Namespace2.MyType", actual2, ignoreLineEndingDifferences: true);
             }
 
-            [Fact(DisplayName = Prefix + nameof(DoesNotDisambiguateTypeNameIfNoConflict))]
-            public void DoesNotDisambiguateTypeNameIfNoConflict()
-            {
-                Type type1 = new EnumType
-                (
-                    fullyQualifiedName: "myFqn1",
-                    assembly: "my-package-1",
-                    name: "myType1",
-                    members: new EnumMember[] { }
-                );
-                Type type2 = new EnumType
-                (
-                    fullyQualifiedName: "myFqn2",
-                    assembly: "my-package-2",
-                    name: "myType2",
-                    members: new EnumMember[] { }
-                );
-
-                Assembly assembly1 = new Assembly
-                (
-                    name: "my-package-1",
-                    description: "",
-                    homepage: "",
-                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
-                    author: new Person(name: "", roles: new string[] { }),
-                    fingerprint: "",
-                    license: "",
-                    targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
-                        @namespace: "My.Namespace1",
-                        packageId: "My.PackageId1"
-                    )),
-                    version: "myVersion",
-                    types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
-                    dependencies: new Dictionary<string, PackageVersion>
-                    {
-                        {
-                            "my-package-2",
-                            new PackageVersion(
-                                version: "myVersion",
-                                targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
-                                    @namespace: "My.Namespace2",
-                                    packageId: "My.PackageId2"
-                                ))
-                            )
-                        }
-                    }
-                );
-                Assembly assembly2 = new Assembly
-                (
-                    name: "my-package-2",
-                    description: "",
-                    homepage: "",
-                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
-                    author: new Person(name: "", roles: new string[] { }),
-                    fingerprint: "",
-                    license: "",
-                    targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
-                        @namespace: "My.Namespace2",
-                        packageId: "My.PackageId2"
-                    )),
-                    version: "myVersion",
-                    types: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } }
-                );
-
-                ISymbolMap symbolMap = new SymbolMap();
-                symbolMap.Add(assembly1);
-                symbolMap.Add(assembly2);
-
-                // GetName(Type type)
-                string actual1 = symbolMap.GetName(type1, true);
-                string actual2 = symbolMap.GetName(type2, true);
-                Assert.Equal("MyType1", actual1, ignoreLineEndingDifferences: true);
-                Assert.Equal("MyType2", actual2, ignoreLineEndingDifferences: true);
-
-                // GetName(string fullyQualifiedName)
-                actual1 = symbolMap.GetName("myFqn1", true);
-                actual2 = symbolMap.GetName("myFqn2", true);
-                Assert.Equal("MyType1", actual1, ignoreLineEndingDifferences: true);
-                Assert.Equal("MyType2", actual2, ignoreLineEndingDifferences: true);
-            }
-
             [Fact(DisplayName = Prefix + nameof(DoesNotDisambiguateTypeNameIfFlagNotSet))]
             public void DoesNotDisambiguateTypeNameIfFlagNotSet()
             {
@@ -614,88 +533,7 @@ namespace Amazon.JSII.Generator.UnitTests
                 Assert.Equal("My.Namespace1.MyType", actual1, ignoreLineEndingDifferences: true);
                 Assert.Equal("My.Namespace2.MyType", actual2, ignoreLineEndingDifferences: true);
             }
-
-            [Fact(DisplayName = Prefix + nameof(DoesNotDisambiguateTypeNameIfNoConflict))]
-            public void DoesNotDisambiguateTypeNameIfNoConflict()
-            {
-                Type type1 = new EnumType
-                (
-                    fullyQualifiedName: "myFqn1",
-                    assembly: "my-package-1",
-                    name: "myType1",
-                    members: new EnumMember[] { }
-                );
-                Type type2 = new EnumType
-                (
-                    fullyQualifiedName: "myFqn2",
-                    assembly: "my-package-2",
-                    name: "myType2",
-                    members: new EnumMember[] { }
-                );
-
-                Assembly assembly1 = new Assembly
-                (
-                    name: "my-package-1",
-                    description: "",
-                    homepage: "",
-                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
-                    author: new Person(name: "", roles: new string[] { }),
-                    fingerprint: "",
-                    license: "",
-                    targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
-                        @namespace: "My.Namespace1",
-                        packageId: "My.PackageId1"
-                    )),
-                    version: "myVersion",
-                    types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
-                    dependencies: new Dictionary<string, PackageVersion>
-                    {
-                        {
-                            "my-package-2",
-                            new PackageVersion(
-                                version: "myVersion",
-                                targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
-                                    @namespace: "My.Namespace2",
-                                    packageId: "My.PackageId2"
-                                ))
-                            )
-                        }
-                    }
-                );
-                Assembly assembly2 = new Assembly
-                (
-                    name: "my-package-2",
-                    description: "",
-                    homepage: "",
-                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
-                    author: new Person(name: "", roles: new string[] { }),
-                    fingerprint: "",
-                    license: "",
-                    targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
-                        @namespace: "My.Namespace2",
-                        packageId: "My.PackageId2"
-                    )),
-                    version: "myVersion",
-                    types: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } }
-                );
-
-                ISymbolMap symbolMap = new SymbolMap();
-                symbolMap.Add(assembly1);
-                symbolMap.Add(assembly2);
-
-                // GetNameSyntaxToken(Type type)
-                string actual1 = symbolMap.GetNameSyntaxToken(type1, true).ToString();
-                string actual2 = symbolMap.GetNameSyntaxToken(type2, true).ToString();
-                Assert.Equal("MyType1", actual1, ignoreLineEndingDifferences: true);
-                Assert.Equal("MyType2", actual2, ignoreLineEndingDifferences: true);
-
-                // GetNameSyntaxToken(string fullyQualifiedName)
-                actual1 = symbolMap.GetNameSyntaxToken("myFqn1", true).ToString();
-                actual2 = symbolMap.GetNameSyntaxToken("myFqn2", true).ToString();
-                Assert.Equal("MyType1", actual1, ignoreLineEndingDifferences: true);
-                Assert.Equal("MyType2", actual2, ignoreLineEndingDifferences: true);
-            }
-
+            
             [Fact(DisplayName = Prefix + nameof(DoesNotDisambiguateTypeNameIfFlagNotSet))]
             public void DoesNotDisambiguateTypeNameIfFlagNotSet()
             {
@@ -975,87 +813,6 @@ namespace Amazon.JSII.Generator.UnitTests
                 actual2 = symbolMap.GetNameSyntax("myFqn2", true).ToString();
                 Assert.Equal("My.Namespace1.MyType", actual1, ignoreLineEndingDifferences: true);
                 Assert.Equal("My.Namespace2.MyType", actual2, ignoreLineEndingDifferences: true);
-            }
-
-            [Fact(DisplayName = Prefix + nameof(DoesNotDisambiguateTypeNameIfNoConflict))]
-            public void DoesNotDisambiguateTypeNameIfNoConflict()
-            {
-                Type type1 = new EnumType
-                (
-                    fullyQualifiedName: "myFqn1",
-                    assembly: "my-package-1",
-                    name: "myType1",
-                    members: new EnumMember[] { }
-                );
-                Type type2 = new EnumType
-                (
-                    fullyQualifiedName: "myFqn2",
-                    assembly: "my-package-2",
-                    name: "myType2",
-                    members: new EnumMember[] { }
-                );
-
-                Assembly assembly1 = new Assembly
-                (
-                    name: "my-package-1",
-                    description: "",
-                    homepage: "",
-                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
-                    author: new Person(name: "", roles: new string[] { }),
-                    fingerprint: "",
-                    license: "",
-                    targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
-                        @namespace: "My.Namespace1",
-                        packageId: "My.PackageId1"
-                    )),
-                    version: "myVersion",
-                    types: new Dictionary<string, Type> { { type1.FullyQualifiedName, type1 } },
-                    dependencies: new Dictionary<string, PackageVersion>
-                    {
-                        {
-                            "my-package-2",
-                            new PackageVersion(
-                                version: "myVersion",
-                                targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
-                                    @namespace: "My.Namespace2",
-                                    packageId: "My.PackageId2"
-                                ))
-                            )
-                        }
-                    }
-                );
-                Assembly assembly2 = new Assembly
-                (
-                    name: "my-package-2",
-                    description: "",
-                    homepage: "",
-                    repository: new Assembly.AssemblyRepository(type: "", url: ""),
-                    author: new Person(name: "", roles: new string[] { }),
-                    fingerprint: "",
-                    license: "",
-                    targets: new AssemblyTargets(dotnet: new AssemblyTargets.DotNetTarget(
-                        @namespace: "My.Namespace2",
-                        packageId: "My.PackageId2"
-                    )),
-                    version: "myVersion",
-                    types: new Dictionary<string, Type> { { type2.FullyQualifiedName, type2 } }
-                );
-
-                ISymbolMap symbolMap = new SymbolMap();
-                symbolMap.Add(assembly1);
-                symbolMap.Add(assembly2);
-
-                // GetNameSyntax(Type type)
-                string actual1 = symbolMap.GetNameSyntax(type1, true).ToString();
-                string actual2 = symbolMap.GetNameSyntax(type2, true).ToString();
-                Assert.Equal("MyType1", actual1, ignoreLineEndingDifferences: true);
-                Assert.Equal("MyType2", actual2, ignoreLineEndingDifferences: true);
-
-                // GetNameSyntax(string fullyQualifiedName)
-                actual1 = symbolMap.GetNameSyntax("myFqn1", true).ToString();
-                actual2 = symbolMap.GetNameSyntax("myFqn2", true).ToString();
-                Assert.Equal("MyType1", actual1, ignoreLineEndingDifferences: true);
-                Assert.Equal("MyType2", actual2, ignoreLineEndingDifferences: true);
             }
 
             [Fact(DisplayName = Prefix + nameof(DoesNotDisambiguateTypeNameIfFlagNotSet))]
@@ -1552,7 +1309,7 @@ namespace Amazon.JSII.Generator.UnitTests
                 TypeReference reference = new TypeReference("myFqn");
 
                 string actual = symbolMap.GetTypeSyntax(reference, false).ToString();
-                Assert.Equal("MyName", actual, ignoreLineEndingDifferences: true);
+                Assert.Equal("My.Namespace.MyName", actual, ignoreLineEndingDifferences: true);
 
             }
         }

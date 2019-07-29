@@ -70,50 +70,50 @@ namespace Amazon.JSII.Generator.UnitTests
                     var defaultName = frameworkName;
     
                     symbols
-                        .GetInterfaceProxyName(Arg.Is<InterfaceType>(t => t.FullyQualifiedName == fullyQualifiedName), disambiguate: Arg.Any<bool>())
+                        .GetInterfaceProxyName(Arg.Is<InterfaceType>(t => t.FullyQualifiedName == fullyQualifiedName), qualified: Arg.Any<bool>())
                         .Returns(proxyName);
                     symbols
-                        .GetInterfaceDefaultName(Arg.Is<InterfaceType>(t => t.FullyQualifiedName == fullyQualifiedName), disambiguate: Arg.Any<bool>())
+                        .GetInterfaceDefaultName(Arg.Is<InterfaceType>(t => t.FullyQualifiedName == fullyQualifiedName), qualified: Arg.Any<bool>())
                         .Returns(defaultName);
                     symbols
-                        .GetInterfaceProxyNameSyntaxToken(Arg.Is<InterfaceType>(t => t.FullyQualifiedName == fullyQualifiedName), disambiguate: Arg.Any<bool>())
+                        .GetInterfaceProxyNameSyntaxToken(Arg.Is<InterfaceType>(t => t.FullyQualifiedName == fullyQualifiedName), qualified: Arg.Any<bool>())
                         .Returns(SF.ParseToken(proxyName));
                     symbols
-                        .GetInterfaceDefaultNameSyntaxToken(Arg.Is<InterfaceType>(t => t.FullyQualifiedName == fullyQualifiedName), disambiguate: Arg.Any<bool>())
+                        .GetInterfaceDefaultNameSyntaxToken(Arg.Is<InterfaceType>(t => t.FullyQualifiedName == fullyQualifiedName), qualified: Arg.Any<bool>())
                         .Returns(SF.ParseToken(defaultName));
                     symbols
-                        .GetInterfaceProxyNameSyntax(Arg.Is<InterfaceType>(t => t.FullyQualifiedName == fullyQualifiedName), disambiguate: Arg.Any<bool>())
+                        .GetInterfaceProxyNameSyntax(Arg.Is<InterfaceType>(t => t.FullyQualifiedName == fullyQualifiedName), qualified: Arg.Any<bool>())
                         .Returns(SF.ParseName(proxyName));
                     symbols
-                        .GetInterfaceDefaultNameSyntax(Arg.Is<InterfaceType>(t => t.FullyQualifiedName == fullyQualifiedName), disambiguate: Arg.Any<bool>())
+                        .GetInterfaceDefaultNameSyntax(Arg.Is<InterfaceType>(t => t.FullyQualifiedName == fullyQualifiedName), qualified: Arg.Any<bool>())
                         .Returns(SF.ParseName(defaultName));
     
                     frameworkName = $"I{frameworkName}";
                     break;
             case TypeKind.Class:
                 symbols
-                    .GetAbstractClassProxyName(Arg.Is<ClassType>(t => t.FullyQualifiedName == fullyQualifiedName), disambiguate: Arg.Any<bool>())
+                    .GetAbstractClassProxyName(Arg.Is<ClassType>(t => t.FullyQualifiedName == fullyQualifiedName), qualified: Arg.Any<bool>())
                     .Returns(proxyName);
                 break;
             }
             
             symbols
-                .GetName(Arg.Is<Type>(t => t.FullyQualifiedName == fullyQualifiedName), disambiguate: Arg.Any<bool>())
+                .GetName(Arg.Is<Type>(t => t.FullyQualifiedName == fullyQualifiedName), qualified: Arg.Any<bool>())
                 .Returns(frameworkName);
             symbols
-                .GetName(Arg.Is<string>(fqn => fqn == fullyQualifiedName), disambiguate: Arg.Any<bool>())
+                .GetName(Arg.Is<string>(fqn => fqn == fullyQualifiedName), qualified: Arg.Any<bool>())
                 .Returns(frameworkName);
             symbols
-                .GetNameSyntaxToken(Arg.Is<Type>(t => t.FullyQualifiedName == fullyQualifiedName), disambiguate: Arg.Any<bool>())
+                .GetNameSyntaxToken(Arg.Is<Type>(t => t.FullyQualifiedName == fullyQualifiedName), qualified: Arg.Any<bool>())
                 .Returns(SF.ParseToken(frameworkName));
             symbols
-                .GetNameSyntaxToken(Arg.Is<string>(fqn => fqn == fullyQualifiedName), disambiguate: Arg.Any<bool>())
+                .GetNameSyntaxToken(Arg.Is<string>(fqn => fqn == fullyQualifiedName), qualified: Arg.Any<bool>())
                 .Returns(SF.ParseToken(frameworkName));
             symbols
-                .GetNameSyntax(Arg.Is<Type>(t => t.FullyQualifiedName == fullyQualifiedName), disambiguate: Arg.Any<bool>())
+                .GetNameSyntax(Arg.Is<Type>(t => t.FullyQualifiedName == fullyQualifiedName), qualified: Arg.Any<bool>())
                 .Returns(SF.ParseName(frameworkName));
             symbols
-                .GetNameSyntax(Arg.Is<string>(fqn => fqn == fullyQualifiedName), disambiguate: Arg.Any<bool>())
+                .GetNameSyntax(Arg.Is<string>(fqn => fqn == fullyQualifiedName), qualified: Arg.Any<bool>())
                 .Returns(SF.ParseName(frameworkName));
             symbols
                 .GetTypeSyntax(Arg.Is<TypeReference>(t => t.FullyQualifiedName == fullyQualifiedName), false)

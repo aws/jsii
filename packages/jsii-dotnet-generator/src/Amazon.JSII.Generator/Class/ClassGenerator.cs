@@ -89,7 +89,7 @@ namespace Amazon.JSII.Generator.Class
                     }
                     else
                     {
-                        yield return SF.SimpleBaseType(Symbols.GetNameSyntax(Type.Base, disambiguate: true));
+                        yield return SF.SimpleBaseType(Symbols.GetNameSyntax(Type.Base, qualified: true));
                     }
 
                     if (Type.Interfaces == null)
@@ -99,7 +99,7 @@ namespace Amazon.JSII.Generator.Class
 
                     foreach (var interfaceReference in Type.Interfaces)
                     {
-                        yield return SF.SimpleBaseType(Symbols.GetNameSyntax(interfaceReference, disambiguate: true));
+                        yield return SF.SimpleBaseType(Symbols.GetNameSyntax(interfaceReference, qualified: true));
                     }
                 }
             }

@@ -37,8 +37,7 @@ namespace Amazon.JSII.Generator.UnitTests
             AssertUsings
             (
                 usings,
-                "using Amazon.JSII.Runtime.Deputy;",
-                "using MyNamespace;"
+                "using Amazon.JSII.Runtime.Deputy;"
             );
         }
 
@@ -236,7 +235,6 @@ namespace Amazon.JSII.Generator.UnitTests
             AssertUsings
             (
                 usings,
-                "using AAA;",
                 "using Amazon.JSII.Runtime.Deputy;"
             );
         }

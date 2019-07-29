@@ -68,7 +68,7 @@ namespace Amazon.JSII.Generator.Interface
                 {
                     foreach (string interfaceReference in Type.Interfaces ?? Enumerable.Empty<string>())
                     {
-                        yield return SF.SimpleBaseType(Symbols.GetNameSyntax(interfaceReference, disambiguate: true));
+                        yield return SF.SimpleBaseType(Symbols.GetNameSyntax(interfaceReference, qualified: true));
                     }
                 }
             }
