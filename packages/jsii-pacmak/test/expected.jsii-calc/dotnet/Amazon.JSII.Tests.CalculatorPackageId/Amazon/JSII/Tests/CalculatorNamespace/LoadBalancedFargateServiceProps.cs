@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <summary>jsii#298: show default values in sphinx documentation, and respect newlines.</summary>
     /// <remarks>stability: Experimental</remarks>
     [JsiiByValue]
-    public class LoadBalancedFargateServiceProps : ILoadBalancedFargateServiceProps
+    public class LoadBalancedFargateServiceProps : Amazon.JSII.Tests.CalculatorNamespace.ILoadBalancedFargateServiceProps
     {
         /// <summary>The container port of the application load balancer attached to your Fargate service.</summary>
         /// <remarks>

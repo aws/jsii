@@ -7,7 +7,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     public class OptionalStructConsumer : DeputyBase
     {
         /// <remarks>stability: Experimental</remarks>
-        public OptionalStructConsumer(IOptionalStruct optionalStruct): base(new DeputyProps(new object[]{optionalStruct}))
+        public OptionalStructConsumer(Amazon.JSII.Tests.CalculatorNamespace.IOptionalStruct optionalStruct): base(new DeputyProps(new object[]{optionalStruct}))
         {
         }
 

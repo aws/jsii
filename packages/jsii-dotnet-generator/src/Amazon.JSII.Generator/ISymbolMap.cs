@@ -12,15 +12,15 @@ namespace Amazon.JSII.Generator
 
         string GetName(Assembly assembly);
 
-        string GetName(Type type, bool disambiguate = false);
+        string GetName(Type type, bool qualified = false);
 
-        string GetName(string fullyQualifiedName, bool disambiguate = false);
+        string GetName(string fullyQualifiedName, bool qualified = false);
         
-        string GetAbstractClassProxyName(ClassType type, bool disambiguate = false);
+        string GetAbstractClassProxyName(ClassType type, bool qualified = false);
 
-        string GetInterfaceProxyName(InterfaceType type, bool disambiguate = false);
+        string GetInterfaceProxyName(InterfaceType type, bool qualified = false);
 
-        string GetInterfaceDefaultName(InterfaceType type, bool disambiguate = false);
+        string GetInterfaceDefaultName(InterfaceType type, bool qualified = false);
 
         string GetName(Type type, Method method);
 
@@ -40,13 +40,13 @@ namespace Amazon.JSII.Generator
 
         SyntaxToken GetNameSyntaxToken(Assembly assembly);
 
-        SyntaxToken GetNameSyntaxToken(Type type, bool disambiguate = false);
+        SyntaxToken GetNameSyntaxToken(Type type, bool qualified = false);
 
-        SyntaxToken GetNameSyntaxToken(string fullyQualifiedName, bool disambiguate = false);
+        SyntaxToken GetNameSyntaxToken(string fullyQualifiedName, bool qualified = false);
 
-        SyntaxToken GetInterfaceProxyNameSyntaxToken(InterfaceType type, bool disambiguate = false);
+        SyntaxToken GetInterfaceProxyNameSyntaxToken(InterfaceType type, bool qualified = false);
 
-        SyntaxToken GetInterfaceDefaultNameSyntaxToken(InterfaceType type, bool disambiguate = false);
+        SyntaxToken GetInterfaceDefaultNameSyntaxToken(InterfaceType type, bool qualified = false);
 
         SyntaxToken GetNameSyntaxToken(Type type, Method method);
 
@@ -66,13 +66,13 @@ namespace Amazon.JSII.Generator
 
         NameSyntax GetNameSyntax(Assembly assembly);
 
-        NameSyntax GetNameSyntax(Type type, bool disambiguate = false);
+        NameSyntax GetNameSyntax(Type type, bool qualified = false);
 
-        NameSyntax GetNameSyntax(string fullyQualifiedName, bool disambiguate = false);
+        NameSyntax GetNameSyntax(string fullyQualifiedName, bool qualified = false);
 
-        NameSyntax GetInterfaceProxyNameSyntax(InterfaceType type, bool disambiguate = false);
+        NameSyntax GetInterfaceProxyNameSyntax(InterfaceType type, bool qualified = false);
 
-        NameSyntax GetInterfaceDefaultNameSyntax(InterfaceType type, bool disambiguate = false);
+        NameSyntax GetInterfaceDefaultNameSyntax(InterfaceType type, bool qualified = false);
 
         NameSyntax GetNameSyntax(Type type, Method method);
 

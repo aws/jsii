@@ -1,5 +1,4 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -84,9 +83,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "enumProperty", typeJson: "{\"fqn\":\"jsii-calc.AllTypesEnum\"}")]
-        public virtual AllTypesEnum EnumProperty
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.AllTypesEnum EnumProperty
         {
-            get => GetInstanceProperty<AllTypesEnum>();
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.AllTypesEnum>();
             set => SetInstanceProperty(value);
         }
 
@@ -100,9 +99,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "mapProperty", typeJson: "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Number\"}}}")]
-        public virtual IDictionary<string, Number> MapProperty
+        public virtual IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number> MapProperty
         {
-            get => GetInstanceProperty<IDictionary<string, Number>>();
+            get => GetInstanceProperty<IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number>>();
             set => SetInstanceProperty(value);
         }
 
@@ -172,9 +171,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "optionalEnumValue", typeJson: "{\"fqn\":\"jsii-calc.StringEnum\"}", isOptional: true)]
-        public virtual StringEnum? OptionalEnumValue
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.StringEnum? OptionalEnumValue
         {
-            get => GetInstanceProperty<StringEnum? >();
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.StringEnum? >();
             set => SetInstanceProperty(value);
         }
 
@@ -194,9 +193,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <remarks>stability: Experimental</remarks>
         [JsiiMethod(name: "enumMethod", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.StringEnum\"}}", parametersJson: "[{\"name\":\"value\",\"type\":{\"fqn\":\"jsii-calc.StringEnum\"}}]")]
-        public virtual StringEnum EnumMethod(StringEnum value)
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.StringEnum EnumMethod(Amazon.JSII.Tests.CalculatorNamespace.StringEnum value)
         {
-            return InvokeInstanceMethod<StringEnum>(new object[]{value});
+            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.StringEnum>(new object[]{value});
         }
     }
 }

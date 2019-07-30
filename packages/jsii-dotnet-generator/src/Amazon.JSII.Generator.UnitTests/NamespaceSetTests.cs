@@ -25,31 +25,6 @@ namespace Amazon.JSII.Generator.UnitTests
             }
         }
 
-        [Fact(DisplayName = Prefix + nameof(CreatesUsingStatementForType))]
-        public void CreatesUsingStatementForType()
-        {
-            EnumType type = new EnumType
-            (
-                fullyQualifiedName: "myEnumFqn",
-                assembly: "myModule",
-                name: "myEnum",
-                members: new EnumMember[] { }
-            );
-
-            Symbols.MapNamespace(type.QualifiedNamespace, "MyNamespace");
-
-            NamespaceSet namespaces = new NamespaceSet(Symbols, SF.ParseName("MyCurrentNamespace"));
-            namespaces.Add(type);
-
-            SyntaxList<UsingDirectiveSyntax> usings = namespaces.GetUsings();
-            AssertUsings
-            (
-                usings,
-                "using Amazon.JSII.Runtime.Deputy;",
-                "using MyNamespace;"
-            );
-        }
-
         [Fact(DisplayName = Prefix + nameof(CreatesUsingStatementForObjectReference))]
         public void CreatesUsingStatementForObjectReference()
         {
@@ -62,8 +37,7 @@ namespace Amazon.JSII.Generator.UnitTests
             AssertUsings
             (
                 usings,
-                "using Amazon.JSII.Runtime.Deputy;",
-                "using MyNamespace;"
+                "using Amazon.JSII.Runtime.Deputy;"
             );
         }
 
@@ -261,7 +235,6 @@ namespace Amazon.JSII.Generator.UnitTests
             AssertUsings
             (
                 usings,
-                "using AAA;",
                 "using Amazon.JSII.Runtime.Deputy;"
             );
         }

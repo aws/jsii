@@ -10,7 +10,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// stability: Experimental
     /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(VoidCallback), fullyQualifiedName: "jsii-calc.VoidCallback")]
-    internal sealed class VoidCallbackProxy : VoidCallback
+    internal sealed class VoidCallbackProxy : Amazon.JSII.Tests.CalculatorNamespace.VoidCallback
     {
         private VoidCallbackProxy(ByRefValue reference): base(reference)
         {

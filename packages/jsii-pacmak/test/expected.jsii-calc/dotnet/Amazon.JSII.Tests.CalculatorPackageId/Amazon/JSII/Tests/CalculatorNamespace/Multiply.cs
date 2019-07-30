@@ -1,18 +1,17 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>The "*" binary operation.</summary>
     /// <remarks>stability: Experimental</remarks>
     [JsiiClass(nativeType: typeof(Multiply), fullyQualifiedName: "jsii-calc.Multiply", parametersJson: "[{\"name\":\"lhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},{\"name\":\"rhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
-    public class Multiply : BinaryOperation, IIFriendlier, IIRandomNumberGenerator
+    public class Multiply : Amazon.JSII.Tests.CalculatorNamespace.BinaryOperation, Amazon.JSII.Tests.CalculatorNamespace.IIFriendlier, Amazon.JSII.Tests.CalculatorNamespace.IIRandomNumberGenerator
     {
         /// <summary>Creates a BinaryOperation.</summary>
         /// <param name = "lhs">Left-hand side operand.</param>
         /// <param name = "rhs">Right-hand side operand.</param>
         /// <remarks>stability: Experimental</remarks>
-        public Multiply(Value_ lhs, Value_ rhs): base(new DeputyProps(new object[]{lhs, rhs}))
+        public Multiply(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ lhs, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ rhs): base(new DeputyProps(new object[]{lhs, rhs}))
         {
         }
 

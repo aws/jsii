@@ -4,7 +4,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>stability: Experimental</remarks>
     [JsiiClass(nativeType: typeof(DoubleTrouble), fullyQualifiedName: "jsii-calc.DoubleTrouble")]
-    public class DoubleTrouble : DeputyBase, IIFriendlyRandomGenerator
+    public class DoubleTrouble : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IIFriendlyRandomGenerator
     {
         public DoubleTrouble(): base(new DeputyProps(new object[]{}))
         {

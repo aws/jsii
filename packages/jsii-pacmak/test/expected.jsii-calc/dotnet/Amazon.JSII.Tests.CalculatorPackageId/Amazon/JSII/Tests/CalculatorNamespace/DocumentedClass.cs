@@ -34,7 +34,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Stable
         /// </remarks>
         [JsiiMethod(name: "greet", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[{\"name\":\"greetee\",\"type\":{\"fqn\":\"jsii-calc.Greetee\"},\"optional\":true}]")]
-        public virtual double Greet(IGreetee greetee)
+        public virtual double Greet(Amazon.JSII.Tests.CalculatorNamespace.IGreetee greetee)
         {
             return InvokeInstanceMethod<double>(new object[]{greetee});
         }

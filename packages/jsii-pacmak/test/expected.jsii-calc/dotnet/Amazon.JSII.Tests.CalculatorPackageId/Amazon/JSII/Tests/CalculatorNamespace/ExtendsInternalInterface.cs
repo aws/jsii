@@ -4,7 +4,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>stability: Experimental</remarks>
     [JsiiByValue]
-    public class ExtendsInternalInterface : IExtendsInternalInterface
+    public class ExtendsInternalInterface : Amazon.JSII.Tests.CalculatorNamespace.IExtendsInternalInterface
     {
         /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "boom", typeJson: "{\"primitive\":\"boolean\"}", isOverride: true)]

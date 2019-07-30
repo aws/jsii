@@ -1,5 +1,4 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 using System.Collections.Generic;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
@@ -24,7 +23,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>Returns the sum of all values.</summary>
         /// <remarks>stability: Experimental</remarks>
         [JsiiMethod(name: "sumFromArray", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[{\"name\":\"values\",\"type\":{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}}]")]
-        public virtual double SumFromArray(Value_[] values)
+        public virtual double SumFromArray(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_[] values)
         {
             return InvokeInstanceMethod<double>(new object[]{values});
         }
@@ -32,7 +31,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>Returns the sum of all values in a map.</summary>
         /// <remarks>stability: Experimental</remarks>
         [JsiiMethod(name: "sumFromMap", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[{\"name\":\"values\",\"type\":{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}}]")]
-        public virtual double SumFromMap(IDictionary<string, Value_> values)
+        public virtual double SumFromMap(IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_> values)
         {
             return InvokeInstanceMethod<double>(new object[]{values});
         }

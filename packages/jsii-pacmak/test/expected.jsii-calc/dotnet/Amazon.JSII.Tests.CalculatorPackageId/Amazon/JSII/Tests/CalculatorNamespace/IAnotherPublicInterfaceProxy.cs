@@ -4,7 +4,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>stability: Experimental</remarks>
     [JsiiTypeProxy(nativeType: typeof(IIAnotherPublicInterface), fullyQualifiedName: "jsii-calc.IAnotherPublicInterface")]
-    internal sealed class IAnotherPublicInterfaceProxy : DeputyBase, IIAnotherPublicInterface
+    internal sealed class IAnotherPublicInterfaceProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IIAnotherPublicInterface
     {
         private IAnotherPublicInterfaceProxy(ByRefValue reference): base(reference)
         {

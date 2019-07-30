@@ -37,7 +37,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <remarks>stability: Experimental</remarks>
         [JsiiMethod(name: "giveMeUndefinedInsideAnObject", parametersJson: "[{\"name\":\"input\",\"type\":{\"fqn\":\"jsii-calc.NullShouldBeTreatedAsUndefinedData\"}}]")]
-        public virtual void GiveMeUndefinedInsideAnObject(INullShouldBeTreatedAsUndefinedData input)
+        public virtual void GiveMeUndefinedInsideAnObject(Amazon.JSII.Tests.CalculatorNamespace.INullShouldBeTreatedAsUndefinedData input)
         {
             InvokeInstanceVoidMethod(new object[]{input});
         }

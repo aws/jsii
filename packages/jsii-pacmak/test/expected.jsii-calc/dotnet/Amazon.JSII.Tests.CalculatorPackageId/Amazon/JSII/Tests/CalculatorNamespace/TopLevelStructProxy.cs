@@ -4,7 +4,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>stability: Experimental</remarks>
     [JsiiTypeProxy(nativeType: typeof(ITopLevelStruct), fullyQualifiedName: "jsii-calc.TopLevelStruct")]
-    internal sealed class TopLevelStructProxy : DeputyBase, ITopLevelStruct
+    internal sealed class TopLevelStructProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.ITopLevelStruct
     {
         private TopLevelStructProxy(ByRefValue reference): base(reference)
         {

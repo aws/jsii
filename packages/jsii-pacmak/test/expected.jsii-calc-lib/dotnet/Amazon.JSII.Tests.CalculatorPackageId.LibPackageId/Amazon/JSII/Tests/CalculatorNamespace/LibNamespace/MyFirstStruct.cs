@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     /// <summary>This is the first struct we have created in jsii.</summary>
     /// <remarks>stability: Deprecated</remarks>
     [JsiiByValue]
-    public class MyFirstStruct : IMyFirstStruct
+    public class MyFirstStruct : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IMyFirstStruct
     {
         /// <summary>An awesome number value.</summary>
         /// <remarks>stability: Deprecated</remarks>

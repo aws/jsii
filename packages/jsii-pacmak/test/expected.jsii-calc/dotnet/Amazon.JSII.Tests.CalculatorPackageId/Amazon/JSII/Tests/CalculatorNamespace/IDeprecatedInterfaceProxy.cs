@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>stability: Deprecated</remarks>
     [JsiiTypeProxy(nativeType: typeof(IIDeprecatedInterface), fullyQualifiedName: "jsii-calc.IDeprecatedInterface")]
     [System.Obsolete("useless interface")]
-    internal sealed class IDeprecatedInterfaceProxy : DeputyBase, IIDeprecatedInterface
+    internal sealed class IDeprecatedInterfaceProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IIDeprecatedInterface
     {
         private IDeprecatedInterfaceProxy(ByRefValue reference): base(reference)
         {

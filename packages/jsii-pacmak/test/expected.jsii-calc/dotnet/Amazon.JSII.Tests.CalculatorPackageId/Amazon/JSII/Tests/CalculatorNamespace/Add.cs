@@ -1,18 +1,17 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>The "+" binary operation.</summary>
     /// <remarks>stability: Experimental</remarks>
     [JsiiClass(nativeType: typeof(Add), fullyQualifiedName: "jsii-calc.Add", parametersJson: "[{\"name\":\"lhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},{\"name\":\"rhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
-    public class Add : BinaryOperation
+    public class Add : Amazon.JSII.Tests.CalculatorNamespace.BinaryOperation
     {
         /// <summary>Creates a BinaryOperation.</summary>
         /// <param name = "lhs">Left-hand side operand.</param>
         /// <param name = "rhs">Right-hand side operand.</param>
         /// <remarks>stability: Experimental</remarks>
-        public Add(Value_ lhs, Value_ rhs): base(new DeputyProps(new object[]{lhs, rhs}))
+        public Add(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ lhs, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ rhs): base(new DeputyProps(new object[]{lhs, rhs}))
         {
         }
 

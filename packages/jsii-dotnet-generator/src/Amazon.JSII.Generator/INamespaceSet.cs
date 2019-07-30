@@ -9,8 +9,6 @@ namespace Amazon.JSII.Generator
     {
         SyntaxList<UsingDirectiveSyntax> GetUsings();
 
-        void Add(Type type);
-
         void Add(TypeReference typeReference);
     }
 }

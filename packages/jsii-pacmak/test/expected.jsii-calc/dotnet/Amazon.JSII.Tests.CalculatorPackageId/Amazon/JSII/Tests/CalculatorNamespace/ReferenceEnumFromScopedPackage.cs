@@ -1,5 +1,4 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
@@ -22,22 +21,22 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "foo", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.EnumFromScopedModule\"}", isOptional: true)]
-        public virtual EnumFromScopedModule? Foo
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.EnumFromScopedModule? Foo
         {
-            get => GetInstanceProperty<EnumFromScopedModule? >();
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.EnumFromScopedModule? >();
             set => SetInstanceProperty(value);
         }
 
         /// <remarks>stability: Experimental</remarks>
         [JsiiMethod(name: "loadFoo", returnsJson: "{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.EnumFromScopedModule\"},\"optional\":true}")]
-        public virtual EnumFromScopedModule? LoadFoo()
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.EnumFromScopedModule? LoadFoo()
         {
-            return InvokeInstanceMethod<EnumFromScopedModule? >(new object[]{});
+            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.EnumFromScopedModule? >(new object[]{});
         }
 
         /// <remarks>stability: Experimental</remarks>
         [JsiiMethod(name: "saveFoo", parametersJson: "[{\"name\":\"value\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.EnumFromScopedModule\"}}]")]
-        public virtual void SaveFoo(EnumFromScopedModule value)
+        public virtual void SaveFoo(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.EnumFromScopedModule value)
         {
             InvokeInstanceVoidMethod(new object[]{value});
         }

@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     /// <remarks>stability: Deprecated</remarks>
     [JsiiClass(nativeType: typeof(Number), fullyQualifiedName: "@scope/jsii-calc-lib.Number", parametersJson: "[{\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]
     [System.Obsolete()]
-    public class Number : Value_, IIDoublable
+    public class Number : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IIDoublable
     {
         /// <summary>Creates a Number object.</summary>
         /// <param name = "value">The number.</param>
