@@ -21,10 +21,8 @@ tools, including those necessary to build `jsii` itself.
 This image can also be built and used locally:
 
 ```console
-$ git clone git@github.com:aws/jsii.git
-$ cd jsii/superchain
-$ docker build -t superchain .
 $ IMAGE=superchain
+$ docker build -t ${IMAGE} ./superchain
 ```
 
 This will get you into an interactive docker shell:
