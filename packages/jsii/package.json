@@ -40,7 +40,7 @@
         "fs-extra": "^8.1.0",
         "jsii-spec": "^0.14.2",
         "log4js": "^4.5.1",
-        "semver": "^6.2.0",
+        "semver": "^6.3.0",
         "sort-json": "^2.0.0",
         "spdx-license-list": "^6.0.0",
         "typescript": "^3.5.3",
