@@ -15,9 +15,11 @@ before_script:
 script: >-
   docker build --pull --build-arg BUILD_TIMESTAMP=$(date -u +'%Y-%m-%dT%H:%M:%SZ') --build-arg COMMIT_ID="${TRAVIS_COMMIT}" -t "jsii/superchain:latest" ./superchain  && \
   docker run --rm -it --net=host -v ${PWD}:${PWD} -w ${PWD} jsii/superchain:latest ./build.sh                                                                         && \
-  if [ \( ! -z "${DOCKER_USERNAME+SET}" \) -a \( ! -z "${DOCKER_PASSWORD+SET}" \) ]; then
+  if [ \( ! -z "${DOCKER_USERNAME+SET}" \) -a \( ! -z "${DOCKER_PASSWORD+SET}" \) ]
+  then
     echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin                                                                                 && \
-    if [ ! -z "${TRAVIS_TAG+SET}" ]; then
+    if [ ! -z "${TRAVIS_TAG+SET}" ]
+    then
       docker push jsii/superchain:latest
     else
       docker push "jsii/superchain:${TRAVIS_BRANCH}"
