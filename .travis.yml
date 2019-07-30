@@ -14,7 +14,7 @@ before_script:
 
 script:
   - set -eo pipefail
-  - docker build --pull --build-arg BUILD_TIMESTAMP=$(date -u +'%Y-%m-%dT%H:%M:%SZ') --build-arg COMMIT_ID="${TRAVIS_COMMIT}" -t "jsii/superchain:latest" ./superchain
+  - docker build --pull --build-arg BUILD_TIMESTAMP=$(date -u +'%Y-%m-%dT%H:%M:%SZ') --build-arg COMMIT_ID="${TRAVIS_COMMIT}" -t "jsii/superchain:nightly" ./superchain
   - docker run --rm -it --net=host -v ${PWD}:${PWD} -w ${PWD} jsii/superchain:latest ./build.sh
   - echo "TRAVIS_PULL_REQUEST = ${TRAVIS_PULL_REQUEST:-}"
   - echo "TRAVIS_TAG          = ${TRAVIS_TAG:-}"
@@ -22,9 +22,9 @@ script:
   - >-
     if [ ${TRAVIS_PULL_REQUEST} = false ] && [ ! -z "${DOCKER_USERNAME+SET}" ] && [ ! -z "${DOCKER_PASSWORD+SET}" ]; then
       echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-      docker tag "jsii/superchain:latest" "jsii/superchain:${TRAVIS_BRANCH}"
-      docker push "jsii/superchain:${TRAVIS_BRANCH}"
+      docker push jsii/superchain:nightly
       if [ "${TRAVIS_TAG:-}" = "${TRAVIS_BRANCH}" ]; then
+        docker tag jsii/superchain:nightly jsii/superchain:latest
         docker push jsii/superchain:latest
       fi
     fi
