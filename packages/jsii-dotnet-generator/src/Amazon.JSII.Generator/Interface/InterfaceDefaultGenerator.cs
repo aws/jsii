@@ -32,7 +32,7 @@ namespace Amazon.JSII.Generator.Interface
 
             IEnumerable<BaseTypeSyntax> CreateBaseTypes()
             {
-                yield return SF.SimpleBaseType(Symbols.GetNameSyntax(Type, disambiguate: true));
+                yield return SF.SimpleBaseType(Symbols.GetNameSyntax(Type, qualified: true));
             }
 
             IEnumerable<MemberDeclarationSyntax> CreateMembers()

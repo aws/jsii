@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <summary>Represents an operation with two operands.</summary>
     /// <remarks>stability: Experimental</remarks>
     [JsiiTypeProxy(nativeType: typeof(BinaryOperation), fullyQualifiedName: "jsii-calc.BinaryOperation")]
-    internal sealed class BinaryOperationProxy : BinaryOperation
+    internal sealed class BinaryOperationProxy : Amazon.JSII.Tests.CalculatorNamespace.BinaryOperation
     {
         private BinaryOperationProxy(ByRefValue reference): base(reference)
         {

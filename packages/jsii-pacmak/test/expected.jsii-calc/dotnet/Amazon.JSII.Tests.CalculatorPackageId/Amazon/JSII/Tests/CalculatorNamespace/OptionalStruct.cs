@@ -4,7 +4,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>stability: Experimental</remarks>
     [JsiiByValue]
-    public class OptionalStruct : IOptionalStruct
+    public class OptionalStruct : Amazon.JSII.Tests.CalculatorNamespace.IOptionalStruct
     {
         /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "field", typeJson: "{\"primitive\":\"string\"}", isOptional: true, isOverride: true)]

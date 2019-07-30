@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <summary>These are some arguments you can pass to a method.</summary>
     /// <remarks>stability: Experimental</remarks>
     [JsiiByValue]
-    public class Greetee : IGreetee
+    public class Greetee : Amazon.JSII.Tests.CalculatorNamespace.IGreetee
     {
         /// <summary>The name of the greetee.</summary>
         /// <remarks>

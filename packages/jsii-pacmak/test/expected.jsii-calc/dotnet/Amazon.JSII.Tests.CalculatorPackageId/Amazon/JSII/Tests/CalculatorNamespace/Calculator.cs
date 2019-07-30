@@ -1,6 +1,4 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.composition;
-using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 using System.Collections.Generic;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
@@ -8,12 +6,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <summary>A calculator which maintains a current value and allows adding operations.</summary>
     /// <remarks>stability: Experimental</remarks>
     [JsiiClass(nativeType: typeof(Calculator), fullyQualifiedName: "jsii-calc.Calculator", parametersJson: "[{\"name\":\"props\",\"type\":{\"fqn\":\"jsii-calc.CalculatorProps\"},\"optional\":true}]")]
-    public class Calculator : CompositeOperation_
+    public class Calculator : Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation_
     {
         /// <summary>Creates a Calculator object.</summary>
         /// <param name = "props">Initialization properties.</param>
         /// <remarks>stability: Experimental</remarks>
-        public Calculator(ICalculatorProps props): base(new DeputyProps(new object[]{props}))
+        public Calculator(Amazon.JSII.Tests.CalculatorNamespace.ICalculatorProps props): base(new DeputyProps(new object[]{props}))
         {
         }
 
@@ -28,33 +26,33 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>Returns the expression.</summary>
         /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "expression", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
-        public override Value_ Expression
+        public override Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ Expression
         {
-            get => GetInstanceProperty<Value_>();
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_>();
         }
 
         /// <summary>A log of all operations.</summary>
         /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "operationsLog", typeJson: "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}")]
-        public virtual Value_[] OperationsLog
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_[] OperationsLog
         {
-            get => GetInstanceProperty<Value_[]>();
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_[]>();
         }
 
         /// <summary>A map of per operation name of all operations performed.</summary>
         /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "operationsMap", typeJson: "{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}}}}")]
-        public virtual IDictionary<string, Value_[]> OperationsMap
+        public virtual IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_[]> OperationsMap
         {
-            get => GetInstanceProperty<IDictionary<string, Value_[]>>();
+            get => GetInstanceProperty<IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_[]>>();
         }
 
         /// <summary>The current value.</summary>
         /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "curr", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
-        public virtual Value_ Curr
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ Curr
         {
-            get => GetInstanceProperty<Value_>();
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_>();
             set => SetInstanceProperty(value);
         }
 

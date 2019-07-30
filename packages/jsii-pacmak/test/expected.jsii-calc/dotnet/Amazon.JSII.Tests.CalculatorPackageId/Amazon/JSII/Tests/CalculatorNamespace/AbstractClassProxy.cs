@@ -4,7 +4,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>stability: Experimental</remarks>
     [JsiiTypeProxy(nativeType: typeof(AbstractClass), fullyQualifiedName: "jsii-calc.AbstractClass")]
-    internal sealed class AbstractClassProxy : AbstractClass
+    internal sealed class AbstractClassProxy : Amazon.JSII.Tests.CalculatorNamespace.AbstractClass
     {
         private AbstractClassProxy(ByRefValue reference): base(reference)
         {

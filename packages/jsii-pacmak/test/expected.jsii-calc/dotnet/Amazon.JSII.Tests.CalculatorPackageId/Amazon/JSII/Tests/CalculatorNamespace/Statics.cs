@@ -31,12 +31,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         = GetStaticProperty<double>(typeof(Statics));
         /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "ConstObj", typeJson: "{\"fqn\":\"jsii-calc.DoubleTrouble\"}")]
-        public static DoubleTrouble ConstObj
+        public static Amazon.JSII.Tests.CalculatorNamespace.DoubleTrouble ConstObj
         {
             get;
         }
 
-        = GetStaticProperty<DoubleTrouble>(typeof(Statics));
+        = GetStaticProperty<Amazon.JSII.Tests.CalculatorNamespace.DoubleTrouble>(typeof(Statics));
         /// <summary>Jsdocs for static property.</summary>
         /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "Foo", typeJson: "{\"primitive\":\"string\"}")]
@@ -58,9 +58,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <summary>Jsdocs for static getter. Jsdocs for static setter.</summary>
         /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "instance", typeJson: "{\"fqn\":\"jsii-calc.Statics\"}")]
-        public static Statics Instance
+        public static Amazon.JSII.Tests.CalculatorNamespace.Statics Instance
         {
-            get => GetStaticProperty<Statics>(typeof(Statics));
+            get => GetStaticProperty<Amazon.JSII.Tests.CalculatorNamespace.Statics>(typeof(Statics));
             set => SetStaticProperty(typeof(Statics), value);
         }
 

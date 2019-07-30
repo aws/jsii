@@ -7,7 +7,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     public class ConstructorPassesThisOut : DeputyBase
     {
         /// <remarks>stability: Experimental</remarks>
-        public ConstructorPassesThisOut(PartiallyInitializedThisConsumer consumer): base(new DeputyProps(new object[]{consumer}))
+        public ConstructorPassesThisOut(Amazon.JSII.Tests.CalculatorNamespace.PartiallyInitializedThisConsumer consumer): base(new DeputyProps(new object[]{consumer}))
         {
         }
 

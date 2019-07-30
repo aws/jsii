@@ -20,23 +20,23 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "returnAbstractFromProperty", typeJson: "{\"fqn\":\"jsii-calc.AbstractClassBase\"}")]
-        public virtual AbstractClassBase ReturnAbstractFromProperty
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.AbstractClassBase ReturnAbstractFromProperty
         {
-            get => GetInstanceProperty<AbstractClassBase>();
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.AbstractClassBase>();
         }
 
         /// <remarks>stability: Experimental</remarks>
         [JsiiMethod(name: "giveMeAbstract", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.AbstractClass\"}}")]
-        public virtual AbstractClass GiveMeAbstract()
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.AbstractClass GiveMeAbstract()
         {
-            return InvokeInstanceMethod<AbstractClass>(new object[]{});
+            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.AbstractClass>(new object[]{});
         }
 
         /// <remarks>stability: Experimental</remarks>
         [JsiiMethod(name: "giveMeInterface", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.IInterfaceImplementedByAbstractClass\"}}")]
-        public virtual IIInterfaceImplementedByAbstractClass GiveMeInterface()
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.IIInterfaceImplementedByAbstractClass GiveMeInterface()
         {
-            return InvokeInstanceMethod<IIInterfaceImplementedByAbstractClass>(new object[]{});
+            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.IIInterfaceImplementedByAbstractClass>(new object[]{});
         }
     }
 }

@@ -1,5 +1,4 @@
 using Amazon.JSII.Runtime.Deputy;
-using Amazon.JSII.Tests.CalculatorNamespace.LibNamespace;
 using System.Collections.Generic;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
@@ -24,7 +23,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 
         /// <remarks>stability: Experimental</remarks>
         [JsiiMethod(name: "render", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[{\"name\":\"data\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.MyFirstStruct\"},\"optional\":true}]")]
-        public virtual string Render(IMyFirstStruct data)
+        public virtual string Render(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IMyFirstStruct data)
         {
             return InvokeInstanceMethod<string>(new object[]{data});
         }

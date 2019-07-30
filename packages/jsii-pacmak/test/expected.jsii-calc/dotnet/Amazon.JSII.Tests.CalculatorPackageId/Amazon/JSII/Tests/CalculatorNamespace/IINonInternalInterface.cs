@@ -4,7 +4,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>stability: Experimental</remarks>
     [JsiiInterface(nativeType: typeof(IINonInternalInterface), fullyQualifiedName: "jsii-calc.INonInternalInterface")]
-    public interface IINonInternalInterface : IIAnotherPublicInterface
+    public interface IINonInternalInterface : Amazon.JSII.Tests.CalculatorNamespace.IIAnotherPublicInterface
     {
         /// <remarks>stability: Experimental</remarks>
         [JsiiProperty(name: "b", typeJson: "{\"primitive\":\"string\"}")]

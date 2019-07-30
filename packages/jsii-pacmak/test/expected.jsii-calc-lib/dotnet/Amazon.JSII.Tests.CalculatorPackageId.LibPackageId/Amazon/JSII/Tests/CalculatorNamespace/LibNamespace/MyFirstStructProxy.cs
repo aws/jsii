@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     /// <remarks>stability: Deprecated</remarks>
     [JsiiTypeProxy(nativeType: typeof(IMyFirstStruct), fullyQualifiedName: "@scope/jsii-calc-lib.MyFirstStruct")]
     [System.Obsolete()]
-    internal sealed class MyFirstStructProxy : DeputyBase, IMyFirstStruct
+    internal sealed class MyFirstStructProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IMyFirstStruct
     {
         private MyFirstStructProxy(ByRefValue reference): base(reference)
         {

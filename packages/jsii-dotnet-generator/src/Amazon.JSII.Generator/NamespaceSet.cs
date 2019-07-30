@@ -39,16 +39,11 @@ namespace Amazon.JSII.Generator
             return SF.List(usings);
         }
 
-        public void Add(Type type)
-        {
-            _referencedNamespaces.Add(_symbols.GetNamespaceSyntax(type));
-        }
-
         public void Add(TypeReference typeReference)
         {
             if (typeReference.FullyQualifiedName != null)
             {
-                _referencedNamespaces.Add(_symbols.GetNamespaceSyntax(typeReference.FullyQualifiedName));
+                // Not generating "using" statements for stuff from dependencies - we won't use those.
                 return;
             }
 

@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     /// <remarks>stability: Deprecated</remarks>
     [JsiiTypeProxy(nativeType: typeof(Value_), fullyQualifiedName: "@scope/jsii-calc-lib.Value")]
     [System.Obsolete()]
-    internal sealed class ValueProxy : Value_
+    internal sealed class ValueProxy : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_
     {
         private ValueProxy(ByRefValue reference): base(reference)
         {

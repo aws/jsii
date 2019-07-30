@@ -4,7 +4,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <remarks>stability: Stable</remarks>
     [JsiiTypeProxy(nativeType: typeof(IStableStruct), fullyQualifiedName: "jsii-calc.StableStruct")]
-    internal sealed class StableStructProxy : DeputyBase, IStableStruct
+    internal sealed class StableStructProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IStableStruct
     {
         private StableStructProxy(ByRefValue reference): base(reference)
         {
