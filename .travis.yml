@@ -20,7 +20,7 @@ script:
   - echo "TRAVIS_TAG          = ${TRAVIS_TAG:-}"
   - echo "TRAVIS_BRANCH       = ${TRAVIS_BRANCH:-}"
   - >-
-    if [ ${TRAVIS_PULL_REQUEST} != false ] && [ ! -z "${DOCKER_USERNAME+SET}" ] && [ ! -z "${DOCKER_PASSWORD+SET}" ]; then
+    if [ ${TRAVIS_PULL_REQUEST} = false ] && [ ! -z "${DOCKER_USERNAME+SET}" ] && [ ! -z "${DOCKER_PASSWORD+SET}" ]; then
       echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
       docker tag "jsii/superchain:latest" "jsii/superchain:${TRAVIS_BRANCH}"
       docker push "jsii/superchain:${TRAVIS_BRANCH}"
