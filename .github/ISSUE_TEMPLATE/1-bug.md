@@ -1,5 +1,5 @@
 ---
-name: ':bug: Bug Report'
+name: "\U0001F41B Bug Report"
 about: Report a bug
 labels: bug, needs-triage
 ---

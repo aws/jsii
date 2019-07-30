@@ -1,5 +1,5 @@
 ---
-name: ':question: Question'
+name: "\U00002753 Question"
 about: Ask a general question
 labels: question, needs-triage
 ---
