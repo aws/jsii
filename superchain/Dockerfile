@@ -47,7 +47,7 @@ RUN amazon-linux-extras install ruby2.4                                         
   && yum -y install gcc make ruby-devel system-rpm-config                                                               \
   && yum clean all && rm -rf /var/cache/yum                                                                             \
   && echo 'install: --no-document' > ~/.gemrc                                                                           \
-  && gem install 'bundler:~>1.17.2' 'bundler:~>2.02'
+  && gem install 'bundler:~>1.17.2' 'bundler:~>2.0.2'
 
 # Install JDK8 (Corretto)
 RUN amazon-linux-extras install corretto8                                                                               \
