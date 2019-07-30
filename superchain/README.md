@@ -20,7 +20,7 @@ SDK             | Version
 
 Tool / Utility | Version
 ---------------|-----------------
-`bundler`      | `>= 2.0.2`
+`bundler`      | `>= 1.17.2` and `>= 2.0.2`
 `gcc`          | `>= 7.3.1`
 `docker`       | `>= 18.06.1-ce`
 `git`          | `>= 2.17.2`
