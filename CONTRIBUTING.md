@@ -29,9 +29,9 @@ will need the following tools:
 ### Alterative: build in Docker
 
 We have built a Docker image with all the required tool, which we are using for
-our own CI/CD: the "superchain" image from [aws-delivlib].
+our own CI/CD: the ["superchain" image][superchain] from.
 
-[aws-delivlib]: https://github.com/awslabs/aws-delivlib
+[superchain]: https://github.com/aws/jsii/blob/master/superchain/Dockerfile
 
 The image can be built for local usage, too:
 
