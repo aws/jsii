@@ -40,7 +40,7 @@
     "@types/node": "^8.10.51",
     "@types/nodeunit": "^0.0.30",
     "@types/xmlbuilder": "^11.0.1",
-    "@types/yargs": "^13.0.0",
+    "@types/yargs": "^13.0.1",
     "jsii-build-tools": "file:../jsii-build-tools",
     "jsii-calc": "file:../jsii-calc",
     "jsii-dotnet-generator": "file:../jsii-dotnet-generator",
