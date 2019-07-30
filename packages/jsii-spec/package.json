@@ -15,7 +15,7 @@
     "jsii-build-tools": "file:../jsii-build-tools",
     "nodeunit": "^0.11.3",
     "typescript": "^3.5.3",
-    "typescript-json-schema": "^0.38.3"
+    "typescript-json-schema": "^0.39.0"
   },
   "dependencies": {
     "jsonschema": "^1.2.4"
