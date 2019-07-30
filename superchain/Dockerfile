@@ -44,7 +44,7 @@ RUN yum -y install python3 python3-pip python3-wheel                            
 
 # Install Ruby 2.4+
 RUN amazon-linux-extras install ruby2.4                                                                                 \
-  && yum -y install gcc make ruby-devel system-rpm-config                                                               \
+  && yum -y install gcc make ruby-devel rubygem-rdoc system-rpm-config                                                  \
   && yum clean all && rm -rf /var/cache/yum                                                                             \
   && echo 'install: --no-document' > ~/.gemrc                                                                           \
   && gem install 'bundler:~>1.17.2' 'bundler:~>2.0.2'
