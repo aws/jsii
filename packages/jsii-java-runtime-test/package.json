@@ -7,7 +7,7 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "/bin/bash ./generate.sh",
-    "test": "cd project && mvn test --settings=user.xml"
+    "test": "cd project && mvn -B test --settings=user.xml"
   },
   "devDependencies": {
     "jsii-calc": "file:../jsii-calc",

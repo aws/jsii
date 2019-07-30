@@ -37,7 +37,7 @@ class JsiiRuntimeTest < Test::Unit::TestCase
     assert_equal('software.amazon.jsii.tests.calculator.lib', naming['java']['package'])
 
     @client.del(objref: calc)
-    assert_raise { @client.get(objref: calc, property: 'curr') }
+    assert_raise(Aws::Jsii::JsiiError) { @client.get(objref: calc, property: 'curr') }
 
     assert_equal({ 'value' => 'hello' }, @client.sget(fqn: 'jsii-calc.Statics', property: 'Foo'))
     assert_equal({ 'result' => 'hello ,Foo!' }, @client.sinvoke(fqn: 'jsii-calc.Statics', method: 'staticMethod', args: ['Foo']))
@@ -62,7 +62,7 @@ class JsiiRuntimeTest < Test::Unit::TestCase
 
     # simulate an error response from the callback and expect "end" to raise
     @client.complete(cbid: first['cbid'], err: 'hello, error')
-    assert_raise { @client.end(promiseid: promise['promiseid']) }
+    assert_raise(Aws::Jsii::JsiiError) { @client.end(promiseid: promise['promiseid']) }
   end
 
   def test_overrides
