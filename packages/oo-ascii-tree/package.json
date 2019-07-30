@@ -11,7 +11,7 @@
     "package": "package-js"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.15",
+    "@types/jest": "^24.0.16",
     "jest": "^24.8.0",
     "jsii-build-tools": "file:../jsii-build-tools",
     "ts-jest": "^24.0.2",
