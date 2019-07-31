@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceIncludesClas
     /// stability: Experimental
     /// </remarks>
     [JsiiByValue]
-    public class Hello : IHello
+    public class Hello : Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceIncludesClasses.IHello
     {
         /// <remarks>
         /// stability: Experimental

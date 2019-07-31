@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// stability: Experimental
     /// </remarks>
     [JsiiByValue]
-    public class TopLevelStruct : ITopLevelStruct
+    public class TopLevelStruct : Amazon.JSII.Tests.CalculatorNamespace.ITopLevelStruct
     {
         /// <summary>This is a required field.</summary>
         /// <remarks>

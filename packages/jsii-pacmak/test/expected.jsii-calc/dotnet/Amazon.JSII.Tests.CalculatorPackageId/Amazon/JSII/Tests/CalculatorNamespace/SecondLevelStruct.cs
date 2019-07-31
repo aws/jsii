@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// stability: Experimental
     /// </remarks>
     [JsiiByValue]
-    public class SecondLevelStruct : ISecondLevelStruct
+    public class SecondLevelStruct : Amazon.JSII.Tests.CalculatorNamespace.ISecondLevelStruct
     {
         /// <summary>It's long and required.</summary>
         /// <remarks>

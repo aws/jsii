@@ -7,7 +7,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     /// stability: Deprecated
     /// </remarks>
     [JsiiByValue]
-    public class StructWithOnlyOptionals : IStructWithOnlyOptionals
+    public class StructWithOnlyOptionals : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IStructWithOnlyOptionals
     {
         /// <summary>The first optional!</summary>
         /// <remarks>

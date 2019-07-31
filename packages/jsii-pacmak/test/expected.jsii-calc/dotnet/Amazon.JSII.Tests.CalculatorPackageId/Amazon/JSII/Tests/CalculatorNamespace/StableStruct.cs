@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// stability: Stable
     /// </remarks>
     [JsiiByValue]
-    public class StableStruct : IStableStruct
+    public class StableStruct : Amazon.JSII.Tests.CalculatorNamespace.IStableStruct
     {
         /// <remarks>
         /// stability: Stable

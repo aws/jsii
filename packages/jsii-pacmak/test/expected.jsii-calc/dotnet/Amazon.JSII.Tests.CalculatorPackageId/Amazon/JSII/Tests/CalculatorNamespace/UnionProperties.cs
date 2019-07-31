@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// stability: Experimental
     /// </remarks>
     [JsiiByValue]
-    public class UnionProperties : IUnionProperties
+    public class UnionProperties : Amazon.JSII.Tests.CalculatorNamespace.IUnionProperties
     {
         /// <remarks>
         /// stability: Experimental

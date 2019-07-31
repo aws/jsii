@@ -1,58 +1,76 @@
 # Contributing to jsii
+Thanks for your interest in contributing to AWS JSII! :heart:
 
-We welcome contributions of any kind.
+This document describes how to set up a development environment and submit your
+contributions. Please read it carefully and let us know if it's not up-to date
+(or even better, submit a pull request with your corrections! :wink:).
 
-This section includes information for contributors.
+## Pre-requisites
+### Toolchain Requirements
+Due to the polyglot nature of `jsii`, the toolchain requirements are somewhat
+more complicated than for most projects. In order to locally develop `jsii`, you
+will need the following tools:
 
-## Development Environment
+- [Node 8.11.0] or later
+- An OpenJDK-8 distribution
+  + [Oracle's OpenJDK8]
+  + [Amazon Corretto 8]
+- [.NET Core 2.0] or later
+- [Python 3.6.5] or later
+- [Ruby 2.5.1] or later
 
-Since this repo produces artifacts for multiple programming languages using
-__jsii__, it relies on the following toolchains:
+[Node 8.11.0]: https://nodejs.org/download/release/v8.11.0/
+[Oracle's OpenJDK8]: http://openjdk.java.net/install/
+[Amazon Corretto 8]: https://aws.amazon.com/corretto/
+[.NET Core 2.0]: https://www.microsoft.com/net/download
+[Python 3.6.5]: https://www.python.org/downloads/release/python-365/
+[Ruby 2.5.1]: https://www.ruby-lang.org/en/news/2018/03/28/ruby-2-5-1-released/
 
- - [Node.js 8.11.0](https://nodejs.org/download/release/v8.11.0/)
- - [Java OpenJDK 8](http://openjdk.java.net/install/)
- - [.NET Core 2.0](https://www.microsoft.com/net/download)
- - [Python 3.6.5](https://www.python.org/downloads/release/python-365/)
- - [Ruby 2.5.1](https://www.ruby-lang.org/en/news/2018/03/28/ruby-2-5-1-released/)
+### Alterative: build in Docker
 
-Our CI/CD uses the "superchain" image from [aws-delivlib](https://github.com/awslabs/aws-delivlib). 
+We have built a Docker image with all the required tool, which we are using for
+our own CI/CD: the ["superchain" image][superchain] from.
 
-This image can also be used locally like this (note that initial build may take quite some time):
+[superchain]: https://github.com/aws/jsii/blob/master/superchain/Dockerfile
+
+The image can be built for local usage, too:
 
 ```console
-$ git clone git@github.com:awslabs/aws-delivlib.git
-$ cd aws-delivlib/superchain
-$ docker build -t superchain .
 $ IMAGE=superchain
+$ docker build -t ${IMAGE} ./superchain
 ```
 
-This will get you into an interactive docker shell:
+In order to get an interactive shell within a Docker container using the
+*superchain* image you just built:
 
 ```console
 $ cd jsii # go to the root of the jsii repo
-$ docker run --net=host -it -v $PWD:$PWD -w $PWD ${IMAGE}
+$ docker run --rm --net=host -it -v $PWD:$PWD -w $PWD ${IMAGE}
 ```
 
 You can then run `./build.sh` as described below.
 
+## Getting Started
 ### Bootstrapping
 
-The project is managed as a
-[monorepo](https://github.com/babel/babel/blob/master/doc/design/monorepo.md)
-using [lerna](https://github.com/lerna/lerna).
+The project is managed as a [monorepo] using [lerna].
+
+[monorepo]: https://github.com/babel/babel/blob/master/doc/design/monorepo.md
+[lerna]: https://github.com/lerna/lerna
 
 1. Check out this repository.
-2. Run `./build.sh` to install lerna, bootstrap the repo and perform an initial
-   build + test cycle.
+2. Run `./build.sh` to install lerna, bootstrap the repository and perform an
+   initial build and test cycle.
 
-### Workflow
+### Development Workflow
 
-All modules within this repository have the following scripts:
+All packages within this repository have the following scripts:
 
-* `build` - builds the module (usually runs the TypeScript compiler).
-* `watch` - runs `tsc -w` which picks up changes and builds them progressively.
-* `test` - uses `nodeunit test/test.*.js` to run all unit tests.
-* `package` - emits publishable artifacts to `dist/<lang>`
+- `build` - builds the package, usually runs the TypeScript compiler, `tsc`.
+- `watch` - watches for file changes and builds them progressively, usually
+  running `tsc --watch`.
+- `test` - executes all unit tests for the current package.
+- `package` - emits publishable artifacts to `dist`.
 
 Each one of these scripts can be executed either from the root of the repo using
 `npx lerna run <script> --scope <package>` or from individual modules using
@@ -83,8 +101,8 @@ jsii language bindings consist of two main components:
    library is responsible to manage the child
    [`jsii-runtime`](./packages/jsii-runtime/README.md) process and interact with
    the [jsii-kernel](./packages/jsii-kernel/README.md).
-2. __jsii-pacmak generator__: extend the jsii-pacmak project to be able to generate
-   proxy classes for a jsii module.
+2. __A `jsii-pacmak` generator__: extend the jsii-pacmak project to be able to
+   generate proxy classes for a jsii module.
 
 > This section can definitely use some additional information.
 
@@ -95,21 +113,24 @@ The runtime client library should be implemented as a module under
 
 The jsii runtime client library usually includes the following components:
 
-- Child process manager: responsible to start/stop the jsii-runtime child process.
-- Protocol layer: implements the STDIN/STDOUT protocol that interacts with the jsii-runtime.
-- Proxy layer: includes base classes and serialization utilities to implement the generated proxy classes.
+- Child process manager: responsible to start/stop the jsii-runtime child
+  process.
+- Protocol layer: implements the STDIN/STDOUT protocol that interacts with the
+  jsii-runtime.
+- Proxy layer: includes base classes and serialization utilities to implement
+  the generated proxy classes.
 
-More documentation should be added here. In the meantime, refer to the Java
-implementation as a reference:
-
-- [Process manager](./packages/jsii-java-runtime/project/src/main/java/software/amazon/jsii/JsiiRuntime.java)
-- [Protocol layer](./packages/jsii-java-runtime/project/src/main/java/software/amazon/jsii/JsiiClient.java)
-- [Proxy layer](./packages/jsii-java-runtime/project/src/main/java/software/amazon/jsii/JsiiEngine.java)
+> More documentation should be added here. In the meantime, refer to the Java
+> implementation as a reference:
+>
+> - [Process manager](./packages/jsii-java-runtime/project/src/main/java/software/amazon/jsii/JsiiRuntime.java)
+> - [Protocol layer](./packages/jsii-java-runtime/project/src/main/java/software/amazon/jsii/JsiiClient.java)
+> - [Proxy layer](./packages/jsii-java-runtime/project/src/main/java/software/amazon/jsii/JsiiEngine.java)
 
 ### Package Generator
 
 The pacmak code generator should be implemented under
 [`jsii-pacmak/lib/targets`](./packages/jsii-pacmak/lib/targets).
 
-The [java](./packages/jsii-pacmak/lib/targets/java.ts) target is a good example
-to work from.
+The [Python](./packages/jsii-pacmak/lib/targets/python.ts) target is a good
+example to work from.

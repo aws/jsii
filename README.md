@@ -1,6 +1,8 @@
 # jsii
 
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=aws/jsii)](https://dependabot.com)
 ![Build Status](https://codebuild.us-east-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiOThRRFVsVlRBTEhocVZOckE0bFlFWEtwNU0xUmtNUlRRclY0R2VYTGJaOXRlaVdaVnREV2lhVGtDUzQzUDRMMCtuYWpSTWo4N1FGTEV5Zm9yZ0dEb2dBPSIsIml2UGFyYW1ldGVyU3BlYyI6InFVbktYSlpDem1YN1JCeU8iLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)
+[![npm](https://img.shields.io/npm/v/jsii)](https://www.npmjs.com/package/jsii)
 
 __jsii__ allows code in any language to naturally interact with JavaScript classes.
 
@@ -281,7 +283,7 @@ jsii configuration is read from the `jsii` section in the module's
    __jsii-pacmak__. This is where target artifacts are emitted during packaging.
    Each artifact will be emitted under `<outdir>/<target>` (e.g. `dist/java`,
    `dist/js`, etc). Conventionally we use `"dist"` for outdir.
- * `tsc` - this section allows to adjust the compiler options of the generated `tsconfig.json`. 
+ * `tsc` - this section allows to adjust the compiler options of the generated `tsconfig.json`.
     Currently you can set `outDir` and `rootDir`. Setting `rootDir` automatically adjusts the `include` config.
 
 ### Java

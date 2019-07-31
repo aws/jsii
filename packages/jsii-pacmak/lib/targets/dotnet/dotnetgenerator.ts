@@ -128,8 +128,8 @@ export class DotNetGenerator extends Generator {
         this.dotnetDocGenerator.emitDocs(ifc);
         this.dotnetRuntimeGenerator.emitAttributesForInterface(ifc);
 
-        if (implementations.typeNames.length > 0) {
-            this.code.openBlock(`public interface ${interfaceName} : ${implementations.typeNames.join(', ')}`);
+        if (implementations.length > 0) {
+            this.code.openBlock(`public interface ${interfaceName} : ${implementations.join(', ')}`);
         } else {
             this.code.openBlock(`public interface ${interfaceName}`);
         }
@@ -209,7 +209,7 @@ export class DotNetGenerator extends Generator {
 
         if (cls.interfaces && cls.interfaces.length > 0) {
             const implementations = this.typeresolver.resolveImplementedInterfaces(cls);
-            baseTypeNames = baseTypeNames.concat(implementations.typeNames);
+            baseTypeNames = baseTypeNames.concat(implementations);
         }
 
         const className = this.nameutils.convertClassName(cls);
@@ -494,8 +494,7 @@ export class DotNetGenerator extends Generator {
 
         this.dotnetDocGenerator.emitDocs(ifc);
         this.dotnetRuntimeGenerator.emitAttributesForInterfaceProxy(ifc);
-        const interfaceType = this.findType(ifc.fqn);
-        const interfaceFqn = this.typeresolver.toDotNetType(interfaceType);
+        const interfaceFqn = this.typeresolver.toNativeFqn(ifc.fqn);
         const suffix = ifc.kind === spec.TypeKind.Interface ? `: DeputyBase, ${interfaceFqn}`
             : `: ${interfaceFqn}`;
         this.code.openBlock(`internal sealed class ${name} ${suffix}`);
@@ -528,7 +527,7 @@ export class DotNetGenerator extends Generator {
         const isNested = this.isNested(ifc);
         this.openFileIfNeeded(name, namespace, isNested);
         this.dotnetDocGenerator.emitDocs(ifc);
-        const suffix = `: ${this.nameutils.convertInterfaceName(ifc.name)}`;
+        const suffix = `: ${this.typeresolver.toNativeFqn(ifc.fqn)}`;
         this.dotnetRuntimeGenerator.emitAttributesForInterfaceDatatype();
         this.code.openBlock(`public class ${name} ${suffix}`);
         this.flagFirstMemberWritten(false);

@@ -2,18 +2,6 @@ import * as spec from 'jsii-spec';
 import {DotNetDependency} from './filegenerator';
 import {DotNetNameUtils} from "./nameutils";
 
-/**
- * Represents the namespaces used by a class/interface
- * And the name of the types it derives/implements
- */
-class Implementation  {
-    public typeNames: string[];
-
-    constructor(typeNames: string[]) {
-        this.typeNames = typeNames;
-    }
-}
-
 type FindModuleCallback = (fqn: string) => spec.Assembly | spec.PackageVersion;
 type FindTypeCallback = (fqn: string) => spec.Type;
 
@@ -100,32 +88,19 @@ export class DotNetTypeResolver {
     }
 
     /**
-     * Loops through the implemented interfaces and saves the types and namespaces
+     * Loops through the implemented interfaces and returns the fully qualified .NET types of the interfaces
      *
-     * [0] The type names will be added to the class/ifc declaration
-     * [1] The namespace names will be added to the using statement
      */
-    public resolveImplementedInterfaces(ifc: spec.InterfaceType | spec.ClassType): Implementation {
+    public resolveImplementedInterfaces(ifc: spec.InterfaceType | spec.ClassType): string[] {
         const interfaces = ifc.interfaces || [];
         const baseTypeNames: string[] = [];
 
         // For all base members
         for (const base of interfaces) {
-            // Retrieve the interface name from the fqn
-            const lastIndexOfDot = base.lastIndexOf('.');
-            const baseFqn = base.substr(0, lastIndexOfDot);
-            const baseName = base.substr(lastIndexOfDot + 1);
-            if (baseFqn === this.assembly.name) {
-                // If the base interface is in the current assembly
-                // Adding the base type
-                baseTypeNames.push(this.assembly.targets!.dotnet!.namespace + '.' + this.nameutils.convertInterfaceName(baseName));
-            } else {
-                // We need to add a reference to the interface assembly in the using statement and the csproj.
-                const namespaceName = this.namespaceDependencies.get(baseFqn)!.namespace;
-                baseTypeNames.push(namespaceName + '.' + this.nameutils.convertInterfaceName(baseName));
-            }
+            const interfaceFullType = this.toNativeFqn(base);
+            baseTypeNames.push(interfaceFullType);
         }
-        return new Implementation(baseTypeNames);
+        return baseTypeNames;
     }
 
     /**

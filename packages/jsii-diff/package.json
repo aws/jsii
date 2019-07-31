@@ -22,7 +22,7 @@
         "@types/log4js": "^2.3.5",
         "@types/nodeunit": "^0.0.30",
         "@types/tar-fs": "^1.16.1",
-        "@types/yargs": "^13.0.0",
+        "@types/yargs": "^13.0.1",
         "jsii": "^0.14.2",
         "jsii-build-tools": "file:../jsii-build-tools",
         "nodeunit": "^0.11.3",
