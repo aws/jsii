@@ -148,9 +148,6 @@ export class DotNetTypeResolver {
     private toDotNetCollection(ref: spec.CollectionTypeReference): string {
         const elementDotNetType = this.toDotNetType(ref.collection.elementtype);
         switch (ref.collection.kind) {
-            // TODO: add using statement to System.Collections.Generic
-            // when impl calc-base and calc
-            // TODO: see what to do with the IList forMarshalling
             case spec.CollectionKind.Array:
                 return `${elementDotNetType}[]`;
             case spec.CollectionKind.Map:
