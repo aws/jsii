@@ -19,5 +19,5 @@ Gem::Specification.new do |s|
   s.requirements << 'node >= 8.11.0'
 
   s.add_development_dependency 'rubocop', '~> 0.74.0'
-  s.add_development_dependency 'test-unit', '~> 1.2.3'
+  s.add_development_dependency 'test-unit', '~> 3.3.3'
 end
