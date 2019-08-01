@@ -14,6 +14,7 @@ before_script:
 
 script:
   - set -eo pipefail
+  - git diff-index --exit-code --stat HEAD
   # Building the Docker image
   - docker build --pull --build-arg BUILD_TIMESTAMP=$(date -u +'%Y-%m-%dT%H:%M:%SZ') --build-arg COMMIT_ID="${TRAVIS_COMMIT}" -t "jsii/superchain:nightly" ./superchain
   # Building jsii itself within the Docker image
