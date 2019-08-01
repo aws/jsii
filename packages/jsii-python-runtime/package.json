@@ -1,7 +1,7 @@
 {
   "name": "jsii-python-runtime",
   "private": true,
-  "version": "0.14.2",
+  "version": "0.14.3",
   "description": "Python client for jsii runtime",
   "main": "index.js",
   "scripts": {
@@ -14,8 +14,8 @@
   "dependencies": {
     "jsii-build-tools": "file:../jsii-build-tools",
     "jsii-calc": "file:../jsii-calc",
-    "jsii-pacmak": "^0.14.2",
-    "jsii-runtime": "^0.14.2"
+    "jsii-pacmak": "^0.14.3",
+    "jsii-runtime": "^0.14.3"
   },
   "repository": {
     "type": "git",
