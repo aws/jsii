@@ -13,7 +13,7 @@ phases:
   post_build:
     commands:
       - "[ -f .BUILD_COMPLETED ] && /bin/bash ./pack.sh"
-      - git diff-index --exit-code --ignore-cr-at-eol --stat HEAD
+      - git diff-index --exit-code --ignore-space-at-eol --stat HEAD
 artifacts:
   files:
     - "**/*"

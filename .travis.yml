@@ -19,7 +19,7 @@ script:
   # Building jsii itself within the Docker image
   - docker run --rm -it --net=host -v ${PWD}:${PWD} -w ${PWD} jsii/superchain:nightly ./build.sh
   # Make sure the build did not change the source tree (git diff-index will return non-zero if that's the case)
-  - git diff-index --exit-code --ignore-cr-at-eol --stat HEAD
+  - git diff-index --exit-code --ignore-space-at-eol --stat HEAD
   # Publish the image to DockerHub when relevant
   - echo "TRAVIS_PULL_REQUEST = ${TRAVIS_PULL_REQUEST:-}"
   - echo "TRAVIS_TAG          = ${TRAVIS_TAG:-}"
