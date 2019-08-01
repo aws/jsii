@@ -7,7 +7,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// https://github.com/aws/jsii/issues/231
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(SingletonInt), fullyQualifiedName: "jsii-calc.SingletonInt")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.SingletonInt), fullyQualifiedName: "jsii-calc.SingletonInt")]
     public class SingletonInt : DeputyBase
     {
         protected SingletonInt(ByRefValue reference): base(reference)
@@ -18,11 +18,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: Experimental
+        /// </remarks>
         [JsiiMethod(name: "isSingletonInt", returnsJson: "{\"type\":{\"primitive\":\"boolean\"}}", parametersJson: "[{\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]
-        public virtual bool IsSingletonInt(double value)
+        public virtual bool IsSingletonInt(double @value)
         {
-            return InvokeInstanceMethod<bool>(new object[]{value});
+            return InvokeInstanceMethod<bool>(new object[]{@value});
         }
     }
 }

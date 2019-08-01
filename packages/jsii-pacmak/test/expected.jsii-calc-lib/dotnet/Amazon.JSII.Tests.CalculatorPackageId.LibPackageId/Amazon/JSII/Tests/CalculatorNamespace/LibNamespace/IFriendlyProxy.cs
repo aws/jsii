@@ -17,7 +17,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         }
 
         /// <summary>Say hello!</summary>
-        /// <remarks>stability: Deprecated</remarks>
+        /// <remarks>
+        /// stability: Deprecated
+        /// </remarks>
         [JsiiMethod(name: "hello", returnsJson: "{\"type\":{\"primitive\":\"string\"}}")]
         [System.Obsolete()]
         public string Hello()

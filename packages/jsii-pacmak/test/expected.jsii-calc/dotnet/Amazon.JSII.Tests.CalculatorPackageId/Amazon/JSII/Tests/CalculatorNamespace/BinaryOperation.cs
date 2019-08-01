@@ -3,14 +3,18 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>Represents an operation with two operands.</summary>
-    /// <remarks>stability: Experimental</remarks>
-    [JsiiClass(nativeType: typeof(BinaryOperation), fullyQualifiedName: "jsii-calc.BinaryOperation", parametersJson: "[{\"name\":\"lhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},{\"name\":\"rhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
+    /// <remarks>
+    /// stability: Experimental
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.BinaryOperation), fullyQualifiedName: "jsii-calc.BinaryOperation", parametersJson: "[{\"docs\":{\"summary\":\"Left-hand side operand.\"},\"name\":\"lhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},{\"docs\":{\"summary\":\"Right-hand side operand.\"},\"name\":\"rhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
     public abstract class BinaryOperation : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Operation, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IIFriendly
     {
         /// <summary>Creates a BinaryOperation.</summary>
         /// <param name = "lhs">Left-hand side operand.</param>
         /// <param name = "rhs">Right-hand side operand.</param>
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: Experimental
+        /// </remarks>
         protected BinaryOperation(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ lhs, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ rhs): base(new DeputyProps(new object[]{lhs, rhs}))
         {
         }
@@ -23,8 +27,20 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <summary>Say hello!</summary>
+        /// <remarks>
+        /// stability: Experimental
+        /// </remarks>
+        [JsiiMethod(name: "hello", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
+        public virtual string Hello()
+        {
+            return InvokeInstanceMethod<string>(new object[]{});
+        }
+
         /// <summary>Left-hand side operand.</summary>
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: Experimental
+        /// </remarks>
         [JsiiProperty(name: "lhs", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ Lhs
         {
@@ -32,19 +48,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         }
 
         /// <summary>Right-hand side operand.</summary>
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: Experimental
+        /// </remarks>
         [JsiiProperty(name: "rhs", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Value\"}")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_ Rhs
         {
             get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_>();
-        }
-
-        /// <summary>Say hello!</summary>
-        /// <remarks>stability: Experimental</remarks>
-        [JsiiMethod(name: "hello", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
-        public virtual string Hello()
-        {
-            return InvokeInstanceMethod<string>(new object[]{});
         }
     }
 }

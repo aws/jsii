@@ -2,12 +2,16 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <summary>Helps ensure the JSII kernel &amp; runtime cooperate correctly when an un-exported instance of a class is returned with a declared type that is an exported interface, and the instance inherits from an exported class.</summary>
+    /// <summary>Helps ensure the JSII kernel & runtime cooperate correctly when an un-exported instance of a class is returned with a declared type that is an exported interface, and the instance inherits from an exported class.</summary>
+    /// <returns>
+    /// an instance of an un-exported class that extends `ExportedBaseClass`, declared as `IPrivatelyImplemented`.
+    /// </returns>
     /// <remarks>
     /// stability: Experimental
-    /// https://github.com/aws/jsii/issues/320 
+    /// see:
+    /// https://github.com/aws/jsii/issues/320
     /// </remarks>
-    [JsiiClass(nativeType: typeof(ReturnsPrivateImplementationOfInterface), fullyQualifiedName: "jsii-calc.ReturnsPrivateImplementationOfInterface")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ReturnsPrivateImplementationOfInterface), fullyQualifiedName: "jsii-calc.ReturnsPrivateImplementationOfInterface")]
     public class ReturnsPrivateImplementationOfInterface : DeputyBase
     {
         public ReturnsPrivateImplementationOfInterface(): base(new DeputyProps(new object[]{}))
@@ -22,7 +26,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: Experimental
+        /// </remarks>
         [JsiiProperty(name: "privateImplementation", typeJson: "{\"fqn\":\"jsii-calc.IPrivatelyImplemented\"}")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.IIPrivatelyImplemented PrivateImplementation
         {

@@ -3,8 +3,10 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>jsii#284: do not recognize "any" as an optional argument.</summary>
-    /// <remarks>stability: Experimental</remarks>
-    [JsiiClass(nativeType: typeof(DoNotRecognizeAnyAsOptional), fullyQualifiedName: "jsii-calc.DoNotRecognizeAnyAsOptional")]
+    /// <remarks>
+    /// stability: Experimental
+    /// </remarks>
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DoNotRecognizeAnyAsOptional), fullyQualifiedName: "jsii-calc.DoNotRecognizeAnyAsOptional")]
     public class DoNotRecognizeAnyAsOptional : DeputyBase
     {
         public DoNotRecognizeAnyAsOptional(): base(new DeputyProps(new object[]{}))
@@ -19,11 +21,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <remarks>stability: Experimental</remarks>
-        [JsiiMethod(name: "method", parametersJson: "[{\"name\":\"_requiredAny\",\"type\":{\"primitive\":\"any\"}},{\"name\":\"_optionalAny\",\"type\":{\"primitive\":\"any\"},\"optional\":true},{\"name\":\"_optionalString\",\"type\":{\"primitive\":\"string\"},\"optional\":true}]")]
-        public virtual void Method(object _requiredAny, object _optionalAny, string _optionalString)
+        /// <remarks>
+        /// stability: Experimental
+        /// </remarks>
+        [JsiiMethod(name: "method", parametersJson: "[{\"name\":\"_requiredAny\",\"type\":{\"primitive\":\"any\"}},{\"name\":\"_optionalAny\",\"optional\":true,\"type\":{\"primitive\":\"any\"}},{\"name\":\"_optionalString\",\"optional\":true,\"type\":{\"primitive\":\"string\"}}]")]
+        public virtual void Method(object requiredAny, object optionalAny, string optionalString)
         {
-            InvokeInstanceVoidMethod(new object[]{_requiredAny, _optionalAny, _optionalString});
+            InvokeInstanceVoidMethod(new object[]{requiredAny, optionalAny, optionalString});
         }
     }
 }

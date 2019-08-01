@@ -2,18 +2,24 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>stability: Experimental</remarks>
+    /// <remarks>
+    /// stability: Experimental
+    /// </remarks>
     [JsiiInterface(nativeType: typeof(IIExtendsPrivateInterface), fullyQualifiedName: "jsii-calc.IExtendsPrivateInterface")]
     public interface IIExtendsPrivateInterface
     {
-        /// <remarks>stability: Experimental</remarks>
-        [JsiiProperty(name: "moreThings", typeJson: "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}}}")]
+        /// <remarks>
+        /// stability: Experimental
+        /// </remarks>
+        [JsiiProperty(name: "moreThings", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"string\"},\"kind\":\"array\"}}")]
         string[] MoreThings
         {
             get;
         }
 
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: Experimental
+        /// </remarks>
         [JsiiProperty(name: "private", typeJson: "{\"primitive\":\"string\"}")]
         string Private
         {

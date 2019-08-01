@@ -12,7 +12,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     [System.Obsolete()]
     public interface IIThreeLevelsInterface : Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.IIBaseInterface
     {
-        /// <remarks>stability: Deprecated</remarks>
+        /// <remarks>
+        /// stability: Deprecated
+        /// </remarks>
         [JsiiMethod(name: "baz")]
         [System.Obsolete()]
         void Baz();

@@ -9,7 +9,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// - Verify that `methodWasCalled` is `true`.
     /// stability: Experimental
     /// </remarks>
-    [JsiiClass(nativeType: typeof(VoidCallback), fullyQualifiedName: "jsii-calc.VoidCallback")]
+    [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.VoidCallback), fullyQualifiedName: "jsii-calc.VoidCallback")]
     public abstract class VoidCallback : DeputyBase
     {
         protected VoidCallback(): base(new DeputyProps(new object[]{}))
@@ -24,22 +24,29 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <remarks>stability: Experimental</remarks>
-        [JsiiProperty(name: "methodWasCalled", typeJson: "{\"primitive\":\"boolean\"}")]
-        public virtual bool MethodWasCalled
-        {
-            get => GetInstanceProperty<bool>();
-        }
-
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: Experimental
+        /// </remarks>
         [JsiiMethod(name: "callMe")]
         public virtual void CallMe()
         {
             InvokeInstanceVoidMethod(new object[]{});
         }
 
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: Experimental
+        /// </remarks>
         [JsiiMethod(name: "overrideMe")]
         protected abstract void OverrideMe();
+
+
+        /// <remarks>
+        /// stability: Experimental
+        /// </remarks>
+        [JsiiProperty(name: "methodWasCalled", typeJson: "{\"primitive\":\"boolean\"}")]
+        public virtual bool MethodWasCalled
+        {
+            get => GetInstanceProperty<bool>();
+        }
     }
 }

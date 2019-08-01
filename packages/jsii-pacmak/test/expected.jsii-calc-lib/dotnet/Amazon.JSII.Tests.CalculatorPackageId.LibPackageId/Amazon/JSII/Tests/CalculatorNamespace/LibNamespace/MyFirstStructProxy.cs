@@ -3,7 +3,9 @@ using Amazon.JSII.Runtime.Deputy;
 namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
 {
     /// <summary>This is the first struct we have created in jsii.</summary>
-    /// <remarks>stability: Deprecated</remarks>
+    /// <remarks>
+    /// stability: Deprecated
+    /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IMyFirstStruct), fullyQualifiedName: "@scope/jsii-calc-lib.MyFirstStruct")]
     [System.Obsolete()]
     internal sealed class MyFirstStructProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IMyFirstStruct
@@ -13,7 +15,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         }
 
         /// <summary>An awesome number value.</summary>
-        /// <remarks>stability: Deprecated</remarks>
+        /// <remarks>
+        /// stability: Deprecated
+        /// </remarks>
         [JsiiProperty(name: "anumber", typeJson: "{\"primitive\":\"number\"}")]
         [System.Obsolete()]
         public double Anumber
@@ -22,7 +26,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         }
 
         /// <summary>A string value.</summary>
-        /// <remarks>stability: Deprecated</remarks>
+        /// <remarks>
+        /// stability: Deprecated
+        /// </remarks>
         [JsiiProperty(name: "astring", typeJson: "{\"primitive\":\"string\"}")]
         [System.Obsolete()]
         public string Astring
@@ -30,8 +36,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
             get => GetInstanceProperty<string>();
         }
 
-        /// <remarks>stability: Deprecated</remarks>
-        [JsiiProperty(name: "firstOptional", typeJson: "{\"collection\":{\"kind\":\"array\",\"elementtype\":{\"primitive\":\"string\"}}}", isOptional: true)]
+        /// <remarks>
+        /// stability: Deprecated
+        /// </remarks>
+        [JsiiProperty(name: "firstOptional", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"string\"},\"kind\":\"array\"}}", isOptional: true)]
         [System.Obsolete()]
         public string[] FirstOptional
         {

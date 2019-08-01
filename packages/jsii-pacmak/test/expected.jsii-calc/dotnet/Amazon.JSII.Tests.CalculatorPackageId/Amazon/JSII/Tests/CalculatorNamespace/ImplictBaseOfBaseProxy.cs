@@ -1,9 +1,10 @@
 using Amazon.JSII.Runtime.Deputy;
-using System;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace
 {
-    /// <remarks>stability: Experimental</remarks>
+    /// <remarks>
+    /// stability: Experimental
+    /// </remarks>
     [JsiiTypeProxy(nativeType: typeof(IImplictBaseOfBase), fullyQualifiedName: "jsii-calc.ImplictBaseOfBase")]
     internal sealed class ImplictBaseOfBaseProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IImplictBaseOfBase
     {
@@ -11,11 +12,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
-        /// <remarks>stability: Experimental</remarks>
+        /// <remarks>
+        /// stability: Experimental
+        /// </remarks>
         [JsiiProperty(name: "goo", typeJson: "{\"primitive\":\"date\"}")]
-        public DateTime Goo
+        public System.DateTime Goo
         {
-            get => GetInstanceProperty<DateTime>();
+            get => GetInstanceProperty<System.DateTime>();
         }
 
         [JsiiProperty(name: "bar", typeJson: "{\"primitive\":\"string\"}")]
