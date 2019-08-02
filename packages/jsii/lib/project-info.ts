@@ -118,7 +118,7 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
         stability: _validateStability(pkg.stability, pkg.deprecated),
         author: _toPerson(_required(pkg.author, 'The "package.json" file must specify the "author" attribute'), 'author'),
         repository: {
-            url: _required(pkg.repository.url, 'The "package.json" file must specify the "repository.url" attribute'),
+            url: _required(pkg.repository && pkg.repository.url, 'The "package.json" file must specify the "repository.url" attribute'),
             type: pkg.repository.type || _guessRepositoryType(pkg.repository.url),
             directory: pkg.repository.directory,
         },
