@@ -210,6 +210,9 @@ function _required<T>(value: T, message: string): T {
 }
 
 function _toPerson(value: any, field: string, defaultRole: string = field): spec.Person {
+    if (typeof value === 'string') {
+        value = { name: value };
+    }
     return {
         name: _required(value.name, `The "package.json" file must specify the "${field}.name" attribute`),
         roles: value.roles ? [...new Set(value.roles as string[])] : [defaultRole],

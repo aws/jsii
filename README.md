@@ -1,85 +1,113 @@
-# jsii
+# `jsii` - Javascript Interoperable Interface
 
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=aws/jsii)](https://dependabot.com)
+![Build Status](https://img.shields.io/travis/aws/jsii?label=Travis-CI)
 ![Build Status](https://codebuild.us-east-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiOThRRFVsVlRBTEhocVZOckE0bFlFWEtwNU0xUmtNUlRRclY0R2VYTGJaOXRlaVdaVnREV2lhVGtDUzQzUDRMMCtuYWpSTWo4N1FGTEV5Zm9yZ0dEb2dBPSIsIml2UGFyYW1ldGVyU3BlYyI6InFVbktYSlpDem1YN1JCeU8iLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)
 [![npm](https://img.shields.io/npm/v/jsii)](https://www.npmjs.com/package/jsii)
+[![docker](https://img.shields.io/badge/docker-jsii%2Fsuperchain-brightgreen)](https://hub.docker.com/r/jsii/superchain)
 
-__jsii__ allows code in any language to naturally interact with JavaScript classes.
+## Overview
 
-For example, consider the following TypeScript class:
+`jsii` allows code in any language to naturally interact with JavaScript
+classes. It is the technology that enables the [AWS Cloud Development Kit][cdk]
+to deliver polyglot libraries from a single codebase!
+
+> NOTE: Due to performance of the hosted JavaScript engine and marshaling costs,
+> `jsii` modules are best suited for development and build tools, as opposed to
+> performance-sensitive application.
+
+[cdk]: https://github.com/aws/aws-cdk
+
+### An example is worth a thousand words
+
+Consider the following TypeScript class:
 
 ```ts
 export class HelloJsii {
-    public sayHello(name: string) {
-        return `Hello, ${name}!`
-    }
+  public sayHello(name: string) {
+    return `Hello, ${name}!`
+  }
 }
 ```
 
-By compiling our source module using __jsii__, we can now package it as modules
+By compiling our source module using `jsii`, we can now package it as modules
 in one of the supported target languages. Each target module has the exact same
 API as the source. This allows users of that target language to use `HelloJsii`
-like any other class.
+like any other class:
 
-> NOTE: Due to performance of the hosted JavaScript engine and marshaling costs,
-__jsii__ modules are likely to be used for development and build tools, as
-opposed to performance-sensitive runtime behavior.
-
-From Java:
-
-```java
-HelloJsii hello = new HelloJsii();
-hello.sayHello("World"); // => Hello, World!
-```
-
-From .NET:
-
-```csharp
-var hello = new HelloJsii();
-hello.SayHello("World"); // => Hello, World!
-```
-
-From Python (WIP):
-
-```python
-hello = HelloJsii()
-hello.say_hello("World"); # => Hello, World!
-```
-
-From Ruby (WIP):
-
-```ruby
-hello = HelloJsii.new
-hello.say_hello 'World' # => Hello, World!
-```
+- In Python:
+  ```python
+  hello = HelloJsii()
+  hello.say_hello("World"); # => Hello, World!
+  ```
+- In Java
+  ```java
+  final HelloJsii hello = new HelloJsii();
+  hello.sayHello("World"); // => Hello, World!
+  ```
+- In C#
+  ```csharp
+  var hello = new HelloJsii();
+  hello.SayHello("World"); // => Hello, World!
+  ```
+- ... and more to come!
 
 [Here's](#what-kind-of-sorcery-is-this) how it works.
 
 ## Getting Started
 
-Let's create our first jsii TypeScript module!
+Let's create our first jsii TypeScript module (actual outputs may slightly
+differ):
 
 ```console
+$ mkdir hello-jsii
+$ cd hello-jsii
 $ npm init -y
+Wrote to /tmp/hello-jsii/package.json:
+
+{
+  "name": "hello-jsii",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
 $ npm i --save-dev jsii jsii-pacmak
+npm notice created a lockfile as package-lock.json. You should commit this file.
+npm WARN hello-jsii@1.0.0 No description
+npm WARN hello-jsii@1.0.0 No repository field.
+
++ jsii-pacmak@0.14.3
++ jsii@0.14.3
+added 65 packages from 54 contributors and audited 191 packages in 7.922s
+found 0 vulnerabilities
 ```
 
-Edit your `package.json`:
+Edit the `package.json` file:
 
 ```js
+/// package.json
 {
   // ...
-
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "jsii",
-    "watch": "jsii -w",
-    "package": "jsii-pacmak -v"
+    "build:watch": "jsii -w",
+    "package": "jsii-pacmak"
   },
   "jsii": {
     "outdir": "dist",
     "targets": {
+      "python": {
+        "distName": "acme.hello-jsii",
+        "module": "acme.hello_jsii"
+      },
       "java": {
         "package": "com.acme.hello",
         "maven": {
@@ -90,29 +118,49 @@ Edit your `package.json`:
       "dotnet": {
         "namespace": "Acme.HelloNamespace",
         "packageId": "Acme.HelloPackage"
-      },
-      "sphinx": { }
+      }
     }
+  },
+  "author": {
+    "name": "John Doe"
+  },
+  "repository": {
+    "url": "https://github.com/acme/hello-jsii.git"
   }
+  // ...
 }
 ```
 
 So, what's going on here?
 
-* The `jsii` section in your `package.json` is the [jsii configuration](#configuration) for your module.
-  It tells jsii which target languages to package, and includes additional required information for the
-  jsii packager.
-* `npm run build` uses `jsii` to compile your code. It invokes the TypeScript compiler (`tsc`) and will compile
-  your .ts files into .js files.
-* `npm run watch` will invoke `tsc -w` which will monitor your filesystem for changes and recompile
-   your .ts files to .js (note that jsii errors will not be reported in this mode)
-* `npm run package` invokes `jsii-pacmak`, which is the __jsii packager__. It will generate _and compile_ your
-   package to all target languages. The output packages will be emitted to `outdir` (in the above case `dist`).
-* Other required `package.json` fields: `license`, `main`, `types`.
+* The following standard `package.json` fields are required by `jsii`:
+  + `author` must be set
+  + `license` must be set to a valid [SPDX] license identifier
+  + `main` is the Javascript entry point of your library
+  + `repository` must be set with at least the `url` field
+  + `types` is the TypeScript definition file for your library - it is required
+    to be the definition file corresponding to the `main` file.
+* The `jsii` section in your `package.json` is the
+  [jsii configuration](#configuration) for your module. It tells jsii which
+  target languages to package, and includes additional required information for
+  the jsii packager.
+* `npm run build` uses `jsii` to compile your code. It invokes the TypeScript
+  compiler (`tsc`) and will compile your `.ts` files into `.js` files. A JSII
+  assembly file (`.jsii`) describing your package's API will be emitted.
+* `npm run build:watch` will invoke `jsii -w` which will monitor your filesystem
+  for changes and recompile your `.ts` files to `.js`, and update the `.jsii`
+  assembly file.
+* `npm run package` invokes `jsii-pacmak`, which is the __jsii packager__. It
+  will generate _and compile_ your package in all target languages. The output
+  artifacts will be emitted in sub-directories of the configured `outdir` (in
+  the above case, under `dist`).
+
+[SPDX]: https://spdx.org/licenses/
 
 Okay, we are ready to write some code. Create a `lib/index.ts` file:
 
 ```ts
+/// lib/index.ts
 export class HelloJsii {
   public sayHello(name: string) {
     return `Hello, ${name}!`;
@@ -126,17 +174,29 @@ Build your module:
 $ npm run build
 ```
 
-If build succeeds, you will see the resulting .js file (`lib/index.js`) produced by the
-TypeScript compiler.
+If build succeeds, you will see the resulting `lib/index.js` and
+`lib/index.d.ts` files were produced, as well as the `.jsii` file (contents may
+vary):
 
-You should also see a `.jsii` file in the root:
-
-```json
+```js
+/// .jsii
 {
-  "fingerprint": "HB39Oy4HWtsnwdRnAFYl+qlmy8Z2tmaGM2KDDe9/hHo=",
-  "license": "Apache-2.0",
+  "author": {
+    "name": "John Doe",
+    "roles": [
+      "author"
+    ]
+  },
+  "description": "hello-jsii",
+  "homepage": "https://github.com/acme/hello-jsii.git",
+  "jsiiVersion": "0.14.3 (build 1b1062d)",
+  "license": "ISC",
   "name": "hello-jsii",
-  "schema": "jsii/1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/acme/hello-jsii.git"
+  },
+  "schema": "jsii/0.10.0",
   "targets": {
     "dotnet": {
       "namespace": "Acme.HelloNamespace",
@@ -151,18 +211,28 @@ You should also see a `.jsii` file in the root:
     },
     "js": {
       "npm": "hello-jsii"
+    },
+    "python": {
+      "distName": "acme.hello-jsii",
+      "module": "acme.hello_jsii"
     }
   },
   "types": {
     "hello-jsii.HelloJsii": {
       "assembly": "hello-jsii",
       "fqn": "hello-jsii.HelloJsii",
-      "initializer": {
-        "initializer": true
-      },
+      "initializer": {},
       "kind": "class",
+      "locationInModule": {
+        "filename": "lib/index.ts",
+        "line": 1
+      },
       "methods": [
         {
+          "locationInModule": {
+            "filename": "lib/index.ts",
+            "line": 2
+          },
           "name": "sayHello",
           "parameters": [
             {
@@ -173,34 +243,43 @@ You should also see a `.jsii` file in the root:
             }
           ],
           "returns": {
-            "primitive": "string"
+            "type": {
+              "primitive": "string"
+            }
           }
         }
       ],
-      "name": "HelloJsii",
-      "namespace": "hello-jsii"
+      "name": "HelloJsii"
     }
   },
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "fingerprint": "XYWYOiOupH4MmIjFj84wTSRfWqSw8hW37vHkVMO7iuY="
 }
 ```
 
-This file includes all the information needed in order to package your module into every
-jsii-supported language. It contains the module metadata from `package.json` and a full declaration
-of your module's public API.
+This file includes all the information needed in order to package your module
+into every `jsii`-supported language. It contains the module metadata from
+`package.json` and a full declaration of your module's public API.
 
 Okay, now the magic happens:
 
 ```console
 $ npm run package
-[jsii-pacmak] [INFO] Building hello-jsii (java,dotnet,sphinx,npm) into dist
+
+> hello-jsii@1.0.0 package /Users/rmuller/Development/Demos/hello-jsii
+> jsii-pacmak -v
+
+[jsii-pacmak] [INFO] Building hello-jsii (python,java,dotnet,js) into dist
+[jsii-pacmak] [INFO] Packaged. java (4.3s) | dotnet (2.0s) | python (0.9s) | npm pack (0.5s) | js (0.0s)
 ```
 
 Now, if you check out the contents of `dist`, you'll find:
 
 ```
+dist
 ├── dotnet
-│   └── Acme.Hello.nupkg
+│   ├── Acme.HelloPackage.1.0.0.nupkg
+│   └── Acme.HelloPackage.1.0.0.symbols.nupkg
 ├── java
 │   └── com
 │       └── acme
@@ -224,13 +303,14 @@ Now, if you check out the contents of `dist`, you'll find:
 │                   └── maven-metadata.xml.sha1
 ├── js
 │   └── hello-jsii@1.0.0.jsii.tgz
-└── sphinx
-    └── hello-jsii.rst
+└── python
+    ├── acme.hello-jsii-1.0.0.tar.gz
+    └── acme.hello_jsii-1.0.0-py3-none-any.whl
 ```
 
-These files are ready-to-publish artifacts for each target language. You can
-see the npm tarball under `js`, the Maven repo under `java`, the Sphinx .rst file
-under `sphinx`, etc.
+These files are ready-to-publish artifacts for each target language. You can see
+the npm tarball under `js`, the `python` package under `python`, the Maven repo
+under `java`, etc...
 
 That's it. You are ready to rock!
 
