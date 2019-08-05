@@ -1115,15 +1115,9 @@ class Package {
         for (const depName of Object.keys(expectedDeps)) {
             const depInfo = expectedDeps[depName];
             // We need to figure out what our version range is.
-            // Basically, if it starts with Zero we want to restrict things to
-            // ~=X.Y.Z. If it does not start with zero, then we want to do ~=X.Y,>=X.Y.Z.
+            // If the version is X.Y.Z, we want to allow any compatible version X.Y.n
             const versionParts = depInfo.version.split(".");
-            let versionSpecifier: string;
-            if (versionParts[0] === "0") {
-                versionSpecifier = `~=${versionParts.slice(0, 3).join(".")}`;
-            } else {
-                versionSpecifier = `~=${versionParts.slice(0, 2).join(".")},>=${versionParts.slice(0, 3).join(".")}`;
-            }
+            const versionSpecifier = `~=${versionParts.slice(0, 3).join(".")}`;
 
             dependencies.push(`${depInfo.targets!.python!.distName}${versionSpecifier}`);
         }
