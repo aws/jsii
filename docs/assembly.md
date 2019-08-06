@@ -82,11 +82,22 @@ Attribute    | Type        | Description
 
 #### Structures (a.k.a. Data Types)
 
+*Structures* (or *Data Types*) are immutable, data-only interfaces:
+* They declare no methods
+* All [properties] they declare are `readonly`
+* They can only implement other *structures*
+* They cannot be extended by interfaces that are not *structures*
+* They cannot be implemented by *classes*
+
+Since those are immutable, pure data objects, the `jsii-runtime` exchanges
+instances of those *by value*, instead of *by reference*, allowing to save
+cross-language communication overhead when working with the data.
+
 Attribute    | Type        | Description
 -------------|-------------|----------------------------------------------------
 `kind`       |`'inteface'` |Discriminator to identify interfaces
-`assembly`   |`string`     |The name of the assembly this structure is a part of
 `datatype`   |`true`       |Indicates a *structure* / *data type* declaration
+`assembly`   |`string`     |The name of the assembly this structure is a part of
 `fqn`        |`string`     |The fully-qualified name of the structure
 `interfaces` |`string[]`   |The fully-qualified names of *structures* extended by this *structure*
 `name`       |`string`     |The simple name of the structure
