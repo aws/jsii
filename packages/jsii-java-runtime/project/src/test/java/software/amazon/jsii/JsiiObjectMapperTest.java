@@ -4,12 +4,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.time.Instant;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.Charsets;
-import com.google.common.io.Resources;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,18 +41,21 @@ public final class JsiiObjectMapperTest {
 
     when((TestEnum) jsiiEngine.findEnumValue("module.Enum#value")).thenReturn(TestEnum.DUMMY);
 
-    final String json =
-        Resources.toString(Resources.getResource(this.getClass(), "complex-callback.json"), Charsets.UTF_8);
-    final TestCallback callback = subject.treeToValue(subject.readTree(json), TestCallback.class);
+    try (final InputStream stream = this.getClass().getResourceAsStream("complex-callback.json");
+         final InputStreamReader reader = new InputStreamReader(stream, Charset.forName("UTF-8"));
+         final BufferedReader buffered = new BufferedReader(reader)) {
+      final String json = buffered.lines().collect(Collectors.joining("\n"));
+      final TestCallback callback = subject.treeToValue(subject.readTree(json), TestCallback.class);
 
-    assertEquals("CallbackID", callback.getCbid());
-    assertNotNull(callback.getInvoke());
-    if (callback.getCbid() != null) {
-      assertEquals("methodName", callback.getInvoke().getMethod());
-      assertEquals(1337, callback.getInvoke().getArgs().get(0));
-      assertEquals(mockObject1, callback.getInvoke().getArgs().get(1));
-      assertEquals(Instant.ofEpochMilli(1553624863569L), callback.getInvoke().getArgs().get(2));
-      assertEquals(TestEnum.DUMMY, callback.getInvoke().getArgs().get(3));
+      assertEquals("CallbackID", callback.getCbid());
+      assertNotNull(callback.getInvoke());
+      if (callback.getCbid() != null) {
+        assertEquals("methodName", callback.getInvoke().getMethod());
+        assertEquals(1337, callback.getInvoke().getArgs().get(0));
+        assertEquals(mockObject1, callback.getInvoke().getArgs().get(1));
+        assertEquals(Instant.ofEpochMilli(1553624863569L), callback.getInvoke().getArgs().get(2));
+        assertEquals(TestEnum.DUMMY, callback.getInvoke().getArgs().get(3));
+      }
     }
   }
 

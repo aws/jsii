@@ -8,8 +8,9 @@ import software.amazon.jsii.api.SetRequest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.google.common.base.Throwables;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -388,7 +389,11 @@ public final class JsiiEngine implements JsiiCallbackHandler {
             try {
                 return method.invoke(obj, args);
             } catch (Exception e) {
-                this.log("Error while invoking %s with %s: %s", method, Arrays.toString(args), Throwables.getStackTraceAsString(e));
+                final StringWriter sw = new StringWriter();
+                try (final PrintWriter pw = new PrintWriter(sw)) {
+                    e.printStackTrace(pw);
+                }
+                this.log("Error while invoking %s with %s: %s", method, Arrays.toString(args), sw.toString());
                 throw e;
             }
         } catch (InvocationTargetException e) {
