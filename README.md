@@ -1,4 +1,4 @@
-# `jsii` - Javascript Interoperable Interface
+# `jsii`
 
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=aws/jsii)](https://dependabot.com)
 ![Build Status](https://img.shields.io/travis/aws/jsii?label=Travis-CI)
@@ -12,15 +12,19 @@
 classes. It is the technology that enables the [AWS Cloud Development Kit][cdk]
 to deliver polyglot libraries from a single codebase!
 
-> NOTE: Due to performance of the hosted JavaScript engine and marshaling costs,
-> `jsii` modules are best suited for development and build tools, as opposed to
-> performance-sensitive application.
-
 [cdk]: https://github.com/aws/aws-cdk
+
+A class library written in **TypeScript** can be used in projects authored in
+**TypeScript** or **Javascript** (as usual), but allso in **Python**, **Java**,
+**C#** (and other languages from the *.NET* family), ...
+
+> NOTE: Due to performance of the hosted **Javascript** engine and marshaling
+> costs, `jsii` modules are best suited for development and build tools, as
+> opposed to performance-sensitive or resource-constrained applications.
 
 ### An example is worth a thousand words
 
-Consider the following TypeScript class:
+Consider the following **TypeScript** class:
 
 ```ts
 export class HelloJsii {
@@ -35,17 +39,17 @@ in one of the supported target languages. Each target module has the exact same
 API as the source. This allows users of that target language to use `HelloJsii`
 like any other class:
 
-- In Python:
+- In **Python**:
   ```python
   hello = HelloJsii()
   hello.say_hello("World"); # => Hello, World!
   ```
-- In Java
+- In **Java**
   ```java
   final HelloJsii hello = new HelloJsii();
   hello.sayHello("World"); // => Hello, World!
   ```
-- In C#
+- In **C#**
   ```csharp
   var hello = new HelloJsii();
   hello.SayHello("World"); // => Hello, World!
@@ -316,150 +320,20 @@ That's it. You are ready to rock!
 
 ## Features
 
-### Language features
-
- * Classes
- * Inheritance
- * Constructors
- * Methods
- * Properties
- * Abstract Members
- * Virtual Overrides
- * Async Methods
- * Variadic Arguments
- * Static Methods and Properties
- * Static Constants
- * Abstract Classes
- * Interfaces
- * Enums
- * Primitive Types: string, number, boolean, date, json, any
- * Collection Types: arrays, maps
- * Union Types (limited support)
- * Module Dependencies
- * Data Interfaces
-
 ### Source Languages
 
- * TypeScript
+* __TypeScript__
 
 ### Target Languages
 
- * __Java__ - generates a ready-to-publish Maven package.
- * __.NET__ - generates a ready-to-publish NuGet package.
- * __Sphinx__ - generates a Sphinx reStructuredText document for the module with README and reference docs.
- * __Python__ (work in progress) - generates a ready-to-publish PyPI package.
- * __Ruby__ (work in progress) - generates a ready-to-publish RubyGem.
+* __Javascript__ - generates an NPM package implicitly (no configuration
+  required).
+* __Python__ - generates a ready-to-publish PyPI package.
+* __Java__ - generates a ready-to-publish Maven package.
+* __.NET__ - generates a ready-to-publish NuGet package.
 
-
-## Targets
-
-jsii configuration is read from the `jsii` section in the module's
-`package.json` and includes the following options:
-
- * `targets` - the list of target languages this module will be packaged for. For each
-   target, you would need to specify some naming information such as namespaces, package manager
-   coordinates, etc. See [supported targets](#targets) for details.
- * `outdir` - the default output directory (relative to package root) for
-   __jsii-pacmak__. This is where target artifacts are emitted during packaging.
-   Each artifact will be emitted under `<outdir>/<target>` (e.g. `dist/java`,
-   `dist/js`, etc). Conventionally we use `"dist"` for outdir.
- * `tsc` - this section allows to adjust the compiler options of the generated `tsconfig.json`.
-    Currently you can set `outDir` and `rootDir`. Setting `rootDir` automatically adjusts the `include` config.
-
-### Java
-
-The `java` target will produce a ready-to-deploy Maven package for your jsii module.
-
-The `$outdir/java` directory will include the contents of a staged offline Maven
-repository. javadocs and sources are included automatically in the Maven package
-
-This repository can be published to [Maven Central](https://search.maven.org/)
-via the `deploy-staged-repository` command of the
-[nexus-staging-maven-plugin](https://mvnrepository.com/artifact/org.sonatype.plugins/nexus-staging-maven-plugin).
-See [Sonatype
-documentation](https://mvnrepository.com/artifact/org.sonatype.plugins/nexus-staging-maven-plugin)
-and [this gist](https://gist.github.com/eladb/9caa04253b268e8a8f3d658184202806)
-as a reference.
-
-To package your jsii module for Java, add the following configuration to the `jsii`
-section in `package.json`:
-
-```json
-{
-  "java": {
-    "package": "com.acme.hello",
-    "maven": {
-      "groupId": "com.acme.hello",
-      "artifactId": "hello-jsii"
-    }
-  }
-}
-```
-
-### .NET
-
-The `dotnet` target will produce a ready-to-publish NuGet package for your module.
-
-The `$outdir/dotnet` directory will include `.nupkg` files, which can
-be [published to NuGet](https://docs.microsoft.com/en-us/nuget/create-packages/publish-a-package).
-
-To package your jsii module as for .NET, add this configuration to the `jsii`
-section in `package.json`:
-
-```js
-{
-  "dotnet": {
-    "namespace": "Acme.HelloNamespace", // required
-    "packageId": "Acme.HelloPackage",   // required
-    "title": "ACME Hello",              // optional (default: packageId)
-    "iconUrl": "path/to/icon.svg",      // optional (default: no icon)
-
-    // strong-name signing
-    "signAssembly": true,                          // optional (default: false)
-    "assemblyOriginatorKeyFile": "path/to/key.snk" // optional
-  }
-}
-```
-
-### Sphinx
-
-The sphinx target emits a [Sphinx](http://www.sphinx-doc.org/en/master/)
-documentation topic for the module, that can be used to build a Sphinx
-documentation website. It's not a complete website.
-
-
-The `$outdir/sphinx` directory will include two files:
-
- * `<module-name>.rst` - the Sphinx topic entry point
- * `<module-name>.README.md` (optional) - the module's README.md file (if exists)
-
-The `.rst` file will use [m2r](https://github.com/miyakogi/m2r) to
-[`mdinclude`](https://miyakogi.github.io/m2r/example.html#include-markdown-file)
-the README.md file into the topic.
-
-NOTE: if the first line of your `README.md` file starts with `# ` (an H1
-header), the contents of this line will be used as the first header of the
-topic. Otherwise, the module's name will be used.
-
-You will need to build a Sphinx documentation website with this `.rst` included.
-
-To package your jsii module as a Sphinx topic, add an empty object to the
-`jsii` section in `package.json` under the `sphinx` key:
-
-```json
-{
-  "sphinx": { }
-}
-```
-
-### JavaScript
-
-An implicit JavaScript target will always be created. No configuration is needed.
-
-The `$outdir/js` directory will include that npm tarball of the module (created
-with [`npm pack`](https://docs.npmjs.com/cli/pack)).
-
-Tarballs can be published to npmjs.org using [`npm publish`](https://docs.npmjs.com/cli/publish)
+See the [configuration](./docs/configuration.md) documentation for more
+information on configuring the various targets.
 
 ## What kind of sorcery is this?
 

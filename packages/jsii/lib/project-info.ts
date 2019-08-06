@@ -3,6 +3,7 @@ import spec = require('jsii-spec');
 import log4js = require('log4js');
 import path = require('path');
 import semver = require('semver');
+import { parsePerson, parseRepository } from './utils';
 
 // tslint:disable:no-var-requires Modules without TypeScript definitions
 const spdx: Set<string> = require('spdx-license-list/simple');
@@ -117,11 +118,7 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
         deprecated: pkg.deprecated,
         stability: _validateStability(pkg.stability, pkg.deprecated),
         author: _toPerson(_required(pkg.author, 'The "package.json" file must specify the "author" attribute'), 'author'),
-        repository: {
-            url: _required(pkg.repository && pkg.repository.url, 'The "package.json" file must specify the "repository.url" attribute'),
-            type: pkg.repository.type || _guessRepositoryType(pkg.repository.url),
-            directory: pkg.repository.directory,
-        },
+        repository: _toRepository(_required(pkg.repository, 'The "package.json" file must specify the "repository" attribute')),
         license: _validateLicense(pkg.license),
 
         main: _required(pkg.main, 'The "package.json" file must specify the "main" attribute'),
@@ -211,7 +208,7 @@ function _required<T>(value: T, message: string): T {
 
 function _toPerson(value: any, field: string, defaultRole: string = field): spec.Person {
     if (typeof value === 'string') {
-        value = { name: value };
+        value = parsePerson(value);
     }
     return {
         name: _required(value.name, `The "package.json" file must specify the "${field}.name" attribute`),
@@ -219,6 +216,17 @@ function _toPerson(value: any, field: string, defaultRole: string = field): spec
         email: value.email,
         url: value.url,
         organization: value.organization ? value.organization : undefined
+    };
+}
+
+function _toRepository(value: any): { type: string, url: string, directory?: string } {
+    if (typeof value === 'string') {
+        value = parseRepository(value);
+    }
+    return {
+        url: _required(value.url, 'The "package.json" file must specify the "repository.url" attribute'),
+        type: value.type || _guessRepositoryType(value.url),
+        directory: value.directory,
     };
 }
 
