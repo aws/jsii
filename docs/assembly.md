@@ -128,6 +128,13 @@ Attribute    | Type         | Description
 
 #### Constructors
 
+Attribute    | Type         | Description
+-------------|--------------|---------------------------------------------------
+`overrides`  |`string`      |The fully-qualified name of the class/interface that declares the overridden constructor
+`parameters` |`Parameter[]` |Parameters of this constructor
+`protected`  |`boolean`     |Whether this constructor is protected
+`variadic`   |`boolean`     |Whether the last parameter is `variadic`
+
 #### Enum Members
 
 Attribute    | Type         | Description
@@ -136,4 +143,28 @@ Attribute    | Type         | Description
 
 #### Methods
 
+Attribute    | Type          | Description
+-------------|---------------|--------------------------------------------------
+`abstract`   |`boolean`      |Whether this method is `abstract`
+`async`      |`boolean`      |Whethert his method is asyncrhonous
+`name`       |`string`       |The name of the method
+`overrides`  |`string`       |The fully-qualified name of the class/interface that declares the overridden method
+`parameters` |`Parameter[]`  |Parameters of this method
+`protected`  |`boolean`      |Whether this method is protected
+`returns`    |`OptionalValue`|The return type of the method
+`static`     |`boolean`      |Whether this method is `static`
+`variadic`   |`boolean`      |Whether the last parameter is `variadic`
+
 #### Properties
+
+Attribute    | Type          | Description
+-------------|---------------|--------------------------------------------------
+`abstract`   |`boolean`      |Whether this property is `abstract`
+`const`      |`boolean`      |Whether this property is a constant (implies `static` and `immutable`)
+`immutable`  |`boolean`      |Whethert his property is immutable
+`name`       |`string`       |The name of the property
+`optional`   |`boolean`      |Whether this property is optional
+`overrides`  |`string`       |The fully-qualified name of the class/interface that declares the overridden property
+`protected`  |`boolean`      |Whether this constructor is protected
+`static`     |`boolean`      |Whether this property is `static`
+`type`       |`TypeReference`|The type of the property
