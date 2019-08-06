@@ -229,9 +229,6 @@ export class DotNetGenerator extends Generator {
         this.code.openBlock(`public${inner}${absPrefix} class ${className}${implementsExpr}`);
 
         // Compute the class parameters
-        // TODO: add the support for optional parameters
-        // Not achievable as of today and not supported by the current generator
-        // https://github.com/awslabs/jsii/issues/210
         let parametersDefinition = '';
         let parametersBase = '';
         const initializer = cls.initializer;
@@ -240,13 +237,24 @@ export class DotNetGenerator extends Generator {
             this.dotnetRuntimeGenerator.emitDeprecatedAttributeIfNecessary(initializer);
             if (initializer.parameters) {
                 for (const p of initializer.parameters) {
-                    const pType = this.typeresolver.toDotNetType(p.type);
-                    const isOptionalPrimitive = this.isOptionalPrimitive(p) ? '?' : '';
+                    let type = this.typeresolver.toDotNetType(p.type);
+                    let optionalPrimitive = '';
+                    let optionalKeyword = '';
+                    if (p.optional) {
+                        if (this.isOptionalPrimitive(p)) {
+                            optionalPrimitive = '?';
+                            optionalKeyword = ' = null';
+                        } else {
+                            optionalKeyword = ' = null';
+                        }
+                    } else if (p.variadic) {
+                        type = `params ${type}[]`;
+                    }
                     if (parametersDefinition !== '') {
                         parametersDefinition += ', ';
                         parametersBase += ', ';
                     }
-                    parametersDefinition += `${pType}${isOptionalPrimitive} ${this.nameutils.convertParameterName(p.name)}`;
+                    parametersDefinition += `${type}${optionalPrimitive} ${this.nameutils.convertParameterName(p.name)}${optionalKeyword}`;
                     parametersBase += `${this.nameutils.convertParameterName(p.name)}`;
 
                 }
@@ -443,18 +451,26 @@ export class DotNetGenerator extends Generator {
         }
     }
 
-    // TODO: I uncovered an issue with optional parameters and ordering them
-    // They are currently not supported by the generator.
-    // In C#, optional parameters need to be declared after required parameters
-    // We could make changes to the parameters ordering in the jsii model to support them
-    // But then an optional parameter becoming non optional would create a mess
-    // https://github.com/awslabs/jsii/issues/210
     private renderMethodParameters(method: spec.Method): string {
         const params = [];
         if (method.parameters) {
             for (const p of method.parameters) {
-                const isOptionalPrimitive = this.isOptionalPrimitive(p) ? '?' : '';
-                const st = `${this.typeresolver.toDotNetType(p.type)}${isOptionalPrimitive} ${this.nameutils.convertParameterName(p.name)}`;
+                let optionalPrimitive = '';
+                let optionalKeyword = '';
+                let type = this.typeresolver.toDotNetType(p.type);
+                if (p.optional) {
+                    if (this.isOptionalPrimitive(p)) {
+                        optionalPrimitive = '?';
+                        optionalKeyword = ' = null';
+                    } else {
+                        optionalKeyword = ' = null';
+                    }
+                }
+                if (p.variadic) {
+                    type = `params ${type}[]`;
+                }
+                const st =
+                    `${type}${optionalPrimitive} ${this.nameutils.convertParameterName(p.name)}${optionalKeyword}`;
                 params.push(st);
             }
         }
@@ -637,7 +653,6 @@ export class DotNetGenerator extends Generator {
         let isVirtualKeyWord = '';
         // If the prop parent is a class
         if (cls.kind === spec.TypeKind.Class) {
-
             const implementedInBase = this.isMemberDefinedOnAncestor(cls as spec.ClassType, prop);
             if (implementedInBase || datatype || proxy) {
                 // Override if the property is in a datatype or proxy class or declared in a parent class
