@@ -455,14 +455,12 @@ export class DotNetGenerator extends Generator {
                 let optionalKeyword = '';
                 let type = this.typeresolver.toDotNetType(p.type);
                 if (p.optional) {
+                    optionalKeyword = ' = null';
                     if (this.isOptionalPrimitive(p)) {
                         optionalPrimitive = '?';
-                        optionalKeyword = ' = null';
-                    } else {
-                        optionalKeyword = ' = null';
+
                     }
-                }
-                if (p.variadic) {
+                } else if (p.variadic) {
                     type = `params ${type}[]`;
                 }
                 const st =
