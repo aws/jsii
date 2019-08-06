@@ -236,27 +236,13 @@ export class DotNetGenerator extends Generator {
             this.dotnetDocGenerator.emitDocs(initializer);
             this.dotnetRuntimeGenerator.emitDeprecatedAttributeIfNecessary(initializer);
             if (initializer.parameters) {
+                parametersDefinition = this.renderParametersString(initializer.parameters);
                 for (const p of initializer.parameters) {
-                    let type = this.typeresolver.toDotNetType(p.type);
-                    let optionalPrimitive = '';
-                    let optionalKeyword = '';
-                    if (p.optional) {
-                        if (this.isOptionalPrimitive(p)) {
-                            optionalPrimitive = '?';
-                            optionalKeyword = ' = null';
-                        } else {
-                            optionalKeyword = ' = null';
-                        }
-                    } else if (p.variadic) {
-                        type = `params ${type}[]`;
-                    }
-                    if (parametersDefinition !== '') {
-                        parametersDefinition += ', ';
+                    parametersBase += `${this.nameutils.convertParameterName(p.name)}`;
+                    // If this is not the last parameter, append ,
+                    if (initializer.parameters.indexOf(p) !== initializer.parameters.length - 1) {
                         parametersBase += ', ';
                     }
-                    parametersDefinition += `${type}${optionalPrimitive} ${this.nameutils.convertParameterName(p.name)}${optionalKeyword}`;
-                    parametersBase += `${this.nameutils.convertParameterName(p.name)}`;
-
                 }
             }
 
@@ -451,10 +437,20 @@ export class DotNetGenerator extends Generator {
         }
     }
 
+    /**
+     * Renders method parameters string
+     */
     private renderMethodParameters(method: spec.Method): string {
+        return this.renderParametersString(method.parameters);
+    }
+
+    /**
+     * Renders parameters string for methods or constructors
+     */
+    private renderParametersString(parameters: spec.Parameter[] | undefined): string {
         const params = [];
-        if (method.parameters) {
-            for (const p of method.parameters) {
+        if (parameters) {
+            for (const p of parameters) {
                 let optionalPrimitive = '';
                 let optionalKeyword = '';
                 let type = this.typeresolver.toDotNetType(p.type);
