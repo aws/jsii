@@ -56,8 +56,6 @@ like any other class:
   ```
 - ... and more to come!
 
-[Here's](#what-kind-of-sorcery-is-this) how it works.
-
 ## Getting Started
 
 Let's create our first jsii TypeScript module (actual outputs may slightly
@@ -135,31 +133,10 @@ Edit the `package.json` file:
 }
 ```
 
-So, what's going on here?
+Read more about what those configuration entries do in the [configuration]
+documentation.
 
-* The following standard `package.json` fields are required by `jsii`:
-  + `author` must be set
-  + `license` must be set to a valid [SPDX] license identifier
-  + `main` is the Javascript entry point of your library
-  + `repository` must be set with at least the `url` field
-  + `types` is the TypeScript definition file for your library - it is required
-    to be the definition file corresponding to the `main` file.
-* The `jsii` section in your `package.json` is the
-  [jsii configuration](#configuration) for your module. It tells jsii which
-  target languages to package, and includes additional required information for
-  the jsii packager.
-* `npm run build` uses `jsii` to compile your code. It invokes the TypeScript
-  compiler (`tsc`) and will compile your `.ts` files into `.js` files. A JSII
-  assembly file (`.jsii`) describing your package's API will be emitted.
-* `npm run build:watch` will invoke `jsii -w` which will monitor your filesystem
-  for changes and recompile your `.ts` files to `.js`, and update the `.jsii`
-  assembly file.
-* `npm run package` invokes `jsii-pacmak`, which is the __jsii packager__. It
-  will generate _and compile_ your package in all target languages. The output
-  artifacts will be emitted in sub-directories of the configured `outdir` (in
-  the above case, under `dist`).
-
-[SPDX]: https://spdx.org/licenses/
+[configuration]: ./docs/configuration.md
 
 Okay, we are ready to write some code. Create a `lib/index.ts` file:
 
@@ -332,71 +309,8 @@ That's it. You are ready to rock!
 * __Java__ - generates a ready-to-publish Maven package.
 * __.NET__ - generates a ready-to-publish NuGet package.
 
-See the [configuration](./docs/configuration.md) documentation for more
+See the [configuration](./docs/configuration.md#targets) documentation for more
 information on configuring the various targets.
-
-## What kind of sorcery is this?
-
-So how does this thing work?
-
-Given a source npm module written in one of the supported _source_ languages
-(currently, only [TypeScript] is supported as source), we produce a "header
-file" (called the ".jsii spec") which describes the public API for the module.
-
-[TypeScript]: https://www.typescriptlang.org/
-
-Here the .jsii spec for the above example:
-
-```json
-{
-  "types": {
-    "hello-jsii.HelloJsii": {
-      "assembly": "hello-jsii",
-      "fqn": "hello-jsii.HelloJsii",
-      "initializer": {
-        "initializer": true
-      },
-      "kind": "class",
-      "methods": [
-        {
-          "name": "sayHello",
-          "parameters": [
-            {
-              "name": "name",
-              "type": {
-                "primitive": "string"
-              }
-            }
-          ],
-          "returns": {
-            "primitive": "string"
-          }
-        }
-      ],
-      "name": "HelloJsii",
-      "namespace": "hello-jsii"
-    }
-  }
-}
-```
-
-Now, we have two artifacts: the compiled module with .js code and the .jsii spec.
-This two artifacts are used as input to the next stage we call __pacmak__
-(stands for "package maker").
-
-__pacmak__ reads the .jsii spec and module information from `package.json` and
-generates a _ready-to-publish_ package artifact for each requested target
-language. For example, it will produce a Maven package for Java, a NuGet package
-for .NET, a PyPI module for Python, etc.
-
-The generated packages include _proxy classes_ which represent the API of source
-module, "translated" to the idioms and conventions of each target language. So
-if we had a `HelloJsii` class in the source module with a method `sayHello`, the
-.NET generator will emit a `HelloJsii` class with a method `SayHello`.
-
-At runtime, when code interacts with proxy classes - creates instances, invokes
-methods, gets or sets properties - the calls are marshaled in and out to a
-Node.js VM loaded with the source JavaScript module.
 
 # Contributing
 
@@ -404,7 +318,8 @@ See [CONTRIBUTING](./CONTRIBUTING.md).
 
 ## License
 
-__jsii__ is distributed under the
-[Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+__jsii__ is distributed under the [Apache License, Version 2.0][Apache-2.0].
 
 See [LICENSE](./LICENSE) and [NOTICE](./NOTICE) for more information.
+
+[Apache-2.0]: https://www.apache.org/licenses/LICENSE-2.0
