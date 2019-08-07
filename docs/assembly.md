@@ -86,16 +86,16 @@ Attribute    | Type        | Description
 `name`       |`string`     |The simple name of the interface
 `properties` |`Property[]` |The [properties] declared by this interface
 
-#### Structures (a.k.a. Data Types)
+#### Structs (a.k.a. Data Types)
 
-*Structures* (or *Data Types*) are immutable, data-only interfaces:
+*Structs* (or *Data Types*) are immutable, data-only interfaces:
 * They declare no methods
 * All [properties] they declare are `readonly`
-* They can only implement other *structures*
-* They cannot be extended by interfaces that are not *structures*
+* They can only implement other *structs*
+* They cannot be extended by interfaces that are not *structs*
 * They cannot be implemented by *classes*
 
-Unlike regular *interfaes*, `jsii` *structure* names are not required to have
+Unlike regular *interfaes*, `jsii` *struct* names are not required to have
 any particular prefix.
 
 Since those are immutable, pure data objects, the `jsii-runtime` exchanges
@@ -105,12 +105,12 @@ cross-language communication overhead when working with the data.
 Attribute    | Type        | Description
 -------------|-------------|----------------------------------------------------
 `kind`       |`'inteface'` |Discriminator to identify interfaces
-`datatype`   |`true`       |Indicates a *structure* / *data type* declaration
-`assembly`   |`string`     |The name of the assembly this structure is a part of
-`fqn`        |`string`     |The fully-qualified name of the structure
-`interfaces` |`string[]`   |The fully-qualified names of *structures* extended by this *structure*
-`name`       |`string`     |The simple name of the structure
-`properties` |`Property[]` |The [properties] declared by this structure (all `readonly`)
+`datatype`   |`true`       |Indicates a *struct* / *data type* declaration
+`assembly`   |`string`     |The name of the assembly this struct is a part of
+`fqn`        |`string`     |The fully-qualified name of the struct
+`interfaces` |`string[]`   |The fully-qualified names of *struct* extended by this *struct*
+`name`       |`string`     |The simple name of the struct
+`properties` |`Property[]` |The [properties] declared by this struct (all `readonly`)
 
 #### Enums
 
@@ -146,7 +146,7 @@ Attribute    | Type         | Description
 Attribute    | Type          | Description
 -------------|---------------|--------------------------------------------------
 `abstract`   |`boolean`      |Whether this method is `abstract`
-`async`      |`boolean`      |Whethert his method is asyncrhonous
+`async`      |`boolean`      |Whether this method is asyncrhonous
 `name`       |`string`       |The name of the method
 `overrides`  |`string`       |The fully-qualified name of the class/interface that declares the overridden method
 `parameters` |`Parameter[]`  |Parameters of this method
