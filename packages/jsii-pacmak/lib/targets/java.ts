@@ -437,7 +437,7 @@ class JavaGenerator extends Generator {
                             plugin: [{
                                 groupId: 'org.apache.maven.plugins',
                                 artifactId: 'maven-compiler-plugin',
-                                version: '3.6.1',
+                                version: '3.8.1',
                                 configuration: { source: '1.8', target: '1.8' }
                             }, {
                                 groupId: 'org.apache.maven.plugins',
