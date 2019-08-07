@@ -13,7 +13,7 @@ a new issue! If your question was already asked, but the answer does not satisfy
 your curiosity, prefer re-opening the existing issue to ask for further
 clarification, instead of filing a new issue.
 
-[1]: https://github.com/aws/jsii/issues?utf8=✓&q=is%3Aissue+label%3Aquestion
+[1]: https://github.com/aws/jsii/issues?utf8=✓&q=is%3Aissue+label%3Aguidance
 -->
 
 ### Affected Languages
