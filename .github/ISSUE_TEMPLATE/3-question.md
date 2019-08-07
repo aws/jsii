@@ -1,10 +1,10 @@
 ---
-name: "\U00002753 Question"
-about: Ask a general question
-labels: question, needs-triage
+name: "\U00002753 Guidance"
+about: Ask a general guidance
+labels: guidance, needs-triage
 ---
 
-## :question: Question
+## :question: Guidance
 
 <!--
 ⚠️ Important Information

@@ -26,7 +26,6 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.type.MapLikeType;
 import com.fasterxml.jackson.databind.type.MapType;
-import com.google.common.annotations.VisibleForTesting;
 
 /**
  * Provides a correctly configured JSON processor for handling JSII requests and responses.
@@ -88,7 +87,6 @@ public final class JsiiObjectMapper {
     this(JsiiEngine.getInstance());
   }
 
-  @VisibleForTesting
   JsiiObjectMapper(final JsiiEngine jsiiEngine) {
     this.jsiiEngine = jsiiEngine;
 
@@ -105,7 +103,6 @@ public final class JsiiObjectMapper {
     this.objectMapper.registerModule(module);
   }
 
-  @VisibleForTesting
   ObjectMapper getObjectMapper() {
     return this.objectMapper;
   }
