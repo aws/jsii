@@ -41,3 +41,49 @@ export function logDiagnostic(diagnostic: ts.Diagnostic, projectRoot: string) {
     if (!logFunc) { return; }
     logFunc(message.trim());
 }
+
+const PERSON_REGEX = /^\s*(.+?)(?:\s*<([^>]+)>)?(?:\s*\(([^)]+)\))?\s*$/;
+/**
+ * Parses a string-formatted person entry from `package.json`.
+ * @param value the string-formatted person entry.
+ *
+ * @example
+ *  parsePerson("Barney Rubble <b@rubble.com> (http://barnyrubble.tumblr.com/)");
+ *  // => { name: "Barney Rubble", email: "b@rubble.com", url: "http://barnyrubble.tumblr.com/" }
+ */
+export function parsePerson(value: string) {
+    const match = PERSON_REGEX.exec(value);
+    if (!match) {
+        throw new Error(`Invalid stringified "person" value: ${value}`);
+    }
+    const [, name, email, url] = match;
+    const result: { name: string, email?: string, url?: string } = { name: name.trim() };
+    if (email) {
+        result.email = email.trim();
+    }
+    if (url) {
+        result.url = url.trim();
+    }
+    return result;
+}
+
+const REPOSITORY_REGEX = /^(?:(github|gist|bitbucket|gitlab):)?([A-Za-z\d_-]+\/[A-Za-z\d_-]+)$/;
+export function parseRepository(value: string): { url: string } {
+    const match = REPOSITORY_REGEX.exec(value);
+    if (!match) {
+        return { url: value };
+    }
+    const [, host, slug] = match;
+    switch (host || 'github') {
+        case 'github':
+            return { url: `https://github.com/${slug}.git` };
+        case 'gist':
+            return { url: `https://gist.github.com/${slug}.git` };
+        case 'bitbucket':
+            return { url: `https://bitbucket.org/${slug}.git` };
+        case 'gitlab':
+            return { url: `https://gitlab.com/${slug}.git` };
+        default:
+            throw new Error(`Unknown host service: ${host}`);
+    }
+}
