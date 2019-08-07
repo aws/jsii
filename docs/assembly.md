@@ -139,7 +139,7 @@ Attribute    | Type         | Description
 
 Attribute    | Type         | Description
 -------------|--------------|---------------------------------------------------
-`name`       |`string`      |The name of the enum member.
+`name`       |`string`      |The name of the enum member. Must be `UPPER_SNAKE_CASED`
 
 #### Methods
 
@@ -155,6 +155,13 @@ Attribute    | Type          | Description
 `static`     |`boolean`      |Whether this method is `static`
 `variadic`   |`boolean`      |Whether the last parameter is `variadic`
 
+Methods with the `abstract` feature may only be members of `abstract` classes or
+[interfaces], and all methods that are members of [interfaces] must be
+`abstract`.
+
+Methods that are `static` cannot feature the `overrides` attribute, as `static`
+members are not inherited.
+
 #### Properties
 
 Attribute    | Type          | Description
@@ -168,3 +175,10 @@ Attribute    | Type          | Description
 `protected`  |`boolean`      |Whether this constructor is protected
 `static`     |`boolean`      |Whether this property is `static`
 `type`       |`TypeReference`|The type of the property
+
+Properties that are `const` must have a `name` that is `UPPER_SNAKE_CASED`. They
+represent constants similar to [Enum Members], which can be proactively resolved
+by the `jsii` runtimes.
+
+Proeprties that are `static` cannot feature the `overrides` attribute, as
+`static` members are not inherited.
