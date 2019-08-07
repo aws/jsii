@@ -7,7 +7,7 @@ import static org.mockito.Mockito.when;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,7 +42,7 @@ public final class JsiiObjectMapperTest {
     when((TestEnum) jsiiEngine.findEnumValue("module.Enum#value")).thenReturn(TestEnum.DUMMY);
 
     try (final InputStream stream = this.getClass().getResourceAsStream("complex-callback.json");
-         final InputStreamReader reader = new InputStreamReader(stream, Charset.forName("UTF-8"));
+         final InputStreamReader reader = new InputStreamReader(stream, StandardCharsets.UTF_8);
          final BufferedReader buffered = new BufferedReader(reader)) {
       final String json = buffered.lines().collect(Collectors.joining("\n"));
       final TestCallback callback = subject.treeToValue(subject.readTree(json), TestCallback.class);
