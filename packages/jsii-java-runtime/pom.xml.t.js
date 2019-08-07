@@ -51,7 +51,6 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Versions of the dependencies -->
         <findbugs.version>[3.0.2,3.1.0)</findbugs.version>
-        <guava.version>[27.0.1-jre,27.1)</guava.version>
         <jackson.version>[2.9.8,2.10.0)</jackson.version>
         <javax.annotations.version>[1.3.2,1.4.0)</javax.annotations.version>
         <junit.version>[5.4.1,5.5.0)</junit.version>
@@ -71,13 +70,6 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>\${jackson.version}</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>\${guava.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.google.code.findbugs/jsr305 -->
