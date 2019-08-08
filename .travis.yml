@@ -8,10 +8,6 @@ branches:
 services:
   - docker
 
-before_script:
-  # Attempt to pre-cache the previous version of the image, to speed build up
-  - docker pull jsii/superchain:nightly || true
-
 script:
   - set -eo pipefail
   # Building the Docker image
