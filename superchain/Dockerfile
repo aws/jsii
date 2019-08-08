@@ -68,8 +68,6 @@ VOLUME /var/lib/docker
 COPY ssh_config /root/.ssh/config
 COPY dockerd-entrypoint.sh /usr/local/bin/
 ENV CHARSET=UTF-8                                                                                                       \
-    LANG=en_US                                                                                                          \
-    LANGUAGE=en_US                                                                                                      \
     LC_ALL=C.UTF-8
 
 ## Image Metadata
