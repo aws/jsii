@@ -67,9 +67,10 @@ VOLUME /var/lib/docker
 # Install some configuration
 COPY ssh_config /root/.ssh/config
 COPY dockerd-entrypoint.sh /usr/local/bin/
-ENV CHARSET=utf-8                                                                                                       \
-    LANG=eu_US.UTF-8                                                                                                    \
-    LC_ALL=eu_US.UTF-8
+ENV CHARSET=UTF-8                                                                                                       \
+    LANG=en_US                                                                                                          \
+    LANGUAGE=en_US                                                                                                      \
+    LC_ALL=C.UTF-8
 
 ## Image Metadata
 ARG BUILD_TIMESTAMP
