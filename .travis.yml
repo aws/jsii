@@ -16,7 +16,7 @@ script:
   - docker run --rm -it --net=host -v ${PWD}:${PWD} -w ${PWD} jsii/superchain:nightly ./build.sh
   # Make sure the build did not change the source tree (git diff-index will return non-zero if that's the case)
   - git diff-index --exit-code --ignore-space-at-eol --stat HEAD
-  - untracked=$(git ls-files --others --exlude-standard) && echo "${untracked}" && test -z "${untracked}"
+  - untracked=$(git ls-files --others --exclude-standard) && echo "${untracked}" && test -z "${untracked}"
   # Publish the image to DockerHub when relevant
   - echo "TRAVIS_PULL_REQUEST = ${TRAVIS_PULL_REQUEST:-}"
   - echo "TRAVIS_TAG          = ${TRAVIS_TAG:-}"
