@@ -73,11 +73,11 @@ ENV CHARSET=UTF-8                                                               
 ## Image Metadata
 ARG BUILD_TIMESTAMP
 ARG COMMIT_ID
-LABEL org.opencontainers.image.created=${BUILD_TIMESTAMP}
-LABEL org.opencontainers.image.title="jsii/superchain"
-LABEL org.opencontainers.image.description="An image to build cross-language artifacts with AWS JSII"
-LABEL org.opencontainers.image.url="https://github.com/aws/jsii/tree/master/superchain"
-LABEL org.opencontainers.image.source="https://github.com/aws/jsii.git"
-LABEL org.opencontainers.image.revision=$COMMIT_ID
+LABEL org.opencontainers.image.created=${BUILD_TIMESTAMP}                                                               \
+      org.opencontainers.image.title="jsii/superchain"                                                                  \
+      org.opencontainers.image.description="An image to build cross-language artifacts with AWS JSII"                   \
+      org.opencontainers.image.url="https://github.com/aws/jsii/tree/master/superchain"                                 \
+      org.opencontainers.image.source="https://github.com/aws/jsii.git"                                                 \
+      org.opencontainers.image.revision=$COMMIT_ID
 
 CMD ["/bin/bash"]
