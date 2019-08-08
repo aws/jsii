@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Amazon.JSII.Runtime.Deputy;
 using Amazon.JSII.Tests.CalculatorNamespace;
 using CompositeOperation = Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation;
@@ -859,6 +860,45 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             // property
             obj.ChangeMeToUndefined = null;
             obj.VerifyPropertyIsUndefined();
+        }
+
+        [Fact(DisplayName = Prefix + nameof(OptionalAndVariadicArgumentsTest))]
+        public void OptionalAndVariadicArgumentsTest()
+        {
+            // ctor
+            var objWithOptionalProvided = new NullShouldBeTreatedAsUndefined("param1", null);
+            var objWithoutOptionalProvided = new NullShouldBeTreatedAsUndefined("param1");
+            
+            // method argument called with null value
+            objWithoutOptionalProvided.GiveMeUndefined(null);
+            
+            // method argument called without null value
+            objWithoutOptionalProvided.GiveMeUndefined();
+            
+            var variadicClass = new VariadicMethod();
+
+            // Variadic parameter with null passed
+            variadicClass.AsArray(Double.MinValue, null);
+            
+            // Variadic parameter with default value used
+            variadicClass.AsArray(Double.MinValue);
+            
+            var list = new List<double>();
+
+            // Variadic parameter with array with no value
+            variadicClass.AsArray(Double.MinValue, list.ToArray());
+
+            // Variadic parameter with array with one value
+            list.Add(1d);
+            variadicClass.AsArray(Double.MinValue, list.ToArray());
+
+            // Variadic parameter with array with multiple value
+            list.Add(2d);
+            list.Add(3d);
+            list.Add(4d);
+            list.Add(5d);
+            list.Add(6d);
+            variadicClass.AsArray(Double.MinValue, list.ToArray());
         }
 
         [Fact(DisplayName = Prefix + nameof(JsiiAgent))]
