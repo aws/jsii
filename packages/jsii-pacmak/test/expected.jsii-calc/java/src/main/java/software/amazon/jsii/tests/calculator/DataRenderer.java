@@ -9,23 +9,28 @@ package software.amazon.jsii.tests.calculator;
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.DataRenderer")
 public class DataRenderer extends software.amazon.jsii.JsiiObject {
-    protected DataRenderer(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
-        super(mode);
+
+    protected DataRenderer(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected DataRenderer(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
     }
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public DataRenderer() {
-        super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
     }
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String render(@javax.annotation.Nullable final software.amazon.jsii.tests.calculator.lib.MyFirstStruct data) {
+    public java.lang.String render(final software.amazon.jsii.tests.calculator.lib.MyFirstStruct data) {
         return this.jsiiCall("render", java.lang.String.class, new Object[] { data });
     }
 

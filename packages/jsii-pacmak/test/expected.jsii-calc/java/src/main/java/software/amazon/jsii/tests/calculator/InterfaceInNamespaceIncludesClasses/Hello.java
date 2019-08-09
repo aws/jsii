@@ -25,16 +25,16 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     final class Builder {
-        private java.lang.Number _foo;
+        private java.lang.Number foo;
 
         /**
          * Sets the value of Foo
-         * @param value the value to be set
+         * @param foo the value to be set
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public Builder withFoo(final java.lang.Number value) {
-            this._foo = java.util.Objects.requireNonNull(value, "foo is required");
+        public Builder foo(java.lang.Number foo) {
+            this.foo = foo;
             return this;
         }
 
@@ -45,40 +45,65 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Hello build() {
-            return new Hello() {
-                private final java.lang.Number $foo = java.util.Objects.requireNonNull(_foo, "foo is required");
-
-                @Override
-                public java.lang.Number getFoo() {
-                    return this.$foo;
-                }
-
-                public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-                    com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-                    com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-                    obj.set("foo", om.valueToTree(this.getFoo()));
-                    return obj;
-                }
-
-            };
+            return new Jsii$Proxy(foo);
         }
+
     }
 
     /**
-     * A proxy class which represents a concrete javascript instance of this type.
+     * An implementation for {@link Hello}
      */
-    final static class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.InterfaceInNamespaceIncludesClasses.Hello {
-        protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
-            super(mode);
-        }
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements Hello {
+        private final java.lang.Number foo;
 
         /**
-         * EXPERIMENTAL
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
          */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public java.lang.Number getFoo() {
-            return this.jsiiGet("foo", java.lang.Number.class);
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.setObjRef(objRef);
+            this.foo = this.jsiiGet("foo", java.lang.Number.class);
         }
+
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        private Jsii$Proxy(java.lang.Number foo) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.foo = java.util.Objects.requireNonNull(foo, "foo is required");
+        }
+
+        @Override
+        public java.lang.Number getFoo() {
+            return this.foo;
+        }
+
+        @Override
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("foo", om.valueToTree(this.getFoo()));
+            return obj;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Hello.Jsii$Proxy that = (Hello.Jsii$Proxy) o;
+
+            return foo.equals(that.foo);
+        }
+
+        @Override
+        public int hashCode() {
+            int result = foo.hashCode();
+            return result;
+        }
+
     }
 }

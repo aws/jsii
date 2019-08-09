@@ -31,17 +31,16 @@ public interface Greetee extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     final class Builder {
-        @javax.annotation.Nullable
-        private java.lang.String _name;
+        private java.lang.String name;
 
         /**
          * Sets the value of Name
-         * @param value The name of the greetee.
+         * @param name The name of the greetee.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public Builder withName(@javax.annotation.Nullable final java.lang.String value) {
-            this._name = value;
+        public Builder name(java.lang.String name) {
+            this.name = name;
             return this;
         }
 
@@ -52,48 +51,67 @@ public interface Greetee extends software.amazon.jsii.JsiiSerializable {
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Greetee build() {
-            return new Greetee() {
-                @javax.annotation.Nullable
-                private final java.lang.String $name = _name;
-
-                @Override
-                public java.lang.String getName() {
-                    return this.$name;
-                }
-
-                public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-                    com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-                    com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-                    if (this.getName() != null) {
-                        obj.set("name", om.valueToTree(this.getName()));
-                    }
-                    return obj;
-                }
-
-            };
+            return new Jsii$Proxy(name);
         }
+
     }
 
     /**
-     * A proxy class which represents a concrete javascript instance of this type.
+     * An implementation for {@link Greetee}
      */
-    final static class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.Greetee {
-        protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
-            super(mode);
-        }
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements Greetee {
+        private final java.lang.String name;
 
         /**
-         * The name of the greetee.
-         * 
-         * Default: world
-         * 
-         * EXPERIMENTAL
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
          */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        @javax.annotation.Nullable
-        public java.lang.String getName() {
-            return this.jsiiGet("name", java.lang.String.class);
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.setObjRef(objRef);
+            this.name = this.jsiiGet("name", java.lang.String.class);
         }
+
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        private Jsii$Proxy(java.lang.String name) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.name = name;
+        }
+
+        @Override
+        public java.lang.String getName() {
+            return this.name;
+        }
+
+        @Override
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            if (this.getName() != null) {
+                obj.set("name", om.valueToTree(this.getName()));
+            }
+            return obj;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Greetee.Jsii$Proxy that = (Greetee.Jsii$Proxy) o;
+
+            return name != null ? name.equals(that.name) : that.name == null;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = name != null ? name.hashCode() : 0;
+            return result;
+        }
+
     }
 }

@@ -1832,6 +1832,181 @@ DerivedStruct (interface)
       :type: string[] *(optional)* *(readonly)*
 
 
+DiamondInheritanceBaseLevelStruct (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: DiamondInheritanceBaseLevelStruct
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.DiamondInheritanceBaseLevelStruct;
+
+      .. code-tab:: javascript
+
+         // DiamondInheritanceBaseLevelStruct is an interface
+
+      .. code-tab:: typescript
+
+         import { DiamondInheritanceBaseLevelStruct } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: baseLevelProperty
+
+      :type: string *(readonly)*
+
+
+DiamondInheritanceFirstMidLevelStruct (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: DiamondInheritanceFirstMidLevelStruct
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.DiamondInheritanceFirstMidLevelStruct;
+
+      .. code-tab:: javascript
+
+         // DiamondInheritanceFirstMidLevelStruct is an interface
+
+      .. code-tab:: typescript
+
+         import { DiamondInheritanceFirstMidLevelStruct } from 'jsii-calc';
+
+
+
+   :extends: :py:class:`~jsii-calc.DiamondInheritanceBaseLevelStruct`\ 
+
+
+   .. py:attribute:: firstMidLevelProperty
+
+      :type: string *(readonly)*
+
+
+   .. py:attribute:: baseLevelProperty
+
+      *Inherited from* :py:attr:`jsii-calc.DiamondInheritanceBaseLevelStruct <jsii-calc.DiamondInheritanceBaseLevelStruct.baseLevelProperty>`
+
+      :type: string *(readonly)*
+
+
+DiamondInheritanceSecondMidLevelStruct (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: DiamondInheritanceSecondMidLevelStruct
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.DiamondInheritanceSecondMidLevelStruct;
+
+      .. code-tab:: javascript
+
+         // DiamondInheritanceSecondMidLevelStruct is an interface
+
+      .. code-tab:: typescript
+
+         import { DiamondInheritanceSecondMidLevelStruct } from 'jsii-calc';
+
+
+
+   :extends: :py:class:`~jsii-calc.DiamondInheritanceBaseLevelStruct`\ 
+
+
+   .. py:attribute:: secondMidLevelProperty
+
+      :type: string *(readonly)*
+
+
+   .. py:attribute:: baseLevelProperty
+
+      *Inherited from* :py:attr:`jsii-calc.DiamondInheritanceBaseLevelStruct <jsii-calc.DiamondInheritanceBaseLevelStruct.baseLevelProperty>`
+
+      :type: string *(readonly)*
+
+
+DiamondInheritanceTopLevelStruct (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: DiamondInheritanceTopLevelStruct
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.DiamondInheritanceTopLevelStruct;
+
+      .. code-tab:: javascript
+
+         // DiamondInheritanceTopLevelStruct is an interface
+
+      .. code-tab:: typescript
+
+         import { DiamondInheritanceTopLevelStruct } from 'jsii-calc';
+
+
+
+   :extends: :py:class:`~jsii-calc.DiamondInheritanceFirstMidLevelStruct`\ 
+   :extends: :py:class:`~jsii-calc.DiamondInheritanceSecondMidLevelStruct`\ 
+
+
+   .. py:attribute:: topLevelProperty
+
+      :type: string *(readonly)*
+
+
+   .. py:attribute:: baseLevelProperty
+
+      *Inherited from* :py:attr:`jsii-calc.DiamondInheritanceBaseLevelStruct <jsii-calc.DiamondInheritanceBaseLevelStruct.baseLevelProperty>`
+
+      :type: string *(readonly)*
+
+
+   .. py:attribute:: firstMidLevelProperty
+
+      *Inherited from* :py:attr:`jsii-calc.DiamondInheritanceFirstMidLevelStruct <jsii-calc.DiamondInheritanceFirstMidLevelStruct.firstMidLevelProperty>`
+
+      :type: string *(readonly)*
+
+
+   .. py:attribute:: secondMidLevelProperty
+
+      *Inherited from* :py:attr:`jsii-calc.DiamondInheritanceSecondMidLevelStruct <jsii-calc.DiamondInheritanceSecondMidLevelStruct.secondMidLevelProperty>`
+
+      :type: string *(readonly)*
+
+
 DoNotOverridePrivates
 ^^^^^^^^^^^^^^^^^^^^^
 

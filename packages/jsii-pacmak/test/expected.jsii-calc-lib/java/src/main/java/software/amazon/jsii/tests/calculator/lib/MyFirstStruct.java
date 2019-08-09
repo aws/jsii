@@ -13,12 +13,14 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     java.lang.Number getAnumber();
+
     /**
      * A string value.
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     java.lang.String getAstring();
+
     /**
      */
     @Deprecated
@@ -40,42 +42,43 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     final class Builder {
-        private java.lang.Number _anumber;
-        private java.lang.String _astring;
-        @javax.annotation.Nullable
-        private java.util.List<java.lang.String> _firstOptional;
+        private java.lang.Number anumber;
+        private java.lang.String astring;
+        private java.util.List<java.lang.String> firstOptional;
 
         /**
          * Sets the value of Anumber
-         * @param value An awesome number value.
+         * @param anumber An awesome number value.
          * @return {@code this}
          */
         @Deprecated
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-        public Builder withAnumber(final java.lang.Number value) {
-            this._anumber = java.util.Objects.requireNonNull(value, "anumber is required");
+        public Builder anumber(java.lang.Number anumber) {
+            this.anumber = anumber;
             return this;
         }
+
         /**
          * Sets the value of Astring
-         * @param value A string value.
+         * @param astring A string value.
          * @return {@code this}
          */
         @Deprecated
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-        public Builder withAstring(final java.lang.String value) {
-            this._astring = java.util.Objects.requireNonNull(value, "astring is required");
+        public Builder astring(java.lang.String astring) {
+            this.astring = astring;
             return this;
         }
+
         /**
          * Sets the value of FirstOptional
-         * @param value the value to be set
+         * @param firstOptional the value to be set
          * @return {@code this}
          */
         @Deprecated
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-        public Builder withFirstOptional(@javax.annotation.Nullable final java.util.List<java.lang.String> value) {
-            this._firstOptional = value;
+        public Builder firstOptional(java.util.List<java.lang.String> firstOptional) {
+            this.firstOptional = firstOptional;
             return this;
         }
 
@@ -87,78 +90,90 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
         @Deprecated
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public MyFirstStruct build() {
-            return new MyFirstStruct() {
-                private final java.lang.Number $anumber = java.util.Objects.requireNonNull(_anumber, "anumber is required");
-                private final java.lang.String $astring = java.util.Objects.requireNonNull(_astring, "astring is required");
-                @javax.annotation.Nullable
-                private final java.util.List<java.lang.String> $firstOptional = _firstOptional;
-
-                @Override
-                public java.lang.Number getAnumber() {
-                    return this.$anumber;
-                }
-
-                @Override
-                public java.lang.String getAstring() {
-                    return this.$astring;
-                }
-
-                @Override
-                public java.util.List<java.lang.String> getFirstOptional() {
-                    return this.$firstOptional;
-                }
-
-                public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-                    com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-                    com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-                    obj.set("anumber", om.valueToTree(this.getAnumber()));
-                    obj.set("astring", om.valueToTree(this.getAstring()));
-                    if (this.getFirstOptional() != null) {
-                        obj.set("firstOptional", om.valueToTree(this.getFirstOptional()));
-                    }
-                    return obj;
-                }
-
-            };
+            return new Jsii$Proxy(anumber, astring, firstOptional);
         }
+
     }
 
     /**
-     * A proxy class which represents a concrete javascript instance of this type.
+     * An implementation for {@link MyFirstStruct}
      */
-    final static class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.lib.MyFirstStruct {
-        protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
-            super(mode);
-        }
+    @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements MyFirstStruct {
+        private final java.lang.Number anumber;
+        private final java.lang.String astring;
+        private final java.util.List<java.lang.String> firstOptional;
 
         /**
-         * An awesome number value.
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
          */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.setObjRef(objRef);
+            this.anumber = this.jsiiGet("anumber", java.lang.Number.class);
+            this.astring = this.jsiiGet("astring", java.lang.String.class);
+            this.firstOptional = this.jsiiGet("firstOptional", java.util.List.class);
+        }
+
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        private Jsii$Proxy(java.lang.Number anumber, java.lang.String astring, java.util.List<java.lang.String> firstOptional) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.anumber = java.util.Objects.requireNonNull(anumber, "anumber is required");
+            this.astring = java.util.Objects.requireNonNull(astring, "astring is required");
+            this.firstOptional = firstOptional;
+        }
+
         @Override
-        @Deprecated
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public java.lang.Number getAnumber() {
-            return this.jsiiGet("anumber", java.lang.Number.class);
+            return this.anumber;
         }
 
-        /**
-         * A string value.
-         */
         @Override
-        @Deprecated
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public java.lang.String getAstring() {
-            return this.jsiiGet("astring", java.lang.String.class);
+            return this.astring;
         }
 
-        /**
-         */
         @Override
-        @Deprecated
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-        @javax.annotation.Nullable
         public java.util.List<java.lang.String> getFirstOptional() {
-            return this.jsiiGet("firstOptional", java.util.List.class);
+            return this.firstOptional;
         }
+
+        @Override
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("anumber", om.valueToTree(this.getAnumber()));
+            obj.set("astring", om.valueToTree(this.getAstring()));
+            if (this.getFirstOptional() != null) {
+                obj.set("firstOptional", om.valueToTree(this.getFirstOptional()));
+            }
+            return obj;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            MyFirstStruct.Jsii$Proxy that = (MyFirstStruct.Jsii$Proxy) o;
+
+            if (!anumber.equals(that.anumber)) return false;
+            if (!astring.equals(that.astring)) return false;
+            return firstOptional != null ? firstOptional.equals(that.firstOptional) : that.firstOptional == null;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = anumber.hashCode();
+            result = 31 * result + (astring.hashCode());
+            result = 31 * result + (firstOptional != null ? firstOptional.hashCode() : 0);
+            return result;
+        }
+
     }
 }

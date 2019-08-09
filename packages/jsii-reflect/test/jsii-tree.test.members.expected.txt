@@ -587,6 +587,18 @@ assemblies
  │   │   ├── anotherOptional property
  │   │   ├── optionalAny property
  │   │   └── optionalArray property
+ │   ├─┬ interface DiamondInheritanceBaseLevelStruct
+ │   │ └─┬ members
+ │   │   └── baseLevelProperty property
+ │   ├─┬ interface DiamondInheritanceFirstMidLevelStruct
+ │   │ └─┬ members
+ │   │   └── firstMidLevelProperty property
+ │   ├─┬ interface DiamondInheritanceSecondMidLevelStruct
+ │   │ └─┬ members
+ │   │   └── secondMidLevelProperty property
+ │   ├─┬ interface DiamondInheritanceTopLevelStruct
+ │   │ └─┬ members
+ │   │   └── topLevelProperty property
  │   ├─┬ interface EraseUndefinedHashValuesOptions
  │   │ └─┬ members
  │   │   ├── option1 property

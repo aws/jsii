@@ -13,6 +13,7 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.lang.String getDeeperRequiredProp();
+
     /**
      * It's long, but you'll almost never pass it.
      * 
@@ -34,28 +35,28 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     final class Builder {
-        private java.lang.String _deeperRequiredProp;
-        @javax.annotation.Nullable
-        private java.lang.String _deeperOptionalProp;
+        private java.lang.String deeperRequiredProp;
+        private java.lang.String deeperOptionalProp;
 
         /**
          * Sets the value of DeeperRequiredProp
-         * @param value It's long and required.
+         * @param deeperRequiredProp It's long and required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public Builder withDeeperRequiredProp(final java.lang.String value) {
-            this._deeperRequiredProp = java.util.Objects.requireNonNull(value, "deeperRequiredProp is required");
+        public Builder deeperRequiredProp(java.lang.String deeperRequiredProp) {
+            this.deeperRequiredProp = deeperRequiredProp;
             return this;
         }
+
         /**
          * Sets the value of DeeperOptionalProp
-         * @param value It's long, but you'll almost never pass it.
+         * @param deeperOptionalProp It's long, but you'll almost never pass it.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public Builder withDeeperOptionalProp(@javax.annotation.Nullable final java.lang.String value) {
-            this._deeperOptionalProp = value;
+        public Builder deeperOptionalProp(java.lang.String deeperOptionalProp) {
+            this.deeperOptionalProp = deeperOptionalProp;
             return this;
         }
 
@@ -66,64 +67,78 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public SecondLevelStruct build() {
-            return new SecondLevelStruct() {
-                private final java.lang.String $deeperRequiredProp = java.util.Objects.requireNonNull(_deeperRequiredProp, "deeperRequiredProp is required");
-                @javax.annotation.Nullable
-                private final java.lang.String $deeperOptionalProp = _deeperOptionalProp;
-
-                @Override
-                public java.lang.String getDeeperRequiredProp() {
-                    return this.$deeperRequiredProp;
-                }
-
-                @Override
-                public java.lang.String getDeeperOptionalProp() {
-                    return this.$deeperOptionalProp;
-                }
-
-                public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-                    com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-                    com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-                    obj.set("deeperRequiredProp", om.valueToTree(this.getDeeperRequiredProp()));
-                    if (this.getDeeperOptionalProp() != null) {
-                        obj.set("deeperOptionalProp", om.valueToTree(this.getDeeperOptionalProp()));
-                    }
-                    return obj;
-                }
-
-            };
+            return new Jsii$Proxy(deeperRequiredProp, deeperOptionalProp);
         }
+
     }
 
     /**
-     * A proxy class which represents a concrete javascript instance of this type.
+     * An implementation for {@link SecondLevelStruct}
      */
-    final static class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.SecondLevelStruct {
-        protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
-            super(mode);
-        }
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements SecondLevelStruct {
+        private final java.lang.String deeperRequiredProp;
+        private final java.lang.String deeperOptionalProp;
 
         /**
-         * It's long and required.
-         * 
-         * EXPERIMENTAL
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
          */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.setObjRef(objRef);
+            this.deeperRequiredProp = this.jsiiGet("deeperRequiredProp", java.lang.String.class);
+            this.deeperOptionalProp = this.jsiiGet("deeperOptionalProp", java.lang.String.class);
+        }
+
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        private Jsii$Proxy(java.lang.String deeperRequiredProp, java.lang.String deeperOptionalProp) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.deeperRequiredProp = java.util.Objects.requireNonNull(deeperRequiredProp, "deeperRequiredProp is required");
+            this.deeperOptionalProp = deeperOptionalProp;
+        }
+
         @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public java.lang.String getDeeperRequiredProp() {
-            return this.jsiiGet("deeperRequiredProp", java.lang.String.class);
+            return this.deeperRequiredProp;
         }
 
-        /**
-         * It's long, but you'll almost never pass it.
-         * 
-         * EXPERIMENTAL
-         */
         @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        @javax.annotation.Nullable
         public java.lang.String getDeeperOptionalProp() {
-            return this.jsiiGet("deeperOptionalProp", java.lang.String.class);
+            return this.deeperOptionalProp;
         }
+
+        @Override
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("deeperRequiredProp", om.valueToTree(this.getDeeperRequiredProp()));
+            if (this.getDeeperOptionalProp() != null) {
+                obj.set("deeperOptionalProp", om.valueToTree(this.getDeeperOptionalProp()));
+            }
+            return obj;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            SecondLevelStruct.Jsii$Proxy that = (SecondLevelStruct.Jsii$Proxy) o;
+
+            if (!deeperRequiredProp.equals(that.deeperRequiredProp)) return false;
+            return deeperOptionalProp != null ? deeperOptionalProp.equals(that.deeperOptionalProp) : that.deeperOptionalProp == null;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = deeperRequiredProp.hashCode();
+            result = 31 * result + (deeperOptionalProp != null ? deeperOptionalProp.hashCode() : 0);
+            return result;
+        }
+
     }
 }

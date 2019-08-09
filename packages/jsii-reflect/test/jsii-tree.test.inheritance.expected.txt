@@ -118,6 +118,17 @@ assemblies
  │   ├─┬ interface DerivedStruct
  │   │ └─┬ interfaces
  │   │   └── MyFirstStruct
+ │   ├── interface DiamondInheritanceBaseLevelStruct
+ │   ├─┬ interface DiamondInheritanceFirstMidLevelStruct
+ │   │ └─┬ interfaces
+ │   │   └── DiamondInheritanceBaseLevelStruct
+ │   ├─┬ interface DiamondInheritanceSecondMidLevelStruct
+ │   │ └─┬ interfaces
+ │   │   └── DiamondInheritanceBaseLevelStruct
+ │   ├─┬ interface DiamondInheritanceTopLevelStruct
+ │   │ └─┬ interfaces
+ │   │   ├── DiamondInheritanceFirstMidLevelStruct
+ │   │   └── DiamondInheritanceSecondMidLevelStruct
  │   ├── interface EraseUndefinedHashValuesOptions
  │   ├── interface ExperimentalStruct
  │   ├── interface ExtendsInternalInterface

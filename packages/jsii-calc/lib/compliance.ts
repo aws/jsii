@@ -1775,6 +1775,22 @@ export interface SecondLevelStruct {
     readonly deeperOptionalProp?: string;
 }
 
+export interface DiamondInheritanceBaseLevelStruct {
+    readonly baseLevelProperty: string;
+}
+
+export interface DiamondInheritanceFirstMidLevelStruct extends DiamondInheritanceBaseLevelStruct {
+    readonly firstMidLevelProperty: string;
+}
+
+export interface DiamondInheritanceSecondMidLevelStruct extends DiamondInheritanceBaseLevelStruct {
+    readonly secondMidLevelProperty: string;
+}
+
+export interface DiamondInheritanceTopLevelStruct extends DiamondInheritanceFirstMidLevelStruct, DiamondInheritanceSecondMidLevelStruct {
+    readonly topLevelProperty: string;
+}
+
 /**
  * Just because we can.
  *

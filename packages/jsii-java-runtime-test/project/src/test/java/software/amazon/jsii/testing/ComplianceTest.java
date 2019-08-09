@@ -16,6 +16,7 @@ import software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutom
 import software.amazon.jsii.tests.calculator.Constructors;
 import software.amazon.jsii.tests.calculator.DataRenderer;
 import software.amazon.jsii.tests.calculator.DerivedStruct;
+import software.amazon.jsii.tests.calculator.DiamondInheritanceTopLevelStruct;
 import software.amazon.jsii.tests.calculator.DoNotOverridePrivates;
 import software.amazon.jsii.tests.calculator.DoubleTrouble;
 import software.amazon.jsii.tests.calculator.EraseUndefinedHashValues;
@@ -40,12 +41,14 @@ import software.amazon.jsii.tests.calculator.NodeStandardLibrary;
 import software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefined;
 import software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefinedData;
 import software.amazon.jsii.tests.calculator.NumberGenerator;
+import software.amazon.jsii.tests.calculator.OptionalStruct;
 import software.amazon.jsii.tests.calculator.PartiallyInitializedThisConsumer;
 import software.amazon.jsii.tests.calculator.Polymorphism;
 import software.amazon.jsii.tests.calculator.Power;
 import software.amazon.jsii.tests.calculator.PublicClass;
 import software.amazon.jsii.tests.calculator.ReferenceEnumFromScopedPackage;
 import software.amazon.jsii.tests.calculator.ReturnsPrivateImplementationOfInterface;
+import software.amazon.jsii.tests.calculator.StableStruct;
 import software.amazon.jsii.tests.calculator.Statics;
 import software.amazon.jsii.tests.calculator.Sum;
 import software.amazon.jsii.tests.calculator.SyncVirtualMethods;
@@ -214,7 +217,7 @@ public class ComplianceTest {
     @Test
     public void createObjectAndCtorOverloads() {
         new Calculator();
-        new Calculator(CalculatorProps.builder().withMaximumValue(10).build());
+        new Calculator(CalculatorProps.builder().maximumValue(10).build());
     }
 
     @Test
@@ -307,8 +310,8 @@ public class ComplianceTest {
     @Test
     public void fluentApi() {
         final Calculator calc3 = new Calculator(CalculatorProps.builder()
-                .withInitialValue(20)
-                .withMaximumValue(30)
+                .initialValue(20)
+                .maximumValue(30)
                 .build());
         calc3.add(3);
         assertEquals(23, calc3.getValue());
@@ -319,29 +322,29 @@ public class ComplianceTest {
 
         // verify we have a withXxx overload for each union type
         UnionProperties.Builder builder = UnionProperties.builder();
-        assertNotNull(builder.getClass().getMethod("withBar", java.lang.Number.class));
-        assertNotNull(builder.getClass().getMethod("withBar", String.class));
-        assertNotNull(builder.getClass().getMethod("withBar", AllTypes.class));
-        assertNotNull(builder.getClass().getMethod("withFoo", String.class));
-        assertNotNull(builder.getClass().getMethod("withFoo", java.lang.Number.class));
+        assertNotNull(builder.getClass().getMethod("bar", java.lang.Number.class));
+        assertNotNull(builder.getClass().getMethod("bar", String.class));
+        assertNotNull(builder.getClass().getMethod("bar", AllTypes.class));
+        assertNotNull(builder.getClass().getMethod("foo", String.class));
+        assertNotNull(builder.getClass().getMethod("foo", java.lang.Number.class));
 
         UnionProperties obj1 = UnionProperties.builder()
-            .withBar(12)
-            .withFoo("Hello")
+            .bar(12)
+            .foo("Hello")
             .build();
         assertEquals(12, obj1.getBar());
         assertEquals("Hello", obj1.getFoo());
 
         UnionProperties obj2 = UnionProperties.builder()
-            .withBar("BarIsString")
+            .bar("BarIsString")
             .build();
         assertEquals("BarIsString", obj2.getBar());
         assertNull(obj2.getFoo());
 
         AllTypes allTypes = new AllTypes();
         UnionProperties obj3 = UnionProperties.builder()
-            .withBar(allTypes)
-            .withFoo(999)
+            .bar(allTypes)
+            .foo(999)
             .build();
         assertSame(allTypes, obj3.getBar());
         assertEquals(999, obj3.getFoo());
@@ -350,8 +353,8 @@ public class ComplianceTest {
     @Test
     public void exceptions() {
         final Calculator calc3 = new Calculator(CalculatorProps.builder()
-            .withInitialValue(20)
-            .withMaximumValue(30).build());
+            .initialValue(20)
+            .maximumValue(30).build());
         calc3.add(3);
         assertEquals(23, calc3.getValue());
         boolean thrown = false;
@@ -746,12 +749,12 @@ public class ComplianceTest {
         DoubleTrouble nonPrim = new DoubleTrouble();
 
         DerivedStruct s = new DerivedStruct.Builder()
-                .withNonPrimitive(nonPrim)
-                .withBool(false)
-                .withAnotherRequired(someInstant)
-                .withAstring("Hello")
-                .withAnumber(1234)
-                .withFirstOptional(Arrays.asList("Hello", "World"))
+                .nonPrimitive(nonPrim)
+                .bool(false)
+                .anotherRequired(someInstant)
+                .astring("Hello")
+                .anumber(1234)
+                .firstOptional(Arrays.asList("Hello", "World"))
                 .build();
 
         assertSame(nonPrim, s.getNonPrimitive());
@@ -764,16 +767,16 @@ public class ComplianceTest {
         assertNull(s.getOptionalArray());
 
         MyFirstStruct myFirstStruct = new MyFirstStruct.Builder()
-                .withAstring("Hello")
-                .withAnumber(12)
+                .astring("Hello")
+                .anumber(12)
                 .build();
 
         assertEquals("Hello", myFirstStruct.getAstring());
         assertEquals(12, myFirstStruct.getAnumber());
 
         StructWithOnlyOptionals onlyOptionals1 = new StructWithOnlyOptionals.Builder()
-                .withOptional1("Hello")
-                .withOptional2(1)
+                .optional1("Hello")
+                .optional2(1)
                 .build();
 
         assertEquals("Hello", onlyOptionals1.getOptional1());
@@ -786,28 +789,180 @@ public class ComplianceTest {
         assertNull(onlyOptionals2.getOptional3());
     }
 
+    @Test
+    public void structs_withDiamondInheritance_correctlyDedupeProperties() {
+        DiamondInheritanceTopLevelStruct struct = DiamondInheritanceTopLevelStruct.builder()
+                                                                                  .baseLevelProperty("base")
+                                                                                  .firstMidLevelProperty("mid1")
+                                                                                  .secondMidLevelProperty("mid2")
+                                                                                  .topLevelProperty("top")
+                                                                                  .build();
+
+        assertEquals("base", struct.getBaseLevelProperty());
+        assertEquals("mid1", struct.getFirstMidLevelProperty());
+        assertEquals("mid2", struct.getSecondMidLevelProperty());
+        assertEquals("top", struct.getTopLevelProperty());
+    }
+
+    @Test
+    public void structs_nonOptionalequals() {
+        StableStruct structA = StableStruct.builder()
+                                           .readonlyProperty("one")
+                                           .build();
+
+        StableStruct structB = StableStruct.builder()
+                                           .readonlyProperty("one")
+                                           .build();
+
+        StableStruct structC = StableStruct.builder()
+                                           .readonlyProperty("two")
+                                           .build();
+
+
+        assertTrue(structA.equals(structB));
+        assertFalse(structA.equals(structC));
+    }
+
+    @Test
+    public void structs_nonOptionalhashCode() {
+        StableStruct structA = StableStruct.builder()
+                                           .readonlyProperty("one")
+                                           .build();
+
+        StableStruct structB = StableStruct.builder()
+                                           .readonlyProperty("one")
+                                           .build();
+
+        StableStruct structC = StableStruct.builder()
+                                           .readonlyProperty("two")
+                                           .build();
+
+
+        assertTrue(structA.hashCode() == structB.hashCode());
+        assertFalse(structA.hashCode() == structC.hashCode());
+    }
+
+    @Test
+    public void structs_optionalEquals() {
+        OptionalStruct structA = OptionalStruct.builder()
+                                               .field("one")
+                                               .build();
+
+        OptionalStruct structB = OptionalStruct.builder()
+                                               .field("one")
+                                               .build();
+
+        OptionalStruct structC = OptionalStruct.builder()
+                                               .field("two")
+                                               .build();
+
+        OptionalStruct structD = OptionalStruct.builder()
+                                               .build();
+
+
+        assertTrue(structA.equals(structB));
+        assertFalse(structA.equals(structC));
+        assertFalse(structA.equals(structD));
+    }
+
+    @Test
+    public void structs_optionalHashCode() {
+        OptionalStruct structA = OptionalStruct.builder()
+                                               .field("one")
+                                               .build();
+
+        OptionalStruct structB = OptionalStruct.builder()
+                                               .field("one")
+                                               .build();
+
+        OptionalStruct structC = OptionalStruct.builder()
+                                               .field("two")
+                                               .build();
+
+        OptionalStruct structD = OptionalStruct.builder()
+                                               .build();
+
+        assertTrue(structA.hashCode() == structB.hashCode());
+        assertFalse(structA.hashCode() == structC.hashCode());
+        assertFalse(structA.hashCode() == structD.hashCode());
+    }
+
+    @Test
+    public void structs_multiplePropertiesEquals() {
+        DiamondInheritanceTopLevelStruct structA = DiamondInheritanceTopLevelStruct.builder()
+                                                                                   .baseLevelProperty("one")
+                                                                                   .firstMidLevelProperty("two")
+                                                                                   .secondMidLevelProperty("three")
+                                                                                   .topLevelProperty("four")
+                                                                                   .build();
+
+        DiamondInheritanceTopLevelStruct structB = DiamondInheritanceTopLevelStruct.builder()
+                                                                                   .baseLevelProperty("one")
+                                                                                   .firstMidLevelProperty("two")
+                                                                                   .secondMidLevelProperty("three")
+                                                                                   .topLevelProperty("four")
+                                                                                   .build();
+
+        DiamondInheritanceTopLevelStruct structC = DiamondInheritanceTopLevelStruct.builder()
+                                                                                   .baseLevelProperty("one")
+                                                                                   .firstMidLevelProperty("two")
+                                                                                   .secondMidLevelProperty("different")
+                                                                                   .topLevelProperty("four")
+                                                                                   .build();
+
+        assertTrue(structA.equals(structB));
+        assertFalse(structA.equals(structC));
+    }
+
+    @Test
+    public void structs_multiplePropertiesHashCode() {
+        DiamondInheritanceTopLevelStruct structA = DiamondInheritanceTopLevelStruct.builder()
+                                                                                   .baseLevelProperty("one")
+                                                                                   .firstMidLevelProperty("two")
+                                                                                   .secondMidLevelProperty("three")
+                                                                                   .topLevelProperty("four")
+                                                                                   .build();
+
+        DiamondInheritanceTopLevelStruct structB = DiamondInheritanceTopLevelStruct.builder()
+                                                                                   .baseLevelProperty("one")
+                                                                                   .firstMidLevelProperty("two")
+                                                                                   .secondMidLevelProperty("three")
+                                                                                   .topLevelProperty("four")
+                                                                                   .build();
+
+        DiamondInheritanceTopLevelStruct structC = DiamondInheritanceTopLevelStruct.builder()
+                                                                                   .baseLevelProperty("one")
+                                                                                   .firstMidLevelProperty("two")
+                                                                                   .secondMidLevelProperty("different")
+                                                                                   .topLevelProperty("four")
+                                                                                   .build();
+
+        assertTrue(structA.hashCode() == structB.hashCode());
+        assertFalse(structA.hashCode() == structC.hashCode());
+    }
+
     @Test(expected = NullPointerException.class)
-    public void structs_buildersContainNullChecks() {
-        new MyFirstStruct.Builder().withAstring(null);
+    public void structs_containsNullChecks() {
+        new MyFirstStruct.Builder().build();
     }
 
     @Test
     public void structs_serializeToJsii() {
         MyFirstStruct firstStruct = MyFirstStruct.builder()
-                .withAstring("FirstString")
-                .withAnumber(999)
-                .withFirstOptional(Arrays.asList("First", "Optional"))
+                .astring("FirstString")
+                .anumber(999)
+                .firstOptional(Arrays.asList("First", "Optional"))
                 .build();
 
         DoubleTrouble doubleTrouble = new DoubleTrouble();
 
         DerivedStruct derivedStruct = DerivedStruct.builder()
-                .withNonPrimitive(doubleTrouble)
-                .withBool(false)
-                .withAnotherRequired(Instant.now())
-                .withAstring("String")
-                .withAnumber(1234)
-                .withFirstOptional(Arrays.asList("one", "two"))
+                .nonPrimitive(doubleTrouble)
+                .bool(false)
+                .anotherRequired(Instant.now())
+                .astring("String")
+                .anumber(1234)
+                .firstOptional(Arrays.asList("one", "two"))
                 .build();
 
         GiveMeStructs gms = new GiveMeStructs();
@@ -819,6 +974,23 @@ public class ComplianceTest {
         assertEquals("optional1FromStructLiteral", literal.getOptional1());
         assertEquals(false, literal.getOptional3());
         assertNull(literal.getOptional2());
+    }
+
+    @Test
+    public void structs_returnedLiteralEqualsNativeBuilt() {
+        GiveMeStructs gms = new GiveMeStructs();
+        StructWithOnlyOptionals returnedLiteral = gms.getStructLiteral();
+        StructWithOnlyOptionals nativeBuilt = StructWithOnlyOptionals.builder()
+                                                                     .optional1("optional1FromStructLiteral")
+                                                                     .optional3(false)
+                                                                     .build();
+
+        assertEquals(nativeBuilt.getOptional1(), returnedLiteral.getOptional1());
+        assertEquals(nativeBuilt.getOptional2(), returnedLiteral.getOptional2());
+        assertEquals(nativeBuilt.getOptional3(), returnedLiteral.getOptional3());
+        assertEquals(nativeBuilt, returnedLiteral);
+        assertEquals(returnedLiteral, nativeBuilt);
+        assertEquals(nativeBuilt.hashCode(), returnedLiteral.hashCode());
     }
 
     @Test
@@ -977,8 +1149,8 @@ public class ComplianceTest {
         NullShouldBeTreatedAsUndefined obj = new NullShouldBeTreatedAsUndefined("hello", null);
         obj.giveMeUndefined(null);
         obj.giveMeUndefinedInsideAnObject(NullShouldBeTreatedAsUndefinedData.builder()
-                .withThisShouldBeUndefined(null)
-                .withArrayWithThreeElementsAndUndefinedAsSecondArgument(Arrays.asList("hello", null, "boom"))
+                .thisShouldBeUndefined(null)
+                .arrayWithThreeElementsAndUndefinedAsSecondArgument(Arrays.asList("hello", null, "boom"))
                 .build());
         obj.setChangeMeToUndefined(null);
         obj.verifyPropertyIsUndefined();
@@ -1013,7 +1185,7 @@ public class ComplianceTest {
     @Test
     public void eraseUnsetDataValues() {
         EraseUndefinedHashValuesOptions opts = EraseUndefinedHashValuesOptions.builder()
-                .withOption1("option1")
+                .option1("option1")
                 .build();
 
         assertTrue(EraseUndefinedHashValues.doesKeyExist(opts, "option1"));

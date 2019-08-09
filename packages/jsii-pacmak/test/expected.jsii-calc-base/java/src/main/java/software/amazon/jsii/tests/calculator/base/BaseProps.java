@@ -15,25 +15,26 @@ public interface BaseProps extends software.amazon.jsii.JsiiSerializable, softwa
      * A builder for {@link BaseProps}
      */
     final class Builder {
-        private java.lang.String _bar;
-        private software.amazon.jsii.tests.calculator.baseofbase.Very _foo;
+        private java.lang.String bar;
+        private software.amazon.jsii.tests.calculator.baseofbase.Very foo;
 
         /**
          * Sets the value of Bar
-         * @param value the value to be set
+         * @param bar the value to be set
          * @return {@code this}
          */
-        public Builder withBar(final java.lang.String value) {
-            this._bar = java.util.Objects.requireNonNull(value, "bar is required");
+        public Builder bar(java.lang.String bar) {
+            this.bar = bar;
             return this;
         }
+
         /**
          * Sets the value of Foo
-         * @param value the value to be set
+         * @param foo the value to be set
          * @return {@code this}
          */
-        public Builder withFoo(final software.amazon.jsii.tests.calculator.baseofbase.Very value) {
-            this._foo = java.util.Objects.requireNonNull(value, "foo is required");
+        public Builder foo(software.amazon.jsii.tests.calculator.baseofbase.Very foo) {
+            this.foo = foo;
             return this;
         }
 
@@ -43,48 +44,75 @@ public interface BaseProps extends software.amazon.jsii.JsiiSerializable, softwa
          * @throws NullPointerException if any required attribute was not provided
          */
         public BaseProps build() {
-            return new BaseProps() {
-                private final java.lang.String $bar = java.util.Objects.requireNonNull(_bar, "bar is required");
-                private final software.amazon.jsii.tests.calculator.baseofbase.Very $foo = java.util.Objects.requireNonNull(_foo, "foo is required");
-
-                @Override
-                public java.lang.String getBar() {
-                    return this.$bar;
-                }
-
-                @Override
-                public software.amazon.jsii.tests.calculator.baseofbase.Very getFoo() {
-                    return this.$foo;
-                }
-
-                public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-                    com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-                    com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-                    obj.set("bar", om.valueToTree(this.getBar()));
-                    obj.set("foo", om.valueToTree(this.getFoo()));
-                    return obj;
-                }
-
-            };
+            return new Jsii$Proxy(bar, foo);
         }
+
     }
 
     /**
-     * A proxy class which represents a concrete javascript instance of this type.
+     * An implementation for {@link BaseProps}
      */
-    final static class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.base.BaseProps {
-        protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
-            super(mode);
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements BaseProps {
+        private final java.lang.String bar;
+        private final software.amazon.jsii.tests.calculator.baseofbase.Very foo;
+
+        /**
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
+         */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.setObjRef(objRef);
+            this.bar = this.jsiiGet("bar", java.lang.String.class);
+            this.foo = this.jsiiGet("foo", software.amazon.jsii.tests.calculator.baseofbase.Very.class);
+        }
+
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        private Jsii$Proxy(java.lang.String bar, software.amazon.jsii.tests.calculator.baseofbase.Very foo) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.bar = java.util.Objects.requireNonNull(bar, "bar is required");
+            this.foo = java.util.Objects.requireNonNull(foo, "foo is required");
         }
 
         @Override
         public java.lang.String getBar() {
-            return this.jsiiGet("bar", java.lang.String.class);
+            return this.bar;
         }
 
         @Override
         public software.amazon.jsii.tests.calculator.baseofbase.Very getFoo() {
-            return this.jsiiGet("foo", software.amazon.jsii.tests.calculator.baseofbase.Very.class);
+            return this.foo;
         }
+
+        @Override
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("bar", om.valueToTree(this.getBar()));
+            obj.set("foo", om.valueToTree(this.getFoo()));
+            return obj;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            BaseProps.Jsii$Proxy that = (BaseProps.Jsii$Proxy) o;
+
+            if (!bar.equals(that.bar)) return false;
+            return foo.equals(that.foo);
+        }
+
+        @Override
+        public int hashCode() {
+            int result = bar.hashCode();
+            result = 31 * result + (foo.hashCode());
+            return result;
+        }
+
     }
 }

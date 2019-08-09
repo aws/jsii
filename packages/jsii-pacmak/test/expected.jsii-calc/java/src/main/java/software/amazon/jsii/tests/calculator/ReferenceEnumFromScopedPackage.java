@@ -9,19 +9,23 @@ package software.amazon.jsii.tests.calculator;
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.ReferenceEnumFromScopedPackage")
 public class ReferenceEnumFromScopedPackage extends software.amazon.jsii.JsiiObject {
-    protected ReferenceEnumFromScopedPackage(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
-        super(mode);
+
+    protected ReferenceEnumFromScopedPackage(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected ReferenceEnumFromScopedPackage(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
     }
     public ReferenceEnumFromScopedPackage() {
-        super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
     }
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    @javax.annotation.Nullable
     public software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule loadFoo() {
         return this.jsiiCall("loadFoo", software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule.class);
     }
@@ -38,7 +42,6 @@ public class ReferenceEnumFromScopedPackage extends software.amazon.jsii.JsiiObj
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    @javax.annotation.Nullable
     public software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule getFoo() {
         return this.jsiiGet("foo", software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule.class);
     }
@@ -47,7 +50,7 @@ public class ReferenceEnumFromScopedPackage extends software.amazon.jsii.JsiiObj
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setFoo(@javax.annotation.Nullable final software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule value) {
+    public void setFoo(final software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule value) {
         this.jsiiSet("foo", value);
     }
 }
