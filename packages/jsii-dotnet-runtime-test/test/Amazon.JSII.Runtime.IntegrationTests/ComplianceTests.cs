@@ -878,7 +878,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             // Array with no value in constructor params
             var variadicClassNoParams = new VariadicMethod();
 
-            // Array with no value in constructor params
+            // Array with null value in constructor params
             var variadicClassNullParams = new VariadicMethod(null);
 
             // Array with one value in constructor params
