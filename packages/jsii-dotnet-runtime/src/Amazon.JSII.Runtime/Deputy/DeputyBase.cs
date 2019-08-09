@@ -324,30 +324,30 @@ namespace Amazon.JSII.Runtime.Deputy
             var cleanedArgs = new List<object>(arguments);
             var cleanedParams = new List<Parameter>(parameters);
 
+            // Handling variadic parameters (null array, empty array, one value array, n values array..)
             if (parameters.Length > 0 && parameters.Last().IsVariadic)
             {
                 // Last parameter is variadic, let's explode the .NET attributes
-                object[] variadicValues = arguments.Last() as object[];
+                Array variadicValues = arguments.Last() as Array;
+
+                // We remove the last argument (the variadic array);
+                cleanedArgs.RemoveAt(cleanedArgs.Count - 1);
+
+                // A null value could be passed as a params
                 if (variadicValues != null)
                 {
-                    // We remove the last argument (the variadic array);
-                    cleanedArgs.RemoveAt(cleanedArgs.Count - 1);
                     // We save the last parameter to backfill the parameters list
                     var lastParameter = cleanedParams.Last();
 
                     for (int i = 0; i < variadicValues.Length; i++)
                     {
                         // Backfill the arguments
-                        cleanedArgs.Add(variadicValues[i]);
+                        cleanedArgs.Add(variadicValues.GetValue(i));
 
                         // Backfill the parameters if necessary, for a 1:1 mirror with the cleanedArgs
                         if (cleanedArgs.Count != cleanedParams.Count)
                             cleanedParams.Add(lastParameter);
                     }
-                }
-                else
-                {
-                    throw new ArgumentException($"Could not explode a variadic parameter: '{arguments.Last()}'", nameof(arguments));
                 }
             }
 

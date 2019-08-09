@@ -874,23 +874,33 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             
             // method argument called without null value
             objWithoutOptionalProvided.GiveMeUndefined();
-            
-            var variadicClass = new VariadicMethod();
+
+            // Array with no value in constructor params
+            var variadicClassNoParams = new VariadicMethod();
+
+            // Array with no value in constructor params
+            var variadicClassNullParams = new VariadicMethod(null);
+
+            // Array with one value in constructor params
+            var variadicClassOneParam = new VariadicMethod(1);
+
+            // Array with multiple values in constructor params
+            var variadicClassMultipleParams = new VariadicMethod(1, 2, 3, 4);
 
             // Variadic parameter with null passed
-            variadicClass.AsArray(Double.MinValue, null);
+            variadicClassNoParams.AsArray(Double.MinValue, null);
             
             // Variadic parameter with default value used
-            variadicClass.AsArray(Double.MinValue);
+            variadicClassNoParams.AsArray(Double.MinValue);
             
             var list = new List<double>();
 
             // Variadic parameter with array with no value
-            variadicClass.AsArray(Double.MinValue, list.ToArray());
+            variadicClassNoParams.AsArray(Double.MinValue, list.ToArray());
 
             // Variadic parameter with array with one value
             list.Add(1d);
-            variadicClass.AsArray(Double.MinValue, list.ToArray());
+            variadicClassNoParams.AsArray(Double.MinValue, list.ToArray());
 
             // Variadic parameter with array with multiple value
             list.Add(2d);
@@ -898,7 +908,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             list.Add(4d);
             list.Add(5d);
             list.Add(6d);
-            variadicClass.AsArray(Double.MinValue, list.ToArray());
+
+            variadicClassNoParams.AsArray(Double.MinValue, list.ToArray());
         }
 
         [Fact(DisplayName = Prefix + nameof(JsiiAgent))]
