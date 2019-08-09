@@ -43,8 +43,8 @@ final class Util {
 
     /**
      * Checks if the method name looks like a java property getter (getXxx).
-     * @param methodName The name of the method.
-     * @return True if the name looks like getXxx.
+     * @param method The reflected method that may be a get/setter
+     * @return true if the method is a get/setter.
      */
     static boolean isJavaPropertyMethod(final Method method) {
         final String methodName = method.getName();
@@ -73,14 +73,16 @@ final class Util {
             return getter.getReturnType().equals(returnType);
         } catch (final NoSuchMethodException nsme) {
             return declaring.equals(Object.class)
-                                                  ? false
-                                                  : isMatchingGetterPresent(getterName, returnType, declaring.getSuperclass());
+                ? false
+                : isMatchingGetterPresent(getterName,
+                                          returnType,
+                                          declaring.getSuperclass());
         }
     }
 
     /**
      * Convert a java property method name (getXxx/setXxx) to a javascript property name (xxx).
-     * @param getterSetterMethod The java method name
+     * @param method The reflected method (assumed to be a get/setter according to #isJavaPropertyMethod)
      * @return The javascript property name
      */
     static String javaPropertyToJSProperty(final Method method) {
