@@ -11,7 +11,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
-        public OptionalConstructorArgument(double arg1, string arg2, System.DateTime? arg3): base(new DeputyProps(new object[]{arg1, arg2, arg3}))
+        public OptionalConstructorArgument(double arg1, string arg2, System.DateTime? arg3 = null): base(new DeputyProps(new object[]{arg1, arg2, arg3}))
         {
         }
 

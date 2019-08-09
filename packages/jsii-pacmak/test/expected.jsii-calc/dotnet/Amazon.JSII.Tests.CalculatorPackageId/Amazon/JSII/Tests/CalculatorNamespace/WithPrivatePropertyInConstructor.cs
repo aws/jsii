@@ -12,7 +12,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
-        public WithPrivatePropertyInConstructor(string privateField): base(new DeputyProps(new object[]{privateField}))
+        public WithPrivatePropertyInConstructor(string privateField = null): base(new DeputyProps(new object[]{privateField}))
         {
         }
 
