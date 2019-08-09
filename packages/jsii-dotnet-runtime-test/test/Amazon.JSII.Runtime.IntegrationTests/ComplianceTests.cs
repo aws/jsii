@@ -971,6 +971,12 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         {
             var obj = new DataRendererSubclass();
             Assert.Equal("{\n  \"anumber\": 42,\n  \"astring\": \"bazinga!\"\n}", obj.Render(null));
+
+            Assert.Equal("{\n  \"Key\": {},\n  \"Baz\": \"Zinga\"\n}", obj.RenderArbitrary(new Dictionary<string, object>()
+            {
+                { "Key", obj },
+                { "Baz", "Zinga" }
+            }));
         }
 
         class DataRendererSubclass : DataRenderer

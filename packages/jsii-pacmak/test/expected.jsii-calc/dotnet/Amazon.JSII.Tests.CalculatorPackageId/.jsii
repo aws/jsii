@@ -2132,6 +2132,34 @@
             "filename": "lib/compliance.ts",
             "line": 1740
           },
+          "name": "renderArbitrary",
+          "parameters": [
+            {
+              "name": "data",
+              "type": {
+                "collection": {
+                  "elementtype": {
+                    "primitive": "any"
+                  },
+                  "kind": "map"
+                }
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1744
+          },
           "name": "renderMap",
           "parameters": [
             {
@@ -7160,7 +7188,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 1762
+        "line": 1766
       },
       "name": "SecondLevelStruct",
       "properties": [
@@ -7173,7 +7201,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1766
+            "line": 1770
           },
           "name": "deeperRequiredProp",
           "type": {
@@ -7189,7 +7217,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1771
+            "line": 1775
           },
           "name": "deeperOptionalProp",
           "optional": true,
@@ -7816,7 +7844,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 1779
+        "line": 1783
       },
       "methods": [
         {
@@ -7825,7 +7853,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1788
+            "line": 1792
           },
           "name": "howManyVarArgsDidIPass",
           "parameters": [
@@ -7857,7 +7885,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1780
+            "line": 1784
           },
           "name": "roundTrip",
           "parameters": [
@@ -8242,7 +8270,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 1745
+        "line": 1749
       },
       "name": "TopLevelStruct",
       "properties": [
@@ -8255,7 +8283,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1749
+            "line": 1753
           },
           "name": "required",
           "type": {
@@ -8271,7 +8299,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1759
+            "line": 1763
           },
           "name": "secondLevel",
           "type": {
@@ -8296,7 +8324,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1754
+            "line": 1758
           },
           "name": "optional",
           "optional": true,
@@ -9053,5 +9081,5 @@
     }
   },
   "version": "0.14.3",
-  "fingerprint": "HflAzjllHZLqkcqeSKW9kn6gvwv+uDmBpezvDUDp9RY="
+  "fingerprint": "Ld7vqOD5LvQ5a/I1LdRkj08XkdS+7syV580DELBDa+Y="
 }

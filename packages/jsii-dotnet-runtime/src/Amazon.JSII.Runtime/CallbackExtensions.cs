@@ -144,15 +144,20 @@ namespace Amazon.JSII.Runtime
                  * result in an ArgumentError for not being able to convert JObject to IDictionary.
                  */
                 var dict = ((JObject)obj).ToObject<Dictionary<string, object>>();
+                var mapped = new Dictionary<string, object>(dict.Count);
                 foreach (var key in dict.Keys)
                 {
                     var value = dict[key];
                     if (value != null && value.GetType() == typeof(JObject))
                     {
-                        dict[key] = FromKernel(value, referenceMap);
+                        mapped[key] = FromKernel(value, referenceMap);
+                    }
+                    else
+                    {
+                        mapped[key] = value;
                     }
                 }
-                return dict;
+                return mapped;
             }
             return obj;
         }

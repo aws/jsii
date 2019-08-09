@@ -27,7 +27,7 @@
     "fs-extra": "^8.1.0",
     "jsii-reflect": "^0.14.3",
     "jsii-spec": "^0.14.3",
-    "spdx-license-list": "^6.0.0",
+    "spdx-license-list": "^6.1.0",
     "xmlbuilder": "^13.0.2",
     "yargs": "^13.3.0"
   },
