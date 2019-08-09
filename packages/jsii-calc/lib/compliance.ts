@@ -1737,6 +1737,10 @@ export class DataRenderer {
         return this.renderMap(data);
     }
 
+    public renderArbitrary(data: { [key: string]: any }): string {
+        return this.renderMap(data);
+    }
+
     public renderMap(map: { [key: string]: any }): string {
         return JSON.stringify(map, null, 2);
     }

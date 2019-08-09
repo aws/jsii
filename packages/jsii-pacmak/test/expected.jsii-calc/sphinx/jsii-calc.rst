@@ -1479,6 +1479,13 @@ DataRenderer
       :rtype: string
 
 
+   .. py:method:: renderArbitrary(data) -> string
+
+      :param data: 
+      :type data: string => any
+      :rtype: string
+
+
    .. py:method:: renderMap(map) -> string
 
       :param map: 
