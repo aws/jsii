@@ -14,7 +14,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
-        public Calculator(Amazon.JSII.Tests.CalculatorNamespace.ICalculatorProps props): base(new DeputyProps(new object[]{props}))
+        public Calculator(Amazon.JSII.Tests.CalculatorNamespace.ICalculatorProps props = null): base(new DeputyProps(new object[]{props}))
         {
         }
 

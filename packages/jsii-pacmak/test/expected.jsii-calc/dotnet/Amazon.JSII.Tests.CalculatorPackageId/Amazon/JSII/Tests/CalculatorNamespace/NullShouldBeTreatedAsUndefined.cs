@@ -12,7 +12,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
-        public NullShouldBeTreatedAsUndefined(string param1, object optional): base(new DeputyProps(new object[]{param1, optional}))
+        public NullShouldBeTreatedAsUndefined(string param1, object optional = null): base(new DeputyProps(new object[]{param1, optional}))
         {
         }
 
@@ -28,7 +28,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "giveMeUndefined", parametersJson: "[{\"name\":\"value\",\"optional\":true,\"type\":{\"primitive\":\"any\"}}]")]
-        public virtual void GiveMeUndefined(object @value)
+        public virtual void GiveMeUndefined(object @value = null)
         {
             InvokeInstanceVoidMethod(new object[]{@value});
         }

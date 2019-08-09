@@ -229,9 +229,6 @@ export class DotNetGenerator extends Generator {
         this.code.openBlock(`public${inner}${absPrefix} class ${className}${implementsExpr}`);
 
         // Compute the class parameters
-        // TODO: add the support for optional parameters
-        // Not achievable as of today and not supported by the current generator
-        // https://github.com/awslabs/jsii/issues/210
         let parametersDefinition = '';
         let parametersBase = '';
         const initializer = cls.initializer;
@@ -239,16 +236,13 @@ export class DotNetGenerator extends Generator {
             this.dotnetDocGenerator.emitDocs(initializer);
             this.dotnetRuntimeGenerator.emitDeprecatedAttributeIfNecessary(initializer);
             if (initializer.parameters) {
+                parametersDefinition = this.renderParametersString(initializer.parameters);
                 for (const p of initializer.parameters) {
-                    const pType = this.typeresolver.toDotNetType(p.type);
-                    const isOptionalPrimitive = this.isOptionalPrimitive(p) ? '?' : '';
-                    if (parametersDefinition !== '') {
-                        parametersDefinition += ', ';
+                    parametersBase += `${this.nameutils.convertParameterName(p.name)}`;
+                    // If this is not the last parameter, append ,
+                    if (initializer.parameters.indexOf(p) !== initializer.parameters.length - 1) {
                         parametersBase += ', ';
                     }
-                    parametersDefinition += `${pType}${isOptionalPrimitive} ${this.nameutils.convertParameterName(p.name)}`;
-                    parametersBase += `${this.nameutils.convertParameterName(p.name)}`;
-
                 }
             }
 
@@ -443,18 +437,34 @@ export class DotNetGenerator extends Generator {
         }
     }
 
-    // TODO: I uncovered an issue with optional parameters and ordering them
-    // They are currently not supported by the generator.
-    // In C#, optional parameters need to be declared after required parameters
-    // We could make changes to the parameters ordering in the jsii model to support them
-    // But then an optional parameter becoming non optional would create a mess
-    // https://github.com/awslabs/jsii/issues/210
+    /**
+     * Renders method parameters string
+     */
     private renderMethodParameters(method: spec.Method): string {
+        return this.renderParametersString(method.parameters);
+    }
+
+    /**
+     * Renders parameters string for methods or constructors
+     */
+    private renderParametersString(parameters: spec.Parameter[] | undefined): string {
         const params = [];
-        if (method.parameters) {
-            for (const p of method.parameters) {
-                const isOptionalPrimitive = this.isOptionalPrimitive(p) ? '?' : '';
-                const st = `${this.typeresolver.toDotNetType(p.type)}${isOptionalPrimitive} ${this.nameutils.convertParameterName(p.name)}`;
+        if (parameters) {
+            for (const p of parameters) {
+                let optionalPrimitive = '';
+                let optionalKeyword = '';
+                let type = this.typeresolver.toDotNetType(p.type);
+                if (p.optional) {
+                    optionalKeyword = ' = null';
+                    if (this.isOptionalPrimitive(p)) {
+                        optionalPrimitive = '?';
+
+                    }
+                } else if (p.variadic) {
+                    type = `params ${type}[]`;
+                }
+                const st =
+                    `${type}${optionalPrimitive} ${this.nameutils.convertParameterName(p.name)}${optionalKeyword}`;
                 params.push(st);
             }
         }
@@ -637,7 +647,6 @@ export class DotNetGenerator extends Generator {
         let isVirtualKeyWord = '';
         // If the prop parent is a class
         if (cls.kind === spec.TypeKind.Class) {
-
             const implementedInBase = this.isMemberDefinedOnAncestor(cls as spec.ClassType, prop);
             if (implementedInBase || datatype || proxy) {
                 // Override if the property is in a datatype or proxy class or declared in a parent class

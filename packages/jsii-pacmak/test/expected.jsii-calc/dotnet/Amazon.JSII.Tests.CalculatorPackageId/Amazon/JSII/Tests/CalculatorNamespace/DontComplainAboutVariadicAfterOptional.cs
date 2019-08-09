@@ -24,7 +24,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "optionalAndVariadic", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[{\"name\":\"optional\",\"optional\":true,\"type\":{\"primitive\":\"string\"}},{\"name\":\"things\",\"type\":{\"primitive\":\"string\"},\"variadic\":true}]")]
-        public virtual string OptionalAndVariadic(string optional, string things)
+        public virtual string OptionalAndVariadic(string optional = null, params string[] things)
         {
             return InvokeInstanceMethod<string>(new object[]{optional, things});
         }

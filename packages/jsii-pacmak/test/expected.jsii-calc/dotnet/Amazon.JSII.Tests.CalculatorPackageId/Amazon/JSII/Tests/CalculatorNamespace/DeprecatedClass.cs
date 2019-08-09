@@ -13,7 +13,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Deprecated
         /// </remarks>
         [System.Obsolete("this constructor is \"just\" okay")]
-        public DeprecatedClass(string readonlyString, double? mutableNumber): base(new DeputyProps(new object[]{readonlyString, mutableNumber}))
+        public DeprecatedClass(string readonlyString, double? mutableNumber = null): base(new DeputyProps(new object[]{readonlyString, mutableNumber}))
         {
         }
 
