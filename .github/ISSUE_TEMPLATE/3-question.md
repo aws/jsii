@@ -1,7 +1,7 @@
 ---
-name: "\U00002753 Question"
+name: "\U00002753 Guidance"
 about: Ask a general question
-labels: question, needs-triage
+labels: guidance, needs-triage
 ---
 
 ## :question: Question
