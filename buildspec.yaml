@@ -3,16 +3,16 @@ version: 0.2
 phases:
   install:
     commands:
-      - /bin/bash ./install.sh
+      - npm run bootstrap
   pre_build:
     commands:
-      - /bin/bash ./fetch-dotnet-snk.sh
+      - npm run fetch-dotnet-snk
   build:
     commands:
-      - /bin/bash ./build.sh
+      - npm run build
   post_build:
     commands:
-      - "[ -f .BUILD_COMPLETED ] && /bin/bash ./pack.sh"
+      - '[ ${CODEBUILD_BUILD_SUCCEEDING} = 1 ] && npm run package'
 artifacts:
   files:
     - "**/*"

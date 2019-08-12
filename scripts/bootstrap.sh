@@ -22,4 +22,4 @@ lerna bootstrap --reject-cycles --ci
 
 echo "============================================================================================="
 echo "installing local links..."
-node scripts/install-local-deps.js
+npm run install-local-packages

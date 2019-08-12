@@ -2,8 +2,8 @@
  * Installs repo-local dependencies manually, as lerna ignores those...
  */
 const { exec, execSync } = require('child_process');
-const { removeSync, mkdirpSync, pathExistsSync, symlinkSync, writeJsonSync } = require('fs-extra');
-const { dirname, join, relative, resolve } = require('path');
+const { removeSync, mkdirpSync, pathExistsSync, readFileSync, symlinkSync, writeJsonSync } = require('fs-extra');
+const { basename, dirname, join, resolve } = require('path');
 
 exec('lerna ls --json --all', { shell: true }, (error, stdout) => {
   if (error) {
@@ -25,7 +25,9 @@ exec('lerna ls --json --all', { shell: true }, (error, stdout) => {
 
 function installDeps(location, ...depLists) {
   const nodeModules = join(location, 'node_modules');
-  const lockFile = join(location, 'package-lock.json');
+
+  const shrinkWrap = join(location, 'npm-shrinkwrap.json');
+  const lockFile = pathExistsSync(shrinkWrap) ? shrinkWrap : join(location, 'package-lock.json');
 
   const locks = pathExistsSync(lockFile) && require(lockFile);
 
@@ -48,17 +50,30 @@ function installDeps(location, ...depLists) {
       });
   }
   if (process.env.VERBOSE) {
-    console.log(`Fixing up package-lock.json in ${location}`);
+    console.log(`Fixing up ${basename(lockFile)} in ${location}`);
   }
   if (locks) {
     sortKeys(locks.dependencies);
-    writeJsonSync(lockFile, locks, { spaces: '\t' });
+    writeJsonSync(lockFile, locks, { spaces: findIndent(lockFile) });
   } else {
     // This is dog slow, hence we're playing funky games elsewhere... but we're not in the business of bootstrapping
     // a lock-file from scratch, so if there was none, let npm do it's thing instead of trying to replicate.
     execSync(`npm install --package-lock-only ${paths.join(' ')}`, { cwd: location, shell: true });
   }
 
+}
+
+function findIndent(path) {
+  if (pathExistsSync(path)) {
+    const lines = readFileSync(path, { encoding: 'utf-8' }).split('\n');
+    for (const line of lines) {
+      const match = line.match(/^(\s+)/)
+      if (match) {
+        return match[1];
+      }
+    }
+  }
+  return 2;
 }
 
 /**

@@ -1,14 +1,11 @@
 #!/bin/bash
 set -euo pipefail
 
-if [ ! -d node_modules ]; then
-    /bin/bash ./install.sh
+if [ ! -d ./node_modules ]; then
+    npm run bootstrap
 fi
 
-BUILD_INDICATOR=".BUILD_COMPLETED"
-rm -rf $BUILD_INDICATOR
-
-export PATH=node_modules/.bin:$PATH
+export PATH=./node_modules/.bin:$PATH
 
 echo "============================================================================================="
 echo "building..."
@@ -17,5 +14,3 @@ lerna run build --stream --sort
 echo "============================================================================================="
 echo "testing..."
 lerna run test --stream
-
-touch $BUILD_INDICATOR

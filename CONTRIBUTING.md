@@ -48,7 +48,7 @@ $ cd jsii # go to the root of the jsii repo
 $ docker run --rm --net=host -it -v $PWD:$PWD -w $PWD ${IMAGE}
 ```
 
-You can then run `./build.sh` as described below.
+You can then run `npm run build` as described below.
 
 ## Getting Started
 ### Bootstrapping
@@ -59,7 +59,7 @@ The project is managed as a [monorepo] using [lerna].
 [lerna]: https://github.com/lerna/lerna
 
 1. Check out this repository.
-2. Run `./build.sh` to install lerna, bootstrap the repository and perform an
+2. Run `npm run build` to install lerna, bootstrap the repository and perform an
    initial build and test cycle.
 
 ### Development Workflow
@@ -78,20 +78,23 @@ Each one of these scripts can be executed either from the root of the repo using
 
 ### Bump
 
-To bump the version of this repository, use the [`./bump.sh`](./bump.sh) script.
+To bump the version of this repository, use the [`npm run bump`] script.
+
+[`npm run bump`]: ./scripts/bump.sh
 
 ### Packaging and Bundling
 
-This repository emits artifacts in multiple languages. The
-[`pack.sh`](./pack.sh) and [`bundle.sh`](./bundle.sh) scripts are used to
-prepare the repository for publishing.
+This repository emits artifacts in multiple languages. The [`npm run package`]
+script is used to prepare the repository for publishing.
+
+[`npm run package`]: ./scripts/package.sh
 
 Each module that needs to be published implements an npm script called `package`
 which emits publishable artifacts to `dist/<lang>` (e.g. `dist/dotnet` for
 NuGet, `dist/js` for npm, `dist/java` for Maven Central). All those "dist"
 directories are merged into a single .zip file that is later on used in our
-CI/CD publishing tasks. Each `lang` directory is published to the respective
-repository.
+CI/CD publishing tasks. Each `<lang>` directory is published to the respective
+package repository.
 
 ## Implementing Language Bindings
 
