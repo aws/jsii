@@ -1,16 +1,24 @@
 {
-    "private": true,
-    "license": "Apache-2.0",
-    "devDependencies": {
-        "@types/node": "^8.10.51",
-        "lerna": "^3.16.4",
-        "nodeunit": "^0.11.3",
-        "nyc": "^14.1.1",
-        "tslint": "^5.18.0",
-        "typescript": "^3.5.3"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/aws/jsii.git"
-    }
+  "private": true,
+  "license": "Apache-2.0",
+  "scripts": {
+    "bootstrap": "bash scripts/bootstrap.sh",
+    "build": "bash scripts/build.sh",
+    "bump": "bash scripts/bump.sh",
+    "fetch-dotnet-snk": "bash scripts/fetch-dotnet-snk.sh",
+    "install-local-packages": "node scripts/install-local-packages.js",
+    "package": "bash scripts/package.sh"
+  },
+  "devDependencies": {
+    "@types/node": "^8.10.51",
+    "lerna": "^3.16.4",
+    "nodeunit": "^0.11.3",
+    "nyc": "^14.1.1",
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws/jsii.git"
+  }
 }

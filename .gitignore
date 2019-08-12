@@ -1,5 +1,4 @@
 node_modules/
-.BUILD_COMPLETED
 lerna-debug.log
 tsconfig.tsbuildinfo
 .DS_Store

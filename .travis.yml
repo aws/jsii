@@ -13,7 +13,7 @@ script:
   # Building the Docker image
   - docker build --pull --build-arg BUILD_TIMESTAMP=$(date -u +'%Y-%m-%dT%H:%M:%SZ') --build-arg COMMIT_ID="${TRAVIS_COMMIT}" -t "jsii/superchain:nightly" ./superchain
   # Building jsii itself within the Docker image
-  - docker run --rm -it --net=host -v ${PWD}:${PWD} -w ${PWD} jsii/superchain:nightly ./build.sh
+  - docker run --rm -it --net=host -v ${PWD}:${PWD} -w ${PWD} jsii/superchain:nightly npm run build
   # Make sure the build did not change the source tree
   - git update-index --refresh
   - git diff-index --exit-code --stat HEAD
