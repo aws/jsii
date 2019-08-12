@@ -813,7 +813,7 @@ class JavaGenerator extends Generator {
         // collect all properties from all base structs and dedupe by name. It is assumed that the generation of the
         // assembly will not permit multiple overloaded inherited properties with the same name and that this will be
         // enforced by Typescript constraints.
-        const propsByName = new Map<string, JavaProp>();
+        const propsByName: { [name: string]: JavaProp } = {};
         const self = this;
 
         function collectProps(currentIfc: spec.InterfaceType, isBaseClass = false) {
@@ -834,7 +834,7 @@ class JavaGenerator extends Generator {
                     inherited: isBaseClass,
                 };
 
-                propsByName.set(prop.propName, prop);
+                propsByName[prop.propName] = prop;
             }
 
             // add props of base struct
@@ -844,7 +844,7 @@ class JavaGenerator extends Generator {
         }
 
         collectProps(ifc);
-        const props = Array.from(propsByName.values());
+        const props = Object.values(propsByName);
 
         // Start Builder
         this.code.line('/**');
