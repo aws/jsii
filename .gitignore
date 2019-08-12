@@ -4,6 +4,6 @@ tsconfig.tsbuildinfo
 .DS_Store
 .idea
 .vs
-/dist
+dist/
 .vscode
 *.tsbuildinfo
