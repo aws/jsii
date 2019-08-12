@@ -491,8 +491,8 @@ public final class JsiiEngine implements JsiiCallbackHandler {
                 String methodName = method.getName();
 
                 // check if this is a property ("getXXX" or "setXXX", oh java!)
-                if (isJavaPropertyMethod(methodName)) {
-                    String propertyName = javaPropertyToJSProperty(methodName);
+                if (isJavaPropertyMethod(method)) {
+                    String propertyName = javaPropertyToJSProperty(method);
 
                     // skip if this property is already in the overrides list
                     if (overrides.containsKey(propertyName)) {
