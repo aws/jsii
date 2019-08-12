@@ -31,6 +31,8 @@ pull_request_rules:
   - name: delete branch after merge
     actions:
       delete_head_branch: {}
+    conditions:
+      - merged
   - name: if fails conventional commits
     actions:
       comment:
