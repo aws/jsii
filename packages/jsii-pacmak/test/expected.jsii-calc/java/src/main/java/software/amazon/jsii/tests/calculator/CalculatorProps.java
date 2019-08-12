@@ -13,6 +13,7 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.lang.Number getInitialValue();
+
     /**
      * EXPERIMENTAL
      */
@@ -32,29 +33,28 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     final class Builder {
-        @javax.annotation.Nullable
-        private java.lang.Number _initialValue;
-        @javax.annotation.Nullable
-        private java.lang.Number _maximumValue;
+        private java.lang.Number initialValue;
+        private java.lang.Number maximumValue;
 
         /**
          * Sets the value of InitialValue
-         * @param value the value to be set
+         * @param initialValue the value to be set
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public Builder withInitialValue(@javax.annotation.Nullable final java.lang.Number value) {
-            this._initialValue = value;
+        public Builder initialValue(java.lang.Number initialValue) {
+            this.initialValue = initialValue;
             return this;
         }
+
         /**
          * Sets the value of MaximumValue
-         * @param value the value to be set
+         * @param maximumValue the value to be set
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public Builder withMaximumValue(@javax.annotation.Nullable final java.lang.Number value) {
-            this._maximumValue = value;
+        public Builder maximumValue(java.lang.Number maximumValue) {
+            this.maximumValue = maximumValue;
             return this;
         }
 
@@ -65,64 +65,80 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public CalculatorProps build() {
-            return new CalculatorProps() {
-                @javax.annotation.Nullable
-                private final java.lang.Number $initialValue = _initialValue;
-                @javax.annotation.Nullable
-                private final java.lang.Number $maximumValue = _maximumValue;
-
-                @Override
-                public java.lang.Number getInitialValue() {
-                    return this.$initialValue;
-                }
-
-                @Override
-                public java.lang.Number getMaximumValue() {
-                    return this.$maximumValue;
-                }
-
-                public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-                    com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-                    com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-                    if (this.getInitialValue() != null) {
-                        obj.set("initialValue", om.valueToTree(this.getInitialValue()));
-                    }
-                    if (this.getMaximumValue() != null) {
-                        obj.set("maximumValue", om.valueToTree(this.getMaximumValue()));
-                    }
-                    return obj;
-                }
-
-            };
+            return new Jsii$Proxy(initialValue, maximumValue);
         }
+
     }
 
     /**
-     * A proxy class which represents a concrete javascript instance of this type.
+     * An implementation for {@link CalculatorProps}
      */
-    final static class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.CalculatorProps {
-        protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
-            super(mode);
-        }
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements CalculatorProps {
+        private final java.lang.Number initialValue;
+        private final java.lang.Number maximumValue;
 
         /**
-         * EXPERIMENTAL
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
          */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.setObjRef(objRef);
+            this.initialValue = this.jsiiGet("initialValue", java.lang.Number.class);
+            this.maximumValue = this.jsiiGet("maximumValue", java.lang.Number.class);
+        }
+
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        private Jsii$Proxy(java.lang.Number initialValue, java.lang.Number maximumValue) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.initialValue = initialValue;
+            this.maximumValue = maximumValue;
+        }
+
         @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        @javax.annotation.Nullable
         public java.lang.Number getInitialValue() {
-            return this.jsiiGet("initialValue", java.lang.Number.class);
+            return this.initialValue;
         }
 
-        /**
-         * EXPERIMENTAL
-         */
         @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        @javax.annotation.Nullable
         public java.lang.Number getMaximumValue() {
-            return this.jsiiGet("maximumValue", java.lang.Number.class);
+            return this.maximumValue;
         }
+
+        @Override
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            if (this.getInitialValue() != null) {
+                obj.set("initialValue", om.valueToTree(this.getInitialValue()));
+            }
+            if (this.getMaximumValue() != null) {
+                obj.set("maximumValue", om.valueToTree(this.getMaximumValue()));
+            }
+            return obj;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            CalculatorProps.Jsii$Proxy that = (CalculatorProps.Jsii$Proxy) o;
+
+            if (initialValue != null ? !initialValue.equals(that.initialValue) : that.initialValue != null) return false;
+            return maximumValue != null ? maximumValue.equals(that.maximumValue) : that.maximumValue == null;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = initialValue != null ? initialValue.hashCode() : 0;
+            result = 31 * result + (maximumValue != null ? maximumValue.hashCode() : 0);
+            return result;
+        }
+
     }
 }

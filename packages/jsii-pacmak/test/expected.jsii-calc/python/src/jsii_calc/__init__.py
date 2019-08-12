@@ -1188,6 +1188,180 @@ class DerivedStruct(scope.jsii_calc_lib.MyFirstStruct):
         return 'DerivedStruct(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
 
 
+@jsii.data_type(jsii_type="jsii-calc.DiamondInheritanceBaseLevelStruct", jsii_struct_bases=[], name_mapping={'base_level_property': 'baseLevelProperty'})
+class DiamondInheritanceBaseLevelStruct():
+    def __init__(self, *, base_level_property: str):
+        """
+        :param base_level_property: 
+
+        stability
+        :stability: experimental
+        """
+        self._values = {
+            'base_level_property': base_level_property,
+        }
+
+    @property
+    def base_level_property(self) -> str:
+        """
+        stability
+        :stability: experimental
+        """
+        return self._values.get('base_level_property')
+
+    def __eq__(self, rhs) -> bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs) -> bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return 'DiamondInheritanceBaseLevelStruct(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
+
+
+@jsii.data_type(jsii_type="jsii-calc.DiamondInheritanceFirstMidLevelStruct", jsii_struct_bases=[DiamondInheritanceBaseLevelStruct], name_mapping={'base_level_property': 'baseLevelProperty', 'first_mid_level_property': 'firstMidLevelProperty'})
+class DiamondInheritanceFirstMidLevelStruct(DiamondInheritanceBaseLevelStruct):
+    def __init__(self, *, base_level_property: str, first_mid_level_property: str):
+        """
+        :param base_level_property: 
+        :param first_mid_level_property: 
+
+        stability
+        :stability: experimental
+        """
+        self._values = {
+            'base_level_property': base_level_property,
+            'first_mid_level_property': first_mid_level_property,
+        }
+
+    @property
+    def base_level_property(self) -> str:
+        """
+        stability
+        :stability: experimental
+        """
+        return self._values.get('base_level_property')
+
+    @property
+    def first_mid_level_property(self) -> str:
+        """
+        stability
+        :stability: experimental
+        """
+        return self._values.get('first_mid_level_property')
+
+    def __eq__(self, rhs) -> bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs) -> bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return 'DiamondInheritanceFirstMidLevelStruct(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
+
+
+@jsii.data_type(jsii_type="jsii-calc.DiamondInheritanceSecondMidLevelStruct", jsii_struct_bases=[DiamondInheritanceBaseLevelStruct], name_mapping={'base_level_property': 'baseLevelProperty', 'second_mid_level_property': 'secondMidLevelProperty'})
+class DiamondInheritanceSecondMidLevelStruct(DiamondInheritanceBaseLevelStruct):
+    def __init__(self, *, base_level_property: str, second_mid_level_property: str):
+        """
+        :param base_level_property: 
+        :param second_mid_level_property: 
+
+        stability
+        :stability: experimental
+        """
+        self._values = {
+            'base_level_property': base_level_property,
+            'second_mid_level_property': second_mid_level_property,
+        }
+
+    @property
+    def base_level_property(self) -> str:
+        """
+        stability
+        :stability: experimental
+        """
+        return self._values.get('base_level_property')
+
+    @property
+    def second_mid_level_property(self) -> str:
+        """
+        stability
+        :stability: experimental
+        """
+        return self._values.get('second_mid_level_property')
+
+    def __eq__(self, rhs) -> bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs) -> bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return 'DiamondInheritanceSecondMidLevelStruct(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
+
+
+@jsii.data_type(jsii_type="jsii-calc.DiamondInheritanceTopLevelStruct", jsii_struct_bases=[DiamondInheritanceFirstMidLevelStruct, DiamondInheritanceSecondMidLevelStruct], name_mapping={'base_level_property': 'baseLevelProperty', 'first_mid_level_property': 'firstMidLevelProperty', 'second_mid_level_property': 'secondMidLevelProperty', 'top_level_property': 'topLevelProperty'})
+class DiamondInheritanceTopLevelStruct(DiamondInheritanceFirstMidLevelStruct, DiamondInheritanceSecondMidLevelStruct):
+    def __init__(self, *, base_level_property: str, first_mid_level_property: str, second_mid_level_property: str, top_level_property: str):
+        """
+        :param base_level_property: 
+        :param first_mid_level_property: 
+        :param second_mid_level_property: 
+        :param top_level_property: 
+
+        stability
+        :stability: experimental
+        """
+        self._values = {
+            'base_level_property': base_level_property,
+            'first_mid_level_property': first_mid_level_property,
+            'second_mid_level_property': second_mid_level_property,
+            'top_level_property': top_level_property,
+        }
+
+    @property
+    def base_level_property(self) -> str:
+        """
+        stability
+        :stability: experimental
+        """
+        return self._values.get('base_level_property')
+
+    @property
+    def first_mid_level_property(self) -> str:
+        """
+        stability
+        :stability: experimental
+        """
+        return self._values.get('first_mid_level_property')
+
+    @property
+    def second_mid_level_property(self) -> str:
+        """
+        stability
+        :stability: experimental
+        """
+        return self._values.get('second_mid_level_property')
+
+    @property
+    def top_level_property(self) -> str:
+        """
+        stability
+        :stability: experimental
+        """
+        return self._values.get('top_level_property')
+
+    def __eq__(self, rhs) -> bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs) -> bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return 'DiamondInheritanceTopLevelStruct(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
+
+
 class DoNotOverridePrivates(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DoNotOverridePrivates"):
     """
     stability
@@ -6349,6 +6523,6 @@ class Sum(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_type="js
         return jsii.set(self, "parts", value)
 
 
-__all__ = ["AbstractClass", "AbstractClassBase", "AbstractClassReturner", "Add", "AllTypes", "AllTypesEnum", "AllowedMethodNames", "AsyncVirtualMethods", "AugmentableClass", "BinaryOperation", "Calculator", "CalculatorProps", "ClassThatImplementsTheInternalInterface", "ClassThatImplementsThePrivateInterface", "ClassWithDocs", "ClassWithMutableObjectLiteralProperty", "ClassWithPrivateConstructorAndAutomaticProperties", "ConstructorPassesThisOut", "Constructors", "ConsumersOfThisCrazyTypeSystem", "DataRenderer", "DefaultedConstructorArgument", "DeprecatedClass", "DeprecatedEnum", "DeprecatedStruct", "DerivedClassHasNoProperties", "DerivedStruct", "DoNotOverridePrivates", "DoNotRecognizeAnyAsOptional", "DocumentedClass", "DontComplainAboutVariadicAfterOptional", "DoubleTrouble", "EraseUndefinedHashValues", "EraseUndefinedHashValuesOptions", "ExperimentalClass", "ExperimentalEnum", "ExperimentalStruct", "ExportedBaseClass", "ExtendsInternalInterface", "GiveMeStructs", "Greetee", "GreetingAugmenter", "IAnotherPublicInterface", "IDeprecatedInterface", "IExperimentalInterface", "IExtendsPrivateInterface", "IFriendlier", "IFriendlyRandomGenerator", "IInterfaceImplementedByAbstractClass", "IInterfaceThatShouldNotBeADataType", "IInterfaceWithInternal", "IInterfaceWithMethods", "IInterfaceWithOptionalMethodArguments", "IInterfaceWithProperties", "IInterfaceWithPropertiesExtension", "IJSII417Derived", "IJSII417PublicBaseOfBase", "IJsii487External", "IJsii487External2", "IJsii496", "IMutableObjectLiteral", "INonInternalInterface", "IPrivatelyImplemented", "IPublicInterface", "IPublicInterface2", "IRandomNumberGenerator", "IReturnsNumber", "IStableInterface", "ImplementInternalInterface", "ImplementsInterfaceWithInternal", "ImplementsInterfaceWithInternalSubclass", "ImplementsPrivateInterface", "ImplictBaseOfBase", "InbetweenClass", "InterfaceInNamespaceIncludesClasses", "InterfaceInNamespaceOnlyInterface", "JSII417Derived", "JSII417PublicBaseOfBase", "JSObjectLiteralForInterface", "JSObjectLiteralToNative", "JSObjectLiteralToNativeClass", "JavaReservedWords", "Jsii487Derived", "Jsii496Derived", "JsiiAgent", "LoadBalancedFargateServiceProps", "Multiply", "Negate", "NodeStandardLibrary", "NullShouldBeTreatedAsUndefined", "NullShouldBeTreatedAsUndefinedData", "NumberGenerator", "ObjectRefsInCollections", "Old", "OptionalConstructorArgument", "OptionalStruct", "OptionalStructConsumer", "OverrideReturnsObject", "PartiallyInitializedThisConsumer", "Polymorphism", "Power", "PublicClass", "PythonReservedWords", "ReferenceEnumFromScopedPackage", "ReturnsPrivateImplementationOfInterface", "RuntimeTypeChecking", "SecondLevelStruct", "SingleInstanceTwoTypes", "SingletonInt", "SingletonIntEnum", "SingletonString", "SingletonStringEnum", "StableClass", "StableEnum", "StableStruct", "StaticContext", "Statics", "StringEnum", "StripInternal", "StructPassing", "Sum", "SyncVirtualMethods", "Thrower", "TopLevelStruct", "UnaryOperation", "UnionProperties", "UseBundledDependency", "UseCalcBase", "UsesInterfaceWithProperties", "VariadicMethod", "VirtualMethodPlayground", "VoidCallback", "WithPrivatePropertyInConstructor", "__jsii_assembly__", "composition"]
+__all__ = ["AbstractClass", "AbstractClassBase", "AbstractClassReturner", "Add", "AllTypes", "AllTypesEnum", "AllowedMethodNames", "AsyncVirtualMethods", "AugmentableClass", "BinaryOperation", "Calculator", "CalculatorProps", "ClassThatImplementsTheInternalInterface", "ClassThatImplementsThePrivateInterface", "ClassWithDocs", "ClassWithMutableObjectLiteralProperty", "ClassWithPrivateConstructorAndAutomaticProperties", "ConstructorPassesThisOut", "Constructors", "ConsumersOfThisCrazyTypeSystem", "DataRenderer", "DefaultedConstructorArgument", "DeprecatedClass", "DeprecatedEnum", "DeprecatedStruct", "DerivedClassHasNoProperties", "DerivedStruct", "DiamondInheritanceBaseLevelStruct", "DiamondInheritanceFirstMidLevelStruct", "DiamondInheritanceSecondMidLevelStruct", "DiamondInheritanceTopLevelStruct", "DoNotOverridePrivates", "DoNotRecognizeAnyAsOptional", "DocumentedClass", "DontComplainAboutVariadicAfterOptional", "DoubleTrouble", "EraseUndefinedHashValues", "EraseUndefinedHashValuesOptions", "ExperimentalClass", "ExperimentalEnum", "ExperimentalStruct", "ExportedBaseClass", "ExtendsInternalInterface", "GiveMeStructs", "Greetee", "GreetingAugmenter", "IAnotherPublicInterface", "IDeprecatedInterface", "IExperimentalInterface", "IExtendsPrivateInterface", "IFriendlier", "IFriendlyRandomGenerator", "IInterfaceImplementedByAbstractClass", "IInterfaceThatShouldNotBeADataType", "IInterfaceWithInternal", "IInterfaceWithMethods", "IInterfaceWithOptionalMethodArguments", "IInterfaceWithProperties", "IInterfaceWithPropertiesExtension", "IJSII417Derived", "IJSII417PublicBaseOfBase", "IJsii487External", "IJsii487External2", "IJsii496", "IMutableObjectLiteral", "INonInternalInterface", "IPrivatelyImplemented", "IPublicInterface", "IPublicInterface2", "IRandomNumberGenerator", "IReturnsNumber", "IStableInterface", "ImplementInternalInterface", "ImplementsInterfaceWithInternal", "ImplementsInterfaceWithInternalSubclass", "ImplementsPrivateInterface", "ImplictBaseOfBase", "InbetweenClass", "InterfaceInNamespaceIncludesClasses", "InterfaceInNamespaceOnlyInterface", "JSII417Derived", "JSII417PublicBaseOfBase", "JSObjectLiteralForInterface", "JSObjectLiteralToNative", "JSObjectLiteralToNativeClass", "JavaReservedWords", "Jsii487Derived", "Jsii496Derived", "JsiiAgent", "LoadBalancedFargateServiceProps", "Multiply", "Negate", "NodeStandardLibrary", "NullShouldBeTreatedAsUndefined", "NullShouldBeTreatedAsUndefinedData", "NumberGenerator", "ObjectRefsInCollections", "Old", "OptionalConstructorArgument", "OptionalStruct", "OptionalStructConsumer", "OverrideReturnsObject", "PartiallyInitializedThisConsumer", "Polymorphism", "Power", "PublicClass", "PythonReservedWords", "ReferenceEnumFromScopedPackage", "ReturnsPrivateImplementationOfInterface", "RuntimeTypeChecking", "SecondLevelStruct", "SingleInstanceTwoTypes", "SingletonInt", "SingletonIntEnum", "SingletonString", "SingletonStringEnum", "StableClass", "StableEnum", "StableStruct", "StaticContext", "Statics", "StringEnum", "StripInternal", "StructPassing", "Sum", "SyncVirtualMethods", "Thrower", "TopLevelStruct", "UnaryOperation", "UnionProperties", "UseBundledDependency", "UseCalcBase", "UsesInterfaceWithProperties", "VariadicMethod", "VirtualMethodPlayground", "VoidCallback", "WithPrivatePropertyInConstructor", "__jsii_assembly__", "composition"]
 
 publication.publish()

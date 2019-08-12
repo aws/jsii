@@ -12,19 +12,24 @@ package software.amazon.jsii.tests.calculator;
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.AllTypes")
 public class AllTypes extends software.amazon.jsii.JsiiObject {
-    protected AllTypes(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
-        super(mode);
+
+    protected AllTypes(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected AllTypes(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
     }
     public AllTypes() {
-        super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
     }
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void anyIn(@javax.annotation.Nullable final java.lang.Object inp) {
+    public void anyIn(final java.lang.Object inp) {
         this.jsiiCall("anyIn", Void.class, new Object[] { inp });
     }
 
@@ -32,7 +37,6 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    @javax.annotation.Nullable
     public java.lang.Object anyOut() {
         return this.jsiiCall("anyOut", java.lang.Object.class);
     }
@@ -89,7 +93,6 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    @javax.annotation.Nullable
     public java.lang.Object getAnyProperty() {
         return this.jsiiGet("anyProperty", java.lang.Object.class);
     }
@@ -98,7 +101,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setAnyProperty(@javax.annotation.Nullable final java.lang.Object value) {
+    public void setAnyProperty(final java.lang.Object value) {
         this.jsiiSet("anyProperty", java.util.Objects.requireNonNull(value, "anyProperty is required"));
     }
 
@@ -338,7 +341,6 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    @javax.annotation.Nullable
     public java.lang.Object getUnknownProperty() {
         return this.jsiiGet("unknownProperty", java.lang.Object.class);
     }
@@ -347,7 +349,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setUnknownProperty(@javax.annotation.Nullable final java.lang.Object value) {
+    public void setUnknownProperty(final java.lang.Object value) {
         this.jsiiSet("unknownProperty", java.util.Objects.requireNonNull(value, "unknownProperty is required"));
     }
 
@@ -355,7 +357,6 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    @javax.annotation.Nullable
     public software.amazon.jsii.tests.calculator.StringEnum getOptionalEnumValue() {
         return this.jsiiGet("optionalEnumValue", software.amazon.jsii.tests.calculator.StringEnum.class);
     }
@@ -364,7 +365,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setOptionalEnumValue(@javax.annotation.Nullable final software.amazon.jsii.tests.calculator.StringEnum value) {
+    public void setOptionalEnumValue(final software.amazon.jsii.tests.calculator.StringEnum value) {
         this.jsiiSet("optionalEnumValue", value);
     }
 }

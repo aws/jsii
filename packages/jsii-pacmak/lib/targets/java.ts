@@ -14,6 +14,7 @@ import { VERSION, VERSION_DESC } from '../version';
 const spdxLicenseList = require('spdx-license-list');
 
 export default class Java extends Target {
+
     public static toPackageInfos(assm: spec.Assembly): { [language: string]: PackageInfo } {
         const groupId = assm.targets!.java!.maven.groupId;
         const artifactId = assm.targets!.java!.maven.artifactId;
@@ -145,7 +146,41 @@ export default class Java extends Target {
 const MODULE_CLASS_NAME = '$Module';
 const INTERFACE_PROXY_CLASS_NAME = 'Jsii$Proxy';
 
-const JSR305_NULLABLE = '@javax.annotation.Nullable';
+// Struct that stores metadata about a property that can be used in Java code generation.
+interface JavaProp {
+    // Documentation for the property
+    docs?: spec.Docs
+
+    // The original JSII property spec this struct was derived from
+    spec: spec.Property
+
+    // Canonical name of the Java property (eg: 'MyProperty')
+    propName: string
+
+    // The original canonical name of the JSII property
+    jsiiName: string
+
+    // Field name of the Java property (eg: 'myProperty')
+    fieldName: string
+
+    // The java type for the property (eg: 'List<String>')
+    fieldJavaType: string
+
+    // The raw class type of the property that can be used for marshalling (eg: 'List.class')
+    fieldJavaClass: string
+
+    // List of types that the property is assignable from. Used to overload setters.
+    javaTypes: string[]
+
+    // True if the property is optional.
+    nullable: boolean
+
+    // True if the property has been transitively inherited from a base class.
+    inherited: boolean
+
+    // True if the property is read-only once initialized.
+    immutable: boolean
+}
 
 class JavaGenerator extends Generator {
     /** If false, @Generated will not include generator version nor timestamp */
@@ -202,7 +237,7 @@ class JavaGenerator extends Generator {
         this.code.line(`@software.amazon.jsii.Jsii(module = ${this.moduleClass}.class, fqn = "${cls.fqn}")`);
         this.code.openBlock(`public${inner}${absPrefix} class ${cls.name}${extendsExpression}${implementsExpr}`);
 
-        this.emitJsiiInitializers(cls.name);
+        this.emitJsiiInitializers(cls);
         this.emitStaticInitializer(cls);
     }
 
@@ -219,8 +254,9 @@ class JavaGenerator extends Generator {
         this.addJavaDocs(method);
         this.emitStabilityAnnotations(method);
         this.code.openBlock(`${this.renderAccessLevel(method)} ${cls.name}(${this.renderMethodParameters(method)})`);
-        this.code.line('super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);');
-        this.code.line(`software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this${this.renderMethodCallArguments(method)});`);
+        this.code.line('super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);');
+        const createObjectCall = `software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this${this.renderMethodCallArguments(method)})`;
+        this.code.line(`this.setObjRef(${createObjectCall});`);
         this.code.closeBlock();
     }
 
@@ -317,11 +353,10 @@ class JavaGenerator extends Generator {
 
     protected onEndInterface(ifc: spec.InterfaceType) {
         if (ifc.datatype) {
-            this.emitInterfaceBuilder(ifc);
+            this.emitDataType(ifc);
+        } else {
+            this.emitInterfaceProxy(ifc);
         }
-
-        // emit interface proxy class
-        this.emitInterfaceProxy(ifc);
 
         this.code.closeBlock();
         this.closeFileIfNeeded(ifc);
@@ -332,6 +367,7 @@ class JavaGenerator extends Generator {
         this.addJavaDocs(method);
         this.emitStabilityAnnotations(method);
         this.code.line(`${returnType} ${method.name}(${this.renderMethodParameters(method)});`);
+        this.code.line();
     }
 
     protected onInterfaceMethodOverload(ifc: spec.InterfaceType, overload: spec.Method, _originalMethod: spec.Method) {
@@ -347,11 +383,13 @@ class JavaGenerator extends Generator {
         this.addJavaDocs(prop);
         this.emitStabilityAnnotations(prop);
         this.code.line(`${getterType} get${propName}();`);
+        this.code.line();
 
         if (!prop.immutable) {
             for (const type of setterTypes) {
                 this.addJavaDocs(prop);
                 this.code.line(`void set${propName}(final ${type} value);`);
+                this.code.line();
             }
         }
     }
@@ -622,7 +660,6 @@ class JavaGenerator extends Generator {
             this.addJavaDocs(prop);
             if (overrides) { this.code.line('@Override'); }
             this.emitStabilityAnnotations(prop);
-            if (isNullable(prop)) { this.code.line(JSR305_NULLABLE); }
             this.code.openBlock(`${access} ${statc}${getterType} get${propName}()`);
 
             let statement = 'return ';
@@ -644,8 +681,7 @@ class JavaGenerator extends Generator {
                 this.addJavaDocs(prop);
                 if (overrides) { this.code.line('@Override'); }
                 this.emitStabilityAnnotations(prop);
-                const nullable = isNullable(prop) ? `${JSR305_NULLABLE} ` : '';
-                this.code.openBlock(`${access} ${statc}void set${propName}(${nullable}final ${type} value)`);
+                this.code.openBlock(`${access} ${statc}void set${propName}(final ${type} value)`);
                 let statement = '';
 
                 if (prop.static) {
@@ -672,7 +708,6 @@ class JavaGenerator extends Generator {
         this.addJavaDocs(method);
         this.emitStabilityAnnotations(method);
         if (overrides) { this.code.line('@Override'); }
-        if (isNullable(method.returns)) { this.code.line(JSR305_NULLABLE); }
         if (method.abstract) {
             this.code.line(`${access} abstract ${signature};`);
         } else {
@@ -701,7 +736,10 @@ class JavaGenerator extends Generator {
             : `extends ${this.toNativeFqn(ifc.fqn)}`;
 
         this.code.openBlock(`final static class ${name} ${suffix}`);
-        this.emitJsiiInitializers(name);
+        this.code.openBlock(`protected ${name}(final software.amazon.jsii.JsiiObjectRef objRef)`);
+        this.code.line('super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);');
+        this.code.line('this.setObjRef(objRef);');
+        this.code.closeBlock();
 
         // compile a list of all unique methods from the current interface and all
         // base interfaces (and their bases).
@@ -779,11 +817,11 @@ class JavaGenerator extends Generator {
         }
     }
 
-    private emitInterfaceBuilder(ifc: spec.InterfaceType) {
+    private emitDataType(ifc: spec.InterfaceType) {
         const interfaceName = ifc.name;
         const builderName = 'Builder';
 
-        this.code.line();
+        // Start builder()
         this.code.line('/**');
         this.code.line(` * @return a {@link Builder} of {@link ${interfaceName}}`);
         this.code.line(' */');
@@ -791,41 +829,34 @@ class JavaGenerator extends Generator {
         this.code.openBlock(`static ${builderName} builder()`);
         this.code.line(`return new ${builderName}();`);
         this.code.closeBlock();
+        this.code.line();
+        // End builder()
 
-        interface Prop {
-            docs?: spec.Docs
-            spec: spec.Property
-            propName: string
-            fieldName: string
-            fieldJavaType: string
-            javaTypes: string[]
-            nullable: boolean
-            inherited: boolean
-            immutable: boolean
-        }
-
-        const props = new Array<Prop>();
-
-        // collect all properties from all base structs
+        // collect all properties from all base structs and dedupe by name. It is assumed that the generation of the
+        // assembly will not permit multiple overloaded inherited properties with the same name and that this will be
+        // enforced by Typescript constraints.
+        const propsByName: { [name: string]: JavaProp } = {};
         const self = this;
 
         function collectProps(currentIfc: spec.InterfaceType, isBaseClass = false) {
             for (const property of currentIfc.properties || []) {
                 const propName = self.code.toPascalCase(property.name);
 
-                const prop: Prop = {
+                const prop: JavaProp = {
                     docs: property.docs,
                     spec: property,
                     propName,
+                    jsiiName: property.name,
                     nullable: !!property.optional,
                     fieldName: self.code.toCamelCase(property.name),
                     fieldJavaType: self.toJavaType(property.type),
+                    fieldJavaClass: `${self.toJavaType(property.type, true)}.class`,
                     javaTypes: self.toJavaTypes(property.type),
                     immutable: property.immutable || false,
                     inherited: isBaseClass,
                 };
 
-                props.push(prop);
+                propsByName[prop.propName] = prop;
             }
 
             // add props of base struct
@@ -835,29 +866,26 @@ class JavaGenerator extends Generator {
         }
 
         collectProps(ifc);
+        const props = Object.values(propsByName);
 
-        this.code.line();
+        // Start Builder
         this.code.line('/**');
         this.code.line(` * A builder for {@link ${interfaceName}}`);
         this.code.line(' */');
         this.emitStabilityAnnotations(ifc);
         this.code.openBlock(`final class ${builderName}`);
+        props.forEach(prop => this.code.line(`private ${prop.fieldJavaType} ${prop.fieldName};`));
+        this.code.line();
 
         for (const prop of props) {
-            if (prop.nullable) {
-                this.code.line(JSR305_NULLABLE);
-            }
-            this.code.line(`private ${prop.fieldJavaType} _${prop.fieldName};`);
-        }
-        this.code.line();
-        for (const prop of props) {
             for (const type of prop.javaTypes) {
+                // Start property setter
                 this.code.line('/**');
                 this.code.line(` * Sets the value of ${prop.propName}`);
                 if (prop.docs && prop.docs.summary) {
-                    this.code.line(` * @param value ${prop.docs.summary}`);
+                    this.code.line(` * @param ${prop.fieldName} ${prop.docs.summary}`);
                 } else {
-                    this.code.line(` * @param value the value to be set`);
+                    this.code.line(` * @param ${prop.fieldName} the value to be set`);
                 }
                 this.code.line(` * @return {@code this}`);
                 if (prop.docs && prop.docs.deprecated) {
@@ -865,13 +893,16 @@ class JavaGenerator extends Generator {
                 }
                 this.code.line(' */');
                 this.emitStabilityAnnotations(prop.spec);
-                this.code.openBlock(`public ${builderName} with${prop.propName}(${prop.nullable ? `${JSR305_NULLABLE} ` : ''}final ${type} value)`);
-                this.code.line(`this._${prop.fieldName} = ${_validateIfNonOptional('value', prop)};`);
+                this.code.openBlock(`public ${builderName} ${prop.fieldName}(${type} ${prop.fieldName})`);
+                this.code.line(`this.${prop.fieldName} = ${prop.fieldName};`);
                 this.code.line('return this;');
                 this.code.closeBlock();
+                this.code.line();
+                // End property setter
             }
         }
-        this.code.line();
+
+        // Start build()
         this.code.line('/**');
         this.code.line(' * Builds the configured instance.');
         this.code.line(` * @return a new instance of {@link ${interfaceName}}`);
@@ -879,31 +910,66 @@ class JavaGenerator extends Generator {
         this.code.line(' */');
         this.emitStabilityAnnotations(ifc);
         this.code.openBlock(`public ${interfaceName} build()`);
-        this.code.openBlock(`return new ${interfaceName}()`);
-        for (const prop of props) {
-            if (prop.nullable) { this.code.line(JSR305_NULLABLE); }
-            // tslint:disable-next-line:max-line-length
-            this.code.line(`private${prop.immutable ? ' final' : ''} ${prop.fieldJavaType} $${prop.fieldName} = ${_validateIfNonOptional(`_${prop.fieldName}`, prop)};`);
-        }
-        for (const prop of props) {
-            this.code.line();
+        const propFields = props.map(prop => prop.fieldName).join(", ");
+        this.code.line(`return new ${INTERFACE_PROXY_CLASS_NAME}(${propFields});`);
+        this.code.closeBlock();
+        this.code.line();
+        // End build()
+
+        this.code.closeBlock();
+        this.code.line();
+        // End Builder
+
+        // Start implementation class
+        this.code.line('/**');
+        this.code.line(` * An implementation for {@link ${interfaceName}}`);
+        this.code.line(' */');
+        this.emitStabilityAnnotations(ifc);
+        this.code.openBlock(`final class ${INTERFACE_PROXY_CLASS_NAME} extends software.amazon.jsii.JsiiObject implements ${interfaceName}`);
+
+        // Immutable properties
+        props.forEach(prop => this.code.line(`private final ${prop.fieldJavaType} ${prop.fieldName};`));
+
+        // Start JSII reference constructor
+        this.code.line();
+        this.code.line('/**');
+        this.code.line(' * Constructor that initializes the object based on values retrieved from the JsiiObject.');
+        this.code.line(' * @param objRef Reference to the JSII managed object.');
+        this.code.line(' */');
+        this.code.openBlock(`protected ${INTERFACE_PROXY_CLASS_NAME}(final software.amazon.jsii.JsiiObjectRef objRef)`);
+        this.code.line('super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);');
+        this.code.line('this.setObjRef(objRef);');
+        props.forEach(prop => this.code.line(`this.${prop.fieldName} = this.jsiiGet("${prop.jsiiName}", ${prop.fieldJavaClass});`));
+        this.code.closeBlock();
+        // End JSII reference constructor
+
+        // Start literal constructor
+        this.code.line();
+        this.code.line();
+        this.code.line('/**');
+        this.code.line(' * Constructor that initializes the object based on literal property values passed by the {@link Builder}.');
+        this.code.line(' */');
+        const constructorArgs = props.map(prop => `${prop.fieldJavaType} ${prop.fieldName}`).join(", ");
+        this.code.openBlock(`private ${INTERFACE_PROXY_CLASS_NAME}(${constructorArgs})`);
+        this.code.line('super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);');
+        props.forEach(prop => {
+            this.code.line(`this.${prop.fieldName} = ${_validateIfNonOptional(prop.fieldName, prop)};`);
+        });
+        this.code.closeBlock();
+        this.code.line();
+        // End literal constructor
+
+        // Getters
+        props.forEach(prop => {
             this.code.line('@Override');
             this.code.openBlock(`public ${prop.fieldJavaType} get${prop.propName}()`);
-            this.code.line(`return this.$${prop.fieldName};`);
+            this.code.line(`return this.${prop.fieldName};`);
             this.code.closeBlock();
-            if (!prop.immutable) {
-                for (const type of prop.javaTypes) {
-                    this.code.line();
-                    this.code.line('@Override');
-                    this.code.openBlock(`public void set${prop.propName}(${prop.nullable ? `${JSR305_NULLABLE} ` : ''}final ${type} value)`);
-                    this.code.line(`this.$${prop.fieldName} = ${_validateIfNonOptional('value', prop)};`);
-                    this.code.closeBlock();
-                }
-            }
-        }
+            this.code.line();
+        });
 
         // emit $jsii$toJson which will be called to serialize this object when sent to JS
-        this.code.line();
+        this.code.line('@Override');
         this.code.openBlock(`public com.fasterxml.jackson.databind.JsonNode $jsii$toJson()`);
         this.code.line(`com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;`);
         // tslint:disable-next-line:max-line-length
@@ -916,19 +982,81 @@ class JavaGenerator extends Generator {
         }
 
         this.code.line(`return obj;`);
+        this.code.closeBlock();
+        this.code.line();
+        // End $jsii$toJson
+
+        // Generate equals() override
+        this.emitEqualsOverride(interfaceName, props);
+
+        // Generate hashCode() override
+        this.emitHashCodeOverride(props);
 
         this.code.closeBlock();
+        // End implementation class
 
-        this.code.unindent();
-        this.code.line(`};`); /* return new Foo() */
-
-        this.code.closeBlock(/* public Foo build() */);
-
-        this.code.closeBlock(/* final class Builder */);
-
-        function _validateIfNonOptional(variable: string, prop: Prop): string {
+        function _validateIfNonOptional(variable: string, prop: JavaProp): string {
             if (prop.nullable) { return variable; }
             return `java.util.Objects.requireNonNull(${variable}, "${prop.fieldName} is required")`;
+        }
+    }
+
+    private emitEqualsOverride(className: string, props: JavaProp[]) {
+        // A class without properties does not need to override equals()
+        if (props.length === 0) {
+            return;
+        }
+
+        this.code.line('@Override');
+        this.code.openBlock('public boolean equals(Object o)');
+        this.code.line('if (this == o) return true;');
+
+        this.code.line('if (o == null || getClass() != o.getClass()) return false;');
+        this.code.line();
+        this.code.line(`${className}.${INTERFACE_PROXY_CLASS_NAME} that = (${className}.${INTERFACE_PROXY_CLASS_NAME}) o;`);
+        this.code.line();
+
+        const initialProps = props.slice(0, props.length - 1);
+        const finalProp = props[props.length - 1];
+
+        initialProps.forEach(prop => {
+            const predicate = prop.nullable ?
+                `${prop.fieldName} != null ? !${prop.fieldName}.equals(that.${prop.fieldName}) : that.${prop.fieldName} != null` :
+                `!${prop.fieldName}.equals(that.${prop.fieldName})`;
+
+            this.code.line(`if (${predicate}) return false;`);
+        });
+
+        // The final (returned predicate) is the inverse of the other ones
+        const finalPredicate = finalProp.nullable ?
+            `${finalProp.fieldName} != null ? ${finalProp.fieldName}.equals(that.${finalProp.fieldName}) : that.${finalProp.fieldName} == null` :
+            `${finalProp.fieldName}.equals(that.${finalProp.fieldName})`;
+        this.code.line(`return ${finalPredicate};`);
+
+        this.code.closeBlock();
+        this.code.line();
+    }
+
+    private emitHashCodeOverride(props: JavaProp[]) {
+        // A class without properties does not need to override hashCode()
+        if (props.length === 0) {
+            return;
+        }
+
+        this.code.line('@Override');
+        this.code.openBlock('public int hashCode()');
+
+        const firstProp = props[0];
+        const remainingProps = props.slice(1);
+
+        this.code.line(`int result = ${_hashCodeForProp(firstProp)};`);
+        remainingProps.forEach(prop => this.code.line(`result = 31 * result + (${_hashCodeForProp(prop)});`));
+        this.code.line(`return result;`);
+        this.code.closeBlock();
+        this.code.line();
+
+        function _hashCodeForProp(prop: JavaProp) {
+            return prop.nullable ? `${prop.fieldName} != null ? ${prop.fieldName}.hashCode() : 0` : `${prop.fieldName}.hashCode()`;
         }
     }
 
@@ -1149,8 +1277,7 @@ class JavaGenerator extends Generator {
         const params = [];
         if (method.parameters) {
             for (const p of method.parameters) {
-                const nullable = isNullable(p) ? `${JSR305_NULLABLE} ` : '';
-                params.push(`${nullable}final ${this.toJavaType(p.type)}${p.variadic ? '...' : ''} ${p.name}`);
+                params.push(`final ${this.toJavaType(p.type)}${p.variadic ? '...' : ''} ${p.name}`);
             }
         }
         return params.join(', ');
@@ -1222,9 +1349,15 @@ class JavaGenerator extends Generator {
         return moduleClass;
     }
 
-    private emitJsiiInitializers(className: string) {
-        this.code.openBlock(`protected ${className}(final software.amazon.jsii.JsiiObject.InitializationMode mode)`);
-        this.code.line(`super(mode);`);
+    private emitJsiiInitializers(cls: spec.ClassType) {
+        this.code.line();
+        this.code.openBlock(`protected ${cls.name}(final software.amazon.jsii.JsiiObjectRef objRef)`);
+        this.code.line('super(objRef);');
+        this.code.closeBlock();
+
+        this.code.line();
+        this.code.openBlock(`protected ${cls.name}(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode)`);
+        this.code.line('super(initializationMode);');
         this.code.closeBlock();
     }
 

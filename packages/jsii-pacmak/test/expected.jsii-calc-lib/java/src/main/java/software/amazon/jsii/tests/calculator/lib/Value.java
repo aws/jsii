@@ -8,12 +8,17 @@ package software.amazon.jsii.tests.calculator.lib;
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.Value")
 public abstract class Value extends software.amazon.jsii.tests.calculator.base.Base {
-    protected Value(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
-        super(mode);
+
+    protected Value(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected Value(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
     }
     public Value() {
-        super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
     }
 
     /**
@@ -38,8 +43,9 @@ public abstract class Value extends software.amazon.jsii.tests.calculator.base.B
      * A proxy class which represents a concrete javascript instance of this type.
      */
     final static class Jsii$Proxy extends software.amazon.jsii.tests.calculator.lib.Value {
-        protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
-            super(mode);
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.setObjRef(objRef);
         }
 
         /**

@@ -2583,6 +2583,140 @@
         }
       ]
     },
+    "jsii-calc.DiamondInheritanceBaseLevelStruct": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.DiamondInheritanceBaseLevelStruct",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1778
+      },
+      "name": "DiamondInheritanceBaseLevelStruct",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1779
+          },
+          "name": "baseLevelProperty",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.DiamondInheritanceFirstMidLevelStruct": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.DiamondInheritanceFirstMidLevelStruct",
+      "interfaces": [
+        "jsii-calc.DiamondInheritanceBaseLevelStruct"
+      ],
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1782
+      },
+      "name": "DiamondInheritanceFirstMidLevelStruct",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1783
+          },
+          "name": "firstMidLevelProperty",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.DiamondInheritanceSecondMidLevelStruct": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.DiamondInheritanceSecondMidLevelStruct",
+      "interfaces": [
+        "jsii-calc.DiamondInheritanceBaseLevelStruct"
+      ],
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1786
+      },
+      "name": "DiamondInheritanceSecondMidLevelStruct",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1787
+          },
+          "name": "secondMidLevelProperty",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.DiamondInheritanceTopLevelStruct": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.DiamondInheritanceTopLevelStruct",
+      "interfaces": [
+        "jsii-calc.DiamondInheritanceFirstMidLevelStruct",
+        "jsii-calc.DiamondInheritanceSecondMidLevelStruct"
+      ],
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1790
+      },
+      "name": "DiamondInheritanceTopLevelStruct",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1791
+          },
+          "name": "topLevelProperty",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.DoNotOverridePrivates": {
       "assembly": "jsii-calc",
       "docs": {
@@ -7844,7 +7978,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 1783
+        "line": 1799
       },
       "methods": [
         {
@@ -7853,7 +7987,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1792
+            "line": 1808
           },
           "name": "howManyVarArgsDidIPass",
           "parameters": [
@@ -7885,7 +8019,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1784
+            "line": 1800
           },
           "name": "roundTrip",
           "parameters": [
@@ -9081,5 +9215,5 @@
     }
   },
   "version": "0.14.3",
-  "fingerprint": "Ld7vqOD5LvQ5a/I1LdRkj08XkdS+7syV580DELBDa+Y="
+  "fingerprint": "a/jxMJzoCSejg4NPvGH9qpyWwkZxCHN/zb4T5d00Cto="
 }

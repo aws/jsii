@@ -13,6 +13,7 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.lang.String getRequired();
+
     /**
      * A union to really stress test our serialization.
      * 
@@ -20,6 +21,7 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.lang.Object getSecondLevel();
+
     /**
      * You don't have to pass this.
      * 
@@ -41,49 +43,51 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     final class Builder {
-        private java.lang.String _required;
-        private java.lang.Object _secondLevel;
-        @javax.annotation.Nullable
-        private java.lang.String _optional;
+        private java.lang.String required;
+        private java.lang.Object secondLevel;
+        private java.lang.String optional;
 
         /**
          * Sets the value of Required
-         * @param value This is a required field.
+         * @param required This is a required field.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public Builder withRequired(final java.lang.String value) {
-            this._required = java.util.Objects.requireNonNull(value, "required is required");
+        public Builder required(java.lang.String required) {
+            this.required = required;
             return this;
         }
+
         /**
          * Sets the value of SecondLevel
-         * @param value A union to really stress test our serialization.
+         * @param secondLevel A union to really stress test our serialization.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public Builder withSecondLevel(final java.lang.Number value) {
-            this._secondLevel = java.util.Objects.requireNonNull(value, "secondLevel is required");
+        public Builder secondLevel(java.lang.Number secondLevel) {
+            this.secondLevel = secondLevel;
             return this;
         }
+
         /**
          * Sets the value of SecondLevel
-         * @param value A union to really stress test our serialization.
+         * @param secondLevel A union to really stress test our serialization.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public Builder withSecondLevel(final software.amazon.jsii.tests.calculator.SecondLevelStruct value) {
-            this._secondLevel = java.util.Objects.requireNonNull(value, "secondLevel is required");
+        public Builder secondLevel(software.amazon.jsii.tests.calculator.SecondLevelStruct secondLevel) {
+            this.secondLevel = secondLevel;
             return this;
         }
+
         /**
          * Sets the value of Optional
-         * @param value You don't have to pass this.
+         * @param optional You don't have to pass this.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public Builder withOptional(@javax.annotation.Nullable final java.lang.String value) {
-            this._optional = value;
+        public Builder optional(java.lang.String optional) {
+            this.optional = optional;
             return this;
         }
 
@@ -94,82 +98,89 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public TopLevelStruct build() {
-            return new TopLevelStruct() {
-                private final java.lang.String $required = java.util.Objects.requireNonNull(_required, "required is required");
-                private final java.lang.Object $secondLevel = java.util.Objects.requireNonNull(_secondLevel, "secondLevel is required");
-                @javax.annotation.Nullable
-                private final java.lang.String $optional = _optional;
-
-                @Override
-                public java.lang.String getRequired() {
-                    return this.$required;
-                }
-
-                @Override
-                public java.lang.Object getSecondLevel() {
-                    return this.$secondLevel;
-                }
-
-                @Override
-                public java.lang.String getOptional() {
-                    return this.$optional;
-                }
-
-                public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-                    com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-                    com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-                    obj.set("required", om.valueToTree(this.getRequired()));
-                    obj.set("secondLevel", om.valueToTree(this.getSecondLevel()));
-                    if (this.getOptional() != null) {
-                        obj.set("optional", om.valueToTree(this.getOptional()));
-                    }
-                    return obj;
-                }
-
-            };
+            return new Jsii$Proxy(required, secondLevel, optional);
         }
+
     }
 
     /**
-     * A proxy class which represents a concrete javascript instance of this type.
+     * An implementation for {@link TopLevelStruct}
      */
-    final static class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.TopLevelStruct {
-        protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
-            super(mode);
-        }
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements TopLevelStruct {
+        private final java.lang.String required;
+        private final java.lang.Object secondLevel;
+        private final java.lang.String optional;
 
         /**
-         * This is a required field.
-         * 
-         * EXPERIMENTAL
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
          */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.setObjRef(objRef);
+            this.required = this.jsiiGet("required", java.lang.String.class);
+            this.secondLevel = this.jsiiGet("secondLevel", java.lang.Object.class);
+            this.optional = this.jsiiGet("optional", java.lang.String.class);
+        }
+
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        private Jsii$Proxy(java.lang.String required, java.lang.Object secondLevel, java.lang.String optional) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.required = java.util.Objects.requireNonNull(required, "required is required");
+            this.secondLevel = java.util.Objects.requireNonNull(secondLevel, "secondLevel is required");
+            this.optional = optional;
+        }
+
         @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public java.lang.String getRequired() {
-            return this.jsiiGet("required", java.lang.String.class);
+            return this.required;
         }
 
-        /**
-         * A union to really stress test our serialization.
-         * 
-         * EXPERIMENTAL
-         */
         @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public java.lang.Object getSecondLevel() {
-            return this.jsiiGet("secondLevel", java.lang.Object.class);
+            return this.secondLevel;
         }
 
-        /**
-         * You don't have to pass this.
-         * 
-         * EXPERIMENTAL
-         */
         @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        @javax.annotation.Nullable
         public java.lang.String getOptional() {
-            return this.jsiiGet("optional", java.lang.String.class);
+            return this.optional;
         }
+
+        @Override
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("required", om.valueToTree(this.getRequired()));
+            obj.set("secondLevel", om.valueToTree(this.getSecondLevel()));
+            if (this.getOptional() != null) {
+                obj.set("optional", om.valueToTree(this.getOptional()));
+            }
+            return obj;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            TopLevelStruct.Jsii$Proxy that = (TopLevelStruct.Jsii$Proxy) o;
+
+            if (!required.equals(that.required)) return false;
+            if (!secondLevel.equals(that.secondLevel)) return false;
+            return optional != null ? optional.equals(that.optional) : that.optional == null;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = required.hashCode();
+            result = 31 * result + (secondLevel.hashCode());
+            result = 31 * result + (optional != null ? optional.hashCode() : 0);
+            return result;
+        }
+
     }
 }

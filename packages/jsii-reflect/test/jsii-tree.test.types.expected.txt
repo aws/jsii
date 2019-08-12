@@ -90,6 +90,10 @@ assemblies
  │   ├── interface CalculatorProps
  │   ├── interface DeprecatedStruct
  │   ├── interface DerivedStruct
+ │   ├── interface DiamondInheritanceBaseLevelStruct
+ │   ├── interface DiamondInheritanceFirstMidLevelStruct
+ │   ├── interface DiamondInheritanceSecondMidLevelStruct
+ │   ├── interface DiamondInheritanceTopLevelStruct
  │   ├── interface EraseUndefinedHashValuesOptions
  │   ├── interface ExperimentalStruct
  │   ├── interface ExtendsInternalInterface

@@ -8,17 +8,22 @@ package software.amazon.jsii.tests.calculator;
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.DeprecatedClass")
 public class DeprecatedClass extends software.amazon.jsii.JsiiObject {
-    protected DeprecatedClass(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
-        super(mode);
+
+    protected DeprecatedClass(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected DeprecatedClass(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
     }
     /**
      * @deprecated this constructor is "just" okay
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-    public DeprecatedClass(final java.lang.String readonlyString, @javax.annotation.Nullable final java.lang.Number mutableNumber) {
-        super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(readonlyString, "readonlyString is required"), mutableNumber });
+    public DeprecatedClass(final java.lang.String readonlyString, final java.lang.Number mutableNumber) {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(readonlyString, "readonlyString is required"), mutableNumber }));
     }
     /**
      * @deprecated this constructor is "just" okay
@@ -26,8 +31,8 @@ public class DeprecatedClass extends software.amazon.jsii.JsiiObject {
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     public DeprecatedClass(final java.lang.String readonlyString) {
-        super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(readonlyString, "readonlyString is required") });
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(readonlyString, "readonlyString is required") }));
     }
 
     /**
@@ -53,7 +58,6 @@ public class DeprecatedClass extends software.amazon.jsii.JsiiObject {
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-    @javax.annotation.Nullable
     public java.lang.Number getMutableProperty() {
         return this.jsiiGet("mutableProperty", java.lang.Number.class);
     }
@@ -63,7 +67,7 @@ public class DeprecatedClass extends software.amazon.jsii.JsiiObject {
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-    public void setMutableProperty(@javax.annotation.Nullable final java.lang.Number value) {
+    public void setMutableProperty(final java.lang.Number value) {
         this.jsiiSet("mutableProperty", value);
     }
 }

@@ -12,12 +12,17 @@ package software.amazon.jsii.tests.calculator;
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.DocumentedClass")
 public class DocumentedClass extends software.amazon.jsii.JsiiObject {
-    protected DocumentedClass(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
-        super(mode);
+
+    protected DocumentedClass(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected DocumentedClass(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
     }
     public DocumentedClass() {
-        super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
     }
 
     /**
@@ -30,7 +35,7 @@ public class DocumentedClass extends software.amazon.jsii.JsiiObject {
      * @param greetee The person to be greeted.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    public java.lang.Number greet(@javax.annotation.Nullable final software.amazon.jsii.tests.calculator.Greetee greetee) {
+    public java.lang.Number greet(final software.amazon.jsii.tests.calculator.Greetee greetee) {
         return this.jsiiCall("greet", java.lang.Number.class, new Object[] { greetee });
     }
 

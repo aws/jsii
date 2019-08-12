@@ -1,9 +1,5 @@
 package software.amazon.jsii;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.TreeNode;
-import com.fasterxml.jackson.databind.JsonNode;
-
 import javax.annotation.Nullable;
 
 /**
@@ -24,12 +20,20 @@ public class JsiiObject implements JsiiSerializable {
     /**
      * A special constructor that allows creating wrapper objects while bypassing the normal constructor
      * chain. This is used when an object was created in javascript-land and just needs a wrapper in native-land.
-     * @param initializationMode Must always be set to "Jsii".
+     * @param initializationMode Must always be set to "JSII".
      */
     protected JsiiObject(final InitializationMode initializationMode) {
-        if (initializationMode != InitializationMode.Jsii) {
-            throw new JsiiException("The only supported initialization mode is 'Jsii'");
+        if (initializationMode != InitializationMode.JSII) {
+            throw new JsiiException("The only supported initialization mode is '" + InitializationMode.JSII + "'");
         }
+    }
+
+    /**
+     * Used to construct a JSII object with a reference to an existing managed JSII node object.
+     * @param objRef Reference to existing managed JSII node object.
+     */
+    protected JsiiObject(final JsiiObjectRef objRef) {
+        this.objRef = objRef;
     }
 
     /**
@@ -40,7 +44,7 @@ public class JsiiObject implements JsiiSerializable {
          * Used as a way to bypass the the native constructor chain to allow classes that do not extend
          * JsiiObject directly to perform the initialization logic in javascript instead of natively.
          */
-        Jsii
+        JSII;
     }
 
     /**
@@ -145,7 +149,7 @@ public class JsiiObject implements JsiiSerializable {
      * Sets the jsii object reference for this object.
      * @param objRef The objref
      */
-    final void setObjRef(final JsiiObjectRef objRef) {
+    protected final void setObjRef(final JsiiObjectRef objRef) {
         this.objRef = objRef;
     }
 

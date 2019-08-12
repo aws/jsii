@@ -25,16 +25,16 @@ public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializabl
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     final class Builder {
-        private java.lang.String _readonlyProperty;
+        private java.lang.String readonlyProperty;
 
         /**
          * Sets the value of ReadonlyProperty
-         * @param value the value to be set
+         * @param readonlyProperty the value to be set
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public Builder withReadonlyProperty(final java.lang.String value) {
-            this._readonlyProperty = java.util.Objects.requireNonNull(value, "readonlyProperty is required");
+        public Builder readonlyProperty(java.lang.String readonlyProperty) {
+            this.readonlyProperty = readonlyProperty;
             return this;
         }
 
@@ -45,40 +45,65 @@ public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializabl
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public ExperimentalStruct build() {
-            return new ExperimentalStruct() {
-                private final java.lang.String $readonlyProperty = java.util.Objects.requireNonNull(_readonlyProperty, "readonlyProperty is required");
-
-                @Override
-                public java.lang.String getReadonlyProperty() {
-                    return this.$readonlyProperty;
-                }
-
-                public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-                    com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-                    com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-                    obj.set("readonlyProperty", om.valueToTree(this.getReadonlyProperty()));
-                    return obj;
-                }
-
-            };
+            return new Jsii$Proxy(readonlyProperty);
         }
+
     }
 
     /**
-     * A proxy class which represents a concrete javascript instance of this type.
+     * An implementation for {@link ExperimentalStruct}
      */
-    final static class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.ExperimentalStruct {
-        protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
-            super(mode);
-        }
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements ExperimentalStruct {
+        private final java.lang.String readonlyProperty;
 
         /**
-         * EXPERIMENTAL
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
          */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public java.lang.String getReadonlyProperty() {
-            return this.jsiiGet("readonlyProperty", java.lang.String.class);
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.setObjRef(objRef);
+            this.readonlyProperty = this.jsiiGet("readonlyProperty", java.lang.String.class);
         }
+
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        private Jsii$Proxy(java.lang.String readonlyProperty) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.readonlyProperty = java.util.Objects.requireNonNull(readonlyProperty, "readonlyProperty is required");
+        }
+
+        @Override
+        public java.lang.String getReadonlyProperty() {
+            return this.readonlyProperty;
+        }
+
+        @Override
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("readonlyProperty", om.valueToTree(this.getReadonlyProperty()));
+            return obj;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            ExperimentalStruct.Jsii$Proxy that = (ExperimentalStruct.Jsii$Proxy) o;
+
+            return readonlyProperty.equals(that.readonlyProperty);
+        }
+
+        @Override
+        public int hashCode() {
+            int result = readonlyProperty.hashCode();
+            return result;
+        }
+
     }
 }
