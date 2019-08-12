@@ -4,7 +4,7 @@ import setuptools
 kwargs = json.loads("""
 {
     "name": "jsii-calc",
-    "version": "0.14.3",
+    "version": "0.15.0",
     "description": "A simple calcuator built on JSII.",
     "url": "https://github.com/aws/jsii.git",
     "long_description_content_type": "text/markdown",
@@ -21,7 +21,7 @@ kwargs = json.loads("""
     ],
     "package_data": {
         "jsii_calc._jsii": [
-            "jsii-calc@0.14.3.jsii.tgz"
+            "jsii-calc@0.15.0.jsii.tgz"
         ],
         "jsii_calc": [
             "py.typed"
@@ -29,11 +29,11 @@ kwargs = json.loads("""
     },
     "python_requires": ">=3.6",
     "install_requires": [
-        "jsii~=0.14.3",
+        "jsii~=0.15.0",
         "publication>=0.0.3",
-        "scope.jsii-calc-base~=0.14.3",
-        "scope.jsii-calc-base-of-base~=0.14.3",
-        "scope.jsii-calc-lib~=0.14.3"
+        "scope.jsii-calc-base~=0.15.0",
+        "scope.jsii-calc-base-of-base~=0.15.0",
+        "scope.jsii-calc-lib~=0.15.0"
     ]
 }
 """)

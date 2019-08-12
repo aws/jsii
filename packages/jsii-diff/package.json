@@ -1,6 +1,6 @@
 {
     "name": "jsii-diff",
-    "version": "0.14.3",
+    "version": "0.15.0",
     "description": "Assembly comparison for jsii",
     "license": "Apache-2.0",
     "author": {
@@ -23,14 +23,14 @@
         "@types/nodeunit": "^0.0.30",
         "@types/tar-fs": "^1.16.1",
         "@types/yargs": "^13.0.2",
-        "jsii": "^0.14.3",
+        "jsii": "^0.15.0",
         "jsii-build-tools": "file:../jsii-build-tools",
         "nodeunit": "^0.11.3",
         "nyc": "^14.1.1"
     },
     "dependencies": {
-        "jsii-reflect": "^0.14.3",
-        "jsii-spec": "^0.14.3",
+        "jsii-reflect": "^0.15.0",
+        "jsii-spec": "^0.15.0",
         "log4js": "^5.0.0",
         "typescript": "^3.5.3",
         "yargs": "^13.3.0"
