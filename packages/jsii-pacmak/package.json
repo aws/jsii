@@ -1,6 +1,6 @@
 {
   "name": "jsii-pacmak",
-  "version": "0.14.3",
+  "version": "0.15.0",
   "description": "A code generation framework for jsii backend languages",
   "bin": {
     "jsii-pacmak": "bin/jsii-pacmak"
@@ -21,12 +21,12 @@
   ],
   "dependencies": {
     "clone": "^2.1.2",
-    "codemaker": "^0.14.3",
+    "codemaker": "^0.15.0",
     "commonmark": "^0.29.0",
     "escape-string-regexp": "^2.0.0",
     "fs-extra": "^8.1.0",
-    "jsii-reflect": "^0.14.3",
-    "jsii-spec": "^0.14.3",
+    "jsii-reflect": "^0.15.0",
+    "jsii-spec": "^0.15.0",
     "spdx-license-list": "^6.1.0",
     "xmlbuilder": "^13.0.2",
     "yargs": "^13.3.0"
