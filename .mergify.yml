@@ -5,9 +5,8 @@ pull_request_rules:
     actions:
       comment:
         message: |
-          Thank you for contributing! :heart:
-
-          Your pull request is ready to be automatically merged.
+          Thank you for contributing! :heart: I will now look into making sure
+          the PR is up-to-date, then proceed to try and merge it!
       merge:
         strict: smart
         method: squash
@@ -15,7 +14,6 @@ pull_request_rules:
       dismiss_reviews:
         approved: true
         changes_requested: false
-      delete_head_branch: {}
     conditions:
       - -title~=(WIP|wip)
       - label!=blocked
@@ -30,13 +28,9 @@ pull_request_rules:
       - status-success=AWS CodeBuild us-east-1 (jsii-build)
       - status-success=continuous-integration/travis-ci/pr
       - status-success=Semantic Pull Request
-  - name: remove stale reviews
+  - name: delete branch after merge
     actions:
-      dismiss_reviews:
-        approved: true
-        changes_requested: false
-    conditions:
-      - base=master
+      delete_head_branch: {}
   - name: if fails conventional commits
     actions:
       comment:
