@@ -2,6 +2,7 @@ package software.amazon.jsii;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -42,21 +43,51 @@ final class Util {
 
     /**
      * Checks if the method name looks like a java property getter (getXxx).
-     * @param methodName The name of the method.
-     * @return True if the name looks like getXxx.
+     * @param method The reflected method that may be a get/setter
+     * @return true if the method is a get/setter.
      */
-    static boolean isJavaPropertyMethod(final String methodName) {
-        return (methodName.length() > PROPERTY_METHOD_PREFIX_LEN
-                && (methodName.startsWith("get") || methodName.startsWith(("set"))));
+    static boolean isJavaPropertyMethod(final Method method) {
+        final String methodName = method.getName();
+        if (methodName.length() <= PROPERTY_METHOD_PREFIX_LEN) {
+            // Needs to have at least one character after the "get" or "set" prefix
+            return false;
+        }
+        if (methodName.startsWith("get") && method.getParameterCount() == 0) {
+            // Require something else than a lowercase letter after the "get" prefix
+            return !Character.isLowerCase(methodName.charAt(3));
+        }
+        if (methodName.startsWith("set") && method.getParameterCount() == 1) {
+            // Require something else than a lowercase letter after the "get" prefix
+            return !Character.isLowerCase(methodName.charAt(3))
+                // Require a matching getter
+                && isMatchingGetterPresent(method.getName().replaceFirst("set", "get"),
+                    method.getParameterTypes()[0],
+                    method.getDeclaringClass());
+        }
+        return false;
+    }
+
+    private static boolean isMatchingGetterPresent(final String getterName, final Class<?> returnType, final Class<?> declaring) {
+        try {
+            final Method getter = declaring.getDeclaredMethod(getterName);
+            return getter.getReturnType().equals(returnType);
+        } catch (final NoSuchMethodException nsme) {
+            return declaring.equals(Object.class)
+                ? false
+                : isMatchingGetterPresent(getterName,
+                                          returnType,
+                                          declaring.getSuperclass());
+        }
     }
 
     /**
      * Convert a java property method name (getXxx/setXxx) to a javascript property name (xxx).
-     * @param getterSetterMethod The java method name
+     * @param method The reflected method (assumed to be a get/setter according to #isJavaPropertyMethod)
      * @return The javascript property name
      */
-    static String javaPropertyToJSProperty(final String getterSetterMethod) {
-        if (!isJavaPropertyMethod(getterSetterMethod)) {
+    static String javaPropertyToJSProperty(final Method method) {
+        final String getterSetterMethod = method.getName();
+        if (!isJavaPropertyMethod(method)) {
             throw new JsiiException("Invalid getter/setter method. Must start with get/set");
         }
 

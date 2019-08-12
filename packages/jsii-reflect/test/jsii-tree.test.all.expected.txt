@@ -320,6 +320,11 @@ assemblies
  │   │   │ │ └─┬ data
  │   │   │ │   └── type: Optional<@scope/jsii-calc-lib.MyFirstStruct>
  │   │   │ └── returns: string
+ │   │   ├─┬ renderArbitrary(data) method (experimental)
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ data
+ │   │   │ │   └── type: Map<string => any>
+ │   │   │ └── returns: string
  │   │   └─┬ renderMap(map) method (experimental)
  │   │     ├─┬ parameters
  │   │     │ └─┬ map

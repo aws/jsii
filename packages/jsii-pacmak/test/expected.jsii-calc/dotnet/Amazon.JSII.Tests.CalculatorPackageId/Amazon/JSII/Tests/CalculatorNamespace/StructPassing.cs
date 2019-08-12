@@ -25,7 +25,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: External
         /// </remarks>
         [JsiiMethod(name: "howManyVarArgsDidIPass", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[{\"name\":\"_positional\",\"type\":{\"primitive\":\"number\"}},{\"name\":\"inputs\",\"type\":{\"fqn\":\"jsii-calc.TopLevelStruct\"},\"variadic\":true}]")]
-        public static double HowManyVarArgsDidIPass(double positional, Amazon.JSII.Tests.CalculatorNamespace.ITopLevelStruct inputs)
+        public static double HowManyVarArgsDidIPass(double positional, params Amazon.JSII.Tests.CalculatorNamespace.ITopLevelStruct[] inputs)
         {
             return InvokeStaticMethod<double>(typeof(Amazon.JSII.Tests.CalculatorNamespace.StructPassing), new object[]{positional, inputs});
         }

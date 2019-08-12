@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Amazon.JSII.Runtime.Deputy;
 using Amazon.JSII.Tests.CalculatorNamespace;
 using CompositeOperation = Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation;
@@ -861,6 +862,56 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             obj.VerifyPropertyIsUndefined();
         }
 
+        [Fact(DisplayName = Prefix + nameof(OptionalAndVariadicArgumentsTest))]
+        public void OptionalAndVariadicArgumentsTest()
+        {
+            // ctor
+            var objWithOptionalProvided = new NullShouldBeTreatedAsUndefined("param1", null);
+            var objWithoutOptionalProvided = new NullShouldBeTreatedAsUndefined("param1");
+            
+            // method argument called with null value
+            objWithoutOptionalProvided.GiveMeUndefined(null);
+            
+            // method argument called without null value
+            objWithoutOptionalProvided.GiveMeUndefined();
+
+            // Array with no value in constructor params
+            var variadicClassNoParams = new VariadicMethod();
+
+            // Array with null value in constructor params
+            var variadicClassNullParams = new VariadicMethod(null);
+
+            // Array with one value in constructor params
+            var variadicClassOneParam = new VariadicMethod(1);
+
+            // Array with multiple values in constructor params
+            var variadicClassMultipleParams = new VariadicMethod(1, 2, 3, 4);
+
+            // Variadic parameter with null passed
+            variadicClassNoParams.AsArray(Double.MinValue, null);
+            
+            // Variadic parameter with default value used
+            variadicClassNoParams.AsArray(Double.MinValue);
+            
+            var list = new List<double>();
+
+            // Variadic parameter with array with no value
+            variadicClassNoParams.AsArray(Double.MinValue, list.ToArray());
+
+            // Variadic parameter with array with one value
+            list.Add(1d);
+            variadicClassNoParams.AsArray(Double.MinValue, list.ToArray());
+
+            // Variadic parameter with array with multiple value
+            list.Add(2d);
+            list.Add(3d);
+            list.Add(4d);
+            list.Add(5d);
+            list.Add(6d);
+
+            variadicClassNoParams.AsArray(Double.MinValue, list.ToArray());
+        }
+
         [Fact(DisplayName = Prefix + nameof(JsiiAgent))]
         public void JsiiAgent()
         {
@@ -920,6 +971,12 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         {
             var obj = new DataRendererSubclass();
             Assert.Equal("{\n  \"anumber\": 42,\n  \"astring\": \"bazinga!\"\n}", obj.Render(null));
+
+            Assert.Equal("{\n  \"Key\": {},\n  \"Baz\": \"Zinga\"\n}", obj.RenderArbitrary(new Dictionary<string, object>()
+            {
+                { "Key", obj },
+                { "Baz", "Zinga" }
+            }));
         }
 
         class DataRendererSubclass : DataRenderer

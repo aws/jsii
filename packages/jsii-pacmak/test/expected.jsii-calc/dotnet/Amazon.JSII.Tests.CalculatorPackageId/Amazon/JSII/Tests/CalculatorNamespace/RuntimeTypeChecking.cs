@@ -24,7 +24,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "methodWithDefaultedArguments", parametersJson: "[{\"name\":\"arg1\",\"optional\":true,\"type\":{\"primitive\":\"number\"}},{\"name\":\"arg2\",\"optional\":true,\"type\":{\"primitive\":\"string\"}},{\"name\":\"arg3\",\"optional\":true,\"type\":{\"primitive\":\"date\"}}]")]
-        public virtual void MethodWithDefaultedArguments(double? arg1, string arg2, System.DateTime? arg3)
+        public virtual void MethodWithDefaultedArguments(double? arg1 = null, string arg2 = null, System.DateTime? arg3 = null)
         {
             InvokeInstanceVoidMethod(new object[]{arg1, arg2, arg3});
         }
@@ -33,7 +33,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "methodWithOptionalAnyArgument", parametersJson: "[{\"name\":\"arg\",\"optional\":true,\"type\":{\"primitive\":\"any\"}}]")]
-        public virtual void MethodWithOptionalAnyArgument(object arg)
+        public virtual void MethodWithOptionalAnyArgument(object arg = null)
         {
             InvokeInstanceVoidMethod(new object[]{arg});
         }
@@ -43,7 +43,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "methodWithOptionalArguments", parametersJson: "[{\"name\":\"arg1\",\"type\":{\"primitive\":\"number\"}},{\"name\":\"arg2\",\"type\":{\"primitive\":\"string\"}},{\"name\":\"arg3\",\"optional\":true,\"type\":{\"primitive\":\"date\"}}]")]
-        public virtual void MethodWithOptionalArguments(double arg1, string arg2, System.DateTime? arg3)
+        public virtual void MethodWithOptionalArguments(double arg1, string arg2, System.DateTime? arg3 = null)
         {
             InvokeInstanceVoidMethod(new object[]{arg1, arg2, arg3});
         }

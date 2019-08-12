@@ -51,11 +51,11 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Versions of the dependencies -->
         <findbugs.version>[3.0.2,3.1.0)</findbugs.version>
-        <guava.version>[27.0.1-jre,27.1)</guava.version>
-        <jackson.version>[2.9.8,2.10.0)</jackson.version>
+        <jackson-core.version>[2.9.9,2.10.0)</jackson-core.version>
+        <jackson-databind.version>[2.9.9.2,2.10.0)</jackson-databind.version>
         <javax.annotations.version>[1.3.2,1.4.0)</javax.annotations.version>
-        <junit.version>[5.4.1,5.5.0)</junit.version>
-        <mockito.version>[2.25.1,2.26.0)</mockito.version>
+        <junit.version>[5.5.1,5.6.0)</junit.version>
+        <mockito.version>[3.0.0,3.1.0)</mockito.version>
     </properties>
 
     <dependencies>
@@ -63,21 +63,14 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>\${jackson.version}</version>
+            <version>\${jackson-core.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>\${jackson.version}</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>\${guava.version}</version>
+            <version>\${jackson-databind.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.google.code.findbugs/jsr305 -->
@@ -111,7 +104,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <scope>test</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
+        <!-- https://mvnrepository.com/artifact/org.mjockito/mockito-core -->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
@@ -125,7 +118,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.6.1</version>
+                <version>3.8.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>

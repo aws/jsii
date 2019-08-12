@@ -10,9 +10,9 @@ RUN yum -y upgrade                                                              
 ###
 
 # Install NVM and Node 8+
-ENV NVM_DIR=/usr/local/nvm                                                                                              \
-    NODE_VERSION=8.16.0                                                                                                 \
-    NPM_VERSION=6.8.0
+ARG NODE_VERSION=8.16.0
+ARG NPM_VERSION=6.8.0
+ENV NVM_DIR=/usr/local/nvm
 RUN curl -sSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh -o /tmp/install-nvm.sh                    \
   && echo "ef7ad1db40c92f348c0461f24983b71ba0ea7d45d4007a36e484270fa7f81fcf /tmp/install-nvm.sh" | sha256sum -c         \
   && mkdir -p ${NVM_DIR}                                                                                                \
@@ -26,11 +26,15 @@ RUN curl -sSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh -o
   && npm set unsafe-perm true
 ENV NODE_PATH=${NVM_DIR}/versions/node/v${NODE_VERSION}/lib/node_modules                                                \
     PATH=${PATH}:${NVM_DIR}/versions/node/v${NODE_VERSION}/bin
-# Install .NET Core
+# Install .NET Core & mono
 ENV DOTNET_CLI_TELEMETRY_OPTOUT=1                                                                                       \
     DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
-RUN rpm -Uvh https://packages.microsoft.com/config/rhel/7/packages-microsoft-prod.rpm                                   \
-  && yum -y install dotnet-sdk-2.2                                                                                      \
+COPY gpg/mono.asc /tmp/mono.asc
+RUN rpm --import "https://packages.microsoft.com/keys/microsoft.asc"                                                    \
+  && rpm -Uvh "https://packages.microsoft.com/config/rhel/7/packages-microsoft-prod.rpm"                                \
+  && rpm --import /tmp/mono.asc && rm -f /tmp/mono.asc                                                                  \
+  && curl "https://download.mono-project.com/repo/centos6-stable.repo" | tee /etc/yum.repos.d/mono-centos6-stable.repo  \
+  && yum -y install dotnet-sdk-2.2 mono-devel                                                                           \
   && yum clean all && rm -rf /var/cache/yum
 
 # Install Powershell
@@ -63,15 +67,17 @@ VOLUME /var/lib/docker
 # Install some configuration
 COPY ssh_config /root/.ssh/config
 COPY dockerd-entrypoint.sh /usr/local/bin/
+ENV CHARSET=UTF-8                                                                                                       \
+    LC_ALL=C.UTF-8
 
 ## Image Metadata
 ARG BUILD_TIMESTAMP
 ARG COMMIT_ID
-LABEL org.opencontainers.image.created=${BUILD_TIMESTAMP}
-LABEL org.opencontainers.image.title="jsii/superchain"
-LABEL org.opencontainers.image.description="An image to build cross-language artifacts with AWS JSII"
-LABEL org.opencontainers.image.url="https://github.com/aws/jsii/tree/master/superchain"
-LABEL org.opencontainers.image.source="https://github.com/aws/jsii.git"
-LABEL org.opencontainers.image.revision=$COMMIT_ID
+LABEL org.opencontainers.image.created=${BUILD_TIMESTAMP}                                                               \
+      org.opencontainers.image.title="jsii/superchain"                                                                  \
+      org.opencontainers.image.description="An image to build cross-language artifacts with AWS JSII"                   \
+      org.opencontainers.image.url="https://github.com/aws/jsii/tree/master/superchain"                                 \
+      org.opencontainers.image.source="https://github.com/aws/jsii.git"                                                 \
+      org.opencontainers.image.revision=$COMMIT_ID
 
 CMD ["/bin/bash"]

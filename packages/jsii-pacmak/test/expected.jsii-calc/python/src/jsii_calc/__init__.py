@@ -850,6 +850,16 @@ class DataRenderer(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.DataRenderer"):
 
         return jsii.invoke(self, "render", [data])
 
+    @jsii.member(jsii_name="renderArbitrary")
+    def render_arbitrary(self, data: typing.Mapping[str,typing.Any]) -> str:
+        """
+        :param data: -
+
+        stability
+        :stability: experimental
+        """
+        return jsii.invoke(self, "renderArbitrary", [data])
+
     @jsii.member(jsii_name="renderMap")
     def render_map(self, map: typing.Mapping[str,typing.Any]) -> str:
         """
