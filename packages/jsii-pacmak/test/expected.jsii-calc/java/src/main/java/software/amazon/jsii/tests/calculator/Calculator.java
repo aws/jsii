@@ -9,8 +9,13 @@ package software.amazon.jsii.tests.calculator;
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.Calculator")
 public class Calculator extends software.amazon.jsii.tests.calculator.composition.CompositeOperation {
-    protected Calculator(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
-        super(mode);
+
+    protected Calculator(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected Calculator(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
     }
     /**
      * Creates a Calculator object.
@@ -20,9 +25,9 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      * @param props Initialization properties.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public Calculator(@javax.annotation.Nullable final software.amazon.jsii.tests.calculator.CalculatorProps props) {
-        super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { props });
+    public Calculator(final software.amazon.jsii.tests.calculator.CalculatorProps props) {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { props }));
     }
     /**
      * Creates a Calculator object.
@@ -31,8 +36,8 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public Calculator() {
-        super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
     }
 
     /**
@@ -142,7 +147,6 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    @javax.annotation.Nullable
     public java.lang.Number getMaxValue() {
         return this.jsiiGet("maxValue", java.lang.Number.class);
     }
@@ -153,7 +157,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setMaxValue(@javax.annotation.Nullable final java.lang.Number value) {
+    public void setMaxValue(final java.lang.Number value) {
         this.jsiiSet("maxValue", value);
     }
 
@@ -163,7 +167,6 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    @javax.annotation.Nullable
     public java.lang.Object getUnionProperty() {
         return this.jsiiGet("unionProperty", java.lang.Object.class);
     }
@@ -174,7 +177,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setUnionProperty(@javax.annotation.Nullable final software.amazon.jsii.tests.calculator.Add value) {
+    public void setUnionProperty(final software.amazon.jsii.tests.calculator.Add value) {
         this.jsiiSet("unionProperty", value);
     }
 
@@ -184,7 +187,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setUnionProperty(@javax.annotation.Nullable final software.amazon.jsii.tests.calculator.Multiply value) {
+    public void setUnionProperty(final software.amazon.jsii.tests.calculator.Multiply value) {
         this.jsiiSet("unionProperty", value);
     }
 
@@ -194,7 +197,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setUnionProperty(@javax.annotation.Nullable final software.amazon.jsii.tests.calculator.Power value) {
+    public void setUnionProperty(final software.amazon.jsii.tests.calculator.Power value) {
         this.jsiiSet("unionProperty", value);
     }
 }

@@ -1344,6 +1344,37 @@ assemblies
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<Array<string>>
+ │   ├─┬ interface DiamondInheritanceBaseLevelStruct (experimental)
+ │   │ └─┬ members
+ │   │   └─┬ baseLevelProperty property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: string
+ │   ├─┬ interface DiamondInheritanceFirstMidLevelStruct (experimental)
+ │   │ ├─┬ interfaces
+ │   │ │ └── DiamondInheritanceBaseLevelStruct
+ │   │ └─┬ members
+ │   │   └─┬ firstMidLevelProperty property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: string
+ │   ├─┬ interface DiamondInheritanceSecondMidLevelStruct (experimental)
+ │   │ ├─┬ interfaces
+ │   │ │ └── DiamondInheritanceBaseLevelStruct
+ │   │ └─┬ members
+ │   │   └─┬ secondMidLevelProperty property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: string
+ │   ├─┬ interface DiamondInheritanceTopLevelStruct (experimental)
+ │   │ ├─┬ interfaces
+ │   │ │ ├── DiamondInheritanceFirstMidLevelStruct
+ │   │ │ └── DiamondInheritanceSecondMidLevelStruct
+ │   │ └─┬ members
+ │   │   └─┬ topLevelProperty property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: string
  │   ├─┬ interface EraseUndefinedHashValuesOptions (experimental)
  │   │ └─┬ members
  │   │   ├─┬ option1 property (experimental)

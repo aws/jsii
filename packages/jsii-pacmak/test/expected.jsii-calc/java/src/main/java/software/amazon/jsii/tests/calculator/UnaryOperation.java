@@ -9,16 +9,21 @@ package software.amazon.jsii.tests.calculator;
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.UnaryOperation")
 public abstract class UnaryOperation extends software.amazon.jsii.tests.calculator.lib.Operation {
-    protected UnaryOperation(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
-        super(mode);
+
+    protected UnaryOperation(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected UnaryOperation(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
     }
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public UnaryOperation(final software.amazon.jsii.tests.calculator.lib.Value operand) {
-        super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(operand, "operand is required") });
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(operand, "operand is required") }));
     }
 
     /**
@@ -33,8 +38,9 @@ public abstract class UnaryOperation extends software.amazon.jsii.tests.calculat
      * A proxy class which represents a concrete javascript instance of this type.
      */
     final static class Jsii$Proxy extends software.amazon.jsii.tests.calculator.UnaryOperation {
-        protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
-            super(mode);
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.setObjRef(objRef);
         }
 
         /**

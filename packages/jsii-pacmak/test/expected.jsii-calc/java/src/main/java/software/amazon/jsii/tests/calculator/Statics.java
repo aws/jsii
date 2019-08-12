@@ -7,8 +7,13 @@ package software.amazon.jsii.tests.calculator;
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.Statics")
 public class Statics extends software.amazon.jsii.JsiiObject {
-    protected Statics(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
-        super(mode);
+
+    protected Statics(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected Statics(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
     }
     static {
         BAR = software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.Statics.class, "BAR", java.lang.Number.class);
@@ -21,8 +26,8 @@ public class Statics extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public Statics(final java.lang.String value) {
-        super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(value, "value is required") });
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(value, "value is required") }));
     }
 
     /**

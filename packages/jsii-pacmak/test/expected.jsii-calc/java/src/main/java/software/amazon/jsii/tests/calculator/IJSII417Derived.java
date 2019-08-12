@@ -11,23 +11,27 @@ public interface IJSII417Derived extends software.amazon.jsii.JsiiSerializable, 
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.lang.String getProperty();
+
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     void bar();
+
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     void baz();
 
+
     /**
      * A proxy class which represents a concrete javascript instance of this type.
      */
     final static class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IJSII417Derived {
-        protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
-            super(mode);
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.setObjRef(objRef);
         }
 
         /**

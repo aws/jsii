@@ -11,6 +11,7 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.util.List<java.lang.Object> getArrayWithThreeElementsAndUndefinedAsSecondArgument();
+
     /**
      * EXPERIMENTAL
      */
@@ -30,28 +31,28 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     final class Builder {
-        private java.util.List<java.lang.Object> _arrayWithThreeElementsAndUndefinedAsSecondArgument;
-        @javax.annotation.Nullable
-        private java.lang.Object _thisShouldBeUndefined;
+        private java.util.List<java.lang.Object> arrayWithThreeElementsAndUndefinedAsSecondArgument;
+        private java.lang.Object thisShouldBeUndefined;
 
         /**
          * Sets the value of ArrayWithThreeElementsAndUndefinedAsSecondArgument
-         * @param value the value to be set
+         * @param arrayWithThreeElementsAndUndefinedAsSecondArgument the value to be set
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public Builder withArrayWithThreeElementsAndUndefinedAsSecondArgument(final java.util.List<java.lang.Object> value) {
-            this._arrayWithThreeElementsAndUndefinedAsSecondArgument = java.util.Objects.requireNonNull(value, "arrayWithThreeElementsAndUndefinedAsSecondArgument is required");
+        public Builder arrayWithThreeElementsAndUndefinedAsSecondArgument(java.util.List<java.lang.Object> arrayWithThreeElementsAndUndefinedAsSecondArgument) {
+            this.arrayWithThreeElementsAndUndefinedAsSecondArgument = arrayWithThreeElementsAndUndefinedAsSecondArgument;
             return this;
         }
+
         /**
          * Sets the value of ThisShouldBeUndefined
-         * @param value the value to be set
+         * @param thisShouldBeUndefined the value to be set
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public Builder withThisShouldBeUndefined(@javax.annotation.Nullable final java.lang.Object value) {
-            this._thisShouldBeUndefined = value;
+        public Builder thisShouldBeUndefined(java.lang.Object thisShouldBeUndefined) {
+            this.thisShouldBeUndefined = thisShouldBeUndefined;
             return this;
         }
 
@@ -62,60 +63,78 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public NullShouldBeTreatedAsUndefinedData build() {
-            return new NullShouldBeTreatedAsUndefinedData() {
-                private final java.util.List<java.lang.Object> $arrayWithThreeElementsAndUndefinedAsSecondArgument = java.util.Objects.requireNonNull(_arrayWithThreeElementsAndUndefinedAsSecondArgument, "arrayWithThreeElementsAndUndefinedAsSecondArgument is required");
-                @javax.annotation.Nullable
-                private final java.lang.Object $thisShouldBeUndefined = _thisShouldBeUndefined;
-
-                @Override
-                public java.util.List<java.lang.Object> getArrayWithThreeElementsAndUndefinedAsSecondArgument() {
-                    return this.$arrayWithThreeElementsAndUndefinedAsSecondArgument;
-                }
-
-                @Override
-                public java.lang.Object getThisShouldBeUndefined() {
-                    return this.$thisShouldBeUndefined;
-                }
-
-                public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-                    com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-                    com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-                    obj.set("arrayWithThreeElementsAndUndefinedAsSecondArgument", om.valueToTree(this.getArrayWithThreeElementsAndUndefinedAsSecondArgument()));
-                    if (this.getThisShouldBeUndefined() != null) {
-                        obj.set("thisShouldBeUndefined", om.valueToTree(this.getThisShouldBeUndefined()));
-                    }
-                    return obj;
-                }
-
-            };
+            return new Jsii$Proxy(arrayWithThreeElementsAndUndefinedAsSecondArgument, thisShouldBeUndefined);
         }
+
     }
 
     /**
-     * A proxy class which represents a concrete javascript instance of this type.
+     * An implementation for {@link NullShouldBeTreatedAsUndefinedData}
      */
-    final static class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefinedData {
-        protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
-            super(mode);
-        }
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements NullShouldBeTreatedAsUndefinedData {
+        private final java.util.List<java.lang.Object> arrayWithThreeElementsAndUndefinedAsSecondArgument;
+        private final java.lang.Object thisShouldBeUndefined;
 
         /**
-         * EXPERIMENTAL
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
          */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.setObjRef(objRef);
+            this.arrayWithThreeElementsAndUndefinedAsSecondArgument = this.jsiiGet("arrayWithThreeElementsAndUndefinedAsSecondArgument", java.util.List.class);
+            this.thisShouldBeUndefined = this.jsiiGet("thisShouldBeUndefined", java.lang.Object.class);
+        }
+
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        private Jsii$Proxy(java.util.List<java.lang.Object> arrayWithThreeElementsAndUndefinedAsSecondArgument, java.lang.Object thisShouldBeUndefined) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.arrayWithThreeElementsAndUndefinedAsSecondArgument = java.util.Objects.requireNonNull(arrayWithThreeElementsAndUndefinedAsSecondArgument, "arrayWithThreeElementsAndUndefinedAsSecondArgument is required");
+            this.thisShouldBeUndefined = thisShouldBeUndefined;
+        }
+
         @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public java.util.List<java.lang.Object> getArrayWithThreeElementsAndUndefinedAsSecondArgument() {
-            return this.jsiiGet("arrayWithThreeElementsAndUndefinedAsSecondArgument", java.util.List.class);
+            return this.arrayWithThreeElementsAndUndefinedAsSecondArgument;
         }
 
-        /**
-         * EXPERIMENTAL
-         */
         @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        @javax.annotation.Nullable
         public java.lang.Object getThisShouldBeUndefined() {
-            return this.jsiiGet("thisShouldBeUndefined", java.lang.Object.class);
+            return this.thisShouldBeUndefined;
         }
+
+        @Override
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("arrayWithThreeElementsAndUndefinedAsSecondArgument", om.valueToTree(this.getArrayWithThreeElementsAndUndefinedAsSecondArgument()));
+            if (this.getThisShouldBeUndefined() != null) {
+                obj.set("thisShouldBeUndefined", om.valueToTree(this.getThisShouldBeUndefined()));
+            }
+            return obj;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            NullShouldBeTreatedAsUndefinedData.Jsii$Proxy that = (NullShouldBeTreatedAsUndefinedData.Jsii$Proxy) o;
+
+            if (!arrayWithThreeElementsAndUndefinedAsSecondArgument.equals(that.arrayWithThreeElementsAndUndefinedAsSecondArgument)) return false;
+            return thisShouldBeUndefined != null ? thisShouldBeUndefined.equals(that.thisShouldBeUndefined) : that.thisShouldBeUndefined == null;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = arrayWithThreeElementsAndUndefinedAsSecondArgument.hashCode();
+            result = 31 * result + (thisShouldBeUndefined != null ? thisShouldBeUndefined.hashCode() : 0);
+            return result;
+        }
+
     }
 }

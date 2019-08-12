@@ -46,6 +46,10 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.DerivedClassHasNoProperties.Base": return software.amazon.jsii.tests.calculator.DerivedClassHasNoProperties.Base.class;
             case "jsii-calc.DerivedClassHasNoProperties.Derived": return software.amazon.jsii.tests.calculator.DerivedClassHasNoProperties.Derived.class;
             case "jsii-calc.DerivedStruct": return software.amazon.jsii.tests.calculator.DerivedStruct.class;
+            case "jsii-calc.DiamondInheritanceBaseLevelStruct": return software.amazon.jsii.tests.calculator.DiamondInheritanceBaseLevelStruct.class;
+            case "jsii-calc.DiamondInheritanceFirstMidLevelStruct": return software.amazon.jsii.tests.calculator.DiamondInheritanceFirstMidLevelStruct.class;
+            case "jsii-calc.DiamondInheritanceSecondMidLevelStruct": return software.amazon.jsii.tests.calculator.DiamondInheritanceSecondMidLevelStruct.class;
+            case "jsii-calc.DiamondInheritanceTopLevelStruct": return software.amazon.jsii.tests.calculator.DiamondInheritanceTopLevelStruct.class;
             case "jsii-calc.DoNotOverridePrivates": return software.amazon.jsii.tests.calculator.DoNotOverridePrivates.class;
             case "jsii-calc.DoNotRecognizeAnyAsOptional": return software.amazon.jsii.tests.calculator.DoNotRecognizeAnyAsOptional.class;
             case "jsii-calc.DocumentedClass": return software.amazon.jsii.tests.calculator.DocumentedClass.class;

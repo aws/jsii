@@ -7,8 +7,13 @@ package software.amazon.jsii.tests.calculator;
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.VariadicMethod")
 public class VariadicMethod extends software.amazon.jsii.JsiiObject {
-    protected VariadicMethod(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
-        super(mode);
+
+    protected VariadicMethod(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected VariadicMethod(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
     }
     /**
      * EXPERIMENTAL
@@ -17,8 +22,8 @@ public class VariadicMethod extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public VariadicMethod(final java.lang.Number... prefix) {
-        super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.Arrays.<Object>stream(prefix).toArray(Object[]::new));
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.Arrays.<Object>stream(prefix).toArray(Object[]::new)));
     }
 
     /**

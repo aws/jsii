@@ -9,8 +9,13 @@ package software.amazon.jsii.tests.calculator;
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.BinaryOperation")
 public abstract class BinaryOperation extends software.amazon.jsii.tests.calculator.lib.Operation implements software.amazon.jsii.tests.calculator.lib.IFriendly {
-    protected BinaryOperation(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
-        super(mode);
+
+    protected BinaryOperation(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected BinaryOperation(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
     }
     /**
      * Creates a BinaryOperation.
@@ -22,8 +27,8 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public BinaryOperation(final software.amazon.jsii.tests.calculator.lib.Value lhs, final software.amazon.jsii.tests.calculator.lib.Value rhs) {
-        super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(lhs, "lhs is required"), java.util.Objects.requireNonNull(rhs, "rhs is required") });
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(lhs, "lhs is required"), java.util.Objects.requireNonNull(rhs, "rhs is required") }));
     }
 
     /**
@@ -61,8 +66,9 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
      * A proxy class which represents a concrete javascript instance of this type.
      */
     final static class Jsii$Proxy extends software.amazon.jsii.tests.calculator.BinaryOperation {
-        protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
-            super(mode);
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.setObjRef(objRef);
         }
 
         /**

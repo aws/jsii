@@ -9,19 +9,24 @@ package software.amazon.jsii.tests.calculator;
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.DoNotRecognizeAnyAsOptional")
 public class DoNotRecognizeAnyAsOptional extends software.amazon.jsii.JsiiObject {
-    protected DoNotRecognizeAnyAsOptional(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
-        super(mode);
+
+    protected DoNotRecognizeAnyAsOptional(final software.amazon.jsii.JsiiObjectRef objRef) {
+        super(objRef);
+    }
+
+    protected DoNotRecognizeAnyAsOptional(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
+        super(initializationMode);
     }
     public DoNotRecognizeAnyAsOptional() {
-        super(software.amazon.jsii.JsiiObject.InitializationMode.Jsii);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
     }
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void method(@javax.annotation.Nullable final java.lang.Object _requiredAny, @javax.annotation.Nullable final java.lang.Object _optionalAny, @javax.annotation.Nullable final java.lang.String _optionalString) {
+    public void method(final java.lang.Object _requiredAny, final java.lang.Object _optionalAny, final java.lang.String _optionalString) {
         this.jsiiCall("method", Void.class, new Object[] { _requiredAny, _optionalAny, _optionalString });
     }
 
@@ -29,7 +34,7 @@ public class DoNotRecognizeAnyAsOptional extends software.amazon.jsii.JsiiObject
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void method(@javax.annotation.Nullable final java.lang.Object _requiredAny, @javax.annotation.Nullable final java.lang.Object _optionalAny) {
+    public void method(final java.lang.Object _requiredAny, final java.lang.Object _optionalAny) {
         this.jsiiCall("method", Void.class, new Object[] { _requiredAny, _optionalAny });
     }
 
@@ -37,7 +42,7 @@ public class DoNotRecognizeAnyAsOptional extends software.amazon.jsii.JsiiObject
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void method(@javax.annotation.Nullable final java.lang.Object _requiredAny) {
+    public void method(final java.lang.Object _requiredAny) {
         this.jsiiCall("method", Void.class, new Object[] { _requiredAny });
     }
 }

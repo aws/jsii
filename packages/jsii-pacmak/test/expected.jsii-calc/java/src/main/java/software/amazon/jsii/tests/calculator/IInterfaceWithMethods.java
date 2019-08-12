@@ -11,18 +11,21 @@ public interface IInterfaceWithMethods extends software.amazon.jsii.JsiiSerializ
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.lang.String getValue();
+
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     void doThings();
 
+
     /**
      * A proxy class which represents a concrete javascript instance of this type.
      */
     final static class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IInterfaceWithMethods {
-        protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
-            super(mode);
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.setObjRef(objRef);
         }
 
         /**

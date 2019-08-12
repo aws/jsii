@@ -19,6 +19,7 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.lang.Number getContainerPort();
+
     /**
      * The number of cpu units used by the task. Valid values, which determines your range of valid values for the memory parameter: 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments.
      * 
@@ -30,6 +31,7 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.lang.String getCpu();
+
     /**
      * The amount (in MiB) of memory used by the task.
      * 
@@ -54,6 +56,7 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.lang.String getMemoryMiB();
+
     /**
      * Determines whether the Application Load Balancer will be internet-facing.
      * 
@@ -63,6 +66,7 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.lang.Boolean getPublicLoadBalancer();
+
     /**
      * Determines whether your Fargate Service will be assigned a public IP address.
      * 
@@ -86,65 +90,64 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     final class Builder {
-        @javax.annotation.Nullable
-        private java.lang.Number _containerPort;
-        @javax.annotation.Nullable
-        private java.lang.String _cpu;
-        @javax.annotation.Nullable
-        private java.lang.String _memoryMiB;
-        @javax.annotation.Nullable
-        private java.lang.Boolean _publicLoadBalancer;
-        @javax.annotation.Nullable
-        private java.lang.Boolean _publicTasks;
+        private java.lang.Number containerPort;
+        private java.lang.String cpu;
+        private java.lang.String memoryMiB;
+        private java.lang.Boolean publicLoadBalancer;
+        private java.lang.Boolean publicTasks;
 
         /**
          * Sets the value of ContainerPort
-         * @param value The container port of the application load balancer attached to your Fargate service.
+         * @param containerPort The container port of the application load balancer attached to your Fargate service.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public Builder withContainerPort(@javax.annotation.Nullable final java.lang.Number value) {
-            this._containerPort = value;
+        public Builder containerPort(java.lang.Number containerPort) {
+            this.containerPort = containerPort;
             return this;
         }
+
         /**
          * Sets the value of Cpu
-         * @param value The number of cpu units used by the task. Valid values, which determines your range of valid values for the memory parameter: 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments.
+         * @param cpu The number of cpu units used by the task. Valid values, which determines your range of valid values for the memory parameter: 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public Builder withCpu(@javax.annotation.Nullable final java.lang.String value) {
-            this._cpu = value;
+        public Builder cpu(java.lang.String cpu) {
+            this.cpu = cpu;
             return this;
         }
+
         /**
          * Sets the value of MemoryMiB
-         * @param value The amount (in MiB) of memory used by the task.
+         * @param memoryMiB The amount (in MiB) of memory used by the task.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public Builder withMemoryMiB(@javax.annotation.Nullable final java.lang.String value) {
-            this._memoryMiB = value;
+        public Builder memoryMiB(java.lang.String memoryMiB) {
+            this.memoryMiB = memoryMiB;
             return this;
         }
+
         /**
          * Sets the value of PublicLoadBalancer
-         * @param value Determines whether the Application Load Balancer will be internet-facing.
+         * @param publicLoadBalancer Determines whether the Application Load Balancer will be internet-facing.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public Builder withPublicLoadBalancer(@javax.annotation.Nullable final java.lang.Boolean value) {
-            this._publicLoadBalancer = value;
+        public Builder publicLoadBalancer(java.lang.Boolean publicLoadBalancer) {
+            this.publicLoadBalancer = publicLoadBalancer;
             return this;
         }
+
         /**
          * Sets the value of PublicTasks
-         * @param value Determines whether your Fargate Service will be assigned a public IP address.
+         * @param publicTasks Determines whether your Fargate Service will be assigned a public IP address.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public Builder withPublicTasks(@javax.annotation.Nullable final java.lang.Boolean value) {
-            this._publicTasks = value;
+        public Builder publicTasks(java.lang.Boolean publicTasks) {
+            this.publicTasks = publicTasks;
             return this;
         }
 
@@ -155,163 +158,119 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public LoadBalancedFargateServiceProps build() {
-            return new LoadBalancedFargateServiceProps() {
-                @javax.annotation.Nullable
-                private final java.lang.Number $containerPort = _containerPort;
-                @javax.annotation.Nullable
-                private final java.lang.String $cpu = _cpu;
-                @javax.annotation.Nullable
-                private final java.lang.String $memoryMiB = _memoryMiB;
-                @javax.annotation.Nullable
-                private final java.lang.Boolean $publicLoadBalancer = _publicLoadBalancer;
-                @javax.annotation.Nullable
-                private final java.lang.Boolean $publicTasks = _publicTasks;
-
-                @Override
-                public java.lang.Number getContainerPort() {
-                    return this.$containerPort;
-                }
-
-                @Override
-                public java.lang.String getCpu() {
-                    return this.$cpu;
-                }
-
-                @Override
-                public java.lang.String getMemoryMiB() {
-                    return this.$memoryMiB;
-                }
-
-                @Override
-                public java.lang.Boolean getPublicLoadBalancer() {
-                    return this.$publicLoadBalancer;
-                }
-
-                @Override
-                public java.lang.Boolean getPublicTasks() {
-                    return this.$publicTasks;
-                }
-
-                public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-                    com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-                    com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-                    if (this.getContainerPort() != null) {
-                        obj.set("containerPort", om.valueToTree(this.getContainerPort()));
-                    }
-                    if (this.getCpu() != null) {
-                        obj.set("cpu", om.valueToTree(this.getCpu()));
-                    }
-                    if (this.getMemoryMiB() != null) {
-                        obj.set("memoryMiB", om.valueToTree(this.getMemoryMiB()));
-                    }
-                    if (this.getPublicLoadBalancer() != null) {
-                        obj.set("publicLoadBalancer", om.valueToTree(this.getPublicLoadBalancer()));
-                    }
-                    if (this.getPublicTasks() != null) {
-                        obj.set("publicTasks", om.valueToTree(this.getPublicTasks()));
-                    }
-                    return obj;
-                }
-
-            };
+            return new Jsii$Proxy(containerPort, cpu, memoryMiB, publicLoadBalancer, publicTasks);
         }
+
     }
 
     /**
-     * A proxy class which represents a concrete javascript instance of this type.
+     * An implementation for {@link LoadBalancedFargateServiceProps}
      */
-    final static class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.LoadBalancedFargateServiceProps {
-        protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
-            super(mode);
-        }
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements LoadBalancedFargateServiceProps {
+        private final java.lang.Number containerPort;
+        private final java.lang.String cpu;
+        private final java.lang.String memoryMiB;
+        private final java.lang.Boolean publicLoadBalancer;
+        private final java.lang.Boolean publicTasks;
 
         /**
-         * The container port of the application load balancer attached to your Fargate service.
-         * 
-         * Corresponds to container port mapping.
-         * 
-         * Default: 80
-         * 
-         * EXPERIMENTAL
+         * Constructor that initializes the object based on values retrieved from the JsiiObject.
+         * @param objRef Reference to the JSII managed object.
          */
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.setObjRef(objRef);
+            this.containerPort = this.jsiiGet("containerPort", java.lang.Number.class);
+            this.cpu = this.jsiiGet("cpu", java.lang.String.class);
+            this.memoryMiB = this.jsiiGet("memoryMiB", java.lang.String.class);
+            this.publicLoadBalancer = this.jsiiGet("publicLoadBalancer", java.lang.Boolean.class);
+            this.publicTasks = this.jsiiGet("publicTasks", java.lang.Boolean.class);
+        }
+
+
+        /**
+         * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
+         */
+        private Jsii$Proxy(java.lang.Number containerPort, java.lang.String cpu, java.lang.String memoryMiB, java.lang.Boolean publicLoadBalancer, java.lang.Boolean publicTasks) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.containerPort = containerPort;
+            this.cpu = cpu;
+            this.memoryMiB = memoryMiB;
+            this.publicLoadBalancer = publicLoadBalancer;
+            this.publicTasks = publicTasks;
+        }
+
         @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        @javax.annotation.Nullable
         public java.lang.Number getContainerPort() {
-            return this.jsiiGet("containerPort", java.lang.Number.class);
+            return this.containerPort;
         }
 
-        /**
-         * The number of cpu units used by the task. Valid values, which determines your range of valid values for the memory parameter: 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments.
-         * 
-         * This default is set in the underlying FargateTaskDefinition construct.
-         * 
-         * Default: 256
-         * 
-         * EXPERIMENTAL
-         */
         @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        @javax.annotation.Nullable
         public java.lang.String getCpu() {
-            return this.jsiiGet("cpu", java.lang.String.class);
+            return this.cpu;
         }
 
-        /**
-         * The amount (in MiB) of memory used by the task.
-         * 
-         * This field is required and you must use one of the following values, which determines your range of valid values
-         * for the cpu parameter:
-         * 
-         * 0.5GB, 1GB, 2GB - Available cpu values: 256 (.25 vCPU)
-         * 
-         * 1GB, 2GB, 3GB, 4GB - Available cpu values: 512 (.5 vCPU)
-         * 
-         * 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB - Available cpu values: 1024 (1 vCPU)
-         * 
-         * Between 4GB and 16GB in 1GB increments - Available cpu values: 2048 (2 vCPU)
-         * 
-         * Between 8GB and 30GB in 1GB increments - Available cpu values: 4096 (4 vCPU)
-         * 
-         * This default is set in the underlying FargateTaskDefinition construct.
-         * 
-         * Default: 512
-         * 
-         * EXPERIMENTAL
-         */
         @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        @javax.annotation.Nullable
         public java.lang.String getMemoryMiB() {
-            return this.jsiiGet("memoryMiB", java.lang.String.class);
+            return this.memoryMiB;
         }
 
-        /**
-         * Determines whether the Application Load Balancer will be internet-facing.
-         * 
-         * Default: true
-         * 
-         * EXPERIMENTAL
-         */
         @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        @javax.annotation.Nullable
         public java.lang.Boolean getPublicLoadBalancer() {
-            return this.jsiiGet("publicLoadBalancer", java.lang.Boolean.class);
+            return this.publicLoadBalancer;
         }
 
-        /**
-         * Determines whether your Fargate Service will be assigned a public IP address.
-         * 
-         * Default: false
-         * 
-         * EXPERIMENTAL
-         */
         @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        @javax.annotation.Nullable
         public java.lang.Boolean getPublicTasks() {
-            return this.jsiiGet("publicTasks", java.lang.Boolean.class);
+            return this.publicTasks;
         }
+
+        @Override
+        public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
+            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            if (this.getContainerPort() != null) {
+                obj.set("containerPort", om.valueToTree(this.getContainerPort()));
+            }
+            if (this.getCpu() != null) {
+                obj.set("cpu", om.valueToTree(this.getCpu()));
+            }
+            if (this.getMemoryMiB() != null) {
+                obj.set("memoryMiB", om.valueToTree(this.getMemoryMiB()));
+            }
+            if (this.getPublicLoadBalancer() != null) {
+                obj.set("publicLoadBalancer", om.valueToTree(this.getPublicLoadBalancer()));
+            }
+            if (this.getPublicTasks() != null) {
+                obj.set("publicTasks", om.valueToTree(this.getPublicTasks()));
+            }
+            return obj;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            LoadBalancedFargateServiceProps.Jsii$Proxy that = (LoadBalancedFargateServiceProps.Jsii$Proxy) o;
+
+            if (containerPort != null ? !containerPort.equals(that.containerPort) : that.containerPort != null) return false;
+            if (cpu != null ? !cpu.equals(that.cpu) : that.cpu != null) return false;
+            if (memoryMiB != null ? !memoryMiB.equals(that.memoryMiB) : that.memoryMiB != null) return false;
+            if (publicLoadBalancer != null ? !publicLoadBalancer.equals(that.publicLoadBalancer) : that.publicLoadBalancer != null) return false;
+            return publicTasks != null ? publicTasks.equals(that.publicTasks) : that.publicTasks == null;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = containerPort != null ? containerPort.hashCode() : 0;
+            result = 31 * result + (cpu != null ? cpu.hashCode() : 0);
+            result = 31 * result + (memoryMiB != null ? memoryMiB.hashCode() : 0);
+            result = 31 * result + (publicLoadBalancer != null ? publicLoadBalancer.hashCode() : 0);
+            result = 31 * result + (publicTasks != null ? publicTasks.hashCode() : 0);
+            return result;
+        }
+
     }
 }

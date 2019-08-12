@@ -11,26 +11,31 @@ public interface INonInternalInterface extends software.amazon.jsii.JsiiSerializ
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.lang.String getB();
+
     /**
      * EXPERIMENTAL
      */
     void setB(final java.lang.String value);
+
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.lang.String getC();
+
     /**
      * EXPERIMENTAL
      */
     void setC(final java.lang.String value);
 
+
     /**
      * A proxy class which represents a concrete javascript instance of this type.
      */
     final static class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.INonInternalInterface {
-        protected Jsii$Proxy(final software.amazon.jsii.JsiiObject.InitializationMode mode) {
-            super(mode);
+        protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.setObjRef(objRef);
         }
 
         /**

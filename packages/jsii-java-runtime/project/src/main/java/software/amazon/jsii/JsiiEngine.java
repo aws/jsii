@@ -6,7 +6,6 @@ import software.amazon.jsii.api.InvokeRequest;
 import software.amazon.jsii.api.JsiiOverride;
 import software.amazon.jsii.api.SetRequest;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import java.io.PrintWriter;
@@ -115,9 +114,6 @@ public final class JsiiEngine implements JsiiCallbackHandler {
      * @param obj The object to register.
      */
     public void registerObject(final JsiiObjectRef objRef, final Object obj) {
-        if (obj instanceof JsiiObject) {
-            ((JsiiObject) obj).setObjRef(objRef);
-        }
         this.objects.put(objRef.getObjId(), obj);
     }
 
@@ -134,7 +130,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
     public Object nativeFromObjRef(final JsiiObjectRef objRef) {
         Object obj = this.objects.get(objRef.getObjId());
         if (obj == null) {
-            obj = createNative(objRef.getFqn());
+            obj = createNativeProxy(objRef.getFqn(), objRef);
             this.registerObject(objRef, obj);
         }
         return obj;
@@ -229,7 +225,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
      * @param fqn The jsii FQN of the type
      * @return An object derived from JsiiObject.
      */
-    private JsiiObject createNative(final String fqn) {
+    private JsiiObject createNativeProxy(final String fqn, final JsiiObjectRef objRef) {
         try {
             Class<?> klass = resolveJavaClass(fqn);
             if (klass.isInterface() || Modifier.isAbstract(klass.getModifiers())) {
@@ -237,9 +233,9 @@ public final class JsiiEngine implements JsiiCallbackHandler {
                 klass = Class.forName(klass.getCanonicalName() + "$" + INTERFACE_PROXY_CLASS_NAME);
             }
             try {
-                Constructor<? extends Object> ctor = klass.getDeclaredConstructor(JsiiObject.InitializationMode.class);
+                Constructor<? extends Object> ctor = klass.getDeclaredConstructor(JsiiObjectRef.class);
                 ctor.setAccessible(true);
-                JsiiObject newObj = (JsiiObject) ctor.newInstance(JsiiObject.InitializationMode.Jsii);
+                JsiiObject newObj = (JsiiObject) ctor.newInstance(objRef);
                 ctor.setAccessible(false);
                 return newObj;
             } catch (NoSuchMethodException e) {
@@ -253,7 +249,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
             }
         } catch (ClassNotFoundException e) {
             this.log("WARNING: Cannot find the class: %s. Defaulting to JsiiObject", fqn);
-            return new JsiiObject(JsiiObject.InitializationMode.Jsii);
+            return new JsiiObject(objRef);
         }
     }
 
@@ -462,6 +458,10 @@ public final class JsiiEngine implements JsiiCallbackHandler {
 
         JsiiObjectRef objRef = this.getClient().createObject(fqn, Arrays.asList(args), overrides);
         registerObject(objRef, uninitializedNativeObject);
+
+        if (uninitializedNativeObject instanceof JsiiObject) {
+            ((JsiiObject) uninitializedNativeObject).setObjRef(objRef);
+        }
 
         return objRef;
     }
