@@ -24,7 +24,7 @@ public class JsiiObject implements JsiiSerializable {
      */
     protected JsiiObject(final InitializationMode initializationMode) {
         if (initializationMode != InitializationMode.JSII) {
-            throw new JsiiException("The only supported initialization mode is 'JSII'");
+            throw new JsiiException("The only supported initialization mode is '" + InitializationMode.JSII + "'");
         }
     }
 
