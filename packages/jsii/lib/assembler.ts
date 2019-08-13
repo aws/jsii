@@ -1666,12 +1666,11 @@ function isErrorType(t: ts.Type) {
 }
 
 /**
- * These specifially cause trouble in C#, where we have to specificially annotate them as 'new' but our generator isn't doing that
- *
- * In C#, 'GetHashCode' is also problematic, but jsii already prevents you from naming a
- * method that starts with 'get' so we don't need to do anything special for that.
+ * Those have specific semantics in certain languages that don't always translate cleanly in others
+ * (like how equals/hashCode are not a thing in Javascript, but carry meaning in Java and C#). The
+ * `build` name is reserved for generated code (Java builders use that).
  */
-const PROHIBITED_MEMBER_NAMES = ['equals', 'hashcode'];
+const PROHIBITED_MEMBER_NAMES = ['build', 'equals', 'hashcode'];
 
 /**
  * Whether the given name is prohibited
