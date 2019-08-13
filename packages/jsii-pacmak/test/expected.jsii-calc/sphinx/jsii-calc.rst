@@ -1216,6 +1216,48 @@ ClassWithDocs
 
 
 
+ClassWithJavaReservedWords
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: ClassWithJavaReservedWords(int)
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.ClassWithJavaReservedWords;
+
+      .. code-tab:: javascript
+
+         const { ClassWithJavaReservedWords } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { ClassWithJavaReservedWords } from 'jsii-calc';
+
+
+
+   :param int: 
+   :type int: string
+
+   .. py:method:: import(assert) -> string
+
+      :param assert: 
+      :type assert: string
+      :rtype: string
+
+
+   .. py:attribute:: int
+
+      :type: string *(readonly)*
+
+
 ClassWithMutableObjectLiteralProperty
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -6638,6 +6680,45 @@ StructPassing
       :param input: 
       :type input: :py:class:`~jsii-calc.TopLevelStruct`\ 
       :rtype: :py:class:`~jsii-calc.TopLevelStruct`\ 
+
+
+StructWithJavaReservedWords (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: StructWithJavaReservedWords
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.StructWithJavaReservedWords;
+
+      .. code-tab:: javascript
+
+         // StructWithJavaReservedWords is an interface
+
+      .. code-tab:: typescript
+
+         import { StructWithJavaReservedWords } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: default
+
+      :type: string *(readonly)*
+
+
+   .. py:attribute:: assert
+
+      :type: string *(optional)* *(readonly)*
 
 
 Sum

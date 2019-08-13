@@ -1791,6 +1791,23 @@ export interface DiamondInheritanceTopLevelStruct extends DiamondInheritanceFirs
     readonly topLevelProperty: string;
 }
 
+export interface StructWithJavaReservedWords {
+    readonly default: string;
+    readonly assert?: string;
+}
+
+export class ClassWithJavaReservedWords {
+    readonly int: string;
+
+    public constructor(int: string) {
+        this.int = int;
+    }
+
+    public import(assert: string): string {
+        return this.int + assert;
+    }
+}
+
 /**
  * Just because we can.
  *

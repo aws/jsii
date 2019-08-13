@@ -24,7 +24,7 @@ public class ImplementsPrivateInterface extends software.amazon.jsii.JsiiObject 
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String getPrivate() {
+    public java.lang.String getPrivateValue() {
         return this.jsiiGet("private", java.lang.String.class);
     }
 
@@ -32,7 +32,7 @@ public class ImplementsPrivateInterface extends software.amazon.jsii.JsiiObject 
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setPrivate(final java.lang.String value) {
+    public void setPrivateValue(final java.lang.String value) {
         this.jsiiSet("private", java.util.Objects.requireNonNull(value, "private is required"));
     }
 }

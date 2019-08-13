@@ -105,6 +105,11 @@ assemblies
  │   ├─┬ class ClassWithDocs
  │   │ └─┬ members
  │   │   └── <initializer>() initializer
+ │   ├─┬ class ClassWithJavaReservedWords
+ │   │ └─┬ members
+ │   │   ├── <initializer>(int) initializer
+ │   │   ├── import(assert) method
+ │   │   └── int property
  │   ├─┬ class ClassWithMutableObjectLiteralProperty
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -729,6 +734,10 @@ assemblies
  │   ├─┬ interface StableStruct
  │   │ └─┬ members
  │   │   └── readonlyProperty property
+ │   ├─┬ interface StructWithJavaReservedWords
+ │   │ └─┬ members
+ │   │   ├── default property
+ │   │   └── assert property
  │   ├─┬ interface TopLevelStruct
  │   │ └─┬ members
  │   │   ├── required property
