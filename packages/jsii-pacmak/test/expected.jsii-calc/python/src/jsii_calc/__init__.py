@@ -5578,12 +5578,14 @@ class StructPassing(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.StructPassing"
         return jsii.sinvoke(cls, "roundTrip", [_positional, input])
 
 
-@jsii.data_type(jsii_type="jsii-calc.StructWithJavaReservedWords", jsii_struct_bases=[], name_mapping={'default': 'default', 'assert_': 'assert'})
+@jsii.data_type(jsii_type="jsii-calc.StructWithJavaReservedWords", jsii_struct_bases=[], name_mapping={'default': 'default', 'assert_': 'assert', 'result': 'result', 'that': 'that'})
 class StructWithJavaReservedWords():
-    def __init__(self, *, default: str, assert_: typing.Optional[str]=None):
+    def __init__(self, *, default: str, assert_: typing.Optional[str]=None, result: typing.Optional[str]=None, that: typing.Optional[str]=None):
         """
         :param default: 
         :param assert_: 
+        :param result: 
+        :param that: 
 
         stability
         :stability: experimental
@@ -5592,6 +5594,8 @@ class StructWithJavaReservedWords():
             'default': default,
         }
         if assert_ is not None: self._values["assert_"] = assert_
+        if result is not None: self._values["result"] = result
+        if that is not None: self._values["that"] = that
 
     @property
     def default(self) -> str:
@@ -5608,6 +5612,22 @@ class StructWithJavaReservedWords():
         :stability: experimental
         """
         return self._values.get('assert_')
+
+    @property
+    def result(self) -> typing.Optional[str]:
+        """
+        stability
+        :stability: experimental
+        """
+        return self._values.get('result')
+
+    @property
+    def that(self) -> typing.Optional[str]:
+        """
+        stability
+        :stability: experimental
+        """
+        return self._values.get('that')
 
     def __eq__(self, rhs) -> bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values

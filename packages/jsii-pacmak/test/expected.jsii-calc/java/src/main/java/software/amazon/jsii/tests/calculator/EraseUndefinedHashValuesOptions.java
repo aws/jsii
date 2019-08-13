@@ -133,8 +133,8 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
 
         @Override
         public int hashCode() {
-            int result = option1 != null ? option1.hashCode() : 0;
-            result = 31 * result + (option2 != null ? option2.hashCode() : 0);
+            int result = this.option1 != null ? this.option1.hashCode() : 0;
+            result = 31 * result + (this.option2 != null ? this.option2.hashCode() : 0);
             return result;
         }
 

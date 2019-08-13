@@ -25,5 +25,23 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
             get;
         }
+
+        /// <remarks>
+        /// stability: Experimental
+        /// </remarks>
+        [JsiiProperty(name: "result", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
+        string Result
+        {
+            get;
+        }
+
+        /// <remarks>
+        /// stability: Experimental
+        /// </remarks>
+        [JsiiProperty(name: "that", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
+        string That
+        {
+            get;
+        }
     }
 }

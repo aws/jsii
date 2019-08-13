@@ -264,11 +264,11 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
 
         @Override
         public int hashCode() {
-            int result = containerPort != null ? containerPort.hashCode() : 0;
-            result = 31 * result + (cpu != null ? cpu.hashCode() : 0);
-            result = 31 * result + (memoryMiB != null ? memoryMiB.hashCode() : 0);
-            result = 31 * result + (publicLoadBalancer != null ? publicLoadBalancer.hashCode() : 0);
-            result = 31 * result + (publicTasks != null ? publicTasks.hashCode() : 0);
+            int result = this.containerPort != null ? this.containerPort.hashCode() : 0;
+            result = 31 * result + (this.cpu != null ? this.cpu.hashCode() : 0);
+            result = 31 * result + (this.memoryMiB != null ? this.memoryMiB.hashCode() : 0);
+            result = 31 * result + (this.publicLoadBalancer != null ? this.publicLoadBalancer.hashCode() : 0);
+            result = 31 * result + (this.publicTasks != null ? this.publicTasks.hashCode() : 0);
             return result;
         }
 

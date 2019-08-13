@@ -172,9 +172,9 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
 
         @Override
         public int hashCode() {
-            int result = optional1 != null ? optional1.hashCode() : 0;
-            result = 31 * result + (optional2 != null ? optional2.hashCode() : 0);
-            result = 31 * result + (optional3 != null ? optional3.hashCode() : 0);
+            int result = this.optional1 != null ? this.optional1.hashCode() : 0;
+            result = 31 * result + (this.optional2 != null ? this.optional2.hashCode() : 0);
+            result = 31 * result + (this.optional3 != null ? this.optional3.hashCode() : 0);
             return result;
         }
 

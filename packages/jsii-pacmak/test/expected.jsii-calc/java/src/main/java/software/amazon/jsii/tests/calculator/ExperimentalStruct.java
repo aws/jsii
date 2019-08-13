@@ -101,7 +101,7 @@ public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializabl
 
         @Override
         public int hashCode() {
-            int result = readonlyProperty.hashCode();
+            int result = this.readonlyProperty.hashCode();
             return result;
         }
 

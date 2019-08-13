@@ -6721,6 +6721,16 @@ StructWithJavaReservedWords (interface)
       :type: string *(optional)* *(readonly)*
 
 
+   .. py:attribute:: result
+
+      :type: string *(optional)* *(readonly)*
+
+
+   .. py:attribute:: that
+
+      :type: string *(optional)* *(readonly)*
+
+
 Sum
 ^^^
 

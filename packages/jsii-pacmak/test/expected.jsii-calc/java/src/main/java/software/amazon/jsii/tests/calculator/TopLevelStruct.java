@@ -176,9 +176,9 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
 
         @Override
         public int hashCode() {
-            int result = required.hashCode();
-            result = 31 * result + (secondLevel.hashCode());
-            result = 31 * result + (optional != null ? optional.hashCode() : 0);
+            int result = this.required.hashCode();
+            result = 31 * result + (this.secondLevel.hashCode());
+            result = 31 * result + (this.optional != null ? this.optional.hashCode() : 0);
             return result;
         }
 

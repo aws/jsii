@@ -164,8 +164,8 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
 
         @Override
         public int hashCode() {
-            int result = bar.hashCode();
-            result = 31 * result + (foo != null ? foo.hashCode() : 0);
+            int result = this.bar.hashCode();
+            result = 31 * result + (this.foo != null ? this.foo.hashCode() : 0);
             return result;
         }
 

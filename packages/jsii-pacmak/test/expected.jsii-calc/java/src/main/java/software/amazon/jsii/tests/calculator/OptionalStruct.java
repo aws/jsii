@@ -103,7 +103,7 @@ public interface OptionalStruct extends software.amazon.jsii.JsiiSerializable {
 
         @Override
         public int hashCode() {
-            int result = field != null ? field.hashCode() : 0;
+            int result = this.field != null ? this.field.hashCode() : 0;
             return result;
         }
 

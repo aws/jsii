@@ -135,8 +135,8 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
 
         @Override
         public int hashCode() {
-            int result = deeperRequiredProp.hashCode();
-            result = 31 * result + (deeperOptionalProp != null ? deeperOptionalProp.hashCode() : 0);
+            int result = this.deeperRequiredProp.hashCode();
+            result = 31 * result + (this.deeperOptionalProp != null ? this.deeperOptionalProp.hashCode() : 0);
             return result;
         }
 

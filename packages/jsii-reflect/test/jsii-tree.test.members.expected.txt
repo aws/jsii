@@ -737,7 +737,9 @@ assemblies
  │   ├─┬ interface StructWithJavaReservedWords
  │   │ └─┬ members
  │   │   ├── default property
- │   │   └── assert property
+ │   │   ├── assert property
+ │   │   ├── result property
+ │   │   └── that property
  │   ├─┬ interface TopLevelStruct
  │   │ └─┬ members
  │   │   ├── required property

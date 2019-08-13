@@ -213,7 +213,7 @@ class JavaGenerator extends Generator {
     }
 
     /**
-     * Turns a raw javascript method name (eg: 'import') into a safe Java method name 9eg: 'doImport').
+     * Turns a raw javascript method name (eg: 'import') into a safe Java method name (eg: 'doImport').
      * @param methodName
      */
     private static safeJavaMethodName(methodName: string) {
@@ -1102,7 +1102,7 @@ class JavaGenerator extends Generator {
         this.code.line();
 
         function _hashCodeForProp(prop: JavaProp) {
-            return prop.nullable ? `${prop.fieldName} != null ? ${prop.fieldName}.hashCode() : 0` : `${prop.fieldName}.hashCode()`;
+            return prop.nullable ? `this.${prop.fieldName} != null ? this.${prop.fieldName}.hashCode() : 0` : `this.${prop.fieldName}.hashCode()`;
         }
     }
 

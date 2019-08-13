@@ -169,9 +169,9 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
 
         @Override
         public int hashCode() {
-            int result = anumber.hashCode();
-            result = 31 * result + (astring.hashCode());
-            result = 31 * result + (firstOptional != null ? firstOptional.hashCode() : 0);
+            int result = this.anumber.hashCode();
+            result = 31 * result + (this.astring.hashCode());
+            result = 31 * result + (this.firstOptional != null ? this.firstOptional.hashCode() : 0);
             return result;
         }
 

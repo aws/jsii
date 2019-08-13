@@ -1794,6 +1794,10 @@ export interface DiamondInheritanceTopLevelStruct extends DiamondInheritanceFirs
 export interface StructWithJavaReservedWords {
     readonly default: string;
     readonly assert?: string;
+
+    // These properties are designed to break the naive implementation of equals() and hashcode() using the standard template
+    readonly result?: string;
+    readonly that?: string;
 }
 
 export class ClassWithJavaReservedWords {

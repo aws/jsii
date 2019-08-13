@@ -109,7 +109,7 @@ public interface DeprecatedStruct extends software.amazon.jsii.JsiiSerializable 
 
         @Override
         public int hashCode() {
-            int result = readonlyProperty.hashCode();
+            int result = this.readonlyProperty.hashCode();
             return result;
         }
 

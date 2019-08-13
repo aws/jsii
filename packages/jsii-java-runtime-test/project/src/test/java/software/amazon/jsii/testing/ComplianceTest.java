@@ -75,6 +75,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
@@ -1043,6 +1044,16 @@ public class ComplianceTest {
         String result = obj.doImport("two");
 
         assertEquals("onetwo", result);
+    }
+
+    @Test
+    public void hashCodeIsResistantToPropertyShadowingResultVariable() {
+        StructWithJavaReservedWords first = StructWithJavaReservedWords.builder().defaultValue("one").build();
+        StructWithJavaReservedWords second = StructWithJavaReservedWords.builder().defaultValue("one").build();
+        StructWithJavaReservedWords third = StructWithJavaReservedWords.builder().defaultValue("two").build();
+
+        assertEquals(first.hashCode(), second.hashCode());
+        assertNotEquals(first.hashCode(), third.hashCode());
     }
 
     @Test

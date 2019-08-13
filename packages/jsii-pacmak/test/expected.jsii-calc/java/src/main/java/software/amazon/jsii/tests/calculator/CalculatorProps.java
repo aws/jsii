@@ -135,8 +135,8 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
 
         @Override
         public int hashCode() {
-            int result = initialValue != null ? initialValue.hashCode() : 0;
-            result = 31 * result + (maximumValue != null ? maximumValue.hashCode() : 0);
+            int result = this.initialValue != null ? this.initialValue.hashCode() : 0;
+            result = 31 * result + (this.maximumValue != null ? this.maximumValue.hashCode() : 0);
             return result;
         }
 

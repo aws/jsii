@@ -1682,7 +1682,15 @@ assemblies
  │   │   │ ├── abstract
  │   │   │ ├── immutable
  │   │   │ └── type: string
- │   │   └─┬ assert property (experimental)
+ │   │   ├─┬ assert property (experimental)
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: Optional<string>
+ │   │   ├─┬ result property (experimental)
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: Optional<string>
+ │   │   └─┬ that property (experimental)
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<string>

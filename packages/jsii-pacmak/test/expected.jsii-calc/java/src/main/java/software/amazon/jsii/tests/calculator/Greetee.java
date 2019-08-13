@@ -109,7 +109,7 @@ public interface Greetee extends software.amazon.jsii.JsiiSerializable {
 
         @Override
         public int hashCode() {
-            int result = name != null ? name.hashCode() : 0;
+            int result = this.name != null ? this.name.hashCode() : 0;
             return result;
         }
 

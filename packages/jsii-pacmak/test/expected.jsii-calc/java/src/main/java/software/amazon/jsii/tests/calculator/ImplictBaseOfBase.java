@@ -143,9 +143,9 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
 
         @Override
         public int hashCode() {
-            int result = goo.hashCode();
-            result = 31 * result + (bar.hashCode());
-            result = 31 * result + (foo.hashCode());
+            int result = this.goo.hashCode();
+            result = 31 * result + (this.bar.hashCode());
+            result = 31 * result + (this.foo.hashCode());
             return result;
         }
 

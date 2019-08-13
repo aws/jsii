@@ -129,8 +129,8 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
 
         @Override
         public int hashCode() {
-            int result = boom.hashCode();
-            result = 31 * result + (prop.hashCode());
+            int result = this.boom.hashCode();
+            result = 31 * result + (this.prop.hashCode());
             return result;
         }
 

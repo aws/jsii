@@ -324,15 +324,15 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
 
         @Override
         public int hashCode() {
-            int result = anotherRequired.hashCode();
-            result = 31 * result + (bool.hashCode());
-            result = 31 * result + (nonPrimitive.hashCode());
-            result = 31 * result + (anotherOptional != null ? anotherOptional.hashCode() : 0);
-            result = 31 * result + (optionalAny != null ? optionalAny.hashCode() : 0);
-            result = 31 * result + (optionalArray != null ? optionalArray.hashCode() : 0);
-            result = 31 * result + (anumber.hashCode());
-            result = 31 * result + (astring.hashCode());
-            result = 31 * result + (firstOptional != null ? firstOptional.hashCode() : 0);
+            int result = this.anotherRequired.hashCode();
+            result = 31 * result + (this.bool.hashCode());
+            result = 31 * result + (this.nonPrimitive.hashCode());
+            result = 31 * result + (this.anotherOptional != null ? this.anotherOptional.hashCode() : 0);
+            result = 31 * result + (this.optionalAny != null ? this.optionalAny.hashCode() : 0);
+            result = 31 * result + (this.optionalArray != null ? this.optionalArray.hashCode() : 0);
+            result = 31 * result + (this.anumber.hashCode());
+            result = 31 * result + (this.astring.hashCode());
+            result = 31 * result + (this.firstOptional != null ? this.firstOptional.hashCode() : 0);
             return result;
         }
 

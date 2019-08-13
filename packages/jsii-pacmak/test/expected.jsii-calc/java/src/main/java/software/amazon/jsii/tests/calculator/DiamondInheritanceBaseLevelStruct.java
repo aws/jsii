@@ -101,7 +101,7 @@ public interface DiamondInheritanceBaseLevelStruct extends software.amazon.jsii.
 
         @Override
         public int hashCode() {
-            int result = baseLevelProperty.hashCode();
+            int result = this.baseLevelProperty.hashCode();
             return result;
         }
 

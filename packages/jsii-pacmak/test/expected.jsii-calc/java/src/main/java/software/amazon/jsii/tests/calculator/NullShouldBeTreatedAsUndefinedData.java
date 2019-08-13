@@ -131,8 +131,8 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
 
         @Override
         public int hashCode() {
-            int result = arrayWithThreeElementsAndUndefinedAsSecondArgument.hashCode();
-            result = 31 * result + (thisShouldBeUndefined != null ? thisShouldBeUndefined.hashCode() : 0);
+            int result = this.arrayWithThreeElementsAndUndefinedAsSecondArgument.hashCode();
+            result = 31 * result + (this.thisShouldBeUndefined != null ? this.thisShouldBeUndefined.hashCode() : 0);
             return result;
         }
 

@@ -109,8 +109,8 @@ public interface BaseProps extends software.amazon.jsii.JsiiSerializable, softwa
 
         @Override
         public int hashCode() {
-            int result = bar.hashCode();
-            result = 31 * result + (foo.hashCode());
+            int result = this.bar.hashCode();
+            result = 31 * result + (this.foo.hashCode());
             return result;
         }
 

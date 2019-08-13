@@ -1764,7 +1764,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 1799
+        "line": 1803
       },
       "methods": [
         {
@@ -1773,7 +1773,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1806
+            "line": 1810
           },
           "name": "import",
           "parameters": [
@@ -1800,7 +1800,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1800
+            "line": 1804
           },
           "name": "int",
           "type": {
@@ -8045,7 +8045,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 1816
+        "line": 1820
       },
       "methods": [
         {
@@ -8054,7 +8054,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1825
+            "line": 1829
           },
           "name": "howManyVarArgsDidIPass",
           "parameters": [
@@ -8086,7 +8086,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1817
+            "line": 1821
           },
           "name": "roundTrip",
           "parameters": [
@@ -8153,6 +8153,38 @@
             "line": 1796
           },
           "name": "assert",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1799
+          },
+          "name": "result",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1800
+          },
+          "name": "that",
           "optional": true,
           "type": {
             "primitive": "string"
@@ -9329,5 +9361,5 @@
     }
   },
   "version": "0.15.0",
-  "fingerprint": "FjdHcguEQohvkGk8SSyRgDb8An5sYAqbTMYyGprjtiQ="
+  "fingerprint": "s29ilwOj9pcb3e3u8f49bqxkFzU9a52FAr4mHWpRuYA="
 }
