@@ -1067,7 +1067,7 @@ class JavaGenerator extends Generator {
 
         initialProps.forEach(prop => {
             const predicate = prop.nullable ?
-                `${prop.fieldName} != null ? !${prop.fieldName}.equals(that.${prop.fieldName}) : that.${prop.fieldName} != null` :
+                `this.${prop.fieldName} != null ? !this.${prop.fieldName}.equals(that.${prop.fieldName}) : that.${prop.fieldName} != null` :
                 `!${prop.fieldName}.equals(that.${prop.fieldName})`;
 
             this.code.line(`if (${predicate}) return false;`);
@@ -1075,8 +1075,9 @@ class JavaGenerator extends Generator {
 
         // The final (returned predicate) is the inverse of the other ones
         const finalPredicate = finalProp.nullable ?
-            `${finalProp.fieldName} != null ? ${finalProp.fieldName}.equals(that.${finalProp.fieldName}) : that.${finalProp.fieldName} == null` :
-            `${finalProp.fieldName}.equals(that.${finalProp.fieldName})`;
+            `this.${finalProp.fieldName} != null ? this.${finalProp.fieldName}.equals(that.${finalProp.fieldName}) : ` +
+            `that.${finalProp.fieldName} == null`
+            : `this.${finalProp.fieldName}.equals(that.${finalProp.fieldName})`;
         this.code.line(`return ${finalPredicate};`);
 
         this.code.closeBlock();

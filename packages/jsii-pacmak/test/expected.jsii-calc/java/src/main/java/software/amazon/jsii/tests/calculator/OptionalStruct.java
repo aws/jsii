@@ -98,7 +98,7 @@ public interface OptionalStruct extends software.amazon.jsii.JsiiSerializable {
 
             OptionalStruct.Jsii$Proxy that = (OptionalStruct.Jsii$Proxy) o;
 
-            return field != null ? field.equals(that.field) : that.field == null;
+            return this.field != null ? this.field.equals(that.field) : that.field == null;
         }
 
         @Override

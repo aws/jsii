@@ -255,11 +255,11 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
 
             LoadBalancedFargateServiceProps.Jsii$Proxy that = (LoadBalancedFargateServiceProps.Jsii$Proxy) o;
 
-            if (containerPort != null ? !containerPort.equals(that.containerPort) : that.containerPort != null) return false;
-            if (cpu != null ? !cpu.equals(that.cpu) : that.cpu != null) return false;
-            if (memoryMiB != null ? !memoryMiB.equals(that.memoryMiB) : that.memoryMiB != null) return false;
-            if (publicLoadBalancer != null ? !publicLoadBalancer.equals(that.publicLoadBalancer) : that.publicLoadBalancer != null) return false;
-            return publicTasks != null ? publicTasks.equals(that.publicTasks) : that.publicTasks == null;
+            if (this.containerPort != null ? !this.containerPort.equals(that.containerPort) : that.containerPort != null) return false;
+            if (this.cpu != null ? !this.cpu.equals(that.cpu) : that.cpu != null) return false;
+            if (this.memoryMiB != null ? !this.memoryMiB.equals(that.memoryMiB) : that.memoryMiB != null) return false;
+            if (this.publicLoadBalancer != null ? !this.publicLoadBalancer.equals(that.publicLoadBalancer) : that.publicLoadBalancer != null) return false;
+            return this.publicTasks != null ? this.publicTasks.equals(that.publicTasks) : that.publicTasks == null;
         }
 
         @Override

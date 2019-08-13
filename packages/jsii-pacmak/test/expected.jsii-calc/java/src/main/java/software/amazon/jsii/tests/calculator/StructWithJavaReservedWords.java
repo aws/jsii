@@ -184,9 +184,9 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
             StructWithJavaReservedWords.Jsii$Proxy that = (StructWithJavaReservedWords.Jsii$Proxy) o;
 
             if (!defaultValue.equals(that.defaultValue)) return false;
-            if (assertValue != null ? !assertValue.equals(that.assertValue) : that.assertValue != null) return false;
-            if (result != null ? !result.equals(that.result) : that.result != null) return false;
-            return that != null ? that.equals(that.that) : that.that == null;
+            if (this.assertValue != null ? !this.assertValue.equals(that.assertValue) : that.assertValue != null) return false;
+            if (this.result != null ? !this.result.equals(that.result) : that.result != null) return false;
+            return this.that != null ? this.that.equals(that.that) : that.that == null;
         }
 
         @Override

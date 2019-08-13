@@ -314,12 +314,12 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
             if (!anotherRequired.equals(that.anotherRequired)) return false;
             if (!bool.equals(that.bool)) return false;
             if (!nonPrimitive.equals(that.nonPrimitive)) return false;
-            if (anotherOptional != null ? !anotherOptional.equals(that.anotherOptional) : that.anotherOptional != null) return false;
-            if (optionalAny != null ? !optionalAny.equals(that.optionalAny) : that.optionalAny != null) return false;
-            if (optionalArray != null ? !optionalArray.equals(that.optionalArray) : that.optionalArray != null) return false;
+            if (this.anotherOptional != null ? !this.anotherOptional.equals(that.anotherOptional) : that.anotherOptional != null) return false;
+            if (this.optionalAny != null ? !this.optionalAny.equals(that.optionalAny) : that.optionalAny != null) return false;
+            if (this.optionalArray != null ? !this.optionalArray.equals(that.optionalArray) : that.optionalArray != null) return false;
             if (!anumber.equals(that.anumber)) return false;
             if (!astring.equals(that.astring)) return false;
-            return firstOptional != null ? firstOptional.equals(that.firstOptional) : that.firstOptional == null;
+            return this.firstOptional != null ? this.firstOptional.equals(that.firstOptional) : that.firstOptional == null;
         }
 
         @Override

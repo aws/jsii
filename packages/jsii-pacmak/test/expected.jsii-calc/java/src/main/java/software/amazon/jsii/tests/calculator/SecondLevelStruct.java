@@ -130,7 +130,7 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
             SecondLevelStruct.Jsii$Proxy that = (SecondLevelStruct.Jsii$Proxy) o;
 
             if (!deeperRequiredProp.equals(that.deeperRequiredProp)) return false;
-            return deeperOptionalProp != null ? deeperOptionalProp.equals(that.deeperOptionalProp) : that.deeperOptionalProp == null;
+            return this.deeperOptionalProp != null ? this.deeperOptionalProp.equals(that.deeperOptionalProp) : that.deeperOptionalProp == null;
         }
 
         @Override

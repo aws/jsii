@@ -1057,6 +1057,16 @@ public class ComplianceTest {
     }
 
     @Test
+    public void equalsIsResistantToPropertyShadowingResultVariable() {
+        StructWithJavaReservedWords first = StructWithJavaReservedWords.builder().defaultValue("one").build();
+        StructWithJavaReservedWords second = StructWithJavaReservedWords.builder().defaultValue("one").build();
+        StructWithJavaReservedWords third = StructWithJavaReservedWords.builder().defaultValue("two").build();
+
+        assertEquals(first, second);
+        assertNotEquals(first, third);
+    }
+
+    @Test
     public void nodeStandardLibrary() {
         NodeStandardLibrary obj = new NodeStandardLibrary();
         assertEquals("Hello, resource!", obj.fsReadFile());

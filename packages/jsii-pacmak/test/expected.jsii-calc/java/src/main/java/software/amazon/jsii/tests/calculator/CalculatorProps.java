@@ -129,8 +129,8 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
 
             CalculatorProps.Jsii$Proxy that = (CalculatorProps.Jsii$Proxy) o;
 
-            if (initialValue != null ? !initialValue.equals(that.initialValue) : that.initialValue != null) return false;
-            return maximumValue != null ? maximumValue.equals(that.maximumValue) : that.maximumValue == null;
+            if (this.initialValue != null ? !this.initialValue.equals(that.initialValue) : that.initialValue != null) return false;
+            return this.maximumValue != null ? this.maximumValue.equals(that.maximumValue) : that.maximumValue == null;
         }
 
         @Override

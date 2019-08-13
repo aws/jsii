@@ -96,7 +96,7 @@ public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializabl
 
             ExperimentalStruct.Jsii$Proxy that = (ExperimentalStruct.Jsii$Proxy) o;
 
-            return readonlyProperty.equals(that.readonlyProperty);
+            return this.readonlyProperty.equals(that.readonlyProperty);
         }
 
         @Override

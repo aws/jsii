@@ -104,7 +104,7 @@ public interface Greetee extends software.amazon.jsii.JsiiSerializable {
 
             Greetee.Jsii$Proxy that = (Greetee.Jsii$Proxy) o;
 
-            return name != null ? name.equals(that.name) : that.name == null;
+            return this.name != null ? this.name.equals(that.name) : that.name == null;
         }
 
         @Override

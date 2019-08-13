@@ -126,7 +126,7 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
             NullShouldBeTreatedAsUndefinedData.Jsii$Proxy that = (NullShouldBeTreatedAsUndefinedData.Jsii$Proxy) o;
 
             if (!arrayWithThreeElementsAndUndefinedAsSecondArgument.equals(that.arrayWithThreeElementsAndUndefinedAsSecondArgument)) return false;
-            return thisShouldBeUndefined != null ? thisShouldBeUndefined.equals(that.thisShouldBeUndefined) : that.thisShouldBeUndefined == null;
+            return this.thisShouldBeUndefined != null ? this.thisShouldBeUndefined.equals(that.thisShouldBeUndefined) : that.thisShouldBeUndefined == null;
         }
 
         @Override

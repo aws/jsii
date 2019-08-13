@@ -171,7 +171,7 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
 
             if (!required.equals(that.required)) return false;
             if (!secondLevel.equals(that.secondLevel)) return false;
-            return optional != null ? optional.equals(that.optional) : that.optional == null;
+            return this.optional != null ? this.optional.equals(that.optional) : that.optional == null;
         }
 
         @Override

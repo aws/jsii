@@ -162,7 +162,7 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
             if (!topLevelProperty.equals(that.topLevelProperty)) return false;
             if (!firstMidLevelProperty.equals(that.firstMidLevelProperty)) return false;
             if (!baseLevelProperty.equals(that.baseLevelProperty)) return false;
-            return secondMidLevelProperty.equals(that.secondMidLevelProperty);
+            return this.secondMidLevelProperty.equals(that.secondMidLevelProperty);
         }
 
         @Override

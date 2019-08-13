@@ -138,7 +138,7 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
 
             if (!goo.equals(that.goo)) return false;
             if (!bar.equals(that.bar)) return false;
-            return foo.equals(that.foo);
+            return this.foo.equals(that.foo);
         }
 
         @Override

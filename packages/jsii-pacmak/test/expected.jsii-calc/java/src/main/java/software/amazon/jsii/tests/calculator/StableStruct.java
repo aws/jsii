@@ -94,7 +94,7 @@ public interface StableStruct extends software.amazon.jsii.JsiiSerializable {
 
             StableStruct.Jsii$Proxy that = (StableStruct.Jsii$Proxy) o;
 
-            return readonlyProperty.equals(that.readonlyProperty);
+            return this.readonlyProperty.equals(that.readonlyProperty);
         }
 
         @Override

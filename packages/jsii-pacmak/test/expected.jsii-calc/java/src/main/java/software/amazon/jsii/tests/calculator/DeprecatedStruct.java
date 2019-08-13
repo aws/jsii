@@ -104,7 +104,7 @@ public interface DeprecatedStruct extends software.amazon.jsii.JsiiSerializable 
 
             DeprecatedStruct.Jsii$Proxy that = (DeprecatedStruct.Jsii$Proxy) o;
 
-            return readonlyProperty.equals(that.readonlyProperty);
+            return this.readonlyProperty.equals(that.readonlyProperty);
         }
 
         @Override

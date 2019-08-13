@@ -124,7 +124,7 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
             ExtendsInternalInterface.Jsii$Proxy that = (ExtendsInternalInterface.Jsii$Proxy) o;
 
             if (!boom.equals(that.boom)) return false;
-            return prop.equals(that.prop);
+            return this.prop.equals(that.prop);
         }
 
         @Override

@@ -96,7 +96,7 @@ public interface DiamondInheritanceBaseLevelStruct extends software.amazon.jsii.
 
             DiamondInheritanceBaseLevelStruct.Jsii$Proxy that = (DiamondInheritanceBaseLevelStruct.Jsii$Proxy) o;
 
-            return baseLevelProperty.equals(that.baseLevelProperty);
+            return this.baseLevelProperty.equals(that.baseLevelProperty);
         }
 
         @Override

@@ -96,7 +96,7 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
 
             Hello.Jsii$Proxy that = (Hello.Jsii$Proxy) o;
 
-            return foo.equals(that.foo);
+            return this.foo.equals(that.foo);
         }
 
         @Override
