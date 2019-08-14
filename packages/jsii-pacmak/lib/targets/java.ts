@@ -1,4 +1,5 @@
 import clone = require('clone');
+import {toPascalCase} from "codemaker/lib/case-utils";
 import fs = require('fs-extra');
 import spec = require('jsii-spec');
 import path = require('path');
@@ -183,6 +184,50 @@ interface JavaProp {
 }
 
 class JavaGenerator extends Generator {
+    // When the code-generator needs to generate code for a property or method that has the same name as a member of this list, the name will
+    // be automatically modified to avoid compile errors. Most of these are java language reserved keywords. In addition to those, any keywords that
+    // are likely to conflict with auto-generated methods or properties (eg: 'build') are also considered reserved.
+    private static RESERVED_KEYWORDS = [
+        'abstract', 'assert', 'boolean', 'break', 'build', 'byte', 'case', 'catch', 'char', 'class',
+        'const', 'continue', 'default', 'double', 'do', 'else', 'enum', 'extends', 'false',
+        'final', 'finally', 'float', 'for', 'goto', 'if', 'implements', 'import', 'instanceof',
+        'int', 'interface', 'long', 'native', 'new', 'null', 'package', 'private', 'protected',
+        'public', 'return', 'short', 'static', 'strictfp', 'super', 'switch', 'synchronized',
+        'this', 'throw', 'throws', 'transient', 'true', 'try', 'void', 'volatile', 'while'
+    ];
+
+    /**
+     * Turns a raw javascript property name (eg: 'default') into a safe Java property name (eg: 'defaultValue').
+     * @param propertyName the raw JSII property Name
+     */
+    private static safeJavaPropertyName(propertyName: string) {
+        if (!propertyName) {
+            return propertyName;
+        }
+
+        if (JavaGenerator.RESERVED_KEYWORDS.includes(propertyName)) {
+            return `${propertyName}Value`;
+        } else {
+            return propertyName;
+        }
+    }
+
+    /**
+     * Turns a raw javascript method name (eg: 'import') into a safe Java method name (eg: 'doImport').
+     * @param methodName
+     */
+    private static safeJavaMethodName(methodName: string) {
+        if (!methodName) {
+            return methodName;
+        }
+
+        if (JavaGenerator.RESERVED_KEYWORDS.includes(methodName)) {
+            return `do${toPascalCase(methodName)}`;
+        } else {
+            return methodName;
+        }
+    }
+
     /** If false, @Generated will not include generator version nor timestamp */
     private emitFullGeneratorInfo?: boolean;
     private moduleClass: string;
@@ -377,7 +422,7 @@ class JavaGenerator extends Generator {
     protected onInterfaceProperty(_ifc: spec.InterfaceType, prop: spec.Property) {
         const getterType = this.toJavaType(prop.type);
         const setterTypes = this.toJavaTypes(prop.type);
-        const propName = this.code.toPascalCase(prop.name);
+        const propName = this.code.toPascalCase(JavaGenerator.safeJavaPropertyName(prop.name));
 
         // for unions we only generate overloads for setters, not getters.
         this.addJavaDocs(prop);
@@ -649,7 +694,7 @@ class JavaGenerator extends Generator {
         const getterType = this.toJavaType(prop.type);
         const setterTypes = this.toJavaTypes(prop.type);
         const propClass = this.toJavaType(prop.type, true);
-        const propName = this.code.toPascalCase(prop.name);
+        const propName = this.code.toPascalCase(JavaGenerator.safeJavaPropertyName(prop.name));
         const access = this.renderAccessLevel(prop);
         const statc = prop.static ? 'static ' : '';
         const javaClass = this.toJavaType(cls);
@@ -702,7 +747,7 @@ class JavaGenerator extends Generator {
         const statc = method.static ? 'static ' : '';
         const access = this.renderAccessLevel(method);
         const async = !!method.async;
-        const methodName = slugify(method.name);
+        const methodName = JavaGenerator.safeJavaMethodName(method.name);
         const signature = `${returnType} ${methodName}(${this.renderMethodParameters(method)})`;
         this.code.line();
         this.addJavaDocs(method);
@@ -840,7 +885,8 @@ class JavaGenerator extends Generator {
 
         function collectProps(currentIfc: spec.InterfaceType, isBaseClass = false) {
             for (const property of currentIfc.properties || []) {
-                const propName = self.code.toPascalCase(property.name);
+                const safeName = JavaGenerator.safeJavaPropertyName(property.name);
+                const propName = self.code.toPascalCase(safeName);
 
                 const prop: JavaProp = {
                     docs: property.docs,
@@ -848,7 +894,7 @@ class JavaGenerator extends Generator {
                     propName,
                     jsiiName: property.name,
                     nullable: !!property.optional,
-                    fieldName: self.code.toCamelCase(property.name),
+                    fieldName: self.code.toCamelCase(safeName),
                     fieldJavaType: self.toJavaType(property.type),
                     fieldJavaClass: `${self.toJavaType(property.type, true)}.class`,
                     javaTypes: self.toJavaTypes(property.type),
@@ -1021,7 +1067,7 @@ class JavaGenerator extends Generator {
 
         initialProps.forEach(prop => {
             const predicate = prop.nullable ?
-                `${prop.fieldName} != null ? !${prop.fieldName}.equals(that.${prop.fieldName}) : that.${prop.fieldName} != null` :
+                `this.${prop.fieldName} != null ? !this.${prop.fieldName}.equals(that.${prop.fieldName}) : that.${prop.fieldName} != null` :
                 `!${prop.fieldName}.equals(that.${prop.fieldName})`;
 
             this.code.line(`if (${predicate}) return false;`);
@@ -1029,8 +1075,9 @@ class JavaGenerator extends Generator {
 
         // The final (returned predicate) is the inverse of the other ones
         const finalPredicate = finalProp.nullable ?
-            `${finalProp.fieldName} != null ? ${finalProp.fieldName}.equals(that.${finalProp.fieldName}) : that.${finalProp.fieldName} == null` :
-            `${finalProp.fieldName}.equals(that.${finalProp.fieldName})`;
+            `this.${finalProp.fieldName} != null ? this.${finalProp.fieldName}.equals(that.${finalProp.fieldName}) : ` +
+            `that.${finalProp.fieldName} == null`
+            : `this.${finalProp.fieldName}.equals(that.${finalProp.fieldName})`;
         this.code.line(`return ${finalPredicate};`);
 
         this.code.closeBlock();
@@ -1056,7 +1103,7 @@ class JavaGenerator extends Generator {
         this.code.line();
 
         function _hashCodeForProp(prop: JavaProp) {
-            return prop.nullable ? `${prop.fieldName} != null ? ${prop.fieldName}.hashCode() : 0` : `${prop.fieldName}.hashCode()`;
+            return prop.nullable ? `this.${prop.fieldName} != null ? this.${prop.fieldName}.hashCode() : 0` : `this.${prop.fieldName}.hashCode()`;
         }
     }
 
@@ -1236,9 +1283,10 @@ class JavaGenerator extends Generator {
         }
 
         function _renderParameter(param: spec.Parameter) {
+            const safeName = JavaGenerator.safeJavaPropertyName(param.name);
             return isNullable(param)
-                ? param.name
-                : `java.util.Objects.requireNonNull(${param.name}, "${param.name} is required")`;
+                ? safeName
+                : `java.util.Objects.requireNonNull(${safeName}, "${safeName} is required")`;
         }
     }
 
@@ -1277,7 +1325,7 @@ class JavaGenerator extends Generator {
         const params = [];
         if (method.parameters) {
             for (const p of method.parameters) {
-                params.push(`final ${this.toJavaType(p.type)}${p.variadic ? '...' : ''} ${p.name}`);
+                params.push(`final ${this.toJavaType(p.type)}${p.variadic ? '...' : ''} ${JavaGenerator.safeJavaPropertyName(p.name)}`);
             }
         }
         return params.join(', ');
@@ -1408,26 +1456,6 @@ class JavaGenerator extends Generator {
         this.code.line(`@javax.annotation.Generated(value = "${generator}"${date})`);
     }
 }
-
-function slugify(name?: string) {
-    if (!name) {
-        return name;
-    }
-    if (RESERVED_KEYWORDS.includes(name)) {
-        return `${name}_`;
-    } else {
-        return name;
-    }
-}
-
-const RESERVED_KEYWORDS = [
-    'abstract', 'assert', 'boolean', 'break', 'byte', 'case', 'catch', 'char', 'class',
-    'const', 'continue', 'default', 'double', 'do', 'else', 'enum', 'extends', 'false',
-    'final', 'finally', 'float', 'for', 'goto', 'if', 'implements', 'import', 'instanceof',
-    'int', 'interface', 'long', 'native', 'new', 'null', 'package', 'private', 'protected',
-    'public', 'return', 'short', 'static', 'strictfp', 'super', 'switch', 'synchronized',
-    'this', 'throw', 'throws', 'transient', 'true', 'try', 'void', 'volatile', 'while'
-];
 
 /**
  * This models the POM schema for a <dependency> entity

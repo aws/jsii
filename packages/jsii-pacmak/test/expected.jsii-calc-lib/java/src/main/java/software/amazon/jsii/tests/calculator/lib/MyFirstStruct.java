@@ -164,14 +164,14 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
 
             if (!anumber.equals(that.anumber)) return false;
             if (!astring.equals(that.astring)) return false;
-            return firstOptional != null ? firstOptional.equals(that.firstOptional) : that.firstOptional == null;
+            return this.firstOptional != null ? this.firstOptional.equals(that.firstOptional) : that.firstOptional == null;
         }
 
         @Override
         public int hashCode() {
-            int result = anumber.hashCode();
-            result = 31 * result + (astring.hashCode());
-            result = 31 * result + (firstOptional != null ? firstOptional.hashCode() : 0);
+            int result = this.anumber.hashCode();
+            result = 31 * result + (this.astring.hashCode());
+            result = 31 * result + (this.firstOptional != null ? this.firstOptional.hashCode() : 0);
             return result;
         }
 
