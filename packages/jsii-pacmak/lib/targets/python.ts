@@ -6,6 +6,7 @@ import * as reflect from 'jsii-reflect';
 import * as spec from 'jsii-spec';
 import { Stability } from 'jsii-spec';
 import { Generator, GeneratorOptions } from '../generator';
+import { warn } from '../logging';
 import { md2rst } from '../markdown';
 import { propertySpec } from '../reflect-hacks';
 import { Target, TargetOptions } from '../target';
@@ -28,6 +29,22 @@ export default class Python extends Target {
         // Actually package up our code, both as a sdist and a wheel for publishing.
         await shell("python3", ["setup.py", "sdist", "--dist-dir", outDir], { cwd: sourceDir });
         await shell("python3", ["setup.py", "bdist_wheel", "--dist-dir", outDir], { cwd: sourceDir });
+        if (await twineIsPresent()) {
+            await shell("twine", ["check", path.join(outDir, '*')], { cwd: sourceDir });
+        } else {
+            warn('Unable to validate distribution packages because `twine` is not present. '
+                + 'Run `pip3 install twine` to enable distribution package validation.');
+        }
+
+        // Approximating existence check using `pip3 show`. If that fails, assume twine is not there.
+        async function twineIsPresent(): Promise<boolean> {
+            try {
+                const output = await shell("pip3", ["show", "twine"], { cwd: sourceDir });
+                return output.trim() !== '';
+            } catch {
+                return false;
+            }
+        }
     }
 }
 
