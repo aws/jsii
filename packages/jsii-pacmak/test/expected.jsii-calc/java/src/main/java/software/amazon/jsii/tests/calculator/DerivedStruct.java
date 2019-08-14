@@ -314,25 +314,25 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
             if (!anotherRequired.equals(that.anotherRequired)) return false;
             if (!bool.equals(that.bool)) return false;
             if (!nonPrimitive.equals(that.nonPrimitive)) return false;
-            if (anotherOptional != null ? !anotherOptional.equals(that.anotherOptional) : that.anotherOptional != null) return false;
-            if (optionalAny != null ? !optionalAny.equals(that.optionalAny) : that.optionalAny != null) return false;
-            if (optionalArray != null ? !optionalArray.equals(that.optionalArray) : that.optionalArray != null) return false;
+            if (this.anotherOptional != null ? !this.anotherOptional.equals(that.anotherOptional) : that.anotherOptional != null) return false;
+            if (this.optionalAny != null ? !this.optionalAny.equals(that.optionalAny) : that.optionalAny != null) return false;
+            if (this.optionalArray != null ? !this.optionalArray.equals(that.optionalArray) : that.optionalArray != null) return false;
             if (!anumber.equals(that.anumber)) return false;
             if (!astring.equals(that.astring)) return false;
-            return firstOptional != null ? firstOptional.equals(that.firstOptional) : that.firstOptional == null;
+            return this.firstOptional != null ? this.firstOptional.equals(that.firstOptional) : that.firstOptional == null;
         }
 
         @Override
         public int hashCode() {
-            int result = anotherRequired.hashCode();
-            result = 31 * result + (bool.hashCode());
-            result = 31 * result + (nonPrimitive.hashCode());
-            result = 31 * result + (anotherOptional != null ? anotherOptional.hashCode() : 0);
-            result = 31 * result + (optionalAny != null ? optionalAny.hashCode() : 0);
-            result = 31 * result + (optionalArray != null ? optionalArray.hashCode() : 0);
-            result = 31 * result + (anumber.hashCode());
-            result = 31 * result + (astring.hashCode());
-            result = 31 * result + (firstOptional != null ? firstOptional.hashCode() : 0);
+            int result = this.anotherRequired.hashCode();
+            result = 31 * result + (this.bool.hashCode());
+            result = 31 * result + (this.nonPrimitive.hashCode());
+            result = 31 * result + (this.anotherOptional != null ? this.anotherOptional.hashCode() : 0);
+            result = 31 * result + (this.optionalAny != null ? this.optionalAny.hashCode() : 0);
+            result = 31 * result + (this.optionalArray != null ? this.optionalArray.hashCode() : 0);
+            result = 31 * result + (this.anumber.hashCode());
+            result = 31 * result + (this.astring.hashCode());
+            result = 31 * result + (this.firstOptional != null ? this.firstOptional.hashCode() : 0);
             return result;
         }
 

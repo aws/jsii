@@ -118,13 +118,13 @@ public interface DiamondInheritanceSecondMidLevelStruct extends software.amazon.
             DiamondInheritanceSecondMidLevelStruct.Jsii$Proxy that = (DiamondInheritanceSecondMidLevelStruct.Jsii$Proxy) o;
 
             if (!secondMidLevelProperty.equals(that.secondMidLevelProperty)) return false;
-            return baseLevelProperty.equals(that.baseLevelProperty);
+            return this.baseLevelProperty.equals(that.baseLevelProperty);
         }
 
         @Override
         public int hashCode() {
-            int result = secondMidLevelProperty.hashCode();
-            result = 31 * result + (baseLevelProperty.hashCode());
+            int result = this.secondMidLevelProperty.hashCode();
+            result = 31 * result + (this.baseLevelProperty.hashCode());
             return result;
         }
 

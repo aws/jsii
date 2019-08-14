@@ -127,14 +127,14 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
 
             EraseUndefinedHashValuesOptions.Jsii$Proxy that = (EraseUndefinedHashValuesOptions.Jsii$Proxy) o;
 
-            if (option1 != null ? !option1.equals(that.option1) : that.option1 != null) return false;
-            return option2 != null ? option2.equals(that.option2) : that.option2 == null;
+            if (this.option1 != null ? !this.option1.equals(that.option1) : that.option1 != null) return false;
+            return this.option2 != null ? this.option2.equals(that.option2) : that.option2 == null;
         }
 
         @Override
         public int hashCode() {
-            int result = option1 != null ? option1.hashCode() : 0;
-            result = 31 * result + (option2 != null ? option2.hashCode() : 0);
+            int result = this.option1 != null ? this.option1.hashCode() : 0;
+            result = 31 * result + (this.option2 != null ? this.option2.hashCode() : 0);
             return result;
         }
 

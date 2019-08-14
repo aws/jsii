@@ -248,6 +248,20 @@ assemblies
  │   ├─┬ class ClassWithDocs (stable)
  │   │ └─┬ members
  │   │   └── <initializer>() initializer (stable)
+ │   ├─┬ class ClassWithJavaReservedWords (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(int) initializer (experimental)
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ int
+ │   │   │     └── type: string
+ │   │   ├─┬ import(assert) method (experimental)
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ assert
+ │   │   │ │   └── type: string
+ │   │   │ └── returns: string
+ │   │   └─┬ int property (experimental)
+ │   │     ├── immutable
+ │   │     └── type: string
  │   ├─┬ class ClassWithMutableObjectLiteralProperty (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -1662,6 +1676,24 @@ assemblies
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: string
+ │   ├─┬ interface StructWithJavaReservedWords (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ default property (experimental)
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: string
+ │   │   ├─┬ assert property (experimental)
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: Optional<string>
+ │   │   ├─┬ result property (experimental)
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: Optional<string>
+ │   │   └─┬ that property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: Optional<string>
  │   ├─┬ interface TopLevelStruct (experimental)
  │   │ └─┬ members
  │   │   ├─┬ required property (experimental)

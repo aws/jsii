@@ -165,16 +165,16 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
 
             StructWithOnlyOptionals.Jsii$Proxy that = (StructWithOnlyOptionals.Jsii$Proxy) o;
 
-            if (optional1 != null ? !optional1.equals(that.optional1) : that.optional1 != null) return false;
-            if (optional2 != null ? !optional2.equals(that.optional2) : that.optional2 != null) return false;
-            return optional3 != null ? optional3.equals(that.optional3) : that.optional3 == null;
+            if (this.optional1 != null ? !this.optional1.equals(that.optional1) : that.optional1 != null) return false;
+            if (this.optional2 != null ? !this.optional2.equals(that.optional2) : that.optional2 != null) return false;
+            return this.optional3 != null ? this.optional3.equals(that.optional3) : that.optional3 == null;
         }
 
         @Override
         public int hashCode() {
-            int result = optional1 != null ? optional1.hashCode() : 0;
-            result = 31 * result + (optional2 != null ? optional2.hashCode() : 0);
-            result = 31 * result + (optional3 != null ? optional3.hashCode() : 0);
+            int result = this.optional1 != null ? this.optional1.hashCode() : 0;
+            result = 31 * result + (this.optional2 != null ? this.optional2.hashCode() : 0);
+            result = 31 * result + (this.optional3 != null ? this.optional3.hashCode() : 0);
             return result;
         }
 
