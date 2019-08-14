@@ -43,7 +43,7 @@ RUN yum install -y powershell                                                   
 
 # Install Python 3
 RUN yum -y install python3 python3-pip python3-wheel                                                                    \
-  && python3 -m pip install --upgrade pip wheel                                                                         \
+  && python3 -m pip install --upgrade pip wheel setuptools                                                              \
   && yum clean all && rm -rf /var/cache/yum
 
 # Install Ruby 2.4+
