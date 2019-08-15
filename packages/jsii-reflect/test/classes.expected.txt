@@ -13,6 +13,7 @@ Calculator
 ClassThatImplementsTheInternalInterface
 ClassThatImplementsThePrivateInterface
 ClassWithDocs
+ClassWithJavaReservedWords
 ClassWithMutableObjectLiteralProperty
 ClassWithPrivateConstructorAndAutomaticProperties
 CompositeOperation

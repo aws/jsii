@@ -118,13 +118,13 @@ public interface DiamondInheritanceFirstMidLevelStruct extends software.amazon.j
             DiamondInheritanceFirstMidLevelStruct.Jsii$Proxy that = (DiamondInheritanceFirstMidLevelStruct.Jsii$Proxy) o;
 
             if (!firstMidLevelProperty.equals(that.firstMidLevelProperty)) return false;
-            return baseLevelProperty.equals(that.baseLevelProperty);
+            return this.baseLevelProperty.equals(that.baseLevelProperty);
         }
 
         @Override
         public int hashCode() {
-            int result = firstMidLevelProperty.hashCode();
-            result = 31 * result + (baseLevelProperty.hashCode());
+            int result = this.firstMidLevelProperty.hashCode();
+            result = 31 * result + (this.baseLevelProperty.hashCode());
             return result;
         }
 

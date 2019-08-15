@@ -12,6 +12,7 @@ import software.amazon.jsii.tests.calculator.AllTypesEnum;
 import software.amazon.jsii.tests.calculator.AsyncVirtualMethods;
 import software.amazon.jsii.tests.calculator.Calculator;
 import software.amazon.jsii.tests.calculator.CalculatorProps;
+import software.amazon.jsii.tests.calculator.ClassWithJavaReservedWords;
 import software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties;
 import software.amazon.jsii.tests.calculator.Constructors;
 import software.amazon.jsii.tests.calculator.DataRenderer;
@@ -50,6 +51,7 @@ import software.amazon.jsii.tests.calculator.ReferenceEnumFromScopedPackage;
 import software.amazon.jsii.tests.calculator.ReturnsPrivateImplementationOfInterface;
 import software.amazon.jsii.tests.calculator.StableStruct;
 import software.amazon.jsii.tests.calculator.Statics;
+import software.amazon.jsii.tests.calculator.StructWithJavaReservedWords;
 import software.amazon.jsii.tests.calculator.Sum;
 import software.amazon.jsii.tests.calculator.SyncVirtualMethods;
 import software.amazon.jsii.tests.calculator.UnionProperties;
@@ -73,6 +75,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
@@ -1018,9 +1021,49 @@ public class ComplianceTest {
     @Test
     public void reservedKeywordsAreSlugifiedInMethodNames() {
         JavaReservedWords obj = new JavaReservedWords();
-        obj.import_();
-        obj.const_();
-        assertEquals("hello", obj.getWhile()); // properties do not need to be slufieid
+        obj.doImport();
+        obj.doConst();
+        assertEquals("hello", obj.getWhileValue()); // properties should also be 'slugified'
+    }
+
+    @Test
+    public void reservedKeywordsAreSlugifiedInStructProperties() {
+        StructWithJavaReservedWords struct = StructWithJavaReservedWords.builder()
+                                                                        .assertValue("one")
+                                                                        .defaultValue("two")
+                                                                        .build();
+
+        assertEquals("one", struct.getAssertValue());
+        assertEquals("two", struct.getDefaultValue());
+    }
+
+    @Test
+    public void reservedKeywordsAreSlugifiedInClassProperties() {
+        ClassWithJavaReservedWords obj = new ClassWithJavaReservedWords("one");
+
+        String result = obj.doImport("two");
+
+        assertEquals("onetwo", result);
+    }
+
+    @Test
+    public void hashCodeIsResistantToPropertyShadowingResultVariable() {
+        StructWithJavaReservedWords first = StructWithJavaReservedWords.builder().defaultValue("one").build();
+        StructWithJavaReservedWords second = StructWithJavaReservedWords.builder().defaultValue("one").build();
+        StructWithJavaReservedWords third = StructWithJavaReservedWords.builder().defaultValue("two").build();
+
+        assertEquals(first.hashCode(), second.hashCode());
+        assertNotEquals(first.hashCode(), third.hashCode());
+    }
+
+    @Test
+    public void equalsIsResistantToPropertyShadowingResultVariable() {
+        StructWithJavaReservedWords first = StructWithJavaReservedWords.builder().defaultValue("one").build();
+        StructWithJavaReservedWords second = StructWithJavaReservedWords.builder().defaultValue("one").build();
+        StructWithJavaReservedWords third = StructWithJavaReservedWords.builder().defaultValue("two").build();
+
+        assertEquals(first, second);
+        assertNotEquals(first, third);
     }
 
     @Test

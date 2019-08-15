@@ -16,12 +16,12 @@ public interface IExtendsPrivateInterface extends software.amazon.jsii.JsiiSeria
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getPrivate();
+    java.lang.String getPrivateValue();
 
     /**
      * EXPERIMENTAL
      */
-    void setPrivate(final java.lang.String value);
+    void setPrivateValue(final java.lang.String value);
 
 
     /**
@@ -47,7 +47,7 @@ public interface IExtendsPrivateInterface extends software.amazon.jsii.JsiiSeria
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public java.lang.String getPrivate() {
+        public java.lang.String getPrivateValue() {
             return this.jsiiGet("private", java.lang.String.class);
         }
 
@@ -56,7 +56,7 @@ public interface IExtendsPrivateInterface extends software.amazon.jsii.JsiiSeria
          */
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public void setPrivate(final java.lang.String value) {
+        public void setPrivateValue(final java.lang.String value) {
             this.jsiiSet("private", java.util.Objects.requireNonNull(value, "private is required"));
         }
     }
