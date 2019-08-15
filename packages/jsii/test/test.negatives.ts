@@ -13,12 +13,14 @@ for (const source of fs.readdirSync(SOURCE_DIR)) {
     if (!source.startsWith('neg.') || !source.endsWith('.ts') || source.endsWith('.d.ts')) { continue; }
     const filePath = path.join(SOURCE_DIR, source);
     testCases[source.replace(/neg\.(.+)\.ts/, '$1')] = async (test: nodeunit.Test) => {
-        const expectations = await _getExpectedErrorMessage(filePath);
+        const [expectations, strict] = await _getExpectedErrorMessage(filePath);
         test.ok(expectations.length > 0, `Expected error messages should be specified using ${MATCH_ERROR_MARKER}`);
-        const compiler = new Compiler({ projectInfo: _makeProjectInfo(source), watch: false });
+        const compiler = new Compiler({ projectInfo: _makeProjectInfo(source), watch: false, failOnWarnings: strict });
         const emitResult = await compiler.emit(path.join(SOURCE_DIR, source));
-        test.equal(emitResult.hasErrors, true, `hasErrors should be true`);
-        const errors = emitResult.diagnostics.filter(diag => diag.category === ts.DiagnosticCategory.Error);
+        test.equal(emitResult.emitSkipped, true, `hasErrors should be true`);
+        const errors = emitResult.diagnostics.filter(diag =>
+            diag.category === ts.DiagnosticCategory.Error
+            || (strict && diag.category === ts.DiagnosticCategory.Warning));
         for (const expectation of expectations) {
             test.notEqual(errors.find(e => _messageText(e).indexOf(expectation) !== -1),
                           null,
@@ -41,12 +43,14 @@ for (const source of fs.readdirSync(SOURCE_DIR)) {
 export = nodeunit.testCase({ 'jsii rejections': testCases });
 
 const MATCH_ERROR_MARKER = '///!MATCH_ERROR:';
-async function _getExpectedErrorMessage(file: string): Promise<string[]> {
+const STRICT_MARKER = '///!STRICT!';
+async function _getExpectedErrorMessage(file: string): Promise<[string[], boolean]> {
     const data = await fs.readFile(file, { encoding: 'utf8' });
     const lines = data.split('\n');
     const matches = lines.filter(line => line.startsWith(MATCH_ERROR_MARKER))
                          .map(line => line.substr(MATCH_ERROR_MARKER.length).trim());
-    return matches;
+    const strict = lines.some(line => line.startsWith(STRICT_MARKER));
+    return [matches, strict];
 }
 
 function _messageText(diagnostic: ts.Diagnostic | ts.DiagnosticMessageChain): string {
