@@ -15,10 +15,7 @@ export interface Emitter {
 /**
  * The result of attempting to emit stuff.
  */
-export interface EmitResult {
-    /** Whether the emit was skipped as a result of errors (found in ``diagnostics``) */
-    hasErrors: boolean;
-
+export interface EmitResult extends ts.EmitResult {
     /** Diagnostic information created when trying to emit stuff */
     diagnostics: ReadonlyArray<ts.Diagnostic | Diagnostic>;
 }
