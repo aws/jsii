@@ -4775,6 +4775,51 @@
         }
       ]
     },
+    "jsii-calc.InterfacesMaker": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "We can return arrays of interfaces See aws/aws-cdk#2362."
+      },
+      "fqn": "jsii-calc.InterfacesMaker",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1838
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1839
+          },
+          "name": "makeInterfaces",
+          "parameters": [
+            {
+              "name": "count",
+              "type": {
+                "primitive": "number"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "collection": {
+                "elementtype": {
+                  "fqn": "@scope/jsii-calc-lib.IDoublable"
+                },
+                "kind": "array"
+              }
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "InterfacesMaker"
+    },
     "jsii-calc.JSII417Derived": {
       "assembly": "jsii-calc",
       "base": "jsii-calc.JSII417PublicBaseOfBase",
@@ -9361,5 +9406,5 @@
     }
   },
   "version": "0.15.0",
-  "fingerprint": "s29ilwOj9pcb3e3u8f49bqxkFzU9a52FAr4mHWpRuYA="
+  "fingerprint": "8Dd+N3LiENMPxOU1iY/Z28bky5f/c49pSvcZ2tg4zCI="
 }

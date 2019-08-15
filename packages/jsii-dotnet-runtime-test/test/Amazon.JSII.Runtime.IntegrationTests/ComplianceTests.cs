@@ -979,6 +979,13 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             }));
         }
 
+        [Fact(DisplayName = Prefix + nameof(MethodCanReturnArraysOfInterfaces))]
+        public void MethodCanReturnArraysOfInterfaces()
+        {
+            var interfaces = InterfacesMaker.MakeInterfaces(4);
+            Assert.Equal(4, interfaces.Length);
+        }
+
         class DataRendererSubclass : DataRenderer
         {
             [JsiiMethod("renderMap", returnsJson:  "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[{\"name\":\"map\",\"type\":{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"primitive\":\"any\"}}}}]", isOverride: true)]
