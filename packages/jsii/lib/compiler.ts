@@ -44,6 +44,8 @@ export interface CompilerOptions {
     watch?: boolean;
     /** Whether to detect and generate TypeScript project references */
     projectReferences?: boolean;
+    /** Whether to fail when a warning is emitted */
+    failOnWarnings?: boolean;
 }
 
 export interface TypescriptConfig {
@@ -147,7 +149,7 @@ export class Compiler implements Emitter {
 
     private async _consumeProgram(program: ts.Program, stdlib: string): Promise<EmitResult> {
         const emit = program.emit();
-        let hasErrors = emitHasErrors(emit);
+        let hasErrors = emitHasErrors(emit, this.options.failOnWarnings);
         const diagnostics = [...emit.diagnostics];
 
         if (hasErrors) {
@@ -160,17 +162,17 @@ export class Compiler implements Emitter {
         try {
             const assembler = new Assembler(this.options.projectInfo, program, stdlib);
             const assmEmit = await assembler.emit();
-            if (assmEmit.hasErrors) {
+            if (assmEmit.emitSkipped) {
                 LOG.error('Type model errors prevented the JSII assembly from being created');
             }
 
-            hasErrors = hasErrors || assmEmit.hasErrors;
+            hasErrors = hasErrors || emitHasErrors(assmEmit, this.options.failOnWarnings);
             diagnostics.push(...assmEmit.diagnostics);
         } catch (e) {
             LOG.error(`Error during type model analysis: ${e}`);
         }
 
-        return { hasErrors, diagnostics };
+        return { emitSkipped: hasErrors, diagnostics, emittedFiles: emit.emittedFiles };
     }
 
     /**
@@ -371,6 +373,9 @@ function parseConfigHostFromCompilerHost(host: ts.CompilerHost): ts.ParseConfigH
     };
 }
 
-function emitHasErrors(result: ts.EmitResult) {
-    return result.diagnostics.some(d => d.category === ts.DiagnosticCategory.Error) || result.emitSkipped;
+function emitHasErrors(result: ts.EmitResult, includeWarnings?: boolean) {
+    return result.diagnostics.some(d =>
+        d.category === ts.DiagnosticCategory.Error
+        || (includeWarnings && d.category === ts.DiagnosticCategory.Warning)
+    ) || result.emitSkipped;
 }
