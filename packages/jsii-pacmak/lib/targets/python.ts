@@ -11,6 +11,9 @@ import { propertySpec } from '../reflect-hacks';
 import { Target, TargetOptions } from '../target';
 import { shell } from '../util';
 
+// tslint:disable-next-line:no-var-requires
+const spdxLicenseList = require('spdx-license-list');
+
 export default class Python extends Target {
     protected readonly generator = new PythonGenerator();
 
@@ -1135,6 +1138,25 @@ class Package {
         // Strip " (build abcdef)" from the jsii version
         const jsiiVersionSimple = this.metadata.jsiiVersion.replace(/ .*$/, '');
 
+        const classifiers = [
+            `License :: ${getLicense(this.metadata.license)}`,
+            'Operating System :: OS Independent',
+            'Programming Language :: Python :: 3',
+        ];
+        switch (this.metadata.docs && this.metadata.docs.stability) {
+            case spec.Stability.Experimental:
+                classifiers.push('Development Status :: 4 - Beta');
+                break;
+            case spec.Stability.Stable:
+                classifiers.push('Development Status :: 5 - Production/Stable');
+                break;
+            case spec.Stability.Deprecated:
+                classifiers.push('Development Status :: 7 - Inactive');
+                break;
+            default:
+                // No 'Development Status' classifier in those cases
+        }
+
         const setupKwargs = {
             name: this.name,
             version: this.version,
@@ -1152,12 +1174,10 @@ class Package {
             package_data: packageData,
             python_requires: ">=3.6",
             install_requires: [`jsii~=${jsiiVersionSimple}`, "publication>=0.0.3"].concat(dependencies),
+            classifiers,
         };
 
         // We Need a setup.py to make this Package, actually a Package.
-        // TODO:
-        //      - License
-        //      - Classifiers
         code.openFile("setup.py");
         code.line("import json");
         code.line("import setuptools");
@@ -1187,6 +1207,14 @@ class Package {
         code.openFile("MANIFEST.in");
         code.line("include pyproject.toml");
         code.closeFile("MANIFEST.in");
+
+        function getLicense(licenseName: string): string {
+            const spdx = spdxLicenseList[licenseName];
+            if (spdx.osiApproved) {
+                return `OSI Approved :: ${spdx.name}`;
+            }
+            return spdx.name;
+        }
     }
 }
 

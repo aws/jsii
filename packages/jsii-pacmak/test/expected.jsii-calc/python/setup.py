@@ -34,6 +34,12 @@ kwargs = json.loads("""
         "scope.jsii-calc-base~=0.15.0",
         "scope.jsii-calc-base-of-base~=0.15.0",
         "scope.jsii-calc-lib~=0.15.0"
+    ],
+    "classifiers": [
+        "License :: OSI Approved :: Apache License 2.0",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python :: 3",
+        "Development Status :: 4 - Beta"
     ]
 }
 """)
