@@ -41,11 +41,11 @@ function installDeps(location, ...depLists) {
         if (!matched) { return; }
         const path = matched[1];
         const modulePath = resolve(location, path);
-        const requires = installDependency(nodeModules, modulePath);
+        const { requires, dependencies } = installDependency(nodeModules, modulePath);
         linked.add(name);
         paths.push(path);
         if (locks) {
-          locks.dependencies[name] = { version, dev, requires };
+          locks.dependencies[name] = { version, dev, requires, dependencies };
         }
       });
   }
@@ -113,7 +113,21 @@ function installDependency(nodeModules, localPath) {
     }
   }
 
-  return packageInfo.dependencies;
+  const lockFile = pathExistsSync(join(localPath, 'npm-shrinkwrap.json'))
+    ? join(localPath, 'npm-shrinkwrap.json')
+    : join(localPath, 'package-lock.json');
+  const lock = pathExistsSync(lockFile) ? require(lockFile) : {};
+
+  return { requires: packageInfo.dependencies, dependencies: cleanup(lock.dependencies) };
+
+  function cleanup(deps) {
+    if (!deps) { return deps; }
+    for (const value of Object.values(deps)) {
+      delete value.dev;
+      cleanup(value.dependencies)
+    }
+    return deps;
+  }
 }
 
 function sortKeys(object) {
