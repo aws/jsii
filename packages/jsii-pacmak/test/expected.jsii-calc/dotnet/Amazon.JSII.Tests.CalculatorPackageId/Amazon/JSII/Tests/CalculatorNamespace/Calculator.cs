@@ -122,6 +122,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "maxValue", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
+        [JsiiOptional]
         public virtual double? MaxValue
         {
             get => GetInstanceProperty<double?>();
@@ -133,6 +134,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "unionProperty", typeJson: "{\"union\":{\"types\":[{\"fqn\":\"jsii-calc.Add\"},{\"fqn\":\"jsii-calc.Multiply\"},{\"fqn\":\"jsii-calc.Power\"}]}}", isOptional: true)]
+        [JsiiOptional]
         public virtual object UnionProperty
         {
             get => GetInstanceProperty<object>();

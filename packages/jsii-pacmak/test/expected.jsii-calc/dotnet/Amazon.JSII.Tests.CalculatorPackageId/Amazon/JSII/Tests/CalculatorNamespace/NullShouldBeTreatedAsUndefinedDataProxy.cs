@@ -25,6 +25,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "thisShouldBeUndefined", typeJson: "{\"primitive\":\"any\"}", isOptional: true)]
+        [JsiiOptional]
         public object ThisShouldBeUndefined
         {
             get => GetInstanceProperty<object>();

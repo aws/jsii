@@ -36,6 +36,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "fieldValue", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
+        [JsiiOptional]
         public virtual string FieldValue
         {
             get => GetInstanceProperty<string>();

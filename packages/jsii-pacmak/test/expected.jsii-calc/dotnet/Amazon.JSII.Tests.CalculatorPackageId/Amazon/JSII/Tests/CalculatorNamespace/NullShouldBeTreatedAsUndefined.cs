@@ -55,6 +55,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "changeMeToUndefined", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
+        [JsiiOptional]
         public virtual string ChangeMeToUndefined
         {
             get => GetInstanceProperty<string>();

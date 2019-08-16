@@ -24,6 +24,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.InterfaceInNamespaceIncludesClas
         /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "bar", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
+        [JsiiOptional]
         public virtual string Bar
         {
             get => GetInstanceProperty<string>();

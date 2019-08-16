@@ -642,6 +642,10 @@ export class DotNetGenerator extends Generator {
         this.dotnetDocGenerator.emitDocs(prop);
         this.dotnetRuntimeGenerator.emitAttributesForProperty(prop, datatype);
 
+        if (prop.optional) {
+            this.code.line('[JsiiOptional]');
+        }
+
         let isOverrideKeyWord = '';
 
         let isVirtualKeyWord = '';

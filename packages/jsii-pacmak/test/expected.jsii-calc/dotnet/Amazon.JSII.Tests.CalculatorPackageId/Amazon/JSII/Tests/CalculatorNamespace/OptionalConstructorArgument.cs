@@ -45,6 +45,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "arg3", typeJson: "{\"primitive\":\"date\"}", isOptional: true)]
+        [JsiiOptional]
         public virtual System.DateTime? Arg3
         {
             get => GetInstanceProperty<System.DateTime?>();

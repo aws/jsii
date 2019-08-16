@@ -16,6 +16,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "mutableProperty", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
+        [JsiiOptional]
         public double? MutableProperty
         {
             get => GetInstanceProperty<double?>();

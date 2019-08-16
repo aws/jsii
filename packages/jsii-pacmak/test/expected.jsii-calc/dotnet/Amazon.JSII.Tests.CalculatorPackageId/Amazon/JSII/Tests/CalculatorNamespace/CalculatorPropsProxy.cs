@@ -17,6 +17,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "initialValue", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
+        [JsiiOptional]
         public double? InitialValue
         {
             get => GetInstanceProperty<double?>();
@@ -26,6 +27,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "maximumValue", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
+        [JsiiOptional]
         public double? MaximumValue
         {
             get => GetInstanceProperty<double?>();

@@ -20,6 +20,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         /// </remarks>
         [JsiiProperty(name: "optional1", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         [System.Obsolete()]
+        [JsiiOptional]
         public string Optional1
         {
             get => GetInstanceProperty<string>();
@@ -30,6 +31,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         /// </remarks>
         [JsiiProperty(name: "optional2", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
         [System.Obsolete()]
+        [JsiiOptional]
         public double? Optional2
         {
             get => GetInstanceProperty<double?>();
@@ -40,6 +42,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         /// </remarks>
         [JsiiProperty(name: "optional3", typeJson: "{\"primitive\":\"boolean\"}", isOptional: true)]
         [System.Obsolete()]
+        [JsiiOptional]
         public bool? Optional3
         {
             get => GetInstanceProperty<bool?>();

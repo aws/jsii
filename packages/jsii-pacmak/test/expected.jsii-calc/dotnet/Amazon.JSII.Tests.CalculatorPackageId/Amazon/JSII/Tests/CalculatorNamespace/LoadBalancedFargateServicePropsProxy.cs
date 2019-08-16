@@ -21,6 +21,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "containerPort", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
+        [JsiiOptional]
         public double? ContainerPort
         {
             get => GetInstanceProperty<double?>();
@@ -34,6 +35,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "cpu", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
+        [JsiiOptional]
         public string Cpu
         {
             get => GetInstanceProperty<string>();
@@ -60,6 +62,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "memoryMiB", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
+        [JsiiOptional]
         public string MemoryMiB
         {
             get => GetInstanceProperty<string>();
@@ -72,6 +75,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "publicLoadBalancer", typeJson: "{\"primitive\":\"boolean\"}", isOptional: true)]
+        [JsiiOptional]
         public bool? PublicLoadBalancer
         {
             get => GetInstanceProperty<bool?>();
@@ -84,6 +88,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "publicTasks", typeJson: "{\"primitive\":\"boolean\"}", isOptional: true)]
+        [JsiiOptional]
         public bool? PublicTasks
         {
             get => GetInstanceProperty<bool?>();
