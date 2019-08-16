@@ -236,6 +236,9 @@ assemblies
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── bar property
+ │   ├─┬ class InterfacesMaker
+ │   │ └─┬ members
+ │   │   └── static makeInterfaces(count) method
  │   ├─┬ class JSII417Derived
  │   │ └─┬ members
  │   │   ├── <initializer>(property) initializer

@@ -40,6 +40,7 @@ ImplementsInterfaceWithInternal
 ImplementsInterfaceWithInternalSubclass
 ImplementsPrivateInterface
 InbetweenClass
+InterfacesMaker
 JSII417Derived
 JSII417PublicBaseOfBase
 JSObjectLiteralForInterface

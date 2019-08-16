@@ -4131,6 +4131,45 @@ Hello (interface)
 
 .. py:currentmodule:: jsii-calc
 
+InterfacesMaker
+^^^^^^^^^^^^^^^
+
+.. py:class:: InterfacesMaker
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.InterfacesMaker;
+
+      .. code-tab:: javascript
+
+         const { InterfacesMaker } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { InterfacesMaker } from 'jsii-calc';
+
+
+
+   We can return arrays of interfaces See aws/aws-cdk#2362.
+
+
+
+
+   .. py:staticmethod:: makeInterfaces(count) -> @scope/jsii-calc-lib.IDoublable[]
+
+      :param count: 
+      :type count: number
+      :rtype: :py:class:`@scope/jsii-calc-lib.IDoublable`\ []
+
+
 JSII417Derived
 ^^^^^^^^^^^^^^
 

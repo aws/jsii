@@ -69,6 +69,12 @@ namespace Amazon.JSII.Runtime.Services
                 {
                     return MakeNullableIfOptional(enumType);
                 }
+                
+                Type interfaceType = GetInterfaceType(typeReference.FullyQualifiedName);
+                if (interfaceType != null)
+                {
+                    return interfaceType;
+                }
 
                 throw new ArgumentException("Type reference has a fully qualified name, but is neither a class nor an enum", nameof(typeReference));
             }

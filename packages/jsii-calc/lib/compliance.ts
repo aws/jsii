@@ -1830,3 +1830,19 @@ export class StructPassing {
         return inputs.length;
     }
 }
+
+/**
+ * We can return arrays of interfaces
+ * See aws/aws-cdk#2362
+ */
+export class InterfacesMaker {
+    public static makeInterfaces(count: number): IDoublable[] {
+        const output = new Array<IDoublable>();
+        for (let i = 0; i < count; i++) {
+            output.push({ doubleValue: i * 2 });
+        }
+        return output;
+    }
+
+    private constructor() { }
+}

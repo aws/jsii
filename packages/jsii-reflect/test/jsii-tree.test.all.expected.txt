@@ -543,6 +543,14 @@ assemblies
  │   │   ├── <initializer>() initializer (experimental)
  │   │   └─┬ bar property (experimental)
  │   │     └── type: Optional<string>
+ │   ├─┬ class InterfacesMaker (experimental)
+ │   │ └─┬ members
+ │   │   └─┬ static makeInterfaces(count) method (experimental)
+ │   │     ├── static
+ │   │     ├─┬ parameters
+ │   │     │ └─┬ count
+ │   │     │   └── type: number
+ │   │     └── returns: Array<@scope/jsii-calc-lib.IDoublable>
  │   ├─┬ class JSII417Derived (experimental)
  │   │ ├── base: JSII417PublicBaseOfBase
  │   │ └─┬ members
