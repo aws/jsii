@@ -2,9 +2,10 @@
    <Import Project="../NuGet.Metadata.props" />
 
     <PropertyGroup>
+        <PackageId>Amazon.JSII.Analyzers</PackageId>
+        <Title>.NET Roslyn Analyzers for JSII</Title>
         <TargetFramework>netstandard2.0</TargetFramework>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageVersion>2.0.5</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>

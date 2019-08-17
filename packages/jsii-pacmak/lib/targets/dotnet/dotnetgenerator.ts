@@ -640,11 +640,10 @@ export class DotNetGenerator extends Generator {
         const propName = this.nameutils.convertPropertyName(prop.name);
 
         this.dotnetDocGenerator.emitDocs(prop);
-        this.dotnetRuntimeGenerator.emitAttributesForProperty(prop, datatype);
-
         if (prop.optional) {
             this.code.line('[JsiiOptional]');
         }
+        this.dotnetRuntimeGenerator.emitAttributesForProperty(prop, datatype);
 
         let isOverrideKeyWord = '';
 
