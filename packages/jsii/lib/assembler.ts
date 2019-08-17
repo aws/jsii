@@ -12,6 +12,7 @@ import { getReferencedDocParams, parseSymbolDocumentation } from './docs';
 import { Diagnostic, EmitResult, Emitter } from './emitter';
 import literate = require('./literate');
 import { ProjectInfo } from './project-info';
+import { isReservedName } from './reserved-words';
 import { Validator } from './validator';
 import { SHORT_VERSION, VERSION } from './version';
 
@@ -91,7 +92,7 @@ export class Assembler implements Emitter {
       // Clearing ``this._types`` to allow contents to be garbage-collected.
       delete this._types;
       try {
-        return { diagnostics: this._diagnostics, hasErrors: true };
+        return { diagnostics: this._diagnostics, emitSkipped: true };
       } finally {
         // Clearing ``this._diagnostics`` to allow contents to be garbage-collected.
         delete this._diagnostics;
@@ -124,7 +125,7 @@ export class Assembler implements Emitter {
 
     const validator = new Validator(this.projectInfo, assembly);
     const validationResult = await validator.emit();
-    if (!validationResult.hasErrors) {
+    if (!validationResult.emitSkipped) {
       const assemblyPath = path.join(this.projectInfo.projectRoot, '.jsii');
       LOG.trace(`Emitting assembly: ${colors.blue(assemblyPath)}`);
       await fs.writeJson(assemblyPath, _fingerprint(assembly), { encoding: 'utf8', spaces: 2 });
@@ -133,7 +134,7 @@ export class Assembler implements Emitter {
     try {
       return {
         diagnostics: [...this._diagnostics, ...validationResult.diagnostics],
-        hasErrors: validationResult.hasErrors
+        emitSkipped: validationResult.emitSkipped
       };
     } finally {
       // Clearing ``this._types`` to allow contents to be garbage-collected.
@@ -438,6 +439,8 @@ export class Assembler implements Emitter {
     if (_hasInternalJsDocTag(type.symbol)) {
       return undefined;
     }
+
+    this._warnAboutReservedWords(type.symbol);
 
     const fqn = `${[this.projectInfo.name, ...ctx.namespace].join('.')}.${type.symbol.name}`;
 
@@ -747,6 +750,8 @@ export class Assembler implements Emitter {
       return undefined;
     }
 
+    this._warnAboutReservedWords(type.symbol);
+
     const decl = symbol.valueDeclaration;
     const flags = ts.getCombinedModifierFlags(decl);
     // tslint:disable-next-line:no-bitwise
@@ -821,6 +826,8 @@ export class Assembler implements Emitter {
     if (_hasInternalJsDocTag(type.symbol)) {
       return undefined;
     }
+
+    this._warnAboutReservedWords(type.symbol);
 
     const fqn = `${[this.projectInfo.name, ...ctx.namespace].join('.')}.${type.symbol.name}`;
 
@@ -954,6 +961,8 @@ export class Assembler implements Emitter {
       this._diagnostic(declaration, ts.DiagnosticCategory.Error, `Prohibited member name: ${symbol.name}`);
       return;
     }
+    this._warnAboutReservedWords(symbol);
+
     const parameters = await Promise.all(signature.getParameters().map(p => this._toParameter(p, ctx)));
 
     const returnType = signature.getReturnType();
@@ -1006,6 +1015,16 @@ export class Assembler implements Emitter {
     type.methods.push(method);
   }
 
+  private _warnAboutReservedWords(symbol: ts.Symbol) {
+    const reservingLanguages = isReservedName(symbol.name);
+    if (reservingLanguages) {
+      this._diagnostic(symbol.valueDeclaration,
+        ts.DiagnosticCategory.Warning,
+        `'${symbol.name}' is a reserved word in ${reservingLanguages.join(', ')}. Using this name may cause problems `
+        + 'when generating language bindings. Consider using a different name.');
+    }
+  }
+
   private async _visitProperty(symbol: ts.Symbol, type: spec.ClassType | spec.InterfaceType, ctx: EmitContext) {
     if (type.properties && type.properties.find(p => p.name === symbol.name)) {
       /*
@@ -1023,6 +1042,8 @@ export class Assembler implements Emitter {
       this._diagnostic(symbol.valueDeclaration, ts.DiagnosticCategory.Error, `Prohibited member name: ${symbol.name}`);
       return;
     }
+
+    this._warnAboutReservedWords(symbol);
 
     const signature = symbol.valueDeclaration as (ts.PropertySignature
       | ts.PropertyDeclaration
@@ -1068,6 +1089,8 @@ export class Assembler implements Emitter {
       LOG.trace(`Processing parameter: ${colors.cyan(paramSymbol.name)}`);
     }
     const paramDeclaration = paramSymbol.valueDeclaration as ts.ParameterDeclaration;
+
+    this._warnAboutReservedWords(paramSymbol);
 
     const parameter: spec.Parameter = {
       ...await this._optionalValue(this._typeChecker.getTypeAtLocation(paramSymbol.valueDeclaration), paramSymbol.valueDeclaration),
@@ -1643,12 +1666,11 @@ function isErrorType(t: ts.Type) {
 }
 
 /**
- * These specifially cause trouble in C#, where we have to specificially annotate them as 'new' but our generator isn't doing that
- *
- * In C#, 'GetHashCode' is also problematic, but jsii already prevents you from naming a
- * method that starts with 'get' so we don't need to do anything special for that.
+ * Those have specific semantics in certain languages that don't always translate cleanly in others
+ * (like how equals/hashCode are not a thing in Javascript, but carry meaning in Java and C#). The
+ * `build` name is reserved for generated code (Java builders use that).
  */
-const PROHIBITED_MEMBER_NAMES = ['equals', 'hashcode'];
+const PROHIBITED_MEMBER_NAMES = ['build', 'equals', 'hashcode'];
 
 /**
  * Whether the given name is prohibited

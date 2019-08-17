@@ -124,13 +124,13 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
             ExtendsInternalInterface.Jsii$Proxy that = (ExtendsInternalInterface.Jsii$Proxy) o;
 
             if (!boom.equals(that.boom)) return false;
-            return prop.equals(that.prop);
+            return this.prop.equals(that.prop);
         }
 
         @Override
         public int hashCode() {
-            int result = boom.hashCode();
-            result = 31 * result + (prop.hashCode());
+            int result = this.boom.hashCode();
+            result = 31 * result + (this.prop.hashCode());
             return result;
         }
 

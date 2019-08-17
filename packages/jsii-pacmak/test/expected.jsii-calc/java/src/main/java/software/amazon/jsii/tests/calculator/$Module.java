@@ -33,6 +33,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.ClassThatImplementsTheInternalInterface": return software.amazon.jsii.tests.calculator.ClassThatImplementsTheInternalInterface.class;
             case "jsii-calc.ClassThatImplementsThePrivateInterface": return software.amazon.jsii.tests.calculator.ClassThatImplementsThePrivateInterface.class;
             case "jsii-calc.ClassWithDocs": return software.amazon.jsii.tests.calculator.ClassWithDocs.class;
+            case "jsii-calc.ClassWithJavaReservedWords": return software.amazon.jsii.tests.calculator.ClassWithJavaReservedWords.class;
             case "jsii-calc.ClassWithMutableObjectLiteralProperty": return software.amazon.jsii.tests.calculator.ClassWithMutableObjectLiteralProperty.class;
             case "jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties": return software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties.class;
             case "jsii-calc.ConstructorPassesThisOut": return software.amazon.jsii.tests.calculator.ConstructorPassesThisOut.class;
@@ -100,6 +101,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.InterfaceInNamespaceIncludesClasses.Foo": return software.amazon.jsii.tests.calculator.InterfaceInNamespaceIncludesClasses.Foo.class;
             case "jsii-calc.InterfaceInNamespaceIncludesClasses.Hello": return software.amazon.jsii.tests.calculator.InterfaceInNamespaceIncludesClasses.Hello.class;
             case "jsii-calc.InterfaceInNamespaceOnlyInterface.Hello": return software.amazon.jsii.tests.calculator.InterfaceInNamespaceOnlyInterface.Hello.class;
+            case "jsii-calc.InterfacesMaker": return software.amazon.jsii.tests.calculator.InterfacesMaker.class;
             case "jsii-calc.JSII417Derived": return software.amazon.jsii.tests.calculator.JSII417Derived.class;
             case "jsii-calc.JSII417PublicBaseOfBase": return software.amazon.jsii.tests.calculator.JSII417PublicBaseOfBase.class;
             case "jsii-calc.JSObjectLiteralForInterface": return software.amazon.jsii.tests.calculator.JSObjectLiteralForInterface.class;
@@ -144,6 +146,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.StringEnum": return software.amazon.jsii.tests.calculator.StringEnum.class;
             case "jsii-calc.StripInternal": return software.amazon.jsii.tests.calculator.StripInternal.class;
             case "jsii-calc.StructPassing": return software.amazon.jsii.tests.calculator.StructPassing.class;
+            case "jsii-calc.StructWithJavaReservedWords": return software.amazon.jsii.tests.calculator.StructWithJavaReservedWords.class;
             case "jsii-calc.Sum": return software.amazon.jsii.tests.calculator.Sum.class;
             case "jsii-calc.SyncVirtualMethods": return software.amazon.jsii.tests.calculator.SyncVirtualMethods.class;
             case "jsii-calc.Thrower": return software.amazon.jsii.tests.calculator.Thrower.class;

@@ -255,20 +255,20 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
 
             LoadBalancedFargateServiceProps.Jsii$Proxy that = (LoadBalancedFargateServiceProps.Jsii$Proxy) o;
 
-            if (containerPort != null ? !containerPort.equals(that.containerPort) : that.containerPort != null) return false;
-            if (cpu != null ? !cpu.equals(that.cpu) : that.cpu != null) return false;
-            if (memoryMiB != null ? !memoryMiB.equals(that.memoryMiB) : that.memoryMiB != null) return false;
-            if (publicLoadBalancer != null ? !publicLoadBalancer.equals(that.publicLoadBalancer) : that.publicLoadBalancer != null) return false;
-            return publicTasks != null ? publicTasks.equals(that.publicTasks) : that.publicTasks == null;
+            if (this.containerPort != null ? !this.containerPort.equals(that.containerPort) : that.containerPort != null) return false;
+            if (this.cpu != null ? !this.cpu.equals(that.cpu) : that.cpu != null) return false;
+            if (this.memoryMiB != null ? !this.memoryMiB.equals(that.memoryMiB) : that.memoryMiB != null) return false;
+            if (this.publicLoadBalancer != null ? !this.publicLoadBalancer.equals(that.publicLoadBalancer) : that.publicLoadBalancer != null) return false;
+            return this.publicTasks != null ? this.publicTasks.equals(that.publicTasks) : that.publicTasks == null;
         }
 
         @Override
         public int hashCode() {
-            int result = containerPort != null ? containerPort.hashCode() : 0;
-            result = 31 * result + (cpu != null ? cpu.hashCode() : 0);
-            result = 31 * result + (memoryMiB != null ? memoryMiB.hashCode() : 0);
-            result = 31 * result + (publicLoadBalancer != null ? publicLoadBalancer.hashCode() : 0);
-            result = 31 * result + (publicTasks != null ? publicTasks.hashCode() : 0);
+            int result = this.containerPort != null ? this.containerPort.hashCode() : 0;
+            result = 31 * result + (this.cpu != null ? this.cpu.hashCode() : 0);
+            result = 31 * result + (this.memoryMiB != null ? this.memoryMiB.hashCode() : 0);
+            result = 31 * result + (this.publicLoadBalancer != null ? this.publicLoadBalancer.hashCode() : 0);
+            result = 31 * result + (this.publicTasks != null ? this.publicTasks.hashCode() : 0);
             return result;
         }
 

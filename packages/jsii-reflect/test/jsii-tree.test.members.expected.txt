@@ -105,6 +105,11 @@ assemblies
  │   ├─┬ class ClassWithDocs
  │   │ └─┬ members
  │   │   └── <initializer>() initializer
+ │   ├─┬ class ClassWithJavaReservedWords
+ │   │ └─┬ members
+ │   │   ├── <initializer>(int) initializer
+ │   │   ├── import(assert) method
+ │   │   └── int property
  │   ├─┬ class ClassWithMutableObjectLiteralProperty
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -231,6 +236,9 @@ assemblies
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── bar property
+ │   ├─┬ class InterfacesMaker
+ │   │ └─┬ members
+ │   │   └── static makeInterfaces(count) method
  │   ├─┬ class JSII417Derived
  │   │ └─┬ members
  │   │   ├── <initializer>(property) initializer
@@ -729,6 +737,12 @@ assemblies
  │   ├─┬ interface StableStruct
  │   │ └─┬ members
  │   │   └── readonlyProperty property
+ │   ├─┬ interface StructWithJavaReservedWords
+ │   │ └─┬ members
+ │   │   ├── default property
+ │   │   ├── assert property
+ │   │   ├── result property
+ │   │   └── that property
  │   ├─┬ interface TopLevelStruct
  │   │ └─┬ members
  │   │   ├── required property

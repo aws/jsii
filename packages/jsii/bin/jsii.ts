@@ -22,6 +22,11 @@ import { VERSION } from '../lib/version';
             default: true,
             desc: 'Automatically add missing entries in the peerDependencies section of package.json'
         })
+        .options('fail-on-warnings', {
+            alias: 'Werr',
+            type: 'boolean',
+            desc: 'Treat warnings as errors'
+        })
         .help()
         .version(VERSION)
         .argv;
@@ -35,7 +40,8 @@ import { VERSION } from '../lib/version';
     const compiler = new Compiler({
         projectInfo,
         watch: argv.watch,
-        projectReferences: argv['project-references']
+        projectReferences: argv['project-references'],
+        failOnWarnings: argv['fail-on-warnings']
     });
 
     return { projectRoot, emitResult: await compiler.emit() };
@@ -43,7 +49,7 @@ import { VERSION } from '../lib/version';
     for (const diagnostic of emitResult.diagnostics) {
         utils.logDiagnostic(diagnostic, projectRoot);
     }
-    if (emitResult.hasErrors) {
+    if (emitResult.emitSkipped) {
         process.exit(1);
     }
 }).catch(e => {

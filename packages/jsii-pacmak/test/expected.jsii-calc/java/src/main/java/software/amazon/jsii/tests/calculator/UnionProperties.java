@@ -159,13 +159,13 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
             UnionProperties.Jsii$Proxy that = (UnionProperties.Jsii$Proxy) o;
 
             if (!bar.equals(that.bar)) return false;
-            return foo != null ? foo.equals(that.foo) : that.foo == null;
+            return this.foo != null ? this.foo.equals(that.foo) : that.foo == null;
         }
 
         @Override
         public int hashCode() {
-            int result = bar.hashCode();
-            result = 31 * result + (foo != null ? foo.hashCode() : 0);
+            int result = this.bar.hashCode();
+            result = 31 * result + (this.foo != null ? this.foo.hashCode() : 0);
             return result;
         }
 

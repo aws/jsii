@@ -162,15 +162,15 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
             if (!topLevelProperty.equals(that.topLevelProperty)) return false;
             if (!firstMidLevelProperty.equals(that.firstMidLevelProperty)) return false;
             if (!baseLevelProperty.equals(that.baseLevelProperty)) return false;
-            return secondMidLevelProperty.equals(that.secondMidLevelProperty);
+            return this.secondMidLevelProperty.equals(that.secondMidLevelProperty);
         }
 
         @Override
         public int hashCode() {
-            int result = topLevelProperty.hashCode();
-            result = 31 * result + (firstMidLevelProperty.hashCode());
-            result = 31 * result + (baseLevelProperty.hashCode());
-            result = 31 * result + (secondMidLevelProperty.hashCode());
+            int result = this.topLevelProperty.hashCode();
+            result = 31 * result + (this.firstMidLevelProperty.hashCode());
+            result = 31 * result + (this.baseLevelProperty.hashCode());
+            result = 31 * result + (this.secondMidLevelProperty.hashCode());
             return result;
         }
 

@@ -1791,6 +1791,27 @@ export interface DiamondInheritanceTopLevelStruct extends DiamondInheritanceFirs
     readonly topLevelProperty: string;
 }
 
+export interface StructWithJavaReservedWords {
+    readonly default: string;
+    readonly assert?: string;
+
+    // These properties are designed to break the naive implementation of equals() and hashcode() using the standard template
+    readonly result?: string;
+    readonly that?: string;
+}
+
+export class ClassWithJavaReservedWords {
+    readonly int: string;
+
+    public constructor(int: string) {
+        this.int = int;
+    }
+
+    public import(assert: string): string {
+        return this.int + assert;
+    }
+}
+
 /**
  * Just because we can.
  *
@@ -1808,4 +1829,20 @@ export class StructPassing {
     public static howManyVarArgsDidIPass(_positional: number, ...inputs: TopLevelStruct[]): number {
         return inputs.length;
     }
+}
+
+/**
+ * We can return arrays of interfaces
+ * See aws/aws-cdk#2362
+ */
+export class InterfacesMaker {
+    public static makeInterfaces(count: number): IDoublable[] {
+        const output = new Array<IDoublable>();
+        for (let i = 0; i < count; i++) {
+            output.push({ doubleValue: i * 2 });
+        }
+        return output;
+    }
+
+    private constructor() { }
 }

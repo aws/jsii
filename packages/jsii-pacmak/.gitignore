@@ -9,3 +9,5 @@ target/
 node_modules/
 .nyc_output/
 coverage/
+
+test/expected.*/dotnet/**/obj/Debug

@@ -24,7 +24,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void abstract_() {
+    public void doAbstract() {
         this.jsiiCall("abstract", Void.class);
     }
 
@@ -32,7 +32,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void assert_() {
+    public void doAssert() {
         this.jsiiCall("assert", Void.class);
     }
 
@@ -40,7 +40,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void boolean_() {
+    public void doBoolean() {
         this.jsiiCall("boolean", Void.class);
     }
 
@@ -48,7 +48,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void break_() {
+    public void doBreak() {
         this.jsiiCall("break", Void.class);
     }
 
@@ -56,7 +56,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void byte_() {
+    public void doByte() {
         this.jsiiCall("byte", Void.class);
     }
 
@@ -64,7 +64,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void case_() {
+    public void doCase() {
         this.jsiiCall("case", Void.class);
     }
 
@@ -72,7 +72,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void catch_() {
+    public void doCatch() {
         this.jsiiCall("catch", Void.class);
     }
 
@@ -80,7 +80,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void char_() {
+    public void doChar() {
         this.jsiiCall("char", Void.class);
     }
 
@@ -88,7 +88,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void class_() {
+    public void doClass() {
         this.jsiiCall("class", Void.class);
     }
 
@@ -96,7 +96,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void const_() {
+    public void doConst() {
         this.jsiiCall("const", Void.class);
     }
 
@@ -104,7 +104,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void continue_() {
+    public void doContinue() {
         this.jsiiCall("continue", Void.class);
     }
 
@@ -112,7 +112,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void default_() {
+    public void doDefault() {
         this.jsiiCall("default", Void.class);
     }
 
@@ -120,7 +120,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void do_() {
+    public void doDo() {
         this.jsiiCall("do", Void.class);
     }
 
@@ -128,7 +128,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void double_() {
+    public void doDouble() {
         this.jsiiCall("double", Void.class);
     }
 
@@ -136,7 +136,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void else_() {
+    public void doElse() {
         this.jsiiCall("else", Void.class);
     }
 
@@ -144,7 +144,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void enum_() {
+    public void doEnum() {
         this.jsiiCall("enum", Void.class);
     }
 
@@ -152,7 +152,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void extends_() {
+    public void doExtends() {
         this.jsiiCall("extends", Void.class);
     }
 
@@ -160,7 +160,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void false_() {
+    public void doFalse() {
         this.jsiiCall("false", Void.class);
     }
 
@@ -168,7 +168,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void final_() {
+    public void doFinal() {
         this.jsiiCall("final", Void.class);
     }
 
@@ -176,7 +176,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void finally_() {
+    public void doFinally() {
         this.jsiiCall("finally", Void.class);
     }
 
@@ -184,7 +184,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void float_() {
+    public void doFloat() {
         this.jsiiCall("float", Void.class);
     }
 
@@ -192,7 +192,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void for_() {
+    public void doFor() {
         this.jsiiCall("for", Void.class);
     }
 
@@ -200,7 +200,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void goto_() {
+    public void doGoto() {
         this.jsiiCall("goto", Void.class);
     }
 
@@ -208,7 +208,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void if_() {
+    public void doIf() {
         this.jsiiCall("if", Void.class);
     }
 
@@ -216,7 +216,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void implements_() {
+    public void doImplements() {
         this.jsiiCall("implements", Void.class);
     }
 
@@ -224,7 +224,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void import_() {
+    public void doImport() {
         this.jsiiCall("import", Void.class);
     }
 
@@ -232,7 +232,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void instanceof_() {
+    public void doInstanceof() {
         this.jsiiCall("instanceof", Void.class);
     }
 
@@ -240,7 +240,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void int_() {
+    public void doInt() {
         this.jsiiCall("int", Void.class);
     }
 
@@ -248,7 +248,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void interface_() {
+    public void doInterface() {
         this.jsiiCall("interface", Void.class);
     }
 
@@ -256,7 +256,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void long_() {
+    public void doLong() {
         this.jsiiCall("long", Void.class);
     }
 
@@ -264,7 +264,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void native_() {
+    public void doNative() {
         this.jsiiCall("native", Void.class);
     }
 
@@ -272,7 +272,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void new_() {
+    public void doNew() {
         this.jsiiCall("new", Void.class);
     }
 
@@ -280,7 +280,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void null_() {
+    public void doNull() {
         this.jsiiCall("null", Void.class);
     }
 
@@ -288,7 +288,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void package_() {
+    public void doPackage() {
         this.jsiiCall("package", Void.class);
     }
 
@@ -296,7 +296,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void private_() {
+    public void doPrivate() {
         this.jsiiCall("private", Void.class);
     }
 
@@ -304,7 +304,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void protected_() {
+    public void doProtected() {
         this.jsiiCall("protected", Void.class);
     }
 
@@ -312,7 +312,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void public_() {
+    public void doPublic() {
         this.jsiiCall("public", Void.class);
     }
 
@@ -320,7 +320,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void return_() {
+    public void doReturn() {
         this.jsiiCall("return", Void.class);
     }
 
@@ -328,7 +328,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void short_() {
+    public void doShort() {
         this.jsiiCall("short", Void.class);
     }
 
@@ -336,7 +336,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void static_() {
+    public void doStatic() {
         this.jsiiCall("static", Void.class);
     }
 
@@ -344,7 +344,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void strictfp_() {
+    public void doStrictfp() {
         this.jsiiCall("strictfp", Void.class);
     }
 
@@ -352,7 +352,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void super_() {
+    public void doSuper() {
         this.jsiiCall("super", Void.class);
     }
 
@@ -360,7 +360,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void switch_() {
+    public void doSwitch() {
         this.jsiiCall("switch", Void.class);
     }
 
@@ -368,7 +368,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void synchronized_() {
+    public void doSynchronized() {
         this.jsiiCall("synchronized", Void.class);
     }
 
@@ -376,7 +376,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void this_() {
+    public void doThis() {
         this.jsiiCall("this", Void.class);
     }
 
@@ -384,7 +384,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void throw_() {
+    public void doThrow() {
         this.jsiiCall("throw", Void.class);
     }
 
@@ -392,7 +392,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void throws_() {
+    public void doThrows() {
         this.jsiiCall("throws", Void.class);
     }
 
@@ -400,7 +400,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void transient_() {
+    public void doTransient() {
         this.jsiiCall("transient", Void.class);
     }
 
@@ -408,7 +408,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void true_() {
+    public void doTrue() {
         this.jsiiCall("true", Void.class);
     }
 
@@ -416,7 +416,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void try_() {
+    public void doTry() {
         this.jsiiCall("try", Void.class);
     }
 
@@ -424,7 +424,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void void_() {
+    public void doVoid() {
         this.jsiiCall("void", Void.class);
     }
 
@@ -432,7 +432,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void volatile_() {
+    public void doVolatile() {
         this.jsiiCall("volatile", Void.class);
     }
 
@@ -440,7 +440,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public java.lang.String getWhile() {
+    public java.lang.String getWhileValue() {
         return this.jsiiGet("while", java.lang.String.class);
     }
 
@@ -448,7 +448,7 @@ public class JavaReservedWords extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public void setWhile(final java.lang.String value) {
+    public void setWhileValue(final java.lang.String value) {
         this.jsiiSet("while", java.util.Objects.requireNonNull(value, "while is required"));
     }
 }

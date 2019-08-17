@@ -1742,6 +1742,73 @@
       },
       "name": "ClassWithDocs"
     },
+    "jsii-calc.ClassWithJavaReservedWords": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.ClassWithJavaReservedWords",
+      "initializer": {
+        "docs": {
+          "stability": "experimental"
+        },
+        "parameters": [
+          {
+            "name": "int",
+            "type": {
+              "primitive": "string"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1803
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1810
+          },
+          "name": "import",
+          "parameters": [
+            {
+              "name": "assert",
+              "type": {
+                "primitive": "string"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "ClassWithJavaReservedWords",
+      "properties": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1804
+          },
+          "name": "int",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.ClassWithMutableObjectLiteralProperty": {
       "assembly": "jsii-calc",
       "docs": {
@@ -4707,6 +4774,51 @@
           }
         }
       ]
+    },
+    "jsii-calc.InterfacesMaker": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "We can return arrays of interfaces See aws/aws-cdk#2362."
+      },
+      "fqn": "jsii-calc.InterfacesMaker",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1838
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1839
+          },
+          "name": "makeInterfaces",
+          "parameters": [
+            {
+              "name": "count",
+              "type": {
+                "primitive": "number"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "collection": {
+                "elementtype": {
+                  "fqn": "@scope/jsii-calc-lib.IDoublable"
+                },
+                "kind": "array"
+              }
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "InterfacesMaker"
     },
     "jsii-calc.JSII417Derived": {
       "assembly": "jsii-calc",
@@ -7978,7 +8090,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 1799
+        "line": 1820
       },
       "methods": [
         {
@@ -7987,7 +8099,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1808
+            "line": 1829
           },
           "name": "howManyVarArgsDidIPass",
           "parameters": [
@@ -8019,7 +8131,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1800
+            "line": 1821
           },
           "name": "roundTrip",
           "parameters": [
@@ -8045,6 +8157,85 @@
         }
       ],
       "name": "StructPassing"
+    },
+    "jsii-calc.StructWithJavaReservedWords": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.StructWithJavaReservedWords",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1794
+      },
+      "name": "StructWithJavaReservedWords",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1795
+          },
+          "name": "default",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1796
+          },
+          "name": "assert",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1799
+          },
+          "name": "result",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1800
+          },
+          "name": "that",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
     },
     "jsii-calc.Sum": {
       "assembly": "jsii-calc",
@@ -9215,5 +9406,5 @@
     }
   },
   "version": "0.15.0",
-  "fingerprint": "SqE3g3zYpTXR3veJ0hoo+OuH7uDYav7rVxMrKNh88I4="
+  "fingerprint": "8Dd+N3LiENMPxOU1iY/Z28bky5f/c49pSvcZ2tg4zCI="
 }

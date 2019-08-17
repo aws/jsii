@@ -22,6 +22,7 @@ assemblies
  │   ├─┬ class ClassThatImplementsThePrivateInterface
  │   │ └── interfaces: INonInternalInterface
  │   ├── class ClassWithDocs
+ │   ├── class ClassWithJavaReservedWords
  │   ├── class ClassWithMutableObjectLiteralProperty
  │   ├─┬ class ClassWithPrivateConstructorAndAutomaticProperties
  │   │ └── interfaces: IInterfaceWithProperties
@@ -55,6 +56,7 @@ assemblies
  │   │ ├── base: PublicClass
  │   │ └── interfaces: IPublicInterface2
  │   ├── class Foo
+ │   ├── class InterfacesMaker
  │   ├─┬ class JSII417Derived
  │   │ └── base: JSII417PublicBaseOfBase
  │   ├── class JSII417PublicBaseOfBase
@@ -182,6 +184,7 @@ assemblies
  │   ├── interface OptionalStruct
  │   ├── interface SecondLevelStruct
  │   ├── interface StableStruct
+ │   ├── interface StructWithJavaReservedWords
  │   ├── interface TopLevelStruct
  │   ├── interface UnionProperties
  │   ├── enum AllTypesEnum

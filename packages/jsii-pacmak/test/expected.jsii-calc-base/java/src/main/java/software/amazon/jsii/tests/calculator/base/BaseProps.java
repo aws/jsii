@@ -104,13 +104,13 @@ public interface BaseProps extends software.amazon.jsii.JsiiSerializable, softwa
             BaseProps.Jsii$Proxy that = (BaseProps.Jsii$Proxy) o;
 
             if (!bar.equals(that.bar)) return false;
-            return foo.equals(that.foo);
+            return this.foo.equals(that.foo);
         }
 
         @Override
         public int hashCode() {
-            int result = bar.hashCode();
-            result = 31 * result + (foo.hashCode());
+            int result = this.bar.hashCode();
+            result = 31 * result + (this.foo.hashCode());
             return result;
         }
 
