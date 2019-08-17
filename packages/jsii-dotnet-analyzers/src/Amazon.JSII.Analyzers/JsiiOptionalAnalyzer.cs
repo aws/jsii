@@ -1,0 +1,141 @@
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.Diagnostics;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+
+namespace Amazon.JSII.Analyzers
+{
+    [DiagnosticAnalyzer(LanguageNames.CSharp)]
+    public class JsiiOptionalAnalyzer : DiagnosticAnalyzer
+    {
+        private const string DiagnosticId = "CDK001";
+        private const string Title = "A required property is missing or null";
+        private const string MessageFormat = "The property is required and can not be null";
+        private const string MessageFormatWithPropertyName = "The property {0} is required and can not be null";
+        private const string Description = "The property is required and can not be null";
+        private const string DescriptionWitPropertyName = "The property {0} is required and can not be null";
+        private const string Category = "Usage";
+
+        private static readonly DiagnosticDescriptor Rule = 
+            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, Category, DiagnosticSeverity.Error, isEnabledByDefault: true, description: Description);
+
+        public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(Rule);
+        
+        public override void Initialize(AnalysisContext context)
+        {
+            context.EnableConcurrentExecution();
+            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.Analyze);
+            context.RegisterSyntaxNodeAction(AnalyzeNode, SyntaxKind.ObjectCreationExpression);
+        }
+
+        private static void AnalyzeNode(SyntaxNodeAnalysisContext context)
+        {
+            var objectCreation = (ObjectCreationExpressionSyntax)context.Node;
+            var typeInfo = context.SemanticModel.GetTypeInfo(objectCreation);
+            if (IsJsiiClass(typeInfo))
+            {
+                // If we are instantiating a new class with attribute [JsiiClass]
+                var arguments = objectCreation.ArgumentList.Arguments;
+                foreach (var argument in arguments)
+                {
+                    if (argument.Expression is ObjectCreationExpressionSyntax)
+                    {
+                        var argumentType = context.SemanticModel.GetTypeInfo(argument.Expression);
+                        if (IsJsiiDatatype(argumentType))
+                        {
+                            // If the argument is a Jsii datatype [JsiiByValue]
+                            // Get all the properties passed 
+                            var passedProperties = new HashSet<string>();
+                            foreach (var child in argument.Expression.ChildNodes())
+                            {
+                                if (child.Kind() == SyntaxKind.ObjectInitializerExpression)
+                                {
+                                    // This is an inline initialization
+                                    // Saving all the properties that are passed when initializing the props object
+                                    foreach (var passedProperty in child.ChildNodes().Where(n => n.Kind() == SyntaxKind.SimpleAssignmentExpression))
+                                    {
+                                        var props = passedProperty.ChildNodes().ToArray();
+                                        if (props.Length >= 2)
+                                        {
+                                            // Property = value
+                                            if (props[1].ToString() != "null") // value != null ?
+                                            {
+                                                var propName = props[0].ToString();
+                                                passedProperties.Add(propName);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            // Get all the required properties on the prop object
+                            var requiredProperties = argumentType.Type.GetMembers()
+                                .Where(m => m.Kind == SymbolKind.Property
+                                            && !IsJsiiOptionalProperty(m));
+                            foreach (var requiredProperty in requiredProperties)
+                            {
+                                // The property in the props class IS NOT optional, check if it is passed as an argument.
+                                if (!passedProperties.Contains(requiredProperty.Name))
+                                {
+                                    // This property IS REQUIRED and was not passed in the arguments. Raising an error
+                                    var rule = new DiagnosticDescriptor(DiagnosticId, 
+                                        Title,
+                                        string.Format(MessageFormatWithPropertyName, requiredProperty.Name),
+                                        Category, 
+                                        DiagnosticSeverity.Error, 
+                                        isEnabledByDefault: true, 
+                                        description: string.Format(DescriptionWitPropertyName, requiredProperty.Name));
+                                    context.ReportDiagnostic(Diagnostic.Create(rule, context.Node.GetLocation()));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Checks if the TypeInfo is related to a Jsii class
+        /// </summary>
+        /// <remarks>
+        /// This is done by checking for the [JsiiClass] attribute
+        /// </remarks>
+        /// <param name="typeInfo">The TypeInfo object to check for</param>
+        /// <returns>true if the TypeInfo is related to a Jsii class, false otherwise</returns>
+        private static bool IsJsiiClass(TypeInfo typeInfo)
+        {
+            var typeAttributes = typeInfo.Type.GetAttributes().ToArray();
+            return typeAttributes.Any(a => a.AttributeClass.Name == "JsiiClassAttribute");
+        }
+        
+        /// <summary>
+        /// Checks if the TypeInfo is related to a Jsii datatype
+        /// </summary>
+        /// <remarks>
+        /// This is done by checking for the [JsiiByValueAttribute] attribute
+        /// </remarks>
+        /// <param name="typeInfo">The TypeInfo object to check for</param>
+        /// <returns>true if the TypeInfo is related to a Jsii datatype, false otherwise</returns>
+        private static bool IsJsiiDatatype(TypeInfo typeInfo)
+        {
+            var typeAttributes = typeInfo.Type.GetAttributes().ToArray();
+            return typeAttributes.Any(a => a.AttributeClass.Name == "JsiiByValueAttribute");
+        }
+        
+        /// <summary>
+        /// Checks if the property is optional for jsii
+        /// </summary>
+        /// <remarks>
+        /// This is done by checking for the [JsiiOptionalAttribute] attribute
+        /// </remarks>
+        /// <param name="property">The property to check for</param>
+        /// <returns>true if the property is optional, false otherwise</returns>
+        private static bool IsJsiiOptionalProperty(ISymbol property)
+        {
+            return property.GetAttributes().Any(a => a.AttributeClass.Name == "JsiiOptionalAttribute");
+        }
+    }
+}
