@@ -1,6 +1,6 @@
 {
   "name": "jsii-dotnet-jsonmodel",
-  "version": "0.15.0",
+  "version": "0.15.1",
   "description": ".NET json model for jsii spec and api.",
   "main": "lib/index.js",
   "private": true,

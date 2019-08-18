@@ -1,4 +1,5 @@
 #!/bin/bash
+scriptdir="$(cd $(dirname $0) && pwd)"
 set -euo pipefail
 
 # the reason we require a manual version is because we lerna doesn't respect pre 1.0
@@ -10,9 +11,9 @@ if [ -z "${ver}" ]; then
   exit 1
 fi
 
-git clean -fqdx packages/jsii-python-runtime
+git clean -fqdx
 
-/bin/bash ./install.sh
+/bin/bash ${scriptdir}/bootstrap.sh
 
 node_modules/.bin/lerna publish --force-publish=* --skip-npm --skip-git --conventional-commits --repo-version ${ver}
 
