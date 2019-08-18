@@ -11,7 +11,9 @@
     "test": "/bin/bash ./test.sh",
     "package": "package-dotnet"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jsii-build-tools": "file:../jsii-build-tools"
+  },
   "dependencies": {
     "jsii-dotnet-runtime": "file:../jsii-dotnet-runtime"
   },
