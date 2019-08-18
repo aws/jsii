@@ -30,7 +30,7 @@
         },
         "sphinx": {}
       },
-      "version": "0.15.0"
+      "version": "0.15.1"
     }
   },
   "dependencyClosure": {
@@ -56,12 +56,12 @@
         },
         "sphinx": {}
       },
-      "version": "0.15.0"
+      "version": "0.15.1"
     }
   },
   "description": "An example direct dependency for jsii-calc.",
   "homepage": "https://github.com/aws/jsii.git",
-  "jsiiVersion": "0.15.0",
+  "jsiiVersion": "0.15.1",
   "license": "Apache-2.0",
   "name": "@scope/jsii-calc-base",
   "repository": {
@@ -175,6 +175,6 @@
       "name": "IBaseInterface"
     }
   },
-  "version": "0.15.0",
-  "fingerprint": "s3nhVvMvkgAOyy+5GbCx/ANeYfxpOc0/miLWHYGX3uo="
+  "version": "0.15.1",
+  "fingerprint": "p3eNATuY5zrfzAJ0pqg1eF37BH3iqAhiKmIzVT/aEqk="
 }
