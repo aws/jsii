@@ -16,8 +16,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// 80
         /// stability: Experimental
         /// </remarks>
-        [JsiiProperty(name: "containerPort", typeJson: "{\"primitive\":\"number\"}", isOptional: true, isOverride: true)]
         [JsiiOptional]
+        [JsiiProperty(name: "containerPort", typeJson: "{\"primitive\":\"number\"}", isOptional: true, isOverride: true)]
         public double? ContainerPort
         {
             get;
@@ -31,8 +31,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// 256
         /// stability: Experimental
         /// </remarks>
-        [JsiiProperty(name: "cpu", typeJson: "{\"primitive\":\"string\"}", isOptional: true, isOverride: true)]
         [JsiiOptional]
+        [JsiiProperty(name: "cpu", typeJson: "{\"primitive\":\"string\"}", isOptional: true, isOverride: true)]
         public string Cpu
         {
             get;
@@ -59,8 +59,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// 512
         /// stability: Experimental
         /// </remarks>
-        [JsiiProperty(name: "memoryMiB", typeJson: "{\"primitive\":\"string\"}", isOptional: true, isOverride: true)]
         [JsiiOptional]
+        [JsiiProperty(name: "memoryMiB", typeJson: "{\"primitive\":\"string\"}", isOptional: true, isOverride: true)]
         public string MemoryMiB
         {
             get;
@@ -73,8 +73,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// true
         /// stability: Experimental
         /// </remarks>
-        [JsiiProperty(name: "publicLoadBalancer", typeJson: "{\"primitive\":\"boolean\"}", isOptional: true, isOverride: true)]
         [JsiiOptional]
+        [JsiiProperty(name: "publicLoadBalancer", typeJson: "{\"primitive\":\"boolean\"}", isOptional: true, isOverride: true)]
         public bool? PublicLoadBalancer
         {
             get;
@@ -87,8 +87,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// false
         /// stability: Experimental
         /// </remarks>
-        [JsiiProperty(name: "publicTasks", typeJson: "{\"primitive\":\"boolean\"}", isOptional: true, isOverride: true)]
         [JsiiOptional]
+        [JsiiProperty(name: "publicTasks", typeJson: "{\"primitive\":\"boolean\"}", isOptional: true, isOverride: true)]
         public bool? PublicTasks
         {
             get;

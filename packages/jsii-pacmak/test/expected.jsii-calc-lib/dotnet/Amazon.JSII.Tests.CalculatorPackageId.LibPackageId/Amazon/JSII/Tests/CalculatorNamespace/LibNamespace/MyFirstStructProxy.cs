@@ -39,9 +39,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         /// <remarks>
         /// stability: Deprecated
         /// </remarks>
+        [JsiiOptional]
         [JsiiProperty(name: "firstOptional", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"string\"},\"kind\":\"array\"}}", isOptional: true)]
         [System.Obsolete()]
-        [JsiiOptional]
         public string[] FirstOptional
         {
             get => GetInstanceProperty<string[]>();

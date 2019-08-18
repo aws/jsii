@@ -19,8 +19,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// world
         /// stability: Experimental
         /// </remarks>
-        [JsiiProperty(name: "name", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         [JsiiOptional]
+        [JsiiProperty(name: "name", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         public string Name
         {
             get => GetInstanceProperty<string>();

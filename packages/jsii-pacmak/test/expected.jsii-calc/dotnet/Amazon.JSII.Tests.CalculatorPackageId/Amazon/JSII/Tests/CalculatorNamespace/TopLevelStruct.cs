@@ -34,8 +34,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
-        [JsiiProperty(name: "optional", typeJson: "{\"primitive\":\"string\"}", isOptional: true, isOverride: true)]
         [JsiiOptional]
+        [JsiiProperty(name: "optional", typeJson: "{\"primitive\":\"string\"}", isOptional: true, isOverride: true)]
         public string Optional
         {
             get;
