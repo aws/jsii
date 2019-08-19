@@ -74,7 +74,7 @@ namespace Amazon.JSII.Analyzers.UnitTests
                 new DiagnosticResult()
                 {
                     Id = "JSII001",
-                    Message = "The property RequiredProperty1 is required and can not be null",
+                    Message = "The property RequiredProperty1 is required and cannot be null",
                     Severity = DiagnosticSeverity.Error,
                     Locations =
                         new[] {
@@ -84,7 +84,7 @@ namespace Amazon.JSII.Analyzers.UnitTests
                 new DiagnosticResult()
                 {
                     Id = "JSII001",
-                    Message = "The property RequiredProperty2 is required and can not be null",
+                    Message = "The property RequiredProperty2 is required and cannot be null",
                     Severity = DiagnosticSeverity.Error,
                     Locations =
                         new[] {
@@ -94,7 +94,7 @@ namespace Amazon.JSII.Analyzers.UnitTests
                 new DiagnosticResult()
                 {
                     Id = "JSII001",
-                    Message = "The property RequiredProperty1 is required and can not be null",
+                    Message = "The property RequiredProperty1 is required and cannot be null",
                     Severity = DiagnosticSeverity.Error,
                     Locations =
                         new[] {
