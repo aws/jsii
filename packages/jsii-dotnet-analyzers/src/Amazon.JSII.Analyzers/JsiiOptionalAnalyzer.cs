@@ -11,12 +11,12 @@ namespace Amazon.JSII.Analyzers
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class JsiiOptionalAnalyzer : DiagnosticAnalyzer
     {
-        private const string DiagnosticId = "CDK001";
+        private const string DiagnosticId = "JSII001";
         private const string Title = "A required property is missing or null";
-        private const string MessageFormat = "The property is required and can not be null";
-        private const string MessageFormatWithPropertyName = "The property {0} is required and can not be null";
-        private const string Description = "The property is required and can not be null";
-        private const string DescriptionWitPropertyName = "The property {0} is required and can not be null";
+        private const string MessageFormat = "The property is required and cannot be null";
+        private const string MessageFormatWithPropertyName = "The property {0} is required and cannot be null";
+        private const string Description = "The property is required and cannot be null";
+        private const string DescriptionWitPropertyName = "The property {0} is required and cannot be null";
         private const string Category = "Usage";
 
         private static readonly DiagnosticDescriptor Rule = 
