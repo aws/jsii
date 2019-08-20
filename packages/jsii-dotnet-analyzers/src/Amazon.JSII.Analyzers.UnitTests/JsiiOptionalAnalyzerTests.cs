@@ -60,13 +60,42 @@ namespace Amazon.JSII.Analyzers.UnitTests
 
                 class Test
                 {   
+                    // This should fail because there is missing required properties and it is a nested instruction
                     var result1 = new SampleClass(new SampleProps());
+
+                    // This should fail because RequiredProperty1 is passed as null
                     var result2 = new SampleClass(new SampleProps()
                     {
                         RequiredProperty1 = null,
-                        OptionalProperty2 = ""test""
+                        OptionalProperty2 = ""test"",
                         RequiredProperty2 = ""test""
-                    );
+                    });
+                    
+                    // This is OK, the properties might be passed later, we don't want to enforce it
+                    var result3 = new SampleProps();
+
+                    // This is not OK, if you start passing properties, you should pass all of the required ones
+                    var result4 = new SampleProps()
+                    {
+                        RequiredProperty1 = null,
+                        OptionalProperty2 = ""test""
+                    };
+
+                    // This is not OK, RequiredProperty1 is null
+                    var result5 = new SampleProps()
+                    {
+                        RequiredProperty1 = null,
+                        OptionalProperty2 = ""test"",
+                        RequiredProperty2 = ""test""
+                    };
+
+                    // This is OK, all required properties are passed and not null.
+                    var result6 = new SampleProps()
+                    {
+                        RequiredProperty1 = ""test"",
+                        OptionalProperty2 = ""test"",
+                        RequiredProperty2 = ""test""
+                    };
                 }
             }";
             var expected = new List<DiagnosticResult>()
@@ -78,7 +107,7 @@ namespace Amazon.JSII.Analyzers.UnitTests
                     Severity = DiagnosticSeverity.Error,
                     Locations =
                         new[] {
-                                new DiagnosticResultLocation("Test0.cs", 42, 35)
+                                new DiagnosticResultLocation("Test0.cs", 43, 51)
                             }
                 },
                 new DiagnosticResult()
@@ -88,7 +117,7 @@ namespace Amazon.JSII.Analyzers.UnitTests
                     Severity = DiagnosticSeverity.Error,
                     Locations =
                         new[] {
-                            new DiagnosticResultLocation("Test0.cs", 42, 35)
+                            new DiagnosticResultLocation("Test0.cs", 43, 51)
                         }
                 },
                 new DiagnosticResult()
@@ -98,9 +127,39 @@ namespace Amazon.JSII.Analyzers.UnitTests
                     Severity = DiagnosticSeverity.Error,
                     Locations =
                         new[] {
-                            new DiagnosticResultLocation("Test0.cs", 43, 35)
+                            new DiagnosticResultLocation("Test0.cs", 46, 51)
                         }
                 },
+                new DiagnosticResult()
+                {
+                    Id = "JSII001",
+                    Message = "The property RequiredProperty1 is required and cannot be null",
+                    Severity = DiagnosticSeverity.Error,
+                    Locations =
+                        new[] {
+                            new DiagnosticResultLocation("Test0.cs", 57, 35)
+                        }
+                },
+                new DiagnosticResult()
+                {
+                    Id = "JSII001",
+                    Message = "The property RequiredProperty2 is required and cannot be null",
+                    Severity = DiagnosticSeverity.Error,
+                    Locations =
+                        new[] {
+                            new DiagnosticResultLocation("Test0.cs", 57, 35)
+                        }
+                },
+                new DiagnosticResult()
+                {
+                    Id = "JSII001",
+                    Message = "The property RequiredProperty1 is required and cannot be null",
+                    Severity = DiagnosticSeverity.Error,
+                    Locations =
+                        new[] {
+                            new DiagnosticResultLocation("Test0.cs", 64, 35)
+                        }
+                }
             };
 
             VerifyCSharpDiagnostic(test, expected.ToArray());

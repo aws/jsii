@@ -35,63 +35,61 @@ namespace Amazon.JSII.Analyzers
         {
             var objectCreation = (ObjectCreationExpressionSyntax)context.Node;
             var typeInfo = context.SemanticModel.GetTypeInfo(objectCreation);
-            if (IsJsiiClass(typeInfo))
+            if (IsJsiiDatatype(typeInfo))
             {
-                // If we are instantiating a new class with attribute [JsiiClass]
-                var arguments = objectCreation.ArgumentList.Arguments;
-                foreach (var argument in arguments)
+                // If the newly created instance is a Jsii datatype [JsiiByValue]
+                // Get all the properties passed 
+                var passedProperties = new HashSet<string>();
+                foreach (var child in objectCreation.ChildNodes())
                 {
-                    if (argument.Expression is ObjectCreationExpressionSyntax)
+                    if (child.Kind() == SyntaxKind.ObjectInitializerExpression)
                     {
-                        var argumentType = context.SemanticModel.GetTypeInfo(argument.Expression);
-                        if (IsJsiiDatatype(argumentType))
+                        // This is an inline initialization
+                        // Saving all the properties that are passed when initializing the props object
+                        foreach (var passedProperty in child.ChildNodes().Where(n => n.Kind() == SyntaxKind.SimpleAssignmentExpression))
                         {
-                            // If the argument is a Jsii datatype [JsiiByValue]
-                            // Get all the properties passed 
-                            var passedProperties = new HashSet<string>();
-                            foreach (var child in argument.Expression.ChildNodes())
+                            var props = passedProperty.ChildNodes().ToArray();
+                            if (props.Length >= 2)
                             {
-                                if (child.Kind() == SyntaxKind.ObjectInitializerExpression)
+                                // Property = value
+                                if (props[1].ToString() != "null") // value != null ?
                                 {
-                                    // This is an inline initialization
-                                    // Saving all the properties that are passed when initializing the props object
-                                    foreach (var passedProperty in child.ChildNodes().Where(n => n.Kind() == SyntaxKind.SimpleAssignmentExpression))
-                                    {
-                                        var props = passedProperty.ChildNodes().ToArray();
-                                        if (props.Length >= 2)
-                                        {
-                                            // Property = value
-                                            if (props[1].ToString() != "null") // value != null ?
-                                            {
-                                                var propName = props[0].ToString();
-                                                passedProperties.Add(propName);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                            // Get all the required properties on the prop object
-                            var requiredProperties = argumentType.Type.GetMembers()
-                                .Where(m => m.Kind == SymbolKind.Property
-                                            && !IsJsiiOptionalProperty(m));
-                            foreach (var requiredProperty in requiredProperties)
-                            {
-                                // The property in the props class IS NOT optional, check if it is passed as an argument.
-                                if (!passedProperties.Contains(requiredProperty.Name))
-                                {
-                                    // This property IS REQUIRED and was not passed in the arguments. Raising an error
-                                    var rule = new DiagnosticDescriptor(DiagnosticId, 
-                                        Title,
-                                        string.Format(MessageFormatWithPropertyName, requiredProperty.Name),
-                                        Category, 
-                                        DiagnosticSeverity.Error, 
-                                        isEnabledByDefault: true, 
-                                        description: string.Format(DescriptionWitPropertyName, requiredProperty.Name));
-                                    context.ReportDiagnostic(Diagnostic.Create(rule, context.Node.GetLocation()));
+                                    var propName = props[0].ToString();
+                                    passedProperties.Add(propName);
                                 }
                             }
                         }
+                    }
+                }
+
+                // Parent.Parent.Parent = new Construct() instruction.
+                // #1 Parent = Argument
+                // #2 Parent = ArgumentList
+                // #3 Parent = ObjectCreationExpressionSyntax (if it exists).
+                var parentType = context.SemanticModel.GetTypeInfo(objectCreation.Parent.Parent.Parent);
+
+                // If the object initialization was an empty newProps() outside of a JsiiClass - We don't fail
+                if (passedProperties.Count == 0 && (parentType.Type == null || !IsJsiiClass(parentType)))
+                    return;
+
+                // Get all the required properties on the prop object
+                var requiredProperties = typeInfo.Type.GetMembers()
+                    .Where(m => m.Kind == SymbolKind.Property
+                                && !IsJsiiOptionalProperty(m));
+                foreach (var requiredProperty in requiredProperties)
+                {
+                    // The property in the props class IS NOT optional, check if it is passed as an argument.
+                    if (!passedProperties.Contains(requiredProperty.Name))
+                    {
+                        // This property IS REQUIRED and was not passed in the arguments. Raising an error
+                        var rule = new DiagnosticDescriptor(DiagnosticId, 
+                            Title,
+                            string.Format(MessageFormatWithPropertyName, requiredProperty.Name),
+                            Category, 
+                            DiagnosticSeverity.Error, 
+                            isEnabledByDefault: true, 
+                            description: string.Format(DescriptionWitPropertyName, requiredProperty.Name));
+                        context.ReportDiagnostic(Diagnostic.Create(rule, context.Node.GetLocation()));
                     }
                 }
             }
