@@ -36,9 +36,9 @@ namespace Amazon.JSII.Runtime.Services
 
             _process.StartInfo.EnvironmentVariables.Add(JsiiAgent, "DotNet/" + Environment.Version);
             
-            var debugPath = Environment.GetEnvironmentVariable(JsiiDebug);
-            if (!string.IsNullOrWhiteSpace(debugPath))
-                _process.StartInfo.EnvironmentVariables.Add(JsiiDebug, debugPath);
+            var debug = Environment.GetEnvironmentVariable(JsiiDebug);
+            if (!string.IsNullOrWhiteSpace(debug) && !_process.StartInfo.EnvironmentVariables.ContainsKey(JsiiDebug))
+                _process.StartInfo.EnvironmentVariables.Add(JsiiDebug, debug);
 
             _logger.LogDebug("Starting jsii runtime...");
             _logger.LogDebug($"{_process.StartInfo.FileName} {_process.StartInfo.Arguments}");
