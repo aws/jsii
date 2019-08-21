@@ -6,8 +6,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiInterface(nativeType: typeof(IIFriendlier), fullyQualifiedName: "jsii-calc.IFriendlier")]
-    public interface IIFriendlier : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IIFriendly
+    [JsiiInterface(nativeType: typeof(IFriendlier), fullyQualifiedName: "jsii-calc.IFriendlier")]
+    public interface IFriendlier : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly
     {
         /// <summary>Say farewell.</summary>
         /// <remarks>

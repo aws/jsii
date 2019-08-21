@@ -25,7 +25,7 @@ export class DotNetRuntimeGenerator {
      */
     public emitAttributesForInterface(ifc: spec.InterfaceType) {
         const jsiiAttribute =
-            `[JsiiInterface(nativeType: typeof(${this.nameutils.convertInterfaceName(ifc.name)}), fullyQualifiedName: "${ifc.fqn}")]`;
+            `[JsiiInterface(nativeType: typeof(${this.nameutils.convertInterfaceName(ifc)}), fullyQualifiedName: "${ifc.fqn}")]`;
         this.code.line(jsiiAttribute);
         this.emitDeprecatedAttributeIfNecessary(ifc);
     }
@@ -104,7 +104,7 @@ export class DotNetRuntimeGenerator {
      * Ex: [JsiiTypeProxy(nativeType: typeof(IVeryBaseProps), fullyQualifiedName: "@scope/jsii-calc-base-of-base.VeryBaseProps")]
      */
     public emitAttributesForInterfaceProxy(ifc: spec.ClassType | spec.InterfaceType): void {
-        const name = ifc.kind === spec.TypeKind.Interface ? this.nameutils.convertInterfaceName(ifc.name)
+        const name = ifc.kind === spec.TypeKind.Interface ? this.nameutils.convertInterfaceName(ifc)
             : this.typeresolver.toNativeFqn(ifc.fqn);
         this.code.line(`[JsiiTypeProxy(nativeType: typeof(${name}), fullyQualifiedName: \"${ifc.fqn}\")]`);
         this.emitDeprecatedAttributeIfNecessary(ifc);

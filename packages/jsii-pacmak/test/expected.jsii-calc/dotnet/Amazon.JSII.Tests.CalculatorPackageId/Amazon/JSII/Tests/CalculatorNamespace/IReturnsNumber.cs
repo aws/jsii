@@ -5,8 +5,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiInterface(nativeType: typeof(IIReturnsNumber), fullyQualifiedName: "jsii-calc.IReturnsNumber")]
-    public interface IIReturnsNumber
+    [JsiiInterface(nativeType: typeof(IReturnsNumber), fullyQualifiedName: "jsii-calc.IReturnsNumber")]
+    public interface IReturnsNumber
     {
         /// <remarks>
         /// stability: Experimental
@@ -20,6 +20,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "obtainNumber", returnsJson: "{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.IDoublable\"}}")]
-        Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IIDoublable ObtainNumber();
+        Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IDoublable ObtainNumber();
     }
 }

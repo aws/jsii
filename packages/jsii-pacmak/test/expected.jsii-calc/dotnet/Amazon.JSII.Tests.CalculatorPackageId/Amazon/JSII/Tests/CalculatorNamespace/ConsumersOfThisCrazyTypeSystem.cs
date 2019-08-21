@@ -24,7 +24,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "consumeAnotherPublicInterface", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[{\"name\":\"obj\",\"type\":{\"fqn\":\"jsii-calc.IAnotherPublicInterface\"}}]")]
-        public virtual string ConsumeAnotherPublicInterface(Amazon.JSII.Tests.CalculatorNamespace.IIAnotherPublicInterface obj)
+        public virtual string ConsumeAnotherPublicInterface(Amazon.JSII.Tests.CalculatorNamespace.IAnotherPublicInterface obj)
         {
             return InvokeInstanceMethod<string>(new object[]{obj});
         }
@@ -33,7 +33,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "consumeNonInternalInterface", returnsJson: "{\"type\":{\"primitive\":\"any\"}}", parametersJson: "[{\"name\":\"obj\",\"type\":{\"fqn\":\"jsii-calc.INonInternalInterface\"}}]")]
-        public virtual object ConsumeNonInternalInterface(Amazon.JSII.Tests.CalculatorNamespace.IINonInternalInterface obj)
+        public virtual object ConsumeNonInternalInterface(Amazon.JSII.Tests.CalculatorNamespace.INonInternalInterface obj)
         {
             return InvokeInstanceMethod<object>(new object[]{obj});
         }

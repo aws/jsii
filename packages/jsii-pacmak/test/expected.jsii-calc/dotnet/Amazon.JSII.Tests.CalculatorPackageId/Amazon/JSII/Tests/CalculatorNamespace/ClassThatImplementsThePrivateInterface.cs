@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// stability: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassThatImplementsThePrivateInterface), fullyQualifiedName: "jsii-calc.ClassThatImplementsThePrivateInterface")]
-    public class ClassThatImplementsThePrivateInterface : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IINonInternalInterface
+    public class ClassThatImplementsThePrivateInterface : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.INonInternalInterface
     {
         public ClassThatImplementsThePrivateInterface(): base(new DeputyProps(new object[]{}))
         {

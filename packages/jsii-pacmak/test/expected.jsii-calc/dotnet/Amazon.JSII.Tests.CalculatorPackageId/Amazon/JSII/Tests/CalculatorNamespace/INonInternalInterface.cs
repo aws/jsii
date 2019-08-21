@@ -5,8 +5,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiInterface(nativeType: typeof(IINonInternalInterface), fullyQualifiedName: "jsii-calc.INonInternalInterface")]
-    public interface IINonInternalInterface : Amazon.JSII.Tests.CalculatorNamespace.IIAnotherPublicInterface
+    [JsiiInterface(nativeType: typeof(INonInternalInterface), fullyQualifiedName: "jsii-calc.INonInternalInterface")]
+    public interface INonInternalInterface : Amazon.JSII.Tests.CalculatorNamespace.IAnotherPublicInterface
     {
         /// <remarks>
         /// stability: Experimental
