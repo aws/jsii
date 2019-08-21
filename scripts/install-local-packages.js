@@ -123,7 +123,6 @@ function installDependency(nodeModules, localPath) {
   function cleanup(deps) {
     if (!deps) { return deps; }
     for (const value of Object.values(deps)) {
-      delete value.dev;
       cleanup(value.dependencies)
     }
     return deps;
