@@ -14,7 +14,7 @@ namespace Amazon.JSII.Runtime.Services
         private const string JsiiRuntime = "JSII_RUNTIME";
         private const string JsiiDebug = "JSII_DEBUG";
         private const string JsiiAgent = "JSII_AGENT";
-        private const string JsiiAgentVersionString = "Dotnet/{0}/{1}/{2}";
+        private const string JsiiAgentVersionString = "DotNet/{0}/{1}/{2}";
 
         public NodeProcess(IJsiiRuntimeProvider jsiiRuntimeProvider, ILoggerFactory loggerFactory)
         {
