@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
+using System.Runtime.Versioning;
 using Microsoft.Extensions.Logging;
 
 namespace Amazon.JSII.Runtime.Services
@@ -12,6 +14,7 @@ namespace Amazon.JSII.Runtime.Services
         private const string JsiiRuntime = "JSII_RUNTIME";
         private const string JsiiDebug = "JSII_DEBUG";
         private const string JsiiAgent = "JSII_AGENT";
+        private const string JsiiAgentVersionString = "Dotnet/{0}/{1}/{2}";
 
         public NodeProcess(IJsiiRuntimeProvider jsiiRuntimeProvider, ILoggerFactory loggerFactory)
         {
@@ -34,7 +37,9 @@ namespace Amazon.JSII.Runtime.Services
                 }
             };
 
-            _process.StartInfo.EnvironmentVariables.Add(JsiiAgent, "DotNet/" + Environment.Version);
+            var assemblyVersion = GetAssemblyFileVersion();
+            _process.StartInfo.EnvironmentVariables.Add(JsiiAgent, 
+                string.Format(JsiiAgentVersionString, Environment.Version, assemblyVersion.Item1, assemblyVersion.Item2));
             
             var debug = Environment.GetEnvironmentVariable(JsiiDebug);
             if (!string.IsNullOrWhiteSpace(debug) && !_process.StartInfo.EnvironmentVariables.ContainsKey(JsiiDebug))
@@ -58,6 +63,24 @@ namespace Amazon.JSII.Runtime.Services
             StandardOutput.Dispose();
             StandardError.Dispose();
             _process.Dispose();
+        }
+        
+        /// <summary>
+        /// Gets the target framework attribute value and
+        /// the assembly file version for the current .NET assembly
+        /// </summary>
+        /// <returns>A tuple where Item1 is the target framework
+        /// ie .NETStandard,Version=v2.0
+        /// and item2 is the assembly file version (ie 1.0.0.0)</returns>
+        private Tuple<string, string> GetAssemblyFileVersion()
+        {
+            var assembly = typeof(NodeProcess).GetTypeInfo().Assembly;
+            var assemblyFileVersionAttribute = assembly.GetCustomAttribute(typeof(AssemblyFileVersionAttribute)) as AssemblyFileVersionAttribute;
+            var frameworkAttribute = assembly.GetCustomAttribute(typeof(TargetFrameworkAttribute)) as TargetFrameworkAttribute;
+            return new Tuple<string, string>(
+                frameworkAttribute == null ? "Unknown" : frameworkAttribute.FrameworkName,
+                assemblyFileVersionAttribute == null ? "Unknown" : assemblyFileVersionAttribute.Version
+                );
         }
     }
 }
