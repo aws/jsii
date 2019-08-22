@@ -59,8 +59,8 @@ pull_request_rules:
   - name: Clean branch up
     actions:
       delete_head_branch: {}
-    label:
-      remove: [ready-to-merge]
+      label:
+        remove: [ready-to-merge]
     conditions:
       - merged
 
