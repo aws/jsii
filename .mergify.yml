@@ -1,12 +1,13 @@
 # See https://doc.mergify.io
 
 pull_request_rules:
-  - name: automatic merge
+  - name: Tell them we're good now
     actions:
       comment:
-        message: |
-          Thank you for contributing! :heart: I will now look into making sure
-          the PR is up-to-date, then proceed to try and merge it!
+        message: >-
+          Thank you for contributing! :heart: I will now look into making sure the PR is up-to-date, then proceed to try and merge it!
+      label:
+        add: [ready-to-merge]
       merge:
         strict: smart
         method: squash
@@ -15,30 +16,69 @@ pull_request_rules:
         approved: true
         changes_requested: false
     conditions:
+      - author!=dependabot[bot]
       - -title~=(WIP|wip)
       - label!=blocked
       - label!=do-not-merge
+      - label!=ready-to-merge
       - -merged
       - -closed
       - -approved-reviews-by~=author
       - "#approved-reviews-by>=1"
       - "#review-requested=0"
       - "#changes-requested-reviews-by=0"
-      - "#commented-reviews-by=0"
       - status-success=AWS CodeBuild us-east-1 (jsii-build)
       - status-success=continuous-integration/travis-ci/pr
       - status-success=Semantic Pull Request
-  - name: delete branch after merge
+
+  - name: Synchronize that PR to upstream and merge it
+    actions:
+      dismiss_reviews:
+        approved: true
+        changes_requested: false
+      merge:
+        strict: smart
+        method: squash
+        strict_method: merge
+    conditions:
+      - author!=dependabot[bot]
+      - -title~=(WIP|wip)
+      - label!=blocked
+      - label!=do-not-merge
+      - label=ready-to-merge
+      - -merged
+      - -closed
+      - -approved-reviews-by~=author
+      - "#approved-reviews-by>=1"
+      - "#review-requested=0"
+      - "#changes-requested-reviews-by=0"
+      - status-success=AWS CodeBuild us-east-1 (jsii-build)
+      - status-success=continuous-integration/travis-ci/pr
+      - status-success=Semantic Pull Request
+
+  - name: Clean branch up
     actions:
       delete_head_branch: {}
+    label:
+      remove: [ready-to-merge]
     conditions:
       - merged
-  - name: if fails conventional commits
+
+  - name: Discard stale reviews
+    actions:
+      dismiss_reviews:
+        approved: true
+        changes_requested: false
+      label:
+        remove: [ready-to-merge]
+    conditions:
+      - base=master
+
+  - name: Let them know the PR title doesn't look right
     actions:
       comment:
-        message: |
-          The title of this Pull Request does not conform with [Conventional Commits] guidelines. It
-          will need to be adjusted before the PR can be merged.
+        message: >-
+          The title of this Pull Request does not conform with [Conventional Commits] guidelines. It will need to be adjusted before the PR can be merged.
 
           [Conventional Commits]: https://www.conventionalcommits.org
     conditions:
