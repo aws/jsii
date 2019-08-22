@@ -6,9 +6,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     /// <remarks>
     /// stability: Deprecated
     /// </remarks>
-    [JsiiInterface(nativeType: typeof(IIDoublable), fullyQualifiedName: "@scope/jsii-calc-lib.IDoublable")]
+    [JsiiInterface(nativeType: typeof(IDoublable), fullyQualifiedName: "@scope/jsii-calc-lib.IDoublable")]
     [System.Obsolete()]
-    public interface IIDoublable
+    public interface IDoublable
     {
         /// <remarks>
         /// stability: Deprecated
