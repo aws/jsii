@@ -6,9 +6,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     /// <remarks>
     /// stability: Deprecated
     /// </remarks>
-    [JsiiTypeProxy(nativeType: typeof(IIDoublable), fullyQualifiedName: "@scope/jsii-calc-lib.IDoublable")]
+    [JsiiTypeProxy(nativeType: typeof(IDoublable), fullyQualifiedName: "@scope/jsii-calc-lib.IDoublable")]
     [System.Obsolete()]
-    internal sealed class IDoublableProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IIDoublable
+    internal sealed class IDoublableProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IDoublable
     {
         private IDoublableProxy(ByRefValue reference): base(reference)
         {

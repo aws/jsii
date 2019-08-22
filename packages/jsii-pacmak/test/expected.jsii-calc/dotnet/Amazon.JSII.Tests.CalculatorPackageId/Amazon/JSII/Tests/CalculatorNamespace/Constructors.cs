@@ -24,27 +24,27 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "hiddenInterface", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.IPublicInterface\"}}")]
-        public static Amazon.JSII.Tests.CalculatorNamespace.IIPublicInterface HiddenInterface()
+        public static Amazon.JSII.Tests.CalculatorNamespace.IPublicInterface HiddenInterface()
         {
-            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.IIPublicInterface>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Constructors), new object[]{});
+            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.IPublicInterface>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Constructors), new object[]{});
         }
 
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "hiddenInterfaces", returnsJson: "{\"type\":{\"collection\":{\"elementtype\":{\"fqn\":\"jsii-calc.IPublicInterface\"},\"kind\":\"array\"}}}")]
-        public static Amazon.JSII.Tests.CalculatorNamespace.IIPublicInterface[] HiddenInterfaces()
+        public static Amazon.JSII.Tests.CalculatorNamespace.IPublicInterface[] HiddenInterfaces()
         {
-            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.IIPublicInterface[]>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Constructors), new object[]{});
+            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.IPublicInterface[]>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Constructors), new object[]{});
         }
 
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "hiddenSubInterfaces", returnsJson: "{\"type\":{\"collection\":{\"elementtype\":{\"fqn\":\"jsii-calc.IPublicInterface\"},\"kind\":\"array\"}}}")]
-        public static Amazon.JSII.Tests.CalculatorNamespace.IIPublicInterface[] HiddenSubInterfaces()
+        public static Amazon.JSII.Tests.CalculatorNamespace.IPublicInterface[] HiddenSubInterfaces()
         {
-            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.IIPublicInterface[]>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Constructors), new object[]{});
+            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.IPublicInterface[]>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Constructors), new object[]{});
         }
 
         /// <remarks>
@@ -60,27 +60,27 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "makeInterface", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.IPublicInterface\"}}")]
-        public static Amazon.JSII.Tests.CalculatorNamespace.IIPublicInterface MakeInterface()
+        public static Amazon.JSII.Tests.CalculatorNamespace.IPublicInterface MakeInterface()
         {
-            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.IIPublicInterface>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Constructors), new object[]{});
+            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.IPublicInterface>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Constructors), new object[]{});
         }
 
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "makeInterface2", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.IPublicInterface2\"}}")]
-        public static Amazon.JSII.Tests.CalculatorNamespace.IIPublicInterface2 MakeInterface2()
+        public static Amazon.JSII.Tests.CalculatorNamespace.IPublicInterface2 MakeInterface2()
         {
-            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.IIPublicInterface2>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Constructors), new object[]{});
+            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.IPublicInterface2>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Constructors), new object[]{});
         }
 
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "makeInterfaces", returnsJson: "{\"type\":{\"collection\":{\"elementtype\":{\"fqn\":\"jsii-calc.IPublicInterface\"},\"kind\":\"array\"}}}")]
-        public static Amazon.JSII.Tests.CalculatorNamespace.IIPublicInterface[] MakeInterfaces()
+        public static Amazon.JSII.Tests.CalculatorNamespace.IPublicInterface[] MakeInterfaces()
         {
-            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.IIPublicInterface[]>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Constructors), new object[]{});
+            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.IPublicInterface[]>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Constructors), new object[]{});
         }
     }
 }

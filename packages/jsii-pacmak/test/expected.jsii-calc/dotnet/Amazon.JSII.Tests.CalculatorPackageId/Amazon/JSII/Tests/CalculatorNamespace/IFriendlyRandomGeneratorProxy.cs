@@ -5,8 +5,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiTypeProxy(nativeType: typeof(IIFriendlyRandomGenerator), fullyQualifiedName: "jsii-calc.IFriendlyRandomGenerator")]
-    internal sealed class IFriendlyRandomGeneratorProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IIFriendlyRandomGenerator
+    [JsiiTypeProxy(nativeType: typeof(IFriendlyRandomGenerator), fullyQualifiedName: "jsii-calc.IFriendlyRandomGenerator")]
+    internal sealed class IFriendlyRandomGeneratorProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IFriendlyRandomGenerator
     {
         private IFriendlyRandomGeneratorProxy(ByRefValue reference): base(reference)
         {

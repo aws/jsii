@@ -31,7 +31,7 @@ export class DotNetTypeResolver {
         let typeName: string = '';
         switch (type.kind) {
             case spec.TypeKind.Interface:
-                typeName = this.nameutils.convertInterfaceName(type.name);
+                typeName = this.nameutils.convertInterfaceName(type);
                 break;
             case spec.TypeKind.Class:
                 typeName = this.nameutils.convertClassName(type as spec.ClassType);

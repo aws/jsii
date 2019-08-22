@@ -31,12 +31,17 @@ export class DotNetNameUtils {
         return this.capitalizeWord(original);
     }
 
-    public convertInterfaceName(original: string) {
-        if (this.isInvalidName(original)) {
-            throw new Error(`Invalid interface name: ${original}`);
+    public convertInterfaceName(original: spec.InterfaceType) {
+        if (this.isInvalidName(original.name)) {
+            throw new Error(`Invalid interface name: ${original.name}`);
         }
-        const capitalizedName = this.capitalizeWord(original);
-        return 'I' + capitalizedName;
+        if (original.datatype) {
+            // Datatype interfaces need to be prefixed by I so that they don't clash with the prop object implementation
+            return 'I' + this.capitalizeWord(original.name);
+        } else {
+            // Non datatype interfaces are guaranteed by JSII to be prefixed by I already
+            return this.capitalizeWord(original.name);
+        }
     }
 
     public convertClassName(original: spec.ClassType) {

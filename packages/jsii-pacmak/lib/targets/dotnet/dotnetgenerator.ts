@@ -121,7 +121,7 @@ export class DotNetGenerator extends Generator {
 
     protected onBeginInterface(ifc: spec.InterfaceType) {
         const implementations = this.typeresolver.resolveImplementedInterfaces(ifc);
-        const interfaceName = this.nameutils.convertInterfaceName(ifc.name);
+        const interfaceName = this.nameutils.convertInterfaceName(ifc);
         const namespace = ifc.namespace ? `${this.assembly.targets!.dotnet!.namespace}.${ifc.namespace}` : this.assembly.targets!.dotnet!.namespace;
         this.openFileIfNeeded(interfaceName, namespace, this.isNested(ifc));
 
@@ -137,7 +137,7 @@ export class DotNetGenerator extends Generator {
     }
 
     protected onEndInterface(ifc: spec.InterfaceType) {
-        const interfaceName = this.nameutils.convertInterfaceName(ifc.name);
+        const interfaceName = this.nameutils.convertInterfaceName(ifc);
         this.code.closeBlock();
         this.closeFileIfNeeded(interfaceName, this.isNested(ifc));
 

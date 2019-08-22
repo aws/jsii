@@ -24,9 +24,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "mutableObject", typeJson: "{\"fqn\":\"jsii-calc.IMutableObjectLiteral\"}")]
-        public virtual Amazon.JSII.Tests.CalculatorNamespace.IIMutableObjectLiteral MutableObject
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.IMutableObjectLiteral MutableObject
         {
-            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.IIMutableObjectLiteral>();
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.IMutableObjectLiteral>();
             set => SetInstanceProperty(value);
         }
     }
