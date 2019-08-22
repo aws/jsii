@@ -5,21 +5,21 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiInterface(nativeType: typeof(IIInterfaceWithMethods), fullyQualifiedName: "jsii-calc.IInterfaceWithMethods")]
-    public interface IIInterfaceWithMethods
+    [JsiiInterface(nativeType: typeof(IJSII417PublicBaseOfBase), fullyQualifiedName: "jsii-calc.IJSII417PublicBaseOfBase")]
+    public interface IJSII417PublicBaseOfBase
     {
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
-        [JsiiProperty(name: "value", typeJson: "{\"primitive\":\"string\"}")]
-        string Value
+        [JsiiProperty(name: "hasRoot", typeJson: "{\"primitive\":\"boolean\"}")]
+        bool HasRoot
         {
             get;
         }
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
-        [JsiiMethod(name: "doThings")]
-        void DoThings();
+        [JsiiMethod(name: "foo")]
+        void Foo();
     }
 }

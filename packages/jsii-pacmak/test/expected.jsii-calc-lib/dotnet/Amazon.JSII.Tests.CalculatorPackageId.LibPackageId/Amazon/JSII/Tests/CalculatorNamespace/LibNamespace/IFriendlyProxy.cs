@@ -8,9 +8,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     /// a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
     /// stability: Deprecated
     /// </remarks>
-    [JsiiTypeProxy(nativeType: typeof(IIFriendly), fullyQualifiedName: "@scope/jsii-calc-lib.IFriendly")]
+    [JsiiTypeProxy(nativeType: typeof(IFriendly), fullyQualifiedName: "@scope/jsii-calc-lib.IFriendly")]
     [System.Obsolete()]
-    internal sealed class IFriendlyProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IIFriendly
+    internal sealed class IFriendlyProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly
     {
         private IFriendlyProxy(ByRefValue reference): base(reference)
         {

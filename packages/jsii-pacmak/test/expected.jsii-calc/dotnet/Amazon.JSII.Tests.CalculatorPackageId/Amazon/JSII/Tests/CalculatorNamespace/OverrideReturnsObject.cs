@@ -24,7 +24,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "test", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[{\"name\":\"obj\",\"type\":{\"fqn\":\"jsii-calc.IReturnsNumber\"}}]")]
-        public virtual double Test(Amazon.JSII.Tests.CalculatorNamespace.IIReturnsNumber obj)
+        public virtual double Test(Amazon.JSII.Tests.CalculatorNamespace.IReturnsNumber obj)
         {
             return InvokeInstanceMethod<double>(new object[]{obj});
         }

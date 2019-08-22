@@ -10,7 +10,7 @@
     "package": "bash scripts/package.sh"
   },
   "devDependencies": {
-    "@types/node": "^8.10.51",
+    "@types/node": "^8.10.52",
     "lerna": "^3.16.4",
     "nodeunit": "^0.11.3",
     "nyc": "^14.1.1",

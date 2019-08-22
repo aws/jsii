@@ -8,7 +8,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Number), fullyQualifiedName: "@scope/jsii-calc-lib.Number", parametersJson: "[{\"docs\":{\"summary\":\"The number.\"},\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]
     [System.Obsolete()]
-    public class Number : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IIDoublable
+    public class Number : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IDoublable
     {
         /// <summary>Creates a Number object.</summary>
         /// <param name = "@value">The number.</param>

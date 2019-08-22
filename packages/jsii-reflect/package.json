@@ -18,7 +18,7 @@
     "fs-extra": "^8.1.0",
     "jsii-spec": "^0.15.1",
     "oo-ascii-tree": "^0.15.1",
-    "yargs": "^13.3.0"
+    "yargs": "^14.0.0"
   },
   "devDependencies": {
     "@scope/jsii-calc-lib": "file:../jsii-calc-lib",
