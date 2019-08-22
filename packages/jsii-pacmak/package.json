@@ -29,7 +29,7 @@
     "jsii-spec": "^0.15.1",
     "spdx-license-list": "^6.1.0",
     "xmlbuilder": "^13.0.2",
-    "yargs": "^13.3.0"
+    "yargs": "^14.0.0"
   },
   "devDependencies": {
     "@scope/jsii-calc-lib": "file:../jsii-calc-lib",
