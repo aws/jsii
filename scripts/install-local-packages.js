@@ -16,14 +16,14 @@ exec('lerna ls --json --all', { shell: true }, (error, stdout) => {
     if (process.env.VERBOSE) {
       console.log(`Installing local dependencies of ${module.name}`);
     }
-    installDeps(module.location,
+    installDeps(packageInfo, module.location,
       { depList: packageInfo.dependencies },
       { depList: packageInfo.devDependencies, dev: true });
   }
   console.log('Done.');
 });
 
-function installDeps(location, ...depLists) {
+function installDeps(pkg, location, ...depLists) {
   const nodeModules = join(location, 'node_modules');
 
   const shrinkWrap = join(location, 'npm-shrinkwrap.json');
@@ -41,7 +41,7 @@ function installDeps(location, ...depLists) {
         if (!matched) { return; }
         const path = matched[1];
         const modulePath = resolve(location, path);
-        const { requires, dependencies } = installDependency(nodeModules, modulePath);
+        const { requires, dependencies } = installDependency(nodeModules, modulePath, dev);
         linked.add(name);
         paths.push(path);
         if (locks) {
@@ -54,6 +54,7 @@ function installDeps(location, ...depLists) {
   }
   if (locks) {
     sortKeys(locks.dependencies);
+    locks.version = pkg.version
     writeJsonSync(lockFile, locks, { spaces: findIndent(lockFile) });
   } else {
     // This is dog slow, hence we're playing funky games elsewhere... but we're not in the business of bootstrapping
@@ -81,7 +82,7 @@ function findIndent(path) {
  * @param {string} nodeModules the root of the "installing" node_modules directory
  * @param {string} localPath   the path of the "installed" module
  */
-function installDependency(nodeModules, localPath) {
+function installDependency(nodeModules, localPath, dev) {
   const packageInfo = require(`${localPath}/package.json`);
 
   const linkLocation = join(nodeModules, packageInfo.name);
@@ -122,8 +123,15 @@ function installDependency(nodeModules, localPath) {
 
   function cleanup(deps) {
     if (!deps) { return deps; }
-    for (const value of Object.values(deps)) {
-      cleanup(value.dependencies)
+    for (const [key, value] of Object.entries(deps)) {
+      deps[key] = {
+        version: value.version,
+        resolved: value.resolved,
+        integrity: value.integrity,
+        dev,
+        ...value,
+      };
+      cleanup(deps[key].dependencies)
     }
     return deps;
   }
