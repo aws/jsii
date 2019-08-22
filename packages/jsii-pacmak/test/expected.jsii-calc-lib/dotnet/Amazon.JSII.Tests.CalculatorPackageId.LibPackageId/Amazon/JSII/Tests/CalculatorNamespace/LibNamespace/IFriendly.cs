@@ -8,9 +8,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     /// a "hello" or "goodbye" blessing and they will respond back in a fun and friendly manner.
     /// stability: Deprecated
     /// </remarks>
-    [JsiiInterface(nativeType: typeof(IIFriendly), fullyQualifiedName: "@scope/jsii-calc-lib.IFriendly")]
+    [JsiiInterface(nativeType: typeof(IFriendly), fullyQualifiedName: "@scope/jsii-calc-lib.IFriendly")]
     [System.Obsolete()]
-    public interface IIFriendly
+    public interface IFriendly
     {
         /// <summary>Say hello!</summary>
         /// <remarks>

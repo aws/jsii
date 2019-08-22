@@ -24,7 +24,7 @@ const calcVersion = require('jsii-calc/package.json').version.replace(/\+.+$/, '
 process.setMaxListeners(9999); // since every kernel instance adds an `on('exit')` handler.
 
 process.on('unhandledRejection', e => {
-    console.error(e.stack);
+    console.error((e as Error).stack);
     process.exit(1);
 });
 

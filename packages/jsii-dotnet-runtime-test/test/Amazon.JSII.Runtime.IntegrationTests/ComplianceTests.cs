@@ -495,7 +495,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             }
         }
 
-        class InterfaceWithProperties : DeputyBase, IIInterfaceWithProperties
+        class InterfaceWithProperties : DeputyBase, IInterfaceWithProperties
         {
             string _x;
 
@@ -630,10 +630,10 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         [Fact(DisplayName = Prefix + nameof(TestInterfaces))]
         public void TestInterfaces()
         {
-            IIFriendly friendly;
-            IIFriendlier friendlier;
-            IIRandomNumberGenerator randomNumberGenerator;
-            IIFriendlyRandomGenerator friendlyRandomGenerator;
+            IFriendly friendly;
+            IFriendlier friendlier;
+            IRandomNumberGenerator randomNumberGenerator;
+            IFriendlyRandomGenerator friendlyRandomGenerator;
 
             Add add = new Add(new Number(10), new Number(20));
             friendly = add;
@@ -700,10 +700,10 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         public void TestLiteralInterface()
         {
             JSObjectLiteralForInterface obj = new JSObjectLiteralForInterface();
-            IIFriendly friendly = obj.GiveMeFriendly();
+            IFriendly friendly = obj.GiveMeFriendly();
             Assert.Equal("I am literally friendly!", friendly.Hello());
 
-            IIFriendlyRandomGenerator gen = obj.GiveMeFriendlyGenerator();
+            IFriendlyRandomGenerator gen = obj.GiveMeFriendlyGenerator();
             Assert.Equal("giveMeFriendlyGenerator", gen.Hello());
             Assert.Equal((double) 42, gen.Next());
         }
@@ -1014,7 +1014,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                 return "OK";
             }
         }
-        class NumberReturner : DeputyBase, IIReturnsNumber
+        class NumberReturner : DeputyBase, IReturnsNumber
         {
             public NumberReturner(double number)
             {
@@ -1025,12 +1025,12 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             public Number NumberProp { get; }
 
             [JsiiMethod(name: "obtainNumber", returnsJson: "{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.IDoublable\"}}", isOverride: true)]
-            public IIDoublable ObtainNumber()
+            public IDoublable ObtainNumber()
             {
                 return new Doublable(this.NumberProp);
             }
 
-            class Doublable : DeputyBase, IIDoublable
+            class Doublable : DeputyBase, IDoublable
             {
                 public Doublable(Number number)
                 {
@@ -1130,7 +1130,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             public string AnotherTheProperty { get; set; }
         }
 
-        class PureNativeFriendlyRandom : DeputyBase, IIFriendlyRandomGenerator
+        class PureNativeFriendlyRandom : DeputyBase, IFriendlyRandomGenerator
         {
             int _nextNumber = 1000;
 
@@ -1149,7 +1149,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             }
         }
 
-        class SubclassNativeFriendlyRandom : Number, IIFriendly, IIRandomNumberGenerator
+        class SubclassNativeFriendlyRandom : Number, IFriendly, IRandomNumberGenerator
         {
             int _nextNumber;
 

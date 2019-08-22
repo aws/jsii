@@ -5,8 +5,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiInterface(nativeType: typeof(IIJsii496), fullyQualifiedName: "jsii-calc.IJsii496")]
-    public interface IIJsii496
+    [JsiiInterface(nativeType: typeof(IJsii487External2), fullyQualifiedName: "jsii-calc.IJsii487External2")]
+    public interface IJsii487External2
     {
     }
 }

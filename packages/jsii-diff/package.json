@@ -33,7 +33,7 @@
         "jsii-spec": "^0.15.1",
         "log4js": "^5.0.0",
         "typescript": "^3.5.3",
-        "yargs": "^13.3.0"
+        "yargs": "^14.0.0"
     },
     "repository": {
         "type": "git",

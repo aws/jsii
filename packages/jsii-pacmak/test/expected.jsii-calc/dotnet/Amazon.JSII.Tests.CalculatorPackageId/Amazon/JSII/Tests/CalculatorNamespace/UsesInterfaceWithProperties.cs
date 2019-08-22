@@ -11,7 +11,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
-        public UsesInterfaceWithProperties(Amazon.JSII.Tests.CalculatorNamespace.IIInterfaceWithProperties obj): base(new DeputyProps(new object[]{obj}))
+        public UsesInterfaceWithProperties(Amazon.JSII.Tests.CalculatorNamespace.IInterfaceWithProperties obj): base(new DeputyProps(new object[]{obj}))
         {
         }
 
@@ -36,7 +36,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "readStringAndNumber", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[{\"name\":\"ext\",\"type\":{\"fqn\":\"jsii-calc.IInterfaceWithPropertiesExtension\"}}]")]
-        public virtual string ReadStringAndNumber(Amazon.JSII.Tests.CalculatorNamespace.IIInterfaceWithPropertiesExtension ext)
+        public virtual string ReadStringAndNumber(Amazon.JSII.Tests.CalculatorNamespace.IInterfaceWithPropertiesExtension ext)
         {
             return InvokeInstanceMethod<string>(new object[]{ext});
         }
@@ -54,9 +54,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "obj", typeJson: "{\"fqn\":\"jsii-calc.IInterfaceWithProperties\"}")]
-        public virtual Amazon.JSII.Tests.CalculatorNamespace.IIInterfaceWithProperties Obj
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.IInterfaceWithProperties Obj
         {
-            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.IIInterfaceWithProperties>();
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.IInterfaceWithProperties>();
         }
     }
 }

@@ -8,9 +8,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     /// far enough up the tree.
     /// stability: Deprecated
     /// </remarks>
-    [JsiiTypeProxy(nativeType: typeof(IIThreeLevelsInterface), fullyQualifiedName: "@scope/jsii-calc-lib.IThreeLevelsInterface")]
+    [JsiiTypeProxy(nativeType: typeof(IThreeLevelsInterface), fullyQualifiedName: "@scope/jsii-calc-lib.IThreeLevelsInterface")]
     [System.Obsolete()]
-    internal sealed class IThreeLevelsInterfaceProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IIThreeLevelsInterface
+    internal sealed class IThreeLevelsInterfaceProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IThreeLevelsInterface
     {
         private IThreeLevelsInterfaceProxy(ByRefValue reference): base(reference)
         {

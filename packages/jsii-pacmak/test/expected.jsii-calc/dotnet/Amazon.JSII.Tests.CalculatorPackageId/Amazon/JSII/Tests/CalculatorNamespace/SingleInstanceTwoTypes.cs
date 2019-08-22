@@ -37,9 +37,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "interface2", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.IPublicInterface\"}}")]
-        public virtual Amazon.JSII.Tests.CalculatorNamespace.IIPublicInterface Interface2()
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.IPublicInterface Interface2()
         {
-            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.IIPublicInterface>(new object[]{});
+            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.IPublicInterface>(new object[]{});
         }
     }
 }
