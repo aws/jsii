@@ -7,20 +7,42 @@
   "scripts": {
     "build": "tsc --build",
     "watch": "tsc --build -w",
-    "test": "nodeunit test/test.*.js",
+    "test": "jest",
     "package": "rm -fr dist/js && mkdir -p dist/js && mv $(npm pack) dist/js"
   },
   "devDependencies": {
     "@types/decamelize": "^1.2.0",
     "@types/fs-extra": "^8.0.0",
-    "@types/nodeunit": "^0.0.30",
-    "nodeunit": "^0.11.3",
+    "@types/jest": "^24.0.18",
+    "jest": "^24.9.0",
     "typescript": "^3.5.3"
   },
   "dependencies": {
     "camelcase": "^5.3.1",
     "decamelize": "^1.2.0",
     "fs-extra": "^8.1.0"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/bin/**/*.js",
+      "**/lib/**/*.js"
+    ],
+    "coverageReporters": [
+      "lcov",
+      "text"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 60,
+        "statements": 85
+      }
+    },
+    "errorOnDeprecated": true,
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/?(*.)+(spec|test).js"
+    ]
   },
   "author": {
     "name": "Amazon Web Services",

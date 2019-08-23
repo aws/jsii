@@ -25,7 +25,7 @@ export class CodeMaker {
      * Formats a block close statement.
      */
     closeBlockFormatter = (_?: string) => '}'
-    
+
     /**
      * Saves all the files created in this code maker.
      * @param rootDir The root directory for all saved files.
@@ -64,6 +64,9 @@ export class CodeMaker {
         if (!this.currentFile) {
             throw new Error(`Cannot close file ${filePath}. It was never opened`);
         }
+        if (this.currentFile.filePath !== filePath) {
+            throw new Error(`Cannot close file ${filePath}. The currently opened file is ${this.currentFile.filePath}`);
+        }
 
         this.files.push(this.currentFile);
         this.currentFile = undefined;
@@ -97,7 +100,7 @@ export class CodeMaker {
     }
 
     /**
-     * Same as `close`. 
+     * Same as `close`.
      */
     unindent(textAfter?: string) {
         this.close(textAfter);
