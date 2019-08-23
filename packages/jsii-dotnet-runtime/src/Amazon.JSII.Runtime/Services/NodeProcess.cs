@@ -80,7 +80,7 @@ namespace Amazon.JSII.Runtime.Services
             return new Tuple<string, string>(
                 frameworkAttribute == null ? "Unknown" : frameworkAttribute.FrameworkName,
                 assemblyFileVersionAttribute == null ? "Unknown" : assemblyFileVersionAttribute.Version
-                );
+            );
         }
     }
 }
