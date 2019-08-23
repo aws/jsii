@@ -8,6 +8,10 @@
 # @See https://help.github.com/articles/about-codeowners/
 
 *                               @aws/aws-cdk-team
-/packages/*-dotnet-*/           @aws/aws-cdk-team @assyadh @costleya
+/packages/*-dotnet-*/           @aws/aws-cdk-team @aws/aws-sdk-dotnet-team
 /packages/*-java-*/             @aws/aws-cdk-team @bmaizels
 /packages/*-python-*/           @aws/aws-cdk-team @garnaat
+
+# Make sure package.json & package-lock.json are not triggering crazy auto-assigns
+*/package.json                  @aws/aws-cdk-team
+*/package-lock.json             @aws/aws-cdk-team
