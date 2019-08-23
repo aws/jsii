@@ -99,10 +99,10 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             AllTypes types = new AllTypes();
             // complex map
             IDictionary<string, object> map = new Dictionary<string, object>();
-            map.Add("Foo", new Dictionary<string, object>() { {"Key", 123}});
+            map.Add("Foo", new Dictionary<string, object>() { {"Key", 123d}});
             types.AnyMapProperty = map;
             var dict = (Dictionary<string, object>)types.AnyMapProperty["Foo"];
-            Assert.Equal(123, dict["Key"]);
+            Assert.Equal(123d, dict["Key"]);
         }
 
         [Fact(DisplayName = Prefix + nameof(DynamicTypes))]
