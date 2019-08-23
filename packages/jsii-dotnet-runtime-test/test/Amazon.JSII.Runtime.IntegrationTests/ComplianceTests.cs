@@ -91,6 +91,19 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             types.MapProperty = map;
             Assert.Equal((double) 123, types.MapProperty["Foo"].Value);
         }
+        
+        [Fact(DisplayName = Prefix + nameof(ComplexCollectionTypes))]
+        public void ComplexCollectionTypes()
+        {
+            // See https://github.com/aws/aws-cdk/issues/2496
+            AllTypes types = new AllTypes();
+            // complex map
+            IDictionary<string, object> map = new Dictionary<string, object>();
+            map.Add("Foo", new Dictionary<string, object>() { {"Key", 123}});
+            types.AnyMapProperty = map;
+            var dict = (Dictionary<string, object>)types.AnyMapProperty["Foo"];
+            Assert.Equal(123, dict["Key"]);
+        }
 
         [Fact(DisplayName = Prefix + nameof(DynamicTypes))]
         public void DynamicTypes()
