@@ -5,8 +5,9 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "tsc --build",
+    "build": "tsc --build && npm run lint",
     "watch": "tsc --build -w",
+    "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
     "test": "jest",
     "package": "rm -fr dist/js && mkdir -p dist/js && mv $(npm pack) dist/js"
   },
@@ -14,6 +15,9 @@
     "@types/decamelize": "^1.2.0",
     "@types/fs-extra": "^8.0.0",
     "@types/jest": "^24.0.18",
+    "@typescript-eslint/eslint-plugin": "^2.0.0",
+    "@typescript-eslint/parser": "^2.0.0",
+    "eslint": "^6.2.1",
     "jest": "^24.9.0",
     "typescript": "^3.5.3"
   },
