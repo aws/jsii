@@ -1,8 +1,8 @@
 FROM amazonlinux:2
 
 # Install .NET Core, mono & PowerShell
-ENV DOTNET_CLI_TELEMETRY_OPTOUT=1                                                                                       \
-    DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
+ENV DOTNET_CLI_TELEMETRY_OPTOUT=true                                                                                    \
+    DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
 COPY gpg/mono.asc /tmp/mono.asc
 RUN rpm --import "https://packages.microsoft.com/keys/microsoft.asc"                                                    \
   && rpm -Uvh "https://packages.microsoft.com/config/rhel/7/packages-microsoft-prod.rpm"                                \
