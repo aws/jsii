@@ -41,4 +41,20 @@ export = {
     `);
     test.done();
   },
+
+  // ----------------------------------------------------------------------
+
+  async 'does not crash when removing enum'(test: Test) {
+    await expectError(test,
+      /ENUM testpkg.Foo: has been removed/,
+      `
+      export enum Foo {
+        BAR,
+        BAZ,
+        QUUX
+      }
+    `, `
+    `);
+    test.done();
+  },
 };
