@@ -17,6 +17,7 @@ pull_request_rules:
         changes_requested: false
     conditions:
       - author!=dependabot[bot]
+      - author!=dependabot-preview[bot]
       - -title~=(WIP|wip)
       - label!=blocked
       - label!=do-not-merge
@@ -42,6 +43,7 @@ pull_request_rules:
         strict_method: merge
     conditions:
       - author!=dependabot[bot]
+      - author!=dependabot-preview[bot]
       - -title~=(WIP|wip)
       - label!=blocked
       - label!=do-not-merge
