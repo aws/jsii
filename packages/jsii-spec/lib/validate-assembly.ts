@@ -1,5 +1,5 @@
 import jsonschema = require('jsonschema');
-import { Assembly } from './spec';
+import { Assembly } from './assembly';
 
 // tslint:disable-next-line:no-var-requires
 export const schema: jsonschema.Schema = require('../schema/jsii-spec.schema.json');
