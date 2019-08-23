@@ -41,11 +41,11 @@ function installDeps(pkg, location, ...depLists) {
         if (!matched) { return; }
         const path = matched[1];
         const modulePath = resolve(location, path);
-        const { requires, dependencies } = installDependency(nodeModules, modulePath, dev);
+        installDependency(nodeModules, modulePath);
         linked.add(name);
         paths.push(path);
         if (locks) {
-          locks.dependencies[name] = { version, dev, requires, dependencies };
+          locks.dependencies[name] = { version, dev };
         }
       });
   }
@@ -82,7 +82,7 @@ function findIndent(path) {
  * @param {string} nodeModules the root of the "installing" node_modules directory
  * @param {string} localPath   the path of the "installed" module
  */
-function installDependency(nodeModules, localPath, dev) {
+function installDependency(nodeModules, localPath) {
   const packageInfo = require(`${localPath}/package.json`);
 
   const linkLocation = join(nodeModules, packageInfo.name);
@@ -112,28 +112,6 @@ function installDependency(nodeModules, localPath, dev) {
       }
       symlinkSync(linkTarget, binLink);
     }
-  }
-
-  const lockFile = pathExistsSync(join(localPath, 'npm-shrinkwrap.json'))
-    ? join(localPath, 'npm-shrinkwrap.json')
-    : join(localPath, 'package-lock.json');
-  const lock = pathExistsSync(lockFile) ? require(lockFile) : {};
-
-  return { requires: packageInfo.dependencies, dependencies: cleanup(lock.dependencies) };
-
-  function cleanup(deps) {
-    if (!deps) { return deps; }
-    for (const [key, value] of Object.entries(deps)) {
-      deps[key] = {
-        version: value.version,
-        resolved: value.resolved,
-        integrity: value.integrity,
-        dev,
-        ...value,
-      };
-      cleanup(deps[key].dependencies)
-    }
-    return deps;
   }
 }
 
