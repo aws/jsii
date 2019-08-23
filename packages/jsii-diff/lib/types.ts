@@ -73,6 +73,7 @@ function identifier(apiElement: ApiElement) {
     init(x) { return `${x.parentType.fqn}.${x.name}`; },
     property(x) { return `${x.parentType.fqn}.${x.name}`; },
     enumMember(x) { return `${x.enumType.fqn}.${x.name}`; },
+    enumType(x) { return `${x.fqn}`; },
     klass(x) { return `${x.fqn}`; },
     iface(x) { return `${x.fqn}`; },
   });
@@ -83,7 +84,8 @@ function describeApiElement(apiElement: ApiElement) {
     method() { return 'METHOD'; },
     init() { return 'INITIALIZER'; },
     property() { return 'PROP'; },
-    enumMember() { return 'ENUM'; },
+    enumMember() { return 'ENUM VALUE'; },
+    enumType() { return 'ENUM'; },
     klass() { return 'CLASS'; },
     iface() { return 'IFACE'; },
   });
@@ -94,6 +96,7 @@ function dispatch<T>(apiElement: ApiElement, fns: {
     init(m: reflect.Initializer): T,
     property(m: reflect.Property): T,
     enumMember(m: reflect.EnumMember): T,
+    enumType(m: reflect.EnumType): T,
     klass(m: reflect.ClassType): T,
     iface(m: reflect.InterfaceType): T,
   }) {
@@ -104,6 +107,7 @@ function dispatch<T>(apiElement: ApiElement, fns: {
   if (apiElement instanceof reflect.ClassType) { return fns.klass(apiElement); }
   if (apiElement instanceof reflect.InterfaceType) { return fns.iface(apiElement); }
   if (apiElement instanceof reflect.Initializer) { return fns.init(apiElement); }
+  if (apiElement instanceof reflect.EnumType) { return fns.enumType(apiElement); }
 
   throw new Error(`Unrecognized violator: ${apiElement}`);
 }
