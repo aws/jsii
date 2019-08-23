@@ -17,7 +17,7 @@ namespace Amazon.JSII.Analyzers
         private const string MessageFormatWithPropertyName = "The property {0} is required and cannot be null";
         private const string Description = "The property is required and cannot be null";
         private const string DescriptionWitPropertyName = "The property {0} is required and cannot be null";
-        private const string Category = "Usage";
+        private const string Category = "Jsii.Usage";
 
         private static readonly DiagnosticDescriptor Rule = 
             new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, Category, DiagnosticSeverity.Error, isEnabledByDefault: true, description: Description);
