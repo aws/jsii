@@ -16,7 +16,7 @@
     "scripts": {
         "build": "cp ../../README.md . && bash ./generate.sh && tsc --build",
         "watch": "bash ./generate.sh && tsc --build -w",
-        "test": "nyc nodeunit test/test.*.js",
+        "test": "jest",
         "package": "package-js"
     },
     "devDependencies": {
@@ -24,14 +24,15 @@
         "@types/colors": "^1.2.1",
         "@types/deep-equal": "^1.0.1",
         "@types/fs-extra": "^8.0.0",
+        "@types/jest": "^24.0.18",
+        "@types/jest-expect-message": "^1.0.0",
         "@types/log4js": "^2.3.5",
-        "@types/nodeunit": "^0.0.30",
         "@types/semver": "^6.0.1",
         "@types/yargs": "^13.0.2",
         "clone": "^2.1.2",
-        "jsii-build-tools": "file:../jsii-build-tools",
-        "nodeunit": "^0.11.3",
-        "nyc": "^14.1.1"
+        "jest": "^24.9.0",
+        "jest-expect-message": "^1.0.2",
+        "jsii-build-tools": "file:../jsii-build-tools"
     },
     "dependencies": {
         "case": "^1.6.2",
@@ -46,10 +47,27 @@
         "typescript": "^3.5.3",
         "yargs": "^14.0.0"
     },
-    "nyc": {
-        "reporter": [
+    "jest": {
+        "collectCoverage": true,
+        "collectCoverageFrom": [
+            "**/bin/**/*.js",
+            "**/lib/**/*.js"
+        ],
+        "coverageReporters": [
             "lcov",
             "text"
+        ],
+        "coverageThreshold": {
+            "global": {
+                "branches": 70,
+                "statements": 75
+            }
+        },
+        "errorOnDeprecated": true,
+        "setupFilesAfterEnv": ["jest-expect-message"],
+        "testEnvironment": "node",
+        "testMatch": [
+            "**/?(*.)+(spec|test).js"
         ]
     },
     "repository": {
