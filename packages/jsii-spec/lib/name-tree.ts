@@ -1,4 +1,4 @@
-import * as spec from './spec';
+import * as spec from './assembly';
 
 /**
  * A tree of all names in a module. A node represent a type (terminal)

@@ -1,10 +1,9 @@
-import * as fs from 'fs-extra'
-import * as path from 'path'
-import { Test } from 'nodeunit'
-import { CodeMaker } from '../lib'
+import * as fs from 'fs-extra';
+import * as path from 'path';
+import { CodeMaker } from '../lib';
 
-export async function testSourceFiles(test: Test) {
-    let sources = new CodeMaker();
+test('source files', async () => {
+    const sources = new CodeMaker();
     sources.openFile('myfile.js');
     sources.line('first line');
     sources.openBlock('open');
@@ -16,7 +15,7 @@ export async function testSourceFiles(test: Test) {
     sources.close(']');
     sources.closeFile('myfile.js');
 
-    let yourfileRelativePath = './relative/subdirs/are/also/supported/yourfile.js';
+    const yourfileRelativePath = './relative/subdirs/are/also/supported/yourfile.js';
     sources.openFile(yourfileRelativePath);
     sources.line('this is your file speaking');
 
@@ -44,46 +43,39 @@ export async function testSourceFiles(test: Test) {
     // later in the day
     sources.exclude('excluded.txt');
 
-    let dirname = await fs.mkdtemp('/tmp/source-files');
-    let files = await sources.save(dirname);
+    const dirname = await fs.mkdtemp('/tmp/source-files');
+    const files = await sources.save(dirname);
 
-    test.equal(2, files.length);
+    expect(files).toHaveLength(2);
 
-    let myfilePath = path.join(dirname, 'myfile.js');
-    let yourfilePath = path.join(dirname, yourfileRelativePath);
+    const myfilePath = path.join(dirname, 'myfile.js');
+    const yourfilePath = path.join(dirname, yourfileRelativePath);
 
-    test.equal(myfilePath, files[0]);
-    test.equal(yourfilePath, files[1]);
+    expect(files[0]).toBe(myfilePath);
+    expect(files[1]).toBe(yourfilePath);
 
-    let myfile = (await fs.readFile(files[0])).toString();
-    let yourfile = (await fs.readFile(files[1])).toString();
+    const myfile = (await fs.readFile(files[0])).toString();
+    const yourfile = (await fs.readFile(files[1])).toString();
 
-    test.equals(expectedMyFile, myfile);
-    test.equals(expectedYourFile, yourfile);
-
-    console.log(myfile);
-    console.log();
-    console.log(yourfile);
-
-    test.done();
-}
+    expect(myfile).toBe(expectedMyFile);
+    expect(yourfile).toBe(expectedYourFile);
+});
 
 /**
  * Should fail if openFile and closeFile have are not matched.
  */
-export function closeFileMismatch(test: Test) {
-    let sources = new CodeMaker();
+test('close file mismatch', () => {
+    const sources = new CodeMaker();
     sources.openFile('A');
-    sources.closeFile('B');
-    test.done();
-}
+    expect(() => sources.closeFile('B')).toThrow(/Cannot close file/);
+});
 
-export async function testCustomMultilineBlocks(test: Test) {
-    let maker = new CodeMaker();
-    
-    maker.openBlock = function(s) {
-      this.line(s);
-      this.open('{');
+test('custom multi-line block', async () => {
+    const maker = new CodeMaker();
+
+    maker.openBlock = s => {
+        maker.line(s);
+        maker.open('{');
     };
 
     maker.openFile('custom-blocks.cpp');
@@ -99,12 +91,9 @@ export async function testCustomMultilineBlocks(test: Test) {
     const files = await maker.save(dirname);
 
     const actual = (await fs.readFile(files[0])).toString();
-    
-    console.log(actual);
-    
-    test.deepEqual(actual, expectedCustomBlocks);
-    test.done();
-}
+
+    expect(actual).toBe(expectedCustomBlocks);
+});
 
 const expectedMyFile = `first line
 open {
@@ -125,7 +114,7 @@ const expectedYourFile = `this is your file speaking
           --- block2 (close) ---)
           block1.line3
 --- block1 (close) ---)
-`
+`;
 
 const expectedCustomBlocks = `Block1()
 {

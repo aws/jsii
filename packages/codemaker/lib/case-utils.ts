@@ -7,26 +7,25 @@ const COMMON_ABBREVIATIONS = [
     'GiB',
 ];
 
-export function toCamelCase(...args: string[]) {
+export function toCamelCase(...args: string[]): string {
     return camelcase(args);
 }
 
-export function toPascalCase(...args: string[]) {
+export function toPascalCase(...args: string[]): string {
     return camelcase(args, { pascalCase: true });
 }
 
-export function toSnakeCase(s: string, sep = '_') {
+const ABBREV_RE = new RegExp('(^|[^A-Z])(' + COMMON_ABBREVIATIONS.map(regexQuote).join('|') + ')($|[^a-z])', 'g');
+export function toSnakeCase(s: string, sep = '_'): string {
     // Save common abbrevations
     s = s.replace(ABBREV_RE, (_, before, abbr, after) => before + ucfirst(abbr.toLowerCase()) + after);
     return decamelize(s, sep);
+
+    function ucfirst(str: string) {
+        return str.substr(0, 1).toUpperCase() + str.substr(1).toLowerCase();
+    }
 }
 
 function regexQuote(s: string) {
     return s.replace(/[.?*+^$[\]\\(){}|-]/g, "\\$&");
-}
-
-const ABBREV_RE = new RegExp('(^|[^A-Z])(' + COMMON_ABBREVIATIONS.map(regexQuote).join('|') + ')($|[^a-z])', 'g');
-
-function ucfirst(s: string) {
-    return s.substr(0, 1).toUpperCase() + s.substr(1).toLowerCase();
 }
