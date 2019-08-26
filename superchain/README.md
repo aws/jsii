@@ -25,6 +25,7 @@ Tool / Utility | Version
 `docker`       | `>= 18.06.1-ce`
 `git`          | `>= 2.17.2`
 `make`         | `>= 3.82`
+`openssl`      | `>= 1.0.2k`
 `rsync`        | `>= 3.1.2-4`
 `zip` & `unzip`| `>= 6.0-19`
 
