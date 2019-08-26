@@ -98,7 +98,7 @@ export class DotNetGenerator extends Generator {
         });
         this.code.closeBlock();
         this.code.closeBlock();
-        this.closeFileIfNeeded("Anchor", false);
+        this.closeFileIfNeeded("Anchor", namespace, false);
     }
 
     /**
@@ -139,7 +139,8 @@ export class DotNetGenerator extends Generator {
     protected onEndInterface(ifc: spec.InterfaceType) {
         const interfaceName = this.nameutils.convertInterfaceName(ifc);
         this.code.closeBlock();
-        this.closeFileIfNeeded(interfaceName, this.isNested(ifc));
+        const namespace = ifc.namespace ? `${this.assembly.targets!.dotnet!.namespace}.${ifc.namespace}` : this.assembly.targets!.dotnet!.namespace;
+        this.closeFileIfNeeded(interfaceName, namespace, this.isNested(ifc));
 
         // emit interface proxy class
         this.emitInterfaceProxy(ifc);
@@ -151,9 +152,9 @@ export class DotNetGenerator extends Generator {
         }
     }
 
-    protected onInterfaceMethod(_ifc: spec.InterfaceType, method: spec.Method) {
+    protected onInterfaceMethod(ifc: spec.InterfaceType, method: spec.Method) {
         this.dotnetDocGenerator.emitDocs(method);
-        this.dotnetRuntimeGenerator.emitAttributesForMethod(_ifc, method);
+        this.dotnetRuntimeGenerator.emitAttributesForMethod(ifc, method);
         const returnType = method.returns ? this.typeresolver.toDotNetType(method.returns.type) : 'void';
         this.code.line(`${returnType} ${this.nameutils.convertMethodName(method.name)}(${this.renderMethodParameters(method)});`);
     }
@@ -162,7 +163,7 @@ export class DotNetGenerator extends Generator {
         this.onInterfaceMethod(ifc, overload);
     }
 
-    protected onInterfaceProperty(_ifc: spec.InterfaceType, prop: spec.Property) {
+    protected onInterfaceProperty(ifc: spec.InterfaceType, prop: spec.Property) {
         if (!prop.abstract) {
             throw new Error(`Interface properties must be abstract: ${prop.name}`);
         }
@@ -172,7 +173,7 @@ export class DotNetGenerator extends Generator {
         }
 
         if (prop.static) {
-            throw new Error(`Property ${_ifc.name}.${prop.name} is marked as static, but interfaces must not contain static members.`);
+            throw new Error(`Property ${ifc.name}.${prop.name} is marked as static, but interfaces must not contain static members.`);
         }
 
         this.emitNewLineIfNecessary();
@@ -270,7 +271,9 @@ export class DotNetGenerator extends Generator {
 
     protected onEndClass(cls: spec.ClassType) {
         this.code.closeBlock();
-        this.closeFileIfNeeded(cls.name, this.isNested(cls));
+        const className = this.nameutils.convertClassName(cls);
+        const namespace = cls.namespace ? `${this.assembly.targets!.dotnet!.namespace}.${cls.namespace}` : this.assembly.targets!.dotnet!.namespace;
+        this.closeFileIfNeeded(className, namespace, this.isNested(cls));
 
         if (cls.abstract) {
             this.emitInterfaceProxy(cls);
@@ -326,15 +329,16 @@ export class DotNetGenerator extends Generator {
     protected onEndEnum(enm: spec.EnumType) {
         this.code.closeBlock();
         const enumName = this.nameutils.convertTypeName(enm.name);
-        this.closeFileIfNeeded(enumName, this.isNested(enm));
+        const namespace = enm.namespace ? `${this.assembly.targets!.dotnet!.namespace}.${enm.namespace}` : this.assembly.targets!.dotnet!.namespace;
+        this.closeFileIfNeeded(enumName, namespace, this.isNested(enm));
     }
 
-    protected onEnumMember(_: spec.EnumType, member: spec.EnumMember) {
+    protected onEnumMember(enm: spec.EnumType, member: spec.EnumMember) {
         this.dotnetDocGenerator.emitDocs(member);
         const enumMemberName = this.nameutils.convertEnumMemberName(member.name);
         this.dotnetRuntimeGenerator.emitAttributesForEnumMember(enumMemberName, member);
         // If we are on the last enum member, we don't need a comma
-        if (_.members.indexOf(member) !== (_.members.length - 1)) {
+        if (enm.members.indexOf(member) !== (enm.members.length - 1)) {
             this.code.line(`${enumMemberName},`);
         } else {
             this.code.line(`${enumMemberName}`);
@@ -521,7 +525,7 @@ export class DotNetGenerator extends Generator {
         this.emitInterfaceMembersForProxyOrDatatype(ifc, datatype, proxy);
 
         this.code.closeBlock();
-        this.closeFileIfNeeded(name, isNested);
+        this.closeFileIfNeeded(name, namespace, isNested);
     }
 
     /**
@@ -545,7 +549,7 @@ export class DotNetGenerator extends Generator {
         const proxy = false;
         this.emitInterfaceMembersForProxyOrDatatype(ifc, datatype, proxy);
         this.code.closeBlock();
-        this.closeFileIfNeeded(name, isNested);
+        this.closeFileIfNeeded(name, namespace, isNested);
     }
 
     /**
@@ -743,12 +747,16 @@ export class DotNetGenerator extends Generator {
         this.code.openBlock(`namespace ${namespace}`);
     }
 
-    private closeFileIfNeeded(typeName: string, isNested: boolean): void {
+    private closeFileIfNeeded(typeName: string, namespace: string, isNested: boolean): void {
         if (isNested) {
             return;
         }
         this.code.closeBlock();
-        this.code.closeFile(this.toCSharpFilePath(typeName));
+
+        const dotnetPackageId = this.assembly.targets && this.assembly.targets.dotnet && this.assembly.targets.dotnet.packageId;
+        if (!dotnetPackageId) { throw new Error(`The module ${this.assembly.name} does not have a dotnet.packageId setting`); }
+        const filePath = namespace.replace(/[.]/g, '/');
+        this.code.closeFile(path.join(dotnetPackageId, filePath, this.toCSharpFilePath(typeName)));
     }
 
     /**

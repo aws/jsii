@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Input
-INPUT_FILE='lib/spec.d.ts'
+INPUT_FILE='lib/assembly.d.ts'
 
 # Output
 OUTPUT_DIR='schema'

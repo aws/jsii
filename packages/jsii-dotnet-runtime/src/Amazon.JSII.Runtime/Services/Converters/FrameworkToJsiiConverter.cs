@@ -263,7 +263,16 @@ namespace Amazon.JSII.Runtime.Services.Converters
             foreach (string key in keys)
             {
                 object element = indexer.GetValue(value, new object[] {key});
-                if (!TryConvert(elementType, referenceMap, element, out object convertedElement))
+
+                TypeReference childElementType = InferType(referenceMap, element);
+
+                // We should not pass the parent element type as we are in a map
+                // A map<string, object> could be a map<string, map<string, object> etc
+                // If we pass the parent referenceMap then it will try to convert it as Any
+                // So by inferring the child element type we are always converting the correct type.
+                // See https://github.com/aws/aws-cdk/issues/2496
+                
+                if (!TryConvert(childElementType, referenceMap, element, out object convertedElement))
                 {
                     result = null;
                     return false;
