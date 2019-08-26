@@ -1,5 +1,4 @@
 import fs = require('fs-extra');
-import nodeunit = require('nodeunit');
 import path = require('path');
 import ts = require('typescript');
 import { Compiler } from '../lib/compiler';
@@ -7,24 +6,24 @@ import { ProjectInfo } from '../lib/project-info';
 
 const SOURCE_DIR = path.join(__dirname, 'negatives');
 
-const testCases: { [name: string]: (test: nodeunit.Test) => void } = {};
-
 for (const source of fs.readdirSync(SOURCE_DIR)) {
     if (!source.startsWith('neg.') || !source.endsWith('.ts') || source.endsWith('.d.ts')) { continue; }
     const filePath = path.join(SOURCE_DIR, source);
-    testCases[source.replace(/neg\.(.+)\.ts/, '$1')] = async (test: nodeunit.Test) => {
+    test(source.replace(/neg\.(.+)\.ts/, '$1'), async () => {
         const [expectations, strict] = await _getExpectedErrorMessage(filePath);
-        test.ok(expectations.length > 0, `Expected error messages should be specified using ${MATCH_ERROR_MARKER}`);
+        expect(expectations.length, `Expected error messages should be specified using ${MATCH_ERROR_MARKER}`)
+            .toBeGreaterThan(0);
         const compiler = new Compiler({ projectInfo: _makeProjectInfo(source), watch: false, failOnWarnings: strict });
         const emitResult = await compiler.emit(path.join(SOURCE_DIR, source));
-        test.equal(emitResult.emitSkipped, true, `hasErrors should be true`);
+        expect(emitResult.emitSkipped).toBeTruthy();
         const errors = emitResult.diagnostics.filter(diag =>
             diag.category === ts.DiagnosticCategory.Error
             || (strict && diag.category === ts.DiagnosticCategory.Warning));
         for (const expectation of expectations) {
-            test.notEqual(errors.find(e => _messageText(e).indexOf(expectation) !== -1),
-                          null,
-                          `No error contained: ${expectation}. Errors: \n${errors.map((e, i) => `[${i}] ${e.messageText}`).join('\n')}`);
+            expect(
+                errors.find(e => _messageText(e).indexOf(expectation) !== -1),
+                `No error contained: ${expectation}. Errors: \n${errors.map((e, i) => `[${i}] ${e.messageText}`).join('\n')}`
+            ).not.toBe(null);
         }
 
         // Cleaning up...
@@ -35,12 +34,8 @@ for (const source of fs.readdirSync(SOURCE_DIR)) {
             await fs.remove(path.join(SOURCE_DIR, '.jsii'));
             await fs.remove(path.join(SOURCE_DIR, 'tsconfig.json'));
         }
-
-        test.done();
-    };
+    });
 }
-
-export = nodeunit.testCase({ 'jsii rejections': testCases });
 
 const MATCH_ERROR_MARKER = '///!MATCH_ERROR:';
 const STRICT_MARKER = '///!STRICT!';
