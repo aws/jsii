@@ -78,8 +78,8 @@ namespace Amazon.JSII.Runtime.Services
             var assemblyFileVersionAttribute = assembly.GetCustomAttribute(typeof(AssemblyFileVersionAttribute)) as AssemblyFileVersionAttribute;
             var frameworkAttribute = assembly.GetCustomAttribute(typeof(TargetFrameworkAttribute)) as TargetFrameworkAttribute;
             return new Tuple<string, string>(
-                frameworkAttribute == null ? "Unknown" : frameworkAttribute.FrameworkName,
-                assemblyFileVersionAttribute == null ? "Unknown" : assemblyFileVersionAttribute.Version
+                frameworkAttribute?.FrameworkName ?? "Unknown",
+                assemblyFileVersionAttribute?.Version ?? "Unknown"
             );
         }
     }
