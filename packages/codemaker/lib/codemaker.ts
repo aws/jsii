@@ -1,39 +1,39 @@
-import * as util from 'util'
-import FileBuffer from './filebuff'
-import * as caseutils from './case-utils'
+import * as util from 'util';
+import * as caseutils from './case-utils';
+import FileBuffer from './filebuff';
 
 /**
  * Multi-file text writer with some code-generation features.
  */
 export class CodeMaker {
-    private currIndent = 0
-    private currentFile?: FileBuffer
+    /**
+     * The indentation level of the file.
+     */
+    public indentation = 4;
+
+    private currIndent = 0;
+    private currentFile?: FileBuffer;
     private files = new Array<FileBuffer>();
     private readonly excludes = new Array<string>();
 
     /**
-     * The indentation level of the file.
-     */
-    indentation = 4
-
-    /**
      * Formats an block open statement.
      */
-    openBlockFormatter = (s?: string) => s + ' {'
+    public openBlockFormatter: (s?: string) => string = s => s + ' {';
 
     /**
      * Formats a block close statement.
      */
-    closeBlockFormatter = (_?: string) => '}'
-    
+    public closeBlockFormatter: (s?: string) => string = () => '}';
+
     /**
      * Saves all the files created in this code maker.
      * @param rootDir The root directory for all saved files.
      * @returns A sorted list of all the files saved (absolute paths).
      */
-    async save(rootDir: string) {
-        let paths = new Array<string>();
-        for (let file of this.files) {
+    public async save(rootDir: string) {
+        const paths = new Array<string>();
+        for (const file of this.files) {
             if (this.excludes.includes(file.filePath)) {
                 continue;
             }
@@ -48,7 +48,7 @@ export class CodeMaker {
      * Use `closeFile` to close this file.
      * @param filePath The relative path of the new file.
      */
-    openFile(filePath: string) {
+    public openFile(filePath: string) {
         if (this.currentFile) {
             throw new Error(`Cannot open file ${filePath} without closing the previous file ${this.currentFile.filePath}`);
         }
@@ -60,9 +60,12 @@ export class CodeMaker {
      * Indicates that we finished generating the current file.
      * @param filePath The relative file path (must be the same as one passed to openFile)
      */
-    closeFile(filePath: string) {
+    public closeFile(filePath: string) {
         if (!this.currentFile) {
             throw new Error(`Cannot close file ${filePath}. It was never opened`);
+        }
+        if (this.currentFile.filePath !== filePath) {
+            throw new Error(`Cannot close file ${filePath}. The currently opened file is ${this.currentFile.filePath}`);
         }
 
         this.files.push(this.currentFile);
@@ -76,7 +79,7 @@ export class CodeMaker {
      * @param fmt String format arguments (passed to `util.format`)
      * @param args String arguments
      */
-    line(fmt?: string, ...args: string[]) {
+    public line(fmt?: string, ...args: string[]) {
         if (!this.currentFile) {
             throw new Error('Cannot emit source lines without openning a file');
         }
@@ -92,14 +95,14 @@ export class CodeMaker {
     /**
      * Same as `open`.
      */
-    indent(textBefore?: string) {
+    public indent(textBefore?: string) {
         this.open(textBefore);
     }
 
     /**
-     * Same as `close`. 
+     * Same as `close`.
      */
-    unindent(textAfter?: string) {
+    public unindent(textAfter?: string) {
         this.close(textAfter);
     }
 
@@ -107,7 +110,7 @@ export class CodeMaker {
      * Increases the indentation level by `indentation` spaces for the next line.
      * @param textBefore Text to emit before the newline (i.e. block open).
      */
-    open(textBefore?: string) {
+    public open(textBefore?: string) {
         this.line(textBefore);
         this.currIndent++;
     }
@@ -116,7 +119,7 @@ export class CodeMaker {
      * Decreases the indentation level by `indentation` for the next line.
      * @param textAfter Text to emit in the line after indentation was decreased.
      */
-    close(textAfter?: string) {
+    public close(textAfter?: string) {
         this.currIndent--;
         this.line(textAfter);
     }
@@ -125,7 +128,7 @@ export class CodeMaker {
      * Opens a code block. The formatting of the block is determined by `openBlockFormatter`.
      * @param text The text to pass to the formatter.
      */
-    openBlock(text: string) {
+    public openBlock(text: string) {
         this.open(this.openBlockFormatter(text));
     }
 
@@ -133,7 +136,7 @@ export class CodeMaker {
      * Closes a code block. The formatting of the block is determined by `closeBlockFormatter`.
      * @param text The text to pass to the formatter.
      */
-    closeBlock(text?: string) {
+    public closeBlock(text?: string) {
         this.close(this.closeBlockFormatter(text));
     }
 
@@ -141,21 +144,21 @@ export class CodeMaker {
      * Adds a file to the exclude list. This means this file will not be saved during save().
      * @param filePath The relative path of the file.
      */
-    exclude(filePath: string) {
+    public exclude(filePath: string) {
         this.excludes.push(filePath);
     }
 
     /**
      * convertsStringToCamelCase
      */
-    toCamelCase(...args: string[]) {
+    public toCamelCase(...args: string[]) {
         return caseutils.toCamelCase(...args);
     }
 
     /**
      * ConvertsStringToPascalCase
      */
-    toPascalCase(...args: string[]) {
+    public toPascalCase(...args: string[]) {
         return caseutils.toPascalCase(...args);
     }
 
@@ -163,12 +166,12 @@ export class CodeMaker {
      * convert_string_to_snake_case
      * @param sep Separator (defaults to '_')
      */
-    toSnakeCase(s: string, sep = '_') {
+    public toSnakeCase(s: string, sep = '_') {
         return caseutils.toSnakeCase(s, sep);
     }
 
     private makeIndent() {
-        let spaces = ''
+        let spaces = '';
         for (let i = 0; i < this.currIndent; ++i) {
             for (let j = 0; j < this.indentation; ++j) {
                 spaces += ' ';
