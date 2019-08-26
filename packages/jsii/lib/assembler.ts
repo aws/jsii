@@ -1018,7 +1018,7 @@ export class Assembler implements Emitter {
   private _warnAboutReservedWords(symbol: ts.Symbol) {
     const reservingLanguages = isReservedName(symbol.name);
     if (reservingLanguages) {
-      this._diagnostic(symbol.valueDeclaration,
+      this._diagnostic(ts.getNameOfDeclaration(symbol.valueDeclaration) || symbol.valueDeclaration,
         ts.DiagnosticCategory.Warning,
         `'${symbol.name}' is a reserved word in ${reservingLanguages.join(', ')}. Using this name may cause problems `
         + 'when generating language bindings. Consider using a different name.');
