@@ -134,6 +134,30 @@ describe('loadProjectInfo', () => {
             info.peerDependencies[TEST_DEP_ASSEMBLY.name] = '^42.1337.0';
         })
     );
+
+    test('loads with a different, but intersecting, peerDependency version (when not auto-fixing)', () => _withTestProject(async projectRoot => {
+            await loadProjectInfo(projectRoot, { fixPeerDependencies: false });
+
+            const info = require(path.join(projectRoot, 'package.json'));
+            expect(info.dependencies[TEST_DEP_ASSEMBLY.name]).toBe("1.2.4");
+            expect(info.peerDependencies[TEST_DEP_ASSEMBLY.name]).toBe("^1.2.4");
+        }, info => {
+            info.dependencies[TEST_DEP_ASSEMBLY.name] = '1.2.4';
+            info.peerDependencies[TEST_DEP_ASSEMBLY.name] = '^1.2.4';
+        })
+    );
+
+    test('loads with a different, but intersecting, dependency version (when not auto-fixing)', () => _withTestProject(async projectRoot => {
+            await loadProjectInfo(projectRoot, { fixPeerDependencies: false });
+
+            const info = require(path.join(projectRoot, 'package.json'));
+            expect(info.dependencies[TEST_DEP_ASSEMBLY.name]).toBe("^1.2.4");
+            expect(info.peerDependencies[TEST_DEP_ASSEMBLY.name]).toBe("1.2.4");
+        }, info => {
+            info.dependencies[TEST_DEP_ASSEMBLY.name] = '^1.2.4';
+            info.peerDependencies[TEST_DEP_ASSEMBLY.name] = '1.2.4';
+        })
+    );
 });
 
 const TEST_DEP_ASSEMBLY: spec.Assembly = {

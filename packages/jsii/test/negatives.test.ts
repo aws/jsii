@@ -6,6 +6,9 @@ import { ProjectInfo } from '../lib/project-info';
 
 const SOURCE_DIR = path.join(__dirname, 'negatives');
 
+// invoking the compiler often doesn't complete in Jest's default 5 second timeout
+jest.setTimeout(60_000);
+
 for (const source of fs.readdirSync(SOURCE_DIR)) {
     if (!source.startsWith('neg.') || !source.endsWith('.ts') || source.endsWith('.d.ts')) { continue; }
     const filePath = path.join(SOURCE_DIR, source);

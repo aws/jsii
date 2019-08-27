@@ -77,7 +77,8 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
         version = _resolveVersion(version as any, projectRoot).version;
         pkg.peerDependencies = pkg.peerDependencies || {};
         const peerVersion = _resolveVersion(pkg.peerDependencies[name], projectRoot).version;
-        if (peerVersion === version) {
+        if ((!peerVersion && !version) || (peerVersion && version &&
+                new semver.Range(peerVersion).intersects(new semver.Range(version as string)))) {
             return;
         }
         if (!fixPeerDependencies) {
