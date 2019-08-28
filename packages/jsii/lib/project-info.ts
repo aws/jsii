@@ -270,7 +270,7 @@ function _validateStability(stability: string | undefined, deprecated: string | 
     if (!stability) {
         return undefined;
     }
-    if (Object.values(spec.Stability).indexOf(stability) === -1) {
+    if (Object.values(spec.Stability).indexOf(stability as any) === -1) {
         throw new Error(`Invalid stability "${stability}", it must be one of ${Object.values(spec.Stability).join(', ')}`);
     }
     return stability as spec.Stability;
