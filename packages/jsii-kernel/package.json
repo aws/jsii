@@ -1,6 +1,6 @@
 {
   "name": "jsii-kernel",
-  "version": "0.15.1",
+  "version": "0.15.2",
   "description": "kernel for jsii execution environment",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -26,7 +26,7 @@
     "typescript": "~3.5.3"
   },
   "dependencies": {
-    "jsii-spec": "^0.15.1",
+    "jsii-spec": "^0.15.2",
     "source-map": "^0.7.3",
     "tar": "^4.4.10"
   },

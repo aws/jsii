@@ -30,7 +30,7 @@
         },
         "sphinx": {}
       },
-      "version": "0.15.1"
+      "version": "0.15.2"
     }
   },
   "dependencyClosure": {
@@ -56,7 +56,7 @@
         },
         "sphinx": {}
       },
-      "version": "0.15.1"
+      "version": "0.15.2"
     },
     "@scope/jsii-calc-base-of-base": {
       "targets": {
@@ -80,7 +80,7 @@
         },
         "sphinx": {}
       },
-      "version": "0.15.1"
+      "version": "0.15.2"
     }
   },
   "description": "A simple calcuator library built on JSII.",
@@ -89,7 +89,7 @@
     "stability": "deprecated"
   },
   "homepage": "https://github.com/aws/jsii.git",
-  "jsiiVersion": "0.15.1",
+  "jsiiVersion": "0.15.2",
   "license": "Apache-2.0",
   "name": "@scope/jsii-calc-lib",
   "repository": {
@@ -541,6 +541,6 @@
       ]
     }
   },
-  "version": "0.15.1",
-  "fingerprint": "GNSoFwr5FJbNUfdxfSvjphy85MuYd+zeyEAF2oG+ADo="
+  "version": "0.15.2",
+  "fingerprint": "gJVBanQ2dGHpEbDYxlfdjQFiYH5BamiwknOU2VQ8BUY="
 }
