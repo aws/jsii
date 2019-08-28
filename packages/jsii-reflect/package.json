@@ -30,7 +30,7 @@
     "jsii-build-tools": "file:../jsii-build-tools",
     "jsii-calc": "file:../jsii-calc",
     "ts-jest": "^24.0.2",
-    "typescript": "^3.5.3"
+    "typescript": "~3.5.3"
   },
   "jest": {
     "preset": "ts-jest",
