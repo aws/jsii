@@ -16,7 +16,7 @@ const COMPILER_OPTIONS: ts.CompilerOptions = {
     experimentalDecorators: true,
     inlineSourceMap: true,
     inlineSources: true,
-    lib: ['lib.es2016.d.ts', 'lib.es2017.object.d.ts', 'lib.es2017.string.d.ts'],
+    lib: ['lib.es2016.d.ts'],
     module: ts.ModuleKind.CommonJS,
     noEmitOnError: true,
     noFallthroughCasesInSwitch: true,
