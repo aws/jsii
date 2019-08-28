@@ -14,7 +14,7 @@
   "devDependencies": {
     "jsii-build-tools": "file:../jsii-build-tools",
     "jsii-runtime": "^0.15.1",
-    "typescript": "^3.5.3"
+    "typescript": "^3.6.2"
   },
   "dependencies": {
     "jsii-dotnet-jsonmodel": "file:../jsii-dotnet-jsonmodel"

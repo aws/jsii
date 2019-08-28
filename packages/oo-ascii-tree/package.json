@@ -15,7 +15,7 @@
     "jest": "^24.9.0",
     "jsii-build-tools": "file:../jsii-build-tools",
     "ts-jest": "^24.0.2",
-    "typescript": "^3.5.3"
+    "typescript": "^3.6.2"
   },
   "author": {
     "name": "Amazon Web Services",

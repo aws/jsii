@@ -19,7 +19,7 @@
     "@typescript-eslint/parser": "^2.0.0",
     "eslint": "^6.2.1",
     "jest": "^24.9.0",
-    "typescript": "^3.5.3"
+    "typescript": "^3.6.2"
   },
   "dependencies": {
     "camelcase": "^5.3.1",
