@@ -1,6 +1,6 @@
 {
   "name": "jsii-java-runtime",
-  "version": "0.15.1",
+  "version": "0.15.2",
   "description": "Java client for jsii runtime",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "jsii-build-tools": "file:../jsii-build-tools",
-    "jsii-runtime": "^0.15.1",
+    "jsii-runtime": "^0.15.2",
     "typescript": "~3.5.3"
   },
   "author": {

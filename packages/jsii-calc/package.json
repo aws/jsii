@@ -1,6 +1,6 @@
 {
   "name": "jsii-calc",
-  "version": "0.15.1",
+  "version": "0.15.2",
   "description": "A simple calcuator built on JSII.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -56,7 +56,7 @@
     "@scope/jsii-calc-lib": "file:../jsii-calc-lib"
   },
   "devDependencies": {
-    "jsii": "^0.15.1",
+    "jsii": "^0.15.2",
     "jsii-build-tools": "file:../jsii-build-tools"
   },
   "author": {
