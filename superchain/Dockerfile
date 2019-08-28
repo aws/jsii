@@ -35,7 +35,7 @@ RUN amazon-linux-extras install docker                                          
 VOLUME /var/lib/docker
 
 # Install shared dependencies
-RUN yum -y install awscli git gzip openssl rsync tar unzip zip                                                          \
+RUN yum -y install awscli git gzip openssl rsync tar unzip which zip                                                    \
   && yum clean all && rm -rf /var/cache/yum
 
 # Install NVM and Node 8+
