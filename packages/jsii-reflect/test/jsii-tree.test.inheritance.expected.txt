@@ -41,6 +41,7 @@ assemblies
  │   ├── class DontComplainAboutVariadicAfterOptional
  │   ├─┬ class DoubleTrouble
  │   │ └── interfaces: IFriendlyRandomGenerator
+ │   ├── class EnumDispenser
  │   ├── class EraseUndefinedHashValues
  │   ├── class ExperimentalClass
  │   ├── class ExportedBaseClass

@@ -186,6 +186,10 @@ assemblies
  │   │   ├── <initializer>() initializer
  │   │   ├── hello() method
  │   │   └── next() method
+ │   ├─┬ class EnumDispenser
+ │   │ └─┬ members
+ │   │   ├── static randomIntegerLikeEnum() method
+ │   │   └── static randomStringLikeEnum() method
  │   ├─┬ class EraseUndefinedHashValues
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer

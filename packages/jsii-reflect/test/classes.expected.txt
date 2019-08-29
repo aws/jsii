@@ -29,6 +29,7 @@ DoNotRecognizeAnyAsOptional
 DocumentedClass
 DontComplainAboutVariadicAfterOptional
 DoubleTrouble
+EnumDispenser
 EraseUndefinedHashValues
 ExperimentalClass
 ExportedBaseClass

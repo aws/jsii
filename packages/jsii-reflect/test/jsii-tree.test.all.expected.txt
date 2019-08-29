@@ -441,6 +441,14 @@ assemblies
  │   │   │ └── returns: string
  │   │   └─┬ next() method (experimental)
  │   │     └── returns: number
+ │   ├─┬ class EnumDispenser (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ static randomIntegerLikeEnum() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: jsii-calc.AllTypesEnum
+ │   │   └─┬ static randomStringLikeEnum() method (experimental)
+ │   │     ├── static
+ │   │     └── returns: jsii-calc.StringEnum
  │   ├─┬ class EraseUndefinedHashValues (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)

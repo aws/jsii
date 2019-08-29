@@ -27,9 +27,23 @@ export enum AllTypesEnum {
 }
 
 export enum StringEnum {
-    A = 'A',
-    B = 'B',
-    C = 'C'
+    A = 'A!',
+    B = 'B?',
+    C = 'C.'
+}
+
+export class EnumDispenser {
+    public static randomStringLikeEnum(): StringEnum {
+        // Haha! I lied, it's not random!! *EVIL LAUGHTER*
+        return StringEnum.B;
+    }
+
+    public static randomIntegerLikeEnum(): AllTypesEnum {
+        // Haha! I lied, it's not random!! *EVIL LAUGHTER*
+        return AllTypesEnum.YOUR_ENUM_VALUE;
+    }
+
+    private constructor() { }
 }
 
 /**

@@ -20,6 +20,7 @@ import software.amazon.jsii.tests.calculator.DerivedStruct;
 import software.amazon.jsii.tests.calculator.DiamondInheritanceTopLevelStruct;
 import software.amazon.jsii.tests.calculator.DoNotOverridePrivates;
 import software.amazon.jsii.tests.calculator.DoubleTrouble;
+import software.amazon.jsii.tests.calculator.EnumDispenser;
 import software.amazon.jsii.tests.calculator.EraseUndefinedHashValues;
 import software.amazon.jsii.tests.calculator.EraseUndefinedHashValuesOptions;
 import software.amazon.jsii.tests.calculator.GiveMeStructs;
@@ -214,8 +215,6 @@ public class ComplianceTest {
         types.setUnionArrayProperty(Arrays.asList(123, new Number(33)));
         assertEquals(33, ((Number)((List<?>)types.getUnionArrayProperty()).get(1)).getValue());
     }
-
-
 
     @Test
     public void createObjectAndCtorOverloads() {
@@ -1261,6 +1260,12 @@ public class ComplianceTest {
             }
         };
         assertEquals("{\n  \"anumber\": 42,\n  \"astring\": \"bazinga!\"\n}", renderer.render());
+    }
+
+    @Test
+    public void canLoadEnumValues() {
+        assertNotNull(EnumDispenser.randomStringLikeEnum());
+        assertNotNull(EnumDispenser.randomIntegerLikeEnum());
     }
 
     static class PartiallyInitializedThisConsumerImpl extends PartiallyInitializedThisConsumer {

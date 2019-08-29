@@ -1197,6 +1197,14 @@ defineTest('deserialize a struct by reference', async (test, sandbox) => {
     test.deepEqual(value, { value: 'xoxoxox' });
 });
 
+defineTest('correctly passes enum values across', async (test, sandbox) => {
+    const stringLike = sandbox.sinvoke({ fqn: 'jsii-calc.EnumDispenser', method: 'randomStringLikeEnum' });
+    test.deepEqual(stringLike.result, { '$jsii.enum': 'jsii-calc.StringEnum/B' });
+
+    const integerLike = sandbox.sinvoke({ fqn: 'jsii-calc.EnumDispenser', method: 'randomIntegerLikeEnum' });
+    test.deepEqual(integerLike.result, { '$jsii.enum': 'jsii-calc.AllTypesEnum/YOUR_ENUM_VALUE' });
+});
+
 // =================================================================================================
 
 const testNames: { [name: string]: boolean } = { };
