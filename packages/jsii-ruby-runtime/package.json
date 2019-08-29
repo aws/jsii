@@ -1,6 +1,6 @@
 {
   "name": "jsii-ruby-runtime",
-  "version": "0.15.1",
+  "version": "0.16.0",
   "description": "Ruby client for jsii runtime",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -16,8 +16,8 @@
   "devDependencies": {
     "jsii-build-tools": "file:../jsii-build-tools",
     "jsii-calc": "file:../jsii-calc",
-    "jsii-pacmak": "^0.15.1",
-    "jsii-runtime": "^0.15.1",
+    "jsii-pacmak": "^0.16.0",
+    "jsii-runtime": "^0.16.0",
     "typescript": "~3.6.2"
   },
   "author": {
