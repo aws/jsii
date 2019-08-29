@@ -56,6 +56,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.DocumentedClass": return software.amazon.jsii.tests.calculator.DocumentedClass.class;
             case "jsii-calc.DontComplainAboutVariadicAfterOptional": return software.amazon.jsii.tests.calculator.DontComplainAboutVariadicAfterOptional.class;
             case "jsii-calc.DoubleTrouble": return software.amazon.jsii.tests.calculator.DoubleTrouble.class;
+            case "jsii-calc.EnumDispenser": return software.amazon.jsii.tests.calculator.EnumDispenser.class;
             case "jsii-calc.EraseUndefinedHashValues": return software.amazon.jsii.tests.calculator.EraseUndefinedHashValues.class;
             case "jsii-calc.EraseUndefinedHashValuesOptions": return software.amazon.jsii.tests.calculator.EraseUndefinedHashValuesOptions.class;
             case "jsii-calc.ExperimentalClass": return software.amazon.jsii.tests.calculator.ExperimentalClass.class;

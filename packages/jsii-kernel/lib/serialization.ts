@@ -189,7 +189,12 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       host.debug('Serializing enum');
 
       const enumType = optionalValue.type as spec.NamedTypeReference;
-      return { [TOKEN_ENUM]: `${enumType.fqn}/${host.findSymbol(enumType.fqn)[value]}` };
+      const enumMap = host.findSymbol(enumType.fqn);
+      const enumEntry = Object.entries(enumMap).find(([, v]) => v === value);
+      if (!enumEntry) {
+        throw new Error(`No entry in ${enumType.fqn} has value ${value}`);
+      }
+      return { [TOKEN_ENUM]: `${enumType.fqn}/${enumEntry[0]}` };
     },
     deserialize(value, optionalValue, host) {
       if (nullAndOk(value, optionalValue)) { return undefined; }

@@ -2291,6 +2291,44 @@ DoubleTrouble
       :rtype: number
 
 
+EnumDispenser
+^^^^^^^^^^^^^
+
+.. py:class:: EnumDispenser
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.EnumDispenser;
+
+      .. code-tab:: javascript
+
+         const { EnumDispenser } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { EnumDispenser } from 'jsii-calc';
+
+
+
+
+   .. py:staticmethod:: randomIntegerLikeEnum() -> jsii-calc.AllTypesEnum
+
+      :rtype: :py:class:`~jsii-calc.AllTypesEnum`\ 
+
+
+   .. py:staticmethod:: randomStringLikeEnum() -> jsii-calc.StringEnum
+
+      :rtype: :py:class:`~jsii-calc.StringEnum`\ 
+
+
 EraseUndefinedHashValues
 ^^^^^^^^^^^^^^^^^^^^^^^^
 

@@ -30,6 +30,7 @@ assemblies
  │   ├── class DocumentedClass
  │   ├── class DontComplainAboutVariadicAfterOptional
  │   ├── class DoubleTrouble
+ │   ├── class EnumDispenser
  │   ├── class EraseUndefinedHashValues
  │   ├── class ExperimentalClass
  │   ├── class ExportedBaseClass
