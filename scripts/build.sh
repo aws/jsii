@@ -9,7 +9,7 @@ export PATH=./node_modules/.bin:$PATH
 
 echo "============================================================================================="
 echo "building..."
-lerna run build --stream --sort
+lerna run build --stream --sort --concurrency=1
 
 echo "============================================================================================="
 echo "testing..."
