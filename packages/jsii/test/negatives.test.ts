@@ -53,7 +53,7 @@ function _messageText(diagnostic: ts.Diagnostic | ts.DiagnosticMessageChain): st
         return diagnostic.messageText;
     }
     if (diagnostic.messageText.next) {
-        return diagnostic.messageText.messageText + '|' + _messageText(diagnostic.messageText.next);
+        return diagnostic.messageText.messageText + '|' + _messageText(diagnostic.messageText.next[0]);
     }
     return diagnostic.messageText.messageText;
 }
