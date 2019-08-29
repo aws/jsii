@@ -44,6 +44,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
+        [JsiiOptional]
         [JsiiProperty(name: "arg2", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         public virtual string Arg2
         {

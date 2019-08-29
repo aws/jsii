@@ -232,6 +232,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
+        [JsiiOptional]
         [JsiiProperty(name: "optionalEnumValue", typeJson: "{\"fqn\":\"jsii-calc.StringEnum\"}", isOptional: true)]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.StringEnum? OptionalEnumValue
         {

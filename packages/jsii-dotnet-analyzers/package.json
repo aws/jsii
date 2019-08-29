@@ -1,0 +1,32 @@
+{
+  "name": "jsii-dotnet-analyzers",
+  "version": "0.15.0",
+  "description": ".NET Roslyn Analyzers for Jsii",
+  "main": "lib/index.js",
+  "private": true,
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "gen": "/bin/bash ./generate.sh",
+    "build": "npm run gen && tsc --build && /bin/bash ./build.sh",
+    "test": "/bin/bash ./test.sh",
+    "package": "package-dotnet"
+  },
+  "devDependencies": {
+    "jsii-build-tools": "file:../jsii-build-tools"
+  },
+  "dependencies": {
+    "jsii-dotnet-runtime": "file:../jsii-dotnet-runtime"
+  },
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com",
+    "email": "aws-jsii@amazon.com"
+  },
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws/jsii.git",
+    "directory": "packages/jsii-dotnet-analyzers"
+  },
+  "homepage": "https://github.com/aws/jsii"
+}

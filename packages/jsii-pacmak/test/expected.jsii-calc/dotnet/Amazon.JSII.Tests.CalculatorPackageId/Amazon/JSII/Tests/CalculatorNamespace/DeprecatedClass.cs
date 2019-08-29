@@ -50,6 +50,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// stability: Deprecated
         /// </remarks>
+        [JsiiOptional]
         [JsiiProperty(name: "mutableProperty", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
         [System.Obsolete("shouldn't have been mutable")]
         public virtual double? MutableProperty

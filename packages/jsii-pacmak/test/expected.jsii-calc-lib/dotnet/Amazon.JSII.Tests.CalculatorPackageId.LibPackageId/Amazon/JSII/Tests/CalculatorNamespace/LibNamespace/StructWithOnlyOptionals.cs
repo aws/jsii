@@ -13,6 +13,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         /// <remarks>
         /// stability: Deprecated
         /// </remarks>
+        [JsiiOptional]
         [JsiiProperty(name: "optional1", typeJson: "{\"primitive\":\"string\"}", isOptional: true, isOverride: true)]
         [System.Obsolete()]
         public string Optional1
@@ -24,6 +25,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         /// <remarks>
         /// stability: Deprecated
         /// </remarks>
+        [JsiiOptional]
         [JsiiProperty(name: "optional2", typeJson: "{\"primitive\":\"number\"}", isOptional: true, isOverride: true)]
         [System.Obsolete()]
         public double? Optional2
@@ -35,6 +37,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         /// <remarks>
         /// stability: Deprecated
         /// </remarks>
+        [JsiiOptional]
         [JsiiProperty(name: "optional3", typeJson: "{\"primitive\":\"boolean\"}", isOptional: true, isOverride: true)]
         [System.Obsolete()]
         public bool? Optional3
