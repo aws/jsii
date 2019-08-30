@@ -16,6 +16,7 @@ public class DeprecatedClass extends software.amazon.jsii.JsiiObject {
     protected DeprecatedClass(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     /**
      * @deprecated this constructor is "just" okay
      */
@@ -25,6 +26,7 @@ public class DeprecatedClass extends software.amazon.jsii.JsiiObject {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(readonlyString, "readonlyString is required"), mutableNumber }));
     }
+
     /**
      * @deprecated this constructor is "just" okay
      */

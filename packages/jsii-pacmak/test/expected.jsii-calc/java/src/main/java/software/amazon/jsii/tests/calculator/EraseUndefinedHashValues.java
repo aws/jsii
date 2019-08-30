@@ -15,6 +15,7 @@ public class EraseUndefinedHashValues extends software.amazon.jsii.JsiiObject {
     protected EraseUndefinedHashValues(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public EraseUndefinedHashValues() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));

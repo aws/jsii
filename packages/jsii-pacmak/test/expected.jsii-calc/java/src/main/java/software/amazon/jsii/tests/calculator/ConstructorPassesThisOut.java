@@ -15,6 +15,7 @@ public class ConstructorPassesThisOut extends software.amazon.jsii.JsiiObject {
     protected ConstructorPassesThisOut(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     /**
      * EXPERIMENTAL
      */

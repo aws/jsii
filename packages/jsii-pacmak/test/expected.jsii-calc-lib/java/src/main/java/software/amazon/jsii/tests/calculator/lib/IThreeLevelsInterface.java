@@ -10,12 +10,12 @@ package software.amazon.jsii.tests.calculator.lib;
 @Deprecated
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
 public interface IThreeLevelsInterface extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.base.IBaseInterface {
+
     /**
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     void baz();
-
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.

@@ -15,6 +15,7 @@ public class SyncVirtualMethods extends software.amazon.jsii.JsiiObject {
     protected SyncVirtualMethods(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public SyncVirtualMethods() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));

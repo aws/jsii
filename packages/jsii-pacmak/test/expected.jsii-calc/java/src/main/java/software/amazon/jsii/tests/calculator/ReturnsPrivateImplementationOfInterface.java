@@ -20,6 +20,7 @@ public class ReturnsPrivateImplementationOfInterface extends software.amazon.jsi
     protected ReturnsPrivateImplementationOfInterface(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public ReturnsPrivateImplementationOfInterface() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));

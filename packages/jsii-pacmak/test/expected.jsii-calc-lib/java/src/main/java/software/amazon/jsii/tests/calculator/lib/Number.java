@@ -16,6 +16,7 @@ public class Number extends software.amazon.jsii.tests.calculator.lib.Value impl
     protected Number(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     /**
      * Creates a Number object.
      * 

@@ -2,8 +2,8 @@ package software.amazon.jsii.tests.calculator.base;
 
 @javax.annotation.Generated(value = "jsii-pacmak")
 public interface IBaseInterface extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.baseofbase.IVeryBaseInterface {
-    void bar();
 
+    void bar();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.

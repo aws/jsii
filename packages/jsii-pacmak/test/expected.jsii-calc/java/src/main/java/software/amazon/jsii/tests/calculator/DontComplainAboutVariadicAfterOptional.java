@@ -15,6 +15,7 @@ public class DontComplainAboutVariadicAfterOptional extends software.amazon.jsii
     protected DontComplainAboutVariadicAfterOptional(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public DontComplainAboutVariadicAfterOptional() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));

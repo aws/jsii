@@ -8,6 +8,7 @@ package software.amazon.jsii.tests.calculator;
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.lib.MyFirstStruct {
+
     /**
      * EXPERIMENTAL
      */
@@ -55,12 +56,11 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
     static Builder builder() {
         return new Builder();
     }
-
     /**
      * A builder for {@link DerivedStruct}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    final class Builder {
+    public static final class Builder {
         private java.time.Instant anotherRequired;
         private java.lang.Boolean bool;
         private software.amazon.jsii.tests.calculator.DoubleTrouble nonPrimitive;
@@ -182,7 +182,6 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         public DerivedStruct build() {
             return new Jsii$Proxy(anotherRequired, bool, nonPrimitive, anotherOptional, optionalAny, optionalArray, anumber, astring, firstOptional);
         }
-
     }
 
     /**
@@ -217,7 +216,6 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
             this.astring = this.jsiiGet("astring", java.lang.String.class);
             this.firstOptional = this.jsiiGet("firstOptional", java.util.List.class);
         }
-
 
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
@@ -335,6 +333,5 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
             result = 31 * result + (this.firstOptional != null ? this.firstOptional.hashCode() : 0);
             return result;
         }
-
     }
 }

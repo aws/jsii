@@ -15,6 +15,7 @@ public class JSII417PublicBaseOfBase extends software.amazon.jsii.JsiiObject {
     protected JSII417PublicBaseOfBase(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public JSII417PublicBaseOfBase() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));

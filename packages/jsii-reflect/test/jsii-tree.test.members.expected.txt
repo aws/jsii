@@ -102,6 +102,15 @@ assemblies
  │   │   ├── b property
  │   │   ├── c property
  │   │   └── e property
+ │   ├─┬ class ClassWithCollections
+ │   │ └─┬ members
+ │   │   ├── <initializer>(map,array) initializer
+ │   │   ├── static createAList() method
+ │   │   ├── static createAMap() method
+ │   │   ├── static staticArray property
+ │   │   ├── static staticMap property
+ │   │   ├── array property
+ │   │   └── map property
  │   ├─┬ class ClassWithDocs
  │   │ └─┬ members
  │   │   └── <initializer>() initializer

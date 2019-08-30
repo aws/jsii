@@ -6,6 +6,7 @@ package software.amazon.jsii.tests.calculator;
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface DiamondInheritanceFirstMidLevelStruct extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.DiamondInheritanceBaseLevelStruct {
+
     /**
      * EXPERIMENTAL
      */
@@ -19,12 +20,11 @@ public interface DiamondInheritanceFirstMidLevelStruct extends software.amazon.j
     static Builder builder() {
         return new Builder();
     }
-
     /**
      * A builder for {@link DiamondInheritanceFirstMidLevelStruct}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    final class Builder {
+    public static final class Builder {
         private java.lang.String firstMidLevelProperty;
         private java.lang.String baseLevelProperty;
 
@@ -59,7 +59,6 @@ public interface DiamondInheritanceFirstMidLevelStruct extends software.amazon.j
         public DiamondInheritanceFirstMidLevelStruct build() {
             return new Jsii$Proxy(firstMidLevelProperty, baseLevelProperty);
         }
-
     }
 
     /**
@@ -80,7 +79,6 @@ public interface DiamondInheritanceFirstMidLevelStruct extends software.amazon.j
             this.firstMidLevelProperty = this.jsiiGet("firstMidLevelProperty", java.lang.String.class);
             this.baseLevelProperty = this.jsiiGet("baseLevelProperty", java.lang.String.class);
         }
-
 
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
@@ -127,6 +125,5 @@ public interface DiamondInheritanceFirstMidLevelStruct extends software.amazon.j
             result = 31 * result + (this.baseLevelProperty.hashCode());
             return result;
         }
-
     }
 }

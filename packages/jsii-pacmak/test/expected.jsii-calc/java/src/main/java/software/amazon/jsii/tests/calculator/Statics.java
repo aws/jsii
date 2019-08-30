@@ -15,12 +15,14 @@ public class Statics extends software.amazon.jsii.JsiiObject {
     protected Statics(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     static {
         BAR = software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.Statics.class, "BAR", java.lang.Number.class);
         CONST_OBJ = software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.Statics.class, "ConstObj", software.amazon.jsii.tests.calculator.DoubleTrouble.class);
         FOO = software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.Statics.class, "Foo", java.lang.String.class);
         ZOO_BAR = software.amazon.jsii.JsiiObject.jsiiStaticGet(software.amazon.jsii.tests.calculator.Statics.class, "zooBar", java.util.Map.class);
     }
+
     /**
      * EXPERIMENTAL
      */
@@ -49,6 +51,7 @@ public class Statics extends software.amazon.jsii.JsiiObject {
     public java.lang.String justMethod() {
         return this.jsiiCall("justMethod", java.lang.String.class);
     }
+
     /**
      * Constants may also use all-caps.
      * 
@@ -56,11 +59,13 @@ public class Statics extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public final static java.lang.Number BAR;
+
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public final static software.amazon.jsii.tests.calculator.DoubleTrouble CONST_OBJ;
+
     /**
      * Jsdocs for static property.
      * 
@@ -68,6 +73,7 @@ public class Statics extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public final static java.lang.String FOO;
+
     /**
      * Constants can also use camelCase.
      * 

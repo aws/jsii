@@ -15,6 +15,7 @@ public class ExportedBaseClass extends software.amazon.jsii.JsiiObject {
     protected ExportedBaseClass(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     /**
      * EXPERIMENTAL
      */

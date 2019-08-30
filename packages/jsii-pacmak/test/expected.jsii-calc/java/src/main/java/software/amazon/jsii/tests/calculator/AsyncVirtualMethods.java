@@ -15,6 +15,7 @@ public class AsyncVirtualMethods extends software.amazon.jsii.JsiiObject {
     protected AsyncVirtualMethods(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public AsyncVirtualMethods() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));

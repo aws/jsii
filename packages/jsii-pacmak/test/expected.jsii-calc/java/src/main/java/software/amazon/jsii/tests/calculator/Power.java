@@ -17,6 +17,7 @@ public class Power extends software.amazon.jsii.tests.calculator.composition.Com
     protected Power(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     /**
      * Creates a Power operation.
      * 

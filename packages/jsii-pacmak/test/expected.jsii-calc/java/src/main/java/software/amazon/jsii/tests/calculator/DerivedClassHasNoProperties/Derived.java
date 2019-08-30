@@ -15,6 +15,7 @@ public class Derived extends software.amazon.jsii.tests.calculator.DerivedClassH
     protected Derived(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public Derived() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));

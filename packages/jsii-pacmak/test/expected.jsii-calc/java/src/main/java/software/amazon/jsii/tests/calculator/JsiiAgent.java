@@ -17,6 +17,7 @@ public class JsiiAgent extends software.amazon.jsii.JsiiObject {
     protected JsiiAgent(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public JsiiAgent() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));

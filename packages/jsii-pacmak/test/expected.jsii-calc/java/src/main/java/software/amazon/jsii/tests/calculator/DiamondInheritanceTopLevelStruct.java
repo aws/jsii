@@ -6,6 +6,7 @@ package software.amazon.jsii.tests.calculator;
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.DiamondInheritanceFirstMidLevelStruct, software.amazon.jsii.tests.calculator.DiamondInheritanceSecondMidLevelStruct {
+
     /**
      * EXPERIMENTAL
      */
@@ -19,12 +20,11 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
     static Builder builder() {
         return new Builder();
     }
-
     /**
      * A builder for {@link DiamondInheritanceTopLevelStruct}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    final class Builder {
+    public static final class Builder {
         private java.lang.String topLevelProperty;
         private java.lang.String firstMidLevelProperty;
         private java.lang.String baseLevelProperty;
@@ -83,7 +83,6 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
         public DiamondInheritanceTopLevelStruct build() {
             return new Jsii$Proxy(topLevelProperty, firstMidLevelProperty, baseLevelProperty, secondMidLevelProperty);
         }
-
     }
 
     /**
@@ -108,7 +107,6 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
             this.baseLevelProperty = this.jsiiGet("baseLevelProperty", java.lang.String.class);
             this.secondMidLevelProperty = this.jsiiGet("secondMidLevelProperty", java.lang.String.class);
         }
-
 
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
@@ -173,6 +171,5 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
             result = 31 * result + (this.secondMidLevelProperty.hashCode());
             return result;
         }
-
     }
 }

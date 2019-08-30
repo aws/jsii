@@ -8,6 +8,7 @@ package software.amazon.jsii.tests.calculator;
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.JsiiSerializable {
+
     /**
      * The container port of the application load balancer attached to your Fargate service.
      * 
@@ -84,12 +85,11 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
     static Builder builder() {
         return new Builder();
     }
-
     /**
      * A builder for {@link LoadBalancedFargateServiceProps}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    final class Builder {
+    public static final class Builder {
         private java.lang.Number containerPort;
         private java.lang.String cpu;
         private java.lang.String memoryMiB;
@@ -160,7 +160,6 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
         public LoadBalancedFargateServiceProps build() {
             return new Jsii$Proxy(containerPort, cpu, memoryMiB, publicLoadBalancer, publicTasks);
         }
-
     }
 
     /**
@@ -187,7 +186,6 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
             this.publicLoadBalancer = this.jsiiGet("publicLoadBalancer", java.lang.Boolean.class);
             this.publicTasks = this.jsiiGet("publicTasks", java.lang.Boolean.class);
         }
-
 
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
@@ -271,6 +269,5 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
             result = 31 * result + (this.publicTasks != null ? this.publicTasks.hashCode() : 0);
             return result;
         }
-
     }
 }

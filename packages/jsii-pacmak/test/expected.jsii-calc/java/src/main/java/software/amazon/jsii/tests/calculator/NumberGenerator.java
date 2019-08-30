@@ -17,6 +17,7 @@ public class NumberGenerator extends software.amazon.jsii.JsiiObject {
     protected NumberGenerator(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     /**
      * EXPERIMENTAL
      */

@@ -8,6 +8,7 @@ package software.amazon.jsii.tests.calculator;
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.lib.IFriendly {
+
     /**
      * Say farewell.
      * 
@@ -25,7 +26,6 @@ public interface IFriendlier extends software.amazon.jsii.JsiiSerializable, soft
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.lang.String goodbye();
-
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.

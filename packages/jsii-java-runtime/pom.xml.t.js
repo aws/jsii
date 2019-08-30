@@ -51,6 +51,7 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Versions of the dependencies -->
         <findbugs.version>[3.0.2,3.1.0)</findbugs.version>
+        <hamcrest.version>1.3</hamcrest.version>
         <jackson-core.version>[2.9.9,2.10.0)</jackson-core.version>
         <jackson-databind.version>[2.9.9.2,2.10.0)</jackson-databind.version>
         <javax.annotations.version>[1.3.2,1.4.0)</javax.annotations.version>
@@ -101,6 +102,14 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>\${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-all -->
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+            <version>\${hamcrest.version}</version>
             <scope>test</scope>
         </dependency>
 
