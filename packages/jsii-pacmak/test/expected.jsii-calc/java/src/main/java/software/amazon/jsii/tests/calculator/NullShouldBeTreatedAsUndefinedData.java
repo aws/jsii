@@ -6,6 +6,7 @@ package software.amazon.jsii.tests.calculator;
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii.JsiiSerializable {
+
     /**
      * EXPERIMENTAL
      */
@@ -25,23 +26,34 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
     static Builder builder() {
         return new Builder();
     }
-
     /**
      * A builder for {@link NullShouldBeTreatedAsUndefinedData}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    final class Builder {
-        private java.util.List<java.lang.Object> arrayWithThreeElementsAndUndefinedAsSecondArgument;
+    public static final class Builder {
+        private final software.amazon.jsii.JsiiBuilderList<java.lang.Object> arrayWithThreeElementsAndUndefinedAsSecondArgument = new software.amazon.jsii.JsiiBuilderList<>();
         private java.lang.Object thisShouldBeUndefined;
 
         /**
-         * Sets the value of ArrayWithThreeElementsAndUndefinedAsSecondArgument
+         * Sets the value of the collection property 'ArrayWithThreeElementsAndUndefinedAsSecondArgument'. This method will take a copy of the supplied
+         * collection or remove the existing collection from the builder if 'null' is supplied.
          * @param arrayWithThreeElementsAndUndefinedAsSecondArgument the value to be set
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder arrayWithThreeElementsAndUndefinedAsSecondArgument(java.util.List<java.lang.Object> arrayWithThreeElementsAndUndefinedAsSecondArgument) {
-            this.arrayWithThreeElementsAndUndefinedAsSecondArgument = arrayWithThreeElementsAndUndefinedAsSecondArgument;
+            this.arrayWithThreeElementsAndUndefinedAsSecondArgument.set(arrayWithThreeElementsAndUndefinedAsSecondArgument);
+            return this;
+        }
+
+        /**
+         * Adds a single value to the existing list referenced by the property 'ArrayWithThreeElementsAndUndefinedAsSecondArgument'.
+         * @param value the value to add to the list
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        public Builder addToArrayWithThreeElementsAndUndefinedAsSecondArgument(java.lang.Object value) {
+            this.arrayWithThreeElementsAndUndefinedAsSecondArgument.add(value);
             return this;
         }
 
@@ -63,9 +75,8 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public NullShouldBeTreatedAsUndefinedData build() {
-            return new Jsii$Proxy(arrayWithThreeElementsAndUndefinedAsSecondArgument, thisShouldBeUndefined);
+            return new Jsii$Proxy(arrayWithThreeElementsAndUndefinedAsSecondArgument.unmodifiableCopy(), thisShouldBeUndefined);
         }
-
     }
 
     /**
@@ -86,7 +97,6 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
             this.arrayWithThreeElementsAndUndefinedAsSecondArgument = this.jsiiGet("arrayWithThreeElementsAndUndefinedAsSecondArgument", java.util.List.class);
             this.thisShouldBeUndefined = this.jsiiGet("thisShouldBeUndefined", java.lang.Object.class);
         }
-
 
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
@@ -135,6 +145,5 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
             result = 31 * result + (this.thisShouldBeUndefined != null ? this.thisShouldBeUndefined.hashCode() : 0);
             return result;
         }
-
     }
 }

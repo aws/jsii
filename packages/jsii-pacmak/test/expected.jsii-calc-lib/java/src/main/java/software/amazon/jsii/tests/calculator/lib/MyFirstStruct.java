@@ -7,6 +7,7 @@ package software.amazon.jsii.tests.calculator.lib;
 @Deprecated
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
 public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
+
     /**
      * An awesome number value.
      */
@@ -35,16 +36,15 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
     static Builder builder() {
         return new Builder();
     }
-
     /**
      * A builder for {@link MyFirstStruct}
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-    final class Builder {
+    public static final class Builder {
         private java.lang.Number anumber;
         private java.lang.String astring;
-        private java.util.List<java.lang.String> firstOptional;
+        private final software.amazon.jsii.JsiiBuilderList<java.lang.String> firstOptional = new software.amazon.jsii.JsiiBuilderList<>();
 
         /**
          * Sets the value of Anumber
@@ -71,14 +71,27 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
-         * Sets the value of FirstOptional
+         * Sets the value of the collection property 'FirstOptional'. This method will take a copy of the supplied
+         * collection or remove the existing collection from the builder if 'null' is supplied.
          * @param firstOptional the value to be set
          * @return {@code this}
          */
         @Deprecated
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public Builder firstOptional(java.util.List<java.lang.String> firstOptional) {
-            this.firstOptional = firstOptional;
+            this.firstOptional.set(firstOptional);
+            return this;
+        }
+
+        /**
+         * Adds a single value to the existing list referenced by the property 'FirstOptional'.
+         * @param value the value to add to the list
+         * @return {@code this}
+         */
+        @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        public Builder addToFirstOptional(java.lang.String value) {
+            this.firstOptional.add(value);
             return this;
         }
 
@@ -90,9 +103,8 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
         @Deprecated
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public MyFirstStruct build() {
-            return new Jsii$Proxy(anumber, astring, firstOptional);
+            return new Jsii$Proxy(anumber, astring, firstOptional.unmodifiableCopy());
         }
-
     }
 
     /**
@@ -116,7 +128,6 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
             this.astring = this.jsiiGet("astring", java.lang.String.class);
             this.firstOptional = this.jsiiGet("firstOptional", java.util.List.class);
         }
-
 
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
@@ -174,6 +185,5 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
             result = 31 * result + (this.firstOptional != null ? this.firstOptional.hashCode() : 0);
             return result;
         }
-
     }
 }

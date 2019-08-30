@@ -147,6 +147,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.StringEnum": return software.amazon.jsii.tests.calculator.StringEnum.class;
             case "jsii-calc.StripInternal": return software.amazon.jsii.tests.calculator.StripInternal.class;
             case "jsii-calc.StructPassing": return software.amazon.jsii.tests.calculator.StructPassing.class;
+            case "jsii-calc.StructWithCollections": return software.amazon.jsii.tests.calculator.StructWithCollections.class;
             case "jsii-calc.StructWithJavaReservedWords": return software.amazon.jsii.tests.calculator.StructWithJavaReservedWords.class;
             case "jsii-calc.Sum": return software.amazon.jsii.tests.calculator.Sum.class;
             case "jsii-calc.SyncVirtualMethods": return software.amazon.jsii.tests.calculator.SyncVirtualMethods.class;

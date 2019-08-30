@@ -15,6 +15,7 @@ public class DefaultedConstructorArgument extends software.amazon.jsii.JsiiObjec
     protected DefaultedConstructorArgument(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     /**
      * EXPERIMENTAL
      */
@@ -23,6 +24,7 @@ public class DefaultedConstructorArgument extends software.amazon.jsii.JsiiObjec
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { arg1, arg2, arg3 }));
     }
+
     /**
      * EXPERIMENTAL
      */
@@ -31,6 +33,7 @@ public class DefaultedConstructorArgument extends software.amazon.jsii.JsiiObjec
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { arg1, arg2 }));
     }
+
     /**
      * EXPERIMENTAL
      */
@@ -39,6 +42,7 @@ public class DefaultedConstructorArgument extends software.amazon.jsii.JsiiObjec
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { arg1 }));
     }
+
     /**
      * EXPERIMENTAL
      */

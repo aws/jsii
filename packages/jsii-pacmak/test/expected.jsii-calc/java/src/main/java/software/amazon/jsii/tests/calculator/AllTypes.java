@@ -20,6 +20,7 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
     protected AllTypes(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public AllTypes() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));

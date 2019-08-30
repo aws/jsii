@@ -8,6 +8,7 @@ package software.amazon.jsii.tests.calculator;
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.lib.MyFirstStruct {
+
     /**
      * EXPERIMENTAL
      */
@@ -55,21 +56,20 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
     static Builder builder() {
         return new Builder();
     }
-
     /**
      * A builder for {@link DerivedStruct}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    final class Builder {
+    public static final class Builder {
         private java.time.Instant anotherRequired;
         private java.lang.Boolean bool;
         private software.amazon.jsii.tests.calculator.DoubleTrouble nonPrimitive;
-        private java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> anotherOptional;
+        private final software.amazon.jsii.JsiiBuilderMap<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> anotherOptional = new software.amazon.jsii.JsiiBuilderMap<>();
         private java.lang.Object optionalAny;
-        private java.util.List<java.lang.String> optionalArray;
+        private final software.amazon.jsii.JsiiBuilderList<java.lang.String> optionalArray = new software.amazon.jsii.JsiiBuilderList<>();
         private java.lang.Number anumber;
         private java.lang.String astring;
-        private java.util.List<java.lang.String> firstOptional;
+        private final software.amazon.jsii.JsiiBuilderList<java.lang.String> firstOptional = new software.amazon.jsii.JsiiBuilderList<>();
 
         /**
          * Sets the value of AnotherRequired
@@ -105,13 +105,26 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         }
 
         /**
-         * Sets the value of AnotherOptional
+         * Sets the value of the collection property 'AnotherOptional'. This method will take a copy of the supplied
+         * collection or remove the existing collection from the builder if 'null' is supplied.
          * @param anotherOptional This is optional.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder anotherOptional(java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> anotherOptional) {
-            this.anotherOptional = anotherOptional;
+            this.anotherOptional.set(anotherOptional);
+            return this;
+        }
+
+        /**
+         * Adds a single entry to the existing map referenced by the property 'AnotherOptional'.
+         * @param key the key of the entry to add to the map
+         * @param value the value of the entry to add to the map
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        public Builder putInAnotherOptional(java.lang.String key, software.amazon.jsii.tests.calculator.lib.Value value) {
+            this.anotherOptional.put(key, value);
             return this;
         }
 
@@ -127,13 +140,25 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         }
 
         /**
-         * Sets the value of OptionalArray
+         * Sets the value of the collection property 'OptionalArray'. This method will take a copy of the supplied
+         * collection or remove the existing collection from the builder if 'null' is supplied.
          * @param optionalArray the value to be set
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder optionalArray(java.util.List<java.lang.String> optionalArray) {
-            this.optionalArray = optionalArray;
+            this.optionalArray.set(optionalArray);
+            return this;
+        }
+
+        /**
+         * Adds a single value to the existing list referenced by the property 'OptionalArray'.
+         * @param value the value to add to the list
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        public Builder addToOptionalArray(java.lang.String value) {
+            this.optionalArray.add(value);
             return this;
         }
 
@@ -162,14 +187,27 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         }
 
         /**
-         * Sets the value of FirstOptional
+         * Sets the value of the collection property 'FirstOptional'. This method will take a copy of the supplied
+         * collection or remove the existing collection from the builder if 'null' is supplied.
          * @param firstOptional the value to be set
          * @return {@code this}
          */
         @Deprecated
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public Builder firstOptional(java.util.List<java.lang.String> firstOptional) {
-            this.firstOptional = firstOptional;
+            this.firstOptional.set(firstOptional);
+            return this;
+        }
+
+        /**
+         * Adds a single value to the existing list referenced by the property 'FirstOptional'.
+         * @param value the value to add to the list
+         * @return {@code this}
+         */
+        @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        public Builder addToFirstOptional(java.lang.String value) {
+            this.firstOptional.add(value);
             return this;
         }
 
@@ -180,9 +218,8 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public DerivedStruct build() {
-            return new Jsii$Proxy(anotherRequired, bool, nonPrimitive, anotherOptional, optionalAny, optionalArray, anumber, astring, firstOptional);
+            return new Jsii$Proxy(anotherRequired, bool, nonPrimitive, anotherOptional.unmodifiableCopy(), optionalAny, optionalArray.unmodifiableCopy(), anumber, astring, firstOptional.unmodifiableCopy());
         }
-
     }
 
     /**
@@ -217,7 +254,6 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
             this.astring = this.jsiiGet("astring", java.lang.String.class);
             this.firstOptional = this.jsiiGet("firstOptional", java.util.List.class);
         }
-
 
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
@@ -335,6 +371,5 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
             result = 31 * result + (this.firstOptional != null ? this.firstOptional.hashCode() : 0);
             return result;
         }
-
     }
 }

@@ -15,7 +15,8 @@ public abstract class PartiallyInitializedThisConsumer extends software.amazon.j
     protected PartiallyInitializedThisConsumer(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
-    public PartiallyInitializedThisConsumer() {
+
+    protected PartiallyInitializedThisConsumer() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
     }

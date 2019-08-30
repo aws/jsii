@@ -16,7 +16,8 @@ public abstract class Operation extends software.amazon.jsii.tests.calculator.li
     protected Operation(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
-    public Operation() {
+
+    protected Operation() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
     }

@@ -52,6 +52,7 @@ import software.amazon.jsii.tests.calculator.ReferenceEnumFromScopedPackage;
 import software.amazon.jsii.tests.calculator.ReturnsPrivateImplementationOfInterface;
 import software.amazon.jsii.tests.calculator.StableStruct;
 import software.amazon.jsii.tests.calculator.Statics;
+import software.amazon.jsii.tests.calculator.StructWithCollections;
 import software.amazon.jsii.tests.calculator.StructWithJavaReservedWords;
 import software.amazon.jsii.tests.calculator.Sum;
 import software.amazon.jsii.tests.calculator.SyncVirtualMethods;
@@ -70,10 +71,15 @@ import software.amazon.jsii.tests.calculator.ConstructorPassesThisOut;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasEntry;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
@@ -1266,6 +1272,28 @@ public class ComplianceTest {
     public void canLoadEnumValues() {
         assertNotNull(EnumDispenser.randomStringLikeEnum());
         assertNotNull(EnumDispenser.randomIntegerLikeEnum());
+    }
+
+    @Test
+    public void listInStructCorrectlyBuilds() {
+        StructWithCollections structWithCollections = StructWithCollections.builder()
+            .array(Arrays.asList("one", "two"))
+            .addToArray("three")
+            .build();
+
+        assertThat(structWithCollections.getArray(), contains("one", "two", "three"));
+    }
+
+    @Test
+    public void mapInStructCorrectlyBuilds() {
+        StructWithCollections structWithCollections = StructWithCollections.builder()
+            .map(Collections.singletonMap("key1", "value1"))
+            .putInMap("key2", "value2")
+            .build();
+
+        assertThat(structWithCollections.getMap(), hasEntry("key1", "value1"));
+        assertThat(structWithCollections.getMap(), hasEntry("key2", "value2"));
+        assertThat(structWithCollections.getMap().size(), equalTo(2));
     }
 
     static class PartiallyInitializedThisConsumerImpl extends PartiallyInitializedThisConsumer {

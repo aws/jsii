@@ -20,6 +20,7 @@ public class DocumentedClass extends software.amazon.jsii.JsiiObject {
     protected DocumentedClass(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public DocumentedClass() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));

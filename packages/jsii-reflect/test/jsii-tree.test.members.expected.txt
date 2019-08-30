@@ -741,6 +741,10 @@ assemblies
  │   ├─┬ interface StableStruct
  │   │ └─┬ members
  │   │   └── readonlyProperty property
+ │   ├─┬ interface StructWithCollections
+ │   │ └─┬ members
+ │   │   ├── array property
+ │   │   └── map property
  │   ├─┬ interface StructWithJavaReservedWords
  │   │ └─┬ members
  │   │   ├── default property

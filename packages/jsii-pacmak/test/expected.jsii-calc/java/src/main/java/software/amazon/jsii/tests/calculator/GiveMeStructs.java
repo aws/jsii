@@ -15,6 +15,7 @@ public class GiveMeStructs extends software.amazon.jsii.JsiiObject {
     protected GiveMeStructs(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public GiveMeStructs() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));

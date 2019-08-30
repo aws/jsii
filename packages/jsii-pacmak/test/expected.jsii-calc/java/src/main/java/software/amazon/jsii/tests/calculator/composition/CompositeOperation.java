@@ -17,7 +17,8 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
     protected CompositeOperation(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
-    public CompositeOperation() {
+
+    protected CompositeOperation() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
     }

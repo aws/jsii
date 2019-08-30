@@ -58,6 +58,7 @@ function _defaultValidations(): ValidationFunction[] {
         _memberNamesMustUseCamelCase,
         _staticConstantNamesMustUseUpperSnakeCase,
         _memberNamesMustNotLookLikeJavaGettersOrSetters,
+        _propertyNamesMustNotConflictWithJavaBuilderMethods,
         _allTypeReferencesAreValid,
         _inehritanceDoesNotChangeContracts
     ];
@@ -103,6 +104,20 @@ function _defaultValidations(): ValidationFunction[] {
                 && member.name !== Case.camel(member.name)) {
                 diagnostic(ts.DiagnosticCategory.Error,
                            `Static constant names must use TRUMP_CASE, PascalCase or camelCase: ${member.name}`);
+            }
+        }
+    }
+
+    function _propertyNamesMustNotConflictWithJavaBuilderMethods(_: Validator, assembly: spec.Assembly, diagnostic: DiagnosticEmitter) {
+        for (const property of _allProperties(assembly)) {
+            if (!property.name) { continue; }
+            const snakeName = Case.snake(property.name);
+            if (snakeName.startsWith('add_to_')) {
+                diagnostic(ts.DiagnosticCategory.Error,
+                           'Properties cannot have names like addToXxx() - those conflict with Java collection builder convenience methods');
+            } else if (snakeName.startsWith('put_in_')) {
+                diagnostic(ts.DiagnosticCategory.Error,
+                           'Properties cannot have names like putInXxx() - those conflict with Java collection builder convenience methods');
             }
         }
     }

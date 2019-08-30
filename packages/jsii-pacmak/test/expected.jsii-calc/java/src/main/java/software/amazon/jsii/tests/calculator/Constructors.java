@@ -15,6 +15,7 @@ public class Constructors extends software.amazon.jsii.JsiiObject {
     protected Constructors(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public Constructors() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));

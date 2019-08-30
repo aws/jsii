@@ -1692,6 +1692,16 @@ assemblies
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: string
+ │   ├─┬ interface StructWithCollections (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ array property (experimental)
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: Optional<Array<string>>
+ │   │   └─┬ map property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: Optional<Map<string => string>>
  │   ├─┬ interface StructWithJavaReservedWords (experimental)
  │   │ └─┬ members
  │   │   ├─┬ default property (experimental)

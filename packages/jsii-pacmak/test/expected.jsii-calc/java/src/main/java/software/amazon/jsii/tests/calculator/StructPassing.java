@@ -15,6 +15,7 @@ public class StructPassing extends software.amazon.jsii.JsiiObject {
     protected StructPassing(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public StructPassing() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));

@@ -6,6 +6,7 @@ package software.amazon.jsii.tests.calculator;
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface DiamondInheritanceBaseLevelStruct extends software.amazon.jsii.JsiiSerializable {
+
     /**
      * EXPERIMENTAL
      */
@@ -19,12 +20,11 @@ public interface DiamondInheritanceBaseLevelStruct extends software.amazon.jsii.
     static Builder builder() {
         return new Builder();
     }
-
     /**
      * A builder for {@link DiamondInheritanceBaseLevelStruct}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    final class Builder {
+    public static final class Builder {
         private java.lang.String baseLevelProperty;
 
         /**
@@ -47,7 +47,6 @@ public interface DiamondInheritanceBaseLevelStruct extends software.amazon.jsii.
         public DiamondInheritanceBaseLevelStruct build() {
             return new Jsii$Proxy(baseLevelProperty);
         }
-
     }
 
     /**
@@ -66,7 +65,6 @@ public interface DiamondInheritanceBaseLevelStruct extends software.amazon.jsii.
             this.setObjRef(objRef);
             this.baseLevelProperty = this.jsiiGet("baseLevelProperty", java.lang.String.class);
         }
-
 
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
@@ -104,6 +102,5 @@ public interface DiamondInheritanceBaseLevelStruct extends software.amazon.jsii.
             int result = this.baseLevelProperty.hashCode();
             return result;
         }
-
     }
 }

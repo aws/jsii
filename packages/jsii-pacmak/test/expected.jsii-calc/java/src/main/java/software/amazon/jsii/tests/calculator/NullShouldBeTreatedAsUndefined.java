@@ -17,6 +17,7 @@ public class NullShouldBeTreatedAsUndefined extends software.amazon.jsii.JsiiObj
     protected NullShouldBeTreatedAsUndefined(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     /**
      * EXPERIMENTAL
      */
@@ -25,6 +26,7 @@ public class NullShouldBeTreatedAsUndefined extends software.amazon.jsii.JsiiObj
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(_param1, "_param1 is required"), optional }));
     }
+
     /**
      * EXPERIMENTAL
      */

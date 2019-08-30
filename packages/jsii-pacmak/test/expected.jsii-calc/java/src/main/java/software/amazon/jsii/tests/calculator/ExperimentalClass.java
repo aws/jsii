@@ -15,6 +15,7 @@ public class ExperimentalClass extends software.amazon.jsii.JsiiObject {
     protected ExperimentalClass(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     /**
      * EXPERIMENTAL
      */
@@ -23,6 +24,7 @@ public class ExperimentalClass extends software.amazon.jsii.JsiiObject {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(readonlyString, "readonlyString is required"), mutableNumber }));
     }
+
     /**
      * EXPERIMENTAL
      */

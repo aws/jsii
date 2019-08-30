@@ -8205,6 +8205,64 @@
       ],
       "name": "StructPassing"
     },
+    "jsii-calc.StructWithCollections": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.StructWithCollections",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1864
+      },
+      "name": "StructWithCollections",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1866
+          },
+          "name": "array",
+          "optional": true,
+          "type": {
+            "collection": {
+              "elementtype": {
+                "primitive": "string"
+              },
+              "kind": "array"
+            }
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1865
+          },
+          "name": "map",
+          "optional": true,
+          "type": {
+            "collection": {
+              "elementtype": {
+                "primitive": "string"
+              },
+              "kind": "map"
+            }
+          }
+        }
+      ]
+    },
     "jsii-calc.StructWithJavaReservedWords": {
       "assembly": "jsii-calc",
       "datatype": true,
@@ -9453,5 +9511,5 @@
     }
   },
   "version": "0.16.0",
-  "fingerprint": "D99pLaaW2xH2uuyUa8hgakiEso/wXbcMNkP9RmOTwgo="
+  "fingerprint": "P6Jw/QNm8w6Nh/tTQQW7Ul0t2oRPGfj26yH8M+vzFM4="
 }

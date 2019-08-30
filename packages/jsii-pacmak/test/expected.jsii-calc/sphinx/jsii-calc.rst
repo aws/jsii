@@ -6759,6 +6759,45 @@ StructPassing
       :rtype: :py:class:`~jsii-calc.TopLevelStruct`\ 
 
 
+StructWithCollections (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: StructWithCollections
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.StructWithCollections;
+
+      .. code-tab:: javascript
+
+         // StructWithCollections is an interface
+
+      .. code-tab:: typescript
+
+         import { StructWithCollections } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: array
+
+      :type: string[] *(optional)* *(readonly)*
+
+
+   .. py:attribute:: map
+
+      :type: string => string *(optional)* *(readonly)*
+
+
 StructWithJavaReservedWords (interface)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

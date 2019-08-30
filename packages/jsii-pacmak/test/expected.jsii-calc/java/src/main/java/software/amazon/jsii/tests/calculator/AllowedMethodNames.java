@@ -15,6 +15,7 @@ public class AllowedMethodNames extends software.amazon.jsii.JsiiObject {
     protected AllowedMethodNames(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public AllowedMethodNames() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));

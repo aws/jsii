@@ -7,6 +7,7 @@ package software.amazon.jsii.tests.calculator.lib;
 @Deprecated
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
 public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerializable {
+
     /**
      * The first optional!
      */
@@ -34,13 +35,12 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
     static Builder builder() {
         return new Builder();
     }
-
     /**
      * A builder for {@link StructWithOnlyOptionals}
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-    final class Builder {
+    public static final class Builder {
         private java.lang.String optional1;
         private java.lang.Number optional2;
         private java.lang.Boolean optional3;
@@ -91,7 +91,6 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
         public StructWithOnlyOptionals build() {
             return new Jsii$Proxy(optional1, optional2, optional3);
         }
-
     }
 
     /**
@@ -115,7 +114,6 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
             this.optional2 = this.jsiiGet("optional2", java.lang.Number.class);
             this.optional3 = this.jsiiGet("optional3", java.lang.Boolean.class);
         }
-
 
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
@@ -177,6 +175,5 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
             result = 31 * result + (this.optional3 != null ? this.optional3.hashCode() : 0);
             return result;
         }
-
     }
 }

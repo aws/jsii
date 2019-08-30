@@ -17,6 +17,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     protected Calculator(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     /**
      * Creates a Calculator object.
      * 
@@ -29,6 +30,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { props }));
     }
+
     /**
      * Creates a Calculator object.
      * 

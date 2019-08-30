@@ -1860,3 +1860,8 @@ export class InterfacesMaker {
 
     private constructor() { }
 }
+
+export interface StructWithCollections {
+    readonly map?: { [key: string]: string };
+    readonly array?: string[];
+}

@@ -15,6 +15,7 @@ public class Jsii496Derived extends software.amazon.jsii.JsiiObject implements s
     protected Jsii496Derived(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public Jsii496Derived() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));

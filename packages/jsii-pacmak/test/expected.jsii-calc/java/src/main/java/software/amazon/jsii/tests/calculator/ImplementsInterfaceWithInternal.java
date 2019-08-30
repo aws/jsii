@@ -15,6 +15,7 @@ public class ImplementsInterfaceWithInternal extends software.amazon.jsii.JsiiOb
     protected ImplementsInterfaceWithInternal(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public ImplementsInterfaceWithInternal() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));

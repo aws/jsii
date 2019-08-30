@@ -8,6 +8,7 @@ package software.amazon.jsii.tests.calculator;
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface IRandomNumberGenerator extends software.amazon.jsii.JsiiSerializable {
+
     /**
      * Returns another random number.
      * 
@@ -17,7 +18,6 @@ public interface IRandomNumberGenerator extends software.amazon.jsii.JsiiSeriali
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.lang.Number next();
-
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.

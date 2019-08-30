@@ -15,6 +15,7 @@ public class VariadicMethod extends software.amazon.jsii.JsiiObject {
     protected VariadicMethod(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     /**
      * EXPERIMENTAL
      * 

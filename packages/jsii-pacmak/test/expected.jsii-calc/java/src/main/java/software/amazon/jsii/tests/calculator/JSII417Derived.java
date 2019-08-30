@@ -15,6 +15,7 @@ public class JSII417Derived extends software.amazon.jsii.tests.calculator.JSII41
     protected JSII417Derived(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     /**
      * EXPERIMENTAL
      */

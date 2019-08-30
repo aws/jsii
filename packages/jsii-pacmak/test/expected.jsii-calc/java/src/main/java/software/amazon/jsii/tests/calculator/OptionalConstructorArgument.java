@@ -15,6 +15,7 @@ public class OptionalConstructorArgument extends software.amazon.jsii.JsiiObject
     protected OptionalConstructorArgument(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     /**
      * EXPERIMENTAL
      */
@@ -23,6 +24,7 @@ public class OptionalConstructorArgument extends software.amazon.jsii.JsiiObject
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(arg1, "arg1 is required"), java.util.Objects.requireNonNull(arg2, "arg2 is required"), arg3 }));
     }
+
     /**
      * EXPERIMENTAL
      */

@@ -21,7 +21,8 @@ public abstract class VoidCallback extends software.amazon.jsii.JsiiObject {
     protected VoidCallback(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
-    public VoidCallback() {
+
+    protected VoidCallback() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
     }

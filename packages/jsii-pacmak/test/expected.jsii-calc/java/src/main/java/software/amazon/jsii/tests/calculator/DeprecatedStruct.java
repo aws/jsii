@@ -7,6 +7,7 @@ package software.amazon.jsii.tests.calculator;
 @Deprecated
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
 public interface DeprecatedStruct extends software.amazon.jsii.JsiiSerializable {
+
     /**
      * @deprecated well, yeah
      */
@@ -22,13 +23,12 @@ public interface DeprecatedStruct extends software.amazon.jsii.JsiiSerializable 
     static Builder builder() {
         return new Builder();
     }
-
     /**
      * A builder for {@link DeprecatedStruct}
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-    final class Builder {
+    public static final class Builder {
         private java.lang.String readonlyProperty;
 
         /**
@@ -54,7 +54,6 @@ public interface DeprecatedStruct extends software.amazon.jsii.JsiiSerializable 
         public DeprecatedStruct build() {
             return new Jsii$Proxy(readonlyProperty);
         }
-
     }
 
     /**
@@ -74,7 +73,6 @@ public interface DeprecatedStruct extends software.amazon.jsii.JsiiSerializable 
             this.setObjRef(objRef);
             this.readonlyProperty = this.jsiiGet("readonlyProperty", java.lang.String.class);
         }
-
 
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
@@ -112,6 +110,5 @@ public interface DeprecatedStruct extends software.amazon.jsii.JsiiSerializable 
             int result = this.readonlyProperty.hashCode();
             return result;
         }
-
     }
 }

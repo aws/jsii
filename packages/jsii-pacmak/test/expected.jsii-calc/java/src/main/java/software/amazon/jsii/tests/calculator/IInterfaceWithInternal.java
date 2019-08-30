@@ -6,12 +6,12 @@ package software.amazon.jsii.tests.calculator;
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface IInterfaceWithInternal extends software.amazon.jsii.JsiiSerializable {
+
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     void visible();
-
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.

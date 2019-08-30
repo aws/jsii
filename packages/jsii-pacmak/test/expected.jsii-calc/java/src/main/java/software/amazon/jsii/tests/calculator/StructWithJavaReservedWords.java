@@ -6,6 +6,7 @@ package software.amazon.jsii.tests.calculator;
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSerializable {
+
     /**
      * EXPERIMENTAL
      */
@@ -37,12 +38,11 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
     static Builder builder() {
         return new Builder();
     }
-
     /**
      * A builder for {@link StructWithJavaReservedWords}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    final class Builder {
+    public static final class Builder {
         private java.lang.String defaultValue;
         private java.lang.String assertValue;
         private java.lang.String result;
@@ -101,7 +101,6 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
         public StructWithJavaReservedWords build() {
             return new Jsii$Proxy(defaultValue, assertValue, result, that);
         }
-
     }
 
     /**
@@ -126,7 +125,6 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
             this.result = this.jsiiGet("result", java.lang.String.class);
             this.that = this.jsiiGet("that", java.lang.String.class);
         }
-
 
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
@@ -197,6 +195,5 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
             result = 31 * result + (this.that != null ? this.that.hashCode() : 0);
             return result;
         }
-
     }
 }

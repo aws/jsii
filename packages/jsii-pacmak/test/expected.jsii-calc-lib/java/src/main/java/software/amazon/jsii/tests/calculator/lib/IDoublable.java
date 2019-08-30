@@ -7,12 +7,12 @@ package software.amazon.jsii.tests.calculator.lib;
 @Deprecated
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
 public interface IDoublable extends software.amazon.jsii.JsiiSerializable {
+
     /**
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     java.lang.Number getDoubleValue();
-
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.

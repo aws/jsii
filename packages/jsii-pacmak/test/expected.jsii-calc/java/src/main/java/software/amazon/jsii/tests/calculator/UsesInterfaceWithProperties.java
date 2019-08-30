@@ -15,6 +15,7 @@ public class UsesInterfaceWithProperties extends software.amazon.jsii.JsiiObject
     protected UsesInterfaceWithProperties(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     /**
      * EXPERIMENTAL
      */

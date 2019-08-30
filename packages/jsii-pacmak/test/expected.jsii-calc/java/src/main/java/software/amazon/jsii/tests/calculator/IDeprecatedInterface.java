@@ -7,6 +7,7 @@ package software.amazon.jsii.tests.calculator;
 @Deprecated
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
 public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializable {
+
     /**
      * @deprecated could be better
      */
@@ -25,7 +26,6 @@ public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializa
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     void method();
-
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.

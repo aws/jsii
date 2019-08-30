@@ -185,6 +185,7 @@ assemblies
  │   ├── interface OptionalStruct
  │   ├── interface SecondLevelStruct
  │   ├── interface StableStruct
+ │   ├── interface StructWithCollections
  │   ├── interface StructWithJavaReservedWords
  │   ├── interface TopLevelStruct
  │   ├── interface UnionProperties

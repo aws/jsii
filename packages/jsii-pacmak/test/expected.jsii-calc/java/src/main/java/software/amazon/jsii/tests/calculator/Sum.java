@@ -17,6 +17,7 @@ public class Sum extends software.amazon.jsii.tests.calculator.composition.Compo
     protected Sum(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     /**
      * EXPERIMENTAL
      */

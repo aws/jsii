@@ -17,6 +17,7 @@ public class DataRenderer extends software.amazon.jsii.JsiiObject {
     protected DataRenderer(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     /**
      * EXPERIMENTAL
      */
