@@ -29,7 +29,7 @@ public interface DiamondInheritanceBaseLevelStruct extends software.amazon.jsii.
 
         /**
          * Sets the value of BaseLevelProperty
-         * @param baseLevelProperty the value to be set
+         * @param baseLevelProperty the value to be set. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

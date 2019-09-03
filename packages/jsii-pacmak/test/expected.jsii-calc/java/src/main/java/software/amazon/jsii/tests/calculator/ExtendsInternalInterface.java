@@ -36,7 +36,7 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
 
         /**
          * Sets the value of Boom
-         * @param boom the value to be set
+         * @param boom the value to be set. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -47,7 +47,7 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
 
         /**
          * Sets the value of Prop
-         * @param prop the value to be set
+         * @param prop the value to be set. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

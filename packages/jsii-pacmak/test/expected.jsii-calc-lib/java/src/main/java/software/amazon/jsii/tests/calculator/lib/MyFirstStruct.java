@@ -48,7 +48,7 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of Anumber
-         * @param anumber An awesome number value.
+         * @param anumber An awesome number value. This parameter is required.
          * @return {@code this}
          */
         @Deprecated
@@ -60,7 +60,7 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of Astring
-         * @param astring A string value.
+         * @param astring A string value. This parameter is required.
          * @return {@code this}
          */
         @Deprecated
@@ -72,7 +72,7 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of FirstOptional
-         * @param firstOptional the value to be set
+         * @param firstOptional the value to be set.
          * @return {@code this}
          */
         @Deprecated

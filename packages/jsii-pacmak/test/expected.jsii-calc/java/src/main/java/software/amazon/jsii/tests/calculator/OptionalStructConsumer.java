@@ -18,6 +18,8 @@ public class OptionalStructConsumer extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param optionalStruct
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public OptionalStructConsumer(final software.amazon.jsii.tests.calculator.OptionalStruct optionalStruct) {

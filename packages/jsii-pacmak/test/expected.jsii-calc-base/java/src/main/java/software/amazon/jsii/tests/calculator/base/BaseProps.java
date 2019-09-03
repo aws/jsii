@@ -20,7 +20,7 @@ public interface BaseProps extends software.amazon.jsii.JsiiSerializable, softwa
 
         /**
          * Sets the value of Bar
-         * @param bar the value to be set
+         * @param bar the value to be set. This parameter is required.
          * @return {@code this}
          */
         public Builder bar(java.lang.String bar) {
@@ -30,7 +30,7 @@ public interface BaseProps extends software.amazon.jsii.JsiiSerializable, softwa
 
         /**
          * Sets the value of Foo
-         * @param foo the value to be set
+         * @param foo the value to be set. This parameter is required.
          * @return {@code this}
          */
         public Builder foo(software.amazon.jsii.tests.calculator.baseofbase.Very foo) {

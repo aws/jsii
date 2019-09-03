@@ -50,7 +50,7 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
 
         /**
          * Sets the value of DefaultValue
-         * @param defaultValue the value to be set
+         * @param defaultValue the value to be set. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -61,7 +61,7 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
 
         /**
          * Sets the value of AssertValue
-         * @param assertValue the value to be set
+         * @param assertValue the value to be set.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -72,7 +72,7 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
 
         /**
          * Sets the value of Result
-         * @param result the value to be set
+         * @param result the value to be set.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -83,7 +83,7 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
 
         /**
          * Sets the value of That
-         * @param that the value to be set
+         * @param that the value to be set.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

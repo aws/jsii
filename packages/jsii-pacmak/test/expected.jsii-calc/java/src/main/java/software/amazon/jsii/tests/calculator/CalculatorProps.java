@@ -38,7 +38,7 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of InitialValue
-         * @param initialValue the value to be set
+         * @param initialValue the value to be set.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -49,7 +49,7 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of MaximumValue
-         * @param maximumValue the value to be set
+         * @param maximumValue the value to be set.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

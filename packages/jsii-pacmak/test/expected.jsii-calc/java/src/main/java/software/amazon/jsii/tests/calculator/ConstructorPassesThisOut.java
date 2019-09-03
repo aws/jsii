@@ -18,6 +18,8 @@ public class ConstructorPassesThisOut extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param consumer This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public ConstructorPassesThisOut(final software.amazon.jsii.tests.calculator.PartiallyInitializedThisConsumer consumer) {

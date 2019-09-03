@@ -23,6 +23,8 @@ public class Polymorphism extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param friendly This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String sayHello(final software.amazon.jsii.tests.calculator.lib.IFriendly friendly) {

@@ -49,7 +49,7 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of Required
-         * @param required This is a required field.
+         * @param required This is a required field. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -60,7 +60,7 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of SecondLevel
-         * @param secondLevel A union to really stress test our serialization.
+         * @param secondLevel A union to really stress test our serialization. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -71,7 +71,7 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of SecondLevel
-         * @param secondLevel A union to really stress test our serialization.
+         * @param secondLevel A union to really stress test our serialization. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

@@ -32,7 +32,7 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
 
         /**
          * Sets the value of TopLevelProperty
-         * @param topLevelProperty the value to be set
+         * @param topLevelProperty the value to be set. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -43,7 +43,7 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
 
         /**
          * Sets the value of FirstMidLevelProperty
-         * @param firstMidLevelProperty the value to be set
+         * @param firstMidLevelProperty the value to be set. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -54,7 +54,7 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
 
         /**
          * Sets the value of BaseLevelProperty
-         * @param baseLevelProperty the value to be set
+         * @param baseLevelProperty the value to be set. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -65,7 +65,7 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
 
         /**
          * Sets the value of SecondMidLevelProperty
-         * @param secondMidLevelProperty the value to be set
+         * @param secondMidLevelProperty the value to be set. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

@@ -28,6 +28,8 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param inp This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void anyIn(final java.lang.Object inp) {
@@ -44,6 +46,8 @@ public class AllTypes extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param value This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.StringEnum enumMethod(final software.amazon.jsii.tests.calculator.StringEnum value) {

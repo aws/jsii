@@ -47,7 +47,7 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
 
         /**
          * Sets the value of Optional1
-         * @param optional1 The first optional!
+         * @param optional1 The first optional!.
          * @return {@code this}
          */
         @Deprecated
@@ -59,7 +59,7 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
 
         /**
          * Sets the value of Optional2
-         * @param optional2 the value to be set
+         * @param optional2 the value to be set.
          * @return {@code this}
          */
         @Deprecated
@@ -71,7 +71,7 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
 
         /**
          * Sets the value of Optional3
-         * @param optional3 the value to be set
+         * @param optional3 the value to be set.
          * @return {@code this}
          */
         @Deprecated
