@@ -1860,3 +1860,24 @@ export class InterfacesMaker {
 
     private constructor() { }
 }
+
+export class ClassWithCollections {
+    public map: { [key: string]: string };
+    public array: string[];
+
+    public static staticMap:{ [key: string]: string } = {'key1': 'value1', 'key2': 'value2'};
+    public static staticArray: string[] = ["one", "two"];
+
+    constructor(map: { [key: string]: string }, array: string[]) {
+        this.map = map;
+        this.array = array;
+    }
+
+    static createAList(): string[] {
+        return ["one", "two"];
+    }
+
+    static createAMap(): { [key: string]: string } {
+        return {'key1': 'value1', 'key2': 'value2'};
+    }
+}

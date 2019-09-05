@@ -6,6 +6,7 @@ package software.amazon.jsii.tests.calculator;
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializable {
+
     /**
      * EXPERIMENTAL
      */
@@ -19,12 +20,11 @@ public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializabl
     static Builder builder() {
         return new Builder();
     }
-
     /**
      * A builder for {@link ExperimentalStruct}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    final class Builder {
+    public static final class Builder {
         private java.lang.String readonlyProperty;
 
         /**
@@ -47,7 +47,6 @@ public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializabl
         public ExperimentalStruct build() {
             return new Jsii$Proxy(readonlyProperty);
         }
-
     }
 
     /**
@@ -66,7 +65,6 @@ public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializabl
             this.setObjRef(objRef);
             this.readonlyProperty = this.jsiiGet("readonlyProperty", java.lang.String.class);
         }
-
 
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
@@ -104,6 +102,5 @@ public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializabl
             int result = this.readonlyProperty.hashCode();
             return result;
         }
-
     }
 }

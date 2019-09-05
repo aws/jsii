@@ -6,6 +6,7 @@ package software.amazon.jsii.tests.calculator.InterfaceInNamespaceIncludesClasse
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface Hello extends software.amazon.jsii.JsiiSerializable {
+
     /**
      * EXPERIMENTAL
      */
@@ -19,12 +20,11 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
     static Builder builder() {
         return new Builder();
     }
-
     /**
      * A builder for {@link Hello}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    final class Builder {
+    public static final class Builder {
         private java.lang.Number foo;
 
         /**
@@ -47,7 +47,6 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
         public Hello build() {
             return new Jsii$Proxy(foo);
         }
-
     }
 
     /**
@@ -66,7 +65,6 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
             this.setObjRef(objRef);
             this.foo = this.jsiiGet("foo", java.lang.Number.class);
         }
-
 
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
@@ -104,6 +102,5 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
             int result = this.foo.hashCode();
             return result;
         }
-
     }
 }

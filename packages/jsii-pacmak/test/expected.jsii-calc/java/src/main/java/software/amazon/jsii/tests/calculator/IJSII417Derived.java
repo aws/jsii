@@ -6,6 +6,7 @@ package software.amazon.jsii.tests.calculator;
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface IJSII417Derived extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.IJSII417PublicBaseOfBase {
+
     /**
      * EXPERIMENTAL
      */
@@ -23,7 +24,6 @@ public interface IJSII417Derived extends software.amazon.jsii.JsiiSerializable, 
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     void baz();
-
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.

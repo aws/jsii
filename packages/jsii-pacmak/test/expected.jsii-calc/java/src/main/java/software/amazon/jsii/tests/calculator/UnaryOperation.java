@@ -17,11 +17,12 @@ public abstract class UnaryOperation extends software.amazon.jsii.tests.calculat
     protected UnaryOperation(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public UnaryOperation(final software.amazon.jsii.tests.calculator.lib.Value operand) {
+    protected UnaryOperation(final software.amazon.jsii.tests.calculator.lib.Value operand) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(operand, "operand is required") }));
     }

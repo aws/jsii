@@ -17,6 +17,7 @@ public class Multiply extends software.amazon.jsii.tests.calculator.BinaryOperat
     protected Multiply(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     /**
      * Creates a BinaryOperation.
      * 

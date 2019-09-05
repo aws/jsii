@@ -15,6 +15,7 @@ public class Polymorphism extends software.amazon.jsii.JsiiObject {
     protected Polymorphism(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public Polymorphism() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));

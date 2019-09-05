@@ -6,6 +6,7 @@ package software.amazon.jsii.tests.calculator;
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface IExtendsPrivateInterface extends software.amazon.jsii.JsiiSerializable {
+
     /**
      * EXPERIMENTAL
      */
@@ -23,7 +24,6 @@ public interface IExtendsPrivateInterface extends software.amazon.jsii.JsiiSeria
      */
     void setPrivateValue(final java.lang.String value);
 
-
     /**
      * A proxy class which represents a concrete javascript instance of this type.
      */
@@ -39,7 +39,7 @@ public interface IExtendsPrivateInterface extends software.amazon.jsii.JsiiSeria
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public java.util.List<java.lang.String> getMoreThings() {
-            return this.jsiiGet("moreThings", java.util.List.class);
+            return java.util.Collections.unmodifiableList(this.jsiiGet("moreThings", java.util.List.class));
         }
 
         /**

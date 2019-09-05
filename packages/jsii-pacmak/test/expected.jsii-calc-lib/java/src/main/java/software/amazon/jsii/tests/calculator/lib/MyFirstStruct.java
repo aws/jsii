@@ -7,6 +7,7 @@ package software.amazon.jsii.tests.calculator.lib;
 @Deprecated
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
 public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
+
     /**
      * An awesome number value.
      */
@@ -35,13 +36,12 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
     static Builder builder() {
         return new Builder();
     }
-
     /**
      * A builder for {@link MyFirstStruct}
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-    final class Builder {
+    public static final class Builder {
         private java.lang.Number anumber;
         private java.lang.String astring;
         private java.util.List<java.lang.String> firstOptional;
@@ -92,7 +92,6 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
         public MyFirstStruct build() {
             return new Jsii$Proxy(anumber, astring, firstOptional);
         }
-
     }
 
     /**
@@ -116,7 +115,6 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
             this.astring = this.jsiiGet("astring", java.lang.String.class);
             this.firstOptional = this.jsiiGet("firstOptional", java.util.List.class);
         }
-
 
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
@@ -174,6 +172,5 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
             result = 31 * result + (this.firstOptional != null ? this.firstOptional.hashCode() : 0);
             return result;
         }
-
     }
 }

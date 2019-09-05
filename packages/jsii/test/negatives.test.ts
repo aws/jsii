@@ -23,7 +23,7 @@ for (const source of fs.readdirSync(SOURCE_DIR)) {
             expect(
                 errors.find(e => _messageText(e).indexOf(expectation) !== -1),
                 `No error contained: ${expectation}. Errors: \n${errors.map((e, i) => `[${i}] ${e.messageText}`).join('\n')}`
-            ).not.toBe(null);
+            ).toBeDefined();
         }
 
         // Cleaning up...
@@ -34,7 +34,7 @@ for (const source of fs.readdirSync(SOURCE_DIR)) {
             await fs.remove(path.join(SOURCE_DIR, '.jsii'));
             await fs.remove(path.join(SOURCE_DIR, 'tsconfig.json'));
         }
-    });
+    }, 10000);
 }
 
 const MATCH_ERROR_MARKER = '///!MATCH_ERROR:';

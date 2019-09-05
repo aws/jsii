@@ -15,6 +15,7 @@ public class VariadicMethod extends software.amazon.jsii.JsiiObject {
     protected VariadicMethod(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     /**
      * EXPERIMENTAL
      * 
@@ -34,6 +35,6 @@ public class VariadicMethod extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.List<java.lang.Number> asArray(final java.lang.Number first, final java.lang.Number... others) {
-        return this.jsiiCall("asArray", java.util.List.class, java.util.stream.Stream.concat(java.util.Arrays.<Object>stream(new Object[] { java.util.Objects.requireNonNull(first, "first is required") }), java.util.Arrays.<Object>stream(others)).toArray(Object[]::new));
+        return java.util.Collections.unmodifiableList(this.jsiiCall("asArray", java.util.List.class, java.util.stream.Stream.concat(java.util.Arrays.<Object>stream(new Object[] { java.util.Objects.requireNonNull(first, "first is required") }), java.util.Arrays.<Object>stream(others)).toArray(Object[]::new)));
     }
 }

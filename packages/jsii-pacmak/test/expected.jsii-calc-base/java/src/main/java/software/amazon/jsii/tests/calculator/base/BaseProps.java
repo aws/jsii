@@ -2,6 +2,7 @@ package software.amazon.jsii.tests.calculator.base;
 
 @javax.annotation.Generated(value = "jsii-pacmak")
 public interface BaseProps extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.baseofbase.VeryBaseProps {
+
     java.lang.String getBar();
 
     /**
@@ -10,11 +11,10 @@ public interface BaseProps extends software.amazon.jsii.JsiiSerializable, softwa
     static Builder builder() {
         return new Builder();
     }
-
     /**
      * A builder for {@link BaseProps}
      */
-    final class Builder {
+    public static final class Builder {
         private java.lang.String bar;
         private software.amazon.jsii.tests.calculator.baseofbase.Very foo;
 
@@ -46,7 +46,6 @@ public interface BaseProps extends software.amazon.jsii.JsiiSerializable, softwa
         public BaseProps build() {
             return new Jsii$Proxy(bar, foo);
         }
-
     }
 
     /**
@@ -66,7 +65,6 @@ public interface BaseProps extends software.amazon.jsii.JsiiSerializable, softwa
             this.bar = this.jsiiGet("bar", java.lang.String.class);
             this.foo = this.jsiiGet("foo", software.amazon.jsii.tests.calculator.baseofbase.Very.class);
         }
-
 
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
@@ -113,6 +111,5 @@ public interface BaseProps extends software.amazon.jsii.JsiiSerializable, softwa
             result = 31 * result + (this.foo.hashCode());
             return result;
         }
-
     }
 }

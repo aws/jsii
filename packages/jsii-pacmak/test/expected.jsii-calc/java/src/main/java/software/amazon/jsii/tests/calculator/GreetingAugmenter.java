@@ -15,6 +15,7 @@ public class GreetingAugmenter extends software.amazon.jsii.JsiiObject {
     protected GreetingAugmenter(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public GreetingAugmenter() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));

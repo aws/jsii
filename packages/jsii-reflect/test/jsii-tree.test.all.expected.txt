@@ -245,6 +245,30 @@ assemblies
  │   │   │ └── type: string
  │   │   └─┬ e property (experimental)
  │   │     └── type: string
+ │   ├─┬ class ClassWithCollections (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(map,array) initializer (experimental)
+ │   │   │ └─┬ parameters
+ │   │   │   ├─┬ map
+ │   │   │   │ └── type: Map<string => string>
+ │   │   │   └─┬ array
+ │   │   │     └── type: Array<string>
+ │   │   ├─┬ static createAList() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: Array<string>
+ │   │   ├─┬ static createAMap() method (experimental)
+ │   │   │ ├── static
+ │   │   │ └── returns: Map<string => string>
+ │   │   ├─┬ static staticArray property (experimental)
+ │   │   │ ├── static
+ │   │   │ └── type: Array<string>
+ │   │   ├─┬ static staticMap property (experimental)
+ │   │   │ ├── static
+ │   │   │ └── type: Map<string => string>
+ │   │   ├─┬ array property (experimental)
+ │   │   │ └── type: Array<string>
+ │   │   └─┬ map property (experimental)
+ │   │     └── type: Map<string => string>
  │   ├─┬ class ClassWithDocs (stable)
  │   │ └─┬ members
  │   │   └── <initializer>() initializer (stable)

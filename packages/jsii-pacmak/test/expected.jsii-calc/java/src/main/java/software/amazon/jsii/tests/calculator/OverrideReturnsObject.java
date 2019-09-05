@@ -15,6 +15,7 @@ public class OverrideReturnsObject extends software.amazon.jsii.JsiiObject {
     protected OverrideReturnsObject(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public OverrideReturnsObject() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));

@@ -15,7 +15,8 @@ public abstract class AbstractClassBase extends software.amazon.jsii.JsiiObject 
     protected AbstractClassBase(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
-    public AbstractClassBase() {
+
+    protected AbstractClassBase() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
     }

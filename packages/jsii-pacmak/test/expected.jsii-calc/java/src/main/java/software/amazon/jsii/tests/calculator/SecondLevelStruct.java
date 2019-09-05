@@ -6,6 +6,7 @@ package software.amazon.jsii.tests.calculator;
 @javax.annotation.Generated(value = "jsii-pacmak")
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable {
+
     /**
      * It's long and required.
      * 
@@ -29,12 +30,11 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
     static Builder builder() {
         return new Builder();
     }
-
     /**
      * A builder for {@link SecondLevelStruct}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    final class Builder {
+    public static final class Builder {
         private java.lang.String deeperRequiredProp;
         private java.lang.String deeperOptionalProp;
 
@@ -69,7 +69,6 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
         public SecondLevelStruct build() {
             return new Jsii$Proxy(deeperRequiredProp, deeperOptionalProp);
         }
-
     }
 
     /**
@@ -90,7 +89,6 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
             this.deeperRequiredProp = this.jsiiGet("deeperRequiredProp", java.lang.String.class);
             this.deeperOptionalProp = this.jsiiGet("deeperOptionalProp", java.lang.String.class);
         }
-
 
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
@@ -139,6 +137,5 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
             result = 31 * result + (this.deeperOptionalProp != null ? this.deeperOptionalProp.hashCode() : 0);
             return result;
         }
-
     }
 }

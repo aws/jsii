@@ -17,6 +17,7 @@ public class Add extends software.amazon.jsii.tests.calculator.BinaryOperation {
     protected Add(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     /**
      * Creates a BinaryOperation.
      * 

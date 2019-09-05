@@ -1179,6 +1179,68 @@ ClassThatImplementsThePrivateInterface
       :type: string
 
 
+ClassWithCollections
+^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: ClassWithCollections(map, array)
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.ClassWithCollections;
+
+      .. code-tab:: javascript
+
+         const { ClassWithCollections } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { ClassWithCollections } from 'jsii-calc';
+
+
+
+   :param map: 
+   :type map: string => string
+   :param array: 
+   :type array: string[]
+
+   .. py:staticmethod:: createAList() -> string[]
+
+      :rtype: string[]
+
+
+   .. py:staticmethod:: createAMap() -> string => string
+
+      :rtype: string => string
+
+
+   .. py:attribute:: staticArray
+
+      :type: string[] *(static)*
+
+
+   .. py:attribute:: staticMap
+
+      :type: string => string *(static)*
+
+
+   .. py:attribute:: array
+
+      :type: string[]
+
+
+   .. py:attribute:: map
+
+      :type: string => string
+
+
 ClassWithDocs
 ^^^^^^^^^^^^^
 

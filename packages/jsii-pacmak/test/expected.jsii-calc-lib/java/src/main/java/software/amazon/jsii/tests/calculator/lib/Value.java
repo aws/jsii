@@ -16,7 +16,8 @@ public abstract class Value extends software.amazon.jsii.tests.calculator.base.B
     protected Value(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
-    public Value() {
+
+    protected Value() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
     }

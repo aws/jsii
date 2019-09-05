@@ -10,13 +10,13 @@ package software.amazon.jsii.tests.calculator.lib;
 @Deprecated
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
 public interface IFriendly extends software.amazon.jsii.JsiiSerializable {
+
     /**
      * Say hello!
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     java.lang.String hello();
-
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.

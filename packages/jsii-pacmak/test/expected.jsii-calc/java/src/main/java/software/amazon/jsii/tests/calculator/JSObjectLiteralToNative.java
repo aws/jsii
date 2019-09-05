@@ -15,6 +15,7 @@ public class JSObjectLiteralToNative extends software.amazon.jsii.JsiiObject {
     protected JSObjectLiteralToNative(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public JSObjectLiteralToNative() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));

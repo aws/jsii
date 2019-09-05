@@ -15,6 +15,7 @@ public class ClassWithJavaReservedWords extends software.amazon.jsii.JsiiObject 
     protected ClassWithJavaReservedWords(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     /**
      * EXPERIMENTAL
      */
