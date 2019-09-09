@@ -25,6 +25,10 @@ public class DoNotRecognizeAnyAsOptional extends software.amazon.jsii.JsiiObject
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param _requiredAny This parameter is required.
+     * @param _optionalAny
+     * @param _optionalString
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void method(final java.lang.Object _requiredAny, final java.lang.Object _optionalAny, final java.lang.String _optionalString) {
@@ -33,6 +37,9 @@ public class DoNotRecognizeAnyAsOptional extends software.amazon.jsii.JsiiObject
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param _requiredAny This parameter is required.
+     * @param _optionalAny
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void method(final java.lang.Object _requiredAny, final java.lang.Object _optionalAny) {
@@ -41,6 +48,8 @@ public class DoNotRecognizeAnyAsOptional extends software.amazon.jsii.JsiiObject
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param _requiredAny This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void method(final java.lang.Object _requiredAny) {

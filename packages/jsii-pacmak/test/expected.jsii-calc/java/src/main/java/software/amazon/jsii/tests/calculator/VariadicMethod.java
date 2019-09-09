@@ -19,7 +19,7 @@ public class VariadicMethod extends software.amazon.jsii.JsiiObject {
     /**
      * EXPERIMENTAL
      * 
-     * @param prefix a prefix that will be use for all values returned by `#asArray`.
+     * @param prefix a prefix that will be use for all values returned by `#asArray`. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public VariadicMethod(final java.lang.Number... prefix) {
@@ -30,8 +30,8 @@ public class VariadicMethod extends software.amazon.jsii.JsiiObject {
     /**
      * EXPERIMENTAL
      * 
-     * @param first the first element of the array to be returned (after the `prefix` provided at construction time).
-     * @param others other elements to be included in the array.
+     * @param first the first element of the array to be returned (after the `prefix` provided at construction time). This parameter is required.
+     * @param others other elements to be included in the array. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.List<java.lang.Number> asArray(final java.lang.Number first, final java.lang.Number... others) {

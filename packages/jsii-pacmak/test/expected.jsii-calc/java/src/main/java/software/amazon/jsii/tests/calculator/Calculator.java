@@ -46,6 +46,8 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      * Adds a number to the current value.
      * 
      * EXPERIMENTAL
+     * 
+     * @param value This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void add(final java.lang.Number value) {
@@ -56,6 +58,8 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      * Multiplies the current value by a number.
      * 
      * EXPERIMENTAL
+     * 
+     * @param value This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void mul(final java.lang.Number value) {
@@ -76,6 +80,8 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      * Raises the current value by a power.
      * 
      * EXPERIMENTAL
+     * 
+     * @param value This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void pow(final java.lang.Number value) {

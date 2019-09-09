@@ -27,6 +27,8 @@ public class ObjectRefsInCollections extends software.amazon.jsii.JsiiObject {
      * Returns the sum of all values.
      * 
      * EXPERIMENTAL
+     * 
+     * @param values This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number sumFromArray(final java.util.List<software.amazon.jsii.tests.calculator.lib.Value> values) {
@@ -37,6 +39,8 @@ public class ObjectRefsInCollections extends software.amazon.jsii.JsiiObject {
      * Returns the sum of all values in a map.
      * 
      * EXPERIMENTAL
+     * 
+     * @param values This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number sumFromMap(final java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> values) {

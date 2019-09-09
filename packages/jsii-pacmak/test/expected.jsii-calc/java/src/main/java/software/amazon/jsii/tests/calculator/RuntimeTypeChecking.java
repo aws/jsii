@@ -23,6 +23,10 @@ public class RuntimeTypeChecking extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param arg1
+     * @param arg2
+     * @param arg3
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void methodWithDefaultedArguments(final java.lang.Number arg1, final java.lang.String arg2, final java.time.Instant arg3) {
@@ -31,6 +35,9 @@ public class RuntimeTypeChecking extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param arg1
+     * @param arg2
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void methodWithDefaultedArguments(final java.lang.Number arg1, final java.lang.String arg2) {
@@ -39,6 +46,8 @@ public class RuntimeTypeChecking extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param arg1
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void methodWithDefaultedArguments(final java.lang.Number arg1) {
@@ -55,6 +64,8 @@ public class RuntimeTypeChecking extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param arg
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void methodWithOptionalAnyArgument(final java.lang.Object arg) {
@@ -73,6 +84,10 @@ public class RuntimeTypeChecking extends software.amazon.jsii.JsiiObject {
      * Used to verify verification of number of method arguments.
      * 
      * EXPERIMENTAL
+     * 
+     * @param arg1 This parameter is required.
+     * @param arg2 This parameter is required.
+     * @param arg3
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void methodWithOptionalArguments(final java.lang.Number arg1, final java.lang.String arg2, final java.time.Instant arg3) {
@@ -83,6 +98,9 @@ public class RuntimeTypeChecking extends software.amazon.jsii.JsiiObject {
      * Used to verify verification of number of method arguments.
      * 
      * EXPERIMENTAL
+     * 
+     * @param arg1 This parameter is required.
+     * @param arg2 This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void methodWithOptionalArguments(final java.lang.Number arg1, final java.lang.String arg2) {

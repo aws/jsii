@@ -11,12 +11,17 @@ public interface IInterfaceWithOptionalMethodArguments extends software.amazon.j
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param arg1 This parameter is required.
+     * @param arg2
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     void hello(final java.lang.String arg1, final java.lang.Number arg2);
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param arg1 This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     void hello(final java.lang.String arg1);
@@ -32,6 +37,9 @@ public interface IInterfaceWithOptionalMethodArguments extends software.amazon.j
 
         /**
          * EXPERIMENTAL
+         * 
+         * @param arg1 This parameter is required.
+         * @param arg2
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
@@ -41,6 +49,8 @@ public interface IInterfaceWithOptionalMethodArguments extends software.amazon.j
 
         /**
          * EXPERIMENTAL
+         * 
+         * @param arg1 This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override

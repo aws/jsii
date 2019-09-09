@@ -29,7 +29,7 @@ public interface OptionalStruct extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of Field
-         * @param field the value to be set
+         * @param field the value to be set.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

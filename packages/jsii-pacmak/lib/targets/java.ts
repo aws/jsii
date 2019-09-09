@@ -896,11 +896,8 @@ class JavaGenerator extends Generator {
             this.code.line();
             this.code.line('/**');
             this.code.line(` * Sets the value of ${prop.propName}`);
-            if (prop.docs && prop.docs.summary) {
-                this.code.line(` * @param ${prop.fieldName} ${prop.docs.summary}`);
-            } else {
-                this.code.line(` * @param ${prop.fieldName} the value to be set`);
-            }
+            const summary = (prop.docs && prop.docs.summary) || "the value to be set";
+            this.code.line(` * ${paramJavadoc(prop.fieldName, prop.nullable, summary)}`);
             this.code.line(` * @return {@code this}`);
             if (prop.docs && prop.docs.deprecated) {
                 this.code.line(` * @deprecated ${prop.docs.deprecated}`);
@@ -1194,9 +1191,8 @@ class JavaGenerator extends Generator {
             const method = doc as spec.Method;
             if (method.parameters) {
                 for (const param of method.parameters) {
-                    if (param.docs && param.docs.summary) {
-                        tagLines.push(`@param ${param.name} ${param.docs.summary}`);
-                    }
+                    const summary = (param.docs && param.docs.summary) || undefined;
+                    tagLines.push(paramJavadoc(param.name, param.optional, summary));
                 }
             }
         }
@@ -1542,4 +1538,19 @@ function isNullable(optionalValue: spec.OptionalValue | undefined): boolean {
     return optionalValue.optional
         || (spec.isPrimitiveTypeReference(optionalValue.type)
             && optionalValue.type.primitive === spec.PrimitiveType.Any);
+}
+
+function paramJavadoc(name: string, optional?: boolean, summary?: string): string {
+    const parts = ['@param', name];
+    if (summary) { parts.push(endWithPeriod(summary)); }
+    if (!optional) { parts.push('This parameter is required.'); }
+
+    return parts.join(' ');
+}
+
+function endWithPeriod(s: string): string {
+    if (!s.endsWith('.')) {
+        return s + '.';
+    }
+    return s;
 }

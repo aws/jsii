@@ -27,7 +27,7 @@ public interface StableStruct extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of ReadonlyProperty
-         * @param readonlyProperty the value to be set
+         * @param readonlyProperty the value to be set. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)

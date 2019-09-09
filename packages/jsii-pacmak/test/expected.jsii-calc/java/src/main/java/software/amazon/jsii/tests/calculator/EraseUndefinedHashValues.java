@@ -28,6 +28,9 @@ public class EraseUndefinedHashValues extends software.amazon.jsii.JsiiObject {
      * are being erased when sending values from native code to JS.
      * 
      * EXPERIMENTAL
+     * 
+     * @param opts This parameter is required.
+     * @param key This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static java.lang.Boolean doesKeyExist(final software.amazon.jsii.tests.calculator.EraseUndefinedHashValuesOptions opts, final java.lang.String key) {

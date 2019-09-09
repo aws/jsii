@@ -18,6 +18,9 @@ public class ClassWithCollections extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param map This parameter is required.
+     * @param array This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public ClassWithCollections(final java.util.Map<java.lang.String, java.lang.String> map, final java.util.List<java.lang.String> array) {

@@ -23,8 +23,8 @@ public class Add extends software.amazon.jsii.tests.calculator.BinaryOperation {
      * 
      * EXPERIMENTAL
      * 
-     * @param lhs Left-hand side operand.
-     * @param rhs Right-hand side operand.
+     * @param lhs Left-hand side operand. This parameter is required.
+     * @param rhs Right-hand side operand. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public Add(final software.amazon.jsii.tests.calculator.lib.Value lhs, final software.amazon.jsii.tests.calculator.lib.Value rhs) {

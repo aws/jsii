@@ -20,6 +20,8 @@ public abstract class UnaryOperation extends software.amazon.jsii.tests.calculat
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param operand This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     protected UnaryOperation(final software.amazon.jsii.tests.calculator.lib.Value operand) {

@@ -36,7 +36,7 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
 
         /**
          * Sets the value of ArrayWithThreeElementsAndUndefinedAsSecondArgument
-         * @param arrayWithThreeElementsAndUndefinedAsSecondArgument the value to be set
+         * @param arrayWithThreeElementsAndUndefinedAsSecondArgument the value to be set. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -47,7 +47,7 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
 
         /**
          * Sets the value of ThisShouldBeUndefined
-         * @param thisShouldBeUndefined the value to be set
+         * @param thisShouldBeUndefined the value to be set.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

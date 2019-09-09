@@ -18,6 +18,9 @@ public class ExperimentalClass extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param readonlyString This parameter is required.
+     * @param mutableNumber
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public ExperimentalClass(final java.lang.String readonlyString, final java.lang.Number mutableNumber) {
@@ -27,6 +30,8 @@ public class ExperimentalClass extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param readonlyString This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public ExperimentalClass(final java.lang.String readonlyString) {

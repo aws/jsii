@@ -36,7 +36,7 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of Bar
-         * @param bar the value to be set
+         * @param bar the value to be set. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -47,7 +47,7 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of Bar
-         * @param bar the value to be set
+         * @param bar the value to be set. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -58,7 +58,7 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of Bar
-         * @param bar the value to be set
+         * @param bar the value to be set. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -69,7 +69,7 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of Foo
-         * @param foo the value to be set
+         * @param foo the value to be set.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -80,7 +80,7 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of Foo
-         * @param foo the value to be set
+         * @param foo the value to be set.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

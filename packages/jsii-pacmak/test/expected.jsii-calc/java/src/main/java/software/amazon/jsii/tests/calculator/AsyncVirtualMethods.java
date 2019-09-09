@@ -63,6 +63,8 @@ public class AsyncVirtualMethods extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param mult This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number overrideMe(final java.lang.Number mult) {

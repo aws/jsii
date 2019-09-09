@@ -23,6 +23,8 @@ public class DoNotOverridePrivates extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param newValue This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void changePrivatePropertyValue(final java.lang.String newValue) {

@@ -36,7 +36,7 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
 
         /**
          * Sets the value of Option1
-         * @param option1 the value to be set
+         * @param option1 the value to be set.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -47,7 +47,7 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
 
         /**
          * Sets the value of Option2
-         * @param option2 the value to be set
+         * @param option2 the value to be set.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

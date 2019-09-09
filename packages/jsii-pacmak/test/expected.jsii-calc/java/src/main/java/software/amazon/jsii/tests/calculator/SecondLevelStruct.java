@@ -40,7 +40,7 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
 
         /**
          * Sets the value of DeeperRequiredProp
-         * @param deeperRequiredProp It's long and required.
+         * @param deeperRequiredProp It's long and required. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)

@@ -20,6 +20,8 @@ public class InterfacesMaker extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param count This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static java.util.List<software.amazon.jsii.tests.calculator.lib.IDoublable> makeInterfaces(final java.lang.Number count) {

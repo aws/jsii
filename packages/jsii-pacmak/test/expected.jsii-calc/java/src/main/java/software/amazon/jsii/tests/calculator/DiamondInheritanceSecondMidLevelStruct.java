@@ -30,7 +30,7 @@ public interface DiamondInheritanceSecondMidLevelStruct extends software.amazon.
 
         /**
          * Sets the value of SecondMidLevelProperty
-         * @param secondMidLevelProperty the value to be set
+         * @param secondMidLevelProperty the value to be set. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -41,7 +41,7 @@ public interface DiamondInheritanceSecondMidLevelStruct extends software.amazon.
 
         /**
          * Sets the value of BaseLevelProperty
-         * @param baseLevelProperty the value to be set
+         * @param baseLevelProperty the value to be set. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
