@@ -27,6 +27,7 @@
     "fs-extra": "^8.1.0",
     "jsii-reflect": "^0.16.0",
     "jsii-spec": "^0.16.0",
+    "jsii-sampiler": "^0.16.0",
     "spdx-license-list": "^6.1.0",
     "xmlbuilder": "^13.0.2",
     "yargs": "^14.0.0"

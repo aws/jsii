@@ -45,7 +45,7 @@ async function inTempDir<T>(block: () => Promise<T>): Promise<T> {
   process.chdir(tmpDir);
   const ret = await block();
   process.chdir(origDir);
-  //  await fs.remove(tmpDir);
+  await fs.remove(tmpDir);
   return ret;
 }
 
