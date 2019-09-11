@@ -223,7 +223,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             JArray resultArray = new JArray();
             foreach (object element in array)
             {
-                if (!TryConvert(elementType, referenceMap, element, out object convertedElement))
+                if (!TryConvertCollectionElement(element, referenceMap, elementType, out object convertedElement))
                 {
                     result = null;
                     return false;
@@ -263,39 +263,8 @@ namespace Amazon.JSII.Runtime.Services.Converters
             foreach (string key in keys)
             {
                 object element = indexer.GetValue(value, new object[] {key});
-                
-                bool converted;
-                object convertedElement;
-                if (element is IDictionary<string, object> || element is object[])
-                {
-                    var objectType = InferType(referenceMap, element);
-                    switch (objectType.Collection?.Kind)
-                    {
-                        case CollectionKind.Map:
-                            // We should not pass the parent element type as we are
-                            // in a map<string, object> containing another map.
-                            // If we pass the parent referenceMap then it will try to convert it as Any
-                            // So we can directly convert to another map here, and forgo the type hierarchy
-                            // induced by elementType
-                            // See https://github.com/aws/aws-cdk/issues/2496
-                            converted = TryConvertMap(referenceMap, elementType, element, out convertedElement);
-                            break;
-                        case CollectionKind.Array:
-                            // The [object] could be another array. (ie Tags)
-                            // https://github.com/aws/aws-cdk/issues/3244
-                            converted = TryConvertArray(referenceMap, elementType, element, out convertedElement);
-                            break;
-                        default:
-                            converted = TryConvert(elementType, referenceMap, element, out convertedElement);
-                            break;
-                    }
-                }
-                else
-                {
-                    converted = TryConvert(elementType, referenceMap, element, out convertedElement);
-                }
 
-                if (!converted)
+                if (!TryConvertCollectionElement(element, referenceMap, elementType, out object convertedElement))
                 {
                     result = null;
                     return false;
@@ -306,6 +275,42 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
             result = resultObject;
             return true;
+        }
+
+        private bool TryConvertCollectionElement(object element, IReferenceMap referenceMap, TypeReference elementType,
+            out object convertedElement)
+        {
+            bool converted;
+            if (element is IDictionary<string, object> || element is object[])
+            {
+                var objectType = InferType(referenceMap, element);
+                switch (objectType.Collection?.Kind)
+                {
+                    case CollectionKind.Map:
+                        // We should not pass the parent element type as we are
+                        // in a map<string, object> containing another map.
+                        // If we pass the parent referenceMap then it will try to convert it as Any
+                        // So we can directly convert to another map here, and forgo the type hierarchy
+                        // induced by elementType
+                        // See https://github.com/aws/aws-cdk/issues/2496
+                        converted = TryConvertMap(referenceMap, elementType, element, out convertedElement);
+                        break;
+                    case CollectionKind.Array:
+                        // The [object] could be another array. (ie Tags)
+                        // https://github.com/aws/aws-cdk/issues/3244
+                        converted = TryConvertArray(referenceMap, elementType, element, out convertedElement);
+                        break;
+                    default:
+                        converted = TryConvert(elementType, referenceMap, element, out convertedElement);
+                        break;
+                }
+            }
+            else
+            {
+                converted = TryConvert(elementType, referenceMap, element, out convertedElement);
+            }
+
+            return converted;
         }
 
         protected override TypeReference InferType(IReferenceMap referenceMap, object value)
