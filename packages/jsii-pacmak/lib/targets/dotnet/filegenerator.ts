@@ -50,7 +50,7 @@ export class FileGenerator {
         const rootNode = xmlbuilder.create('Project', {encoding: 'UTF-8', headless: true});
         rootNode.att("Sdk", "Microsoft.NET.Sdk");
         const propertyGroup = rootNode.ele("PropertyGroup");
-        propertyGroup.ele("TargetFrameworks", "netcoreapp2.1");
+        propertyGroup.ele("TargetFramework", "netcoreapp2.1");
         propertyGroup.ele("GeneratePackageOnBuild", "true");
         propertyGroup.ele("IncludeSymbols", "true");
         propertyGroup.ele("IncludeSource", "true");
