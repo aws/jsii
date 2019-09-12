@@ -58,7 +58,6 @@ export class FileGenerator {
         propertyGroup.ele("PackageId", packageId);
         propertyGroup.ele("Description", this.getDescription());
         propertyGroup.ele("ProjectUrl", assembly.homepage);
-        propertyGroup.ele("PackageIconUrl", `https://sdk-for-net.amazonwebservices.com/images/AWSLogo128x128.png`);
         propertyGroup.ele("LicenseUrl", `https://spdx.org/licenses/${assembly.license}.html`);
         propertyGroup.ele("Authors", assembly.author.name);
         propertyGroup.ele("Language", "en-US");
@@ -78,7 +77,7 @@ export class FileGenerator {
         }
 
         if (dotnetInfo!.iconUrl != null) {
-            propertyGroup.ele("IconUrl", dotnetInfo!.iconUrl);
+            propertyGroup.ele("PackageIconUrl", dotnetInfo!.iconUrl);
         }
 
         const itemGroup1 = rootNode.ele("ItemGroup");
