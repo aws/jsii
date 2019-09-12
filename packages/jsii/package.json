@@ -27,7 +27,7 @@
         "@types/jest": "^24.0.18",
         "@types/jest-expect-message": "^1.0.0",
         "@types/log4js": "^2.3.5",
-        "@types/semver": "^6.0.1",
+        "@types/semver": "^6.0.2",
         "@types/yargs": "^13.0.2",
         "clone": "^2.1.2",
         "jest": "^24.9.0",
