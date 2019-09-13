@@ -14,7 +14,7 @@ export class KernelHost {
             return; // done
         }
 
-        this.processRequest(req, () => this.run());
+        this.processRequest(req, () => setImmediate(() => this.run()));
     }
 
     private callbackHandler(callback: api.Callback) {

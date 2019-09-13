@@ -10,7 +10,7 @@
   "scripts": {
     "build": "tsc --build && chmod +x bin/jsii-runtime && /bin/bash ./bundle.sh",
     "watch": "tsc --build -w",
-    "test": "/bin/bash test/playback-test.sh",
+    "test": "/bin/bash test/playback-test.sh && node test/stress-test.js",
     "package": "package-js"
   },
   "devDependencies": {
