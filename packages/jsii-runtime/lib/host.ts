@@ -14,7 +14,11 @@ export class KernelHost {
             return; // done
         }
 
-        this.processRequest(req, () => this.run());
+        this.processRequest(req, () => {
+            // Schedule the call to run on the next event loop iteration to
+            // avoid recursion.
+            setImmediate(() => this.run())
+        });
     }
 
     private callbackHandler(callback: api.Callback) {
