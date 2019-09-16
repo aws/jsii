@@ -8,20 +8,22 @@
     "build": "tsc --build && tslint -p .",
     "watch": "tsc --build -w",
     "lint": "tslint -p . --force",
-    "test": "nodeunit test/test.*.js",
+    "test": "jest",
     "package": "package-js"
   },
   "devDependencies": {
     "@scope/jsii-calc-base": "file:../jsii-calc-base",
     "@scope/jsii-calc-lib": "file:../jsii-calc-lib",
     "@types/fs-extra": "^8.0.0",
+    "@types/jest": "^24.0.18",
+    "@types/jest-expect-message": "^1.0.0",
     "@types/node": "^8.10.54",
-    "@types/nodeunit": "^0.0.30",
     "@types/tar": "^4.0.3",
     "fs-extra": "^8.1.0",
+    "jest": "^24.9.0",
+    "jest-expect-message": "^1.0.2",
     "jsii-build-tools": "file:../jsii-build-tools",
     "jsii-calc": "file:../jsii-calc",
-    "nodeunit": "^0.11.3",
     "tslint": "^5.20.0",
     "typescript": "~3.6.2"
   },
@@ -29,6 +31,31 @@
     "jsii-spec": "^0.16.0",
     "source-map": "^0.7.3",
     "tar": "^4.4.10"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/bin/**/*.js",
+      "**/lib/**/*.js"
+    ],
+    "coverageReporters": [
+      "lcov",
+      "text"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 60,
+        "statements": 60
+      }
+    },
+    "errorOnDeprecated": true,
+    "setupFilesAfterEnv": [
+      "jest-expect-message"
+    ],
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/?(*.)+(spec|test).js"
+    ]
   },
   "author": {
     "name": "Amazon Web Services",
