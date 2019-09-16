@@ -4,7 +4,7 @@ import fs = require('fs-extra');
 import spec = require('jsii-spec');
 import path = require('path');
 import xmlbuilder = require('xmlbuilder');
-import {CollectionTypeReference} from "../../../jsii-spec/lib";
+import { CollectionTypeReference, TypeReference } from '../../../jsii-spec/lib';
 import { Generator } from '../generator';
 import logging = require('../logging');
 import { md2html } from '../markdown';
@@ -714,17 +714,16 @@ class JavaGenerator extends Generator {
             if (overrides) { this.code.line('@Override'); }
             this.emitStabilityAnnotations(prop);
             this.code.openBlock(`${access} ${statc}${getterType} get${propName}()`);
-
-            let statement = 'return ';
+            let statement;
             if (prop.static) {
-                statement += `software.amazon.jsii.JsiiObject.jsiiStaticGet(${javaClass}.class, `;
+                statement = `software.amazon.jsii.JsiiObject.jsiiStaticGet(${javaClass}.class, `;
             } else {
-                statement += `this.jsiiGet(`;
+                statement = `this.jsiiGet(`;
             }
 
-            statement += `"${prop.name}", ${propClass}.class);`;
+            statement += `"${prop.name}", ${propClass}.class)`;
 
-            this.code.line(statement);
+            this.code.line(`return ${this.wrapCollection(statement, prop.type)};`);
             this.code.closeBlock();
         }
 
@@ -776,7 +775,8 @@ class JavaGenerator extends Generator {
      * able to interact with them, so we will create a proxy class which
      * implements this interface and has the same methods.
      *
-     * These proxies are also used to extend abstract classes to allow the JSII engine to instantiate an abstract class in Java.
+     * These proxies are also used to extend abstract classes to allow the JSII
+     * engine to instantiate an abstract class in Java.
      */
     private emitProxy(ifc: spec.InterfaceType | spec.ClassType) {
         const name = INTERFACE_PROXY_CLASS_NAME;
@@ -1285,9 +1285,8 @@ class JavaGenerator extends Generator {
             const method = doc as spec.Method;
             if (method.parameters) {
                 for (const param of method.parameters) {
-                    if (param.docs && param.docs.summary) {
-                        tagLines.push(`@param ${param.name} ${param.docs.summary}`);
-                    }
+                    const summary = (param.docs && param.docs.summary) || undefined;
+                    tagLines.push(paramJavadoc(param.name, param.optional, summary));
                 }
             }
         }
@@ -1417,10 +1416,6 @@ class JavaGenerator extends Generator {
     private renderMethodCall(cls: spec.TypeReference, method: spec.Method, async: boolean) {
         let statement = '';
 
-        if (method.returns) {
-            statement += `return `;
-        }
-
         if (method.static) {
             const javaClass = this.toJavaType(cls);
             statement += `software.amazon.jsii.JsiiObject.jsiiStaticCall(${javaClass}.class, `;
@@ -1439,8 +1434,37 @@ class JavaGenerator extends Generator {
         } else {
             statement += ', Void.class';
         }
-        statement += this.renderMethodCallArguments(method);
-        statement += ');';
+        statement += this.renderMethodCallArguments(method) + ')';
+
+        if (method.returns) {
+            statement = this.wrapCollection(statement, method.returns.type);
+        }
+
+        if (method.returns) {
+            return `return ${statement};`;
+        } else {
+            return `${statement};`;
+        }
+    }
+
+    /**
+     * Wraps a collection into an unmodifiable collection else returns the existing statement.
+     * @param statement The statement to wrap if necessary.
+     * @param type The type of the object to wrap.
+     * @returns The modified or original statement.
+     */
+    private wrapCollection(statement: string, type: TypeReference): string {
+        if (spec.isCollectionTypeReference(type)) {
+            const ref = type as CollectionTypeReference;
+            switch (ref.collection.kind) {
+                case spec.CollectionKind.Array:
+                    return `java.util.Collections.unmodifiableList(${statement})`;
+                case spec.CollectionKind.Map:
+                    return `java.util.Collections.unmodifiableMap(${statement})`;
+                default:
+                    throw new Error(`Unsupported collection kind: ${ref.collection.kind}`);
+            }
+        }
 
         return statement;
     }
@@ -1627,4 +1651,19 @@ function isNullable(optionalValue: spec.OptionalValue | undefined): boolean {
     return optionalValue.optional
         || (spec.isPrimitiveTypeReference(optionalValue.type)
             && optionalValue.type.primitive === spec.PrimitiveType.Any);
+}
+
+function paramJavadoc(name: string, optional?: boolean, summary?: string): string {
+    const parts = ['@param', name];
+    if (summary) { parts.push(endWithPeriod(summary)); }
+    if (!optional) { parts.push('This parameter is required.'); }
+
+    return parts.join(' ');
+}
+
+function endWithPeriod(s: string): string {
+    if (!s.endsWith('.')) {
+        return s + '.';
+    }
+    return s;
 }

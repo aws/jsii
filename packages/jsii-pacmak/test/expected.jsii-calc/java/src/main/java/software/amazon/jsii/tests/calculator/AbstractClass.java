@@ -23,6 +23,8 @@ public abstract class AbstractClass extends software.amazon.jsii.tests.calculato
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param name This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public abstract java.lang.String abstractMethod(final java.lang.String name);
@@ -73,6 +75,8 @@ public abstract class AbstractClass extends software.amazon.jsii.tests.calculato
 
         /**
          * EXPERIMENTAL
+         * 
+         * @param name This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override

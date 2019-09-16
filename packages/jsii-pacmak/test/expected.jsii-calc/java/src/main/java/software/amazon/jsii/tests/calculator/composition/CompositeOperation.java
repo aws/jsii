@@ -62,7 +62,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.List<java.lang.String> getDecorationPostfixes() {
-        return this.jsiiGet("decorationPostfixes", java.util.List.class);
+        return java.util.Collections.unmodifiableList(this.jsiiGet("decorationPostfixes", java.util.List.class));
     }
 
     /**
@@ -82,7 +82,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.List<java.lang.String> getDecorationPrefixes() {
-        return this.jsiiGet("decorationPrefixes", java.util.List.class);
+        return java.util.Collections.unmodifiableList(this.jsiiGet("decorationPrefixes", java.util.List.class));
     }
 
     /**

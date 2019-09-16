@@ -29,6 +29,8 @@ public class DataRenderer extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param data
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String render(final software.amazon.jsii.tests.calculator.lib.MyFirstStruct data) {
@@ -45,6 +47,8 @@ public class DataRenderer extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param data This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String renderArbitrary(final java.util.Map<java.lang.String, java.lang.Object> data) {
@@ -53,6 +57,8 @@ public class DataRenderer extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param map This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String renderMap(final java.util.Map<java.lang.String, java.lang.Object> map) {

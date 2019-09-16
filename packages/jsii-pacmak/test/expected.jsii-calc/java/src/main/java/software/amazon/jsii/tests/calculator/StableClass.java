@@ -16,6 +16,8 @@ public class StableClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     * @param readonlyString This parameter is required.
+     * @param mutableNumber
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public StableClass(final java.lang.String readonlyString, final java.lang.Number mutableNumber) {
@@ -24,6 +26,7 @@ public class StableClass extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     * @param readonlyString This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
     public StableClass(final java.lang.String readonlyString) {

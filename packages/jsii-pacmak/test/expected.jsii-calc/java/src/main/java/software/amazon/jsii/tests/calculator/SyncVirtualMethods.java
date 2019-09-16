@@ -39,6 +39,8 @@ public class SyncVirtualMethods extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param value This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void modifyOtherProperty(final java.lang.String value) {
@@ -47,6 +49,8 @@ public class SyncVirtualMethods extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param value This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void modifyValueOfTheProperty(final java.lang.String value) {
@@ -87,6 +91,8 @@ public class SyncVirtualMethods extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param n This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number virtualMethod(final java.lang.Number n) {
@@ -95,6 +101,8 @@ public class SyncVirtualMethods extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param value This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void writeA(final java.lang.Number value) {

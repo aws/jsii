@@ -20,9 +20,11 @@ public class InterfacesMaker extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param count This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static java.util.List<software.amazon.jsii.tests.calculator.lib.IDoublable> makeInterfaces(final java.lang.Number count) {
-        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.InterfacesMaker.class, "makeInterfaces", java.util.List.class, new Object[] { java.util.Objects.requireNonNull(count, "count is required") });
+        return java.util.Collections.unmodifiableList(software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.InterfacesMaker.class, "makeInterfaces", java.util.List.class, new Object[] { java.util.Objects.requireNonNull(count, "count is required") }));
     }
 }

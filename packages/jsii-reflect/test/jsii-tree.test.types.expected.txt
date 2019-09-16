@@ -13,6 +13,7 @@ assemblies
  │   ├── class Calculator
  │   ├── class ClassThatImplementsTheInternalInterface
  │   ├── class ClassThatImplementsThePrivateInterface
+ │   ├── class ClassWithCollections
  │   ├── class ClassWithDocs
  │   ├── class ClassWithJavaReservedWords
  │   ├── class ClassWithMutableObjectLiteralProperty

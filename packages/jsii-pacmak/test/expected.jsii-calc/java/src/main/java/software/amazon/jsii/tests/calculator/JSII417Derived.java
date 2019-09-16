@@ -18,6 +18,8 @@ public class JSII417Derived extends software.amazon.jsii.tests.calculator.JSII41
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param property This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public JSII417Derived(final java.lang.String property) {

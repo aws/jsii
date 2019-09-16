@@ -20,6 +20,8 @@ public class WithPrivatePropertyInConstructor extends software.amazon.jsii.JsiiO
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param privateField
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public WithPrivatePropertyInConstructor(final java.lang.String privateField) {

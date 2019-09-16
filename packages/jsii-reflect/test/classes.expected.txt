@@ -12,6 +12,7 @@ BinaryOperation
 Calculator
 ClassThatImplementsTheInternalInterface
 ClassThatImplementsThePrivateInterface
+ClassWithCollections
 ClassWithDocs
 ClassWithJavaReservedWords
 ClassWithMutableObjectLiteralProperty

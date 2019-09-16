@@ -21,6 +21,7 @@ assemblies
  │   │ └── interfaces: INonInternalInterface
  │   ├─┬ class ClassThatImplementsThePrivateInterface
  │   │ └── interfaces: INonInternalInterface
+ │   ├── class ClassWithCollections
  │   ├── class ClassWithDocs
  │   ├── class ClassWithJavaReservedWords
  │   ├── class ClassWithMutableObjectLiteralProperty

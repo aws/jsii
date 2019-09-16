@@ -12,6 +12,7 @@ import software.amazon.jsii.tests.calculator.AllTypesEnum;
 import software.amazon.jsii.tests.calculator.AsyncVirtualMethods;
 import software.amazon.jsii.tests.calculator.Calculator;
 import software.amazon.jsii.tests.calculator.CalculatorProps;
+import software.amazon.jsii.tests.calculator.ClassWithCollections;
 import software.amazon.jsii.tests.calculator.ClassWithJavaReservedWords;
 import software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties;
 import software.amazon.jsii.tests.calculator.Constructors;
@@ -80,6 +81,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasEntry;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
@@ -1294,6 +1296,92 @@ public class ComplianceTest {
         assertThat(structWithCollections.getMap(), hasEntry("key1", "value1"));
         assertThat(structWithCollections.getMap(), hasEntry("key2", "value2"));
         assertThat(structWithCollections.getMap().size(), equalTo(2));
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void listInClassCannotBeModified() {
+        List<String> modifiableList = Arrays.asList("one", "two");
+
+        ClassWithCollections classWithCollections = new ClassWithCollections(Collections.emptyMap(), modifiableList);
+
+        classWithCollections.getArray().add("three");
+    }
+
+    @Test
+    public void listInClassCanBeReadCorrectly() {
+        List<String> modifiableList = Arrays.asList("one", "two");
+
+        ClassWithCollections classWithCollections = new ClassWithCollections(Collections.emptyMap(), modifiableList);
+
+        assertThat(classWithCollections.getArray(), contains("one", "two"));
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void mapInClassCannotBeModified() {
+        Map<String, String> modifiableMap = new HashMap<>();
+        modifiableMap.put("key", "value");
+
+        ClassWithCollections classWithCollections = new ClassWithCollections(modifiableMap, Collections.emptyList());
+
+        classWithCollections.getMap().put("keyTwo", "valueTwo");
+    }
+
+    @Test
+    public void mapInClassCanBeReadCorrectly() {
+        Map<String, String> modifiableMap = new HashMap<>();
+        modifiableMap.put("key", "value");
+
+        ClassWithCollections classWithCollections = new ClassWithCollections(modifiableMap, Collections.emptyList());
+
+        Map<String, String> result = classWithCollections.getMap();
+        assertThat(result, hasEntry("key", "value"));
+        assertThat(result.size(), is(1));
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void staticListInClassCannotBeModified() {
+        ClassWithCollections.getStaticArray().add("three");
+    }
+
+    @Test
+    public void staticListInClassCanBeReadCorrectly() {
+        assertThat(ClassWithCollections.getStaticArray(), contains("one", "two"));
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void staticMapInClassCannotBeModified() {
+        ClassWithCollections.getStaticMap().put("keyTwo", "valueTwo");
+    }
+
+    @Test
+    public void staticMapInClassCanBeReadCorrectly() {
+        Map<String, String> result = ClassWithCollections.getStaticMap();
+        assertThat(result, hasEntry("key1", "value1"));
+        assertThat(result, hasEntry("key2", "value2"));
+        assertThat(result.size(), is(2));
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void arrayReturnedByMethodCannotBeModified() {
+        ClassWithCollections.createAList().add("three");
+    }
+
+    @Test
+    public void arrayReturnedByMethodCanBeRead() {
+        assertThat(ClassWithCollections.createAList(), contains("one", "two"));
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void mapReturnedByMethodCannotBeModified() {
+        ClassWithCollections.createAMap().put("keyThree", "valueThree");
+    }
+
+    @Test
+    public void mapReturnedByMethodCanBeRead() {
+        Map<String, String> result = ClassWithCollections.createAMap();
+        assertThat(result, hasEntry("key1", "value1"));
+        assertThat(result, hasEntry("key2", "value2"));
+        assertThat(result.size(), is(2));
     }
 
     static class PartiallyInitializedThisConsumerImpl extends PartiallyInitializedThisConsumer {

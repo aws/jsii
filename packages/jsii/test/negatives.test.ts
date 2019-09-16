@@ -34,7 +34,7 @@ for (const source of fs.readdirSync(SOURCE_DIR)) {
             await fs.remove(path.join(SOURCE_DIR, '.jsii'));
             await fs.remove(path.join(SOURCE_DIR, 'tsconfig.json'));
         }
-    });
+    }, 10000);
 }
 
 const MATCH_ERROR_MARKER = '///!MATCH_ERROR:';

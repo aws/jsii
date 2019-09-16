@@ -39,7 +39,7 @@ public interface IExtendsPrivateInterface extends software.amazon.jsii.JsiiSeria
         @Override
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public java.util.List<java.lang.String> getMoreThings() {
-            return this.jsiiGet("moreThings", java.util.List.class);
+            return java.util.Collections.unmodifiableList(this.jsiiGet("moreThings", java.util.List.class));
         }
 
         /**

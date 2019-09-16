@@ -18,6 +18,10 @@ public class OptionalConstructorArgument extends software.amazon.jsii.JsiiObject
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param arg1 This parameter is required.
+     * @param arg2 This parameter is required.
+     * @param arg3
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public OptionalConstructorArgument(final java.lang.Number arg1, final java.lang.String arg2, final java.time.Instant arg3) {
@@ -27,6 +31,9 @@ public class OptionalConstructorArgument extends software.amazon.jsii.JsiiObject
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param arg1 This parameter is required.
+     * @param arg2 This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public OptionalConstructorArgument(final java.lang.Number arg1, final java.lang.String arg2) {

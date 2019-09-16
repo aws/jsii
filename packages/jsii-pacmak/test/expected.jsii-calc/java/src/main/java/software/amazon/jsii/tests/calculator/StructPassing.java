@@ -22,6 +22,8 @@ public class StructPassing extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     * @param _positional This parameter is required.
+     * @param inputs This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.External)
     public static java.lang.Number howManyVarArgsDidIPass(final java.lang.Number _positional, final software.amazon.jsii.tests.calculator.TopLevelStruct... inputs) {
@@ -29,6 +31,8 @@ public class StructPassing extends software.amazon.jsii.JsiiObject {
     }
 
     /**
+     * @param _positional This parameter is required.
+     * @param input This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.External)
     public static software.amazon.jsii.tests.calculator.TopLevelStruct roundTrip(final java.lang.Number _positional, final software.amazon.jsii.tests.calculator.TopLevelStruct input) {

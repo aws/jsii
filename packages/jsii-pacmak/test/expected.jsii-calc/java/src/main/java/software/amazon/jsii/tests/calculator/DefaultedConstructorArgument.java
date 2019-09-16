@@ -18,6 +18,10 @@ public class DefaultedConstructorArgument extends software.amazon.jsii.JsiiObjec
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param arg1
+     * @param arg2
+     * @param arg3
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public DefaultedConstructorArgument(final java.lang.Number arg1, final java.lang.String arg2, final java.time.Instant arg3) {
@@ -27,6 +31,9 @@ public class DefaultedConstructorArgument extends software.amazon.jsii.JsiiObjec
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param arg1
+     * @param arg2
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public DefaultedConstructorArgument(final java.lang.Number arg1, final java.lang.String arg2) {
@@ -36,6 +43,8 @@ public class DefaultedConstructorArgument extends software.amazon.jsii.JsiiObjec
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param arg1
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public DefaultedConstructorArgument(final java.lang.Number arg1) {

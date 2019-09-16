@@ -18,6 +18,8 @@ public class ClassWithJavaReservedWords extends software.amazon.jsii.JsiiObject 
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param int This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public ClassWithJavaReservedWords(final java.lang.String intValue) {
@@ -27,6 +29,8 @@ public class ClassWithJavaReservedWords extends software.amazon.jsii.JsiiObject 
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param assert This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String doImport(final java.lang.String assertValue) {

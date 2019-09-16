@@ -46,6 +46,8 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      * Adds a number to the current value.
      * 
      * EXPERIMENTAL
+     * 
+     * @param value This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void add(final java.lang.Number value) {
@@ -56,6 +58,8 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      * Multiplies the current value by a number.
      * 
      * EXPERIMENTAL
+     * 
+     * @param value This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void mul(final java.lang.Number value) {
@@ -76,6 +80,8 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      * Raises the current value by a power.
      * 
      * EXPERIMENTAL
+     * 
+     * @param value This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void pow(final java.lang.Number value) {
@@ -110,7 +116,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.List<software.amazon.jsii.tests.calculator.lib.Value> getOperationsLog() {
-        return this.jsiiGet("operationsLog", java.util.List.class);
+        return java.util.Collections.unmodifiableList(this.jsiiGet("operationsLog", java.util.List.class));
     }
 
     /**
@@ -120,7 +126,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.Map<java.lang.String, java.util.List<software.amazon.jsii.tests.calculator.lib.Value>> getOperationsMap() {
-        return this.jsiiGet("operationsMap", java.util.Map.class);
+        return java.util.Collections.unmodifiableMap(this.jsiiGet("operationsMap", java.util.Map.class));
     }
 
     /**

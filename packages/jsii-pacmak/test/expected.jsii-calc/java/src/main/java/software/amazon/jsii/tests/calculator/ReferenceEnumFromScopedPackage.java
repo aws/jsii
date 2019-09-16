@@ -33,6 +33,8 @@ public class ReferenceEnumFromScopedPackage extends software.amazon.jsii.JsiiObj
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param value This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void saveFoo(final software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule value) {

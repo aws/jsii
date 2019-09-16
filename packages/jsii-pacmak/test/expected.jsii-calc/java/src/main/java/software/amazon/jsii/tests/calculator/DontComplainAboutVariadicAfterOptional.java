@@ -23,6 +23,9 @@ public class DontComplainAboutVariadicAfterOptional extends software.amazon.jsii
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param optional
+     * @param things This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String optionalAndVariadic(final java.lang.String optional, final java.lang.String... things) {

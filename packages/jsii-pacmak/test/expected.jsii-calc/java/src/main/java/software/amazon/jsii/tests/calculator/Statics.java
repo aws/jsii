@@ -25,6 +25,8 @@ public class Statics extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param value This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public Statics(final java.lang.String value) {
@@ -37,7 +39,7 @@ public class Statics extends software.amazon.jsii.JsiiObject {
      * 
      * EXPERIMENTAL
      * 
-     * @param name The name of the person to say hello to.
+     * @param name The name of the person to say hello to. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static java.lang.String staticMethod(final java.lang.String name) {
