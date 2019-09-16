@@ -23,7 +23,7 @@
     "jsii-calc": "file:../jsii-calc",
     "nodeunit": "^0.11.3",
     "tslint": "^5.20.0",
-    "typescript": "~3.6.2"
+    "typescript": "~3.6.3"
   },
   "dependencies": {
     "jsii-spec": "^0.16.0",
