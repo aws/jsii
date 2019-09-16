@@ -10,7 +10,7 @@
   "scripts": {
     "build": "tsc --build && chmod +x bin/jsii-runtime && /bin/bash ./bundle.sh",
     "watch": "tsc --build -w",
-    "test": "/bin/bash test/playback-test.sh",
+    "test": "/bin/bash test/playback-test.sh && node test/stress-test.js",
     "package": "package-js"
   },
   "devDependencies": {
@@ -23,8 +23,8 @@
     "source-map-loader": "^0.2.4",
     "typescript": "~3.6.2",
     "wasm-loader": "^1.3.0",
-    "webpack": "^4.39.3",
-    "webpack-cli": "^3.3.7"
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.8"
   },
   "dependencies": {
     "jsii-kernel": "^0.16.0",
