@@ -55,8 +55,8 @@ test('separate long doc comment into summary and remarks', async () => {
 
   expect(assembly.types!['testpkg.Foo'].docs).toEqual({
     summary: 'Lots of people enjoy writing very long captions here.',
-    remarks: `I think it's because they\ncopy/paste them out of CloudFormation, which has a tendency to just have one\n` +
-              `doc block per API item and no structural separation.`,
+    remarks: "I think it's because they\ncopy/paste them out of CloudFormation, which has a tendency to just have one\n" +
+              'doc block per API item and no structural separation.',
   });
 
 });

@@ -152,9 +152,9 @@ export class AsciiTree {
    */
   public get ancestors(): AsciiTree[] {
     if (!this.parent) {
-      return [ ];
+      return [];
     }
 
-    return [ ...this.parent.ancestors, this.parent ];
+    return [...this.parent.ancestors, this.parent];
   }
 }

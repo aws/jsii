@@ -14,7 +14,7 @@ export class Docs {
     public readonly target: Documentable,
     spec: jsii.Docs,
     private readonly parentDocs?: Docs,
-    ) {
+  ) {
 
     this.docs = spec || {};
 

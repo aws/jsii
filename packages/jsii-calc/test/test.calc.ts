@@ -84,5 +84,4 @@ assert.equal(calc3.readUnionValue(), 9 * 3);
 // All primitive types
 //
 
-// tslint:disable-next-line:no-console
 console.log('ok');

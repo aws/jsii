@@ -109,5 +109,5 @@ export class ClassType extends ReferenceType {
     return Object.assign(base, indexBy(
       (this.classSpec.methods || []).map(m => new Method(this.system, this.assembly, parentType, this, m)),
       m => m.name));
-    }
+  }
 }

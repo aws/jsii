@@ -1,5 +1,3 @@
-// tslint:disable:comment-format
-// tslint:disable-next-line:max-line-length
 ///!MATCH_ERROR: jsii.SomethingSpecific#takeSomething changes type of argument _argument when overriding jsii.Something (expected jsii.Superclass, found jsii.Subclass
 
 export class Superclass {}

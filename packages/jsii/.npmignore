@@ -7,3 +7,9 @@
 
 
 coverage
+
+# Don't include various configuration & state information
+coverage
+.eslintrc.*
+tsconfig.json
+*.tsbuildinfo

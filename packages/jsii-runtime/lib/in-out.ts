@@ -13,41 +13,41 @@ export type Input =
     { complete: api.CompleteRequest };
 
 export class InputOutput {
-    debug = false
+  debug = false
 
-    private readonly stdio = new SyncStdio();
+  private readonly stdio = new SyncStdio();
 
-    write(obj: Output) {
-        const output = JSON.stringify(obj);
-        this.stdio.writeLine(output);
+  write(obj: Output) {
+    const output = JSON.stringify(obj);
+    this.stdio.writeLine(output);
 
-        if (this.debug) {
-            this.stdio.writeErrorLine('< ' + output);
-        }
+    if (this.debug) {
+      this.stdio.writeErrorLine('< ' + output);
+    }
+  }
+    
+  read(): Input | undefined {
+    let reqLine = this.stdio.readLine();
+    if (!reqLine) {
+      return undefined;
     }
     
-    read(): Input | undefined {
-        let reqLine = this.stdio.readLine();
-        if (!reqLine) {
-            return undefined;
-        }
-    
-        // skip recorded responses
-        if (reqLine.indexOf('< ') === 0) {
-            return this.read();
-        }
-    
-        // stip "> " from recorded requests
-        if (reqLine.indexOf('> ') === 0) {
-            reqLine = reqLine.substr(2);
-        }
-    
-        const input = JSON.parse(reqLine);
-
-        if (this.debug) {
-            this.stdio.writeErrorLine('> ' + JSON.stringify(input));
-        }
-
-        return input;
+    // skip recorded responses
+    if (reqLine.startsWith('< ')) {
+      return this.read();
     }
+    
+    // stip "> " from recorded requests
+    if (reqLine.startsWith('> ')) {
+      reqLine = reqLine.substr(2);
+    }
+    
+    const input = JSON.parse(reqLine);
+
+    if (this.debug) {
+      this.stdio.writeErrorLine('> ' + JSON.stringify(input));
+    }
+
+    return input;
+  }
 }

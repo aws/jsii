@@ -1,4 +1,3 @@
-// tslint:disable
 import { Operation, Value, Number, IFriendly } from '@scope/jsii-calc-lib'
 
 /**

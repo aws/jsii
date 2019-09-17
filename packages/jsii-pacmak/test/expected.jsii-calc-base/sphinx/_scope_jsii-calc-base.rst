@@ -142,11 +142,11 @@ Base
 
       .. code-tab:: javascript
 
-         const { Base } = require('@scope/jsii-calc-base');
+         const { Base } = require('@scope/jsii-calc-base');
 
       .. code-tab:: typescript
 
-         import { Base } from '@scope/jsii-calc-base';
+         import { Base } from '@scope/jsii-calc-base';
 
 
 
@@ -185,7 +185,7 @@ BaseProps (interface)
 
       .. code-tab:: typescript
 
-         import { BaseProps } from '@scope/jsii-calc-base';
+         import { BaseProps } from '@scope/jsii-calc-base';
 
 
 
@@ -227,7 +227,7 @@ IBaseInterface (interface)
 
       .. code-tab:: typescript
 
-         import { IBaseInterface } from '@scope/jsii-calc-base';
+         import { IBaseInterface } from '@scope/jsii-calc-base';
 
 
 

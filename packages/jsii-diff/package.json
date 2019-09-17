@@ -12,8 +12,9 @@
     "jsii-diff": "bin/jsii-diff"
   },
   "scripts": {
-    "build": "bash ./generate.sh && tsc --build",
+    "build": "bash ./generate.sh && tsc --build && npm run lint",
     "watch": "bash ./generate.sh && tsc --build -w",
+    "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
     "test": "jest",
     "package": "package-js"
   },
@@ -24,6 +25,9 @@
     "@types/log4js": "^2.3.5",
     "@types/tar-fs": "^1.16.1",
     "@types/yargs": "^13.0.2",
+    "@typescript-eslint/eslint-plugin": "^2.3.0",
+    "@typescript-eslint/parser": "^2.3.0",
+    "eslint": "^6.4.0",
     "jest": "^24.9.0",
     "jest-expect-message": "^1.0.2",
     "jsii": "^0.16.0",

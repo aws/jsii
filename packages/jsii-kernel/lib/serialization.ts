@@ -1,5 +1,3 @@
-
- // tslint:disable:max-line-length
 /**
  * Handling of types in JSII
  *
@@ -27,8 +25,6 @@
  *  - (†) throw if not nullable
  *  - /R(t) recurse with declared type t
  */
-
- // tslint:enable:max-line-length
 
 import * as spec from 'jsii-spec';
 import { isObjRef, isWireDate, isWireEnum, ObjRef, TOKEN_DATE, TOKEN_ENUM, WireDate, WireEnum } from './api';
@@ -399,7 +395,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       // To make sure people aren't going to try and return Map<> or Set<> out, test for
       // those and throw a descriptive error message. We can't detect these cases any other
       // way, and the by-value serialized object will be quite useless.
-      if (value instanceof Set || value instanceof Map) { throw new Error(`Can't return objects of type Set or Map`); }
+      if (value instanceof Set || value instanceof Map) { throw new Error("Can't return objects of type Set or Map"); }
 
       // Use a previous reference to maintain object identity. NOTE: this may cause us to return
       // a different type than requested! This is just how it is right now.
@@ -462,10 +458,10 @@ function deserializeDate(value: WireDate): Date {
 }
 
 function deserializeEnum(value: WireEnum, lookup: SymbolLookup) {
-  const enumLocator = value[TOKEN_ENUM] as string;
+  const enumLocator = value[TOKEN_ENUM];
   const sep = enumLocator.lastIndexOf('/');
   if (sep === -1) {
-      throw new Error(`Malformed enum value: ${JSON.stringify(value)}`);
+    throw new Error(`Malformed enum value: ${JSON.stringify(value)}`);
   }
 
   const typeName = enumLocator.substr(0, sep);
@@ -473,7 +469,7 @@ function deserializeEnum(value: WireEnum, lookup: SymbolLookup) {
 
   const enumValue = lookup(typeName)[valueName];
   if (enumValue === undefined) {
-      throw new Error(`No enum member named ${valueName} in ${typeName}`);
+    throw new Error(`No enum member named ${valueName} in ${typeName}`);
   }
   return enumValue;
 }
@@ -489,7 +485,7 @@ export interface TypeSerialization {
  * There can be multiple, because the type can be a type union.
  */
 export function serializationType(typeRef: OptionalValueOrVoid, lookup: TypeLookup): TypeSerialization[] {
-  if (typeRef == null) { throw new Error(`Kernel error: expected type information, got 'undefined'`); }
+  if (typeRef == null) { throw new Error("Kernel error: expected type information, got 'undefined'"); }
   if (typeRef === 'void') { return [{ serializationClass: SerializationClass.Void, typeRef }]; }
   if (spec.isPrimitiveTypeReference(typeRef.type)) {
     switch (typeRef.type.primitive) {
@@ -670,8 +666,8 @@ function isAssignable(actualTypeFqn: string, requiredType: spec.NamedTypeReferen
 function validateRequiredProps(actualProps: {[key: string]: any}, typeName: string, specProps: {[key: string]: spec.Property}) {
   // Check for required properties
   const missingRequiredProps = Object.keys(specProps)
-      .filter(name => !specProps[name].optional)
-      .filter(name => !(name in actualProps));
+    .filter(name => !specProps[name].optional)
+    .filter(name => !(name in actualProps));
 
   if (missingRequiredProps.length > 0) {
     throw new Error(`Missing required properties for ${typeName}: ${missingRequiredProps}`);

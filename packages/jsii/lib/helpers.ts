@@ -30,7 +30,6 @@ export async function sourceToAssemblyHelper(source: string, cb?: (obj: PackageI
 
     const errors = emitResult.diagnostics.filter(d => d.category === DiagnosticCategory.Error);
     for (const error of errors) {
-      // tslint:disable-next-line:no-console
       console.error(error.messageText);
       // logDiagnostic() doesn't work out of the box, so console.error() it is.
     }
@@ -58,7 +57,7 @@ async function inTempDir<T>(block: () => Promise<T>): Promise<T> {
  * Most consistent behavior seems to be to write a package.json to disk and
  * then calling the same functions as the CLI would.
  */
-async function makeProjectInfo(types: string, cb?: (obj: PackageInfo) => void): Promise<ProjectInfo> {
+async function makeProjectInfo(types: string, cb?: (obj: PackageInfo) => Promise<void> | void): Promise<ProjectInfo> {
   const packageInfo: PackageInfo = {
     types,
     main: types.replace(/(?:\.d)?\.ts(x?)/, '.js$1'),

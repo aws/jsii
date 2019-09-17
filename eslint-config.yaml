@@ -1,0 +1,86 @@
+---
+env:
+  jest: true
+  node: true
+
+plugins:
+  - '@typescript-eslint'
+
+parser: '@typescript-eslint/parser'
+parserOptions:
+  ecmaVersion: 2018
+  sourceType: module
+  project: tsconfig.json
+
+extends:
+  - eslint:recommended
+  - plugin:@typescript-eslint/eslint-recommended
+  - plugin:@typescript-eslint/recommended
+  - plugin:@typescript-eslint/recommended-requiring-type-checking
+
+rules:
+  # Custom Configurations
+
+  '@typescript-eslint/brace-style':
+    - error
+    - 1tbs # One True Brace Style!
+    - allowSingleLine: true
+
+  '@typescript-eslint/indent':
+    - error
+    - 2
+
+  '@typescript-eslint/member-delimiter-style':
+    - error
+    - multiline:
+        delimiter: semi
+        requireLast: true
+      singleline:
+        delimiter: comma
+        requireLast: false
+
+  '@typescript-eslint/no-empty-function':
+    - error
+    - allow: [constructors]
+
+  '@typescript-eslint/no-unused-vars':
+    - error
+    - args: all
+      argsIgnorePattern: ^_
+      caughtErrors: all
+      vars: all
+      varsIgnorePattern: ^_
+
+  '@typescript-eslint/no-useless-constructor':
+    - error
+
+  '@typescript-eslint/quotes':
+    - error
+    - single
+    - avoidEscape: true
+      allowTemplateLiterals: false
+
+  'array-bracket-spacing':
+    - error
+    - never
+
+  'max-len':
+    - error
+    - code: 150
+      ignoreStrings: true
+      ignoreTemplateLiterals: true
+      tabWidth: 2
+
+  'object-curly-spacing':
+    - error
+    - always
+
+  # Disabled rules
+  '@typescript-eslint/explicit-function-return-type': off
+  '@typescript-eslint/interface-name-prefix': off
+  '@typescript-eslint/no-explicit-any': off
+  '@typescript-eslint/no-non-null-assertion': off
+  '@typescript-eslint/no-use-before-define': off
+  '@typescript-eslint/unbound-method': off
+  'no-case-declarations': off
+  'require-atomic-updates': off

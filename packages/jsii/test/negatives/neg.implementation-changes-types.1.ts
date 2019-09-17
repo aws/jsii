@@ -1,5 +1,3 @@
-// tslint:disable:comment-format
-// tslint:disable-next-line:max-line-length
 ///!MATCH_ERROR: jsii.Something#returnSomething changes the return type when implementing jsii.ISomething (expected jsii.Superclass, found jsii.Subclass)
 
 export class Superclass {}

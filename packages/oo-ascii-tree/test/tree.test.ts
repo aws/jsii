@@ -117,15 +117,15 @@ test('multiline', async () => {
     ),
     new AsciiTree('world'),
     new AsciiTree('boom',
-    new AsciiTree('trach',
-      new MultiLine('multi', 4)
-    )
-  ));
+      new AsciiTree('trach',
+        new MultiLine('multi', 4)
+      )
+    ));
 
   await diff(tree, 'multiline.expected.txt');
 });
 
-test('toString', async () => {
+test('toString', () => {
   const tree = new AsciiTree('root');
   tree.add(new AsciiTree('1'));
   tree.add(new AsciiTree('2', new AsciiTree('2.1'), new AsciiTree('2.2')));

@@ -10,8 +10,6 @@ const writeFile = promisify(fs.writeFile);
 const mkdtemp = promisify(fs.mkdtemp);
 const exists = promisify(fs.exists);
 
-// tslint:disable:no-console
-
 export async function diffTest(actual: string, expectedFile: string) {
   const expectedPath = path.join(__dirname, expectedFile);
   const actualPath = path.join(await mkdtemp(path.join(os.tmpdir(), 'diff-test')), 'actual.out');
@@ -27,13 +25,13 @@ export async function diffTest(actual: string, expectedFile: string) {
       await writeFile(expectedPath, actual);
       msg += `Updated "${expectedFile}" (since UPDATE_DIFF=1)\n`;
     } else {
-      msg += `To see the diff run:\n`;
-      msg += `\n`;
-      msg += `    diff \\\n`;
+      msg += 'To see the diff run:\n';
+      msg += '\n';
+      msg += '    diff \\\n';
       msg += `        ${actualPath}\\\n`;
       msg += `        ${expectedPath}\n`;
-      msg += `\n`;
-      msg += `To update expectation file: run tests with UPDATE_DIFF=1\n`;
+      msg += '\n';
+      msg += 'To update expectation file: run tests with UPDATE_DIFF=1\n';
     }
 
     msg += '===============================================================================\n';

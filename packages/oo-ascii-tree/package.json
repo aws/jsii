@@ -5,17 +5,43 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "tsc --build",
+    "build": "tsc --build && npm run lint",
     "watch": "tsc --build -w",
+    "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
     "test": "jest",
     "package": "package-js"
   },
   "devDependencies": {
     "@types/jest": "^24.0.18",
+    "@typescript-eslint/eslint-plugin": "^2.3.0",
+    "@typescript-eslint/parser": "^2.3.0",
+    "eslint": "^6.4.0",
     "jest": "^24.9.0",
     "jsii-build-tools": "file:../jsii-build-tools",
     "ts-jest": "^24.1.0",
     "typescript": "~3.6.3"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/bin/**/*.js",
+      "**/lib/**/*.js"
+    ],
+    "coverageReporters": [
+      "lcov",
+      "text"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 85,
+        "statements": 85
+      }
+    },
+    "errorOnDeprecated": true,
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/?(*.)+(spec|test).js"
+    ]
   },
   "author": {
     "name": "Amazon Web Services",

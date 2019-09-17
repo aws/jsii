@@ -3,16 +3,16 @@ import * as path from 'path';
 import FileBuffer from '../lib/filebuff';
 
 test('file buffer', async () => {
-    const fb = new FileBuffer('hello.source');
-    fb.write('hello');
-    fb.write('\n');
-    fb.write('world');
+  const fb = new FileBuffer('hello.source');
+  fb.write('hello');
+  fb.write('\n');
+  fb.write('world');
 
-    // save the file
-    const tempdir = await fs.mkdtemp('/tmp/test-file-buffer');
-    await fb.save(tempdir);
+  // save the file
+  const tempdir = await fs.mkdtemp('/tmp/test-file-buffer');
+  await fb.save(tempdir);
 
-    // verify the contents was as expected
-    const data = (await fs.readFile(path.join(tempdir, fb.filePath))).toString();
-    expect(data).toBe('hello\nworld');
+  // verify the contents was as expected
+  const data = (await fs.readFile(path.join(tempdir, fb.filePath))).toString();
+  expect(data).toBe('hello\nworld');
 });

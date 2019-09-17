@@ -14,9 +14,6 @@
   "scripts": {
     "build": "chmod +x bin/*"
   },
-  "dependencies": {
-    "fs-extra": "^8.1.0"
-  },
   "author": {
     "name": "Amazon Web Services",
     "url": "https://aws.amazon.com"

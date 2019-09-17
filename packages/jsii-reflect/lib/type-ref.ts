@@ -18,7 +18,7 @@ export class TypeReference {
       return this.unionOfTypes.map(x => x.toString()).join(' | ');
     }
 
-    throw new Error(`Invalid type reference`);
+    throw new Error('Invalid type reference');
   }
 
   public get void(): boolean {
