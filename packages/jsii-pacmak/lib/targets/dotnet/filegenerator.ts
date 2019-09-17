@@ -52,6 +52,7 @@ export class FileGenerator {
         const propertyGroup = rootNode.ele("PropertyGroup");
         propertyGroup.ele("TargetFramework", "netcoreapp2.1");
         propertyGroup.ele("GeneratePackageOnBuild", "true");
+        propertyGroup.ele("GenerateDocumentationFile", "true");
         propertyGroup.ele("IncludeSymbols", "true");
         propertyGroup.ele("IncludeSource", "true");
         propertyGroup.ele("PackageVersion", this.getDecoratedVersion(assembly));
