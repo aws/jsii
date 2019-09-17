@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "jsii-build-tools": "file:../jsii-build-tools",
-    "typescript": "~3.6.2"
+    "typescript": "~3.6.3"
   },
   "author": {
     "name": "Amazon Web Services",
