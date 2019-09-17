@@ -303,16 +303,13 @@ namespace Amazon.JSII.Runtime.Services.Converters
                         // See https://github.com/aws/aws-cdk/issues/2496
                         return TryConvertMap(referenceMap, nestedType, element,
                                 out convertedElement);
-                        break;
                     case CollectionKind.Array:
                         // The [object] could be another array. (ie Tags)
                         // https://github.com/aws/aws-cdk/issues/3244
                         return TryConvertArray(referenceMap, nestedType, element,
                                 out convertedElement);
-                        break;
                     default:
                         return TryConvert(elementType, referenceMap, element, out convertedElement);
-                        break;
                 }
             }
             else
