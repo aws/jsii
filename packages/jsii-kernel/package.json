@@ -25,7 +25,7 @@
     "jsii-build-tools": "file:../jsii-build-tools",
     "jsii-calc": "file:../jsii-calc",
     "tslint": "^5.20.0",
-    "typescript": "~3.6.2"
+    "typescript": "~3.6.3"
   },
   "dependencies": {
     "jsii-spec": "^0.16.0",
