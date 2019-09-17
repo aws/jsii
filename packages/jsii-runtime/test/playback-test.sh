@@ -21,10 +21,13 @@ export JSII_DEBUG=1             # emit debug log from jsii-runtime
 jsii_runtime_program="../webpack/jsii-runtime.js"
 
 # run jsii-kernel tests and save recordings
-nodeunit ../../jsii-kernel/test/test.kernel.js >& /tmp/test-output || {
-    cat /tmp/test-output
-    exit 1
-}
+(
+    cd ../../jsii-kernel
+    jest test/kernel.test.js >& /tmp/test-output || {
+        cat /tmp/test-output
+        exit 1
+    }
+)
 
 # play back each test into jsii-runtime and compare results
 for file in $(ls -1 ${JSII_RECORD}); do
