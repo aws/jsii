@@ -288,7 +288,6 @@ namespace Amazon.JSII.Runtime.Services.Converters
         private bool TryConvertCollectionElement(object element, IReferenceMap referenceMap, TypeReference elementType,
             out object convertedElement)
         {
-            bool converted;
             if (element is IDictionary<string, object> || element is object[])
             {
                 var objectType = InferType(referenceMap, element);
@@ -302,28 +301,24 @@ namespace Amazon.JSII.Runtime.Services.Converters
                         // So we can directly convert to another map here, and forgo the type hierarchy
                         // induced by elementType
                         // See https://github.com/aws/aws-cdk/issues/2496
-                        converted =
-                            TryConvertMap(referenceMap, nestedType, element,
+                        return TryConvertMap(referenceMap, nestedType, element,
                                 out convertedElement);
                         break;
                     case CollectionKind.Array:
                         // The [object] could be another array. (ie Tags)
                         // https://github.com/aws/aws-cdk/issues/3244
-                        converted =
-                            TryConvertArray(referenceMap, nestedType, element,
+                        return TryConvertArray(referenceMap, nestedType, element,
                                 out convertedElement);
                         break;
                     default:
-                        converted = TryConvert(elementType, referenceMap, element, out convertedElement);
+                        return TryConvert(elementType, referenceMap, element, out convertedElement);
                         break;
                 }
             }
             else
             {
-                converted = TryConvert(elementType, referenceMap, element, out convertedElement);
+                return TryConvert(elementType, referenceMap, element, out convertedElement);
             }
-
-            return converted;
         }
 
         protected override TypeReference InferType(IReferenceMap referenceMap, object value)
