@@ -2,6 +2,23 @@
   "name": "jsii-reflect",
   "version": "0.16.0",
   "description": "strongly-typed reflection library and tools for jsii",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com"
+  },
+  "homepage": "https://github.com/aws/jsii",
+  "bugs": {
+    "url": "https://github.com/aws/jsii/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws/jsii.git",
+    "directory": "packages/jsii-reflect"
+  },
+  "engines": {
+    "node": ">= 10.0.0"
+  },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "bin": {
@@ -56,15 +73,5 @@
     "testMatch": [
       "**/?(*.)+(spec|test).js"
     ]
-  },
-  "author": {
-    "name": "Amazon Web Services",
-    "url": "https://aws.amazon.com"
-  },
-  "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/aws/jsii.git",
-    "directory": "packages/jsii-reflect"
   }
 }

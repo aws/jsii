@@ -1,12 +1,44 @@
 {
   "name": "@scope/jsii-calc-lib",
   "version": "0.16.0",
+  "private": true,
   "description": "A simple calcuator library built on JSII.",
-  "stability": "deprecated",
   "deprecated": "Really just deprecated for shows...",
+  "stability": "deprecated",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com",
+    "organization": true
+  },
+  "homepage": "https://github.com/aws/jsii",
+  "bugs": {
+    "url": "https://github.com/aws/jsii/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws/jsii.git",
+    "directory": "packages/jsii-calc-lib"
+  },
+  "engines": {
+    "node": ">= 10.0.0"
+  },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "private": true,
+  "scripts": {
+    "build": "jsii",
+    "test": "diff-test test/assembly.jsii .jsii"
+  },
+  "dependencies": {
+    "@scope/jsii-calc-base": "file:../jsii-calc-base"
+  },
+  "peerDependencies": {
+    "@scope/jsii-calc-base": "file:../jsii-calc-base"
+  },
+  "devDependencies": {
+    "jsii": "^0.16.0",
+    "jsii-build-tools": "file:../jsii-build-tools"
+  },
   "jsii": {
     "outdir": "dist",
     "targets": {
@@ -30,29 +62,5 @@
       "sphinx": {}
     },
     "versionFormat": "short"
-  },
-  "scripts": {
-    "build": "jsii",
-    "test": "diff-test test/assembly.jsii .jsii"
-  },
-  "devDependencies": {
-    "jsii": "^0.16.0",
-    "jsii-build-tools": "file:../jsii-build-tools"
-  },
-  "dependencies": {
-    "@scope/jsii-calc-base": "file:../jsii-calc-base"
-  },
-  "peerDependencies": {
-    "@scope/jsii-calc-base": "file:../jsii-calc-base"
-  },
-  "author": {
-    "name": "Amazon Web Services",
-    "url": "https://aws.amazon.com",
-    "organization": true
-  },
-  "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/aws/jsii.git"
   }
 }

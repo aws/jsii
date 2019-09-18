@@ -1,10 +1,28 @@
 {
   "name": "jsii-dotnet-runtime-test",
   "version": "0.16.0",
+  "private": true,
   "description": "Tests for the .NET client for jsii runtime",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com",
+    "email": "aws-jsii@amazon.com"
+  },
+  "homepage": "https://github.com/aws/jsii",
+  "bugs": {
+    "url": "https://github.com/aws/jsii/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws/jsii.git",
+    "directory": "packages/jsii-dotnet-runtime-test"
+  },
+  "engines": {
+    "node": ">= 10.0.0"
+  },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "private": true,
   "scripts": {
     "gen": "/bin/bash ./generate.sh",
     "build": "npm run gen && tsc --build && /bin/bash ./build.sh",
@@ -15,15 +33,5 @@
     "jsii-dotnet-runtime": "file:../jsii-dotnet-runtime",
     "jsii-pacmak": "^0.16.0",
     "typescript": "~3.6.3"
-  },
-  "author": {
-    "name": "Amazon Web Services",
-    "url": "https://aws.amazon.com",
-    "email": "aws-jsii@amazon.com"
-  },
-  "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/aws/jsii.git"
   }
 }

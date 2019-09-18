@@ -11,7 +11,7 @@ Due to the polyglot nature of `jsii`, the toolchain requirements are somewhat
 more complicated than for most projects. In order to locally develop `jsii`, you
 will need the following tools:
 
-- [Node `8.11.0`] or later
+- [Node `10.0.0`] or later
 - An OpenJDK-8 distribution (e.g: [Oracle's OpenJDK8], [Amazon Corretto 8])
   + [`maven >= 3.0.5`](https://maven.apache.org)
 - [.NET Core `2.0`] or later
@@ -24,7 +24,7 @@ will need the following tools:
 - [Ruby `2.4.4p296`] or later
   + [`bundler ~> 1.17.2`](https://bundler.io)
 
-[Node `8.11.0`]: https://nodejs.org/download/release/v8.11.0/
+[Node `10.0.0`]: https://nodejs.org/download/release/latest-v10.x/
 [Oracle's OpenJDK8]: http://openjdk.java.net/install/
 [Amazon Corretto 8]: https://aws.amazon.com/corretto/
 [.NET Core `2.0`]: https://www.microsoft.com/net/download

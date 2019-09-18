@@ -39,8 +39,8 @@ RUN yum -y install awscli git gzip openssl rsync tar unzip which zip            
   && yum clean all && rm -rf /var/cache/yum
 
 # Install NVM and Node 8+
-ARG NODE_VERSION=8.16.0
-ARG NPM_VERSION=6.8.0
+ARG NODE_VERSION=10.16.3
+ARG NPM_VERSION=6.11.3
 ENV NVM_DIR=/usr/local/nvm
 RUN curl -sSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh -o /tmp/install-nvm.sh                    \
   && echo "ef7ad1db40c92f348c0461f24983b71ba0ea7d45d4007a36e484270fa7f81fcf /tmp/install-nvm.sh" | sha256sum -c         \

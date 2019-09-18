@@ -2,6 +2,23 @@
   "name": "jsii-spec",
   "version": "0.16.0",
   "description": "Specification for jsii assemblies",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com"
+  },
+  "homepage": "https://github.com/aws/jsii",
+  "bugs": {
+    "url": "https://github.com/aws/jsii/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws/jsii.git",
+    "directory": "packages/jsii-spec"
+  },
+  "engines": {
+    "node": ">= 10.0.0"
+  },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
@@ -10,6 +27,9 @@
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
     "test": "jest",
     "package": "package-js"
+  },
+  "dependencies": {
+    "jsonschema": "^1.2.4"
   },
   "devDependencies": {
     "@types/jest": "^24.0.18",
@@ -20,9 +40,6 @@
     "jsii-build-tools": "file:../jsii-build-tools",
     "typescript": "~3.6.3",
     "typescript-json-schema": "^0.40.0"
-  },
-  "dependencies": {
-    "jsonschema": "^1.2.4"
   },
   "jest": {
     "collectCoverage": true,
@@ -45,15 +62,5 @@
     "testMatch": [
       "**/?(*.)+(spec|test).js"
     ]
-  },
-  "author": {
-    "name": "Amazon Web Services",
-    "url": "https://aws.amazon.com"
-  },
-  "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/aws/jsii.git",
-    "directory": "packages/jsii-spec"
   }
 }
