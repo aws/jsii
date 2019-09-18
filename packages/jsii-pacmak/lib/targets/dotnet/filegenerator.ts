@@ -50,8 +50,9 @@ export class FileGenerator {
         const rootNode = xmlbuilder.create('Project', {encoding: 'UTF-8', headless: true});
         rootNode.att("Sdk", "Microsoft.NET.Sdk");
         const propertyGroup = rootNode.ele("PropertyGroup");
-        propertyGroup.ele("TargetFramework", "netstandard2.0");
+        propertyGroup.ele("TargetFramework", "netcoreapp2.1");
         propertyGroup.ele("GeneratePackageOnBuild", "true");
+        propertyGroup.ele("GenerateDocumentationFile", "true");
         propertyGroup.ele("IncludeSymbols", "true");
         propertyGroup.ele("IncludeSource", "true");
         propertyGroup.ele("PackageVersion", this.getDecoratedVersion(assembly));
@@ -77,7 +78,7 @@ export class FileGenerator {
         }
 
         if (dotnetInfo!.iconUrl != null) {
-            propertyGroup.ele("IconUrl", dotnetInfo!.iconUrl);
+            propertyGroup.ele("PackageIconUrl", dotnetInfo!.iconUrl);
         }
 
         const itemGroup1 = rootNode.ele("ItemGroup");
