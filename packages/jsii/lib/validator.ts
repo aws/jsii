@@ -16,7 +16,7 @@ export class Validator implements Emitter {
   public constructor(public readonly projectInfo: ProjectInfo,
     public readonly assembly: spec.Assembly) {}
 
-  public emit(): Promise<EmitResult> {
+  public async emit(): Promise<EmitResult> {
     this._diagnostics = [];
 
     for (const validation of Validator.VALIDATIONS) {

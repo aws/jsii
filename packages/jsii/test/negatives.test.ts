@@ -27,13 +27,17 @@ for (const source of fs.readdirSync(SOURCE_DIR)) {
     }
 
     // Cleaning up...
-    for (const file of await fs.readdir(SOURCE_DIR)) {
+    await Promise.all((await fs.readdir(SOURCE_DIR)).map(file => {
+      const promises = new Array<Promise<any>>();
       if (file.startsWith('neg.') && (file.endsWith('.d.ts') || file.endsWith('.js'))) {
-        await fs.remove(path.join(SOURCE_DIR, file));
+        promises.push(fs.remove(path.join(SOURCE_DIR, file)));
       }
-      await fs.remove(path.join(SOURCE_DIR, '.jsii'));
-      await fs.remove(path.join(SOURCE_DIR, 'tsconfig.json'));
-    }
+      promises.push(
+        fs.remove(path.join(SOURCE_DIR, '.jsii')),
+        fs.remove(path.join(SOURCE_DIR, 'tsconfig.json'))
+      );
+      return Promise.all(promises);
+    }));
   }, 10000);
 }
 
@@ -53,7 +57,7 @@ function _messageText(diagnostic: ts.Diagnostic | ts.DiagnosticMessageChain): st
     return diagnostic.messageText;
   }
   if (diagnostic.messageText.next) {
-    return diagnostic.messageText.messageText + '|' + _messageText(diagnostic.messageText.next[0]);
+    return `${diagnostic.messageText.messageText}|${_messageText(diagnostic.messageText.next[0])}`;
   }
   return diagnostic.messageText.messageText;
 }

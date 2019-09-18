@@ -108,9 +108,11 @@ import { VERSION_DESC } from '../lib/version';
 
     // if --recurse is set, find dependency dirs and build them.
     if (argv.recurse) {
-      for (const dep of Object.keys(pkg.dependencies || { })) {
+      for (const dep of Object.keys(pkg.dependencies || {})) {
         const depDir = resolveDependencyDirectory(packageDir, dep);
+        /* eslint-disable no-await-in-loop */
         await buildPackage(depDir, /* isRoot */ false, forceSubdirectory);
+        /* eslint-enable no-await-in-loop */
       }
     }
 
@@ -140,17 +142,17 @@ import { VERSION_DESC } from '../lib/version';
       const ts = new reflect.TypeSystem();
       const assembly = await ts.loadModule(packageDir);
 
-      for (const targetName of targets) {
+      await Promise.all(targets.map(targetName => {
         // if we are targeting a single language, output to outdir, otherwise outdir/<target>
-        const targetOutputDir = (targets.length > 1 || forceSubdirectory)
+        const targetOutputDir = targets.length > 1 || forceSubdirectory
           ? path.join(outDir, targetName.toString())
           : outDir;
         logging.debug(`Building ${pkg.name}/${targetName}: ${targetOutputDir}`);
 
-        await timers.recordAsync(targetName.toString(), () =>
+        return timers.recordAsync(targetName.toString(), () =>
           generateTarget(assembly, packageDir, targetName.toString(), targetOutputDir, tarball)
         );
-      }
+      }));
     } finally {
       if (argv.clean) {
         logging.debug(`Removing ${tmpdir}`);
@@ -198,7 +200,7 @@ import { VERSION_DESC } from '../lib/version';
   }
 
 })().catch(err => {
-  process.stderr.write(err.stack + '\n');
+  process.stderr.write(`${err.stack}\n`);
   process.exit(1);
 });
 
@@ -238,7 +240,7 @@ async function updateNpmIgnore(packageDir: string, excludeOutdir: string | undef
   includePattern('Include .jsii', spec.SPEC_FILE_NAME);
 
   if (modified) {
-    await fs.writeFile(npmIgnorePath, lines.join('\n') + '\n');
+    await fs.writeFile(npmIgnorePath, `${lines.join('\n')}\n`);
     logging.info('Updated .npmignore');
   }
 

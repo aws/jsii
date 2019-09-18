@@ -17,7 +17,7 @@ export class Kernel {
   public traceEnabled = false;
 
   private assemblies: { [name: string]: Assembly } = { };
-  private objects = new ObjectTable();
+  private readonly objects = new ObjectTable();
   private cbs: { [cbid: string]: Callback } = { };
   private waiting: { [cbid: string]: Callback } = { };
   private promises: { [prid: string]: AsyncInvocation } = { };
@@ -35,7 +35,7 @@ export class Kernel {
      *                        It's responsibility is to execute the callback and return it's
      *                        result (or throw an error).
      */
-  constructor(public callbackHandler: (callback: api.Callback) => any) {
+  public constructor(public callbackHandler: (callback: api.Callback) => any) {
     // `setImmediate` is required for tests to pass (it is otherwise
     // impossible to wait for in-VM promises to complete)
 
@@ -64,7 +64,7 @@ export class Kernel {
     }
 
     if (!this.installDir) {
-      this.installDir  = await fs.mkdtemp(path.join(os.tmpdir(), 'jsii-kernel-'));
+      this.installDir = await fs.mkdtemp(path.join(os.tmpdir(), 'jsii-kernel-'));
       await fs.mkdirp(path.join(this.installDir, 'node_modules'));
       this._debug('creating jsii-kernel modules workdir:', this.installDir);
 
@@ -77,7 +77,7 @@ export class Kernel {
     }
 
     const pkgname = req.name;
-    const pkgver  = req.version;
+    const pkgver = req.version;
 
     // check if we already have such a module
     const packageDir = path.join(this.installDir, 'node_modules', pkgname);
@@ -98,37 +98,37 @@ export class Kernel {
         assembly: assm.metadata.name,
         types: Object.keys(assm.metadata.types || {}).length,
       };
-    } else {
-      // untar the archive to a staging directory, read the jsii spec from it
-      // and then move it to the node_modules directory of the kernel.
-      const staging = await fs.mkdtemp(path.join(os.tmpdir(), 'jsii-kernel-install-staging-'));
-      try {
-        await tar.extract({ strict: true, file: req.tarball, cwd: staging });
-
-        // read .jsii metadata from the root of the package
-        const  jsiiMetadataFile = path.join(staging, 'package', spec.SPEC_FILE_NAME);
-        if (!(await fs.pathExists(jsiiMetadataFile))) {
-          throw new Error(`Package tarball ${req.tarball} must have a file named ${spec.SPEC_FILE_NAME} at the root`);
-        }
-        const assmSpec = await fs.readJson(jsiiMetadataFile) as spec.Assembly;
-
-        // "install" to "node_modules" directory
-        await fs.move(path.join(staging, 'package'), packageDir);
-
-        // load the module and capture it's closure
-        const closure = this._execute(`require(String.raw\`${packageDir}\`)`, packageDir);
-        const assm = new Assembly(assmSpec, closure);
-        this._addAssembly(assm);
-
-        return {
-          assembly: assmSpec.name,
-          types: Object.keys(assmSpec.types || {}).length,
-        };
-      } finally {
-        this._debug('removing staging directory:', staging);
-        await fs.remove(staging);
-      }
     }
+    // untar the archive to a staging directory, read the jsii spec from it
+    // and then move it to the node_modules directory of the kernel.
+    const staging = await fs.mkdtemp(path.join(os.tmpdir(), 'jsii-kernel-install-staging-'));
+    try {
+      await tar.extract({ strict: true, file: req.tarball, cwd: staging });
+
+      // read .jsii metadata from the root of the package
+      const jsiiMetadataFile = path.join(staging, 'package', spec.SPEC_FILE_NAME);
+      if (!await fs.pathExists(jsiiMetadataFile)) {
+        throw new Error(`Package tarball ${req.tarball} must have a file named ${spec.SPEC_FILE_NAME} at the root`);
+      }
+      const assmSpec = await fs.readJson(jsiiMetadataFile) as spec.Assembly;
+
+      // "install" to "node_modules" directory
+      await fs.move(path.join(staging, 'package'), packageDir);
+
+      // load the module and capture it's closure
+      const closure = this._execute(`require(String.raw\`${packageDir}\`)`, packageDir);
+      const assm = new Assembly(assmSpec, closure);
+      this._addAssembly(assm);
+
+      return {
+        assembly: assmSpec.name,
+        types: Object.keys(assmSpec.types || {}).length,
+      };
+    } finally {
+      this._debug('removing staging directory:', staging);
+      await fs.remove(staging);
+    }
+
   }
 
   public create(req: api.CreateRequest): api.CreateResponse {
@@ -687,7 +687,7 @@ export class Kernel {
   }
 
   private _validateMethodArguments(method: spec.Callable | undefined, args: any[]) {
-    const params: spec.Parameter[] = (method && method.parameters) || [];
+    const params: spec.Parameter[] = method && method.parameters || [];
 
     // error if args > params
     if (args.length > params.length && !(method && method.variadic)) {
@@ -770,7 +770,7 @@ export class Kernel {
     const methods = (typeinfo as (spec.ClassType | spec.InterfaceType)).methods || [];
     const bases = [
       (typeinfo as spec.ClassType).base,
-      ...((typeinfo as spec.InterfaceType).interfaces || [])];
+      ...(typeinfo as spec.InterfaceType).interfaces || []];
 
     for (const m of methods) {
       if (m.name === methodName) {
@@ -898,7 +898,7 @@ export class Kernel {
   }
 
   private _boxUnboxParameters(xs: any[], parameters: spec.Parameter[] | undefined, boxUnbox: (x: any, t: wire.OptionalValueOrVoid) => any) {
-    parameters = [...(parameters || [])];
+    parameters = [...parameters || []];
     const variadic = parameters.length > 0 && !!parameters[parameters.length - 1].variadic;
     // Repeat the last (variadic) type to match the number of actual arguments
     while (variadic && parameters.length < xs.length) {
@@ -912,10 +912,7 @@ export class Kernel {
 
   private _debug(...args: any[]) {
     if (this.traceEnabled) {
-      console.error.apply(console, [
-        '[jsii-kernel]',
-        ...args
-      ]);
+      console.error('[jsii-kernel]', ...args);
     }
   }
 
@@ -936,9 +933,9 @@ export class Kernel {
     const superProp = this._getSuperPropertyName(property);
     if (superProp in obj) {
       return superProp;
-    } else {
-      return property;
     }
+    return property;
+
   }
 
   //
@@ -998,7 +995,7 @@ interface AsyncInvocation {
 }
 
 class Assembly {
-  constructor(public readonly metadata: spec.Assembly,
+  public constructor(public readonly metadata: spec.Assembly,
     public readonly closure: any) {
   }
 }

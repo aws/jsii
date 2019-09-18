@@ -6,13 +6,13 @@ import logging = require('../../logging');
 import { DotNetNameUtils } from './nameutils';
 
 // Represents a dependency in the dependency tree.
-export class DotNetDependency  {
+export class DotNetDependency {
   public namespace: string;
   public packageId: string;
   public fqn: string;
   public version: string;
 
-  constructor(namespace: string, packageId: string, fqn: string, version: string) {
+  public constructor(namespace: string, packageId: string, fqn: string, version: string) {
     this.namespace = namespace;
     this.packageId = packageId;
     this.fqn = fqn;
@@ -24,15 +24,15 @@ export class DotNetDependency  {
 // Uses the same instance of CodeMaker as the rest of the code so that the files get created when calling the save() method
 export class FileGenerator {
 
-  private assm: Assembly;
-  private tarballFileName: string;
-  private code: CodeMaker;
-  private assemblyInfoNamespaces: string[] = ['Amazon.JSII.Runtime.Deputy'];
-  private nameutils: DotNetNameUtils = new DotNetNameUtils();
+  private readonly assm: Assembly;
+  private readonly tarballFileName: string;
+  private readonly code: CodeMaker;
+  private readonly assemblyInfoNamespaces: string[] = ['Amazon.JSII.Runtime.Deputy'];
+  private readonly nameutils: DotNetNameUtils = new DotNetNameUtils();
 
   // We pass in an instance of CodeMaker so that the files get later saved
   // when calling the save() method on the .NET Generator.
-  constructor(assm: Assembly, tarballFileName: string, code: CodeMaker) {
+  public constructor(assm: Assembly, tarballFileName: string, code: CodeMaker) {
     this.assm = assm;
     this.tarballFileName = tarballFileName;
     this.code = code;

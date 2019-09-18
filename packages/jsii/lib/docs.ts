@@ -150,7 +150,7 @@ function noNewlines(s: string) {
 }
 
 function endWithPeriod(s: string) {
-  return ENDS_WITH_PUNCTUATION_REGEX.test(s) ? s : s + '.';
+  return ENDS_WITH_PUNCTUATION_REGEX.test(s) ? s : `${s}.`;
 }
 
 /**
@@ -181,7 +181,7 @@ function summaryLine(str: string) {
   return paras[0];
 }
 
-const PUNCTUATION = ['!', '?', '.', ';'].map(s => '\\' + s).join('');
+const PUNCTUATION = ['!', '?', '.', ';'].map(s => `\\${s}`).join('');
 const ENDS_WITH_PUNCTUATION_REGEX = new RegExp(`[${PUNCTUATION}]$`);
 const FIRST_SENTENCE_REGEX = new RegExp(`^([^${PUNCTUATION}]+[${PUNCTUATION}] )`); // literal space at the end
 
@@ -196,7 +196,7 @@ function countBools(...x: boolean[]) {
 function parseStability(s: string | undefined, diagnostics: string[]): spec.Stability | undefined {
   if (s === undefined) { return undefined; }
 
-  switch (s)  {
+  switch (s) {
     case 'stable': return spec.Stability.Stable;
     case 'experimental': return spec.Stability.Experimental;
     case 'external': return spec.Stability.External;

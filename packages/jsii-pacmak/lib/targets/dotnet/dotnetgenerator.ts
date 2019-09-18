@@ -22,13 +22,13 @@ export class DotNetGenerator extends Generator {
 
   private typeresolver: DotNetTypeResolver;
 
-  private nameutils: DotNetNameUtils = new DotNetNameUtils();
+  private readonly nameutils: DotNetNameUtils = new DotNetNameUtils();
 
   private dotnetRuntimeGenerator: DotNetRuntimeGenerator;
 
   private dotnetDocGenerator: DotNetDocGenerator;
 
-  constructor() {
+  public constructor() {
     super();
 
     // Override the openBlock to get a correct C# looking code block with the curly brace after the line
@@ -82,14 +82,14 @@ export class DotNetGenerator extends Generator {
     await fs.copyFile(this.jsiiFilePath, path.join(outdir, packageId, spec.SPEC_FILE_NAME));
 
     // Saving the generated code.
-    return await this.code.save(outdir);
+    return this.code.save(outdir);
   }
 
   /**
      * Generates the Anchor file
      */
   protected generateDependencyAnchorFile(): void {
-    const namespace: string = this.assembly.targets!.dotnet!.namespace + '.Internal.DependencyResolution';
+    const namespace = `${this.assembly.targets!.dotnet!.namespace}.Internal.DependencyResolution`;
     this.openFileIfNeeded('Anchor', namespace, false, false);
     this.code.openBlock('public class Anchor');
     this.code.openBlock('public Anchor()');
@@ -105,7 +105,7 @@ export class DotNetGenerator extends Generator {
      * Not used as we override the save() method
      */
   protected getAssemblyOutputDir(mod: spec.Assembly): string {
-    return this.nameutils.convertPackageName((mod.name));
+    return this.nameutils.convertPackageName(mod.name);
   }
 
   /**
@@ -218,7 +218,7 @@ export class DotNetGenerator extends Generator {
 
     this.openFileIfNeeded(className, namespace, nested);
 
-    const implementsExpr = ' : ' + baseTypeNames.join(', ');
+    const implementsExpr = ` : ${baseTypeNames.join(', ')}`;
 
     this.dotnetDocGenerator.emitDocs(cls);
     this.dotnetRuntimeGenerator.emitAttributesForClass(cls);
@@ -352,7 +352,7 @@ export class DotNetGenerator extends Generator {
       definedOnAncestor = this.isMemberDefinedOnAncestor(cls, method);
     }
     // The method is an override if it's defined on the ancestor, or if the parent is a class and we are generating a proxy or datatype class
-    let overrides = (definedOnAncestor || (cls.kind === spec.TypeKind.Class && emitForProxyOrDatatype));
+    let overrides = definedOnAncestor || (cls.kind === spec.TypeKind.Class && emitForProxyOrDatatype);
     // We also inspect the jsii model to see if it overrides a class member.
     if (method.overrides) {
       const overrideType = this.findType(method.overrides);
@@ -427,12 +427,12 @@ export class DotNetGenerator extends Generator {
           }
         }
         return this.isMemberDefinedOnAncestor(baseType, member);
-      } else {
-        return false;
       }
-    } else {
       return false;
+
     }
+    return false;
+
   }
 
   /**
@@ -487,7 +487,7 @@ export class DotNetGenerator extends Generator {
             && optionalValue.type.primitive !== spec.PrimitiveType.String
             && optionalValue.type.primitive !== spec.PrimitiveType.Any
             && optionalValue.type.primitive !== spec.PrimitiveType.Json) // Json is not a primitive in .NET
-            || (isOptionalEnum);
+            || isOptionalEnum;
   }
 
   /**
@@ -495,7 +495,7 @@ export class DotNetGenerator extends Generator {
      */
   private emitInterfaceProxy(ifc: spec.InterfaceType | spec.ClassType): void {
     // No need to slugify for a proxy
-    const name = this.nameutils.convertTypeName(ifc.name) + 'Proxy';
+    const name = `${this.nameutils.convertTypeName(ifc.name)}Proxy`;
     const namespace = ifc.namespace ? `${this.assembly.targets!.dotnet!.namespace}.${ifc.namespace}` : this.assembly.targets!.dotnet!.namespace;
     const isNested = this.isNested(ifc);
     this.openFileIfNeeded(name, namespace, isNested);
@@ -577,7 +577,7 @@ export class DotNetGenerator extends Generator {
       for (const method of currentType.methods || []) {
         let methodParameters = '';
         if (method.parameters) {
-          method.parameters.forEach(param => { methodParameters += ';' + this.typeresolver.toDotNetType(param.type); });
+          method.parameters.forEach(param => { methodParameters += `;${this.typeresolver.toDotNetType(param.type)}`; });
         }
         if (!excludedMethod.includes(`${method.name}${methodParameters}`)) {
           // If we have never run into this method before and it is abstract, we keep it
@@ -724,7 +724,7 @@ export class DotNetGenerator extends Generator {
   }
 
   private toCSharpFilePath(type: string): string {
-    return type + '.cs';
+    return `${type}.cs`;
   }
 
   private openFileIfNeeded(typeName: string, namespace: string, isNested: boolean, usingDeputy = true): void {

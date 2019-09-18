@@ -25,9 +25,10 @@ export function resolveDependencyDirectory(packageDir: string, dependencyName: s
 }
 
 export async function shell(cmd: string, args: string[], options: ShellOptions): Promise<string> {
-  function spawn1() {
-    return new Promise<string>((resolve, reject) => {
-      logging.debug(cmd, args.join(' '), JSON.stringify(options));
+  /* eslint-disable @typescript-eslint/require-await */
+  async function spawn1() {
+    logging.debug(cmd, args.join(' '), JSON.stringify(options));
+    return new Promise<string>((ok, ko) => {
       const child = spawn(cmd, args, {
         ...options,
         shell: true,
@@ -48,16 +49,17 @@ export async function shell(cmd: string, args: string[], options: ShellOptions):
         }
         stderr.push(Buffer.from(chunk));
       });
-      child.once('error', reject);
+      child.once('error', ko);
       child.once('exit', (code, signal) => {
         const out = Buffer.concat(stdout).toString('utf-8');
-        if (code === 0) { return resolve(out); }
+        if (code === 0) { return ok(out); }
         const err = Buffer.concat(stderr).toString('utf-8');
-        if (code != null) { return reject(new Error(`Process exited with status ${code}\n${out}\n${err}`)); }
-        reject(new Error(`Process terminated by signal ${signal}\n${out}\n${err}`));
+        if (code != null) { return ko(new Error(`Process exited with status ${code}\n${out}\n${err}`)); }
+        return ko(new Error(`Process terminated by signal ${signal}\n${out}\n${err}`));
       });
     });
   }
+  /* eslint-enable @typescript-eslint/require-await */
 
   let attempts = options.retry ? 3 : 1;
   while (attempts > 0) {

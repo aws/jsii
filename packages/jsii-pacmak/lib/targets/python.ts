@@ -63,7 +63,7 @@ const pythonModuleNameToFilename = (name: string): string => {
 
 const toPythonIdentifier = (name: string): string => {
   if (PYTHON_KEYWORDS.includes(name)) {
-    return name + '_';
+    return `${name}_`;
   }
 
   return name;
@@ -72,7 +72,7 @@ const toPythonIdentifier = (name: string): string => {
 const toPythonMethodName = (name: string, protectedItem = false): string => {
   let value = toPythonIdentifier(toSnakeCase(name));
   if (protectedItem) {
-    value = '_' + value;
+    value = `_${value}`;
   }
   return value;
 };
@@ -85,7 +85,7 @@ const toPythonPropertyName = (name: string, constant = false, protectedItem = fa
   }
 
   if (protectedItem) {
-    value = '_' + value;
+    value = `_${value}`;
   }
 
   return value;
@@ -176,7 +176,7 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
   protected bases: spec.TypeReference[];
   protected members: PythonBase[];
 
-  constructor(
+  public constructor(
     protected readonly generator: PythonGenerator,
     public readonly pythonName: string,
     public readonly fqn: string | null,
@@ -277,7 +277,7 @@ abstract class BaseMethod implements PythonBase {
   private readonly liftedProp?: spec.InterfaceType;
   private readonly parent?: spec.NamedTypeReference;
 
-  constructor(protected readonly generator: PythonGenerator,
+  public constructor(protected readonly generator: PythonGenerator,
     public readonly pythonName: string,
     private readonly jsName: string | undefined,
     private readonly parameters: spec.Parameter[],
@@ -493,7 +493,7 @@ abstract class BaseProperty implements PythonBase {
 
   private readonly immutable: boolean;
 
-  constructor(public readonly pythonName: string,
+  public constructor(public readonly pythonName: string,
     private readonly jsName: string,
     private readonly type: spec.OptionalValue,
     private readonly docs: spec.Docs | undefined,
@@ -651,7 +651,7 @@ class Struct extends BasePythonClassType {
 
     const kwargs = members.map(m => m.constructorDecl(resolver));
 
-    const constructorArguments = kwargs.length > 0  ? ['self', '*', ...kwargs] : ['self'];
+    const constructorArguments = kwargs.length > 0 ? ['self', '*', ...kwargs] : ['self'];
 
     code.openBlock(`def __init__(${constructorArguments.join(', ')})`);
     this.emitConstructorDocstring(code);
@@ -716,7 +716,7 @@ class StructField implements PythonBase {
   public readonly docs?: spec.Docs;
   private readonly type: spec.OptionalValue;
 
-  constructor(public readonly prop: spec.Property) {
+  public constructor(public readonly prop: spec.Property) {
     this.pythonName = toPythonPropertyName(prop.name);
     this.jsiiName = prop.name;
     this.type = prop;
@@ -765,11 +765,11 @@ interface ClassOpts extends PythonTypeOpts {
 
 class Class extends BasePythonClassType {
 
-  private abstract: boolean;
-  private abstractBases: spec.ClassType[];
-  private interfaces: spec.NamedTypeReference[];
+  private readonly abstract: boolean;
+  private readonly abstractBases: spec.ClassType[];
+  private readonly interfaces: spec.NamedTypeReference[];
 
-  constructor(generator: PythonGenerator, name: string, fqn: string, opts: ClassOpts, docs: spec.Docs | undefined) {
+  public constructor(generator: PythonGenerator, name: string, fqn: string, opts: ClassOpts, docs: spec.Docs | undefined) {
     super(generator, name, fqn, opts, docs);
 
     const { abstract = false, interfaces = [], abstractBases = [] } = opts;
@@ -925,7 +925,7 @@ class Enum extends BasePythonClassType {
 }
 
 class EnumMember implements PythonBase {
-  constructor(public readonly pythonName: string, private readonly value: string, private readonly docs: spec.Docs | undefined) {
+  public constructor(public readonly pythonName: string, private readonly value: string, private readonly docs: spec.Docs | undefined) {
     this.pythonName = pythonName;
     this.value = value;
   }
@@ -953,12 +953,12 @@ class Module implements PythonType {
   public readonly pythonName: string;
   public readonly fqn: string | null;
 
-  private assembly: spec.Assembly;
-  private assemblyFilename: string;
-  private loadAssembly: boolean;
-  private members: PythonBase[];
+  private readonly assembly: spec.Assembly;
+  private readonly assemblyFilename: string;
+  private readonly loadAssembly: boolean;
+  private readonly members: PythonBase[];
 
-  constructor(name: string, fqn: string | null, opts: ModuleOpts) {
+  public constructor(name: string, fqn: string | null, opts: ModuleOpts) {
     this.pythonName = name;
     this.fqn = fqn;
 
@@ -1024,7 +1024,7 @@ class Module implements PythonType {
     const deps = Array.from(
       new Set([
         ...Object.values(this.assembly.dependencies || {}).map(d => {
-          return (d).targets!.python!.module;
+          return d.targets!.python!.module;
         }),
       ])
     );
@@ -1052,10 +1052,10 @@ class Package {
   public readonly version: string;
   public readonly metadata: spec.Assembly;
 
-  private modules: Map<string, Module>;
-  private data: Map<string, PackageData[]>;
+  private readonly modules: Map<string, Module>;
+  private readonly data: Map<string, PackageData[]>;
 
-  constructor(name: string, version: string, metadata: spec.Assembly) {
+  public constructor(name: string, version: string, metadata: spec.Assembly) {
     this.name = name;
     this.version = version;
     this.metadata = metadata;
@@ -1138,7 +1138,7 @@ class Package {
       url: this.metadata.homepage,
       long_description_content_type: 'text/markdown',
       author: this.metadata.author.name + (
-        this.metadata.author.email !== undefined ? '<' + this.metadata.author.email + '>' : ''
+        this.metadata.author.email !== undefined ? `<${this.metadata.author.email}>` : ''
       ),
       project_urls: {
         Source: this.metadata.repository.url,
@@ -1198,7 +1198,7 @@ interface TypeResolverOpts {
 class TypeResolver {
 
   private readonly types: Map<string, PythonType>;
-  private boundTo?: string;
+  private readonly boundTo?: string;
   private readonly stdTypesRe = new RegExp('^(datetime\\.datetime|typing\\.[A-Z][a-z]+|jsii\\.Number)$');
   private readonly boundRe: RegExp;
   private readonly moduleName?: string;
@@ -1206,7 +1206,7 @@ class TypeResolver {
   private readonly findModule: FindModuleCallback;
   private readonly findType: FindTypeCallback;
 
-  constructor(types: Map<string, PythonType>,
+  public constructor(types: Map<string, PythonType>,
     findModule: FindModuleCallback,
     findType: FindTypeCallback,
     boundTo?: string,
@@ -1320,7 +1320,7 @@ class TypeResolver {
         // This re will look for the entire type, boxed by either the start/end of
         // a string, a comma, a space, a quote, or open/closing brackets. This will
         // ensure that we only match whole type names, and not partial ones.
-        const re = new RegExp('((?:^|[[,\\s])"?)' + innerType + '("?(?:$|[\\],\\s]))');
+        const re = new RegExp(`((?:^|[[,\\s])"?)${innerType}("?(?:$|[\\],\\s]))`);
 
         // We need to handle forward references, our caller knows if we're able to
         // use them in the current context or not, so if not, we'll wrap our forward
@@ -1358,7 +1358,7 @@ class TypeResolver {
       }
       pythonType = `typing.Union[${types.join(', ')}]`;
     } else {
-      throw new Error('Invalid type reference: ' + JSON.stringify(typeRef));
+      throw new Error(`Invalid type reference: ${JSON.stringify(typeRef)}`);
     }
 
     // If our type is Optional, then we'll wrap our underlying type with typing.Optional
@@ -1382,7 +1382,7 @@ class TypeResolver {
       case spec.PrimitiveType.String: return 'str';
       case spec.PrimitiveType.Any: return 'typing.Any';
       default:
-        throw new Error('Unknown primitive type: ' + primitive);
+        throw new Error(`Unknown primitive type: ${primitive}`);
     }
   }
 
@@ -1410,9 +1410,9 @@ class TypeResolver {
 
 class PythonGenerator extends Generator {
   private package: Package;
-  private types: Map<string, PythonType>;
+  private readonly types: Map<string, PythonType>;
 
-  constructor(options: GeneratorOptions = {}) {
+  public constructor(options: GeneratorOptions = {}) {
     super(options);
 
     this.code.openBlockFormatter = s => `${s}:`;
@@ -1821,7 +1821,7 @@ function emitDocString(code: CodeMaker, docs: spec.Docs | undefined, options: {
   if (docs.subclassable) { block('subclassable', 'Yes'); }
 
   for (const [k, v] of Object.entries(docs.custom || {})) {
-    block(k + ':', v, false);
+    block(`${k}:`, v, false);
   }
 
   if (docs.example) {

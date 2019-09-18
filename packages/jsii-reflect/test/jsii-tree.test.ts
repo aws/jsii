@@ -50,7 +50,7 @@ async function jsiiTree(...args: string[]) {
     path.dirname(require.resolve('jsii-calc/package.json'))
   ].join(' ');
 
-  const { stdout, stderr } = (await exec(command));
+  const { stdout, stderr } = await exec(command);
 
   if (stderr) {
     console.error(stderr);

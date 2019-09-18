@@ -8,10 +8,10 @@ import { DotNetNameUtils } from './nameutils';
  * Uses the same instance of CodeMaker as the rest of the code
  */
 export class DotNetDocGenerator {
-  private code: CodeMaker;
-  private nameutils: DotNetNameUtils = new DotNetNameUtils();
+  private readonly code: CodeMaker;
+  private readonly nameutils: DotNetNameUtils = new DotNetNameUtils();
 
-  constructor(code: CodeMaker) {
+  public constructor(code: CodeMaker) {
     this.code = code;
   }
 
@@ -99,7 +99,7 @@ export class DotNetDocGenerator {
 
     if (docs.custom) {
       for (const [k, v] of Object.entries(docs.custom || {})) {
-        const custom = (k === 'link') ? `${k}: ${v} ` : `${k}: ${v}`; // Extra space for '@link' to keep unit tests happy
+        const custom = k === 'link' ? `${k}: ${v} ` : `${k}: ${v}`; // Extra space for '@link' to keep unit tests happy
         const customLines = custom.split('\n');
         customLines.forEach( line => remarks.push(`${line}`));
       }

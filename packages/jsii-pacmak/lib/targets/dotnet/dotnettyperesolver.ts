@@ -13,9 +13,9 @@ export class DotNetTypeResolver {
   private readonly findModule: FindModuleCallback;
   private readonly findType: FindTypeCallback;
   private readonly assembly: spec.Assembly;
-  private nameutils: DotNetNameUtils = new DotNetNameUtils();
+  private readonly nameutils: DotNetNameUtils = new DotNetNameUtils();
 
-  constructor(assembly: spec.Assembly,
+  public constructor(assembly: spec.Assembly,
     findModule: FindModuleCallback,
     findType: FindTypeCallback) {
     this.assembly = assembly;
@@ -40,7 +40,7 @@ export class DotNetTypeResolver {
         typeName = this.nameutils.convertTypeName(type.name);
         break;
       default:
-        throw new Error('Unknown type: ' + type);
+        throw new Error(`Unknown type: ${type}`);
     }
     const [mod] = fqn.split('.');
     const depMod = this.findModule(mod);
@@ -58,10 +58,10 @@ export class DotNetTypeResolver {
         return `${actualNamespace}.${typeName}`;
       }
       return `${dotnetNamespace}.${type.namespace}.${typeName}`;
-    } else {
-      // When undefined, the type is located at the root of the assembly
-      return `${dotnetNamespace}.${typeName}`;
-    }
+    } 
+    // When undefined, the type is located at the root of the assembly
+    return `${dotnetNamespace}.${typeName}`;
+    
 
   }
 
@@ -115,9 +115,9 @@ export class DotNetTypeResolver {
       return this.toNativeFqn(typeref.fqn);
     } else if (typeref.union) {
       return 'object';
-    } else {
-      throw new Error('Invalid type reference: ' + JSON.stringify(typeref));
-    }
+    } 
+    throw new Error(`Invalid type reference: ${JSON.stringify(typeref)}`);
+    
   }
 
   /**
@@ -138,7 +138,7 @@ export class DotNetTypeResolver {
       case spec.PrimitiveType.Any:
         return 'object';
       default:
-        throw new Error('Unknown primitive type: ' + primitive);
+        throw new Error(`Unknown primitive type: ${primitive}`);
     }
   }
 

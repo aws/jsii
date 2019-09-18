@@ -8,7 +8,7 @@ export default class FileBuffer {
   public readonly filePath: string;
   private buffer = '';
 
-  constructor(filePath: string) {
+  public constructor(filePath: string) {
     this.filePath = filePath;
   }
 

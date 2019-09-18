@@ -11,18 +11,14 @@ import { TypeSystem } from './type-system';
 
 export abstract class Callable implements Documentable, Overridable, TypeMember, SourceLocatable {
   public abstract readonly kind: MemberKind;
-  public abstract get name(): string;
-  public abstract get abstract(): boolean;
+  public abstract readonly name: string;
+  public abstract readonly abstract: boolean;
 
-  constructor(
+  public constructor(
     public readonly system: TypeSystem,
     public readonly assembly: Assembly,
     public readonly parentType: Type,
     private readonly spec: jsii.Callable) {}
-
-  public toString() {
-    return `${this.kind}:${this.parentType.fqn}.${this.name}`;
-  }
 
   /**
    * The parameters of the method/initializer
@@ -70,5 +66,9 @@ export abstract class Callable implements Documentable, Overridable, TypeMember,
    */
   public get locationInRepository(): SourceLocation | undefined {
     return locationInRepository(this);
+  }
+
+  public toString() {
+    return `${this.kind}:${this.parentType.fqn}.${this.name}`;
   }
 }

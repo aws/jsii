@@ -9,11 +9,11 @@ import { DotNetNameUtils } from './nameutils';
  * Uses the same instance of CodeMaker as the rest of the code
  */
 export class DotNetRuntimeGenerator {
-  private code: CodeMaker;
-  private typeresolver: DotNetTypeResolver;
-  private nameutils: DotNetNameUtils = new DotNetNameUtils();
+  private readonly code: CodeMaker;
+  private readonly typeresolver: DotNetTypeResolver;
+  private readonly nameutils: DotNetNameUtils = new DotNetNameUtils();
 
-  constructor(code: CodeMaker, typeresolver: DotNetTypeResolver) {
+  public constructor(code: CodeMaker, typeresolver: DotNetTypeResolver) {
     this.code = code;
     this.typeresolver = typeresolver;
   }
@@ -68,8 +68,8 @@ export class DotNetRuntimeGenerator {
      * Ex: [JsiiMethod(name: "hey", returnsJson: "{\"type\":{\"primitive\":\"number\"}}")
      */
   public emitAttributesForMethod(cls: spec.ClassType | spec.InterfaceType, method: spec.Method/*, emitForProxyOrDatatype: boolean = false*/): void {
-    const isOverride = (cls.kind === spec.TypeKind.Class) && (method.overrides) ? ', isOverride: true' : '';
-    const isAsync = (cls.kind === spec.TypeKind.Class) && (method.async) ? ', isAsync: true' : '';
+    const isOverride = (cls.kind === spec.TypeKind.Class) && method.overrides ? ', isOverride: true' : '';
+    const isAsync = (cls.kind === spec.TypeKind.Class) && method.async ? ', isAsync: true' : '';
     const parametersJson = method.parameters ? `, parametersJson: "${JSON.stringify(method.parameters)
       .replace(/"/g, '\\"')
       .replace(/\\{2}"/g, 'test')}"` : '';
@@ -165,7 +165,7 @@ export class DotNetRuntimeGenerator {
         const attribute = docs.deprecated ?
           `[System.Obsolete("${docs.deprecated
             .replace(/\n/g, ' ') // Replacing new lines in Obsolete
-            .replace(/"/g, '\\"')}")]`  : '[System.Obsolete()]';
+            .replace(/"/g, '\\"')}")]` : '[System.Obsolete()]';
         this.code.line(attribute);
       }
     }

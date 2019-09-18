@@ -5,7 +5,7 @@ import { Target } from '../target';
 export default class Ruby extends Target {
   protected readonly generator = new PackOnly();
 
-  public build(sourceDir: string, outDir: string) {
+  public async build(sourceDir: string, outDir: string) {
     // TODO: "gem build"
     return this.copyFiles(sourceDir, outDir);
   }

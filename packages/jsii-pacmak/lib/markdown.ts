@@ -10,7 +10,7 @@ export function md2rst(text: string) {
   const doc = new DocumentBuilder();
 
   function directive(name: string, opening: boolean) {
-    if (opening)  {
+    if (opening) {
       doc.appendLine(`.. ${name}::`);
       doc.paraBreak();
       doc.pushPrefix('   ');
@@ -49,7 +49,7 @@ export function md2rst(text: string) {
           const appended = lastLine.replace(/[\W]$/, '::');
           if (appended !== lastLine) { return appended; }
 
-          return lastLine + ' Example::';
+          return `${lastLine} Example::`;
         });
       }
 
@@ -63,7 +63,7 @@ export function md2rst(text: string) {
     softbreak() { doc.newline(); },
     linebreak() { doc.newline(); },
     thematic_break() { doc.appendLine('------'); },
-    code(node) { doc.append('``' + textOf(node) + '``'); },
+    code(node) { doc.append(`\`\`${textOf(node)}\`\``); },
     strong() { doc.append('**'); },
     emph() { doc.append('*'); },
 
@@ -75,7 +75,7 @@ export function md2rst(text: string) {
       if (entering) {
         doc.append('`');
       } else {
-        doc.append(' <' + (node.destination || '') + '>`_');
+        doc.append(` <${node.destination || ''}>\`_`);
       }
     },
 
@@ -130,7 +130,7 @@ class DocumentBuilder {
   private readonly lines = new Array<string[]>();
   private queuedNewline = false;
 
-  constructor() {
+  public constructor() {
     this.lines.push([]);
   }
 

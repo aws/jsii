@@ -13,13 +13,13 @@ export class CodeMaker {
 
   private currIndent = 0;
   private currentFile?: FileBuffer;
-  private files = new Array<FileBuffer>();
+  private readonly files = new Array<FileBuffer>();
   private readonly excludes = new Array<string>();
 
   /**
      * Formats an block open statement.
      */
-  public openBlockFormatter: (s?: string) => string = s => s + ' {';
+  public openBlockFormatter: (s?: string) => string = s => `${s} {`;
 
   /**
      * Formats a block close statement.
@@ -32,14 +32,10 @@ export class CodeMaker {
      * @returns A sorted list of all the files saved (absolute paths).
      */
   public async save(rootDir: string) {
-    const paths = new Array<string>();
-    for (const file of this.files) {
-      if (this.excludes.includes(file.filePath)) {
-        continue;
-      }
-      paths.push(await file.save(rootDir));
-    }
-    return paths.sort();
+    const paths = this.files
+      .filter(file => !this.excludes.includes(file.filePath))
+      .map(file => file.save(rootDir));
+    return (await Promise.all(paths)).sort();
   }
 
   /**

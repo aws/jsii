@@ -18,7 +18,6 @@
     "eslint": "^6.4.0",
     "jest": "^24.9.0",
     "jsii-build-tools": "file:../jsii-build-tools",
-    "ts-jest": "^24.1.0",
     "typescript": "~3.6.3"
   },
   "jest": {

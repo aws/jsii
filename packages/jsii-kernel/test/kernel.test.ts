@@ -27,7 +27,7 @@ process.on('unhandledRejection', e => {
 const recordingOutput = process.env.JSII_RECORD;
 if (recordingOutput) {
   fs.mkdirpSync(recordingOutput);
-  console.error('JSII_RECORD=' + recordingOutput);
+  console.error(`JSII_RECORD=${recordingOutput}`);
 }
 
 function defineTest(name: string, method: (sandbox: Kernel) => Promise<any> | any) {
@@ -562,9 +562,9 @@ defineTest('sync overrides: properties - readwrite', (sandbox) => {
       expect(callback.set.property).toBe('theProperty');
       setValue = callback.set.value;
       return undefined;
-    } else {
-      throw new Error('Invalid callback. Expected get/set');
-    }
+    } 
+    throw new Error('Invalid callback. Expected get/set');
+    
   });
 
   const value = sandbox.invoke({ objref: obj, method: 'retrieveValueOfTheProperty' });
@@ -591,9 +591,9 @@ defineTest('sync overrides: properties - readwrite (backed by functions)', (sand
       expect(callback.set.property).toBe('otherProperty');
       setValue = callback.set.value;
       return undefined;
-    } else {
-      throw new Error('Invalid callback. Expected get/set');
-    }
+    } 
+    throw new Error('Invalid callback. Expected get/set');
+    
   });
 
   const value = sandbox.invoke({ objref: obj, method: 'retrieveOtherProperty' });
@@ -637,7 +637,7 @@ defineTest('sync overrides: properties - get calls super', (sandbox) => {
   sandbox.callbackHandler = makeSyncCallbackHandler(callback => {
     expect(callback.get!.property).toBe('theProperty');
     const superValue = sandbox.get({ objref: obj, property: 'theProperty' });
-    return 'override, super=' + superValue.value;
+    return `override, super=${superValue.value}`;
   });
 
   const value = sandbox.invoke({ objref: obj, method: 'retrieveValueOfTheProperty' });
@@ -653,8 +653,10 @@ defineTest('sync overrides: properties - set calls super', (sandbox) => {
     }
 
     if (callback.set) {
-      return sandbox.set({ objref: obj, property: 'theProperty', value: 'set by override: ' + callback.set.value });
+      return sandbox.set({ objref: obj, property: 'theProperty', value: `set by override: ${callback.set.value}` });
     }
+
+    throw new Error(`Unexpected callback request: ${JSON.stringify(callback)}`);
   });
 
   sandbox.invoke({ objref: obj, method: 'modifyValueOfTheProperty', args: ['new_value'] });
@@ -699,7 +701,7 @@ defineTest('sync overrides: returns an object', (sandbox) => {
       return number500;
     }
 
-    throw new Error('Unexpected callback:' + JSON.stringify(callback));
+    throw new Error(`Unexpected callback:${JSON.stringify(callback)}`);
   });
 
   const ret = sandbox.invoke({ objref: obj, method: 'test', args: [returnsNumber] });
@@ -1201,7 +1203,7 @@ async function preparePackage(module: string, useCache = true) {
     child.once('exit', (code, signal) => {
       if (code === 0) { return ok(); }
       if (code != null) { return ko(`Process exited with code ${code}`); }
-      ko(`Process killed by signal ${signal}`);
+      return ko(`Process killed by signal ${signal}`);
     });
   });
   const dir = path.join(staging, (await fs.readdir(staging))[0]);

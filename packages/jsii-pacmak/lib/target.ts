@@ -33,9 +33,9 @@ export abstract class Target {
   protected readonly targetName: string;
   protected readonly assembly: reflect.Assembly;
 
-  protected abstract get generator(): IGenerator;
+  protected abstract readonly generator: IGenerator;
 
-  constructor(options: TargetOptions) {
+  public constructor(options: TargetOptions) {
     this.packageDir = options.packageDir;
     this.assembly = options.assembly;
     this.fingerprint = options.fingerprint != null ? options.fingerprint : true;
@@ -107,10 +107,10 @@ export abstract class Target {
       }
 
       // now descend to dependencies
-      for (const dependencyName of Object.keys(pkg.dependencies || {})) {
-        const dependencyDir =  resolveDependencyDirectory(packageDir, dependencyName);
-        await recurse.call(this, dependencyDir, false);
-      }
+      await Promise.all(Object.keys(pkg.dependencies || {}).map(dependencyName => {
+        const dependencyDir = resolveDependencyDirectory(packageDir, dependencyName);
+        return recurse.call(this, dependencyDir, false);
+      }));
     }
 
     await recurse.call(this, rootPackageDir, true);

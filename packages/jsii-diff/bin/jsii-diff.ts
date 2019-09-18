@@ -102,10 +102,10 @@ async function loadAssembly(requested: string): Promise<LoadAssemblyResult> {
         return { requested, resolved, success: true, assembly: download.result };
       }
       return { requested, resolved, success: false, reason: download.reason };
-    } else {
-      // We don't accept failure loading from the filesystem
-      return { requested, resolved, success: true, assembly: await loadFromFilesystem(requested) };
     }
+    // We don't accept failure loading from the filesystem
+    return { requested, resolved, success: true, assembly: await loadFromFilesystem(requested) };
+
   } catch (e) {
     // Prepend information about which assembly we've failed to load
     //
@@ -141,10 +141,10 @@ async function loadFromFilesystem(name: string) {
 
   const ts = new reflect.TypeSystem();
   if (stat.isDirectory()) {
-    return await ts.loadModule(name);
-  } else {
-    return await ts.loadFile(name);
+    return ts.loadModule(name);
   }
+  return ts.loadFile(name);
+
 }
 
 main().then(n => {

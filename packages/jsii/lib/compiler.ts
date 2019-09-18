@@ -60,7 +60,7 @@ export class Compiler implements Emitter {
   private typescriptConfig?: TypescriptConfig;
   private rootFiles: string[] = [];
   private readonly configPath: string;
-  private projectReferences: boolean;
+  private readonly projectReferences: boolean;
 
   public constructor(private readonly options: CompilerOptions) {
     this.compilerHost = ts.createCompilerHost(COMPILER_OPTIONS);
@@ -85,10 +85,10 @@ export class Compiler implements Emitter {
       if (files.length > 0) {
         throw new Error('Files cannot be specified in watch mode!');
       }
-      return await this._startWatch();
-    } else {
-      return await this._buildOnce();
+      return this._startWatch();
     }
+    return this._buildOnce();
+
   }
 
   /**
@@ -110,41 +110,40 @@ export class Compiler implements Emitter {
       host: this.compilerHost
     });
 
-    return await this._consumeProgram(prog, this.compilerHost.getDefaultLibLocation());
+    return this._consumeProgram(prog, this.compilerHost.getDefaultLibLocation());
   }
 
   /**
      * Start a watch on the config that has been written to disk
      */
-  private _startWatch(): Promise<never> {
-    return new Promise<never>(() => {
-      const pi = this.options.projectInfo;
-      const projectRoot = pi.projectRoot;
-      const host = ts.createWatchCompilerHost(
-        this.configPath,
-        {
-          ...pi.tsc,
-          ...COMPILER_OPTIONS,
-          noEmitOnError: false,
-        },
-        { ...ts.sys, getCurrentDirectory() { return projectRoot; } }
-      );
-      if (!host.getDefaultLibLocation) {
-        throw new Error('No default library location was found on the TypeScript compiler host!');
+  private async _startWatch(): Promise<never> {
+    const pi = this.options.projectInfo;
+    const projectRoot = pi.projectRoot;
+    const host = ts.createWatchCompilerHost(
+      this.configPath,
+      {
+        ...pi.tsc,
+        ...COMPILER_OPTIONS,
+        noEmitOnError: false,
+      },
+      { ...ts.sys, getCurrentDirectory() { return projectRoot; } }
+    );
+    if (!host.getDefaultLibLocation) {
+      throw new Error('No default library location was found on the TypeScript compiler host!');
+    }
+    const orig = host.afterProgramCreate;
+    host.afterProgramCreate = async builderProgram => {
+      const emitResult = await this._consumeProgram(builderProgram.getProgram(), host.getDefaultLibLocation!());
+
+      for (const diag of emitResult.diagnostics.filter(d => d.code === JSII_DIAGNOSTICS_CODE)) {
+        utils.logDiagnostic(diag, projectRoot);
       }
-      const orig = host.afterProgramCreate;
-      host.afterProgramCreate = async builderProgram => {
-        const emitResult = await this._consumeProgram(builderProgram.getProgram(), host.getDefaultLibLocation!());
 
-        for (const diag of emitResult.diagnostics.filter(d => d.code === JSII_DIAGNOSTICS_CODE)) {
-          utils.logDiagnostic(diag, projectRoot);
-        }
-
-        if (orig) { orig.call(host, builderProgram); }
-      };
-      ts.createWatchProgram(host);
-      // Previous call never returns
-    });
+      if (orig) { orig.call(host, builderProgram); }
+    };
+    ts.createWatchProgram(host);
+    // Previous call never returns
+    return new Promise(() => {});
   }
 
   private async _consumeProgram(program: ts.Program, stdlib: string): Promise<EmitResult> {
@@ -254,8 +253,7 @@ export class Compiler implements Emitter {
       Object.keys(dependencyMap).forEach(dependencyNames.add.bind(dependencyNames));
     }
 
-    for (const depName of dependencyNames) {
-      const tsconfigFile = await this.findMonorepoPeerTsconfig(depName);
+    for await (const tsconfigFile of Array.from(dependencyNames).map(depName => this.findMonorepoPeerTsconfig(depName))) {
       if (!tsconfigFile) { continue; }
 
       /* eslint-disable @typescript-eslint/no-var-requires */

@@ -14,7 +14,7 @@ export class AsciiTree {
    * @param text The node's text content
    * @param children Children of this node (can also be added via "add")
    */
-  constructor(public readonly text?: string, ...children: AsciiTree[]) {
+  public constructor(public readonly text?: string, ...children: AsciiTree[]) {
     for (const child of children) {
       this.add(child);
     }

@@ -166,7 +166,7 @@ function isStructuralSuperType(a: reflect.InterfaceType, b: reflect.InterfaceTyp
 // Oh tagged union types I love you so much!
 export type Analysis = { success: true } | FailedAnalysis;
 
-export type FailedAnalysis =  { success: false, reasons: string[] };
+export type FailedAnalysis = { success: false, reasons: string[] };
 
 function failure(...reasons: string[]): FailedAnalysis {
   return { success: false, reasons };

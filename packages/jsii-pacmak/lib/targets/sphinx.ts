@@ -8,7 +8,7 @@ import { Target, TargetConstructor } from '../target';
 export default class Sphinx extends Target {
   protected readonly generator = new SphinxDocsGenerator();
 
-  public build(sourceDir: string, outDir: string) {
+  public async build(sourceDir: string, outDir: string) {
     return this.copyFiles(sourceDir, outDir);
   }
 }
@@ -25,7 +25,7 @@ const HMARKS = ['=', '-', '^', '~', '"', '#'];
 
 class SphinxDocsGenerator extends Generator {
   private assemblyName?: string;
-  private namespaceStack = new Array<NamespaceStackEntry>();
+  private readonly namespaceStack = new Array<NamespaceStackEntry>();
   private tocPath = new Array<string>();
   private targets: { [name: string]: TargetConstructor } = {};
 
@@ -35,7 +35,7 @@ class SphinxDocsGenerator extends Generator {
       : { name: '', underClass: false };
   }
 
-  constructor() {
+  public constructor() {
     super({ expandUnionProperties: false });
 
     this.code.openBlockFormatter = s => s || '';
@@ -546,7 +546,7 @@ class SphinxDocsGenerator extends Generator {
     }
 
     this.code.line();
-    doclines.split('\n').forEach(line => this.code.line(line + '\n'));
+    doclines.split('\n').forEach(line => this.code.line(`${line}\n`));
 
     if (element.docs && element.docs.see) {
       this.code.line(element.docs.see);
@@ -571,9 +571,9 @@ class SphinxDocsGenerator extends Generator {
 
     if (newlines) {
       return lines.join('\n');
-    } else {
-      return lines.join('. ').replace(/\n/g, ' ');
     }
+    return lines.join('. ').replace(/\n/g, ' ');
+
   }
 
   private renderOptionalValue(optionalValue: spec.OptionalValue): { display: string, ref: string } {
@@ -664,7 +664,7 @@ class SphinxDocsGenerator extends Generator {
       this.code.line();
     }
     const readonly = prop.immutable ? ' *(readonly)*' : '';
-    const abs = (parent.kind !== spec.TypeKind.Interface &&  prop.abstract) ? ' *(abstract)*' : '';
+    const abs = parent.kind !== spec.TypeKind.Interface && prop.abstract ? ' *(abstract)*' : '';
     const stat = prop.static ? ' *(static)*' : '';
     this.code.line(`:type: ${type.ref}${readonly}${abs}${stat}`);
 

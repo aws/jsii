@@ -45,7 +45,9 @@ export class TypeSystem {
       /* eslint-enable @typescript-eslint/no-var-requires */
       if (!depPkgJson.jsii) { continue; }
 
+      /* eslint-disable no-await-in-loop */
       await this.loadModule(path.dirname(depPkgJsonPath), options);
+      /* eslint-enable no-await-in-loop */
     }
   }
 
@@ -63,10 +65,10 @@ export class TypeSystem {
    */
   public async load(fileOrDirectory: string, options: { validate?: boolean } = {}) {
     if ((await stat(fileOrDirectory)).isDirectory()) {
-      return await this.loadModule(fileOrDirectory, options);
-    } else {
-      return await this.loadFile(fileOrDirectory, { ...options, isRoot: true });
+      return this.loadModule(fileOrDirectory, options);
     }
+    return this.loadFile(fileOrDirectory, { ...options, isRoot: true });
+
   }
 
   public async loadModule(dir: string, options: { validate?: boolean } = {}): Promise<Assembly> {
@@ -114,7 +116,9 @@ export class TypeSystem {
         const depDir = require.resolve(`${name}/package.json`, {
           paths: [moduleDirectory]
         });
+        /* eslint-disable no-await-in-loop */
         await _loadModule.call(this, path.dirname(depDir));
+        /* eslint-enable no-await-in-loop */
       }
 
       return root;

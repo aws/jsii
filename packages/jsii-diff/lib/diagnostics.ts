@@ -24,7 +24,7 @@ export function formatDiagnostic(diag: Diagnostic, includeSuppressionKey = false
     LEVEL_PREFIX[diag.level],
     '-',
     diag.message,
-    ...(includeSuppressionKey ? [`[${diag.suppressionKey}]`] : []),
+    ...includeSuppressionKey ? [`[${diag.suppressionKey}]`] : [],
   ].join(' ');
 }
 

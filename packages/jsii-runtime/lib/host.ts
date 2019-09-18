@@ -2,9 +2,9 @@ import { api, Kernel } from 'jsii-kernel';
 import { Input, InputOutput } from './in-out';
 
 export class KernelHost {
-  private kernel = new Kernel(cb => this.callbackHandler(cb));
+  private readonly kernel = new Kernel(this.callbackHandler.bind(this));
 
-  constructor(readonly inout: InputOutput, readonly opts: { debug?: boolean, noStack?: boolean } = { }) {
+  public constructor(private readonly inout: InputOutput, private readonly opts: { debug?: boolean, noStack?: boolean } = { }) {
     this.kernel.traceEnabled = opts.debug ? true : false;
   }
 
@@ -101,7 +101,7 @@ export class KernelHost {
           next();
         });
 
-        return;
+        return undefined;
       }
 
       // if this is an async method, return immediately and
@@ -124,7 +124,7 @@ export class KernelHost {
             next();
           });
 
-        return;
+        return undefined;
       }
 
       this.writeOkay(ret);
@@ -165,7 +165,7 @@ export class KernelHost {
      * Returns true if the value is a promise.
      */
   private isPromise(v: any): v is Promise<any> {
-    return v && v.then && typeof(v.then) === 'function';
+    return v && v.then && typeof v.then === 'function';
   }
 
   /**
@@ -174,7 +174,7 @@ export class KernelHost {
   private findApi(apiName: string): (this: Kernel, arg: Input) => any {
     const fn = (this.kernel as any)[apiName];
     if (typeof fn !== 'function') {
-      throw new Error('Invalid kernel api call: ' + apiName);
+      throw new Error(`Invalid kernel api call: ${apiName}`);
     }
     return fn;
   }

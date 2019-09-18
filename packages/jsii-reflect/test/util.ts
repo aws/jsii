@@ -13,7 +13,7 @@ const exists = promisify(fs.exists);
 export async function diffTest(actual: string, expectedFile: string) {
   const expectedPath = path.join(__dirname, expectedFile);
   const actualPath = path.join(await mkdtemp(path.join(os.tmpdir(), 'diff-test')), 'actual.out');
-  const expected = (await exists(expectedPath)) ? (await readFile(expectedPath)).toString() : '';
+  const expected = await exists(expectedPath) ? (await readFile(expectedPath)).toString() : '';
 
   await writeFile(actualPath, actual);
 

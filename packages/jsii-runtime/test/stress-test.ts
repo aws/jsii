@@ -4,13 +4,13 @@ import { KernelHost } from '../lib/host';
 const requestCount = 250000;
 
 class FakeInputOutput extends InputOutput {
-  debug = false;
+  public debug = false;
   private count = 0;
 
-  write(_: Output) { /* noop */ }
+  public write(_: Output) { /* noop */ }
 
-  read(): Input | undefined {
-    if(this.count == requestCount) {
+  public read(): Input | undefined {
+    if(this.count === requestCount) {
       return undefined;
     }
 

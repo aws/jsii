@@ -35,16 +35,16 @@ export interface ProjectInfo {
   readonly main: string;
   readonly types: string;
 
-  readonly dependencies: ReadonlyArray<spec.Assembly>;
-  readonly peerDependencies: ReadonlyArray<spec.Assembly>;
-  readonly transitiveDependencies: ReadonlyArray<spec.Assembly>;
+  readonly dependencies: readonly spec.Assembly[];
+  readonly peerDependencies: readonly spec.Assembly[];
+  readonly transitiveDependencies: readonly spec.Assembly[];
   readonly bundleDependencies?: { readonly [name: string]: string };
   readonly targets: spec.AssemblyTargets;
   readonly metadata?: { [key: string]: any };
   readonly jsiiVersionFormat: 'short' | 'full';
   readonly description?: string;
   readonly homepage?: string;
-  readonly contributors?: ReadonlyArray<spec.Person>;
+  readonly contributors?: readonly spec.Person[];
   readonly excludeTypescript: string[];
   readonly projectReferences?: boolean;
   readonly tsc?: TSCompilerOptions;
@@ -57,7 +57,7 @@ export async function loadProjectInfo(projectRoot: string, { fixPeerDependencies
   /* eslint-enable @typescript-eslint/no-var-requires */
 
   let bundleDependencies: { [name: string]: string } | undefined;
-  for (const name of (pkg.bundleDependencies || pkg.bundledDependencies || [])) {
+  for (const name of pkg.bundleDependencies || pkg.bundledDependencies || []) {
     const version = pkg.dependencies && pkg.dependencies[name];
     if (!version) {
       throw new Error(`The "package.json" file has "${name}" in "bundleDependencies", but it is not declared in "dependencies"`);
@@ -174,7 +174,9 @@ async function _loadDependencies(dependencies: { [name: string]: string | spec.P
     }
     const pkg = _tryResolveAssembly(name, localPackage, searchPath);
     LOG.debug(`Resolved dependency ${name} to ${pkg}`);
+    /* eslint-disable no-await-in-loop */
     const assm = await loadAndValidateAssembly(pkg);
+    /* eslint-enable no-await-in-loop */
     if (!version.intersects(new semver.Range(assm.version))) {
       throw new Error(`Declared dependency on version ${versionString} of ${name}, but version ${assm.version} was found`);
     }
@@ -182,7 +184,9 @@ async function _loadDependencies(dependencies: { [name: string]: string | spec.P
     transitiveAssemblies[assm.name] = assm;
     const pkgDir = path.dirname(pkg);
     if (assm.dependencies) {
+      /* eslint-disable no-await-in-loop */
       await _loadDependencies(assm.dependencies, pkgDir, transitiveAssemblies);
+      /* eslint-enable no-await-in-loop */
     }
   }
   return assemblies;

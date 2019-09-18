@@ -86,7 +86,9 @@ export async function includeAndRenderExamples(lines: string[], loader: FileLoad
     const m = regex.exec(line);
     if (m) {
       // Found an include
+      /* eslint-disable no-await-in-loop */
       const source = await loader(m[2]);
+      /* eslint-enable no-await-in-loop */
       const imported = typescriptSourceToMarkdown(source);
       ret.push(...imported);
     } else {

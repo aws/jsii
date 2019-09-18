@@ -1,7 +1,7 @@
 import * as fs from 'fs-extra';
 import { Kernel } from '../lib';
 
-export function closeRecording(kernel: Kernel): Promise<void> {
+export async function closeRecording(kernel: Kernel): Promise<void> {
   const logfile: fs.WriteStream = (kernel as any).logfile;
   if (!logfile) {
     return Promise.resolve();
@@ -40,7 +40,7 @@ export function recordInteraction(kernel: Kernel, inputOutputLogPath: string) {
           const ret = old.value.apply(this, args);
 
           // if this is an async function, wait for the promised value.
-          if (ret && ret.then && typeof(ret.then) === 'function') {
+          if (ret && ret.then && typeof ret.then === 'function') {
             return new Promise((ok, fail) => {
               return ret.then((value: any) => {
                 logOutput({ ok: value });
@@ -63,12 +63,12 @@ export function recordInteraction(kernel: Kernel, inputOutputLogPath: string) {
   });
 
   function logInput(obj: any) {
-    const inputLine = JSON.stringify(obj) + '\n';
-    logfile.write('> ' + inputLine);
+    const inputLine = `${JSON.stringify(obj)}\n`;
+    logfile.write(`> ${inputLine}`);
   }
 
   function logOutput(obj: any) {
-    const outputLine = JSON.stringify(obj) + '\n';
-    logfile.write('< ' + outputLine);
+    const outputLine = `${JSON.stringify(obj)}\n`;
+    logfile.write(`< ${outputLine}`);
   }
 }

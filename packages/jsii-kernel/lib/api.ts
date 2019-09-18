@@ -122,7 +122,7 @@ export interface SetRequest {
 export interface SetResponse { }
 /* eslint-enable @typescript-eslint/no-empty-interface */
 
-export interface StaticInvokeRequest  {
+export interface StaticInvokeRequest {
   fqn: string;
   method: string;
   args?: any[];

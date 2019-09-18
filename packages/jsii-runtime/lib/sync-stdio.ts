@@ -6,18 +6,18 @@ const STDERR_FD = 2;
 const INPUT_BUFFER_SIZE = 1024 * 1024; // not related to max line length
 
 export class SyncStdio {
-  private inputQueue = new Array<string>();
+  private readonly inputQueue = new Array<string>();
   private currentLine = '';
 
-  writeErrorLine(line: string) {
+  public writeErrorLine(line: string) {
     this.writeBuffer(Buffer.from(`${line}\n`), STDERR_FD);
   }
 
-  writeLine(line: string) {
+  public writeLine(line: string) {
     this.writeBuffer(Buffer.from(`${line}\n`), STDOUT_FD);
   }
 
-  readLine(): string | undefined {
+  public readLine(): string | undefined {
     if (this.inputQueue.length > 0) {
       return this.inputQueue.shift();
     }
@@ -31,9 +31,7 @@ export class SyncStdio {
 
     const str = buff.slice(0, read).toString();
 
-    for (let i = 0; i < str.length; ++i) {
-      const ch = str[i];
-
+    for (const ch of str) {
       if (ch === '\n') {
         this.inputQueue.push(this.currentLine);
         this.currentLine = '';

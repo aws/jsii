@@ -185,7 +185,7 @@ class JavaGenerator extends Generator {
   // When the code-generator needs to generate code for a property or method that has the same name as a member of this list, the name will
   // be automatically modified to avoid compile errors. Most of these are java language reserved keywords. In addition to those, any keywords that
   // are likely to conflict with auto-generated methods or properties (eg: 'build') are also considered reserved.
-  private static RESERVED_KEYWORDS = [
+  private static readonly RESERVED_KEYWORDS = [
     'abstract', 'assert', 'boolean', 'break', 'build', 'byte', 'case', 'catch', 'char', 'class',
     'const', 'continue', 'default', 'double', 'do', 'else', 'enum', 'extends', 'false',
     'final', 'finally', 'float', 'for', 'goto', 'if', 'implements', 'import', 'instanceof',
@@ -205,9 +205,9 @@ class JavaGenerator extends Generator {
 
     if (JavaGenerator.RESERVED_KEYWORDS.includes(propertyName)) {
       return `${propertyName}Value`;
-    } else {
-      return propertyName;
-    }
+    } 
+    return propertyName;
+    
   }
 
   /**
@@ -221,9 +221,9 @@ class JavaGenerator extends Generator {
 
     if (JavaGenerator.RESERVED_KEYWORDS.includes(methodName)) {
       return `do${toPascalCase(methodName)}`;
-    } else {
-      return methodName;
-    }
+    } 
+    return methodName;
+    
   }
 
   /** If false, @Generated will not include generator version nor timestamp */
@@ -238,7 +238,7 @@ class JavaGenerator extends Generator {
      */
   private readonly referencedModules: { [name: string]: spec.PackageVersion } = { };
 
-  constructor() {
+  public constructor() {
     super({ generateOverloadsForMethodWithOptionals: true });
   }
 
@@ -268,7 +268,7 @@ class JavaGenerator extends Generator {
 
     let implementsExpr = '';
     if (cls.interfaces && cls.interfaces.length > 0) {
-      implementsExpr = ' implements ' + cls.interfaces.map(x => this.toNativeFqn(x));
+      implementsExpr = ` implements ${cls.interfaces.map(x => this.toNativeFqn(x))}`;
     }
 
     const nested = this.isNested(cls);
@@ -434,7 +434,7 @@ class JavaGenerator extends Generator {
     if (!mod.docs) { return; }
 
     const packageName = this.getNativeName(mod, undefined);
-    const packageInfoFile = this.toJavaFilePath(mod.name + '.package-info');
+    const packageInfoFile = this.toJavaFilePath(`${mod.name}.package-info`);
     this.code.openFile(packageInfoFile);
     this.code.line('/**');
     if (mod.readme) {
@@ -583,7 +583,7 @@ class JavaGenerator extends Generator {
 
     function mavenDependencies(this: JavaGenerator) {
       const dependencies = new Array<MavenDependency>();
-      const allDeps = { ...(assm.dependencies || {}), ...this.referencedModules };
+      const allDeps = { ...assm.dependencies || {}, ...this.referencedModules };
       for (const depName of Object.keys(allDeps)) {
         const dep = allDeps[depName];
         if (!(dep.targets && dep.targets.java)) {
@@ -613,7 +613,7 @@ class JavaGenerator extends Generator {
     }
 
     function mavenDevelopers() {
-      return [assm.author, ...(assm.contributors || [])].map(toDeveloper);
+      return [assm.author, ...assm.contributors || []].map(toDeveloper);
 
       function toDeveloper(person: spec.Person) {
         const developer: any = {
@@ -851,6 +851,8 @@ class JavaGenerator extends Generator {
           return 'External';
         case spec.Stability.Stable:
           return 'Stable';
+        default:
+          throw new Error(`Unexpected stability: ${stability}`);
       }
     }
   }
@@ -1124,7 +1126,7 @@ class JavaGenerator extends Generator {
 
   private toJavaFilePath(fqn: string) {
     const nativeFqn = this.toNativeFqn(fqn);
-    return path.join('src', 'main', 'java', ...nativeFqn.split('.')) + '.java';
+    return `${path.join('src', 'main', 'java', ...nativeFqn.split('.'))}.java`;
   }
 
   private addJavaDocs(doc: spec.Documentable, defaultText?: string) {
@@ -1206,9 +1208,9 @@ class JavaGenerator extends Generator {
     const types = this.toJavaTypes(type, forMarshalling);
     if (types.length > 1) {
       return 'java.lang.Object';
-    } else {
-      return types[0];
-    }
+    } 
+    return types[0];
+    
   }
 
   private toJavaTypes(typeref: spec.TypeReference, forMarshalling = false): string[] {
@@ -1226,9 +1228,9 @@ class JavaGenerator extends Generator {
         }
       }
       return types;
-    } else {
-      throw new Error('Invalid type reference: ' + JSON.stringify(typeref));
-    }
+    } 
+    throw new Error(`Invalid type reference: ${JSON.stringify(typeref)}`);
+    
   }
 
   private toJavaCollection(ref: spec.CollectionTypeReference, forMarshalling: boolean) {
@@ -1250,7 +1252,7 @@ class JavaGenerator extends Generator {
       case spec.PrimitiveType.String: return 'java.lang.String';
       case spec.PrimitiveType.Any: return 'java.lang.Object';
       default:
-        throw new Error('Unknown primitive type: ' + primitive);
+        throw new Error(`Unknown primitive type: ${primitive}`);
     }
   }
 
@@ -1269,9 +1271,9 @@ class JavaGenerator extends Generator {
         ? `java.util.stream.Stream.concat(${valuesStream}, ${restStream})`
         : restStream;
       return `, ${fullStream}.toArray(Object[]::new)`;
-    } else {
-      return `, ${valueStr}`;
-    }
+    } 
+    return `, ${valueStr}`;
+    
 
     function _renderParameter(param: spec.Parameter) {
       const safeName = JavaGenerator.safeJavaPropertyName(param.name);
@@ -1302,7 +1304,7 @@ class JavaGenerator extends Generator {
     } else {
       statement += ', Void.class';
     }
-    statement += this.renderMethodCallArguments(method) + ')';
+    statement += `${this.renderMethodCallArguments(method)})`;
 
     if (method.returns) {
       statement = this.wrapCollection(statement, method.returns.type);
@@ -1310,9 +1312,9 @@ class JavaGenerator extends Generator {
 
     if (method.returns) {
       return `return ${statement};`;
-    } else {
-      return `${statement};`;
-    }
+    } 
+    return `${statement};`;
+    
   }
 
   /**
@@ -1352,11 +1354,11 @@ class JavaGenerator extends Generator {
   }
 
   private makeModuleClass(moduleName: string) {
-    return this.toNativeFqn(moduleName) + '.' + MODULE_CLASS_NAME;
+    return `${this.toNativeFqn(moduleName)}.${MODULE_CLASS_NAME}`;
   }
 
   private makeModuleFqn(moduleName: string) {
-    return moduleName + '.' + MODULE_CLASS_NAME;
+    return `${moduleName}.${MODULE_CLASS_NAME}`;
   }
 
   private emitModuleFile(mod: spec.Assembly) {
@@ -1533,7 +1535,7 @@ function paramJavadoc(name: string, optional?: boolean, summary?: string): strin
 
 function endWithPeriod(s: string): string {
   if (!s.endsWith('.')) {
-    return s + '.';
+    return `${s}.`;
   }
   return s;
 }

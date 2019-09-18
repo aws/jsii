@@ -60,7 +60,7 @@ export abstract class Generator implements IGenerator {
   protected _reflectAssembly?: reflect.Assembly;
   private fingerprint: string;
 
-  constructor(private readonly options: GeneratorOptions = {}) {
+  public constructor(private readonly options: GeneratorOptions = {}) {
   }
 
   public get reflectAssembly(): reflect.Assembly {
@@ -74,7 +74,7 @@ export abstract class Generator implements IGenerator {
     return { fingerprint: this.fingerprint };
   }
 
-  public load(_packageRoot: string, assembly: reflect.Assembly) {
+  public async load(_packageRoot: string, assembly: reflect.Assembly): Promise<void> {
     this._reflectAssembly = assembly;
     this.assembly = assemblySpec(assembly);
 
@@ -89,21 +89,21 @@ export abstract class Generator implements IGenerator {
   }
 
   /**
-     * Runs the generator (in-memory).
-     */
-  generate(fingerprint: boolean) {
+   * Runs the generator (in-memory).
+   */
+  public generate(fingerprint: boolean): void {
     this.onBeginAssembly(this.assembly, fingerprint);
     this.visit(spec.NameTree.of(this.assembly));
     this.onEndAssembly(this.assembly, fingerprint);
   }
 
-  upToDate(_: string): Promise<boolean> {
+  public async upToDate(_: string): Promise<boolean> {
     return Promise.resolve(false);
   }
 
   /**
-     * Returns the file name of the assembly resource as it is going to be saved.
-     */
+   * Returns the file name of the assembly resource as it is going to be saved.
+   */
   protected getAssemblyFileName() {
     let name = this.assembly.name;
     const parts = name.split('/');
@@ -120,9 +120,9 @@ export abstract class Generator implements IGenerator {
   }
 
   /**
-     * Saves all generated files to an output directory, creating any subdirs if needed.
-     */
-  async save(outdir: string, tarball: string) {
+   * Saves all generated files to an output directory, creating any subdirs if needed.
+   */
+  public async save(outdir: string, tarball: string) {
     const assemblyDir = this.getAssemblyOutputDir(this.assembly);
     if (assemblyDir) {
       const fullPath = path.resolve(path.join(outdir, assemblyDir, this.getAssemblyFileName()));
@@ -130,7 +130,7 @@ export abstract class Generator implements IGenerator {
       await fs.copy(tarball, fullPath, { overwrite: true });
     }
 
-    return await this.code.save(outdir);
+    return this.code.save(outdir);
   }
 
   //
@@ -152,14 +152,14 @@ export abstract class Generator implements IGenerator {
   //
   // Namespaces
 
-  protected onBeginNamespace(ns: string) { ns; }
-  protected onEndNamespace(ns: string) { ns; }
+  protected onBeginNamespace(_ns: string) { /* noop */ }
+  protected onEndNamespace(_ns: string) { /* noop */ }
 
   //
   // Classes
 
-  protected onBeginClass(cls: spec.ClassType, abstract: boolean | undefined) { cls; abstract; }
-  protected onEndClass(cls: spec.ClassType) { cls; }
+  protected onBeginClass(_cls: spec.ClassType, _abstract: boolean | undefined) { /* noop */ }
+  protected onEndClass(_cls: spec.ClassType) { /* noop */ }
 
   //
   // Interfaces
@@ -210,20 +210,22 @@ export abstract class Generator implements IGenerator {
   //
   // Enums
 
-  protected onBeginEnum(enm: spec.EnumType) { enm; }
-  protected onEndEnum(enm: spec.EnumType) { enm; }
-  protected onEnumMember(enm: spec.EnumType, member: spec.EnumMember) { enm; member; }
+  protected onBeginEnum(_enm: spec.EnumType) { /* noop */ }
+  protected onEndEnum(_enm: spec.EnumType) { /* noop */ }
+  protected onEnumMember(_enm: spec.EnumType, _member: spec.EnumMember) { /* noop */ }
 
   //
   // Fields
   // Can be used to implements properties backed by fields in cases where we want to generate "native" classes.
   // The default behavior is that properties do not have backing fields.
 
-  protected hasField(cls: spec.ClassType, prop: spec.Property): boolean { cls; prop; return false; }
-  protected onField(cls: spec.ClassType, prop: spec.Property, union?: spec.UnionTypeReference) { cls; prop; union }
+  protected hasField(_cls: spec.ClassType, _prop: spec.Property): boolean {
+    return false;
+  }
+  protected onField(_cls: spec.ClassType, _prop: spec.Property, _union?: spec.UnionTypeReference) { /* noop */ }
 
   private visit(node: spec.NameTree, names = new Array<string>()) {
-    const namespace = (!node.fqn && names.length > 0) ? names.join('.') : undefined;
+    const namespace = !node.fqn && names.length > 0 ? names.join('.') : undefined;
 
     if (namespace) {
       this.onBeginNamespace(namespace);
@@ -268,7 +270,7 @@ export abstract class Generator implements IGenerator {
             this.onEndInterface(interfaceSpec);
             break;
           default:
-            throw new Error('Unsupported type kind: ' + (type as any).kind);
+            throw new Error(`Unsupported type kind: ${(type as any).kind}`);
         }
       }
     } else {
@@ -281,8 +283,8 @@ export abstract class Generator implements IGenerator {
   }
 
   /**
-     * Adds a postfix ("XxxBase") to the class name to indicate it is abstract.
-     */
+   * Adds a postfix ("XxxBase") to the class name to indicate it is abstract.
+   */
   private addAbstractPostfixToClassName(cls: spec.ClassType) {
     cls.name = `${cls.name}Base`;
     const components = cls.fqn.split('.');

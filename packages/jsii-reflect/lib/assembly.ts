@@ -10,7 +10,7 @@ export class Assembly {
   private _typeCache?: { [fqn: string]: Type };
   private _dependencyCache?: { [name: string]: Dependency };
 
-  constructor(
+  public constructor(
     public readonly system: TypeSystem,
     private readonly spec: jsii.Assembly) { }
 

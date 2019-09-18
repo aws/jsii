@@ -32,19 +32,19 @@ test('correctly represents sample assembly', () => {
 
   // THEN
   expect(Object.keys(nameTree.children)).toEqual(['org']);
-  expect(Object.keys(nameTree.children['org'].children)).toEqual(['jsii']);
-  expect(new Set(Object.keys(nameTree.children['org'].children['jsii'].children))).toEqual(new Set(['enums', 'TypeA']));
-  expect(Object.keys(nameTree.children['org'].children['jsii'].children['enums'].children)).toEqual(['TypeB']);
-  expect(Object.keys(nameTree.children['org'].children['jsii'].children['TypeA'].children)).toEqual(['NestedType']);
+  expect(Object.keys(nameTree.children.org.children)).toEqual(['jsii']);
+  expect(new Set(Object.keys(nameTree.children.org.children.jsii.children))).toEqual(new Set(['enums', 'TypeA']));
+  expect(Object.keys(nameTree.children.org.children.jsii.children.enums.children)).toEqual(['TypeB']);
+  expect(Object.keys(nameTree.children.org.children.jsii.children.TypeA.children)).toEqual(['NestedType']);
 
   expect(nameTree.fqn).toBe(undefined);
-  expect(nameTree.children['org'].fqn).toBe(undefined);
-  expect(nameTree.children['org'].children['jsii'].fqn).toBe(undefined);
-  expect(nameTree.children['org'].children['jsii'].children['enums'].fqn).toBe(undefined);
+  expect(nameTree.children.org.fqn).toBe(undefined);
+  expect(nameTree.children.org.children.jsii.fqn).toBe(undefined);
+  expect(nameTree.children.org.children.jsii.children.enums.fqn).toBe(undefined);
 
-  expect(nameTree.children['org'].children['jsii'].children['TypeA'].fqn).toBe('org.jsii.TypeA');
-  expect(nameTree.children['org'].children['jsii'].children['TypeA'].children['NestedType'].fqn).toBe('org.jsii.TypeA.NestedType');
-  expect(nameTree.children['org'].children['jsii'].children['enums'].children['TypeB'].fqn).toBe('org.jsii.enums.TypeB');
+  expect(nameTree.children.org.children.jsii.children.TypeA.fqn).toBe('org.jsii.TypeA');
+  expect(nameTree.children.org.children.jsii.children.TypeA.children.NestedType.fqn).toBe('org.jsii.TypeA.NestedType');
+  expect(nameTree.children.org.children.jsii.children.enums.children.TypeB.fqn).toBe('org.jsii.enums.TypeB');
 });
 
 function makeType(ns: string, name: string): spec.Type {

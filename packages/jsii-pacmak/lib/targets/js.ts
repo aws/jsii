@@ -41,7 +41,7 @@ export default class JavaScript extends Target {
 
   protected readonly generator = new PackOnly();
 
-  public build(sourceDir: string, outDir: string) {
+  public async build(sourceDir: string, outDir: string) {
     return this.copyFiles(sourceDir, outDir);
   }
 }

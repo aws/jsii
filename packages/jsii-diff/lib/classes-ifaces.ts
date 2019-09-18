@@ -94,9 +94,9 @@ function describeOptionalValueMatchingFailure(origType: reflect.OptionalValue, u
   const updaDescr = reflect.OptionalValue.describe(updatedType);
   if (origDescr !== updaDescr) {
     return `${updaDescr} (formerly ${origDescr}): ${analysis.reasons.join(', ')}`;
-  } else {
-    return `${updaDescr}: ${analysis.reasons.join(', ')}`;
-  }
+  } 
+  return `${updaDescr}: ${analysis.reasons.join(', ')}`;
+  
 }
 
 function compareMethod<T extends (reflect.Method | reflect.Initializer)>(

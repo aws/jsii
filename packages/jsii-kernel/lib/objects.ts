@@ -105,7 +105,7 @@ export class ObjectTable {
      * Find the object and registered type for the given ObjRef
      */
   public findObject(objref: api.ObjRef): RegisteredObject {
-    if (typeof(objref) !== 'object' || !(api.TOKEN_REF in objref)) {
+    if (typeof objref !== 'object' || !(api.TOKEN_REF in objref)) {
       throw new Error(`Malformed object reference: ${JSON.stringify(objref)}`);
     }
 

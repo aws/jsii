@@ -2,6 +2,12 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 import { CodeMaker } from '../lib';
 
+test('cannot write before opening a file', () => {
+  const sources = new CodeMaker();
+  expect(() => sources.line('Nope!'))
+    .toThrow(/Cannot emit source lines without openning a file/);
+});
+
 test('source files', async () => {
   const sources = new CodeMaker();
   sources.openFile('myfile.js');

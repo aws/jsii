@@ -28,6 +28,6 @@ export function debug(fmt: string, ...args: any[]) {
 function log(messageLevel: Level, fmt: string, ...args: any[]) {
   if (level >= messageLevel) {
     const levelName = Level[messageLevel];
-    console.error.call(console, ...[`[jsii-pacmak] [${levelName}]`, fmt, ...args]);
+    console.error(`[jsii-pacmak] [${levelName}]`, fmt, ...args);
   }
 }

@@ -33,20 +33,28 @@
     "jsii": "^0.16.0",
     "jsii-build-tools": "file:../jsii-build-tools",
     "jsii-calc": "file:../jsii-calc",
-    "ts-jest": "^24.1.0",
     "typescript": "~3.6.3"
   },
   "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "node",
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "<rootDir>/{bin,lib}/**/*.js",
-      "!**/*.d.ts"
+      "**/bin/**/*.js",
+      "**/lib/**/*.js"
     ],
     "coverageReporters": [
-      "text",
-      "lcov"
+      "lcov",
+      "text"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 30,
+        "statements": 45
+      }
+    },
+    "errorOnDeprecated": true,
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/?(*.)+(spec|test).js"
     ]
   },
   "author": {

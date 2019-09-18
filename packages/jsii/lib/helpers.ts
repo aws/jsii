@@ -22,7 +22,7 @@ import { loadProjectInfo, ProjectInfo } from './project-info';
 export async function sourceToAssemblyHelper(source: string, cb?: (obj: PackageInfo) => void): Promise<spec.Assembly> {
   // Easiest way to get the source into the compiler is to write it to disk somewhere.
   // I guess we could make an in-memory compiler host but that seems like work...
-  return await inTempDir(async () => {
+  return inTempDir(async () => {
     const fileName = 'index.ts';
     await fs.writeFile(fileName, source, { encoding: 'utf-8' });
     const compiler = new Compiler({ projectInfo: await makeProjectInfo(fileName, cb), watch: false });
@@ -34,7 +34,7 @@ export async function sourceToAssemblyHelper(source: string, cb?: (obj: PackageI
       // logDiagnostic() doesn't work out of the box, so console.error() it is.
     }
     if (errors.length > 0) { throw new Error('There were compiler errors'); }
-    return await fs.readJSON('.jsii', { encoding: 'utf-8' });
+    return fs.readJSON('.jsii', { encoding: 'utf-8' });
   });
 }
 
@@ -74,7 +74,7 @@ async function makeProjectInfo(types: string, cb?: (obj: PackageInfo) => Promise
 
   await fs.writeJson('package.json', packageInfo, { encoding: 'utf-8', replacer: (_: string, v: any) => v, spaces: 2 });
 
-  return await loadProjectInfo(path.resolve(process.cwd(), '.'), { fixPeerDependencies: true });
+  return loadProjectInfo(path.resolve(process.cwd(), '.'), { fixPeerDependencies: true });
 }
 
 export type PackageInfo = {

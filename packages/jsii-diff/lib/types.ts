@@ -35,7 +35,7 @@ export class Mismatches {
   public readonly mismatches = new Array<ApiMismatch>();
   private readonly defaultStability: Stability;
 
-  constructor(opts: { defaultStability: Stability }) {
+  public constructor(opts: { defaultStability: Stability }) {
     this.defaultStability = opts.defaultStability;
   }
 
