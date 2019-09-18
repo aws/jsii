@@ -8,11 +8,12 @@
     "url": "https://aws.amazon.com"
   },
   "description": "An example transitive dependency for jsii-calc.",
-  "homepage": "https://github.com/aws/jsii.git",
+  "homepage": "https://github.com/aws/jsii",
   "jsiiVersion": "0.16.0",
   "license": "Apache-2.0",
   "name": "@scope/jsii-calc-base-of-base",
   "repository": {
+    "directory": "packages/jsii-calc-base-of-base",
     "type": "git",
     "url": "https://github.com/aws/jsii.git"
   },
@@ -111,5 +112,5 @@
     }
   },
   "version": "0.16.0",
-  "fingerprint": "+1y5VI6mP5Zv3+53XlasR/Ub1fcoqUHJlEgUvrBhNCo="
+  "fingerprint": "wP+29PDmHKPrUnb1/+pfreBseB+IkURGQ7E517ZeiGI="
 }

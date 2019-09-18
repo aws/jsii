@@ -17,7 +17,7 @@
     "directory": "packages/jsii-diff"
   },
   "engines": {
-    "node": ">= 10.0.0"
+    "node": ">=10.3.0"
   },
   "bin": {
     "jsii-diff": "bin/jsii-diff"

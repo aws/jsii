@@ -18,7 +18,7 @@
     "directory": "packages/jsii-python-runtime"
   },
   "engines": {
-    "node": ">= 10.0.0"
+    "node": ">=10.3.0"
   },
   "main": "index.js",
   "scripts": {

@@ -88,11 +88,12 @@
     "deprecated": "Really just deprecated for shows...",
     "stability": "deprecated"
   },
-  "homepage": "https://github.com/aws/jsii.git",
+  "homepage": "https://github.com/aws/jsii",
   "jsiiVersion": "0.16.0",
   "license": "Apache-2.0",
   "name": "@scope/jsii-calc-lib",
   "repository": {
+    "directory": "packages/jsii-calc-lib",
     "type": "git",
     "url": "https://github.com/aws/jsii.git"
   },
@@ -542,5 +543,5 @@
     }
   },
   "version": "0.16.0",
-  "fingerprint": "+PGbcRXfgjK1AxIMegOFwUotv+biiPns0oYDqiqDvNc="
+  "fingerprint": "jVAN5yrP4moR2krAbWosYhfXZ5PZ+wjfbn7Ulo6L+4c="
 }

@@ -17,7 +17,7 @@
     "directory": "packages/jsii-spec"
   },
   "engines": {
-    "node": ">= 10.0.0"
+    "node": ">=10.3.0"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

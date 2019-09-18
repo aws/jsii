@@ -8,7 +8,7 @@
     <PackageVersion>0.16.0-devpreview</PackageVersion>
     <PackageId>Amazon.JSII.Tests.CalculatorPackageId.LibPackageId</PackageId>
     <Description>A simple calcuator library built on JSII. (Stability: Deprecated)</Description>
-    <ProjectUrl>https://github.com/aws/jsii.git</ProjectUrl>
+    <ProjectUrl>https://github.com/aws/jsii</ProjectUrl>
     <LicenseUrl>https://spdx.org/licenses/Apache-2.0.html</LicenseUrl>
     <Authors>Amazon Web Services</Authors>
     <Language>en-US</Language>
