@@ -30,7 +30,7 @@ const COMPILER_OPTIONS: ts.CompilerOptions = {
   strictNullChecks: true,
   strictPropertyInitialization: false,
   stripInternal: true,
-  target: ts.ScriptTarget.ES2018
+  target: ts.ScriptTarget.ES2017
 };
 
 const LOG = log4js.getLogger('jsii/compiler');

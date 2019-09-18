@@ -22,7 +22,7 @@
     "resolveJsonModule": true,
     "strict": true,
     "strictNullChecks": true,
-    "target": "ES2018",
+    "target": "ES2017",
     "composite": true
   },
   "include": ["**/*.ts"],
