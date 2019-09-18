@@ -253,7 +253,7 @@ export class Compiler implements Emitter {
       Object.keys(dependencyMap).forEach(dependencyNames.add.bind(dependencyNames));
     }
 
-    for await (const tsconfigFile of Array.from(dependencyNames).map(depName => this.findMonorepoPeerTsconfig(depName))) {
+    for (const tsconfigFile of await Promise.all(Array.from(dependencyNames).map(depName => this.findMonorepoPeerTsconfig(depName)))) {
       if (!tsconfigFile) { continue; }
 
       /* eslint-disable @typescript-eslint/no-var-requires */

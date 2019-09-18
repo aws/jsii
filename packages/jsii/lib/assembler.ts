@@ -359,7 +359,7 @@ export class Assembler implements Emitter {
       const nestedContext = context.appendNamespace(type.symbol.name);
       const visitedNodes = this._typeChecker.getExportsOfModule(type.symbol).filter(s => s.declarations)
         .map(exportedNode => this._visitNode(exportedNode.declarations[0], nestedContext));
-      for await (const nestedTypes of visitedNodes) {
+      for (const nestedTypes of await Promise.all(visitedNodes)) {
         for (const nestedType of nestedTypes) {
           if (nestedType.namespace !== nestedContext.namespace.join('.')) {
             this._diagnostic(node,
@@ -414,7 +414,7 @@ export class Assembler implements Emitter {
       const typeRef = await this._typeReference(iface, decl);
       return { decl, typeRef };
     });
-    for await (const { decl, typeRef } of typeRefs) {
+    for (const { decl, typeRef } of await Promise.all(typeRefs)) {
       if (!spec.isNamedTypeReference(typeRef)) {
         this._diagnostic(decl,
           ts.DiagnosticCategory.Error,
@@ -527,7 +527,7 @@ export class Assembler implements Emitter {
     // process all "implements" clauses
     const allInterfaces = new Set<string>();
     const baseInterfaces = implementsClauses.map(clause => this._processBaseInterfaces(fqn, clause.types.map(t => this._getTypeFromTypeNode(t))));
-    for await (const { interfaces } of baseInterfaces) {
+    for (const { interfaces } of await Promise.all(baseInterfaces)) {
       for (const ifc of interfaces || []) {
         allInterfaces.add(ifc.fqn);
       }
@@ -1712,7 +1712,7 @@ class EmitContext {
 
 async function flattenPromises<T>(promises: Array<Promise<T[]>>): Promise<T[]> {
   const result = new Array<T>();
-  for await (const subset of promises) {
+  for (const subset of await Promise.all(promises)) {
     result.push(...subset);
   }
   return result;
