@@ -32,7 +32,7 @@
   "dependencies": {
     "jsii-spec": "^0.16.0",
     "source-map": "^0.7.3",
-    "tar": "^4.4.10"
+    "tar": "^4.4.11"
   },
   "jest": {
     "collectCoverage": true,
