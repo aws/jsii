@@ -8,14 +8,18 @@
     "jsii-runtime": "bin/jsii-runtime"
   },
   "scripts": {
-    "build": "tsc --build && chmod +x bin/jsii-runtime && /bin/bash ./bundle.sh",
+    "build": "tsc --build && chmod +x bin/jsii-runtime && /bin/bash ./bundle.sh && npm run lint",
     "watch": "tsc --build -w",
+    "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
     "test": "/bin/bash test/playback-test.sh && node test/stress-test.js",
     "package": "package-js"
   },
   "devDependencies": {
     "@scope/jsii-calc-base": "file:../jsii-calc-base",
     "@scope/jsii-calc-lib": "file:../jsii-calc-lib",
+    "@typescript-eslint/eslint-plugin": "^2.3.0",
+    "@typescript-eslint/parser": "^2.3.0",
+    "eslint": "^6.4.0",
     "jest": "^24.9.0",
     "jsii-build-tools": "file:../jsii-build-tools",
     "jsii-calc": "file:../jsii-calc",

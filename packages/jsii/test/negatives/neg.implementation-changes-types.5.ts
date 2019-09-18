@@ -1,5 +1,3 @@
-// tslint:disable:comment-format
-// tslint:disable-next-line:max-line-length
 ///!MATCH_ERROR: jsii.ISomethingElse#something changes the type of property when implementing jsii.ISomething (expected jsii.Superclass, found jsii.Subclass)
 
 export class Superclass {}

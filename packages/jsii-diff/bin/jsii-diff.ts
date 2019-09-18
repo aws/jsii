@@ -12,27 +12,26 @@ const LOG = log4js.getLogger('jsii-diff');
 
 async function main(): Promise<number> {
   const argv = yargs
-      .env('JSII_DIFF')
-      .option('verbose', { alias: 'v', type: 'count', desc: 'Increase the verbosity of output', global: true })
-      // tslint:disable-next-line:max-line-length
-      .option('default-stability', { alias: 's', type: 'string', choices: ['experimental', 'stable'], desc: 'Treat unmarked APIs as', default: 'stable' })
-      .option('experimental-errors', { alias: 'e', type: 'boolean', default: false, desc: 'Error on experimental API changes' })
-      .option('ignore-file', { alias: 'i', type: 'string', desc: 'Ignore API changes with keys from file (file may be missing)' })
-      .option('keys', { alias: 'k', type: 'boolean', default: false, desc: 'Show diagnostic suppression keys' })
-      .usage('$0 <original> [updated]', 'Compare two JSII assemblies.', args => args
-        .positional('original', {
-          description: 'Original assembly (file, package or "npm:package@version")',
-          type: 'string'
-        })
-        .positional('updated', {
-          description: 'New assembly (file, package or "npm:package@version")',
-          type: 'string',
-          default: '.'
-        })
-      )
-      .help()
-      .version(VERSION)
-      .argv;
+    .env('JSII_DIFF')
+    .option('verbose', { alias: 'v', type: 'count', desc: 'Increase the verbosity of output', global: true })
+    .option('default-stability', { alias: 's', type: 'string', choices: ['experimental', 'stable'], desc: 'Treat unmarked APIs as', default: 'stable' })
+    .option('experimental-errors', { alias: 'e', type: 'boolean', default: false, desc: 'Error on experimental API changes' })
+    .option('ignore-file', { alias: 'i', type: 'string', desc: 'Ignore API changes with keys from file (file may be missing)' })
+    .option('keys', { alias: 'k', type: 'boolean', default: false, desc: 'Show diagnostic suppression keys' })
+    .usage('$0 <original> [updated]', 'Compare two JSII assemblies.', args => args
+      .positional('original', {
+        description: 'Original assembly (file, package or "npm:package@version")',
+        type: 'string'
+      })
+      .positional('updated', {
+        description: 'New assembly (file, package or "npm:package@version")',
+        type: 'string',
+        default: '.'
+      })
+    )
+    .help()
+    .version(VERSION)
+    .argv;
 
   configureLog4js(argv.verbose);
 
@@ -57,19 +56,19 @@ async function main(): Promise<number> {
     process.stderr.write(`Look like different assemblies: '${original.name}' vs '${updated.name}'. Comparing is probably pointless...\n`);
   }
 
-  LOG.info(`Starting analysis`);
+  LOG.info('Starting analysis');
   const mismatches = compareAssemblies(original, updated, {
-    defaultExperimental: argv["default-stability"] === 'experimental'
+    defaultExperimental: argv['default-stability'] === 'experimental'
   });
 
   LOG.info(`Found ${mismatches.count} issues`);
 
   if (mismatches.count > 0) {
-    const diags = classifyDiagnostics(mismatches, argv["experimental-errors"], await loadFilter(argv["ignore-file"]));
+    const diags = classifyDiagnostics(mismatches, argv['experimental-errors'], await loadFilter(argv['ignore-file']));
 
     process.stderr.write(`Original assembly: ${original.name}@${original.version}\n`);
     process.stderr.write(`Updated assembly:  ${updated.name}@${updated.version}\n`);
-    process.stderr.write(`API elements with incompatible changes:\n`);
+    process.stderr.write('API elements with incompatible changes:\n');
     for (const diag of diags) {
       process.stderr.write(`${formatDiagnostic(diag, argv.keys)}\n`);
     }
@@ -91,22 +90,22 @@ const NPM_REGEX = /^npm:(\/\/)?/;
 async function loadAssembly(requested: string): Promise<LoadAssemblyResult> {
   let resolved = requested;
   try {
-    if (requested.match(NPM_REGEX)) {
+    if (NPM_REGEX.exec(requested)) {
       let pkg = requested.replace(NPM_REGEX, '');
       if (!pkg) { pkg = await loadPackageNameFromAssembly(); }
 
       resolved = `npm://${pkg}`;
-      if (pkg.indexOf('@', 1) === -1) { resolved += '@latest'; }
+      if (!pkg.includes('@', 1)) { resolved += '@latest'; }
 
       const download = await downloadNpmPackage(pkg, loadFromFilesystem);
       if (download.success) {
         return { requested, resolved, success: true, assembly: download.result };
       }
       return { requested, resolved, success: false, reason: download.reason };
-    } else {
-      // We don't accept failure loading from the filesystem
-      return { requested, resolved, success: true, assembly: await loadFromFilesystem(requested) };
     }
+    // We don't accept failure loading from the filesystem
+    return { requested, resolved, success: true, assembly: await loadFromFilesystem(requested) };
+
   } catch (e) {
     // Prepend information about which assembly we've failed to load
     //
@@ -123,8 +122,8 @@ async function loadAssembly(requested: string): Promise<LoadAssemblyResult> {
   }
 }
 
-type LoadAssemblyResult = { requested: string; resolved: string }
-    & ({ success: true; assembly: reflect.Assembly } | { success: false; reason: DownloadFailure });
+type LoadAssemblyResult = { requested: string, resolved: string }
+& ({ success: true, assembly: reflect.Assembly } | { success: false, reason: DownloadFailure });
 
 async function loadPackageNameFromAssembly(): Promise<string> {
   const JSII_ASSEMBLY_FILE = '.jsii';
@@ -142,42 +141,41 @@ async function loadFromFilesystem(name: string) {
 
   const ts = new reflect.TypeSystem();
   if (stat.isDirectory()) {
-    return await ts.loadModule(name);
-  } else {
-    return await ts.loadFile(name);
+    return ts.loadModule(name);
   }
+  return ts.loadFile(name);
+
 }
 
 main().then(n => {
   process.exit(n);
 }).catch(e => {
-  // tslint:disable-next-line:no-console
   console.error(e);
   process.exit(100);
 });
 
 function configureLog4js(verbosity: number) {
-    log4js.configure({
-        appenders: {
-            console: {
-                type: 'stderr',
-                layout: { type: 'colored' }
-            },
-        },
-        categories: {
-            default: { appenders: ['console'], level: _logLevel() },
-        }
-    });
-
-    function _logLevel(): keyof log4js.Levels {
-        switch (verbosity) {
-        case 0: return 'WARN';
-        case 1: return 'INFO';
-        case 2: return 'DEBUG';
-        case 3: return 'TRACE';
-        default: return 'ALL';
-        }
+  log4js.configure({
+    appenders: {
+      console: {
+        type: 'stderr',
+        layout: { type: 'colored' }
+      },
+    },
+    categories: {
+      default: { appenders: ['console'], level: _logLevel() },
     }
+  });
+
+  function _logLevel(): keyof log4js.Levels {
+    switch (verbosity) {
+      case 0: return 'WARN';
+      case 1: return 'INFO';
+      case 2: return 'DEBUG';
+      case 3: return 'TRACE';
+      default: return 'ALL';
+    }
+  }
 }
 
 async function loadFilter(filterFilename?: string): Promise<Set<string>> {

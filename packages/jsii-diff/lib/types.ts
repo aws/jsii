@@ -35,7 +35,7 @@ export class Mismatches {
   public readonly mismatches = new Array<ApiMismatch>();
   private readonly defaultStability: Stability;
 
-  constructor(opts: { defaultStability: Stability }) {
+  public constructor(opts: { defaultStability: Stability }) {
     this.defaultStability = opts.defaultStability;
   }
 
@@ -92,14 +92,14 @@ function describeApiElement(apiElement: ApiElement) {
 }
 
 function dispatch<T>(apiElement: ApiElement, fns: {
-    method(m: reflect.Method): T,
-    init(m: reflect.Initializer): T,
-    property(m: reflect.Property): T,
-    enumMember(m: reflect.EnumMember): T,
-    enumType(m: reflect.EnumType): T,
-    klass(m: reflect.ClassType): T,
-    iface(m: reflect.InterfaceType): T,
-  }) {
+  method(m: reflect.Method): T;
+  init(m: reflect.Initializer): T;
+  property(m: reflect.Property): T;
+  enumMember(m: reflect.EnumMember): T;
+  enumType(m: reflect.EnumType): T;
+  klass(m: reflect.ClassType): T;
+  iface(m: reflect.InterfaceType): T;
+}) {
 
   if (apiElement instanceof reflect.Method) { return fns.method(apiElement); }
   if (apiElement instanceof reflect.Property) { return fns.property(apiElement); }

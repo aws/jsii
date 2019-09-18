@@ -55,8 +55,8 @@ test('separate long doc comment into summary and remarks', async () => {
 
   expect(assembly.types!['testpkg.Foo'].docs).toEqual({
     summary: 'Lots of people enjoy writing very long captions here.',
-    remarks: `I think it's because they\ncopy/paste them out of CloudFormation, which has a tendency to just have one\n` +
-              `doc block per API item and no structural separation.`,
+    remarks: "I think it's because they\ncopy/paste them out of CloudFormation, which has a tendency to just have one\n" +
+              'doc block per API item and no structural separation.',
   });
 
 });
@@ -300,13 +300,14 @@ test('can add arbitrary tags', async () => {
 
 // ----------------------------------------------------------------------
 test('stability is inherited from parent type', async () => {
-  const stabilities =  [
+  const stabilities = [
     ['@deprecated Not good no more', Stability.Deprecated],
     ['@experimental', Stability.Experimental],
     ['@stable', Stability.Stable]
   ];
 
   for (const [tag, stability] of stabilities) {
+    /* eslint-disable no-await-in-loop */
     const assembly = await compile(`
       /**
        * ${tag}
@@ -321,6 +322,7 @@ test('stability is inherited from parent type', async () => {
         }
       }
     `);
+    /* eslint-enable no-await-in-loop */
 
     const classType = assembly.types!['testpkg.Foo'] as spec.ClassType;
     const initializer = classType.initializer!;

@@ -1,11 +1,11 @@
 tsconfig.json
-tslint.json
 dist
 .jsii
 *.tgz
 
 *.js
 *.d.ts
+*.tsbuildinfo
 node_modules/
 .nyc_output/
 coverage/

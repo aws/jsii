@@ -94,6 +94,6 @@ test('changing stable to experimental is breaking', async () => {
   const diags = classifyDiagnostics(mms, experimentalErrors, new Set());
 
   expect(diags.length).toBeGreaterThan(0);
-  expect(diags.some(d => d.message.match(/stability not allowed to go from 'stable' to 'experimental'/))).toBeTruthy();
+  expect(diags.some(d => /stability not allowed to go from 'stable' to 'experimental'/.exec(d.message))).toBeTruthy();
   expect(hasErrors(diags)).toBeTruthy();
 });

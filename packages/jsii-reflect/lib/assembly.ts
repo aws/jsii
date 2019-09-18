@@ -10,7 +10,7 @@ export class Assembly {
   private _typeCache?: { [fqn: string]: Type };
   private _dependencyCache?: { [name: string]: Dependency };
 
-  constructor(
+  public constructor(
     public readonly system: TypeSystem,
     private readonly spec: jsii.Assembly) { }
 
@@ -69,7 +69,7 @@ export class Assembly {
    * Additional contributors to this package.
    */
   public get contributors(): jsii.Person[] {
-    return this.spec.contributors || [ ];
+    return this.spec.contributors || [];
   }
 
   /**
@@ -205,7 +205,7 @@ export class Assembly {
             break;
 
           default:
-            throw new Error(`Unknown type kind`);
+            throw new Error('Unknown type kind');
         }
       }
     }

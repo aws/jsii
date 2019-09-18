@@ -3,7 +3,7 @@ import { Type } from './type';
 import { TypeSystem } from './type-system';
 
 export class TypeReference {
-  constructor(
+  public constructor(
     public readonly system: TypeSystem,
     private readonly spec?: jsii.TypeReference) { }
 
@@ -18,11 +18,11 @@ export class TypeReference {
       return this.unionOfTypes.map(x => x.toString()).join(' | ');
     }
 
-    throw new Error(`Invalid type reference`);
+    throw new Error('Invalid type reference');
   }
 
   public get void(): boolean {
-    return (!this.spec);
+    return !this.spec;
   }
 
   public get isAny(): boolean {

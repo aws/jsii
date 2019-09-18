@@ -1,19 +1,19 @@
 import * as fs from 'fs-extra';
 import { Kernel } from '../lib';
 
-export function closeRecording(kernel: Kernel): Promise<void> {
-    const logfile: fs.WriteStream = (kernel as any).logfile;
-    if (!logfile) {
-        return Promise.resolve();
-    }
+export async function closeRecording(kernel: Kernel): Promise<void> {
+  const logfile: fs.WriteStream = (kernel as any).logfile;
+  if (!logfile) {
+    return Promise.resolve();
+  }
 
-    logfile.end();
+  logfile.end();
 
-    return new Promise(ok => {
-        logfile.once('finish', () => {
-            ok();
-        });
+  return new Promise(ok => {
+    logfile.once('finish', () => {
+      ok();
     });
+  });
 }
 
 /**
@@ -27,48 +27,48 @@ export function closeRecording(kernel: Kernel): Promise<void> {
  * @param outputLog Output log stream.
  */
 export function recordInteraction(kernel: Kernel, inputOutputLogPath: string) {
-    const logfile = fs.createWriteStream(inputOutputLogPath);
-    (kernel as any).logfile = logfile;
+  const logfile = fs.createWriteStream(inputOutputLogPath);
+  (kernel as any).logfile = logfile;
 
-    Object.getOwnPropertyNames(Kernel.prototype).filter(p => !p.startsWith('_')).forEach(api => {
-        const old = Object.getOwnPropertyDescriptor(Kernel.prototype, api)!;
+  Object.getOwnPropertyNames(Kernel.prototype).filter(p => !p.startsWith('_')).forEach(api => {
+    const old = Object.getOwnPropertyDescriptor(Kernel.prototype, api)!;
 
-        Object.defineProperty(kernel, api, {
-            value(...args: any[]) {
-                logInput({ api, ...args[0] });
-                try {
-                    const ret = old.value.apply(this, args);
+    Object.defineProperty(kernel, api, {
+      value(...args: any[]) {
+        logInput({ api, ...args[0] });
+        try {
+          const ret = old.value.apply(this, args);
 
-                    // if this is an async function, wait for the promised value.
-                    if (ret && ret.then && typeof(ret.then) === 'function') {
-                        return new Promise((ok, fail) => {
-                            return ret.then((value: any) => {
-                                logOutput({ ok: value });
-                                ok(value);
-                            }).catch((err: any) => {
-                                logOutput({ error: err.message });
-                                fail(err);
-                            });
-                        });
-                    }
+          // if this is an async function, wait for the promised value.
+          if (ret && ret.then && typeof ret.then === 'function') {
+            return new Promise((ok, fail) => {
+              return ret.then((value: any) => {
+                logOutput({ ok: value });
+                ok(value);
+              }).catch((err: any) => {
+                logOutput({ error: err.message });
+                fail(err);
+              });
+            });
+          }
 
-                    logOutput({ ok: ret });
-                    return ret;
-                } catch (e) {
-                    logOutput({ error: e.message });
-                    throw e;
-                }
-            }
-        });
+          logOutput({ ok: ret });
+          return ret;
+        } catch (e) {
+          logOutput({ error: e.message });
+          throw e;
+        }
+      }
     });
+  });
 
-    function logInput(obj: any) {
-        const inputLine = JSON.stringify(obj) + '\n';
-        logfile.write('> ' + inputLine);
-    }
+  function logInput(obj: any) {
+    const inputLine = `${JSON.stringify(obj)}\n`;
+    logfile.write(`> ${inputLine}`);
+  }
 
-    function logOutput(obj: any) {
-        const outputLine = JSON.stringify(obj) + '\n';
-        logfile.write('< ' + outputLine);
-    }
+  function logOutput(obj: any) {
+    const outputLine = `${JSON.stringify(obj)}\n`;
+    logfile.write(`< ${outputLine}`);
+  }
 }

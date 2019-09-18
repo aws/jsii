@@ -40,46 +40,46 @@ import * as spec from './assembly';
  * }
  */
 export class NameTree {
-    public static of(assm: spec.Assembly): NameTree {
-        const nameTree = new NameTree();
-        for (const type of Object.values(assm.types || {})) {
-            nameTree.register(type.fqn);
-        }
-        return nameTree;
+  public static of(assm: spec.Assembly): NameTree {
+    const nameTree = new NameTree();
+    for (const type of Object.values(assm.types || {})) {
+      nameTree.register(type.fqn);
     }
+    return nameTree;
+  }
 
-    private _children: { [name: string]: NameTree } = {};
-    private _fqn?: string;
+  private _children: { [name: string]: NameTree } = {};
+  private _fqn?: string;
 
-    /* NameTree.of(assembly) should be used. */
-    private constructor() {}
+  /* NameTree.of(assembly) should be used. */
+  private constructor() {}
 
-    /** The children of this node, by name. */
-    public get children(): { readonly [name: string]: NameTree } {
-        return this._children;
-    }
+  /** The children of this node, by name. */
+  public get children(): { readonly [name: string]: NameTree } {
+    return this._children;
+  }
 
-    /** The fully qualified name of the type at this node, if there is one. */
-    public get fqn(): string | undefined {
-        return this._fqn;
-    }
+  /** The fully qualified name of the type at this node, if there is one. */
+  public get fqn(): string | undefined {
+    return this._fqn;
+  }
 
-    /**
+  /**
      * Adds a type to this ``NameTree``.
      *
      * @param type the type to be added.
      * @param path the path at which to add the node under this tree.
      */
-    private register(fqn: string, path: string[] = fqn.split('.')): this {
-        if (path.length === 0) {
-            this._fqn = fqn;
-        } else {
-            const [head, ...rest] = path;
-            if (!this._children[head]) {
-                this._children[head] = new NameTree();
-            }
-            this._children[head]!.register(fqn, rest);
-        }
-        return this;
+  private register(fqn: string, path: string[] = fqn.split('.')): this {
+    if (path.length === 0) {
+      this._fqn = fqn;
+    } else {
+      const [head, ...rest] = path;
+      if (!this._children[head]) {
+        this._children[head] = new NameTree();
+      }
+      this._children[head]!.register(fqn, rest);
     }
+    return this;
+  }
 }

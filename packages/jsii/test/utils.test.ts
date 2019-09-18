@@ -2,7 +2,7 @@ import { parsePerson, parseRepository } from '../lib/utils';
 
 describe('parsePerson', () => {
   test('correctly parses NPM documentation example', () => {
-    const parsed = parsePerson("Barney Rubble <b@rubble.com> (http://barnyrubble.tumblr.com/)");
+    const parsed = parsePerson('Barney Rubble <b@rubble.com> (http://barnyrubble.tumblr.com/)');
     expect(parsed).toEqual({
       name: 'Barney Rubble',
       email: 'b@rubble.com',
@@ -11,7 +11,7 @@ describe('parsePerson', () => {
   });
 
   test('correctly parses NPM documentation example (minus URL)', () => {
-    const parsed = parsePerson("Barney Rubble <b@rubble.com>");
+    const parsed = parsePerson('Barney Rubble <b@rubble.com>');
     expect(parsed).toEqual({
       name: 'Barney Rubble',
       email: 'b@rubble.com',
@@ -19,7 +19,7 @@ describe('parsePerson', () => {
   });
 
   test('correctly parses NPM documentation example (minus email)', () => {
-    const parsed = parsePerson("Barney Rubble (http://barnyrubble.tumblr.com/)");
+    const parsed = parsePerson('Barney Rubble (http://barnyrubble.tumblr.com/)');
     expect(parsed).toEqual({
       name: 'Barney Rubble',
       url: 'http://barnyrubble.tumblr.com/',
@@ -27,7 +27,7 @@ describe('parsePerson', () => {
   });
 
   test('correctly parses NPM documentation example (minus email and URL)', () => {
-    const parsed = parsePerson("Barney Rubble");
+    const parsed = parsePerson('Barney Rubble');
     expect(parsed).toEqual({
       name: 'Barney Rubble',
     });

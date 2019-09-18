@@ -9,9 +9,9 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "gen": "/bin/bash generate.sh",
-    "build": "npm run gen && tsc --build && chmod +x bin/jsii-pacmak && tslint -p .",
+    "build": "npm run gen && tsc --build && chmod +x bin/jsii-pacmak && npm run lint",
     "watch": "tsc --build -w",
-    "lint": "tslint -p . --force",
+    "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
     "test": "/bin/bash test/diff-test.sh && /bin/bash test/build-test.sh && jest",
     "package": "package-js"
   },
@@ -41,13 +41,15 @@
     "@types/node": "^8.10.54",
     "@types/xmlbuilder": "^11.0.1",
     "@types/yargs": "^13.0.2",
+    "@typescript-eslint/eslint-plugin": "^2.3.0",
+    "@typescript-eslint/parser": "^2.3.0",
+    "eslint": "^6.4.0",
     "jest": "^24.9.0",
     "jsii-build-tools": "file:../jsii-build-tools",
     "jsii-calc": "file:../jsii-calc",
     "jsii-dotnet-jsonmodel": "file:../jsii-dotnet-jsonmodel",
     "jsii-dotnet-runtime": "file:../jsii-dotnet-runtime",
     "jsii-java-runtime": "file:../jsii-java-runtime",
-    "tslint": "^5.20.0",
     "typescript": "~3.6.3"
   },
   "jest": {

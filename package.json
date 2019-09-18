@@ -11,8 +11,10 @@
   },
   "devDependencies": {
     "@types/node": "^8.10.54",
+    "@typescript-eslint/eslint-plugin": "^2.2.0",
+    "@typescript-eslint/parser": "^2.2.0",
+    "eslint": "^6.4.0",
     "lerna": "^3.16.4",
-    "tslint": "^5.20.0",
     "typescript": "~3.6.3"
   },
   "repository": {

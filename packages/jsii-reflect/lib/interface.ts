@@ -7,10 +7,10 @@ import { TypeSystem } from './type-system';
 import { indexBy } from './util';
 
 export class InterfaceType extends ReferenceType {
-  constructor(
+  public constructor(
     public system: TypeSystem,
     public assembly: Assembly,
-    private interfaceSpec: jsii.InterfaceType) {
+    private readonly interfaceSpec: jsii.InterfaceType) {
     super(system, assembly, interfaceSpec);
   }
 
@@ -69,8 +69,8 @@ export class InterfaceType extends ReferenceType {
     return true;
   }
 
-  private _getProperties(inherited: boolean, parentType: ReferenceType): {[name: string]: Property}  {
-    const base: {[name: string]: Property}  = {};
+  private _getProperties(inherited: boolean, parentType: ReferenceType): {[name: string]: Property} {
+    const base: {[name: string]: Property} = {};
     if (inherited) {
       for (const parent of this.getInterfaces()) {
         Object.assign(base, parent._getProperties(inherited, parentType));
@@ -81,8 +81,8 @@ export class InterfaceType extends ReferenceType {
       p => p.name));
   }
 
-  private _getMethods(inherited: boolean, parentType: ReferenceType): {[name: string]: Method}  {
-    const base: {[name: string]: Property}  = {};
+  private _getMethods(inherited: boolean, parentType: ReferenceType): {[name: string]: Method} {
+    const base: {[name: string]: Property} = {};
     if (inherited) {
       for (const parent of this.getInterfaces()) {
         Object.assign(base, parent._getMethods(inherited, parentType));

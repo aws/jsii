@@ -18,8 +18,8 @@ const JSII_SYMBOL = Symbol('__jsii__');
  * information.
  */
 export function jsiiTypeFqn(obj: any): string | undefined {
-    const jsii = obj.constructor[JSII_SYMBOL];
-    return jsii && jsii.fqn;
+  const jsii = obj.constructor[JSII_SYMBOL];
+  return jsii && jsii.fqn;
 }
 
 /**
@@ -28,16 +28,16 @@ export function jsiiTypeFqn(obj: any): string | undefined {
  * This is to retain object identity across invocations.
  */
 export function objectReference(obj: object): api.ObjRef | undefined {
-    // If this object as already returned
-    if ((obj as any)[OBJID_SYMBOL]) {
-        return { [api.TOKEN_REF]: (obj as any)[OBJID_SYMBOL] };
-    }
+  // If this object as already returned
+  if ((obj as any)[OBJID_SYMBOL]) {
+    return { [api.TOKEN_REF]: (obj as any)[OBJID_SYMBOL] };
+  }
 
-    return undefined;
+  return undefined;
 }
 
 function tagObject(obj: object, objid: string) {
-    (obj as any)[OBJID_SYMBOL] = objid;
+  (obj as any)[OBJID_SYMBOL] = objid;
 }
 
 /**
@@ -48,10 +48,10 @@ export function hiddenMap<T>(obj: any, mapSymbol: symbol): {[key: string]: T} {
   if (!map) {
     map = {};
     Object.defineProperty(obj, mapSymbol, {
-        value: map,
-        configurable: false,
-        enumerable: false,
-        writable: false
+      value: map,
+      configurable: false,
+      enumerable: false,
+      writable: false
     });
   }
   return map;
@@ -61,12 +61,12 @@ export function hiddenMap<T>(obj: any, mapSymbol: symbol): {[key: string]: T} {
  * Set the JSII FQN for classes produced by a given constructor
  */
 export function tagJsiiConstructor(constructor: any, fqn: string) {
-    Object.defineProperty(constructor, JSII_SYMBOL, {
-        configurable: false,
-        enumerable: false,
-        writable: false,
-        value: { fqn }
-    });
+  Object.defineProperty(constructor, JSII_SYMBOL, {
+    configurable: false,
+    enumerable: false,
+    writable: false,
+    value: { fqn }
+  });
 }
 
 /**
@@ -76,65 +76,65 @@ export function tagJsiiConstructor(constructor: any, fqn: string) {
  * type.
  */
 export class ObjectTable {
-    private objects: { [objid: string]: RegisteredObject } = { };
-    private nextid = 10000;
+  private objects: { [objid: string]: RegisteredObject } = { };
+  private nextid = 10000;
 
-    /**
+  /**
      * Register the given object with the given type
      *
      * Return the existing registration if available.
      */
-    public registerObject(obj: object, fqn: string): api.ObjRef {
-        if (fqn === undefined) {
-            throw new Error('FQN cannot be undefined');
-        }
-
-        const existingRef = objectReference(obj);
-        if (existingRef) {
-            return existingRef;
-        }
-
-        const objid = this.makeId(fqn);
-        this.objects[objid] = { instance: obj, fqn };
-        tagObject(obj, objid);
-
-        return { [api.TOKEN_REF]: objid };
+  public registerObject(obj: object, fqn: string): api.ObjRef {
+    if (fqn === undefined) {
+      throw new Error('FQN cannot be undefined');
     }
 
-    /**
+    const existingRef = objectReference(obj);
+    if (existingRef) {
+      return existingRef;
+    }
+
+    const objid = this.makeId(fqn);
+    this.objects[objid] = { instance: obj, fqn };
+    tagObject(obj, objid);
+
+    return { [api.TOKEN_REF]: objid };
+  }
+
+  /**
      * Find the object and registered type for the given ObjRef
      */
-    public findObject(objref: api.ObjRef): RegisteredObject {
-        if (typeof(objref) !== 'object' || !(api.TOKEN_REF in objref)) {
-            throw new Error(`Malformed object reference: ${JSON.stringify(objref)}`);
-        }
-
-        const objid = objref[api.TOKEN_REF];
-        const obj = this.objects[objid];
-        if (!obj) {
-            throw new Error(`Object ${objid} not found`);
-        }
-        return obj;
+  public findObject(objref: api.ObjRef): RegisteredObject {
+    if (typeof objref !== 'object' || !(api.TOKEN_REF in objref)) {
+      throw new Error(`Malformed object reference: ${JSON.stringify(objref)}`);
     }
 
-    /**
+    const objid = objref[api.TOKEN_REF];
+    const obj = this.objects[objid];
+    if (!obj) {
+      throw new Error(`Object ${objid} not found`);
+    }
+    return obj;
+  }
+
+  /**
      * Delete the registration with the given objref
      */
-    public deleteObject(objref: api.ObjRef) {
-        this.findObject(objref); // make sure object exists
-        delete this.objects[objref[api.TOKEN_REF]];
-    }
+  public deleteObject(objref: api.ObjRef) {
+    this.findObject(objref); // make sure object exists
+    delete this.objects[objref[api.TOKEN_REF]];
+  }
 
-    public get count(): number {
-        return Object.keys(this.objects).length;
-    }
+  public get count(): number {
+    return Object.keys(this.objects).length;
+  }
 
-    private makeId(fqn: string) {
-        return `${fqn}@${this.nextid++}`;
-    }
+  private makeId(fqn: string) {
+    return `${fqn}@${this.nextid++}`;
+  }
 }
 
 export interface RegisteredObject {
-    instance: any;
-    fqn: string;
+  instance: any;
+  fqn: string;
 }

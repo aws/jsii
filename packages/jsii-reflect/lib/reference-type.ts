@@ -8,7 +8,7 @@ import { TypeMember } from './type-member';
 import { TypeSystem } from './type-system';
 
 export abstract class ReferenceType extends Type {
-  constructor(
+  public constructor(
     public system: TypeSystem,
     public assembly: Assembly,
     spec: jsii.Type) {
@@ -50,6 +50,21 @@ export abstract class ReferenceType extends Type {
     return Object.values(this.getProperties(true));
   }
 
+  public get ownMembers(): TypeMember[] {
+    return Object.values(this.getMembers(false));
+  }
+
+  public get allMembers(): TypeMember[] {
+    return Object.values(this.getMembers(true));
+  }
+
+  public getMembers(inherited = false): {[name: string]: TypeMember} {
+    return Object.assign(
+      this.getMethods(inherited),
+      this.getProperties(inherited)
+    );
+  }
+
   /**
    * Lists all interfaces this interface extends.
    * @param inherited include all interfaces implemented by all super interfaces (default: false)
@@ -67,19 +82,4 @@ export abstract class ReferenceType extends Type {
    * @param inherited include all methods inherited from base classes (default: false)
    */
   public abstract getMethods(inherited?: boolean): {[name: string]: Method};
-
-  public getMembers(inherited = false): {[name: string]: TypeMember} {
-    return Object.assign(
-      this.getMethods(inherited),
-      this.getProperties(inherited)
-    );
-  }
-
-  public get ownMembers(): TypeMember[] {
-    return Object.values(this.getMembers(false));
-  }
-
-  public get allMembers(): TypeMember[] {
-    return Object.values(this.getMembers(true));
-  }
 }

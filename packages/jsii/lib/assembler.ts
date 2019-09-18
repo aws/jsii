@@ -16,9 +16,9 @@ import { isReservedName } from './reserved-words';
 import { Validator } from './validator';
 import { SHORT_VERSION, VERSION } from './version';
 
-// tslint:disable:no-var-requires Modules without TypeScript definitions
+/* eslint-disable @typescript-eslint/no-var-requires */
 const sortJson = require('sort-json');
-// tslint:enable:no-var-requires
+/* eslint-enable @typescript-eslint/no-var-requires */
 
 const LOG = log4js.getLogger('jsii/assembler');
 
@@ -72,6 +72,7 @@ export class Assembler implements Emitter {
     this._types = {};
     this._deferred = [];
     const mainFile = path.resolve(this.projectInfo.projectRoot, this.projectInfo.types.replace(/\.d\.ts(x?)$/, '.ts$1'));
+    const visitPromises = new Array<Promise<any>>();
     for (const sourceFile of this.program.getSourceFiles().filter(f => !f.isDeclarationFile)) {
       if (sourceFile.fileName !== mainFile) { continue; }
       if (LOG.isTraceEnabled()) {
@@ -80,9 +81,10 @@ export class Assembler implements Emitter {
       const symbol = this._typeChecker.getSymbolAtLocation(sourceFile);
       if (!symbol) { continue; }
       for (const node of this._typeChecker.getExportsOfModule(symbol)) {
-        await this._visitNode(node.declarations[0], new EmitContext([], this.projectInfo.stability));
+        visitPromises.push(this._visitNode(node.declarations[0], new EmitContext([], this.projectInfo.stability)));
       }
     }
+    await Promise.all(visitPromises);
 
     this.callDeferredsInOrder();
 
@@ -178,8 +180,10 @@ export class Assembler implements Emitter {
    * @param referencingNode Node to report a diagnostic on if we fail to look up a t ype
    * @param cb Callback to be invoked with the Types corresponding to the TypeReferences in baseTypes
    */
-  // tslint:disable-next-line:max-line-length
-  private _deferUntilTypesAvailable(fqn: string, baseTypes: Array<string | spec.NamedTypeReference>, referencingNode: ts.Node, cb: (...xs: spec.Type[]) => void) {
+  private _deferUntilTypesAvailable(
+    fqn: string, baseTypes: Array<string | spec.NamedTypeReference>,
+    referencingNode: ts.Node, cb: (...xs: spec.Type[]) => void
+  ) {
     // We can do this one eagerly
     if (baseTypes.length === 0) {
       cb();
@@ -190,7 +194,7 @@ export class Assembler implements Emitter {
     this._defer(fqn, baseFqns, () => {
       const resolved = baseFqns.map(x => this._dereference(x, referencingNode)).filter(x => x !== undefined);
       if (resolved.length > 0) {
-        return cb(...resolved as spec.Type[]);
+        cb(...resolved as spec.Type[]);
       }
     });
   }
@@ -223,7 +227,7 @@ export class Assembler implements Emitter {
       ref = ref.fqn;
     }
 
-    const [assm, ] = ref.split('.');
+    const [assm,] = ref.split('.');
     let type;
     if (assm === this.projectInfo.name) {
       type = this._types[ref];
@@ -239,7 +243,7 @@ export class Assembler implements Emitter {
           this._diagnostic(referencingNode, ts.DiagnosticCategory.Warning,
             `The type '${ref}' is exposed in the public API of this module. ` +
             `Therefore, the module '${assembly.name}' must also be defined under "peerDependencies". ` +
-            `You can use the "jsii-fix-peers" utility to fix.`);
+            'This will be auto-corrected unless --no-fix-peer-dependencies was specified.');
         }
       }
     }
@@ -275,14 +279,14 @@ export class Assembler implements Emitter {
    */
   private async _getFQN(type: ts.Type): Promise<string> {
     const tsName = this._typeChecker.getFullyQualifiedName(type.symbol);
-    const groups = tsName.match(/^\"([^\"]+)\"\.(.*)$/);
+    const groups = /^"([^"]+)"\.(.*)$/.exec(tsName);
     let node = type.symbol.valueDeclaration;
     if (!node && type.symbol.declarations.length > 0) { node = type.symbol.declarations[0]; }
     if (!groups) {
       this._diagnostic(node, ts.DiagnosticCategory.Error, `Cannot use private type ${tsName} in exported declarations`);
       return tsName;
     }
-    const [, modulePath, typeName, ] = groups;
+    const [, modulePath, typeName,] = groups;
     const pkg = await _findPackageInfo(modulePath);
     if (!pkg) {
       this._diagnostic(node, ts.DiagnosticCategory.Error, `Could not find module for ${modulePath}`);
@@ -299,11 +303,11 @@ export class Assembler implements Emitter {
     async function _findPackageInfo(fromDir: string): Promise<any> {
       const filePath = path.join(fromDir, 'package.json');
       if (await fs.pathExists(filePath)) {
-        return await fs.readJson(filePath);
+        return fs.readJson(filePath);
       }
       const parent = path.dirname(fromDir);
       if (parent === fromDir) { return undefined; }
-      return await _findPackageInfo(parent);
+      return _findPackageInfo(parent);
     }
   }
 
@@ -314,7 +318,6 @@ export class Assembler implements Emitter {
    * @param namePrefix the prefix for the types' namespaces
    */
   private async _visitNode(node: ts.Declaration, context: EmitContext): Promise<spec.Type[]> {
-    // tslint:disable-next-line:no-bitwise Ignore nodes that are not export declarations
     if ((ts.getCombinedModifierFlags(node) & ts.ModifierFlags.Export) === 0) { return []; }
 
     let jsiiType: spec.Type | undefined;
@@ -326,16 +329,16 @@ export class Assembler implements Emitter {
     } else if (ts.isEnumDeclaration(node) && _isExported(node)) {
       jsiiType = await this._visitEnum(this._typeChecker.getTypeAtLocation(node), context);
     } else if (ts.isModuleDeclaration(node)) {
-      const moduleDecl = node as ts.ModuleDeclaration;
       const name = node.name.getText();
-      const symbol = (moduleDecl as any).symbol;
+      const symbol = (node as any).symbol;
 
       if (LOG.isTraceEnabled()) { LOG.trace(`Entering namespace: ${colors.cyan([...context.namespace, name].join('.'))}`); }
 
-      const allTypes = new Array<spec.Type>();
+      const allTypesPromises = new Array<Promise<spec.Type[]>>();
       for (const prop of this._typeChecker.getExportsOfModule(symbol)) {
-        allTypes.push(...await this._visitNode(prop.declarations[0], context.appendNamespace(node.name.getText())));
+        allTypesPromises.push(this._visitNode(prop.declarations[0], context.appendNamespace(node.name.getText())));
       }
+      const allTypes = await flattenPromises(allTypesPromises);
 
       if (LOG.isTraceEnabled()) { LOG.trace(`Leaving namespace:  ${colors.cyan([...context.namespace, name].join('.'))}`); }
       return allTypes;
@@ -354,13 +357,13 @@ export class Assembler implements Emitter {
     const type = this._typeChecker.getTypeAtLocation(node);
     if (type.symbol.exports) {
       const nestedContext = context.appendNamespace(type.symbol.name);
-      for (const exportedNode of this._typeChecker.getExportsOfModule(type.symbol).filter(s => s.declarations)) {
-        const nestedTypes = await this._visitNode(exportedNode.declarations[0], nestedContext);
+      const visitedNodes = this._typeChecker.getExportsOfModule(type.symbol).filter(s => s.declarations)
+        .map(exportedNode => this._visitNode(exportedNode.declarations[0], nestedContext));
+      for (const nestedTypes of await Promise.all(visitedNodes)) {
         for (const nestedType of nestedTypes) {
           if (nestedType.namespace !== nestedContext.namespace.join('.')) {
             this._diagnostic(node,
               ts.DiagnosticCategory.Error,
-              // tslint:disable-next-line:max-line-length
               `All child names of a type '${jsiiType.fqn}' must point to concrete types, but '${nestedType.namespace}' is a namespaces, and this structure cannot be supported in all languages (e.g. Java)`);
           }
         }
@@ -406,10 +409,12 @@ export class Assembler implements Emitter {
 
     processBaseTypes(baseTypes);
 
-    for (const iface of baseInterfaces) {
+    const typeRefs = Array.from(baseInterfaces).map(async iface => {
       const decl = iface.symbol.valueDeclaration;
       const typeRef = await this._typeReference(iface, decl);
-
+      return { decl, typeRef };
+    });
+    for (const { decl, typeRef } of await Promise.all(typeRefs)) {
       if (!spec.isNamedTypeReference(typeRef)) {
         this._diagnostic(decl,
           ts.DiagnosticCategory.Error,
@@ -458,7 +463,7 @@ export class Assembler implements Emitter {
     }
 
     const erasedBases = new Array<ts.BaseType>();
-    for (let base of (type.getBaseTypes() || [])) {
+    for (let base of type.getBaseTypes() || []) {
       if (jsiiType.base) {
         this._diagnostic(base.symbol.valueDeclaration, ts.DiagnosticCategory.Error, `Found multiple base types for ${jsiiType.fqn}`);
         continue;
@@ -469,7 +474,6 @@ export class Assembler implements Emitter {
 
       // Crawl up the inheritance tree if the current base type is not exported, so we identify the type(s) to be
       // erased, and identify the closest exported base class, should there be one.
-      // tslint:disable-next-line: no-bitwise
       while (base && this._isPrivateOrInternal(base.symbol)) {
         LOG.debug(`Base class of ${colors.green(jsiiType.fqn)} named ${colors.green(base.symbol.name)} is not exported, erasing it...`);
         erasedBases.push(base);
@@ -480,7 +484,9 @@ export class Assembler implements Emitter {
         continue;
       }
 
+      /* eslint-disable no-await-in-loop */
       const ref = await this._typeReference(base, type.symbol.valueDeclaration);
+      /* eslint-enable no-await-in-loop */
 
       if (!spec.isNamedTypeReference(ref)) {
         this._diagnostic(base.symbol.valueDeclaration,
@@ -504,7 +510,7 @@ export class Assembler implements Emitter {
     // collect all "implements" declarations from the current type and all
     // erased base types (because otherwise we lose them, see jsii#487)
     const implementsClauses = new Array<ts.HeritageClause>();
-    for (const heritage of [ type, ...erasedBases ].map(t => (t.symbol.valueDeclaration as ts.ClassDeclaration).heritageClauses || [])) {
+    for (const heritage of [type, ...erasedBases].map(t => (t.symbol.valueDeclaration as ts.ClassDeclaration).heritageClauses || [])) {
       for (const clause of heritage) {
         if (clause.token === ts.SyntaxKind.ExtendsKeyword) {
           // Handled by `getBaseTypes`
@@ -520,9 +526,9 @@ export class Assembler implements Emitter {
 
     // process all "implements" clauses
     const allInterfaces = new Set<string>();
-    for (const clause of implementsClauses) {
-      const { interfaces } = await this._processBaseInterfaces(fqn, clause.types.map(t => this._getTypeFromTypeNode(t)));
-      for (const ifc of (interfaces || [])) {
+    const baseInterfaces = implementsClauses.map(clause => this._processBaseInterfaces(fqn, clause.types.map(t => this._getTypeFromTypeNode(t))));
+    for (const { interfaces } of await Promise.all(baseInterfaces)) {
+      for (const ifc of interfaces || []) {
         allInterfaces.add(ifc.fqn);
       }
       if (interfaces) {
@@ -549,13 +555,13 @@ export class Assembler implements Emitter {
     const allDeclarations: Array<{ decl: ts.Declaration, type: ts.InterfaceType | ts.BaseType }>
       = type.symbol.declarations.map(decl => ({ decl, type }));
 
-      // Considering erased bases' declarations, too, so they are "blended in"
+    // Considering erased bases' declarations, too, so they are "blended in"
     for (const base of erasedBases) {
       allDeclarations.push(...base.symbol.declarations.map(decl => ({ decl, type: base })));
     }
 
-    for (const { decl, type: declaringType }  of allDeclarations) {
-      const classDecl = (decl as ts.ClassDeclaration | ts.InterfaceDeclaration);
+    for (const { decl, type: declaringType } of allDeclarations) {
+      const classDecl = decl as ts.ClassDeclaration | ts.InterfaceDeclaration;
       if (!classDecl.members) { continue; }
 
       for (const memberDecl of classDecl.members) {
@@ -574,6 +580,7 @@ export class Assembler implements Emitter {
           continue;
         }
 
+        /* eslint-disable no-await-in-loop */
         if (ts.isMethodDeclaration(memberDecl) || ts.isMethodSignature(memberDecl)) {
           await this._visitMethod(member, jsiiType, ctx.replaceStability(jsiiType.docs && jsiiType.docs.stability));
         } else if (ts.isPropertyDeclaration(memberDecl)
@@ -585,6 +592,7 @@ export class Assembler implements Emitter {
             ts.DiagnosticCategory.Warning,
             `Ignoring un-handled ${ts.SyntaxKind[memberDecl.kind]} member`);
         }
+        /* eslint-enable no-await-in-loop */
       }
     }
 
@@ -596,13 +604,14 @@ export class Assembler implements Emitter {
     if (constructor && ctorDeclaration) {
       const signature = this._typeChecker.getSignatureFromDeclaration(ctorDeclaration);
 
-      // tslint:disable-next-line:no-bitwise
       if ((ts.getCombinedModifierFlags(ctorDeclaration) & ts.ModifierFlags.Private) === 0) {
         jsiiType.initializer = {};
         if (signature) {
           for (const param of signature.getParameters()) {
             jsiiType.initializer.parameters = jsiiType.initializer.parameters || [];
+            /* eslint-disable no-await-in-loop */
             jsiiType.initializer.parameters.push(await this._toParameter(param, ctx.replaceStability(jsiiType.docs && jsiiType.docs.stability)));
+            /* eslint-enable no-await-in-loop */
             jsiiType.initializer.variadic =
               (jsiiType.initializer.parameters && jsiiType.initializer.parameters.some(p => !!p.variadic))
               || undefined;
@@ -616,12 +625,14 @@ export class Assembler implements Emitter {
       if (signature) {
         for (const param of signature.getParameters()) {
           if (ts.isParameterPropertyDeclaration(param.valueDeclaration) && !this._isPrivateOrInternal(param)) {
+            /* eslint-disable no-await-in-loop */
             await this._visitProperty(param, jsiiType, memberEmitContext);
+            /* eslint-enable no-await-in-loop */
           }
         }
       }
     } else if (jsiiType.base) {
-      this._deferUntilTypesAvailable(fqn, [jsiiType.base!], type.symbol.valueDeclaration, (baseType) => {
+      this._deferUntilTypesAvailable(fqn, [jsiiType.base], type.symbol.valueDeclaration, (baseType) => {
         if (spec.isClassType(baseType)) {
           jsiiType.initializer = baseType.initializer;
         } else {
@@ -677,7 +688,6 @@ export class Assembler implements Emitter {
 
         if (!!baseMember.static !== !!member.static) {
           this._diagnostic(decl, ts.DiagnosticCategory.Error,
-            // tslint:disable-next-line:max-line-length
             `${stat(member.static)} member '${name}' of class '${klass.name}' conflicts with ${stat(baseMember.static)} member in ancestor '${base.name}'`);
         }
       }
@@ -747,18 +757,17 @@ export class Assembler implements Emitter {
     }
 
     if (_hasInternalJsDocTag(symbol)) {
-      return undefined;
+      return Promise.resolve(undefined);
     }
 
     this._warnAboutReservedWords(type.symbol);
 
     const decl = symbol.valueDeclaration;
     const flags = ts.getCombinedModifierFlags(decl);
-    // tslint:disable-next-line:no-bitwise
     if (flags & ts.ModifierFlags.Const) {
       this._diagnostic(decl,
         ts.DiagnosticCategory.Error,
-        `Exported enum cannot be declared 'const'`);
+        "Exported enum cannot be declared 'const'");
     }
 
     const docs = this._visitDocumentation(symbol, ctx);
@@ -779,7 +788,7 @@ export class Assembler implements Emitter {
       docs
     };
 
-    return jsiiType;
+    return Promise.resolve(jsiiType);
   }
 
   /**
@@ -851,6 +860,7 @@ export class Assembler implements Emitter {
           continue;
         }
 
+        /* eslint-disable no-await-in-loop */
         if (ts.isMethodDeclaration(member.valueDeclaration) || ts.isMethodSignature(member.valueDeclaration)) {
           await this._visitMethod(member, jsiiType, ctx.replaceStability(jsiiType.docs && jsiiType.docs.stability));
         } else if (ts.isPropertyDeclaration(member.valueDeclaration)
@@ -862,12 +872,12 @@ export class Assembler implements Emitter {
             ts.DiagnosticCategory.Warning,
             `Ignoring un-handled ${ts.SyntaxKind[member.valueDeclaration.kind]} member`);
         }
+        /* eslint-enable no-await-in-loop */
       }
     }
 
     // Calculate datatype based on the datatypeness of this interface and all of its parents
     // To keep the spec minimal the actual values of the attribute are "true" or "undefined" (to represent "false").
-    // tslint:disable-next-line:no-console
     this._deferUntilTypesAvailable(fqn, jsiiType.interfaces || [], type.symbol.valueDeclaration, (...bases: spec.Type[]) => {
       if ((jsiiType.methods || []).length === 0) {
         jsiiType.datatype = true;
@@ -1009,7 +1019,7 @@ export class Assembler implements Emitter {
 
     type.methods = type.methods || [];
     if (type.methods.find(m => m.name === method.name && m.static === method.static) != null) {
-      LOG.trace(`Dropping re-declaration of ${colors.green(type.fqn)}#${colors.cyan(method.name!)}`);
+      LOG.trace(`Dropping re-declaration of ${colors.green(type.fqn)}#${colors.cyan(method.name)}`);
       return;
     }
     type.methods.push(method);
@@ -1046,9 +1056,9 @@ export class Assembler implements Emitter {
     this._warnAboutReservedWords(symbol);
 
     const signature = symbol.valueDeclaration as (ts.PropertySignature
-      | ts.PropertyDeclaration
-      | ts.AccessorDeclaration
-      | ts.ParameterPropertyDeclaration);
+    | ts.PropertyDeclaration
+    | ts.AccessorDeclaration
+    | ts.ParameterPropertyDeclaration);
     const property: spec.Property = {
       ...await this._optionalValue(this._typeChecker.getTypeOfSymbolAtLocation(symbol, signature), signature),
       abstract: _isAbstract(symbol, type) || undefined,
@@ -1062,7 +1072,6 @@ export class Assembler implements Emitter {
       const decls = symbol.getDeclarations() || [];
       property.immutable = !decls.some(decl => ts.isSetAccessor(decl)) || undefined;
     } else {
-      // tslint:disable-next-line:no-bitwise
       property.immutable = ((ts.getCombinedModifierFlags(signature) & ts.ModifierFlags.Readonly) !== 0) || undefined;
     }
 
@@ -1116,7 +1125,7 @@ export class Assembler implements Emitter {
     if (optionalValue.optional) {
       this._diagnostic(declaration,
         ts.DiagnosticCategory.Error,
-        `Encountered optional value in location where a plan type reference is expected`);
+        'Encountered optional value in location where a plan type reference is expected');
     }
     return optionalValue.type;
   }
@@ -1136,7 +1145,7 @@ export class Assembler implements Emitter {
     }
 
     if (!type.symbol) {
-      this._diagnostic(declaration, ts.DiagnosticCategory.Error, `Non-primitive types must have a symbol`);
+      this._diagnostic(declaration, ts.DiagnosticCategory.Error, 'Non-primitive types must have a symbol');
       return { type: spec.CANONICAL_ANY };
     }
 
@@ -1153,11 +1162,11 @@ export class Assembler implements Emitter {
       if (!typeRef.typeArguments || typeRef.typeArguments.length !== 1) {
         this._diagnostic(declaration,
           ts.DiagnosticCategory.Error,
-          `Un-specified promise type (need to specify as Promise<T>)`);
+          'Un-specified promise type (need to specify as Promise<T>)');
         return { type: spec.CANONICAL_ANY };
-      } else {
-        return { type: await this._typeReference(typeRef.typeArguments[0], declaration) };
       }
+      return { type: await this._typeReference(typeRef.typeArguments[0], declaration) };
+
     }
 
     return { type: { fqn: await this._getFQN(type) } };
@@ -1192,7 +1201,7 @@ export class Assembler implements Emitter {
       } else {
         this._diagnostic(declaration,
           ts.DiagnosticCategory.Error,
-          `Only string index maps are supported`);
+          'Only string index maps are supported');
         elementtype = spec.CANONICAL_ANY;
       }
       return {
@@ -1205,11 +1214,9 @@ export class Assembler implements Emitter {
 
     function _tryMakePrimitiveType(this: Assembler): spec.PrimitiveTypeReference | undefined {
       if (!type.symbol) {
-        // tslint:disable-next-line:no-bitwise
         if (type.flags & ts.TypeFlags.Object) {
           return { primitive: spec.PrimitiveType.Json };
         }
-        // tslint:disable-next-line:no-bitwise
         if (type.flags & (ts.TypeFlags.Any | ts.TypeFlags.Unknown)) {
           return spec.CANONICAL_ANY;
         }
@@ -1239,12 +1246,13 @@ export class Assembler implements Emitter {
       let optional: boolean | undefined;
 
       for (const subType of (type as ts.UnionType).types) {
-        // tslint:disable-next-line:no-bitwise
         if (subType.flags & ts.TypeFlags.Undefined) {
           optional = true;
           continue;
         }
+        /* eslint-disable no-await-in-loop */
         const resolvedType = await this._typeReference(subType, declaration);
+        /* eslint-enable no-await-in-loop */
         if (types.find(ref => deepEqual(ref, resolvedType)) != null) {
           continue;
         }
@@ -1296,23 +1304,21 @@ export class Assembler implements Emitter {
    * Return the set of all (inherited) properties of an interface
    */
   private allProperties(root: spec.InterfaceType): Set<string> {
-    const self = this;
-
     const ret = new Set<string>();
-    recurse(root);
+    recurse.call(this, root);
     return ret;
 
-    function recurse(int: spec.InterfaceType) {
+    function recurse(this: Assembler, int: spec.InterfaceType) {
       for (const property of int.properties || []) {
         ret.add(property.name);
       }
 
       for (const baseRef of int.interfaces || []) {
-        const base = self._dereference(baseRef, null);
+        const base = this._dereference(baseRef, null);
         if (!base) { throw new Error('Impossible to have unresolvable base in allProperties()'); }
         if (!spec.isInterfaceType(base)) { throw new Error('Impossible to have non-interface base in allProperties()'); }
 
-        recurse(base);
+        recurse.call(this, base);
       }
     }
   }
@@ -1334,7 +1340,7 @@ export class Assembler implements Emitter {
     }
   }
 
-  private _toDependencies(assemblies: ReadonlyArray<spec.Assembly>): { [name: string]: spec.PackageVersion } | undefined {
+  private _toDependencies(assemblies: readonly spec.Assembly[]): { [name: string]: spec.PackageVersion } | undefined {
     const ret: { [name: string]: spec.PackageVersion } = {};
 
     for (const a of assemblies) {
@@ -1344,7 +1350,7 @@ export class Assembler implements Emitter {
     return noEmptyDict(ret);
   }
 
-  private _buildDependencyClosure(assemblies: ReadonlyArray<spec.Assembly>): { [name: string]: spec.PackageVersion } | undefined {
+  private _buildDependencyClosure(assemblies: readonly spec.Assembly[]): { [name: string]: spec.PackageVersion } | undefined {
     // Merge the dependency closures of all dependencies and add the direct dependencies.
     // There should not be version conflicts between them but we guard against it anyway.
 
@@ -1352,17 +1358,16 @@ export class Assembler implements Emitter {
     const dependencyBags = flatten(assemblies.map(a => [assemblyToPackageVersionMap(a), a.dependencies || {}]));
 
     const warned = new Set<string>();
-    const self = this;
     const result: { [name: string]: spec.PackageVersion } = {};
     for (const bag of dependencyBags) {
       for (const [name, packV] of Object.entries(bag)) {
-        maybeRecord(name, packV);
+        maybeRecord.call(this, name, packV);
       }
     }
 
     return noEmptyDict(result);
 
-    function maybeRecord(name: string, pack: spec.PackageVersion) {
+    function maybeRecord(this: Assembler, name: string, pack: spec.PackageVersion) {
       let recordThisDependency = true;
 
       if (name in result) {
@@ -1370,7 +1375,7 @@ export class Assembler implements Emitter {
         const highestVersion = mostConstrainedVersion(result[name].version, pack.version);
 
         if (highestVersion === undefined) {
-          warnAboutVersionConflict(name, result[name].version, pack.version);
+          warnAboutVersionConflict.call(this, name, result[name].version, pack.version);
         }
 
         recordThisDependency = pack.version === highestVersion;
@@ -1384,9 +1389,9 @@ export class Assembler implements Emitter {
       }
     }
 
-    function warnAboutVersionConflict(name: string, v1: string, v2: string) {
+    function warnAboutVersionConflict(this: Assembler, name: string, v1: string, v2: string) {
       if (warned.has(name)) { return; }
-      self._diagnostic(null, ts.DiagnosticCategory.Error, `Conflicting dependencies on incompatible versions for package '${name}': ${v1} and ${v2}`);
+      this._diagnostic(null, ts.DiagnosticCategory.Error, `Conflicting dependencies on incompatible versions for package '${name}': ${v1} and ${v2}`);
       warned.add(name);
     }
   }
@@ -1417,17 +1422,14 @@ function _isAbstract(symbol: ts.Symbol, declaringType: spec.ClassType | spec.Int
   }
 
   return !!symbol.valueDeclaration
-    // tslint:disable-next-line:no-bitwise
     && (ts.getCombinedModifierFlags(symbol.valueDeclaration) & ts.ModifierFlags.Abstract) !== 0;
 }
 
 function _isEnumLike(type: ts.Type): type is ts.EnumType {
-  // tslint:disable-next-line:no-bitwise
   return (type.flags & ts.TypeFlags.EnumLike) !== 0;
 }
 
 function _isExported(node: ts.Declaration): boolean {
-  // tslint:disable-next-line:no-bitwise
   return (ts.getCombinedModifierFlags(node) & ts.ModifierFlags.Export) !== 0;
 }
 
@@ -1450,7 +1452,6 @@ function _isPrivate(symbol: ts.Symbol): boolean {
   if (!symbol.valueDeclaration || TYPE_DECLARATION_KINDS.has(symbol.valueDeclaration.kind)) {
     let hasExport = false;
     for (const decl of symbol.declarations) {
-      // tslint:disable-next-line:no-bitwise
       if (ts.getCombinedModifierFlags(decl) & ts.ModifierFlags.Export) {
         hasExport = true;
       }
@@ -1458,7 +1459,6 @@ function _isPrivate(symbol: ts.Symbol): boolean {
     return !hasExport;
   }
 
-  // tslint:disable-next-line:no-bitwise
   return symbol.valueDeclaration && (ts.getCombinedModifierFlags(symbol.valueDeclaration) & ts.ModifierFlags.Private) !== 0;
 }
 
@@ -1468,19 +1468,16 @@ function _hasInternalJsDocTag(symbol: ts.Symbol) {
 
 function _isProtected(symbol: ts.Symbol): boolean {
   return !!symbol.valueDeclaration
-    // tslint:disable-next-line:no-bitwise
     && (ts.getCombinedModifierFlags(symbol.valueDeclaration) & ts.ModifierFlags.Protected) !== 0;
 }
 
 function _isStatic(symbol: ts.Symbol): boolean {
   return !!symbol.valueDeclaration
-    // tslint:disable-next-line:no-bitwise
     && (ts.getCombinedModifierFlags(symbol.valueDeclaration) & ts.ModifierFlags.Static) !== 0;
 }
 
 function _isVoid(type: ts.Type): boolean {
-  // tslint:disable-next-line:no-bitwise
-  return ((type.flags & ts.TypeFlags.Void) !== 0);
+  return (type.flags & ts.TypeFlags.Void) !== 0;
 }
 
 function _isPromise(type: ts.Type): boolean {
@@ -1516,7 +1513,7 @@ function _sortMembers(type: spec.ClassType | spec.InterfaceType): spec.ClassType
         return [
           val.static ? '0' : '1',
           val.immutable ? '0' : '1',
-          !(val.optional) ? '0' : '1',
+          !val.optional ? '0' : '1',
           val.name
         ].join('|');
       }
@@ -1590,7 +1587,7 @@ function memberNames(jsiiType: spec.InterfaceType | spec.ClassType): string[] {
 }
 
 function typeMembers(jsiiType: spec.InterfaceType | spec.ClassType): {[key: string]: spec.Property | spec.Method} {
-  const ret: {[key: string]: spec.Property | spec.Method}  = {};
+  const ret: {[key: string]: spec.Property | spec.Method} = {};
 
   for (const prop of jsiiType.properties || []) {
     ret[prop.name] = prop;
@@ -1610,7 +1607,7 @@ function typeMembers(jsiiType: spec.InterfaceType | spec.ClassType): {[key: stri
  * (so we don't mark IonicColumnProps as an interface).
  */
 function isInterfaceName(name: string) {
-  return name.length >= 2 && name.charAt(0) === 'I' && name.charAt(1).toUpperCase() === name.charAt(1);
+  return name.length >= 2 && name.startsWith('I') && name.charAt(1).toUpperCase() === name.charAt(1);
 }
 
 function getConstructor(type: ts.Type): ts.Symbol | undefined {
@@ -1683,7 +1680,7 @@ function isProhibitedMemberName(name: string) {
  * Information about the context in which a declaration is emitted.
  */
 class EmitContext {
-  constructor(public readonly namespace: ReadonlyArray<string>, public readonly stability?: spec.Stability) {
+  public constructor(public readonly namespace: readonly string[], public readonly stability?: spec.Stability) {
   }
 
   /**
@@ -1711,4 +1708,12 @@ class EmitContext {
   public removeStability() {
     return new EmitContext(this.namespace, undefined);
   }
+}
+
+async function flattenPromises<T>(promises: Array<Promise<T[]>>): Promise<T[]> {
+  const result = new Array<T>();
+  for (const subset of await Promise.all(promises)) {
+    result.push(...subset);
+  }
+  return result;
 }

@@ -36,8 +36,8 @@ test('findClass', async () => {
 });
 
 test('"roots" is a list of the directly loaded assemblies', async () => {
-  await expect(typesys.roots.length).toBe(1);
-  await expect(typesys.roots[0]).toBe(typesys.findAssembly('jsii-calc'));
+  expect(typesys.roots.length).toBe(1);
+  expect(typesys.roots[0]).toBe(typesys.findAssembly('jsii-calc'));
 
   // now load another assembliy directly
   await typesys.load(resolveModuleDir('@scope/jsii-calc-lib'));
@@ -146,7 +146,7 @@ describe('Type', () => {
       // THEN
       expect(enumt.allImplementations).toEqual([]);
     });
-   });
+  });
 });
 
 test('Three Inheritance Levels', () => {

@@ -1,5 +1,5 @@
-import { Stability } from "jsii-spec";
-import { ApiMismatch, Mismatches } from "./types";
+import { Stability } from 'jsii-spec';
+import { ApiMismatch, Mismatches } from './types';
 
 export enum DiagLevel {
   Error = 0,
@@ -24,7 +24,7 @@ export function formatDiagnostic(diag: Diagnostic, includeSuppressionKey = false
     LEVEL_PREFIX[diag.level],
     '-',
     diag.message,
-    ...(includeSuppressionKey ? [`[${diag.suppressionKey}]`] : []),
+    ...includeSuppressionKey ? [`[${diag.suppressionKey}]`] : [],
   ].join(' ');
 }
 

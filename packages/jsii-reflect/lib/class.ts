@@ -9,7 +9,7 @@ import { TypeSystem } from './type-system';
 import { indexBy } from './util';
 
 export class ClassType extends ReferenceType {
-  constructor(
+  public constructor(
     public readonly system: TypeSystem,
     public readonly assembly: Assembly,
     private readonly classSpec: jsii.ClassType) {
@@ -97,17 +97,17 @@ export class ClassType extends ReferenceType {
     return true;
   }
 
-  private _getProperties(inherited: boolean, parentType: ReferenceType): {[name: string]: Property}  {
+  private _getProperties(inherited: boolean, parentType: ReferenceType): {[name: string]: Property} {
     const base = inherited && this.base ? this.base._getProperties(inherited, parentType) : {};
     return Object.assign(base, indexBy(
       (this.classSpec.properties || []).map(p => new Property(this.system, this.assembly, parentType, this, p)),
       p => p.name));
   }
 
-  private _getMethods(inherited: boolean, parentType: ReferenceType): {[name: string]: Method}  {
+  private _getMethods(inherited: boolean, parentType: ReferenceType): {[name: string]: Method} {
     const base = inherited && this.base ? this.base._getMethods(inherited, parentType) : {};
     return Object.assign(base, indexBy(
       (this.classSpec.methods || []).map(m => new Method(this.system, this.assembly, parentType, this, m)),
       m => m.name));
-    }
+  }
 }

@@ -1,4 +1,4 @@
-import { Assembly } from "./assembly";
+import { Assembly } from './assembly';
 
 /**
  * Describes a source location in a file
@@ -53,12 +53,12 @@ export function locationInRepository(item: SourceLocatable): SourceLocation | un
  *
  * (Currently only supports GitHub URLs)
  */
-export function repositoryUrl(item: SourceLocatable, ref: string = 'master'): string | undefined {
+export function repositoryUrl(item: SourceLocatable, ref = 'master'): string | undefined {
   const loc = locationInRepository(item);
   if (!loc) { return undefined; }
 
   const repo = item.assembly.repository;
-  if (!repo.url.startsWith('https://') || repo.url.indexOf("github.com") === -1 || !repo.url.endsWith('.git')) { return undefined; }
+  if (!repo.url.startsWith('https://') || !repo.url.includes('github.com') || !repo.url.endsWith('.git')) { return undefined; }
 
   // Turn https://github.com/awslabs/aws-cdk.git ->  https://github.com/awslabs/aws-cdk/blob/REF/filename#L<number>
 

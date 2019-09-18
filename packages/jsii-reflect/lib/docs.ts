@@ -9,12 +9,12 @@ export interface Documentable {
 export class Docs {
   public readonly docs: jsii.Docs;
 
-  constructor(
+  public constructor(
     public readonly system: TypeSystem,
     public readonly target: Documentable,
     spec: jsii.Docs,
     private readonly parentDocs?: Docs,
-    ) {
+  ) {
 
     this.docs = spec || {};
 

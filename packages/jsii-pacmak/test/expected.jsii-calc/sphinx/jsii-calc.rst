@@ -144,11 +144,11 @@ AbstractClass
 
       .. code-tab:: javascript
 
-         const { AbstractClass } = require('jsii-calc');
+         const { AbstractClass } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { AbstractClass } from 'jsii-calc';
+         import { AbstractClass } from 'jsii-calc';
 
 
 
@@ -202,11 +202,11 @@ AbstractClassBase
 
       .. code-tab:: javascript
 
-         const { AbstractClassBase } = require('jsii-calc');
+         const { AbstractClassBase } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { AbstractClassBase } from 'jsii-calc';
+         import { AbstractClassBase } from 'jsii-calc';
 
 
 
@@ -236,11 +236,11 @@ AbstractClassReturner
 
       .. code-tab:: javascript
 
-         const { AbstractClassReturner } = require('jsii-calc');
+         const { AbstractClassReturner } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { AbstractClassReturner } from 'jsii-calc';
+         import { AbstractClassReturner } from 'jsii-calc';
 
 
 
@@ -279,11 +279,11 @@ Add
 
       .. code-tab:: javascript
 
-         const { Add } = require('jsii-calc');
+         const { Add } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { Add } from 'jsii-calc';
+         import { Add } from 'jsii-calc';
 
 
 
@@ -379,11 +379,11 @@ AllTypes
 
       .. code-tab:: javascript
 
-         const { AllTypes } = require('jsii-calc');
+         const { AllTypes } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { AllTypes } from 'jsii-calc';
+         import { AllTypes } from 'jsii-calc';
 
 
 
@@ -530,11 +530,11 @@ AllTypesEnum (enum)
 
       .. code-tab:: javascript
 
-         const { AllTypesEnum } = require('jsii-calc');
+         const { AllTypesEnum } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { AllTypesEnum } from 'jsii-calc';
+         import { AllTypesEnum } from 'jsii-calc';
 
 
 
@@ -564,11 +564,11 @@ AllowedMethodNames
 
       .. code-tab:: javascript
 
-         const { AllowedMethodNames } = require('jsii-calc');
+         const { AllowedMethodNames } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { AllowedMethodNames } from 'jsii-calc';
+         import { AllowedMethodNames } from 'jsii-calc';
 
 
 
@@ -633,11 +633,11 @@ AsyncVirtualMethods
 
       .. code-tab:: javascript
 
-         const { AsyncVirtualMethods } = require('jsii-calc');
+         const { AsyncVirtualMethods } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { AsyncVirtualMethods } from 'jsii-calc';
+         import { AsyncVirtualMethods } from 'jsii-calc';
 
 
 
@@ -709,11 +709,11 @@ AugmentableClass
 
       .. code-tab:: javascript
 
-         const { AugmentableClass } = require('jsii-calc');
+         const { AugmentableClass } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { AugmentableClass } from 'jsii-calc';
+         import { AugmentableClass } from 'jsii-calc';
 
 
 
@@ -745,11 +745,11 @@ BinaryOperation
 
       .. code-tab:: javascript
 
-         const { BinaryOperation } = require('jsii-calc');
+         const { BinaryOperation } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { BinaryOperation } from 'jsii-calc';
+         import { BinaryOperation } from 'jsii-calc';
 
 
 
@@ -844,11 +844,11 @@ Calculator
 
       .. code-tab:: javascript
 
-         const { Calculator } = require('jsii-calc');
+         const { Calculator } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { Calculator } from 'jsii-calc';
+         import { Calculator } from 'jsii-calc';
 
 
 
@@ -1049,7 +1049,7 @@ CalculatorProps (interface)
 
       .. code-tab:: typescript
 
-         import { CalculatorProps } from 'jsii-calc';
+         import { CalculatorProps } from 'jsii-calc';
 
 
 
@@ -1088,11 +1088,11 @@ ClassThatImplementsTheInternalInterface
 
       .. code-tab:: javascript
 
-         const { ClassThatImplementsTheInternalInterface } = require('jsii-calc');
+         const { ClassThatImplementsTheInternalInterface } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { ClassThatImplementsTheInternalInterface } from 'jsii-calc';
+         import { ClassThatImplementsTheInternalInterface } from 'jsii-calc';
 
 
 
@@ -1143,11 +1143,11 @@ ClassThatImplementsThePrivateInterface
 
       .. code-tab:: javascript
 
-         const { ClassThatImplementsThePrivateInterface } = require('jsii-calc');
+         const { ClassThatImplementsThePrivateInterface } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { ClassThatImplementsThePrivateInterface } from 'jsii-calc';
+         import { ClassThatImplementsThePrivateInterface } from 'jsii-calc';
 
 
 
@@ -1198,11 +1198,11 @@ ClassWithCollections
 
       .. code-tab:: javascript
 
-         const { ClassWithCollections } = require('jsii-calc');
+         const { ClassWithCollections } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { ClassWithCollections } from 'jsii-calc';
+         import { ClassWithCollections } from 'jsii-calc';
 
 
 
@@ -1260,11 +1260,11 @@ ClassWithDocs
 
       .. code-tab:: javascript
 
-         const { ClassWithDocs } = require('jsii-calc');
+         const { ClassWithDocs } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { ClassWithDocs } from 'jsii-calc';
+         import { ClassWithDocs } from 'jsii-calc';
 
 
 
@@ -1297,11 +1297,11 @@ ClassWithJavaReservedWords
 
       .. code-tab:: javascript
 
-         const { ClassWithJavaReservedWords } = require('jsii-calc');
+         const { ClassWithJavaReservedWords } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { ClassWithJavaReservedWords } from 'jsii-calc';
+         import { ClassWithJavaReservedWords } from 'jsii-calc';
 
 
 
@@ -1339,11 +1339,11 @@ ClassWithMutableObjectLiteralProperty
 
       .. code-tab:: javascript
 
-         const { ClassWithMutableObjectLiteralProperty } = require('jsii-calc');
+         const { ClassWithMutableObjectLiteralProperty } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { ClassWithMutableObjectLiteralProperty } from 'jsii-calc';
+         import { ClassWithMutableObjectLiteralProperty } from 'jsii-calc';
 
 
 
@@ -1372,11 +1372,11 @@ ClassWithPrivateConstructorAndAutomaticProperties
 
       .. code-tab:: javascript
 
-         const { ClassWithPrivateConstructorAndAutomaticProperties } = require('jsii-calc');
+         const { ClassWithPrivateConstructorAndAutomaticProperties } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { ClassWithPrivateConstructorAndAutomaticProperties } from 'jsii-calc';
+         import { ClassWithPrivateConstructorAndAutomaticProperties } from 'jsii-calc';
 
 
 
@@ -1428,11 +1428,11 @@ ConstructorPassesThisOut
 
       .. code-tab:: javascript
 
-         const { ConstructorPassesThisOut } = require('jsii-calc');
+         const { ConstructorPassesThisOut } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { ConstructorPassesThisOut } from 'jsii-calc';
+         import { ConstructorPassesThisOut } from 'jsii-calc';
 
 
 
@@ -1458,11 +1458,11 @@ Constructors
 
       .. code-tab:: javascript
 
-         const { Constructors } = require('jsii-calc');
+         const { Constructors } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { Constructors } from 'jsii-calc';
+         import { Constructors } from 'jsii-calc';
 
 
 
@@ -1521,11 +1521,11 @@ ConsumersOfThisCrazyTypeSystem
 
       .. code-tab:: javascript
 
-         const { ConsumersOfThisCrazyTypeSystem } = require('jsii-calc');
+         const { ConsumersOfThisCrazyTypeSystem } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { ConsumersOfThisCrazyTypeSystem } from 'jsii-calc';
+         import { ConsumersOfThisCrazyTypeSystem } from 'jsii-calc';
 
 
 
@@ -1563,11 +1563,11 @@ DataRenderer
 
       .. code-tab:: javascript
 
-         const { DataRenderer } = require('jsii-calc');
+         const { DataRenderer } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { DataRenderer } from 'jsii-calc';
+         import { DataRenderer } from 'jsii-calc';
 
 
 
@@ -1616,11 +1616,11 @@ DefaultedConstructorArgument
 
       .. code-tab:: javascript
 
-         const { DefaultedConstructorArgument } = require('jsii-calc');
+         const { DefaultedConstructorArgument } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { DefaultedConstructorArgument } from 'jsii-calc';
+         import { DefaultedConstructorArgument } from 'jsii-calc';
 
 
 
@@ -1665,11 +1665,11 @@ DeprecatedClass
 
       .. code-tab:: javascript
 
-         const { DeprecatedClass } = require('jsii-calc');
+         const { DeprecatedClass } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { DeprecatedClass } from 'jsii-calc';
+         import { DeprecatedClass } from 'jsii-calc';
 
 
 
@@ -1711,11 +1711,11 @@ DeprecatedEnum (enum)
 
       .. code-tab:: javascript
 
-         const { DeprecatedEnum } = require('jsii-calc');
+         const { DeprecatedEnum } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { DeprecatedEnum } from 'jsii-calc';
+         import { DeprecatedEnum } from 'jsii-calc';
 
 
 
@@ -1747,7 +1747,7 @@ DeprecatedStruct (interface)
 
       .. code-tab:: typescript
 
-         import { DeprecatedStruct } from 'jsii-calc';
+         import { DeprecatedStruct } from 'jsii-calc';
 
 
 
@@ -1782,11 +1782,11 @@ Base
 
       .. code-tab:: javascript
 
-         const { DerivedClassHasNoProperties.Base } = require('jsii-calc');
+         const { DerivedClassHasNoProperties.Base } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { DerivedClassHasNoProperties.Base } from 'jsii-calc';
+         import { DerivedClassHasNoProperties.Base } from 'jsii-calc';
 
 
 
@@ -1815,11 +1815,11 @@ Derived
 
       .. code-tab:: javascript
 
-         const { DerivedClassHasNoProperties.Derived } = require('jsii-calc');
+         const { DerivedClassHasNoProperties.Derived } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { DerivedClassHasNoProperties.Derived } from 'jsii-calc';
+         import { DerivedClassHasNoProperties.Derived } from 'jsii-calc';
 
 
 
@@ -1858,7 +1858,7 @@ DerivedStruct (interface)
 
       .. code-tab:: typescript
 
-         import { DerivedStruct } from 'jsii-calc';
+         import { DerivedStruct } from 'jsii-calc';
 
 
 
@@ -1959,7 +1959,7 @@ DiamondInheritanceBaseLevelStruct (interface)
 
       .. code-tab:: typescript
 
-         import { DiamondInheritanceBaseLevelStruct } from 'jsii-calc';
+         import { DiamondInheritanceBaseLevelStruct } from 'jsii-calc';
 
 
 
@@ -1993,7 +1993,7 @@ DiamondInheritanceFirstMidLevelStruct (interface)
 
       .. code-tab:: typescript
 
-         import { DiamondInheritanceFirstMidLevelStruct } from 'jsii-calc';
+         import { DiamondInheritanceFirstMidLevelStruct } from 'jsii-calc';
 
 
 
@@ -2035,7 +2035,7 @@ DiamondInheritanceSecondMidLevelStruct (interface)
 
       .. code-tab:: typescript
 
-         import { DiamondInheritanceSecondMidLevelStruct } from 'jsii-calc';
+         import { DiamondInheritanceSecondMidLevelStruct } from 'jsii-calc';
 
 
 
@@ -2077,7 +2077,7 @@ DiamondInheritanceTopLevelStruct (interface)
 
       .. code-tab:: typescript
 
-         import { DiamondInheritanceTopLevelStruct } from 'jsii-calc';
+         import { DiamondInheritanceTopLevelStruct } from 'jsii-calc';
 
 
 
@@ -2130,11 +2130,11 @@ DoNotOverridePrivates
 
       .. code-tab:: javascript
 
-         const { DoNotOverridePrivates } = require('jsii-calc');
+         const { DoNotOverridePrivates } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { DoNotOverridePrivates } from 'jsii-calc';
+         import { DoNotOverridePrivates } from 'jsii-calc';
 
 
 
@@ -2174,11 +2174,11 @@ DoNotRecognizeAnyAsOptional
 
       .. code-tab:: javascript
 
-         const { DoNotRecognizeAnyAsOptional } = require('jsii-calc');
+         const { DoNotRecognizeAnyAsOptional } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { DoNotRecognizeAnyAsOptional } from 'jsii-calc';
+         import { DoNotRecognizeAnyAsOptional } from 'jsii-calc';
 
 
 
@@ -2216,11 +2216,11 @@ DocumentedClass
 
       .. code-tab:: javascript
 
-         const { DocumentedClass } = require('jsii-calc');
+         const { DocumentedClass } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { DocumentedClass } from 'jsii-calc';
+         import { DocumentedClass } from 'jsii-calc';
 
 
 
@@ -2284,11 +2284,11 @@ DontComplainAboutVariadicAfterOptional
 
       .. code-tab:: javascript
 
-         const { DontComplainAboutVariadicAfterOptional } = require('jsii-calc');
+         const { DontComplainAboutVariadicAfterOptional } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { DontComplainAboutVariadicAfterOptional } from 'jsii-calc';
+         import { DontComplainAboutVariadicAfterOptional } from 'jsii-calc';
 
 
 
@@ -2321,11 +2321,11 @@ DoubleTrouble
 
       .. code-tab:: javascript
 
-         const { DoubleTrouble } = require('jsii-calc');
+         const { DoubleTrouble } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { DoubleTrouble } from 'jsii-calc';
+         import { DoubleTrouble } from 'jsii-calc';
 
 
 
@@ -2372,11 +2372,11 @@ EnumDispenser
 
       .. code-tab:: javascript
 
-         const { EnumDispenser } = require('jsii-calc');
+         const { EnumDispenser } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { EnumDispenser } from 'jsii-calc';
+         import { EnumDispenser } from 'jsii-calc';
 
 
 
@@ -2410,11 +2410,11 @@ EraseUndefinedHashValues
 
       .. code-tab:: javascript
 
-         const { EraseUndefinedHashValues } = require('jsii-calc');
+         const { EraseUndefinedHashValues } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { EraseUndefinedHashValues } from 'jsii-calc';
+         import { EraseUndefinedHashValues } from 'jsii-calc';
 
 
 
@@ -2479,7 +2479,7 @@ EraseUndefinedHashValuesOptions (interface)
 
       .. code-tab:: typescript
 
-         import { EraseUndefinedHashValuesOptions } from 'jsii-calc';
+         import { EraseUndefinedHashValuesOptions } from 'jsii-calc';
 
 
 
@@ -2514,11 +2514,11 @@ ExperimentalClass
 
       .. code-tab:: javascript
 
-         const { ExperimentalClass } = require('jsii-calc');
+         const { ExperimentalClass } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { ExperimentalClass } from 'jsii-calc';
+         import { ExperimentalClass } from 'jsii-calc';
 
 
 
@@ -2560,11 +2560,11 @@ ExperimentalEnum (enum)
 
       .. code-tab:: javascript
 
-         const { ExperimentalEnum } = require('jsii-calc');
+         const { ExperimentalEnum } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { ExperimentalEnum } from 'jsii-calc';
+         import { ExperimentalEnum } from 'jsii-calc';
 
 
 
@@ -2596,7 +2596,7 @@ ExperimentalStruct (interface)
 
       .. code-tab:: typescript
 
-         import { ExperimentalStruct } from 'jsii-calc';
+         import { ExperimentalStruct } from 'jsii-calc';
 
 
 
@@ -2626,11 +2626,11 @@ ExportedBaseClass
 
       .. code-tab:: javascript
 
-         const { ExportedBaseClass } = require('jsii-calc');
+         const { ExportedBaseClass } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { ExportedBaseClass } from 'jsii-calc';
+         import { ExportedBaseClass } from 'jsii-calc';
 
 
 
@@ -2665,7 +2665,7 @@ ExtendsInternalInterface (interface)
 
       .. code-tab:: typescript
 
-         import { ExtendsInternalInterface } from 'jsii-calc';
+         import { ExtendsInternalInterface } from 'jsii-calc';
 
 
 
@@ -2700,11 +2700,11 @@ GiveMeStructs
 
       .. code-tab:: javascript
 
-         const { GiveMeStructs } = require('jsii-calc');
+         const { GiveMeStructs } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { GiveMeStructs } from 'jsii-calc';
+         import { GiveMeStructs } from 'jsii-calc';
 
 
 
@@ -2770,7 +2770,7 @@ Greetee (interface)
 
       .. code-tab:: typescript
 
-         import { Greetee } from 'jsii-calc';
+         import { Greetee } from 'jsii-calc';
 
 
 
@@ -2809,11 +2809,11 @@ GreetingAugmenter
 
       .. code-tab:: javascript
 
-         const { GreetingAugmenter } = require('jsii-calc');
+         const { GreetingAugmenter } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { GreetingAugmenter } from 'jsii-calc';
+         import { GreetingAugmenter } from 'jsii-calc';
 
 
 
@@ -2848,7 +2848,7 @@ IAnotherPublicInterface (interface)
 
       .. code-tab:: typescript
 
-         import { IAnotherPublicInterface } from 'jsii-calc';
+         import { IAnotherPublicInterface } from 'jsii-calc';
 
 
 
@@ -2882,7 +2882,7 @@ IDeprecatedInterface (interface)
 
       .. code-tab:: typescript
 
-         import { IDeprecatedInterface } from 'jsii-calc';
+         import { IDeprecatedInterface } from 'jsii-calc';
 
 
 
@@ -2921,7 +2921,7 @@ IExperimentalInterface (interface)
 
       .. code-tab:: typescript
 
-         import { IExperimentalInterface } from 'jsii-calc';
+         import { IExperimentalInterface } from 'jsii-calc';
 
 
 
@@ -2960,7 +2960,7 @@ IExtendsPrivateInterface (interface)
 
       .. code-tab:: typescript
 
-         import { IExtendsPrivateInterface } from 'jsii-calc';
+         import { IExtendsPrivateInterface } from 'jsii-calc';
 
 
 
@@ -2999,7 +2999,7 @@ IFriendlier (interface)
 
       .. code-tab:: typescript
 
-         import { IFriendlier } from 'jsii-calc';
+         import { IFriendlier } from 'jsii-calc';
 
 
 
@@ -3066,7 +3066,7 @@ IFriendlyRandomGenerator (interface)
 
       .. code-tab:: typescript
 
-         import { IFriendlyRandomGenerator } from 'jsii-calc';
+         import { IFriendlyRandomGenerator } from 'jsii-calc';
 
 
 
@@ -3122,7 +3122,7 @@ IInterfaceImplementedByAbstractClass (interface)
 
       .. code-tab:: typescript
 
-         import { IInterfaceImplementedByAbstractClass } from 'jsii-calc';
+         import { IInterfaceImplementedByAbstractClass } from 'jsii-calc';
 
 
 
@@ -3160,7 +3160,7 @@ IInterfaceThatShouldNotBeADataType (interface)
 
       .. code-tab:: typescript
 
-         import { IInterfaceThatShouldNotBeADataType } from 'jsii-calc';
+         import { IInterfaceThatShouldNotBeADataType } from 'jsii-calc';
 
 
 
@@ -3213,7 +3213,7 @@ IInterfaceWithInternal (interface)
 
       .. code-tab:: typescript
 
-         import { IInterfaceWithInternal } from 'jsii-calc';
+         import { IInterfaceWithInternal } from 'jsii-calc';
 
 
 
@@ -3247,7 +3247,7 @@ IInterfaceWithMethods (interface)
 
       .. code-tab:: typescript
 
-         import { IInterfaceWithMethods } from 'jsii-calc';
+         import { IInterfaceWithMethods } from 'jsii-calc';
 
 
 
@@ -3286,7 +3286,7 @@ IInterfaceWithOptionalMethodArguments (interface)
 
       .. code-tab:: typescript
 
-         import { IInterfaceWithOptionalMethodArguments } from 'jsii-calc';
+         import { IInterfaceWithOptionalMethodArguments } from 'jsii-calc';
 
 
 
@@ -3328,7 +3328,7 @@ IInterfaceWithProperties (interface)
 
       .. code-tab:: typescript
 
-         import { IInterfaceWithProperties } from 'jsii-calc';
+         import { IInterfaceWithProperties } from 'jsii-calc';
 
 
 
@@ -3367,7 +3367,7 @@ IInterfaceWithPropertiesExtension (interface)
 
       .. code-tab:: typescript
 
-         import { IInterfaceWithPropertiesExtension } from 'jsii-calc';
+         import { IInterfaceWithPropertiesExtension } from 'jsii-calc';
 
 
 
@@ -3416,7 +3416,7 @@ IJSII417Derived (interface)
 
       .. code-tab:: typescript
 
-         import { IJSII417Derived } from 'jsii-calc';
+         import { IJSII417Derived } from 'jsii-calc';
 
 
 
@@ -3475,7 +3475,7 @@ IJSII417PublicBaseOfBase (interface)
 
       .. code-tab:: typescript
 
-         import { IJSII417PublicBaseOfBase } from 'jsii-calc';
+         import { IJSII417PublicBaseOfBase } from 'jsii-calc';
 
 
 
@@ -3514,7 +3514,7 @@ IJsii487External (interface)
 
       .. code-tab:: typescript
 
-         import { IJsii487External } from 'jsii-calc';
+         import { IJsii487External } from 'jsii-calc';
 
 
 
@@ -3543,7 +3543,7 @@ IJsii487External2 (interface)
 
       .. code-tab:: typescript
 
-         import { IJsii487External2 } from 'jsii-calc';
+         import { IJsii487External2 } from 'jsii-calc';
 
 
 
@@ -3572,7 +3572,7 @@ IJsii496 (interface)
 
       .. code-tab:: typescript
 
-         import { IJsii496 } from 'jsii-calc';
+         import { IJsii496 } from 'jsii-calc';
 
 
 
@@ -3601,7 +3601,7 @@ IMutableObjectLiteral (interface)
 
       .. code-tab:: typescript
 
-         import { IMutableObjectLiteral } from 'jsii-calc';
+         import { IMutableObjectLiteral } from 'jsii-calc';
 
 
 
@@ -3635,7 +3635,7 @@ INonInternalInterface (interface)
 
       .. code-tab:: typescript
 
-         import { INonInternalInterface } from 'jsii-calc';
+         import { INonInternalInterface } from 'jsii-calc';
 
 
 
@@ -3682,7 +3682,7 @@ IPrivatelyImplemented (interface)
 
       .. code-tab:: typescript
 
-         import { IPrivatelyImplemented } from 'jsii-calc';
+         import { IPrivatelyImplemented } from 'jsii-calc';
 
 
 
@@ -3716,7 +3716,7 @@ IPublicInterface (interface)
 
       .. code-tab:: typescript
 
-         import { IPublicInterface } from 'jsii-calc';
+         import { IPublicInterface } from 'jsii-calc';
 
 
 
@@ -3751,7 +3751,7 @@ IPublicInterface2 (interface)
 
       .. code-tab:: typescript
 
-         import { IPublicInterface2 } from 'jsii-calc';
+         import { IPublicInterface2 } from 'jsii-calc';
 
 
 
@@ -3786,7 +3786,7 @@ IRandomNumberGenerator (interface)
 
       .. code-tab:: typescript
 
-         import { IRandomNumberGenerator } from 'jsii-calc';
+         import { IRandomNumberGenerator } from 'jsii-calc';
 
 
 
@@ -3830,7 +3830,7 @@ IReturnsNumber (interface)
 
       .. code-tab:: typescript
 
-         import { IReturnsNumber } from 'jsii-calc';
+         import { IReturnsNumber } from 'jsii-calc';
 
 
 
@@ -3870,7 +3870,7 @@ IStableInterface (interface)
 
       .. code-tab:: typescript
 
-         import { IStableInterface } from 'jsii-calc';
+         import { IStableInterface } from 'jsii-calc';
 
 
 
@@ -3905,11 +3905,11 @@ ImplementInternalInterface
 
       .. code-tab:: javascript
 
-         const { ImplementInternalInterface } = require('jsii-calc');
+         const { ImplementInternalInterface } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { ImplementInternalInterface } from 'jsii-calc';
+         import { ImplementInternalInterface } from 'jsii-calc';
 
 
 
@@ -3938,11 +3938,11 @@ ImplementsInterfaceWithInternal
 
       .. code-tab:: javascript
 
-         const { ImplementsInterfaceWithInternal } = require('jsii-calc');
+         const { ImplementsInterfaceWithInternal } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { ImplementsInterfaceWithInternal } from 'jsii-calc';
+         import { ImplementsInterfaceWithInternal } from 'jsii-calc';
 
 
 
@@ -3973,11 +3973,11 @@ ImplementsInterfaceWithInternalSubclass
 
       .. code-tab:: javascript
 
-         const { ImplementsInterfaceWithInternalSubclass } = require('jsii-calc');
+         const { ImplementsInterfaceWithInternalSubclass } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { ImplementsInterfaceWithInternalSubclass } from 'jsii-calc';
+         import { ImplementsInterfaceWithInternalSubclass } from 'jsii-calc';
 
 
 
@@ -4008,11 +4008,11 @@ ImplementsPrivateInterface
 
       .. code-tab:: javascript
 
-         const { ImplementsPrivateInterface } = require('jsii-calc');
+         const { ImplementsPrivateInterface } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { ImplementsPrivateInterface } from 'jsii-calc';
+         import { ImplementsPrivateInterface } from 'jsii-calc';
 
 
 
@@ -4045,7 +4045,7 @@ ImplictBaseOfBase (interface)
 
       .. code-tab:: typescript
 
-         import { ImplictBaseOfBase } from 'jsii-calc';
+         import { ImplictBaseOfBase } from 'jsii-calc';
 
 
 
@@ -4090,11 +4090,11 @@ InbetweenClass
 
       .. code-tab:: javascript
 
-         const { InbetweenClass } = require('jsii-calc');
+         const { InbetweenClass } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { InbetweenClass } from 'jsii-calc';
+         import { InbetweenClass } from 'jsii-calc';
 
 
 
@@ -4138,11 +4138,11 @@ Foo
 
       .. code-tab:: javascript
 
-         const { InterfaceInNamespaceIncludesClasses.Foo } = require('jsii-calc');
+         const { InterfaceInNamespaceIncludesClasses.Foo } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { InterfaceInNamespaceIncludesClasses.Foo } from 'jsii-calc';
+         import { InterfaceInNamespaceIncludesClasses.Foo } from 'jsii-calc';
 
 
 
@@ -4175,7 +4175,7 @@ Hello (interface)
 
       .. code-tab:: typescript
 
-         import { InterfaceInNamespaceIncludesClasses.Hello } from 'jsii-calc';
+         import { InterfaceInNamespaceIncludesClasses.Hello } from 'jsii-calc';
 
 
 
@@ -4217,7 +4217,7 @@ Hello (interface)
 
       .. code-tab:: typescript
 
-         import { InterfaceInNamespaceOnlyInterface.Hello } from 'jsii-calc';
+         import { InterfaceInNamespaceOnlyInterface.Hello } from 'jsii-calc';
 
 
 
@@ -4250,11 +4250,11 @@ InterfacesMaker
 
       .. code-tab:: javascript
 
-         const { InterfacesMaker } = require('jsii-calc');
+         const { InterfacesMaker } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { InterfacesMaker } from 'jsii-calc';
+         import { InterfacesMaker } from 'jsii-calc';
 
 
 
@@ -4289,11 +4289,11 @@ JSII417Derived
 
       .. code-tab:: javascript
 
-         const { JSII417Derived } = require('jsii-calc');
+         const { JSII417Derived } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { JSII417Derived } from 'jsii-calc';
+         import { JSII417Derived } from 'jsii-calc';
 
 
 
@@ -4348,11 +4348,11 @@ JSII417PublicBaseOfBase
 
       .. code-tab:: javascript
 
-         const { JSII417PublicBaseOfBase } = require('jsii-calc');
+         const { JSII417PublicBaseOfBase } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { JSII417PublicBaseOfBase } from 'jsii-calc';
+         import { JSII417PublicBaseOfBase } from 'jsii-calc';
 
 
 
@@ -4390,11 +4390,11 @@ JSObjectLiteralForInterface
 
       .. code-tab:: javascript
 
-         const { JSObjectLiteralForInterface } = require('jsii-calc');
+         const { JSObjectLiteralForInterface } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { JSObjectLiteralForInterface } from 'jsii-calc';
+         import { JSObjectLiteralForInterface } from 'jsii-calc';
 
 
 
@@ -4428,11 +4428,11 @@ JSObjectLiteralToNative
 
       .. code-tab:: javascript
 
-         const { JSObjectLiteralToNative } = require('jsii-calc');
+         const { JSObjectLiteralToNative } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { JSObjectLiteralToNative } from 'jsii-calc';
+         import { JSObjectLiteralToNative } from 'jsii-calc';
 
 
 
@@ -4461,11 +4461,11 @@ JSObjectLiteralToNativeClass
 
       .. code-tab:: javascript
 
-         const { JSObjectLiteralToNativeClass } = require('jsii-calc');
+         const { JSObjectLiteralToNativeClass } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { JSObjectLiteralToNativeClass } from 'jsii-calc';
+         import { JSObjectLiteralToNativeClass } from 'jsii-calc';
 
 
 
@@ -4499,11 +4499,11 @@ JavaReservedWords
 
       .. code-tab:: javascript
 
-         const { JavaReservedWords } = require('jsii-calc');
+         const { JavaReservedWords } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { JavaReservedWords } from 'jsii-calc';
+         import { JavaReservedWords } from 'jsii-calc';
 
 
 
@@ -4740,11 +4740,11 @@ Jsii487Derived
 
       .. code-tab:: javascript
 
-         const { Jsii487Derived } = require('jsii-calc');
+         const { Jsii487Derived } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { Jsii487Derived } from 'jsii-calc';
+         import { Jsii487Derived } from 'jsii-calc';
 
 
 
@@ -4770,11 +4770,11 @@ Jsii496Derived
 
       .. code-tab:: javascript
 
-         const { Jsii496Derived } = require('jsii-calc');
+         const { Jsii496Derived } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { Jsii496Derived } from 'jsii-calc';
+         import { Jsii496Derived } from 'jsii-calc';
 
 
 
@@ -4799,11 +4799,11 @@ JsiiAgent
 
       .. code-tab:: javascript
 
-         const { JsiiAgent } = require('jsii-calc');
+         const { JsiiAgent } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { JsiiAgent } from 'jsii-calc';
+         import { JsiiAgent } from 'jsii-calc';
 
 
 
@@ -4844,7 +4844,7 @@ LoadBalancedFargateServiceProps (interface)
 
       .. code-tab:: typescript
 
-         import { LoadBalancedFargateServiceProps } from 'jsii-calc';
+         import { LoadBalancedFargateServiceProps } from 'jsii-calc';
 
 
 
@@ -4961,11 +4961,11 @@ Multiply
 
       .. code-tab:: javascript
 
-         const { Multiply } = require('jsii-calc');
+         const { Multiply } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { Multiply } from 'jsii-calc';
+         import { Multiply } from 'jsii-calc';
 
 
 
@@ -5096,11 +5096,11 @@ Negate
 
       .. code-tab:: javascript
 
-         const { Negate } = require('jsii-calc');
+         const { Negate } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { Negate } from 'jsii-calc';
+         import { Negate } from 'jsii-calc';
 
 
 
@@ -5202,11 +5202,11 @@ NodeStandardLibrary
 
       .. code-tab:: javascript
 
-         const { NodeStandardLibrary } = require('jsii-calc');
+         const { NodeStandardLibrary } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { NodeStandardLibrary } from 'jsii-calc';
+         import { NodeStandardLibrary } from 'jsii-calc';
 
 
 
@@ -5273,11 +5273,11 @@ NullShouldBeTreatedAsUndefined
 
       .. code-tab:: javascript
 
-         const { NullShouldBeTreatedAsUndefined } = require('jsii-calc');
+         const { NullShouldBeTreatedAsUndefined } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { NullShouldBeTreatedAsUndefined } from 'jsii-calc';
+         import { NullShouldBeTreatedAsUndefined } from 'jsii-calc';
 
 
 
@@ -5334,7 +5334,7 @@ NullShouldBeTreatedAsUndefinedData (interface)
 
       .. code-tab:: typescript
 
-         import { NullShouldBeTreatedAsUndefinedData } from 'jsii-calc';
+         import { NullShouldBeTreatedAsUndefinedData } from 'jsii-calc';
 
 
 
@@ -5369,11 +5369,11 @@ NumberGenerator
 
       .. code-tab:: javascript
 
-         const { NumberGenerator } = require('jsii-calc');
+         const { NumberGenerator } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { NumberGenerator } from 'jsii-calc';
+         import { NumberGenerator } from 'jsii-calc';
 
 
 
@@ -5420,11 +5420,11 @@ ObjectRefsInCollections
 
       .. code-tab:: javascript
 
-         const { ObjectRefsInCollections } = require('jsii-calc');
+         const { ObjectRefsInCollections } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { ObjectRefsInCollections } from 'jsii-calc';
+         import { ObjectRefsInCollections } from 'jsii-calc';
 
 
 
@@ -5474,11 +5474,11 @@ Old
 
       .. code-tab:: javascript
 
-         const { Old } = require('jsii-calc');
+         const { Old } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { Old } from 'jsii-calc';
+         import { Old } from 'jsii-calc';
 
 
 
@@ -5514,11 +5514,11 @@ OptionalConstructorArgument
 
       .. code-tab:: javascript
 
-         const { OptionalConstructorArgument } = require('jsii-calc');
+         const { OptionalConstructorArgument } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { OptionalConstructorArgument } from 'jsii-calc';
+         import { OptionalConstructorArgument } from 'jsii-calc';
 
 
 
@@ -5567,7 +5567,7 @@ OptionalStruct (interface)
 
       .. code-tab:: typescript
 
-         import { OptionalStruct } from 'jsii-calc';
+         import { OptionalStruct } from 'jsii-calc';
 
 
 
@@ -5597,11 +5597,11 @@ OptionalStructConsumer
 
       .. code-tab:: javascript
 
-         const { OptionalStructConsumer } = require('jsii-calc');
+         const { OptionalStructConsumer } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { OptionalStructConsumer } from 'jsii-calc';
+         import { OptionalStructConsumer } from 'jsii-calc';
 
 
 
@@ -5637,11 +5637,11 @@ OverrideReturnsObject
 
       .. code-tab:: javascript
 
-         const { OverrideReturnsObject } = require('jsii-calc');
+         const { OverrideReturnsObject } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { OverrideReturnsObject } from 'jsii-calc';
+         import { OverrideReturnsObject } from 'jsii-calc';
 
 
 
@@ -5672,11 +5672,11 @@ PartiallyInitializedThisConsumer
 
       .. code-tab:: javascript
 
-         const { PartiallyInitializedThisConsumer } = require('jsii-calc');
+         const { PartiallyInitializedThisConsumer } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { PartiallyInitializedThisConsumer } from 'jsii-calc';
+         import { PartiallyInitializedThisConsumer } from 'jsii-calc';
 
 
 
@@ -5713,11 +5713,11 @@ Polymorphism
 
       .. code-tab:: javascript
 
-         const { Polymorphism } = require('jsii-calc');
+         const { Polymorphism } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { Polymorphism } from 'jsii-calc';
+         import { Polymorphism } from 'jsii-calc';
 
 
 
@@ -5748,11 +5748,11 @@ Power
 
       .. code-tab:: javascript
 
-         const { Power } = require('jsii-calc');
+         const { Power } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { Power } from 'jsii-calc';
+         import { Power } from 'jsii-calc';
 
 
 
@@ -5877,11 +5877,11 @@ PublicClass
 
       .. code-tab:: javascript
 
-         const { PublicClass } = require('jsii-calc');
+         const { PublicClass } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { PublicClass } from 'jsii-calc';
+         import { PublicClass } from 'jsii-calc';
 
 
 
@@ -5909,11 +5909,11 @@ PythonReservedWords
 
       .. code-tab:: javascript
 
-         const { PythonReservedWords } = require('jsii-calc');
+         const { PythonReservedWords } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { PythonReservedWords } from 'jsii-calc';
+         import { PythonReservedWords } from 'jsii-calc';
 
 
 
@@ -6065,11 +6065,11 @@ ReferenceEnumFromScopedPackage
 
       .. code-tab:: javascript
 
-         const { ReferenceEnumFromScopedPackage } = require('jsii-calc');
+         const { ReferenceEnumFromScopedPackage } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { ReferenceEnumFromScopedPackage } from 'jsii-calc';
+         import { ReferenceEnumFromScopedPackage } from 'jsii-calc';
 
 
 
@@ -6113,11 +6113,11 @@ ReturnsPrivateImplementationOfInterface
 
       .. code-tab:: javascript
 
-         const { ReturnsPrivateImplementationOfInterface } = require('jsii-calc');
+         const { ReturnsPrivateImplementationOfInterface } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { ReturnsPrivateImplementationOfInterface } from 'jsii-calc';
+         import { ReturnsPrivateImplementationOfInterface } from 'jsii-calc';
 
 
 
@@ -6151,11 +6151,11 @@ RuntimeTypeChecking
 
       .. code-tab:: javascript
 
-         const { RuntimeTypeChecking } = require('jsii-calc');
+         const { RuntimeTypeChecking } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { RuntimeTypeChecking } from 'jsii-calc';
+         import { RuntimeTypeChecking } from 'jsii-calc';
 
 
 
@@ -6213,7 +6213,7 @@ SecondLevelStruct (interface)
 
       .. code-tab:: typescript
 
-         import { SecondLevelStruct } from 'jsii-calc';
+         import { SecondLevelStruct } from 'jsii-calc';
 
 
 
@@ -6256,11 +6256,11 @@ SingleInstanceTwoTypes
 
       .. code-tab:: javascript
 
-         const { SingleInstanceTwoTypes } = require('jsii-calc');
+         const { SingleInstanceTwoTypes } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { SingleInstanceTwoTypes } from 'jsii-calc';
+         import { SingleInstanceTwoTypes } from 'jsii-calc';
 
 
 
@@ -6306,11 +6306,11 @@ SingletonInt
 
       .. code-tab:: javascript
 
-         const { SingletonInt } = require('jsii-calc');
+         const { SingletonInt } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { SingletonInt } from 'jsii-calc';
+         import { SingletonInt } from 'jsii-calc';
 
 
 
@@ -6349,11 +6349,11 @@ SingletonIntEnum (enum)
 
       .. code-tab:: javascript
 
-         const { SingletonIntEnum } = require('jsii-calc');
+         const { SingletonIntEnum } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { SingletonIntEnum } from 'jsii-calc';
+         import { SingletonIntEnum } from 'jsii-calc';
 
 
 
@@ -6387,11 +6387,11 @@ SingletonString
 
       .. code-tab:: javascript
 
-         const { SingletonString } = require('jsii-calc');
+         const { SingletonString } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { SingletonString } from 'jsii-calc';
+         import { SingletonString } from 'jsii-calc';
 
 
 
@@ -6430,11 +6430,11 @@ SingletonStringEnum (enum)
 
       .. code-tab:: javascript
 
-         const { SingletonStringEnum } = require('jsii-calc');
+         const { SingletonStringEnum } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { SingletonStringEnum } from 'jsii-calc';
+         import { SingletonStringEnum } from 'jsii-calc';
 
 
 
@@ -6468,11 +6468,11 @@ StableClass
 
       .. code-tab:: javascript
 
-         const { StableClass } = require('jsii-calc');
+         const { StableClass } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { StableClass } from 'jsii-calc';
+         import { StableClass } from 'jsii-calc';
 
 
 
@@ -6514,11 +6514,11 @@ StableEnum (enum)
 
       .. code-tab:: javascript
 
-         const { StableEnum } = require('jsii-calc');
+         const { StableEnum } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { StableEnum } from 'jsii-calc';
+         import { StableEnum } from 'jsii-calc';
 
 
 
@@ -6550,7 +6550,7 @@ StableStruct (interface)
 
       .. code-tab:: typescript
 
-         import { StableStruct } from 'jsii-calc';
+         import { StableStruct } from 'jsii-calc';
 
 
 
@@ -6580,11 +6580,11 @@ StaticContext
 
       .. code-tab:: javascript
 
-         const { StaticContext } = require('jsii-calc');
+         const { StaticContext } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { StaticContext } from 'jsii-calc';
+         import { StaticContext } from 'jsii-calc';
 
 
 
@@ -6626,11 +6626,11 @@ Statics
 
       .. code-tab:: javascript
 
-         const { Statics } = require('jsii-calc');
+         const { Statics } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { Statics } from 'jsii-calc';
+         import { Statics } from 'jsii-calc';
 
 
 
@@ -6723,11 +6723,11 @@ StringEnum (enum)
 
       .. code-tab:: javascript
 
-         const { StringEnum } = require('jsii-calc');
+         const { StringEnum } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { StringEnum } from 'jsii-calc';
+         import { StringEnum } from 'jsii-calc';
 
 
 
@@ -6757,11 +6757,11 @@ StripInternal
 
       .. code-tab:: javascript
 
-         const { StripInternal } = require('jsii-calc');
+         const { StripInternal } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { StripInternal } from 'jsii-calc';
+         import { StripInternal } from 'jsii-calc';
 
 
 
@@ -6790,11 +6790,11 @@ StructPassing
 
       .. code-tab:: javascript
 
-         const { StructPassing } = require('jsii-calc');
+         const { StructPassing } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { StructPassing } from 'jsii-calc';
+         import { StructPassing } from 'jsii-calc';
 
 
 
@@ -6844,7 +6844,7 @@ StructWithJavaReservedWords (interface)
 
       .. code-tab:: typescript
 
-         import { StructWithJavaReservedWords } from 'jsii-calc';
+         import { StructWithJavaReservedWords } from 'jsii-calc';
 
 
 
@@ -6889,11 +6889,11 @@ Sum
 
       .. code-tab:: javascript
 
-         const { Sum } = require('jsii-calc');
+         const { Sum } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { Sum } from 'jsii-calc';
+         import { Sum } from 'jsii-calc';
 
 
 
@@ -7005,11 +7005,11 @@ SyncVirtualMethods
 
       .. code-tab:: javascript
 
-         const { SyncVirtualMethods } = require('jsii-calc');
+         const { SyncVirtualMethods } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { SyncVirtualMethods } from 'jsii-calc';
+         import { SyncVirtualMethods } from 'jsii-calc';
 
 
 
@@ -7118,11 +7118,11 @@ Thrower
 
       .. code-tab:: javascript
 
-         const { Thrower } = require('jsii-calc');
+         const { Thrower } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { Thrower } from 'jsii-calc';
+         import { Thrower } from 'jsii-calc';
 
 
 
@@ -7154,7 +7154,7 @@ TopLevelStruct (interface)
 
       .. code-tab:: typescript
 
-         import { TopLevelStruct } from 'jsii-calc';
+         import { TopLevelStruct } from 'jsii-calc';
 
 
 
@@ -7206,11 +7206,11 @@ UnaryOperation
 
       .. code-tab:: javascript
 
-         const { UnaryOperation } = require('jsii-calc');
+         const { UnaryOperation } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { UnaryOperation } from 'jsii-calc';
+         import { UnaryOperation } from 'jsii-calc';
 
 
 
@@ -7282,7 +7282,7 @@ UnionProperties (interface)
 
       .. code-tab:: typescript
 
-         import { UnionProperties } from 'jsii-calc';
+         import { UnionProperties } from 'jsii-calc';
 
 
 
@@ -7317,11 +7317,11 @@ UseBundledDependency
 
       .. code-tab:: javascript
 
-         const { UseBundledDependency } = require('jsii-calc');
+         const { UseBundledDependency } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { UseBundledDependency } from 'jsii-calc';
+         import { UseBundledDependency } from 'jsii-calc';
 
 
 
@@ -7350,11 +7350,11 @@ UseCalcBase
 
       .. code-tab:: javascript
 
-         const { UseCalcBase } = require('jsii-calc');
+         const { UseCalcBase } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { UseCalcBase } from 'jsii-calc';
+         import { UseCalcBase } from 'jsii-calc';
 
 
 
@@ -7387,11 +7387,11 @@ UsesInterfaceWithProperties
 
       .. code-tab:: javascript
 
-         const { UsesInterfaceWithProperties } = require('jsii-calc');
+         const { UsesInterfaceWithProperties } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { UsesInterfaceWithProperties } from 'jsii-calc';
+         import { UsesInterfaceWithProperties } from 'jsii-calc';
 
 
 
@@ -7441,11 +7441,11 @@ VariadicMethod
 
       .. code-tab:: javascript
 
-         const { VariadicMethod } = require('jsii-calc');
+         const { VariadicMethod } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { VariadicMethod } from 'jsii-calc';
+         import { VariadicMethod } from 'jsii-calc';
 
 
 
@@ -7480,11 +7480,11 @@ VirtualMethodPlayground
 
       .. code-tab:: javascript
 
-         const { VirtualMethodPlayground } = require('jsii-calc');
+         const { VirtualMethodPlayground } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { VirtualMethodPlayground } from 'jsii-calc';
+         import { VirtualMethodPlayground } from 'jsii-calc';
 
 
 
@@ -7543,11 +7543,11 @@ VoidCallback
 
       .. code-tab:: javascript
 
-         const { VoidCallback } = require('jsii-calc');
+         const { VoidCallback } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { VoidCallback } from 'jsii-calc';
+         import { VoidCallback } from 'jsii-calc';
 
 
 
@@ -7600,11 +7600,11 @@ WithPrivatePropertyInConstructor
 
       .. code-tab:: javascript
 
-         const { WithPrivatePropertyInConstructor } = require('jsii-calc');
+         const { WithPrivatePropertyInConstructor } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { WithPrivatePropertyInConstructor } from 'jsii-calc';
+         import { WithPrivatePropertyInConstructor } from 'jsii-calc';
 
 
 
@@ -7644,11 +7644,11 @@ CompositeOperation
 
       .. code-tab:: javascript
 
-         const { composition.CompositeOperation } = require('jsii-calc');
+         const { composition.CompositeOperation } = require('jsii-calc');
 
       .. code-tab:: typescript
 
-         import { composition.CompositeOperation } from 'jsii-calc';
+         import { composition.CompositeOperation } from 'jsii-calc';
 
 
 
@@ -7732,11 +7732,11 @@ CompositeOperation
 
          .. code-tab:: javascript
 
-            const { composition.CompositeOperation.CompositionStringStyle } = require('jsii-calc');
+            const { composition.CompositeOperation.CompositionStringStyle } = require('jsii-calc');
 
          .. code-tab:: typescript
 
-            import { composition.CompositeOperation.CompositionStringStyle } from 'jsii-calc';
+            import { composition.CompositeOperation.CompositionStringStyle } from 'jsii-calc';
 
 
 

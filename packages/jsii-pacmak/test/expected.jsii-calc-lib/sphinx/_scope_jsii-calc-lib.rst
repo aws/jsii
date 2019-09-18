@@ -142,11 +142,11 @@ EnumFromScopedModule (enum)
 
       .. code-tab:: javascript
 
-         const { EnumFromScopedModule } = require('@scope/jsii-calc-lib');
+         const { EnumFromScopedModule } = require('@scope/jsii-calc-lib');
 
       .. code-tab:: typescript
 
-         import { EnumFromScopedModule } from '@scope/jsii-calc-lib';
+         import { EnumFromScopedModule } from '@scope/jsii-calc-lib';
 
 
 
@@ -182,7 +182,7 @@ IDoublable (interface)
 
       .. code-tab:: typescript
 
-         import { IDoublable } from '@scope/jsii-calc-lib';
+         import { IDoublable } from '@scope/jsii-calc-lib';
 
 
 
@@ -220,7 +220,7 @@ IFriendly (interface)
 
       .. code-tab:: typescript
 
-         import { IFriendly } from '@scope/jsii-calc-lib';
+         import { IFriendly } from '@scope/jsii-calc-lib';
 
 
 
@@ -269,7 +269,7 @@ IThreeLevelsInterface (interface)
 
       .. code-tab:: typescript
 
-         import { IThreeLevelsInterface } from '@scope/jsii-calc-lib';
+         import { IThreeLevelsInterface } from '@scope/jsii-calc-lib';
 
 
 
@@ -328,7 +328,7 @@ MyFirstStruct (interface)
 
       .. code-tab:: typescript
 
-         import { MyFirstStruct } from '@scope/jsii-calc-lib';
+         import { MyFirstStruct } from '@scope/jsii-calc-lib';
 
 
 
@@ -380,11 +380,11 @@ Number
 
       .. code-tab:: javascript
 
-         const { Number } = require('@scope/jsii-calc-lib');
+         const { Number } = require('@scope/jsii-calc-lib');
 
       .. code-tab:: typescript
 
-         import { Number } from '@scope/jsii-calc-lib';
+         import { Number } from '@scope/jsii-calc-lib';
 
 
 
@@ -457,11 +457,11 @@ Operation
 
       .. code-tab:: javascript
 
-         const { Operation } = require('@scope/jsii-calc-lib');
+         const { Operation } = require('@scope/jsii-calc-lib');
 
       .. code-tab:: typescript
 
-         import { Operation } from '@scope/jsii-calc-lib';
+         import { Operation } from '@scope/jsii-calc-lib';
 
 
 
@@ -526,7 +526,7 @@ StructWithOnlyOptionals (interface)
 
       .. code-tab:: typescript
 
-         import { StructWithOnlyOptionals } from '@scope/jsii-calc-lib';
+         import { StructWithOnlyOptionals } from '@scope/jsii-calc-lib';
 
 
 
@@ -574,11 +574,11 @@ Value
 
       .. code-tab:: javascript
 
-         const { Value } = require('@scope/jsii-calc-lib');
+         const { Value } = require('@scope/jsii-calc-lib');
 
       .. code-tab:: typescript
 
-         import { Value } from '@scope/jsii-calc-lib';
+         import { Value } from '@scope/jsii-calc-lib';
 
 
 

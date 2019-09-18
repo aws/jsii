@@ -8,8 +8,9 @@
     "jsii-tree": "bin/jsii-tree"
   },
   "scripts": {
-    "build": "tsc --build && chmod +x bin/jsii-tree",
+    "build": "tsc --build && chmod +x bin/jsii-tree && npm run lint",
     "watch": "tsc --build -w",
+    "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
     "test": "jest",
     "package": "package-js"
   },
@@ -23,27 +24,37 @@
   "devDependencies": {
     "@scope/jsii-calc-lib": "file:../jsii-calc-lib",
     "@types/fs-extra": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^2.3.0",
+    "@typescript-eslint/parser": "^2.3.0",
     "@types/jest": "^24.0.18",
     "@types/yargs": "^13.0.2",
+    "eslint": "^6.4.0",
     "jest": "^24.9.0",
     "jsii": "^0.16.0",
     "jsii-build-tools": "file:../jsii-build-tools",
     "jsii-calc": "file:../jsii-calc",
-    "ts-jest": "^24.1.0",
     "typescript": "~3.6.3"
   },
   "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "node",
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "<rootDir>/{bin,lib}/**/*.js",
-      "!**/*.d.ts"
+      "**/bin/**/*.js",
+      "**/lib/**/*.js"
     ],
     "coverageReporters": [
-      "text-summary",
-      "html",
-      "lcov"
+      "lcov",
+      "text"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 30,
+        "statements": 45
+      }
+    },
+    "errorOnDeprecated": true,
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/?(*.)+(spec|test).js"
     ]
   },
   "author": {
