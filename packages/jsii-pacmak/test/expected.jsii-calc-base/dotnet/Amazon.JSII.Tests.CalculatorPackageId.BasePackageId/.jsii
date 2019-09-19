@@ -60,11 +60,12 @@
     }
   },
   "description": "An example direct dependency for jsii-calc.",
-  "homepage": "https://github.com/aws/jsii.git",
+  "homepage": "https://github.com/aws/jsii",
   "jsiiVersion": "0.17.0",
   "license": "Apache-2.0",
   "name": "@scope/jsii-calc-base",
   "repository": {
+    "directory": "packages/jsii-calc-base",
     "type": "git",
     "url": "https://github.com/aws/jsii.git"
   },
@@ -176,5 +177,5 @@
     }
   },
   "version": "0.17.0",
-  "fingerprint": "5fkhCkLN3NW/852/Ev17AgjuixpMt+Zq5QauaWnPt3s="
+  "fingerprint": "DDUI6HStojy2shnkcuy/OPKGon00z+H3UmkaetCe9l4="
 }

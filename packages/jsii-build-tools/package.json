@@ -1,8 +1,25 @@
 {
   "name": "jsii-build-tools",
   "version": "0.17.0",
-  "description": "Internal repository-level tools",
   "private": true,
+  "description": "Internal repository-level tools",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com"
+  },
+  "homepage": "https://github.com/aws/jsii",
+  "bugs": {
+    "url": "https://github.com/aws/jsii/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws/jsii.git",
+    "directory": "packages/jsii-build-tools"
+  },
+  "engines": {
+    "node": ">= 10.3.0"
+  },
   "bin": {
     "diff-test": "bin/diff-test",
     "package-js": "bin/package-js",
@@ -13,14 +30,5 @@
   },
   "scripts": {
     "build": "chmod +x bin/*"
-  },
-  "author": {
-    "name": "Amazon Web Services",
-    "url": "https://aws.amazon.com"
-  },
-  "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/aws/jsii.git"
   }
 }
