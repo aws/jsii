@@ -1,6 +1,6 @@
 {
   "name": "jsii-dotnet-runtime",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "private": true,
   "description": ".NET client for jsii runtime",
   "license": "Apache-2.0",
@@ -19,7 +19,7 @@
     "directory": "packages/jsii-dotnet-runtime"
   },
   "engines": {
-    "node": ">=10.3.0"
+    "node": ">= 10.3.0"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "jsii-build-tools": "file:../jsii-build-tools",
-    "jsii-runtime": "^0.16.0",
+    "jsii-runtime": "^0.17.0",
     "typescript": "~3.6.3"
   }
 }

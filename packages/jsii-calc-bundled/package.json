@@ -1,6 +1,6 @@
 {
   "name": "jsii-calc-bundled",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "private": true,
   "license": "Apache-2.0",
   "author": {
@@ -17,7 +17,7 @@
     "directory": "packages/jsii-calc-bundled"
   },
   "engines": {
-    "node": ">=10.3.0"
+    "node": ">= 10.3.0"
   },
   "main": "index.js"
 }

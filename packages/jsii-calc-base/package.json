@@ -1,6 +1,6 @@
 {
   "name": "@scope/jsii-calc-base",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "private": true,
   "description": "An example direct dependency for jsii-calc.",
   "license": "Apache-2.0",
@@ -19,7 +19,7 @@
     "directory": "packages/jsii-calc-base"
   },
   "engines": {
-    "node": ">=10.3.0"
+    "node": ">= 10.3.0"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -34,7 +34,7 @@
     "@scope/jsii-calc-base-of-base": "file:../jsii-calc-base-of-base"
   },
   "devDependencies": {
-    "jsii": "^0.16.0",
+    "jsii": "^0.17.0",
     "jsii-build-tools": "file:../jsii-build-tools"
   },
   "jsii": {

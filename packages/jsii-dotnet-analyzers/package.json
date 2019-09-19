@@ -1,6 +1,6 @@
 {
   "name": "jsii-dotnet-analyzers",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "private": true,
   "description": ".NET Roslyn Analyzers for Jsii",
   "license": "Apache-2.0",
@@ -19,7 +19,7 @@
     "directory": "packages/jsii-dotnet-analyzers"
   },
   "engines": {
-    "node": ">=10.3.0"
+    "node": ">= 10.3.0"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

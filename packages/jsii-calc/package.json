@@ -1,6 +1,6 @@
 {
   "name": "jsii-calc",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "private": true,
   "description": "A simple calcuator built on JSII.",
   "stability": "experimental",
@@ -20,7 +20,7 @@
     "directory": "packages/jsii-calc"
   },
   "engines": {
-    "node": ">=10.3.0"
+    "node": ">= 10.3.0"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -42,7 +42,7 @@
     "@scope/jsii-calc-lib": "file:../jsii-calc-lib"
   },
   "devDependencies": {
-    "jsii": "^0.16.0",
+    "jsii": "^0.17.0",
     "jsii-build-tools": "file:../jsii-build-tools"
   },
   "jsii": {
