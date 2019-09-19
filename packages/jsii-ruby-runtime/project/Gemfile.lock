@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    jsii_runtime (0.16.0)
+    jsii_runtime (0.17.0)
 
 GEM
   remote: https://rubygems.org/

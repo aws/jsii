@@ -210,6 +210,7 @@
   "schema": "jsii/0.10.0",
   "targets": {
     "dotnet": {
+      "iconUrl": "https://sdk-for-net.amazonwebservices.com/images/AWSLogo128x128.png",
       "namespace": "Amazon.JSII.Tests.CalculatorNamespace",
       "packageId": "Amazon.JSII.Tests.CalculatorPackageId"
     },
@@ -9615,5 +9616,5 @@
     }
   },
   "version": "0.17.0",
-  "fingerprint": "izzAyIl+j9C+Td89XVvxC7M9UPkjYsYVLhlLCDPsVDY="
+  "fingerprint": "3AZBzWGigiml1w1CpsQCzfmubSSS3F8vFHqddOFLO1Y="
 }

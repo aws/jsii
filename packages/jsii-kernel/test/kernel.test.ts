@@ -203,6 +203,7 @@ defineTest('objects created inside the sandbox are returned with type info and n
 defineTest('naming allows returns the module name for different languages', (sandbox) => {
   expect(sandbox.naming({ assembly: 'jsii-calc' }).naming).toEqual({
     dotnet: {
+      iconUrl: 'https://sdk-for-net.amazonwebservices.com/images/AWSLogo128x128.png',
       namespace: 'Amazon.JSII.Tests.CalculatorNamespace',
       packageId: 'Amazon.JSII.Tests.CalculatorPackageId',
     },
@@ -562,9 +563,9 @@ defineTest('sync overrides: properties - readwrite', (sandbox) => {
       expect(callback.set.property).toBe('theProperty');
       setValue = callback.set.value;
       return undefined;
-    } 
+    }
     throw new Error('Invalid callback. Expected get/set');
-    
+
   });
 
   const value = sandbox.invoke({ objref: obj, method: 'retrieveValueOfTheProperty' });
@@ -591,9 +592,9 @@ defineTest('sync overrides: properties - readwrite (backed by functions)', (sand
       expect(callback.set.property).toBe('otherProperty');
       setValue = callback.set.value;
       return undefined;
-    } 
+    }
     throw new Error('Invalid callback. Expected get/set');
-    
+
   });
 
   const value = sandbox.invoke({ objref: obj, method: 'retrieveOtherProperty' });
