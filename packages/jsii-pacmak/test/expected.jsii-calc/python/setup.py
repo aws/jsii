@@ -6,7 +6,7 @@ kwargs = json.loads("""
     "name": "jsii-calc",
     "version": "0.17.0",
     "description": "A simple calcuator built on JSII.",
-    "url": "https://github.com/aws/jsii.git",
+    "url": "https://github.com/aws/jsii",
     "long_description_content_type": "text/markdown",
     "author": "Amazon Web Services",
     "project_urls": {
