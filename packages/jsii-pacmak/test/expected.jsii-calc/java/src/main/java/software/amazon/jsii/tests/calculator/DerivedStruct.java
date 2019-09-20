@@ -138,6 +138,17 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         }
 
         /**
+         * Sets the value of OptionalArray
+         * @param optionalArray the value to be set.
+         * @return {@code this}
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        public Builder optionalArray(java.lang.String... optionalArray) {
+            this.optionalArray = java.util.Collections.unmodifiableList(java.util.Arrays.<java.lang.String>asList(optionalArray));
+            return this;
+        }
+
+        /**
          * Sets the value of Anumber
          * @param anumber An awesome number value. This parameter is required.
          * @return {@code this}
@@ -170,6 +181,18 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public Builder firstOptional(java.util.List<java.lang.String> firstOptional) {
             this.firstOptional = firstOptional;
+            return this;
+        }
+
+        /**
+         * Sets the value of FirstOptional
+         * @param firstOptional the value to be set.
+         * @return {@code this}
+         */
+        @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        public Builder firstOptional(java.lang.String... firstOptional) {
+            this.firstOptional = java.util.Collections.unmodifiableList(java.util.Arrays.<java.lang.String>asList(firstOptional));
             return this;
         }
 

@@ -83,6 +83,18 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
         }
 
         /**
+         * Sets the value of FirstOptional
+         * @param firstOptional the value to be set.
+         * @return {@code this}
+         */
+        @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        public Builder firstOptional(java.lang.String... firstOptional) {
+            this.firstOptional = java.util.Collections.unmodifiableList(java.util.Arrays.<java.lang.String>asList(firstOptional));
+            return this;
+        }
+
+        /**
          * Builds the configured instance.
          * @return a new instance of {@link MyFirstStruct}
          * @throws NullPointerException if any required attribute was not provided

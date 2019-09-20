@@ -163,13 +163,13 @@ interface JavaProp {
   fieldName: string;
 
   // The java type for the property (eg: 'List<String>')
-  fieldJavaType: string;
+  fieldJavaType: JavaType;
 
   // The raw class type of the property that can be used for marshalling (eg: 'List.class')
   fieldJavaClass: string;
 
   // List of types that the property is assignable from. Used to overload setters.
-  javaTypes: string[];
+  javaTypes: JavaType[];
 
   // True if the property is optional.
   nullable: boolean;
@@ -205,9 +205,9 @@ class JavaGenerator extends Generator {
 
     if (JavaGenerator.RESERVED_KEYWORDS.includes(propertyName)) {
       return `${propertyName}Value`;
-    } 
+    }
     return propertyName;
-    
+
   }
 
   /**
@@ -221,9 +221,9 @@ class JavaGenerator extends Generator {
 
     if (JavaGenerator.RESERVED_KEYWORDS.includes(methodName)) {
       return `do${toPascalCase(methodName)}`;
-    } 
+    }
     return methodName;
-    
+
   }
 
   /** If false, @Generated will not include generator version nor timestamp */
@@ -400,10 +400,10 @@ class JavaGenerator extends Generator {
 
   protected onInterfaceMethod(_ifc: spec.InterfaceType, method: spec.Method) {
     this.code.line();
-    const returnType = method.returns ? this.toJavaType(method.returns.type) : 'void';
+    const returnType = method.returns ? this.toJavaType(method.returns.type) : { syntax: 'void' };
     this.addJavaDocs(method);
     this.emitStabilityAnnotations(method);
-    this.code.line(`${returnType} ${method.name}(${this.renderMethodParameters(method)});`);
+    this.code.line(`${returnType.syntax} ${method.name}(${this.renderMethodParameters(method)});`);
   }
 
   protected onInterfaceMethodOverload(ifc: spec.InterfaceType, overload: spec.Method, _originalMethod: spec.Method) {
@@ -419,13 +419,13 @@ class JavaGenerator extends Generator {
     this.code.line();
     this.addJavaDocs(prop);
     this.emitStabilityAnnotations(prop);
-    this.code.line(`${getterType} get${propName}();`);
+    this.code.line(`${getterType.syntax} get${propName}();`);
 
     if (!prop.immutable) {
       for (const type of setterTypes) {
         this.code.line();
         this.addJavaDocs(prop);
-        this.code.line(`void set${propName}(final ${type} value);`);
+        this.code.line(`void set${propName}(final ${type.syntax} value);`);
       }
     }
   }
@@ -660,7 +660,7 @@ class JavaGenerator extends Generator {
     for (const prop of consts) {
       const constName = this.renderConstName(prop);
       const propClass = this.toJavaType(prop.type, true);
-      this.code.line(`${constName} = software.amazon.jsii.JsiiObject.jsiiStaticGet(${javaClass}.class, "${prop.name}", ${propClass}.class);`);
+      this.code.line(`${constName} = software.amazon.jsii.JsiiObject.jsiiStaticGet(${javaClass.syntax}.class, "${prop.name}", ${propClass.syntax}.class);`);
     }
 
     this.code.closeBlock();
@@ -678,7 +678,7 @@ class JavaGenerator extends Generator {
     this.code.line();
     this.addJavaDocs(prop);
     this.emitStabilityAnnotations(prop);
-    this.code.line(`${access} final static ${propType} ${propName};`);
+    this.code.line(`${access} final static ${propType.syntax} ${propName};`);
   }
 
   private emitProperty(cls: spec.Type, prop: spec.Property, includeGetter = true, overrides = !!prop.overrides) {
@@ -696,15 +696,15 @@ class JavaGenerator extends Generator {
       this.addJavaDocs(prop);
       if (overrides) { this.code.line('@Override'); }
       this.emitStabilityAnnotations(prop);
-      this.code.openBlock(`${access} ${statc}${getterType} get${propName}()`);
+      this.code.openBlock(`${access} ${statc}${getterType.syntax} get${propName}()`);
       let statement;
       if (prop.static) {
-        statement = `software.amazon.jsii.JsiiObject.jsiiStaticGet(${javaClass}.class, `;
+        statement = `software.amazon.jsii.JsiiObject.jsiiStaticGet(${javaClass.syntax}.class, `;
       } else {
         statement = 'this.jsiiGet(';
       }
 
-      statement += `"${prop.name}", ${propClass}.class)`;
+      statement += `"${prop.name}", ${propClass.syntax}.class)`;
 
       this.code.line(`return ${this.wrapCollection(statement, prop.type)};`);
       this.code.closeBlock();
@@ -716,11 +716,11 @@ class JavaGenerator extends Generator {
         this.addJavaDocs(prop);
         if (overrides) { this.code.line('@Override'); }
         this.emitStabilityAnnotations(prop);
-        this.code.openBlock(`${access} ${statc}void set${propName}(final ${type} value)`);
+        this.code.openBlock(`${access} ${statc}void set${propName}(final ${type.syntax} value)`);
         let statement = '';
 
         if (prop.static) {
-          statement += `software.amazon.jsii.JsiiObject.jsiiStaticSet(${javaClass}.class, `;
+          statement += `software.amazon.jsii.JsiiObject.jsiiStaticSet(${javaClass.syntax}.class, `;
         } else {
           statement += 'this.jsiiSet(';
         }
@@ -733,12 +733,12 @@ class JavaGenerator extends Generator {
   }
 
   private emitMethod(cls: spec.Type, method: spec.Method, overrides = !!method.overrides) {
-    const returnType = method.returns ? this.toJavaType(method.returns.type) : 'void';
+    const returnType = method.returns ? this.toJavaType(method.returns.type) : { syntax: 'void' };
     const statc = method.static ? 'static ' : '';
     const access = this.renderAccessLevel(method);
     const async = !!method.async;
     const methodName = JavaGenerator.safeJavaMethodName(method.name);
-    const signature = `${returnType} ${methodName}(${this.renderMethodParameters(method)})`;
+    const signature = `${returnType.syntax} ${methodName}(${this.renderMethodParameters(method)})`;
     this.code.line();
     this.addJavaDocs(method);
     this.emitStabilityAnnotations(method);
@@ -869,7 +869,7 @@ class JavaGenerator extends Generator {
       nullable: !!property.optional,
       fieldName: this.code.toCamelCase(safeName),
       fieldJavaType: this.toJavaType(property.type),
-      fieldJavaClass: `${this.toJavaType(property.type, true)}.class`,
+      fieldJavaClass: `${this.toJavaType(property.type, true).syntax}.class`,
       javaTypes: this.toJavaTypes(property.type),
       immutable: property.immutable || false,
       inherited,
@@ -877,11 +877,11 @@ class JavaGenerator extends Generator {
   }
 
   private emitBuilderSetter(prop: JavaProp, builderName: string) {
+    const summary = (prop.docs && prop.docs.summary) || 'the value to be set';
     for (const type of prop.javaTypes) {
       this.code.line();
       this.code.line('/**');
       this.code.line(` * Sets the value of ${prop.propName}`);
-      const summary = (prop.docs && prop.docs.summary) || 'the value to be set';
       this.code.line(` * ${paramJavadoc(prop.fieldName, prop.nullable, summary)}`);
       this.code.line(' * @return {@code this}');
       if (prop.docs && prop.docs.deprecated) {
@@ -889,10 +889,27 @@ class JavaGenerator extends Generator {
       }
       this.code.line(' */');
       this.emitStabilityAnnotations(prop.spec);
-      this.code.openBlock(`public ${builderName} ${prop.fieldName}(${type} ${prop.fieldName})`);
+      this.code.openBlock(`public ${builderName} ${prop.fieldName}(${type.syntax} ${prop.fieldName})`);
       this.code.line(`this.${prop.fieldName} = ${prop.fieldName};`);
       this.code.line('return this;');
       this.code.closeBlock();
+
+      if (type.listOf && type.listOf.syntax !== 'java.lang.Object') {
+        this.code.line();
+        this.code.line('/**');
+        this.code.line(` * Sets the value of ${prop.propName}`);
+        this.code.line(` * ${paramJavadoc(prop.fieldName, prop.nullable, summary)}`);
+        this.code.line(' * @return {@code this}');
+        if (prop.docs && prop.docs.deprecated) {
+          this.code.line(` * @deprecated ${prop.docs.deprecated}`);
+        }
+        this.code.line(' */');
+        this.emitStabilityAnnotations(prop.spec);
+        this.code.openBlock(`public ${builderName} ${prop.fieldName}(${type.listOf.syntax}... ${prop.fieldName})`);
+        this.code.line(`this.${prop.fieldName} = java.util.Collections.unmodifiableList(java.util.Arrays.<${type.listOf.syntax}>asList(${prop.fieldName}));`);
+        this.code.line('return this;');
+        this.code.closeBlock();
+      }
     }
   }
 
@@ -917,7 +934,7 @@ class JavaGenerator extends Generator {
     this.emitStabilityAnnotations(classSpec);
     this.code.openBlock(`public static final class ${builderName}`);
 
-    props.forEach(prop => this.code.line(`private ${prop.fieldJavaType} ${prop.fieldName};`));
+    props.forEach(prop => this.code.line(`private ${prop.fieldJavaType.syntax} ${prop.fieldName};`));
     props.forEach(prop => this.emitBuilderSetter(prop, builderName));
 
     // Start build()
@@ -971,7 +988,7 @@ class JavaGenerator extends Generator {
     this.code.openBlock(`final class ${INTERFACE_PROXY_CLASS_NAME} extends software.amazon.jsii.JsiiObject implements ${ifc.name}`);
 
     // Immutable properties
-    props.forEach(prop => this.code.line(`private final ${prop.fieldJavaType} ${prop.fieldName};`));
+    props.forEach(prop => this.code.line(`private final ${prop.fieldJavaType.syntax} ${prop.fieldName};`));
 
     // Start JSII reference constructor
     this.code.line();
@@ -991,7 +1008,7 @@ class JavaGenerator extends Generator {
     this.code.line('/**');
     this.code.line(' * Constructor that initializes the object based on literal property values passed by the {@link Builder}.');
     this.code.line(' */');
-    const constructorArgs = props.map(prop => `${prop.fieldJavaType} ${prop.fieldName}`).join(', ');
+    const constructorArgs = props.map(prop => `${prop.fieldJavaType.syntax} ${prop.fieldName}`).join(', ');
     this.code.openBlock(`private ${INTERFACE_PROXY_CLASS_NAME}(${constructorArgs})`);
     this.code.line('super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);');
     props.forEach(prop => {
@@ -1004,7 +1021,7 @@ class JavaGenerator extends Generator {
     props.forEach(prop => {
       this.code.line();
       this.code.line('@Override');
-      this.code.openBlock(`public ${prop.fieldJavaType} get${prop.propName}()`);
+      this.code.openBlock(`public ${prop.fieldJavaType.syntax} get${prop.propName}()`);
       this.code.line(`return this.${prop.fieldName};`);
       this.code.closeBlock();
     });
@@ -1201,56 +1218,67 @@ class JavaGenerator extends Generator {
       return 'software.amazon.jsii.JsiiObject';
     }
 
-    return this.toJavaType({ fqn: cls.base });
+    return this.toJavaType({ fqn: cls.base }).syntax;
   }
 
-  private toJavaType(type: spec.TypeReference, forMarshalling = false): string {
+  private toJavaType(type: spec.TypeReference, forMarshalling = false): JavaType {
     const types = this.toJavaTypes(type, forMarshalling);
     if (types.length > 1) {
-      return 'java.lang.Object';
-    } 
+      return { syntax: 'java.lang.Object' };
+    }
     return types[0];
-    
+
   }
 
-  private toJavaTypes(typeref: spec.TypeReference, forMarshalling = false): string[] {
+  private toJavaTypes(typeref: spec.TypeReference, forMarshalling = false): JavaType[] {
     if (spec.isPrimitiveTypeReference(typeref)) {
       return [this.toJavaPrimitive(typeref.primitive)];
     } else if (spec.isCollectionTypeReference(typeref)) {
       return [this.toJavaCollection(typeref, forMarshalling)];
     } else if (spec.isNamedTypeReference(typeref)) {
-      return [this.toNativeFqn(typeref.fqn)];
+      return [{ syntax: this.toNativeFqn(typeref.fqn) }];
     } else if (typeref.union) {
-      const types = new Array<string>();
+      const types = new Array<JavaType>();
       for (const subtype of typeref.union.types) {
         for (const t of this.toJavaTypes(subtype, forMarshalling)) {
           types.push(t);
         }
       }
       return types;
-    } 
+    }
     throw new Error(`Invalid type reference: ${JSON.stringify(typeref)}`);
-    
+
   }
 
-  private toJavaCollection(ref: spec.CollectionTypeReference, forMarshalling: boolean) {
+  private toJavaCollection(ref: spec.CollectionTypeReference, forMarshalling: boolean): JavaType {
     const elementJavaType = this.toJavaType(ref.collection.elementtype);
     switch (ref.collection.kind) {
-      case spec.CollectionKind.Array: return forMarshalling ? 'java.util.List' : `java.util.List<${elementJavaType}>`;
-      case spec.CollectionKind.Map: return forMarshalling ? 'java.util.Map' : `java.util.Map<java.lang.String, ${elementJavaType}>`;
+      case spec.CollectionKind.Array:
+        return {
+          syntax: forMarshalling ? 'java.util.List' : `java.util.List<${elementJavaType.syntax}>`,
+          listOf: elementJavaType,
+        };
+      case spec.CollectionKind.Map:
+        return { syntax: forMarshalling ? 'java.util.Map' : `java.util.Map<java.lang.String, ${elementJavaType.syntax}>` };
       default:
         throw new Error(`Unsupported collection kind: ${ref.collection.kind}`);
     }
   }
 
-  private toJavaPrimitive(primitive: spec.PrimitiveType) {
+  private toJavaPrimitive(primitive: spec.PrimitiveType): JavaType {
     switch (primitive) {
-      case spec.PrimitiveType.Boolean: return 'java.lang.Boolean';
-      case spec.PrimitiveType.Date: return 'java.time.Instant';
-      case spec.PrimitiveType.Json: return 'com.fasterxml.jackson.databind.node.ObjectNode';
-      case spec.PrimitiveType.Number: return 'java.lang.Number';
-      case spec.PrimitiveType.String: return 'java.lang.String';
-      case spec.PrimitiveType.Any: return 'java.lang.Object';
+      case spec.PrimitiveType.Boolean:
+        return { syntax: 'java.lang.Boolean' };
+      case spec.PrimitiveType.Date:
+        return { syntax: 'java.time.Instant' };
+      case spec.PrimitiveType.Json:
+        return { syntax: 'com.fasterxml.jackson.databind.node.ObjectNode' };
+      case spec.PrimitiveType.Number:
+        return { syntax: 'java.lang.Number' };
+      case spec.PrimitiveType.String:
+        return { syntax: 'java.lang.String' };
+      case spec.PrimitiveType.Any:
+        return { syntax: 'java.lang.Object' };
       default:
         throw new Error(`Unknown primitive type: ${primitive}`);
     }
@@ -1271,9 +1299,9 @@ class JavaGenerator extends Generator {
         ? `java.util.stream.Stream.concat(${valuesStream}, ${restStream})`
         : restStream;
       return `, ${fullStream}.toArray(Object[]::new)`;
-    } 
+    }
     return `, ${valueStr}`;
-    
+
 
     function _renderParameter(param: spec.Parameter) {
       const safeName = JavaGenerator.safeJavaPropertyName(param.name);
@@ -1288,7 +1316,7 @@ class JavaGenerator extends Generator {
 
     if (method.static) {
       const javaClass = this.toJavaType(cls);
-      statement += `software.amazon.jsii.JsiiObject.jsiiStaticCall(${javaClass}.class, `;
+      statement += `software.amazon.jsii.JsiiObject.jsiiStaticCall(${javaClass.syntax}.class, `;
     } else {
       if (async) {
         statement += 'this.jsiiAsyncCall(';
@@ -1300,7 +1328,7 @@ class JavaGenerator extends Generator {
     statement += `"${method.name}"`;
 
     if (method.returns) {
-      statement += `, ${this.toJavaType(method.returns.type, true)}.class`;
+      statement += `, ${this.toJavaType(method.returns.type, true).syntax}.class`;
     } else {
       statement += ', Void.class';
     }
@@ -1312,9 +1340,9 @@ class JavaGenerator extends Generator {
 
     if (method.returns) {
       return `return ${statement};`;
-    } 
+    }
     return `${statement};`;
-    
+
   }
 
   /**
@@ -1343,7 +1371,7 @@ class JavaGenerator extends Generator {
     const params = [];
     if (method.parameters) {
       for (const p of method.parameters) {
-        params.push(`final ${this.toJavaType(p.type)}${p.variadic ? '...' : ''} ${JavaGenerator.safeJavaPropertyName(p.name)}`);
+        params.push(`final ${this.toJavaType(p.type).syntax}${p.variadic ? '...' : ''} ${JavaGenerator.safeJavaPropertyName(p.name)}`);
       }
     }
     return params.join(', ');
@@ -1538,4 +1566,9 @@ function endWithPeriod(s: string): string {
     return `${s}.`;
   }
   return s;
+}
+
+interface JavaType {
+  readonly syntax: string;
+  readonly listOf?: JavaType;
 }
