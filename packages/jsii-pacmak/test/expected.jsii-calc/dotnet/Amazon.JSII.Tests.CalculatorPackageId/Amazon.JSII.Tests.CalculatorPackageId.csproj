@@ -12,6 +12,7 @@
     <LicenseUrl>https://spdx.org/licenses/Apache-2.0.html</LicenseUrl>
     <Authors>Amazon Web Services</Authors>
     <Language>en-US</Language>
+    <PackageIconUrl>https://sdk-for-net.amazonwebservices.com/images/AWSLogo128x128.png</PackageIconUrl>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="jsii-calc-0.17.0.tgz"/>
