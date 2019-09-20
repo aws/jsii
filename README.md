@@ -299,7 +299,7 @@ That's it. You are ready to rock!
 
 ### Source Languages
 
-* __TypeScript__
+* __TypeScript__ with [some restrictions](docs/typescript-restrictions.md)
 
 ### Target Languages
 
