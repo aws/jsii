@@ -55,7 +55,7 @@ export default class Dotnet extends Target {
     await this.copyFiles(
       path.join(sourceDir, packageId, 'bin', 'Release'),
       outDir);
-    await fs.remove(path.join(outDir, 'netstandard2.0'));
+    await fs.remove(path.join(outDir, 'netcoreapp2.1'));
   }
 
   private async generateNuGetConfigForLocalDeps(sourceDirectory: string, currentOutputDirectory: string): Promise<void> {

@@ -4,8 +4,9 @@
     <PropertyGroup>
         <PackageId>Amazon.JSII.Analyzers</PackageId>
         <Title>.NET Roslyn Analyzers for JSII</Title>
-        <TargetFramework>netstandard2.0</TargetFramework>
+        <TargetFramework>netcoreapp2.1</TargetFramework>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageIconUrl>https://sdk-for-net.amazonwebservices.com/images/AWSLogo128x128.png</PackageIconUrl>
     </PropertyGroup>
 
     <ItemGroup>

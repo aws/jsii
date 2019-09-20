@@ -4,6 +4,7 @@
   <PropertyGroup>
     <PackageId>Amazon.JSII.Runtime</PackageId>
     <Title>.NET Runtime for JSII</Title>
+    <PackageIconUrl>https://sdk-for-net.amazonwebservices.com/images/AWSLogo128x128.png</PackageIconUrl>
   </PropertyGroup>
 
   <ItemGroup>
