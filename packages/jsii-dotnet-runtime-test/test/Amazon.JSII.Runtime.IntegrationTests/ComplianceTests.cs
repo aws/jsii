@@ -91,7 +91,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             types.MapProperty = map;
             Assert.Equal((double) 123, types.MapProperty["Foo"].Value);
         }
-        
+
         [Fact(DisplayName = Prefix + nameof(ComplexCollectionTypes))]
         public void ComplexCollectionTypes()
         {
@@ -881,10 +881,10 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             // ctor
             var objWithOptionalProvided = new NullShouldBeTreatedAsUndefined("param1", null);
             var objWithoutOptionalProvided = new NullShouldBeTreatedAsUndefined("param1");
-            
+
             // method argument called with null value
             objWithoutOptionalProvided.GiveMeUndefined(null);
-            
+
             // method argument called without null value
             objWithoutOptionalProvided.GiveMeUndefined();
 
@@ -902,10 +902,10 @@ namespace Amazon.JSII.Runtime.IntegrationTests
 
             // Variadic parameter with null passed
             variadicClassNoParams.AsArray(Double.MinValue, null);
-            
+
             // Variadic parameter with default value used
             variadicClassNoParams.AsArray(Double.MinValue);
-            
+
             var list = new List<double>();
 
             // Variadic parameter with array with no value
@@ -928,7 +928,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         [Fact(DisplayName = Prefix + nameof(JsiiAgent))]
         public void JsiiAgent()
         {
-            Assert.Equal("DotNet/" + Environment.Version.ToString() + "/.NETStandard,Version=v2.0/1.0.0.0", JsiiAgent_.JsiiAgent);
+            Assert.Equal("DotNet/" + Environment.Version.ToString() + "/.NETCoreApp,Version=v2.1/1.0.0.0", JsiiAgent_.JsiiAgent);
         }
 
         [Fact(DisplayName = Prefix + nameof(ReceiveInstanceOfPrivateClass))]
@@ -969,13 +969,13 @@ namespace Amazon.JSII.Runtime.IntegrationTests
 
             Assert.NotNull(obj);
         }
-        
+
         [Fact(DisplayName = Prefix + nameof(CorrectlyReturnsFromVoidCallback))]
         public void CorrectlyReturnsFromVoidCallback()
         {
             var voidCallback = new VoidCallbackImpl();
             voidCallback.CallMe();
-            
+
             Assert.True(voidCallback.MethodWasCalled);
         }
 
@@ -1015,7 +1015,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                 // Do nothing!
             }
         }
-        
+
         class PartiallyInitializedThisConsumerImpl : PartiallyInitializedThisConsumer
         {
             public override String ConsumePartiallyInitializedThis(ConstructorPassesThisOut obj, DateTime dt, AllTypesEnum ev)
