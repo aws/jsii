@@ -55,7 +55,7 @@
     "@types/semver": "^6.0.2",
     "@types/yargs": "^13.0.2",
     "@typescript-eslint/eslint-plugin": "^2.3.0",
-    "@typescript-eslint/parser": "^2.3.0",
+    "@typescript-eslint/parser": "^2.3.1",
     "clone": "^2.1.2",
     "eslint": "^6.4.0",
     "jest": "^24.9.0",
