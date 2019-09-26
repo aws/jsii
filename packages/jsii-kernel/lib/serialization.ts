@@ -376,7 +376,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
 
   // ----------------------------------------------------------------------
   [SerializationClass.Any]: {
-    serialize(value, _type, host) {
+    serialize(value, type, host) {
       if (value == null) { return undefined; }
 
       if (isDate(value)) { return serializeDate(value); }
@@ -403,18 +403,12 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       const prevRef = objectReference(value);
       if (prevRef) { return prevRef; }
 
-      // If this is or should be a reference type, pass or make the reference
-      // (Like regular reftype serialization, but without the type derivation to an interface)
-      const jsiiType = jsiiTypeFqn(value);
-      if (jsiiType) { return host.objects.registerObject(value, jsiiType); }
-
-      // At this point we have an object that is not of an exported type. Either an object
-      // literal, or an instance of a fully private class (cannot distinguish those cases).
-
-      // We will serialize by-value, but recurse for serialization so that if
-      // the object contains reference objects, they will be serialized appropriately.
-      // (Basically, serialize anything else as a map of 'any').
-      return mapValues(value, (v) => host.recurse(v, { type: spec.CANONICAL_ANY }));
+      // Pass-by-reference, so we're sure we don't end up doing anything unexpected
+      const jsiiType = jsiiTypeFqn(value) || EMPTY_OBJECT_FQN;
+      const interfaces = type !== 'void' && spec.isNamedTypeReference(type.type)
+        ? [type.type.fqn]
+        : undefined;
+      return host.objects.registerObject(value, jsiiType, interfaces);
     },
 
     deserialize(value, _type, host) {
@@ -514,7 +508,7 @@ export function serializationType(typeRef: OptionalValueOrVoid, lookup: TypeLook
         t.typeRef.optional = typeRef.optional;
       }
     }
-    return compoundTypes;
+    return compoundTypes.sort((l, r) => compareSerializationClasses(l.serializationClass, r.serializationClass));
   }
 
   // The next part of the conversion is lookup-dependent
@@ -524,8 +518,10 @@ export function serializationType(typeRef: OptionalValueOrVoid, lookup: TypeLook
     return [{ serializationClass: SerializationClass.Enum, typeRef }];
   }
 
-  if (spec.isInterfaceType(type) && type.datatype) {
-    return [{ serializationClass: SerializationClass.Struct, typeRef }];
+  if (spec.isInterfaceType(type)) {
+    return type.datatype
+      ? [{ serializationClass: SerializationClass.Struct, typeRef }]
+      : [{ serializationClass: SerializationClass.Any, typeRef }];
   }
 
   return [{ serializationClass: SerializationClass.ReferenceType, typeRef }];
@@ -674,4 +670,20 @@ function validateRequiredProps(actualProps: {[key: string]: any}, typeName: stri
   }
 
   return actualProps;
+}
+
+function compareSerializationClasses(l: SerializationClass, r: SerializationClass): number {
+  const order = [
+    SerializationClass.Void,
+    SerializationClass.Date,
+    SerializationClass.Scalar,
+    SerializationClass.Json,
+    SerializationClass.Enum,
+    SerializationClass.Array,
+    SerializationClass.Map,
+    SerializationClass.Struct,
+    SerializationClass.ReferenceType,
+    SerializationClass.Any,
+  ];
+  return order.indexOf(l) - order.indexOf(r);
 }

@@ -54,6 +54,10 @@ assemblies
  │   │   ├── getFoo(withParam) method
  │   │   ├── setBar(_x,_y,_z) method
  │   │   └── setFoo(_x,_y) method
+ │   ├─┬ class AnonymousImplementationProvider
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   └── provide() method
  │   ├─┬ class AsyncVirtualMethods
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -634,6 +638,13 @@ assemblies
  │   ├─┬ interface Greetee
  │   │ └─┬ members
  │   │   └── name property
+ │   ├─┬ interface IAnonymousImplementationProvider
+ │   │ └─┬ members
+ │   │   └── provide() method
+ │   ├─┬ interface IAnonymouslyImplementMe
+ │   │ └─┬ members
+ │   │   ├── verb() method
+ │   │   └── value property
  │   ├─┬ interface IAnotherPublicInterface
  │   │ └─┬ members
  │   │   └── a property

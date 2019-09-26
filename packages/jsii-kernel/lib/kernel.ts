@@ -17,7 +17,7 @@ export class Kernel {
   public traceEnabled = false;
 
   private assemblies: { [name: string]: Assembly } = { };
-  private readonly objects = new ObjectTable();
+  private readonly objects = new ObjectTable(this._typeInfoForFqn.bind(this));
   private cbs: { [cbid: string]: Callback } = { };
   private waiting: { [cbid: string]: Callback } = { };
   private promises: { [prid: string]: AsyncInvocation } = { };
@@ -148,7 +148,7 @@ export class Kernel {
     const { fqn, property } = req;
     const symbol = `${fqn}.${property}`;
     this._debug('sget', symbol);
-    const ti = this._typeInfoForProperty(fqn, property);
+    const ti = this._typeInfoForProperty(property, fqn);
 
     if (!ti.static) {
       throw new Error(`property ${symbol} is not static`);
@@ -169,7 +169,7 @@ export class Kernel {
     const { fqn, property, value } = req;
     const symbol = `${fqn}.${property}`;
     this._debug('sset', symbol);
-    const ti = this._typeInfoForProperty(fqn, property);
+    const ti = this._typeInfoForProperty(property, fqn);
 
     if (!ti.static) {
       throw new Error(`property ${symbol} is not static`);
@@ -190,8 +190,8 @@ export class Kernel {
   public get(req: api.GetRequest): api.GetResponse {
     const { objref, property } = req;
     this._debug('get', objref, property);
-    const { instance, fqn } = this.objects.findObject(objref);
-    const ti = this._typeInfoForProperty(fqn, property);
+    const { instance, fqn, interfaces } = this.objects.findObject(objref);
+    const ti = this._typeInfoForProperty(property, fqn, interfaces);
 
     // if the property is overridden by the native code and "get" is called on the object, it
     // means that the native code is trying to access the "super" property. in order to enable
@@ -213,9 +213,9 @@ export class Kernel {
   public set(req: api.SetRequest): api.SetResponse {
     const { objref, property, value } = req;
     this._debug('set', objref, property, value);
-    const { instance, fqn } = this.objects.findObject(objref);
+    const { instance, fqn, interfaces } = this.objects.findObject(objref);
 
-    const propInfo = this._typeInfoForProperty(fqn, req.property);
+    const propInfo = this._typeInfoForProperty(req.property, fqn, interfaces);
 
     if (propInfo.immutable) {
       throw new Error(`Cannot set value of immutable property ${req.property} to ${req.value}`);
@@ -257,7 +257,7 @@ export class Kernel {
 
     this._debug('sinvoke', fqn, method, args);
 
-    const ti = this._typeInfoForMethod(fqn, method);
+    const ti = this._typeInfoForMethod(method, fqn);
 
     if (!ti.static) {
       throw new Error(`${fqn}.${method} is not a static method`);
@@ -448,14 +448,14 @@ export class Kernel {
   // getting it recorded for testing.
   private _create(req: api.CreateRequest): api.CreateResponse {
     this._debug('create', req);
-    const { fqn, overrides } = req;
+    const { fqn, interfaces, overrides } = req;
 
     const requestArgs = req.args || [];
 
     const ctorResult = this._findCtor(fqn, requestArgs);
     const ctor = ctorResult.ctor;
     const obj = this._wrapSandboxCode(() => new ctor(...this._toSandboxValues(requestArgs, ctorResult.parameters)));
-    const objref = this.objects.registerObject(obj, fqn);
+    const objref = this.objects.registerObject(obj, fqn, req.interfaces || []);
 
     // overrides: for each one of the override method names, installs a
     // method on the newly created object which represents the remote "reverse proxy".
@@ -473,13 +473,13 @@ export class Kernel {
           if (methods.has(override.method)) { throw new Error(`Duplicate override for method '${override.method}'`); }
           methods.add(override.method);
 
-          this._applyMethodOverride(obj, objref, fqn, override);
+          this._applyMethodOverride(obj, objref, fqn, interfaces, override);
         } else if (api.isPropertyOverride(override)) {
           if (api.isMethodOverride(override)) { throw new Error(overrideTypeErrorMessage); }
           if (properties.has(override.property)) { throw Error(`Duplicate override for property '${override.property}'`); }
           properties.add(override.property);
 
-          this._applyPropertyOverride(obj, objref, fqn, override);
+          this._applyPropertyOverride(obj, objref, fqn, interfaces, override);
         } else {
           throw new Error(overrideTypeErrorMessage);
         }
@@ -493,17 +493,13 @@ export class Kernel {
     return `$jsii$super$${name}$`;
   }
 
-  private _applyPropertyOverride(obj: any, objref: api.ObjRef, typeFqn: string, override: api.PropertyOverride) {
-    let propInfo;
-    if (typeFqn !== wire.EMPTY_OBJECT_FQN) {
-      // error if we can find a method with this name
-      if (this._tryTypeInfoForMethod(typeFqn, override.property)) {
-        throw new Error(`Trying to override method '${override.property}' as a property`);
-      }
-
-      propInfo = this._tryTypeInfoForProperty(typeFqn, override.property);
+  private _applyPropertyOverride(obj: any, objref: api.ObjRef, typeFqn: string, interfaces: string[] | undefined, override: api.PropertyOverride) {
+    // error if we can find a method with this name
+    if (this._tryTypeInfoForMethod(override.property, typeFqn, interfaces)) {
+      throw new Error(`Trying to override method '${override.property}' as a property`);
     }
 
+    let propInfo = this._tryTypeInfoForProperty(override.property, typeFqn, interfaces);
     // if this is a private property (i.e. doesn't have `propInfo` the object has a key)
     if (!propInfo && override.property in obj) {
       this._debug(`Skipping override of private property ${override.property}`);
@@ -571,16 +567,13 @@ export class Kernel {
     });
   }
 
-  private _applyMethodOverride(obj: any, objref: api.ObjRef, typeFqn: string, override: api.MethodOverride) {
-    let methodInfo;
-    if (typeFqn !== wire.EMPTY_OBJECT_FQN) {
-      // error if we can find a property with this name
-      if (this._tryTypeInfoForProperty(typeFqn, override.method)) {
-        throw new Error(`Trying to override property '${override.method}' as a method`);
-      }
-
-      methodInfo = this._tryTypeInfoForMethod(typeFqn, override.method);
+  private _applyMethodOverride(obj: any, objref: api.ObjRef, typeFqn: string, interfaces: string[] | undefined, override: api.MethodOverride) {
+    // error if we can find a property with this name
+    if (this._tryTypeInfoForProperty(override.method, typeFqn, interfaces)) {
+      throw new Error(`Trying to override property '${override.method}' as a method`);
     }
+
+    let methodInfo = this._tryTypeInfoForMethod(override.method, typeFqn, interfaces);
 
     // If this is a private method (doesn't have methodInfo, key resolves on the object), we
     // are going to skip the override.
@@ -593,9 +586,6 @@ export class Kernel {
       // We've overriding a method on an object we have NO type information on (probably
       // because it's an anonymous object).
       // Pretend it's an (...args: any[]) => any
-      //
-      // FIXME: We could do better type checking during the conversion if JSII clients
-      // would tell us the intended interface type.
       methodInfo = {
         name: override.method,
         returns: { type: spec.CANONICAL_ANY },
@@ -664,9 +654,9 @@ export class Kernel {
     }
   }
 
-  private _findInvokeTarget(objref: any, methodName: string, args: any[]) {
-    const { instance, fqn } = this.objects.findObject(objref);
-    const ti = this._typeInfoForMethod(fqn, methodName);
+  private _findInvokeTarget(objref: api.ObjRef, methodName: string, args: any[]) {
+    const { instance, fqn, interfaces } = this.objects.findObject(objref);
+    const ti = this._typeInfoForMethod(methodName, fqn, interfaces);
     this._validateMethodArguments(ti, args);
 
     // always first look up the method in the prototype. this practically bypasses
@@ -756,83 +746,90 @@ export class Kernel {
     return fqnInfo;
   }
 
-  private _typeInfoForMethod(fqn: string, methodName: string): spec.Method {
-    const ti = this._tryTypeInfoForMethod(fqn, methodName);
+  private _typeInfoForMethod(methodName: string, fqn: string, interfaces?: string[]): spec.Method {
+    const ti = this._tryTypeInfoForMethod(methodName, fqn, interfaces);
     if (!ti) {
-      throw new Error(`Class ${fqn} doesn't have a method '${methodName}'`);
+      const addendum = interfaces && interfaces.length > 0
+        ? ` or interface(s) ${interfaces.join(', ')}`
+        : '';
+      throw new Error(`Class ${fqn}${addendum} doesn't have a method '${methodName}'`);
     }
     return ti;
   }
 
-  private _tryTypeInfoForMethod(fqn: string, methodName: string): spec.Method | undefined {
-    const typeinfo = this._typeInfoForFqn(fqn);
+  private _tryTypeInfoForMethod(methodName: string, classFqn: string, interfaces: string[] = []): spec.Method | undefined {
+    for (const fqn of [classFqn, ...interfaces]) {
+      if (fqn === 'Object') { continue; }
+      const typeinfo = this._typeInfoForFqn(fqn);
 
-    const methods = (typeinfo as (spec.ClassType | spec.InterfaceType)).methods || [];
-    const bases = [
-      (typeinfo as spec.ClassType).base,
-      ...(typeinfo as spec.InterfaceType).interfaces || []];
+      const methods = (typeinfo as (spec.ClassType | spec.InterfaceType)).methods || [];
 
-    for (const m of methods) {
-      if (m.name === methodName) {
-        return m;
+      for (const m of methods) {
+        if (m.name === methodName) {
+          return m;
+        }
       }
-    }
 
-    // recursion to parent type (if exists)
-    for (const base of bases) {
-      if (!base) { continue; }
+      // recursion to parent type (if exists)
+      const bases = [(typeinfo as spec.ClassType).base, ...(typeinfo as spec.InterfaceType).interfaces || []];
+      for (const base of bases) {
+        if (!base) { continue; }
 
-      const found = this._tryTypeInfoForMethod(base, methodName);
-      if (found) {
-        return found;
-      }
-    }
-
-    return undefined;
-  }
-
-  private _tryTypeInfoForProperty(fqn: string, property: string): spec.Property | undefined {
-    if (!fqn) {
-      throw new Error('missing "fqn"');
-    }
-    const typeInfo = this._typeInfoForFqn(fqn);
-
-    let properties;
-    let bases;
-
-    if (spec.isClassType(typeInfo)) {
-      const classTypeInfo = typeInfo as spec.ClassType;
-      properties = classTypeInfo.properties;
-      bases = classTypeInfo.base ? [classTypeInfo.base] : [];
-    } else if (spec.isInterfaceType(typeInfo)) {
-      const interfaceTypeInfo = typeInfo as spec.InterfaceType;
-      properties = interfaceTypeInfo.properties;
-      bases = interfaceTypeInfo.interfaces || [];
-    } else {
-      throw new Error(`Type of kind ${typeInfo.kind} does not have properties`);
-    }
-
-    for (const p of properties || []) {
-      if (p.name === property) {
-        return p;
-      }
-    }
-
-    // recurse to parent type (if exists)
-    for (const baseFqn of bases) {
-      const ret = this._tryTypeInfoForProperty(baseFqn, property);
-      if (ret) {
-        return ret;
+        const found = this._tryTypeInfoForMethod(methodName, base);
+        if (found) {
+          return found;
+        }
       }
     }
 
     return undefined;
   }
 
-  private _typeInfoForProperty(fqn: string, property: string): spec.Property {
-    const typeInfo = this._tryTypeInfoForProperty(fqn, property);
+  private _tryTypeInfoForProperty(property: string, classFqn: string, interfaces: string[] = []): spec.Property | undefined {
+    for (const fqn of [classFqn, ...interfaces]) {
+      if (fqn === wire.EMPTY_OBJECT_FQN) { continue; }
+      const typeInfo = this._typeInfoForFqn(fqn);
+
+      let properties;
+      let bases;
+
+      if (spec.isClassType(typeInfo)) {
+        const classTypeInfo = typeInfo as spec.ClassType;
+        properties = classTypeInfo.properties;
+        bases = classTypeInfo.base ? [classTypeInfo.base] : [];
+      } else if (spec.isInterfaceType(typeInfo)) {
+        const interfaceTypeInfo = typeInfo as spec.InterfaceType;
+        properties = interfaceTypeInfo.properties;
+        bases = interfaceTypeInfo.interfaces || [];
+      } else {
+        throw new Error(`Type of kind ${typeInfo.kind} does not have properties`);
+      }
+
+      for (const p of properties || []) {
+        if (p.name === property) {
+          return p;
+        }
+      }
+
+      // recurse to parent type (if exists)
+      for (const baseFqn of bases) {
+        const ret = this._tryTypeInfoForProperty(property, baseFqn);
+        if (ret) {
+          return ret;
+        }
+      }
+    }
+
+    return undefined;
+  }
+
+  private _typeInfoForProperty(property: string, fqn: string, interfaces?: string[]): spec.Property {
+    const typeInfo = this._tryTypeInfoForProperty(property, fqn, interfaces);
     if (!typeInfo) {
-      throw new Error(`Type ${fqn} doesn't have a property '${property}'`);
+      const addendum = interfaces && interfaces.length > 0
+        ? ` or interface(s) ${interfaces.join(', ')}`
+        : '';
+      throw new Error(`Type ${fqn}${addendum} doesn't have a property '${property}'`);
     }
     return typeInfo;
   }

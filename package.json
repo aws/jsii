@@ -7,7 +7,8 @@
     "bump": "bash scripts/bump.sh",
     "fetch-dotnet-snk": "bash scripts/fetch-dotnet-snk.sh",
     "install-local-packages": "node scripts/install-local-packages.js",
-    "package": "bash scripts/package.sh"
+    "package": "bash scripts/package.sh",
+    "test": "lerna run test --stream"
   },
   "devDependencies": {
     "@types/node": "^8.10.54",

@@ -614,6 +614,42 @@ AllowedMethodNames
       :type _y: number
 
 
+AnonymousImplementationProvider
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: AnonymousImplementationProvider()
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.AnonymousImplementationProvider;
+
+      .. code-tab:: javascript
+
+         const { AnonymousImplementationProvider } = require('jsii-calc');
+
+      .. code-tab:: typescript
+
+         import { AnonymousImplementationProvider } from 'jsii-calc';
+
+
+
+   :implements: :py:class:`~jsii-calc.IAnonymousImplementationProvider`\ 
+
+   .. py:method:: provide() -> jsii-calc.IAnonymouslyImplementMe
+
+      *Implements* :py:meth:`jsii-calc.IAnonymousImplementationProvider.provide`
+
+      :rtype: :py:class:`~jsii-calc.IAnonymouslyImplementMe`\ 
+
+
 AsyncVirtualMethods
 ^^^^^^^^^^^^^^^^^^^
 
@@ -2823,6 +2859,85 @@ GreetingAugmenter
       :param friendly: 
       :type friendly: :py:class:`@scope/jsii-calc-lib.IFriendly`\ 
       :rtype: string
+
+
+IAnonymousImplementationProvider (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: IAnonymousImplementationProvider
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.IAnonymousImplementationProvider;
+
+      .. code-tab:: javascript
+
+         // IAnonymousImplementationProvider is an interface
+
+      .. code-tab:: typescript
+
+         import { IAnonymousImplementationProvider } from 'jsii-calc';
+
+
+
+   We can return an anonymous interface implementation from an override without losing the interface declarations.
+
+
+
+
+
+   .. py:method:: provide() -> jsii-calc.IAnonymouslyImplementMe
+
+      :rtype: :py:class:`~jsii-calc.IAnonymouslyImplementMe`\ 
+      :abstract: Yes
+
+
+IAnonymouslyImplementMe (interface)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. py:class:: IAnonymouslyImplementMe
+
+   **Language-specific names:**
+
+   .. tabs::
+
+      .. code-tab:: c#
+
+         using Amazon.JSII.Tests.CalculatorNamespace;
+
+      .. code-tab:: java
+
+         import software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe;
+
+      .. code-tab:: javascript
+
+         // IAnonymouslyImplementMe is an interface
+
+      .. code-tab:: typescript
+
+         import { IAnonymouslyImplementMe } from 'jsii-calc';
+
+
+
+
+
+   .. py:attribute:: value
+
+      :type: number
+
+
+   .. py:method:: verb() -> string
+
+      :rtype: string
+      :abstract: Yes
 
 
 IAnotherPublicInterface (interface)

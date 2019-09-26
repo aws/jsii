@@ -137,6 +137,12 @@ assemblies
  │   │     │ └─┬ _y
  │   │     │   └── type: number
  │   │     └── returns: void
+ │   ├─┬ class AnonymousImplementationProvider (experimental)
+ │   │ ├── interfaces: IAnonymousImplementationProvider
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   └─┬ provide() method (experimental)
+ │   │     └── returns: jsii-calc.IAnonymouslyImplementMe
  │   ├─┬ class AsyncVirtualMethods (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -1461,6 +1467,19 @@ assemblies
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<string>
+ │   ├─┬ interface IAnonymousImplementationProvider (experimental)
+ │   │ └─┬ members
+ │   │   └─┬ provide() method (experimental)
+ │   │     ├── abstract
+ │   │     └── returns: jsii-calc.IAnonymouslyImplementMe
+ │   ├─┬ interface IAnonymouslyImplementMe (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ verb() method (experimental)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: string
+ │   │   └─┬ value property (experimental)
+ │   │     ├── abstract
+ │   │     └── type: number
  │   ├─┬ interface IAnotherPublicInterface (experimental)
  │   │ └─┬ members
  │   │   └─┬ a property (experimental)

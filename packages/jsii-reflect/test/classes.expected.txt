@@ -4,6 +4,7 @@ AbstractClassReturner
 Add
 AllTypes
 AllowedMethodNames
+AnonymousImplementationProvider
 AsyncVirtualMethods
 AugmentableClass
 Base

@@ -1034,6 +1034,41 @@
       ],
       "name": "AllowedMethodNames"
     },
+    "jsii-calc.AnonymousImplementationProvider": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.AnonymousImplementationProvider",
+      "initializer": {},
+      "interfaces": [
+        "jsii-calc.IAnonymousImplementationProvider"
+      ],
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1891
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1892
+          },
+          "name": "provide",
+          "overrides": "jsii-calc.IAnonymousImplementationProvider",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.IAnonymouslyImplementMe"
+            }
+          }
+        }
+      ],
+      "name": "AnonymousImplementationProvider"
+    },
     "jsii-calc.AsyncVirtualMethods": {
       "assembly": "jsii-calc",
       "docs": {
@@ -3796,6 +3831,85 @@
         }
       ],
       "name": "GreetingAugmenter"
+    },
+    "jsii-calc.IAnonymousImplementationProvider": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "We can return an anonymous interface implementation from an override without losing the interface declarations."
+      },
+      "fqn": "jsii-calc.IAnonymousImplementationProvider",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1888
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1889
+          },
+          "name": "provide",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.IAnonymouslyImplementMe"
+            }
+          }
+        }
+      ],
+      "name": "IAnonymousImplementationProvider"
+    },
+    "jsii-calc.IAnonymouslyImplementMe": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.IAnonymouslyImplementMe",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1899
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1901
+          },
+          "name": "verb",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "IAnonymouslyImplementMe",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1900
+          },
+          "name": "value",
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
     },
     "jsii-calc.IAnotherPublicInterface": {
       "assembly": "jsii-calc",
@@ -9617,5 +9731,5 @@
     }
   },
   "version": "0.17.0",
-  "fingerprint": "0rRLU+O4hydb2vIjisfE/CmN7SzcwuHuf1lZMR5qwJg="
+  "fingerprint": "Qt/kBLkuUPM6aMutORjHa2+23lDPZD7iVm58r8frz70="
 }

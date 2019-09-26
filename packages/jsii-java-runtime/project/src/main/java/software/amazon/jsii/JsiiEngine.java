@@ -198,6 +198,9 @@ public final class JsiiEngine implements JsiiCallbackHandler {
      * @return The Java class name.
      */
     private Class<?> resolveJavaClass(final String fqn) throws ClassNotFoundException {
+        if ("Object".equals(fqn)) {
+            return JsiiObject.class;
+        }
         String[] parts = fqn.split("\\.");
         if (parts.length < 2) {
             throw new JsiiException("Malformed FQN: " + fqn);

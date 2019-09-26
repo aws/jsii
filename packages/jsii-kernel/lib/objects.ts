@@ -1,14 +1,20 @@
+import spec = require('jsii-spec');
 import * as api from './api';
+import { EMPTY_OBJECT_FQN } from './serialization';
 
 /**
  * Symbol under which we store the { type -> objid } map on object instances
  */
-const OBJID_SYMBOL = Symbol('$__jsii__objid__$');
+const OBJID_SYMBOL = Symbol.for('$__jsii__objid__$');
+/**
+ * Symbol under which we store the interfaces implemented by instances
+ */
+const IFACES_SYMBOL = Symbol.for('$__jsii__interfaces__$');
 
 /**
  * Symbol we use to tag the constructor of a JSII class
  */
-const JSII_SYMBOL = Symbol('__jsii__');
+const JSII_SYMBOL = Symbol.for('__jsii__');
 
 /**
  * Get the JSII fqn for an object (if available)
@@ -27,17 +33,27 @@ export function jsiiTypeFqn(obj: any): string | undefined {
  *
  * This is to retain object identity across invocations.
  */
-export function objectReference(obj: object): api.ObjRef | undefined {
+export function objectReference(obj: object): api.AnnotatedObjRef | undefined {
   // If this object as already returned
   if ((obj as any)[OBJID_SYMBOL]) {
-    return { [api.TOKEN_REF]: (obj as any)[OBJID_SYMBOL] };
+    return {
+      [api.TOKEN_REF]: (obj as ManagedObject)[OBJID_SYMBOL],
+      [api.TOKEN_INTERFACES]: (obj as ManagedObject)[IFACES_SYMBOL],
+    };
   }
 
   return undefined;
 }
 
-function tagObject(obj: object, objid: string) {
-  (obj as any)[OBJID_SYMBOL] = objid;
+type ManagedObject = {
+  [OBJID_SYMBOL]: string;
+  [IFACES_SYMBOL]?: string[];
+};
+
+function tagObject(obj: object, objid: string, interfaces?: string[]) {
+  const managed = obj as ManagedObject;
+  managed[OBJID_SYMBOL] = objid;
+  managed[IFACES_SYMBOL] = interfaces;
 }
 
 /**
@@ -79,26 +95,37 @@ export class ObjectTable {
   private objects: { [objid: string]: RegisteredObject } = { };
   private nextid = 10000;
 
+  public constructor(private readonly resolveType: (fqn: string) => spec.Type) { }
+
   /**
      * Register the given object with the given type
      *
      * Return the existing registration if available.
      */
-  public registerObject(obj: object, fqn: string): api.ObjRef {
+  public registerObject(obj: object, fqn: string, interfaces?: string[]): api.AnnotatedObjRef {
     if (fqn === undefined) {
       throw new Error('FQN cannot be undefined');
     }
 
     const existingRef = objectReference(obj);
     if (existingRef) {
+      if (interfaces) {
+        const allIfaces = new Set(interfaces);
+        for (const iface of existingRef[api.TOKEN_INTERFACES] || []) {
+          allIfaces.add(iface);
+        }
+        existingRef[api.TOKEN_INTERFACES] = this.removeRedundant(Array.from(allIfaces), fqn);
+      }
       return existingRef;
     }
 
-    const objid = this.makeId(fqn);
-    this.objects[objid] = { instance: obj, fqn };
-    tagObject(obj, objid);
+    interfaces = this.removeRedundant(interfaces, fqn);
 
-    return { [api.TOKEN_REF]: objid };
+    const objid = this.makeId(fqn);
+    this.objects[objid] = { instance: obj, fqn, interfaces };
+    tagObject(obj, objid, interfaces);
+
+    return { [api.TOKEN_REF]: objid, [api.TOKEN_INTERFACES]: interfaces };
   }
 
   /**
@@ -132,9 +159,71 @@ export class ObjectTable {
   private makeId(fqn: string) {
     return `${fqn}@${this.nextid++}`;
   }
+
+  private removeRedundant(interfaces: string[] | undefined, fqn: string): string[] | undefined {
+    if (!interfaces || interfaces.length === 0) { return undefined; }
+
+    const result = new Set(interfaces);
+    const builtIn = new InterfaceCollection(this.resolveType);
+
+    if (fqn !== EMPTY_OBJECT_FQN) {
+      builtIn.addFromClass(fqn);
+    }
+    interfaces.forEach(builtIn.addFromInterface.bind(builtIn));
+
+    for (const iface of builtIn) {
+      result.delete(iface);
+    }
+
+    return result.size > 0 ? Array.from(result).sort() : undefined;
+  }
 }
 
 export interface RegisteredObject {
   instance: any;
   fqn: string;
+  interfaces?: string[];
+}
+
+class InterfaceCollection implements Iterable<string> {
+  private readonly interfaces = new Set<string>();
+
+  public constructor(private readonly resolveType: (fqn: string) => spec.Type) { }
+
+  public addFromClass(fqn: string): void {
+    const ti = this.resolveType(fqn);
+    if (!spec.isClassType(ti)) {
+      throw new Error(`Expected a class, but received ${spec.describeTypeReference(ti)}`);
+    }
+    if (ti.base) {
+      this.addFromClass(ti.base);
+    }
+    if (ti.interfaces) {
+      for (const iface of ti.interfaces) {
+        if (this.interfaces.has(iface)) {
+          continue;
+        }
+        this.interfaces.add(iface);
+        this.addFromInterface(iface);
+      }
+    }
+
+  }
+
+  public addFromInterface(fqn: string): void {
+    const ti = this.resolveType(fqn);
+    if (!spec.isInterfaceType(ti)) {
+      throw new Error(`Expected an interface, but received ${spec.describeTypeReference(ti)}`);
+    }
+    if (!ti.interfaces) { return; }
+    for (const iface of ti.interfaces) {
+      if (this.interfaces.has(iface)) { continue; }
+      this.interfaces.add(iface);
+      this.addFromInterface(iface);
+    }
+  }
+
+  public [Symbol.iterator]() {
+    return this.interfaces[Symbol.iterator]();
+  }
 }

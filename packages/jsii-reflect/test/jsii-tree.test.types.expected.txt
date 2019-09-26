@@ -7,6 +7,7 @@ assemblies
  │   ├── class Add
  │   ├── class AllTypes
  │   ├── class AllowedMethodNames
+ │   ├── class AnonymousImplementationProvider
  │   ├── class AsyncVirtualMethods
  │   ├── class AugmentableClass
  │   ├── class BinaryOperation
@@ -102,6 +103,8 @@ assemblies
  │   ├── interface ExperimentalStruct
  │   ├── interface ExtendsInternalInterface
  │   ├── interface Greetee
+ │   ├── interface IAnonymousImplementationProvider
+ │   ├── interface IAnonymouslyImplementMe
  │   ├── interface IAnotherPublicInterface
  │   ├── interface IDeprecatedInterface
  │   ├── interface IExperimentalInterface

@@ -4,7 +4,7 @@ import { join } from 'path';
 import path = require('path');
 import vm = require('vm');
 import { api, Kernel } from '../lib';
-import { Callback, ObjRef, TOKEN_REF } from '../lib/api';
+import { Callback, ObjRef, TOKEN_REF, TOKEN_INTERFACES } from '../lib/api';
 import { closeRecording, recordInteraction } from './recording';
 
 /* eslint-disable require-atomic-updates */
@@ -937,13 +937,13 @@ defineTest('JSII_AGENT is undefined in node.js', (sandbox) => {
 });
 
 defineTest('ObjRefs are labeled with the "most correct" type', (sandbox) => {
-  typeMatches('makeClass', { '$jsii.byref': /^jsii-calc.InbetweenClass@/ });
-  typeMatches('makeInterface', { '$jsii.byref': /^jsii-calc.IPublicInterface@/ });
-  typeMatches('makeInterface2', { '$jsii.byref': /^jsii-calc.InbetweenClass@/ });
-  typeMatches('makeInterfaces', [{ '$jsii.byref': /^jsii-calc.IPublicInterface@/ }]);
-  typeMatches('hiddenInterface', { '$jsii.byref': /^jsii-calc.IPublicInterface@/ });
-  typeMatches('hiddenInterfaces', [{ '$jsii.byref': /^jsii-calc.IPublicInterface@/ }]);
-  typeMatches('hiddenSubInterfaces', [{ '$jsii.byref': /^jsii-calc.IPublicInterface@/ }]);
+  typeMatches('makeClass', { [TOKEN_REF]: /^jsii-calc.InbetweenClass@/ });
+  typeMatches('makeInterface', { [TOKEN_REF]: /^jsii-calc.InbetweenClass@/, [TOKEN_INTERFACES]: ['jsii-calc.IPublicInterface'] });
+  typeMatches('makeInterface2', { [TOKEN_REF]: /^jsii-calc.InbetweenClass@/ });
+  typeMatches('makeInterfaces', [{ [TOKEN_REF]: /^jsii-calc.InbetweenClass@/, [TOKEN_INTERFACES]: ['jsii-calc.IPublicInterface'] }]);
+  typeMatches('hiddenInterface', { [TOKEN_REF]: /^Object@/, [TOKEN_INTERFACES]: ['jsii-calc.IPublicInterface'] });
+  typeMatches('hiddenInterfaces', [{ [TOKEN_REF]: /^Object@/, [TOKEN_INTERFACES]: ['jsii-calc.IPublicInterface'] }]);
+  typeMatches('hiddenSubInterfaces', [{ [TOKEN_REF]: /^Object@/, [TOKEN_INTERFACES]: ['jsii-calc.IPublicInterface'] }]);
 
   function typeMatches(staticMethod: string, typeSpec: any) {
     const ret = sandbox.sinvoke({ fqn: 'jsii-calc.Constructors', method: staticMethod }).result as api.ObjRef;
@@ -979,8 +979,8 @@ https://github.com/aws/jsii/issues/399
 defineTest('A single instance can be returned under two types', (sandbox) => {
     const singleInstanceTwoTypes = create(sandbox, 'jsii-calc.SingleInstanceTwoTypes')();
 
-    typeMatches('interface1', { '$jsii.byref': /^jsii-calc.InbetweenClass@/ });
-    typeMatches('interface2', { '$jsii.byref': /^jsii-calc.IPublicInterface@/ });
+    typeMatches('interface1', { [TOKEN_REF]: /^jsii-calc.InbetweenClass@/ });
+    typeMatches('interface2', { [TOKEN_REF]: /^jsii-calc.IPublicInterface@/ });
 
     function typeMatches(method: string, typeSpec: any) {
         const ret = sandbox.invoke({ objref: singleInstanceTwoTypes, method }).result as api.ObjRef;
@@ -1008,16 +1008,6 @@ defineTest('toSandbox: "undefined" in hash values sent to JS should be treated a
   expect(option2Exists.result).toBe(true);
 });
 
-defineTest('fromSandbox: "undefined" in hash values returned from JS erases the key', (sandbox) => {
-  const output = sandbox.sinvoke({ fqn: 'jsii-calc.EraseUndefinedHashValues', method: 'prop2IsUndefined' });
-  expect(output).toEqual({ result: { prop1: 'value1' } });
-});
-
-defineTest('fromSandbox: "null" in hash values returned from JS erases the key', (sandbox) => {
-  const output = sandbox.sinvoke({ fqn: 'jsii-calc.EraseUndefinedHashValues', method: 'prop1IsNull' });
-  expect(output).toEqual({ result: { prop2: 'value2' } });
-});
-
 defineTest('calculator can set and retrieve union properties', (sandbox) => {
   const calculator = create(sandbox, 'jsii-calc.Calculator')();
 
@@ -1033,7 +1023,7 @@ defineTest('calculator can set and retrieve union properties', (sandbox) => {
 
   console.log(expression);
 
-  expect(deepEqualWithRegex(expression, { '$jsii.byref': /^jsii-calc.Multiply@/ })).toBeTruthy();
+  expect(deepEqualWithRegex(expression, { [TOKEN_REF]: /^jsii-calc.Multiply@/ })).toBeTruthy();
 });
 
 defineTest('can set and retrieve union properties', (sandbox) => {
@@ -1154,6 +1144,31 @@ defineTest('correctly passes enum values across', (sandbox) => {
   expect(integerLike.result).toEqual({ '$jsii.enum': 'jsii-calc.AllTypesEnum/YOUR_ENUM_VALUE' });
 });
 
+defineTest('registers interfaces requested', (sandbox) => {
+  const interfaces = ['jsii-calc.IReturnsNumber', 'jsii-calc.IInterfaceWithOptionalMethodArguments'];
+  const objref = sandbox.create({ fqn: 'Object', interfaces });
+  expect(objref).toEqual({ [TOKEN_REF]: 'Object@10000', [TOKEN_INTERFACES]: interfaces.sort() });
+});
+
+defineTest('retains the type of object literals', (sandbox) => {
+  sandbox.callbackHandler = makeSyncCallbackHandler((cb) => {
+    expect(cb.invoke && cb.invoke.method).toBe('provide');
+    expect(cb.invoke && cb.invoke.objref).toMatchObject({ [TOKEN_REF]: 'Object@10000' });
+    const realObject = sandbox.create({ fqn: 'jsii-calc.AnonymousImplementationProvider' });
+    const { result } = sandbox.invoke({ objref: realObject, method: 'provide' });
+    sandbox.del({ objref: realObject });
+    return result;
+  });
+
+  const objref = sandbox.create({
+    fqn: 'Object',
+    interfaces: ['jsii-calc.IAnonymousImplementationProvider'],
+    overrides: [{ method: 'provide' }],
+  });
+  const result = sandbox.invoke({ objref, method: 'provide' });
+  expect(result).toEqual({ result: { [TOKEN_REF]: 'Object@10002', [TOKEN_INTERFACES]: ['jsii-calc.IAnonymouslyImplementMe'] } });
+});
+
 // =================================================================================================
 
 const testNames: { [name: string]: boolean } = { };
@@ -1259,7 +1274,7 @@ export function deepEqualWithRegex(lvalue: any, rvalue: any): boolean {
       // If both were null, they'd have been ===
       return false;
     }
-    const keys = Object.keys(lvalue);
+    const keys = Object.entries(lvalue).filter(([, v]) => v != null).map(([k,]) => k);
     if (keys.length !== Object.keys(rvalue).length) { return false; }
     for (const key of keys) {
       if (!Object.prototype.hasOwnProperty.call(rvalue, key)) { return false; }

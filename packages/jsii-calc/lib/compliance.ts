@@ -1880,3 +1880,23 @@ export class ClassWithCollections {
         return {'key1': 'value1', 'key2': 'value2'};
     }
 }
+
+/**
+ * We can return an anonymous interface implementation from an override without losing the interface
+ * declarations.
+ */
+export interface IAnonymousImplementationProvider {
+    provide(): IAnonymouslyImplementMe;
+}
+export class AnonymousImplementationProvider implements IAnonymousImplementationProvider {
+    public provide(): IAnonymouslyImplementMe {
+        return {
+            value: 1337,
+            verb() { return 'to implement'; },
+        };
+    }
+}
+export interface IAnonymouslyImplementMe {
+    value: number;
+    verb(): string;
+}

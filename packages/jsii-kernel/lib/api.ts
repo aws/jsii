@@ -1,9 +1,14 @@
 export const TOKEN_REF = '$jsii.byref';
+export const TOKEN_INTERFACES = '$jsii.interfaces';
 export const TOKEN_DATE = '$jsii.date';
 export const TOKEN_ENUM = '$jsii.enum';
 
 export interface ObjRef {
   [TOKEN_REF]: string;
+}
+
+export interface AnnotatedObjRef extends ObjRef {
+  [TOKEN_INTERFACES]?: string[];
 }
 
 export function isObjRef(value: any): value is ObjRef {
@@ -75,13 +80,29 @@ export interface LoadResponse {
 }
 
 export interface CreateRequest {
+  /**
+   * The FQN of the class of which an instance is requested (or "Object")
+   */
   fqn: string;
+  /**
+   * The FQNs of interfaces the instance implements, if any. Declaring
+   * interfaces that the class denoted by `fqn` implements is not necessary.
+   * This means that memebers of interfaces found in this property should
+   * declare members that are found in the `overrides` property.
+   */
+  interfaces?: string[];
+  /**
+   * Arguments to pass to the constructor of `fqn`. ("Object" accepts none)
+   */
   args?: any[];
+  /**
+   * Declarations of method overrides that should trigger callbacks
+   */
   overrides?: Override[];
 }
 
 /* eslint-disable @typescript-eslint/no-empty-interface */
-export interface CreateResponse extends ObjRef {}
+export interface CreateResponse extends AnnotatedObjRef {}
 /* eslint-enable @typescript-eslint/no-empty-interface */
 
 export interface DelRequest {
