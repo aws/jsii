@@ -23,6 +23,11 @@ class TestErrorHandling:
 
         assert base_names == ['DerivedStruct', 'MyFirstStruct']
 
+    def test_descriptive_error_when_passing_function(self):
+        obj = jsii_calc.Calculator()
+
+        with pytest.raises(JSIIError, match="Cannot pass function as argument here.*"):
+            obj.add(self.test_descriptive_error_when_passing_function)
 
 
 def find_struct_bases(x):
