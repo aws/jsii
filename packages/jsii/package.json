@@ -53,7 +53,7 @@
     "@types/jest-expect-message": "^1.0.0",
     "@types/log4js": "^2.3.5",
     "@types/semver": "^6.0.2",
-    "@types/yargs": "^13.0.2",
+    "@types/yargs": "^13.0.3",
     "@typescript-eslint/eslint-plugin": "^2.3.1",
     "@typescript-eslint/parser": "^2.3.1",
     "clone": "^2.1.2",
