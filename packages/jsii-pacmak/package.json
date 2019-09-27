@@ -53,7 +53,7 @@
     "@types/jest": "^24.0.18",
     "@types/node": "^8.10.54",
     "@types/xmlbuilder": "^11.0.1",
-    "@types/yargs": "^13.0.2",
+    "@types/yargs": "^13.0.3",
     "@typescript-eslint/eslint-plugin": "^2.3.1",
     "@typescript-eslint/parser": "^2.3.1",
     "eslint": "^6.4.0",
