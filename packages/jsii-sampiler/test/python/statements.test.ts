@@ -1,4 +1,5 @@
 import { expectPython } from "./python";
+import { LiteralSource, PythonVisitor, translateTypeScript, renderTree } from "../../lib";
 
 test('if', () => {
   expectPython(`
@@ -97,4 +98,16 @@ test('whitespace between statements in a block', () => {
 
       statement_two()
   `);
+});
+
+test('prepend disclaimer', () => {
+  const src = new LiteralSource('console.log("hello");', 'test.ts');
+
+  const result = translateTypeScript(src, new PythonVisitor({
+    disclaimer: 'Do not write this code'
+  }));
+
+  expect(renderTree(result.tree)).toEqual(
+`# Do not write this code
+print("hello")`);
 });

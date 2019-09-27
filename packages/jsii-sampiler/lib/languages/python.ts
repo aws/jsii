@@ -92,7 +92,7 @@ export class PythonVisitor extends DefaultVisitor<PythonLanguageContext> {
   public sourceFile(node: ts.SourceFile, context: PythonVisitorContext): OTree {
     const rendered = super.sourceFile(node, context);
     if (this.options.disclaimer) {
-      return new OTree(['# ' + this.options.disclaimer, rendered]);
+      return new OTree(['# ' + this.options.disclaimer + '\n', rendered]);
     }
     return rendered;
   }
