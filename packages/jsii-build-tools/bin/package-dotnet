@@ -2,6 +2,4 @@
 set -euo pipefail
 rm -fr dist/dotnet
 mkdir -p dist/dotnet
-cp *.nupkg dist/dotnet
-
-
+cp *.nupkg *.snupkg dist/dotnet

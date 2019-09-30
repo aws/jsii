@@ -20,6 +20,7 @@ coverage/
 
 
 *.nupkg
+*.snupkg
 bin/
 cli/
 obj/

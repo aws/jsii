@@ -54,6 +54,7 @@ export class FileGenerator {
     propertyGroup.ele('GeneratePackageOnBuild', 'true');
     propertyGroup.ele('GenerateDocumentationFile', 'true');
     propertyGroup.ele('IncludeSymbols', 'true');
+    propertyGroup.ele('SymbolPackageFormat', 'snupkg');
     propertyGroup.ele('IncludeSource', 'true');
     propertyGroup.ele('PackageVersion', this.getDecoratedVersion(assembly));
     propertyGroup.ele('PackageId', packageId);
