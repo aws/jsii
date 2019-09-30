@@ -1,6 +1,6 @@
 {
   "name": "jsii-dotnet-analyzers",
-  "version": "0.17.0",
+  "version": "0.17.1",
   "description": ".NET Roslyn Analyzers for Jsii",
   "main": "lib/index.js",
   "private": true,

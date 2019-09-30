@@ -1,6 +1,6 @@
 {
   "name": "jsii-java-runtime-test",
-  "version": "0.17.0",
+  "version": "0.17.1",
   "description": "Tests for the Java client for jsii runtime",
   "private": true,
   "main": "lib/index.js",
@@ -12,7 +12,7 @@
   "devDependencies": {
     "jsii-calc": "file:../jsii-calc",
     "jsii-java-runtime": "file:../jsii-java-runtime",
-    "jsii-pacmak": "^0.17.0"
+    "jsii-pacmak": "^0.17.1"
   },
   "author": {
     "name": "Amazon Web Services",
