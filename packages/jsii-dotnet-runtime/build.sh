@@ -11,4 +11,4 @@ rsync -av node_modules/jsii-runtime/webpack/ ${bundle_dir}
 # built before the calc packages are generated.
 dotnet build --force -c Release ./src/Amazon.JSII.Runtime
 
-cp -f ./bin/Release/NuGet/*.nupkg .
+cp -f ./bin/Release/NuGet/*.nupkg ./bin/Release/NuGet/*.snupkg .
