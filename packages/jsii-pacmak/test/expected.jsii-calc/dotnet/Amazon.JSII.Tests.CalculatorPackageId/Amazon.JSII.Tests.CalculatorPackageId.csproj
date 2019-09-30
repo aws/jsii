@@ -6,7 +6,7 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <IncludeSource>true</IncludeSource>
-    <PackageVersion>0.17.0</PackageVersion>
+    <PackageVersion>0.17.1</PackageVersion>
     <PackageId>Amazon.JSII.Tests.CalculatorPackageId</PackageId>
     <Description>A simple calcuator built on JSII. (Stability: Experimental)</Description>
     <ProjectUrl>https://github.com/aws/jsii.git</ProjectUrl>
@@ -15,13 +15,13 @@
     <Language>en-US</Language>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="jsii-calc-0.17.0.tgz"/>
+    <EmbeddedResource Include="jsii-calc-0.17.1.tgz"/>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Amazon.JSII.Runtime" Version="0.17.0"/>
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" Version="0.17.0"/>
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="0.17.0"/>
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" Version="0.17.0-devpreview"/>
+    <PackageReference Include="Amazon.JSII.Runtime" Version="0.17.1"/>
+    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" Version="0.17.1"/>
+    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="0.17.1"/>
+    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" Version="0.17.1-devpreview"/>
   </ItemGroup>
 </Project>
 

@@ -1,6 +1,6 @@
 {
   "name": "jsii-runtime",
-  "version": "0.17.0",
+  "version": "0.17.1",
   "description": "jsii runtime kernel process",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -31,8 +31,8 @@
     "webpack-cli": "^3.3.9"
   },
   "dependencies": {
-    "jsii-kernel": "^0.17.0",
-    "jsii-spec": "^0.17.0"
+    "jsii-kernel": "^0.17.1",
+    "jsii-spec": "^0.17.1"
   },
   "author": {
     "name": "Amazon Web Services",
