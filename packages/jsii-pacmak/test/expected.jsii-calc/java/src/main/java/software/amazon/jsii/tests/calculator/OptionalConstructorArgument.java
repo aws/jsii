@@ -26,7 +26,7 @@ public class OptionalConstructorArgument extends software.amazon.jsii.JsiiObject
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public OptionalConstructorArgument(final java.lang.Number arg1, final java.lang.String arg2, final java.time.Instant arg3) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(arg1, "arg1 is required"), java.util.Objects.requireNonNull(arg2, "arg2 is required"), arg3 }));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(arg1, "arg1 is required"), java.util.Objects.requireNonNull(arg2, "arg2 is required"), arg3 });
     }
 
     /**
@@ -38,7 +38,7 @@ public class OptionalConstructorArgument extends software.amazon.jsii.JsiiObject
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public OptionalConstructorArgument(final java.lang.Number arg1, final java.lang.String arg2) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(arg1, "arg1 is required"), java.util.Objects.requireNonNull(arg2, "arg2 is required") }));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(arg1, "arg1 is required"), java.util.Objects.requireNonNull(arg2, "arg2 is required") });
     }
 
     /**

@@ -88,6 +88,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+@SuppressWarnings("deprecated")
 public class ComplianceTest {
     /**
      * Verify that we can marshal and unmarshal objects without type information.

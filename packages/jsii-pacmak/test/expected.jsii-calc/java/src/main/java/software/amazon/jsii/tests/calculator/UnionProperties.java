@@ -4,6 +4,8 @@ package software.amazon.jsii.tests.calculator;
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.UnionProperties")
+@software.amazon.jsii.Jsii.Proxy(UnionProperties.Jsii$Proxy.class)
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
 
@@ -113,8 +115,7 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
          * @param objRef Reference to the JSII managed object.
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.setObjRef(objRef);
+            super(objRef);
             this.bar = this.jsiiGet("bar", java.lang.Object.class);
             this.foo = this.jsiiGet("foo", java.lang.Object.class);
         }

@@ -4,6 +4,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Represents a remote jsii object reference.
  */
@@ -13,6 +17,11 @@ public final class JsiiObjectRef {
      * The JSON key used to represent an object reference.
      */
     static final String TOKEN_REF = "$jsii.byref";
+
+    /**
+     * The JSON key used to represent an interface list.
+     */
+    static final String TOKEN_INTERFACES = "$jsii.interfaces";
 
     /**
      * The JSON node.
@@ -29,6 +38,8 @@ public final class JsiiObjectRef {
      */
     private String fqn;
 
+    private Set<String> interfaces;
+
     /**
      * Private constructor.
      * @param objId The object id.
@@ -40,6 +51,9 @@ public final class JsiiObjectRef {
 
         int fqnDelimiter = this.objId.lastIndexOf("@");
         this.fqn = this.objId.substring(0, fqnDelimiter);
+        this.interfaces = node.has(TOKEN_INTERFACES)
+            ? parseInterfaces(node.get(TOKEN_INTERFACES))
+            : Collections.emptySet();
     }
 
     /**
@@ -66,6 +80,20 @@ public final class JsiiObjectRef {
         return new JsiiObjectRef(objId, node);
     }
 
+    private static Set<String> parseInterfaces(final JsonNode node) {
+        if (!node.isArray()) {
+            throw new Error(String.format("Invalid value for %s. Expected array but received %s", TOKEN_INTERFACES, node));
+        }
+        final Set<String> result = new HashSet<>();
+        node.forEach(entry -> {
+            if (!entry.isTextual()) {
+                throw new Error(String.format("Invalid entry in %s. Expected only strings, but received %s", TOKEN_INTERFACES, entry));
+            }
+            result.add(entry.asText());
+        });
+        return Collections.unmodifiableSet(result);
+    }
+
     /**
      * @return The jsii FQN (fully qualified name) of the object's type.
      */
@@ -85,6 +113,13 @@ public final class JsiiObjectRef {
      */
     public String getObjId() {
         return objId;
+    }
+
+    /**
+     * @return the lsit of interfaces implemented by the object
+     */
+    public Set<String> getInterfaces() {
+        return interfaces;
     }
 
     @Override

@@ -27,6 +27,6 @@ public class ClassWithDocs extends software.amazon.jsii.JsiiObject {
 
     public ClassWithDocs() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 }

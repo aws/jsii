@@ -4,6 +4,8 @@ package software.amazon.jsii.tests.calculator;
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.DiamondInheritanceSecondMidLevelStruct")
+@software.amazon.jsii.Jsii.Proxy(DiamondInheritanceSecondMidLevelStruct.Jsii$Proxy.class)
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface DiamondInheritanceSecondMidLevelStruct extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.DiamondInheritanceBaseLevelStruct {
 
@@ -74,8 +76,7 @@ public interface DiamondInheritanceSecondMidLevelStruct extends software.amazon.
          * @param objRef Reference to the JSII managed object.
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.setObjRef(objRef);
+            super(objRef);
             this.secondMidLevelProperty = this.jsiiGet("secondMidLevelProperty", java.lang.String.class);
             this.baseLevelProperty = this.jsiiGet("baseLevelProperty", java.lang.String.class);
         }

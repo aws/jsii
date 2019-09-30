@@ -3,6 +3,8 @@ package software.amazon.jsii.tests.calculator;
 /**
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.StableStruct")
+@software.amazon.jsii.Jsii.Proxy(StableStruct.Jsii$Proxy.class)
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
 public interface StableStruct extends software.amazon.jsii.JsiiSerializable {
 
@@ -59,8 +61,7 @@ public interface StableStruct extends software.amazon.jsii.JsiiSerializable {
          * @param objRef Reference to the JSII managed object.
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.setObjRef(objRef);
+            super(objRef);
             this.readonlyProperty = this.jsiiGet("readonlyProperty", java.lang.String.class);
         }
 

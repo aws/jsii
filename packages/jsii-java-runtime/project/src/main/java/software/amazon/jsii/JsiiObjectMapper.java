@@ -47,12 +47,21 @@ public final class JsiiObjectMapper {
    * @param <T> expected type
    * @return the deserialized value
    */
+  @SuppressWarnings("unchecked")
   public static <T> T treeToValue(final JsonNode tree, final Class<T> valueType) {
     if (tree == null) {
       return null;
     }
     try {
-      return INSTANCE.treeToValue(tree, valueType);
+      final T result = INSTANCE.treeToValue(tree, valueType);
+      if (result != null && valueType.isInterface() && result instanceof JsiiObject) {
+        // The result type does not implement the interface, returning the proxy instead!
+        if (!valueType.isAssignableFrom(result.getClass()) && valueType.isAnnotationPresent(Jsii.Proxy.class)) {
+          final Jsii.Proxy proxyAnnotation = valueType.getAnnotation(Jsii.Proxy.class);
+          return (T)((JsiiObject) result).asInterfaceProxy(proxyAnnotation.value());
+        }
+      }
+      return result;
     } catch (final JsonProcessingException jpe) {
       throw new JsiiException(jpe);
     }
@@ -137,6 +146,7 @@ public final class JsiiObjectMapper {
           return jsiiEngine.findEnumValue(node.get(TOKEN_ENUM).textValue());
         }
         if (node.has(TOKEN_REF)) {
+
           return jsiiEngine.nativeFromObjRef(JsiiObjectRef.parse(node));
         }
       }

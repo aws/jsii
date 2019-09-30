@@ -205,9 +205,9 @@ class JavaGenerator extends Generator {
 
     if (JavaGenerator.RESERVED_KEYWORDS.includes(propertyName)) {
       return `${propertyName}Value`;
-    } 
+    }
     return propertyName;
-    
+
   }
 
   /**
@@ -221,9 +221,9 @@ class JavaGenerator extends Generator {
 
     if (JavaGenerator.RESERVED_KEYWORDS.includes(methodName)) {
       return `do${toPascalCase(methodName)}`;
-    } 
+    }
     return methodName;
-    
+
   }
 
   /** If false, @Generated will not include generator version nor timestamp */
@@ -303,8 +303,7 @@ class JavaGenerator extends Generator {
 
     this.code.openBlock(`${initializerAccessLevel} ${cls.name}(${this.renderMethodParameters(method)})`);
     this.code.line('super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);');
-    const createObjectCall = `software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this${this.renderMethodCallArguments(method)})`;
-    this.code.line(`this.setObjRef(${createObjectCall});`);
+    this.code.line(`software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this${this.renderMethodCallArguments(method)});`);
     this.code.closeBlock();
   }
 
@@ -383,6 +382,8 @@ class JavaGenerator extends Generator {
     const nested = this.isNested(ifc);
     const inner = nested ? ' static' : '';
     if (!nested) { this.emitGeneratedAnnotation(); }
+    this.code.line(`@software.amazon.jsii.Jsii(module = ${this.moduleClass}.class, fqn = "${ifc.fqn}")`);
+    this.code.line(`@software.amazon.jsii.Jsii.Proxy(${ifc.name}.${INTERFACE_PROXY_CLASS_NAME}.class)`);
     this.emitStabilityAnnotations(ifc);
     this.code.openBlock(`public${inner} interface ${ifc.name} extends ${bases}`);
   }
@@ -775,8 +776,7 @@ class JavaGenerator extends Generator {
 
     this.code.openBlock(`final static class ${name} ${suffix}`);
     this.code.openBlock(`protected ${name}(final software.amazon.jsii.JsiiObjectRef objRef)`);
-    this.code.line('super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);');
-    this.code.line('this.setObjRef(objRef);');
+    this.code.line('super(objRef);');
     this.code.closeBlock();
 
     // compile a list of all unique methods from the current interface and all
@@ -834,11 +834,11 @@ class JavaGenerator extends Generator {
 
   private emitStabilityAnnotations(entity: spec.Documentable) {
     if (!entity.docs) { return; }
-    if (entity.docs.stability === spec.Stability.Deprecated || entity.docs.deprecated) {
-      this.code.line('@Deprecated');
-    }
     if (entity.docs.stability) {
       this.code.line(`@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.${_level(entity.docs.stability)})`);
+    }
+    if (entity.docs.stability === spec.Stability.Deprecated || entity.docs.deprecated) {
+      this.code.line('@Deprecated');
     }
 
     function _level(stability: spec.Stability): string {
@@ -980,8 +980,7 @@ class JavaGenerator extends Generator {
     this.code.line(' * @param objRef Reference to the JSII managed object.');
     this.code.line(' */');
     this.code.openBlock(`protected ${INTERFACE_PROXY_CLASS_NAME}(final software.amazon.jsii.JsiiObjectRef objRef)`);
-    this.code.line('super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);');
-    this.code.line('this.setObjRef(objRef);');
+    this.code.line('super(objRef);');
     props.forEach(prop => this.code.line(`this.${prop.fieldName} = this.jsiiGet("${prop.jsiiName}", ${prop.fieldJavaClass});`));
     this.code.closeBlock();
     // End JSII reference constructor
@@ -1208,9 +1207,9 @@ class JavaGenerator extends Generator {
     const types = this.toJavaTypes(type, forMarshalling);
     if (types.length > 1) {
       return 'java.lang.Object';
-    } 
+    }
     return types[0];
-    
+
   }
 
   private toJavaTypes(typeref: spec.TypeReference, forMarshalling = false): string[] {
@@ -1228,9 +1227,9 @@ class JavaGenerator extends Generator {
         }
       }
       return types;
-    } 
+    }
     throw new Error(`Invalid type reference: ${JSON.stringify(typeref)}`);
-    
+
   }
 
   private toJavaCollection(ref: spec.CollectionTypeReference, forMarshalling: boolean) {
@@ -1271,9 +1270,9 @@ class JavaGenerator extends Generator {
         ? `java.util.stream.Stream.concat(${valuesStream}, ${restStream})`
         : restStream;
       return `, ${fullStream}.toArray(Object[]::new)`;
-    } 
+    }
     return `, ${valueStr}`;
-    
+
 
     function _renderParameter(param: spec.Parameter) {
       const safeName = JavaGenerator.safeJavaPropertyName(param.name);
@@ -1312,9 +1311,9 @@ class JavaGenerator extends Generator {
 
     if (method.returns) {
       return `return ${statement};`;
-    } 
+    }
     return `${statement};`;
-    
+
   }
 
   /**

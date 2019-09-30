@@ -26,7 +26,7 @@ public class WithPrivatePropertyInConstructor extends software.amazon.jsii.JsiiO
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public WithPrivatePropertyInConstructor(final java.lang.String privateField) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { privateField }));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { privateField });
     }
 
     /**
@@ -35,7 +35,7 @@ public class WithPrivatePropertyInConstructor extends software.amazon.jsii.JsiiO
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public WithPrivatePropertyInConstructor() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
     /**
