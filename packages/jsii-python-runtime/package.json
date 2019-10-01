@@ -1,6 +1,6 @@
 {
   "name": "jsii-python-runtime",
-  "version": "0.17.0",
+  "version": "0.18.0",
   "private": true,
   "description": "Python client for jsii runtime",
   "license": "Apache-2.0",
@@ -31,7 +31,7 @@
   "dependencies": {
     "jsii-build-tools": "file:../jsii-build-tools",
     "jsii-calc": "file:../jsii-calc",
-    "jsii-pacmak": "^0.17.0",
-    "jsii-runtime": "^0.17.0"
+    "jsii-pacmak": "^0.18.0",
+    "jsii-runtime": "^0.18.0"
   }
 }
