@@ -28,7 +28,7 @@ const COMPILER_OPTIONS: ts.CompilerOptions = {
   resolveJsonModule: true,
   strict: true,
   strictNullChecks: true,
-  strictPropertyInitialization: false,
+  strictPropertyInitialization: true,
   stripInternal: true,
   target: ts.ScriptTarget.ES2017
 };
