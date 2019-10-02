@@ -130,7 +130,7 @@ export class OTreeSink {
 
     return {
       get wroteNonWhitespaceSinceMark(): boolean {
-        return self.fragments.slice(markIndex).some(s => s.match(/[^\s]/));
+        return self.fragments.slice(markIndex).some(s => !!s.match(/[^\s]/));
       }
     };
   }
