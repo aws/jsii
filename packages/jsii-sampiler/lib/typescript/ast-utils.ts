@@ -137,24 +137,6 @@ export function matchAst<A>(node: ts.Node, matcher: AstMatcher<A>, cb?: (binding
   return matched;
 }
 
-/*
-function zip<A, B>(xs: Iterable<A>, ys: Iterable<B>): IterableIterator<[A, B | undefined]>;
-function zip<A, B, C>(xs: Iterable<A>, ys: Iterable<B>, defY: C): IterableIterator<[A, B | C]>;
-function* zip<A, B, C>(xs: Iterable<A>, ys: Iterable<B>, defY?: C): IterableIterator<[A, B | C]> {
-  const iterX = xs[Symbol.iterator]();
-  const iterY = ys[Symbol.iterator]();
-
-  let x = iterX.next();
-  let y = iterY.next();
-  while (!x.done) {
-    yield [x.value, !y.done ? y.value : defY as any];
-
-    x = iterX.next();
-    if (!y.done) { y = iterY.next(); }
-  }
-}
-*/
-
 /**
  * Count the newlines in a given piece of string that aren't in comment blocks
  */
