@@ -1,49 +1,79 @@
 {
-    "name": "jsii-diff",
-    "version": "0.16.0",
-    "description": "Assembly comparison for jsii",
-    "license": "Apache-2.0",
-    "author": {
-        "name": "Amazon Web Services",
-        "url": "https://aws.amazon.com",
-        "organization": true
+  "name": "jsii-diff",
+  "version": "0.18.0",
+  "description": "Assembly comparison for jsii",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com"
+  },
+  "homepage": "https://github.com/aws/jsii",
+  "bugs": {
+    "url": "https://github.com/aws/jsii/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws/jsii.git",
+    "directory": "packages/jsii-diff"
+  },
+  "engines": {
+    "node": ">= 10.3.0"
+  },
+  "bin": {
+    "jsii-diff": "bin/jsii-diff"
+  },
+  "scripts": {
+    "build": "bash ./generate.sh && tsc --build && npm run lint",
+    "watch": "bash ./generate.sh && tsc --build -w",
+    "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
+    "test": "jest",
+    "package": "package-js"
+  },
+  "dependencies": {
+    "jsii-reflect": "^0.18.0",
+    "jsii-spec": "^0.18.0",
+    "log4js": "^5.1.0",
+    "typescript": "~3.6.2",
+    "yargs": "^14.0.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^8.0.0",
+    "@types/jest": "^24.0.18",
+    "@types/jest-expect-message": "^1.0.0",
+    "@types/log4js": "^2.3.5",
+    "@types/tar-fs": "^1.16.1",
+    "@types/yargs": "^13.0.3",
+    "@typescript-eslint/eslint-plugin": "^2.3.1",
+    "@typescript-eslint/parser": "^2.3.1",
+    "eslint": "^6.5.0",
+    "jest": "^24.9.0",
+    "jest-expect-message": "^1.0.2",
+    "jsii": "^0.18.0",
+    "jsii-build-tools": "file:../jsii-build-tools"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/bin/**/*.js",
+      "**/lib/**/*.js"
+    ],
+    "coverageReporters": [
+      "lcov",
+      "text"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 60,
+        "statements": 60
+      }
     },
-    "bin": {
-        "jsii-diff": "bin/jsii-diff"
-    },
-    "scripts": {
-        "build": "bash ./generate.sh && tsc --build",
-        "watch": "bash ./generate.sh && tsc --build -w",
-        "test": "nyc nodeunit test/test.*.js",
-        "package": "package-js"
-    },
-    "devDependencies": {
-        "@types/fs-extra": "^8.0.0",
-        "@types/log4js": "^2.3.5",
-        "@types/nodeunit": "^0.0.30",
-        "@types/tar-fs": "^1.16.1",
-        "@types/yargs": "^13.0.2",
-        "jsii": "^0.16.0",
-        "jsii-build-tools": "file:../jsii-build-tools",
-        "nodeunit": "^0.11.3",
-        "nyc": "^14.1.1"
-    },
-    "dependencies": {
-        "jsii-reflect": "^0.16.0",
-        "jsii-spec": "^0.16.0",
-        "log4js": "^5.1.0",
-        "typescript": "~3.6.2",
-        "yargs": "^14.0.0"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/aws/jsii.git",
-        "directory": "packages/jsii-diff"
-    },
-    "nyc": {
-        "reporter": [
-            "lcov",
-            "text"
-        ]
-    }
+    "errorOnDeprecated": true,
+    "setupFilesAfterEnv": [
+      "jest-expect-message"
+    ],
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/?(*.)+(spec|test).js"
+    ]
+  }
 }

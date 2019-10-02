@@ -1,6 +1,7 @@
 import datetime
 import inspect
 import itertools
+from types import FunctionType, MethodType, BuiltinFunctionType, LambdaType
 
 from typing import Any, List, Optional, Type, Union
 
@@ -126,6 +127,11 @@ def _make_reference_for_native(kernel, d):
         return d
     elif isinstance(d, (int, type(None), str, float, bool, datetime.datetime)):
         return d
+    elif isinstance(d, (FunctionType, MethodType, BuiltinFunctionType, LambdaType)):
+        # Whether a given object is a function-like object.
+        # We won't use iscallable() since objects may implement __call__()
+        # but we still want to serialize them as normal.
+        raise JSIIError("Cannot pass function as argument here (did you mean to call this function?): %r" % d)
     else:
         d.__jsii__type__ = "Object"
         kernel.create(Object, d)

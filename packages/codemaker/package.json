@@ -1,7 +1,24 @@
 {
   "name": "codemaker",
-  "version": "0.16.0",
+  "version": "0.18.0",
   "description": "A tiny utility for generating source code",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com"
+  },
+  "homepage": "https://github.com/aws/jsii",
+  "bugs": {
+    "url": "https://github.com/aws/jsii/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws/jsii.git",
+    "directory": "packages/codemaker"
+  },
+  "engines": {
+    "node": ">= 10.3.0"
+  },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
@@ -11,20 +28,20 @@
     "test": "jest",
     "package": "rm -fr dist/js && mkdir -p dist/js && mv $(npm pack) dist/js"
   },
-  "devDependencies": {
-    "@types/decamelize": "^1.2.0",
-    "@types/fs-extra": "^8.0.0",
-    "@types/jest": "^24.0.18",
-    "@typescript-eslint/eslint-plugin": "^2.2.0",
-    "@typescript-eslint/parser": "^2.1.0",
-    "eslint": "^6.3.0",
-    "jest": "^24.9.0",
-    "typescript": "~3.6.2"
-  },
   "dependencies": {
     "camelcase": "^5.3.1",
     "decamelize": "^1.2.0",
     "fs-extra": "^8.1.0"
+  },
+  "devDependencies": {
+    "@types/decamelize": "^1.2.0",
+    "@types/fs-extra": "^8.0.0",
+    "@types/jest": "^24.0.18",
+    "@typescript-eslint/eslint-plugin": "^2.3.1",
+    "@typescript-eslint/parser": "^2.3.1",
+    "eslint": "^6.5.0",
+    "jest": "^24.9.0",
+    "typescript": "~3.6.3"
   },
   "jest": {
     "collectCoverage": true,
@@ -47,15 +64,5 @@
     "testMatch": [
       "**/?(*.)+(spec|test).js"
     ]
-  },
-  "author": {
-    "name": "Amazon Web Services",
-    "url": "https://aws.amazon.com"
-  },
-  "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/aws/jsii.git",
-    "directory": "packages/codemaker"
   }
 }

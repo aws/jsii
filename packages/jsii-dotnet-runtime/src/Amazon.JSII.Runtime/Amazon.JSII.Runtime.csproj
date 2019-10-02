@@ -2,14 +2,16 @@
   <Import Project="../NuGet.Metadata.props" />
 
   <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
     <PackageId>Amazon.JSII.Runtime</PackageId>
     <Title>.NET Runtime for JSII</Title>
+    <PackageIconUrl>https://sdk-for-net.amazonwebservices.com/images/AWSLogo128x128.png</PackageIconUrl>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="Amazon.JSII.JsonModel" Version="$(JsiiVersion)" />
   </ItemGroup>

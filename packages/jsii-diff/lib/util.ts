@@ -1,4 +1,4 @@
-import child_process = require('child_process');
+import childProcess = require('child_process');
 import fs = require('fs-extra');
 import log4js = require('log4js');
 import os = require('os');
@@ -7,7 +7,7 @@ import util = require('util');
 
 const LOG = log4js.getLogger('jsii-diff');
 
-const exec = util.promisify(child_process.exec);
+const exec = util.promisify(childProcess.exec);
 
 export async function inTempDir<T>(block: () => T | Promise<T>): Promise<T> {
   const origDir = process.cwd();
@@ -23,16 +23,19 @@ export async function inTempDir<T>(block: () => T | Promise<T>): Promise<T> {
 
 export type DownloadFailure = 'no_such_package';
 
-export type NpmDownloadResult<T> = { success: true; result: T  } | { success: false; reason: DownloadFailure };
+export type NpmDownloadResult<T> = { success: true, result: T } | { success: false, reason: DownloadFailure };
 
 export function showDownloadFailure(f: DownloadFailure) {
   switch (f) {
-    case 'no_such_package': return 'NPM package does not exist';
+    case 'no_such_package':
+      return 'NPM package does not exist';
+    default:
+      return undefined;
   }
 }
 
 export async function downloadNpmPackage<T>(pkg: string, block: (dir: string) => Promise<T>): Promise<NpmDownloadResult<T>> {
-  return await inTempDir(async () => {
+  return inTempDir(async () => {
     LOG.info(`Fetching NPM package ${pkg}`);
 
     try {
@@ -54,7 +57,7 @@ export async function downloadNpmPackage<T>(pkg: string, block: (dir: string) =>
       success: true,
       result: await block(path.join(process.cwd(), 'node_modules', pkgDir))
     } as NpmDownloadResult<T>;
- });
+  });
 }
 
 function isSubprocesFailedError(e: any) {

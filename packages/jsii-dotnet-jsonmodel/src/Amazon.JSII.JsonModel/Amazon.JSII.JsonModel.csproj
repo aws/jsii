@@ -2,8 +2,10 @@
   <Import Project="../NuGet.Metadata.props" />
 
   <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
     <PackageId>Amazon.JSII.JsonModel</PackageId>
     <Title>.NET JsonModel for JSII</Title>
+    <PackageIconUrl>https://sdk-for-net.amazonwebservices.com/images/AWSLogo128x128.png</PackageIconUrl>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,10 +1,36 @@
 {
   "name": "@scope/jsii-calc-base-of-base",
-  "version": "0.16.0",
+  "version": "0.18.0",
+  "private": true,
   "description": "An example transitive dependency for jsii-calc.",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com",
+    "organization": true
+  },
+  "homepage": "https://github.com/aws/jsii",
+  "bugs": {
+    "url": "https://github.com/aws/jsii/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws/jsii.git",
+    "directory": "packages/jsii-calc-base-of-base"
+  },
+  "engines": {
+    "node": ">= 10.3.0"
+  },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "private": true,
+  "scripts": {
+    "build": "jsii",
+    "test": "diff-test test/assembly.jsii .jsii"
+  },
+  "devDependencies": {
+    "jsii": "^0.18.0",
+    "jsii-build-tools": "file:../jsii-build-tools"
+  },
   "jsii": {
     "outdir": "dist",
     "targets": {
@@ -26,23 +52,5 @@
       "sphinx": {}
     },
     "versionFormat": "short"
-  },
-  "scripts": {
-    "build": "jsii",
-    "test": "diff-test test/assembly.jsii .jsii"
-  },
-  "devDependencies": {
-    "jsii": "^0.16.0",
-    "jsii-build-tools": "file:../jsii-build-tools"
-  },
-  "author": {
-    "name": "Amazon Web Services",
-    "url": "https://aws.amazon.com",
-    "organization": true
-  },
-  "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/aws/jsii.git"
   }
 }

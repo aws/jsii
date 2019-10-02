@@ -4,150 +4,150 @@ export const SPEC_FILE_NAME = '.jsii';
  * A JSII assembly specification.
  */
 export interface Assembly extends Documentable {
-    /**
+  /**
      * The version of the spec schema
      */
-    schema: SchemaVersion.LATEST;
+  schema: SchemaVersion.LATEST;
 
-    /**
+  /**
      * The name of the assembly
      *
      * @minLength 1
      */
-    name: string;
+  name: string;
 
-    /**
+  /**
      * Description of the assembly, maps to "description" from package.json
      * This is required since some package managers (like Maven) require it.
      */
-    description: string;
+  description: string;
 
-    /**
+  /**
      * The url to the project homepage. Maps to "homepage" from package.json.
      */
-    homepage: string;
+  homepage: string;
 
-    /**
+  /**
      * The module repository, maps to "repository" from package.json
      * This is required since some package managers (like Maven) require it.
      */
-    repository: {
-        /**
+  repository: {
+    /**
          * The type of the repository (``git``, ``svn``, ...)
          */
-        type: string;
+    type: string;
 
-        /**
+    /**
          * The URL of the repository.
          */
-        url: string;
+    url: string;
 
-        /**
+    /**
          * If the package is not in the root directory (for example, when part
          * of a monorepo), you should specify the directory in which it lives.
          *
          * @default the root of the repository
          */
-        directory?: string;
-    };
+    directory?: string;
+  };
 
-    /**
+  /**
      * The main author of this package.
      */
-    author: Person;
+  author: Person;
 
-    /**
+  /**
      * Additional contributors to this package.
      *
      * @default none
      */
-    contributors?: Person[];
+  contributors?: Person[];
 
-    /**
+  /**
      * A fingerprint that can be used to determine if the specification has
      * changed.
      *
      * @minLength 1
      */
-    fingerprint: string;
+  fingerprint: string;
 
-    /**
+  /**
      * The version of the assembly
      * @minLength 1
      */
-    version: string;
+  version: string;
 
-    /**
+  /**
      * The version of the jsii compiler that was used to produce this Assembly.
      * @minLength 1
      */
-    jsiiVersion: string;
+  jsiiVersion: string;
 
-    /**
+  /**
      * The SPDX name of the license this assembly is distributed on.
      */
-    license: string;
+  license: string;
 
-    /**
+  /**
      * A map of target name to configuration, which is used when generating
      * packages for various languages.
      *
      * @default none
      */
-    targets?: AssemblyTargets;
+  targets?: AssemblyTargets;
 
-    /**
+  /**
      * Arbitrary key-value pairs of metadata, which the maintainer chose to
      * document with the assembly. These entries do not carry normative
      * semantics and their interpretation is up to the assembly maintainer.
      *
      * @default none
      */
-    metadata?: { [key: string]: any };
+  metadata?: { [key: string]: any };
 
-    /**
+  /**
      * Direct dependencies on other assemblies (with semver), the key is the JSII
      * assembly name.
      *
      * @default none
      */
-    dependencies?: { [assembly: string]: PackageVersion };
+  dependencies?: { [assembly: string]: PackageVersion };
 
-    /**
+  /**
      * Closure of all dependency assemblies, direct and transitive.
      *
      * @default none
      */
-    dependencyClosure?: { [assembly: string]: PackageVersion };
+  dependencyClosure?: { [assembly: string]: PackageVersion };
 
-    /**
+  /**
      * List if bundled dependencies (these are not expected to be jsii
      * assemblies).
      *
      * @default none
      */
-    bundled?: { [module: string]: string };
+  bundled?: { [module: string]: string };
 
-    /**
+  /**
      * All types in the assembly, keyed by their fully-qualified-name
      *
      * @default none
      */
-    types?: { [fqn: string]: Type };
+  types?: { [fqn: string]: Type };
 
-    /**
+  /**
      * The top-level readme document for this assembly (if any).
      *
      * @default none
      */
-    readme?: { markdown: string };
+  readme?: { markdown: string };
 }
 
 /**
  * Versions of the JSII Assembly Specification.
  */
 export enum SchemaVersion {
-    LATEST = 'jsii/0.10.0'
+  LATEST = 'jsii/0.10.0'
 }
 
 /**
@@ -163,81 +163,81 @@ export type FQN = string;
  * project maintainer.
  */
 export interface Person {
-    /**
+  /**
      * The name of the person
      */
-    name: string;
+  name: string;
 
-    /**
+  /**
      * A list of roles this person has in the project, for example `maintainer`,
      * `contributor`, `owner`, ...
      */
-    roles: string[];
+  roles: string[];
 
-    /**
+  /**
      * The email of the person
      *
      * @default none
      */
-    email?: string;
+  email?: string;
 
-    /**
+  /**
      * The URL for the person
      *
      * @default none
      */
-    url?: string;
+  url?: string;
 
-    /**
+  /**
      * If true, this person is, in fact, an organization
      *
      * @default false
      */
-    organization?: boolean;
+  organization?: boolean;
 }
 
 /**
  * Configurable targets for an asembly.
  */
 export interface AssemblyTargets {
-    /**
+  /**
      * Information about a particular language's targets
      */
-    [language: string]: { [key: string]: any } | undefined;
+  [language: string]: { [key: string]: any } | undefined;
 }
 
 /**
  * The version of a package.
  */
 export interface PackageVersion {
-    /**
+  /**
      * Version of the package.
      *
      * @minLength 1
      */
-    version: string;
+  version: string;
 
-    /**
+  /**
      * Targets for a given assembly.
      *
      * @default none
      */
-    targets?: AssemblyTargets;
+  targets?: AssemblyTargets;
 }
 
 /**
  * Where in the module source the definition for this API item was found
  */
 export interface SourceLocation {
-    /**
+  /**
      * Relative filename
      */
-    filename: string;
+  filename: string;
 
-    /**
+  /**
      * 1-based line number in the indicated file
      */
-    line: number;
+  line: number;
 }
 
 /**
@@ -245,7 +245,7 @@ export interface SourceLocation {
  * Based on TSDoc.
  */
 export interface Docs {
-    /**
+  /**
      * Summary documentation for an API item.
      *
      * The first part of the documentation before hitting a `@remarks` tags, or
@@ -253,9 +253,9 @@ export interface Docs {
      *
      * @default none
      */
-    summary?: string;
+  summary?: string;
 
-    /**
+  /**
      * Detailed information about an API item.
      *
      * Either the explicitly tagged `@remarks` section, otherwise everything
@@ -263,9 +263,9 @@ export interface Docs {
      *
      * @default none
      */
-    remarks?: string;
+  remarks?: string;
 
-    /**
+  /**
      * If present, this block indicates that an API item is no longer supported
      * and may be removed in a future release.  The `@deprecated` tag must be
      * followed by a sentence describing the recommended alternative.
@@ -274,22 +274,22 @@ export interface Docs {
      *
      * @default none
      */
-    deprecated?: string;
+  deprecated?: string;
 
-    /**
+  /**
      * The `@returns` block for this doc comment, or undefined if there is not
      * one.
      *
      * @default none
      */
-    returns?: string;
+  returns?: string;
 
-    /**
+  /**
      * Whether the API item is beta/experimental quality
      */
-    stability?: Stability;
+  stability?: Stability;
 
-    /**
+  /**
      * Example showing the usage of this API item
      *
      * Starts off in running text mode, may switch to code using fenced code
@@ -297,16 +297,16 @@ export interface Docs {
      *
      * @default none
      */
-    example?: string;
+  example?: string;
 
-    /**
+  /**
      * A `@see` link with more information
      *
      * @default none
      */
-    see?: string;
+  see?: string;
 
-    /**
+  /**
      * Whether this class or interface was intended to be subclassed/implemented
      * by library users.
      *
@@ -316,21 +316,21 @@ export interface Docs {
      *
      * @default false
      */
-    subclassable?: boolean;
+  subclassable?: boolean;
 
-    /**
+  /**
      * Description of the default
      *
      * @default none
      */
-    default?: string;
+  default?: string;
 
-    /**
+  /**
      * Custom tags that are not any of the default ones
      *
      * @default none
      */
-    custom?: {[tag: string]: string};
+  custom?: {[tag: string]: string};
 }
 
 /**
@@ -339,52 +339,52 @@ export interface Docs {
  * @see https://nodejs.org/api/documentation.html#documentation_stability_index.
  */
 export enum Stability {
-    /**
+  /**
      * The API may emit warnings. Backward compatibility is not guaranteed.
      *
      * More information about the deprecation can usually be found in the
      * `deprecated` field.
      */
-    Deprecated = 'deprecated',
+  Deprecated = 'deprecated',
 
-    /**
+  /**
      * This API is still under active development and subject to non-backward
      * compatible changes or removal in any future version. Use of the API is
      * not recommended in production environments. Experimental APIs are not
      * subject to the Semantic Versioning model.
      */
-    Experimental = 'experimental',
+  Experimental = 'experimental',
 
-    /**
+  /**
      * This API is subject to the Semantic Versioning model and may not change
      * in breaking ways in a subsequent minor or patch version.
      */
-    Stable = 'stable',
+  Stable = 'stable',
 
-    /**
+  /**
      * This API is an representation of an API managed elsewhere and follows
      * the other API's versioning model.
      */
-    External = 'external',
+  External = 'external',
 }
 
 /**
  * Indicates that an entity is documentable.
  */
 export interface Documentable {
-    /**
+  /**
      * Documentation for this entity.
      *
      * @default none
      */
-    docs?: Docs;
+  docs?: Docs;
 }
 
 /**
  * Indicates that an entity has a source location
  */
 export interface SourceLocatable {
-    /**
+  /**
      * Where in the module this definition was found
      *
      * Why is this not `locationInAssembly`? Because the assembly is the JSII
@@ -393,74 +393,74 @@ export interface SourceLocatable {
      *
      * @default none
      */
-    locationInModule?: SourceLocation;
+  locationInModule?: SourceLocation;
 }
 
 /**
  * Kinds of collections.
  */
 export enum CollectionKind {
-    /**
+  /**
      * An array, or a list of some element type.
      */
-    Array = 'array',
-    /**
+  Array = 'array',
+  /**
      * A map of a string to some element type.
      */
-    Map = 'map',
+  Map = 'map',
 }
 
 /**
  * Kinds of primitive types.
  */
 export enum PrimitiveType {
-    /**
+  /**
      * A JSON date (represented as it's ISO-8601 string form).
      */
-    Date = 'date',
+  Date = 'date',
 
-    /**
+  /**
      * A plain string.
      */
-    String = 'string',
+  String = 'string',
 
-    /**
+  /**
      * A number (integer or float).
      */
-    Number = 'number',
+  Number = 'number',
 
-    /**
+  /**
      * A boolean value.
      */
-    Boolean = 'boolean',
+  Boolean = 'boolean',
 
-    /**
+  /**
      * A JSON object
      */
-    Json = 'json',
+  Json = 'json',
 
-    /**
+  /**
      * Value with "any" or "unknown" type (aka Object). Values typed `any` may
      * be `null` or `undefined`.
      */
-    Any = 'any'
+  Any = 'any'
 }
 
 /**
  * A value that can possibly be optional.
  */
 export interface OptionalValue {
-    /**
+  /**
      * Determines whether the value is, indeed, optional.
      *
      * @default false
      */
-    optional?: boolean;
+  optional?: boolean;
 
-    /**
+  /**
      * The declared type of the value, when it's present.
      */
-    type: TypeReference;
+  type: TypeReference;
 }
 
 /**
@@ -478,69 +478,69 @@ export const CANONICAL_ANY: Readonly<PrimitiveTypeReference> = { primitive: Prim
  * dependencies.
  */
 export interface NamedTypeReference {
-    /**
+  /**
      * The fully-qualified-name of the type (can be located in the
      * ``spec.types[fqn]``` of the assembly that defines the type).
      */
-    fqn: FQN;
+  fqn: FQN;
 }
 export function isNamedTypeReference(ref: TypeReference | undefined): ref is NamedTypeReference {
-    return ref != null && !!(ref as NamedTypeReference).fqn;
+  return ref != null && !!(ref as NamedTypeReference).fqn;
 }
 
 /**
  * Reference to a primitive type.
  */
 export interface PrimitiveTypeReference {
-    /**
+  /**
      * If this is a reference to a primitive type, this will include the
      * primitive type kind.
      */
-    primitive: PrimitiveType;
+  primitive: PrimitiveType;
 }
 export function isPrimitiveTypeReference(ref: TypeReference | undefined): ref is PrimitiveTypeReference {
-    return ref != null && !!(ref as PrimitiveTypeReference).primitive;
+  return ref != null && !!(ref as PrimitiveTypeReference).primitive;
 }
 
 /**
  * Reference to a collection type.
  */
 export interface CollectionTypeReference {
-    collection: {
-        /**
+  collection: {
+    /**
          * The kind of collection.
          */
-        kind: CollectionKind;
+    kind: CollectionKind;
 
-        /**
+    /**
          * The type of an element (map keys are always strings).
          */
-        elementtype: TypeReference;
-    };
+    elementtype: TypeReference;
+  };
 }
 export function isCollectionTypeReference(ref: TypeReference | undefined): ref is CollectionTypeReference {
-    return ref != null && !!(ref as CollectionTypeReference).collection;
+  return ref != null && !!(ref as CollectionTypeReference).collection;
 }
 
 /**
  * Reference to a union type.
  */
 export interface UnionTypeReference {
-    /**
+  /**
      * Indicates that this is a union type, which means it can be one of a set
      * of types.
      */
-    union: {
-        /**
+  union: {
+    /**
          * All the possible types (including the primary type).
          *
          * @minItems 2
          */
-        types: TypeReference[];
-    }
+    types: TypeReference[];
+  };
 }
 export function isUnionTypeReference(ref: TypeReference | undefined): ref is UnionTypeReference {
-    return ref != null && !!(ref as UnionTypeReference).union;
+  return ref != null && !!(ref as UnionTypeReference).union;
 }
 
 /**
@@ -548,63 +548,63 @@ export function isUnionTypeReference(ref: TypeReference | undefined): ref is Uni
  * from interfaces.
  */
 export interface Overridable {
-    /**
+  /**
      * The FQN of the parent type (class or interface) that this entity
      * overrides or implements. If undefined, then this entity is the first in
      * it's hierarchy to declare this entity.
      *
      * @default this member is not overriding anything
      */
-    overrides?: FQN;
+  overrides?: FQN;
 }
 
 /**
  * A class property.
  */
 export interface Property extends Documentable, OptionalValue, Overridable, SourceLocatable {
-    /**
+  /**
      * The name of the property.
      *
      * @minLength 1
      */
-    name: string;
+  name: string;
 
-    /**
+  /**
      * Indicates if this property only has a getter (immutable).
      *
      * @default false
      */
-    immutable?: boolean;
+  immutable?: boolean;
 
-    /**
+  /**
      * Indicates if this property is protected (otherwise it is public)
      *
      * @default false
      */
-    protected?: boolean;
+  protected?: boolean;
 
-    /**
+  /**
      * Indicates if this property is abstract
      *
      * @default false
      */
-    abstract?: boolean;
+  abstract?: boolean;
 
-    /**
+  /**
      * Indicates if this is a static property.
      *
      * @default false
      */
-    static?: boolean;
+  static?: boolean;
 
-    /**
+  /**
      * A hint that indicates that this static, immutable property is initialized
      * during startup. This allows emitting "const" idioms in different target
      * languages. Implies `static` and `immutable`.
      *
      * @default false
      */
-    const?: boolean;
+  const?: boolean;
 }
 
 /**
@@ -612,14 +612,14 @@ export interface Property extends Documentable, OptionalValue, Overridable, Sour
  */
 export interface Parameter extends Documentable, OptionalValue {
 
-    /**
+  /**
      * The name of the parameter.
      *
      * @minLength 1
      */
-    name: string;
+  name: string;
 
-    /**
+  /**
      * Whether this is the last parameter of a variadic method. In such cases,
      * the `#type` attribute is the type of each individual item of the variadic
      * arguments list (as opposed to some array type, as for example TypeScript
@@ -627,36 +627,36 @@ export interface Parameter extends Documentable, OptionalValue {
      *
      * @default false
      */
-    variadic?: boolean;
+  variadic?: boolean;
 }
 
 /**
  * An Initializer or a Method.
  */
 export interface Callable extends Documentable, Overridable, SourceLocatable {
-    /**
+  /**
      * The parameters of the Initializer or Method.
      *
      * @default none
      */
-    parameters?: Parameter[];
+  parameters?: Parameter[];
 
-    /**
+  /**
      * Indicates if this Initializer or Method is protected (otherwise it is
      * public, since private members are not modeled).
      *
      * @default false
      */
-    protected?: boolean;
+  protected?: boolean;
 
-    /**
+  /**
      * Indicates whether this Initializer or Method is variadic or not. When
      * ``true``, the last element of ``#parameters`` will also be flagged
      * ``#variadic``.
      *
      * @default false
      */
-    variadic?: boolean;
+  variadic?: boolean;
 }
 
 /**
@@ -668,38 +668,38 @@ export type Initializer = Callable;
  * A method with a name (i.e: not an initializer).
  */
 export interface Method extends Callable {
-    /**
+  /**
      * The name of the method. Undefined if this method is a initializer.
      */
-    name: string;
+  name: string;
 
-    /**
+  /**
      * The return type of the method (`undefined` if `void`)
      *
      * @default void
      */
-    returns?: OptionalValue;
+  returns?: OptionalValue;
 
-    /**
+  /**
      * Is this method an abstract method (this means the class will also be an abstract class)
      *
      * @default false
      */
-    abstract?: boolean;
+  abstract?: boolean;
 
-    /**
+  /**
      * Indicates if this is an asynchronous method (it will return a promise).
      *
      * @default false
      */
-    async?: boolean;
+  async?: boolean;
 
-    /**
+  /**
      * Indicates if this is a static method.
      *
      * @default false
      */
-    static?: boolean;
+  static?: boolean;
 }
 /**
  * Determines whether a Callable is a Method or not.
@@ -707,7 +707,7 @@ export interface Method extends Callable {
  * @param callable the callable to be checked.
  */
 export function isMethod(callable: Callable): callable is Method {
-    return !!(callable as Method).name;
+  return !!(callable as Method).name;
 }
 
 /**
@@ -719,131 +719,131 @@ export type Type = TypeBase & (ClassType | EnumType | InterfaceType);
  * Common attributes of a type definition.
  */
 export interface TypeBase extends Documentable, SourceLocatable {
-    /**
+  /**
      * The fully qualified name of the type (``<assembly>.<namespace>.<name>``)
      *
      * @minLength 3
      */
-    fqn: FQN;
+  fqn: FQN;
 
-    /**
+  /**
      * The name of the assembly the type belongs to.
      *
      * @minLength 1
      */
-    assembly: string;
+  assembly: string;
 
-    /**
+  /**
      * The namespace of the type (``foo.bar.baz``). When undefined, the type is located at the root of the assembly
      * (it's ``fqn`` would be like ``<assembly>.<name>``). If the `namespace` corresponds to an existing type's
      * namespace-qualified (e.g: ``<namespace>.<name>``), then the current type is a nested type.
      *
      * @default none
      */
-    namespace?: string;
+  namespace?: string;
 
-    /**
+  /**
      * The simple name of the type (MyClass).
      *
      * @minLength 1
      */
-    name: string;
+  name: string;
 
-    /**
+  /**
      * The kind of the type.
      */
-    kind: TypeKind;
+  kind: TypeKind;
 }
 
 /**
  * Kinds of types.
  */
 export enum TypeKind {
-    Class = 'class',
-    Enum = 'enum',
-    Interface = 'interface'
+  Class = 'class',
+  Enum = 'enum',
+  Interface = 'interface'
 }
 
 /**
  * Represents classes.
  */
 export interface ClassType extends TypeBase {
-    kind: TypeKind.Class;
+  kind: TypeKind.Class;
 
-    /**
+  /**
      * The FQN of the base class of this class, if it has one.
      *
      * @default no base class
      */
-    base?: FQN;
+  base?: FQN;
 
-    /**
+  /**
      * Initializer (constructor) method.
      *
      * @default no initializer
      */
-    initializer?: Initializer;
+  initializer?: Initializer;
 
-    /**
+  /**
      * List of properties.
      *
      * @default none
      */
-    properties?: Property[];
+  properties?: Property[];
 
-    /**
+  /**
      * List of methods.
      *
      * @default none
      */
-    methods?: Method[];
+  methods?: Method[];
 
-    /**
+  /**
      * Indicates if this class is an abstract class.
      *
      * @default false
      */
-    abstract?: boolean;
+  abstract?: boolean;
 
-    /**
+  /**
      * The FQNs of the interfaces this class implements, if any.
      *
      * @default none
      * @uniqueItems true
      */
-    interfaces?: FQN[];
+  interfaces?: FQN[];
 }
 
 export function isClassType(type: Type | undefined): type is ClassType {
-    return type != null && type.kind === TypeKind.Class;
+  return type != null && type.kind === TypeKind.Class;
 }
 
 export interface InterfaceType extends TypeBase {
-    kind: TypeKind.Interface;
+  kind: TypeKind.Interface;
 
-    /**
+  /**
      * The FQNs of the interfaces this interface extends, if any.
      *
      * @default none
      * @uniqueItems true
      */
-    interfaces?: FQN[];
+  interfaces?: FQN[];
 
-    /**
+  /**
      * List of methods.
      *
      * @default none
      */
-    methods?: Method[];
+  methods?: Method[];
 
-    /**
+  /**
      * List of properties.
      *
      * @default none
      */
-    properties?: Property[];
+  properties?: Property[];
 
-    /**
+  /**
      * True if this interface only contains properties. Different backends might
      * have idiomatic ways to allow defining concrete instances such interfaces.
      * For example, in Java, the generator will produce a PoJo and a builder
@@ -852,70 +852,70 @@ export interface InterfaceType extends TypeBase {
      *
      * @default false
      */
-    datatype?: boolean;
+  datatype?: boolean;
 }
 
 export function isInterfaceType(type: Type | undefined): type is InterfaceType {
-    return type != null && type.kind === TypeKind.Interface;
+  return type != null && type.kind === TypeKind.Interface;
 }
 
 /**
  * Represents a member of an enum.
  */
 export interface EnumMember extends Documentable {
-    /**
+  /**
      * The name/symbol of the member.
      */
-    name: string;
+  name: string;
 }
 
 /**
  * Represents an enum type.
  */
 export interface EnumType extends TypeBase {
-    kind: TypeKind.Enum;
+  kind: TypeKind.Enum;
 
-    /**
+  /**
      * Members of the enum.
      */
-    members: EnumMember[];
+  members: EnumMember[];
 }
 
 export function isEnumType(type: Type | undefined): type is EnumType {
-    return type != null && type.kind === TypeKind.Enum;
+  return type != null && type.kind === TypeKind.Enum;
 }
 
 /**
  * Return whether this type is a class or interface type
  */
 export function isClassOrInterfaceType(type: Type | undefined): type is (InterfaceType | ClassType) {
-    return isClassType(type) || isInterfaceType(type);
+  return isClassType(type) || isInterfaceType(type);
 }
 
 /**
  * Return a string representation of the given type reference.
  */
 export function describeTypeReference(type?: TypeReference): string {
-    if (type === undefined) { return 'void'; }
+  if (type === undefined) { return 'void'; }
 
-    if (isNamedTypeReference(type)) {
-        return type.fqn;
-    }
+  if (isNamedTypeReference(type)) {
+    return type.fqn;
+  }
 
-    if (isPrimitiveTypeReference(type)) {
-        return type.primitive;
-    }
+  if (isPrimitiveTypeReference(type)) {
+    return type.primitive;
+  }
 
-    if (isCollectionTypeReference(type)) {
-        return `${type.collection.kind}<${describeTypeReference(type.collection.elementtype)}>`;
-    }
+  if (isCollectionTypeReference(type)) {
+    return `${type.collection.kind}<${describeTypeReference(type.collection.elementtype)}>`;
+  }
 
-    if (isUnionTypeReference(type)) {
-        const unionType = type.union.types.map(describeTypeReference).join(' | ');
-        return unionType;
-    }
+  if (isUnionTypeReference(type)) {
+    const unionType = type.union.types.map(describeTypeReference).join(' | ');
+    return unionType;
+  }
 
-    throw new Error('Unrecognized type reference');
+  throw new Error('Unrecognized type reference');
 }
 
 /**
@@ -926,5 +926,5 @@ export function describeTypeReference(type?: TypeReference): string {
  * @returns true if the entity is marked as deprecated.
  */
 export function isDeprecated(entity: Documentable): boolean {
-    return entity.docs != null && entity.docs.stability === Stability.Deprecated;
+  return entity.docs != null && entity.docs.stability === Stability.Deprecated;
 }

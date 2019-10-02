@@ -1,29 +1,29 @@
 {
-    "compilerOptions": {
-        "alwaysStrict": true,
-        "charset": "utf8",
-        "declaration": true,
-        "experimentalDecorators": true,
-        "inlineSourceMap": true,
-        "inlineSources": true,
-        "lib": [
-            "es2016",
-            "es2017.object",
-            "es2017.string"
-        ],
-        "module": "CommonJS",
-        "noEmitOnError": false,
-        "noFallthroughCasesInSwitch": true,
-        "noImplicitAny": true,
-        "noImplicitReturns": true,
-        "noImplicitThis": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "resolveJsonModule": true,
-        "strict": true,
-        "strictNullChecks": true,
-        "target": "ES2018",
-        "composite": true
-    },
-    "include": ["**/*.ts"]
+  "compilerOptions": {
+    "alwaysStrict": true,
+    "charset": "utf8",
+    "declaration": true,
+    "experimentalDecorators": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "lib": [
+      "es2016",
+      "es2017.object",
+      "es2017.string"
+    ],
+    "module": "CommonJS",
+    "noEmitOnError": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "target": "ES2017",
+    "composite": true
+  },
+  "include": ["**/*.ts"]
 }

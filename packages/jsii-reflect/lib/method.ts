@@ -21,7 +21,7 @@ export class Method extends Callable implements Documentable, Overridable, TypeM
 
   public readonly kind = MemberKind.Method;
 
-  constructor(
+  public constructor(
     system: TypeSystem,
     assembly: Assembly,
     parentType: Type,

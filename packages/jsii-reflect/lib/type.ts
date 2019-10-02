@@ -8,7 +8,7 @@ import { locationInRepository, SourceLocatable, SourceLocation } from './source'
 import { TypeSystem } from './type-system';
 
 export abstract class Type implements Documentable, SourceLocatable {
-  constructor(
+  public constructor(
     public readonly system: TypeSystem,
     public readonly assembly: Assembly,
     private readonly spec: jsii.Type) { }

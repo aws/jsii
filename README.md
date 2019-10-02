@@ -15,7 +15,7 @@ to deliver polyglot libraries from a single codebase!
 [cdk]: https://github.com/aws/aws-cdk
 
 A class library written in **TypeScript** can be used in projects authored in
-**TypeScript** or **Javascript** (as usual), but allso in **Python**, **Java**,
+**TypeScript** or **Javascript** (as usual), but also in **Python**, **Java**,
 **C#** (and other languages from the *.NET* family), ...
 
 > NOTE: Due to performance of the hosted **Javascript** engine and marshaling
@@ -299,7 +299,7 @@ That's it. You are ready to rock!
 
 ### Source Languages
 
-* __TypeScript__
+* __TypeScript__ with [some restrictions](docs/typescript-restrictions.md)
 
 ### Target Languages
 

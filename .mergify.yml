@@ -6,9 +6,6 @@ pull_request_rules:
       comment:
         message: >-
           Thank you for contributing! :heart: I will now look into making sure the PR is up-to-date, then proceed to try and merge it!
-      dismiss_reviews:
-        approved: true
-        changes_requested: false
       label:
         add: [ready-to-merge]
     conditions:
@@ -24,7 +21,7 @@ pull_request_rules:
       - "#approved-reviews-by>=1"
       - "#review-requested=0"
       - "#changes-requested-reviews-by=0"
-      - status-success=AWS CodeBuild us-east-1 (jsii-build)
+      - status-success~=AWS CodeBuild us-east-1
       - status-success=continuous-integration/travis-ci/pr
       - status-success=Semantic Pull Request
 
@@ -50,7 +47,7 @@ pull_request_rules:
       - "#approved-reviews-by>=1"
       - "#review-requested=0"
       - "#changes-requested-reviews-by=0"
-      - status-success=AWS CodeBuild us-east-1 (jsii-build)
+      - status-success~=AWS CodeBuild us-east-1
       - status-success=continuous-integration/travis-ci/pr
       - status-success=Semantic Pull Request
 
@@ -74,6 +71,19 @@ pull_request_rules:
         changes_requested: false
     conditions:
       - base=master
+      - author!=dependabot[bot]
+      - author!=dependabot-preview[bot]
+      # List of people with push permissions on the repository
+      - author!=eladb
+      - author!=RomainMuller
+      - author!=garnaat
+      - author!=nija-at
+      - author!=shivlaks
+      - author!=skinny85
+      - author!=rix0rrr
+      - author!=NGL321
+      - author!=Jerry-AWS
+      - author!=SomayaB
 
   - name: Let them know the PR title doesn't look right
     actions:

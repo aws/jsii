@@ -6,7 +6,7 @@ import { Type } from './type';
 import { TypeSystem } from './type-system';
 
 export class Parameter extends OptionalValue implements Documentable {
-  constructor(
+  public constructor(
     system: TypeSystem,
     public readonly parentType: Type,
     public readonly method: Callable,

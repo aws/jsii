@@ -2,8 +2,8 @@
 
 *.js
 *.d.ts
-tslint.json
 *.js.map
+*.tsbuildinfo
 dist
 coverage
 .nyc_output

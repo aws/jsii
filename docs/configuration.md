@@ -212,6 +212,9 @@ The resulting artifact is a **Maven** package that can be deployed to
 The `dotnet` target requires the following configuration:
 * `namespace` - the root namespace under which types will be declared.
 * `packageId` - the identified of the package in the NuGet registry.
+* `iconUrl` - the URL of the icon to be shown in the [NuGet Gallery][NuGet]. It
+  should be at least 64x64 pixels and a transparent background is recommended.
+  See the [.NET documentation] for more information.
 * `versionSuffix` - an optional suffix that will be appended at the end of the
   NuGet package's `version` field. The suffix must start with a `-`.
 * `signAssembly` - whether the assembly should be strong-name signed. Defaults
@@ -225,11 +228,12 @@ Example:
 {
   "jsii": {
     "dotnet": {
-      "namespace": "Acme.HelloJsii",            // Required
-      "packageId": "Acme.HelloJsii",            // Required
-      "signAssembly": true,                     // Optional
-      "assemblyOriginatorKeyFile": "./key.snk", // Optional
-      "versionSuffix": "-preview"               // Optional
+      "namespace": "Acme.HelloJsii",              // Required
+      "packageId": "Acme.HelloJsii",              // Required
+      "iconUrl": "https://cdn.acme.com/icon.png", // Optional
+      "signAssembly": true,                       // Optional
+      "assemblyOriginatorKeyFile": "./key.snk",   // Optional
+      "versionSuffix": "-preview"                 // Optional
     },
     // ...
   },
@@ -242,6 +246,7 @@ the standard [`nuget push`][nuget-push] command.
 
 [NuGet]: https://www.nuget.org
 [nuget-push]: https://docs.microsoft.com/fr-fr/nuget/nuget-org/publish-a-package
+[.NET documentation]: https://docs.microsoft.com/en-us/dotnet/core/tools/csproj#packagelicenseurl
 
 ### `tsc`
 

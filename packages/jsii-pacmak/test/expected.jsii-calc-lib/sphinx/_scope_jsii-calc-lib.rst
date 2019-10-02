@@ -8,42 +8,42 @@ Reference
 
    .. group-tab:: C#
 
-      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/0.16.0>`_
+      View in `Nuget <https://www.nuget.org/packages/Amazon.JSII.Tests.CalculatorPackageId.LibPackageId/0.18.0>`_
 
       **csproj**:
 
       .. code-block:: xml
 
-         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" Version="0.16.0" />
+         <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" Version="0.18.0" />
 
       **dotnet**:
 
       .. code-block:: console
 
-         dotnet add package Amazon.JSII.Tests.CalculatorPackageId.LibPackageId --version 0.16.0
+         dotnet add package Amazon.JSII.Tests.CalculatorPackageId.LibPackageId --version 0.18.0
 
       **packages.config**:
 
       .. code-block:: xml
 
-         <package id="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" version="0.16.0" />
+         <package id="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" version="0.18.0" />
 
 
    .. group-tab:: Java
 
-      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator-lib/0.16.0/>`_
+      View in `Maven Central <https://repo1.maven.org/maven2/software/amazon/jsii/tests/calculator-lib/0.18.0/>`_
 
       **Apache Buildr**:
 
       .. code-block:: none
 
-         'software.amazon.jsii.tests:calculator-lib:jar:0.16.0'
+         'software.amazon.jsii.tests:calculator-lib:jar:0.18.0'
 
       **Apache Ivy**:
 
       .. code-block:: xml
 
-         <dependency groupId="software.amazon.jsii.tests" name="calculator-lib" rev="0.16.0"/>
+         <dependency groupId="software.amazon.jsii.tests" name="calculator-lib" rev="0.18.0"/>
 
       **Apache Maven**:
 
@@ -52,72 +52,72 @@ Reference
          <dependency>
            <groupId>software.amazon.jsii.tests</groupId>
            <artifactId>calculator-lib</artifactId>
-           <version>0.16.0</version>
+           <version>0.18.0</version>
          </dependency>
 
       **Gradle / Grails**:
 
       .. code-block:: none
 
-         compile 'software.amazon.jsii.tests:calculator-lib:0.16.0'
+         compile 'software.amazon.jsii.tests:calculator-lib:0.18.0'
 
       **Groovy Grape**:
 
       .. code-block:: none
 
          @Grapes(
-         @Grab(group='software.amazon.jsii.tests', module='calculator-lib', version='0.16.0')
+         @Grab(group='software.amazon.jsii.tests', module='calculator-lib', version='0.18.0')
          )
 
 
    .. group-tab:: JavaScript
 
-      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-lib/v/0.16.0>`_
+      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-lib/v/0.18.0>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i @scope/jsii-calc-lib@0.16.0
+         $ npm i @scope/jsii-calc-lib@0.18.0
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "@scope/jsii-calc-lib": "^0.16.0"
+           "@scope/jsii-calc-lib": "^0.18.0"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add @scope/jsii-calc-lib@0.16.0
+         $ yarn add @scope/jsii-calc-lib@0.18.0
 
 
    .. group-tab:: TypeScript
 
-      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-lib/v/0.16.0>`_
+      View in `NPM <https://www.npmjs.com/package/@scope/jsii-calc-lib/v/0.18.0>`_
 
       **npm**:
 
       .. code-block:: console
 
-         $ npm i @scope/jsii-calc-lib@0.16.0
+         $ npm i @scope/jsii-calc-lib@0.18.0
 
       **package.json**:
 
       .. code-block:: js
 
          {
-           "@scope/jsii-calc-lib": "^0.16.0"
+           "@scope/jsii-calc-lib": "^0.18.0"
          }
 
       **yarn**:
 
       .. code-block:: console
 
-         $ yarn add @scope/jsii-calc-lib@0.16.0
+         $ yarn add @scope/jsii-calc-lib@0.18.0
 
 
 
@@ -142,11 +142,11 @@ EnumFromScopedModule (enum)
 
       .. code-tab:: javascript
 
-         const { EnumFromScopedModule } = require('@scope/jsii-calc-lib');
+         const { EnumFromScopedModule } = require('@scope/jsii-calc-lib');
 
       .. code-tab:: typescript
 
-         import { EnumFromScopedModule } from '@scope/jsii-calc-lib';
+         import { EnumFromScopedModule } from '@scope/jsii-calc-lib';
 
 
 
@@ -182,7 +182,7 @@ IDoublable (interface)
 
       .. code-tab:: typescript
 
-         import { IDoublable } from '@scope/jsii-calc-lib';
+         import { IDoublable } from '@scope/jsii-calc-lib';
 
 
 
@@ -220,7 +220,7 @@ IFriendly (interface)
 
       .. code-tab:: typescript
 
-         import { IFriendly } from '@scope/jsii-calc-lib';
+         import { IFriendly } from '@scope/jsii-calc-lib';
 
 
 
@@ -269,7 +269,7 @@ IThreeLevelsInterface (interface)
 
       .. code-tab:: typescript
 
-         import { IThreeLevelsInterface } from '@scope/jsii-calc-lib';
+         import { IThreeLevelsInterface } from '@scope/jsii-calc-lib';
 
 
 
@@ -328,7 +328,7 @@ MyFirstStruct (interface)
 
       .. code-tab:: typescript
 
-         import { MyFirstStruct } from '@scope/jsii-calc-lib';
+         import { MyFirstStruct } from '@scope/jsii-calc-lib';
 
 
 
@@ -380,11 +380,11 @@ Number
 
       .. code-tab:: javascript
 
-         const { Number } = require('@scope/jsii-calc-lib');
+         const { Number } = require('@scope/jsii-calc-lib');
 
       .. code-tab:: typescript
 
-         import { Number } from '@scope/jsii-calc-lib';
+         import { Number } from '@scope/jsii-calc-lib';
 
 
 
@@ -457,11 +457,11 @@ Operation
 
       .. code-tab:: javascript
 
-         const { Operation } = require('@scope/jsii-calc-lib');
+         const { Operation } = require('@scope/jsii-calc-lib');
 
       .. code-tab:: typescript
 
-         import { Operation } from '@scope/jsii-calc-lib';
+         import { Operation } from '@scope/jsii-calc-lib';
 
 
 
@@ -526,7 +526,7 @@ StructWithOnlyOptionals (interface)
 
       .. code-tab:: typescript
 
-         import { StructWithOnlyOptionals } from '@scope/jsii-calc-lib';
+         import { StructWithOnlyOptionals } from '@scope/jsii-calc-lib';
 
 
 
@@ -574,11 +574,11 @@ Value
 
       .. code-tab:: javascript
 
-         const { Value } = require('@scope/jsii-calc-lib');
+         const { Value } = require('@scope/jsii-calc-lib');
 
       .. code-tab:: typescript
 
-         import { Value } from '@scope/jsii-calc-lib';
+         import { Value } from '@scope/jsii-calc-lib';
 
 
 

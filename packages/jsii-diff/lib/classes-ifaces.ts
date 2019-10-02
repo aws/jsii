@@ -32,7 +32,7 @@ export function compareReferenceType<T extends reflect.ReferenceType>(original: 
 
   if (original.docs.subclassable && !updated.docs.subclassable) {
     context.mismatches.report({
-      ruleKey: `remove-subclassable`,
+      ruleKey: 'remove-subclassable',
       message: 'has gone from @subclassable to non-@subclassable',
       violator: original,
     });
@@ -76,17 +76,17 @@ export function compareStruct(original: reflect.InterfaceType, updated: reflect.
 }
 
 function noNewAbstractMembers<T extends reflect.ReferenceType>(original: T, updated: T, context: ComparisonContext) {
-    const absMemberNames = new Set(updated.allMembers.filter(m => m.abstract).map(m => m.name));
-    const originalMemberNames = new Set(original.allMembers.map(m => m.name));
-    for (const name of absMemberNames) {
-      if (!originalMemberNames.has(name)) {
-        context.mismatches.report({
-          ruleKey: 'new-abstract-member',
-          message: `adds requirement for subclasses to implement '${name}'.`,
-          violator: updated.getMembers(true)[name]
-        });
-      }
+  const absMemberNames = new Set(updated.allMembers.filter(m => m.abstract).map(m => m.name));
+  const originalMemberNames = new Set(original.allMembers.map(m => m.name));
+  for (const name of absMemberNames) {
+    if (!originalMemberNames.has(name)) {
+      context.mismatches.report({
+        ruleKey: 'new-abstract-member',
+        message: `adds requirement for subclasses to implement '${name}'.`,
+        violator: updated.getMembers(true)[name]
+      });
     }
+  }
 }
 
 function describeOptionalValueMatchingFailure(origType: reflect.OptionalValue, updatedType: reflect.OptionalValue, analysis: FailedAnalysis) {
@@ -94,15 +94,15 @@ function describeOptionalValueMatchingFailure(origType: reflect.OptionalValue, u
   const updaDescr = reflect.OptionalValue.describe(updatedType);
   if (origDescr !== updaDescr) {
     return `${updaDescr} (formerly ${origDescr}): ${analysis.reasons.join(', ')}`;
-  } else {
-    return `${updaDescr}: ${analysis.reasons.join(', ')}`;
-  }
+  } 
+  return `${updaDescr}: ${analysis.reasons.join(', ')}`;
+  
 }
 
 function compareMethod<T extends (reflect.Method | reflect.Initializer)>(
-                                  original: T,
-                                  updated: T,
-                                  context: ComparisonContext) {
+  original: T,
+  updated: T,
+  context: ComparisonContext) {
   compareStabilities(original, updated, context);
 
   // Type guards on original are duplicated on updated to help tsc... They are required to be the same type by the declaration.
@@ -133,14 +133,13 @@ function compareMethod<T extends (reflect.Method | reflect.Initializer)>(
     context.mismatches.report({
       ruleKey: 'changed-variadic',
       violator: original,
-      message: `used to be variadic, not variadic anymore.`
+      message: 'used to be variadic, not variadic anymore.'
     });
   }
 
   if (reflect.isMethod(original) && reflect.isMethod(updated)) {
     const retAna = isCompatibleReturnType(original.returns, updated.returns);
     if (!retAna.success) {
-      // tslint:disable-next-line:max-line-length
       context.mismatches.report({
         ruleKey: 'change-return-type',
         violator: original,
@@ -166,7 +165,6 @@ function compareMethod<T extends (reflect.Method | reflect.Initializer)>(
       context.mismatches.report({
         ruleKey: 'incompatible-argument',
         violator: original,
-        // tslint:disable-next-line:max-line-length
         message: `argument ${param.name}, takes ${describeOptionalValueMatchingFailure(param, updatedParam, argAna)}`
       });
       return;
@@ -211,7 +209,6 @@ function compareProperty(original: reflect.Property, updated: reflect.Property, 
   compareStabilities(original, updated, context);
 
   if (original.static !== updated.static) {
-    // tslint:disable-next-line:max-line-length
     context.mismatches.report({
       ruleKey: 'changed-static',
       violator: original,
@@ -232,13 +229,17 @@ function compareProperty(original: reflect.Property, updated: reflect.Property, 
     context.mismatches.report({
       ruleKey: 'removed-mutability',
       violator: original,
-      message: `used to be mutable, is now immutable`
+      message: 'used to be mutable, is now immutable'
     });
   }
 }
 
-// tslint:disable-next-line:max-line-length
-function* memberPairs<T extends reflect.TypeMember, U extends reflect.ReferenceType>(origClass: U, xs: T[], updatedClass: U, context: ComparisonContext): IterableIterator<[T, reflect.TypeMember]> {
+function* memberPairs<T extends reflect.TypeMember, U extends reflect.ReferenceType>(
+  origClass: U,
+  xs: T[],
+  updatedClass: U,
+  context: ComparisonContext
+): IterableIterator<[T, reflect.TypeMember]> {
   for (const origMember of xs) {
     LOG.trace(`${origClass.fqn}#${origMember.name}`);
 
@@ -247,7 +248,7 @@ function* memberPairs<T extends reflect.TypeMember, U extends reflect.ReferenceT
       context.mismatches.report({
         ruleKey: 'removed',
         violator: origMember,
-        message: `has been removed`
+        message: 'has been removed'
       });
       continue;
     }
@@ -264,7 +265,7 @@ function* memberPairs<T extends reflect.TypeMember, U extends reflect.ReferenceT
       context.mismatches.report({
         ruleKey: 'hidden',
         violator: origMember,
-        message: `changed from 'public' to 'protected'`
+        message: "changed from 'public' to 'protected'"
       });
     }
 
@@ -279,9 +280,9 @@ function* memberPairs<T extends reflect.TypeMember, U extends reflect.ReferenceT
  */
 function isCompatibleReturnType(original: reflect.OptionalValue, updated: reflect.OptionalValue): Analysis {
   if (original.type.void) { return { success: true }; }  // If we didn't use to return anything, returning something now is fine
-  if (updated.type.void) { return { success: false, reasons: [`now returning 'void'`] }; } // If we used to return something, we can't stop doing that
+  if (updated.type.void) { return { success: false, reasons: ["now returning 'void'"] }; } // If we used to return something, we can't stop doing that
   if (!original.optional && updated.optional) {
-    return { success: false, reasons: [`output type is now optional`] };
+    return { success: false, reasons: ['output type is now optional'] };
   }
   return isSuperType(original.type, updated.type, updated.system);
 }

@@ -1,10 +1,28 @@
 {
   "name": "jsii-ruby-runtime",
-  "version": "0.16.0",
+  "version": "0.18.0",
+  "private": true,
   "description": "Ruby client for jsii runtime",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com",
+    "email": "aws-jsii@amazon.com"
+  },
+  "homepage": "https://github.com/aws/jsii",
+  "bugs": {
+    "url": "https://github.com/aws/jsii/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws/jsii.git",
+    "directory": "packages/jsii-ruby-runtime"
+  },
+  "engines": {
+    "node": ">= 10.3.0"
+  },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "private": true,
   "scripts": {
     "gen": "/bin/bash generate.sh",
     "deps": "cd project && bundle install --path vendor/bundle --binstubs vendor/bin",
@@ -16,19 +34,8 @@
   "devDependencies": {
     "jsii-build-tools": "file:../jsii-build-tools",
     "jsii-calc": "file:../jsii-calc",
-    "jsii-pacmak": "^0.16.0",
-    "jsii-runtime": "^0.16.0",
-    "typescript": "~3.6.2"
-  },
-  "author": {
-    "name": "Amazon Web Services",
-    "url": "https://aws.amazon.com",
-    "email": "aws-jsii@amazon.com"
-  },
-  "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/aws/jsii.git"
-  },
-  "homepage": "https://github.com/aws/jsii"
+    "jsii-pacmak": "^0.18.0",
+    "jsii-runtime": "^0.18.0",
+    "typescript": "~3.6.3"
+  }
 }

@@ -1,33 +1,45 @@
 {
   "name": "jsii-pacmak",
-  "version": "0.16.0",
+  "version": "0.18.0",
   "description": "A code generation framework for jsii backend languages",
-  "bin": {
-    "jsii-pacmak": "bin/jsii-pacmak"
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com"
+  },
+  "homepage": "https://github.com/aws/jsii",
+  "bugs": {
+    "url": "https://github.com/aws/jsii/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws/jsii.git",
+    "directory": "packages/jsii-pacmak"
+  },
+  "engines": {
+    "node": ">= 10.3.0"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "bin": {
+    "jsii-pacmak": "bin/jsii-pacmak"
+  },
   "scripts": {
     "gen": "/bin/bash generate.sh",
-    "build": "npm run gen && tsc --build && chmod +x bin/jsii-pacmak && tslint -p .",
+    "build": "npm run gen && tsc --build && chmod +x bin/jsii-pacmak && npm run lint",
     "watch": "tsc --build -w",
-    "lint": "tslint -p . --force",
-    "test": "/bin/bash test/diff-test.sh && /bin/bash test/build-test.sh && nodeunit test/test.*.js",
+    "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
+    "test": "/bin/bash test/diff-test.sh && /bin/bash test/build-test.sh && jest",
     "package": "package-js"
   },
-  "keywords": [
-    "jsii",
-    "aws"
-  ],
   "dependencies": {
     "clone": "^2.1.2",
-    "codemaker": "^0.16.0",
+    "codemaker": "^0.18.0",
     "commonmark": "^0.29.0",
     "escape-string-regexp": "^2.0.0",
     "fs-extra": "^8.1.0",
-    "jsii-reflect": "^0.16.0",
-    "jsii-spec": "^0.16.0",
-    "jsii-sampiler": "^0.16.0",
+    "jsii-reflect": "^0.18.0",
+    "jsii-spec": "^0.18.0",
     "spdx-license-list": "^6.1.0",
     "xmlbuilder": "^13.0.2",
     "yargs": "^14.0.0"
@@ -38,27 +50,39 @@
     "@types/commonmark": "^0.27.4",
     "@types/escape-string-regexp": "^2.0.1",
     "@types/fs-extra": "^8.0.0",
-    "@types/node": "^8.10.53",
-    "@types/nodeunit": "^0.0.30",
+    "@types/jest": "^24.0.18",
+    "@types/node": "^8.10.54",
     "@types/xmlbuilder": "^11.0.1",
-    "@types/yargs": "^13.0.2",
+    "@types/yargs": "^13.0.3",
+    "@typescript-eslint/eslint-plugin": "^2.3.1",
+    "@typescript-eslint/parser": "^2.3.1",
+    "eslint": "^6.5.0",
+    "jest": "^24.9.0",
     "jsii-build-tools": "file:../jsii-build-tools",
     "jsii-calc": "file:../jsii-calc",
     "jsii-dotnet-jsonmodel": "file:../jsii-dotnet-jsonmodel",
     "jsii-dotnet-runtime": "file:../jsii-dotnet-runtime",
     "jsii-java-runtime": "file:../jsii-java-runtime",
-    "nodeunit": "^0.11.3",
-    "tslint": "^5.19.0",
-    "typescript": "~3.6.2"
+    "typescript": "~3.6.3"
   },
-  "author": {
-    "name": "Amazon Web Services",
-    "url": "https://aws.amazon.com"
-  },
-  "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/aws/jsii.git",
-    "directory": "packages/jsii-pacmak"
+  "keywords": [
+    "jsii",
+    "aws"
+  ],
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/bin/**/*.js",
+      "**/lib/**/*.js"
+    ],
+    "coverageReporters": [
+      "lcov",
+      "text"
+    ],
+    "errorOnDeprecated": true,
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/?(*.)+(spec|test).js"
+    ]
   }
 }

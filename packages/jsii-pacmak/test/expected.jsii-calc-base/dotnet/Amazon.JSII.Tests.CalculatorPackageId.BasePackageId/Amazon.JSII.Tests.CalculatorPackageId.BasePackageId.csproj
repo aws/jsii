@@ -1,23 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <IncludeSource>true</IncludeSource>
-    <PackageVersion>0.16.0</PackageVersion>
+    <PackageVersion>0.18.0</PackageVersion>
     <PackageId>Amazon.JSII.Tests.CalculatorPackageId.BasePackageId</PackageId>
     <Description>An example direct dependency for jsii-calc.</Description>
-    <ProjectUrl>https://github.com/aws/jsii.git</ProjectUrl>
+    <ProjectUrl>https://github.com/aws/jsii</ProjectUrl>
     <LicenseUrl>https://spdx.org/licenses/Apache-2.0.html</LicenseUrl>
     <Authors>Amazon Web Services</Authors>
     <Language>en-US</Language>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="scope-jsii-calc-base-0.16.0.tgz"/>
+    <EmbeddedResource Include="scope-jsii-calc-base-0.18.0.tgz"/>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Amazon.JSII.Runtime" Version="0.16.0"/>
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="0.16.0"/>
+    <PackageReference Include="Amazon.JSII.Runtime" Version="0.18.0"/>
+    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="0.18.0"/>
   </ItemGroup>
 </Project>
 

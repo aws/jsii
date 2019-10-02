@@ -3,3 +3,9 @@
 !*.d.ts
 *.sh
 dist
+
+# Don't include various configuration & state information
+coverage
+.eslintrc.*
+tsconfig.json
+*.tsbuildinfo

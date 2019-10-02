@@ -12,7 +12,7 @@ export function isReservedName(name: string): string[] | undefined {
   return reserved.length > 0 ? reserved : undefined;
 }
 
-const CSHARP_RESERVED = new Set([
+export const CSHARP_RESERVED = new Set([
   'abstract',
   'as',
   'base',
@@ -92,7 +92,7 @@ const CSHARP_RESERVED = new Set([
   'while',
 ]);
 
-const JAVA_RESERVED = new Set([
+export const JAVA_RESERVED = new Set([
   'abstract',
   'continue',
   'for',
@@ -148,7 +148,7 @@ const JAVA_RESERVED = new Set([
   'null',
 ]);
 
-const PYTHON_RESERVED = new Set([
+export const PYTHON_RESERVED = new Set([
   'False',
   'class',
   'finally',

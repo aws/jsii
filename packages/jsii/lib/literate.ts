@@ -63,12 +63,12 @@ import path = require('path');
  * Convert an annotated TypeScript source file to MarkDown
  */
 export function typescriptSourceToMarkdown(lines: string[]): string[] {
-    const relevantLines = findRelevantLines(lines);
-    const markdownLines = markdownify(relevantLines);
-    return markdownLines;
+  const relevantLines = findRelevantLines(lines);
+  const markdownLines = markdownify(relevantLines);
+  return markdownLines;
 }
 
-export type FileLoader = (relativePath: string) => Promise<string[]>;
+export type FileLoader = (relativePath: string) => string[] | Promise<string[]>;
 
 /**
  * Given MarkDown source, find source files to include and render
@@ -79,44 +79,46 @@ export type FileLoader = (relativePath: string) => Promise<string[]>;
  *     [example](test/integ.bucket.ts)
  */
 export async function includeAndRenderExamples(lines: string[], loader: FileLoader): Promise<string[]> {
-    const ret: string[] = [];
+  const ret: string[] = [];
 
-    const regex = /^\[([^\]]*)\]\(([^)]+\.lit\.ts)\)/i;
-    for (const line of lines) {
-        const m = regex.exec(line);
-        if (m) {
-            // Found an include
-            const source = await loader(m[2]);
-            const imported = typescriptSourceToMarkdown(source);
-            ret.push(...imported);
-        } else {
-            ret.push(line);
-        }
+  const regex = /^\[([^\]]*)\]\(([^)]+\.lit\.ts)\)/i;
+  for (const line of lines) {
+    const m = regex.exec(line);
+    if (m) {
+      // Found an include
+      /* eslint-disable no-await-in-loop */
+      const source = await loader(m[2]);
+      /* eslint-enable no-await-in-loop */
+      const imported = typescriptSourceToMarkdown(source);
+      ret.push(...imported);
+    } else {
+      ret.push(line);
     }
+  }
 
-    return ret;
+  return ret;
 }
 
 /**
  * Load a file into a string array
  */
 export async function loadFromFile(fileName: string): Promise<string[]> {
-    const content = await fs.readFile(fileName, { encoding: 'utf-8' });
-    return contentToLines(content);
+  const content = await fs.readFile(fileName, { encoding: 'utf-8' });
+  return contentToLines(content);
 }
 
 /**
  * Turn file content string into an array of lines ready for processing using the other functions
  */
 export function contentToLines(content: string): string[] {
-    return content.split('\n').map(x => x.trimRight());
+  return content.split('\n').map(x => x.trimRight());
 }
 
 /**
  * Return a file system loader given a base directory
  */
 export function fileSystemLoader(directory: string): FileLoader {
-    return fileName => loadFromFile(path.resolve(directory, fileName));
+  return fileName => loadFromFile(path.resolve(directory, fileName));
 }
 
 const RELEVANT_TAG = '/// !show';
@@ -131,64 +133,64 @@ const INLINE_MD_REGEX = /^\s*\/\/\/ (.*)$/;
  * Strips common indentation from the blocks it finds.
  */
 function findRelevantLines(lines: string[]): string[] {
-    let inRelevant = false;
-    let didFindRelevant = false;
-    const ret: string[] = [];
+  let inRelevant = false;
+  let didFindRelevant = false;
+  const ret: string[] = [];
 
-    for (const line of lines) {
-        if (line.trim() === RELEVANT_TAG) {
-            inRelevant = true;
-            didFindRelevant = true;
-        } else if (line.trim() === DETAIL_TAG) {
-            inRelevant = false;
-        } else {
-            if (inRelevant) { ret.push(line); }
-        }
+  for (const line of lines) {
+    if (line.trim() === RELEVANT_TAG) {
+      inRelevant = true;
+      didFindRelevant = true;
+    } else if (line.trim() === DETAIL_TAG) {
+      inRelevant = false;
+    } else {
+      if (inRelevant) { ret.push(line); }
     }
+  }
 
-    // Return full lines list if no switching found
-    return stripCommonIndent(didFindRelevant ? ret : lines);
+  // Return full lines list if no switching found
+  return stripCommonIndent(didFindRelevant ? ret : lines);
 }
 
 /**
  * Remove common leading whitespace from the given lines
  */
 function stripCommonIndent(lines: string[]): string[] {
-    const leadingWhitespace = /^(\s*)/;
-    const indents = lines.map(l => leadingWhitespace.exec(l)![1].length);
-    const commonIndent = Math.min(...indents);
-    return lines.map(l => l.substr(commonIndent));
+  const leadingWhitespace = /^(\s*)/;
+  const indents = lines.map(l => leadingWhitespace.exec(l)![1].length);
+  const commonIndent = Math.min(...indents);
+  return lines.map(l => l.substr(commonIndent));
 }
 
 /**
  * Turn source lines into Markdown, starting in TypeScript mode
  */
 function markdownify(lines: string[]): string[] {
-    const typescriptLines: string[] = [];
-    const ret: string[] = [];
+  const typescriptLines: string[] = [];
+  const ret: string[] = [];
 
-    for (const line of lines) {
-        const m = INLINE_MD_REGEX.exec(line);
-        if (m) {
-            // Literal MarkDown line
-            flushTS();
-            ret.push(m[1]);
-        } else {
-            typescriptLines.push(line);
-        }
+  for (const line of lines) {
+    const m = INLINE_MD_REGEX.exec(line);
+    if (m) {
+      // Literal MarkDown line
+      flushTS();
+      ret.push(m[1]);
+    } else {
+      typescriptLines.push(line);
     }
+  }
 
-    flushTS();
+  flushTS();
 
-    return ret;
+  return ret;
 
-    /**
+  /**
      * Flush typescript lines with a triple-backtick-ts block around it.
      */
-    function flushTS() {
-        if (typescriptLines.length !== 0) {
-            ret.push('```ts', ...typescriptLines, '```');
-            typescriptLines.splice(0); // Clear
-        }
+  function flushTS() {
+    if (typescriptLines.length !== 0) {
+      ret.push('```ts', ...typescriptLines, '```');
+      typescriptLines.splice(0); // Clear
     }
+  }
 }

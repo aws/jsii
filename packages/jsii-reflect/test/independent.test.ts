@@ -1,4 +1,4 @@
-import { PackageInfo, sourceToAssemblyHelper  } from 'jsii';
+import { PackageInfo, sourceToAssemblyHelper } from 'jsii';
 import reflect = require('../lib');
 
 test('get full github source location for a class or method', async () => {
@@ -10,7 +10,7 @@ test('get full github source location for a class or method', async () => {
       }
     }
   `.trim(),
-    (obj) => obj.repository.directory = 'some/sub/dir'
+  (obj) => obj.repository.directory = 'some/sub/dir'
   );
 
   // THEN

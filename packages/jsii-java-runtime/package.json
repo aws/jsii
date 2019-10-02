@@ -1,10 +1,28 @@
 {
   "name": "jsii-java-runtime",
-  "version": "0.16.0",
+  "version": "0.18.0",
+  "private": true,
   "description": "Java client for jsii runtime",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com",
+    "email": "aws-jsii@amazon.com"
+  },
+  "homepage": "https://github.com/aws/jsii",
+  "bugs": {
+    "url": "https://github.com/aws/jsii/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws/jsii.git",
+    "directory": "packages/jsii-java-runtime"
+  },
+  "engines": {
+    "node": ">= 10.3.0"
+  },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "private": true,
   "scripts": {
     "gen": "/bin/bash ./generate.sh",
     "build": "tsc --build && npm run gen && cd project && mvn -B deploy -D altDeploymentRepository=local::default::file://${PWD}/../maven-repo",
@@ -13,21 +31,7 @@
   },
   "devDependencies": {
     "jsii-build-tools": "file:../jsii-build-tools",
-    "jsii-runtime": "^0.16.0",
-    "typescript": "~3.6.2"
-  },
-  "author": {
-    "name": "Amazon Web Services",
-    "url": "https://aws.amazon.com",
-    "email": "aws-jsii@amazon.com"
-  },
-  "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/aws/jsii.git"
-  },
-  "homepage": "https://github.com/aws/jsii",
-  "bugs": {
-    "url": "https://github.com/aws/jsii/issues"
+    "jsii-runtime": "^0.18.0",
+    "typescript": "~3.6.3"
   }
 }

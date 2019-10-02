@@ -450,6 +450,118 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                     }
                 );
             }
+            
+            [Fact(DisplayName = _Prefix + nameof(RecursivelyConvertsMapElementsWithMapOfAny))]
+            public void RecursivelyConvertsMapElementsWithMapOfAny()
+            {
+                var instance = new OptionalValue(new TypeReference(
+                    collection: new CollectionTypeReference(CollectionKind.Map,
+                        new TypeReference(
+                            collection: new CollectionTypeReference(CollectionKind.Map,
+                                new TypeReference(primitive: PrimitiveType.Any)
+                            )
+                        )
+                    )
+                ));
+
+                var frameworkMap = new Dictionary<string, IDictionary<string, object>>
+                {
+                    { "myKey1", new Dictionary<string, object> { { "mySubKey1", "myValue1" } } },
+                    { "myKey2", new Dictionary<string, object> { { "mySubKey2", "myValue2" } } },
+                };
+
+                // This will test the call to FrameworkToJsiiConverter.TryConvertCollectionElement()
+                // In the case of a of a Map of Map of Any
+                bool success = _converter.TryConvert(instance, _referenceMap, frameworkMap, out object actual);
+
+                Assert.True(success);
+                Assert.IsType<JObject>(actual);
+                Assert.Collection
+                (
+                    ((IEnumerable<KeyValuePair<string, JToken>>)actual).OrderBy(kvp => kvp.Key),
+                    kvp =>
+                    {
+                        Assert.Equal("myKey1", kvp.Key);
+                        Assert.IsType<JObject>(kvp.Value);
+                        Assert.Collection
+                        (
+                            ((IEnumerable<KeyValuePair<string, JToken>>)kvp.Value),
+                            subKvp =>
+                            {
+                                Assert.Equal("mySubKey1", subKvp.Key, ignoreLineEndingDifferences: true);
+                                Assert.Equal("myValue1", subKvp.Value);
+                            }
+                        );
+                    },
+                    kvp =>
+                    {
+                        Assert.Equal("myKey2", kvp.Key, ignoreLineEndingDifferences: true);
+                        Assert.IsType<JObject>(kvp.Value);
+                        Assert.Collection
+                        (
+                            ((IEnumerable<KeyValuePair<string, JToken>>)kvp.Value),
+                            subKvp =>
+                            {
+                                Assert.Equal("mySubKey2", subKvp.Key, ignoreLineEndingDifferences: true);
+                                Assert.Equal("myValue2", subKvp.Value);
+                            }
+                        );
+                    }
+                );
+            }
+            
+            [Fact(DisplayName = _Prefix + nameof(RecursivelyConvertsMapElementsWithArrayOfAny))]
+            public void RecursivelyConvertsMapElementsWithArrayOfAny()
+            {
+                var instance = new OptionalValue(new TypeReference
+                (
+                    collection: new CollectionTypeReference(CollectionKind.Map,
+                        new TypeReference
+                        (
+                            collection: new CollectionTypeReference(CollectionKind.Array,
+                                new TypeReference(primitive: PrimitiveType.Any)
+                            )
+                        )
+                    )
+                ));
+
+                var frameworkArray = new Dictionary<string, object>()
+                {
+                    {"key", new [] { "true" }},
+                    {"key2", new [] { false }},
+                };
+
+                // This will test the call to FrameworkToJsiiConverter.TryConvertCollectionElement()
+                // In the case of a of a Map of Array of Any
+                bool success = _converter.TryConvert(instance, _referenceMap, frameworkArray, out object actual);
+
+                Assert.True(success);
+                Assert.IsType<JObject>(actual);
+                Assert.Collection
+                (
+                    ((IEnumerable<KeyValuePair<string, JToken>>)actual).OrderBy(kvp => kvp.Key),
+                    kvp =>
+                    {
+                        Assert.Equal("key", kvp.Key);
+                        Assert.IsType<JArray>(kvp.Value);
+                        Assert.Collection
+                        (
+                            (JArray)kvp.Value,
+                            subValue => Assert.Equal("true", subValue)
+                        );
+                    },
+                    kvp =>
+                    {
+                        Assert.Equal("key2", kvp.Key, ignoreLineEndingDifferences: true);
+                        Assert.IsType<JArray>(kvp.Value);
+                        Assert.Collection
+                        (
+                            (JArray)kvp.Value,
+                            subValue => Assert.Equal(false, subValue)
+                        );
+                    }
+                );
+            }
 
             [Fact(DisplayName = _Prefix + nameof(ConvertsNullMap))]
             public void ConvertsNullMap()

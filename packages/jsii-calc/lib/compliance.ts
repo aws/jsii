@@ -1,4 +1,3 @@
-// tslint:disable
 import {
     EnumFromScopedModule,
     IDoublable,
@@ -335,8 +334,8 @@ export class AsyncVirtualMethods {
     /**
      * Just calls "overrideMeToo"
      */
-    async callMe2() {
-        return await this.overrideMeToo();
+    callMe2() {
+        return this.overrideMeToo();
     }
 
     /**

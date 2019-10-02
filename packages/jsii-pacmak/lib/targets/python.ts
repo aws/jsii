@@ -705,7 +705,7 @@ class Struct extends BasePythonClassType {
     private emitGetter(member: StructField, code: CodeMaker, resolver: TypeResolver) {
         code.line('@property');
         code.openBlock(`def ${member.pythonName}(self) -> ${member.typeAnnotation(resolver)}`);
-        member.emitDocString(code);
+        member.emitDocString(code, { documentableItem: `prop-${this.pythonName}` });
         code.line(`return self._values.get('${member.pythonName}')`);
         code.closeBlock();
     }
@@ -770,7 +770,7 @@ class StructField implements PythonBase {
     }
 
     public emitDocString(code: CodeMaker) {
-        emitDocString(code, this.docs, { documentableItem: `prop-${this.pythonName}` });
+        emitDocString(code, this.docs);
     }
 
     public emit(code: CodeMaker, resolver: TypeResolver) {
@@ -1150,6 +1150,8 @@ class Package {
         if (this.metadata.readme) {
             code.line(convertSnippetsInMarkdown(this.metadata.readme.markdown, 'README.md'));
         }
+
+        code.line(this.metadata.readme && this.metadata.readme.markdown);
         code.closeFile("README.md");
 
         // Strip " (build abcdef)" from the jsii version
@@ -1851,7 +1853,6 @@ function emitDocString(code: CodeMaker, docs: spec.Docs | undefined, options: {
     if (docs.example) {
         brk();
         lines.push('Example::');
-
         const exampleText = convertExample(docs.example, options.documentableItem || 'example');
 
         for (const line of exampleText.split('\n')) {

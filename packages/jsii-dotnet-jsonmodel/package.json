@@ -1,9 +1,27 @@
 {
   "name": "jsii-dotnet-jsonmodel",
-  "version": "0.16.0",
-  "description": ".NET json model for jsii spec and api.",
-  "main": "lib/index.js",
+  "version": "0.18.0",
   "private": true,
+  "description": ".NET json model for jsii spec and api.",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com",
+    "email": "aws-jsii@amazon.com"
+  },
+  "homepage": "https://github.com/aws/jsii",
+  "bugs": {
+    "url": "https://github.com/aws/jsii/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws/jsii.git",
+    "directory": "packages/jsii-dotnet-jsonmodel"
+  },
+  "engines": {
+    "node": ">= 10.3.0"
+  },
+  "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "gen": "/bin/bash ./generate.sh",
@@ -13,16 +31,6 @@
   },
   "devDependencies": {
     "jsii-build-tools": "file:../jsii-build-tools",
-    "typescript": "~3.6.2"
-  },
-  "author": {
-    "name": "Amazon Web Services",
-    "url": "https://aws.amazon.com",
-    "email": "aws-jsii@amazon.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/aws/jsii.git"
-  },
-  "homepage": "https://github.com/aws/jsii"
+    "typescript": "~3.6.3"
+  }
 }
