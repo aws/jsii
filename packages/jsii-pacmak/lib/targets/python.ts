@@ -705,7 +705,7 @@ class Struct extends BasePythonClassType {
     private emitGetter(member: StructField, code: CodeMaker, resolver: TypeResolver) {
         code.line('@property');
         code.openBlock(`def ${member.pythonName}(self) -> ${member.typeAnnotation(resolver)}`);
-        member.emitDocString(code, { documentableItem: `prop-${this.pythonName}` });
+        member.emitDocString(code);
         code.line(`return self._values.get('${member.pythonName}')`);
         code.closeBlock();
     }
@@ -770,7 +770,7 @@ class StructField implements PythonBase {
     }
 
     public emitDocString(code: CodeMaker) {
-        emitDocString(code, this.docs);
+        emitDocString(code, this.docs, { documentableItem: `prop-${this.pythonName}` });
     }
 
     public emit(code: CodeMaker, resolver: TypeResolver) {
