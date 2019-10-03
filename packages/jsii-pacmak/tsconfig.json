@@ -55,9 +55,10 @@
   "include": [
     "**/*.ts"
   ],
-  "references": [{
-    "path": "../jsii-spec"
-  }, {
-    "path": "../codemaker"
-  }]
+  "references": [
+    { "path": "../jsii-spec" },
+    { "path": "../codemaker" },
+    { "path": "../jsii-sampiler" },
+    { "path": "../jsii-reflect" }
+  ]
 }
