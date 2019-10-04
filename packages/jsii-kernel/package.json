@@ -31,7 +31,7 @@
   "dependencies": {
     "jsii-spec": "^0.18.0",
     "source-map": "^0.7.3",
-    "tar": "^4.4.13"
+    "tar": "^5.0.2"
   },
   "devDependencies": {
     "@scope/jsii-calc-base": "file:../jsii-calc-base",
