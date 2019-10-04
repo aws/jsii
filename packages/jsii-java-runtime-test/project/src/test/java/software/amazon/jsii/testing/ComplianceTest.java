@@ -1247,9 +1247,7 @@ public class ComplianceTest {
     @Test
     public void objectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut() {
         final PartiallyInitializedThisConsumer reflector = new PartiallyInitializedThisConsumerImpl();
-        final ConstructorPassesThisOut object = new ConstructorPassesThisOut(reflector);
-
-        assertTrue(object != null);
+        new ConstructorPassesThisOut(reflector);
     }
 
     @Test
@@ -1260,7 +1258,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void callbacsCorrectlyDeserializeArguments() {
+    public void callbacksCorrectlyDeserializeArguments() {
         final DataRenderer renderer = new DataRenderer() {
             public final String renderMap(final Map<String, Object> map) {
                 return super.renderMap(map);

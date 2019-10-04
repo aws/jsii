@@ -174,7 +174,7 @@ public class JsiiObject implements JsiiSerializable {
     final JsiiObject asInterfaceProxy(final Class<? extends JsiiObject> proxyClass) {
         if (!this.proxies.containsKey(proxyClass)) {
             try {
-                final Constructor<? extends JsiiObject> constructor = proxyClass.getConstructor(JsiiObjectRef.class);
+                final Constructor<? extends JsiiObject> constructor = proxyClass.getDeclaredConstructor(JsiiObjectRef.class);
                 @SuppressWarnings("deprecated")
                 final boolean oldAccessible = constructor.isAccessible();
                 try {
