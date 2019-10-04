@@ -3,3 +3,4 @@
 *.tsbuildinfo
 node_modules
 *.d.ts
+coverage

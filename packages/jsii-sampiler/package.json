@@ -7,8 +7,10 @@
     "jsii-sampiler": "bin/jsii-sampiler"
   },
   "scripts": {
-    "build": "tsc",
-    "test": "jest"
+    "build": "tsc --build",
+    "watch": "tsc --build -w",
+    "test": "jest",
+    "package": "package-js"
   },
   "devDependencies": {
     "@types/commonmark": "^0.27.4",
@@ -18,7 +20,8 @@
     "@types/yargs": "^13.0.3",
     "jest": "^24.9.0",
     "memory-streams": "^0.1.3",
-    "typescript": "^3.5.3"
+    "typescript": "^3.5.3",
+    "jsii-build-tools": "file:../jsii-build-tools"
   },
   "dependencies": {
     "commonmark": "^0.29.0",
@@ -27,9 +30,15 @@
     "yargs": "^14.0.0"
   },
   "jest": {
-    "moduleFileExtensions": [
-      "js"
-    ]
+    "moduleFileExtensions": [ "js" ],
+    "collectCoverageFrom": [ "lib/**/*.js" ],
+    "collectCoverage": true,
+    "coverageThreshold": {
+      "global": {
+        "branches": 70,
+        "statements": 75
+      }
+    }
   },
   "license": "Apache-2.0",
   "author": {
@@ -37,9 +46,13 @@
     "url": "https://aws.amazon.com",
     "organization": true
   },
+  "homepage": "https://github.com/aws/jsii",
   "repository": {
     "type": "git",
     "url": "https://github.com/aws/jsii.git",
     "directory": "packages/jsii-sampiler"
+  },
+  "engines": {
+    "node": ">= 10.3.0"
   }
 }
