@@ -37,7 +37,7 @@
     "@types/decamelize": "^1.2.0",
     "@types/fs-extra": "^8.0.0",
     "@types/jest": "^24.0.18",
-    "@typescript-eslint/eslint-plugin": "^2.3.1",
+    "@typescript-eslint/eslint-plugin": "^2.3.2",
     "@typescript-eslint/parser": "^2.3.2",
     "eslint": "^6.5.1",
     "jest": "^24.9.0",
