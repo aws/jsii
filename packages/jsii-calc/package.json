@@ -63,8 +63,7 @@
       "python": {
         "distName": "jsii-calc",
         "module": "jsii_calc"
-      },
-      "sphinx": {}
+      }
     },
     "metadata": {
       "jsii:boolean": true,

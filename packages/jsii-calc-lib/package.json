@@ -58,8 +58,7 @@
       "python": {
         "distName": "scope.jsii-calc-lib",
         "module": "scope.jsii_calc_lib"
-      },
-      "sphinx": {}
+      }
     },
     "versionFormat": "short"
   }
