@@ -121,7 +121,7 @@ import pLimit from 'p-limit';
     const requestedTargets = argv.targets && argv.targets.map(t => `${t}`)
     const targetSets = sliceTargets(modulesToPackage, requestedTargets);
 
-    const perLanguageDirectory = targetSets.length > 1 || argv["force-subdirectory"];
+    const perLanguageDirectory = targetSets.length > 1 || argv['force-subdirectory'];
 
     // We run all target sets in parallel for minimal wall clock time
     await awaitAll(targetSets.map(targetSet => async () => {
@@ -141,7 +141,7 @@ import pLimit from 'p-limit';
           .map(m => () => m.cleanup()))
       );
     } else {
-      logging.debug(`Temporary directories retained (--no-clean)`);
+      logging.debug('Temporary directories retained (--no-clean)');
     }
   }
 
@@ -151,12 +151,12 @@ import pLimit from 'p-limit';
     // ``argv.target`` is guaranteed valid by ``yargs`` through the ``choices`` directive.
     const builder = ALL_BUILDERS[targetLanguage as TargetName];
     if (!builder) {
-      throw new Error(`Unsupported target: "${targetLanguage}"`);
+      throw new Error(`Unsupported target: '${targetLanguage}'`);
     }
 
     await builder.buildModules(modules, {
       clean: argv.clean,
-      codeOnly: argv["code-only"],
+      codeOnly: argv['code-only'],
       force: argv.force,
       fingerprint: argv.fingerprint,
       arguments: argv,
@@ -202,14 +202,16 @@ function allAvailableTargets(modules: JsiiModule[]) {
   return Array.from(ret);
 }
 
+/* eslint-disable @typescript-eslint/promise-function-async */
 /**
  * Await all with automatic work limit
  */
 function makeAwaitAll(limit: ConcurrencyLimiter) {
-  return function awaitAll<A>(work: Thunk<A>[]) {
+  return function awaitAll<A>(work: Array<Thunk<A>>) {
     return Promise.all(work.map(limit));
   }
 }
+/* eslint-enable @typescript-eslint/promise-function-async */
 
 
 function describePackages(target: TargetSet) {

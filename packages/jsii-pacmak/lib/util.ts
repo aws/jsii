@@ -9,7 +9,7 @@ export type Thunk<A> = () => Promise<A>;
 
 export type ConcurrencyLimiter =<ReturnType>(
   fn: () => PromiseLike<ReturnType> | ReturnType,
-  ) => Promise<ReturnType>;
+) => Promise<ReturnType>;
 
 export const NO_CONCURRENCY_LIMIT: ConcurrencyLimiter = (fn) => new Promise(resolve => resolve(fn()));
 
@@ -111,14 +111,14 @@ export class Scratch<A> {
     return new Scratch(tmpdir, await factory(tmpdir), false);
   }
 
-  public static async fake<A>(directory: string, object: A) {
+  public static fake<A>(directory: string, object: A) {
     return new Scratch(directory, object, true);
   }
 
   public static async cleanupAll<A>(tempDirs: Array<Scratch<A>>, concurrencyLimit = NO_CONCURRENCY_LIMIT) {
     await Promise.all(tempDirs
-        .map(t => () => t.cleanup())
-        .map(concurrencyLimit));
+      .map(t => () => t.cleanup())
+      .map(concurrencyLimit));
   }
 
   private constructor(public readonly directory: string, public readonly object: A, private readonly fake: boolean) {

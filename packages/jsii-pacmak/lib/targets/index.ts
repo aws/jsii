@@ -1,4 +1,4 @@
-import { OneByOneBuilder, TargetBuilder } from "../builder";
+import { OneByOneBuilder, TargetBuilder } from '../builder';
 
 import Dotnet from './dotnet';
 import { JavaBuilder } from './java';

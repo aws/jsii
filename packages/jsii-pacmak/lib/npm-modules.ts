@@ -16,7 +16,7 @@ import { JsiiModule } from './packaging';
 export async function findJsiiModules(directories: string[], recurse: boolean) {
   const ret: JsiiModule[] = [];
   const visited = new Set<string>();
-  for (const dir of (directories.length > 0 ? directories : ['.'])) {
+  for (const dir of directories.length > 0 ? directories : ['.']) {
     await visitPackage(dir, true);
   }
   return ret;
@@ -39,7 +39,7 @@ export async function findJsiiModules(directories: string[], recurse: boolean) {
     if (recurse) {
       for (const dep of Object.keys(pkg.dependencies || {})) {
         const depDir = resolveDependencyDirectory(realPath, dep);
-        visitPackage(depDir, false);
+        await visitPackage(depDir, false);
       }
     }
 

@@ -33,7 +33,8 @@ export class JavaBuilder implements TargetBuilder {
     // always specify the output dir anyway).
     if (!allOutputDirectoriesTheSame(modules)) {
       logging.warn('Single output directory not specified, doing (slower) one-by-one build for Java');
-      return new OneByOneBuilder(this.targetName, Java).buildModules(modules, options);
+      await new OneByOneBuilder(this.targetName, Java).buildModules(modules, options);
+      return;
     }
 
     const singleOutputDir = this.finalOutputDir(modules[0], options);
@@ -57,11 +58,11 @@ export class JavaBuilder implements TargetBuilder {
     const target = this.makeTarget(module, options);
 
     return finalDirectory
-        ? Scratch.fake(this.finalOutputDir(module, options), undefined)
-        : Scratch.make(tmpdir => {
-      logging.debug(`Generating ${this.targetName} code into ${tmpdir}`);
-      return target.generateCode(tmpdir, module.tarball);
-    });
+      ? Scratch.fake(this.finalOutputDir(module, options), undefined)
+      : Scratch.make(tmpdir => {
+        logging.debug(`Generating ${this.targetName} code into ${tmpdir}`);
+        return target.generateCode(tmpdir, module.tarball);
+      });
   }
 
   private async generateAggregatePom(sourceDirectories: Array<Scratch<void>>) {

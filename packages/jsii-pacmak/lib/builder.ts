@@ -52,7 +52,7 @@ export interface TargetBuilder {
  */
 export function allOutputDirectoriesTheSame(modules: JsiiModule[]): boolean {
   if (modules.length === 0) { return true; }
-  let ret = modules[0].outputDirectory;
+  const ret = modules[0].outputDirectory;
   return modules.every(m => m.outputDirectory === ret);
 }
 
@@ -60,7 +60,7 @@ export function allOutputDirectoriesTheSame(modules: JsiiModule[]): boolean {
  * Builds the targets for the given language sequentially
  */
 export class OneByOneBuilder implements TargetBuilder {
-  constructor(private readonly targetName: string, private readonly targetConstructor: TargetConstructor) {
+  public constructor(private readonly targetName: string, private readonly targetConstructor: TargetConstructor) {
 
   }
 

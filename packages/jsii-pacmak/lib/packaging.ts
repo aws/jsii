@@ -1,4 +1,4 @@
-import { Scratch, shell } from "./util"
+import { Scratch, shell } from './util';
 import logging = require('../lib/logging');
 import reflect = require('jsii-reflect');
 import os = require('os');
@@ -36,7 +36,7 @@ export class JsiiModule {
   private _tarball?: Scratch<string>;
   public _assembly?: reflect.Assembly;
 
-  constructor(options: JsiiModuleOptions) {
+  public constructor(options: JsiiModuleOptions) {
     this.name = options.name;
     this.moduleDirectory = options.moduleDirectory;
     this.availableTargets = options.availableTargets;
