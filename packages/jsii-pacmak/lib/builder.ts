@@ -90,11 +90,12 @@ export class OneByOneBuilder implements TargetBuilder {
     });
 
     try {
-      logging.debug(`Building into ${outputDir}`);
+      logging.debug(`Building ${src.directory} into ${outputDir}`);
       await target.build(src.directory, outputDir);
 
     } finally {
       if (options.clean) {
+        logging.debug(`Cleaning ${src.directory}`);
         await src.cleanup();
       } else {
         logging.info(`Generated code for ${this.targetName} retained at ${src.directory}`);
