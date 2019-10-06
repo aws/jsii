@@ -1,4 +1,4 @@
-# `jsii`
+# ![jsii](./logo/png/128.png)
 
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=aws/jsii)](https://dependabot.com)
 ![Build Status](https://img.shields.io/travis/aws/jsii?label=Travis-CI)
