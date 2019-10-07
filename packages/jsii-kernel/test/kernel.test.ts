@@ -213,7 +213,6 @@ defineTest('naming allows returns the module name for different languages', (san
     },
     js: { npm: 'jsii-calc' },
     python: { distName: 'jsii-calc', module: 'jsii_calc' },
-    sphinx: {},
   });
   expect(sandbox.naming({ assembly: '@scope/jsii-calc-lib' }).naming).toEqual({
     dotnet: {
@@ -227,7 +226,6 @@ defineTest('naming allows returns the module name for different languages', (san
     },
     js: { npm: '@scope/jsii-calc-lib' },
     python: { distName: 'scope.jsii-calc-lib', module: 'scope.jsii_calc_lib' },
-    sphinx: {},
   });
 });
 
