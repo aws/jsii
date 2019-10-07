@@ -2,6 +2,7 @@ export const TOKEN_REF = '$jsii.byref';
 export const TOKEN_INTERFACES = '$jsii.interfaces';
 export const TOKEN_DATE = '$jsii.date';
 export const TOKEN_ENUM = '$jsii.enum';
+export const TOKEN_MAP = '$jsii.map';
 
 export interface ObjRef {
   [TOKEN_REF]: string;
@@ -29,6 +30,14 @@ export interface WireEnum {
 
 export function isWireEnum(value: any): value is WireEnum {
   return typeof value === 'object' && value !== null && TOKEN_ENUM in value;
+}
+
+export interface WireMap {
+  [TOKEN_MAP]: { [key: string]: any };
+}
+
+export function isWireMap(value: any): value is WireMap {
+  return typeof value === 'object' && value !== null && TOKEN_MAP in value;
 }
 
 export type Override = MethodOverride | PropertyOverride;

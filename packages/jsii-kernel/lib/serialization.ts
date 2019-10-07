@@ -27,7 +27,7 @@
  */
 
 import * as spec from 'jsii-spec';
-import { isObjRef, isWireDate, isWireEnum, ObjRef, TOKEN_DATE, TOKEN_ENUM, WireDate, WireEnum } from './api';
+import { isObjRef, isWireDate, isWireEnum, isWireMap, ObjRef, TOKEN_DATE, TOKEN_ENUM, TOKEN_MAP, WireDate, WireEnum } from './api';
 import { hiddenMap, jsiiTypeFqn, objectReference, ObjectTable } from './objects';
 
 /**
@@ -52,6 +52,8 @@ export type OptionalValueOrVoid = spec.OptionalValue | Void;
  * A special FQN that can be used to create empty javascript objects.
  */
 export const EMPTY_OBJECT_FQN = 'Object';
+
+export const SYMBOL_WIRE_TYPE = Symbol.for('$jsii$wireType$');
 
 /**
  * The type kind, that controls how it will be serialized according to the above table
@@ -238,14 +240,25 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       if (optionalValue === 'void') { throw new Error('Encountered unexpected `void` type'); }
 
       const mapType = optionalValue.type as spec.CollectionTypeReference;
-      return mapValues(value, v => host.recurse(v, { type: mapType.collection.elementtype }));
+      return { [TOKEN_MAP]: mapValues(value, v => host.recurse(v, { type: mapType.collection.elementtype })) };
     },
     deserialize(value, optionalValue, host) {
       if (nullAndOk(value, optionalValue)) { return undefined; }
       if (optionalValue === 'void') { throw new Error('Encountered unexpected `void` type'); }
 
       const mapType = optionalValue.type as spec.CollectionTypeReference;
-      return mapValues(value, v => host.recurse(v, { type: mapType.collection.elementtype }));
+      if (!isWireMap(value)) {
+        // Compatibility mode with older versions that didn't wrap in [TOKEN_MAP]
+        return mapValues(value, v => host.recurse(v, { type: mapType.collection.elementtype }));
+      }
+      const result = mapValues(value[TOKEN_MAP], v => host.recurse(v, { type: mapType.collection.elementtype }));
+      Object.defineProperty(result, SYMBOL_WIRE_TYPE, {
+        configurable: false,
+        enumerable: false,
+        value: TOKEN_MAP,
+        writable: false,
+      });
+      return result;
     },
   },
 
@@ -392,6 +405,21 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
         throw new Error(`JSII kernel assumption violated, ${JSON.stringify(value)} is not an object`);
       }
 
+      if (SYMBOL_WIRE_TYPE in value && (value as any)[SYMBOL_WIRE_TYPE] === TOKEN_MAP) {
+        return SERIALIZERS[SerializationClass.Map].serialize(
+          value,
+          {
+            type: {
+              collection: {
+                kind: spec.CollectionKind.Map,
+                elementtype: spec.CANONICAL_ANY,
+              }
+            }
+          },
+          host
+        );
+      }
+
       // To make sure people aren't going to try and return Map<> or Set<> out, test for
       // those and throw a descriptive error message. We can't detect these cases any other
       // way, and the by-value serialized object will be quite useless.
@@ -430,6 +458,16 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       if (isWireEnum(value)) {
         host.debug('ANY is an Enum');
         return deserializeEnum(value, host.findSymbol);
+      }
+      if (isWireMap(value)) {
+        host.debug('ANY is a Map');
+        const mapOfAny: spec.CollectionTypeReference = {
+          collection: {
+            kind: spec.CollectionKind.Map,
+            elementtype: spec.CANONICAL_ANY,
+          }
+        };
+        return SERIALIZERS[SerializationClass.Map].deserialize(value, { type: mapOfAny }, host);
       }
       if (isObjRef(value)) {
         host.debug('ANY is a Ref');
@@ -554,12 +592,12 @@ function flatMap<T, U>(xs: T[], fn: (x: T) => U[]): U[] {
 /**
  * Map an object's values, skipping 'undefined' values'
  */
-function mapValues(value: unknown, fn: (value: any, field: string) => any) {
+function mapValues(value: unknown, fn: (value: any, field: string) => any): { [key: string]: any } {
   if (typeof value !== 'object' || value == null) {
     throw new Error(`Expected object type, got ${JSON.stringify(value)}`);
   }
 
-  const out: any = { };
+  const out: { [key: string]: any } = { };
   for (const [k, v] of Object.entries(value)) {
     const wireValue = fn(v, k);
     if (wireValue === undefined) { continue; }

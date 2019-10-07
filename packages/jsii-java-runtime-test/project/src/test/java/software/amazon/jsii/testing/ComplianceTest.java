@@ -166,7 +166,7 @@ public class ComplianceTest {
         assertEquals(Instant.ofEpochSecond(1234), types.getAnyProperty());
 
         // json (notice that when deserialized, it is deserialized as a map).
-        types.setAnyProperty(new ObjectMapper().readTree("{ \"Goo\": [ \"Hello\", { \"World\": 123 } ] }"));
+        types.setAnyProperty(Collections.singletonMap("Goo", Arrays.asList("Hello", Collections.singletonMap("World", 123))));
         assertEquals(123, ((Map<?, ?>)((List<?>)((Map<?, ?>)types.getAnyProperty()).get("Goo")).get(1)).get("World"));
 
         // array
@@ -1224,7 +1224,7 @@ public class ComplianceTest {
         final IPublicInterface ifaceRef = Constructors.makeInterface();
 
         assertTrue(classRef instanceof InbetweenClass);
-        assertTrue(ifaceRef instanceof IPublicInterface);
+        assertNotNull(ifaceRef);
     }
 
     /**

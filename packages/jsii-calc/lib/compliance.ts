@@ -1438,7 +1438,7 @@ export class EraseUndefinedHashValues {
     /**
      * We expect "prop2" to be erased
      */
-    public static prop2IsUndefined(): any {
+    public static prop2IsUndefined(): { [key: string]: any } {
         return {
             prop1: 'value1',
             prop2: undefined
@@ -1448,7 +1448,7 @@ export class EraseUndefinedHashValues {
     /**
      * We expect "prop1" to be erased
      */
-    public static prop1IsNull(): any {
+    public static prop1IsNull(): { [key: string]: any } {
         return {
             prop1: null,
             prop2: 'value2'

@@ -4,7 +4,7 @@ import { join } from 'path';
 import path = require('path');
 import vm = require('vm');
 import { api, Kernel } from '../lib';
-import { Callback, ObjRef, TOKEN_REF, TOKEN_INTERFACES } from '../lib/api';
+import { Callback, ObjRef, TOKEN_REF, TOKEN_INTERFACES, TOKEN_MAP } from '../lib/api';
 import { closeRecording, recordInteraction } from './recording';
 
 /* eslint-disable require-atomic-updates */
@@ -130,8 +130,8 @@ defineTest('in/out collections', (sandbox) => {
     d: num(123),
   };
 
-  sandbox.set({ objref: alltypes, property: 'mapProperty', value: map });
-  expect(sandbox.get({ objref: alltypes, property: 'mapProperty' }).value).toEqual(map);
+  sandbox.set({ objref: alltypes, property: 'mapProperty', value: { [TOKEN_MAP]: map } });
+  expect(sandbox.get({ objref: alltypes, property: 'mapProperty' }).value[TOKEN_MAP]).toEqual(map);
 });
 
 defineTest('in/out date values', (sandbox) => {

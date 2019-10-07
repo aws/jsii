@@ -3360,7 +3360,12 @@
           "name": "prop1IsNull",
           "returns": {
             "type": {
-              "primitive": "any"
+              "collection": {
+                "elementtype": {
+                  "primitive": "any"
+                },
+                "kind": "map"
+              }
             }
           },
           "static": true
@@ -3377,7 +3382,12 @@
           "name": "prop2IsUndefined",
           "returns": {
             "type": {
-              "primitive": "any"
+              "collection": {
+                "elementtype": {
+                  "primitive": "any"
+                },
+                "kind": "map"
+              }
             }
           },
           "static": true
@@ -9731,5 +9741,5 @@
     }
   },
   "version": "0.17.0",
-  "fingerprint": "Qt/kBLkuUPM6aMutORjHa2+23lDPZD7iVm58r8frz70="
+  "fingerprint": "X8/nv2QOSSBSfo2IwTkc7AaTgVtae8G1Z1CYDfRHzbM="
 }

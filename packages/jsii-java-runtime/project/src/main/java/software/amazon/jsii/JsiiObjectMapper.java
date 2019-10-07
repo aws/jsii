@@ -2,28 +2,25 @@ package software.amazon.jsii;
 
 import java.io.IOException;
 import java.time.Instant;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.Version;
-import com.fasterxml.jackson.databind.BeanDescription;
-import com.fasterxml.jackson.databind.BeanProperty;
-import com.fasterxml.jackson.databind.DeserializationConfig;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.deser.BeanDeserializerModifier;
 import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
 import com.fasterxml.jackson.databind.deser.ResolvableDeserializer;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.module.SimpleSerializers;
+import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
+import com.fasterxml.jackson.databind.ser.Serializers;
+import com.fasterxml.jackson.databind.ser.std.StdArraySerializers;
+import com.fasterxml.jackson.databind.type.ArrayType;
 import com.fasterxml.jackson.databind.type.MapLikeType;
 import com.fasterxml.jackson.databind.type.MapType;
 
@@ -88,6 +85,8 @@ public final class JsiiObjectMapper {
 
   private static final String TOKEN_ENUM = "$jsii.enum";
 
+  private static final String TOKEN_MAP = "$jsii.map";
+
   private final ObjectMapper objectMapper;
 
   private final JsiiEngine jsiiEngine;
@@ -104,6 +103,7 @@ public final class JsiiObjectMapper {
 
     final SimpleModule module = new SimpleModule("JSII", Version.unknownVersion());
     module.setDeserializerModifier(new JsiiDeserializerModifier());
+    module.setSerializers(new JsiiSerializers());
     module.addSerializer(Enum.class, new EnumSerializer());
     module.addSerializer(Instant.class, new Instanterializer());
     module.addSerializer(JsiiSerializable.class, new JsiiSerializer());
@@ -146,8 +146,10 @@ public final class JsiiObjectMapper {
           return jsiiEngine.findEnumValue(node.get(TOKEN_ENUM).textValue());
         }
         if (node.has(TOKEN_REF)) {
-
           return jsiiEngine.nativeFromObjRef(JsiiObjectRef.parse(node));
+        }
+        if (node.has(TOKEN_MAP)) {
+          return getObjectMapper().treeToValue(node.get(TOKEN_MAP), Map.class);
         }
       }
 
@@ -260,6 +262,40 @@ public final class JsiiObjectMapper {
     public void serialize(final Instant value, final JsonGenerator gen, final SerializerProvider serializers) throws IOException {
       gen.writeStartObject();
       gen.writeStringField(TOKEN_DATE, value.toString());
+      gen.writeEndObject();
+    }
+  }
+
+  @SuppressWarnings("unchecked")
+  private static final class JsiiSerializers extends SimpleSerializers {
+    @Override
+    public JsonSerializer<?> findMapSerializer(SerializationConfig config, MapType type, BeanDescription beanDesc, JsonSerializer<Object> keySerializer, TypeSerializer elementTypeSerializer, JsonSerializer<Object> elementValueSerializer) {
+      final JsonSerializer<?> standard = super.findMapSerializer(config, type, beanDesc, keySerializer, elementTypeSerializer, elementValueSerializer);
+      return new JsiiMapSerializer(standard);
+    }
+  }
+
+  private static final class JsiiMapSerializer<T> extends JsonSerializer<T> {
+    private final JsonSerializer<T> delegate;
+
+    JsiiMapSerializer(final JsonSerializer<T> delegate) {
+      this.delegate = delegate;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public void serialize(T value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+      gen.writeStartObject();
+      gen.writeFieldName(TOKEN_MAP);
+      if (this.delegate != null) {
+        this.delegate.serialize(value, gen, serializers);
+      } else {
+        gen.writeStartObject();
+        for (final Map.Entry<String, Object> entry : ((Map<String, Object>)value).entrySet()) {
+          serializers.defaultSerializeField(entry.getKey(), entry.getValue(), gen);
+        }
+        gen.writeEndObject();
+      }
       gen.writeEndObject();
     }
   }
