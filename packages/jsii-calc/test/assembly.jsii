@@ -53,8 +53,7 @@
         "python": {
           "distName": "scope.jsii-calc-base",
           "module": "scope.jsii_calc_base"
-        },
-        "sphinx": {}
+        }
       },
       "version": "0.18.0"
     },
@@ -77,8 +76,7 @@
         "python": {
           "distName": "scope.jsii-calc-base-of-base",
           "module": "scope.jsii_calc_base_of_base"
-        },
-        "sphinx": {}
+        }
       },
       "version": "0.18.0"
     },
@@ -103,8 +101,7 @@
         "python": {
           "distName": "scope.jsii-calc-lib",
           "module": "scope.jsii_calc_lib"
-        },
-        "sphinx": {}
+        }
       },
       "version": "0.18.0"
     }
@@ -129,8 +126,7 @@
         "python": {
           "distName": "scope.jsii-calc-base",
           "module": "scope.jsii_calc_base"
-        },
-        "sphinx": {}
+        }
       },
       "version": "0.18.0"
     },
@@ -153,8 +149,7 @@
         "python": {
           "distName": "scope.jsii-calc-base-of-base",
           "module": "scope.jsii_calc_base_of_base"
-        },
-        "sphinx": {}
+        }
       },
       "version": "0.18.0"
     },
@@ -179,8 +174,7 @@
         "python": {
           "distName": "scope.jsii-calc-lib",
           "module": "scope.jsii_calc_lib"
-        },
-        "sphinx": {}
+        }
       },
       "version": "0.18.0"
     }
@@ -228,8 +222,7 @@
     "python": {
       "distName": "jsii-calc",
       "module": "jsii_calc"
-    },
-    "sphinx": {}
+    }
   },
   "types": {
     "jsii-calc.AbstractClass": {
@@ -9617,5 +9610,5 @@
     }
   },
   "version": "0.18.0",
-  "fingerprint": "SHYFhf9FerKA1eMLETUQkkFUWup2K/nZQxqfgpwC23A="
+  "fingerprint": "Z3liKtuhMcJeTz052u8X0TJD9FqCyYOXOZl7KWALFbM="
 }

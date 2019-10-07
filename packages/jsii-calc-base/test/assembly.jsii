@@ -27,8 +27,7 @@
         "python": {
           "distName": "scope.jsii-calc-base-of-base",
           "module": "scope.jsii_calc_base_of_base"
-        },
-        "sphinx": {}
+        }
       },
       "version": "0.18.0"
     }
@@ -53,8 +52,7 @@
         "python": {
           "distName": "scope.jsii-calc-base-of-base",
           "module": "scope.jsii_calc_base_of_base"
-        },
-        "sphinx": {}
+        }
       },
       "version": "0.18.0"
     }
@@ -88,8 +86,7 @@
     "python": {
       "distName": "scope.jsii-calc-base",
       "module": "scope.jsii_calc_base"
-    },
-    "sphinx": {}
+    }
   },
   "types": {
     "@scope/jsii-calc-base.Base": {
@@ -177,5 +174,5 @@
     }
   },
   "version": "0.18.0",
-  "fingerprint": "GgArlgrjR02oEZA0qyE/59J2aQKCfK9Jb52mZylxMOk="
+  "fingerprint": "87SZarxCDQJDYvyEeHClh/xtcwK1UhRa2B05BNpnKMU="
 }
