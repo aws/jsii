@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import path = require('path');
 import process = require('process');
 import yargs = require('yargs');
 import logging = require('../lib/logging');
@@ -108,7 +109,7 @@ import pLimit from 'p-limit';
 
   if (argv.outdir) {
     for (const module of modulesToPackage) {
-      module.outputDirectory = argv.outdir;
+      module.outputDirectory = path.resolve(argv.outdir);
     }
 
   } else if (argv.npmignore) {
