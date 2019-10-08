@@ -4,7 +4,7 @@ import Dotnet from './dotnet';
 import { JavaBuilder } from './java';
 import JavaScript from './js';
 import Python from './python';
-import Ruby from './python';
+import Ruby from './ruby';
 
 export type TargetName = 'dotnet' | 'java' | 'js' | 'python' | 'ruby';
 

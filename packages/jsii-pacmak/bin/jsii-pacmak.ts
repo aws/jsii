@@ -57,6 +57,11 @@ import pLimit from 'p-limit';
       desc: 'force generation into a target-named subdirectory, even in single-target mode',
       default: true,
     })
+    .option('force-target', {
+      type: 'boolean',
+      desc: 'force generation of the given targets, even if the source package.json doesnt declare it',
+      default: false,
+    })
     .option('recurse', {
       alias: 'R',
       type: 'boolean',
@@ -95,6 +100,11 @@ import pLimit from 'p-limit';
   const timers = new Timers();
 
   const modulesToPackage = await findJsiiModules(argv._, argv.recurse);
+  logging.info(`Found ${modulesToPackage.length} modules to package`);
+  if (modulesToPackage.length === 0) {
+    logging.warn('Nothing to do');
+    return;
+  }
 
   if (argv.outdir) {
     for (const module of modulesToPackage) {
@@ -121,7 +131,11 @@ import pLimit from 'p-limit';
 
   try {
     const requestedTargets = argv.targets && argv.targets.map(t => `${t}`)
-    const targetSets = sliceTargets(modulesToPackage, requestedTargets);
+    const targetSets = sliceTargets(modulesToPackage, requestedTargets, argv["force-target"]);
+
+    if (targetSets.every(s => s.modules.length === 0)) {
+      throw new Error(`None of the requested packages had any targets to build for '${requestedTargets}' (use --force-target to force)`);
+    }
 
     const perLanguageDirectory = targetSets.length > 1 || argv['force-subdirectory'];
 
@@ -178,7 +192,7 @@ interface TargetSet {
   modules: JsiiModule[];
 }
 
-function sliceTargets(modules: JsiiModule[], requestedTargets?: string[]) {
+function sliceTargets(modules: JsiiModule[], requestedTargets: string[] | undefined, force: boolean) {
   if (requestedTargets === undefined) {
     requestedTargets = allAvailableTargets(modules);
   }
@@ -187,7 +201,7 @@ function sliceTargets(modules: JsiiModule[], requestedTargets?: string[]) {
   for (const target of requestedTargets) {
     ret.push({
       targetType: target,
-      modules: modules.filter(m => m.availableTargets.includes(target))
+      modules: modules.filter(m => force || m.availableTargets.includes(target))
     });
   }
 

@@ -11,4 +11,4 @@ rsync -av ../jsii-runtime/webpack/ ${res}
 
 # generate jsii-calc for ruby
 mkdir -p project/test/jsii-calc
-jsii-pacmak --no-force-subdirectory -t ruby -o project/test/jsii-calc --recurse ../jsii-calc
+jsii-pacmak --no-force-subdirectory -t ruby -o project/test/jsii-calc --recurse ../jsii-calc --force-target
