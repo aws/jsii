@@ -81,6 +81,7 @@ import pLimit from 'p-limit';
       default: true
     })
     .version(VERSION_DESC)
+    .strict()
     .argv;
 
   logging.level = argv.verbose !== undefined ? argv.verbose : 0;
@@ -99,6 +100,7 @@ import pLimit from 'p-limit';
     for (const module of modulesToPackage) {
       module.outputDirectory = argv.outdir;
     }
+
   } else if (argv.npmignore) {
     // if outdir is coming from package.json, verify it is excluded by .npmignore. if it is explicitly
     // defined via --out, don't perform this verification.

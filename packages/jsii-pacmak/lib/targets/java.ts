@@ -57,12 +57,14 @@ export class JavaBuilder implements TargetBuilder {
   private async generateModuleCode(module: JsiiModule, options: BuildOptions, finalDirectory?: boolean): Promise<Scratch<void>> {
     const target = this.makeTarget(module, options);
 
-    return finalDirectory
+    const srcDir = finalDirectory
       ? Scratch.fake(this.finalOutputDir(module, options), undefined)
-      : Scratch.make(tmpdir => {
-        logging.debug(`Generating ${this.targetName} code into ${tmpdir}`);
-        return target.generateCode(tmpdir, module.tarball);
-      });
+      : await Scratch.make(_ => undefined);
+
+    logging.debug(`Generating ${this.targetName} code into ${srcDir.directory}`);
+    await target.generateCode(srcDir.directory, module.tarball);
+
+    return srcDir;
   }
 
   private async generateAggregatePom(sourceDirectories: Array<Scratch<void>>) {
