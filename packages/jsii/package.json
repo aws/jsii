@@ -55,9 +55,9 @@
     "@types/semver": "^6.0.2",
     "@types/yargs": "^13.0.3",
     "@typescript-eslint/eslint-plugin": "^2.3.1",
-    "@typescript-eslint/parser": "^2.3.1",
+    "@typescript-eslint/parser": "^2.3.2",
     "clone": "^2.1.2",
-    "eslint": "^6.5.0",
+    "eslint": "^6.5.1",
     "jest": "^24.9.0",
     "jest-expect-message": "^1.0.2",
     "jsii-build-tools": "file:../jsii-build-tools"
