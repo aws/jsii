@@ -131,7 +131,7 @@ import pLimit from 'p-limit';
 
   try {
     const requestedTargets = argv.targets && argv.targets.map(t => `${t}`)
-    const targetSets = sliceTargets(modulesToPackage, requestedTargets, argv["force-target"]);
+    const targetSets = sliceTargets(modulesToPackage, requestedTargets, argv['force-target']);
 
     if (targetSets.every(s => s.modules.length === 0)) {
       throw new Error(`None of the requested packages had any targets to build for '${requestedTargets}' (use --force-target to force)`);
