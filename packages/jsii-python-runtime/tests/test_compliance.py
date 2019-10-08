@@ -43,6 +43,7 @@ from jsii_calc import (
     UsesInterfaceWithProperties,
     composition,
     EraseUndefinedHashValues,
+    EraseUndefinedHashValuesOptions,
     VariadicMethod,
     StructPassing,
     TopLevelStruct,
@@ -882,9 +883,9 @@ def test_receiveInstanceOfPrivateClass():
     assert ReturnsPrivateImplementationOfInterface().private_implementation.success
 
 def test_eraseUnsetDataValues():
-    opts = {
-        "option1": "option1"
-    }
+    opts = EraseUndefinedHashValuesOptions(
+        option1="option1"
+    )
     assert EraseUndefinedHashValues.does_key_exist(opts, "option1")
     assert not EraseUndefinedHashValues.does_key_exist(opts, "option2")
 

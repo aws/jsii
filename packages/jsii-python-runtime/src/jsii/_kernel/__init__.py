@@ -114,14 +114,13 @@ def _make_reference_for_native(kernel, d):
     from jsii._runtime import python_jsii_mapping
 
     if isinstance(d, dict):
-        return {k: _make_reference_for_native(kernel, v) for k, v in d.items()}
+        return {"$jsii.map": {k: _make_reference_for_native(kernel, v) for k, v in d.items()}}
     elif isinstance(d, list):
         return [_make_reference_for_native(kernel, i) for i in d]
 
     mapping = python_jsii_mapping(d)
     if mapping:
-        struct_data = {jsii_name: getattr(d, python_name) for python_name, jsii_name in mapping.items()}
-        return _make_reference_for_native(kernel, struct_data)
+        return {jsii_name: _make_reference_for_native(kernel, getattr(d, python_name)) for python_name, jsii_name in mapping.items()}
     elif hasattr(d, "__jsii_type__"):
         return d
     elif isinstance(d, (int, type(None), str, float, bool, datetime.datetime)):

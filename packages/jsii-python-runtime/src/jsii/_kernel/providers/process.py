@@ -124,13 +124,15 @@ def _unstructure_enum(member):
 
 
 def ohook(d):
-    if d.keys() == {"$jsii.byref"}:
-        return ObjRef(ref=d["$jsii.byref"])
+    if d.keys() == {"$jsii.byref"} or d.keys() == {"$jsii.byref", "$jsii.interfaces"}:
+        return ObjRef(ref=d["$jsii.byref"], interfaces=d.get("$jsii.interfaces"))
     if d.keys() == {"$jsii.date"}:
         return dateutil.parser.isoparse(d["$jsii.date"])
     if d.keys() == {"$jsii.enum"}:
         ref, member = d["$jsii.enum"].rsplit("/", 1)
         return EnumRef(ref=ObjRef(ref=ref + "@"), member=member)
+    if d.keys() == {"$jsii.map"}:
+        return d["$jsii.map"]
     return d
 
 
