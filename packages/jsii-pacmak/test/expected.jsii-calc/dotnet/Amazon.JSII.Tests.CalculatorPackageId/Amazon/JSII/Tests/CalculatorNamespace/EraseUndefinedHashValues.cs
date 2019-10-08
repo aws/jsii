@@ -36,20 +36,20 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
-        [JsiiMethod(name: "prop1IsNull", returnsJson: "{\"type\":{\"primitive\":\"any\"}}")]
-        public static object Prop1IsNull()
+        [JsiiMethod(name: "prop1IsNull", returnsJson: "{\"type\":{\"collection\":{\"elementtype\":{\"primitive\":\"any\"},\"kind\":\"map\"}}}")]
+        public static System.Collections.Generic.IDictionary<string, object> Prop1IsNull()
         {
-            return InvokeStaticMethod<object>(typeof(Amazon.JSII.Tests.CalculatorNamespace.EraseUndefinedHashValues), new object[]{});
+            return InvokeStaticMethod<System.Collections.Generic.IDictionary<string, object>>(typeof(Amazon.JSII.Tests.CalculatorNamespace.EraseUndefinedHashValues), new object[]{});
         }
 
         /// <summary>We expect "prop2" to be erased.</summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
-        [JsiiMethod(name: "prop2IsUndefined", returnsJson: "{\"type\":{\"primitive\":\"any\"}}")]
-        public static object Prop2IsUndefined()
+        [JsiiMethod(name: "prop2IsUndefined", returnsJson: "{\"type\":{\"collection\":{\"elementtype\":{\"primitive\":\"any\"},\"kind\":\"map\"}}}")]
+        public static System.Collections.Generic.IDictionary<string, object> Prop2IsUndefined()
         {
-            return InvokeStaticMethod<object>(typeof(Amazon.JSII.Tests.CalculatorNamespace.EraseUndefinedHashValues), new object[]{});
+            return InvokeStaticMethod<System.Collections.Generic.IDictionary<string, object>>(typeof(Amazon.JSII.Tests.CalculatorNamespace.EraseUndefinedHashValues), new object[]{});
         }
     }
 }

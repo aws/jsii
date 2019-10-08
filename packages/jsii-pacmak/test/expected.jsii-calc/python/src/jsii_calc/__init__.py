@@ -1647,7 +1647,7 @@ class EraseUndefinedHashValues(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Era
 
     @jsii.member(jsii_name="prop1IsNull")
     @classmethod
-    def prop1_is_null(cls) -> typing.Any:
+    def prop1_is_null(cls) -> typing.Mapping[str,typing.Any]:
         """We expect "prop1" to be erased.
 
         stability
@@ -1657,7 +1657,7 @@ class EraseUndefinedHashValues(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Era
 
     @jsii.member(jsii_name="prop2IsUndefined")
     @classmethod
-    def prop2_is_undefined(cls) -> typing.Any:
+    def prop2_is_undefined(cls) -> typing.Mapping[str,typing.Any]:
         """We expect "prop2" to be erased.
 
         stability

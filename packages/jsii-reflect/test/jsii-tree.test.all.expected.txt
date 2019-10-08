@@ -492,10 +492,10 @@ assemblies
  │   │   │ └── returns: boolean
  │   │   ├─┬ static prop1IsNull() method (experimental)
  │   │   │ ├── static
- │   │   │ └── returns: any
+ │   │   │ └── returns: Map<string => any>
  │   │   └─┬ static prop2IsUndefined() method (experimental)
  │   │     ├── static
- │   │     └── returns: any
+ │   │     └── returns: Map<string => any>
  │   ├─┬ class ExperimentalClass (experimental)
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(readonlyString,mutableNumber) initializer (experimental)
