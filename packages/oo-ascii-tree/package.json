@@ -31,7 +31,7 @@
   "devDependencies": {
     "@types/jest": "^24.0.18",
     "@typescript-eslint/eslint-plugin": "^2.3.1",
-    "@typescript-eslint/parser": "^2.3.2",
+    "@typescript-eslint/parser": "^2.3.3",
     "eslint": "^6.5.1",
     "jest": "^24.9.0",
     "jsii-build-tools": "file:../jsii-build-tools",
