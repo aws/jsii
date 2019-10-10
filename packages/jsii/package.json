@@ -20,7 +20,7 @@
     "node": ">= 10.3.0"
   },
   "main": "lib/index.js",
-  "types": "lib/index.ts",
+  "types": "lib/index.d.ts",
   "bin": {
     "jsii": "bin/jsii"
   },
