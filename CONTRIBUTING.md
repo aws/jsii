@@ -6,10 +6,38 @@ contributions. Please read it carefully and let us know if it's not up-to date
 (or even better, submit a pull request with your corrections! :wink:).
 
 ## Pre-requisites
-### Toolchain Requirements
+### Setup Docker image
 Due to the polyglot nature of `jsii`, the toolchain requirements are somewhat
 more complicated than for most projects. In order to locally develop `jsii`, you
-will need the following tools:
+will need a number of tools.
+
+We have built a Docker image with all the required tools, which we are using for
+our own CI/CD: the ["superchain" image][superchain] from.
+
+[superchain]: https://github.com/aws/jsii/blob/master/superchain/Dockerfile
+
+The image can be built for local usage, too:
+
+```console
+$ IMAGE=superchain
+$ docker build -t ${IMAGE} ./superchain
+```
+
+In order to get an interactive shell within a Docker container using the
+*superchain* image you just built:
+
+```console
+$ cd jsii # go to the root of the jsii repo
+$ docker run --rm --net=host -it -v $PWD:$PWD -w $PWD ${IMAGE}
+```
+
+In the shell that pops up, the `npm run` commands in the following sections must
+be executed.
+
+### Alternative: Manually install the toolchain
+The following tools need to be installed to develop on JSII locally. We recommend
+using the docker image from the above section, but if you wish to, you can install
+in your development environment.
 
 - [Node `8.11.0`] or later
 - An OpenJDK-8 distribution (e.g: [Oracle's OpenJDK8], [Amazon Corretto 8])
@@ -31,30 +59,6 @@ will need the following tools:
 [Python `3.6.5`]: https://www.python.org/downloads/release/python-365/
 [Ruby `2.4.4p296`]: https://www.ruby-lang.org/en/news/2018/03/28/ruby-2-5-1-released/
 
-### Alterative: build in Docker
-
-We have built a Docker image with all the required tool, which we are using for
-our own CI/CD: the ["superchain" image][superchain] from.
-
-[superchain]: https://github.com/aws/jsii/blob/master/superchain/Dockerfile
-
-The image can be built for local usage, too:
-
-```console
-$ IMAGE=superchain
-$ docker build -t ${IMAGE} ./superchain
-```
-
-In order to get an interactive shell within a Docker container using the
-*superchain* image you just built:
-
-```console
-$ cd jsii # go to the root of the jsii repo
-$ docker run --rm --net=host -it -v $PWD:$PWD -w $PWD ${IMAGE}
-```
-
-You can then run `npm run build` as described below.
-
 ## Getting Started
 ### Bootstrapping
 
@@ -63,9 +67,9 @@ The project is managed as a [monorepo] using [lerna].
 [monorepo]: https://github.com/babel/babel/blob/master/doc/design/monorepo.md
 [lerna]: https://github.com/lerna/lerna
 
-1. Check out this repository.
-2. Run `npm run build` to install lerna, bootstrap the repository and perform an
-   initial build and test cycle.
+1. Check out this respository and change directory to its root.
+2. Run `npm run bootstrap && npm run build` to install lerna, bootstrap the repository 
+   and perform an initial build and test cycle.
 
 ### Development Workflow
 
