@@ -1,5 +1,8 @@
 FROM amazonlinux:2
 
+# Install deltarpm as it can speed up the upgrade processes
+RUN yum -y install deltarpm
+
 # Install .NET Core, mono & PowerShell
 ENV DOTNET_CLI_TELEMETRY_OPTOUT=true                                                                                    \
     DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
@@ -8,7 +11,7 @@ RUN rpm --import "https://packages.microsoft.com/keys/microsoft.asc"            
   && rpm -Uvh "https://packages.microsoft.com/config/rhel/7/packages-microsoft-prod.rpm"                                \
   && rpm --import /tmp/mono.asc && rm -f /tmp/mono.asc                                                                  \
   && curl "https://download.mono-project.com/repo/centos6-stable.repo" | tee /etc/yum.repos.d/mono-centos6-stable.repo  \
-  && yum -y install dotnet-sdk-2.2 mono-devel powershell                                                                \
+  && yum -y install dotnet-sdk-2.2 dotnet-sdk-3.0 mono-devel powershell                                                                \
   && yum clean all && rm -rf /var/cache/yum
 
 # Install Python 3
