@@ -5,14 +5,6 @@ import os = require('os');
 import path = require('path');
 import logging = require('./logging');
 
-export type Thunk<A> = () => Promise<A>;
-
-export type ConcurrencyLimiter =<ReturnType>(
-  fn: () => PromiseLike<ReturnType> | ReturnType,
-) => Promise<ReturnType>;
-
-export const NO_CONCURRENCY_LIMIT: ConcurrencyLimiter = (fn) => new Promise(resolve => resolve(fn()));
-
 export interface ShellOptions extends SpawnOptions {
   /**
      * Retry execution up to 3 times if it fails
@@ -115,10 +107,9 @@ export class Scratch<A> {
     return new Scratch(directory, object, true);
   }
 
-  public static async cleanupAll<A>(tempDirs: Array<Scratch<A>>, concurrencyLimit = NO_CONCURRENCY_LIMIT) {
+  public static async cleanupAll<A>(tempDirs: Array<Scratch<A>>) {
     await Promise.all(tempDirs
-      .map(t => () => t.cleanup())
-      .map(concurrencyLimit));
+      .map(t => t.cleanup()));
   }
 
   private constructor(public readonly directory: string, public readonly object: A, private readonly fake: boolean) {
