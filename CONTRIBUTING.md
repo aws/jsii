@@ -67,7 +67,7 @@ The project is managed as a [monorepo] using [lerna].
 [monorepo]: https://github.com/babel/babel/blob/master/doc/design/monorepo.md
 [lerna]: https://github.com/lerna/lerna
 
-1. Check out the respository and change directory to the root.
+1. Check out this respository and change directory to its root.
 2. Run `npm run bootstrap && npm run build` to install lerna, bootstrap the repository 
    and perform an initial build and test cycle.
 
