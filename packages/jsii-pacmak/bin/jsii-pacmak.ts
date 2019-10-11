@@ -110,13 +110,13 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
   await timers.recordAsync('npm pack', () => {
     logging.info('Packaging NPM bundles');
     return Promise.all(modulesToPackage
-      .map(m => () => m.npmPack()));
+      .map(m => m.npmPack()));
   });
 
   await timers.recordAsync('load jsii', () => {
     logging.info('Loading jsii assemblies');
     return Promise.all(modulesToPackage
-      .map(m => () => m.load()));
+      .map(m => m.load()));
   });
 
   try {
@@ -130,7 +130,7 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
     const perLanguageDirectory = targetSets.length > 1 || argv['force-subdirectory'];
 
     // We run all target sets in parallel for minimal wall clock time
-    await Promise.all(targetSets.map(targetSet => async () => {
+    await Promise.all(targetSets.map(async targetSet => {
     // for (const targetSet of targetSets) {
       logging.info(`Packaging '${targetSet.targetType}' for ${describePackages(targetSet)}`);
       await timers.recordAsync(targetSet.targetType, () =>
@@ -144,7 +144,7 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
       logging.debug('Cleaning up');
       await timers.recordAsync('cleanup', () =>
         Promise.all(modulesToPackage
-          .map(m => () => m.cleanup()))
+          .map(m => m.cleanup()))
       );
     } else {
       logging.debug('Temporary directories retained (--no-clean)');
