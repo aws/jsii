@@ -19,6 +19,7 @@
   "engines": {
     "node": ">= 10.3.0"
   },
+  "main": "lib/index.js",
   "bin": {
     "jsii-diff": "bin/jsii-diff"
   },
