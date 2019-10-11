@@ -20,7 +20,7 @@
     "node": ">= 10.3.0"
   },
   "main": "lib/index.js",
-  "types": "lib/index.ts",
+  "types": "lib/index.d.ts",
   "bin": {
     "jsii": "bin/jsii"
   },
@@ -42,7 +42,7 @@
     "sort-json": "^2.0.0",
     "spdx-license-list": "^6.1.0",
     "typescript": "~3.6.3",
-    "yargs": "^14.0.0"
+    "yargs": "^14.2.0"
   },
   "devDependencies": {
     "@types/clone": "^0.1.30",
