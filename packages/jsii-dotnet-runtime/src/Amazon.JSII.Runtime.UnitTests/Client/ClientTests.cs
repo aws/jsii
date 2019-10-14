@@ -9,7 +9,6 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using NSubstitute;
 using System.Collections.Generic;
-using System.IO;
 using Xunit;
 using Xunit.Sdk;
 using Callback = Amazon.JSII.JsonModel.Api.Callback;

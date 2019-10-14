@@ -8,6 +8,7 @@ using NSubstitute;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json.Converters;
 using Xunit;
 
 namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
@@ -293,7 +294,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                     )
                 ));
 
-                IDictionary<string, string> frameworkMap = new Dictionary<string, string>
+                IDictionary<string, object> frameworkMap = new Dictionary<string, object>
                 {
                     { "myKey1", "myValue1" },
                     { "myKey2", "myValue2" }
@@ -303,20 +304,16 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
 
                 Assert.True(success);
                 Assert.IsType<JObject>(actual);
-                Assert.Collection
-                (
-                    ((IEnumerable<KeyValuePair<string, JToken>>)actual).OrderBy(kvp => kvp.Key),
-                    kvp =>
-                    {
-                        Assert.Equal("myKey1", kvp.Key, ignoreLineEndingDifferences: true);
-                        Assert.Equal("myValue1", kvp.Value);
-                    },
-                    kvp =>
-                    {
-                        Assert.Equal("myKey2", kvp.Key, ignoreLineEndingDifferences: true);
-                        Assert.Equal("myValue2", kvp.Value);
+
+                var expected = JObject.Parse(@"{
+                    ""$jsii.map"": {
+                        ""myKey1"": ""myValue1"",
+                        ""myKey2"": ""myValue2""
                     }
-                );
+                }");
+                
+                Assert.True(JToken.DeepEquals(expected, actual as JObject),
+                    $"Expected: {expected}\nActual:   {actual}");
             }
 
             [Fact(DisplayName = _Prefix + nameof(RecursivelyConvertsMapElements))]
@@ -342,38 +339,14 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
 
                 Assert.True(success);
                 Assert.IsType<JObject>(actual);
-                Assert.Collection
-                (
-                    ((IEnumerable<KeyValuePair<string, JToken>>)actual).OrderBy(kvp => kvp.Key),
-                    kvp =>
-                    {
-                        Assert.Equal("myKey1", kvp.Key);
-                        Assert.IsType<JObject>(kvp.Value);
-                        Assert.Collection
-                        (
-                            ((IEnumerable<KeyValuePair<string, JToken>>)kvp.Value),
-                            subKvp =>
-                            {
-                                Assert.Equal("mySubKey1", subKvp.Key, ignoreLineEndingDifferences: true);
-                                Assert.Equal("myValue1", subKvp.Value);
-                            }
-                        );
-                    },
-                    kvp =>
-                    {
-                        Assert.Equal("myKey2", kvp.Key, ignoreLineEndingDifferences: true);
-                        Assert.IsType<JObject>(kvp.Value);
-                        Assert.Collection
-                        (
-                            ((IEnumerable<KeyValuePair<string, JToken>>)kvp.Value),
-                            subKvp =>
-                            {
-                                Assert.Equal("mySubKey2", subKvp.Key, ignoreLineEndingDifferences: true);
-                                Assert.Equal("myValue2", subKvp.Value);
-                            }
-                        );
+                var expected = JObject.Parse(@"{
+                    ""$jsii.map"": {
+                        ""myKey1"": { ""$jsii.map"": { ""mySubKey1"": ""myValue1"" } },
+                        ""myKey2"": { ""$jsii.map"": { ""mySubKey2"": ""myValue2"" } }
                     }
-                );
+                }");
+                Assert.True(JToken.DeepEquals(expected, actual as JObject),
+                    $"Expected: {expected}\nActual:   {actual}");
             }
 
             [Fact(DisplayName = _Prefix + nameof(ConvertsArray))]
@@ -476,38 +449,24 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
 
                 Assert.True(success);
                 Assert.IsType<JObject>(actual);
-                Assert.Collection
-                (
-                    ((IEnumerable<KeyValuePair<string, JToken>>)actual).OrderBy(kvp => kvp.Key),
-                    kvp =>
-                    {
-                        Assert.Equal("myKey1", kvp.Key);
-                        Assert.IsType<JObject>(kvp.Value);
-                        Assert.Collection
-                        (
-                            ((IEnumerable<KeyValuePair<string, JToken>>)kvp.Value),
-                            subKvp =>
-                            {
-                                Assert.Equal("mySubKey1", subKvp.Key, ignoreLineEndingDifferences: true);
-                                Assert.Equal("myValue1", subKvp.Value);
-                            }
-                        );
+
+                var expected = JObject.Parse(@"{
+                  ""$jsii.map"": {
+                    ""myKey1"": {
+                      ""$jsii.map"": {
+                        ""mySubKey1"": ""myValue1""
+                      }
                     },
-                    kvp =>
-                    {
-                        Assert.Equal("myKey2", kvp.Key, ignoreLineEndingDifferences: true);
-                        Assert.IsType<JObject>(kvp.Value);
-                        Assert.Collection
-                        (
-                            ((IEnumerable<KeyValuePair<string, JToken>>)kvp.Value),
-                            subKvp =>
-                            {
-                                Assert.Equal("mySubKey2", subKvp.Key, ignoreLineEndingDifferences: true);
-                                Assert.Equal("myValue2", subKvp.Value);
-                            }
-                        );
+                    ""myKey2"": {
+                      ""$jsii.map"": {
+                        ""mySubKey2"": ""myValue2""
+                      }
                     }
-                );
+                  }
+                }");
+
+                Assert.True(JToken.DeepEquals(expected, actual as JObject),
+                    $"Expected: {expected}\nActual:   {actual}");
             }
             
             [Fact(DisplayName = _Prefix + nameof(RecursivelyConvertsMapElementsWithArrayOfAny))]
@@ -537,30 +496,16 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
 
                 Assert.True(success);
                 Assert.IsType<JObject>(actual);
-                Assert.Collection
-                (
-                    ((IEnumerable<KeyValuePair<string, JToken>>)actual).OrderBy(kvp => kvp.Key),
-                    kvp =>
-                    {
-                        Assert.Equal("key", kvp.Key);
-                        Assert.IsType<JArray>(kvp.Value);
-                        Assert.Collection
-                        (
-                            (JArray)kvp.Value,
-                            subValue => Assert.Equal("true", subValue)
-                        );
-                    },
-                    kvp =>
-                    {
-                        Assert.Equal("key2", kvp.Key, ignoreLineEndingDifferences: true);
-                        Assert.IsType<JArray>(kvp.Value);
-                        Assert.Collection
-                        (
-                            (JArray)kvp.Value,
-                            subValue => Assert.Equal(false, subValue)
-                        );
+
+                var expected = JObject.Parse(@"{
+                    ""$jsii.map"": {
+                        ""key"": [""true""],
+                        ""key2"": [false]
                     }
-                );
+                }");
+                
+                Assert.True(JToken.DeepEquals(expected, actual as JObject),
+                    $"Expected: {expected}\nActual:   {actual}");
             }
 
             [Fact(DisplayName = _Prefix + nameof(ConvertsNullMap))]
@@ -740,9 +685,15 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                 Assert.Collection((IEnumerable<KeyValuePair<string, JToken>>)actual,
                     kvp =>
                     {
-                        Assert.IsType<JValue>(kvp.Value);
-                        Assert.Equal("myKey", kvp.Key, ignoreLineEndingDifferences: true);
-                        Assert.Equal("myValue", kvp.Value.Value<string>(), ignoreLineEndingDifferences: true);
+                        Assert.IsType<JObject>(kvp.Value);
+                        Assert.Equal("$jsii.map", kvp.Key, ignoreLineEndingDifferences: true);
+                        Assert.Collection((IEnumerable<KeyValuePair<string, JToken>>)kvp.Value,
+                            nkvp =>
+                            {
+                                Assert.IsType<JValue>(nkvp.Value);
+                                Assert.Equal("myKey", nkvp.Key, ignoreLineEndingDifferences: true);
+                                Assert.Equal("myValue", nkvp.Value.Value<string>(), ignoreLineEndingDifferences: true);
+                            });
                     }
                 );
             }
