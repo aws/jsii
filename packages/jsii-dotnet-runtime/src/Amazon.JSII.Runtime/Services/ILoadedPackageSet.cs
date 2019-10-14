@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Amazon.JSII.Runtime.Services
 {
-    public interface ILoadedPackageSet
+    internal interface ILoadedPackageSet
     {
         bool Contains(string package);
 

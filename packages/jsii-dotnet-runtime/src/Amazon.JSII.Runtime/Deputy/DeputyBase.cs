@@ -6,13 +6,14 @@ using Amazon.JSII.Runtime.Services.Converters;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace Amazon.JSII.Runtime.Deputy
 {
-    public abstract class DeputyBase
+    public abstract class DeputyBase : IConvertible
     {
         /// <summary>
         /// Each deputy type needs a protected constructor that accepts 'create' parameters from
@@ -52,7 +53,7 @@ namespace Amazon.JSII.Runtime.Deputy
                 GetOverrides()
             );
 
-            Reference = new ByRefValue(response["$jsii.byref"]);
+            Reference = new ByRefValue(response["$jsii.byref"] as string);
             IReferenceMap referenceMap = serviceProvider.GetRequiredService<IReferenceMap>();
             referenceMap.AddNativeReference(Reference, this, true);
 
@@ -94,9 +95,12 @@ namespace Amazon.JSII.Runtime.Deputy
         {
             Reference = reference ?? throw new ArgumentNullException(nameof(reference));
 
-            IServiceProvider serviceProvider = ServiceContainer.ServiceProvider;
-            IReferenceMap referenceMap = serviceProvider.GetRequiredService<IReferenceMap>();
-            referenceMap.AddNativeReference(Reference, this);
+            if (!(reference.IsProxy))
+            {
+                IServiceProvider serviceProvider = ServiceContainer.ServiceProvider;
+                IReferenceMap referenceMap = serviceProvider.GetRequiredService<IReferenceMap>();
+                referenceMap.AddNativeReference(Reference, this);
+            }
         }
 
         public ByRefValue Reference { get; }
@@ -138,7 +142,7 @@ namespace Amazon.JSII.Runtime.Deputy
 
             IJsiiToFrameworkConverter converter = serviceProvider.GetRequiredService<IJsiiToFrameworkConverter>();
             IReferenceMap referenceMap = serviceProvider.GetRequiredService<IReferenceMap>();
-            if (!converter.TryConvert(propertyAttribute, referenceMap, response.Value, out object frameworkValue))
+            if (!converter.TryConvert(propertyAttribute, typeof(T), referenceMap, response.Value, out object frameworkValue))
             {
                 throw new ArgumentException($"Could not convert value '{response.Value}' for property '{propertyAttribute.Name}'", nameof(getFunc));
             }
@@ -196,19 +200,19 @@ namespace Amazon.JSII.Runtime.Deputy
 
         #region InvokeMethod
 
-        protected static void InvokeStaticVoidMethod(System.Type type, object[] arguments, [CallerMemberName] string methodName = null)
+        protected static void InvokeStaticVoidMethod(System.Type type, System.Type[] parameterTypes, object[] arguments, [CallerMemberName] string methodName = null)
         {
-            InvokeStaticMethod<object>(type, arguments, methodName);
+            InvokeStaticMethod<object>(type, parameterTypes, arguments, methodName);
         }
 
-        protected void InvokeInstanceVoidMethod(object[] arguments, [CallerMemberName] string methodName = null)
+        protected void InvokeInstanceVoidMethod(System.Type[] parameterTypes, object[] arguments, [CallerMemberName] string methodName = null)
         {
-            InvokeInstanceMethod<object>(arguments, methodName);
+            InvokeInstanceMethod<object>(parameterTypes, arguments, methodName);
         }
 
-        protected static T InvokeStaticMethod<T>(System.Type type, object[] arguments, [CallerMemberName] string methodName = null)
+        protected static T InvokeStaticMethod<T>(System.Type type, System.Type[] parameterTypes, object[] arguments, [CallerMemberName] string methodName = null)
         {
-            JsiiMethodAttribute methodAttribute = GetStaticMethodAttribute(type, methodName);
+            JsiiMethodAttribute methodAttribute = GetStaticMethodAttribute(type, methodName, parameterTypes);
             JsiiClassAttribute classAttribute = ReflectionUtils.GetClassAttribute(type);
 
             return InvokeMethodCore<T>(
@@ -223,9 +227,9 @@ namespace Amazon.JSII.Runtime.Deputy
             );
         }
 
-        protected T InvokeInstanceMethod<T>(object[] arguments, [CallerMemberName] string methodName = null)
+        protected T InvokeInstanceMethod<T>(System.Type[] parameterTypes, object[] arguments, [CallerMemberName] string methodName = null)
         {
-            JsiiMethodAttribute methodAttribute = GetInstanceMethodAttribute(methodName);
+            JsiiMethodAttribute methodAttribute = GetInstanceMethodAttribute(methodName, parameterTypes);
 
             return InvokeMethodCore<T>(
                 methodAttribute,
@@ -256,11 +260,11 @@ namespace Amazon.JSII.Runtime.Deputy
             IReferenceMap referenceMap = serviceProvider.GetRequiredService<IReferenceMap>();
 
             object result = GetResult();
-            if (!converter.TryConvert(methodAttribute.Returns, referenceMap, result, out object frameworkValue))
+            if (!converter.TryConvert(methodAttribute.Returns, typeof(T), referenceMap, result, out object frameworkValue))
             {
                 throw new ArgumentException($"Could not convert result '{result}' for method '{methodAttribute.Name}'", nameof(result));
             }
-
+            
             return (T)frameworkValue;
 
             object GetResult()
@@ -403,22 +407,23 @@ namespace Amazon.JSII.Runtime.Deputy
 
         #region GetMethodAttribute
 
-        static JsiiMethodAttribute GetStaticMethodAttribute(System.Type type, string methodName)
+        static JsiiMethodAttribute GetStaticMethodAttribute(System.Type type, string methodName, System.Type[] parameterTypes)
         {
-            return GetMethodAttributeCore(type, methodName, StaticMemberFlags);
+            return GetMethodAttributeCore(type, methodName, parameterTypes, StaticMemberFlags);
         }
 
-        JsiiMethodAttribute GetInstanceMethodAttribute(string methodName)
+        JsiiMethodAttribute GetInstanceMethodAttribute(string methodName, System.Type[] parameterTypes)
         {
-            return GetMethodAttributeCore(GetType(), methodName, InstanceMemberFlags);
+            return GetMethodAttributeCore(GetType(), methodName, parameterTypes, InstanceMemberFlags);
         }
 
-        static JsiiMethodAttribute GetMethodAttributeCore(System.Type type, string methodName, BindingFlags bindingFlags)
+        static JsiiMethodAttribute GetMethodAttributeCore(System.Type type, string methodName, System.Type[] parameterTypes, BindingFlags bindingFlags)
         {
             methodName = methodName ?? throw new ArgumentNullException(nameof(methodName));
             type = type ?? throw new ArgumentNullException(nameof(type));
+            parameterTypes = parameterTypes ?? throw new ArgumentException(nameof(parameterTypes));
 
-            MethodInfo methodInfo = type.GetMethod(methodName, bindingFlags);
+            MethodInfo methodInfo = type.GetMethod(methodName, bindingFlags, null, parameterTypes, new ParameterModifier[0]);
             if (methodInfo == null)
             {
                 throw new ArgumentException($"Method {methodName} does not exist", nameof(methodName));
@@ -433,6 +438,159 @@ namespace Amazon.JSII.Runtime.Deputy
             return methodAttribute;
         }
 
+        #endregion
+        
+        #region IConvertible
+        
+        private IDictionary<System.Type, object> Proxies { get; } = new Dictionary<System.Type, object>();
+        
+        public TypeCode GetTypeCode()
+        {
+            return TypeCode.Object;
+        }
+        
+        public object ToType(System.Type conversionType, IFormatProvider provider)
+        {
+            if (Proxies.ContainsKey(conversionType))
+            {
+                return Proxies[conversionType];
+            }
+            
+            if (ToTypeCore(out var converted))
+            {
+                Proxies[conversionType] = converted;
+                return converted;
+            }
+            
+            throw new InvalidCastException($"Unable to cast {this.GetType().FullName} into {conversionType.FullName}");
+            
+            bool ToTypeCore(out object result)
+            {
+                if (conversionType.IsInstanceOfType(this))
+                {
+                    result = this;
+                    return true;
+                }
+                
+                if (!conversionType.IsInterface || Reference.Interfaces.Length == 0)
+                {
+                    // We can only convert to interfaces that are declared on the Reference.
+                    result = null;
+                    return false;
+                }
+
+                var interfaceAttribute = conversionType.GetCustomAttribute<JsiiInterfaceAttribute>();
+                if (interfaceAttribute == null)
+                {
+                    // We can only convert to interfaces decorated with the JsiiInterfaceAttribute
+                    result = null;
+                    return false;
+                }
+
+                if (!Reference.Interfaces.Contains(interfaceAttribute.FullyQualifiedName))
+                {
+                    // We can only convert to interfaces declared by this Reference
+                    result = null;
+                    return false;
+                }
+
+                var types = ServiceContainer.ServiceProvider.GetRequiredService<ITypeCache>();
+                var proxyType = types.GetProxyType(interfaceAttribute.FullyQualifiedName);
+                var constructorInfo = proxyType.GetConstructor(
+                    BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
+                    null,
+                    new[] {typeof(ByRefValue)},
+                    null
+                );
+                if (constructorInfo == null)
+                {
+                    throw new JsiiException($"Could not find constructor to instantiate {proxyType.FullName}");
+                }
+
+                result = constructorInfo.Invoke(new object[]{ Reference.ForProxy() });
+                return true;
+            }
+        }
+
+        #region Impossible Conversions
+        
+        public bool ToBoolean(IFormatProvider provider)
+        {
+            throw new InvalidCastException();
+        }
+
+        public byte ToByte(IFormatProvider provider)
+        {
+            throw new InvalidCastException();
+        }
+        
+        public char ToChar(IFormatProvider provider)
+        {
+            throw new InvalidCastException();
+        }
+        
+        public DateTime ToDateTime(IFormatProvider provider)
+        {
+            throw new InvalidCastException();
+        }
+        
+        public decimal ToDecimal(IFormatProvider provider)
+        {
+            throw new InvalidCastException();
+        }
+
+        public double ToDouble(IFormatProvider provider)
+        {
+            throw new InvalidCastException();
+        }
+
+        public short ToInt16(IFormatProvider provider)
+        {
+            throw new InvalidCastException();
+        }
+
+        public int ToInt32(IFormatProvider provider)
+        {
+            throw new InvalidCastException();
+        }
+
+        public long ToInt64(IFormatProvider provider)
+        {
+            throw new InvalidCastException();
+        }
+
+        public sbyte ToSByte(IFormatProvider provider)
+        {
+            throw new InvalidCastException();
+        }
+
+        public float ToSingle(IFormatProvider provider)
+        {
+            throw new InvalidCastException();
+        }
+
+        public string ToString(IFormatProvider provider)
+        {
+            throw new InvalidCastException();
+        }
+
+        public ushort ToUInt16(IFormatProvider provider)
+        {
+            throw new InvalidCastException();
+        }
+
+        public uint ToUInt32(IFormatProvider provider)
+        {
+            throw new InvalidCastException();
+        }
+
+        public ulong ToUInt64(IFormatProvider provider)
+        {
+            throw new InvalidCastException();
+        }
+
+        #endregion
+        
         #endregion
     }
 }

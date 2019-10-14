@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Amazon.JSII.Runtime.Services
 {
-    public class NodeProcess : INodeProcess
+    internal sealed class NodeProcess : INodeProcess
     {
         readonly Process _process;
         readonly ILogger _logger;

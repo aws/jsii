@@ -5,12 +5,13 @@ using System;
 namespace Amazon.JSII.Runtime.Deputy
 {
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public class ByRefValue
+    public sealed class ByRefValue
     {
         [JsonConstructor]
-        public ByRefValue(string value)
+        internal ByRefValue(string value, string[] interfaces = null, bool isProxy = false)
         {
             Value = value ?? throw new ArgumentNullException(nameof(value));
+            Interfaces = interfaces ?? new string[]{};
 
             var lastIndex = value.LastIndexOf('@');
             if (lastIndex == -1)
@@ -20,30 +21,51 @@ namespace Amazon.JSII.Runtime.Deputy
 
             FullyQualifiedName = value.Substring(0, lastIndex);
             Id = value.Substring(lastIndex + 1);
+            
+            IsProxy = isProxy;
         }
 
-        public ByRefValue(string fullyQualifiedName, string id) : this($"{fullyQualifiedName}@{id}")
+        internal ByRefValue(string fullyQualifiedName, string id, string[] interfaces = null)
+            : this($"{fullyQualifiedName}@{id}", fullyQualifiedName, id, interfaces, false)
         {
         }
 
-        // Json.NET serializes as ISON-8601 by default.
-        [JsonProperty("$jsii.byref")]
-        public string Value { get; }
+        internal ByRefValue(string value, string fullyQualifiedName, string id, string[] interfaces, bool isProxy)
+        {
+            Value = value ?? throw new ArgumentNullException(nameof(value));
+            FullyQualifiedName = fullyQualifiedName ?? throw new ArgumentNullException(nameof(value));
+            Id = id ?? throw new ArgumentNullException(nameof(value));
+            Interfaces = interfaces ?? new string[] {};
+            IsProxy = isProxy;
+        }
 
-        public string FullyQualifiedName { get; }
+        [JsonProperty("$jsii.byref", Required = Required.Always)]
+        internal string Value { get; }
+        
+        [JsonProperty("$jsii.interfaces")]
+        internal string[] Interfaces { get; }
 
-        public string Id { get; }
+        internal string FullyQualifiedName { get; }
+
+        internal string Id { get; }
+        
+        internal bool IsProxy { get; }
 
         /// <summary>
         /// ByRefValue is basically ObjectReference with more type safety. The only reason
         /// ObjectReference exists is to match the shape of ObjRef from jsii-kernel/lib/api.ts.
         /// </summary>
-        public ObjectReference ToObjectReference()
+        internal ObjectReference ToObjectReference()
         {
             ObjectReference reference = new ObjectReference();
             reference["$jsii.byref"] = Value;
 
             return reference;
+        }
+
+        internal ByRefValue ForProxy()
+        {
+            return IsProxy ? this : new ByRefValue(Value, FullyQualifiedName, Id, Interfaces, true);
         }
     }
 }

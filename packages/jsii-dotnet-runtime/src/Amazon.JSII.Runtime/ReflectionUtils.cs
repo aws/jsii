@@ -5,7 +5,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Runtime
 {
-    static class ReflectionUtils
+    internal static class ReflectionUtils
     {
         public static FieldInfo GetEnumMember(Type enumType, string name)
         {

@@ -24,7 +24,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "isSingletonString", returnsJson: "{\"type\":{\"primitive\":\"boolean\"}}", parametersJson: "[{\"name\":\"value\",\"type\":{\"primitive\":\"string\"}}]")]
         public virtual bool IsSingletonString(string @value)
         {
-            return InvokeInstanceMethod<bool>(new object[]{@value});
+            return InvokeInstanceMethod<bool>(new System.Type[]{typeof(string)}, new object[]{@value});
         }
     }
 }

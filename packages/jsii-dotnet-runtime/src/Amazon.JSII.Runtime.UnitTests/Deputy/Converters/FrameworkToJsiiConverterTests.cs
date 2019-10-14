@@ -12,17 +12,17 @@ using Xunit;
 
 namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
 {
-    public class FrameworkToJsiiConverterTests
+    public sealed class FrameworkToJsiiConverterTests
     {
         const string Prefix = "Runtime.Deputy.Converters." + nameof(FrameworkToJsiiConverter) + ".";
 
         public abstract class TestBase
         {
-            protected readonly ITypeCache _typeCache;
-            protected readonly IReferenceMap _referenceMap;
-            protected readonly FrameworkToJsiiConverter _converter;
+            internal readonly ITypeCache _typeCache;
+            internal readonly IReferenceMap _referenceMap;
+            internal readonly FrameworkToJsiiConverter _converter;
 
-            public TestBase()
+            protected TestBase()
             {
                 _typeCache = Substitute.For<ITypeCache>();
                 _referenceMap = Substitute.For<IReferenceMap>();
@@ -43,7 +43,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             }
         }
 
-        public class Void : TestBase
+        public sealed class Void : TestBase
         {
             const string _Prefix = Prefix + nameof(Void) + ".";
 
@@ -63,7 +63,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             }
         }
 
-        public class Primitive : TestBase
+        public sealed class Primitive : TestBase
         {
             const string _Prefix = Prefix + nameof(Primitive) + ".";
 
@@ -209,7 +209,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             }
         }
 
-        public class FullyQualifiedName : TestBase
+        public sealed class FullyQualifiedName : TestBase
         {
             const string _Prefix = Prefix + nameof(FullyQualifiedName) + ".";
 
@@ -280,7 +280,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             }
         }
 
-        public class Collection : TestBase
+        public sealed class Collection : TestBase
         {
             const string _Prefix = Prefix + nameof(Collection) + ".";
 
@@ -596,7 +596,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             }
         }
 
-        public class Union : TestBase
+        public sealed class Union : TestBase
         {
             const string _Prefix = Prefix + nameof(Union) + ".";
 
@@ -665,7 +665,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             }
         }
 
-        public class Any : TestBase
+        public sealed class Any : TestBase
         {
             const string _Prefix = Prefix + nameof(Any) + ".";
 

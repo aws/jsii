@@ -3,7 +3,7 @@ using Type = System.Type;
 
 namespace Amazon.JSII.Runtime.Services
 {
-    public interface ITypeCache
+    internal interface ITypeCache
     {
         Type GetClassType(string fullyQualifiedName);
 

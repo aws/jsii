@@ -16,7 +16,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
     /// <summary>
     /// Ported from packages/jsii-java-runtime/src/test/java/org/jsii/testing/ComplianceTest.java.
     /// </summary>
-    public class ComplianceTests : IClassFixture<ServiceContainerFixture>
+    public sealed class ComplianceTests : IClassFixture<ServiceContainerFixture>
     {
         class RuntimeException : Exception
         {
@@ -127,12 +127,18 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(UnixEpoch.AddSeconds(1234), types.AnyProperty);
 
             // json (notice that when deserialized, it is deserialized as a map).
-            types.AnyProperty = new JObject(new JProperty("Goo",
-                new JArray(
-                    "Hello",
-                    new JObject(new JProperty("World", 123))
-                )
-            ));
+            types.AnyProperty = new Dictionary<string, object>
+            {
+                { "Goo", new object[]
+                    {
+                        "Hello",
+                        new Dictionary<string, object>
+                        {
+                            { "World", 123 }
+                        }             
+                    }
+                }
+            };
             var @object = (IDictionary<string, object>) types.AnyProperty;
             var array = (object[]) @object["Goo"];
             var innerObject = (IDictionary<string, object>) array[1];

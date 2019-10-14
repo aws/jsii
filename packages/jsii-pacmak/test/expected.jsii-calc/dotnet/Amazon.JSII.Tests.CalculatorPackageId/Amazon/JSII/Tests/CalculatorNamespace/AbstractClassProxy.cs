@@ -27,7 +27,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "abstractMethod", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[{\"name\":\"name\",\"type\":{\"primitive\":\"string\"}}]")]
         public override string AbstractMethod(string name)
         {
-            return InvokeInstanceMethod<string>(new object[]{name});
+            return InvokeInstanceMethod<string>(new System.Type[]{typeof(string)}, new object[]{name});
         }
     }
 }

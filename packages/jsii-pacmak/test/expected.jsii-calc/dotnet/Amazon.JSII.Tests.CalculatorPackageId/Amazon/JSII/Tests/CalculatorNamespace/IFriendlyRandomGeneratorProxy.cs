@@ -22,7 +22,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "next", returnsJson: "{\"type\":{\"primitive\":\"number\"}}")]
         public double Next()
         {
-            return InvokeInstanceMethod<double>(new object[]{});
+            return InvokeInstanceMethod<double>(new System.Type[]{}, new object[]{});
         }
 
         /// <summary>Say hello!</summary>
@@ -33,7 +33,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [System.Obsolete()]
         public string Hello()
         {
-            return InvokeInstanceMethod<string>(new object[]{});
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
     }
 }

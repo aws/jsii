@@ -8,7 +8,7 @@ namespace Amazon.JSII.Runtime.Deputy
     /// on required properties that are missing.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class JsiiOptionalAttribute : Attribute
+    public sealed class JsiiOptionalAttribute : Attribute
     {
     }
 }

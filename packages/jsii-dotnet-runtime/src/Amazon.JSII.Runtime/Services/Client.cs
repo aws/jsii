@@ -14,7 +14,7 @@ namespace Amazon.JSII.Runtime.Services
     // TODO: This class is a temporary workaround until this issue is resolved:
     // https://sim.amazon.com/issues/jsii-5
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public class SynchronousCompleteRequest : IKernelRequest
+    internal sealed class SynchronousCompleteRequest : IKernelRequest
     {
         public SynchronousCompleteRequest(CompleteRequest complete)
         {
@@ -27,7 +27,7 @@ namespace Amazon.JSII.Runtime.Services
         public string Api => throw new NotImplementedException();
     }
 
-    public class Client : IClient
+    internal sealed class Client : IClient
     {
         readonly IFileSystem _fileSystem;
         readonly IRuntime _runtime;

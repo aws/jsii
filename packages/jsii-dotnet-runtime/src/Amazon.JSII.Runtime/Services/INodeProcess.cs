@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Amazon.JSII.Runtime.Services
 {
-    public interface INodeProcess : IDisposable
+    internal interface INodeProcess : IDisposable
     {
         TextWriter StandardInput { get; }
 

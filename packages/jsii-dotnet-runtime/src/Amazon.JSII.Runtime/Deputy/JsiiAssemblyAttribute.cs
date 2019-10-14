@@ -3,7 +3,7 @@ using System;
 namespace Amazon.JSII.Runtime.Deputy
 {
     [AttributeUsage(AttributeTargets.Assembly)]
-    public class JsiiAssemblyAttribute : Attribute
+    public sealed class JsiiAssemblyAttribute : Attribute
     {
         public JsiiAssemblyAttribute(string name, string version, string tarball)
         {

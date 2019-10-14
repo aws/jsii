@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Amazon.JSII.Runtime.Services
 {
-    public interface IJsiiRuntimeProvider
+    internal interface IJsiiRuntimeProvider
     {
         string JsiiRuntimePath { get; }
     }

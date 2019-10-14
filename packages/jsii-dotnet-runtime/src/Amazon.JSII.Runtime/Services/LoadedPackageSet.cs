@@ -2,7 +2,7 @@
 
 namespace Amazon.JSII.Runtime.Services
 {
-    public class LoadedPackageSet : ILoadedPackageSet
+    internal sealed class LoadedPackageSet : ILoadedPackageSet
     {
         readonly ISet<string> _packages = new HashSet<string>();
 

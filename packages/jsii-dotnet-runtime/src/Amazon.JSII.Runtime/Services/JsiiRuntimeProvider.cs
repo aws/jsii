@@ -4,9 +4,9 @@ using System.Reflection;
 
 namespace Amazon.JSII.Runtime.Services
 {
-    public class JsiiRuntimeProvider : IJsiiRuntimeProvider
+    internal sealed class JsiiRuntimeProvider : IJsiiRuntimeProvider
     {
-        const string ENTRYPOINT = "jsii-runtime.js";
+        private const string ENTRYPOINT = "jsii-runtime.js";
 
         public JsiiRuntimeProvider(IResourceExtractor resourceExtractor)
         {

@@ -4,7 +4,7 @@ using Xunit.Abstractions;
 
 namespace Amazon.JSII.Runtime.IntegrationTests
 {
-    public class ServiceContainerFixture : IDisposable
+    public sealed class ServiceContainerFixture : IDisposable
     {
         public ServiceContainerFixture()
         {

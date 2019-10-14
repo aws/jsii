@@ -6,7 +6,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Runtime.Services
 {
-    public class ReferenceMap : IReferenceMap
+    internal sealed class ReferenceMap : IReferenceMap
     {
         readonly IDictionary<string, DeputyBase> _references = new Dictionary<string, DeputyBase>();
         readonly ITypeCache _types;
@@ -30,7 +30,7 @@ namespace Amazon.JSII.Runtime.Services
 
         public DeputyBase GetOrCreateNativeReference(ObjectReference reference)
         {
-            return GetOrCreateNativeReference(new ByRefValue(reference["$jsii.byref"]));
+            return GetOrCreateNativeReference(new ByRefValue(reference["$jsii.byref"] as string));
         }
 
         public DeputyBase GetOrCreateNativeReference(ByRefValue byRefValue)
@@ -62,8 +62,12 @@ namespace Amazon.JSII.Runtime.Services
                 }
 
                 BindingFlags constructorFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
-
-                return type.GetConstructor(constructorFlags, null, new[] {typeof(ByRefValue)}, null);
+                ConstructorInfo constructorInfo = type.GetConstructor(constructorFlags, null, new[] {typeof(ByRefValue)}, null);
+                if (constructorInfo == null)
+                {
+                    throw new JsiiException($"Could not find constructor to initialize {type.FullName} with a {typeof(ByRefValue).FullName}");
+                }
+                return constructorInfo;
             }
         }
     }

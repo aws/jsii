@@ -3,7 +3,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Runtime.Services
 {
-    public interface IReferenceMap
+    internal interface IReferenceMap
     {
         void AddNativeReference(ByRefValue reference, DeputyBase nativeReference, bool force = false);
 
