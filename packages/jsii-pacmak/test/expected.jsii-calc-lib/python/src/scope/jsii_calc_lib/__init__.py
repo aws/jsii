@@ -10,7 +10,7 @@ import publication
 from jsii.python import classproperty
 
 import scope.jsii_calc_base
-__jsii_assembly__ = jsii.JSIIAssembly.load("@scope/jsii-calc-lib", "0.18.0", __name__, "jsii-calc-lib@0.18.0.jsii.tgz")
+__jsii_assembly__ = jsii.JSIIAssembly.load("@scope/jsii-calc-lib", "0.19.0", __name__, "jsii-calc-lib@0.19.0.jsii.tgz")
 @jsii.enum(jsii_type="@scope/jsii-calc-lib.EnumFromScopedModule")
 class EnumFromScopedModule(enum.Enum):
     """Check that enums from @scoped packages can be references. See awslabs/jsii#138.
