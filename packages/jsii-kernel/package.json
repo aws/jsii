@@ -1,6 +1,6 @@
 {
   "name": "jsii-kernel",
-  "version": "0.18.0",
+  "version": "0.19.0",
   "description": "kernel for jsii execution environment",
   "license": "Apache-2.0",
   "author": {
@@ -29,7 +29,7 @@
     "package": "package-js"
   },
   "dependencies": {
-    "jsii-spec": "^0.18.0",
+    "jsii-spec": "^0.19.0",
     "source-map": "^0.7.3",
     "tar": "^5.0.5"
   },
