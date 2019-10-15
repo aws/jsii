@@ -64,7 +64,7 @@
     "jsii-dotnet-jsonmodel": "file:../jsii-dotnet-jsonmodel",
     "jsii-dotnet-runtime": "file:../jsii-dotnet-runtime",
     "jsii-java-runtime": "file:../jsii-java-runtime",
-    "typescript": "~3.6.3"
+    "typescript": "~3.6.4"
   },
   "keywords": [
     "jsii",
