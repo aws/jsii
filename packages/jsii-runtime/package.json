@@ -1,6 +1,6 @@
 {
   "name": "jsii-runtime",
-  "version": "0.18.0",
+  "version": "0.19.0",
   "description": "jsii runtime kernel process",
   "license": "Apache-2.0",
   "author": {
@@ -32,8 +32,8 @@
     "package": "package-js"
   },
   "dependencies": {
-    "jsii-kernel": "^0.18.0",
-    "jsii-spec": "^0.18.0"
+    "jsii-kernel": "^0.19.0",
+    "jsii-spec": "^0.19.0"
   },
   "devDependencies": {
     "@scope/jsii-calc-base": "file:../jsii-calc-base",
