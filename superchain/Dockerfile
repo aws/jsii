@@ -32,9 +32,9 @@ RUN amazon-linux-extras install ruby2.4                                         
   && mkdir -p "$GEM_HOME"                                                                                               \
   && gem install 'bundler:~>1.17.2' 'bundler:~>2.0.2'
 ENV BUNDLE_PATH="$GEM_HOME"                                                                                             \
-	  BUNDLE_SILENCE_ROOT_WARNING=1                                                                                     \
-	  BUNDLE_APP_CONFIG="$GEM_HOME"                                                                                     \
-      PATH="$GEM_HOME/bin:$BUNDLE_PATH/gems/bin:$PATH"
+	  BUNDLE_SILENCE_ROOT_WARNING=1                                                                                       \
+	  BUNDLE_APP_CONFIG="$GEM_HOME"                                                                                       \
+    PATH="$GEM_HOME/bin:$GEM_HOME/gems/bin:$PATH"
 
   # Install JDK8 (Corretto)
 RUN amazon-linux-extras install corretto8                                                                               \
