@@ -12,7 +12,7 @@ from jsii.python import classproperty
 import scope.jsii_calc_base
 import scope.jsii_calc_base_of_base
 import scope.jsii_calc_lib
-__jsii_assembly__ = jsii.JSIIAssembly.load("jsii-calc", "0.17.0", __name__, "jsii-calc@0.17.0.jsii.tgz")
+__jsii_assembly__ = jsii.JSIIAssembly.load("jsii-calc", "0.19.0", __name__, "jsii-calc@0.19.0.jsii.tgz")
 class AbstractClassBase(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.AbstractClassBase"):
     """
     stability
@@ -763,8 +763,9 @@ class ClassWithDocs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ClassWithDocs"
     :customAttribute:: hasAValue
 
     Example::
-        function anExample() {
-        }
+        # Example may have issues. See https://github.com/aws/jsii/issues/826
+        def an_example():
+            pass
     """
     def __init__(self) -> None:
         jsii.create(ClassWithDocs, self, [])

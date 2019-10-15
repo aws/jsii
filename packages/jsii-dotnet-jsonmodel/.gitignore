@@ -10,6 +10,7 @@ node_modules/
 coverage/
 
 *.nupkg
+*.snupkg
 bin/
 cli/
 obj/

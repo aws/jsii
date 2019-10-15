@@ -1,10 +1,10 @@
-# `jsii`
+# ![jsii](./logo/png/128.png)
 
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=aws/jsii)](https://dependabot.com)
 ![Build Status](https://img.shields.io/travis/aws/jsii?label=Travis-CI)
 ![Build Status](https://codebuild.us-east-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiOThRRFVsVlRBTEhocVZOckE0bFlFWEtwNU0xUmtNUlRRclY0R2VYTGJaOXRlaVdaVnREV2lhVGtDUzQzUDRMMCtuYWpSTWo4N1FGTEV5Zm9yZ0dEb2dBPSIsIml2UGFyYW1ldGVyU3BlYyI6InFVbktYSlpDem1YN1JCeU8iLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)
 [![npm](https://img.shields.io/npm/v/jsii)](https://www.npmjs.com/package/jsii)
-[![docker](https://img.shields.io/badge/docker-jsii%2Fsuperchain-brightgreen)](https://hub.docker.com/r/jsii/superchain)
+[![docker](https://img.shields.io/badge/docker-jsii%2Fsuperchain-brightgreen)](https://hub.docker.com/r/jsii/superchain) [![Join the chat at https://gitter.im/aws/jsii](https://badges.gitter.im/aws/jsii.svg)](https://gitter.im/aws/jsii?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Overview
 
@@ -15,7 +15,7 @@ to deliver polyglot libraries from a single codebase!
 [cdk]: https://github.com/aws/aws-cdk
 
 A class library written in **TypeScript** can be used in projects authored in
-**TypeScript** or **Javascript** (as usual), but allso in **Python**, **Java**,
+**TypeScript** or **Javascript** (as usual), but also in **Python**, **Java**,
 **C#** (and other languages from the *.NET* family), ...
 
 > NOTE: Due to performance of the hosted **Javascript** engine and marshaling

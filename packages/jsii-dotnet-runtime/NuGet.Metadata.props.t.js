@@ -16,6 +16,7 @@ process.stdout.write(`<Project>
 
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <IncludeSymbols>True</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <IncludeSource>True</IncludeSource>
 
     <PackageOutputPath>..\\..\\bin\\$(Configuration)\\NuGet\\</PackageOutputPath>

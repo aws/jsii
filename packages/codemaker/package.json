@@ -1,6 +1,6 @@
 {
   "name": "codemaker",
-  "version": "0.17.0",
+  "version": "0.19.0",
   "description": "A tiny utility for generating source code",
   "license": "Apache-2.0",
   "author": {
@@ -37,9 +37,9 @@
     "@types/decamelize": "^1.2.0",
     "@types/fs-extra": "^8.0.0",
     "@types/jest": "^24.0.18",
-    "@typescript-eslint/eslint-plugin": "^2.3.0",
-    "@typescript-eslint/parser": "^2.3.0",
-    "eslint": "^6.4.0",
+    "@typescript-eslint/eslint-plugin": "^2.3.3",
+    "@typescript-eslint/parser": "^2.3.3",
+    "eslint": "^6.5.1",
     "jest": "^24.9.0",
     "typescript": "~3.6.3"
   },
