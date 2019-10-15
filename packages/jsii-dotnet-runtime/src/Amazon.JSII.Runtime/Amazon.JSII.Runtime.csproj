@@ -5,7 +5,7 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <PackageId>Amazon.JSII.Runtime</PackageId>
     <Title>.NET Runtime for JSII</Title>
-    <PackageIconUrl>https://sdk-for-net.amazonwebservices.com/images/AWSLogo128x128.png</PackageIconUrl>
+    <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,5 +20,6 @@
     <EmbeddedResource Include="jsii-runtime\jsii-runtime.js" />
     <EmbeddedResource Include="jsii-runtime\jsii-runtime.js.map" />
     <EmbeddedResource Include="jsii-runtime\mappings.wasm" />
+    <None Include="../../../../logo/png/128x128.png" Pack="true" PackagePath="icon.png" />
   </ItemGroup>
 </Project>
