@@ -17,6 +17,7 @@ script:
   # Building the Docker image
   - docker build --pull --build-arg BUILD_TIMESTAMP=$(date -u +'%Y-%m-%dT%H:%M:%SZ') --build-arg COMMIT_ID="${TRAVIS_COMMIT}" -t "jsii/superchain:nightly" ./superchain
   # Building jsii itself within the Docker image
+  - docker run --rm -it --network=host -v ${PWD}:${PWD} -w ${PWD} jsii/superchain:nightly yarn install
   - docker run --rm -it --network=host -v ${PWD}:${PWD} -w ${PWD} jsii/superchain:nightly yarn build
   - docker run --rm -it --network=host -v ${PWD}:${PWD} -w ${PWD} jsii/superchain:nightly yarn test
   # Make sure the build did not change the source tree
