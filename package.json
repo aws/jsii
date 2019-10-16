@@ -2,23 +2,25 @@
   "private": true,
   "license": "Apache-2.0",
   "scripts": {
-    "bootstrap": "bash scripts/bootstrap.sh",
-    "build": "bash scripts/build.sh",
+    "build": "lerna run build --stream --sort --concurrency=1",
     "bump": "bash scripts/bump.sh",
     "fetch-dotnet-snk": "bash scripts/fetch-dotnet-snk.sh",
-    "install-local-packages": "node scripts/install-local-packages.js",
-    "package": "bash scripts/package.sh"
+    "package": "bash scripts/package.sh",
+    "test": "lerna run test --stream"
   },
   "devDependencies": {
-    "@types/node": "^8.10.54",
-    "@typescript-eslint/eslint-plugin": "^2.3.3",
-    "@typescript-eslint/parser": "^2.3.3",
+    "@types/node": "^8.10.55",
+    "@typescript-eslint/eslint-plugin": "^2.4.0",
+    "@typescript-eslint/parser": "^2.4.0",
     "eslint": "^6.5.1",
-    "lerna": "^3.17.0",
+    "lerna": "^3.18.1",
     "typescript": "~3.6.4"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/aws/jsii.git"
-  }
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }

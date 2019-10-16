@@ -30,7 +30,7 @@ PLATFORMS
 
 DEPENDENCIES
   jsii_runtime!
-  rubocop (~> 0.75.0)
+  rubocop (~> 0.75.1)
   test-unit (~> 3.3.3)
 
 BUNDLED WITH

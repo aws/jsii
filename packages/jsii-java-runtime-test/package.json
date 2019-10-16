@@ -27,8 +27,8 @@
     "test": "cd project && mvn -B test --settings=user.xml"
   },
   "devDependencies": {
-    "jsii-calc": "file:../jsii-calc",
-    "jsii-java-runtime": "file:../jsii-java-runtime",
+    "jsii-calc": "^0.19.0",
+    "jsii-java-runtime": "^0.19.0",
     "jsii-pacmak": "^0.19.0"
   }
 }

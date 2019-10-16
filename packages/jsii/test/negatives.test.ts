@@ -27,7 +27,7 @@ for (const source of fs.readdirSync(SOURCE_DIR)) {
     }
 
     // Cleaning up...
-    await Promise.all((await fs.readdir(SOURCE_DIR)).map(file => {
+    return Promise.all((await fs.readdir(SOURCE_DIR)).map(file => {
       const promises = new Array<Promise<any>>();
       if (file.startsWith('neg.') && (file.endsWith('.d.ts') || file.endsWith('.js'))) {
         promises.push(fs.remove(path.join(SOURCE_DIR, file)));
