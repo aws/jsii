@@ -45,7 +45,7 @@
     "@types/tar-fs": "^1.16.1",
     "@types/yargs": "^13.0.3",
     "@typescript-eslint/eslint-plugin": "^2.3.3",
-    "@typescript-eslint/parser": "^2.3.3",
+    "@typescript-eslint/parser": "^2.4.0",
     "eslint": "^6.5.1",
     "jest": "^24.9.0",
     "jest-expect-message": "^1.0.2",

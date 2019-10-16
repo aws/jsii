@@ -39,7 +39,7 @@
     "@scope/jsii-calc-base": "file:../jsii-calc-base",
     "@scope/jsii-calc-lib": "file:../jsii-calc-lib",
     "@typescript-eslint/eslint-plugin": "^2.3.3",
-    "@typescript-eslint/parser": "^2.3.3",
+    "@typescript-eslint/parser": "^2.4.0",
     "eslint": "^6.5.1",
     "jest": "^24.9.0",
     "jsii-build-tools": "file:../jsii-build-tools",
