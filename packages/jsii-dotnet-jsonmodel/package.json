@@ -31,6 +31,6 @@
   },
   "devDependencies": {
     "jsii-build-tools": "file:../jsii-build-tools",
-    "typescript": "~3.6.3"
+    "typescript": "~3.6.4"
   }
 }

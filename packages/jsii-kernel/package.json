@@ -49,7 +49,7 @@
     "jest-expect-message": "^1.0.2",
     "jsii-build-tools": "file:../jsii-build-tools",
     "jsii-calc": "file:../jsii-calc",
-    "typescript": "~3.6.3"
+    "typescript": "~3.6.4"
   },
   "jest": {
     "collectCoverage": true,

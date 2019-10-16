@@ -5,7 +5,6 @@ process.stdout.write(`<Project>
     <PackageVersion>$(JsiiVersion)</PackageVersion>
     <Description>${package.description}</Description>
     <PackageLicenseExpression>${package.license}</PackageLicenseExpression>
-    <LicenseUrl>https://spdx.org/licenses/${package.license}.html</LicenseUrl>
 
     <ProjectUrl>${package.homepage}</ProjectUrl>
     <RepositoryUrl>${package.repository.url}</RepositoryUrl>
