@@ -10,7 +10,7 @@
     "package": "bash scripts/package.sh"
   },
   "devDependencies": {
-    "@types/node": "^8.10.54",
+    "@types/node": "^8.10.55",
     "@typescript-eslint/eslint-plugin": "^2.3.3",
     "@typescript-eslint/parser": "^2.3.3",
     "eslint": "^6.5.1",
