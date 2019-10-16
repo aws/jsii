@@ -5,7 +5,7 @@ phases:
     commands:
       # Temporarily - install yarn if it's not there already
       - yarn --version || npm install --global yarn
-      - yarn install
+      - yarn install --ignore-engines
   pre_build:
     commands:
       - yarn fetch-dotnet-snk
