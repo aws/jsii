@@ -24,7 +24,7 @@ namespace Amazon.JSII.Runtime.Services
             var runtimePath = Environment.GetEnvironmentVariable(JsiiRuntime);
             if (string.IsNullOrWhiteSpace(runtimePath))
                 runtimePath = jsiiRuntimeProvider.JsiiRuntimePath;
-            
+
             _process = new Process
             {
                 StartInfo = new ProcessStartInfo
@@ -38,9 +38,9 @@ namespace Amazon.JSII.Runtime.Services
             };
 
             var assemblyVersion = GetAssemblyFileVersion();
-            _process.StartInfo.EnvironmentVariables.Add(JsiiAgent, 
+            _process.StartInfo.EnvironmentVariables.Add(JsiiAgent,
                 string.Format(JsiiAgentVersionString, Environment.Version, assemblyVersion.Item1, assemblyVersion.Item2));
-            
+
             var debug = Environment.GetEnvironmentVariable(JsiiDebug);
             if (!string.IsNullOrWhiteSpace(debug) && !_process.StartInfo.EnvironmentVariables.ContainsKey(JsiiDebug))
                 _process.StartInfo.EnvironmentVariables.Add(JsiiDebug, debug);
@@ -64,13 +64,13 @@ namespace Amazon.JSII.Runtime.Services
             StandardError.Dispose();
             _process.Dispose();
         }
-        
+
         /// <summary>
         /// Gets the target framework attribute value and
         /// the assembly file version for the current .NET assembly
         /// </summary>
         /// <returns>A tuple where Item1 is the target framework
-        /// ie .NETStandard,Version=v2.0
+        /// ie .NETCoreApp,Version=v2.1
         /// and item2 is the assembly file version (ie 1.0.0.0)</returns>
         private Tuple<string, string> GetAssemblyFileVersion()
         {

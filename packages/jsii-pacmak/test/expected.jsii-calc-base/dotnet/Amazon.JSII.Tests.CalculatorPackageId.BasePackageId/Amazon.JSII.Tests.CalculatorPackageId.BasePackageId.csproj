@@ -10,7 +10,9 @@
     <PackageId>Amazon.JSII.Tests.CalculatorPackageId.BasePackageId</PackageId>
     <Description>An example direct dependency for jsii-calc.</Description>
     <ProjectUrl>https://github.com/aws/jsii</ProjectUrl>
-    <LicenseUrl>https://spdx.org/licenses/Apache-2.0.html</LicenseUrl>
+    <RepositoryUrl>https://github.com/aws/jsii.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <Authors>Amazon Web Services</Authors>
     <Language>en-US</Language>
   </PropertyGroup>
