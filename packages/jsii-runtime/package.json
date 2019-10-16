@@ -46,7 +46,7 @@
     "jsii-calc": "file:../jsii-calc",
     "source-map": "^0.7.3",
     "source-map-loader": "^0.2.4",
-    "typescript": "~3.6.3",
+    "typescript": "~3.6.4",
     "wasm-loader": "^1.3.0",
     "webpack": "^4.41.1",
     "webpack-cli": "^3.3.9"
