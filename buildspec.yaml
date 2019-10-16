@@ -3,6 +3,8 @@ version: 0.2
 phases:
   install:
     commands:
+      # Temporarily - install yarn if it's not there already
+      - yarn --version || npm install --global yarn
       - yarn install
   pre_build:
     commands:
