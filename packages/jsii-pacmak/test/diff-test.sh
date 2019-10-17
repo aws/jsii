@@ -29,6 +29,11 @@ function assert-generator() {
         rsync -a ${original_expected}/ ${expected}/
     fi
 
+    if [[ -d ${original_expected}/java/target ]]; then
+        echo "An IDE plugin seems to have eagerly tried to compile ${original_expected}/java. Please remove." >&2
+        exit 1
+    fi
+
     # put the real expected tarball instead of the placeholder
     for expected_tarball_placeholder in $(find ${expected} -name "*.tgz" || true); do
         rm -f ${expected_tarball_placeholder}
