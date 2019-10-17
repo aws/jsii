@@ -40,9 +40,10 @@ using the docker image from the above section, but if you wish to, you can insta
 in your development environment.
 
 - [Node `8.11.0`] or later
+- [Yarn `1.19.1`] or later
 - An OpenJDK-8 distribution (e.g: [Oracle's OpenJDK8], [Amazon Corretto 8])
   + [`maven >= 3.0.5`](https://maven.apache.org)
-- [.NET Core `2.0`] or later
+- [.NET Core `2.1`] or later
   + *Recommended:* [`mono >= 5`](https://www.mono-project.com)
 - [Python `3.6.5`] or later
   + [`pip`](https://pip.pypa.io/en/stable/installing/)
@@ -53,6 +54,7 @@ in your development environment.
   + [`bundler ~> 1.17.2`](https://bundler.io)
 
 [Node `8.11.0`]: https://nodejs.org/download/release/v8.11.0/
+[Yarn `1.19.1`]: https://yarnpkg.com/en/docs/install
 [Oracle's OpenJDK8]: http://openjdk.java.net/install/
 [Amazon Corretto 8]: https://aws.amazon.com/corretto/
 [.NET Core `2.0`]: https://www.microsoft.com/net/download
@@ -68,7 +70,7 @@ The project is managed as a [monorepo] using [lerna].
 [lerna]: https://github.com/lerna/lerna
 
 1. Check out this respository and change directory to its root.
-2. Run `npm run bootstrap && npm run build` to install lerna, bootstrap the repository 
+2. Run `yarn install && yarn build` to install lerna, bootstrap the repository
    and perform an initial build and test cycle.
 
 ### Development Workflow
@@ -83,20 +85,20 @@ All packages within this repository have the following scripts:
 
 Each one of these scripts can be executed either from the root of the repo using
 `npx lerna run <script> --scope <package>` or from individual modules using
-`npm run <script>`.
+`yarn <script>`.
 
 ### Bump
 
-To bump the version of this repository, use the [`npm run bump`] script.
+To bump the version of this repository, use the [`yarn bump`] script.
 
-[`npm run bump`]: ./scripts/bump.sh
+[`yarn bump`]: ./scripts/bump.sh
 
 ### Packaging and Bundling
 
-This repository emits artifacts in multiple languages. The [`npm run package`]
+This repository emits artifacts in multiple languages. The [`yarn package`]
 script is used to prepare the repository for publishing.
 
-[`npm run package`]: ./scripts/package.sh
+[`yarn package`]: ./scripts/package.sh
 
 Each module that needs to be published implements an npm script called `package`
 which emits publishable artifacts to `dist/<lang>` (e.g. `dist/dotnet` for

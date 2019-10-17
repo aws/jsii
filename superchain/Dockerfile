@@ -12,7 +12,8 @@ COPY gpg/mono.asc /tmp/mono.asc
 RUN rpm --import "https://packages.microsoft.com/keys/microsoft.asc"                                                    \
   && rpm -Uvh "https://packages.microsoft.com/config/rhel/7/packages-microsoft-prod.rpm"                                \
   && rpm --import /tmp/mono.asc && rm -f /tmp/mono.asc                                                                  \
-  && curl "https://download.mono-project.com/repo/centos6-stable.repo" | tee /etc/yum.repos.d/mono-centos6-stable.repo  \
+  && curl -sSL "https://download.mono-project.com/repo/centos6-stable.repo"                                             \
+      | tee /etc/yum.repos.d/mono-centos6-stable.repo                                                                   \
   && yum -y install dotnet-sdk-3.0 dotnet-sdk-2.2 mono-devel powershell                                                 \
   && yum clean all && rm -rf /var/cache/yum                                                                             \
   && dotnet help
@@ -31,10 +32,8 @@ RUN amazon-linux-extras install ruby2.4                                         
   && echo 'update: --no-document' >> /usr/local/etc/gemrc                                                               \
   && mkdir -p "$GEM_HOME"                                                                                               \
   && gem install 'bundler:~>1.17.2' 'bundler:~>2.0.2'
-ENV BUNDLE_PATH="$GEM_HOME"                                                                                             \
-	  BUNDLE_SILENCE_ROOT_WARNING=1                                                                                       \
-	  BUNDLE_APP_CONFIG="$GEM_HOME"                                                                                       \
-    PATH="$GEM_HOME/bin:$GEM_HOME/gems/bin:$PATH"
+ENV BUNDLE_SILENCE_ROOT_WARNING=1                                                                                       \
+	  PATH="$GEM_HOME/bin:$GEM_HOME/gems/bin:$PATH"
 
   # Install JDK8 (Corretto)
 RUN amazon-linux-extras install corretto8                                                                               \
@@ -51,26 +50,15 @@ VOLUME /var/lib/docker
 RUN yum -y install awscli git gzip openssl rsync tar unzip which zip                                                    \
   && yum clean all && rm -rf /var/cache/yum
 
-# Install NVM and Node 8+
-ARG NODE_VERSION=12.12.0
-ARG NPM_VERSION=6.12.0
-ENV NVM_DIR=/usr/local/nvm
-RUN curl -sSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh -o /tmp/install-nvm.sh                    \
-  && echo "ef7ad1db40c92f348c0461f24983b71ba0ea7d45d4007a36e484270fa7f81fcf /tmp/install-nvm.sh" | sha256sum -c         \
-  && mkdir -p ${NVM_DIR}                                                                                                \
-  && bash /tmp/install-nvm.sh                                                                                           \
-  && rm /tmp/install-nvm.sh                                                                                             \
-  && . ${NVM_DIR}/nvm.sh                                                                                                \
-  && nvm install ${NODE_VERSION}                                                                                        \
-  && nvm alias default ${NODE_VERSION}                                                                                  \
-  && nvm use default                                                                                                    \
-  && npm -g install npm@^${NPM_VERSION}                                                                                 \
+# Install Node 8+
+RUN curl -sL https://rpm.nodesource.com/setup_10.x | bash -                                                             \
+  && yum -y install nodejs                                                                                              \
+  && yum clean all && rm -rf /var/cache/yum                                                                             \
   && npm set unsafe-perm true
-ENV NODE_PATH=${NVM_DIR}/versions/node/v${NODE_VERSION}/lib/node_modules                                                \
-    PATH=${PATH}:${NVM_DIR}/versions/node/v${NODE_VERSION}/bin
 
-# Upgrade all packages that weren't up-to-date just yet
-RUN yum -y upgrade                                                                                                      \
+# Install Yarn
+RUN curl -sSL https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo                                     \
+  && yum -y install yarn                                                                                                \
   && yum clean all && rm -rf /var/cache/yum
 
 # Install some configuration
@@ -88,5 +76,9 @@ LABEL org.opencontainers.image.created=${BUILD_TIMESTAMP}                       
       org.opencontainers.image.url="https://github.com/aws/jsii/tree/master/superchain"                                 \
       org.opencontainers.image.source="https://github.com/aws/jsii.git"                                                 \
       org.opencontainers.image.revision=$COMMIT_ID
+
+# Upgrade all packages that weren't up-to-date just yet (last so it risks invalidating cache less)
+RUN yum -y upgrade                                                                                                      \
+  && yum clean all && rm -rf /var/cache/yum
 
 CMD ["/bin/bash"]

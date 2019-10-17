@@ -4,7 +4,7 @@ set -euo pipefail
 # embed jsii-runtime as a resource
 bundle_dir="src/Amazon.JSII.Runtime/jsii-runtime"
 mkdir -p ${bundle_dir}
-rsync -av node_modules/jsii-runtime/webpack/ ${bundle_dir}
+rsync -av $(node -p 'require("path").dirname(require.resolve("jsii-runtime/package.json"))')/webpack/ ${bundle_dir}
 
 # Build just Runtime and it's dependencies instead of the
 # solution to avoid integration tests from trying to be
