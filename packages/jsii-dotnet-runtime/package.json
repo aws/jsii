@@ -30,9 +30,9 @@
     "package": "package-dotnet"
   },
   "devDependencies": {
-    "jsii-dotnet-jsonmodel": "*",
-    "jsii-build-tools": "*",
-    "jsii-runtime": "*",
+    "jsii-dotnet-jsonmodel": "^0.19.0",
+    "jsii-build-tools": "^0.19.0",
+    "jsii-runtime": "^0.19.0",
     "typescript": "~3.6.4"
   }
 }

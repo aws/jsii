@@ -29,9 +29,9 @@
     "test": "/bin/bash ./test.sh"
   },
   "devDependencies": {
-    "jsii-calc": "*",
-    "jsii-dotnet-runtime": "*",
-    "jsii-pacmak": "*",
+    "jsii-calc": "^0.19.0",
+    "jsii-dotnet-runtime": "^0.19.0",
+    "jsii-pacmak": "^0.19.0",
     "typescript": "~3.6.4"
   }
 }
