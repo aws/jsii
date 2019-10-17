@@ -38,7 +38,7 @@ for (const source of fs.readdirSync(SOURCE_DIR)) {
       );
       return Promise.all(promises);
     }));
-  }, 10000);
+  }, 50000);
 }
 
 const MATCH_ERROR_MARKER = '///!MATCH_ERROR:';
