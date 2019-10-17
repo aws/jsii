@@ -10,23 +10,26 @@ required in order to package [jsii] projects in all supported languages.
 SDK             | Version
 ----------------|-------------------------------------------
 `OpenJDK 8`     | Amazon Corretto `>= 8.222.10.2`
-`.NET Core`     | `>= 2.2.301` and `mono >= 6.0.0.319`
-`Javascript`    | `node >= 8.16.0` with `npm >= 6.8.0`
-`PowerShell`    | `pwsh >= 6.2.2`
-`Python 3`      | `python3 >= 3.7.3` with `pip3 >= 19.1.1`
-`Ruby`          | `ruby >= 2.4.4p296`
+`.NET SDK`      | `>= 3.0.100` and `>= 2.2.402`
+`mono`          | `>= 6.0.0.319`
+`Javascript`    | `node >= 10.16.3` with `npm >= 6.9.0`
+`PowerShell`    | `pwsh >= 6.2.3`
+`Python 3`      | `python3 >= 3.7.4` with `pip3 >= 19.3`
+`Ruby`          | `ruby >= 2.4.7p357`
 
 ## Included Tools & Utilities
 
 Tool / Utility | Version
----------------|-----------------
+---------------|--------------------------------------------
+`aws`          | `>= 1.16.102`
 `bundler`      | `>= 1.17.2` and `>= 2.0.2`
 `gcc`          | `>= 7.3.1`
 `docker`       | `>= 18.06.1-ce`
 `git`          | `>= 2.17.2`
 `make`         | `>= 3.82`
-`openssl`      | `>= 1.0.2k`
+`openssl`      | `>= 1.0.2k-fips`
 `rsync`        | `>= 3.1.2-4`
+`yarn`         | `>= 1.19.1`
 `zip` & `unzip`| `>= 6.0-19`
 
 ## License

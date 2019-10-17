@@ -4,8 +4,8 @@ import os
 import os.path
 import shutil
 
-EMBEDDED_SOURCE = "node_modules/jsii-runtime/webpack/"
-EMBEDDED_INFO = "node_modules/jsii-runtime/package.json"
+EMBEDDED_SOURCE = "../jsii-runtime/webpack/"
+EMBEDDED_INFO = "../jsii-runtime/package.json"
 
 
 # Copy metadata over into the Python package

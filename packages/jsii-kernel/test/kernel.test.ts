@@ -1201,13 +1201,12 @@ async function preparePackage(module: string, useCache = true) {
     child.stdout.on('data', chunk => stdout.push(Buffer.from(chunk)));
     child.once('exit', (code, signal) => {
       if (code === 0) { return ok(); }
-      if (code != null) { return ko(`Process exited with code ${code}`); }
-      return ko(`Process killed by signal ${signal}`);
+      if (code != null) { return ko(`'npm pack' exited with code ${code}`); }
+      return ko(`'npm pack' killed by signal ${signal}`);
     });
   });
   const dir = path.join(staging, (await fs.readdir(staging))[0]);
-  cache[module] = dir;
-  return dir;
+  return cache[module] = dir;
 }
 
 function findPackageRoot(pkg: string) {

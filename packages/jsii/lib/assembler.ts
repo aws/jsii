@@ -624,7 +624,7 @@ export class Assembler implements Emitter {
       // Process constructor-based property declarations even if constructor is private
       if (signature) {
         for (const param of signature.getParameters()) {
-          if (ts.isParameterPropertyDeclaration(param.valueDeclaration) && !this._isPrivateOrInternal(param)) {
+          if (ts.isParameterPropertyDeclaration(param.valueDeclaration, param.valueDeclaration.parent) && !this._isPrivateOrInternal(param)) {
             /* eslint-disable no-await-in-loop */
             await this._visitProperty(param, jsiiType, memberEmitContext);
             /* eslint-enable no-await-in-loop */

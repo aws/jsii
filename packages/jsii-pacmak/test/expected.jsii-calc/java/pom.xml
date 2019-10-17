@@ -48,7 +48,7 @@
   </scm>
   <groupId>software.amazon.jsii.tests</groupId>
   <artifactId>calculator</artifactId>
-  <version>0.18.0</version>
+  <version>0.19.0</version>
   <packaging>jar</packaging>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -57,22 +57,22 @@
     <dependency>
       <groupId>software.amazon.jsii.tests</groupId>
       <artifactId>calculator-base</artifactId>
-      <version>0.18.0</version>
+      <version>0.19.0</version>
     </dependency>
     <dependency>
       <groupId>software.amazon.jsii.tests</groupId>
       <artifactId>calculator-base-of-base</artifactId>
-      <version>0.18.0</version>
+      <version>0.19.0</version>
     </dependency>
     <dependency>
       <groupId>software.amazon.jsii.tests</groupId>
       <artifactId>calculator-lib</artifactId>
-      <version>0.18.0.DEVPREVIEW</version>
+      <version>0.19.0.DEVPREVIEW</version>
     </dependency>
     <dependency>
       <groupId>software.amazon.jsii</groupId>
       <artifactId>jsii-runtime</artifactId>
-      <version>0.18.0</version>
+      <version>0.19.0</version>
     </dependency>
     <dependency>
       <groupId>javax.annotation</groupId>

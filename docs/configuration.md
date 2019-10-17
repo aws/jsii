@@ -246,7 +246,7 @@ the standard [`nuget push`][nuget-push] command.
 
 [NuGet]: https://www.nuget.org
 [nuget-push]: https://docs.microsoft.com/fr-fr/nuget/nuget-org/publish-a-package
-[.NET documentation]: https://docs.microsoft.com/en-us/dotnet/core/tools/csproj#packagelicenseurl
+[.NET documentation]: https://docs.microsoft.com/en-us/dotnet/core/tools/csproj#packageiconurl
 
 ### `tsc`
 
