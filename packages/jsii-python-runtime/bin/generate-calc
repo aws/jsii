@@ -11,7 +11,7 @@ subprocess.run(
         "-o",
         ".env/jsii-calc",
         "--recurse",
-        "node_modules/jsii-calc",
+        "../jsii-calc",
     ],
     check=True,
 )
