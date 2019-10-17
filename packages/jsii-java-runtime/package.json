@@ -30,8 +30,8 @@
     "package": "package-java"
   },
   "devDependencies": {
-    "jsii-build-tools": "^0.19.0",
-    "jsii-runtime": "^0.19.0",
+    "jsii-build-tools": "*",
+    "jsii-runtime": "*",
     "typescript": "~3.6.4"
   }
 }

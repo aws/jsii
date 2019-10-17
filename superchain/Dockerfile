@@ -53,7 +53,7 @@ RUN yum -y install awscli git gzip openssl rsync tar unzip which zip            
   && yum clean all && rm -rf /var/cache/yum
 
 # Install Node 8+
-RUN curl -sL https://rpm.nodesource.com/setup_12.x | bash -                                                             \
+RUN curl -sL https://rpm.nodesource.com/setup_10.x | bash -                                                             \
   && yum -y install nodejs                                                                                              \
   && yum clean all && rm -rf /var/cache/yum                                                                             \
   && npm set unsafe-perm true

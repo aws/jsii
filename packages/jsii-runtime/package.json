@@ -36,14 +36,14 @@
     "jsii-spec": "^0.19.0"
   },
   "devDependencies": {
-    "@scope/jsii-calc-base": "^0.19.0",
-    "@scope/jsii-calc-lib": "^0.19.0",
+    "@scope/jsii-calc-base": "*",
+    "@scope/jsii-calc-lib": "*",
     "@typescript-eslint/eslint-plugin": "^2.4.0",
     "@typescript-eslint/parser": "^2.4.0",
     "eslint": "^6.5.1",
     "jest": "^24.9.0",
-    "jsii-build-tools": "^0.19.0",
-    "jsii-calc": "^0.19.0",
+    "jsii-build-tools": "*",
+    "jsii-calc": "*",
     "source-map": "^0.7.3",
     "source-map-loader": "^0.2.4",
     "typescript": "~3.6.4",
