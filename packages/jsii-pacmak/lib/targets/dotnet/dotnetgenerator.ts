@@ -15,18 +15,18 @@ import { DotNetNameUtils } from './nameutils';
  */
 export class DotNetGenerator extends Generator {
   // The path of the original jsii input model.
-  private jsiiFilePath: string;
+  private jsiiFilePath!: string;
 
   // Flags that tracks if we have already wrote the first member of the class
   private firstMemberWritten = false;
 
-  private typeresolver: DotNetTypeResolver;
+  private typeresolver!: DotNetTypeResolver;
 
   private readonly nameutils: DotNetNameUtils = new DotNetNameUtils();
 
-  private dotnetRuntimeGenerator: DotNetRuntimeGenerator;
+  private dotnetRuntimeGenerator!: DotNetRuntimeGenerator;
 
-  private dotnetDocGenerator: DotNetDocGenerator;
+  private dotnetDocGenerator!: DotNetDocGenerator;
 
   public constructor() {
     super();

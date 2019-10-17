@@ -205,9 +205,9 @@ class JavaGenerator extends Generator {
 
     if (JavaGenerator.RESERVED_KEYWORDS.includes(propertyName)) {
       return `${propertyName}Value`;
-    } 
+    }
     return propertyName;
-    
+
   }
 
   /**
@@ -221,14 +221,14 @@ class JavaGenerator extends Generator {
 
     if (JavaGenerator.RESERVED_KEYWORDS.includes(methodName)) {
       return `do${toPascalCase(methodName)}`;
-    } 
+    }
     return methodName;
-    
+
   }
 
   /** If false, @Generated will not include generator version nor timestamp */
   private emitFullGeneratorInfo?: boolean;
-  private moduleClass: string;
+  private moduleClass!: string;
 
   /**
      * A map of all the modules ever referenced during code generation. These include
@@ -1208,9 +1208,9 @@ class JavaGenerator extends Generator {
     const types = this.toJavaTypes(type, forMarshalling);
     if (types.length > 1) {
       return 'java.lang.Object';
-    } 
+    }
     return types[0];
-    
+
   }
 
   private toJavaTypes(typeref: spec.TypeReference, forMarshalling = false): string[] {
@@ -1228,9 +1228,9 @@ class JavaGenerator extends Generator {
         }
       }
       return types;
-    } 
+    }
     throw new Error(`Invalid type reference: ${JSON.stringify(typeref)}`);
-    
+
   }
 
   private toJavaCollection(ref: spec.CollectionTypeReference, forMarshalling: boolean) {
@@ -1271,9 +1271,9 @@ class JavaGenerator extends Generator {
         ? `java.util.stream.Stream.concat(${valuesStream}, ${restStream})`
         : restStream;
       return `, ${fullStream}.toArray(Object[]::new)`;
-    } 
+    }
     return `, ${valueStr}`;
-    
+
 
     function _renderParameter(param: spec.Parameter) {
       const safeName = JavaGenerator.safeJavaPropertyName(param.name);
@@ -1312,9 +1312,9 @@ class JavaGenerator extends Generator {
 
     if (method.returns) {
       return `return ${statement};`;
-    } 
+    }
     return `${statement};`;
-    
+
   }
 
   /**
