@@ -10,4 +10,4 @@ mkdir -p conf
 
 # embed jsii-runtime as a resource
 mkdir -p ${project}/src/main/resources/software/amazon/jsii
-rsync -av node_modules/jsii-runtime/webpack/ ${project}/src/main/resources/software/amazon/jsii
+rsync -av $(node -p 'require("path").dirname(require.resolve("jsii-runtime/package.json"))')/webpack/ ${project}/src/main/resources/software/amazon/jsii
