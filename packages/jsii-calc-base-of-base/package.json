@@ -48,8 +48,7 @@
       "python": {
         "distName": "scope.jsii-calc-base-of-base",
         "module": "scope.jsii_calc_base_of_base"
-      },
-      "sphinx": {}
+      }
     },
     "versionFormat": "short"
   }

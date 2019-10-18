@@ -36,8 +36,7 @@
     "python": {
       "distName": "scope.jsii-calc-base-of-base",
       "module": "scope.jsii_calc_base_of_base"
-    },
-    "sphinx": {}
+    }
   },
   "types": {
     "@scope/jsii-calc-base-of-base.IVeryBaseInterface": {
@@ -112,5 +111,5 @@
     }
   },
   "version": "0.19.0",
-  "fingerprint": "7MB5loMgQMPSUAigsYezONp1ouq1gGrVQPD2TZteJlY="
+  "fingerprint": "Vlx00ifa2hokcWUTvyArHMvCacQmjgyYtwy0zEWGZo0="
 }

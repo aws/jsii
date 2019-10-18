@@ -1,6 +1,7 @@
 import { spawn, SpawnOptions } from 'child_process';
 import fs = require('fs-extra');
 import spec = require('jsii-spec');
+import os = require('os');
 import path = require('path');
 import logging = require('./logging');
 
@@ -89,4 +90,34 @@ export async function loadAssembly(modulePath: string): Promise<spec.Assembly> {
     throw new Error(`Could not find ${assmPath}. Was the module built?`);
   }
   return spec.validateAssembly(await fs.readJson(assmPath));
+}
+
+/**
+ * Class that makes a temporary directory and holds on to an operation object
+ */
+export class Scratch<A> {
+  public static async make<A>(factory: (dir: string) => Promise<A>): Promise<Scratch<A>>;
+  public static async make<A>(factory: (dir: string) => A): Promise<Scratch<A>>;
+  public static async make<A>(factory: (dir: string) => A | Promise<A>) {
+    const tmpdir = await fs.mkdtemp(path.join(os.tmpdir(), 'npm-pack'));
+    return new Scratch(tmpdir, await factory(tmpdir), false);
+  }
+
+  public static fake<A>(directory: string, object: A) {
+    return new Scratch(directory, object, true);
+  }
+
+  public static async cleanupAll<A>(tempDirs: Array<Scratch<A>>) {
+    await Promise.all(tempDirs
+      .map(t => t.cleanup()));
+  }
+
+  private constructor(public readonly directory: string, public readonly object: A, private readonly fake: boolean) {
+  }
+
+  public async cleanup() {
+    if (!this.fake) {
+      await fs.remove(this.directory);
+    }
+  }
 }
