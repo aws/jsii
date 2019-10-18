@@ -9,7 +9,6 @@ import { Stability } from 'jsii-spec';
 import { Generator, GeneratorOptions } from '../generator';
 import { warn } from '../logging';
 import { md2rst } from '../markdown';
-import { propertySpec } from '../reflect-hacks';
 import { Target } from '../target';
 import { shell } from '../util';
 
@@ -639,7 +638,7 @@ class Struct extends BasePythonClassType {
      * Find all fields (inherited as well)
      */
   private get allMembers(): StructField[] {
-    return this.thisInterface.allProperties.map(x => new StructField(propertySpec(x)));
+    return this.thisInterface.allProperties.map(x => new StructField(x.spec));
   }
 
   private get thisInterface() {

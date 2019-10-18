@@ -10,8 +10,8 @@ export class InterfaceType extends ReferenceType {
   public constructor(
     public system: TypeSystem,
     public assembly: Assembly,
-    private readonly interfaceSpec: jsii.InterfaceType) {
-    super(system, assembly, interfaceSpec);
+    public readonly spec: jsii.InterfaceType) {
+    super(system, assembly, spec);
   }
 
   /**
@@ -30,12 +30,12 @@ export class InterfaceType extends ReferenceType {
    * @param inherited include all interfaces implemented by all super interfaces (default: false)
    */
   public getInterfaces(inherited = false): InterfaceType[] {
-    if (!this.interfaceSpec.interfaces) {
+    if (!this.spec.interfaces) {
       return [];
     }
 
     const result = new Set<InterfaceType>();
-    for (const iface of this.interfaceSpec.interfaces) {
+    for (const iface of this.spec.interfaces) {
       const ifaceType = this.system.findInterface(iface);
       if (!result.has(ifaceType) && inherited) {
         ifaceType.getInterfaces(inherited).forEach(i => result.add(i));
@@ -62,7 +62,7 @@ export class InterfaceType extends ReferenceType {
   }
 
   public isDataType() {
-    return !!this.interfaceSpec.datatype;
+    return !!this.spec.datatype;
   }
 
   public isInterfaceType() {
@@ -77,7 +77,7 @@ export class InterfaceType extends ReferenceType {
       }
     }
     return Object.assign(base, indexBy(
-      (this.interfaceSpec.properties || []).map(p => new Property(this.system, this.assembly, parentType, this, p)),
+      (this.spec.properties || []).map(p => new Property(this.system, this.assembly, parentType, this, p)),
       p => p.name));
   }
 
@@ -89,7 +89,7 @@ export class InterfaceType extends ReferenceType {
       }
     }
     return Object.assign(base, indexBy(
-      (this.interfaceSpec.methods || []).map(m => new Method(this.system, this.assembly, parentType, this, m)),
+      (this.spec.methods || []).map(m => new Method(this.system, this.assembly, parentType, this, m)),
       m => m.name));
   }
 }

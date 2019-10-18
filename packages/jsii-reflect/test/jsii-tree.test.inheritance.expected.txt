@@ -104,6 +104,9 @@ assemblies
  │   ├── class StructPassing
  │   ├─┬ class Sum
  │   │ └── base: CompositeOperation
+ │   ├─┬ class SupportsNiceJavaBuilder
+ │   │ └── base: SupportsNiceJavaBuilderWithRequiredProps
+ │   ├── class SupportsNiceJavaBuilderWithRequiredProps
  │   ├── class SyncVirtualMethods
  │   ├── class Thrower
  │   ├─┬ class UnaryOperation
@@ -187,6 +190,7 @@ assemblies
  │   ├── interface SecondLevelStruct
  │   ├── interface StableStruct
  │   ├── interface StructWithJavaReservedWords
+ │   ├── interface SupportsNiceJavaBuilderProps
  │   ├── interface TopLevelStruct
  │   ├── interface UnionProperties
  │   ├── enum AllTypesEnum

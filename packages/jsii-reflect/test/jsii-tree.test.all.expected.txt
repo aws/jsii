@@ -1175,6 +1175,38 @@ assemblies
  │   │   │ └── type: @scope/jsii-calc-lib.Value
  │   │   └─┬ parts property (experimental)
  │   │     └── type: Array<@scope/jsii-calc-lib.Value>
+ │   ├─┬ class SupportsNiceJavaBuilder (experimental)
+ │   │ ├── base: SupportsNiceJavaBuilderWithRequiredProps
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(id,defaultBar,props) initializer (experimental)
+ │   │   │ └─┬ parameters
+ │   │   │   ├─┬ id
+ │   │   │   │ └── type: number
+ │   │   │   ├─┬ defaultBar
+ │   │   │   │ └── type: Optional<number>
+ │   │   │   └─┬ props
+ │   │   │     └── type: Optional<jsii-calc.SupportsNiceJavaBuilderProps>
+ │   │   └─┬ id property (experimental)
+ │   │     ├── immutable
+ │   │     └── type: number
+ │   ├─┬ class SupportsNiceJavaBuilderWithRequiredProps (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(id,props) initializer (experimental)
+ │   │   │ ├── protected
+ │   │   │ └─┬ parameters
+ │   │   │   ├─┬ id
+ │   │   │   │ └── type: number
+ │   │   │   └─┬ props
+ │   │   │     └── type: jsii-calc.SupportsNiceJavaBuilderProps
+ │   │   ├─┬ bar property (experimental)
+ │   │   │ ├── immutable
+ │   │   │ └── type: number
+ │   │   ├─┬ id property (experimental)
+ │   │   │ ├── immutable
+ │   │   │ └── type: number
+ │   │   └─┬ propId property (experimental)
+ │   │     ├── immutable
+ │   │     └── type: Optional<string>
  │   ├─┬ class SyncVirtualMethods (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -1731,6 +1763,16 @@ assemblies
  │   │   │ ├── immutable
  │   │   │ └── type: Optional<string>
  │   │   └─┬ that property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: Optional<string>
+ │   ├─┬ interface SupportsNiceJavaBuilderProps (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ bar property (experimental)
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: number
+ │   │   └─┬ id property (experimental)
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<string>

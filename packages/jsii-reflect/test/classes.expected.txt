@@ -81,6 +81,8 @@ Statics
 StripInternal
 StructPassing
 Sum
+SupportsNiceJavaBuilder
+SupportsNiceJavaBuilderWithRequiredProps
 SyncVirtualMethods
 Thrower
 UnaryOperation

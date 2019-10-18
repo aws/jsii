@@ -80,6 +80,8 @@ assemblies
  │   ├── class StripInternal
  │   ├── class StructPassing
  │   ├── class Sum
+ │   ├── class SupportsNiceJavaBuilder
+ │   ├── class SupportsNiceJavaBuilderWithRequiredProps
  │   ├── class SyncVirtualMethods
  │   ├── class Thrower
  │   ├── class UnaryOperation
@@ -137,6 +139,7 @@ assemblies
  │   ├── interface SecondLevelStruct
  │   ├── interface StableStruct
  │   ├── interface StructWithJavaReservedWords
+ │   ├── interface SupportsNiceJavaBuilderProps
  │   ├── interface TopLevelStruct
  │   ├── interface UnionProperties
  │   ├── enum AllTypesEnum

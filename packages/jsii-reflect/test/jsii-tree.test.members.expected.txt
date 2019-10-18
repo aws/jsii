@@ -520,6 +520,16 @@ assemblies
  │   │   ├── <initializer>() initializer
  │   │   ├── expression property
  │   │   └── parts property
+ │   ├─┬ class SupportsNiceJavaBuilder
+ │   │ └─┬ members
+ │   │   ├── <initializer>(id,defaultBar,props) initializer
+ │   │   └── id property
+ │   ├─┬ class SupportsNiceJavaBuilderWithRequiredProps
+ │   │ └─┬ members
+ │   │   ├── <initializer>(id,props) initializer
+ │   │   ├── bar property
+ │   │   ├── id property
+ │   │   └── propId property
  │   ├─┬ class SyncVirtualMethods
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -756,6 +766,10 @@ assemblies
  │   │   ├── assert property
  │   │   ├── result property
  │   │   └── that property
+ │   ├─┬ interface SupportsNiceJavaBuilderProps
+ │   │ └─┬ members
+ │   │   ├── bar property
+ │   │   └── id property
  │   ├─┬ interface TopLevelStruct
  │   │ └─┬ members
  │   │   ├── required property

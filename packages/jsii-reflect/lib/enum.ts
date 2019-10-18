@@ -8,12 +8,12 @@ export class EnumType extends Type {
   public constructor(
     public system: TypeSystem,
     public assembly: Assembly,
-    private readonly enumSpec: jsii.EnumType) {
-    super(system, assembly, enumSpec);
+    public readonly spec: jsii.EnumType) {
+    super(system, assembly, spec);
   }
 
   public get members() {
-    return this.enumSpec.members.map(m => new EnumMember(this, m));
+    return this.spec.members.map(m => new EnumMember(this, m));
   }
 
   public isEnumType() {

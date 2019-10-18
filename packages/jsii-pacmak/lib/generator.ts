@@ -5,7 +5,6 @@ import * as fs from 'fs-extra';
 import reflect = require('jsii-reflect');
 import * as spec from 'jsii-spec';
 import * as path from 'path';
-import { assemblySpec, typeSpec } from './reflect-hacks';
 import { VERSION_DESC } from './version';
 
 /**
@@ -76,7 +75,7 @@ export abstract class Generator implements IGenerator {
 
   public async load(_packageRoot: string, assembly: reflect.Assembly): Promise<void> {
     this._reflectAssembly = assembly;
-    this.assembly = assemblySpec(assembly);
+    this.assembly = assembly.spec;
 
     // Including the version of jsii-pacmak in the fingerprint, as a new version may imply different code generation.
     this.fingerprint = crypto.createHash('sha256')
@@ -516,12 +515,12 @@ export abstract class Generator implements IGenerator {
     throw new Error(`Unable to find module ${name} as a direct or indirect dependency of ${this.assembly.name}`);
   }
 
-  protected findType(fqn: string) {
+  protected findType(fqn: string): spec.Type {
     const ret = this.reflectAssembly.system.tryFindFqn(fqn);
     if (!ret) {
       throw new Error(`Cannot find type '${fqn}' either as internal or external type`);
     }
 
-    return typeSpec(ret);
+    return ret.spec;
   }
 }

@@ -8498,6 +8498,190 @@
         }
       ]
     },
+    "jsii-calc.SupportsNiceJavaBuilder": {
+      "assembly": "jsii-calc",
+      "base": "jsii-calc.SupportsNiceJavaBuilderWithRequiredProps",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.SupportsNiceJavaBuilder",
+      "initializer": {
+        "docs": {
+          "stability": "experimental"
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "type": {
+              "primitive": "number"
+            }
+          },
+          {
+            "name": "defaultBar",
+            "optional": true,
+            "type": {
+              "primitive": "number"
+            }
+          },
+          {
+            "name": "props",
+            "optional": true,
+            "type": {
+              "fqn": "jsii-calc.SupportsNiceJavaBuilderProps"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1896
+      },
+      "name": "SupportsNiceJavaBuilder",
+      "properties": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1897
+          },
+          "name": "id",
+          "overrides": "jsii-calc.SupportsNiceJavaBuilderWithRequiredProps",
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
+    },
+    "jsii-calc.SupportsNiceJavaBuilderProps": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.SupportsNiceJavaBuilderProps",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1901
+      },
+      "name": "SupportsNiceJavaBuilderProps",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1904
+          },
+          "name": "bar",
+          "type": {
+            "primitive": "number"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1903
+          },
+          "name": "id",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.SupportsNiceJavaBuilderWithRequiredProps": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "We can generate fancy builders in Java for classes which take a mix of positional & struct parameters."
+      },
+      "fqn": "jsii-calc.SupportsNiceJavaBuilderWithRequiredProps",
+      "initializer": {
+        "docs": {
+          "stability": "experimental"
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "type": {
+              "primitive": "number"
+            }
+          },
+          {
+            "name": "props",
+            "type": {
+              "fqn": "jsii-calc.SupportsNiceJavaBuilderProps"
+            }
+          }
+        ],
+        "protected": true
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1887
+      },
+      "name": "SupportsNiceJavaBuilderWithRequiredProps",
+      "properties": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1889
+          },
+          "name": "bar",
+          "type": {
+            "primitive": "number"
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1891
+          },
+          "name": "id",
+          "type": {
+            "primitive": "number"
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1888
+          },
+          "name": "propId",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.SyncVirtualMethods": {
       "assembly": "jsii-calc",
       "docs": {
@@ -9610,5 +9794,5 @@
     }
   },
   "version": "0.19.0",
-  "fingerprint": "nQMF6ipA96E38PvG3NsgKOJIb3ZEit4jNrxZAkgRlbs="
+  "fingerprint": "h53JMq2EfiZfB2ggOGU66X7HS/99LaMoh7d2NoY8qqY="
 }

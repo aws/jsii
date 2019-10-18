@@ -13,6 +13,7 @@ import { shell, Scratch } from '../util';
 import { VERSION, VERSION_DESC } from '../version';
 import { TargetBuilder, BuildOptions, allOutputDirectoriesTheSame, OneByOneBuilder } from '../builder';
 import { JsiiModule } from '../packaging';
+import { BuilderGenerator } from './java/builder-generator';
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const spdxLicenseList = require('spdx-license-list');
@@ -412,10 +413,30 @@ class JavaGenerator extends Generator {
     this.closeFileIfNeeded(cls);
   }
 
-  protected onInitializer(cls: spec.ClassType, method: spec.Method) {
+  protected onInitializer(cls: spec.ClassType, method: spec.Initializer, { isOverload = false }: { isOverload?: boolean } = {}) {
     this.code.line();
-    this.addJavaDocs(method);
-    this.emitStabilityAnnotations(method);
+
+    const builderGenerator = new BuilderGenerator(this.reflectAssembly, this.toJavaType.bind(this));
+    const emitBuilder = builderGenerator.canGenerateBuilderFor(cls);
+
+    if (emitBuilder && !isOverload) {
+      builderGenerator.emitBuilder(cls, method, this.code);
+      this.code.line();
+    }
+
+    // If needed, patching up the documentation to point users at the builder pattern
+    const documentable: spec.Initializer = emitBuilder && !method.protected
+      ? {
+        ...method,
+        docs: {
+          ...method.docs,
+          stability: spec.Stability.Deprecated,
+          deprecated: `This constructor will be made 'protected' in a future version. Use the builder at {@link ${cls.name}.Builder#create} instead.`,
+        },
+      }
+      : method;
+    this.addJavaDocs(documentable);
+    this.emitStabilityAnnotations(documentable);
 
     // Abstract classes should have protected initializers
     const initializerAccessLevel = cls.abstract ? 'protected' : this.renderAccessLevel(method);
@@ -428,7 +449,7 @@ class JavaGenerator extends Generator {
   }
 
   protected onInitializerOverload(cls: spec.ClassType, overload: spec.Method, _originalInitializer: spec.Method) {
-    this.onInitializer(cls, overload);
+    this.onInitializer(cls, overload, { isOverload: true });
   }
 
   protected onField(_cls: spec.ClassType, _prop: spec.Property, _union?: spec.UnionTypeReference) { /* noop */ }
@@ -1375,7 +1396,7 @@ class JavaGenerator extends Generator {
     }
   }
 
-  private renderMethodCallArguments(method: spec.Method) {
+  private renderMethodCallArguments(method: spec.Callable) {
     if (!method.parameters || method.parameters.length === 0) { return ''; }
     const regularParams = method.parameters.filter(p => !p.variadic);
     const values = regularParams.map(_renderParameter);
@@ -1458,7 +1479,7 @@ class JavaGenerator extends Generator {
     return statement;
   }
 
-  private renderMethodParameters(method: spec.Method) {
+  private renderMethodParameters(method: spec.Callable) {
     const params = [];
     if (method.parameters) {
       for (const p of method.parameters) {
@@ -1468,7 +1489,7 @@ class JavaGenerator extends Generator {
     return params.join(', ');
   }
 
-  private renderAccessLevel(method: spec.Method | spec.Property) {
+  private renderAccessLevel(method: spec.Callable | spec.Property) {
     return method.protected ? 'protected' : 'public';
   }
 

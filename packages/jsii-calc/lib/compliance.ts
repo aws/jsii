@@ -1880,3 +1880,26 @@ export class ClassWithCollections {
         return {'key1': 'value1', 'key2': 'value2'};
     }
 }
+
+/**
+ * We can generate fancy builders in Java for classes which take a mix of positional & struct parameters
+ */
+export class SupportsNiceJavaBuilderWithRequiredProps {
+    public readonly propId?: string;
+    public readonly bar: number;
+
+    protected constructor(public readonly id: number, props: SupportsNiceJavaBuilderProps) {
+        this.propId = props.id;
+        this.bar = props.bar;
+    }
+}
+export class SupportsNiceJavaBuilder extends SupportsNiceJavaBuilderWithRequiredProps {
+    public constructor(public readonly id: number, defaultBar = 1337, props?: SupportsNiceJavaBuilderProps) {
+        super(id, props || { bar: defaultBar });
+    }
+}
+export interface SupportsNiceJavaBuilderProps {
+    // Yep, this is terrible design, the constructor of SupportsNiceJavaBuilder already accepts an "id" parameter
+    readonly id?: string;
+    readonly bar: number;
+}

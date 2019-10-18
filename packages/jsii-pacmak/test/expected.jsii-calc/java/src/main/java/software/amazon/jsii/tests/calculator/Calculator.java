@@ -19,13 +19,70 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     }
 
     /**
+     * A builder facility for {@link Calculator}.
+     */
+    public static final class Builder {
+        private software.amazon.jsii.tests.calculator.CalculatorProps.Builder props;
+
+        /**
+         * Creates a new {@link Builder} for {@link Calculator}.
+         *
+         *
+         * @returns a new {@link Builder} instance
+         */
+        public static Builder create() {
+            return new Builder();
+        }
+
+        private Builder() {
+        }
+
+        /**
+         * Defines the value of props.initialValue
+         *
+         * @param initialValue 
+         *
+         * @returns {@code this}
+         */
+        public Builder initialValue(final java.lang.Number initialValue) {
+            if (this.props == null) {
+                this.props = software.amazon.jsii.tests.calculator.CalculatorProps.builder();
+            }
+            this.props.initialValue(initialValue);
+            return this;
+        }
+
+        /**
+         * Defines the value of props.maximumValue
+         *
+         * @param maximumValue 
+         *
+         * @returns {@code this}
+         */
+        public Builder maximumValue(final java.lang.Number maximumValue) {
+            if (this.props == null) {
+                this.props = software.amazon.jsii.tests.calculator.CalculatorProps.builder();
+            }
+            this.props.maximumValue(maximumValue);
+            return this;
+        }
+
+        /**
+         * @returns a new instance of {@link Calculator}
+         */
+        public Calculator build() {
+            return new software.amazon.jsii.tests.calculator.Calculator((this.props != null ? this.props.build() : null));
+        }
+    }
+
+    /**
      * Creates a Calculator object.
      * 
-     * EXPERIMENTAL
-     * 
+     * @deprecated This constructor will be made 'protected' in a future version. Use the builder at {@link Calculator.Builder#create} instead.
      * @param props Initialization properties.
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     public Calculator(final software.amazon.jsii.tests.calculator.CalculatorProps props) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { props }));
@@ -34,9 +91,10 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     /**
      * Creates a Calculator object.
      * 
-     * EXPERIMENTAL
+     * @deprecated This constructor will be made 'protected' in a future version. Use the builder at {@link Calculator.Builder#create} instead.
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     public Calculator() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));

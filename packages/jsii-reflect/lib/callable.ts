@@ -18,7 +18,7 @@ export abstract class Callable implements Documentable, Overridable, TypeMember,
     public readonly system: TypeSystem,
     public readonly assembly: Assembly,
     public readonly parentType: Type,
-    private readonly spec: jsii.Callable) {}
+    public readonly spec: jsii.Callable) {}
 
   /**
    * The parameters of the method/initializer
