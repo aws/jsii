@@ -6,10 +6,12 @@ import { EMPTY_OBJECT_FQN } from './serialization';
  * Symbol under which we store the { type -> objid } map on object instances
  */
 const OBJID_SYMBOL = Symbol.for('$__jsii__objid__$');
+
 /**
  * Symbol under which we store the interfaces implemented by instances
  */
 const IFACES_SYMBOL = Symbol.for('$__jsii__interfaces__$');
+
 
 /**
  * Symbol we use to tag the constructor of a JSII class
@@ -207,7 +209,6 @@ class InterfaceCollection implements Iterable<string> {
         this.addFromInterface(iface);
       }
     }
-
   }
 
   public addFromInterface(fqn: string): void {
