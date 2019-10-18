@@ -269,7 +269,7 @@ abstract class BaseMethod implements PythonBase {
   public readonly abstract: boolean;
 
   protected readonly abstract implicitParameter: string;
-  protected readonly jsiiMethod: string;
+  protected readonly jsiiMethod!: string;
   protected readonly decorator?: string;
   protected readonly classAsFirstParameter: boolean = false;
   protected readonly returnFromJSIIMethod: boolean = true;
@@ -488,8 +488,8 @@ abstract class BaseProperty implements PythonBase {
 
   protected readonly abstract decorator: string;
   protected readonly abstract implicitParameter: string;
-  protected readonly jsiiGetMethod: string;
-  protected readonly jsiiSetMethod: string;
+  protected readonly jsiiGetMethod!: string;
+  protected readonly jsiiSetMethod!: string;
   protected readonly shouldEmitBody: boolean = true;
 
   private readonly immutable: boolean;
@@ -1203,9 +1203,9 @@ class TypeResolver {
   private readonly types: Map<string, PythonType>;
   private readonly boundTo?: string;
   private readonly stdTypesRe = new RegExp('^(datetime\\.datetime|typing\\.[A-Z][a-z]+|jsii\\.Number)$');
-  private readonly boundRe: RegExp;
+  private readonly boundRe!: RegExp;
   private readonly moduleName?: string;
-  private readonly moduleRe: RegExp;
+  private readonly moduleRe!: RegExp;
   private readonly findModule: FindModuleCallback;
   private readonly findType: FindTypeCallback;
 
@@ -1412,7 +1412,7 @@ class TypeResolver {
 }
 
 class PythonGenerator extends Generator {
-  private package: Package;
+  private package!: Package;
   private readonly types: Map<string, PythonType>;
 
   public constructor(options: GeneratorOptions = {}) {
