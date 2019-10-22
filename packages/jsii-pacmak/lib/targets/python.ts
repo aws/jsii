@@ -33,13 +33,18 @@ export default class Python extends Target {
                 + 'Run `pip3 install twine` to enable distribution package validation.');
     }
 
-    // Approximating existence check using `pip3 show`. If that fails, assume twine is not there.
+    // Approximating existence check using `which`, falling back on `pip3 show`. If that fails, assume twine is not there.
     async function twineIsPresent(): Promise<boolean> {
       try {
-        const output = await shell('pip3', ['show', 'twine'], { cwd: sourceDir });
-        return output.trim() !== '';
+        await shell('which', ['twine'], { cwd: sourceDir });
+        return true;
       } catch {
-        return false;
+        try {
+          const output = await shell('pip3', ['show', 'twine'], { cwd: sourceDir });
+          return output.trim() !== '';
+        } catch {
+          return false;
+        }
       }
     }
   }
