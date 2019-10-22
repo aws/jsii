@@ -347,7 +347,7 @@ class JavaGenerator extends Generator {
 
   /** If false, @Generated will not include generator version nor timestamp */
   private emitFullGeneratorInfo?: boolean;
-  private moduleClass: string;
+  private moduleClass!: string;
 
   /**
      * A map of all the modules ever referenced during code generation. These include

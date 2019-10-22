@@ -56,11 +56,18 @@ export interface IGenerator {
 export abstract class Generator implements IGenerator {
   private readonly excludeTypes = new Array<string>();
   protected readonly code = new CodeMaker();
-  protected assembly: spec.Assembly;
+  private _assembly?: spec.Assembly;
   protected _reflectAssembly?: reflect.Assembly;
-  private fingerprint: string;
+  private fingerprint?: string;
 
   public constructor(private readonly options: GeneratorOptions = {}) {
+  }
+
+  protected get assembly(): spec.Assembly {
+    if (!this._assembly) {
+      throw new Error('No assembly has been loaded! The #load() method must be called first!');
+    }
+    return this._assembly;
   }
 
   public get reflectAssembly(): reflect.Assembly {
@@ -76,7 +83,7 @@ export abstract class Generator implements IGenerator {
 
   public async load(_packageRoot: string, assembly: reflect.Assembly): Promise<void> {
     this._reflectAssembly = assembly;
-    this.assembly = assemblySpec(assembly);
+    this._assembly = assemblySpec(assembly);
 
     // Including the version of jsii-pacmak in the fingerprint, as a new version may imply different code generation.
     this.fingerprint = crypto.createHash('sha256')
