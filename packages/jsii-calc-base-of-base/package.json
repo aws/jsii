@@ -1,6 +1,6 @@
 {
   "name": "@scope/jsii-calc-base-of-base",
-  "version": "0.18.0",
+  "version": "0.19.0",
   "private": true,
   "description": "An example transitive dependency for jsii-calc.",
   "license": "Apache-2.0",
@@ -28,8 +28,8 @@
     "test": "diff-test test/assembly.jsii .jsii"
   },
   "devDependencies": {
-    "jsii": "^0.18.0",
-    "jsii-build-tools": "file:../jsii-build-tools"
+    "jsii": "^0.19.0",
+    "jsii-build-tools": "^0.19.0"
   },
   "jsii": {
     "outdir": "dist",
@@ -48,8 +48,7 @@
       "python": {
         "distName": "scope.jsii-calc-base-of-base",
         "module": "scope.jsii_calc_base_of_base"
-      },
-      "sphinx": {}
+      }
     },
     "versionFormat": "short"
   }

@@ -1,6 +1,6 @@
 {
   "name": "jsii-reflect",
-  "version": "0.18.0",
+  "version": "0.19.0",
   "description": "strongly-typed reflection library and tools for jsii",
   "license": "Apache-2.0",
   "author": {
@@ -34,23 +34,23 @@
   "dependencies": {
     "colors": "^1.4.0",
     "fs-extra": "^8.1.0",
-    "jsii-spec": "^0.18.0",
-    "oo-ascii-tree": "^0.18.0",
-    "yargs": "^14.0.0"
+    "jsii-spec": "^0.19.0",
+    "oo-ascii-tree": "^0.19.0",
+    "yargs": "^14.2.0"
   },
   "devDependencies": {
-    "@scope/jsii-calc-lib": "file:../jsii-calc-lib",
-    "@types/fs-extra": "^8.0.0",
-    "@types/jest": "^24.0.18",
+    "@scope/jsii-calc-lib": "^0.19.0",
+    "@types/fs-extra": "^8.0.1",
+    "@types/jest": "^24.0.19",
     "@types/yargs": "^13.0.3",
-    "@typescript-eslint/eslint-plugin": "^2.3.1",
-    "@typescript-eslint/parser": "^2.3.1",
-    "eslint": "^6.5.0",
+    "@typescript-eslint/eslint-plugin": "^2.5.0",
+    "@typescript-eslint/parser": "^2.5.0",
+    "eslint": "^6.5.1",
     "jest": "^24.9.0",
-    "jsii": "^0.18.0",
-    "jsii-build-tools": "file:../jsii-build-tools",
-    "jsii-calc": "file:../jsii-calc",
-    "typescript": "~3.6.3"
+    "jsii": "^0.19.0",
+    "jsii-build-tools": "^0.19.0",
+    "jsii-calc": "^0.19.0",
+    "typescript": "~3.6.4"
   },
   "jest": {
     "collectCoverage": true,

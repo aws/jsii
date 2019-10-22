@@ -1,6 +1,6 @@
 {
   "name": "jsii-java-runtime-test",
-  "version": "0.18.0",
+  "version": "0.19.0",
   "private": true,
   "description": "Tests for the Java client for jsii runtime",
   "license": "Apache-2.0",
@@ -27,8 +27,8 @@
     "test": "cd project && mvn -B test --settings=user.xml"
   },
   "devDependencies": {
-    "jsii-calc": "file:../jsii-calc",
-    "jsii-java-runtime": "file:../jsii-java-runtime",
-    "jsii-pacmak": "^0.18.0"
+    "jsii-calc": "^0.19.0",
+    "jsii-java-runtime": "^0.19.0",
+    "jsii-pacmak": "^0.19.0"
   }
 }

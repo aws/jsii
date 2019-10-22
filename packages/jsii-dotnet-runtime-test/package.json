@@ -1,6 +1,6 @@
 {
   "name": "jsii-dotnet-runtime-test",
-  "version": "0.18.0",
+  "version": "0.19.0",
   "private": true,
   "description": "Tests for the .NET client for jsii runtime",
   "license": "Apache-2.0",
@@ -29,9 +29,9 @@
     "test": "/bin/bash ./test.sh"
   },
   "devDependencies": {
-    "jsii-calc": "file:../jsii-calc",
-    "jsii-dotnet-runtime": "file:../jsii-dotnet-runtime",
-    "jsii-pacmak": "^0.18.0",
-    "typescript": "~3.6.3"
+    "jsii-calc": "^0.19.0",
+    "jsii-dotnet-runtime": "^0.19.0",
+    "jsii-pacmak": "^0.19.0",
+    "typescript": "~3.6.4"
   }
 }

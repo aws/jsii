@@ -60,7 +60,9 @@ export class FileGenerator {
     propertyGroup.ele('PackageId', packageId);
     propertyGroup.ele('Description', this.getDescription());
     propertyGroup.ele('ProjectUrl', assembly.homepage);
-    propertyGroup.ele('LicenseUrl', `https://spdx.org/licenses/${assembly.license}.html`);
+    propertyGroup.ele('RepositoryUrl', assembly.repository.url);
+    propertyGroup.ele('RepositoryType', assembly.repository.type);
+    propertyGroup.ele('PackageLicenseExpression', assembly.license);
     propertyGroup.ele('Authors', assembly.author.name);
     propertyGroup.ele('Language', 'en-US');
 

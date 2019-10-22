@@ -6,34 +6,12 @@ contributions. Please read it carefully and let us know if it's not up-to date
 (or even better, submit a pull request with your corrections! :wink:).
 
 ## Pre-requisites
-### Toolchain Requirements
+### Setup Docker image
 Due to the polyglot nature of `jsii`, the toolchain requirements are somewhat
 more complicated than for most projects. In order to locally develop `jsii`, you
-will need the following tools:
+will need a number of tools.
 
-- [Node `8.11.0`] or later
-- An OpenJDK-8 distribution (e.g: [Oracle's OpenJDK8], [Amazon Corretto 8])
-  + [`maven >= 3.0.5`](https://maven.apache.org)
-- [.NET Core `2.0`] or later
-  + *Recommended:* [`mono >= 5`](https://www.mono-project.com)
-- [Python `3.6.5`] or later
-  + [`pip`](https://pip.pypa.io/en/stable/installing/)
-  + [`setuptools >= 38.6.0`](https://pypi.org/project/setuptools/)
-  + [`wheel`](https://pypi.org/project/wheel/)
-  + *Recommended:* [`twine`](https://pypi.org/project/twine/)
-- [Ruby `2.4.4p296`] or later
-  + [`bundler ~> 1.17.2`](https://bundler.io)
-
-[Node `8.11.0`]: https://nodejs.org/download/release/v8.11.0/
-[Oracle's OpenJDK8]: http://openjdk.java.net/install/
-[Amazon Corretto 8]: https://aws.amazon.com/corretto/
-[.NET Core `2.0`]: https://www.microsoft.com/net/download
-[Python `3.6.5`]: https://www.python.org/downloads/release/python-365/
-[Ruby `2.4.4p296`]: https://www.ruby-lang.org/en/news/2018/03/28/ruby-2-5-1-released/
-
-### Alterative: build in Docker
-
-We have built a Docker image with all the required tool, which we are using for
+We have built a Docker image with all the required tools, which we are using for
 our own CI/CD: the ["superchain" image][superchain] from.
 
 [superchain]: https://github.com/aws/jsii/blob/master/superchain/Dockerfile
@@ -53,7 +31,35 @@ $ cd jsii # go to the root of the jsii repo
 $ docker run --rm --net=host -it -v $PWD:$PWD -w $PWD ${IMAGE}
 ```
 
-You can then run `npm run build` as described below.
+In the shell that pops up, the `npm run` commands in the following sections must
+be executed.
+
+### Alternative: Manually install the toolchain
+The following tools need to be installed to develop on JSII locally. We recommend
+using the docker image from the above section, but if you wish to, you can install
+in your development environment.
+
+- [Node `8.11.0`] or later
+- [Yarn `1.19.1`] or later
+- An OpenJDK-8 distribution (e.g: [Oracle's OpenJDK8], [Amazon Corretto 8])
+  + [`maven >= 3.0.5`](https://maven.apache.org)
+- [.NET Core `2.1`] or later
+  + *Recommended:* [`mono >= 5`](https://www.mono-project.com)
+- [Python `3.6.5`] or later
+  + [`pip`](https://pip.pypa.io/en/stable/installing/)
+  + [`setuptools >= 38.6.0`](https://pypi.org/project/setuptools/)
+  + [`wheel`](https://pypi.org/project/wheel/)
+  + *Recommended:* [`twine`](https://pypi.org/project/twine/)
+- [Ruby `2.4.4p296`] or later
+  + [`bundler ~> 1.17.2`](https://bundler.io)
+
+[Node `8.11.0`]: https://nodejs.org/download/release/v8.11.0/
+[Yarn `1.19.1`]: https://yarnpkg.com/en/docs/install
+[Oracle's OpenJDK8]: http://openjdk.java.net/install/
+[Amazon Corretto 8]: https://aws.amazon.com/corretto/
+[.NET Core `2.0`]: https://www.microsoft.com/net/download
+[Python `3.6.5`]: https://www.python.org/downloads/release/python-365/
+[Ruby `2.4.4p296`]: https://www.ruby-lang.org/en/news/2018/03/28/ruby-2-5-1-released/
 
 ## Getting Started
 ### Bootstrapping
@@ -63,9 +69,9 @@ The project is managed as a [monorepo] using [lerna].
 [monorepo]: https://github.com/babel/babel/blob/master/doc/design/monorepo.md
 [lerna]: https://github.com/lerna/lerna
 
-1. Check out this repository.
-2. Run `npm run build` to install lerna, bootstrap the repository and perform an
-   initial build and test cycle.
+1. Check out this respository and change directory to its root.
+2. Run `yarn install && yarn build` to install lerna, bootstrap the repository
+   and perform an initial build and test cycle.
 
 ### Development Workflow
 
@@ -79,20 +85,20 @@ All packages within this repository have the following scripts:
 
 Each one of these scripts can be executed either from the root of the repo using
 `npx lerna run <script> --scope <package>` or from individual modules using
-`npm run <script>`.
+`yarn <script>`.
 
 ### Bump
 
-To bump the version of this repository, use the [`npm run bump`] script.
+To bump the version of this repository, use the [`yarn bump`] script.
 
-[`npm run bump`]: ./scripts/bump.sh
+[`yarn bump`]: ./scripts/bump.sh
 
 ### Packaging and Bundling
 
-This repository emits artifacts in multiple languages. The [`npm run package`]
+This repository emits artifacts in multiple languages. The [`yarn package`]
 script is used to prepare the repository for publishing.
 
-[`npm run package`]: ./scripts/package.sh
+[`yarn package`]: ./scripts/package.sh
 
 Each module that needs to be published implements an npm script called `package`
 which emits publishable artifacts to `dist/<lang>` (e.g. `dist/dotnet` for

@@ -9,7 +9,7 @@
   },
   "description": "An example transitive dependency for jsii-calc.",
   "homepage": "https://github.com/aws/jsii",
-  "jsiiVersion": "0.18.0",
+  "jsiiVersion": "0.19.0",
   "license": "Apache-2.0",
   "name": "@scope/jsii-calc-base-of-base",
   "repository": {
@@ -36,8 +36,7 @@
     "python": {
       "distName": "scope.jsii-calc-base-of-base",
       "module": "scope.jsii_calc_base_of_base"
-    },
-    "sphinx": {}
+    }
   },
   "types": {
     "@scope/jsii-calc-base-of-base.IVeryBaseInterface": {
@@ -111,6 +110,6 @@
       ]
     }
   },
-  "version": "0.18.0",
-  "fingerprint": "aJVeOaUMo+advwcNzx0gGiF/YtVxshFCCs6lFsqxioU="
+  "version": "0.19.0",
+  "fingerprint": "Vlx00ifa2hokcWUTvyArHMvCacQmjgyYtwy0zEWGZo0="
 }

@@ -13,7 +13,7 @@ fi
 
 git clean -fqdx
 
-/bin/bash ${scriptdir}/bootstrap.sh
+yarn install
 
 node_modules/.bin/lerna publish --force-publish=* --skip-npm --skip-git --conventional-commits --repo-version ${ver}
 
@@ -21,8 +21,8 @@ node_modules/.bin/lerna publish --force-publish=* --skip-npm --skip-git --conven
 # to match their corresponding "dependencies" version requirement
 find . -name package.json | grep -v node_modules | xargs node scripts/sync-peer-deps.js
 
-node_modules/.bin/lerna run build --stream --sort
+yarn build
 
 # update test expectations
-UPDATE_DIFF=1 node_modules/.bin/lerna run test --stream --sort
+UPDATE_DIFF=1 yarn test
 

@@ -8,7 +8,7 @@
     "url": "https://aws.amazon.com"
   },
   "bundled": {
-    "jsii-calc-bundled": "^0.18.0"
+    "jsii-calc-bundled": "^0.19.0"
   },
   "contributors": [
     {
@@ -53,10 +53,9 @@
         "python": {
           "distName": "scope.jsii-calc-base",
           "module": "scope.jsii_calc_base"
-        },
-        "sphinx": {}
+        }
       },
-      "version": "0.18.0"
+      "version": "0.19.0"
     },
     "@scope/jsii-calc-base-of-base": {
       "targets": {
@@ -77,10 +76,9 @@
         "python": {
           "distName": "scope.jsii-calc-base-of-base",
           "module": "scope.jsii_calc_base_of_base"
-        },
-        "sphinx": {}
+        }
       },
-      "version": "0.18.0"
+      "version": "0.19.0"
     },
     "@scope/jsii-calc-lib": {
       "targets": {
@@ -103,10 +101,9 @@
         "python": {
           "distName": "scope.jsii-calc-lib",
           "module": "scope.jsii_calc_lib"
-        },
-        "sphinx": {}
+        }
       },
-      "version": "0.18.0"
+      "version": "0.19.0"
     }
   },
   "dependencyClosure": {
@@ -129,10 +126,9 @@
         "python": {
           "distName": "scope.jsii-calc-base",
           "module": "scope.jsii_calc_base"
-        },
-        "sphinx": {}
+        }
       },
-      "version": "0.18.0"
+      "version": "0.19.0"
     },
     "@scope/jsii-calc-base-of-base": {
       "targets": {
@@ -153,10 +149,9 @@
         "python": {
           "distName": "scope.jsii-calc-base-of-base",
           "module": "scope.jsii_calc_base_of_base"
-        },
-        "sphinx": {}
+        }
       },
-      "version": "0.18.0"
+      "version": "0.19.0"
     },
     "@scope/jsii-calc-lib": {
       "targets": {
@@ -179,10 +174,9 @@
         "python": {
           "distName": "scope.jsii-calc-lib",
           "module": "scope.jsii_calc_lib"
-        },
-        "sphinx": {}
+        }
       },
-      "version": "0.18.0"
+      "version": "0.19.0"
     }
   },
   "description": "A simple calcuator built on JSII.",
@@ -190,7 +184,7 @@
     "stability": "experimental"
   },
   "homepage": "https://github.com/aws/jsii",
-  "jsiiVersion": "0.18.0",
+  "jsiiVersion": "0.19.0",
   "license": "Apache-2.0",
   "metadata": {
     "jsii:boolean": true,
@@ -228,8 +222,7 @@
     "python": {
       "distName": "jsii-calc",
       "module": "jsii_calc"
-    },
-    "sphinx": {}
+    }
   },
   "types": {
     "jsii-calc.AbstractClass": {
@@ -9616,6 +9609,6 @@
       "namespace": "composition.CompositeOperation"
     }
   },
-  "version": "0.18.0",
-  "fingerprint": "SHYFhf9FerKA1eMLETUQkkFUWup2K/nZQxqfgpwC23A="
+  "version": "0.19.0",
+  "fingerprint": "nQMF6ipA96E38PvG3NsgKOJIb3ZEit4jNrxZAkgRlbs="
 }

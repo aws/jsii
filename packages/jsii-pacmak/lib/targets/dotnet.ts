@@ -68,7 +68,7 @@ export default class Dotnet extends Target {
     // into the same output. NuGet throws an error if a source directory doesn't exist, so we check
     // before adding it to the list.
     if (await fs.pathExists(currentOutputDirectory)) {
-      localRepos.push(currentOutputDirectory);
+      localRepos.push(path.resolve(process.cwd(), currentOutputDirectory));
     }
 
     // If dotnet-jsonmodel is checked-out and we can find a local repository, add it to the list.

@@ -3,16 +3,18 @@ version: 0.2
 phases:
   install:
     commands:
-      - npm run bootstrap
+      # Temporarily - install yarn if it's not there already
+      - yarn --version || npm install --global yarn
+      - yarn install --frozen-lockfile
   pre_build:
     commands:
-      - npm run fetch-dotnet-snk
+      - yarn fetch-dotnet-snk
   build:
     commands:
-      - npm run build
+      - yarn build && yarn test
   post_build:
     commands:
-      - '[ ${CODEBUILD_BUILD_SUCCEEDING} = 1 ] && npm run package'
+      - '[ ${CODEBUILD_BUILD_SUCCEEDING} = 1 ] && yarn package'
 artifacts:
   files:
     - "**/*"

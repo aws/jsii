@@ -6,23 +6,25 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <IncludeSource>true</IncludeSource>
-    <PackageVersion>0.18.0</PackageVersion>
+    <PackageVersion>0.19.0</PackageVersion>
     <PackageId>Amazon.JSII.Tests.CalculatorPackageId</PackageId>
     <Description>A simple calcuator built on JSII. (Stability: Experimental)</Description>
     <ProjectUrl>https://github.com/aws/jsii</ProjectUrl>
-    <LicenseUrl>https://spdx.org/licenses/Apache-2.0.html</LicenseUrl>
+    <RepositoryUrl>https://github.com/aws/jsii.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <Authors>Amazon Web Services</Authors>
     <Language>en-US</Language>
     <PackageIconUrl>https://sdk-for-net.amazonwebservices.com/images/AWSLogo128x128.png</PackageIconUrl>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="jsii-calc-0.18.0.tgz"/>
+    <EmbeddedResource Include="jsii-calc-0.19.0.tgz"/>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Amazon.JSII.Runtime" Version="0.18.0"/>
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" Version="0.18.0"/>
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="0.18.0"/>
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" Version="0.18.0-devpreview"/>
+    <PackageReference Include="Amazon.JSII.Runtime" Version="0.19.0"/>
+    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" Version="0.19.0"/>
+    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="0.19.0"/>
+    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.LibPackageId" Version="0.19.0-devpreview"/>
   </ItemGroup>
 </Project>
 

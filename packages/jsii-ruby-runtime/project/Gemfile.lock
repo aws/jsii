@@ -1,19 +1,19 @@
 PATH
   remote: .
   specs:
-    jsii_runtime (0.18.0)
+    jsii_runtime (0.19.0)
 
 GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.0)
     jaro_winkler (1.5.3)
-    parallel (1.17.0)
-    parser (2.6.3.0)
+    parallel (1.18.0)
+    parser (2.6.5.0)
       ast (~> 2.4.0)
     power_assert (1.1.5)
     rainbow (3.0.0)
-    rubocop (0.74.0)
+    rubocop (0.75.1)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.6)
@@ -30,7 +30,7 @@ PLATFORMS
 
 DEPENDENCIES
   jsii_runtime!
-  rubocop (~> 0.74.0)
+  rubocop (~> 0.75.1)
   test-unit (~> 3.3.3)
 
 BUNDLED WITH

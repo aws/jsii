@@ -3,6 +3,7 @@ import path = require('path');
 import { CodeMaker, toSnakeCase } from 'codemaker';
 import * as escapeStringRegexp from 'escape-string-regexp';
 import * as reflect from 'jsii-reflect';
+import * as sampiler from 'jsii-sampiler';
 import * as spec from 'jsii-spec';
 import { Stability } from 'jsii-spec';
 import { Generator, GeneratorOptions } from '../generator';
@@ -237,7 +238,7 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     const bases = classParams.length > 0 ? `(${classParams.join(', ')})` : '';
 
     code.openBlock(`class ${this.pythonName}${bases}`);
-    emitDocString(code, this.docs);
+    emitDocString(code, this.docs, { documentableItem: `class-${this.pythonName}` });
 
     this.emitPreamble(code, resolver);
 
@@ -273,7 +274,7 @@ abstract class BaseMethod implements PythonBase {
   public readonly abstract: boolean;
 
   protected readonly abstract implicitParameter: string;
-  protected readonly jsiiMethod: string;
+  protected readonly jsiiMethod!: string;
   protected readonly decorator?: string;
   protected readonly classAsFirstParameter: boolean = false;
   protected readonly returnFromJSIIMethod: boolean = true;
@@ -394,7 +395,7 @@ abstract class BaseMethod implements PythonBase {
     }
 
     code.openBlock(`def ${this.pythonName}(${pythonParams.join(', ')}) -> ${returnType}`);
-    emitDocString(code, this.docs, { arguments: documentableArgs });
+    emitDocString(code, this.docs, { arguments: documentableArgs, documentableItem: `method-${this.pythonName}` });
     this.emitBody(code, resolver, renderAbstract, forceEmitBody);
     code.closeBlock();
   }
@@ -492,8 +493,8 @@ abstract class BaseProperty implements PythonBase {
 
   protected readonly abstract decorator: string;
   protected readonly abstract implicitParameter: string;
-  protected readonly jsiiGetMethod: string;
-  protected readonly jsiiSetMethod: string;
+  protected readonly jsiiGetMethod!: string;
+  protected readonly jsiiSetMethod!: string;
   protected readonly shouldEmitBody: boolean = true;
 
   private readonly immutable: boolean;
@@ -522,7 +523,7 @@ abstract class BaseProperty implements PythonBase {
       code.line('@abc.abstractmethod');
     }
     code.openBlock(`def ${this.pythonName}(${this.implicitParameter}) -> ${pythonType}`);
-    emitDocString(code, this.docs);
+    emitDocString(code, this.docs, { documentableItem: `prop-${this.pythonName}` });
     if ((this.shouldEmitBody || forceEmitBody) && (!renderAbstract || !this.abstract)) {
       code.line(`return jsii.${this.jsiiGetMethod}(${this.implicitParameter}, "${this.jsName}")`);
     } else {
@@ -558,7 +559,7 @@ class Interface extends BasePythonClassType {
     resolver = this.fqn ? resolver.bind(this.fqn) : resolver;
     const proxyBases: string[] = this.bases.map(b => `jsii.proxy_for(${resolver.resolve({ type: b })})`);
     code.openBlock(`class ${this.getProxyClassName()}(${proxyBases.join(', ')})`);
-    emitDocString(code, this.docs);
+    emitDocString(code, this.docs, { documentableItem: `class-${this.pythonName}` });
     code.line(`__jsii_type__ = "${this.fqn}"`);
 
     if (this.members.length > 0) {
@@ -681,7 +682,7 @@ class Struct extends BasePythonClassType {
       name: m.pythonName,
       docs: m.docs,
     }));
-    emitDocString(code, this.docs, { arguments: args });
+    emitDocString(code, this.docs, { arguments: args, documentableItem: `class-${this.pythonName}` });
   }
 
   private emitGetter(member: StructField, code: CodeMaker, resolver: TypeResolver) {
@@ -752,13 +753,13 @@ class StructField implements PythonBase {
   }
 
   public emitDocString(code: CodeMaker) {
-    emitDocString(code, this.docs);
+    emitDocString(code, this.docs, { documentableItem: `prop-${this.pythonName}` });
   }
 
   public emit(code: CodeMaker, resolver: TypeResolver) {
     const resolvedType = this.typeAnnotation(resolver);
     code.line(`${this.pythonName}: ${resolvedType}`);
-    emitDocString(code, this.docs);
+    this.emitDocString(code);
   }
 }
 
@@ -937,7 +938,7 @@ class EnumMember implements PythonBase {
 
   public emit(code: CodeMaker, _resolver: TypeResolver) {
     code.line(`${this.pythonName} = "${this.value}"`);
-    emitDocString(code, this.docs);
+    emitDocString(code, this.docs, { documentableItem: `enum-${this.pythonName}` });
   }
 }
 
@@ -1129,7 +1130,9 @@ class Package {
     }
 
     code.openFile('README.md');
-    code.line(this.metadata.readme && this.metadata.readme.markdown);
+    if (this.metadata.readme) {
+      code.line(convertSnippetsInMarkdown(this.metadata.readme.markdown, 'README.md'));
+    }
     code.closeFile('README.md');
 
     // Strip " (build abcdef)" from the jsii version
@@ -1205,9 +1208,9 @@ class TypeResolver {
   private readonly types: Map<string, PythonType>;
   private readonly boundTo?: string;
   private readonly stdTypesRe = new RegExp('^(datetime\\.datetime|typing\\.[A-Z][a-z]+|jsii\\.Number)$');
-  private readonly boundRe: RegExp;
+  private readonly boundRe!: RegExp;
   private readonly moduleName?: string;
-  private readonly moduleRe: RegExp;
+  private readonly moduleRe!: RegExp;
   private readonly findModule: FindModuleCallback;
   private readonly findType: FindTypeCallback;
 
@@ -1414,7 +1417,7 @@ class TypeResolver {
 }
 
 class PythonGenerator extends Generator {
-  private package: Package;
+  private package!: Package;
   private readonly types: Map<string, PythonType>;
 
   public constructor(options: GeneratorOptions = {}) {
@@ -1769,6 +1772,7 @@ interface DocumentableArgument {
 
 function emitDocString(code: CodeMaker, docs: spec.Docs | undefined, options: {
   arguments?: DocumentableArgument[];
+  documentableItem?: string;
 } = {}) {
   if ((!docs || Object.keys(docs).length === 0) && !options.arguments) { return; }
   if (!docs) { docs = {}; }
@@ -1804,7 +1808,7 @@ function emitDocString(code: CodeMaker, docs: spec.Docs | undefined, options: {
 
   if (docs.remarks) {
     brk();
-    lines.push(...md2rst(docs.remarks || '').split('\n'));
+    lines.push(...md2rst(convertSnippetsInMarkdown(docs.remarks || '', options.documentableItem || 'docstring')).split('\n'));
     brk();
   }
 
@@ -1832,7 +1836,9 @@ function emitDocString(code: CodeMaker, docs: spec.Docs | undefined, options: {
   if (docs.example) {
     brk();
     lines.push('Example::');
-    for (const line of docs.example.split('\n')) {
+    const exampleText = convertExample(docs.example, options.documentableItem || 'example');
+
+    for (const line of exampleText.split('\n')) {
       lines.push(`    ${line}`);
     }
     brk();
@@ -1879,4 +1885,25 @@ function isStruct(typeSystem: reflect.TypeSystem, ref: spec.TypeReference): bool
   if (!spec.isNamedTypeReference(ref)) { return false; }
   const type = typeSystem.tryFindFqn(ref.fqn);
   return type !== undefined && type.isInterfaceType() && type.isDataType();
+}
+
+const pythonTranslator = new sampiler.PythonVisitor({
+  disclaimer: 'Example may have issues. See https://github.com/aws/jsii/issues/826'
+});
+
+function convertExample(example: string, filename: string): string {
+  const source = new sampiler.LiteralSource(example, filename);
+  const result = sampiler.translateTypeScript(source, pythonTranslator);
+  sampiler.printDiagnostics(result.diagnostics, process.stderr);
+  return sampiler.renderTree(result.tree);
+}
+
+function convertSnippetsInMarkdown(markdown: string, filename: string): string {
+  const source = new sampiler.LiteralSource(markdown, filename);
+  const result = sampiler.translateMarkdown(source, pythonTranslator, {
+    languageIdentifier: 'python'
+  });
+  // FIXME: This should translate into an exit code somehow
+  sampiler.printDiagnostics(result.diagnostics, process.stderr);
+  return sampiler.renderTree(result.tree);
 }

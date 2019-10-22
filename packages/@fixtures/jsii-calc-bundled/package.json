@@ -1,0 +1,23 @@
+{
+  "name": "jsii-calc-bundled",
+  "version": "0.19.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com"
+  },
+  "homepage": "https://github.com/aws/jsii",
+  "bugs": {
+    "url": "https://github.com/aws/jsii/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws/jsii.git",
+    "directory": "packages/jsii-calc-bundled"
+  },
+  "engines": {
+    "node": ">= 10.3.0"
+  },
+  "main": "index.js"
+}

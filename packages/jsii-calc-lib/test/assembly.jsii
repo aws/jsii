@@ -27,10 +27,9 @@
         "python": {
           "distName": "scope.jsii-calc-base",
           "module": "scope.jsii_calc_base"
-        },
-        "sphinx": {}
+        }
       },
-      "version": "0.18.0"
+      "version": "0.19.0"
     }
   },
   "dependencyClosure": {
@@ -53,10 +52,9 @@
         "python": {
           "distName": "scope.jsii-calc-base",
           "module": "scope.jsii_calc_base"
-        },
-        "sphinx": {}
+        }
       },
-      "version": "0.18.0"
+      "version": "0.19.0"
     },
     "@scope/jsii-calc-base-of-base": {
       "targets": {
@@ -77,10 +75,9 @@
         "python": {
           "distName": "scope.jsii-calc-base-of-base",
           "module": "scope.jsii_calc_base_of_base"
-        },
-        "sphinx": {}
+        }
       },
-      "version": "0.18.0"
+      "version": "0.19.0"
     }
   },
   "description": "A simple calcuator library built on JSII.",
@@ -89,7 +86,7 @@
     "stability": "deprecated"
   },
   "homepage": "https://github.com/aws/jsii",
-  "jsiiVersion": "0.18.0",
+  "jsiiVersion": "0.19.0",
   "license": "Apache-2.0",
   "name": "@scope/jsii-calc-lib",
   "repository": {
@@ -118,8 +115,7 @@
     "python": {
       "distName": "scope.jsii-calc-lib",
       "module": "scope.jsii_calc_lib"
-    },
-    "sphinx": {}
+    }
   },
   "types": {
     "@scope/jsii-calc-lib.EnumFromScopedModule": {
@@ -542,6 +538,6 @@
       ]
     }
   },
-  "version": "0.18.0",
-  "fingerprint": "PY3nQSEHAvTu6XRGsKM9EepOQp7KxT2c4CT3UggvG58="
+  "version": "0.19.0",
+  "fingerprint": "rS2rGvy6Ma6wo/1JfCpR21CQsx8P5YmdtrxJ5EjgXxs="
 }
