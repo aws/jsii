@@ -27,5 +27,8 @@
     "nohoist": [
       "**/jsii-calc-bundled"
     ]
+  },
+  "dependencies": {
+    "yarn": "^1.19.1"
   }
 }
