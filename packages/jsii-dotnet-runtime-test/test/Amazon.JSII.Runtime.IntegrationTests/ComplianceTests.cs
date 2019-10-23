@@ -11,6 +11,8 @@ using Xunit.Abstractions;
 
 [assembly: CollectionBehavior(DisableTestParallelization = true)]
 
+#pragma warning disable CS0612
+
 namespace Amazon.JSII.Runtime.IntegrationTests
 {
     /// <summary>

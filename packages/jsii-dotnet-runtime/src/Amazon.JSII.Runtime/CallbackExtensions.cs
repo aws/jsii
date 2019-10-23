@@ -168,7 +168,7 @@ namespace Amazon.JSII.Runtime
         }
     }
 
-    internal class CallbackResult : OptionalValue
+    internal sealed class CallbackResult : OptionalValue
     {
         public CallbackResult(IOptionalValue optionalValue, object value)
             : this(optionalValue?.Type, optionalValue?.IsOptional ?? false, value) {}

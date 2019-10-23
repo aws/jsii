@@ -3,7 +3,7 @@ using Amazon.JSII.JsonModel.Api.Response;
 
 namespace Amazon.JSII.Runtime
 {
-    public class JsiiException : Exception
+    public sealed class JsiiException : Exception
     {
         public ErrorResponse ErrorResponse { get; }
 
