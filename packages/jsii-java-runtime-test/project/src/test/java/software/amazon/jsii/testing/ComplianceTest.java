@@ -3,6 +3,7 @@ package software.amazon.jsii.testing;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.Test;
+import software.amazon.jsii.JsiiEngine;
 import software.amazon.jsii.JsiiException;
 import software.amazon.jsii.tests.calculator.*;
 import software.amazon.jsii.tests.calculator.composition.CompositeOperation;
@@ -586,10 +587,16 @@ public class ComplianceTest {
 
     @Test(expected = JsiiException.class)
     public void fail_syncOverrides_callsDoubleAsync_method() {
-        SyncOverrides obj = new SyncOverrides();
-        obj.callAsync = true;
+        try {
+            JsiiEngine.setQuietMode(true);
 
-        obj.callerIsMethod();
+            SyncOverrides obj = new SyncOverrides();
+            obj.callAsync = true;
+
+            obj.callerIsMethod();
+        } finally {
+            JsiiEngine.setQuietMode(false);
+        }
     }
 
     @Test(expected = JsiiException.class)
@@ -1307,14 +1314,44 @@ public class ComplianceTest {
     }
 
     @Test
-    public void canOverrideProtectedMember() {
-        final String challenge = "Cthylhu Fhtagn!";
+    public void canOverrideProtectedMethod() {
+        final String challenge = "Cthulhu Fhtagn!";
         final OverridableProtectedMember overridden = new OverridableProtectedMember() {
             @Override
             protected String overrideMe() {
                 return challenge;
             }
         };
+        assertEquals(challenge, overridden.valueFromProtected());
+    }
+
+    @Test
+    public void canOverrideProtectedGetter() {
+        final String challenge = "Cthulhu Fhtagn!";
+        final OverridableProtectedMember overridden = new OverridableProtectedMember() {
+            @Override
+            protected String getOverrideReadOnly() {
+                return "Cthulhu ";
+            }
+
+            @Override
+            protected String getOverrideReadWrite() {
+                return "Fhtagn!";
+            }
+        };
+        assertEquals(challenge, overridden.valueFromProtected());
+    }
+
+    @Test
+    public void canOverrideProtectedSetter() {
+        final String challenge = "Bazzzzzzzzzzzaar...";
+        final OverridableProtectedMember overridden = new OverridableProtectedMember() {
+            @Override
+            protected void setOverrideReadWrite(String value) {
+                super.setOverrideReadWrite("zzzzzzzzz" + value);
+            }
+        };
+        overridden.switchModes();
         assertEquals(challenge, overridden.valueFromProtected());
     }
 
