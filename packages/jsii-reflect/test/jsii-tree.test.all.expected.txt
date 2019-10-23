@@ -890,6 +890,14 @@ assemblies
  │   │   └─┬ fieldValue property (experimental)
  │   │     ├── immutable
  │   │     └── type: Optional<string>
+ │   ├─┬ class OverridableProtectedMember (experimental)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ overrideMe() method (experimental)
+ │   │   │ ├── protected
+ │   │   │ └── returns: string
+ │   │   └─┬ valueFromProtected() method (experimental)
+ │   │     └── returns: string
  │   ├─┬ class OverrideReturnsObject (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)

@@ -422,7 +422,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
      * @return a {@link Method}.
      */
     private Method findCallbackMethod(final Class<?> klass, final String signature) {
-        for (Method method : klass.getMethods()) {
+        for (Method method : klass.getDeclaredMethods()) {
 
             if (method.toString().equals(signature)) {
                 // found!

@@ -400,6 +400,11 @@ assemblies
  │   │   ├── <initializer>(optionalStruct) initializer
  │   │   ├── parameterWasUndefined property
  │   │   └── fieldValue property
+ │   ├─┬ class OverridableProtectedMember
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── overrideMe() method
+ │   │   └── valueFromProtected() method
  │   ├─┬ class OverrideReturnsObject
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer

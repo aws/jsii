@@ -4,61 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.Test;
 import software.amazon.jsii.JsiiException;
-import software.amazon.jsii.tests.calculator.AbstractClass;
-import software.amazon.jsii.tests.calculator.AbstractClassReturner;
-import software.amazon.jsii.tests.calculator.Add;
-import software.amazon.jsii.tests.calculator.AllTypes;
-import software.amazon.jsii.tests.calculator.AllTypesEnum;
-import software.amazon.jsii.tests.calculator.AsyncVirtualMethods;
-import software.amazon.jsii.tests.calculator.Calculator;
-import software.amazon.jsii.tests.calculator.CalculatorProps;
-import software.amazon.jsii.tests.calculator.ClassWithCollections;
-import software.amazon.jsii.tests.calculator.ClassWithJavaReservedWords;
-import software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties;
-import software.amazon.jsii.tests.calculator.Constructors;
-import software.amazon.jsii.tests.calculator.DataRenderer;
-import software.amazon.jsii.tests.calculator.DerivedStruct;
-import software.amazon.jsii.tests.calculator.DiamondInheritanceTopLevelStruct;
-import software.amazon.jsii.tests.calculator.DoNotOverridePrivates;
-import software.amazon.jsii.tests.calculator.DoubleTrouble;
-import software.amazon.jsii.tests.calculator.EnumDispenser;
-import software.amazon.jsii.tests.calculator.EraseUndefinedHashValues;
-import software.amazon.jsii.tests.calculator.EraseUndefinedHashValuesOptions;
-import software.amazon.jsii.tests.calculator.GiveMeStructs;
-import software.amazon.jsii.tests.calculator.GreetingAugmenter;
-import software.amazon.jsii.tests.calculator.IFriendlier;
-import software.amazon.jsii.tests.calculator.IFriendlyRandomGenerator;
-import software.amazon.jsii.tests.calculator.IInterfaceWithProperties;
-import software.amazon.jsii.tests.calculator.IPublicInterface;
-import software.amazon.jsii.tests.calculator.IRandomNumberGenerator;
-import software.amazon.jsii.tests.calculator.InbetweenClass;
-import software.amazon.jsii.tests.calculator.IInterfaceImplementedByAbstractClass;
-import software.amazon.jsii.tests.calculator.JSObjectLiteralForInterface;
-import software.amazon.jsii.tests.calculator.JSObjectLiteralToNative;
-import software.amazon.jsii.tests.calculator.JSObjectLiteralToNativeClass;
-import software.amazon.jsii.tests.calculator.JavaReservedWords;
-import software.amazon.jsii.tests.calculator.JsiiAgent;
-import software.amazon.jsii.tests.calculator.Multiply;
-import software.amazon.jsii.tests.calculator.Negate;
-import software.amazon.jsii.tests.calculator.NodeStandardLibrary;
-import software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefined;
-import software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefinedData;
-import software.amazon.jsii.tests.calculator.NumberGenerator;
-import software.amazon.jsii.tests.calculator.OptionalStruct;
-import software.amazon.jsii.tests.calculator.PartiallyInitializedThisConsumer;
-import software.amazon.jsii.tests.calculator.Polymorphism;
-import software.amazon.jsii.tests.calculator.Power;
-import software.amazon.jsii.tests.calculator.PublicClass;
-import software.amazon.jsii.tests.calculator.ReferenceEnumFromScopedPackage;
-import software.amazon.jsii.tests.calculator.ReturnsPrivateImplementationOfInterface;
-import software.amazon.jsii.tests.calculator.StableStruct;
-import software.amazon.jsii.tests.calculator.Statics;
-import software.amazon.jsii.tests.calculator.StructWithJavaReservedWords;
-import software.amazon.jsii.tests.calculator.Sum;
-import software.amazon.jsii.tests.calculator.SyncVirtualMethods;
-import software.amazon.jsii.tests.calculator.UnionProperties;
-import software.amazon.jsii.tests.calculator.UsesInterfaceWithProperties;
-import software.amazon.jsii.tests.calculator.VariadicMethod;
+import software.amazon.jsii.tests.calculator.*;
 import software.amazon.jsii.tests.calculator.composition.CompositeOperation;
 import software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule;
 import software.amazon.jsii.tests.calculator.lib.IFriendly;
@@ -66,7 +12,6 @@ import software.amazon.jsii.tests.calculator.lib.MyFirstStruct;
 import software.amazon.jsii.tests.calculator.lib.Number;
 import software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals;
 import software.amazon.jsii.tests.calculator.lib.Value;
-import software.amazon.jsii.tests.calculator.ConstructorPassesThisOut;
 
 import java.io.IOException;
 import java.time.Instant;
@@ -88,6 +33,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+@SuppressWarnings("deprecated")
 public class ComplianceTest {
     /**
      * Verify that we can marshal and unmarshal objects without type information.
@@ -1358,6 +1304,18 @@ public class ComplianceTest {
         assertThat(result, hasEntry("key1", "value1"));
         assertThat(result, hasEntry("key2", "value2"));
         assertThat(result.size(), is(2));
+    }
+
+    @Test
+    public void canOverrideProtectedMember() {
+        final String challenge = "Cthylhu Fhtagn!";
+        final OverridableProtectedMember overridden = new OverridableProtectedMember() {
+            @Override
+            protected String overrideMe() {
+                return challenge;
+            }
+        };
+        assertEquals(challenge, overridden.valueFromProtected());
     }
 
     static class PartiallyInitializedThisConsumerImpl extends PartiallyInitializedThisConsumer {

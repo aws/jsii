@@ -62,6 +62,7 @@ assemblies
  │   ├── class Old
  │   ├── class OptionalConstructorArgument
  │   ├── class OptionalStructConsumer
+ │   ├── class OverridableProtectedMember
  │   ├── class OverrideReturnsObject
  │   ├── class PartiallyInitializedThisConsumer
  │   ├── class Polymorphism

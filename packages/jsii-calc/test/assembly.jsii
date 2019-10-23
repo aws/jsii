@@ -6846,6 +6846,54 @@
         }
       ]
     },
+    "jsii-calc.OverridableProtectedMember": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "see": "https://github.com/aws/jsii/issues/903",
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.OverridableProtectedMember",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1887
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1892
+          },
+          "name": "overrideMe",
+          "protected": true,
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1888
+          },
+          "name": "valueFromProtected",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "OverridableProtectedMember"
+    },
     "jsii-calc.OverrideReturnsObject": {
       "assembly": "jsii-calc",
       "docs": {
@@ -9610,5 +9658,5 @@
     }
   },
   "version": "0.19.0",
-  "fingerprint": "nQMF6ipA96E38PvG3NsgKOJIb3ZEit4jNrxZAkgRlbs="
+  "fingerprint": "CU01g5LO+Gty/zNYKV0O+lJW0xB7RwbFRWHi2e2Nd1Q="
 }
