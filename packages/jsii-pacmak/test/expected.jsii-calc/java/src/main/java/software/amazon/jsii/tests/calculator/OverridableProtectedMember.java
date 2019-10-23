@@ -35,7 +35,39 @@ public class OverridableProtectedMember extends software.amazon.jsii.JsiiObject 
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    public void switchModes() {
+        this.jsiiCall("switchModes", Void.class);
+    }
+
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String valueFromProtected() {
         return this.jsiiCall("valueFromProtected", java.lang.String.class);
+    }
+
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    protected java.lang.String getOverrideReadOnly() {
+        return this.jsiiGet("overrideReadOnly", java.lang.String.class);
+    }
+
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    protected java.lang.String getOverrideReadWrite() {
+        return this.jsiiGet("overrideReadWrite", java.lang.String.class);
+    }
+
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    protected void setOverrideReadWrite(final java.lang.String value) {
+        this.jsiiSet("overrideReadWrite", java.util.Objects.requireNonNull(value, "overrideReadWrite is required"));
     }
 }

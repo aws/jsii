@@ -4829,6 +4829,14 @@ class OverridableProtectedMember(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.O
         """
         return jsii.invoke(self, "overrideMe", [])
 
+    @jsii.member(jsii_name="switchModes")
+    def switch_modes(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.invoke(self, "switchModes", [])
+
     @jsii.member(jsii_name="valueFromProtected")
     def value_from_protected(self) -> str:
         """
@@ -4836,6 +4844,28 @@ class OverridableProtectedMember(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.O
         :stability: experimental
         """
         return jsii.invoke(self, "valueFromProtected", [])
+
+    @property
+    @jsii.member(jsii_name="overrideReadOnly")
+    def _override_read_only(self) -> str:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.get(self, "overrideReadOnly")
+
+    @property
+    @jsii.member(jsii_name="overrideReadWrite")
+    def _override_read_write(self) -> str:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.get(self, "overrideReadWrite")
+
+    @_override_read_write.setter
+    def _override_read_write(self, value: str):
+        return jsii.set(self, "overrideReadWrite", value)
 
 
 class OverrideReturnsObject(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.OverrideReturnsObject"):
