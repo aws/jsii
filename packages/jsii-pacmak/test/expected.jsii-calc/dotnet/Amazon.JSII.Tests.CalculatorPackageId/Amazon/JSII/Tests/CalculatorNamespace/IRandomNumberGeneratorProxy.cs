@@ -23,7 +23,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "next", returnsJson: "{\"type\":{\"primitive\":\"number\"}}")]
         public double Next()
         {
-            return InvokeInstanceMethod<double>(new object[]{});
+            return InvokeInstanceMethod<double>(new System.Type[]{}, new object[]{});
         }
     }
 }

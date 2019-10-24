@@ -7,14 +7,16 @@ package software.amazon.jsii.tests.calculator.lib;
  * far enough up the tree.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
-@Deprecated
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.IThreeLevelsInterface")
+@software.amazon.jsii.Jsii.Proxy(IThreeLevelsInterface.Jsii$Proxy.class)
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+@Deprecated
 public interface IThreeLevelsInterface extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.base.IBaseInterface {
 
     /**
      */
-    @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
     void baz();
 
     /**
@@ -22,14 +24,13 @@ public interface IThreeLevelsInterface extends software.amazon.jsii.JsiiSerializ
      */
     final static class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.lib.IThreeLevelsInterface {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.setObjRef(objRef);
+            super(objRef);
         }
 
         /**
          */
-        @Deprecated
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
         @Override
         public void baz() {
             this.jsiiCall("baz", Void.class);

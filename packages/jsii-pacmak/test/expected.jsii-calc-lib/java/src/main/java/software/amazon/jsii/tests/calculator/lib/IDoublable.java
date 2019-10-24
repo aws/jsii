@@ -4,14 +4,16 @@ package software.amazon.jsii.tests.calculator.lib;
  * The general contract for a concrete number.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
-@Deprecated
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.IDoublable")
+@software.amazon.jsii.Jsii.Proxy(IDoublable.Jsii$Proxy.class)
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+@Deprecated
 public interface IDoublable extends software.amazon.jsii.JsiiSerializable {
 
     /**
      */
-    @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
     java.lang.Number getDoubleValue();
 
     /**
@@ -19,15 +21,14 @@ public interface IDoublable extends software.amazon.jsii.JsiiSerializable {
      */
     final static class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.lib.IDoublable {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.setObjRef(objRef);
+            super(objRef);
         }
 
         /**
          */
         @Override
-        @Deprecated
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
         public java.lang.Number getDoubleValue() {
             return this.jsiiGet("doubleValue", java.lang.Number.class);
         }

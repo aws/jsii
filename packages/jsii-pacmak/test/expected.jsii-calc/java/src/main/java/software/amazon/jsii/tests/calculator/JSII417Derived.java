@@ -24,7 +24,7 @@ public class JSII417Derived extends software.amazon.jsii.tests.calculator.JSII41
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public JSII417Derived(final java.lang.String property) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(property, "property is required") }));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(property, "property is required") });
     }
 
     /**

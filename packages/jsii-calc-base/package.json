@@ -25,7 +25,8 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "jsii",
-    "test": "diff-test test/assembly.jsii .jsii"
+    "test": "diff-test test/assembly.jsii .jsii",
+    "test:update": "npm run build && UPDATE_DIFF=1 npm run test"
   },
   "dependencies": {
     "@scope/jsii-calc-base-of-base": "^0.19.0"

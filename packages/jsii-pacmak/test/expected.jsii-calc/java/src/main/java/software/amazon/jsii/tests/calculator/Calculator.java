@@ -28,7 +28,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public Calculator(final software.amazon.jsii.tests.calculator.CalculatorProps props) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { props }));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { props });
     }
 
     /**
@@ -39,7 +39,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public Calculator() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
     /**

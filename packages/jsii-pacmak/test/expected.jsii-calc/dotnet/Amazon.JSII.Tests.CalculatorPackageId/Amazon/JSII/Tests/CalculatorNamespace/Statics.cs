@@ -31,7 +31,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "staticMethod", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[{\"docs\":{\"summary\":\"The name of the person to say hello to.\"},\"name\":\"name\",\"type\":{\"primitive\":\"string\"}}]")]
         public static string StaticMethod(string name)
         {
-            return InvokeStaticMethod<string>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Statics), new object[]{name});
+            return InvokeStaticMethod<string>(typeof(Amazon.JSII.Tests.CalculatorNamespace.Statics), new System.Type[]{typeof(string)}, new object[]{name});
         }
 
         /// <remarks>
@@ -40,7 +40,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "justMethod", returnsJson: "{\"type\":{\"primitive\":\"string\"}}")]
         public virtual string JustMethod()
         {
-            return InvokeInstanceMethod<string>(new object[]{});
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
         /// <summary>Constants may also use all-caps.</summary>

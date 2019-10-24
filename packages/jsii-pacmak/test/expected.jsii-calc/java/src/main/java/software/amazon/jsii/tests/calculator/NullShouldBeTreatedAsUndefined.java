@@ -27,7 +27,7 @@ public class NullShouldBeTreatedAsUndefined extends software.amazon.jsii.JsiiObj
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public NullShouldBeTreatedAsUndefined(final java.lang.String _param1, final java.lang.Object optional) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(_param1, "_param1 is required"), optional }));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(_param1, "_param1 is required"), optional });
     }
 
     /**
@@ -38,7 +38,7 @@ public class NullShouldBeTreatedAsUndefined extends software.amazon.jsii.JsiiObj
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public NullShouldBeTreatedAsUndefined(final java.lang.String _param1) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(_param1, "_param1 is required") }));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(_param1, "_param1 is required") });
     }
 
     /**
