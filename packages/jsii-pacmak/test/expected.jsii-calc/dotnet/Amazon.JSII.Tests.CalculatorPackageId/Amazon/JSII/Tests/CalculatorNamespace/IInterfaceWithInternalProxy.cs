@@ -18,7 +18,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "visible")]
         public void Visible()
         {
-            InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
     }
 }

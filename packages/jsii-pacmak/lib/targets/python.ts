@@ -33,13 +33,18 @@ export default class Python extends Target {
                 + 'Run `pip3 install twine` to enable distribution package validation.');
     }
 
-    // Approximating existence check using `pip3 show`. If that fails, assume twine is not there.
+    // Approximating existence check using `which`, falling back on `pip3 show`. If that fails, assume twine is not there.
     async function twineIsPresent(): Promise<boolean> {
       try {
-        const output = await shell('pip3', ['show', 'twine'], { cwd: sourceDir });
-        return output.trim() !== '';
+        await shell('which', ['twine'], { cwd: sourceDir });
+        return true;
       } catch {
-        return false;
+        try {
+          const output = await shell('pip3', ['show', 'twine'], { cwd: sourceDir });
+          return output.trim() !== '';
+        } catch {
+          return false;
+        }
       }
     }
   }
@@ -947,6 +952,7 @@ interface ModuleOpts {
   assembly: spec.Assembly;
   assemblyFilename: string;
   loadAssembly: boolean;
+  package?: Package;
 }
 
 class Module implements PythonType {
@@ -958,6 +964,7 @@ class Module implements PythonType {
   private readonly assemblyFilename: string;
   private readonly loadAssembly: boolean;
   private readonly members: PythonBase[];
+  private readonly package?: Package;
 
   public constructor(name: string, fqn: string | null, opts: ModuleOpts) {
     this.pythonName = name;
@@ -966,6 +973,7 @@ class Module implements PythonType {
     this.assembly = opts.assembly;
     this.assemblyFilename = opts.assemblyFilename;
     this.loadAssembly = opts.loadAssembly;
+    this.package = opts.package;
     this.members = [];
   }
 
@@ -974,6 +982,8 @@ class Module implements PythonType {
   }
 
   public emit(code: CodeMaker, resolver: TypeResolver) {
+    this.emitModuleDocumentation(code);
+
     resolver = this.fqn ? resolver.bind(this.fqn, this.pythonName) : resolver;
 
     // Before we write anything else, we need to write out our module headers, this
@@ -1021,6 +1031,14 @@ class Module implements PythonType {
     code.line('publication.publish()');
   }
 
+  private emitModuleDocumentation(code: CodeMaker) {
+    if (this.package) {
+      code.line('"""');
+      code.line(this.package.convertedReadme);
+      code.line('"""');
+    }
+  }
+
   private emitDependencyImports(code: CodeMaker, _resolver: TypeResolver) {
     const deps = Array.from(
       new Set([
@@ -1048,6 +1066,7 @@ interface PackageData {
 }
 
 class Package {
+  public convertedReadme = '';
 
   public readonly name: string;
   public readonly version: string;
@@ -1078,6 +1097,11 @@ class Package {
   }
 
   public write(code: CodeMaker, resolver: TypeResolver) {
+    if (this.metadata.readme) {
+      // Conversion is expensive, so cache the result in a variable (we need it twice)
+      this.convertedReadme = convertSnippetsInMarkdown(this.metadata.readme.markdown, 'README.md').trim();
+    }
+
     const modules = [...this.modules.values()].sort((a, b) => a.pythonName.localeCompare(b.pythonName));
 
     // Iterate over all of our modules, and write them out to disk.
@@ -1125,9 +1149,7 @@ class Package {
     }
 
     code.openFile('README.md');
-    if (this.metadata.readme) {
-      code.line(convertSnippetsInMarkdown(this.metadata.readme.markdown, 'README.md'));
-    }
+    code.line(this.convertedReadme);
     code.closeFile('README.md');
 
     // Strip " (build abcdef)" from the jsii version
@@ -1450,7 +1472,9 @@ class PythonGenerator extends Generator {
       null,
       { assembly: assm,
         assemblyFilename: this.getAssemblyFileName(),
-        loadAssembly: false },
+        loadAssembly: false,
+        package: this.package
+      },
     );
 
     this.package.addModule(assemblyModule);

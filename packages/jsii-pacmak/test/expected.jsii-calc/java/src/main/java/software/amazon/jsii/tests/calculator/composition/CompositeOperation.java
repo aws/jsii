@@ -20,7 +20,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
 
     protected CompositeOperation() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
     }
 
     /**
@@ -143,7 +143,8 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
      */
     final static class Jsii$Proxy extends software.amazon.jsii.tests.calculator.composition.CompositeOperation {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(objRef);
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.setObjRef(objRef);
         }
 
         /**
@@ -161,8 +162,8 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
          * The value.
          */
         @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public java.lang.Number getValue() {
             return this.jsiiGet("value", java.lang.Number.class);
         }
@@ -170,8 +171,8 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
         /**
          * String representation of the value.
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Override
         public java.lang.String toString() {
             return this.jsiiCall("toString", java.lang.String.class);

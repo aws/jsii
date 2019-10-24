@@ -4,44 +4,42 @@ package software.amazon.jsii.tests.calculator.lib;
  * This is a struct with only optional properties.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
-@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.StructWithOnlyOptionals")
-@software.amazon.jsii.Jsii.Proxy(StructWithOnlyOptionals.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
 @Deprecated
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
 public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerializable {
 
     /**
      * The first optional!
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     java.lang.String getOptional1();
 
     /**
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     java.lang.Number getOptional2();
 
     /**
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     java.lang.Boolean getOptional3();
 
     /**
      * @return a {@link Builder} of {@link StructWithOnlyOptionals}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     static Builder builder() {
         return new Builder();
     }
     /**
      * A builder for {@link StructWithOnlyOptionals}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     public static final class Builder {
         private java.lang.String optional1;
         private java.lang.Number optional2;
@@ -52,8 +50,8 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
          * @param optional1 The first optional!.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public Builder optional1(java.lang.String optional1) {
             this.optional1 = optional1;
             return this;
@@ -64,8 +62,8 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
          * @param optional2 the value to be set.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public Builder optional2(java.lang.Number optional2) {
             this.optional2 = optional2;
             return this;
@@ -76,8 +74,8 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
          * @param optional3 the value to be set.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public Builder optional3(java.lang.Boolean optional3) {
             this.optional3 = optional3;
             return this;
@@ -88,8 +86,8 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
          * @return a new instance of {@link StructWithOnlyOptionals}
          * @throws NullPointerException if any required attribute was not provided
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public StructWithOnlyOptionals build() {
             return new Jsii$Proxy(optional1, optional2, optional3);
         }
@@ -98,8 +96,8 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
     /**
      * An implementation for {@link StructWithOnlyOptionals}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements StructWithOnlyOptionals {
         private final java.lang.String optional1;
         private final java.lang.Number optional2;
@@ -110,7 +108,8 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
          * @param objRef Reference to the JSII managed object.
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(objRef);
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.setObjRef(objRef);
             this.optional1 = this.jsiiGet("optional1", java.lang.String.class);
             this.optional2 = this.jsiiGet("optional2", java.lang.Number.class);
             this.optional3 = this.jsiiGet("optional3", java.lang.Boolean.class);

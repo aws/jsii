@@ -1,8 +1,6 @@
 package software.amazon.jsii.tests.calculator.base;
 
 @javax.annotation.Generated(value = "jsii-pacmak")
-@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.base.$Module.class, fqn = "@scope/jsii-calc-base.BaseProps")
-@software.amazon.jsii.Jsii.Proxy(BaseProps.Jsii$Proxy.class)
 public interface BaseProps extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.baseofbase.VeryBaseProps {
 
     java.lang.String getBar();
@@ -62,7 +60,8 @@ public interface BaseProps extends software.amazon.jsii.JsiiSerializable, softwa
          * @param objRef Reference to the JSII managed object.
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(objRef);
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.setObjRef(objRef);
             this.bar = this.jsiiGet("bar", java.lang.String.class);
             this.foo = this.jsiiGet("foo", software.amazon.jsii.tests.calculator.baseofbase.Very.class);
         }

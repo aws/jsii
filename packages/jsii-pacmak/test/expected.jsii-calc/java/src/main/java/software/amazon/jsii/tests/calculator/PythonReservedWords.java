@@ -18,7 +18,7 @@ public class PythonReservedWords extends software.amazon.jsii.JsiiObject {
 
     public PythonReservedWords() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
     }
 
     /**

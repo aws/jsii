@@ -4,8 +4,6 @@ package software.amazon.jsii.tests.calculator;
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
-@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.IReturnsNumber")
-@software.amazon.jsii.Jsii.Proxy(IReturnsNumber.Jsii$Proxy.class)
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface IReturnsNumber extends software.amazon.jsii.JsiiSerializable {
 
@@ -26,7 +24,8 @@ public interface IReturnsNumber extends software.amazon.jsii.JsiiSerializable {
      */
     final static class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IReturnsNumber {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(objRef);
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.setObjRef(objRef);
         }
 
         /**

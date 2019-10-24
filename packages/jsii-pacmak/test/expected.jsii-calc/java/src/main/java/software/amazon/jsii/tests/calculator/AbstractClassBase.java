@@ -18,7 +18,7 @@ public abstract class AbstractClassBase extends software.amazon.jsii.JsiiObject 
 
     protected AbstractClassBase() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
     }
 
     /**
@@ -34,7 +34,8 @@ public abstract class AbstractClassBase extends software.amazon.jsii.JsiiObject 
      */
     final static class Jsii$Proxy extends software.amazon.jsii.tests.calculator.AbstractClassBase {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(objRef);
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.setObjRef(objRef);
         }
 
         /**

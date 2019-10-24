@@ -26,7 +26,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "callMe", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", isAsync: true)]
         public virtual double CallMe()
         {
-            return InvokeInstanceMethod<double>(new System.Type[]{}, new object[]{});
+            return InvokeInstanceMethod<double>(new object[]{});
         }
 
         /// <summary>Just calls "overrideMeToo".</summary>
@@ -36,7 +36,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "callMe2", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", isAsync: true)]
         public virtual double CallMe2()
         {
-            return InvokeInstanceMethod<double>(new System.Type[]{}, new object[]{});
+            return InvokeInstanceMethod<double>(new object[]{});
         }
 
         /// <summary>This method calls the "callMe" async method indirectly, which will then invoke a virtual method.</summary>
@@ -49,7 +49,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "callMeDoublePromise", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", isAsync: true)]
         public virtual double CallMeDoublePromise()
         {
-            return InvokeInstanceMethod<double>(new System.Type[]{}, new object[]{});
+            return InvokeInstanceMethod<double>(new object[]{});
         }
 
         /// <remarks>
@@ -58,7 +58,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "dontOverrideMe", returnsJson: "{\"type\":{\"primitive\":\"number\"}}")]
         public virtual double DontOverrideMe()
         {
-            return InvokeInstanceMethod<double>(new System.Type[]{}, new object[]{});
+            return InvokeInstanceMethod<double>(new object[]{});
         }
 
         /// <remarks>
@@ -67,7 +67,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "overrideMe", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", parametersJson: "[{\"name\":\"mult\",\"type\":{\"primitive\":\"number\"}}]", isAsync: true)]
         public virtual double OverrideMe(double mult)
         {
-            return InvokeInstanceMethod<double>(new System.Type[]{typeof(double)}, new object[]{mult});
+            return InvokeInstanceMethod<double>(new object[]{mult});
         }
 
         /// <remarks>
@@ -76,7 +76,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "overrideMeToo", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", isAsync: true)]
         public virtual double OverrideMeToo()
         {
-            return InvokeInstanceMethod<double>(new System.Type[]{}, new object[]{});
+            return InvokeInstanceMethod<double>(new object[]{});
         }
     }
 }

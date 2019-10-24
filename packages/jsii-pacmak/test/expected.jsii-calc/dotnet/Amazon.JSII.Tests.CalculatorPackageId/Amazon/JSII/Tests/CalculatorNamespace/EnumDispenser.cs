@@ -22,7 +22,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "randomIntegerLikeEnum", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.AllTypesEnum\"}}")]
         public static Amazon.JSII.Tests.CalculatorNamespace.AllTypesEnum RandomIntegerLikeEnum()
         {
-            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.AllTypesEnum>(typeof(Amazon.JSII.Tests.CalculatorNamespace.EnumDispenser), new System.Type[]{}, new object[]{});
+            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.AllTypesEnum>(typeof(Amazon.JSII.Tests.CalculatorNamespace.EnumDispenser), new object[]{});
         }
 
         /// <remarks>
@@ -31,7 +31,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "randomStringLikeEnum", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.StringEnum\"}}")]
         public static Amazon.JSII.Tests.CalculatorNamespace.StringEnum RandomStringLikeEnum()
         {
-            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.StringEnum>(typeof(Amazon.JSII.Tests.CalculatorNamespace.EnumDispenser), new System.Type[]{}, new object[]{});
+            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.StringEnum>(typeof(Amazon.JSII.Tests.CalculatorNamespace.EnumDispenser), new object[]{});
         }
     }
 }

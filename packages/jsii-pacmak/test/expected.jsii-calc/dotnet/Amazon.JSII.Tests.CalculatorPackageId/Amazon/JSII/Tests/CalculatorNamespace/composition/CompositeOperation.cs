@@ -28,7 +28,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.composition
         [JsiiMethod(name: "toString", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
         public override string ToString()
         {
-            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
+            return InvokeInstanceMethod<string>(new object[]{});
         }
 
         /// <summary>The expression that this operation consists of. Must be implemented by derived classes.</summary>

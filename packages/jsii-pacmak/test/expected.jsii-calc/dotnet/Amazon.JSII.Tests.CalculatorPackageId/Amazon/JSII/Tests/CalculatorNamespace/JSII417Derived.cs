@@ -29,7 +29,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "bar")]
         public virtual void Bar()
         {
-            InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         /// <remarks>
@@ -38,7 +38,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "baz")]
         public virtual void Baz()
         {
-            InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         /// <remarks>

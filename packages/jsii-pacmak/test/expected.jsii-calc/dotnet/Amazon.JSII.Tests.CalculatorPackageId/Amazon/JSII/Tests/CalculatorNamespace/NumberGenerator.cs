@@ -30,7 +30,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "isSameGenerator", returnsJson: "{\"type\":{\"primitive\":\"boolean\"}}", parametersJson: "[{\"name\":\"gen\",\"type\":{\"fqn\":\"jsii-calc.IRandomNumberGenerator\"}}]")]
         public virtual bool IsSameGenerator(Amazon.JSII.Tests.CalculatorNamespace.IRandomNumberGenerator gen)
         {
-            return InvokeInstanceMethod<bool>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IRandomNumberGenerator)}, new object[]{gen});
+            return InvokeInstanceMethod<bool>(new object[]{gen});
         }
 
         /// <remarks>
@@ -39,7 +39,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "nextTimes100", returnsJson: "{\"type\":{\"primitive\":\"number\"}}")]
         public virtual double NextTimes100()
         {
-            return InvokeInstanceMethod<double>(new System.Type[]{}, new object[]{});
+            return InvokeInstanceMethod<double>(new object[]{});
         }
 
         /// <remarks>

@@ -4,8 +4,8 @@ package software.amazon.jsii.tests.calculator.lib;
  * Represents an operation on values.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
 @Deprecated
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.Operation")
 public abstract class Operation extends software.amazon.jsii.tests.calculator.lib.Value {
 
@@ -19,14 +19,14 @@ public abstract class Operation extends software.amazon.jsii.tests.calculator.li
 
     protected Operation() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
     }
 
     /**
      * String representation of the value.
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Override
     public abstract java.lang.String toString();
 
@@ -35,15 +35,16 @@ public abstract class Operation extends software.amazon.jsii.tests.calculator.li
      */
     final static class Jsii$Proxy extends software.amazon.jsii.tests.calculator.lib.Operation {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(objRef);
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.setObjRef(objRef);
         }
 
         /**
          * The value.
          */
         @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public java.lang.Number getValue() {
             return this.jsiiGet("value", java.lang.Number.class);
         }
@@ -51,8 +52,8 @@ public abstract class Operation extends software.amazon.jsii.tests.calculator.li
         /**
          * String representation of the value.
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Override
         public java.lang.String toString() {
             return this.jsiiCall("toString", java.lang.String.class);

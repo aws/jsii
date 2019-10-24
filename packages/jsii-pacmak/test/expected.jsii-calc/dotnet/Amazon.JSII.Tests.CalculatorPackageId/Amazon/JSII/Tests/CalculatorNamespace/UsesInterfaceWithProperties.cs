@@ -29,7 +29,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "justRead", returnsJson: "{\"type\":{\"primitive\":\"string\"}}")]
         public virtual string JustRead()
         {
-            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
+            return InvokeInstanceMethod<string>(new object[]{});
         }
 
         /// <remarks>
@@ -38,7 +38,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "readStringAndNumber", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[{\"name\":\"ext\",\"type\":{\"fqn\":\"jsii-calc.IInterfaceWithPropertiesExtension\"}}]")]
         public virtual string ReadStringAndNumber(Amazon.JSII.Tests.CalculatorNamespace.IInterfaceWithPropertiesExtension ext)
         {
-            return InvokeInstanceMethod<string>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IInterfaceWithPropertiesExtension)}, new object[]{ext});
+            return InvokeInstanceMethod<string>(new object[]{ext});
         }
 
         /// <remarks>
@@ -47,7 +47,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "writeAndRead", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[{\"name\":\"value\",\"type\":{\"primitive\":\"string\"}}]")]
         public virtual string WriteAndRead(string @value)
         {
-            return InvokeInstanceMethod<string>(new System.Type[]{typeof(string)}, new object[]{@value});
+            return InvokeInstanceMethod<string>(new object[]{@value});
         }
 
         /// <remarks>

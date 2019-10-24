@@ -30,7 +30,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [System.Obsolete()]
         public virtual void DoAThing()
         {
-            InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
     }
 }

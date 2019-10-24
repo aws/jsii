@@ -27,7 +27,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "method", parametersJson: "[{\"name\":\"_requiredAny\",\"type\":{\"primitive\":\"any\"}},{\"name\":\"_optionalAny\",\"optional\":true,\"type\":{\"primitive\":\"any\"}},{\"name\":\"_optionalString\",\"optional\":true,\"type\":{\"primitive\":\"string\"}}]")]
         public virtual void Method(object requiredAny, object optionalAny = null, string optionalString = null)
         {
-            InvokeInstanceVoidMethod(new System.Type[]{typeof(object), typeof(object), typeof(string)}, new object[]{requiredAny, optionalAny, optionalString});
+            InvokeInstanceVoidMethod(new object[]{requiredAny, optionalAny, optionalString});
         }
     }
 }

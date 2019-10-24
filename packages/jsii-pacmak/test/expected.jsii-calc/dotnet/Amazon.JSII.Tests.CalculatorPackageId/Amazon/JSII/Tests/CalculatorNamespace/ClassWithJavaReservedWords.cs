@@ -29,7 +29,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "import", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[{\"name\":\"assert\",\"type\":{\"primitive\":\"string\"}}]")]
         public virtual string Import(string assert)
         {
-            return InvokeInstanceMethod<string>(new System.Type[]{typeof(string)}, new object[]{assert});
+            return InvokeInstanceMethod<string>(new object[]{assert});
         }
 
         /// <remarks>

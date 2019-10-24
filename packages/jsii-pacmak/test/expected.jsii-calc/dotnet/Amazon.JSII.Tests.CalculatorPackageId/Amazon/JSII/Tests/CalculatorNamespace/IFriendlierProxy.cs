@@ -20,7 +20,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "farewell", returnsJson: "{\"type\":{\"primitive\":\"string\"}}")]
         public string Farewell()
         {
-            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
+            return InvokeInstanceMethod<string>(new object[]{});
         }
 
         /// <summary>Say goodbye.</summary>
@@ -33,7 +33,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "goodbye", returnsJson: "{\"type\":{\"primitive\":\"string\"}}")]
         public string Goodbye()
         {
-            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
+            return InvokeInstanceMethod<string>(new object[]{});
         }
 
         /// <summary>Say hello!</summary>
@@ -44,7 +44,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [System.Obsolete()]
         public string Hello()
         {
-            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
+            return InvokeInstanceMethod<string>(new object[]{});
         }
     }
 }

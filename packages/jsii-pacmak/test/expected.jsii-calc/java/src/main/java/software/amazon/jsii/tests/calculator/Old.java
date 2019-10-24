@@ -6,8 +6,8 @@ package software.amazon.jsii.tests.calculator;
  * @deprecated Use the new class
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
 @Deprecated
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
 @software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.Old")
 public class Old extends software.amazon.jsii.JsiiObject {
 
@@ -21,14 +21,14 @@ public class Old extends software.amazon.jsii.JsiiObject {
 
     public Old() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
     }
 
     /**
      * Doo wop that thing.
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     public void doAThing() {
         this.jsiiCall("doAThing", Void.class);
     }

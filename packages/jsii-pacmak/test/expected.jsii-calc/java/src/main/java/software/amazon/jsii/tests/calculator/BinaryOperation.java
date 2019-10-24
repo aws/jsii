@@ -29,7 +29,7 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     protected BinaryOperation(final software.amazon.jsii.tests.calculator.lib.Value lhs, final software.amazon.jsii.tests.calculator.lib.Value rhs) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(lhs, "lhs is required"), java.util.Objects.requireNonNull(rhs, "rhs is required") });
+        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(lhs, "lhs is required"), java.util.Objects.requireNonNull(rhs, "rhs is required") }));
     }
 
     /**
@@ -68,15 +68,16 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
      */
     final static class Jsii$Proxy extends software.amazon.jsii.tests.calculator.BinaryOperation {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(objRef);
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.setObjRef(objRef);
         }
 
         /**
          * The value.
          */
         @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public java.lang.Number getValue() {
             return this.jsiiGet("value", java.lang.Number.class);
         }
@@ -84,8 +85,8 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
         /**
          * Say hello!
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Override
         public java.lang.String hello() {
             return this.jsiiCall("hello", java.lang.String.class);
@@ -94,8 +95,8 @@ public abstract class BinaryOperation extends software.amazon.jsii.tests.calcula
         /**
          * String representation of the value.
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Override
         public java.lang.String toString() {
             return this.jsiiCall("toString", java.lang.String.class);

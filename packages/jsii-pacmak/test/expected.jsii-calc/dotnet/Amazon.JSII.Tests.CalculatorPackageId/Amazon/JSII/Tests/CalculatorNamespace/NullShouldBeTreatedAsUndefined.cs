@@ -30,7 +30,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "giveMeUndefined", parametersJson: "[{\"name\":\"value\",\"optional\":true,\"type\":{\"primitive\":\"any\"}}]")]
         public virtual void GiveMeUndefined(object @value = null)
         {
-            InvokeInstanceVoidMethod(new System.Type[]{typeof(object)}, new object[]{@value});
+            InvokeInstanceVoidMethod(new object[]{@value});
         }
 
         /// <remarks>
@@ -39,7 +39,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "giveMeUndefinedInsideAnObject", parametersJson: "[{\"name\":\"input\",\"type\":{\"fqn\":\"jsii-calc.NullShouldBeTreatedAsUndefinedData\"}}]")]
         public virtual void GiveMeUndefinedInsideAnObject(Amazon.JSII.Tests.CalculatorNamespace.INullShouldBeTreatedAsUndefinedData input)
         {
-            InvokeInstanceVoidMethod(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.INullShouldBeTreatedAsUndefinedData)}, new object[]{input});
+            InvokeInstanceVoidMethod(new object[]{input});
         }
 
         /// <remarks>
@@ -48,7 +48,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "verifyPropertyIsUndefined")]
         public virtual void VerifyPropertyIsUndefined()
         {
-            InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         /// <remarks>

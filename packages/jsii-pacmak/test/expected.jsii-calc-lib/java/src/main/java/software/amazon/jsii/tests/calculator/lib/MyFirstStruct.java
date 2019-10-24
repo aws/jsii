@@ -4,45 +4,43 @@ package software.amazon.jsii.tests.calculator.lib;
  * This is the first struct we have created in jsii.
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
-@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.lib.$Module.class, fqn = "@scope/jsii-calc-lib.MyFirstStruct")
-@software.amazon.jsii.Jsii.Proxy(MyFirstStruct.Jsii$Proxy.class)
-@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
 @Deprecated
+@software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
 public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
 
     /**
      * An awesome number value.
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     java.lang.Number getAnumber();
 
     /**
      * A string value.
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     java.lang.String getAstring();
 
     /**
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     java.util.List<java.lang.String> getFirstOptional();
 
     /**
      * @return a {@link Builder} of {@link MyFirstStruct}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     static Builder builder() {
         return new Builder();
     }
     /**
      * A builder for {@link MyFirstStruct}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     public static final class Builder {
         private java.lang.Number anumber;
         private java.lang.String astring;
@@ -53,8 +51,8 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
          * @param anumber An awesome number value. This parameter is required.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public Builder anumber(java.lang.Number anumber) {
             this.anumber = anumber;
             return this;
@@ -65,8 +63,8 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
          * @param astring A string value. This parameter is required.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public Builder astring(java.lang.String astring) {
             this.astring = astring;
             return this;
@@ -77,8 +75,8 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
          * @param firstOptional the value to be set.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public Builder firstOptional(java.util.List<java.lang.String> firstOptional) {
             this.firstOptional = firstOptional;
             return this;
@@ -89,8 +87,8 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
          * @return a new instance of {@link MyFirstStruct}
          * @throws NullPointerException if any required attribute was not provided
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public MyFirstStruct build() {
             return new Jsii$Proxy(anumber, astring, firstOptional);
         }
@@ -99,8 +97,8 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
     /**
      * An implementation for {@link MyFirstStruct}
      */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     @Deprecated
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements MyFirstStruct {
         private final java.lang.Number anumber;
         private final java.lang.String astring;
@@ -111,7 +109,8 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
          * @param objRef Reference to the JSII managed object.
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(objRef);
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.setObjRef(objRef);
             this.anumber = this.jsiiGet("anumber", java.lang.Number.class);
             this.astring = this.jsiiGet("astring", java.lang.String.class);
             this.firstOptional = this.jsiiGet("firstOptional", java.util.List.class);

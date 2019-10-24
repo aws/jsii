@@ -26,7 +26,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "makeInstance", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.JSII417PublicBaseOfBase\"}}")]
         public static Amazon.JSII.Tests.CalculatorNamespace.JSII417PublicBaseOfBase MakeInstance()
         {
-            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.JSII417PublicBaseOfBase>(typeof(Amazon.JSII.Tests.CalculatorNamespace.JSII417PublicBaseOfBase), new System.Type[]{}, new object[]{});
+            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.JSII417PublicBaseOfBase>(typeof(Amazon.JSII.Tests.CalculatorNamespace.JSII417PublicBaseOfBase), new object[]{});
         }
 
         /// <remarks>
@@ -35,7 +35,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "foo")]
         public virtual void Foo()
         {
-            InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         /// <remarks>

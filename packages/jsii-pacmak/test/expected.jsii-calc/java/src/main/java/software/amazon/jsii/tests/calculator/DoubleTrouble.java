@@ -18,7 +18,7 @@ public class DoubleTrouble extends software.amazon.jsii.JsiiObject implements so
 
     public DoubleTrouble() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
     }
 
     /**

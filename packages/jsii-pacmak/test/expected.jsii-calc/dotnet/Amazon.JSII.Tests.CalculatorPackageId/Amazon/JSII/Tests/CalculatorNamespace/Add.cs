@@ -34,7 +34,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "toString", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
         public override string ToString()
         {
-            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
+            return InvokeInstanceMethod<string>(new object[]{});
         }
 
         /// <summary>The value.</summary>

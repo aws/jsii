@@ -27,7 +27,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "obtainNumber", returnsJson: "{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.IDoublable\"}}")]
         public Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IDoublable ObtainNumber()
         {
-            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IDoublable>(new System.Type[]{}, new object[]{});
+            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IDoublable>(new object[]{});
         }
     }
 }

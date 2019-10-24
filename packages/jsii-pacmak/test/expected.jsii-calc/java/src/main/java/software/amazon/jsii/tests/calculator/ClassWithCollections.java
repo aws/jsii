@@ -25,7 +25,7 @@ public class ClassWithCollections extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public ClassWithCollections(final java.util.Map<java.lang.String, java.lang.String> map, final java.util.List<java.lang.String> array) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(map, "map is required"), java.util.Objects.requireNonNull(array, "array is required") });
+        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(map, "map is required"), java.util.Objects.requireNonNull(array, "array is required") }));
     }
 
     /**

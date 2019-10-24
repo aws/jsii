@@ -6,8 +6,6 @@ package software.amazon.jsii.tests.calculator;
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
-@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.DerivedStruct")
-@software.amazon.jsii.Jsii.Proxy(DerivedStruct.Jsii$Proxy.class)
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.lib.MyFirstStruct {
 
@@ -144,8 +142,8 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
          * @param anumber An awesome number value. This parameter is required.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public Builder anumber(java.lang.Number anumber) {
             this.anumber = anumber;
             return this;
@@ -156,8 +154,8 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
          * @param astring A string value. This parameter is required.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public Builder astring(java.lang.String astring) {
             this.astring = astring;
             return this;
@@ -168,8 +166,8 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
          * @param firstOptional the value to be set.
          * @return {@code this}
          */
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         @Deprecated
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
         public Builder firstOptional(java.util.List<java.lang.String> firstOptional) {
             this.firstOptional = firstOptional;
             return this;
@@ -206,7 +204,8 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
          * @param objRef Reference to the JSII managed object.
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(objRef);
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.setObjRef(objRef);
             this.anotherRequired = this.jsiiGet("anotherRequired", java.time.Instant.class);
             this.bool = this.jsiiGet("bool", java.lang.Boolean.class);
             this.nonPrimitive = this.jsiiGet("nonPrimitive", software.amazon.jsii.tests.calculator.DoubleTrouble.class);

@@ -33,7 +33,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "add", parametersJson: "[{\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]
         public virtual void Add(double @value)
         {
-            InvokeInstanceVoidMethod(new System.Type[]{typeof(double)}, new object[]{@value});
+            InvokeInstanceVoidMethod(new object[]{@value});
         }
 
         /// <summary>Multiplies the current value by a number.</summary>
@@ -43,7 +43,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "mul", parametersJson: "[{\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]
         public virtual void Mul(double @value)
         {
-            InvokeInstanceVoidMethod(new System.Type[]{typeof(double)}, new object[]{@value});
+            InvokeInstanceVoidMethod(new object[]{@value});
         }
 
         /// <summary>Negates the current value.</summary>
@@ -53,7 +53,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "neg")]
         public virtual void Neg()
         {
-            InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         /// <summary>Raises the current value by a power.</summary>
@@ -63,7 +63,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "pow", parametersJson: "[{\"name\":\"value\",\"type\":{\"primitive\":\"number\"}}]")]
         public virtual void Pow(double @value)
         {
-            InvokeInstanceVoidMethod(new System.Type[]{typeof(double)}, new object[]{@value});
+            InvokeInstanceVoidMethod(new object[]{@value});
         }
 
         /// <summary>Returns teh value of the union property (if defined).</summary>
@@ -73,7 +73,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "readUnionValue", returnsJson: "{\"type\":{\"primitive\":\"number\"}}")]
         public virtual double ReadUnionValue()
         {
-            return InvokeInstanceMethod<double>(new System.Type[]{}, new object[]{});
+            return InvokeInstanceMethod<double>(new object[]{});
         }
 
         /// <summary>Returns the expression.</summary>

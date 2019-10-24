@@ -24,7 +24,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         [System.Obsolete()]
         public string Hello()
         {
-            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
+            return InvokeInstanceMethod<string>(new object[]{});
         }
     }
 }

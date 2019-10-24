@@ -6,8 +6,6 @@ package software.amazon.jsii.tests.calculator;
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
-@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.Greetee")
-@software.amazon.jsii.Jsii.Proxy(Greetee.Jsii$Proxy.class)
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface Greetee extends software.amazon.jsii.JsiiSerializable {
 
@@ -69,7 +67,8 @@ public interface Greetee extends software.amazon.jsii.JsiiSerializable {
          * @param objRef Reference to the JSII managed object.
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(objRef);
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.setObjRef(objRef);
             this.name = this.jsiiGet("name", java.lang.String.class);
         }
 

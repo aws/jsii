@@ -1040,7 +1040,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 1891
+        "line": 1911
       },
       "methods": [
         {
@@ -1049,7 +1049,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1892
+            "line": 1912
           },
           "name": "provide",
           "overrides": "jsii-calc.IAnonymousImplementationProvider",
@@ -3845,7 +3845,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 1888
+        "line": 1908
       },
       "methods": [
         {
@@ -3855,7 +3855,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1889
+            "line": 1909
           },
           "name": "provide",
           "returns": {
@@ -3876,7 +3876,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 1899
+        "line": 1919
       },
       "methods": [
         {
@@ -3886,7 +3886,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1901
+            "line": 1921
           },
           "name": "verb",
           "returns": {
@@ -3905,7 +3905,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1900
+            "line": 1920
           },
           "name": "value",
           "type": {
@@ -6970,6 +6970,95 @@
         }
       ]
     },
+    "jsii-calc.OverridableProtectedMember": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "see": "https://github.com/aws/jsii/issues/903",
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.OverridableProtectedMember",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1887
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1899
+          },
+          "name": "overrideMe",
+          "protected": true,
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1895
+          },
+          "name": "switchModes"
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1891
+          },
+          "name": "valueFromProtected",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "OverridableProtectedMember",
+      "properties": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1888
+          },
+          "name": "overrideReadOnly",
+          "protected": true,
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1889
+          },
+          "name": "overrideReadWrite",
+          "protected": true,
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.OverrideReturnsObject": {
       "assembly": "jsii-calc",
       "docs": {
@@ -9734,5 +9823,5 @@
     }
   },
   "version": "0.19.0",
-  "fingerprint": "yv9qXH6SxPgCJMfGdz9z6RruIy2NG5BcTExGI988Xeg="
+  "fingerprint": "OpxBghTomKWICGI/VfSJmwyqks2F/envRslx0JSxGyU="
 }

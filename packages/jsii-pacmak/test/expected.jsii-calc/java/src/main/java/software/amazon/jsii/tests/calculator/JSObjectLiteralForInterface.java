@@ -18,7 +18,7 @@ public class JSObjectLiteralForInterface extends software.amazon.jsii.JsiiObject
 
     public JSObjectLiteralForInterface() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
     }
 
     /**

@@ -12,13 +12,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace
         [JsiiMethod(name: "bar")]
         public void Bar()
         {
-            InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod(name: "foo")]
         public void Foo()
         {
-            InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
     }
 }

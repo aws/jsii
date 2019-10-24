@@ -6,8 +6,6 @@ package software.amazon.jsii.tests.calculator;
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
-@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.LoadBalancedFargateServiceProps")
-@software.amazon.jsii.Jsii.Proxy(LoadBalancedFargateServiceProps.Jsii$Proxy.class)
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.JsiiSerializable {
 
@@ -180,7 +178,8 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
          * @param objRef Reference to the JSII managed object.
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(objRef);
+            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+            this.setObjRef(objRef);
             this.containerPort = this.jsiiGet("containerPort", java.lang.Number.class);
             this.cpu = this.jsiiGet("cpu", java.lang.String.class);
             this.memoryMiB = this.jsiiGet("memoryMiB", java.lang.String.class);

@@ -31,7 +31,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "cryptoSha256", returnsJson: "{\"type\":{\"primitive\":\"string\"}}")]
         public virtual string CryptoSha256()
         {
-            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
+            return InvokeInstanceMethod<string>(new object[]{});
         }
 
         /// <summary>Reads a local resource file (resource.txt) asynchronously.</summary>
@@ -44,7 +44,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "fsReadFile", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isAsync: true)]
         public virtual string FsReadFile()
         {
-            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
+            return InvokeInstanceMethod<string>(new object[]{});
         }
 
         /// <summary>Sync version of fsReadFile.</summary>
@@ -57,7 +57,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "fsReadFileSync", returnsJson: "{\"type\":{\"primitive\":\"string\"}}")]
         public virtual string FsReadFileSync()
         {
-            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
+            return InvokeInstanceMethod<string>(new object[]{});
         }
 
         /// <summary>Returns the current os.platform() from the "os" node module.</summary>

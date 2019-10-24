@@ -24,7 +24,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace
         [JsiiMethod(name: "typeName", returnsJson: "{\"type\":{\"primitive\":\"any\"}}")]
         public virtual object TypeName()
         {
-            return InvokeInstanceMethod<object>(new System.Type[]{}, new object[]{});
+            return InvokeInstanceMethod<object>(new object[]{});
         }
     }
 }

@@ -18,7 +18,7 @@ public class InbetweenClass extends software.amazon.jsii.tests.calculator.Public
 
     public InbetweenClass() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
+        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
     }
 
     /**

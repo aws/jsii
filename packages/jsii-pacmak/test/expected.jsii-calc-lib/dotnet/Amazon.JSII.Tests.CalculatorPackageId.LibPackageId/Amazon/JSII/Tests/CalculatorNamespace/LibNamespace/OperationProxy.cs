@@ -33,7 +33,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         [System.Obsolete()]
         public override string ToString()
         {
-            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
+            return InvokeInstanceMethod<string>(new object[]{});
         }
     }
 }

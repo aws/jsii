@@ -23,19 +23,19 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         [System.Obsolete()]
         public void Baz()
         {
-            InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod(name: "bar")]
         public void Bar()
         {
-            InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
 
         [JsiiMethod(name: "foo")]
         public void Foo()
         {
-            InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
+            InvokeInstanceVoidMethod(new object[]{});
         }
     }
 }
