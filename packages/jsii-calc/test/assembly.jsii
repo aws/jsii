@@ -6846,6 +6846,95 @@
         }
       ]
     },
+    "jsii-calc.OverridableProtectedMember": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "see": "https://github.com/aws/jsii/issues/903",
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.OverridableProtectedMember",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1887
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1899
+          },
+          "name": "overrideMe",
+          "protected": true,
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1895
+          },
+          "name": "switchModes"
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1891
+          },
+          "name": "valueFromProtected",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "OverridableProtectedMember",
+      "properties": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1888
+          },
+          "name": "overrideReadOnly",
+          "protected": true,
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1889
+          },
+          "name": "overrideReadWrite",
+          "protected": true,
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.OverrideReturnsObject": {
       "assembly": "jsii-calc",
       "docs": {
@@ -9610,5 +9699,5 @@
     }
   },
   "version": "0.19.0",
-  "fingerprint": "nQMF6ipA96E38PvG3NsgKOJIb3ZEit4jNrxZAkgRlbs="
+  "fingerprint": "KFKFyrJ+3+cfNKWPiNetngWkPFI32ydxfJyaR43/wDI="
 }

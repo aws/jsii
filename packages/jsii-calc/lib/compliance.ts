@@ -1880,3 +1880,23 @@ export class ClassWithCollections {
         return {'key1': 'value1', 'key2': 'value2'};
     }
 }
+
+/**
+ * @see https://github.com/aws/jsii/issues/903
+ */
+export class OverridableProtectedMember {
+    protected readonly overrideReadOnly: string = 'Baz';
+    protected overrideReadWrite: string = 'zinga!';
+
+    public valueFromProtected(): string {
+        return this.overrideMe();
+    }
+
+    public switchModes(): void {
+        this.overrideReadWrite = 'zaar...';
+    }
+
+    protected overrideMe(): string {
+        return this.overrideReadOnly + this.overrideReadWrite;
+    }
+}
