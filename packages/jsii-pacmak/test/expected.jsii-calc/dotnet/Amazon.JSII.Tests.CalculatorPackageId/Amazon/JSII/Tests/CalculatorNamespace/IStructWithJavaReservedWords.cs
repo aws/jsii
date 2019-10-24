@@ -23,7 +23,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiProperty(name: "assert", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         string Assert
         {
+            #if NETCOREAPP3_0
+            get
+            {
+                return null;
+            }
+            #else
             get;
+            #endif
         }
 
         /// <remarks>
@@ -32,7 +39,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiProperty(name: "result", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         string Result
         {
+            #if NETCOREAPP3_0
+            get
+            {
+                return null;
+            }
+            #else
             get;
+            #endif
         }
 
         /// <remarks>
@@ -41,7 +55,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiProperty(name: "that", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         string That
         {
+            #if NETCOREAPP3_0
+            get
+            {
+                return null;
+            }
+            #else
             get;
+            #endif
         }
     }
 }

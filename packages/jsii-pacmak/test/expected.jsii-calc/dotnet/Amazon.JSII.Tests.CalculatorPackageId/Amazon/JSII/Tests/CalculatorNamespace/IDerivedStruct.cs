@@ -44,7 +44,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiProperty(name: "anotherOptional", typeJson: "{\"collection\":{\"elementtype\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"},\"kind\":\"map\"}}", isOptional: true)]
         System.Collections.Generic.IDictionary<string, Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.Value_> AnotherOptional
         {
+            #if NETCOREAPP3_0
+            get
+            {
+                return null;
+            }
+            #else
             get;
+            #endif
         }
 
         /// <remarks>
@@ -53,7 +60,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiProperty(name: "optionalAny", typeJson: "{\"primitive\":\"any\"}", isOptional: true)]
         object OptionalAny
         {
+            #if NETCOREAPP3_0
+            get
+            {
+                return null;
+            }
+            #else
             get;
+            #endif
         }
 
         /// <remarks>
@@ -62,7 +76,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiProperty(name: "optionalArray", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"string\"},\"kind\":\"array\"}}", isOptional: true)]
         string[] OptionalArray
         {
+            #if NETCOREAPP3_0
+            get
+            {
+                return null;
+            }
+            #else
             get;
+            #endif
         }
     }
 }

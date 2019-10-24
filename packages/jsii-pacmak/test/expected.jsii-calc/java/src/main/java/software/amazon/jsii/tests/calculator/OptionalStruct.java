@@ -11,7 +11,9 @@ public interface OptionalStruct extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getField();
+    default java.lang.String getField() {
+        return null;
+    }
 
     /**
      * @return a {@link Builder} of {@link OptionalStruct}

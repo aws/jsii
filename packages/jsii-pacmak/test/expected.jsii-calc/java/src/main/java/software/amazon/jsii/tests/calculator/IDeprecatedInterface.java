@@ -13,12 +13,16 @@ public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializa
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-    java.lang.Number getMutableProperty();
+    default java.lang.Number getMutableProperty() {
+        return null;
+    }
 
     /**
      * @deprecated could be better
      */
-    void setMutableProperty(final java.lang.Number value);
+    default void setMutableProperty(final java.lang.Number value) {
+        throw new RuntimeException("'void " + getClass().getCanonicalName() + "#setMutableProperty(java.lang.Number)' is not implemented!");
+    }
 
     /**
      * @deprecated services no purpose

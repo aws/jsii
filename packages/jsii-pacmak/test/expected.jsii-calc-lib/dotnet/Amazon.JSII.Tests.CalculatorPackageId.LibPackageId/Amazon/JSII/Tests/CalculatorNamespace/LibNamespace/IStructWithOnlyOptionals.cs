@@ -18,7 +18,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         [System.Obsolete()]
         string Optional1
         {
+            #if NETCOREAPP3_0
+            get
+            {
+                return null;
+            }
+            #else
             get;
+            #endif
         }
 
         /// <remarks>
@@ -28,7 +35,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         [System.Obsolete()]
         double? Optional2
         {
+            #if NETCOREAPP3_0
+            get
+            {
+                return null;
+            }
+            #else
             get;
+            #endif
         }
 
         /// <remarks>
@@ -38,7 +52,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         [System.Obsolete()]
         bool? Optional3
         {
+            #if NETCOREAPP3_0
+            get
+            {
+                return null;
+            }
+            #else
             get;
+            #endif
         }
     }
 }

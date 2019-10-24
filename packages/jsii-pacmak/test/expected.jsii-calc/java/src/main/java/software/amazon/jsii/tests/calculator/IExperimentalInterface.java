@@ -11,12 +11,16 @@ public interface IExperimentalInterface extends software.amazon.jsii.JsiiSeriali
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Number getMutableProperty();
+    default java.lang.Number getMutableProperty() {
+        return null;
+    }
 
     /**
      * EXPERIMENTAL
      */
-    void setMutableProperty(final java.lang.Number value);
+    default void setMutableProperty(final java.lang.Number value) {
+        throw new RuntimeException("'void " + getClass().getCanonicalName() + "#setMutableProperty(java.lang.Number)' is not implemented!");
+    }
 
     /**
      * EXPERIMENTAL

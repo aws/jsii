@@ -14,8 +14,19 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiProperty(name: "mutableProperty", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
         double? MutableProperty
         {
+            #if NETCOREAPP3_0
+            get
+            {
+                return null;
+            }
+            set
+            {
+                throw new System.NotSupportedException("'set' for 'MutableProperty' is not implemented");
+            }
+            #else
             get;
             set;
+            #endif
         }
         /// <remarks>
         /// stability: Experimental

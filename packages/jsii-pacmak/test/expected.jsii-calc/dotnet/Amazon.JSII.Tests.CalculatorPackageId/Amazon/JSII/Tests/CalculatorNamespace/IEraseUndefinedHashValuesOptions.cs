@@ -14,7 +14,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiProperty(name: "option1", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         string Option1
         {
+            #if NETCOREAPP3_0
+            get
+            {
+                return null;
+            }
+            #else
             get;
+            #endif
         }
 
         /// <remarks>
@@ -23,7 +30,14 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiProperty(name: "option2", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         string Option2
         {
+            #if NETCOREAPP3_0
+            get
+            {
+                return null;
+            }
+            #else
             get;
+            #endif
         }
     }
 }
