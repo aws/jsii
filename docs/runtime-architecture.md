@@ -49,7 +49,7 @@ The initialization workflow can be described as:
     variable, or the version that is bundled in the *native Runtime library*)
 3. The *native Runtime library*  interacts with the sidekick `node` process by
     exchanging JSON-encoded messages through the `node` process' *STDIN* and
-    *STDOUT$
+    *STDOUT*
 4. Calls into the *Generated bindings* are encoded into JSON requests and sent
     to the sidekick `node` process, which will execute the corresponding
     **Javascript** code, then responds back.
