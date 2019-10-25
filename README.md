@@ -21,6 +21,10 @@ A class library written in **TypeScript** can be used in projects authored in
 > NOTE: Due to performance of the hosted **Javascript** engine and marshaling
 > costs, `jsii` modules are best suited for development and build tools, as
 > opposed to performance-sensitive or resource-constrained applications.
+>
+> For more information, please see the [*Runtime Architecture* description].
+>
+> [*Runtime Architecture*  description]: ./docs/runtime-architecture.md
 
 ### An example is worth a thousand words
 
