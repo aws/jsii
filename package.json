@@ -9,10 +9,10 @@
     "test": "lerna run test --stream"
   },
   "devDependencies": {
-    "@types/node": "^10.14.22",
+    "@types/node": "^10.17.0",
     "@typescript-eslint/eslint-plugin": "^2.5.0",
     "@typescript-eslint/parser": "^2.5.0",
-    "eslint": "^6.5.1",
+    "eslint": "^6.6.0",
     "lerna": "^3.18.3",
     "typescript": "~3.6.4"
   },
