@@ -29,6 +29,15 @@ function assert-generator() {
         rsync -a ${original_expected}/ ${expected}/
     fi
 
+    if [[ -d ${original_expected}/java/target ]]; then
+        # When IDEs automaticallu compile the java target, the diff-test may fail later on with a cryptic error message
+        # due to the existence of .settings / .projects / ... directories that aren't part of the expected outcome. This
+        # check is here to avoid the confusion.
+        echo "An IDE plugin seems to have eagerly tried to compile ${original_expected}/java. Please remove:"
+        echo "    rm -rf ${original_expected}/java/target"
+        exit 1
+    fi
+
     # put the real expected tarball instead of the placeholder
     for expected_tarball_placeholder in $(find ${expected} -name "*.tgz" || true); do
         rm -f ${expected_tarball_placeholder}
