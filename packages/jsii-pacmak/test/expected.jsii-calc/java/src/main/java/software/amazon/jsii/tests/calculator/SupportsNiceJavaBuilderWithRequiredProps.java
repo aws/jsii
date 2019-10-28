@@ -19,60 +19,6 @@ public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.js
     }
 
     /**
-     * A builder facility for {@link SupportsNiceJavaBuilderWithRequiredProps}.
-     */
-    protected static final class Builder {
-        private final java.lang.Number id;
-        private final software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderProps.Builder props = software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderProps.builder();
-
-        /**
-         * Creates a new {@link Builder} for {@link SupportsNiceJavaBuilderWithRequiredProps}.
-         *
-         * @param id 
-         *
-         * @returns a new {@link Builder} instance
-         */
-        public static Builder create(final java.lang.Number id) {
-            return new Builder(id);
-        }
-
-        private Builder(final java.lang.Number id) {
-            this.id = id;
-        }
-
-        /**
-         * Defines the value of props.bar
-         *
-         * @param bar 
-         *
-         * @returns {@code this}
-         */
-        public Builder bar(final java.lang.Number bar) {
-            this.props.bar(bar);
-            return this;
-        }
-
-        /**
-         * Defines the value of props.id
-         *
-         * @param id 
-         *
-         * @returns {@code this}
-         */
-        public Builder id(final java.lang.String id) {
-            this.props.id(id);
-            return this;
-        }
-
-        /**
-         * @returns a new instance of {@link SupportsNiceJavaBuilderWithRequiredProps}
-         */
-        public SupportsNiceJavaBuilderWithRequiredProps build() {
-            return new software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderWithRequiredProps(this.id, this.props.build());
-        }
-    }
-
-    /**
      * EXPERIMENTAL
      * 
      * @param id This parameter is required.

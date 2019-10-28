@@ -17,63 +17,20 @@ public class OptionalStructConsumer extends software.amazon.jsii.JsiiObject {
     }
 
     /**
-     * A builder facility for {@link OptionalStructConsumer}.
-     */
-    public static final class Builder {
-        private software.amazon.jsii.tests.calculator.OptionalStruct.Builder optionalStruct;
-
-        /**
-         * Creates a new {@link Builder} for {@link OptionalStructConsumer}.
-         *
-         *
-         * @returns a new {@link Builder} instance
-         */
-        public static Builder create() {
-            return new Builder();
-        }
-
-        private Builder() {
-        }
-
-        /**
-         * Defines the value of optionalStruct.field
-         *
-         * @param field 
-         *
-         * @returns {@code this}
-         */
-        public Builder field(final java.lang.String field) {
-            if (this.optionalStruct == null) {
-                this.optionalStruct = software.amazon.jsii.tests.calculator.OptionalStruct.builder();
-            }
-            this.optionalStruct.field(field);
-            return this;
-        }
-
-        /**
-         * @returns a new instance of {@link OptionalStructConsumer}
-         */
-        public OptionalStructConsumer build() {
-            return new software.amazon.jsii.tests.calculator.OptionalStructConsumer((this.optionalStruct != null ? this.optionalStruct.build() : null));
-        }
-    }
-
-    /**
-     * @deprecated This constructor will be made 'protected' in a future version. Use the builder at {@link OptionalStructConsumer.Builder#create} instead.
+     * EXPERIMENTAL
+     * 
      * @param optionalStruct
      */
-    @Deprecated
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public OptionalStructConsumer(final software.amazon.jsii.tests.calculator.OptionalStruct optionalStruct) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { optionalStruct }));
     }
 
     /**
-     * @deprecated This constructor will be made 'protected' in a future version. Use the builder at {@link OptionalStructConsumer.Builder#create} instead.
+     * EXPERIMENTAL
      */
-    @Deprecated
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public OptionalStructConsumer() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
@@ -93,5 +50,49 @@ public class OptionalStructConsumer extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String getFieldValue() {
         return this.jsiiGet("fieldValue", java.lang.String.class);
+    }
+
+    /**
+     * A fluent builder for {@link software.amazon.jsii.tests.calculator.OptionalStructConsumer}.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    public static final class Builder {
+        /**
+         * EXPERIMENTAL
+         * 
+         * @return a new instance of {@link Builder}.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        public static Builder create() {
+            return new Builder();
+        }
+
+        private software.amazon.jsii.tests.calculator.OptionalStruct.Builder optionalStruct;
+
+        private Builder() {
+        }
+
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        public Builder field(final java.lang.String field) {
+            this.optionalStruct().field(field);
+            return this;
+        }
+
+        /**
+         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.OptionalStructConsumer}.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        public software.amazon.jsii.tests.calculator.OptionalStructConsumer build() {
+            return new software.amazon.jsii.tests.calculator.OptionalStructConsumer(
+                this.optionalStruct != null ? this.optionalStruct.build() : null
+            );
+        }
+
+        private software.amazon.jsii.tests.calculator.OptionalStruct.Builder optionalStruct() {
+            if (this.optionalStruct == null) {
+                this.optionalStruct = new software.amazon.jsii.tests.calculator.OptionalStruct.Builder();
+            }
+            return this.optionalStruct;
+        }
     }
 }
