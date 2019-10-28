@@ -15,14 +15,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiProperty(name: "initialValue", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
         double? InitialValue
         {
-            #if NETCOREAPP3_0
             get
             {
                 return null;
             }
-            #else
-            get;
-            #endif
         }
 
         /// <remarks>
@@ -31,14 +27,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiProperty(name: "maximumValue", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
         double? MaximumValue
         {
-            #if NETCOREAPP3_0
             get
             {
                 return null;
             }
-            #else
-            get;
-            #endif
         }
     }
 }

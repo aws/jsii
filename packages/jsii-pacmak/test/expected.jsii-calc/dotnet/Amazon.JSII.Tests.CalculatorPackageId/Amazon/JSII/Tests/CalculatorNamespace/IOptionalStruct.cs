@@ -14,14 +14,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiProperty(name: "field", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         string Field
         {
-            #if NETCOREAPP3_0
             get
             {
                 return null;
             }
-            #else
-            get;
-            #endif
         }
     }
 }

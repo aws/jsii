@@ -23,14 +23,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiProperty(name: "thisShouldBeUndefined", typeJson: "{\"primitive\":\"any\"}", isOptional: true)]
         object ThisShouldBeUndefined
         {
-            #if NETCOREAPP3_0
             get
             {
                 return null;
             }
-            #else
-            get;
-            #endif
         }
     }
 }

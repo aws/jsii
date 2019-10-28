@@ -25,14 +25,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiProperty(name: "deeperOptionalProp", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         string DeeperOptionalProp
         {
-            #if NETCOREAPP3_0
             get
             {
                 return null;
             }
-            #else
-            get;
-            #endif
         }
     }
 }

@@ -184,8 +184,6 @@ export class DotNetGenerator extends Generator {
     this.code.openBlock(`${propType}${isOptionalPrimitive} ${propName}`);
 
     if (prop.optional) {
-      // Conditional compilation - default interface implementation requires C#8.0 support, which imples netcoreapp3.0 or above!
-      this.code.line('#if NETCOREAPP3_0');
       this.code.openBlock('get');
       this.code.line('return null;');
       this.code.closeBlock();
@@ -194,14 +192,11 @@ export class DotNetGenerator extends Generator {
         this.code.line(`throw new System.NotSupportedException("'set' for '${propName}' is not implemented");`);
         this.code.closeBlock();
       }
-      this.code.line('#else')
-    }
-    this.code.line('get;');
-    if (!prop.immutable) {
-      this.code.line('set;');
-    }
-    if (prop.optional) {
-      this.code.line('#endif');
+    } else {
+      this.code.line('get;');
+      if (!prop.immutable) {
+        this.code.line('set;');
+      }
     }
 
     this.code.closeBlock();

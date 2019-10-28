@@ -4,7 +4,7 @@
     <PropertyGroup>
         <PackageId>Amazon.JSII.Analyzers</PackageId>
         <Title>.NET Roslyn Analyzers for JSII</Title>
-        <TargetFramework>netcoreapp2.1</TargetFramework>
+        <TargetFramework>netcoreapp3.0</TargetFramework>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageIcon>icon.png</PackageIcon>
     </PropertyGroup>

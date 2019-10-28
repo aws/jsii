@@ -39,14 +39,10 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         [System.Obsolete()]
         string[] FirstOptional
         {
-            #if NETCOREAPP3_0
             get
             {
                 return null;
             }
-            #else
-            get;
-            #endif
         }
     }
 }
