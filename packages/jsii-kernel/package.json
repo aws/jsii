@@ -38,7 +38,7 @@
     "@scope/jsii-calc-lib": "^0.19.0",
     "@types/fs-extra": "^8.0.1",
     "@types/jest": "^24.0.20",
-    "@types/jest-expect-message": "^1.0.0",
+    "@types/jest-expect-message": "^1.0.1",
     "@types/node": "^10.14.22",
     "@types/tar": "^4.0.3",
     "@typescript-eslint/eslint-plugin": "^2.5.0",

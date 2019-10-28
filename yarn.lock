@@ -1194,10 +1194,10 @@
   resolved "https://registry.yarnpkg.com/@types/jest-diff/-/jest-diff-20.0.1.tgz#35cc15b9c4f30a18ef21852e255fdb02f6d59b89"
   integrity sha512-yALhelO3i0hqZwhjtcr6dYyaLoCHbAMshwtj6cGxTvHZAKXHsYGdff6E8EPw3xLKY0ELUTQ69Q1rQiJENnccMA==
 
-"@types/jest-expect-message@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@types/jest-expect-message/-/jest-expect-message-1.0.0.tgz#f1d6e4ce8c823accc22d15a08839aa7fddd7f3d0"
-  integrity sha512-i94h9qffVHx3tHbpNtLx9+5URZ6DKODRNzQWf/Ow8MDfskWcuwClUXt+sFf0YaGiFVm8t+B5V9ugQaww+nT0EQ==
+"@types/jest-expect-message@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@types/jest-expect-message/-/jest-expect-message-1.0.1.tgz#a1c5d18fa32be141b06d60f54a66b23da68e6cd5"
+  integrity sha512-6WK4iQ/iVW4otNDNJEvCnIJ3keGeYtS04t4S/lA0ftF8hdHJnjY9rZrgHCz+LPsudd1DdwmGT5i6j4J5xU1S9A==
   dependencies:
     "@types/jest" "*"
 
