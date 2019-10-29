@@ -1150,10 +1150,10 @@ defineTest('registers interfaces requested', (sandbox) => {
 
 defineTest('retains the type of object literals', (sandbox) => {
   sandbox.callbackHandler = makeSyncCallbackHandler((cb) => {
-    expect(cb.invoke && cb.invoke.method).toBe('provide');
+    expect(cb.invoke && cb.invoke.method).toBe('provideAsInterface');
     expect(cb.invoke && cb.invoke.objref).toMatchObject({ [TOKEN_REF]: 'Object@10000' });
     const realObject = sandbox.create({ fqn: 'jsii-calc.AnonymousImplementationProvider' });
-    const { result } = sandbox.invoke({ objref: realObject, method: 'provide' });
+    const { result } = sandbox.invoke({ objref: realObject, method: 'provideAsInterface' });
     sandbox.del({ objref: realObject });
     return result;
   });
@@ -1161,10 +1161,10 @@ defineTest('retains the type of object literals', (sandbox) => {
   const objref = sandbox.create({
     fqn: 'Object',
     interfaces: ['jsii-calc.IAnonymousImplementationProvider'],
-    overrides: [{ method: 'provide' }],
+    overrides: [{ method: 'provideAsInterface' }],
   });
-  const result = sandbox.invoke({ objref, method: 'provide' });
-  expect(result).toEqual({ result: { [TOKEN_REF]: 'Object@10002', [TOKEN_INTERFACES]: ['jsii-calc.IAnonymouslyImplementMe'] } });
+  const result = sandbox.invoke({ objref, method: 'provideAsInterface' });
+  expect(result).toEqual({ result: { [TOKEN_REF]: 'jsii-calc.Implementation@10002', [TOKEN_INTERFACES]: ['jsii-calc.IAnonymouslyImplementMe'] } });
 });
 
 // =================================================================================================
