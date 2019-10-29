@@ -19,7 +19,9 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Object getFoo();
+    default java.lang.Object getFoo() {
+        return null;
+    }
 
     /**
      * @return a {@link Builder} of {@link UnionProperties}

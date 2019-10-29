@@ -15,13 +15,17 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Number getInitialValue();
+    default java.lang.Number getInitialValue() {
+        return null;
+    }
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Number getMaximumValue();
+    default java.lang.Number getMaximumValue() {
+        return null;
+    }
 
     /**
      * @return a {@link Builder} of {@link CalculatorProps}

@@ -11,11 +11,16 @@ public interface IStableInterface extends software.amazon.jsii.JsiiSerializable 
     /**
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Stable)
-    java.lang.Number getMutableProperty();
+    default java.lang.Number getMutableProperty() {
+        return null;
+    }
 
     /**
      */
-    void setMutableProperty(final java.lang.Number value);
+    @software.amazon.jsii.Optional
+    default void setMutableProperty(final java.lang.Number value) {
+        throw new UnsupportedOperationException("'void " + getClass().getCanonicalName() + "#setMutableProperty(java.lang.Number)' is not implemented!");
+    }
 
     /**
      */

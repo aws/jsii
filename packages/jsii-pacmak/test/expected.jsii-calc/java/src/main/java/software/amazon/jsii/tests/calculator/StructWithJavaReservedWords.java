@@ -19,19 +19,25 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getAssertValue();
+    default java.lang.String getAssertValue() {
+        return null;
+    }
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getResult();
+    default java.lang.String getResult() {
+        return null;
+    }
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getThat();
+    default java.lang.String getThat() {
+        return null;
+    }
 
     /**
      * @return a {@link Builder} of {@link StructWithJavaReservedWords}

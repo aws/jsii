@@ -50,7 +50,6 @@ export class FileGenerator {
     const rootNode = xmlbuilder.create('Project', { encoding: 'UTF-8', headless: true });
     rootNode.att('Sdk', 'Microsoft.NET.Sdk');
     const propertyGroup = rootNode.ele('PropertyGroup');
-
     const dotnetInfo = assembly.targets!.dotnet;
 
     propertyGroup.comment('Package Identification');
@@ -81,7 +80,7 @@ export class FileGenerator {
     propertyGroup.ele('IncludeSymbols', 'true');
     propertyGroup.ele('IncludeSource', 'true');
     propertyGroup.ele('SymbolPackageFormat', 'snupkg');
-    propertyGroup.ele('TargetFramework', 'netcoreapp2.1');
+    propertyGroup.ele('TargetFramework', 'netcoreapp3.0');
 
     if (dotnetInfo!.signAssembly != null) {
       const signAssembly = propertyGroup.ele('SignAssembly');

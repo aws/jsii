@@ -12,10 +12,17 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Stable
         /// </remarks>
         [JsiiProperty(name: "mutableProperty", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
+        [Amazon.JSII.Runtime.Deputy.JsiiOptional]
         double? MutableProperty
         {
-            get;
-            set;
+            get
+            {
+                return null;
+            }
+            set
+            {
+                throw new System.NotSupportedException("'set' for 'MutableProperty' is not implemented");
+            }
         }
         /// <remarks>
         /// stability: Stable

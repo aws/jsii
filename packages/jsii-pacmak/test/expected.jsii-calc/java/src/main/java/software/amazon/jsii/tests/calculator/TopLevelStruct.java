@@ -31,7 +31,9 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getOptional();
+    default java.lang.String getOptional() {
+        return null;
+    }
 
     /**
      * @return a {@link Builder} of {@link TopLevelStruct}

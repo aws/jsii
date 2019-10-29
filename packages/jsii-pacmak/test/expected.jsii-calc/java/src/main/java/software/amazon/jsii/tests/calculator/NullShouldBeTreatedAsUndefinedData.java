@@ -19,7 +19,9 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Object getThisShouldBeUndefined();
+    default java.lang.Object getThisShouldBeUndefined() {
+        return null;
+    }
 
     /**
      * @return a {@link Builder} of {@link NullShouldBeTreatedAsUndefinedData}

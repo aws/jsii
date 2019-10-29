@@ -23,7 +23,9 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getDeeperOptionalProp();
+    default java.lang.String getDeeperOptionalProp() {
+        return null;
+    }
 
     /**
      * @return a {@link Builder} of {@link SecondLevelStruct}
