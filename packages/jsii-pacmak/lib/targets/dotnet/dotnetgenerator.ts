@@ -179,6 +179,10 @@ export class DotNetGenerator extends Generator {
     const propType = this.typeresolver.toDotNetType(prop.type);
     const propName = this.nameutils.convertPropertyName(prop.name);
 
+    if (prop.optional) {
+      this.code.line('[Amazon.JSII.Runtime.Deputy.JsiiOptional]');
+    }
+
     // Specifying that a type is nullable is only required for primitive value types
     const isOptionalPrimitive = this.isOptionalPrimitive(prop) ? '?' : '';
     this.code.openBlock(`${propType}${isOptionalPrimitive} ${propName}`);

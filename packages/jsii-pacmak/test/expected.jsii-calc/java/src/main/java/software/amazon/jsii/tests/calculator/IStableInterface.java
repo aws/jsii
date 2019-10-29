@@ -15,8 +15,9 @@ public interface IStableInterface extends software.amazon.jsii.JsiiSerializable 
 
     /**
      */
+    @software.amazon.jsii.Optional
     default void setMutableProperty(final java.lang.Number value) {
-        throw new RuntimeException("'void " + getClass().getCanonicalName() + "#setMutableProperty(java.lang.Number)' is not implemented!");
+        throw new UnsupportedOperationException("'void " + getClass().getCanonicalName() + "#setMutableProperty(java.lang.Number)' is not implemented!");
     }
 
     /**

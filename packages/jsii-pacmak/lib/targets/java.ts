@@ -551,8 +551,9 @@ class JavaGenerator extends Generator {
         this.code.line();
         this.addJavaDocs(prop);
         if (prop.optional) {
+          this.code.line('@software.amazon.jsii.Optional');
           this.code.openBlock(`default void set${propName}(final ${type} value)`);
-          this.code.line(`throw new RuntimeException("'void " + getClass().getCanonicalName() + "#set${propName}(${type})' is not implemented!");`);
+          this.code.line(`throw new UnsupportedOperationException("'void " + getClass().getCanonicalName() + "#set${propName}(${type})' is not implemented!");`);
           this.code.closeBlock();
         } else {
           this.code.line(`void set${propName}(final ${type} value);`);
