@@ -13,18 +13,26 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "initialValue", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
+        [Amazon.JSII.Runtime.Deputy.JsiiOptional]
         double? InitialValue
         {
-            get;
+            get
+            {
+                return null;
+            }
         }
 
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "maximumValue", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
+        [Amazon.JSII.Runtime.Deputy.JsiiOptional]
         double? MaximumValue
         {
-            get;
+            get
+            {
+                return null;
+            }
         }
     }
 }

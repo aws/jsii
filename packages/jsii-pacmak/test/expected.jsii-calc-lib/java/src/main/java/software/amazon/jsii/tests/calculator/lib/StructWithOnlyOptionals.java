@@ -13,19 +13,25 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-    java.lang.String getOptional1();
+    default java.lang.String getOptional1() {
+        return null;
+    }
 
     /**
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-    java.lang.Number getOptional2();
+    default java.lang.Number getOptional2() {
+        return null;
+    }
 
     /**
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-    java.lang.Boolean getOptional3();
+    default java.lang.Boolean getOptional3() {
+        return null;
+    }
 
     /**
      * @return a {@link Builder} of {@link StructWithOnlyOptionals}

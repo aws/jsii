@@ -538,13 +538,26 @@ class JavaGenerator extends Generator {
     this.code.line();
     this.addJavaDocs(prop);
     this.emitStabilityAnnotations(prop);
-    this.code.line(`${getterType} get${propName}();`);
+    if (prop.optional) {
+      this.code.openBlock(`default ${getterType} get${propName}()`);
+      this.code.line('return null;');
+      this.code.closeBlock();
+    } else {
+      this.code.line(`${getterType} get${propName}();`);
+    }
 
     if (!prop.immutable) {
       for (const type of setterTypes) {
         this.code.line();
         this.addJavaDocs(prop);
-        this.code.line(`void set${propName}(final ${type} value);`);
+        if (prop.optional) {
+          this.code.line('@software.amazon.jsii.Optional');
+          this.code.openBlock(`default void set${propName}(final ${type} value)`);
+          this.code.line(`throw new UnsupportedOperationException("'void " + getClass().getCanonicalName() + "#set${propName}(${type})' is not implemented!");`);
+          this.code.closeBlock();
+        } else {
+          this.code.line(`void set${propName}(final ${type} value);`);
+        }
       }
     }
   }
