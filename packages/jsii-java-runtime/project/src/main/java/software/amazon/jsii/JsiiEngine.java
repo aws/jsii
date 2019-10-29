@@ -99,8 +99,8 @@ public final class JsiiEngine implements JsiiCallbackHandler {
 
         JsiiModule module;
         try {
-            module = moduleClass.newInstance();
-        } catch (IllegalAccessException | InstantiationException e) {
+            module = moduleClass.getConstructor().newInstance();
+        } catch (IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
             throw new JsiiException(e);
         }
 
@@ -208,7 +208,10 @@ public final class JsiiEngine implements JsiiCallbackHandler {
      *
      * @return The Java class name.
      */
-    private Class<?> resolveJavaClass(final String fqn) throws ClassNotFoundException {
+    Class<?> resolveJavaClass(final String fqn) {
+        if ("Object".equals(fqn)) {
+            return JsiiObject.class;
+        }
         String[] parts = fqn.split("\\.");
         if (parts.length < 2) {
             throw new JsiiException("Malformed FQN: " + fqn);
@@ -225,7 +228,11 @@ public final class JsiiEngine implements JsiiCallbackHandler {
         if (module == null) {
             throw new JsiiException("No loaded module is named " + moduleName);
         }
-        return module.resolveClass(fqn);
+        try {
+            return module.resolveClass(fqn);
+        } catch (final ClassNotFoundException cfne) {
+            throw new JsiiException(cfne);
+        }
     }
 
     /**
@@ -278,12 +285,8 @@ public final class JsiiEngine implements JsiiCallbackHandler {
 
         String typeName = enumRef.substring(0, sep);
         String valueName = enumRef.substring(sep + 1);
-        try {
-            Class klass = resolveJavaClass(typeName);
-            return Enum.valueOf(klass, valueName);
-        } catch (final ClassNotFoundException e) {
-            throw new JsiiException("Unable to resolve enum type " + typeName, e);
-        }
+        Class klass = resolveJavaClass(typeName);
+        return Enum.valueOf(klass, valueName);
     }
 
     /**

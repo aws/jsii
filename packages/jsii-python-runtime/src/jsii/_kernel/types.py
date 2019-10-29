@@ -15,6 +15,7 @@ from jsii.compat import Protocol
 class ObjRef:
 
     ref: str
+    interfaces: Optional[List[str]] = None
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)

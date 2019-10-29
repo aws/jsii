@@ -29,7 +29,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "createAList", returnsJson: "{\"type\":{\"collection\":{\"elementtype\":{\"primitive\":\"string\"},\"kind\":\"array\"}}}")]
         public static string[] CreateAList()
         {
-            return InvokeStaticMethod<string[]>(typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithCollections), new object[]{});
+            return InvokeStaticMethod<string[]>(typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithCollections), new System.Type[]{}, new object[]{});
         }
 
         /// <remarks>
@@ -38,7 +38,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "createAMap", returnsJson: "{\"type\":{\"collection\":{\"elementtype\":{\"primitive\":\"string\"},\"kind\":\"map\"}}}")]
         public static System.Collections.Generic.IDictionary<string, string> CreateAMap()
         {
-            return InvokeStaticMethod<System.Collections.Generic.IDictionary<string, string>>(typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithCollections), new object[]{});
+            return InvokeStaticMethod<System.Collections.Generic.IDictionary<string, string>>(typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithCollections), new System.Type[]{}, new object[]{});
         }
 
         /// <remarks>

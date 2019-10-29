@@ -3,7 +3,7 @@
 namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
 {
     [JsiiClass(typeof(TestClass), "myClassFqn", "[]")]
-    public class TestClass : DeputyBase
+    public sealed class TestClass : DeputyBase
     {
         public TestClass(ByRefValue reference) : base(reference)
         {

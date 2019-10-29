@@ -9,7 +9,6 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using NSubstitute;
 using System.Collections.Generic;
-using System.IO;
 using Xunit;
 using Xunit.Sdk;
 using Callback = Amazon.JSII.JsonModel.Api.Callback;
@@ -17,23 +16,21 @@ using Type = Amazon.JSII.JsonModel.Spec.Type;
 
 namespace Amazon.JSII.Runtime.UnitTests.Client
 {
-    public class ClientTests
+    public sealed class ClientTests
     {
         const string Prefix = "Runtime.Client.";
 
         public abstract class ClientTestBase
         {
-            protected readonly IFileSystem _fileSystem;
-            protected readonly IFile _file;
-            protected readonly IDirectory _directory;
+            private readonly IFileSystem _fileSystem;
+            
+            internal readonly IRuntime _runtime;
+            private readonly IReferenceMap _referenceMap;
+            private readonly IFrameworkToJsiiConverter _frameworkToJsiiConverter;
+            internal readonly ILoadedPackageSet _loadedPackages;
+            private readonly ILoggerFactory _loggerFactory;
 
-            protected readonly IRuntime _runtime;
-            protected readonly IReferenceMap _referenceMap;
-            protected readonly IFrameworkToJsiiConverter _frameworkToJsiiConverter;
-            protected readonly ILoadedPackageSet _loadedPackages;
-            protected readonly ILoggerFactory _loggerFactory;
-
-            public ClientTestBase()
+            protected ClientTestBase()
             {
                 _fileSystem = Substitute.For<IFileSystem>();
                 _runtime = Substitute.For<IRuntime>();
@@ -42,13 +39,13 @@ namespace Amazon.JSII.Runtime.UnitTests.Client
                 _loadedPackages = Substitute.For<ILoadedPackageSet>();
                 _loggerFactory = Substitute.For<ILoggerFactory>();
 
-                _file = Substitute.For<IFile>();
-                _directory = Substitute.For<IDirectory>();
-                _fileSystem.File.Returns(_file);
-                _fileSystem.Directory.Returns(_directory);
+                var file = Substitute.For<IFile>();
+                var directory = Substitute.For<IDirectory>();
+                _fileSystem.File.Returns(file);
+                _fileSystem.Directory.Returns(directory);
             }
 
-            protected string GetOkResponse<TResponse>(TResponse response)
+            internal string GetOkResponse<TResponse>(TResponse response)
                 where TResponse : IKernelResponse
             {
                 IDictionary<string, object> okResponse = new Dictionary<string, object>
@@ -59,7 +56,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Client
                 return JsonConvert.SerializeObject(okResponse);
             }
 
-            protected IClient CreateClient()
+            internal IClient CreateClient()
             {
                 return new Services.Client
                 (
@@ -72,7 +69,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Client
                 );
             }
 
-            protected bool PlatformIndependentEqual(string expected, string actual)
+            internal bool PlatformIndependentEqual(string expected, string actual)
             {
                 try
                 {
@@ -87,7 +84,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Client
             }
         }
 
-        public class LoadPackageTests : ClientTestBase
+        public sealed class LoadPackageTests : ClientTestBase
         {
             const string _Prefix = Prefix + nameof(IClient.LoadPackage) + ".";
 
@@ -155,7 +152,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Client
             }
         }
 
-        public class HelloTests : ClientTestBase
+        public sealed class HelloTests : ClientTestBase
         {
             const string _Prefix = Prefix + nameof(IClient.Hello) + ".";
 
@@ -173,7 +170,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Client
             }
         }
 
-        public class LoadTests : ClientTestBase
+        public sealed class LoadTests : ClientTestBase
         {
             const string _Prefix = Prefix + nameof(IClient.Load) + ".";
 
@@ -212,7 +209,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Client
             }
         }
 
-        public class CreateTests : ClientTestBase
+        public sealed class CreateTests : ClientTestBase
         {
             const string _Prefix = Prefix + nameof(IClient.Create) + ".";
 
@@ -242,7 +239,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Client
             }
         }
 
-        public class DeleteTests : ClientTestBase
+        public sealed class DeleteTests : ClientTestBase
         {
             const string _Prefix = Prefix + nameof(IClient.Delete) + ".";
 
@@ -266,7 +263,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Client
             }
         }
 
-        public class GetTests : ClientTestBase
+        public sealed class GetTests : ClientTestBase
         {
             const string _Prefix = Prefix + nameof(IClient.Get) + ".";
 
@@ -311,7 +308,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Client
             }
         }
 
-        public class SetTests : ClientTestBase
+        public sealed class SetTests : ClientTestBase
         {
             const string _Prefix = Prefix + nameof(IClient.Set) + ".";
 
@@ -358,7 +355,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Client
             }
         }
 
-        public class InvokeTests : ClientTestBase
+        public sealed class InvokeTests : ClientTestBase
         {
             const string _Prefix = Prefix + nameof(IClient.Invoke) + ".";
 
@@ -405,7 +402,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Client
             }
         }
 
-        public class BeginTests : ClientTestBase
+        public sealed class BeginTests : ClientTestBase
         {
             const string _Prefix = Prefix + nameof(IClient.Begin) + ".";
 
@@ -431,7 +428,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Client
             }
         }
 
-        public class EndTests : ClientTestBase
+        public sealed class EndTests : ClientTestBase
         {
             const string _Prefix = Prefix + nameof(IClient.End) + ".";
 
@@ -452,7 +449,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Client
             }
         }
 
-        public class CallbacksTests : ClientTestBase
+        public sealed class CallbacksTests : ClientTestBase
         {
             const string _Prefix = Prefix + nameof(IClient.Callbacks) + ".";
 
@@ -486,7 +483,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Client
             }
         }
 
-        public class CompleteTests : ClientTestBase
+        public sealed class CompleteTests : ClientTestBase
         {
             const string _Prefix = Prefix + nameof(IClient.Complete) + ".";
 
@@ -512,7 +509,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Client
             }
         }
 
-        public class NamingTests : ClientTestBase
+        public sealed class NamingTests : ClientTestBase
         {
             const string _Prefix = Prefix + nameof(IClient.Naming) + ".";
 
@@ -535,7 +532,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Client
             }
         }
 
-        public class StatsTests : ClientTestBase
+        public sealed class StatsTests : ClientTestBase
         {
             const string _Prefix = Prefix + nameof(IClient.Stats) + ".";
 

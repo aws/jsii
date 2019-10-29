@@ -34,7 +34,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [System.Obsolete("it was a bad idea")]
         public virtual void Method()
         {
-            InvokeInstanceVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
         }
 
         /// <remarks>

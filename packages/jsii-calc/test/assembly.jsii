@@ -1027,6 +1027,57 @@
       ],
       "name": "AllowedMethodNames"
     },
+    "jsii-calc.AnonymousImplementationProvider": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.AnonymousImplementationProvider",
+      "initializer": {},
+      "interfaces": [
+        "jsii-calc.IAnonymousImplementationProvider"
+      ],
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1956
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1959
+          },
+          "name": "provideAsClass",
+          "overrides": "jsii-calc.IAnonymousImplementationProvider",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.Implementation"
+            }
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1963
+          },
+          "name": "provideAsInterface",
+          "overrides": "jsii-calc.IAnonymousImplementationProvider",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.IAnonymouslyImplementMe"
+            }
+          }
+        }
+      ],
+      "name": "AnonymousImplementationProvider"
+    },
     "jsii-calc.AsyncVirtualMethods": {
       "assembly": "jsii-calc",
       "docs": {
@@ -3318,7 +3369,12 @@
           "name": "prop1IsNull",
           "returns": {
             "type": {
-              "primitive": "any"
+              "collection": {
+                "elementtype": {
+                  "primitive": "any"
+                },
+                "kind": "map"
+              }
             }
           },
           "static": true
@@ -3335,7 +3391,12 @@
           "name": "prop2IsUndefined",
           "returns": {
             "type": {
-              "primitive": "any"
+              "collection": {
+                "elementtype": {
+                  "primitive": "any"
+                },
+                "kind": "map"
+              }
             }
           },
           "static": true
@@ -3789,6 +3850,102 @@
         }
       ],
       "name": "GreetingAugmenter"
+    },
+    "jsii-calc.IAnonymousImplementationProvider": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "We can return an anonymous interface implementation from an override without losing the interface declarations."
+      },
+      "fqn": "jsii-calc.IAnonymousImplementationProvider",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1952
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1954
+          },
+          "name": "provideAsClass",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.Implementation"
+            }
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1953
+          },
+          "name": "provideAsInterface",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.IAnonymouslyImplementMe"
+            }
+          }
+        }
+      ],
+      "name": "IAnonymousImplementationProvider"
+    },
+    "jsii-calc.IAnonymouslyImplementMe": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.IAnonymouslyImplementMe",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1970
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1972
+          },
+          "name": "verb",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "IAnonymouslyImplementMe",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1971
+          },
+          "name": "value",
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
     },
     "jsii-calc.IAnotherPublicInterface": {
       "assembly": "jsii-calc",
@@ -4736,6 +4893,36 @@
           "name": "prop",
           "type": {
             "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.Implementation": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.Implementation",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1967
+      },
+      "name": "Implementation",
+      "properties": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1968
+          },
+          "name": "value",
+          "type": {
+            "primitive": "number"
           }
         }
       ]
@@ -9932,5 +10119,5 @@
     }
   },
   "version": "0.19.0",
-  "fingerprint": "98k0qPH9S801EvX681aTDIxgufKA90iJ4SlfZKrm90c="
+  "fingerprint": "MZT68aeJ7MEeDJORDPKkIyqOqOLC+Yb3LcDU7XrxgCQ="
 }

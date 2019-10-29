@@ -6,7 +6,8 @@
     "bump": "bash scripts/bump.sh",
     "fetch-dotnet-snk": "bash scripts/fetch-dotnet-snk.sh",
     "package": "bash scripts/package.sh",
-    "test": "lerna run test --stream"
+    "test": "lerna run test --stream",
+    "test:update": "UPDATE_DIFF=1 lerna run test --stream"
   },
   "devDependencies": {
     "@types/node": "^10.17.0",

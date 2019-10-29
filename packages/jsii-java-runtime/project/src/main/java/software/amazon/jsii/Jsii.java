@@ -25,4 +25,14 @@ public @interface Jsii {
      * @return The jsii FQN of the type.
      */
     String fqn();
+
+    /**
+     * Indicates that a proxy implementation exists for this type, and what it is.
+     */
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.TYPE)
+    @Inherited
+    @interface Proxy {
+        Class<? extends JsiiObject> value();
+    }
 }

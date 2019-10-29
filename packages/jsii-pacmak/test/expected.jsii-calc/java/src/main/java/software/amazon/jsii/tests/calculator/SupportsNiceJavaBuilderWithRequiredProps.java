@@ -27,7 +27,7 @@ public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.js
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public SupportsNiceJavaBuilderWithRequiredProps(final java.lang.Number id, final software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderProps props) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(id, "id is required"), java.util.Objects.requireNonNull(props, "props is required") }));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(id, "id is required"), java.util.Objects.requireNonNull(props, "props is required") });
     }
 
     /**

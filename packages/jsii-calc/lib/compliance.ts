@@ -1438,7 +1438,7 @@ export class EraseUndefinedHashValues {
     /**
      * We expect "prop2" to be erased
      */
-    public static prop2IsUndefined(): any {
+    public static prop2IsUndefined(): { [key: string]: any } {
         return {
             prop1: 'value1',
             prop2: undefined
@@ -1448,7 +1448,7 @@ export class EraseUndefinedHashValues {
     /**
      * We expect "prop1" to be erased
      */
-    public static prop1IsNull(): any {
+    public static prop1IsNull(): { [key: string]: any } {
         return {
             prop1: null,
             prop2: 'value2'
@@ -1943,4 +1943,36 @@ export interface SupportsNiceJavaBuilderProps {
      * Some number, like 42.
      */
     readonly bar: number;
+}
+
+/**
+ * We can return an anonymous interface implementation from an override without losing the interface
+ * declarations.
+ */
+export interface IAnonymousImplementationProvider {
+    provideAsInterface(): IAnonymouslyImplementMe;
+    provideAsClass(): Implementation;
+}
+export class AnonymousImplementationProvider implements IAnonymousImplementationProvider {
+    private readonly instance = new PrivateType();
+
+    public provideAsClass(): Implementation {
+        return this.instance;
+    }
+
+    public provideAsInterface(): IAnonymouslyImplementMe {
+        return this.instance;
+    }
+}
+export class Implementation {
+    readonly value = 1337;
+}
+export interface IAnonymouslyImplementMe {
+    readonly value: number;
+    verb(): string;
+}
+class PrivateType extends Implementation implements IAnonymouslyImplementMe {
+    public verb() {
+        return 'to implement';
+    }
 }

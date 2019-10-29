@@ -142,11 +142,15 @@ export class DotNetRuntimeGenerator {
     const invokeMethodName = method.returns ? `return Invoke${isStatic}${returns}Method` : `Invoke${isStatic}${returns}Method`;
     const returnType = method.returns ? `<${this.typeresolver.toDotNetType(method.returns.type)}>` : '';
     const typeofStatement = method.static ? `typeof(${className}), ` : '';
-    const params: string[] = [];
+    const paramTypes = new Array<string>();
+    const params = new Array<string>();
     if (method.parameters) {
-      method.parameters.forEach(param => { params.push(this.nameutils.convertParameterName(param.name)); });
+      for (const param of method.parameters) {
+        paramTypes.push(`typeof(${this.typeresolver.toDotNetType(param.type)}${param.variadic ? '[]' : ''})`);
+        params.push(this.nameutils.convertParameterName(param.name));
+      }
     }
-    return `${invokeMethodName}${returnType}(${typeofStatement}new object[]{${params.join(', ')}});`;
+    return `${invokeMethodName}${returnType}(${typeofStatement}new System.Type[]{${paramTypes.join(', ')}}, new object[]{${params.join(', ')}});`;
   }
 
   /**

@@ -3,7 +3,7 @@
 namespace Amazon.JSII.Runtime.Deputy
 {
     [AttributeUsage(AttributeTargets.Field)]
-    public class JsiiEnumMemberAttribute : Attribute
+    public sealed class JsiiEnumMemberAttribute : Attribute
     {
         public JsiiEnumMemberAttribute(string name)
         {

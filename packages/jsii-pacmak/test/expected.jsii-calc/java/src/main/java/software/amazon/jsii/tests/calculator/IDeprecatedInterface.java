@@ -4,15 +4,17 @@ package software.amazon.jsii.tests.calculator;
  * @deprecated useless interface
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
-@Deprecated
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.IDeprecatedInterface")
+@software.amazon.jsii.Jsii.Proxy(IDeprecatedInterface.Jsii$Proxy.class)
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+@Deprecated
 public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializable {
 
     /**
      * @deprecated could be better
      */
-    @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
     default java.lang.Number getMutableProperty() {
         return null;
     }
@@ -28,8 +30,8 @@ public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializa
     /**
      * @deprecated services no purpose
      */
-    @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
     void method();
 
     /**
@@ -37,16 +39,15 @@ public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializa
      */
     final static class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements software.amazon.jsii.tests.calculator.IDeprecatedInterface {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.setObjRef(objRef);
+            super(objRef);
         }
 
         /**
          * @deprecated could be better
          */
         @Override
-        @Deprecated
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
         public java.lang.Number getMutableProperty() {
             return this.jsiiGet("mutableProperty", java.lang.Number.class);
         }
@@ -55,8 +56,8 @@ public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializa
          * @deprecated could be better
          */
         @Override
-        @Deprecated
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
         public void setMutableProperty(final java.lang.Number value) {
             this.jsiiSet("mutableProperty", value);
         }
@@ -64,8 +65,8 @@ public interface IDeprecatedInterface extends software.amazon.jsii.JsiiSerializa
         /**
          * @deprecated services no purpose
          */
-        @Deprecated
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
         @Override
         public void method() {
             this.jsiiCall("method", Void.class);

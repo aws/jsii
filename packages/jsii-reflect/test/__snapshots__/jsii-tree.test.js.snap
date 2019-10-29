@@ -140,6 +140,14 @@ exports[`jsii-tree --all 1`] = `
  │   │     │ └─┬ _y
  │   │     │   └── type: number
  │   │     └── returns: void
+ │   ├─┬ class AnonymousImplementationProvider (experimental)
+ │   │ ├── interfaces: IAnonymousImplementationProvider
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ provideAsClass() method (experimental)
+ │   │   │ └── returns: jsii-calc.Implementation
+ │   │   └─┬ provideAsInterface() method (experimental)
+ │   │     └── returns: jsii-calc.IAnonymouslyImplementMe
  │   ├─┬ class AsyncVirtualMethods (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -489,10 +497,10 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── returns: boolean
  │   │   ├─┬ static prop1IsNull() method (experimental)
  │   │   │ ├── static
- │   │   │ └── returns: any
+ │   │   │ └── returns: Map<string => any>
  │   │   └─┬ static prop2IsUndefined() method (experimental)
  │   │     ├── static
- │   │     └── returns: any
+ │   │     └── returns: Map<string => any>
  │   ├─┬ class ExperimentalClass (experimental)
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(readonlyString,mutableNumber) initializer (experimental)
@@ -551,6 +559,12 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├── <initializer>() initializer (experimental)
  │   │   └─┬ prop property (experimental)
  │   │     └── type: string
+ │   ├─┬ class Implementation (experimental)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   └─┬ value property (experimental)
+ │   │     ├── immutable
+ │   │     └── type: number
  │   ├─┬ class ImplementsInterfaceWithInternal (experimental)
  │   │ ├── interfaces: IInterfaceWithInternal
  │   │ └─┬ members
@@ -1519,6 +1533,23 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<string>
+ │   ├─┬ interface IAnonymousImplementationProvider (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ provideAsClass() method (experimental)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: jsii-calc.Implementation
+ │   │   └─┬ provideAsInterface() method (experimental)
+ │   │     ├── abstract
+ │   │     └── returns: jsii-calc.IAnonymouslyImplementMe
+ │   ├─┬ interface IAnonymouslyImplementMe (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ verb() method (experimental)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: string
+ │   │   └─┬ value property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: number
  │   ├─┬ interface IAnotherPublicInterface (experimental)
  │   │ └─┬ members
  │   │   └─┬ a property (experimental)
@@ -1992,6 +2023,8 @@ exports[`jsii-tree --inheritance 1`] = `
  │   │ └── base: BinaryOperation
  │   ├── class AllTypes
  │   ├── class AllowedMethodNames
+ │   ├─┬ class AnonymousImplementationProvider
+ │   │ └── interfaces: IAnonymousImplementationProvider
  │   ├── class AsyncVirtualMethods
  │   ├── class AugmentableClass
  │   ├─┬ class BinaryOperation
@@ -2031,6 +2064,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class GiveMeStructs
  │   ├── class GreetingAugmenter
  │   ├── class ImplementInternalInterface
+ │   ├── class Implementation
  │   ├─┬ class ImplementsInterfaceWithInternal
  │   │ └── interfaces: IInterfaceWithInternal
  │   ├─┬ class ImplementsInterfaceWithInternalSubclass
@@ -2123,6 +2157,8 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── interface ExperimentalStruct
  │   ├── interface ExtendsInternalInterface
  │   ├── interface Greetee
+ │   ├── interface IAnonymousImplementationProvider
+ │   ├── interface IAnonymouslyImplementMe
  │   ├── interface IAnotherPublicInterface
  │   ├── interface IDeprecatedInterface
  │   ├── interface IExperimentalInterface
@@ -2275,6 +2311,11 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── getFoo(withParam) method
  │   │   ├── setBar(_x,_y,_z) method
  │   │   └── setFoo(_x,_y) method
+ │   ├─┬ class AnonymousImplementationProvider
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── provideAsClass() method
+ │   │   └── provideAsInterface() method
  │   ├─┬ class AsyncVirtualMethods
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -2451,6 +2492,10 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── prop property
+ │   ├─┬ class Implementation
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   └── value property
  │   ├─┬ class ImplementsInterfaceWithInternal
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -2874,6 +2919,14 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ interface Greetee
  │   │ └─┬ members
  │   │   └── name property
+ │   ├─┬ interface IAnonymousImplementationProvider
+ │   │ └─┬ members
+ │   │   ├── provideAsClass() method
+ │   │   └── provideAsInterface() method
+ │   ├─┬ interface IAnonymouslyImplementMe
+ │   │ └─┬ members
+ │   │   ├── verb() method
+ │   │   └── value property
  │   ├─┬ interface IAnotherPublicInterface
  │   │ └─┬ members
  │   │   └── a property
@@ -3117,6 +3170,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class Add
  │   ├── class AllTypes
  │   ├── class AllowedMethodNames
+ │   ├── class AnonymousImplementationProvider
  │   ├── class AsyncVirtualMethods
  │   ├── class AugmentableClass
  │   ├── class BinaryOperation
@@ -3148,6 +3202,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class GiveMeStructs
  │   ├── class GreetingAugmenter
  │   ├── class ImplementInternalInterface
+ │   ├── class Implementation
  │   ├── class ImplementsInterfaceWithInternal
  │   ├── class ImplementsInterfaceWithInternalSubclass
  │   ├── class ImplementsPrivateInterface
@@ -3215,6 +3270,8 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface ExperimentalStruct
  │   ├── interface ExtendsInternalInterface
  │   ├── interface Greetee
+ │   ├── interface IAnonymousImplementationProvider
+ │   ├── interface IAnonymouslyImplementMe
  │   ├── interface IAnotherPublicInterface
  │   ├── interface IDeprecatedInterface
  │   ├── interface IExperimentalInterface

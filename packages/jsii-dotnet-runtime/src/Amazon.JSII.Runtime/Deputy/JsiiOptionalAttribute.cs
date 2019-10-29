@@ -14,7 +14,7 @@ namespace Amazon.JSII.Runtime.Deputy
     /// for the member.
     /// </remarks>
     [AttributeUsage(AttributeTargets.Property)]
-    public class JsiiOptionalAttribute : Attribute
+    public sealed class JsiiOptionalAttribute : Attribute
     {
     }
 }

@@ -24,7 +24,7 @@ public class Sum extends software.amazon.jsii.tests.calculator.composition.Compo
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public Sum() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
     /**

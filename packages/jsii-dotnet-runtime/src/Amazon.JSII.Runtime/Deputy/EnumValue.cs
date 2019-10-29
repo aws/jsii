@@ -4,7 +4,7 @@ using System;
 namespace Amazon.JSII.Runtime.Deputy
 {
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public class EnumValue
+    internal sealed class EnumValue
     {
         [JsonConstructor]
         public EnumValue(string value)

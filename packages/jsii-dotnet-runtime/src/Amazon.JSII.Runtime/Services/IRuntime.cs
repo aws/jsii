@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Amazon.JSII.Runtime.Services
 {
-    public interface IRuntime
+    internal interface IRuntime
     {
         string ReadResponse();
 

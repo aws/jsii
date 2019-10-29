@@ -4,7 +4,7 @@ using System;
 namespace Amazon.JSII.Runtime.Deputy
 {
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public class DateValue
+    internal sealed class DateValue
     {
         public DateValue(DateTime dateTime)
         {

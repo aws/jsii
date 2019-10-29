@@ -26,7 +26,7 @@ public abstract class UnaryOperation extends software.amazon.jsii.tests.calculat
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     protected UnaryOperation(final software.amazon.jsii.tests.calculator.lib.Value operand) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(operand, "operand is required") }));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(operand, "operand is required") });
     }
 
     /**
@@ -42,16 +42,15 @@ public abstract class UnaryOperation extends software.amazon.jsii.tests.calculat
      */
     final static class Jsii$Proxy extends software.amazon.jsii.tests.calculator.UnaryOperation {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.setObjRef(objRef);
+            super(objRef);
         }
 
         /**
          * The value.
          */
         @Override
-        @Deprecated
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
         public java.lang.Number getValue() {
             return this.jsiiGet("value", java.lang.Number.class);
         }
@@ -59,8 +58,8 @@ public abstract class UnaryOperation extends software.amazon.jsii.tests.calculat
         /**
          * String representation of the value.
          */
-        @Deprecated
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
         @Override
         public java.lang.String toString() {
             return this.jsiiCall("toString", java.lang.String.class);

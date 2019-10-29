@@ -50,26 +50,37 @@ export class FileGenerator {
     const rootNode = xmlbuilder.create('Project', { encoding: 'UTF-8', headless: true });
     rootNode.att('Sdk', 'Microsoft.NET.Sdk');
     const propertyGroup = rootNode.ele('PropertyGroup');
-    propertyGroup.ele('TargetFramework', 'netcoreapp3.0');
-    propertyGroup.ele('GeneratePackageOnBuild', 'true');
-    propertyGroup.ele('GenerateDocumentationFile', 'true');
-    propertyGroup.ele('IncludeSymbols', 'true');
-    propertyGroup.ele('SymbolPackageFormat', 'snupkg');
-    propertyGroup.ele('IncludeSource', 'true');
-    propertyGroup.ele('PackageVersion', this.getDecoratedVersion(assembly));
-    propertyGroup.ele('PackageId', packageId);
-    propertyGroup.ele('Description', this.getDescription());
-    propertyGroup.ele('ProjectUrl', assembly.homepage);
-    propertyGroup.ele('RepositoryUrl', assembly.repository.url);
-    propertyGroup.ele('RepositoryType', assembly.repository.type);
-    propertyGroup.ele('PackageLicenseExpression', assembly.license);
-    propertyGroup.ele('Authors', assembly.author.name);
-    propertyGroup.ele('Language', 'en-US');
-
     const dotnetInfo = assembly.targets!.dotnet;
+
+    propertyGroup.comment('Package Identification');
+    propertyGroup.ele('Description', this.getDescription());
+    if (dotnetInfo!.iconUrl != null) {
+      propertyGroup.ele('PackageIconUrl', dotnetInfo!.iconUrl);
+    }
+    propertyGroup.ele('PackageId', packageId);
+    propertyGroup.ele('PackageLicenseExpression', assembly.license);
+    propertyGroup.ele('PackageVersion', this.getDecoratedVersion(assembly));
     if (dotnetInfo!.title != null) {
       propertyGroup.ele('Title', dotnetInfo!.title);
     }
+
+    propertyGroup.comment('Additional Metadata');
+    propertyGroup.ele('Authors', assembly.author.name);
+    if (assembly.author.organization) {
+      propertyGroup.ele('Company', assembly.author.name);
+    }
+    propertyGroup.ele('Language', 'en-US');
+    propertyGroup.ele('ProjectUrl', assembly.homepage);
+    propertyGroup.ele('RepositoryUrl', assembly.repository.url);
+    propertyGroup.ele('RepositoryType', assembly.repository.type);
+
+    propertyGroup.comment('Build Configuration');
+    propertyGroup.ele('GenerateDocumentationFile', 'true');
+    propertyGroup.ele('GeneratePackageOnBuild', 'true');
+    propertyGroup.ele('IncludeSymbols', 'true');
+    propertyGroup.ele('IncludeSource', 'true');
+    propertyGroup.ele('SymbolPackageFormat', 'snupkg');
+    propertyGroup.ele('TargetFramework', 'netcoreapp3.0');
 
     if (dotnetInfo!.signAssembly != null) {
       const signAssembly = propertyGroup.ele('SignAssembly');
@@ -78,10 +89,6 @@ export class FileGenerator {
 
     if (dotnetInfo!.assemblyOriginatorKeyFile != null) {
       propertyGroup.ele('AssemblyOriginatorKeyFile', dotnetInfo!.assemblyOriginatorKeyFile);
-    }
-
-    if (dotnetInfo!.iconUrl != null) {
-      propertyGroup.ele('PackageIconUrl', dotnetInfo!.iconUrl);
     }
 
     const itemGroup1 = rootNode.ele('ItemGroup');
@@ -102,7 +109,7 @@ export class FileGenerator {
       dependencyReference.att('Version', value.version);
     });
 
-    const xml = rootNode.end({ pretty: true });
+    const xml = rootNode.end({ pretty: true, spaceBeforeSlash: true });
 
     // Sending the xml content to the codemaker to ensure the file is written
     // and added to the file list for tracking

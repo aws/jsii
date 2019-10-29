@@ -5,7 +5,7 @@ using System;
 namespace Amazon.JSII.Runtime.Deputy
 {
     [AttributeUsage(AttributeTargets.Method)]
-    public class JsiiMethodAttribute : Attribute
+    public sealed class JsiiMethodAttribute : Attribute
     {
         public JsiiMethodAttribute(
             string name,

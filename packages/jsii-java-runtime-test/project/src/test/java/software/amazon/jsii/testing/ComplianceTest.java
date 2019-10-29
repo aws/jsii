@@ -112,7 +112,7 @@ public class ComplianceTest {
         assertEquals(Instant.ofEpochSecond(1234), types.getAnyProperty());
 
         // json (notice that when deserialized, it is deserialized as a map).
-        types.setAnyProperty(new ObjectMapper().readTree("{ \"Goo\": [ \"Hello\", { \"World\": 123 } ] }"));
+        types.setAnyProperty(Collections.singletonMap("Goo", Arrays.asList("Hello", Collections.singletonMap("World", 123))));
         assertEquals(123, ((Map<?, ?>)((List<?>)((Map<?, ?>)types.getAnyProperty()).get("Goo")).get(1)).get("World"));
 
         // array
@@ -1176,7 +1176,7 @@ public class ComplianceTest {
         final IPublicInterface ifaceRef = Constructors.makeInterface();
 
         assertTrue(classRef instanceof InbetweenClass);
-        assertTrue(ifaceRef instanceof IPublicInterface);
+        assertNotNull(ifaceRef);
     }
 
     /**
@@ -1199,9 +1199,7 @@ public class ComplianceTest {
     @Test
     public void objectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut() {
         final PartiallyInitializedThisConsumer reflector = new PartiallyInitializedThisConsumerImpl();
-        final ConstructorPassesThisOut object = new ConstructorPassesThisOut(reflector);
-
-        assertTrue(object != null);
+        new ConstructorPassesThisOut(reflector);
     }
 
     @Test
@@ -1212,7 +1210,7 @@ public class ComplianceTest {
     }
 
     @Test
-    public void callbacsCorrectlyDeserializeArguments() {
+    public void callbacksCorrectlyDeserializeArguments() {
         final DataRenderer renderer = new DataRenderer() {
             public final String renderMap(final Map<String, Object> map) {
                 return super.renderMap(map);
@@ -1353,6 +1351,14 @@ public class ComplianceTest {
         };
         overridden.switchModes();
         assertEquals(challenge, overridden.valueFromProtected());
+    }
+
+    @Test
+    public void canLeverageIndirectInterfacePolymorphism() {
+        final IAnonymousImplementationProvider provider = new AnonymousImplementationProvider();
+        assertEquals(1337, provider.provideAsClass().getValue());
+        assertEquals(1337, provider.provideAsInterface().getValue());
+        assertEquals("to implement", provider.provideAsInterface().verb());
     }
 
     static class PartiallyInitializedThisConsumerImpl extends PartiallyInitializedThisConsumer {

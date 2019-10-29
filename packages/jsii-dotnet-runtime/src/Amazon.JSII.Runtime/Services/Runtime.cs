@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Amazon.JSII.Runtime.Services
 {
-    public class Runtime : IRuntime
+    internal sealed class Runtime : IRuntime
     {
         readonly INodeProcess _nodeProcess;
 

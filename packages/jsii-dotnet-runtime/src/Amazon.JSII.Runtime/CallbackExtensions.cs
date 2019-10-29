@@ -12,7 +12,7 @@ using System.Reflection;
 
 namespace Amazon.JSII.Runtime
 {
-    static class CallbackExtensions
+    internal static class CallbackExtensions
     {
         public static object InvokeCallback(this Callback callback, IReferenceMap referenceMap, IFrameworkToJsiiConverter converter, out string error)
         {
@@ -33,7 +33,7 @@ namespace Amazon.JSII.Runtime
             catch (TargetInvocationException e)
             {
                 // An exception was thrown by the method being invoked
-                error = e.InnerException.ToString();
+                error = e.InnerException?.ToString();
                 return null;
             }
             catch (Exception e)
@@ -130,12 +130,17 @@ namespace Amazon.JSII.Runtime
          */
         private static object FromKernel(object obj, IReferenceMap referenceMap)
         {
-            if (obj is JObject)
+            if (obj is JObject jObject)
             {
-                var prop = ((JObject)obj).Property("$jsii.byref");
+                var prop = jObject.Property("$jsii.byref");
                 if (prop != null)
                 {
                     return referenceMap.GetOrCreateNativeReference(new ByRefValue(prop.Value.Value<String>()));
+                }
+
+                if (jObject.ContainsKey("$jsii.map"))
+                {
+                    jObject = (JObject)jObject.Property("$jsii.map").Value;
                 }
 
                 /*
@@ -143,7 +148,7 @@ namespace Amazon.JSII.Runtime
                  * will have emitted IDictionary<string, object> for  maps of string to <anything>. Not doing so would
                  * result in an ArgumentError for not being able to convert JObject to IDictionary.
                  */
-                var dict = ((JObject)obj).ToObject<Dictionary<string, object>>();
+                var dict = jObject.ToObject<Dictionary<string, object>>();
                 var mapped = new Dictionary<string, object>(dict.Count);
                 foreach (var key in dict.Keys)
                 {
@@ -163,7 +168,7 @@ namespace Amazon.JSII.Runtime
         }
     }
 
-    internal class CallbackResult : OptionalValue
+    internal sealed class CallbackResult : OptionalValue
     {
         public CallbackResult(IOptionalValue optionalValue, object value)
             : this(optionalValue?.Type, optionalValue?.IsOptional ?? false, value) {}

@@ -11,7 +11,7 @@ using Type = System.Type;
 
 namespace Amazon.JSII.Runtime.Services
 {
-    public class TypeCache : ITypeCache
+    internal sealed class TypeCache : ITypeCache
     {
         const string ProxySuffix = "$Proxy";
 
@@ -130,6 +130,11 @@ namespace Amazon.JSII.Runtime.Services
 
         Type GetType<T>(string fullyQualifiedName) where T : JsiiTypeAttributeBase
         {
+            if (fullyQualifiedName == "Object")
+            {
+                return typeof(AnonymousObject);
+            }
+            
             Type type = null;
 
             lock (_lock)

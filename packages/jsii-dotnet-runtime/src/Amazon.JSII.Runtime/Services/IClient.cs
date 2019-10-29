@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Amazon.JSII.Runtime.Services
 {
-    public interface IClient
+    internal interface IClient
     {
         void LoadPackage(string name, string version, string tarballPath);
 

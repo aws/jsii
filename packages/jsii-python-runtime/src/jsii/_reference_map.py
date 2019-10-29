@@ -97,6 +97,13 @@ class _ReferenceMap:
             # then assign our reference to __jsii_ref__
             inst = klass.__new__(klass)
             inst.__jsii_ref__ = ref
+        elif class_fqn == "Object" and ref.interfaces is not None:
+            ifaces = [_interfaces[fqn] for fqn in ref.interfaces]
+            classes = [iface.__jsii_proxy_class__() for iface in ifaces]
+            insts = [klass.__new__(klass) for klass in classes]
+            for inst in insts:
+                inst.__jsii_ref__ = ref
+            return InterfaceDynamicProxy(insts)
         else:
             raise ValueError(f"Unknown type: {class_fqn}")
 
@@ -105,6 +112,18 @@ class _ReferenceMap:
     def resolve_id(self, id):
         return self._refs[id]
 
+
+class InterfaceDynamicProxy(object):
+    def __init__(self, delegates):
+        self._delegates = delegates
+
+    def __getattr__(self, name):
+        for delegate in self._delegates:
+            try:
+                return getattr(delegate, name)
+            except NameError:
+                pass
+        return None
 
 _refs = _ReferenceMap(_types)
 

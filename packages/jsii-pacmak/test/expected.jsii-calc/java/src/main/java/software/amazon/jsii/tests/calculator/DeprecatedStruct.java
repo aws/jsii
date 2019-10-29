@@ -4,30 +4,32 @@ package software.amazon.jsii.tests.calculator;
  * @deprecated it just wraps a string
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
-@Deprecated
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.DeprecatedStruct")
+@software.amazon.jsii.Jsii.Proxy(DeprecatedStruct.Jsii$Proxy.class)
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+@Deprecated
 public interface DeprecatedStruct extends software.amazon.jsii.JsiiSerializable {
 
     /**
      * @deprecated well, yeah
      */
-    @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
     java.lang.String getReadonlyProperty();
 
     /**
      * @return a {@link Builder} of {@link DeprecatedStruct}
      */
-    @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
     static Builder builder() {
         return new Builder();
     }
     /**
      * A builder for {@link DeprecatedStruct}
      */
-    @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
     public static final class Builder {
         private java.lang.String readonlyProperty;
 
@@ -37,8 +39,8 @@ public interface DeprecatedStruct extends software.amazon.jsii.JsiiSerializable 
          * @return {@code this}
          * @deprecated well, yeah
          */
-        @Deprecated
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
         public Builder readonlyProperty(java.lang.String readonlyProperty) {
             this.readonlyProperty = readonlyProperty;
             return this;
@@ -49,8 +51,8 @@ public interface DeprecatedStruct extends software.amazon.jsii.JsiiSerializable 
          * @return a new instance of {@link DeprecatedStruct}
          * @throws NullPointerException if any required attribute was not provided
          */
-        @Deprecated
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
         public DeprecatedStruct build() {
             return new Jsii$Proxy(readonlyProperty);
         }
@@ -59,8 +61,8 @@ public interface DeprecatedStruct extends software.amazon.jsii.JsiiSerializable 
     /**
      * An implementation for {@link DeprecatedStruct}
      */
-    @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+    @Deprecated
     final class Jsii$Proxy extends software.amazon.jsii.JsiiObject implements DeprecatedStruct {
         private final java.lang.String readonlyProperty;
 
@@ -69,8 +71,7 @@ public interface DeprecatedStruct extends software.amazon.jsii.JsiiSerializable 
          * @param objRef Reference to the JSII managed object.
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.setObjRef(objRef);
+            super(objRef);
             this.readonlyProperty = this.jsiiGet("readonlyProperty", java.lang.String.class);
         }
 

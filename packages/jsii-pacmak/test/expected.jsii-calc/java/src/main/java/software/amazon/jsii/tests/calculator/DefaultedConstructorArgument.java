@@ -26,7 +26,7 @@ public class DefaultedConstructorArgument extends software.amazon.jsii.JsiiObjec
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public DefaultedConstructorArgument(final java.lang.Number arg1, final java.lang.String arg2, final java.time.Instant arg3) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { arg1, arg2, arg3 }));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { arg1, arg2, arg3 });
     }
 
     /**
@@ -38,7 +38,7 @@ public class DefaultedConstructorArgument extends software.amazon.jsii.JsiiObjec
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public DefaultedConstructorArgument(final java.lang.Number arg1, final java.lang.String arg2) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { arg1, arg2 }));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { arg1, arg2 });
     }
 
     /**
@@ -49,7 +49,7 @@ public class DefaultedConstructorArgument extends software.amazon.jsii.JsiiObjec
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public DefaultedConstructorArgument(final java.lang.Number arg1) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { arg1 }));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { arg1 });
     }
 
     /**
@@ -58,7 +58,7 @@ public class DefaultedConstructorArgument extends software.amazon.jsii.JsiiObjec
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public DefaultedConstructorArgument() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
     /**
