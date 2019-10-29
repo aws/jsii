@@ -5973,6 +5973,137 @@ class StructWithJavaReservedWords():
         return 'StructWithJavaReservedWords(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
 
 
+@jsii.data_type(jsii_type="jsii-calc.SupportsNiceJavaBuilderProps", jsii_struct_bases=[], name_mapping={'bar': 'bar', 'id': 'id'})
+class SupportsNiceJavaBuilderProps():
+    def __init__(self, *, bar: jsii.Number, id: typing.Optional[str]=None):
+        """
+        :param bar: Some number, like 42.
+        :param id: An ``id`` field here is terrible API design, because the constructor of ``SupportsNiceJavaBuilder`` already has a parameter named ``id``. But here we are, doing it like we didn't care.
+
+        stability
+        :stability: experimental
+        """
+        self._values = {
+            'bar': bar,
+        }
+        if id is not None: self._values["id"] = id
+
+    @property
+    def bar(self) -> jsii.Number:
+        """Some number, like 42.
+
+        stability
+        :stability: experimental
+        """
+        return self._values.get('bar')
+
+    @property
+    def id(self) -> typing.Optional[str]:
+        """An ``id`` field here is terrible API design, because the constructor of ``SupportsNiceJavaBuilder`` already has a parameter named ``id``.
+
+        But here we are, doing it like we didn't care.
+
+        stability
+        :stability: experimental
+        """
+        return self._values.get('id')
+
+    def __eq__(self, rhs) -> bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs) -> bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return 'SupportsNiceJavaBuilderProps(%s)' % ', '.join(k + '=' + repr(v) for k, v in self._values.items())
+
+
+class SupportsNiceJavaBuilderWithRequiredProps(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SupportsNiceJavaBuilderWithRequiredProps"):
+    """We can generate fancy builders in Java for classes which take a mix of positional & struct parameters.
+
+    stability
+    :stability: experimental
+    """
+    def __init__(self, id_: jsii.Number, *, bar: jsii.Number, id: typing.Optional[str]=None) -> None:
+        """
+        :param id: some identifier of your choice.
+        :param props: some properties.
+        :param bar: Some number, like 42.
+        :param id: An ``id`` field here is terrible API design, because the constructor of ``SupportsNiceJavaBuilder`` already has a parameter named ``id``. But here we are, doing it like we didn't care.
+
+        stability
+        :stability: experimental
+        """
+        props = SupportsNiceJavaBuilderProps(bar=bar, id=id)
+
+        jsii.create(SupportsNiceJavaBuilderWithRequiredProps, self, [id, props])
+
+    @property
+    @jsii.member(jsii_name="bar")
+    def bar(self) -> jsii.Number:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.get(self, "bar")
+
+    @property
+    @jsii.member(jsii_name="id")
+    def id(self) -> jsii.Number:
+        """some identifier of your choice.
+
+        stability
+        :stability: experimental
+        """
+        return jsii.get(self, "id")
+
+    @property
+    @jsii.member(jsii_name="propId")
+    def prop_id(self) -> typing.Optional[str]:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.get(self, "propId")
+
+
+class SupportsNiceJavaBuilder(SupportsNiceJavaBuilderWithRequiredProps, metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SupportsNiceJavaBuilder"):
+    """
+    stability
+    :stability: experimental
+    """
+    def __init__(self, id: jsii.Number, default_bar: typing.Optional[jsii.Number]=None, props: typing.Optional["SupportsNiceJavaBuilderProps"]=None, *rest: str) -> None:
+        """
+        :param id: some identifier.
+        :param default_bar: the default value of ``bar``.
+        :param props: some props once can provide.
+        :param rest: a variadic continuation.
+
+        stability
+        :stability: experimental
+        """
+        jsii.create(SupportsNiceJavaBuilder, self, [id, default_bar, props, *rest])
+
+    @property
+    @jsii.member(jsii_name="id")
+    def id(self) -> jsii.Number:
+        """some identifier.
+
+        stability
+        :stability: experimental
+        """
+        return jsii.get(self, "id")
+
+    @property
+    @jsii.member(jsii_name="rest")
+    def rest(self) -> typing.List[str]:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.get(self, "rest")
+
+
 class SyncVirtualMethods(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SyncVirtualMethods"):
     """
     stability
@@ -6952,6 +7083,6 @@ class Sum(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_type="js
         return jsii.set(self, "parts", value)
 
 
-__all__ = ["AbstractClass", "AbstractClassBase", "AbstractClassReturner", "Add", "AllTypes", "AllTypesEnum", "AllowedMethodNames", "AnonymousImplementationProvider", "AsyncVirtualMethods", "AugmentableClass", "BinaryOperation", "Calculator", "CalculatorProps", "ClassThatImplementsTheInternalInterface", "ClassThatImplementsThePrivateInterface", "ClassWithCollections", "ClassWithDocs", "ClassWithJavaReservedWords", "ClassWithMutableObjectLiteralProperty", "ClassWithPrivateConstructorAndAutomaticProperties", "ConstructorPassesThisOut", "Constructors", "ConsumersOfThisCrazyTypeSystem", "DataRenderer", "DefaultedConstructorArgument", "DeprecatedClass", "DeprecatedEnum", "DeprecatedStruct", "DerivedClassHasNoProperties", "DerivedStruct", "DiamondInheritanceBaseLevelStruct", "DiamondInheritanceFirstMidLevelStruct", "DiamondInheritanceSecondMidLevelStruct", "DiamondInheritanceTopLevelStruct", "DoNotOverridePrivates", "DoNotRecognizeAnyAsOptional", "DocumentedClass", "DontComplainAboutVariadicAfterOptional", "DoubleTrouble", "EnumDispenser", "EraseUndefinedHashValues", "EraseUndefinedHashValuesOptions", "ExperimentalClass", "ExperimentalEnum", "ExperimentalStruct", "ExportedBaseClass", "ExtendsInternalInterface", "GiveMeStructs", "Greetee", "GreetingAugmenter", "IAnonymousImplementationProvider", "IAnonymouslyImplementMe", "IAnotherPublicInterface", "IDeprecatedInterface", "IExperimentalInterface", "IExtendsPrivateInterface", "IFriendlier", "IFriendlyRandomGenerator", "IInterfaceImplementedByAbstractClass", "IInterfaceThatShouldNotBeADataType", "IInterfaceWithInternal", "IInterfaceWithMethods", "IInterfaceWithOptionalMethodArguments", "IInterfaceWithProperties", "IInterfaceWithPropertiesExtension", "IJSII417Derived", "IJSII417PublicBaseOfBase", "IJsii487External", "IJsii487External2", "IJsii496", "IMutableObjectLiteral", "INonInternalInterface", "IPrivatelyImplemented", "IPublicInterface", "IPublicInterface2", "IRandomNumberGenerator", "IReturnsNumber", "IStableInterface", "ImplementInternalInterface", "Implementation", "ImplementsInterfaceWithInternal", "ImplementsInterfaceWithInternalSubclass", "ImplementsPrivateInterface", "ImplictBaseOfBase", "InbetweenClass", "InterfaceInNamespaceIncludesClasses", "InterfaceInNamespaceOnlyInterface", "InterfacesMaker", "JSII417Derived", "JSII417PublicBaseOfBase", "JSObjectLiteralForInterface", "JSObjectLiteralToNative", "JSObjectLiteralToNativeClass", "JavaReservedWords", "Jsii487Derived", "Jsii496Derived", "JsiiAgent", "LoadBalancedFargateServiceProps", "Multiply", "Negate", "NodeStandardLibrary", "NullShouldBeTreatedAsUndefined", "NullShouldBeTreatedAsUndefinedData", "NumberGenerator", "ObjectRefsInCollections", "Old", "OptionalConstructorArgument", "OptionalStruct", "OptionalStructConsumer", "OverridableProtectedMember", "OverrideReturnsObject", "PartiallyInitializedThisConsumer", "Polymorphism", "Power", "PublicClass", "PythonReservedWords", "ReferenceEnumFromScopedPackage", "ReturnsPrivateImplementationOfInterface", "RuntimeTypeChecking", "SecondLevelStruct", "SingleInstanceTwoTypes", "SingletonInt", "SingletonIntEnum", "SingletonString", "SingletonStringEnum", "StableClass", "StableEnum", "StableStruct", "StaticContext", "Statics", "StringEnum", "StripInternal", "StructPassing", "StructWithJavaReservedWords", "Sum", "SyncVirtualMethods", "Thrower", "TopLevelStruct", "UnaryOperation", "UnionProperties", "UseBundledDependency", "UseCalcBase", "UsesInterfaceWithProperties", "VariadicMethod", "VirtualMethodPlayground", "VoidCallback", "WithPrivatePropertyInConstructor", "__jsii_assembly__", "composition"]
+__all__ = ["AbstractClass", "AbstractClassBase", "AbstractClassReturner", "Add", "AllTypes", "AllTypesEnum", "AllowedMethodNames", "AnonymousImplementationProvider", "AsyncVirtualMethods", "AugmentableClass", "BinaryOperation", "Calculator", "CalculatorProps", "ClassThatImplementsTheInternalInterface", "ClassThatImplementsThePrivateInterface", "ClassWithCollections", "ClassWithDocs", "ClassWithJavaReservedWords", "ClassWithMutableObjectLiteralProperty", "ClassWithPrivateConstructorAndAutomaticProperties", "ConstructorPassesThisOut", "Constructors", "ConsumersOfThisCrazyTypeSystem", "DataRenderer", "DefaultedConstructorArgument", "DeprecatedClass", "DeprecatedEnum", "DeprecatedStruct", "DerivedClassHasNoProperties", "DerivedStruct", "DiamondInheritanceBaseLevelStruct", "DiamondInheritanceFirstMidLevelStruct", "DiamondInheritanceSecondMidLevelStruct", "DiamondInheritanceTopLevelStruct", "DoNotOverridePrivates", "DoNotRecognizeAnyAsOptional", "DocumentedClass", "DontComplainAboutVariadicAfterOptional", "DoubleTrouble", "EnumDispenser", "EraseUndefinedHashValues", "EraseUndefinedHashValuesOptions", "ExperimentalClass", "ExperimentalEnum", "ExperimentalStruct", "ExportedBaseClass", "ExtendsInternalInterface", "GiveMeStructs", "Greetee", "GreetingAugmenter", "IAnonymousImplementationProvider", "IAnonymouslyImplementMe", "IAnotherPublicInterface", "IDeprecatedInterface", "IExperimentalInterface", "IExtendsPrivateInterface", "IFriendlier", "IFriendlyRandomGenerator", "IInterfaceImplementedByAbstractClass", "IInterfaceThatShouldNotBeADataType", "IInterfaceWithInternal", "IInterfaceWithMethods", "IInterfaceWithOptionalMethodArguments", "IInterfaceWithProperties", "IInterfaceWithPropertiesExtension", "IJSII417Derived", "IJSII417PublicBaseOfBase", "IJsii487External", "IJsii487External2", "IJsii496", "IMutableObjectLiteral", "INonInternalInterface", "IPrivatelyImplemented", "IPublicInterface", "IPublicInterface2", "IRandomNumberGenerator", "IReturnsNumber", "IStableInterface", "ImplementInternalInterface", "Implementation", "ImplementsInterfaceWithInternal", "ImplementsInterfaceWithInternalSubclass", "ImplementsPrivateInterface", "ImplictBaseOfBase", "InbetweenClass", "InterfaceInNamespaceIncludesClasses", "InterfaceInNamespaceOnlyInterface", "InterfacesMaker", "JSII417Derived", "JSII417PublicBaseOfBase", "JSObjectLiteralForInterface", "JSObjectLiteralToNative", "JSObjectLiteralToNativeClass", "JavaReservedWords", "Jsii487Derived", "Jsii496Derived", "JsiiAgent", "LoadBalancedFargateServiceProps", "Multiply", "Negate", "NodeStandardLibrary", "NullShouldBeTreatedAsUndefined", "NullShouldBeTreatedAsUndefinedData", "NumberGenerator", "ObjectRefsInCollections", "Old", "OptionalConstructorArgument", "OptionalStruct", "OptionalStructConsumer", "OverridableProtectedMember", "OverrideReturnsObject", "PartiallyInitializedThisConsumer", "Polymorphism", "Power", "PublicClass", "PythonReservedWords", "ReferenceEnumFromScopedPackage", "ReturnsPrivateImplementationOfInterface", "RuntimeTypeChecking", "SecondLevelStruct", "SingleInstanceTwoTypes", "SingletonInt", "SingletonIntEnum", "SingletonString", "SingletonStringEnum", "StableClass", "StableEnum", "StableStruct", "StaticContext", "Statics", "StringEnum", "StripInternal", "StructPassing", "StructWithJavaReservedWords", "Sum", "SupportsNiceJavaBuilder", "SupportsNiceJavaBuilderProps", "SupportsNiceJavaBuilderWithRequiredProps", "SyncVirtualMethods", "Thrower", "TopLevelStruct", "UnaryOperation", "UnionProperties", "UseBundledDependency", "UseCalcBase", "UsesInterfaceWithProperties", "VariadicMethod", "VirtualMethodPlayground", "VoidCallback", "WithPrivatePropertyInConstructor", "__jsii_assembly__", "composition"]
 
 publication.publish()

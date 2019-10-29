@@ -208,4 +208,66 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     public void setUnionProperty(final software.amazon.jsii.tests.calculator.Power value) {
         this.jsiiSet("unionProperty", value);
     }
+
+    /**
+     * A fluent builder for {@link software.amazon.jsii.tests.calculator.Calculator}.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    public static final class Builder {
+        /**
+         * EXPERIMENTAL
+         * 
+         * @return a new instance of {@link Builder}.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        public static Builder create() {
+            return new Builder();
+        }
+
+        private software.amazon.jsii.tests.calculator.CalculatorProps.Builder props;
+
+        private Builder() {
+        }
+
+        /**
+         * EXPERIMENTAL
+         * 
+         * @return {@code this}
+         * @param initialValue This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        public Builder initialValue(final java.lang.Number initialValue) {
+            this.props().initialValue(initialValue);
+            return this;
+        }
+
+        /**
+         * EXPERIMENTAL
+         * 
+         * @return {@code this}
+         * @param maximumValue This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        public Builder maximumValue(final java.lang.Number maximumValue) {
+            this.props().maximumValue(maximumValue);
+            return this;
+        }
+
+        /**
+         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.Calculator}.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        public software.amazon.jsii.tests.calculator.Calculator build() {
+            return new software.amazon.jsii.tests.calculator.Calculator(
+                this.props != null ? this.props.build() : null
+            );
+        }
+
+        private software.amazon.jsii.tests.calculator.CalculatorProps.Builder props() {
+            if (this.props == null) {
+                this.props = new software.amazon.jsii.tests.calculator.CalculatorProps.Builder();
+            }
+            return this.props;
+        }
+    }
 }

@@ -155,6 +155,9 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.StructPassing": return software.amazon.jsii.tests.calculator.StructPassing.class;
             case "jsii-calc.StructWithJavaReservedWords": return software.amazon.jsii.tests.calculator.StructWithJavaReservedWords.class;
             case "jsii-calc.Sum": return software.amazon.jsii.tests.calculator.Sum.class;
+            case "jsii-calc.SupportsNiceJavaBuilder": return software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilder.class;
+            case "jsii-calc.SupportsNiceJavaBuilderProps": return software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderProps.class;
+            case "jsii-calc.SupportsNiceJavaBuilderWithRequiredProps": return software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderWithRequiredProps.class;
             case "jsii-calc.SyncVirtualMethods": return software.amazon.jsii.tests.calculator.SyncVirtualMethods.class;
             case "jsii-calc.Thrower": return software.amazon.jsii.tests.calculator.Thrower.class;
             case "jsii-calc.TopLevelStruct": return software.amazon.jsii.tests.calculator.TopLevelStruct.class;

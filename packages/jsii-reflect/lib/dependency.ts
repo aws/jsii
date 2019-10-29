@@ -5,7 +5,7 @@ export class Dependency {
   public constructor(
     public readonly system: TypeSystem,
     private readonly name: string,
-    private readonly spec: jsii.PackageVersion
+    public readonly spec: jsii.PackageVersion
   ) { }
 
   public get assembly() {

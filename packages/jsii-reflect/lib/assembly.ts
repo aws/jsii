@@ -12,7 +12,7 @@ export class Assembly {
 
   public constructor(
     public readonly system: TypeSystem,
-    private readonly spec: jsii.Assembly) { }
+    public readonly spec: jsii.Assembly) { }
 
   /**
    * The version of the spec schema
