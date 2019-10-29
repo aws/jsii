@@ -17,7 +17,9 @@ public interface Greetee extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getName();
+    default java.lang.String getName() {
+        return null;
+    }
 
     /**
      * @return a {@link Builder} of {@link Greetee}

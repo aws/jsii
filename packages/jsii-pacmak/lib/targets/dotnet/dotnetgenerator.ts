@@ -15,18 +15,18 @@ import { DotNetNameUtils } from './nameutils';
  */
 export class DotNetGenerator extends Generator {
   // The path of the original jsii input model.
-  private jsiiFilePath: string;
+  private jsiiFilePath!: string;
 
   // Flags that tracks if we have already wrote the first member of the class
   private firstMemberWritten = false;
 
-  private typeresolver: DotNetTypeResolver;
+  private typeresolver!: DotNetTypeResolver;
 
   private readonly nameutils: DotNetNameUtils = new DotNetNameUtils();
 
-  private dotnetRuntimeGenerator: DotNetRuntimeGenerator;
+  private dotnetRuntimeGenerator!: DotNetRuntimeGenerator;
 
-  private dotnetDocGenerator: DotNetDocGenerator;
+  private dotnetDocGenerator!: DotNetDocGenerator;
 
   public constructor() {
     super();
@@ -179,14 +179,30 @@ export class DotNetGenerator extends Generator {
     const propType = this.typeresolver.toDotNetType(prop.type);
     const propName = this.nameutils.convertPropertyName(prop.name);
 
+    if (prop.optional) {
+      this.code.line('[Amazon.JSII.Runtime.Deputy.JsiiOptional]');
+    }
+
     // Specifying that a type is nullable is only required for primitive value types
     const isOptionalPrimitive = this.isOptionalPrimitive(prop) ? '?' : '';
     this.code.openBlock(`${propType}${isOptionalPrimitive} ${propName}`);
 
-    this.code.line('get;');
-    if (!prop.immutable) {
-      this.code.line('set;');
+    if (prop.optional) {
+      this.code.openBlock('get');
+      this.code.line('return null;');
+      this.code.closeBlock();
+      if (!prop.immutable) {
+        this.code.openBlock('set');
+        this.code.line(`throw new System.NotSupportedException("'set' for '${propName}' is not implemented");`);
+        this.code.closeBlock();
+      }
+    } else {
+      this.code.line('get;');
+      if (!prop.immutable) {
+        this.code.line('set;');
+      }
     }
+
     this.code.closeBlock();
     this.flagFirstMemberWritten(true);
   }

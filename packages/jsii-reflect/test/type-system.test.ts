@@ -2,7 +2,7 @@ import spec = require('jsii-spec');
 import { Stability } from 'jsii-spec';
 import path = require('path');
 import { TypeSystem } from '../lib';
-import { diffTest, typeSystemFromSource } from './util';
+import { typeSystemFromSource } from './util';
 
 let typesys: TypeSystem;
 
@@ -17,22 +17,22 @@ test('TypeSystem.hasAssembly', () => {
   expect(typesys.includesAssembly('@scope/jsii-calc-lib')).toBeTruthy();
 });
 
-test('TypeSystem.assemblies lists all the loaded assemblies', () => {
-  return diffTest(typesys.assemblies.map(a => a.name).sort().join('\n'), 'assemblies.expected.txt');
-});
+test('TypeSystem.assemblies lists all the loaded assemblies', () =>
+  expect(typesys.assemblies.map(a => a.name).sort()).toMatchSnapshot()
+);
 
-test('TypeSystem.classes lists all the classes in the typesystem', () => {
-  return diffTest(typesys.classes.map(c => c.name).sort().join('\n'), 'classes.expected.txt');
-});
+test('TypeSystem.classes lists all the classes in the typesystem', () =>
+  expect(typesys.classes.map(c => c.name).sort()).toMatchSnapshot()
+);
 
-test('findClass', async () => {
+test('findClass', () => {
   const calc = typesys.findClass('jsii-calc.Calculator');
   const actual = new Array<string>();
   Object.values(calc.getMethods(/* inherited */ true)).forEach(method => {
     actual.push(`${method.name} from ${method.parentType.name}`);
   });
 
-  return diffTest(actual.join('\n'), 'findClass.expected.txt');
+  expect(actual.join('\n')).toMatchSnapshot();
 });
 
 test('"roots" is a list of the directly loaded assemblies', async () => {

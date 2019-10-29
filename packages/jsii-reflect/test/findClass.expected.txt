@@ -1,7 +1,0 @@
-typeName from Calculator
-toString from Calculator
-add from Calculator
-mul from Calculator
-neg from Calculator
-pow from Calculator
-readUnionValue from Calculator

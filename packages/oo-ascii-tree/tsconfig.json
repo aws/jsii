@@ -1,29 +1,20 @@
 {
   "compilerOptions": {
-    "alwaysStrict": true,
-    "charset": "utf8",
-    "declaration": true,
-    "experimentalDecorators": true,
-    "inlineSourceMap": true,
-    "inlineSources": true,
-    "lib": [
-      "es2016",
-      "es2017.object",
-      "es2017.string"
-    ],
-    "module": "CommonJS",
-    "noEmitOnError": false,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "resolveJsonModule": true,
-    "strict": true,
-    "strictNullChecks": true,
-    "target": "ES2017",
-    "composite": true
+    "target": "ES2018",                    /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', or 'ESNEXT'. */
+    "module": "commonjs",                  /* Specify module code generation: 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */
+    "lib": ["es2018"],                     /* Specify library files to be included in the compilation:  */
+    "strict": true,                        /* Enable all strict type-checking options. */
+    "alwaysStrict": true,                  /* Parse in strict mode and emit "use strict" for each source file. */
+    "declaration": true,                   /* Generates corresponding '.d.ts' file. */
+    "inlineSourceMap": true,               /* Emit a single file with source maps instead of having a separate file. */
+    "inlineSources": true,                 /* Emit the source alongside the sourcemaps within a single file. */
+    "noUnusedLocals": true,                /* Report errors on unused locals. */
+    "noUnusedParameters": true,            /* Report errors on unused parameters. */
+    "noImplicitReturns": true,             /* Report error when not all code paths in function return a value. */
+    "noFallthroughCasesInSwitch": true,    /* Report errors for fallthrough cases in switch statement. */
+    "resolveJsonModule": true,             /* Include modules imported with .json extension. */
+    "composite": true,                     /* Ensure TypeScript can determine where to find the outputs of the referenced project to compile project. */
+    "incremental": true,                   /* Enable incremental compilation by reading/writing information from prior compilations to a file on disk. */
   },
   "include": ["**/*.ts"]
 }

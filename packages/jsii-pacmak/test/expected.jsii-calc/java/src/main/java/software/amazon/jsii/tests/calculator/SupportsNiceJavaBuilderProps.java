@@ -23,7 +23,9 @@ public interface SupportsNiceJavaBuilderProps extends software.amazon.jsii.JsiiS
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getId();
+    default java.lang.String getId() {
+        return null;
+    }
 
     /**
      * @return a {@link Builder} of {@link SupportsNiceJavaBuilderProps}

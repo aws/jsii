@@ -35,19 +35,25 @@ public interface DerivedStruct extends software.amazon.jsii.JsiiSerializable, so
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> getAnotherOptional();
+    default java.util.Map<java.lang.String, software.amazon.jsii.tests.calculator.lib.Value> getAnotherOptional() {
+        return null;
+    }
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Object getOptionalAny();
+    default java.lang.Object getOptionalAny() {
+        return null;
+    }
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.util.List<java.lang.String> getOptionalArray();
+    default java.util.List<java.lang.String> getOptionalArray() {
+        return null;
+    }
 
     /**
      * @return a {@link Builder} of {@link DerivedStruct}

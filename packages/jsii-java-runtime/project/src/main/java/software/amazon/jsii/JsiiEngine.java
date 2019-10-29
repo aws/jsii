@@ -61,6 +61,17 @@ public final class JsiiEngine implements JsiiCallbackHandler {
     }
 
     /**
+     * Silences any error and warning logging from the Engine. Useful when testing.
+     *
+     * @param value whether to silence the logs or not.
+     */
+    public static void setQuietMode(boolean value) {
+        getInstance().quietMode = value;
+    }
+
+    private boolean quietMode = true;
+
+    /**
      * @return The jsii-server HTTP client.
      */
     public JsiiClient getClient() {
@@ -316,12 +327,8 @@ public final class JsiiEngine implements JsiiCallbackHandler {
     private JsonNode invokeCallbackGet(final GetRequest req) {
         Object obj = this.getObject(req.getObjref());
         String methodName = javaScriptPropertyToJavaPropertyName("get", req.getProperty());
-        try {
-            Method getter = obj.getClass().getMethod(methodName);
-            return JsiiObjectMapper.valueToTree(invokeMethod(obj, getter));
-        } catch (NoSuchMethodException e) {
-            throw new JsiiException(e);
-        }
+        Method getter = this.findCallbackGetter(obj.getClass(), methodName);
+        return JsiiObjectMapper.valueToTree(invokeMethod(obj, getter));
     }
 
     /**
@@ -331,19 +338,13 @@ public final class JsiiEngine implements JsiiCallbackHandler {
      */
     private JsonNode invokeCallbackSet(final SetRequest req) {
         final Object obj = this.getObject(req.getObjref());
-        String setterMethodName = javaScriptPropertyToJavaPropertyName("set", req.getProperty());
 
-        Method setter = null;
-        for (Method method: obj.getClass().getMethods()) {
-            if (method.getName().equals(setterMethodName)) {
-                setter = method;
-                break;
-            }
-        }
+        final String getterMethodName = javaScriptPropertyToJavaPropertyName("get", req.getProperty());
+        final Method getter = this.findCallbackGetter(obj.getClass(), getterMethodName);
 
-        if (setter == null) {
-            throw new JsiiException("Unable to find property setter " + setterMethodName);
-        }
+        // Turns "get" into "set"!
+        final String setterMethodName = getterMethodName.replaceFirst("g", "s");
+        final Method setter = this.findCallbackSetter(obj.getClass(), setterMethodName, getter.getReturnType());
 
         final Object arg = JsiiObjectMapper.treeToValue(req.getValue(), setter.getParameterTypes()[0]);
         return JsiiObjectMapper.valueToTree(invokeMethod(obj, setter, arg));
@@ -422,7 +423,7 @@ public final class JsiiEngine implements JsiiCallbackHandler {
      * @return a {@link Method}.
      */
     private Method findCallbackMethod(final Class<?> klass, final String signature) {
-        for (Method method : klass.getMethods()) {
+        for (Method method : klass.getDeclaredMethods()) {
 
             if (method.toString().equals(signature)) {
                 // found!
@@ -430,7 +431,57 @@ public final class JsiiEngine implements JsiiCallbackHandler {
             }
         }
 
+        if (klass.getSuperclass() != null) {
+            // Try to check parent class at this point
+            return findCallbackMethod(klass.getSuperclass(), signature);
+        }
+
         throw new JsiiException("Unable to find callback method with signature: " + signature);
+    }
+
+    /**
+     * Tries to locate the getter method for a property
+     * @param klass is the type on which the getter is to be searched for
+     * @param methodName is the name of the getter method
+     * @return the found Method
+     * @throws JsiiException if no such method is found
+     */
+    private Method findCallbackGetter(final Class<?> klass, final String methodName) {
+        try {
+            return klass.getDeclaredMethod(methodName);
+        } catch (final NoSuchMethodException nsme) {
+            if (klass.getSuperclass() != null) {
+                try {
+                    return findCallbackGetter(klass.getSuperclass(), methodName);
+                } catch (final JsiiException _ignored) {
+                    // Ignored!
+                }
+            }
+            throw new JsiiException(nsme);
+        }
+    }
+
+    /**
+     * Tries to locate the setter method for a property
+     * @param klass is the type on which the setter is to be searched for
+     * @param methodName is the name of the setter method
+     * @param valueType is the type of the argument the setter accepts
+     * @return the found Method
+     * @throws JsiiException if no such method is found
+     */
+    private Method findCallbackSetter(final Class<?> klass, final String methodName, final Class<?> valueType) {
+        try {
+            return klass.getDeclaredMethod(methodName, valueType);
+        } catch (final NoSuchMethodException nsme) {
+            if (klass.getSuperclass() != null) {
+                try {
+                    return findCallbackSetter(klass.getSuperclass(), methodName, valueType);
+                } catch (final JsiiException _ignored) {
+                    // Ignored!
+                }
+            }
+            throw new JsiiException(nsme);
+        }
     }
 
     /**
@@ -525,7 +576,9 @@ public final class JsiiEngine implements JsiiCallbackHandler {
     }
 
     private void log(final String format, final Object... args) {
-        System.err.println(String.format(format, args));
+        if (!this.quietMode) {
+            System.err.println(String.format(format, args));
+        }
     }
 
     /**

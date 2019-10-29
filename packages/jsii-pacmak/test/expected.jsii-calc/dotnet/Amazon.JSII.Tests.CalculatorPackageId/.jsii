@@ -6846,6 +6846,95 @@
         }
       ]
     },
+    "jsii-calc.OverridableProtectedMember": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "see": "https://github.com/aws/jsii/issues/903",
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.OverridableProtectedMember",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1887
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1899
+          },
+          "name": "overrideMe",
+          "protected": true,
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1895
+          },
+          "name": "switchModes"
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1891
+          },
+          "name": "valueFromProtected",
+          "returns": {
+            "type": {
+              "primitive": "string"
+            }
+          }
+        }
+      ],
+      "name": "OverridableProtectedMember",
+      "properties": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1888
+          },
+          "name": "overrideReadOnly",
+          "protected": true,
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1889
+          },
+          "name": "overrideReadWrite",
+          "protected": true,
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "jsii-calc.OverrideReturnsObject": {
       "assembly": "jsii-calc",
       "docs": {
@@ -8555,7 +8644,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 1900
+        "line": 1920
       },
       "name": "SupportsNiceJavaBuilder",
       "properties": [
@@ -8567,7 +8656,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1910
+            "line": 1930
           },
           "name": "id",
           "overrides": "jsii-calc.SupportsNiceJavaBuilderWithRequiredProps",
@@ -8582,7 +8671,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1901
+            "line": 1921
           },
           "name": "rest",
           "type": {
@@ -8606,7 +8695,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 1915
+        "line": 1935
       },
       "name": "SupportsNiceJavaBuilderProps",
       "properties": [
@@ -8619,7 +8708,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1925
+            "line": 1945
           },
           "name": "bar",
           "type": {
@@ -8636,7 +8725,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1920
+            "line": 1940
           },
           "name": "id",
           "optional": true,
@@ -8681,7 +8770,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 1887
+        "line": 1907
       },
       "name": "SupportsNiceJavaBuilderWithRequiredProps",
       "properties": [
@@ -8692,7 +8781,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1889
+            "line": 1909
           },
           "name": "bar",
           "type": {
@@ -8707,7 +8796,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1895
+            "line": 1915
           },
           "name": "id",
           "type": {
@@ -8721,7 +8810,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1888
+            "line": 1908
           },
           "name": "propId",
           "optional": true,
@@ -9843,5 +9932,5 @@
     }
   },
   "version": "0.19.0",
-  "fingerprint": "5esoIuYhRO/SpVInRK+VvpEyOaykHrlaQ/wQebJzyNQ="
+  "fingerprint": "98k0qPH9S801EvX681aTDIxgufKA90iJ4SlfZKrm90c="
 }

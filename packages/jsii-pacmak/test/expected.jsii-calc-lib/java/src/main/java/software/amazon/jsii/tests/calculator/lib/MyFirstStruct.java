@@ -26,7 +26,9 @@ public interface MyFirstStruct extends software.amazon.jsii.JsiiSerializable {
      */
     @Deprecated
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
-    java.util.List<java.lang.String> getFirstOptional();
+    default java.util.List<java.lang.String> getFirstOptional() {
+        return null;
+    }
 
     /**
      * @return a {@link Builder} of {@link MyFirstStruct}
