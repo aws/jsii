@@ -99,8 +99,8 @@ public final class JsiiEngine implements JsiiCallbackHandler {
 
         JsiiModule module;
         try {
-            module = moduleClass.newInstance();
-        } catch (IllegalAccessException | InstantiationException e) {
+            module = moduleClass.getConstructor().newInstance();
+        } catch (IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
             throw new JsiiException(e);
         }
 
