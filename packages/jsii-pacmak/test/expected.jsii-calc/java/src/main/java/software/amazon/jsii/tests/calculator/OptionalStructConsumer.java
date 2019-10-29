@@ -72,6 +72,12 @@ public class OptionalStructConsumer extends software.amazon.jsii.JsiiObject {
         private Builder() {
         }
 
+        /**
+         * EXPERIMENTAL
+         * 
+         * @return {@code this}
+         * @param field This parameter is required.
+         */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder field(final java.lang.String field) {
             this.optionalStruct().field(field);

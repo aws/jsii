@@ -8511,12 +8511,18 @@
         },
         "parameters": [
           {
+            "docs": {
+              "summary": "some identifier."
+            },
             "name": "id",
             "type": {
               "primitive": "number"
             }
           },
           {
+            "docs": {
+              "summary": "the default value of `bar`."
+            },
             "name": "defaultBar",
             "optional": true,
             "type": {
@@ -8524,21 +8530,51 @@
             }
           },
           {
+            "docs": {
+              "summary": "some props once can provide."
+            },
             "name": "props",
             "optional": true,
             "type": {
               "fqn": "jsii-calc.SupportsNiceJavaBuilderProps"
             }
+          },
+          {
+            "docs": {
+              "summary": "a variadic continuation."
+            },
+            "name": "rest",
+            "type": {
+              "primitive": "string"
+            },
+            "variadic": true
           }
-        ]
+        ],
+        "variadic": true
       },
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 1896
+        "line": 1900
       },
       "name": "SupportsNiceJavaBuilder",
       "properties": [
+        {
+          "docs": {
+            "stability": "experimental",
+            "summary": "some identifier."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1910
+          },
+          "name": "id",
+          "overrides": "jsii-calc.SupportsNiceJavaBuilderWithRequiredProps",
+          "type": {
+            "primitive": "number"
+          }
+        },
         {
           "docs": {
             "stability": "experimental"
@@ -8546,12 +8582,16 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1897
+            "line": 1901
           },
-          "name": "id",
-          "overrides": "jsii-calc.SupportsNiceJavaBuilderWithRequiredProps",
+          "name": "rest",
           "type": {
-            "primitive": "number"
+            "collection": {
+              "elementtype": {
+                "primitive": "string"
+              },
+              "kind": "array"
+            }
           }
         }
       ]
@@ -8566,19 +8606,20 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 1901
+        "line": 1915
       },
       "name": "SupportsNiceJavaBuilderProps",
       "properties": [
         {
           "abstract": true,
           "docs": {
-            "stability": "experimental"
+            "stability": "experimental",
+            "summary": "Some number, like 42."
           },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1904
+            "line": 1925
           },
           "name": "bar",
           "type": {
@@ -8588,12 +8629,14 @@
         {
           "abstract": true,
           "docs": {
-            "stability": "experimental"
+            "remarks": "But here we are, doing it like we didn't care.",
+            "stability": "experimental",
+            "summary": "An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`."
           },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1903
+            "line": 1920
           },
           "name": "id",
           "optional": true,
@@ -8616,19 +8659,24 @@
         },
         "parameters": [
           {
+            "docs": {
+              "summary": "some identifier of your choice."
+            },
             "name": "id",
             "type": {
               "primitive": "number"
             }
           },
           {
+            "docs": {
+              "summary": "some properties."
+            },
             "name": "props",
             "type": {
               "fqn": "jsii-calc.SupportsNiceJavaBuilderProps"
             }
           }
-        ],
-        "protected": true
+        ]
       },
       "kind": "class",
       "locationInModule": {
@@ -8653,12 +8701,13 @@
         },
         {
           "docs": {
-            "stability": "experimental"
+            "stability": "experimental",
+            "summary": "some identifier of your choice."
           },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1891
+            "line": 1895
           },
           "name": "id",
           "type": {
@@ -9794,5 +9843,5 @@
     }
   },
   "version": "0.19.0",
-  "fingerprint": "h53JMq2EfiZfB2ggOGU66X7HS/99LaMoh7d2NoY8qqY="
+  "fingerprint": "5esoIuYhRO/SpVInRK+VvpEyOaykHrlaQ/wQebJzyNQ="
 }

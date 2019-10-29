@@ -229,12 +229,24 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
         private Builder() {
         }
 
+        /**
+         * EXPERIMENTAL
+         * 
+         * @return {@code this}
+         * @param initialValue This parameter is required.
+         */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder initialValue(final java.lang.Number initialValue) {
             this.props().initialValue(initialValue);
             return this;
         }
 
+        /**
+         * EXPERIMENTAL
+         * 
+         * @return {@code this}
+         * @param maximumValue This parameter is required.
+         */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder maximumValue(final java.lang.Number maximumValue) {
             this.props().maximumValue(maximumValue);

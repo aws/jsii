@@ -21,11 +21,11 @@ public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.js
     /**
      * EXPERIMENTAL
      * 
-     * @param id This parameter is required.
-     * @param props This parameter is required.
+     * @param id some identifier of your choice. This parameter is required.
+     * @param props some properties. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    protected SupportsNiceJavaBuilderWithRequiredProps(final java.lang.Number id, final software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderProps props) {
+    public SupportsNiceJavaBuilderWithRequiredProps(final java.lang.Number id, final software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderProps props) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
         this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(id, "id is required"), java.util.Objects.requireNonNull(props, "props is required") }));
     }
@@ -39,6 +39,8 @@ public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.js
     }
 
     /**
+     * some identifier of your choice.
+     * 
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -52,5 +54,65 @@ public class SupportsNiceJavaBuilderWithRequiredProps extends software.amazon.js
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String getPropId() {
         return this.jsiiGet("propId", java.lang.String.class);
+    }
+
+    /**
+     * A fluent builder for {@link software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderWithRequiredProps}.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    public static final class Builder {
+        /**
+         * EXPERIMENTAL
+         * 
+         * @return a new instance of {@link Builder}.
+         * @param id some identifier of your choice. This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        public static Builder create(final java.lang.Number id) {
+            return new Builder(id);
+        }
+
+        private final java.lang.Number id;
+        private final software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderProps.Builder props;
+
+        private Builder(final java.lang.Number id) {
+            this.id = id;
+            this.props = new software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderProps.Builder();
+        }
+
+        /**
+         * EXPERIMENTAL
+         * 
+         * @return {@code this}
+         * @param bar Some number, like 42. This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        public Builder bar(final java.lang.Number bar) {
+            this.props.bar(bar);
+            return this;
+        }
+
+        /**
+         * EXPERIMENTAL
+         * 
+         * @return {@code this}
+         * @param id An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`. This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        public Builder id(final java.lang.String id) {
+            this.props.id(id);
+            return this;
+        }
+
+        /**
+         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderWithRequiredProps}.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        public software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderWithRequiredProps build() {
+            return new software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderWithRequiredProps(
+                this.id,
+                this.props.build()
+            );
+        }
     }
 }

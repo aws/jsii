@@ -19,46 +19,34 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
     /**
      * EXPERIMENTAL
      * 
-     * @param id This parameter is required.
-     * @param defaultBar
-     * @param props
+     * @param id some identifier. This parameter is required.
+     * @param defaultBar the default value of `bar`.
+     * @param props some props once can provide.
+     * @param rest a variadic continuation. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public SupportsNiceJavaBuilder(final java.lang.Number id, final java.lang.Number defaultBar, final software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderProps props) {
+    public SupportsNiceJavaBuilder(final java.lang.Number id, final java.lang.Number defaultBar, final software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderProps props, final java.lang.String... rest) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(id, "id is required"), defaultBar, props }));
+        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.stream.Stream.concat(java.util.Arrays.<Object>stream(new Object[] { java.util.Objects.requireNonNull(id, "id is required"), defaultBar, props }), java.util.Arrays.<Object>stream(rest)).toArray(Object[]::new)));
     }
 
     /**
-     * EXPERIMENTAL
+     * some identifier.
      * 
-     * @param id This parameter is required.
-     * @param defaultBar
-     */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public SupportsNiceJavaBuilder(final java.lang.Number id, final java.lang.Number defaultBar) {
-        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(id, "id is required"), defaultBar }));
-    }
-
-    /**
-     * EXPERIMENTAL
-     * 
-     * @param id This parameter is required.
-     */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public SupportsNiceJavaBuilder(final java.lang.Number id) {
-        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(id, "id is required") }));
-    }
-
-    /**
      * EXPERIMENTAL
      */
     @Override
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number getId() {
         return this.jsiiGet("id", java.lang.Number.class);
+    }
+
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    public java.util.List<java.lang.String> getRest() {
+        return java.util.Collections.unmodifiableList(this.jsiiGet("rest", java.util.List.class));
     }
 
     /**
@@ -70,29 +58,54 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
          * EXPERIMENTAL
          * 
          * @return a new instance of {@link Builder}.
-         * @param id This parameter is required.
-         * @param defaultBar
+         * @param id some identifier. This parameter is required.
+         * @param defaultBar the default value of `bar`.
+         * @param rest a variadic continuation. This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public static Builder create(final java.lang.Number id, final java.lang.Number defaultBar) {
-            return new Builder(id, defaultBar);
+        public static Builder create(final java.lang.Number id, final java.lang.Number defaultBar, final java.lang.String... rest) {
+            return new Builder(id, defaultBar, rest);
+        }
+        /**
+         * EXPERIMENTAL
+         * 
+         * @return a new instance of {@link Builder}.
+         * @param id some identifier. This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        public static Builder create(final java.lang.Number id) {
+            return new Builder(id, null, null);
         }
 
         private final java.lang.Number id;
         private final java.lang.Number defaultBar;
+        private final java.lang.String[] rest;
         private software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilderProps.Builder props;
 
-        private Builder(final java.lang.Number id, final java.lang.Number defaultBar) {
+        private Builder(final java.lang.Number id, final java.lang.Number defaultBar, final java.lang.String... rest) {
             this.id = id;
             this.defaultBar = defaultBar;
+            this.rest = rest;
         }
 
+        /**
+         * EXPERIMENTAL
+         * 
+         * @return {@code this}
+         * @param bar Some number, like 42. This parameter is required.
+         */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder bar(final java.lang.Number bar) {
             this.props().bar(bar);
             return this;
         }
 
+        /**
+         * EXPERIMENTAL
+         * 
+         * @return {@code this}
+         * @param id An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`. This parameter is required.
+         */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public Builder id(final java.lang.String id) {
             this.props().id(id);
@@ -107,7 +120,8 @@ public class SupportsNiceJavaBuilder extends software.amazon.jsii.tests.calculat
             return new software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilder(
                 this.id,
                 this.defaultBar,
-                this.props != null ? this.props.build() : null
+                this.props != null ? this.props.build() : null,
+                this.rest
             );
         }
 

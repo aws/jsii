@@ -8,6 +8,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     [JsiiByValue]
     public class SupportsNiceJavaBuilderProps : Amazon.JSII.Tests.CalculatorNamespace.ISupportsNiceJavaBuilderProps
     {
+        /// <summary>Some number, like 42.</summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -18,7 +19,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             set;
         }
 
+        /// <summary>An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`.</summary>
         /// <remarks>
+        /// But here we are, doing it like we didn't care.
         /// stability: Experimental
         /// </remarks>
         [JsiiOptional]

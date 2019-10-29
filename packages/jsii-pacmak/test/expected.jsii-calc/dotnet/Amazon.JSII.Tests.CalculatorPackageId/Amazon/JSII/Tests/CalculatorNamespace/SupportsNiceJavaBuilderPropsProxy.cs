@@ -12,6 +12,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         {
         }
 
+        /// <summary>Some number, like 42.</summary>
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
@@ -21,7 +22,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
             get => GetInstanceProperty<double>();
         }
 
+        /// <summary>An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`.</summary>
         /// <remarks>
+        /// But here we are, doing it like we didn't care.
         /// stability: Experimental
         /// </remarks>
         [JsiiOptional]

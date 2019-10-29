@@ -5772,8 +5772,8 @@ class StructWithJavaReservedWords():
 class SupportsNiceJavaBuilderProps():
     def __init__(self, *, bar: jsii.Number, id: typing.Optional[str]=None):
         """
-        :param bar: 
-        :param id: 
+        :param bar: Some number, like 42.
+        :param id: An ``id`` field here is terrible API design, because the constructor of ``SupportsNiceJavaBuilder`` already has a parameter named ``id``. But here we are, doing it like we didn't care.
 
         stability
         :stability: experimental
@@ -5785,7 +5785,8 @@ class SupportsNiceJavaBuilderProps():
 
     @property
     def bar(self) -> jsii.Number:
-        """
+        """Some number, like 42.
+
         stability
         :stability: experimental
         """
@@ -5793,7 +5794,10 @@ class SupportsNiceJavaBuilderProps():
 
     @property
     def id(self) -> typing.Optional[str]:
-        """
+        """An ``id`` field here is terrible API design, because the constructor of ``SupportsNiceJavaBuilder`` already has a parameter named ``id``.
+
+        But here we are, doing it like we didn't care.
+
         stability
         :stability: experimental
         """
@@ -5817,10 +5821,10 @@ class SupportsNiceJavaBuilderWithRequiredProps(metaclass=jsii.JSIIMeta, jsii_typ
     """
     def __init__(self, id_: jsii.Number, *, bar: jsii.Number, id: typing.Optional[str]=None) -> None:
         """
-        :param id: -
-        :param props: -
-        :param bar: 
-        :param id: 
+        :param id: some identifier of your choice.
+        :param props: some properties.
+        :param bar: Some number, like 42.
+        :param id: An ``id`` field here is terrible API design, because the constructor of ``SupportsNiceJavaBuilder`` already has a parameter named ``id``. But here we are, doing it like we didn't care.
 
         stability
         :stability: experimental
@@ -5841,7 +5845,8 @@ class SupportsNiceJavaBuilderWithRequiredProps(metaclass=jsii.JSIIMeta, jsii_typ
     @property
     @jsii.member(jsii_name="id")
     def id(self) -> jsii.Number:
-        """
+        """some identifier of your choice.
+
         stability
         :stability: experimental
         """
@@ -5862,29 +5867,36 @@ class SupportsNiceJavaBuilder(SupportsNiceJavaBuilderWithRequiredProps, metaclas
     stability
     :stability: experimental
     """
-    def __init__(self, id_: jsii.Number, default_bar: typing.Optional[jsii.Number]=None, *, bar: jsii.Number, id: typing.Optional[str]=None) -> None:
+    def __init__(self, id: jsii.Number, default_bar: typing.Optional[jsii.Number]=None, props: typing.Optional["SupportsNiceJavaBuilderProps"]=None, *rest: str) -> None:
         """
-        :param id: -
-        :param default_bar: -
-        :param props: -
-        :param bar: 
-        :param id: 
+        :param id: some identifier.
+        :param default_bar: the default value of ``bar``.
+        :param props: some props once can provide.
+        :param rest: a variadic continuation.
 
         stability
         :stability: experimental
         """
-        props = SupportsNiceJavaBuilderProps(bar=bar, id=id)
-
-        jsii.create(SupportsNiceJavaBuilder, self, [id, default_bar, props])
+        jsii.create(SupportsNiceJavaBuilder, self, [id, default_bar, props, *rest])
 
     @property
     @jsii.member(jsii_name="id")
     def id(self) -> jsii.Number:
-        """
+        """some identifier.
+
         stability
         :stability: experimental
         """
         return jsii.get(self, "id")
+
+    @property
+    @jsii.member(jsii_name="rest")
+    def rest(self) -> typing.List[str]:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.get(self, "rest")
 
 
 class SyncVirtualMethods(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.SyncVirtualMethods"):

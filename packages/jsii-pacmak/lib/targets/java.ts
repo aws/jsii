@@ -1002,7 +1002,7 @@ class JavaGenerator extends Generator {
   }
 
   private emitClassBuilder(cls: spec.ClassType) {
-    // Not rendering if there is no initializer, or if the initializer is protected
+    // Not rendering if there is no initializer, or if the initializer is protected or variadic
     if (cls.initializer == null || cls.initializer.protected) { return; }
     // Not rendering if the initializer has no parameters
     if (cls.initializer.parameters == null) { return; }
@@ -1038,30 +1038,34 @@ class JavaGenerator extends Generator {
     this.code.line(' */');
     this.emitStabilityAnnotations(cls.initializer);
     this.code.openBlock(`public static final class ${BUILDER_CLASS_NAME}`);
-    // Static factory method
-    const dummyMethod: spec.Method = {
-      docs: {
-        stability: cls.initializer.docs && cls.initializer.docs.stability || (cls.docs && cls.docs.stability),
-        returns: `a new instance of {@link ${BUILDER_CLASS_NAME}}.`,
-      },
-      name: 'create',
-      parameters: positionalParams.map(param => param.param),
-    };
-    this.addJavaDocs(dummyMethod);
-    this.emitStabilityAnnotations(cls.initializer);
-    const positionalParamsSyntax = positionalParams.map(param => `final ${param.javaType} ${param.fieldName}`).join(', ');
-    this.code.openBlock(`public static ${BUILDER_CLASS_NAME} create(${positionalParamsSyntax})`);
-    this.code.line(`return new ${BUILDER_CLASS_NAME}(${positionalParams.map(param => param.fieldName).join(', ')});`);
-    this.code.closeBlock();
+
+    // Static factory method(s)
+    for (const params of computeOverrides(positionalParams)) {
+      const dummyMethod: spec.Method = {
+        docs: {
+          stability: cls.initializer.docs && cls.initializer.docs.stability || (cls.docs && cls.docs.stability),
+          returns: `a new instance of {@link ${BUILDER_CLASS_NAME}}.`,
+        },
+        name: 'create',
+        parameters: params.map(param => param.param),
+      };
+      this.addJavaDocs(dummyMethod);
+      this.emitStabilityAnnotations(cls.initializer);
+      this.code.openBlock(`public static ${BUILDER_CLASS_NAME} create(${params.map(param => `final ${param.javaType}${param.param.variadic ? '...' : ''} ${param.fieldName}`).join(', ')})`);
+      this.code.line(`return new ${BUILDER_CLASS_NAME}(${positionalParams.map((param, idx) => idx < params.length ? param.fieldName : 'null').join(', ')});`);
+      this.code.closeBlock();
+    }
+
     // Private properties
     this.code.line();
     for (const param of positionalParams) {
-      this.code.line(`private final ${param.javaType} ${param.fieldName};`);
+      this.code.line(`private final ${param.javaType}${param.param.variadic ? '[]' : ''} ${param.fieldName};`);
     }
     this.code.line(`private ${firstStruct.optional ? '' : 'final '}${structBuilder} ${structParamName};`);
+
     // Private constructor
     this.code.line();
-    this.code.openBlock(`private ${BUILDER_CLASS_NAME}(${positionalParamsSyntax})`);
+    this.code.openBlock(`private ${BUILDER_CLASS_NAME}(${positionalParams.map(param => `final ${param.javaType}${param.param.variadic ? '...' : ''} ${param.fieldName}`).join(', ')})`);
     for (const param of positionalParams) {
       this.code.line(`this.${param.fieldName} = ${param.fieldName};`);
     }
@@ -1069,17 +1073,32 @@ class JavaGenerator extends Generator {
       this.code.line(`this.${structParamName} = new ${structBuilder}();`);
     }
     this.code.closeBlock();
+
     // Fields
     for (const prop of structType.allProperties) {
       const methodName = JavaGenerator.safeJavaMethodName(prop.name);
       const fieldName = this.code.toCamelCase(JavaGenerator.safeJavaPropertyName(prop.name));
       this.code.line();
+      const setter: spec.Method = {
+        name: methodName,
+        docs: {
+          stability: prop.spec.docs && prop.spec.docs.stability,
+          returns: '{@code this}',
+        },
+        parameters: [{
+          name: fieldName,
+          type: spec.CANONICAL_ANY, // We don't quite care in this context!
+          docs: prop.spec.docs,
+        }],
+      };
+      this.addJavaDocs(setter);
       this.emitStabilityAnnotations(prop.spec);
       this.code.openBlock(`public ${BUILDER_CLASS_NAME} ${methodName}(final ${this.toJavaType(prop.type.spec!)} ${fieldName})`);
       this.code.line(`this.${structParamName}${firstStruct.optional ? '()' : ''}.${methodName}(${fieldName});`);
       this.code.line('return this;');
       this.code.closeBlock();
     }
+
     // Final build method
     this.code.line();
     this.code.line('/**');
@@ -1097,7 +1116,8 @@ class JavaGenerator extends Generator {
     params.forEach((param, idx) =>
       this.code.line(`${param}${idx < params.length - 1 ? ',' : ''}`));
     this.code.unindent(');');
-    this.code.closeBlock()
+    this.code.closeBlock();
+
     // Optional builder initialization
     if (firstStruct.optional) {
       this.code.line();
@@ -1771,4 +1791,24 @@ function endWithPeriod(s: string): string {
     return `${s}.`;
   }
   return s;
+}
+
+function computeOverrides<T extends { param: spec.Parameter }>(allParams: T[]): Iterable<T[]> {
+  return {
+    [Symbol.iterator]: function* () {
+      yield allParams;
+      while (allParams.length > 0) {
+        const lastParam = allParams[allParams.length - 1];
+        if (!lastParam.param.variadic && !lastParam.param.optional) {
+          // Neither variadic nor optional -- we're done here!
+          return;
+        }
+        allParams = allParams.slice(0, allParams.length - 1);
+        // If the lastParam was variadic, we shouldn't generate an override without it only.
+        if (lastParam.param.optional) {
+          yield allParams;
+        }
+      }
+    },
+  };
 }

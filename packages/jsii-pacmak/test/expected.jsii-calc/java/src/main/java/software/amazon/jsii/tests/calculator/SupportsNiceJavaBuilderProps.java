@@ -8,12 +8,18 @@ package software.amazon.jsii.tests.calculator;
 public interface SupportsNiceJavaBuilderProps extends software.amazon.jsii.JsiiSerializable {
 
     /**
+     * Some number, like 42.
+     * 
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.lang.Number getBar();
 
     /**
+     * An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`.
+     * 
+     * But here we are, doing it like we didn't care.
+     * 
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -36,7 +42,7 @@ public interface SupportsNiceJavaBuilderProps extends software.amazon.jsii.JsiiS
 
         /**
          * Sets the value of Bar
-         * @param bar the value to be set. This parameter is required.
+         * @param bar Some number, like 42. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -47,7 +53,7 @@ public interface SupportsNiceJavaBuilderProps extends software.amazon.jsii.JsiiS
 
         /**
          * Sets the value of Id
-         * @param id the value to be set.
+         * @param id An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a parameter named `id`.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
