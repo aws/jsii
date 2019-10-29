@@ -116,7 +116,11 @@ export class ObjectTable {
         for (const iface of existingRef[api.TOKEN_INTERFACES] || []) {
           allIfaces.add(iface);
         }
-        existingRef[api.TOKEN_INTERFACES] = this.removeRedundant(Array.from(allIfaces), fqn);
+        this.objects[existingRef[api.TOKEN_REF]].interfaces =
+          (obj as any)[IFACES_SYMBOL] =
+          existingRef[api.TOKEN_INTERFACES] =
+          interfaces =
+          this.removeRedundant(Array.from(allIfaces), fqn);
       }
       return existingRef;
     }

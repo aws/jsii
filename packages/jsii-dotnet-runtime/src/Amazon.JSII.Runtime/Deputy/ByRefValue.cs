@@ -1,6 +1,8 @@
 ﻿using Amazon.JSII.JsonModel.Api;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Amazon.JSII.Runtime.Deputy
 {
@@ -43,7 +45,7 @@ namespace Amazon.JSII.Runtime.Deputy
         internal string Value { get; }
         
         [JsonProperty("$jsii.interfaces")]
-        internal string[] Interfaces { get; }
+        internal string[] Interfaces { get; private set;  }
 
         internal string FullyQualifiedName { get; }
 
@@ -66,6 +68,16 @@ namespace Amazon.JSII.Runtime.Deputy
         internal ByRefValue ForProxy()
         {
             return IsProxy ? this : new ByRefValue(Value, FullyQualifiedName, Id, Interfaces, true);
+        }
+
+        internal void Merge(ByRefValue other)
+        {
+            var mergedInterfaces = new HashSet<string>(Interfaces);
+            foreach (var iface in other.Interfaces)
+            {
+                mergedInterfaces.Add(iface);
+            }
+            Interfaces = other.Interfaces = mergedInterfaces.ToArray();
         }
     }
 }

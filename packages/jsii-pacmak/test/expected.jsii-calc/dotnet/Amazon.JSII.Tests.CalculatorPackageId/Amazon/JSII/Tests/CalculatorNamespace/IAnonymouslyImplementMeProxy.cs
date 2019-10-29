@@ -19,7 +19,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         public double Value
         {
             get => GetInstanceProperty<double>();
-            set => SetInstanceProperty(value);
         }
 
         /// <remarks>

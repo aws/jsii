@@ -18,11 +18,6 @@ public interface IAnonymouslyImplementMe extends software.amazon.jsii.JsiiSerial
     /**
      * EXPERIMENTAL
      */
-    void setValue(final java.lang.Number value);
-
-    /**
-     * EXPERIMENTAL
-     */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     java.lang.String verb();
 
@@ -41,15 +36,6 @@ public interface IAnonymouslyImplementMe extends software.amazon.jsii.JsiiSerial
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         public java.lang.Number getValue() {
             return this.jsiiGet("value", java.lang.Number.class);
-        }
-
-        /**
-         * EXPERIMENTAL
-         */
-        @Override
-        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-        public void setValue(final java.lang.Number value) {
-            this.jsiiSet("value", java.util.Objects.requireNonNull(value, "value is required"));
         }
 
         /**

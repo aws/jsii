@@ -1040,7 +1040,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 1911
+        "line": 1912
       },
       "methods": [
         {
@@ -1049,9 +1049,25 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1912
+            "line": 1915
           },
-          "name": "provide",
+          "name": "provideAsClass",
+          "overrides": "jsii-calc.IAnonymousImplementationProvider",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.Implementation"
+            }
+          }
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1919
+          },
+          "name": "provideAsInterface",
           "overrides": "jsii-calc.IAnonymousImplementationProvider",
           "returns": {
             "type": {
@@ -3855,9 +3871,25 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
+            "line": 1910
+          },
+          "name": "provideAsClass",
+          "returns": {
+            "type": {
+              "fqn": "jsii-calc.Implementation"
+            }
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
             "line": 1909
           },
-          "name": "provide",
+          "name": "provideAsInterface",
           "returns": {
             "type": {
               "fqn": "jsii-calc.IAnonymouslyImplementMe"
@@ -3876,7 +3908,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 1919
+        "line": 1926
       },
       "methods": [
         {
@@ -3886,7 +3918,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1921
+            "line": 1928
           },
           "name": "verb",
           "returns": {
@@ -3903,9 +3935,10 @@
           "docs": {
             "stability": "experimental"
           },
+          "immutable": true,
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 1920
+            "line": 1927
           },
           "name": "value",
           "type": {
@@ -4860,6 +4893,36 @@
           "name": "prop",
           "type": {
             "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.Implementation": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.Implementation",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1923
+      },
+      "name": "Implementation",
+      "properties": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1924
+          },
+          "name": "value",
+          "type": {
+            "primitive": "number"
           }
         }
       ]
@@ -9823,5 +9886,5 @@
     }
   },
   "version": "0.19.0",
-  "fingerprint": "OpxBghTomKWICGI/VfSJmwyqks2F/envRslx0JSxGyU="
+  "fingerprint": "yqZIx+0BPq2ok9FDYlNcmptJ34hlTkr2SMWY2dA6ME8="
 }

@@ -15,7 +15,6 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         double Value
         {
             get;
-            set;
         }
         /// <remarks>
         /// stability: Experimental

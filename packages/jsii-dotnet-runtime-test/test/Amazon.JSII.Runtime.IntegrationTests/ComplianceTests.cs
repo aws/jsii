@@ -1007,6 +1007,15 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(4, interfaces.Length);
         }
 
+        [Fact(DisplayName = Prefix + nameof(CanLeverageIndirectInterfacePolymorphism))]
+        public void CanLeverageIndirectInterfacePolymorphism()
+        {
+            var provider = new AnonymousImplementationProvider();
+            Assert.Equal(1337d, provider.ProvideAsClass().Value);
+            Assert.Equal(1337d, provider.ProvideAsInterface().Value);
+            Assert.Equal("to implement", provider.ProvideAsInterface().Verb());
+        }
+        
         class DataRendererSubclass : DataRenderer
         {
             [JsiiMethod("renderMap", returnsJson:  "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[{\"name\":\"map\",\"type\":{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"primitive\":\"any\"}}}}]", isOverride: true)]

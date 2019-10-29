@@ -26,7 +26,16 @@ public class AnonymousImplementationProvider extends software.amazon.jsii.JsiiOb
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     @Override
-    public software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe provide() {
-        return this.jsiiCall("provide", software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe.class);
+    public software.amazon.jsii.tests.calculator.Implementation provideAsClass() {
+        return this.jsiiCall("provideAsClass", software.amazon.jsii.tests.calculator.Implementation.class);
+    }
+
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    @Override
+    public software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe provideAsInterface() {
+        return this.jsiiCall("provideAsInterface", software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe.class);
     }
 }

@@ -15,7 +15,13 @@ public interface IAnonymousImplementationProvider extends software.amazon.jsii.J
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe provide();
+    software.amazon.jsii.tests.calculator.Implementation provideAsClass();
+
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe provideAsInterface();
 
     /**
      * A proxy class which represents a concrete javascript instance of this type.
@@ -30,8 +36,17 @@ public interface IAnonymousImplementationProvider extends software.amazon.jsii.J
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
-        public software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe provide() {
-            return this.jsiiCall("provide", software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe.class);
+        public software.amazon.jsii.tests.calculator.Implementation provideAsClass() {
+            return this.jsiiCall("provideAsClass", software.amazon.jsii.tests.calculator.Implementation.class);
+        }
+
+        /**
+         * EXPERIMENTAL
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        @Override
+        public software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe provideAsInterface() {
+            return this.jsiiCall("provideAsInterface", software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe.class);
         }
     }
 }

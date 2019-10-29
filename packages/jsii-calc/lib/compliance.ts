@@ -1906,17 +1906,29 @@ export class OverridableProtectedMember {
  * declarations.
  */
 export interface IAnonymousImplementationProvider {
-    provide(): IAnonymouslyImplementMe;
+    provideAsInterface(): IAnonymouslyImplementMe;
+    provideAsClass(): Implementation;
 }
 export class AnonymousImplementationProvider implements IAnonymousImplementationProvider {
-    public provide(): IAnonymouslyImplementMe {
-        return {
-            value: 1337,
-            verb() { return 'to implement'; },
-        };
+    private readonly instance = new PrivateType();
+
+    public provideAsClass(): Implementation {
+        return this.instance;
+    }
+
+    public provideAsInterface(): IAnonymouslyImplementMe {
+        return this.instance;
     }
 }
+export class Implementation {
+    readonly value = 1337;
+}
 export interface IAnonymouslyImplementMe {
-    value: number;
+    readonly value: number;
     verb(): string;
+}
+class PrivateType extends Implementation implements IAnonymouslyImplementMe {
+    public verb() {
+        return 'to implement';
+    }
 }

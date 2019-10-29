@@ -144,7 +144,9 @@ exports[`jsii-tree --all 1`] = `
  │   │ ├── interfaces: IAnonymousImplementationProvider
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
- │   │   └─┬ provide() method (experimental)
+ │   │   ├─┬ provideAsClass() method (experimental)
+ │   │   │ └── returns: jsii-calc.Implementation
+ │   │   └─┬ provideAsInterface() method (experimental)
  │   │     └── returns: jsii-calc.IAnonymouslyImplementMe
  │   ├─┬ class AsyncVirtualMethods (experimental)
  │   │ └─┬ members
@@ -557,6 +559,12 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├── <initializer>() initializer (experimental)
  │   │   └─┬ prop property (experimental)
  │   │     └── type: string
+ │   ├─┬ class Implementation (experimental)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   └─┬ value property (experimental)
+ │   │     ├── immutable
+ │   │     └── type: number
  │   ├─┬ class ImplementsInterfaceWithInternal (experimental)
  │   │ ├── interfaces: IInterfaceWithInternal
  │   │ └─┬ members
@@ -1489,7 +1497,10 @@ exports[`jsii-tree --all 1`] = `
  │   │     └── type: Optional<string>
  │   ├─┬ interface IAnonymousImplementationProvider (experimental)
  │   │ └─┬ members
- │   │   └─┬ provide() method (experimental)
+ │   │   ├─┬ provideAsClass() method (experimental)
+ │   │   │ ├── abstract
+ │   │   │ └── returns: jsii-calc.Implementation
+ │   │   └─┬ provideAsInterface() method (experimental)
  │   │     ├── abstract
  │   │     └── returns: jsii-calc.IAnonymouslyImplementMe
  │   ├─┬ interface IAnonymouslyImplementMe (experimental)
@@ -1499,6 +1510,7 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── returns: string
  │   │   └─┬ value property (experimental)
  │   │     ├── abstract
+ │   │     ├── immutable
  │   │     └── type: number
  │   ├─┬ interface IAnotherPublicInterface (experimental)
  │   │ └─┬ members
@@ -2004,6 +2016,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class GiveMeStructs
  │   ├── class GreetingAugmenter
  │   ├── class ImplementInternalInterface
+ │   ├── class Implementation
  │   ├─┬ class ImplementsInterfaceWithInternal
  │   │ └── interfaces: IInterfaceWithInternal
  │   ├─┬ class ImplementsInterfaceWithInternalSubclass
@@ -2249,7 +2262,8 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ class AnonymousImplementationProvider
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
- │   │   └── provide() method
+ │   │   ├── provideAsClass() method
+ │   │   └── provideAsInterface() method
  │   ├─┬ class AsyncVirtualMethods
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -2426,6 +2440,10 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── prop property
+ │   ├─┬ class Implementation
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   └── value property
  │   ├─┬ class ImplementsInterfaceWithInternal
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -2840,7 +2858,8 @@ exports[`jsii-tree --members 1`] = `
  │   │   └── name property
  │   ├─┬ interface IAnonymousImplementationProvider
  │   │ └─┬ members
- │   │   └── provide() method
+ │   │   ├── provideAsClass() method
+ │   │   └── provideAsInterface() method
  │   ├─┬ interface IAnonymouslyImplementMe
  │   │ └─┬ members
  │   │   ├── verb() method
@@ -3116,6 +3135,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class GiveMeStructs
  │   ├── class GreetingAugmenter
  │   ├── class ImplementInternalInterface
+ │   ├── class Implementation
  │   ├── class ImplementsInterfaceWithInternal
  │   ├── class ImplementsInterfaceWithInternalSubclass
  │   ├── class ImplementsPrivateInterface

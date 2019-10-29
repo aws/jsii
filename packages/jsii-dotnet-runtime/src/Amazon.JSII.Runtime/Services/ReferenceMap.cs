@@ -41,7 +41,9 @@ namespace Amazon.JSII.Runtime.Services
                 _references[byRefValue.Value] = (DeputyBase) constructorInfo.Invoke(new object[] {byRefValue});
             }
 
-            return _references[byRefValue.Value];
+            var existing = _references[byRefValue.Value];
+            existing.Reference.Merge(byRefValue);
+            return existing;
 
             ConstructorInfo GetByRefConstructor()
             {

@@ -12,7 +12,12 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
-        [JsiiMethod(name: "provide", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.IAnonymouslyImplementMe\"}}")]
-        Amazon.JSII.Tests.CalculatorNamespace.IAnonymouslyImplementMe Provide();
+        [JsiiMethod(name: "provideAsClass", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.Implementation\"}}")]
+        Amazon.JSII.Tests.CalculatorNamespace.Implementation ProvideAsClass();
+        /// <remarks>
+        /// stability: Experimental
+        /// </remarks>
+        [JsiiMethod(name: "provideAsInterface", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.IAnonymouslyImplementMe\"}}")]
+        Amazon.JSII.Tests.CalculatorNamespace.IAnonymouslyImplementMe ProvideAsInterface();
     }
 }

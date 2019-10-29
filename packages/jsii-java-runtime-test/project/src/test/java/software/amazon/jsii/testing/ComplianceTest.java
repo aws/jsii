@@ -1353,6 +1353,14 @@ public class ComplianceTest {
         assertEquals(challenge, overridden.valueFromProtected());
     }
 
+    @Test
+    public void canLeverageIndirectInterfacePolymorphism() {
+        final IAnonymousImplementationProvider provider = new AnonymousImplementationProvider();
+        assertEquals(1337, provider.provideAsClass().getValue());
+        assertEquals(1337, provider.provideAsInterface().getValue());
+        assertEquals("to implement", provider.provideAsInterface().verb());
+    }
+
     static class PartiallyInitializedThisConsumerImpl extends PartiallyInitializedThisConsumer {
         @Override
         public String consumePartiallyInitializedThis(final ConstructorPassesThisOut obj,

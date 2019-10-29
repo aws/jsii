@@ -425,12 +425,6 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       // way, and the by-value serialized object will be quite useless.
       if (value instanceof Set || value instanceof Map) { throw new Error("Can't return objects of type Set or Map"); }
 
-      // Use a previous reference to maintain object identity. NOTE: this may cause us to return
-      // a different type than requested! This is just how it is right now.
-      // https://github.com/aws/jsii/issues/399
-      const prevRef = objectReference(value);
-      if (prevRef) { return prevRef; }
-
       // Pass-by-reference, so we're sure we don't end up doing anything unexpected
       const jsiiType = jsiiTypeFqn(value) || EMPTY_OBJECT_FQN;
       const interfaces = type !== 'void' && spec.isNamedTypeReference(type.type)
