@@ -1900,3 +1900,47 @@ export class OverridableProtectedMember {
         return this.overrideReadOnly + this.overrideReadWrite;
     }
 }
+
+/**
+ * We can generate fancy builders in Java for classes which take a mix of positional & struct parameters
+ */
+export class SupportsNiceJavaBuilderWithRequiredProps {
+    public readonly propId?: string;
+    public readonly bar: number;
+
+    /**
+     * @param id    some identifier of your choice
+     * @param props some properties
+     */
+    public constructor(public readonly id: number, props: SupportsNiceJavaBuilderProps) {
+        this.propId = props.id;
+        this.bar = props.bar;
+    }
+}
+export class SupportsNiceJavaBuilder extends SupportsNiceJavaBuilderWithRequiredProps {
+    public readonly rest: string[];
+
+    /**
+     *
+     * @param id         some identifier
+     * @param defaultBar the default value of `bar`
+     * @param props      some props once can provide
+     * @param rest       a variadic continuation
+     */
+    public constructor(public readonly id: number, defaultBar = 1337, props?: SupportsNiceJavaBuilderProps, ...rest: string[]) {
+        super(id, props || { bar: defaultBar });
+        this.rest = rest;
+    }
+}
+export interface SupportsNiceJavaBuilderProps {
+    /**
+     * An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a
+     * parameter named `id`. But here we are, doing it like we didn't care.
+     */
+    readonly id?: string;
+
+    /**
+     * Some number, like 42.
+     */
+    readonly bar: number;
+}

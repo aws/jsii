@@ -1195,6 +1195,44 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── type: @scope/jsii-calc-lib.Value
  │   │   └─┬ parts property (experimental)
  │   │     └── type: Array<@scope/jsii-calc-lib.Value>
+ │   ├─┬ class SupportsNiceJavaBuilder (experimental)
+ │   │ ├── base: SupportsNiceJavaBuilderWithRequiredProps
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(id,defaultBar,props,rest) initializer (experimental)
+ │   │   │ ├── variadic
+ │   │   │ └─┬ parameters
+ │   │   │   ├─┬ id
+ │   │   │   │ └── type: number
+ │   │   │   ├─┬ defaultBar
+ │   │   │   │ └── type: Optional<number>
+ │   │   │   ├─┬ props
+ │   │   │   │ └── type: Optional<jsii-calc.SupportsNiceJavaBuilderProps>
+ │   │   │   └─┬ rest
+ │   │   │     ├── type: string
+ │   │   │     └── variadic
+ │   │   ├─┬ id property (experimental)
+ │   │   │ ├── immutable
+ │   │   │ └── type: number
+ │   │   └─┬ rest property (experimental)
+ │   │     ├── immutable
+ │   │     └── type: Array<string>
+ │   ├─┬ class SupportsNiceJavaBuilderWithRequiredProps (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(id,props) initializer (experimental)
+ │   │   │ └─┬ parameters
+ │   │   │   ├─┬ id
+ │   │   │   │ └── type: number
+ │   │   │   └─┬ props
+ │   │   │     └── type: jsii-calc.SupportsNiceJavaBuilderProps
+ │   │   ├─┬ bar property (experimental)
+ │   │   │ ├── immutable
+ │   │   │ └── type: number
+ │   │   ├─┬ id property (experimental)
+ │   │   │ ├── immutable
+ │   │   │ └── type: number
+ │   │   └─┬ propId property (experimental)
+ │   │     ├── immutable
+ │   │     └── type: Optional<string>
  │   ├─┬ class SyncVirtualMethods (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -1754,6 +1792,16 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: Optional<string>
+ │   ├─┬ interface SupportsNiceJavaBuilderProps (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ bar property (experimental)
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: number
+ │   │   └─┬ id property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: Optional<string>
  │   ├─┬ interface TopLevelStruct (experimental)
  │   │ └─┬ members
  │   │   ├─┬ required property (experimental)
@@ -2039,6 +2087,9 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class StructPassing
  │   ├─┬ class Sum
  │   │ └── base: CompositeOperation
+ │   ├─┬ class SupportsNiceJavaBuilder
+ │   │ └── base: SupportsNiceJavaBuilderWithRequiredProps
+ │   ├── class SupportsNiceJavaBuilderWithRequiredProps
  │   ├── class SyncVirtualMethods
  │   ├── class Thrower
  │   ├─┬ class UnaryOperation
@@ -2122,6 +2173,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── interface SecondLevelStruct
  │   ├── interface StableStruct
  │   ├── interface StructWithJavaReservedWords
+ │   ├── interface SupportsNiceJavaBuilderProps
  │   ├── interface TopLevelStruct
  │   ├── interface UnionProperties
  │   ├── enum AllTypesEnum
@@ -2697,6 +2749,17 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── <initializer>() initializer
  │   │   ├── expression property
  │   │   └── parts property
+ │   ├─┬ class SupportsNiceJavaBuilder
+ │   │ └─┬ members
+ │   │   ├── <initializer>(id,defaultBar,props,rest) initializer
+ │   │   ├── id property
+ │   │   └── rest property
+ │   ├─┬ class SupportsNiceJavaBuilderWithRequiredProps
+ │   │ └─┬ members
+ │   │   ├── <initializer>(id,props) initializer
+ │   │   ├── bar property
+ │   │   ├── id property
+ │   │   └── propId property
  │   ├─┬ class SyncVirtualMethods
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -2933,6 +2996,10 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── assert property
  │   │   ├── result property
  │   │   └── that property
+ │   ├─┬ interface SupportsNiceJavaBuilderProps
+ │   │ └─┬ members
+ │   │   ├── bar property
+ │   │   └── id property
  │   ├─┬ interface TopLevelStruct
  │   │ └─┬ members
  │   │   ├── required property
@@ -3124,6 +3191,8 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class StripInternal
  │   ├── class StructPassing
  │   ├── class Sum
+ │   ├── class SupportsNiceJavaBuilder
+ │   ├── class SupportsNiceJavaBuilderWithRequiredProps
  │   ├── class SyncVirtualMethods
  │   ├── class Thrower
  │   ├── class UnaryOperation
@@ -3181,6 +3250,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface SecondLevelStruct
  │   ├── interface StableStruct
  │   ├── interface StructWithJavaReservedWords
+ │   ├── interface SupportsNiceJavaBuilderProps
  │   ├── interface TopLevelStruct
  │   ├── interface UnionProperties
  │   ├── enum AllTypesEnum

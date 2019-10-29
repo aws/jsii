@@ -615,6 +615,8 @@ export class Assembler implements Emitter {
             jsiiType.initializer.variadic =
               (jsiiType.initializer.parameters && jsiiType.initializer.parameters.some(p => !!p.variadic))
               || undefined;
+            jsiiType.initializer.protected = (ts.getCombinedModifierFlags(ctorDeclaration) & ts.ModifierFlags.Protected) !== 0
+              || undefined;
           }
         }
         this._verifyConsecutiveOptionals(ctorDeclaration, jsiiType.initializer.parameters);

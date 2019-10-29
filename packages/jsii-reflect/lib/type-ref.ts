@@ -5,7 +5,7 @@ import { TypeSystem } from './type-system';
 export class TypeReference {
   public constructor(
     public readonly system: TypeSystem,
-    private readonly spec?: jsii.TypeReference) { }
+    public readonly spec?: jsii.TypeReference) { }
 
   public toString(): string {
     if (this.void) { return 'void'; }

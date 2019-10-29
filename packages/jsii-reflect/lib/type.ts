@@ -11,7 +11,7 @@ export abstract class Type implements Documentable, SourceLocatable {
   public constructor(
     public readonly system: TypeSystem,
     public readonly assembly: Assembly,
-    private readonly spec: jsii.Type) { }
+    public readonly spec: jsii.Type) { }
 
   public toString(): string {
     return `${this.kind} ${this.fqn}`;

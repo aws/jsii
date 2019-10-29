@@ -1,10 +1,10 @@
 import clone = require('clone');
 import { toPascalCase } from 'codemaker/lib/case-utils';
 import fs = require('fs-extra');
+import reflect = require('jsii-reflect');
 import spec = require('jsii-spec');
 import path = require('path');
 import xmlbuilder = require('xmlbuilder');
-import { TypeReference } from '../../../jsii-spec/lib';
 import { Generator } from '../generator';
 import logging = require('../logging');
 import { md2html } from '../markdown';
@@ -17,6 +17,8 @@ import { JsiiModule } from '../packaging';
 /* eslint-disable @typescript-eslint/no-var-requires */
 const spdxLicenseList = require('spdx-license-list');
 /* eslint-enable @typescript-eslint/no-var-requires */
+
+const BUILDER_CLASS_NAME = 'Builder';
 
 /**
  * Build Java packages in parallel, by generating an aggregate POM
@@ -406,14 +408,18 @@ class JavaGenerator extends Generator {
   protected onEndClass(cls: spec.ClassType) {
     if (cls.abstract) {
       this.emitProxy(cls);
+    } else {
+      this.emitClassBuilder(cls);
     }
 
     this.code.closeBlock();
     this.closeFileIfNeeded(cls);
   }
 
-  protected onInitializer(cls: spec.ClassType, method: spec.Method) {
+  protected onInitializer(cls: spec.ClassType, method: spec.Initializer) {
     this.code.line();
+
+    // If needed, patching up the documentation to point users at the builder pattern
     this.addJavaDocs(method);
     this.emitStabilityAnnotations(method);
 
@@ -1008,6 +1014,136 @@ class JavaGenerator extends Generator {
     };
   }
 
+  private emitClassBuilder(cls: spec.ClassType) {
+    // Not rendering if there is no initializer, or if the initializer is protected or variadic
+    if (cls.initializer == null || cls.initializer.protected) { return; }
+    // Not rendering if the initializer has no parameters
+    if (cls.initializer.parameters == null) { return; }
+    // Not rendering if there is a nested "Builder" class
+    if (this.reflectAssembly.tryFindType(`${cls.fqn}.${BUILDER_CLASS_NAME}`) != null) { return; }
+
+    // Find the first struct parameter of the constructor (if any)
+    const firstStruct = cls.initializer.parameters.find(param => {
+      if (!spec.isNamedTypeReference(param.type)) { return false; }
+      const paramType = this.reflectAssembly.tryFindType(param.type.fqn);
+      return paramType && paramType.isDataType();
+    });
+
+    // Not rendering if there is no struct parameter
+    if (firstStruct == null) { return; }
+
+    const structType = this.reflectAssembly.findType((firstStruct.type as spec.NamedTypeReference).fqn) as reflect.InterfaceType;
+    const structParamName = this.code.toCamelCase(JavaGenerator.safeJavaPropertyName(firstStruct.name));
+    const structBuilder = `${this.toJavaType(firstStruct.type)}.${BUILDER_CLASS_NAME}`;
+
+    const positionalParams = cls.initializer.parameters.filter(p => p !== firstStruct)
+      .map(param => ({
+        param,
+        fieldName: this.code.toCamelCase(JavaGenerator.safeJavaPropertyName(param.name)),
+        javaType: this.toJavaType(param.type),
+      }));
+
+    const builtType = this.toJavaType(cls);
+
+    this.code.line();
+    this.code.line('/**');
+    this.code.line(` * A fluent builder for {@link ${builtType}}.`);
+    this.code.line(' */');
+    this.emitStabilityAnnotations(cls.initializer);
+    this.code.openBlock(`public static final class ${BUILDER_CLASS_NAME}`);
+
+    // Static factory method(s)
+    for (const params of computeOverrides(positionalParams)) {
+      const dummyMethod: spec.Method = {
+        docs: {
+          stability: cls.initializer.docs && cls.initializer.docs.stability || (cls.docs && cls.docs.stability),
+          returns: `a new instance of {@link ${BUILDER_CLASS_NAME}}.`,
+        },
+        name: 'create',
+        parameters: params.map(param => param.param),
+      };
+      this.addJavaDocs(dummyMethod);
+      this.emitStabilityAnnotations(cls.initializer);
+      this.code.openBlock(`public static ${BUILDER_CLASS_NAME} create(${params.map(param => `final ${param.javaType}${param.param.variadic ? '...' : ''} ${param.fieldName}`).join(', ')})`);
+      this.code.line(`return new ${BUILDER_CLASS_NAME}(${positionalParams.map((param, idx) => idx < params.length ? param.fieldName : 'null').join(', ')});`);
+      this.code.closeBlock();
+    }
+
+    // Private properties
+    this.code.line();
+    for (const param of positionalParams) {
+      this.code.line(`private final ${param.javaType}${param.param.variadic ? '[]' : ''} ${param.fieldName};`);
+    }
+    this.code.line(`private ${firstStruct.optional ? '' : 'final '}${structBuilder} ${structParamName};`);
+
+    // Private constructor
+    this.code.line();
+    this.code.openBlock(`private ${BUILDER_CLASS_NAME}(${positionalParams.map(param => `final ${param.javaType}${param.param.variadic ? '...' : ''} ${param.fieldName}`).join(', ')})`);
+    for (const param of positionalParams) {
+      this.code.line(`this.${param.fieldName} = ${param.fieldName};`);
+    }
+    if (!firstStruct.optional) {
+      this.code.line(`this.${structParamName} = new ${structBuilder}();`);
+    }
+    this.code.closeBlock();
+
+    // Fields
+    for (const prop of structType.allProperties) {
+      const methodName = JavaGenerator.safeJavaMethodName(prop.name);
+      const fieldName = this.code.toCamelCase(JavaGenerator.safeJavaPropertyName(prop.name));
+      this.code.line();
+      const setter: spec.Method = {
+        name: methodName,
+        docs: {
+          stability: prop.spec.docs && prop.spec.docs.stability,
+          returns: '{@code this}',
+        },
+        parameters: [{
+          name: fieldName,
+          type: spec.CANONICAL_ANY, // We don't quite care in this context!
+          docs: prop.spec.docs,
+        }],
+      };
+      this.addJavaDocs(setter);
+      this.emitStabilityAnnotations(prop.spec);
+      this.code.openBlock(`public ${BUILDER_CLASS_NAME} ${methodName}(final ${this.toJavaType(prop.type.spec!)} ${fieldName})`);
+      this.code.line(`this.${structParamName}${firstStruct.optional ? '()' : ''}.${methodName}(${fieldName});`);
+      this.code.line('return this;');
+      this.code.closeBlock();
+    }
+
+    // Final build method
+    this.code.line();
+    this.code.line('/**');
+    this.code.line(` * @returns a newly built instance of {@link ${builtType}}.`);
+    this.code.line(' */');
+    this.emitStabilityAnnotations(cls.initializer);
+    this.code.openBlock(`public ${builtType} build()`);
+    const params = cls.initializer.parameters.map(param => {
+      if (param === firstStruct) {
+        return firstStruct.optional ? `this.${structParamName} != null ? this.${structParamName}.build() : null` : `this.${structParamName}.build()`;
+      }
+      return `this.${positionalParams.find(p => param === p.param)!.fieldName}`;
+    });
+    this.code.indent(`return new ${builtType}(`);
+    params.forEach((param, idx) =>
+      this.code.line(`${param}${idx < params.length - 1 ? ',' : ''}`));
+    this.code.unindent(');');
+    this.code.closeBlock();
+
+    // Optional builder initialization
+    if (firstStruct.optional) {
+      this.code.line();
+      this.code.openBlock(`private ${structBuilder} ${structParamName}()`);
+      this.code.openBlock(`if (this.${structParamName} == null)`);
+      this.code.line(`this.${structParamName} = new ${structBuilder}();`);
+      this.code.closeBlock();
+      this.code.line(`return this.${structParamName};`);
+      this.code.closeBlock();
+    }
+    this.code.closeBlock();
+  }
+
   private emitBuilderSetter(prop: JavaProp, builderName: string) {
     for (const type of prop.javaTypes) {
       this.code.line();
@@ -1028,17 +1164,15 @@ class JavaGenerator extends Generator {
     }
   }
 
-  private emitBuilder(classSpec: spec.InterfaceType | spec.ClassType, constructorName: string, props: JavaProp[]) {
-    const builderName = 'Builder';
-
+  private emitInterfaceBuilder(classSpec: spec.InterfaceType, constructorName: string, props: JavaProp[]) {
     // Start builder()
     this.code.line();
     this.code.line('/**');
-    this.code.line(` * @return a {@link Builder} of {@link ${classSpec.name}}`);
+    this.code.line(` * @return a {@link ${BUILDER_CLASS_NAME}} of {@link ${classSpec.name}}`);
     this.code.line(' */');
     this.emitStabilityAnnotations(classSpec);
-    this.code.openBlock(`static ${builderName} builder()`);
-    this.code.line(`return new ${builderName}();`);
+    this.code.openBlock(`static ${BUILDER_CLASS_NAME} builder()`);
+    this.code.line(`return new ${BUILDER_CLASS_NAME}();`);
     this.code.closeBlock();
     // End builder()
 
@@ -1047,10 +1181,10 @@ class JavaGenerator extends Generator {
     this.code.line(` * A builder for {@link ${classSpec.name}}`);
     this.code.line(' */');
     this.emitStabilityAnnotations(classSpec);
-    this.code.openBlock(`public static final class ${builderName}`);
+    this.code.openBlock(`public static final class ${BUILDER_CLASS_NAME}`);
 
     props.forEach(prop => this.code.line(`private ${prop.fieldJavaType} ${prop.fieldName};`));
-    props.forEach(prop => this.emitBuilderSetter(prop, builderName));
+    props.forEach(prop => this.emitBuilderSetter(prop, BUILDER_CLASS_NAME));
 
     // Start build()
     this.code.line();
@@ -1092,7 +1226,7 @@ class JavaGenerator extends Generator {
 
     collectProps.call(this, ifc);
     const props = Object.values(propsByName);
-    this.emitBuilder(ifc, INTERFACE_PROXY_CLASS_NAME, props);
+    this.emitInterfaceBuilder(ifc, INTERFACE_PROXY_CLASS_NAME, props);
 
     // Start implementation class
     this.code.line();
@@ -1388,7 +1522,7 @@ class JavaGenerator extends Generator {
     }
   }
 
-  private renderMethodCallArguments(method: spec.Method) {
+  private renderMethodCallArguments(method: spec.Callable) {
     if (!method.parameters || method.parameters.length === 0) { return ''; }
     const regularParams = method.parameters.filter(p => !p.variadic);
     const values = regularParams.map(_renderParameter);
@@ -1455,7 +1589,7 @@ class JavaGenerator extends Generator {
      * @param type The type of the object to wrap.
      * @returns The modified or original statement.
      */
-  private wrapCollection(statement: string, type: TypeReference): string {
+  private wrapCollection(statement: string, type: spec.TypeReference): string {
     if (spec.isCollectionTypeReference(type)) {
       const ref = type;
       switch (ref.collection.kind) {
@@ -1471,7 +1605,7 @@ class JavaGenerator extends Generator {
     return statement;
   }
 
-  private renderMethodParameters(method: spec.Method) {
+  private renderMethodParameters(method: spec.Callable) {
     const params = [];
     if (method.parameters) {
       for (const p of method.parameters) {
@@ -1481,7 +1615,7 @@ class JavaGenerator extends Generator {
     return params.join(', ');
   }
 
-  private renderAccessLevel(method: spec.Method | spec.Property) {
+  private renderAccessLevel(method: spec.Callable | spec.Property) {
     return method.protected ? 'protected' : 'public';
   }
 
@@ -1670,4 +1804,24 @@ function endWithPeriod(s: string): string {
     return `${s}.`;
   }
   return s;
+}
+
+function computeOverrides<T extends { param: spec.Parameter }>(allParams: T[]): Iterable<T[]> {
+  return {
+    [Symbol.iterator]: function* () {
+      yield allParams;
+      while (allParams.length > 0) {
+        const lastParam = allParams[allParams.length - 1];
+        if (!lastParam.param.variadic && !lastParam.param.optional) {
+          // Neither variadic nor optional -- we're done here!
+          return;
+        }
+        allParams = allParams.slice(0, allParams.length - 1);
+        // If the lastParam was variadic, we shouldn't generate an override without it only.
+        if (lastParam.param.optional) {
+          yield allParams;
+        }
+      }
+    },
+  };
 }
