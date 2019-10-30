@@ -49,7 +49,9 @@ export class JavaBuilder implements TargetBuilder {
 
     if (!options.codeOnly && modules.length > 0) {
       // Need a module to get a target
-      const pomDirectory = await this.generateAggregatePom(moduleDirectories);
+      const pomDirectory = modules.length > 1
+        ? await this.generateAggregatePom(moduleDirectories)
+        : moduleDirectories[0].directory;
       const target = this.makeTarget(modules[0], options);
 
       await target.build(pomDirectory, singleOutputDir);
@@ -1089,11 +1091,10 @@ class JavaGenerator extends Generator {
 
     // Fields
     for (const prop of structType.allProperties) {
-      const methodName = JavaGenerator.safeJavaMethodName(prop.name);
       const fieldName = this.code.toCamelCase(JavaGenerator.safeJavaPropertyName(prop.name));
       this.code.line();
       const setter: spec.Method = {
-        name: methodName,
+        name: fieldName,
         docs: {
           stability: prop.spec.docs && prop.spec.docs.stability,
           returns: '{@code this}',
@@ -1106,8 +1107,8 @@ class JavaGenerator extends Generator {
       };
       this.addJavaDocs(setter);
       this.emitStabilityAnnotations(prop.spec);
-      this.code.openBlock(`public ${BUILDER_CLASS_NAME} ${methodName}(final ${this.toJavaType(prop.type.spec!)} ${fieldName})`);
-      this.code.line(`this.${structParamName}${firstStruct.optional ? '()' : ''}.${methodName}(${fieldName});`);
+      this.code.openBlock(`public ${BUILDER_CLASS_NAME} ${fieldName}(final ${this.toJavaType(prop.type.spec!)} ${fieldName})`);
+      this.code.line(`this.${structParamName}${firstStruct.optional ? '()' : ''}.${fieldName}(${fieldName});`);
       this.code.line('return this;');
       this.code.closeBlock();
     }
