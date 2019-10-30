@@ -96,7 +96,7 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        private Jsii$Proxy(java.lang.Number initialValue, java.lang.Number maximumValue) {
+        private Jsii$Proxy(final java.lang.Number initialValue, final java.lang.Number maximumValue) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
             this.initialValue = initialValue;
             this.maximumValue = maximumValue;
@@ -114,14 +114,23 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
 
         @Override
         public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
             if (this.getInitialValue() != null) {
-                obj.set("initialValue", om.valueToTree(this.getInitialValue()));
+                data.set("initialValue", om.valueToTree(this.getInitialValue()));
             }
             if (this.getMaximumValue() != null) {
-                obj.set("maximumValue", om.valueToTree(this.getMaximumValue()));
+                data.set("maximumValue", om.valueToTree(this.getMaximumValue()));
             }
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.CalculatorProps"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
             return obj;
         }
 

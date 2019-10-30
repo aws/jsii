@@ -48,6 +48,9 @@ from jsii_calc import (
     StructPassing,
     TopLevelStruct,
     SecondLevelStruct,
+    StructA,
+    StructB,
+    StructUnionConsumer
 )
 from scope.jsii_calc_lib import IFriendly, EnumFromScopedModule, Number
 
@@ -953,3 +956,19 @@ def test_structEquality():
     assert b == c
     assert a != 5
     assert a != d
+
+def test_correctly_handling_struct_unions():
+    a0 = StructA(required_string='Present!', optional_string='Bazinga!')
+    a1 = StructA(required_string='Present!', optional_number=1337)
+    b0 = StructB(required_string='Present!', optional_boolean=True)
+    b1 = StructB(required_string='Present!', optional_struct_a=a1)
+
+    assert StructUnionConsumer.is_struct_a(a0)
+    assert StructUnionConsumer.is_struct_a(a1)
+    assert not StructUnionConsumer.is_struct_a(b0)
+    assert not StructUnionConsumer.is_struct_a(b1)
+
+    assert not StructUnionConsumer.is_struct_b(a0)
+    assert not StructUnionConsumer.is_struct_b(a1)
+    assert StructUnionConsumer.is_struct_b(b0)
+    assert StructUnionConsumer.is_struct_b(b1)

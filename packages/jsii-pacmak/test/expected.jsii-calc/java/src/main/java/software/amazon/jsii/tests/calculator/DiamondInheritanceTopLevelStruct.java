@@ -112,7 +112,7 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        private Jsii$Proxy(java.lang.String topLevelProperty, java.lang.String firstMidLevelProperty, java.lang.String baseLevelProperty, java.lang.String secondMidLevelProperty) {
+        private Jsii$Proxy(final java.lang.String topLevelProperty, final java.lang.String firstMidLevelProperty, final java.lang.String baseLevelProperty, final java.lang.String secondMidLevelProperty) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
             this.topLevelProperty = java.util.Objects.requireNonNull(topLevelProperty, "topLevelProperty is required");
             this.firstMidLevelProperty = java.util.Objects.requireNonNull(firstMidLevelProperty, "firstMidLevelProperty is required");
@@ -142,12 +142,21 @@ public interface DiamondInheritanceTopLevelStruct extends software.amazon.jsii.J
 
         @Override
         public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-            obj.set("topLevelProperty", om.valueToTree(this.getTopLevelProperty()));
-            obj.set("firstMidLevelProperty", om.valueToTree(this.getFirstMidLevelProperty()));
-            obj.set("baseLevelProperty", om.valueToTree(this.getBaseLevelProperty()));
-            obj.set("secondMidLevelProperty", om.valueToTree(this.getSecondMidLevelProperty()));
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            data.set("topLevelProperty", om.valueToTree(this.getTopLevelProperty()));
+            data.set("firstMidLevelProperty", om.valueToTree(this.getFirstMidLevelProperty()));
+            data.set("baseLevelProperty", om.valueToTree(this.getBaseLevelProperty()));
+            data.set("secondMidLevelProperty", om.valueToTree(this.getSecondMidLevelProperty()));
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.DiamondInheritanceTopLevelStruct"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
             return obj;
         }
 

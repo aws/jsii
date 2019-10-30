@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiByValue]
+    [JsiiByValue(fqn: "jsii-calc.Greetee")]
     public class Greetee : Amazon.JSII.Tests.CalculatorNamespace.IGreetee
     {
         /// <summary>The name of the greetee.</summary>

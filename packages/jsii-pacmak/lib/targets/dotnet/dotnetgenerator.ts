@@ -544,15 +544,15 @@ export class DotNetGenerator extends Generator {
      * This is used to emit a class implementing an interface when the datatype property is true in the jsii model
      * The generation of the interface proxy may not be needed if the interface is also set as a datatype
      */
-  private emitInterfaceDataType(ifc: spec.InterfaceType | spec.ClassType): void {
+  private emitInterfaceDataType(ifc: spec.InterfaceType): void {
     // Interface datatypes do not need to be prefixed by I, we can call convertClassName
-    const name = this.nameutils.convertClassName(ifc as spec.ClassType);
+    const name = this.nameutils.convertClassName(ifc);
     const namespace = ifc.namespace ? `${this.assembly.targets!.dotnet!.namespace}.${ifc.namespace}` : this.assembly.targets!.dotnet!.namespace;
     const isNested = this.isNested(ifc);
     this.openFileIfNeeded(name, namespace, isNested);
     this.dotnetDocGenerator.emitDocs(ifc);
     const suffix = `: ${this.typeresolver.toNativeFqn(ifc.fqn)}`;
-    this.dotnetRuntimeGenerator.emitAttributesForInterfaceDatatype();
+    this.dotnetRuntimeGenerator.emitAttributesForInterfaceDatatype(ifc);
     this.code.openBlock(`public class ${name} ${suffix}`);
     this.flagFirstMemberWritten(false);
     const datatype = true;

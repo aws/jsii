@@ -33,10 +33,12 @@ export class DotNetRuntimeGenerator {
   /**
      * Emits the jsii attribute for an interface datatype
      *
-     * Ex: [JsiiByValue]
+     * @param ifc the annotated interface type.
+     *
+     * Ex: [JsiiByValue(fqn: "assembly.TypeName")]
      */
-  public emitAttributesForInterfaceDatatype() {
-    const jsiiAttribute = '[JsiiByValue]';
+  public emitAttributesForInterfaceDatatype(ifc: spec.InterfaceType) {
+    const jsiiAttribute = `[JsiiByValue(fqn: "${ifc.fqn}")]`;
     this.code.line(jsiiAttribute);
   }
 

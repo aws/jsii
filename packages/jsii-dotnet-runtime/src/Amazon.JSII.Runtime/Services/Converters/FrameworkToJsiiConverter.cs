@@ -46,9 +46,10 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 return true;
             }
 
-            if (Attribute.GetCustomAttribute(value.GetType(), typeof(JsiiByValueAttribute)) != null)
+            var byValueAttribute = value.GetType().GetCustomAttribute<JsiiByValueAttribute>();
+            if (byValueAttribute != null)
             {
-                var resultObject = new JObject();
+                var data = new JObject();
                 foreach (var prop in value.GetType().GetProperties())
                 {
                     var jsiiProperty = (JsiiPropertyAttribute) prop.GetCustomAttribute(typeof(JsiiPropertyAttribute), true);
@@ -68,9 +69,16 @@ namespace Amazon.JSII.Runtime.Services.Converters
                         continue;
                     }
 
-                    resultObject.Add(new JProperty(jsiiProperty.Name, convertedPropValue));
+                    data.Add(new JProperty(jsiiProperty.Name, convertedPropValue));
                 }
 
+                var structInfo = new JObject();
+                structInfo.Add(new JProperty("fqn", byValueAttribute.Fqn));
+                structInfo.Add(new JProperty("data", data));
+                
+                var resultObject = new JObject();
+                resultObject.Add(new JProperty("$jsii.struct", structInfo));
+                
                 result = resultObject;
                 return true;
             }

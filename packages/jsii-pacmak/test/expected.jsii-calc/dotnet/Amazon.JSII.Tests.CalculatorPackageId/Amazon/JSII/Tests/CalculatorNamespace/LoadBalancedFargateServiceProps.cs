@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiByValue]
+    [JsiiByValue(fqn: "jsii-calc.LoadBalancedFargateServiceProps")]
     public class LoadBalancedFargateServiceProps : Amazon.JSII.Tests.CalculatorNamespace.ILoadBalancedFargateServiceProps
     {
         /// <summary>The container port of the application load balancer attached to your Fargate service.</summary>

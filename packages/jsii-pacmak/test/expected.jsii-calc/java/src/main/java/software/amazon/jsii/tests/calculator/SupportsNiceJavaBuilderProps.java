@@ -98,7 +98,7 @@ public interface SupportsNiceJavaBuilderProps extends software.amazon.jsii.JsiiS
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        private Jsii$Proxy(java.lang.Number bar, java.lang.String id) {
+        private Jsii$Proxy(final java.lang.Number bar, final java.lang.String id) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
             this.bar = java.util.Objects.requireNonNull(bar, "bar is required");
             this.id = id;
@@ -116,12 +116,21 @@ public interface SupportsNiceJavaBuilderProps extends software.amazon.jsii.JsiiS
 
         @Override
         public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-            obj.set("bar", om.valueToTree(this.getBar()));
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            data.set("bar", om.valueToTree(this.getBar()));
             if (this.getId() != null) {
-                obj.set("id", om.valueToTree(this.getId()));
+                data.set("id", om.valueToTree(this.getId()));
             }
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.SupportsNiceJavaBuilderProps"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
             return obj;
         }
 

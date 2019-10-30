@@ -2,7 +2,7 @@ using Amazon.JSII.Runtime.Deputy;
 
 namespace Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace
 {
-    [JsiiByValue]
+    [JsiiByValue(fqn: "@scope/jsii-calc-base.BaseProps")]
     public class BaseProps : Amazon.JSII.Tests.CalculatorNamespace.BaseNamespace.IBaseProps
     {
         [JsiiProperty(name: "bar", typeJson: "{\"primitive\":\"string\"}", isOverride: true)]

@@ -1361,6 +1361,36 @@ public class ComplianceTest {
         assertEquals("to implement", provider.provideAsInterface().verb());
     }
 
+    @Test
+    public void correctlyDeserializesStructUnions() {
+        final StructA a0 = StructA.builder()
+                .requiredString("Present!")
+                .optionalString("Bazinga!")
+                .build();
+        final StructA a1 = StructA.builder()
+                .requiredString("Present!")
+                .optionalNumber(1337)
+                .build();
+        final StructB b0 = StructB.builder()
+                .requiredString("Present!")
+                .optionalBoolean(true)
+                .build();
+        final StructB b1 = StructB.builder()
+                .requiredString("Present!")
+                .optionalStructA(a1)
+                .build();
+
+        assertTrue(StructUnionConsumer.isStructA(a0));
+        assertTrue(StructUnionConsumer.isStructA(a1));
+        assertFalse(StructUnionConsumer.isStructA(b0));
+        assertFalse(StructUnionConsumer.isStructA(b1));
+
+        assertFalse(StructUnionConsumer.isStructB(a0));
+        assertFalse(StructUnionConsumer.isStructB(a1));
+        assertTrue(StructUnionConsumer.isStructB(b0));
+        assertTrue(StructUnionConsumer.isStructB(b1));
+    }
+
     static class PartiallyInitializedThisConsumerImpl extends PartiallyInitializedThisConsumer {
         @Override
         public String consumePartiallyInitializedThis(final ConstructorPassesThisOut obj,

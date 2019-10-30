@@ -70,7 +70,7 @@ public interface BaseProps extends software.amazon.jsii.JsiiSerializable, softwa
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        private Jsii$Proxy(java.lang.String bar, software.amazon.jsii.tests.calculator.baseofbase.Very foo) {
+        private Jsii$Proxy(final java.lang.String bar, final software.amazon.jsii.tests.calculator.baseofbase.Very foo) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
             this.bar = java.util.Objects.requireNonNull(bar, "bar is required");
             this.foo = java.util.Objects.requireNonNull(foo, "foo is required");
@@ -88,10 +88,19 @@ public interface BaseProps extends software.amazon.jsii.JsiiSerializable, softwa
 
         @Override
         public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-            obj.set("bar", om.valueToTree(this.getBar()));
-            obj.set("foo", om.valueToTree(this.getFoo()));
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            data.set("bar", om.valueToTree(this.getBar()));
+            data.set("foo", om.valueToTree(this.getFoo()));
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("@scope/jsii-calc-base.BaseProps"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
             return obj;
         }
 

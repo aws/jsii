@@ -125,7 +125,7 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        private Jsii$Proxy(java.lang.String optional1, java.lang.Number optional2, java.lang.Boolean optional3) {
+        private Jsii$Proxy(final java.lang.String optional1, final java.lang.Number optional2, final java.lang.Boolean optional3) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
             this.optional1 = optional1;
             this.optional2 = optional2;
@@ -149,17 +149,26 @@ public interface StructWithOnlyOptionals extends software.amazon.jsii.JsiiSerial
 
         @Override
         public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
             if (this.getOptional1() != null) {
-                obj.set("optional1", om.valueToTree(this.getOptional1()));
+                data.set("optional1", om.valueToTree(this.getOptional1()));
             }
             if (this.getOptional2() != null) {
-                obj.set("optional2", om.valueToTree(this.getOptional2()));
+                data.set("optional2", om.valueToTree(this.getOptional2()));
             }
             if (this.getOptional3() != null) {
-                obj.set("optional3", om.valueToTree(this.getOptional3()));
+                data.set("optional3", om.valueToTree(this.getOptional3()));
             }
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("@scope/jsii-calc-lib.StructWithOnlyOptionals"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
             return obj;
         }
 

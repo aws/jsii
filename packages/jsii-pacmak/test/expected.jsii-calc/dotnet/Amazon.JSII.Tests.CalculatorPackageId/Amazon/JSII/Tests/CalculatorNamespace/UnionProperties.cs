@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiByValue]
+    [JsiiByValue(fqn: "jsii-calc.UnionProperties")]
     public class UnionProperties : Amazon.JSII.Tests.CalculatorNamespace.IUnionProperties
     {
         /// <remarks>

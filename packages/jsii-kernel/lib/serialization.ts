@@ -29,6 +29,7 @@
 import * as spec from 'jsii-spec';
 import { isObjRef, isWireDate, isWireEnum, isWireMap, ObjRef, TOKEN_DATE, TOKEN_ENUM, TOKEN_MAP, WireDate, WireEnum } from './api';
 import { hiddenMap, jsiiTypeFqn, objectReference, ObjectTable } from './objects';
+import { api } from '.';
 
 /**
  * A specific singleton type to be explicit about a Void type
@@ -283,8 +284,9 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       /*
         This is what we'd like to do, but we can't because at least the Java client
         does not understand by-value serialized interface types, so we'll have to
-        serialize by-reference for now:
-        https://github.com/aws/jsii/issues/400
+        serialize by-reference. Additionally, serializing known properties would
+        cause problems when the return type of a method is a UNION of structs.
+        See: https://github.com/aws/jsii/issues/400
 
       const props = propertiesOf(namedType);
 
@@ -294,7 +296,8 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       });
       */
 
-      host.debug('Returning value type as reference type for now (awslabs/jsii#400)');
+
+      host.debug('Returning value type by reference');
       const wireFqn = selectWireType(value, optionalValue.type as spec.NamedTypeReference, host.lookupType);
       return host.objects.registerObject(value, wireFqn);
     },
@@ -330,7 +333,15 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
           props);
       }
 
-      value = validateRequiredProps(value, namedType.fqn, props);
+      if (api.isWireStruct(value)) {
+        const { fqn, data } = value[api.TOKEN_STRUCT];
+        if (!isAssignable(fqn, namedType, host.lookupType)) {
+          throw new Error(`Wire struct type '${fqn}' does not match expected '${namedType.fqn}'`);
+        }
+        value = data;
+      }
+
+      value = validateRequiredProps(value as any, namedType.fqn, props);
 
       // Return a dict COPY, we have by-value semantics anyway.
       return mapValues(value, (v, key) => {
