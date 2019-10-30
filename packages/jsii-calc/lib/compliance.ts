@@ -1976,3 +1976,44 @@ class PrivateType extends Implementation implements IAnonymouslyImplementMe {
         return 'to implement';
     }
 }
+
+/**
+ * We can serialize and deserialize structs without silently ignoring optional fields.
+ */
+export interface StructA {
+    readonly requiredString: string;
+    readonly optionalString?: string;
+    readonly optionalNumber?: number;
+}
+/**
+ * This intentionally overlaps with StructA (where only requiredString is provided) to test htat
+ * the kernel properly disambiguates those.
+ */
+export interface StructB {
+    readonly requiredString: string;
+    readonly optionalBoolean?: boolean;
+    readonly optionalStructA?: StructA;
+}
+export class StructUnionConsumer {
+    public static isStructA(struct: StructA | StructB): struct is StructA {
+        const keys = new Set(Object.keys(struct));
+        switch (keys.size) {
+            case 1: return keys.has('requiredString');
+            case 2: return keys.has('requiredString') && (keys.has('optionalNumber') || keys.has('optionalString'));
+            case 3: return keys.has('requiredString') && keys.has('optionalNumber') && keys.has('optionalString');
+            default: return false;
+        }
+    }
+
+    public static isStructB(struct: StructA | StructB): struct is StructB {
+        const keys = new Set(Object.keys(struct));
+        switch (keys.size) {
+            case 1: return keys.has('requiredString');
+            case 2: return keys.has('requiredString') && (keys.has('optionalBoolean') || keys.has('optionalStructA'));
+            case 3: return keys.has('requiredString') && keys.has('optionalBoolean') && keys.has('optionalStructA');
+            default: return false;
+        }
+    }
+
+    private constructor() { }
+}

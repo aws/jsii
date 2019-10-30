@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiByValue]
+    [JsiiByValue(fqn: "jsii-calc.OptionalStruct")]
     public class OptionalStruct : Amazon.JSII.Tests.CalculatorNamespace.IOptionalStruct
     {
         /// <remarks>

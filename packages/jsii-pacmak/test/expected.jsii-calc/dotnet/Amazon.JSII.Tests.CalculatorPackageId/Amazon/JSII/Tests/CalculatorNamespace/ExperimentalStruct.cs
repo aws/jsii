@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiByValue]
+    [JsiiByValue(fqn: "jsii-calc.ExperimentalStruct")]
     public class ExperimentalStruct : Amazon.JSII.Tests.CalculatorNamespace.IExperimentalStruct
     {
         /// <remarks>

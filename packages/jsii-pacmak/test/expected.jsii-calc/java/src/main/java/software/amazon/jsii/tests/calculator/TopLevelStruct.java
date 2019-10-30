@@ -129,7 +129,7 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        private Jsii$Proxy(java.lang.String required, java.lang.Object secondLevel, java.lang.String optional) {
+        private Jsii$Proxy(final java.lang.String required, final java.lang.Object secondLevel, final java.lang.String optional) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
             this.required = java.util.Objects.requireNonNull(required, "required is required");
             this.secondLevel = java.util.Objects.requireNonNull(secondLevel, "secondLevel is required");
@@ -153,13 +153,22 @@ public interface TopLevelStruct extends software.amazon.jsii.JsiiSerializable {
 
         @Override
         public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-            obj.set("required", om.valueToTree(this.getRequired()));
-            obj.set("secondLevel", om.valueToTree(this.getSecondLevel()));
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            data.set("required", om.valueToTree(this.getRequired()));
+            data.set("secondLevel", om.valueToTree(this.getSecondLevel()));
             if (this.getOptional() != null) {
-                obj.set("optional", om.valueToTree(this.getOptional()));
+                data.set("optional", om.valueToTree(this.getOptional()));
             }
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.TopLevelStruct"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
             return obj;
         }
 

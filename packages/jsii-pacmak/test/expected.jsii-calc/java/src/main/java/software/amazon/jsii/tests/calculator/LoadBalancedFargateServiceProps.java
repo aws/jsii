@@ -201,7 +201,7 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        private Jsii$Proxy(java.lang.Number containerPort, java.lang.String cpu, java.lang.String memoryMiB, java.lang.Boolean publicLoadBalancer, java.lang.Boolean publicTasks) {
+        private Jsii$Proxy(final java.lang.Number containerPort, final java.lang.String cpu, final java.lang.String memoryMiB, final java.lang.Boolean publicLoadBalancer, final java.lang.Boolean publicTasks) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
             this.containerPort = containerPort;
             this.cpu = cpu;
@@ -237,23 +237,32 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
 
         @Override
         public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
             if (this.getContainerPort() != null) {
-                obj.set("containerPort", om.valueToTree(this.getContainerPort()));
+                data.set("containerPort", om.valueToTree(this.getContainerPort()));
             }
             if (this.getCpu() != null) {
-                obj.set("cpu", om.valueToTree(this.getCpu()));
+                data.set("cpu", om.valueToTree(this.getCpu()));
             }
             if (this.getMemoryMiB() != null) {
-                obj.set("memoryMiB", om.valueToTree(this.getMemoryMiB()));
+                data.set("memoryMiB", om.valueToTree(this.getMemoryMiB()));
             }
             if (this.getPublicLoadBalancer() != null) {
-                obj.set("publicLoadBalancer", om.valueToTree(this.getPublicLoadBalancer()));
+                data.set("publicLoadBalancer", om.valueToTree(this.getPublicLoadBalancer()));
             }
             if (this.getPublicTasks() != null) {
-                obj.set("publicTasks", om.valueToTree(this.getPublicTasks()));
+                data.set("publicTasks", om.valueToTree(this.getPublicTasks()));
             }
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.LoadBalancedFargateServiceProps"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
             return obj;
         }
 

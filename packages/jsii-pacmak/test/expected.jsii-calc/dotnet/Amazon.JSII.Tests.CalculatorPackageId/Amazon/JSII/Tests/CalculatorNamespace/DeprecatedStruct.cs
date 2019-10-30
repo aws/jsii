@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Deprecated
     /// </remarks>
-    [JsiiByValue]
+    [JsiiByValue(fqn: "jsii-calc.DeprecatedStruct")]
     public class DeprecatedStruct : Amazon.JSII.Tests.CalculatorNamespace.IDeprecatedStruct
     {
         /// <remarks>

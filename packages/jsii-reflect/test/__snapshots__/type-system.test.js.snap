@@ -96,6 +96,7 @@ Array [
   "Statics",
   "StripInternal",
   "StructPassing",
+  "StructUnionConsumer",
   "Sum",
   "SupportsNiceJavaBuilder",
   "SupportsNiceJavaBuilderWithRequiredProps",

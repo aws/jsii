@@ -8559,6 +8559,134 @@
         }
       ]
     },
+    "jsii-calc.StructA": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "experimental",
+        "summary": "We can serialize and deserialize structs without silently ignoring optional fields."
+      },
+      "fqn": "jsii-calc.StructA",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1983
+      },
+      "name": "StructA",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1984
+          },
+          "name": "requiredString",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1986
+          },
+          "name": "optionalNumber",
+          "optional": true,
+          "type": {
+            "primitive": "number"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1985
+          },
+          "name": "optionalString",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "jsii-calc.StructB": {
+      "assembly": "jsii-calc",
+      "datatype": true,
+      "docs": {
+        "stability": "experimental",
+        "summary": "This intentionally overlaps with StructA (where only requiredString is provided) to test htat the kernel properly disambiguates those."
+      },
+      "fqn": "jsii-calc.StructB",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1992
+      },
+      "name": "StructB",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1993
+          },
+          "name": "requiredString",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1994
+          },
+          "name": "optionalBoolean",
+          "optional": true,
+          "type": {
+            "primitive": "boolean"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1995
+          },
+          "name": "optionalStructA",
+          "optional": true,
+          "type": {
+            "fqn": "jsii-calc.StructA"
+          }
+        }
+      ]
+    },
     "jsii-calc.StructPassing": {
       "assembly": "jsii-calc",
       "docs": {
@@ -8637,6 +8765,87 @@
         }
       ],
       "name": "StructPassing"
+    },
+    "jsii-calc.StructUnionConsumer": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.StructUnionConsumer",
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 1997
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 1998
+          },
+          "name": "isStructA",
+          "parameters": [
+            {
+              "name": "struct",
+              "type": {
+                "union": {
+                  "types": [
+                    {
+                      "fqn": "jsii-calc.StructA"
+                    },
+                    {
+                      "fqn": "jsii-calc.StructB"
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "boolean"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2008
+          },
+          "name": "isStructB",
+          "parameters": [
+            {
+              "name": "struct",
+              "type": {
+                "union": {
+                  "types": [
+                    {
+                      "fqn": "jsii-calc.StructA"
+                    },
+                    {
+                      "fqn": "jsii-calc.StructB"
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "boolean"
+            }
+          },
+          "static": true
+        }
+      ],
+      "name": "StructUnionConsumer"
     },
     "jsii-calc.StructWithJavaReservedWords": {
       "assembly": "jsii-calc",
@@ -10119,5 +10328,5 @@
     }
   },
   "version": "0.19.0",
-  "fingerprint": "MZT68aeJ7MEeDJORDPKkIyqOqOLC+Yb3LcDU7XrxgCQ="
+  "fingerprint": "x2+sbdlYAHP8MHude74WmIipYqqFoEMnnpxBnz5DvZ0="
 }

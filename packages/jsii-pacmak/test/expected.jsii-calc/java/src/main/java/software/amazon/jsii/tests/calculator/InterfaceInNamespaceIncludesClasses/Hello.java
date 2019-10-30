@@ -70,7 +70,7 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        private Jsii$Proxy(java.lang.Number foo) {
+        private Jsii$Proxy(final java.lang.Number foo) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
             this.foo = java.util.Objects.requireNonNull(foo, "foo is required");
         }
@@ -82,9 +82,18 @@ public interface Hello extends software.amazon.jsii.JsiiSerializable {
 
         @Override
         public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-            obj.set("foo", om.valueToTree(this.getFoo()));
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            data.set("foo", om.valueToTree(this.getFoo()));
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.InterfaceInNamespaceIncludesClasses.Hello"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
             return obj;
         }
 

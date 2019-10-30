@@ -136,7 +136,7 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        private Jsii$Proxy(java.lang.String defaultValue, java.lang.String assertValue, java.lang.String result, java.lang.String that) {
+        private Jsii$Proxy(final java.lang.String defaultValue, final java.lang.String assertValue, final java.lang.String result, final java.lang.String that) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
             this.defaultValue = java.util.Objects.requireNonNull(defaultValue, "defaultValue is required");
             this.assertValue = assertValue;
@@ -166,18 +166,27 @@ public interface StructWithJavaReservedWords extends software.amazon.jsii.JsiiSe
 
         @Override
         public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-            obj.set("default", om.valueToTree(this.getDefaultValue()));
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            data.set("default", om.valueToTree(this.getDefaultValue()));
             if (this.getAssertValue() != null) {
-                obj.set("assert", om.valueToTree(this.getAssertValue()));
+                data.set("assert", om.valueToTree(this.getAssertValue()));
             }
             if (this.getResult() != null) {
-                obj.set("result", om.valueToTree(this.getResult()));
+                data.set("result", om.valueToTree(this.getResult()));
             }
             if (this.getThat() != null) {
-                obj.set("that", om.valueToTree(this.getThat()));
+                data.set("that", om.valueToTree(this.getThat()));
             }
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.StructWithJavaReservedWords"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
             return obj;
         }
 

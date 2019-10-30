@@ -119,10 +119,18 @@ def _make_reference_for_native(kernel, d):
     elif isinstance(d, list):
         return [_make_reference_for_native(kernel, i) for i in d]
 
-    mapping = python_jsii_mapping(d)
-    if mapping:
-        return {jsii_name: _make_reference_for_native(kernel, getattr(d, python_name)) for python_name, jsii_name in mapping.items()}
-    elif hasattr(d, "__jsii_type__"):
+    if hasattr(d, "__jsii_type__"):
+        typeFqn = getattr(d, "__jsii_type__")
+        mapping = python_jsii_mapping(d)
+        if mapping: # This means we are handling a data_type (aka Struct)
+            return {
+                "$jsii.struct": {
+                    "fqn": typeFqn,
+                    "data": {
+                        jsii_name: _make_reference_for_native(kernel, getattr(d, python_name)) for python_name, jsii_name in mapping.items()
+                    }
+                }
+            }
         return d
     elif isinstance(d, (int, type(None), str, float, bool, datetime.datetime)):
         return d

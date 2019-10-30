@@ -94,7 +94,7 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        private Jsii$Proxy(java.lang.String option1, java.lang.String option2) {
+        private Jsii$Proxy(final java.lang.String option1, final java.lang.String option2) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
             this.option1 = option1;
             this.option2 = option2;
@@ -112,14 +112,23 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
 
         @Override
         public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
             if (this.getOption1() != null) {
-                obj.set("option1", om.valueToTree(this.getOption1()));
+                data.set("option1", om.valueToTree(this.getOption1()));
             }
             if (this.getOption2() != null) {
-                obj.set("option2", om.valueToTree(this.getOption2()));
+                data.set("option2", om.valueToTree(this.getOption2()));
             }
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.EraseUndefinedHashValuesOptions"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
             return obj;
         }
 

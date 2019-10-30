@@ -1200,6 +1200,20 @@ exports[`jsii-tree --all 1`] = `
  │   │     │ └─┬ input
  │   │     │   └── type: jsii-calc.TopLevelStruct
  │   │     └── returns: jsii-calc.TopLevelStruct
+ │   ├─┬ class StructUnionConsumer (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ static isStructA(struct) method (experimental)
+ │   │   │ ├── static
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ struct
+ │   │   │ │   └── type: jsii-calc.StructA | jsii-calc.StructB
+ │   │   │ └── returns: boolean
+ │   │   └─┬ static isStructB(struct) method (experimental)
+ │   │     ├── static
+ │   │     ├─┬ parameters
+ │   │     │ └─┬ struct
+ │   │     │   └── type: jsii-calc.StructA | jsii-calc.StructB
+ │   │     └── returns: boolean
  │   ├─┬ class Sum (experimental)
  │   │ ├── base: CompositeOperation
  │   │ └─┬ members
@@ -1805,6 +1819,34 @@ exports[`jsii-tree --all 1`] = `
  │   │     ├── abstract
  │   │     ├── immutable
  │   │     └── type: string
+ │   ├─┬ interface StructA (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ requiredString property (experimental)
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: string
+ │   │   ├─┬ optionalNumber property (experimental)
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: Optional<number>
+ │   │   └─┬ optionalString property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: Optional<string>
+ │   ├─┬ interface StructB (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ requiredString property (experimental)
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: string
+ │   │   ├─┬ optionalBoolean property (experimental)
+ │   │   │ ├── abstract
+ │   │   │ ├── immutable
+ │   │   │ └── type: Optional<boolean>
+ │   │   └─┬ optionalStructA property (experimental)
+ │   │     ├── abstract
+ │   │     ├── immutable
+ │   │     └── type: Optional<jsii-calc.StructA>
  │   ├─┬ interface StructWithJavaReservedWords (experimental)
  │   │ └─┬ members
  │   │   ├─┬ default property (experimental)
@@ -2119,6 +2161,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class Statics
  │   ├── class StripInternal
  │   ├── class StructPassing
+ │   ├── class StructUnionConsumer
  │   ├─┬ class Sum
  │   │ └── base: CompositeOperation
  │   ├─┬ class SupportsNiceJavaBuilder
@@ -2208,6 +2251,8 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── interface OptionalStruct
  │   ├── interface SecondLevelStruct
  │   ├── interface StableStruct
+ │   ├── interface StructA
+ │   ├── interface StructB
  │   ├── interface StructWithJavaReservedWords
  │   ├── interface SupportsNiceJavaBuilderProps
  │   ├── interface TopLevelStruct
@@ -2789,6 +2834,10 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── <initializer>() initializer
  │   │   ├── static howManyVarArgsDidIPass(_positional,inputs) method
  │   │   └── static roundTrip(_positional,input) method
+ │   ├─┬ class StructUnionConsumer
+ │   │ └─┬ members
+ │   │   ├── static isStructA(struct) method
+ │   │   └── static isStructB(struct) method
  │   ├─┬ class Sum
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -3043,6 +3092,16 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ interface StableStruct
  │   │ └─┬ members
  │   │   └── readonlyProperty property
+ │   ├─┬ interface StructA
+ │   │ └─┬ members
+ │   │   ├── requiredString property
+ │   │   ├── optionalNumber property
+ │   │   └── optionalString property
+ │   ├─┬ interface StructB
+ │   │ └─┬ members
+ │   │   ├── requiredString property
+ │   │   ├── optionalBoolean property
+ │   │   └── optionalStructA property
  │   ├─┬ interface StructWithJavaReservedWords
  │   │ └─┬ members
  │   │   ├── default property
@@ -3245,6 +3304,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class Statics
  │   ├── class StripInternal
  │   ├── class StructPassing
+ │   ├── class StructUnionConsumer
  │   ├── class Sum
  │   ├── class SupportsNiceJavaBuilder
  │   ├── class SupportsNiceJavaBuilderWithRequiredProps
@@ -3306,6 +3366,8 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface OptionalStruct
  │   ├── interface SecondLevelStruct
  │   ├── interface StableStruct
+ │   ├── interface StructA
+ │   ├── interface StructB
  │   ├── interface StructWithJavaReservedWords
  │   ├── interface SupportsNiceJavaBuilderProps
  │   ├── interface TopLevelStruct

@@ -1256,7 +1256,7 @@ class JavaGenerator extends Generator {
     this.code.line('/**');
     this.code.line(' * Constructor that initializes the object based on literal property values passed by the {@link Builder}.');
     this.code.line(' */');
-    const constructorArgs = props.map(prop => `${prop.fieldJavaType} ${prop.fieldName}`).join(', ');
+    const constructorArgs = props.map(prop => `final ${prop.fieldJavaType} ${prop.fieldName}`).join(', ');
     this.code.openBlock(`private ${INTERFACE_PROXY_CLASS_NAME}(${constructorArgs})`);
     this.code.line('super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);');
     props.forEach(prop => {
@@ -1278,15 +1278,26 @@ class JavaGenerator extends Generator {
     this.code.line();
     this.code.line('@Override');
     this.code.openBlock('public com.fasterxml.jackson.databind.JsonNode $jsii$toJson()');
-    this.code.line('com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;');
-    this.code.line('com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();');
+    this.code.line('final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;');
+    this.code.line('final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();');
 
+    this.code.line();
     for (const prop of props) {
       if (prop.nullable) { this.code.openBlock(`if (this.get${prop.propName}() != null)`); }
-      this.code.line(`obj.set("${prop.spec.name}", om.valueToTree(this.get${prop.propName}()));`);
+      this.code.line(`data.set("${prop.spec.name}", om.valueToTree(this.get${prop.propName}()));`);
       if (prop.nullable) { this.code.closeBlock(); }
     }
 
+    this.code.line();
+    this.code.line('final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();');
+    this.code.line(`struct.set("fqn", om.valueToTree("${ifc.fqn}"));`);
+    this.code.line('struct.set("data", data);');
+
+    this.code.line();
+    this.code.line('final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();');
+    this.code.line('obj.set("$jsii.struct", struct);');
+
+    this.code.line();
     this.code.line('return obj;');
     this.code.closeBlock();
     // End $jsii$toJson

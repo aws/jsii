@@ -152,7 +152,10 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.Statics": return software.amazon.jsii.tests.calculator.Statics.class;
             case "jsii-calc.StringEnum": return software.amazon.jsii.tests.calculator.StringEnum.class;
             case "jsii-calc.StripInternal": return software.amazon.jsii.tests.calculator.StripInternal.class;
+            case "jsii-calc.StructA": return software.amazon.jsii.tests.calculator.StructA.class;
+            case "jsii-calc.StructB": return software.amazon.jsii.tests.calculator.StructB.class;
             case "jsii-calc.StructPassing": return software.amazon.jsii.tests.calculator.StructPassing.class;
+            case "jsii-calc.StructUnionConsumer": return software.amazon.jsii.tests.calculator.StructUnionConsumer.class;
             case "jsii-calc.StructWithJavaReservedWords": return software.amazon.jsii.tests.calculator.StructWithJavaReservedWords.class;
             case "jsii-calc.Sum": return software.amazon.jsii.tests.calculator.Sum.class;
             case "jsii-calc.SupportsNiceJavaBuilder": return software.amazon.jsii.tests.calculator.SupportsNiceJavaBuilder.class;

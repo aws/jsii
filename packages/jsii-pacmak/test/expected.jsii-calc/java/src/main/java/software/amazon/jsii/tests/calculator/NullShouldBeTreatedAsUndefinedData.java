@@ -92,7 +92,7 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        private Jsii$Proxy(java.util.List<java.lang.Object> arrayWithThreeElementsAndUndefinedAsSecondArgument, java.lang.Object thisShouldBeUndefined) {
+        private Jsii$Proxy(final java.util.List<java.lang.Object> arrayWithThreeElementsAndUndefinedAsSecondArgument, final java.lang.Object thisShouldBeUndefined) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
             this.arrayWithThreeElementsAndUndefinedAsSecondArgument = java.util.Objects.requireNonNull(arrayWithThreeElementsAndUndefinedAsSecondArgument, "arrayWithThreeElementsAndUndefinedAsSecondArgument is required");
             this.thisShouldBeUndefined = thisShouldBeUndefined;
@@ -110,12 +110,21 @@ public interface NullShouldBeTreatedAsUndefinedData extends software.amazon.jsii
 
         @Override
         public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-            obj.set("arrayWithThreeElementsAndUndefinedAsSecondArgument", om.valueToTree(this.getArrayWithThreeElementsAndUndefinedAsSecondArgument()));
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            data.set("arrayWithThreeElementsAndUndefinedAsSecondArgument", om.valueToTree(this.getArrayWithThreeElementsAndUndefinedAsSecondArgument()));
             if (this.getThisShouldBeUndefined() != null) {
-                obj.set("thisShouldBeUndefined", om.valueToTree(this.getThisShouldBeUndefined()));
+                data.set("thisShouldBeUndefined", om.valueToTree(this.getThisShouldBeUndefined()));
             }
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.NullShouldBeTreatedAsUndefinedData"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
             return obj;
         }
 

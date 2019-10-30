@@ -125,7 +125,7 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        private Jsii$Proxy(java.lang.Object bar, java.lang.Object foo) {
+        private Jsii$Proxy(final java.lang.Object bar, final java.lang.Object foo) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
             this.bar = java.util.Objects.requireNonNull(bar, "bar is required");
             this.foo = foo;
@@ -143,12 +143,21 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
 
         @Override
         public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-            obj.set("bar", om.valueToTree(this.getBar()));
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            data.set("bar", om.valueToTree(this.getBar()));
             if (this.getFoo() != null) {
-                obj.set("foo", om.valueToTree(this.getFoo()));
+                data.set("foo", om.valueToTree(this.getFoo()));
             }
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.UnionProperties"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
             return obj;
         }
 

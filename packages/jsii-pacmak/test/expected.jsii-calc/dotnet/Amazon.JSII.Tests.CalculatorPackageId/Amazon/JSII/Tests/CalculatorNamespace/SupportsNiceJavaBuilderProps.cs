@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiByValue]
+    [JsiiByValue(fqn: "jsii-calc.SupportsNiceJavaBuilderProps")]
     public class SupportsNiceJavaBuilderProps : Amazon.JSII.Tests.CalculatorNamespace.ISupportsNiceJavaBuilderProps
     {
         /// <summary>Some number, like 42.</summary>

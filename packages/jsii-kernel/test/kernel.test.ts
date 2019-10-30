@@ -4,7 +4,7 @@ import { join } from 'path';
 import path = require('path');
 import vm = require('vm');
 import { api, Kernel } from '../lib';
-import { Callback, ObjRef, TOKEN_REF, TOKEN_INTERFACES, TOKEN_MAP } from '../lib/api';
+import { Callback, ObjRef, TOKEN_REF, TOKEN_INTERFACES, TOKEN_MAP, WireStruct, TOKEN_STRUCT } from '../lib/api';
 import { closeRecording, recordInteraction } from './recording';
 
 /* eslint-disable require-atomic-updates */
@@ -1165,6 +1165,44 @@ defineTest('retains the type of object literals', (sandbox) => {
   });
   const result = sandbox.invoke({ objref, method: 'provideAsInterface' });
   expect(result).toEqual({ result: { [TOKEN_REF]: 'jsii-calc.Implementation@10002', [TOKEN_INTERFACES]: ['jsii-calc.IAnonymouslyImplementMe'] } });
+});
+
+defineTest('correctly deserializes struct unions', (sandbox) => {
+  const unionConsumer = 'jsii-calc.StructUnionConsumer';
+  const structA0: WireStruct = {
+    [TOKEN_STRUCT]: {
+      fqn: 'jsii-calc.StructA',
+      data: { requiredString: 'Present!', optionalString: 'Bazinga!' }
+    }
+  };
+  const structA1: WireStruct = {
+    [TOKEN_STRUCT]: {
+      fqn: 'jsii-calc.StructA',
+      data: { requiredString: 'Present!', optionalNumber: 1337 }
+    }
+  };
+  const structB0: WireStruct = {
+    [TOKEN_STRUCT]: {
+      fqn: 'jsii-calc.StructB',
+      data: { requiredString: 'Present!', optionalBoolean: true }
+    }
+  };
+  const structB1: WireStruct = {
+    [TOKEN_STRUCT]: {
+      fqn: 'jsii-calc.StructB',
+      data: { requiredString: 'Present!', optionalStructA: structA1 }
+    }
+  };
+
+  for (const item of [structA0, structA1]) {
+    expect(sandbox.sinvoke({ fqn: unionConsumer, method: 'isStructA', args: [item] }).result).toBe(true);
+    expect(sandbox.sinvoke({ fqn: unionConsumer, method: 'isStructB', args: [item] }).result).toBe(false);
+  }
+
+  for (const item of [structB0, structB1]) {
+    expect(sandbox.sinvoke({ fqn: unionConsumer, method: 'isStructA', args: [item] }).result).toBe(false);
+    expect(sandbox.sinvoke({ fqn: unionConsumer, method: 'isStructB', args: [item] }).result).toBe(true);
+  }
 });
 
 // =================================================================================================

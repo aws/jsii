@@ -38,13 +38,13 @@ export class DotNetNameUtils {
     if (original.datatype) {
       // Datatype interfaces need to be prefixed by I so that they don't clash with the prop object implementation
       return `I${this.capitalizeWord(original.name)}`;
-    } 
+    }
     // Non datatype interfaces are guaranteed by JSII to be prefixed by I already
     return this.capitalizeWord(original.name);
-    
+
   }
 
-  public convertClassName(original: spec.ClassType) {
+  public convertClassName(original: spec.ClassType | spec.InterfaceType) {
     if (this.isInvalidName(original.name)) {
       throw new Error(`Invalid class name: ${original}`);
     }
@@ -102,9 +102,9 @@ export class DotNetNameUtils {
     }
     if (RESERVED_KEYWORDS.includes(name)) {
       return `@${name}`;
-    } 
+    }
     return name;
-    
+
   }
 
   private slugify(name: string): string {

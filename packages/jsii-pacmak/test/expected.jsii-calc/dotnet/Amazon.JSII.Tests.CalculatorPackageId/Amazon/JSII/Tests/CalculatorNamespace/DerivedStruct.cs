@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiByValue]
+    [JsiiByValue(fqn: "jsii-calc.DerivedStruct")]
     public class DerivedStruct : Amazon.JSII.Tests.CalculatorNamespace.IDerivedStruct
     {
         /// <remarks>

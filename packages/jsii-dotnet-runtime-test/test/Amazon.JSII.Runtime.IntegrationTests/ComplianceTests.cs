@@ -1015,6 +1015,25 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Equal(1337d, provider.ProvideAsInterface().Value);
             Assert.Equal("to implement", provider.ProvideAsInterface().Verb());
         }
+
+        [Fact(DisplayName = Prefix + nameof(CorrectlyDeserializesStructUnions))]
+        public void CorrectlyDeserializesStructUnions()
+        {
+            var a0 = new StructA { RequiredString = "Present!", OptionalString = "Bazinga!" };
+            var a1 = new StructA { RequiredString = "Present!", OptionalNumber = 1337 };
+            var b0 = new StructB { RequiredString = "Present!", OptionalBoolean = true };
+            var b1 = new StructB { RequiredString = "Present!", OptionalStructA = a1 };
+            
+            Assert.True(StructUnionConsumer.IsStructA(a0));
+            Assert.True(StructUnionConsumer.IsStructA(a1));
+            Assert.False(StructUnionConsumer.IsStructA(b0));
+            Assert.False(StructUnionConsumer.IsStructA(b1));
+            
+            Assert.False(StructUnionConsumer.IsStructB(a0));
+            Assert.False(StructUnionConsumer.IsStructB(a1));
+            Assert.True(StructUnionConsumer.IsStructB(b0));
+            Assert.True(StructUnionConsumer.IsStructB(b1));
+        }
         
         class DataRendererSubclass : DataRenderer
         {
