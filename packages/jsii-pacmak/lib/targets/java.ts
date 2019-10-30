@@ -1105,12 +1105,14 @@ class JavaGenerator extends Generator {
           docs: prop.spec.docs,
         }],
       };
-      this.addJavaDocs(setter);
-      this.emitStabilityAnnotations(prop.spec);
-      this.code.openBlock(`public ${BUILDER_CLASS_NAME} ${fieldName}(final ${this.toJavaType(prop.type.spec!)} ${fieldName})`);
-      this.code.line(`this.${structParamName}${firstStruct.optional ? '()' : ''}.${fieldName}(${fieldName});`);
-      this.code.line('return this;');
-      this.code.closeBlock();
+      for (const javaType of this.toJavaTypes(prop.type.spec!)) {
+        this.addJavaDocs(setter);
+        this.emitStabilityAnnotations(prop.spec);
+        this.code.openBlock(`public ${BUILDER_CLASS_NAME} ${fieldName}(final ${javaType} ${fieldName})`);
+        this.code.line(`this.${structParamName}${firstStruct.optional ? '()' : ''}.${fieldName}(${fieldName});`);
+        this.code.line('return this;');
+        this.code.closeBlock();
+      }
     }
 
     // Final build method
