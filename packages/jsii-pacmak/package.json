@@ -1,6 +1,6 @@
 {
   "name": "jsii-pacmak",
-  "version": "0.19.0",
+  "version": "0.20.0",
   "description": "A code generation framework for jsii backend languages",
   "license": "Apache-2.0",
   "author": {
@@ -35,19 +35,19 @@
   },
   "dependencies": {
     "clone": "^2.1.2",
-    "codemaker": "^0.19.0",
+    "codemaker": "^0.20.0",
     "commonmark": "^0.29.0",
     "escape-string-regexp": "^2.0.0",
     "fs-extra": "^8.1.0",
-    "jsii-reflect": "^0.19.0",
-    "jsii-sampiler": "^0.19.0",
-    "jsii-spec": "^0.19.0",
+    "jsii-reflect": "^0.20.0",
+    "jsii-sampiler": "^0.20.0",
+    "jsii-spec": "^0.20.0",
     "spdx-license-list": "^6.1.0",
     "xmlbuilder": "^13.0.2",
     "yargs": "^14.2.0"
   },
   "devDependencies": {
-    "@scope/jsii-calc-lib": "^0.19.0",
+    "@scope/jsii-calc-lib": "^0.20.0",
     "@types/clone": "^0.1.30",
     "@types/commonmark": "^0.27.4",
     "@types/fs-extra": "^8.0.1",
@@ -58,11 +58,11 @@
     "@typescript-eslint/parser": "^2.6.0",
     "eslint": "^6.6.0",
     "jest": "^24.9.0",
-    "jsii-build-tools": "^0.19.0",
-    "jsii-calc": "^0.19.0",
-    "jsii-dotnet-jsonmodel": "^0.19.0",
-    "jsii-dotnet-runtime": "^0.19.0",
-    "jsii-java-runtime": "^0.19.0",
+    "jsii-build-tools": "^0.20.0",
+    "jsii-calc": "^0.20.0",
+    "jsii-dotnet-jsonmodel": "^0.20.0",
+    "jsii-dotnet-runtime": "^0.20.0",
+    "jsii-java-runtime": "^0.20.0",
     "typescript": "~3.6.4"
   },
   "keywords": [

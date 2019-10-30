@@ -1,6 +1,6 @@
 {
   "name": "jsii-sampiler",
-  "version": "0.19.0",
+  "version": "0.20.0",
   "description": "Translate TypeScript code snippets to other languages",
   "main": "lib/index.js",
   "bin": {
@@ -19,7 +19,7 @@
     "@types/node": "^10.17.0",
     "@types/yargs": "^13.0.3",
     "jest": "^24.9.0",
-    "jsii-build-tools": "^0.19.0",
+    "jsii-build-tools": "^0.20.0",
     "memory-streams": "^0.1.3"
   },
   "dependencies": {

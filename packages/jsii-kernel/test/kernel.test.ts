@@ -24,6 +24,8 @@ process.on('unhandledRejection', e => {
   process.exit(1);
 });
 
+jest.setTimeout(60_000);
+
 const recordingOutput = process.env.JSII_RECORD;
 if (recordingOutput) {
   fs.mkdirpSync(recordingOutput);
