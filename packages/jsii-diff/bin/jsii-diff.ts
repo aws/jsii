@@ -18,6 +18,7 @@ async function main(): Promise<number> {
     .option('experimental-errors', { alias: 'e', type: 'boolean', default: false, desc: 'Error on experimental API changes' })
     .option('ignore-file', { alias: 'i', type: 'string', desc: 'Ignore API changes with keys from file (file may be missing)' })
     .option('keys', { alias: 'k', type: 'boolean', default: false, desc: 'Show diagnostic suppression keys' })
+    .option('validate', { alias: 'd', type: 'boolean', default: true, desc: 'Validate the assemblies that are being loaded' })
     .usage('$0 <original> [updated]', 'Compare two JSII assemblies.', args => args
       .positional('original', {
         description: 'Original assembly (file, package or "npm:package@version")',
@@ -36,14 +37,14 @@ async function main(): Promise<number> {
   configureLog4js(argv.verbose);
 
   LOG.debug(`Loading original assembly from ${(argv as any).original}`);
-  const loadOriginal = await loadAssembly((argv as any).original);
+  const loadOriginal = await loadAssembly((argv as any).original, (argv as any).validate);
   if (!loadOriginal.success) {
     process.stderr.write(`Could not load '${loadOriginal.resolved}': ${showDownloadFailure(loadOriginal.reason)}. Skipping analysis\n`);
     return 0;
   }
 
   LOG.debug(`Loading updated assembly from ${(argv as any).updated}`);
-  const loadUpdated = await loadAssembly((argv as any).updated);
+  const loadUpdated = await loadAssembly((argv as any).updated, (argv as any).validate);
   if (!loadUpdated.success) {
     process.stderr.write(`Could not load '${loadUpdated.resolved}': ${showDownloadFailure(loadUpdated.reason)}. Skipping analysis\n`);
     return 0;
@@ -87,24 +88,24 @@ const NPM_REGEX = /^npm:(\/\/)?/;
  *
  * Supports downloading from NPM as well as from file or directory.
  */
-async function loadAssembly(requested: string): Promise<LoadAssemblyResult> {
+async function loadAssembly(requested: string, validate: boolean): Promise<LoadAssemblyResult> {
   let resolved = requested;
   try {
     if (NPM_REGEX.exec(requested)) {
       let pkg = requested.replace(NPM_REGEX, '');
-      if (!pkg) { pkg = await loadPackageNameFromAssembly(); }
+      if (!pkg) { pkg = await loadPackageNameFromAssembly(validate); }
 
       resolved = `npm://${pkg}`;
       if (!pkg.includes('@', 1)) { resolved += '@latest'; }
 
-      const download = await downloadNpmPackage(pkg, loadFromFilesystem);
+      const download = await downloadNpmPackage(pkg, f => loadFromFilesystem(f, validate));
       if (download.success) {
         return { requested, resolved, success: true, assembly: download.result };
       }
       return { requested, resolved, success: false, reason: download.reason };
     }
     // We don't accept failure loading from the filesystem
-    return { requested, resolved, success: true, assembly: await loadFromFilesystem(requested) };
+    return { requested, resolved, success: true, assembly: await loadFromFilesystem(requested, validate) };
 
   } catch (e) {
     // Prepend information about which assembly we've failed to load
@@ -125,25 +126,26 @@ async function loadAssembly(requested: string): Promise<LoadAssemblyResult> {
 type LoadAssemblyResult = { requested: string, resolved: string }
 & ({ success: true, assembly: reflect.Assembly } | { success: false, reason: DownloadFailure });
 
-async function loadPackageNameFromAssembly(): Promise<string> {
+async function loadPackageNameFromAssembly(validate: boolean): Promise<string> {
   const JSII_ASSEMBLY_FILE = '.jsii';
   if (!await fs.pathExists(JSII_ASSEMBLY_FILE)) {
     throw new Error(`No NPM package name given and no ${JSII_ASSEMBLY_FILE} file in the current directory. Please specify a package name.`);
   }
-  const module = spec.validateAssembly(await fs.readJSON(JSII_ASSEMBLY_FILE, { encoding: 'utf-8' }));
+  const contents = await fs.readJSON(JSII_ASSEMBLY_FILE, { encoding: 'utf-8' });
+  const module = validate ? spec.validateAssembly(contents) : contents as spec.Assembly;
   if (!module.name) { throw new Error(`Could not find package in ${JSII_ASSEMBLY_FILE}`); }
 
   return module.name;
 }
 
-async function loadFromFilesystem(name: string) {
+async function loadFromFilesystem(name: string, validate: boolean) {
   const stat = await fs.stat(name);
 
   const ts = new reflect.TypeSystem();
   if (stat.isDirectory()) {
-    return ts.loadModule(name);
+    return ts.loadModule(name, { validate });
   }
-  return ts.loadFile(name);
+  return ts.loadFile(name, { validate });
 
 }
 
