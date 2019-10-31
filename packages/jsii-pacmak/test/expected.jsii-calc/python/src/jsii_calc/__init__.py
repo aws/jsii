@@ -763,7 +763,7 @@ class ClassWithDocs(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ClassWithDocs"
     :customAttribute:: hasAValue
 
     Example::
-        # Example may have issues. See https://github.com/aws/jsii/issues/826
+        # Example automatically generated. See https://github.com/aws/jsii/issues/826
         def an_example():
             pass
     """

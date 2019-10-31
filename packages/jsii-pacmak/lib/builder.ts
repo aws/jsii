@@ -3,6 +3,7 @@ import logging = require('./logging');
 import { JsiiModule } from './packaging';
 import { TargetConstructor, Target } from './target';
 import { Scratch } from './util';
+import { Rosetta } from 'jsii-rosetta';
 
 export interface BuildOptions {
   /**
@@ -36,6 +37,11 @@ export interface BuildOptions {
    * Whether to add an additional subdirectory for the target language
    */
   languageSubdirectory?: boolean;
+
+  /**
+   * The Rosetta instance to load examples from
+   */
+  rosetta: Rosetta;
 }
 
 /**
@@ -110,7 +116,8 @@ export class OneByOneBuilder implements TargetBuilder {
       assembly: module.assembly,
       fingerprint: options.fingerprint,
       force: options.force,
-      arguments: options.arguments
+      arguments: options.arguments,
+      rosetta: options.rosetta,
     });
   }
 

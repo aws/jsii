@@ -127,7 +127,8 @@ export class JavaBuilder implements TargetBuilder {
       assembly: module.assembly,
       fingerprint: options.fingerprint,
       force: options.force,
-      arguments: options.arguments
+      arguments: options.arguments,
+      rosetta: options.rosetta,
     });
   }
 

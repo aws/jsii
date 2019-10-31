@@ -3,17 +3,26 @@ import path = require('path');
 import { CodeMaker, toSnakeCase } from 'codemaker';
 import * as escapeStringRegexp from 'escape-string-regexp';
 import * as reflect from 'jsii-reflect';
-import * as sampiler from 'jsii-sampiler';
 import * as spec from 'jsii-spec';
 import { Stability } from 'jsii-spec';
 import { Generator, GeneratorOptions } from '../generator';
 import { warn } from '../logging';
 import { md2rst } from '../markdown';
-import { Target } from '../target';
+import { Target, TargetOptions } from '../target';
 import { shell } from '../util';
+import { Translation, Rosetta, typeScriptSnippetFromSource } from 'jsii-rosetta';
+
+
+const INCOMPLETE_DISCLAIMER = '# Example automatically generated. See https://github.com/aws/jsii/issues/826';
 
 export default class Python extends Target {
-  protected readonly generator = new PythonGenerator();
+  protected readonly generator: PythonGenerator;
+
+  public constructor(options: TargetOptions) {
+    super(options);
+
+    this.generator = new PythonGenerator(options.rosetta);
+  }
 
   public async build(sourceDir: string, outDir: string): Promise<void> {
     // Format our code to make it easier to read, we do this here instead of trying
@@ -47,6 +56,7 @@ export default class Python extends Target {
       }
     }
   }
+
 }
 
 // ##################
@@ -237,7 +247,7 @@ abstract class BasePythonClassType implements PythonType, ISortableType {
     const bases = classParams.length > 0 ? `(${classParams.join(', ')})` : '';
 
     code.openBlock(`class ${this.pythonName}${bases}`);
-    emitDocString(code, this.docs, { documentableItem: `class-${this.pythonName}` });
+    this.generator.emitDocString(code, this.docs, { documentableItem: `class-${this.pythonName}` });
 
     this.emitPreamble(code, resolver);
 
@@ -394,7 +404,7 @@ abstract class BaseMethod implements PythonBase {
     }
 
     code.openBlock(`def ${this.pythonName}(${pythonParams.join(', ')}) -> ${returnType}`);
-    emitDocString(code, this.docs, { arguments: documentableArgs, documentableItem: `method-${this.pythonName}` });
+    this.generator.emitDocString(code, this.docs, { arguments: documentableArgs, documentableItem: `method-${this.pythonName}` });
     this.emitBody(code, resolver, renderAbstract, forceEmitBody);
     code.closeBlock();
   }
@@ -418,7 +428,7 @@ abstract class BaseMethod implements PythonBase {
 
     // We need to build up a list of properties, which are mandatory, these are the
     // ones we will specifiy to start with in our dictionary literal.
-    const liftedProps = this.getLiftedProperties(resolver).map(p => new StructField(p));
+    const liftedProps = this.getLiftedProperties(resolver).map(p => new StructField(this.generator, p));
     const assignments = liftedProps
       .map(p => p.pythonName)
       .map(v => `${v}=${v}`);
@@ -498,7 +508,9 @@ abstract class BaseProperty implements PythonBase {
 
   private readonly immutable: boolean;
 
-  public constructor(public readonly pythonName: string,
+  public constructor(
+    private readonly generator: PythonGenerator,
+    public readonly pythonName: string,
     private readonly jsName: string,
     private readonly type: spec.OptionalValue,
     private readonly docs: spec.Docs | undefined,
@@ -522,7 +534,7 @@ abstract class BaseProperty implements PythonBase {
       code.line('@abc.abstractmethod');
     }
     code.openBlock(`def ${this.pythonName}(${this.implicitParameter}) -> ${pythonType}`);
-    emitDocString(code, this.docs, { documentableItem: `prop-${this.pythonName}` });
+    this.generator.emitDocString(code, this.docs, { documentableItem: `prop-${this.pythonName}` });
     if ((this.shouldEmitBody || forceEmitBody) && (!renderAbstract || !this.abstract)) {
       code.line(`return jsii.${this.jsiiGetMethod}(${this.implicitParameter}, "${this.jsName}")`);
     } else {
@@ -558,7 +570,7 @@ class Interface extends BasePythonClassType {
     resolver = this.fqn ? resolver.bind(this.fqn) : resolver;
     const proxyBases: string[] = this.bases.map(b => `jsii.proxy_for(${resolver.resolve({ type: b })})`);
     code.openBlock(`class ${this.getProxyClassName()}(${proxyBases.join(', ')})`);
-    emitDocString(code, this.docs, { documentableItem: `class-${this.pythonName}` });
+    this.generator.emitDocString(code, this.docs, { documentableItem: `class-${this.pythonName}` });
     code.line(`__jsii_type__ = "${this.fqn}"`);
 
     if (this.members.length > 0) {
@@ -643,7 +655,7 @@ class Struct extends BasePythonClassType {
      * Find all fields (inherited as well)
      */
   private get allMembers(): StructField[] {
-    return this.thisInterface.allProperties.map(x => new StructField(x.spec));
+    return this.thisInterface.allProperties.map(x => new StructField(this.generator, x.spec));
   }
 
   private get thisInterface() {
@@ -681,7 +693,7 @@ class Struct extends BasePythonClassType {
       name: m.pythonName,
       docs: m.docs,
     }));
-    emitDocString(code, this.docs, { arguments: args, documentableItem: `class-${this.pythonName}` });
+    this.generator.emitDocString(code, this.docs, { arguments: args, documentableItem: `class-${this.pythonName}` });
   }
 
   private emitGetter(member: StructField, code: CodeMaker, resolver: TypeResolver) {
@@ -721,7 +733,7 @@ class StructField implements PythonBase {
   public readonly docs?: spec.Docs;
   private readonly type: spec.OptionalValue;
 
-  public constructor(public readonly prop: spec.Property) {
+  public constructor(private readonly generator: PythonGenerator, public readonly prop: spec.Property) {
     this.pythonName = toPythonPropertyName(prop.name);
     this.jsiiName = prop.name;
     this.type = prop;
@@ -752,7 +764,7 @@ class StructField implements PythonBase {
   }
 
   public emitDocString(code: CodeMaker) {
-    emitDocString(code, this.docs, { documentableItem: `prop-${this.pythonName}` });
+    this.generator.emitDocString(code, this.docs, { documentableItem: `prop-${this.pythonName}` });
   }
 
   public emit(code: CodeMaker, resolver: TypeResolver) {
@@ -930,14 +942,18 @@ class Enum extends BasePythonClassType {
 }
 
 class EnumMember implements PythonBase {
-  public constructor(public readonly pythonName: string, private readonly value: string, private readonly docs: spec.Docs | undefined) {
+  public constructor(
+    private readonly generator: PythonGenerator,
+    public readonly pythonName: string,
+    private readonly value: string,
+    private readonly docs: spec.Docs | undefined) {
     this.pythonName = pythonName;
     this.value = value;
   }
 
   public emit(code: CodeMaker, _resolver: TypeResolver) {
     code.line(`${this.pythonName} = "${this.value}"`);
-    emitDocString(code, this.docs, { documentableItem: `enum-${this.pythonName}` });
+    this.generator.emitDocString(code, this.docs, { documentableItem: `enum-${this.pythonName}` });
   }
 }
 
@@ -1074,7 +1090,7 @@ class Package {
   private readonly modules: Map<string, Module>;
   private readonly data: Map<string, PackageData[]>;
 
-  public constructor(name: string, version: string, metadata: spec.Assembly) {
+  public constructor(private readonly generator: PythonGenerator, name: string, version: string, metadata: spec.Assembly) {
     this.name = name;
     this.version = version;
     this.metadata = metadata;
@@ -1098,7 +1114,7 @@ class Package {
   public write(code: CodeMaker, resolver: TypeResolver) {
     if (this.metadata.readme) {
       // Conversion is expensive, so cache the result in a variable (we need it twice)
-      this.convertedReadme = convertSnippetsInMarkdown(this.metadata.readme.markdown, 'README.md').trim();
+      this.convertedReadme = this.generator.convertMarkdown(this.metadata.readme.markdown).trim();
     }
 
     const modules = [...this.modules.values()].sort((a, b) => a.pythonName.localeCompare(b.pythonName));
@@ -1436,13 +1452,125 @@ class PythonGenerator extends Generator {
   private package!: Package;
   private readonly types: Map<string, PythonType>;
 
-  public constructor(options: GeneratorOptions = {}) {
+  public constructor(private readonly rosetta: Rosetta, options: GeneratorOptions = {}) {
     super(options);
 
     this.code.openBlockFormatter = s => `${s}:`;
     this.code.closeBlockFormatter = _s => '';
 
     this.types = new Map();
+  }
+
+  public emitDocString(code: CodeMaker, docs: spec.Docs | undefined, options: {
+    arguments?: DocumentableArgument[];
+    documentableItem?: string;
+  } = {}) {
+    if ((!docs || Object.keys(docs).length === 0) && !options.arguments) { return; }
+    if (!docs) { docs = {}; }
+
+    const lines = new Array<string>();
+
+    if (docs.summary) {
+      lines.push(md2rst(docs.summary));
+      brk();
+    } else {
+      lines.push('');
+    }
+
+    function brk() {
+      if (lines.length > 0 && lines[lines.length - 1].trim() !== '') { lines.push(''); }
+    }
+
+    function block(heading: string, content: string, doBrk = true) {
+      if (doBrk) { brk(); }
+      lines.push(heading);
+      const contentLines = md2rst(content).split('\n');
+      if (contentLines.length <= 1) {
+        lines.push(`:${heading}: ${contentLines.join('')}`);
+      } else {
+        lines.push(`:${heading}:`);
+        brk();
+        for (const line of contentLines) {
+          lines.push(`${line}`);
+        }
+      }
+      if (doBrk) { brk(); }
+    }
+
+    if (docs.remarks) {
+      brk();
+      lines.push(...md2rst(this.convertMarkdown(docs.remarks || '')).split('\n'));
+      brk();
+    }
+
+    if (options.arguments && options.arguments.length > 0) {
+      brk();
+      for (const param of options.arguments) {
+        // Add a line for every argument. Even if there is no description, we need
+        // the docstring so that the Sphinx extension can add the type annotations.
+        lines.push(`:param ${toPythonParameterName(param.name)}: ${onelineDescription(param.docs)}`);
+      }
+      brk();
+    }
+
+    if (docs.default) { block('default', docs.default); }
+    if (docs.returns) { block('return', docs.returns); }
+    if (docs.deprecated) { block('deprecated', docs.deprecated); }
+    if (docs.see) { block('see', docs.see, false); }
+    if (docs.stability && shouldMentionStability(docs.stability)) { block('stability', docs.stability, false); }
+    if (docs.subclassable) { block('subclassable', 'Yes'); }
+
+    for (const [k, v] of Object.entries(docs.custom || {})) {
+      block(`${k}:`, v, false);
+    }
+
+    if (docs.example) {
+      brk();
+      lines.push('Example::');
+      const exampleText = this.convertExample(docs.example);
+
+      for (const line of exampleText.split('\n')) {
+        lines.push(`    ${line}`);
+      }
+      brk();
+    }
+
+    while (lines.length > 0 && lines[lines.length - 1] === '') { lines.pop(); }
+
+    if (lines.length === 0) { return; }
+
+    if (lines.length === 1) {
+      code.line(`"""${lines[0]}"""`);
+      return;
+    }
+
+    code.line(`"""${lines[0]}`);
+    lines.splice(0, 1);
+
+    for (const line of lines) {
+      code.line(line);
+    }
+
+    code.line('"""');
+  }
+
+  public convertExample(example: string): string {
+    const snippet = typeScriptSnippetFromSource(example, 'example');
+    const translated = this.rosetta.translateSnippet(snippet, 'python');
+    if (!translated) { return example; }
+    return this.prefixDisclaimer(translated);
+  }
+
+  public convertMarkdown(markdown: string): string {
+    return this.rosetta.translateSnippetsInMarkdown(markdown, 'python', trans => ({
+      language: trans.language,
+      source: this.prefixDisclaimer(trans)
+    }));
+  }
+
+  private prefixDisclaimer(translated: Translation) {
+    if (translated.didCompile) { return translated.source; }
+    return `${INCOMPLETE_DISCLAIMER}\n${translated.source}`;
   }
 
   public getPythonType(fqn: string): PythonType {
@@ -1461,6 +1589,7 @@ class PythonGenerator extends Generator {
 
   protected onBeginAssembly(assm: spec.Assembly, _fingerprint: boolean) {
     this.package = new Package(
+      this,
       assm.targets!.python!.distName,
       assm.version,
       assm,
@@ -1576,6 +1705,7 @@ class PythonGenerator extends Generator {
   protected onStaticProperty(cls: spec.ClassType, prop: spec.Property) {
     this.getPythonType(cls.fqn).addMember(
       new StaticProperty(
+        this,
         toPythonPropertyName(prop.name, prop.const),
         prop.name,
         prop,
@@ -1618,6 +1748,7 @@ class PythonGenerator extends Generator {
   protected onProperty(cls: spec.ClassType, prop: spec.Property) {
     this.getPythonType(cls.fqn).addMember(
       new Property(
+        this,
         toPythonPropertyName(prop.name, prop.const, prop.protected),
         prop.name,
         prop,
@@ -1677,9 +1808,10 @@ class PythonGenerator extends Generator {
     let ifaceProperty: InterfaceProperty | StructField;
 
     if (ifc.datatype) {
-      ifaceProperty = new StructField(prop);
+      ifaceProperty = new StructField(this, prop);
     } else {
       ifaceProperty = new InterfaceProperty(
+        this,
         toPythonPropertyName(prop.name, prop.const, prop.protected),
         prop.name,
         prop,
@@ -1698,6 +1830,7 @@ class PythonGenerator extends Generator {
   protected onEnumMember(enm: spec.EnumType, member: spec.EnumMember) {
     this.getPythonType(enm.fqn).addMember(
       new EnumMember(
+        this,
         toPythonIdentifier(member.name),
         member.name,
         member.docs,
@@ -1788,99 +1921,6 @@ interface DocumentableArgument {
   docs?: spec.Docs;
 }
 
-function emitDocString(code: CodeMaker, docs: spec.Docs | undefined, options: {
-  arguments?: DocumentableArgument[];
-  documentableItem?: string;
-} = {}) {
-  if ((!docs || Object.keys(docs).length === 0) && !options.arguments) { return; }
-  if (!docs) { docs = {}; }
-
-  const lines = new Array<string>();
-
-  if (docs.summary) {
-    lines.push(md2rst(docs.summary));
-    brk();
-  } else {
-    lines.push('');
-  }
-
-  function brk() {
-    if (lines.length > 0 && lines[lines.length - 1].trim() !== '') { lines.push(''); }
-  }
-
-  function block(heading: string, content: string, doBrk = true) {
-    if (doBrk) { brk(); }
-    lines.push(heading);
-    const contentLines = md2rst(content).split('\n');
-    if (contentLines.length <= 1) {
-      lines.push(`:${heading}: ${contentLines.join('')}`);
-    } else {
-      lines.push(`:${heading}:`);
-      brk();
-      for (const line of contentLines) {
-        lines.push(`${line}`);
-      }
-    }
-    if (doBrk) { brk(); }
-  }
-
-  if (docs.remarks) {
-    brk();
-    lines.push(...md2rst(convertSnippetsInMarkdown(docs.remarks || '', options.documentableItem || 'docstring')).split('\n'));
-    brk();
-  }
-
-  if (options.arguments && options.arguments.length > 0) {
-    brk();
-    for (const param of options.arguments) {
-      // Add a line for every argument. Even if there is no description, we need
-      // the docstring so that the Sphinx extension can add the type annotations.
-      lines.push(`:param ${toPythonParameterName(param.name)}: ${onelineDescription(param.docs)}`);
-    }
-    brk();
-  }
-
-  if (docs.default) { block('default', docs.default); }
-  if (docs.returns) { block('return', docs.returns); }
-  if (docs.deprecated) { block('deprecated', docs.deprecated); }
-  if (docs.see) { block('see', docs.see, false); }
-  if (docs.stability && shouldMentionStability(docs.stability)) { block('stability', docs.stability, false); }
-  if (docs.subclassable) { block('subclassable', 'Yes'); }
-
-  for (const [k, v] of Object.entries(docs.custom || {})) {
-    block(`${k}:`, v, false);
-  }
-
-  if (docs.example) {
-    brk();
-    lines.push('Example::');
-    const exampleText = convertExample(docs.example, options.documentableItem || 'example');
-
-    for (const line of exampleText.split('\n')) {
-      lines.push(`    ${line}`);
-    }
-    brk();
-  }
-
-  while (lines.length > 0 && lines[lines.length - 1] === '') { lines.pop(); }
-
-  if (lines.length === 0) { return; }
-
-  if (lines.length === 1) {
-    code.line(`"""${lines[0]}"""`);
-    return;
-  }
-
-  code.line(`"""${lines[0]}`);
-  lines.splice(0, 1);
-
-  for (const line of lines) {
-    code.line(line);
-  }
-
-  code.line('"""');
-}
-
 /**
  * Render a one-line description of the given docs, used for method arguments and inlined properties
  */
@@ -1903,25 +1943,4 @@ function isStruct(typeSystem: reflect.TypeSystem, ref: spec.TypeReference): bool
   if (!spec.isNamedTypeReference(ref)) { return false; }
   const type = typeSystem.tryFindFqn(ref.fqn);
   return type !== undefined && type.isInterfaceType() && type.isDataType();
-}
-
-const pythonTranslator = new sampiler.PythonVisitor({
-  disclaimer: 'Example may have issues. See https://github.com/aws/jsii/issues/826'
-});
-
-function convertExample(example: string, filename: string): string {
-  const source = new sampiler.LiteralSource(example, filename);
-  const result = sampiler.translateTypeScript(source, pythonTranslator);
-  sampiler.printDiagnostics(result.diagnostics, process.stderr);
-  return sampiler.renderTree(result.tree);
-}
-
-function convertSnippetsInMarkdown(markdown: string, filename: string): string {
-  const source = new sampiler.LiteralSource(markdown, filename);
-  const result = sampiler.translateMarkdown(source, pythonTranslator, {
-    languageIdentifier: 'python'
-  });
-  // FIXME: This should translate into an exit code somehow
-  sampiler.printDiagnostics(result.diagnostics, process.stderr);
-  return sampiler.renderTree(result.tree);
 }

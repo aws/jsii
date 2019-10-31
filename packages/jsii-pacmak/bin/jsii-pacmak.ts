@@ -2,6 +2,7 @@
 import path = require('path');
 import process = require('process');
 import yargs = require('yargs');
+import { Rosetta } from 'jsii-rosetta';
 import logging = require('../lib/logging');
 import { Timers } from '../lib/timer';
 import { VERSION_DESC } from '../lib/version';
@@ -78,6 +79,15 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
       desc: 'Auto-update .npmignore to exclude the output directory and include the .jsii file',
       default: true
     })
+    .option('samples-tablet', {
+      type: 'string',
+      desc: 'Location of a jsii-rosetta tablet with sample translations (created using \'jsii-rosetta extract\')'
+    })
+    .option('live-translation', {
+      type: 'boolean',
+      desc: 'Translate code samples on-the-fly if they can\'t be found in the samples tablet',
+      default: true
+    })
     .version(VERSION_DESC)
     .strict()
     .argv;
@@ -88,6 +98,11 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
   logging.debug('command line arguments:', argv);
 
   const timers = new Timers();
+
+  const rosetta = new Rosetta({ liveConversion: argv['live-translation'] });
+  if (argv['samples-tablet']) {
+    await rosetta.loadTabletFromFile(argv['samples-tablet']);
+  }
 
   const modulesToPackage = await findJsiiModules(argv._, argv.recurse);
   logging.info(`Found ${modulesToPackage.length} modules to package`);
@@ -114,9 +129,12 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
   });
 
   await timers.recordAsync('load jsii', () => {
-    logging.info('Loading jsii assemblies');
+    logging.info('Loading jsii assemblies and translations');
     return Promise.all(modulesToPackage
-      .map(m => m.load()));
+      .map(async m => {
+        await m.load();
+        await rosetta.addAssembly(m.assembly.spec, m.moduleDirectory);
+      }));
   });
 
   try {
@@ -163,6 +181,7 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
     await builder.buildModules(modules, {
       clean: argv.clean,
       codeOnly: argv['code-only'],
+      rosetta,
       force: argv.force,
       fingerprint: argv.fingerprint,
       arguments: argv,

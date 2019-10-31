@@ -19,10 +19,10 @@
   "include": [
     "**/*.ts"
   ],
+  "exclude": [
+    "examples"
+  ],
   "references": [
-    { "path": "../jsii-spec" },
-    { "path": "../codemaker" },
-    { "path": "../jsii-rosetta" },
-    { "path": "../jsii-reflect" }
+      { "path": "../jsii-spec" }
   ]
 }

@@ -13,7 +13,7 @@ heading will be used as the Sphinx topic name. Otherwise, the name of the module
 ## Code Samples
 
 ```python
-# Example may have issues. See https://github.com/aws/jsii/issues/826
+# Example automatically generated. See https://github.com/aws/jsii/issues/826
 # This is totes a magic comment in here, just you wait!
 foo = "bar"
 ```

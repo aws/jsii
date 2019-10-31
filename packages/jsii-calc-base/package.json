@@ -24,7 +24,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "jsii",
+    "build": "jsii && jsii-rosetta extract",
     "test": "diff-test test/assembly.jsii .jsii",
     "test:update": "npm run build && UPDATE_DIFF=1 npm run test"
   },
@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "jsii": "^0.20.0",
+    "jsii-rosetta": "^0.20.0",
     "jsii-build-tools": "^0.20.0"
   },
   "jsii": {

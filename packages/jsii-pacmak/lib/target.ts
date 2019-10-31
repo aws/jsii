@@ -6,6 +6,7 @@ import path = require('path');
 import { IGenerator } from './generator';
 import logging = require('./logging');
 import { resolveDependencyDirectory } from './util';
+import { Rosetta } from 'jsii-rosetta';
 
 
 export abstract class Target {
@@ -15,12 +16,14 @@ export abstract class Target {
   protected readonly arguments: { [name: string]: any };
   protected readonly targetName: string;
   protected readonly assembly: reflect.Assembly;
+  protected readonly rosetta: Rosetta;
 
   protected abstract readonly generator: IGenerator;
 
   public constructor(options: TargetOptions) {
     this.packageDir = options.packageDir;
     this.assembly = options.assembly;
+    this.rosetta = options.rosetta;
     this.fingerprint = options.fingerprint != null ? options.fingerprint : true;
     this.force = options.force != null ? options.force : false;
     this.arguments = options.arguments;
@@ -172,6 +175,9 @@ export interface TargetOptions {
 
   /** The JSII-reflect assembly for this JSII assembly */
   assembly: reflect.Assembly;
+
+  /** The Rosetta instance */
+  rosetta: Rosetta;
 
   /**
      * Whether to fingerprint the produced artifacts.

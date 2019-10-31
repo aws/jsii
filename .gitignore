@@ -7,3 +7,4 @@ tsconfig.tsbuildinfo
 dist/
 .vscode
 *.tsbuildinfo
+.jsii-samples.tabl
