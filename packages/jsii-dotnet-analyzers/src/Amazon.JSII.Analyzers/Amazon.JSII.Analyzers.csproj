@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
    <Import Project="../NuGet.Metadata.props" />
 
     <PropertyGroup>
@@ -10,9 +10,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Amazon.JSII.Runtime" Version="$(JsiiVersion)" />
-      <PackageReference Include="Microsoft.CodeAnalysis" Version="3.2.0" />
-      <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.2.0" />
+      <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.2.0" PrivateAssets="all" />
     </ItemGroup>
 
     <ItemGroup>
