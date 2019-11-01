@@ -3,18 +3,23 @@
 
 This library is used to demonstrate and test the features of JSII
 
-## Sphinx
+## How to use running sum API:
 
-This file will be incorporated into the sphinx documentation.
+First, create a calculator:
 
-If this file starts with an "H1" line (in our case `# jsii Calculator`), this
-heading will be used as the Sphinx topic name. Otherwise, the name of the module
-(`jsii-calc`) will be used instead.
+```python
+calculator = calc.Calculator()
+```
+
+Then call some operations:
+
+```python
+calculator.add(10)
+```
 
 ## Code Samples
 
 ```python
-# Example automatically generated. See https://github.com/aws/jsii/issues/826
 # This is totes a magic comment in here, just you wait!
 foo = "bar"
 ```
