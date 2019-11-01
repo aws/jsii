@@ -3,7 +3,6 @@ import logging = require('../logging');
 import ts = require('typescript');
 import { LanguageTablet } from '../tablets/tablets';
 import { Translator } from '../translate';
-import { snippetKey } from '../tablets/key';
 
 export interface ExtractResult {
   diagnostics: ts.Diagnostic[];
@@ -16,15 +15,16 @@ export async function extractSnippets(assemblyLocations: string[], outputFile: s
   logging.info(`Loading ${assemblyLocations.length} assemblies`);
   const assemblies = await loadAssemblies(assemblyLocations);
 
-  const translator = new Translator(includeCompilerDiagnostics);
+  const snippets = allTypeScriptSnippets(assemblies);
 
   const tablet = new LanguageTablet();
 
   logging.info(`Translating`);
   const startTime = Date.now();
 
-  for (const block of allTypeScriptSnippets(assemblies)) {
-    logging.debug(`Translating ${snippetKey(block)}`);
+  const translator = new Translator(includeCompilerDiagnostics);
+
+  for (const block of snippets) {
     tablet.addSnippet(translator.translate(block));
   }
 

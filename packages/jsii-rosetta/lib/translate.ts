@@ -1,3 +1,4 @@
+import logging = require('./logging');
 import ts = require('typescript');
 import { AstRenderer, AstHandler, AstRendererOptions } from './renderer';
 import { renderTree, Span } from './o-tree';
@@ -7,6 +8,7 @@ import { TARGET_LANGUAGES, TargetLanguage } from './languages';
 import { calculateVisibleSpans } from './typescript/ast-utils';
 import { File } from './util';
 import { TypeScriptSnippet, completeSource } from './snippet';
+import { snippetKey } from './tablets/key';
 
 export function translateTypeScript(source: File, visitor: AstHandler<any>, options: SnippetTranslatorOptions = {}): TranslateResult {
   const translator = new SnippetTranslator({ visibleSource: source.contents, where: source.fileName }, options);
@@ -33,6 +35,7 @@ export class Translator {
   }
 
   public translate(snip: TypeScriptSnippet, languages = Object.keys(TARGET_LANGUAGES) as TargetLanguage[]) {
+    logging.debug(`Translating ${snippetKey(snip)}`);
     const translator = this.translatorFor(snip);
     const snippet = TranslatedSnippet.fromSnippet(snip, this.includeCompilerDiagnostics ? translator.compileDiagnostics.length === 0 : undefined);
 
