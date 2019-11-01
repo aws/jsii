@@ -29,7 +29,7 @@ export function translateTypeScript(source: File, visitor: AstHandler<any>, opti
  */
 export class Translator {
   private readonly compiler = new TypeScriptCompiler();
-  private readonly translators: Record<string, SnippetTranslator> = {};
+  public readonly diagnostics: ts.Diagnostic[] = [];
 
   constructor(private readonly includeCompilerDiagnostics: boolean) {
   }
@@ -45,34 +45,23 @@ export class Translator {
       snippet.addTranslatedSource(lang, translated);
     }
 
-    return snippet;
-  }
+    this.diagnostics.push(...translator.diagnostics);
 
-  public get diagnostics(): ts.Diagnostic[] {
-    const ret = [];
-    for (const t of Object.values(this.translators)) {
-      ret.push(...t.diagnostics);
-    }
-    return ret;
+    return snippet;
   }
 
   /**
    * Return the snippet translator for the given snippet
+   *
+   * We used to cache these, but each translator holds on to quite a bit of memory,
+   * so we don't do that anymore.
    */
   public translatorFor(snippet: TypeScriptSnippet) {
-    const key = snippet.visibleSource + '-' + snippet.where;
-    if (!(key in this.translators)) {
-      const translator = new SnippetTranslator(snippet, {
-        compiler: this.compiler,
-        includeCompilerDiagnostics: this.includeCompilerDiagnostics,
-      });
-
-      this.diagnostics.push(...translator.compileDiagnostics);
-
-      this.translators[key] = translator;
-    }
-
-    return this.translators[key];
+    const translator = new SnippetTranslator(snippet, {
+      compiler: this.compiler,
+      includeCompilerDiagnostics: this.includeCompilerDiagnostics,
+    });
+    return translator;
   }
 }
 
@@ -122,6 +111,8 @@ export class SnippetTranslator {
   }
 
   public renderUsing(visitor: AstHandler<any>) {
+    return '';
+
     const converter = new AstRenderer(this.compilation.rootFile, this.compilation.program.getTypeChecker(), visitor, this.options);
     const converted = converter.convert(this.compilation.rootFile);
     this.translateDiagnostics.push(...converter.diagnostics);

@@ -1,5 +1,5 @@
 import fs = require('fs-extra');
-import { TabletSchema, SnippetSchema, TranslationSchema, ORIGINAL_SNIPPET_KEY } from './schema';
+import { TabletSchema, TranslatedSnippetSchema, TranslationSchema, ORIGINAL_SNIPPET_KEY } from './schema';
 import { snippetKey } from './key';
 import { TargetLanguage } from '../languages';
 import { TypeScriptSnippet } from '../snippet';
@@ -42,7 +42,7 @@ export class LanguageTablet {
       throw new Error(`Tablet file '${filename}' has been created with version '${obj.toolVersion}', cannot read with current version '${TOOL_VERSION}'`);
     }
 
-    Object.assign(this.snippets, mapValues(obj.snippets, (schema: SnippetSchema) => TranslatedSnippet.fromSchema(schema)));
+    Object.assign(this.snippets, mapValues(obj.snippets, (schema: TranslatedSnippetSchema) => TranslatedSnippet.fromSchema(schema)));
   }
 
   public get count() {
@@ -63,7 +63,7 @@ export class LanguageTablet {
 }
 
 export class TranslatedSnippet {
-  public static fromSchema(schema: SnippetSchema) {
+  public static fromSchema(schema: TranslatedSnippetSchema) {
     const ret = new TranslatedSnippet();
     Object.assign(ret.translations, schema.translations);
     ret._didCompile = schema.didCompile;
@@ -151,7 +151,7 @@ export class TranslatedSnippet {
     };
   }
 
-  public toSchema(): SnippetSchema {
+  public toSchema(): TranslatedSnippetSchema {
     return {
       translations: this.translations,
       didCompile: this.didCompile,

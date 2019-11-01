@@ -60,6 +60,10 @@ async function main() {
 
       printDiagnostics(result.diagnostics, process.stderr);
 
+      if (result.diagnostics.length > 0) {
+        logging.warn(`${result.diagnostics.length} diagnostics encountered`);
+      }
+
       if (result.diagnostics.some(isErrorDiagnostic) && args.fail) {
         process.exit(1);
       }

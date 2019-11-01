@@ -22,7 +22,7 @@ export interface TabletSchema {
   /**
    * All the snippets in the tablet
    */
-  snippets: {[key: string]: SnippetSchema};
+  snippets: {[key: string]: TranslatedSnippetSchema};
 }
 
 export const ORIGINAL_SNIPPET_KEY = '$';
@@ -30,7 +30,7 @@ export const ORIGINAL_SNIPPET_KEY = '$';
 /**
  * Schema for a snippet
  */
-export interface SnippetSchema {
+export interface TranslatedSnippetSchema {
   /**
    * Translations for each individual language
    *

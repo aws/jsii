@@ -36,3 +36,17 @@ export function printDiagnostic(diag: ts.Diagnostic, stream: NodeJS.WritableStre
 export function isErrorDiagnostic(diag: ts.Diagnostic) {
   return diag.category === ts.DiagnosticCategory.Error;
 }
+
+/**
+ * Chunk an array of elements into approximately equal groups
+ */
+export function divideEvenly<A>(groups: number, xs: A[]): A[][] {
+  const chunkSize = Math.ceil(xs.length / groups);
+  const ret: A[][] = [];
+
+  for (let i = 0; i < groups; i++) {
+    ret.push(xs.slice(i * chunkSize, (i + 1) * chunkSize));
+  }
+
+  return ret;
+}

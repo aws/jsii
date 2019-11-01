@@ -1,3 +1,5 @@
+import util = require('util');
+
 export enum Level {
   WARN = -1,
   QUIET = 0,
@@ -28,6 +30,6 @@ export function debug(fmt: string, ...args: any[]) {
 function log(messageLevel: Level, fmt: string, ...args: any[]) {
   if (level >= messageLevel) {
     const levelName = Level[messageLevel];
-    console.error(`[jsii-rosetta] [${levelName}]`, fmt, ...args);
+    process.stderr.write(`[jsii-rosetta] [${levelName}] ${util.format(fmt, ...args)}\n`);
   }
 }
