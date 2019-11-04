@@ -1,0 +1,61 @@
+{
+  "name": "jsii-config",
+  "version": "0.20.5",
+  "description": "CLI tool for configuring jsii module configuration in package.json",
+  "main": "lib/index.js",
+  "repository": "https://github.com/aws/jsii",
+  "author": "Amazon Web Services",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "tsc --build && npm run lint",
+    "watch": "tsc --build -w",
+    "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore --ignore-pattern=test/negatives/*",
+    "test": "jest",
+    "package": "package-js",
+    "exec": "npm run build && node bin/jsii-config.js"
+  },
+  "bin": {
+    "jsii-config": "bin/jsii-config"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^6.5.0",
+    "@types/jest": "^24.0.22",
+    "@types/jest-expect-message": "^1.0.1",
+    "@types/yargs": "^13.0.3",
+    "@typescript-eslint/eslint-plugin": "^2.6.0",
+    "@typescript-eslint/parser": "^2.6.0",
+    "eslint": "^6.6.0",
+    "jest": "^24.9.0",
+    "jest-expect-message": "^1.0.2",
+    "typescript": "~3.6.4"
+  },
+  "dependencies": {
+    "inquirer": "^7.0.0",
+    "yargs": "^14.2.0"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/bin/**/*.js",
+      "**/lib/**/*.js"
+    ],
+    "coverageReporters": [
+      "lcov",
+      "text"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 60,
+        "statements": 60
+      }
+    },
+    "errorOnDeprecated": true,
+    "setupFilesAfterEnv": [
+      "jest-expect-message"
+    ],
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/?(*.)+(spec|test).js"
+    ]
+  }
+}
