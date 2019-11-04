@@ -1030,8 +1030,11 @@ class Module implements PythonType {
     code.line('publication.publish()');
   }
 
+  /**
+   * Emit the README as module docstring if this is the entry point module (it loads the assembly)
+   */
   private emitModuleDocumentation(code: CodeMaker) {
-    if (this.package) {
+    if (this.package && this.loadAssembly && this.package.convertedReadme.trim().length > 0) {
       code.line('"""');
       code.line(this.package.convertedReadme);
       code.line('"""');
@@ -1466,6 +1469,7 @@ class PythonGenerator extends Generator {
       assm,
     );
 
+    // This is the '<package>._jsii' module
     const assemblyModule = new Module(
       this.getAssemblyModuleName(assm),
       null,
@@ -1494,12 +1498,16 @@ class PythonGenerator extends Generator {
     // actually be generating a module, otherwise we'll generate a class within
     // that module.
     if (ns === this.assembly.name) {
+      // This is the main Python entry point (facade to the JSII module)
+
       const module = new Module(
         this.assembly.targets!.python!.module,
         ns,
         { assembly: this.assembly,
           assemblyFilename: this.getAssemblyFileName(),
-          loadAssembly: ns === this.assembly.name },
+          loadAssembly: ns === this.assembly.name,
+          package: this.package
+        },
       );
 
       this.package.addModule(module);
