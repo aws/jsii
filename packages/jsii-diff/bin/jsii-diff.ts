@@ -18,7 +18,7 @@ async function main(): Promise<number> {
     .option('experimental-errors', { alias: 'e', type: 'boolean', default: false, desc: 'Error on experimental API changes' })
     .option('ignore-file', { alias: 'i', type: 'string', desc: 'Ignore API changes with keys from file (file may be missing)' })
     .option('keys', { alias: 'k', type: 'boolean', default: false, desc: 'Show diagnostic suppression keys' })
-    .option('validate', { alias: 'd', type: 'boolean', default: true, desc: 'Validate the assemblies that are being loaded' })
+    .option('validate', { alias: 'd', type: 'boolean', default: false, desc: 'Validate the assemblies that are being loaded' })
     .usage('$0 <original> [updated]', 'Compare two JSII assemblies.', args => args
       .positional('original', {
         description: 'Original assembly (file, package or "npm:package@version")',
