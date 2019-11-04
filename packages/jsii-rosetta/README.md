@@ -175,3 +175,17 @@ $ jsii-rosetta extract --compile $(find . -name .jsii) --directory some/dir
 $ jsii-pacmak --samples-tablet .jsii-samples.tbl
 
 ```
+
+### Running in parallel
+
+Since TypeScript compilation takes a lot of time, much time can be gained
+by using the CPUs in your system effectively. `jsii-rosetta extract` will
+run the compilations in parallel if support for NodeJS Worker Threads is
+detected.
+
+Worker threads are enabled by default on NodeJS 12.x, and can be enabled on
+NodeJS 10.x by using a flag:
+
+```
+$ node --experimental-worker /path/to/jsii-rosetta extract ...
+```
