@@ -1034,7 +1034,7 @@ class Module implements PythonType {
    * Emit the README as module docstring if this is the entry point module (it loads the assembly)
    */
   private emitModuleDocumentation(code: CodeMaker) {
-    if (this.package && this.loadAssembly) {
+    if (this.package && this.loadAssembly && this.package.convertedReadme.trim().length > 0) {
       code.line('"""');
       code.line(this.package.convertedReadme);
       code.line('"""');
