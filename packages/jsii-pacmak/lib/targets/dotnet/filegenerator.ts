@@ -2,8 +2,9 @@ import { CodeMaker } from 'codemaker';
 import { Assembly } from 'jsii-spec';
 import path = require('path');
 import xmlbuilder = require('xmlbuilder');
-import logging = require('../../logging');
 import { DotNetNameUtils } from './nameutils';
+import logging = require('../../logging');
+import { nextMajorVersion } from '../../util';
 
 // Represents a dependency in the dependency tree.
 export class DotNetDependency {
@@ -95,13 +96,14 @@ export class FileGenerator {
     const embeddedResource = itemGroup1.ele('EmbeddedResource');
     embeddedResource.att('Include', this.tarballFileName);
 
+    // Strip " (build abcdef)" from the jsii version
+    const jsiiVersion = assembly.jsiiVersion.replace(/ .*$/, '');
+    const jsiiVersionNextMajor = nextMajorVersion(jsiiVersion);
+
     const itemGroup2 = rootNode.ele('ItemGroup');
     const packageReference = itemGroup2.ele('PackageReference');
     packageReference.att('Include', 'Amazon.JSII.Runtime');
-
-    // Strip " (build abcdef)" from the jsii version
-    const jsiiVersionSimple = assembly.jsiiVersion.replace(/ .*$/, '');
-    packageReference.att('Version', jsiiVersionSimple);
+    packageReference.att('Version', `[${jsiiVersion},${jsiiVersionNextMajor})`);
 
     dependencies.forEach((value: DotNetDependency) => {
       const dependencyReference = itemGroup2.ele('PackageReference');

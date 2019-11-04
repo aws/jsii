@@ -24,8 +24,7 @@
     <EmbeddedResource Include="scope-jsii-calc-lib-0.20.0.tgz" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Amazon.JSII.Runtime" Version="[0.20.0]" />
-    <PackageReference Include="Amazon.JSII.Analyzers" Version="[0.20.0]" />
+    <PackageReference Include="Amazon.JSII.Runtime" Version="[0.20.0,0.21.0)" />
     <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" Version="0.20.0" />
   </ItemGroup>
 </Project>

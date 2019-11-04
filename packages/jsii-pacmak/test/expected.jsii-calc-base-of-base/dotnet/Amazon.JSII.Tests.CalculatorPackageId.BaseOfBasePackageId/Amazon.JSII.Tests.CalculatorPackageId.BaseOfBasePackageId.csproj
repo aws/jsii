@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <!-- Package Identification -->
-    <Description>An example direct dependency for jsii-calc.</Description>
-    <PackageId>Amazon.JSII.Tests.CalculatorPackageId.BasePackageId</PackageId>
+    <Description>An example transitive dependency for jsii-calc.</Description>
+    <PackageId>Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId</PackageId>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageVersion>0.20.0</PackageVersion>
     <!-- Additional Metadata -->
@@ -21,11 +21,10 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="scope-jsii-calc-base-0.20.0.tgz" />
+    <EmbeddedResource Include="scope-jsii-calc-base-of-base-0.20.0.tgz" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Amazon.JSII.Runtime" Version="[0.20.0,0.21.0)" />
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BaseOfBasePackageId" Version="0.20.0" />
   </ItemGroup>
 </Project>
 
