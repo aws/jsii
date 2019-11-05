@@ -1,6 +1,3 @@
-"""
-
-"""
 import abc
 import datetime
 import enum
