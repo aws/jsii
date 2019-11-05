@@ -32,27 +32,19 @@ if (recordingOutput) {
   console.error(`JSII_RECORD=${recordingOutput}`);
 }
 
-function defineTest(name: string, method: (sandbox: Kernel) => Promise<any> | any) {
+function defineTest(name: string, method: (sandbox: Kernel) => Promise<any> | any, testFunc = test) {
   const recording = name.replace(/[^A-Za-z]/g, '_');
 
-  test(name, async () => {
+  testFunc(name, async () => {
     const kernel = await createCalculatorSandbox(recording);
     await method(kernel);
-    await closeRecording(kernel);
+    return closeRecording(kernel);
   });
 }
 
-defineTest('sandbox allows loading arbitrary javascript into it', (sandbox) => {
-  const objid = sandbox.create({ fqn: '@scope/jsii-calc-lib.Number', args: [12] });
-  expect(sandbox.get({ objref: objid, property: 'doubleValue' }).value).toBe(24);
-  expect(sandbox.invoke({ objref: objid, method: 'typeName', args: [] }).result).toBe('Number');
-
-  const lhs = sandbox.create({ fqn: '@scope/jsii-calc-lib.Number', args: [10] });
-  const rhs = sandbox.create({ fqn: '@scope/jsii-calc-lib.Number', args: [20] });
-  const add = sandbox.create({ fqn: 'jsii-calc.Add', args: [lhs, rhs] });
-
-  expect(sandbox.get({ objref: add, property: 'value' }).value).toBe(30);
-});
+defineTest.skip = function (name: string, method: (sandbox: Kernel) => Promise<any> | any) {
+  return defineTest(name, method, test.skip);
+}
 
 defineTest('stats() return sandbox statistics', (sandbox) => {
   const stats = sandbox.stats({ });
@@ -307,7 +299,7 @@ defineTest('verify object literals are converted to real classes', (sandbox) => 
   expect(obj2[api.TOKEN_REF]).toBeTruthy(); // verify that we received a ref as a result;
 
   const objid: string = obj2[api.TOKEN_REF];
-  expect(objid.startsWith('jsii-calc.JSObjectLiteralToNativeClass')).toBeTruthy(); // verify the type of the returned object'
+  expect(objid.startsWith('jsii-calc.JSObjectLiteralToNativeClass@'), `${objid} does not have the intended prefix`).toBeTruthy(); // verify the type of the returned object'
 });
 
 defineTest('get a property from an type that only has base class properties', (sandbox) => {
