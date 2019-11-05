@@ -41,7 +41,7 @@
     "@types/jest-expect-message": "^1.0.1",
     "@types/node": "^10.17.3",
     "@types/tar": "^4.0.3",
-    "@typescript-eslint/eslint-plugin": "^2.6.0",
+    "@typescript-eslint/eslint-plugin": "^2.6.1",
     "@typescript-eslint/parser": "^2.6.0",
     "eslint": "^6.6.0",
     "fs-extra": "^8.1.0",
