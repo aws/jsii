@@ -1249,7 +1249,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2075
+        "line": 2096
       },
       "methods": [
         {
@@ -1258,7 +1258,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2078
+            "line": 2099
           },
           "name": "ring",
           "overrides": "jsii-calc.IBell"
@@ -1272,7 +1272,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2076
+            "line": 2097
           },
           "name": "rung",
           "type": {
@@ -2423,6 +2423,32 @@
               "name": "ringer",
               "type": {
                 "fqn": "jsii-calc.IBellRinger"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "boolean"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "remarks": "Return whether the bell was rung.",
+            "stability": "experimental",
+            "summary": "If the parameter is a concrete class instead of an interface."
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2071
+          },
+          "name": "whenTypedAsClass",
+          "parameters": [
+            {
+              "name": "ringer",
+              "type": {
+                "fqn": "jsii-calc.IConcreteBellRinger"
               }
             }
           ],
@@ -4126,7 +4152,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2071
+        "line": 2092
       },
       "methods": [
         {
@@ -4136,7 +4162,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2072
+            "line": 2093
           },
           "name": "ring"
         }
@@ -4146,13 +4172,14 @@
     "jsii-calc.IBellRinger": {
       "assembly": "jsii-calc",
       "docs": {
-        "stability": "experimental"
+        "stability": "experimental",
+        "summary": "Takes the object parameter as an interface."
       },
       "fqn": "jsii-calc.IBellRinger",
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2067
+        "line": 2081
       },
       "methods": [
         {
@@ -4162,7 +4189,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2068
+            "line": 2082
           },
           "name": "yourTurn",
           "parameters": [
@@ -4176,6 +4203,41 @@
         }
       ],
       "name": "IBellRinger"
+    },
+    "jsii-calc.IConcreteBellRinger": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Takes the object parameter as a calss."
+      },
+      "fqn": "jsii-calc.IConcreteBellRinger",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2088
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2089
+          },
+          "name": "yourTurn",
+          "parameters": [
+            {
+              "name": "bell",
+              "type": {
+                "fqn": "jsii-calc.Bell"
+              }
+            }
+          ]
+        }
+      ],
+      "name": "IConcreteBellRinger"
     },
     "jsii-calc.IDeprecatedInterface": {
       "assembly": "jsii-calc",
@@ -10529,5 +10591,5 @@
     }
   },
   "version": "0.20.0",
-  "fingerprint": "az8b4w4bMsALYwIzZzUorIB+wmS/IRleGIiPGXuL7hE="
+  "fingerprint": "/RixCfmN1ullwcAL5vmpSlGtU7F6Aw21XykcHTYQwsY="
 }

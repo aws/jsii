@@ -1236,6 +1236,51 @@
       ],
       "name": "AugmentableClass"
     },
+    "jsii-calc.Bell": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.Bell",
+      "initializer": {},
+      "interfaces": [
+        "jsii-calc.IBell"
+      ],
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2143
+      },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2146
+          },
+          "name": "ring",
+          "overrides": "jsii-calc.IBell"
+        }
+      ],
+      "name": "Bell",
+      "properties": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2144
+          },
+          "name": "rung",
+          "type": {
+            "primitive": "boolean"
+          }
+        }
+      ]
+    },
     "jsii-calc.BinaryOperation": {
       "abstract": true,
       "assembly": "jsii-calc",
@@ -2294,6 +2339,228 @@
         }
       ],
       "name": "Constructors"
+    },
+    "jsii-calc.ConsumerCanRingBell": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "remarks": "Check that if a JSII consumer implements IConsumerWithInterfaceParam, they can call\nthe method on the argument that they're passed...",
+        "stability": "experimental",
+        "summary": "Test calling back to consumers that implement interfaces."
+      },
+      "fqn": "jsii-calc.ConsumerCanRingBell",
+      "initializer": {},
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2028
+      },
+      "methods": [
+        {
+          "docs": {
+            "remarks": "Returns whether the bell was rung.",
+            "stability": "experimental",
+            "summary": "...if the interface is implemented using an object literal."
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2034
+          },
+          "name": "staticImplementedByObjectLiteral",
+          "parameters": [
+            {
+              "name": "ringer",
+              "type": {
+                "fqn": "jsii-calc.IBellRinger"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "boolean"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "remarks": "Return whether the bell was rung.",
+            "stability": "experimental",
+            "summary": "...if the interface is implemented using a private class."
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2060
+          },
+          "name": "staticImplementedByPrivateClass",
+          "parameters": [
+            {
+              "name": "ringer",
+              "type": {
+                "fqn": "jsii-calc.IBellRinger"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "boolean"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "remarks": "Return whether the bell was rung.",
+            "stability": "experimental",
+            "summary": "...if the interface is implemented using a public class."
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2049
+          },
+          "name": "staticImplementedByPublicClass",
+          "parameters": [
+            {
+              "name": "ringer",
+              "type": {
+                "fqn": "jsii-calc.IBellRinger"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "boolean"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "remarks": "Return whether the bell was rung.",
+            "stability": "experimental",
+            "summary": "If the parameter is a concrete class instead of an interface."
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2071
+          },
+          "name": "staticWhenTypedAsClass",
+          "parameters": [
+            {
+              "name": "ringer",
+              "type": {
+                "fqn": "jsii-calc.IConcreteBellRinger"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "boolean"
+            }
+          },
+          "static": true
+        },
+        {
+          "docs": {
+            "remarks": "Returns whether the bell was rung.",
+            "stability": "experimental",
+            "summary": "...if the interface is implemented using an object literal."
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2081
+          },
+          "name": "implementedByObjectLiteral",
+          "parameters": [
+            {
+              "name": "ringer",
+              "type": {
+                "fqn": "jsii-calc.IBellRinger"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "boolean"
+            }
+          }
+        },
+        {
+          "docs": {
+            "remarks": "Return whether the bell was rung.",
+            "stability": "experimental",
+            "summary": "...if the interface is implemented using a private class."
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2107
+          },
+          "name": "implementedByPrivateClass",
+          "parameters": [
+            {
+              "name": "ringer",
+              "type": {
+                "fqn": "jsii-calc.IBellRinger"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "boolean"
+            }
+          }
+        },
+        {
+          "docs": {
+            "remarks": "Return whether the bell was rung.",
+            "stability": "experimental",
+            "summary": "...if the interface is implemented using a public class."
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2096
+          },
+          "name": "implementedByPublicClass",
+          "parameters": [
+            {
+              "name": "ringer",
+              "type": {
+                "fqn": "jsii-calc.IBellRinger"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "boolean"
+            }
+          }
+        },
+        {
+          "docs": {
+            "remarks": "Return whether the bell was rung.",
+            "stability": "experimental",
+            "summary": "If the parameter is a concrete class instead of an interface."
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2118
+          },
+          "name": "whenTypedAsClass",
+          "parameters": [
+            {
+              "name": "ringer",
+              "type": {
+                "fqn": "jsii-calc.IConcreteBellRinger"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "boolean"
+            }
+          }
+        }
+      ],
+      "name": "ConsumerCanRingBell"
     },
     "jsii-calc.ConsumersOfThisCrazyTypeSystem": {
       "assembly": "jsii-calc",
@@ -3975,6 +4242,102 @@
           }
         }
       ]
+    },
+    "jsii-calc.IBell": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental"
+      },
+      "fqn": "jsii-calc.IBell",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2139
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2140
+          },
+          "name": "ring"
+        }
+      ],
+      "name": "IBell"
+    },
+    "jsii-calc.IBellRinger": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Takes the object parameter as an interface."
+      },
+      "fqn": "jsii-calc.IBellRinger",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2128
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2129
+          },
+          "name": "yourTurn",
+          "parameters": [
+            {
+              "name": "bell",
+              "type": {
+                "fqn": "jsii-calc.IBell"
+              }
+            }
+          ]
+        }
+      ],
+      "name": "IBellRinger"
+    },
+    "jsii-calc.IConcreteBellRinger": {
+      "assembly": "jsii-calc",
+      "docs": {
+        "stability": "experimental",
+        "summary": "Takes the object parameter as a calss."
+      },
+      "fqn": "jsii-calc.IConcreteBellRinger",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/compliance.ts",
+        "line": 2135
+      },
+      "methods": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2136
+          },
+          "name": "yourTurn",
+          "parameters": [
+            {
+              "name": "bell",
+              "type": {
+                "fqn": "jsii-calc.Bell"
+              }
+            }
+          ]
+        }
+      ],
+      "name": "IConcreteBellRinger"
     },
     "jsii-calc.IDeprecatedInterface": {
       "assembly": "jsii-calc",
@@ -10328,5 +10691,5 @@
     }
   },
   "version": "0.20.0",
-  "fingerprint": "Gk2mbYSx8tmjrVf/JBPBkNEFEEG9i7jx9ptKC/0sCpE="
+  "fingerprint": "0Coq8NRof9rh1e1Bpj3IE6FnQn6vS2W2at5L+Baojhg="
 }

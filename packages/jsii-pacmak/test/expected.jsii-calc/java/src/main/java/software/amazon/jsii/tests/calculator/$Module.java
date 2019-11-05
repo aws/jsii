@@ -28,6 +28,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.AnonymousImplementationProvider": return software.amazon.jsii.tests.calculator.AnonymousImplementationProvider.class;
             case "jsii-calc.AsyncVirtualMethods": return software.amazon.jsii.tests.calculator.AsyncVirtualMethods.class;
             case "jsii-calc.AugmentableClass": return software.amazon.jsii.tests.calculator.AugmentableClass.class;
+            case "jsii-calc.Bell": return software.amazon.jsii.tests.calculator.Bell.class;
             case "jsii-calc.BinaryOperation": return software.amazon.jsii.tests.calculator.BinaryOperation.class;
             case "jsii-calc.Calculator": return software.amazon.jsii.tests.calculator.Calculator.class;
             case "jsii-calc.CalculatorProps": return software.amazon.jsii.tests.calculator.CalculatorProps.class;
@@ -40,6 +41,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties": return software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties.class;
             case "jsii-calc.ConstructorPassesThisOut": return software.amazon.jsii.tests.calculator.ConstructorPassesThisOut.class;
             case "jsii-calc.Constructors": return software.amazon.jsii.tests.calculator.Constructors.class;
+            case "jsii-calc.ConsumerCanRingBell": return software.amazon.jsii.tests.calculator.ConsumerCanRingBell.class;
             case "jsii-calc.ConsumersOfThisCrazyTypeSystem": return software.amazon.jsii.tests.calculator.ConsumersOfThisCrazyTypeSystem.class;
             case "jsii-calc.DataRenderer": return software.amazon.jsii.tests.calculator.DataRenderer.class;
             case "jsii-calc.DefaultedConstructorArgument": return software.amazon.jsii.tests.calculator.DefaultedConstructorArgument.class;
@@ -72,6 +74,9 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.IAnonymousImplementationProvider": return software.amazon.jsii.tests.calculator.IAnonymousImplementationProvider.class;
             case "jsii-calc.IAnonymouslyImplementMe": return software.amazon.jsii.tests.calculator.IAnonymouslyImplementMe.class;
             case "jsii-calc.IAnotherPublicInterface": return software.amazon.jsii.tests.calculator.IAnotherPublicInterface.class;
+            case "jsii-calc.IBell": return software.amazon.jsii.tests.calculator.IBell.class;
+            case "jsii-calc.IBellRinger": return software.amazon.jsii.tests.calculator.IBellRinger.class;
+            case "jsii-calc.IConcreteBellRinger": return software.amazon.jsii.tests.calculator.IConcreteBellRinger.class;
             case "jsii-calc.IDeprecatedInterface": return software.amazon.jsii.tests.calculator.IDeprecatedInterface.class;
             case "jsii-calc.IExperimentalInterface": return software.amazon.jsii.tests.calculator.IExperimentalInterface.class;
             case "jsii-calc.IExtendsPrivateInterface": return software.amazon.jsii.tests.calculator.IExtendsPrivateInterface.class;

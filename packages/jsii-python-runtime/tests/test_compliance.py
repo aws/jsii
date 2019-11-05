@@ -21,6 +21,7 @@ from jsii_calc import (
     DoubleTrouble,
     GreetingAugmenter,
     IBellRinger,
+    IConcreteBellRinger,
     IFriendlier,
     IFriendlyRandomGenerator,
     IRandomNumberGenerator,
@@ -975,21 +976,37 @@ def test_correctly_handling_struct_unions():
     assert StructUnionConsumer.is_struct_b(b0)
     assert StructUnionConsumer.is_struct_b(b1)
 
+def test_consumer_calls_method_static_objliteral():
+    assert ConsumerCanRingBell.static_implemented_by_object_literal(PythonBellRinger())
+
+def test_consumer_calls_method_static_publicclass():
+    assert ConsumerCanRingBell.static_implemented_by_public_class(PythonBellRinger())
+
+def test_consumer_calls_method_static_privateclass():
+    assert ConsumerCanRingBell.static_implemented_by_private_class(PythonBellRinger())
+
+def test_consumer_calls_method_static_typed_as_class():
+    assert ConsumerCanRingBell.static_when_typed_as_class(PythonConcreteBellRinger())
+
 def test_consumer_calls_method_objliteral():
-    assert ConsumerCanRingBell.implemented_by_object_literal(PythonBellRinger())
+    assert ConsumerCanRingBell().implemented_by_object_literal(PythonBellRinger())
 
 def test_consumer_calls_method_publicclass():
-    assert ConsumerCanRingBell.implemented_by_public_class(PythonBellRinger())
+    assert ConsumerCanRingBell().implemented_by_public_class(PythonBellRinger())
 
 def test_consumer_calls_method_privateclass():
-    assert ConsumerCanRingBell.implemented_by_private_class(PythonBellRinger())
+    assert ConsumerCanRingBell().implemented_by_private_class(PythonBellRinger())
+
+def test_consumer_calls_method_typed_as_class():
+    assert ConsumerCanRingBell().when_typed_as_class(PythonConcreteBellRinger())
 
 
 @jsii.implements(IBellRinger)
 class PythonBellRinger:
-    """Python implementation of IBellRinger.
+    def your_turn(self, bell):
+        bell.ring()
 
-    Will ring the bell when given its turn.
-    """
+@jsii.implements(IConcreteBellRinger)
+class PythonConcreteBellRinger:
     def your_turn(self, bell):
         bell.ring()
