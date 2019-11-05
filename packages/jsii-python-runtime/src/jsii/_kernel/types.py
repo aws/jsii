@@ -54,6 +54,7 @@ class CreateRequest:
     fqn: str
     args: List[Any] = attr.Factory(list)
     overrides: List[Override] = attr.Factory(list)
+    interfaces: Optional[List[str]] = attr.Factory(Optional[list])
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
@@ -248,6 +249,10 @@ class JSClass(Protocol):
         Returns a str that points to this class inside of the Javascript runtime.
         """
 
+    def __jsii_ifaces__(self) -> Optional[List['JSClass']]:
+        """
+        Returns an Optional[List['JSClass']] that represents interfaces implemented by this class (if any).
+        """
 
 class Referenceable(Protocol):
     @property

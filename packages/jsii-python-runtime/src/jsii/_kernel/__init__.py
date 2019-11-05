@@ -63,7 +63,9 @@ def _get_overides(klass: JSClass, obj: Any) -> List[Override]:
         )
     )
     for mro_klass in type(obj).mro():
-        if mro_klass is klass:
+        if mro_klass is klass and getattr(mro_klass, "__jsii_type__", "Object") is not None:
+            break
+        if mro_klass is Object:
             break
 
         for name, item in mro_klass.__dict__.items():
@@ -119,7 +121,7 @@ def _make_reference_for_native(kernel, d):
     elif isinstance(d, list):
         return [_make_reference_for_native(kernel, i) for i in d]
 
-    if hasattr(d, "__jsii_type__"):
+    if getattr(d, "__jsii_type__", None) is not None:
         typeFqn = getattr(d, "__jsii_type__")
         mapping = python_jsii_mapping(d)
         if mapping: # This means we are handling a data_type (aka Struct)
@@ -140,8 +142,7 @@ def _make_reference_for_native(kernel, d):
         # but we still want to serialize them as normal.
         raise JSIIError("Cannot pass function as argument here (did you mean to call this function?): %r" % d)
     else:
-        d.__jsii__type__ = "Object"
-        kernel.create(Object, d)
+        kernel.create(d.__class__, d)
         _reference_map.register_reference(d)
         return d
 
@@ -216,11 +217,16 @@ class Kernel(metaclass=Singleton):
 
         overrides = _get_overides(klass, obj)
 
+        interfaces = None
+        if klass.__jsii_ifaces__ is not None:
+            interfaces = [iface.__jsii_type__ for iface in klass.__jsii_ifaces__]
+
         response = self.provider.create(
             CreateRequest(
-                fqn=klass.__jsii_type__,
+                fqn=klass.__jsii_type__ or "Object",
                 args=_make_reference_for_native(self, args),
                 overrides=overrides,
+                interfaces=interfaces,
             )
         )
         if isinstance(response, Callback):
