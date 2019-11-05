@@ -292,13 +292,17 @@ class Kernel(metaclass=Singleton):
         if args is None:
             args = []
 
-        return self.provider.sinvoke(
+        response = self.provider.sinvoke(
             StaticInvokeRequest(
                 fqn=klass.__jsii_type__,
                 method=method,
                 args=_make_reference_for_native(self, args),
             )
-        ).result
+        )
+        if isinstance(response, Callback):
+            return _callback_till_result(self, response, InvokeResponse)
+        else:
+            return response.result
 
     @_dereferenced
     def complete(

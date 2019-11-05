@@ -2017,3 +2017,73 @@ export class StructUnionConsumer {
 
     private constructor() { }
 }
+
+
+/**
+ * Test calling back to consumers that implement interfaces
+ *
+ * Check that if a JSII consumer implements IConsumerWithInterfaceParam, they can call
+ * the method on the argument that they're passed...
+ */
+export class ConsumerCanRingBell {
+    /**
+     * ...if the interface is implemented using an object literal.
+     *
+     * Returns whether the bell was rung.
+     */
+    public static implementedByObjectLiteral(ringer: IBellRinger) {
+        let rung = false;
+        ringer.yourTurn({
+            ring() {
+                rung = true;
+            }
+        });
+        return rung;
+    }
+
+    /**
+     * ...if the interface is implemented using a public class.
+     *
+     * Return whether the bell was rung.
+     */
+    public static implementedByPublicClass(ringer: IBellRinger) {
+        const bell = new Bell();
+        ringer.yourTurn(bell);
+        return bell.rung;
+    }
+
+    /**
+     * ...if the interface is implemented using a private class.
+     *
+     * Return whether the bell was rung.
+     */
+    public static implementedByPrivateClass(ringer: IBellRinger) {
+        const bell = new PrivateBell();
+        ringer.yourTurn(bell);
+        return bell.rung;
+    }
+}
+
+export interface IBellRinger {
+    yourTurn(bell: IBell): void;
+}
+
+export interface IBell {
+    ring(): void;
+}
+
+export class Bell implements IBell {
+    public rung = false;
+
+    public ring() {
+        this.rung = true;
+    }
+}
+
+class PrivateBell implements IBell {
+    public rung = false;
+
+    public ring() {
+        this.rung = true;
+    }
+}

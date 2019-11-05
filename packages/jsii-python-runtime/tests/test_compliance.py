@@ -14,11 +14,13 @@ from jsii_calc import (
     AsyncVirtualMethods,
     Calculator,
     ClassWithPrivateConstructorAndAutomaticProperties,
+    ConsumerCanRingBell,
     ConstructorPassesThisOut,
     DataRenderer,
     DoNotOverridePrivates,
     DoubleTrouble,
     GreetingAugmenter,
+    IBellRinger,
     IFriendlier,
     IFriendlyRandomGenerator,
     IRandomNumberGenerator,
@@ -972,3 +974,22 @@ def test_correctly_handling_struct_unions():
     assert not StructUnionConsumer.is_struct_b(a1)
     assert StructUnionConsumer.is_struct_b(b0)
     assert StructUnionConsumer.is_struct_b(b1)
+
+def test_consumer_calls_method_objliteral():
+    assert ConsumerCanRingBell.implemented_by_object_literal(PythonBellRinger())
+
+def test_consumer_calls_method_publicclass():
+    assert ConsumerCanRingBell.implemented_by_public_class(PythonBellRinger())
+
+def test_consumer_calls_method_privateclass():
+    assert ConsumerCanRingBell.implemented_by_private_class(PythonBellRinger())
+
+
+@jsii.implements(IBellRinger)
+class PythonBellRinger:
+    """Python implementation of IBellRinger.
+
+    Will ring the bell when given its turn.
+    """
+    def your_turn(self, bell):
+        bell.ring()

@@ -173,6 +173,14 @@ exports[`jsii-tree --all 1`] = `
  │   │   │ └── returns: void
  │   │   └─┬ methodTwo() method (experimental)
  │   │     └── returns: void
+ │   ├─┬ class Bell (experimental)
+ │   │ ├── interfaces: IBell
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ ring() method (experimental)
+ │   │   │ └── returns: void
+ │   │   └─┬ rung property (experimental)
+ │   │     └── type: boolean
  │   ├─┬ class BinaryOperation (experimental)
  │   │ ├── base: Operation
  │   │ ├── interfaces: IFriendly
@@ -348,6 +356,27 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ static makeInterfaces() method (experimental)
  │   │     ├── static
  │   │     └── returns: Array<jsii-calc.IPublicInterface>
+ │   ├─┬ class ConsumerCanRingBell (experimental)
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer (experimental)
+ │   │   ├─┬ static implementedByObjectLiteral(ringer) method (experimental)
+ │   │   │ ├── static
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ ringer
+ │   │   │ │   └── type: jsii-calc.IBellRinger
+ │   │   │ └── returns: boolean
+ │   │   ├─┬ static implementedByPrivateClass(ringer) method (experimental)
+ │   │   │ ├── static
+ │   │   │ ├─┬ parameters
+ │   │   │ │ └─┬ ringer
+ │   │   │ │   └── type: jsii-calc.IBellRinger
+ │   │   │ └── returns: boolean
+ │   │   └─┬ static implementedByPublicClass(ringer) method (experimental)
+ │   │     ├── static
+ │   │     ├─┬ parameters
+ │   │     │ └─┬ ringer
+ │   │     │   └── type: jsii-calc.IBellRinger
+ │   │     └── returns: boolean
  │   ├─┬ class ConsumersOfThisCrazyTypeSystem (experimental)
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer (experimental)
@@ -1569,6 +1598,19 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ a property (experimental)
  │   │     ├── abstract
  │   │     └── type: string
+ │   ├─┬ interface IBell (experimental)
+ │   │ └─┬ members
+ │   │   └─┬ ring() method (experimental)
+ │   │     ├── abstract
+ │   │     └── returns: void
+ │   ├─┬ interface IBellRinger (experimental)
+ │   │ └─┬ members
+ │   │   └─┬ yourTurn(bell) method (experimental)
+ │   │     ├── abstract
+ │   │     ├─┬ parameters
+ │   │     │ └─┬ bell
+ │   │     │   └── type: jsii-calc.IBell
+ │   │     └── returns: void
  │   ├─┬ interface IDeprecatedInterface (deprecated)
  │   │ └─┬ members
  │   │   ├─┬ method() method (deprecated)
@@ -2069,6 +2111,8 @@ exports[`jsii-tree --inheritance 1`] = `
  │   │ └── interfaces: IAnonymousImplementationProvider
  │   ├── class AsyncVirtualMethods
  │   ├── class AugmentableClass
+ │   ├─┬ class Bell
+ │   │ └── interfaces: IBell
  │   ├─┬ class BinaryOperation
  │   │ ├── base: Operation
  │   │ └── interfaces: IFriendly
@@ -2086,6 +2130,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   │ └── interfaces: IInterfaceWithProperties
  │   ├── class ConstructorPassesThisOut
  │   ├── class Constructors
+ │   ├── class ConsumerCanRingBell
  │   ├── class ConsumersOfThisCrazyTypeSystem
  │   ├── class DataRenderer
  │   ├── class DefaultedConstructorArgument
@@ -2203,6 +2248,8 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── interface IAnonymousImplementationProvider
  │   ├── interface IAnonymouslyImplementMe
  │   ├── interface IAnotherPublicInterface
+ │   ├── interface IBell
+ │   ├── interface IBellRinger
  │   ├── interface IDeprecatedInterface
  │   ├── interface IExperimentalInterface
  │   ├── interface IExtendsPrivateInterface
@@ -2375,6 +2422,11 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── <initializer>() initializer
  │   │   ├── methodOne() method
  │   │   └── methodTwo() method
+ │   ├─┬ class Bell
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── ring() method
+ │   │   └── rung property
  │   ├─┬ class BinaryOperation
  │   │ └─┬ members
  │   │   ├── <initializer>(lhs,rhs) initializer
@@ -2448,6 +2500,12 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── static makeInterface() method
  │   │   ├── static makeInterface2() method
  │   │   └── static makeInterfaces() method
+ │   ├─┬ class ConsumerCanRingBell
+ │   │ └─┬ members
+ │   │   ├── <initializer>() initializer
+ │   │   ├── static implementedByObjectLiteral(ringer) method
+ │   │   ├── static implementedByPrivateClass(ringer) method
+ │   │   └── static implementedByPublicClass(ringer) method
  │   ├─┬ class ConsumersOfThisCrazyTypeSystem
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
@@ -2979,6 +3037,12 @@ exports[`jsii-tree --members 1`] = `
  │   ├─┬ interface IAnotherPublicInterface
  │   │ └─┬ members
  │   │   └── a property
+ │   ├─┬ interface IBell
+ │   │ └─┬ members
+ │   │   └── ring() method
+ │   ├─┬ interface IBellRinger
+ │   │ └─┬ members
+ │   │   └── yourTurn(bell) method
  │   ├─┬ interface IDeprecatedInterface
  │   │ └─┬ members
  │   │   ├── method() method
@@ -3232,6 +3296,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class AnonymousImplementationProvider
  │   ├── class AsyncVirtualMethods
  │   ├── class AugmentableClass
+ │   ├── class Bell
  │   ├── class BinaryOperation
  │   ├── class Calculator
  │   ├── class ClassThatImplementsTheInternalInterface
@@ -3243,6 +3308,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class ClassWithPrivateConstructorAndAutomaticProperties
  │   ├── class ConstructorPassesThisOut
  │   ├── class Constructors
+ │   ├── class ConsumerCanRingBell
  │   ├── class ConsumersOfThisCrazyTypeSystem
  │   ├── class DataRenderer
  │   ├── class DefaultedConstructorArgument
@@ -3333,6 +3399,8 @@ exports[`jsii-tree --types 1`] = `
  │   ├── interface IAnonymousImplementationProvider
  │   ├── interface IAnonymouslyImplementMe
  │   ├── interface IAnotherPublicInterface
+ │   ├── interface IBell
+ │   ├── interface IBellRinger
  │   ├── interface IDeprecatedInterface
  │   ├── interface IExperimentalInterface
  │   ├── interface IExtendsPrivateInterface
