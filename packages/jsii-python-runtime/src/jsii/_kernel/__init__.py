@@ -151,13 +151,15 @@ def _handle_callback(kernel, callback):
     if callback.invoke:
         obj = _reference_map.resolve_id(callback.invoke.objref.ref)
         method = getattr(obj, callback.cookie)
-        return method(*callback.invoke.args)
+        hydrated_args = [_recursize_dereference(kernel, a) for a in callback.invoke.args]
+        return method(*hydrated_args)
     elif callback.get:
         obj = _reference_map.resolve_id(callback.get.objref.ref)
         return getattr(obj, callback.cookie)
     elif callback.set:
         obj = _reference_map.resolve_id(callback.set.objref.ref)
-        return setattr(obj, callback.cookie, callback.set.value)
+        hydrated_value = _recursize_dereference(kernel, callback.set.value)
+        return setattr(obj, callback.cookie, hydrated_value)
     else:
         raise JSIIError("Callback does not contain invoke|get|set")
 
