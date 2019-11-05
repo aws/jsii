@@ -59,23 +59,6 @@ function tagObject(obj: object, objid: string, interfaces?: string[]) {
 }
 
 /**
- * Ensure there's a hidden map with the given symbol name on the given object, and return it
- */
-export function hiddenMap<T>(obj: any, mapSymbol: symbol): {[key: string]: T} {
-  let map: any = obj[mapSymbol];
-  if (!map) {
-    map = {};
-    Object.defineProperty(obj, mapSymbol, {
-      value: map,
-      configurable: false,
-      enumerable: false,
-      writable: false
-    });
-  }
-  return map;
-}
-
-/**
  * Set the JSII FQN for classes produced by a given constructor
  */
 export function tagJsiiConstructor(constructor: any, fqn: string) {
