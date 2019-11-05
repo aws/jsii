@@ -112,16 +112,16 @@ def _dereferenced(fn):
 # We need to recurse through our data structure and look for anything that the JSII
 # doesn't natively handle. These items will be created as "Object" types in the JSII.
 def _make_reference_for_native(kernel, d):
-    # Ugly delayed import here because I can't solve the cyclic
-    # package dependency right now :(.
-    from jsii._runtime import python_jsii_mapping
-
     if isinstance(d, dict):
         return {"$jsii.map": {k: _make_reference_for_native(kernel, v) for k, v in d.items()}}
     elif isinstance(d, list):
         return [_make_reference_for_native(kernel, i) for i in d]
 
     if getattr(d, "__jsii_type__", None) is not None:
+        # Ugly delayed import here because I can't solve the cyclic
+        # package dependency right now :(.
+        from jsii._runtime import python_jsii_mapping
+
         typeFqn = getattr(d, "__jsii_type__")
         mapping = python_jsii_mapping(d)
         if mapping: # This means we are handling a data_type (aka Struct)
@@ -215,18 +215,12 @@ class Kernel(metaclass=Singleton):
         if args is None:
             args = []
 
-        overrides = _get_overides(klass, obj)
-
-        interfaces = None
-        if klass.__jsii_ifaces__ is not None:
-            interfaces = [iface.__jsii_type__ for iface in klass.__jsii_ifaces__]
-
         response = self.provider.create(
             CreateRequest(
                 fqn=klass.__jsii_type__ or "Object",
                 args=_make_reference_for_native(self, args),
-                overrides=overrides,
-                interfaces=interfaces,
+                overrides=_get_overides(klass, obj),
+                interfaces=[iface.__jsii_type__ for iface in getattr(klass, "__jsii_ifaces__", [])],
             )
         )
         if isinstance(response, Callback):

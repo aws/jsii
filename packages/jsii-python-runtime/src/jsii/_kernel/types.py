@@ -249,11 +249,6 @@ class JSClass(Protocol):
         Returns a str that points to this class inside of the Javascript runtime.
         """
 
-    def __jsii_ifaces__(self) -> Optional[List['JSClass']]:
-        """
-        Returns an Optional[List['JSClass']] that represents interfaces implemented by this class (if any).
-        """
-
 class Referenceable(Protocol):
     @property
     def __jsii_ref__(self) -> ObjRef:
