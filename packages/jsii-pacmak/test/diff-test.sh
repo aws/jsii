@@ -72,6 +72,7 @@ function assert-generator() {
     done
 }
 
+assert-generator jsii-calc-base-of-base
 assert-generator jsii-calc-base
 assert-generator jsii-calc-lib
 assert-generator jsii-calc
