@@ -1249,7 +1249,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2096
+        "line": 2143
       },
       "methods": [
         {
@@ -1258,7 +1258,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2099
+            "line": 2146
           },
           "name": "ring",
           "overrides": "jsii-calc.IBell"
@@ -1272,7 +1272,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2097
+            "line": 2144
           },
           "name": "rung",
           "type": {
@@ -2365,7 +2365,7 @@
             "filename": "lib/compliance.ts",
             "line": 2034
           },
-          "name": "implementedByObjectLiteral",
+          "name": "staticImplementedByObjectLiteral",
           "parameters": [
             {
               "name": "ringer",
@@ -2391,7 +2391,7 @@
             "filename": "lib/compliance.ts",
             "line": 2060
           },
-          "name": "implementedByPrivateClass",
+          "name": "staticImplementedByPrivateClass",
           "parameters": [
             {
               "name": "ringer",
@@ -2417,7 +2417,7 @@
             "filename": "lib/compliance.ts",
             "line": 2049
           },
-          "name": "implementedByPublicClass",
+          "name": "staticImplementedByPublicClass",
           "parameters": [
             {
               "name": "ringer",
@@ -2443,7 +2443,7 @@
             "filename": "lib/compliance.ts",
             "line": 2071
           },
-          "name": "whenTypedAsClass",
+          "name": "staticWhenTypedAsClass",
           "parameters": [
             {
               "name": "ringer",
@@ -2458,6 +2458,106 @@
             }
           },
           "static": true
+        },
+        {
+          "docs": {
+            "remarks": "Returns whether the bell was rung.",
+            "stability": "experimental",
+            "summary": "...if the interface is implemented using an object literal."
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2081
+          },
+          "name": "implementedByObjectLiteral",
+          "parameters": [
+            {
+              "name": "ringer",
+              "type": {
+                "fqn": "jsii-calc.IBellRinger"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "boolean"
+            }
+          }
+        },
+        {
+          "docs": {
+            "remarks": "Return whether the bell was rung.",
+            "stability": "experimental",
+            "summary": "...if the interface is implemented using a private class."
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2107
+          },
+          "name": "implementedByPrivateClass",
+          "parameters": [
+            {
+              "name": "ringer",
+              "type": {
+                "fqn": "jsii-calc.IBellRinger"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "boolean"
+            }
+          }
+        },
+        {
+          "docs": {
+            "remarks": "Return whether the bell was rung.",
+            "stability": "experimental",
+            "summary": "...if the interface is implemented using a public class."
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2096
+          },
+          "name": "implementedByPublicClass",
+          "parameters": [
+            {
+              "name": "ringer",
+              "type": {
+                "fqn": "jsii-calc.IBellRinger"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "boolean"
+            }
+          }
+        },
+        {
+          "docs": {
+            "remarks": "Return whether the bell was rung.",
+            "stability": "experimental",
+            "summary": "If the parameter is a concrete class instead of an interface."
+          },
+          "locationInModule": {
+            "filename": "lib/compliance.ts",
+            "line": 2118
+          },
+          "name": "whenTypedAsClass",
+          "parameters": [
+            {
+              "name": "ringer",
+              "type": {
+                "fqn": "jsii-calc.IConcreteBellRinger"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "primitive": "boolean"
+            }
+          }
         }
       ],
       "name": "ConsumerCanRingBell"
@@ -4152,7 +4252,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2092
+        "line": 2139
       },
       "methods": [
         {
@@ -4162,7 +4262,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2093
+            "line": 2140
           },
           "name": "ring"
         }
@@ -4179,7 +4279,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2081
+        "line": 2128
       },
       "methods": [
         {
@@ -4189,7 +4289,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2082
+            "line": 2129
           },
           "name": "yourTurn",
           "parameters": [
@@ -4214,7 +4314,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/compliance.ts",
-        "line": 2088
+        "line": 2135
       },
       "methods": [
         {
@@ -4224,7 +4324,7 @@
           },
           "locationInModule": {
             "filename": "lib/compliance.ts",
-            "line": 2089
+            "line": 2136
           },
           "name": "yourTurn",
           "parameters": [
@@ -10591,5 +10691,5 @@
     }
   },
   "version": "0.20.0",
-  "fingerprint": "/RixCfmN1ullwcAL5vmpSlGtU7F6Aw21XykcHTYQwsY="
+  "fingerprint": "0Coq8NRof9rh1e1Bpj3IE6FnQn6vS2W2at5L+Baojhg="
 }
