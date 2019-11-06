@@ -26,6 +26,7 @@
     "watch": "tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
     "test": "jest",
+    "test:update": "jest -u",
     "package": "rm -fr dist/js && mkdir -p dist/js && mv $(npm pack) dist/js"
   },
   "dependencies": {

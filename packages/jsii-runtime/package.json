@@ -29,6 +29,7 @@
     "watch": "tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
     "test": "/bin/bash test/playback-test.sh && node test/stress-test.js",
+    "test:update": "UPDATE_DIFF=1 npm run test",
     "package": "package-js"
   },
   "dependencies": {

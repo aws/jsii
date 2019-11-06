@@ -30,7 +30,7 @@
     "watch": "tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
     "test": "/bin/bash test/diff-test.sh && /bin/bash test/build-test.sh && jest",
-    "test:update": "UPDATE_DIFF=1 npm test",
+    "test:update": "UPDATE_DIFF=1 /bin/bash test/diff-test.sh && /bin/bash test/build-test.sh && jest -u",
     "package": "package-js"
   },
   "dependencies": {
@@ -52,7 +52,7 @@
     "@types/commonmark": "^0.27.4",
     "@types/fs-extra": "^8.0.1",
     "@types/jest": "^24.0.21",
-    "@types/node": "^10.17.3",
+    "@types/node": "^10.17.4",
     "@types/yargs": "^13.0.3",
     "@typescript-eslint/eslint-plugin": "^2.6.1",
     "@typescript-eslint/parser": "^2.6.1",
