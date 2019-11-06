@@ -1,6 +1,6 @@
 {
   "name": "jsii-python-runtime",
-  "version": "0.20.0",
+  "version": "0.20.1",
   "private": true,
   "description": "Python client for jsii runtime",
   "license": "Apache-2.0",
@@ -26,12 +26,13 @@
     "deps": "python3 -m venv .env && .env/bin/pip install pip==19.0.1 setuptools==40.7.0 wheel==0.32.3 && .env/bin/pip install -r requirements.txt",
     "build": "cp ../../README.md . && npm run generate && npm run deps && .env/bin/python setup.py sdist -d . bdist_wheel -d . && rm -rf build",
     "package": "package-python",
-    "test": ".env/bin/python bin/generate-calc && .env/bin/py.test -v --mypy"
+    "test": ".env/bin/python bin/generate-calc && .env/bin/py.test -v --mypy",
+    "test:update": "UPDATE_DIFF=1 .env/bin/python bin/generate-calc && .env/bin/py.test -v --mypy"
   },
   "dependencies": {
-    "jsii-build-tools": "^0.20.0",
-    "jsii-calc": "^0.20.0",
-    "jsii-pacmak": "^0.20.0",
-    "jsii-runtime": "^0.20.0"
+    "jsii-build-tools": "^0.20.1",
+    "jsii-calc": "^0.20.1",
+    "jsii-pacmak": "^0.20.1",
+    "jsii-runtime": "^0.20.1"
   }
 }

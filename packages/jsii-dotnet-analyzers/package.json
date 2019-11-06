@@ -1,6 +1,6 @@
 {
   "name": "jsii-dotnet-analyzers",
-  "version": "0.20.0",
+  "version": "0.20.1",
   "private": true,
   "description": ".NET Roslyn Analyzers for Jsii",
   "license": "Apache-2.0",
@@ -27,10 +27,11 @@
     "gen": "/bin/bash ./generate.sh",
     "build": "npm run gen && tsc --build && /bin/bash ./build.sh",
     "test": "/bin/bash ./test.sh",
+    "test:update": "UPDATE_DIFF=1 npm run test",
     "package": "package-dotnet"
   },
   "devDependencies": {
-    "jsii-build-tools": "^0.20.0",
-    "jsii-dotnet-runtime": "^0.20.0"
+    "jsii-build-tools": "^0.20.1",
+    "jsii-dotnet-runtime": "^0.20.1"
   }
 }

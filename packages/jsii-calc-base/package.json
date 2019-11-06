@@ -1,6 +1,6 @@
 {
   "name": "@scope/jsii-calc-base",
-  "version": "0.20.0",
+  "version": "0.20.1",
   "private": true,
   "description": "An example direct dependency for jsii-calc.",
   "license": "Apache-2.0",
@@ -29,14 +29,14 @@
     "test:update": "npm run build && UPDATE_DIFF=1 npm run test"
   },
   "dependencies": {
-    "@scope/jsii-calc-base-of-base": "^0.20.0"
+    "@scope/jsii-calc-base-of-base": "^0.20.1"
   },
   "peerDependencies": {
-    "@scope/jsii-calc-base-of-base": "^0.20.0"
+    "@scope/jsii-calc-base-of-base": "^0.20.1"
   },
   "devDependencies": {
-    "jsii": "^0.20.0",
-    "jsii-build-tools": "^0.20.0"
+    "jsii": "^0.20.1",
+    "jsii-build-tools": "^0.20.1"
   },
   "jsii": {
     "outdir": "dist",

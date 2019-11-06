@@ -1,6 +1,6 @@
 {
   "name": "oo-ascii-tree",
-  "version": "0.20.0",
+  "version": "0.20.1",
   "description": "object-oriented ascii tree renderer",
   "license": "Apache-2.0",
   "author": {
@@ -26,6 +26,7 @@
     "watch": "tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
     "test": "jest",
+    "test:update": "jest -u",
     "package": "package-js"
   },
   "devDependencies": {
@@ -34,7 +35,7 @@
     "@typescript-eslint/parser": "^2.6.1",
     "eslint": "^6.6.0",
     "jest": "^24.9.0",
-    "jsii-build-tools": "^0.20.0",
+    "jsii-build-tools": "^0.20.1",
     "typescript": "~3.6.4"
   },
   "jest": {
