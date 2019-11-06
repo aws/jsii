@@ -26,9 +26,15 @@ export interface JsiiModuleOptions {
    * Output directory where to package everything
   */
   defaultOutputDirectory: string;
+
+  /**
+   * Names of packages this package depends on, if any
+   */
+  dependencyNames?: string[];
 }
 export class JsiiModule {
   public readonly name: string;
+  public readonly dependencyNames: string[];
   public readonly moduleDirectory: string;
   public readonly availableTargets: string[];
   public outputDirectory: string;
@@ -41,6 +47,7 @@ export class JsiiModule {
     this.moduleDirectory = options.moduleDirectory;
     this.availableTargets = options.availableTargets;
     this.outputDirectory = options.defaultOutputDirectory;
+    this.dependencyNames = options.dependencyNames || [];
   }
 
   /**
