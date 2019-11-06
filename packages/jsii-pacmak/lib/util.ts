@@ -52,7 +52,10 @@ export async function shell(cmd: string, args: string[], options: ShellOptions):
         stderr.push(Buffer.from(chunk));
       });
       child.once('error', ko);
-      child.once('exit', (code, signal) => {
+
+      // Muse use CLOSE instead of EXIT; EXIT may fire while there is still data in the
+      // I/O pipes, which we will miss if we return at that point.
+      child.once('close', (code, signal) => {
         const out = Buffer.concat(stdout).toString('utf-8');
         if (code === 0) { return ok(out); }
         const err = Buffer.concat(stderr).toString('utf-8');
