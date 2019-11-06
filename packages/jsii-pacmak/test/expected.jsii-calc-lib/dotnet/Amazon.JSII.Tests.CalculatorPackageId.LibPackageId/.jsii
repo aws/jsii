@@ -29,7 +29,7 @@
           "module": "scope.jsii_calc_base"
         }
       },
-      "version": "0.20.0"
+      "version": "0.20.1"
     }
   },
   "dependencyClosure": {
@@ -54,7 +54,7 @@
           "module": "scope.jsii_calc_base"
         }
       },
-      "version": "0.20.0"
+      "version": "0.20.1"
     },
     "@scope/jsii-calc-base-of-base": {
       "targets": {
@@ -77,7 +77,7 @@
           "module": "scope.jsii_calc_base_of_base"
         }
       },
-      "version": "0.20.0"
+      "version": "0.20.1"
     }
   },
   "description": "A simple calcuator library built on JSII.",
@@ -86,7 +86,7 @@
     "stability": "deprecated"
   },
   "homepage": "https://github.com/aws/jsii",
-  "jsiiVersion": "0.20.0",
+  "jsiiVersion": "0.20.1",
   "license": "Apache-2.0",
   "name": "@scope/jsii-calc-lib",
   "repository": {
@@ -538,6 +538,6 @@
       ]
     }
   },
-  "version": "0.20.0",
-  "fingerprint": "V/TGWxkLxogsUtcpbLawfkQdANll6oFjfh/lqmtiR+U="
+  "version": "0.20.1",
+  "fingerprint": "dzAp6u7nLXCldfQsltc4O7G4bdx79Y22Sj+jLbbJatY="
 }
