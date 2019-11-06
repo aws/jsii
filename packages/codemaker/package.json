@@ -41,7 +41,7 @@
     "@typescript-eslint/parser": "^2.6.1",
     "eslint": "^6.6.0",
     "jest": "^24.9.0",
-    "typescript": "~3.6.4"
+    "typescript": "~3.7.2"
   },
   "jest": {
     "collectCoverage": true,

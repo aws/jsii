@@ -63,7 +63,7 @@
     "jsii-dotnet-jsonmodel": "^0.20.0",
     "jsii-dotnet-runtime": "^0.20.0",
     "jsii-java-runtime": "^0.20.0",
-    "typescript": "~3.6.4"
+    "typescript": "~3.7.2"
   },
   "keywords": [
     "jsii",

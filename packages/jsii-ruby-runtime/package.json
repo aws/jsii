@@ -36,6 +36,6 @@
     "jsii-calc": "^0.20.0",
     "jsii-pacmak": "^0.20.0",
     "jsii-runtime": "^0.20.0",
-    "typescript": "~3.6.4"
+    "typescript": "~3.7.2"
   }
 }

@@ -15,7 +15,7 @@
     "@typescript-eslint/parser": "^2.6.1",
     "eslint": "^6.6.0",
     "lerna": "^3.18.3",
-    "typescript": "~3.6.4"
+    "typescript": "~3.7.2"
   },
   "repository": {
     "type": "git",
