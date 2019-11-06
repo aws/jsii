@@ -53,7 +53,7 @@ export async function shell(cmd: string, args: string[], options: ShellOptions):
       });
       child.once('error', ko);
 
-      // Muse use CLOSE instead of EXIT; EXIT may fire while there is still data in the
+      // Must use CLOSE instead of EXIT; EXIT may fire while there is still data in the
       // I/O pipes, which we will miss if we return at that point.
       child.once('close', (code, signal) => {
         const out = Buffer.concat(stdout).toString('utf-8');
