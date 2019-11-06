@@ -34,6 +34,7 @@
     "jsii-build-tools": "^0.20.1",
     "jsii-dotnet-jsonmodel": "^0.20.1",
     "jsii-runtime": "^0.20.1",
+    "semver": "^6.3.0",
     "typescript": "~3.6.4"
   }
 }

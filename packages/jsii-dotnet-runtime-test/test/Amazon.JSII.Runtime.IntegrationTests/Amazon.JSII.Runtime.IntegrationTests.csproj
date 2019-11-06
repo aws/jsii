@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId" Version="$(JsiiVersion)" />
+        <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId" Version="[$(JsiiVersion)]" />
     </ItemGroup>
 
     <ItemGroup>
