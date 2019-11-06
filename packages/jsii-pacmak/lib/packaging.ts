@@ -58,7 +58,13 @@ export class JsiiModule {
       // tarball name. otherwise, there can be a lot of extra noise there
       // from scripts that emit to STDOUT.
       const lines = out.trim().split(os.EOL);
-      return path.resolve(tmpdir, lines[lines.length - 1].trim());
+      const lastLine = lines[lines.length - 1].trim();
+
+      if (!lastLine.endsWith('.tgz') && !lastLine.endsWith('.tar.gz')) {
+        throw new Error(`npm pack did not produce tarball from ${this.moduleDirectory} into ${tmpdir} (output was ${JSON.stringify(lines)})`);
+      }
+
+      return path.resolve(tmpdir, lastLine);
     });
   }
 
