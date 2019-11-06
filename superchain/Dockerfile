@@ -12,9 +12,9 @@ COPY gpg/mono.asc /tmp/mono.asc
 RUN rpm --import "https://packages.microsoft.com/keys/microsoft.asc"                                                    \
   && rpm -Uvh "https://packages.microsoft.com/config/rhel/7/packages-microsoft-prod.rpm"                                \
   && rpm --import /tmp/mono.asc && rm -f /tmp/mono.asc                                                                  \
-  && curl -sSL "https://download.mono-project.com/repo/centos6-stable.repo"                                             \
-      | tee /etc/yum.repos.d/mono-centos6-stable.repo                                                                   \
-  && yum -y install dotnet-sdk-3.0 dotnet-sdk-2.2 mono-devel powershell                                                 \
+  && curl -sSL "https://download.mono-project.com/repo/centos7-stable.repo"                                             \
+      | tee /etc/yum.repos.d/mono-centos7-stable.repo                                                                   \
+  && yum -y install dotnet-sdk-3.0 mono-devel powershell                                                                \
   && yum clean all && rm -rf /var/cache/yum                                                                             \
   && dotnet help
 

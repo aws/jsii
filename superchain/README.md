@@ -10,9 +10,9 @@ required in order to package [jsii] projects in all supported languages.
 SDK             | Version
 ----------------|-------------------------------------------
 `OpenJDK 8`     | Amazon Corretto `>= 8.222.10.2`
-`.NET SDK`      | `>= 3.0.100` and `>= 2.2.402`
+`.NET SDK`      | `>= 3.0.100`
 `mono`          | `>= 6.0.0.319`
-`Javascript`    | `node >= 10.16.3` with `npm >= 6.9.0`
+`Javascript`    | `node >= 10.17.0` with `npm >= 6.9.0`
 `PowerShell`    | `pwsh >= 6.2.3`
 `Python 3`      | `python3 >= 3.7.4` with `pip3 >= 19.3`
 `Ruby`          | `ruby >= 2.4.7p357`
