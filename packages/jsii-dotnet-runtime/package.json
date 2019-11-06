@@ -27,6 +27,7 @@
     "gen": "/bin/bash ./generate.sh",
     "build": "npm run gen && tsc --build && /bin/bash ./build.sh",
     "test": "/bin/bash ./test.sh",
+    "test:update": "UPDATE_DIFF=1 npm run test",
     "package": "package-dotnet"
   },
   "devDependencies": {

@@ -10,6 +10,7 @@
     "build": "tsc --build",
     "watch": "tsc --build -w",
     "test": "jest",
+    "test:update": "jest -u",
     "package": "package-js"
   },
   "devDependencies": {

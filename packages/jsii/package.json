@@ -29,6 +29,7 @@
     "watch": "bash ./generate.sh && tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore --ignore-pattern=test/negatives/*",
     "test": "jest",
+    "test:update": "jest -u",
     "package": "package-js"
   },
   "dependencies": {

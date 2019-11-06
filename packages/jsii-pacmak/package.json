@@ -30,7 +30,7 @@
     "watch": "tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
     "test": "/bin/bash test/diff-test.sh && /bin/bash test/build-test.sh && jest",
-    "test:update": "UPDATE_DIFF=1 npm test",
+    "test:update": "UPDATE_DIFF=1 /bin/bash test/diff-test.sh && /bin/bash test/build-test.sh && jest -u",
     "package": "package-js"
   },
   "dependencies": {
