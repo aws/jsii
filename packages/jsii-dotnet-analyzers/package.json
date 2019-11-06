@@ -31,7 +31,6 @@
     "package": "package-dotnet"
   },
   "devDependencies": {
-    "jsii-build-tools": "^0.20.1",
-    "jsii-dotnet-runtime": "^0.20.1"
+    "jsii-build-tools": "^0.20.1"
   }
 }
