@@ -6,7 +6,7 @@ export async function readTablet(tabletFile: string, key?: string, lang?: string
   await tab.load(tabletFile);
 
   if (key !== undefined) {
-    const snippet = tab.getSnippet(key);
+    const snippet = tab.tryGetSnippet(key);
     if (snippet === undefined) {
       throw new Error(`No such snippet: ${key}`);
     }
@@ -18,7 +18,7 @@ export async function readTablet(tabletFile: string, key?: string, lang?: string
   function listSnippets() {
     for (const key of tab.snippetKeys) {
       process.stdout.write(snippetHeader(key) + '\n');
-      displaySnippet(tab.getSnippet(key)!);
+      displaySnippet(tab.tryGetSnippet(key)!);
       process.stdout.write('\n');
     }
   }

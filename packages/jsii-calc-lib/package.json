@@ -26,7 +26,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "jsii && jsii-rosetta extract",
+    "build": "jsii && jsii-rosetta",
     "test": "diff-test test/assembly.jsii .jsii",
     "test:update": "npm run build && UPDATE_DIFF=1 npm run test"
   },

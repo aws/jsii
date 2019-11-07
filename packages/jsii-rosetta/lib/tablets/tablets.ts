@@ -6,7 +6,7 @@ import { TypeScriptSnippet } from '../snippet';
 
 const TOOL_VERSION = require('../../package.json').version;
 
-export const DEFAULT_TABLET_NAME = '.jsii-samples.tabl';
+export const DEFAULT_TABLET_NAME = '.jsii.tabl.json';
 
 /**
  * A tablet containing various snippets in multiple languages
@@ -23,14 +23,14 @@ export class LanguageTablet {
     return Object.keys(this.snippets);
   }
 
-  public getSnippet(key: string): TranslatedSnippet | undefined {
+  public tryGetSnippet(key: string): TranslatedSnippet | undefined {
     return this.snippets[key];
   }
 
   public lookup(typeScriptSource: TypeScriptSnippet, language: TargetLanguage): Translation | undefined {
     const snippet = this.snippets[snippetKey(typeScriptSource)];
     return snippet && snippet.get(language);
-  }
+}
 
   public async load(filename: string) {
     const obj = await fs.readJson(filename, { encoding: 'utf-8' });

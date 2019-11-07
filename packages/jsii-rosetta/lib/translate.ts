@@ -111,8 +111,6 @@ export class SnippetTranslator {
   }
 
   public renderUsing(visitor: AstHandler<any>) {
-    return '';
-
     const converter = new AstRenderer(this.compilation.rootFile, this.compilation.program.getTypeChecker(), visitor, this.options);
     const converted = converter.convert(this.compilation.rootFile);
     this.translateDiagnostics.push(...converter.diagnostics);

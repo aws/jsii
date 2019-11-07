@@ -173,8 +173,10 @@ Works like this:
 ```
 $ jsii-rosetta extract --compile $(find . -name .jsii) --directory some/dir
 $ jsii-pacmak --samples-tablet .jsii-samples.tbl
-
 ```
+
+(The `extract` command is the default and may be omitted, but if you're passing
+assembliess as arguments you should terminate the option list by passing `--`).
 
 ### Running in parallel
 

@@ -47,7 +47,7 @@ export interface OTreeOptions {
  * "Output" Tree
  *
  * Tree-like structure that holds sequences of trees and strings, which
- * can be rendered to an output stream.
+ * can be rendered to an output sink.
  */
 export class OTree implements OTree {
   public static simplify(xs: Array<OTree | string | undefined>): Array<OTree | string> {
@@ -126,6 +126,15 @@ export interface OTreeSinkOptions {
   visibleSpans?: Span[];
 }
 
+/**
+ * Output sink for OTree objects
+ *
+ * Maintains state about what has been rendered supports suppressing code
+ * fragments based on their tagged source location.
+ *
+ * Basically: manages the state that was too hard to manage in the
+ * tree :).
+ */
 export class OTreeSink {
   private readonly indentLevels: number[] = [0];
   private readonly fragments = new Array<string>();

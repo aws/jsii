@@ -38,7 +38,7 @@ async function main() {
         makeVisitor(args));
       renderResult(result);
     }))
-    .command('extract [ASSEMBLY..]', 'Extract code snippets from one or more assemblies into a language tablets', command => command
+    .command(['extract [ASSEMBLY..]', '$0 [ASSEMBLY..]'], 'Extract code snippets from one or more assemblies into a language tablets', command => command
       .positional('ASSEMBLY', { type: 'string', string: true, default: new Array<string>(), describe: 'Assembly or directory to extract from' })
       .option('output', { alias: 'o', type: 'string', describe: 'Output file where to store the sample tablets', default: DEFAULT_TABLET_NAME })
       .option('compile', { alias: 'c', type: 'boolean', describe: 'Try compiling', default: false })
@@ -68,7 +68,7 @@ async function main() {
         process.exit(1);
       }
     }))
-    .command('read <TABLET> [KEY] [LANGUAGE]', 'Read snippets from a language tablet', command => command
+    .command('read <TABLET> [KEY] [LANGUAGE]', 'Display snippets in a language tablet file', command => command
       .positional('TABLET', { type: 'string', required: true, describe: 'Language tablet to read' })
       .positional('KEY', { type: 'string', describe: 'Snippet key to read' })
       .positional('LANGUAGE', { type: 'string', describe: 'Language ID to read' })

@@ -79,11 +79,11 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
       desc: 'Auto-update .npmignore to exclude the output directory and include the .jsii file',
       default: true
     })
-    .option('samples-tablet', {
+    .option('rosetta-tablet', {
       type: 'string',
       desc: 'Location of a jsii-rosetta tablet with sample translations (created using \'jsii-rosetta extract\')'
     })
-    .option('live-translation', {
+    .option('rosetta-translate-live', {
       type: 'boolean',
       desc: 'Translate code samples on-the-fly if they can\'t be found in the samples tablet',
       default: true
@@ -99,9 +99,9 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
 
   const timers = new Timers();
 
-  const rosetta = new Rosetta({ liveConversion: argv['live-translation'] });
-  if (argv['samples-tablet']) {
-    await rosetta.loadTabletFromFile(argv['samples-tablet']);
+  const rosetta = new Rosetta({ liveConversion: argv['rosetta-translate-live'] });
+  if (argv['rosetta-tablet']) {
+    await rosetta.loadTabletFromFile(argv['rosetta-tablet']);
   }
 
   const modulesToPackage = await findJsiiModules(argv._, argv.recurse);
