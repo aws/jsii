@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Reflection;
 using Amazon.JSII.Runtime.Deputy;
@@ -9,9 +9,9 @@ namespace Amazon.JSII.Runtime
     {
         public static FieldInfo GetEnumMember(Type enumType, string name)
         {
-            FieldInfo fieldInfo = enumType.GetFields().FirstOrDefault(field =>
+            var fieldInfo = enumType.GetFields().FirstOrDefault(field =>
             {
-                JsiiEnumMemberAttribute attribute = field.GetCustomAttribute<JsiiEnumMemberAttribute>();
+                var attribute = field.GetCustomAttribute<JsiiEnumMemberAttribute>();
 
                 return attribute != null && attribute.Name == name;
             });
@@ -26,7 +26,7 @@ namespace Amazon.JSII.Runtime
 
         public static MethodInfo GetNativeMethod(Type classType, string name)
         {
-            MethodInfo methodInfo = classType.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).FirstOrDefault(method =>
+            var methodInfo = classType.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).FirstOrDefault(method =>
             {
                 JsiiMethodAttribute attribute = method.GetCustomAttribute<JsiiMethodAttribute>();
 
@@ -44,7 +44,7 @@ namespace Amazon.JSII.Runtime
 
         public static PropertyInfo GetNativeProperty(Type classType, string name)
         {
-            PropertyInfo propertyInfo = classType.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).FirstOrDefault(property =>
+            var propertyInfo = classType.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).FirstOrDefault(property =>
             {
                 JsiiPropertyAttribute attribute = property.GetCustomAttribute<JsiiPropertyAttribute>();
 

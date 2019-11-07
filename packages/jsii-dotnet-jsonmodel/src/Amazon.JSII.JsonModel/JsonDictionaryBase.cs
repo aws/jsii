@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Amazon.JSII.JsonModel
 {
-    public abstract class JsonDictionaryBase<TKey, TValue> : IEnumerable, IEnumerable<KeyValuePair<TKey, TValue>>, IDictionary<TKey, TValue>
+    public abstract class JsonDictionaryBase<TKey, TValue> : IDictionary<TKey, TValue>
     {
-        readonly IDictionary<TKey, TValue> _members = new Dictionary<TKey, TValue>();
+        private readonly IDictionary<TKey, TValue> _members = new Dictionary<TKey, TValue>();
 
         #region IDictionary implementation
 

@@ -1,9 +1,6 @@
-﻿using Amazon.JSII.JsonModel.Api;
+using Amazon.JSII.JsonModel.Api;
 using Amazon.JSII.JsonModel.Api.Request;
 using Amazon.JSII.JsonModel.Api.Response;
-using Amazon.JSII.JsonModel.Spec;
-using System;
-using System.Collections.Generic;
 
 namespace Amazon.JSII.Runtime.Services
 {
