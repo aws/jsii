@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Amazon.JSII.Runtime.Deputy;
 using Amazon.JSII.Tests.CalculatorNamespace;
 using CompositeOperation = Amazon.JSII.Tests.CalculatorNamespace.composition.CompositeOperation;
@@ -509,10 +510,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         {
             string _x;
 
-            [JsiiProperty(name: "readOnlyString", typeJson: "{\"primitive\":\"string\"}", isOverride: true)]
             public string ReadOnlyString => "READ_ONLY_STRING";
 
-            [JsiiProperty(name: "readWriteString", typeJson: "{\"primitive\":\"string\"}", isOverride: true)]
             public string ReadWriteString
             {
                 get => $"{_x}?";
@@ -1023,10 +1022,58 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.True(StructUnionConsumer.IsStructB(b0));
             Assert.True(StructUnionConsumer.IsStructB(b1));
         }
+
+        [Fact(DisplayName = Prefix + nameof(VariadicCallbacksAreHandledCorrectly))]
+        public void VariadicCallbacksAreHandledCorrectly()
+        {
+            var method = new OverrideVariadicMethod();
+            var invoker = new VariadicInvoker(method);
+            Assert.Equal(new double[]{2d}, invoker.AsArray(1));
+            Assert.Equal(new double[]{2d, 3d}, invoker.AsArray(1, 2));
+            Assert.Equal(new double[]{2d, 3d, 4d}, invoker.AsArray(1, 2, 3));
+        }
         
+        private sealed class OverrideVariadicMethod : VariadicMethod
+        {
+            public override double[] AsArray(double first, params double[] others)
+            {
+                return base.AsArray(first + 1, others?.Select(n => n + 1).ToArray());
+            }
+        }
+
+        [Fact(DisplayName = Prefix + nameof(OptionalCallbackArgumentsAreHandledCorrectly))]
+        public void OptionalCallbackArgumentsAreHandledCorrectly()
+        {
+            var noOption = new InterfaceWithOptionalMethodArguments();
+            new OptionalArgumentInvoker(noOption).InvokeWithoutOptional();
+            Assert.True(noOption.Invoked);
+            
+            var option = new InterfaceWithOptionalMethodArguments(1337);
+            new OptionalArgumentInvoker(option).InvokeWithOptional();
+            Assert.True(option.Invoked);
+        }
+
+        private sealed class InterfaceWithOptionalMethodArguments : DeputyBase, IInterfaceWithOptionalMethodArguments
+        {
+            private readonly double? _optionalValue;
+
+            public InterfaceWithOptionalMethodArguments(double? optionalValue = null)
+            {
+                _optionalValue = optionalValue;
+            }
+
+            public Boolean Invoked { get; private set; }
+
+            public void Hello(string arg1, double? arg2 = null)
+            {
+                Invoked = true;
+                Assert.Equal("Howdy", arg1);
+                Assert.Equal(_optionalValue, arg2);
+            }
+        }
+
         class DataRendererSubclass : DataRenderer
         {
-            [JsiiMethod("renderMap", returnsJson:  "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[{\"name\":\"map\",\"type\":{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"primitive\":\"any\"}}}}]", isOverride: true)]
             public override string RenderMap(IDictionary<string, object> map)
             {
                 return base.RenderMap(map);
@@ -1059,10 +1106,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                 NumberProp = new Number(number);
             }
 
-            [JsiiProperty(name: "numberProp", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Number\"}", isOverride: true)]
             public Number NumberProp { get; }
 
-            [JsiiMethod(name: "obtainNumber", returnsJson: "{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.IDoublable\"}}", isOverride: true)]
             public IDoublable ObtainNumber()
             {
                 return new Doublable(this.NumberProp);
@@ -1075,7 +1120,6 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                     this.DoubleValue = number.DoubleValue;
                 }
 
-                [JsiiProperty(name: "doubleValue", typeJson: "{\"primitive\":\"number\"}", isOverride: true)]
                 public Double DoubleValue { get; }
             }
         }
@@ -1172,7 +1216,6 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         {
             int _nextNumber = 1000;
 
-            [JsiiMethod(name: "next", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", isOverride: true)]
             public double Next()
             {
                 int n = _nextNumber;
@@ -1180,7 +1223,6 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                 return n;
             }
 
-            [JsiiMethod(name: "hello", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
             public string Hello()
             {
                 return "I am a native!";
@@ -1197,13 +1239,11 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                 _nextNumber = 100;
             }
 
-            [JsiiMethod(name: "hello", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
             public string Hello()
             {
                 return "SubclassNativeFriendlyRandom";
             }
 
-            [JsiiMethod(name: "next", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", isOverride: true)]
             public double Next()
             {
                 int next = _nextNumber;
