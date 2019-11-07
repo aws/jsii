@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using Amazon.JSII.JsonModel.Api;
 using Amazon.JSII.JsonModel.Api.Request;
@@ -74,16 +74,6 @@ namespace Amazon.JSII.Runtime.Services
             {
                 string requestJson = JsonConvert.SerializeObject(requestObject);
                 _runtime.WriteRequest(requestJson);
-
-                /*
-                if (requestObject is LoadRequest)
-                {
-                    JObject logEntry = JObject.FromObject(requestObject);
-                    logEntry["assembly"]["code"] = "<omitted for brevity>";
-                    requestJson = JsonConvert.SerializeObject(logEntry);
-                }
-                */
-
                 _logger.LogTrace($"> {requestJson}");
             }
             catch (IOException exception)

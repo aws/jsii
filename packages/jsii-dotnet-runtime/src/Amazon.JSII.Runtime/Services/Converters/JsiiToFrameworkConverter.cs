@@ -230,12 +230,12 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
             if (value is JObject jsonObject)
             {
-                System.Type elementType = _types.GetFrameworkType(elementTypeInstance, false);
-                System.Type dictionaryType = typeof(Dictionary<,>).MakeGenericType(typeof(string), elementType);
+                var elementType = _types.GetFrameworkType(elementTypeInstance, false);
+                var dictionaryType = typeof(Dictionary<,>).MakeGenericType(typeof(string), elementType);
 
-                ConstructorInfo dictionaryConstructor = dictionaryType.GetConstructor(new System.Type[] { });
-                MethodInfo dictionaryAddMethod = dictionaryType.GetMethod("Add", new System.Type[] { typeof(string), elementType });
-                object dictionary = dictionaryConstructor.Invoke(new object[] { });
+                var dictionaryConstructor = dictionaryType.GetConstructor(new System.Type[] { });
+                var dictionaryAddMethod = dictionaryType.GetMethod("Add", new [] { typeof(string), elementType });
+                var dictionary = dictionaryConstructor.Invoke(new object[] { });
 
                 if (jsonObject.ContainsKey("$jsii.map"))
                 {
@@ -249,7 +249,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
                         throw new ArgumentException("Could not convert all elements of map", nameof(value));
                     }
 
-                    dictionaryAddMethod.Invoke(dictionary, new object[] { property.Name, convertedElement });
+                    dictionaryAddMethod.Invoke(dictionary, new [] { property.Name, convertedElement });
                 }
 
                 result = dictionary;

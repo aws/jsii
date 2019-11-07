@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using Amazon.JSII.JsonModel.Spec;
 using Amazon.JSII.Runtime.Deputy;
-using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using Type = System.Type;
 
