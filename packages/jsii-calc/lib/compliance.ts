@@ -669,6 +669,15 @@ export class VariadicMethod {
     }
 }
 
+export class VariadicInvoker {
+    public constructor(private readonly method: VariadicMethod) { }
+
+    public asArray(...values: number[]): number[] {
+        const [first, ...rest] = values;
+        return this.method.asArray(first, ...rest);
+    }
+}
+
 export class Statics {
     constructor(public readonly value: string) {
     }
@@ -1062,6 +1071,17 @@ export namespace InterfaceInNamespaceIncludesClasses {
  */
 export interface IInterfaceWithOptionalMethodArguments {
     hello(arg1: string, arg2?: number): void
+}
+export class OptionalArgumentInvoker {
+    constructor(private readonly delegate: IInterfaceWithOptionalMethodArguments) { }
+
+    public invokeWithoutOptional() {
+        return this.delegate.hello('Howdy');
+    }
+
+    public invokeWithOptional() {
+        return this.delegate.hello('Howdy', 1337);
+    }
 }
 
 /**

@@ -931,6 +931,16 @@ exports[`jsii-tree --all 1`] = `
  │   │   ├── <initializer>() initializer (deprecated)
  │   │   └─┬ doAThing() method (deprecated)
  │   │     └── returns: void
+ │   ├─┬ class OptionalArgumentInvoker (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(delegate) initializer (experimental)
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ delegate
+ │   │   │     └── type: jsii-calc.IInterfaceWithOptionalMethodArguments
+ │   │   ├─┬ invokeWithOptional() method (experimental)
+ │   │   │ └── returns: void
+ │   │   └─┬ invokeWithoutOptional() method (experimental)
+ │   │     └── returns: void
  │   ├─┬ class OptionalConstructorArgument (experimental)
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(arg1,arg2,arg3) initializer (experimental)
@@ -1410,6 +1420,19 @@ exports[`jsii-tree --all 1`] = `
  │   │   └─┬ obj property (experimental)
  │   │     ├── immutable
  │   │     └── type: jsii-calc.IInterfaceWithProperties
+ │   ├─┬ class VariadicInvoker (experimental)
+ │   │ └─┬ members
+ │   │   ├─┬ <initializer>(method) initializer (experimental)
+ │   │   │ └─┬ parameters
+ │   │   │   └─┬ method
+ │   │   │     └── type: jsii-calc.VariadicMethod
+ │   │   └─┬ asArray(values) method (experimental)
+ │   │     ├── variadic
+ │   │     ├─┬ parameters
+ │   │     │ └─┬ values
+ │   │     │   ├── type: number
+ │   │     │   └── variadic
+ │   │     └── returns: Array<number>
  │   ├─┬ class VariadicMethod (experimental)
  │   │ └─┬ members
  │   │   ├─┬ <initializer>(prefix) initializer (experimental)
@@ -2219,6 +2242,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class NumberGenerator
  │   ├── class ObjectRefsInCollections
  │   ├── class Old
+ │   ├── class OptionalArgumentInvoker
  │   ├── class OptionalConstructorArgument
  │   ├── class OptionalStructConsumer
  │   ├── class OverridableProtectedMember
@@ -2253,6 +2277,7 @@ exports[`jsii-tree --inheritance 1`] = `
  │   ├── class UseBundledDependency
  │   ├── class UseCalcBase
  │   ├── class UsesInterfaceWithProperties
+ │   ├── class VariadicInvoker
  │   ├── class VariadicMethod
  │   ├── class VirtualMethodPlayground
  │   ├── class VoidCallback
@@ -2798,6 +2823,11 @@ exports[`jsii-tree --members 1`] = `
  │   │ └─┬ members
  │   │   ├── <initializer>() initializer
  │   │   └── doAThing() method
+ │   ├─┬ class OptionalArgumentInvoker
+ │   │ └─┬ members
+ │   │   ├── <initializer>(delegate) initializer
+ │   │   ├── invokeWithOptional() method
+ │   │   └── invokeWithoutOptional() method
  │   ├─┬ class OptionalConstructorArgument
  │   │ └─┬ members
  │   │   ├── <initializer>(arg1,arg2,arg3) initializer
@@ -2994,6 +3024,10 @@ exports[`jsii-tree --members 1`] = `
  │   │   ├── readStringAndNumber(ext) method
  │   │   ├── writeAndRead(value) method
  │   │   └── obj property
+ │   ├─┬ class VariadicInvoker
+ │   │ └─┬ members
+ │   │   ├── <initializer>(method) initializer
+ │   │   └── asArray(values) method
  │   ├─┬ class VariadicMethod
  │   │ └─┬ members
  │   │   ├── <initializer>(prefix) initializer
@@ -3393,6 +3427,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class NumberGenerator
  │   ├── class ObjectRefsInCollections
  │   ├── class Old
+ │   ├── class OptionalArgumentInvoker
  │   ├── class OptionalConstructorArgument
  │   ├── class OptionalStructConsumer
  │   ├── class OverridableProtectedMember
@@ -3423,6 +3458,7 @@ exports[`jsii-tree --types 1`] = `
  │   ├── class UseBundledDependency
  │   ├── class UseCalcBase
  │   ├── class UsesInterfaceWithProperties
+ │   ├── class VariadicInvoker
  │   ├── class VariadicMethod
  │   ├── class VirtualMethodPlayground
  │   ├── class VoidCallback
