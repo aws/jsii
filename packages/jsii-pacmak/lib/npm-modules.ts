@@ -5,13 +5,15 @@ import { resolveDependencyDirectory } from './util';
 
 import logging = require('../lib/logging');
 import { JsiiModule } from './packaging';
+import { topologicalSort } from './toposort';
 
 
 /**
  * Find all modules that need to be packagerd
  *
- * If the input list is empty, include the current directory. The result
- * is NOT topologically sorted.
+ * If the input list is empty, include the current directory.
+ *
+ * The result is topologically sorted.
  */
 export async function findJsiiModules(directories: string[], recurse: boolean) {
   const ret: JsiiModule[] = [];
@@ -19,7 +21,7 @@ export async function findJsiiModules(directories: string[], recurse: boolean) {
   for (const dir of directories.length > 0 ? directories : ['.']) {
     await visitPackage(dir, true);
   }
-  return ret;
+  return topologicalSort(ret, m => m.name, m => m.dependencyNames);
 
   async function visitPackage(dir: string, isRoot: boolean) {
     const realPath = await fs.realpath(dir);
@@ -35,9 +37,15 @@ export async function findJsiiModules(directories: string[], recurse: boolean) {
       }
     }
 
+    if (!pkg.name) {
+      throw new Error(`package.json does not have a 'name' field: ${JSON.stringify(pkg, undefined, 2)}`);
+    }
+
+    const dependencyNames = Object.keys(pkg.dependencies || {});
+
     // if --recurse is set, find dependency dirs and build them.
     if (recurse) {
-      for (const dep of Object.keys(pkg.dependencies || {})) {
+      for (const dep of dependencyNames) {
         const depDir = resolveDependencyDirectory(realPath, dep);
         await visitPackage(depDir, false);
       }
@@ -51,10 +59,10 @@ export async function findJsiiModules(directories: string[], recurse: boolean) {
       name: pkg.name,
       moduleDirectory: realPath,
       defaultOutputDirectory: outputDirectory,
-      availableTargets: targets
+      availableTargets: targets,
+      dependencyNames
     }));
   }
-
 }
 
 export async function updateAllNpmIgnores(packages: JsiiModule[]) {
