@@ -814,17 +814,18 @@ defineTest('fails: static methods - not static', (sandbox) => {
 });
 
 defineTest('loading a module twice idepotently succeeds', async (sandbox) => {
-  await sandbox.load({
+  sandbox.load({
     tarball: await preparePackage('jsii-calc', false),
     name: 'jsii-calc',
     version: calcVersion
   });
 });
 
-defineTest('fails if trying to load two different versions of the same module', async (sandbox) =>
-  expect(sandbox.load({ tarball: await preparePackage('jsii-calc', false), name: 'jsii-calc', version: '99.999.9' }))
-    .rejects.toThrow(/Multiple versions .+ and .+ of the package 'jsii-calc' cannot be loaded together/)
-);
+defineTest('fails if trying to load two different versions of the same module', async (sandbox) => {
+  const tarball = await preparePackage('jsii-calc', false);
+  return expect(() => sandbox.load({ tarball, name: 'jsii-calc', version: '99.999.9' }))
+    .toThrow(/Multiple versions .+ and .+ of the package 'jsii-calc' cannot be loaded together/)
+});
 
 defineTest('node.js standard library', async (sandbox) => {
   const objref = sandbox.create({ fqn: 'jsii-calc.NodeStandardLibrary' });
@@ -1221,9 +1222,9 @@ async function createCalculatorSandbox(name: string) {
 
   sandbox.traceEnabled = `${process.env.JSII_DEBUG}` === '1';
 
-  await sandbox.load({ tarball: await preparePackage('@scope/jsii-calc-base'), name: '@scope/jsii-calc-base', version: calcBaseVersion });
-  await sandbox.load({ tarball: await preparePackage('@scope/jsii-calc-lib'), name: '@scope/jsii-calc-lib', version: calcLibVersion });
-  await sandbox.load({ tarball: await preparePackage('jsii-calc'), name: 'jsii-calc', version: calcVersion });
+  sandbox.load({ tarball: await preparePackage('@scope/jsii-calc-base'), name: '@scope/jsii-calc-base', version: calcBaseVersion });
+  sandbox.load({ tarball: await preparePackage('@scope/jsii-calc-lib'), name: '@scope/jsii-calc-lib', version: calcLibVersion });
+  sandbox.load({ tarball: await preparePackage('jsii-calc'), name: 'jsii-calc', version: calcVersion });
   return sandbox;
 }
 

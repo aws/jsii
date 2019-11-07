@@ -56,7 +56,7 @@ export class Kernel {
     });
   }
 
-  public async load(req: api.LoadRequest): Promise<api.LoadResponse> {
+  public load(req: api.LoadRequest): api.LoadResponse {
     this._debug('load', req);
 
     if ('assembly' in req) {
@@ -64,8 +64,8 @@ export class Kernel {
     }
 
     if (!this.installDir) {
-      this.installDir = await fs.mkdtemp(path.join(os.tmpdir(), 'jsii-kernel-'));
-      await fs.mkdirp(path.join(this.installDir, 'node_modules'));
+      this.installDir = fs.mkdtempSync(path.join(os.tmpdir(), 'jsii-kernel-'));
+      fs.mkdirpSync(path.join(this.installDir, 'node_modules'));
       this._debug('creating jsii-kernel modules workdir:', this.installDir);
 
       process.on('exit', () => {
@@ -81,9 +81,9 @@ export class Kernel {
 
     // check if we already have such a module
     const packageDir = path.join(this.installDir, 'node_modules', pkgname);
-    if (await fs.pathExists(packageDir)) {
+    if (fs.pathExistsSync(packageDir)) {
       // module exists, verify version
-      const epkg = await fs.readJson(path.join(packageDir, 'package.json'));
+      const epkg = fs.readJsonSync(path.join(packageDir, 'package.json'));
       if (epkg.version !== pkgver) {
         throw new Error(`Multiple versions ${pkgver} and ${epkg.version} of the `
                 + `package '${pkgname}' cannot be loaded together since this is unsupported by `
@@ -101,19 +101,19 @@ export class Kernel {
     }
     // untar the archive to a staging directory, read the jsii spec from it
     // and then move it to the node_modules directory of the kernel.
-    const staging = await fs.mkdtemp(path.join(os.tmpdir(), 'jsii-kernel-install-staging-'));
+    const staging = fs.mkdtempSync(path.join(os.tmpdir(), 'jsii-kernel-install-staging-'));
     try {
-      await tar.extract({ strict: true, file: req.tarball, cwd: staging });
+      tar.extract({ strict: true, file: req.tarball, cwd: staging, sync: true });
 
       // read .jsii metadata from the root of the package
       const jsiiMetadataFile = path.join(staging, 'package', spec.SPEC_FILE_NAME);
-      if (!await fs.pathExists(jsiiMetadataFile)) {
+      if (!fs.pathExistsSync(jsiiMetadataFile)) {
         throw new Error(`Package tarball ${req.tarball} must have a file named ${spec.SPEC_FILE_NAME} at the root`);
       }
-      const assmSpec = await fs.readJson(jsiiMetadataFile) as spec.Assembly;
+      const assmSpec = fs.readJsonSync(jsiiMetadataFile) as spec.Assembly;
 
       // "install" to "node_modules" directory
-      await fs.move(path.join(staging, 'package'), packageDir);
+      fs.moveSync(path.join(staging, 'package'), packageDir);
 
       // load the module and capture it's closure
       const closure = this._execute(`require(String.raw\`${packageDir}\`)`, packageDir);
@@ -126,7 +126,7 @@ export class Kernel {
       };
     } finally {
       this._debug('removing staging directory:', staging);
-      await fs.remove(staging);
+      fs.removeSync(staging);
     }
 
   }
