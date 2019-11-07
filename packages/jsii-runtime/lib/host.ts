@@ -1,8 +1,10 @@
 import { api, Kernel } from 'jsii-kernel';
 import { Input, InputOutput } from './in-out';
+import { EventEmitter } from 'events';
 
 export class KernelHost {
   private readonly kernel = new Kernel(this.callbackHandler.bind(this));
+  private readonly eventEmitter = new EventEmitter();
 
   public constructor(private readonly inout: InputOutput, private readonly opts: { debug?: boolean, noStack?: boolean } = { }) {
     this.kernel.traceEnabled = opts.debug ? true : false;
@@ -11,6 +13,7 @@ export class KernelHost {
   public run() {
     const req = this.inout.read();
     if (!req) {
+      this.eventEmitter.emit('exit');
       return; // done
     }
 
@@ -19,6 +22,10 @@ export class KernelHost {
       // avoid recursion.
       setImmediate(() => this.run())
     });
+  }
+
+  public on(event: 'exit', listener: () => void) {
+    this.eventEmitter.on(event, listener);
   }
 
   private callbackHandler(callback: api.Callback) {
