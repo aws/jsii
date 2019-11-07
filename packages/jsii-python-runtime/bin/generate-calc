@@ -3,6 +3,11 @@ import os
 import subprocess
 import sys
 
+# Clean out this directory, as it otherwise may
+# accumuluate multiple versions of the same library
+# and pip will complain.
+subprocess.run(['rm', '-rf', '.env/jsii-calc'], check=True)
+
 subprocess.run(
     [
         "jsii-pacmak",
