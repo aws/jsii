@@ -24,18 +24,18 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "giveMeFriendly", returnsJson: "{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.IFriendly\"}}")]
-        public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IIFriendly GiveMeFriendly()
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly GiveMeFriendly()
         {
-            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IIFriendly>(new object[]{});
+            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly>(new System.Type[]{}, new object[]{});
         }
 
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "giveMeFriendlyGenerator", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.IFriendlyRandomGenerator\"}}")]
-        public virtual Amazon.JSII.Tests.CalculatorNamespace.IIFriendlyRandomGenerator GiveMeFriendlyGenerator()
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.IFriendlyRandomGenerator GiveMeFriendlyGenerator()
         {
-            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.IIFriendlyRandomGenerator>(new object[]{});
+            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.IFriendlyRandomGenerator>(new System.Type[]{}, new object[]{});
         }
     }
 }

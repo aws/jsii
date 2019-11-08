@@ -12,7 +12,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
-        public NumberGenerator(Amazon.JSII.Tests.CalculatorNamespace.IIRandomNumberGenerator generator): base(new DeputyProps(new object[]{generator}))
+        public NumberGenerator(Amazon.JSII.Tests.CalculatorNamespace.IRandomNumberGenerator generator): base(new DeputyProps(new object[]{generator}))
         {
         }
 
@@ -28,9 +28,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "isSameGenerator", returnsJson: "{\"type\":{\"primitive\":\"boolean\"}}", parametersJson: "[{\"name\":\"gen\",\"type\":{\"fqn\":\"jsii-calc.IRandomNumberGenerator\"}}]")]
-        public virtual bool IsSameGenerator(Amazon.JSII.Tests.CalculatorNamespace.IIRandomNumberGenerator gen)
+        public virtual bool IsSameGenerator(Amazon.JSII.Tests.CalculatorNamespace.IRandomNumberGenerator gen)
         {
-            return InvokeInstanceMethod<bool>(new object[]{gen});
+            return InvokeInstanceMethod<bool>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.IRandomNumberGenerator)}, new object[]{gen});
         }
 
         /// <remarks>
@@ -39,16 +39,16 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "nextTimes100", returnsJson: "{\"type\":{\"primitive\":\"number\"}}")]
         public virtual double NextTimes100()
         {
-            return InvokeInstanceMethod<double>(new object[]{});
+            return InvokeInstanceMethod<double>(new System.Type[]{}, new object[]{});
         }
 
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
         [JsiiProperty(name: "generator", typeJson: "{\"fqn\":\"jsii-calc.IRandomNumberGenerator\"}")]
-        public virtual Amazon.JSII.Tests.CalculatorNamespace.IIRandomNumberGenerator Generator
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.IRandomNumberGenerator Generator
         {
-            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.IIRandomNumberGenerator>();
+            get => GetInstanceProperty<Amazon.JSII.Tests.CalculatorNamespace.IRandomNumberGenerator>();
             set => SetInstanceProperty(value);
         }
     }

@@ -2,19 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Transactions;
 using Amazon.JSII.JsonModel.Spec;
 using Amazon.JSII.Runtime.Deputy;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
 using Type = System.Type;
 
 namespace Amazon.JSII.Runtime.Services.Converters
 {
-    public class FrameworkToJsiiConverter : ValueConverter, IFrameworkToJsiiConverter
+    internal sealed class FrameworkToJsiiConverter : ValueConverter, IFrameworkToJsiiConverter
     {
         public FrameworkToJsiiConverter(ITypeCache types) : base(types)
         {
+        }
+
+        public bool TryConvert(IOptionalValue optionalValue, IReferenceMap referenceMap, object value, out object result)
+        {
+            return TryConvert(optionalValue, typeof(object), referenceMap, value, out result);
         }
 
         protected override bool TryConvertVoid(object value, out object result)
@@ -28,7 +31,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             return true;
         }
 
-        protected override bool TryConvertClass(IReferenceMap referenceMap, object value, out object result)
+        protected override bool TryConvertClass(Type type, IReferenceMap referenceMap, object value, out object result)
         {
             if (value == null)
             {
@@ -42,9 +45,10 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 return true;
             }
 
-            if (Attribute.GetCustomAttribute(value.GetType(), typeof(JsiiByValueAttribute)) != null)
+            var byValueAttribute = value.GetType().GetCustomAttribute<JsiiByValueAttribute>();
+            if (byValueAttribute != null)
             {
-                var resultObject = new JObject();
+                var data = new JObject();
                 foreach (var prop in value.GetType().GetProperties())
                 {
                     var jsiiProperty = (JsiiPropertyAttribute) prop.GetCustomAttribute(typeof(JsiiPropertyAttribute), true);
@@ -59,14 +63,21 @@ namespace Amazon.JSII.Runtime.Services.Converters
                         continue;
                     }
 
-                    if (!TryConvert(jsiiProperty, referenceMap, propValue, out var convertedPropValue) || convertedPropValue == null)
+                    if (!TryConvert(jsiiProperty, typeof(object), referenceMap, propValue, out var convertedPropValue) || convertedPropValue == null)
                     {
                         continue;
                     }
 
-                    resultObject.Add(new JProperty(jsiiProperty.Name, convertedPropValue));
+                    data.Add(new JProperty(jsiiProperty.Name, convertedPropValue));
                 }
 
+                var structInfo = new JObject();
+                structInfo.Add(new JProperty("fqn", byValueAttribute.Fqn));
+                structInfo.Add(new JProperty("data", data));
+                
+                var resultObject = new JObject();
+                resultObject.Add(new JProperty("$jsii.struct", structInfo));
+                
                 result = resultObject;
                 return true;
             }
@@ -157,7 +168,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 return true;
             }
 
-            if (value.GetType().IsAssignableFrom(typeof(JObject)))
+            if (value.GetType().IsAssignableFrom(typeof(JObject)) || value.GetType().IsAssignableFrom(typeof(JArray)))
             {
                 result = value;
                 return true;
@@ -223,7 +234,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             JArray resultArray = new JArray();
             foreach (object element in array)
             {
-                if (!TryConvert(elementType, referenceMap, element, out object convertedElement))
+                if (!TryConvertCollectionElement(element, referenceMap, elementType, out object convertedElement))
                 {
                     result = null;
                     return false;
@@ -250,7 +261,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 .FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IDictionary<,>));
 
             if (dictionaryInterface == null ||
-                !dictionaryInterface.GetGenericArguments()[0].IsAssignableFrom(typeof(string)))
+                !typeof(string).IsAssignableFrom(dictionaryInterface.GetGenericArguments()[0]))
             {
                 result = null;
                 return false;
@@ -263,7 +274,8 @@ namespace Amazon.JSII.Runtime.Services.Converters
             foreach (string key in keys)
             {
                 object element = indexer.GetValue(value, new object[] {key});
-                if (!TryConvert(elementType, referenceMap, element, out object convertedElement))
+
+                if (!TryConvertCollectionElement(element, referenceMap, elementType, out object convertedElement))
                 {
                     result = null;
                     return false;
@@ -272,8 +284,50 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 resultObject.Add(new JProperty(key, convertedElement));
             }
 
-            result = resultObject;
+            result = new JObject();
+            ((JObject) result).Add(new JProperty("$jsii.map", resultObject));
             return true;
+        }
+
+        /// <summary>
+        /// Converts a collection element
+        /// </summary>
+        /// <param name="element">The element to convert in the collection</param>
+        /// <param name="referenceMap">The known references map</param>
+        /// <param name="elementType">The TypeReference of the element, as seen by Jsii</param>
+        /// <param name="convertedElement">out: the converted element</param>
+        /// <returns>True if the conversion was successful, false otherwise</returns>
+        private bool TryConvertCollectionElement(object element, IReferenceMap referenceMap, TypeReference elementType,
+            out object convertedElement)
+        {
+            if (element is IDictionary<string, object> || element is object[])
+            {
+                var objectType = InferType(referenceMap, element);
+                var nestedType = elementType.Primitive == PrimitiveType.Any ? elementType : objectType.Collection.ElementType;
+                switch (objectType.Collection?.Kind)
+                {
+                    case CollectionKind.Map:
+                        // We should not pass the parent element type as we are
+                        // in a map<string, object> containing another map.
+                        // If we pass the parent elementType then it will try to convert it as Any
+                        // So we can directly convert to another map here, and forgo the type hierarchy
+                        // induced by elementType
+                        // See https://github.com/aws/aws-cdk/issues/2496
+                        return TryConvertMap(referenceMap, nestedType, element,
+                                out convertedElement);
+                    case CollectionKind.Array:
+                        // The [object] could be another array. (ie Tags)
+                        // https://github.com/aws/aws-cdk/issues/3244
+                        return TryConvertArray(referenceMap, nestedType, element,
+                                out convertedElement);
+                    default:
+                        return TryConvert(elementType, typeof(object), referenceMap, element, out convertedElement);
+                }
+            }
+            else
+            {
+                return TryConvert(elementType, typeof(object), referenceMap, element, out convertedElement);
+            }
         }
 
         protected override TypeReference InferType(IReferenceMap referenceMap, object value)
@@ -299,12 +353,12 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 return new TypeReference(enumAttribute.FullyQualifiedName);
             }
 
-            if (type.IsAssignableFrom(typeof(string)))
+            if (typeof(string).IsAssignableFrom(type))
             {
                 return new TypeReference(primitive: PrimitiveType.String);
             }
 
-            if (type.IsAssignableFrom(typeof(bool)))
+            if (typeof(bool).IsAssignableFrom(type))
             {
                 return new TypeReference(primitive: PrimitiveType.Boolean);
             }
@@ -314,12 +368,12 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 return new TypeReference(primitive: PrimitiveType.Number);
             }
 
-            if (type.IsAssignableFrom(typeof(DateTime)))
+            if (typeof(DateTime).IsAssignableFrom(type))
             {
                 return new TypeReference(primitive: PrimitiveType.Date);
             }
 
-            if (type.IsAssignableFrom(typeof(JObject)))
+            if (typeof(JObject).IsAssignableFrom(type) || typeof(JArray).IsAssignableFrom(type))
             {
                 return new TypeReference(primitive: PrimitiveType.Json);
             }
@@ -331,7 +385,9 @@ namespace Amazon.JSII.Runtime.Services.Converters
                     collection: new CollectionTypeReference
                     (
                         kind: CollectionKind.Array,
-                        elementType: InferType(referenceMap, type.GetElementType())
+                        elementType: typeof(Object) == type.GetElementType()
+                            ? new TypeReference(primitive: PrimitiveType.Any)
+                            : InferType(referenceMap, type.GetElementType())
                     )
                 );
             }
@@ -340,7 +396,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 .FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IDictionary<,>));
             if (dictionaryInterface != null)
             {
-                if (!dictionaryInterface.GetGenericArguments()[0].IsAssignableFrom(typeof(string)))
+                if (!typeof(string).IsAssignableFrom(dictionaryInterface.GetGenericArguments()[0]))
                 {
                     throw new ArgumentException("All dictionaries must have string keys", nameof(type));
                 }
@@ -351,7 +407,9 @@ namespace Amazon.JSII.Runtime.Services.Converters
                     collection: new CollectionTypeReference
                     (
                         kind: CollectionKind.Map,
-                        elementType: InferType(referenceMap, elementType)
+                        elementType: typeof(Object) == elementType
+                            ? new TypeReference(primitive: PrimitiveType.Any) 
+                            : InferType(referenceMap, elementType)
                     )
                 );
             }

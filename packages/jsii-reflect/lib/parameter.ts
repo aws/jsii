@@ -6,19 +6,19 @@ import { Type } from './type';
 import { TypeSystem } from './type-system';
 
 export class Parameter extends OptionalValue implements Documentable {
-  constructor(
+  public constructor(
     system: TypeSystem,
     public readonly parentType: Type,
     public readonly method: Callable,
-    private readonly paramSpec: jsii.Parameter) {
-    super(system, paramSpec);
+    public readonly spec: jsii.Parameter) {
+    super(system, spec);
   }
 
   /**
    * The name of the parameter.
    */
   public get name(): string {
-    return this.paramSpec.name;
+    return this.spec.name;
   }
 
   /**
@@ -26,10 +26,10 @@ export class Parameter extends OptionalValue implements Documentable {
    * The ``#type`` is that of every individual argument of the variadic list.
    */
   public get variadic(): boolean {
-    return !!this.paramSpec.variadic;
+    return !!this.spec.variadic;
   }
 
   public get docs(): Docs {
-    return new Docs(this.system, this, this.paramSpec.docs || {});
+    return new Docs(this.system, this, this.spec.docs || {});
   }
 }

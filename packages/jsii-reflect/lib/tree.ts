@@ -69,7 +69,7 @@ export interface TypeSystemTreeOptions {
  * Visualizes a `TypeSystem` as an ASCII tree.
  */
 export class TypeSystemTree extends AsciiTree {
-  constructor(typesys: TypeSystem, options: TypeSystemTreeOptions = { }) {
+  public constructor(typesys: TypeSystem, options: TypeSystemTreeOptions = { }) {
     super();
 
     if (options.showAll) {
@@ -92,7 +92,7 @@ export class TypeSystemTree extends AsciiTree {
 }
 
 class AssemblyNode extends AsciiTree {
-  constructor(assembly: Assembly, options: TypeSystemTreeOptions) {
+  public constructor(assembly: Assembly, options: TypeSystemTreeOptions) {
     super(colors.green(assembly.name));
 
     if (options.dependencies && assembly.dependencies.length > 0) {
@@ -112,9 +112,9 @@ class AssemblyNode extends AsciiTree {
 }
 
 class MethodNode extends AsciiTree {
-  constructor(method: Method, options: TypeSystemTreeOptions) {
+  public constructor(method: Method, options: TypeSystemTreeOptions) {
     const args = method.parameters.map(p => p.name).join(',');
-    super(`${maybeStatic(method)}${method.name}(${args}) ${colors.gray('method')}` + describeStability(method, options));
+    super(`${maybeStatic(method)}${method.name}(${args}) ${colors.gray('method')}${describeStability(method, options)}`);
 
     if (options.signatures) {
       if (method.abstract) {
@@ -145,9 +145,9 @@ class MethodNode extends AsciiTree {
 }
 
 class InitializerNode extends AsciiTree {
-  constructor(initializer: Initializer, options: TypeSystemTreeOptions) {
+  public constructor(initializer: Initializer, options: TypeSystemTreeOptions) {
     const args = initializer.parameters.map(p => p.name).join(',');
-    super(`${initializer.name}(${args}) ${colors.gray('initializer')}` + describeStability(initializer, options));
+    super(`${initializer.name}(${args}) ${colors.gray('initializer')}${describeStability(initializer, options)}`);
 
     if (options.signatures) {
       if (initializer.protected) {
@@ -168,7 +168,7 @@ class InitializerNode extends AsciiTree {
 }
 
 class ParameterNode extends AsciiTree {
-  constructor(param: Parameter, _options: TypeSystemTreeOptions) {
+  public constructor(param: Parameter, _options: TypeSystemTreeOptions) {
     super(param.name);
 
     this.add(new OptionalValueNode('type', param));
@@ -179,8 +179,8 @@ class ParameterNode extends AsciiTree {
 }
 
 class PropertyNode extends AsciiTree {
-  constructor(property: Property, options: TypeSystemTreeOptions) {
-    super(`${maybeStatic(property)}${property.name} ${colors.gray('property')}` + describeStability(property, options));
+  public constructor(property: Property, options: TypeSystemTreeOptions) {
+    super(`${maybeStatic(property)}${property.name} ${colors.gray('property')}${describeStability(property, options)}`);
 
     if (options.signatures) {
       if (property.abstract) {
@@ -209,7 +209,7 @@ class PropertyNode extends AsciiTree {
 }
 
 class OptionalValueNode extends AsciiTree {
-  constructor(name: string, optionalValue: OptionalValue, { asPromise } = { asPromise: false }) {
+  public constructor(name: string, optionalValue: OptionalValue, { asPromise } = { asPromise: false }) {
     let type = OptionalValue.describe(optionalValue);
     if (asPromise) {
       type = `Promise<${type}>`;
@@ -219,8 +219,8 @@ class OptionalValueNode extends AsciiTree {
 }
 
 class ClassNode extends AsciiTree {
-  constructor(type: ClassType, options: TypeSystemTreeOptions) {
-    super(`${colors.gray('class')} ${colors.cyan(type.name)}` + describeStability(type, options));
+  public constructor(type: ClassType, options: TypeSystemTreeOptions) {
+    super(`${colors.gray('class')} ${colors.cyan(type.name)}${describeStability(type, options)}`);
 
     if (options.inheritance && type.base) {
       this.add(new KeyValueNode('base', type.base.name));
@@ -243,8 +243,8 @@ class ClassNode extends AsciiTree {
 }
 
 class InterfaceNode extends AsciiTree {
-  constructor(type: InterfaceType, options: TypeSystemTreeOptions) {
-    super(`${colors.gray('interface')} ${colors.cyan(type.name)}` + describeStability(type, options));
+  public constructor(type: InterfaceType, options: TypeSystemTreeOptions) {
+    super(`${colors.gray('interface')} ${colors.cyan(type.name)}${describeStability(type, options)}`);
 
     if (options.inheritance && type.interfaces.length > 0) {
       const interfaces = new TitleNode('interfaces');
@@ -262,8 +262,8 @@ class InterfaceNode extends AsciiTree {
 }
 
 class EnumNode extends AsciiTree {
-  constructor(enumType: EnumType, options: TypeSystemTreeOptions) {
-    super(`${colors.gray('enum')} ${colors.cyan(enumType.name)}` + describeStability(enumType, options));
+  public constructor(enumType: EnumType, options: TypeSystemTreeOptions) {
+    super(`${colors.gray('enum')} ${colors.cyan(enumType.name)}${describeStability(enumType, options)}`);
 
     if (options.members) {
       enumType.members.forEach(mem => {
@@ -274,19 +274,19 @@ class EnumNode extends AsciiTree {
 }
 
 class DependencyNode extends AsciiTree {
-  constructor(dep: Dependency, _options: TypeSystemTreeOptions) {
+  public constructor(dep: Dependency, _options: TypeSystemTreeOptions) {
     super(dep.assembly.name);
   }
 }
 
 class TitleNode extends AsciiTree {
-  constructor(name: string, children: AsciiTree[] = []) {
+  public constructor(name: string, children: AsciiTree[] = []) {
     super(colors.underline(name), ...children);
   }
 }
 
 class KeyValueNode extends AsciiTree {
-  constructor(key: string, value: any) {
+  public constructor(key: string, value: any) {
     super(`${colors.underline(key)}: ${value}`);
   }
 }
@@ -296,7 +296,7 @@ class TextNode extends AsciiTree {
 }
 
 class FlagNode extends AsciiTree {
-  constructor(flag: string) {
+  public constructor(flag: string) {
     super(colors.italic(flag));
   }
 }
@@ -327,9 +327,9 @@ function describeStability(thing: Documentable, options: TypeSystemTreeOptions) 
   if (!options.stabilities) { return ''; }
 
   switch (thing.docs.stability) {
-    case Stability.Stable: return ' (' + colors.green('stable') + ')';
-    case Stability.Experimental: return ' (' + colors.yellow('experimental') + ')';
-    case Stability.Deprecated: return ' (' + colors.red('deprecated') + ')';
+    case Stability.Stable: return ` (${colors.green('stable')})`;
+    case Stability.Experimental: return ` (${colors.yellow('experimental')})`;
+    case Stability.Deprecated: return ` (${colors.red('deprecated')})`;
   }
 
   return '';
@@ -340,5 +340,5 @@ function maybeStatic(mem: Property | Method) {
   if (mem instanceof Property) { isStatic = !!mem.static; }
   if (mem instanceof Method) { isStatic = !!mem.static; }
 
-  return isStatic ? (colors.grey('static') + ' ') : '';
+  return isStatic ? `${colors.grey('static')} ` : '';
 }

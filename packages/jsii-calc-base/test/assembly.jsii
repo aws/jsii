@@ -27,10 +27,9 @@
         "python": {
           "distName": "scope.jsii-calc-base-of-base",
           "module": "scope.jsii_calc_base_of_base"
-        },
-        "sphinx": {}
+        }
       },
-      "version": "0.15.0"
+      "version": "0.20.2"
     }
   },
   "dependencyClosure": {
@@ -53,18 +52,18 @@
         "python": {
           "distName": "scope.jsii-calc-base-of-base",
           "module": "scope.jsii_calc_base_of_base"
-        },
-        "sphinx": {}
+        }
       },
-      "version": "0.15.0"
+      "version": "0.20.2"
     }
   },
   "description": "An example direct dependency for jsii-calc.",
-  "homepage": "https://github.com/aws/jsii.git",
-  "jsiiVersion": "0.15.0",
+  "homepage": "https://github.com/aws/jsii",
+  "jsiiVersion": "0.20.2",
   "license": "Apache-2.0",
   "name": "@scope/jsii-calc-base",
   "repository": {
+    "directory": "packages/jsii-calc-base",
     "type": "git",
     "url": "https://github.com/aws/jsii.git"
   },
@@ -87,8 +86,7 @@
     "python": {
       "distName": "scope.jsii-calc-base",
       "module": "scope.jsii_calc_base"
-    },
-    "sphinx": {}
+    }
   },
   "types": {
     "@scope/jsii-calc-base.Base": {
@@ -175,6 +173,6 @@
       "name": "IBaseInterface"
     }
   },
-  "version": "0.15.0",
-  "fingerprint": "s3nhVvMvkgAOyy+5GbCx/ANeYfxpOc0/miLWHYGX3uo="
+  "version": "0.20.2",
+  "fingerprint": "wi04m/K43ec3XAk9igj7X90550cw7plIzRMgWJPw0mI="
 }

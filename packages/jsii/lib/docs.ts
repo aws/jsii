@@ -34,11 +34,11 @@ import spec = require('jsii-spec');
 import ts = require('typescript');
 
 export function parseSymbolDocumentation(sym: ts.Symbol, typeChecker: ts.TypeChecker): DocsParsingResult {
-    const comment = ts.displayPartsToString(sym.getDocumentationComment(typeChecker)).trim();
-    const tags = sym.getJsDocTags();
+  const comment = ts.displayPartsToString(sym.getDocumentationComment(typeChecker)).trim();
+  const tags = sym.getJsDocTags();
 
-    // Right here we'll just guess that the first declaration site is the most important one.
-    return parseDocParts(comment, tags);
+  // Right here we'll just guess that the first declaration site is the most important one.
+  return parseDocParts(comment, tags);
 }
 
 /**
@@ -91,20 +91,20 @@ function parseDocParts(comments: string | undefined, tags: ts.JSDocTagInfo[]): D
   const stable = eatTag('stable') !== undefined;
   // Can't combine them
   if (countBools(docs.stability !== undefined, experimental, stable) > 1) {
-    diagnostics.push(`Use only one of @stability, @experimental or @stable`);
+    diagnostics.push('Use only one of @stability, @experimental or @stable');
   }
   if (experimental) { docs.stability = spec.Stability.Experimental; }
   if (stable) { docs.stability = spec.Stability.Stable; }
 
   // Can combine '@stability deprecated' with '@deprecated <reason>'
   if (docs.deprecated !== undefined) {
-     if (docs.stability !== undefined && docs.stability !== spec.Stability.Deprecated) {
-       diagnostics.push(`@deprecated tag requires '@stability deprecated' or no @stability at all.`);
-     }
-     docs.stability = spec.Stability.Deprecated;
+    if (docs.stability !== undefined && docs.stability !== spec.Stability.Deprecated) {
+      diagnostics.push("@deprecated tag requires '@stability deprecated' or no @stability at all.");
+    }
+    docs.stability = spec.Stability.Deprecated;
   }
 
-  if (docs.example && docs.example.indexOf('```') >= 0) {
+  if (docs.example && docs.example.includes('```')) {
     // This is currently what the JSDoc standard expects, and VSCode highlights it in
     // this way as well. TSDoc disagrees and says that examples start in text mode
     // which I tend to agree with, but that hasn't become a widely used standard yet.
@@ -150,7 +150,7 @@ function noNewlines(s: string) {
 }
 
 function endWithPeriod(s: string) {
-  return ENDS_WITH_PUNCTUATION_REGEX.test(s) ? s : s + '.';
+  return ENDS_WITH_PUNCTUATION_REGEX.test(s) ? s : `${s}.`;
 }
 
 /**
@@ -181,7 +181,7 @@ function summaryLine(str: string) {
   return paras[0];
 }
 
-const PUNCTUATION = ['!', '?', '.', ';'].map(s => '\\' + s).join('');
+const PUNCTUATION = ['!', '?', '.', ';'].map(s => `\\${s}`).join('');
 const ENDS_WITH_PUNCTUATION_REGEX = new RegExp(`[${PUNCTUATION}]$`);
 const FIRST_SENTENCE_REGEX = new RegExp(`^([^${PUNCTUATION}]+[${PUNCTUATION}] )`); // literal space at the end
 
@@ -196,7 +196,7 @@ function countBools(...x: boolean[]) {
 function parseStability(s: string | undefined, diagnostics: string[]): spec.Stability | undefined {
   if (s === undefined) { return undefined; }
 
-  switch (s)  {
+  switch (s) {
     case 'stable': return spec.Stability.Stable;
     case 'experimental': return spec.Stability.Experimental;
     case 'external': return spec.Stability.External;

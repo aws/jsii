@@ -3,6 +3,95 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.2](https://github.com/aws/jsii/compare/v0.20.1...v0.20.2) (2019-11-08)
+
+**Note:** Version bump only for package jsii-diff
+
+
+
+
+
+## [0.20.1](https://github.com/aws/jsii/compare/v0.20.0...v0.20.1) (2019-11-06)
+
+
+### Features
+
+* **jsii-diff:** make assembly validation optional ([#926](https://github.com/aws/jsii/issues/926)) ([e2c80f0](https://github.com/aws/jsii/commit/e2c80f07f38aee25fc57164e71bdd8ae448cda7e))
+
+
+
+
+
+## [0.20.0](https://github.com/aws/jsii/compare/v0.19.0...v0.20.0) (2019-10-30)
+
+**Note:** Version bump only for package jsii-diff
+
+
+
+
+
+# [0.19.0](https://github.com/aws/jsii/compare/v0.18.0...v0.19.0) (2019-10-14)
+
+
+### Bug Fixes
+
+* **jsii-diff:** add 'main' property to package.json ([#877](https://github.com/aws/jsii/issues/877)) ([670d94a](https://github.com/aws/jsii/commit/670d94a6815e2f06552e7249b4fbb771664a2a30))
+
+
+### Features
+
+* **sampiler:** translate code samples to Python ([#827](https://github.com/aws/jsii/issues/827)) ([c9a7002](https://github.com/aws/jsii/commit/c9a7002431c0db6224d595eb5555b916036d4575))
+
+
+
+
+
+# [0.18.0](https://github.com/aws/jsii/compare/v0.17.1...v0.18.0) (2019-10-01)
+
+
+### Features
+
+* configure `engines` with `node >= 10.3.0` ([#795](https://github.com/aws/jsii/issues/795)) ([6164b6b](https://github.com/aws/jsii/commit/6164b6b)), closes [#794](https://github.com/aws/jsii/issues/794)
+
+
+
+
+
+## [0.17.1](https://github.com/aws/jsii/compare/v0.17.0...v0.17.1) (2019-09-30)
+
+**Note:** Version bump only for package jsii-diff
+
+
+
+
+
+# [0.17.0](https://github.com/aws/jsii/compare/v0.16.0...v0.17.0) (2019-09-18)
+
+**Note:** Version bump only for package jsii-diff
+
+
+
+
+
+# [0.16.0](https://github.com/aws/jsii/compare/v0.15.1...v0.16.0) (2019-08-29)
+
+
+### Bug Fixes
+
+* **jsii-diff:** handle violations in Enums ([#730](https://github.com/aws/jsii/issues/730)) ([934b5c8](https://github.com/aws/jsii/commit/934b5c8))
+
+
+
+
+
+## [0.15.1](https://github.com/aws/jsii/compare/v0.15.0...v0.15.1) (2019-08-18)
+
+**Note:** Version bump only for package jsii-diff
+
+
+
+
+
 ## [0.15.0](https://github.com/aws/jsii/compare/v0.14.3...v0.15.0) (2019-08-12)
 
 **Note:** Version bump only for package jsii-diff

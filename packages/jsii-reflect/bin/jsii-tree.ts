@@ -2,8 +2,6 @@ import colors = require('colors/safe');
 import yargs = require('yargs');
 import { TypeSystem, TypeSystemTree } from '../lib';
 
-  // tslint:disable:no-console
-
 async function main() {
   const options = yargs
     .usage('$0 [JSII-FILE | MODULE-DIR...]', 'Prints an ASCII tree representation of a jsii type system.', args => args
@@ -27,9 +25,7 @@ async function main() {
     await typesys.loadNpmDependencies(options.closure, { validate: options.validate });
   }
 
-  for (const fileOrDirectory of (options.jsiiFile as string[] || [])) {
-    await typesys.load(fileOrDirectory, { validate: options.validate });
-  }
+  await Promise.all((options.jsiiFile as string[] || []).map(fileOrDirectory => typesys.load(fileOrDirectory, { validate: options.validate })));
 
   const tst = new TypeSystemTree(typesys, {
     dependencies: options.dependencies || options.all,

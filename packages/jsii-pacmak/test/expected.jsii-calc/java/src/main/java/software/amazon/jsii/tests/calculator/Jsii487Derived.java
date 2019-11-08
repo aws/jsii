@@ -15,8 +15,9 @@ public class Jsii487Derived extends software.amazon.jsii.JsiiObject implements s
     protected Jsii487Derived(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public Jsii487Derived() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 }

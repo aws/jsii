@@ -4,8 +4,11 @@ package software.amazon.jsii.tests.calculator;
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.ExtendsInternalInterface")
+@software.amazon.jsii.Jsii.Proxy(ExtendsInternalInterface.Jsii$Proxy.class)
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSerializable {
+
     /**
      * EXPERIMENTAL
      */
@@ -25,18 +28,17 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
     static Builder builder() {
         return new Builder();
     }
-
     /**
      * A builder for {@link ExtendsInternalInterface}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    final class Builder {
+    public static final class Builder {
         private java.lang.Boolean boom;
         private java.lang.String prop;
 
         /**
          * Sets the value of Boom
-         * @param boom the value to be set
+         * @param boom the value to be set. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -47,7 +49,7 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
 
         /**
          * Sets the value of Prop
-         * @param prop the value to be set
+         * @param prop the value to be set. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -65,7 +67,6 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
         public ExtendsInternalInterface build() {
             return new Jsii$Proxy(boom, prop);
         }
-
     }
 
     /**
@@ -81,17 +82,15 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
          * @param objRef Reference to the JSII managed object.
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.setObjRef(objRef);
+            super(objRef);
             this.boom = this.jsiiGet("boom", java.lang.Boolean.class);
             this.prop = this.jsiiGet("prop", java.lang.String.class);
         }
 
-
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        private Jsii$Proxy(java.lang.Boolean boom, java.lang.String prop) {
+        private Jsii$Proxy(final java.lang.Boolean boom, final java.lang.String prop) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
             this.boom = java.util.Objects.requireNonNull(boom, "boom is required");
             this.prop = java.util.Objects.requireNonNull(prop, "prop is required");
@@ -109,10 +108,19 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
 
         @Override
         public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-            obj.set("boom", om.valueToTree(this.getBoom()));
-            obj.set("prop", om.valueToTree(this.getProp()));
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            data.set("boom", om.valueToTree(this.getBoom()));
+            data.set("prop", om.valueToTree(this.getProp()));
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.ExtendsInternalInterface"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
             return obj;
         }
 
@@ -133,6 +141,5 @@ public interface ExtendsInternalInterface extends software.amazon.jsii.JsiiSeria
             result = 31 * result + (this.prop.hashCode());
             return result;
         }
-
     }
 }

@@ -1,30 +1,38 @@
 {
   "name": "jsii-python-runtime",
+  "version": "0.20.2",
   "private": true,
-  "version": "0.15.0",
   "description": "Python client for jsii runtime",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com"
+  },
+  "homepage": "git://github.com/aws/jsii",
+  "bugs": {
+    "url": "git://github.com/aws/jsii"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/aws/jsii",
+    "directory": "packages/jsii-python-runtime"
+  },
+  "engines": {
+    "node": ">= 10.3.0"
+  },
   "main": "index.js",
   "scripts": {
     "generate": "python3 bin/generate",
     "deps": "python3 -m venv .env && .env/bin/pip install pip==19.0.1 setuptools==40.7.0 wheel==0.32.3 && .env/bin/pip install -r requirements.txt",
     "build": "cp ../../README.md . && npm run generate && npm run deps && .env/bin/python setup.py sdist -d . bdist_wheel -d . && rm -rf build",
     "package": "package-python",
-    "test": ".env/bin/python bin/generate-calc && .env/bin/py.test -v --mypy"
+    "test": ".env/bin/python bin/generate-calc && .env/bin/py.test -v --mypy",
+    "test:update": "UPDATE_DIFF=1 .env/bin/python bin/generate-calc && .env/bin/py.test -v --mypy"
   },
   "dependencies": {
-    "jsii-build-tools": "file:../jsii-build-tools",
-    "jsii-calc": "file:../jsii-calc",
-    "jsii-pacmak": "^0.15.0",
-    "jsii-runtime": "^0.15.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/aws/jsii"
-  },
-  "author": {
-    "name": "Amazon Web Services",
-    "url": "https://aws.amazon.com",
-    "organization": true
-  },
-  "license": "Apache-2.0"
+    "jsii-build-tools": "^0.20.2",
+    "jsii-calc": "^0.20.2",
+    "jsii-pacmak": "^0.20.2",
+    "jsii-runtime": "^0.20.2"
+  }
 }

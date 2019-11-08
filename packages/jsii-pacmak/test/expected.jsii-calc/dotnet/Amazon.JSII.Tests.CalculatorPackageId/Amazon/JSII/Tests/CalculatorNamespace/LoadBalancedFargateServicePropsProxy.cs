@@ -20,6 +20,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// 80
         /// stability: Experimental
         /// </remarks>
+        [JsiiOptional]
         [JsiiProperty(name: "containerPort", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
         public double? ContainerPort
         {
@@ -33,6 +34,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// 256
         /// stability: Experimental
         /// </remarks>
+        [JsiiOptional]
         [JsiiProperty(name: "cpu", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         public string Cpu
         {
@@ -59,6 +61,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// 512
         /// stability: Experimental
         /// </remarks>
+        [JsiiOptional]
         [JsiiProperty(name: "memoryMiB", typeJson: "{\"primitive\":\"string\"}", isOptional: true)]
         public string MemoryMiB
         {
@@ -71,6 +74,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// true
         /// stability: Experimental
         /// </remarks>
+        [JsiiOptional]
         [JsiiProperty(name: "publicLoadBalancer", typeJson: "{\"primitive\":\"boolean\"}", isOptional: true)]
         public bool? PublicLoadBalancer
         {
@@ -83,6 +87,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// false
         /// stability: Experimental
         /// </remarks>
+        [JsiiOptional]
         [JsiiProperty(name: "publicTasks", typeJson: "{\"primitive\":\"boolean\"}", isOptional: true)]
         public bool? PublicTasks
         {

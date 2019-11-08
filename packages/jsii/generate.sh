@@ -11,7 +11,6 @@ fi
 
 cat > lib/version.ts <<HERE
 // Generated at $(date -u +"%Y-%m-%dT%H:%M:%SZ") by generate.sh
-// tslint:disable:no-var-requires
 
 /** The short version number for this JSII compiler (e.g: \`X.Y.Z\`) */
 export const SHORT_VERSION = require('../package.json').version.replace(/\\+[0-9a-f]+\$/, '');

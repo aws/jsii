@@ -5,9 +5,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Deprecated
     /// </remarks>
-    [JsiiTypeProxy(nativeType: typeof(IIDeprecatedInterface), fullyQualifiedName: "jsii-calc.IDeprecatedInterface")]
+    [JsiiTypeProxy(nativeType: typeof(IDeprecatedInterface), fullyQualifiedName: "jsii-calc.IDeprecatedInterface")]
     [System.Obsolete("useless interface")]
-    internal sealed class IDeprecatedInterfaceProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IIDeprecatedInterface
+    internal sealed class IDeprecatedInterfaceProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IDeprecatedInterface
     {
         private IDeprecatedInterfaceProxy(ByRefValue reference): base(reference)
         {
@@ -16,6 +16,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// stability: Deprecated
         /// </remarks>
+        [JsiiOptional]
         [JsiiProperty(name: "mutableProperty", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
         [System.Obsolete("could be better")]
         public double? MutableProperty
@@ -31,7 +32,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [System.Obsolete("services no purpose")]
         public void Method()
         {
-            InvokeInstanceVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
         }
     }
 }

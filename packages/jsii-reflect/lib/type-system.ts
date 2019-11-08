@@ -33,15 +33,21 @@ export class TypeSystem {
    * NOT have to declare a JSII dependency on any of the packages.
    */
   public async loadNpmDependencies(packageRoot: string, options: { validate?: boolean } = {}): Promise<void> {
+    /* eslint-disable @typescript-eslint/no-var-requires */
     const pkg = require(path.resolve(packageRoot, 'package.json'));
+    /* eslint-enable @typescript-eslint/no-var-requires */
 
     for (const dep of dependenciesOf(pkg)) {
       // Filter jsii dependencies
-      const depPkgJsonPath = require.resolve(`${dep}/package.json`, { paths: [ packageRoot ] });
+      const depPkgJsonPath = require.resolve(`${dep}/package.json`, { paths: [packageRoot] });
+      /* eslint-disable @typescript-eslint/no-var-requires */
       const depPkgJson = require(depPkgJsonPath);
+      /* eslint-enable @typescript-eslint/no-var-requires */
       if (!depPkgJson.jsii) { continue; }
 
+      /* eslint-disable no-await-in-loop */
       await this.loadModule(path.dirname(depPkgJsonPath), options);
+      /* eslint-enable no-await-in-loop */
     }
   }
 
@@ -59,23 +65,21 @@ export class TypeSystem {
    */
   public async load(fileOrDirectory: string, options: { validate?: boolean } = {}) {
     if ((await stat(fileOrDirectory)).isDirectory()) {
-      return await this.loadModule(fileOrDirectory, options);
-    } else {
-      return await this.loadFile(fileOrDirectory, { ...options, isRoot: true });
+      return this.loadModule(fileOrDirectory, options);
     }
+    return this.loadFile(fileOrDirectory, { ...options, isRoot: true });
+
   }
 
   public async loadModule(dir: string, options: { validate?: boolean } = {}): Promise<Assembly> {
-    const self = this;
-
-    const out = await _loadModule(dir, true);
+    const out = await _loadModule.call(this, dir, true);
     if (!out) {
       throw new Error(`Unable to load module from directory: ${dir}`);
     }
 
     return out;
 
-    async function _loadModule(moduleDirectory: string, isRoot = false) {
+    async function _loadModule(this: TypeSystem, moduleDirectory: string, isRoot = false) {
       const filePath = path.join(moduleDirectory, 'package.json');
       const pkg = JSON.parse((await readFile(filePath)).toString());
       if (!pkg.jsii) {
@@ -85,15 +89,15 @@ export class TypeSystem {
       // Load the assembly, but don't recurse if we already have an assembly with the same name.
       // Validation is not an insignificant time sink, and loading IS insignificant, so do a
       // load without validation first. This saves about 2/3rds of processing time.
-      const asm = await self.loadAssembly(path.join(moduleDirectory, '.jsii'), false);
-      if (self.includesAssembly(asm.name)) {
-        const existing = self.findAssembly(asm.name);
+      const asm = await this.loadAssembly(path.join(moduleDirectory, '.jsii'), false);
+      if (this.includesAssembly(asm.name)) {
+        const existing = this.findAssembly(asm.name);
         if (existing.version !== asm.version) {
           throw new Error(`Conflicting versions of ${asm.name} in type system: previously loaded ${existing.version}, trying to load ${asm.version}`);
         }
         // Make sure that we mark this thing as root after all if it wasn't yet.
         if (isRoot) {
-          self.addRoot(asm);
+          this.addRoot(asm);
         }
 
         return existing;
@@ -103,16 +107,18 @@ export class TypeSystem {
         asm.validate();
       }
 
-      const root = await self.addAssembly(asm, { isRoot });
+      const root = this.addAssembly(asm, { isRoot });
       const bundled: string[] = pkg.bundledDependencies || pkg.bundleDependencies || [];
 
       for (const name of dependenciesOf(pkg)) {
         if (bundled.includes(name)) { continue; }
 
         const depDir = require.resolve(`${name}/package.json`, {
-          paths: [ moduleDirectory ]
+          paths: [moduleDirectory]
         });
-        await _loadModule(path.dirname(depDir));
+        /* eslint-disable no-await-in-loop */
+        await _loadModule.call(this, path.dirname(depDir));
+        /* eslint-enable no-await-in-loop */
       }
 
       return root;
@@ -167,13 +173,13 @@ export class TypeSystem {
   }
 
   public findFqn(fqn: string): Type {
-    const [ assembly ] = fqn.split('.');
+    const [assembly] = fqn.split('.');
     const asm = this.findAssembly(assembly);
     return asm.findType(fqn);
   }
 
   public tryFindFqn(fqn: string): Type | undefined {
-    const [ assembly ] = fqn.split('.');
+    const [assembly] = fqn.split('.');
     const asm = this.tryFindAssembly(assembly);
     return asm && asm.tryFindType(fqn);
   }

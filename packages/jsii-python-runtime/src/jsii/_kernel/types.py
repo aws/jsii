@@ -15,6 +15,7 @@ from jsii.compat import Protocol
 class ObjRef:
 
     ref: str
+    interfaces: Optional[List[str]] = None
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
@@ -53,6 +54,7 @@ class CreateRequest:
     fqn: str
     args: List[Any] = attr.Factory(list)
     overrides: List[Override] = attr.Factory(list)
+    interfaces: Optional[List[str]] = attr.Factory(Optional[list])
 
 
 @attr.s(auto_attribs=True, frozen=True, slots=True)
@@ -246,7 +248,6 @@ class JSClass(Protocol):
         """
         Returns a str that points to this class inside of the Javascript runtime.
         """
-
 
 class Referenceable(Protocol):
     @property

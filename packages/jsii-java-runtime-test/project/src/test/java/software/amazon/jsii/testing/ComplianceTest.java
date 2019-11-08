@@ -3,60 +3,9 @@ package software.amazon.jsii.testing;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.Test;
+import software.amazon.jsii.JsiiEngine;
 import software.amazon.jsii.JsiiException;
-import software.amazon.jsii.tests.calculator.AbstractClass;
-import software.amazon.jsii.tests.calculator.AbstractClassReturner;
-import software.amazon.jsii.tests.calculator.Add;
-import software.amazon.jsii.tests.calculator.AllTypes;
-import software.amazon.jsii.tests.calculator.AllTypesEnum;
-import software.amazon.jsii.tests.calculator.AsyncVirtualMethods;
-import software.amazon.jsii.tests.calculator.Calculator;
-import software.amazon.jsii.tests.calculator.CalculatorProps;
-import software.amazon.jsii.tests.calculator.ClassWithJavaReservedWords;
-import software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties;
-import software.amazon.jsii.tests.calculator.Constructors;
-import software.amazon.jsii.tests.calculator.DataRenderer;
-import software.amazon.jsii.tests.calculator.DerivedStruct;
-import software.amazon.jsii.tests.calculator.DiamondInheritanceTopLevelStruct;
-import software.amazon.jsii.tests.calculator.DoNotOverridePrivates;
-import software.amazon.jsii.tests.calculator.DoubleTrouble;
-import software.amazon.jsii.tests.calculator.EraseUndefinedHashValues;
-import software.amazon.jsii.tests.calculator.EraseUndefinedHashValuesOptions;
-import software.amazon.jsii.tests.calculator.GiveMeStructs;
-import software.amazon.jsii.tests.calculator.GreetingAugmenter;
-import software.amazon.jsii.tests.calculator.IFriendlier;
-import software.amazon.jsii.tests.calculator.IFriendlyRandomGenerator;
-import software.amazon.jsii.tests.calculator.IInterfaceWithProperties;
-import software.amazon.jsii.tests.calculator.IPublicInterface;
-import software.amazon.jsii.tests.calculator.IRandomNumberGenerator;
-import software.amazon.jsii.tests.calculator.InbetweenClass;
-import software.amazon.jsii.tests.calculator.IInterfaceImplementedByAbstractClass;
-import software.amazon.jsii.tests.calculator.JSObjectLiteralForInterface;
-import software.amazon.jsii.tests.calculator.JSObjectLiteralToNative;
-import software.amazon.jsii.tests.calculator.JSObjectLiteralToNativeClass;
-import software.amazon.jsii.tests.calculator.JavaReservedWords;
-import software.amazon.jsii.tests.calculator.JsiiAgent;
-import software.amazon.jsii.tests.calculator.Multiply;
-import software.amazon.jsii.tests.calculator.Negate;
-import software.amazon.jsii.tests.calculator.NodeStandardLibrary;
-import software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefined;
-import software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefinedData;
-import software.amazon.jsii.tests.calculator.NumberGenerator;
-import software.amazon.jsii.tests.calculator.OptionalStruct;
-import software.amazon.jsii.tests.calculator.PartiallyInitializedThisConsumer;
-import software.amazon.jsii.tests.calculator.Polymorphism;
-import software.amazon.jsii.tests.calculator.Power;
-import software.amazon.jsii.tests.calculator.PublicClass;
-import software.amazon.jsii.tests.calculator.ReferenceEnumFromScopedPackage;
-import software.amazon.jsii.tests.calculator.ReturnsPrivateImplementationOfInterface;
-import software.amazon.jsii.tests.calculator.StableStruct;
-import software.amazon.jsii.tests.calculator.Statics;
-import software.amazon.jsii.tests.calculator.StructWithJavaReservedWords;
-import software.amazon.jsii.tests.calculator.Sum;
-import software.amazon.jsii.tests.calculator.SyncVirtualMethods;
-import software.amazon.jsii.tests.calculator.UnionProperties;
-import software.amazon.jsii.tests.calculator.UsesInterfaceWithProperties;
-import software.amazon.jsii.tests.calculator.VariadicMethod;
+import software.amazon.jsii.tests.calculator.*;
 import software.amazon.jsii.tests.calculator.composition.CompositeOperation;
 import software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule;
 import software.amazon.jsii.tests.calculator.lib.IFriendly;
@@ -64,15 +13,19 @@ import software.amazon.jsii.tests.calculator.lib.MyFirstStruct;
 import software.amazon.jsii.tests.calculator.lib.Number;
 import software.amazon.jsii.tests.calculator.lib.StructWithOnlyOptionals;
 import software.amazon.jsii.tests.calculator.lib.Value;
-import software.amazon.jsii.tests.calculator.ConstructorPassesThisOut;
 
 import java.io.IOException;
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.hasEntry;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
@@ -81,6 +34,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+@SuppressWarnings("deprecated")
 public class ComplianceTest {
     /**
      * Verify that we can marshal and unmarshal objects without type information.
@@ -158,7 +112,7 @@ public class ComplianceTest {
         assertEquals(Instant.ofEpochSecond(1234), types.getAnyProperty());
 
         // json (notice that when deserialized, it is deserialized as a map).
-        types.setAnyProperty(new ObjectMapper().readTree("{ \"Goo\": [ \"Hello\", { \"World\": 123 } ] }"));
+        types.setAnyProperty(Collections.singletonMap("Goo", Arrays.asList("Hello", Collections.singletonMap("World", 123))));
         assertEquals(123, ((Map<?, ?>)((List<?>)((Map<?, ?>)types.getAnyProperty()).get("Goo")).get(1)).get("World"));
 
         // array
@@ -214,8 +168,6 @@ public class ComplianceTest {
         types.setUnionArrayProperty(Arrays.asList(123, new Number(33)));
         assertEquals(33, ((Number)((List<?>)types.getUnionArrayProperty()).get(1)).getValue());
     }
-
-
 
     @Test
     public void createObjectAndCtorOverloads() {
@@ -635,10 +587,16 @@ public class ComplianceTest {
 
     @Test(expected = JsiiException.class)
     public void fail_syncOverrides_callsDoubleAsync_method() {
-        SyncOverrides obj = new SyncOverrides();
-        obj.callAsync = true;
+        try {
+            JsiiEngine.setQuietMode(true);
 
-        obj.callerIsMethod();
+            SyncOverrides obj = new SyncOverrides();
+            obj.callAsync = true;
+
+            obj.callerIsMethod();
+        } finally {
+            JsiiEngine.setQuietMode(false);
+        }
     }
 
     @Test(expected = JsiiException.class)
@@ -1218,7 +1176,7 @@ public class ComplianceTest {
         final IPublicInterface ifaceRef = Constructors.makeInterface();
 
         assertTrue(classRef instanceof InbetweenClass);
-        assertTrue(ifaceRef instanceof IPublicInterface);
+        assertNotNull(ifaceRef);
     }
 
     /**
@@ -1241,9 +1199,7 @@ public class ComplianceTest {
     @Test
     public void objectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut() {
         final PartiallyInitializedThisConsumer reflector = new PartiallyInitializedThisConsumerImpl();
-        final ConstructorPassesThisOut object = new ConstructorPassesThisOut(reflector);
-
-        assertTrue(object != null);
+        new ConstructorPassesThisOut(reflector);
     }
 
     @Test
@@ -1254,13 +1210,185 @@ public class ComplianceTest {
     }
 
     @Test
-    public void callbacsCorrectlyDeserializeArguments() {
+    public void callbacksCorrectlyDeserializeArguments() {
         final DataRenderer renderer = new DataRenderer() {
             public final String renderMap(final Map<String, Object> map) {
                 return super.renderMap(map);
             }
         };
         assertEquals("{\n  \"anumber\": 42,\n  \"astring\": \"bazinga!\"\n}", renderer.render());
+    }
+
+    @Test
+    public void canLoadEnumValues() {
+        assertNotNull(EnumDispenser.randomStringLikeEnum());
+        assertNotNull(EnumDispenser.randomIntegerLikeEnum());
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void listInClassCannotBeModified() {
+        List<String> modifiableList = Arrays.asList("one", "two");
+
+        ClassWithCollections classWithCollections = new ClassWithCollections(Collections.emptyMap(), modifiableList);
+
+        classWithCollections.getArray().add("three");
+    }
+
+    @Test
+    public void listInClassCanBeReadCorrectly() {
+        List<String> modifiableList = Arrays.asList("one", "two");
+
+        ClassWithCollections classWithCollections = new ClassWithCollections(Collections.emptyMap(), modifiableList);
+
+        assertThat(classWithCollections.getArray(), contains("one", "two"));
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void mapInClassCannotBeModified() {
+        Map<String, String> modifiableMap = new HashMap<>();
+        modifiableMap.put("key", "value");
+
+        ClassWithCollections classWithCollections = new ClassWithCollections(modifiableMap, Collections.emptyList());
+
+        classWithCollections.getMap().put("keyTwo", "valueTwo");
+    }
+
+    @Test
+    public void mapInClassCanBeReadCorrectly() {
+        Map<String, String> modifiableMap = new HashMap<>();
+        modifiableMap.put("key", "value");
+
+        ClassWithCollections classWithCollections = new ClassWithCollections(modifiableMap, Collections.emptyList());
+
+        Map<String, String> result = classWithCollections.getMap();
+        assertThat(result, hasEntry("key", "value"));
+        assertThat(result.size(), is(1));
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void staticListInClassCannotBeModified() {
+        ClassWithCollections.getStaticArray().add("three");
+    }
+
+    @Test
+    public void staticListInClassCanBeReadCorrectly() {
+        assertThat(ClassWithCollections.getStaticArray(), contains("one", "two"));
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void staticMapInClassCannotBeModified() {
+        ClassWithCollections.getStaticMap().put("keyTwo", "valueTwo");
+    }
+
+    @Test
+    public void staticMapInClassCanBeReadCorrectly() {
+        Map<String, String> result = ClassWithCollections.getStaticMap();
+        assertThat(result, hasEntry("key1", "value1"));
+        assertThat(result, hasEntry("key2", "value2"));
+        assertThat(result.size(), is(2));
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void arrayReturnedByMethodCannotBeModified() {
+        ClassWithCollections.createAList().add("three");
+    }
+
+    @Test
+    public void arrayReturnedByMethodCanBeRead() {
+        assertThat(ClassWithCollections.createAList(), contains("one", "two"));
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void mapReturnedByMethodCannotBeModified() {
+        ClassWithCollections.createAMap().put("keyThree", "valueThree");
+    }
+
+    @Test
+    public void mapReturnedByMethodCanBeRead() {
+        Map<String, String> result = ClassWithCollections.createAMap();
+        assertThat(result, hasEntry("key1", "value1"));
+        assertThat(result, hasEntry("key2", "value2"));
+        assertThat(result.size(), is(2));
+    }
+
+    @Test
+    public void canOverrideProtectedMethod() {
+        final String challenge = "Cthulhu Fhtagn!";
+        final OverridableProtectedMember overridden = new OverridableProtectedMember() {
+            @Override
+            protected String overrideMe() {
+                return challenge;
+            }
+        };
+        assertEquals(challenge, overridden.valueFromProtected());
+    }
+
+    @Test
+    public void canOverrideProtectedGetter() {
+        final String challenge = "Cthulhu Fhtagn!";
+        final OverridableProtectedMember overridden = new OverridableProtectedMember() {
+            @Override
+            protected String getOverrideReadOnly() {
+                return "Cthulhu ";
+            }
+
+            @Override
+            protected String getOverrideReadWrite() {
+                return "Fhtagn!";
+            }
+        };
+        assertEquals(challenge, overridden.valueFromProtected());
+    }
+
+    @Test
+    public void canOverrideProtectedSetter() {
+        final String challenge = "Bazzzzzzzzzzzaar...";
+        final OverridableProtectedMember overridden = new OverridableProtectedMember() {
+            @Override
+            protected void setOverrideReadWrite(String value) {
+                super.setOverrideReadWrite("zzzzzzzzz" + value);
+            }
+        };
+        overridden.switchModes();
+        assertEquals(challenge, overridden.valueFromProtected());
+    }
+
+    @Test
+    public void canLeverageIndirectInterfacePolymorphism() {
+        final IAnonymousImplementationProvider provider = new AnonymousImplementationProvider();
+        assertEquals(1337, provider.provideAsClass().getValue());
+        assertEquals(1337, provider.provideAsInterface().getValue());
+        assertEquals("to implement", provider.provideAsInterface().verb());
+    }
+
+    @Test
+    public void correctlyDeserializesStructUnions() {
+        final StructA a0 = StructA.builder()
+                .requiredString("Present!")
+                .optionalString("Bazinga!")
+                .build();
+        final StructA a1 = StructA.builder()
+                .requiredString("Present!")
+                .optionalNumber(1337)
+                .build();
+        final StructB b0 = StructB.builder()
+                .requiredString("Present!")
+                .optionalBoolean(true)
+                .build();
+        final StructB b1 = StructB.builder()
+                .requiredString("Present!")
+                .optionalStructA(a1)
+                .build();
+
+        assertTrue(StructUnionConsumer.isStructA(a0));
+        assertTrue(StructUnionConsumer.isStructA(a1));
+        assertFalse(StructUnionConsumer.isStructA(b0));
+        assertFalse(StructUnionConsumer.isStructA(b1));
+
+        assertFalse(StructUnionConsumer.isStructB(a0));
+        assertFalse(StructUnionConsumer.isStructB(a1));
+        assertTrue(StructUnionConsumer.isStructB(b0));
+        assertTrue(StructUnionConsumer.isStructB(b1));
     }
 
     static class PartiallyInitializedThisConsumerImpl extends PartiallyInitializedThisConsumer {

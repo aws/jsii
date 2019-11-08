@@ -15,9 +15,10 @@ public class Constructors extends software.amazon.jsii.JsiiObject {
     protected Constructors(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public Constructors() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
     /**
@@ -33,7 +34,7 @@ public class Constructors extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static java.util.List<software.amazon.jsii.tests.calculator.IPublicInterface> hiddenInterfaces() {
-        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Constructors.class, "hiddenInterfaces", java.util.List.class);
+        return java.util.Collections.unmodifiableList(software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Constructors.class, "hiddenInterfaces", java.util.List.class));
     }
 
     /**
@@ -41,7 +42,7 @@ public class Constructors extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static java.util.List<software.amazon.jsii.tests.calculator.IPublicInterface> hiddenSubInterfaces() {
-        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Constructors.class, "hiddenSubInterfaces", java.util.List.class);
+        return java.util.Collections.unmodifiableList(software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Constructors.class, "hiddenSubInterfaces", java.util.List.class));
     }
 
     /**
@@ -73,6 +74,6 @@ public class Constructors extends software.amazon.jsii.JsiiObject {
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static java.util.List<software.amazon.jsii.tests.calculator.IPublicInterface> makeInterfaces() {
-        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Constructors.class, "makeInterfaces", java.util.List.class);
+        return java.util.Collections.unmodifiableList(software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.Constructors.class, "makeInterfaces", java.util.List.class));
     }
 }

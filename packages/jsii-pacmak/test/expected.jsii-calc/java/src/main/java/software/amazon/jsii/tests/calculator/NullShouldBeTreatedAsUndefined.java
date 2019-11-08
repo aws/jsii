@@ -17,25 +17,34 @@ public class NullShouldBeTreatedAsUndefined extends software.amazon.jsii.JsiiObj
     protected NullShouldBeTreatedAsUndefined(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     /**
      * EXPERIMENTAL
+     * 
+     * @param _param1 This parameter is required.
+     * @param optional
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public NullShouldBeTreatedAsUndefined(final java.lang.String _param1, final java.lang.Object optional) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(_param1, "_param1 is required"), optional }));
-    }
-    /**
-     * EXPERIMENTAL
-     */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public NullShouldBeTreatedAsUndefined(final java.lang.String _param1) {
-        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(_param1, "_param1 is required") }));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(_param1, "_param1 is required"), optional });
     }
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param _param1 This parameter is required.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    public NullShouldBeTreatedAsUndefined(final java.lang.String _param1) {
+        super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(_param1, "_param1 is required") });
+    }
+
+    /**
+     * EXPERIMENTAL
+     * 
+     * @param value
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void giveMeUndefined(final java.lang.Object value) {
@@ -52,6 +61,8 @@ public class NullShouldBeTreatedAsUndefined extends software.amazon.jsii.JsiiObj
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param input This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void giveMeUndefinedInsideAnObject(final software.amazon.jsii.tests.calculator.NullShouldBeTreatedAsUndefinedData input) {

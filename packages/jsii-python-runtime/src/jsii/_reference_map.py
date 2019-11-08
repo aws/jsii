@@ -87,16 +87,25 @@ class _ReferenceMap:
             return data_type(**python_props)
         elif class_fqn in _enums:
             inst = _enums[class_fqn]
-        elif class_fqn in _interfaces:
-            # Get our proxy class by finding our interface, then asking it to give us
-            # the proxy class.
-            iface = _interfaces[class_fqn]
-            klass = iface.__jsii_proxy_class__()
+        elif class_fqn == "Object" and ref.interfaces is not None:
+            if any(fqn in _data_types for fqn in ref.interfaces):
+                # Ugly delayed import here because I can't solve the cyclic
+                # package dependency right now :(.
+                from ._runtime import python_jsii_mapping
 
-            # Create our instance, bypassing __init__ by directly calling __new__, and
-            # then assign our reference to __jsii_ref__
-            inst = klass.__new__(klass)
-            inst.__jsii_ref__ = ref
+                structs = [_data_types[fqn] for fqn in ref.interfaces]
+                remote_struct = _FakeReference(ref)
+                insts = [struct(**{
+                        python_name: kernel.get(remote_struct, jsii_name) for python_name, jsii_name in python_jsii_mapping(struct).items()
+                    }) for struct in structs]
+                return StructDynamicProxy(insts)
+            else:
+                ifaces = [_interfaces[fqn] for fqn in ref.interfaces]
+                classes = [iface.__jsii_proxy_class__() for iface in ifaces]
+                insts = [klass.__new__(klass) for klass in classes]
+                for inst in insts:
+                    inst.__jsii_ref__ = ref
+                return InterfaceDynamicProxy(insts)
         else:
             raise ValueError(f"Unknown type: {class_fqn}")
 
@@ -105,6 +114,47 @@ class _ReferenceMap:
     def resolve_id(self, id):
         return self._refs[id]
 
+
+class InterfaceDynamicProxy(object):
+    def __init__(self, delegates):
+        self._delegates = delegates
+
+    def __getattr__(self, name):
+        for delegate in self._delegates:
+            try:
+                return getattr(delegate, name)
+            except NameError:
+                pass
+        return None
+
+
+class StructDynamicProxy(object):
+    def __init__(self, delegates):
+        self._delegates = delegates
+
+    def __getattr__(self, name):
+        for delegate in self._delegates:
+            try:
+                return getattr(delegate, name)
+            except NameError:
+                pass
+        return None
+
+    def __eq__(self, rhs) -> bool:
+        if len(self._delegates) == 1:
+            return rhs == self._delegates[0]
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs) -> bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        if len(self._delegates) == 1:
+            return self._delegates[0].__repr__()
+        return '%s(%s)' % (
+            ' & '.join([delegate.__class__.__jsii_type__ for delegate in self._delegates]),
+            ', '.join(k + '=' + repr(v) for k, v in self._values.items())
+        )
 
 _refs = _ReferenceMap(_types)
 

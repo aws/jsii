@@ -5,7 +5,7 @@ using System;
 namespace Amazon.JSII.Runtime.Deputy
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
-    public class JsiiClassAttribute : JsiiTypeAttributeBase
+    public sealed class JsiiClassAttribute : JsiiTypeAttributeBase
     {
         public JsiiClassAttribute(System.Type nativeType, string fullyQualifiedName, string parametersJson = null)
             : base(nativeType, fullyQualifiedName)

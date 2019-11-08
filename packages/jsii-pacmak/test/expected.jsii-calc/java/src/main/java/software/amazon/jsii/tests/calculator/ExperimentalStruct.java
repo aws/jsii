@@ -4,8 +4,11 @@ package software.amazon.jsii.tests.calculator;
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.ExperimentalStruct")
+@software.amazon.jsii.Jsii.Proxy(ExperimentalStruct.Jsii$Proxy.class)
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializable {
+
     /**
      * EXPERIMENTAL
      */
@@ -19,17 +22,16 @@ public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializabl
     static Builder builder() {
         return new Builder();
     }
-
     /**
      * A builder for {@link ExperimentalStruct}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    final class Builder {
+    public static final class Builder {
         private java.lang.String readonlyProperty;
 
         /**
          * Sets the value of ReadonlyProperty
-         * @param readonlyProperty the value to be set
+         * @param readonlyProperty the value to be set. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -47,7 +49,6 @@ public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializabl
         public ExperimentalStruct build() {
             return new Jsii$Proxy(readonlyProperty);
         }
-
     }
 
     /**
@@ -62,16 +63,14 @@ public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializabl
          * @param objRef Reference to the JSII managed object.
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.setObjRef(objRef);
+            super(objRef);
             this.readonlyProperty = this.jsiiGet("readonlyProperty", java.lang.String.class);
         }
-
 
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        private Jsii$Proxy(java.lang.String readonlyProperty) {
+        private Jsii$Proxy(final java.lang.String readonlyProperty) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
             this.readonlyProperty = java.util.Objects.requireNonNull(readonlyProperty, "readonlyProperty is required");
         }
@@ -83,9 +82,18 @@ public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializabl
 
         @Override
         public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-            obj.set("readonlyProperty", om.valueToTree(this.getReadonlyProperty()));
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            data.set("readonlyProperty", om.valueToTree(this.getReadonlyProperty()));
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.ExperimentalStruct"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
             return obj;
         }
 
@@ -104,6 +112,5 @@ public interface ExperimentalStruct extends software.amazon.jsii.JsiiSerializabl
             int result = this.readonlyProperty.hashCode();
             return result;
         }
-
     }
 }

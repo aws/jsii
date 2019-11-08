@@ -17,17 +17,22 @@ public class NumberGenerator extends software.amazon.jsii.JsiiObject {
     protected NumberGenerator(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     /**
      * EXPERIMENTAL
+     * 
+     * @param generator This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public NumberGenerator(final software.amazon.jsii.tests.calculator.IRandomNumberGenerator generator) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(generator, "generator is required") }));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(generator, "generator is required") });
     }
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param gen This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Boolean isSameGenerator(final software.amazon.jsii.tests.calculator.IRandomNumberGenerator gen) {

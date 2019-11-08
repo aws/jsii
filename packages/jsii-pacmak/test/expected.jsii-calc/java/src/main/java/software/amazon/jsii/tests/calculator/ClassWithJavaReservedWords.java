@@ -15,17 +15,22 @@ public class ClassWithJavaReservedWords extends software.amazon.jsii.JsiiObject 
     protected ClassWithJavaReservedWords(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     /**
      * EXPERIMENTAL
+     * 
+     * @param int This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public ClassWithJavaReservedWords(final java.lang.String intValue) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(intValue, "intValue is required") }));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(intValue, "intValue is required") });
     }
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param assert This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String doImport(final java.lang.String assertValue) {

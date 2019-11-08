@@ -15,13 +15,17 @@ public class DontComplainAboutVariadicAfterOptional extends software.amazon.jsii
     protected DontComplainAboutVariadicAfterOptional(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public DontComplainAboutVariadicAfterOptional() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param optional
+     * @param things This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String optionalAndVariadic(final java.lang.String optional, final java.lang.String... things) {

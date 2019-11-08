@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// stability: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.DoubleTrouble), fullyQualifiedName: "jsii-calc.DoubleTrouble")]
-    public class DoubleTrouble : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IIFriendlyRandomGenerator
+    public class DoubleTrouble : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IFriendlyRandomGenerator
     {
         public DoubleTrouble(): base(new DeputyProps(new object[]{}))
         {
@@ -27,7 +27,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "hello", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
         public virtual string Hello()
         {
-            return InvokeInstanceMethod<string>(new object[]{});
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
         /// <summary>Returns another random number.</summary>
@@ -37,7 +37,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "next", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", isOverride: true)]
         public virtual double Next()
         {
-            return InvokeInstanceMethod<double>(new object[]{});
+            return InvokeInstanceMethod<double>(new System.Type[]{}, new object[]{});
         }
     }
 }

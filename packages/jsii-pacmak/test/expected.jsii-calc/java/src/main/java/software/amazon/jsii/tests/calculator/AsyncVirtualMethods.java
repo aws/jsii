@@ -15,9 +15,10 @@ public class AsyncVirtualMethods extends software.amazon.jsii.JsiiObject {
     protected AsyncVirtualMethods(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public AsyncVirtualMethods() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
     /**
@@ -62,6 +63,8 @@ public class AsyncVirtualMethods extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param mult This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number overrideMe(final java.lang.Number mult) {

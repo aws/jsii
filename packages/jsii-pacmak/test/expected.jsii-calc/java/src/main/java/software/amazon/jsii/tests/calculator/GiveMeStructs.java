@@ -15,15 +15,18 @@ public class GiveMeStructs extends software.amazon.jsii.JsiiObject {
     protected GiveMeStructs(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public GiveMeStructs() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
     /**
      * Accepts a struct of type DerivedStruct and returns a struct of type FirstStruct.
      * 
      * EXPERIMENTAL
+     * 
+     * @param derived This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.lib.MyFirstStruct derivedToFirst(final software.amazon.jsii.tests.calculator.DerivedStruct derived) {
@@ -34,6 +37,8 @@ public class GiveMeStructs extends software.amazon.jsii.JsiiObject {
      * Returns the boolean from a DerivedStruct struct.
      * 
      * EXPERIMENTAL
+     * 
+     * @param derived This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public software.amazon.jsii.tests.calculator.DoubleTrouble readDerivedNonPrimitive(final software.amazon.jsii.tests.calculator.DerivedStruct derived) {
@@ -44,6 +49,8 @@ public class GiveMeStructs extends software.amazon.jsii.JsiiObject {
      * Returns the "anumber" from a MyFirstStruct struct;
      * 
      * EXPERIMENTAL
+     * 
+     * @param first This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number readFirstNumber(final software.amazon.jsii.tests.calculator.lib.MyFirstStruct first) {

@@ -4,8 +4,11 @@ package software.amazon.jsii.tests.calculator;
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.DiamondInheritanceSecondMidLevelStruct")
+@software.amazon.jsii.Jsii.Proxy(DiamondInheritanceSecondMidLevelStruct.Jsii$Proxy.class)
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface DiamondInheritanceSecondMidLevelStruct extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.DiamondInheritanceBaseLevelStruct {
+
     /**
      * EXPERIMENTAL
      */
@@ -19,18 +22,17 @@ public interface DiamondInheritanceSecondMidLevelStruct extends software.amazon.
     static Builder builder() {
         return new Builder();
     }
-
     /**
      * A builder for {@link DiamondInheritanceSecondMidLevelStruct}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    final class Builder {
+    public static final class Builder {
         private java.lang.String secondMidLevelProperty;
         private java.lang.String baseLevelProperty;
 
         /**
          * Sets the value of SecondMidLevelProperty
-         * @param secondMidLevelProperty the value to be set
+         * @param secondMidLevelProperty the value to be set. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -41,7 +43,7 @@ public interface DiamondInheritanceSecondMidLevelStruct extends software.amazon.
 
         /**
          * Sets the value of BaseLevelProperty
-         * @param baseLevelProperty the value to be set
+         * @param baseLevelProperty the value to be set. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -59,7 +61,6 @@ public interface DiamondInheritanceSecondMidLevelStruct extends software.amazon.
         public DiamondInheritanceSecondMidLevelStruct build() {
             return new Jsii$Proxy(secondMidLevelProperty, baseLevelProperty);
         }
-
     }
 
     /**
@@ -75,17 +76,15 @@ public interface DiamondInheritanceSecondMidLevelStruct extends software.amazon.
          * @param objRef Reference to the JSII managed object.
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.setObjRef(objRef);
+            super(objRef);
             this.secondMidLevelProperty = this.jsiiGet("secondMidLevelProperty", java.lang.String.class);
             this.baseLevelProperty = this.jsiiGet("baseLevelProperty", java.lang.String.class);
         }
 
-
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        private Jsii$Proxy(java.lang.String secondMidLevelProperty, java.lang.String baseLevelProperty) {
+        private Jsii$Proxy(final java.lang.String secondMidLevelProperty, final java.lang.String baseLevelProperty) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
             this.secondMidLevelProperty = java.util.Objects.requireNonNull(secondMidLevelProperty, "secondMidLevelProperty is required");
             this.baseLevelProperty = java.util.Objects.requireNonNull(baseLevelProperty, "baseLevelProperty is required");
@@ -103,10 +102,19 @@ public interface DiamondInheritanceSecondMidLevelStruct extends software.amazon.
 
         @Override
         public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-            obj.set("secondMidLevelProperty", om.valueToTree(this.getSecondMidLevelProperty()));
-            obj.set("baseLevelProperty", om.valueToTree(this.getBaseLevelProperty()));
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            data.set("secondMidLevelProperty", om.valueToTree(this.getSecondMidLevelProperty()));
+            data.set("baseLevelProperty", om.valueToTree(this.getBaseLevelProperty()));
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.DiamondInheritanceSecondMidLevelStruct"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
             return obj;
         }
 
@@ -127,6 +135,5 @@ public interface DiamondInheritanceSecondMidLevelStruct extends software.amazon.
             result = 31 * result + (this.baseLevelProperty.hashCode());
             return result;
         }
-
     }
 }

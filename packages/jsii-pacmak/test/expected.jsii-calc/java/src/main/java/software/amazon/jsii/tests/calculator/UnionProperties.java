@@ -4,8 +4,11 @@ package software.amazon.jsii.tests.calculator;
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.UnionProperties")
+@software.amazon.jsii.Jsii.Proxy(UnionProperties.Jsii$Proxy.class)
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
+
     /**
      * EXPERIMENTAL
      */
@@ -16,7 +19,9 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Object getFoo();
+    default java.lang.Object getFoo() {
+        return null;
+    }
 
     /**
      * @return a {@link Builder} of {@link UnionProperties}
@@ -25,18 +30,17 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
     static Builder builder() {
         return new Builder();
     }
-
     /**
      * A builder for {@link UnionProperties}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    final class Builder {
+    public static final class Builder {
         private java.lang.Object bar;
         private java.lang.Object foo;
 
         /**
          * Sets the value of Bar
-         * @param bar the value to be set
+         * @param bar the value to be set. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -47,7 +51,7 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of Bar
-         * @param bar the value to be set
+         * @param bar the value to be set. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -58,7 +62,7 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of Bar
-         * @param bar the value to be set
+         * @param bar the value to be set. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -69,7 +73,7 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of Foo
-         * @param foo the value to be set
+         * @param foo the value to be set.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -80,7 +84,7 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of Foo
-         * @param foo the value to be set
+         * @param foo the value to be set.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -98,7 +102,6 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
         public UnionProperties build() {
             return new Jsii$Proxy(bar, foo);
         }
-
     }
 
     /**
@@ -114,17 +117,15 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
          * @param objRef Reference to the JSII managed object.
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.setObjRef(objRef);
+            super(objRef);
             this.bar = this.jsiiGet("bar", java.lang.Object.class);
             this.foo = this.jsiiGet("foo", java.lang.Object.class);
         }
 
-
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        private Jsii$Proxy(java.lang.Object bar, java.lang.Object foo) {
+        private Jsii$Proxy(final java.lang.Object bar, final java.lang.Object foo) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
             this.bar = java.util.Objects.requireNonNull(bar, "bar is required");
             this.foo = foo;
@@ -142,12 +143,21 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
 
         @Override
         public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-            obj.set("bar", om.valueToTree(this.getBar()));
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            data.set("bar", om.valueToTree(this.getBar()));
             if (this.getFoo() != null) {
-                obj.set("foo", om.valueToTree(this.getFoo()));
+                data.set("foo", om.valueToTree(this.getFoo()));
             }
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.UnionProperties"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
             return obj;
         }
 
@@ -168,6 +178,5 @@ public interface UnionProperties extends software.amazon.jsii.JsiiSerializable {
             result = 31 * result + (this.foo != null ? this.foo.hashCode() : 0);
             return result;
         }
-
     }
 }

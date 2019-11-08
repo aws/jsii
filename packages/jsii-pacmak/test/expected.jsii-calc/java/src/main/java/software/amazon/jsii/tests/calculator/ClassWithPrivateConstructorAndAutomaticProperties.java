@@ -20,6 +20,9 @@ public class ClassWithPrivateConstructorAndAutomaticProperties extends software.
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param readOnlyString This parameter is required.
+     * @param readWriteString This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static software.amazon.jsii.tests.calculator.ClassWithPrivateConstructorAndAutomaticProperties create(final java.lang.String readOnlyString, final java.lang.String readWriteString) {

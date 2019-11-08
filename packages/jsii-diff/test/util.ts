@@ -1,24 +1,23 @@
-import { sourceToAssemblyHelper  } from 'jsii';
+import { sourceToAssemblyHelper } from 'jsii';
 import reflect = require('jsii-reflect');
-import { Test } from 'nodeunit';
 import { compareAssemblies } from '../lib';
 import { Mismatches } from '../lib/types';
 
-export async function expectNoError(test: Test, original: string, updated: string) {
-    const mms = await compare(original, updated);
-    for (const msg of mms.messages()) {
-      // tslint:disable-next-line:no-console
-      console.error(`- ${msg}`);
-    }
-    test.equal(0, mms.count);
+export async function expectNoError(original: string, updated: string) {
+  const mms = await compare(original, updated);
+  for (const msg of mms.messages()) {
+    console.error(`- ${msg}`);
+  }
+  expect(mms.count).toBe(0);
 }
 
-export async function expectError(test: Test, error: RegExp, original: string, updated: string) {
-    const mms = await compare(original, updated);
-    test.notEqual(0, mms.count);
+export async function expectError(error: RegExp, original: string, updated: string) {
+  const mms = await compare(original, updated);
+  expect(mms.count).not.toBe(0);
 
-    const msgs = Array.from(mms.messages());
-    test.ok(msgs.some(m => error.test(m)), `Expected error like ${error}, got ${msgs}`);
+  const msgs = Array.from(mms.messages());
+  expect(msgs.some(m => error.test(m)),
+    `Expected error like ${error}, got ${msgs}`).toBeTruthy();
 }
 
 export async function compare(original: string, updated: string): Promise<Mismatches> {

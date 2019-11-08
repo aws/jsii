@@ -29,7 +29,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "anyIn", parametersJson: "[{\"name\":\"inp\",\"type\":{\"primitive\":\"any\"}}]")]
         public virtual void AnyIn(object inp)
         {
-            InvokeInstanceVoidMethod(new object[]{inp});
+            InvokeInstanceVoidMethod(new System.Type[]{typeof(object)}, new object[]{inp});
         }
 
         /// <remarks>
@@ -38,7 +38,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "anyOut", returnsJson: "{\"type\":{\"primitive\":\"any\"}}")]
         public virtual object AnyOut()
         {
-            return InvokeInstanceMethod<object>(new object[]{});
+            return InvokeInstanceMethod<object>(new System.Type[]{}, new object[]{});
         }
 
         /// <remarks>
@@ -47,7 +47,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "enumMethod", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.StringEnum\"}}", parametersJson: "[{\"name\":\"value\",\"type\":{\"fqn\":\"jsii-calc.StringEnum\"}}]")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.StringEnum EnumMethod(Amazon.JSII.Tests.CalculatorNamespace.StringEnum @value)
         {
-            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.StringEnum>(new object[]{@value});
+            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.StringEnum>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.StringEnum)}, new object[]{@value});
         }
 
         /// <remarks>
@@ -232,6 +232,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
+        [JsiiOptional]
         [JsiiProperty(name: "optionalEnumValue", typeJson: "{\"fqn\":\"jsii-calc.StringEnum\"}", isOptional: true)]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.StringEnum? OptionalEnumValue
         {

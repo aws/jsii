@@ -1,268 +1,216 @@
 #!/usr/bin/env node
-import fs = require('fs-extra');
-import reflect = require('jsii-reflect');
-import spec = require('jsii-spec');
-import os = require('os');
 import path = require('path');
 import process = require('process');
 import yargs = require('yargs');
 import logging = require('../lib/logging');
-import { Target } from '../lib/target';
 import { Timers } from '../lib/timer';
-import { resolveDependencyDirectory, shell } from '../lib/util';
 import { VERSION_DESC } from '../lib/version';
+import { findJsiiModules, updateAllNpmIgnores } from '../lib/npm-modules';
+import { JsiiModule } from '../lib/packaging';
+import { ALL_BUILDERS, TargetName } from '../lib/targets';
 
 (async function main() {
-    const targetConstructors = await Target.findAll();
-    const argv = yargs
-        .usage('Usage: jsii-pacmak [-t target,...] [-o outdir] [package-dir]')
-        .env('JSII_PACMAK')
-        .option('targets', {
-            alias: ['target', 't'],
-            type: 'array',
-            desc: 'target languages for which to generate bindings',
-            defaultDescription: 'all targets defined in `package.json` will be generated',
-            choices: Object.keys(targetConstructors),
-            required: false
-        })
-        .option('outdir', {
-            alias: 'o',
-            type: 'string',
-            desc: 'directory where artifacts will be generated',
-            defaultDescription: 'based on `jsii.output` in `package.json`',
-            required: false
-        })
-        .option('code-only', {
-            alias: 'c',
-            type: 'boolean',
-            desc: 'generate code only (instead of building and packaging)',
-            default: false
-        })
-        .option('fingerprint', {
-            type: 'boolean',
-            // tslint:disable-next-line:max-line-length
-            desc: 'attach a fingerprint to the generated artifacts, and skip generation if outdir contains artifacts that have a matching fingerprint',
-            default: true
-        })
-        .option('force', {
-            alias: 'f',
-            type: 'boolean',
-            desc: 'force generation of new artifacts, even if the fingerprints match',
-            default: false
-        })
-        .option('force-subdirectory', {
-            type: 'boolean',
-            desc: 'force generation into a target-named subdirectory, even in single-target mode',
-            default: true,
-        })
-        .option('recurse', {
-            alias: 'R',
-            type: 'boolean',
-            desc: 'recursively generate and build all dependencies into `outdir`',
-            default: false
-        })
-        .option('verbose', {
-            alias: 'v',
-            type: 'boolean',
-            desc: 'emit verbose build output',
-            count: true,
-            default: 0
-        })
-        .option('clean', {
-            type: 'boolean',
-            desc: 'clean up temporary files upon success (use --no-clean to disable)',
-            default: true,
-        })
-        .option('npmignore', {
-            type: 'boolean',
-            desc: 'Auto-update .npmignore to exclude the output directory and include the .jsii file',
-            default: true
-        })
-        .version(VERSION_DESC)
-        .argv;
+  const argv = yargs
+    .usage('Usage: jsii-pacmak [-t target,...] [-o outdir] [package-dir]')
+    .env('JSII_PACMAK')
+    .option('targets', {
+      alias: ['target', 't'],
+      type: 'array',
+      desc: 'target languages for which to generate bindings',
+      defaultDescription: 'all targets defined in `package.json` will be generated',
+      choices: Object.keys(ALL_BUILDERS),
+      required: false
+    })
+    .option('outdir', {
+      alias: 'o',
+      type: 'string',
+      desc: 'directory where artifacts will be generated',
+      defaultDescription: 'based on `jsii.output` in `package.json`',
+      required: false
+    })
+    .option('code-only', {
+      alias: 'c',
+      type: 'boolean',
+      desc: 'generate code only (instead of building and packaging)',
+      default: false
+    })
+    .option('fingerprint', {
+      type: 'boolean',
+      desc: 'attach a fingerprint to the generated artifacts, and skip generation if outdir contains artifacts that have a matching fingerprint',
+      default: true
+    })
+    .option('force', {
+      alias: 'f',
+      type: 'boolean',
+      desc: 'force generation of new artifacts, even if the fingerprints match',
+      default: false
+    })
+    .option('force-subdirectory', {
+      type: 'boolean',
+      desc: 'force generation into a target-named subdirectory, even in single-target mode',
+      default: true,
+    })
+    .option('force-target', {
+      type: 'boolean',
+      desc: 'force generation of the given targets, even if the source package.json doesnt declare it',
+      default: false,
+    })
+    .option('recurse', {
+      alias: 'R',
+      type: 'boolean',
+      desc: 'recursively generate and build all dependencies into `outdir`',
+      default: false
+    })
+    .option('verbose', {
+      alias: 'v',
+      type: 'boolean',
+      desc: 'emit verbose build output',
+      count: true,
+      default: 0
+    })
+    .option('clean', {
+      type: 'boolean',
+      desc: 'clean up temporary files upon success (use --no-clean to disable)',
+      default: true,
+    })
+    .option('npmignore', {
+      type: 'boolean',
+      desc: 'Auto-update .npmignore to exclude the output directory and include the .jsii file',
+      default: true
+    })
+    .version(VERSION_DESC)
+    .strict()
+    .argv;
 
-    logging.level = argv.verbose !== undefined ? argv.verbose : 0;
+  logging.level = argv.verbose !== undefined ? argv.verbose : 0;
 
-    logging.debug('command line arguments:', argv);
+  // Default to 4 threads in case of concurrency, good enough for most situations
+  logging.debug('command line arguments:', argv);
 
-    const rootDir = path.resolve(process.cwd(), argv._[0] || '.');
+  const timers = new Timers();
 
-    const visited = new Set<string>();
-    await buildPackage(rootDir, true /* isRoot */, argv['force-subdirectory']);
+  const modulesToPackage = await findJsiiModules(argv._, argv.recurse);
+  logging.info(`Found ${modulesToPackage.length} modules to package`);
+  if (modulesToPackage.length === 0) {
+    logging.warn('Nothing to do');
+    return;
+  }
 
-    async function buildPackage(packageDir: string, isRoot: boolean, forceSubdirectory: boolean) {
-        if (visited.has(packageDir)) {
-            return; // already built
-        }
-
-        visited.add(packageDir);
-
-        // read package.json and extract the "jsii" configuration from it.
-        const pkg = await fs.readJson(path.join(packageDir, 'package.json'));
-        if (!pkg.jsii || !pkg.jsii.outdir || !pkg.jsii.targets) {
-            if (isRoot) {
-                throw new Error(`Invalid "jsii" section in ${packageDir}. Expecting "outdir" and "targets"`);
-            } else {
-                return; // just move on, this is not a jsii package
-            }
-        }
-
-        // if --recurse is set, find dependency dirs and build them.
-        if (argv.recurse) {
-            for (const dep of Object.keys(pkg.dependencies || { })) {
-                const depDir = resolveDependencyDirectory(packageDir, dep);
-                await buildPackage(depDir, /* isRoot */ false, forceSubdirectory);
-            }
-        }
-
-        // outdir is either by package.json/jsii.outdir (relative to package root) or via command line (relative to cwd)
-        const outDir = argv.outdir !== undefined ? path.resolve(process.cwd(), argv.outdir) : path.resolve(packageDir, pkg.jsii.outdir);
-        const targets = argv.targets || [ ...Object.keys(pkg.jsii.targets), 'js' ]; // "js" is an implicit target.
-
-        logging.info(`Building ${pkg.name} (${targets.join(',')}) into ${path.relative(process.cwd(), outDir)}`);
-
-        if (argv.npmignore) {
-            // if outdir is coming from package.json, verify it is excluded by .npmignore. if it is explicitly
-            // defined via --out, don't perform this verification.
-            const npmIgnoreExclude = argv.outdir ? undefined : outDir;
-
-            // updates .npmignore to exclude the output directory and include the .jsii file
-            await updateNpmIgnore(packageDir, npmIgnoreExclude);
-        }
-
-        const timers = new Timers();
-
-        const tmpdir = await fs.mkdtemp(path.join(os.tmpdir(), 'npm-pack'));
-        try {
-            const tarball = await timers.recordAsync('npm pack', () => {
-                return npmPack(packageDir, tmpdir);
-            });
-
-            const ts = new reflect.TypeSystem();
-            const assembly = await ts.loadModule(packageDir);
-
-            for (const targetName of targets) {
-                // if we are targeting a single language, output to outdir, otherwise outdir/<target>
-                const targetOutputDir = (targets.length > 1 || forceSubdirectory)
-                                      ? path.join(outDir, targetName.toString())
-                                      : outDir;
-                logging.debug(`Building ${pkg.name}/${targetName}: ${targetOutputDir}`);
-
-                await timers.recordAsync(targetName.toString(), () =>
-                    generateTarget(assembly, packageDir, targetName.toString(), targetOutputDir, tarball)
-                );
-            }
-        } finally {
-            if (argv.clean) {
-                logging.debug(`Removing ${tmpdir}`);
-            } else {
-                logging.debug(`Temporary directory retained (--no-clean): ${tmpdir}`);
-            }
-            await fs.remove(tmpdir);
-        }
-
-        logging.info(`Packaged. ${timers.display()}`);
+  if (argv.outdir) {
+    for (const module of modulesToPackage) {
+      module.outputDirectory = path.resolve(argv.outdir);
     }
 
-    async function generateTarget(assembly: reflect.Assembly, packageDir: string, targetName: string, targetOutputDir: string, tarball: string) {
-        // ``argv.target`` is guaranteed valid by ``yargs`` through the ``choices`` directive.
-        const targetConstructor = targetConstructors[targetName];
-        if (!targetConstructor) {
-            throw new Error(`Unsupported target: "${targetName}"`);
-        }
+  } else if (argv.npmignore) {
+    // if outdir is coming from package.json, verify it is excluded by .npmignore. if it is explicitly
+    // defined via --out, don't perform this verification.
+    await updateAllNpmIgnores(modulesToPackage);
+  }
 
-        const target = new targetConstructor({
-            targetName,
-            packageDir,
-            assembly,
-            fingerprint: argv.fingerprint,
-            force: argv.force,
-            arguments: argv
-        });
+  await timers.recordAsync('npm pack', () => {
+    logging.info('Packaging NPM bundles');
+    return Promise.all(modulesToPackage
+      .map(m => m.npmPack()));
+  });
 
-        const codeDir = argv.codeOnly ? targetOutputDir : await fs.mkdtemp(path.join(os.tmpdir(), 'jsii-pacmak-code'));
+  await timers.recordAsync('load jsii', () => {
+    logging.info('Loading jsii assemblies');
+    return Promise.all(modulesToPackage
+      .map(m => m.load()));
+  });
 
-        logging.debug(`Generating ${targetName} code into ${codeDir}`);
+  try {
+    const requestedTargets = argv.targets && argv.targets.map(t => `${t}`)
+    const targetSets = sliceTargets(modulesToPackage, requestedTargets, argv['force-target']);
 
-        await target.generateCode(codeDir, tarball);
-
-        if (argv.codeOnly) { return; }
-
-        logging.debug(`Building into ${targetOutputDir}`);
-        await target.build(codeDir, targetOutputDir);
-
-        if (argv.clean) {
-            await fs.remove(codeDir);
-        } else {
-            logging.info(`Generated code for ${targetName} retained at: ${codeDir}`);
-        }
+    if (targetSets.every(s => s.modules.length === 0)) {
+      throw new Error(`None of the requested packages had any targets to build for '${requestedTargets}' (use --force-target to force)`);
     }
 
+    const perLanguageDirectory = targetSets.length > 1 || argv['force-subdirectory'];
+
+    // We run all target sets in parallel for minimal wall clock time
+    await Promise.all(targetSets.map(async targetSet => {
+    // for (const targetSet of targetSets) {
+      logging.info(`Packaging '${targetSet.targetType}' for ${describePackages(targetSet)}`);
+      await timers.recordAsync(targetSet.targetType, () =>
+        buildTargetsForLanguage(targetSet.targetType, targetSet.modules, perLanguageDirectory)
+      );
+      logging.info(`${targetSet.targetType} finished`);
+    }));
+
+  } finally {
+    if (argv.clean) {
+      logging.debug('Cleaning up');
+      await timers.recordAsync('cleanup', () =>
+        Promise.all(modulesToPackage
+          .map(m => m.cleanup()))
+      );
+    } else {
+      logging.debug('Temporary directories retained (--no-clean)');
+    }
+  }
+
+  logging.info(`Packaged. ${timers.display()}`);
+
+  async function buildTargetsForLanguage(targetLanguage: string, modules: JsiiModule[], perLanguageDirectory: boolean) {
+    // ``argv.target`` is guaranteed valid by ``yargs`` through the ``choices`` directive.
+    const builder = ALL_BUILDERS[targetLanguage as TargetName];
+    if (!builder) {
+      throw new Error(`Unsupported target: '${targetLanguage}'`);
+    }
+
+    await builder.buildModules(modules, {
+      clean: argv.clean,
+      codeOnly: argv['code-only'],
+      force: argv.force,
+      fingerprint: argv.fingerprint,
+      arguments: argv,
+      languageSubdirectory: perLanguageDirectory,
+    });
+  }
 })().catch(err => {
-    process.stderr.write(err.stack + '\n');
-    process.exit(1);
+  process.stderr.write(`${err.stack}\n`);
+  process.exit(1);
 });
 
-async function npmPack(packageDir: string, tmpdir: string): Promise<string> {
-    logging.debug(`Running "npm pack ${packageDir}" in ${tmpdir}`);
-    const args = [ 'pack', packageDir ];
-    if (logging.level >= logging.LEVEL_VERBOSE) {
-        args.push('--loglevel=verbose');
-    }
-    const out = await shell('npm', args, { cwd: tmpdir });
-    // Take only the last line of npm pack which should contain the
-    // tarball name. otherwise, there can be a lot of extra noise there
-    // from scripts that emit to STDOUT.
-    const lines = out.trim().split(os.EOL);
-    return path.resolve(tmpdir, lines[lines.length - 1].trim());
+/**
+ * A set of packages (targets) translated into the same language
+ */
+interface TargetSet {
+  targetType: string;
+  modules: JsiiModule[];
 }
 
-async function updateNpmIgnore(packageDir: string, excludeOutdir: string | undefined) {
-    const npmIgnorePath = path.join(packageDir, '.npmignore');
-    let lines = new Array<string>();
-    let modified = false;
-    if (await fs.pathExists(npmIgnorePath)) {
-        lines = (await fs.readFile(npmIgnorePath)).toString().split('\n');
+function sliceTargets(modules: JsiiModule[], requestedTargets: string[] | undefined, force: boolean) {
+  if (requestedTargets === undefined) {
+    requestedTargets = allAvailableTargets(modules);
+  }
+
+  const ret = new Array<TargetSet>();
+  for (const target of requestedTargets) {
+    ret.push({
+      targetType: target,
+      modules: modules.filter(m => force || m.availableTargets.includes(target))
+    });
+  }
+
+  return ret;
+}
+
+function allAvailableTargets(modules: JsiiModule[]) {
+  const ret = new Set<string>();
+  for (const module of modules) {
+    for (const target of module.availableTargets) {
+      ret.add(target)
     }
+  }
+  return Array.from(ret);
+}
 
-    // if this is a fresh .npmignore, we can be a bit more opinionated
-    // otherwise, we add just add stuff that's critical
-    if (lines.length === 0) {
-        excludePattern('Exclude typescript source and config', '*.ts', 'tsconfig.json');
-        includePattern('Include javascript files and typescript declarations', '*.js', '*.d.ts');
-    }
-
-    if (excludeOutdir) {
-        excludePattern('Exclude jsii outdir', path.relative(packageDir, excludeOutdir));
-    }
-
-    includePattern('Include .jsii', spec.SPEC_FILE_NAME);
-
-    if (modified) {
-        await fs.writeFile(npmIgnorePath, lines.join('\n') + '\n');
-        logging.info('Updated .npmignore');
-    }
-
-    function includePattern(comment: string, ...patterns: string[]) {
-        excludePattern(comment, ...patterns.map(p => `!${p}`));
-    }
-
-    function excludePattern(comment: string, ...patterns: string[]) {
-        let first = true;
-        for (const pattern of patterns) {
-            if (lines.indexOf(pattern) !== -1) {
-                return; // already in .npmignore
-            }
-
-            modified = true;
-
-            if (first) {
-                lines.push('');
-                lines.push(`# ${comment}`);
-                first = false;
-            }
-
-            lines.push(pattern);
-        }
-    }
+function describePackages(target: TargetSet) {
+  if (target.modules.length > 0 && target.modules.length < 5) {
+    return target.modules.map(m => m.name).join(', ');
+  }
+  return `${target.modules.length} modules`;
 }

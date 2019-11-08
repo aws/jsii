@@ -15,9 +15,10 @@ public class EraseUndefinedHashValues extends software.amazon.jsii.JsiiObject {
     protected EraseUndefinedHashValues(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public EraseUndefinedHashValues() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
     /**
@@ -27,6 +28,9 @@ public class EraseUndefinedHashValues extends software.amazon.jsii.JsiiObject {
      * are being erased when sending values from native code to JS.
      * 
      * EXPERIMENTAL
+     * 
+     * @param opts This parameter is required.
+     * @param key This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public static java.lang.Boolean doesKeyExist(final software.amazon.jsii.tests.calculator.EraseUndefinedHashValuesOptions opts, final java.lang.String key) {
@@ -39,8 +43,8 @@ public class EraseUndefinedHashValues extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static java.lang.Object prop1IsNull() {
-        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.EraseUndefinedHashValues.class, "prop1IsNull", java.lang.Object.class);
+    public static java.util.Map<java.lang.String, java.lang.Object> prop1IsNull() {
+        return java.util.Collections.unmodifiableMap(software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.EraseUndefinedHashValues.class, "prop1IsNull", java.util.Map.class));
     }
 
     /**
@@ -49,7 +53,7 @@ public class EraseUndefinedHashValues extends software.amazon.jsii.JsiiObject {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    public static java.lang.Object prop2IsUndefined() {
-        return software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.EraseUndefinedHashValues.class, "prop2IsUndefined", java.lang.Object.class);
+    public static java.util.Map<java.lang.String, java.lang.Object> prop2IsUndefined() {
+        return java.util.Collections.unmodifiableMap(software.amazon.jsii.JsiiObject.jsiiStaticCall(software.amazon.jsii.tests.calculator.EraseUndefinedHashValues.class, "prop2IsUndefined", java.util.Map.class));
     }
 }

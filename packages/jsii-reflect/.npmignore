@@ -1,7 +1,6 @@
 # Don't include original .ts files when doing `npm pack`
 *.ts
 !*.d.ts
-coverage
 .nyc_output
 *.tgz
 
@@ -14,3 +13,9 @@ dist
 !.jsii
 
 *.snk
+
+# Don't include various configuration & state information
+coverage
+.eslintrc.*
+tsconfig.json
+*.tsbuildinfo

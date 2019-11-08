@@ -14,7 +14,7 @@ namespace Amazon.JSII.Runtime.Services
     // TODO: This class is a temporary workaround until this issue is resolved:
     // https://sim.amazon.com/issues/jsii-5
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public class SynchronousCompleteRequest : IKernelRequest
+    internal sealed class SynchronousCompleteRequest : IKernelRequest
     {
         public SynchronousCompleteRequest(CompleteRequest complete)
         {
@@ -27,7 +27,7 @@ namespace Amazon.JSII.Runtime.Services
         public string Api => throw new NotImplementedException();
     }
 
-    public class Client : IClient
+    internal sealed class Client : IClient
     {
         readonly IFileSystem _fileSystem;
         readonly IRuntime _runtime;
@@ -74,16 +74,6 @@ namespace Amazon.JSII.Runtime.Services
             {
                 string requestJson = JsonConvert.SerializeObject(requestObject);
                 _runtime.WriteRequest(requestJson);
-
-                /*
-                if (requestObject is LoadRequest)
-                {
-                    JObject logEntry = JObject.FromObject(requestObject);
-                    logEntry["assembly"]["code"] = "<omitted for brevity>";
-                    requestJson = JsonConvert.SerializeObject(logEntry);
-                }
-                */
-
                 _logger.LogTrace($"> {requestJson}");
             }
             catch (IOException exception)
@@ -185,9 +175,9 @@ namespace Amazon.JSII.Runtime.Services
             return Send<LoadRequest, LoadResponse>(request);
         }
 
-        public CreateResponse Create(string fullyQualifiedName, object[] arguments = null, Override[] overrides = null)
+        public CreateResponse Create(string fullyQualifiedName, object[] arguments = null, Override[] overrides = null, string[] interfaces = null)
         {
-            return Create(new CreateRequest(fullyQualifiedName, arguments, overrides));
+            return Create(new CreateRequest(fullyQualifiedName, arguments, overrides, interfaces));
         }
 
         public CreateResponse Create(CreateRequest request)

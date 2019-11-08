@@ -4,7 +4,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Amazon.JSII.Runtime.Services.Converters
 {
-    public abstract class ValueConverter
+    internal abstract class ValueConverter
     {
         protected readonly ITypeCache _types;
 
@@ -13,12 +13,12 @@ namespace Amazon.JSII.Runtime.Services.Converters
             _types = types ?? throw new ArgumentNullException(nameof(types));
         }
 
-        protected bool TryConvert(TypeReference typeReference, IReferenceMap referenceMap, object value, out object result)
+        protected bool TryConvert(TypeReference typeReference, System.Type type, IReferenceMap referenceMap, object value, out object result)
         {
-            return TryConvert(new OptionalValue(typeReference), referenceMap, value, out result);
+            return TryConvert(new OptionalValue(typeReference), type, referenceMap, value, out result);
         }
 
-        public bool TryConvert(IOptionalValue optionalValue, IReferenceMap referenceMap, object value, out object result)
+        public bool TryConvert(IOptionalValue optionalValue, System.Type type, IReferenceMap referenceMap, object value, out object result)
         {
             if (optionalValue == null)
             {
@@ -27,12 +27,12 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
             if (optionalValue.Type.FullyQualifiedName != null)
             {
-                return TryConvertCustomType(referenceMap, value, optionalValue.IsOptional, optionalValue.Type.FullyQualifiedName, out result);
+                return TryConvertCustomType(type, referenceMap, value, optionalValue.IsOptional, optionalValue.Type.FullyQualifiedName, out result);
             }
 
             if (optionalValue.Type.Primitive != null)
             {
-                return TryConvertPrimitive(referenceMap, value, optionalValue.IsOptional, optionalValue.Type.Primitive.Value, out result);
+                return TryConvertPrimitive(type, referenceMap, value, optionalValue.IsOptional, optionalValue.Type.Primitive.Value, out result);
             }
 
             if (optionalValue.Type.Collection != null)
@@ -42,7 +42,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
             if (optionalValue.Type.Union != null)
             {
-                return TryConvertUnion(referenceMap, value, optionalValue.IsOptional, optionalValue.Type.Union, out result);
+                return TryConvertUnion(type, referenceMap, value, optionalValue.IsOptional, optionalValue.Type.Union, out result);
             }
 
             throw new ArgumentException("Invalid type reference", nameof(optionalValue));
@@ -51,19 +51,19 @@ namespace Amazon.JSII.Runtime.Services.Converters
         protected bool IsNumeric(System.Type type)
         {
             return
-                type.IsAssignableFrom(typeof(short)) ||
-                type.IsAssignableFrom(typeof(ushort)) ||
-                type.IsAssignableFrom(typeof(int)) ||
-                type.IsAssignableFrom(typeof(uint)) ||
-                type.IsAssignableFrom(typeof(long)) ||
-                type.IsAssignableFrom(typeof(ulong)) ||
-                type.IsAssignableFrom(typeof(float)) ||
-                type.IsAssignableFrom(typeof(double));
+                typeof(short).IsAssignableFrom(type) ||
+                typeof(ushort).IsAssignableFrom(type) ||
+                typeof(int).IsAssignableFrom(type) ||
+                typeof(uint).IsAssignableFrom(type) ||
+                typeof(long).IsAssignableFrom(type) ||
+                typeof(ulong).IsAssignableFrom(type) ||
+                typeof(float).IsAssignableFrom(type) ||
+                typeof(double).IsAssignableFrom(type);
         }
 
         protected abstract bool TryConvertVoid(object value, out object result);
 
-        protected abstract bool TryConvertClass(IReferenceMap referenceMap, object value, out object result);
+        protected abstract bool TryConvertClass(System.Type type, IReferenceMap referenceMap, object value, out object result);
 
         protected abstract bool TryConvertEnum(object value, bool isOptional, string fullyQualifiedName, out object result);
 
@@ -83,7 +83,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
         protected abstract TypeReference InferType(IReferenceMap referenceMap, object value);
 
-        object ConvertAny(IReferenceMap referenceMap, object value)
+        object ConvertAny(System.Type type, IReferenceMap referenceMap, object value)
         {
             if (value == null)
             {
@@ -91,7 +91,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
             }
 
             TypeReference reference = InferType(referenceMap, value);
-            if (TryConvert(reference, referenceMap, value, out object result))
+            if (TryConvert(reference, type, referenceMap, value, out object result))
             {
                 return result;
             }
@@ -99,11 +99,11 @@ namespace Amazon.JSII.Runtime.Services.Converters
             throw new ArgumentException($"Could not convert value '{value}' with unrecognized type", nameof(value));
         }
 
-        bool TryConvertCustomType(IReferenceMap referenceMap, object value, bool isOptional, string fullyQualifiedName, out object result)
+        bool TryConvertCustomType(System.Type type, IReferenceMap referenceMap, object value, bool isOptional, string fullyQualifiedName, out object result)
         {
             if (IsReferenceType())
             {
-                return TryConvertClass(referenceMap, value, out result);
+                return TryConvertClass(type, referenceMap, value, out result);
             }
 
             if (_types.GetEnumType(fullyQualifiedName) != null)
@@ -123,12 +123,12 @@ namespace Amazon.JSII.Runtime.Services.Converters
             }
         }
 
-        bool TryConvertPrimitive(IReferenceMap referenceMap, object value, bool isOptional, PrimitiveType primitiveType, out object result)
+        bool TryConvertPrimitive(System.Type type, IReferenceMap referenceMap, object value, bool isOptional, PrimitiveType primitiveType, out object result)
         {
             switch (primitiveType)
             {
                 case PrimitiveType.Any:
-                    result = ConvertAny(referenceMap, value);
+                    result = ConvertAny(type, referenceMap, value);
                     return true;
 
                 case PrimitiveType.Boolean:
@@ -164,11 +164,11 @@ namespace Amazon.JSII.Runtime.Services.Converters
             }
         }
 
-        bool TryConvertUnion(IReferenceMap referenceMap, object value, bool isOptional, UnionTypeReference unionType, out object result)
+        bool TryConvertUnion(System.Type type, IReferenceMap referenceMap, object value, bool isOptional, UnionTypeReference unionType, out object result)
         {
-            foreach (var type in unionType.Types)
+            foreach (var candidateType in unionType.Types)
             {
-                if (TryConvert(type, referenceMap, value, out result))
+                if (TryConvert(candidateType, type, referenceMap, value, out result))
                 {
                     return true;
                 }

@@ -1,5 +1,3 @@
-// tslint:disable:no-empty-interface
-
 //
 // Un-exported base classes are erased
 // https://github.com/aws/jsii/issues/417

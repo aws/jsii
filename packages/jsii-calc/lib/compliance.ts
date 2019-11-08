@@ -1,4 +1,3 @@
-// tslint:disable
 import {
     EnumFromScopedModule,
     IDoublable,
@@ -27,9 +26,23 @@ export enum AllTypesEnum {
 }
 
 export enum StringEnum {
-    A = 'A',
-    B = 'B',
-    C = 'C'
+    A = 'A!',
+    B = 'B?',
+    C = 'C.'
+}
+
+export class EnumDispenser {
+    public static randomStringLikeEnum(): StringEnum {
+        // Haha! I lied, it's not random!! *EVIL LAUGHTER*
+        return StringEnum.B;
+    }
+
+    public static randomIntegerLikeEnum(): AllTypesEnum {
+        // Haha! I lied, it's not random!! *EVIL LAUGHTER*
+        return AllTypesEnum.YOUR_ENUM_VALUE;
+    }
+
+    private constructor() { }
 }
 
 /**
@@ -321,8 +334,8 @@ export class AsyncVirtualMethods {
     /**
      * Just calls "overrideMeToo"
      */
-    async callMe2() {
-        return await this.overrideMeToo();
+    callMe2() {
+        return this.overrideMeToo();
     }
 
     /**
@@ -653,6 +666,15 @@ export class VariadicMethod {
      */
     public asArray(first: number, ...others: number[]): number[] {
         return [...this.prefix, first, ...others];
+    }
+}
+
+export class VariadicInvoker {
+    public constructor(private readonly method: VariadicMethod) { }
+
+    public asArray(...values: number[]): number[] {
+        const [first, ...rest] = values;
+        return this.method.asArray(first, ...rest);
     }
 }
 
@@ -1050,6 +1072,17 @@ export namespace InterfaceInNamespaceIncludesClasses {
 export interface IInterfaceWithOptionalMethodArguments {
     hello(arg1: string, arg2?: number): void
 }
+export class OptionalArgumentInvoker {
+    constructor(private readonly delegate: IInterfaceWithOptionalMethodArguments) { }
+
+    public invokeWithoutOptional() {
+        return this.delegate.hello('Howdy');
+    }
+
+    public invokeWithOptional() {
+        return this.delegate.hello('Howdy', 1337);
+    }
+}
 
 /**
  * awslabs/jsii#220
@@ -1425,7 +1458,7 @@ export class EraseUndefinedHashValues {
     /**
      * We expect "prop2" to be erased
      */
-    public static prop2IsUndefined(): any {
+    public static prop2IsUndefined(): { [key: string]: any } {
         return {
             prop1: 'value1',
             prop2: undefined
@@ -1435,7 +1468,7 @@ export class EraseUndefinedHashValues {
     /**
      * We expect "prop1" to be erased
      */
-    public static prop1IsNull(): any {
+    public static prop1IsNull(): { [key: string]: any } {
         return {
             prop1: null,
             prop2: 'value2'
@@ -1828,5 +1861,317 @@ export class StructPassing {
 
     public static howManyVarArgsDidIPass(_positional: number, ...inputs: TopLevelStruct[]): number {
         return inputs.length;
+    }
+}
+
+/**
+ * We can return arrays of interfaces
+ * See aws/aws-cdk#2362
+ */
+export class InterfacesMaker {
+    public static makeInterfaces(count: number): IDoublable[] {
+        const output = new Array<IDoublable>();
+        for (let i = 0; i < count; i++) {
+            output.push({ doubleValue: i * 2 });
+        }
+        return output;
+    }
+
+    private constructor() { }
+}
+
+export class ClassWithCollections {
+    public map: { [key: string]: string };
+    public array: string[];
+
+    public static staticMap:{ [key: string]: string } = {'key1': 'value1', 'key2': 'value2'};
+    public static staticArray: string[] = ["one", "two"];
+
+    constructor(map: { [key: string]: string }, array: string[]) {
+        this.map = map;
+        this.array = array;
+    }
+
+    static createAList(): string[] {
+        return ["one", "two"];
+    }
+
+    static createAMap(): { [key: string]: string } {
+        return {'key1': 'value1', 'key2': 'value2'};
+    }
+}
+
+/**
+ * @see https://github.com/aws/jsii/issues/903
+ */
+export class OverridableProtectedMember {
+    protected readonly overrideReadOnly: string = 'Baz';
+    protected overrideReadWrite: string = 'zinga!';
+
+    public valueFromProtected(): string {
+        return this.overrideMe();
+    }
+
+    public switchModes(): void {
+        this.overrideReadWrite = 'zaar...';
+    }
+
+    protected overrideMe(): string {
+        return this.overrideReadOnly + this.overrideReadWrite;
+    }
+}
+
+/**
+ * We can generate fancy builders in Java for classes which take a mix of positional & struct parameters
+ */
+export class SupportsNiceJavaBuilderWithRequiredProps {
+    public readonly propId?: string;
+    public readonly bar: number;
+
+    /**
+     * @param id    some identifier of your choice
+     * @param props some properties
+     */
+    public constructor(public readonly id: number, props: SupportsNiceJavaBuilderProps) {
+        this.propId = props.id;
+        this.bar = props.bar;
+    }
+}
+export class SupportsNiceJavaBuilder extends SupportsNiceJavaBuilderWithRequiredProps {
+    public readonly rest: string[];
+
+    /**
+     *
+     * @param id         some identifier
+     * @param defaultBar the default value of `bar`
+     * @param props      some props once can provide
+     * @param rest       a variadic continuation
+     */
+    public constructor(public readonly id: number, defaultBar = 1337, props?: SupportsNiceJavaBuilderProps, ...rest: string[]) {
+        super(id, props || { bar: defaultBar });
+        this.rest = rest;
+    }
+}
+export interface SupportsNiceJavaBuilderProps {
+    /**
+     * An `id` field here is terrible API design, because the constructor of `SupportsNiceJavaBuilder` already has a
+     * parameter named `id`. But here we are, doing it like we didn't care.
+     */
+    readonly id?: string;
+
+    /**
+     * Some number, like 42.
+     */
+    readonly bar: number;
+}
+
+/**
+ * We can return an anonymous interface implementation from an override without losing the interface
+ * declarations.
+ */
+export interface IAnonymousImplementationProvider {
+    provideAsInterface(): IAnonymouslyImplementMe;
+    provideAsClass(): Implementation;
+}
+export class AnonymousImplementationProvider implements IAnonymousImplementationProvider {
+    private readonly instance = new PrivateType();
+
+    public provideAsClass(): Implementation {
+        return this.instance;
+    }
+
+    public provideAsInterface(): IAnonymouslyImplementMe {
+        return this.instance;
+    }
+}
+export class Implementation {
+    readonly value = 1337;
+}
+export interface IAnonymouslyImplementMe {
+    readonly value: number;
+    verb(): string;
+}
+class PrivateType extends Implementation implements IAnonymouslyImplementMe {
+    public verb() {
+        return 'to implement';
+    }
+}
+
+/**
+ * We can serialize and deserialize structs without silently ignoring optional fields.
+ */
+export interface StructA {
+    readonly requiredString: string;
+    readonly optionalString?: string;
+    readonly optionalNumber?: number;
+}
+/**
+ * This intentionally overlaps with StructA (where only requiredString is provided) to test htat
+ * the kernel properly disambiguates those.
+ */
+export interface StructB {
+    readonly requiredString: string;
+    readonly optionalBoolean?: boolean;
+    readonly optionalStructA?: StructA;
+}
+export class StructUnionConsumer {
+    public static isStructA(struct: StructA | StructB): struct is StructA {
+        const keys = new Set(Object.keys(struct));
+        switch (keys.size) {
+            case 1: return keys.has('requiredString');
+            case 2: return keys.has('requiredString') && (keys.has('optionalNumber') || keys.has('optionalString'));
+            case 3: return keys.has('requiredString') && keys.has('optionalNumber') && keys.has('optionalString');
+            default: return false;
+        }
+    }
+
+    public static isStructB(struct: StructA | StructB): struct is StructB {
+        const keys = new Set(Object.keys(struct));
+        switch (keys.size) {
+            case 1: return keys.has('requiredString');
+            case 2: return keys.has('requiredString') && (keys.has('optionalBoolean') || keys.has('optionalStructA'));
+            case 3: return keys.has('requiredString') && keys.has('optionalBoolean') && keys.has('optionalStructA');
+            default: return false;
+        }
+    }
+
+    private constructor() { }
+}
+
+
+/**
+ * Test calling back to consumers that implement interfaces
+ *
+ * Check that if a JSII consumer implements IConsumerWithInterfaceParam, they can call
+ * the method on the argument that they're passed...
+ */
+export class ConsumerCanRingBell {
+    /**
+     * ...if the interface is implemented using an object literal.
+     *
+     * Returns whether the bell was rung.
+     */
+    public static staticImplementedByObjectLiteral(ringer: IBellRinger) {
+        let rung = false;
+        ringer.yourTurn({
+            ring() {
+                rung = true;
+            }
+        });
+        return rung;
+    }
+
+    /**
+     * ...if the interface is implemented using a public class.
+     *
+     * Return whether the bell was rung.
+     */
+    public static staticImplementedByPublicClass(ringer: IBellRinger) {
+        const bell = new Bell();
+        ringer.yourTurn(bell);
+        return bell.rung;
+    }
+
+    /**
+     * ...if the interface is implemented using a private class.
+     *
+     * Return whether the bell was rung.
+     */
+    public static staticImplementedByPrivateClass(ringer: IBellRinger) {
+        const bell = new PrivateBell();
+        ringer.yourTurn(bell);
+        return bell.rung;
+    }
+
+    /**
+     * If the parameter is a concrete class instead of an interface
+     *
+     * Return whether the bell was rung.
+     */
+    public static staticWhenTypedAsClass(ringer: IConcreteBellRinger) {
+        const bell = new Bell();
+        ringer.yourTurn(bell);
+        return bell.rung;
+    }
+    /**
+     * ...if the interface is implemented using an object literal.
+     *
+     * Returns whether the bell was rung.
+     */
+    public implementedByObjectLiteral(ringer: IBellRinger) {
+        let rung = false;
+        ringer.yourTurn({
+            ring() {
+                rung = true;
+            }
+        });
+        return rung;
+    }
+
+    /**
+     * ...if the interface is implemented using a public class.
+     *
+     * Return whether the bell was rung.
+     */
+    public implementedByPublicClass(ringer: IBellRinger) {
+        const bell = new Bell();
+        ringer.yourTurn(bell);
+        return bell.rung;
+    }
+
+    /**
+     * ...if the interface is implemented using a private class.
+     *
+     * Return whether the bell was rung.
+     */
+    public implementedByPrivateClass(ringer: IBellRinger) {
+        const bell = new PrivateBell();
+        ringer.yourTurn(bell);
+        return bell.rung;
+    }
+
+    /**
+     * If the parameter is a concrete class instead of an interface
+     *
+     * Return whether the bell was rung.
+     */
+    public whenTypedAsClass(ringer: IConcreteBellRinger) {
+        const bell = new Bell();
+        ringer.yourTurn(bell);
+        return bell.rung;
+    }
+}
+
+/**
+ * Takes the object parameter as an interface
+ */
+export interface IBellRinger {
+    yourTurn(bell: IBell): void;
+}
+
+/**
+ * Takes the object parameter as a calss
+ */
+export interface IConcreteBellRinger {
+    yourTurn(bell: Bell): void;
+}
+
+export interface IBell {
+    ring(): void;
+}
+
+export class Bell implements IBell {
+    public rung = false;
+
+    public ring() {
+        this.rung = true;
+    }
+}
+
+class PrivateBell implements IBell {
+    public rung = false;
+
+    public ring() {
+        this.rung = true;
     }
 }

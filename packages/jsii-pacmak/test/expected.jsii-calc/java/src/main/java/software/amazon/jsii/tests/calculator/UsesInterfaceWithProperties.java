@@ -15,13 +15,16 @@ public class UsesInterfaceWithProperties extends software.amazon.jsii.JsiiObject
     protected UsesInterfaceWithProperties(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     /**
      * EXPERIMENTAL
+     * 
+     * @param obj This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public UsesInterfaceWithProperties(final software.amazon.jsii.tests.calculator.IInterfaceWithProperties obj) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(obj, "obj is required") }));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(obj, "obj is required") });
     }
 
     /**
@@ -34,6 +37,8 @@ public class UsesInterfaceWithProperties extends software.amazon.jsii.JsiiObject
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param ext This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String readStringAndNumber(final software.amazon.jsii.tests.calculator.IInterfaceWithPropertiesExtension ext) {
@@ -42,6 +47,8 @@ public class UsesInterfaceWithProperties extends software.amazon.jsii.JsiiObject
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param value This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String writeAndRead(final java.lang.String value) {

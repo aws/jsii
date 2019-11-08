@@ -59,7 +59,7 @@ test('basic example', async () => {
 
 test('extensability', async () => {
   class TitleNode extends AsciiTree {
-    constructor(title: string, ...children: AsciiTree[]) {
+    public constructor(title: string, ...children: AsciiTree[]) {
       super([
         title.toLocaleUpperCase(),
         '='.repeat(title.length)
@@ -68,7 +68,7 @@ test('extensability', async () => {
   }
 
   class KeyValueNode extends AsciiTree {
-    constructor(key: string, value: string) {
+    public constructor(key: string, value: string) {
       super(`${key}: ${value}`);
     }
   }
@@ -91,7 +91,7 @@ test('extensability', async () => {
 
 test('multiline', async () => {
   class MultiLine extends AsciiTree {
-    constructor(line: string, times: number) {
+    public constructor(line: string, times: number) {
       let text = '';
       for (let i = 0; i < times; ++i) {
         text += `${line} [#${i}]`;
@@ -117,15 +117,15 @@ test('multiline', async () => {
     ),
     new AsciiTree('world'),
     new AsciiTree('boom',
-    new AsciiTree('trach',
-      new MultiLine('multi', 4)
-    )
-  ));
+      new AsciiTree('trach',
+        new MultiLine('multi', 4)
+      )
+    ));
 
   await diff(tree, 'multiline.expected.txt');
 });
 
-test('toString', async () => {
+test('toString', () => {
   const tree = new AsciiTree('root');
   tree.add(new AsciiTree('1'));
   tree.add(new AsciiTree('2', new AsciiTree('2.1'), new AsciiTree('2.2')));

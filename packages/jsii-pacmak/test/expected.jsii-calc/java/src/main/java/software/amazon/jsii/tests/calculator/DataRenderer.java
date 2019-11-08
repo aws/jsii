@@ -17,17 +17,20 @@ public class DataRenderer extends software.amazon.jsii.JsiiObject {
     protected DataRenderer(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public DataRenderer() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param data
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String render(final software.amazon.jsii.tests.calculator.lib.MyFirstStruct data) {
@@ -44,6 +47,8 @@ public class DataRenderer extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param data This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String renderArbitrary(final java.util.Map<java.lang.String, java.lang.Object> data) {
@@ -52,6 +57,8 @@ public class DataRenderer extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param map This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String renderMap(final java.util.Map<java.lang.String, java.lang.Object> map) {

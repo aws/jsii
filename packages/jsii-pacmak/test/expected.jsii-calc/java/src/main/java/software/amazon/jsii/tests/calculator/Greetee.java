@@ -6,8 +6,11 @@ package software.amazon.jsii.tests.calculator;
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.Greetee")
+@software.amazon.jsii.Jsii.Proxy(Greetee.Jsii$Proxy.class)
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface Greetee extends software.amazon.jsii.JsiiSerializable {
+
     /**
      * The name of the greetee.
      * 
@@ -16,7 +19,9 @@ public interface Greetee extends software.amazon.jsii.JsiiSerializable {
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getName();
+    default java.lang.String getName() {
+        return null;
+    }
 
     /**
      * @return a {@link Builder} of {@link Greetee}
@@ -25,12 +30,11 @@ public interface Greetee extends software.amazon.jsii.JsiiSerializable {
     static Builder builder() {
         return new Builder();
     }
-
     /**
      * A builder for {@link Greetee}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    final class Builder {
+    public static final class Builder {
         private java.lang.String name;
 
         /**
@@ -53,7 +57,6 @@ public interface Greetee extends software.amazon.jsii.JsiiSerializable {
         public Greetee build() {
             return new Jsii$Proxy(name);
         }
-
     }
 
     /**
@@ -68,16 +71,14 @@ public interface Greetee extends software.amazon.jsii.JsiiSerializable {
          * @param objRef Reference to the JSII managed object.
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.setObjRef(objRef);
+            super(objRef);
             this.name = this.jsiiGet("name", java.lang.String.class);
         }
-
 
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        private Jsii$Proxy(java.lang.String name) {
+        private Jsii$Proxy(final java.lang.String name) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
             this.name = name;
         }
@@ -89,11 +90,20 @@ public interface Greetee extends software.amazon.jsii.JsiiSerializable {
 
         @Override
         public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
             if (this.getName() != null) {
-                obj.set("name", om.valueToTree(this.getName()));
+                data.set("name", om.valueToTree(this.getName()));
             }
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.Greetee"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
             return obj;
         }
 
@@ -112,6 +122,5 @@ public interface Greetee extends software.amazon.jsii.JsiiSerializable {
             int result = this.name != null ? this.name.hashCode() : 0;
             return result;
         }
-
     }
 }

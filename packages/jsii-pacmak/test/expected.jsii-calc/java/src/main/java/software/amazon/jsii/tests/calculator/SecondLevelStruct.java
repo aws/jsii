@@ -4,8 +4,11 @@ package software.amazon.jsii.tests.calculator;
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.SecondLevelStruct")
+@software.amazon.jsii.Jsii.Proxy(SecondLevelStruct.Jsii$Proxy.class)
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable {
+
     /**
      * It's long and required.
      * 
@@ -20,7 +23,9 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getDeeperOptionalProp();
+    default java.lang.String getDeeperOptionalProp() {
+        return null;
+    }
 
     /**
      * @return a {@link Builder} of {@link SecondLevelStruct}
@@ -29,18 +34,17 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
     static Builder builder() {
         return new Builder();
     }
-
     /**
      * A builder for {@link SecondLevelStruct}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    final class Builder {
+    public static final class Builder {
         private java.lang.String deeperRequiredProp;
         private java.lang.String deeperOptionalProp;
 
         /**
          * Sets the value of DeeperRequiredProp
-         * @param deeperRequiredProp It's long and required.
+         * @param deeperRequiredProp It's long and required. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -69,7 +73,6 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
         public SecondLevelStruct build() {
             return new Jsii$Proxy(deeperRequiredProp, deeperOptionalProp);
         }
-
     }
 
     /**
@@ -85,17 +88,15 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
          * @param objRef Reference to the JSII managed object.
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.setObjRef(objRef);
+            super(objRef);
             this.deeperRequiredProp = this.jsiiGet("deeperRequiredProp", java.lang.String.class);
             this.deeperOptionalProp = this.jsiiGet("deeperOptionalProp", java.lang.String.class);
         }
 
-
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        private Jsii$Proxy(java.lang.String deeperRequiredProp, java.lang.String deeperOptionalProp) {
+        private Jsii$Proxy(final java.lang.String deeperRequiredProp, final java.lang.String deeperOptionalProp) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
             this.deeperRequiredProp = java.util.Objects.requireNonNull(deeperRequiredProp, "deeperRequiredProp is required");
             this.deeperOptionalProp = deeperOptionalProp;
@@ -113,12 +114,21 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
 
         @Override
         public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-            obj.set("deeperRequiredProp", om.valueToTree(this.getDeeperRequiredProp()));
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            data.set("deeperRequiredProp", om.valueToTree(this.getDeeperRequiredProp()));
             if (this.getDeeperOptionalProp() != null) {
-                obj.set("deeperOptionalProp", om.valueToTree(this.getDeeperOptionalProp()));
+                data.set("deeperOptionalProp", om.valueToTree(this.getDeeperOptionalProp()));
             }
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.SecondLevelStruct"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
             return obj;
         }
 
@@ -139,6 +149,5 @@ public interface SecondLevelStruct extends software.amazon.jsii.JsiiSerializable
             result = 31 * result + (this.deeperOptionalProp != null ? this.deeperOptionalProp.hashCode() : 0);
             return result;
         }
-
     }
 }

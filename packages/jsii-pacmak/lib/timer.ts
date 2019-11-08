@@ -5,7 +5,7 @@ export class Timer {
   public timeMs?: number;
   private startTime: number;
 
-  constructor(public readonly label: string) {
+  public constructor(public readonly label: string) {
     this.startTime = Date.now();
   }
 
@@ -29,10 +29,10 @@ export class Timer {
     let time = this.timeMs;
     if (time > 60) {
       const mins = Math.floor(time / 60);
-      parts.push(mins + 'm');
+      parts.push(`${mins}m`);
       time -= mins * 60;
     }
-    parts.push(time.toFixed(1) + 's');
+    parts.push(`${time.toFixed(1)}s`);
 
     return parts.join('');
   }

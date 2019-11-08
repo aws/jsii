@@ -5,7 +5,7 @@ using System;
 namespace Amazon.JSII.Runtime.Deputy
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public class JsiiPropertyAttribute : Attribute, IOptionalValue
+    public sealed class JsiiPropertyAttribute : Attribute, IOptionalValue
     {
         public JsiiPropertyAttribute(string name, string typeJson, bool isOptional = false, bool isOverride = false)
         {

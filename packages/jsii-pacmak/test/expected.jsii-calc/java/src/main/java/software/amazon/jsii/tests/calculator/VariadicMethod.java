@@ -15,25 +15,26 @@ public class VariadicMethod extends software.amazon.jsii.JsiiObject {
     protected VariadicMethod(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     /**
      * EXPERIMENTAL
      * 
-     * @param prefix a prefix that will be use for all values returned by `#asArray`.
+     * @param prefix a prefix that will be use for all values returned by `#asArray`. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public VariadicMethod(final java.lang.Number... prefix) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.Arrays.<Object>stream(prefix).toArray(Object[]::new)));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, java.util.Arrays.<Object>stream(prefix).toArray(Object[]::new));
     }
 
     /**
      * EXPERIMENTAL
      * 
-     * @param first the first element of the array to be returned (after the `prefix` provided at construction time).
-     * @param others other elements to be included in the array.
+     * @param first the first element of the array to be returned (after the `prefix` provided at construction time). This parameter is required.
+     * @param others other elements to be included in the array. This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.List<java.lang.Number> asArray(final java.lang.Number first, final java.lang.Number... others) {
-        return this.jsiiCall("asArray", java.util.List.class, java.util.stream.Stream.concat(java.util.Arrays.<Object>stream(new Object[] { java.util.Objects.requireNonNull(first, "first is required") }), java.util.Arrays.<Object>stream(others)).toArray(Object[]::new));
+        return java.util.Collections.unmodifiableList(this.jsiiCall("asArray", java.util.List.class, java.util.stream.Stream.concat(java.util.Arrays.<Object>stream(new Object[] { java.util.Objects.requireNonNull(first, "first is required") }), java.util.Arrays.<Object>stream(others)).toArray(Object[]::new)));
     }
 }

@@ -15,13 +15,16 @@ public class OverrideReturnsObject extends software.amazon.jsii.JsiiObject {
     protected OverrideReturnsObject(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public OverrideReturnsObject() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param obj This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number test(final software.amazon.jsii.tests.calculator.IReturnsNumber obj) {

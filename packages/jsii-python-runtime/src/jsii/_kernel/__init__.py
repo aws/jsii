@@ -1,6 +1,7 @@
 import datetime
 import inspect
 import itertools
+from types import FunctionType, MethodType, BuiltinFunctionType, LambdaType
 
 from typing import Any, List, Optional, Type, Union
 
@@ -62,7 +63,9 @@ def _get_overides(klass: JSClass, obj: Any) -> List[Override]:
         )
     )
     for mro_klass in type(obj).mro():
-        if mro_klass is klass:
+        if mro_klass is klass and getattr(mro_klass, "__jsii_type__", "Object") is not None:
+            break
+        if mro_klass is Object:
             break
 
         for name, item in mro_klass.__dict__.items():
@@ -109,26 +112,37 @@ def _dereferenced(fn):
 # We need to recurse through our data structure and look for anything that the JSII
 # doesn't natively handle. These items will be created as "Object" types in the JSII.
 def _make_reference_for_native(kernel, d):
-    # Ugly delayed import here because I can't solve the cyclic
-    # package dependency right now :(.
-    from jsii._runtime import python_jsii_mapping
-
     if isinstance(d, dict):
-        return {k: _make_reference_for_native(kernel, v) for k, v in d.items()}
+        return {"$jsii.map": {k: _make_reference_for_native(kernel, v) for k, v in d.items()}}
     elif isinstance(d, list):
         return [_make_reference_for_native(kernel, i) for i in d]
 
-    mapping = python_jsii_mapping(d)
-    if mapping:
-        struct_data = {jsii_name: getattr(d, python_name) for python_name, jsii_name in mapping.items()}
-        return _make_reference_for_native(kernel, struct_data)
-    elif hasattr(d, "__jsii_type__"):
+    if getattr(d, "__jsii_type__", None) is not None:
+        # Ugly delayed import here because I can't solve the cyclic
+        # package dependency right now :(.
+        from jsii._runtime import python_jsii_mapping
+
+        typeFqn = getattr(d, "__jsii_type__")
+        mapping = python_jsii_mapping(d)
+        if mapping: # This means we are handling a data_type (aka Struct)
+            return {
+                "$jsii.struct": {
+                    "fqn": typeFqn,
+                    "data": {
+                        jsii_name: _make_reference_for_native(kernel, getattr(d, python_name)) for python_name, jsii_name in mapping.items()
+                    }
+                }
+            }
         return d
     elif isinstance(d, (int, type(None), str, float, bool, datetime.datetime)):
         return d
+    elif isinstance(d, (FunctionType, MethodType, BuiltinFunctionType, LambdaType)):
+        # Whether a given object is a function-like object.
+        # We won't use iscallable() since objects may implement __call__()
+        # but we still want to serialize them as normal.
+        raise JSIIError("Cannot pass function as argument here (did you mean to call this function?): %r" % d)
     else:
-        d.__jsii__type__ = "Object"
-        kernel.create(Object, d)
+        kernel.create(d.__class__, d)
         _reference_map.register_reference(d)
         return d
 
@@ -138,13 +152,15 @@ def _handle_callback(kernel, callback):
     if callback.invoke:
         obj = _reference_map.resolve_id(callback.invoke.objref.ref)
         method = getattr(obj, callback.cookie)
-        return method(*callback.invoke.args)
+        hydrated_args = [_recursize_dereference(kernel, a) for a in callback.invoke.args]
+        return method(*hydrated_args)
     elif callback.get:
         obj = _reference_map.resolve_id(callback.get.objref.ref)
         return getattr(obj, callback.cookie)
     elif callback.set:
         obj = _reference_map.resolve_id(callback.set.objref.ref)
-        return setattr(obj, callback.cookie, callback.set.value)
+        hydrated_value = _recursize_dereference(kernel, callback.set.value)
+        return setattr(obj, callback.cookie, hydrated_value)
     else:
         raise JSIIError("Callback does not contain invoke|get|set")
 
@@ -199,13 +215,12 @@ class Kernel(metaclass=Singleton):
         if args is None:
             args = []
 
-        overrides = _get_overides(klass, obj)
-
         response = self.provider.create(
             CreateRequest(
-                fqn=klass.__jsii_type__,
+                fqn=klass.__jsii_type__ or "Object",
                 args=_make_reference_for_native(self, args),
-                overrides=overrides,
+                overrides=_get_overides(klass, obj),
+                interfaces=[iface.__jsii_type__ for iface in getattr(klass, "__jsii_ifaces__", [])],
             )
         )
         if isinstance(response, Callback):
@@ -279,13 +294,17 @@ class Kernel(metaclass=Singleton):
         if args is None:
             args = []
 
-        return self.provider.sinvoke(
+        response = self.provider.sinvoke(
             StaticInvokeRequest(
                 fqn=klass.__jsii_type__,
                 method=method,
                 args=_make_reference_for_native(self, args),
             )
-        ).result
+        )
+        if isinstance(response, Callback):
+            return _callback_till_result(self, response, InvokeResponse)
+        else:
+            return response.result
 
     @_dereferenced
     def complete(

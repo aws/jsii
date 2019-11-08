@@ -6,19 +6,26 @@ package software.amazon.jsii.tests.calculator;
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.CalculatorProps")
+@software.amazon.jsii.Jsii.Proxy(CalculatorProps.Jsii$Proxy.class)
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
-    /**
-     * EXPERIMENTAL
-     */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Number getInitialValue();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Number getMaximumValue();
+    default java.lang.Number getInitialValue() {
+        return null;
+    }
+
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    default java.lang.Number getMaximumValue() {
+        return null;
+    }
 
     /**
      * @return a {@link Builder} of {@link CalculatorProps}
@@ -27,18 +34,17 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
     static Builder builder() {
         return new Builder();
     }
-
     /**
      * A builder for {@link CalculatorProps}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    final class Builder {
+    public static final class Builder {
         private java.lang.Number initialValue;
         private java.lang.Number maximumValue;
 
         /**
          * Sets the value of InitialValue
-         * @param initialValue the value to be set
+         * @param initialValue the value to be set.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -49,7 +55,7 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
 
         /**
          * Sets the value of MaximumValue
-         * @param maximumValue the value to be set
+         * @param maximumValue the value to be set.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -67,7 +73,6 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
         public CalculatorProps build() {
             return new Jsii$Proxy(initialValue, maximumValue);
         }
-
     }
 
     /**
@@ -83,17 +88,15 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
          * @param objRef Reference to the JSII managed object.
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.setObjRef(objRef);
+            super(objRef);
             this.initialValue = this.jsiiGet("initialValue", java.lang.Number.class);
             this.maximumValue = this.jsiiGet("maximumValue", java.lang.Number.class);
         }
 
-
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        private Jsii$Proxy(java.lang.Number initialValue, java.lang.Number maximumValue) {
+        private Jsii$Proxy(final java.lang.Number initialValue, final java.lang.Number maximumValue) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
             this.initialValue = initialValue;
             this.maximumValue = maximumValue;
@@ -111,14 +114,23 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
 
         @Override
         public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
             if (this.getInitialValue() != null) {
-                obj.set("initialValue", om.valueToTree(this.getInitialValue()));
+                data.set("initialValue", om.valueToTree(this.getInitialValue()));
             }
             if (this.getMaximumValue() != null) {
-                obj.set("maximumValue", om.valueToTree(this.getMaximumValue()));
+                data.set("maximumValue", om.valueToTree(this.getMaximumValue()));
             }
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.CalculatorProps"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
             return obj;
         }
 
@@ -139,6 +151,5 @@ public interface CalculatorProps extends software.amazon.jsii.JsiiSerializable {
             result = 31 * result + (this.maximumValue != null ? this.maximumValue.hashCode() : 0);
             return result;
         }
-
     }
 }

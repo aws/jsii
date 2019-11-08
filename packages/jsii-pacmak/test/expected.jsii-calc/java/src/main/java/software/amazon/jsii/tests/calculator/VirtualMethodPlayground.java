@@ -15,13 +15,16 @@ public class VirtualMethodPlayground extends software.amazon.jsii.JsiiObject {
     protected VirtualMethodPlayground(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public VirtualMethodPlayground() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param index This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number overrideMeAsync(final java.lang.Number index) {
@@ -30,6 +33,8 @@ public class VirtualMethodPlayground extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param index This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number overrideMeSync(final java.lang.Number index) {
@@ -38,6 +43,8 @@ public class VirtualMethodPlayground extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param count This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number parallelSumAsync(final java.lang.Number count) {
@@ -46,6 +53,8 @@ public class VirtualMethodPlayground extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param count This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number serialSumAsync(final java.lang.Number count) {
@@ -54,6 +63,8 @@ public class VirtualMethodPlayground extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param count This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Number sumSync(final java.lang.Number count) {

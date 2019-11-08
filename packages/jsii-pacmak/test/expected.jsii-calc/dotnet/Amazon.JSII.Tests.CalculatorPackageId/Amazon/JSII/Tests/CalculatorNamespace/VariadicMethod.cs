@@ -32,7 +32,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "asArray", returnsJson: "{\"type\":{\"collection\":{\"elementtype\":{\"primitive\":\"number\"},\"kind\":\"array\"}}}", parametersJson: "[{\"docs\":{\"summary\":\"the first element of the array to be returned (after the `prefix` provided at construction time).\"},\"name\":\"first\",\"type\":{\"primitive\":\"number\"}},{\"docs\":{\"summary\":\"other elements to be included in the array.\"},\"name\":\"others\",\"type\":{\"primitive\":\"number\"},\"variadic\":true}]")]
         public virtual double[] AsArray(double first, params double[] others)
         {
-            return InvokeInstanceMethod<double[]>(new object[]{first, others});
+            return InvokeInstanceMethod<double[]>(new System.Type[]{typeof(double), typeof(double[])}, new object[]{first, others});
         }
     }
 }

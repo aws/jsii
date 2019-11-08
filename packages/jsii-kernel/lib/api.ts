@@ -1,196 +1,238 @@
 export const TOKEN_REF = '$jsii.byref';
+export const TOKEN_INTERFACES = '$jsii.interfaces';
 export const TOKEN_DATE = '$jsii.date';
 export const TOKEN_ENUM = '$jsii.enum';
+export const TOKEN_MAP = '$jsii.map';
+export const TOKEN_STRUCT = '$jsii.struct';
 
 export interface ObjRef {
-    [TOKEN_REF]: string;
+  readonly [TOKEN_REF]: string;
+}
+
+export interface AnnotatedObjRef extends ObjRef {
+  [TOKEN_INTERFACES]?: readonly string[];
 }
 
 export function isObjRef(value: any): value is ObjRef {
-    return typeof value === 'object' && value !== null && TOKEN_REF in value;
+  return typeof value === 'object' && value !== null && TOKEN_REF in value;
 }
 
 export interface WireDate {
-    [TOKEN_DATE]: string;
+  readonly [TOKEN_DATE]: string;
 }
 
 export function isWireDate(value: any): value is WireDate {
-    return typeof value === 'object' && value !== null && TOKEN_DATE in value;
+  return typeof value === 'object' && value !== null && TOKEN_DATE in value;
 }
 
 export interface WireEnum {
-    [TOKEN_ENUM]: string;
+  readonly [TOKEN_ENUM]: string;
 }
 
 export function isWireEnum(value: any): value is WireEnum {
-    return typeof value === 'object' && value !== null && TOKEN_ENUM in value;
+  return typeof value === 'object' && value !== null && TOKEN_ENUM in value;
+}
+
+export interface WireMap {
+  readonly [TOKEN_MAP]: { readonly [key: string]: any };
+}
+
+export function isWireMap(value: any): value is WireMap {
+  return typeof value === 'object' && value !== null && TOKEN_MAP in value;
+}
+
+export interface WireStruct {
+  readonly [TOKEN_STRUCT]: {
+    readonly fqn: string;
+    readonly data: { [key: string]: any };
+  };
+}
+
+export function isWireStruct(value: any): value is WireStruct {
+  return typeof value === 'object' && value !== null && TOKEN_STRUCT in value;
 }
 
 export type Override = MethodOverride | PropertyOverride;
 
 export interface MethodOverride {
-    method: string;
-    cookie?: string;
+  readonly method: string;
+  readonly cookie?: string;
 }
 
 export function isMethodOverride(value: Override): value is MethodOverride {
-    return (value as any).method != null;  // Python passes "null"
+  return (value as any).method != null;  // Python passes "null"
 }
 
 export interface PropertyOverride {
-    property: string;
-    cookie?: string;
+  readonly property: string;
+  readonly cookie?: string;
 }
 
 export function isPropertyOverride(value: Override): value is PropertyOverride {
-    return (value as any).property != null;  // Python passes "null"
+  return (value as any).property != null;  // Python passes "null"
 }
 
 export interface Callback {
-    cbid: string;
-    cookie: string | undefined;
-    invoke?: InvokeRequest;
-    get?: GetRequest;
-    set?: SetRequest;
+  readonly cbid: string;
+  readonly cookie: string | undefined;
+  readonly invoke?: InvokeRequest;
+  readonly get?: GetRequest;
+  readonly set?: SetRequest;
 }
 
 export interface HelloResponse {
-    hello: string;
+  readonly hello: string;
 }
 
 export interface LoadRequest {
-    /** The name of the assembly */
-    name: string;
+  /** The name of the assembly */
+  readonly name: string;
 
-    /** Assembly version */
-    version: string;
+  /** Assembly version */
+  readonly version: string;
 
-    /** The tarball of the package */
-    tarball: string;
+  /** The tarball of the package */
+  readonly tarball: string;
 }
 
 export interface LoadResponse {
-    assembly: string;
-    types: number;
+  readonly assembly: string;
+  readonly types: number;
 }
 
 export interface CreateRequest {
-    fqn: string
-    args?: any[]
-    overrides?: Override[]
+  /**
+   * The FQN of the class of which an instance is requested (or "Object")
+   */
+  readonly fqn: string;
+
+  /**
+   * The FQNs of interfaces the instance implements, if any. Declaring
+   * interfaces that the class denoted by `fqn` implements is not necessary.
+   * This means that memebers of interfaces found in this property should
+   * declare members that are found in the `overrides` property.
+   */
+  readonly interfaces?: string[];
+
+  /**
+   * Arguments to pass to the constructor of `fqn`. ("Object" accepts none)
+   */
+  readonly args?: any[];
+
+  /**
+   * Declarations of method overrides that should trigger callbacks
+   */
+  readonly overrides?: Override[];
 }
 
-// tslint:disable-next-line:no-empty-interface
-export interface CreateResponse extends ObjRef {
-
-}
+/* eslint-disable @typescript-eslint/no-empty-interface */
+export interface CreateResponse extends AnnotatedObjRef {}
+/* eslint-enable @typescript-eslint/no-empty-interface */
 
 export interface DelRequest {
-    objref: ObjRef;
+  readonly objref: ObjRef;
 }
 
-// tslint:disable-next-line:no-empty-interface
-export interface DelResponse {
-
-}
+/* eslint-disable @typescript-eslint/no-empty-interface */
+export interface DelResponse {}
+/* eslint-enable @typescript-eslint/no-empty-interface */
 
 export interface GetRequest {
-    objref: ObjRef;
-    property: string;
+  readonly objref: ObjRef;
+  readonly property: string;
 }
 
 export interface StaticGetRequest {
-    fqn: string;
-    property: string;
+  readonly fqn: string;
+  readonly property: string;
 }
 
 export interface GetResponse {
-    value: any;
+  readonly value: any;
 }
 
 export interface StaticSetRequest {
-    fqn: string;
-    property: string;
-    value: any;
+  readonly fqn: string;
+  readonly property: string;
+  readonly value: any;
 }
 
 export interface SetRequest {
-    objref: ObjRef;
-    property: string;
-    value: any;
+  readonly objref: ObjRef;
+  readonly property: string;
+  readonly value: any;
 }
 
-// tslint:disable-next-line:no-empty-interface
-export interface SetResponse {
+/* eslint-disable @typescript-eslint/no-empty-interface */
+export interface SetResponse { }
+/* eslint-enable @typescript-eslint/no-empty-interface */
 
-}
-
-export interface StaticInvokeRequest  {
-    fqn: string;
-    method: string;
-    args?: any[];
+export interface StaticInvokeRequest {
+  readonly fqn: string;
+  readonly method: string;
+  readonly args?: any[];
 }
 
 export interface InvokeRequest {
-    objref: ObjRef;
-    method: string;
-    args?: any[];
+  readonly objref: ObjRef;
+  readonly method: string;
+  readonly args?: any[];
 }
 
 export interface InvokeResponse {
-    result: any;
+  readonly result: any;
 }
 
 export interface BeginRequest {
-    objref: ObjRef;
-    method: string;
-    args?: any[];
+  readonly objref: ObjRef;
+  readonly method: string;
+  readonly args?: any[];
 }
 
 export interface BeginResponse {
-    promiseid: string;
+  readonly promiseid: string;
 }
 
 export interface EndRequest {
-    promiseid: string;
+  readonly promiseid: string;
 }
 
 export interface EndResponse {
-    result: any;
+  readonly result: any;
 }
 
-// tslint:disable-next-line:no-empty-interface
-export interface CallbacksRequest {
-}
+/* eslint-disable @typescript-eslint/no-empty-interface */
+export interface CallbacksRequest { }
+/* eslint-enable @typescript-eslint/no-empty-interface */
 
 export interface CallbacksResponse {
-    callbacks: Callback[];
+  readonly callbacks: Callback[];
 }
 
 export interface CompleteRequest {
-    cbid: string;
-    err?: string;
-    result?: any;
+  readonly cbid: string;
+  readonly err?: string;
+  readonly result?: any;
 }
 
 export interface CompleteResponse {
-    cbid: string;
+  readonly cbid: string;
 }
 
 export interface NamingRequest {
-    assembly: string;
+  readonly assembly: string;
 }
 
 export interface NamingResponse {
-    naming: { [language: string]: { [key: string]: any } | undefined };
+  readonly naming: { readonly [language: string]: { readonly [key: string]: any } | undefined };
 }
 
-// tslint:disable-next-line:no-empty-interface
-export interface StatsRequest {
-}
+/* eslint-disable @typescript-eslint/no-empty-interface */
+export interface StatsRequest { }
+/* eslint-enable @typescript-eslint/no-empty-interface */
 
 export interface StatsResponse {
-    objectCount: number;
+  readonly objectCount: number;
 }
 
 export type KernelRequest =
@@ -223,10 +265,10 @@ export type KernelResponse =
     StatsResponse;
 
 export interface OkayResponse {
-    ok: any;
+  readonly ok: any;
 }
 
 export interface ErrorResponse {
-    error: string;
-    stack?: string;
+  readonly error: string;
+  readonly stack?: string;
 }

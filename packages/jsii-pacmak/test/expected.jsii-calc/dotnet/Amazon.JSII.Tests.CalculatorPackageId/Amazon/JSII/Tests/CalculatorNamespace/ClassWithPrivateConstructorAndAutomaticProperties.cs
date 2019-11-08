@@ -7,7 +7,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// stability: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithPrivateConstructorAndAutomaticProperties), fullyQualifiedName: "jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties")]
-    public class ClassWithPrivateConstructorAndAutomaticProperties : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IIInterfaceWithProperties
+    public class ClassWithPrivateConstructorAndAutomaticProperties : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IInterfaceWithProperties
     {
         protected ClassWithPrivateConstructorAndAutomaticProperties(ByRefValue reference): base(reference)
         {
@@ -23,7 +23,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "create", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.ClassWithPrivateConstructorAndAutomaticProperties\"}}", parametersJson: "[{\"name\":\"readOnlyString\",\"type\":{\"primitive\":\"string\"}},{\"name\":\"readWriteString\",\"type\":{\"primitive\":\"string\"}}]")]
         public static Amazon.JSII.Tests.CalculatorNamespace.ClassWithPrivateConstructorAndAutomaticProperties Create(string readOnlyString, string readWriteString)
         {
-            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.ClassWithPrivateConstructorAndAutomaticProperties>(typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithPrivateConstructorAndAutomaticProperties), new object[]{readOnlyString, readWriteString});
+            return InvokeStaticMethod<Amazon.JSII.Tests.CalculatorNamespace.ClassWithPrivateConstructorAndAutomaticProperties>(typeof(Amazon.JSII.Tests.CalculatorNamespace.ClassWithPrivateConstructorAndAutomaticProperties), new System.Type[]{typeof(string), typeof(string)}, new object[]{readOnlyString, readWriteString});
         }
 
         /// <remarks>

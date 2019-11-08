@@ -24,9 +24,9 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "sayHello", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[{\"name\":\"friendly\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.IFriendly\"}}]")]
-        public virtual string SayHello(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IIFriendly friendly)
+        public virtual string SayHello(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly friendly)
         {
-            return InvokeInstanceMethod<string>(new object[]{friendly});
+            return InvokeInstanceMethod<string>(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IFriendly)}, new object[]{friendly});
         }
     }
 }

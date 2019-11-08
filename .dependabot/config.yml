@@ -6,22 +6,23 @@ update_configs:
   - directory: /
     package_manager: javascript
     update_schedule: live
-    ignored_updates:
-      - match:
-          # Don't suggest upgrading @types/node to versions >= 9
-          dependency_name: '@types/node'
-          version_requirement: '>= 9'
-      - match:
-          # Don't suggest upgrading decamelize to version >= 2
-          dependency_name: decamelize
-          version_requirement: '>= 2'
-      - match:
-          # Don't suggest upgrading @types/decamelize to version >= 2
-          dependency_name: '@types/decamelize'
-          version_requirement: '>= 2'
     version_requirement_updates: increase_versions
     default_labels:
       - dependency
+
+  - directory: /packages/jsii-dotnet-analyzers/src/Amazon.JSII.Analyzers
+    package_manager: dotnet:nuget
+    update_schedule: daily
+    default_labels:
+      - dependency
+      - language/dotnet
+
+  - directory: /packages/jsii-dotnet-analyzers/src/Amazon.JSII.Analyzers.UnitTests
+    package_manager: dotnet:nuget
+    update_schedule: daily
+    default_labels:
+      - dependency
+      - language/dotnet
 
   - directory: /packages/jsii-dotnet-jsonmodel/src/Amazon.JSII.JsonModel
     package_manager: dotnet:nuget

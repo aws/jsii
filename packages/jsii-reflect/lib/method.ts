@@ -21,55 +21,55 @@ export class Method extends Callable implements Documentable, Overridable, TypeM
 
   public readonly kind = MemberKind.Method;
 
-  constructor(
+  public constructor(
     system: TypeSystem,
     assembly: Assembly,
     parentType: Type,
     public readonly definingType: Type,
-    private readonly methodSpec: jsii.Method) {
-    super(system, assembly, parentType, methodSpec);
+    public readonly spec: jsii.Method) {
+    super(system, assembly, parentType, spec);
   }
 
   /**
    * The name of the method.
    */
   public get name(): string {
-    return this.methodSpec.name;
+    return this.spec.name;
   }
 
   public get overrides(): Type | undefined {
-    if (!this.methodSpec.overrides) {
+    if (!this.spec.overrides) {
       return undefined;
     }
 
-    return this.system.findFqn(this.methodSpec.overrides);
+    return this.system.findFqn(this.spec.overrides);
   }
 
   /**
    * The return type of the method (undefined if void or initializer)
    */
   public get returns(): OptionalValue {
-    return new OptionalValue(this.system, this.methodSpec.returns);
+    return new OptionalValue(this.system, this.spec.returns);
   }
 
   /**
    * Is this method an abstract method (this means the class will also be an abstract class)
    */
   public get abstract(): boolean {
-    return !!this.methodSpec.abstract;
+    return !!this.spec.abstract;
   }
 
   /**
    * Is this method asyncrhonous (this means the return value is a promise)
    */
   public get async(): boolean {
-    return !!this.methodSpec.async;
+    return !!this.spec.async;
   }
 
   /**
    * Indicates if this is a static method.
    */
   public get static(): boolean {
-    return !!this.methodSpec.static;
+    return !!this.spec.static;
   }
 }

@@ -17,6 +17,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     protected Calculator(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     /**
      * Creates a Calculator object.
      * 
@@ -27,8 +28,9 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public Calculator(final software.amazon.jsii.tests.calculator.CalculatorProps props) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { props }));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { props });
     }
+
     /**
      * Creates a Calculator object.
      * 
@@ -37,13 +39,15 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public Calculator() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
     /**
      * Adds a number to the current value.
      * 
      * EXPERIMENTAL
+     * 
+     * @param value This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void add(final java.lang.Number value) {
@@ -54,6 +58,8 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      * Multiplies the current value by a number.
      * 
      * EXPERIMENTAL
+     * 
+     * @param value This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void mul(final java.lang.Number value) {
@@ -74,6 +80,8 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      * Raises the current value by a power.
      * 
      * EXPERIMENTAL
+     * 
+     * @param value This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void pow(final java.lang.Number value) {
@@ -108,7 +116,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.List<software.amazon.jsii.tests.calculator.lib.Value> getOperationsLog() {
-        return this.jsiiGet("operationsLog", java.util.List.class);
+        return java.util.Collections.unmodifiableList(this.jsiiGet("operationsLog", java.util.List.class));
     }
 
     /**
@@ -118,7 +126,7 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.Map<java.lang.String, java.util.List<software.amazon.jsii.tests.calculator.lib.Value>> getOperationsMap() {
-        return this.jsiiGet("operationsMap", java.util.Map.class);
+        return java.util.Collections.unmodifiableMap(this.jsiiGet("operationsMap", java.util.Map.class));
     }
 
     /**
@@ -199,5 +207,67 @@ public class Calculator extends software.amazon.jsii.tests.calculator.compositio
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void setUnionProperty(final software.amazon.jsii.tests.calculator.Power value) {
         this.jsiiSet("unionProperty", value);
+    }
+
+    /**
+     * A fluent builder for {@link software.amazon.jsii.tests.calculator.Calculator}.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    public static final class Builder {
+        /**
+         * EXPERIMENTAL
+         * 
+         * @return a new instance of {@link Builder}.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        public static Builder create() {
+            return new Builder();
+        }
+
+        private software.amazon.jsii.tests.calculator.CalculatorProps.Builder props;
+
+        private Builder() {
+        }
+
+        /**
+         * EXPERIMENTAL
+         * 
+         * @return {@code this}
+         * @param initialValue This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        public Builder initialValue(final java.lang.Number initialValue) {
+            this.props().initialValue(initialValue);
+            return this;
+        }
+
+        /**
+         * EXPERIMENTAL
+         * 
+         * @return {@code this}
+         * @param maximumValue This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        public Builder maximumValue(final java.lang.Number maximumValue) {
+            this.props().maximumValue(maximumValue);
+            return this;
+        }
+
+        /**
+         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.Calculator}.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        public software.amazon.jsii.tests.calculator.Calculator build() {
+            return new software.amazon.jsii.tests.calculator.Calculator(
+                this.props != null ? this.props.build() : null
+            );
+        }
+
+        private software.amazon.jsii.tests.calculator.CalculatorProps.Builder props() {
+            if (this.props == null) {
+                this.props = new software.amazon.jsii.tests.calculator.CalculatorProps.Builder();
+            }
+            return this.props;
+        }
     }
 }

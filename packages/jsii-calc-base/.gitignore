@@ -1,16 +1,15 @@
 tsconfig.json
-tslint.json
 dist
 .jsii
 *.tgz
 
 tsconfig.json
-tslint.json
 dist
 .jsii
 
 *.js
 *.d.ts
+*.tsbuildinfo
 node_modules/
 .nyc_output/
 coverage/

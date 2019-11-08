@@ -1,27 +1,24 @@
-﻿using Amazon.JSII.JsonModel.Spec;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Amazon.JSII.JsonModel.Converters
 {
-    class TypeDictionaryConverter : JsonConverter
+    internal sealed class TypeDictionaryConverter : JsonConverter
     {
         public override bool CanRead => true;
 
         public override bool CanWrite => false;
 
-        public override bool CanConvert(System.Type objectType)
+        public override bool CanConvert(Type objectType)
         {
             throw new NotImplementedException();
         }
 
-        public override object ReadJson(JsonReader reader, System.Type objectType, object existingValue, JsonSerializer serializer)
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            JObject untypedDictionary = JObject.Load(reader);
+            var untypedDictionary = JObject.Load(reader);
 
             return untypedDictionary.Properties().ToDictionary(p => p.Name, p => Util.ConvertToDerivedType(p.Value));
         }

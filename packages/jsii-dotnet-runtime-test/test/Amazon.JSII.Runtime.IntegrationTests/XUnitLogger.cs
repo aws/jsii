@@ -4,7 +4,7 @@ using Xunit.Abstractions;
 
 namespace Amazon.JSII.Runtime.IntegrationTests
 {
-    public class XUnitLoggerFactory : ILoggerFactory
+    public sealed class XUnitLoggerFactory : ILoggerFactory
     {
         readonly ITestOutputHelper _output;
 
@@ -27,7 +27,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         }
     }
 
-    public class XUnitLogger : ILogger, IDisposable
+    public sealed class XUnitLogger : ILogger, IDisposable
     {
         readonly ITestOutputHelper _output;
         readonly string _categoryName;

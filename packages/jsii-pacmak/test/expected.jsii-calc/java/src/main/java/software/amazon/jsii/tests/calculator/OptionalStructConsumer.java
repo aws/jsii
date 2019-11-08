@@ -15,21 +15,25 @@ public class OptionalStructConsumer extends software.amazon.jsii.JsiiObject {
     protected OptionalStructConsumer(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     /**
      * EXPERIMENTAL
+     * 
+     * @param optionalStruct
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public OptionalStructConsumer(final software.amazon.jsii.tests.calculator.OptionalStruct optionalStruct) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { optionalStruct }));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { optionalStruct });
     }
+
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public OptionalStructConsumer() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
     /**
@@ -46,5 +50,55 @@ public class OptionalStructConsumer extends software.amazon.jsii.JsiiObject {
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String getFieldValue() {
         return this.jsiiGet("fieldValue", java.lang.String.class);
+    }
+
+    /**
+     * A fluent builder for {@link software.amazon.jsii.tests.calculator.OptionalStructConsumer}.
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    public static final class Builder {
+        /**
+         * EXPERIMENTAL
+         * 
+         * @return a new instance of {@link Builder}.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        public static Builder create() {
+            return new Builder();
+        }
+
+        private software.amazon.jsii.tests.calculator.OptionalStruct.Builder optionalStruct;
+
+        private Builder() {
+        }
+
+        /**
+         * EXPERIMENTAL
+         * 
+         * @return {@code this}
+         * @param field This parameter is required.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        public Builder field(final java.lang.String field) {
+            this.optionalStruct().field(field);
+            return this;
+        }
+
+        /**
+         * @returns a newly built instance of {@link software.amazon.jsii.tests.calculator.OptionalStructConsumer}.
+         */
+        @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+        public software.amazon.jsii.tests.calculator.OptionalStructConsumer build() {
+            return new software.amazon.jsii.tests.calculator.OptionalStructConsumer(
+                this.optionalStruct != null ? this.optionalStruct.build() : null
+            );
+        }
+
+        private software.amazon.jsii.tests.calculator.OptionalStruct.Builder optionalStruct() {
+            if (this.optionalStruct == null) {
+                this.optionalStruct = new software.amazon.jsii.tests.calculator.OptionalStruct.Builder();
+            }
+            return this.optionalStruct;
+        }
     }
 }

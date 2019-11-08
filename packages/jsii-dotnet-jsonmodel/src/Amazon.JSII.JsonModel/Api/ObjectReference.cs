@@ -3,7 +3,7 @@
 namespace Amazon.JSII.JsonModel.Api
 {
     [JsonDictionary]
-    public class ObjectReference : JsonDictionaryBase<string, string>
+    public class ObjectReference : JsonDictionaryBase<string, object>
     {
     }
 }

@@ -1,6 +1,11 @@
 package software.amazon.jsii;
 
 import javax.annotation.Nullable;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Represents a JavaScript object in the Java world.
@@ -11,6 +16,11 @@ public class JsiiObject implements JsiiSerializable {
      * The jsii engine used by this object.
      */
     private final static JsiiEngine engine = JsiiEngine.getInstance();
+
+    /**
+     * The interface-proxies that this object can also be represented as.
+     */
+    private final Map<Class<? extends JsiiObject>, JsiiObject> proxies = new HashMap<>();
 
     /**
      * The underlying {@link JsiiObjectRef} instance.
@@ -149,7 +159,7 @@ public class JsiiObject implements JsiiSerializable {
      * Sets the jsii object reference for this object.
      * @param objRef The objref
      */
-    protected final void setObjRef(final JsiiObjectRef objRef) {
+    final void setObjRef(final JsiiObjectRef objRef) {
         this.objRef = objRef;
     }
 
@@ -159,5 +169,29 @@ public class JsiiObject implements JsiiSerializable {
      */
     final JsiiObjectRef getObjRef() {
         return objRef;
+    }
+
+    final JsiiObject asInterfaceProxy(final Class<? extends JsiiObject> proxyClass) {
+        if (!this.proxies.containsKey(proxyClass)) {
+            try {
+                final Constructor<? extends JsiiObject> constructor = proxyClass.getDeclaredConstructor(JsiiObjectRef.class);
+                @SuppressWarnings("deprecated")
+                final boolean oldAccessible = constructor.isAccessible();
+                try {
+                    constructor.setAccessible(true);
+                    final JsiiObject proxyInstance = constructor.newInstance(this.getObjRef());
+                    this.proxies.put(proxyClass, proxyInstance);
+                } finally {
+                    constructor.setAccessible(oldAccessible);
+                }
+            } catch(final NoSuchMethodException nsme) {
+                throw new JsiiException("Unable to find interface proxy constructor on " + proxyClass.getCanonicalName(), nsme);
+            } catch (final InvocationTargetException | InstantiationException e) {
+                throw new JsiiException("Unable to initialize interface proxy " + proxyClass.getCanonicalName(), e);
+            } catch (final IllegalAccessException iae) {
+                throw new JsiiException("Unable to invoke constructor of " + proxyClass.getCanonicalName(), iae);
+            }
+        }
+        return this.proxies.get(proxyClass);
     }
 }

@@ -1,26 +1,35 @@
 {
   "name": "jsii-java-runtime-test",
-  "version": "0.15.0",
-  "description": "Tests for the Java client for jsii runtime",
+  "version": "0.20.2",
   "private": true,
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
-  "scripts": {
-    "build": "/bin/bash ./generate.sh",
-    "test": "cd project && mvn -B test --settings=user.xml"
-  },
-  "devDependencies": {
-    "jsii-calc": "file:../jsii-calc",
-    "jsii-java-runtime": "file:../jsii-java-runtime",
-    "jsii-pacmak": "^0.15.0"
-  },
+  "description": "Tests for the Java client for jsii runtime",
+  "license": "Apache-2.0",
   "author": {
     "name": "Amazon Web Services",
     "url": "https://aws.amazon.com"
   },
-  "license": "Apache-2.0",
+  "homepage": "https://github.com/aws/jsii",
+  "bugs": {
+    "url": "https://github.com/aws/jsii/issues"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/aws/jsii.git"
+    "url": "https://github.com/aws/jsii.git",
+    "directory": "packages/jsii-java-runtime-test"
+  },
+  "engines": {
+    "node": ">= 10.3.0"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "/bin/bash ./generate.sh",
+    "test": "cd project && mvn -B test --settings=user.xml",
+    "test:update": "UPDATE_DIFF=1 npm run test"
+  },
+  "devDependencies": {
+    "jsii-calc": "^0.20.2",
+    "jsii-java-runtime": "^0.20.2",
+    "jsii-pacmak": "^0.20.2"
   }
 }

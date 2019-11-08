@@ -1,4 +1,5 @@
 #!/bin/bash
+scriptdir="$(cd $(dirname $0) && pwd)"
 set -euo pipefail
 
 # the reason we require a manual version is because we lerna doesn't respect pre 1.0
@@ -10,9 +11,9 @@ if [ -z "${ver}" ]; then
   exit 1
 fi
 
-git clean -fqdx packages/jsii-python-runtime
+git clean -fqdx
 
-/bin/bash ./install.sh
+yarn install
 
 node_modules/.bin/lerna publish --force-publish=* --skip-npm --skip-git --conventional-commits --repo-version ${ver}
 
@@ -20,8 +21,9 @@ node_modules/.bin/lerna publish --force-publish=* --skip-npm --skip-git --conven
 # to match their corresponding "dependencies" version requirement
 find . -name package.json | grep -v node_modules | xargs node scripts/sync-peer-deps.js
 
-node_modules/.bin/lerna run build --stream --sort
+# rebuild everything
+yarn build
 
 # update test expectations
-UPDATE_DIFF=1 node_modules/.bin/lerna run test --stream --sort
+yarn test:update
 

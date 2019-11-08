@@ -15,13 +15,17 @@ public class AllowedMethodNames extends software.amazon.jsii.JsiiObject {
     protected AllowedMethodNames(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public AllowedMethodNames() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param _p1 This parameter is required.
+     * @param _p2 This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void getBar(final java.lang.String _p1, final java.lang.Number _p2) {
@@ -32,6 +36,8 @@ public class AllowedMethodNames extends software.amazon.jsii.JsiiObject {
      * getXxx() is not allowed (see negatives), but getXxx(a, ...) is okay.
      * 
      * EXPERIMENTAL
+     * 
+     * @param withParam This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String getFoo(final java.lang.String withParam) {
@@ -40,6 +46,10 @@ public class AllowedMethodNames extends software.amazon.jsii.JsiiObject {
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param _x This parameter is required.
+     * @param _y This parameter is required.
+     * @param _z This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void setBar(final java.lang.String _x, final java.lang.Number _y, final java.lang.Boolean _z) {
@@ -50,6 +60,9 @@ public class AllowedMethodNames extends software.amazon.jsii.JsiiObject {
      * setFoo(x) is not allowed (see negatives), but setXxx(a, b, ...) is okay.
      * 
      * EXPERIMENTAL
+     * 
+     * @param _x This parameter is required.
+     * @param _y This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void setFoo(final java.lang.String _x, final java.lang.Number _y) {

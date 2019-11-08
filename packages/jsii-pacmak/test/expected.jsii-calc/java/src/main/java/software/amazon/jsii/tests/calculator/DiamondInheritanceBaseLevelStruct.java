@@ -4,8 +4,11 @@ package software.amazon.jsii.tests.calculator;
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.DiamondInheritanceBaseLevelStruct")
+@software.amazon.jsii.Jsii.Proxy(DiamondInheritanceBaseLevelStruct.Jsii$Proxy.class)
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface DiamondInheritanceBaseLevelStruct extends software.amazon.jsii.JsiiSerializable {
+
     /**
      * EXPERIMENTAL
      */
@@ -19,17 +22,16 @@ public interface DiamondInheritanceBaseLevelStruct extends software.amazon.jsii.
     static Builder builder() {
         return new Builder();
     }
-
     /**
      * A builder for {@link DiamondInheritanceBaseLevelStruct}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    final class Builder {
+    public static final class Builder {
         private java.lang.String baseLevelProperty;
 
         /**
          * Sets the value of BaseLevelProperty
-         * @param baseLevelProperty the value to be set
+         * @param baseLevelProperty the value to be set. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -47,7 +49,6 @@ public interface DiamondInheritanceBaseLevelStruct extends software.amazon.jsii.
         public DiamondInheritanceBaseLevelStruct build() {
             return new Jsii$Proxy(baseLevelProperty);
         }
-
     }
 
     /**
@@ -62,16 +63,14 @@ public interface DiamondInheritanceBaseLevelStruct extends software.amazon.jsii.
          * @param objRef Reference to the JSII managed object.
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.setObjRef(objRef);
+            super(objRef);
             this.baseLevelProperty = this.jsiiGet("baseLevelProperty", java.lang.String.class);
         }
-
 
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        private Jsii$Proxy(java.lang.String baseLevelProperty) {
+        private Jsii$Proxy(final java.lang.String baseLevelProperty) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
             this.baseLevelProperty = java.util.Objects.requireNonNull(baseLevelProperty, "baseLevelProperty is required");
         }
@@ -83,9 +82,18 @@ public interface DiamondInheritanceBaseLevelStruct extends software.amazon.jsii.
 
         @Override
         public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-            obj.set("baseLevelProperty", om.valueToTree(this.getBaseLevelProperty()));
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            data.set("baseLevelProperty", om.valueToTree(this.getBaseLevelProperty()));
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.DiamondInheritanceBaseLevelStruct"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
             return obj;
         }
 
@@ -104,6 +112,5 @@ public interface DiamondInheritanceBaseLevelStruct extends software.amazon.jsii.
             int result = this.baseLevelProperty.hashCode();
             return result;
         }
-
     }
 }

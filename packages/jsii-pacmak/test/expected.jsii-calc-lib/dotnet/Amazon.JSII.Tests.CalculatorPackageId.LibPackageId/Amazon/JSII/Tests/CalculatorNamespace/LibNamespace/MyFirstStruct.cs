@@ -6,7 +6,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
     /// <remarks>
     /// stability: Deprecated
     /// </remarks>
-    [JsiiByValue]
+    [JsiiByValue(fqn: "@scope/jsii-calc-lib.MyFirstStruct")]
     public class MyFirstStruct : Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.IMyFirstStruct
     {
         /// <summary>An awesome number value.</summary>
@@ -36,6 +36,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace.LibNamespace
         /// <remarks>
         /// stability: Deprecated
         /// </remarks>
+        [JsiiOptional]
         [JsiiProperty(name: "firstOptional", typeJson: "{\"collection\":{\"elementtype\":{\"primitive\":\"string\"},\"kind\":\"array\"}}", isOptional: true, isOverride: true)]
         [System.Obsolete()]
         public string[] FirstOptional

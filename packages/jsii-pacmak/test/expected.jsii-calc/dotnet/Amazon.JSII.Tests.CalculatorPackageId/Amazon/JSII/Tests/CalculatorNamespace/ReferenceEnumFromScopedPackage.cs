@@ -27,7 +27,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "loadFoo", returnsJson: "{\"optional\":true,\"type\":{\"fqn\":\"@scope/jsii-calc-lib.EnumFromScopedModule\"}}")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.EnumFromScopedModule LoadFoo()
         {
-            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.EnumFromScopedModule>(new object[]{});
+            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.EnumFromScopedModule>(new System.Type[]{}, new object[]{});
         }
 
         /// <remarks>
@@ -36,12 +36,13 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "saveFoo", parametersJson: "[{\"name\":\"value\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.EnumFromScopedModule\"}}]")]
         public virtual void SaveFoo(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.EnumFromScopedModule @value)
         {
-            InvokeInstanceVoidMethod(new object[]{@value});
+            InvokeInstanceVoidMethod(new System.Type[]{typeof(Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.EnumFromScopedModule)}, new object[]{@value});
         }
 
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
+        [JsiiOptional]
         [JsiiProperty(name: "foo", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.EnumFromScopedModule\"}", isOptional: true)]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.LibNamespace.EnumFromScopedModule? Foo
         {

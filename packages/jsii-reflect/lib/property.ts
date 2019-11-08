@@ -11,13 +11,13 @@ import { TypeSystem } from './type-system';
 export class Property extends OptionalValue implements Documentable, Overridable, TypeMember, SourceLocatable {
   public readonly kind = MemberKind.Property;
 
-  constructor(
+  public constructor(
     system: TypeSystem,
     public readonly assembly: Assembly,
     public readonly parentType: Type,
     public readonly definingType: Type,
-    private readonly propSpec: jsii.Property) {
-    super(system, propSpec);
+    public readonly spec: jsii.Property) {
+    super(system, spec);
   }
 
   public toString() {
@@ -28,35 +28,35 @@ export class Property extends OptionalValue implements Documentable, Overridable
    * The name of the property.
    */
   public get name(): string {
-    return this.propSpec.name;
+    return this.spec.name;
   }
 
   /**
    * Indicates if this property only has a getter (immutable).
    */
   public get immutable(): boolean {
-    return !!this.propSpec.immutable;
+    return !!this.spec.immutable;
   }
 
   /**
    * Indicates if this property is protected (otherwise it is public)
    */
   public get protected(): boolean {
-    return !!this.propSpec.protected;
+    return !!this.spec.protected;
   }
 
   /**
    * Indicates if this property is abstract
    */
   public get abstract(): boolean {
-    return !!this.propSpec.abstract;
+    return !!this.spec.abstract;
   }
 
   /**
    * Indicates if this is a static property.
    */
   public get static(): boolean {
-    return !!this.propSpec.static;
+    return !!this.spec.static;
   }
 
   /**
@@ -65,26 +65,26 @@ export class Property extends OptionalValue implements Documentable, Overridable
    * Implies `static` and `immutable`.
    */
   public get const(): boolean {
-    return !!this.propSpec.const;
+    return !!this.spec.const;
   }
 
   public get overrides(): Type | undefined {
-    if (!this.propSpec.overrides) {
+    if (!this.spec.overrides) {
       return undefined;
     }
 
-    return this.system.findFqn(this.propSpec.overrides);
+    return this.system.findFqn(this.spec.overrides);
   }
 
   public get docs(): Docs {
-    return new Docs(this.system, this, this.propSpec.docs || {}, this.parentType.docs);
+    return new Docs(this.system, this, this.spec.docs || {}, this.parentType.docs);
   }
 
   /**
    * Return the location in the module
    */
   public get locationInModule(): SourceLocation | undefined {
-    return this.propSpec.locationInModule;
+    return this.spec.locationInModule;
   }
 
   /**

@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace Amazon.JSII.Runtime.Services.Converters
 {
-    public class JsiiToFrameworkConverter : ValueConverter, IJsiiToFrameworkConverter
+    internal sealed class JsiiToFrameworkConverter : ValueConverter, IJsiiToFrameworkConverter
     {
         public JsiiToFrameworkConverter(ITypeCache types) : base(types)
         {
@@ -25,7 +25,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
         }
 
-        protected override bool TryConvertClass(IReferenceMap referenceMap, object value, out object result)
+        protected override bool TryConvertClass(System.Type type, IReferenceMap referenceMap, object value, out object result)
         {
             if (value == null || (value as JToken)?.Type == JTokenType.Null)
             {
@@ -38,6 +38,12 @@ namespace Amazon.JSII.Runtime.Services.Converters
                 ByRefValue byRefValue = jsonValue.ToObject<ByRefValue>();
 
                 result = referenceMap.GetOrCreateNativeReference(byRefValue);
+
+                if (!type.IsInstanceOfType(result) && result is IConvertible)
+                {
+                    result = Convert.ChangeType(result, type);
+                }
+                
                 return result != null;
             }
 
@@ -198,7 +204,7 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
                 for (int i = 0; i < array.Count; i++)
                 {
-                    if (!TryConvert(elementTypeInstance, referenceMap, array[i], out object convertedElement))
+                    if (!TryConvert(elementTypeInstance, elementType, referenceMap, array[i], out object convertedElement))
                     {
                         throw new ArgumentException("Could not convert all elements of array", nameof(value));
                     }
@@ -224,21 +230,26 @@ namespace Amazon.JSII.Runtime.Services.Converters
 
             if (value is JObject jsonObject)
             {
-                System.Type elementType = _types.GetFrameworkType(elementTypeInstance, false);
-                System.Type dictionaryType = typeof(Dictionary<,>).MakeGenericType(typeof(string), elementType);
+                var elementType = _types.GetFrameworkType(elementTypeInstance, false);
+                var dictionaryType = typeof(Dictionary<,>).MakeGenericType(typeof(string), elementType);
 
-                ConstructorInfo dictionaryConstructor = dictionaryType.GetConstructor(new System.Type[] { });
-                MethodInfo dictionaryAddMethod = dictionaryType.GetMethod("Add", new System.Type[] { typeof(string), elementType });
-                object dictionary = dictionaryConstructor.Invoke(new object[] { });
+                var dictionaryConstructor = dictionaryType.GetConstructor(new System.Type[] { });
+                var dictionaryAddMethod = dictionaryType.GetMethod("Add", new [] { typeof(string), elementType });
+                var dictionary = dictionaryConstructor.Invoke(new object[] { });
 
+                if (jsonObject.ContainsKey("$jsii.map"))
+                {
+                    jsonObject = (JObject)jsonObject["$jsii.map"];
+                }
+                
                 foreach (JProperty property in jsonObject.Properties())
                 {
-                    if (!TryConvert(elementTypeInstance, referenceMap, property.Value, out object convertedElement))
+                    if (!TryConvert(elementTypeInstance, elementType, referenceMap, property.Value, out object convertedElement))
                     {
                         throw new ArgumentException("Could not convert all elements of map", nameof(value));
                     }
 
-                    dictionaryAddMethod.Invoke(dictionary, new object[] { property.Name, convertedElement });
+                    dictionaryAddMethod.Invoke(dictionary, new [] { property.Name, convertedElement });
                 }
 
                 result = dictionary;

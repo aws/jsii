@@ -17,9 +17,10 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
     protected CompositeOperation(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
-    public CompositeOperation() {
+
+    protected CompositeOperation() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
     /**
@@ -61,7 +62,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.List<java.lang.String> getDecorationPostfixes() {
-        return this.jsiiGet("decorationPostfixes", java.util.List.class);
+        return java.util.Collections.unmodifiableList(this.jsiiGet("decorationPostfixes", java.util.List.class));
     }
 
     /**
@@ -81,7 +82,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.util.List<java.lang.String> getDecorationPrefixes() {
-        return this.jsiiGet("decorationPrefixes", java.util.List.class);
+        return java.util.Collections.unmodifiableList(this.jsiiGet("decorationPrefixes", java.util.List.class));
     }
 
     /**
@@ -142,8 +143,7 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
      */
     final static class Jsii$Proxy extends software.amazon.jsii.tests.calculator.composition.CompositeOperation {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.setObjRef(objRef);
+            super(objRef);
         }
 
         /**
@@ -161,8 +161,8 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
          * The value.
          */
         @Override
-        @Deprecated
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
         public java.lang.Number getValue() {
             return this.jsiiGet("value", java.lang.Number.class);
         }
@@ -170,8 +170,8 @@ public abstract class CompositeOperation extends software.amazon.jsii.tests.calc
         /**
          * String representation of the value.
          */
-        @Deprecated
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Deprecated)
+        @Deprecated
         @Override
         public java.lang.String toString() {
             return this.jsiiCall("toString", java.lang.String.class);

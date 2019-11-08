@@ -1,11 +1,50 @@
 {
   "name": "jsii-calc",
-  "version": "0.15.0",
+  "version": "0.20.2",
+  "private": true,
   "description": "A simple calcuator built on JSII.",
+  "stability": "experimental",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com",
+    "organization": true
+  },
+  "homepage": "https://github.com/aws/jsii",
+  "bugs": {
+    "url": "https://github.com/aws/jsii/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws/jsii.git",
+    "directory": "packages/jsii-calc"
+  },
+  "engines": {
+    "node": ">= 10.3.0"
+  },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "private": true,
-  "stability": "experimental",
+  "scripts": {
+    "build": "jsii",
+    "watch": "jsii -w",
+    "test": "node test/test.calc.js && diff-test test/assembly.jsii .jsii",
+    "test:update": "npm run build && UPDATE_DIFF=1 npm run test"
+  },
+  "dependencies": {
+    "@scope/jsii-calc-base": "^0.20.2",
+    "@scope/jsii-calc-base-of-base": "^0.20.2",
+    "@scope/jsii-calc-lib": "^0.20.2",
+    "jsii-calc-bundled": "file:../@fixtures/jsii-calc-bundled"
+  },
+  "peerDependencies": {
+    "@scope/jsii-calc-base": "^0.20.2",
+    "@scope/jsii-calc-base-of-base": "^0.20.2",
+    "@scope/jsii-calc-lib": "^0.20.2"
+  },
+  "devDependencies": {
+    "jsii": "^0.20.2",
+    "jsii-build-tools": "^0.20.2"
+  },
   "jsii": {
     "outdir": "dist",
     "targets": {
@@ -18,13 +57,13 @@
       },
       "dotnet": {
         "namespace": "Amazon.JSII.Tests.CalculatorNamespace",
-        "packageId": "Amazon.JSII.Tests.CalculatorPackageId"
+        "packageId": "Amazon.JSII.Tests.CalculatorPackageId",
+        "iconUrl": "https://sdk-for-net.amazonwebservices.com/images/AWSLogo128x128.png"
       },
       "python": {
         "distName": "jsii-calc",
         "module": "jsii_calc"
-      },
-      "sphinx": {}
+      }
     },
     "metadata": {
       "jsii:boolean": true,
@@ -35,35 +74,9 @@
     },
     "versionFormat": "short"
   },
-  "scripts": {
-    "build": "jsii",
-    "watch": "jsii -w",
-    "test": "node test/test.calc.js && diff-test test/assembly.jsii .jsii",
-    "test:update": "npm run build && UPDATE_DIFF=1 npm run test"
-  },
   "bundledDependencies": [
     "jsii-calc-bundled"
   ],
-  "dependencies": {
-    "@scope/jsii-calc-base": "file:../jsii-calc-base",
-    "@scope/jsii-calc-base-of-base": "file:../jsii-calc-base-of-base",
-    "@scope/jsii-calc-lib": "file:../jsii-calc-lib",
-    "jsii-calc-bundled": "file:../jsii-calc-bundled"
-  },
-  "peerDependencies": {
-    "@scope/jsii-calc-base": "file:../jsii-calc-base",
-    "@scope/jsii-calc-base-of-base": "file:../jsii-calc-base-of-base",
-    "@scope/jsii-calc-lib": "file:../jsii-calc-lib"
-  },
-  "devDependencies": {
-    "jsii": "^0.15.0",
-    "jsii-build-tools": "file:../jsii-build-tools"
-  },
-  "author": {
-    "name": "Amazon Web Services",
-    "url": "https://aws.amazon.com",
-    "organization": true
-  },
   "contributors": [
     {
       "name": "Elad Ben-Israel",
@@ -86,10 +99,5 @@
         "maintainer"
       ]
     }
-  ],
-  "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/aws/jsii.git"
-  }
+  ]
 }

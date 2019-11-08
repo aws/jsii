@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Amazon.JSII.Runtime.Services
 {
-    public class ResourceExtractor : IResourceExtractor
+    internal sealed class ResourceExtractor : IResourceExtractor
     {
         readonly IDictionary<string, string> _bags = new Dictionary<string, string>();
         readonly IFileSystem _fileSystem;

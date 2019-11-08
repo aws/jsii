@@ -7,7 +7,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// stability: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Multiply), fullyQualifiedName: "jsii-calc.Multiply", parametersJson: "[{\"docs\":{\"summary\":\"Left-hand side operand.\"},\"name\":\"lhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}},{\"docs\":{\"summary\":\"Right-hand side operand.\"},\"name\":\"rhs\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
-    public class Multiply : Amazon.JSII.Tests.CalculatorNamespace.BinaryOperation, Amazon.JSII.Tests.CalculatorNamespace.IIFriendlier, Amazon.JSII.Tests.CalculatorNamespace.IIRandomNumberGenerator
+    public class Multiply : Amazon.JSII.Tests.CalculatorNamespace.BinaryOperation, Amazon.JSII.Tests.CalculatorNamespace.IFriendlier, Amazon.JSII.Tests.CalculatorNamespace.IRandomNumberGenerator
     {
         /// <summary>Creates a BinaryOperation.</summary>
         /// <param name = "lhs">Left-hand side operand.</param>
@@ -34,7 +34,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "farewell", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
         public virtual string Farewell()
         {
-            return InvokeInstanceMethod<string>(new object[]{});
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
         /// <summary>Say goodbye.</summary>
@@ -44,7 +44,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "goodbye", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
         public virtual string Goodbye()
         {
-            return InvokeInstanceMethod<string>(new object[]{});
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
         /// <summary>Returns another random number.</summary>
@@ -54,7 +54,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "next", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", isOverride: true)]
         public virtual double Next()
         {
-            return InvokeInstanceMethod<double>(new object[]{});
+            return InvokeInstanceMethod<double>(new System.Type[]{}, new object[]{});
         }
 
         /// <summary>String representation of the value.</summary>
@@ -64,7 +64,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "toString", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
         public override string ToString()
         {
-            return InvokeInstanceMethod<string>(new object[]{});
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
         /// <summary>The value.</summary>

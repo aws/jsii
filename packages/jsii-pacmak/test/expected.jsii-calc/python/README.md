@@ -12,8 +12,8 @@ heading will be used as the Sphinx topic name. Otherwise, the name of the module
 
 ## Code Samples
 
-```ts
-/* This is totes a magic comment in here, just you wait! */
-const foo = 'bar';
+```python
+# Example may have issues. See https://github.com/aws/jsii/issues/826
+# This is totes a magic comment in here, just you wait!
+foo = "bar"
 ```
-

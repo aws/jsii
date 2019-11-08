@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiByValue]
+    [JsiiByValue(fqn: "jsii-calc.SecondLevelStruct")]
     public class SecondLevelStruct : Amazon.JSII.Tests.CalculatorNamespace.ISecondLevelStruct
     {
         /// <summary>It's long and required.</summary>
@@ -23,6 +23,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
+        [JsiiOptional]
         [JsiiProperty(name: "deeperOptionalProp", typeJson: "{\"primitive\":\"string\"}", isOptional: true, isOverride: true)]
         public string DeeperOptionalProp
         {

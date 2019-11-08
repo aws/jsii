@@ -4,19 +4,26 @@ package software.amazon.jsii.tests.calculator;
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.EraseUndefinedHashValuesOptions")
+@software.amazon.jsii.Jsii.Proxy(EraseUndefinedHashValuesOptions.Jsii$Proxy.class)
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.JsiiSerializable {
-    /**
-     * EXPERIMENTAL
-     */
-    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getOption1();
 
     /**
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getOption2();
+    default java.lang.String getOption1() {
+        return null;
+    }
+
+    /**
+     * EXPERIMENTAL
+     */
+    @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
+    default java.lang.String getOption2() {
+        return null;
+    }
 
     /**
      * @return a {@link Builder} of {@link EraseUndefinedHashValuesOptions}
@@ -25,18 +32,17 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
     static Builder builder() {
         return new Builder();
     }
-
     /**
      * A builder for {@link EraseUndefinedHashValuesOptions}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    final class Builder {
+    public static final class Builder {
         private java.lang.String option1;
         private java.lang.String option2;
 
         /**
          * Sets the value of Option1
-         * @param option1 the value to be set
+         * @param option1 the value to be set.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -47,7 +53,7 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
 
         /**
          * Sets the value of Option2
-         * @param option2 the value to be set
+         * @param option2 the value to be set.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -65,7 +71,6 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
         public EraseUndefinedHashValuesOptions build() {
             return new Jsii$Proxy(option1, option2);
         }
-
     }
 
     /**
@@ -81,17 +86,15 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
          * @param objRef Reference to the JSII managed object.
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.setObjRef(objRef);
+            super(objRef);
             this.option1 = this.jsiiGet("option1", java.lang.String.class);
             this.option2 = this.jsiiGet("option2", java.lang.String.class);
         }
 
-
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        private Jsii$Proxy(java.lang.String option1, java.lang.String option2) {
+        private Jsii$Proxy(final java.lang.String option1, final java.lang.String option2) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
             this.option1 = option1;
             this.option2 = option2;
@@ -109,14 +112,23 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
 
         @Override
         public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
             if (this.getOption1() != null) {
-                obj.set("option1", om.valueToTree(this.getOption1()));
+                data.set("option1", om.valueToTree(this.getOption1()));
             }
             if (this.getOption2() != null) {
-                obj.set("option2", om.valueToTree(this.getOption2()));
+                data.set("option2", om.valueToTree(this.getOption2()));
             }
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.EraseUndefinedHashValuesOptions"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
             return obj;
         }
 
@@ -137,6 +149,5 @@ public interface EraseUndefinedHashValuesOptions extends software.amazon.jsii.Js
             result = 31 * result + (this.option2 != null ? this.option2.hashCode() : 0);
             return result;
         }
-
     }
 }

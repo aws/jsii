@@ -7,7 +7,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// stability: Experimental
     /// </remarks>
     [JsiiClass(nativeType: typeof(Amazon.JSII.Tests.CalculatorNamespace.Negate), fullyQualifiedName: "jsii-calc.Negate", parametersJson: "[{\"name\":\"operand\",\"type\":{\"fqn\":\"@scope/jsii-calc-lib.Value\"}}]")]
-    public class Negate : Amazon.JSII.Tests.CalculatorNamespace.UnaryOperation, Amazon.JSII.Tests.CalculatorNamespace.IIFriendlier
+    public class Negate : Amazon.JSII.Tests.CalculatorNamespace.UnaryOperation, Amazon.JSII.Tests.CalculatorNamespace.IFriendlier
     {
         /// <remarks>
         /// stability: Experimental
@@ -31,7 +31,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "farewell", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
         public virtual string Farewell()
         {
-            return InvokeInstanceMethod<string>(new object[]{});
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
         /// <summary>Say goodbye.</summary>
@@ -41,7 +41,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "goodbye", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
         public virtual string Goodbye()
         {
-            return InvokeInstanceMethod<string>(new object[]{});
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
         /// <summary>Say hello!</summary>
@@ -51,7 +51,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "hello", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
         public virtual string Hello()
         {
-            return InvokeInstanceMethod<string>(new object[]{});
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
         /// <summary>String representation of the value.</summary>
@@ -61,7 +61,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "toString", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
         public override string ToString()
         {
-            return InvokeInstanceMethod<string>(new object[]{});
+            return InvokeInstanceMethod<string>(new System.Type[]{}, new object[]{});
         }
 
         /// <summary>The value.</summary>

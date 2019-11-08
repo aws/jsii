@@ -7,9 +7,9 @@ using System.Threading;
 
 namespace Amazon.JSII.Runtime.Services
 {
-    public static class ServiceContainer
+    internal static class ServiceContainer
     {
-        static readonly Lazy<IServiceProvider> _serviceProvider = new Lazy<IServiceProvider>(
+        private static readonly Lazy<IServiceProvider> _serviceProvider = new Lazy<IServiceProvider>(
             () => BuildServiceProvider(),
             LazyThreadSafetyMode.ExecutionAndPublication
         );

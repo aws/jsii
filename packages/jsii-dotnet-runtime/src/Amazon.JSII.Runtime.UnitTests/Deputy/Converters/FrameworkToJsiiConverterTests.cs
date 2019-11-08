@@ -8,21 +8,22 @@ using NSubstitute;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json.Converters;
 using Xunit;
 
 namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
 {
-    public class FrameworkToJsiiConverterTests
+    public sealed class FrameworkToJsiiConverterTests
     {
         const string Prefix = "Runtime.Deputy.Converters." + nameof(FrameworkToJsiiConverter) + ".";
 
         public abstract class TestBase
         {
-            protected readonly ITypeCache _typeCache;
-            protected readonly IReferenceMap _referenceMap;
-            protected readonly FrameworkToJsiiConverter _converter;
+            internal readonly ITypeCache _typeCache;
+            internal readonly IReferenceMap _referenceMap;
+            internal readonly FrameworkToJsiiConverter _converter;
 
-            public TestBase()
+            protected TestBase()
             {
                 _typeCache = Substitute.For<ITypeCache>();
                 _referenceMap = Substitute.For<IReferenceMap>();
@@ -43,7 +44,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             }
         }
 
-        public class Void : TestBase
+        public sealed class Void : TestBase
         {
             const string _Prefix = Prefix + nameof(Void) + ".";
 
@@ -63,7 +64,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             }
         }
 
-        public class Primitive : TestBase
+        public sealed class Primitive : TestBase
         {
             const string _Prefix = Prefix + nameof(Primitive) + ".";
 
@@ -209,7 +210,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             }
         }
 
-        public class FullyQualifiedName : TestBase
+        public sealed class FullyQualifiedName : TestBase
         {
             const string _Prefix = Prefix + nameof(FullyQualifiedName) + ".";
 
@@ -280,7 +281,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             }
         }
 
-        public class Collection : TestBase
+        public sealed class Collection : TestBase
         {
             const string _Prefix = Prefix + nameof(Collection) + ".";
 
@@ -293,7 +294,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                     )
                 ));
 
-                IDictionary<string, string> frameworkMap = new Dictionary<string, string>
+                IDictionary<string, object> frameworkMap = new Dictionary<string, object>
                 {
                     { "myKey1", "myValue1" },
                     { "myKey2", "myValue2" }
@@ -303,20 +304,16 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
 
                 Assert.True(success);
                 Assert.IsType<JObject>(actual);
-                Assert.Collection
-                (
-                    ((IEnumerable<KeyValuePair<string, JToken>>)actual).OrderBy(kvp => kvp.Key),
-                    kvp =>
-                    {
-                        Assert.Equal("myKey1", kvp.Key, ignoreLineEndingDifferences: true);
-                        Assert.Equal("myValue1", kvp.Value);
-                    },
-                    kvp =>
-                    {
-                        Assert.Equal("myKey2", kvp.Key, ignoreLineEndingDifferences: true);
-                        Assert.Equal("myValue2", kvp.Value);
+
+                var expected = JObject.Parse(@"{
+                    ""$jsii.map"": {
+                        ""myKey1"": ""myValue1"",
+                        ""myKey2"": ""myValue2""
                     }
-                );
+                }");
+                
+                Assert.True(JToken.DeepEquals(expected, actual as JObject),
+                    $"Expected: {expected}\nActual:   {actual}");
             }
 
             [Fact(DisplayName = _Prefix + nameof(RecursivelyConvertsMapElements))]
@@ -342,38 +339,14 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
 
                 Assert.True(success);
                 Assert.IsType<JObject>(actual);
-                Assert.Collection
-                (
-                    ((IEnumerable<KeyValuePair<string, JToken>>)actual).OrderBy(kvp => kvp.Key),
-                    kvp =>
-                    {
-                        Assert.Equal("myKey1", kvp.Key);
-                        Assert.IsType<JObject>(kvp.Value);
-                        Assert.Collection
-                        (
-                            ((IEnumerable<KeyValuePair<string, JToken>>)kvp.Value),
-                            subKvp =>
-                            {
-                                Assert.Equal("mySubKey1", subKvp.Key, ignoreLineEndingDifferences: true);
-                                Assert.Equal("myValue1", subKvp.Value);
-                            }
-                        );
-                    },
-                    kvp =>
-                    {
-                        Assert.Equal("myKey2", kvp.Key, ignoreLineEndingDifferences: true);
-                        Assert.IsType<JObject>(kvp.Value);
-                        Assert.Collection
-                        (
-                            ((IEnumerable<KeyValuePair<string, JToken>>)kvp.Value),
-                            subKvp =>
-                            {
-                                Assert.Equal("mySubKey2", subKvp.Key, ignoreLineEndingDifferences: true);
-                                Assert.Equal("myValue2", subKvp.Value);
-                            }
-                        );
+                var expected = JObject.Parse(@"{
+                    ""$jsii.map"": {
+                        ""myKey1"": { ""$jsii.map"": { ""mySubKey1"": ""myValue1"" } },
+                        ""myKey2"": { ""$jsii.map"": { ""mySubKey2"": ""myValue2"" } }
                     }
-                );
+                }");
+                Assert.True(JToken.DeepEquals(expected, actual as JObject),
+                    $"Expected: {expected}\nActual:   {actual}");
             }
 
             [Fact(DisplayName = _Prefix + nameof(ConvertsArray))]
@@ -450,6 +423,90 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                     }
                 );
             }
+            
+            [Fact(DisplayName = _Prefix + nameof(RecursivelyConvertsMapElementsWithMapOfAny))]
+            public void RecursivelyConvertsMapElementsWithMapOfAny()
+            {
+                var instance = new OptionalValue(new TypeReference(
+                    collection: new CollectionTypeReference(CollectionKind.Map,
+                        new TypeReference(
+                            collection: new CollectionTypeReference(CollectionKind.Map,
+                                new TypeReference(primitive: PrimitiveType.Any)
+                            )
+                        )
+                    )
+                ));
+
+                var frameworkMap = new Dictionary<string, IDictionary<string, object>>
+                {
+                    { "myKey1", new Dictionary<string, object> { { "mySubKey1", "myValue1" } } },
+                    { "myKey2", new Dictionary<string, object> { { "mySubKey2", "myValue2" } } },
+                };
+
+                // This will test the call to FrameworkToJsiiConverter.TryConvertCollectionElement()
+                // In the case of a of a Map of Map of Any
+                bool success = _converter.TryConvert(instance, _referenceMap, frameworkMap, out object actual);
+
+                Assert.True(success);
+                Assert.IsType<JObject>(actual);
+
+                var expected = JObject.Parse(@"{
+                  ""$jsii.map"": {
+                    ""myKey1"": {
+                      ""$jsii.map"": {
+                        ""mySubKey1"": ""myValue1""
+                      }
+                    },
+                    ""myKey2"": {
+                      ""$jsii.map"": {
+                        ""mySubKey2"": ""myValue2""
+                      }
+                    }
+                  }
+                }");
+
+                Assert.True(JToken.DeepEquals(expected, actual as JObject),
+                    $"Expected: {expected}\nActual:   {actual}");
+            }
+            
+            [Fact(DisplayName = _Prefix + nameof(RecursivelyConvertsMapElementsWithArrayOfAny))]
+            public void RecursivelyConvertsMapElementsWithArrayOfAny()
+            {
+                var instance = new OptionalValue(new TypeReference
+                (
+                    collection: new CollectionTypeReference(CollectionKind.Map,
+                        new TypeReference
+                        (
+                            collection: new CollectionTypeReference(CollectionKind.Array,
+                                new TypeReference(primitive: PrimitiveType.Any)
+                            )
+                        )
+                    )
+                ));
+
+                var frameworkArray = new Dictionary<string, object>()
+                {
+                    {"key", new [] { "true" }},
+                    {"key2", new [] { false }},
+                };
+
+                // This will test the call to FrameworkToJsiiConverter.TryConvertCollectionElement()
+                // In the case of a of a Map of Array of Any
+                bool success = _converter.TryConvert(instance, _referenceMap, frameworkArray, out object actual);
+
+                Assert.True(success);
+                Assert.IsType<JObject>(actual);
+
+                var expected = JObject.Parse(@"{
+                    ""$jsii.map"": {
+                        ""key"": [""true""],
+                        ""key2"": [false]
+                    }
+                }");
+                
+                Assert.True(JToken.DeepEquals(expected, actual as JObject),
+                    $"Expected: {expected}\nActual:   {actual}");
+            }
 
             [Fact(DisplayName = _Prefix + nameof(ConvertsNullMap))]
             public void ConvertsNullMap()
@@ -484,7 +541,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             }
         }
 
-        public class Union : TestBase
+        public sealed class Union : TestBase
         {
             const string _Prefix = Prefix + nameof(Union) + ".";
 
@@ -553,7 +610,7 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
             }
         }
 
-        public class Any : TestBase
+        public sealed class Any : TestBase
         {
             const string _Prefix = Prefix + nameof(Any) + ".";
 
@@ -628,9 +685,15 @@ namespace Amazon.JSII.Runtime.UnitTests.Deputy.Converters
                 Assert.Collection((IEnumerable<KeyValuePair<string, JToken>>)actual,
                     kvp =>
                     {
-                        Assert.IsType<JValue>(kvp.Value);
-                        Assert.Equal("myKey", kvp.Key, ignoreLineEndingDifferences: true);
-                        Assert.Equal("myValue", kvp.Value.Value<string>(), ignoreLineEndingDifferences: true);
+                        Assert.IsType<JObject>(kvp.Value);
+                        Assert.Equal("$jsii.map", kvp.Key, ignoreLineEndingDifferences: true);
+                        Assert.Collection((IEnumerable<KeyValuePair<string, JToken>>)kvp.Value,
+                            nkvp =>
+                            {
+                                Assert.IsType<JValue>(nkvp.Value);
+                                Assert.Equal("myKey", nkvp.Key, ignoreLineEndingDifferences: true);
+                                Assert.Equal("myValue", nkvp.Value.Value<string>(), ignoreLineEndingDifferences: true);
+                            });
                     }
                 );
             }

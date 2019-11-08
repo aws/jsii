@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiByValue]
+    [JsiiByValue(fqn: "jsii-calc.ExtendsInternalInterface")]
     public class ExtendsInternalInterface : Amazon.JSII.Tests.CalculatorNamespace.IExtendsInternalInterface
     {
         /// <remarks>

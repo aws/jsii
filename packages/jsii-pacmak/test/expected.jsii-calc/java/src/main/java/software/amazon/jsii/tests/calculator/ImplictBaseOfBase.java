@@ -4,8 +4,11 @@ package software.amazon.jsii.tests.calculator;
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.ImplictBaseOfBase")
+@software.amazon.jsii.Jsii.Proxy(ImplictBaseOfBase.Jsii$Proxy.class)
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable, software.amazon.jsii.tests.calculator.base.BaseProps {
+
     /**
      * EXPERIMENTAL
      */
@@ -19,19 +22,18 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
     static Builder builder() {
         return new Builder();
     }
-
     /**
      * A builder for {@link ImplictBaseOfBase}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    final class Builder {
+    public static final class Builder {
         private java.time.Instant goo;
         private java.lang.String bar;
         private software.amazon.jsii.tests.calculator.baseofbase.Very foo;
 
         /**
          * Sets the value of Goo
-         * @param goo the value to be set
+         * @param goo the value to be set. This parameter is required.
          * @return {@code this}
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
@@ -42,7 +44,7 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
 
         /**
          * Sets the value of Bar
-         * @param bar the value to be set
+         * @param bar the value to be set. This parameter is required.
          * @return {@code this}
          */
         public Builder bar(java.lang.String bar) {
@@ -52,7 +54,7 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
 
         /**
          * Sets the value of Foo
-         * @param foo the value to be set
+         * @param foo the value to be set. This parameter is required.
          * @return {@code this}
          */
         public Builder foo(software.amazon.jsii.tests.calculator.baseofbase.Very foo) {
@@ -69,7 +71,6 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
         public ImplictBaseOfBase build() {
             return new Jsii$Proxy(goo, bar, foo);
         }
-
     }
 
     /**
@@ -86,18 +87,16 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
          * @param objRef Reference to the JSII managed object.
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.setObjRef(objRef);
+            super(objRef);
             this.goo = this.jsiiGet("goo", java.time.Instant.class);
             this.bar = this.jsiiGet("bar", java.lang.String.class);
             this.foo = this.jsiiGet("foo", software.amazon.jsii.tests.calculator.baseofbase.Very.class);
         }
 
-
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        private Jsii$Proxy(java.time.Instant goo, java.lang.String bar, software.amazon.jsii.tests.calculator.baseofbase.Very foo) {
+        private Jsii$Proxy(final java.time.Instant goo, final java.lang.String bar, final software.amazon.jsii.tests.calculator.baseofbase.Very foo) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
             this.goo = java.util.Objects.requireNonNull(goo, "goo is required");
             this.bar = java.util.Objects.requireNonNull(bar, "bar is required");
@@ -121,11 +120,20 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
 
         @Override
         public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
-            obj.set("goo", om.valueToTree(this.getGoo()));
-            obj.set("bar", om.valueToTree(this.getBar()));
-            obj.set("foo", om.valueToTree(this.getFoo()));
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
+            data.set("goo", om.valueToTree(this.getGoo()));
+            data.set("bar", om.valueToTree(this.getBar()));
+            data.set("foo", om.valueToTree(this.getFoo()));
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.ImplictBaseOfBase"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
             return obj;
         }
 
@@ -148,6 +156,5 @@ public interface ImplictBaseOfBase extends software.amazon.jsii.JsiiSerializable
             result = 31 * result + (this.foo.hashCode());
             return result;
         }
-
     }
 }

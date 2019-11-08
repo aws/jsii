@@ -17,9 +17,10 @@ public class ReferenceEnumFromScopedPackage extends software.amazon.jsii.JsiiObj
     protected ReferenceEnumFromScopedPackage(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public ReferenceEnumFromScopedPackage() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
     /**
@@ -32,6 +33,8 @@ public class ReferenceEnumFromScopedPackage extends software.amazon.jsii.JsiiObj
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param value This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public void saveFoo(final software.amazon.jsii.tests.calculator.lib.EnumFromScopedModule value) {

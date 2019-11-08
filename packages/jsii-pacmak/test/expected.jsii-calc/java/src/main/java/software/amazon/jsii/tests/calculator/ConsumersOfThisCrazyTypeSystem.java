@@ -15,13 +15,16 @@ public class ConsumersOfThisCrazyTypeSystem extends software.amazon.jsii.JsiiObj
     protected ConsumersOfThisCrazyTypeSystem(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     public ConsumersOfThisCrazyTypeSystem() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param obj This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.String consumeAnotherPublicInterface(final software.amazon.jsii.tests.calculator.IAnotherPublicInterface obj) {
@@ -30,6 +33,8 @@ public class ConsumersOfThisCrazyTypeSystem extends software.amazon.jsii.JsiiObj
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param obj This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public java.lang.Object consumeNonInternalInterface(final software.amazon.jsii.tests.calculator.INonInternalInterface obj) {

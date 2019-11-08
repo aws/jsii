@@ -32,6 +32,14 @@ process.stdout.write(`<?xml version="1.0" encoding="UTF-8"?>
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+        
+        <!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-all -->
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+            <version>1.3</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>

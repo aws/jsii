@@ -1,63 +1,90 @@
 {
   "name": "jsii-pacmak",
-  "version": "0.15.0",
+  "version": "0.20.2",
   "description": "A code generation framework for jsii backend languages",
-  "bin": {
-    "jsii-pacmak": "bin/jsii-pacmak"
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Amazon Web Services",
+    "url": "https://aws.amazon.com"
+  },
+  "homepage": "https://github.com/aws/jsii",
+  "bugs": {
+    "url": "https://github.com/aws/jsii/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws/jsii.git",
+    "directory": "packages/jsii-pacmak"
+  },
+  "engines": {
+    "node": ">= 10.3.0"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "bin": {
+    "jsii-pacmak": "bin/jsii-pacmak"
+  },
   "scripts": {
     "gen": "/bin/bash generate.sh",
-    "build": "npm run gen && tsc --build && chmod +x bin/jsii-pacmak && tslint -p .",
+    "build": "npm run gen && tsc --build && chmod +x bin/jsii-pacmak && npm run lint",
     "watch": "tsc --build -w",
-    "lint": "tslint -p . --force",
-    "test": "/bin/bash test/diff-test.sh && /bin/bash test/build-test.sh && nodeunit test/test.*.js",
+    "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
+    "test": "/bin/bash test/diff-test.sh && /bin/bash test/build-test.sh && jest",
+    "test:update": "UPDATE_DIFF=1 /bin/bash test/diff-test.sh && /bin/bash test/build-test.sh && jest -u",
     "package": "package-js"
+  },
+  "dependencies": {
+    "clone": "^2.1.2",
+    "codemaker": "^0.20.2",
+    "commonmark": "^0.29.0",
+    "escape-string-regexp": "^2.0.0",
+    "fs-extra": "^8.1.0",
+    "jsii-reflect": "^0.20.2",
+    "jsii-sampiler": "^0.20.2",
+    "jsii-spec": "^0.20.2",
+    "spdx-license-list": "^6.1.0",
+    "xmlbuilder": "^13.0.2",
+    "yargs": "^14.2.0"
+  },
+  "devDependencies": {
+    "@scope/jsii-calc-lib": "^0.20.2",
+    "@types/clone": "^0.1.30",
+    "@types/commonmark": "^0.27.4",
+    "@types/fs-extra": "^8.0.1",
+    "@types/jest": "^24.0.22",
+    "@types/mock-fs": "^4.10.0",
+    "@types/node": "^10.17.4",
+    "@types/yargs": "^13.0.3",
+    "@typescript-eslint/eslint-plugin": "^2.6.1",
+    "@typescript-eslint/parser": "^2.6.1",
+    "eslint": "^6.6.0",
+    "jest": "^24.9.0",
+    "jsii-build-tools": "^0.20.2",
+    "jsii-calc": "^0.20.2",
+    "jsii-dotnet-jsonmodel": "^0.20.2",
+    "jsii-dotnet-runtime": "^0.20.2",
+    "jsii-java-runtime": "^0.20.2",
+    "mock-fs": "^4.10.2",
+    "typescript": "~3.6.4"
   },
   "keywords": [
     "jsii",
     "aws"
   ],
-  "dependencies": {
-    "clone": "^2.1.2",
-    "codemaker": "^0.15.0",
-    "commonmark": "^0.29.0",
-    "escape-string-regexp": "^2.0.0",
-    "fs-extra": "^8.1.0",
-    "jsii-reflect": "^0.15.0",
-    "jsii-spec": "^0.15.0",
-    "spdx-license-list": "^6.1.0",
-    "xmlbuilder": "^13.0.2",
-    "yargs": "^13.3.0"
-  },
-  "devDependencies": {
-    "@scope/jsii-calc-lib": "file:../jsii-calc-lib",
-    "@types/clone": "^0.1.30",
-    "@types/commonmark": "^0.27.4",
-    "@types/escape-string-regexp": "^2.0.1",
-    "@types/fs-extra": "^8.0.0",
-    "@types/node": "^8.10.51",
-    "@types/nodeunit": "^0.0.30",
-    "@types/xmlbuilder": "^11.0.1",
-    "@types/yargs": "^13.0.2",
-    "jsii-build-tools": "file:../jsii-build-tools",
-    "jsii-calc": "file:../jsii-calc",
-    "jsii-dotnet-jsonmodel": "file:../jsii-dotnet-jsonmodel",
-    "jsii-dotnet-runtime": "file:../jsii-dotnet-runtime",
-    "jsii-java-runtime": "file:../jsii-java-runtime",
-    "nodeunit": "^0.11.3",
-    "tslint": "^5.18.0",
-    "typescript": "^3.5.3"
-  },
-  "author": {
-    "name": "Amazon Web Services",
-    "url": "https://aws.amazon.com"
-  },
-  "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/aws/jsii.git",
-    "directory": "packages/jsii-pacmak"
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/bin/**/*.js",
+      "**/lib/**/*.js"
+    ],
+    "coverageReporters": [
+      "lcov",
+      "text"
+    ],
+    "errorOnDeprecated": true,
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/?(*.)+(spec|test).js"
+    ]
   }
 }

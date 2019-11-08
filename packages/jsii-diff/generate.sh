@@ -12,6 +12,5 @@ cat > lib/version.ts <<HERE
 // Generated at $(date -u +"%Y-%m-%dT%H:%M:%SZ") by generate.sh
 
 /** The qualified version number for this JSII compiler. */
-// tslint:disable-next-line:no-var-requires
 export const VERSION = \`\${require('../package.json').version.replace(/\\+[0-9a-f]+\$/, '')} (build ${commit:0:7})\`;
 HERE

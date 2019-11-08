@@ -1,5 +1,3 @@
-
- // tslint:disable:max-line-length
 /**
  * Handling of types in JSII
  *
@@ -28,11 +26,10 @@
  *  - /R(t) recurse with declared type t
  */
 
- // tslint:enable:max-line-length
-
 import * as spec from 'jsii-spec';
-import { isObjRef, isWireDate, isWireEnum, ObjRef, TOKEN_DATE, TOKEN_ENUM, WireDate, WireEnum } from './api';
-import { hiddenMap, jsiiTypeFqn, objectReference, ObjectTable } from './objects';
+import { isObjRef, isWireDate, isWireEnum, isWireMap, ObjRef, TOKEN_DATE, TOKEN_ENUM, TOKEN_MAP, WireDate, WireEnum } from './api';
+import { jsiiTypeFqn, objectReference, ObjectTable } from './objects';
+import { api } from '.';
 
 /**
  * A specific singleton type to be explicit about a Void type
@@ -56,6 +53,8 @@ export type OptionalValueOrVoid = spec.OptionalValue | Void;
  * A special FQN that can be used to create empty javascript objects.
  */
 export const EMPTY_OBJECT_FQN = 'Object';
+
+export const SYMBOL_WIRE_TYPE = Symbol.for('$jsii$wireType$');
 
 /**
  * The type kind, that controls how it will be serialized according to the above table
@@ -189,7 +188,12 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       host.debug('Serializing enum');
 
       const enumType = optionalValue.type as spec.NamedTypeReference;
-      return { [TOKEN_ENUM]: `${enumType.fqn}/${host.findSymbol(enumType.fqn)[value]}` };
+      const enumMap = host.findSymbol(enumType.fqn);
+      const enumEntry = Object.entries(enumMap).find(([, v]) => v === value);
+      if (!enumEntry) {
+        throw new Error(`No entry in ${enumType.fqn} has value ${value}`);
+      }
+      return { [TOKEN_ENUM]: `${enumType.fqn}/${enumEntry[0]}` };
     },
     deserialize(value, optionalValue, host) {
       if (nullAndOk(value, optionalValue)) { return undefined; }
@@ -237,14 +241,25 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       if (optionalValue === 'void') { throw new Error('Encountered unexpected `void` type'); }
 
       const mapType = optionalValue.type as spec.CollectionTypeReference;
-      return mapValues(value, v => host.recurse(v, { type: mapType.collection.elementtype }));
+      return { [TOKEN_MAP]: mapValues(value, v => host.recurse(v, { type: mapType.collection.elementtype })) };
     },
     deserialize(value, optionalValue, host) {
       if (nullAndOk(value, optionalValue)) { return undefined; }
       if (optionalValue === 'void') { throw new Error('Encountered unexpected `void` type'); }
 
       const mapType = optionalValue.type as spec.CollectionTypeReference;
-      return mapValues(value, v => host.recurse(v, { type: mapType.collection.elementtype }));
+      if (!isWireMap(value)) {
+        // Compatibility mode with older versions that didn't wrap in [TOKEN_MAP]
+        return mapValues(value, v => host.recurse(v, { type: mapType.collection.elementtype }));
+      }
+      const result = mapValues(value[TOKEN_MAP], v => host.recurse(v, { type: mapType.collection.elementtype }));
+      Object.defineProperty(result, SYMBOL_WIRE_TYPE, {
+        configurable: false,
+        enumerable: false,
+        value: TOKEN_MAP,
+        writable: false,
+      });
+      return result;
     },
   },
 
@@ -258,19 +273,12 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
         throw new Error(`Expected object, got ${JSON.stringify(value)}`);
       }
 
-      // This looks odd, but if an object was originally passed in/out as a by-ref
-      // class, and it happens to conform to a datatype interface we say we're
-      // returning, return the actual object instead of the serialized value.
-      // NOTE: Not entirely sure yet whether this is a bug masquerading as a
-      // feature or not.
-      const prevRef = objectReference(value);
-      if (prevRef) { return prevRef; }
-
       /*
         This is what we'd like to do, but we can't because at least the Java client
         does not understand by-value serialized interface types, so we'll have to
-        serialize by-reference for now:
-        https://github.com/aws/jsii/issues/400
+        serialize by-reference. Additionally, serializing known properties would
+        cause problems when the return type of a method is a UNION of structs.
+        See: https://github.com/aws/jsii/issues/400
 
       const props = propertiesOf(namedType);
 
@@ -280,9 +288,9 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       });
       */
 
-      host.debug('Returning value type as reference type for now (awslabs/jsii#400)');
-      const wireFqn = selectWireType(value, optionalValue.type as spec.NamedTypeReference, host.lookupType);
-      return host.objects.registerObject(value, wireFqn);
+
+      host.debug('Returning value type by reference');
+      return host.objects.registerObject(value, 'Object', [(optionalValue.type as spec.NamedTypeReference).fqn]);
     },
     deserialize(value, optionalValue, host) {
       if (typeof value === 'object' && Object.keys(value || {}).length === 0) {
@@ -316,7 +324,15 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
           props);
       }
 
-      value = validateRequiredProps(value, namedType.fqn, props);
+      if (api.isWireStruct(value)) {
+        const { fqn, data } = value[api.TOKEN_STRUCT];
+        if (!isAssignable(fqn, namedType, host.lookupType)) {
+          throw new Error(`Wire struct type '${fqn}' does not match expected '${namedType.fqn}'`);
+        }
+        value = data;
+      }
+
+      value = validateRequiredProps(value as any, namedType.fqn, props);
 
       // Return a dict COPY, we have by-value semantics anyway.
       return mapValues(value, (v, key) => {
@@ -336,11 +352,13 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
         throw new Error(`Expected object reference, got ${JSON.stringify(value)}`);
       }
 
-      const prevRef = objectReference(value);
-      if (prevRef) { return prevRef; }
+      const expectedType = host.lookupType((optionalValue.type as spec.NamedTypeReference).fqn);
+      const interfaces = spec.isInterfaceType(expectedType)
+        ? [expectedType.fqn]
+        : undefined;
+      const jsiiType = jsiiTypeFqn(value) || (spec.isClassType(expectedType) ? expectedType.fqn : 'Object');
 
-      const wireFqn = selectWireType(value, optionalValue.type as spec.NamedTypeReference, host.lookupType);
-      return host.objects.registerObject(value, wireFqn);
+      return host.objects.registerObject(value, jsiiType, interfaces);
     },
     deserialize(value, optionalValue, host) {
       if (nullAndOk(value, optionalValue)) { return undefined; }
@@ -387,14 +405,33 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       // Note: no case for "ENUM" here, without type declaration we can't tell the difference
       // between an enum member and a scalar.
 
+      if (typeof value === 'function') {
+        throw new Error('JSII Kernel is unable to serialize `function`. An instance with methods might have been returned by an `any` method?');
+      }
+
       if (typeof value !== 'object' || value == null) {
         throw new Error(`JSII kernel assumption violated, ${JSON.stringify(value)} is not an object`);
+      }
+
+      if (SYMBOL_WIRE_TYPE in value && (value as any)[SYMBOL_WIRE_TYPE] === TOKEN_MAP) {
+        return SERIALIZERS[SerializationClass.Map].serialize(
+          value,
+          {
+            type: {
+              collection: {
+                kind: spec.CollectionKind.Map,
+                elementtype: spec.CANONICAL_ANY,
+              }
+            }
+          },
+          host
+        );
       }
 
       // To make sure people aren't going to try and return Map<> or Set<> out, test for
       // those and throw a descriptive error message. We can't detect these cases any other
       // way, and the by-value serialized object will be quite useless.
-      if (value instanceof Set || value instanceof Map) { throw new Error(`Can't return objects of type Set or Map`); }
+      if (value instanceof Set || value instanceof Map) { throw new Error("Can't return objects of type Set or Map"); }
 
       // Use a previous reference to maintain object identity. NOTE: this may cause us to return
       // a different type than requested! This is just how it is right now.
@@ -436,6 +473,16 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
         host.debug('ANY is an Enum');
         return deserializeEnum(value, host.findSymbol);
       }
+      if (isWireMap(value)) {
+        host.debug('ANY is a Map');
+        const mapOfAny: spec.CollectionTypeReference = {
+          collection: {
+            kind: spec.CollectionKind.Map,
+            elementtype: spec.CANONICAL_ANY,
+          }
+        };
+        return SERIALIZERS[SerializationClass.Map].deserialize(value, { type: mapOfAny }, host);
+      }
       if (isObjRef(value)) {
         host.debug('ANY is a Ref');
         return host.objects.findObject(value).instance;
@@ -457,10 +504,10 @@ function deserializeDate(value: WireDate): Date {
 }
 
 function deserializeEnum(value: WireEnum, lookup: SymbolLookup) {
-  const enumLocator = value[TOKEN_ENUM] as string;
+  const enumLocator = value[TOKEN_ENUM];
   const sep = enumLocator.lastIndexOf('/');
   if (sep === -1) {
-      throw new Error(`Malformed enum value: ${JSON.stringify(value)}`);
+    throw new Error(`Malformed enum value: ${JSON.stringify(value)}`);
   }
 
   const typeName = enumLocator.substr(0, sep);
@@ -468,7 +515,7 @@ function deserializeEnum(value: WireEnum, lookup: SymbolLookup) {
 
   const enumValue = lookup(typeName)[valueName];
   if (enumValue === undefined) {
-      throw new Error(`No enum member named ${valueName} in ${typeName}`);
+    throw new Error(`No enum member named ${valueName} in ${typeName}`);
   }
   return enumValue;
 }
@@ -484,7 +531,7 @@ export interface TypeSerialization {
  * There can be multiple, because the type can be a type union.
  */
 export function serializationType(typeRef: OptionalValueOrVoid, lookup: TypeLookup): TypeSerialization[] {
-  if (typeRef == null) { throw new Error(`Kernel error: expected type information, got 'undefined'`); }
+  if (typeRef == null) { throw new Error("Kernel error: expected type information, got 'undefined'"); }
   if (typeRef === 'void') { return [{ serializationClass: SerializationClass.Void, typeRef }]; }
   if (spec.isPrimitiveTypeReference(typeRef.type)) {
     switch (typeRef.type.primitive) {
@@ -513,7 +560,7 @@ export function serializationType(typeRef: OptionalValueOrVoid, lookup: TypeLook
         t.typeRef.optional = typeRef.optional;
       }
     }
-    return compoundTypes;
+    return compoundTypes.sort((l, r) => compareSerializationClasses(l.serializationClass, r.serializationClass));
   }
 
   // The next part of the conversion is lookup-dependent
@@ -557,12 +604,12 @@ function flatMap<T, U>(xs: T[], fn: (x: T) => U[]): U[] {
 /**
  * Map an object's values, skipping 'undefined' values'
  */
-function mapValues(value: unknown, fn: (value: any, field: string) => any) {
+function mapValues(value: unknown, fn: (value: any, field: string) => any): { [key: string]: any } {
   if (typeof value !== 'object' || value == null) {
     throw new Error(`Expected object type, got ${JSON.stringify(value)}`);
   }
 
-  const out: any = { };
+  const out: { [key: string]: any } = { };
   for (const [k, v] of Object.entries(value)) {
     const wireValue = fn(v, k);
     if (wireValue === undefined) { continue; }
@@ -590,48 +637,6 @@ function propertiesOf(t: spec.Type, lookup: TypeLookup): {[name: string]: spec.P
   }
 
   return ret;
-}
-
-const WIRE_TYPE_MAP = Symbol('$__jsii_wire_type__$');
-
-/**
- * Select the wire type for the given object and requested type
- *
- * Should return the most specific type that is in the JSII assembly and
- * assignable to the required type.
- *
- * We actually don't need to search much; because of prototypal constructor
- * linking, object.constructor.__jsii__ will have the FQN of the most specific
- * exported JSII class this object is an instance of.
- *
- * Either that's assignable to the requested type, in which case we return it,
- * or it's not, in which case there's a hidden class that implements the interface
- * and we just return the interface so the other side can instantiate an interface
- * proxy for it.
- *
- * Cache the analysis on the object to avoid having to do too many searches through
- * the type system for repeated accesses on the same object.
- */
-function selectWireType(obj: any, expectedType: spec.NamedTypeReference, lookup: TypeLookup): string {
-  const map = hiddenMap<string>(obj, WIRE_TYPE_MAP);
-
-  if (!(expectedType.fqn in map)) {
-    const jsiiType = jsiiTypeFqn(obj);
-    if (jsiiType) {
-      const assignable = isAssignable(jsiiType, expectedType, lookup);
-
-      // If we're not assignable and both types are class types, this cannot be satisfied.
-      if (!assignable && spec.isClassType(lookup(expectedType.fqn))) {
-        throw new Error(`Object of type ${jsiiType} is not convertible to ${expectedType.fqn}`);
-      }
-
-      map[expectedType.fqn] = assignable ? jsiiType : expectedType.fqn;
-    } else {
-      map[expectedType.fqn] = expectedType.fqn;
-    }
-  }
-
-  return map[expectedType.fqn];
 }
 
 /**
@@ -665,12 +670,28 @@ function isAssignable(actualTypeFqn: string, requiredType: spec.NamedTypeReferen
 function validateRequiredProps(actualProps: {[key: string]: any}, typeName: string, specProps: {[key: string]: spec.Property}) {
   // Check for required properties
   const missingRequiredProps = Object.keys(specProps)
-      .filter(name => !specProps[name].optional)
-      .filter(name => !(name in actualProps));
+    .filter(name => !specProps[name].optional)
+    .filter(name => !(name in actualProps));
 
   if (missingRequiredProps.length > 0) {
     throw new Error(`Missing required properties for ${typeName}: ${missingRequiredProps}`);
   }
 
   return actualProps;
+}
+
+function compareSerializationClasses(l: SerializationClass, r: SerializationClass): number {
+  const order = [
+    SerializationClass.Void,
+    SerializationClass.Date,
+    SerializationClass.Scalar,
+    SerializationClass.Json,
+    SerializationClass.Enum,
+    SerializationClass.Array,
+    SerializationClass.Map,
+    SerializationClass.Struct,
+    SerializationClass.ReferenceType,
+    SerializationClass.Any,
+  ];
+  return order.indexOf(l) - order.indexOf(r);
 }

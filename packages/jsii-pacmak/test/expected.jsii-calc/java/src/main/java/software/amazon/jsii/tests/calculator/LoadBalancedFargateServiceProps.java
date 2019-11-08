@@ -6,8 +6,11 @@ package software.amazon.jsii.tests.calculator;
  * EXPERIMENTAL
  */
 @javax.annotation.Generated(value = "jsii-pacmak")
+@software.amazon.jsii.Jsii(module = software.amazon.jsii.tests.calculator.$Module.class, fqn = "jsii-calc.LoadBalancedFargateServiceProps")
+@software.amazon.jsii.Jsii.Proxy(LoadBalancedFargateServiceProps.Jsii$Proxy.class)
 @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
 public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.JsiiSerializable {
+
     /**
      * The container port of the application load balancer attached to your Fargate service.
      * 
@@ -18,7 +21,9 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Number getContainerPort();
+    default java.lang.Number getContainerPort() {
+        return null;
+    }
 
     /**
      * The number of cpu units used by the task. Valid values, which determines your range of valid values for the memory parameter: 256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB 512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB 1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB 2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments 4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments.
@@ -30,7 +35,9 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getCpu();
+    default java.lang.String getCpu() {
+        return null;
+    }
 
     /**
      * The amount (in MiB) of memory used by the task.
@@ -55,7 +62,9 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.String getMemoryMiB();
+    default java.lang.String getMemoryMiB() {
+        return null;
+    }
 
     /**
      * Determines whether the Application Load Balancer will be internet-facing.
@@ -65,7 +74,9 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Boolean getPublicLoadBalancer();
+    default java.lang.Boolean getPublicLoadBalancer() {
+        return null;
+    }
 
     /**
      * Determines whether your Fargate Service will be assigned a public IP address.
@@ -75,7 +86,9 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
      * EXPERIMENTAL
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    java.lang.Boolean getPublicTasks();
+    default java.lang.Boolean getPublicTasks() {
+        return null;
+    }
 
     /**
      * @return a {@link Builder} of {@link LoadBalancedFargateServiceProps}
@@ -84,12 +97,11 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
     static Builder builder() {
         return new Builder();
     }
-
     /**
      * A builder for {@link LoadBalancedFargateServiceProps}
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
-    final class Builder {
+    public static final class Builder {
         private java.lang.Number containerPort;
         private java.lang.String cpu;
         private java.lang.String memoryMiB;
@@ -160,7 +172,6 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
         public LoadBalancedFargateServiceProps build() {
             return new Jsii$Proxy(containerPort, cpu, memoryMiB, publicLoadBalancer, publicTasks);
         }
-
     }
 
     /**
@@ -179,8 +190,7 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
          * @param objRef Reference to the JSII managed object.
          */
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.setObjRef(objRef);
+            super(objRef);
             this.containerPort = this.jsiiGet("containerPort", java.lang.Number.class);
             this.cpu = this.jsiiGet("cpu", java.lang.String.class);
             this.memoryMiB = this.jsiiGet("memoryMiB", java.lang.String.class);
@@ -188,11 +198,10 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
             this.publicTasks = this.jsiiGet("publicTasks", java.lang.Boolean.class);
         }
 
-
         /**
          * Constructor that initializes the object based on literal property values passed by the {@link Builder}.
          */
-        private Jsii$Proxy(java.lang.Number containerPort, java.lang.String cpu, java.lang.String memoryMiB, java.lang.Boolean publicLoadBalancer, java.lang.Boolean publicTasks) {
+        private Jsii$Proxy(final java.lang.Number containerPort, final java.lang.String cpu, final java.lang.String memoryMiB, final java.lang.Boolean publicLoadBalancer, final java.lang.Boolean publicTasks) {
             super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
             this.containerPort = containerPort;
             this.cpu = cpu;
@@ -228,23 +237,32 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
 
         @Override
         public com.fasterxml.jackson.databind.JsonNode $jsii$toJson() {
-            com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
-            com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            final com.fasterxml.jackson.databind.ObjectMapper om = software.amazon.jsii.JsiiObjectMapper.INSTANCE;
+            final com.fasterxml.jackson.databind.node.ObjectNode data = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+
             if (this.getContainerPort() != null) {
-                obj.set("containerPort", om.valueToTree(this.getContainerPort()));
+                data.set("containerPort", om.valueToTree(this.getContainerPort()));
             }
             if (this.getCpu() != null) {
-                obj.set("cpu", om.valueToTree(this.getCpu()));
+                data.set("cpu", om.valueToTree(this.getCpu()));
             }
             if (this.getMemoryMiB() != null) {
-                obj.set("memoryMiB", om.valueToTree(this.getMemoryMiB()));
+                data.set("memoryMiB", om.valueToTree(this.getMemoryMiB()));
             }
             if (this.getPublicLoadBalancer() != null) {
-                obj.set("publicLoadBalancer", om.valueToTree(this.getPublicLoadBalancer()));
+                data.set("publicLoadBalancer", om.valueToTree(this.getPublicLoadBalancer()));
             }
             if (this.getPublicTasks() != null) {
-                obj.set("publicTasks", om.valueToTree(this.getPublicTasks()));
+                data.set("publicTasks", om.valueToTree(this.getPublicTasks()));
             }
+
+            final com.fasterxml.jackson.databind.node.ObjectNode struct = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            struct.set("fqn", om.valueToTree("jsii-calc.LoadBalancedFargateServiceProps"));
+            struct.set("data", data);
+
+            final com.fasterxml.jackson.databind.node.ObjectNode obj = com.fasterxml.jackson.databind.node.JsonNodeFactory.instance.objectNode();
+            obj.set("$jsii.struct", struct);
+
             return obj;
         }
 
@@ -271,6 +289,5 @@ public interface LoadBalancedFargateServiceProps extends software.amazon.jsii.Js
             result = 31 * result + (this.publicTasks != null ? this.publicTasks.hashCode() : 0);
             return result;
         }
-
     }
 }

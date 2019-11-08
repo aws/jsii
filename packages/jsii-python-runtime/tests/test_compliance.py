@@ -14,11 +14,14 @@ from jsii_calc import (
     AsyncVirtualMethods,
     Calculator,
     ClassWithPrivateConstructorAndAutomaticProperties,
+    ConsumerCanRingBell,
     ConstructorPassesThisOut,
     DataRenderer,
     DoNotOverridePrivates,
     DoubleTrouble,
     GreetingAugmenter,
+    IBellRinger,
+    IConcreteBellRinger,
     IFriendlier,
     IFriendlyRandomGenerator,
     IRandomNumberGenerator,
@@ -43,10 +46,14 @@ from jsii_calc import (
     UsesInterfaceWithProperties,
     composition,
     EraseUndefinedHashValues,
+    EraseUndefinedHashValuesOptions,
     VariadicMethod,
     StructPassing,
     TopLevelStruct,
     SecondLevelStruct,
+    StructA,
+    StructB,
+    StructUnionConsumer
 )
 from scope.jsii_calc_lib import IFriendly, EnumFromScopedModule, Number
 
@@ -882,9 +889,9 @@ def test_receiveInstanceOfPrivateClass():
     assert ReturnsPrivateImplementationOfInterface().private_implementation.success
 
 def test_eraseUnsetDataValues():
-    opts = {
-        "option1": "option1"
-    }
+    opts = EraseUndefinedHashValuesOptions(
+        option1="option1"
+    )
     assert EraseUndefinedHashValues.does_key_exist(opts, "option1")
     assert not EraseUndefinedHashValues.does_key_exist(opts, "option2")
 
@@ -894,7 +901,7 @@ def test_objectIdDoesNotGetReallocatedWhenTheConstructorPassesThisOut():
         def consume_partially_initialized_this(self, obj, dt, en):
             assert obj is not None
             assert isinstance(dt, datetime)
-            assert en.member == AllTypesEnum.THIS_IS_GREAT.value
+            assert en == AllTypesEnum.THIS_IS_GREAT
             return "OK"
 
     reflector = PartiallyInitializedThisConsumerImpl()
@@ -952,3 +959,54 @@ def test_structEquality():
     assert b == c
     assert a != 5
     assert a != d
+
+def test_correctly_handling_struct_unions():
+    a0 = StructA(required_string='Present!', optional_string='Bazinga!')
+    a1 = StructA(required_string='Present!', optional_number=1337)
+    b0 = StructB(required_string='Present!', optional_boolean=True)
+    b1 = StructB(required_string='Present!', optional_struct_a=a1)
+
+    assert StructUnionConsumer.is_struct_a(a0)
+    assert StructUnionConsumer.is_struct_a(a1)
+    assert not StructUnionConsumer.is_struct_a(b0)
+    assert not StructUnionConsumer.is_struct_a(b1)
+
+    assert not StructUnionConsumer.is_struct_b(a0)
+    assert not StructUnionConsumer.is_struct_b(a1)
+    assert StructUnionConsumer.is_struct_b(b0)
+    assert StructUnionConsumer.is_struct_b(b1)
+
+def test_consumer_calls_method_static_objliteral():
+    assert ConsumerCanRingBell.static_implemented_by_object_literal(PythonBellRinger())
+
+def test_consumer_calls_method_static_publicclass():
+    assert ConsumerCanRingBell.static_implemented_by_public_class(PythonBellRinger())
+
+def test_consumer_calls_method_static_privateclass():
+    assert ConsumerCanRingBell.static_implemented_by_private_class(PythonBellRinger())
+
+def test_consumer_calls_method_static_typed_as_class():
+    assert ConsumerCanRingBell.static_when_typed_as_class(PythonConcreteBellRinger())
+
+def test_consumer_calls_method_objliteral():
+    assert ConsumerCanRingBell().implemented_by_object_literal(PythonBellRinger())
+
+def test_consumer_calls_method_publicclass():
+    assert ConsumerCanRingBell().implemented_by_public_class(PythonBellRinger())
+
+def test_consumer_calls_method_privateclass():
+    assert ConsumerCanRingBell().implemented_by_private_class(PythonBellRinger())
+
+def test_consumer_calls_method_typed_as_class():
+    assert ConsumerCanRingBell().when_typed_as_class(PythonConcreteBellRinger())
+
+
+@jsii.implements(IBellRinger)
+class PythonBellRinger:
+    def your_turn(self, bell):
+        bell.ring()
+
+@jsii.implements(IConcreteBellRinger)
+class PythonConcreteBellRinger:
+    def your_turn(self, bell):
+        bell.ring()

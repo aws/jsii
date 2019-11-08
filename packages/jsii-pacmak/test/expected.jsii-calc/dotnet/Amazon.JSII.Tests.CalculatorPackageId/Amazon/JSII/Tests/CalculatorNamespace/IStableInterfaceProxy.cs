@@ -5,8 +5,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Stable
     /// </remarks>
-    [JsiiTypeProxy(nativeType: typeof(IIStableInterface), fullyQualifiedName: "jsii-calc.IStableInterface")]
-    internal sealed class IStableInterfaceProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IIStableInterface
+    [JsiiTypeProxy(nativeType: typeof(IStableInterface), fullyQualifiedName: "jsii-calc.IStableInterface")]
+    internal sealed class IStableInterfaceProxy : DeputyBase, Amazon.JSII.Tests.CalculatorNamespace.IStableInterface
     {
         private IStableInterfaceProxy(ByRefValue reference): base(reference)
         {
@@ -15,6 +15,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// stability: Stable
         /// </remarks>
+        [JsiiOptional]
         [JsiiProperty(name: "mutableProperty", typeJson: "{\"primitive\":\"number\"}", isOptional: true)]
         public double? MutableProperty
         {
@@ -28,7 +29,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "method")]
         public void Method()
         {
-            InvokeInstanceVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
         }
     }
 }

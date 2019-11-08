@@ -5,15 +5,15 @@ import { Type } from './type';
 import { TypeSystem } from './type-system';
 
 export class EnumType extends Type {
-  constructor(
+  public constructor(
     public system: TypeSystem,
     public assembly: Assembly,
-    private enumSpec: jsii.EnumType) {
-    super(system, assembly, enumSpec);
+    public readonly spec: jsii.EnumType) {
+    super(system, assembly, spec);
   }
 
   public get members() {
-    return this.enumSpec.members.map(m => new EnumMember(this, m));
+    return this.spec.members.map(m => new EnumMember(this, m));
   }
 
   public isEnumType() {
@@ -25,7 +25,7 @@ export class EnumMember implements Documentable {
   public readonly name: string;
   public readonly docs: Docs;
 
-  constructor(
+  public constructor(
     public readonly enumType: EnumType, memberSpec: jsii.EnumMember) {
 
     this.name = memberSpec.name;

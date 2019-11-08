@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiByValue]
+    [JsiiByValue(fqn: "jsii-calc.ImplictBaseOfBase")]
     public class ImplictBaseOfBase : Amazon.JSII.Tests.CalculatorNamespace.IImplictBaseOfBase
     {
         /// <remarks>

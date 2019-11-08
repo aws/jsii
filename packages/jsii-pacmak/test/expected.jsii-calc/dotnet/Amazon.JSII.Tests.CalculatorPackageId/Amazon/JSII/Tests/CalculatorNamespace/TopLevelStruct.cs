@@ -5,7 +5,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
     /// <remarks>
     /// stability: Experimental
     /// </remarks>
-    [JsiiByValue]
+    [JsiiByValue(fqn: "jsii-calc.TopLevelStruct")]
     public class TopLevelStruct : Amazon.JSII.Tests.CalculatorNamespace.ITopLevelStruct
     {
         /// <summary>This is a required field.</summary>
@@ -34,6 +34,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
+        [JsiiOptional]
         [JsiiProperty(name: "optional", typeJson: "{\"primitive\":\"string\"}", isOptional: true, isOverride: true)]
         public string Optional
         {

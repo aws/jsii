@@ -10,7 +10,7 @@ public final class JsiiException extends RuntimeException {
      * Creates an exception.
      * @param message The error message
      */
-    public JsiiException(final String message) {
+    JsiiException(final String message) {
         super(message);
     }
 
@@ -18,7 +18,7 @@ public final class JsiiException extends RuntimeException {
      * Creates an exception.
      * @param e The error that caused this exception
      */
-    public JsiiException(final Throwable e) {
+    JsiiException(final Throwable e) {
         super(e);
     }
 
@@ -27,7 +27,7 @@ public final class JsiiException extends RuntimeException {
      * @param message The error message
      * @param e The error that caused this exception
      */
-    public JsiiException(final String message, final Throwable e) {
+    JsiiException(final String message, final Throwable e) {
         super(message, e);
     }
 }

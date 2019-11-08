@@ -26,7 +26,7 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "throwError")]
         public virtual void ThrowError()
         {
-            InvokeInstanceVoidMethod(new object[]{});
+            InvokeInstanceVoidMethod(new System.Type[]{}, new object[]{});
         }
     }
 }

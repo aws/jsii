@@ -30,16 +30,16 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
         [JsiiMethod(name: "interface1", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.InbetweenClass\"}}")]
         public virtual Amazon.JSII.Tests.CalculatorNamespace.InbetweenClass Interface1()
         {
-            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.InbetweenClass>(new object[]{});
+            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.InbetweenClass>(new System.Type[]{}, new object[]{});
         }
 
         /// <remarks>
         /// stability: Experimental
         /// </remarks>
         [JsiiMethod(name: "interface2", returnsJson: "{\"type\":{\"fqn\":\"jsii-calc.IPublicInterface\"}}")]
-        public virtual Amazon.JSII.Tests.CalculatorNamespace.IIPublicInterface Interface2()
+        public virtual Amazon.JSII.Tests.CalculatorNamespace.IPublicInterface Interface2()
         {
-            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.IIPublicInterface>(new object[]{});
+            return InvokeInstanceMethod<Amazon.JSII.Tests.CalculatorNamespace.IPublicInterface>(new System.Type[]{}, new object[]{});
         }
     }
 }

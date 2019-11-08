@@ -1,48 +1,32 @@
-import child_process = require('child_process');
+import childProcess = require('child_process');
 import path = require('path');
 import { promisify } from 'util';
-import { diffTest } from './util';
 
-const exec = promisify(child_process.exec);
+const exec = promisify(childProcess.exec);
 
-// tslint:disable:no-console
+test('jsii-tree', () =>
+  expect(jsiiTree()).resolves.toMatchSnapshot()
+);
 
-test('jsii-tree', async () => {
-  const stdout = await jsiiTree();
-  expect(stdout).toEqual(
-`assemblies
- ├── jsii-calc
- ├── @scope/jsii-calc-base
- ├── @scope/jsii-calc-base-of-base
- └── @scope/jsii-calc-lib
-`);
-});
+test('jsii-tree --all', () =>
+  expect(jsiiTree('--all')).resolves.toMatchSnapshot()
+);
 
-test(`jsii-tree --all`, async () => {
-  await jsiiTreeTest('jsii-tree.test.all.expected.txt', '--all');
-});
+test('jsii-tree --types', () =>
+  expect(jsiiTree('--types')).resolves.toMatchSnapshot()
+);
 
-test(`jsii-tree --types`, async () => {
-  await jsiiTreeTest('jsii-tree.test.types.expected.txt', '--types');
-});
+test('jsii-tree --members', () =>
+  expect(jsiiTree('--members')).resolves.toMatchSnapshot()
+);
 
-test(`jsii-tree --members`, async () => {
-  await jsiiTreeTest('jsii-tree.test.members.expected.txt', '--members');
-});
+test('jsii-tree --inheritance', () =>
+  expect(jsiiTree('--inheritance')).resolves.toMatchSnapshot()
+);
 
-test(`jsii-tree --inheritance`, async () => {
-  await jsiiTreeTest('jsii-tree.test.inheritance.expected.txt', '--inheritance');
-});
-
-test(`jsii-tree --signatures`, async () => {
-  await jsiiTreeTest('jsii-tree.test.signatures.expected.txt', '--signatures');
-});
-
-async function jsiiTreeTest(expectedFile: string, ...args: string[]) {
-  const actual = await jsiiTree(...args);
-
-  await diffTest(actual, expectedFile);
-}
+test('jsii-tree --signatures', () =>
+  expect(jsiiTree('--signatures')).resolves.toMatchSnapshot()
+);
 
 async function jsiiTree(...args: string[]) {
   const command = [
@@ -52,7 +36,7 @@ async function jsiiTree(...args: string[]) {
     path.dirname(require.resolve('jsii-calc/package.json'))
   ].join(' ');
 
-  const { stdout, stderr } = (await exec(command));
+  const { stdout, stderr } = await exec(command);
 
   if (stderr) {
     console.error(stderr);

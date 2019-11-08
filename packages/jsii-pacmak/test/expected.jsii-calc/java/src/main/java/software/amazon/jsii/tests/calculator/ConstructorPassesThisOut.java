@@ -15,12 +15,15 @@ public class ConstructorPassesThisOut extends software.amazon.jsii.JsiiObject {
     protected ConstructorPassesThisOut(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
+
     /**
      * EXPERIMENTAL
+     * 
+     * @param consumer This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public ConstructorPassesThisOut(final software.amazon.jsii.tests.calculator.PartiallyInitializedThisConsumer consumer) {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(consumer, "consumer is required") }));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this, new Object[] { java.util.Objects.requireNonNull(consumer, "consumer is required") });
     }
 }

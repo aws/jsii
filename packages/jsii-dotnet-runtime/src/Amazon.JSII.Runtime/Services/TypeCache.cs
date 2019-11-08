@@ -11,7 +11,7 @@ using Type = System.Type;
 
 namespace Amazon.JSII.Runtime.Services
 {
-    public class TypeCache : ITypeCache
+    internal sealed class TypeCache : ITypeCache
     {
         const string ProxySuffix = "$Proxy";
 
@@ -69,6 +69,12 @@ namespace Amazon.JSII.Runtime.Services
                 {
                     return MakeNullableIfOptional(enumType);
                 }
+                
+                Type interfaceType = GetInterfaceType(typeReference.FullyQualifiedName);
+                if (interfaceType != null)
+                {
+                    return interfaceType;
+                }
 
                 throw new ArgumentException("Type reference has a fully qualified name, but is neither a class nor an enum", nameof(typeReference));
             }
@@ -124,6 +130,11 @@ namespace Amazon.JSII.Runtime.Services
 
         Type GetType<T>(string fullyQualifiedName) where T : JsiiTypeAttributeBase
         {
+            if (fullyQualifiedName == "Object")
+            {
+                return typeof(AnonymousObject);
+            }
+            
             Type type = null;
 
             lock (_lock)

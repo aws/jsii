@@ -15,13 +15,18 @@ public abstract class PartiallyInitializedThisConsumer extends software.amazon.j
     protected PartiallyInitializedThisConsumer(final software.amazon.jsii.JsiiObject.InitializationMode initializationMode) {
         super(initializationMode);
     }
-    public PartiallyInitializedThisConsumer() {
+
+    protected PartiallyInitializedThisConsumer() {
         super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-        this.setObjRef(software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this));
+        software.amazon.jsii.JsiiEngine.getInstance().createNewObject(this);
     }
 
     /**
      * EXPERIMENTAL
+     * 
+     * @param obj This parameter is required.
+     * @param dt This parameter is required.
+     * @param ev This parameter is required.
      */
     @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
     public abstract java.lang.String consumePartiallyInitializedThis(final software.amazon.jsii.tests.calculator.ConstructorPassesThisOut obj, final java.time.Instant dt, final software.amazon.jsii.tests.calculator.AllTypesEnum ev);
@@ -31,12 +36,15 @@ public abstract class PartiallyInitializedThisConsumer extends software.amazon.j
      */
     final static class Jsii$Proxy extends software.amazon.jsii.tests.calculator.PartiallyInitializedThisConsumer {
         protected Jsii$Proxy(final software.amazon.jsii.JsiiObjectRef objRef) {
-            super(software.amazon.jsii.JsiiObject.InitializationMode.JSII);
-            this.setObjRef(objRef);
+            super(objRef);
         }
 
         /**
          * EXPERIMENTAL
+         * 
+         * @param obj This parameter is required.
+         * @param dt This parameter is required.
+         * @param ev This parameter is required.
          */
         @software.amazon.jsii.Stability(software.amazon.jsii.Stability.Level.Experimental)
         @Override
