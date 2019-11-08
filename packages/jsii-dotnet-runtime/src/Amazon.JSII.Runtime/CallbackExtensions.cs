@@ -6,9 +6,11 @@ using Amazon.JSII.Runtime.Services;
 using Amazon.JSII.Runtime.Services.Converters;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Amazon.JSII.Runtime
 {
@@ -65,37 +67,95 @@ namespace Amazon.JSII.Runtime
             throw new ArgumentException("Callback does not specificy a method, getter, or setter to invoke");
         }
 
-        static CallbackResult InvokeMethod(InvokeRequest request, IReferenceMap referenceMap)
+        private static CallbackResult InvokeMethod(InvokeRequest request, IReferenceMap referenceMap)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
-            DeputyBase deputy = referenceMap.GetOrCreateNativeReference(request.ObjectReference);
+            var deputy = referenceMap.GetOrCreateNativeReference(request.ObjectReference);
 
-            MethodInfo methodInfo = ReflectionUtils.GetNativeMethod(deputy.GetType(), request.Method);
+            var methodInfo = ReflectionUtils.GetNativeMethod(deputy.GetType(), request.Method);
 
             if (methodInfo == null)
             {
                 throw new InvalidOperationException($"Received callback for {deputy.GetType().Name}.{request.Method} method, but this method does not exist");
             }
 
-            JsiiMethodAttribute attribute = methodInfo.GetCustomAttribute<JsiiMethodAttribute>();
-            var returnValue = methodInfo.Invoke(deputy, request.Arguments.Select(arg => FromKernel(arg, referenceMap)).ToArray());
-            return attribute?.Returns != null ? new CallbackResult(attribute?.Returns, returnValue) : null;
+            var attribute = methodInfo.GetAttribute<JsiiMethodAttribute>();
+            var parameters = methodInfo.GetParameters();
+            
+            var converter = ServiceContainer.ServiceProvider.GetRequiredService<IJsiiToFrameworkConverter>();
+            
+            var rehydratedArgs = Enumerable.Range(0, request.Arguments.Length)
+                .Select(n =>
+                {
+                    var paramIndex = n >= parameters.Length ? parameters.Length - 1 : n;
+                    var requiredType = parameters[paramIndex].ParameterType;
+                    if (!converter.TryConvert(attribute.Parameters[paramIndex], requiredType, referenceMap, request.Arguments[n], out var value))
+                    {
+                        throw new JsiiException($"Unable to convert {request.Arguments[n]} to {requiredType.Name}");
+                    }
+
+                    if (attribute.Parameters[paramIndex].IsVariadic)
+                    {
+                        var array = Array.CreateInstance(value.GetType(), 1);
+                        array.SetValue(value, 0);
+                        value = array;
+                    }
+                    
+                    if (!requiredType.IsInstanceOfType(value) && value is IConvertible)
+                    {
+                        value = Convert.ChangeType(value, requiredType);
+                    }
+
+                    return value;
+                }).ToArray();
+
+            var invokeParameters = Enumerable.Range(0, parameters.Length)
+                .Select(n =>
+                {
+                    if (n >= rehydratedArgs.Length)
+                    {
+                        return null;
+                    }
+
+                    if (n == parameters.Length - 1 && rehydratedArgs.Length > parameters.Length)
+                    {
+                        var allArgs = rehydratedArgs.TakeLast(rehydratedArgs.Length - parameters.Length + 1);
+                        var array = Array.CreateInstance(parameters[parameters.Length - 1].ParameterType.GetElementType(),
+                            allArgs.Select(list => (list as Array).Length).Sum());
+                        var idx = 0;
+                        foreach (var list in allArgs)
+                        {
+                            foreach (var item in list as Array)
+                            {
+                                array.SetValue(item, idx);
+                                idx += 1;
+                            }
+                        }
+
+                        return array;
+                    }
+
+                    return rehydratedArgs[n];
+                }).ToArray();
+
+            var returnValue = methodInfo.Invoke(deputy, invokeParameters);
+            return attribute?.Returns != null ? new CallbackResult(attribute.Returns, returnValue) : null;
         }
 
-        static CallbackResult InvokeGetter(GetRequest request, IReferenceMap referenceMap)
+        private static CallbackResult InvokeGetter(GetRequest request, IReferenceMap referenceMap)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
-            DeputyBase deputy = referenceMap.GetOrCreateNativeReference(request.ObjectReference);
+            var deputy = referenceMap.GetOrCreateNativeReference(request.ObjectReference);
 
-            PropertyInfo propertyInfo = ReflectionUtils.GetNativeProperty(deputy.GetType(), request.Property);
+            var propertyInfo = ReflectionUtils.GetNativeProperty(deputy.GetType(), request.Property);
             if (propertyInfo == null)
             {
                 throw new InvalidOperationException($"Received callback for {deputy.GetType().Name}.{request.Property} getter, but this property does not exist");
             }
 
-            JsiiPropertyAttribute attribute = propertyInfo.GetCustomAttribute<JsiiPropertyAttribute>();
+            var attribute = propertyInfo.GetAttribute<JsiiPropertyAttribute>();
 
-            MethodInfo methodInfo = propertyInfo.GetGetMethod();
+            var methodInfo = propertyInfo.GetGetMethod();
             if (methodInfo == null)
             {
                 throw new InvalidOperationException($"Received callback for {deputy.GetType().Name}.{request.Property} getter, but this property does not have a getter");
@@ -104,24 +164,24 @@ namespace Amazon.JSII.Runtime
             return new CallbackResult(attribute, methodInfo.Invoke(deputy, new object[] { }));
         }
 
-        static void InvokeSetter(SetRequest request, IReferenceMap referenceMap)
+        private static void InvokeSetter(SetRequest request, IReferenceMap referenceMap)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
-            DeputyBase deputy = referenceMap.GetOrCreateNativeReference(request.ObjectReference);
+            var deputy = referenceMap.GetOrCreateNativeReference(request.ObjectReference);
 
-            PropertyInfo propertyInfo = ReflectionUtils.GetNativeProperty(deputy.GetType(), request.Property);
+            var propertyInfo = ReflectionUtils.GetNativeProperty(deputy.GetType(), request.Property);
             if (propertyInfo == null)
             {
                 throw new InvalidOperationException($"Received callback for {deputy.GetType().Name}.{request.Property} setter, but this property does not exist");
             }
 
-            MethodInfo methodInfo = propertyInfo.GetSetMethod();
+            var methodInfo = propertyInfo.GetSetMethod();
             if (methodInfo == null)
             {
                 throw new InvalidOperationException($"Received callback for {deputy.GetType().Name}.{request.Property} setter, but this property does not have a setter");
             }
 
-            methodInfo.Invoke(deputy, new object[] { FromKernel(request.Value, referenceMap) });
+            methodInfo.Invoke(deputy, new [] { FromKernel(request.Value, referenceMap) });
         }
 
         /*
@@ -130,41 +190,40 @@ namespace Amazon.JSII.Runtime
          */
         private static object FromKernel(object obj, IReferenceMap referenceMap)
         {
-            if (obj is JObject jObject)
+            if (!(obj is JObject jObject)) return obj;
+            var prop = jObject.Property("$jsii.byref");
+            if (prop != null)
             {
-                var prop = jObject.Property("$jsii.byref");
-                if (prop != null)
-                {
-                    return referenceMap.GetOrCreateNativeReference(new ByRefValue(prop.Value.Value<String>()));
-                }
+                var objId = prop.Value.Value<String>();
+                var interfaces = jObject.Property("$jsii.interfaces")?.Value?.Values<string>()?.ToArray();
+                return referenceMap.GetOrCreateNativeReference(new ByRefValue(objId, interfaces));
+            }
 
-                if (jObject.ContainsKey("$jsii.map"))
-                {
-                    jObject = (JObject)jObject.Property("$jsii.map").Value;
-                }
+            if (jObject.ContainsKey("$jsii.map"))
+            {
+                jObject = (JObject)jObject.Property("$jsii.map").Value;
+            }
 
-                /*
+            /*
                  * Turning all outstanding JObjects to IDictionary<string, object> (recursively), as the code generator
                  * will have emitted IDictionary<string, object> for  maps of string to <anything>. Not doing so would
                  * result in an ArgumentError for not being able to convert JObject to IDictionary.
                  */
-                var dict = jObject.ToObject<Dictionary<string, object>>();
-                var mapped = new Dictionary<string, object>(dict.Count);
-                foreach (var key in dict.Keys)
+            var dict = jObject.ToObject<Dictionary<string, object>>();
+            var mapped = new Dictionary<string, object>(dict.Count);
+            foreach (var key in dict.Keys)
+            {
+                var value = dict[key];
+                if (value != null && value.GetType() == typeof(JObject))
                 {
-                    var value = dict[key];
-                    if (value != null && value.GetType() == typeof(JObject))
-                    {
-                        mapped[key] = FromKernel(value, referenceMap);
-                    }
-                    else
-                    {
-                        mapped[key] = value;
-                    }
+                    mapped[key] = FromKernel(value, referenceMap);
                 }
-                return mapped;
+                else
+                {
+                    mapped[key] = value;
+                }
             }
-            return obj;
+            return mapped;
         }
     }
 

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using Amazon.JSII.JsonModel.Api;
 using Amazon.JSII.JsonModel.Api.Request;
@@ -175,9 +175,9 @@ namespace Amazon.JSII.Runtime.Services
             return Send<LoadRequest, LoadResponse>(request);
         }
 
-        public CreateResponse Create(string fullyQualifiedName, object[] arguments = null, Override[] overrides = null)
+        public CreateResponse Create(string fullyQualifiedName, object[] arguments = null, Override[] overrides = null, string[] interfaces = null)
         {
-            return Create(new CreateRequest(fullyQualifiedName, arguments, overrides));
+            return Create(new CreateRequest(fullyQualifiedName, arguments, overrides, interfaces));
         }
 
         public CreateResponse Create(CreateRequest request)

@@ -47,7 +47,8 @@ namespace Amazon.JSII.Runtime.Deputy
             var response = client.Create(
                 fullyQualifiedName,
                 ConvertArguments(parameters, props?.Arguments ?? new object[]{ }),
-                GetOverrides()
+                GetOverrides(),
+                GetInterfaces()
             );
 
             Reference = new ByRefValue(response["$jsii.byref"] as string);
@@ -61,10 +62,13 @@ namespace Amazon.JSII.Runtime.Deputy
 
             IEnumerable<Override> GetMethodOverrides()
             {
-                foreach (MethodInfo method in type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
+                var typeMethods = type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                    .Where(method => !method.DeclaringType?.Equals(typeof(DeputyBase)) ?? false)
+                    .Where(method => !method.DeclaringType?.Equals(typeof(object)) ?? false);
+                foreach (var method in typeMethods)
                 {
-                    JsiiMethodAttribute inheritedAttribute = method.GetCustomAttribute<JsiiMethodAttribute>(true);
-                    JsiiMethodAttribute uninheritedAttribute = method.GetCustomAttribute<JsiiMethodAttribute>(false);
+                    var inheritedAttribute = method.GetAttribute<JsiiMethodAttribute>();
+                    var uninheritedAttribute = method.GetAttribute<JsiiMethodAttribute>(false);
 
                     if ((inheritedAttribute != null && uninheritedAttribute == null) || uninheritedAttribute?.IsOverride == true)
                     {
@@ -75,16 +79,28 @@ namespace Amazon.JSII.Runtime.Deputy
 
             IEnumerable<Override> GetPropertyOverrides()
             {
-                foreach (PropertyInfo property in type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
+                var typeProperties = type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                        .Where(prop => !prop.DeclaringType?.Equals(typeof(DeputyBase)) ?? false)
+                        .Where(prop => !prop.DeclaringType?.Equals(typeof(object)) ?? false);
+                foreach (var property in typeProperties)
                 {
-                    JsiiPropertyAttribute inheritedAttribute = property.GetCustomAttribute<JsiiPropertyAttribute>(true);
-                    JsiiPropertyAttribute uninheritedAttribute = property.GetCustomAttribute<JsiiPropertyAttribute>(false);
+                    var inheritedAttribute = property.GetAttribute<JsiiPropertyAttribute>();
+                    var uninheritedAttribute = property.GetAttribute<JsiiPropertyAttribute>(false);
 
                     if ((inheritedAttribute != null && uninheritedAttribute == null) || uninheritedAttribute?.IsOverride == true)
                     {
                         yield return new Override(property: (inheritedAttribute ?? uninheritedAttribute).Name);
                     }
                 }
+            }
+
+            string[] GetInterfaces()
+            {
+                return type.GetInterfaces()
+                    .Select(iface => iface.GetCustomAttribute<JsiiInterfaceAttribute>())
+                    .Where(jsiiIface => jsiiIface != null)
+                    .Select(jsiiIface => jsiiIface.FullyQualifiedName)
+                    .ToArray();
             }
         }
 

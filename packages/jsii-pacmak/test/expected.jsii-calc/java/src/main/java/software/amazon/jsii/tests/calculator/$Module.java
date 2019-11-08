@@ -131,6 +131,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.NumberGenerator": return software.amazon.jsii.tests.calculator.NumberGenerator.class;
             case "jsii-calc.ObjectRefsInCollections": return software.amazon.jsii.tests.calculator.ObjectRefsInCollections.class;
             case "jsii-calc.Old": return software.amazon.jsii.tests.calculator.Old.class;
+            case "jsii-calc.OptionalArgumentInvoker": return software.amazon.jsii.tests.calculator.OptionalArgumentInvoker.class;
             case "jsii-calc.OptionalConstructorArgument": return software.amazon.jsii.tests.calculator.OptionalConstructorArgument.class;
             case "jsii-calc.OptionalStruct": return software.amazon.jsii.tests.calculator.OptionalStruct.class;
             case "jsii-calc.OptionalStructConsumer": return software.amazon.jsii.tests.calculator.OptionalStructConsumer.class;
@@ -174,6 +175,7 @@ public final class $Module extends JsiiModule {
             case "jsii-calc.UseBundledDependency": return software.amazon.jsii.tests.calculator.UseBundledDependency.class;
             case "jsii-calc.UseCalcBase": return software.amazon.jsii.tests.calculator.UseCalcBase.class;
             case "jsii-calc.UsesInterfaceWithProperties": return software.amazon.jsii.tests.calculator.UsesInterfaceWithProperties.class;
+            case "jsii-calc.VariadicInvoker": return software.amazon.jsii.tests.calculator.VariadicInvoker.class;
             case "jsii-calc.VariadicMethod": return software.amazon.jsii.tests.calculator.VariadicMethod.class;
             case "jsii-calc.VirtualMethodPlayground": return software.amazon.jsii.tests.calculator.VirtualMethodPlayground.class;
             case "jsii-calc.VoidCallback": return software.amazon.jsii.tests.calculator.VoidCallback.class;
