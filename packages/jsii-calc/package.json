@@ -1,6 +1,6 @@
 {
   "name": "jsii-calc",
-  "version": "0.20.1",
+  "version": "0.20.2",
   "private": true,
   "description": "A simple calcuator built on JSII.",
   "stability": "experimental",
@@ -31,19 +31,19 @@
     "test:update": "npm run build && UPDATE_DIFF=1 npm run test"
   },
   "dependencies": {
-    "@scope/jsii-calc-base": "^0.20.1",
-    "@scope/jsii-calc-base-of-base": "^0.20.1",
-    "@scope/jsii-calc-lib": "^0.20.1",
+    "@scope/jsii-calc-base": "^0.20.2",
+    "@scope/jsii-calc-base-of-base": "^0.20.2",
+    "@scope/jsii-calc-lib": "^0.20.2",
     "jsii-calc-bundled": "file:../@fixtures/jsii-calc-bundled"
   },
   "peerDependencies": {
-    "@scope/jsii-calc-base": "^0.20.1",
-    "@scope/jsii-calc-base-of-base": "^0.20.1",
-    "@scope/jsii-calc-lib": "^0.20.1"
+    "@scope/jsii-calc-base": "^0.20.2",
+    "@scope/jsii-calc-base-of-base": "^0.20.2",
+    "@scope/jsii-calc-lib": "^0.20.2"
   },
   "devDependencies": {
-    "jsii": "^0.20.1",
-    "jsii-build-tools": "^0.20.1"
+    "jsii": "^0.20.2",
+    "jsii-build-tools": "^0.20.2"
   },
   "jsii": {
     "outdir": "dist",
