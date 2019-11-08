@@ -1139,6 +1139,7 @@ class Package {
         const jsiiVersionSimple = this.metadata.jsiiVersion.replace(/ .*$/, '');
 
         const classifiers = [
+            'Intended Audience :: Developers',
             `License :: ${getLicense(this.metadata.license)}`,
             'Operating System :: OS Independent',
             'Programming Language :: Python :: 3',
@@ -1161,6 +1162,7 @@ class Package {
             name: this.name,
             version: this.version,
             description: this.metadata.description,
+            license: this.metadata.license,
             url: this.metadata.homepage,
             long_description_content_type: "text/markdown",
             author: this.metadata.author.name + (
