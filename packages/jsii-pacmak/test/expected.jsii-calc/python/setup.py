@@ -6,6 +6,7 @@ kwargs = json.loads("""
     "name": "jsii-calc",
     "version": "0.20.2",
     "description": "A simple calcuator built on JSII.",
+    "license": "Apache-2.0",
     "url": "https://github.com/aws/jsii",
     "long_description_content_type": "text/markdown",
     "author": "Amazon Web Services",
@@ -34,6 +35,13 @@ kwargs = json.loads("""
         "scope.jsii-calc-base~=0.20.2",
         "scope.jsii-calc-base-of-base~=0.20.2",
         "scope.jsii-calc-lib~=0.20.2"
+    ],
+    "classifiers": [
+        "Intended Audience :: Developers",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python :: 3",
+        "Development Status :: 4 - Beta",
+        "License :: OSI Approved"
     ]
 }
 """)

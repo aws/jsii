@@ -6,6 +6,7 @@ kwargs = json.loads("""
     "name": "scope.jsii-calc-base",
     "version": "0.20.2",
     "description": "An example direct dependency for jsii-calc.",
+    "license": "Apache-2.0",
     "url": "https://github.com/aws/jsii",
     "long_description_content_type": "text/markdown",
     "author": "Amazon Web Services",
@@ -32,6 +33,12 @@ kwargs = json.loads("""
         "jsii~=0.20.2",
         "publication>=0.0.3",
         "scope.jsii-calc-base-of-base~=0.20.2"
+    ],
+    "classifiers": [
+        "Intended Audience :: Developers",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved"
     ]
 }
 """)

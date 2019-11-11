@@ -12,6 +12,10 @@ import { md2rst } from '../markdown';
 import { Target } from '../target';
 import { shell } from '../util';
 
+/* eslint-disable @typescript-eslint/no-var-requires */
+const spdxLicenseList = require('spdx-license-list');
+/* eslint-enable @typescript-eslint/no-var-requires */
+
 export default class Python extends Target {
   protected readonly generator = new PythonGenerator();
 
@@ -1162,6 +1166,7 @@ class Package {
       name: this.name,
       version: this.version,
       description: this.metadata.description,
+      license: this.metadata.license,
       url: this.metadata.homepage,
       long_description_content_type: 'text/markdown',
       author: this.metadata.author.name + (
@@ -1175,8 +1180,31 @@ class Package {
       package_data: packageData,
       python_requires: '>=3.6',
       install_requires: [`jsii~=${jsiiVersionSimple}`, 'publication>=0.0.3'].concat(dependencies),
+      classifiers: [
+        'Intended Audience :: Developers',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python :: 3',
+      ],
     };
     /* eslint-enable @typescript-eslint/camelcase */
+
+    switch (this.metadata.docs && this.metadata.docs.stability) {
+      case spec.Stability.Experimental:
+        setupKwargs.classifiers.push('Development Status :: 4 - Beta');
+        break;
+      case spec.Stability.Stable:
+        setupKwargs.classifiers.push('Development Status :: 5 - Production/Stable');
+        break;
+      case spec.Stability.Deprecated:
+        setupKwargs.classifiers.push('Development Status :: 7 - Inactive');
+        break;
+      default:
+        // No 'Development Status' trove classifier for you!
+    }
+
+    if (spdxLicenseList[this.metadata.license] && spdxLicenseList[this.metadata.license].osiApproved) {
+      setupKwargs.classifiers.push('License :: OSI Approved');
+    }
 
     // We Need a setup.py to make this Package, actually a Package.
     // TODO:
