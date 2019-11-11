@@ -193,8 +193,8 @@ def test_primitiveTypes():
     assert types.date_property == datetime.fromtimestamp(123 / 1000.0, tz=timezone.utc)
 
     # json
-    types.json_property = {"Foo": 123}
-    assert types.json_property.get("Foo") == 123
+    types.json_property = { "Foo": { "bar": 123  } }
+    assert types.json_property.get("Foo") == { "bar": 123 }
 
 
 def test_dates():
