@@ -41,7 +41,7 @@
     "@scope/jsii-calc-lib": "^0.20.2",
     "@types/jest": "^24.0.22",
     "@typescript-eslint/eslint-plugin": "^2.6.1",
-    "@typescript-eslint/parser": "^2.6.1",
+    "@typescript-eslint/parser": "^2.7.0",
     "eslint": "^6.6.0",
     "jest": "^24.9.0",
     "jsii-build-tools": "^0.20.2",
