@@ -32,27 +32,19 @@ if (recordingOutput) {
   console.error(`JSII_RECORD=${recordingOutput}`);
 }
 
-function defineTest(name: string, method: (sandbox: Kernel) => Promise<any> | any) {
+function defineTest(name: string, method: (sandbox: Kernel) => Promise<any> | any, testFunc = test) {
   const recording = name.replace(/[^A-Za-z]/g, '_');
 
-  test(name, async () => {
+  testFunc(name, async () => {
     const kernel = await createCalculatorSandbox(recording);
     await method(kernel);
-    await closeRecording(kernel);
+    return closeRecording(kernel);
   });
 }
 
-defineTest('sandbox allows loading arbitrary javascript into it', (sandbox) => {
-  const objid = sandbox.create({ fqn: '@scope/jsii-calc-lib.Number', args: [12] });
-  expect(sandbox.get({ objref: objid, property: 'doubleValue' }).value).toBe(24);
-  expect(sandbox.invoke({ objref: objid, method: 'typeName', args: [] }).result).toBe('Number');
-
-  const lhs = sandbox.create({ fqn: '@scope/jsii-calc-lib.Number', args: [10] });
-  const rhs = sandbox.create({ fqn: '@scope/jsii-calc-lib.Number', args: [20] });
-  const add = sandbox.create({ fqn: 'jsii-calc.Add', args: [lhs, rhs] });
-
-  expect(sandbox.get({ objref: add, property: 'value' }).value).toBe(30);
-});
+defineTest.skip = function (name: string, method: (sandbox: Kernel) => Promise<any> | any) {
+  return defineTest(name, method, test.skip);
+}
 
 defineTest('stats() return sandbox statistics', (sandbox) => {
   const stats = sandbox.stats({ });
@@ -307,7 +299,7 @@ defineTest('verify object literals are converted to real classes', (sandbox) => 
   expect(obj2[api.TOKEN_REF]).toBeTruthy(); // verify that we received a ref as a result;
 
   const objid: string = obj2[api.TOKEN_REF];
-  expect(objid.startsWith('jsii-calc.JSObjectLiteralToNativeClass')).toBeTruthy(); // verify the type of the returned object'
+  expect(objid.startsWith('jsii-calc.JSObjectLiteralToNativeClass@'), `${objid} does not have the intended prefix`).toBeTruthy(); // verify the type of the returned object'
 });
 
 defineTest('get a property from an type that only has base class properties', (sandbox) => {
@@ -822,17 +814,18 @@ defineTest('fails: static methods - not static', (sandbox) => {
 });
 
 defineTest('loading a module twice idepotently succeeds', async (sandbox) => {
-  await sandbox.load({
+  sandbox.load({
     tarball: await preparePackage('jsii-calc', false),
     name: 'jsii-calc',
     version: calcVersion
   });
 });
 
-defineTest('fails if trying to load two different versions of the same module', async (sandbox) =>
-  expect(sandbox.load({ tarball: await preparePackage('jsii-calc', false), name: 'jsii-calc', version: '99.999.9' }))
-    .rejects.toThrow(/Multiple versions .+ and .+ of the package 'jsii-calc' cannot be loaded together/)
-);
+defineTest('fails if trying to load two different versions of the same module', async (sandbox) => {
+  const tarball = await preparePackage('jsii-calc', false);
+  return expect(() => sandbox.load({ tarball, name: 'jsii-calc', version: '99.999.9' }))
+    .toThrow(/Multiple versions .+ and .+ of the package 'jsii-calc' cannot be loaded together/)
+});
 
 defineTest('node.js standard library', async (sandbox) => {
   const objref = sandbox.create({ fqn: 'jsii-calc.NodeStandardLibrary' });
@@ -1229,9 +1222,9 @@ async function createCalculatorSandbox(name: string) {
 
   sandbox.traceEnabled = `${process.env.JSII_DEBUG}` === '1';
 
-  await sandbox.load({ tarball: await preparePackage('@scope/jsii-calc-base'), name: '@scope/jsii-calc-base', version: calcBaseVersion });
-  await sandbox.load({ tarball: await preparePackage('@scope/jsii-calc-lib'), name: '@scope/jsii-calc-lib', version: calcLibVersion });
-  await sandbox.load({ tarball: await preparePackage('jsii-calc'), name: 'jsii-calc', version: calcVersion });
+  sandbox.load({ tarball: await preparePackage('@scope/jsii-calc-base'), name: '@scope/jsii-calc-base', version: calcBaseVersion });
+  sandbox.load({ tarball: await preparePackage('@scope/jsii-calc-lib'), name: '@scope/jsii-calc-lib', version: calcLibVersion });
+  sandbox.load({ tarball: await preparePackage('jsii-calc'), name: 'jsii-calc', version: calcVersion });
   return sandbox;
 }
 

@@ -1,3 +1,29 @@
+"""
+# jsii Calculator
+
+This library is used to demonstrate and test the features of JSII
+
+## How to use running sum API:
+
+First, create a calculator:
+
+```python
+calculator = calc.Calculator()
+```
+
+Then call some operations:
+
+```python
+calculator.add(10)
+```
+
+## Code Samples
+
+```python
+# This is totes a magic comment in here, just you wait!
+foo = "bar"
+```
+"""
 import abc
 import datetime
 import enum
@@ -12,7 +38,7 @@ from jsii.python import classproperty
 import scope.jsii_calc_base
 import scope.jsii_calc_base_of_base
 import scope.jsii_calc_lib
-__jsii_assembly__ = jsii.JSIIAssembly.load("jsii-calc", "0.20.0", __name__, "jsii-calc@0.20.0.jsii.tgz")
+__jsii_assembly__ = jsii.JSIIAssembly.load("jsii-calc", "0.20.2", __name__, "jsii-calc@0.20.2.jsii.tgz")
 class AbstractClassBase(metaclass=jsii.JSIIAbstractClass, jsii_type="jsii-calc.AbstractClassBase"):
     """
     stability
@@ -911,6 +937,127 @@ class Constructors(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Constructors"):
         :stability: experimental
         """
         return jsii.sinvoke(cls, "makeInterfaces", [])
+
+
+class ConsumerCanRingBell(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ConsumerCanRingBell"):
+    """Test calling back to consumers that implement interfaces.
+
+    Check that if a JSII consumer implements IConsumerWithInterfaceParam, they can call
+    the method on the argument that they're passed...
+
+    stability
+    :stability: experimental
+    """
+    def __init__(self) -> None:
+        jsii.create(ConsumerCanRingBell, self, [])
+
+    @jsii.member(jsii_name="staticImplementedByObjectLiteral")
+    @classmethod
+    def static_implemented_by_object_literal(cls, ringer: "IBellRinger") -> bool:
+        """...if the interface is implemented using an object literal.
+
+        Returns whether the bell was rung.
+
+        :param ringer: -
+
+        stability
+        :stability: experimental
+        """
+        return jsii.sinvoke(cls, "staticImplementedByObjectLiteral", [ringer])
+
+    @jsii.member(jsii_name="staticImplementedByPrivateClass")
+    @classmethod
+    def static_implemented_by_private_class(cls, ringer: "IBellRinger") -> bool:
+        """...if the interface is implemented using a private class.
+
+        Return whether the bell was rung.
+
+        :param ringer: -
+
+        stability
+        :stability: experimental
+        """
+        return jsii.sinvoke(cls, "staticImplementedByPrivateClass", [ringer])
+
+    @jsii.member(jsii_name="staticImplementedByPublicClass")
+    @classmethod
+    def static_implemented_by_public_class(cls, ringer: "IBellRinger") -> bool:
+        """...if the interface is implemented using a public class.
+
+        Return whether the bell was rung.
+
+        :param ringer: -
+
+        stability
+        :stability: experimental
+        """
+        return jsii.sinvoke(cls, "staticImplementedByPublicClass", [ringer])
+
+    @jsii.member(jsii_name="staticWhenTypedAsClass")
+    @classmethod
+    def static_when_typed_as_class(cls, ringer: "IConcreteBellRinger") -> bool:
+        """If the parameter is a concrete class instead of an interface.
+
+        Return whether the bell was rung.
+
+        :param ringer: -
+
+        stability
+        :stability: experimental
+        """
+        return jsii.sinvoke(cls, "staticWhenTypedAsClass", [ringer])
+
+    @jsii.member(jsii_name="implementedByObjectLiteral")
+    def implemented_by_object_literal(self, ringer: "IBellRinger") -> bool:
+        """...if the interface is implemented using an object literal.
+
+        Returns whether the bell was rung.
+
+        :param ringer: -
+
+        stability
+        :stability: experimental
+        """
+        return jsii.invoke(self, "implementedByObjectLiteral", [ringer])
+
+    @jsii.member(jsii_name="implementedByPrivateClass")
+    def implemented_by_private_class(self, ringer: "IBellRinger") -> bool:
+        """...if the interface is implemented using a private class.
+
+        Return whether the bell was rung.
+
+        :param ringer: -
+
+        stability
+        :stability: experimental
+        """
+        return jsii.invoke(self, "implementedByPrivateClass", [ringer])
+
+    @jsii.member(jsii_name="implementedByPublicClass")
+    def implemented_by_public_class(self, ringer: "IBellRinger") -> bool:
+        """...if the interface is implemented using a public class.
+
+        Return whether the bell was rung.
+
+        :param ringer: -
+
+        stability
+        :stability: experimental
+        """
+        return jsii.invoke(self, "implementedByPublicClass", [ringer])
+
+    @jsii.member(jsii_name="whenTypedAsClass")
+    def when_typed_as_class(self, ringer: "IConcreteBellRinger") -> bool:
+        """If the parameter is a concrete class instead of an interface.
+
+        Return whether the bell was rung.
+
+        :param ringer: -
+
+        stability
+        :stability: experimental
+        """
+        return jsii.invoke(self, "whenTypedAsClass", [ringer])
 
 
 class ConsumersOfThisCrazyTypeSystem(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.ConsumersOfThisCrazyTypeSystem"):
@@ -2171,6 +2318,151 @@ class _IAnotherPublicInterfaceProxy():
     @a.setter
     def a(self, value: str):
         return jsii.set(self, "a", value)
+
+
+@jsii.interface(jsii_type="jsii-calc.IBell")
+class IBell(jsii.compat.Protocol):
+    """
+    stability
+    :stability: experimental
+    """
+    @staticmethod
+    def __jsii_proxy_class__():
+        return _IBellProxy
+
+    @jsii.member(jsii_name="ring")
+    def ring(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
+        ...
+
+
+class _IBellProxy():
+    """
+    stability
+    :stability: experimental
+    """
+    __jsii_type__ = "jsii-calc.IBell"
+    @jsii.member(jsii_name="ring")
+    def ring(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.invoke(self, "ring", [])
+
+
+@jsii.implements(IBell)
+class Bell(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Bell"):
+    """
+    stability
+    :stability: experimental
+    """
+    def __init__(self) -> None:
+        jsii.create(Bell, self, [])
+
+    @jsii.member(jsii_name="ring")
+    def ring(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.invoke(self, "ring", [])
+
+    @property
+    @jsii.member(jsii_name="rung")
+    def rung(self) -> bool:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.get(self, "rung")
+
+    @rung.setter
+    def rung(self, value: bool):
+        return jsii.set(self, "rung", value)
+
+
+@jsii.interface(jsii_type="jsii-calc.IBellRinger")
+class IBellRinger(jsii.compat.Protocol):
+    """Takes the object parameter as an interface.
+
+    stability
+    :stability: experimental
+    """
+    @staticmethod
+    def __jsii_proxy_class__():
+        return _IBellRingerProxy
+
+    @jsii.member(jsii_name="yourTurn")
+    def your_turn(self, bell: "IBell") -> None:
+        """
+        :param bell: -
+
+        stability
+        :stability: experimental
+        """
+        ...
+
+
+class _IBellRingerProxy():
+    """Takes the object parameter as an interface.
+
+    stability
+    :stability: experimental
+    """
+    __jsii_type__ = "jsii-calc.IBellRinger"
+    @jsii.member(jsii_name="yourTurn")
+    def your_turn(self, bell: "IBell") -> None:
+        """
+        :param bell: -
+
+        stability
+        :stability: experimental
+        """
+        return jsii.invoke(self, "yourTurn", [bell])
+
+
+@jsii.interface(jsii_type="jsii-calc.IConcreteBellRinger")
+class IConcreteBellRinger(jsii.compat.Protocol):
+    """Takes the object parameter as a calss.
+
+    stability
+    :stability: experimental
+    """
+    @staticmethod
+    def __jsii_proxy_class__():
+        return _IConcreteBellRingerProxy
+
+    @jsii.member(jsii_name="yourTurn")
+    def your_turn(self, bell: "Bell") -> None:
+        """
+        :param bell: -
+
+        stability
+        :stability: experimental
+        """
+        ...
+
+
+class _IConcreteBellRingerProxy():
+    """Takes the object parameter as a calss.
+
+    stability
+    :stability: experimental
+    """
+    __jsii_type__ = "jsii-calc.IConcreteBellRinger"
+    @jsii.member(jsii_name="yourTurn")
+    def your_turn(self, bell: "Bell") -> None:
+        """
+        :param bell: -
+
+        stability
+        :stability: experimental
+        """
+        return jsii.invoke(self, "yourTurn", [bell])
 
 
 @jsii.interface(jsii_type="jsii-calc.IDeprecatedInterface")
@@ -4847,6 +5139,37 @@ class Old(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.Old"):
         return jsii.invoke(self, "doAThing", [])
 
 
+class OptionalArgumentInvoker(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.OptionalArgumentInvoker"):
+    """
+    stability
+    :stability: experimental
+    """
+    def __init__(self, delegate: "IInterfaceWithOptionalMethodArguments") -> None:
+        """
+        :param delegate: -
+
+        stability
+        :stability: experimental
+        """
+        jsii.create(OptionalArgumentInvoker, self, [delegate])
+
+    @jsii.member(jsii_name="invokeWithOptional")
+    def invoke_with_optional(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.invoke(self, "invokeWithOptional", [])
+
+    @jsii.member(jsii_name="invokeWithoutOptional")
+    def invoke_without_optional(self) -> None:
+        """
+        stability
+        :stability: experimental
+        """
+        return jsii.invoke(self, "invokeWithoutOptional", [])
+
+
 class OptionalConstructorArgument(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.OptionalConstructorArgument"):
     """
     stability
@@ -6700,6 +7023,31 @@ class UsesInterfaceWithProperties(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.
         return jsii.get(self, "obj")
 
 
+class VariadicInvoker(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.VariadicInvoker"):
+    """
+    stability
+    :stability: experimental
+    """
+    def __init__(self, method: "VariadicMethod") -> None:
+        """
+        :param method: -
+
+        stability
+        :stability: experimental
+        """
+        jsii.create(VariadicInvoker, self, [method])
+
+    @jsii.member(jsii_name="asArray")
+    def as_array(self, *values: jsii.Number) -> typing.List[jsii.Number]:
+        """
+        :param values: -
+
+        stability
+        :stability: experimental
+        """
+        return jsii.invoke(self, "asArray", [*values])
+
+
 class VariadicMethod(metaclass=jsii.JSIIMeta, jsii_type="jsii-calc.VariadicMethod"):
     """
     stability
@@ -7214,6 +7562,6 @@ class Sum(composition.CompositeOperation, metaclass=jsii.JSIIMeta, jsii_type="js
         return jsii.set(self, "parts", value)
 
 
-__all__ = ["AbstractClass", "AbstractClassBase", "AbstractClassReturner", "Add", "AllTypes", "AllTypesEnum", "AllowedMethodNames", "AnonymousImplementationProvider", "AsyncVirtualMethods", "AugmentableClass", "BinaryOperation", "Calculator", "CalculatorProps", "ClassThatImplementsTheInternalInterface", "ClassThatImplementsThePrivateInterface", "ClassWithCollections", "ClassWithDocs", "ClassWithJavaReservedWords", "ClassWithMutableObjectLiteralProperty", "ClassWithPrivateConstructorAndAutomaticProperties", "ConstructorPassesThisOut", "Constructors", "ConsumersOfThisCrazyTypeSystem", "DataRenderer", "DefaultedConstructorArgument", "DeprecatedClass", "DeprecatedEnum", "DeprecatedStruct", "DerivedClassHasNoProperties", "DerivedStruct", "DiamondInheritanceBaseLevelStruct", "DiamondInheritanceFirstMidLevelStruct", "DiamondInheritanceSecondMidLevelStruct", "DiamondInheritanceTopLevelStruct", "DoNotOverridePrivates", "DoNotRecognizeAnyAsOptional", "DocumentedClass", "DontComplainAboutVariadicAfterOptional", "DoubleTrouble", "EnumDispenser", "EraseUndefinedHashValues", "EraseUndefinedHashValuesOptions", "ExperimentalClass", "ExperimentalEnum", "ExperimentalStruct", "ExportedBaseClass", "ExtendsInternalInterface", "GiveMeStructs", "Greetee", "GreetingAugmenter", "IAnonymousImplementationProvider", "IAnonymouslyImplementMe", "IAnotherPublicInterface", "IDeprecatedInterface", "IExperimentalInterface", "IExtendsPrivateInterface", "IFriendlier", "IFriendlyRandomGenerator", "IInterfaceImplementedByAbstractClass", "IInterfaceThatShouldNotBeADataType", "IInterfaceWithInternal", "IInterfaceWithMethods", "IInterfaceWithOptionalMethodArguments", "IInterfaceWithProperties", "IInterfaceWithPropertiesExtension", "IJSII417Derived", "IJSII417PublicBaseOfBase", "IJsii487External", "IJsii487External2", "IJsii496", "IMutableObjectLiteral", "INonInternalInterface", "IPrivatelyImplemented", "IPublicInterface", "IPublicInterface2", "IRandomNumberGenerator", "IReturnsNumber", "IStableInterface", "ImplementInternalInterface", "Implementation", "ImplementsInterfaceWithInternal", "ImplementsInterfaceWithInternalSubclass", "ImplementsPrivateInterface", "ImplictBaseOfBase", "InbetweenClass", "InterfaceInNamespaceIncludesClasses", "InterfaceInNamespaceOnlyInterface", "InterfacesMaker", "JSII417Derived", "JSII417PublicBaseOfBase", "JSObjectLiteralForInterface", "JSObjectLiteralToNative", "JSObjectLiteralToNativeClass", "JavaReservedWords", "Jsii487Derived", "Jsii496Derived", "JsiiAgent", "LoadBalancedFargateServiceProps", "Multiply", "Negate", "NodeStandardLibrary", "NullShouldBeTreatedAsUndefined", "NullShouldBeTreatedAsUndefinedData", "NumberGenerator", "ObjectRefsInCollections", "Old", "OptionalConstructorArgument", "OptionalStruct", "OptionalStructConsumer", "OverridableProtectedMember", "OverrideReturnsObject", "PartiallyInitializedThisConsumer", "Polymorphism", "Power", "PublicClass", "PythonReservedWords", "ReferenceEnumFromScopedPackage", "ReturnsPrivateImplementationOfInterface", "RuntimeTypeChecking", "SecondLevelStruct", "SingleInstanceTwoTypes", "SingletonInt", "SingletonIntEnum", "SingletonString", "SingletonStringEnum", "StableClass", "StableEnum", "StableStruct", "StaticContext", "Statics", "StringEnum", "StripInternal", "StructA", "StructB", "StructPassing", "StructUnionConsumer", "StructWithJavaReservedWords", "Sum", "SupportsNiceJavaBuilder", "SupportsNiceJavaBuilderProps", "SupportsNiceJavaBuilderWithRequiredProps", "SyncVirtualMethods", "Thrower", "TopLevelStruct", "UnaryOperation", "UnionProperties", "UseBundledDependency", "UseCalcBase", "UsesInterfaceWithProperties", "VariadicMethod", "VirtualMethodPlayground", "VoidCallback", "WithPrivatePropertyInConstructor", "__jsii_assembly__", "composition"]
+__all__ = ["AbstractClass", "AbstractClassBase", "AbstractClassReturner", "Add", "AllTypes", "AllTypesEnum", "AllowedMethodNames", "AnonymousImplementationProvider", "AsyncVirtualMethods", "AugmentableClass", "Bell", "BinaryOperation", "Calculator", "CalculatorProps", "ClassThatImplementsTheInternalInterface", "ClassThatImplementsThePrivateInterface", "ClassWithCollections", "ClassWithDocs", "ClassWithJavaReservedWords", "ClassWithMutableObjectLiteralProperty", "ClassWithPrivateConstructorAndAutomaticProperties", "ConstructorPassesThisOut", "Constructors", "ConsumerCanRingBell", "ConsumersOfThisCrazyTypeSystem", "DataRenderer", "DefaultedConstructorArgument", "DeprecatedClass", "DeprecatedEnum", "DeprecatedStruct", "DerivedClassHasNoProperties", "DerivedStruct", "DiamondInheritanceBaseLevelStruct", "DiamondInheritanceFirstMidLevelStruct", "DiamondInheritanceSecondMidLevelStruct", "DiamondInheritanceTopLevelStruct", "DoNotOverridePrivates", "DoNotRecognizeAnyAsOptional", "DocumentedClass", "DontComplainAboutVariadicAfterOptional", "DoubleTrouble", "EnumDispenser", "EraseUndefinedHashValues", "EraseUndefinedHashValuesOptions", "ExperimentalClass", "ExperimentalEnum", "ExperimentalStruct", "ExportedBaseClass", "ExtendsInternalInterface", "GiveMeStructs", "Greetee", "GreetingAugmenter", "IAnonymousImplementationProvider", "IAnonymouslyImplementMe", "IAnotherPublicInterface", "IBell", "IBellRinger", "IConcreteBellRinger", "IDeprecatedInterface", "IExperimentalInterface", "IExtendsPrivateInterface", "IFriendlier", "IFriendlyRandomGenerator", "IInterfaceImplementedByAbstractClass", "IInterfaceThatShouldNotBeADataType", "IInterfaceWithInternal", "IInterfaceWithMethods", "IInterfaceWithOptionalMethodArguments", "IInterfaceWithProperties", "IInterfaceWithPropertiesExtension", "IJSII417Derived", "IJSII417PublicBaseOfBase", "IJsii487External", "IJsii487External2", "IJsii496", "IMutableObjectLiteral", "INonInternalInterface", "IPrivatelyImplemented", "IPublicInterface", "IPublicInterface2", "IRandomNumberGenerator", "IReturnsNumber", "IStableInterface", "ImplementInternalInterface", "Implementation", "ImplementsInterfaceWithInternal", "ImplementsInterfaceWithInternalSubclass", "ImplementsPrivateInterface", "ImplictBaseOfBase", "InbetweenClass", "InterfaceInNamespaceIncludesClasses", "InterfaceInNamespaceOnlyInterface", "InterfacesMaker", "JSII417Derived", "JSII417PublicBaseOfBase", "JSObjectLiteralForInterface", "JSObjectLiteralToNative", "JSObjectLiteralToNativeClass", "JavaReservedWords", "Jsii487Derived", "Jsii496Derived", "JsiiAgent", "LoadBalancedFargateServiceProps", "Multiply", "Negate", "NodeStandardLibrary", "NullShouldBeTreatedAsUndefined", "NullShouldBeTreatedAsUndefinedData", "NumberGenerator", "ObjectRefsInCollections", "Old", "OptionalArgumentInvoker", "OptionalConstructorArgument", "OptionalStruct", "OptionalStructConsumer", "OverridableProtectedMember", "OverrideReturnsObject", "PartiallyInitializedThisConsumer", "Polymorphism", "Power", "PublicClass", "PythonReservedWords", "ReferenceEnumFromScopedPackage", "ReturnsPrivateImplementationOfInterface", "RuntimeTypeChecking", "SecondLevelStruct", "SingleInstanceTwoTypes", "SingletonInt", "SingletonIntEnum", "SingletonString", "SingletonStringEnum", "StableClass", "StableEnum", "StableStruct", "StaticContext", "Statics", "StringEnum", "StripInternal", "StructA", "StructB", "StructPassing", "StructUnionConsumer", "StructWithJavaReservedWords", "Sum", "SupportsNiceJavaBuilder", "SupportsNiceJavaBuilderProps", "SupportsNiceJavaBuilderWithRequiredProps", "SyncVirtualMethods", "Thrower", "TopLevelStruct", "UnaryOperation", "UnionProperties", "UseBundledDependency", "UseCalcBase", "UsesInterfaceWithProperties", "VariadicInvoker", "VariadicMethod", "VirtualMethodPlayground", "VoidCallback", "WithPrivatePropertyInConstructor", "__jsii_assembly__", "composition"]
 
 publication.publish()

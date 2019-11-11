@@ -1,9 +1,6 @@
 ﻿using Amazon.JSII.JsonModel.Api;
 using Amazon.JSII.JsonModel.Api.Request;
 using Amazon.JSII.JsonModel.Api.Response;
-using Amazon.JSII.JsonModel.Spec;
-using System;
-using System.Collections.Generic;
 
 namespace Amazon.JSII.Runtime.Services
 {
@@ -17,7 +14,7 @@ namespace Amazon.JSII.Runtime.Services
 
         LoadResponse Load(LoadRequest request);
 
-        CreateResponse Create(string fullyQualifiedName, object[] arguments = null, Override[] overrides = null);
+        CreateResponse Create(string fullyQualifiedName, object[] arguments = null, Override[] overrides = null, string[] interfaces = null);
 
         CreateResponse Create(CreateRequest request);
 

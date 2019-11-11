@@ -53,7 +53,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
 
             // number
             types.NumberProperty = 1234;
-            Assert.Equal((double) 1234, types.NumberProperty);
+            Assert.Equal(1234d, types.NumberProperty);
 
             // date
             types.DateProperty = UnixEpoch.AddMilliseconds(123);
@@ -61,13 +61,13 @@ namespace Amazon.JSII.Runtime.IntegrationTests
 
             // json
             types.JsonProperty = JObject.Parse(@"{ ""Foo"": 123 }");
-            Assert.Equal((double) 123, types.JsonProperty["Foo"].Value<double>());
+            Assert.Equal(123d, types.JsonProperty["Foo"].Value<double>());
         }
 
         [Fact(DisplayName = Prefix + nameof(Dates))]
         public void Dates()
         {
-            AllTypes types = new AllTypes();
+            var types = new AllTypes();
 
             // strong type
             types.DateProperty = UnixEpoch.AddMilliseconds(123);
@@ -91,7 +91,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             IDictionary<string, Number> map = new Dictionary<string, Number>();
             map["Foo"] = new Number(123);
             types.MapProperty = map;
-            Assert.Equal((double) 123, types.MapProperty["Foo"].Value);
+            Assert.Equal(123d, types.MapProperty["Foo"].Value);
         }
 
         [Fact(DisplayName = Prefix + nameof(ComplexCollectionTypes))]
@@ -122,7 +122,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
 
             // number
             types.AnyProperty = 12;
-            Assert.Equal((double) 12, types.AnyProperty);
+            Assert.Equal(12d, types.AnyProperty);
 
             // date
             types.AnyProperty = UnixEpoch.AddSeconds(1234);
@@ -144,7 +144,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             var @object = (IDictionary<string, object>) types.AnyProperty;
             var array = (object[]) @object["Goo"];
             var innerObject = (IDictionary<string, object>) array[1];
-            Assert.Equal((double) 123, innerObject["World"]);
+            Assert.Equal(123d, innerObject["World"]);
 
             // array
             types.AnyProperty = new[] {"Hello", "World"};
@@ -153,7 +153,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
 
             // array of any
             types.AnyArrayProperty = new object[] {"Hybrid", new Number(12), 123, false};
-            Assert.Equal((double) 123, types.AnyArrayProperty[2]);
+            Assert.Equal(123d, types.AnyArrayProperty[2]);
 
             // map
             IDictionary<string, object> map = new Dictionary<string, object>();
@@ -164,14 +164,14 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             // map of any
             map["Goo"] = 19289812;
             types.AnyMapProperty = map;
-            Assert.Equal((double) 19289812, types.AnyMapProperty["Goo"]);
+            Assert.Equal(19289812d, types.AnyMapProperty["Goo"]);
 
             // classes
-            Multiply mult = new Multiply(new Number(10), new Number(20));
+            var mult = new Multiply(new Number(10), new Number(20));
             types.AnyProperty = mult;
             Assert.Same(types.AnyProperty, mult);
             Assert.IsType<Multiply>(types.AnyProperty);
-            Assert.Equal((double) 200, ((Multiply) types.AnyProperty).Value);
+            Assert.Equal(200d, ((Multiply) types.AnyProperty).Value);
         }
 
         [Fact(DisplayName = Prefix + nameof(UnionTypes))]
@@ -181,13 +181,13 @@ namespace Amazon.JSII.Runtime.IntegrationTests
 
             // single valued property
             types.UnionProperty = 1234;
-            Assert.Equal((double) 1234, types.UnionProperty);
+            Assert.Equal(1234d, types.UnionProperty);
 
             types.UnionProperty = "Hello";
             Assert.Equal("Hello", types.UnionProperty);
 
             types.UnionProperty = new Multiply(new Number(2), new Number(12));
-            Assert.Equal((double) 24, ((Multiply) types.UnionProperty).Value);
+            Assert.Equal(24d, ((Multiply) types.UnionProperty).Value);
 
             // NOTE: union collections are untyped in C# (System.Object)
 
@@ -211,8 +211,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         [Fact(DisplayName = Prefix + nameof(CreateObjectAndCtorOverloads))]
         public void CreateObjectAndCtorOverloads()
         {
-            // TODO: Generator should create a parameterless constructor.
-            new Calculator(null);
+            new Calculator();
             var calc = new Calculator(new CalculatorProps() {
                 InitialValue = 100
             });
@@ -222,56 +221,53 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         [Fact(DisplayName = Prefix + nameof(GetSetPrimitiveProperties))]
         public void GetSetPrimitiveProperties()
         {
-            Number number = new Number(20);
-            Assert.Equal((double) 20, number.Value);
-            Assert.Equal((double) 40, number.DoubleValue);
-            Assert.Equal((double) -30, new Negate(new Add(new Number(20), new Number(10))).Value);
-            Assert.Equal((double) 20, new Multiply(new Add(new Number(5), new Number(5)), new Number(2)).Value);
-            Assert.Equal((double) 3 * 3 * 3 * 3, new Power(new Number(3), new Number(4)).Value);
-            Assert.Equal((double) 999, new Power(new Number(999), new Number(1)).Value);
-            Assert.Equal((double) 1, new Power(new Number(999), new Number(0)).Value);
+            var number = new Number(20);
+            Assert.Equal(20d, number.Value);
+            Assert.Equal(40d, number.DoubleValue);
+            Assert.Equal(-30d, new Negate(new Add(new Number(20), new Number(10))).Value);
+            Assert.Equal(20d, new Multiply(new Add(new Number(5), new Number(5)), new Number(2)).Value);
+            Assert.Equal(3d * 3d * 3d * 3d, new Power(new Number(3), new Number(4)).Value);
+            Assert.Equal(999d, new Power(new Number(999), new Number(1)).Value);
+            Assert.Equal(1d, new Power(new Number(999), new Number(0)).Value);
         }
 
         [Fact(DisplayName = Prefix + nameof(CallMethods))]
         public void CallMethods()
         {
-            // TODO: Generator should create a parameterless constructor.
-            Calculator calc = new Calculator(new CalculatorProps());
+            var calc = new Calculator();
 
             calc.Add(10);
-            Assert.Equal((double) 10, calc.Value);
+            Assert.Equal(10d, calc.Value);
 
             calc.Mul(2);
-            Assert.Equal((double) 20, calc.Value);
+            Assert.Equal(20d, calc.Value);
 
             calc.Pow(5);
-            Assert.Equal((double) 20 * 20 * 20 * 20 * 20, calc.Value);
+            Assert.Equal(20d * 20d * 20d * 20d * 20d, calc.Value);
 
             calc.Neg();
-            Assert.Equal((double) -3200000, calc.Value);
+            Assert.Equal(-3200000d, calc.Value);
         }
 
         [Fact(DisplayName = Prefix + nameof(UnmarkshallIntoAbstractType))]
         public void UnmarkshallIntoAbstractType()
         {
-            // TODO: Generator should create a parameterless constructor.
-            Calculator calc = new Calculator(new CalculatorProps());
+            var calc = new Calculator();
 
             calc.Add(120);
-            Value_ value = calc.Curr;
-            Assert.Equal((double) 120, value.Value);
+            var value = calc.Curr;
+            Assert.Equal(120d, value.Value);
         }
 
         [Fact(DisplayName = Prefix + nameof(GetAndSetNotPrimitiveProperties))]
         public void GetAndSetNotPrimitiveProperties()
         {
-            // TODO: Generator should create a parameterless constructor.
-            Calculator calc = new Calculator(new CalculatorProps());
+            var calc = new Calculator();
 
             calc.Add(3200000);
             calc.Neg();
             calc.Curr = new Multiply(new Number(2), calc.Curr);
-            Assert.Equal((double) -6400000, calc.Value);
+            Assert.Equal(-6400000d, calc.Value);
         }
 
         [Fact(DisplayName = Prefix + nameof(GetAndSetEnumValues))]
@@ -312,11 +308,13 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         [Fact(DisplayName = Prefix + nameof(Arrays))]
         public void Arrays()
         {
-            Sum sum = new Sum();
-            sum.Parts = new Value_[] {new Number(5), new Number(10), new Multiply(new Number(2), new Number(3))};
-            Assert.Equal((double) 10 + 5 + (2 * 3), sum.Value);
-            Assert.Equal((double) 5, sum.Parts[0].Value);
-            Assert.Equal((double) 6, sum.Parts[2].Value);
+            var sum = new Sum
+            {
+                Parts = new Value_[] {new Number(5), new Number(10), new Multiply(new Number(2), new Number(3))}
+            };
+            Assert.Equal(10d + 5d + 2d * 3d, sum.Value);
+            Assert.Equal(5d, sum.Parts[0].Value);
+            Assert.Equal(6d, sum.Parts[2].Value);
             Assert.Equal("(((0 + 5) + 10) + (2 * 3))", sum.ToString());
         }
 
@@ -324,7 +322,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         public void Maps()
         {
             // TODO: Generator should create a parameterless constructor.
-            Calculator calc = new Calculator(new CalculatorProps());
+            var calc = new Calculator(new CalculatorProps());
 
             calc.Add(10);
             calc.Add(20);
@@ -332,7 +330,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.Collection(
                 calc.OperationsMap["add"],
                 val => { },
-                val => Assert.Equal((double) 30, val.Value)
+                val => Assert.Equal(30d, val.Value)
             );
             Assert.Collection(
                 calc.OperationsMap["mul"],
@@ -355,31 +353,30 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         [Fact(DisplayName = Prefix + nameof(Exceptions))]
         public void Exceptions()
         {
-            Calculator calc = new Calculator(new CalculatorProps
+            var calc = new Calculator(new CalculatorProps
             {
                 InitialValue = 20,
                 MaximumValue = 30,
             });
 
             calc.Add(3);
-            Assert.Equal((double) 23, calc.Value);
+            Assert.Equal(23d, calc.Value);
 
             Assert.Throws<JsiiException>(() => calc.Add(10));
 
             calc.MaxValue = 40;
             calc.Add(10);
-            Assert.Equal((double) 33, calc.Value);
+            Assert.Equal(33d, calc.Value);
         }
 
         [Fact(DisplayName = Prefix + nameof(UnionProperties))]
         public void UnionProperties()
         {
-            // TODO: Generator should create a parameterless constructor.
-            Calculator calc = new Calculator(new CalculatorProps());
+            var calc = new Calculator();
 
             calc.UnionProperty = new Multiply(new Number(9), new Number(3));
             Assert.IsType<Multiply>(calc.UnionProperty);
-            Assert.Equal((double) 9 * 3, calc.ReadUnionValue());
+            Assert.Equal(9d * 3, calc.ReadUnionValue());
 
             calc.UnionProperty = new Power(new Number(10), new Number(3));
             Assert.IsType<Power>(calc.UnionProperty);
@@ -388,49 +385,42 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         [Fact(DisplayName = Prefix + nameof(SubClassing))]
         public void SubClassing()
         {
-            // TODO: Generator should create a parameterless constructor.
-            Calculator calc = new Calculator(new CalculatorProps());
+            var calc = new Calculator();
 
             calc.Curr = new AddTen(33);
             calc.Neg();
-            Assert.Equal((double) -43, calc.Value);
+            Assert.Equal(-43d, calc.Value);
         }
 
-        [Fact(DisplayName = Prefix + nameof(TestJSObjectLiteralToNative))]
-        public void TestJSObjectLiteralToNative()
+        [Fact(DisplayName = Prefix + nameof(TestJsObjectLiteralToNative))]
+        public void TestJsObjectLiteralToNative()
         {
-            JSObjectLiteralToNative obj = new JSObjectLiteralToNative();
-            JSObjectLiteralToNativeClass obj2 = obj.ReturnLiteral();
+            var obj = new JSObjectLiteralToNative();
+            var obj2 = obj.ReturnLiteral();
 
             Assert.Equal("Hello", obj2.PropA);
-            Assert.Equal((double) 102, obj2.PropB);
-        }
-
-        [Fact(DisplayName = Prefix + nameof(TestFluentApiWithDerivedClasses), Skip = "There is no fluent API for C#")]
-        public void TestFluentApiWithDerivedClasses()
-        {
-            throw new NotImplementedException();
+            Assert.Equal(102d, obj2.PropB);
         }
 
         [Fact(DisplayName = Prefix + nameof(CreationOfNativeObjectsFromJavaScriptObjects))]
         public void CreationOfNativeObjectsFromJavaScriptObjects()
         {
-            AllTypes types = new AllTypes();
+            var types = new AllTypes();
 
-            Number jsObj = new Number(44);
+            var jsObj = new Number(44);
             types.AnyProperty = jsObj;
-            object unmarshalledJSObj = types.AnyProperty;
+            var unmarshalledJSObj = types.AnyProperty;
             Assert.IsType<Number>(unmarshalledJSObj);
 
-            AddTen nativeObj = new AddTen(10);
+            var nativeObj = new AddTen(10);
             types.AnyProperty = nativeObj;
 
-            object result1 = types.AnyProperty;
+            var result1 = types.AnyProperty;
             Assert.Same(nativeObj, result1);
 
-            MulTen nativeObj2 = new MulTen(20);
+            var nativeObj2 = new MulTen(20);
             types.AnyProperty = nativeObj2;
-            object unmarshalledNativeObj = types.AnyProperty;
+            var unmarshalledNativeObj = types.AnyProperty;
             Assert.IsType<MulTen>(unmarshalledNativeObj);
             Assert.Same(nativeObj2, unmarshalledNativeObj);
         }
@@ -447,37 +437,37 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         public void AsyncOverrides_CallAsyncMethod()
         {
             AsyncVirtualMethods obj = new AsyncVirtualMethods();
-            Assert.Equal((double) 128, obj.CallMe());
-            Assert.Equal((double) 528, obj.OverrideMe(44));
+            Assert.Equal(128d, obj.CallMe());
+            Assert.Equal(528d, obj.OverrideMe(44));
         }
 
         [Fact(DisplayName = Prefix + nameof(AsyncOverrides_OverrideAsyncMethod))]
         public void AsyncOverrides_OverrideAsyncMethod()
         {
             OverrideAsyncMethods obj = new OverrideAsyncMethods();
-            Assert.Equal((double) 4452, obj.CallMe());
+            Assert.Equal(4452d, obj.CallMe());
         }
 
         [Fact(DisplayName = Prefix + nameof(AsyncOverrides_OverrideAsyncMethodByParentClass))]
         public void AsyncOverrides_OverrideAsyncMethodByParentClass()
         {
             OverrideAsyncMethodsByBaseClass obj = new OverrideAsyncMethodsByBaseClass();
-            Assert.Equal((double) 4452, obj.CallMe());
+            Assert.Equal(4452d, obj.CallMe());
         }
 
         [Fact(DisplayName = Prefix + nameof(AsyncOverrides_OverrideCallsSuper))]
         public void AsyncOverrides_OverrideCallsSuper()
         {
             OverrideCallsSuper obj = new OverrideCallsSuper();
-            Assert.Equal((double) 1441, obj.OverrideMe(12));
-            Assert.Equal((double) 1209, obj.CallMe());
+            Assert.Equal(1441d, obj.OverrideMe(12));
+            Assert.Equal(1209d, obj.CallMe());
         }
 
         [Fact(DisplayName = Prefix + nameof(AsyncOverrides_TwoOverrides))]
         public void AsyncOverrides_TwoOverrides()
         {
             TwoOverrides obj = new TwoOverrides();
-            Assert.Equal((double) 684, obj.CallMe());
+            Assert.Equal(684d, obj.CallMe());
         }
 
         [Fact(DisplayName = Prefix + nameof(AsyncOverrides_OverrideThrows))]
@@ -520,10 +510,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         {
             string _x;
 
-            [JsiiProperty(name: "readOnlyString", typeJson: "{\"primitive\":\"string\"}", isOverride: true)]
             public string ReadOnlyString => "READ_ONLY_STRING";
 
-            [JsiiProperty(name: "readWriteString", typeJson: "{\"primitive\":\"string\"}", isOverride: true)]
             public string ReadWriteString
             {
                 get => $"{_x}?";
@@ -597,28 +585,28 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         public void SyncOverrides_SyncOverrides()
         {
             SyncOverrides obj = new SyncOverrides();
-            Assert.Equal((double) 10 * 5, obj.CallerIsMethod());
+            Assert.Equal(10d * 5, obj.CallerIsMethod());
 
             // affect the result
             obj.Multiplier = 5;
-            Assert.Equal((double) 10 * 5 * 5, obj.CallerIsMethod());
+            Assert.Equal(10d * 5 * 5, obj.CallerIsMethod());
 
             // verify callbacks are invoked from a property
-            Assert.Equal((double) 10 * 5 * 5, obj.CallerIsProperty);
+            Assert.Equal(10d * 5 * 5, obj.CallerIsProperty);
 
             // and from an async method
             obj.Multiplier = 3;
-            Assert.Equal((double) 10 * 5 * 3, obj.CallerIsAsync());
+            Assert.Equal(10d * 5 * 3, obj.CallerIsAsync());
         }
 
         [Fact(DisplayName = Prefix + nameof(SyncOverrides_CallsSuper))]
         public void SyncOverrides_CallsSuper()
         {
             SyncOverrides obj = new SyncOverrides();
-            Assert.Equal((double) 10 * 5, obj.CallerIsProperty);
+            Assert.Equal(10d * 5, obj.CallerIsProperty);
 
             obj.ReturnSuper = true; // js code returns n * 2
-            Assert.Equal((double) 10 * 2, obj.CallerIsProperty);
+            Assert.Equal(10d * 2, obj.CallerIsProperty);
         }
 
         [Fact(DisplayName = Prefix + nameof(SyncOverrides_CallsDoubleAsyncMethodFails))]
@@ -668,11 +656,11 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             // friendlyRandomGenerator = multiply; // <-- shouldn't compile
             Assert.Equal("Hello, I am a binary operation. What's your name?", friendly.Hello());
             Assert.Equal("Goodbye from Multiply!", friendlier.Goodbye());
-            Assert.Equal((double) 89, randomNumberGenerator.Next());
+            Assert.Equal(89d, randomNumberGenerator.Next());
 
             friendlyRandomGenerator = new DoubleTrouble();
             Assert.Equal("world", friendlyRandomGenerator.Hello());
-            Assert.Equal((double) 12, friendlyRandomGenerator.Next());
+            Assert.Equal(12d, friendlyRandomGenerator.Next());
 
             Polymorphism poly = new Polymorphism();
             Assert.Equal("oh, Hello, I am a binary operation. What's your name?", poly.SayHello(friendly));
@@ -705,16 +693,16 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             NumberGenerator generatorBoundToPSubclassedObject = new NumberGenerator(subclassedNative);
             Assert.Same(subclassedNative, generatorBoundToPSubclassedObject.Generator);
             generatorBoundToPSubclassedObject.IsSameGenerator(subclassedNative);
-            Assert.Equal((double) 10000, generatorBoundToPSubclassedObject.NextTimes100());
+            Assert.Equal(10000d, generatorBoundToPSubclassedObject.NextTimes100());
 
             // when we invoke nextTimes100 again, it will use the objref and call into the same object.
-            Assert.Equal((double) 20000, generatorBoundToPSubclassedObject.NextTimes100());
+            Assert.Equal(20000d, generatorBoundToPSubclassedObject.NextTimes100());
 
             NumberGenerator generatorBoundToPureNative = new NumberGenerator(pureNative);
             Assert.Same(pureNative, generatorBoundToPureNative.Generator);
             generatorBoundToPureNative.IsSameGenerator(pureNative);
-            Assert.Equal((double) 100000, generatorBoundToPureNative.NextTimes100());
-            Assert.Equal((double) 200000, generatorBoundToPureNative.NextTimes100());
+            Assert.Equal(100000d, generatorBoundToPureNative.NextTimes100());
+            Assert.Equal(200000d, generatorBoundToPureNative.NextTimes100());
         }
 
         [Fact(DisplayName = Prefix + nameof(TestLiteralInterface))]
@@ -726,7 +714,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
 
             IFriendlyRandomGenerator gen = obj.GiveMeFriendlyGenerator();
             Assert.Equal("giveMeFriendlyGenerator", gen.Hello());
-            Assert.Equal((double) 42, gen.Next());
+            Assert.Equal(42d, gen.Next());
         }
 
         [Fact(DisplayName = Prefix + nameof(TestInterfaceParameter))]
@@ -866,16 +854,16 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         public void NullShouldBeTreatedAsUndefined()
         {
             // ctor
-            var obj = new NullShouldBeTreatedAsUndefined("param1", null);
+            var obj = new NullShouldBeTreatedAsUndefined("param1");
 
             // method argument
-            obj.GiveMeUndefined(null);
+            obj.GiveMeUndefined();
 
             // inside object
             obj.GiveMeUndefinedInsideAnObject(new NullShouldBeTreatedAsUndefinedData
             {
                 ThisShouldBeUndefined = null,
-                ArrayWithThreeElementsAndUndefinedAsSecondArgument = new[] {"hello", null, "world"}
+                ArrayWithThreeElementsAndUndefinedAsSecondArgument = new object[] {"hello", null, "world"}
             });
 
             // property
@@ -887,7 +875,7 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         public void OptionalAndVariadicArgumentsTest()
         {
             // ctor
-            var objWithOptionalProvided = new NullShouldBeTreatedAsUndefined("param1", null);
+            new NullShouldBeTreatedAsUndefined("param1", null);
             var objWithoutOptionalProvided = new NullShouldBeTreatedAsUndefined("param1");
 
             // method argument called with null value
@@ -900,28 +888,28 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             var variadicClassNoParams = new VariadicMethod();
 
             // Array with null value in constructor params
-            var variadicClassNullParams = new VariadicMethod(null);
+            new VariadicMethod(null);
 
             // Array with one value in constructor params
-            var variadicClassOneParam = new VariadicMethod(1);
+            new VariadicMethod(1);
 
             // Array with multiple values in constructor params
-            var variadicClassMultipleParams = new VariadicMethod(1, 2, 3, 4);
+            new VariadicMethod(1, 2, 3, 4);
 
             // Variadic parameter with null passed
-            variadicClassNoParams.AsArray(Double.MinValue, null);
+            variadicClassNoParams.AsArray(double.MinValue, null);
 
             // Variadic parameter with default value used
-            variadicClassNoParams.AsArray(Double.MinValue);
+            variadicClassNoParams.AsArray(double.MinValue);
 
             var list = new List<double>();
 
             // Variadic parameter with array with no value
-            variadicClassNoParams.AsArray(Double.MinValue, list.ToArray());
+            variadicClassNoParams.AsArray(double.MinValue, list.ToArray());
 
             // Variadic parameter with array with one value
             list.Add(1d);
-            variadicClassNoParams.AsArray(Double.MinValue, list.ToArray());
+            variadicClassNoParams.AsArray(double.MinValue, list.ToArray());
 
             // Variadic parameter with array with multiple value
             list.Add(2d);
@@ -930,13 +918,13 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             list.Add(5d);
             list.Add(6d);
 
-            variadicClassNoParams.AsArray(Double.MinValue, list.ToArray());
+            variadicClassNoParams.AsArray(double.MinValue, list.ToArray());
         }
 
         [Fact(DisplayName = Prefix + nameof(JsiiAgent))]
         public void JsiiAgent()
         {
-            Assert.Equal("DotNet/" + Environment.Version.ToString() + "/.NETCoreApp,Version=v3.0/1.0.0.0", JsiiAgent_.JsiiAgent);
+            Assert.Equal("DotNet/" + Environment.Version + "/.NETCoreApp,Version=v3.0/1.0.0.0", JsiiAgent_.JsiiAgent);
         }
 
         [Fact(DisplayName = Prefix + nameof(ReceiveInstanceOfPrivateClass))]
@@ -1034,10 +1022,58 @@ namespace Amazon.JSII.Runtime.IntegrationTests
             Assert.True(StructUnionConsumer.IsStructB(b0));
             Assert.True(StructUnionConsumer.IsStructB(b1));
         }
+
+        [Fact(DisplayName = Prefix + nameof(VariadicCallbacksAreHandledCorrectly))]
+        public void VariadicCallbacksAreHandledCorrectly()
+        {
+            var method = new OverrideVariadicMethod();
+            var invoker = new VariadicInvoker(method);
+            Assert.Equal(new double[]{2d}, invoker.AsArray(1));
+            Assert.Equal(new double[]{2d, 3d}, invoker.AsArray(1, 2));
+            Assert.Equal(new double[]{2d, 3d, 4d}, invoker.AsArray(1, 2, 3));
+        }
         
+        private sealed class OverrideVariadicMethod : VariadicMethod
+        {
+            public override double[] AsArray(double first, params double[] others)
+            {
+                return base.AsArray(first + 1, others?.Select(n => n + 1).ToArray());
+            }
+        }
+
+        [Fact(DisplayName = Prefix + nameof(OptionalCallbackArgumentsAreHandledCorrectly))]
+        public void OptionalCallbackArgumentsAreHandledCorrectly()
+        {
+            var noOption = new InterfaceWithOptionalMethodArguments();
+            new OptionalArgumentInvoker(noOption).InvokeWithoutOptional();
+            Assert.True(noOption.Invoked);
+            
+            var option = new InterfaceWithOptionalMethodArguments(1337);
+            new OptionalArgumentInvoker(option).InvokeWithOptional();
+            Assert.True(option.Invoked);
+        }
+
+        private sealed class InterfaceWithOptionalMethodArguments : DeputyBase, IInterfaceWithOptionalMethodArguments
+        {
+            private readonly double? _optionalValue;
+
+            public InterfaceWithOptionalMethodArguments(double? optionalValue = null)
+            {
+                _optionalValue = optionalValue;
+            }
+
+            public Boolean Invoked { get; private set; }
+
+            public void Hello(string arg1, double? arg2 = null)
+            {
+                Invoked = true;
+                Assert.Equal("Howdy", arg1);
+                Assert.Equal(_optionalValue, arg2);
+            }
+        }
+
         class DataRendererSubclass : DataRenderer
         {
-            [JsiiMethod("renderMap", returnsJson:  "{\"type\":{\"primitive\":\"string\"}}", parametersJson: "[{\"name\":\"map\",\"type\":{\"collection\":{\"kind\":\"map\",\"elementtype\":{\"primitive\":\"any\"}}}}]", isOverride: true)]
             public override string RenderMap(IDictionary<string, object> map)
             {
                 return base.RenderMap(map);
@@ -1070,10 +1106,8 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                 NumberProp = new Number(number);
             }
 
-            [JsiiProperty(name: "numberProp", typeJson: "{\"fqn\":\"@scope/jsii-calc-lib.Number\"}", isOverride: true)]
             public Number NumberProp { get; }
 
-            [JsiiMethod(name: "obtainNumber", returnsJson: "{\"type\":{\"fqn\":\"@scope/jsii-calc-lib.IDoublable\"}}", isOverride: true)]
             public IDoublable ObtainNumber()
             {
                 return new Doublable(this.NumberProp);
@@ -1086,7 +1120,6 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                     this.DoubleValue = number.DoubleValue;
                 }
 
-                [JsiiProperty(name: "doubleValue", typeJson: "{\"primitive\":\"number\"}", isOverride: true)]
                 public Double DoubleValue { get; }
             }
         }
@@ -1166,9 +1199,9 @@ namespace Amazon.JSII.Runtime.IntegrationTests
 
             public int Multiplier { get; set; } = 1;
 
-            public bool ReturnSuper { get; set; } = false;
+            public bool ReturnSuper { get; set; }
 
-            public bool CallAsync { get; set; } = false;
+            public bool CallAsync { get; set; }
 
             public override string TheProperty
             {
@@ -1183,7 +1216,6 @@ namespace Amazon.JSII.Runtime.IntegrationTests
         {
             int _nextNumber = 1000;
 
-            [JsiiMethod(name: "next", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", isOverride: true)]
             public double Next()
             {
                 int n = _nextNumber;
@@ -1191,7 +1223,6 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                 return n;
             }
 
-            [JsiiMethod(name: "hello", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
             public string Hello()
             {
                 return "I am a native!";
@@ -1208,13 +1239,11 @@ namespace Amazon.JSII.Runtime.IntegrationTests
                 _nextNumber = 100;
             }
 
-            [JsiiMethod(name: "hello", returnsJson: "{\"type\":{\"primitive\":\"string\"}}", isOverride: true)]
             public string Hello()
             {
                 return "SubclassNativeFriendlyRandom";
             }
 
-            [JsiiMethod(name: "next", returnsJson: "{\"type\":{\"primitive\":\"number\"}}", isOverride: true)]
             public double Next()
             {
                 int next = _nextNumber;

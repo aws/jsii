@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    jsii_runtime (0.20.0)
+    jsii_runtime (0.20.2)
 
 GEM
   remote: https://rubygems.org/
@@ -34,4 +34,4 @@ DEPENDENCIES
   test-unit (~> 3.3.3)
 
 BUNDLED WITH
-   1.17.3
+   2.0.2

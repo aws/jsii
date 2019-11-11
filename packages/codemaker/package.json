@@ -1,6 +1,6 @@
 {
   "name": "codemaker",
-  "version": "0.20.0",
+  "version": "0.20.2",
   "description": "A tiny utility for generating source code",
   "license": "Apache-2.0",
   "author": {
@@ -26,6 +26,7 @@
     "watch": "tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
     "test": "jest",
+    "test:update": "jest -u",
     "package": "rm -fr dist/js && mkdir -p dist/js && mv $(npm pack) dist/js"
   },
   "dependencies": {
@@ -36,9 +37,9 @@
   "devDependencies": {
     "@types/decamelize": "^1.2.0",
     "@types/fs-extra": "^8.0.1",
-    "@types/jest": "^24.0.21",
-    "@typescript-eslint/eslint-plugin": "^2.6.0",
-    "@typescript-eslint/parser": "^2.6.0",
+    "@types/jest": "^24.0.22",
+    "@typescript-eslint/eslint-plugin": "^2.6.1",
+    "@typescript-eslint/parser": "^2.6.1",
     "eslint": "^6.6.0",
     "jest": "^24.9.0",
     "typescript": "~3.6.4"

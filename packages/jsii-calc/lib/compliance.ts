@@ -669,6 +669,15 @@ export class VariadicMethod {
     }
 }
 
+export class VariadicInvoker {
+    public constructor(private readonly method: VariadicMethod) { }
+
+    public asArray(...values: number[]): number[] {
+        const [first, ...rest] = values;
+        return this.method.asArray(first, ...rest);
+    }
+}
+
 export class Statics {
     constructor(public readonly value: string) {
     }
@@ -1062,6 +1071,17 @@ export namespace InterfaceInNamespaceIncludesClasses {
  */
 export interface IInterfaceWithOptionalMethodArguments {
     hello(arg1: string, arg2?: number): void
+}
+export class OptionalArgumentInvoker {
+    constructor(private readonly delegate: IInterfaceWithOptionalMethodArguments) { }
+
+    public invokeWithoutOptional() {
+        return this.delegate.hello('Howdy');
+    }
+
+    public invokeWithOptional() {
+        return this.delegate.hello('Howdy', 1337);
+    }
 }
 
 /**
@@ -2016,4 +2036,142 @@ export class StructUnionConsumer {
     }
 
     private constructor() { }
+}
+
+
+/**
+ * Test calling back to consumers that implement interfaces
+ *
+ * Check that if a JSII consumer implements IConsumerWithInterfaceParam, they can call
+ * the method on the argument that they're passed...
+ */
+export class ConsumerCanRingBell {
+    /**
+     * ...if the interface is implemented using an object literal.
+     *
+     * Returns whether the bell was rung.
+     */
+    public static staticImplementedByObjectLiteral(ringer: IBellRinger) {
+        let rung = false;
+        ringer.yourTurn({
+            ring() {
+                rung = true;
+            }
+        });
+        return rung;
+    }
+
+    /**
+     * ...if the interface is implemented using a public class.
+     *
+     * Return whether the bell was rung.
+     */
+    public static staticImplementedByPublicClass(ringer: IBellRinger) {
+        const bell = new Bell();
+        ringer.yourTurn(bell);
+        return bell.rung;
+    }
+
+    /**
+     * ...if the interface is implemented using a private class.
+     *
+     * Return whether the bell was rung.
+     */
+    public static staticImplementedByPrivateClass(ringer: IBellRinger) {
+        const bell = new PrivateBell();
+        ringer.yourTurn(bell);
+        return bell.rung;
+    }
+
+    /**
+     * If the parameter is a concrete class instead of an interface
+     *
+     * Return whether the bell was rung.
+     */
+    public static staticWhenTypedAsClass(ringer: IConcreteBellRinger) {
+        const bell = new Bell();
+        ringer.yourTurn(bell);
+        return bell.rung;
+    }
+    /**
+     * ...if the interface is implemented using an object literal.
+     *
+     * Returns whether the bell was rung.
+     */
+    public implementedByObjectLiteral(ringer: IBellRinger) {
+        let rung = false;
+        ringer.yourTurn({
+            ring() {
+                rung = true;
+            }
+        });
+        return rung;
+    }
+
+    /**
+     * ...if the interface is implemented using a public class.
+     *
+     * Return whether the bell was rung.
+     */
+    public implementedByPublicClass(ringer: IBellRinger) {
+        const bell = new Bell();
+        ringer.yourTurn(bell);
+        return bell.rung;
+    }
+
+    /**
+     * ...if the interface is implemented using a private class.
+     *
+     * Return whether the bell was rung.
+     */
+    public implementedByPrivateClass(ringer: IBellRinger) {
+        const bell = new PrivateBell();
+        ringer.yourTurn(bell);
+        return bell.rung;
+    }
+
+    /**
+     * If the parameter is a concrete class instead of an interface
+     *
+     * Return whether the bell was rung.
+     */
+    public whenTypedAsClass(ringer: IConcreteBellRinger) {
+        const bell = new Bell();
+        ringer.yourTurn(bell);
+        return bell.rung;
+    }
+}
+
+/**
+ * Takes the object parameter as an interface
+ */
+export interface IBellRinger {
+    yourTurn(bell: IBell): void;
+}
+
+/**
+ * Takes the object parameter as a calss
+ */
+export interface IConcreteBellRinger {
+    yourTurn(bell: Bell): void;
+}
+
+export interface IBell {
+    ring(): void;
+}
+
+export class Bell implements IBell {
+    public rung = false;
+
+    public ring() {
+        this.rung = true;
+    }
+}
+
+class PrivateBell implements IBell {
+    public rung = false;
+
+    public ring() {
+        this.rung = true;
+    }
 }

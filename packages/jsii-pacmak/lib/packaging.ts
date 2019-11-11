@@ -26,9 +26,15 @@ export interface JsiiModuleOptions {
    * Output directory where to package everything
   */
   defaultOutputDirectory: string;
+
+  /**
+   * Names of packages this package depends on, if any
+   */
+  dependencyNames?: string[];
 }
 export class JsiiModule {
   public readonly name: string;
+  public readonly dependencyNames: string[];
   public readonly moduleDirectory: string;
   public readonly availableTargets: string[];
   public outputDirectory: string;
@@ -41,6 +47,7 @@ export class JsiiModule {
     this.moduleDirectory = options.moduleDirectory;
     this.availableTargets = options.availableTargets;
     this.outputDirectory = options.defaultOutputDirectory;
+    this.dependencyNames = options.dependencyNames || [];
   }
 
   /**
@@ -58,7 +65,13 @@ export class JsiiModule {
       // tarball name. otherwise, there can be a lot of extra noise there
       // from scripts that emit to STDOUT.
       const lines = out.trim().split(os.EOL);
-      return path.resolve(tmpdir, lines[lines.length - 1].trim());
+      const lastLine = lines[lines.length - 1].trim();
+
+      if (!lastLine.endsWith('.tgz') && !lastLine.endsWith('.tar.gz')) {
+        throw new Error(`npm pack did not produce tarball from ${this.moduleDirectory} into ${tmpdir} (output was ${JSON.stringify(lines)})`);
+      }
+
+      return path.resolve(tmpdir, lastLine);
     });
   }
 

@@ -15,6 +15,10 @@ import { Translation, Rosetta, typeScriptSnippetFromSource } from 'jsii-rosetta'
 
 const INCOMPLETE_DISCLAIMER = '# Example automatically generated. See https://github.com/aws/jsii/issues/826';
 
+/* eslint-disable @typescript-eslint/no-var-requires */
+const spdxLicenseList = require('spdx-license-list');
+/* eslint-enable @typescript-eslint/no-var-requires */
+
 export default class Python extends Target {
   protected readonly generator: PythonGenerator;
 
@@ -1046,8 +1050,11 @@ class Module implements PythonType {
     code.line('publication.publish()');
   }
 
+  /**
+   * Emit the README as module docstring if this is the entry point module (it loads the assembly)
+   */
   private emitModuleDocumentation(code: CodeMaker) {
-    if (this.package) {
+    if (this.package && this.loadAssembly && this.package.convertedReadme.trim().length > 0) {
       code.line('"""');
       code.line(this.package.convertedReadme);
       code.line('"""');
@@ -1175,6 +1182,7 @@ class Package {
       name: this.name,
       version: this.version,
       description: this.metadata.description,
+      license: this.metadata.license,
       url: this.metadata.homepage,
       long_description_content_type: 'text/markdown',
       author: this.metadata.author.name + (
@@ -1188,8 +1196,31 @@ class Package {
       package_data: packageData,
       python_requires: '>=3.6',
       install_requires: [`jsii~=${jsiiVersionSimple}`, 'publication>=0.0.3'].concat(dependencies),
+      classifiers: [
+        'Intended Audience :: Developers',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python :: 3',
+      ],
     };
     /* eslint-enable @typescript-eslint/camelcase */
+
+    switch (this.metadata.docs && this.metadata.docs.stability) {
+      case spec.Stability.Experimental:
+        setupKwargs.classifiers.push('Development Status :: 4 - Beta');
+        break;
+      case spec.Stability.Stable:
+        setupKwargs.classifiers.push('Development Status :: 5 - Production/Stable');
+        break;
+      case spec.Stability.Deprecated:
+        setupKwargs.classifiers.push('Development Status :: 7 - Inactive');
+        break;
+      default:
+        // No 'Development Status' trove classifier for you!
+    }
+
+    if (spdxLicenseList[this.metadata.license] && spdxLicenseList[this.metadata.license].osiApproved) {
+      setupKwargs.classifiers.push('License :: OSI Approved');
+    }
 
     // We Need a setup.py to make this Package, actually a Package.
     // TODO:
@@ -1595,6 +1626,7 @@ class PythonGenerator extends Generator {
       assm,
     );
 
+    // This is the '<package>._jsii' module
     const assemblyModule = new Module(
       this.getAssemblyModuleName(assm),
       null,
@@ -1623,12 +1655,16 @@ class PythonGenerator extends Generator {
     // actually be generating a module, otherwise we'll generate a class within
     // that module.
     if (ns === this.assembly.name) {
+      // This is the main Python entry point (facade to the JSII module)
+
       const module = new Module(
         this.assembly.targets!.python!.module,
         ns,
         { assembly: this.assembly,
           assemblyFilename: this.getAssemblyFileName(),
-          loadAssembly: ns === this.assembly.name },
+          loadAssembly: ns === this.assembly.name,
+          package: this.package
+        },
       );
 
       this.package.addModule(module);

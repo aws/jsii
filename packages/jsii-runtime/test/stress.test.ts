@@ -1,7 +1,7 @@
 import { InputOutput, Input, Output } from '../lib/in-out';
 import { KernelHost } from '../lib/host';
 
-const requestCount = 250000;
+const requestCount = 250_000;
 
 class FakeInputOutput extends InputOutput {
   public debug = false;
@@ -19,8 +19,9 @@ class FakeInputOutput extends InputOutput {
   }
 }
 
-const inout = new FakeInputOutput();
-const host = new KernelHost(inout, { debug: false, noStack: false });
-host.run();
+test(`runtime host is able to action ${requestCount} requests`, () => {
+  const inout = new FakeInputOutput();
+  const host = new KernelHost(inout, { debug: false, noStack: false });
 
-console.info('jsii-runtime stress test succeeded');
+  expect(() => host.run()).not.toThrow();
+});

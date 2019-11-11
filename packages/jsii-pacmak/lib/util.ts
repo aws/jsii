@@ -3,6 +3,7 @@ import fs = require('fs-extra');
 import spec = require('jsii-spec');
 import os = require('os');
 import path = require('path');
+import semver = require('semver');
 import logging = require('./logging');
 
 export interface ShellOptions extends SpawnOptions {
@@ -51,7 +52,10 @@ export async function shell(cmd: string, args: string[], options: ShellOptions):
         stderr.push(Buffer.from(chunk));
       });
       child.once('error', ko);
-      child.once('exit', (code, signal) => {
+
+      // Must use CLOSE instead of EXIT; EXIT may fire while there is still data in the
+      // I/O pipes, which we will miss if we return at that point.
+      child.once('close', (code, signal) => {
         const out = Buffer.concat(stdout).toString('utf-8');
         if (code === 0) { return ok(out); }
         const err = Buffer.concat(stderr).toString('utf-8');
@@ -120,4 +124,26 @@ export class Scratch<A> {
       await fs.remove(this.directory);
     }
   }
+}
+
+/**
+ * Determines the next major version from a given current version. This honors
+ * the specificities of pre-1.0.0 releases, too.
+ *
+ * @param version the current version from which to bump.
+ *
+ * @returns the next Major Version string.
+ */
+export function nextMajorVersion(version: string): string {
+  const v = semver.parse(version);
+  if (!v) {
+    throw new Error(`Invalid semantic version identifier: ${version}`);
+  }
+  if (v.major !== 0) {
+    return v.inc('major').version;
+  }
+  if (v.minor !== 0) {
+    return v.inc('minor').version;
+  }
+  return v.inc('patch').version;
 }

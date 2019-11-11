@@ -28,7 +28,7 @@
 
 import * as spec from 'jsii-spec';
 import { isObjRef, isWireDate, isWireEnum, isWireMap, ObjRef, TOKEN_DATE, TOKEN_ENUM, TOKEN_MAP, WireDate, WireEnum } from './api';
-import { hiddenMap, jsiiTypeFqn, objectReference, ObjectTable } from './objects';
+import { jsiiTypeFqn, objectReference, ObjectTable } from './objects';
 import { api } from '.';
 
 /**
@@ -273,14 +273,6 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
         throw new Error(`Expected object, got ${JSON.stringify(value)}`);
       }
 
-      // This looks odd, but if an object was originally passed in/out as a by-ref
-      // class, and it happens to conform to a datatype interface we say we're
-      // returning, return the actual object instead of the serialized value.
-      // NOTE: Not entirely sure yet whether this is a bug masquerading as a
-      // feature or not.
-      const prevRef = objectReference(value);
-      if (prevRef) { return prevRef; }
-
       /*
         This is what we'd like to do, but we can't because at least the Java client
         does not understand by-value serialized interface types, so we'll have to
@@ -298,8 +290,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
 
 
       host.debug('Returning value type by reference');
-      const wireFqn = selectWireType(value, optionalValue.type as spec.NamedTypeReference, host.lookupType);
-      return host.objects.registerObject(value, wireFqn);
+      return host.objects.registerObject(value, 'Object', [(optionalValue.type as spec.NamedTypeReference).fqn]);
     },
     deserialize(value, optionalValue, host) {
       if (typeof value === 'object' && Object.keys(value || {}).length === 0) {
@@ -361,11 +352,13 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
         throw new Error(`Expected object reference, got ${JSON.stringify(value)}`);
       }
 
-      const prevRef = objectReference(value);
-      if (prevRef) { return prevRef; }
+      const expectedType = host.lookupType((optionalValue.type as spec.NamedTypeReference).fqn);
+      const interfaces = spec.isInterfaceType(expectedType)
+        ? [expectedType.fqn]
+        : undefined;
+      const jsiiType = jsiiTypeFqn(value) || (spec.isClassType(expectedType) ? expectedType.fqn : 'Object');
 
-      const wireFqn = selectWireType(value, optionalValue.type as spec.NamedTypeReference, host.lookupType);
-      return host.objects.registerObject(value, wireFqn);
+      return host.objects.registerObject(value, jsiiType, interfaces);
     },
     deserialize(value, optionalValue, host) {
       if (nullAndOk(value, optionalValue)) { return undefined; }
@@ -400,7 +393,7 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
 
   // ----------------------------------------------------------------------
   [SerializationClass.Any]: {
-    serialize(value, type, host) {
+    serialize(value, _type, host) {
       if (value == null) { return undefined; }
 
       if (isDate(value)) { return serializeDate(value); }
@@ -411,6 +404,10 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
 
       // Note: no case for "ENUM" here, without type declaration we can't tell the difference
       // between an enum member and a scalar.
+
+      if (typeof value === 'function') {
+        throw new Error('JSII Kernel is unable to serialize `function`. An instance with methods might have been returned by an `any` method?');
+      }
 
       if (typeof value !== 'object' || value == null) {
         throw new Error(`JSII kernel assumption violated, ${JSON.stringify(value)} is not an object`);
@@ -436,12 +433,24 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       // way, and the by-value serialized object will be quite useless.
       if (value instanceof Set || value instanceof Map) { throw new Error("Can't return objects of type Set or Map"); }
 
-      // Pass-by-reference, so we're sure we don't end up doing anything unexpected
-      const jsiiType = jsiiTypeFqn(value) || EMPTY_OBJECT_FQN;
-      const interfaces = type !== 'void' && spec.isNamedTypeReference(type.type)
-        ? [type.type.fqn]
-        : undefined;
-      return host.objects.registerObject(value, jsiiType, interfaces);
+      // Use a previous reference to maintain object identity. NOTE: this may cause us to return
+      // a different type than requested! This is just how it is right now.
+      // https://github.com/aws/jsii/issues/399
+      const prevRef = objectReference(value);
+      if (prevRef) { return prevRef; }
+
+      // If this is or should be a reference type, pass or make the reference
+      // (Like regular reftype serialization, but without the type derivation to an interface)
+      const jsiiType = jsiiTypeFqn(value);
+      if (jsiiType) { return host.objects.registerObject(value, jsiiType); }
+
+      // At this point we have an object that is not of an exported type. Either an object
+      // literal, or an instance of a fully private class (cannot distinguish those cases).
+
+      // We will serialize by-value, but recurse for serialization so that if
+      // the object contains reference objects, they will be serialized appropriately.
+      // (Basically, serialize anything else as a map of 'any').
+      return mapValues(value, (v) => host.recurse(v, { type: spec.CANONICAL_ANY }));
     },
 
     deserialize(value, _type, host) {
@@ -561,10 +570,8 @@ export function serializationType(typeRef: OptionalValueOrVoid, lookup: TypeLook
     return [{ serializationClass: SerializationClass.Enum, typeRef }];
   }
 
-  if (spec.isInterfaceType(type)) {
-    return type.datatype
-      ? [{ serializationClass: SerializationClass.Struct, typeRef }]
-      : [{ serializationClass: SerializationClass.Any, typeRef }];
+  if (spec.isInterfaceType(type) && type.datatype) {
+    return [{ serializationClass: SerializationClass.Struct, typeRef }];
   }
 
   return [{ serializationClass: SerializationClass.ReferenceType, typeRef }];
@@ -630,48 +637,6 @@ function propertiesOf(t: spec.Type, lookup: TypeLookup): {[name: string]: spec.P
   }
 
   return ret;
-}
-
-const WIRE_TYPE_MAP = Symbol('$__jsii_wire_type__$');
-
-/**
- * Select the wire type for the given object and requested type
- *
- * Should return the most specific type that is in the JSII assembly and
- * assignable to the required type.
- *
- * We actually don't need to search much; because of prototypal constructor
- * linking, object.constructor.__jsii__ will have the FQN of the most specific
- * exported JSII class this object is an instance of.
- *
- * Either that's assignable to the requested type, in which case we return it,
- * or it's not, in which case there's a hidden class that implements the interface
- * and we just return the interface so the other side can instantiate an interface
- * proxy for it.
- *
- * Cache the analysis on the object to avoid having to do too many searches through
- * the type system for repeated accesses on the same object.
- */
-function selectWireType(obj: any, expectedType: spec.NamedTypeReference, lookup: TypeLookup): string {
-  const map = hiddenMap<string>(obj, WIRE_TYPE_MAP);
-
-  if (!(expectedType.fqn in map)) {
-    const jsiiType = jsiiTypeFqn(obj);
-    if (jsiiType) {
-      const assignable = isAssignable(jsiiType, expectedType, lookup);
-
-      // If we're not assignable and both types are class types, this cannot be satisfied.
-      if (!assignable && spec.isClassType(lookup(expectedType.fqn))) {
-        throw new Error(`Object of type ${jsiiType} is not convertible to ${expectedType.fqn}`);
-      }
-
-      map[expectedType.fqn] = assignable ? jsiiType : expectedType.fqn;
-    } else {
-      map[expectedType.fqn] = expectedType.fqn;
-    }
-  }
-
-  return map[expectedType.fqn];
 }
 
 /**

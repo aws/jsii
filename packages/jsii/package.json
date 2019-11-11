@@ -1,6 +1,6 @@
 {
   "name": "jsii",
-  "version": "0.20.0",
+  "version": "0.20.2",
   "description": "TypeScript compiler for jsii",
   "license": "Apache-2.0",
   "author": {
@@ -29,6 +29,7 @@
     "watch": "bash ./generate.sh && tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore --ignore-pattern=test/negatives/*",
     "test": "jest",
+    "test:update": "jest -u",
     "package": "package-js"
   },
   "dependencies": {
@@ -36,7 +37,7 @@
     "colors": "^1.4.0",
     "deep-equal": "^1.1.0",
     "fs-extra": "^8.1.0",
-    "jsii-spec": "^0.20.0",
+    "jsii-spec": "^0.20.2",
     "log4js": "^5.3.0",
     "semver": "^6.3.0",
     "sort-json": "^2.0.0",
@@ -48,17 +49,17 @@
     "@types/clone": "^0.1.30",
     "@types/deep-equal": "^1.0.1",
     "@types/fs-extra": "^8.0.1",
-    "@types/jest": "^24.0.21",
+    "@types/jest": "^24.0.22",
     "@types/jest-expect-message": "^1.0.1",
     "@types/semver": "^6.2.0",
     "@types/yargs": "^13.0.3",
-    "@typescript-eslint/eslint-plugin": "^2.6.0",
-    "@typescript-eslint/parser": "^2.6.0",
+    "@typescript-eslint/eslint-plugin": "^2.6.1",
+    "@typescript-eslint/parser": "^2.6.1",
     "clone": "^2.1.2",
     "eslint": "^6.6.0",
     "jest": "^24.9.0",
     "jest-expect-message": "^1.0.2",
-    "jsii-build-tools": "^0.20.0"
+    "jsii-build-tools": "^0.20.2"
   },
   "jest": {
     "collectCoverage": true,

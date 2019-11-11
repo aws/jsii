@@ -29,7 +29,7 @@
           "module": "scope.jsii_calc_base_of_base"
         }
       },
-      "version": "0.20.0"
+      "version": "0.20.2"
     }
   },
   "dependencyClosure": {
@@ -54,12 +54,12 @@
           "module": "scope.jsii_calc_base_of_base"
         }
       },
-      "version": "0.20.0"
+      "version": "0.20.2"
     }
   },
   "description": "An example direct dependency for jsii-calc.",
   "homepage": "https://github.com/aws/jsii",
-  "jsiiVersion": "0.20.0",
+  "jsiiVersion": "0.20.2",
   "license": "Apache-2.0",
   "name": "@scope/jsii-calc-base",
   "repository": {
@@ -173,6 +173,6 @@
       "name": "IBaseInterface"
     }
   },
-  "version": "0.20.0",
-  "fingerprint": "qQjHhLfvOVOV27G0q451Iz1Ousl7DYs/J3OkoqzPgW4="
+  "version": "0.20.2",
+  "fingerprint": "wi04m/K43ec3XAk9igj7X90550cw7plIzRMgWJPw0mI="
 }

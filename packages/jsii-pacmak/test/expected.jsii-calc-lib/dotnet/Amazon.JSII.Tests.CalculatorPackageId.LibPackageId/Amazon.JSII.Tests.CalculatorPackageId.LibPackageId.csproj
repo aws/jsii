@@ -4,7 +4,7 @@
     <Description>A simple calcuator library built on JSII. (Stability: Deprecated)</Description>
     <PackageId>Amazon.JSII.Tests.CalculatorPackageId.LibPackageId</PackageId>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageVersion>0.20.0-devpreview</PackageVersion>
+    <PackageVersion>0.20.2-devpreview</PackageVersion>
     <!-- Additional Metadata -->
     <Authors>Amazon Web Services</Authors>
     <Company>Amazon Web Services</Company>
@@ -21,11 +21,11 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="scope-jsii-calc-lib-0.20.0.tgz" />
+    <EmbeddedResource Include="scope-jsii-calc-lib-0.20.2.tgz" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Amazon.JSII.Runtime" Version="0.20.0" />
-    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" Version="0.20.0" />
+    <PackageReference Include="Amazon.JSII.Runtime" Version="[0.20.2,0.21.0)" />
+    <PackageReference Include="Amazon.JSII.Tests.CalculatorPackageId.BasePackageId" Version="0.20.2" />
   </ItemGroup>
 </Project>
 

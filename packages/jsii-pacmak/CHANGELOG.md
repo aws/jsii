@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.2](https://github.com/aws/jsii/compare/v0.20.1...v0.20.2) (2019-11-08)
+
+
+### Bug Fixes
+
+* **dotnet:** fix callback issues ([#953](https://github.com/aws/jsii/issues/953)) ([849c004](https://github.com/aws/jsii/commit/849c004ddfefa7b255197daf4dddc8e6f55c6dcb))
+* **pacmak:** .NET build downloading packages from NuGet ([#949](https://github.com/aws/jsii/issues/949)) ([433d1f8](https://github.com/aws/jsii/commit/433d1f870e23d9881c847d79834ebd27cd640061))
+* **pacmak:** occasional EISDIR failure ([#948](https://github.com/aws/jsii/issues/948)) ([a388f24](https://github.com/aws/jsii/commit/a388f24b418b9b0053a09329c7a72be7207215f5))
+
+
+
+
+
+## [0.20.1](https://github.com/aws/jsii/compare/v0.20.0...v0.20.1) (2019-11-06)
+
+
+### Bug Fixes
+
+* **dotnet/analyzer:** remove dependency on Runtime ([#927](https://github.com/aws/jsii/issues/927)) ([815b449](https://github.com/aws/jsii/commit/815b44982bfe1f9b2ee3a9cf60e4f5dfb4dd22f6))
+* **kernel:** revert behavior change around `any` serialization ([#932](https://github.com/aws/jsii/issues/932)) ([2f47543](https://github.com/aws/jsii/commit/2f475437847b10377e5b91cc42bd752d1f2e06c4)), closes [#825](https://github.com/aws/jsii/issues/825)
+* **pacmak:** put package README into the right Python module ([#928](https://github.com/aws/jsii/issues/928)) ([17dd60f](https://github.com/aws/jsii/commit/17dd60f18142ec64849f3c03be46325fc3c6deff))
+
+
+
+
+
 ## [0.20.0](https://github.com/aws/jsii/compare/v0.19.0...v0.20.0) (2019-10-30)
 
 

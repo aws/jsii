@@ -8,3 +8,5 @@ webpack
 node_modules/
 .nyc_output/
 coverage/
+
+test/_tarballs/

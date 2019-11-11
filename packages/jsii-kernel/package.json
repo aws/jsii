@@ -1,6 +1,6 @@
 {
   "name": "jsii-kernel",
-  "version": "0.20.0",
+  "version": "0.20.2",
   "description": "kernel for jsii execution environment",
   "license": "Apache-2.0",
   "author": {
@@ -26,29 +26,30 @@
     "watch": "tsc --build -w",
     "lint": "eslint . --ext .js,.ts --ignore-path=.gitignore",
     "test": "jest",
+    "test:update": "jest -u",
     "package": "package-js"
   },
   "dependencies": {
-    "jsii-spec": "^0.20.0",
+    "jsii-spec": "^0.20.2",
     "source-map": "^0.7.3",
     "tar": "^5.0.5"
   },
   "devDependencies": {
-    "@scope/jsii-calc-base": "^0.20.0",
-    "@scope/jsii-calc-lib": "^0.20.0",
+    "@scope/jsii-calc-base": "^0.20.2",
+    "@scope/jsii-calc-lib": "^0.20.2",
     "@types/fs-extra": "^8.0.1",
-    "@types/jest": "^24.0.21",
+    "@types/jest": "^24.0.22",
     "@types/jest-expect-message": "^1.0.1",
-    "@types/node": "^10.17.2",
+    "@types/node": "^10.17.5",
     "@types/tar": "^4.0.3",
-    "@typescript-eslint/eslint-plugin": "^2.6.0",
-    "@typescript-eslint/parser": "^2.6.0",
+    "@typescript-eslint/eslint-plugin": "^2.6.1",
+    "@typescript-eslint/parser": "^2.6.1",
     "eslint": "^6.6.0",
     "fs-extra": "^8.1.0",
     "jest": "^24.9.0",
     "jest-expect-message": "^1.0.2",
-    "jsii-build-tools": "^0.20.0",
-    "jsii-calc": "^0.20.0",
+    "jsii-build-tools": "^0.20.2",
+    "jsii-calc": "^0.20.2",
     "typescript": "~3.6.4"
   },
   "jest": {

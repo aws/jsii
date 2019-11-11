@@ -105,6 +105,7 @@ def member(*, jsii_name):
 
 def implements(*interfaces):
     def deco(cls):
+        cls.__jsii_type__ = getattr(cls, "__jsii_type__", None)
         cls.__jsii_ifaces__ = getattr(cls, "__jsii_ifaces__", []) + list(interfaces)
         return cls
 
