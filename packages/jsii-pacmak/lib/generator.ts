@@ -122,7 +122,7 @@ export abstract class Generator implements IGenerator {
       throw new Error('Malformed assembly name. Expecting either <name> or @<scope>/<name>');
     }
 
-    return `${name}@${this.assembly.version}.jsii.tgz`
+    return `${name}@${this.assembly.version}.jsii.tgz`;
   }
 
   /**
@@ -208,9 +208,9 @@ export abstract class Generator implements IGenerator {
 
   protected onBeginMethods(_cls: spec.ClassType) { /* noop */ }
   protected abstract onMethod(cls: spec.ClassType, method: spec.Method): void;
-  protected abstract onMethodOverload(cls: spec.ClassType, overload: spec.Method, originalMethod: spec.Method): void
+  protected abstract onMethodOverload(cls: spec.ClassType, overload: spec.Method, originalMethod: spec.Method): void;
   protected abstract onStaticMethod(cls: spec.ClassType, method: spec.Method): void;
-  protected abstract onStaticMethodOverload(cls: spec.ClassType, overload: spec.Method, originalMethod: spec.Method): void
+  protected abstract onStaticMethodOverload(cls: spec.ClassType, overload: spec.Method, originalMethod: spec.Method): void;
   protected onEndMethods(_cls: spec.ClassType) { /* noop */ }
 
   //
@@ -240,8 +240,8 @@ export abstract class Generator implements IGenerator {
     const visitChildren = () => {
       Object.keys(node.children).sort().forEach(name => {
         this.visit(node.children[name], names.concat(name));
-      })
-    }
+      });
+    };
 
     if (node.fqn) {
       const type = this.assembly.types && this.assembly.types[node.fqn];
@@ -262,7 +262,7 @@ export abstract class Generator implements IGenerator {
             this.onEndClass(classSpec);
             break;
           case spec.TypeKind.Enum:
-            const enumSpec = type as spec.EnumType
+            const enumSpec = type as spec.EnumType;
             this.onBeginEnum(enumSpec);
             this.visitEnum(enumSpec);
             visitChildren();
@@ -331,7 +331,7 @@ export abstract class Generator implements IGenerator {
     //
 
     const remaining: spec.Parameter[] = clone(method.parameters);
-    let next: spec.Parameter | undefined
+    let next: spec.Parameter | undefined;
 
     next = remaining.pop();
     // Parameter is optional if it's type is optional, and all subsequent parameters are optional/variadic
@@ -352,7 +352,7 @@ export abstract class Generator implements IGenerator {
     if (ifc.properties) {
       ifc.properties.forEach(prop => {
         this.onInterfaceProperty(ifc, prop);
-      })
+      });
     }
 
     if (ifc.methods) {
@@ -406,7 +406,7 @@ export abstract class Generator implements IGenerator {
         if (this.hasField(cls, prop)) {
           this.onField(cls, prop, spec.isUnionTypeReference(prop.type) ? prop.type : undefined);
         }
-      })
+      });
 
       cls.properties.forEach(prop => {
         if (!spec.isUnionTypeReference(prop.type)) {

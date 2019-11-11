@@ -120,7 +120,7 @@ import { ALL_BUILDERS, TargetName } from '../lib/targets';
   });
 
   try {
-    const requestedTargets = argv.targets && argv.targets.map(t => `${t}`)
+    const requestedTargets = argv.targets && argv.targets.map(t => `${t}`);
     const targetSets = sliceTargets(modulesToPackage, requestedTargets, argv['force-target']);
 
     if (targetSets.every(s => s.modules.length === 0)) {
@@ -202,7 +202,7 @@ function allAvailableTargets(modules: JsiiModule[]) {
   const ret = new Set<string>();
   for (const module of modules) {
     for (const target of module.availableTargets) {
-      ret.add(target)
+      ret.add(target);
     }
   }
   return Array.from(ret);
