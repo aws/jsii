@@ -55,7 +55,7 @@
     "@types/mock-fs": "^4.10.0",
     "@types/node": "^10.17.5",
     "@types/yargs": "^13.0.3",
-    "@typescript-eslint/eslint-plugin": "^2.6.1",
+    "@typescript-eslint/eslint-plugin": "^2.7.0",
     "@typescript-eslint/parser": "^2.7.0",
     "eslint": "^6.6.0",
     "jest": "^24.9.0",
