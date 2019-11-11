@@ -1,6 +1,6 @@
 {
   "name": "jsii-dotnet-analyzers",
-  "version": "0.20.2",
+  "version": "0.20.3",
   "private": true,
   "description": ".NET Roslyn Analyzers for Jsii",
   "license": "Apache-2.0",
@@ -31,6 +31,6 @@
     "package": "package-dotnet"
   },
   "devDependencies": {
-    "jsii-build-tools": "^0.20.2"
+    "jsii-build-tools": "^0.20.3"
   }
 }
