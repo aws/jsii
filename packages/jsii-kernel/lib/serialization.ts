@@ -168,10 +168,38 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       // Just whatever. Dates will automatically serialize themselves to strings.
       return value;
     },
-    deserialize(value, optionalValue) {
+    deserialize(value, optionalValue, host) {
       // /!\ Top-level "null" will turn to undefined, but any null nested in the value is valid JSON, so it'll stay!
       if (nullAndOk(value, optionalValue)) { return undefined; }
-      return value;
+
+      // A mapping object can arrive though here. This would be the case if anything that is valid into a Map<string, ?>
+      // is passed into a JSON transfer point. Indeed, those are also valid JSON! For example, Python "dicts" will be
+      // serialized (by the Python runtime) as a $jsii.map (the mapping object). We need to de-serialize that as a
+      // Map<string, JSON> in order to obtain the correct output behavior here!
+      if (isWireMap(value)) {
+        return SERIALIZERS[SerializationClass.Map].deserialize(
+          value,
+          {
+            optional: false,
+            type: { collection: { kind: spec.CollectionKind.Map, elementtype: { primitive: spec.PrimitiveType.Json } } },
+          },
+          host);
+      }
+
+      if (typeof value !== 'object') {
+        return value;
+      }
+
+      if (Array.isArray(value)) {
+        return value.map(mapJsonValue);
+      }
+
+      return mapValues(value, mapJsonValue);
+
+      function mapJsonValue(toMap: any) {
+        if (toMap == null) { return toMap; }
+        return host.recurse(toMap, { type: { primitive: spec.PrimitiveType.Json } });
+      }
     },
   },
 

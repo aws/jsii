@@ -148,6 +148,24 @@ defineTest('in/out enum values', (sandbox) => {
   expect(sandbox.get({ objref: alltypes, property: 'enumProperty' }).value).toEqual({ '$jsii.enum': 'jsii-calc.AllTypesEnum/THIS_IS_GREAT' });
 });
 
+describe('in/out json values', () => {
+  defineTest('with a plain object', (sandbox) => {
+    const allTypes = sandbox.create({ fqn: 'jsii-calc.AllTypes' });
+    sandbox.set({ objref: allTypes, property: 'jsonProperty', value: { foo: 'bar', baz: 1337 } });
+    expect(sandbox.get({ objref: allTypes, property: 'jsonProperty' }).value).toEqual({ foo: 'bar', baz: 1337 });
+  });
+  defineTest('with a simple mapping', (sandbox) => {
+    const allTypes = sandbox.create({ fqn: 'jsii-calc.AllTypes' });
+    sandbox.set({ objref: allTypes, property: 'jsonProperty', value: { [api.TOKEN_MAP]: { foo: 'bar', baz: 1337 } } });
+    expect(sandbox.get({ objref: allTypes, property: 'jsonProperty' }).value).toEqual({ foo: 'bar', baz: 1337 });
+  });
+  defineTest('with a nested mapping', (sandbox) => {
+    const allTypes = sandbox.create({ fqn: 'jsii-calc.AllTypes' });
+    sandbox.set({ objref: allTypes, property: 'jsonProperty', value: { [api.TOKEN_MAP]: { foo: 'bar', baz: { [api.TOKEN_MAP]: { bazinga: [null, 'Pickle Rick'] } } } } });
+    expect(sandbox.get({ objref: allTypes, property: 'jsonProperty' }).value).toEqual({ foo: 'bar', baz: { bazinga: [null, 'Pickle Rick'] } });
+  });
+});
+
 defineTest('enum values from @scoped packages awslabs/jsii#138', (sandbox) => {
   const objref = sandbox.create({ fqn: 'jsii-calc.ReferenceEnumFromScopedPackage' });
 
