@@ -60,8 +60,8 @@ public class ComplianceTest {
         assertEquals(Instant.ofEpochMilli(123), types.getDateProperty());
 
         // json
-        types.setJsonProperty((ObjectNode) new ObjectMapper().readTree("{ \"Foo\": 123 }"));
-        assertEquals(123, types.getJsonProperty().get("Foo").numberValue());
+        types.setJsonProperty((ObjectNode) new ObjectMapper().readTree("{ \"Foo\": { \"Bar\": 123 } }"));
+        assertEquals(123, types.getJsonProperty().get("Foo").get("Bar").numberValue());
     }
 
     @Test
