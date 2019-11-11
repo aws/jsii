@@ -10,7 +10,7 @@
     "test:update": "lerna run test:update --stream"
   },
   "devDependencies": {
-    "@types/node": "^10.17.4",
+    "@types/node": "^10.17.5",
     "@typescript-eslint/eslint-plugin": "^2.6.1",
     "@typescript-eslint/parser": "^2.6.1",
     "eslint": "^6.6.0",
