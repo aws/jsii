@@ -168,10 +168,33 @@ export const SERIALIZERS: {[k: string]: Serializer} = {
       // Just whatever. Dates will automatically serialize themselves to strings.
       return value;
     },
-    deserialize(value, optionalValue) {
+    deserialize(value, optionalValue, host) {
       // /!\ Top-level "null" will turn to undefined, but any null nested in the value is valid JSON, so it'll stay!
       if (nullAndOk(value, optionalValue)) { return undefined; }
-      return value;
+      if (isWireMap(value)) {
+        return SERIALIZERS[SerializationClass.Map].deserialize(
+          value,
+          {
+            optional: false,
+            type: { collection: { kind: spec.CollectionKind.Map, elementtype: { primitive: spec.PrimitiveType.Json } } },
+          },
+          host);
+      }
+
+      if (typeof value !== 'object') {
+        return value;
+      }
+
+      if (Array.isArray(value)) {
+        return value.map(mapJsonValue);
+      }
+
+      return mapValues(value, mapJsonValue);
+
+      function mapJsonValue(toMap: any) {
+        if (toMap == null) { return toMap; }
+        return host.recurse(toMap, { type: { primitive: spec.PrimitiveType.Json } });
+      }
     },
   },
 
