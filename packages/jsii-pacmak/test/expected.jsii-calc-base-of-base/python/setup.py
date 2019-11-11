@@ -30,7 +30,7 @@ kwargs = json.loads("""
     },
     "python_requires": ">=3.6",
     "install_requires": [
-        "jsii~=0.20.2",
+        "jsii~=0.20.2,<0.21.0",
         "publication>=0.0.3"
     ],
     "classifiers": [

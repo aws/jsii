@@ -10,7 +10,7 @@ import { Generator, GeneratorOptions } from '../generator';
 import { warn } from '../logging';
 import { md2rst } from '../markdown';
 import { Target } from '../target';
-import { shell } from '../util';
+import { shell, nextMajorVersion } from '../util';
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const spdxLicenseList = require('spdx-license-list');
@@ -1140,18 +1140,7 @@ class Package {
     const expectedDeps = this.metadata.dependencies || {};
     for (const depName of Object.keys(expectedDeps)) {
       const depInfo = expectedDeps[depName];
-      // We need to figure out what our version range is.
-      // Basically, if it starts with Zero we want to restrict things to
-      // ~=X.Y.Z. If it does not start with zero, then we want to do ~=X.Y,>=X.Y.Z.
-      const versionParts = depInfo.version.split('.');
-      let versionSpecifier: string;
-      if (versionParts[0] === '0') {
-        versionSpecifier = `~=${versionParts.slice(0, 3).join('.')}`;
-      } else {
-        versionSpecifier = `~=${versionParts.slice(0, 2).join('.')},>=${versionParts.slice(0, 3).join('.')}`;
-      }
-
-      dependencies.push(`${depInfo.targets!.python!.distName}${versionSpecifier}`);
+      dependencies.push(`${depInfo.targets!.python!.distName}==${depInfo.version}`);
     }
 
     code.openFile('README.md');
@@ -1159,7 +1148,8 @@ class Package {
     code.closeFile('README.md');
 
     // Strip " (build abcdef)" from the jsii version
-    const jsiiVersionSimple = this.metadata.jsiiVersion.replace(/ .*$/, '');
+    const jsiiVersion = this.metadata.jsiiVersion.replace(/ .*$/, '');
+    const jsiiNextMajor = nextMajorVersion(jsiiVersion);
 
     /* eslint-disable @typescript-eslint/camelcase */
     const setupKwargs = {
@@ -1179,7 +1169,7 @@ class Package {
       packages: modules.map(m => m.pythonName),
       package_data: packageData,
       python_requires: '>=3.6',
-      install_requires: [`jsii~=${jsiiVersionSimple}`, 'publication>=0.0.3'].concat(dependencies),
+      install_requires: [`jsii~=${jsiiVersion},<${jsiiNextMajor}`, 'publication>=0.0.3'].concat(dependencies),
       classifiers: [
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
