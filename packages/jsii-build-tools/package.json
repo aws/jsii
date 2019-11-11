@@ -1,6 +1,6 @@
 {
   "name": "jsii-build-tools",
-  "version": "0.20.2",
+  "version": "0.20.3",
   "private": true,
   "description": "Internal repository-level tools",
   "license": "Apache-2.0",
