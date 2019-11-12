@@ -4,8 +4,8 @@ namespace Amazon.JSII.Tests.CalculatorNamespace
 {
     /// <summary>This is here to check that we can pass a nested struct into a kwargs by specifying it as an in-line dictionary.</summary>
     /// <remarks>
-    /// This is cheating with the declared types, but Python people don't play by
-    /// the rules much apparently.
+    /// This is cheating with the (current) declared types, but this is the "more
+    /// idiomatic" way for Pythonists.
     /// stability: Experimental
     /// </remarks>
     [JsiiInterface(nativeType: typeof(IRootStruct), fullyQualifiedName: "jsii-calc.RootStruct")]

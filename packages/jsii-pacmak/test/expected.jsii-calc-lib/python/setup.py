@@ -4,9 +4,8 @@ import setuptools
 kwargs = json.loads("""
 {
     "name": "scope.jsii-calc-lib",
-    "version": "0.20.3",
+    "version": "0.20.4",
     "description": "A simple calcuator library built on JSII.",
-    "license": "Apache-2.0",
     "url": "https://github.com/aws/jsii",
     "long_description_content_type": "text/markdown",
     "author": "Amazon Web Services",
@@ -22,7 +21,7 @@ kwargs = json.loads("""
     ],
     "package_data": {
         "scope.jsii_calc_lib._jsii": [
-            "jsii-calc-lib@0.20.3.jsii.tgz"
+            "jsii-calc-lib@0.20.4.jsii.tgz"
         ],
         "scope.jsii_calc_lib": [
             "py.typed"
@@ -30,16 +29,9 @@ kwargs = json.loads("""
     },
     "python_requires": ">=3.6",
     "install_requires": [
-        "jsii~=0.20.3",
+        "jsii~=0.20.4",
         "publication>=0.0.3",
-        "scope.jsii-calc-base~=0.20.3"
-    ],
-    "classifiers": [
-        "Intended Audience :: Developers",
-        "Operating System :: OS Independent",
-        "Programming Language :: Python :: 3",
-        "Development Status :: 7 - Inactive",
-        "License :: OSI Approved"
+        "scope.jsii-calc-base~=0.20.4"
     ]
 }
 """)

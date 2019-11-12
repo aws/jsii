@@ -57,17 +57,17 @@
     <dependency>
       <groupId>software.amazon.jsii.tests</groupId>
       <artifactId>calculator-base</artifactId>
-      <version>0.20.3</version>
+      <version>0.20.4</version>
     </dependency>
     <dependency>
       <groupId>software.amazon.jsii.tests</groupId>
       <artifactId>calculator-base-of-base</artifactId>
-      <version>0.20.3</version>
+      <version>0.20.4</version>
     </dependency>
     <dependency>
       <groupId>software.amazon.jsii.tests</groupId>
       <artifactId>calculator-lib</artifactId>
-      <version>0.20.3.DEVPREVIEW</version>
+      <version>0.20.4.DEVPREVIEW</version>
     </dependency>
     <dependency>
       <groupId>software.amazon.jsii</groupId>

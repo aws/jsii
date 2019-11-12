@@ -5814,8 +5814,8 @@ class RootStruct():
     def __init__(self, *, string_prop: str, nested_struct: typing.Optional["NestedStruct"]=None):
         """This is here to check that we can pass a nested struct into a kwargs by specifying it as an in-line dictionary.
 
-        This is cheating with the declared types, but Python people don't play by
-        the rules much apparently.
+        This is cheating with the (current) declared types, but this is the "more
+        idiomatic" way for Pythonists.
 
         :param string_prop: May not be empty.
         :param nested_struct: 
