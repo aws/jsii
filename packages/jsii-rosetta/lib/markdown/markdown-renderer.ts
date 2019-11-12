@@ -41,8 +41,8 @@ export class MarkdownRenderer implements CommonMarkRenderer {
     return node.literal || '';
   }
 
-  public html_block(_node: cm.Node, context: RendererContext) {
-    return `<html>${context.content()}</html>`;
+  public html_block(node: cm.Node, _context: RendererContext) {
+    return node.literal || '';
   }
 
   public link(node: cm.Node, context: RendererContext) {

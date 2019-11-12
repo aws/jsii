@@ -152,6 +152,15 @@ test('headings', () => {
   `);
 });
 
+test('HTML comments', () => {
+  expectOutput(`
+<!--HERE IS A COMMENT-->
+  `, `
+<!--HERE IS A COMMENT-->
+  `);
+});
+
+
 function expectOutput(source: string, expected: string) {
   if (DEBUG) {
     const struct = new StructureRenderer();
